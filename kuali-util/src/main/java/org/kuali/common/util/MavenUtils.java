@@ -27,7 +27,6 @@ import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
-import org.kuali.common.util.service.PropertySourceContext;
 import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
@@ -50,33 +49,17 @@ public class MavenUtils {
 		return getMavenizedSpringContext(null, propertySourceConfig);
 	}
 
+	/**
+	 * Return a SpringContext that resolves placeholders using the single <code>PropertySource</code> registered with <code>propertySourceConfig</code>
+	 */
 	public static SpringContext getMavenizedSpringContext(Properties mavenProperties, Class<?> propertySourceConfig) {
 		// This PropertySource object is backed by a set of properties that has been
 		// 1 - fully resolved
 		// 2 - contains all properties needed by Spring
 		// 3 - contains system/environment properties where system/env properties override loaded properties
-		PropertySource<?> source = getPropertySource(mavenProperties, propertySourceConfig);
+		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
 
-		// Setup a property source context such that our single property source is the only one registered with Spring
-		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
-		PropertySourceContext psc = new PropertySourceContext(source, true);
-
-		// Setup a Spring context
-		SpringContext context = new SpringContext();
-
-		// Supply Spring with our PropertySource
-		context.setPropertySourceContext(psc);
-
-		// Return a Spring context configured with a single property source
-		return context;
-	}
-
-	protected static PropertySource<?> getPropertySource(Properties mavenProperties, Class<?> annotatedClass) {
-		return getPropertySource(annotatedClass, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
-	}
-
-	protected static PropertySource<?> getPropertySource(Class<?> annotatedClass, String mavenPropertiesBeanName, Properties mavenProperties) {
-		return SpringUtils.getSinglePropertySource(annotatedClass, mavenPropertiesBeanName, mavenProperties);
+		return SpringUtils.getSingleSourceSpringContext(source);
 	}
 
 	/**

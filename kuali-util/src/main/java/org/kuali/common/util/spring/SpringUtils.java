@@ -371,6 +371,24 @@ public class SpringUtils {
 		return new PropertiesPropertySource(name, globalSource);
 	}
 
+	/**
+	 * Return a SpringContext that resolves all placeholders from the PropertySource passed in
+	 */
+	public static SpringContext getSingleSourceSpringContext(PropertySource<?> source) {
+		// Setup a property source context such that our single property source is the only one registered with Spring
+		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
+		PropertySourceContext psc = new PropertySourceContext(source, true);
+
+		// Setup a Spring context
+		SpringContext context = new SpringContext();
+
+		// Supply Spring with our PropertySource
+		context.setPropertySourceContext(psc);
+
+		// Return a Spring context configured with a single property source
+		return context;
+	}
+
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext context, String... locations) {
 		ProjectProperties pp = ProjectUtils.loadProjectProperties(context);
 		PropertiesContext pc = pp.getPropertiesContext();
