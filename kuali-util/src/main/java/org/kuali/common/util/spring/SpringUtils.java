@@ -385,6 +385,7 @@ public class SpringUtils {
 	public static PropertySource<?> getGlobalPropertySource(List<String> locations, String encoding) {
 		Properties loaded = PropertyUtils.load(locations, encoding);
 		Properties global = PropertyUtils.getGlobalProperties(loaded);
+		PropertyUtils.prepareContextProperties(global);
 		return new PropertiesPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, global);
 	}
 
