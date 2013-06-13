@@ -221,6 +221,14 @@ public class SpringUtils {
 	 * Scan the annotated class to find the single bean registered in the context that implements <code>PropertySource</code>. If more than one bean is located, throw
 	 * <code>IllegalStateException</code>.
 	 */
+	public static PropertySource<?> getSinglePropertySource(Class<?> annotatedClass) {
+		return getSinglePropertySource(annotatedClass, null, null);
+	}
+
+	/**
+	 * Scan the annotated class to find the single bean registered in the context that implements <code>PropertySource</code>. If more than one bean is located, throw
+	 * <code>IllegalStateException</code>.
+	 */
 	public static PropertySource<?> getSinglePropertySource(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		List<PropertySource<?>> sources = getPropertySources(annotatedClass, propertiesBeanName, properties);
 		if (sources.size() > 1) {
