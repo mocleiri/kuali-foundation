@@ -374,6 +374,23 @@ public class SpringUtils {
 	/**
 	 * Return a SpringContext that resolves all placeholders from the PropertySource passed in
 	 */
+	public static PropertySource<?> getGlobalPropertySource(List<String> locations, String encoding) {
+		Properties loaded = PropertyUtils.load(locations, encoding);
+		Properties global = PropertyUtils.getGlobalProperties(loaded);
+		return new PropertiesPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, global);
+	}
+
+	/**
+	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
+	 */
+	public static SpringContext getSingleSourceSpringContext(List<String> locations, String encoding) {
+		PropertySource<?> source = getGlobalPropertySource(locations, encoding);
+		return getSingleSourceSpringContext(source);
+	}
+
+	/**
+	 * Return a SpringContext that resolves all placeholders from the PropertySource passed in
+	 */
 	public static SpringContext getSingleSourceSpringContext(PropertySource<?> source) {
 		// Setup a property source context such that our single property source is the only one registered with Spring
 		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
