@@ -155,11 +155,13 @@ public class SpringUtils {
 		// Add project properties first so they can be used to resolve locations
 		list.add(project);
 
-		// Load in other project properties
-		list.addAll(CollectionUtils.toEmptyList(others));
+		if (!CollectionUtils.isEmpty(others)) {
+			// Load in other project properties
+			list.addAll(others);
 
-		// Add project properties last so they override loaded properties
-		list.add(project);
+			// Add project properties last so they override loaded properties
+			list.add(project);
+		}
 
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return getGlobalPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, list);
