@@ -21,5 +21,7 @@ import java.util.List;
 import org.kuali.common.impex.model.Sequence;
 
 public interface SequenceFinder {
-    List<Sequence> findSequences() throws SQLException;
+
+	List<Sequence> findSequences() throws SQLException;
+
 }
