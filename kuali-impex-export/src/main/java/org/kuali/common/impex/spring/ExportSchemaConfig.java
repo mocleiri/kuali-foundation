@@ -153,7 +153,6 @@ public class ExportSchemaConfig {
 	public StringFilter tableNameFilter() {
 		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLES_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
 		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLES_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
 	}
 
@@ -161,7 +160,6 @@ public class ExportSchemaConfig {
 	public StringFilter viewNameFilter() {
 		List<String> viewIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, VIEWS_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
 		List<String> viewExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, VIEWS_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-
 		return StringFilter.getInstance(viewIncludes, viewExcludes);
 	}
 
@@ -169,7 +167,6 @@ public class ExportSchemaConfig {
 	public StringFilter sequenceNameFilter() {
 		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, SEQUENCES_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
 		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, SEQUENCES_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
 	}
 
@@ -177,7 +174,6 @@ public class ExportSchemaConfig {
 	public StringFilter foreignKeyNameFilter() {
 		List<String> foreignKeyIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, FOREIGNKEYS_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
 		List<String> foreignKeyExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, FOREIGNKEYS_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-
 		return StringFilter.getInstance(foreignKeyIncludes, foreignKeyExcludes);
 	}
 
@@ -185,7 +181,6 @@ public class ExportSchemaConfig {
 		if (!schemaMap.containsKey(location)) {
 			schemaMap.put(location, new Schema());
 		}
-
 		return schemaMap.get(location);
 	}
 
@@ -193,7 +188,6 @@ public class ExportSchemaConfig {
 	public ExportSchemaExecutable exportSchemaExecutable() {
 
 		boolean skip = SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
-
 		ExportSchemaService service = SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultExportSchemaService.class);
 
 		ExportSchemaExecutable exec = new ExportSchemaExecutable(skip);
