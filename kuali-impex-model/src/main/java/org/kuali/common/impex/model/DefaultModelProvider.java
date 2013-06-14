@@ -22,49 +22,49 @@ import java.util.Map;
 
 public class DefaultModelProvider implements ModelProvider {
 
-    protected Schema schema;
-    private Map<String, List<ForeignKey>> tableNamesToFks;
+	protected Schema schema;
+	private Map<String, List<ForeignKey>> tableNamesToFks;
 
-    public DefaultModelProvider(Schema s) {
-        schema = s;
+	public DefaultModelProvider(Schema s) {
+		schema = s;
 
-        buildFkMap();
-    }
+		buildFkMap();
+	}
 
-    protected void buildFkMap() {
-        tableNamesToFks = new HashMap<String, List<ForeignKey>>();
+	protected void buildFkMap() {
+		tableNamesToFks = new HashMap<String, List<ForeignKey>>();
 
-        for (ForeignKey fk : getForeignKeys()) {
-            if (!tableNamesToFks.containsKey(fk.getLocalTableName())) {
-                tableNamesToFks.put(fk.getLocalTableName(), new ArrayList<ForeignKey>());
-            }
+		for (ForeignKey fk : getForeignKeys()) {
+			if (!tableNamesToFks.containsKey(fk.getLocalTableName())) {
+				tableNamesToFks.put(fk.getLocalTableName(), new ArrayList<ForeignKey>());
+			}
 
-            tableNamesToFks.get(fk.getLocalTableName()).add(fk);
-        }
-    }
+			tableNamesToFks.get(fk.getLocalTableName()).add(fk);
+		}
+	}
 
-    @Override
-    public List<ForeignKey> getForeignKeys() {
-        return schema.getForeignKeys();
-    }
+	@Override
+	public List<ForeignKey> getForeignKeys() {
+		return schema.getForeignKeys();
+	}
 
-    @Override
-    public List<Sequence> getSequences() {
-        return schema.getSequences();
-    }
+	@Override
+	public List<Sequence> getSequences() {
+		return schema.getSequences();
+	}
 
-    @Override
-    public Map<String, List<ForeignKey>> getTableNameToForeignKeys() {
-        return tableNamesToFks;
-    }
+	@Override
+	public Map<String, List<ForeignKey>> getTableNameToForeignKeys() {
+		return tableNamesToFks;
+	}
 
-    @Override
-    public List<Table> getTables() {
-        return schema.getTables();
-    }
+	@Override
+	public List<Table> getTables() {
+		return schema.getTables();
+	}
 
-    @Override
-    public List<View> getViews() {
-        return schema.getViews();
-    }
+	@Override
+	public List<View> getViews() {
+		return schema.getViews();
+	}
 }
