@@ -207,7 +207,6 @@ public class ExportSchemaConfig {
 		ExportSchemaExecutable exec = new ExportSchemaExecutable(skip);
 		exec.setSchemaLocations(schemaLocations());
 		exec.setExportService(service);
-
 		return exec;
 	}
 
