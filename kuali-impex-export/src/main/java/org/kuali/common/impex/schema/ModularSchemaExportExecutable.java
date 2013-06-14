@@ -21,117 +21,110 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.ExportSchemaException;
-import org.kuali.common.impex.schema.ExportSchemaService;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
 public class ModularSchemaExportExecutable implements Executable {
 
-    public static final Boolean DEFAULT_EXECUTION_SKIP = false;
+	public static final Boolean DEFAULT_EXECUTION_SKIP = false;
 
-    protected String outputLocation;
+	protected String outputLocation;
 
-    protected Schema schema;
+	protected Schema schema;
 
-    protected ExportSchemaService exportService;
+	protected ExportSchemaService exportService;
 
-    protected boolean skip = DEFAULT_EXECUTION_SKIP;
+	protected boolean skip = DEFAULT_EXECUTION_SKIP;
 
-    protected boolean separateForeignKeys;
+	protected boolean separateForeignKeys;
 
-    protected String foreignKeyOutputLocation;
+	protected String foreignKeyOutputLocation;
 
-    @Override
-    public void execute() {
+	@Override
+	public void execute() {
 
-        if(skip) {
-            return;
-        }
+		if (skip) {
+			return;
+		}
 
-        if(separateForeignKeys) {
+		if (separateForeignKeys) {
 
-            // build a new schema object with just the foreign keys from our source schema
-            Schema fkSchema = new Schema();
-            fkSchema.getForeignKeys().addAll(schema.getForeignKeys());
+			// build a new schema object with just the foreign keys from our source schema
+			Schema fkSchema = new Schema();
+			fkSchema.getForeignKeys().addAll(schema.getForeignKeys());
 
-            // create a new schema object with all other schema elements
-            Schema otherSchema = new Schema();
-            otherSchema.setSequences(schema.getSequences());
-            otherSchema.setTables(schema.getTables());
-            otherSchema.setViews(schema.getViews());
+			// create a new schema object with all other schema elements
+			Schema otherSchema = new Schema();
+			otherSchema.setSequences(schema.getSequences());
+			otherSchema.setTables(schema.getTables());
+			otherSchema.setViews(schema.getViews());
 
-            writeSchema(otherSchema, outputLocation);
+			writeSchema(otherSchema, outputLocation);
 
-            writeSchema(fkSchema, foreignKeyOutputLocation);
+			writeSchema(fkSchema, foreignKeyOutputLocation);
 
-        }
-        else {
-            writeSchema(schema, outputLocation);
-        }
+		} else {
+			writeSchema(schema, outputLocation);
+		}
 
-    }
+	}
 
-    protected void writeSchema(Schema outputSchema, String location) {
-        Writer writer;
-        try {
-            LocationUtils.touch(new File(location));
-            writer = new FileWriter(location);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not open a file writer for location " + location, e);
-        }
-        try {
-            exportService.exportSchema(outputSchema, writer);
-        } catch (ExportSchemaException e) {
-            throw new RuntimeException("Unable to persist schema to location " + location, e);
-        }
-    }
+	protected void writeSchema(Schema outputSchema, String location) {
+		Writer writer;
+		try {
+			LocationUtils.touch(new File(location));
+			writer = new FileWriter(location);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Could not open a file writer for location " + location, e);
+		}
+		exportService.exportSchema(outputSchema, writer);
+	}
 
-    public boolean isSkip() {
-        return skip;
-    }
+	public boolean isSkip() {
+		return skip;
+	}
 
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 
-    public ExportSchemaService getExportService() {
-        return exportService;
-    }
+	public ExportSchemaService getExportService() {
+		return exportService;
+	}
 
-    public void setExportService(ExportSchemaService exportService) {
-        this.exportService = exportService;
-    }
+	public void setExportService(ExportSchemaService exportService) {
+		this.exportService = exportService;
+	}
 
-    public String getOutputLocation() {
-        return outputLocation;
-    }
+	public String getOutputLocation() {
+		return outputLocation;
+	}
 
-    public void setOutputLocation(String outputLocation) {
-        this.outputLocation = outputLocation;
-    }
+	public void setOutputLocation(String outputLocation) {
+		this.outputLocation = outputLocation;
+	}
 
-    public Schema getSchema() {
-        return schema;
-    }
+	public Schema getSchema() {
+		return schema;
+	}
 
-    public void setSchema(Schema schema) {
-        this.schema = schema;
-    }
+	public void setSchema(Schema schema) {
+		this.schema = schema;
+	}
 
-    public boolean isSeparateForeignKeys() {
-        return separateForeignKeys;
-    }
+	public boolean isSeparateForeignKeys() {
+		return separateForeignKeys;
+	}
 
-    public void setSeparateForeignKeys(boolean separateForeignKeys) {
-        this.separateForeignKeys = separateForeignKeys;
-    }
+	public void setSeparateForeignKeys(boolean separateForeignKeys) {
+		this.separateForeignKeys = separateForeignKeys;
+	}
 
-    public void setForeignKeyOutputLocation(String fkOutpuLocation) {
-        this.foreignKeyOutputLocation = fkOutpuLocation;
-    }
+	public void setForeignKeyOutputLocation(String fkOutpuLocation) {
+		this.foreignKeyOutputLocation = fkOutpuLocation;
+	}
 
-    public String getForeignKeyOutputLocation() {
-        return foreignKeyOutputLocation;
-    }
+	public String getForeignKeyOutputLocation() {
+		return foreignKeyOutputLocation;
+	}
 }

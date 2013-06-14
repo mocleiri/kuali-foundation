@@ -16,6 +16,7 @@
 package org.kuali.common.impex.schema;
 
 import java.io.Writer;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -24,17 +25,16 @@ import org.kuali.common.impex.model.Schema;
 
 public class DefaultExportSchemaService implements ExportSchemaService {
 
-    public void exportSchema(Schema schema, Writer writer) throws ExportSchemaException {
-        try {
-            JAXBContext context = JAXBContext.newInstance(Schema.class);
-            Marshaller marshaller = context.createMarshaller();
-
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-            marshaller.marshal(schema, writer);
-        } catch (JAXBException e) {
-            throw new ExportSchemaException("Could not persist given schema", e);
-        }
-    }
+	@Override
+	public void exportSchema(Schema schema, Writer writer) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(Schema.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.marshal(schema, writer);
+		} catch (JAXBException e) {
+			throw new IllegalStateException("Could not persist given schema", e);
+		}
+	}
 
 }

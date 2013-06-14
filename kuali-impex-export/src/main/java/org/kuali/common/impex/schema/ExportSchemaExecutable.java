@@ -54,13 +54,9 @@ public class ExportSchemaExecutable implements Executable {
 				LocationUtils.touch(new File(location));
 				writer = new FileWriter(location);
 			} catch (IOException e) {
-				throw new RuntimeException("Could not open a file writer for location " + location, e);
+				throw new IllegalArgumentException("Could not open a file writer for location " + location, e);
 			}
-			try {
-				exportService.exportSchema(schemaLocations.get(location), writer);
-			} catch (ExportSchemaException e) {
-				throw new RuntimeException("Unable to persist schema to location " + location, e);
-			}
+			exportService.exportSchema(schemaLocations.get(location), writer);
 		}
 
 	}
