@@ -22,6 +22,7 @@ import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 
@@ -40,16 +41,8 @@ public class BuildDatabaseUtility {
 		}
 
 		try {
-
-			List<Class<?>> configClasses;
-			if (includeMpxConfig) {
-				configClasses = CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
-			} else {
-				configClasses = CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
-			}
-
-			// Reset the db using annotated config
-			JdbcProjectContext project = new JdbcProjectContext();
+			List<Class<?>> configClasses = getAnnotatedClasses(includeMpxConfig);
+			ProjectContext project = new JdbcProjectContext();
 			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
 			executable.execute();
 		} catch (Exception e) {
@@ -58,7 +51,15 @@ public class BuildDatabaseUtility {
 
 	}
 
-	private static void printHelpAndExit() {
+	protected static List<Class<?>> getAnnotatedClasses(boolean includeMpxConfig) {
+		if (includeMpxConfig) {
+			return CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
+		} else {
+			return CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
+		}
+	}
+
+	protected static void printHelpAndExit() {
 		System.out.println("Expects at least one argument, first a property file location.");
 		System.out.println("Optionally, a second argument will be interpreted as whether or not to include configuration for Mpx files (default is true)");
 		System.exit(1);
