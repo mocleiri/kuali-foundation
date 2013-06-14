@@ -28,43 +28,46 @@ import org.kuali.common.util.StringFilter;
 
 public class ExportUtils {
 
-    protected static final String SIZE_PROPERTY_SUFFIX = ".size";
-    protected static final String ROWS_PROPERTY_SUFFIX = ".rows";
-    public static final Integer DEFAULT_DATA_THREADS = 15;
-    public static final Integer DEFAULT_ROW_INTERVAL = 50;
-    public static final Integer DEFAULT_DATA_INTERVAL = 50 * 1024;
+	protected static final String SIZE_PROPERTY_SUFFIX = ".size";
+	protected static final String ROWS_PROPERTY_SUFFIX = ".rows";
+	public static final Integer DEFAULT_DATA_THREADS = 15;
+	public static final Integer DEFAULT_ROW_INTERVAL = 50;
+	public static final Integer DEFAULT_DATA_INTERVAL = 50 * 1024;
 
-    public static <T extends NamedElement> Collection<T> getIncludedElements(StringFilter stringFilter, List<T> elements) {
+	public static <T extends NamedElement> Collection<T> getIncludedElements(StringFilter stringFilter, List<T> elements) {
 
-        Collection<T> results = new ArrayList<T>();
+		Collection<T> results = new ArrayList<T>();
 
-        for (T named : elements) {
-            if (stringFilter.include(named.getName())) {
-                results.add(named);
-            }
-        }
+		for (T named : elements) {
+			if (stringFilter.include(named.getName())) {
+				results.add(named);
+			}
+		}
 
-        return results;
-    }
+		return results;
+	}
 
-    /**
-     * Populate table data size and row count from properties
-     *
-     * @param tableStatistics a properties object
-     * @param table the Table
-     * @param context the ExportTableContext to populate
-     */
-    public static void populateTableStatistics(Properties tableStatistics, Table table, ExportTableContext context) {
-        if(tableStatistics != null) {
-            String sizeVal = tableStatistics.getProperty(table.getName() + SIZE_PROPERTY_SUFFIX);
-            String rowCountVal = tableStatistics.getProperty(table.getName() + ROWS_PROPERTY_SUFFIX);
+	/**
+	 * Populate table data size and row count from properties
+	 * 
+	 * @param tableStatistics
+	 *            a properties object
+	 * @param table
+	 *            the Table
+	 * @param context
+	 *            the ExportTableContext to populate
+	 */
+	public static void populateTableStatistics(Properties tableStatistics, Table table, ExportTableContext context) {
+		if (tableStatistics != null) {
+			String sizeVal = tableStatistics.getProperty(table.getName() + SIZE_PROPERTY_SUFFIX);
+			String rowCountVal = tableStatistics.getProperty(table.getName() + ROWS_PROPERTY_SUFFIX);
 
-            if (StringUtils.isNotBlank(sizeVal)) {
-                context.setSize(Long.parseLong(sizeVal));
-            }
-            if (StringUtils.isNotBlank(rowCountVal)) {
-                context.setRowCount(Long.parseLong(rowCountVal));
-            }
-        }
-    }
+			if (StringUtils.isNotBlank(sizeVal)) {
+				context.setSize(Long.parseLong(sizeVal));
+			}
+			if (StringUtils.isNotBlank(rowCountVal)) {
+				context.setRowCount(Long.parseLong(rowCountVal));
+			}
+		}
+	}
 }
