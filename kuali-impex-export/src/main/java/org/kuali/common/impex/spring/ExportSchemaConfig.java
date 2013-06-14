@@ -42,6 +42,11 @@ public class ExportSchemaConfig {
 	protected static final String PROJECT_PREFIX = "impex.";
 
 	/**
+	 * The ExprotSchemaService implementation to use
+	 */
+	protected static final String EXPORT_SCHEMA_SERVICE = PROJECT_PREFIX + "export.schema.service";
+
+	/**
 	 * Property key for the location of the xml file for tables
 	 */
 	protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables.location";
@@ -184,19 +189,16 @@ public class ExportSchemaConfig {
 		return schemaMap.get(location);
 	}
 
-	@Bean
-	public ExportSchemaService exportService() {
-		return new DefaultExportSchemaService();
-	}
-
 	@Bean(initMethod = "execute")
 	public ExportSchemaExecutable exportSchemaExecutable() {
 
 		boolean skip = SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
 
+		ExportSchemaService service = SpringUtils.getInstance(env, "", DefaultExportSchemaService.class);
+
 		ExportSchemaExecutable exec = new ExportSchemaExecutable(skip);
 		exec.setSchemaLocations(schemaLocations());
-		exec.setExportService(exportService());
+		exec.setExportService(service);
 
 		return exec;
 	}
