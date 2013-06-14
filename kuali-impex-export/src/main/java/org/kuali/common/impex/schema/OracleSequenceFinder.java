@@ -26,38 +26,37 @@ import org.kuali.common.impex.model.Sequence;
 
 public class OracleSequenceFinder implements SequenceFinder {
 
-    protected static final String SEQUENCE_QUERY_PREFIX = "SELECT SEQUENCE_NAME as name, LAST_NUMBER as value FROM ALL_SEQUENCES WHERE SEQUENCE_OWNER = '";
-    protected static final String SEQUENCE_QUERY_SUFFIX = "'";
+	protected static final String SEQUENCE_QUERY_PREFIX = "SELECT SEQUENCE_NAME as name, LAST_NUMBER as value FROM ALL_SEQUENCES WHERE SEQUENCE_OWNER = '";
+	protected static final String SEQUENCE_QUERY_SUFFIX = "'";
 
-    protected static final String SEQUENCE_NAME_KEY = "name";
-    protected static final String SEQUENCE_VALUE_KEY = "value";
+	protected static final String SEQUENCE_NAME_KEY = "name";
+	protected static final String SEQUENCE_VALUE_KEY = "value";
 
-    String sequenceOwner;
+	String sequenceOwner;
 
-    Connection connection;
+	Connection connection;
 
-    public OracleSequenceFinder(Connection connection, String sequenceOwner) {
-        this.connection = connection;
-        this.sequenceOwner = sequenceOwner;
-    }
+	public OracleSequenceFinder(Connection connection, String sequenceOwner) {
+		this.connection = connection;
+		this.sequenceOwner = sequenceOwner;
+	}
 
-    @Override
-    public List<Sequence> findSequences() throws SQLException {
-        String query = SEQUENCE_QUERY_PREFIX + sequenceOwner + SEQUENCE_QUERY_SUFFIX;
+	@Override
+	public List<Sequence> findSequences() throws SQLException {
+		String query = SEQUENCE_QUERY_PREFIX + sequenceOwner + SEQUENCE_QUERY_SUFFIX;
 
-        Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-        ResultSet rs = stmt.executeQuery(query);
+		Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = stmt.executeQuery(query);
 
+		List<Sequence> results = new ArrayList<Sequence>();
 
-        List<Sequence> results = new ArrayList<Sequence>();
+		while (rs.next()) {
+			String name = rs.getString(SEQUENCE_NAME_KEY);
+			String value = rs.getString(SEQUENCE_VALUE_KEY);
 
-        while (rs.next()) {
-            String name = rs.getString(SEQUENCE_NAME_KEY);
-            String value = rs.getString(SEQUENCE_VALUE_KEY);
+			results.add(new Sequence(name, value));
+		}
 
-            results.add(new Sequence(name, value));
-        }
-
-        return results;
-    }
+		return results;
+	}
 }
