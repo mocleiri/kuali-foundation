@@ -16,11 +16,11 @@
 package org.kuali.common.impex.schema;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
@@ -51,14 +51,15 @@ public class ExportSchemaExecutable implements Executable {
 		}
 
 		for (String location : schemaLocations.keySet()) {
-			Writer writer;
+			Writer writer = null;
 			try {
-				LocationUtils.touch(new File(location));
-				writer = new FileWriter(location);
+				writer = LocationUtils.openWriter(new File(location));
+				exportService.exportSchema(schemaLocations.get(location), writer);
 			} catch (IOException e) {
-				throw new IllegalArgumentException("Could not open a file writer for location " + location, e);
+				throw new IllegalStateException("Unexpected IO error", e);
+			} finally {
+				IOUtils.closeQuietly(writer);
 			}
-			exportService.exportSchema(schemaLocations.get(location), writer);
 		}
 
 	}
