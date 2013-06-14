@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.spring;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import liquibase.database.Database;
@@ -27,6 +28,7 @@ import liquibase.snapshot.SnapshotGeneratorFactory;
 
 import org.kuali.common.impex.liquibase.LiquibaseModelProvider;
 import org.kuali.common.impex.schema.OracleSequenceFinder;
+import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.FormatUtils;
@@ -80,14 +82,21 @@ public class LiquibaseModelProviderConfig {
 	@Bean
 	public LiquibaseModelProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException, SQLException {
 
+		// Snapshot the db
 		DatabaseSnapshot snapshot = databaseSnapshot();
 
-		log.info("Building LiquibaseModelProvider from snapshot...");
+		log.info("Creating LiquibaseModelProvider");
+
+		// Preserve the start time
 		long start = System.currentTimeMillis();
 
-		LiquibaseModelProvider modelProvider = new LiquibaseModelProvider(snapshot, new OracleSequenceFinder(dataSourceConfig.jdbcDataSource().getConnection(), dataSourceConfig
-				.jdbcDatabaseProcessContext().getUsername()));
-		log.info("LiquibaseModelProvider constructed, elapsed time: " + (System.currentTimeMillis() - start) / 1000l + " seconds");
+		// Extract the object holding some aggregated JDBC context information
+		DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
+		Connection conn = dataSourceConfig.jdbcDataSource().getConnection();
+		SequenceFinder finder = new OracleSequenceFinder(conn, context.getUsername());
+		LiquibaseModelProvider modelProvider = new LiquibaseModelProvider(snapshot, finder);
+
+		log.info("LiquibaseModelProvider created - Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 		// By default, the liquibase DatabaseSnapshot keeps an open connection to the database
 		// after building the snapshot
