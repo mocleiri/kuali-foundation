@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 public interface ModelProvider {
-    List<ForeignKey> getForeignKeys();
 
-    List<Sequence> getSequences();
+	List<ForeignKey> getForeignKeys();
 
-    Map<String, List<ForeignKey>> getTableNameToForeignKeys();
+	List<Sequence> getSequences();
 
-    List<Table> getTables();
+	Map<String, List<ForeignKey>> getTableNameToForeignKeys();
 
-    List<View> getViews();
+	List<Table> getTables();
+
+	List<View> getViews();
+
 }
