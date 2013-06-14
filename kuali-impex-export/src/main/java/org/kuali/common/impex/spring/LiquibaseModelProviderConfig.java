@@ -62,7 +62,7 @@ public class LiquibaseModelProviderConfig {
 		String password = context.getPassword();
 		String driver = context.getDriver();
 
-		log.info("Creating Liquibase snapshot [{}] - [{}]", context.getUrl(), context.getUsername());
+		log.info("Creating Liquibase snapshot [{}] - [{}]", url, username);
 
 		// Use Liquibase to create a database object
 		Database database = CommandLineUtils.createDatabaseObject(loader, url, username, password, driver, null, username, null, null);
