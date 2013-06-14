@@ -44,7 +44,7 @@ public class ExportSchemaConfig {
 	/**
 	 * The ExprotSchemaService implementation to use
 	 */
-	protected static final String EXPORT_SCHEMA_SERVICE = PROJECT_PREFIX + "export.schema.service";
+	protected static final String EXPORT_SCHEMA_SERVICE_KEY = PROJECT_PREFIX + "export.schema.service";
 
 	/**
 	 * Property key for the location of the xml file for tables
@@ -194,7 +194,7 @@ public class ExportSchemaConfig {
 
 		boolean skip = SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
 
-		ExportSchemaService service = SpringUtils.getInstance(env, "", DefaultExportSchemaService.class);
+		ExportSchemaService service = SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultExportSchemaService.class);
 
 		ExportSchemaExecutable exec = new ExportSchemaExecutable(skip);
 		exec.setSchemaLocations(schemaLocations());
