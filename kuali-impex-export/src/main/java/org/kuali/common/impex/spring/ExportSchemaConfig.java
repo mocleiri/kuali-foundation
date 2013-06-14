@@ -132,25 +132,30 @@ public class ExportSchemaConfig {
 	@Bean
 	public Map<String, Schema> schemaLocations() {
 
-		// The file to write the schema to
+		// This is the default location where all schema info will be written
 		String schemaLocation = SpringUtils.getProperty(env, SCHEMA_LOCATION_KEY);
 
+		// Allocate some storage for mapping db schemas to output locations
 		Map<String, Schema> result = new HashMap<String, Schema>();
 
 		Schema schema;
 
+		// The location to write table information to
 		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(tableLocation, result);
 		schema.getTables().addAll(ExportUtils.getIncludedElements(tableNameFilter(), modelProvider.getTables()));
 
+		// The location to write view information to
 		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(viewLocation, result);
 		schema.getViews().addAll(ExportUtils.getIncludedElements(viewNameFilter(), modelProvider.getViews()));
 
+		// The location to write sequence information to
 		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(sequenceLocation, result);
 		schema.getSequences().addAll(ExportUtils.getIncludedElements(sequenceNameFilter(), modelProvider.getSequences()));
 
+		// The location to write foreign key information to
 		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(foreignKeyLocation, result);
 		schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(foreignKeyNameFilter(), modelProvider.getForeignKeys()));
