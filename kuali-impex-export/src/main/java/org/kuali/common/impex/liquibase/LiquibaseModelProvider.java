@@ -86,6 +86,7 @@ public class LiquibaseModelProvider implements ModelProvider {
 	protected Map<String, List<ForeignKey>> tableNameToForeignKeys;
 
 	public LiquibaseModelProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder) throws SQLException {
+
 		this.sequenceFinder = sequenceFinder;
 
 		log.info("Building tables...");
