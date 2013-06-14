@@ -49,6 +49,11 @@ public class ExportSchemaConfig {
 	/**
 	 * Property key for the location of the xml file for tables
 	 */
+	protected static final String SCHEMA_LOCATION_KEY = PROJECT_PREFIX + "export.schema.location";
+
+	/**
+	 * Property key for the location of the xml file for tables
+	 */
 	protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables.location";
 
 	/**
@@ -126,23 +131,27 @@ public class ExportSchemaConfig {
 	 */
 	@Bean
 	public Map<String, Schema> schemaLocations() {
+
+		// The file to write the schema to
+		String schemaLocation = SpringUtils.getProperty(env, SCHEMA_LOCATION_KEY);
+
 		Map<String, Schema> result = new HashMap<String, Schema>();
 
 		Schema schema;
 
-		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY);
+		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(tableLocation, result);
 		schema.getTables().addAll(ExportUtils.getIncludedElements(tableNameFilter(), modelProvider.getTables()));
 
-		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY);
+		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(viewLocation, result);
 		schema.getViews().addAll(ExportUtils.getIncludedElements(viewNameFilter(), modelProvider.getViews()));
 
-		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY);
+		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(sequenceLocation, result);
 		schema.getSequences().addAll(ExportUtils.getIncludedElements(sequenceNameFilter(), modelProvider.getSequences()));
 
-		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY);
+		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(foreignKeyLocation, result);
 		schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(foreignKeyNameFilter(), modelProvider.getForeignKeys()));
 
