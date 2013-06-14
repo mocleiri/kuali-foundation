@@ -20,7 +20,6 @@ import java.util.List;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.jdbc.spring.JdbcMavenPropertySourceConfig;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -28,43 +27,41 @@ import org.kuali.common.util.spring.SpringUtils;
 
 public class BuildDatabaseUtility {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        if(args.length < 1) {
-            printHelpAndExit();
-        }
+		if (args.length < 1) {
+			printHelpAndExit();
+		}
 
-        String propertiesLocation = args[0];
-        boolean includeMpxConfig = true;
-        if(args.length >= 2) {
-            includeMpxConfig = Boolean.parseBoolean(args[1]);
-        }
+		String propertiesLocation = args[0];
+		boolean includeMpxConfig = true;
+		if (args.length >= 2) {
+			includeMpxConfig = Boolean.parseBoolean(args[1]);
+		}
 
-        try {
+		try {
 
-            List<Class<?>> configClasses;
-            if(includeMpxConfig) {
-                configClasses = CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
-            }
-            else {
-                configClasses = CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
-            }
+			List<Class<?>> configClasses;
+			if (includeMpxConfig) {
+				configClasses = CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
+			} else {
+				configClasses = CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
+			}
 
-            // Reset the db using annotated config
-            JdbcProjectContext project = new JdbcProjectContext();
-            SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
-            executable.execute();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+			// Reset the db using annotated config
+			JdbcProjectContext project = new JdbcProjectContext();
+			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
+			executable.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    }
+	}
 
-    private static void printHelpAndExit() {
-        System.out.println("Expects at least one argument, first a property file location.");
-        System.out.println("Optionally, a second argument will be interpreted as whether or not to include configuration for Mpx files (default is true)");
-        System.exit(1);
-    }
+	private static void printHelpAndExit() {
+		System.out.println("Expects at least one argument, first a property file location.");
+		System.out.println("Optionally, a second argument will be interpreted as whether or not to include configuration for Mpx files (default is true)");
+		System.exit(1);
+	}
 
 }
