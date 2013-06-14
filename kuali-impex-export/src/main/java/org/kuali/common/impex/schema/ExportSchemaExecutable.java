@@ -28,10 +28,12 @@ import org.kuali.common.util.execute.Executable;
 public class ExportSchemaExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
+	public static final ExportSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultExportSchemaService();
 
 	boolean skip = DEFAULT_SKIP_EXECUTION;
+	ExportSchemaService exportService = DEFAULT_EXPORT_SCHEMA_SERVICE;
+
 	Map<String, Schema> schemaLocations;
-	ExportSchemaService exportService;
 
 	public ExportSchemaExecutable() {
 		this(DEFAULT_SKIP_EXECUTION);
