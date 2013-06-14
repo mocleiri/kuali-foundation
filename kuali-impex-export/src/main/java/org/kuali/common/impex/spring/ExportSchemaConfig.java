@@ -132,7 +132,8 @@ public class ExportSchemaConfig {
 	@Bean
 	public Map<String, Schema> schemaLocations() {
 
-		// This is the default location where all schema info will be written
+		// This is the default location where all schema info will be written.
+		// Individual types of JDBC schema info can be written to separate locations if desired by providing a location for each type of info
 		String schemaLocation = SpringUtils.getProperty(env, SCHEMA_LOCATION_KEY);
 
 		// Allocate some storage for mapping db schemas to output locations
