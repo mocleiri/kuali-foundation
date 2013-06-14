@@ -18,28 +18,29 @@ package org.kuali.common.impex.liquibase;
 import org.kuali.common.impex.model.DataType;
 
 public enum LiquibaseDataType {
-    CHAR(DataType.STRING),
-    CLOB(DataType.CLOB),
-    LONGTEXT(DataType.CLOB),
-    VARCHAR(DataType.STRING),
-    VARCHAR2(DataType.STRING),
-    DATE(DataType.DATE),
-    TIMESTAMP(DataType.TIMESTAMP),
-    DATETIME(DataType.TIMESTAMP),
-    DECIMAL(DataType.FLOAT),
-    NUMBER(DataType.FLOAT),
-    BIT(DataType.BIT),
-    BLOB(DataType.BLOB),
-    LONGBLOB(DataType.BLOB),
-    BIGINT(DataType.INTEGER);
 
-    private final DataType dataType;
+	CHAR(DataType.STRING), //
+	CLOB(DataType.CLOB), //
+	LONGTEXT(DataType.CLOB), //
+	VARCHAR(DataType.STRING), //
+	VARCHAR2(DataType.STRING), //
+	DATE(DataType.DATE), //
+	TIMESTAMP(DataType.TIMESTAMP), //
+	DATETIME(DataType.TIMESTAMP), //
+	DECIMAL(DataType.FLOAT), //
+	NUMBER(DataType.FLOAT), //
+	BIT(DataType.BIT), //
+	BLOB(DataType.BLOB), //
+	LONGBLOB(DataType.BLOB), //
+	BIGINT(DataType.INTEGER);
 
-    private LiquibaseDataType(DataType dataType) {
-        this.dataType = dataType;
-    }
+	private final DataType dataType;
 
-    public DataType getDataType() {
-        return dataType;
-    }
+	private LiquibaseDataType(DataType dataType) {
+		this.dataType = dataType;
+	}
+
+	public DataType getDataType() {
+		return dataType;
+	}
 }
