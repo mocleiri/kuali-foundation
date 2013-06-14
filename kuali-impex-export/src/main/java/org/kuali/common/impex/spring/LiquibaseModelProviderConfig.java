@@ -70,7 +70,8 @@ public class LiquibaseModelProviderConfig {
 		// Use Liquibase to snapshot the database
 		DatabaseSnapshot snapshot = SnapshotGeneratorFactory.getInstance().createSnapshot(database.getDefaultSchema(), database, new SnapshotControl());
 
-		log.info("Liquibase snapshot created. Elapsed time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
+		Object[] args = { url, username, FormatUtils.getTime(System.currentTimeMillis() - start) };
+		log.info("Liquibase snapshot created  [{}] - [{}] - Time: {}", args);
 
 		return snapshot;
 	}
