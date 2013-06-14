@@ -29,6 +29,7 @@ import org.kuali.common.impex.liquibase.LiquibaseModelProvider;
 import org.kuali.common.impex.schema.OracleSequenceFinder;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
+import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,17 +49,28 @@ public class LiquibaseModelProviderConfig {
 	@Bean
 	public DatabaseSnapshot databaseSnapshot() throws DatabaseException, InvalidExampleException {
 
+		// Preserve the start time
 		long start = System.currentTimeMillis();
 
+		// Extract the object holding some aggregated JDBC context information
 		DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
 
-		log.info("Initializing liquibase snapshot of data source: url=" + context.getUrl() + ", username=" + context.getUsername());
-		Database database = CommandLineUtils.createDatabaseObject(getClass().getClassLoader(), context.getUrl(), context.getUsername(), context.getPassword(), context.getDriver(),
-				null, context.getUsername(), null, null);
+		// Pull out the JDBC info
+		ClassLoader loader = getClass().getClassLoader();
+		String url = context.getUrl();
+		String username = context.getUsername();
+		String password = context.getPassword();
+		String driver = context.getDriver();
 
+		log.info("Creating Liquibase snapshot [{}] - [{}]", context.getUrl(), context.getUsername());
+
+		// Use Liquibase to create a database object
+		Database database = CommandLineUtils.createDatabaseObject(loader, url, username, password, driver, null, username, null, null);
+
+		// Use Liquibase to snapshot the database
 		DatabaseSnapshot snapshot = SnapshotGeneratorFactory.getInstance().createSnapshot(database.getDefaultSchema(), database, new SnapshotControl());
 
-		log.info("liquibase snapshot initialized, elapsed time: " + (System.currentTimeMillis() - start) / 1000l + " seconds");
+		log.info("Liquibase snapshot created. Elapsed time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
 		return snapshot;
 	}
