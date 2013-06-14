@@ -42,7 +42,7 @@ public class ExportSchemaConfig {
 	protected static final String PROJECT_PREFIX = "impex.";
 
 	/**
-	 * The ExprotSchemaService implementation to use
+	 * The ExportSchemaService implementation to use
 	 */
 	protected static final String EXPORT_SCHEMA_SERVICE_KEY = PROJECT_PREFIX + "export.schema.service";
 
