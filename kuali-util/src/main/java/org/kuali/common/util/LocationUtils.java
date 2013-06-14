@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -64,6 +65,21 @@ public class LocationUtils {
 	 */
 	public static final PrintStream openPrintStream(File file) throws IOException {
 		return new PrintStream(FileUtils.openOutputStream(file));
+	}
+
+	/**
+	 * Open a <code>Writer</code> to the indicated file. Parent directories are created if necessary.
+	 */
+	public static final Writer openWriter(File file) throws IOException {
+		touch(file);
+		return new FileWriter(file);
+	}
+
+	/**
+	 * Open a <code>Writer</code> to the <code>location</code> (It must be a writable file on the local file system). Parent directories are created if necessary.
+	 */
+	public static final Writer openWriter(String location) throws IOException {
+		return openWriter(new File(location));
 	}
 
 	public static Properties getLocationProperties(LocationPropertiesContext context) {
