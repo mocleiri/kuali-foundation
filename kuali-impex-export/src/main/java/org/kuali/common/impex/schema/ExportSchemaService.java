@@ -21,6 +21,6 @@ import org.kuali.common.impex.model.Schema;
 
 public interface ExportSchemaService {
 
-    void exportSchema(Schema schema, Writer writer) throws ExportSchemaException;
+	void exportSchema(Schema schema, Writer writer) throws ExportSchemaException;
 
 }

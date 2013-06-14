@@ -22,67 +22,70 @@ import java.io.Writer;
 import java.util.Map;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.ExportSchemaException;
-import org.kuali.common.impex.schema.ExportSchemaService;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
 public class ExportSchemaExecutable implements Executable {
 
-    Map<String, Schema> schemaLocations;
+	public static final boolean DEFAULT_SKIP_EXECUTION = false;
 
-    ExportSchemaService exportService;
+	boolean skip = DEFAULT_SKIP_EXECUTION;
+	Map<String, Schema> schemaLocations;
+	ExportSchemaService exportService;
 
-    Boolean skip;
+	public ExportSchemaExecutable() {
+		this(DEFAULT_SKIP_EXECUTION);
+	}
 
-    public static final Boolean DEFAULT_SKIP_EXECUTION = false;
+	public ExportSchemaExecutable(boolean skip) {
+		this.skip = skip;
+	}
 
+	@Override
+	public void execute() {
 
-    public ExportSchemaExecutable() {
-        this(DEFAULT_SKIP_EXECUTION);
-    }
+		if (skip) {
+			return;
+		}
 
-    public ExportSchemaExecutable(Boolean b) {
-        this.skip = b;
-    }
+		for (String location : schemaLocations.keySet()) {
+			Writer writer;
+			try {
+				LocationUtils.touch(new File(location));
+				writer = new FileWriter(location);
+			} catch (IOException e) {
+				throw new RuntimeException("Could not open a file writer for location " + location, e);
+			}
+			try {
+				exportService.exportSchema(schemaLocations.get(location), writer);
+			} catch (ExportSchemaException e) {
+				throw new RuntimeException("Unable to persist schema to location " + location, e);
+			}
+		}
 
-    @Override
-    public void execute() {
+	}
 
-        if(skip) {
-            return;
-        }
+	public Map<String, Schema> getSchemaLocations() {
+		return schemaLocations;
+	}
 
-        for (String location : schemaLocations.keySet()) {
-            Writer writer;
-            try {
-                LocationUtils.touch(new File(location));
-                writer = new FileWriter(location);
-            } catch (IOException e) {
-                throw new RuntimeException("Could not open a file writer for location " + location, e);
-            }
-            try {
-                exportService.exportSchema(schemaLocations.get(location), writer);
-            } catch (ExportSchemaException e) {
-                throw new RuntimeException("Unable to persist schema to location " + location, e);
-            }
-        }
+	public void setSchemaLocations(Map<String, Schema> schemaLocations) {
+		this.schemaLocations = schemaLocations;
+	}
 
-    }
+	public ExportSchemaService getExportService() {
+		return exportService;
+	}
 
-    public Map<String, Schema> getSchemaLocations() {
-        return schemaLocations;
-    }
+	public void setExportService(ExportSchemaService exportService) {
+		this.exportService = exportService;
+	}
 
-    public void setSchemaLocations(Map<String, Schema> schemaLocations) {
-        this.schemaLocations = schemaLocations;
-    }
+	public boolean isSkip() {
+		return skip;
+	}
 
-    public ExportSchemaService getExportService() {
-        return exportService;
-    }
-
-    public void setExportService(ExportSchemaService exportService) {
-        this.exportService = exportService;
-    }
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 }
