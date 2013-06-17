@@ -15,14 +15,13 @@
 
 package org.kuali.common.impex.schema;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,7 @@ public class ProduceSchemaExecutable implements Executable {
 
 			Writer writer = null;
 			try {
-				writer = new BufferedWriter(new FileWriter(fileName));
+				writer = LocationUtils.openWriter(fileName);
 
 				for (String s : sqls) {
 					writer.write(s);
