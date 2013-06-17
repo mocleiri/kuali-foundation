@@ -27,8 +27,6 @@ import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.InvalidExampleException;
 import liquibase.snapshot.SnapshotControl;
 import liquibase.snapshot.SnapshotGeneratorFactory;
-
-import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.impex.liquibase.LiquibaseModelProvider;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
 import org.kuali.common.impex.schema.OracleSequenceFinder;
