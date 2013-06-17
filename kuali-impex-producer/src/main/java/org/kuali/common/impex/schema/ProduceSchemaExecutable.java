@@ -23,71 +23,67 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.impex.spring.SchemaSqlProducerConfig;
-import org.kuali.common.impex.spring.XmlModelProviderConfig;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 public class ProduceSchemaExecutable implements Executable {
 
-    private static final Logger log = LoggerFactory.getLogger(ProduceSchemaExecutable.class.getSimpleName());
+	private static final Logger log = LoggerFactory.getLogger(ProduceSchemaExecutable.class.getSimpleName());
 
 	protected static final String LF = "\n";
 
-    public static final boolean DEFAULT_SKIP_EXECUTION = false;
+	public static final boolean DEFAULT_SKIP_EXECUTION = false;
 
-    Map<String, List<String>> fileNamesToSqls;
+	Map<String, List<String>> fileNamesToSqls;
 
-    boolean skip = DEFAULT_SKIP_EXECUTION;
+	boolean skip = DEFAULT_SKIP_EXECUTION;
 
-    @Override
-    public void execute() {
-        if(skip) {
-            return;
-        }
+	@Override
+	public void execute() {
+		if (skip) {
+			return;
+		}
 
-        for (String fileName : fileNamesToSqls.keySet()) {
-            List<String> sqls = fileNamesToSqls.get(fileName);
-            long start = System.currentTimeMillis();
+		for (String fileName : fileNamesToSqls.keySet()) {
+			List<String> sqls = fileNamesToSqls.get(fileName);
+			long start = System.currentTimeMillis();
 
-            log.info("Writing " + sqls.size() + " sql statments to file " + fileName);
+			log.info("Writing " + sqls.size() + " sql statments to file " + fileName);
 
-            Writer writer = null;
-            try {
-                writer = new BufferedWriter(new FileWriter(fileName));
+			Writer writer = null;
+			try {
+				writer = new BufferedWriter(new FileWriter(fileName));
 
-                for (String s : sqls) {
-                    writer.write(s);
-                    writer.write(LF);
-                    writer.write(LF);
-                }
+				for (String s : sqls) {
+					writer.write(s);
+					writer.write(LF);
+					writer.write(LF);
+				}
 
-            } catch (IOException e) {
-                throw new IllegalStateException("Could not write to file " + fileName + ", IOException was thrown: " + e.getMessage(), e);
-            } finally {
-                IOUtils.closeQuietly(writer);
-            }
+			} catch (IOException e) {
+				throw new IllegalStateException("Could not write to file " + fileName + ", IOException was thrown: " + e.getMessage(), e);
+			} finally {
+				IOUtils.closeQuietly(writer);
+			}
 
-            log.info("File output complete, took: " + (System.currentTimeMillis() - start)/1000l + " seconds");
-        }
-    }
+			log.info("File output complete, took: " + (System.currentTimeMillis() - start) / 1000l + " seconds");
+		}
+	}
 
-    public Map<String, List<String>> getFileNamesToSqls() {
-        return fileNamesToSqls;
-    }
+	public Map<String, List<String>> getFileNamesToSqls() {
+		return fileNamesToSqls;
+	}
 
-    public void setFileNamesToSqls(Map<String, List<String>> fileNamesToSqls) {
-        this.fileNamesToSqls = fileNamesToSqls;
-    }
+	public void setFileNamesToSqls(Map<String, List<String>> fileNamesToSqls) {
+		this.fileNamesToSqls = fileNamesToSqls;
+	}
 
-    public boolean isSkip() {
-        return skip;
-    }
+	public boolean isSkip() {
+		return skip;
+	}
 
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 }
