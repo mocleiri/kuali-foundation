@@ -20,20 +20,16 @@ import java.util.List;
 
 public class MpxHeaderData {
 
-    /**
-     * Column names in the header are listed in the order the data is organized
-     */
-    protected List<String> columnNames;
+	/**
+	 * Column names in the header are listed in the order the data is organized
+	 */
+	protected List<String> columnNames = new ArrayList<String>();
 
-    public MpxHeaderData() {
-        columnNames = new ArrayList<String>();
-    }
+	public List<String> getColumnNames() {
+		return columnNames;
+	}
 
-    public List<String> getColumnNames() {
-        return columnNames;
-    }
-
-    public void setColumnNames(List<String> columnNames) {
-        this.columnNames = columnNames;
-    }
+	public void setColumnNames(List<String> columnNames) {
+		this.columnNames = columnNames;
+	}
 }
