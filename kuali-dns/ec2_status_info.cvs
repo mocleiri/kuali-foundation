@@ -70,7 +70,6 @@ key|ec2-com|Name|kuali DNS Name| ec2-status| uptime | disk | size | avail | used
 |kr-key|ec2-54-224-62-97.compute-1.amazonaws.com|--|--|running|--||||||
 |kr-key|ec2-23-21-26-82.compute-1.amazonaws.com|env13|env13.rice.kuali.org|running|  20:54:43 up 36 days| /dev/xvda1|25G|2.8G|22G|12%|
 |kr-key|ec2-184-72-133-245.compute-1.amazonaws.com|env7|env7.rice.kuali.org|running|  20:54:41 up 36 days| /dev/xvda1|25G|2.9G|22G|12%|
-|kr-key|ec2-54-226-195-15.compute-1.amazonaws.com|--|--|running|--||||||
 |kr-key|ec2-50-16-11-13.compute-1.amazonaws.com|--|--|running|--||||||
 |kr-key|ec2-23-22-248-93.compute-1.amazonaws.com|env8|env8.rice.kuali.org|running|  20:54:38 up 36 days| /dev/xvda1|25G|2.8G|22G|12%|
 |kr-key|ec2-54-234-212-81.compute-1.amazonaws.com|--|--|running|--||||||
