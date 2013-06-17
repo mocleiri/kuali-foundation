@@ -32,11 +32,9 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import(LiquibaseModelProviderConfig.class)
 public class ExportSchemaConfig {
 
 	protected static final String PROJECT_PREFIX = "impex.";
