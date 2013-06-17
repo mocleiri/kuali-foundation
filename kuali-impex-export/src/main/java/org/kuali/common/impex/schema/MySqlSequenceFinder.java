@@ -20,11 +20,12 @@ import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
 
-/**
- * SequenceFinder fills in the functionality that Liquibase is lacking for complete metadata retrieval for sequences
- */
-public interface SequenceFinder {
+public class MySqlSequenceFinder implements SequenceFinder {
 
-	List<Sequence> findSequences() throws SQLException;
+    public static final String SUPPORTED_VENDOR = "mysql";
 
+    @Override
+    public List<Sequence> findSequences() throws SQLException {
+        throw new UnsupportedOperationException();
+    }
 }

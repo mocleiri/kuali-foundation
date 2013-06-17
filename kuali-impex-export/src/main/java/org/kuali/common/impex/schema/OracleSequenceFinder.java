@@ -35,8 +35,9 @@ public class OracleSequenceFinder implements SequenceFinder {
 	String sequenceOwner;
 
 	Connection connection;
+    public static final String SUPPORTED_VENDOR = "oracle";
 
-	public OracleSequenceFinder(Connection connection, String sequenceOwner) {
+    public OracleSequenceFinder(Connection connection, String sequenceOwner) {
 		this.connection = connection;
 		this.sequenceOwner = sequenceOwner;
 	}
