@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +22,7 @@ import org.kuali.common.impex.spring.ExportSchemaConfig;
 import org.kuali.common.impex.spring.LiquibaseModelProviderConfig;
 import org.kuali.common.impex.spring.XmlModelProviderConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -46,9 +46,7 @@ public class ExportSchemaUtility {
 
 		try {
 			ProjectContext project = new JdbcProjectContext();
-			List<Class<?>> annotatedClasses = new ArrayList<Class<?>>();
-			annotatedClasses.add(ExportSchemaConfig.class);
-			annotatedClasses.add(providerConfigClass);
+			List<Class<?>> annotatedClasses = CollectionUtils.asList(ExportSchemaConfig.class, providerConfigClass);
 			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, annotatedClasses);
 			executable.execute();
 		} catch (Exception e) {
