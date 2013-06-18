@@ -82,6 +82,7 @@ public class ExportSchemaUtility {
 		} else if (StringUtils.equals(className, XML_KEY)) {
 			return XmlModelProviderConfig.class;
 		} else if (StringUtils.startsWith(className, CUSTOM_KEY)) {
+			className = StringUtils.remove(className, CUSTOM_KEY);
 			return ReflectionUtils.getClass(className);
 		} else {
 			throw new IllegalArgumentException("'" + className + "' is not supported");
