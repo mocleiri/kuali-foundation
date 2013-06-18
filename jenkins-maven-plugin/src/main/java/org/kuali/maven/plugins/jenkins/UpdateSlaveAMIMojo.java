@@ -16,11 +16,14 @@
 package org.kuali.maven.plugins.jenkins;
 
 import java.io.File;
+import java.io.OutputStream;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.ResourceUtils;
 
 /**
@@ -30,6 +33,14 @@ import org.kuali.maven.common.ResourceUtils;
  */
 public class UpdateSlaveAMIMojo extends AbstractMojo {
 	ResourceUtils utils = new ResourceUtils();
+
+	/**
+	 * The Maven project object
+	 * 
+	 * @parameter expression="${project}"
+	 * @readonly
+	 */
+	private MavenProject project;
 
 	/**
 	 * The location of the Jenkins config file
@@ -49,27 +60,22 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
+		// The only requirement here is that a .properties file containing the property "jenkins.newAmi" gets created
+		// That properties file serves as input to another jenkins job that uses it to update the configuration of the
+		// master CI server
+		OutputStream out = null;
 		try {
-			String oldContent = utils.read(configFile.getAbsolutePath());
-			String open = "<hudson.plugins.ec2.SlaveTemplate>";
-			String close = "</hudson.plugins.ec2.SlaveTemplate>";
-			String slaveTemplate = StringUtils.substringBetween(oldContent, open, close);
-			String oldAmi = StringUtils.substringBetween(slaveTemplate, "<ami>", "</ami>");
-			String oldText = "<ami>" + oldAmi + "</ami>";
-			String newText = "<ami>" + newAmi + "</ami>";
-			String newContent = oldContent.replace(oldText, newText);
-			File bakFile = new File(configFile.getAbsolutePath() + ".bak");
-			File newFile = new File(configFile.getAbsolutePath() + ".new");
-			getLog().info("Old AMI: " + oldAmi);
-			getLog().info("New AMI: " + newAmi);
-			getLog().info("Backing up original to " + bakFile.getAbsolutePath());
-			getLog().info("Rewriting " + configFile.getAbsolutePath());
-			getLog().info("New file " + newFile.getAbsolutePath());
-			FileUtils.write(bakFile, oldContent);
-			FileUtils.write(newFile, newContent);
-			FileUtils.write(configFile, newContent);
+			Properties duplicate = new Properties();
+			duplicate.putAll(project.getProperties());
+			duplicate.putAll(System.getenv());
+			duplicate.putAll(System.getProperties());
+			String filename = project.getBuild().getOutputDirectory() + "/project.properties";
+			out = FileUtils.openOutputStream(new File(filename));
+			duplicate.store(out, "Project Properties");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
+		} finally {
+			IOUtils.closeQuietly(out);
 		}
 	}
 
