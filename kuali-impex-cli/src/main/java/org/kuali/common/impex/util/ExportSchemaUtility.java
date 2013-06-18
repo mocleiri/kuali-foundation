@@ -31,11 +31,8 @@ import org.kuali.common.util.spring.SpringUtils;
 public class ExportSchemaUtility {
 
 	protected final static String LIQUIBASE_KEY = "lb";
-
 	protected final static String XML_KEY = "xml";
-
 	protected final static String CUSTOM_KEY = "custom=";
-
 	protected final static Class<?> DEFAULT_PROVIDER_CONFIG_CLASS = LiquibaseModelProviderConfig.class;
 
 	public static void main(String[] args) {
