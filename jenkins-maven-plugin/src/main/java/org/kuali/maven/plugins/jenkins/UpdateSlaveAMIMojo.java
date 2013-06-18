@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -60,7 +61,7 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		// The only requirement here is that a .properties file containing the property "jenkins.newAmi" gets created
+		// The only requirement here is that a .properties file containing the property "JENKINS_NEW_AMI" gets created
 		// That properties file serves as input to another jenkins job that uses it to update the configuration of the
 		// master CI server
 		OutputStream out = null;
@@ -69,10 +70,16 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 			duplicate.putAll(project.getProperties());
 			duplicate.putAll(System.getenv());
 			duplicate.putAll(System.getProperties());
-			String filename = project.getBuild().getOutputDirectory() + "/project.properties";
+			String ami = duplicate.getProperty("jenkins.newAmi");
+			if (StringUtils.isBlank(ami)) {
+				throw new IllegalStateException("jenkins.newAmi was not set");
+			}
+			Properties p = new Properties();
+			p.setProperty("JENKINS_NEW_AMI", ami);
+			String filename = project.getBuild().getOutputDirectory() + "/ami.properties";
 			getLog().info("Creating [" + filename + "]");
 			out = FileUtils.openOutputStream(new File(filename));
-			duplicate.store(out, "Project Properties");
+			p.store(out, "Project Properties");
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unexpected error", e);
 		} finally {
