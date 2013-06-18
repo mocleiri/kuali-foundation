@@ -18,7 +18,6 @@ package org.kuali.common.impex.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
 import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
@@ -62,7 +61,7 @@ public class ModularSchemaExportConfig {
     Environment env;
 
     @Autowired
-    ModelProvider modelProvider;
+    Schema schema;
 
     @Bean(initMethod = "execute")
     public Executable modularSchemaExportExecutable() {
@@ -80,10 +79,10 @@ public class ModularSchemaExportConfig {
             String outpuLocation = SpringUtils.getProperty(env, prefix + OUTPUT_LOCATION_KEY);
 
             Schema schema = new Schema();
-            schema.getTables().addAll(ExportUtils.getIncludedElements(filter, modelProvider.getTables()));
-            schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(filter, modelProvider.getForeignKeys()));
-            schema.getSequences().addAll(ExportUtils.getIncludedElements(filter, modelProvider.getSequences()));
-            schema.getViews().addAll(ExportUtils.getIncludedElements(filter, modelProvider.getViews()));
+            schema.getTables().addAll(ExportUtils.getIncludedElements(filter, this.schema.getTables()));
+            schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(filter, this.schema.getForeignKeys()));
+            schema.getSequences().addAll(ExportUtils.getIncludedElements(filter, this.schema.getSequences()));
+            schema.getViews().addAll(ExportUtils.getIncludedElements(filter, this.schema.getViews()));
 
             boolean skip = SpringUtils.getBoolean(env, prefix + EXECUTION_SKIP_KEY, ModularSchemaExportExecutable.DEFAULT_EXECUTION_SKIP);
             // if this property is set to true for any module, then foreign key schema will be created in a separate file

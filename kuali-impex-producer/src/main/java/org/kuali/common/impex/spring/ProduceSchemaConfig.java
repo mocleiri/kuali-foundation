@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.impex.model.ModelProvider;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.ProduceSchemaExecutable;
 import org.kuali.common.impex.schema.SchemaSqlProducer;
 import org.kuali.common.util.spring.SpringUtils;
@@ -30,14 +30,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ XmlModelProviderConfig.class, SchemaSqlProducerConfig.class })
+@Import({ XmlSchemaConfig.class, SchemaSqlProducerConfig.class })
 public class ProduceSchemaConfig {
 
     @Autowired
     Environment env;
 
     @Autowired
-    ModelProvider modelProvider;
+    Schema schema;
 
     @Autowired
     SchemaSqlProducer schemaProducer;
@@ -83,10 +83,10 @@ public class ProduceSchemaConfig {
 
         Map<String, List<String>> fileNamesToSqls = new HashMap<String, List<String>>();
 
-        fileNamesToSqls.put(getFileName(TABLE_FILE), schemaProducer.getTablesSql(modelProvider.getTables()));
-        fileNamesToSqls.put(getFileName(FOREIGN_KEY_FILE), schemaProducer.getForeignKeySql(modelProvider.getForeignKeys()));
-        fileNamesToSqls.put(getFileName(SEQUENCE_FILE), schemaProducer.getSequencesSql(modelProvider.getSequences()));
-        fileNamesToSqls.put(getFileName(VIEW_FILE), schemaProducer.getViewsSql(modelProvider.getViews()));
+        fileNamesToSqls.put(getFileName(TABLE_FILE), schemaProducer.getTablesSql(schema.getTables()));
+        fileNamesToSqls.put(getFileName(FOREIGN_KEY_FILE), schemaProducer.getForeignKeySql(schema.getForeignKeys()));
+        fileNamesToSqls.put(getFileName(SEQUENCE_FILE), schemaProducer.getSequencesSql(schema.getSequences()));
+        fileNamesToSqls.put(getFileName(VIEW_FILE), schemaProducer.getViewsSql(schema.getViews()));
 
         return fileNamesToSqls;
     }

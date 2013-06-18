@@ -25,7 +25,7 @@ import org.kuali.common.impex.data.ExportDataContext;
 import org.kuali.common.impex.data.ExportDataExecutable;
 import org.kuali.common.impex.data.ExportDataService;
 import org.kuali.common.impex.data.ExportTableContext;
-import org.kuali.common.impex.model.ModelProvider;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ LiquibaseModelProviderConfig.class})
+@Import({ LiquibaseSchemaConfig.class})
 public class ExportDataConfig {
 
     @Autowired
@@ -67,7 +67,7 @@ public class ExportDataConfig {
     JdbcDataSourceConfig dataSourceConfig;
 
     @Autowired
-    ModelProvider modelProvider;
+    Schema schema;
 
     @Bean
     public ExportDataContext exportDataContext() {
@@ -89,7 +89,7 @@ public class ExportDataConfig {
 
         List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>();
 
-        Collection<Table> includedTables = ExportUtils.getIncludedElements(tableNameFilter(), modelProvider.getTables());
+        Collection<Table> includedTables = ExportUtils.getIncludedElements(tableNameFilter(), schema.getTables());
 
         // create table contexts
         for (Table t : includedTables) {

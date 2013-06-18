@@ -25,7 +25,7 @@ import org.kuali.common.impex.data.ExportDataContext;
 import org.kuali.common.impex.data.ExportDataService;
 import org.kuali.common.impex.data.ExportTableContext;
 import org.kuali.common.impex.data.ModularDataExportExecutable;
-import org.kuali.common.impex.model.ModelProvider;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
@@ -49,7 +49,7 @@ public class ModularDataExportConfig {
     Environment env;
 
     @Autowired
-    ModelProvider modelProvider;
+    Schema schema;
 
     @Autowired
     JdbcDataSourceConfig dataSourceConfig;
@@ -94,7 +94,7 @@ public class ModularDataExportConfig {
 
             StringFilter filter = StringFilter.getInstance(includes, excludes);
 
-            Collection<Table> includedTables = ExportUtils.getIncludedElements(filter, modelProvider.getTables());
+            Collection<Table> includedTables = ExportUtils.getIncludedElements(filter, schema.getTables());
 
             List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>(includedTables.size());
 

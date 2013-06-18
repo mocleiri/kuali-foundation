@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcCommonConfig.class, BatchConfig.class, JdbcDataSourceConfig.class, XmlModelProviderConfig.class })
+@Import({ JdbcCommonConfig.class, BatchConfig.class, JdbcDataSourceConfig.class, XmlSchemaConfig.class })
 public class MpxSupplierConfig {
 
     @Autowired
@@ -51,7 +51,7 @@ public class MpxSupplierConfig {
     BatchConfig batchConfig;
 
     @Autowired
-    XmlModelProviderConfig modelProviderConfig;
+    XmlSchemaConfig modelProviderConfig;
 
     private static final String DB_VENDOR_KEY = "db.vendor";
 
@@ -84,7 +84,7 @@ public class MpxSupplierConfig {
     public Map<String, LocationSupplierSourceBean> impexExtensionMappings() throws JAXBException, IOException {
         // This gets cloned for each .mpx file
         MpxLocationSupplier mls = new MpxLocationSupplier();
-        mls.setModelProvider(modelProviderConfig.xmlModelProvider());
+        mls.setSchema(modelProviderConfig.xmlModelProvider());
         mls.setProducer(impexProducer());
 
         // This hands out clones of MpxLocationSupplier, one for every .mpx file being parsed

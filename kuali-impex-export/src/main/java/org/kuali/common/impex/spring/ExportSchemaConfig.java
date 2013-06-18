@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
 import org.kuali.common.impex.schema.ExportSchemaExecutable;
@@ -118,7 +117,7 @@ public class ExportSchemaConfig {
 	Environment env;
 
 	@Autowired
-	ModelProvider modelProvider;
+	Schema schema;
 
 	/**
 	 * Build a map of resource locations to schema instances
@@ -142,22 +141,22 @@ public class ExportSchemaConfig {
 		// The location to write table information to
 		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(tableLocation, result);
-		schema.getTables().addAll(ExportUtils.getIncludedElements(tableNameFilter(), modelProvider.getTables()));
+		schema.getTables().addAll(ExportUtils.getIncludedElements(tableNameFilter(), this.schema.getTables()));
 
 		// The location to write view information to
 		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(viewLocation, result);
-		schema.getViews().addAll(ExportUtils.getIncludedElements(viewNameFilter(), modelProvider.getViews()));
+		schema.getViews().addAll(ExportUtils.getIncludedElements(viewNameFilter(), this.schema.getViews()));
 
 		// The location to write sequence information to
 		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(sequenceLocation, result);
-		schema.getSequences().addAll(ExportUtils.getIncludedElements(sequenceNameFilter(), modelProvider.getSequences()));
+		schema.getSequences().addAll(ExportUtils.getIncludedElements(sequenceNameFilter(), this.schema.getSequences()));
 
 		// The location to write foreign key information to
 		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY, schemaLocation);
 		schema = quietlyGetSchema(foreignKeyLocation, result);
-		schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(foreignKeyNameFilter(), modelProvider.getForeignKeys()));
+		schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(foreignKeyNameFilter(), this.schema.getForeignKeys()));
 
 		return result;
 	}

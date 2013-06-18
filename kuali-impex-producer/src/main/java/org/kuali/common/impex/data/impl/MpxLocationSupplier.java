@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.data.MpxHeaderData;
 import org.kuali.common.impex.data.SqlProducer;
-import org.kuali.common.impex.model.ModelProvider;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
@@ -54,7 +54,7 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
     /**
      * Data model provider
      */
-    ModelProvider modelProvider;
+    Schema schema;
 
 	@Override
 	public void open() throws IOException {
@@ -82,7 +82,7 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		int end = filename.length() - extension.length();
 		String tableName = StringUtils.substring(filename, 0, end);
 
-        for (Table t : modelProvider.getTables()) {
+        for (Table t : schema.getTables()) {
             if(t.getName().equalsIgnoreCase(tableName)) {
                 return t;
             }
@@ -158,11 +158,11 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 		this.extension = extension;
 	}
 
-    public ModelProvider getModelProvider() {
-        return modelProvider;
+    public Schema getSchema() {
+        return schema;
     }
 
-    public void setModelProvider(ModelProvider modelProvider) {
-        this.modelProvider = modelProvider;
+    public void setSchema(Schema schema) {
+        this.schema = schema;
     }
 }

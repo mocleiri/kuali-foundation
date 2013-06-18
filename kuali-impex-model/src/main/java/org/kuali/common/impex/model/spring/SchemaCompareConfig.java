@@ -15,11 +15,13 @@
 
 package org.kuali.common.impex.model.spring;
 
-import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.compare.SchemaCompare;
+import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 @Configuration
 public abstract class SchemaCompareConfig {
@@ -30,34 +32,30 @@ public abstract class SchemaCompareConfig {
     protected static final String SCHEMA_1_LABEL_KEY = "impex.compare.schema1.label";
     protected static final String SCHEMA_2_LABEL_KEY = "impex.compare.schema2.label";
 
+    @Autowired
+    protected Environment env;
+
     @Bean
     public SchemaCompare schemaCompare() {
-        Schema schema1 = new Schema();
-        // set name to a default
+        Schema schema1 = schema1();
         schema1.setName(schema1Label());
 
-        Schema schema2 = new Schema();
+        Schema schema2 = schema2();
         schema2.setName(schema2Label());
-
-        populateSchema(modelProvider1(), schema1);
-        populateSchema(modelProvider2(), schema2);
 
         return new SchemaCompare(schema1, schema2);
     }
 
-    protected void populateSchema(ModelProvider modelProvider, Schema schema) {
-        schema.getTables().addAll(modelProvider.getTables());
-        schema.getViews().addAll(modelProvider.getViews());
-        schema.getSequences().addAll(modelProvider.getSequences());
-        schema.getForeignKeys().addAll(modelProvider.getForeignKeys());
+    public abstract Schema schema1();
+
+    public abstract Schema schema2();
+
+    public String schema1Label() {
+        return SpringUtils.getProperty(env, SCHEMA_1_LABEL_KEY, SCHEMA_1_DEFAULT_LABEL);
     }
 
-    public abstract ModelProvider modelProvider1();
-
-    public abstract ModelProvider modelProvider2();
-
-    public abstract String schema1Label();
-
-    public abstract String schema2Label();
+    public String schema2Label() {
+        return SpringUtils.getProperty(env, SCHEMA_2_LABEL_KEY, SCHEMA_2_DEFAULT_LABEL);
+    }
 
 }

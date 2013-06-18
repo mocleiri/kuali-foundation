@@ -19,8 +19,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.spring.ExportSchemaConfig;
-import org.kuali.common.impex.spring.LiquibaseModelProviderConfig;
-import org.kuali.common.impex.spring.XmlModelProviderConfig;
+import org.kuali.common.impex.spring.LiquibaseSchemaConfig;
+import org.kuali.common.impex.spring.XmlSchemaConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ProjectContext;
@@ -33,7 +33,7 @@ public class ExportSchemaUtility {
 	protected final static String LIQUIBASE_KEY = "lb";
 	protected final static String XML_KEY = "xml";
 	protected final static String CUSTOM_KEY = "custom=";
-	protected final static Class<?> DEFAULT_PROVIDER_CONFIG_CLASS = LiquibaseModelProviderConfig.class;
+	protected final static Class<?> DEFAULT_PROVIDER_CONFIG_CLASS = LiquibaseSchemaConfig.class;
 
 	public static void main(String[] args) {
 
@@ -78,9 +78,9 @@ public class ExportSchemaUtility {
 
 	protected static Class<?> getProviderConfig(String className) {
 		if (StringUtils.equals(className, LIQUIBASE_KEY)) {
-			return LiquibaseModelProviderConfig.class;
+			return LiquibaseSchemaConfig.class;
 		} else if (StringUtils.equals(className, XML_KEY)) {
-			return XmlModelProviderConfig.class;
+			return XmlSchemaConfig.class;
 		} else if (StringUtils.startsWith(className, CUSTOM_KEY)) {
 			className = StringUtils.remove(className, CUSTOM_KEY);
 			return ReflectionUtils.getClass(className);
@@ -91,11 +91,10 @@ public class ExportSchemaUtility {
 
 	private static void printHelpAndExit() {
 		System.out.println("Expects at least one argument, a property file location.");
-		System.out.println("Additionally, second argument can be provided to specify the configuration class that should be used to instantiate a ModelProvider");
+		System.out.println("Additionally, second argument can be provided to specify the configuration class that should be used to instantiate a Schema");
 		System.out.println("Valid values for this argument are: ");
-		System.out.println("lb  --  Use LiquibaseModelProviderConfig");
-		System.out.println("xml --  Use XmlModelProviderConfig");
-		System.out.println("custom=foo.bar.baz.MyModelProviderConfig  --  Use a custom class name provided");
+		System.out.println(LIQUIBASE_KEY + "  --  Use LiquibaseSchemaConfig");
+		System.out.println(XML_KEY + " --  Use XmlSchemaConfig");
 		System.exit(1);
 	}
 

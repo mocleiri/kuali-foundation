@@ -19,8 +19,6 @@ import java.io.IOException;
 import javax.xml.bind.JAXBException;
 
 import org.kuali.common.impex.ProducerUtils;
-import org.kuali.common.impex.model.DefaultModelProvider;
-import org.kuali.common.impex.model.ModelProvider;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class XmlModelProviderConfig {
+public class XmlSchemaConfig {
 
     protected final static String XML_LOCATION_KEY = "impex.schema.location";
 
@@ -37,12 +35,10 @@ public class XmlModelProviderConfig {
     Environment env;
 
     @Bean
-    public ModelProvider xmlModelProvider() throws JAXBException, IOException {
+    public Schema xmlModelProvider() throws JAXBException, IOException {
         String xmlLocation = SpringUtils.getProperty(env, XML_LOCATION_KEY);
 
-        Schema schema = ProducerUtils.unmarshalSchema(xmlLocation);
-
-        return new DefaultModelProvider(schema);
+        return ProducerUtils.unmarshalSchema(xmlLocation);
     }
 
 }

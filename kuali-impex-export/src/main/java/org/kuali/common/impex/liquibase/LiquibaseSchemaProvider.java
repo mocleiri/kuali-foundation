@@ -31,14 +31,13 @@ import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.Database;
 import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.JdbcDatabaseSnapshot;
-
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Index;
-import org.kuali.common.impex.model.ModelProvider;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
@@ -49,9 +48,9 @@ import org.kuali.common.impex.schema.SequenceFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LiquibaseModelProvider implements ModelProvider {
+public class LiquibaseSchemaProvider {
 
-	private static Logger log = LoggerFactory.getLogger(LiquibaseModelProvider.class.getSimpleName());
+	private static Logger log = LoggerFactory.getLogger(LiquibaseSchemaProvider.class.getSimpleName());
 
 	/**
 	 * Constants for result set keys from DatabaseMetaData.getImportedKeys
@@ -70,14 +69,6 @@ public class LiquibaseModelProvider implements ModelProvider {
 
 	protected static final String[] RESERVED_DEFAULT_KEYWORDS = { SYSGUID_KEYWORD_DEFAULT, SYSDATE_KEYWORD_DEFAULT, USERSESSION_KEYWORD_DEFAULT };
 
-	protected List<Table> tables;
-
-	protected List<View> views;
-
-	protected List<Sequence> sequences;
-
-	protected List<ForeignKey> foreignKeys;
-
 	protected SequenceFinder sequenceFinder;
 
 	/**
@@ -85,24 +76,26 @@ public class LiquibaseModelProvider implements ModelProvider {
 	 */
 	protected Map<String, List<ForeignKey>> tableNameToForeignKeys;
 
-	public LiquibaseModelProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder) throws SQLException {
+    private Schema schema;
+
+    public LiquibaseSchemaProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder) throws SQLException {
 
 		this.sequenceFinder = sequenceFinder;
 
 		log.info("Building tables...");
-		tables = buildTables(snapshot);
+        List<Table> tables = buildTables(snapshot);
 		log.info("Table building complete.");
 
 		log.info("Building views...");
-		views = buildViews(snapshot);
+        List<View> views = buildViews(snapshot);
 		log.info("View building complete.");
 
 		log.info("Building sequences...");
-		sequences = buildSequences(snapshot);
+        List<Sequence> sequences = buildSequences();
 		log.info("Sequence building complete.");
 
 		log.info("Building foreign keys...");
-		foreignKeys = buildForeignKeys(snapshot);
+        List<ForeignKey> foreignKeys = buildForeignKeys(snapshot);
 		log.info("Foreign key building complete.");
 
 		// sort each of the schema elements
@@ -110,6 +103,12 @@ public class LiquibaseModelProvider implements ModelProvider {
 		Collections.sort(views, NamedElementComparator.getInstance());
 		Collections.sort(sequences, NamedElementComparator.getInstance());
 		Collections.sort(foreignKeys, NamedElementComparator.getInstance());
+
+        schema = new Schema();
+        schema.setTables(tables);
+        schema.setViews(views);
+        schema.setSequences(sequences);
+        schema.setForeignKeys(foreignKeys);
 	}
 
 	protected List<Table> buildTables(DatabaseSnapshot snapshot) {
@@ -283,15 +282,9 @@ public class LiquibaseModelProvider implements ModelProvider {
 		return results;
 	}
 
-	protected List<Sequence> buildSequences(DatabaseSnapshot snapshot) throws SQLException {
-		/*
-		 * Set<liquibase.structure.core.Sequence> sourceSequences = snapshot.get(liquibase.structure.core.Sequence.class);
-		 * 
-		 * List<Sequence> results = new ArrayList<Sequence>(sourceSequences.size());
-		 * 
-		 * // TODO KSENROLL-6764 Current liquibase structure does not retrieve current value for sequences for (liquibase.structure.core.Sequence sourceSequence : sourceSequences)
-		 * { results.add(new Sequence(sourceSequence.getName(), "1")); }
-		 */
+	protected List<Sequence> buildSequences() throws SQLException {
+        // Current liquibase structure does not retrieve current value for sequences
+        // SequenceFinder was created to work around that
 
 		if (sequenceFinder != null) {
 			List<Sequence> results = sequenceFinder.findSequences();
@@ -300,6 +293,7 @@ public class LiquibaseModelProvider implements ModelProvider {
 
 			return results;
 		} else {
+            log.warn("NO IMPLEMENTATION OF SequenceFinder FOUND, RETURNING EMPTY SEQUENCE LIST");
 			return Collections.emptyList();
 		}
 	}
@@ -396,28 +390,7 @@ public class LiquibaseModelProvider implements ModelProvider {
 
 	}
 
-	@Override
-	public List<ForeignKey> getForeignKeys() {
-		return foreignKeys;
-	}
-
-	@Override
-	public List<Sequence> getSequences() {
-		return sequences;
-	}
-
-	@Override
-	public Map<String, List<ForeignKey>> getTableNameToForeignKeys() {
-		return tableNameToForeignKeys;
-	}
-
-	@Override
-	public List<Table> getTables() {
-		return tables;
-	}
-
-	@Override
-	public List<View> getViews() {
-		return views;
-	}
+    public Schema getSchema() {
+        return schema;
+    }
 }

@@ -27,7 +27,8 @@ import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.InvalidExampleException;
 import liquibase.snapshot.SnapshotControl;
 import liquibase.snapshot.SnapshotGeneratorFactory;
-import org.kuali.common.impex.liquibase.LiquibaseModelProvider;
+import org.kuali.common.impex.liquibase.LiquibaseSchemaProvider;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
 import org.kuali.common.impex.schema.OracleSequenceFinder;
 import org.kuali.common.impex.schema.SequenceFinder;
@@ -45,9 +46,9 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ JdbcDataSourceConfig.class })
-public class LiquibaseModelProviderConfig {
+public class LiquibaseSchemaConfig {
 
-	private static final Logger log = LoggerFactory.getLogger(LiquibaseModelProviderConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(LiquibaseSchemaConfig.class);
 
     protected static final String DB_VENDOR_KEY = "db.vendor";
 
@@ -99,7 +100,7 @@ public class LiquibaseModelProviderConfig {
     }
 
 	@Bean
-	public LiquibaseModelProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException, SQLException {
+	public LiquibaseSchemaProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException, SQLException {
 
 		// Snapshot the db
 		DatabaseSnapshot snapshot = databaseSnapshot();
@@ -117,7 +118,7 @@ public class LiquibaseModelProviderConfig {
             log.warn("NO MATCHING IMPLENTATION FOR SequenceFinder INTERFACE FOUND FOR VENDOR " + dbVendor);
         }
 
-		LiquibaseModelProvider modelProvider = new LiquibaseModelProvider(snapshot, finder);
+		LiquibaseSchemaProvider modelProvider = new LiquibaseSchemaProvider(snapshot, finder);
 
 		log.info("LiquibaseModelProvider created - Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
@@ -128,6 +129,11 @@ public class LiquibaseModelProviderConfig {
 
 		return modelProvider;
 	}
+
+    @Bean
+    public Schema schema() throws SQLException, DatabaseException, InvalidExampleException {
+        return liquibaseModelProvider().getSchema();
+    }
 
     @Bean
     public OracleSequenceFinder oracleSequenceFinder() throws SQLException {
