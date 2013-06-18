@@ -41,7 +41,7 @@ headless.start
 puts @browser.text_field(:name => "_.ami").value
 puts "updating ami value to #{ami_value}"
 
-#@browser.text_field(:name => "_.ami").set ami_value
-#@browser.button(:name => "submit").click
+@browser.text_field(:name => "_.ami").set ami_value
+@browser.button(:name => "submit").click
 
 @browser.link(:text => "log out").click
