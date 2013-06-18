@@ -70,6 +70,7 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 			duplicate.putAll(System.getenv());
 			duplicate.putAll(System.getProperties());
 			String filename = project.getBuild().getOutputDirectory() + "/project.properties";
+			getLog().info("Creating [" + filename + "]");
 			out = FileUtils.openOutputStream(new File(filename));
 			duplicate.store(out, "Project Properties");
 		} catch (Exception e) {
