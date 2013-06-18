@@ -76,7 +76,7 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 			}
 			Properties p = new Properties();
 			p.setProperty("JENKINS_NEW_AMI", ami);
-			String filename = project.getBuild().getOutputDirectory() + "/ami.properties";
+			String filename = project.getBuild().getDirectory() + "/jenkins/ami.properties";
 			getLog().info("Creating [" + filename + "]");
 			out = FileUtils.openOutputStream(new File(filename));
 			p.store(out, "Project Properties");
