@@ -18,13 +18,13 @@ package org.kuali.common.impex.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import liquibase.util.StringUtils;
-
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.spring.ExportSchemaConfig;
 import org.kuali.common.impex.spring.LiquibaseModelProviderConfig;
 import org.kuali.common.impex.spring.XmlModelProviderConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.util.ProjectContext;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 
@@ -40,33 +40,11 @@ public class ExportSchemaUtility {
 
 	public static void main(String[] args) {
 
-		if (args.length < 1) {
+		String propertiesLocation = getPropertiesLocation(args);
+		Class<?> providerConfigClass = getProviderConfig(args);
+
+		if (propertiesLocation == null || providerConfigClass == null) {
 			printHelpAndExit();
-		}
-
-		String propertiesLocation = args[0];
-
-		Class<?> providerConfigClass = DEFAULT_PROVIDER_CONFIG_CLASS;
-
-		if (args.length > 1) {
-			String annotatedClassKey = StringUtils.trimToNull(args[1]);
-
-			if (annotatedClassKey != null) {
-				if (annotatedClassKey.equals(LIQUIBASE_KEY)) {
-					providerConfigClass = LiquibaseModelProviderConfig.class;
-				} else if (annotatedClassKey.equals(XML_KEY)) {
-					providerConfigClass = XmlModelProviderConfig.class;
-				} else if (annotatedClassKey.startsWith(CUSTOM_KEY)) {
-					String className = annotatedClassKey.replace(CUSTOM_KEY, "");
-					try {
-						providerConfigClass = Class.forName(className);
-					} catch (ClassNotFoundException e) {
-						throw new IllegalArgumentException("Could not load configuration class: " + className, e);
-					}
-				} else {
-					printHelpAndExit();
-				}
-			}
 		}
 
 		try {
@@ -80,6 +58,39 @@ public class ExportSchemaUtility {
 			e.printStackTrace();
 		}
 
+	}
+
+	protected static String getPropertiesLocation(String[] args) {
+		if (args == null || args.length < 1) {
+			return null;
+		} else {
+			return args[0];
+		}
+	}
+
+	protected static Class<?> getProviderConfig(String[] args) {
+		if (args == null || args.length < 2) {
+			return DEFAULT_PROVIDER_CONFIG_CLASS;
+		}
+
+		String annotatedClassKey = StringUtils.trimToNull(args[1]);
+		if (StringUtils.isBlank(annotatedClassKey)) {
+			return null;
+		} else {
+			return getProviderConfig(annotatedClassKey);
+		}
+	}
+
+	protected static Class<?> getProviderConfig(String className) {
+		if (StringUtils.equals(className, LIQUIBASE_KEY)) {
+			return LiquibaseModelProviderConfig.class;
+		} else if (StringUtils.equals(className, XML_KEY)) {
+			return XmlModelProviderConfig.class;
+		} else if (StringUtils.startsWith(className, CUSTOM_KEY)) {
+			return ReflectionUtils.getClass(className);
+		} else {
+			throw new IllegalArgumentException("'" + className + "' is not supported");
+		}
 	}
 
 	private static void printHelpAndExit() {
