@@ -26,6 +26,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.maven.common.ResourceUtils;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * Update the slave AMI being used by the Jenkins EC2 plugin
@@ -66,6 +67,7 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 		// master CI server
 		OutputStream out = null;
 		try {
+			PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 			Properties duplicate = new Properties();
 			duplicate.putAll(project.getProperties());
 			duplicate.putAll(System.getenv());
@@ -74,8 +76,9 @@ public class UpdateSlaveAMIMojo extends AbstractMojo {
 			if (StringUtils.isBlank(ami)) {
 				throw new IllegalStateException("jenkins.newAmi was not set");
 			}
+			String resolvedAmi = helper.replacePlaceholders(ami, duplicate);
 			Properties p = new Properties();
-			p.setProperty("JENKINS_NEW_AMI", ami);
+			p.setProperty("JENKINS_NEW_AMI", resolvedAmi);
 			String filename = project.getBuild().getDirectory() + "/jenkins/ami.properties";
 			getLog().info("Creating [" + filename + "]");
 			out = FileUtils.openOutputStream(new File(filename));
