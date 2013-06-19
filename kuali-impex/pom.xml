@@ -133,8 +133,8 @@
     </dependencies>
   </dependencyManagement>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-jalc-3.0</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-jalc-3.0</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/branches/kuali-jalc-3.0</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-impex</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-impex</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-impex</url>
   </scm>
 </project>
