@@ -25,9 +25,7 @@
     <commons-lang.version>3.1</commons-lang.version>
     <commons-collections.version>3.2.1</commons-collections.version>
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
-    <kuali.release.arguments>-DskipTests -Pkuali-release -Dmaven.javadoc.skip=true</kuali.release.arguments>
-    <kuali-jdbc.version>3.1.6-SNAPSHOT</kuali-jdbc.version>
-    <kuali-util.version>4.2.14-SNAPSHOT</kuali-util.version>
+    <kuali.release.arguments>-DskipTests</kuali.release.arguments>
   </properties>
   <developers>
     <developer>
