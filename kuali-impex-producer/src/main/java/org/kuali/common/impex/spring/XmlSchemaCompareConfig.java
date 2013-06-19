@@ -15,18 +15,17 @@
 
 package org.kuali.common.impex.spring;
 
-import java.io.IOException;
-import javax.xml.bind.JAXBException;
-
 import org.kuali.common.impex.ProducerUtils;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.compare.SchemaCompareExecutable;
 import org.kuali.common.impex.model.spring.SchemaCompareConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 
 @Configuration
 public class XmlSchemaCompareConfig extends SchemaCompareConfig {
@@ -36,11 +35,6 @@ public class XmlSchemaCompareConfig extends SchemaCompareConfig {
 
     @Autowired
     protected Environment env;
-
-    /**
-     * Property key for a boolean setting whether or not the executable should run
-     */
-    protected static final String EXECUTION_SKIP_KEY = "impex.compare.skip";
 
     @Bean(name = "schema1")
     public Schema schema1() {
@@ -62,18 +56,6 @@ public class XmlSchemaCompareConfig extends SchemaCompareConfig {
         } catch (IOException e) {
             throw new RuntimeException("Could not build xml model provider for schema 2", e);
         }
-    }
-
-    @Bean(initMethod = "execute")
-    public SchemaCompareExecutable exportSchemaExecutable() {
-        SchemaCompareExecutable result = new SchemaCompareExecutable(skipExecution());
-        result.setConfig(this);
-        return result;
-    }
-
-    @Bean
-    public Boolean skipExecution() {
-        return SpringUtils.getBoolean(env, EXECUTION_SKIP_KEY, SchemaCompareExecutable.DEFAULT_EXECUTION_SKIP);
     }
 
 }

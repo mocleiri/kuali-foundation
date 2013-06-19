@@ -16,7 +16,9 @@
 package org.kuali.common.impex.model.spring;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.compare.SchemaCompare;
+import org.kuali.common.impex.model.compare.SchemaCompareExecutable;
+import org.kuali.common.impex.model.compare.service.SchemaCompareService;
+import org.kuali.common.impex.model.compare.service.impl.SchemaCompareServiceImpl;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,18 +34,23 @@ public abstract class SchemaCompareConfig {
     protected static final String SCHEMA_1_LABEL_KEY = "impex.compare.schema1.label";
     protected static final String SCHEMA_2_LABEL_KEY = "impex.compare.schema2.label";
 
+    /**
+     * Property key for a boolean setting whether or not the executable should run
+     */
+    protected static final String EXECUTION_SKIP_KEY = "impex.compare.skip";
+
     @Autowired
     protected Environment env;
 
     @Bean
-    public SchemaCompare schemaCompare() {
+    public SchemaCompareService compareService() {
         Schema schema1 = schema1();
         schema1.setName(schema1Label());
 
         Schema schema2 = schema2();
         schema2.setName(schema2Label());
 
-        return new SchemaCompare(schema1, schema2);
+        return new SchemaCompareServiceImpl();
     }
 
     public abstract Schema schema1();
@@ -56,6 +63,21 @@ public abstract class SchemaCompareConfig {
 
     public String schema2Label() {
         return SpringUtils.getProperty(env, SCHEMA_2_LABEL_KEY, SCHEMA_2_DEFAULT_LABEL);
+    }
+
+    @Bean(initMethod = "execute")
+    public SchemaCompareExecutable exportSchemaExecutable() {
+        SchemaCompareExecutable result = new SchemaCompareExecutable(skipExecution());
+        result.setCompareService(compareService());
+        result.setSchema1(schema1());
+        result.setSchema2(schema2());
+
+        return result;
+    }
+
+    @Bean
+    public Boolean skipExecution() {
+        return SpringUtils.getBoolean(env, EXECUTION_SKIP_KEY, SchemaCompareExecutable.DEFAULT_EXECUTION_SKIP);
     }
 
 }

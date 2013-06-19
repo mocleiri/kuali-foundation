@@ -13,48 +13,34 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.model.compare;
+package org.kuali.common.impex.model.compare.service.impl;
+
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.impex.model.*;
+import org.kuali.common.impex.model.compare.*;
+import org.kuali.common.impex.model.compare.service.SchemaCompareService;
+import org.kuali.common.impex.model.util.CompareUtils;
+import org.kuali.common.impex.model.util.MatchingElement;
+import org.kuali.common.impex.model.util.MissingElements;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.impex.model.Column;
-import org.kuali.common.impex.model.ForeignKey;
-import org.kuali.common.impex.model.Index;
-import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.Sequence;
-import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.UniqueConstraint;
-import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.model.util.CompareUtils;
-import org.kuali.common.impex.model.util.MatchingElement;
-import org.kuali.common.impex.model.util.MissingElements;
+public class SchemaCompareServiceImpl implements SchemaCompareService {
 
-public class SchemaCompare {
-
-    public Schema schema1;
-
-    public Schema schema2;
-
-    public SchemaCompare(Schema s1, Schema s2) {
-        schema1 = s1;
-        schema2 = s2;
-    }
-
-    public SchemaCompareResult compare() {
+    public SchemaCompareResult compare(Schema schema1, Schema schema2) {
         SchemaCompareResult result = new SchemaCompareResult();
 
-        result.getTableDifferences().addAll(compareTables());
-        result.getForeignKeyDifferences().addAll(compareForeignKeys());
-        result.getViewDifferences().addAll(compareViews());
-        result.getSequenceDifferences().addAll(compareSequences());
+        result.getTableDifferences().addAll(compareTables(schema1, schema2));
+        result.getForeignKeyDifferences().addAll(compareForeignKeys(schema1, schema2));
+        result.getViewDifferences().addAll(compareViews(schema1, schema2));
+        result.getSequenceDifferences().addAll(compareSequences(schema1, schema2));
 
         return result;
     }
 
-    protected List<TableDifference> compareTables() {
+    protected List<TableDifference> compareTables(Schema schema1, Schema schema2) {
 
         List<TableDifference> results = new ArrayList<TableDifference>();
 
@@ -97,7 +83,7 @@ public class SchemaCompare {
         }
 
         return results;
-        
+
     }
 
     protected Collection<ColumnDifference> compareColumns(Table table1, Schema schema1, Table table2, Schema schema2) {
@@ -178,10 +164,10 @@ public class SchemaCompare {
         }
 
         return results;
-        
+
     }
 
-    protected Collection<ForeignKeyDifference> compareForeignKeys() {
+    protected Collection<ForeignKeyDifference> compareForeignKeys(Schema schema1, Schema schema2) {
 
         List<ForeignKeyDifference> results = new ArrayList<ForeignKeyDifference>();
 
@@ -208,7 +194,7 @@ public class SchemaCompare {
         return results;
     }
 
-    protected Collection<ViewDifference> compareViews() {
+    protected Collection<ViewDifference> compareViews(Schema schema1, Schema schema2) {
         Collection<ViewDifference> results = new ArrayList<ViewDifference>();
 
         List<List<View>> viewSets = new ArrayList<List<View>>(CompareUtils.EXPECTED_MISSING_ELEMENTS_SET_COUNT);
@@ -229,11 +215,11 @@ public class SchemaCompare {
         for (MatchingElement<View> match : missingViews.getBoth()) {
             results.addAll(CompareUtils.compareViews(schema1, match.getSet1Element(), schema2, match.getSet2Element()));
         }
-        
+
         return results;
     }
 
-    protected Collection<SequenceDifference> compareSequences() {
+    protected Collection<SequenceDifference> compareSequences(Schema schema1, Schema schema2) {
         Collection<SequenceDifference> results = new ArrayList<SequenceDifference>();
 
         List<List<Sequence>> sequenceSets = new ArrayList<List<Sequence>>(CompareUtils.EXPECTED_MISSING_ELEMENTS_SET_COUNT);
