@@ -1,0 +1,2 @@
+RuleName,DirName,RulesExpiration(days),RulesStatus
+snapshot_older_365,snapshot/,365,Disabled

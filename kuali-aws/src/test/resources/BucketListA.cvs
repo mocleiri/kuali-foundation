@@ -1,0 +1,6 @@
+RelArea,CandidateExpire GB,KeepSpace GB,Total GB
+builds/,252222,1294873,1547096
+release/,42220,28194,70414
+external/,639,136,775
+private/,2531,18092,20623
+snapshot/,752313,1888748,2641062
