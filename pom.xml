@@ -27,14 +27,14 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
-  <version>1.2.17-ks-cm</version>
+  <version>1.2.18-ks-cm-SNAPSHOT</version>
   <name>Kuali Deploy</name>
   <description>Project containing configuration and scripting for deploying Kuali applications to EC2</description>
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-deploy-1.2.17-ks-cm</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-deploy-1.2.17-ks-cm</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/tags/kuali-deploy-1.2.17-ks-cm</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-deploy-ks-cm</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/branches/kuali-deploy-ks-cm</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/branches/kuali-deploy-ks-cm</url>
   </scm>
   <properties>
     <parent.groupId>${project.parent.groupId}</parent.groupId>
