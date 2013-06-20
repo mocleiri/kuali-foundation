@@ -26,7 +26,7 @@ public class MobilityPomScrubber {
 			}
 			Collections.sort(paths);
 			for (String path : paths) {
-				System.out.println(path);
+				scrub(path);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,13 +36,16 @@ public class MobilityPomScrubber {
 	protected static void scrub(String path) throws IOException {
 		String original = LocationUtils.toString(path);
 		String scrubbed = getScrubbedContent(original);
-		FileUtils.write(new File(path), scrubbed);
+		if (!StringUtils.equals(original, scrubbed)) {
+			System.out.println(path);
+			FileUtils.write(new File(path), scrubbed);
+		}
 	}
 
 	protected static String getScrubbedContent(String content) {
 
-		String compile = "<scope>compile</scope>";
-		String jar = "<packaging>jar</packaging>";
+		String compile = "<scope>compile</scope>\n";
+		String jar = "<packaging>jar</packaging>\n";
 
 		List<String> removes = Arrays.asList(compile, jar);
 		for (String remove : removes) {
