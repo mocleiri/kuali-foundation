@@ -53,7 +53,7 @@ public class MobilityPomScrubber {
 			content = StringUtils.remove(content, remove);
 		}
 
-		KeyValue groupId = new KeyValue("<groupId>org.kuali.mobility</groupId>", "<groupId>${project.groupId}</groupId>");
+		KeyValue groupId = new KeyValue("<artifactId>academics</artifactId>", "<artifactId>kme-academics</artifactId>");
 		List<KeyValue> replaces = Arrays.asList(groupId);
 		for (KeyValue replace : replaces) {
 			content = StringUtils.replace(content, replace.getKey(), replace.getValue());
