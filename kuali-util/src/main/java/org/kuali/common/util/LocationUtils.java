@@ -123,7 +123,7 @@ public class LocationUtils {
 		long size = 0;
 		BufferedReader in = null;
 		try {
-			in = LocationUtils.getBufferedReader(location);
+			in = getBufferedReader(location);
 			String s = in.readLine();
 			while (s != null) {
 				lines++;
@@ -146,7 +146,7 @@ public class LocationUtils {
 		long count = 0;
 		BufferedReader in = null;
 		try {
-			in = LocationUtils.getBufferedReader(location);
+			in = getBufferedReader(location);
 			while (in.readLine() != null) {
 				count++;
 			}
@@ -163,7 +163,7 @@ public class LocationUtils {
 		for (int i = 0; i < locations.size(); i++) {
 			String location = locations.get(i);
 			File destination = files.get(i);
-			LocationUtils.copyLocationToFile(location, destination);
+			copyLocationToFile(location, destination);
 		}
 	}
 
