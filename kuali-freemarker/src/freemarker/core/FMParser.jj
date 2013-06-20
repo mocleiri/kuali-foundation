@@ -520,10 +520,10 @@ TOKEN:
     |
     <CALL : <START_TAG> "call" <BLANK>> {strictSyntaxCheck(matchedToken, FM_EXPRESSION);}
     |
-    // Begin Rice Change
+    // Begin Rice Mod
     <DYNCALL : <START_TAG> "dyncall" <BLANK>> {strictSyntaxCheck(matchedToken, FM_EXPRESSION);}
     |
-    // End Rice Change
+    // End Rice Mod
     <SETTING : <START_TAG> "setting" <BLANK>> {strictSyntaxCheck(matchedToken, FM_EXPRESSION);}
     |
     <COMPRESS : <START_TAG> "compress" <CLOSE_TAG1>> {strictSyntaxCheck(matchedToken, DEFAULT);}
@@ -2778,6 +2778,10 @@ TemplateElement FreemarkerDirective() :
      |
      tp=Call()
      |
+     // Begin Rice Mod
+     tp=DynamicCall()
+     |
+     // End Rice Mod
      tp=Comment()
      |
      tp=NoParse()
