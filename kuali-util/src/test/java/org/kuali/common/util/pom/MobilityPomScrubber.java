@@ -3,10 +3,12 @@ package org.kuali.common.util.pom;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
 
@@ -38,7 +40,15 @@ public class MobilityPomScrubber {
 	}
 
 	protected static String getScrubbedContent(String content) {
-		return null;
+
+		String compile = "<scope>compile</scope>";
+		String jar = "<packaging>jar</packaging>";
+
+		List<String> removes = Arrays.asList(compile, jar);
+		for (String remove : removes) {
+			content = StringUtils.remove(content, remove);
+		}
+		return content;
 	}
 
 }
