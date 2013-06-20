@@ -53,12 +53,63 @@ public class MobilityPomScrubber {
 			content = StringUtils.remove(content, remove);
 		}
 
-		KeyValue groupId = new KeyValue("<artifactId>academics</artifactId>", "<artifactId>kme-academics</artifactId>");
-		List<KeyValue> replaces = Arrays.asList(groupId);
+		List<KeyValue> replaces = getKeyValues(getModules(), getSubModules());
 		for (KeyValue replace : replaces) {
 			content = StringUtils.replace(content, replace.getKey(), replace.getValue());
 		}
 		return content;
+	}
+
+	protected static List<String> getModules() {
+		List<String> modules = new ArrayList<String>();
+		modules.add("academics");
+		modules.add("admin");
+		modules.add("alerts");
+		modules.add("bus");
+		modules.add("calendars");
+		modules.add("computerlabs");
+		modules.add("conference");
+		modules.add("configparams");
+		modules.add("configparams");
+		modules.add("database");
+		modules.add("dining");
+		modules.add("emergencyinfo");
+		modules.add("events");
+		modules.add("feedback");
+		modules.add("grades");
+		modules.add("maps");
+		modules.add("mdot-webapp");
+		modules.add("news");
+		modules.add("people");
+		modules.add("push");
+		modules.add("reporting");
+		modules.add("security.authentication");
+		modules.add("security.authorization");
+		modules.add("shared");
+		modules.add("tours");
+		modules.add("user");
+		modules.add("util.webservice.adapter");
+		modules.add("weather");
+		return modules;
+	}
+
+	protected static List<String> getSubModules() {
+		return Arrays.asList("api", "config", "impl", "ui", "web", "webapp");
+	}
+
+	protected static List<KeyValue> getKeyValues(List<String> modules, List<String> submodules) {
+		List<KeyValue> list = new ArrayList<KeyValue>();
+		for (String artifactId : modules) {
+			KeyValue kv = new KeyValue("<artifactId>" + artifactId + "</artifactId>", "<artifactId>kme-" + artifactId + "</artifactId>");
+			list.add(kv);
+			for (String submodule : submodules) {
+				String original = "<artifactId>" + artifactId + "-" + submodule + "</artifactId>";
+				String scrubbed = "<artifactId>kme-" + artifactId + "-" + submodule + "</artifactId>";
+				KeyValue kvv = new KeyValue(original, scrubbed);
+				list.add(kvv);
+			}
+		}
+		return list;
 	}
 
 }
