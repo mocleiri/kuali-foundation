@@ -1,6 +1,7 @@
 package org.kuali.common.util.pom;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MobilityPomScrubber {
 		}
 	}
 
-	protected static void scrub(String path) {
+	protected static void scrub(String path) throws IOException {
 		String original = LocationUtils.toString(path);
 		String scrubbed = getScrubbedContent(original);
 		FileUtils.write(new File(path), scrubbed);
