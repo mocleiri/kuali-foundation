@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.KeyValue;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
 
@@ -50,6 +51,12 @@ public class MobilityPomScrubber {
 		List<String> removes = Arrays.asList(compile, jar);
 		for (String remove : removes) {
 			content = StringUtils.remove(content, remove);
+		}
+
+		KeyValue groupId = new KeyValue("<groupId>org.kuali.mobility</groupId>", "<groupId>${project.groupId}</groupId>");
+		List<KeyValue> replaces = Arrays.asList(groupId);
+		for (KeyValue replace : replaces) {
+			content = StringUtils.replace(content, replace.getKey(), replace.getValue());
 		}
 		return content;
 	}

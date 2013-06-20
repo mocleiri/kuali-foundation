@@ -20,6 +20,16 @@ public class KeyValue {
 	String key;
 	String value;
 
+	public KeyValue() {
+		this(null, null);
+	}
+
+	public KeyValue(String key, String value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
+
 	public String getKey() {
 		return key;
 	}
