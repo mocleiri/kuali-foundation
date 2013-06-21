@@ -5,6 +5,16 @@ public class Line {
 	int index;
 	String content;
 
+	public Line() {
+		this(0, null);
+	}
+
+	public Line(int index, String content) {
+		super();
+		this.index = index;
+		this.content = content;
+	}
+
 	public int getIndex() {
 		return index;
 	}

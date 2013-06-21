@@ -47,21 +47,87 @@ public class MobilityPomScrubber {
 			for (String path : paths) {
 				scrub2(path);
 			}
+			for (String path : paths) {
+				scrub3(path);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected static void scrub3(String path) throws IOException {
-		List<String> lines = LocationUtils.readLines(path);
+	protected static Pom getPom(List<String> lines) {
+		Pom pom = new Pom();
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
-			if (StringUtils.contains(line, "<parent>")) {
-				if (reArrange(lines, i)) {
-					System.out.println(path);
-					FileUtils.writeLines(new File(path), lines);
-				}
+			if (StringUtils.startsWith(line, "    <artifactId>")) {
+				pom.setArtifactId(new Line(i, line));
+			} else if (StringUtils.startsWith(line, "    <version>")) {
+				pom.setVersion(new Line(i, line));
+			} else if (StringUtils.startsWith(line, "    <packaging>")) {
+				pom.setPackaging(new Line(i, line));
+			} else if (StringUtils.startsWith(line, "    <name>")) {
+				pom.setName(new Line(i, line));
+			} else if (StringUtils.startsWith(line, "    <description>")) {
+				pom.setDescription(new Line(i, line));
+			} else if (StringUtils.startsWith(line, "    </parent>")) {
+				pom.setEndParentTag(new Line(i, line));
 			}
+		}
+		return pom;
+	}
+
+	protected static void scrub3(String path) throws IOException {
+		List<String> lines = LocationUtils.readLines(path);
+		Pom pom = getPom(lines);
+		reArrange(pom, lines);
+	}
+
+	protected static void reArrange(Pom pom, List<String> lines) {
+		if (pom.getEndParentTag() == null) {
+			return;
+		}
+
+		// Setup indexes
+		int endParentIndex = pom.getEndParentTag().getIndex();
+		int addIndex = endParentIndex + 1;
+
+		// Add stuff
+		if (pom.getArtifactId() != null && pom.getArtifactId().getIndex() < endParentIndex) {
+			lines.add(addIndex, pom.getArtifactId().getContent());
+			addIndex++;
+		}
+		if (pom.getVersion() != null && pom.getVersion().getIndex() < endParentIndex) {
+			lines.add(addIndex, pom.getVersion().getContent());
+			addIndex++;
+		}
+		if (pom.getPackaging() != null && pom.getPackaging().getIndex() < endParentIndex) {
+			lines.add(addIndex, pom.getPackaging().getContent());
+			addIndex++;
+		}
+		if (pom.getName() != null && pom.getName().getIndex() < endParentIndex) {
+			lines.add(addIndex, pom.getName().getContent());
+			addIndex++;
+		}
+		if (pom.getDescription() != null && pom.getDescription().getIndex() < endParentIndex) {
+			lines.add(addIndex, pom.getDescription().getContent());
+			addIndex++;
+		}
+
+		// Delete stuff
+		if (pom.getArtifactId() != null && pom.getArtifactId().getIndex() < endParentIndex) {
+			lines.remove(pom.getArtifactId().getIndex());
+		}
+		if (pom.getVersion() != null && pom.getVersion().getIndex() < endParentIndex) {
+			lines.remove(pom.getVersion().getIndex());
+		}
+		if (pom.getPackaging() != null && pom.getPackaging().getIndex() < endParentIndex) {
+			lines.remove(pom.getPackaging().getIndex());
+		}
+		if (pom.getName() != null && pom.getName().getIndex() < endParentIndex) {
+			lines.remove(pom.getName().getIndex());
+		}
+		if (pom.getDescription() != null && pom.getDescription().getIndex() < endParentIndex) {
+			lines.remove(pom.getDescription().getIndex());
 		}
 	}
 
