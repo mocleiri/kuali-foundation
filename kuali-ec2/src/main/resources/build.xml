@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project name="Tomcat Instance Manager">
@@ -187,6 +187,9 @@
     <chmod dir="${jdk7.dir}/bin" perm="755" includes="*" />
     <chmod dir="${jdk7.dir}/jre/bin" perm="755" includes="*" />
     <symlink link="/usr/java/jdk7" resource="${jdk7.dir}" />
+
+    <!-- This is for AppDynamics, it needs tools.jar in this exact spot -->
+    <copy file="/usr/java/jdk7/lib/tools.jar" tofile="/usr/java/jdk7/jre/lib/ext/tools.jar" overwrite="true" />
   </target>
 
   <target name="updatejdk6">
@@ -196,6 +199,9 @@
     <chmod dir="${jdk6.dir}/bin" perm="755" includes="*" />
     <chmod dir="${jdk6.dir}/jre/bin" perm="755" includes="*" />
     <symlink link="/usr/java/jdk6" resource="${jdk6.dir}" />
+
+    <!-- This is for AppDynamics, it needs tools.jar in this exact spot -->
+    <copy file="/usr/java/jdk6/lib/tools.jar" tofile="/usr/java/jdk6/jre/lib/ext/tools.jar" overwrite="true" />
   </target>
 
   <target name="installtomcat" depends="tomcatinit,updatejdk6,updatejdk7">
