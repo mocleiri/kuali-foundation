@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -125,19 +126,27 @@ public class MobilityPomScrubber {
 
 		// Delete stuff
 		if (pom.getArtifactId() != null && pom.getArtifactId().getIndex() < endParentIndex) {
-			lines.remove(pom.getArtifactId().getIndex());
+			lines.set(pom.getArtifactId().getIndex(), "");
 		}
 		if (pom.getVersion() != null && pom.getVersion().getIndex() < endParentIndex) {
-			lines.remove(pom.getVersion().getIndex());
+			lines.set(pom.getVersion().getIndex(), "");
 		}
 		if (pom.getPackaging() != null && pom.getPackaging().getIndex() < endParentIndex) {
-			lines.remove(pom.getPackaging().getIndex());
+			lines.set(pom.getPackaging().getIndex(), "");
 		}
 		if (pom.getName() != null && pom.getName().getIndex() < endParentIndex) {
-			lines.remove(pom.getName().getIndex());
+			lines.set(pom.getName().getIndex(), "");
 		}
 		if (pom.getDescription() != null && pom.getDescription().getIndex() < endParentIndex) {
-			lines.remove(pom.getDescription().getIndex());
+			lines.set(pom.getDescription().getIndex(), "");
+		}
+
+		Iterator<String> itr = lines.iterator();
+		while (itr.hasNext()) {
+			String line = itr.next();
+			if (StringUtils.isBlank(line)) {
+				itr.remove();
+			}
 		}
 		return reArranged;
 	}
