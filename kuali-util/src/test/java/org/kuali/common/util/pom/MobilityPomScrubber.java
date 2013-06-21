@@ -44,9 +44,43 @@ public class MobilityPomScrubber {
 			for (String path : paths) {
 				scrub(path);
 			}
+			for (String path : paths) {
+				scrub2(path);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static void scrub2(String path) throws IOException {
+		List<String> lines = LocationUtils.readLines(path);
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			if (StringUtils.contains(line, "<parent>")) {
+				if (reArrange(lines, i)) {
+					System.out.println(path);
+					FileUtils.writeLines(new File(path), lines);
+				}
+			}
+		}
+	}
+
+	protected static boolean reArrange(List<String> lines, int parentIndex) {
+		String artifactId = lines.get(parentIndex + 1);
+		String groupId = lines.get(parentIndex + 2);
+
+		if (!StringUtils.contains(artifactId, "<artifactId>")) {
+			return false;
+		}
+
+		if (!StringUtils.contains(groupId, "<groupId>")) {
+			return false;
+		}
+
+		lines.set(parentIndex + 1, groupId);
+		lines.set(parentIndex + 2, artifactId);
+		return true;
+
 	}
 
 	protected static void scrub(String path) throws IOException {
