@@ -79,13 +79,18 @@ public class MobilityPomScrubber {
 	protected static void scrub3(String path) throws IOException {
 		List<String> lines = LocationUtils.readLines(path);
 		Pom pom = getPom(lines);
-		reArrange(pom, lines);
+		if (reArrange(pom, lines)) {
+			System.out.println(path);
+			FileUtils.writeLines(new File(path), lines);
+		}
 	}
 
-	protected static void reArrange(Pom pom, List<String> lines) {
+	protected static boolean reArrange(Pom pom, List<String> lines) {
 		if (pom.getEndParentTag() == null) {
-			return;
+			return false;
 		}
+
+		boolean reArranged = false;
 
 		// Setup indexes
 		int endParentIndex = pom.getEndParentTag().getIndex();
@@ -95,22 +100,27 @@ public class MobilityPomScrubber {
 		if (pom.getArtifactId() != null && pom.getArtifactId().getIndex() < endParentIndex) {
 			lines.add(addIndex, pom.getArtifactId().getContent());
 			addIndex++;
+			reArranged = true;
 		}
 		if (pom.getVersion() != null && pom.getVersion().getIndex() < endParentIndex) {
 			lines.add(addIndex, pom.getVersion().getContent());
 			addIndex++;
+			reArranged = true;
 		}
 		if (pom.getPackaging() != null && pom.getPackaging().getIndex() < endParentIndex) {
 			lines.add(addIndex, pom.getPackaging().getContent());
 			addIndex++;
+			reArranged = true;
 		}
 		if (pom.getName() != null && pom.getName().getIndex() < endParentIndex) {
 			lines.add(addIndex, pom.getName().getContent());
 			addIndex++;
+			reArranged = true;
 		}
 		if (pom.getDescription() != null && pom.getDescription().getIndex() < endParentIndex) {
 			lines.add(addIndex, pom.getDescription().getContent());
 			addIndex++;
+			reArranged = true;
 		}
 
 		// Delete stuff
@@ -129,6 +139,7 @@ public class MobilityPomScrubber {
 		if (pom.getDescription() != null && pom.getDescription().getIndex() < endParentIndex) {
 			lines.remove(pom.getDescription().getIndex());
 		}
+		return reArranged;
 	}
 
 	protected static void scrub2(String path) throws IOException {
