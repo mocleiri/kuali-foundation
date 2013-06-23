@@ -33,17 +33,21 @@ public class UnixCmds {
 	private static final String CP = "cp";
 
 	public String cp(String src, String dst) {
-		return cp(null, src, dst);
+		return cp(null, src, dst, false);
 	}
 
-	public String cp(List<String> options, String src, String dst) {
+	public String cp(String src, String dst, boolean bypassAnyAliases) {
+		return cp(null, src, dst, bypassAnyAliases);
+	}
+
+	public String cp(List<String> options, String src, String dst, boolean bypassAnyAliases) {
 		Assert.hasText(src, "src has no text");
 		Assert.hasText(dst, "dst has no text");
 		List<String> args = new ArrayList<String>();
 		args.addAll(CollectionUtils.toEmptyList(options));
 		args.add(src);
 		args.add(dst);
-		return cmd(CP, args);
+		return cmd(CP, args, bypassAnyAliases);
 	}
 
 	public String nohup(String command) {
@@ -232,7 +236,14 @@ public class UnixCmds {
 	}
 
 	public String cmd(String executable, List<String> args) {
+		return cmd(executable, args, false);
+	}
+
+	public String cmd(String executable, List<String> args, boolean bypassAnyAliases) {
 		StringBuilder sb = new StringBuilder();
+		if (bypassAnyAliases) {
+			sb.append("\"");
+		}
 		sb.append(executable);
 		if (!CollectionUtils.isEmpty(args)) {
 			sb.append(" ");
@@ -240,5 +251,4 @@ public class UnixCmds {
 		}
 		return sb.toString();
 	}
-
 }
