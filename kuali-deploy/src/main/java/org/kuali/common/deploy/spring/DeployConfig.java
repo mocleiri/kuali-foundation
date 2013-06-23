@@ -381,11 +381,30 @@ public class DeployConfig {
 		return adm;
 	}
 
+	protected List<String> getCopyToolsDotJarToJreCommands() {
+		UnixCmds cmds = new UnixCmds();
+
+		// copy the jdk6 tools.jar to the jdk6 jre/lib/ext area
+		String jdk6Src = SpringUtils.getProperty(env, "jdk6.tools.jar.src");
+		String jdk6Dst = SpringUtils.getProperty(env, "jdk6.tools.jar.dst");
+		String jdk6Cmd = cmds.cp(jdk6Src, jdk6Dst, true);
+
+		// copy the jdk7 tools.jar to the jdk7 jre/lib/ext area
+		String jdk7Src = SpringUtils.getProperty(env, "jdk7.tools.jar.src");
+		String jdk7Dst = SpringUtils.getProperty(env, "jdk7.tools.jar.dst");
+		String jdk7Cmd = cmds.cp(jdk7Src, jdk7Dst, true);
+
+		return Arrays.asList(jdk6Cmd, jdk7Cmd);
+
+	}
+
 	protected SysAdminExecutable getSysAdminExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, "sysadmin.skip", false);
 		String hostname = SpringUtils.getProperty(env, "dns.hostname");
 		UnixCmds cmds = new UnixCmds();
-		List<String> commands = Arrays.asList(cmds.hostname(hostname));
+		List<String> commands = new ArrayList<String>();
+		commands.add(cmds.hostname(hostname));
+		commands.addAll(getCopyToolsDotJarToJreCommands());
 		SysAdminExecutable sysadmin = new SysAdminExecutable();
 		sysadmin.setChannel(kdoSecureChannel());
 		sysadmin.setCommands(commands);
