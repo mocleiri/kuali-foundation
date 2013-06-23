@@ -30,6 +30,21 @@ public class UnixCmds {
 	private static final String PS = "ps";
 	private static final String KILL = "kill";
 	private static final String NOHUP = "nohup";
+	private static final String CP = "cp";
+
+	public String cp(String src, String dst) {
+		return cp(null, src, dst);
+	}
+
+	public String cp(List<String> options, String src, String dst) {
+		Assert.hasText(src, "src has no text");
+		Assert.hasText(dst, "dst has no text");
+		List<String> args = new ArrayList<String>();
+		args.addAll(CollectionUtils.toEmptyList(options));
+		args.add(src);
+		args.add(dst);
+		return cmd(CP, args);
+	}
 
 	public String nohup(String command) {
 		return nohup(command, new ArrayList<String>());
