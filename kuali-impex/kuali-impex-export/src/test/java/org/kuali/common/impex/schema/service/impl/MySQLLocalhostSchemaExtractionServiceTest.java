@@ -28,7 +28,7 @@ import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 
-public class TestLocalhostSchemaExtractionService {
+public class MySQLLocalhostSchemaExtractionServiceTest {
 
 	protected static final int EXPECTED_TABLE_COUNT = 2;
 
