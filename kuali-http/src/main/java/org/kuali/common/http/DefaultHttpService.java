@@ -44,12 +44,13 @@ public class DefaultHttpService implements HttpService {
 		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
-		logger.info("Waiting for [{}] - [Timeout in {}]", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
+		Object[] args = { context.getLogMsgPrefix(), context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()) };
+		logger.info("{} - [{}] - [Timeout in {}]", args);
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
 			if (!isFinishState(context, rr, end)) {
-				logHttpRequestResult(rr, context.getUrl(), end);
+				logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end);
 				sleep(context.getSleepIntervalMillis());
 			} else {
 				HttpStatus status = getResultStatus(context, rr, end);
@@ -57,25 +58,25 @@ public class DefaultHttpService implements HttpService {
 				waitResult.setStop(rr.getStop());
 				waitResult.setElapsed(waitResult.getStop() - waitResult.getStart());
 				waitResult.setFinalRequestResult(rr);
-				logWaitResult(waitResult, context.getUrl());
+				logWaitResult(waitResult, context.getUrl(), context.getLogMsgPrefix());
 				return waitResult;
 			}
 		}
 	}
 
-	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
+	protected void logHttpRequestResult(String logMsgPrefix, HttpRequestResult result, String url, long end) {
 		String statusText = getStatusText(result);
 		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
-		Object[] args = { url, statusText, timeout };
-		logger.info("Waiting for [{}] - [{}] - [Timeout in {}]", args);
+		Object[] args = { logMsgPrefix, url, statusText, timeout };
+		logger.info("{} [{}] - [{}] - [Timeout in {}]", args);
 	}
 
-	protected void logWaitResult(HttpWaitResult result, String url) {
+	protected void logWaitResult(HttpWaitResult result, String url, String logMsgPrefix) {
 		String status = result.getStatus().toString();
 		String elapsed = FormatUtils.getTime(result.getStop() - result.getStart());
 		String statusText = getStatusText(result.getFinalRequestResult());
-		Object[] args = { url, status, statusText, elapsed };
-		logger.info("{} - [{} - {}]  Total time: {}", args);
+		Object[] args = { logMsgPrefix, url, status, statusText, elapsed };
+		logger.info("{} - {} - [{} - {}]  Total time: {}", args);
 	}
 
 	protected String getStatusText(HttpRequestResult result) {

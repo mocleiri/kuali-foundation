@@ -20,6 +20,9 @@ import java.util.List;
 
 public class HttpContext {
 
+	// Gets printed as a prefix to any log messages emitted by the HttpService
+	String logMsgPrefix = "Waiting for";
+
 	// Url to contact
 	String url;
 
@@ -85,6 +88,14 @@ public class HttpContext {
 
 	public void setContinueWaitingCodes(List<Integer> continueWaitingCodes) {
 		this.continueWaitingCodes = continueWaitingCodes;
+	}
+
+	public String getLogMsgPrefix() {
+		return logMsgPrefix;
+	}
+
+	public void setLogMsgPrefix(String logMsgPrefix) {
+		this.logMsgPrefix = logMsgPrefix;
 	}
 
 }
