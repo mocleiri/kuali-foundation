@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.1.12</version>
+    <version>3.1.13</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
@@ -47,10 +47,6 @@
 
     <!-- These properties modify the release process -->
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
-
-    <!-- Remove this before release -->
-    <kuali-util.version>4.2.15-SNAPSHOT</kuali-util.version>
-    <kuali-http.version>1.0.2</kuali-http.version>
   </properties>
   <profiles>
     <profile>
