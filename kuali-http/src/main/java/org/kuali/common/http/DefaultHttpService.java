@@ -40,12 +40,11 @@ public class DefaultHttpService implements HttpService {
 		Assert.notBlank(context.getUrl(), "url is blank");
 		logger.debug(context.getUrl());
 		HttpClient client = getHttpClient(context);
-		HttpWaitResult waitResult = new HttpWaitResult();
-		waitResult.setStart(System.currentTimeMillis());
+		HttpWaitResult waitResult = new HttpWaitResult(System.currentTimeMillis());
 		long end = waitResult.getStart() + context.getOverallTimeoutMillis();
 		List<HttpRequestResult> requestResults = new ArrayList<HttpRequestResult>();
 		waitResult.setRequestResults(requestResults);
-		logger.info("Determining status for {} - [Timeout in {}]", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
+		logger.info("Waiting for [{}] - [Timeout in {}]", context.getUrl(), FormatUtils.getTime(context.getOverallTimeoutMillis()));
 		for (;;) {
 			HttpRequestResult rr = doRequest(client, context);
 			requestResults.add(rr);
@@ -64,6 +63,13 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
+	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
+		String statusText = getStatusText(result);
+		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
+		Object[] args = { url, statusText, timeout };
+		logger.info("Waiting for [{}] - [{}] - [Timeout in {}]", args);
+	}
+
 	protected void logWaitResult(HttpWaitResult result, String url) {
 		String status = result.getStatus().toString();
 		String elapsed = FormatUtils.getTime(result.getStop() - result.getStart());
@@ -72,16 +78,9 @@ public class DefaultHttpService implements HttpService {
 		logger.info("{} - [{} - {}]  Total time: {}", args);
 	}
 
-	protected void logHttpRequestResult(HttpRequestResult result, String url, long end) {
-		String statusText = getStatusText(result);
-		String timeout = FormatUtils.getTime(end - System.currentTimeMillis());
-		Object[] args = { url, statusText, timeout };
-		logger.info("{} - [{}] - [Timeout in {}]", args);
-	}
-
 	protected String getStatusText(HttpRequestResult result) {
 		if (result.getException() != null) {
-			return result.getException().toString();
+			return result.getException().getMessage();
 		} else {
 			return result.getStatusCode() + " - " + result.getStatusText();
 		}
@@ -139,8 +138,7 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected HttpRequestResult doRequest(HttpClient client, HttpContext context) {
-		HttpRequestResult result = new HttpRequestResult();
-		result.setStart(System.currentTimeMillis());
+		HttpRequestResult result = new HttpRequestResult(System.currentTimeMillis());
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
 			client.executeMethod(method);

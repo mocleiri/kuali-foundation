@@ -26,6 +26,15 @@ public class HttpRequestResult {
 	long stop;
 	long elapsed;
 
+	public HttpRequestResult() {
+		this(0);
+	}
+
+	public HttpRequestResult(long start) {
+		super();
+		this.start = start;
+	}
+
 	public Integer getStatusCode() {
 		return statusCode;
 	}

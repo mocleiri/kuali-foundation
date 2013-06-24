@@ -26,6 +26,16 @@ public class HttpWaitResult {
 	HttpStatus status;
 	HttpRequestResult finalRequestResult;
 
+	public HttpWaitResult() {
+		this(0);
+
+	}
+
+	public HttpWaitResult(long start) {
+		super();
+		this.start = start;
+	}
+
 	public long getStart() {
 		return start;
 	}
