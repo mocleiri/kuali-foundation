@@ -19,13 +19,18 @@ import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.impex.schema.SequenceFinder;
+import org.kuali.common.impex.schema.ViewFinder;
+
 public class SchemaExtractionContext {
 
     protected int threadCount;
     protected DatabaseMetaData databaseMetaData;
-    private String schemaName;
-    private List<String> tableNameIncludes = new ArrayList<String>();
-    private List<String> tableNameExcludes = new ArrayList<String>();
+    protected String schemaName;
+    protected List<String> elementNameIncludes = new ArrayList<String>();
+    protected List<String> elementNameExcludes = new ArrayList<String>();
+    protected ViewFinder viewFinder;
+    protected SequenceFinder sequenceFinder;
 
     public int getThreadCount() {
         return threadCount;
@@ -51,19 +56,35 @@ public class SchemaExtractionContext {
         this.schemaName = schemaName;
     }
 
-    public List<String> getTableNameIncludes() {
-        return tableNameIncludes;
+    public List<String> getElementNameIncludes() {
+        return elementNameIncludes;
     }
 
-    public void setTableNameIncludes(List<String> tableNameIncludes) {
-        this.tableNameIncludes = tableNameIncludes;
+    public void setElementNameIncludes(List<String> elementNameIncludes) {
+        this.elementNameIncludes = elementNameIncludes;
     }
 
-    public List<String> getTableNameExcludes() {
-        return tableNameExcludes;
+    public List<String> getElementNameExcludes() {
+        return elementNameExcludes;
     }
 
-    public void setTableNameExcludes(List<String> tableNameExcludes) {
-        this.tableNameExcludes = tableNameExcludes;
+    public void setElementNameExcludes(List<String> elementNameExcludes) {
+        this.elementNameExcludes = elementNameExcludes;
+    }
+
+    public ViewFinder getViewFinder() {
+        return viewFinder;
+    }
+
+    public void setViewFinder(ViewFinder viewFinder) {
+        this.viewFinder = viewFinder;
+    }
+
+    public SequenceFinder getSequenceFinder() {
+        return sequenceFinder;
+    }
+
+    public void setSequenceFinder(SequenceFinder sequenceFinder) {
+        this.sequenceFinder = sequenceFinder;
     }
 }

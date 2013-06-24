@@ -20,9 +20,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
+import org.kuali.common.impex.model.util.NamedElementComparator;
 
 public class OracleSequenceFinder implements SequenceFinder {
 
@@ -58,6 +60,8 @@ public class OracleSequenceFinder implements SequenceFinder {
 			results.add(new Sequence(name, value));
 		}
 
-		return results;
+        Collections.sort(results, NamedElementComparator.getInstance());
+
+        return results;
 	}
 }
