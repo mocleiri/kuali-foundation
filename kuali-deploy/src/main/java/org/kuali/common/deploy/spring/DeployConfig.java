@@ -104,6 +104,7 @@ public class DeployConfig {
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.webapps"));
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.work"));
+		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.temp"));
 		return pathsToDelete;
 	}
 
@@ -113,6 +114,7 @@ public class DeployConfig {
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.logs"));
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.webapps"));
 		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.conf.catalina"));
+		dirsToCreate.add(SpringUtils.getProperty(env, "tomcat.temp"));
 		return dirsToCreate;
 	}
 
