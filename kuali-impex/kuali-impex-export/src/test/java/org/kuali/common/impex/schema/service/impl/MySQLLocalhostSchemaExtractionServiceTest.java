@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.schema.service.impl;
 
-
 public class MySQLLocalhostSchemaExtractionServiceTest extends BaseLocalhostSchemaExtractionServiceTest {
 
 	@Override
