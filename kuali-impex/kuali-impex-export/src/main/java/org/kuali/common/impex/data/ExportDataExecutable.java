@@ -15,49 +15,46 @@
 
 package org.kuali.common.impex.data;
 
-import org.kuali.common.impex.data.ExportDataContext;
-import org.kuali.common.impex.data.ExportDataService;
 import org.kuali.common.util.execute.Executable;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class ExportDataExecutable implements Executable {
 
-    ExportDataContext context;
+	ExportDataContext context;
 
-    ExportDataService service;
+	ExportDataService service;
 
-    Boolean skip;
+	Boolean skip;
 
-    public static final Boolean DEFAULT_SKIP_EXECUTION = false;
+	public static final Boolean DEFAULT_SKIP_EXECUTION = false;
 
-    public ExportDataExecutable() {
-        this(DEFAULT_SKIP_EXECUTION);
-    }
+	public ExportDataExecutable() {
+		this(DEFAULT_SKIP_EXECUTION);
+	}
 
-    public ExportDataExecutable(Boolean b) {
-        this.skip = b;
-    }
+	public ExportDataExecutable(Boolean b) {
+		this.skip = b;
+	}
 
-    @Override
-    public void execute() {
-        if(!skip) {
-            service.exportTables(context);
-        }
-    }
+	@Override
+	public void execute() {
+		if (!skip) {
+			service.exportTables(context);
+		}
+	}
 
-    public ExportDataContext getContext() {
-        return context;
-    }
+	public ExportDataContext getContext() {
+		return context;
+	}
 
-    public void setContext(ExportDataContext context) {
-        this.context = context;
-    }
+	public void setContext(ExportDataContext context) {
+		this.context = context;
+	}
 
-    public ExportDataService getService() {
-        return service;
-    }
+	public ExportDataService getService() {
+		return service;
+	}
 
-    public void setService(ExportDataService service) {
-        this.service = service;
-    }
+	public void setService(ExportDataService service) {
+		this.service = service;
+	}
 }
