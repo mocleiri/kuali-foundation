@@ -381,7 +381,10 @@ public class DeployConfig {
 		return adm;
 	}
 
-	protected List<String> getCopyToolsDotJarToJreCommands() {
+	/**
+	 * Copy tools.jar to the jre/lib/ext directory. This is so AppDynamics can monitor the heap
+	 */
+	protected List<String> getCopyToolsJarToJreLibExt() {
 		UnixCmds cmds = new UnixCmds();
 
 		// copy the jdk6 tools.jar to the jdk6 jre/lib/ext area
@@ -404,7 +407,7 @@ public class DeployConfig {
 		UnixCmds cmds = new UnixCmds();
 		List<String> commands = new ArrayList<String>();
 		commands.add(cmds.hostname(hostname));
-		commands.addAll(getCopyToolsDotJarToJreCommands());
+		commands.addAll(getCopyToolsJarToJreLibExt());
 		SysAdminExecutable sysadmin = new SysAdminExecutable();
 		sysadmin.setChannel(kdoSecureChannel());
 		sysadmin.setCommands(commands);
