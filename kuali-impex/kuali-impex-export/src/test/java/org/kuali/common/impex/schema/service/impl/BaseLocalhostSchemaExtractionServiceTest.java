@@ -54,6 +54,8 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			Properties props = PropertyUtils.load(propertiesLocation);
 			SchemaExtractionService service = ReflectionUtils.newInstance(props.getProperty("impex.export.service"));
 			SchemaExtractionContext context = new SchemaExtractionContext();
+			context.setSchemaName(props.getProperty("jdbc.username"));
+			context.setThreadCount(3);
 			Schema s = service.getSchema(context);
 
 			Assert.assertEquals(EXPECTED_TABLE_COUNT, s.getTables().size());
