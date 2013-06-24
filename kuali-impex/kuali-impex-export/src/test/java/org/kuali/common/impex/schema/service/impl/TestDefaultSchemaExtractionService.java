@@ -15,11 +15,14 @@
 
 package org.kuali.common.impex.schema.service.impl;
 
+import static junit.framework.Assert.assertEquals;
+
 import java.util.List;
 
 import org.junit.Test;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
+import org.kuali.common.impex.schema.service.SchemaExtractionService;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
@@ -27,28 +30,26 @@ import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 
-import static junit.framework.Assert.assertEquals;
-
 public class TestDefaultSchemaExtractionService {
 
-    protected static final int EXPECTED_TABLE_COUNT = 2;
+	protected static final int EXPECTED_TABLE_COUNT = 2;
 
-    @Test
-    public void testGetSchema() {
+	@Test
+	public void testGetSchema() {
 
-        // load the schema
-        List<Class<?>> configClasses = CollectionUtils.asList(SqlControllerConfig.class);
-        ProjectContext project = new JdbcProjectContext();
-        String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/test/schemaExtractTest.properties";
-        SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
-        executable.execute();
+		// load the schema
+		List<Class<?>> configClasses = CollectionUtils.asList(SqlControllerConfig.class);
+		ProjectContext project = new JdbcProjectContext();
+		String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/test/schemaExtractTest.properties";
+		SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
+		executable.execute();
 
-        // extract the schema
-        DefaultSchemaExtractionService service = new DefaultSchemaExtractionService();
-        SchemaExtractionContext context = new SchemaExtractionContext();
-        Schema s = service.getSchema(context);
+		// extract the schema
+		SchemaExtractionService service = null; // new DefaultSchemaExtractionService();
+		SchemaExtractionContext context = new SchemaExtractionContext();
+		Schema s = service.getSchema(context);
 
-        assertEquals(EXPECTED_TABLE_COUNT, s.getTables().size());
-    }
+		assertEquals(EXPECTED_TABLE_COUNT, s.getTables().size());
+	}
 
 }
