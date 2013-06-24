@@ -25,7 +25,7 @@ import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.execute.SpringExecutable;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 
 public class TestLocalhostSchemaExtractionService {
@@ -40,7 +40,7 @@ public class TestLocalhostSchemaExtractionService {
 			List<Class<?>> configClasses = CollectionUtils.asList(SqlControllerConfig.class);
 			ProjectContext project = new JdbcProjectContext();
 			String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/localhost.properties";
-			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
+			Executable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
 			executable.execute();
 
 			// extract the schema
