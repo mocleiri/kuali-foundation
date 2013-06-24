@@ -52,6 +52,8 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 
 			// extract the schema
 			Properties props = PropertyUtils.load(propertiesLocation);
+
+			// This property points to the MockImpl, uncomment the DefaultImpl once it is ready
 			SchemaExtractionService service = ReflectionUtils.newInstance(props.getProperty("impex.export.service"));
 			SchemaExtractionContext context = new SchemaExtractionContext();
 			context.setSchemaName(props.getProperty("jdbc.username"));
