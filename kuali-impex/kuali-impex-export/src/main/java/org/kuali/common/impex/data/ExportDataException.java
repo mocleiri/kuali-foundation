@@ -17,8 +17,13 @@ package org.kuali.common.impex.data;
 
 public class ExportDataException extends Exception {
 
-    public ExportDataException(String msg, Exception parent) {
-        super(msg, parent);
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4355985882812363098L;
+
+	public ExportDataException(String msg, Exception parent) {
+		super(msg, parent);
+	}
 
 }
