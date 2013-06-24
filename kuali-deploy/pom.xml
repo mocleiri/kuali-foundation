@@ -50,7 +50,7 @@
 
     <!-- Remove this before release -->
     <kuali-util.version>4.2.15-SNAPSHOT</kuali-util.version>
-    <kuali-http.version>1.0.2-SNAPSHOT</kuali-http.version>
+    <kuali-http.version>1.0.2</kuali-http.version>
   </properties>
   <profiles>
     <profile>
