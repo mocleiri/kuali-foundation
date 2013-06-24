@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.schema.service.impl;
 
-import java.util.List;
 import java.util.Properties;
 
 import junit.framework.Assert;
@@ -26,7 +25,6 @@ import org.kuali.common.impex.schema.service.SchemaExtractionContext;
 import org.kuali.common.impex.schema.service.SchemaExtractionService;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
@@ -43,16 +41,17 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 	public void testGetSchema() {
 
 		try {
-			// load the schema
-			List<Class<?>> configClasses = CollectionUtils.asList(SqlControllerConfig.class);
-			ProjectContext project = new JdbcProjectContext();
+			// Set a system property to establish the database vendor
 			System.setProperty("db.vendor", getDatabaseVendor());
+
+			// load the schema
+			ProjectContext project = new JdbcProjectContext();
 			String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/localhost.properties";
-			Properties props = PropertyUtils.load(propertiesLocation);
-			Executable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
+			Executable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, SqlControllerConfig.class);
 			executable.execute();
 
 			// extract the schema
+			Properties props = PropertyUtils.load(propertiesLocation);
 			SchemaExtractionService service = ReflectionUtils.newInstance(props.getProperty("impex.export.service"));
 			SchemaExtractionContext context = new SchemaExtractionContext();
 			Schema s = service.getSchema(context);
