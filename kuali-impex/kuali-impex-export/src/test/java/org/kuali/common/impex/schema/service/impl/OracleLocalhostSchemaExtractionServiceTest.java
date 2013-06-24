@@ -16,7 +16,7 @@
 package org.kuali.common.impex.schema.service.impl;
 
 
-public class MySQLLocalhostSchemaExtractionServiceTest extends BaseLocalhostSchemaExtractionServiceTest {
+public class OracleLocalhostSchemaExtractionServiceTest extends BaseLocalhostSchemaExtractionServiceTest {
 
 	@Override
 	protected String getDatabaseVendor() {
