@@ -116,7 +116,7 @@
 
     <!-- Internal kuali library versions -->
     <kuali-deploy.version>2.2.10</kuali-deploy.version>
-    <kuali-http.version>1.0.1</kuali-http.version>
+    <kuali-http.version>1.0.2</kuali-http.version>
     <kuali-jdbc.version>3.1.6</kuali-jdbc.version>
     <kuali-maven.version>1.0.3</kuali-maven.version>
     <kuali-sql.version>2.0.5</kuali-sql.version>
