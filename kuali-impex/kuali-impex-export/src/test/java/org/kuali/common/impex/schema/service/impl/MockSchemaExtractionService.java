@@ -8,7 +8,9 @@ public class MockSchemaExtractionService implements SchemaExtractionService {
 
 	@Override
 	public Schema getSchema(SchemaExtractionContext context) {
-		return new Schema();
+		Schema schema = new Schema();
+
+		return schema;
 	}
 
 }
