@@ -17,6 +17,8 @@ package org.kuali.common.impex.schema.service.impl;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
@@ -31,6 +33,8 @@ import org.kuali.common.util.spring.SpringUtils;
 public abstract class BaseLocalhostSchemaExtractionServiceTest {
 
 	protected abstract String getDatabaseVendor();
+
+	private static final int EXPECTED_TABLE_COUNT = 2;
 
 	@Test
 	public void testGetSchema() {
@@ -49,7 +53,7 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			SchemaExtractionContext context = new SchemaExtractionContext();
 			Schema s = service.getSchema(context);
 
-			// assertEquals(EXPECTED_TABLE_COUNT, s.getTables().size());
+			Assert.assertEquals(EXPECTED_TABLE_COUNT, s.getTables().size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
