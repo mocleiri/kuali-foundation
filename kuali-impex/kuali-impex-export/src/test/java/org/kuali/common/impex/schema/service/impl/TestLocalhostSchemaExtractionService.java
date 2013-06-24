@@ -39,6 +39,7 @@ public class TestLocalhostSchemaExtractionService {
 			// load the schema
 			List<Class<?>> configClasses = CollectionUtils.asList(SqlControllerConfig.class);
 			ProjectContext project = new JdbcProjectContext();
+			System.setProperty("db.vendor", "mysql");
 			String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/localhost.properties";
 			Executable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, configClasses);
 			executable.execute();
