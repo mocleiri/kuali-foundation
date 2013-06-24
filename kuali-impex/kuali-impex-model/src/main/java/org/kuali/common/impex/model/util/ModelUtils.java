@@ -27,7 +27,7 @@ import org.kuali.common.util.CollectionUtils;
 
 public class ModelUtils {
 
-    public static String getCsvPrimaryKeyColumnNames(Table t) {
+    public static List<String> getPrimaryKeyColumnNames(Table t) {
         List<String> names = new ArrayList<String>();
         for (Column col : CollectionUtils.toEmptyList(t.getColumns())) {
             if (col.isPrimaryKey()) {
@@ -35,10 +35,15 @@ public class ModelUtils {
             }
         }
 
+        return names;
+    }
+
+    public static String getCsvPrimaryKeyColumnNames(Table t) {
+        List<String> names = getPrimaryKeyColumnNames(t);
+
         if (names.isEmpty()) {
             return "";
-        }
-        else {
+        } else {
             return CollectionUtils.getCSV(names);
         }
     }
