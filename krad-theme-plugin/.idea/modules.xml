@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kuali-theme-plugin.iml" filepath="$PROJECT_DIR$/kuali-theme-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/krad-theme-plugin.iml" filepath="$PROJECT_DIR$/krad-theme-plugin.iml" />
     </modules>
   </component>
 </project>

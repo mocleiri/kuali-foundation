@@ -1,25 +1,334 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57d4c950-1f2c-46b1-8347-85c7a23505f1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeMojo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kuali-theme-plugin.iml" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\apt\examples\basic.apt" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\apt\examples\exclude.apt" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\apt\examples\patterns.apt" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\apt\index.apt" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\apt\usage.apt" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\fml\faq.fml" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\projects\kuali-theme-plugin\src\site\site.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java" afterPath="$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java" />
+    <list default="true" readonly="true" id="5a677d06-66dc-4478-a243-62c719809a4a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/kboot/images" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/images" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/kboot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/kboot/scripts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/scripts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/kboot/stylesheets" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/stylesheets" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/theme2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__args4j_args4j_2_0_16.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_lltyk_dojo_shrinksafe_1_7_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_sommeri_less4j_1_0_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_1_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_14_0_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_javascript_closure_compiler_v20130411.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_2_4_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_thoughtworks_qdox_qdox_1_10.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_pool_commons_pool_1_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jline_jline_0_9_94.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__me_n4u_sass_sass_gems_3_1_19.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_co_edmi_bourbon_gem_jar_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_ST4_4_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_3_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_stringtemplate_3_2_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_8_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_8_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_gmaven_feature_gmaven_feature_api_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_gmaven_feature_gmaven_feature_support_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_gmaven_runtime_gmaven_runtime_1_7_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_gmaven_runtime_gmaven_runtime_api_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_gmaven_runtime_gmaven_runtime_support_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_all_1_7_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jruby_jruby_complete_1_6_8.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20090211.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_sonatype_gshell_gshell_io_2_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_3_1_1_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_asm_3_1_1_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_3_1_1_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_3_1_1_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_3_1_1_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_3_1_1_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_coffee_script_1_6_2_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_emberjs_1_0_0_rc_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_handlebars_1_0_0_rc_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_jshint_2_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_jslint_1d8c1f8f74.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_json2_20110223.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_less_1_3_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_webjars_locator_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ro_isdc_wro4j_rhino_1_7R5_20130223_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ro_isdc_wro4j_wro4j_core_1_7_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ro_isdc_wro4j_wro4j_extensions_1_7_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/PluginConstants.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/theme.properties" />
+      <change type="DELETED" beforePath="C:\java\projects\krad-theme-plugin\LICENSE.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\java\projects\krad-theme-plugin\CHANGELOG.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\java\projects\krad-theme-plugin\README.md" afterPath="" />
+      <change type="MOVED" beforePath="C:\java\projects\krad-theme-plugin\src\main\java\org\kuali\maven\plugins\krad\theme\ThemeMojo.java" afterPath="$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeBuildMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="minify-maven-plugin.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="57d4c950-1f2c-46b1-8347-85c7a23505f1" time="1371654030490" ignored="false" />
-    <file path="$PROJECT_DIR$/src/main/resources/META-INF/m2e/lifecycle-mapping-metadata.xml" changelist="57d4c950-1f2c-46b1-8347-85c7a23505f1" time="1371653025810" ignored="false" />
-    <file path="/pom.xml" changelist="57d4c950-1f2c-46b1-8347-85c7a23505f1" time="1371654793946" ignored="false" />
-    <file path="/fragment.java" changelist="57d4c950-1f2c-46b1-8347-85c7a23505f1" time="1371655001691" ignored="false" />
+    <file path="/ThemeMojo.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371671693541" ignored="false" />
+    <file path="/PluginConstants.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371757035027" ignored="false" />
+    <file path="/ThemeBuildMojo.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372180581463" ignored="false" />
+    <file path="/theme.properties" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372165029885" ignored="false" />
+    <file path="/Dummy.txt" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372107626774" ignored="false" />
+    <file path="$PROJECT_DIR$/../freemarker2.3.19/src/freemarker/core/FMParser.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371750764745" ignored="false" />
+    <file path="$PROJECT_DIR$/../freemarker2.3.19/src/freemarker/core/FMParserTokenManager.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371750764745" ignored="false" />
+    <file path="$PROJECT_DIR$/../freemarker2.3.19/src/freemarker/core/FMParserConstants.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371750764745" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/pom.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371836134878" ignored="false" />
+    <file path="$PROJECT_DIR$/../freemarker2.3.19/src/freemarker/core/FMParser.jj" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371750757123" ignored="false" />
+    <file path="/FMParser.jj" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371750757123" ignored="false" />
+    <file path="/a.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371757553442" ignored="false" />
+    <file path="/sample.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371757573092" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/src/main/resources/org/kuali/rice/krad/uif/UifFieldDefinitions.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371827791508" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web/src/main/webapp/krad/WEB-INF/ftl/components/element/label.ftl" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371827868759" ignored="false" />
+    <file path="/a.dummy" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829841553" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/impl/src/main/resources/org/kuali/rice/kew/actionlist/UifActionListView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829971088" ignored="false" />
+    <file path="/UifActionListView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829937844" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/kew/impl/src/main/resources/org/kuali/rice/kew/impl/uif/PeopleFlowViews.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828288299" ignored="false" />
+    <file path="/TravelAccountMaintenance.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828381551" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-sampleapp/src/main/resources/org/kuali/rice/krad/demo/travel/account/TravelAccountMaintenance.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828383444" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-sampleapp/src/main/resources/org/kuali/rice/krad/demo/travel/authorization/TravelAuthorizationView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828544166" ignored="false" />
+    <file path="/TravelAuthorizationView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828520506" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/src/main/java/org/kuali/rice/krad/uif/widget/QuickFinder.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828523258" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-sampleapp/src/main/resources/org/kuali/rice/krad/demo/uif/library/DemoInputField.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828678345" ignored="false" />
+    <file path="/DemoInputField.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828608814" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-sampleapp/src/main/resources/org/kuali/rice/krad/labs/LabsPerformance.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828697597" ignored="false" />
+    <file path="/LabsPerformance.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828654179" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-sampleapp/src/main/resources/org/kuali/rice/krad/labs/kitchensink/UifComponentsViewP6.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="/UifComponentsViewP6.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829316359" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/krms/impl/src/main/resources/org/kuali/rice/krms/datadictionary/RuleMaintenance.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828917329" ignored="false" />
+    <file path="/RuleMaintenance.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828843277" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREN_PRIO_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886603" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRCR_PARM_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRNS_NTE_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_EXT_ID_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ENTITY_NM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_PERM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371834233746" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RULE_TMPL_OPTN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RULE_TMPL_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ENT_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RTE_NODE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_GRP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_PERM_TMPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ROLE_MBR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RTE_BRCH_PROTO_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886604" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ENTITY_EMAIL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/schema.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_DOC_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ENTITY_ENT_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRLC_ST_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRCR_STYLE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RTE_NODE_LNK_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREN_CHNL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RULE_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_DOC_TYP_PROC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_EMAIL_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_PHONE_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_ATTR_DEFN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRNS_MAINT_DOC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886605" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TERM_SPEC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_PARM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_GRP_MBR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRSB_QRTZ_LOCKS.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/TRV_ACCT.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_BOOK_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ATTR_DEFN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_CMPNT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_AGENDA_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ENT_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_PRODCR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_USR_OPTN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_DOC_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CNTXT_VLD_TERM_SPEC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886606" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TERM_RSLVR_PARM_SPEC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_DRVD_CMPNT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_BOOK_AUTHOR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/TRV_ACCT_EXT.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_GRP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_CNTNT_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_RSP_TMPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_CHNL_SUBSCRP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_EMP_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_AGENDA_ITM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_CMPNT_SET_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_AUTHOR_ACCOUNT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886607" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_RVWER_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CNTXT_VLD_ACTN_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_EXT_VAL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_EMP_STAT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RTE_NODE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_AUTHOR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_PERM_TMPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRNS_DOC_HDR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_ADDRESS_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CNTXT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_TMPL_OPTN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RTE_NODE_CFG_PARM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886608" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ENTITY_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ENTITY_NM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ENTITY_ENT_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_RSP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ADDR_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRLC_CMP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/TRV_ACCT_TYPE.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_PRNCPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886609" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CNTXT_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886611" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_DOC_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886611" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ROLE_MBR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886611" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_CHNL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886611" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_PHONE_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886611" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_DOC_TYP_PROC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_EXT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_ATTR_DEFN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_PERM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_EXT_ID_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ROLE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_STYLE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_DOC_TYP_PLCY_RELN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_EDL_ASSCTN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_RECIP_LIST_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_ADDRESS_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_RULE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_PROP_PARM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_EDL_DEF_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/TRV_DOC_2.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_CHNL_PRODCR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TERM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ENT_NM_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CNTXT_VLD_RULE_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_PERM_ATTR_DATA_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886613" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_TMPL_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886615" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRNS_MAINT_LOCK_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886616" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_PRIO_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886616" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_ACTN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886616" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ROLE_PERM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886616" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/database.dtd" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CTGRY_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_NMSPC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/TRV_ACCT_FO.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_PROP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRCR_PARM_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRLC_CMP_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREN_RECIP_DELIV_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RTE_BRCH_PROTO_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886617" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TERM_PARM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_EMAIL_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/schema.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RTE_NODE_LNK_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_AFLTN_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/TRAV_DOC_2_ACCOUNTS.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRNS_NTE_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRLC_CNTRY_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CNTXT_VLD_AGENDA_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_ENTITY_EMAIL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRLC_ST_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886618" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_TERM_RSLVR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_EXPR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_RULE_TMPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRMS_CMPND_PROP_PROPS_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/BK_BOOK_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KREW_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/demo/src/main/resources/KRIM_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/pom.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371834300706" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_EMP_STAT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ATTR_DEFN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRCR_CMPNT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886619" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRCR_PARM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_EMP_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRMS_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_PRNCPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRCR_NMSPC_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_RSP_TMPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ENTITY_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RULE_EXT_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRNS_MAINT_LOCK_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RULE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886621" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/database.dtd" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ROLE_PERM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRLC_CMP_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/data.dtd" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371834283903" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRMS_ATTR_DEFN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_DOC_TYP_PLCY_RELN_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ENT_NM_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RULE_TMPL_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_RTE_NODE_CFG_PARM_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ROLE_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRSB_QRTZ_LOCKS.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREN_CNTNT_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886622" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KREW_DOC_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_ADDR_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRLC_CNTRY_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_PERM_ATTR_DATA_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRMS_TYP_ATTR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_GRP_MBR_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/db/impex/server/bootstrap/src/main/resources/KRIM_AFLTN_TYP_T.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828886623" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/krms/impl/src/main/resources/org/kuali/rice/krms/datadictionary/TermBo.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828952242" ignored="false" />
+    <file path="/TermBo.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828933100" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/krms/impl/src/main/resources/org/kuali/rice/krms/datadictionary/TermSpecificationBo.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829050062" ignored="false" />
+    <file path="/TermSpecificationBo.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371828981636" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/krms/impl/src/main/resources/org/kuali/rice/krms/uif/AgendaEditorView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829130782" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/demo/course/CourseOfferingView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829168331" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/demo/kitchensink/ConfigurationTestView-Quickfinder.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829442672" ignored="false" />
+    <file path="/ConfigurationTestView-Quickfinder.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829491339" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/demo/kitchensink/UifComponentsViewP6.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829442672" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/demo/kitchensink/UifComponentsViewP9.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829442672" ignored="false" />
+    <file path="/UifComponentsViewP9.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829765115" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/demo/registration/RegistrationView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829422103" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/sampleu-rds/demo/kitchensink/ConfigurationTestView-Quickfinder.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829653203" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/sampleu-rds/demo/kitchensink/UifComponentsViewP6.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829653203" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/sampleu-rds/demo/kitchensink/UifComponentsViewP9.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829815914" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/sampleu-rds/demo/registration/RegistrationView.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829795341" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/travel/uif/Travel-testView1.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829806474" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/main/resources/edu/sampleu/travel/uif/Travel-testView2.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371829814544" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web/src/main/webapp/themes/kboot/stylesheets/bootstrap.css" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371832875870" ignored="false" />
+    <file path="/bootstrap.css" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371832859479" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web/src/main/webapp/themes/kboot/stylesheets/bootstrap.min.css" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371832947854" ignored="false" />
+    <file path="/pom.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371836110475" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/pom.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1371836312123" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/src/main/java/org/kuali/rice/krad/web/filter/CharsetFilter.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372092870063" ignored="false" />
+    <file path="/CharsetFilter.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372092843445" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/src/main/java/org/kuali/rice/krad/web/filter/UifSessionTimeoutFilter.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372107216710" ignored="false" />
+    <file path="/UifSessionTimeoutFilter.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372093000480" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/src/main/java/org/kuali/rice/krad/web/listener/KualiHttpSessionListener.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372107664706" ignored="false" />
+    <file path="/KualiHttpSessionListener.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372093085155" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/core/framework/src/main/java/org/kuali/rice/core/framework/config/module/WebModuleLoaderListener.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372107199712" ignored="false" />
+    <file path="/WebModuleLoaderListener.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372099598918" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web/pom.xml" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372093971612" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/DemoGroupSmokeTestBase.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372106230540" ignored="false" />
+    <file path="/fragment.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372104599735" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/navigation/DemoLibraryNavigationSmokeTestBase.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372100660845" ignored="false" />
+    <file path="/DemoGroupSmokeTestBase.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372106206826" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/common/WebDriverLegacyITBase.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372107185732" ignored="false" />
+    <file path="/WebDriverLegacyITBase.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372101638945" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/DemoGroupSTJUnitBase.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372103798567" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/DemoLibraryNavigationSTJUnitBkMrkGen.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372103822662" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/DemoLibraryNavigationSTJUnitNavGen.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372103822662" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/DemoGroupSTJUnitBkMrkGen.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372103957061" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-middleware/sampleapp/src/it/java/edu/samplu/krad/demo/uif/library/DemoGroupSTJUnitNavGen.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372104087852" ignored="false" />
+    <file path="/DemoGroupSTJUnitNavGen.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372103897498" ignored="false" />
+    <file path="/DemoGroupSTJUnitBkMrkGen.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372103911184" ignored="false" />
+    <file path="$PROJECT_DIR$/../rice/rice-framework/krad-web-framework/src/main/java/org/kuali/rice/krad/uif/widget/RichTable.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372174864958" ignored="false" />
+    <file path="/RichTable.java" changelist="5a677d06-66dc-4478-a243-62c719809a4a" time="1372174842469" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +343,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -71,6 +379,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -80,46 +389,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="ThemeBuildMojo.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeBuildMojo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="169" column="34" selection-start="6585" selection-end="6585" vertical-scroll-proportion="0.7992188">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProcessCSSFilesTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/ProcessCSSFilesTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="49" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProcessFilesTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/ProcessFilesTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="22" selection-start="1544" selection-end="1544" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThemeMojo.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeMojo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="23" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="153" column="5" selection-start="5979" selection-end="5979" vertical-scroll-proportion="-7.451613">
+              <folding>
+                <element signature="e#2052#2060#0" expanded="true" />
+                <element signature="e#2768#2776#0" expanded="true" />
+                <element signature="e#4985#4993#0" expanded="true" />
+                <element signature="e#7646#7652#0" expanded="true" />
+                <element signature="e#8041#8049#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/pom.xml">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="23" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
+            <state line="181" column="45" selection-start="6927" selection-end="6927" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="theme.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/theme.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="25" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -128,10 +425,26 @@
       <file leaf-file-name="MinifyMojo.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="294" column="30" selection-start="8850" selection-end="8850" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="73" column="33" selection-start="2085" selection-end="2085" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProcessFilesTask.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/ProcessFilesTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="269" column="49" selection-start="10710" selection-end="10710" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PluginConstants.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/PluginConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="50" selection-start="583" selection-end="598" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,28 +456,22 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitLogSettings">
-    <option name="myDateState">
-      <MyDateState />
-    </option>
-  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeMojo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/PluginConstants.java" />
+        <option value="$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/theme.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeBuildMojo.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="2576" />
-    <option name="height" value="1456" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -174,7 +481,7 @@
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="2" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+    <ConfirmationsSetting value="1" id="Remove" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -185,14 +492,13 @@
       <showMembers />
       <showModules />
       <showLibraryContents />
-      <hideEmptyPackages ProjectPane="true" />
+      <hideEmptyPackages />
       <abbreviatePackageNames />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -207,7 +513,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -217,17 +523,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -235,7 +537,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -253,7 +555,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -279,7 +581,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -309,7 +611,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -328,6 +630,10 @@
               <option name="myItemId" value="minify" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -335,7 +641,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kuali-theme-plugin" />
+              <option name="myItemId" value="krad-theme-plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -343,23 +649,187 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minify-maven-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="krad-theme-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minify-maven-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="krad-theme-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="theme2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minify-maven-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="krad-theme-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kboot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minify-maven-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="krad-theme-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minify-maven-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="krad-theme-plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../spring-maven-plugin" />
+    <property name="options.lastSelected" value="preferences.sourceCode.Java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.kuali.maven.plugins.krad.theme" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\java\projects\krad-theme-plugin\demo\src\main\webapp\themes" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\java\projects\krad-theme-plugin\demo\src\main\webapp\themes\kboot" />
     </key>
   </component>
   <component name="RunManager">
@@ -455,7 +925,7 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="true" SSL_PROTOCOLS="all">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
     <option name="mySSHConnectionTimeout" value="30000" />
@@ -472,12 +942,35 @@
     <option name="IGNORE_EXTERNALS" value="false" />
     <configuration useDefault="false">C:\Users\jkneal\AppData\Roaming\Subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\java\projects\krad-theme-plugin" />
+          <option name="myCopyRoot" value="C:\java\projects\krad-theme-plugin" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\java\projects\krad-theme-plugin\.idea" />
+          <option name="myCopyRoot" value="C:\java\projects\krad-theme-plugin\.idea" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\java\projects\krad-theme-plugin" />
+          <option name="myCopyRoot" value="C:\java\projects\krad-theme-plugin" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1456" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297953" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.79770595" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -485,17 +978,16 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2752085" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21024546" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20167065" sideWeight="0.7247915" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2022412" sideWeight="0.20229405" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="2376" height="1256" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -561,97 +1053,112 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/3.0.5/maven-plugin-api-3.0.5.jar!/org/apache/maven/plugin/AbstractMojoExecutionException.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="240" column="6" selection-start="9761" selection-end="9762" vertical-scroll-proportion="0.0">
+        <state line="6" column="22" selection-start="175" selection-end="175" vertical-scroll-proportion="0.10024058" />
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/3.0.5/maven-plugin-api-3.0.5.jar!/org/apache/maven/plugin/MojoExecutionException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="74" selection-start="227" selection-end="227" vertical-scroll-proportion="0.09858044" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/ProcessJSFilesTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="13" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../jdks/jdk1_7u21/src.zip!/java/io/FileInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="50" selection-start="4284" selection-end="4284" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/3.0/plexus-utils-3.0-sources.jar!/org/codehaus/plexus/util/AbstractScanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="33" selection-start="2183" selection-end="2183" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/maven/plugin-tools/maven-plugin-annotations/3.2/maven-plugin-annotations-3.2-sources.jar!/org/apache/maven/plugins/annotations/Mojo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="22" selection-start="3593" selection-end="3603" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/PluginConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="50" selection-start="583" selection-end="598" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/pom.xml">
+    <entry file="jar://$PROJECT_DIR$/../../jdks/jdk1_7u21/src.zip!/java/util/Properties.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="11" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
+        <state line="943" column="41" selection-start="38210" selection-end="38210" vertical-scroll-proportion="0.21732405" />
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/3.0/plexus-utils-3.0-sources.jar!/org/codehaus/plexus/util/DirectoryScanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="572" column="20" selection-start="20674" selection-end="20674" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="7" selection-start="1344" selection-end="1344" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="73" column="33" selection-start="2085" selection-end="2085" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/src/main/webapp/themes/theme2/theme.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="25" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="181" column="45" selection-start="6927" selection-end="6927" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="jar://$PROJECT_DIR$/../../jdks/jdk1_7u21/src.zip!/java/io/File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="57" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeMojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="23" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
+        <state line="1133" column="39" selection-start="48434" selection-end="48434" vertical-scroll-proportion="0.3869565">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/ProcessCSSFilesTask.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/3.0/plexus-utils-3.0-sources.jar!/org/codehaus/plexus/util/FileUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="49" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.0">
+        <state line="1705" column="26" selection-start="53743" selection-end="53743" vertical-scroll-proportion="0.46847826">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/ProcessFilesTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="22" selection-start="1544" selection-end="1544" vertical-scroll-proportion="0.0">
+        <state line="269" column="49" selection-start="10710" selection-end="10710" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/samaxes/maven/minify/plugin/MinifyMojo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/kuali/maven/plugins/krad/theme/ThemeBuildMojo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="294" column="30" selection-start="8850" selection-end="8850" vertical-scroll-proportion="0.0">
+        <state line="153" column="5" selection-start="5979" selection-end="5979" vertical-scroll-proportion="-7.451613">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2052#2060#0" expanded="true" />
+            <element signature="e#2768#2776#0" expanded="true" />
+            <element signature="e#4985#4993#0" expanded="true" />
+            <element signature="e#7646#7652#0" expanded="true" />
+            <element signature="e#8041#8049#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="23" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="34" selection-start="6585" selection-end="6585" vertical-scroll-proportion="0.7992188">
-          <folding />
         </state>
       </provider>
     </entry>

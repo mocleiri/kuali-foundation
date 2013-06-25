@@ -22,11 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="krad-theme-plugin" />
         <module name="kuali-theme-plugin" />
         <module name="minify-maven-plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="krad-theme-plugin" target="1.7" />
       <module name="kuali-theme-plugin" target="1.7" />
       <module name="minify-maven-plugin" target="1.7" />
     </bytecodeTargetLevel>
