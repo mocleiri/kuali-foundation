@@ -49,14 +49,14 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		Schema result = null;
 
 		try {
-			if (context.getThreadCount() == SINGLE_THREAD_COUNT) {
+			if (context.getThreadCount() <= SINGLE_THREAD_COUNT) {
 				result = extractSingleThreaded(context);
 			} else {
+				throw new IllegalArgumentException("Multi-threaded support is not implemented yet.");
 				// result = extractMultiThreaded(context);
 			}
-
 		} catch (SQLException e) {
-			log.error("Exception building schema: " + e.getMessage(), e);
+			throw new IllegalStateException("Unexpected SQL error", e);
 		}
 
 		return result;
