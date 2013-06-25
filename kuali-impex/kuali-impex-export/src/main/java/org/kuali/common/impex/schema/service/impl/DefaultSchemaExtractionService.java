@@ -37,124 +37,122 @@ import org.slf4j.LoggerFactory;
 
 public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
-    private static Logger log = LoggerFactory.getLogger(DefaultSchemaExtractionService.class);
+	private static Logger log = LoggerFactory.getLogger(DefaultSchemaExtractionService.class);
 
-    protected static final int SINGLE_THREAD_COUNT = 1;
+	protected static final int SINGLE_THREAD_COUNT = 1;
 
-    @Override
-    public Schema getSchema(SchemaExtractionContext context) {
+	@Override
+	public Schema getSchema(SchemaExtractionContext context) {
 
-        initializeContext(context);
+		initializeContext(context);
 
-        Schema result = null;
+		Schema result = null;
 
-        try {
-            if(context.getThreadCount() == SINGLE_THREAD_COUNT) {
-                result = extractSingleThreaded(context);
-            }
-            else {
-                //result = extractMultiThreaded(context);
-            }
+		try {
+			if (context.getThreadCount() == SINGLE_THREAD_COUNT) {
+				result = extractSingleThreaded(context);
+			} else {
+				// result = extractMultiThreaded(context);
+			}
 
-        } catch (SQLException e) {
-            log.error("Exception building schema: " + e.getMessage(), e);
-        }
+		} catch (SQLException e) {
+			log.error("Exception building schema: " + e.getMessage(), e);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * This method sets up the initial connection to the database and creates the DatabaseMetaData object
-     *
-     * @param context the Context to work with
-     */
-    protected void initializeContext(SchemaExtractionContext context) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+	/**
+	 * This method sets up the initial connection to the database and creates the DatabaseMetaData object
+	 * 
+	 * @param context
+	 *            the Context to work with
+	 */
+	protected void initializeContext(SchemaExtractionContext context) {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
 
-    protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
-        long startTime = System.currentTimeMillis();
-        log.info("Single threaded schema extraction started");
+	protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
+		long startTime = System.currentTimeMillis();
+		log.info("Single threaded schema extraction started");
 
+		Schema result = new Schema();
 
-        Schema result = new Schema();
+		List<String> tableNames = getTableNames(context);
+		log.debug("Extracting {} tables...", new Object[] { tableNames.size() });
+		result.getTables().addAll(extractTables(tableNames, context));
+		log.debug("Table extraction complete.");
 
-        List<String> tableNames = getTableNames(context);
-        log.debug("Extracting {} tables...", new Object[]{tableNames.size()});
-        result.getTables().addAll(extractTables(tableNames, context));
-        log.debug("Table extraction complete.");
+		result.getViews().addAll(extractViews(context));
+		log.debug("View extraction complete");
 
-        result.getViews().addAll(extractViews(context));
-        log.debug("View extraction complete");
+		result.getSequences().addAll(extractSequences(context));
+		log.debug("Sequence extraction complete");
 
-        result.getSequences().addAll(extractSequences(context));
-        log.debug("Sequence extraction complete");
+		result.getForeignKeys().addAll(extractForeignKeys(tableNames, context));
+		log.debug("Foreign Key extraction complete");
 
-        result.getForeignKeys().addAll(extractForeignKeys(tableNames, context));
-        log.debug("Foreign Key extraction complete");
+		String timeString = FormatUtils.getTime(System.currentTimeMillis() - startTime);
+		log.info("Single threaded schema extraction complete - Time: {}", new Object[] { timeString });
+		return result;
 
-        String timeString = FormatUtils.getTime(System.currentTimeMillis() - startTime);
-        log.info("Single threaded schema extraction complete - Time: {}", new Object[]{timeString});
-        return result;
+	}
 
-    }
+	protected Collection<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+		Collection<Table> results = new ArrayList<Table>(tableNames.size());
 
-    protected Collection<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
-        Collection<Table> results = new ArrayList<Table>(tableNames.size());
+		for (String name : tableNames) {
+			results.add(extractTable(name, context));
+		}
 
-        for (String name : tableNames) {
-            results.add(extractTable(name, context));
-        }
+		return results;
+	}
 
-        return results;
-    }
+	protected Table extractTable(String tablename, SchemaExtractionContext context) throws SQLException {
+		Table result = new Table(tablename);
 
-    protected Table extractTable(String tablename, SchemaExtractionContext context) throws SQLException {
-        Table result = new Table(tablename);
+		result.setDescription(ExtractionUtils.extractTableComment(tablename, context.getSchemaName(), context.getDatabaseMetaData()));
+		result.setColumns(ExtractionUtils.extractTableColumns(tablename, context.getSchemaName(), context.getDatabaseMetaData()));
 
-        result.setDescription(ExtractionUtils.extractTableComment(tablename, context.getSchemaName(), context.getDatabaseMetaData()));
-        result.setColumns(ExtractionUtils.extractTableColumns(tablename, context.getSchemaName(), context.getDatabaseMetaData()));
+		List<Index> allTableIndices = ExtractionUtils.extractTableIndices(tablename, context.getSchemaName(), context.getDatabaseMetaData());
 
-        List<Index> allTableIndices = ExtractionUtils.extractTableIndices(tablename, context.getSchemaName(), context.getDatabaseMetaData());
+		for (Index index : allTableIndices) {
+			if (index.isUnique()) {
+				UniqueConstraint u = new UniqueConstraint(index.getColumnNames(), index.getName());
+				result.getUniqueConstraints().add(u);
+			} else {
+				result.getIndices().add(index);
+			}
+		}
 
-        for (Index index : allTableIndices) {
-            if(index.isUnique()) {
-                UniqueConstraint u = new UniqueConstraint(index.getColumnNames(), index.getName());
-                result.getUniqueConstraints().add(u);
-            }
-            else {
-                result.getIndices().add(index);
-            }
-        }
+		return result;
+	}
 
-        return result;
-    }
+	protected List<String> getTableNames(SchemaExtractionContext context) throws SQLException {
+		List<String> allTables = ExtractionUtils.getTableNamesFromMetaData(context.getSchemaName(), context.getDatabaseMetaData());
 
-    protected List<String> getTableNames(SchemaExtractionContext context) throws SQLException {
-        List<String> allTables = ExtractionUtils.getTableNamesFromMetaData(context.getSchemaName(), context.getDatabaseMetaData());
+		StringFilter nameFilter = StringFilter.getInstance(context.getElementNameIncludes(), context.getElementNameExcludes());
 
-        StringFilter nameFilter = StringFilter.getInstance(context.getElementNameIncludes(), context.getElementNameExcludes());
+		List<String> filteredNames = new ArrayList<String>();
+		for (String name : allTables) {
+			if (nameFilter.include(name)) {
+				filteredNames.add(name);
+			}
+		}
 
-        List<String> filteredNames = new ArrayList<String>();
-        for (String name : allTables) {
-            if (nameFilter.include(name)) {
-                filteredNames.add(name);
-            }
-        }
+		return filteredNames;
+	}
 
-        return filteredNames;
-    }
+	public List<View> extractViews(SchemaExtractionContext context) throws SQLException {
+		return context.getViewFinder().findViews();
+	}
 
-    public List<View> extractViews(SchemaExtractionContext context) throws SQLException {
-        return context.getViewFinder().findViews();
-    }
+	private List<Sequence> extractSequences(SchemaExtractionContext context) throws SQLException {
+		return context.getSequenceFinder().findSequences();
+	}
 
-    private List<Sequence> extractSequences(SchemaExtractionContext context) throws SQLException {
-        return context.getSequenceFinder().findSequences();
-    }
+	private List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
 
-    private List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
-
-        return ExtractionUtils.extractForeignKeys(tableNames, context.getSchemaName(), context.getDatabaseMetaData());
-    }
+		return ExtractionUtils.extractForeignKeys(tableNames, context.getSchemaName(), context.getDatabaseMetaData());
+	}
 }
