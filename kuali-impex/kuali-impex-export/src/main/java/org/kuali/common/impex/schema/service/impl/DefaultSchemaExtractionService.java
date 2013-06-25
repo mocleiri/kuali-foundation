@@ -124,7 +124,6 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 				result.getIndices().add(index);
 			}
 		}
-
 		return result;
 	}
 
@@ -139,7 +138,6 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 				filteredNames.add(name);
 			}
 		}
-
 		return filteredNames;
 	}
 
@@ -152,7 +150,6 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	private List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
-
 		return ExtractionUtils.extractForeignKeys(tableNames, context.getSchemaName(), context.getDatabaseMetaData());
 	}
 }
