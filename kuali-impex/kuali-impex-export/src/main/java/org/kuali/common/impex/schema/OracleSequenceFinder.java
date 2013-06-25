@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.util.NamedElementComparator;
+import org.kuali.common.impex.util.ExtractionUtils;
 
 public class OracleSequenceFinder implements SequenceFinder {
 
@@ -34,34 +35,59 @@ public class OracleSequenceFinder implements SequenceFinder {
 	protected static final String SEQUENCE_NAME_KEY = "name";
 	protected static final String SEQUENCE_VALUE_KEY = "value";
 
-	String sequenceOwner;
+	String schemaName;
 
 	Connection connection;
     public static final String SUPPORTED_VENDOR = "oracle";
 
-    public OracleSequenceFinder(Connection connection, String sequenceOwner) {
+    public OracleSequenceFinder() {
+    }
+
+    public OracleSequenceFinder(Connection connection, String schemaName) {
 		this.connection = connection;
-		this.sequenceOwner = sequenceOwner;
+		this.schemaName = schemaName;
 	}
 
 	@Override
 	public List<Sequence> findSequences() throws SQLException {
-		String query = SEQUENCE_QUERY_PREFIX + sequenceOwner + SEQUENCE_QUERY_SUFFIX;
+		String query = SEQUENCE_QUERY_PREFIX + schemaName + SEQUENCE_QUERY_SUFFIX;
 
 		Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-		ResultSet rs = stmt.executeQuery(query);
+		ResultSet rs = null;
+        List<Sequence> results = new ArrayList<Sequence>();
 
-		List<Sequence> results = new ArrayList<Sequence>();
+        try {
+            rs = stmt.executeQuery(query);
 
-		while (rs.next()) {
-			String name = rs.getString(SEQUENCE_NAME_KEY);
-			String value = rs.getString(SEQUENCE_VALUE_KEY);
+            while (rs.next()) {
+                String name = rs.getString(SEQUENCE_NAME_KEY);
+                String value = rs.getString(SEQUENCE_VALUE_KEY);
 
-			results.add(new Sequence(name, value));
-		}
+                results.add(new Sequence(name, value));
+            }
+        }
+        finally {
+            ExtractionUtils.closeQuietly(rs);
+        }
 
         Collections.sort(results, NamedElementComparator.getInstance());
 
         return results;
 	}
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public String getSchemaName() {
+        return schemaName;
+    }
+
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
+    }
 }

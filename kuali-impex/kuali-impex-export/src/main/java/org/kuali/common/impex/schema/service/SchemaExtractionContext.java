@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.schema.service;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class SchemaExtractionContext {
 
     protected int threadCount;
     protected DatabaseMetaData databaseMetaData;
+    protected Connection connection;
     protected String schemaName;
     protected List<String> elementNameIncludes = new ArrayList<String>();
     protected List<String> elementNameExcludes = new ArrayList<String>();
@@ -86,5 +88,13 @@ public class SchemaExtractionContext {
 
     public void setSequenceFinder(SequenceFinder sequenceFinder) {
         this.sequenceFinder = sequenceFinder;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

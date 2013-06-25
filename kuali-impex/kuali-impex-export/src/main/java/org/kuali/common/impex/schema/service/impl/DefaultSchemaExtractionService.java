@@ -44,11 +44,11 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	@Override
 	public Schema getSchema(SchemaExtractionContext context) {
 
-		initializeContext(context);
-
 		Schema result = null;
 
 		try {
+            initializeContext(context);
+
 			if (context.getThreadCount() <= SINGLE_THREAD_COUNT) {
 				result = extractSingleThreaded(context);
 			} else {
@@ -68,9 +68,9 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	 * @param context
 	 *            the Context to work with
 	 */
-	protected void initializeContext(SchemaExtractionContext context) {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
+	protected void initializeContext(SchemaExtractionContext context) throws SQLException {
+        context.setDatabaseMetaData(context.getConnection().getMetaData());
+    }
 
 	protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
 		long startTime = System.currentTimeMillis();
