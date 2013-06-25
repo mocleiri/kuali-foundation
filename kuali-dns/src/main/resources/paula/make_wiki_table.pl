@@ -150,12 +150,13 @@ sub project_env_status
  { build_ec2_lst(); }
 
  #ok, now we'll do some dnsme and find out what's in our dns tables.
+ $pwd = `pwd`;
+ chomp($pwd); 
  $sourcefile = "dns.$project".".txt";
- 
  if ( $project eq "fn" )  #any line with greater than symbol is data
- { $cmd = "mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice  > $sourcefile"; }
+ { $cmd = "cd ../../../..;mvn dnsme:showrecords | grep \">\" | grep -v ole | grep -v ks | grep -v rice  > $pwd/$sourcefile"; }
  else
- { $cmd = "mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $sourcefile"; }
+ { $cmd = "cd ../../../..; mvn dnsme:showrecords -Ddnsme.recordNameContains=$project > $pwd/$sourcefile"; }
 
  #print "\n", $cmd;
  `$cmd`;
@@ -329,10 +330,10 @@ sub project_env_status
       #split on words stopped or running
       my @RAWLINE = ();
       (@RAWLINE) = split(/running\,|stopped\,/, $line);
-      print "\n",@RAWLINE;
-      print "\nRAWLINE[0]: ",$RAWLINE[0];
-      print "\nRAWLINE[1]: ",$RAWLINE[1];
-      print "\nRAWLINE[2]: ",$RAWLINE[2];
+      #print "\n",@RAWLINE;
+      #print "\nRAWLINE[0]: ",$RAWLINE[0];
+      #print "\nRAWLINE[1]: ",$RAWLINE[1];
+      #print "\nRAWLINE[2]: ",$RAWLINE[2];
       my @RAWTAG = split(/:/,$RAWLINE[1]);
       $rl = @RAWTAG;
       if ( $rl == 0 ){ next; }
