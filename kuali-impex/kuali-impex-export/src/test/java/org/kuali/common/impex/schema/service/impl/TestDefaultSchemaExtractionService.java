@@ -45,7 +45,8 @@ public class TestDefaultSchemaExtractionService {
 		executable.execute();
 
 		// extract the schema
-		SchemaExtractionService service = null; // new DefaultSchemaExtractionService();
+		// SchemaExtractionService service = new DefaultSchemaExtractionService();
+		SchemaExtractionService service = new MockSchemaExtractionService();
 		SchemaExtractionContext context = new SchemaExtractionContext();
 		Schema s = service.getSchema(context);
 
