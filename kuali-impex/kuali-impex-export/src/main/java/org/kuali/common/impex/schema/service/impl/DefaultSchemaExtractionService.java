@@ -44,7 +44,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	@Override
 	public Schema getSchema(SchemaExtractionContext context) {
 
-		Schema result = null;
+		Schema result;
 
 		try {
             initializeContext(context);
