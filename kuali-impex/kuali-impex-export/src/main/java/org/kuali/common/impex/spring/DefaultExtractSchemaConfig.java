@@ -47,13 +47,13 @@ public class DefaultExtractSchemaConfig {
 
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 
-	protected static final String THREAD_COUNT_KEY = "impex.export.schema.threads";
+	public static final String THREAD_COUNT_KEY = "impex.export.schema.threads";
 
 	protected static final Integer DEFAULT_THREAD_COUNT = 8;
 
-	protected static final String NAME_INCLUDES_KEY = "impex.export.schema.includes";
+	public static final String NAME_INCLUDES_KEY = "impex.export.schema.includes";
 
-	protected static final String NAME_EXCLUDES_KEY = "impex.export.schema.excludes";
+	public static final String NAME_EXCLUDES_KEY = "impex.export.schema.excludes";
 
 	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.export.oracle.sequence.finder";
 
