@@ -21,10 +21,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
+import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.util.ExtractionUtils;
 import org.kuali.common.jdbc.JdbcUtils;
@@ -58,27 +58,13 @@ public class OracleSequenceFinder implements SequenceFinder {
 		List<Sequence> sequences = getSequences(connection, schemaName);
 
 		// Filter out sequences we don't care about
-		filterSequences(sequences, nameFilter);
+		ModelUtils.filterElements(sequences, nameFilter);
 
 		// Sort the sequences by name
 		Collections.sort(sequences, NamedElementComparator.getInstance());
 
 		// Return the sorted list of Sequence objects
 		return sequences;
-	}
-
-	/**
-	 * Remove Sequence objects from the list that don't match the filter
-	 */
-	protected void filterSequences(List<Sequence> sequences, StringFilter nameFilter) {
-		Iterator<Sequence> itr = sequences.iterator();
-		while (itr.hasNext()) {
-			Sequence sequence = itr.next();
-			String name = sequence.getName();
-			if (ExtractionUtils.isExcluded(name, nameFilter)) {
-				itr.remove();
-			}
-		}
 	}
 
 	/**

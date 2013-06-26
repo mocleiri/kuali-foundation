@@ -36,7 +36,6 @@ import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.util.NamedElementComparator;
-import org.kuali.common.util.StringFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -106,13 +105,6 @@ public class ExtractionUtils {
 	protected static final boolean DEFAULT_NULLABLE = true;
 
 	protected static final ForeignKeyConstraintType DEFAULT_CONSTRAINT_RULE = ForeignKeyConstraintType.RESTRICT;
-
-	/**
-	 * Return true only if we've been provided a <code>filter</code> and <code>s</code> is excluded by that filter
-	 */
-	public static boolean isExcluded(String s, StringFilter filter) {
-		return filter != null && filter.exclude(s);
-	}
 
 	public static List<String> getTableNamesFromMetaData(String schemaName, DatabaseMetaData databaseMetaData) throws SQLException {
 		List<String> results = new ArrayList<String>();

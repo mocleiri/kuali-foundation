@@ -17,6 +17,7 @@ package org.kuali.common.impex.model.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,57 +25,85 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.StringFilter;
+import org.springframework.util.Assert;
 
 public class ModelUtils {
 
-    public static List<String> getPrimaryKeyColumnNames(Table t) {
-        List<String> names = new ArrayList<String>();
-        for (Column col : CollectionUtils.toEmptyList(t.getColumns())) {
-            if (col.isPrimaryKey()) {
-                names.add(col.getName());
-            }
-        }
+	public static List<String> getPrimaryKeyColumnNames(Table t) {
+		List<String> names = new ArrayList<String>();
+		for (Column col : CollectionUtils.toEmptyList(t.getColumns())) {
+			if (col.isPrimaryKey()) {
+				names.add(col.getName());
+			}
+		}
 
-        return names;
-    }
+		return names;
+	}
 
-    public static String getCsvPrimaryKeyColumnNames(Table t) {
-        List<String> names = getPrimaryKeyColumnNames(t);
+	public static String getCsvPrimaryKeyColumnNames(Table t) {
+		List<String> names = getPrimaryKeyColumnNames(t);
 
-        if (names.isEmpty()) {
-            return "";
-        } else {
-            return CollectionUtils.getCSV(names);
-        }
-    }
+		if (names.isEmpty()) {
+			return "";
+		} else {
+			return CollectionUtils.getCSV(names);
+		}
+	}
 
-    public static Map<String, Column> getColumnNameMap(Table t) {
-        Map<String, Column> result = new HashMap<String, Column>();
+	public static Map<String, Column> getColumnNameMap(Table t) {
+		Map<String, Column> result = new HashMap<String, Column>();
 
-        for (Column c : t.getColumns()) {
-            result.put(c.getName(), c);
-        }
+		for (Column c : t.getColumns()) {
+			result.put(c.getName(), c);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public static String getCsvColumnNames(List<Column> columns) {
-        List<String> names = new ArrayList<String>(columns.size());
-        for (Column col : CollectionUtils.toEmptyList(columns)) {
-            names.add(col.getName());
-        }
+	public static String getCsvColumnNames(List<Column> columns) {
+		List<String> names = new ArrayList<String>(columns.size());
+		for (Column col : CollectionUtils.toEmptyList(columns)) {
+			names.add(col.getName());
+		}
 
-        return CollectionUtils.getCSV(names);
-    }
+		return CollectionUtils.getCSV(names);
+	}
 
-    public static <T extends NamedElement> Map<String, T> buildNameMap(List<T> namedElements) {
-        Map<String, T> results = new HashMap<String, T>(namedElements.size());
+	public static <T extends NamedElement> Map<String, T> buildNameMap(List<T> namedElements) {
+		Map<String, T> results = new HashMap<String, T>(namedElements.size());
 
-        for (T n : namedElements) {
-            results.put(n.getName(), n);
-        }
+		for (T n : namedElements) {
+			results.put(n.getName(), n);
+		}
 
-        return results;
-    }
+		return results;
+	}
+
+	/**
+	 * Remove elements from the list that should not be there
+	 */
+	public static <T extends NamedElement> void filterElements(List<T> elements, StringFilter filter) {
+
+		// Make sure we are configured correctly
+		Assert.notNull(elements, "elements is null");
+
+		// Iterate over the elements, removing elements that shouldn't be there
+		Iterator<T> itr = elements.iterator();
+		while (itr.hasNext()) {
+			NamedElement element = itr.next();
+			String name = element.getName();
+			if (isExcluded(name, filter)) {
+				itr.remove();
+			}
+		}
+	}
+
+	/**
+	 * Return true only if we've been provided a <code>filter</code> and <code>s</code> is excluded by that filter
+	 */
+	public static boolean isExcluded(String s, StringFilter filter) {
+		return filter != null && filter.exclude(s);
+	}
 
 }
