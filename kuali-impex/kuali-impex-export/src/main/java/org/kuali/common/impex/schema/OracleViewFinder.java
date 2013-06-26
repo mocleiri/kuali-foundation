@@ -20,12 +20,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.model.util.NamedElementComparator;
-import org.kuali.common.impex.util.ExtractionUtils;
+import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.StringFilter;
 
 public class OracleViewFinder implements ViewFinder {
@@ -42,39 +41,37 @@ public class OracleViewFinder implements ViewFinder {
 	@Override
 	public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
 
-		List<View> results = new ArrayList<View>();
+		// Make JDBC calls to extract the view information
+		List<View> views = getViews(connection, schemaName);
 
+		// Use generic logic to filter out and sort the list of views
+		ModelUtils.filterAndSortElements(views, nameFilter);
+
+		// Return the sorted list
+		return views;
+	}
+
+	/**
+	 * Connect to a database and extract view information
+	 */
+	protected List<View> getViews(Connection connection, String schema) throws SQLException {
+		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(ORACLE_FIND_VIEWS_STATEMENT);
-			ps.setString(1, schemaName);
+			List<View> views = new ArrayList<View>();
+			ps = connection.prepareStatement(ORACLE_FIND_VIEWS_STATEMENT);
+			ps.setString(1, schema);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 				String name = rs.getString(VIEW_NAME_INDEX);
-				if (isNameExcluded(name, nameFilter)) {
-					continue;
-				}
-
 				String query = rs.getString(VIEW_TEXT_INDEX);
-
-				results.add(new View(name, query));
+				views.add(new View(name, query));
 			}
-			ps.close();
+			return views;
 		} finally {
-			ExtractionUtils.closeQuietly(rs);
-		}
-
-		Collections.sort(results, NamedElementComparator.getInstance());
-
-		return results;
-	}
-
-	protected boolean isNameExcluded(String name, StringFilter nameFilter) {
-		if (nameFilter == null) {
-			return false;
-		} else {
-			return nameFilter.exclude(name);
+			JdbcUtils.closeQuietly(rs);
+			JdbcUtils.closeQuietly(ps);
 		}
 	}
 

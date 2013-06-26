@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.util.ModelUtils;
-import org.kuali.common.impex.util.ExtractionUtils;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.StringFilter;
@@ -102,7 +101,7 @@ public class OracleSequenceFinder implements SequenceFinder {
 		} finally {
 
 			// TODO Move this method to JdbcUtils
-			ExtractionUtils.closeQuietly(rs);
+			JdbcUtils.closeQuietly(rs);
 
 			// Close the Statement
 			JdbcUtils.closeQuietly(stmt);
