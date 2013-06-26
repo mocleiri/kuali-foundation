@@ -48,13 +48,13 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 			try {
 				views = service.extractViews(extractionContext);
 			} catch (SQLException e) {
-				throw new RuntimeException("Exception thrown by extraction service attempting to extract view metadata: " + e.getMessage(), e);
+				throw new IllegalStateException("Exception thrown by extraction service attempting to extract view metadata: " + e.getMessage(), e);
 			}
 
 			try {
 				sequences = service.extractSequences(extractionContext);
 			} catch (SQLException e) {
-				throw new RuntimeException("Exception thrown by extraction service attempting to extract sequence metadata: " + e.getMessage(), e);
+				throw new IllegalStateException("Exception thrown by extraction service attempting to extract sequence metadata: " + e.getMessage(), e);
 			}
 
 			schema.getViews().addAll(views);
@@ -68,13 +68,13 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 			try {
 				tables = service.extractTables(element.getTableNames(), extractionContext);
 			} catch (SQLException e) {
-				throw new RuntimeException("Exception thrown by extraction service attempting to extract table metadata: " + e.getMessage(), e);
+				throw new IllegalStateException("Exception thrown by extraction service attempting to extract table metadata: " + e.getMessage(), e);
 			}
 
 			try {
 				foreignKeys = service.extractForeignKeys(element.getTableNames(), extractionContext);
 			} catch (SQLException e) {
-				throw new RuntimeException("Exception thrown by extraction service attempting to extract foreign key metadata: " + e.getMessage(), e);
+				throw new IllegalStateException("Exception thrown by extraction service attempting to extract foreign key metadata: " + e.getMessage(), e);
 			}
 
 			schema.getTables().addAll(tables);
