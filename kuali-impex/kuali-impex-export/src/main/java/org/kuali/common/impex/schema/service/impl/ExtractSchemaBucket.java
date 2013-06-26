@@ -21,31 +21,32 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
 
 public class ExtractSchemaBucket {
-    SchemaExtractionContext context;
-    List<String> tableNames;
-    Schema schema;
 
-    public SchemaExtractionContext getContext() {
-        return context;
-    }
+	SchemaExtractionContext context;
+	List<String> tableNames;
+	Schema schema;
 
-    public void setContext(SchemaExtractionContext context) {
-        this.context = context;
-    }
+	public SchemaExtractionContext getContext() {
+		return context;
+	}
 
-    public List<String> getTableNames() {
-        return tableNames;
-    }
+	public void setContext(SchemaExtractionContext context) {
+		this.context = context;
+	}
 
-    public void setTableNames(List<String> tableNames) {
-        this.tableNames = tableNames;
-    }
+	public List<String> getTableNames() {
+		return tableNames;
+	}
 
-    public Schema getSchema() {
-        return schema;
-    }
+	public void setTableNames(List<String> tableNames) {
+		this.tableNames = tableNames;
+	}
 
-    public void setSchema(Schema schema) {
-        this.schema = schema;
-    }
+	public Schema getSchema() {
+		return schema;
+	}
+
+	public void setSchema(Schema schema) {
+		this.schema = schema;
+	}
 }
