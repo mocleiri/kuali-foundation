@@ -82,7 +82,7 @@ public class ModelUtils {
 	}
 
 	/**
-	 * Alter the elements passed in by removing any elements that don't belong and then sort the list by name
+	 * Alter the elements passed in by removing any elements that don't belong and then sort the ones that remain by name
 	 */
 	public static <T extends NamedElement> void filterAndSortElements(List<T> elements, StringFilter filter) {
 
