@@ -9,6 +9,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
+import org.lesscss.LessCompiler;
+import org.lesscss.LessException;
+import org.lesscss.LessSource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -125,6 +128,7 @@ public class ThemeBuildMojo extends AbstractMojo {
         }
 
         List<String> themeAssets =  getDirectoryFileNames(themeDirectory, null, themeExcludes);
+        compileLessFiles(themeName, themeAssets);
     }
 
     protected void overlayParentAssets(File themeDirectory, String parentThemeName,
@@ -235,4 +239,37 @@ public class ThemeBuildMojo extends AbstractMojo {
         return files;
     }
 
+    protected void compileLessFiles(String themeName, List<String> themeAssets) throws MojoExecutionException{
+        LessCompiler lessCompiler = new LessCompiler();
+        lessCompiler.setCompress(true);
+
+        for (String file : themeAssets) {
+            if(StringUtils.substringAfterLast(file,".").equals("less")){
+                super.getLog().info("compiling " + file);
+                String directory = themeNamePathMapping.get(themeName);
+                File input = new File(directory, file);
+                File output = new File(directory, file.replace(".less", ".css"));
+
+                if (!output.getParentFile().exists() && !output.getParentFile().mkdirs()) {
+                    throw new MojoExecutionException("Cannot create output directory " + output.getParentFile());
+                }
+
+                try {
+                    LessSource lessSource = new LessSource(input);
+
+                    if (output.lastModified() < lessSource.getLastModifiedIncludingImports()) {
+                        getLog().info("Compiling LESS source: " + file + "...");
+                        lessCompiler.compile(lessSource, output, true);
+                    }
+                    else {
+                        getLog().info("Bypassing LESS source: " + file + " (not modified)");
+                    }
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Error while compiling LESS source: " + file, e);
+                } catch (LessException e) {
+                    throw new MojoExecutionException("Error while compiling LESS source: " + file, e);
+                }
+            }
+        }
+    }
 }
