@@ -92,6 +92,7 @@ public class OracleSequenceFinder implements SequenceFinder {
 		// Setup the sequence query based on the schema we've been provided
 		String query = SEQUENCE_QUERY_PREFIX + schemaName + SEQUENCE_QUERY_SUFFIX;
 
+		// Setup JDBC objects
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
