@@ -18,6 +18,7 @@ package org.kuali.common.jdbc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -69,6 +70,17 @@ public class JdbcUtils {
 		}
 		try {
 			statement.close();
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public static final void closeQuietly(ResultSet rs) {
+		if (rs == null) {
+			return;
+		}
+		try {
+			rs.close();
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
 		}
