@@ -137,7 +137,7 @@ public class OracleSequenceFinder implements SequenceFinder {
 	}
 
 	/**
-	 * Return true if we've been provided and nameFilter and the name is excluded by that nameFilter
+	 * Return true only if we've been provided and filter and the name is excluded by that filter
 	 */
 	protected boolean isNameExcluded(String name, StringFilter nameFilter) {
 		if (nameFilter == null) {
