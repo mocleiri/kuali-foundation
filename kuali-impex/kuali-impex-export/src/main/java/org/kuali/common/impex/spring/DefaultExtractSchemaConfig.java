@@ -81,10 +81,10 @@ public class DefaultExtractSchemaConfig {
 		// Number of threads to use
 		int threadCount = SpringUtils.getInteger(env, THREAD_COUNT_KEY, DEFAULT_THREAD_COUNT);
 
-		// DataSource for connecting to the database
+		// DataSource for obtaining connections to the database
 		DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
-		// What type of database we are connecting to
+		// The type of database we are connecting to
 		String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 
 		// This is used to filter out tables/views/sequences
