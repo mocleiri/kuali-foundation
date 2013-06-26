@@ -34,6 +34,7 @@ import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
 import org.kuali.common.impex.schema.service.SchemaExtractionService;
 import org.kuali.common.impex.util.ExtractionUtils;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -177,7 +178,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
 			return results;
 		} finally {
-			ExtractionUtils.closeConnectionQuietly(metaData.getConnection(), context.getDataSource());
+			JdbcUtils.closeQuietly(context.getDataSource(), metaData.getConnection());
 		}
 	}
 
@@ -208,7 +209,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		try {
 			allTables = ExtractionUtils.getTableNamesFromMetaData(context.getSchemaName(), metaData);
 		} finally {
-			ExtractionUtils.closeConnectionQuietly(metaData.getConnection(), context.getDataSource());
+			JdbcUtils.closeQuietly(context.getDataSource(), metaData.getConnection());
 		}
 
 		List<String> filteredNames = new ArrayList<String>();
@@ -226,7 +227,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		try {
 			return context.getViewFinder().findViews(context.getNameFilter(), connection);
 		} finally {
-			ExtractionUtils.closeConnectionQuietly(connection, context.getDataSource());
+			JdbcUtils.closeQuietly(context.getDataSource(), connection);
 		}
 	}
 
@@ -236,7 +237,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		try {
 			return context.getSequenceFinder().findSequences(context.getNameFilter(), connection);
 		} finally {
-			ExtractionUtils.closeConnectionQuietly(connection, context.getDataSource());
+			JdbcUtils.closeQuietly(context.getDataSource(), connection);
 		}
 	}
 
@@ -246,7 +247,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		try {
 			return ExtractionUtils.extractForeignKeys(tableNames, context.getSchemaName(), metaData);
 		} finally {
-			ExtractionUtils.closeConnectionQuietly(metaData.getConnection(), context.getDataSource());
+			JdbcUtils.closeQuietly(context.getDataSource(), metaData.getConnection());
 		}
 	}
 

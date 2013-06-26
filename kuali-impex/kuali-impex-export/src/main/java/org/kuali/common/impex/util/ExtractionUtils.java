@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.util;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +25,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
@@ -38,7 +36,6 @@ import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 
 /**
  * The following class contains methods used for schema extraction with java.sql.DatabaseMetaData
@@ -470,11 +467,4 @@ public class ExtractionUtils {
         }
     }
 
-    public static void closeConnectionQuietly(Connection conn, DataSource dataSource) {
-        try {
-            DataSourceUtils.doCloseConnection(conn, dataSource);
-        } catch (SQLException e) {
-            // ignored
-        }
-    }
 }
