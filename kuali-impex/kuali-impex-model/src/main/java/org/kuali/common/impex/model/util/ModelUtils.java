@@ -16,6 +16,7 @@
 package org.kuali.common.impex.model.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -78,6 +79,18 @@ public class ModelUtils {
 		}
 
 		return results;
+	}
+
+	/**
+	 * Alter the elements passed in by removing any elements that don't belong and then sort the list by name
+	 */
+	public static <T extends NamedElement> void filterAndSortElements(List<T> elements, StringFilter filter) {
+
+		// Remove elements that don't belong
+		filterElements(elements, filter);
+
+		// Sort the elements by name
+		Collections.sort(elements, NamedElementComparator.getInstance());
 	}
 
 	/**

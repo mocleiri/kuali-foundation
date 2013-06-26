@@ -20,12 +20,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.util.ModelUtils;
-import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.util.ExtractionUtils;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.Assert;
@@ -57,13 +55,10 @@ public class OracleSequenceFinder implements SequenceFinder {
 		// Connect to the database and get Sequence objects
 		List<Sequence> sequences = getSequences(connection, schemaName);
 
-		// Filter out sequences we don't care about
-		ModelUtils.filterElements(sequences, nameFilter);
+		// Filter out sequences we don't care about and sort by name
+		ModelUtils.filterAndSortElements(sequences, nameFilter);
 
-		// Sort the sequences by name
-		Collections.sort(sequences, NamedElementComparator.getInstance());
-
-		// Return the sorted list of Sequence objects
+		// Return the list of sequences
 		return sequences;
 	}
 
