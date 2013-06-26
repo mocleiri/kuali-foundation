@@ -16,7 +16,6 @@
 package org.kuali.common.impex;
 
 import java.io.IOException;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -36,7 +35,6 @@ public class ProducerUtils {
 	public static final String COMMA = ",";
 	public static final String DOT = ".";
 	public static final String SPACE = " ";
-	public static final String STATEMENT_SEPARATOR = "/";
 
 	/**
 	 * This value was retrieved from the Velocity templates that were generating the schema sqls in previous versions of Impex.
@@ -72,14 +70,6 @@ public class ProducerUtils {
 		}
 
 		return dataType == DataType.DATE || dataType == DataType.TIMESTAMP;
-	}
-
-	public static boolean isTextType(DataType dataType) {
-		if (dataType == null) {
-			return false;
-		}
-
-		return dataType == DataType.STRING || dataType == DataType.CLOB;
 	}
 
 	/**
