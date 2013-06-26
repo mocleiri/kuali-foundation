@@ -82,6 +82,7 @@ public class ExtractionUtils {
         typeMap.put(Types.LONGNVARCHAR, DataType.CLOB);
         typeMap.put(Types.LONGVARCHAR, DataType.CLOB);
         typeMap.put(Types.VARCHAR, DataType.STRING);
+        typeMap.put(Types.CHAR, DataType.CHAR);
         typeMap.put(Types.DATE, DataType.DATE);
         typeMap.put(Types.TIMESTAMP, DataType.TIMESTAMP);
         typeMap.put(Types.NUMERIC, DataType.FLOAT);
@@ -218,6 +219,10 @@ public class ExtractionUtils {
 
                 // build the data type for this column from the type information from the result set
                 DataType dataType = SQL_TYPE_TO_DATA_TYPE.get(sqlType);
+
+                if(dataType == null) {
+                    log.warn("A problem occurred defining column {}.{} Could not find a data type to match value from metaData: {}", new Object[] {tableName, name, sqlType});
+                }
 
                 Column col = new Column();
                 col.setTableName(tableName);

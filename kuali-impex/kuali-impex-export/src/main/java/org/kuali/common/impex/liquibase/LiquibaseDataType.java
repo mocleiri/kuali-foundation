@@ -19,7 +19,7 @@ import org.kuali.common.impex.model.DataType;
 
 public enum LiquibaseDataType {
 
-	CHAR(DataType.STRING), //
+	CHAR(DataType.CHAR), //
 	CLOB(DataType.CLOB), //
 	LONGTEXT(DataType.CLOB), //
 	VARCHAR(DataType.STRING), //
