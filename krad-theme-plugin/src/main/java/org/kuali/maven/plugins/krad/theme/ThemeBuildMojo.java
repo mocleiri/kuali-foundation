@@ -1,6 +1,5 @@
 package org.kuali.maven.plugins.krad.theme;
 
-import com.samaxes.maven.minify.common.FilenameComparator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -117,6 +116,15 @@ public class ThemeBuildMojo extends AbstractMojo {
 
             overlayParentAssets(themeDirectory, parentThemeName, parentExcludes);
         }
+
+        String[] themeExcludes = null;
+        if (themeProperties.containsKey(PluginConstants.ThemeConfiguration.EXCLUDES)) {
+            String excludeString = themeProperties.getProperty(PluginConstants.ThemeConfiguration.EXCLUDES);
+
+            themeExcludes = StringUtils.split(excludeString, ",");
+        }
+
+        List<String> themeAssets =  getDirectoryFileNames(themeDirectory, null, themeExcludes);
     }
 
     protected void overlayParentAssets(File themeDirectory, String parentThemeName,
