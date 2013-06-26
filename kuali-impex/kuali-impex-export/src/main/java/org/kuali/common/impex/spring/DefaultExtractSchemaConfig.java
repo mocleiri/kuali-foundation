@@ -103,7 +103,7 @@ public class DefaultExtractSchemaConfig {
 		SequenceFinder sequenceFinder = getSequenceFinderMap().get(dbVendor);
 		ViewFinder viewFinder = getViewFinderMap().get(dbVendor);
 
-		// Setup our context with the configuration built from the Spring configuration
+		// Setup our context with pojo's aggregated from the Spring configuration
 		SchemaExtractionContext context = new SchemaExtractionContext();
 		context.setSchemaName(schemaName);
 		context.setDataSource(dataSource);
