@@ -16,17 +16,12 @@
 package org.kuali.common.impex.spring;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
 import org.kuali.common.impex.schema.ExportSchemaExecutable;
 import org.kuali.common.impex.schema.ExportSchemaService;
-import org.kuali.common.impex.util.ExportConstants;
-import org.kuali.common.impex.util.ExportUtils;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,82 +31,40 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ExportSchemaConfig {
 
-	protected static final String PROJECT_PREFIX = "impex.";
-
 	/**
 	 * The ExportSchemaService implementation to use
 	 */
-	protected static final String EXPORT_SCHEMA_SERVICE_KEY = PROJECT_PREFIX + "export.schema.service";
+	protected static final String EXPORT_SCHEMA_SERVICE_KEY = "impex.export.schema.service";
+
+	/**
+	 * Property key for the location of the xml file for any schema elements that are not specified for other files
+	 */
+	protected static final String SCHEMA_LOCATION_KEY = "impex.export.schema.location";
 
 	/**
 	 * Property key for the location of the xml file for tables
 	 */
-	protected static final String SCHEMA_LOCATION_KEY = PROJECT_PREFIX + "export.schema.location";
-
-	/**
-	 * Property key for the location of the xml file for tables
-	 */
-	protected static final String TABLES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.tables.location";
+	protected static final String TABLES_LOCATION_KEY = "impex.export.schema.tables.location";
 
 	/**
 	 * Property key for the location of the xml file for views
 	 */
-	protected static final String VIEWS_LOCATION_KEY = PROJECT_PREFIX + "export.schema.views.location";
+	protected static final String VIEWS_LOCATION_KEY = "impex.export.schema.views.location";
 
 	/**
 	 * Property key for the location of the xml file for sequences
 	 */
-	protected static final String SEQUENCES_LOCATION_KEY = PROJECT_PREFIX + "export.schema.sequences.location";
+	protected static final String SEQUENCES_LOCATION_KEY = "impex.export.schema.sequences.location";
 
 	/**
 	 * Property key for the location of the xml file for foreign keys
 	 */
-	protected static final String FOREIGNKEY_LOCATION_KEY = PROJECT_PREFIX + "export.schema.foreignkeys.location";
-
-	/**
-	 * Property key for the regular expression to match table names for export
-	 */
-	protected static final String TABLES_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.tables.include";
-
-	/**
-	 * Property key for the regular expression to match view names for export
-	 */
-	protected static final String VIEWS_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.views.include";
-
-	/**
-	 * Property key for the regular expression to match sequence names for export
-	 */
-	protected static final String SEQUENCES_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.sequences.include";
-
-	/**
-	 * Property key for the regular expression to match foreign key names for export
-	 */
-	protected static final String FOREIGNKEYS_INCLUDE_KEY = PROJECT_PREFIX + "export.schema.foreignkeys.include";
-
-	/**
-	 * Property key for the regular expression to exclude table names for export
-	 */
-	protected static final String TABLES_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.tables.exclude";
-
-	/**
-	 * Property key for the regular expression to exclude view names for export
-	 */
-	protected static final String VIEWS_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.views.exclude";
-
-	/**
-	 * Property key for the regular expression to exclude sequence names for export
-	 */
-	protected static final String SEQUENCES_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.sequences.exclude";
-
-	/**
-	 * Property key for the regular expression to exclude foreign key names for export
-	 */
-	protected static final String FOREIGNKEYS_EXCLUDE_KEY = PROJECT_PREFIX + "export.schema.foreignkeys.exclude";
+	protected static final String FOREIGNKEY_LOCATION_KEY = "impex.export.schema.foreignkeys.location";
 
 	/**
 	 * Property key for a boolean setting whether or not the executable should run
 	 */
-	protected static final String SKIP_EXECUTION_KEY = PROJECT_PREFIX + "export.skip";
+	protected static final String SKIP_EXECUTION_KEY = "impex.export.skip";
 
 	@Autowired
 	Environment env;
@@ -136,57 +89,29 @@ public class ExportSchemaConfig {
 		// Allocate some storage for mapping db schemas to output locations
 		Map<String, Schema> result = new HashMap<String, Schema>();
 
-		Schema schema;
+		Schema s;
 
 		// The location to write table information to
 		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY, schemaLocation);
-		schema = quietlyGetSchema(tableLocation, result);
-		schema.getTables().addAll(ExportUtils.getIncludedElements(tableNameFilter(), this.schema.getTables()));
+		s = quietlyGetSchema(tableLocation, result);
+		s.getTables().addAll(this.schema.getTables());
 
 		// The location to write view information to
 		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY, schemaLocation);
-		schema = quietlyGetSchema(viewLocation, result);
-		schema.getViews().addAll(ExportUtils.getIncludedElements(viewNameFilter(), this.schema.getViews()));
+		s = quietlyGetSchema(viewLocation, result);
+		s.getViews().addAll(this.schema.getViews());
 
 		// The location to write sequence information to
 		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY, schemaLocation);
-		schema = quietlyGetSchema(sequenceLocation, result);
-		schema.getSequences().addAll(ExportUtils.getIncludedElements(sequenceNameFilter(), this.schema.getSequences()));
+		s = quietlyGetSchema(sequenceLocation, result);
+		s.getSequences().addAll(this.schema.getSequences());
 
 		// The location to write foreign key information to
 		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY, schemaLocation);
-		schema = quietlyGetSchema(foreignKeyLocation, result);
-		schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(foreignKeyNameFilter(), this.schema.getForeignKeys()));
+		s = quietlyGetSchema(foreignKeyLocation, result);
+		s.getForeignKeys().addAll(this.schema.getForeignKeys());
 
 		return result;
-	}
-
-	@Bean
-	public StringFilter tableNameFilter() {
-		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLES_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLES_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-		return StringFilter.getInstance(tableIncludes, tableExcludes);
-	}
-
-	@Bean
-	public StringFilter viewNameFilter() {
-		List<String> viewIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, VIEWS_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-		List<String> viewExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, VIEWS_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-		return StringFilter.getInstance(viewIncludes, viewExcludes);
-	}
-
-	@Bean
-	public StringFilter sequenceNameFilter() {
-		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, SEQUENCES_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, SEQUENCES_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-		return StringFilter.getInstance(tableIncludes, tableExcludes);
-	}
-
-	@Bean
-	public StringFilter foreignKeyNameFilter() {
-		List<String> foreignKeyIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, FOREIGNKEYS_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-		List<String> foreignKeyExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, FOREIGNKEYS_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-		return StringFilter.getInstance(foreignKeyIncludes, foreignKeyExcludes);
 	}
 
 	protected Schema quietlyGetSchema(String location, Map<String, Schema> schemaMap) {

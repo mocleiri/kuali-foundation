@@ -18,6 +18,7 @@ package org.kuali.common.impex.util;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.impex.spring.DefaultExtractSchemaConfig;
 import org.kuali.common.impex.spring.ExportSchemaConfig;
 import org.kuali.common.impex.spring.LiquibaseSchemaConfig;
 import org.kuali.common.impex.spring.XmlSchemaConfig;
@@ -32,8 +33,9 @@ public class ExportSchemaUtility {
 
 	protected final static String LIQUIBASE_KEY = "lb";
 	protected final static String XML_KEY = "xml";
+    protected final static String DEFAULT_KEY = "default";
 	protected final static String CUSTOM_KEY = "custom=";
-	protected final static Class<?> DEFAULT_PROVIDER_CONFIG_CLASS = LiquibaseSchemaConfig.class;
+	protected final static Class<?> DEFAULT_PROVIDER_CONFIG_CLASS = DefaultExtractSchemaConfig.class;
 
 	public static void main(String[] args) {
 
@@ -81,7 +83,9 @@ public class ExportSchemaUtility {
 			return LiquibaseSchemaConfig.class;
 		} else if (StringUtils.equals(className, XML_KEY)) {
 			return XmlSchemaConfig.class;
-		} else if (StringUtils.startsWith(className, CUSTOM_KEY)) {
+		} else if(StringUtils.equals(className, DEFAULT_KEY)) {
+            return DefaultExtractSchemaConfig.class;
+        } else if (StringUtils.startsWith(className, CUSTOM_KEY)) {
 			className = StringUtils.remove(className, CUSTOM_KEY);
 			return ReflectionUtils.getClass(className);
 		} else {
@@ -93,6 +97,7 @@ public class ExportSchemaUtility {
 		System.out.println("Expects at least one argument, a property file location.");
 		System.out.println("Additionally, second argument can be provided to specify the configuration class that should be used to instantiate a Schema");
 		System.out.println("Valid values for this argument are: ");
+        System.out.println(DEFAULT_KEY + " -- Use DefaultExtractSchemaConfig");
 		System.out.println(LIQUIBASE_KEY + "  --  Use LiquibaseSchemaConfig");
 		System.out.println(XML_KEY + " --  Use XmlSchemaConfig");
 		System.exit(1);

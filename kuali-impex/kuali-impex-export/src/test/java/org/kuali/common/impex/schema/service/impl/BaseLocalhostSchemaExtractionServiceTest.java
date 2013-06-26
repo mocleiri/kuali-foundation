@@ -15,9 +15,8 @@
 
 package org.kuali.common.impex.schema.service.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
+import javax.sql.DataSource;
 
 import junit.framework.Assert;
 import org.junit.Test;
@@ -37,6 +36,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public abstract class BaseLocalhostSchemaExtractionServiceTest {
 
@@ -69,16 +69,12 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
             ViewFinder viewFinder = null;
             SequenceFinder sequenceFinder = null;
 
-            Connection conn = DriverManager.getConnection(url, username, username);
-
             if (getDatabaseVendor().equals(OracleViewFinder.SUPPORTED_VENDOR)) {
                 OracleViewFinder oViewFinder = new OracleViewFinder();
                 OracleSequenceFinder oSequenceFinder = new OracleSequenceFinder();
 
-                oViewFinder.setConnection(conn);
                 oViewFinder.setSchemaName(username);
 
-                oSequenceFinder.setConnection(conn);
                 oSequenceFinder.setSchemaName(username);
 
                 viewFinder = oViewFinder;
@@ -88,7 +84,6 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
                 MySqlViewFinder mViewFinder = new MySqlViewFinder();
                 MySqlSequenceFinder mSequenceFinder = new MySqlSequenceFinder();
 
-                mViewFinder.setConnection(conn);
                 mViewFinder.setSchemaName(username);
 
                 viewFinder = mViewFinder;
@@ -97,10 +92,13 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 
 			SchemaExtractionContext context = new SchemaExtractionContext();
 			context.setSchemaName(username);
-			context.setThreadCount(1);
+			context.setThreadCount(8);
             context.setSequenceFinder(sequenceFinder);
             context.setViewFinder(viewFinder);
-            context.setConnection(conn);
+
+            DataSource dataSource = new DriverManagerDataSource(url, username, username);
+
+            context.setDataSource(dataSource);
 
 			Schema s = service.getSchema(context);
 

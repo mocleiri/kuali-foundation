@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.spring;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -94,7 +93,7 @@ public class LiquibaseSchemaConfig {
         Map<String, SequenceFinder> result = new HashMap<String, SequenceFinder>();
 
         result.put(OracleSequenceFinder.SUPPORTED_VENDOR, oracleSequenceFinder());
-        result.put(MySqlSequenceFinder.SUPPORTED_VENDOR, mysqlSequenceFinder());
+        result.put(MySqlSequenceFinder.SUPPORTED_VENDOR, mySqlSequenceFinder());
 
         return result;
     }
@@ -118,7 +117,7 @@ public class LiquibaseSchemaConfig {
             log.warn("NO MATCHING IMPLENTATION FOR SequenceFinder INTERFACE FOUND FOR VENDOR " + dbVendor);
         }
 
-		LiquibaseSchemaProvider modelProvider = new LiquibaseSchemaProvider(snapshot, finder);
+		LiquibaseSchemaProvider modelProvider = new LiquibaseSchemaProvider(snapshot, finder, dataSourceConfig.jdbcDataSource());
 
 		log.info("LiquibaseModelProvider created - Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
@@ -136,15 +135,15 @@ public class LiquibaseSchemaConfig {
     }
 
     @Bean
-    public OracleSequenceFinder oracleSequenceFinder() throws SQLException {
+    public OracleSequenceFinder oracleSequenceFinder() {
         DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
-        Connection conn = dataSourceConfig.jdbcDataSource().getConnection();
 
-        return new OracleSequenceFinder(conn, context.getUsername());
+        // schema name is the same as the user name
+        return new OracleSequenceFinder(context.getUsername());
     }
 
     @Bean
-    public MySqlSequenceFinder mysqlSequenceFinder() {
+    public MySqlSequenceFinder mySqlSequenceFinder() {
         return new MySqlSequenceFinder();
     }
 }

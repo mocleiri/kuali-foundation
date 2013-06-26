@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.util;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
@@ -35,6 +37,7 @@ import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 /**
  * The following class contains methods used for schema extraction with java.sql.DatabaseMetaData
@@ -63,7 +66,7 @@ public class ExtractionUtils {
 
     protected static final int INDEX_NON_UNIQUE_INDEX = 4;
     protected static final int INDEX_NAME_INDEX = 6;
-    protected static final int INDEX_COLUMN_NAME_INDEX = 6;
+    protected static final int INDEX_COLUMN_NAME_INDEX = 9;
 
     protected static final int FOREIGN_KEY_IMPORTED_TABLE_NAME_INDEX = 3;
     protected static final int FOREIGN_KEY_IMPORTED_COLUMN_NAME_INDEX = 4;
@@ -99,6 +102,8 @@ public class ExtractionUtils {
     protected static final String SINGLE_QUOTE = "'";
 
     protected static final boolean DEFAULT_NULLABLE = true;
+
+    protected static final ForeignKeyConstraintType DEFAULT_CONSTRAINT_RULE = ForeignKeyConstraintType.RESTRICT;
 
     public static List<String> getTableNamesFromMetaData(String schemaName, DatabaseMetaData databaseMetaData) throws SQLException {
         List<String> results = new ArrayList<String>();
@@ -282,16 +287,6 @@ public class ExtractionUtils {
         return null;
     }
 
-    public static void closeQuietly(ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                throw new IllegalStateException(e);
-            }
-        }
-    }
-
     /**
      * This method extracts raw index information for a table.
      *
@@ -311,14 +306,14 @@ public class ExtractionUtils {
 
         Map<String, Index> indexNames = new HashMap<String, Index>();
 
-        ResultSet indexInfo = null;
+        ResultSet resultSet = null;
         try {
-            indexInfo = databaseMetaData.getIndexInfo(null, schemaName, tableName, false, true);
-            while (indexInfo.next()) {
+            resultSet = databaseMetaData.getIndexInfo(null, schemaName, tableName, false, true);
+            while (resultSet.next()) {
 
                 // Extract the name of the index
-                String name = indexInfo.getString(INDEX_NAME_INDEX);
-                boolean unique = !(indexInfo.getBoolean(INDEX_NON_UNIQUE_INDEX));
+                String name = resultSet.getString(INDEX_NAME_INDEX);
+                boolean unique = !(resultSet.getBoolean(INDEX_NON_UNIQUE_INDEX));
                 if (name == null) {
                     // if name is null, it is not related to the table in a useable way
                     // see javadoc for DatabaseMetaData.getIndexInfo
@@ -330,7 +325,7 @@ public class ExtractionUtils {
                     continue;
                 }
 
-                String columnName = StringUtils.trimToNull(indexInfo.getString(INDEX_COLUMN_NAME_INDEX));
+                String columnName = StringUtils.trimToNull(resultSet.getString(INDEX_COLUMN_NAME_INDEX));
 
                 // if the column name for this entry is null, skip it
                 // see javadoc for DatabaseMetaData.getIndexInfo for cases when column name is null
@@ -350,7 +345,7 @@ public class ExtractionUtils {
                 index.getColumnNames().add(columnName);
             }
         } finally {
-            closeQuietly(indexInfo);
+            closeQuietly(resultSet);
         }
 
         List<Index> sortedIndices = new ArrayList<Index>(indexNames.values());
@@ -372,8 +367,9 @@ public class ExtractionUtils {
                     String importedColumnName = resultSet.getString(FOREIGN_KEY_IMPORTED_COLUMN_NAME_INDEX);
                     String localColumnName = resultSet.getString(FOREIGN_KEY_LOCAL_COLUMN_NAME_INDEX);
                     String name = resultSet.getString(FOREIGN_KEY_NAME_INDEX);
-                    int onUpdateRule = resultSet.getInt(FOREIGN_KEY_ON_UPDATE_INDEX);
-                    int onDeleteRule = resultSet.getInt(FOREIGN_KEY_ON_DELETE_INDEX);
+
+                    String onUpdateRule = resultSet.getString(FOREIGN_KEY_ON_UPDATE_INDEX);
+                    String onDeleteRule = resultSet.getString(FOREIGN_KEY_ON_DELETE_INDEX);
 
                     // if the name of the foreign key is null, skip it
                     if (StringUtils.isEmpty(name)) {
@@ -408,8 +404,14 @@ public class ExtractionUtils {
         return sortedFks;
     }
 
-    private static ForeignKeyConstraintType translateConstraintRule(int onUpdateDirective) {
-        switch (onUpdateDirective) {
+    private static ForeignKeyConstraintType translateConstraintRule(String ruleString) {
+        if(ruleString == null) {
+            return DEFAULT_CONSTRAINT_RULE;
+        }
+
+        int ruleVal = Integer.valueOf(ruleString);
+
+        switch (ruleVal) {
             case DatabaseMetaData.importedKeyCascade:
                 return ForeignKeyConstraintType.CASCADE;
             case DatabaseMetaData.importedKeySetDefault:
@@ -422,6 +424,24 @@ public class ExtractionUtils {
                 return ForeignKeyConstraintType.RESTRICT;
             default:
                 return null;
+        }
+    }
+
+    public static void closeQuietly(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                // ignored
+            }
+        }
+    }
+
+    public static void closeConnectionQuietly(Connection conn, DataSource dataSource) {
+        try {
+            DataSourceUtils.doCloseConnection(conn, dataSource);
+        } catch (SQLException e) {
+            // ignored
         }
     }
 }

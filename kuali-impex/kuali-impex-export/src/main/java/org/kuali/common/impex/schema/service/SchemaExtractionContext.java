@@ -15,22 +15,18 @@
 
 package org.kuali.common.impex.schema.service;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.util.ArrayList;
-import java.util.List;
+import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
+import org.kuali.common.util.StringFilter;
 
 public class SchemaExtractionContext {
 
     protected int threadCount;
-    protected DatabaseMetaData databaseMetaData;
-    protected Connection connection;
+    protected DataSource dataSource;
+    protected StringFilter nameFilter;
     protected String schemaName;
-    protected List<String> elementNameIncludes = new ArrayList<String>();
-    protected List<String> elementNameExcludes = new ArrayList<String>();
     protected ViewFinder viewFinder;
     protected SequenceFinder sequenceFinder;
 
@@ -42,14 +38,6 @@ public class SchemaExtractionContext {
         this.threadCount = threadCount;
     }
 
-    public DatabaseMetaData getDatabaseMetaData() {
-        return databaseMetaData;
-    }
-
-    public void setDatabaseMetaData(DatabaseMetaData databaseMetaData) {
-        this.databaseMetaData = databaseMetaData;
-    }
-
     public String getSchemaName() {
         return schemaName;
     }
@@ -58,20 +46,12 @@ public class SchemaExtractionContext {
         this.schemaName = schemaName;
     }
 
-    public List<String> getElementNameIncludes() {
-        return elementNameIncludes;
+    public StringFilter getNameFilter() {
+        return nameFilter;
     }
 
-    public void setElementNameIncludes(List<String> elementNameIncludes) {
-        this.elementNameIncludes = elementNameIncludes;
-    }
-
-    public List<String> getElementNameExcludes() {
-        return elementNameExcludes;
-    }
-
-    public void setElementNameExcludes(List<String> elementNameExcludes) {
-        this.elementNameExcludes = elementNameExcludes;
+    public void setNameFilter(StringFilter nameFilter) {
+        this.nameFilter = nameFilter;
     }
 
     public ViewFinder getViewFinder() {
@@ -90,11 +70,11 @@ public class SchemaExtractionContext {
         this.sequenceFinder = sequenceFinder;
     }
 
-    public Connection getConnection() {
-        return connection;
+    public DataSource getDataSource() {
+        return dataSource;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

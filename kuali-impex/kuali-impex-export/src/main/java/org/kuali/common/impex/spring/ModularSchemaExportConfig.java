@@ -21,10 +21,7 @@ import java.util.List;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
 import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
-import org.kuali.common.impex.util.ExportConstants;
-import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -42,10 +39,6 @@ import org.springframework.core.env.Environment;
 public class ModularSchemaExportConfig {
 
     public static final String PROPERTY_PREFIXES_KEY = "impex.export.schema.modular.prefixes";
-
-    public static final String NAME_INCLUDE_KEY = "schema.include";
-
-    public static final String NAME_EXCLUDE_KEY = "schema.exclude";
 
     public static final String OUTPUT_LOCATION_KEY = "schema.output";
 
@@ -71,18 +64,7 @@ public class ModularSchemaExportConfig {
         List<Executable> executables = new ArrayList<Executable>(prefixes.size());
 
         for (String prefix : prefixes) {
-            List<String> includes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, prefix + NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-            List<String> excludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, prefix + NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-
-            StringFilter filter = StringFilter.getInstance(includes, excludes);
-
             String outpuLocation = SpringUtils.getProperty(env, prefix + OUTPUT_LOCATION_KEY);
-
-            Schema schema = new Schema();
-            schema.getTables().addAll(ExportUtils.getIncludedElements(filter, this.schema.getTables()));
-            schema.getForeignKeys().addAll(ExportUtils.getIncludedElements(filter, this.schema.getForeignKeys()));
-            schema.getSequences().addAll(ExportUtils.getIncludedElements(filter, this.schema.getSequences()));
-            schema.getViews().addAll(ExportUtils.getIncludedElements(filter, this.schema.getViews()));
 
             boolean skip = SpringUtils.getBoolean(env, prefix + EXECUTION_SKIP_KEY, ModularSchemaExportExecutable.DEFAULT_EXECUTION_SKIP);
             // if this property is set to true for any module, then foreign key schema will be created in a separate file

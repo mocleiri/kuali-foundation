@@ -26,6 +26,7 @@ import java.util.List;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.util.ExtractionUtils;
+import org.kuali.common.util.StringFilter;
 
 public class OracleSequenceFinder implements SequenceFinder {
 
@@ -37,19 +38,17 @@ public class OracleSequenceFinder implements SequenceFinder {
 
 	String schemaName;
 
-	Connection connection;
     public static final String SUPPORTED_VENDOR = "oracle";
 
     public OracleSequenceFinder() {
     }
 
-    public OracleSequenceFinder(Connection connection, String schemaName) {
-		this.connection = connection;
+    public OracleSequenceFinder(String schemaName) {
 		this.schemaName = schemaName;
 	}
 
 	@Override
-	public List<Sequence> findSequences() throws SQLException {
+	public List<Sequence> findSequences(StringFilter nameFilter, Connection connection) throws SQLException {
 		String query = SEQUENCE_QUERY_PREFIX + schemaName + SEQUENCE_QUERY_SUFFIX;
 
 		Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -61,10 +60,16 @@ public class OracleSequenceFinder implements SequenceFinder {
 
             while (rs.next()) {
                 String name = rs.getString(SEQUENCE_NAME_KEY);
+                if (isNameExcluded(name, nameFilter)) {
+                    continue;
+                }
+
                 String value = rs.getString(SEQUENCE_VALUE_KEY);
 
                 results.add(new Sequence(name, value));
             }
+
+            stmt.close();
         }
         finally {
             ExtractionUtils.closeQuietly(rs);
@@ -75,12 +80,13 @@ public class OracleSequenceFinder implements SequenceFinder {
         return results;
 	}
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    protected boolean isNameExcluded(String name, StringFilter nameFilter) {
+        if(nameFilter == null) {
+            return false;
+        }
+        else {
+            return nameFilter.exclude(name);
+        }
     }
 
     public String getSchemaName() {

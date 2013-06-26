@@ -15,16 +15,18 @@
 
 package org.kuali.common.impex.schema;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.kuali.common.impex.model.Sequence;
+import org.kuali.common.util.StringFilter;
 
 /**
  * SequenceFinder fills in the functionality that Liquibase is lacking for complete metadata retrieval for sequences
  */
 public interface SequenceFinder {
 
-	List<Sequence> findSequences() throws SQLException;
+	List<Sequence> findSequences(StringFilter nameFilter, Connection connection) throws SQLException;
 
 }

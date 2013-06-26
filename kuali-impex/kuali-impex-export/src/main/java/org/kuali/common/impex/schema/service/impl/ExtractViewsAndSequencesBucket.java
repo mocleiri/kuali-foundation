@@ -13,21 +13,8 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.schema;
+package org.kuali.common.impex.schema.service.impl;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
+public class ExtractViewsAndSequencesBucket extends ExtractSchemaBucket {
 
-import org.kuali.common.impex.model.Sequence;
-import org.kuali.common.util.StringFilter;
-
-public class MySqlSequenceFinder implements SequenceFinder {
-
-    public static final String SUPPORTED_VENDOR = "mysql";
-
-    @Override
-    public List<Sequence> findSequences(StringFilter nameFilter, Connection connection) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
 }

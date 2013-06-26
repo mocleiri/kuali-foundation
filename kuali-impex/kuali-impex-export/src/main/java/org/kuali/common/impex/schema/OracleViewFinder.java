@@ -26,10 +26,9 @@ import java.util.List;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.util.ExtractionUtils;
+import org.kuali.common.util.StringFilter;
 
 public class OracleViewFinder implements ViewFinder {
-
-    protected Connection connection;
 
     protected String schemaName;
 
@@ -41,7 +40,7 @@ public class OracleViewFinder implements ViewFinder {
     public final static String SUPPORTED_VENDOR = "oracle";
 
     @Override
-    public List<View> findViews() throws SQLException {
+    public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
 
         List<View> results = new ArrayList<View>();
 
@@ -53,11 +52,15 @@ public class OracleViewFinder implements ViewFinder {
 
             while (rs.next()) {
                 String name = rs.getString(VIEW_NAME_INDEX);
+                if (isNameExcluded(name, nameFilter)) {
+                    continue;
+                }
+
                 String query = rs.getString(VIEW_TEXT_INDEX);
 
                 results.add(new View(name, query));
             }
-            rs.close();
+            ps.close();
         } finally {
             ExtractionUtils.closeQuietly(rs);
         }
@@ -67,12 +70,13 @@ public class OracleViewFinder implements ViewFinder {
         return results;
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    protected boolean isNameExcluded(String name, StringFilter nameFilter) {
+        if(nameFilter == null) {
+            return false;
+        }
+        else {
+            return nameFilter.exclude(name);
+        }
     }
 
     public String getSchemaName() {
