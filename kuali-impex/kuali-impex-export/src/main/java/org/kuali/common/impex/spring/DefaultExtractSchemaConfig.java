@@ -16,7 +16,10 @@
 package org.kuali.common.impex.spring;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
@@ -44,13 +47,15 @@ public class DefaultExtractSchemaConfig {
 
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 
-	public static final String THREAD_COUNT_KEY = "impex.export.schema.threads";
+	protected static final String THREAD_COUNT_KEY = "impex.export.schema.threads";
 
 	protected static final Integer DEFAULT_THREAD_COUNT = 8;
 
-    public static final String NAME_INCLUDES_KEY = "impex.export.schema.includes";
+	protected static final String NAME_INCLUDES_KEY = "impex.export.schema.includes";
 
-    public static final String NAME_EXCLUDES_KEY = "impex.export.schema.excludes";
+	protected static final String NAME_EXCLUDES_KEY = "impex.export.schema.excludes";
+
+	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.export.oracle.sequence.finder";
 
 	// by default, include everything and exclude nothing
 	protected static final String DEFAULT_NAME_INCLUDES = ".*";
@@ -63,97 +68,109 @@ public class DefaultExtractSchemaConfig {
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
 
-    /**
-     * Use the Environment and general Spring configuration to setup an extraction context
-     */
-    @Bean
-    public SchemaExtractionContext extractionContext() {
-        DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
+	/**
+	 * Use the Environment and general Spring configuration to setup an extraction context
+	 */
+	@Bean
+	public SchemaExtractionContext extractionContext() {
 
-        SchemaExtractionContext context = new SchemaExtractionContext();
+		// This provides the configuration needed for connecting to the database
+		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
 
-        context.setSchemaName(dbContext.getUsername());
-        context.setDataSource(dataSourceConfig.jdbcDataSource());
-        context.setNameFilter(nameFilter());
+		// This is the schema inside the database to extract
+		String schemaName = dbContext.getUsername();
 
-        Integer threadCount = SpringUtils.getInteger(env, THREAD_COUNT_KEY, DEFAULT_THREAD_COUNT);
+		// Number of threads to use
+		int threadCount = SpringUtils.getInteger(env, THREAD_COUNT_KEY, DEFAULT_THREAD_COUNT);
 
-        context.setThreadCount(threadCount);
+		// DataSource for obtaining connections to the database
+		DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
-        // get the instance of the SequenceFinder
-        String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+		// The type of database we are connecting to
+		String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 
-        context.setSequenceFinder(sequenceFinderMap().get(dbVendor));
-        context.setViewFinder(viewFinderMap().get(dbVendor));
+		// This is used to filter out tables/views/sequences
+		StringFilter nameFilter = getNameFilter();
 
-        return context;
-    }
+		SchemaExtractionContext context = new SchemaExtractionContext();
+		context.setSchemaName(schemaName);
+		context.setDataSource(dataSource);
+		context.setNameFilter(nameFilter);
+		context.setThreadCount(threadCount);
 
-    @Bean
-    public StringFilter nameFilter() {
-        String includesCsv = SpringUtils.getProperty(env, NAME_INCLUDES_KEY, DEFAULT_NAME_INCLUDES);
-        String excludesCsv = SpringUtils.getProperty(env, NAME_EXCLUDES_KEY, DEFAULT_NAME_EXCLUDES);
+		context.setSequenceFinder(sequenceFinderMap().get(dbVendor));
+		context.setViewFinder(viewFinderMap().get(dbVendor));
 
-        return StringFilter.getInstance(CollectionUtils.getTrimmedListFromCSV(includesCsv), CollectionUtils.getTrimmedListFromCSV(excludesCsv));
-    }
+		return context;
+	}
 
-    @Bean
-    public Schema extractedSchema() {
-        DefaultSchemaExtractionService service = new DefaultSchemaExtractionService();
+	protected StringFilter getNameFilter() {
 
-        return service.getSchema(extractionContext());
-    }
+		// Extract CSV values from the Environment
+		String includesCsv = SpringUtils.getProperty(env, NAME_INCLUDES_KEY, DEFAULT_NAME_INCLUDES);
+		String excludesCsv = SpringUtils.getProperty(env, NAME_EXCLUDES_KEY, DEFAULT_NAME_EXCLUDES);
 
-    @Bean
-    public OracleSequenceFinder oracleSequenceFinder() {
-        DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
+		// Convert CSV to List
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCsv);
+		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludesCsv);
 
-        // schema name is the same as the user name
-        return new OracleSequenceFinder(context.getUsername());
-    }
+		// Setup the name filter
+		return StringFilter.getInstance(includes, excludes);
+	}
 
-    @Bean
-    public MySqlSequenceFinder mySqlSequenceFinder() {
-        return new MySqlSequenceFinder();
-    }
+	@Bean
+	public Schema extractedSchema() {
+		DefaultSchemaExtractionService service = new DefaultSchemaExtractionService();
 
-    public OracleViewFinder oracleViewFinder() {
-        DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
+		return service.getSchema(extractionContext());
+	}
 
-        OracleViewFinder finder = new OracleViewFinder();
-        finder.setSchemaName(context.getUsername());
+	protected SequenceFinder getOracleSequenceFinder(Environment env) {
+		return SpringUtils.getInstance(env, ORACLE_SEQUENCE_FINDER_KEY, OracleSequenceFinder.class);
+	}
 
-        return finder;
-    }
+	@Bean
+	public MySqlSequenceFinder mySqlSequenceFinder() {
+		return new MySqlSequenceFinder();
+	}
 
-    @Bean
-    public MySqlViewFinder mySqlViewFinder() {
-        DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
+	public OracleViewFinder oracleViewFinder() {
+		DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
 
-        MySqlViewFinder finder = new MySqlViewFinder();
-        finder.setSchemaName(context.getUsername());
+		OracleViewFinder finder = new OracleViewFinder();
+		finder.setSchemaName(context.getUsername());
 
-        return finder;
-    }
+		return finder;
+	}
 
-    @Bean
-    public Map<String, SequenceFinder> sequenceFinderMap() {
-        Map<String, SequenceFinder> result = new HashMap<String, SequenceFinder>();
+	@Bean
+	public MySqlViewFinder mySqlViewFinder() {
+		DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
 
-        result.put(OracleSequenceFinder.SUPPORTED_VENDOR, oracleSequenceFinder());
-        result.put(MySqlSequenceFinder.SUPPORTED_VENDOR, mySqlSequenceFinder());
+		MySqlViewFinder finder = new MySqlViewFinder();
+		finder.setSchemaName(context.getUsername());
 
-        return result;
-    }
+		return finder;
+	}
 
-    @Bean
-    public Map<String, ViewFinder> viewFinderMap() {
-        Map<String, ViewFinder> result = new HashMap<String, ViewFinder>();
+	@Bean
+	public Map<String, SequenceFinder> sequenceFinderMap() {
+		Map<String, SequenceFinder> result = new HashMap<String, SequenceFinder>();
 
-        result.put(OracleViewFinder.SUPPORTED_VENDOR, oracleViewFinder());
-        result.put(MySqlViewFinder.SUPPORTED_VENDOR, mySqlViewFinder());
+		result.put(OracleSequenceFinder.SUPPORTED_VENDOR, getOracleSequenceFinder(env));
+		result.put(MySqlSequenceFinder.SUPPORTED_VENDOR, mySqlSequenceFinder());
 
-        return result;
-    }
+		return result;
+	}
+
+	@Bean
+	public Map<String, ViewFinder> viewFinderMap() {
+		Map<String, ViewFinder> result = new HashMap<String, ViewFinder>();
+
+		result.put(OracleViewFinder.SUPPORTED_VENDOR, oracleViewFinder());
+		result.put(MySqlViewFinder.SUPPORTED_VENDOR, mySqlViewFinder());
+
+		return result;
+	}
 
 }

@@ -27,12 +27,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import javax.sql.DataSource;
 
 import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.Database;
 import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.JdbcDatabaseSnapshot;
+
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
@@ -47,6 +49,7 @@ import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.schema.SequenceFinder;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.StringFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,31 +82,33 @@ public class LiquibaseSchemaProvider {
 	 */
 	Map<String, List<ForeignKey>> tableNameToForeignKeys;
 
-    Schema schema;
+	Schema schema;
 
-    DataSource dataSource;
+	DataSource dataSource;
 
-    StringFilter nameFilter;
+	StringFilter nameFilter;
 
-    public LiquibaseSchemaProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder, DataSource dataSource) throws SQLException {
+	String schemaName;
+
+	public LiquibaseSchemaProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder, DataSource dataSource) throws SQLException {
 
 		this.sequenceFinder = sequenceFinder;
-        this.dataSource = dataSource;
+		this.dataSource = dataSource;
 
 		log.info("Building tables...");
-        List<Table> tables = buildTables(snapshot);
+		List<Table> tables = buildTables(snapshot);
 		log.info("Table building complete.");
 
 		log.info("Building views...");
-        List<View> views = buildViews(snapshot);
+		List<View> views = buildViews(snapshot);
 		log.info("View building complete.");
 
 		log.info("Building sequences...");
-        List<Sequence> sequences = buildSequences(snapshot);
+		List<Sequence> sequences = buildSequences(snapshot);
 		log.info("Sequence building complete.");
 
 		log.info("Building foreign keys...");
-        List<ForeignKey> foreignKeys = buildForeignKeys(snapshot);
+		List<ForeignKey> foreignKeys = buildForeignKeys(snapshot);
 		log.info("Foreign key building complete.");
 
 		// sort each of the schema elements
@@ -112,11 +117,11 @@ public class LiquibaseSchemaProvider {
 		Collections.sort(sequences, NamedElementComparator.getInstance());
 		Collections.sort(foreignKeys, NamedElementComparator.getInstance());
 
-        schema = new Schema();
-        schema.setTables(tables);
-        schema.setViews(views);
-        schema.setSequences(sequences);
-        schema.setForeignKeys(foreignKeys);
+		schema = new Schema();
+		schema.setTables(tables);
+		schema.setViews(views);
+		schema.setSequences(sequences);
+		schema.setForeignKeys(foreignKeys);
 	}
 
 	protected List<Table> buildTables(DatabaseSnapshot snapshot) {
@@ -127,50 +132,50 @@ public class LiquibaseSchemaProvider {
 		tableNameToForeignKeys = new HashMap<String, List<ForeignKey>>();
 
 		for (liquibase.structure.core.Table sourceTable : sourceTables) {
-            // skip any excluded names
-            if (isExcludedName(sourceTable.getName())) {
-                continue;
-            }
+			// skip any excluded names
+			if (isExcludedName(sourceTable.getName())) {
+				continue;
+			}
 
-            Table t = new Table(sourceTable.getName());
-            t.setColumns(new ArrayList<Column>(sourceTable.getColumns().size()));
+			Table t = new Table(sourceTable.getName());
+			t.setColumns(new ArrayList<Column>(sourceTable.getColumns().size()));
 
-            List<String> primaryKeyColumnNames;
-            if (sourceTable.getPrimaryKey() == null) {
-                primaryKeyColumnNames = Collections.emptyList();
-            } else {
-                primaryKeyColumnNames = sourceTable.getPrimaryKey().getColumnNamesAsList();
-            }
+			List<String> primaryKeyColumnNames;
+			if (sourceTable.getPrimaryKey() == null) {
+				primaryKeyColumnNames = Collections.emptyList();
+			} else {
+				primaryKeyColumnNames = sourceTable.getPrimaryKey().getColumnNamesAsList();
+			}
 
-            boolean primaryKey;
-            for (liquibase.structure.core.Column sourceColumn : sourceTable.getColumns()) {
-                primaryKey = primaryKeyColumnNames.contains(sourceColumn.getName());
-                Column c = buildColumn(sourceColumn, primaryKey, t);
-                t.getColumns().add(c);
-            }
+			boolean primaryKey;
+			for (liquibase.structure.core.Column sourceColumn : sourceTable.getColumns()) {
+				primaryKey = primaryKeyColumnNames.contains(sourceColumn.getName());
+				Column c = buildColumn(sourceColumn, primaryKey, t);
+				t.getColumns().add(c);
+			}
 
-            // sort the columns by name
-            Collections.sort(t.getColumns(), NamedElementComparator.getInstance());
+			// sort the columns by name
+			Collections.sort(t.getColumns(), NamedElementComparator.getInstance());
 
-            // add all indexes found for this table and sort them
-            t.getIndices().addAll(getIndices(sourceTable, snapshot));
-            Collections.sort(t.getIndices(), NamedElementComparator.getInstance());
+			// add all indexes found for this table and sort them
+			t.getIndices().addAll(getIndices(sourceTable, snapshot));
+			Collections.sort(t.getIndices(), NamedElementComparator.getInstance());
 
-            // build unique constraints
-            for (liquibase.structure.core.UniqueConstraint u : sourceTable.getUniqueConstraints()) {
-                UniqueConstraint unique = new UniqueConstraint(u.getColumns(), u.getName());
-                t.getUniqueConstraints().add(unique);
-            }
+			// build unique constraints
+			for (liquibase.structure.core.UniqueConstraint u : sourceTable.getUniqueConstraints()) {
+				UniqueConstraint unique = new UniqueConstraint(u.getColumns(), u.getName());
+				t.getUniqueConstraints().add(unique);
+			}
 
-            results.add(t);
-        }
+			results.add(t);
+		}
 
 		Collections.sort(results, NamedElementComparator.getInstance());
 
 		return results;
 	}
 
-    protected Collection<Index> getIndices(liquibase.structure.core.Table sourceTable, DatabaseSnapshot snapshot) {
+	protected Collection<Index> getIndices(liquibase.structure.core.Table sourceTable, DatabaseSnapshot snapshot) {
 		AbstractJdbcDatabase database = (AbstractJdbcDatabase) snapshot.getDatabase();
 		String searchCatalog = database.getJdbcCatalogName(sourceTable.getSchema());
 		String searchSchema = database.getJdbcSchemaName(sourceTable.getSchema());
@@ -285,13 +290,13 @@ public class LiquibaseSchemaProvider {
 		List<View> results = new ArrayList<View>(sourceViews.size());
 
 		for (liquibase.structure.core.View sourceView : sourceViews) {
-            if (isExcludedName(sourceView.getName())) {
-                continue;
-            }
-            View v = new View(sourceView.getName(), sourceView.getDefinition());
+			if (isExcludedName(sourceView.getName())) {
+				continue;
+			}
+			View v = new View(sourceView.getName(), sourceView.getDefinition());
 
-            results.add(v);
-        }
+			results.add(v);
+		}
 
 		Collections.sort(results, NamedElementComparator.getInstance());
 
@@ -299,31 +304,22 @@ public class LiquibaseSchemaProvider {
 	}
 
 	protected List<Sequence> buildSequences(DatabaseSnapshot snapshot) throws SQLException {
-        // Current liquibase structure does not retrieve current value for sequences
-        // SequenceFinder was created to work around that
+		// Current liquibase structure does not retrieve current value for sequences
+		// SequenceFinder was created to work around that
 
 		if (sequenceFinder != null) {
-            Connection connection = dataSource.getConnection();
+			Connection connection = null;
 
-            try {
-                List<Sequence> results = sequenceFinder.findSequences(nameFilter, connection);
-
-    			Collections.sort(results, NamedElementComparator.getInstance());
-
-    			return results;
-            }
-            finally {
-                try {
-                    if (connection != null && !connection.isClosed()) {
-                        connection.close();
-                    }
-                }
-                catch (SQLException e) {
-                    // ignore the close connection
-                }
-            }
+			try {
+				connection = dataSource.getConnection();
+				List<Sequence> results = sequenceFinder.findSequences(connection, schemaName, nameFilter);
+				Collections.sort(results, NamedElementComparator.getInstance());
+				return results;
+			} finally {
+				JdbcUtils.closeQuietly(dataSource, connection);
+			}
 		} else {
-            log.warn("NO IMPLEMENTATION OF SequenceFinder FOUND, RETURNING EMPTY SEQUENCE LIST");
+			log.warn("NO IMPLEMENTATION OF SequenceFinder FOUND, RETURNING EMPTY SEQUENCE LIST");
 			return Collections.emptyList();
 		}
 	}
@@ -334,33 +330,33 @@ public class LiquibaseSchemaProvider {
 		List<ForeignKey> results = new ArrayList<ForeignKey>(sourceFks.size());
 
 		for (liquibase.structure.core.ForeignKey sourceFk : sourceFks) {
-            if (isExcludedName(sourceFk.getName())) {
-                continue;
-            }
+			if (isExcludedName(sourceFk.getName())) {
+				continue;
+			}
 
-            // In the liquibase model, Foreign keys are initialized with the "PrimaryKeyTable" as the table that is being pointed TO (i.e. the outside table)
-            // and the "ForeignKeyTable" as the table that is pointed from (i.e. the source table)
+			// In the liquibase model, Foreign keys are initialized with the "PrimaryKeyTable" as the table that is being pointed TO (i.e. the outside table)
+			// and the "ForeignKeyTable" as the table that is pointed from (i.e. the source table)
 
-            String localTableName = sourceFk.getForeignKeyTable().getName();
-            String foreignTableName = sourceFk.getPrimaryKeyTable().getName();
+			String localTableName = sourceFk.getForeignKeyTable().getName();
+			String foreignTableName = sourceFk.getPrimaryKeyTable().getName();
 
-            ForeignKey fk = new ForeignKey(sourceFk.getName(), localTableName, foreignTableName);
+			ForeignKey fk = new ForeignKey(sourceFk.getName(), localTableName, foreignTableName);
 
-            setColumnNames(fk, sourceFk, snapshot);
+			setColumnNames(fk, sourceFk, snapshot);
 
-            fk.setOnUpdate(translateForeignKeyConstraint(sourceFk.getUpdateRule()));
-            fk.setOnDelete(translateForeignKeyConstraint(sourceFk.getDeleteRule()));
+			fk.setOnUpdate(translateForeignKeyConstraint(sourceFk.getUpdateRule()));
+			fk.setOnDelete(translateForeignKeyConstraint(sourceFk.getDeleteRule()));
 
-            List<ForeignKey> fkList = tableNameToForeignKeys.get(fk.getLocalTableName());
-            if (fkList == null) {
-                fkList = new ArrayList<ForeignKey>();
-                tableNameToForeignKeys.put(fk.getLocalTableName(), fkList);
-            }
+			List<ForeignKey> fkList = tableNameToForeignKeys.get(fk.getLocalTableName());
+			if (fkList == null) {
+				fkList = new ArrayList<ForeignKey>();
+				tableNameToForeignKeys.put(fk.getLocalTableName(), fkList);
+			}
 
-            fkList.add(fk);
+			fkList.add(fk);
 
-            results.add(fk);
-        }
+			results.add(fk);
+		}
 
 		Collections.sort(results, NamedElementComparator.getInstance());
 
@@ -423,25 +419,32 @@ public class LiquibaseSchemaProvider {
 
 	}
 
-    public Schema getSchema() {
-        return schema;
-    }
+	public Schema getSchema() {
+		return schema;
+	}
 
-    public StringFilter getNameFilter() {
-        return nameFilter;
-    }
+	public StringFilter getNameFilter() {
+		return nameFilter;
+	}
 
-    public void setNameFilter(StringFilter nameFilter) {
-        this.nameFilter = nameFilter;
-    }
+	public void setNameFilter(StringFilter nameFilter) {
+		this.nameFilter = nameFilter;
+	}
 
-    private boolean isExcludedName(String name) {
-        if(nameFilter == null) {
-            return false;
-        }
-        else {
-            return nameFilter.exclude(name);
-        }
-    }
+	private boolean isExcludedName(String name) {
+		if (nameFilter == null) {
+			return false;
+		} else {
+			return nameFilter.exclude(name);
+		}
+	}
+
+	public String getSchemaName() {
+		return schemaName;
+	}
+
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
+	}
 
 }

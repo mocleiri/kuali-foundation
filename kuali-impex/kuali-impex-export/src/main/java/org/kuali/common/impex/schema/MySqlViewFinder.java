@@ -25,65 +25,64 @@ import java.util.List;
 
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
-import org.kuali.common.impex.util.ExtractionUtils;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.StringFilter;
 
 public class MySqlViewFinder implements ViewFinder {
 
-    protected String schemaName;
+	protected String schemaName;
 
-    protected final static int VIEW_NAME_INDEX = 1;
-    protected final static int VIEW_TEXT_INDEX = 2;
+	protected final static int VIEW_NAME_INDEX = 1;
+	protected final static int VIEW_TEXT_INDEX = 2;
 
-    protected final static String MYSQL_FIND_VIEWS_STATEMENT = "SELECT table_name, view_definition FROM information_schema.views WHERE table_schema = ?";
+	protected final static String MYSQL_FIND_VIEWS_STATEMENT = "SELECT table_name, view_definition FROM information_schema.views WHERE table_schema = ?";
 
-    public final static String SUPPORTED_VENDOR = "mysql";
+	public final static String SUPPORTED_VENDOR = "mysql";
 
-    @Override
-    public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
+	@Override
+	public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
 
-        List<View> results = new ArrayList<View>();
+		List<View> results = new ArrayList<View>();
 
-        ResultSet rs = null;
-        try {
-            PreparedStatement ps = connection.prepareStatement(MYSQL_FIND_VIEWS_STATEMENT);
-            ps.setString(1, schemaName);
-            rs = ps.executeQuery();
+		ResultSet rs = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(MYSQL_FIND_VIEWS_STATEMENT);
+			ps.setString(1, schemaName);
+			rs = ps.executeQuery();
 
-            while (rs.next()) {
-                String name = rs.getString(VIEW_NAME_INDEX);
-                if (isNameExcluded(name, nameFilter)) {
-                    continue;
-                }
+			while (rs.next()) {
+				String name = rs.getString(VIEW_NAME_INDEX);
+				if (isNameExcluded(name, nameFilter)) {
+					continue;
+				}
 
-                String query = rs.getString(VIEW_TEXT_INDEX);
+				String query = rs.getString(VIEW_TEXT_INDEX);
 
-                results.add(new View(name, query));
-            }
-            ps.close();
-        } finally {
-            ExtractionUtils.closeQuietly(rs);
-        }
+				results.add(new View(name, query));
+			}
+			ps.close();
+		} finally {
+			JdbcUtils.closeQuietly(rs);
+		}
 
-        Collections.sort(results, NamedElementComparator.getInstance());
+		Collections.sort(results, NamedElementComparator.getInstance());
 
-        return results;
-    }
+		return results;
+	}
 
-    protected boolean isNameExcluded(String name, StringFilter nameFilter) {
-        if(nameFilter == null) {
-            return false;
-        }
-        else {
-            return nameFilter.exclude(name);
-        }
-    }
+	protected boolean isNameExcluded(String name, StringFilter nameFilter) {
+		if (nameFilter == null) {
+			return false;
+		} else {
+			return nameFilter.exclude(name);
+		}
+	}
 
-    public String getSchemaName() {
-        return schemaName;
-    }
+	public String getSchemaName() {
+		return schemaName;
+	}
 
-    public void setSchemaName(String schemaName) {
-        this.schemaName = schemaName;
-    }
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
+	}
 }

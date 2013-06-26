@@ -38,21 +38,14 @@ public class OracleSequenceFinder implements SequenceFinder {
 	protected static final String SEQUENCE_NAME_KEY = "name";
 	protected static final String SEQUENCE_VALUE_KEY = "value";
 
-	String schemaName;
-
-	public OracleSequenceFinder() {
-		this(null);
-	}
-
-	public OracleSequenceFinder(String schemaName) {
-		this.schemaName = schemaName;
-	}
-
 	@Override
-	public List<Sequence> findSequences(StringFilter nameFilter, Connection connection) throws SQLException {
+	public List<Sequence> findSequences(Connection connection, String schema, StringFilter nameFilter) throws SQLException {
+
+		// Make sure we are configured correctly
+		Assert.hasText(schema, "schema has no text");
 
 		// Connect to the database and get Sequence objects
-		List<Sequence> sequences = getSequences(connection, schemaName);
+		List<Sequence> sequences = getSequences(connection, schema);
 
 		// Filter out sequences we don't care about and sort by name
 		ModelUtils.filterAndSortElements(sequences, nameFilter);
@@ -64,13 +57,10 @@ public class OracleSequenceFinder implements SequenceFinder {
 	/**
 	 * Given a schema name and a connection to a database, return all the sequences for that schema
 	 */
-	protected List<Sequence> getSequences(Connection connection, String schemaName) throws SQLException {
-
-		// Make sure we are configured correctly
-		Assert.hasText(schemaName, "schemaName has no text");
+	protected List<Sequence> getSequences(Connection connection, String schema) throws SQLException {
 
 		// Setup the sequence query based on the schema we've been provided
-		String query = SEQUENCE_QUERY_PREFIX + schemaName + SEQUENCE_QUERY_SUFFIX;
+		String query = SEQUENCE_QUERY_PREFIX + schema + SEQUENCE_QUERY_SUFFIX;
 
 		// Setup JDBC objects
 		Statement stmt = null;
@@ -100,7 +90,7 @@ public class OracleSequenceFinder implements SequenceFinder {
 
 		} finally {
 
-			// TODO Move this method to JdbcUtils
+			// Close the ResultSet
 			JdbcUtils.closeQuietly(rs);
 
 			// Close the Statement
@@ -117,11 +107,4 @@ public class OracleSequenceFinder implements SequenceFinder {
 		return new Sequence(name, value);
 	}
 
-	public String getSchemaName() {
-		return schemaName;
-	}
-
-	public void setSchemaName(String schemaName) {
-		this.schemaName = schemaName;
-	}
 }

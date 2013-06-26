@@ -27,6 +27,6 @@ import org.kuali.common.util.StringFilter;
  */
 public interface SequenceFinder {
 
-	List<Sequence> findSequences(StringFilter nameFilter, Connection connection) throws SQLException;
+	List<Sequence> findSequences(Connection connection, String schema, StringFilter nameFilter) throws SQLException;
 
 }

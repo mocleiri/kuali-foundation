@@ -235,7 +235,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	public List<Sequence> extractSequences(SchemaExtractionContext context) throws SQLException {
 		Connection connection = context.getDataSource().getConnection();
 		try {
-			return context.getSequenceFinder().findSequences(context.getNameFilter(), connection);
+			return context.getSequenceFinder().findSequences(connection, context.getSchemaName(), context.getNameFilter());
 		} finally {
 			JdbcUtils.closeQuietly(context.getDataSource(), connection);
 		}

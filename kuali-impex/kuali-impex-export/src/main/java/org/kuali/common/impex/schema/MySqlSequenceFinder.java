@@ -24,10 +24,10 @@ import org.kuali.common.util.StringFilter;
 
 public class MySqlSequenceFinder implements SequenceFinder {
 
-    public static final String SUPPORTED_VENDOR = "mysql";
+	public static final String SUPPORTED_VENDOR = "mysql";
 
-    @Override
-    public List<Sequence> findSequences(StringFilter nameFilter, Connection connection) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
+	@Override
+	public List<Sequence> findSequences(Connection connection, String schema, StringFilter nameFilter) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
 }

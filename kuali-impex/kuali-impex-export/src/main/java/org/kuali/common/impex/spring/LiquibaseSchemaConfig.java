@@ -26,6 +26,7 @@ import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.InvalidExampleException;
 import liquibase.snapshot.SnapshotControl;
 import liquibase.snapshot.SnapshotGeneratorFactory;
+
 import org.kuali.common.impex.liquibase.LiquibaseSchemaProvider;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
@@ -49,13 +50,13 @@ public class LiquibaseSchemaConfig {
 
 	private static final Logger log = LoggerFactory.getLogger(LiquibaseSchemaConfig.class);
 
-    protected static final String DB_VENDOR_KEY = "db.vendor";
+	protected static final String DB_VENDOR_KEY = "db.vendor";
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
 
-    @Autowired
-    Environment env;
+	@Autowired
+	Environment env;
 
 	@Bean
 	public DatabaseSnapshot databaseSnapshot() throws DatabaseException, InvalidExampleException {
@@ -88,18 +89,21 @@ public class LiquibaseSchemaConfig {
 		return snapshot;
 	}
 
-    @Bean
-    public Map<String, SequenceFinder> sequenceFinderMap() throws SQLException {
-        Map<String, SequenceFinder> result = new HashMap<String, SequenceFinder>();
+	@Bean
+	public Map<String, SequenceFinder> sequenceFinderMap() throws SQLException {
+		Map<String, SequenceFinder> result = new HashMap<String, SequenceFinder>();
 
-        result.put(OracleSequenceFinder.SUPPORTED_VENDOR, oracleSequenceFinder());
-        result.put(MySqlSequenceFinder.SUPPORTED_VENDOR, mySqlSequenceFinder());
+		result.put(OracleSequenceFinder.SUPPORTED_VENDOR, oracleSequenceFinder());
+		result.put(MySqlSequenceFinder.SUPPORTED_VENDOR, mySqlSequenceFinder());
 
-        return result;
-    }
+		return result;
+	}
 
 	@Bean
 	public LiquibaseSchemaProvider liquibaseModelProvider() throws DatabaseException, InvalidExampleException, SQLException {
+
+		// Extract the object holding some aggregated JDBC context information
+		DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
 
 		// Snapshot the db
 		DatabaseSnapshot snapshot = databaseSnapshot();
@@ -110,14 +114,15 @@ public class LiquibaseSchemaConfig {
 		long start = System.currentTimeMillis();
 
 		// get the instance of the SequenceFinder
-        String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
-        SequenceFinder finder = sequenceFinderMap().get(dbVendor);
+		String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+		SequenceFinder finder = sequenceFinderMap().get(dbVendor);
 
-        if(finder == null) {
-            log.warn("NO MATCHING IMPLENTATION FOR SequenceFinder INTERFACE FOUND FOR VENDOR " + dbVendor);
-        }
+		if (finder == null) {
+			log.warn("NO MATCHING IMPLEMENTATION FOR SequenceFinder INTERFACE FOUND FOR VENDOR " + dbVendor);
+		}
 
 		LiquibaseSchemaProvider modelProvider = new LiquibaseSchemaProvider(snapshot, finder, dataSourceConfig.jdbcDataSource());
+		modelProvider.setSchemaName(context.getUsername());
 
 		log.info("LiquibaseModelProvider created - Time: {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 
@@ -129,21 +134,18 @@ public class LiquibaseSchemaConfig {
 		return modelProvider;
 	}
 
-    @Bean
-    public Schema schema() throws SQLException, DatabaseException, InvalidExampleException {
-        return liquibaseModelProvider().getSchema();
-    }
+	@Bean
+	public Schema schema() throws SQLException, DatabaseException, InvalidExampleException {
+		return liquibaseModelProvider().getSchema();
+	}
 
-    @Bean
-    public OracleSequenceFinder oracleSequenceFinder() {
-        DatabaseProcessContext context = dataSourceConfig.jdbcDatabaseProcessContext();
+	@Bean
+	public OracleSequenceFinder oracleSequenceFinder() {
+		return new OracleSequenceFinder();
+	}
 
-        // schema name is the same as the user name
-        return new OracleSequenceFinder(context.getUsername());
-    }
-
-    @Bean
-    public MySqlSequenceFinder mySqlSequenceFinder() {
-        return new MySqlSequenceFinder();
-    }
+	@Bean
+	public MySqlSequenceFinder mySqlSequenceFinder() {
+		return new MySqlSequenceFinder();
+	}
 }

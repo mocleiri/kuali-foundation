@@ -16,9 +16,11 @@
 package org.kuali.common.impex.schema.service.impl;
 
 import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import junit.framework.Assert;
+
 import org.junit.Test;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
@@ -60,52 +62,49 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			// extract the schema
 			Properties props = PropertyUtils.load(propertiesLocation);
 
-            String username = props.getProperty("jdbc.username");
-            String url = props.getProperty("jdbc.url");
+			String username = props.getProperty("jdbc.username");
+			String url = props.getProperty("jdbc.url");
 
 			// This property points to the MockImpl, uncomment the DefaultImpl once it is ready
 			SchemaExtractionService service = ReflectionUtils.newInstance(props.getProperty("impex.export.service"));
 
-            ViewFinder viewFinder = null;
-            SequenceFinder sequenceFinder = null;
+			ViewFinder viewFinder = null;
+			SequenceFinder sequenceFinder = null;
 
-            if (getDatabaseVendor().equals(OracleViewFinder.SUPPORTED_VENDOR)) {
-                OracleViewFinder oViewFinder = new OracleViewFinder();
-                OracleSequenceFinder oSequenceFinder = new OracleSequenceFinder();
+			if (getDatabaseVendor().equals(OracleViewFinder.SUPPORTED_VENDOR)) {
+				OracleViewFinder oViewFinder = new OracleViewFinder();
+				OracleSequenceFinder oSequenceFinder = new OracleSequenceFinder();
 
-                oViewFinder.setSchemaName(username);
+				oViewFinder.setSchemaName(username);
 
-                oSequenceFinder.setSchemaName(username);
+				viewFinder = oViewFinder;
+				sequenceFinder = oSequenceFinder;
+			} else if (getDatabaseVendor().equals(MySqlViewFinder.SUPPORTED_VENDOR)) {
+				MySqlViewFinder mViewFinder = new MySqlViewFinder();
+				MySqlSequenceFinder mSequenceFinder = new MySqlSequenceFinder();
 
-                viewFinder = oViewFinder;
-                sequenceFinder = oSequenceFinder;
-            }
-            else if (getDatabaseVendor().equals(MySqlViewFinder.SUPPORTED_VENDOR)) {
-                MySqlViewFinder mViewFinder = new MySqlViewFinder();
-                MySqlSequenceFinder mSequenceFinder = new MySqlSequenceFinder();
+				mViewFinder.setSchemaName(username);
 
-                mViewFinder.setSchemaName(username);
-
-                viewFinder = mViewFinder;
-                sequenceFinder = mSequenceFinder;
-            }
+				viewFinder = mViewFinder;
+				sequenceFinder = mSequenceFinder;
+			}
 
 			SchemaExtractionContext context = new SchemaExtractionContext();
 			context.setSchemaName(username);
 			context.setThreadCount(8);
-            context.setSequenceFinder(sequenceFinder);
-            context.setViewFinder(viewFinder);
+			context.setSequenceFinder(sequenceFinder);
+			context.setViewFinder(viewFinder);
 
-            DataSource dataSource = new DriverManagerDataSource(url, username, username);
+			DataSource dataSource = new DriverManagerDataSource(url, username, username);
 
-            context.setDataSource(dataSource);
+			context.setDataSource(dataSource);
 
 			Schema s = service.getSchema(context);
 
 			Assert.assertEquals(EXPECTED_TABLE_COUNT, s.getTables().size());
 		} catch (Exception e) {
 			e.printStackTrace();
-            Assert.fail("Exception: " + e.getMessage());
+			Assert.fail("Exception: " + e.getMessage());
 		}
 	}
 
