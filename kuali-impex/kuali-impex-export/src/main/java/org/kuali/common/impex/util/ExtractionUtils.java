@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +83,7 @@ public class ExtractionUtils {
 		typeMap.put(Types.LONGNVARCHAR, DataType.CLOB);
 		typeMap.put(Types.LONGVARCHAR, DataType.CLOB);
 		typeMap.put(Types.VARCHAR, DataType.STRING);
+		typeMap.put(Types.CHAR, DataType.CHAR);
 		typeMap.put(Types.DATE, DataType.DATE);
 		typeMap.put(Types.TIMESTAMP, DataType.TIMESTAMP);
 		typeMap.put(Types.NUMERIC, DataType.FLOAT);
@@ -97,6 +99,15 @@ public class ExtractionUtils {
 		SQL_TYPE_TO_DATA_TYPE = Collections.unmodifiableMap(typeMap);
 	}
 
+	/**
+	 * Oracle creates tables with a prefix of "BIN$" to represent a recently deleted table (a 'recycle bin' of sorts), introduced in Oracle 10
+	 * <p/>
+	 * See this article for details: http://docs.oracle.com/cd/B19306_01/server.102/b14231/tables.htm#ADMIN01511
+	 */
+	protected static final String ORACLE_RECYCLE_BIN_TABLE_NAME_PREFIX = "BIN$";
+
+	protected static final List<String> IGNORED_TABLE_NAME_PREFIXES = Arrays.asList(ORACLE_RECYCLE_BIN_TABLE_NAME_PREFIX);
+
 	protected static final String SINGLE_QUOTE = "'";
 
 	protected static final boolean DEFAULT_NULLABLE = true;
@@ -110,7 +121,26 @@ public class ExtractionUtils {
 		try {
 			nameResultSet = databaseMetaData.getTables(null, schemaName, null, new String[] { TABLE_META_DATA_TYPE });
 			while (nameResultSet.next()) {
-				results.add(nameResultSet.getString(TABLE_NAME_INDEX));
+				String name = nameResultSet.getString(TABLE_NAME_INDEX);
+
+				// if the name is null, skip it
+				if (name == null) {
+					continue;
+				}
+
+				// if the name starts with one of the ignored prefixes, skip it
+				boolean ignoredPrefix = false;
+				for (String prefix : IGNORED_TABLE_NAME_PREFIXES) {
+					if (name.startsWith(prefix)) {
+						ignoredPrefix = true;
+						break;
+					}
+				}
+				if (ignoredPrefix) {
+					continue;
+				}
+
+				results.add(name);
 			}
 		} finally {
 			JdbcUtils.closeQuietly(nameResultSet);
@@ -128,6 +158,9 @@ public class ExtractionUtils {
 			if (resultSet.next()) {
 				result = StringUtils.trimToNull(resultSet.getString(TABLE_COMMENT_INDEX));
 			}
+		} catch (SQLException e) {
+			log.error("Could not extract table comment data for table: " + tableName);
+			throw e;
 		} finally {
 			JdbcUtils.closeQuietly(resultSet);
 		}
@@ -180,6 +213,10 @@ public class ExtractionUtils {
 
 				// build the data type for this column from the type information from the result set
 				DataType dataType = SQL_TYPE_TO_DATA_TYPE.get(sqlType);
+
+				if (dataType == null) {
+					log.warn("A problem occurred defining column {}.{} Could not find a data type to match value from metaData: {}", new Object[] { tableName, name, sqlType });
+				}
 
 				Column col = new Column();
 				col.setTableName(tableName);
