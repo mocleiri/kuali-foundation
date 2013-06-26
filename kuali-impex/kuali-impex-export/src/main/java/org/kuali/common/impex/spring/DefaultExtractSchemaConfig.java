@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
 import org.kuali.common.impex.schema.MySqlViewFinder;
@@ -59,24 +61,39 @@ public class DefaultExtractSchemaConfig {
 	protected static final String DEFAULT_NAME_EXCLUDES = "";
 
 	@Autowired
-	JdbcDataSourceConfig dataSourceConfig;
-
-	@Autowired
 	Environment env;
 
+	@Autowired
+	JdbcDataSourceConfig dataSourceConfig;
+
+	/**
+	 * Use the Environment and general Spring configuration to setup an extraction context
+	 */
 	@Bean
 	public SchemaExtractionContext extractionContext() {
+
+		// This provides the configuration needed for connecting to the database
 		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
 
-		Integer threadCount = SpringUtils.getInteger(env, THREAD_COUNT_KEY, DEFAULT_THREAD_COUNT);
-		// get the instance of the SequenceFinder
+		// This is the schema inside the database to extract
+		String schemaName = dbContext.getUsername();
+
+		// Number of threads to use
+		int threadCount = SpringUtils.getInteger(env, THREAD_COUNT_KEY, DEFAULT_THREAD_COUNT);
+
+		// DataSource for connecting to the database
+		DataSource dataSource = dataSourceConfig.jdbcDataSource();
+
+		// What type of database we are connecting to
 		String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 
+		// This is used to filter out tables/views/sequences
+		StringFilter nameFilter = getNameFilter();
 
 		SchemaExtractionContext context = new SchemaExtractionContext();
-		context.setSchemaName(dbContext.getUsername());
-		context.setDataSource(dataSourceConfig.jdbcDataSource());
-		context.setNameFilter(getNameFilter());
+		context.setSchemaName(schemaName);
+		context.setDataSource(dataSource);
+		context.setNameFilter(nameFilter);
 		context.setThreadCount(threadCount);
 
 		context.setSequenceFinder(sequenceFinderMap().get(dbVendor));

@@ -30,6 +30,8 @@ import org.kuali.common.util.StringFilter;
 
 public class OracleSequenceFinder implements SequenceFinder {
 
+	public static final String SUPPORTED_VENDOR = "oracle";
+
 	protected static final String SEQUENCE_QUERY_PREFIX = "SELECT SEQUENCE_NAME as name, LAST_NUMBER as value FROM ALL_SEQUENCES WHERE SEQUENCE_OWNER = '";
 	protected static final String SEQUENCE_QUERY_SUFFIX = "'";
 
@@ -38,12 +40,11 @@ public class OracleSequenceFinder implements SequenceFinder {
 
 	String schemaName;
 
-    public static final String SUPPORTED_VENDOR = "oracle";
+	public OracleSequenceFinder() {
+		this(null);
+	}
 
-    public OracleSequenceFinder() {
-    }
-
-    public OracleSequenceFinder(String schemaName) {
+	public OracleSequenceFinder(String schemaName) {
 		this.schemaName = schemaName;
 	}
 
@@ -53,47 +54,45 @@ public class OracleSequenceFinder implements SequenceFinder {
 
 		Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 		ResultSet rs = null;
-        List<Sequence> results = new ArrayList<Sequence>();
+		List<Sequence> results = new ArrayList<Sequence>();
 
-        try {
-            rs = stmt.executeQuery(query);
+		try {
+			rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                String name = rs.getString(SEQUENCE_NAME_KEY);
-                if (isNameExcluded(name, nameFilter)) {
-                    continue;
-                }
+			while (rs.next()) {
+				String name = rs.getString(SEQUENCE_NAME_KEY);
+				if (isNameExcluded(name, nameFilter)) {
+					continue;
+				}
 
-                String value = rs.getString(SEQUENCE_VALUE_KEY);
+				String value = rs.getString(SEQUENCE_VALUE_KEY);
 
-                results.add(new Sequence(name, value));
-            }
+				results.add(new Sequence(name, value));
+			}
 
-            stmt.close();
-        }
-        finally {
-            ExtractionUtils.closeQuietly(rs);
-        }
+			stmt.close();
+		} finally {
+			ExtractionUtils.closeQuietly(rs);
+		}
 
-        Collections.sort(results, NamedElementComparator.getInstance());
+		Collections.sort(results, NamedElementComparator.getInstance());
 
-        return results;
+		return results;
 	}
 
-    protected boolean isNameExcluded(String name, StringFilter nameFilter) {
-        if(nameFilter == null) {
-            return false;
-        }
-        else {
-            return nameFilter.exclude(name);
-        }
-    }
+	protected boolean isNameExcluded(String name, StringFilter nameFilter) {
+		if (nameFilter == null) {
+			return false;
+		} else {
+			return nameFilter.exclude(name);
+		}
+	}
 
-    public String getSchemaName() {
-        return schemaName;
-    }
+	public String getSchemaName() {
+		return schemaName;
+	}
 
-    public void setSchemaName(String schemaName) {
-        this.schemaName = schemaName;
-    }
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
+	}
 }
