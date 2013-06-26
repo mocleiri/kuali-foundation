@@ -92,7 +92,7 @@ public abstract class AbstractSqlProducer implements SqlProducer {
             Date parsedDate = getDate(token);
             result.setValue(null);
             result.setDateValue(parsedDate);
-        } else if (column.getColumnDataType() == DataType.STRING || column.getColumnDataType() == DataType.CLOB) {
+        } else if (isDataTypeTextType(column.getColumnDataType())) {
             result.setValue(getEscapedValue(column, token));
             result.setDateValue(null);
         } else {
@@ -101,6 +101,10 @@ public abstract class AbstractSqlProducer implements SqlProducer {
         }
 
         return result;
+    }
+
+    protected boolean isDataTypeTextType(DataType type) {
+        return type == DataType.STRING || type == DataType.CLOB || type == DataType.CHAR;
     }
 
     protected Date getDate(String token) {
