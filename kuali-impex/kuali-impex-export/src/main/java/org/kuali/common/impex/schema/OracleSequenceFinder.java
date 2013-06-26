@@ -70,12 +70,12 @@ public class OracleSequenceFinder implements SequenceFinder {
 	/**
 	 * Remove Sequence objects from the list that don't match the filter
 	 */
-	protected void filterSequences(List<Sequence> sequences, StringFilter filter) {
+	protected void filterSequences(List<Sequence> sequences, StringFilter nameFilter) {
 		Iterator<Sequence> itr = sequences.iterator();
 		while (itr.hasNext()) {
 			Sequence sequence = itr.next();
 			String name = sequence.getName();
-			if (isNameExcluded(name, filter)) {
+			if (ExtractionUtils.isExcluded(name, nameFilter)) {
 				itr.remove();
 			}
 		}
@@ -134,17 +134,6 @@ public class OracleSequenceFinder implements SequenceFinder {
 		String name = rs.getString(SEQUENCE_NAME_KEY);
 		String value = rs.getString(SEQUENCE_VALUE_KEY);
 		return new Sequence(name, value);
-	}
-
-	/**
-	 * Return true only if we've been provided and filter and the name is excluded by that filter
-	 */
-	protected boolean isNameExcluded(String name, StringFilter nameFilter) {
-		if (nameFilter == null) {
-			return false;
-		} else {
-			return nameFilter.exclude(name);
-		}
 	}
 
 	public String getSchemaName() {
