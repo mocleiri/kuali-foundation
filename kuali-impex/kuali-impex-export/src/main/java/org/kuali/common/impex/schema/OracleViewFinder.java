@@ -30,60 +30,59 @@ import org.kuali.common.util.StringFilter;
 
 public class OracleViewFinder implements ViewFinder {
 
-    protected String schemaName;
+	protected String schemaName;
 
-    protected final static int VIEW_NAME_INDEX = 1;
-    protected final static int VIEW_TEXT_INDEX = 2;
+	protected final static int VIEW_NAME_INDEX = 1;
+	protected final static int VIEW_TEXT_INDEX = 2;
 
-    protected final static String ORACLE_FIND_VIEWS_STATEMENT = "SELECT view_name, text FROM all_views WHERE owner = ?";
+	protected final static String ORACLE_FIND_VIEWS_STATEMENT = "SELECT view_name, text FROM all_views WHERE owner = ?";
 
-    public final static String SUPPORTED_VENDOR = "oracle";
+	public final static String SUPPORTED_VENDOR = "oracle";
 
-    @Override
-    public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
+	@Override
+	public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
 
-        List<View> results = new ArrayList<View>();
+		List<View> results = new ArrayList<View>();
 
-        ResultSet rs = null;
-        try {
-            PreparedStatement ps = connection.prepareStatement(ORACLE_FIND_VIEWS_STATEMENT);
-            ps.setString(1, schemaName);
-            rs = ps.executeQuery();
+		ResultSet rs = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(ORACLE_FIND_VIEWS_STATEMENT);
+			ps.setString(1, schemaName);
+			rs = ps.executeQuery();
 
-            while (rs.next()) {
-                String name = rs.getString(VIEW_NAME_INDEX);
-                if (isNameExcluded(name, nameFilter)) {
-                    continue;
-                }
+			while (rs.next()) {
+				String name = rs.getString(VIEW_NAME_INDEX);
+				if (isNameExcluded(name, nameFilter)) {
+					continue;
+				}
 
-                String query = rs.getString(VIEW_TEXT_INDEX);
+				String query = rs.getString(VIEW_TEXT_INDEX);
 
-                results.add(new View(name, query));
-            }
-            ps.close();
-        } finally {
-            ExtractionUtils.closeQuietly(rs);
-        }
+				results.add(new View(name, query));
+			}
+			ps.close();
+		} finally {
+			ExtractionUtils.closeQuietly(rs);
+		}
 
-        Collections.sort(results, NamedElementComparator.getInstance());
+		Collections.sort(results, NamedElementComparator.getInstance());
 
-        return results;
-    }
+		return results;
+	}
 
-    protected boolean isNameExcluded(String name, StringFilter nameFilter) {
-        if(nameFilter == null) {
-            return false;
-        }
-        else {
-            return nameFilter.exclude(name);
-        }
-    }
+	protected boolean isNameExcluded(String name, StringFilter nameFilter) {
+		if (nameFilter == null) {
+			return false;
+		} else {
+			return nameFilter.exclude(name);
+		}
+	}
 
-    public String getSchemaName() {
-        return schemaName;
-    }
+	public String getSchemaName() {
+		return schemaName;
+	}
 
-    public void setSchemaName(String schemaName) {
-        this.schemaName = schemaName;
-    }
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
+	}
 }
