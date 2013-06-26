@@ -9,6 +9,6 @@ import org.kuali.common.util.StringFilter;
 
 public interface ViewFinder {
 
-    List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException;
+	List<View> findViews(Connection connection, String schema, StringFilter nameFilter) throws SQLException;
 
 }

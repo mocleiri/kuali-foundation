@@ -225,7 +225,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	public List<View> extractViews(SchemaExtractionContext context) throws SQLException {
 		Connection connection = context.getDataSource().getConnection();
 		try {
-			return context.getViewFinder().findViews(context.getNameFilter(), connection);
+			return context.getViewFinder().findViews(connection, context.getSchemaName(), context.getNameFilter());
 		} finally {
 			JdbcUtils.closeQuietly(context.getDataSource(), connection);
 		}

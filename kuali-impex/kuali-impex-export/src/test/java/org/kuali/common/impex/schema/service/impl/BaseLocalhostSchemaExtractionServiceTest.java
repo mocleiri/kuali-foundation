@@ -74,17 +74,11 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			if (getDatabaseVendor().equals(OracleViewFinder.SUPPORTED_VENDOR)) {
 				OracleViewFinder oViewFinder = new OracleViewFinder();
 				OracleSequenceFinder oSequenceFinder = new OracleSequenceFinder();
-
-				oViewFinder.setSchemaName(username);
-
 				viewFinder = oViewFinder;
 				sequenceFinder = oSequenceFinder;
 			} else if (getDatabaseVendor().equals(MySqlViewFinder.SUPPORTED_VENDOR)) {
 				MySqlViewFinder mViewFinder = new MySqlViewFinder();
 				MySqlSequenceFinder mSequenceFinder = new MySqlSequenceFinder();
-
-				mViewFinder.setSchemaName(username);
-
 				viewFinder = mViewFinder;
 				sequenceFinder = mSequenceFinder;
 			}

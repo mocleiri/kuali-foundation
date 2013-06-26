@@ -29,8 +29,6 @@ import org.kuali.common.util.StringFilter;
 
 public class OracleViewFinder implements ViewFinder {
 
-	protected String schemaName;
-
 	protected final static int VIEW_NAME_INDEX = 1;
 	protected final static int VIEW_TEXT_INDEX = 2;
 
@@ -39,10 +37,10 @@ public class OracleViewFinder implements ViewFinder {
 	public final static String SUPPORTED_VENDOR = "oracle";
 
 	@Override
-	public List<View> findViews(StringFilter nameFilter, Connection connection) throws SQLException {
+	public List<View> findViews(Connection connection, String schema, StringFilter nameFilter) throws SQLException {
 
 		// Make JDBC calls to extract the view information
-		List<View> views = getViews(connection, schemaName);
+		List<View> views = getViews(connection, schema);
 
 		// Use generic logic to filter out and sort the list of views
 		ModelUtils.filterAndSortElements(views, nameFilter);
@@ -73,13 +71,5 @@ public class OracleViewFinder implements ViewFinder {
 			JdbcUtils.closeQuietly(rs);
 			JdbcUtils.closeQuietly(ps);
 		}
-	}
-
-	public String getSchemaName() {
-		return schemaName;
-	}
-
-	public void setSchemaName(String schemaName) {
-		this.schemaName = schemaName;
 	}
 }
