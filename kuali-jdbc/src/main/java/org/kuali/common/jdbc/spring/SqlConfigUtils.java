@@ -179,7 +179,8 @@ public class SqlConfigUtils {
 			// Extract the group (this can be any arbitrary text that indicates some kind of SQL grouping
 			String group = StringUtils.trim(tokens[groupIndex]);
 
-			// Extract the mode and convert to upper case so it matches the enum type
+			// Extract the mode and convert to upper case
+			// Only values allowed here are "sequential" and "concurrent"
 			String modeString = StringUtils.trim(tokens[modeIndex].toUpperCase());
 
 			// Convert the mode string to a strongly typed enum object
