@@ -21,10 +21,13 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.jdbc.spring.SqlConfigUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -32,23 +35,23 @@ import org.springframework.core.env.Environment;
 
 public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
-	public static final String DEFAULT_LIST_SUFFIX = ".list";
+	public static final String DEFAULT_RESOURCES_SUFFIX = SqlConfigUtils.RESOURCES_SUFFIX;
 
-	String listSuffix = DEFAULT_LIST_SUFFIX;
+	String resourcesSuffix = DEFAULT_RESOURCES_SUFFIX;
+	String location;
 	Environment env;
-	String property;
+	String propertyKey;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
 
 	@Override
 	public List<LocationSupplier> getObject() {
 
 		// Make sure we are configured correctly
-		Assert.notNull(env, "environment is null");
-		Assert.notNull(property, "property is null");
+		Assert.notNull(location, "location is null");
 		Assert.notNull(extensionMappings, "extensionMappings is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
-		List<String> locations = getLocations(env, property, listSuffix);
+		List<String> locations = getLocations(env, propertyKey, resourcesSuffix);
 
 		// Convert the locations into LocationSupplier's based on extension
 		return getSuppliers(locations, extensionMappings);
@@ -126,36 +129,36 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		return newInstance;
 	}
 
-	protected List<String> getLocations(Environment env, String property, String listSuffix) {
+	/**
+	 * Get all the resources (in order) for the propertyKey passed in. The value behind the
+	 */
+	protected List<String> getLocations(Environment env, String propertyKey, String resourcesSuffix) {
 
-		// Extract the list of property keys (comma delimited)
-		String csv = SpringUtils.getProperty(env, property, "");
+		// Extract the list of resources (comma delimited)
+		String csv = SpringUtils.getProperty(env, propertyKey, Constants.NONE);
 
-		// If no keys were provided, we are done
-		if (StringUtils.isBlank(csv)) {
+		// If no resources were provided, we are done
+		if (NullUtils.isNullOrNone(csv)) {
 			return new ArrayList<String>();
 		}
 
-		// Parse the property keys into a list
-		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
+		// Parse the CSV into a list of resources
+		List<String> resources = CollectionUtils.getTrimmedListFromCSV(csv);
 
 		// Allocate some storage for the locations we find
 		List<String> locations = new ArrayList<String>();
-		for (String key : keys) {
+		for (String resource : resources) {
 
-			// This is a either a list of locations or a location itself
-			String value = SpringUtils.getProperty(env, key);
-
-			if (StringUtils.endsWithIgnoreCase(key, listSuffix)) {
-				// If the key ends with .list, it's a list of locations
-				locations.addAll(LocationUtils.getLocations(value));
+			if (StringUtils.endsWithIgnoreCase(resource, resourcesSuffix)) {
+				// If the resource file ends with .resources, it's a list of resources, it is not a resource itself
+				locations.addAll(LocationUtils.getLocations(resource));
 			} else {
-				// Otherwise it is a location itself
-				locations.add(value);
+				// Otherwise it is a resource itself
+				locations.add(resource);
 			}
 		}
 
-		// Return the list of locations
+		// Return the list of resources
 		return locations;
 	}
 
@@ -169,28 +172,20 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		return false;
 	}
 
-	public String getListSuffix() {
-		return listSuffix;
+	public String getResourcesSuffix() {
+		return resourcesSuffix;
 	}
 
-	public void setListSuffix(String listSuffix) {
-		this.listSuffix = listSuffix;
+	public void setResourcesSuffix(String resourcesSuffix) {
+		this.resourcesSuffix = resourcesSuffix;
 	}
 
-	public Map<String, LocationSupplierSourceBean> getExtensionMappings() {
-		return extensionMappings;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setExtensionMappings(Map<String, LocationSupplierSourceBean> extensionMappings) {
-		this.extensionMappings = extensionMappings;
-	}
-
-	public String getProperty() {
-		return property;
-	}
-
-	public void setProperty(String property) {
-		this.property = property;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public Environment getEnv() {
@@ -199,6 +194,22 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 
 	public void setEnv(Environment env) {
 		this.env = env;
+	}
+
+	public String getPropertyKey() {
+		return propertyKey;
+	}
+
+	public void setPropertyKey(String propertyKey) {
+		this.propertyKey = propertyKey;
+	}
+
+	public Map<String, LocationSupplierSourceBean> getExtensionMappings() {
+		return extensionMappings;
+	}
+
+	public void setExtensionMappings(Map<String, LocationSupplierSourceBean> extensionMappings) {
+		this.extensionMappings = extensionMappings;
 	}
 
 }

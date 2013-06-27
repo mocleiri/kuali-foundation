@@ -70,9 +70,9 @@ public class JdbcCommonConfig {
 		return map;
 	}
 
-	public List<SqlSupplier> getSqlSuppliers(String property) {
+	public List<SqlSupplier> getSqlSuppliers(String propertyKey) {
 		LocationSuppliersFactoryBean factory = new LocationSuppliersFactoryBean();
-		factory.setProperty(property);
+		factory.setPropertyKey(propertyKey);
 		factory.setEnv(env);
 		factory.setExtensionMappings(jdbcExtensionMappings());
 		List<LocationSupplier> list = factory.getObject();
