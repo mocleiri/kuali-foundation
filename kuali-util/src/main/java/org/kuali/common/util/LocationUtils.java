@@ -282,7 +282,11 @@ public class LocationUtils {
 		return filenames;
 	}
 
-	public static final void validateLocations(List<String> locationListings, String encoding) {
+	public static final void validateLocationListing(String locationListing, String encoding) {
+		validateLocationListings(Collections.singletonList(locationListing), encoding);
+	}
+
+	public static final void validateLocationListings(List<String> locationListings, String encoding) {
 		for (String locationListing : locationListings) {
 			validateLocation(locationListing);
 			List<String> locations = getLocations(locationListing, encoding);
