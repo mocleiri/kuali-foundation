@@ -38,7 +38,6 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	public static final String DEFAULT_RESOURCES_SUFFIX = SqlConfigUtils.RESOURCES_SUFFIX;
 
 	String resourcesSuffix = DEFAULT_RESOURCES_SUFFIX;
-	String location;
 	Environment env;
 	String propertyKey;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
@@ -47,7 +46,8 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	public List<LocationSupplier> getObject() {
 
 		// Make sure we are configured correctly
-		Assert.notNull(location, "location is null");
+		Assert.notNull(env, "env is null");
+		Assert.notNull(propertyKey, "propertyKey is null");
 		Assert.notNull(extensionMappings, "extensionMappings is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
@@ -178,14 +178,6 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 
 	public void setResourcesSuffix(String resourcesSuffix) {
 		this.resourcesSuffix = resourcesSuffix;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	public Environment getEnv() {
