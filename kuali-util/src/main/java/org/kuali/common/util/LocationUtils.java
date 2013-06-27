@@ -282,14 +282,20 @@ public class LocationUtils {
 		return filenames;
 	}
 
-	public static final void validateLocationListing(String locationListing, String encoding) {
-		validateLocationListings(Collections.singletonList(locationListing), encoding);
+	/**
+	 * Throw IllegalArgumentException if the locationListing does not exist, or if any of the locations inside the locationListing do not exist
+	 */
+	public static final void validateLocationListing(String locationListing) {
+		validateLocationListings(Collections.singletonList(locationListing));
 	}
 
-	public static final void validateLocationListings(List<String> locationListings, String encoding) {
+	/**
+	 * Throw IllegalArgumentException if any of the locationListings do not exist, or if any of the locations inside any of the locationListings do not exist
+	 */
+	public static final void validateLocationListings(List<String> locationListings) {
 		for (String locationListing : locationListings) {
 			validateLocation(locationListing);
-			List<String> locations = getLocations(locationListing, encoding);
+			List<String> locations = getLocations(locationListing);
 			validateLocations(locations);
 		}
 	}
@@ -300,6 +306,9 @@ public class LocationUtils {
 		}
 	}
 
+	/**
+	 * Throw IllegalArgumentException if the location does not exist
+	 */
 	public static final void validateLocation(String location) {
 		Assert.isTrue(exists(location), "[" + location + "] does not exist");
 	}
