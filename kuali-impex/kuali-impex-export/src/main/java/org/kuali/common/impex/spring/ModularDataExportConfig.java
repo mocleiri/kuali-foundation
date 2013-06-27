@@ -37,6 +37,8 @@ import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +46,8 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 public class ModularDataExportConfig {
+
+    protected static final Logger logger = LoggerFactory.getLogger(ModularDataExportConfig.class);
 
     @Autowired
     Environment env;
@@ -98,12 +102,24 @@ public class ModularDataExportConfig {
 
             List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>(includedTables.size());
 
+            // load properties containing per-table statistics
+            String statsLocation = SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY);
+            Properties tableStatistics = null;
+            if(LocationUtils.exists(statsLocation)) {
+                tableStatistics = PropertyUtils.load(statsLocation);
+            }
+            else {
+                logger.warn("No table statistics file found at location {}", new Object[]{statsLocation});
+            }
+
+            dataContext.setTableStatisticsLocation(statsLocation);
+
             // create table contexts
             for (Table t : includedTables) {
 
                 ExportTableContext context = new ExportTableContext(t);
 
-                ExportUtils.populateTableStatistics(tableStatistics(), t, context);
+                ExportUtils.populateTableStatistics(tableStatistics, t, context);
 
                 tableContexts.add(context);
             }
@@ -126,17 +142,6 @@ public class ModularDataExportConfig {
     @Bean
     public ExportDataService dataService() {
         return new DefaultExportDataService();
-    }
-
-    @Bean
-    public Properties tableStatistics() {
-        String statsLocation = SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY);
-        Properties tableStatistics = null;
-        if(LocationUtils.exists(statsLocation)) {
-            tableStatistics = PropertyUtils.load(statsLocation);
-        }
-
-        return tableStatistics;
     }
 
 }

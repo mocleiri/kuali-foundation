@@ -15,11 +15,16 @@
 
 package org.kuali.common.impex.data;
 
-import org.kuali.common.impex.data.ExportDataContext;
-import org.kuali.common.impex.data.ExportDataService;
+import java.util.List;
+
+import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ModularDataExportExecutable implements Executable {
+
+    protected static final Logger logger = LoggerFactory.getLogger(ModularDataExportExecutable.class);
 
     protected ExportDataService service;
 
@@ -40,7 +45,11 @@ public class ModularDataExportExecutable implements Executable {
             return;
         }
 
-        service.exportTables(context);
+        List<ExportTableResult> exportResults = service.exportTables(context);
+
+        // store the result statistics in the defined property file
+        logger.info("Writing table statistics to {}", new Object[]{context.getTableStatisticsLocation()});
+        ExportUtils.storeTableStatistics(exportResults, context.getTableStatisticsLocation());
     }
 
     public Boolean getSkip() {
