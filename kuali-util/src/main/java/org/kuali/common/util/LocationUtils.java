@@ -282,6 +282,24 @@ public class LocationUtils {
 		return filenames;
 	}
 
+	public static final void validateLocations(List<String> locationListings, String encoding) {
+		for (String locationListing : locationListings) {
+			validateLocation(locationListing);
+			List<String> locations = getLocations(locationListing, encoding);
+			validateLocations(locations);
+		}
+	}
+
+	public static final void validateLocations(List<String> locations) {
+		for (String location : locations) {
+			validateLocation(location);
+		}
+	}
+
+	public static final void validateLocation(String location) {
+		Assert.isTrue(exists(location), "[" + location + "] does not exist");
+	}
+
 	public static final List<String> getLocations(List<String> locationListings, String encoding) {
 		List<String> locations = new ArrayList<String>();
 		for (String locationListing : locationListings) {
