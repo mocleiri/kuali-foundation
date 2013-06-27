@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
@@ -34,20 +35,14 @@ public class ExportSchemaExecutable implements Executable {
 
 	Map<String, Schema> schemaLocations;
 
-	public ExportSchemaExecutable() {
-		this(DEFAULT_SKIP_EXECUTION);
-	}
-
-	public ExportSchemaExecutable(boolean skip) {
-		this.skip = skip;
-	}
-
 	@Override
 	public void execute() {
 
 		if (skip) {
 			return;
 		}
+
+        Assert.notNull(schemaLocations, "schemaLocations map is null");
 
 		for (String location : schemaLocations.keySet()) {
 			Writer writer = null;

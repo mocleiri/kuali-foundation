@@ -7,7 +7,7 @@ public class ExportSchemaUtilityTest {
 	@Test
 	public void test() {
 		String[] args = { "classpath:rice.properties" };
-		ExportSchemaUtility.main(args);
+		SchemaExportUtility.main(args);
 	}
 
 }

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
@@ -46,6 +47,8 @@ public class ModularSchemaExportExecutable implements Executable {
 		if (skip) {
 			return;
 		}
+
+        Assert.notNull(schema, "Schema is null");
 
 		if (separateForeignKeys) {
 

@@ -13,32 +13,29 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.spring;
+package org.kuali.common.impex.util.spring;
 
-import java.io.IOException;
-import javax.xml.bind.JAXBException;
-
-import org.kuali.common.impex.ProducerUtils;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.impex.schema.service.SchemaExtractionResult;
+import org.kuali.common.impex.spring.XmlSchemaConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-public class XmlSchemaConfig {
-
-    protected final static String XML_LOCATION_KEY = "impex.schema.location";
+@Import(XmlSchemaConfig.class)
+public class XmlSchemaExtractionConfig {
 
     @Autowired
-    Environment env;
+    Schema schema;
 
     @Bean
-    public Schema schema() throws JAXBException, IOException {
-        String xmlLocation = SpringUtils.getProperty(env, XML_LOCATION_KEY);
+    public SchemaExtractionResult extractionResult() {
+        SchemaExtractionResult result = new SchemaExtractionResult();
+        result.setSchema(schema);
 
-        return ProducerUtils.unmarshalSchema(xmlLocation);
+        return result;
     }
 
 }

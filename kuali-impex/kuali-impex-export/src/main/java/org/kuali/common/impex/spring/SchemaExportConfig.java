@@ -18,7 +18,11 @@ package org.kuali.common.impex.spring;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.ForeignKey;
+import org.kuali.common.impex.model.NamedElement;
+import org.kuali.common.impex.model.Sequence;
+import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
 import org.kuali.common.impex.schema.ExportSchemaExecutable;
 import org.kuali.common.impex.schema.ExportSchemaService;
@@ -29,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ExportSchemaConfig {
+public class SchemaExportConfig {
 
 	/**
 	 * The ExportSchemaService implementation to use
@@ -69,67 +73,60 @@ public class ExportSchemaConfig {
 	@Autowired
 	Environment env;
 
-	@Autowired
-	Schema schema;
-
 	/**
-	 * Build a map of resource locations to schema instances
+	 * Build a map of resource locations to schema element types
 	 * 
 	 * This allows for defining a whole schema in one file, or breaking the definition up into separate files (one for tables, one for views, etc)
 	 * 
-	 * @return a Map of location strings to Schema instances, populated with schema objects provided by the ModelProvider
+	 * @return a Map of location strings to schema element types
 	 */
 	@Bean
-	public Map<String, Schema> schemaLocations() {
+	public Map<String, Class<? extends NamedElement>> schemaLocations() {
 
 		// This is the default location where all schema info will be written.
 		// Individual types of JDBC schema info can be written to separate locations if desired by providing a location for each type of info
 		String schemaLocation = SpringUtils.getProperty(env, SCHEMA_LOCATION_KEY);
 
 		// Allocate some storage for mapping db schemas to output locations
-		Map<String, Schema> result = new HashMap<String, Schema>();
+		Map<String, Class<? extends NamedElement>> result = new HashMap<String, Class<? extends NamedElement>>();
 
-		Schema s;
-
-		// The location to write table information to
+		// The location to write table information
 		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY, schemaLocation);
-		s = quietlyGetSchema(tableLocation, result);
-		s.getTables().addAll(this.schema.getTables());
+        result.put(tableLocation, Table.class);
 
-		// The location to write view information to
+		// The location to write view information
 		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY, schemaLocation);
-		s = quietlyGetSchema(viewLocation, result);
-		s.getViews().addAll(this.schema.getViews());
+        result.put(viewLocation, View.class);
 
-		// The location to write sequence information to
+		// The location to write sequence information
 		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY, schemaLocation);
-		s = quietlyGetSchema(sequenceLocation, result);
-		s.getSequences().addAll(this.schema.getSequences());
+        result.put(sequenceLocation, Sequence.class);
 
-		// The location to write foreign key information to
+		// The location to write foreign key information
 		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY, schemaLocation);
-		s = quietlyGetSchema(foreignKeyLocation, result);
-		s.getForeignKeys().addAll(this.schema.getForeignKeys());
+        result.put(foreignKeyLocation, ForeignKey.class);
 
 		return result;
 	}
 
-	protected Schema quietlyGetSchema(String location, Map<String, Schema> schemaMap) {
-		if (!schemaMap.containsKey(location)) {
-			schemaMap.put(location, new Schema());
-		}
-		return schemaMap.get(location);
-	}
+    @Bean
+    public ExportSchemaService exportService() {
+        return SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultExportSchemaService.class);
+    }
 
-	@Bean(initMethod = "execute")
+    @Bean
+    public Boolean executionSkip() {
+        return SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
+    }
+
+	@Bean
 	public ExportSchemaExecutable exportSchemaExecutable() {
 
-		boolean skip = SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
-		ExportSchemaService service = SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultExportSchemaService.class);
+		ExportSchemaExecutable exec = new ExportSchemaExecutable();
 
-		ExportSchemaExecutable exec = new ExportSchemaExecutable(skip);
-		exec.setSchemaLocations(schemaLocations());
-		exec.setExportService(service);
+		exec.setExportService(exportService());
+        exec.setSkip(executionSkip());
+
 		return exec;
 	}
 

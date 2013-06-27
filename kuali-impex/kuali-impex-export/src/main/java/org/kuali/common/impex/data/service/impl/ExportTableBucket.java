@@ -1,16 +1,16 @@
-package org.kuali.common.impex.data;
+package org.kuali.common.impex.data.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.impex.data.service.ExportDataContext;
+import org.kuali.common.impex.data.service.ExportDataService;
 
 public class ExportTableBucket implements Comparable<ExportTableBucket> {
 
 	ExportDataContext context;
 	ExportDataService service;
 	List<ExportTableContext> tables = new ArrayList<ExportTableContext>();
-	PercentCompleteInformer progressTracker;
 	List<ExportTableResult> results;
 	long rowCount;
 	long size;
@@ -45,14 +45,6 @@ public class ExportTableBucket implements Comparable<ExportTableBucket> {
     public void setService(ExportDataService service) {
         this.service = service;
     }
-
-    public PercentCompleteInformer getProgressTracker() {
-		return progressTracker;
-	}
-
-	public void setProgressTracker(PercentCompleteInformer progressTracker) {
-		this.progressTracker = progressTracker;
-	}
 
     public List<ExportTableResult> getResults() {
         return results;

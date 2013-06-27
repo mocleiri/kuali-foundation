@@ -2,7 +2,6 @@ package org.kuali.common.impex.schema.service.impl;
 
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.kuali.common.impex.model.ForeignKey;
@@ -45,7 +44,7 @@ public class MockSchemaExtractionService implements SchemaExtractionService {
     }
 
     @Override
-    public Collection<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+    public List<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
         return schema.getTables();
     }
 

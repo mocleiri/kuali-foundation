@@ -19,7 +19,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -166,8 +165,8 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	@Override
-	public Collection<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
-		Collection<Table> results = new ArrayList<Table>(tableNames.size());
+	public List<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+		List<Table> results = new ArrayList<Table>(tableNames.size());
 
 		DatabaseMetaData metaData = getMetaDataInstance(context);
 

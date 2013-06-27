@@ -84,7 +84,7 @@ public class MpxSupplierConfig {
     public Map<String, LocationSupplierSourceBean> impexExtensionMappings() throws JAXBException, IOException {
         // This gets cloned for each .mpx file
         MpxLocationSupplier mls = new MpxLocationSupplier();
-        mls.setSchema(modelProviderConfig.xmlModelProvider());
+        mls.setSchema(modelProviderConfig.schema());
         mls.setProducer(impexProducer());
 
         // This hands out clones of MpxLocationSupplier, one for every .mpx file being parsed

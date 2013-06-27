@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.data;
+package org.kuali.common.impex.data.service;
 
 public class ExportDataException extends Exception {
 

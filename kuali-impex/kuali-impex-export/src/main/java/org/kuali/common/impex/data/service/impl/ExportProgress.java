@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.data;
+package org.kuali.common.impex.data.service.impl;
 
 import java.io.OutputStream;
 import java.util.List;
 
+import org.kuali.common.impex.data.service.ExportDataContext;
 import org.kuali.common.impex.model.Column;
 
 public class ExportProgress {

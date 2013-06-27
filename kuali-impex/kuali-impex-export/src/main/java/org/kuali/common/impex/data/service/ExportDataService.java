@@ -13,14 +13,18 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.data;
+package org.kuali.common.impex.data.service;
 
 import java.sql.Connection;
 import java.util.List;
 
+import org.kuali.common.impex.data.service.impl.ExportTableContext;
+import org.kuali.common.impex.data.service.impl.ExportTableResult;
+import org.kuali.common.impex.model.Schema;
+
 public interface ExportDataService {
 
-    List<ExportTableResult> exportTables(ExportDataContext context);
+    List<ExportTableResult> exportTables(ExportDataContext context, Schema schema);
 
     ExportTableResult exportTable(ExportDataContext context, ExportTableContext table, Connection conn) throws ExportDataException;
 }

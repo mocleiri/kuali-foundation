@@ -15,31 +15,40 @@
 
 package org.kuali.common.impex.data;
 
+import java.util.List;
+
+import org.kuali.common.impex.data.service.ExportDataContext;
+import org.kuali.common.impex.data.service.ExportDataService;
+import org.kuali.common.impex.data.service.impl.ExportTableResult;
+import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
-public class ExportDataExecutable implements Executable {
+public class DataExportExecutable implements Executable {
 
 	ExportDataContext context;
 
 	ExportDataService service;
 
+    Schema schema;
+
 	Boolean skip;
 
 	public static final Boolean DEFAULT_SKIP_EXECUTION = false;
 
-	public ExportDataExecutable() {
-		this(DEFAULT_SKIP_EXECUTION);
-	}
-
-	public ExportDataExecutable(Boolean b) {
-		this.skip = b;
-	}
-
 	@Override
 	public void execute() {
-		if (!skip) {
-			service.exportTables(context);
-		}
+        if(skip) {
+            return;
+        }
+
+        Assert.notNull(schema, "Schema is null");
+
+        List<ExportTableResult> results = service.exportTables(context, schema);
+
+        // after exporting tables, store the table statistics
+        ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
 	}
 
 	public ExportDataContext getContext() {
@@ -57,4 +66,20 @@ public class ExportDataExecutable implements Executable {
 	public void setService(ExportDataService service) {
 		this.service = service;
 	}
+
+    public Schema getSchema() {
+        return schema;
+    }
+
+    public void setSchema(Schema schema) {
+        this.schema = schema;
+    }
+
+    public Boolean getSkip() {
+        return skip;
+    }
+
+    public void setSkip(Boolean skip) {
+        this.skip = skip;
+    }
 }

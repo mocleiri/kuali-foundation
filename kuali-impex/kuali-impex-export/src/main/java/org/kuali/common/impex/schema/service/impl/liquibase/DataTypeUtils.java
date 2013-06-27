@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.liquibase;
+package org.kuali.common.impex.schema.service.impl.liquibase;
 
 import liquibase.structure.core.Column;
 import org.kuali.common.impex.model.DataType;

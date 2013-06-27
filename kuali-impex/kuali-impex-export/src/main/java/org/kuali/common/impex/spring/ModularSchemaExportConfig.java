@@ -18,12 +18,9 @@ package org.kuali.common.impex.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.DefaultExportSchemaService;
 import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -53,15 +50,12 @@ public class ModularSchemaExportConfig {
     @Autowired
     Environment env;
 
-    @Autowired
-    Schema schema;
-
-    @Bean(initMethod = "execute")
-    public Executable modularSchemaExportExecutable() {
+    @Bean
+    public List<ModularSchemaExportExecutable> modularSchemaExportExecutables() {
 
         List<String> prefixes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROPERTY_PREFIXES_KEY));
 
-        List<Executable> executables = new ArrayList<Executable>(prefixes.size());
+        List<ModularSchemaExportExecutable> executables = new ArrayList<ModularSchemaExportExecutable>(prefixes.size());
 
         for (String prefix : prefixes) {
             String outpuLocation = SpringUtils.getProperty(env, prefix + OUTPUT_LOCATION_KEY);
@@ -72,7 +66,6 @@ public class ModularSchemaExportConfig {
 
             ModularSchemaExportExecutable mexec = new ModularSchemaExportExecutable();
             mexec.setOutputLocation(outpuLocation);
-            mexec.setSchema(schema);
             mexec.setExportService(new DefaultExportSchemaService());
             mexec.setSkip(skip);
             mexec.setSeparateForeignKeys(separateForeignKeys);
@@ -84,9 +77,7 @@ public class ModularSchemaExportConfig {
             executables.add(mexec);
         }
 
-        ExecutablesExecutable ex = new ExecutablesExecutable();
-        ex.setExecutables(executables);
-        return ex;
+        return executables;
     }
 
 }

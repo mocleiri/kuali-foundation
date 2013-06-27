@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.data;
+package org.kuali.common.impex.data.service;
 
 import java.io.File;
-import java.util.List;
 import javax.sql.DataSource;
+
+import org.kuali.common.util.StringFilter;
 
 public class ExportDataContext {
 
@@ -25,11 +26,11 @@ public class ExportDataContext {
     protected int dataThreads;
     protected File workingDir;
     protected String encoding;
-    protected List<ExportTableContext> tableContexts;
 
     protected int rowCountInterval;
     protected int dataSizeInterval;
     private String tableStatisticsLocation;
+    private StringFilter tableNameFilter;
 
     public DataSource getDataSource() {
         return dataSource;
@@ -79,19 +80,19 @@ public class ExportDataContext {
         this.rowCountInterval = rowCountInterval;
     }
 
-    public List<ExportTableContext> getTableContexts() {
-        return tableContexts;
-    }
-
-    public void setTableContexts(List<ExportTableContext> tableContexts) {
-        this.tableContexts = tableContexts;
-    }
-
     public String getTableStatisticsLocation() {
         return tableStatisticsLocation;
     }
 
     public void setTableStatisticsLocation(String tableStatisticsLocation) {
         this.tableStatisticsLocation = tableStatisticsLocation;
+    }
+
+    public StringFilter getTableNameFilter() {
+        return tableNameFilter;
+    }
+
+    public void setTableNameFilter(StringFilter tableNameFilter) {
+        this.tableNameFilter = tableNameFilter;
     }
 }

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.data;
+package org.kuali.common.impex.data.service.impl;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -29,22 +29,31 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.impex.data.service.ExportDataContext;
+import org.kuali.common.impex.data.service.ExportDataException;
+import org.kuali.common.impex.data.service.ExportDataService;
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -230,15 +239,36 @@ public class DefaultExportDataService implements ExportDataService {
     }
 
     @Override
-    public List<ExportTableResult> exportTables(ExportDataContext context) {
+    public List<ExportTableResult> exportTables(ExportDataContext context, Schema schema) {
+
+        List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>();
+
+        Collection<Table> includedTables = ExportUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
+
+        Properties tableStatistics = null;
+        if(LocationUtils.exists(context.getTableStatisticsLocation())) {
+            tableStatistics = PropertyUtils.load(context.getTableStatisticsLocation());
+        }
+
+        // create table contexts
+        for (Table t : includedTables) {
+
+            ExportTableContext tableContext = new ExportTableContext();
+            tableContext.setTable(t);
+
+            ExportUtils.populateTableStatistics(tableStatistics, t, tableContext);
+
+            tableContexts.add(tableContext);
+        }
+
         List<ExportTableResult> results = new ArrayList<ExportTableResult>();
 
         // Print a dot any time we complete 1% of our requests
         PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-        progressTracker.setTotal(context.getTableContexts().size());
+        progressTracker.setTotal(tableContexts.size());
 
         // Each bucket holds a bunch of requests
-        List<ExportTableBucket> buckets = getTableBuckets(context.getTableContexts(), context, results, progressTracker);
+        List<ExportTableBucket> buckets = getTableBuckets(tableContexts, context, results, progressTracker);
 
         // Create and invoke threads to fill in the metadata
         // Store some context for the thread handler
@@ -281,7 +311,6 @@ public class DefaultExportDataService implements ExportDataService {
             smallest.setSize(smallest.getSize() + table.getSize());
         }
         for (ExportTableBucket bucket : buckets) {
-            bucket.setProgressTracker(progressTracker);
             bucket.setContext(context);
             bucket.setService(this);
             bucket.setResults(results);

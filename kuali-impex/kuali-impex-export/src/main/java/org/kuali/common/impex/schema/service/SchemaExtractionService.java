@@ -1,7 +1,6 @@
 package org.kuali.common.impex.schema.service;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 import org.kuali.common.impex.model.ForeignKey;
@@ -19,7 +18,7 @@ public interface SchemaExtractionService {
 
     Schema getSchema(SchemaExtractionContext context);
 
-    Collection<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException;
+    List<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException;
 
     List<View> extractViews(SchemaExtractionContext context) throws SQLException;
 

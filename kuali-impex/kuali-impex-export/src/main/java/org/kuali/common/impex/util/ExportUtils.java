@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.impex.data.ExportTableContext;
-import org.kuali.common.impex.data.ExportTableResult;
+import org.kuali.common.impex.data.service.impl.ExportTableContext;
+import org.kuali.common.impex.data.service.impl.ExportTableResult;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.LocationUtils;

@@ -18,10 +18,8 @@ package org.kuali.common.impex.spring;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.sql.DataSource;
 
-import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
 import org.kuali.common.impex.schema.MySqlViewFinder;
 import org.kuali.common.impex.schema.OracleSequenceFinder;
@@ -29,6 +27,8 @@ import org.kuali.common.impex.schema.OracleViewFinder;
 import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
+import org.kuali.common.impex.schema.service.SchemaExtractionExecutable;
+import org.kuali.common.impex.schema.service.SchemaExtractionResult;
 import org.kuali.common.impex.schema.service.SchemaExtractionService;
 import org.kuali.common.impex.schema.service.impl.DefaultSchemaExtractionService;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
@@ -44,30 +44,32 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ JdbcDataSourceConfig.class })
-public class DefaultExtractSchemaConfig {
+public class SchemaExtractionConfig {
 
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 
-	public static final String THREAD_COUNT_KEY = "impex.export.schema.threads";
+	public static final String THREAD_COUNT_KEY = "impex.extraction.threads";
 
 	protected static final Integer DEFAULT_THREAD_COUNT = 8;
 
-	public static final String NAME_INCLUDES_KEY = "impex.export.schema.includes";
+	public static final String NAME_INCLUDES_KEY = "impex.extraction.includes";
 
-	public static final String SCHEMA_EXTRACTION_SERVICE_KEY = "impex.export.schema.extraction.service";
+	public static final String SCHEMA_EXTRACTION_SERVICE_KEY = "impex.extraction.service";
 
-	public static final String NAME_EXCLUDES_KEY = "impex.export.schema.excludes";
+	public static final String NAME_EXCLUDES_KEY = "impex.extraction.excludes";
 
-	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.export.oracle.sequence.finder";
-	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.export.oracle.view.finder";
+	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.extraction.oracle.sequence.finder";
+	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.extraction.oracle.view.finder";
 
-	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.export.mysql.sequence.finder";
-	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.export.mysql.view.finder";
+	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.extraction.mysql.sequence.finder";
+	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.extraction.mysql.view.finder";
 
 	// by default, include everything and exclude nothing
 	protected static final String DEFAULT_NAME_INCLUDES = ".*";
 
 	protected static final String DEFAULT_NAME_EXCLUDES = "";
+
+    protected static final String SKIP_EXECUTION_KEY = "impex.extraction.skip";
 
 	@Autowired
 	Environment env;
@@ -115,13 +117,14 @@ public class DefaultExtractSchemaConfig {
 	}
 
 	@Bean
-	public Schema extractedSchema() {
-
-		SchemaExtractionContext context = extractionContext();
-		SchemaExtractionService service = SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, DefaultSchemaExtractionService.class);
-
-		return service.getSchema(context);
+	public SchemaExtractionService extractionService() {
+		return SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, DefaultSchemaExtractionService.class);
 	}
+
+    @Bean
+    public SchemaExtractionResult extractionResult() {
+        return new SchemaExtractionResult();
+    }
 
 	protected StringFilter getNameFilter() {
 
@@ -159,4 +162,12 @@ public class DefaultExtractSchemaConfig {
 		return result;
 	}
 
+    public SchemaExtractionExecutable schemaExtractionExecutable() {
+        SchemaExtractionExecutable result = new SchemaExtractionExecutable();
+        result.setContext(extractionContext());
+        result.setService(extractionService());
+        result.setResult(extractionResult());
+        result.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
+        return result;
+    }
 }
