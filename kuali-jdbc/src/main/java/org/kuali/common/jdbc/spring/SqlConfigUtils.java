@@ -162,7 +162,10 @@ public class SqlConfigUtils {
 	}
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> propertyKeys) {
+
+		// Setup some storage for the contexts
 		List<SqlExecutionContext> contexts = new ArrayList<SqlExecutionContext>();
+
 		// Each property key will be something like "sql.schema.concurrent" where the last 2 tokens represent the "group" and the "execution mode"
 		for (String propertyKey : propertyKeys) {
 
@@ -176,19 +179,21 @@ public class SqlConfigUtils {
 			int groupIndex = tokens.length - 2;
 			int modeIndex = tokens.length - 1;
 
-			// Extract the group (this can be any arbitrary text that indicates some kind of SQL grouping
+			// Extract the group. This can be any arbitrary text that indicates some kind of SQL grouping, eg "schema", "data", "other"
 			String group = StringUtils.trim(tokens[groupIndex]);
 
 			// Extract the mode and convert to upper case
 			// Only values allowed here are "sequential" and "concurrent"
 			String modeString = StringUtils.trim(tokens[modeIndex].toUpperCase());
 
-			// Convert the mode string to a strongly typed enum object
+			// Convert the mode string to a strongly typed object
 			SqlMode mode = SqlMode.valueOf(modeString);
 
 			// Create a new context and add it to the list
 			contexts.add(new SqlExecutionContext(group, mode));
 		}
+
+		// Return the list we created
 		return contexts;
 	}
 
