@@ -48,9 +48,8 @@ public class SqlConfigUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
 
-	public static final String SQL_PREFIX = "sql";
 	public static final String SQL_ORDER_KEY = "sql.execution.order";
-	public static final String LIST_SUFFIX = ".list";
+	public static final String RESOURCES_SUFFIX = ".resources";
 
 	public static JdbcExecutable getJdbcExecutable(SqlConfigContext scc) {
 		String skipKey = "jdbc." + scc.getContext().getGroup() + ".skip";
@@ -93,7 +92,7 @@ public class SqlConfigUtils {
 	}
 
 	public static List<SqlExecutionContext> getSqlExecutionContexts(Environment env) {
-		// Extract csv from the environment
+		// Extract the CSV value for "sql.execution.order" from the environment
 		String csv = SpringUtils.getProperty(env, SQL_ORDER_KEY);
 
 		// NONE or NULL means there is no sql to execute
@@ -101,32 +100,43 @@ public class SqlConfigUtils {
 			csv = Str.EMPTY_STRING;
 		}
 
-		// Convert the csv to a list
-		List<String> values = CollectionUtils.getTrimmedListFromCSV(csv);
+		// Convert the CSV to a list of property keys
+		List<String> propertyKeys = CollectionUtils.getTrimmedListFromCSV(csv);
 
-		// Validate that all the properties correctly reference each other
-		// and that any/all resource locations they point to can be located
-		validateSqlExecutionOrderValues(env, values);
+		// Validate that the property keys referenced by sql.execution.order actually exist
+		// Validate that all of the resources referenced by any of the properties also exist
+		validateSqlExecutionOrderValues(env, propertyKeys);
 
 		// Convert the text values into pojo's
-		return getSqlExecutionContexts(values);
+		return getSqlExecutionContexts(propertyKeys);
 	}
 
-	public static void validateSqlExecutionOrderValues(Environment env, List<String> values) {
-		for (String value : values) {
-			// Validate there is a key for every value
-			String key = SQL_PREFIX + "." + value;
-			String csv = SpringUtils.getProperty(env, key);
-			List<String> keys = CollectionUtils.getTrimmedListFromCSV(csv);
+	public static void validateSqlExecutionOrderValues(Environment env, List<String> propertykeys) {
 
-			// Validate that every key exists
-			for (String k : keys) {
-				// Validate that every location exists
-				List<String> locations = getLocations(env, k, LIST_SUFFIX);
-				for (String location : locations) {
-					boolean exists = LocationUtils.exists(location);
-					Assert.isTrue(exists, "[" + location + "] does not exist");
-				}
+		// Go through the list of keys and check each one
+		for (String propertyKey : propertykeys) {
+
+			// This is a CSV list of actual resources (or .resources files) to load
+			String csv = SpringUtils.getProperty(env, propertyKey);
+
+			// Extract the CSV list of resources referenced by this property key
+			List<String> resources = CollectionUtils.getTrimmedListFromCSV(csv);
+
+			// Validate that all of the resources exist and that all of the locations referenced by any .resources files also exist
+			validateResources(resources);
+		}
+	}
+
+	public static void validateResources(List<String> resources) {
+		// Validate that every resource exists
+		for (String resource : resources) {
+
+			// Make sure the .resources file exists
+			LocationUtils.validateLocation(resource);
+
+			// Make sure each resource inside the .resources file exists
+			if (StringUtils.endsWithIgnoreCase(resource, RESOURCES_SUFFIX)) {
+				LocationUtils.validateLocationListing(resource);
 			}
 		}
 	}
@@ -151,20 +161,34 @@ public class SqlConfigUtils {
 		return locations;
 	}
 
-	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> values) {
-		List<SqlExecutionContext> list = new ArrayList<SqlExecutionContext>();
-		for (String value : values) {
-			String[] tokens = StringUtils.split(value, ".");
-			Assert.isTrue(tokens.length == 2, "tokens.length != 2");
-			String group = StringUtils.trim(tokens[0]);
-			String modeString = StringUtils.trim(tokens[1].toUpperCase());
+	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> propertyKeys) {
+		List<SqlExecutionContext> contexts = new ArrayList<SqlExecutionContext>();
+		// Each property key will be something like "sql.schema.concurrent" where the last 2 tokens represent the "group" and the "execution mode"
+		for (String propertyKey : propertyKeys) {
+
+			// ["sql", "schema", "concurrent"]
+			String[] tokens = StringUtils.split(propertyKey, ".");
+
+			// Must have at least 2 tokens
+			Assert.isTrue(tokens.length >= 2, "tokens.length < 2");
+
+			// These are the indexes corresponding to the tokens that indicate group and mode
+			int groupIndex = tokens.length - 2;
+			int modeIndex = tokens.length - 1;
+
+			// Extract the group (this can be any arbitrary text that indicates some kind of SQL grouping
+			String group = StringUtils.trim(tokens[groupIndex]);
+
+			// Extract the mode and convert to upper case so it matches the enum type
+			String modeString = StringUtils.trim(tokens[modeIndex].toUpperCase());
+
+			// Convert the mode string to a strongly typed enum object
 			SqlMode mode = SqlMode.valueOf(modeString);
-			SqlExecutionContext context = new SqlExecutionContext();
-			context.setGroup(group);
-			context.setMode(mode);
-			list.add(context);
+
+			// Create a new context and add it to the list
+			contexts.add(new SqlExecutionContext(group, mode));
 		}
-		return list;
+		return contexts;
 	}
 
 	public static DataSummaryListener getConcurrentDataSummaryListener(SqlConfigContext rcc) {

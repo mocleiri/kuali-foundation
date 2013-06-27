@@ -20,6 +20,16 @@ public class SqlExecutionContext {
 	String group;
 	SqlMode mode;
 
+	public SqlExecutionContext() {
+		this(null, null);
+	}
+
+	public SqlExecutionContext(String group, SqlMode mode) {
+		super();
+		this.group = group;
+		this.mode = mode;
+	}
+
 	public String getGroup() {
 		return group;
 	}
