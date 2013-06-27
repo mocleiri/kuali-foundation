@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.context;
 
 public class SqlExecutionContext {
 
+	String key;
 	String group;
 	SqlMode mode;
 
@@ -25,7 +26,12 @@ public class SqlExecutionContext {
 	}
 
 	public SqlExecutionContext(String group, SqlMode mode) {
+		this(null, group, mode);
+	}
+
+	public SqlExecutionContext(String key, String group, SqlMode mode) {
 		super();
+		this.key = key;
 		this.group = group;
 		this.mode = mode;
 	}
@@ -44,6 +50,14 @@ public class SqlExecutionContext {
 
 	public void setMode(SqlMode mode) {
 		this.mode = mode;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

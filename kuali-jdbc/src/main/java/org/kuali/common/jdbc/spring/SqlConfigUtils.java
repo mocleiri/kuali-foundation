@@ -190,17 +190,17 @@ public class SqlConfigUtils {
 			SqlMode mode = SqlMode.valueOf(modeString);
 
 			// Create a new context and add it to the list
-			contexts.add(new SqlExecutionContext(group, mode));
+			contexts.add(new SqlExecutionContext(propertyKey, group, mode));
 		}
 
 		// Return the list we created
 		return contexts;
 	}
 
-	public static DataSummaryListener getConcurrentDataSummaryListener(SqlConfigContext rcc) {
-		String propertyPrefix = getPropertyPrefix(rcc);
-		String label = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".progress.label", "Rows");
-		String throughputLabel = SpringUtils.getProperty(rcc.getEnv(), propertyPrefix + ".progress.label.throughput", "rows/s");
+	public static DataSummaryListener getConcurrentDataSummaryListener(SqlConfigContext scc) {
+		String propertyKey = scc.getContext().getKey();
+		String label = SpringUtils.getProperty(scc.getEnv(), propertyKey + ".progress.label", "Rows");
+		String throughputLabel = SpringUtils.getProperty(scc.getEnv(), propertyKey + ".progress.label.throughput", "rows/s");
 		DataSummaryListener dsl = new DataSummaryListener();
 		dsl.setLabel(label);
 		dsl.setThroughputLabel(throughputLabel);
@@ -223,30 +223,6 @@ public class SqlConfigUtils {
 		return ctx;
 	}
 
-	/**
-	 * <pre>
-	 *   sql.dba.concurrent
-	 *   sql.dba.sequential
-	 *   sql.schema.concurrent
-	 *   sql.schema.sequential
-	 *   sql.constraints.concurrent
-	 *   sql.constraints.sequential
-	 *   sql.other.concurrent
-	 *   sql.other.sequential
-	 * </pre>
-	 */
-	public static String getPropertyPrefix(SqlConfigContext scc) {
-		String mode = scc.getContext().getMode().name().toLowerCase();
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("sql");
-		sb.append(".");
-		sb.append(scc.getContext().getGroup());
-		sb.append(".");
-		sb.append(mode);
-		return sb.toString();
-	}
-
 	public static LogSqlListener getLogSqlListener(Environment env) {
 		String level = SpringUtils.getProperty(env, "sql.log.level", LogSqlListener.DEFAULT_LOGGER_LEVEL.name());
 		String mode = SpringUtils.getProperty(env, "sql.log.mode", LogSqlListener.DEFAULT_MODE.name());
@@ -266,13 +242,13 @@ public class SqlConfigUtils {
 		// dba, schema, data, constraints, other
 		String group = sec.getGroup();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc
-		String propertyPrefix = getPropertyPrefix(scc);
+		String propertyKey = scc.getContext().getKey();
 		String message = "[" + sec.getGroup() + ":" + sec.getMode().name().toLowerCase() + "]";
 		boolean skip = SpringUtils.getBoolean(scc.getEnv(), "sql." + group + ".skip", false);
-		String key = propertyPrefix + ".trackProgressByUpdateCount";
+		String key = propertyKey + ".trackProgressByUpdateCount";
 		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(scc.getEnv(), key, false);
 		logger.debug("{}={}", key, trackProgressByUpdateCount);
-		List<SqlSupplier> suppliers = scc.getCommonConfig().getSqlSuppliers(propertyPrefix);
+		List<SqlSupplier> suppliers = scc.getCommonConfig().getSqlSuppliers(propertyKey);
 		DataSource dataSource = scc.getDataSourceConfig().jdbcDataSource();
 
 		JdbcContext ctx = new JdbcContext();
