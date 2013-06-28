@@ -29,9 +29,12 @@ public class DatabaseExportExecutable implements Executable {
 	SchemaExtractionExecutable schemaExtractionExecutable;
 	DataExportExecutable dataExportExecutable;
 	List<ModularSchemaExportExecutable> schemaExecutables;
+	Executable showConfigExecutable;
 
 	@Override
 	public void execute() {
+
+		showConfigExecutable.execute();
 
 		schemaExtractionExecutable.execute();
 
@@ -71,4 +74,13 @@ public class DatabaseExportExecutable implements Executable {
 	public void setSchemaExtractionExecutable(SchemaExtractionExecutable schemaExtractionExecutable) {
 		this.schemaExtractionExecutable = schemaExtractionExecutable;
 	}
+
+	public Executable getShowConfigExecutable() {
+		return showConfigExecutable;
+	}
+
+	public void setShowConfigExecutable(Executable showConfigExecutable) {
+		this.showConfigExecutable = showConfigExecutable;
+	}
+
 }

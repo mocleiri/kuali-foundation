@@ -16,6 +16,7 @@
 package org.kuali.common.impex.spring;
 
 import org.kuali.common.impex.DatabaseExportExecutable;
+import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,30 +25,32 @@ import org.springframework.context.annotation.Import;
 
 /**
  * Configures tasks related to exporting data and schema information from a database to disk
- *
+ * 
  */
 @Configuration
-@Import({DataExportConfig.class, ModularSchemaExportConfig.class, SchemaExtractionConfig.class})
+@Import({ JdbcDataSourceConfig.class, DataExportConfig.class, ModularSchemaExportConfig.class, SchemaExtractionConfig.class })
 public class DatabaseExportConfig {
 
-    @Autowired
-    DataExportConfig dataExportConfig;
+	@Autowired
+	DataExportConfig dataExportConfig;
 
-    @Autowired
-    ModularSchemaExportConfig schemaExportConfig;
+	@Autowired
+	ModularSchemaExportConfig schemaExportConfig;
 
-    @Autowired
-    SchemaExtractionConfig extractSchemaConfig;
+	@Autowired
+	SchemaExtractionConfig extractSchemaConfig;
 
-    @Bean
-    public Executable exportDatabaseExecutable() {
-        DatabaseExportExecutable executable = new DatabaseExportExecutable();
+	@Autowired
+	JdbcDataSourceConfig dataSourceConfig;
 
-        executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
-        executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
-        executable.setSchemaExecutables(schemaExportConfig.modularSchemaExportExecutables());
-
-        return executable;
-    }
+	@Bean
+	public Executable exportDatabaseExecutable() {
+		DatabaseExportExecutable executable = new DatabaseExportExecutable();
+		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowSimpleConfigExecutable());
+		executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
+		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
+		executable.setSchemaExecutables(schemaExportConfig.modularSchemaExportExecutables());
+		return executable;
+	}
 
 }
