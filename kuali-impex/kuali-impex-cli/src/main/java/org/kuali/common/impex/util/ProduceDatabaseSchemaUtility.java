@@ -18,7 +18,7 @@ package org.kuali.common.impex.util;
 import org.kuali.common.impex.spring.ProduceSchemaConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.execute.SpringExecutable;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 
 public class ProduceDatabaseSchemaUtility {
@@ -33,7 +33,7 @@ public class ProduceDatabaseSchemaUtility {
 		try {
 			// Reset the db using annotated config
 			ProjectContext project = new JdbcProjectContext();
-			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, ProduceSchemaConfig.class);
+			Executable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, ProduceSchemaConfig.class);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
