@@ -26,52 +26,49 @@ import org.kuali.common.util.execute.Executable;
 
 public class DatabaseExportExecutable implements Executable {
 
-    SchemaExtractionExecutable schemaExtractionExecutable;
+	SchemaExtractionExecutable schemaExtractionExecutable;
+	DataExportExecutable dataExportExecutable;
+	List<ModularSchemaExportExecutable> schemaExecutables;
 
-    DataExportExecutable dataExportExecutable;
+	@Override
+	public void execute() {
 
-    List<ModularSchemaExportExecutable> schemaExecutables;
+		schemaExtractionExecutable.execute();
 
-    @Override
-    public void execute() {
-        schemaExtractionExecutable.execute();
+		Schema schema = schemaExtractionExecutable.getResult().getSchema();
 
-        Schema schema = schemaExtractionExecutable.getResult().getSchema();
+		Assert.notNull(schema, "Schema from extraction results is null");
 
-        Assert.notNull(schema, "Schema from extraction results is null");
+		for (ModularSchemaExportExecutable schemaExportExecutable : schemaExecutables) {
+			schemaExportExecutable.setSchema(schema);
+			schemaExportExecutable.execute();
+		}
 
-        for(ModularSchemaExportExecutable schemaExportExecutable : schemaExecutables) {
-            schemaExportExecutable.setSchema(schema);
+		dataExportExecutable.setSchema(schema);
+		dataExportExecutable.execute();
+	}
 
-            schemaExportExecutable.execute();
-        }
+	public DataExportExecutable getDataExportExecutable() {
+		return dataExportExecutable;
+	}
 
-        dataExportExecutable.setSchema(schema);
+	public void setDataExportExecutable(DataExportExecutable dataExportExecutable) {
+		this.dataExportExecutable = dataExportExecutable;
+	}
 
-        dataExportExecutable.execute();
-    }
+	public List<ModularSchemaExportExecutable> getSchemaExecutables() {
+		return schemaExecutables;
+	}
 
-    public DataExportExecutable getDataExportExecutable() {
-        return dataExportExecutable;
-    }
+	public void setSchemaExecutables(List<ModularSchemaExportExecutable> schemaExecutables) {
+		this.schemaExecutables = schemaExecutables;
+	}
 
-    public void setDataExportExecutable(DataExportExecutable dataExportExecutable) {
-        this.dataExportExecutable = dataExportExecutable;
-    }
+	public SchemaExtractionExecutable getSchemaExtractionExecutable() {
+		return schemaExtractionExecutable;
+	}
 
-    public List<ModularSchemaExportExecutable> getSchemaExecutables() {
-        return schemaExecutables;
-    }
-
-    public void setSchemaExecutables(List<ModularSchemaExportExecutable> schemaExecutables) {
-        this.schemaExecutables = schemaExecutables;
-    }
-
-    public SchemaExtractionExecutable getSchemaExtractionExecutable() {
-        return schemaExtractionExecutable;
-    }
-
-    public void setSchemaExtractionExecutable(SchemaExtractionExecutable schemaExtractionExecutable) {
-        this.schemaExtractionExecutable = schemaExtractionExecutable;
-    }
+	public void setSchemaExtractionExecutable(SchemaExtractionExecutable schemaExtractionExecutable) {
+		this.schemaExtractionExecutable = schemaExtractionExecutable;
+	}
 }
