@@ -20,6 +20,7 @@ import java.util.Arrays;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.ShowConfigExecutable;
+import org.kuali.common.jdbc.ShowSimpleConfigExecutable;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.DefaultBeanNullifier;
@@ -93,7 +94,17 @@ public class JdbcDataSourceConfig {
 		ShowConfigExecutable sce = new ShowConfigExecutable();
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
-		sce.setDataSource(jdbcDbaDataSource());
+		sce.setDataSource(jdbcDataSource());
+		sce.setSkip(SpringUtils.getBoolean(env, "jdbc.showconfig.skip", false));
+		return sce;
+	}
+
+	@Bean
+	public Executable jdbcShowSimpleConfigExecutable() {
+		ShowSimpleConfigExecutable sce = new ShowSimpleConfigExecutable();
+		sce.setService(commonConfig.jdbcService());
+		sce.setContext(jdbcDatabaseProcessContext());
+		sce.setDataSource(jdbcDataSource());
 		sce.setSkip(SpringUtils.getBoolean(env, "jdbc.showconfig.skip", false));
 		return sce;
 	}
