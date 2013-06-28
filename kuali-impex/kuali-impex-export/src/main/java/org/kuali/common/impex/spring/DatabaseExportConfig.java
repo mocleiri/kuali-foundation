@@ -46,7 +46,7 @@ public class DatabaseExportConfig {
 	@Bean
 	public Executable exportDatabaseExecutable() {
 		DatabaseExportExecutable executable = new DatabaseExportExecutable();
-		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowSimpleConfigExecutable());
+		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
 		executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
 		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
 		executable.setSchemaExecutables(schemaExportConfig.modularSchemaExportExecutables());
