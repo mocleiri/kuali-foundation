@@ -94,7 +94,7 @@ public class JdbcDataSourceConfig {
 		ShowConfigExecutable sce = new ShowConfigExecutable();
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
-		sce.setDataSource(jdbcDataSource());
+		sce.setDataSource(jdbcDbaDataSource());
 		sce.setSkip(SpringUtils.getBoolean(env, "jdbc.showconfig.skip", false));
 		return sce;
 	}
