@@ -20,55 +20,53 @@ import org.kuali.common.util.execute.Executable;
 
 public class SchemaExtractionExecutable implements Executable {
 
-    SchemaExtractionService service;
+	public static final boolean DEFAULT_SKIP = false;
 
-    SchemaExtractionContext context;
+	SchemaExtractionService service;
+	SchemaExtractionContext context;
+	SchemaExtractionResult result;
 
-    SchemaExtractionResult result;
+	boolean skip = DEFAULT_SKIP;
 
-    boolean skip;
+	@Override
+	public void execute() {
+		if (skip) {
+			return;
+		}
 
-    public static final boolean DEFAULT_SKIP = false;
+		Schema schema = service.getSchema(context);
+		result.setSchema(schema);
+	}
 
-    @Override
-    public void execute() {
-        if(skip) {
-            return;
-        }
+	public SchemaExtractionContext getContext() {
+		return context;
+	}
 
-        Schema schema = service.getSchema(context);
-        result.setSchema(schema);
-    }
+	public void setContext(SchemaExtractionContext context) {
+		this.context = context;
+	}
 
-    public SchemaExtractionContext getContext() {
-        return context;
-    }
+	public SchemaExtractionService getService() {
+		return service;
+	}
 
-    public void setContext(SchemaExtractionContext context) {
-        this.context = context;
-    }
+	public void setService(SchemaExtractionService service) {
+		this.service = service;
+	}
 
-    public SchemaExtractionService getService() {
-        return service;
-    }
+	public SchemaExtractionResult getResult() {
+		return result;
+	}
 
-    public void setService(SchemaExtractionService service) {
-        this.service = service;
-    }
+	public void setResult(SchemaExtractionResult result) {
+		this.result = result;
+	}
 
-    public SchemaExtractionResult getResult() {
-        return result;
-    }
+	public boolean isSkip() {
+		return skip;
+	}
 
-    public void setResult(SchemaExtractionResult result) {
-        this.result = result;
-    }
-
-    public boolean isSkip() {
-        return skip;
-    }
-
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 }
