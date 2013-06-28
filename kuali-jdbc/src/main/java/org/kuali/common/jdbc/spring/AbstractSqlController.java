@@ -51,7 +51,7 @@ public abstract class AbstractSqlController {
 
 	protected Executable getSqlExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
-		executables.add(dataSourceConfig.jdbcShowConfigExecutable());
+		executables.add(dataSourceConfig.jdbcShowDbaConfigExecutable());
 		executables.add(dbaBeforeConfig.getDbaPhaseExecutable());
 		List<SqlExecutionContext> contexts = SqlConfigUtils.getSqlExecutionContexts(env);
 

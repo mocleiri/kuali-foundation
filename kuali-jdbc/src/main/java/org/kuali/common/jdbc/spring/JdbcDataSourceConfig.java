@@ -89,8 +89,11 @@ public class JdbcDataSourceConfig {
 		return dmds;
 	}
 
+	/**
+	 * This bean requires DBA credentials
+	 */
 	@Bean
-	public Executable jdbcShowConfigExecutable() {
+	public Executable jdbcShowDbaConfigExecutable() {
 		ShowConfigExecutable sce = new ShowConfigExecutable();
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
@@ -100,7 +103,7 @@ public class JdbcDataSourceConfig {
 	}
 
 	@Bean
-	public Executable jdbcShowSimpleConfigExecutable() {
+	public Executable jdbcShowConfigExecutable() {
 		ShowSimpleConfigExecutable sce = new ShowSimpleConfigExecutable();
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
