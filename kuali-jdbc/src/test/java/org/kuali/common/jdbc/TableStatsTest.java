@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
@@ -31,6 +32,7 @@ import org.kuali.common.util.PropertyUtils;
 public class TableStatsTest {
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			String location = "/Users/jcaddel/sts/3.1.0.RELEASE/workspace/ks-sandbox/ks-deployments/ks-deployment-resources/src/main/resources/org/kuali/student/ks-source-db/tablestats.properties";
