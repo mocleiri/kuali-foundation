@@ -34,63 +34,59 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({SchemaExportConfig.class, SchemaExtractionConfig.class})
+@Import({ SchemaExportConfig.class, SchemaExtractionConfig.class })
 public class SchemaExportExecutionConfig {
 
-    @Autowired
-    SchemaExtractionConfig extractionConfig;
+	@Autowired
+	SchemaExtractionConfig extractionConfig;
 
-    @Autowired
-    SchemaExportConfig exportConfig;
+	@Autowired
+	SchemaExportConfig exportConfig;
 
-    @Bean(initMethod = "execute")
-    public ExportSchemaExecutable configuredExportExecutable() {
+	@Bean(initMethod = "execute")
+	public ExportSchemaExecutable configuredExportExecutable() {
 
-        Map<String, Class<? extends NamedElement>> locationMap = exportConfig.schemaLocations();
+		Map<String, Class<? extends NamedElement>> locationMap = exportConfig.schemaLocations();
 
-        ExportSchemaExecutable result = exportConfig.exportSchemaExecutable();
+		ExportSchemaExecutable result = exportConfig.exportSchemaExecutable();
 
-        SchemaExtractionResult extractionResult = executedResult();
+		SchemaExtractionResult extractionResult = executedResult();
 
-        Map<String, Schema> schemaLocationMap = new HashMap<String, Schema>(locationMap.size());
+		Map<String, Schema> schemaLocationMap = new HashMap<String, Schema>(locationMap.size());
 
-        for(Map.Entry<String, Class<? extends NamedElement>> entry : locationMap.entrySet()) {
-            String location = entry.getKey();
-            Class<? extends NamedElement> elementClass = entry.getValue();
+		for (Map.Entry<String, Class<? extends NamedElement>> entry : locationMap.entrySet()) {
+			String location = entry.getKey();
+			Class<? extends NamedElement> elementClass = entry.getValue();
 
-            // if a schema already exists for the location, append to it
-            Schema schema = schemaLocationMap.get(location);
-            if(schema == null) {
-                // otherwise, make a new schema instance
-                schema = new Schema();
-                schemaLocationMap.put(location, schema);
-            }
+			// if a schema already exists for the location, append to it
+			Schema schema = schemaLocationMap.get(location);
+			if (schema == null) {
+				// otherwise, make a new schema instance
+				schema = new Schema();
+				schemaLocationMap.put(location, schema);
+			}
 
-            if (elementClass.equals(Table.class)) {
-                schema.getTables().addAll(extractionResult.getSchema().getTables());
-            }
-            else if (elementClass.equals(Sequence.class)) {
-                schema.getSequences().addAll(extractionResult.getSchema().getSequences());
-            }
-            else if (elementClass.equals(View.class)) {
-                schema.getViews().addAll(extractionResult.getSchema().getViews());
-            }
-            else if (elementClass.equals(ForeignKey.class)) {
-                schema.getForeignKeys().addAll(extractionResult.getSchema().getForeignKeys());
-            }
-        }
+			if (elementClass.equals(Table.class)) {
+				schema.getTables().addAll(extractionResult.getSchema().getTables());
+			} else if (elementClass.equals(Sequence.class)) {
+				schema.getSequences().addAll(extractionResult.getSchema().getSequences());
+			} else if (elementClass.equals(View.class)) {
+				schema.getViews().addAll(extractionResult.getSchema().getViews());
+			} else if (elementClass.equals(ForeignKey.class)) {
+				schema.getForeignKeys().addAll(extractionResult.getSchema().getForeignKeys());
+			}
+		}
 
-        result.setSchemaLocations(schemaLocationMap);
+		result.setSchemaLocations(schemaLocationMap);
 
-        return result;
-    }
+		return result;
+	}
 
+	@Bean
+	public SchemaExtractionResult executedResult() {
+		extractionConfig.schemaExtractionExecutable().execute();
 
-    @Bean
-    public SchemaExtractionResult executedResult() {
-        extractionConfig.schemaExtractionExecutable().execute();
-
-        return extractionConfig.extractionResult();
-    }
+		return extractionConfig.extractionResult();
+	}
 
 }
