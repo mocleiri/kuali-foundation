@@ -16,16 +16,22 @@
 package org.kuali.common.util;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class LoggerUtils {
 
+	public static final Logger LOGGER_UTILS_LOGGER = LoggerFactory.getLogger(LoggerUtils.class);
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
+	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	public static void log(LogMsg msg, Logger logger) {
 		Assert.notNull(msg.getLevel(), "level is null");
@@ -50,25 +56,21 @@ public class LoggerUtils {
 	public static String getHeader(List<String> columns, int[] padding, boolean leftAlign) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < columns.size(); i++) {
-			if (i != 0) {
-				sb.append("  ");
+			if (i == 0) {
+				sb.append("||  ");
+			} else {
+				sb.append("|  ");
 			}
 			if (leftAlign) {
 				sb.append(StringUtils.rightPad(columns.get(i), padding[i]));
 			} else {
 				sb.append(StringUtils.leftPad(columns.get(i), padding[i]));
 			}
-		}
-		return sb.toString();
-	}
-
-	public static String getMsg(int count) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < count; i++) {
-			if (i != 0) {
-				sb.append("  ");
+			if (i == columns.size() - 1) {
+				sb.append("  ||");
+			} else {
+				sb.append("  |");
 			}
-			sb.append("{}");
 		}
 		return sb.toString();
 	}
@@ -90,13 +92,89 @@ public class LoggerUtils {
 	}
 
 	public static void logTable(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger, boolean leftAlign) {
-		int[] padding = getPadding(columns, rows);
-		logMsg(getHeader(columns, padding, leftAlign), logger, level);
-		String msg = getMsg(padding.length);
-		updateArgsList(rows, padding, leftAlign);
-		for (Object[] args : rows) {
-			logMsg(msg, args, logger, level);
+		LogTableContext context = new LogTableContext();
+		context.setColumns(columns);
+		context.setRows(rows);
+		context.setLevel(level);
+		context.setLogger(logger);
+		context.setLeftAlign(leftAlign);
+
+		logTable(context);
+	}
+
+	public static void logTable(List<String> columns, List<Object[]> rows) {
+		LogTableContext context = new LogTableContext(columns, rows);
+		logTable(context);
+	}
+
+	public static String getTable(LogTableContext context) {
+		Assert.notNull(context, "context is null");
+		Assert.notNull(context.getColumns(), "columns is null");
+		Assert.notNull(context.getRows(), "rows is null");
+		int[] padding = getPadding(context.getColumns(), context.getRows());
+		int cols = context.getColumns().size();
+		int rows = context.getRows().size();
+
+		String header = getHeader(context.getColumns(), padding, context.isLeftAlign());
+		updateArgsList(context.getRows(), padding, context.isLeftAlign());
+		Properties properties = getProperties(context.getRows());
+		String tableString = getTableString(rows, cols);
+
+		String resolved = HELPER.replacePlaceholders(tableString, properties);
+
+		return header + "\n" + resolved;
+	}
+
+	public static void logTable(LogTableContext context) {
+
+		String table = getTable(context);
+
+		Assert.notNull(context.getLogger(), "logger is null");
+		Assert.notNull(context.getLevel(), "level is null");
+
+		String msg = "Displaying Table" + "\n" + table;
+
+		logMsg(msg, context.getLogger(), context.getLevel());
+
+	}
+
+	protected static String getTableString(int rows, int cols) {
+		StringBuilder sb = new StringBuilder();
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				sb.append("${" + getPropertyKey(row, col) + "}");
+			}
+			sb.append("\n");
 		}
+		return sb.toString();
+	}
+
+	protected static Properties getProperties(List<Object[]> rows) {
+		Properties properties = new Properties();
+		for (int row = 0; row < rows.size(); row++) {
+			Object[] rowData = rows.get(row);
+			for (int col = 0; col < rowData.length; col++) {
+				String key = getPropertyKey(row, col);
+				StringBuilder sb = new StringBuilder();
+				if (col == 0) {
+					sb.append("||  ");
+				} else {
+					sb.append("|  ");
+				}
+				sb.append(rowData[col] + "");
+				if (col == rowData.length - 1) {
+					sb.append("  ||");
+				} else {
+					sb.append("  |");
+				}
+				properties.setProperty(key, sb.toString());
+			}
+		}
+		return properties;
+	}
+
+	protected static String getPropertyKey(int row, int col) {
+		return "log.table.row." + row + ".col." + col;
 	}
 
 	public static void logLines(String s, Logger logger, LoggerLevel level) {
@@ -152,13 +230,7 @@ public class LoggerUtils {
 	}
 
 	public static boolean isNullOrNone(String s) {
-		if (s == null) {
-			return true;
-		}
-		if (StringUtils.equalsIgnoreCase(Constants.NONE, s)) {
-			return true;
-		}
-		return StringUtils.equalsIgnoreCase(Constants.NULL, s);
+		return NullUtils.isNullOrNone(s);
 	}
 
 	public static final String getPassword(String username, String password, Obscurer obscurer) {

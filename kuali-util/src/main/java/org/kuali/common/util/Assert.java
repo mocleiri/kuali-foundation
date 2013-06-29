@@ -19,6 +19,22 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class Assert extends org.springframework.util.Assert {
 
+	public static void isOdd(int i) {
+		isTrue(i % 2 != 0);
+	}
+
+	public static void isOdd(int i, String message) {
+		isTrue(i % 2 != 0, message);
+	}
+
+	public static void isEven(int i) {
+		isTrue(i % 2 == 0);
+	}
+
+	public static void isEven(int i, String message) {
+		isTrue(i % 2 == 0, message);
+	}
+
 	public static void isFalse(boolean condition) {
 		isTrue(!condition);
 	}
