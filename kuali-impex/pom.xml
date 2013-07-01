@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-impex</artifactId>
-  <version>3.0.2-SNAPSHOT</version>
+  <version>3.0.2</version>
   <packaging>pom</packaging>
   <name>Kuali Impex</name>
   <description>
@@ -148,8 +148,8 @@
     </dependencies>
   </dependencyManagement>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-impex</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-impex</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-impex</url>
+    <connection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.2</connection>
+    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.2</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.2</url>
   </scm>
 </project>
