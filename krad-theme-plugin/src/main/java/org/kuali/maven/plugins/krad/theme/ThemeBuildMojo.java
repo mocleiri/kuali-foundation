@@ -1,33 +1,47 @@
 package org.kuali.maven.plugins.krad.theme;
 
+import org.apache.commons.io.filefilter.FileFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.codehaus.plexus.util.DirectoryScanner;
-import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.*;
+import org.codehaus.plexus.util.Scanner;
 import org.lesscss.LessCompiler;
 import org.lesscss.LessException;
 import org.lesscss.LessSource;
+import org.springframework.util.ObjectUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
+ * @goal build
+ * @phase process-resources
+ *
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 @Mojo(name = "build", defaultPhase = LifecyclePhase.PROCESS_RESOURCES, threadSafe = false)
+@Execute(goal ="build")
 public class ThemeBuildMojo extends AbstractMojo {
 
+    /**
+     * Webapp source directory.
+     *
+     * @parameter expression="${webappSourceDirectory}" default-value="${basedir}/src/main/webapp/themes"
+     */
     @Parameter(property = "webappSourceDirectory")
     private String webappSourceDir;
 
+    /**
+     * additionalThemeDirectories
+     *
+     * @parameter expression="${additionalThemeDirectories}"
+     */
     @Parameter(property = "additionalThemeDirectories")
     private List<String> additionalThemeDirectories;
 
@@ -37,10 +51,20 @@ public class ThemeBuildMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        getLog().info("ThemeBuilding");
+        getLog().info("  webappSourceDirectory="+webappSourceDir);
+
+        if(additionalThemeDirectories == null) {
+            additionalThemeDirectories = new ArrayList();
+        }
+
+        getLog().info("  additionalThemeDirectories="+additionalThemeDirectories);
         String themesDirectoryPath = this.webappSourceDir + PluginConstants.DEFAULT_THEMES_DIRECTORY;
 
         File themesDirectory = new File(themesDirectoryPath);
         File[] themeDirectories = themesDirectory.listFiles();
+
+        getLog().info("  theme Directory " + themesDirectory);
 
         // build mappings for convenient access
         try {
@@ -103,6 +127,15 @@ public class ThemeBuildMojo extends AbstractMojo {
 
         Properties themeProperties = themeNamePropertiesMapping.get(themeName);
 
+        if (themeProperties == null ) {
+            themeProperties = new Properties();
+        }
+
+        for(String property : themeProperties.stringPropertyNames()){
+          getLog().info("property:"+property);
+        }
+
+
         String themePath = themeNamePathMapping.get(themeName);
         File themeDirectory = new File(themePath);
 
@@ -110,7 +143,7 @@ public class ThemeBuildMojo extends AbstractMojo {
         if (themeProperties.containsKey(PluginConstants.ThemeConfiguration.PARENT)) {
             String parentThemeName = themeProperties.getProperty(PluginConstants.ThemeConfiguration.PARENT);
 
-            String[] parentExcludes = null;
+            String[] parentExcludes = new String[] {} ;
             if (themeProperties.containsKey(PluginConstants.ThemeConfiguration.PARENT_EXCLUDES)) {
                 String parentExcludesString = themeProperties.getProperty(PluginConstants.ThemeConfiguration.PARENT_EXCLUDES);
 
@@ -120,7 +153,7 @@ public class ThemeBuildMojo extends AbstractMojo {
             overlayParentAssets(themeDirectory, parentThemeName, parentExcludes);
         }
 
-        String[] themeExcludes = null;
+        String[] themeExcludes = new String[]{};
         if (themeProperties.containsKey(PluginConstants.ThemeConfiguration.EXCLUDES)) {
             String excludeString = themeProperties.getProperty(PluginConstants.ThemeConfiguration.EXCLUDES);
 
@@ -151,7 +184,18 @@ public class ThemeBuildMojo extends AbstractMojo {
         }
 
         try {
-            FileUtils.copyDirectory(parentThemeDirectory, themeDirectory, "*", StringUtils.join(copyDirectoryExcludes, ","));
+            getLog().info("    parentThemeDirectory: " + parentThemeDirectory);
+            getLog().info("    themeDirectory: " + themeDirectory);
+            getLog().info("    copyDirectoryExcludes: " + StringUtils.join(copyDirectoryExcludes, ","));
+
+            String[] filesToCopy = getIncludedFiles(parentThemeDirectory, new String[] {"**/*"},  copyDirectoryExcludes.toArray(new String[copyDirectoryExcludes.size()]) );
+            for ( String file : filesToCopy){
+                getLog().info("        copy file:"+file);
+                File input = new File(parentThemeDirectory, file);
+                File output = new File(themeDirectory, file);
+                FileUtils.copyFile(input, output);
+            }
+             //FileUtils.copyDirectory(parentThemeDirectory, themeDirectory, "**/*", StringUtils.join(copyDirectoryExcludes, ","));
         } catch (IOException e) {
             throw new MojoExecutionException("Unable to copy parent directory", e);
         }
@@ -161,7 +205,16 @@ public class ThemeBuildMojo extends AbstractMojo {
         themeNamePathMapping = new HashMap<String, String>();
         themeNamePropertiesMapping = new HashMap<String, Properties>();
 
+        if(ObjectUtils.isEmpty(themeDirectories)) {
+            return;
+        }
+
         for (File themeDirectory : themeDirectories) {
+            if(!themeDirectory.isDirectory()) {
+                continue;
+            }
+
+            getLog().info("  theme " + themeDirectory);
             this.themeNamePathMapping.put(themeDirectory.getName(), themeDirectory.getPath());
 
             Properties themeProperties = retrieveThemeProperties(themeDirectory.getPath());
@@ -233,6 +286,7 @@ public class ThemeBuildMojo extends AbstractMojo {
         scanner.scan();
 
         for (String includedFilename : scanner.getIncludedFiles()) {
+            getLog().debug("    file:" + includedFilename);
             files.add(includedFilename);
         }
 
@@ -242,10 +296,11 @@ public class ThemeBuildMojo extends AbstractMojo {
     protected void compileLessFiles(String themeName, List<String> themeAssets) throws MojoExecutionException{
         LessCompiler lessCompiler = new LessCompiler();
         lessCompiler.setCompress(true);
+        boolean forceCompile = true;
 
         for (String file : themeAssets) {
             if(StringUtils.substringAfterLast(file,".").equals("less")){
-                super.getLog().info("compiling " + file);
+                getLog().info("compiling " + file);
                 String directory = themeNamePathMapping.get(themeName);
                 File input = new File(directory, file);
                 File output = new File(directory, file.replace(".less", ".css"));
@@ -257,13 +312,13 @@ public class ThemeBuildMojo extends AbstractMojo {
                 try {
                     LessSource lessSource = new LessSource(input);
 
-                    if (output.lastModified() < lessSource.getLastModifiedIncludingImports()) {
+                   // if (output.lastModified() < lessSource.getLastModifiedIncludingImports()) {
                         getLog().info("Compiling LESS source: " + file + "...");
-                        lessCompiler.compile(lessSource, output, true);
-                    }
-                    else {
-                        getLog().info("Bypassing LESS source: " + file + " (not modified)");
-                    }
+                        lessCompiler.compile(lessSource, output, forceCompile);
+                   // }
+                   // else {
+                   //     getLog().info("Bypassing LESS source: " + file + " (not modified)");
+                   // }
                 } catch (IOException e) {
                     throw new MojoExecutionException("Error while compiling LESS source: " + file, e);
                 } catch (LessException e) {
@@ -271,5 +326,20 @@ public class ThemeBuildMojo extends AbstractMojo {
                 }
             }
         }
+    }
+
+    /**
+     * Scans for the files in directory
+     *
+     * @return The list of files
+     */
+    protected String[] getIncludedFiles(File directory, String[] includes,String[] excludes) {
+        DirectoryScanner scanner = new DirectoryScanner();
+        scanner.setBasedir(directory);
+        scanner.setIncludes(includes);
+        scanner.setExcludes(excludes);
+        scanner.scan();
+
+        return scanner.getIncludedFiles();
     }
 }
