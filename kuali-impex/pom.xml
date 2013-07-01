@@ -60,7 +60,7 @@
       <timezone>-7</timezone>
     </developer>
   </developers>
-  <url>http://${kuali.site.hostname}/common/impex/${project.version}</url>
+  <url>http://${kuali.site.hostname}/common/kuali-impex/${project.version}</url>
   <modules>
     <module>kuali-impex-model</module>
     <module>kuali-impex-producer</module>
