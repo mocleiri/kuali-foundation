@@ -40,7 +40,7 @@ public class OleResetTest {
 			ProjectContext other = new JdbcProjectContext();
 
 			// The annotated java class containing the Spring configuration that does what we need it to do
-			Class<?> annotatedClass = SqlControllerConfig.class;
+			Class<?> annotatedClass = SqlControllerExecutableConfig.class;
 
 			// Prepare a Spring context
 			SpringContext context = SpringUtils.getSpringContext(annotatedClass, project, Arrays.asList(other));

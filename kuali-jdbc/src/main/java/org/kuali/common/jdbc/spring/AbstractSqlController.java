@@ -23,6 +23,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
@@ -32,7 +33,7 @@ import org.springframework.core.env.Environment;
  */
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, SqlDbaAfterConfig.class })
-public abstract class AbstractSqlController {
+public class AbstractSqlController {
 
 	@Autowired
 	Environment env;
@@ -48,6 +49,11 @@ public abstract class AbstractSqlController {
 
 	@Autowired
 	JdbcCommonConfig commonConfig;
+
+	@Bean
+	public Executable sqlExecutable() {
+		return getSqlExecutable();
+	}
 
 	protected Executable getSqlExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
