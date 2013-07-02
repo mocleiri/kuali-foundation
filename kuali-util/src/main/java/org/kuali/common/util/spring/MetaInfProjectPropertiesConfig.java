@@ -79,6 +79,7 @@ public class MetaInfProjectPropertiesConfig {
 
 		// Setup the regular properties file executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
+		spe.setSkip(SpringUtils.getBoolean(env, "project.properties.skip", false));
 		spe.setEncoding(encoding);
 		spe.setOutputFile(outputFile);
 		spe.setProperties(properties);
@@ -87,6 +88,7 @@ public class MetaInfProjectPropertiesConfig {
 
 		// Setup the Rice style properties file executable
 		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
+		srpe.setSkip(SpringUtils.getBoolean(env, "project.properties.rice.skip", false));
 		srpe.setEncoding(encoding);
 		srpe.setOutputFile(riceOutputFile);
 		srpe.setProperties(properties);
