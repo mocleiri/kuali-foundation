@@ -21,11 +21,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(MetaInfSetupConfig.class)
-public class MetaInfExecutableConfig extends ExecutableConfig {
+@Import(MetaInfSqlSetupConfig.class)
+public class MetaInfSqlExecutableConfig extends ExecutableConfig {
 
 	@Autowired
-	MetaInfSetupConfig metaInfSetupConfig;
+	MetaInfSqlSetupConfig metaInfSetupConfig;
 
 	@Override
 	protected Executable getExecutable() {

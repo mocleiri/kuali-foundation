@@ -21,15 +21,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Deprecated, use <code>MetaInfExecutableConfig</code> instead.
+ * Deprecated, use <code>MetaInfSqlExecutableConfig</code> instead.
  */
 @Configuration
-@Import(MetaInfSetupConfig.class)
+@Import(MetaInfSqlSetupConfig.class)
 @Deprecated
 public class MetaInfSqlConfig extends ExecutableConfig {
 
 	@Autowired
-	MetaInfSetupConfig metaInfSetupConfig;
+	MetaInfSqlSetupConfig metaInfSetupConfig;
 
 	@Override
 	protected Executable getExecutable() {
