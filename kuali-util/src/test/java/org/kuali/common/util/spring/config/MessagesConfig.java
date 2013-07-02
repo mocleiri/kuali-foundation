@@ -49,7 +49,6 @@ public class MessagesConfig {
 		return message;
 	}
 
-	// @Bean(initMethod = "execute")
 	@Bean
 	public Executable printMessagesExecutable() {
 		return new PrintMessagesExecutable();
