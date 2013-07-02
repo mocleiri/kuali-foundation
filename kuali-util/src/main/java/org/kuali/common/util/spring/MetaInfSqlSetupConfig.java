@@ -43,7 +43,7 @@ public class MetaInfSqlSetupConfig {
 		contexts.add(getMetaInfContext("metainf.output.other", "metainf.include.other"));
 
 		MetaInfExecutable mie = new MetaInfExecutable();
-		mie.setSkip(SpringUtils.getBoolean(env, "metainf.skip", false));
+		mie.setSkip(SpringUtils.getBoolean(env, "metainf.sql.skip", false));
 		mie.setContexts(contexts);
 		return mie;
 
