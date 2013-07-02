@@ -59,7 +59,7 @@ public class AutowiredMessagesConfig {
 		return null;
 	}
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable printMessagesExecutable() {
 		List<Message> messages = new ArrayList<Message>();
 		messages.add(helloWorldMessage());
