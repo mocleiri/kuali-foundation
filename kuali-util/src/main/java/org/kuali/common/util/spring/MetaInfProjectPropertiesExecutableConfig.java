@@ -28,10 +28,10 @@ import org.springframework.context.annotation.Import;
 public class MetaInfProjectPropertiesExecutableConfig extends ExecutableConfig {
 
 	@Autowired
-	MetaInfProjectPropertiesSetupConfig metaInfProjectPropertiesSetupConfig;
+	MetaInfProjectPropertiesSetupConfig mppsc;
 
 	@Override
 	protected Executable getExecutable() {
-		return metaInfProjectPropertiesSetupConfig.storePropertiesExecutablesExectuable();
+		return mppsc.storePropertiesExecutablesExectuable();
 	}
 }
