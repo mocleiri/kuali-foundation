@@ -20,13 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-/**
- * Deprecated, use <code>MetaInfExecutableConfig</code> instead.
- */
 @Configuration
 @Import(MetaInfSetupConfig.class)
-@Deprecated
-public class MetaInfSqlConfig extends ExecutableConfig {
+public class MetaInfExecutableConfig extends ExecutableConfig {
 
 	@Autowired
 	MetaInfSetupConfig metaInfSetupConfig;
