@@ -29,7 +29,7 @@ public class ConvertTableListingTextFileConfig {
 	@Autowired
 	Environment env;
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public ConvertTableListingTextFileExecutable convertTableListingTextFileExecutable() {
 
 		String artifactId = SpringUtils.getProperty(env, "impex.txt.artifactId");
