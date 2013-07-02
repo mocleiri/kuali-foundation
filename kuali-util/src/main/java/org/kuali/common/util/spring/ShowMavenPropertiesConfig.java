@@ -37,7 +37,7 @@ public class ShowMavenPropertiesConfig {
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable showPropertiesExecutable() {
 		List<String> includes = SpringUtils.getListFromCSV(env, "properties.show.includes", "*");
 		List<String> excludes = SpringUtils.getListFromCSV(env, "properties.show.excludes", "");
