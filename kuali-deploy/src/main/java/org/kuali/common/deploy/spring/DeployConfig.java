@@ -339,7 +339,7 @@ public class DeployConfig {
 		context.setUrl(url);
 		context.setOverallTimeoutMillis(overallTimeoutMillis.intValue());
 		context.setRequestTimeoutMillis(requestTimeoutMillis.intValue());
-		context.setLogMsgPrefix(SpringUtils.getProperty(env, "http.logMsgPrefix", "[tomcat:wait]"));
+		context.setLogMsgPrefix(SpringUtils.getProperty(env, "http.logMsgPrefix", "[tomcat:wait] - "));
 
 		// Setup the executable
 		HttpWaitExecutable executable = new HttpWaitExecutable();
