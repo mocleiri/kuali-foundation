@@ -121,7 +121,7 @@
     <kuali-maven.version>1.0.3</kuali-maven.version>
     <kuali-sql.version>2.0.5</kuali-sql.version>
     <kuali-util.version>4.2.16</kuali-util.version>
-    <impex.version>2.1.7</impex.version>
+    <impex.version>3.0.2</impex.version>
   </properties>
   <profiles>
     <profile>
@@ -240,7 +240,15 @@
                 <configuration>
                   <propertySourcesConfig>${spring.propertySourceConfig}</propertySourcesConfig>
                   <removeExistingPropertySources>true</removeExistingPropertySources>
-                  <annotatedClass>org.kuali.common.deploy.spring.DeployConfig</annotatedClass>
+                  <!-- 
+                  Fix this as soon as kuali-impex based config is properly modularized
+                  Should not need all 3 annotated config classes declared here. 
+                  -->
+                  <annotatedClasses>
+                    <annotatedClass>org.kuali.common.impex.spring.MpxSupplierConfig</annotatedClass>
+                    <annotatedClass>org.kuali.common.impex.spring.SchemaXmlSupplierConfig</annotatedClass>
+                    <annotatedClass>org.kuali.common.deploy.spring.DeployConfig</annotatedClass>
+                  </annotatedClasses>
                 </configuration>
               </execution>
             </executions>
@@ -262,7 +270,7 @@
               </dependency>
               <dependency>
                 <groupId>org.kuali.common</groupId>
-                <artifactId>torque-executor</artifactId>
+                <artifactId>kuali-impex-producer</artifactId>
                 <version>${impex.version}</version>
               </dependency>
               <dependency>
