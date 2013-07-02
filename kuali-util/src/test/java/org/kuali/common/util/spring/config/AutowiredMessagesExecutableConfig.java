@@ -26,10 +26,11 @@ import org.springframework.context.annotation.Import;
 public class AutowiredMessagesExecutableConfig extends ExecutableConfig {
 
 	@Autowired
-	AutowiredMessagesConfig amc;
+	AutowiredMessagesConfig awmc;
 
+	@Override
 	protected Executable getExecutable() {
-		return amc.printMessagesExecutable();
+		return awmc.printMessagesExecutable();
 	}
 
 }
