@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
  * Provides an easy way to make Spring "do something". Somewhat similar to <code>public static void main(String[] args)</code> in a regular Java class. This class provides a way
  * for extending classes to capture what it is they want to to in an <code>Executable</code> and then have Spring automatically execute it.
  * 
- * The idea here is to provide a clean separation between the configuring and assembling of Executables and their actual execution.
+ * The idea here is to provide a clean separation between the configuring and assembling of Executables from their actual execution.
  */
 @Configuration
 public abstract class ExecutableConfig {
