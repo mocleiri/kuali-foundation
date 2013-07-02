@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * <code>Executable</code> has been fully initialized.
  * 
  * The idea here is to provide a clean separation between the configuring and assembling of Executables vs their actual execution. Well thought out Executables that do something
- * useful can often time be creatively combined and used in various ways that go well beyond the original intent of the author.
+ * useful can often times be creatively combined and used in various ways that go well beyond the original intent of the author.
  */
 @Configuration
 public abstract class ExecutableConfig {
