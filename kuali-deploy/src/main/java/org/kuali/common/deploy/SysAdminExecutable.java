@@ -2,7 +2,7 @@ package org.kuali.common.deploy;
 
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
