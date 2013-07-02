@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="taglib-foo">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/freemarker/testcase/servlets/WEB-INF/lib/taglib-foo.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
