@@ -27,28 +27,31 @@ import org.kuali.common.util.execute.Executable;
 
 public class DataExportExecutable implements Executable {
 
+	public static final boolean DEFAULT_SKIP_EXECUTION = false;
+
+	boolean skip = DEFAULT_SKIP_EXECUTION;
 	ExportDataContext context;
-
 	ExportDataService service;
-
-    Schema schema;
-
-	Boolean skip;
-
-	public static final Boolean DEFAULT_SKIP_EXECUTION = false;
+	Schema schema;
 
 	@Override
 	public void execute() {
-        if(skip) {
-            return;
-        }
 
-        Assert.notNull(schema, "Schema is null");
+		// May have nothing to do
+		if (skip) {
+			return;
+		}
 
-        List<ExportTableResult> results = service.exportTables(context, schema);
+		// Make sure we are configured correctly
+		Assert.notNull(schema, "schema is null");
+		Assert.notNull(context, "context is null");
+		Assert.notNull(service, "service is null");
 
-        // after exporting tables, store the table statistics
-        ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
+		// Connect to the database, extract data from each table and create a .mpx file for each table that has data
+		List<ExportTableResult> results = service.exportTables(context, schema);
+
+		// After exporting tables, store the table statistics
+		ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
 	}
 
 	public ExportDataContext getContext() {
@@ -67,19 +70,19 @@ public class DataExportExecutable implements Executable {
 		this.service = service;
 	}
 
-    public Schema getSchema() {
-        return schema;
-    }
+	public Schema getSchema() {
+		return schema;
+	}
 
-    public void setSchema(Schema schema) {
-        this.schema = schema;
-    }
+	public void setSchema(Schema schema) {
+		this.schema = schema;
+	}
 
-    public Boolean getSkip() {
-        return skip;
-    }
+	public boolean getSkip() {
+		return skip;
+	}
 
-    public void setSkip(Boolean skip) {
-        this.skip = skip;
-    }
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
 }

@@ -34,19 +34,31 @@ public class DatabaseExportExecutable implements Executable {
 	@Override
 	public void execute() {
 
+		// Make sure we are configured correctly
+		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
+		Assert.notNull(dataExportExecutable, "dataExportExecutable is null");
+		Assert.notNull(schemaExtractionExecutable, "schemaExtractionExecutable is null");
+		Assert.notNull(schemaExecutables, "schemaExecutables is null");
+
+		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
 
+		// Connect to the database and extract the schema info
 		schemaExtractionExecutable.execute();
 
+		// Get the schema model object generated during the extract
 		Schema schema = schemaExtractionExecutable.getResult().getSchema();
 
+		// Schema can't be null here
 		Assert.notNull(schema, "Schema from extraction results is null");
 
+		// Convert the schema information to XML and store to disk
 		for (ModularSchemaExportExecutable schemaExportExecutable : schemaExecutables) {
 			schemaExportExecutable.setSchema(schema);
 			schemaExportExecutable.execute();
 		}
 
+		// Write the data
 		dataExportExecutable.setSchema(schema);
 		dataExportExecutable.execute();
 	}

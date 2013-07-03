@@ -15,11 +15,10 @@
 
 package org.kuali.common.impex.schema;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -48,7 +47,7 @@ public class ModularSchemaExportExecutable implements Executable {
 			return;
 		}
 
-        Assert.notNull(schema, "Schema is null");
+		Assert.notNull(schema, "Schema is null");
 
 		if (separateForeignKeys) {
 
@@ -73,14 +72,15 @@ public class ModularSchemaExportExecutable implements Executable {
 	}
 
 	protected void writeSchema(Schema outputSchema, String location) {
-		Writer writer;
+		Writer writer = null;
 		try {
-			LocationUtils.touch(new File(location));
-			writer = new FileWriter(location);
+			writer = LocationUtils.openWriter(location);
+			exportService.exportSchema(outputSchema, writer);
 		} catch (IOException e) {
-			throw new IllegalArgumentException("Could not open a file writer for location " + location, e);
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(writer);
 		}
-		exportService.exportSchema(outputSchema, writer);
 	}
 
 	public boolean isSkip() {
