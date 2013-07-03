@@ -30,9 +30,15 @@ public class DatabaseExportExecutable implements Executable {
 	DataExportExecutable dataExportExecutable;
 	List<ModularSchemaExportExecutable> schemaExecutables;
 	Executable showConfigExecutable;
+	boolean skip;
 
 	@Override
 	public void execute() {
+
+		// May have nothing to do
+		if (skip) {
+			return;
+		}
 
 		// Make sure we are configured correctly
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
