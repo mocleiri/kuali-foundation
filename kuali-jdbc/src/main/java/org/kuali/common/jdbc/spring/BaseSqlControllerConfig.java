@@ -33,7 +33,7 @@ import org.springframework.core.env.Environment;
  */
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, SqlDbaAfterConfig.class })
-public class AbstractSqlController {
+public class BaseSqlControllerConfig {
 
 	@Autowired
 	Environment env;

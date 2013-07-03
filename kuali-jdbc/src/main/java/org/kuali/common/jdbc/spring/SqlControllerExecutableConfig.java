@@ -25,11 +25,11 @@ import org.springframework.context.annotation.Import;
  * Default SQL controller class. It displays the JDBC configuration, then executes SQL statements organized into groups
  */
 @Configuration
-@Import(AbstractSqlController.class)
+@Import(BaseSqlControllerConfig.class)
 public class SqlControllerExecutableConfig extends ExecutableConfig {
 
 	@Autowired
-	AbstractSqlController abstractSqlController;
+    BaseSqlControllerConfig abstractSqlController;
 
 	@Override
 	protected Executable getExecutable() {
