@@ -58,7 +58,7 @@ public class DatabaseExportExecutable implements Executable {
 			schemaExportExecutable.execute();
 		}
 
-		// Write the data
+		// Connect to the database, extract the data, and persist it to disk
 		dataExportExecutable.setSchema(schema);
 		dataExportExecutable.execute();
 	}
