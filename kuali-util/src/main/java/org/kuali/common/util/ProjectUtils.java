@@ -40,6 +40,7 @@ public class ProjectUtils {
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	public static final String KUALI_COMMON_GROUP_ID = "org.kuali.common";
+	public static final String KUALI_UTIL_ARTIFACT_ID = "kuali-util";
 
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
