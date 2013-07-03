@@ -29,7 +29,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class MetaInfSqlSetupConfig {
+@Deprecated
+public class MetaInfSqlSetupConfigOld {
 
 	@Autowired
 	Environment env;
@@ -37,13 +38,13 @@ public class MetaInfSqlSetupConfig {
 	@Bean
 	public Executable metaInfExecutable() {
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		contexts.add(getMetaInfContext("sql.metainf.output.schema", "sql.metainf.include.schema"));
-		contexts.add(getMetaInfContext("sql.metainf.output.data", "sql.metainf.include.data"));
-		contexts.add(getMetaInfContext("sql.metainf.output.constraints", "sql.metainf.include.constraints"));
-		contexts.add(getMetaInfContext("sql.metainf.output.other", "sql.metainf.include.other"));
+		contexts.add(getMetaInfContext("metainf.output.schema", "metainf.include.schema"));
+		contexts.add(getMetaInfContext("metainf.output.data", "metainf.include.data"));
+		contexts.add(getMetaInfContext("metainf.output.constraints", "metainf.include.constraints"));
+		contexts.add(getMetaInfContext("metainf.output.other", "metainf.include.other"));
 
 		MetaInfExecutable mie = new MetaInfExecutable();
-		mie.setSkip(SpringUtils.getBoolean(env, "sql.metainf.sql.skip", false));
+		mie.setSkip(SpringUtils.getBoolean(env, "metainf.sql.skip", false));
 		mie.setContexts(contexts);
 		return mie;
 

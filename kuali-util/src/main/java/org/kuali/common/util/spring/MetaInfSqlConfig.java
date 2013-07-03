@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Import;
 public class MetaInfSqlConfig extends ExecutableConfig {
 
 	@Autowired
-	MetaInfSqlSetupConfig metaInfSetupConfig;
+	MetaInfSqlSetupConfigOld metaInfSetupConfig;
 
 	@Override
 	protected Executable getExecutable() {
