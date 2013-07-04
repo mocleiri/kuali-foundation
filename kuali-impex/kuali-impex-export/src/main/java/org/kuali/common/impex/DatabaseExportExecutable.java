@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.kuali.common.impex.data.DataExportExecutable;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
+import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
 import org.kuali.common.impex.schema.service.SchemaExtractionExecutable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
@@ -28,7 +28,7 @@ public class DatabaseExportExecutable implements Executable {
 
 	SchemaExtractionExecutable schemaExtractionExecutable;
 	DataExportExecutable dataExportExecutable;
-	List<ModularSchemaExportExecutable> schemaExportExecutables;
+	List<ProjectSchemaExportExecutable> projectExportExecutables;
 	Executable showConfigExecutable;
 	boolean skip;
 
@@ -44,7 +44,7 @@ public class DatabaseExportExecutable implements Executable {
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
 		Assert.notNull(dataExportExecutable, "dataExportExecutable is null");
 		Assert.notNull(schemaExtractionExecutable, "schemaExtractionExecutable is null");
-		Assert.notNull(schemaExportExecutables, "schemaExecutables is null");
+		Assert.notNull(projectExportExecutables, "projectExportExecutables is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
@@ -59,9 +59,9 @@ public class DatabaseExportExecutable implements Executable {
 		Assert.notNull(schema, "schema is null");
 
 		// Convert the schema information to XML and store to disk
-		for (ModularSchemaExportExecutable schemaExportExecutable : schemaExportExecutables) {
-			schemaExportExecutable.setSchema(schema);
-			schemaExportExecutable.execute();
+		for (ProjectSchemaExportExecutable projectExportExecutable : projectExportExecutables) {
+			projectExportExecutable.setSchema(schema);
+			projectExportExecutable.execute();
 		}
 
 		// Connect to the database, extract the data, and persist it to disk
@@ -75,14 +75,6 @@ public class DatabaseExportExecutable implements Executable {
 
 	public void setDataExportExecutable(DataExportExecutable dataExportExecutable) {
 		this.dataExportExecutable = dataExportExecutable;
-	}
-
-	public List<ModularSchemaExportExecutable> getSchemaExportExecutables() {
-		return schemaExportExecutables;
-	}
-
-	public void setSchemaExportExecutables(List<ModularSchemaExportExecutable> schemaExecutables) {
-		this.schemaExportExecutables = schemaExecutables;
 	}
 
 	public SchemaExtractionExecutable getSchemaExtractionExecutable() {
@@ -99,6 +91,22 @@ public class DatabaseExportExecutable implements Executable {
 
 	public void setShowConfigExecutable(Executable showConfigExecutable) {
 		this.showConfigExecutable = showConfigExecutable;
+	}
+
+	public List<ProjectSchemaExportExecutable> getProjectExportExecutables() {
+		return projectExportExecutables;
+	}
+
+	public void setProjectExportExecutables(List<ProjectSchemaExportExecutable> projectExportExecutables) {
+		this.projectExportExecutables = projectExportExecutables;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 }

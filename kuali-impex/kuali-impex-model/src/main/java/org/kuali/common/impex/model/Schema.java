@@ -42,6 +42,11 @@ public class Schema {
 		this.name = name;
 	}
 
+	@XmlElement(name = "table")
+	public List<Table> getTables() {
+		return tables;
+	}
+
 	@XmlElement(name = "foreignKey")
 	public List<ForeignKey> getForeignKeys() {
 		return foreignKeys;
@@ -58,11 +63,6 @@ public class Schema {
 
 	public void setSequences(List<Sequence> sequences) {
 		this.sequences = sequences;
-	}
-
-	@XmlElement(name = "table")
-	public List<Table> getTables() {
-		return tables;
 	}
 
 	public void setTables(List<Table> tables) {

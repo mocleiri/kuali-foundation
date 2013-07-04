@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Import;
  * 
  */
 @Configuration
-@Import({ JdbcDataSourceConfig.class, DataExportConfig.class, ModularSchemaExportConfig.class, SchemaExtractionConfig.class })
+@Import({ JdbcDataSourceConfig.class, DataExportConfig.class, ProjectSchemaExportConfig.class, SchemaExtractionConfig.class })
 public class DatabaseExportConfig {
 
 	@Autowired
@@ -38,7 +38,7 @@ public class DatabaseExportConfig {
 	SchemaExtractionConfig extractSchemaConfig;
 
 	@Autowired
-	ModularSchemaExportConfig schemaExportConfig;
+	ProjectSchemaExportConfig projectExportConfig;
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
@@ -54,7 +54,7 @@ public class DatabaseExportConfig {
 		executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
 
 		// Persist the in memory model objects to disk as XML
-		executable.setSchemaExportExecutables(schemaExportConfig.modularSchemaExportExecutables());
+		executable.setProjectExportExecutables(projectExportConfig.projectSchemaExportExecutables());
 
 		// Connect to the db, extract data from the tables, and persist it to disk
 		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());

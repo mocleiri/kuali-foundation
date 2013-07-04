@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.spring;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,14 +46,35 @@ public class ProjectSchemaExportConfig {
 
 		List<String> gavs = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROJECTS_KEY));
 
+		File basedir = SpringUtils.getFile(env, "project.basedir");
+
 		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
 		for (String gav : gavs) {
-			Project project = ProjectUtils.loadProject(gav);
-			ProjectSchemaExportExecutable psee = new ProjectSchemaExportExecutable();
-			psee.setProject(project);
+			ProjectSchemaExportExecutable psee = getProjectSchemaExportExecutable(gav, basedir);
 			executables.add(psee);
 		}
 		return executables;
+	}
+
+	protected ProjectSchemaExportExecutable getProjectSchemaExportExecutable(String gav, File parentDir) {
+		Project project = ProjectUtils.loadProject(gav);
+		File basedir = new File(parentDir, project.getArtifactId());
+		StringFilter nameFilter = getNameFilter(project);
+
+		ProjectSchemaExportExecutable psee = new ProjectSchemaExportExecutable();
+		psee.setProject(project);
+		psee.setBasedir(basedir);
+		psee.setNameFilter(nameFilter);
+		psee.setParentDir(parentDir);
+		return psee;
+	}
+
+	protected StringFilter getNameFilter(Project project) {
+		String includesKey = "impex." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex." + project.getArtifactId() + ".excludes";
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ".*");
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, "");
+		return StringFilter.getInstance(includes, excludes);
 	}
 
 }

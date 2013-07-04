@@ -2,10 +2,12 @@ package org.kuali.common.impex.data.service.impl;
 
 import java.sql.Connection;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.data.service.ExportDataContext;
 import org.kuali.common.impex.data.service.ExportDataService;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 import org.slf4j.Logger;
@@ -38,9 +40,7 @@ public class ExportTableBucketHandler implements ElementHandler<ExportTableBucke
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
-			if (conn != null) {
-				DataSourceUtils.releaseConnection(conn, dataSource);
-			}
+			JdbcUtils.closeQuietly(dataSource, conn);
 		}
 	}
 }

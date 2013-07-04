@@ -24,7 +24,8 @@ import org.kuali.common.impex.model.Schema;
 
 public interface ExportDataService {
 
-    List<ExportTableResult> exportTables(ExportDataContext context, Schema schema);
+	List<ExportTableResult> exportTables(ExportDataContext context, Schema schema);
 
-    ExportTableResult exportTable(ExportDataContext context, ExportTableContext table, Connection conn) throws ExportDataException;
+	ExportTableResult exportTable(ExportDataContext context, ExportTableContext table, Connection conn);
+
 }

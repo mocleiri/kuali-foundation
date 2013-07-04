@@ -82,11 +82,12 @@ public class SchemaExportExecutionConfig {
 		return result;
 	}
 
+	// TODO What is this all about?
 	@Bean
 	public SchemaExtractionResult executedResult() {
-		extractionConfig.schemaExtractionExecutable().execute();
-
-		return extractionConfig.extractionResult();
+		return null;
+		// extractionConfig.schemaExtractionExecutable().execute();
+		// return extractionConfig.extractionResult();
 	}
 
 }

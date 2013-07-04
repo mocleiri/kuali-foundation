@@ -39,13 +39,13 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.ExportDataException;
 import org.kuali.common.impex.data.service.ExportDataService;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -62,13 +62,12 @@ public class DefaultExportDataService implements ExportDataService {
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultExportDataService.class);
 
 	@Override
-	public ExportTableResult exportTable(ExportDataContext context, ExportTableContext tableContext, Connection conn) throws ExportDataException {
+	public ExportTableResult exportTable(ExportDataContext context, ExportTableContext tableContext, Connection conn) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		long start = System.currentTimeMillis();
 		String query = getSelectAllQuery(tableContext.getTable());
 		try {
-
 			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			rs = stmt.executeQuery(query);
 			ExportTableResult result = dumpTable(context, tableContext, rs);
@@ -77,15 +76,14 @@ public class DefaultExportDataService implements ExportDataService {
 			result.setElapsed(result.getFinish() - start);
 			return result;
 		} catch (SQLException e) {
-			throw new ExportDataException("SQLException thrown when attempting to retrieve data for export from table: " + tableContext.getTable().getName() + " with query \n"
-					+ query, e);
+			throw new IllegalStateException("Unexpected SQL error", e);
 		} finally {
-			closeQuietly(rs);
-			closeQuietly(stmt);
+			JdbcUtils.closeQuietly(rs);
+			JdbcUtils.closeQuietly(stmt);
 		}
 	}
 
-	protected ExportTableResult dumpTable(ExportDataContext context, ExportTableContext tableContext, ResultSet rs) throws ExportDataException {
+	protected ExportTableResult dumpTable(ExportDataContext context, ExportTableContext tableContext, ResultSet rs) {
 		OutputStream out = null;
 		try {
 			Table table = tableContext.getTable();
@@ -134,9 +132,9 @@ public class DefaultExportDataService implements ExportDataService {
 
 			return result;
 		} catch (SQLException e) {
-			throw new ExportDataException("SQLException thrown when attempting to get data for table: " + tableContext.getTable().getName(), e);
+			throw new IllegalStateException("Unexpected SQL error");
 		} catch (IOException e) {
-			throw new ExportDataException("IOException thrown when attempting to export data", e);
+			throw new IllegalStateException("Unexpected IO error");
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
@@ -340,26 +338,6 @@ public class DefaultExportDataService implements ExportDataService {
 		}
 
 		return sb.toString();
-	}
-
-	protected void closeQuietly(ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				throw new IllegalStateException(e);
-			}
-		}
-	}
-
-	protected void closeQuietly(Statement stmt) {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				throw new IllegalStateException(e);
-			}
-		}
 	}
 
 	/**
