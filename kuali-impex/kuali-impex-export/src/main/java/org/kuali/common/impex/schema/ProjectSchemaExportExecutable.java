@@ -20,12 +20,17 @@ import java.io.File;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProjectSchemaExportExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(ProjectSchemaExportExecutable.class);
 
 	public static final boolean DEFAULT_EXECUTION_SKIP = false;
 	public static final ExportSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultExportSchemaService();
@@ -37,6 +42,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 	Schema schema;
 	StringFilter nameFilter;
 	File basedir;
+	File parentDir;
 
 	@Override
 	public void execute() {
@@ -57,6 +63,9 @@ public class ProjectSchemaExportExecutable implements Executable {
 
 		// The output file is always based on groupId + artifactId
 		File outputFile = getOutputFile(basedir, project);
+
+		// Log the name of the file we are creating
+		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(parentDir, outputFile));
 
 		// Persist the cloned schema to disk as XML
 		service.exportSchema(clone, outputFile);
@@ -126,6 +135,14 @@ public class ProjectSchemaExportExecutable implements Executable {
 
 	public void setBasedir(File basedir) {
 		this.basedir = basedir;
+	}
+
+	public File getParentDir() {
+		return parentDir;
+	}
+
+	public void setParentDir(File parentDir) {
+		this.parentDir = parentDir;
 	}
 
 }
