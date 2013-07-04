@@ -184,6 +184,9 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
 	protected List<String> getTableNames(SchemaExtractionContext context) throws SQLException {
 		long start = System.currentTimeMillis();
+		String includes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getIncludes());
+		String excludes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getExcludes());
+		log.info("[schema:extract:tablenames] - include: {}  exclude: {}", includes, excludes);
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
 		int originalSize = tableNames.size();
 		CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
@@ -191,7 +194,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		String filtered = FormatUtils.getCount(tableNames.size());
 		String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 		Object[] args = { original, filtered, time };
-		log.info("[schema:extract:tablenames] - All: {}  Filtered: {}  Time: {}", args);
+		log.info("[schema:extract:tablenames] - all: {}  filtered: {} - {}", args);
 		return tableNames;
 	}
 

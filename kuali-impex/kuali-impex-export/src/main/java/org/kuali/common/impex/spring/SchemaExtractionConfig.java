@@ -46,27 +46,27 @@ public class SchemaExtractionConfig {
 
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 
-	public static final String THREAD_COUNT_KEY = "impex.extraction.threads";
+	public static final String THREAD_COUNT_KEY = "impex.extract.threads";
 
 	protected static final Integer DEFAULT_THREAD_COUNT = 8;
 
-	public static final String NAME_INCLUDES_KEY = "impex.extraction.includes";
+	public static final String NAME_INCLUDES_KEY = "impex.extract.includes";
 
-	public static final String SCHEMA_EXTRACTION_SERVICE_KEY = "impex.extraction.service";
+	public static final String SERVICE_KEY = "impex.extract.service";
 
-	public static final String NAME_EXCLUDES_KEY = "impex.extraction.excludes";
+	public static final String NAME_EXCLUDES_KEY = "impex.extract.excludes";
 
-	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.extraction.oracle.sequence.finder";
-	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.extraction.oracle.view.finder";
+	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.extract.oracle.sequence.finder";
+	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.extract.oracle.view.finder";
 
-	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.extraction.mysql.sequence.finder";
-	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.extraction.mysql.view.finder";
+	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.extract.mysql.sequence.finder";
+	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.extract.mysql.view.finder";
 
 	// by default, include everything and exclude nothing
 	protected static final String DEFAULT_NAME_INCLUDES = ".*";
 	protected static final String DEFAULT_NAME_EXCLUDES = "";
 
-	protected static final String SKIP_EXECUTION_KEY = "impex.extraction.skip";
+	protected static final String SKIP_EXECUTION_KEY = "impex.extract.skip";
 
 	@Autowired
 	Environment env;
@@ -78,7 +78,7 @@ public class SchemaExtractionConfig {
 	public SchemaExtractionExecutable schemaExtractionExecutable() {
 		SchemaExtractionExecutable exec = new SchemaExtractionExecutable();
 		exec.setContext(getSchemaExtractionContext());
-		exec.setService(SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, SchemaExtractionExecutable.DEFAULT_SERVICE.getClass()));
+		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, SchemaExtractionExecutable.DEFAULT_SERVICE.getClass()));
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
 		return exec;
 	}
