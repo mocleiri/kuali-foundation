@@ -18,6 +18,7 @@ package org.kuali.common.impex.spring;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.MySqlSequenceFinder;
@@ -69,7 +70,7 @@ public class SchemaExtractionConfig {
 
 	protected static final String DEFAULT_NAME_EXCLUDES = "";
 
-    protected static final String SKIP_EXECUTION_KEY = "impex.extraction.skip";
+	protected static final String SKIP_EXECUTION_KEY = "impex.extraction.skip";
 
 	@Autowired
 	Environment env;
@@ -121,10 +122,10 @@ public class SchemaExtractionConfig {
 		return SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, DefaultSchemaExtractionService.class);
 	}
 
-    @Bean
-    public SchemaExtractionResult extractionResult() {
-        return new SchemaExtractionResult();
-    }
+	@Bean
+	public SchemaExtractionResult extractionResult() {
+		return new SchemaExtractionResult();
+	}
 
 	protected StringFilter getNameFilter() {
 
@@ -162,12 +163,12 @@ public class SchemaExtractionConfig {
 		return result;
 	}
 
-    public SchemaExtractionExecutable schemaExtractionExecutable() {
-        SchemaExtractionExecutable result = new SchemaExtractionExecutable();
-        result.setContext(extractionContext());
-        result.setService(extractionService());
-        result.setResult(extractionResult());
-        result.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
-        return result;
-    }
+	public SchemaExtractionExecutable schemaExtractionExecutable() {
+		SchemaExtractionExecutable result = new SchemaExtractionExecutable();
+		result.setContext(extractionContext());
+		result.setService(extractionService());
+		result.setResult(extractionResult());
+		result.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
+		return result;
+	}
 }
