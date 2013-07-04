@@ -331,6 +331,26 @@ public class SpringUtils {
 	 * 
 	 * @see FormatUtils.getBytes(String size)
 	 */
+	public static int getBytesInteger(Environment env, String key, String defaultValue) {
+		String value = getProperty(env, key, defaultValue);
+		return new Long(FormatUtils.getBytes(value)).intValue();
+	}
+
+	/**
+	 * Parse bytes from a size string that ends with a unit of measure. If no unit of measure is provided, bytes is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getBytes(String size)
+	 */
+	public static int getBytesInteger(Environment env, String key) {
+		String value = getProperty(env, key);
+		return new Long(FormatUtils.getBytes(value)).intValue();
+	}
+
+	/**
+	 * Parse bytes from a size string that ends with a unit of measure. If no unit of measure is provided, bytes is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getBytes(String size)
+	 */
 	public static long getBytes(Environment env, String key, String defaultValue) {
 		String value = getProperty(env, key, defaultValue);
 		return FormatUtils.getBytes(value);
