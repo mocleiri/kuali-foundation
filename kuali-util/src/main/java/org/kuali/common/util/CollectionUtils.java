@@ -35,7 +35,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CollectionUtils {
 
 	/**
-	 * Remove any Strings from the list that do not match the filter and then sort the remaining items
+	 * Remove any Strings from the list that do not match the filter and then sort the ones that remain
 	 */
 	public static void filterAndSort(List<String> strings, StringFilter filter) {
 		filter(strings, filter);
@@ -43,9 +43,9 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Remove any Strings from the list that do not match the filter
+	 * Remove any Strings from the collection that do not match the filter
 	 */
-	public static void filter(List<String> strings, StringFilter filter) {
+	public static void filter(Collection<String> strings, StringFilter filter) {
 		Iterator<String> itr = strings.iterator();
 		while (itr.hasNext()) {
 			if (!filter.include(itr.next())) {
