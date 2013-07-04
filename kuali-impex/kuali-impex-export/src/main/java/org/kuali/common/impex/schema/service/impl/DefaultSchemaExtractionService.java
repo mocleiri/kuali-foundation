@@ -80,7 +80,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		List<String> tableNames = getTableNames(context);
 
 		// the total number of schema extraction tasks is calculated as follows:
-		// - One task for each table name to get table/column data
+		// One task for each table name to get table/column data
 		int totalTasks = tableNames.size();
 
 		// One task for each table name to get foreign keys
