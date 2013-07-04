@@ -36,63 +36,58 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DataExportConfig {
 
-    @Autowired
-    Environment env;
+	public static final String STATISTICS_LOCATION_KEY = "impex.export.data.statistics.location";
+	public static final String DATA_THREADS_KEY = "impex.export.data.threads";
+	public static final String WORKING_DIR_KEY = "impex.export.data.workingDir";
+	public static final String ROW_INTERVAL_KEY = "impex.export.data.rowInterval";
+	public static final String DATA_INTERVAL_KEY = "impex.export.data.dataInterval";
+	public static final String TABLE_NAME_INCLUDE_KEY = "impex.export.data.include";
+	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.export.data.exclude";
+	public static final String SERVICE_CLASS_NAME = "impex.export.data.service";
 
-    public static final String STATISTICS_LOCATION_KEY = "impex.export.data.statistics.location";
-    public static final String DATA_THREADS_KEY = "impex.export.data.threads";
-    public static final String WORKING_DIR_KEY = "impex.export.data.workingDir";
-    public static final String ROW_INTERVAL_KEY = "impex.export.data.rowInterval";
-    public static final String DATA_INTERVAL_KEY = "impex.export.data.dataInterval";
-    public static final String TABLE_NAME_INCLUDE_KEY = "impex.export.data.include";
-    public static final String TABLE_NAME_EXCLUDE_KEY = "impex.export.data.exclude";
-    public static final String SERVICE_CLASS_NAME = "impex.export.data.service";
+	@Autowired
+	Environment env;
 
-    /**
-     * Property key for a boolean setting whether or not the executable should run
-     */
-    public static final String SKIP_EXECUTE_KEY = "impex.export.skip";
+	/**
+	 * Property key for a boolean setting whether or not the executable should run
+	 */
+	public static final String SKIP_EXECUTE_KEY = "impex.export.skip";
 
-    @Autowired
-    JdbcDataSourceConfig dataSourceConfig;
+	@Autowired
+	JdbcDataSourceConfig dataSourceConfig;
 
-    @Bean
-    public ExportDataContext exportDataContext() {
-        ExportDataContext result = new ExportDataContext();
+	@Bean
+	public ExportDataContext exportDataContext() {
+		ExportDataContext context = new ExportDataContext();
+		context.setTableStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
+		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
+		context.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, WORKING_DIR_KEY)));
+		context.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, ExportUtils.DEFAULT_ROW_INTERVAL));
+		context.setDataSizeInterval(SpringUtils.getInteger(env, DATA_INTERVAL_KEY, ExportUtils.DEFAULT_DATA_INTERVAL));
+		context.setDataSource(dataSourceConfig.jdbcDataSource());
+		context.setEncoding(dataSourceConfig.jdbcDatabaseProcessContext().getEncoding());
+		context.setTableNameFilter(getTableNameFilter());
+		return context;
+	}
 
-        result.setTableStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
+	protected StringFilter getTableNameFilter() {
+		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
+		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+		return StringFilter.getInstance(tableIncludes, tableExcludes);
+	}
 
-        result.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
-        result.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, WORKING_DIR_KEY)));
-        result.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, ExportUtils.DEFAULT_ROW_INTERVAL));
-        result.setDataSizeInterval(SpringUtils.getInteger(env, DATA_INTERVAL_KEY, ExportUtils.DEFAULT_DATA_INTERVAL));
+	@Bean
+	public ExportDataService exportDataService() {
+		return SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DefaultExportDataService.class);
+	}
 
-        result.setDataSource(dataSourceConfig.jdbcDataSource());
-        result.setEncoding(dataSourceConfig.jdbcDatabaseProcessContext().getEncoding());
-
-        List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-        List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
-
-        StringFilter nameFilter = StringFilter.getInstance(tableIncludes, tableExcludes);
-
-        result.setTableNameFilter(nameFilter);
-
-        return result;
-    }
-
-    @Bean
-    public ExportDataService exportDataService() {
-        return SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DefaultExportDataService.class);
-    }
-
-    @Bean
-    public DataExportExecutable exportDataExecutable() {
-        DataExportExecutable exec = new DataExportExecutable();
-        exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
-        exec.setContext(exportDataContext());
-        exec.setService(exportDataService());
-
-        return exec;
-    }
+	@Bean
+	public DataExportExecutable exportDataExecutable() {
+		DataExportExecutable exec = new DataExportExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
+		exec.setContext(exportDataContext());
+		exec.setService(exportDataService());
+		return exec;
+	}
 
 }
