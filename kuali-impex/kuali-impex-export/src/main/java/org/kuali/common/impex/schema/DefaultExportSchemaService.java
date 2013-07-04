@@ -15,15 +15,32 @@
 
 package org.kuali.common.impex.schema;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.util.LocationUtils;
 
 public class DefaultExportSchemaService implements ExportSchemaService {
+
+	@Override
+	public void exportSchema(Schema schema, File file) {
+		Writer writer = null;
+		try {
+			writer = LocationUtils.openWriter(file);
+			exportSchema(schema, writer);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(writer);
+		}
+	}
 
 	@Override
 	public void exportSchema(Schema schema, Writer writer) {
@@ -33,8 +50,7 @@ public class DefaultExportSchemaService implements ExportSchemaService {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.marshal(schema, writer);
 		} catch (JAXBException e) {
-			throw new IllegalStateException("Could not persist given schema", e);
+			throw new IllegalStateException("Unexpected JAXB error", e);
 		}
 	}
-
 }

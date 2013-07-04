@@ -36,15 +36,10 @@ import org.springframework.core.env.Environment;
 public class ModularSchemaExportConfig {
 
 	public static final String PROPERTY_PREFIXES_KEY = "impex.export.schema.modular.prefixes";
-
 	public static final String OUTPUT_LOCATION_KEY = "schema.output";
-
 	public static final String EXECUTION_SKIP_KEY = "schema.skip";
-
 	public static final String SEPARATE_FOREIGN_KEYS_KEY = "schema.foreignKeys.separate";
-
 	public static final String FOREIGN_KEY_OUTPUT_LOCATION_KEY = "schema.foreignKeys.output";
-
 	public static final boolean DEFAULT_SEPARATE_FOREIGN_KEYS = true;
 
 	@Autowired

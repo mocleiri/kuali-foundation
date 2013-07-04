@@ -15,12 +15,21 @@
 
 package org.kuali.common.impex.schema;
 
+import java.io.File;
 import java.io.Writer;
 
 import org.kuali.common.impex.model.Schema;
 
 public interface ExportSchemaService {
 
+	/**
+	 * Export a schema to a file on the file system
+	 */
+	void exportSchema(Schema schema, File file);
+
+	/**
+	 * Export a schema to a Writer
+	 */
 	void exportSchema(Schema schema, Writer writer);
 
 }
