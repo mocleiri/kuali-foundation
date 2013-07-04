@@ -332,8 +332,8 @@ public class SpringUtils {
 	 * @see FormatUtils.getBytes(String size)
 	 */
 	public static int getBytesInteger(Environment env, String key, String defaultValue) {
-		String value = getProperty(env, key, defaultValue);
-		return new Long(FormatUtils.getBytes(value)).intValue();
+		Long value = getBytes(env, key, defaultValue);
+		return getValidatedIntValue(value);
 	}
 
 	/**
@@ -342,8 +342,19 @@ public class SpringUtils {
 	 * @see FormatUtils.getBytes(String size)
 	 */
 	public static int getBytesInteger(Environment env, String key) {
-		String value = getProperty(env, key);
-		return new Long(FormatUtils.getBytes(value)).intValue();
+		Long value = getBytes(env, key);
+		return getValidatedIntValue(value);
+	}
+
+	/**
+	 * Throw IllegalArgumentException if value is outside the range of an Integer, otherwise return the Integer value.
+	 */
+	public static int getValidatedIntValue(Long value) {
+		if (value > Integer.MAX_VALUE || value < Integer.MIN_VALUE) {
+			throw new IllegalArgumentException(value + " is outside the range of an integer");
+		} else {
+			return value.intValue();
+		}
 	}
 
 	/**
