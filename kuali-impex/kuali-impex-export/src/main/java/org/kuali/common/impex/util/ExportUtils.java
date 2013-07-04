@@ -17,7 +17,6 @@ package org.kuali.common.impex.util;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -39,17 +38,17 @@ public class ExportUtils {
 	public static final int DEFAULT_ROW_INTERVAL = 50;
 	public static final String DEFAULT_DATA_INTERVAL = "50k";
 
-	public static <T extends NamedElement> Collection<T> getIncludedElements(StringFilter stringFilter, List<T> elements) {
+	public static <T extends NamedElement> List<T> getIncludedElements(StringFilter filter, List<T> elements) {
 
-		Collection<T> results = new ArrayList<T>();
+		List<T> included = new ArrayList<T>();
 
 		for (T named : elements) {
-			if (stringFilter.include(named.getName())) {
-				results.add(named);
+			if (filter.include(named.getName())) {
+				included.add(named);
 			}
 		}
 
-		return results;
+		return included;
 	}
 
 	/**
