@@ -60,7 +60,7 @@ public class DataExportConfig {
 		// Extract some context from the Environment
 		ExportDataContext context = getExportDataContext();
 
-		// Setup an exectuable for exporting the data
+		// Setup an executable for exporting the data
 		DataExportExecutable exec = new DataExportExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
 		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DataExportExecutable.DEFAULT_SERVICE.getClass()));
