@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Import;
 public class DatabaseExportConfig {
 
 	@Autowired
-	DataExportConfig dataExportConfig;
+	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
 	SchemaExtractionConfig extractSchemaConfig;
@@ -41,7 +41,7 @@ public class DatabaseExportConfig {
 	ProjectSchemaExportConfig projectExportConfig;
 
 	@Autowired
-	JdbcDataSourceConfig dataSourceConfig;
+	DataExportConfig dataExportConfig;
 
 	@Bean
 	public Executable exportDatabaseExecutable() {
