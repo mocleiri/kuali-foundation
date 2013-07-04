@@ -74,9 +74,9 @@ public class ExtractionUtils {
 	protected static final int FOREIGN_KEY_ON_DELETE_INDEX = 11;
 	protected static final int FOREIGN_KEY_NAME_INDEX = 12;
 
-	protected static final Map<Integer, DataType> SQL_TYPE_TO_DATA_TYPE;
+	protected static final Map<Integer, DataType> SQL_TYPE_TO_DATA_TYPE = getDataTypeMapping();
 
-	static {
+	protected static Map<Integer, DataType> getDataTypeMapping() {
 		HashMap<Integer, DataType> typeMap = new HashMap<Integer, DataType>();
 
 		typeMap.put(Types.CLOB, DataType.CLOB);
@@ -96,7 +96,7 @@ public class ExtractionUtils {
 		typeMap.put(Types.BLOB, DataType.BLOB);
 		typeMap.put(Types.BIT, DataType.BIT);
 
-		SQL_TYPE_TO_DATA_TYPE = Collections.unmodifiableMap(typeMap);
+		return Collections.unmodifiableMap(typeMap);
 	}
 
 	/**
