@@ -42,11 +42,10 @@ public class ProjectSchemaExportConfig {
 	@Bean
 	public List<ProjectSchemaExportExecutable> projectSchemaExportExecutables() {
 
-		List<String> projects = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROJECTS_KEY));
+		List<String> gavs = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROJECTS_KEY));
 
 		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
-
-		for (String gav : projects) {
+		for (String gav : gavs) {
 			Project project = ProjectUtils.loadProject(gav);
 			ProjectSchemaExportExecutable psee = new ProjectSchemaExportExecutable();
 			psee.setProject(project);
