@@ -42,9 +42,9 @@ public class ExportUtils {
 
 		List<T> included = new ArrayList<T>();
 
-		for (T named : elements) {
-			if (filter.include(named.getName())) {
-				included.add(named);
+		for (T element : elements) {
+			if (filter.include(element.getName())) {
+				included.add(element);
 			}
 		}
 
