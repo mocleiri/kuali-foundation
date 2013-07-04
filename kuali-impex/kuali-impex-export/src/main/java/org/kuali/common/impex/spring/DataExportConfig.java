@@ -45,13 +45,14 @@ public class DataExportConfig {
 	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.export.data.exclude";
 	public static final String SERVICE_CLASS_NAME = "impex.export.data.service";
 
-	@Autowired
-	Environment env;
-
 	/**
 	 * Property key for a boolean setting whether or not the executable should run
 	 */
 	public static final String SKIP_EXECUTE_KEY = "impex.export.skip";
+
+
+	@Autowired
+	Environment env;
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
