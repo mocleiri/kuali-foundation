@@ -51,29 +51,28 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
 	@Override
 	public Schema getSchema(SchemaExtractionContext context) {
+		Schema schema = extractSchema(context);
+		sortSchemaElements(schema);
+		return schema;
+	}
 
-		Schema result;
-
+	protected Schema extractSchema(SchemaExtractionContext context) {
 		try {
 			if (context.getThreadCount() <= SINGLE_THREAD_COUNT) {
-				result = extractSingleThreaded(context);
+				return extractSingleThreaded(context);
 			} else {
-				result = extractMultiThreaded(context);
+				return extractMultiThreaded(context);
 			}
 		} catch (SQLException e) {
 			throw new IllegalStateException("Unexpected SQL error", e);
 		}
-
-		sortSchemaElements(result);
-
-		return result;
 	}
 
-	protected void sortSchemaElements(Schema result) {
-		Collections.sort(result.getTables(), NamedElementComparator.getInstance());
-		Collections.sort(result.getForeignKeys(), NamedElementComparator.getInstance());
-		Collections.sort(result.getSequences(), NamedElementComparator.getInstance());
-		Collections.sort(result.getViews(), NamedElementComparator.getInstance());
+	protected void sortSchemaElements(Schema schema) {
+		Collections.sort(schema.getTables(), NamedElementComparator.getInstance());
+		Collections.sort(schema.getForeignKeys(), NamedElementComparator.getInstance());
+		Collections.sort(schema.getSequences(), NamedElementComparator.getInstance());
+		Collections.sort(schema.getViews(), NamedElementComparator.getInstance());
 	}
 
 	protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
