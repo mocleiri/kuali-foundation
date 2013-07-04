@@ -162,7 +162,7 @@ public class FileSystemUtils {
 		return relativePaths;
 	}
 
-	protected static String getRelativePath(File dir, File file) {
+	public static String getRelativePath(File dir, File file) {
 		String dirPath = LocationUtils.getCanonicalPath(dir);
 		String filePath = LocationUtils.getCanonicalPath(file);
 		if (!StringUtils.contains(filePath, dirPath)) {
