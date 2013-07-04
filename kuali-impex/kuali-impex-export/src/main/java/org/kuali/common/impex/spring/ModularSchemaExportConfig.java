@@ -29,55 +29,55 @@ import org.springframework.core.env.Environment;
 
 /**
  * This class supports exporting a schema with multiple output modules
- *
+ * 
  * @author andrewlubbers
  */
 @Configuration
 public class ModularSchemaExportConfig {
 
-    public static final String PROPERTY_PREFIXES_KEY = "impex.export.schema.modular.prefixes";
+	public static final String PROPERTY_PREFIXES_KEY = "impex.export.schema.modular.prefixes";
 
-    public static final String OUTPUT_LOCATION_KEY = "schema.output";
+	public static final String OUTPUT_LOCATION_KEY = "schema.output";
 
-    public static final String EXECUTION_SKIP_KEY = "schema.skip";
+	public static final String EXECUTION_SKIP_KEY = "schema.skip";
 
-    public static final String SEPARATE_FOREIGN_KEYS_KEY = "schema.foreignKeys.separate";
+	public static final String SEPARATE_FOREIGN_KEYS_KEY = "schema.foreignKeys.separate";
 
-    public static final String FOREIGN_KEY_OUTPUT_LOCATION_KEY = "schema.foreignKeys.output";
+	public static final String FOREIGN_KEY_OUTPUT_LOCATION_KEY = "schema.foreignKeys.output";
 
-    public static final boolean DEFAULT_SEPARATE_FOREIGN_KEYS = true;
+	public static final boolean DEFAULT_SEPARATE_FOREIGN_KEYS = true;
 
-    @Autowired
-    Environment env;
+	@Autowired
+	Environment env;
 
-    @Bean
-    public List<ModularSchemaExportExecutable> modularSchemaExportExecutables() {
+	@Bean
+	public List<ModularSchemaExportExecutable> modularSchemaExportExecutables() {
 
-        List<String> prefixes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROPERTY_PREFIXES_KEY));
+		List<String> prefixes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROPERTY_PREFIXES_KEY));
 
-        List<ModularSchemaExportExecutable> executables = new ArrayList<ModularSchemaExportExecutable>(prefixes.size());
+		List<ModularSchemaExportExecutable> executables = new ArrayList<ModularSchemaExportExecutable>(prefixes.size());
 
-        for (String prefix : prefixes) {
-            String outpuLocation = SpringUtils.getProperty(env, prefix + OUTPUT_LOCATION_KEY);
+		for (String prefix : prefixes) {
+			String outpuLocation = SpringUtils.getProperty(env, prefix + OUTPUT_LOCATION_KEY);
 
-            boolean skip = SpringUtils.getBoolean(env, prefix + EXECUTION_SKIP_KEY, ModularSchemaExportExecutable.DEFAULT_EXECUTION_SKIP);
-            // if this property is set to true for any module, then foreign key schema will be created in a separate file
-            boolean separateForeignKeys = SpringUtils.getBoolean(env, prefix + SEPARATE_FOREIGN_KEYS_KEY, DEFAULT_SEPARATE_FOREIGN_KEYS);
+			boolean skip = SpringUtils.getBoolean(env, prefix + EXECUTION_SKIP_KEY, ModularSchemaExportExecutable.DEFAULT_EXECUTION_SKIP);
+			// if this property is set to true for any module, then foreign key schema will be created in a separate file
+			boolean separateForeignKeys = SpringUtils.getBoolean(env, prefix + SEPARATE_FOREIGN_KEYS_KEY, DEFAULT_SEPARATE_FOREIGN_KEYS);
 
-            ModularSchemaExportExecutable mexec = new ModularSchemaExportExecutable();
-            mexec.setOutputLocation(outpuLocation);
-            mexec.setExportService(new DefaultExportSchemaService());
-            mexec.setSkip(skip);
-            mexec.setSeparateForeignKeys(separateForeignKeys);
-            if(separateForeignKeys) {
-                String fkOutpuLocation = SpringUtils.getProperty(env, prefix + FOREIGN_KEY_OUTPUT_LOCATION_KEY);
-                mexec.setForeignKeyOutputLocation(fkOutpuLocation);
-            }
+			ModularSchemaExportExecutable mexec = new ModularSchemaExportExecutable();
+			mexec.setOutputLocation(outpuLocation);
+			mexec.setExportService(new DefaultExportSchemaService());
+			mexec.setSkip(skip);
+			mexec.setSeparateForeignKeys(separateForeignKeys);
+			if (separateForeignKeys) {
+				String fkOutpuLocation = SpringUtils.getProperty(env, prefix + FOREIGN_KEY_OUTPUT_LOCATION_KEY);
+				mexec.setForeignKeyOutputLocation(fkOutpuLocation);
+			}
 
-            executables.add(mexec);
-        }
+			executables.add(mexec);
+		}
 
-        return executables;
-    }
+		return executables;
+	}
 
 }
