@@ -75,7 +75,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	protected Schema extractMultiThreaded(SchemaExtractionContext context) throws SQLException {
-		log.info("Multi threaded schema extraction started");
+		log.info("[schema:extract]");
 
 		List<String> tableNames = getTableNames(context);
 
@@ -138,8 +138,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
 
-		String time = FormatUtils.getTime(stats.getExecutionTime());
-		log.info("Schema extraction completed.  Time: {}", time);
+		log.info("[schema:extract]  Time: {}", FormatUtils.getTime(stats.getExecutionTime()));
 
 		return schema;
 	}
