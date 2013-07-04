@@ -19,12 +19,14 @@ import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
+import org.kuali.common.util.PercentCompleteInformer;
 
 public class ExtractSchemaBucket {
 
 	SchemaExtractionContext context;
 	List<String> tableNames;
 	Schema schema;
+	PercentCompleteInformer informer;
 
 	public SchemaExtractionContext getContext() {
 		return context;
@@ -48,5 +50,13 @@ public class ExtractSchemaBucket {
 
 	public void setSchema(Schema schema) {
 		this.schema = schema;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(PercentCompleteInformer informer) {
+		this.informer = informer;
 	}
 }

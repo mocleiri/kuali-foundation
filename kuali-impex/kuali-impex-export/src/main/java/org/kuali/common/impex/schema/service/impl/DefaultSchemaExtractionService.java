@@ -51,13 +51,19 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
 	@Override
 	public Schema getSchema(SchemaExtractionContext context) {
+		// Connect to the db using JDBC and create a Schema model object
 		Schema schema = extractSchema(context);
+
+		// Sort the schema elements by name
 		sortSchemaElements(schema);
+
+		// Return our schema object
 		return schema;
 	}
 
 	protected Schema extractSchema(SchemaExtractionContext context) {
 		try {
+			// Decide if we are executing in single threaded or multi-threaded mode
 			if (context.getThreadCount() <= SINGLE_THREAD_COUNT) {
 				return extractSingleThreaded(context);
 			} else {
@@ -66,39 +72,6 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		} catch (SQLException e) {
 			throw new IllegalStateException("Unexpected SQL error", e);
 		}
-	}
-
-	protected void sortSchemaElements(Schema schema) {
-		Collections.sort(schema.getTables(), NamedElementComparator.getInstance());
-		Collections.sort(schema.getForeignKeys(), NamedElementComparator.getInstance());
-		Collections.sort(schema.getSequences(), NamedElementComparator.getInstance());
-		Collections.sort(schema.getViews(), NamedElementComparator.getInstance());
-	}
-
-	protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
-		long startTime = System.currentTimeMillis();
-		log.info("Single threaded schema extraction started");
-
-		Schema result = new Schema();
-
-		List<String> tableNames = getTableNames(context);
-		log.debug("Extracting {} tables...", new Object[] { tableNames.size() });
-		result.getTables().addAll(extractTables(tableNames, context));
-		log.debug("Table extraction complete.");
-
-		result.getViews().addAll(extractViews(context));
-		log.debug("View extraction complete");
-
-		result.getSequences().addAll(extractSequences(context));
-		log.debug("Sequence extraction complete");
-
-		result.getForeignKeys().addAll(extractForeignKeys(tableNames, context));
-		log.debug("Foreign Key extraction complete");
-
-		String timeString = FormatUtils.getTime(System.currentTimeMillis() - startTime);
-		log.info("Single threaded schema extraction complete - Time: {}", new Object[] { timeString });
-		return result;
-
 	}
 
 	protected Schema extractMultiThreaded(SchemaExtractionContext context) throws SQLException {
@@ -113,12 +86,12 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		// One task for each table name to get foreign keys
 		totalTasks += tableNames.size();
 
-		// One task to get all sequences and all views
-		totalTasks++;
+		// One task for sequences + one task for views
+		totalTasks += 2;
 
 		// so the total number of tasks to track progress on will be (2 * number of tables) + 1
-		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		progressTracker.setTotal(totalTasks);
+		PercentCompleteInformer informer = new PercentCompleteInformer();
+		informer.setTotal(totalTasks);
 
 		// one thread will handle all views and sequences, then split the table names among other threads
 		int maxTableThreads = context.getThreadCount() - 1;
@@ -136,6 +109,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		ExtractSchemaBucket viewSequenceBucket = new ExtractViewsAndSequencesBucket();
 		viewSequenceBucket.setContext(context);
 		viewSequenceBucket.setSchema(schema);
+		viewSequenceBucket.setInformer(informer);
 		schemaBuckets.add(viewSequenceBucket);
 
 		// Create one bucket for each group of table names from the split
@@ -144,6 +118,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 			bucket.setTableNames(names);
 			bucket.setContext(context);
 			bucket.setSchema(schema);
+			bucket.setInformer(informer);
 
 			schemaBuckets.add(bucket);
 		}
@@ -158,7 +133,9 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		thc.setDivisor(1);
 
 		// Start threads to acquire table metadata concurrently
+		informer.start();
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
+		informer.stop();
 
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		log.info("Schema extraction completed.  Time: {}", time);
@@ -204,22 +181,9 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	protected List<String> getTableNames(SchemaExtractionContext context) throws SQLException {
-		DatabaseMetaData metaData = getMetaDataInstance(context);
-
-		List<String> allTables;
-		try {
-			allTables = ExtractionUtils.getTableNamesFromMetaData(context.getSchemaName(), metaData);
-		} finally {
-			JdbcUtils.closeQuietly(context.getDataSource(), metaData.getConnection());
-		}
-
-		List<String> filteredNames = new ArrayList<String>();
-		for (String name : allTables) {
-			if (context.getNameFilter().include(name)) {
-				filteredNames.add(name);
-			}
-		}
-		return filteredNames;
+		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
+		CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
+		return tableNames;
 	}
 
 	@Override
@@ -252,7 +216,44 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		}
 	}
 
+	/**
+	 * Sort the varous schema elements by name
+	 */
+	protected void sortSchemaElements(Schema schema) {
+		Collections.sort(schema.getTables(), NamedElementComparator.getInstance());
+		Collections.sort(schema.getForeignKeys(), NamedElementComparator.getInstance());
+		Collections.sort(schema.getSequences(), NamedElementComparator.getInstance());
+		Collections.sort(schema.getViews(), NamedElementComparator.getInstance());
+	}
+
 	protected DatabaseMetaData getMetaDataInstance(SchemaExtractionContext context) throws SQLException {
 		return context.getDataSource().getConnection().getMetaData();
 	}
+
+	protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
+		long startTime = System.currentTimeMillis();
+		log.info("Single threaded schema extraction started");
+
+		Schema result = new Schema();
+
+		List<String> tableNames = getTableNames(context);
+		log.debug("Extracting {} tables...", new Object[] { tableNames.size() });
+		result.getTables().addAll(extractTables(tableNames, context));
+		log.debug("Table extraction complete.");
+
+		result.getViews().addAll(extractViews(context));
+		log.debug("View extraction complete");
+
+		result.getSequences().addAll(extractSequences(context));
+		log.debug("Sequence extraction complete");
+
+		result.getForeignKeys().addAll(extractForeignKeys(tableNames, context));
+		log.debug("Foreign Key extraction complete");
+
+		String timeString = FormatUtils.getTime(System.currentTimeMillis() - startTime);
+		log.info("Single threaded schema extraction complete - Time: {}", new Object[] { timeString });
+		return result;
+
+	}
+
 }

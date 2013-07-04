@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.util;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,6 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
@@ -114,7 +117,19 @@ public class ExtractionUtils {
 
 	protected static final ForeignKeyConstraintType DEFAULT_CONSTRAINT_RULE = ForeignKeyConstraintType.RESTRICT;
 
-	public static List<String> getTableNamesFromMetaData(String schemaName, DatabaseMetaData databaseMetaData) throws SQLException {
+	public static List<String> getTableNames(DataSource dataSource, String schema) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = dataSource.getConnection();
+			DatabaseMetaData metadata = conn.getMetaData();
+			return getTableNamesFromMetaData(schema, metadata);
+		} finally {
+			JdbcUtils.closeQuietly(dataSource, conn);
+		}
+	}
+
+	// TODO Ask Andy why this is needed. Won't the regex filter out undesired table names anyway?
+	public static List<String> getTableNamesFromMetaDataUsingIgnorePrefixes(String schemaName, DatabaseMetaData databaseMetaData) throws SQLException {
 		List<String> results = new ArrayList<String>();
 
 		ResultSet nameResultSet = null;
@@ -147,6 +162,34 @@ public class ExtractionUtils {
 		}
 
 		return results;
+	}
+
+	public static List<String> getTableNamesFromMetaData(String schema, DatabaseMetaData meta) throws SQLException {
+		ResultSet rs = null;
+		try {
+			// Connect to the db and get a list of all the tables
+			rs = meta.getTables(null, schema, null, new String[] { TABLE_META_DATA_TYPE });
+
+			// Setup some storage for the names
+			List<String> tableNames = new ArrayList<String>();
+
+			// Iterate over the result set
+			while (rs.next()) {
+
+				// Extract the table name from the current row of the result set
+				String tableName = rs.getString(TABLE_NAME_INDEX);
+
+				// Add the table name to the list unless it is blank for some reason
+				if (!StringUtils.isBlank(tableName)) {
+					tableNames.add(tableName);
+				}
+			}
+
+			// Return the list
+			return tableNames;
+		} finally {
+			JdbcUtils.closeQuietly(rs);
+		}
 	}
 
 	public static String extractTableComment(String tableName, String schemaName, DatabaseMetaData databaseMetaData) throws SQLException {
