@@ -939,6 +939,20 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Return a new <code>Properties</code> object loaded from <code>file</code>.
+	 */
+	public static final Properties loadSilently(File file) {
+		return loadSilently(LocationUtils.getCanonicalPath(file));
+	}
+
+	/**
+	 * Return a new <code>Properties</code> object loaded from <code>file</code>.
+	 */
+	public static final Properties loadSilently(String location) {
+		return load(location, null, PropertyFormat.NORMAL, true);
+	}
+
+	/**
 	 * Return a new <code>Properties</code> object loaded from <code>file</code> using the given encoding.
 	 */
 	public static final Properties load(File file, String encoding) {
