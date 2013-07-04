@@ -111,32 +111,35 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		// - One task for each table name to get table/column data
 		int totalTasks = tableNames.size();
 
-		// - One task for each table name to get foreign keys
+		// One task for each table name to get foreign keys
 		totalTasks += tableNames.size();
 
-		// - One task to get all sequences and all views
+		// One task to get all sequences and all views
 		totalTasks++;
 
 		// so the total number of tasks to track progress on will be (2 * number of tables) + 1
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
 		progressTracker.setTotal(totalTasks);
 
-		Schema schema = new Schema();
-
 		// one thread will handle all views and sequences, then split the table names among other threads
 		int maxTableThreads = context.getThreadCount() - 1;
 
+		// Split the list of tables evenly across the threads
 		List<List<String>> splitNames = CollectionUtils.splitEvenly(tableNames, maxTableThreads);
 
+		// Create buckets to hold results
 		List<ExtractSchemaBucket> schemaBuckets = new ArrayList<ExtractSchemaBucket>(splitNames.size() + 1);
 
-		// add one special schema bucket for handling views and sequences
+		// Setup a schema object
+		Schema schema = new Schema();
+
+		// Add one special schema bucket for handling views and sequences
 		ExtractSchemaBucket viewSequenceBucket = new ExtractViewsAndSequencesBucket();
 		viewSequenceBucket.setContext(context);
 		viewSequenceBucket.setSchema(schema);
 		schemaBuckets.add(viewSequenceBucket);
 
-		// create one bucket for each group of table names from the split
+		// Create one bucket for each group of table names from the split
 		for (List<String> names : splitNames) {
 			ExtractSchemaBucket bucket = new ExtractSchemaBucket();
 			bucket.setTableNames(names);
