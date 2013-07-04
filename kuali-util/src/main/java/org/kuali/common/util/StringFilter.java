@@ -56,6 +56,14 @@ public class StringFilter {
 		return filter;
 	}
 
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
 	/**
 	 * Return true if the string should be included.
 	 */
