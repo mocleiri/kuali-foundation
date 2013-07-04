@@ -75,14 +75,12 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 
 			try {
 				tables = service.extractTables(element.getTableNames(), extractionContext);
-				element.getInformer().incrementProgress(element.getTableNames().size());
 			} catch (SQLException e) {
 				throw new IllegalStateException("Exception thrown by extraction service attempting to extract table metadata: " + e.getMessage(), e);
 			}
 
 			try {
 				foreignKeys = service.extractForeignKeys(element.getTableNames(), extractionContext);
-				element.getInformer().incrementProgress(element.getTableNames().size());
 			} catch (SQLException e) {
 				throw new IllegalStateException("Exception thrown by extraction service attempting to extract foreign key metadata: " + e.getMessage(), e);
 			}

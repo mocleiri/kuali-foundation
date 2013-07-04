@@ -92,6 +92,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		// so the total number of tasks to track progress on will be (2 * number of tables) + 1
 		PercentCompleteInformer informer = new PercentCompleteInformer();
 		informer.setTotal(totalTasks);
+		context.setInformer(informer);
 
 		// one thread will handle all views and sequences, then split the table names among other threads
 		int maxTableThreads = context.getThreadCount() - 1;
@@ -152,6 +153,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		try {
 			for (String name : tableNames) {
 				results.add(extractTable(name, context.getSchemaName(), metaData));
+				context.getInformer().incrementProgress();
 			}
 
 			return results;
@@ -208,11 +210,11 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
 	@Override
 	public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
-		DatabaseMetaData metaData = getMetaDataInstance(context);
+		DatabaseMetaData meta = getMetaDataInstance(context);
 		try {
-			return ExtractionUtils.extractForeignKeys(tableNames, context.getSchemaName(), metaData);
+			return ExtractionUtils.extractForeignKeys(meta, context.getSchemaName(), tableNames, context.getInformer());
 		} finally {
-			JdbcUtils.closeQuietly(context.getDataSource(), metaData.getConnection());
+			JdbcUtils.closeQuietly(context.getDataSource(), meta.getConnection());
 		}
 	}
 

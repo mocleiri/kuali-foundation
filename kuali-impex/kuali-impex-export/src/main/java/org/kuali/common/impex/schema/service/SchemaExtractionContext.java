@@ -19,62 +19,72 @@ import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.StringFilter;
 
 public class SchemaExtractionContext {
 
-    protected int threadCount;
-    protected DataSource dataSource;
-    protected StringFilter nameFilter;
-    protected String schemaName;
-    protected ViewFinder viewFinder;
-    protected SequenceFinder sequenceFinder;
+	int threadCount;
+	DataSource dataSource;
+	StringFilter nameFilter;
+	String schemaName;
+	ViewFinder viewFinder;
+	SequenceFinder sequenceFinder;
+	PercentCompleteInformer informer;
 
-    public int getThreadCount() {
-        return threadCount;
-    }
+	public int getThreadCount() {
+		return threadCount;
+	}
 
-    public void setThreadCount(int threadCount) {
-        this.threadCount = threadCount;
-    }
+	public void setThreadCount(int threadCount) {
+		this.threadCount = threadCount;
+	}
 
-    public String getSchemaName() {
-        return schemaName;
-    }
+	public String getSchemaName() {
+		return schemaName;
+	}
 
-    public void setSchemaName(String schemaName) {
-        this.schemaName = schemaName;
-    }
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
+	}
 
-    public StringFilter getNameFilter() {
-        return nameFilter;
-    }
+	public StringFilter getNameFilter() {
+		return nameFilter;
+	}
 
-    public void setNameFilter(StringFilter nameFilter) {
-        this.nameFilter = nameFilter;
-    }
+	public void setNameFilter(StringFilter nameFilter) {
+		this.nameFilter = nameFilter;
+	}
 
-    public ViewFinder getViewFinder() {
-        return viewFinder;
-    }
+	public ViewFinder getViewFinder() {
+		return viewFinder;
+	}
 
-    public void setViewFinder(ViewFinder viewFinder) {
-        this.viewFinder = viewFinder;
-    }
+	public void setViewFinder(ViewFinder viewFinder) {
+		this.viewFinder = viewFinder;
+	}
 
-    public SequenceFinder getSequenceFinder() {
-        return sequenceFinder;
-    }
+	public SequenceFinder getSequenceFinder() {
+		return sequenceFinder;
+	}
 
-    public void setSequenceFinder(SequenceFinder sequenceFinder) {
-        this.sequenceFinder = sequenceFinder;
-    }
+	public void setSequenceFinder(SequenceFinder sequenceFinder) {
+		this.sequenceFinder = sequenceFinder;
+	}
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
+	public DataSource getDataSource() {
+		return dataSource;
+	}
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(PercentCompleteInformer informer) {
+		this.informer = informer;
+	}
 }

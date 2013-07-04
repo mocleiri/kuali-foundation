@@ -38,6 +38,7 @@ import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.jdbc.JdbcUtils;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -429,53 +430,58 @@ public class ExtractionUtils {
 		return sortedIndices;
 	}
 
-	public static List<ForeignKey> extractForeignKeys(List<String> tableNames, String schemaName, DatabaseMetaData databaseMetaData) throws SQLException {
-		Map<String, ForeignKey> nameFks = new HashMap<String, ForeignKey>();
+	public static List<ForeignKey> extractForeignKeys(DatabaseMetaData meta, String schema, List<String> tables, PercentCompleteInformer informer) throws SQLException {
+		Map<String, ForeignKey> foreignKeys = new HashMap<String, ForeignKey>();
 
-		for (String tableName : tableNames) {
-			ResultSet resultSet = null;
+		for (String table : tables) {
+			ResultSet rs = null;
 			try {
-				resultSet = databaseMetaData.getImportedKeys(null, schemaName, tableName);
-				while (resultSet.next()) {
-					String importedTableName = resultSet.getString(FOREIGN_KEY_IMPORTED_TABLE_NAME_INDEX);
-					String importedColumnName = resultSet.getString(FOREIGN_KEY_IMPORTED_COLUMN_NAME_INDEX);
-					String localColumnName = resultSet.getString(FOREIGN_KEY_LOCAL_COLUMN_NAME_INDEX);
-					String name = resultSet.getString(FOREIGN_KEY_NAME_INDEX);
-
-					String onUpdateRule = resultSet.getString(FOREIGN_KEY_ON_UPDATE_INDEX);
-					String onDeleteRule = resultSet.getString(FOREIGN_KEY_ON_DELETE_INDEX);
-
-					// if the name of the foreign key is null, skip it
-					if (StringUtils.isEmpty(name)) {
-						continue;
-					}
-
-					// check to see if a foreign key with this name has already been started
-					ForeignKey fk = nameFks.get(name);
-					if (fk == null) {
-						fk = new ForeignKey(name, tableName, importedTableName);
-
-						// set the update and delete directives when the foreign key is created, since they should be the same
-						// for all the resultset entries with the same foreign key name
-						fk.setOnUpdate(translateConstraintRule(onUpdateRule));
-						fk.setOnDelete(translateConstraintRule(onDeleteRule));
-
-						nameFks.put(fk.getName(), fk);
-					}
-
-					fk.getLocalColumnNames().add(localColumnName);
-					fk.getForeignColumnNames().add(importedColumnName);
+				rs = meta.getImportedKeys(null, schema, table);
+				while (rs.next()) {
+					addOrUpdateForeignKeys(rs, foreignKeys, table);
 				}
+				informer.incrementProgress();
 			} finally {
-				JdbcUtils.closeQuietly(resultSet);
+				JdbcUtils.closeQuietly(rs);
 			}
 		}
 
-		List<ForeignKey> sortedFks = new ArrayList<ForeignKey>(nameFks.values());
+		List<ForeignKey> sorted = new ArrayList<ForeignKey>();
+		sorted.addAll(foreignKeys.values());
+		Collections.sort(sorted, NamedElementComparator.getInstance());
+		return sorted;
+	}
 
-		Collections.sort(sortedFks, NamedElementComparator.getInstance());
+	public static void addOrUpdateForeignKeys(ResultSet rs, Map<String, ForeignKey> foreignKeys, String tableName) throws SQLException {
 
-		return sortedFks;
+		String importedTableName = rs.getString(FOREIGN_KEY_IMPORTED_TABLE_NAME_INDEX);
+		String importedColumnName = rs.getString(FOREIGN_KEY_IMPORTED_COLUMN_NAME_INDEX);
+		String localColumnName = rs.getString(FOREIGN_KEY_LOCAL_COLUMN_NAME_INDEX);
+		String name = rs.getString(FOREIGN_KEY_NAME_INDEX);
+
+		String onUpdateRule = rs.getString(FOREIGN_KEY_ON_UPDATE_INDEX);
+		String onDeleteRule = rs.getString(FOREIGN_KEY_ON_DELETE_INDEX);
+
+		// if the name of the foreign key is null, skip it
+		if (StringUtils.isEmpty(name)) {
+			return;
+		}
+
+		// check to see if a foreign key with this name has already been started
+		ForeignKey fk = foreignKeys.get(name);
+		if (fk == null) {
+			fk = new ForeignKey(name, tableName, importedTableName);
+
+			// set the update and delete directives when the foreign key is created, since they should be the same
+			// for all the resultset entries with the same foreign key name
+			fk.setOnUpdate(translateConstraintRule(onUpdateRule));
+			fk.setOnDelete(translateConstraintRule(onDeleteRule));
+
+			foreignKeys.put(fk.getName(), fk);
+		}
+
+		fk.getLocalColumnNames().add(localColumnName);
+		fk.getForeignColumnNames().add(importedColumnName);
 	}
 
 	private static ForeignKeyConstraintType translateConstraintRule(String ruleString) {
