@@ -56,7 +56,7 @@ public class DatabaseExportConfig {
 		// Persist the in memory model objects to disk as XML
 		executable.setSchemaExportExecutables(schemaExportConfig.modularSchemaExportExecutables());
 
-		// Connect to the db to extract data from the tables and persist it to disk
+		// Connect to the db, extract data from the tables, and persist it to disk
 		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
 
 		// Return the configured executable
