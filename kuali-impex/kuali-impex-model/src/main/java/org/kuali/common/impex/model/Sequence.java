@@ -24,34 +24,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Sequence implements NamedElement {
 
-    protected String name;
+	protected String name;
 
-    protected String startValue;
+	protected String startValue;
 
-    public Sequence() {
-        this(null, null);
-    }
+	public Sequence() {
+		this(null, null);
+	}
 
-    public Sequence(String n, String s) {
-        name = n;
-        startValue = s;
-    }
+	public Sequence(String name, String startValue) {
+		this.name = name;
+		this.startValue = startValue;
+	}
 
-    @XmlAttribute
-    public String getName() {
-        return name;
-    }
+	@Override
+	@XmlAttribute
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @XmlAttribute
-    public String getStartValue() {
-        return startValue;
-    }
+	@XmlAttribute
+	public String getStartValue() {
+		return startValue;
+	}
 
-    public void setStartValue(String startValue) {
-        this.startValue = startValue;
-    }
+	public void setStartValue(String startValue) {
+		this.startValue = startValue;
+	}
 }

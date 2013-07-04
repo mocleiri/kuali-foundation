@@ -9,33 +9,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class View implements NamedElement {
 
-    protected String name;
+	protected String name;
 
-    protected String queryString;
+	protected String queryString;
 
-    public View() {
-        this(null, null);
-    }
+	public View() {
+		this(null, null);
+	}
 
-    public View(String n, String q) {
-        name = n;
-        queryString = q;
-    }
+	public View(String name, String queryString) {
+		this.name = name;
+		this.queryString = queryString;
+	}
 
-    @XmlAttribute
-    public String getName() {
-        return name;
-    }
+	@Override
+	@XmlAttribute
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getQueryString() {
-        return queryString;
-    }
+	public String getQueryString() {
+		return queryString;
+	}
 
-    public void setQueryString(String queryString) {
-        this.queryString = queryString;
-    }
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
+	}
 }
