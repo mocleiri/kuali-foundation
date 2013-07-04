@@ -58,9 +58,7 @@ public final class Constants {
 	public static final String ENCRYPTION_PREFIX = "ENC(";
 	public static final String ENCRYPTION_SUFFIX = ")";
 
-	// This should be ${project.groupId.path} instead of ${project.groupId.base.path}
-	// The KS project is (incorrectly) using more than one groupId in their collection of projects
-	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${project.groupId.base.path}/${project.artifactId}";
+	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${project.groupId.path}/${project.artifactId}";
 	public static final String PROJECT_PROPERTIES_FRAGMENT = PROJECT_PROPERTIES_BASE + "/project.properties";
 	public static final String PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + PROJECT_PROPERTIES_FRAGMENT;
 	public static final String PROJECT_PROPERTIES_LOCATION = "classpath:" + PROJECT_PROPERTIES_FRAGMENT;
