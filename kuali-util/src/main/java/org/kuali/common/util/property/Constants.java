@@ -58,12 +58,15 @@ public final class Constants {
 	public static final String ENCRYPTION_PREFIX = "ENC(";
 	public static final String ENCRYPTION_SUFFIX = ")";
 
-	public static final String PROJECT_PROPERTIES_FRAGMENT = "META-INF/${project.groupId.path}/${project.artifactId}/project.properties";
+	// This should be ${project.groupId.path} instead of ${project.groupId.base.path}
+	// The KS project is (incorrectly) using more than one groupId in their collection of projects
+	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${project.groupId.base.path}/${project.artifactId}";
+	public static final String PROJECT_PROPERTIES_FRAGMENT = PROJECT_PROPERTIES_BASE + "/project.properties";
 	public static final String PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + PROJECT_PROPERTIES_FRAGMENT;
 	public static final String PROJECT_PROPERTIES_LOCATION = "classpath:" + PROJECT_PROPERTIES_FRAGMENT;
 
 	public static final String RICE_PROPERTIES_SUFFIX = "rice-properties.xml";
-	public static final String RICE_PROJECT_PROPERTIES_FRAGMENT = "META-INF/${project.groupId.path}/${project.artifactId}/project-" + RICE_PROPERTIES_SUFFIX;
+	public static final String RICE_PROJECT_PROPERTIES_FRAGMENT = PROJECT_PROPERTIES_BASE + "/project-" + RICE_PROPERTIES_SUFFIX;
 	public static final String RICE_PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + RICE_PROJECT_PROPERTIES_FRAGMENT;
 	public static final String RICE_PROJECT_PROPERTIES_LOCATION = "classpath:" + RICE_PROJECT_PROPERTIES_FRAGMENT;
 
