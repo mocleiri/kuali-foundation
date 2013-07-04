@@ -75,7 +75,8 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	protected Schema extractMultiThreaded(SchemaExtractionContext context) throws SQLException {
-		log.info("[schema:extract]");
+		long start = System.currentTimeMillis();
+		log.info("[schema:extract:starting]");
 
 		List<String> tableNames = getTableNames(context);
 
@@ -134,12 +135,12 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		thc.setDivisor(1);
 
 		// Start threads to acquire table metadata concurrently
+		log.info("[schema:extract:metadata:starting]");
 		informer.start();
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
-
-		log.info("[schema:extract]  Time: {}", FormatUtils.getTime(stats.getExecutionTime()));
-
+		log.info("[schema:extract:metadata:complete] - {}", FormatUtils.getTime(stats.getExecutionTime()));
+		log.info("[schema:extract:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 		return schema;
 	}
 
@@ -182,8 +183,15 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	protected List<String> getTableNames(SchemaExtractionContext context) throws SQLException {
+		long start = System.currentTimeMillis();
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
+		int originalSize = tableNames.size();
 		CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
+		String original = FormatUtils.getCount(originalSize);
+		String filtered = FormatUtils.getCount(tableNames.size());
+		String time = FormatUtils.getTime(System.currentTimeMillis() - start);
+		Object[] args = { original, filtered, time };
+		log.info("[schema:extract:tablenames] - All: {}  Filtered: {}  Time: {}", args);
 		return tableNames;
 	}
 
