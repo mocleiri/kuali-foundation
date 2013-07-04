@@ -23,13 +23,38 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.NamedElement;
+import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.model.View;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.springframework.util.Assert;
 
 public class ModelUtils {
+
+	public static Schema clone(Schema original, StringFilter nameFilter) {
+		Schema clone = clone(original);
+		if (nameFilter != null) {
+			ModelUtils.filterAndSortElements(clone.getTables(), nameFilter);
+			ModelUtils.filterAndSortElements(clone.getViews(), nameFilter);
+			ModelUtils.filterAndSortElements(clone.getSequences(), nameFilter);
+			ModelUtils.filterAndSortElements(clone.getForeignKeys(), nameFilter);
+		}
+		return clone;
+	}
+
+	public static Schema clone(Schema original) {
+		Schema clone = new Schema();
+		clone.setName(original.getName());
+		clone.setTables(new ArrayList<Table>(original.getTables()));
+		clone.setSequences(new ArrayList<Sequence>(original.getSequences()));
+		clone.setViews(new ArrayList<View>(original.getViews()));
+		clone.setForeignKeys(new ArrayList<ForeignKey>(original.getForeignKeys()));
+		return clone;
+	}
 
 	public static List<String> getPrimaryKeyColumnNames(Table t) {
 		List<String> names = new ArrayList<String>();
@@ -38,7 +63,6 @@ public class ModelUtils {
 				names.add(col.getName());
 			}
 		}
-
 		return names;
 	}
 
