@@ -17,6 +17,7 @@ package org.kuali.common.impex.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,65 +27,54 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Schema {
 
-    protected String name;
+	String name;
+	List<Table> tables = new ArrayList<Table>();
+	List<Sequence> sequences = new ArrayList<Sequence>();
+	List<View> views = new ArrayList<View>();
+	List<ForeignKey> foreignKeys = new ArrayList<ForeignKey>();
 
-    protected List<Table> tables;
+	@XmlElement
+	public String getName() {
+		return name;
+	}
 
-    protected List<Sequence> sequences;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    protected List<View> views;
+	@XmlElement(name = "foreignKey")
+	public List<ForeignKey> getForeignKeys() {
+		return foreignKeys;
+	}
 
-    protected List<ForeignKey> foreignKeys;
+	public void setForeignKeys(List<ForeignKey> foreignKeys) {
+		this.foreignKeys = foreignKeys;
+	}
 
-    public Schema() {
-        tables = new ArrayList<Table>();
-        sequences = new ArrayList<Sequence>();
-        views = new ArrayList<View>();
-        foreignKeys = new ArrayList<ForeignKey>();
-    }
+	@XmlElement(name = "sequence")
+	public List<Sequence> getSequences() {
+		return sequences;
+	}
 
-    @XmlElement
-    public String getName() {
-        return name;
-    }
+	public void setSequences(List<Sequence> sequences) {
+		this.sequences = sequences;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@XmlElement(name = "table")
+	public List<Table> getTables() {
+		return tables;
+	}
 
-    @XmlElement(name = "foreignKey")
-    public List<ForeignKey> getForeignKeys() {
-        return foreignKeys;
-    }
+	public void setTables(List<Table> tables) {
+		this.tables = tables;
+	}
 
-    public void setForeignKeys(List<ForeignKey> foreignKeys) {
-        this.foreignKeys = foreignKeys;
-    }
+	@XmlElement(name = "view")
+	public List<View> getViews() {
+		return views;
+	}
 
-    @XmlElement(name = "sequence")
-    public List<Sequence> getSequences() {
-        return sequences;
-    }
-
-    public void setSequences(List<Sequence> sequences) {
-        this.sequences = sequences;
-    }
-
-    @XmlElement(name = "table")
-    public List<Table> getTables() {
-        return tables;
-    }
-
-    public void setTables(List<Table> tables) {
-        this.tables = tables;
-    }
-
-    @XmlElement(name = "view")
-    public List<View> getViews() {
-        return views;
-    }
-
-    public void setViews(List<View> views) {
-        this.views = views;
-    }
+	public void setViews(List<View> views) {
+		this.views = views;
+	}
 }
