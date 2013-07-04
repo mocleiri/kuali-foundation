@@ -35,10 +35,10 @@ public class DatabaseExportConfig {
 	DataExportConfig dataExportConfig;
 
 	@Autowired
-	ModularSchemaExportConfig schemaExportConfig;
+	SchemaExtractionConfig extractSchemaConfig;
 
 	@Autowired
-	SchemaExtractionConfig extractSchemaConfig;
+	ModularSchemaExportConfig schemaExportConfig;
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
@@ -49,7 +49,7 @@ public class DatabaseExportConfig {
 		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
 		executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
 		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
-		executable.setSchemaExecutables(schemaExportConfig.modularSchemaExportExecutables());
+		executable.setSchemaExportExecutables(schemaExportConfig.modularSchemaExportExecutables());
 		return executable;
 	}
 

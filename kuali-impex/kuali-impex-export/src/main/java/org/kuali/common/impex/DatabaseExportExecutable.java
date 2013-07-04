@@ -28,7 +28,7 @@ public class DatabaseExportExecutable implements Executable {
 
 	SchemaExtractionExecutable schemaExtractionExecutable;
 	DataExportExecutable dataExportExecutable;
-	List<ModularSchemaExportExecutable> schemaExecutables;
+	List<ModularSchemaExportExecutable> schemaExportExecutables;
 	Executable showConfigExecutable;
 	boolean skip;
 
@@ -44,7 +44,7 @@ public class DatabaseExportExecutable implements Executable {
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
 		Assert.notNull(dataExportExecutable, "dataExportExecutable is null");
 		Assert.notNull(schemaExtractionExecutable, "schemaExtractionExecutable is null");
-		Assert.notNull(schemaExecutables, "schemaExecutables is null");
+		Assert.notNull(schemaExportExecutables, "schemaExecutables is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
@@ -59,7 +59,7 @@ public class DatabaseExportExecutable implements Executable {
 		Assert.notNull(schema, "Schema from extraction results is null");
 
 		// Convert the schema information to XML and store to disk
-		for (ModularSchemaExportExecutable schemaExportExecutable : schemaExecutables) {
+		for (ModularSchemaExportExecutable schemaExportExecutable : schemaExportExecutables) {
 			schemaExportExecutable.setSchema(schema);
 			schemaExportExecutable.execute();
 		}
@@ -77,12 +77,12 @@ public class DatabaseExportExecutable implements Executable {
 		this.dataExportExecutable = dataExportExecutable;
 	}
 
-	public List<ModularSchemaExportExecutable> getSchemaExecutables() {
-		return schemaExecutables;
+	public List<ModularSchemaExportExecutable> getSchemaExportExecutables() {
+		return schemaExportExecutables;
 	}
 
-	public void setSchemaExecutables(List<ModularSchemaExportExecutable> schemaExecutables) {
-		this.schemaExecutables = schemaExecutables;
+	public void setSchemaExportExecutables(List<ModularSchemaExportExecutable> schemaExecutables) {
+		this.schemaExportExecutables = schemaExecutables;
 	}
 
 	public SchemaExtractionExecutable getSchemaExtractionExecutable() {
