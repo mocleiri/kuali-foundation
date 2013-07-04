@@ -29,8 +29,6 @@ import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
 import org.kuali.common.impex.schema.service.SchemaExtractionExecutable;
-import org.kuali.common.impex.schema.service.SchemaExtractionResult;
-import org.kuali.common.impex.schema.service.SchemaExtractionService;
 import org.kuali.common.impex.schema.service.impl.DefaultSchemaExtractionService;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
@@ -67,7 +65,6 @@ public class SchemaExtractionConfig {
 
 	// by default, include everything and exclude nothing
 	protected static final String DEFAULT_NAME_INCLUDES = ".*";
-
 	protected static final String DEFAULT_NAME_EXCLUDES = "";
 
 	protected static final String SKIP_EXECUTION_KEY = "impex.extraction.skip";
@@ -78,11 +75,19 @@ public class SchemaExtractionConfig {
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
 
+	@Bean
+	public SchemaExtractionExecutable schemaExtractionExecutable() {
+		SchemaExtractionExecutable exec = new SchemaExtractionExecutable();
+		exec.setContext(getSchemaExtractionContext());
+		exec.setService(SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, DefaultSchemaExtractionService.class));
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
+		return exec;
+	}
+
 	/**
 	 * Use the Environment and general Spring configuration to setup an extraction context
 	 */
-	@Bean
-	public SchemaExtractionContext extractionContext() {
+	protected SchemaExtractionContext getSchemaExtractionContext() {
 
 		// This provides the configuration needed for connecting to the database
 		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
@@ -97,14 +102,14 @@ public class SchemaExtractionConfig {
 		DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
 		// The type of database we are connecting to
-		String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+		String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 
 		// This is used to filter out tables/views/sequences
 		StringFilter nameFilter = getNameFilter();
 
 		// Get database specific finders for sequences and views
-		SequenceFinder sequenceFinder = getSequenceFinderMap().get(dbVendor);
-		ViewFinder viewFinder = getViewFinderMap().get(dbVendor);
+		SequenceFinder sequenceFinder = getSequenceFinderMap().get(vendor);
+		ViewFinder viewFinder = getViewFinderMap().get(vendor);
 
 		// Setup our context with pojo's aggregated from the Spring configuration
 		SchemaExtractionContext context = new SchemaExtractionContext();
@@ -117,25 +122,15 @@ public class SchemaExtractionConfig {
 		return context;
 	}
 
-	@Bean
-	public SchemaExtractionService extractionService() {
-		return SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, DefaultSchemaExtractionService.class);
-	}
-
-	@Bean
-	public SchemaExtractionResult extractionResult() {
-		return new SchemaExtractionResult();
-	}
-
 	protected StringFilter getNameFilter() {
 
 		// Extract CSV values from the Environment
-		String includesCsv = SpringUtils.getProperty(env, NAME_INCLUDES_KEY, DEFAULT_NAME_INCLUDES);
-		String excludesCsv = SpringUtils.getProperty(env, NAME_EXCLUDES_KEY, DEFAULT_NAME_EXCLUDES);
+		String includesCSV = SpringUtils.getProperty(env, NAME_INCLUDES_KEY, DEFAULT_NAME_INCLUDES);
+		String excludesCSV = SpringUtils.getProperty(env, NAME_EXCLUDES_KEY, DEFAULT_NAME_EXCLUDES);
 
 		// Convert CSV to List
-		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCsv);
-		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludesCsv);
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
+		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludesCSV);
 
 		// Setup the name filter
 		return StringFilter.getInstance(includes, excludes);
@@ -163,12 +158,4 @@ public class SchemaExtractionConfig {
 		return result;
 	}
 
-	public SchemaExtractionExecutable schemaExtractionExecutable() {
-		SchemaExtractionExecutable result = new SchemaExtractionExecutable();
-		result.setContext(extractionContext());
-		result.setService(extractionService());
-		result.setResult(extractionResult());
-		result.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
-		return result;
-	}
 }
