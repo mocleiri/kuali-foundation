@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,26 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class CollectionUtils {
+
+	/**
+	 * Remove any Strings from the list that do not match the filter and then sort the remaining items
+	 */
+	public static void filterAndSort(List<String> strings, StringFilter filter) {
+		filter(strings, filter);
+		Collections.sort(strings);
+	}
+
+	/**
+	 * Remove any Strings from the list that do not match the filter
+	 */
+	public static void filter(List<String> strings, StringFilter filter) {
+		Iterator<String> itr = strings.iterator();
+		while (itr.hasNext()) {
+			if (!filter.include(itr.next())) {
+				itr.remove();
+			}
+		}
+	}
 
 	/**
 	 * Null safe method for converting an array of objects into a list. Never returns null.
