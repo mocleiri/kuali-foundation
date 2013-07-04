@@ -15,11 +15,9 @@
 
 package org.kuali.common.impex.schema;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.File;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -42,19 +40,12 @@ public class ExportSchemaExecutable implements Executable {
 			return;
 		}
 
-        Assert.notNull(schemaLocations, "schemaLocations map is null");
+		Assert.notNull(schemaLocations, "schemaLocations map is null");
 
 		for (String location : schemaLocations.keySet()) {
-			Writer writer = null;
-			try {
-				writer = LocationUtils.openWriter(location);
-				Schema schema = schemaLocations.get(location);
-				exportService.exportSchema(schema, writer);
-			} catch (IOException e) {
-				throw new IllegalStateException("Unexpected IO error", e);
-			} finally {
-				IOUtils.closeQuietly(writer);
-			}
+			File file = LocationUtils.getFileQuietly(location);
+			Schema schema = schemaLocations.get(location);
+			exportService.exportSchema(schema, file);
 		}
 	}
 
