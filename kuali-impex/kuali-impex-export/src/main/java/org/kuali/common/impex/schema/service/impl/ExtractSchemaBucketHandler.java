@@ -16,7 +16,7 @@
 package org.kuali.common.impex.schema.service.impl;
 
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
 
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.Schema;
@@ -44,49 +44,38 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 
 	@Override
 	public void handleElement(ListIteratorContext<ExtractSchemaBucket> context, int index, ExtractSchemaBucket element) {
-		Schema schema = element.getSchema();
-		SchemaExtractionContext extractionContext = element.getContext();
-
+		// TODO The instanceof check is pretty awful. Do something smarter here
 		if (element instanceof ExtractViewsAndSequencesBucket) {
-			Collection<View> views;
-			Collection<Sequence> sequences;
+			doViewsAndSequences(element, element.getContext(), element.getSchema());
+		} else {
+			doTablesAndForeignKeys(element, element.getContext(), element.getSchema());
+		}
+	}
 
-			try {
-				views = service.extractViews(extractionContext);
-				element.getInformer().incrementProgress();
-			} catch (SQLException e) {
-				throw new IllegalStateException("Exception thrown by extraction service attempting to extract view metadata: " + e.getMessage(), e);
-			}
+	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket, SchemaExtractionContext context, Schema schema) {
+		try {
+			List<Table> tables = service.extractTables(bucket.getTableNames(), context);
+			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), context);
+			schema.getTables().addAll(tables);
+			schema.getForeignKeys().addAll(foreignKeys);
+		} catch (SQLException e) {
+			throw new IllegalStateException("Unexpected SQL error");
+		}
 
-			try {
-				sequences = service.extractSequences(extractionContext);
-				element.getInformer().incrementProgress();
-			} catch (SQLException e) {
-				throw new IllegalStateException("Exception thrown by extraction service attempting to extract sequence metadata: " + e.getMessage(), e);
-			}
+	}
+
+	protected void doViewsAndSequences(ExtractSchemaBucket bucket, SchemaExtractionContext context, Schema schema) {
+		try {
+			List<View> views = service.extractViews(context);
+			bucket.getInformer().incrementProgress();
+
+			List<Sequence> sequences = service.extractSequences(context);
+			bucket.getInformer().incrementProgress();
 
 			schema.getViews().addAll(views);
 			schema.getSequences().addAll(sequences);
-		} else {
-
-			Collection<Table> tables;
-
-			Collection<ForeignKey> foreignKeys;
-
-			try {
-				tables = service.extractTables(element.getTableNames(), extractionContext);
-			} catch (SQLException e) {
-				throw new IllegalStateException("Exception thrown by extraction service attempting to extract table metadata: " + e.getMessage(), e);
-			}
-
-			try {
-				foreignKeys = service.extractForeignKeys(element.getTableNames(), extractionContext);
-			} catch (SQLException e) {
-				throw new IllegalStateException("Exception thrown by extraction service attempting to extract foreign key metadata: " + e.getMessage(), e);
-			}
-
-			schema.getTables().addAll(tables);
-			schema.getForeignKeys().addAll(foreignKeys);
+		} catch (SQLException e) {
+			throw new IllegalStateException("Unexpected SQL error");
 		}
 	}
 }
