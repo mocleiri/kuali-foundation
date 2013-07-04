@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.kuali.common.impex.data.DataExportExecutable;
 import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.ExportDataService;
 import org.kuali.common.impex.data.service.impl.DefaultExportDataService;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
@@ -48,8 +47,7 @@ public class DataExportConfig {
 	/**
 	 * Property key for a boolean setting whether or not the executable should run
 	 */
-	public static final String SKIP_EXECUTE_KEY = "impex.export.skip";
-
+	public static final String SKIP_EXECUTE_KEY = "impex.export.data.skip";
 
 	@Autowired
 	Environment env;
@@ -58,7 +56,18 @@ public class DataExportConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Bean
-	public ExportDataContext exportDataContext() {
+	public DataExportExecutable exportDataExecutable() {
+
+		ExportDataContext context = getExportDataContext();
+
+		DataExportExecutable exec = new DataExportExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
+		exec.setContext(context);
+		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DefaultExportDataService.class));
+		return exec;
+	}
+
+	protected ExportDataContext getExportDataContext() {
 		ExportDataContext context = new ExportDataContext();
 		context.setTableStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
 		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
@@ -75,20 +84,6 @@ public class DataExportConfig {
 		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
 		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
-	}
-
-	@Bean
-	public ExportDataService exportDataService() {
-		return SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DefaultExportDataService.class);
-	}
-
-	@Bean
-	public DataExportExecutable exportDataExecutable() {
-		DataExportExecutable exec = new DataExportExecutable();
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
-		exec.setContext(exportDataContext());
-		exec.setService(exportDataService());
-		return exec;
 	}
 
 }
