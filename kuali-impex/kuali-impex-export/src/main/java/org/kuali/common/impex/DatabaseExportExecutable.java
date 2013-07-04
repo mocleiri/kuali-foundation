@@ -56,7 +56,7 @@ public class DatabaseExportExecutable implements Executable {
 		Schema schema = schemaExtractionExecutable.getResult().getSchema();
 
 		// Schema can't be null here
-		Assert.notNull(schema, "Schema from extraction results is null");
+		Assert.notNull(schema, "schema is null");
 
 		// Convert the schema information to XML and store to disk
 		for (ModularSchemaExportExecutable schemaExportExecutable : schemaExportExecutables) {

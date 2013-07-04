@@ -16,83 +16,83 @@
 package org.kuali.common.impex.data.service;
 
 import java.io.File;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.util.StringFilter;
 
 public class ExportDataContext {
 
-    protected DataSource dataSource;
-    protected int dataThreads;
-    protected File workingDir;
-    protected String encoding;
+	DataSource dataSource;
+	int dataThreads;
+	File workingDir;
+	String encoding;
+	int rowCountInterval;
+	int dataSizeInterval;
+	String tableStatisticsLocation;
+	StringFilter tableNameFilter;
 
-    protected int rowCountInterval;
-    protected int dataSizeInterval;
-    private String tableStatisticsLocation;
-    private StringFilter tableNameFilter;
+	public DataSource getDataSource() {
+		return dataSource;
+	}
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+	public int getDataThreads() {
+		return dataThreads;
+	}
 
-    public int getDataThreads() {
-        return dataThreads;
-    }
+	public void setDataThreads(int dataThreads) {
+		this.dataThreads = dataThreads;
+	}
 
-    public void setDataThreads(int dataThreads) {
-        this.dataThreads = dataThreads;
-    }
+	public File getWorkingDir() {
+		return workingDir;
+	}
 
-    public File getWorkingDir() {
-        return workingDir;
-    }
+	public void setWorkingDir(File workingDir) {
+		this.workingDir = workingDir;
+	}
 
-    public void setWorkingDir(File workingDir) {
-        this.workingDir = workingDir;
-    }
+	public String getEncoding() {
+		return encoding;
+	}
 
-    public String getEncoding() {
-        return encoding;
-    }
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
 
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
+	public int getDataSizeInterval() {
+		return dataSizeInterval;
+	}
 
-    public int getDataSizeInterval() {
-        return dataSizeInterval;
-    }
+	public void setDataSizeInterval(int dataSizeInterval) {
+		this.dataSizeInterval = dataSizeInterval;
+	}
 
-    public void setDataSizeInterval(int dataSizeInterval) {
-        this.dataSizeInterval = dataSizeInterval;
-    }
+	public int getRowCountInterval() {
+		return rowCountInterval;
+	}
 
-    public int getRowCountInterval() {
-        return rowCountInterval;
-    }
+	public void setRowCountInterval(int rowCountInterval) {
+		this.rowCountInterval = rowCountInterval;
+	}
 
-    public void setRowCountInterval(int rowCountInterval) {
-        this.rowCountInterval = rowCountInterval;
-    }
+	public String getTableStatisticsLocation() {
+		return tableStatisticsLocation;
+	}
 
-    public String getTableStatisticsLocation() {
-        return tableStatisticsLocation;
-    }
+	public void setTableStatisticsLocation(String tableStatisticsLocation) {
+		this.tableStatisticsLocation = tableStatisticsLocation;
+	}
 
-    public void setTableStatisticsLocation(String tableStatisticsLocation) {
-        this.tableStatisticsLocation = tableStatisticsLocation;
-    }
+	public StringFilter getTableNameFilter() {
+		return tableNameFilter;
+	}
 
-    public StringFilter getTableNameFilter() {
-        return tableNameFilter;
-    }
-
-    public void setTableNameFilter(StringFilter tableNameFilter) {
-        this.tableNameFilter = tableNameFilter;
-    }
+	public void setTableNameFilter(StringFilter tableNameFilter) {
+		this.tableNameFilter = tableNameFilter;
+	}
 }

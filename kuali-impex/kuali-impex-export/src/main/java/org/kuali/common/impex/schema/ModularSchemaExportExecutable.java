@@ -28,17 +28,13 @@ public class ModularSchemaExportExecutable implements Executable {
 
 	public static final Boolean DEFAULT_EXECUTION_SKIP = false;
 
-	protected String outputLocation;
+	boolean skip = DEFAULT_EXECUTION_SKIP;
 
-	protected Schema schema;
-
-	protected ExportSchemaService exportService;
-
-	protected boolean skip = DEFAULT_EXECUTION_SKIP;
-
-	protected boolean separateForeignKeys;
-
-	protected String foreignKeyOutputLocation;
+	String outputLocation;
+	Schema schema;
+	ExportSchemaService exportService;
+	boolean separateForeignKeys;
+	String foreignKeyOutputLocation;
 
 	@Override
 	public void execute() {
@@ -47,7 +43,7 @@ public class ModularSchemaExportExecutable implements Executable {
 			return;
 		}
 
-		Assert.notNull(schema, "Schema is null");
+		Assert.notNull(schema, "schema is null");
 
 		if (separateForeignKeys) {
 
