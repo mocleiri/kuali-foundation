@@ -46,10 +46,20 @@ public class DatabaseExportConfig {
 	@Bean
 	public Executable exportDatabaseExecutable() {
 		DatabaseExportExecutable executable = new DatabaseExportExecutable();
+
+		// Show the JDBC configuration
 		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
+
+		// Connect to the db and create model objects in memory that represent the schema
 		executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
-		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
+
+		// Persist the in memory model objects to disk as XML
 		executable.setSchemaExportExecutables(schemaExportConfig.modularSchemaExportExecutables());
+
+		// Connect to the db to extract data from the tables and persist it to disk
+		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
+
+		// Return the configured executable
 		return executable;
 	}
 
