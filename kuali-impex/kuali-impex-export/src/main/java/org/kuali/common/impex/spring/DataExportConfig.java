@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.kuali.common.impex.data.DataExportExecutable;
 import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.impl.DefaultExportDataService;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
@@ -45,7 +44,7 @@ public class DataExportConfig {
 	public static final String SERVICE_CLASS_NAME = "impex.export.data.service";
 
 	/**
-	 * Property key for a boolean setting whether or not the executable should run
+	 * Property key that determines if the executable will run
 	 */
 	public static final String SKIP_EXECUTE_KEY = "impex.export.data.skip";
 
@@ -58,12 +57,14 @@ public class DataExportConfig {
 	@Bean
 	public DataExportExecutable exportDataExecutable() {
 
+		// Extract some context from the Environment
 		ExportDataContext context = getExportDataContext();
 
+		// Setup an exectuable for exporting the data
 		DataExportExecutable exec = new DataExportExecutable();
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
+		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DataExportExecutable.DEFAULT_SERVICE.getClass()));
 		exec.setContext(context);
-		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DefaultExportDataService.class));
 		return exec;
 	}
 
@@ -73,7 +74,7 @@ public class DataExportConfig {
 		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
 		context.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, WORKING_DIR_KEY)));
 		context.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, ExportUtils.DEFAULT_ROW_INTERVAL));
-		context.setDataSizeInterval(SpringUtils.getInteger(env, DATA_INTERVAL_KEY, ExportUtils.DEFAULT_DATA_INTERVAL));
+		context.setDataSizeInterval(SpringUtils.getBytesInteger(env, DATA_INTERVAL_KEY, ExportUtils.DEFAULT_DATA_INTERVAL));
 		context.setDataSource(dataSourceConfig.jdbcDataSource());
 		context.setEncoding(dataSourceConfig.jdbcDatabaseProcessContext().getEncoding());
 		context.setTableNameFilter(getTableNameFilter());

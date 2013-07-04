@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.kuali.common.impex.data.service.ExportDataContext;
 import org.kuali.common.impex.data.service.ExportDataService;
+import org.kuali.common.impex.data.service.impl.DefaultExportDataService;
 import org.kuali.common.impex.data.service.impl.ExportTableResult;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.util.ExportUtils;
@@ -28,10 +29,11 @@ import org.kuali.common.util.execute.Executable;
 public class DataExportExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
+	public static final ExportDataService DEFAULT_SERVICE = new DefaultExportDataService();
 
 	boolean skip = DEFAULT_SKIP_EXECUTION;
+	ExportDataService service = DEFAULT_SERVICE;
 	ExportDataContext context;
-	ExportDataService service;
 	Schema schema;
 
 	@Override
