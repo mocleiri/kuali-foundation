@@ -29,7 +29,6 @@ import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.SchemaExtractionContext;
 import org.kuali.common.impex.schema.service.SchemaExtractionExecutable;
-import org.kuali.common.impex.schema.service.impl.DefaultSchemaExtractionService;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.CollectionUtils;
@@ -79,7 +78,7 @@ public class SchemaExtractionConfig {
 	public SchemaExtractionExecutable schemaExtractionExecutable() {
 		SchemaExtractionExecutable exec = new SchemaExtractionExecutable();
 		exec.setContext(getSchemaExtractionContext());
-		exec.setService(SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, DefaultSchemaExtractionService.class));
+		exec.setService(SpringUtils.getInstance(env, SCHEMA_EXTRACTION_SERVICE_KEY, SchemaExtractionExecutable.DEFAULT_SERVICE.getClass()));
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaExtractionExecutable.DEFAULT_SKIP));
 		return exec;
 	}

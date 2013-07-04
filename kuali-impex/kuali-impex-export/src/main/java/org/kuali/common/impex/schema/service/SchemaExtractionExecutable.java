@@ -16,17 +16,19 @@
 package org.kuali.common.impex.schema.service;
 
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.schema.service.impl.DefaultSchemaExtractionService;
 import org.kuali.common.util.execute.Executable;
 
 public class SchemaExtractionExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;
-
-	SchemaExtractionService service;
-	SchemaExtractionContext context;
-	SchemaExtractionResult result;
+	public static final SchemaExtractionService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
 
 	boolean skip = DEFAULT_SKIP;
+	SchemaExtractionService service = DEFAULT_SERVICE;
+
+	SchemaExtractionResult result;
+	SchemaExtractionContext context;
 
 	@Override
 	public void execute() {
@@ -36,7 +38,15 @@ public class SchemaExtractionExecutable implements Executable {
 		}
 
 		Schema schema = service.getSchema(context);
+		this.result = new SchemaExtractionResult();
 		result.setSchema(schema);
+	}
+
+	/**
+	 * Expose <code>SchemaExtractionResult</code> via a getter
+	 */
+	public SchemaExtractionResult getResult() {
+		return result;
 	}
 
 	public SchemaExtractionContext getContext() {
@@ -53,14 +63,6 @@ public class SchemaExtractionExecutable implements Executable {
 
 	public void setService(SchemaExtractionService service) {
 		this.service = service;
-	}
-
-	public SchemaExtractionResult getResult() {
-		return result;
-	}
-
-	public void setResult(SchemaExtractionResult result) {
-		this.result = result;
 	}
 
 	public boolean isSkip() {
