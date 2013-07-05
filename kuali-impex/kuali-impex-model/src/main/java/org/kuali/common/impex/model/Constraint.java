@@ -34,6 +34,9 @@ public abstract class Constraint implements NamedElement {
 	String name;
 	List<String> columnNames = new ArrayList<String>();
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public Constraint(Constraint constraint) {
 		this.name = constraint.getName();
 		this.columnNames = new ArrayList<String>(CollectionUtils.toEmptyList(constraint.getColumnNames()));
