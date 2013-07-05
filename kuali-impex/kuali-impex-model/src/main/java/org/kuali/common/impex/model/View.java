@@ -9,9 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class View implements NamedElement {
 
-	protected String name;
+	String name;
+	String queryString;
 
-	protected String queryString;
+	public View(View view) {
+		this.name = view.getName();
+		this.queryString = view.getQueryString();
+	}
 
 	public View() {
 		this(null, null);

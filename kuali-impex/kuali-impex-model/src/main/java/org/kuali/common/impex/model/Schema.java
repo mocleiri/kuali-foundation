@@ -23,24 +23,43 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.CollectionUtils;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Schema {
-
-	public Schema(Schema schema) {
-		super();
-		this.name = schema.getName();
-	}
-
-	public Schema() {
-		super();
-	}
 
 	String name;
 	List<Table> tables = new ArrayList<Table>();
 	List<Sequence> sequences = new ArrayList<Sequence>();
 	List<View> views = new ArrayList<View>();
 	List<ForeignKey> foreignKeys = new ArrayList<ForeignKey>();
+
+	public Schema(Schema schema) {
+		super();
+		this.name = schema.getName();
+
+		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
+			this.tables.add(new Table(table));
+		}
+
+		for (Sequence sequence : CollectionUtils.toEmptyList(schema.getSequences())) {
+			this.sequences.add(new Sequence(sequence));
+		}
+
+		for (View view : CollectionUtils.toEmptyList(schema.getViews())) {
+			this.views.add(new View(view));
+		}
+
+		for (ForeignKey fk : CollectionUtils.toEmptyList(schema.getForeignKeys())) {
+			this.foreignKeys.add(new ForeignKey(fk));
+		}
+
+	}
+
+	public Schema() {
+		super();
+	}
 
 	@XmlElement
 	public String getName() {
