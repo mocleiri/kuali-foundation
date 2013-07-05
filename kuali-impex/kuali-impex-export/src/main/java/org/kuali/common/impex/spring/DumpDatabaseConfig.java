@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Import;
  * Configures tasks related to dumping data and schema information from a database to disk
  */
 @Configuration
-@Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpDataConfig.class })
+@Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
 public class DumpDatabaseConfig {
 
 	@Autowired
@@ -35,6 +35,9 @@ public class DumpDatabaseConfig {
 
 	@Autowired
 	ExtractSchemaConfig extractSchemaConfig;
+
+	@Autowired
+	DumpSchemaConfig dumpSchemaConfig;
 
 	@Autowired
 	DumpDataConfig dumpDataConfig;
@@ -48,6 +51,9 @@ public class DumpDatabaseConfig {
 
 		// Connect to the db and create model objects in memory that represent the schema
 		executable.setExtractSchemaExecutable(extractSchemaConfig.extractSchemaExecutable());
+
+		// Dump the schema model object from memory to disk as XML
+		executable.setDumpSchemaExecutable(dumpSchemaConfig.dumpSchemaExecutable());
 
 		// Connect to the db, extract data from the tables, and persist it to disk
 		executable.setDumpDataExecutable(dumpDataConfig.dumpDataExecutable());
