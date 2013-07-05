@@ -32,108 +32,108 @@ import org.kuali.common.impex.model.DataType;
  */
 public abstract class AbstractSqlProducer implements SqlProducer {
 
-    protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
-    public static final int DEFAULT_BATCH_ROW_COUNT_LIMIT = 50;
-    public static final int DEFAULT_DATA_SIZE_LIMIT = 50 * 1024;
+	protected final static String OUTPUT_DATE_FORMAT = "yyyyMMddHHmmss";
+	public static final int DEFAULT_BATCH_ROW_COUNT_LIMIT = 50;
+	public static final int DEFAULT_DATA_SIZE_LIMIT = 50 * 1024;
 
-    int batchRowCountLimit = DEFAULT_BATCH_ROW_COUNT_LIMIT;
-    int batchDataSizeLimit = DEFAULT_DATA_SIZE_LIMIT;
+	int batchRowCountLimit = DEFAULT_BATCH_ROW_COUNT_LIMIT;
+	int batchDataSizeLimit = DEFAULT_DATA_SIZE_LIMIT;
 
-    protected boolean batchLimitReached(int rows, int length) {
-        if (rows > getBatchRowCountLimit()) {
-            return true;
-        } else if (length > getBatchDataSizeLimit()) {
-            return true;
-        }
+	protected boolean batchLimitReached(int rows, int length) {
+		if (rows > getBatchRowCountLimit()) {
+			return true;
+		} else if (length > getBatchDataSizeLimit()) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    protected abstract String getEscapedValue(Column column, String token);
+	protected abstract String getEscapedValue(Column column, String token);
 
-    protected List<DataBean> buildRowData(List<Column> columns, String[] tokens, MpxHeaderData headerData) {
-        List<DataBean> result = new ArrayList<DataBean>();
+	protected List<DataBean> buildRowData(List<Column> columns, String[] tokens, MpxHeaderData headerData) {
+		List<DataBean> result = new ArrayList<DataBean>();
 
-        // tokens are listed in the order of column names from the header data
-        // So to find the right column definition, we need to order them the same as the header data
-        List<Column> sortedColumns = new ArrayList<Column>(columns.size());
-        for (String colName : headerData.getColumnNames()) {
-            // find the matching column definition
-            Column foundColumn = null;
-            for(Column c : columns) {
-                if (c.getName().equals(colName)) {
-                    foundColumn = c;
-                }
-            }
+		// tokens are listed in the order of column names from the header data
+		// So to find the right column definition, we need to order them the same as the header data
+		List<Column> sortedColumns = new ArrayList<Column>(columns.size());
+		for (String colName : headerData.getColumnNames()) {
+			// find the matching column definition
+			Column foundColumn = null;
+			for (Column c : columns) {
+				if (c.getName().equals(colName)) {
+					foundColumn = c;
+				}
+			}
 
-            if(foundColumn == null) {
-                throw new RuntimeException("No column definition found for column name from header: " + colName);
-            }
+			if (foundColumn == null) {
+				throw new RuntimeException("No column definition found for column name from header: " + colName);
+			}
 
-            sortedColumns.add(foundColumn);
-        }
+			sortedColumns.add(foundColumn);
+		}
 
-        // process the tokens with column definitions from the sorted list
-        for (int i = 0; i < tokens.length; i++) {
-            result.add(processToken(sortedColumns.get(i), tokens[i]));
-        }
-        return result;
-    }
+		// process the tokens with column definitions from the sorted list
+		for (int i = 0; i < tokens.length; i++) {
+			result.add(processToken(sortedColumns.get(i), tokens[i]));
+		}
+		return result;
+	}
 
-    public DataBean processToken(Column column, String token) {
-        DataBean result = new DataBean();
+	public DataBean processToken(Column column, String token) {
+		DataBean result = new DataBean();
 
-        result.setColumn(column);
+		result.setColumn(column);
 
-        if (token == null) {
-            result.setValue(null);
-            result.setDateValue(null);
-        } else if (ProducerUtils.isDateType(column.getColumnDataType())) {
-            Date parsedDate = getDate(token);
-            result.setValue(null);
-            result.setDateValue(parsedDate);
-        } else if (isDataTypeTextType(column.getColumnDataType())) {
-            result.setValue(getEscapedValue(column, token));
-            result.setDateValue(null);
-        } else {
-            result.setDateValue(null);
-            result.setValue(token);
-        }
+		if (token == null) {
+			result.setValue(null);
+			result.setDateValue(null);
+		} else if (ProducerUtils.isDateType(column.getDataType())) {
+			Date parsedDate = getDate(token);
+			result.setValue(null);
+			result.setDateValue(parsedDate);
+		} else if (isDataTypeTextType(column.getDataType())) {
+			result.setValue(getEscapedValue(column, token));
+			result.setDateValue(null);
+		} else {
+			result.setDateValue(null);
+			result.setValue(token);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    protected boolean isDataTypeTextType(DataType type) {
-        return type == DataType.STRING || type == DataType.CLOB || type == DataType.CHAR;
-    }
+	protected boolean isDataTypeTextType(DataType type) {
+		return type == DataType.STRING || type == DataType.CLOB || type == DataType.CHAR;
+	}
 
-    protected Date getDate(String token) {
-        SimpleDateFormat sdf = new SimpleDateFormat(ParseUtils.MPX_DATE_FORMAT);
-        try {
-            return sdf.parse(token);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + ParseUtils.MPX_DATE_FORMAT + "]");
-        }
-    }
+	protected Date getDate(String token) {
+		SimpleDateFormat sdf = new SimpleDateFormat(ParseUtils.MPX_DATE_FORMAT);
+		try {
+			return sdf.parse(token);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("Cannot parse [" + token + "] using format [" + ParseUtils.MPX_DATE_FORMAT + "]");
+		}
+	}
 
-    @Override
-    public int getBatchRowCountLimit() {
-        return batchRowCountLimit;
-    }
+	@Override
+	public int getBatchRowCountLimit() {
+		return batchRowCountLimit;
+	}
 
-    @Override
-    public int getBatchDataSizeLimit() {
-        return batchDataSizeLimit;
-    }
+	@Override
+	public int getBatchDataSizeLimit() {
+		return batchDataSizeLimit;
+	}
 
-    @Override
-    public void setBatchDataSizeLimit(int batchDataSizeLimit) {
-        this.batchDataSizeLimit = batchDataSizeLimit;
-    }
+	@Override
+	public void setBatchDataSizeLimit(int batchDataSizeLimit) {
+		this.batchDataSizeLimit = batchDataSizeLimit;
+	}
 
-    @Override
-    public void setBatchRowCountLimit(int batchRowCountLimit) {
-        this.batchRowCountLimit = batchRowCountLimit;
-    }
+	@Override
+	public void setBatchRowCountLimit(int batchRowCountLimit) {
+		this.batchRowCountLimit = batchRowCountLimit;
+	}
 
 }

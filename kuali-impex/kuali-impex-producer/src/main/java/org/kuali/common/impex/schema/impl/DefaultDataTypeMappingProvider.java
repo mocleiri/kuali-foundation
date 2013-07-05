@@ -25,43 +25,43 @@ import org.kuali.common.impex.schema.DataTypeMappingProvider;
 
 public class DefaultDataTypeMappingProvider implements DataTypeMappingProvider {
 
-    protected Map<String, DataTypeMapping> columnNameStartsWith = new HashMap<String, DataTypeMapping>();
+	protected Map<String, DataTypeMapping> columnNameStartsWith = new HashMap<String, DataTypeMapping>();
 
-    protected Map<DataType, DataTypeMapping> dataTypeMatches = new HashMap<DataType, DataTypeMapping>();
+	protected Map<DataType, DataTypeMapping> dataTypeMatches = new HashMap<DataType, DataTypeMapping>();
 
-    @Override
-    public DataTypeMapping getDataTypeMapping(Column column) {
+	@Override
+	public DataTypeMapping getDataTypeMapping(Column column) {
 
-        // attempt to match by data type first
-        for (DataType dataType : dataTypeMatches.keySet()) {
-            if (column.getColumnDataType() == dataType) {
-                return dataTypeMatches.get(dataType);
-            }
-        }
+		// attempt to match by data type first
+		for (DataType dataType : dataTypeMatches.keySet()) {
+			if (column.getDataType() == dataType) {
+				return dataTypeMatches.get(dataType);
+			}
+		}
 
-        // find by column name "starts with" characters next
-        for (String s : columnNameStartsWith.keySet()) {
-            if (column.getName().startsWith(s)) {
-                return columnNameStartsWith.get(s);
-            }
-        }
+		// find by column name "starts with" characters next
+		for (String s : columnNameStartsWith.keySet()) {
+			if (column.getName().startsWith(s)) {
+				return columnNameStartsWith.get(s);
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public Map<String, DataTypeMapping> getColumnNameStartsWith() {
-        return columnNameStartsWith;
-    }
+	public Map<String, DataTypeMapping> getColumnNameStartsWith() {
+		return columnNameStartsWith;
+	}
 
-    public void setColumnNameStartsWith(Map<String, DataTypeMapping> columnNameStartsWith) {
-        this.columnNameStartsWith = columnNameStartsWith;
-    }
+	public void setColumnNameStartsWith(Map<String, DataTypeMapping> columnNameStartsWith) {
+		this.columnNameStartsWith = columnNameStartsWith;
+	}
 
-    public Map<DataType, DataTypeMapping> getDataTypeMatches() {
-        return dataTypeMatches;
-    }
+	public Map<DataType, DataTypeMapping> getDataTypeMatches() {
+		return dataTypeMatches;
+	}
 
-    public void setDataTypeMatches(Map<DataType, DataTypeMapping> dataTypeMatches) {
-        this.dataTypeMatches = dataTypeMatches;
-    }
+	public void setDataTypeMatches(Map<DataType, DataTypeMapping> dataTypeMatches) {
+		this.dataTypeMatches = dataTypeMatches;
+	}
 }

@@ -172,7 +172,7 @@ public class OracleProducer extends AbstractSqlProducer {
 	}
 
 	protected boolean isColumnClobType(Column column) {
-		return column.getColumnDataType() == DataType.CLOB;
+		return column.getDataType() == DataType.CLOB;
 	}
 
 	protected String continueClob(Table table, List<OracleLongClob> longClobRows) {
