@@ -56,8 +56,10 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 		try {
 			List<Table> tables = service.extractTables(bucket.getTableNames(), context);
 			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), context);
-			schema.getTables().addAll(tables);
-			schema.getForeignKeys().addAll(foreignKeys);
+			synchronized (schema) {
+				schema.getTables().addAll(tables);
+				schema.getForeignKeys().addAll(foreignKeys);
+			}
 		} catch (SQLException e) {
 			throw new IllegalStateException("Unexpected SQL error");
 		}
@@ -72,8 +74,10 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 			List<Sequence> sequences = service.extractSequences(context);
 			bucket.getInformer().incrementProgress();
 
-			schema.getViews().addAll(views);
-			schema.getSequences().addAll(sequences);
+			synchronized (schema) {
+				schema.getViews().addAll(views);
+				schema.getSequences().addAll(sequences);
+			}
 		} catch (SQLException e) {
 			throw new IllegalStateException("Unexpected SQL error");
 		}
