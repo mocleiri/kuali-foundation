@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Import;
  * 
  */
 @Configuration
-@Import({ JdbcDataSourceConfig.class, DataExportConfig.class, ProjectSchemaExportConfig.class, SchemaExtractionConfig.class })
+@Import({ JdbcDataSourceConfig.class, SchemaExtractionConfig.class, ProjectSchemaExportConfig.class, DataExportConfig.class })
 public class DatabaseExportConfig {
 
 	@Autowired

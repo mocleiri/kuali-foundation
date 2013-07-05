@@ -24,6 +24,8 @@ import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.execute.CopyFilesExecutable;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +44,7 @@ public class ProjectDataCopyConfig {
 	Environment env;
 
 	@Bean
-	public List<CopyFilesExecutable> copyDataFilesExecutables() {
+	public Executable copyDataFilesExecutables() {
 
 		File workingDir = SpringUtils.getFile(env, WORKING_DIR_KEY);
 		List<String> gavs = SpringUtils.getListFromCSV(env, PROJECTS_KEY);
@@ -52,7 +54,7 @@ public class ProjectDataCopyConfig {
 			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, workingDir);
 			executables.add(exec);
 		}
-		return executables;
+		return new ExecutablesExecutable(executables);
 	}
 
 	protected CopyFilesExecutable getCopyDataFilesExecutable(String gav, File workingDir) {
