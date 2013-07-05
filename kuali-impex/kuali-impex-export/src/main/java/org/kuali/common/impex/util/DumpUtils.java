@@ -30,7 +30,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.StringFilter;
 
-public class ExportUtils {
+public class DumpUtils {
 
 	protected static final String SIZE_PROPERTY_SUFFIX = ".size";
 	protected static final String ROWS_PROPERTY_SUFFIX = ".rows";

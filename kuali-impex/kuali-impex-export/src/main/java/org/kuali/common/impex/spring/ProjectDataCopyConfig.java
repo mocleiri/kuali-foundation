@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.impex.util.DumpConstants;
-import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.execute.CopyFilesExecutable;
@@ -63,7 +63,7 @@ public class ProjectDataCopyConfig {
 		Project project = ProjectUtils.loadProject(gav);
 
 		// dstDir is always based on groupId + artifactId
-		File dstDir = ExportUtils.getOutputDir(workingDir, project);
+		File dstDir = DumpUtils.getOutputDir(workingDir, project);
 
 		// Setup the includes/excludes appropriate for this project
 		String includesKey = "impex.export.data." + project.getArtifactId() + ".includes";

@@ -22,7 +22,7 @@ import org.kuali.common.impex.data.service.DumpDataService;
 import org.kuali.common.impex.data.service.impl.DefaultDumpDataService;
 import org.kuali.common.impex.data.service.impl.DumpTableResult;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
@@ -53,7 +53,7 @@ public class DumpDataExecutable implements Executable {
 		List<DumpTableResult> results = service.dumpTables(context, schema);
 
 		// After exporting tables, store the table statistics
-		ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
+		DumpUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
 	}
 
 	public DumpDataContext getContext() {

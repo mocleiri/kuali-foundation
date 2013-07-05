@@ -44,7 +44,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.util.ModelUtils;
-import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
@@ -243,7 +243,7 @@ public class DefaultDumpDataService implements DumpDataService {
 
 		List<DumpTableContext> tableContexts = new ArrayList<DumpTableContext>();
 
-		Collection<Table> includedTables = ExportUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
+		Collection<Table> includedTables = DumpUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
 
 		logger.info("includedTables.size=" + includedTables.size());
 
@@ -258,7 +258,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			DumpTableContext tableContext = new DumpTableContext();
 			tableContext.setTable(t);
 
-			ExportUtils.populateTableStatistics(tableStatistics, t, tableContext);
+			DumpUtils.populateTableStatistics(tableStatistics, t, tableContext);
 
 			tableContexts.add(tableContext);
 		}

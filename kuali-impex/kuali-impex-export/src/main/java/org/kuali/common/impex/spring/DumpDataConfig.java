@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.impex.data.DumpDataExecutable;
 import org.kuali.common.impex.data.service.DumpDataContext;
 import org.kuali.common.impex.util.DumpConstants;
-import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.StringFilter;
@@ -71,10 +71,10 @@ public class DumpDataConfig {
 	protected DumpDataContext getDumpDataContext() {
 		DumpDataContext context = new DumpDataContext();
 		context.setTableStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
-		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
+		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, DumpUtils.DEFAULT_DATA_THREADS));
 		context.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, WORKING_DIR_KEY)));
-		context.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, ExportUtils.DEFAULT_ROW_INTERVAL));
-		context.setDataSizeInterval(SpringUtils.getBytesInteger(env, DATA_INTERVAL_KEY, ExportUtils.DEFAULT_DATA_INTERVAL));
+		context.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, DumpUtils.DEFAULT_ROW_INTERVAL));
+		context.setDataSizeInterval(SpringUtils.getBytesInteger(env, DATA_INTERVAL_KEY, DumpUtils.DEFAULT_DATA_INTERVAL));
 		context.setDataSource(dataSourceConfig.jdbcDataSource());
 		context.setEncoding(dataSourceConfig.jdbcDatabaseProcessContext().getEncoding());
 		context.setTableNameFilter(getTableNameFilter());

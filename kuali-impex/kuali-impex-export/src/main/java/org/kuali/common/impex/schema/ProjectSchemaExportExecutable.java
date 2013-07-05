@@ -19,7 +19,7 @@ import java.io.File;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
-import org.kuali.common.impex.util.ExportUtils;
+import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.Project;
@@ -63,7 +63,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		Schema clone = ModelUtils.clone(schema, nameFilter);
 
 		// The output file is always based on groupId + artifactId
-		File outputFile = ExportUtils.getSchemaFile(stagingDir, project);
+		File outputFile = DumpUtils.getSchemaFile(stagingDir, project);
 
 		// Log the name of the file we are creating
 		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(basedir, outputFile));
