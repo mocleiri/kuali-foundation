@@ -15,8 +15,8 @@
 
 package org.kuali.common.impex.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -24,24 +24,35 @@ import javax.xml.bind.annotation.XmlAttribute;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Index extends Constraint {
 
-    @XmlAttribute
-    protected boolean unique;
+	public static final Boolean DEFAULT_UNIQUE_VALUE = false;
 
-    public Index() {
-        this(new ArrayList<String>(), null);
-    }
+	@XmlAttribute
+	Boolean unique = DEFAULT_UNIQUE_VALUE;
 
-    public Index(List<String> colNames, String name) {
-        super(colNames, name);
-        this.unique = false;
-    }
+	public Index(Index index) {
+		super(index);
+		this.unique = index.isUnique();
+	}
 
-    public Index(List<String> colNames, String name, boolean unique) {
-        this(colNames, name);
-        this.unique = unique;
-    }
+	public Index() {
+		super();
+	}
 
-    public boolean isUnique() {
-        return unique;
-    }
+	public Index(List<String> colNames, String name) {
+		super(colNames, name);
+	}
+
+	public Index(List<String> colNames, String name, Boolean unique) {
+		this(colNames, name);
+		this.unique = unique;
+	}
+
+	public Boolean isUnique() {
+		return unique;
+	}
+
+	public void setUnique(Boolean unique) {
+		this.unique = unique;
+	}
+
 }
