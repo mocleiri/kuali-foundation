@@ -27,6 +27,9 @@ public class Sequence implements NamedElement {
 	String name;
 	String startValue;
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public Sequence(Sequence sequence) {
 		super();
 		this.name = sequence.getName();

@@ -22,6 +22,9 @@ import java.util.List;
  */
 public class UniqueConstraint extends Constraint {
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public UniqueConstraint(UniqueConstraint uniqueConstraint) {
 		super(uniqueConstraint);
 	}

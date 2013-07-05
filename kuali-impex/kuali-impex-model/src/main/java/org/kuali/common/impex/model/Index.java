@@ -28,6 +28,9 @@ public class Index extends Constraint {
 
 	Boolean unique = DEFAULT_UNIQUE_VALUE;
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public Index(Index index) {
 		super(index);
 		this.unique = index.isUnique();

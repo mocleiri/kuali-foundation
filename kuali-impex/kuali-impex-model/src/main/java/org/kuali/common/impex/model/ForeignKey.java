@@ -35,6 +35,9 @@ public class ForeignKey implements NamedElement {
 	String localTableName;
 	String foreignTableName;
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public ForeignKey(ForeignKey fk) {
 		super();
 

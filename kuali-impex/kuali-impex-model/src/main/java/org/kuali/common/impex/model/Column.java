@@ -22,6 +22,9 @@ public class Column implements NamedElement {
 	Boolean nullable = DEFAULT_NULLABLE_VALUE;
 	Table table;
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public Column(Column column) {
 		this.name = column.getName();
 		this.dataType = column.getDataType();

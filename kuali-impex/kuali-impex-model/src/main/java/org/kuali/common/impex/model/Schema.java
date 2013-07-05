@@ -35,6 +35,9 @@ public class Schema {
 	List<View> views = new ArrayList<View>();
 	List<ForeignKey> foreignKeys = new ArrayList<ForeignKey>();
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public Schema(Schema schema) {
 		super();
 		this.name = schema.getName();
@@ -54,7 +57,6 @@ public class Schema {
 		for (ForeignKey fk : CollectionUtils.toEmptyList(schema.getForeignKeys())) {
 			this.foreignKeys.add(new ForeignKey(fk));
 		}
-
 	}
 
 	public Schema() {

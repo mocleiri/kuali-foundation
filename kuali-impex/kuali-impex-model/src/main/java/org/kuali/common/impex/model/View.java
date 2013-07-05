@@ -12,6 +12,9 @@ public class View implements NamedElement {
 	String name;
 	String queryString;
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public View(View view) {
 		this.name = view.getName();
 		this.queryString = view.getQueryString();

@@ -24,6 +24,9 @@ public class Table implements NamedElement {
 	List<UniqueConstraint> uniqueConstraints = new ArrayList<UniqueConstraint>();
 	List<Index> indices = new ArrayList<Index>();
 
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
 	public Table(Table table) {
 
 		this.name = table.getName();
@@ -68,6 +71,16 @@ public class Table implements NamedElement {
 		return name;
 	}
 
+	@XmlAttribute
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@XmlElement(name = "index")
+	public List<Index> getIndices() {
+		return indices;
+	}
+
 	public void setColumns(List<Column> columns) {
 		this.columns = columns;
 	}
@@ -78,16 +91,6 @@ public class Table implements NamedElement {
 
 	public String getDescription() {
 		return description;
-	}
-
-	@XmlAttribute
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@XmlElement(name = "index")
-	public List<Index> getIndices() {
-		return indices;
 	}
 
 	public void setIndices(List<Index> indices) {
