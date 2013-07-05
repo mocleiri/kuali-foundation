@@ -63,4 +63,36 @@ public class CopyFilesExecutable implements Executable {
 		}
 
 	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
+
+	public File getSrcDir() {
+		return srcDir;
+	}
+
+	public void setSrcDir(File srcDir) {
+		this.srcDir = srcDir;
+	}
+
+	public File getDstDir() {
+		return dstDir;
+	}
+
+	public void setDstDir(File dstDir) {
+		this.dstDir = dstDir;
+	}
 }
