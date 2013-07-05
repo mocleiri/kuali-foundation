@@ -19,13 +19,22 @@ import org.kuali.common.impex.model.Schema;
 
 public class ExtractSchemaResult {
 
-    Schema schema;
+	Schema schema;
 
-    public Schema getSchema() {
-        return schema;
-    }
+	public ExtractSchemaResult() {
+		this(null);
+	}
 
-    public void setSchema(Schema schema) {
-        this.schema = schema;
-    }
+	public ExtractSchemaResult(Schema schema) {
+		super();
+		this.schema = schema;
+	}
+
+	public Schema getSchema() {
+		return schema;
+	}
+
+	public void setSchema(Schema schema) {
+		this.schema = schema;
+	}
 }

@@ -38,8 +38,7 @@ public class ExtractSchemaExecutable implements Executable {
 		}
 
 		Schema schema = service.getSchema(context);
-		this.result = new ExtractSchemaResult();
-		result.setSchema(schema);
+		this.result = new ExtractSchemaResult(schema);
 	}
 
 	/**
