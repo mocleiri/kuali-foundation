@@ -57,7 +57,7 @@ public class DumpDataConfig {
 	public DumpDataExecutable dumpDataExecutable() {
 
 		// Extract some context from the Environment
-		DumpDataContext context = getExportDataContext();
+		DumpDataContext context = getDumpDataContext();
 
 		// Setup an executable for exporting the data
 		DumpDataExecutable exec = new DumpDataExecutable();
@@ -67,7 +67,7 @@ public class DumpDataConfig {
 		return exec;
 	}
 
-	protected DumpDataContext getExportDataContext() {
+	protected DumpDataContext getDumpDataContext() {
 		DumpDataContext context = new DumpDataContext();
 		context.setTableStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
 		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, ExportUtils.DEFAULT_DATA_THREADS));
