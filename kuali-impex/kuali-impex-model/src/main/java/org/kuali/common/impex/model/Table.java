@@ -85,6 +85,7 @@ public class Table implements NamedElement {
 		this.description = description;
 	}
 
+	@XmlElement(name = "index")
 	public List<Index> getIndices() {
 		return indices;
 	}
