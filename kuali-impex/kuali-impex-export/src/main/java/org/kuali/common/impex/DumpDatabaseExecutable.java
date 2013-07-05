@@ -21,7 +21,7 @@ import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
-public class DatabaseDumpExecutable implements Executable {
+public class DumpDatabaseExecutable implements Executable {
 
 	boolean skip;
 	Executable showConfigExecutable;

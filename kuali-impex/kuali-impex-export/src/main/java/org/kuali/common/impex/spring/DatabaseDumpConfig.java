@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.spring;
 
-import org.kuali.common.impex.DatabaseDumpExecutable;
+import org.kuali.common.impex.DumpDatabaseExecutable;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class DatabaseDumpConfig {
 
 	@Bean
 	public Executable exportDatabaseExecutable() {
-		DatabaseDumpExecutable executable = new DatabaseDumpExecutable();
+		DumpDatabaseExecutable executable = new DumpDatabaseExecutable();
 
 		// Show the JDBC configuration
 		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
