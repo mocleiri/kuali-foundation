@@ -59,7 +59,7 @@ public class CopyFilesExecutable implements Executable {
 			FileUtils.forceMkdir(dstDir);
 			FileUtils.copyDirectory(srcDir, dstDir, includesCSV, excludesCSV);
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error");
+			throw new IllegalStateException("Unexpected IO error", e);
 		}
 
 	}
