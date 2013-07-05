@@ -37,12 +37,12 @@ public class DumpDataConfig {
 	public static final String DIR_KEY = "impex.dump.data.dir";
 	public static final String STATS_LOCATION_KEY = "impex.dump.data.stats.location";
 
-	// These are usually customized but do have default values
+	// These are often customized but do have default values
 	public static final String INCLUDES_KEY = "impex.dump.data.includes";
 	public static final String EXCLUDES_KEY = "impex.dump.data.excludes";
-	public static final String ENCODING_KEY = "impex.dump.data.encoding";
 
 	// Defaults for these are usually ok
+	public static final String ENCODING_KEY = "impex.dump.data.encoding";
 	public static final String THREADS_KEY = "impex.dump.data.threads";
 	public static final String ROW_INTERVAL_KEY = "impex.dump.data.rowInterval";
 	public static final String DATA_INTERVAL_KEY = "impex.dump.data.dataInterval";
