@@ -31,10 +31,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 /**
- * This class supports exporting a schema with multiple output modules
  */
 @Configuration
-public class ProjectSchemaExportConfig {
+public class ProjectDataConfig {
 
 	public static final String PROJECTS_KEY = "impex.export.schema.projects";
 	public static final String STAGING_DIR_KEY = "impex.export.schema.stagingDir";
@@ -70,8 +69,8 @@ public class ProjectSchemaExportConfig {
 	}
 
 	protected StringFilter getNameFilter(Project project) {
-		String includesKey = "impex.export.schema." + project.getArtifactId() + ".includes";
-		String excludesKey = "impex.export.schema." + project.getArtifactId() + ".excludes";
+		String includesKey = "impex.export." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.export." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(includes, excludes);
