@@ -24,8 +24,8 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.ExportSchemaExecutable;
-import org.kuali.common.impex.schema.service.SchemaDumpResult;
+import org.kuali.common.impex.schema.DumpSchemaExecutable;
+import org.kuali.common.impex.schema.service.ExtractSchemaResult;
 import org.kuali.common.impex.spring.SchemaExportConfig;
 import org.kuali.common.impex.spring.SchemaDumpConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +44,13 @@ public class SchemaExportExecutionConfig {
 	SchemaExportConfig exportConfig;
 
 	@Bean(initMethod = "execute")
-	public ExportSchemaExecutable configuredExportExecutable() {
+	public DumpSchemaExecutable configuredExportExecutable() {
 
 		Map<String, Class<? extends NamedElement>> locationMap = exportConfig.schemaLocations();
 
-		ExportSchemaExecutable result = exportConfig.exportSchemaExecutable();
+		DumpSchemaExecutable result = exportConfig.exportSchemaExecutable();
 
-		SchemaDumpResult extractionResult = executedResult();
+		ExtractSchemaResult extractionResult = executedResult();
 
 		Map<String, Schema> schemaLocationMap = new HashMap<String, Schema>(locationMap.size());
 
@@ -84,7 +84,7 @@ public class SchemaExportExecutionConfig {
 
 	// TODO What is this all about?
 	@Bean
-	public SchemaDumpResult executedResult() {
+	public ExtractSchemaResult executedResult() {
 		return null;
 		// extractionConfig.schemaExtractionExecutable().execute();
 		// return extractionConfig.extractionResult();
