@@ -33,20 +33,21 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DumpDataConfig {
 
-	public static final String WORKING_DIR_KEY = "impex.dump.dir";
-	public static final String TABLE_NAME_INCLUDE_KEY = "impex.dump.includes";
-	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.dump.excludes";
+	// Required (no default value)
+	public static final String DIR_KEY = "impex.dump.data.dir";
+	public static final String STATS_LOCATION_KEY = "impex.dump.data.stats.location";
 
-	public static final String STATISTICS_LOCATION_KEY = "impex.dump.data.statistics.location";
-	public static final String DATA_THREADS_KEY = "impex.dump.data.threads";
+	// These are usually customized but do have default values
+	public static final String INCLUDES_KEY = "impex.dump.data.includes";
+	public static final String EXCLUDES_KEY = "impex.dump.data.excludes";
+	public static final String ENCODING_KEY = "impex.dump.data.encoding";
+
+	// Defaults for these are usually ok
+	public static final String THREADS_KEY = "impex.dump.data.threads";
 	public static final String ROW_INTERVAL_KEY = "impex.dump.data.rowInterval";
 	public static final String DATA_INTERVAL_KEY = "impex.dump.data.dataInterval";
-	public static final String SERVICE_CLASS_NAME = "impex.dump.data.service";
-
-	/**
-	 * Property key that determines if the executable will run
-	 */
-	public static final String SKIP_EXECUTE_KEY = "impex.dump.data.skip";
+	public static final String SERVICE_KEY = "impex.dump.data.service";
+	public static final String SKIP_KEY = "impex.dump.data.skip";
 
 	@Autowired
 	Environment env;
@@ -62,17 +63,17 @@ public class DumpDataConfig {
 
 		// Setup an executable for exporting the data
 		DumpDataExecutable exec = new DumpDataExecutable();
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DumpDataExecutable.DEFAULT_SKIP_EXECUTION));
-		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DumpDataExecutable.DEFAULT_SERVICE.getClass()));
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, DumpDataExecutable.DEFAULT_SKIP_EXECUTION));
+		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, DumpDataExecutable.DEFAULT_SERVICE.getClass()));
 		exec.setContext(context);
 		return exec;
 	}
 
 	protected DumpDataContext getDumpDataContext() {
 		DumpDataContext context = new DumpDataContext();
-		context.setTableStatisticsLocation(SpringUtils.getProperty(env, STATISTICS_LOCATION_KEY));
-		context.setDataThreads(SpringUtils.getInteger(env, DATA_THREADS_KEY, DumpUtils.DEFAULT_DATA_THREADS));
-		context.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, WORKING_DIR_KEY)));
+		context.setWorkingDir(LocationUtils.getFileQuietly(SpringUtils.getProperty(env, DIR_KEY)));
+		context.setTableStatisticsLocation(SpringUtils.getProperty(env, STATS_LOCATION_KEY));
+		context.setDataThreads(SpringUtils.getInteger(env, THREADS_KEY, DumpUtils.DEFAULT_DATA_THREADS));
 		context.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, DumpUtils.DEFAULT_ROW_INTERVAL));
 		context.setDataSizeInterval(SpringUtils.getBytesInteger(env, DATA_INTERVAL_KEY, DumpUtils.DEFAULT_DATA_INTERVAL));
 		context.setDataSource(dataSourceConfig.jdbcDataSource());
@@ -82,8 +83,8 @@ public class DumpDataConfig {
 	}
 
 	protected StringFilter getTableNameFilter() {
-		List<String> tableIncludes = SpringUtils.getListFromCSV(env, TABLE_NAME_INCLUDE_KEY, DumpConstants.DEFAULT_INCLUDE);
-		List<String> tableExcludes = SpringUtils.getListFromCSV(env, TABLE_NAME_EXCLUDE_KEY, DumpConstants.DEFAULT_EXCLUDE);
+		List<String> tableIncludes = SpringUtils.getListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_INCLUDE);
+		List<String> tableExcludes = SpringUtils.getListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
 	}
 
