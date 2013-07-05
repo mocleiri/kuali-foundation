@@ -3,13 +3,13 @@ package org.kuali.common.impex.data.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.ExportDataService;
+import org.kuali.common.impex.data.service.DumpDataContext;
+import org.kuali.common.impex.data.service.DumpDataService;
 
 public class ExportTableBucket implements Comparable<ExportTableBucket> {
 
-	ExportDataContext context;
-	ExportDataService service;
+	DumpDataContext context;
+	DumpDataService service;
 	List<ExportTableContext> tables = new ArrayList<ExportTableContext>();
 	List<ExportTableResult> results;
 	long rowCount;
@@ -30,19 +30,19 @@ public class ExportTableBucket implements Comparable<ExportTableBucket> {
 		this.tables = tables;
 	}
 
-    public ExportDataContext getContext() {
+    public DumpDataContext getContext() {
         return context;
     }
 
-    public void setContext(ExportDataContext context) {
+    public void setContext(DumpDataContext context) {
         this.context = context;
     }
 
-    public ExportDataService getService() {
+    public DumpDataService getService() {
         return service;
     }
 
-    public void setService(ExportDataService service) {
+    public void setService(DumpDataService service) {
         this.service = service;
     }
 

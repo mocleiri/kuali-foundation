@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.impex.data.service.ExportDataContext;
+import org.kuali.common.impex.data.service.DumpDataContext;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.util.CollectionUtils;
@@ -35,7 +35,7 @@ public class DataHandler {
 
     public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
-    public static File getFileForTable(ExportDataContext context, String tableName) {
+    public static File getFileForTable(DumpDataContext context, String tableName) {
 		String filename = getFilename(context.getWorkingDir(), tableName);
 		return new File(filename);
 	}

@@ -18,7 +18,7 @@ package org.kuali.common.impex.data.service.impl;
 import java.io.OutputStream;
 import java.util.List;
 
-import org.kuali.common.impex.data.service.ExportDataContext;
+import org.kuali.common.impex.data.service.DumpDataContext;
 import org.kuali.common.impex.model.Column;
 
 public class ExportProgress {
@@ -30,7 +30,7 @@ public class ExportProgress {
     long totalRowCount;
     OutputStream outputStream;
     private List<Column> columns;
-    private ExportDataContext context;
+    private DumpDataContext context;
     private ExportTableContext tableContext;
 
     public List<List<String>> getCurrentData() {
@@ -89,11 +89,11 @@ public class ExportProgress {
         this.columns = columns;
     }
 
-    public ExportDataContext getContext() {
+    public DumpDataContext getContext() {
         return context;
     }
 
-    public void setContext(ExportDataContext context) {
+    public void setContext(DumpDataContext context) {
         this.context = context;
     }
 

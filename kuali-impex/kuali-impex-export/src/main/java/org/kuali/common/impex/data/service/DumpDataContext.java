@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.util.StringFilter;
 
-public class ExportDataContext {
+public class DumpDataContext {
 
 	DataSource dataSource;
 	int dataThreads;

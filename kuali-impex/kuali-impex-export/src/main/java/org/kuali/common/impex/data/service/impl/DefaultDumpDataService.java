@@ -38,8 +38,8 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.ExportDataService;
+import org.kuali.common.impex.data.service.DumpDataContext;
+import org.kuali.common.impex.data.service.DumpDataService;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
@@ -57,12 +57,12 @@ import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultExportDataService implements ExportDataService {
+public class DefaultDumpDataService implements DumpDataService {
 
-	protected static final Logger logger = LoggerFactory.getLogger(DefaultExportDataService.class);
+	protected static final Logger logger = LoggerFactory.getLogger(DefaultDumpDataService.class);
 
 	@Override
-	public ExportTableResult exportTable(ExportDataContext context, ExportTableContext tableContext, Connection conn) {
+	public ExportTableResult exportTable(DumpDataContext context, ExportTableContext tableContext, Connection conn) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		long start = System.currentTimeMillis();
@@ -83,7 +83,7 @@ public class DefaultExportDataService implements ExportDataService {
 		}
 	}
 
-	protected ExportTableResult dumpTable(ExportDataContext context, ExportTableContext tableContext, ResultSet rs) {
+	protected ExportTableResult dumpTable(DumpDataContext context, ExportTableContext tableContext, ResultSet rs) {
 		OutputStream out = null;
 		try {
 			Table table = tableContext.getTable();
@@ -239,7 +239,7 @@ public class DefaultExportDataService implements ExportDataService {
 	}
 
 	@Override
-	public List<ExportTableResult> exportTables(ExportDataContext context, Schema schema) {
+	public List<ExportTableResult> exportTables(DumpDataContext context, Schema schema) {
 
 		List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>();
 
@@ -292,7 +292,7 @@ public class DefaultExportDataService implements ExportDataService {
 		return results;
 	}
 
-	protected List<ExportTableBucket> getTableBuckets(List<ExportTableContext> tables, ExportDataContext context, List<ExportTableResult> results,
+	protected List<ExportTableBucket> getTableBuckets(List<ExportTableContext> tables, DumpDataContext context, List<ExportTableResult> results,
 			PercentCompleteInformer progressTracker) {
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getDataThreads(), tables.size());
@@ -358,7 +358,7 @@ public class DefaultExportDataService implements ExportDataService {
 		return results;
 	}
 
-	protected ExportProgress getDumpTableContext(OutputStream out, List<Column> columns, List<List<String>> data, long cds, ExportDataContext context, long crc, long trc,
+	protected ExportProgress getDumpTableContext(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
 			ExportTableContext table, long tds) {
 		ExportProgress progress = new ExportProgress();
 		progress.setOutputStream(out);

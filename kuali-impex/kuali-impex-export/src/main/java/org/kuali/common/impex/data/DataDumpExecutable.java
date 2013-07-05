@@ -17,9 +17,9 @@ package org.kuali.common.impex.data;
 
 import java.util.List;
 
-import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.ExportDataService;
-import org.kuali.common.impex.data.service.impl.DefaultExportDataService;
+import org.kuali.common.impex.data.service.DumpDataContext;
+import org.kuali.common.impex.data.service.DumpDataService;
+import org.kuali.common.impex.data.service.impl.DefaultDumpDataService;
 import org.kuali.common.impex.data.service.impl.ExportTableResult;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.util.ExportUtils;
@@ -29,11 +29,11 @@ import org.kuali.common.util.execute.Executable;
 public class DataDumpExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
-	public static final ExportDataService DEFAULT_SERVICE = new DefaultExportDataService();
+	public static final DumpDataService DEFAULT_SERVICE = new DefaultDumpDataService();
 
 	boolean skip = DEFAULT_SKIP_EXECUTION;
-	ExportDataService service = DEFAULT_SERVICE;
-	ExportDataContext context;
+	DumpDataService service = DEFAULT_SERVICE;
+	DumpDataContext context;
 	Schema schema;
 
 	@Override
@@ -56,19 +56,19 @@ public class DataDumpExecutable implements Executable {
 		ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
 	}
 
-	public ExportDataContext getContext() {
+	public DumpDataContext getContext() {
 		return context;
 	}
 
-	public void setContext(ExportDataContext context) {
+	public void setContext(DumpDataContext context) {
 		this.context = context;
 	}
 
-	public ExportDataService getService() {
+	public DumpDataService getService() {
 		return service;
 	}
 
-	public void setService(ExportDataService service) {
+	public void setService(DumpDataService service) {
 		this.service = service;
 	}
 

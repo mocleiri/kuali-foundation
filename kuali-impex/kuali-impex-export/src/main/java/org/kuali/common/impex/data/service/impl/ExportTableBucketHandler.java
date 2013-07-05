@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.impex.data.service.ExportDataContext;
-import org.kuali.common.impex.data.service.ExportDataService;
+import org.kuali.common.impex.data.service.DumpDataContext;
+import org.kuali.common.impex.data.service.DumpDataService;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
@@ -24,8 +24,8 @@ public class ExportTableBucketHandler implements ElementHandler<ExportTableBucke
 		Connection conn = null;
 		try {
 			List<ExportTableContext> tables = element.getTables();
-			ExportDataService service = element.getService();
-			ExportDataContext impex = element.getContext();
+			DumpDataService service = element.getService();
+			DumpDataContext impex = element.getContext();
 			dataSource = impex.getDataSource();
 			List<ExportTableResult> results = element.getResults();
 			conn = DataSourceUtils.getConnection(dataSource);
