@@ -15,12 +15,22 @@ public class Column implements NamedElement {
 
 	String name;
 	DataType dataType;
-	Table table;
 	TypeSize typeSize;
 	String defaultValue;
 	String description;
 	Boolean primaryKey = DEFAULT_PRIMARY_KEY_VALUE;
 	Boolean nullable = DEFAULT_NULLABLE_VALUE;
+	Table table;
+
+	public Column(Column column) {
+		this.name = column.getName();
+		this.dataType = column.getDataType();
+		this.typeSize = new TypeSize(column.getTypeSize());
+		this.defaultValue = column.getDefaultValue();
+		this.description = column.getDescription();
+		this.primaryKey = column.isPrimaryKey();
+		this.nullable = column.isNullable();
+	}
 
 	public Column() {
 		this(null, null, null);

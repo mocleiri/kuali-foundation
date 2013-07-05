@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +22,16 @@ import java.util.List;
  */
 public class UniqueConstraint extends Constraint {
 
-    public UniqueConstraint() {
-        this(new ArrayList<String>(), null);
-    }
+	public UniqueConstraint(UniqueConstraint uniqueConstraint) {
+		super();
+	}
 
-    public UniqueConstraint(List<String> colNames, String name) {
-        super(colNames, name);
-    }
+	public UniqueConstraint() {
+		super();
+	}
+
+	public UniqueConstraint(List<String> colNames, String name) {
+		super(colNames, name);
+	}
 
 }

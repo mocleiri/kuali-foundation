@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.CollectionUtils;
+
 /**
  * This interface provides an implementation-independent API to access database table model information
  */
@@ -17,20 +19,37 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Table implements NamedElement {
 
 	String name;
-	List<Column> columns;
-	List<UniqueConstraint> uniqueConstraints;
-	List<Index> indices;
 	String description;
+	List<Column> columns = new ArrayList<Column>();
+	List<UniqueConstraint> uniqueConstraints = new ArrayList<UniqueConstraint>();
+	List<Index> indices = new ArrayList<Index>();
 
-	public Table() {
-		this(null);
+	public Table(Table table) {
+
+		this.name = table.getName();
+		this.description = table.getDescription();
+
+		for (Index index : CollectionUtils.toEmptyList(table.getIndices())) {
+			this.indices.add(new Index(index));
+		}
+
+		for (UniqueConstraint uniqueConstraint : CollectionUtils.toEmptyList(table.getUniqueConstraints())) {
+			this.uniqueConstraints.add(new UniqueConstraint(uniqueConstraint));
+		}
+
+		for (Column column : CollectionUtils.toEmptyList(table.getColumns())) {
+			Column newColumn = new Column(column);
+			newColumn.setTable(this);
+			this.columns.add(newColumn);
+		}
 	}
 
-	public Table(String n) {
-		name = n;
-		columns = new ArrayList<Column>();
-		uniqueConstraints = new ArrayList<UniqueConstraint>();
-		indices = new ArrayList<Index>();
+	public Table() {
+		this((String) null);
+	}
+
+	public Table(String name) {
+		this.name = name;
 	}
 
 	@XmlElement(name = "column")

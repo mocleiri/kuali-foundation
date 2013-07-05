@@ -27,18 +27,23 @@ public class TypeSize {
 
 	public static final Boolean DEFAULT_SCALE_SET = false;
 
+	Boolean scaleSet = DEFAULT_SCALE_SET;
 	Integer size;
 	Integer scale;
-	Boolean scaleSet = DEFAULT_SCALE_SET;
+
+	public TypeSize(TypeSize typeSize) {
+		super();
+		this.size = typeSize.getSize();
+		this.scale = typeSize.getScale();
+		this.scaleSet = typeSize.isScaleSet();
+	}
 
 	public TypeSize() {
 		this(null, null);
 	}
 
 	public TypeSize(Integer size) {
-		this.size = size;
-		this.scale = null;
-		scaleSet = DEFAULT_SCALE_SET;
+		this(size, null);
 	}
 
 	public TypeSize(Integer size, Integer scale) {

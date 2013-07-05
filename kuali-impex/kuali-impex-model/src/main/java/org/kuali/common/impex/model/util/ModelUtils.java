@@ -24,32 +24,12 @@ import java.util.Map;
 
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.NamedElement;
-import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.springframework.util.Assert;
 
 public class ModelUtils {
-
-	public static Schema clone(Schema original, StringFilter nameFilter) {
-		Schema clone = clone(original);
-		ModelUtils.filterAndSortElements(clone.getTables(), nameFilter);
-		ModelUtils.filterAndSortElements(clone.getViews(), nameFilter);
-		ModelUtils.filterAndSortElements(clone.getSequences(), nameFilter);
-		ModelUtils.filterAndSortElements(clone.getForeignKeys(), nameFilter);
-		return clone;
-	}
-
-	public static Schema clone(Schema original) {
-		Schema clone = new Schema();
-		clone.setName(original.getName());
-		clone.getTables().addAll(original.getTables());
-		clone.getSequences().addAll(original.getSequences());
-		clone.getViews().addAll(original.getViews());
-		clone.getForeignKeys().addAll(original.getForeignKeys());
-		return clone;
-	}
 
 	public static List<String> getPrimaryKeyColumnNames(Table t) {
 		List<String> names = new ArrayList<String>();

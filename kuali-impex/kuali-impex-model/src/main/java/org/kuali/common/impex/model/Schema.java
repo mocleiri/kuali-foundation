@@ -27,6 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Schema {
 
+	public Schema(Schema schema) {
+		super();
+		this.name = schema.getName();
+	}
+
+	public Schema() {
+		super();
+	}
+
 	String name;
 	List<Table> tables = new ArrayList<Table>();
 	List<Sequence> sequences = new ArrayList<Sequence>();
