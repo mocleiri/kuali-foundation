@@ -25,8 +25,8 @@ public class DatabaseDumpExecutable implements Executable {
 
 	boolean skip;
 	Executable showConfigExecutable;
-	ExtractSchemaExecutable schemaExtractionExecutable;
-	DataDumpExecutable dataExportExecutable;
+	ExtractSchemaExecutable extractSchemaExecutable;
+	DataDumpExecutable dataDumpExecutable;
 
 	@Override
 	public void execute() {
@@ -38,40 +38,32 @@ public class DatabaseDumpExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
-		Assert.notNull(dataExportExecutable, "dataExportExecutable is null");
-		Assert.notNull(schemaExtractionExecutable, "schemaExtractionExecutable is null");
+		Assert.notNull(dataDumpExecutable, "dataExportExecutable is null");
+		Assert.notNull(extractSchemaExecutable, "schemaExtractionExecutable is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
 
 		// Connect to the database and extract the schema info
-		schemaExtractionExecutable.execute();
+		extractSchemaExecutable.execute();
 
 		// Get the schema model object generated during the extract
-		Schema schema = schemaExtractionExecutable.getResult().getSchema();
+		Schema schema = extractSchemaExecutable.getResult().getSchema();
 
 		// Schema can't be null here
 		Assert.notNull(schema, "schema is null");
 
 		// Connect to the database, extract the data, and persist it to disk
-		dataExportExecutable.setSchema(schema);
-		dataExportExecutable.execute();
+		dataDumpExecutable.setSchema(schema);
+		dataDumpExecutable.execute();
 	}
 
-	public DataDumpExecutable getDataExportExecutable() {
-		return dataExportExecutable;
+	public boolean isSkip() {
+		return skip;
 	}
 
-	public void setDataExportExecutable(DataDumpExecutable dataExportExecutable) {
-		this.dataExportExecutable = dataExportExecutable;
-	}
-
-	public ExtractSchemaExecutable getSchemaExtractionExecutable() {
-		return schemaExtractionExecutable;
-	}
-
-	public void setSchemaExtractionExecutable(ExtractSchemaExecutable schemaExtractionExecutable) {
-		this.schemaExtractionExecutable = schemaExtractionExecutable;
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 
 	public Executable getShowConfigExecutable() {
@@ -82,12 +74,20 @@ public class DatabaseDumpExecutable implements Executable {
 		this.showConfigExecutable = showConfigExecutable;
 	}
 
-	public boolean isSkip() {
-		return skip;
+	public ExtractSchemaExecutable getExtractSchemaExecutable() {
+		return extractSchemaExecutable;
 	}
 
-	public void setSkip(boolean skip) {
-		this.skip = skip;
+	public void setExtractSchemaExecutable(ExtractSchemaExecutable extractSchemaExecutable) {
+		this.extractSchemaExecutable = extractSchemaExecutable;
+	}
+
+	public DataDumpExecutable getDataDumpExecutable() {
+		return dataDumpExecutable;
+	}
+
+	public void setDataDumpExecutable(DataDumpExecutable dataDumpExecutable) {
+		this.dataDumpExecutable = dataDumpExecutable;
 	}
 
 }
