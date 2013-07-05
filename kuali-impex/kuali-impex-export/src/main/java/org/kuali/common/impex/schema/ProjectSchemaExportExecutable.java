@@ -57,6 +57,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		Assert.notNull(schema, "schema is null");
 		Assert.notNull(project, "project is null");
 		Assert.notNull(stagingDir, "stagingDir is null");
+		Assert.notNull(basedir, "basedir is null");
 
 		// Clone the existing schema but filter out model objects not relevant to this project
 		Schema clone = ModelUtils.clone(schema, nameFilter);
