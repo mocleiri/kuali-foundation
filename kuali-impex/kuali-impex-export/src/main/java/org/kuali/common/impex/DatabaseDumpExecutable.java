@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex;
 
-import org.kuali.common.impex.data.DataExportExecutable;
+import org.kuali.common.impex.data.DataDumpExecutable;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.SchemaDumpExecutable;
 import org.kuali.common.util.Assert;
@@ -26,7 +26,7 @@ public class DatabaseDumpExecutable implements Executable {
 	boolean skip;
 	Executable showConfigExecutable;
 	SchemaDumpExecutable schemaExtractionExecutable;
-	DataExportExecutable dataExportExecutable;
+	DataDumpExecutable dataExportExecutable;
 
 	@Override
 	public void execute() {
@@ -58,11 +58,11 @@ public class DatabaseDumpExecutable implements Executable {
 		dataExportExecutable.execute();
 	}
 
-	public DataExportExecutable getDataExportExecutable() {
+	public DataDumpExecutable getDataExportExecutable() {
 		return dataExportExecutable;
 	}
 
-	public void setDataExportExecutable(DataExportExecutable dataExportExecutable) {
+	public void setDataExportExecutable(DataDumpExecutable dataExportExecutable) {
 		this.dataExportExecutable = dataExportExecutable;
 	}
 

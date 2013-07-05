@@ -26,7 +26,7 @@ import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
-public class DataExportExecutable implements Executable {
+public class DataDumpExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
 	public static final ExportDataService DEFAULT_SERVICE = new DefaultExportDataService();

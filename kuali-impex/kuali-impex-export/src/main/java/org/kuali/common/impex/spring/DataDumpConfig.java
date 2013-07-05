@@ -17,7 +17,7 @@ package org.kuali.common.impex.spring;
 
 import java.util.List;
 
-import org.kuali.common.impex.data.DataExportExecutable;
+import org.kuali.common.impex.data.DataDumpExecutable;
 import org.kuali.common.impex.data.service.ExportDataContext;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
@@ -54,15 +54,15 @@ public class DataDumpConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Bean
-	public DataExportExecutable exportDataExecutable() {
+	public DataDumpExecutable exportDataExecutable() {
 
 		// Extract some context from the Environment
 		ExportDataContext context = getExportDataContext();
 
 		// Setup an executable for exporting the data
-		DataExportExecutable exec = new DataExportExecutable();
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataExportExecutable.DEFAULT_SKIP_EXECUTION));
-		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DataExportExecutable.DEFAULT_SERVICE.getClass()));
+		DataDumpExecutable exec = new DataDumpExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTE_KEY, DataDumpExecutable.DEFAULT_SKIP_EXECUTION));
+		exec.setService(SpringUtils.getInstance(env, SERVICE_CLASS_NAME, DataDumpExecutable.DEFAULT_SERVICE.getClass()));
 		exec.setContext(context);
 		return exec;
 	}
