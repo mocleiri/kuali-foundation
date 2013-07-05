@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Import;
 
 /**
  * Configures tasks related to exporting data and schema information from a database to disk
- * 
  */
 @Configuration
 @Import({ JdbcDataSourceConfig.class, SchemaExtractionConfig.class, ProjectSchemaExportConfig.class, DataExportConfig.class })
