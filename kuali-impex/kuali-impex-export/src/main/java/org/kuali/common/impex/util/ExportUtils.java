@@ -54,13 +54,17 @@ public class ExportUtils {
 		File file = new File(sb.toString());
 
 		// Let the JVM resolve the canonical path
-		// This produces a file displays pathing according the native preferences of the OS the user is running on
+		// This produces a file that displays pathing according the native preferences of the OS the user is running on
 		// ie on Windows it will display "\" instead of "/" for the file separators
 		return new File(LocationUtils.getCanonicalPath(file));
 	}
 
 	public static File getSchemaFile(File basedir, Project project) {
-		return new File(getOutputDir(basedir, project), DEFAULT_SCHEMA_XML_FILE);
+		return getSchemaFile(getOutputDir(basedir, project));
+	}
+
+	public static File getSchemaFile(File directory) {
+		return new File(directory, DEFAULT_SCHEMA_XML_FILE);
 	}
 
 	public static <T extends NamedElement> List<T> getIncludedElements(StringFilter filter, List<T> elements) {
