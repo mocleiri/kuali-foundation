@@ -23,7 +23,7 @@ import java.util.List;
 public class UniqueConstraint extends Constraint {
 
 	public UniqueConstraint(UniqueConstraint uniqueConstraint) {
-		super();
+		super(uniqueConstraint);
 	}
 
 	public UniqueConstraint() {
