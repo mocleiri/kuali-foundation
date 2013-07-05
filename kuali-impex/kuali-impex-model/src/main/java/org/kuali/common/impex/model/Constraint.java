@@ -15,7 +15,9 @@
 
 package org.kuali.common.impex.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -27,22 +29,32 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public abstract class Constraint implements NamedElement {
 
-    @XmlAttribute
-    protected String name;
+	@XmlAttribute
+	String name;
 
-    protected List<String> columnNames;
+	List<String> columnNames = new ArrayList<String>();
 
-    public Constraint(List<String> colNames, String name) {
-        this.columnNames = colNames;
-        this.name = name;
-    }
+	public Constraint(Constraint constraint) {
+		this.columnNames = new ArrayList<String>(columnNames);
+		this.name = constraint.getName();
+	}
 
-    @XmlElement(name = "column")
-    public List<String> getColumnNames() {
-        return columnNames;
-    }
+	public Constraint() {
+		super();
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Constraint(List<String> columnNames, String name) {
+		this.columnNames = columnNames;
+		this.name = name;
+	}
+
+	@XmlElement(name = "column")
+	public List<String> getColumnNames() {
+		return columnNames;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
 }
