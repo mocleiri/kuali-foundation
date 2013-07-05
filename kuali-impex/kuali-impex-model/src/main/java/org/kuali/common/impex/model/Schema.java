@@ -68,10 +68,6 @@ public class Schema {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	@XmlElement(name = "table")
 	public List<Table> getTables() {
 		return tables;
@@ -82,13 +78,22 @@ public class Schema {
 		return foreignKeys;
 	}
 
-	public void setForeignKeys(List<ForeignKey> foreignKeys) {
-		this.foreignKeys = foreignKeys;
-	}
-
 	@XmlElement(name = "sequence")
 	public List<Sequence> getSequences() {
 		return sequences;
+	}
+
+	@XmlElement(name = "view")
+	public List<View> getViews() {
+		return views;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setForeignKeys(List<ForeignKey> foreignKeys) {
+		this.foreignKeys = foreignKeys;
 	}
 
 	public void setSequences(List<Sequence> sequences) {
@@ -97,11 +102,6 @@ public class Schema {
 
 	public void setTables(List<Table> tables) {
 		this.tables = tables;
-	}
-
-	@XmlElement(name = "view")
-	public List<View> getViews() {
-		return views;
 	}
 
 	public void setViews(List<View> views) {
