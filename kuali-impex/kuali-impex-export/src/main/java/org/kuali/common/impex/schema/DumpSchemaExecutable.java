@@ -57,7 +57,7 @@ public class DumpSchemaExecutable implements Executable {
 		Assert.notNull(outputFile, "outputFile is null");
 
 		// The full file system path can sometimes be annoyingly long
-		if (relativeDir != null) {
+		if (FileSystemUtils.isParent(relativeDir, outputFile)) {
 			logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(relativeDir, outputFile));
 		} else {
 			logger.info("Creating - [{}]", LocationUtils.getCanonicalPath(outputFile));
