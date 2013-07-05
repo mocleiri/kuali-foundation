@@ -10,7 +10,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Column implements NamedElement {
 
-	public static final boolean DEFAULT_NULLABLE_VALUE = true;
+	public static final Boolean DEFAULT_NULLABLE_VALUE = true;
+	public static final Boolean DEFAULT_PRIMARY_KEY_VALUE = false;
 
 	String name;
 	DataType dataType;
@@ -18,7 +19,7 @@ public class Column implements NamedElement {
 	TypeSize typeSize;
 	String defaultValue;
 	String description;
-	Boolean primaryKey;
+	Boolean primaryKey = DEFAULT_PRIMARY_KEY_VALUE;
 	Boolean nullable = DEFAULT_NULLABLE_VALUE;
 
 	public Column() {
