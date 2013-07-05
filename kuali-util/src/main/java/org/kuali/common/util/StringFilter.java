@@ -79,7 +79,7 @@ public class StringFilter {
 	/**
 	 * Return true if the string should be excluded.
 	 */
-	public boolean exclude(String s) {
+	protected boolean exclude(String s) {
 		return !CollectionUtils.isEmpty(excludePatterns) && isMatch(s, excludePatterns);
 	}
 
