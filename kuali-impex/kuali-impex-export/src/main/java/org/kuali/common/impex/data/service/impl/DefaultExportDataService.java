@@ -245,6 +245,8 @@ public class DefaultExportDataService implements ExportDataService {
 
 		Collection<Table> includedTables = ExportUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
 
+		logger.info("includedTables.size=" + includedTables.size());
+
 		Properties tableStatistics = null;
 		if (LocationUtils.exists(context.getTableStatisticsLocation())) {
 			tableStatistics = PropertyUtils.load(context.getTableStatisticsLocation());
@@ -269,6 +271,8 @@ public class DefaultExportDataService implements ExportDataService {
 
 		// Each bucket holds a bunch of requests
 		List<ExportTableBucket> buckets = getTableBuckets(tableContexts, context, results, progressTracker);
+
+		logger.debug("buckets.size()=" + buckets.size());
 
 		// Create and invoke threads to fill in the metadata
 		// Store some context for the thread handler

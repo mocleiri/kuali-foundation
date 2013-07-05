@@ -26,11 +26,11 @@ import org.kuali.common.util.execute.Executable;
 
 public class DatabaseExportExecutable implements Executable {
 
-	SchemaExtractionExecutable schemaExtractionExecutable;
-	DataExportExecutable dataExportExecutable;
-	List<ProjectSchemaExportExecutable> projectExportExecutables;
-	Executable showConfigExecutable;
 	boolean skip;
+	Executable showConfigExecutable;
+	SchemaExtractionExecutable schemaExtractionExecutable;
+	List<ProjectSchemaExportExecutable> projectExportExecutables;
+	DataExportExecutable dataExportExecutable;
 
 	@Override
 	public void execute() {

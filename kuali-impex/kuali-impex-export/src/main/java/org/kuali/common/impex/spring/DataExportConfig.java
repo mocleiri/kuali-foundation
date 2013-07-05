@@ -22,7 +22,6 @@ import org.kuali.common.impex.data.service.ExportDataContext;
 import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
@@ -82,8 +81,8 @@ public class DataExportConfig {
 	}
 
 	protected StringFilter getTableNameFilter() {
-		List<String> tableIncludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE));
-		List<String> tableExcludes = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE));
+		List<String> tableIncludes = SpringUtils.getListFromCSV(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE);
+		List<String> tableExcludes = SpringUtils.getListFromCSV(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
 	}
 
