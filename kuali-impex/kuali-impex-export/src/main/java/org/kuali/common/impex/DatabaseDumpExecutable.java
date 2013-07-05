@@ -15,11 +15,8 @@
 
 package org.kuali.common.impex;
 
-import java.util.List;
-
 import org.kuali.common.impex.data.DataExportExecutable;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
 import org.kuali.common.impex.schema.service.SchemaExtractionExecutable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
@@ -29,7 +26,6 @@ public class DatabaseDumpExecutable implements Executable {
 	boolean skip;
 	Executable showConfigExecutable;
 	SchemaExtractionExecutable schemaExtractionExecutable;
-	List<ProjectSchemaExportExecutable> projectExportExecutables;
 	DataExportExecutable dataExportExecutable;
 
 	@Override
@@ -44,7 +40,6 @@ public class DatabaseDumpExecutable implements Executable {
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
 		Assert.notNull(dataExportExecutable, "dataExportExecutable is null");
 		Assert.notNull(schemaExtractionExecutable, "schemaExtractionExecutable is null");
-		Assert.notNull(projectExportExecutables, "projectExportExecutables is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
@@ -57,12 +52,6 @@ public class DatabaseDumpExecutable implements Executable {
 
 		// Schema can't be null here
 		Assert.notNull(schema, "schema is null");
-
-		// Convert the schema information to XML and store to disk
-		for (ProjectSchemaExportExecutable projectExportExecutable : projectExportExecutables) {
-			projectExportExecutable.setSchema(schema);
-			projectExportExecutable.execute();
-		}
 
 		// Connect to the database, extract the data, and persist it to disk
 		dataExportExecutable.setSchema(schema);
@@ -91,14 +80,6 @@ public class DatabaseDumpExecutable implements Executable {
 
 	public void setShowConfigExecutable(Executable showConfigExecutable) {
 		this.showConfigExecutable = showConfigExecutable;
-	}
-
-	public List<ProjectSchemaExportExecutable> getProjectExportExecutables() {
-		return projectExportExecutables;
-	}
-
-	public void setProjectExportExecutables(List<ProjectSchemaExportExecutable> projectExportExecutables) {
-		this.projectExportExecutables = projectExportExecutables;
 	}
 
 	public boolean isSkip() {
