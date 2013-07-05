@@ -24,7 +24,8 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.Assert;
 
-public class DefaultBeanNullifier implements Nullify {
+@SuppressWarnings("deprecation")
+public class DefaultBeanNullifier implements Nullify, Nullifier {
 
 	Object bean;
 	List<String> properties;

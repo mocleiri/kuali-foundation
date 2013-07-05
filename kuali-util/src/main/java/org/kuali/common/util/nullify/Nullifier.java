@@ -15,11 +15,7 @@
  */
 package org.kuali.common.util.nullify;
 
-/**
- * Use the Nullifier interface instead
- */
-@Deprecated
-public interface Nullify {
+public interface Nullifier {
 
 	void nullify();
 
