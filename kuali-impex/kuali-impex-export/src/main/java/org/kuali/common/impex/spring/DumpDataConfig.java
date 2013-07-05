@@ -33,19 +33,19 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DumpDataConfig {
 
-	public static final String STATISTICS_LOCATION_KEY = "impex.export.data.statistics.location";
-	public static final String DATA_THREADS_KEY = "impex.export.data.threads";
-	public static final String WORKING_DIR_KEY = "impex.export.data.workingDir";
-	public static final String ROW_INTERVAL_KEY = "impex.export.data.rowInterval";
-	public static final String DATA_INTERVAL_KEY = "impex.export.data.dataInterval";
-	public static final String TABLE_NAME_INCLUDE_KEY = "impex.export.data.include";
-	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.export.data.exclude";
-	public static final String SERVICE_CLASS_NAME = "impex.export.data.service";
+	public static final String STATISTICS_LOCATION_KEY = "impex.dump.data.statistics.location";
+	public static final String DATA_THREADS_KEY = "impex.dump.data.threads";
+	public static final String WORKING_DIR_KEY = "impex.dump.data.dir";
+	public static final String ROW_INTERVAL_KEY = "impex.dump.data.rowInterval";
+	public static final String DATA_INTERVAL_KEY = "impex.dump.data.dataInterval";
+	public static final String TABLE_NAME_INCLUDE_KEY = "impex.dump.data.includes";
+	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.dump.data.excludes";
+	public static final String SERVICE_CLASS_NAME = "impex.dump.data.service";
 
 	/**
 	 * Property key that determines if the executable will run
 	 */
-	public static final String SKIP_EXECUTE_KEY = "impex.export.data.skip";
+	public static final String SKIP_EXECUTE_KEY = "impex.dump.data.skip";
 
 	@Autowired
 	Environment env;
