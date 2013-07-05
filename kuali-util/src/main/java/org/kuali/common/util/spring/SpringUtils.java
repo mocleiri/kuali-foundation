@@ -214,6 +214,11 @@ public class SpringUtils {
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
+	public static List<String> getListFromCSV(Environment env, String key) {
+		String csv = SpringUtils.getProperty(env, key);
+		return CollectionUtils.getTrimmedListFromCSV(csv);
+	}
+
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		return getPropertySources(annotatedClass, propertiesBeanName, properties);
