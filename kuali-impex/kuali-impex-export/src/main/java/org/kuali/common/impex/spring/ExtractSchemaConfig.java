@@ -46,10 +46,8 @@ import org.springframework.core.env.Environment;
 public class ExtractSchemaConfig {
 
 	protected static final Integer DEFAULT_THREAD_COUNT = 8;
-	protected static final String DB_VENDOR_KEY = "db.vendor";
-
-	public static final String NAME_EXCLUDES_KEY = "impex.extract.excludes";
-	public static final String NAME_INCLUDES_KEY = "impex.extract.includes";
+	public static final String NAME_EXCLUDES_KEY = DumpConstants.EXCLUDES_KEY;
+	public static final String NAME_INCLUDES_KEY = DumpConstants.INCLUDES_KEY;
 
 	public static final String THREADS_KEY = "impex.extract.threads";
 	public static final String SERVICE_KEY = "impex.extract.service";
@@ -99,7 +97,7 @@ public class ExtractSchemaConfig {
 		DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
 		// The type of database we are connecting to
-		String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+		String vendor = SpringUtils.getProperty(env, DumpConstants.DB_VENDOR_KEY);
 
 		// This is used to filter out tables/views/sequences
 		StringFilter nameFilter = getNameFilter();

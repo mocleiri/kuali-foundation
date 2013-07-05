@@ -17,6 +17,7 @@ package org.kuali.common.impex.util;
 
 public class DumpConstants {
 
+	public static final String DB_VENDOR_KEY = "db.vendor";
 	public static final String EXCLUDES_KEY = "impex.dump.excludes";
 	public static final String INCLUDES_KEY = "impex.dump.includes";
 	public static final String DIR_KEY = "impex.dump.dir";
