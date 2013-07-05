@@ -35,6 +35,7 @@ public class DumpSchemaExecutable implements Executable {
 	boolean skip = DEFAULT_SKIP_EXECUTION;
 	DumpSchemaService service = DEFAULT_EXPORT_SCHEMA_SERVICE;
 
+	// Required
 	File outputFile;
 	Schema schema;
 
@@ -46,6 +47,7 @@ public class DumpSchemaExecutable implements Executable {
 
 		// Might have nothing to do
 		if (skip) {
+			logger.debug("Skipping execution");
 			return;
 		}
 
