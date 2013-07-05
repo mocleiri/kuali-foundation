@@ -50,7 +50,7 @@ public class DefaultExportSchemaService implements ExportSchemaService {
 			Schema clone = ModelUtils.clone(schema);
 
 			// Null out simple column values that are set to the default
-			// ModelUtils.nullOutDefaultColumnValues(clone);
+			ModelUtils.nullOutDefaultColumnValues(clone);
 
 			JAXBContext context = JAXBContext.newInstance(Schema.class);
 			Marshaller marshaller = context.createMarshaller();

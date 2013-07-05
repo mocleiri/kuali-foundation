@@ -47,3 +47,8 @@ General Schema Format Notes
 KS Specific Notes
 
 - The KSST_RCTYP_JN_RCFLDTYP table has a unique constraint named "IX1", should be "KSST_RCTYP_JN_RCFLDTYP_U1"
+
+
+Rice    -   467,979 - 402,513
+App     -   702,495 - 591,734
+Bundled - 1,170,399 - 994,172
