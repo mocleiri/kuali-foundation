@@ -25,6 +25,7 @@ import javax.xml.bind.Marshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.util.LocationUtils;
 
 public class DefaultExportSchemaService implements ExportSchemaService {
@@ -45,10 +46,16 @@ public class DefaultExportSchemaService implements ExportSchemaService {
 	@Override
 	public void exportSchema(Schema schema, Writer writer) {
 		try {
+			// Clone the schema they give us so we don't alter it
+			Schema clone = ModelUtils.clone(schema);
+
+			// Null out simple column values that are set to the default
+			// ModelUtils.nullOutDefaultColumnValues(clone);
+
 			JAXBContext context = JAXBContext.newInstance(Schema.class);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			marshaller.marshal(schema, writer);
+			marshaller.marshal(clone, writer);
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
 		}

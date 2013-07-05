@@ -24,78 +24,81 @@ import javax.xml.bind.annotation.XmlAttribute;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TypeSize {
-    protected Integer size;
-    protected Integer scale;
-    protected Boolean scaleSet;
 
-    public TypeSize() {
-        this(null, null);
-    }
+	public static final Boolean DEFAULT_SCALE_SET = false;
 
-    public TypeSize(Integer size) {
-        this.size = size;
-        this.scale = null;
-        scaleSet = false;
-    }
+	Integer size;
+	Integer scale;
+	Boolean scaleSet = DEFAULT_SCALE_SET;
 
-    public TypeSize(Integer size, Integer scale) {
-        this.size = size;
-        this.scale = scale;
-        scaleSet = (this.scale != null);
-    }
+	public TypeSize() {
+		this(null, null);
+	}
 
-    @XmlAttribute
-    public Integer getSize() {
-        return size;
-    }
+	public TypeSize(Integer size) {
+		this.size = size;
+		this.scale = null;
+		scaleSet = DEFAULT_SCALE_SET;
+	}
 
-    @XmlAttribute
-    public Integer getScale() {
-        return scale;
-    }
+	public TypeSize(Integer size, Integer scale) {
+		this.size = size;
+		this.scale = scale;
+		this.scaleSet = (this.scale != null);
+	}
 
-    @XmlAttribute
-    public boolean isScaleSet() {
-        return scaleSet;
-    }
+	@XmlAttribute
+	public Integer getSize() {
+		return size;
+	}
 
-    public void setScale(Integer scale) {
-        this.scale = scale;
-    }
+	@XmlAttribute
+	public Integer getScale() {
+		return scale;
+	}
 
-    public void setScaleSet(Boolean scaleSet) {
-        this.scaleSet = scaleSet;
-    }
+	@XmlAttribute
+	public Boolean isScaleSet() {
+		return scaleSet;
+	}
 
-    public void setSize(Integer size) {
-        this.size = size;
-    }
+	public void setScale(Integer scale) {
+		this.scale = scale;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) {
-            return false;
-        }
+	public void setScaleSet(Boolean scaleSet) {
+		this.scaleSet = scaleSet;
+	}
 
-        if(!(obj instanceof TypeSize)) {
-            return false;
-        }
+	public void setSize(Integer size) {
+		this.size = size;
+	}
 
-        TypeSize other = (TypeSize) obj;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
 
-        if (!getSize().equals(other.getSize())) {
-            return false;
-        }
+		if (!(obj instanceof TypeSize)) {
+			return false;
+		}
 
-        if (isScaleSet() != other.isScaleSet()) {
-            return false;
-        }
+		TypeSize other = (TypeSize) obj;
 
-        if (isScaleSet() && !getScale().equals(other.getScale())) {
-            return false;
-        }
+		if (!getSize().equals(other.getSize())) {
+			return false;
+		}
 
-        return true;
-    }
+		if (isScaleSet() != other.isScaleSet()) {
+			return false;
+		}
+
+		if (isScaleSet() && !getScale().equals(other.getScale())) {
+			return false;
+		}
+
+		return true;
+	}
 
 }

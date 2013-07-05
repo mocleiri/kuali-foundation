@@ -26,6 +26,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.springframework.util.Assert;
@@ -47,6 +48,10 @@ public class ModelUtils {
 			}
 			if (Column.DEFAULT_PRIMARY_KEY_VALUE.equals(column.isPrimaryKey())) {
 				column.setPrimaryKey(null);
+			}
+			TypeSize typeSize = column.getTypeSize();
+			if (typeSize != null && TypeSize.DEFAULT_SCALE_SET.equals(typeSize.isScaleSet())) {
+				typeSize.setScaleSet(null);
 			}
 		}
 	}
