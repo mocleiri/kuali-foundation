@@ -41,8 +41,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 	Project project;
 	Schema schema;
 	StringFilter nameFilter;
-	File basedir;
-	File parentDir;
+	File stagingDir;
 
 	@Override
 	public void execute() {
@@ -56,30 +55,28 @@ public class ProjectSchemaExportExecutable implements Executable {
 		Assert.notNull(service, "service is null");
 		Assert.notNull(schema, "schema is null");
 		Assert.notNull(project, "project is null");
-		Assert.notNull(basedir, "basedir is null");
+		Assert.notNull(stagingDir, "stagingDir is null");
 
 		// Clone the existing schema but filter out model objects not relevant to this project
 		Schema clone = ModelUtils.clone(schema, nameFilter);
 
 		// The output file is always based on groupId + artifactId
-		File outputFile = getOutputFile(basedir, project);
+		File outputFile = getOutputFile(stagingDir, project);
 
 		// Log the name of the file we are creating
-		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(parentDir, outputFile));
+		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(stagingDir, outputFile));
 
 		// Persist the cloned schema to disk as XML
 		service.exportSchema(clone, outputFile);
 
 	}
 
-	protected File getOutputFile(File basedir, Project project) {
+	protected File getOutputFile(File stagingDir, Project project) {
 		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
 		String artifactId = project.getArtifactId();
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(LocationUtils.getCanonicalPath(basedir));
-		sb.append("/");
-		sb.append("src/main/resources");
+		sb.append(LocationUtils.getCanonicalPath(stagingDir));
 		sb.append("/");
 		sb.append(groupIdPath);
 		sb.append("/");
@@ -129,20 +126,12 @@ public class ProjectSchemaExportExecutable implements Executable {
 		this.schema = schema;
 	}
 
-	public File getBasedir() {
-		return basedir;
+	public File getStagingDir() {
+		return stagingDir;
 	}
 
-	public void setBasedir(File basedir) {
-		this.basedir = basedir;
-	}
-
-	public File getParentDir() {
-		return parentDir;
-	}
-
-	public void setParentDir(File parentDir) {
-		this.parentDir = parentDir;
+	public void setStagingDir(File stagingDir) {
+		this.stagingDir = stagingDir;
 	}
 
 }

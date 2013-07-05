@@ -37,6 +37,7 @@ import org.springframework.core.env.Environment;
 public class ProjectSchemaExportConfig {
 
 	public static final String PROJECTS_KEY = "impex.export.schema.projects";
+	public static final String STAGING_DIR_KEY = "impex.export.schema.stagingDir";
 
 	@Autowired
 	Environment env;
@@ -46,26 +47,24 @@ public class ProjectSchemaExportConfig {
 
 		List<String> gavs = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROJECTS_KEY));
 
-		File basedir = SpringUtils.getFile(env, "project.basedir");
+		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
 
 		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
 		for (String gav : gavs) {
-			ProjectSchemaExportExecutable psee = getProjectSchemaExportExecutable(gav, basedir);
+			ProjectSchemaExportExecutable psee = getProjectSchemaExportExecutable(gav, stagingDir);
 			executables.add(psee);
 		}
 		return executables;
 	}
 
-	protected ProjectSchemaExportExecutable getProjectSchemaExportExecutable(String gav, File parentDir) {
+	protected ProjectSchemaExportExecutable getProjectSchemaExportExecutable(String gav, File stagingDir) {
 		Project project = ProjectUtils.loadProject(gav);
-		File basedir = new File(parentDir, project.getArtifactId());
 		StringFilter nameFilter = getNameFilter(project);
 
 		ProjectSchemaExportExecutable psee = new ProjectSchemaExportExecutable();
 		psee.setProject(project);
-		psee.setBasedir(basedir);
+		psee.setStagingDir(stagingDir);
 		psee.setNameFilter(nameFilter);
-		psee.setParentDir(parentDir);
 		return psee;
 	}
 
