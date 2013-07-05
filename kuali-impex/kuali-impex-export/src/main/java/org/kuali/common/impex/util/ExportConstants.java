@@ -17,13 +17,23 @@ package org.kuali.common.impex.util;
 
 public class ExportConstants {
 
-    /**
-     * Default value for matching regular expressions.  All names are matched by default
-     */
-    public static final String DEFAULT_INCLUDE = ".*";
+	/**
+	 * Default value for matching regular expressions. All names are matched by default
+	 */
+	public static final String DEFAULT_INCLUDE = ".*";
 
-    /**
-     * Default exclude value for name matching.  No names are excluded by default
-     */
-    public static final String DEFAULT_EXCLUDE = "";
+	/**
+	 * Default exclude value for name matching. No names are excluded by default
+	 */
+	public static final String DEFAULT_EXCLUDE = "";
+
+	/**
+	 * Default value for matching regular expressions. All names are matched by default
+	 */
+	public static final String DEFAULT_FILE_INCLUDE = "**/*";
+
+	/**
+	 * Default exclude value for name matching. No names are excluded by default
+	 */
+	public static final String DEFAULT_FILE_EXCLUDE = "";
 }

@@ -66,8 +66,8 @@ public class ProjectDataCopyConfig {
 		// Setup the includes/excludes appropriate for this project
 		String includesKey = "impex.export.data." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.export.data." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_INCLUDE);
-		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_EXCLUDE);
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_FILE_INCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_FILE_EXCLUDE);
 
 		// Configure our executable
 		CopyFilesExecutable exec = new CopyFilesExecutable();
