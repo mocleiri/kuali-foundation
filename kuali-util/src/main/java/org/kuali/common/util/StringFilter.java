@@ -79,14 +79,14 @@ public class StringFilter {
 	/**
 	 * Return true if the string should be excluded.
 	 */
-	protected boolean exclude(String s) {
+	private boolean exclude(String s) {
 		return !CollectionUtils.isEmpty(excludePatterns) && isMatch(s, excludePatterns);
 	}
 
 	/**
 	 * Return true if the string matches any of the patterns
 	 */
-	protected boolean isMatch(String s, List<Pattern> patterns) {
+	private boolean isMatch(String s, List<Pattern> patterns) {
 		// Loop through the patterns looking for a match
 		for (Pattern pattern : patterns) {
 			Matcher matcher = pattern.matcher(s);
