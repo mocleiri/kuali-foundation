@@ -34,12 +34,12 @@ public class ExecutablesExecutable implements Executable {
 		this(null);
 	}
 
-	public ExecutablesExecutable(List<Executable> executables) {
+	public ExecutablesExecutable(List<? extends Executable> executables) {
 		super();
 		this.executables = executables;
 	}
 
-	List<Executable> executables;
+	List<? extends Executable> executables;
 	boolean skip;
 	boolean timed;
 
@@ -63,11 +63,11 @@ public class ExecutablesExecutable implements Executable {
 		}
 	}
 
-	public List<Executable> getExecutables() {
+	public List<? extends Executable> getExecutables() {
 		return executables;
 	}
 
-	public void setExecutables(List<Executable> executables) {
+	public void setExecutables(List<? extends Executable> executables) {
 		this.executables = executables;
 	}
 
