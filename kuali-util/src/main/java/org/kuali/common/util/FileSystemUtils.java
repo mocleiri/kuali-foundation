@@ -162,6 +162,24 @@ public class FileSystemUtils {
 		return relativePaths;
 	}
 
+	/**
+	 * Return true if child lives on the file system somewhere underneath parent, false otherwise.
+	 */
+	public static boolean isParent(File parent, File child) {
+		if (parent == null || child == null) {
+			return false;
+		}
+
+		String parentPath = LocationUtils.getCanonicalPath(parent);
+		String childPath = LocationUtils.getCanonicalPath(child);
+
+		if (StringUtils.equals(parentPath, childPath)) {
+			return false;
+		} else {
+			return StringUtils.contains(childPath, parentPath);
+		}
+	}
+
 	public static String getRelativePath(File dir, File file) {
 		String dirPath = LocationUtils.getCanonicalPath(dir);
 		String filePath = LocationUtils.getCanonicalPath(file);
