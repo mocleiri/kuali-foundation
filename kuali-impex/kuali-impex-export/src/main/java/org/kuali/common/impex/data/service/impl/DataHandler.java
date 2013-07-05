@@ -46,7 +46,7 @@ public class DataHandler {
         return workingDir.getAbsolutePath() + FS + tableName + MPX_EXTENSION;
     }
 
-	public static void startData(ExportProgress progress) throws IOException {
+	public static void startData(DumpProgress progress) throws IOException {
         List<Column> columns = progress.getColumns();
 		String encoding = progress.getContext().getEncoding();
 
@@ -55,7 +55,7 @@ public class DataHandler {
 		out.write(header.getBytes(encoding));
 	}
 
-	public static void doData(ExportProgress progress) throws IOException {
+	public static void doData(DumpProgress progress) throws IOException {
 		String encoding = progress.getContext().getEncoding();
 		formatMpx(progress.getCurrentData());
 		writeRows(progress.getCurrentData(), encoding, progress.getOutputStream());
@@ -88,7 +88,7 @@ public class DataHandler {
 		return sb.toString();
 	}
 
-	public static void finishData(ExportProgress exportProgress) throws IOException {
+	public static void finishData(DumpProgress exportProgress) throws IOException {
 		if (!CollectionUtils.isEmpty(exportProgress.getCurrentData())) {
 			String encoding = exportProgress.getContext().getEncoding();
 			formatMpx(exportProgress.getCurrentData());

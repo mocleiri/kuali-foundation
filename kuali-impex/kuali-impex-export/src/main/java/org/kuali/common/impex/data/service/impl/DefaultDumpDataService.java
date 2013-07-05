@@ -62,7 +62,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultDumpDataService.class);
 
 	@Override
-	public ExportTableResult dumpTable(DumpDataContext context, ExportTableContext tableContext, Connection conn) {
+	public DumpTableResult dumpTable(DumpDataContext context, DumpTableContext tableContext, Connection conn) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		long start = System.currentTimeMillis();
@@ -70,7 +70,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		try {
 			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			rs = stmt.executeQuery(query);
-			ExportTableResult result = dumpTable(context, tableContext, rs);
+			DumpTableResult result = dumpTable(context, tableContext, rs);
 			result.setFinish(System.currentTimeMillis());
 			result.setStart(start);
 			result.setElapsed(result.getFinish() - start);
@@ -83,7 +83,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		}
 	}
 
-	protected ExportTableResult dumpTable(DumpDataContext context, ExportTableContext tableContext, ResultSet rs) {
+	protected DumpTableResult dumpTable(DumpDataContext context, DumpTableContext tableContext, ResultSet rs) {
 		OutputStream out = null;
 		try {
 			Table table = tableContext.getTable();
@@ -97,7 +97,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			List<Column> orderedColumns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
 
 			List<List<String>> data = new ArrayList<List<String>>();
-			ExportProgress startProgress = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+			DumpProgress startProgress = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
 			DataHandler.startData(startProgress);
 			while (rs.next()) {
 				currentRowCount++;
@@ -108,7 +108,7 @@ public class DefaultDumpDataService implements DumpDataService {
 				currentDataSize += rowSize;
 				totalDataSize += rowSize;
 				if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
-					ExportProgress dataProgress = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext,
+					DumpProgress dataProgress = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext,
 							totalDataSize);
 					DataHandler.doData(dataProgress);
 					currentDataSize = 0;
@@ -116,9 +116,9 @@ public class DefaultDumpDataService implements DumpDataService {
 					data = new ArrayList<List<String>>();
 				}
 			}
-			ExportProgress finished = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+			DumpProgress finished = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
 			DataHandler.finishData(finished);
-			ExportTableResult result = new ExportTableResult();
+			DumpTableResult result = new DumpTableResult();
 			result.setTableContext(tableContext);
 			result.setRows(totalRowCount);
 			result.setSize(totalDataSize);
@@ -239,9 +239,9 @@ public class DefaultDumpDataService implements DumpDataService {
 	}
 
 	@Override
-	public List<ExportTableResult> dumpTables(DumpDataContext context, Schema schema) {
+	public List<DumpTableResult> dumpTables(DumpDataContext context, Schema schema) {
 
-		List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>();
+		List<DumpTableContext> tableContexts = new ArrayList<DumpTableContext>();
 
 		Collection<Table> includedTables = ExportUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
 
@@ -255,7 +255,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		// create table contexts
 		for (Table t : includedTables) {
 
-			ExportTableContext tableContext = new ExportTableContext();
+			DumpTableContext tableContext = new DumpTableContext();
 			tableContext.setTable(t);
 
 			ExportUtils.populateTableStatistics(tableStatistics, t, tableContext);
@@ -263,22 +263,22 @@ public class DefaultDumpDataService implements DumpDataService {
 			tableContexts.add(tableContext);
 		}
 
-		List<ExportTableResult> results = new ArrayList<ExportTableResult>();
+		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
 
 		// Print a dot any time we complete 1% of our requests
 		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
 		progressTracker.setTotal(tableContexts.size());
 
 		// Each bucket holds a bunch of requests
-		List<ExportTableBucket> buckets = getTableBuckets(tableContexts, context, results, progressTracker);
+		List<DumpTableBucket> buckets = getTableBuckets(tableContexts, context, results, progressTracker);
 
 		logger.debug("buckets.size()=" + buckets.size());
 
 		// Create and invoke threads to fill in the metadata
 		// Store some context for the thread handler
-		ThreadHandlerContext<ExportTableBucket> thc = new ThreadHandlerContext<ExportTableBucket>();
+		ThreadHandlerContext<DumpTableBucket> thc = new ThreadHandlerContext<DumpTableBucket>();
 		thc.setList(buckets);
-		thc.setHandler(new ExportTableBucketHandler());
+		thc.setHandler(new DumpTableBucketHandler());
 		thc.setMax(buckets.size());
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
@@ -292,7 +292,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		return results;
 	}
 
-	protected List<ExportTableBucket> getTableBuckets(List<ExportTableContext> tables, DumpDataContext context, List<ExportTableResult> results,
+	protected List<DumpTableBucket> getTableBuckets(List<DumpTableContext> tables, DumpDataContext context, List<DumpTableResult> results,
 			PercentCompleteInformer progressTracker) {
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getDataThreads(), tables.size());
@@ -301,21 +301,21 @@ public class DefaultDumpDataService implements DumpDataService {
 		// Largest to smallest instead of smallest to largest
 		Collections.reverse(tables);
 		// Allocate some buckets to hold the sql
-		List<ExportTableBucket> buckets = CollectionUtils.getNewList(ExportTableBucket.class, bucketCount);
+		List<DumpTableBucket> buckets = CollectionUtils.getNewList(DumpTableBucket.class, bucketCount);
 		// Distribute the sources into buckets as evenly as possible
 		// "Evenly" in this case means each bucket should be roughly the same size
-		for (ExportTableContext table : tables) {
+		for (DumpTableContext table : tables) {
 			// Sort the buckets by size
 			Collections.sort(buckets);
 			// First bucket in the list is the smallest
-			ExportTableBucket smallest = buckets.get(0);
+			DumpTableBucket smallest = buckets.get(0);
 			// Add this source to the bucket
 			smallest.getTables().add(table);
 			// Update the bucket metadata holding overall size
 			smallest.setRowCount(smallest.getRowCount() + table.getRowCount());
 			smallest.setSize(smallest.getSize() + table.getSize());
 		}
-		for (ExportTableBucket bucket : buckets) {
+		for (DumpTableBucket bucket : buckets) {
 			bucket.setContext(context);
 			bucket.setService(this);
 			bucket.setResults(results);
@@ -358,9 +358,9 @@ public class DefaultDumpDataService implements DumpDataService {
 		return results;
 	}
 
-	protected ExportProgress getDumpTableContext(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
-			ExportTableContext table, long tds) {
-		ExportProgress progress = new ExportProgress();
+	protected DumpProgress getDumpTableContext(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
+			DumpTableContext table, long tds) {
+		DumpProgress progress = new DumpProgress();
 		progress.setOutputStream(out);
 		progress.setColumns(columns);
 		progress.setCurrentData(data);

@@ -18,7 +18,7 @@ package org.kuali.common.impex.data.service.impl;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.Weighted;
 
-public class ExportTableContext implements Comparable<ExportTableContext>, Weighted {
+public class DumpTableContext implements Comparable<DumpTableContext>, Weighted {
 
     Table table;
 
@@ -32,7 +32,7 @@ public class ExportTableContext implements Comparable<ExportTableContext>, Weigh
     }
 
     @Override
-    public int compareTo(ExportTableContext other) {
+    public int compareTo(DumpTableContext other) {
         Long one = rowCount;
         Long two = other.getRowCount();
         return one.compareTo(two);

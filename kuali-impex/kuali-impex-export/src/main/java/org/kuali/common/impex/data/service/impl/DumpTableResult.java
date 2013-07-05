@@ -18,7 +18,7 @@ package org.kuali.common.impex.data.service.impl;
 import java.io.File;
 import java.util.List;
 
-public class ExportTableResult {
+public class DumpTableResult {
 
     long rows;
     long size;
@@ -26,7 +26,7 @@ public class ExportTableResult {
     long finish;
     long elapsed;
     List<File> files;
-    ExportTableContext tableContext;
+    DumpTableContext tableContext;
 
     public long getElapsed() {
         return elapsed;
@@ -76,11 +76,11 @@ public class ExportTableResult {
         this.start = start;
     }
 
-    public ExportTableContext getTableContext() {
+    public DumpTableContext getTableContext() {
         return tableContext;
     }
 
-    public void setTableContext(ExportTableContext tableContext) {
+    public void setTableContext(DumpTableContext tableContext) {
         this.tableContext = tableContext;
     }
 }

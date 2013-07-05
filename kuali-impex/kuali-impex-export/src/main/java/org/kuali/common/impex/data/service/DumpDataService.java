@@ -18,14 +18,14 @@ package org.kuali.common.impex.data.service;
 import java.sql.Connection;
 import java.util.List;
 
-import org.kuali.common.impex.data.service.impl.ExportTableContext;
-import org.kuali.common.impex.data.service.impl.ExportTableResult;
+import org.kuali.common.impex.data.service.impl.DumpTableContext;
+import org.kuali.common.impex.data.service.impl.DumpTableResult;
 import org.kuali.common.impex.model.Schema;
 
 public interface DumpDataService {
 
-	List<ExportTableResult> dumpTables(DumpDataContext context, Schema schema);
+	List<DumpTableResult> dumpTables(DumpDataContext context, Schema schema);
 
-	ExportTableResult dumpTable(DumpDataContext context, ExportTableContext table, Connection conn);
+	DumpTableResult dumpTable(DumpDataContext context, DumpTableContext table, Connection conn);
 
 }

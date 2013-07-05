@@ -14,24 +14,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
-public class ExportTableBucketHandler implements ElementHandler<ExportTableBucket> {
+public class DumpTableBucketHandler implements ElementHandler<DumpTableBucket> {
 
-	private static final Logger logger = LoggerFactory.getLogger(ExportTableBucketHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(DumpTableBucketHandler.class);
 
 	@Override
-	public void handleElement(ListIteratorContext<ExportTableBucket> context, int index, ExportTableBucket element) {
+	public void handleElement(ListIteratorContext<DumpTableBucket> context, int index, DumpTableBucket element) {
 		DataSource dataSource = null;
 		Connection conn = null;
 		try {
-			List<ExportTableContext> tables = element.getTables();
+			List<DumpTableContext> tables = element.getTables();
 			DumpDataService service = element.getService();
 			DumpDataContext impex = element.getContext();
 			dataSource = impex.getDataSource();
-			List<ExportTableResult> results = element.getResults();
+			List<DumpTableResult> results = element.getResults();
 			conn = DataSourceUtils.getConnection(dataSource);
-			for (ExportTableContext tableContext : tables) {
+			for (DumpTableContext tableContext : tables) {
 				logger.debug("Dumping {}", tableContext.getTable().getName());
-				ExportTableResult result = service.dumpTable(impex, tableContext, conn);
+				DumpTableResult result = service.dumpTable(impex, tableContext, conn);
 				synchronized (results) {
 					results.add(result);
 				}

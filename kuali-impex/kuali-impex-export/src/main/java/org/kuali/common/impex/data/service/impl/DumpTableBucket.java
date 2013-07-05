@@ -6,27 +6,27 @@ import java.util.List;
 import org.kuali.common.impex.data.service.DumpDataContext;
 import org.kuali.common.impex.data.service.DumpDataService;
 
-public class ExportTableBucket implements Comparable<ExportTableBucket> {
+public class DumpTableBucket implements Comparable<DumpTableBucket> {
 
 	DumpDataContext context;
 	DumpDataService service;
-	List<ExportTableContext> tables = new ArrayList<ExportTableContext>();
-	List<ExportTableResult> results;
+	List<DumpTableContext> tables = new ArrayList<DumpTableContext>();
+	List<DumpTableResult> results;
 	long rowCount;
 	long size;
 
 	@Override
-	public int compareTo(ExportTableBucket other) {
+	public int compareTo(DumpTableBucket other) {
 		Long one = rowCount;
 		Long two = other.getRowCount();
 		return one.compareTo(two);
 	}
 
-	public List<ExportTableContext> getTables() {
+	public List<DumpTableContext> getTables() {
 		return tables;
 	}
 
-	public void setTables(List<ExportTableContext> tables) {
+	public void setTables(List<DumpTableContext> tables) {
 		this.tables = tables;
 	}
 
@@ -46,11 +46,11 @@ public class ExportTableBucket implements Comparable<ExportTableBucket> {
         this.service = service;
     }
 
-    public List<ExportTableResult> getResults() {
+    public List<DumpTableResult> getResults() {
         return results;
     }
 
-    public void setResults(List<ExportTableResult> results) {
+    public void setResults(List<DumpTableResult> results) {
         this.results = results;
     }
 

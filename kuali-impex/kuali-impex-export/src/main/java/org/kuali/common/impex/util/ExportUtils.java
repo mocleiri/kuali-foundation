@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.impex.data.service.impl.ExportTableContext;
-import org.kuali.common.impex.data.service.impl.ExportTableResult;
+import org.kuali.common.impex.data.service.impl.DumpTableContext;
+import org.kuali.common.impex.data.service.impl.DumpTableResult;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.LocationUtils;
@@ -86,7 +86,7 @@ public class ExportUtils {
 	 * @param context
 	 *            the ExportTableContext to populate
 	 */
-	public static void populateTableStatistics(Properties tableStatistics, Table table, ExportTableContext context) {
+	public static void populateTableStatistics(Properties tableStatistics, Table table, DumpTableContext context) {
 		if (tableStatistics != null) {
 			String tableNameKeyFormat = table.getName().toLowerCase();
 			String sizeVal = tableStatistics.getProperty(tableNameKeyFormat + SIZE_PROPERTY_SUFFIX);
@@ -110,7 +110,7 @@ public class ExportUtils {
 	 * @param location
 	 *            file path defining where to write the property file
 	 */
-	public static void storeTableStatistics(List<ExportTableResult> tableResults, String location) {
+	public static void storeTableStatistics(List<DumpTableResult> tableResults, String location) {
 		Properties tableStatistics;
 
 		if (LocationUtils.exists(location)) {
@@ -119,7 +119,7 @@ public class ExportUtils {
 			tableStatistics = new Properties();
 		}
 
-		for (ExportTableResult result : tableResults) {
+		for (DumpTableResult result : tableResults) {
 			String nameKey = result.getTableContext().getTable().getName().toLowerCase();
 			tableStatistics.setProperty(nameKey + SIZE_PROPERTY_SUFFIX, Long.toString(result.getSize()));
 			tableStatistics.setProperty(nameKey + ROWS_PROPERTY_SUFFIX, Long.toString(result.getRows()));

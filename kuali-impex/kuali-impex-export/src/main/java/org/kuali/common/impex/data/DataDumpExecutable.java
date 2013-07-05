@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.impex.data.service.DumpDataContext;
 import org.kuali.common.impex.data.service.DumpDataService;
 import org.kuali.common.impex.data.service.impl.DefaultDumpDataService;
-import org.kuali.common.impex.data.service.impl.ExportTableResult;
+import org.kuali.common.impex.data.service.impl.DumpTableResult;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.Assert;
@@ -50,7 +50,7 @@ public class DataDumpExecutable implements Executable {
 		Assert.notNull(service, "service is null");
 
 		// Connect to the database, extract data from each table and create a .mpx file for each table that has data
-		List<ExportTableResult> results = service.dumpTables(context, schema);
+		List<DumpTableResult> results = service.dumpTables(context, schema);
 
 		// After exporting tables, store the table statistics
 		ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());
