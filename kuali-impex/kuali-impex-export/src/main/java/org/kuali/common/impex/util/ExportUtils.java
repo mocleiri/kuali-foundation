@@ -38,7 +38,7 @@ public class ExportUtils {
 	public static final int DEFAULT_DATA_THREADS = 15;
 	public static final int DEFAULT_ROW_INTERVAL = 50;
 	public static final String DEFAULT_DATA_INTERVAL = "50k";
-	public static final String SCHEMA_XML_FILE = "schema.xml";
+	public static final String DEFAULT_SCHEMA_XML_FILE = "schema.xml";
 
 	public static File getOutputDir(File basedir, Project project) {
 		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
@@ -60,7 +60,7 @@ public class ExportUtils {
 	}
 
 	public static File getSchemaFile(File basedir, Project project) {
-		return new File(getOutputDir(basedir, project), SCHEMA_XML_FILE);
+		return new File(getOutputDir(basedir, project), DEFAULT_SCHEMA_XML_FILE);
 	}
 
 	public static <T extends NamedElement> List<T> getIncludedElements(StringFilter filter, List<T> elements) {
