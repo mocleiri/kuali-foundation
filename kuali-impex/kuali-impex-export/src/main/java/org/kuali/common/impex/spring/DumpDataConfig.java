@@ -54,7 +54,7 @@ public class DumpDataConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Bean
-	public DumpDataExecutable exportDataExecutable() {
+	public DumpDataExecutable dumpDataExecutable() {
 
 		// Extract some context from the Environment
 		DumpDataContext context = getExportDataContext();

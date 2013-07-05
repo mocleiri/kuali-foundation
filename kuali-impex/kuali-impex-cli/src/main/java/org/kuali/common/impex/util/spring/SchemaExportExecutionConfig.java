@@ -27,18 +27,18 @@ import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.schema.DumpSchemaExecutableOld;
 import org.kuali.common.impex.schema.service.ExtractSchemaResult;
 import org.kuali.common.impex.spring.SchemaExportConfig;
-import org.kuali.common.impex.spring.DumpSchemaConfig;
+import org.kuali.common.impex.spring.ExtractSchemaConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SchemaExportConfig.class, DumpSchemaConfig.class })
+@Import({ SchemaExportConfig.class, ExtractSchemaConfig.class })
 public class SchemaExportExecutionConfig {
 
 	@Autowired
-	DumpSchemaConfig extractionConfig;
+	ExtractSchemaConfig extractionConfig;
 
 	@Autowired
 	SchemaExportConfig exportConfig;

@@ -28,7 +28,7 @@ public class DumpDatabaseExecutable implements Executable {
 	Executable showConfigExecutable;
 	ExtractSchemaExecutable extractSchemaExecutable;
 	DumpSchemaExecutable dumpSchemaExecutable;
-	DumpDataExecutable dataDumpExecutable;
+	DumpDataExecutable dumpDataExecutable;
 
 	@Override
 	public void execute() {
@@ -42,7 +42,7 @@ public class DumpDatabaseExecutable implements Executable {
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
 		Assert.notNull(extractSchemaExecutable, "extractSchemaExecutable is null");
 		Assert.notNull(dumpSchemaExecutable, "dumpSchemaExecutable is null");
-		Assert.notNull(dataDumpExecutable, "dataDumpExecutable is null");
+		Assert.notNull(dumpDataExecutable, "dataDumpExecutable is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
@@ -61,8 +61,8 @@ public class DumpDatabaseExecutable implements Executable {
 		dumpSchemaExecutable.execute();
 
 		// Connect to the database, extract the data, and persist it to disk
-		dataDumpExecutable.setSchema(schema);
-		dataDumpExecutable.execute();
+		dumpDataExecutable.setSchema(schema);
+		dumpDataExecutable.execute();
 	}
 
 	public boolean isSkip() {
@@ -89,12 +89,20 @@ public class DumpDatabaseExecutable implements Executable {
 		this.extractSchemaExecutable = extractSchemaExecutable;
 	}
 
-	public DumpDataExecutable getDataDumpExecutable() {
-		return dataDumpExecutable;
+	public DumpSchemaExecutable getDumpSchemaExecutable() {
+		return dumpSchemaExecutable;
 	}
 
-	public void setDataDumpExecutable(DumpDataExecutable dataDumpExecutable) {
-		this.dataDumpExecutable = dataDumpExecutable;
+	public void setDumpSchemaExecutable(DumpSchemaExecutable dumpSchemaExecutable) {
+		this.dumpSchemaExecutable = dumpSchemaExecutable;
+	}
+
+	public DumpDataExecutable getDumpDataExecutable() {
+		return dumpDataExecutable;
+	}
+
+	public void setDumpDataExecutable(DumpDataExecutable dumpDataExecutable) {
+		this.dumpDataExecutable = dumpDataExecutable;
 	}
 
 }

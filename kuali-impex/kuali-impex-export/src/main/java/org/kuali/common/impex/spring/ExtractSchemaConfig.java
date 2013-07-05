@@ -42,7 +42,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ JdbcDataSourceConfig.class })
-public class DumpSchemaConfig {
+public class ExtractSchemaConfig {
 
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 
@@ -75,7 +75,7 @@ public class DumpSchemaConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Bean
-	public ExtractSchemaExecutable schemaExtractionExecutable() {
+	public ExtractSchemaExecutable extractSchemaExecutable() {
 		ExtractSchemaExecutable exec = new ExtractSchemaExecutable();
 		exec.setContext(getSchemaExtractionContext());
 		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, ExtractSchemaExecutable.DEFAULT_SERVICE.getClass()));
