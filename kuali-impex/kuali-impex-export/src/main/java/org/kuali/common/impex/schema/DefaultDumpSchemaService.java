@@ -26,7 +26,9 @@ import javax.xml.bind.Marshaller;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.impex.model.util.SchemaNullifier;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.nullify.Nullify;
 
 public class DefaultDumpSchemaService implements DumpSchemaService {
 
@@ -49,8 +51,10 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 			// Clone the schema they give us so we don't alter it
 			Schema clone = ModelUtils.clone(schema);
 
-			// Null out simple column values that are set to the default
-			ModelUtils.nullOutDefaultColumnValues(clone);
+			// Null out values that don't need to be converted to XML
+			// Mostly Boolean's that are defaulted to false anyway
+			Nullify nullifier = new SchemaNullifier(clone);
+			nullifier.nullify();
 
 			JAXBContext context = JAXBContext.newInstance(Schema.class);
 			Marshaller marshaller = context.createMarshaller();
