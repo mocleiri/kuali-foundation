@@ -72,12 +72,12 @@ public class ProjectSchemaExportExecutable implements Executable {
 
 	}
 
-	protected File getOutputFile(File stagingDir, Project project) {
+	protected File getOutputFile(File directory, Project project) {
 		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
 		String artifactId = project.getArtifactId();
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(LocationUtils.getCanonicalPath(stagingDir));
+		sb.append(LocationUtils.getCanonicalPath(directory));
 		sb.append("/");
 		sb.append(groupIdPath);
 		sb.append("/");
