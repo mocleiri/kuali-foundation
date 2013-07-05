@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
 import org.kuali.common.impex.util.ExportConstants;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.StringFilter;
@@ -46,9 +45,9 @@ public class ProjectSchemaExportConfig {
 	@Bean
 	public List<ProjectSchemaExportExecutable> projectSchemaExportExecutables() {
 
-		List<String> gavs = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROJECTS_KEY));
-
 		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
+		List<String> gavs = SpringUtils.getListFromCSV(env, PROJECTS_KEY);
+
 		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
 		for (String gav : gavs) {
 			ProjectSchemaExportExecutable exec = getProjectSchemaExportExecutable(gav, stagingDir);
@@ -73,7 +72,7 @@ public class ProjectSchemaExportConfig {
 	protected StringFilter getNameFilter(Project project) {
 		String includesKey = "impex.export." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.export." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_EXCLUDE);
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(includes, excludes);
 	}
