@@ -29,9 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public abstract class Constraint implements NamedElement {
 
-	@XmlAttribute
 	String name;
-
 	List<String> columnNames = new ArrayList<String>();
 
 	public Constraint(Constraint constraint) {
@@ -54,7 +52,16 @@ public abstract class Constraint implements NamedElement {
 	}
 
 	@Override
+	@XmlAttribute
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setColumnNames(List<String> columnNames) {
+		this.columnNames = columnNames;
 	}
 }
