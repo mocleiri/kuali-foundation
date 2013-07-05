@@ -18,6 +18,7 @@ package org.kuali.common.impex.schema.service;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.impl.DefaultExtractSchemaService;
 import org.kuali.common.util.execute.Executable;
+import org.springframework.util.Assert;
 
 public class ExtractSchemaExecutable implements Executable {
 
@@ -27,8 +28,11 @@ public class ExtractSchemaExecutable implements Executable {
 	boolean skip = DEFAULT_SKIP;
 	ExtractSchemaService service = DEFAULT_SERVICE;
 
-	ExtractSchemaResult result;
+	// Required
 	ExtractSchemaContext context;
+
+	// Filled in after execution
+	ExtractSchemaResult result;
 
 	@Override
 	public void execute() {
@@ -36,6 +40,9 @@ public class ExtractSchemaExecutable implements Executable {
 		if (skip) {
 			return;
 		}
+
+		Assert.notNull(service, "service is null");
+		Assert.notNull(context, "context is null");
 
 		Schema schema = service.getSchema(context);
 		this.result = new ExtractSchemaResult(schema);
