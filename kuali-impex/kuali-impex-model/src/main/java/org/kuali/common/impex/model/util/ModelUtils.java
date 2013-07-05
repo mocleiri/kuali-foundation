@@ -23,12 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.impex.model.Column;
-import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.View;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.springframework.util.Assert;
@@ -37,22 +34,20 @@ public class ModelUtils {
 
 	public static Schema clone(Schema original, StringFilter nameFilter) {
 		Schema clone = clone(original);
-		if (nameFilter != null) {
-			ModelUtils.filterAndSortElements(clone.getTables(), nameFilter);
-			ModelUtils.filterAndSortElements(clone.getViews(), nameFilter);
-			ModelUtils.filterAndSortElements(clone.getSequences(), nameFilter);
-			ModelUtils.filterAndSortElements(clone.getForeignKeys(), nameFilter);
-		}
+		ModelUtils.filterAndSortElements(clone.getTables(), nameFilter);
+		ModelUtils.filterAndSortElements(clone.getViews(), nameFilter);
+		ModelUtils.filterAndSortElements(clone.getSequences(), nameFilter);
+		ModelUtils.filterAndSortElements(clone.getForeignKeys(), nameFilter);
 		return clone;
 	}
 
 	public static Schema clone(Schema original) {
 		Schema clone = new Schema();
 		clone.setName(original.getName());
-		clone.setTables(new ArrayList<Table>(original.getTables()));
-		clone.setSequences(new ArrayList<Sequence>(original.getSequences()));
-		clone.setViews(new ArrayList<View>(original.getViews()));
-		clone.setForeignKeys(new ArrayList<ForeignKey>(original.getForeignKeys()));
+		clone.getTables().addAll(original.getTables());
+		clone.getSequences().addAll(original.getSequences());
+		clone.getViews().addAll(original.getViews());
+		clone.getForeignKeys().addAll(original.getForeignKeys());
 		return clone;
 	}
 
@@ -122,6 +117,11 @@ public class ModelUtils {
 	 */
 	public static <T extends NamedElement> void filterElements(List<T> elements, StringFilter filter) {
 
+		// No filter, nothing to do
+		if (filter == null) {
+			return;
+		}
+
 		// Make sure we are configured correctly
 		Assert.notNull(elements, "elements is null");
 
@@ -130,17 +130,10 @@ public class ModelUtils {
 		while (itr.hasNext()) {
 			NamedElement element = itr.next();
 			String name = element.getName();
-			if (isExcluded(name, filter)) {
+			if (!filter.include(name)) {
 				itr.remove();
 			}
 		}
-	}
-
-	/**
-	 * Return true only if we've been provided a <code>filter</code> and <code>s</code> is excluded by that filter
-	 */
-	public static boolean isExcluded(String s, StringFilter filter) {
-		return filter != null && filter.exclude(s);
 	}
 
 }
