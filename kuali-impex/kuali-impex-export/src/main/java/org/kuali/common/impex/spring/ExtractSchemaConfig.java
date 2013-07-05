@@ -45,24 +45,24 @@ import org.springframework.core.env.Environment;
 @Import({ JdbcDataSourceConfig.class })
 public class ExtractSchemaConfig {
 
-	protected static final Integer DEFAULT_THREAD_COUNT = 8;
-	public static final String NAME_EXCLUDES_KEY = DumpConstants.EXCLUDES_KEY;
-	public static final String NAME_INCLUDES_KEY = DumpConstants.INCLUDES_KEY;
+	protected static final int DEFAULT_THREADS = 8;
+	public static final String INCLUDES_KEY = "impex.extract.schema.includes";
+	public static final String EXCLUDES_KEY = "impex.extract.schema.excludes";
 
-	public static final String THREADS_KEY = "impex.extract.threads";
-	public static final String SERVICE_KEY = "impex.extract.service";
+	public static final String THREADS_KEY = "impex.extract.schema.threads";
+	public static final String SERVICE_KEY = "impex.extract.schema.service";
 
-	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.extract.oracle.sequence.finder";
-	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.extract.oracle.view.finder";
+	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.extract.schema.oracle.sequence.finder";
+	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.extract.schema.oracle.view.finder";
 
-	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.extract.mysql.sequence.finder";
-	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.extract.mysql.view.finder";
+	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.extract.schema.mysql.sequence.finder";
+	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.extract.schema.mysql.view.finder";
 
 	// By default, include everything, exclude nothing
-	protected static final String DEFAULT_NAME_INCLUDES = DumpConstants.DEFAULT_INCLUDE;
-	protected static final String DEFAULT_NAME_EXCLUDES = DumpConstants.DEFAULT_EXCLUDE;
+	protected static final String DEFAULT_INCLUDES = DumpConstants.DEFAULT_INCLUDE;
+	protected static final String DEFAULT_EXCLUDES = DumpConstants.DEFAULT_EXCLUDE;
 
-	protected static final String SKIP_EXECUTION_KEY = "impex.extract.skip";
+	protected static final String SKIP_KEY = "impex.extract.schema.skip";
 
 	@Autowired
 	Environment env;
@@ -75,7 +75,7 @@ public class ExtractSchemaConfig {
 		ExtractSchemaExecutable exec = new ExtractSchemaExecutable();
 		exec.setContext(getSchemaExtractionContext());
 		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, ExtractSchemaExecutable.DEFAULT_SERVICE.getClass()));
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExtractSchemaExecutable.DEFAULT_SKIP));
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, ExtractSchemaExecutable.DEFAULT_SKIP));
 		return exec;
 	}
 
@@ -91,7 +91,7 @@ public class ExtractSchemaConfig {
 		String schemaName = dbContext.getUsername();
 
 		// Number of threads to use
-		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREAD_COUNT);
+		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
 
 		// DataSource for obtaining connections to the database
 		DataSource dataSource = dataSourceConfig.jdbcDataSource();
@@ -120,8 +120,8 @@ public class ExtractSchemaConfig {
 	protected StringFilter getNameFilter() {
 
 		// Extract CSV values from the Environment
-		String includesCSV = SpringUtils.getProperty(env, NAME_INCLUDES_KEY, DEFAULT_NAME_INCLUDES);
-		String excludesCSV = SpringUtils.getProperty(env, NAME_EXCLUDES_KEY, DEFAULT_NAME_EXCLUDES);
+		String includesCSV = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDES);
+		String excludesCSV = SpringUtils.getProperty(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
 
 		// Convert CSV to List
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);

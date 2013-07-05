@@ -31,11 +31,8 @@ import org.springframework.core.env.Environment;
 public class DumpSchemaConfig {
 
 	public static final String SERVICE_KEY = "impex.dump.schema.service";
-
-	/**
-	 * Property key that determines if the executable will run
-	 */
 	public static final String SKIP_KEY = "impex.dump.schema.skip";
+	public static final String FILE_KEY = "impex.dump.schema.file";
 
 	@Autowired
 	Environment env;
@@ -43,18 +40,23 @@ public class DumpSchemaConfig {
 	@Bean
 	public DumpSchemaExecutable dumpSchemaExecutable() {
 
-		// Extract some context from the Environment
-		File outputDir = SpringUtils.getFile(env, DumpConstants.DIR_KEY);
-		File outputFile = DumpUtils.getSchemaFile(outputDir);
+		// Extract some context form the environment
+		File outputFile = getOutputFile();
 		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass());
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
 
+		// Configure an executable
 		DumpSchemaExecutable exec = new DumpSchemaExecutable();
 		exec.setOutputFile(outputFile);
 		exec.setService(service);
 		exec.setSkip(skip);
 		return exec;
+	}
 
+	protected File getOutputFile() {
+		File outputDir = SpringUtils.getFile(env, DumpConstants.DIR_KEY);
+		File defaultOutputFile = DumpUtils.getSchemaFile(outputDir);
+		return SpringUtils.getFile(env, FILE_KEY, defaultOutputFile);
 	}
 
 }
