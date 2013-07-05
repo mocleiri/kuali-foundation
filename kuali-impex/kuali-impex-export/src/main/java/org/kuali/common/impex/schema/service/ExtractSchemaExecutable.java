@@ -31,7 +31,7 @@ public class ExtractSchemaExecutable implements Executable {
 	// Required
 	ExtractSchemaContext context;
 
-	// Filled in after execution
+	// Filled in during execution
 	ExtractSchemaResult result;
 
 	@Override
