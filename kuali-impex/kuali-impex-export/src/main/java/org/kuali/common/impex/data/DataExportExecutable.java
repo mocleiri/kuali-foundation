@@ -49,8 +49,6 @@ public class DataExportExecutable implements Executable {
 		Assert.notNull(context, "context is null");
 		Assert.notNull(service, "service is null");
 
-		System.out.println("schema.getTables()=" + schema.getTables().size());
-
 		// Connect to the database, extract data from each table and create a .mpx file for each table that has data
 		List<ExportTableResult> results = service.exportTables(context, schema);
 
