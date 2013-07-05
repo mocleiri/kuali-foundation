@@ -33,7 +33,7 @@ import org.springframework.core.env.Environment;
 /**
  */
 @Configuration
-public class ProjectDataConfig {
+public class ProjectDataExportConfig {
 
 	public static final String PROJECTS_KEY = "impex.export.schema.projects";
 	public static final String STAGING_DIR_KEY = "impex.export.schema.stagingDir";
