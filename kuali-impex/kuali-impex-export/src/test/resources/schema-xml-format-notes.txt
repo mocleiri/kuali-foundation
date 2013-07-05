@@ -51,7 +51,7 @@ KS Specific Notes
 
 Rice    -   467,979 - 402,513
 App     -   702,495 - 591,734
-Bundled - 1,170,399 - 797,391
+Bundled - 1,170,399 - 731,619
 
 
 JDBC                                  -> global schema model object
