@@ -5,6 +5,7 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.nullify.Nullifier;
 import org.springframework.util.Assert;
 
 /**
