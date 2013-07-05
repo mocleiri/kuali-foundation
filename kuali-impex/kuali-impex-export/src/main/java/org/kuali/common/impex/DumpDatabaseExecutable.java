@@ -56,6 +56,10 @@ public class DumpDatabaseExecutable implements Executable {
 		// Schema can't be null here
 		Assert.notNull(schema, "schema is null");
 
+		// Persist the schema to disk as XML
+		dumpSchemaExecutable.setSchema(schema);
+		dumpSchemaExecutable.execute();
+
 		// Connect to the database, extract the data, and persist it to disk
 		dataDumpExecutable.setSchema(schema);
 		dataDumpExecutable.execute();
