@@ -33,29 +33,6 @@ import org.springframework.util.Assert;
 
 public class ModelUtils {
 
-	public static void nullOutDefaultColumnValues(Schema schema) {
-		Assert.notNull(schema, "schema is null");
-
-		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
-			nullOutDefaultColumnValues(table);
-		}
-	}
-
-	public static void nullOutDefaultColumnValues(Table table) {
-		for (Column column : CollectionUtils.toEmptyList(table.getColumns())) {
-			if (Column.DEFAULT_NULLABLE_VALUE.equals(column.isNullable())) {
-				column.setNullable(null);
-			}
-			if (Column.DEFAULT_PRIMARY_KEY_VALUE.equals(column.isPrimaryKey())) {
-				column.setPrimaryKey(null);
-			}
-			TypeSize typeSize = column.getTypeSize();
-			if (typeSize != null && TypeSize.DEFAULT_SCALE_SET.equals(typeSize.isScaleSet())) {
-				typeSize.setScaleSet(null);
-			}
-		}
-	}
-
 	public static Schema clone(Schema original, StringFilter nameFilter) {
 		Schema clone = clone(original);
 		ModelUtils.filterAndSortElements(clone.getTables(), nameFilter);
