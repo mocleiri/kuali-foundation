@@ -1,6 +1,7 @@
 package org.kuali.common.impex.model.util;
 
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
@@ -31,6 +32,15 @@ public class SchemaNullifier implements Nullifier {
 			for (Column column : CollectionUtils.toEmptyList(table.getColumns())) {
 				nullify(column);
 			}
+			for (Index index : CollectionUtils.toEmptyList(table.getIndices())) {
+				nullify(index);
+			}
+		}
+	}
+
+	protected void nullify(Index index) {
+		if (Index.DEFAULT_UNIQUE_VALUE.equals(index.isUnique())) {
+			index.setUnique(null);
 		}
 	}
 
