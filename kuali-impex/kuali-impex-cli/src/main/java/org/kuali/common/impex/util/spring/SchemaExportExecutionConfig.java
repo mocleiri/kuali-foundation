@@ -24,7 +24,7 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.DumpSchemaExecutable;
+import org.kuali.common.impex.schema.DumpSchemaExecutableOld;
 import org.kuali.common.impex.schema.service.ExtractSchemaResult;
 import org.kuali.common.impex.spring.SchemaExportConfig;
 import org.kuali.common.impex.spring.SchemaDumpConfig;
@@ -44,11 +44,11 @@ public class SchemaExportExecutionConfig {
 	SchemaExportConfig exportConfig;
 
 	@Bean(initMethod = "execute")
-	public DumpSchemaExecutable configuredExportExecutable() {
+	public DumpSchemaExecutableOld configuredExportExecutable() {
 
 		Map<String, Class<? extends NamedElement>> locationMap = exportConfig.schemaLocations();
 
-		DumpSchemaExecutable result = exportConfig.exportSchemaExecutable();
+		DumpSchemaExecutableOld result = exportConfig.exportSchemaExecutable();
 
 		ExtractSchemaResult extractionResult = executedResult();
 
