@@ -75,12 +75,16 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 	}
 
 	protected Schema extractMultiThreaded(ExtractSchemaContext context) throws SQLException {
+		// Preserve our start time
 		long start = System.currentTimeMillis();
+
 		log.info("[schema:extract:starting]");
 
+		// Use JDBC calls to acquire the list of table names for our schema
+		// This is usually very quick. The KS schema has 574 tables at the moment, and this call takes ~250ms
 		List<String> tableNames = getTableNames(context);
 
-		// the total number of schema extraction tasks is calculated as follows:
+		// The total number of schema extraction tasks is calculated as follows:
 		// One task for each table name to get table/column data
 		int totalTasks = tableNames.size();
 
@@ -90,21 +94,21 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		// One task for sequences + one task for views
 		totalTasks += 2;
 
-		// so the total number of tasks to track progress on will be (2 * number of tables) + 1
+		// The total number of tasks to track progress on will be (2 * number of tables) + 2
 		PercentCompleteInformer informer = new PercentCompleteInformer();
 		informer.setTotal(totalTasks);
 		context.setInformer(informer);
 
-		// one thread will handle all views and sequences, then split the table names among other threads
+		// One thread will handle all views and sequences, then split the table names among other threads
 		int maxTableThreads = context.getThreadCount() - 1;
 
 		// Split the list of tables evenly across the threads
 		List<List<String>> splitNames = CollectionUtils.splitEvenly(tableNames, maxTableThreads);
 
 		// Create buckets to hold results
-		List<ExtractSchemaBucket> schemaBuckets = new ArrayList<ExtractSchemaBucket>(splitNames.size() + 1);
+		List<ExtractSchemaBucket> schemaBuckets = new ArrayList<ExtractSchemaBucket>();
 
-		// Setup a schema object
+		// Setup a schema object shared across all of the threads
 		Schema schema = new Schema();
 
 		// Add one special schema bucket for handling views and sequences
@@ -125,7 +129,6 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 			schemaBuckets.add(bucket);
 		}
 
-		// Create and invoke threads to fill in the metadata
 		// Store some context for the thread handler
 		ThreadHandlerContext<ExtractSchemaBucket> thc = new ThreadHandlerContext<ExtractSchemaBucket>();
 		thc.setList(schemaBuckets);
@@ -137,6 +140,7 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		// Start threads to acquire table metadata concurrently
 		log.info("[schema:extract:metadata:starting]");
 		informer.start();
+		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
 		log.info("[schema:extract:metadata:complete] - {}", FormatUtils.getTime(stats.getExecutionTime()));
