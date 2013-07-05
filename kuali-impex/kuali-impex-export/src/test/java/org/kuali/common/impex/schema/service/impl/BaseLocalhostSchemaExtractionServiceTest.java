@@ -29,8 +29,8 @@ import org.kuali.common.impex.schema.OracleSequenceFinder;
 import org.kuali.common.impex.schema.OracleViewFinder;
 import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
-import org.kuali.common.impex.schema.service.SchemaExtractionContext;
-import org.kuali.common.impex.schema.service.SchemaExtractionService;
+import org.kuali.common.impex.schema.service.SchemaDumpContext;
+import org.kuali.common.impex.schema.service.SchemaDumpService;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.ProjectContext;
@@ -66,7 +66,7 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			String url = props.getProperty("jdbc.url");
 
 			// This property points to the MockImpl, uncomment the DefaultImpl once it is ready
-			SchemaExtractionService service = ReflectionUtils.newInstance(props.getProperty("impex.export.service"));
+			SchemaDumpService service = ReflectionUtils.newInstance(props.getProperty("impex.export.service"));
 
 			ViewFinder viewFinder = null;
 			SequenceFinder sequenceFinder = null;
@@ -83,7 +83,7 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 				sequenceFinder = mSequenceFinder;
 			}
 
-			SchemaExtractionContext context = new SchemaExtractionContext();
+			SchemaDumpContext context = new SchemaDumpContext();
 			context.setSchemaName(username);
 			context.setThreadCount(8);
 			context.setSequenceFinder(sequenceFinder);

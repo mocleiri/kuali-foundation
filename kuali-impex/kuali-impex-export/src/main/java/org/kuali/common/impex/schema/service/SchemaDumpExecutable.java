@@ -19,16 +19,16 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.impl.DefaultSchemaExtractionService;
 import org.kuali.common.util.execute.Executable;
 
-public class SchemaExtractionExecutable implements Executable {
+public class SchemaDumpExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;
-	public static final SchemaExtractionService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
+	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
 
 	boolean skip = DEFAULT_SKIP;
-	SchemaExtractionService service = DEFAULT_SERVICE;
+	SchemaDumpService service = DEFAULT_SERVICE;
 
-	SchemaExtractionResult result;
-	SchemaExtractionContext context;
+	SchemaDumpResult result;
+	SchemaDumpContext context;
 
 	@Override
 	public void execute() {
@@ -38,30 +38,30 @@ public class SchemaExtractionExecutable implements Executable {
 		}
 
 		Schema schema = service.getSchema(context);
-		this.result = new SchemaExtractionResult();
+		this.result = new SchemaDumpResult();
 		result.setSchema(schema);
 	}
 
 	/**
 	 * Expose <code>SchemaExtractionResult</code> via a getter
 	 */
-	public SchemaExtractionResult getResult() {
+	public SchemaDumpResult getResult() {
 		return result;
 	}
 
-	public SchemaExtractionContext getContext() {
+	public SchemaDumpContext getContext() {
 		return context;
 	}
 
-	public void setContext(SchemaExtractionContext context) {
+	public void setContext(SchemaDumpContext context) {
 		this.context = context;
 	}
 
-	public SchemaExtractionService getService() {
+	public SchemaDumpService getService() {
 		return service;
 	}
 
-	public void setService(SchemaExtractionService service) {
+	public void setService(SchemaDumpService service) {
 		this.service = service;
 	}
 

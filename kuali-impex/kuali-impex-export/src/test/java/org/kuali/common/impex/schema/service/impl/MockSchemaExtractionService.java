@@ -9,10 +9,10 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.service.SchemaExtractionContext;
-import org.kuali.common.impex.schema.service.SchemaExtractionService;
+import org.kuali.common.impex.schema.service.SchemaDumpContext;
+import org.kuali.common.impex.schema.service.SchemaDumpService;
 
-public class MockSchemaExtractionService implements SchemaExtractionService {
+public class MockSchemaExtractionService implements SchemaDumpService {
 
     Schema schema;
 
@@ -29,27 +29,27 @@ public class MockSchemaExtractionService implements SchemaExtractionService {
     }
 
 	@Override
-	public Schema getSchema(SchemaExtractionContext context) {
+	public Schema getSchema(SchemaDumpContext context) {
 		return schema;
 	}
 
     @Override
-    public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+    public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaDumpContext context) throws SQLException {
         return schema.getForeignKeys();
     }
 
     @Override
-    public List<Sequence> extractSequences(SchemaExtractionContext context) throws SQLException {
+    public List<Sequence> extractSequences(SchemaDumpContext context) throws SQLException {
         return schema.getSequences();
     }
 
     @Override
-    public List<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+    public List<Table> extractTables(List<String> tableNames, SchemaDumpContext context) throws SQLException {
         return schema.getTables();
     }
 
     @Override
-    public List<View> extractViews(SchemaExtractionContext context) throws SQLException {
+    public List<View> extractViews(SchemaDumpContext context) throws SQLException {
         return schema.getViews();
     }
 }

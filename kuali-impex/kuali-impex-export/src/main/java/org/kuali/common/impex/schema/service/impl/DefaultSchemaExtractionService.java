@@ -30,8 +30,8 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
-import org.kuali.common.impex.schema.service.SchemaExtractionContext;
-import org.kuali.common.impex.schema.service.SchemaExtractionService;
+import org.kuali.common.impex.schema.service.SchemaDumpContext;
+import org.kuali.common.impex.schema.service.SchemaDumpService;
 import org.kuali.common.impex.util.ExtractionUtils;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ExecutionStatistics;
@@ -43,14 +43,14 @@ import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultSchemaExtractionService implements SchemaExtractionService {
+public class DefaultSchemaExtractionService implements SchemaDumpService {
 
 	private static Logger log = LoggerFactory.getLogger(DefaultSchemaExtractionService.class);
 
 	protected static final int SINGLE_THREAD_COUNT = 1;
 
 	@Override
-	public Schema getSchema(SchemaExtractionContext context) {
+	public Schema getSchema(SchemaDumpContext context) {
 		// Connect to the db using JDBC and create a Schema model object
 		Schema schema = extractSchema(context);
 
@@ -61,7 +61,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		return schema;
 	}
 
-	protected Schema extractSchema(SchemaExtractionContext context) {
+	protected Schema extractSchema(SchemaDumpContext context) {
 		try {
 			// Decide if we are executing in single threaded or multi-threaded mode
 			if (context.getThreadCount() <= SINGLE_THREAD_COUNT) {
@@ -74,7 +74,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		}
 	}
 
-	protected Schema extractMultiThreaded(SchemaExtractionContext context) throws SQLException {
+	protected Schema extractMultiThreaded(SchemaDumpContext context) throws SQLException {
 		long start = System.currentTimeMillis();
 		log.info("[schema:extract:starting]");
 
@@ -145,7 +145,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	@Override
-	public List<Table> extractTables(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+	public List<Table> extractTables(List<String> tableNames, SchemaDumpContext context) throws SQLException {
 		List<Table> results = new ArrayList<Table>(tableNames.size());
 
 		DatabaseMetaData metaData = getMetaDataInstance(context);
@@ -182,7 +182,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 
 	}
 
-	protected List<String> getTableNames(SchemaExtractionContext context) throws SQLException {
+	protected List<String> getTableNames(SchemaDumpContext context) throws SQLException {
 		long start = System.currentTimeMillis();
 		String includes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getIncludes());
 		String excludes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getExcludes());
@@ -199,7 +199,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	@Override
-	public List<View> extractViews(SchemaExtractionContext context) throws SQLException {
+	public List<View> extractViews(SchemaDumpContext context) throws SQLException {
 		Connection connection = context.getDataSource().getConnection();
 		try {
 			return context.getViewFinder().findViews(connection, context.getSchemaName(), context.getNameFilter());
@@ -209,7 +209,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	@Override
-	public List<Sequence> extractSequences(SchemaExtractionContext context) throws SQLException {
+	public List<Sequence> extractSequences(SchemaDumpContext context) throws SQLException {
 		Connection connection = context.getDataSource().getConnection();
 		try {
 			return context.getSequenceFinder().findSequences(connection, context.getSchemaName(), context.getNameFilter());
@@ -219,7 +219,7 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 	}
 
 	@Override
-	public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaExtractionContext context) throws SQLException {
+	public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaDumpContext context) throws SQLException {
 		DatabaseMetaData meta = getMetaDataInstance(context);
 		try {
 			return ExtractionUtils.extractForeignKeys(meta, context.getSchemaName(), tableNames, context.getInformer());
@@ -238,11 +238,11 @@ public class DefaultSchemaExtractionService implements SchemaExtractionService {
 		Collections.sort(schema.getViews(), NamedElementComparator.getInstance());
 	}
 
-	protected DatabaseMetaData getMetaDataInstance(SchemaExtractionContext context) throws SQLException {
+	protected DatabaseMetaData getMetaDataInstance(SchemaDumpContext context) throws SQLException {
 		return context.getDataSource().getConnection().getMetaData();
 	}
 
-	protected Schema extractSingleThreaded(SchemaExtractionContext context) throws SQLException {
+	protected Schema extractSingleThreaded(SchemaDumpContext context) throws SQLException {
 		long startTime = System.currentTimeMillis();
 		log.info("Single threaded schema extraction started");
 

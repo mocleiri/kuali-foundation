@@ -16,7 +16,7 @@
 package org.kuali.common.impex.util.spring;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.service.SchemaExtractionResult;
+import org.kuali.common.impex.schema.service.SchemaDumpResult;
 import org.kuali.common.impex.spring.XmlSchemaConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,8 +31,8 @@ public class XmlSchemaExtractionConfig {
     Schema schema;
 
     @Bean
-    public SchemaExtractionResult extractionResult() {
-        SchemaExtractionResult result = new SchemaExtractionResult();
+    public SchemaDumpResult extractionResult() {
+        SchemaDumpResult result = new SchemaDumpResult();
         result.setSchema(schema);
 
         return result;

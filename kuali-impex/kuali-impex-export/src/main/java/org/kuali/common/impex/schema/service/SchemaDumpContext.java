@@ -22,7 +22,7 @@ import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.StringFilter;
 
-public class SchemaExtractionContext {
+public class SchemaDumpContext {
 
 	int threadCount;
 	DataSource dataSource;

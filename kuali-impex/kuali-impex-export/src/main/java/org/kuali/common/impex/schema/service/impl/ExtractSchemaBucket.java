@@ -18,21 +18,21 @@ package org.kuali.common.impex.schema.service.impl;
 import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.service.SchemaExtractionContext;
+import org.kuali.common.impex.schema.service.SchemaDumpContext;
 import org.kuali.common.util.PercentCompleteInformer;
 
 public class ExtractSchemaBucket {
 
-	SchemaExtractionContext context;
+	SchemaDumpContext context;
 	List<String> tableNames;
 	Schema schema;
 	PercentCompleteInformer informer;
 
-	public SchemaExtractionContext getContext() {
+	public SchemaDumpContext getContext() {
 		return context;
 	}
 
-	public void setContext(SchemaExtractionContext context) {
+	public void setContext(SchemaDumpContext context) {
 		this.context = context;
 	}
 

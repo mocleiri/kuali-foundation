@@ -23,22 +23,22 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.service.SchemaExtractionContext;
-import org.kuali.common.impex.schema.service.SchemaExtractionService;
+import org.kuali.common.impex.schema.service.SchemaDumpContext;
+import org.kuali.common.impex.schema.service.SchemaDumpService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 
 public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaBucket> {
 
-	public static final SchemaExtractionService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
+	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
 
-	SchemaExtractionService service = DEFAULT_SERVICE;
+	SchemaDumpService service = DEFAULT_SERVICE;
 
 	public ExtractSchemaBucketHandler() {
 		this(DEFAULT_SERVICE);
 	}
 
-	public ExtractSchemaBucketHandler(SchemaExtractionService service) {
+	public ExtractSchemaBucketHandler(SchemaDumpService service) {
 		this.service = service;
 	}
 
@@ -52,7 +52,7 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 		}
 	}
 
-	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket, SchemaExtractionContext context, Schema schema) {
+	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
 		try {
 			List<Table> tables = service.extractTables(bucket.getTableNames(), context);
 			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), context);
@@ -64,7 +64,7 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 
 	}
 
-	protected void doViewsAndSequences(ExtractSchemaBucket bucket, SchemaExtractionContext context, Schema schema) {
+	protected void doViewsAndSequences(ExtractSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
 		try {
 			List<View> views = service.extractViews(context);
 			bucket.getInformer().incrementProgress();

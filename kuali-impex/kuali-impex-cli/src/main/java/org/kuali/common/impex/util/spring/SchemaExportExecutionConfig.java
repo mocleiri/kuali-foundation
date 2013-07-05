@@ -25,20 +25,20 @@ import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.schema.ExportSchemaExecutable;
-import org.kuali.common.impex.schema.service.SchemaExtractionResult;
+import org.kuali.common.impex.schema.service.SchemaDumpResult;
 import org.kuali.common.impex.spring.SchemaExportConfig;
-import org.kuali.common.impex.spring.SchemaExtractionConfig;
+import org.kuali.common.impex.spring.SchemaDumpConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SchemaExportConfig.class, SchemaExtractionConfig.class })
+@Import({ SchemaExportConfig.class, SchemaDumpConfig.class })
 public class SchemaExportExecutionConfig {
 
 	@Autowired
-	SchemaExtractionConfig extractionConfig;
+	SchemaDumpConfig extractionConfig;
 
 	@Autowired
 	SchemaExportConfig exportConfig;
@@ -50,7 +50,7 @@ public class SchemaExportExecutionConfig {
 
 		ExportSchemaExecutable result = exportConfig.exportSchemaExecutable();
 
-		SchemaExtractionResult extractionResult = executedResult();
+		SchemaDumpResult extractionResult = executedResult();
 
 		Map<String, Schema> schemaLocationMap = new HashMap<String, Schema>(locationMap.size());
 
@@ -84,7 +84,7 @@ public class SchemaExportExecutionConfig {
 
 	// TODO What is this all about?
 	@Bean
-	public SchemaExtractionResult executedResult() {
+	public SchemaDumpResult executedResult() {
 		return null;
 		// extractionConfig.schemaExtractionExecutable().execute();
 		// return extractionConfig.extractionResult();

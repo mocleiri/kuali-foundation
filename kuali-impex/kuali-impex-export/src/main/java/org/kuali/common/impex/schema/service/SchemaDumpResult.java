@@ -17,7 +17,7 @@ package org.kuali.common.impex.schema.service;
 
 import org.kuali.common.impex.model.Schema;
 
-public class SchemaExtractionResult {
+public class SchemaDumpResult {
 
     Schema schema;
 
