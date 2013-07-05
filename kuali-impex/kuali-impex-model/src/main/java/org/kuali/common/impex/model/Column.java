@@ -10,105 +10,100 @@ import javax.xml.bind.annotation.XmlAttribute;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Column implements NamedElement {
 
+	public static final boolean DEFAULT_NULLABLE_VALUE = true;
 
-    protected String name;
-    protected DataType columnDataType;
-    protected String tableName;
-    protected TypeSize typeSize;
-    protected String defaultValue;
-    protected String description;
-    protected boolean primaryKey;
-    protected boolean nullable;
+	String name;
+	DataType columnDataType;
+	String tableName;
+	TypeSize typeSize;
+	String defaultValue;
+	String description;
+	boolean primaryKey;
+	boolean nullable = DEFAULT_NULLABLE_VALUE;
 
-    public Column() {
-        this(null, null, null);
-    }
+	public Column() {
+		this(null, null, null);
+	}
 
-    /**
-     * Create a new instance of a Column
-     *
-     * All values are initialized, with a special note that nullable is initially set to true
-     */
-    public Column(String n, DataType d, String t) {
-        name = n;
-        columnDataType = d;
-        tableName = t;
+	/**
+	 * Create a new instance of a Column
+	 * 
+	 * All values are initialized, with a special note that nullable is initially set to true
+	 */
+	public Column(String name, DataType dataType, String tableName) {
+		this.name = name;
+		this.columnDataType = dataType;
+		this.tableName = tableName;
+	}
 
-        primaryKey = false;
-        typeSize = null;
-        defaultValue = null;
+	@XmlAttribute
+	public DataType getColumnDataType() {
+		return columnDataType;
+	}
 
-        // As a more sensible default, set nullable to true
-        nullable = true;
-    }
+	@Override
+	@XmlAttribute
+	public String getName() {
+		return name;
+	}
 
-    @XmlAttribute
-    public DataType getColumnDataType() {
-        return columnDataType;
-    }
+	@XmlAttribute
+	public boolean isPrimaryKey() {
+		return primaryKey;
+	}
 
-    @XmlAttribute
-    public String getName() {
-        return name;
-    }
+	public void setPrimaryKey(boolean primaryKey) {
+		this.primaryKey = primaryKey;
+	}
 
-    @XmlAttribute
-    public boolean isPrimaryKey() {
-        return primaryKey;
-    }
+	public TypeSize getTypeSize() {
+		return typeSize;
+	}
 
-    public void setPrimaryKey(boolean primaryKey) {
-        this.primaryKey = primaryKey;
-    }
+	public void setTypeSize(TypeSize typeSize) {
+		this.typeSize = typeSize;
+	}
 
-    public TypeSize getTypeSize() {
-        return typeSize;
-    }
+	public String getDefaultValue() {
+		return defaultValue;
+	}
 
-    public void setTypeSize(TypeSize typeSize) {
-        this.typeSize = typeSize;
-    }
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
 
-    public String getDefaultValue() {
-        return defaultValue;
-    }
+	@XmlAttribute
+	public boolean isNullable() {
+		return nullable;
+	}
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
+	public void setNullable(boolean nullable) {
+		this.nullable = nullable;
+	}
 
-    @XmlAttribute
-    public boolean isNullable() {
-        return nullable;
-    }
+	@XmlAttribute
+	public String getDescription() {
+		return description;
+	}
 
-    public void setNullable(boolean nullable) {
-        this.nullable = nullable;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    @XmlAttribute
-    public String getDescription() {
-        return description;
-    }
+	public void setColumnDataType(DataType columnDataType) {
+		this.columnDataType = columnDataType;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setColumnDataType(DataType columnDataType) {
-        this.columnDataType = columnDataType;
-    }
+	@XmlAttribute
+	public String getTableName() {
+		return tableName;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @XmlAttribute
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
 }
