@@ -52,3 +52,14 @@ KS Specific Notes
 Rice    -   467,979 - 402,513
 App     -   702,495 - 591,734
 Bundled - 1,170,399 - 994,172
+
+
+JDBC                                  -> global schema model object
+global schema model object            -> project specific schema model objects 
+project specific schema model objects -> XML files
+
+JDBC                                  -> global data dump to one directory
+global data dump directory            -> copy project specific data files to a project specific staging directory
+
+project staging directories           -> project SCM directories
+commit project SCM directories        
