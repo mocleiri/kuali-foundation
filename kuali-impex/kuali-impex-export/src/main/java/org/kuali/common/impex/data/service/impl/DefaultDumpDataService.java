@@ -62,7 +62,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultDumpDataService.class);
 
 	@Override
-	public ExportTableResult exportTable(DumpDataContext context, ExportTableContext tableContext, Connection conn) {
+	public ExportTableResult dumpTable(DumpDataContext context, ExportTableContext tableContext, Connection conn) {
 		Statement stmt = null;
 		ResultSet rs = null;
 		long start = System.currentTimeMillis();
@@ -239,7 +239,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	}
 
 	@Override
-	public List<ExportTableResult> exportTables(DumpDataContext context, Schema schema) {
+	public List<ExportTableResult> dumpTables(DumpDataContext context, Schema schema) {
 
 		List<ExportTableContext> tableContexts = new ArrayList<ExportTableContext>();
 

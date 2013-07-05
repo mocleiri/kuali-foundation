@@ -50,7 +50,7 @@ public class DataDumpExecutable implements Executable {
 		Assert.notNull(service, "service is null");
 
 		// Connect to the database, extract data from each table and create a .mpx file for each table that has data
-		List<ExportTableResult> results = service.exportTables(context, schema);
+		List<ExportTableResult> results = service.dumpTables(context, schema);
 
 		// After exporting tables, store the table statistics
 		ExportUtils.storeTableStatistics(results, context.getTableStatisticsLocation());

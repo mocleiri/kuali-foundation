@@ -24,8 +24,8 @@ import org.kuali.common.impex.model.Schema;
 
 public interface DumpDataService {
 
-	List<ExportTableResult> exportTables(DumpDataContext context, Schema schema);
+	List<ExportTableResult> dumpTables(DumpDataContext context, Schema schema);
 
-	ExportTableResult exportTable(DumpDataContext context, ExportTableContext table, Connection conn);
+	ExportTableResult dumpTable(DumpDataContext context, ExportTableContext table, Connection conn);
 
 }

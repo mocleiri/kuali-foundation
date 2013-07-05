@@ -31,7 +31,7 @@ public class ExportTableBucketHandler implements ElementHandler<ExportTableBucke
 			conn = DataSourceUtils.getConnection(dataSource);
 			for (ExportTableContext tableContext : tables) {
 				logger.debug("Dumping {}", tableContext.getTable().getName());
-				ExportTableResult result = service.exportTable(impex, tableContext, conn);
+				ExportTableResult result = service.dumpTable(impex, tableContext, conn);
 				synchronized (results) {
 					results.add(result);
 				}
