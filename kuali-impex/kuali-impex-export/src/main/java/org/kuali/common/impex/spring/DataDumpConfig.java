@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class DataExportConfig {
+public class DataDumpConfig {
 
 	public static final String STATISTICS_LOCATION_KEY = "impex.export.data.statistics.location";
 	public static final String DATA_THREADS_KEY = "impex.export.data.threads";

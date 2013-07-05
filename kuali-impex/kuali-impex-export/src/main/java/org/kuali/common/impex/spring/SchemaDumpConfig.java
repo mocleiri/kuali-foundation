@@ -42,7 +42,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ JdbcDataSourceConfig.class })
-public class SchemaExtractionConfig {
+public class SchemaDumpConfig {
 
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 

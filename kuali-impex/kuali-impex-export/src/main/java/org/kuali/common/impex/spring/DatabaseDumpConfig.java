@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.spring;
 
-import org.kuali.common.impex.DatabaseExportExecutable;
+import org.kuali.common.impex.DatabaseDumpExecutable;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,39 +24,33 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Configures tasks related to exporting data and schema information from a database to disk
+ * Configures tasks related to dumping data and schema information from a database to disk
  */
 @Configuration
-@Import({ JdbcDataSourceConfig.class, SchemaExtractionConfig.class, ProjectSchemaExportConfig.class, DataExportConfig.class })
-public class DatabaseExportConfig {
+@Import({ JdbcDataSourceConfig.class, SchemaDumpConfig.class, ProjectSchemaExportConfig.class, DataDumpConfig.class })
+public class DatabaseDumpConfig {
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
-	SchemaExtractionConfig extractSchemaConfig;
+	SchemaDumpConfig dumpSchemaConfig;
 
 	@Autowired
-	ProjectSchemaExportConfig projectExportConfig;
-
-	@Autowired
-	DataExportConfig dataExportConfig;
+	DataDumpConfig dumpDataConfig;
 
 	@Bean
 	public Executable exportDatabaseExecutable() {
-		DatabaseExportExecutable executable = new DatabaseExportExecutable();
+		DatabaseDumpExecutable executable = new DatabaseDumpExecutable();
 
 		// Show the JDBC configuration
 		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
 
 		// Connect to the db and create model objects in memory that represent the schema
-		executable.setSchemaExtractionExecutable(extractSchemaConfig.schemaExtractionExecutable());
-
-		// Persist project specific schema model objects to disk as XML
-		executable.setProjectExportExecutables(projectExportConfig.projectSchemaExportExecutables());
+		executable.setSchemaExtractionExecutable(dumpSchemaConfig.schemaExtractionExecutable());
 
 		// Connect to the db, extract data from the tables, and persist it to disk
-		executable.setDataExportExecutable(dataExportConfig.exportDataExecutable());
+		executable.setDataExportExecutable(dumpDataConfig.exportDataExecutable());
 
 		// Return the configured executable
 		return executable;
