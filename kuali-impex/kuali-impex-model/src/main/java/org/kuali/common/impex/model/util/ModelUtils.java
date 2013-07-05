@@ -26,7 +26,6 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.springframework.util.Assert;
