@@ -387,6 +387,11 @@ public class SpringUtils {
 		return new File(value);
 	}
 
+	public static File getFile(Environment env, String key, File defaultValue) {
+		String value = getProperty(env, key, LocationUtils.getCanonicalPath(defaultValue));
+		return new File(value);
+	}
+
 	public static boolean getBoolean(Environment env, String key, boolean defaultValue) {
 		String value = getProperty(env, key, Boolean.toString(defaultValue));
 		return Boolean.parseBoolean(value);
