@@ -17,6 +17,7 @@ package org.kuali.common.impex;
 
 import org.kuali.common.impex.data.DumpDataExecutable;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.schema.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
@@ -26,6 +27,7 @@ public class DumpDatabaseExecutable implements Executable {
 	boolean skip;
 	Executable showConfigExecutable;
 	ExtractSchemaExecutable extractSchemaExecutable;
+	DumpSchemaExecutable dumpSchemaExecutable;
 	DumpDataExecutable dataDumpExecutable;
 
 	@Override
@@ -38,8 +40,9 @@ public class DumpDatabaseExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
-		Assert.notNull(dataDumpExecutable, "dataDumpExecutable is null");
 		Assert.notNull(extractSchemaExecutable, "extractSchemaExecutable is null");
+		Assert.notNull(dumpSchemaExecutable, "dumpSchemaExecutable is null");
+		Assert.notNull(dataDumpExecutable, "dataDumpExecutable is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
