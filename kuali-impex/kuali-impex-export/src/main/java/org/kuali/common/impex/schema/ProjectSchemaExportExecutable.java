@@ -60,7 +60,8 @@ public class ProjectSchemaExportExecutable implements Executable {
 		Assert.notNull(basedir, "basedir is null");
 
 		// Clone the existing schema but filter out model objects not relevant to this project
-		Schema clone = ModelUtils.clone(schema, nameFilter);
+		Schema clone = new Schema(schema);
+		ModelUtils.filter(clone, nameFilter);
 
 		// The output file is always based on groupId + artifactId
 		File outputFile = DumpUtils.getSchemaFile(stagingDir, project);

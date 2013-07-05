@@ -25,7 +25,6 @@ import javax.xml.bind.Marshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.model.util.SchemaNullifier;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.nullify.Nullifier;
@@ -49,7 +48,7 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 	public void dumpSchema(Schema schema, Writer writer) {
 		try {
 			// Clone the schema they give us so we don't alter it
-			Schema clone = ModelUtils.clone(schema);
+			Schema clone = new Schema(schema);
 
 			// Null out values that don't need to be converted to XML
 			// Mostly these are primitive types that are still set to their default value
