@@ -13,8 +13,8 @@ public class Column implements NamedElement {
 	public static final boolean DEFAULT_NULLABLE_VALUE = true;
 
 	String name;
-	DataType columnDataType;
-	String tableName;
+	DataType dataType;
+	Table table;
 	TypeSize typeSize;
 	String defaultValue;
 	String description;
@@ -30,15 +30,15 @@ public class Column implements NamedElement {
 	 * 
 	 * All values are initialized, with a special note that nullable is initially set to true
 	 */
-	public Column(String name, DataType dataType, String tableName) {
+	public Column(String name, DataType dataType, Table table) {
 		this.name = name;
-		this.columnDataType = dataType;
-		this.tableName = tableName;
+		this.dataType = dataType;
+		this.table = table;
 	}
 
 	@XmlAttribute
-	public DataType getColumnDataType() {
-		return columnDataType;
+	public DataType getDataType() {
+		return dataType;
 	}
 
 	@Override
@@ -90,20 +90,19 @@ public class Column implements NamedElement {
 		this.description = description;
 	}
 
-	public void setColumnDataType(DataType columnDataType) {
-		this.columnDataType = columnDataType;
+	public void setDataType(DataType columnDataType) {
+		this.dataType = columnDataType;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@XmlAttribute
-	public String getTableName() {
-		return tableName;
+	public Table getTable() {
+		return table;
 	}
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setTable(Table table) {
+		this.table = table;
 	}
 }

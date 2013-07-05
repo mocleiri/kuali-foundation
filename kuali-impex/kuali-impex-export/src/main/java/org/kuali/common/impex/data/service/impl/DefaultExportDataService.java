@@ -197,7 +197,7 @@ public class DefaultExportDataService implements ExportDataService {
 	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
 			// Clob's and Date's need special handling
-			switch (column.getColumnDataType()) {
+			switch (column.getDataType()) {
 			case CLOB:
 				Clob clob = rs.getClob(index);
 				if (clob == null) {

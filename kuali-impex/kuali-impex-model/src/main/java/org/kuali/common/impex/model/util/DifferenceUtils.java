@@ -58,7 +58,7 @@ public class DifferenceUtils {
             sb.append(c.getColumn1().getName());
             switch (c.getType()) {
                 case COLUMN_DATA_TYPE: {
-                    sb.append(parenWrapToken(c.getColumn1().getColumnDataType().toString()));
+                    sb.append(parenWrapToken(c.getColumn1().getDataType().toString()));
                     break;
                 }
                 case COLUMN_DATA_TYPE_SIZE: {
@@ -137,7 +137,7 @@ public class DifferenceUtils {
             sb.append(c.getColumn2().getName());
             switch (c.getType()) {
                 case COLUMN_DATA_TYPE: {
-                    sb.append(parenWrapToken(c.getColumn2().getColumnDataType().toString()));
+                    sb.append(parenWrapToken(c.getColumn2().getDataType().toString()));
                     break;
                 }
                 case COLUMN_DATA_TYPE_SIZE: {

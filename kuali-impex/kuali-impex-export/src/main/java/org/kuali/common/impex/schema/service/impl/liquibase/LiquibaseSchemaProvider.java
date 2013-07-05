@@ -231,13 +231,13 @@ public class LiquibaseSchemaProvider {
 	}
 
 	protected Column buildColumn(liquibase.structure.core.Column sourceColumn, boolean primaryKey, Table modelTable) {
-		Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn), modelTable.getName());
+		Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn), modelTable);
 
 		if (sourceColumn.getDefaultValue() != null) {
 			String defaultValue = sourceColumn.getDefaultValue().toString().trim();
 
 			// if the column is a string data type, check that it may need single quotes added
-			if (col.getColumnDataType() == DataType.STRING || col.getColumnDataType() == DataType.CLOB) {
+			if (col.getDataType() == DataType.STRING || col.getDataType() == DataType.CLOB) {
 				// ignore adding single quotes if the default value contains a reseved keyword
 				if (notReservedDefaultValue(defaultValue)) {
 					if (!defaultValue.startsWith(SINGLE_QUOTE)) {

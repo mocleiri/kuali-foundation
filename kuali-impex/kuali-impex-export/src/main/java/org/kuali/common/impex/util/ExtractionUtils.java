@@ -35,6 +35,7 @@ import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Index;
+import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.TypeSize;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.jdbc.JdbcUtils;
@@ -262,12 +263,15 @@ public class ExtractionUtils {
 					log.warn("A problem occurred defining column {}.{} Could not find a data type to match value from metaData: {}", new Object[] { tableName, name, sqlType });
 				}
 
+				Table table = new Table();
+				table.setName(tableName);
+
 				Column col = new Column();
-				col.setTableName(tableName);
+				col.setTable(table);
 				col.setPrimaryKey(primaryKey);
 				col.setName(name);
 				col.setDescription(remarks);
-				col.setColumnDataType(dataType);
+				col.setDataType(dataType);
 				col.setTypeSize(typeSize);
 				col.setNullable(nullable);
 				col.setDefaultValue(defaultValue);
