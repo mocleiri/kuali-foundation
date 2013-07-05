@@ -19,8 +19,6 @@ import java.io.File;
 
 import org.kuali.common.impex.schema.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.DumpSchemaService;
-import org.kuali.common.impex.util.DumpConstants;
-import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,8 +38,8 @@ public class DumpSchemaConfig {
 	@Bean
 	public DumpSchemaExecutable dumpSchemaExecutable() {
 
-		// Extract some context form the environment
-		File outputFile = getOutputFile();
+		// Extract some context from the environment
+		File outputFile = SpringUtils.getFile(env, FILE_KEY);
 		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass());
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
 
@@ -51,12 +49,6 @@ public class DumpSchemaConfig {
 		exec.setService(service);
 		exec.setSkip(skip);
 		return exec;
-	}
-
-	protected File getOutputFile() {
-		File outputDir = SpringUtils.getFile(env, DumpConstants.DIR_KEY);
-		File defaultOutputFile = DumpUtils.getSchemaFile(outputDir);
-		return SpringUtils.getFile(env, FILE_KEY, defaultOutputFile);
 	}
 
 }
