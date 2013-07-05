@@ -19,9 +19,9 @@ import java.io.File;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
@@ -63,7 +63,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		Schema clone = ModelUtils.clone(schema, nameFilter);
 
 		// The output file is always based on groupId + artifactId
-		File outputFile = getOutputFile(stagingDir, project);
+		File outputFile = ExportUtils.getSchemaFile(stagingDir, project);
 
 		// Log the name of the file we are creating
 		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(basedir, outputFile));
@@ -71,21 +71,6 @@ public class ProjectSchemaExportExecutable implements Executable {
 		// Persist the cloned schema to disk as XML
 		service.exportSchema(clone, outputFile);
 
-	}
-
-	protected File getOutputFile(File directory, Project project) {
-		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
-		String artifactId = project.getArtifactId();
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(LocationUtils.getCanonicalPath(directory));
-		sb.append("/");
-		sb.append(groupIdPath);
-		sb.append("/");
-		sb.append(artifactId);
-		sb.append("/");
-		sb.append("schema.xml");
-		return new File(sb.toString());
 	}
 
 	public boolean isSkip() {

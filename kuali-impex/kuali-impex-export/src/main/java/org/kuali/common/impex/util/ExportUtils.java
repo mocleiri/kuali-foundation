@@ -26,6 +26,7 @@ import org.kuali.common.impex.data.service.impl.ExportTableResult;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Project;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.StringFilter;
 
@@ -37,6 +38,30 @@ public class ExportUtils {
 	public static final int DEFAULT_DATA_THREADS = 15;
 	public static final int DEFAULT_ROW_INTERVAL = 50;
 	public static final String DEFAULT_DATA_INTERVAL = "50k";
+	public static final String SCHEMA_XML_FILE = "schema.xml";
+
+	public static File getOutputDir(File basedir, Project project) {
+		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
+		String artifactId = project.getArtifactId();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(LocationUtils.getCanonicalPath(basedir));
+		sb.append("/");
+		sb.append(groupIdPath);
+		sb.append("/");
+		sb.append(artifactId);
+
+		File file = new File(sb.toString());
+
+		// Let the JVM resolve the canonical path
+		// This produces a file displays pathing according the native preferences of the OS the user is running on
+		// ie on Windows it will display "\" instead of "/" for the file separators
+		return new File(LocationUtils.getCanonicalPath(file));
+	}
+
+	public static File getSchemaFile(File basedir, Project project) {
+		return new File(getOutputDir(basedir, project), SCHEMA_XML_FILE);
+	}
 
 	public static <T extends NamedElement> List<T> getIncludedElements(StringFilter filter, List<T> elements) {
 

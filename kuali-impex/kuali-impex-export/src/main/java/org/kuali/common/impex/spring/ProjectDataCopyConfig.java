@@ -19,11 +19,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
 import org.kuali.common.impex.util.ExportConstants;
+import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.StringFilter;
+import org.kuali.common.util.execute.CopyFilesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,47 +33,49 @@ import org.springframework.core.env.Environment;
 /**
  */
 @Configuration
-public class ProjectDataExportConfig {
+public class ProjectDataCopyConfig {
 
-	public static final String PROJECTS_KEY = "impex.export.schema.projects";
-	public static final String STAGING_DIR_KEY = "impex.export.schema.stagingDir";
+	public static final String PROJECTS_KEY = "impex.export.data.projects";
+	public static final String WORKING_DIR_KEY = "impex.export.data.workingDir";
 
 	@Autowired
 	Environment env;
 
 	@Bean
-	public List<ProjectSchemaExportExecutable> projectSchemaExportExecutables() {
+	public List<CopyFilesExecutable> copyDataFilesExecutables() {
 
-		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
+		File workingDir = SpringUtils.getFile(env, WORKING_DIR_KEY);
 		List<String> gavs = SpringUtils.getListFromCSV(env, PROJECTS_KEY);
 
-		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
+		List<CopyFilesExecutable> executables = new ArrayList<CopyFilesExecutable>();
 		for (String gav : gavs) {
-			ProjectSchemaExportExecutable exec = getProjectSchemaExportExecutable(gav, stagingDir);
+			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, workingDir);
 			executables.add(exec);
 		}
 		return executables;
 	}
 
-	protected ProjectSchemaExportExecutable getProjectSchemaExportExecutable(String gav, File stagingDir) {
+	protected CopyFilesExecutable getCopyDataFilesExecutable(String gav, File workingDir) {
+
+		// Get a Project model object from the GAV
 		Project project = ProjectUtils.loadProject(gav);
-		StringFilter nameFilter = getNameFilter(project);
-		File basedir = SpringUtils.getFile(env, "project.basedir");
 
-		ProjectSchemaExportExecutable exec = new ProjectSchemaExportExecutable();
-		exec.setProject(project);
-		exec.setStagingDir(stagingDir);
-		exec.setNameFilter(nameFilter);
-		exec.setBasedir(basedir);
-		return exec;
-	}
+		// dstDir is always based on groupId + artifactId
+		File dstDir = ExportUtils.getOutputDir(workingDir, project);
 
-	protected StringFilter getNameFilter(Project project) {
-		String includesKey = "impex.export." + project.getArtifactId() + ".includes";
-		String excludesKey = "impex.export." + project.getArtifactId() + ".excludes";
+		// Setup the includes/excludes appropriate for this project
+		String includesKey = "impex.export.data." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.export.data." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_EXCLUDE);
-		return StringFilter.getInstance(includes, excludes);
+
+		// Configure our executable
+		CopyFilesExecutable exec = new CopyFilesExecutable();
+		exec.setIncludes(includes);
+		exec.setExcludes(excludes);
+		exec.setSrcDir(workingDir);
+		exec.setDstDir(dstDir);
+		return exec;
 	}
 
 }
