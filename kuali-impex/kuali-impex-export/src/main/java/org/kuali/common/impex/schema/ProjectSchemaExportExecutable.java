@@ -42,6 +42,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 	Schema schema;
 	StringFilter nameFilter;
 	File stagingDir;
+	File basedir;
 
 	@Override
 	public void execute() {
@@ -64,7 +65,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		File outputFile = getOutputFile(stagingDir, project);
 
 		// Log the name of the file we are creating
-		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(stagingDir, outputFile));
+		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(basedir, outputFile));
 
 		// Persist the cloned schema to disk as XML
 		service.exportSchema(clone, outputFile);
@@ -132,6 +133,14 @@ public class ProjectSchemaExportExecutable implements Executable {
 
 	public void setStagingDir(File stagingDir) {
 		this.stagingDir = stagingDir;
+	}
+
+	public File getBasedir() {
+		return basedir;
+	}
+
+	public void setBasedir(File basedir) {
+		this.basedir = basedir;
 	}
 
 }

@@ -48,7 +48,6 @@ public class ProjectSchemaExportConfig {
 		List<String> gavs = CollectionUtils.getTrimmedListFromCSV(SpringUtils.getProperty(env, PROJECTS_KEY));
 
 		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
-
 		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
 		for (String gav : gavs) {
 			ProjectSchemaExportExecutable psee = getProjectSchemaExportExecutable(gav, stagingDir);
@@ -60,11 +59,13 @@ public class ProjectSchemaExportConfig {
 	protected ProjectSchemaExportExecutable getProjectSchemaExportExecutable(String gav, File stagingDir) {
 		Project project = ProjectUtils.loadProject(gav);
 		StringFilter nameFilter = getNameFilter(project);
+		File basedir = SpringUtils.getFile(env, "project.basedir");
 
 		ProjectSchemaExportExecutable psee = new ProjectSchemaExportExecutable();
 		psee.setProject(project);
 		psee.setStagingDir(stagingDir);
 		psee.setNameFilter(nameFilter);
+		psee.setBasedir(basedir);
 		return psee;
 	}
 
