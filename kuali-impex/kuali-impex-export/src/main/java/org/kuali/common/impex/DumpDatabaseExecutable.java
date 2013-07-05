@@ -38,8 +38,8 @@ public class DumpDatabaseExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
-		Assert.notNull(dataDumpExecutable, "dataExportExecutable is null");
-		Assert.notNull(extractSchemaExecutable, "schemaExtractionExecutable is null");
+		Assert.notNull(dataDumpExecutable, "dataDumpExecutable is null");
+		Assert.notNull(extractSchemaExecutable, "extractSchemaExecutable is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
