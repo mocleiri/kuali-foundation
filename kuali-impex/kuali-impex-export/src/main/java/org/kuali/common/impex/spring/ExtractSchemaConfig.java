@@ -29,6 +29,7 @@ import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.ExtractSchemaContext;
 import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
+import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.CollectionUtils;
@@ -44,17 +45,14 @@ import org.springframework.core.env.Environment;
 @Import({ JdbcDataSourceConfig.class })
 public class ExtractSchemaConfig {
 
+	protected static final Integer DEFAULT_THREAD_COUNT = 8;
 	protected static final String DB_VENDOR_KEY = "db.vendor";
 
-	public static final String THREAD_COUNT_KEY = "impex.extract.threads";
-
-	protected static final Integer DEFAULT_THREAD_COUNT = 8;
-
+	public static final String NAME_EXCLUDES_KEY = "impex.extract.excludes";
 	public static final String NAME_INCLUDES_KEY = "impex.extract.includes";
 
+	public static final String THREADS_KEY = "impex.extract.threads";
 	public static final String SERVICE_KEY = "impex.extract.service";
-
-	public static final String NAME_EXCLUDES_KEY = "impex.extract.excludes";
 
 	protected static final String ORACLE_SEQUENCE_FINDER_KEY = "impex.extract.oracle.sequence.finder";
 	protected static final String ORACLE_VIEW_FINDER_KEY = "impex.extract.oracle.view.finder";
@@ -62,9 +60,9 @@ public class ExtractSchemaConfig {
 	protected static final String MYSQL_SEQUENCE_FINDER_KEY = "impex.extract.mysql.sequence.finder";
 	protected static final String MYSQL_VIEW_FINDER_KEY = "impex.extract.mysql.view.finder";
 
-	// by default, include everything and exclude nothing
-	protected static final String DEFAULT_NAME_INCLUDES = ".*";
-	protected static final String DEFAULT_NAME_EXCLUDES = "";
+	// By default, include everything, exclude nothing
+	protected static final String DEFAULT_NAME_INCLUDES = DumpConstants.DEFAULT_INCLUDE;
+	protected static final String DEFAULT_NAME_EXCLUDES = DumpConstants.DEFAULT_EXCLUDE;
 
 	protected static final String SKIP_EXECUTION_KEY = "impex.extract.skip";
 
@@ -95,7 +93,7 @@ public class ExtractSchemaConfig {
 		String schemaName = dbContext.getUsername();
 
 		// Number of threads to use
-		int threadCount = SpringUtils.getInteger(env, THREAD_COUNT_KEY, DEFAULT_THREAD_COUNT);
+		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREAD_COUNT);
 
 		// DataSource for obtaining connections to the database
 		DataSource dataSource = dataSourceConfig.jdbcDataSource();

@@ -15,7 +15,11 @@
 
 package org.kuali.common.impex.util;
 
-public class ExportConstants {
+public class DumpConstants {
+
+	public static final String EXCLUDES_KEY = "impex.dump.excludes";
+	public static final String INCLUDES_KEY = "impex.dump.includes";
+	public static final String DIR_KEY = "impex.dump.dir";
 
 	/**
 	 * Default value for matching regular expressions. All names are matched by default

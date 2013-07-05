@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.kuali.common.impex.data.DumpDataExecutable;
 import org.kuali.common.impex.data.service.DumpDataContext;
-import org.kuali.common.impex.util.ExportConstants;
+import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.LocationUtils;
@@ -33,13 +33,14 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DumpDataConfig {
 
+	public static final String WORKING_DIR_KEY = "impex.dump.dir";
+	public static final String TABLE_NAME_INCLUDE_KEY = "impex.dump.includes";
+	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.dump.excludes";
+
 	public static final String STATISTICS_LOCATION_KEY = "impex.dump.data.statistics.location";
 	public static final String DATA_THREADS_KEY = "impex.dump.data.threads";
-	public static final String WORKING_DIR_KEY = "impex.dump.data.dir";
 	public static final String ROW_INTERVAL_KEY = "impex.dump.data.rowInterval";
 	public static final String DATA_INTERVAL_KEY = "impex.dump.data.dataInterval";
-	public static final String TABLE_NAME_INCLUDE_KEY = "impex.dump.data.includes";
-	public static final String TABLE_NAME_EXCLUDE_KEY = "impex.dump.data.excludes";
 	public static final String SERVICE_CLASS_NAME = "impex.dump.data.service";
 
 	/**
@@ -81,8 +82,8 @@ public class DumpDataConfig {
 	}
 
 	protected StringFilter getTableNameFilter() {
-		List<String> tableIncludes = SpringUtils.getListFromCSV(env, TABLE_NAME_INCLUDE_KEY, ExportConstants.DEFAULT_INCLUDE);
-		List<String> tableExcludes = SpringUtils.getListFromCSV(env, TABLE_NAME_EXCLUDE_KEY, ExportConstants.DEFAULT_EXCLUDE);
+		List<String> tableIncludes = SpringUtils.getListFromCSV(env, TABLE_NAME_INCLUDE_KEY, DumpConstants.DEFAULT_INCLUDE);
+		List<String> tableExcludes = SpringUtils.getListFromCSV(env, TABLE_NAME_EXCLUDE_KEY, DumpConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
 	}
 

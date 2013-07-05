@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
-import org.kuali.common.impex.util.ExportConstants;
+import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.StringFilter;
@@ -72,8 +72,8 @@ public class ProjectSchemaExportConfig {
 	protected StringFilter getNameFilter(Project project) {
 		String includesKey = "impex.export.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.export.schema." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_INCLUDE);
-		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_EXCLUDE);
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_INCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(includes, excludes);
 	}
 

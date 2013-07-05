@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.util.ExportConstants;
+import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.impex.util.ExportUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
@@ -68,8 +68,8 @@ public class ProjectDataCopyConfig {
 		// Setup the includes/excludes appropriate for this project
 		String includesKey = "impex.export.data." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.export.data." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_FILE_INCLUDE);
-		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_FILE_EXCLUDE);
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_FILE_INCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_FILE_EXCLUDE);
 
 		// Configure our executable
 		CopyFilesExecutable exec = new CopyFilesExecutable();
