@@ -30,8 +30,8 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
-import org.kuali.common.impex.schema.service.SchemaDumpContext;
-import org.kuali.common.impex.schema.service.SchemaDumpService;
+import org.kuali.common.impex.schema.service.ExtractSchemaContext;
+import org.kuali.common.impex.schema.service.ExtractSchemaService;
 import org.kuali.common.impex.util.ExtractionUtils;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.threads.ExecutionStatistics;
@@ -43,14 +43,14 @@ import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultSchemaDumpService implements SchemaDumpService {
+public class DefaultExtractSchemaService implements ExtractSchemaService {
 
-	private static Logger log = LoggerFactory.getLogger(DefaultSchemaDumpService.class);
+	private static Logger log = LoggerFactory.getLogger(DefaultExtractSchemaService.class);
 
 	protected static final int SINGLE_THREAD_COUNT = 1;
 
 	@Override
-	public Schema getSchema(SchemaDumpContext context) {
+	public Schema getSchema(ExtractSchemaContext context) {
 		// Connect to the db using JDBC and create a Schema model object
 		Schema schema = extractSchema(context);
 
@@ -61,7 +61,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 		return schema;
 	}
 
-	protected Schema extractSchema(SchemaDumpContext context) {
+	protected Schema extractSchema(ExtractSchemaContext context) {
 		try {
 			// Decide if we are executing in single threaded or multi-threaded mode
 			if (context.getThreadCount() <= SINGLE_THREAD_COUNT) {
@@ -74,7 +74,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 		}
 	}
 
-	protected Schema extractMultiThreaded(SchemaDumpContext context) throws SQLException {
+	protected Schema extractMultiThreaded(ExtractSchemaContext context) throws SQLException {
 		long start = System.currentTimeMillis();
 		log.info("[schema:extract:starting]");
 
@@ -102,13 +102,13 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 		List<List<String>> splitNames = CollectionUtils.splitEvenly(tableNames, maxTableThreads);
 
 		// Create buckets to hold results
-		List<DumpSchemaBucket> schemaBuckets = new ArrayList<DumpSchemaBucket>(splitNames.size() + 1);
+		List<ExtractSchemaBucket> schemaBuckets = new ArrayList<ExtractSchemaBucket>(splitNames.size() + 1);
 
 		// Setup a schema object
 		Schema schema = new Schema();
 
 		// Add one special schema bucket for handling views and sequences
-		DumpSchemaBucket viewSequenceBucket = new DumpViewsAndSequencesBucket();
+		ExtractSchemaBucket viewSequenceBucket = new ExtractViewsAndSequencesBucket();
 		viewSequenceBucket.setContext(context);
 		viewSequenceBucket.setSchema(schema);
 		viewSequenceBucket.setInformer(informer);
@@ -116,7 +116,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 
 		// Create one bucket for each group of table names from the split
 		for (List<String> names : splitNames) {
-			DumpSchemaBucket bucket = new DumpSchemaBucket();
+			ExtractSchemaBucket bucket = new ExtractSchemaBucket();
 			bucket.setTableNames(names);
 			bucket.setContext(context);
 			bucket.setSchema(schema);
@@ -127,9 +127,9 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 
 		// Create and invoke threads to fill in the metadata
 		// Store some context for the thread handler
-		ThreadHandlerContext<DumpSchemaBucket> thc = new ThreadHandlerContext<DumpSchemaBucket>();
+		ThreadHandlerContext<ExtractSchemaBucket> thc = new ThreadHandlerContext<ExtractSchemaBucket>();
 		thc.setList(schemaBuckets);
-		thc.setHandler(new DumpSchemaBucketHandler(this));
+		thc.setHandler(new ExtractSchemaBucketHandler(this));
 		thc.setMax(schemaBuckets.size());
 		thc.setMin(schemaBuckets.size());
 		thc.setDivisor(1);
@@ -145,7 +145,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 	}
 
 	@Override
-	public List<Table> extractTables(List<String> tableNames, SchemaDumpContext context) throws SQLException {
+	public List<Table> extractTables(List<String> tableNames, ExtractSchemaContext context) throws SQLException {
 		List<Table> results = new ArrayList<Table>(tableNames.size());
 
 		DatabaseMetaData metaData = getMetaDataInstance(context);
@@ -182,7 +182,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 
 	}
 
-	protected List<String> getTableNames(SchemaDumpContext context) throws SQLException {
+	protected List<String> getTableNames(ExtractSchemaContext context) throws SQLException {
 		long start = System.currentTimeMillis();
 		String includes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getIncludes());
 		String excludes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getExcludes());
@@ -199,7 +199,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 	}
 
 	@Override
-	public List<View> extractViews(SchemaDumpContext context) throws SQLException {
+	public List<View> extractViews(ExtractSchemaContext context) throws SQLException {
 		Connection connection = context.getDataSource().getConnection();
 		try {
 			return context.getViewFinder().findViews(connection, context.getSchemaName(), context.getNameFilter());
@@ -209,7 +209,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 	}
 
 	@Override
-	public List<Sequence> extractSequences(SchemaDumpContext context) throws SQLException {
+	public List<Sequence> extractSequences(ExtractSchemaContext context) throws SQLException {
 		Connection connection = context.getDataSource().getConnection();
 		try {
 			return context.getSequenceFinder().findSequences(connection, context.getSchemaName(), context.getNameFilter());
@@ -219,7 +219,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 	}
 
 	@Override
-	public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaDumpContext context) throws SQLException {
+	public List<ForeignKey> extractForeignKeys(List<String> tableNames, ExtractSchemaContext context) throws SQLException {
 		DatabaseMetaData meta = getMetaDataInstance(context);
 		try {
 			return ExtractionUtils.extractForeignKeys(meta, context.getSchemaName(), tableNames, context.getInformer());
@@ -238,11 +238,11 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 		Collections.sort(schema.getViews(), NamedElementComparator.getInstance());
 	}
 
-	protected DatabaseMetaData getMetaDataInstance(SchemaDumpContext context) throws SQLException {
+	protected DatabaseMetaData getMetaDataInstance(ExtractSchemaContext context) throws SQLException {
 		return context.getDataSource().getConnection().getMetaData();
 	}
 
-	protected Schema extractSingleThreaded(SchemaDumpContext context) throws SQLException {
+	protected Schema extractSingleThreaded(ExtractSchemaContext context) throws SQLException {
 		long startTime = System.currentTimeMillis();
 		log.info("Single threaded schema extraction started");
 

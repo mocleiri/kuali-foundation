@@ -32,7 +32,7 @@ public class ModularSchemaExportExecutable implements Executable {
 
 	String outputLocation;
 	Schema schema;
-	ExportSchemaService exportService;
+	DumpSchemaService exportService;
 	boolean separateForeignKeys;
 	String foreignKeyOutputLocation;
 
@@ -71,7 +71,7 @@ public class ModularSchemaExportExecutable implements Executable {
 		Writer writer = null;
 		try {
 			writer = LocationUtils.openWriter(location);
-			exportService.exportSchema(outputSchema, writer);
+			exportService.dumpSchema(outputSchema, writer);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -87,11 +87,11 @@ public class ModularSchemaExportExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public ExportSchemaService getExportService() {
+	public DumpSchemaService getExportService() {
 		return exportService;
 	}
 
-	public void setExportService(ExportSchemaService exportService) {
+	public void setExportService(DumpSchemaService exportService) {
 		this.exportService = exportService;
 	}
 

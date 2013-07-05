@@ -33,10 +33,10 @@ public class ProjectSchemaExportExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectSchemaExportExecutable.class);
 
 	public static final boolean DEFAULT_EXECUTION_SKIP = false;
-	public static final ExportSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultExportSchemaService();
+	public static final DumpSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultDumpSchemaService();
 
 	boolean skip = DEFAULT_EXECUTION_SKIP;
-	ExportSchemaService service = DEFAULT_EXPORT_SCHEMA_SERVICE;
+	DumpSchemaService service = DEFAULT_EXPORT_SCHEMA_SERVICE;
 
 	Project project;
 	Schema schema;
@@ -69,7 +69,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(basedir, outputFile));
 
 		// Persist the cloned schema to disk as XML
-		service.exportSchema(clone, outputFile);
+		service.dumpSchema(clone, outputFile);
 
 	}
 
@@ -81,11 +81,11 @@ public class ProjectSchemaExportExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public ExportSchemaService getService() {
+	public DumpSchemaService getService() {
 		return service;
 	}
 
-	public void setService(ExportSchemaService service) {
+	public void setService(DumpSchemaService service) {
 		this.service = service;
 	}
 

@@ -34,19 +34,19 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.service.SchemaDumpContext;
-import org.kuali.common.impex.schema.service.SchemaDumpService;
+import org.kuali.common.impex.schema.service.ExtractSchemaContext;
+import org.kuali.common.impex.schema.service.ExtractSchemaService;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.FormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LiquibaseSchemaExtractionService implements SchemaDumpService {
+public class LiquibaseSchemaExtractionService implements ExtractSchemaService {
 
 	private static final Logger log = LoggerFactory.getLogger(LiquibaseSchemaExtractionService.class);
 
 	@Override
-	public Schema getSchema(SchemaDumpContext context) {
+	public Schema getSchema(ExtractSchemaContext context) {
 		try {
 			DatabaseSnapshot snapshot = getDatabaseSnapshot(context);
 			LiquibaseSchemaProvider schemaProvider = getSchemaProvider(snapshot, context);
@@ -58,7 +58,7 @@ public class LiquibaseSchemaExtractionService implements SchemaDumpService {
 		}
 	}
 
-	protected DatabaseSnapshot getDatabaseSnapshot(SchemaDumpContext context) throws DatabaseException, InvalidExampleException, SQLException {
+	protected DatabaseSnapshot getDatabaseSnapshot(ExtractSchemaContext context) throws DatabaseException, InvalidExampleException, SQLException {
 
 		// Preserve the start time
 		long start = System.currentTimeMillis();
@@ -93,7 +93,7 @@ public class LiquibaseSchemaExtractionService implements SchemaDumpService {
 		return snapshot;
 	}
 
-	protected LiquibaseSchemaProvider getSchemaProvider(DatabaseSnapshot snapshot, SchemaDumpContext context) throws SQLException {
+	protected LiquibaseSchemaProvider getSchemaProvider(DatabaseSnapshot snapshot, ExtractSchemaContext context) throws SQLException {
 		log.info("Creating LiquibaseModelProvider");
 
 		// Preserve the start time
@@ -109,7 +109,7 @@ public class LiquibaseSchemaExtractionService implements SchemaDumpService {
 	}
 
 	@Override
-	public List<Table> extractTables(List<String> tableNames, SchemaDumpContext context) throws SQLException {
+	public List<Table> extractTables(List<String> tableNames, ExtractSchemaContext context) throws SQLException {
 		Schema schema = getSchema(context);
 
 		List<Table> result = new ArrayList<Table>(tableNames.size());
@@ -123,21 +123,21 @@ public class LiquibaseSchemaExtractionService implements SchemaDumpService {
 	}
 
 	@Override
-	public List<View> extractViews(SchemaDumpContext context) throws SQLException {
+	public List<View> extractViews(ExtractSchemaContext context) throws SQLException {
 		Schema schema = getSchema(context);
 
 		return schema.getViews();
 	}
 
 	@Override
-	public List<Sequence> extractSequences(SchemaDumpContext context) throws SQLException {
+	public List<Sequence> extractSequences(ExtractSchemaContext context) throws SQLException {
 		Schema schema = getSchema(context);
 
 		return schema.getSequences();
 	}
 
 	@Override
-	public List<ForeignKey> extractForeignKeys(List<String> tableNames, SchemaDumpContext context) throws SQLException {
+	public List<ForeignKey> extractForeignKeys(List<String> tableNames, ExtractSchemaContext context) throws SQLException {
 		Schema schema = getSchema(context);
 
 		List<ForeignKey> result = new ArrayList<ForeignKey>(tableNames.size());

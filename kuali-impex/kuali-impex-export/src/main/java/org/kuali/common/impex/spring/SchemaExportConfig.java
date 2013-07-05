@@ -23,9 +23,9 @@ import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.DefaultExportSchemaService;
-import org.kuali.common.impex.schema.ExportSchemaExecutable;
-import org.kuali.common.impex.schema.ExportSchemaService;
+import org.kuali.common.impex.schema.DefaultDumpSchemaService;
+import org.kuali.common.impex.schema.DumpSchemaExecutable;
+import org.kuali.common.impex.schema.DumpSchemaService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -110,19 +110,19 @@ public class SchemaExportConfig {
 	}
 
     @Bean
-    public ExportSchemaService exportService() {
-        return SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultExportSchemaService.class);
+    public DumpSchemaService exportService() {
+        return SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultDumpSchemaService.class);
     }
 
     @Bean
     public Boolean executionSkip() {
-        return SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExportSchemaExecutable.DEFAULT_SKIP_EXECUTION);
+        return SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, DumpSchemaExecutable.DEFAULT_SKIP_EXECUTION);
     }
 
 	@Bean
-	public ExportSchemaExecutable exportSchemaExecutable() {
+	public DumpSchemaExecutable exportSchemaExecutable() {
 
-		ExportSchemaExecutable exec = new ExportSchemaExecutable();
+		DumpSchemaExecutable exec = new DumpSchemaExecutable();
 
 		exec.setExportService(exportService());
         exec.setSkip(executionSkip());

@@ -23,13 +23,13 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
-public class ExportSchemaExecutable implements Executable {
+public class DumpSchemaExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
-	public static final ExportSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultExportSchemaService();
+	public static final DumpSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultDumpSchemaService();
 
 	boolean skip = DEFAULT_SKIP_EXECUTION;
-	ExportSchemaService exportService = DEFAULT_EXPORT_SCHEMA_SERVICE;
+	DumpSchemaService exportService = DEFAULT_EXPORT_SCHEMA_SERVICE;
 
 	Map<String, Schema> schemaLocations;
 
@@ -45,7 +45,7 @@ public class ExportSchemaExecutable implements Executable {
 		for (String location : schemaLocations.keySet()) {
 			File file = LocationUtils.getFileQuietly(location);
 			Schema schema = schemaLocations.get(location);
-			exportService.exportSchema(schema, file);
+			exportService.dumpSchema(schema, file);
 		}
 	}
 
@@ -57,11 +57,11 @@ public class ExportSchemaExecutable implements Executable {
 		this.schemaLocations = schemaLocations;
 	}
 
-	public ExportSchemaService getExportService() {
+	public DumpSchemaService getExportService() {
 		return exportService;
 	}
 
-	public void setExportService(ExportSchemaService exportService) {
+	public void setExportService(DumpSchemaService exportService) {
 		this.exportService = exportService;
 	}
 

@@ -23,36 +23,36 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.service.SchemaDumpContext;
-import org.kuali.common.impex.schema.service.SchemaDumpService;
+import org.kuali.common.impex.schema.service.ExtractSchemaContext;
+import org.kuali.common.impex.schema.service.ExtractSchemaService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 
-public class DumpSchemaBucketHandler implements ElementHandler<DumpSchemaBucket> {
+public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaBucket> {
 
-	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaDumpService();
+	public static final ExtractSchemaService DEFAULT_SERVICE = new DefaultExtractSchemaService();
 
-	SchemaDumpService service = DEFAULT_SERVICE;
+	ExtractSchemaService service = DEFAULT_SERVICE;
 
-	public DumpSchemaBucketHandler() {
+	public ExtractSchemaBucketHandler() {
 		this(DEFAULT_SERVICE);
 	}
 
-	public DumpSchemaBucketHandler(SchemaDumpService service) {
+	public ExtractSchemaBucketHandler(ExtractSchemaService service) {
 		this.service = service;
 	}
 
 	@Override
-	public void handleElement(ListIteratorContext<DumpSchemaBucket> context, int index, DumpSchemaBucket element) {
+	public void handleElement(ListIteratorContext<ExtractSchemaBucket> context, int index, ExtractSchemaBucket element) {
 		// TODO The instanceof check is pretty awful. Do something smarter here
-		if (element instanceof DumpViewsAndSequencesBucket) {
+		if (element instanceof ExtractViewsAndSequencesBucket) {
 			doViewsAndSequences(element, element.getContext(), element.getSchema());
 		} else {
 			doTablesAndForeignKeys(element, element.getContext(), element.getSchema());
 		}
 	}
 
-	protected void doTablesAndForeignKeys(DumpSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
+	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket, ExtractSchemaContext context, Schema schema) {
 		try {
 			List<Table> tables = service.extractTables(bucket.getTableNames(), context);
 			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), context);
@@ -66,7 +66,7 @@ public class DumpSchemaBucketHandler implements ElementHandler<DumpSchemaBucket>
 
 	}
 
-	protected void doViewsAndSequences(DumpSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
+	protected void doViewsAndSequences(ExtractSchemaBucket bucket, ExtractSchemaContext context, Schema schema) {
 		try {
 			List<View> views = service.extractViews(context);
 			bucket.getInformer().incrementProgress();

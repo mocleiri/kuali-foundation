@@ -18,7 +18,7 @@ package org.kuali.common.impex.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.schema.DefaultExportSchemaService;
+import org.kuali.common.impex.schema.DefaultDumpSchemaService;
 import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
@@ -61,7 +61,7 @@ public class ModularSchemaExportConfig {
 
 			ModularSchemaExportExecutable mexec = new ModularSchemaExportExecutable();
 			mexec.setOutputLocation(outpuLocation);
-			mexec.setExportService(new DefaultExportSchemaService());
+			mexec.setExportService(new DefaultDumpSchemaService());
 			mexec.setSkip(skip);
 			mexec.setSeparateForeignKeys(separateForeignKeys);
 			if (separateForeignKeys) {

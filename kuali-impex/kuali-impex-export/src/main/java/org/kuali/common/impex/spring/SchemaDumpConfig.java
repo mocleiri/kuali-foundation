@@ -27,8 +27,8 @@ import org.kuali.common.impex.schema.OracleSequenceFinder;
 import org.kuali.common.impex.schema.OracleViewFinder;
 import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
-import org.kuali.common.impex.schema.service.SchemaDumpContext;
-import org.kuali.common.impex.schema.service.SchemaDumpExecutable;
+import org.kuali.common.impex.schema.service.ExtractSchemaContext;
+import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.CollectionUtils;
@@ -75,18 +75,18 @@ public class SchemaDumpConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Bean
-	public SchemaDumpExecutable schemaExtractionExecutable() {
-		SchemaDumpExecutable exec = new SchemaDumpExecutable();
+	public ExtractSchemaExecutable schemaExtractionExecutable() {
+		ExtractSchemaExecutable exec = new ExtractSchemaExecutable();
 		exec.setContext(getSchemaExtractionContext());
-		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, SchemaDumpExecutable.DEFAULT_SERVICE.getClass()));
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, SchemaDumpExecutable.DEFAULT_SKIP));
+		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, ExtractSchemaExecutable.DEFAULT_SERVICE.getClass()));
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, ExtractSchemaExecutable.DEFAULT_SKIP));
 		return exec;
 	}
 
 	/**
 	 * Use the Environment and general Spring configuration to setup an extraction context
 	 */
-	protected SchemaDumpContext getSchemaExtractionContext() {
+	protected ExtractSchemaContext getSchemaExtractionContext() {
 
 		// This provides the configuration needed for connecting to the database
 		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
@@ -111,7 +111,7 @@ public class SchemaDumpConfig {
 		ViewFinder viewFinder = getViewFinderMap().get(vendor);
 
 		// Setup our context with pojo's aggregated from the Spring configuration
-		SchemaDumpContext context = new SchemaDumpContext();
+		ExtractSchemaContext context = new ExtractSchemaContext();
 		context.setSchemaName(schemaName);
 		context.setDataSource(dataSource);
 		context.setNameFilter(nameFilter);

@@ -13,19 +13,8 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.schema.service;
+package org.kuali.common.impex.schema.service.impl;
 
-import org.kuali.common.impex.model.Schema;
+public class ExtractViewsAndSequencesBucket extends ExtractSchemaBucket {
 
-public class SchemaDumpResult {
-
-    Schema schema;
-
-    public Schema getSchema() {
-        return schema;
-    }
-
-    public void setSchema(Schema schema) {
-        this.schema = schema;
-    }
 }

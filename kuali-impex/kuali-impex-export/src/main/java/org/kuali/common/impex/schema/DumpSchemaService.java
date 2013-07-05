@@ -13,8 +13,23 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.schema.service.impl;
+package org.kuali.common.impex.schema;
 
-public class DumpViewsAndSequencesBucket extends DumpSchemaBucket {
+import java.io.File;
+import java.io.Writer;
+
+import org.kuali.common.impex.model.Schema;
+
+public interface DumpSchemaService {
+
+	/**
+	 * Export a schema to a file on the file system
+	 */
+	void dumpSchema(Schema schema, File file);
+
+	/**
+	 * Export a schema to a Writer
+	 */
+	void dumpSchema(Schema schema, Writer writer);
 
 }

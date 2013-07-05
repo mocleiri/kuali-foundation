@@ -28,14 +28,14 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.util.LocationUtils;
 
-public class DefaultExportSchemaService implements ExportSchemaService {
+public class DefaultDumpSchemaService implements DumpSchemaService {
 
 	@Override
-	public void exportSchema(Schema schema, File file) {
+	public void dumpSchema(Schema schema, File file) {
 		Writer writer = null;
 		try {
 			writer = LocationUtils.openWriter(file);
-			exportSchema(schema, writer);
+			dumpSchema(schema, writer);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -44,7 +44,7 @@ public class DefaultExportSchemaService implements ExportSchemaService {
 	}
 
 	@Override
-	public void exportSchema(Schema schema, Writer writer) {
+	public void dumpSchema(Schema schema, Writer writer) {
 		try {
 			// Clone the schema they give us so we don't alter it
 			Schema clone = ModelUtils.clone(schema);

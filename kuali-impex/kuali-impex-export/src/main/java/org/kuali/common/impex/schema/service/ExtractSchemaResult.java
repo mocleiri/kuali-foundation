@@ -13,23 +13,19 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.schema;
-
-import java.io.File;
-import java.io.Writer;
+package org.kuali.common.impex.schema.service;
 
 import org.kuali.common.impex.model.Schema;
 
-public interface ExportSchemaService {
+public class ExtractSchemaResult {
 
-	/**
-	 * Export a schema to a file on the file system
-	 */
-	void exportSchema(Schema schema, File file);
+    Schema schema;
 
-	/**
-	 * Export a schema to a Writer
-	 */
-	void exportSchema(Schema schema, Writer writer);
+    public Schema getSchema() {
+        return schema;
+    }
 
+    public void setSchema(Schema schema) {
+        this.schema = schema;
+    }
 }
