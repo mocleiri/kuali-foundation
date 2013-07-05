@@ -27,57 +27,56 @@ import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 
 public class MockDataUtil {
-    public static Table buildSimpleTable() {
-        Table result = new Table("FOO_T");
+	public static Table buildSimpleTable() {
+		Table result = new Table("FOO_T");
 
-        // id column
-        Column idCol = new Column("ID", DataType.STRING, result.getName());
-        idCol.setTypeSize(new TypeSize(36));
-        idCol.setPrimaryKey(true);
+		// id column
+		Column idCol = new Column("ID", DataType.STRING, result);
+		idCol.setTypeSize(new TypeSize(36));
+		idCol.setPrimaryKey(true);
 
-        result.getColumns().add(idCol);
+		result.getColumns().add(idCol);
 
-        // createtime column
-        Column timeCol = new Column("CREATETIME", DataType.TIMESTAMP, result.getName());
-        timeCol.setNullable(false);
+		// createtime column
+		Column timeCol = new Column("CREATETIME", DataType.TIMESTAMP, result);
+		timeCol.setNullable(false);
 
-        result.getColumns().add(timeCol);
+		result.getColumns().add(timeCol);
 
-        // count column
-        Column countCol = new Column("FOO_COUNT", DataType.FLOAT, result.getName());
-        countCol.setTypeSize(new TypeSize(10));
+		// count column
+		Column countCol = new Column("FOO_COUNT", DataType.FLOAT, result);
+		countCol.setTypeSize(new TypeSize(10));
 
-        result.getColumns().add(countCol);
+		result.getColumns().add(countCol);
 
-        // name column
-        Column nameCol = new Column("NAME", DataType.STRING, result.getName());
-        nameCol.setTypeSize(new TypeSize(255));
+		// name column
+		Column nameCol = new Column("NAME", DataType.STRING, result);
+		nameCol.setTypeSize(new TypeSize(255));
 
-        result.getColumns().add(nameCol);
+		result.getColumns().add(nameCol);
 
-        // unique constraint on name
-        UniqueConstraint nameIndex = new UniqueConstraint(Collections.singletonList(nameCol.getName()), "FOO_U1_NAME");
+		// unique constraint on name
+		UniqueConstraint nameIndex = new UniqueConstraint(Collections.singletonList(nameCol.getName()), "FOO_U1_NAME");
 
-        result.getUniqueConstraints().add(nameIndex);
+		result.getUniqueConstraints().add(nameIndex);
 
-        return result;
-    }
+		return result;
+	}
 
-    public static View buildSimpleView() {
+	public static View buildSimpleView() {
 
-        String viewSql = "SELECT ID, NAME FROM FOO_T\n" +
-                "WHERE NAME LIKE 'TEST%'";
+		String viewSql = "SELECT ID, NAME FROM FOO_T\n" + "WHERE NAME LIKE 'TEST%'";
 
-        return new View("TEST_V1", viewSql);
-    }
+		return new View("TEST_V1", viewSql);
+	}
 
-    public static ForeignKey buildSimpleForeignKey() {
-        ForeignKey fk = new ForeignKey("FOO_FK_1", "FOO_T", "BAR_T");
+	public static ForeignKey buildSimpleForeignKey() {
+		ForeignKey fk = new ForeignKey("FOO_FK_1", "FOO_T", "BAR_T");
 
-        fk.setOnDelete(ForeignKeyConstraintType.CASCADE);
-        fk.setLocalColumnNames(Collections.singletonList("BAR_ID"));
-        fk.setForeignColumnNames(Collections.singletonList("ID"));
+		fk.setOnDelete(ForeignKeyConstraintType.CASCADE);
+		fk.setLocalColumnNames(Collections.singletonList("BAR_ID"));
+		fk.setForeignColumnNames(Collections.singletonList("ID"));
 
-        return fk;
-    }
+		return fk;
+	}
 }
