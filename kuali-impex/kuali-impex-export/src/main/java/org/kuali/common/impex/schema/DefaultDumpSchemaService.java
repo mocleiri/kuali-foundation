@@ -28,7 +28,7 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.model.util.SchemaNullifier;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.nullify.Nullify;
+import org.kuali.common.util.nullify.Nullifier;
 
 public class DefaultDumpSchemaService implements DumpSchemaService {
 
@@ -53,7 +53,7 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 
 			// Null out values that don't need to be converted to XML
 			// Mostly these are primitive types that are still set to their default value
-			Nullify nullifier = new SchemaNullifier(clone);
+			Nullifier nullifier = new SchemaNullifier(clone);
 			nullifier.nullify();
 
 			JAXBContext context = JAXBContext.newInstance(Schema.class);
