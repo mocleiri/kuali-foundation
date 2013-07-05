@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.kuali.common.util.CollectionUtils;
+
 /**
  * This class represents any named connection between columns
  */
@@ -33,8 +35,8 @@ public abstract class Constraint implements NamedElement {
 	List<String> columnNames = new ArrayList<String>();
 
 	public Constraint(Constraint constraint) {
-		this.columnNames = new ArrayList<String>(columnNames);
 		this.name = constraint.getName();
+		this.columnNames = new ArrayList<String>(CollectionUtils.toEmptyList(constraint.getColumnNames()));
 	}
 
 	public Constraint() {
