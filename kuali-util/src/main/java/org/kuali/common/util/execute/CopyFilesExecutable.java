@@ -48,6 +48,8 @@ public class CopyFilesExecutable implements Executable {
 		// Make sure we are configured correctly
 		Assert.notNull(srcDir, "srcDir is null");
 		Assert.notNull(dstDir, "dstDir is null");
+
+		// Source directory has to exist already. We'll create destination directory if necessary
 		Assert.isTrue(LocationUtils.exists(srcDir), "srcDir does not exist");
 
 		try {
