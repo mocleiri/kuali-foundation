@@ -16,13 +16,13 @@
 package org.kuali.common.impex.schema.service;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.service.impl.DefaultSchemaExtractionService;
+import org.kuali.common.impex.schema.service.impl.DefaultSchemaDumpService;
 import org.kuali.common.util.execute.Executable;
 
 public class SchemaDumpExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;
-	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
+	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaDumpService();
 
 	boolean skip = DEFAULT_SKIP;
 	SchemaDumpService service = DEFAULT_SERVICE;

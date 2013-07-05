@@ -43,9 +43,9 @@ import org.kuali.common.util.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultSchemaExtractionService implements SchemaDumpService {
+public class DefaultSchemaDumpService implements SchemaDumpService {
 
-	private static Logger log = LoggerFactory.getLogger(DefaultSchemaExtractionService.class);
+	private static Logger log = LoggerFactory.getLogger(DefaultSchemaDumpService.class);
 
 	protected static final int SINGLE_THREAD_COUNT = 1;
 

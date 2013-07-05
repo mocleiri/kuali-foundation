@@ -30,7 +30,7 @@ import org.kuali.common.threads.ListIteratorContext;
 
 public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaBucket> {
 
-	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaExtractionService();
+	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaDumpService();
 
 	SchemaDumpService service = DEFAULT_SERVICE;
 
