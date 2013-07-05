@@ -27,12 +27,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import javax.sql.DataSource;
 
 import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.Database;
 import liquibase.snapshot.DatabaseSnapshot;
 import liquibase.snapshot.JdbcDatabaseSnapshot;
+
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
@@ -86,46 +88,46 @@ public class LiquibaseSchemaProvider {
 
 	String schemaName;
 
-    DatabaseSnapshot snapshot;
+	DatabaseSnapshot snapshot;
 
 	public LiquibaseSchemaProvider(DatabaseSnapshot snapshot, SequenceFinder sequenceFinder, DataSource dataSource) throws SQLException {
 
 		this.sequenceFinder = sequenceFinder;
 		this.dataSource = dataSource;
-        this.snapshot = snapshot;
+		this.snapshot = snapshot;
 	}
 
-    public Schema buildSchema() throws SQLException {
-        log.info("Building tables...");
-        List<Table> tables = buildTables(snapshot);
-        log.info("Table building complete.");
+	public Schema buildSchema() throws SQLException {
+		log.info("Building tables...");
+		List<Table> tables = buildTables(snapshot);
+		log.info("Table building complete.");
 
-        log.info("Building views...");
-        List<View> views = buildViews(snapshot);
-        log.info("View building complete.");
+		log.info("Building views...");
+		List<View> views = buildViews(snapshot);
+		log.info("View building complete.");
 
-        log.info("Building sequences...");
-        List<Sequence> sequences = buildSequences(snapshot);
-        log.info("Sequence building complete.");
+		log.info("Building sequences...");
+		List<Sequence> sequences = buildSequences(snapshot);
+		log.info("Sequence building complete.");
 
-        log.info("Building foreign keys...");
-        List<ForeignKey> foreignKeys = buildForeignKeys(snapshot);
-        log.info("Foreign key building complete.");
+		log.info("Building foreign keys...");
+		List<ForeignKey> foreignKeys = buildForeignKeys(snapshot);
+		log.info("Foreign key building complete.");
 
-        // sort each of the schema elements
-        Collections.sort(tables, NamedElementComparator.getInstance());
-        Collections.sort(views, NamedElementComparator.getInstance());
-        Collections.sort(sequences, NamedElementComparator.getInstance());
-        Collections.sort(foreignKeys, NamedElementComparator.getInstance());
+		// sort each of the schema elements
+		Collections.sort(tables, NamedElementComparator.getInstance());
+		Collections.sort(views, NamedElementComparator.getInstance());
+		Collections.sort(sequences, NamedElementComparator.getInstance());
+		Collections.sort(foreignKeys, NamedElementComparator.getInstance());
 
-        Schema schema = new Schema();
-        schema.setTables(tables);
-        schema.setViews(views);
-        schema.setSequences(sequences);
-        schema.setForeignKeys(foreignKeys);
+		Schema schema = new Schema();
+		schema.setTables(tables);
+		schema.setViews(views);
+		schema.setSequences(sequences);
+		schema.setForeignKeys(foreignKeys);
 
-        return schema;
-    }
+		return schema;
+	}
 
 	protected List<Table> buildTables(DatabaseSnapshot snapshot) {
 
@@ -434,7 +436,7 @@ public class LiquibaseSchemaProvider {
 		if (nameFilter == null) {
 			return false;
 		} else {
-			return nameFilter.exclude(name);
+			return !nameFilter.include(name);
 		}
 	}
 

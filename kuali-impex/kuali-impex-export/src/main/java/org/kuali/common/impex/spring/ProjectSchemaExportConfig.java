@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
+import org.kuali.common.impex.util.ExportConstants;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
@@ -50,8 +51,8 @@ public class ProjectSchemaExportConfig {
 		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
 		List<ProjectSchemaExportExecutable> executables = new ArrayList<ProjectSchemaExportExecutable>();
 		for (String gav : gavs) {
-			ProjectSchemaExportExecutable psee = getProjectSchemaExportExecutable(gav, stagingDir);
-			executables.add(psee);
+			ProjectSchemaExportExecutable exec = getProjectSchemaExportExecutable(gav, stagingDir);
+			executables.add(exec);
 		}
 		return executables;
 	}
@@ -61,19 +62,19 @@ public class ProjectSchemaExportConfig {
 		StringFilter nameFilter = getNameFilter(project);
 		File basedir = SpringUtils.getFile(env, "project.basedir");
 
-		ProjectSchemaExportExecutable psee = new ProjectSchemaExportExecutable();
-		psee.setProject(project);
-		psee.setStagingDir(stagingDir);
-		psee.setNameFilter(nameFilter);
-		psee.setBasedir(basedir);
-		return psee;
+		ProjectSchemaExportExecutable exec = new ProjectSchemaExportExecutable();
+		exec.setProject(project);
+		exec.setStagingDir(stagingDir);
+		exec.setNameFilter(nameFilter);
+		exec.setBasedir(basedir);
+		return exec;
 	}
 
 	protected StringFilter getNameFilter(Project project) {
-		String includesKey = "impex." + project.getArtifactId() + ".includes";
-		String excludesKey = "impex." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ".*");
-		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, "");
+		String includesKey = "impex.export." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.export." + project.getArtifactId() + ".excludes";
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, ExportConstants.DEFAULT_EXCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, ExportConstants.DEFAULT_EXCLUDE);
 		return StringFilter.getInstance(includes, excludes);
 	}
 
