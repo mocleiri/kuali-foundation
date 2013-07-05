@@ -28,31 +28,31 @@ import org.kuali.common.impex.schema.service.SchemaDumpService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 
-public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaBucket> {
+public class DumpSchemaBucketHandler implements ElementHandler<DumpSchemaBucket> {
 
 	public static final SchemaDumpService DEFAULT_SERVICE = new DefaultSchemaDumpService();
 
 	SchemaDumpService service = DEFAULT_SERVICE;
 
-	public ExtractSchemaBucketHandler() {
+	public DumpSchemaBucketHandler() {
 		this(DEFAULT_SERVICE);
 	}
 
-	public ExtractSchemaBucketHandler(SchemaDumpService service) {
+	public DumpSchemaBucketHandler(SchemaDumpService service) {
 		this.service = service;
 	}
 
 	@Override
-	public void handleElement(ListIteratorContext<ExtractSchemaBucket> context, int index, ExtractSchemaBucket element) {
+	public void handleElement(ListIteratorContext<DumpSchemaBucket> context, int index, DumpSchemaBucket element) {
 		// TODO The instanceof check is pretty awful. Do something smarter here
-		if (element instanceof ExtractViewsAndSequencesBucket) {
+		if (element instanceof DumpViewsAndSequencesBucket) {
 			doViewsAndSequences(element, element.getContext(), element.getSchema());
 		} else {
 			doTablesAndForeignKeys(element, element.getContext(), element.getSchema());
 		}
 	}
 
-	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
+	protected void doTablesAndForeignKeys(DumpSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
 		try {
 			List<Table> tables = service.extractTables(bucket.getTableNames(), context);
 			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), context);
@@ -66,7 +66,7 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 
 	}
 
-	protected void doViewsAndSequences(ExtractSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
+	protected void doViewsAndSequences(DumpSchemaBucket bucket, SchemaDumpContext context, Schema schema) {
 		try {
 			List<View> views = service.extractViews(context);
 			bucket.getInformer().incrementProgress();

@@ -21,7 +21,7 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.SchemaDumpContext;
 import org.kuali.common.util.PercentCompleteInformer;
 
-public class ExtractSchemaBucket {
+public class DumpSchemaBucket {
 
 	SchemaDumpContext context;
 	List<String> tableNames;

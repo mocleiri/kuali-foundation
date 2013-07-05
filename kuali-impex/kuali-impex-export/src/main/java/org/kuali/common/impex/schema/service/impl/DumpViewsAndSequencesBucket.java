@@ -15,6 +15,6 @@
 
 package org.kuali.common.impex.schema.service.impl;
 
-public class ExtractViewsAndSequencesBucket extends ExtractSchemaBucket {
+public class DumpViewsAndSequencesBucket extends DumpSchemaBucket {
 
 }

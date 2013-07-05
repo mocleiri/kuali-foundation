@@ -102,13 +102,13 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 		List<List<String>> splitNames = CollectionUtils.splitEvenly(tableNames, maxTableThreads);
 
 		// Create buckets to hold results
-		List<ExtractSchemaBucket> schemaBuckets = new ArrayList<ExtractSchemaBucket>(splitNames.size() + 1);
+		List<DumpSchemaBucket> schemaBuckets = new ArrayList<DumpSchemaBucket>(splitNames.size() + 1);
 
 		// Setup a schema object
 		Schema schema = new Schema();
 
 		// Add one special schema bucket for handling views and sequences
-		ExtractSchemaBucket viewSequenceBucket = new ExtractViewsAndSequencesBucket();
+		DumpSchemaBucket viewSequenceBucket = new DumpViewsAndSequencesBucket();
 		viewSequenceBucket.setContext(context);
 		viewSequenceBucket.setSchema(schema);
 		viewSequenceBucket.setInformer(informer);
@@ -116,7 +116,7 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 
 		// Create one bucket for each group of table names from the split
 		for (List<String> names : splitNames) {
-			ExtractSchemaBucket bucket = new ExtractSchemaBucket();
+			DumpSchemaBucket bucket = new DumpSchemaBucket();
 			bucket.setTableNames(names);
 			bucket.setContext(context);
 			bucket.setSchema(schema);
@@ -127,9 +127,9 @@ public class DefaultSchemaDumpService implements SchemaDumpService {
 
 		// Create and invoke threads to fill in the metadata
 		// Store some context for the thread handler
-		ThreadHandlerContext<ExtractSchemaBucket> thc = new ThreadHandlerContext<ExtractSchemaBucket>();
+		ThreadHandlerContext<DumpSchemaBucket> thc = new ThreadHandlerContext<DumpSchemaBucket>();
 		thc.setList(schemaBuckets);
-		thc.setHandler(new ExtractSchemaBucketHandler(this));
+		thc.setHandler(new DumpSchemaBucketHandler(this));
 		thc.setMax(schemaBuckets.size());
 		thc.setMin(schemaBuckets.size());
 		thc.setDivisor(1);
