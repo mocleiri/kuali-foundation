@@ -52,7 +52,7 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 			Schema clone = ModelUtils.clone(schema);
 
 			// Null out values that don't need to be converted to XML
-			// Mostly Boolean's that are defaulted to false anyway
+			// Mostly these are primitive types that are still set to their default value
 			Nullify nullifier = new SchemaNullifier(clone);
 			nullifier.nullify();
 
