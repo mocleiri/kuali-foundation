@@ -18,8 +18,8 @@ public class Column implements NamedElement {
 	TypeSize typeSize;
 	String defaultValue;
 	String description;
-	boolean primaryKey;
-	boolean nullable = DEFAULT_NULLABLE_VALUE;
+	Boolean primaryKey;
+	Boolean nullable = DEFAULT_NULLABLE_VALUE;
 
 	public Column() {
 		this(null, null, null);
@@ -48,11 +48,11 @@ public class Column implements NamedElement {
 	}
 
 	@XmlAttribute
-	public boolean isPrimaryKey() {
+	public Boolean isPrimaryKey() {
 		return primaryKey;
 	}
 
-	public void setPrimaryKey(boolean primaryKey) {
+	public void setPrimaryKey(Boolean primaryKey) {
 		this.primaryKey = primaryKey;
 	}
 
@@ -73,11 +73,11 @@ public class Column implements NamedElement {
 	}
 
 	@XmlAttribute
-	public boolean isNullable() {
+	public Boolean isNullable() {
 		return nullable;
 	}
 
-	public void setNullable(boolean nullable) {
+	public void setNullable(Boolean nullable) {
 		this.nullable = nullable;
 	}
 
