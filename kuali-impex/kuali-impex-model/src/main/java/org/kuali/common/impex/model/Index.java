@@ -26,7 +26,6 @@ public class Index extends Constraint {
 
 	public static final Boolean DEFAULT_UNIQUE_VALUE = false;
 
-	@XmlAttribute
 	Boolean unique = DEFAULT_UNIQUE_VALUE;
 
 	public Index(Index index) {
@@ -47,6 +46,7 @@ public class Index extends Constraint {
 		this.unique = unique;
 	}
 
+	@XmlAttribute
 	public Boolean isUnique() {
 		return unique;
 	}
