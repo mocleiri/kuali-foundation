@@ -297,7 +297,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		// Allocate some buckets to hold the sql
 		List<DumpTableBucket> buckets = CollectionUtils.getNewList(DumpTableBucket.class, bucketCount);
 		// Distribute the sources into buckets as evenly as possible
-		// "Evenly" in this case means the total number of rows for all of the tables each bucket should be roughly the same
+		// "Evenly" in this case means the total number of rows for all of the tables in each bucket should be roughly the same
 		for (DumpTableContext table : tables) {
 			// Sort the buckets by size
 			Collections.sort(buckets);
