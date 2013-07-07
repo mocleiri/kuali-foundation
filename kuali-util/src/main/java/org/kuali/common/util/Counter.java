@@ -33,7 +33,8 @@ public class Counter {
 	}
 
 	public synchronized int increment(int amount) {
-		Assert.isTrue(count + amount <= Integer.MAX_VALUE, "max value exceeded");
+		Assert.isTrue(amount > 0, "amount must be > 0");
+		Assert.isTrue(count <= Integer.MAX_VALUE - amount, "max value exceeded");
 		return count += amount;
 	}
 
@@ -42,7 +43,8 @@ public class Counter {
 	}
 
 	public synchronized int decrement(int amount) {
-		Assert.isTrue(count - amount >= Integer.MIN_VALUE, "min value exceeded");
+		Assert.isTrue(amount > 0, "amount must be > 0");
+		Assert.isTrue(count >= Integer.MIN_VALUE + amount, "min value exceeded");
 		return count -= amount;
 	}
 
