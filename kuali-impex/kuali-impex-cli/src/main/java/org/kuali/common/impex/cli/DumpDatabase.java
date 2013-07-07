@@ -15,17 +15,13 @@
 
 package org.kuali.common.impex.cli;
 
-import java.util.Arrays;
-
 import org.kuali.common.impex.DumpCLIProjectContext;
 import org.kuali.common.impex.DumpProjectContext;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
-import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.PropertySource;
 
@@ -38,11 +34,9 @@ public class DumpDatabase {
 			ProjectContext dump = new DumpProjectContext();
 			ProjectContext cli = new DumpCLIProjectContext();
 
-			PropertySource<?> ps = SpringUtils.getGlobalPropertySource(cli, Mode.INFORM, Arrays.asList(jdbc, dump));
-			SpringContext sc = SpringUtils.getSinglePropertySourceContext(ps);
-			sc.setAnnotatedClasses(CollectionUtils.asList(DumpDatabaseExecutableConfig.class));
+			PropertySource<?> source = SpringUtils.getGlobalPropertySource(cli, Mode.INFORM, jdbc, dump);
 
-			SpringExecutable executable = new SpringExecutable(sc);
+			SpringExecutable executable = SpringUtils.getSpringExecutable(source, DumpDatabaseExecutableConfig.class);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
