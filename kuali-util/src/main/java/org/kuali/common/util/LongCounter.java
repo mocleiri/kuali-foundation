@@ -29,13 +29,21 @@ public class LongCounter {
 	}
 
 	public synchronized long increment() {
-		Assert.isFalse(count == Long.MAX_VALUE, "max counter value exceeded");
-		return count++;
+		return increment(1);
+	}
+
+	public synchronized long increment(long amount) {
+		Assert.isTrue(count + amount <= Long.MAX_VALUE, "max counter value exceeded");
+		return count += amount;
+	}
+
+	public synchronized long decrement(long amount) {
+		Assert.isTrue(count - amount >= Long.MIN_VALUE, "min counter value exceeded");
+		return count -= amount;
 	}
 
 	public synchronized long decrement() {
-		Assert.isFalse(count == Long.MIN_VALUE, "min counter value exceeded");
-		return count--;
+		return decrement(1);
 	}
 
 	public synchronized long getValue() {

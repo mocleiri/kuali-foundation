@@ -29,13 +29,21 @@ public class Counter {
 	}
 
 	public synchronized int increment() {
-		Assert.isFalse(count == Integer.MAX_VALUE, "max value exceeded");
-		return count++;
+		return increment(1);
+	}
+
+	public synchronized int increment(int amount) {
+		Assert.isTrue(count + amount <= Integer.MAX_VALUE, "max value exceeded");
+		return count += amount;
 	}
 
 	public synchronized int decrement() {
-		Assert.isFalse(count == Integer.MIN_VALUE, "min value exceeded");
-		return count--;
+		return decrement(1);
+	}
+
+	public synchronized int decrement(int amount) {
+		Assert.isTrue(count - amount >= Integer.MIN_VALUE, "min value exceeded");
+		return count -= amount;
 	}
 
 	public synchronized int getValue() {
