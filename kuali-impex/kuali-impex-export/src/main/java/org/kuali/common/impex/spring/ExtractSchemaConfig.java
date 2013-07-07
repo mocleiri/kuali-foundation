@@ -32,7 +32,6 @@ import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,13 +118,9 @@ public class ExtractSchemaConfig {
 
 	protected StringFilter getNameFilter() {
 
-		// Extract CSV values from the Environment
-		String includesCSV = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDES);
-		String excludesCSV = SpringUtils.getProperty(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
-
 		// Convert CSV to List
-		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
-		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludesCSV);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DEFAULT_INCLUDES);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
 
 		// Setup the name filter
 		return StringFilter.getInstance(includes, excludes);
