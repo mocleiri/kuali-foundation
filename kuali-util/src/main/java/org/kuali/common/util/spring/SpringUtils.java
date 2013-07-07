@@ -489,6 +489,24 @@ public class SpringUtils {
 	}
 
 	/**
+	 * Return a SpringExecutable for the project, properties location, and config passed in.
+	 */
+	public static SpringExecutable getSpringExecutable(Class<?> annotatedClass, String location, ProjectContext... projects) {
+		List<ProjectProperties> list = ConfigUtils.getProjectProperties(projects);
+		ProjectProperties last = list.get(list.size() - 1);
+		PropertiesContext pc = last.getPropertiesContext();
+		if (!StringUtils.isBlank(location)) {
+			List<String> locations = new ArrayList<String>(CollectionUtils.toEmptyList(pc.getLocations()));
+			locations.add(location);
+			pc.setLocations(locations);
+		}
+		PropertySource<?> source = getGlobalPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, list);
+		SpringContext context = getSinglePropertySourceContext(source);
+		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+		return new SpringExecutable(context);
+	}
+
+	/**
 	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
 	 */
 	public static SpringContext getSinglePropertySourceContext(List<String> locations, String encoding) {
