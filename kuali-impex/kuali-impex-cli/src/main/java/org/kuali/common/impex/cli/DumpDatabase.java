@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.cli;
 
-import java.util.List;
+import java.util.Arrays;
 
 import org.kuali.common.impex.DumpCLIProjectContext;
 import org.kuali.common.impex.DumpProjectContext;
@@ -25,9 +25,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.spring.ConfigUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.PropertySource;
 
@@ -38,12 +36,9 @@ public class DumpDatabase {
 		try {
 			ProjectContext jdbc = new JdbcProjectContext();
 			ProjectContext dump = new DumpProjectContext();
-			List<ProjectProperties> others = ConfigUtils.getProjectProperties(jdbc, dump);
+			ProjectContext cli = new DumpCLIProjectContext();
 
-			ProjectProperties pp = ConfigUtils.getProjectProperties(new DumpCLIProjectContext());
-			pp.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
-
-			PropertySource<?> ps = SpringUtils.getGlobalPropertySource(pp, others);
+			PropertySource<?> ps = SpringUtils.getGlobalPropertySource(cli, Mode.INFORM, Arrays.asList(jdbc, dump));
 			SpringContext sc = SpringUtils.getSinglePropertySourceContext(ps);
 			sc.setAnnotatedClasses(CollectionUtils.asList(DumpDatabaseExecutableConfig.class));
 
