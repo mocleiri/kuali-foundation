@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.SqlProjectContext;
+import org.kuali.common.util.MetaInfSqlProjectContext;
 import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,7 +28,7 @@ public class MetaInfSqlMavenPropertySourceConfig extends MavenPropertySourceConf
 
 	@Override
 	protected List<ProjectProperties> getOtherProjectProperties() {
-		ProjectContext sql = new SqlProjectContext();
+		ProjectContext sql = new MetaInfSqlProjectContext();
 		return ConfigUtils.getProjectProperties(Arrays.asList(sql));
 	}
 
