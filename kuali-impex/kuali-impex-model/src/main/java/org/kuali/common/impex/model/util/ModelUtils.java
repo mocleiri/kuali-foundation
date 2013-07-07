@@ -51,7 +51,6 @@ public class ModelUtils {
 
 	public static String getCsvPrimaryKeyColumnNames(Table t) {
 		List<String> names = getPrimaryKeyColumnNames(t);
-
 		if (names.isEmpty()) {
 			return "";
 		} else {
