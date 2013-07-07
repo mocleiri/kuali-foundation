@@ -30,6 +30,9 @@ public class DumpDatabase {
 	public static void main(String[] args) {
 
 		try {
+			System.setProperty("db.vendor", "oracle");
+			System.setProperty("jdbc.username", "KS_SOURCE_DB_SANDBOX");
+
 			ProjectContext jdbc = new JdbcProjectContext();
 			ProjectContext dump = new DumpProjectContext();
 			ProjectContext cli = new DumpCLIProjectContext();
