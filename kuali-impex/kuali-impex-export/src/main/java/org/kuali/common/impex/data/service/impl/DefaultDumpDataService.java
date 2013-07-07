@@ -86,46 +86,86 @@ public class DefaultDumpDataService implements DumpDataService {
 	protected DumpTableResult dumpTable(DumpDataContext dataContext, DumpTableContext tableContext, ResultSet rs) {
 		OutputStream out = null;
 		try {
-			Table table = tableContext.getTable();
-			File outFile = DataHandler.getFileForTable(dataContext, table.getName());
-			out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
 
-			// Keep track of how many rows and how much data we are processing
+			// Extract the table we are dumping
+			Table table = tableContext.getTable();
+
+			// The file we'll be dumping this tables data into
+			File outputFile = DataHandler.getFileForTable(dataContext, table.getName());
+
+			// Keep track of rows and data size for this table
 			TableTracker tracker = new TableTracker();
 
-			// Convert metadata into Column objects
-			List<Column> orderedColumns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
+			// Convert JDBC metadata into Column objects
+			List<Column> columns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
 
 			// Setup some storage for the data coming out of the table
-			List<List<String>> data = new ArrayList<List<String>>();
-			DumpProgress startProgress = getDumpProgress(out, orderedColumns, data, dataContext, tableContext, tracker);
-			DataHandler.startData(startProgress);
+			List<List<String>> tableData = new ArrayList<List<String>>();
+
+			// Flag that indicates whether or not we found at least one row of data in the table
+			boolean started = false;
+
+			// Iterate through the rows of the table
 			while (rs.next()) {
+
+				// If we get here the table has at least one row and thus a corresponding MPX file will get created
+				// Do some one-time-only file system preparation
+				if (!started) {
+
+					// Open an output stream to the file
+					out = new BufferedOutputStream(FileUtils.openOutputStream(outputFile));
+
+					// Print the header row
+					DumpProgress startProgress = getDumpProgress(out, columns, tableData, dataContext, tableContext, tracker);
+					DataHandler.startData(startProgress);
+
+					// Only do this once
+					started = true;
+				}
+
+				// Bump our row counts
 				tracker.getCurrentRowCount().increment();
 				tracker.getTotalRowCount().increment();
-				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, orderedColumns, tracker.getCurrentRowCount().getValue());
-				data.add(rowData);
+
+				// Extract one complete row of data and add it to our list
+				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, columns, tracker.getCurrentRowCount().getValue());
+				tableData.add(rowData);
+
+				// Calculate the total amount of data in this row and update the table tracker
 				long rowSize = getSize(rowData);
 				tracker.getCurrentDataSize().increment(rowSize);
 				tracker.getTotalDataSize().increment(rowSize);
+
+				// We've exceeded either 50 rows or 50k in data while processing this table
+				// Time to dump the data to disk
 				if (isIntervalLimitExceeded(tracker, dataContext)) {
-					DumpProgress dataProgress = getDumpProgress(out, orderedColumns, data, dataContext, tableContext, tracker);
+
+					// Dump the data we have in memory out to disk
+					DumpProgress dataProgress = getDumpProgress(out, columns, tableData, dataContext, tableContext, tracker);
 					DataHandler.doData(dataProgress);
+
+					// Reset our counters
 					tracker.setCurrentDataSize(new LongCounter());
 					tracker.setCurrentRowCount(new LongCounter());
-					data = new ArrayList<List<String>>();
+
+					// Clear out our storage
+					tableData.clear();
 				}
 			}
-			DumpProgress finished = getDumpProgress(out, orderedColumns, data, dataContext, tableContext, tracker);
+
+			// We've finished iterating over the ResultSet, might be some cleanup yet to do
+			DumpProgress finished = getDumpProgress(out, columns, tableData, dataContext, tableContext, tracker);
 			DataHandler.finishData(finished);
+
+			// Store some results about the processing of this table
 			DumpTableResult result = new DumpTableResult();
 			result.setTableContext(tableContext);
 			result.setRows(tracker.getTotalRowCount().getValue());
 			result.setSize(tracker.getTotalDataSize().getValue());
 
-			// set the file reference if a file was actually created
+			// Set the file reference only if the table had at least one row and thus a file was actually created
 			if (tracker.getTotalRowCount().getValue() > 0) {
-				result.setFiles(Collections.singletonList(outFile));
+				result.setFiles(Collections.singletonList(outputFile));
 			} else {
 				List<File> empty = Collections.emptyList();
 				result.setFiles(empty);
@@ -159,7 +199,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	 */
 	protected List<String> getRowData(String dateFormat, String tableName, ResultSet rs, List<Column> columns, long rowCount) throws SQLException {
 		// Allocate some storage
-		List<String> data = new ArrayList<String>(columns.size());
+		List<String> rowData = new ArrayList<String>();
 
 		// Cycle through the columns
 		for (int i = 0; i < columns.size(); i++) {
@@ -175,10 +215,13 @@ public class DefaultDumpDataService implements DumpDataService {
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java strings
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			data.add(getColumnValueAsString(dateFormat, rs, resultSetColumnIndex, column, rowCount, tableName));
+			String columnValue = getColumnValueAsString(dateFormat, rs, resultSetColumnIndex, column, rowCount, tableName);
+
+			// Add this columns value to the row data
+			rowData.add(columnValue);
 		}
 
-		return data;
+		return rowData;
 	}
 
 	/**

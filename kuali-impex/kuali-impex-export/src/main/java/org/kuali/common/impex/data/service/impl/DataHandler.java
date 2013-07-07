@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.data.service.DumpDataContext;
 import org.kuali.common.impex.model.Column;
@@ -87,12 +86,20 @@ public class DataHandler {
 	}
 
 	public static void finishData(DumpProgress exportProgress) throws IOException {
+
+		// Since we only dump from memory to disk at specific intervals, there is likely to be
+		// a few trailing rows that need to get dumped
 		if (!CollectionUtils.isEmpty(exportProgress.getCurrentData())) {
 			String encoding = exportProgress.getContext().getEncoding();
 			formatMpx(exportProgress.getCurrentData());
 			writeRows(exportProgress.getCurrentData(), encoding, exportProgress.getOutputStream());
 		}
+
+		// Extract our table tracker
 		TableTracker tracker = exportProgress.getTableTracker();
+
+		// If the table had at least one row of data there will be a .mpx file for this table
+		// Log a message displaying some stats about what got dumped to disk
 		if (tracker.getTotalRowCount().getValue() > 0) {
 			long threadId = Thread.currentThread().getId();
 			String tableName = exportProgress.getTableContext().getTable().getName();
@@ -100,10 +107,6 @@ public class DataHandler {
 			String tds = FormatUtils.getSize(tracker.getTotalDataSize().getValue());
 			Object[] args = { threadId, tableName, trc, tds };
 			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
-		} else {
-			String filename = getFilename(exportProgress.getContext().getWorkingDir(), exportProgress.getTableContext().getTable().getName());
-			File emptyFile = new File(filename);
-			FileUtils.forceDelete(emptyFile);
 		}
 	}
 
