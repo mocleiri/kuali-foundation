@@ -19,23 +19,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
+import org.kuali.common.util.MavenConstants;
+import org.kuali.common.util.Str;
 
 public class JdbcProjectContext extends DefaultProjectContext {
 
 	private static final List<String> LOCATIONS = getLocations();
+	private static final String ARTIFACT_ID = "kuali-jdbc";
 
 	public JdbcProjectContext() {
-		super("kuali-jdbc", new ArrayList<String>(LOCATIONS));
+		super(ARTIFACT_ID, new ArrayList<String>(LOCATIONS));
 	}
 
 	private static final List<String> getLocations() {
 		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:org/kuali/common/jdbc/jdbc.properties");
-		locations.add("classpath:org/kuali/common/sql/sql.xml");
-		locations.add("classpath:org/kuali/common/sql/mysql.xml");
-		locations.add("classpath:org/kuali/common/sql/oracle.xml");
-		locations.add("classpath:org/kuali/common/sql/h2.xml");
-		locations.add("classpath:org/kuali/common/sql/derby.xml");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/jdbc/jdbc.properties");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/sql/sql.xml");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/sql/mysql.xml");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/sql/oracle.xml");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/sql/h2.xml");
+		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/sql/derby.xml");
 		return locations;
 	}
 
