@@ -12,6 +12,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +43,9 @@ public class DataHandler {
 	}
 
 	protected static String getFilename(File workingDir, String tableName) {
-		// to keep file names consistent, capitalize the name of the table before requesting a file name
-		tableName = tableName.toUpperCase();
-		return workingDir.getAbsolutePath() + FS + tableName + MPX_EXTENSION;
+		// To keep file names consistent, always capitalize the name of the table before returning a file name
+		tableName = StringUtils.upperCase(tableName);
+		return LocationUtils.getCanonicalPath(workingDir) + FS + tableName + MPX_EXTENSION;
 	}
 
 	public static void startData(DumpProgress progress) throws IOException {
