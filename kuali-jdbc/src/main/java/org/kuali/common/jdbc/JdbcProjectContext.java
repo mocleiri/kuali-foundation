@@ -38,7 +38,7 @@ public class JdbcProjectContext extends DefaultProjectContext {
 		locations.add(ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/jdbc.properties");
 
 		// Add SQL properties
-		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.SQL_ARIFACT_ID);
+		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.SQL_ARTIFACT_ID);
 		locations.add(prefix + "/sql.xml");
 		locations.add(prefix + "/mysql.xml");
 		locations.add(prefix + "/oracle.xml");
