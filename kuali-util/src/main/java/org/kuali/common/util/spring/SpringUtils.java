@@ -456,10 +456,7 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	public static SpringExecutable getSpringExecutable(ProjectContext project, String location, Class<?> annotatedClass) {
-		List<Class<?>> classes = new ArrayList<Class<?>>();
-		classes.add(annotatedClass);
-
-		return getSpringExecutable(project, location, classes);
+		return getSpringExecutable(project, location, CollectionUtils.asList(annotatedClass));
 	}
 
 	/**
