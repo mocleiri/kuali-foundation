@@ -123,33 +123,32 @@ public class DefaultDumpDataService implements DumpDataService {
 					started = true;
 				}
 
-				// Bump our row counts
-				tracker.getCurrentRowCount().increment();
-				tracker.getTotalRowCount().increment();
-
 				// Extract one complete row of data and add it to our list
 				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, columns);
 				tableData.add(rowData);
 
-				// Calculate the total amount of data in this row and update the table tracker
+				// Bump our row counts
+				tracker.getCurrentRowCount().increment();
+				tracker.getTotalRowCount().increment();
+
+				// Bump our size counts
 				long rowSize = getSize(rowData);
 				tracker.getCurrentDataSize().increment(rowSize);
 				tracker.getTotalDataSize().increment(rowSize);
 
 				// We've exceeded either 50 rows or 50k in data while processing this table
-				// Time to dump memory objects representing whatever data we have to disk
 				if (isIntervalLimitExceeded(tracker, dataContext)) {
 
 					// Dump the data we have in memory out to disk
 					DumpProgress dataProgress = getDumpProgress(out, columns, tableData, dataContext, tableContext, tracker);
 					DataHandler.doData(dataProgress);
 
-					// Reset our counters
+					// Clear out our memory storage
+					tableData.clear();
+
+					// Reset the counters tracking how much data we have in memory
 					tracker.setCurrentDataSize(new LongCounter());
 					tracker.setCurrentRowCount(new LongCounter());
-
-					// Clear out our storage
-					tableData.clear();
 				}
 			}
 
