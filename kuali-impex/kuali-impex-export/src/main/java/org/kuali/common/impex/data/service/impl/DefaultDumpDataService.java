@@ -128,7 +128,7 @@ public class DefaultDumpDataService implements DumpDataService {
 				tracker.getTotalRowCount().increment();
 
 				// Extract one complete row of data and add it to our list
-				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, columns, tracker.getCurrentRowCount().getValue());
+				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, columns);
 				tableData.add(rowData);
 
 				// Calculate the total amount of data in this row and update the table tracker
@@ -197,7 +197,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	/**
 	 * Convert the data from the row into String form
 	 */
-	protected List<String> getRowData(String dateFormat, String tableName, ResultSet rs, List<Column> columns, long rowCount) throws SQLException {
+	protected List<String> getRowData(String dateFormat, String tableName, ResultSet rs, List<Column> columns) throws SQLException {
 		// Allocate some storage
 		List<String> rowData = new ArrayList<String>();
 
@@ -215,7 +215,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			// TODO Refactor things into a Converter API of some kind
 			// TODO Need a richer API for dealing with the conversion of database values to Java strings
 			// TODO This would allow for vastly superior handling of date/timestamp/timezone matters (among other things)
-			String columnValue = getColumnValueAsString(dateFormat, rs, resultSetColumnIndex, column, rowCount, tableName);
+			String columnValue = getColumnValueAsString(dateFormat, rs, resultSetColumnIndex, column);
 
 			// Add this columns value to the row data
 			rowData.add(columnValue);
@@ -243,24 +243,6 @@ public class DefaultDumpDataService implements DumpDataService {
 			IOUtils.closeQuietly(r);
 		}
 		return sb.toString();
-	}
-
-	/**
-	 * Use JDBC to extract the data held by the database into a <code>java.lang.String</code> suitable for dumping to disk. The String returned by this method must be completely
-	 * disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying ResultSet or otherwise contacting the database to assist with
-	 * processing the data held in this row/column is forbidden.
-	 */
-	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
-		try {
-			return getColumnValueAsString(dateFormat, rs, index, column);
-		} catch (Exception e) {
-			// Don't let an issue extracting one value from one column in one row stop the process
-			// Log the table/row/column and continue
-			logger.error("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName, e);
-			e.printStackTrace();
-
-		}
-		return null;
 	}
 
 	/**
