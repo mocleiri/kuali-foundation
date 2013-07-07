@@ -51,7 +51,6 @@ public class DataHandler {
 	public static void startData(DumpProgress progress) throws IOException {
 		List<Column> columns = progress.getColumns();
 		String encoding = progress.getContext().getEncoding();
-
 		String header = ModelUtils.getCsvColumnNames(columns) + LF;
 		OutputStream out = progress.getOutputStream();
 		out.write(header.getBytes(encoding));
@@ -93,11 +92,12 @@ public class DataHandler {
 			formatMpx(exportProgress.getCurrentData());
 			writeRows(exportProgress.getCurrentData(), encoding, exportProgress.getOutputStream());
 		}
-		if (exportProgress.getTotalRowCount() > 0) {
+		TableTracker tracker = exportProgress.getTableTracker();
+		if (tracker.getTotalRowCount().getValue() > 0) {
 			long threadId = Thread.currentThread().getId();
 			String tableName = exportProgress.getTableContext().getTable().getName();
-			String trc = FormatUtils.getCount(exportProgress.getTotalRowCount());
-			String tds = FormatUtils.getSize(exportProgress.getTotalDataSize());
+			String trc = FormatUtils.getCount(tracker.getTotalRowCount().getValue());
+			String tds = FormatUtils.getSize(tracker.getTotalDataSize().getValue());
 			Object[] args = { threadId, tableName, trc, tds };
 			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
 		} else {

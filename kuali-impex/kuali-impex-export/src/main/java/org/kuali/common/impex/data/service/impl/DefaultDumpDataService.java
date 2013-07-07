@@ -51,6 +51,7 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
@@ -82,53 +83,48 @@ public class DefaultDumpDataService implements DumpDataService {
 		}
 	}
 
-	protected DumpTableResult dumpTable(DumpDataContext context, DumpTableContext tableContext, ResultSet rs) {
+	protected DumpTableResult dumpTable(DumpDataContext dataContext, DumpTableContext tableContext, ResultSet rs) {
 		OutputStream out = null;
 		try {
 			Table table = tableContext.getTable();
-			File outFile = DataHandler.getFileForTable(context, table.getName());
+			File outFile = DataHandler.getFileForTable(dataContext, table.getName());
 			out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
 
-			// Tracks total amount of data in the table
-			long totalDataSize = 0;
-			// Tracks total number of rows in the table
-			long totalRowCount = 0;
-			// Tracks number of rows since we last emptied our memory cache to disk
-			long currentRowCount = 0;
-			// Tracks total amount of data we've accumulated since we last emptied our memory cache to disk
-			long currentDataSize = 0;
+			// Keep track of how many rows and how much data we are processing
+			TableTracker tracker = new TableTracker();
 
 			// Convert metadata into Column objects
 			List<Column> orderedColumns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
 
+			// Setup some storage for the data coming out of the table
 			List<List<String>> data = new ArrayList<List<String>>();
-			DumpProgress startProgress = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+			DumpProgress startProgress = getDumpProgress(out, orderedColumns, data, dataContext, tableContext, tracker);
 			DataHandler.startData(startProgress);
 			while (rs.next()) {
-				currentRowCount++;
-				totalRowCount++;
-				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, orderedColumns, totalRowCount);
+				tracker.getCurrentRowCount().increment();
+				tracker.getTotalRowCount().increment();
+				List<String> rowData = getRowData(DataHandler.MPX_DATE_FORMAT, table.getName(), rs, orderedColumns, tracker.getCurrentRowCount().getValue());
 				data.add(rowData);
 				long rowSize = getSize(rowData);
-				currentDataSize += rowSize;
-				totalDataSize += rowSize;
-				boolean intervalLimitExceeded = currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval();
-				if (intervalLimitExceeded) {
-					DumpProgress dataProgress = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+				tracker.getCurrentDataSize().increment(rowSize);
+				tracker.getTotalDataSize().increment(rowSize);
+				if (isIntervalLimitExceeded(tracker, dataContext)) {
+					DumpProgress dataProgress = getDumpProgress(out, orderedColumns, data, dataContext, tableContext, tracker);
 					DataHandler.doData(dataProgress);
-					currentDataSize = 0;
-					currentRowCount = 0;
+					tracker.setCurrentDataSize(new LongCounter());
+					tracker.setCurrentRowCount(new LongCounter());
 					data = new ArrayList<List<String>>();
 				}
 			}
-			DumpProgress finished = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+			DumpProgress finished = getDumpProgress(out, orderedColumns, data, dataContext, tableContext, tracker);
 			DataHandler.finishData(finished);
 			DumpTableResult result = new DumpTableResult();
 			result.setTableContext(tableContext);
-			result.setRows(totalRowCount);
-			result.setSize(totalDataSize);
+			result.setRows(tracker.getTotalRowCount().getValue());
+			result.setSize(tracker.getTotalDataSize().getValue());
+
 			// set the file reference if a file was actually created
-			if (totalRowCount > 0) {
+			if (tracker.getTotalRowCount().getValue() > 0) {
 				result.setFiles(Collections.singletonList(outFile));
 			} else {
 				List<File> empty = Collections.emptyList();
@@ -143,7 +139,19 @@ public class DefaultDumpDataService implements DumpDataService {
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
 
+	/**
+	 * Return true if we have processed 50 rows or 50k of data, whichever comes first.
+	 */
+	protected boolean isIntervalLimitExceeded(TableTracker tracker, DumpDataContext context) {
+		if (tracker.getCurrentRowCount().getValue() > context.getRowCountInterval()) {
+			return true;
+		}
+		if (tracker.getCurrentDataSize().getValue() > context.getDataSizeInterval()) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -201,46 +209,56 @@ public class DefaultDumpDataService implements DumpDataService {
 	 */
 	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column, long rowCount, String tableName) {
 		try {
-			// Clob's and Date's need special handling
-			switch (column.getDataType()) {
-			case CLOB:
-				Clob clob = rs.getClob(index);
-				if (clob == null) {
-					return null;
-				} else {
-					return getClob(clob);
-				}
-			case DATE:
-			case TIMESTAMP:
-				Timestamp date = rs.getTimestamp(index);
-				if (date == null) {
-					return null;
-				} else {
-					// New instance every single time because
-					// 1 - SimpleDateFormat is not threadsafe AND
-					// 2 - FasteDateFormat does not format UTC offset the same way SimpleDateFormat does
-					// That combo of things makes it impossible to use a single pattern to express how dates should be both formatted
-					// and parsed
-					SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-					return sdf.format(date);
-				}
-			default:
-				// Otherwise just invoke toString() on the object
-				Object object = rs.getObject(index);
-				if (object == null) {
-					return null;
-				} else {
-					return object.toString();
-				}
-			}
+			return getColumnValueAsString(dateFormat, rs, index, column);
 		} catch (Exception e) {
 			// Don't let an issue extracting one value from one column in one row stop the process
 			// Log the table/row/column and continue
-			logger.warn("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName);
+			logger.error("Unexpected error reading row " + rowCount + " column " + column.getName() + " from " + tableName, e);
 			e.printStackTrace();
 
 		}
 		return null;
+	}
+
+	/**
+	 * Use JDBC to extract the data held by the database into a <code>java.lang.String</code> suitable for dumping to disk. The String returned by this method must be completely
+	 * disconnected from the ResultSet and database. Once this method returns, invoking a method on the underlying ResultSet or otherwise contacting the database to assist with
+	 * processing the data held in this row/column is forbidden.
+	 */
+	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column) throws SQLException {
+		// Clob's and Date's need special handling
+		switch (column.getDataType()) {
+		case CLOB:
+			Clob clob = rs.getClob(index);
+			if (clob == null) {
+				return null;
+			} else {
+				return getClob(clob);
+			}
+		case DATE:
+		case TIMESTAMP:
+			Timestamp date = rs.getTimestamp(index);
+			if (date == null) {
+				return null;
+			} else {
+				// New instance every single time because
+				// 1 - SimpleDateFormat is not thread safe AND
+				// 2 - FastDateFormat does not format UTC offset the same way SimpleDateFormat does
+				// That combination makes date handling *much* tougher than it needs to be.
+				// There should be a simple, easy, thread safe way to both parse and format dates using a single pattern without requiring
+				// a new instance of an object for every single column in every single row of every single table that holds a date value
+				SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+				return sdf.format(date);
+			}
+		default:
+			// Otherwise just invoke toString() on the object
+			Object object = rs.getObject(index);
+			if (object == null) {
+				return null;
+			} else {
+				return object.toString();
+			}
+		}
 	}
 
 	@Override
@@ -358,18 +376,14 @@ public class DefaultDumpDataService implements DumpDataService {
 		return columns;
 	}
 
-	protected DumpProgress getDumpProgress(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
-			DumpTableContext table, long tds) {
+	protected DumpProgress getDumpProgress(OutputStream out, List<Column> columns, List<List<String>> data, DumpDataContext ddc, DumpTableContext dtc, TableTracker tracker) {
 		DumpProgress progress = new DumpProgress();
 		progress.setOutputStream(out);
 		progress.setColumns(columns);
 		progress.setCurrentData(data);
-		progress.setCurrentDataSize(cds);
-		progress.setContext(context);
-		progress.setCurrentRowCount(crc);
-		progress.setTotalRowCount(trc);
-		progress.setTableContext(table);
-		progress.setTotalDataSize(tds);
+		progress.setContext(ddc);
+		progress.setTableContext(dtc);
+		progress.setTableTracker(tracker);
 		return progress;
 	}
 

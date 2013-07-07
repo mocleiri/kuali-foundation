@@ -23,85 +23,59 @@ import org.kuali.common.impex.model.Column;
 
 public class DumpProgress {
 
-    List<List<String>> currentData;
-    long currentDataSize;
-    long totalDataSize;
-    long currentRowCount;
-    long totalRowCount;
-    OutputStream outputStream;
-    private List<Column> columns;
-    private DumpDataContext context;
-    private DumpTableContext tableContext;
+	List<List<String>> currentData;
+	TableTracker tableTracker;
+	OutputStream outputStream;
+	List<Column> columns;
+	DumpDataContext context;
+	DumpTableContext tableContext;
 
-    public List<List<String>> getCurrentData() {
-        return currentData;
-    }
+	public List<List<String>> getCurrentData() {
+		return currentData;
+	}
 
-    public void setCurrentData(List<List<String>> currentData) {
-        this.currentData = currentData;
-    }
+	public void setCurrentData(List<List<String>> currentData) {
+		this.currentData = currentData;
+	}
 
-    public long getCurrentDataSize() {
-        return currentDataSize;
-    }
+	public TableTracker getTableTracker() {
+		return tableTracker;
+	}
 
-    public void setCurrentDataSize(long currentDataSize) {
-        this.currentDataSize = currentDataSize;
-    }
+	public void setTableTracker(TableTracker tableTracker) {
+		this.tableTracker = tableTracker;
+	}
 
-    public long getCurrentRowCount() {
-        return currentRowCount;
-    }
+	public OutputStream getOutputStream() {
+		return outputStream;
+	}
 
-    public void setCurrentRowCount(long currentRowCount) {
-        this.currentRowCount = currentRowCount;
-    }
+	public void setOutputStream(OutputStream outputStream) {
+		this.outputStream = outputStream;
+	}
 
-    public OutputStream getOutputStream() {
-        return outputStream;
-    }
+	public List<Column> getColumns() {
+		return columns;
+	}
 
-    public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
-    }
+	public void setColumns(List<Column> columns) {
+		this.columns = columns;
+	}
 
-    public long getTotalDataSize() {
-        return totalDataSize;
-    }
+	public DumpDataContext getContext() {
+		return context;
+	}
 
-    public void setTotalDataSize(long totalDataSize) {
-        this.totalDataSize = totalDataSize;
-    }
+	public void setContext(DumpDataContext context) {
+		this.context = context;
+	}
 
-    public long getTotalRowCount() {
-        return totalRowCount;
-    }
+	public DumpTableContext getTableContext() {
+		return tableContext;
+	}
 
-    public void setTotalRowCount(long totalRowCount) {
-        this.totalRowCount = totalRowCount;
-    }
+	public void setTableContext(DumpTableContext tableContext) {
+		this.tableContext = tableContext;
+	}
 
-    public List<Column> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<Column> columns) {
-        this.columns = columns;
-    }
-
-    public DumpDataContext getContext() {
-        return context;
-    }
-
-    public void setContext(DumpDataContext context) {
-        this.context = context;
-    }
-
-    public DumpTableContext getTableContext() {
-        return tableContext;
-    }
-
-    public void setTableContext(DumpTableContext tableContext) {
-        this.tableContext = tableContext;
-    }
 }
