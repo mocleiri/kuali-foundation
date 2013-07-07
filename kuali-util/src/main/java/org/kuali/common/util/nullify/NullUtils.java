@@ -20,6 +20,14 @@ import org.kuali.common.util.property.Constants;
 
 public class NullUtils {
 
+	/**
+	 * Return true if:
+	 * 
+	 * <pre>
+	 *  s == null
+	 *  StringUtils.equalsIgnoreCase("null", s) == true
+	 * </pre>
+	 */
 	public static final boolean isNull(String s) {
 		if (s == null) {
 			return true;
@@ -28,10 +36,27 @@ public class NullUtils {
 		}
 	}
 
+	/**
+	 * Return true if:
+	 * 
+	 * <pre>
+	 * . 
+	 * StringUtils.equalsIgnoreCase("none", s) == true
+	 * </pre>
+	 */
 	public static final boolean isNone(String s) {
 		return StringUtils.equalsIgnoreCase(Constants.NONE, s);
 	}
 
+	/**
+	 * Return true if:
+	 * 
+	 * <pre>
+	 *  s == null
+	 *  StringUtils.equalsIgnoreCase("null", s) == true
+	 *  StringUtils.equalsIgnoreCase("none", s) == true
+	 * </pre>
+	 */
 	public static final boolean isNullOrNone(String s) {
 		return isNull(s) || isNone(s);
 	}
