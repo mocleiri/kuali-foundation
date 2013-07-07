@@ -32,6 +32,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.ProjectUtils;
@@ -98,19 +99,40 @@ public class SpringUtils {
 	}
 
 	/**
-	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
-	 * in wins.
+	 * 
 	 */
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, ProjectContext other) {
 		return getGlobalPropertySource(project, Arrays.asList(other));
 	}
 
 	/**
-	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
-	 * in wins.
+	 * 
 	 */
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others) {
 		return getGlobalPropertySource(project, others, null);
+	}
+
+	/**
+	 * 
+	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode) {
+		return getGlobalPropertySource(project, missingLocationsMode, Collections.<ProjectContext> emptyList());
+	}
+
+	/**
+	 * 
+	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode, ProjectContext... others) {
+		return getGlobalPropertySource(project, missingLocationsMode, Arrays.asList(others));
+	}
+
+	/**
+	 * 
+	 */
+	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode, List<ProjectContext> others) {
+		ProjectProperties pp = ConfigUtils.getProjectProperties(project);
+		pp.getPropertiesContext().setMissingLocationsMode(missingLocationsMode);
+		return getGlobalPropertySource(pp, others, null);
 	}
 
 	public static PropertySource<?> getGlobalPropertySource(ProjectProperties projectProperties, List<ProjectContext> others, Properties properties) {
@@ -448,6 +470,15 @@ public class SpringUtils {
 		SpringExecutable executable = new SpringExecutable();
 		executable.setContext(context);
 		return executable;
+	}
+
+	/**
+	 * Return a SpringExecutable for the PropertySource and annotatedClass passed in
+	 */
+	public static SpringExecutable getSpringExecutable(PropertySource<?> source, Class<?> annotatedClass) {
+		SpringContext context = getSinglePropertySourceContext(source);
+		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+		return new SpringExecutable(context);
 	}
 
 	/**
