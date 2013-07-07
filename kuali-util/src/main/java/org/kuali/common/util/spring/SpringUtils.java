@@ -37,7 +37,6 @@ import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
@@ -516,10 +515,11 @@ public class SpringUtils {
 	 *  org.kuali.common:kuali-jdbc -> classpath:org/kuali/common/kuali-jdbc-properties-context.xml
 	 * </pre>
 	 */
+	@Deprecated
 	public static String getDefaultPropertyContextLocation(String gav) {
 		Assert.hasText(gav, "gav has no text");
 		Project p = ProjectUtils.getProject(gav);
-		return "classpath:" + Str.getPath(p.getGroupId()) + "/" + p.getArtifactId() + "-properties-context.xml";
+		return ProjectUtils.getClassPathPrefix(p) + "/properties-context.xml";
 	}
 
 	/**

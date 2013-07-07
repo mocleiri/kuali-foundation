@@ -24,7 +24,7 @@ import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SqlMavenPropertySourceConfig extends MavenPropertySourceConfig {
+public class MetaInfSqlMavenPropertySourceConfig extends MavenPropertySourceConfig {
 
 	@Override
 	protected List<ProjectProperties> getOtherProjectProperties() {
