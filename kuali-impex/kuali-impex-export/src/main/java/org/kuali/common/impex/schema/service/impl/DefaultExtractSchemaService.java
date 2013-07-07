@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Schema;
@@ -40,6 +41,8 @@ import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -190,6 +193,8 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		long start = System.currentTimeMillis();
 		String includes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getIncludes());
 		String excludes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getExcludes());
+		includes = StringUtils.isBlank(includes) || NullUtils.isNullOrNone(includes) ? Constants.NONE : includes;
+		excludes = StringUtils.isBlank(excludes) || NullUtils.isNullOrNone(excludes) ? Constants.NONE : excludes;
 		log.info("[schema:extract:tablenames] - include: {}  exclude: {}", includes, excludes);
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
 		int originalSize = tableNames.size();
