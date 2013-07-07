@@ -968,6 +968,17 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * If location exists, return a new <code>Properties</code> object loaded from <code>location</code>, otherwise return a new <code>Properties</code> object
+	 */
+	public static final Properties loadQuietly(String location) {
+		if (LocationUtils.exists(location)) {
+			return load(location);
+		} else {
+			return new Properties();
+		}
+	}
+
+	/**
 	 * Return a new <code>Properties</code> object loaded from <code>locations</code> using <code>encoding</code>.
 	 */
 	public static final Properties load(List<String> locations, String encoding) {
