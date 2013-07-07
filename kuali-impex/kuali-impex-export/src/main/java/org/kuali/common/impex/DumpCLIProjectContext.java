@@ -1,5 +1,7 @@
 package org.kuali.common.impex;
 
+import java.util.Arrays;
+
 import org.kuali.common.util.DefaultProjectContext;
 
 public class DumpCLIProjectContext extends DefaultProjectContext {
@@ -8,7 +10,6 @@ public class DumpCLIProjectContext extends DefaultProjectContext {
 	private static final String LOCATION = "${user.home}/.impex/dump.properties";
 
 	public DumpCLIProjectContext() {
-		super(ARTIFACT_ID, LOCATION);
+		super(ARTIFACT_ID, Arrays.asList(LOCATION));
 	}
-
 }
