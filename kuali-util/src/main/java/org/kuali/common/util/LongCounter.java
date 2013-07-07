@@ -34,13 +34,13 @@ public class LongCounter {
 
 	public synchronized long increment(long amount) {
 		Assert.isTrue(amount > 0, "amount must be > 0");
-		Assert.isTrue(count <= Integer.MAX_VALUE - amount, "max value exceeded");
+		Assert.isTrue(count <= Long.MAX_VALUE - amount, "max value exceeded");
 		return count += amount;
 	}
 
 	public synchronized long decrement(long amount) {
 		Assert.isTrue(amount > 0, "amount must be > 0");
-		Assert.isTrue(count >= Integer.MIN_VALUE + amount, "min value exceeded");
+		Assert.isTrue(count >= Long.MIN_VALUE + amount, "min value exceeded");
 		return count -= amount;
 	}
 
