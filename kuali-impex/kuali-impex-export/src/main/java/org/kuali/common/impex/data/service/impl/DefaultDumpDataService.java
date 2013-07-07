@@ -51,7 +51,6 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.PropertyUtils;
 import org.slf4j.Logger;
@@ -244,12 +243,9 @@ public class DefaultDumpDataService implements DumpDataService {
 
 		Collection<Table> includedTables = DumpUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
 
-		logger.info("includedTables.size=" + includedTables.size());
+		logger.debug("includedTables.size=" + includedTables.size());
 
-		Properties tableStatistics = null;
-		if (LocationUtils.exists(context.getTableStatisticsLocation())) {
-			tableStatistics = PropertyUtils.load(context.getTableStatisticsLocation());
-		}
+		Properties tableStatistics = PropertyUtils.loadQuietly(context.getTableStatisticsLocation());
 
 		// create table contexts
 		for (Table t : includedTables) {
