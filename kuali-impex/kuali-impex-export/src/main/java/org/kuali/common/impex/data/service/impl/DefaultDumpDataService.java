@@ -89,10 +89,16 @@ public class DefaultDumpDataService implements DumpDataService {
 			File outFile = DataHandler.getFileForTable(context, table.getName());
 			out = new BufferedOutputStream(FileUtils.openOutputStream(outFile));
 
+			// Tracks total amount of data in the table
 			long totalDataSize = 0;
+			// Tracks total number of rows in the table
 			long totalRowCount = 0;
+			// Tracks number of rows since we last emptied our memory cache to disk
 			long currentRowCount = 0;
+			// Tracks total amount of data we've accumulated since we last emptied our memory cache to disk
 			long currentDataSize = 0;
+
+			// Convert metadata into Column objects
 			List<Column> orderedColumns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
 
 			List<List<String>> data = new ArrayList<List<String>>();
@@ -106,7 +112,8 @@ public class DefaultDumpDataService implements DumpDataService {
 				long rowSize = getSize(rowData);
 				currentDataSize += rowSize;
 				totalDataSize += rowSize;
-				if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
+				boolean intervalLimitExceeded = currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval();
+				if (intervalLimitExceeded) {
 					DumpProgress dataProgress = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
 					DataHandler.doData(dataProgress);
 					currentDataSize = 0;
@@ -339,17 +346,16 @@ public class DefaultDumpDataService implements DumpDataService {
 	}
 
 	/**
-	 * Generate an ordered list of Column objects from the result set metadata
+	 * Convert the JDBC metadata into a list of <code>Column</code> objects ordered in exactly the same way as the metadata
 	 */
 	protected List<Column> getOrderedColumnsFromMetadata(ResultSetMetaData md, Table t) throws SQLException {
-		List<Column> results = new ArrayList<Column>(md.getColumnCount());
+		List<Column> columns = new ArrayList<Column>();
 		Map<String, Column> columnsByName = ModelUtils.getColumnNameMap(t);
 		for (int i = 1; i <= md.getColumnCount(); i++) {
 			String colName = md.getColumnName(i);
-			results.add(columnsByName.get(colName));
+			columns.add(columnsByName.get(colName));
 		}
-
-		return results;
+		return columns;
 	}
 
 	protected DumpProgress getDumpProgress(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
