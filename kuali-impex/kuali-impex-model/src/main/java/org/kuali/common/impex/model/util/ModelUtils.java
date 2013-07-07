@@ -60,13 +60,11 @@ public class ModelUtils {
 	}
 
 	public static Map<String, Column> getColumnNameMap(Table t) {
-		Map<String, Column> result = new HashMap<String, Column>();
-
+		Map<String, Column> columns = new HashMap<String, Column>();
 		for (Column c : t.getColumns()) {
-			result.put(c.getName(), c);
+			columns.put(c.getName(), c);
 		}
-
-		return result;
+		return columns;
 	}
 
 	public static String getCsvColumnNames(List<Column> columns) {
@@ -74,7 +72,6 @@ public class ModelUtils {
 		for (Column col : CollectionUtils.toEmptyList(columns)) {
 			names.add(col.getName());
 		}
-
 		return CollectionUtils.getCSV(names);
 	}
 
