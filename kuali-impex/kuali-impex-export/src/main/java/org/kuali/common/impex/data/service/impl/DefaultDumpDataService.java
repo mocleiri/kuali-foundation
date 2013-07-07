@@ -102,7 +102,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			// Setup some storage for the data coming out of the table
 			List<List<String>> tableData = new ArrayList<List<String>>();
 
-			// Flag that indicates whether or not we found at least one row of data in the table
+			// Flag to indicate we've started processing data from this table (ie it has at least one row)
 			boolean started = false;
 
 			// Iterate through the rows of the table
@@ -137,7 +137,7 @@ public class DefaultDumpDataService implements DumpDataService {
 				tracker.getTotalDataSize().increment(rowSize);
 
 				// We've exceeded either 50 rows or 50k in data while processing this table
-				// Time to dump the data to disk
+				// Time to dump memory objects representing whatever data we have to disk
 				if (isIntervalLimitExceeded(tracker, dataContext)) {
 
 					// Dump the data we have in memory out to disk
