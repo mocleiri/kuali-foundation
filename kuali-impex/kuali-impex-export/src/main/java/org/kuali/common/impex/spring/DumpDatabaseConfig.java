@@ -43,7 +43,7 @@ public class DumpDatabaseConfig {
 	DumpDataConfig dumpDataConfig;
 
 	@Bean
-	public Executable exportDatabaseExecutable() {
+	public Executable dumpDatabaseExecutable() {
 		DumpDatabaseExecutable executable = new DumpDatabaseExecutable();
 
 		// Show the JDBC configuration
