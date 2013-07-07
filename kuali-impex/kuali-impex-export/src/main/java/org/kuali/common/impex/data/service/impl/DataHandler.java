@@ -21,33 +21,33 @@ public class DataHandler {
 
 	protected static final String FS = File.separator;
 	protected static final String LF = "\n";
-    protected static final String DOUBLE_QUOTE = "\"";
-    protected static final String COMMA = ",";
+	protected static final String DOUBLE_QUOTE = "\"";
+	protected static final String COMMA = ",";
 
-    public static final String MPX_EXTENSION = ".mpx";
+	public static final String MPX_EXTENSION = ".mpx";
 
-    public static final String CARRIAGE_RETURN = "\r";
+	public static final String CARRIAGE_RETURN = "\r";
 
-    public static final String MPX_NULL = "${mpx.null}";
-    public static final String MPX_CARRIAGE_RETURN = "${mpx.cr}";
-    public static final String MPX_LINEFEED = "${mpx.lf}";
-    public static final String MPX_QUOTE = "${mpx.quote}";
+	public static final String MPX_NULL = "${mpx.null}";
+	public static final String MPX_CARRIAGE_RETURN = "${mpx.cr}";
+	public static final String MPX_LINEFEED = "${mpx.lf}";
+	public static final String MPX_QUOTE = "${mpx.quote}";
 
-    public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+	public static final String MPX_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
-    public static File getFileForTable(DumpDataContext context, String tableName) {
+	public static File getFileForTable(DumpDataContext context, String tableName) {
 		String filename = getFilename(context.getWorkingDir(), tableName);
 		return new File(filename);
 	}
 
 	protected static String getFilename(File workingDir, String tableName) {
-        // to keep file names consistent, capitalize the name of the table before requesting a file name
-        tableName = tableName.toUpperCase();
-        return workingDir.getAbsolutePath() + FS + tableName + MPX_EXTENSION;
-    }
+		// to keep file names consistent, capitalize the name of the table before requesting a file name
+		tableName = tableName.toUpperCase();
+		return workingDir.getAbsolutePath() + FS + tableName + MPX_EXTENSION;
+	}
 
 	public static void startData(DumpProgress progress) throws IOException {
-        List<Column> columns = progress.getColumns();
+		List<Column> columns = progress.getColumns();
 		String encoding = progress.getContext().getEncoding();
 
 		String header = ModelUtils.getCsvColumnNames(columns) + LF;
@@ -74,12 +74,11 @@ public class DataHandler {
 	 */
 	protected static String getLine(List<String> row) {
 		StringBuilder sb = new StringBuilder();
-        boolean first = true;
+		boolean first = true;
 		for (String s : row) {
-            if(first) {
-                first = false;
-            }
-			else {
+			if (first) {
+				first = false;
+			} else {
 				sb.append(COMMA);
 			}
 			sb.append(DOUBLE_QUOTE).append(s).append(DOUBLE_QUOTE);
@@ -110,20 +109,20 @@ public class DataHandler {
 
 	protected static void formatMpx(List<List<String>> rows) {
 		for (List<String> row : rows) {
-            for(int i = 0; i < row.size(); i++) {
-                row.set(i, formatMpx(row.get(i)));
-            }
+			for (int i = 0; i < row.size(); i++) {
+				row.set(i, formatMpx(row.get(i)));
+			}
 		}
 	}
 
-    public static String formatMpx(String s) {
-        if (s == null) {
-            return MPX_NULL;
-        }
-        String converted = StringUtils.replace(s, CARRIAGE_RETURN, MPX_CARRIAGE_RETURN);
-        converted = StringUtils.replace(converted, LF, MPX_LINEFEED);
-        converted = StringUtils.replace(converted, DOUBLE_QUOTE, MPX_QUOTE);
-        return converted;
-    }
+	public static String formatMpx(String s) {
+		if (s == null) {
+			return MPX_NULL;
+		}
+		String converted = StringUtils.replace(s, CARRIAGE_RETURN, MPX_CARRIAGE_RETURN);
+		converted = StringUtils.replace(converted, LF, MPX_LINEFEED);
+		converted = StringUtils.replace(converted, DOUBLE_QUOTE, MPX_QUOTE);
+		return converted;
+	}
 
 }
