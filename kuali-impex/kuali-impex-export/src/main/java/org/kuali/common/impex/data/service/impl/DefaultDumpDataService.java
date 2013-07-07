@@ -97,7 +97,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			List<Column> orderedColumns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
 
 			List<List<String>> data = new ArrayList<List<String>>();
-			DumpProgress startProgress = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+			DumpProgress startProgress = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
 			DataHandler.startData(startProgress);
 			while (rs.next()) {
 				currentRowCount++;
@@ -108,15 +108,14 @@ public class DefaultDumpDataService implements DumpDataService {
 				currentDataSize += rowSize;
 				totalDataSize += rowSize;
 				if (currentRowCount > context.getRowCountInterval() || currentDataSize > context.getDataSizeInterval()) {
-					DumpProgress dataProgress = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext,
-							totalDataSize);
+					DumpProgress dataProgress = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
 					DataHandler.doData(dataProgress);
 					currentDataSize = 0;
 					currentRowCount = 0;
 					data = new ArrayList<List<String>>();
 				}
 			}
-			DumpProgress finished = getDumpTableContext(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
+			DumpProgress finished = getDumpProgress(out, orderedColumns, data, currentDataSize, context, currentRowCount, totalRowCount, tableContext, totalDataSize);
 			DataHandler.finishData(finished);
 			DumpTableResult result = new DumpTableResult();
 			result.setTableContext(tableContext);
@@ -292,8 +291,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		return results;
 	}
 
-	protected List<DumpTableBucket> getTableBuckets(List<DumpTableContext> tables, DumpDataContext context, List<DumpTableResult> results,
-			PercentCompleteInformer progressTracker) {
+	protected List<DumpTableBucket> getTableBuckets(List<DumpTableContext> tables, DumpDataContext context, List<DumpTableResult> results, PercentCompleteInformer progressTracker) {
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getDataThreads(), tables.size());
 		// Sort the sources by size
@@ -358,7 +356,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		return results;
 	}
 
-	protected DumpProgress getDumpTableContext(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
+	protected DumpProgress getDumpProgress(OutputStream out, List<Column> columns, List<List<String>> data, long cds, DumpDataContext context, long crc, long trc,
 			DumpTableContext table, long tds) {
 		DumpProgress progress = new DumpProgress();
 		progress.setOutputStream(out);
