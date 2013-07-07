@@ -512,7 +512,7 @@ public class SpringUtils {
 	 * Converts a GAV into Spring's classpath style notation for the default project properties context.
 	 * 
 	 * <pre>
-	 *  org.kuali.common:kuali-jdbc -> classpath:org/kuali/common/kuali-jdbc-properties-context.xml
+	 *  org.kuali.common:kuali-jdbc -> classpath:org/kuali/common/kuali-jdbc/properties-context.xml
 	 * </pre>
 	 */
 	@Deprecated
