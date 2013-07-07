@@ -45,10 +45,32 @@ public class ProjectUtils {
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
 	/**
-	 * Given <code>kuali-jdbc</code>, return <code>classpath:org/kuali/common/kuali-jdbc</code>
+	 * Given <code>kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
 	 */
 	public static String getCommonClassPathPrefix(String artifactId) {
-		return "classpath:" + Str.getPath(ProjectConstants.COMMON_GROUP_ID) + "/" + artifactId;
+		return getClassPathPrefix(ProjectConstants.COMMON_GROUP_ID, artifactId);
+	}
+
+	/**
+	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 */
+	public static String getClassPathPrefix(String groupId, String artifactId) {
+		return "classpath:" + Str.getPath(groupId) + "/" + artifactId;
+	}
+
+	/**
+	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 */
+	public static String getClassPathPrefixFromGAV(String gav) {
+		Project project = getProject(gav);
+		return getClassPathPrefix(project);
+	}
+
+	/**
+	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 */
+	public static String getClassPathPrefix(Project project) {
+		return getClassPathPrefix(project.getGroupId(), project.getArtifactId());
 	}
 
 	/**
