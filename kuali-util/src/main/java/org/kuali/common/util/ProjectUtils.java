@@ -39,10 +39,17 @@ public class ProjectUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
-	public static final String KUALI_COMMON_GROUP_ID = "org.kuali.common";
-	public static final String KUALI_UTIL_ARTIFACT_ID = "kuali-util";
+	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
+	public static final String KUALI_UTIL_ARTIFACT_ID = ProjectConstants.UTIL_ARTIFACT_ID;
 
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
+
+	/**
+	 * Given <code>kuali-jdbc</code>, return <code>classpath:org/kuali/common/kuali-jdbc</code>
+	 */
+	public static String getCommonClassPathPrefix(String artifactId) {
+		return "classpath:" + Str.getPath(ProjectConstants.COMMON_GROUP_ID) + "/" + artifactId;
+	}
 
 	/**
 	 * 
