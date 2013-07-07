@@ -25,9 +25,20 @@ public class SpringExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringExecutable.class);
 
-	SpringService service = new DefaultSpringService();
+	public static final SpringService DEFAULT_SPRING_SERVICE = new DefaultSpringService();
+
+	SpringService service = DEFAULT_SPRING_SERVICE;
 	SpringContext context;
 	boolean skip;
+
+	public SpringExecutable() {
+		this(null);
+	}
+
+	public SpringExecutable(SpringContext context) {
+		super();
+		this.context = context;
+	}
 
 	@Override
 	public void execute() {

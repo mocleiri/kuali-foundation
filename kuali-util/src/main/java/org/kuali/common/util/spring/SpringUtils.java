@@ -113,23 +113,22 @@ public class SpringUtils {
 		return getGlobalPropertySource(project, others, null);
 	}
 
+	public static PropertySource<?> getGlobalPropertySource(ProjectProperties projectProperties, List<ProjectContext> others, Properties properties) {
+		ConfigUtils.combine(projectProperties, properties);
+		List<ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
+		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
+		return getGlobalPropertySource(projectProperties, otherProjectProperties);
+	}
+
 	/**
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
 	 */
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others, Properties properties) {
 
-		ProjectProperties projectProperties = ProjectUtils.loadProjectProperties(project);
+		ProjectProperties projectProperties = ConfigUtils.getProjectProperties(project, properties);
 
-		Properties existing = projectProperties.getPropertiesContext().getProperties();
-		Properties combined = PropertyUtils.combine(existing, properties);
-		projectProperties.getPropertiesContext().setProperties(combined);
-
-		List<ProjectProperties> otherProjectProperties = new ArrayList<ProjectProperties>();
-		for (ProjectContext other : CollectionUtils.toEmptyList(others)) {
-			ProjectProperties opp = ProjectUtils.loadProjectProperties(other);
-			otherProjectProperties.add(opp);
-		}
+		List<ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
 
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return getGlobalPropertySource(projectProperties, otherProjectProperties);
@@ -485,7 +484,7 @@ public class SpringUtils {
 	}
 
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext context, String... locations) {
-		ProjectProperties pp = ProjectUtils.loadProjectProperties(context);
+		ProjectProperties pp = ProjectUtils.getProjectProperties(context);
 		PropertiesContext pc = pp.getPropertiesContext();
 		List<String> existingLocations = CollectionUtils.toEmptyList(pc.getLocations());
 		if (locations != null) {

@@ -76,7 +76,7 @@ public class ProjectUtils {
 	/**
 	 * 
 	 */
-	public static ProjectProperties loadProjectProperties(ProjectContext context) {
+	public static ProjectProperties getProjectProperties(ProjectContext context) {
 
 		// Get a project object based on the context information
 		Project project = loadProject(context);

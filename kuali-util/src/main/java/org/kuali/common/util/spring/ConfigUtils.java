@@ -18,14 +18,28 @@ package org.kuali.common.util.spring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 
 public class ConfigUtils {
+
+	public static ProjectProperties getProjectProperties(ProjectContext project, Properties properties) {
+		ProjectProperties projectProperties = ProjectUtils.getProjectProperties(project);
+		combine(projectProperties, properties);
+		return projectProperties;
+	}
+
+	public static void combine(ProjectProperties projectProperties, Properties properties) {
+		Properties existing = projectProperties.getPropertiesContext().getProperties();
+		Properties combined = PropertyUtils.combine(existing, properties);
+		projectProperties.getPropertiesContext().setProperties(combined);
+	}
 
 	public static List<ProjectProperties> getProjectProperties(List<ProjectContext> contexts) {
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
