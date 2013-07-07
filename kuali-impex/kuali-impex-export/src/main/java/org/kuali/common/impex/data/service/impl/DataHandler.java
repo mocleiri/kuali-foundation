@@ -12,6 +12,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.Str;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,14 +75,12 @@ public class DataHandler {
 	 */
 	protected static String getLine(List<String> row) {
 		StringBuilder sb = new StringBuilder();
-		boolean first = true;
-		for (String s : row) {
-			if (first) {
-				first = false;
-			} else {
+		for (int column = 0; column < row.size(); column++) {
+			if (column != 0) {
 				sb.append(COMMA);
 			}
-			sb.append(DOUBLE_QUOTE).append(s).append(DOUBLE_QUOTE);
+			String columnValue = row.get(column);
+			sb.append(Str.quote(columnValue));
 		}
 		sb.append(LF);
 		return sb.toString();
