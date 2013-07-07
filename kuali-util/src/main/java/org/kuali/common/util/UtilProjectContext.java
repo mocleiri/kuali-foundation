@@ -18,7 +18,7 @@ package org.kuali.common.util;
 public class UtilProjectContext extends DefaultProjectContext {
 
 	public UtilProjectContext() {
-		super("kuali-util");
+		super(ProjectConstants.UTIL_ARTIFACT_ID);
 	}
 
 }
