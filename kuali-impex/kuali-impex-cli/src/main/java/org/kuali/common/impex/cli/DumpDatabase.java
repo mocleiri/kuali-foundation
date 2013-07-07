@@ -15,45 +15,44 @@
 
 package org.kuali.common.impex.cli;
 
+import java.util.List;
+
+import org.kuali.common.impex.DumpCLIProjectContext;
 import org.kuali.common.impex.DumpProjectContext;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
+import org.kuali.common.util.property.ProjectProperties;
+import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.spring.ConfigUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.core.env.PropertySource;
 
 public class DumpDatabase {
 
 	public static void main(String[] args) {
 
-		String propertiesLocation = getPropertiesLocation(args);
-
-		if (propertiesLocation == null) {
-			printHelpAndExit();
-		}
-
 		try {
 			ProjectContext jdbc = new JdbcProjectContext();
 			ProjectContext dump = new DumpProjectContext();
-			SpringExecutable executable = SpringUtils.getSpringExecutable(jdbc, propertiesLocation, DumpDatabaseExecutableConfig.class);
+			List<ProjectProperties> others = ConfigUtils.getProjectProperties(jdbc, dump);
+
+			ProjectProperties pp = ConfigUtils.getProjectProperties(new DumpCLIProjectContext());
+			pp.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
+
+			PropertySource<?> ps = SpringUtils.getGlobalPropertySource(pp, others);
+			SpringContext sc = SpringUtils.getSinglePropertySourceContext(ps);
+			sc.setAnnotatedClasses(CollectionUtils.asList(DumpDatabaseExecutableConfig.class));
+
+			SpringExecutable executable = new SpringExecutable(sc);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	}
-
-	protected static String getPropertiesLocation(String[] args) {
-		if (args == null || args.length < 1) {
-			return null;
-		} else {
-			return args[0];
-		}
-	}
-
-	private static void printHelpAndExit() {
-		System.out.println("Expects exactly one argument, a property file location.");
-		System.exit(1);
 	}
 
 }
