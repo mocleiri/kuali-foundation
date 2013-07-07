@@ -15,31 +15,28 @@
 
 package org.kuali.common.impex.cli;
 
-import org.kuali.common.impex.DumpCLIProjectContext;
 import org.kuali.common.impex.DumpProjectContext;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.util.Mode;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
-import org.springframework.core.env.PropertySource;
 
 public class DumpDatabase {
 
 	public static void main(String[] args) {
 
 		try {
-			System.setProperty("db.vendor", "oracle");
-			System.setProperty("jdbc.username", "KS_SOURCE_DB_SANDBOX");
+			String props = getPropertiesLocation(args);
+
+			if (props == null) {
+				printHelpAndExit();
+			}
 
 			ProjectContext jdbc = new JdbcProjectContext();
 			ProjectContext dump = new DumpProjectContext();
-			ProjectContext cli = new DumpCLIProjectContext();
 
-			PropertySource<?> source = SpringUtils.getGlobalPropertySource(cli, Mode.INFORM, jdbc, dump);
-
-			SpringExecutable executable = SpringUtils.getSpringExecutable(source, DumpDatabaseExecutableConfig.class);
+			SpringExecutable executable = SpringUtils.getSpringExecutable(DumpDatabaseExecutableConfig.class, props, jdbc, dump);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,4 +44,16 @@ public class DumpDatabase {
 
 	}
 
+	private static void printHelpAndExit() {
+		System.out.println("Expects exactly one argument, a properties file location.");
+		System.exit(1);
+	}
+
+	protected static String getPropertiesLocation(String[] args) {
+		if (args == null || args.length < 1) {
+			return null;
+		} else {
+			return args[0];
+		}
+	}
 }
