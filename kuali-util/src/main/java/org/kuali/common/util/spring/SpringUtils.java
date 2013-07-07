@@ -239,6 +239,24 @@ public class SpringUtils {
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
+	public static List<String> getNoneSensitiveListFromCSV(Environment env, String key) {
+		String csv = SpringUtils.getProperty(env, key);
+		if (NullUtils.isNullOrNone(csv)) {
+			return Collections.<String> emptyList();
+		} else {
+			return CollectionUtils.getTrimmedListFromCSV(csv);
+		}
+	}
+
+	public static List<String> getNoneSensitiveListFromCSV(Environment env, String key, String defaultValue) {
+		String csv = SpringUtils.getProperty(env, key, defaultValue);
+		if (NullUtils.isNullOrNone(csv)) {
+			return Collections.<String> emptyList();
+		} else {
+			return CollectionUtils.getTrimmedListFromCSV(csv);
+		}
+	}
+
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		return getPropertySources(annotatedClass, propertiesBeanName, properties);
