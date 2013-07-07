@@ -18,7 +18,6 @@ package org.kuali.common.util;
 public abstract class ProjectConstants {
 
 	public static final String COMMON_GROUP_ID = "org.kuali.common";
-	public static final String COMMON_GROUP_ID_PATH = Str.getPath(COMMON_GROUP_ID);
 	public static final String JDBC_ARIFACT_ID = "kuali-jdbc";
 	public static final String SQL_ARTIFACT_ID = "kuali-sql";
 	public static final String UTIL_ARTIFACT_ID = "kuali-util";
