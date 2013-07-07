@@ -17,9 +17,7 @@ public class DumpTableBucket implements Comparable<DumpTableBucket> {
 
 	@Override
 	public int compareTo(DumpTableBucket other) {
-		Long one = rowCount;
-		Long two = other.getRowCount();
-		return one.compareTo(two);
+		return Double.compare(rowCount, other.getRowCount());
 	}
 
 	public List<DumpTableContext> getTables() {
@@ -30,31 +28,31 @@ public class DumpTableBucket implements Comparable<DumpTableBucket> {
 		this.tables = tables;
 	}
 
-    public DumpDataContext getContext() {
-        return context;
-    }
+	public DumpDataContext getContext() {
+		return context;
+	}
 
-    public void setContext(DumpDataContext context) {
-        this.context = context;
-    }
+	public void setContext(DumpDataContext context) {
+		this.context = context;
+	}
 
-    public DumpDataService getService() {
-        return service;
-    }
+	public DumpDataService getService() {
+		return service;
+	}
 
-    public void setService(DumpDataService service) {
-        this.service = service;
-    }
+	public void setService(DumpDataService service) {
+		this.service = service;
+	}
 
-    public List<DumpTableResult> getResults() {
-        return results;
-    }
+	public List<DumpTableResult> getResults() {
+		return results;
+	}
 
-    public void setResults(List<DumpTableResult> results) {
-        this.results = results;
-    }
+	public void setResults(List<DumpTableResult> results) {
+		this.results = results;
+	}
 
-    public long getRowCount() {
+	public long getRowCount() {
 		return rowCount;
 	}
 
