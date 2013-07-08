@@ -16,6 +16,7 @@
 package org.kuali.common.impex.model.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,10 +31,38 @@ import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LogTableContext;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.StringFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 public class ModelUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(ModelUtils.class);
+
+	public static void log(Schema schema) {
+		Assert.notNull(schema, "schema is null");
+		List<String> columns = Arrays.asList("element", "name");
+		List<Object[]> rows = new ArrayList<Object[]>();
+		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
+			rows.add(new Object[] { "table", table.getName() });
+		}
+		for (Sequence sequence : CollectionUtils.toEmptyList(schema.getSequences())) {
+			rows.add(new Object[] { "sequence", sequence.getName() });
+		}
+		for (View view : CollectionUtils.toEmptyList(schema.getViews())) {
+			rows.add(new Object[] { "view", view.getName() });
+		}
+		for (ForeignKey foreignKey : CollectionUtils.toEmptyList(schema.getForeignKeys())) {
+			rows.add(new Object[] { "foreign key", foreignKey.getName() });
+		}
+		if (!CollectionUtils.isEmpty(rows)) {
+			LogTableContext context = new LogTableContext(columns, rows, logger);
+			LoggerUtils.logTable(context);
+		}
+	}
 
 	public static void fillInSchema(Schema schema) {
 		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
