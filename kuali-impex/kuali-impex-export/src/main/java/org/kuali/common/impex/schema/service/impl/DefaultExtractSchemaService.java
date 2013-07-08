@@ -39,8 +39,8 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PercentCompleteInformer;
-import org.kuali.common.util.StringFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -187,23 +187,16 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 
 	}
 
-	protected Object[] getLogMsgArgs(StringFilter filter) {
-		String includes = CollectionUtils.getSpaceSeparatedString(filter.getIncludes());
-		String excludes = CollectionUtils.getSpaceSeparatedString(filter.getExcludes());
-		Object[] args = { includes, excludes };
-		return args;
-	}
-
 	protected List<String> getTableNames(ExtractSchemaContext context) throws SQLException {
 		long start = System.currentTimeMillis();
-		logger.info("[schema:extract:tablenames] - [include: {}  exclude: {}]", getLogMsgArgs(context.getNameFilter()));
+		logger.info("[schema:extract:tablenames] - [include: {}  exclude: {}]", LoggerUtils.getLogMsgArgs(context.getNameFilter()));
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
 		List<String> excluded = CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
 		String original = FormatUtils.getCount(tableNames.size() + excluded.size());
 		String filtered = FormatUtils.getCount(tableNames.size());
 		String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 		if (!CollectionUtils.isEmpty(excluded)) {
-			logger.info("  excluded -> [{}]", CollectionUtils.getSpaceSeparatedString(excluded));
+			logger.info("  excluded -> [{}]", CollectionUtils.getSpaceSeparatedCSV(excluded));
 		}
 		Object[] args = { original, filtered, time };
 		logger.info("[schema:extract:tablenames] - [all: {}  filtered: {}] - {}", args);
