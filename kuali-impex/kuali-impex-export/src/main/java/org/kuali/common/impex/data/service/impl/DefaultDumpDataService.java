@@ -348,12 +348,23 @@ public class DefaultDumpDataService implements DumpDataService {
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
 
+		String tables = FormatUtils.getCount(getDumpedTableCount(results));
 		String rows = FormatUtils.getCount(getDumpResultRows(results));
 		String size = FormatUtils.getSize(getDumpResultSize(results));
 		String time = FormatUtils.getTime(stats.getExecutionTime());
-		Object[] args = { rows, size, time };
-		logger.info("[data:dump:complete] - [rows: {} size: {}] - {}", args);
+		Object[] args = { tables, rows, size, time };
+		logger.info("[data:dump:complete] - [tables: {} rows: {} size: {}] - {}", args);
 		return results;
+	}
+
+	protected long getDumpedTableCount(List<DumpTableResult> results) {
+		long count = 0;
+		for (DumpTableResult result : results) {
+			if (result.getRows() > 0) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	protected long getDumpResultRows(List<DumpTableResult> results) {
