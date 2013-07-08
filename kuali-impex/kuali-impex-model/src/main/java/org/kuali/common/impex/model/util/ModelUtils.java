@@ -32,6 +32,14 @@ import org.springframework.util.Assert;
 
 public class ModelUtils {
 
+	public static void fillInSchema(Schema schema) {
+		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
+			for (Column column : CollectionUtils.toEmptyList(table.getColumns())) {
+				column.setTable(table);
+			}
+		}
+	}
+
 	public static void filter(Schema schema, StringFilter nameFilter) {
 		ModelUtils.filterAndSortElements(schema.getTables(), nameFilter);
 		ModelUtils.filterAndSortElements(schema.getViews(), nameFilter);
