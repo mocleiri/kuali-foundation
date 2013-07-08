@@ -5,20 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.util.DumpConstants;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class CreateFilteredSchemaExecutable implements Executable {
-
-	private static final Logger logger = LoggerFactory.getLogger(CreateFilteredSchemaExecutable.class);
+public class CopySchemaFileExecutable implements Executable {
 
 	DumpSchemaService service = DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE;
 	List<String> includes = Arrays.asList(DumpConstants.DEFAULT_INCLUDE);
@@ -35,19 +27,22 @@ public class CreateFilteredSchemaExecutable implements Executable {
 		Assert.notNull(schemaOutputFile, "outputSchemaFile is null");
 		Assert.isTrue(LocationUtils.exists(schemaInputFile), "inputSchemaFile does not exist");
 
-		// Load an existing schema, filter it, persist it back to the file system as XML
+		// Materialize a Schema object from the XML file
 		Schema schema = service.getSchema(schemaInputFile);
-		StringFilter filter = StringFilter.getInstance(includes, excludes);
-		ModelUtils.filter(schema, filter);
 
-		String path = LocationUtils.getCanonicalPath(schemaOutputFile);
-		if (FileSystemUtils.isParent(relativeDir, schemaOutputFile)) {
-			path = FileSystemUtils.getRelativePath(relativeDir, schemaOutputFile);
-		}
-		Object[] args = { path, CollectionUtils.getSpaceSeparatedString(includes), CollectionUtils.getSpaceSeparatedString(excludes) };
-		logger.info("Creating - [{}] - [includes: {} excludes: {}]", args);
+		// Setup an executable that can filter and dump it back to disk correctly
+		Executable exec = getDumpSchemaExecutable(this, schema);
+		exec.execute();
+	}
 
-		service.dumpSchema(schema, schemaOutputFile);
+	protected Executable getDumpSchemaExecutable(CopySchemaFileExecutable csfe, Schema schema) {
+		DumpSchemaExecutable dse = new DumpSchemaExecutable();
+		dse.setSchema(schema);
+		dse.setIncludes(csfe.getIncludes());
+		dse.setExcludes(csfe.getExcludes());
+		dse.setOutputFile(csfe.getSchemaOutputFile());
+		dse.setRelativeDir(csfe.getRelativeDir());
+		return dse;
 	}
 
 	public DumpSchemaService getService() {

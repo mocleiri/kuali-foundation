@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.kuali.common.impex.schema.CreateFilteredSchemaExecutable;
+import org.kuali.common.impex.schema.CopySchemaFileExecutable;
 import org.kuali.common.impex.schema.DumpSchemaExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.impex.util.DumpUtils;
@@ -46,9 +46,9 @@ public class ProjectStagingConfig {
 		File stagingDir = SpringUtils.getFile(env, DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		List<Project> projects = getProjects();
-		List<CreateFilteredSchemaExecutable> execs = new ArrayList<CreateFilteredSchemaExecutable>();
+		List<CopySchemaFileExecutable> execs = new ArrayList<CopySchemaFileExecutable>();
 		for (Project project : projects) {
-			CreateFilteredSchemaExecutable exec = getCreateFilteredSchemaExecutable(project, stagingDir, inputSchemaFile);
+			CopySchemaFileExecutable exec = getCreateFilteredSchemaExecutable(project, stagingDir, inputSchemaFile);
 			exec.setRelativeDir(relativeDir);
 			execs.add(exec);
 		}
@@ -95,13 +95,13 @@ public class ProjectStagingConfig {
 		return exec;
 	}
 
-	protected CreateFilteredSchemaExecutable getCreateFilteredSchemaExecutable(Project project, File stagingDir, File inputSchemaFile) {
+	protected CopySchemaFileExecutable getCreateFilteredSchemaExecutable(Project project, File stagingDir, File inputSchemaFile) {
 		String includesKey = "impex.staging.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_EXCLUDE);
 		File outputFile = DumpUtils.getSchemaFile(stagingDir, project, inputSchemaFile);
-		CreateFilteredSchemaExecutable exec = new CreateFilteredSchemaExecutable();
+		CopySchemaFileExecutable exec = new CopySchemaFileExecutable();
 		exec.setIncludes(includes);
 		exec.setExcludes(excludes);
 		exec.setSchemaOutputFile(outputFile);

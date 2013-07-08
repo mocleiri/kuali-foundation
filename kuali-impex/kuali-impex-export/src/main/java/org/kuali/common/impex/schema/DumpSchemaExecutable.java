@@ -16,11 +16,17 @@
 package org.kuali.common.impex.schema;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +47,8 @@ public class DumpSchemaExecutable implements Executable {
 
 	// Optional
 	File relativeDir;
+	List<String> includes = Arrays.asList(DumpConstants.DEFAULT_INCLUDE);
+	List<String> excludes = Arrays.asList(DumpConstants.DEFAULT_EXCLUDE);
 
 	@Override
 	public void execute() {
@@ -56,15 +64,21 @@ public class DumpSchemaExecutable implements Executable {
 		Assert.notNull(schema, "schema is null");
 		Assert.notNull(outputFile, "outputFile is null");
 
+		StringFilter filter = StringFilter.getInstance(includes, excludes);
+		Schema clone = new Schema(schema);
+		ModelUtils.filter(clone, filter);
+
 		// The full file system path can sometimes be annoyingly long
+		String path = LocationUtils.getCanonicalPath(outputFile);
 		if (FileSystemUtils.isParent(relativeDir, outputFile)) {
-			logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(relativeDir, outputFile));
-		} else {
-			logger.info("Creating - [{}]", LocationUtils.getCanonicalPath(outputFile));
+			path = FileSystemUtils.getRelativePath(relativeDir, outputFile);
 		}
 
+		Object[] args = { path, CollectionUtils.getSpaceSeparatedString(includes), CollectionUtils.getSpaceSeparatedString(excludes) };
+		logger.info("Creating - [{}] - [includes: {} excludes: {}]", args);
+
 		// Persist the schema to disk as XML
-		service.dumpSchema(schema, outputFile);
+		service.dumpSchema(clone, outputFile);
 
 	}
 
@@ -106,6 +120,22 @@ public class DumpSchemaExecutable implements Executable {
 
 	public void setRelativeDir(File relativeDir) {
 		this.relativeDir = relativeDir;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
 	}
 
 }
