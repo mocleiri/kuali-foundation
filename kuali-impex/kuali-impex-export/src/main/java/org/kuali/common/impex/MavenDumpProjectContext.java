@@ -7,11 +7,10 @@ import org.kuali.common.util.ProjectUtils;
 
 public class MavenDumpProjectContext extends DefaultProjectContext {
 
-	public static final String ARTIFACT_ID = Constants.ARTIFACT_ID;
-	private static final String LOCATION = ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/mavendump.properties";
+	private static final String LOCATION = ProjectUtils.getCommonClassPathPrefix(Constants.ARTIFACT_ID) + "/mavendump.properties";
 
 	public MavenDumpProjectContext() {
-		super(ARTIFACT_ID, Arrays.asList(LOCATION));
+		super(Constants.ARTIFACT_ID, Arrays.asList(LOCATION));
 	}
 
 }
