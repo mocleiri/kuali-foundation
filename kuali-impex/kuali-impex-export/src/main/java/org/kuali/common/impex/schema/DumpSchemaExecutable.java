@@ -68,13 +68,14 @@ public class DumpSchemaExecutable implements Executable {
 		Assert.notNull(schema, "schema is null");
 		Assert.notNull(outputFile, "outputFile is null");
 
+		// Create a filter from the includes/excludes they supplied
 		StringFilter filter = StringFilter.getInstance(includes, excludes);
-		Schema clone = new Schema(schema);
-		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
 
-		if (logExcludedSchemaObjects) {
-			ModelUtils.log(excludedSchemaObjects, excludedSchemaObjectsTableTitle);
-		}
+		// Clone the schema so the act of dumping it to disk does not alter the original schema object they gave us in any way
+		Schema clone = new Schema(schema);
+
+		// Filter the schema and keep track of any schema objects that got filtered out
+		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
 
 		// The full file system path can sometimes be annoyingly long
 		String path = LocationUtils.getCanonicalPath(outputFile);
@@ -82,8 +83,14 @@ public class DumpSchemaExecutable implements Executable {
 			path = FileSystemUtils.getRelativePath(relativeDir, outputFile);
 		}
 
+		// Show what we are up to
 		Object[] args = { path, CollectionUtils.getSpaceSeparatedString(includes), CollectionUtils.getSpaceSeparatedString(excludes) };
 		logger.info("Creating - [{}] - [includes: {} excludes: {}]", args);
+
+		// Log the objects that go filtered out if they asked us to
+		if (logExcludedSchemaObjects) {
+			ModelUtils.log(excludedSchemaObjects, excludedSchemaObjectsTableTitle);
+		}
 
 		// Persist the schema to disk as XML
 		service.dumpSchema(clone, outputFile);
