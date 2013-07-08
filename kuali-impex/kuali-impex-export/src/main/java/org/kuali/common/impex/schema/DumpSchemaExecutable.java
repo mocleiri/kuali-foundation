@@ -23,9 +23,9 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
@@ -84,8 +84,8 @@ public class DumpSchemaExecutable implements Executable {
 		}
 
 		// Show what we are up to
-		Object[] args = { path, CollectionUtils.getSpaceSeparatedString(includes), CollectionUtils.getSpaceSeparatedString(excludes) };
-		logger.info("Creating - [{}] - [includes: {} excludes: {}]", args);
+		Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
+		logger.info("Creating - [{}] - {}", args);
 
 		// Log the objects that go filtered out if they asked us to
 		if (logExcludedSchemaObjects) {
