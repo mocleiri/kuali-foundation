@@ -35,4 +35,44 @@ public class CreateFilteredSchemaExecutable implements Executable {
 		service.dumpSchema(schema, outputSchemaFile);
 	}
 
+	public DumpSchemaService getService() {
+		return service;
+	}
+
+	public void setService(DumpSchemaService service) {
+		this.service = service;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public void setIncludes(List<String> includes) {
+		this.includes = includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public void setExcludes(List<String> excludes) {
+		this.excludes = excludes;
+	}
+
+	public File getInputSchemaFile() {
+		return inputSchemaFile;
+	}
+
+	public void setInputSchemaFile(File inputSchemaFile) {
+		this.inputSchemaFile = inputSchemaFile;
+	}
+
+	public File getOutputSchemaFile() {
+		return outputSchemaFile;
+	}
+
+	public void setOutputSchemaFile(File outputSchemaFile) {
+		this.outputSchemaFile = outputSchemaFile;
+	}
+
 }

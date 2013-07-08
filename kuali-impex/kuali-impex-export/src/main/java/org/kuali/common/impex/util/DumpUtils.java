@@ -59,8 +59,16 @@ public class DumpUtils {
 		return new File(LocationUtils.getCanonicalPath(file));
 	}
 
+	public static File getSchemaFile(File basedir, Project project, File existingSchemaFile) {
+		return getSchemaFile(getOutputDir(basedir, project), existingSchemaFile);
+	}
+
 	public static File getSchemaFile(File basedir, Project project) {
 		return getSchemaFile(getOutputDir(basedir, project));
+	}
+
+	public static File getSchemaFile(File newDirectory, File existingSchemaFile) {
+		return new File(newDirectory, existingSchemaFile.getName());
 	}
 
 	public static File getSchemaFile(File directory) {

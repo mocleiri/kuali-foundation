@@ -33,11 +33,9 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DumpDataConfig {
 
-	// Required (no default value)
+	// These are often customized
 	public static final String DIR_KEY = "impex.dump.data.dir";
 	public static final String STATS_LOCATION_KEY = "impex.dump.data.stats.location";
-
-	// These are often customized but do have default values
 	public static final String INCLUDES_KEY = "impex.dump.data.includes";
 	public static final String EXCLUDES_KEY = "impex.dump.data.excludes";
 
