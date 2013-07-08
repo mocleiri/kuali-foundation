@@ -66,7 +66,7 @@ public class DumpSchemaExecutable implements Executable {
 
 		StringFilter filter = StringFilter.getInstance(includes, excludes);
 		Schema clone = new Schema(schema);
-		ModelUtils.filter(clone, filter);
+		Schema filteredSchema = ModelUtils.filter(clone, filter);
 
 		// The full file system path can sometimes be annoyingly long
 		String path = LocationUtils.getCanonicalPath(outputFile);
