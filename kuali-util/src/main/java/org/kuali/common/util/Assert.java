@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class Assert extends org.springframework.util.Assert {
 
 	public static void isOdd(int i) {
-		isTrue(i % 2 != 0);
+		isOdd(i, "[Assertion failed] - [" + i + "] is not an odd number");
 	}
 
 	public static void isOdd(int i, String message) {
@@ -28,7 +28,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void isEven(int i) {
-		isTrue(i % 2 == 0);
+		isEven(i, "[Assertion failed] - [" + i + "] is not an even number");
 	}
 
 	public static void isEven(int i, String message) {
