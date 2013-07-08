@@ -114,8 +114,7 @@ public class DumpUtils {
 	}
 
 	/**
-	 * Store table data size and row count to a file. Use the lowercase table name as the prefix for each key This method should append to any existing statistics found at the
-	 * location, if any already exist
+	 * Store table data size and row count to a file. Use the lowercase table name as the prefix for each key.
 	 * 
 	 * @param tableResults
 	 *            list of exported table data results
@@ -123,20 +122,13 @@ public class DumpUtils {
 	 *            file path defining where to write the property file
 	 */
 	public static void storeTableStatistics(List<DumpTableResult> tableResults, String location) {
-		Properties tableStatistics;
-
-		if (LocationUtils.exists(location)) {
-			tableStatistics = PropertyUtils.loadSilently(location);
-		} else {
-			tableStatistics = new Properties();
-		}
-
+		Properties props = new Properties();
 		for (DumpTableResult result : tableResults) {
 			String nameKey = result.getTableContext().getTable().getName().toLowerCase();
-			tableStatistics.setProperty(nameKey + SIZE_PROPERTY_SUFFIX, Long.toString(result.getSize()));
-			tableStatistics.setProperty(nameKey + ROWS_PROPERTY_SUFFIX, Long.toString(result.getRows()));
+			props.setProperty(nameKey + SIZE_PROPERTY_SUFFIX, Long.toString(result.getSize()));
+			props.setProperty(nameKey + ROWS_PROPERTY_SUFFIX, Long.toString(result.getRows()));
 		}
 
-		PropertyUtils.store(tableStatistics, new File(location));
+		PropertyUtils.store(props, new File(location), null, null, true);
 	}
 }
