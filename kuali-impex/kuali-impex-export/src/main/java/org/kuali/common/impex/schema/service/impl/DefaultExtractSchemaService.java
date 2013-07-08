@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Schema;
@@ -41,14 +40,13 @@ import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PercentCompleteInformer;
-import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.StringFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultExtractSchemaService implements ExtractSchemaService {
 
-	private static Logger log = LoggerFactory.getLogger(DefaultExtractSchemaService.class);
+	private static Logger logger = LoggerFactory.getLogger(DefaultExtractSchemaService.class);
 
 	protected static final int SINGLE_THREAD_COUNT = 1;
 
@@ -81,7 +79,7 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		// Preserve our start time
 		long start = System.currentTimeMillis();
 
-		log.info("[schema:extract:starting]");
+		logger.info("[schema:extract:starting]");
 
 		// Use JDBC calls to acquire the list of table names for our schema
 		// This is usually very quick. The KS schema has 574 tables at the moment, and this call takes ~250ms
@@ -141,13 +139,13 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		thc.setDivisor(1);
 
 		// Start threads to acquire table metadata concurrently
-		log.info("[schema:extract:metadata:starting]");
+		logger.info("[schema:extract:metadata:starting]");
 		informer.start();
 		// Create and invoke threads to fill in the metadata
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
-		log.info("[schema:extract:metadata:complete] - {}", FormatUtils.getTime(stats.getExecutionTime()));
-		log.info("[schema:extract:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
+		logger.info("[schema:extract:metadata:complete] - {}", FormatUtils.getTime(stats.getExecutionTime()));
+		logger.info("[schema:extract:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 		return schema;
 	}
 
@@ -189,21 +187,26 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 
 	}
 
+	protected Object[] getLogMsgArgs(StringFilter filter) {
+		String includes = CollectionUtils.getSpaceSeparatedString(filter.getIncludes());
+		String excludes = CollectionUtils.getSpaceSeparatedString(filter.getExcludes());
+		Object[] args = { includes, excludes };
+		return args;
+	}
+
 	protected List<String> getTableNames(ExtractSchemaContext context) throws SQLException {
 		long start = System.currentTimeMillis();
-		String includes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getIncludes());
-		String excludes = CollectionUtils.getSpaceSeparatedString(context.getNameFilter().getExcludes());
-		includes = StringUtils.isBlank(includes) || NullUtils.isNullOrNone(includes) ? Constants.NONE : includes;
-		excludes = StringUtils.isBlank(excludes) || NullUtils.isNullOrNone(excludes) ? Constants.NONE : excludes;
-		log.info("[schema:extract:tablenames] - include: {}  exclude: {}", includes, excludes);
+		logger.info("[schema:extract:tablenames] - [include: {}  exclude: {}]", getLogMsgArgs(context.getNameFilter()));
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
-		int originalSize = tableNames.size();
-		CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
-		String original = FormatUtils.getCount(originalSize);
+		List<String> excluded = CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
+		String original = FormatUtils.getCount(tableNames.size() + excluded.size());
 		String filtered = FormatUtils.getCount(tableNames.size());
 		String time = FormatUtils.getTime(System.currentTimeMillis() - start);
+		if (!CollectionUtils.isEmpty(excluded)) {
+			logger.info("  excluded -> [{}]", CollectionUtils.getSpaceSeparatedString(excluded));
+		}
 		Object[] args = { original, filtered, time };
-		log.info("[schema:extract:tablenames] - all: {}  filtered: {} - {}", args);
+		logger.info("[schema:extract:tablenames] - [all: {}  filtered: {}] - {}", args);
 		return tableNames;
 	}
 
@@ -253,26 +256,26 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 
 	protected Schema extractSingleThreaded(ExtractSchemaContext context) throws SQLException {
 		long startTime = System.currentTimeMillis();
-		log.info("Single threaded schema extraction started");
+		logger.info("Single threaded schema extraction started");
 
 		Schema result = new Schema();
 
 		List<String> tableNames = getTableNames(context);
-		log.debug("Extracting {} tables...", new Object[] { tableNames.size() });
+		logger.debug("Extracting {} tables...", new Object[] { tableNames.size() });
 		result.getTables().addAll(extractTables(tableNames, context));
-		log.debug("Table extraction complete.");
+		logger.debug("Table extraction complete.");
 
 		result.getViews().addAll(extractViews(context));
-		log.debug("View extraction complete");
+		logger.debug("View extraction complete");
 
 		result.getSequences().addAll(extractSequences(context));
-		log.debug("Sequence extraction complete");
+		logger.debug("Sequence extraction complete");
 
 		result.getForeignKeys().addAll(extractForeignKeys(tableNames, context));
-		log.debug("Foreign Key extraction complete");
+		logger.debug("Foreign Key extraction complete");
 
 		String timeString = FormatUtils.getTime(System.currentTimeMillis() - startTime);
-		log.info("Single threaded schema extraction complete - Time: {}", new Object[] { timeString });
+		logger.info("Single threaded schema extraction complete - Time: {}", new Object[] { timeString });
 		return result;
 
 	}
