@@ -180,6 +180,19 @@ public class FileSystemUtils {
 		}
 	}
 
+	/**
+	 * Return the relative path to <code>file</code> from <code>relativePath</code>. <code>relativePath</code> is optional and can be <code>null</code>. If
+	 * <code>relativePath</code> is not supplied (or is not a parent directory to <code>file</code> the canonical path to <code>file</code> is returned.
+	 */
+	public static String getRelativePathQuietly(File relativeDir, File file) {
+		Assert.notNull(file, "file is null");
+		if (isParent(relativeDir, file)) {
+			return getRelativePath(relativeDir, file);
+		} else {
+			return LocationUtils.getCanonicalPath(file);
+		}
+	}
+
 	public static String getRelativePath(File dir, File file) {
 		String dirPath = LocationUtils.getCanonicalPath(dir);
 		String filePath = LocationUtils.getCanonicalPath(file);
