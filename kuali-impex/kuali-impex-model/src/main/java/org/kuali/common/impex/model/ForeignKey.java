@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.CollectionUtils;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ForeignKey implements NamedElement {
@@ -44,8 +46,8 @@ public class ForeignKey implements NamedElement {
 		this.name = fk.getName();
 		this.onDelete = fk.getOnDelete();
 		this.onUpdate = fk.getOnUpdate();
-		this.localColumnNames = new ArrayList<String>(fk.getLocalColumnNames());
-		this.foreignColumnNames = new ArrayList<String>(fk.getForeignColumnNames());
+		this.localColumnNames = new ArrayList<String>(CollectionUtils.toEmptyList(fk.getLocalColumnNames()));
+		this.foreignColumnNames = new ArrayList<String>(CollectionUtils.toEmptyList(fk.getForeignColumnNames()));
 		this.localTableName = fk.getLocalTableName();
 		this.foreignTableName = fk.getForeignTableName();
 	}
