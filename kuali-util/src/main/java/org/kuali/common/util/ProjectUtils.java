@@ -215,11 +215,10 @@ public class ProjectUtils {
 	public static synchronized Properties loadProperties(Project project) {
 		String gav = getGav(project.getGroupId(), project.getArtifactId());
 		Properties properties = PROJECT_PROPERTIES_CACHE.get(gav);
-		if (properties != null) {
-			return properties;
-		} else {
-			return loadAndCache(project, gav);
+		if (properties == null) {
+			properties = loadAndCache(project, gav);
 		}
+		return properties;
 	}
 
 	protected static Properties loadAndCache(Project project, String gav) {
@@ -237,7 +236,6 @@ public class ProjectUtils {
 		Assert.hasText(project.getArtifactId(), "artifactId has no text");
 
 		Properties properties = new Properties();
-		properties.setProperty("project.groupId.base.path", Str.getPath(project.getGroupId()));
 		properties.setProperty("project.groupId.path", Str.getPath(project.getGroupId()));
 		properties.setProperty("project.artifactId", project.getArtifactId());
 
