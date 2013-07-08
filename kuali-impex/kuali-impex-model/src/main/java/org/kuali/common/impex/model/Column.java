@@ -3,6 +3,7 @@ package org.kuali.common.impex.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * This interface provides an implementation-independent API to access database column model information
@@ -50,7 +51,7 @@ public class Column implements NamedElement {
 		this.table = table;
 	}
 
-	@XmlAttribute
+	@XmlElement(name = "type")
 	public DataType getDataType() {
 		return dataType;
 	}
