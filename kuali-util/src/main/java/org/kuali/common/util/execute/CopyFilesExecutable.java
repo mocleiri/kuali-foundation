@@ -26,7 +26,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.Str;
+import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -64,8 +64,8 @@ public class CopyFilesExecutable implements Executable {
 			if (FileSystemUtils.isParent(relativeDir, dstDir)) {
 				path = FileSystemUtils.getRelativePath(relativeDir, dstDir);
 			}
-			Object[] args = { path, Str.toEmpty(includesCSV), Str.toEmpty(excludesCSV) };
-			logger.info("Copying to - [{}] - [includes: {} excludes: {}]", args);
+			Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
+			logger.info("Copying to - [{}] - {}", args);
 			FileUtils.copyDirectory(srcDir, dstDir, includesCSV, excludesCSV);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
