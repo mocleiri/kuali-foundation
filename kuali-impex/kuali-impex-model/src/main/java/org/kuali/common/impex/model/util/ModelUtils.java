@@ -79,6 +79,7 @@ public class ModelUtils {
 		List<ForeignKey> excludedForeignKeys = ModelUtils.filterAndSortElements(schema.getForeignKeys(), nameFilter);
 
 		Schema excludedSchema = new Schema();
+		excludedSchema.setName(schema.getName());
 		excludedSchema.setTables(excludedTables);
 		excludedSchema.setViews(excludedViews);
 		excludedSchema.setSequences(excludedSequences);
