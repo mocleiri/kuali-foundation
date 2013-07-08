@@ -29,11 +29,11 @@ import org.springframework.context.annotation.Import;
 public class SqlControllerExecutableConfig extends ExecutableConfig {
 
 	@Autowired
-    BaseSqlControllerConfig abstractSqlController;
+    BaseSqlControllerConfig baseSqlControllerConfig;
 
 	@Override
 	protected Executable getExecutable() {
-		return abstractSqlController.sqlExecutable();
+		return baseSqlControllerConfig.sqlExecutable();
 	}
 
 }
