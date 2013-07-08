@@ -23,12 +23,13 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ProjectStagingConfig {
 
-	private static final String SERVICE_KEY = "impex.staging.schema.service";
 	public static final String GAVS_KEY = "impex.staging.projects";
 	public static final String DIR_KEY = "impex.staging.dir";
 	public static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
-	private static final String SKIP_KEY = "impex.staging.skip";
 	public static final String RELATIVE_DIR_KEY = "impex.staging.dir.relative";
+
+	private static final String SKIP_KEY = "impex.staging.skip";
+	private static final String SERVICE_KEY = "impex.staging.schema.service";
 
 	@Autowired
 	Environment env;
