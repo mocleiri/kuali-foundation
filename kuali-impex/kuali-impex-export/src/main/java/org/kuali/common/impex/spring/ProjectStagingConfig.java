@@ -76,8 +76,8 @@ public class ProjectStagingConfig {
 		File dstDir = DumpUtils.getOutputDir(stagingDir, project);
 
 		// Setup the includes/excludes appropriate for this project
-		String includesKey = "impex.data.staging." + project.getArtifactId() + ".includes";
-		String excludesKey = "impex.data.staging." + project.getArtifactId() + ".excludes";
+		String includesKey = "impex.staging.data." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.staging.data." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_FILE_INCLUDE);
 		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_FILE_EXCLUDE);
 
@@ -91,8 +91,8 @@ public class ProjectStagingConfig {
 	}
 
 	protected CreateFilteredSchemaExecutable getCreateFilteredSchemaExecutable(Project project, File stagingDir, File inputSchemaFile) {
-		String includesKey = "impex." + project.getArtifactId() + ".includes";
-		String excludesKey = "impex." + project.getArtifactId() + ".excludes";
+		String includesKey = "impex.staging.schema." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_EXCLUDE);
 		File outputFile = DumpUtils.getSchemaFile(stagingDir, project, inputSchemaFile);
