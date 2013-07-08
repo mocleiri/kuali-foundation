@@ -99,8 +99,8 @@ public class ProjectStagingConfig {
 		CreateFilteredSchemaExecutable exec = new CreateFilteredSchemaExecutable();
 		exec.setIncludes(includes);
 		exec.setExcludes(excludes);
-		exec.setOutputSchemaFile(outputFile);
-		exec.setInputSchemaFile(inputSchemaFile);
+		exec.setSchemaOutputFile(outputFile);
+		exec.setSchemaInputFile(inputSchemaFile);
 		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass()));
 		return exec;
 	}

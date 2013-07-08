@@ -1,16 +1,22 @@
 package org.kuali.common.impex;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectUtils;
 
 public class MavenDumpProjectContext extends DefaultProjectContext {
 
-	private static final String LOCATION = ProjectUtils.getCommonClassPathPrefix(Constants.ARTIFACT_ID) + "/mavendump.properties";
-
 	public MavenDumpProjectContext() {
-		super(Constants.ARTIFACT_ID, Arrays.asList(LOCATION));
+		super(Constants.ARTIFACT_ID, getLocations());
+	}
+
+	protected static List<String> getLocations() {
+		String prefix = ProjectUtils.getCommonClassPathPrefix(Constants.ARTIFACT_ID);
+		List<String> locations = new ArrayList<String>();
+		locations.add(prefix + "/maven/dump.properties");
+		return locations;
 	}
 
 }
