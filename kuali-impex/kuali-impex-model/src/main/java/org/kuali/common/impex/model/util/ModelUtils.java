@@ -42,9 +42,9 @@ public class ModelUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ModelUtils.class);
 
-	public static void log(Schema schema) {
+	public static void log(Schema schema, String title) {
 		Assert.notNull(schema, "schema is null");
-		List<String> columns = Arrays.asList("element", "name");
+		List<String> columns = Arrays.asList("type", "name");
 		List<Object[]> rows = new ArrayList<Object[]>();
 		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
 			rows.add(new Object[] { "table", table.getName() });
@@ -59,7 +59,7 @@ public class ModelUtils {
 			rows.add(new Object[] { "foreign key", foreignKey.getName() });
 		}
 		if (!CollectionUtils.isEmpty(rows)) {
-			LogTableContext context = new LogTableContext(columns, rows, logger);
+			LogTableContext context = new LogTableContext(title, columns, rows, logger);
 			LoggerUtils.logTable(context);
 		}
 	}
