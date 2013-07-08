@@ -20,45 +20,41 @@ import org.kuali.common.util.Weighted;
 
 public class DumpTableContext implements Comparable<DumpTableContext>, Weighted {
 
-    Table table;
+	Table table;
+	long rowCount;
+	long size;
 
-    long rowCount;
+	@Override
+	public double getWeight() {
+		return rowCount;
+	}
 
-    long size;
+	@Override
+	public int compareTo(DumpTableContext other) {
+		return Double.compare(rowCount, other.getRowCount());
+	}
 
-    @Override
-    public double getWeight() {
-        return rowCount;
-    }
+	public long getRowCount() {
+		return rowCount;
+	}
 
-    @Override
-    public int compareTo(DumpTableContext other) {
-        Long one = rowCount;
-        Long two = other.getRowCount();
-        return one.compareTo(two);
-    }
+	public void setRowCount(long rowCount) {
+		this.rowCount = rowCount;
+	}
 
-    public long getRowCount() {
-        return rowCount;
-    }
+	public long getSize() {
+		return size;
+	}
 
-    public void setRowCount(long rowCount) {
-        this.rowCount = rowCount;
-    }
+	public void setSize(long size) {
+		this.size = size;
+	}
 
-    public long getSize() {
-        return size;
-    }
+	public Table getTable() {
+		return table;
+	}
 
-    public void setSize(long size) {
-        this.size = size;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
+	public void setTable(Table table) {
+		this.table = table;
+	}
 }
