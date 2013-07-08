@@ -10,6 +10,7 @@ import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.execute.CopyFilesExecutable;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -21,28 +22,14 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ProjectStagingConfig {
 
-	private static final String GAVS_KEY = "impex.dump.staging.projects";
-	private static final String DIR_KEY = "impex.dump.staging.dir";
+	public static final String GAVS_KEY = "impex.dump.staging.projects";
+	public static final String DIR_KEY = "impex.dump.staging.dir";
 	private static final String SERVICE_KEY = DumpSchemaConfig.SERVICE_KEY;
 	private static final String SKIP_KEY = "impex.dump.staging.skip";
 
 	@Autowired
 	Environment env;
 
-	@Bean
-	public Executable copyProjectDataFilesExecutable() {
-		File inputSchemaFile = SpringUtils.getFile(env, DumpSchemaConfig.FILE_KEY);
-		File stagingDir = SpringUtils.getFile(env, DIR_KEY);
-		List<Project> projects = getProjects();
-		List<CreateFilteredSchemaExecutable> execs = new ArrayList<CreateFilteredSchemaExecutable>();
-		for (Project project : projects) {
-			CreateFilteredSchemaExecutable exec = getCreateFilteredSchemaExecutable(project, stagingDir, inputSchemaFile);
-			execs.add(exec);
-		}
-		ExecutablesExecutable exec = new ExecutablesExecutable(execs);
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
-		return exec;
-	}
 	@Bean
 	public Executable createFilteredProjectSchemasExecutable() {
 		File inputSchemaFile = SpringUtils.getFile(env, DumpSchemaConfig.FILE_KEY);
@@ -53,8 +40,44 @@ public class ProjectStagingConfig {
 			CreateFilteredSchemaExecutable exec = getCreateFilteredSchemaExecutable(project, stagingDir, inputSchemaFile);
 			execs.add(exec);
 		}
-		ExecutablesExecutable exec = new ExecutablesExecutable(execs);
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
+		return new ExecutablesExecutable(execs);
+	}
+
+	@Bean
+	public Executable copyProjectDataFilesExecutable() {
+
+		File stagingDir = SpringUtils.getFile(env, ProjectStagingConfig.DIR_KEY);
+		File dumpDir = SpringUtils.getFile(env, DumpDataConfig.DIR_KEY);
+		List<String> gavs = SpringUtils.getListFromCSV(env, ProjectStagingConfig.GAVS_KEY);
+
+		List<CopyFilesExecutable> executables = new ArrayList<CopyFilesExecutable>();
+		for (String gav : gavs) {
+			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, dumpDir, stagingDir);
+			executables.add(exec);
+		}
+		return new ExecutablesExecutable(executables);
+	}
+
+	protected CopyFilesExecutable getCopyDataFilesExecutable(String gav, File dumpDir, File stagingDir) {
+
+		// Get a Project model object from the GAV
+		Project project = ProjectUtils.loadProject(gav);
+
+		// dstDir is always based on groupId + artifactId
+		File dstDir = DumpUtils.getOutputDir(stagingDir, project);
+
+		// Setup the includes/excludes appropriate for this project
+		String includesKey = "impex.data.staging." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.data.staging." + project.getArtifactId() + ".excludes";
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_FILE_INCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_FILE_EXCLUDE);
+
+		// Configure our executable
+		CopyFilesExecutable exec = new CopyFilesExecutable();
+		exec.setIncludes(includes);
+		exec.setExcludes(excludes);
+		exec.setSrcDir(dumpDir);
+		exec.setDstDir(dstDir);
 		return exec;
 	}
 
