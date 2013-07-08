@@ -59,12 +59,14 @@ public class ProjectStagingConfig {
 	public Executable copyProjectDataFilesExecutable() {
 
 		File stagingDir = SpringUtils.getFile(env, ProjectStagingConfig.DIR_KEY);
+		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		File dumpDir = SpringUtils.getFile(env, DumpDataConfig.DIR_KEY);
 		List<String> gavs = SpringUtils.getListFromCSV(env, ProjectStagingConfig.GAVS_KEY);
 
 		List<CopyFilesExecutable> executables = new ArrayList<CopyFilesExecutable>();
 		for (String gav : gavs) {
 			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, dumpDir, stagingDir);
+			exec.setRelativeDir(relativeDir);
 			executables.add(exec);
 		}
 		return new ExecutablesExecutable(executables);
