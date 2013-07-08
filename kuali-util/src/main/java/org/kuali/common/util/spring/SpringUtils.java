@@ -239,22 +239,20 @@ public class SpringUtils {
 		return CollectionUtils.getTrimmedListFromCSV(csv);
 	}
 
+	/**
+	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
+	 */
 	public static List<String> getNoneSensitiveListFromCSV(Environment env, String key) {
 		String csv = SpringUtils.getProperty(env, key);
-		if (NullUtils.isNullOrNone(csv)) {
-			return Collections.<String> emptyList();
-		} else {
-			return CollectionUtils.getTrimmedListFromCSV(csv);
-		}
+		return CollectionUtils.getNoneSensitiveListFromCSV(csv);
 	}
 
+	/**
+	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
+	 */
 	public static List<String> getNoneSensitiveListFromCSV(Environment env, String key, String defaultValue) {
 		String csv = SpringUtils.getProperty(env, key, defaultValue);
-		if (NullUtils.isNullOrNone(csv)) {
-			return Collections.<String> emptyList();
-		} else {
-			return CollectionUtils.getTrimmedListFromCSV(csv);
-		}
+		return CollectionUtils.getNoneSensitiveListFromCSV(csv);
 	}
 
 	@Deprecated

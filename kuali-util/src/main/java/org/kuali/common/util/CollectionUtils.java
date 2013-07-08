@@ -31,8 +31,20 @@ import java.util.TreeSet;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 public class CollectionUtils {
+
+	/**
+	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
+	 */
+	public static List<String> getNoneSensitiveListFromCSV(String csv) {
+		if (StringUtils.isBlank(csv) || NullUtils.isNullOrNone(csv)) {
+			return Collections.<String> emptyList();
+		} else {
+			return CollectionUtils.getTrimmedListFromCSV(csv);
+		}
+	}
 
 	/**
 	 * Remove any Strings from the list that do not match the filter and then sort the ones that remain
