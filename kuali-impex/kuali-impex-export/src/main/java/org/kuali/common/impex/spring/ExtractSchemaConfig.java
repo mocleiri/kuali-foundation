@@ -98,7 +98,7 @@ public class ExtractSchemaConfig {
 		// The type of database we are connecting to
 		String vendor = SpringUtils.getProperty(env, DumpConstants.DB_VENDOR_KEY);
 
-		// This is used to filter out tables/views/sequences
+		// This is used to filter out tables/views/sequences/foreign keys
 		StringFilter nameFilter = getNameFilter();
 
 		// Get database specific finders for sequences and views
