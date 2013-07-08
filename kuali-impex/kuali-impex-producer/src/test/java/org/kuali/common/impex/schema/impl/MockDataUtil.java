@@ -31,26 +31,26 @@ public class MockDataUtil {
 		Table result = new Table("FOO_T");
 
 		// id column
-		Column idCol = new Column("ID", DataType.STRING, result);
+		Column idCol = new Column("ID", DataType.STRING);
 		idCol.setTypeSize(new TypeSize(36));
 		idCol.setPrimaryKey(true);
 
 		result.getColumns().add(idCol);
 
 		// createtime column
-		Column timeCol = new Column("CREATETIME", DataType.TIMESTAMP, result);
+		Column timeCol = new Column("CREATETIME", DataType.TIMESTAMP);
 		timeCol.setNullable(false);
 
 		result.getColumns().add(timeCol);
 
 		// count column
-		Column countCol = new Column("FOO_COUNT", DataType.FLOAT, result);
+		Column countCol = new Column("FOO_COUNT", DataType.FLOAT);
 		countCol.setTypeSize(new TypeSize(10));
 
 		result.getColumns().add(countCol);
 
 		// name column
-		Column nameCol = new Column("NAME", DataType.STRING, result);
+		Column nameCol = new Column("NAME", DataType.STRING);
 		nameCol.setTypeSize(new TypeSize(255));
 
 		result.getColumns().add(nameCol);

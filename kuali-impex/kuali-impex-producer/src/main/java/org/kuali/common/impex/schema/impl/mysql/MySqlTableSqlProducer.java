@@ -245,7 +245,7 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
 				newDataType = mapping.getDataType();
 			}
 
-			Column newCol = new Column(column.getName(), newDataType, column.getTable());
+			Column newCol = new Column(column.getName(), newDataType);
 
 			newCol.setTypeSize(mapping.getTypeSize());
 

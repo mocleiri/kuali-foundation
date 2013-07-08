@@ -253,7 +253,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 				newDataType = mapping.getDataType();
 			}
 
-			Column newCol = new Column(column.getName(), newDataType, column.getTable());
+			Column newCol = new Column(column.getName(), newDataType);
 
 			newCol.setTypeSize(mapping.getTypeSize());
 
