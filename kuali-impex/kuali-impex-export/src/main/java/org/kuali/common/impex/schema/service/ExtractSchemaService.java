@@ -11,18 +11,19 @@ import org.kuali.common.impex.model.View;
 
 /**
  * This class defines an API to extract schema information from a live db
- *
- * @author andrewlubbers
+ * 
+ * @author alubbers
+ * @author jcaddel
  */
 public interface ExtractSchemaService {
 
-    Schema getSchema(ExtractSchemaContext context);
+	Schema getSchema(ExtractSchemaContext context);
 
-    List<Table> extractTables(List<String> tableNames, ExtractSchemaContext context) throws SQLException;
+	List<Table> extractTables(List<String> tableNames, ExtractSchemaContext context) throws SQLException;
 
-    List<View> extractViews(ExtractSchemaContext context) throws SQLException;
+	List<View> extractViews(ExtractSchemaContext context) throws SQLException;
 
-    List<Sequence> extractSequences(ExtractSchemaContext context) throws SQLException;
+	List<Sequence> extractSequences(ExtractSchemaContext context) throws SQLException;
 
-    List<ForeignKey> extractForeignKeys(List<String> tableNames, ExtractSchemaContext context) throws SQLException;
+	List<ForeignKey> extractForeignKeys(List<String> tableNames, ExtractSchemaContext context) throws SQLException;
 }
