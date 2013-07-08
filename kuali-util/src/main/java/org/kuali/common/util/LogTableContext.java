@@ -24,11 +24,13 @@ public class LogTableContext {
 	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;
 	public static final boolean DEFAULT_LEFT_ALIGN = false;
 	public static final Logger DEFAULT_LOGGER = LoggerUtils.LOGGER_UTILS_LOGGER;
+	public static final String DEFAULT_TITLE = "Displaying Table";
 
 	LoggerLevel level = DEFAULT_LOGGER_LEVEL;
 	boolean leftAlign = DEFAULT_LEFT_ALIGN;
 	Logger logger = DEFAULT_LOGGER;
 
+	String title = DEFAULT_TITLE;
 	List<String> columns;
 	List<Object[]> rows;
 
@@ -41,7 +43,12 @@ public class LogTableContext {
 	}
 
 	public LogTableContext(List<String> columns, List<Object[]> rows, Logger logger) {
+		this(null, columns, rows, logger);
+	}
+
+	public LogTableContext(String title, List<String> columns, List<Object[]> rows, Logger logger) {
 		super();
+		this.title = title;
 		this.columns = columns;
 		this.rows = rows;
 		this.logger = logger;
@@ -85,6 +92,14 @@ public class LogTableContext {
 
 	public void setRows(List<Object[]> rows) {
 		this.rows = rows;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

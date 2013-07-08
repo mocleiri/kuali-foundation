@@ -139,7 +139,7 @@ public class LoggerUtils {
 		Assert.notNull(context.getLogger(), "logger is null");
 		Assert.notNull(context.getLevel(), "level is null");
 
-		String msg = "Displaying Table" + "\n" + table;
+		String msg = context.getTitle() + "\n\n" + table;
 
 		logMsg(msg, context.getLogger(), context.getLevel());
 
