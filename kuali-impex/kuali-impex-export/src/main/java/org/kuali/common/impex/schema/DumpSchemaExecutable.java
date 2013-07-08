@@ -24,7 +24,6 @@ import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
@@ -78,18 +77,14 @@ public class DumpSchemaExecutable implements Executable {
 		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
 
 		// The full file system path can sometimes be annoyingly long
-		String path = LocationUtils.getCanonicalPath(outputFile);
-		if (FileSystemUtils.isParent(relativeDir, outputFile)) {
-			path = FileSystemUtils.getRelativePath(relativeDir, outputFile);
-		}
+		String path = FileSystemUtils.getRelativePathQuietly(relativeDir, outputFile);
 
 		// Show what we are up to
-		Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
-		logger.info("Creating - [{}] - {}", args);
+		logger.info("Creating - [{}] - {}", path, LoggerUtils.getLogMsg(includes, excludes));
 
 		// Log the objects that go filtered out if they asked us to
 		if (logExcludedSchemaObjects) {
-			ModelUtils.log(excludedSchemaObjects, excludedSchemaObjectsTableTitle);
+			ModelUtils.logTable(excludedSchemaObjects, excludedSchemaObjectsTableTitle);
 		}
 
 		// Persist the schema to disk as XML
