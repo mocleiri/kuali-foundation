@@ -309,7 +309,7 @@ public class DefaultDumpDataService implements DumpDataService {
 
 		logger.debug("includedTables.size=" + includedTables.size());
 
-		Properties tableStatistics = PropertyUtils.loadQuietly(context.getTableStatisticsLocation());
+		Properties tableStatistics = PropertyUtils.loadOrCreateSilently(context.getTableStatisticsLocation());
 
 		// Print a dot any time we complete 1% of our requests
 		PercentCompleteInformer informer = new PercentCompleteInformer();
