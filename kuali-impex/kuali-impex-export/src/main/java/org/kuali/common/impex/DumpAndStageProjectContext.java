@@ -6,11 +6,11 @@ import java.util.List;
 import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectUtils;
 
-public class DumpProjectContext extends DefaultProjectContext {
+public class DumpAndStageProjectContext extends DefaultProjectContext {
 
 	private static final List<String> LOCATIONS = getLocations();
 
-	public DumpProjectContext() {
+	public DumpAndStageProjectContext() {
 		super(Constants.ARTIFACT_ID, LOCATIONS);
 	}
 
@@ -19,6 +19,7 @@ public class DumpProjectContext extends DefaultProjectContext {
 		List<String> locations = new ArrayList<String>();
 		locations.add(prefix + "/common.properties");
 		locations.add(prefix + "/dump.properties");
+		locations.add(prefix + "/staging.properties");
 		return locations;
 	}
 
