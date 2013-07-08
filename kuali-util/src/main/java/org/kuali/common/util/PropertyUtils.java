@@ -708,6 +708,13 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Store the properties to the indicated file using the platform default encoding.
+	 */
+	public static final void storeSilently(Properties properties, File file) {
+		store(properties, file, null, null, true);
+	}
+
+	/**
 	 * Store the properties to the indicated file using the indicated encoding.
 	 */
 	public static final void store(Properties properties, File file, String encoding) {
