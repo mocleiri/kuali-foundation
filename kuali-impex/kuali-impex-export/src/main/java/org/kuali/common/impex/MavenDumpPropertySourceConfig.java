@@ -17,7 +17,7 @@ public class MavenDumpPropertySourceConfig extends MavenPropertySourceConfig {
 	protected List<ProjectProperties> getOtherProjectProperties() {
 		ProjectContext jdbc = new JdbcProjectContext();
 		ProjectContext dump = new DumpProjectContext();
-		ProjectContext mavenDump = new MavenDumpProjectContext();
+		ProjectContext mavenDump = new MavenProjectContext();
 		return ConfigUtils.getProjectProperties(Arrays.asList(jdbc, dump, mavenDump));
 	}
 }

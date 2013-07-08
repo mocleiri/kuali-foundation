@@ -28,6 +28,7 @@ public class ProjectStagingConfig {
 	public static final String DIR_KEY = "impex.staging.dir";
 	public static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
 	private static final String SKIP_KEY = "impex.staging.skip";
+	public static final String RELATIVE_DIR_KEY = "impex.staging.dir.relative";
 
 	@Autowired
 	Environment env;
@@ -43,10 +44,12 @@ public class ProjectStagingConfig {
 	public Executable createFilteredProjectSchemasExecutable() {
 		File inputSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
 		File stagingDir = SpringUtils.getFile(env, DIR_KEY);
+		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		List<Project> projects = getProjects();
 		List<CreateFilteredSchemaExecutable> execs = new ArrayList<CreateFilteredSchemaExecutable>();
 		for (Project project : projects) {
 			CreateFilteredSchemaExecutable exec = getCreateFilteredSchemaExecutable(project, stagingDir, inputSchemaFile);
+			exec.setRelativeDir(relativeDir);
 			execs.add(exec);
 		}
 		return new ExecutablesExecutable(execs);
