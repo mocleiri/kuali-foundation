@@ -28,7 +28,7 @@ public class CreateFilteredSchemaExecutable implements Executable {
 		Assert.notNull(outputSchemaFile, "outputSchemaFile is null");
 		Assert.isTrue(LocationUtils.exists(inputSchemaFile), "inputSchemaFile does not exist");
 
-		// Load the existing schema, filter it, and persist it back to XML
+		// Load an existing schema, filter it, persist it back to the file system as XML
 		Schema schema = service.getSchema(inputSchemaFile);
 		StringFilter filter = StringFilter.getInstance(includes, excludes);
 		ModelUtils.filter(schema, filter);
