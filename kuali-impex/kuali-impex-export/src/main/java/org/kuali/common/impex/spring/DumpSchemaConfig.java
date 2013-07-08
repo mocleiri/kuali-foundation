@@ -16,9 +16,11 @@
 package org.kuali.common.impex.spring;
 
 import java.io.File;
+import java.util.List;
 
 import org.kuali.common.impex.schema.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.DumpSchemaService;
+import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +35,8 @@ public class DumpSchemaConfig {
 
 	// Optional
 	public static final String SERVICE_KEY = "impex.dump.schema.service";
+	public static final String INCLUDES_KEY = "impex.dump.schema.includes";
+	public static final String EXCLUDES_KEY = "impex.dump.schema.excludes";
 	public static final String SKIP_KEY = "impex.dump.schema.skip";
 	public static final String RELATIVE_DIR_KEY = "impex.dump.schema.dir.relative";
 
@@ -47,6 +51,8 @@ public class DumpSchemaConfig {
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, outputFile);
 		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass());
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_INCLUDE);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_EXCLUDE);
 
 		// Configure an executable
 		DumpSchemaExecutable exec = new DumpSchemaExecutable();
@@ -54,6 +60,8 @@ public class DumpSchemaConfig {
 		exec.setRelativeDir(relativeDir);
 		exec.setService(service);
 		exec.setSkip(skip);
+		exec.setIncludes(includes);
+		exec.setExcludes(excludes);
 		return exec;
 	}
 
