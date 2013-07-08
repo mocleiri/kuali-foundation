@@ -23,10 +23,11 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ProjectStagingConfig {
 
-	public static final String GAVS_KEY = "impex.dump.staging.projects";
-	public static final String DIR_KEY = "impex.dump.staging.dir";
-	private static final String SERVICE_KEY = DumpSchemaConfig.SERVICE_KEY;
-	private static final String SKIP_KEY = "impex.dump.staging.skip";
+	private static final String SERVICE_KEY = "impex.staging.schema.service";
+	public static final String GAVS_KEY = "impex.staging.projects";
+	public static final String DIR_KEY = "impex.staging.dir";
+	public static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
+	private static final String SKIP_KEY = "impex.staging.skip";
 
 	@Autowired
 	Environment env;
@@ -40,7 +41,7 @@ public class ProjectStagingConfig {
 
 	@Bean
 	public Executable createFilteredProjectSchemasExecutable() {
-		File inputSchemaFile = SpringUtils.getFile(env, DumpSchemaConfig.FILE_KEY);
+		File inputSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
 		File stagingDir = SpringUtils.getFile(env, DIR_KEY);
 		List<Project> projects = getProjects();
 		List<CreateFilteredSchemaExecutable> execs = new ArrayList<CreateFilteredSchemaExecutable>();
