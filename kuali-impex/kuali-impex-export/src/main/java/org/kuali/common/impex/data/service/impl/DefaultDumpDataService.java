@@ -288,6 +288,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	@Override
 	public List<DumpTableResult> dumpTables(DumpDataContext context, Schema schema) {
 
+		logger.info("[data:dump:starting]");
 		List<DumpTableContext> tableContexts = new ArrayList<DumpTableContext>();
 
 		Collection<Table> includedTables = DumpUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
@@ -331,8 +332,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 
 		String time = FormatUtils.getTime(stats.getExecutionTime());
-		logger.info("Dump tables completed.  Time: {}", time);
-		logger.info("Disconnecting from database.");
+		logger.info("[data:dump:complete] - {}", time);
 		return results;
 	}
 

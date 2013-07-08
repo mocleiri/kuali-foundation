@@ -106,7 +106,7 @@ public class DataHandler {
 			String trc = FormatUtils.getCount(tracker.getTotalRowCount().getValue());
 			String tds = FormatUtils.getSize(tracker.getTotalDataSize().getValue());
 			Object[] args = { threadId, tableName, trc, tds };
-			logger.info("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
+			logger.debug("[{}] - Dumped [{}] Total Rows: {}  Total Size: {}", args);
 		}
 	}
 
