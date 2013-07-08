@@ -54,7 +54,8 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 	@Override
 	public void dumpSchema(Schema schema, Writer writer) {
 		try {
-			// Clone the schema they give us so we don't alter it
+			// Clone the schema they give us so the act of persisting it to disk does not alter
+			// anything about the object we've been passed
 			Schema clone = new Schema(schema);
 
 			// Null out values that don't need to be converted to XML
