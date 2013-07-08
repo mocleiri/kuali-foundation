@@ -64,14 +64,6 @@ public class ModelUtils {
 		}
 	}
 
-	public static void fillInSchema(Schema schema) {
-		for (Table table : CollectionUtils.toEmptyList(schema.getTables())) {
-			for (Column column : CollectionUtils.toEmptyList(table.getColumns())) {
-				column.setTable(table);
-			}
-		}
-	}
-
 	public static Schema filter(Schema schema, StringFilter nameFilter) {
 		List<Table> excludedTables = ModelUtils.filterAndSortElements(schema.getTables(), nameFilter);
 		List<View> excludedViews = ModelUtils.filterAndSortElements(schema.getViews(), nameFilter);

@@ -41,9 +41,7 @@ public class Table implements NamedElement {
 		}
 
 		for (Column column : CollectionUtils.toEmptyList(table.getColumns())) {
-			Column newColumn = new Column(column);
-			newColumn.setTable(this);
-			this.columns.add(newColumn);
+			this.columns.add(new Column(column));
 		}
 	}
 

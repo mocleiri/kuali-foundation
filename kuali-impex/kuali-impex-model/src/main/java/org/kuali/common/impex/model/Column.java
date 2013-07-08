@@ -20,7 +20,6 @@ public class Column implements NamedElement {
 	String description;
 	Boolean primaryKey = DEFAULT_PRIMARY_KEY_VALUE;
 	Boolean nullable = DEFAULT_NULLABLE_VALUE;
-	Table table;
 
 	/**
 	 * This is a copy constructor. It must create a perfect, deep, copy of this object
@@ -36,7 +35,7 @@ public class Column implements NamedElement {
 	}
 
 	public Column() {
-		this(null, null, null);
+		this(null, null);
 	}
 
 	/**
@@ -44,10 +43,9 @@ public class Column implements NamedElement {
 	 * 
 	 * All values are initialized, with a special note that nullable is initially set to true
 	 */
-	public Column(String name, DataType dataType, Table table) {
+	public Column(String name, DataType dataType) {
 		this.name = name;
 		this.dataType = dataType;
-		this.table = table;
 	}
 
 	@XmlAttribute(name = "type")
@@ -110,13 +108,5 @@ public class Column implements NamedElement {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Table getTable() {
-		return table;
-	}
-
-	public void setTable(Table table) {
-		this.table = table;
 	}
 }

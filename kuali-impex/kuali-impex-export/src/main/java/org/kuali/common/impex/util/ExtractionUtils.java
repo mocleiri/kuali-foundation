@@ -267,7 +267,6 @@ public class ExtractionUtils {
 				table.setName(tableName);
 
 				Column col = new Column();
-				col.setTable(table);
 				col.setPrimaryKey(primaryKey);
 				col.setName(name);
 				col.setDescription(remarks);

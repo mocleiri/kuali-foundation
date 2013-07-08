@@ -231,7 +231,7 @@ public class LiquibaseSchemaProvider {
 	}
 
 	protected Column buildColumn(liquibase.structure.core.Column sourceColumn, boolean primaryKey, Table modelTable) {
-		Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn), modelTable);
+		Column col = new Column(sourceColumn.getName(), DataTypeUtils.getColumnDataType(sourceColumn));
 
 		if (sourceColumn.getDefaultValue() != null) {
 			String defaultValue = sourceColumn.getDefaultValue().toString().trim();

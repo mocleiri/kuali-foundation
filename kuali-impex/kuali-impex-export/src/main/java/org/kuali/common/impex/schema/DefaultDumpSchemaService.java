@@ -27,7 +27,6 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.model.util.SchemaNullifier;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.nullify.Nullifier;
@@ -80,9 +79,7 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 			in = LocationUtils.getInputStream(location);
 			JAXBContext context = JAXBContext.newInstance(Schema.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
-			Schema schema = (Schema) unmarshaller.unmarshal(in);
-			ModelUtils.fillInSchema(schema);
-			return schema;
+			return (Schema) unmarshaller.unmarshal(in);
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
 		} catch (IOException e) {

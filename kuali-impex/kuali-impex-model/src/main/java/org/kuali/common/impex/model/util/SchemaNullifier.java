@@ -45,9 +45,6 @@ public class SchemaNullifier implements Nullifier {
 	}
 
 	protected void nullify(Column column) {
-		// Not necessary when persisting to XML because every column tag is nested inside a table tag anyway
-		column.setTable(null);
-
 		if (Column.DEFAULT_NULLABLE_VALUE.equals(column.isNullable())) {
 			column.setNullable(null);
 		}
