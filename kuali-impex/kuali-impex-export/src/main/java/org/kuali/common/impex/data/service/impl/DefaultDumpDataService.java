@@ -353,7 +353,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		String size = FormatUtils.getSize(getDumpResultSize(results));
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		Object[] args = { tables, rows, size, time };
-		logger.info("[data:dump:complete] - [tables: {} rows: {} size: {}] - {}", args);
+		logger.info("[data:dump:complete] - [tables: {}  rows: {}  size: {}] - {}", args);
 		return results;
 	}
 
