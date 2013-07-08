@@ -33,7 +33,7 @@ public class ProjectStagingConfig {
 
 	@Bean
 	public Executable projectStagingExecutable() {
-		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY);
+		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
 		List<Executable> execs = Arrays.asList(createFilteredProjectSchemasExecutable(), copyProjectDataFilesExecutable());
 		return new ExecutablesExecutable(execs, skip);
 	}
