@@ -57,8 +57,8 @@ public class CopyFilesExecutable implements Executable {
 
 		try {
 			// Null safe conversion of the lists to CSV
-			String includesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(CollectionUtils.toEmptyList(includes)));
-			String excludesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(CollectionUtils.toEmptyList(excludes)));
+			String includesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(includes));
+			String excludesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(excludes));
 
 			// Make sure we can create the destination directory
 			FileUtils.forceMkdir(dstDir);
