@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.util.DumpConstants;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.StringFilter;
@@ -39,11 +40,12 @@ public class CreateFilteredSchemaExecutable implements Executable {
 		StringFilter filter = StringFilter.getInstance(includes, excludes);
 		ModelUtils.filter(schema, filter);
 
+		String path = LocationUtils.getCanonicalPath(schemaOutputFile);
 		if (FileSystemUtils.isParent(relativeDir, schemaOutputFile)) {
-			logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(relativeDir, schemaOutputFile));
-		} else {
-			logger.info("Creating - [{}]", LocationUtils.getCanonicalPath(schemaOutputFile));
+			path = FileSystemUtils.getRelativePath(relativeDir, schemaOutputFile);
 		}
+		Object[] args = { path, CollectionUtils.getSpaceSeparatedString(includes), CollectionUtils.getSpaceSeparatedString(excludes) };
+		logger.info("Creating - [{}] - [includes: {} excludes: {}]", args);
 
 		service.dumpSchema(schema, schemaOutputFile);
 	}
