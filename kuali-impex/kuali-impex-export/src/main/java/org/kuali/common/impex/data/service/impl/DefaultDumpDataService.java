@@ -98,7 +98,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			TableTracker tracker = new TableTracker();
 
 			// Convert JDBC metadata into Column objects
-			List<Column> columns = getOrderedColumnsFromMetadata(rs.getMetaData(), tableContext.getTable());
+			List<Column> columns = getOrderedColumnsFromMetadata(rs.getMetaData(), table);
 
 			// Setup some storage for the data coming out of the table
 			List<List<String>> tableData = new ArrayList<List<String>>();
@@ -109,10 +109,10 @@ public class DefaultDumpDataService implements DumpDataService {
 			// Iterate through the rows of the table
 			while (rs.next()) {
 
-				// In the context of a data dump, processing 1 row = progress
+				// In the context of a data dump, processing 1 row == progress
 				tableContext.getInformer().incrementProgress();
 
-				// If we get here the table has at least one row and thus a corresponding MPX file will get created
+				// If we get here, the table has at least one row and thus a corresponding MPX file will get created
 				// Do some one-time-only file system preparation
 				if (!started) {
 
