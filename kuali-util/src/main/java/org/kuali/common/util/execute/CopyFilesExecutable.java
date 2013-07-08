@@ -24,6 +24,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.FileUtils;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class CopyFilesExecutable implements Executable {
 
 	File srcDir;
 	File dstDir;
+	File relativeDir;
 
 	@Override
 	public void execute() {
@@ -56,9 +58,13 @@ public class CopyFilesExecutable implements Executable {
 			String includesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(CollectionUtils.toEmptyList(includes)));
 			String excludesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(CollectionUtils.toEmptyList(excludes)));
 			logger.debug("src - [{}]", LocationUtils.getCanonicalPath(srcDir));
-			logger.debug("dst - [{}]", LocationUtils.getCanonicalPath(dstDir));
-			logger.debug("includes - [{}], excludes - [{}]", includesCSV, excludesCSV);
 			FileUtils.forceMkdir(dstDir);
+			String path = LocationUtils.getCanonicalPath(dstDir);
+			if (FileSystemUtils.isParent(relativeDir, dstDir)) {
+				path = FileSystemUtils.getRelativePath(relativeDir, dstDir);
+			}
+			Object[] args = { path, includesCSV, excludesCSV };
+			logger.info("Copying to - [{}] includes: {} excludes: {}", args);
 			FileUtils.copyDirectory(srcDir, dstDir, includesCSV, excludesCSV);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
