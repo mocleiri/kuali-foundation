@@ -16,6 +16,7 @@
 package org.kuali.common.impex.data.service.impl;
 
 import org.kuali.common.impex.model.Table;
+import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.Weighted;
 
 public class DumpTableContext implements Comparable<DumpTableContext>, Weighted {
@@ -23,6 +24,7 @@ public class DumpTableContext implements Comparable<DumpTableContext>, Weighted 
 	Table table;
 	long rowCount;
 	long size;
+	PercentCompleteInformer informer;
 
 	@Override
 	public double getWeight() {
@@ -56,5 +58,13 @@ public class DumpTableContext implements Comparable<DumpTableContext>, Weighted 
 
 	public void setTable(Table table) {
 		this.table = table;
+	}
+
+	public PercentCompleteInformer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(PercentCompleteInformer informer) {
+		this.informer = informer;
 	}
 }

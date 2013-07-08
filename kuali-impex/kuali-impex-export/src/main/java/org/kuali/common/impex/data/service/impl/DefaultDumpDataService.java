@@ -108,6 +108,9 @@ public class DefaultDumpDataService implements DumpDataService {
 			// Iterate through the rows of the table
 			while (rs.next()) {
 
+				// In the context of a data dump, processing 1 row = progress
+				tableContext.getInformer().incrementProgress();
+
 				// If we get here the table has at least one row and thus a corresponding MPX file will get created
 				// Do some one-time-only file system preparation
 				if (!started) {
@@ -285,6 +288,14 @@ public class DefaultDumpDataService implements DumpDataService {
 		}
 	}
 
+	protected long getTotalRowCount(List<DumpTableContext> contexts) {
+		long rowCount = 0;
+		for (DumpTableContext context : contexts) {
+			rowCount += context.getRowCount();
+		}
+		return rowCount;
+	}
+
 	@Override
 	public List<DumpTableResult> dumpTables(DumpDataContext context, Schema schema) {
 
@@ -297,25 +308,26 @@ public class DefaultDumpDataService implements DumpDataService {
 
 		Properties tableStatistics = PropertyUtils.loadQuietly(context.getTableStatisticsLocation());
 
+		// Print a dot any time we complete 1% of our requests
+		PercentCompleteInformer informer = new PercentCompleteInformer();
+
 		// create table contexts
 		for (Table t : includedTables) {
-
 			DumpTableContext tableContext = new DumpTableContext();
 			tableContext.setTable(t);
-
+			tableContext.setInformer(informer);
 			DumpUtils.populateTableStatistics(tableStatistics, t, tableContext);
-
 			tableContexts.add(tableContext);
 		}
 
+		long totalRowCount = getTotalRowCount(tableContexts);
+
 		List<DumpTableResult> results = new ArrayList<DumpTableResult>();
 
-		// Print a dot any time we complete 1% of our requests
-		PercentCompleteInformer progressTracker = new PercentCompleteInformer();
-		progressTracker.setTotal(tableContexts.size());
+		informer.setTotal(totalRowCount);
 
 		// Each bucket holds a bunch of requests
-		List<DumpTableBucket> buckets = getTableBuckets(tableContexts, context, results, progressTracker);
+		List<DumpTableBucket> buckets = getTableBuckets(tableContexts, context, results, informer);
 
 		logger.debug("buckets.size()=" + buckets.size());
 
@@ -328,8 +340,10 @@ public class DefaultDumpDataService implements DumpDataService {
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
 
-		// Start threads to acquire table metadata concurrently
+		// Start threads to to concurrently dump data from 15 tables at a time
+		informer.start();
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
+		informer.stop();
 
 		String time = FormatUtils.getTime(stats.getExecutionTime());
 		logger.info("[data:dump:complete] - {}", time);
