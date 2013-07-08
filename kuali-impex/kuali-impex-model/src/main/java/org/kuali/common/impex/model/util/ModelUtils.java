@@ -23,9 +23,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.impex.model.Column;
+import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.NamedElement;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
+import org.kuali.common.impex.model.View;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.StringFilter;
 import org.springframework.util.Assert;
@@ -40,11 +43,18 @@ public class ModelUtils {
 		}
 	}
 
-	public static void filter(Schema schema, StringFilter nameFilter) {
-		ModelUtils.filterAndSortElements(schema.getTables(), nameFilter);
-		ModelUtils.filterAndSortElements(schema.getViews(), nameFilter);
-		ModelUtils.filterAndSortElements(schema.getSequences(), nameFilter);
-		ModelUtils.filterAndSortElements(schema.getForeignKeys(), nameFilter);
+	public static Schema filter(Schema schema, StringFilter nameFilter) {
+		List<Table> excludedTables = ModelUtils.filterAndSortElements(schema.getTables(), nameFilter);
+		List<View> excludedViews = ModelUtils.filterAndSortElements(schema.getViews(), nameFilter);
+		List<Sequence> excludedSequences = ModelUtils.filterAndSortElements(schema.getSequences(), nameFilter);
+		List<ForeignKey> excludedForeignKeys = ModelUtils.filterAndSortElements(schema.getForeignKeys(), nameFilter);
+
+		Schema excludedSchema = new Schema();
+		excludedSchema.setTables(excludedTables);
+		excludedSchema.setViews(excludedViews);
+		excludedSchema.setSequences(excludedSequences);
+		excludedSchema.setForeignKeys(excludedForeignKeys);
+		return excludedSchema;
 	}
 
 	public static List<String> getPrimaryKeyColumnNames(Table t) {
@@ -95,37 +105,43 @@ public class ModelUtils {
 	/**
 	 * Alter the <code>List</code> passed in by removing any elements that don't belong and then sorting the ones that remain by name
 	 */
-	public static <T extends NamedElement> void filterAndSortElements(List<T> elements, StringFilter filter) {
+	public static <T extends NamedElement> List<T> filterAndSortElements(List<T> elements, StringFilter filter) {
 
 		// Remove elements that don't belong
-		filterElements(elements, filter);
+		List<T> excluded = filterElements(elements, filter);
 
 		// Sort the elements by name
 		Collections.sort(elements, NamedElementComparator.getInstance());
+
+		// Return an object detailing the elements that were excluded
+		return excluded;
 	}
 
 	/**
 	 * Remove elements from the list that should not be there
 	 */
-	public static <T extends NamedElement> void filterElements(List<T> elements, StringFilter filter) {
+	public static <T extends NamedElement> List<T> filterElements(List<T> elements, StringFilter filter) {
 
 		// No filter, nothing to do
 		if (filter == null) {
-			return;
+			return Collections.<T> emptyList();
 		}
 
 		// Make sure we are configured correctly
 		Assert.notNull(elements, "elements is null");
 
 		// Iterate over the elements, removing elements that shouldn't be there
+		List<T> excluded = new ArrayList<T>();
 		Iterator<T> itr = elements.iterator();
 		while (itr.hasNext()) {
-			NamedElement element = itr.next();
+			T element = itr.next();
 			String name = element.getName();
 			if (!filter.include(name)) {
+				excluded.add(element);
 				itr.remove();
 			}
 		}
+		return excluded;
 	}
 
 }
