@@ -189,7 +189,7 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 
 	protected List<String> getTableNames(ExtractSchemaContext context) throws SQLException {
 		long start = System.currentTimeMillis();
-		logger.info("[schema:extract:tablenames] - [include: {}  exclude: {}]", LoggerUtils.getLogMsgArgs(context.getNameFilter()));
+		logger.info("[schema:extract:tablenames] - {}", LoggerUtils.getLogMsg(context.getNameFilter()));
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
 		List<String> excluded = CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
 		String original = FormatUtils.getCount(tableNames.size() + excluded.size());
