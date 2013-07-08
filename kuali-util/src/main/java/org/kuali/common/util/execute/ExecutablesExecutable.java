@@ -35,8 +35,13 @@ public class ExecutablesExecutable implements Executable {
 	}
 
 	public ExecutablesExecutable(List<? extends Executable> executables) {
+		this(executables, false);
+	}
+
+	public ExecutablesExecutable(List<? extends Executable> executables, boolean skip) {
 		super();
 		this.executables = executables;
+		this.skip = skip;
 	}
 
 	List<? extends Executable> executables;
