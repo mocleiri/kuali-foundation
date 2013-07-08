@@ -37,10 +37,12 @@ public class DumpSchemaExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
 	public static final boolean DEFAULT_LOG_EXCLUDED_SCHEMA_OBJECTS = false;
+	public static final String DEFAULT_EXCLUDED_SCHEMA_OBJECTS_TABLE_TILE = "Excluded Schema Objects";
 	public static final DumpSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultDumpSchemaService();
 
 	boolean skip = DEFAULT_SKIP_EXECUTION;
 	boolean logExcludedSchemaObjects = DEFAULT_LOG_EXCLUDED_SCHEMA_OBJECTS;
+	String excludedSchemaObjectsTableTitle = DEFAULT_EXCLUDED_SCHEMA_OBJECTS_TABLE_TILE;
 	DumpSchemaService service = DEFAULT_EXPORT_SCHEMA_SERVICE;
 
 	// Required
@@ -71,7 +73,7 @@ public class DumpSchemaExecutable implements Executable {
 		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
 
 		if (logExcludedSchemaObjects) {
-			ModelUtils.log(excludedSchemaObjects);
+			ModelUtils.log(excludedSchemaObjects, excludedSchemaObjectsTableTitle);
 		}
 
 		// The full file system path can sometimes be annoyingly long
@@ -150,6 +152,14 @@ public class DumpSchemaExecutable implements Executable {
 
 	public void setLogExcludedSchemaObjects(boolean logExcludedSchemaObjects) {
 		this.logExcludedSchemaObjects = logExcludedSchemaObjects;
+	}
+
+	public String getExcludedSchemaObjectsTableTitle() {
+		return excludedSchemaObjectsTableTitle;
+	}
+
+	public void setExcludedSchemaObjectsTableTitle(String excludedSchemaObjectsTableTitle) {
+		this.excludedSchemaObjectsTableTitle = excludedSchemaObjectsTableTitle;
 	}
 
 }
