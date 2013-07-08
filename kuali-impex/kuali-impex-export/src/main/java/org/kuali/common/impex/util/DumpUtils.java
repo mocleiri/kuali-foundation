@@ -129,6 +129,6 @@ public class DumpUtils {
 			props.setProperty(nameKey + ROWS_PROPERTY_SUFFIX, Long.toString(result.getRows()));
 		}
 
-		PropertyUtils.store(props, new File(location), null, null, true);
+		PropertyUtils.storeSilently(props, new File(location));
 	}
 }
