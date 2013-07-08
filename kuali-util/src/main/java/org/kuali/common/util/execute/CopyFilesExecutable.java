@@ -103,4 +103,12 @@ public class CopyFilesExecutable implements Executable {
 	public void setDstDir(File dstDir) {
 		this.dstDir = dstDir;
 	}
+
+	public File getRelativeDir() {
+		return relativeDir;
+	}
+
+	public void setRelativeDir(File relativeDir) {
+		this.relativeDir = relativeDir;
+	}
 }
