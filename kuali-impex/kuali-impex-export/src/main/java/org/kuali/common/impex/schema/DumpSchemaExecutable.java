@@ -36,9 +36,11 @@ public class DumpSchemaExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(DumpSchemaExecutable.class);
 
 	public static final boolean DEFAULT_SKIP_EXECUTION = false;
+	public static final boolean DEFAULT_LOG_EXCLUDED_SCHEMA_OBJECTS = false;
 	public static final DumpSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultDumpSchemaService();
 
 	boolean skip = DEFAULT_SKIP_EXECUTION;
+	boolean logExcludedSchemaObjects = DEFAULT_LOG_EXCLUDED_SCHEMA_OBJECTS;
 	DumpSchemaService service = DEFAULT_EXPORT_SCHEMA_SERVICE;
 
 	// Required
@@ -67,7 +69,10 @@ public class DumpSchemaExecutable implements Executable {
 		StringFilter filter = StringFilter.getInstance(includes, excludes);
 		Schema clone = new Schema(schema);
 		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
-		ModelUtils.log(excludedSchemaObjects);
+
+		if (logExcludedSchemaObjects) {
+			ModelUtils.log(excludedSchemaObjects);
+		}
 
 		// The full file system path can sometimes be annoyingly long
 		String path = LocationUtils.getCanonicalPath(outputFile);
