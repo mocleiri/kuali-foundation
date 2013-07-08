@@ -60,6 +60,7 @@ import org.slf4j.LoggerFactory;
 public class DefaultDumpDataService implements DumpDataService {
 
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultDumpDataService.class);
+	protected static final int DEFAULT_DATABASE_ROW_COUNT = 100000;
 
 	@Override
 	public DumpTableResult dumpTable(DumpDataContext context, DumpTableContext tableContext, Connection conn) {
@@ -293,7 +294,9 @@ public class DefaultDumpDataService implements DumpDataService {
 		for (DumpTableContext context : contexts) {
 			rowCount += context.getRowCount();
 		}
-		return rowCount;
+		// In the absence of any good estimate for the number of rows contained in the db
+		// Print a dot to the console every time we successfully dump 1,000 rows
+		return rowCount == 0 ? DEFAULT_DATABASE_ROW_COUNT : rowCount;
 	}
 
 	@Override
