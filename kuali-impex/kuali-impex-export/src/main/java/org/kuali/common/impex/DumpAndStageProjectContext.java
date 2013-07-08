@@ -8,13 +8,11 @@ import org.kuali.common.util.ProjectUtils;
 
 public class DumpAndStageProjectContext extends DefaultProjectContext {
 
-	private static final List<String> LOCATIONS = getLocations();
-
 	public DumpAndStageProjectContext() {
-		super(Constants.ARTIFACT_ID, LOCATIONS);
+		super(Constants.ARTIFACT_ID, getLocations());
 	}
 
-	private static final List<String> getLocations() {
+	protected static List<String> getLocations() {
 		String prefix = ProjectUtils.getCommonClassPathPrefix(Constants.ARTIFACT_ID);
 		List<String> locations = new ArrayList<String>();
 		locations.add(prefix + "/common.properties");
