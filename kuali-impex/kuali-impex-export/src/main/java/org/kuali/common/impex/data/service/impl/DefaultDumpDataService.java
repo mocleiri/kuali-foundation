@@ -237,20 +237,20 @@ public class DefaultDumpDataService implements DumpDataService {
 	 */
 	protected String getClob(Clob clob) throws SQLException {
 		Reader r = null;
-		StringBuilder sb = new StringBuilder();
 		try {
+			StringBuilder sb = new StringBuilder();
 			r = clob.getCharacterStream();
 			char[] buffer = new char[4096];
 			int len;
 			while ((len = r.read(buffer)) != -1) {
 				sb.append(buffer, 0, len);
 			}
+			return sb.toString();
 		} catch (IOException e) {
 			throw new SQLException(e);
 		} finally {
 			IOUtils.closeQuietly(r);
 		}
-		return sb.toString();
 	}
 
 	/**
