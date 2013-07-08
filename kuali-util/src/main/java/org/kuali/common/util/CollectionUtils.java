@@ -32,6 +32,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.property.Constants;
 
 public class CollectionUtils {
 
@@ -351,27 +352,33 @@ public class CollectionUtils {
 		}
 	}
 
-	public static final String getCSV(List<String> strings) {
+	public static final String getSpaceSeparatedCSV(List<String> strings) {
+		return getStringWithSeparator(strings, " ,");
+	}
+
+	public static final String getStringWithSeparator(List<?> list, String separator) {
+		list = toEmptyList(list);
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < toEmptyList(strings).size(); i++) {
+		for (int i = 0; i < toEmptyList(list).size(); i++) {
 			if (i != 0) {
-				sb.append(",");
+				sb.append(separator);
 			}
-			sb.append(strings.get(i));
+			Object element = list.get(i);
+			if (element != null) {
+				sb.append(element.toString());
+			} else {
+				sb.append(Constants.NULL);
+			}
 		}
 		return sb.toString();
 	}
 
+	public static final String getCSV(List<String> strings) {
+		return getStringWithSeparator(strings, ",");
+	}
+
 	public static final String getSpaceSeparatedString(List<?> list) {
-		list = toEmptyList(list);
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < list.size(); i++) {
-			if (i != 0) {
-				sb.append(" ");
-			}
-			sb.append(list.get(i).toString());
-		}
-		return sb.toString();
+		return getStringWithSeparator(list, " ");
 	}
 
 	public static final Object[] toObjectArray(List<Object> objects) {

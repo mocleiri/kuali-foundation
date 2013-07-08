@@ -33,6 +33,13 @@ public class LoggerUtils {
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	public static Object[] getLogMsgArgs(StringFilter filter) {
+		Assert.notNull(filter, "filter is null");
+		String includes = CollectionUtils.getSpaceSeparatedCSV(filter.getIncludes());
+		String excludes = CollectionUtils.getSpaceSeparatedCSV(filter.getExcludes());
+		return new Object[] { includes, excludes };
+	}
+
 	public static void log(LogMsg msg, Logger logger) {
 		Assert.notNull(msg.getLevel(), "level is null");
 		Assert.notNull(logger, "logger is null");
