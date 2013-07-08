@@ -60,7 +60,12 @@ import org.slf4j.LoggerFactory;
 public class DefaultDumpDataService implements DumpDataService {
 
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultDumpDataService.class);
-	protected static final int DEFAULT_DATABASE_ROW_COUNT = 100000;
+
+	/**
+	 * In the absence of a properties file holding detailed table statistics, this value is used. The logic prints a dot to the console each time it thinks it makes 1% progress
+	 * towards the overall goal. This default count will cause a dot to get printed for every 5,000 rows that get dumped.
+	 */
+	protected static final int DEFAULT_DATABASE_ROW_COUNT = 500000;
 
 	@Override
 	public DumpTableResult dumpTable(DumpDataContext context, DumpTableContext tableContext, Connection conn) {
