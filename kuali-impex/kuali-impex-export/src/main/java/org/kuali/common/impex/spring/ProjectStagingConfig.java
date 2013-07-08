@@ -36,12 +36,12 @@ public class ProjectStagingConfig {
 	@Bean
 	public Executable projectStagingExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
-		List<Executable> execs = Arrays.asList(createFilteredProjectSchemasExecutable(), copyProjectDataFilesExecutable());
+		List<Executable> execs = Arrays.asList(createCopyFilteredSchemasExecutable(), copyProjectDataFilesExecutable());
 		return new ExecutablesExecutable(execs, skip);
 	}
 
 	@Bean
-	public Executable createFilteredProjectSchemasExecutable() {
+	public Executable createCopyFilteredSchemasExecutable() {
 		File inputSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
 		File stagingDir = SpringUtils.getFile(env, DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
