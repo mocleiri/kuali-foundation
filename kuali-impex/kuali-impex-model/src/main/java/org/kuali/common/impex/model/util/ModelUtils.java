@@ -42,7 +42,7 @@ public class ModelUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ModelUtils.class);
 
-	public static void log(Schema schema, String title) {
+	public static void logTable(Schema schema, String title) {
 		Assert.notNull(schema, "schema is null");
 		List<String> columns = Arrays.asList("type", "name");
 		List<Object[]> rows = new ArrayList<Object[]>();
