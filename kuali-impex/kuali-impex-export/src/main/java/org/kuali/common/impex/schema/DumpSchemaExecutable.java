@@ -144,4 +144,12 @@ public class DumpSchemaExecutable implements Executable {
 		this.excludes = excludes;
 	}
 
+	public boolean isLogExcludedSchemaObjects() {
+		return logExcludedSchemaObjects;
+	}
+
+	public void setLogExcludedSchemaObjects(boolean logExcludedSchemaObjects) {
+		this.logExcludedSchemaObjects = logExcludedSchemaObjects;
+	}
+
 }

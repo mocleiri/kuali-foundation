@@ -39,6 +39,7 @@ public class DumpSchemaConfig {
 	public static final String EXCLUDES_KEY = "impex.dump.schema.excludes";
 	public static final String SKIP_KEY = "impex.dump.schema.skip";
 	public static final String RELATIVE_DIR_KEY = "impex.dump.schema.dir.relative";
+	public static final String LOG_EXCLUDES_KEY = "impex.dump.schema.log.excludes";
 
 	@Autowired
 	Environment env;
@@ -53,6 +54,7 @@ public class DumpSchemaConfig {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_EXCLUDE);
+		boolean logExcludedSchemaObjects = SpringUtils.getBoolean(env, LOG_EXCLUDES_KEY, false);
 
 		// Configure an executable
 		DumpSchemaExecutable exec = new DumpSchemaExecutable();
@@ -62,6 +64,7 @@ public class DumpSchemaConfig {
 		exec.setSkip(skip);
 		exec.setIncludes(includes);
 		exec.setExcludes(excludes);
+		exec.setLogExcludedSchemaObjects(logExcludedSchemaObjects);
 		return exec;
 	}
 
