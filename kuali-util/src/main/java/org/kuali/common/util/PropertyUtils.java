@@ -972,7 +972,7 @@ public class PropertyUtils {
 	 */
 	public static final Properties loadQuietly(String location) {
 		if (LocationUtils.exists(location)) {
-			return load(location);
+			return load(location, null, PropertyFormat.NORMAL, true);
 		} else {
 			return new Properties();
 		}
