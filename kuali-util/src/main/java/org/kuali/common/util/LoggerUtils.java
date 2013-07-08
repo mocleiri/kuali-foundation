@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -32,6 +33,37 @@ public class LoggerUtils {
 	public static final Logger LOGGER_UTILS_LOGGER = LoggerFactory.getLogger(LoggerUtils.class);
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+
+	public static String getLogMsg(List<String> includes, List<String> excludes) {
+		if (CollectionUtils.isEmpty(includes) && CollectionUtils.isEmpty(excludes)) {
+			return "";
+		}
+		String includesCSV = StringUtils.trimToNull(CollectionUtils.getSpaceSeparatedCSV(includes));
+		String excludesCSV = StringUtils.trimToNull(CollectionUtils.getSpaceSeparatedCSV(excludes));
+		List<KeyValue> msgs = new ArrayList<KeyValue>();
+		if (!StringUtils.isBlank(includesCSV)) {
+			msgs.add(new KeyValue("includes", includesCSV));
+			msgs.add(new KeyValue("excludes", excludesCSV));
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (int i = 0; i < msgs.size(); i++) {
+			if (i != 0) {
+				sb.append("  ");
+			}
+			KeyValue msg = msgs.get(i);
+			sb.append(msg.getKey());
+			sb.append(": ");
+			sb.append(msg.getValue());
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+
+	public static String getLogMsg(StringFilter filter) {
+		Assert.notNull(filter, "filter is null");
+		return getLogMsg(filter.getIncludes(), filter.getExcludes());
+	}
 
 	public static Object[] getLogMsgArgs(StringFilter filter) {
 		Assert.notNull(filter, "filter is null");
