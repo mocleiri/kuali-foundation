@@ -56,21 +56,32 @@ public class CopyFilesExecutable implements Executable {
 		Assert.isTrue(LocationUtils.exists(srcDir), "srcDir does not exist");
 
 		try {
+			// Null safe conversion of the lists to CSV
 			String includesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(CollectionUtils.toEmptyList(includes)));
 			String excludesCSV = StringUtils.trimToNull(CollectionUtils.getCSV(CollectionUtils.toEmptyList(excludes)));
-			logger.debug("src - [{}]", LocationUtils.getCanonicalPath(srcDir));
+
+			// Make sure we can create the destination directory
 			FileUtils.forceMkdir(dstDir);
-			String path = LocationUtils.getCanonicalPath(dstDir);
-			if (FileSystemUtils.isParent(relativeDir, dstDir)) {
-				path = FileSystemUtils.getRelativePath(relativeDir, dstDir);
-			}
-			Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
-			logger.info("Copying to - [{}] - {}", args);
+
+			// Show what we are up to
+			logCopy();
+
+			// Copy files from src to dst
 			FileUtils.copyDirectory(srcDir, dstDir, includesCSV, excludesCSV);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
 
+	}
+
+	protected void logCopy() {
+		String path = LocationUtils.getCanonicalPath(dstDir);
+		if (FileSystemUtils.isParent(relativeDir, dstDir)) {
+			path = FileSystemUtils.getRelativePath(relativeDir, dstDir);
+		}
+		Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
+		logger.debug("srcDir - [{}]", LocationUtils.getCanonicalPath(srcDir));
+		logger.info("Copying to - [{}] - {}", args);
 	}
 
 	public List<String> getIncludes() {
