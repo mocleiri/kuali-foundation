@@ -353,7 +353,7 @@ public class CollectionUtils {
 	}
 
 	public static final String getSpaceSeparatedCSV(List<String> strings) {
-		return getStringWithSeparator(strings, " ,");
+		return getStringWithSeparator(strings, ", ");
 	}
 
 	public static final String getStringWithSeparator(List<?> list, String separator) {
