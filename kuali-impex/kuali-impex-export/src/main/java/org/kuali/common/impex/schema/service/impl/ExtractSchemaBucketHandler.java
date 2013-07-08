@@ -44,7 +44,7 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 
 	@Override
 	public void handleElement(ListIteratorContext<ExtractSchemaBucket> context, int index, ExtractSchemaBucket element) {
-		// TODO The instanceof check is pretty awful. Do something smarter here
+		// TODO This instanceof check is pretty awful. Do something smarter here
 		if (element instanceof ExtractViewsAndSequencesBucket) {
 			doViewsAndSequences(element, element.getContext(), element.getSchema());
 		} else {
