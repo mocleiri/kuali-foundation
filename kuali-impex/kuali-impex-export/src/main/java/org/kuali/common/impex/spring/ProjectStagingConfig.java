@@ -2,6 +2,7 @@ package org.kuali.common.impex.spring;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.impex.schema.CreateFilteredSchemaExecutable;
@@ -29,6 +30,13 @@ public class ProjectStagingConfig {
 
 	@Autowired
 	Environment env;
+
+	@Bean
+	public Executable projectStagingExecutable() {
+		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY);
+		List<Executable> execs = Arrays.asList(createFilteredProjectSchemasExecutable(), copyProjectDataFilesExecutable());
+		return new ExecutablesExecutable(execs, skip);
+	}
 
 	@Bean
 	public Executable createFilteredProjectSchemasExecutable() {
