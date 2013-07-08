@@ -43,6 +43,8 @@ public class LoggerUtils {
 		List<KeyValue> msgs = new ArrayList<KeyValue>();
 		if (!StringUtils.isBlank(includesCSV)) {
 			msgs.add(new KeyValue("includes", includesCSV));
+		}
+		if (!StringUtils.isBlank(excludesCSV)) {
 			msgs.add(new KeyValue("excludes", excludesCSV));
 		}
 		StringBuilder sb = new StringBuilder();
