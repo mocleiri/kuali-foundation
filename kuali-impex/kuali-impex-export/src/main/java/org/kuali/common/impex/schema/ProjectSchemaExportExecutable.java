@@ -67,7 +67,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		File outputFile = DumpUtils.getSchemaFile(stagingDir, project);
 
 		// Log the name of the file we are creating
-		logger.info("Creating - [{}]", FileSystemUtils.getRelativePath(basedir, outputFile));
+		logger.info("Creating - [{}]", FileSystemUtils.getRelativePathQuietly(basedir, outputFile));
 
 		// Persist the cloned schema to disk as XML
 		service.dumpSchema(clone, outputFile);
