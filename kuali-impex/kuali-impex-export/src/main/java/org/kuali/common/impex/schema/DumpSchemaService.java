@@ -32,4 +32,8 @@ public interface DumpSchemaService {
 	 */
 	void dumpSchema(Schema schema, Writer writer);
 
+	Schema getSchema(String location);
+
+	Schema getSchema(File file);
+
 }

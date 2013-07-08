@@ -17,18 +17,25 @@ package org.kuali.common.impex.schema;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.model.util.SchemaNullifier;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.nullify.Nullifier;
+import org.springframework.util.Assert;
 
+/**
+ * This service provides methods for reading/persisting a Schema object to/from XML.
+ */
 public class DefaultDumpSchemaService implements DumpSchemaService {
 
 	@Override
@@ -62,5 +69,31 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
 		}
+	}
+
+	@Override
+	public Schema getSchema(String location) {
+		Assert.notNull(location, "location is null");
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			JAXBContext context = JAXBContext.newInstance(Schema.class);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Schema schema = (Schema) unmarshaller.unmarshal(in);
+			ModelUtils.fillInSchema(schema);
+			return schema;
+		} catch (JAXBException e) {
+			throw new IllegalStateException("Unexpected JAXB error", e);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	@Override
+	public Schema getSchema(File file) {
+		Assert.notNull(file, "file is null");
+		return getSchema(LocationUtils.getCanonicalPath(file));
 	}
 }
