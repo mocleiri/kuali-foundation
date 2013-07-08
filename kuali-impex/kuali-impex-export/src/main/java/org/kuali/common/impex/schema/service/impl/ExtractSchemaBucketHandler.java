@@ -19,11 +19,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.kuali.common.impex.model.ForeignKey;
-import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.service.ExtractSchemaContext;
 import org.kuali.common.impex.schema.service.ExtractSchemaService;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
@@ -46,19 +44,19 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 	public void handleElement(ListIteratorContext<ExtractSchemaBucket> context, int index, ExtractSchemaBucket element) {
 		// TODO This instanceof check is pretty awful. Do something smarter here
 		if (element instanceof ExtractViewsAndSequencesBucket) {
-			doViewsAndSequences(element, element.getContext(), element.getSchema());
+			doViewsAndSequences(element);
 		} else {
-			doTablesAndForeignKeys(element, element.getContext(), element.getSchema());
+			doTablesAndForeignKeys(element);
 		}
 	}
 
-	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket, ExtractSchemaContext context, Schema schema) {
+	protected void doTablesAndForeignKeys(ExtractSchemaBucket bucket) {
 		try {
-			List<Table> tables = service.extractTables(bucket.getTableNames(), context);
-			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), context);
-			synchronized (schema) {
-				schema.getTables().addAll(tables);
-				schema.getForeignKeys().addAll(foreignKeys);
+			List<Table> tables = service.extractTables(bucket.getTableNames(), bucket.getContext());
+			List<ForeignKey> foreignKeys = service.extractForeignKeys(bucket.getTableNames(), bucket.getContext());
+			synchronized (bucket.getSchema()) {
+				bucket.getSchema().getTables().addAll(tables);
+				bucket.getSchema().getForeignKeys().addAll(foreignKeys);
 			}
 		} catch (SQLException e) {
 			throw new IllegalStateException("Unexpected SQL error");
@@ -66,17 +64,17 @@ public class ExtractSchemaBucketHandler implements ElementHandler<ExtractSchemaB
 
 	}
 
-	protected void doViewsAndSequences(ExtractSchemaBucket bucket, ExtractSchemaContext context, Schema schema) {
+	protected void doViewsAndSequences(ExtractSchemaBucket bucket) {
 		try {
-			List<View> views = service.extractViews(context);
+			List<View> views = service.extractViews(bucket.getContext());
 			bucket.getInformer().incrementProgress();
 
-			List<Sequence> sequences = service.extractSequences(context);
+			List<Sequence> sequences = service.extractSequences(bucket.getContext());
 			bucket.getInformer().incrementProgress();
 
-			synchronized (schema) {
-				schema.getViews().addAll(views);
-				schema.getSequences().addAll(sequences);
+			synchronized (bucket.getSchema()) {
+				bucket.getSchema().getViews().addAll(views);
+				bucket.getSchema().getSequences().addAll(sequences);
 			}
 		} catch (SQLException e) {
 			throw new IllegalStateException("Unexpected SQL error");
