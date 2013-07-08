@@ -57,8 +57,9 @@ public class PercentCompleteInformer extends AbstractProgressInformer {
 		// Calculate how far along we are
 		int percentComplete = (int) ((progress * 100) / total);
 
-		// Print a dot to the console any time we make at least 1% progress
+		// Have we made at least 1% progress since the last time we were informed about progress occurring?
 		if (isEnoughProgress(percentComplete, percentCompletePrevious, percentageIncrement)) {
+			// If so, print a dot to the console
 			this.percentCompletePrevious = percentComplete;
 			printStream.print(progressToken);
 		}
