@@ -35,7 +35,6 @@ public class DumpTableBucketHandler implements ElementHandler<DumpTableBucket> {
 				synchronized (results) {
 					results.add(result);
 				}
-				// element.getProgressTracker().progressOccurred();
 			}
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

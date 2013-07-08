@@ -348,9 +348,28 @@ public class DefaultDumpDataService implements DumpDataService {
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
 
+		String rows = FormatUtils.getCount(getDumpResultRows(results));
+		String size = FormatUtils.getSize(getDumpResultSize(results));
 		String time = FormatUtils.getTime(stats.getExecutionTime());
-		logger.info("[data:dump:complete] - {}", time);
+		Object[] args = { rows, size, time };
+		logger.info("[data:dump:complete] - [rows: {} size: {}] - {}", args);
 		return results;
+	}
+
+	protected long getDumpResultRows(List<DumpTableResult> results) {
+		long rows = 0;
+		for (DumpTableResult result : results) {
+			rows += result.getRows();
+		}
+		return rows;
+	}
+
+	protected long getDumpResultSize(List<DumpTableResult> results) {
+		long size = 0;
+		for (DumpTableResult result : results) {
+			size += result.getSize();
+		}
+		return size;
 	}
 
 	protected List<DumpTableBucket> getTableBuckets(List<DumpTableContext> tables, DumpDataContext context, List<DumpTableResult> results, PercentCompleteInformer progressTracker) {
