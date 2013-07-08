@@ -970,7 +970,7 @@ public class PropertyUtils {
 	/**
 	 * If location exists, return a new <code>Properties</code> object loaded from <code>location</code>, otherwise return a new <code>Properties</code> object
 	 */
-	public static final Properties loadQuietly(String location) {
+	public static final Properties loadOrCreateSilently(String location) {
 		if (LocationUtils.exists(location)) {
 			return load(location, null, PropertyFormat.NORMAL, true);
 		} else {
