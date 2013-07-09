@@ -16,36 +16,36 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.util.List;
 
-public class PrepareScmDirRequest {
+public class SyncScmDirResult {
 
-	File srcDir;
-	File scmDir;
+	List<File> adds;
+	List<File> updates;
+	List<File> deletes;
 
-	public PrepareScmDirRequest() {
-		this(null, null);
+	public List<File> getAdds() {
+		return adds;
 	}
 
-	public PrepareScmDirRequest(File srcDir, File scmDir) {
-		super();
-		this.srcDir = srcDir;
-		this.scmDir = scmDir;
+	public void setAdds(List<File> adds) {
+		this.adds = adds;
 	}
 
-	public File getSrcDir() {
-		return srcDir;
+	public List<File> getUpdates() {
+		return updates;
 	}
 
-	public void setSrcDir(File srcDir) {
-		this.srcDir = srcDir;
+	public void setUpdates(List<File> updates) {
+		this.updates = updates;
 	}
 
-	public File getScmDir() {
-		return scmDir;
+	public List<File> getDeletes() {
+		return deletes;
 	}
 
-	public void setScmDir(File scmDir) {
-		this.scmDir = scmDir;
+	public void setDeletes(List<File> deletes) {
+		this.deletes = deletes;
 	}
 
 }

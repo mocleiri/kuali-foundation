@@ -19,7 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +32,60 @@ import org.slf4j.LoggerFactory;
 public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
+
+	public static final String RECURSIVE_FILE_INCLUDE_PATTERN = "**/*";
+	public static final List<String> DEFAULT_RECURSIVE_INCLUDES = Arrays.asList(RECURSIVE_FILE_INCLUDE_PATTERN);
+
+	private static final String SVN_PATTERN = "**/.svn/*";
+	private static final String GIT_PATTERN = "**/.git/*";
+	public static final List<String> DEFAULT_SCM_IGNORE_PATTERNS = Arrays.asList(SVN_PATTERN, GIT_PATTERN);
+
+	/**
+	 * Return a recursive listing of all files in the directory ignoring <code>&#43;&#43;/.svn/*</code> and <code>&#43;&#43;/.git/*</code>
+	 */
+	public static List<File> getAllNonScmFiles(File dir) {
+		return getAllNonScmFiles(dir, DEFAULT_SCM_IGNORE_PATTERNS);
+	}
+
+	/**
+	 * Return a recursive listing of all files in the directory ignoring files that match <code>scmIgnorePatterns</code>
+	 */
+	public static List<File> getAllNonScmFiles(File dir, List<String> scmIgnorePatterns) {
+		SimpleScanner scanner = new SimpleScanner(dir, DEFAULT_RECURSIVE_INCLUDES, scmIgnorePatterns);
+		return scanner.getFiles();
+	}
+
+	public static SyncScmDirResult syncScmDir(SyncScmDirRequest request) {
+
+		// Get a recursive listing of all files from both directories. Ignore SCM metadata directories like .svn, .git, etc
+		List<File> srcFiles = getAllNonScmFiles(request.getSrcDir(), request.getScmIgnorePatterns());
+		List<File> scmFiles = getAllNonScmFiles(request.getScmDir(), request.getScmIgnorePatterns());
+
+		// Get the unique set of paths for each file relative to their parent directory
+		Set<String> srcPaths = new HashSet<String>(getRelativePaths(request.getSrcDir(), srcFiles));
+		Set<String> scmPaths = new HashSet<String>(getRelativePaths(request.getScmDir(), scmFiles));
+
+		// Files that already exist in both directories do not require an additional SCM step eg adding them or deleting them from SCM
+		Set<String> updates = SetUtils.intersection(srcPaths, scmPaths);
+
+		// Files that exist in the source directory but not the SCM directory need to be added to SCM
+		Set<String> adds = SetUtils.difference(srcPaths, scmPaths);
+
+		// Files that exist in the SCM directory but not the source directory need to be deleted from SCM
+		Set<String> deletes = SetUtils.difference(scmPaths, srcPaths);
+
+		try {
+			copyFiles(request.getSrcDir(), srcFiles, request.getScmDir());
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
+
+		SyncScmDirResult result = new SyncScmDirResult();
+		result.setAdds(getSortedFullPaths(request.getScmDir(), adds));
+		result.setUpdates(getSortedFullPaths(request.getScmDir(), updates));
+		result.setDeletes(getSortedFullPaths(request.getScmDir(), deletes));
+		return result;
+	}
 
 	/**
 	 * Examine the contents of a text file, stopping as soon as it contains <code>token</code>, or <code>timeout</code> is exceeded, whichever comes first.
@@ -152,11 +209,22 @@ public class FileSystemUtils {
 		}
 	}
 
+	protected static List<File> getFullPaths(File dir, Set<String> relativePaths) {
+		return getFullPaths(dir, new ArrayList<String>(relativePaths));
+	}
+
+	protected static List<File> getSortedFullPaths(File dir, Set<String> relativePaths) {
+		List<File> files = getFullPaths(dir, new ArrayList<String>(relativePaths));
+		Collections.sort(files);
+		return files;
+	}
+
 	protected static List<File> getFullPaths(File dir, List<String> relativePaths) {
 		List<File> files = new ArrayList<File>();
 		for (String relativePath : relativePaths) {
 			File file = new File(dir, relativePath);
-			files.add(file);
+			File canonical = new File(LocationUtils.getCanonicalPath(file));
+			files.add(canonical);
 		}
 		return files;
 	}
@@ -192,10 +260,10 @@ public class FileSystemUtils {
 	 * Return the relative path to <code>file</code> from <code>relativePath</code>. <code>relativePath</code> is optional and can be <code>null</code>. If
 	 * <code>relativePath</code> is not supplied (or is not a parent directory to <code>file</code> the canonical path to <code>file</code> is returned.
 	 */
-	public static String getRelativePathQuietly(File relativeDir, File file) {
+	public static String getRelativePathQuietly(File parentDir, File file) {
 		Assert.notNull(file, "file is null");
-		if (isParent(relativeDir, file)) {
-			return getRelativePath(relativeDir, file);
+		if (isParent(parentDir, file)) {
+			return getRelativePath(parentDir, file);
 		} else {
 			return LocationUtils.getCanonicalPath(file);
 		}
@@ -208,14 +276,6 @@ public class FileSystemUtils {
 			throw new IllegalArgumentException(file + " does not reside under " + dir);
 		}
 		return StringUtils.remove(filePath, dirPath);
-	}
-
-	/**
-	 * Return a recursive listing of all files in the directory but ignoring .svn and .git
-	 */
-	public static List<File> getAllNonScmFiles(File dir) {
-		SimpleScanner scanner = new SimpleScanner(dir, Arrays.asList("**/*"), Arrays.asList("**/.svn/**", "**/.git/**"));
-		return scanner.getFiles();
 	}
 
 	/**
