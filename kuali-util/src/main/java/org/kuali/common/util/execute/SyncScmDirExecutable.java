@@ -25,9 +25,9 @@ import org.kuali.common.util.SyncResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PrepareScmDirExecutable implements Executable {
+public class SyncScmDirExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(PrepareScmDirExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(SyncScmDirExecutable.class);
 
 	boolean skip;
 	File srcDir;
