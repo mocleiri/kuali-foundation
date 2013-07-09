@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.execute.CopyFilesExecutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +68,7 @@ public class FileSystemUtils {
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
 	 */
-	public static DirectoryDifference prepareScmDir(PrepareScmDirRequest request) {
+	public static DirectoryDiffResult prepareScmDir(PrepareScmDirRequest request) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
@@ -78,43 +79,73 @@ public class FileSystemUtils {
 		Assert.isExistingDir(request.getSrcDir(), "srcDir is not an existing directory");
 		Assert.isExistingDir(request.getScmDir(), "scmDir is not an existing directory");
 
-		// Get a recursive listing of all files from both directories. Ignore SCM metadata directories like .svn, .git, etc
-		List<File> srcFiles = getAllNonScmFiles(request.getSrcDir(), request.getScmIgnorePatterns());
-		List<File> scmFiles = getAllNonScmFiles(request.getScmDir(), request.getScmIgnorePatterns());
+		// Setup a diff request
+		DirectoryDiffRequest diffRequest = new DirectoryDiffRequest();
+		diffRequest.setDir1(request.getSrcDir());
+		diffRequest.setDir2(request.getScmDir());
+		diffRequest.setExcludes(request.getScmIgnorePatterns());
 
 		// Record the differences between the two directories
-		DirectoryDifference diff = getDirectoryDifference(request.getSrcDir(), srcFiles, request.getScmDir(), scmFiles);
+		DirectoryDiffResult diff = getDiff(diffRequest);
 
-		try {
-			// Unconditionally copy all files from the source directory to the SCM directory
-			// Overwrite any existing files in the SCM directory
-			copyFiles(request.getSrcDir(), srcFiles, request.getScmDir());
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		}
+		// Copy files from the source directory to the SCM directory
+		CopyFilesExecutable exec = new CopyFilesExecutable();
+		exec.setSrcDir(request.getSrcDir());
+		exec.setDstDir(request.getScmDir());
+		exec.setExcludes(request.getScmIgnorePatterns());
+		exec.execute();
 
+		// Return the diff so we'll know what SCM needs to add/delete from its directory
 		return diff;
 	}
 
-	public static DirectoryDifference getDirectoryDifference(File srcDir, List<File> srcFiles, File dstDir, List<File> dstFiles) {
+	public static List<File> getFiles(File dir, List<String> includes, List<String> excludes) {
+		SimpleScanner scanner = new SimpleScanner(dir, includes, excludes);
+		return scanner.getFiles();
+	}
+
+	public static DirectoryDiffResult getDiff(File dir1, File dir2, List<String> includes, List<String> excludes) {
+		DirectoryDiffRequest request = new DirectoryDiffRequest();
+		request.setDir1(dir1);
+		request.setDir2(dir2);
+		request.setIncludes(includes);
+		request.setExcludes(excludes);
+		return getDiff(request);
+	}
+
+	public static DirectoryDiffResult getDiff(DirectoryDiffRequest request) {
+
+		// Get a listing of files from both directories using the exact same includes/excludes
+		List<File> dir1Files = getFiles(request.getDir1(), request.getIncludes(), request.getExcludes());
+		List<File> dir2Files = getFiles(request.getDir2(), request.getIncludes(), request.getExcludes());
+
 		// Get the unique set of paths for each file relative to their parent directory
-		Set<String> srcPaths = new HashSet<String>(getRelativePaths(srcDir, srcFiles));
-		Set<String> dstPaths = new HashSet<String>(getRelativePaths(dstDir, dstFiles));
+		Set<String> dir1Paths = new HashSet<String>(getRelativePaths(request.getDir1(), dir1Files));
+		Set<String> dir2Paths = new HashSet<String>(getRelativePaths(request.getDir2(), dir2Files));
 
-		// Files that already exist in both directories
-		List<String> existing = new ArrayList<String>(SetUtils.intersection(srcPaths, dstPaths));
+		// Paths that exist in both directories
+		Set<String> both = SetUtils.intersection(dir1Paths, dir2Paths);
 
-		// Files that exist in the source directory but not the destination directory
-		List<String> adds = new ArrayList<String>(SetUtils.difference(srcPaths, dstPaths));
+		// Paths that exist in dir1 but not dir2
+		Set<String> dir1Only = SetUtils.difference(dir1Paths, dir2Paths);
 
-		// Files that exist in the destination directory but not the source directory
-		List<String> deletes = new ArrayList<String>(SetUtils.difference(dstPaths, srcPaths));
+		// Paths that exist in dir2 but not dir1
+		Set<String> dir2Only = SetUtils.difference(dir2Paths, dir1Paths);
 
-		// DirectoryDiff
-		DirectoryDifference result = new DirectoryDifference();
-		result.setAdds(getSortedFullPaths(dstDir, adds));
-		result.setExisting(getSortedFullPaths(dstDir, existing));
-		result.setDeletes(getSortedFullPaths(dstDir, deletes));
+		// Store the information we've collected into a result object
+		DirectoryDiffResult result = new DirectoryDiffResult(request.getDir1(), request.getDir2());
+
+		// Store the relative paths on the diff object
+		result.setBoth(new ArrayList<String>(both));
+		result.setDir1Only(new ArrayList<String>(dir1Only));
+		result.setDir2Only(new ArrayList<String>(dir2Only));
+
+		// Sort the relative paths
+		Collections.sort(result.getBoth());
+		Collections.sort(result.getDir1Only());
+		Collections.sort(result.getDir2Only());
+
+		// return the diff
 		return result;
 	}
 
@@ -198,7 +229,7 @@ public class FileSystemUtils {
 
 	public static SyncResult syncFiles(SyncRequest request) throws IOException {
 		logger.info("Sync [{}] -> [{}]", request.getSrcDir(), request.getDstDir());
-		List<File> dstFiles = getAllFiles(request.getDstDir());
+		List<File> dstFiles = getAllNonScmFiles(request.getDstDir());
 		List<File> srcFiles = request.getSrcFiles();
 
 		List<String> dstPaths = getRelativePaths(request.getDstDir(), dstFiles);
@@ -307,14 +338,6 @@ public class FileSystemUtils {
 			throw new IllegalArgumentException(file + " does not reside under " + dir);
 		}
 		return StringUtils.remove(filePath, dirPath);
-	}
-
-	/**
-	 * Return a recursive listing of all files in the directory but ignoring .svn and .git
-	 */
-	@Deprecated
-	protected static List<File> getAllFiles(File dir) {
-		return getAllNonScmFiles(dir);
 	}
 
 }

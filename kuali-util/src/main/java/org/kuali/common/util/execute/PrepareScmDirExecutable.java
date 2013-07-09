@@ -16,7 +16,7 @@
 package org.kuali.common.util.execute;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.DirectoryDifference;
+import org.kuali.common.util.DirectoryDiffResult;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.PrepareScmDirRequest;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class PrepareScmDirExecutable implements Executable {
 	PrepareScmDirRequest request;
 
 	// Filled in during execution
-	DirectoryDifference diff;
+	DirectoryDiffResult diff;
 
 	@Override
 	public void execute() {
@@ -52,7 +52,7 @@ public class PrepareScmDirExecutable implements Executable {
 	/**
 	 * Expose <code>DirectoryDifference</code> via a getter
 	 */
-	public DirectoryDifference getDiff() {
+	public DirectoryDiffResult getDiff() {
 		return diff;
 	}
 
