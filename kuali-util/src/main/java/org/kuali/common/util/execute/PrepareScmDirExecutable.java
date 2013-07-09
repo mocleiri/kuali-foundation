@@ -32,7 +32,7 @@ public class PrepareScmDirExecutable implements Executable {
 	PrepareScmDirRequest request;
 
 	// Filled in during execution
-	DirectoryDifference result;
+	DirectoryDifference diff;
 
 	@Override
 	public void execute() {
@@ -45,15 +45,15 @@ public class PrepareScmDirExecutable implements Executable {
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
 
-		// Execute the sync request
-		this.result = FileSystemUtils.prepareScmDir(request);
+		// Copy files into the SCM directory but record the difference between what was already there and what we are putting there
+		this.diff = FileSystemUtils.prepareScmDir(request);
 	}
 
 	/**
-	 * Expose <code>SyncScmDirResult</code> via a getter
+	 * Expose <code>DirectoryDifference</code> via a getter
 	 */
-	public DirectoryDifference getResult() {
-		return result;
+	public DirectoryDifference getDiff() {
+		return diff;
 	}
 
 	public boolean isSkip() {
@@ -70,10 +70,6 @@ public class PrepareScmDirExecutable implements Executable {
 
 	public void setRequest(PrepareScmDirRequest request) {
 		this.request = request;
-	}
-
-	public void setResult(DirectoryDifference result) {
-		this.result = result;
 	}
 
 }
