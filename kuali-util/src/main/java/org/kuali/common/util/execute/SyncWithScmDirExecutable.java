@@ -16,18 +16,27 @@
 package org.kuali.common.util.execute;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SyncDirsExecutable implements Executable {
+public class SyncWithScmDirExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(SyncDirsExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(SyncWithScmDirExecutable.class);
 
-	File srcDir;
-	File dstDir;
+	public static final List<String> DEFAULT_INCLUDES = Arrays.asList("**/**");
+	public static final List<String> DEFAULT_EXCLUDES = Arrays.asList("**/.svn/**", "**/.git/**");
+
+	List<String> includes = DEFAULT_INCLUDES;
+	List<String> excludes = DEFAULT_EXCLUDES;
 	boolean skip;
+	ScmService service;
+	File srcDir;
+	File scmDir;
 
 	@Override
 	public void execute() {
@@ -37,8 +46,10 @@ public class SyncDirsExecutable implements Executable {
 		}
 
 		// Make sure we are configured correctly
+		Assert.notNull(service, "service is null");
 		Assert.notNull(srcDir, "srcDir is null");
-		Assert.notNull(dstDir, "dstDir is null");
+		Assert.notNull(scmDir, "scmDir is null");
 		Assert.isExistingDir(srcDir, "srcDir is not an existing directory");
+		Assert.isExistingDir(scmDir, "scmDir is not an existing directory");
 	}
 }
