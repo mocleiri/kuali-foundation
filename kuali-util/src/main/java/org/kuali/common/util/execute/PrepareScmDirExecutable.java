@@ -16,7 +16,7 @@
 package org.kuali.common.util.execute;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.DirectoryDiffResult;
+import org.kuali.common.util.DirectoryDiff;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.PrepareScmDirRequest;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class PrepareScmDirExecutable implements Executable {
 	PrepareScmDirRequest request;
 
 	// Filled in during execution
-	DirectoryDiffResult diff;
+	DirectoryDiff diff;
 
 	@Override
 	public void execute() {
@@ -45,14 +45,15 @@ public class PrepareScmDirExecutable implements Executable {
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
 
-		// Copy files into the SCM directory but record the difference between what was already there and what we are putting there
+		// Copy files into the SCM directory
+		// The DirectoryDiff object records the differences between the 2 directories *before* any files were copied
 		this.diff = FileSystemUtils.prepareScmDir(request);
 	}
 
 	/**
 	 * Expose <code>DirectoryDifference</code> via a getter
 	 */
-	public DirectoryDiffResult getDiff() {
+	public DirectoryDiff getDiff() {
 		return diff;
 	}
 

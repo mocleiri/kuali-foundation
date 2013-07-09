@@ -68,7 +68,7 @@ public class FileSystemUtils {
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
 	 */
-	public static DirectoryDiffResult prepareScmDir(PrepareScmDirRequest request) {
+	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
@@ -86,7 +86,7 @@ public class FileSystemUtils {
 		diffRequest.setExcludes(request.getScmIgnorePatterns());
 
 		// Record the differences between the two directories
-		DirectoryDiffResult diff = getDiff(diffRequest);
+		DirectoryDiff diff = getDiff(diffRequest);
 
 		// Copy files from the source directory to the SCM directory
 		CopyFilesExecutable exec = new CopyFilesExecutable();
@@ -104,7 +104,7 @@ public class FileSystemUtils {
 		return scanner.getFiles();
 	}
 
-	public static DirectoryDiffResult getDiff(File dir1, File dir2, List<String> includes, List<String> excludes) {
+	public static DirectoryDiff getDiff(File dir1, File dir2, List<String> includes, List<String> excludes) {
 		DirectoryDiffRequest request = new DirectoryDiffRequest();
 		request.setDir1(dir1);
 		request.setDir2(dir2);
@@ -113,7 +113,7 @@ public class FileSystemUtils {
 		return getDiff(request);
 	}
 
-	public static DirectoryDiffResult getDiff(DirectoryDiffRequest request) {
+	public static DirectoryDiff getDiff(DirectoryDiffRequest request) {
 
 		// Get a listing of files from both directories using the exact same includes/excludes
 		List<File> dir1Files = getFiles(request.getDir1(), request.getIncludes(), request.getExcludes());
@@ -133,7 +133,7 @@ public class FileSystemUtils {
 		Set<String> dir2Only = SetUtils.difference(dir2Paths, dir1Paths);
 
 		// Store the information we've collected into a result object
-		DirectoryDiffResult result = new DirectoryDiffResult(request.getDir1(), request.getDir2());
+		DirectoryDiff result = new DirectoryDiff(request.getDir1(), request.getDir2());
 
 		// Store the relative paths on the diff object
 		result.setBoth(new ArrayList<String>(both));

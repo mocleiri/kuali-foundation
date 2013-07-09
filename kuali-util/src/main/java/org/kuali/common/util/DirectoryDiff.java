@@ -18,7 +18,7 @@ package org.kuali.common.util;
 import java.io.File;
 import java.util.List;
 
-public class DirectoryDiffResult {
+public class DirectoryDiff {
 
 	// The directories that were diff'd
 	File dir1;
@@ -29,11 +29,11 @@ public class DirectoryDiffResult {
 	List<String> dir1Only;
 	List<String> dir2Only;
 
-	public DirectoryDiffResult() {
+	public DirectoryDiff() {
 		this(null, null);
 	}
 
-	public DirectoryDiffResult(File dir1, File dir2) {
+	public DirectoryDiff(File dir1, File dir2) {
 		super();
 		this.dir1 = dir1;
 		this.dir2 = dir2;
