@@ -17,25 +17,24 @@ package org.kuali.common.util.execute;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.FileUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 public class CopyFilesExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CopyFilesExecutable.class);
 
-	public static final List<String> DEFAULT_INCLUDES = Arrays.asList("**/*");
+	public static final List<String> DEFAULT_INCLUDES = FileSystemUtils.DEFAULT_RECURSIVE_INCLUDES;
 	public static final List<String> DEFAULT_EXCLUDES = Collections.emptyList();
 
 	List<String> includes = DEFAULT_INCLUDES;
@@ -53,7 +52,7 @@ public class CopyFilesExecutable implements Executable {
 		Assert.notNull(dstDir, "dstDir is null");
 
 		// Source directory has to exist already. We'll create destination directory if necessary
-		Assert.isTrue(LocationUtils.exists(srcDir), "srcDir does not exist");
+		Assert.isExistingDir(srcDir, "srcDir is not an existing directory");
 
 		try {
 			// Null safe conversion of the lists to CSV
