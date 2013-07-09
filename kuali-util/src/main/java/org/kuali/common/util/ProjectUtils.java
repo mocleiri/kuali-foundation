@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -71,6 +72,25 @@ public class ProjectUtils {
 	 */
 	public static String getClassPathPrefix(Project project) {
 		return getClassPathPrefix(project.getGroupId(), project.getArtifactId());
+	}
+
+	/**
+	 * Given <code>/tmp/mydirectory</code> and <code>org.kuali.common:kuali-util</code> return <code>/tmp/mydirectory/org/kuali/common/kuali-util</code>
+	 */
+	public static File getResourceDirectory(File directory, Project project) {
+		String resourcePath = getResourcePath(project);
+		File file = new File(directory, resourcePath);
+		File canonical = new File(LocationUtils.getCanonicalPath(file));
+		return canonical;
+	}
+
+	/**
+	 * Given <code>org.kuali.common:kuali-util</code> return <code>org/kuali/common/kuali-util</code>
+	 */
+	public static String getResourcePath(Project project) {
+		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
+		String artifactId = project.getArtifactId();
+		return groupIdPath + artifactId;
 	}
 
 	/**
