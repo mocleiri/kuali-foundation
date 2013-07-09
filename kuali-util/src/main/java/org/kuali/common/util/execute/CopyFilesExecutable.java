@@ -17,7 +17,7 @@ package org.kuali.common.util.execute;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,7 @@ public class CopyFilesExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(CopyFilesExecutable.class);
 
 	public static final List<String> DEFAULT_INCLUDES = FileSystemUtils.DEFAULT_RECURSIVE_INCLUDES;
-	public static final List<String> DEFAULT_EXCLUDES = Collections.emptyList();
+	public static final List<String> DEFAULT_EXCLUDES = new ArrayList<String>();
 
 	List<String> includes = DEFAULT_INCLUDES;
 	List<String> excludes = DEFAULT_EXCLUDES;
