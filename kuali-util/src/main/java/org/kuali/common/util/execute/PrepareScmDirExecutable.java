@@ -40,7 +40,7 @@ public class PrepareScmDirExecutable implements Executable {
 	public void execute() {
 
 		if (skip) {
-			logger.info("Skipping file sync");
+			logger.info("Skipping preparation");
 			return;
 		}
 
@@ -58,6 +58,13 @@ public class PrepareScmDirExecutable implements Executable {
 
 		// Execute the sync request
 		this.result = FileSystemUtils.syncFilesQuietly(request);
+	}
+
+	/**
+	 * Expose <code>SyncResult</code> via a getter
+	 */
+	public SyncResult getResult() {
+		return result;
 	}
 
 	public boolean isSkip() {
@@ -84,11 +91,4 @@ public class PrepareScmDirExecutable implements Executable {
 		this.scmDir = scmDir;
 	}
 
-	public SyncResult getResult() {
-		return result;
-	}
-
-	public void setResult(SyncResult result) {
-		this.result = result;
-	}
 }
