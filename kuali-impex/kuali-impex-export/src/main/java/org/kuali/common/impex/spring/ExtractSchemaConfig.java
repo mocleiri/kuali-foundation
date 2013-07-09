@@ -87,6 +87,7 @@ public class ExtractSchemaConfig {
 		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
 
 		// This is the schema inside the database to extract
+		// TODO This isn't always necessarily the case, there might be several different users granted access to a single schema
 		String schemaName = dbContext.getUsername();
 
 		// Number of threads to use
