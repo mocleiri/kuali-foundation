@@ -26,9 +26,9 @@ public class ScmExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScmExecutable.class);
 
+	boolean skip;
 	ScmService service;
 	ScmRequest request;
-	boolean skip;
 
 	@Override
 	public void execute() {
