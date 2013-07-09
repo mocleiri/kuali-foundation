@@ -39,6 +39,9 @@ public class ScmExecutable implements Executable {
 			return;
 		}
 
+		// The SCM request is not allowed to be null here
+		Assert.notNull(request);
+
 		// There are no files to add/delete/commit, no point in going further.
 		if (isEmpty(request)) {
 			logger.info("Skipping execution.  Nothing to do!");
