@@ -30,10 +30,14 @@ public class SyncWithScmDirExecutable implements Executable {
 
 	public static final List<String> DEFAULT_INCLUDES = Arrays.asList("**/**");
 	public static final List<String> DEFAULT_EXCLUDES = Arrays.asList("**/.svn/**", "**/.git/**");
+	public static final boolean DEFAULT_COMMIT = false;
+	public static final boolean DEFAULT_SKIP = false;
 
 	List<String> includes = DEFAULT_INCLUDES;
 	List<String> excludes = DEFAULT_EXCLUDES;
-	boolean skip;
+	boolean skip = DEFAULT_SKIP;
+	boolean commit = DEFAULT_COMMIT;
+	String commitMessage;
 	ScmService service;
 	File srcDir;
 	File scmDir;
