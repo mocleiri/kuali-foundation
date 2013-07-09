@@ -51,7 +51,7 @@ public class PrepareScmDirExecutable implements Executable {
 	}
 
 	/**
-	 * Expose <code>DirectoryDifference</code> via a getter
+	 * Expose <code>DirectoryDiff</code> via a getter
 	 */
 	public DirectoryDiff getDiff() {
 		return diff;
