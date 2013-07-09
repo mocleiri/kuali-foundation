@@ -40,6 +40,7 @@ public class SyncWithScmDirExecutable implements Executable {
 
 	@Override
 	public void execute() {
+
 		if (skip) {
 			logger.info("Skipping file sync");
 			return;
