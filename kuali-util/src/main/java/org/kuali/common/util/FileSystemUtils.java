@@ -57,6 +57,12 @@ public class FileSystemUtils {
 
 	public static SyncScmDirResult syncScmDir(SyncScmDirRequest request) {
 
+		// Make sure the request is configured correctly
+		Assert.notNull(request.getSrcDir(), "srcDir is null");
+		Assert.notNull(request.getScmDir(), "scmDir is null");
+		Assert.isExistingDir(request.getSrcDir(), "srcDir is not an existing directory");
+		Assert.isExistingDir(request.getScmDir(), "scmDir is not an existing directory");
+
 		// Get a recursive listing of all files from both directories. Ignore SCM metadata directories like .svn, .git, etc
 		List<File> srcFiles = getAllNonScmFiles(request.getSrcDir(), request.getScmIgnorePatterns());
 		List<File> scmFiles = getAllNonScmFiles(request.getScmDir(), request.getScmIgnorePatterns());

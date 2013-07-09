@@ -15,13 +15,10 @@
  */
 package org.kuali.common.util.execute;
 
-import java.io.File;
-import java.util.List;
-
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
-import org.kuali.common.util.SyncRequest;
-import org.kuali.common.util.SyncResult;
+import org.kuali.common.util.SyncScmDirRequest;
+import org.kuali.common.util.SyncScmDirResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +27,10 @@ public class SyncScmDirExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(SyncScmDirExecutable.class);
 
 	boolean skip;
-	File srcDir;
-	File scmDir;
+	SyncScmDirRequest request;
 
 	// Filled in during execution
-	SyncResult result;
+	SyncScmDirResult result;
 
 	@Override
 	public void execute() {
@@ -45,25 +41,16 @@ public class SyncScmDirExecutable implements Executable {
 		}
 
 		// Make sure we are configured correctly
-		Assert.notNull(srcDir, "srcDir is null");
-		Assert.notNull(scmDir, "scmDir is null");
-		Assert.isExistingDir(srcDir, "srcDir is not an existing directory");
-		Assert.isExistingDir(scmDir, "scmDir is not an existing directory");
-
-		// Get a listing of all files in the source directory
-		List<File> srcFiles = FileSystemUtils.getAllNonScmFiles(srcDir);
-
-		// Create a sync request
-		SyncRequest request = new SyncRequest(srcDir, srcFiles, scmDir);
+		Assert.notNull(request, "request is null");
 
 		// Execute the sync request
-		this.result = FileSystemUtils.syncFilesQuietly(request);
+		this.result = FileSystemUtils.syncScmDir(request);
 	}
 
 	/**
-	 * Expose <code>SyncResult</code> via a getter
+	 * Expose <code>SyncScmDirResult</code> via a getter
 	 */
-	public SyncResult getResult() {
+	public SyncScmDirResult getResult() {
 		return result;
 	}
 
@@ -75,20 +62,16 @@ public class SyncScmDirExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public File getSrcDir() {
-		return srcDir;
+	public SyncScmDirRequest getRequest() {
+		return request;
 	}
 
-	public void setSrcDir(File srcDir) {
-		this.srcDir = srcDir;
+	public void setRequest(SyncScmDirRequest request) {
+		this.request = request;
 	}
 
-	public File getScmDir() {
-		return scmDir;
-	}
-
-	public void setScmDir(File scmDir) {
-		this.scmDir = scmDir;
+	public void setResult(SyncScmDirResult result) {
+		this.result = result;
 	}
 
 }
