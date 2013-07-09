@@ -55,11 +55,26 @@ public class FileSystemUtils {
 		return scanner.getFiles();
 	}
 
-	public static SyncScmDirResult syncScmDir(SyncScmDirRequest request) {
+	/**
+	 * This method recursively copies a file system directory to a different directory under the control of SCM. Before it does so, it records 3 types of files:
+	 * 
+	 * <pre>
+	 *  1 - updates - files that exist in both directories 
+	 *  2 - adds    - files that exist in the source directory but not the SCM directory
+	 *  3 - deletes - files that exist in the SCM directory but not the source directory
+	 * </pre>
+	 * 
+	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
+	 * SCM system.
+	 */
+	public static DirectoryDifference prepareScmDir(PrepareScmDirRequest request) {
 
-		// Make sure the request is configured correctly
+		// Make sure we are configured correctly
+		Assert.notNull(request, "request is null");
 		Assert.notNull(request.getSrcDir(), "srcDir is null");
 		Assert.notNull(request.getScmDir(), "scmDir is null");
+
+		// Both must already exist and must be directories (can't be a regular file)
 		Assert.isExistingDir(request.getSrcDir(), "srcDir is not an existing directory");
 		Assert.isExistingDir(request.getScmDir(), "scmDir is not an existing directory");
 
@@ -67,29 +82,39 @@ public class FileSystemUtils {
 		List<File> srcFiles = getAllNonScmFiles(request.getSrcDir(), request.getScmIgnorePatterns());
 		List<File> scmFiles = getAllNonScmFiles(request.getScmDir(), request.getScmIgnorePatterns());
 
-		// Get the unique set of paths for each file relative to their parent directory
-		Set<String> srcPaths = new HashSet<String>(getRelativePaths(request.getSrcDir(), srcFiles));
-		Set<String> scmPaths = new HashSet<String>(getRelativePaths(request.getScmDir(), scmFiles));
-
-		// Files that already exist in both directories do not require an additional SCM step eg adding them or deleting them from SCM
-		Set<String> updates = SetUtils.intersection(srcPaths, scmPaths);
-
-		// Files that exist in the source directory but not the SCM directory need to be added to SCM
-		Set<String> adds = SetUtils.difference(srcPaths, scmPaths);
-
-		// Files that exist in the SCM directory but not the source directory need to be deleted from SCM
-		Set<String> deletes = SetUtils.difference(scmPaths, srcPaths);
+		// Record the differences between the two directories
+		DirectoryDifference diff = getDirectoryDifference(request.getSrcDir(), srcFiles, request.getScmDir(), scmFiles);
 
 		try {
+			// Unconditionally copy all files from the source directory to the SCM directory
+			// Overwrite any existing files in the SCM directory
 			copyFiles(request.getSrcDir(), srcFiles, request.getScmDir());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
 
-		SyncScmDirResult result = new SyncScmDirResult();
-		result.setAdds(getSortedFullPaths(request.getScmDir(), adds));
-		result.setUpdates(getSortedFullPaths(request.getScmDir(), updates));
-		result.setDeletes(getSortedFullPaths(request.getScmDir(), deletes));
+		return diff;
+	}
+
+	public static DirectoryDifference getDirectoryDifference(File srcDir, List<File> srcFiles, File dstDir, List<File> dstFiles) {
+		// Get the unique set of paths for each file relative to their parent directory
+		Set<String> srcPaths = new HashSet<String>(getRelativePaths(srcDir, srcFiles));
+		Set<String> dstPaths = new HashSet<String>(getRelativePaths(dstDir, dstFiles));
+
+		// Files that already exist in both directories
+		List<String> existing = new ArrayList<String>(SetUtils.intersection(srcPaths, dstPaths));
+
+		// Files that exist in the source directory but not the destination directory
+		List<String> adds = new ArrayList<String>(SetUtils.difference(srcPaths, dstPaths));
+
+		// Files that exist in the destination directory but not the source directory
+		List<String> deletes = new ArrayList<String>(SetUtils.difference(dstPaths, srcPaths));
+
+		// DirectoryDiff
+		DirectoryDifference result = new DirectoryDifference();
+		result.setAdds(getSortedFullPaths(dstDir, adds));
+		result.setExisting(getSortedFullPaths(dstDir, existing));
+		result.setDeletes(getSortedFullPaths(dstDir, deletes));
 		return result;
 	}
 
@@ -219,8 +244,8 @@ public class FileSystemUtils {
 		return getFullPaths(dir, new ArrayList<String>(relativePaths));
 	}
 
-	protected static List<File> getSortedFullPaths(File dir, Set<String> relativePaths) {
-		List<File> files = getFullPaths(dir, new ArrayList<String>(relativePaths));
+	protected static List<File> getSortedFullPaths(File dir, List<String> relativePaths) {
+		List<File> files = getFullPaths(dir, relativePaths);
 		Collections.sort(files);
 		return files;
 	}

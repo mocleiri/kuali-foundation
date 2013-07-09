@@ -18,10 +18,10 @@ package org.kuali.common.util;
 import java.io.File;
 import java.util.List;
 
-public class SyncScmDirResult {
+public class DirectoryDifference {
 
 	List<File> adds;
-	List<File> updates;
+	List<File> existing;
 	List<File> deletes;
 
 	public List<File> getAdds() {
@@ -32,12 +32,12 @@ public class SyncScmDirResult {
 		this.adds = adds;
 	}
 
-	public List<File> getUpdates() {
-		return updates;
+	public List<File> getExisting() {
+		return existing;
 	}
 
-	public void setUpdates(List<File> updates) {
-		this.updates = updates;
+	public void setExisting(List<File> updates) {
+		this.existing = updates;
 	}
 
 	public List<File> getDeletes() {

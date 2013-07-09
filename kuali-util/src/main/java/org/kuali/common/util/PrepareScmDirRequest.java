@@ -18,23 +18,23 @@ package org.kuali.common.util;
 import java.io.File;
 import java.util.List;
 
-public class SyncScmDirRequest {
+public class PrepareScmDirRequest {
 
 	List<String> scmIgnorePatterns = FileSystemUtils.DEFAULT_SCM_IGNORE_PATTERNS;
 	File srcDir;
 	File scmDir;
 
-	public SyncScmDirRequest() {
+	public PrepareScmDirRequest() {
 		this(null, null);
 	}
 
-	public SyncScmDirRequest(File srcDir, File scmDir) {
+	public PrepareScmDirRequest(File srcDir, File scmDir) {
 		super();
 		this.srcDir = srcDir;
 		this.scmDir = scmDir;
 	}
 
-	public SyncScmDirRequest(File srcDir, File scmDir, List<String> scmIgnorePatterns) {
+	public PrepareScmDirRequest(File srcDir, File scmDir, List<String> scmIgnorePatterns) {
 		super();
 		this.srcDir = srcDir;
 		this.scmDir = scmDir;

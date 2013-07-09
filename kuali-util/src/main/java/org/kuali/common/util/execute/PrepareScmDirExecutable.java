@@ -16,21 +16,23 @@
 package org.kuali.common.util.execute;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.DirectoryDifference;
 import org.kuali.common.util.FileSystemUtils;
-import org.kuali.common.util.SyncScmDirRequest;
-import org.kuali.common.util.SyncScmDirResult;
+import org.kuali.common.util.PrepareScmDirRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SyncScmDirExecutable implements Executable {
+public class PrepareScmDirExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(SyncScmDirExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(PrepareScmDirExecutable.class);
 
 	boolean skip;
-	SyncScmDirRequest request;
+
+	// Required
+	PrepareScmDirRequest request;
 
 	// Filled in during execution
-	SyncScmDirResult result;
+	DirectoryDifference result;
 
 	@Override
 	public void execute() {
@@ -44,13 +46,13 @@ public class SyncScmDirExecutable implements Executable {
 		Assert.notNull(request, "request is null");
 
 		// Execute the sync request
-		this.result = FileSystemUtils.syncScmDir(request);
+		this.result = FileSystemUtils.prepareScmDir(request);
 	}
 
 	/**
 	 * Expose <code>SyncScmDirResult</code> via a getter
 	 */
-	public SyncScmDirResult getResult() {
+	public DirectoryDifference getResult() {
 		return result;
 	}
 
@@ -62,15 +64,15 @@ public class SyncScmDirExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public SyncScmDirRequest getRequest() {
+	public PrepareScmDirRequest getRequest() {
 		return request;
 	}
 
-	public void setRequest(SyncScmDirRequest request) {
+	public void setRequest(PrepareScmDirRequest request) {
 		this.request = request;
 	}
 
-	public void setResult(SyncScmDirResult result) {
+	public void setResult(DirectoryDifference result) {
 		this.result = result;
 	}
 
