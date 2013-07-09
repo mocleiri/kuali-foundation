@@ -64,6 +64,16 @@ public class Column implements NamedElement {
 		return primaryKey;
 	}
 
+	@XmlAttribute
+	public Boolean isNullable() {
+		return nullable;
+	}
+
+	@XmlAttribute
+	public String getDescription() {
+		return description;
+	}
+
 	public void setPrimaryKey(Boolean primaryKey) {
 		this.primaryKey = primaryKey;
 	}
@@ -84,18 +94,8 @@ public class Column implements NamedElement {
 		this.defaultValue = defaultValue;
 	}
 
-	@XmlAttribute
-	public Boolean isNullable() {
-		return nullable;
-	}
-
 	public void setNullable(Boolean nullable) {
 		this.nullable = nullable;
-	}
-
-	@XmlAttribute
-	public String getDescription() {
-		return description;
 	}
 
 	public void setDescription(String description) {
