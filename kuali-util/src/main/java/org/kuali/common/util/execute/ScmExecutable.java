@@ -38,25 +38,47 @@ public class ScmExecutable implements Executable {
 	@Override
 	public void execute() {
 
+		// They have explicitly asked that execution be skipped
 		if (skip) {
 			logger.info("Skipping execution");
 			return;
 		}
 
-		Assert.notNull(service, "service is null");
+		// There are no files to add/delete/commit, no point in going further.
+		if (isEmpty()) {
+			logger.info("Skipping execution.  Nothing to do!");
+			return;
+		}
 
+		// Make sure we are configured correctly
+		validateConfiguration();
+
+		// Add files as needed
 		if (!CollectionUtils.isEmpty(adds)) {
 			service.add(adds);
 		}
 
+		// Delete files as needed
 		if (!CollectionUtils.isEmpty(deletes)) {
 			service.delete(deletes);
 		}
 
+		// Commit files as needed
 		if (!CollectionUtils.isEmpty(commits)) {
-			Assert.hasText(commitMessage, "commitMessage has no text");
 			service.commit(commits, commitMessage);
 		}
+	}
+
+	protected void validateConfiguration() {
+		// Make sure we are configured correctly
+		Assert.notNull(service, "service is null");
+		if (!CollectionUtils.isEmpty(commits)) {
+			Assert.hasText(commitMessage, "commitMessage has no text");
+		}
+	}
+
+	public boolean isEmpty() {
+		return CollectionUtils.isEmpty(adds) && CollectionUtils.isEmpty(deletes) && CollectionUtils.isEmpty(commits);
 	}
 
 	public ScmService getService() {
