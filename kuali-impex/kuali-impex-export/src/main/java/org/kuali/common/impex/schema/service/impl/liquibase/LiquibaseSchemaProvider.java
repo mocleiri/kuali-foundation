@@ -44,7 +44,7 @@ import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.TypeSize;
+import org.kuali.common.impex.model.Size;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
@@ -256,15 +256,15 @@ public class LiquibaseSchemaProvider {
 			int size = sourceColumn.getType().getColumnSize();
 
 			// if there are no decimal digits set, create a TypeSize with just a size
-			TypeSize ts;
+			Size ts;
 			if (sourceColumn.getType().getDecimalDigits() == null) {
-				ts = new TypeSize(size);
+				ts = new Size(size);
 			} else {
 				int scale = sourceColumn.getType().getDecimalDigits();
-				ts = new TypeSize(size, scale);
+				ts = new Size(size, scale);
 			}
 
-			col.setTypeSize(ts);
+			col.setSize(ts);
 		}
 
 		return col;

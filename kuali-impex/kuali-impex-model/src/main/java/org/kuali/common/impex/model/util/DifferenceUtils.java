@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.model.util;
 
-import org.kuali.common.impex.model.TypeSize;
+import org.kuali.common.impex.model.Size;
 import org.kuali.common.impex.model.compare.ColumnDifference;
 import org.kuali.common.impex.model.compare.ForeignKeyDifference;
 import org.kuali.common.impex.model.compare.IndexDifference;
@@ -62,7 +62,7 @@ public class DifferenceUtils {
                     break;
                 }
                 case COLUMN_DATA_TYPE_SIZE: {
-                    sb.append(parenWrapToken(buildTypeSizeToken(c.getColumn1().getTypeSize())));
+                    sb.append(parenWrapToken(buildTypeSizeToken(c.getColumn1().getSize())));
                     break;
                 }
             }
@@ -141,7 +141,7 @@ public class DifferenceUtils {
                     break;
                 }
                 case COLUMN_DATA_TYPE_SIZE: {
-                    sb.append(parenWrapToken(buildTypeSizeToken(c.getColumn2().getTypeSize())));
+                    sb.append(parenWrapToken(buildTypeSizeToken(c.getColumn2().getSize())));
                     break;
                 }
             }
@@ -180,10 +180,10 @@ public class DifferenceUtils {
         return SPACE + OPEN_PAREN + SPACE + s + SPACE + CLOSE_PAREN + SPACE;
     }
 
-    public static String buildTypeSizeToken(TypeSize typeSize) {
+    public static String buildTypeSizeToken(Size typeSize) {
         String typeSizeString = "";
         if (typeSize != null) {
-            typeSizeString = typeSize.getSize().toString();
+            typeSizeString = typeSize.getValue().toString();
             if (typeSize.isScaleSet()) {
                 typeSizeString += COMMA + typeSize.getScale();
             }

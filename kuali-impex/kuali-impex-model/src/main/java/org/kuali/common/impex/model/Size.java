@@ -23,38 +23,41 @@ import javax.xml.bind.annotation.XmlAttribute;
  * Bean that contains size information of a column data type
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class TypeSize {
+public class Size {
 
 	public static final Boolean DEFAULT_SCALE_SET = false;
 
 	Boolean scaleSet = DEFAULT_SCALE_SET;
-	Integer size;
+	Integer value;
 	Integer scale;
 
-	public TypeSize(TypeSize typeSize) {
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of this object
+	 */
+	public Size(Size size) {
 		super();
-		this.size = typeSize.getSize();
-		this.scale = typeSize.getScale();
-		this.scaleSet = typeSize.isScaleSet();
+		this.value = size.getValue();
+		this.scale = size.getScale();
+		this.scaleSet = size.isScaleSet();
 	}
 
-	public TypeSize() {
+	public Size() {
 		this(null, null);
 	}
 
-	public TypeSize(Integer size) {
+	public Size(Integer size) {
 		this(size, null);
 	}
 
-	public TypeSize(Integer size, Integer scale) {
-		this.size = size;
+	public Size(Integer size, Integer scale) {
+		this.value = size;
 		this.scale = scale;
 		this.scaleSet = (this.scale != null);
 	}
 
 	@XmlAttribute
-	public Integer getSize() {
-		return size;
+	public Integer getValue() {
+		return value;
 	}
 
 	@XmlAttribute
@@ -75,8 +78,8 @@ public class TypeSize {
 		this.scaleSet = scaleSet;
 	}
 
-	public void setSize(Integer size) {
-		this.size = size;
+	public void setValue(Integer size) {
+		this.value = size;
 	}
 
 	@Override
@@ -85,13 +88,13 @@ public class TypeSize {
 			return false;
 		}
 
-		if (!(obj instanceof TypeSize)) {
+		if (!(obj instanceof Size)) {
 			return false;
 		}
 
-		TypeSize other = (TypeSize) obj;
+		Size other = (Size) obj;
 
-		if (!getSize().equals(other.getSize())) {
+		if (!getValue().equals(other.getValue())) {
 			return false;
 		}
 

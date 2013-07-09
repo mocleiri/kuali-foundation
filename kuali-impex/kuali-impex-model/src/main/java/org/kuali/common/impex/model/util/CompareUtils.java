@@ -78,7 +78,7 @@ public class CompareUtils {
         }
 
         // check for type size difference
-        if(!objectsEqual(col1.getTypeSize(), col2.getTypeSize())) {
+        if(!objectsEqual(col1.getSize(), col2.getSize())) {
             ColumnDifference sizeDiff = new ColumnDifference(schema1, table1, col1, schema2, table2, col2);
             sizeDiff.setType(TableDifferenceType.COLUMN_DATA_TYPE_SIZE);
             results.add(sizeDiff);

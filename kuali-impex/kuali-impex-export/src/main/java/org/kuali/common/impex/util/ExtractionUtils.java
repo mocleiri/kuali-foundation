@@ -36,7 +36,7 @@ import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.TypeSize;
+import org.kuali.common.impex.model.Size;
 import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.jdbc.JdbcUtils;
 import org.kuali.common.util.PercentCompleteInformer;
@@ -254,7 +254,7 @@ public class ExtractionUtils {
 				boolean primaryKey = primaryKeyColumns.contains(name);
 
 				// build the type size instance for this column
-				TypeSize typeSize = translateExtractedTypeSize(size, typeSizeScale);
+				Size typeSize = translateExtractedTypeSize(size, typeSizeScale);
 
 				// build the data type for this column from the type information from the result set
 				DataType dataType = SQL_TYPE_TO_DATA_TYPE.get(sqlType);
@@ -271,7 +271,7 @@ public class ExtractionUtils {
 				col.setName(name);
 				col.setDescription(remarks);
 				col.setDataType(dataType);
-				col.setTypeSize(typeSize);
+				col.setSize(typeSize);
 				col.setNullable(nullable);
 				col.setDefaultValue(defaultValue);
 				columns.add(col);
@@ -285,11 +285,11 @@ public class ExtractionUtils {
 		return columns;
 	}
 
-	public static TypeSize translateExtractedTypeSize(Integer typeSize, Integer typeSizeScale) {
+	public static Size translateExtractedTypeSize(Integer typeSize, Integer typeSizeScale) {
 		if (typeSizeScale > 0) {
-			return new TypeSize(typeSize, typeSizeScale);
+			return new Size(typeSize, typeSizeScale);
 		} else {
-			return new TypeSize(typeSize);
+			return new Size(typeSize);
 		}
 	}
 

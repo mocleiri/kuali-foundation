@@ -15,7 +15,7 @@ public class Column implements NamedElement {
 
 	String name;
 	DataType dataType;
-	TypeSize typeSize;
+	Size size;
 	String defaultValue;
 	String description;
 	Boolean primaryKey = DEFAULT_PRIMARY_KEY_VALUE;
@@ -27,7 +27,7 @@ public class Column implements NamedElement {
 	public Column(Column column) {
 		this.name = column.getName();
 		this.dataType = column.getDataType();
-		this.typeSize = new TypeSize(column.getTypeSize());
+		this.size = new Size(column.getSize());
 		this.defaultValue = column.getDefaultValue();
 		this.description = column.getDescription();
 		this.primaryKey = column.isPrimaryKey();
@@ -78,12 +78,12 @@ public class Column implements NamedElement {
 		this.primaryKey = primaryKey;
 	}
 
-	public TypeSize getTypeSize() {
-		return typeSize;
+	public Size getSize() {
+		return size;
 	}
 
-	public void setTypeSize(TypeSize typeSize) {
-		this.typeSize = typeSize;
+	public void setSize(Size typeSize) {
+		this.size = typeSize;
 	}
 
 	public String getDefaultValue() {
