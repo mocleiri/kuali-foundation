@@ -15,9 +15,28 @@
  */
 package org.kuali.common.util;
 
+import java.io.File;
+
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class Assert extends org.springframework.util.Assert {
+
+	public static void isExistingDir(File dir) {
+		isExistingDir(dir, "[Assertion failed] - [" + dir + "] is not an existing directory");
+	}
+
+	public static void isExistingDir(File dir, String message) {
+		exists(dir, message);
+		isTrue(dir.isDirectory(), message);
+	}
+
+	public static void exists(File file) {
+		exists(file, "[Assertion failed] - [" + file + "] does not exist");
+	}
+
+	public static void exists(File file, String message) {
+		isTrue(file.exists(), message);
+	}
 
 	public static void isOdd(int i) {
 		isOdd(i, "[Assertion failed] - [" + i + "] is not an odd number");
