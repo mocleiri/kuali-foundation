@@ -46,9 +46,11 @@ public class DumpDatabase {
 
 	private static void printHelpAndExit() {
 		System.out.println("This program requrires one argument, a properties file location.");
-		System.out.println("The properties file must define at least these 2 properties:");
+		System.out.println("The properties file will usually define at least these 4 properties:");
 		System.out.println("db.vendor=oracle/mysql");
 		System.out.println("jdbc.username=[username]");
+		System.out.println("jdbc.password=[password]");
+		System.out.println("jdbc.url=[JDBC connection URL]");
 		System.exit(1);
 	}
 
