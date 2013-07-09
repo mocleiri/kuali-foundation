@@ -15,10 +15,8 @@
  */
 package org.kuali.common.util.execute;
 
-import java.io.File;
-import java.util.List;
-
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ScmRequest;
 import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +27,8 @@ public class ScmExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(ScmExecutable.class);
 
 	ScmService service;
+	ScmRequest request;
 	boolean skip;
-	String commitMessage;
-	List<File> adds;
-	List<File> deletes;
-	List<File> commits;
 
 	@Override
 	public void execute() {
@@ -45,40 +40,49 @@ public class ScmExecutable implements Executable {
 		}
 
 		// There are no files to add/delete/commit, no point in going further.
-		if (isEmpty()) {
+		if (isEmpty(request)) {
 			logger.info("Skipping execution.  Nothing to do!");
 			return;
 		}
 
 		// Make sure we are configured correctly
-		validateConfiguration();
+		validateConfiguration(service, request);
 
 		// Add files as needed
-		if (!CollectionUtils.isEmpty(adds)) {
-			service.add(adds);
+		if (!CollectionUtils.isEmpty(request.getAdds())) {
+			service.add(request.getAdds());
 		}
 
 		// Delete files as needed
-		if (!CollectionUtils.isEmpty(deletes)) {
-			service.delete(deletes);
+		if (!CollectionUtils.isEmpty(request.getDeletes())) {
+			service.delete(request.getDeletes());
 		}
 
 		// Commit files as needed
-		if (!CollectionUtils.isEmpty(commits)) {
-			service.commit(commits, commitMessage);
+		if (!CollectionUtils.isEmpty(request.getCommits())) {
+			service.commit(request.getCommits(), request.getCommitMessage());
 		}
 	}
 
-	protected void validateConfiguration() {
+	protected void validateConfiguration(ScmService service, ScmRequest request) {
 		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
-		if (!CollectionUtils.isEmpty(commits)) {
-			Assert.hasText(commitMessage, "commitMessage has no text");
+		if (!CollectionUtils.isEmpty(request.getCommits())) {
+			Assert.hasText(request.getCommitMessage(), "commitMessage has no text");
 		}
 	}
 
-	public boolean isEmpty() {
-		return CollectionUtils.isEmpty(adds) && CollectionUtils.isEmpty(deletes) && CollectionUtils.isEmpty(commits);
+	public boolean isEmpty(ScmRequest request) {
+		if (!CollectionUtils.isEmpty(request.getAdds())) {
+			return false;
+		}
+		if (!CollectionUtils.isEmpty(request.getDeletes())) {
+			return false;
+		}
+		if (!CollectionUtils.isEmpty(request.getCommits())) {
+			return false;
+		}
+		return true;
 	}
 
 	public ScmService getService() {
@@ -97,36 +101,12 @@ public class ScmExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public String getCommitMessage() {
-		return commitMessage;
+	public ScmRequest getRequest() {
+		return request;
 	}
 
-	public void setCommitMessage(String commitMessage) {
-		this.commitMessage = commitMessage;
-	}
-
-	public List<File> getAdds() {
-		return adds;
-	}
-
-	public void setAdds(List<File> adds) {
-		this.adds = adds;
-	}
-
-	public List<File> getDeletes() {
-		return deletes;
-	}
-
-	public void setDeletes(List<File> deletes) {
-		this.deletes = deletes;
-	}
-
-	public List<File> getCommits() {
-		return commits;
-	}
-
-	public void setCommits(List<File> commits) {
-		this.commits = commits;
+	public void setRequest(ScmRequest request) {
+		this.request = request;
 	}
 
 }
