@@ -100,6 +100,14 @@ public class FileSystemUtils {
 		return results;
 	}
 
+	public static SyncResult syncFilesQuietly(SyncRequest request) {
+		try {
+			return syncFiles(request);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error");
+		}
+	}
+
 	public static SyncResult syncFiles(SyncRequest request) throws IOException {
 		logger.info("Sync [{}] -> [{}]", request.getSrcDir(), request.getDstDir());
 		List<File> dstFiles = getAllFiles(request.getDstDir());
@@ -202,7 +210,10 @@ public class FileSystemUtils {
 		return StringUtils.remove(filePath, dirPath);
 	}
 
-	protected static List<File> getAllFiles(File dir) {
+	/**
+	 * Return a recursive listing of all files in the directory but ignoring .svn and .git
+	 */
+	public static List<File> getAllFiles(File dir) {
 		SimpleScanner scanner = new SimpleScanner(dir, Arrays.asList("**/*"), Arrays.asList("**/.svn/**", "**/.git/**"));
 		return scanner.getFiles();
 	}

@@ -16,31 +16,25 @@
 package org.kuali.common.util.execute;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.service.ScmService;
+import org.kuali.common.util.FileSystemUtils;
+import org.kuali.common.util.SyncRequest;
+import org.kuali.common.util.SyncResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SyncWithScmDirExecutable implements Executable {
+public class PrepareScmDirExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(SyncWithScmDirExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(PrepareScmDirExecutable.class);
 
-	public static final List<String> DEFAULT_INCLUDES = Arrays.asList("**/**");
-	public static final List<String> DEFAULT_EXCLUDES = Arrays.asList("**/.svn/**", "**/.git/**");
-	public static final boolean DEFAULT_COMMIT = false;
-	public static final boolean DEFAULT_SKIP = false;
-
-	List<String> includes = DEFAULT_INCLUDES;
-	List<String> excludes = DEFAULT_EXCLUDES;
-	boolean skip = DEFAULT_SKIP;
-	boolean commit = DEFAULT_COMMIT;
-	String commitMessage;
-	ScmService service;
+	boolean skip;
 	File srcDir;
 	File scmDir;
+
+	// Filled in during execution
+	SyncResult result;
 
 	@Override
 	public void execute() {
@@ -51,10 +45,50 @@ public class SyncWithScmDirExecutable implements Executable {
 		}
 
 		// Make sure we are configured correctly
-		Assert.notNull(service, "service is null");
 		Assert.notNull(srcDir, "srcDir is null");
 		Assert.notNull(scmDir, "scmDir is null");
 		Assert.isExistingDir(srcDir, "srcDir is not an existing directory");
 		Assert.isExistingDir(scmDir, "scmDir is not an existing directory");
+
+		// Get a listing of all files in the source directory
+		List<File> srcFiles = FileSystemUtils.getAllFiles(srcDir);
+
+		// Create a sync request
+		SyncRequest request = new SyncRequest(srcDir, srcFiles, scmDir);
+
+		// Execute the sync request
+		this.result = FileSystemUtils.syncFilesQuietly(request);
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+
+	public File getSrcDir() {
+		return srcDir;
+	}
+
+	public void setSrcDir(File srcDir) {
+		this.srcDir = srcDir;
+	}
+
+	public File getScmDir() {
+		return scmDir;
+	}
+
+	public void setScmDir(File scmDir) {
+		this.scmDir = scmDir;
+	}
+
+	public SyncResult getResult() {
+		return result;
+	}
+
+	public void setResult(SyncResult result) {
+		this.result = result;
 	}
 }

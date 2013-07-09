@@ -24,6 +24,17 @@ public class SyncRequest {
 	List<File> srcFiles;
 	File dstDir;
 
+	public SyncRequest() {
+		this(null, null, null);
+	}
+
+	public SyncRequest(File srcDir, List<File> srcFiles, File dstDir) {
+		super();
+		this.srcDir = srcDir;
+		this.srcFiles = srcFiles;
+		this.dstDir = dstDir;
+	}
+
 	public File getSrcDir() {
 		return srcDir;
 	}
