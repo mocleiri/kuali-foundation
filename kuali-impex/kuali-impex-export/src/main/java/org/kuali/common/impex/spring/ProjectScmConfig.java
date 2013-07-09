@@ -46,7 +46,7 @@ public class ProjectScmConfig {
 		for (Project project : projects) {
 
 			// Figure out the project specific directory being managed by SCM
-			// This is the destination directory that files get copied into
+			// This is the destination directory files get copied into
 			String projectScmDirKey = "impex.scm." + project.getArtifactId() + ".dir";
 			File projectDir = SpringUtils.getFile(env, projectScmDirKey);
 			File scmDir = ProjectUtils.getResourceDirectory(projectDir, project);
@@ -54,7 +54,7 @@ public class ProjectScmConfig {
 			// This is the source directory containing the files to copy to the project directory
 			File srcDir = ProjectUtils.getResourceDirectory(stagingDir, project);
 
-			// Ignore any SCM meta data directories (.svn, .git etc)
+			// Ignore SCM meta data directories
 			List<String> scmIgnorePatterns = SpringUtils.getNoneSensitiveListFromCSV(env, IGNORES_KEY);
 
 			// Setup the request
