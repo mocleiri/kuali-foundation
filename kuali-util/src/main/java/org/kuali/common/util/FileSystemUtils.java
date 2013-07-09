@@ -271,17 +271,17 @@ public class FileSystemUtils {
 		}
 	}
 
-	protected static List<File> getFullPaths(File dir, Set<String> relativePaths) {
+	public static List<File> getFullPaths(File dir, Set<String> relativePaths) {
 		return getFullPaths(dir, new ArrayList<String>(relativePaths));
 	}
 
-	protected static List<File> getSortedFullPaths(File dir, List<String> relativePaths) {
+	public static List<File> getSortedFullPaths(File dir, List<String> relativePaths) {
 		List<File> files = getFullPaths(dir, relativePaths);
 		Collections.sort(files);
 		return files;
 	}
 
-	protected static List<File> getFullPaths(File dir, List<String> relativePaths) {
+	public static List<File> getFullPaths(File dir, List<String> relativePaths) {
 		List<File> files = new ArrayList<File>();
 		for (String relativePath : relativePaths) {
 			File file = new File(dir, relativePath);
