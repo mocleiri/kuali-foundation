@@ -46,7 +46,7 @@ public class PrepareScmDirExecutable implements Executable {
 		Assert.notNull(request, "request is null");
 
 		// Copy files into the SCM directory
-		// The DirectoryDiff object records the differences between the 2 directories *before* any files were copied
+		// The DirectoryDiff object captures the differences between the 2 directories *before* any files were copied
 		this.diff = FileSystemUtils.prepareScmDir(request);
 	}
 
