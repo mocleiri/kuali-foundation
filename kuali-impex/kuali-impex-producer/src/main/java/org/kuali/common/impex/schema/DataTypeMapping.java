@@ -16,7 +16,7 @@
 package org.kuali.common.impex.schema;
 
 import org.kuali.common.impex.model.DataType;
-import org.kuali.common.impex.model.Size;
+import org.kuali.common.impex.model.DataTypeSize;
 
 /**
  * Data bean for column data type overrides
@@ -27,7 +27,7 @@ public class DataTypeMapping {
 
     protected DataType dataType;
 
-    protected Size typeSize;
+    protected DataTypeSize typeSize;
 
     protected String tableName;
 
@@ -65,11 +65,11 @@ public class DataTypeMapping {
         this.tableName = tableName;
     }
 
-    public Size getTypeSize() {
+    public DataTypeSize getTypeSize() {
         return typeSize;
     }
 
-    public void setTypeSize(Size typeSize) {
+    public void setTypeSize(DataTypeSize typeSize) {
         this.typeSize = typeSize;
     }
 }

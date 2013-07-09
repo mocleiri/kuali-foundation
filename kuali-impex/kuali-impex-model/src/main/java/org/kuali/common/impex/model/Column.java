@@ -14,8 +14,8 @@ public class Column implements NamedElement {
 	public static final Boolean DEFAULT_PRIMARY_KEY_VALUE = false;
 
 	String name;
-	DataType dataType;
-	Size size;
+	DataType type;
+	DataTypeSize size;
 	String defaultValue;
 	String description;
 	Boolean primaryKey = DEFAULT_PRIMARY_KEY_VALUE;
@@ -26,8 +26,8 @@ public class Column implements NamedElement {
 	 */
 	public Column(Column column) {
 		this.name = column.getName();
-		this.dataType = column.getDataType();
-		this.size = new Size(column.getSize());
+		this.type = column.getType();
+		this.size = new DataTypeSize(column.getSize());
 		this.defaultValue = column.getDefaultValue();
 		this.description = column.getDescription();
 		this.primaryKey = column.isPrimaryKey();
@@ -45,12 +45,12 @@ public class Column implements NamedElement {
 	 */
 	public Column(String name, DataType dataType) {
 		this.name = name;
-		this.dataType = dataType;
+		this.type = dataType;
 	}
 
-	@XmlAttribute(name = "type")
-	public DataType getDataType() {
-		return dataType;
+	@XmlAttribute
+	public DataType getType() {
+		return type;
 	}
 
 	@Override
@@ -78,11 +78,11 @@ public class Column implements NamedElement {
 		this.primaryKey = primaryKey;
 	}
 
-	public Size getSize() {
+	public DataTypeSize getSize() {
 		return size;
 	}
 
-	public void setSize(Size typeSize) {
+	public void setSize(DataTypeSize typeSize) {
 		this.size = typeSize;
 	}
 
@@ -102,8 +102,8 @@ public class Column implements NamedElement {
 		this.description = description;
 	}
 
-	public void setDataType(DataType columnDataType) {
-		this.dataType = columnDataType;
+	public void setType(DataType columnDataType) {
+		this.type = columnDataType;
 	}
 
 	public void setName(String name) {

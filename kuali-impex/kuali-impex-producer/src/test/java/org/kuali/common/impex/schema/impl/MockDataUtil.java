@@ -22,7 +22,7 @@ import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.Size;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 
@@ -32,7 +32,7 @@ public class MockDataUtil {
 
 		// id column
 		Column idCol = new Column("ID", DataType.STRING);
-		idCol.setSize(new Size(36));
+		idCol.setSize(new DataTypeSize(36));
 		idCol.setPrimaryKey(true);
 
 		result.getColumns().add(idCol);
@@ -45,13 +45,13 @@ public class MockDataUtil {
 
 		// count column
 		Column countCol = new Column("FOO_COUNT", DataType.FLOAT);
-		countCol.setSize(new Size(10));
+		countCol.setSize(new DataTypeSize(10));
 
 		result.getColumns().add(countCol);
 
 		// name column
 		Column nameCol = new Column("NAME", DataType.STRING);
-		nameCol.setSize(new Size(255));
+		nameCol.setSize(new DataTypeSize(255));
 
 		result.getColumns().add(nameCol);
 

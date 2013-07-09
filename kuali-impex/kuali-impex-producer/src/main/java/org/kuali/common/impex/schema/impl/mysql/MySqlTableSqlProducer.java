@@ -28,7 +28,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.Size;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.schema.DataTypeMapping;
@@ -175,9 +175,9 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
 		sb.append(ProducerUtils.SPACE);
 
 		// column type
-		sb.append(translateDataType(column.getDataType()));
+		sb.append(translateDataType(column.getType()));
 
-		Size typeSize = column.getSize();
+		DataTypeSize typeSize = column.getSize();
 		if (typeSize != null) {
 			sb.append(ProducerUtils.TYPE_SIZE_PREFIX);
 			sb.append(typeSize.getValue());
@@ -240,7 +240,7 @@ public class MySqlTableSqlProducer extends AbstractTableSqlProducer {
 		if (mapping.getSql() == null) {
 			StringBuilder sb = new StringBuilder();
 
-			DataType newDataType = column.getDataType();
+			DataType newDataType = column.getType();
 			if (mapping.getDataType() != null) {
 				newDataType = mapping.getDataType();
 			}

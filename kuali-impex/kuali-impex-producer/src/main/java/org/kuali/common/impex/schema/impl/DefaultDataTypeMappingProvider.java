@@ -34,7 +34,7 @@ public class DefaultDataTypeMappingProvider implements DataTypeMappingProvider {
 
 		// attempt to match by data type first
 		for (DataType dataType : dataTypeMatches.keySet()) {
-			if (column.getDataType() == dataType) {
+			if (column.getType() == dataType) {
 				return dataTypeMatches.get(dataType);
 			}
 		}

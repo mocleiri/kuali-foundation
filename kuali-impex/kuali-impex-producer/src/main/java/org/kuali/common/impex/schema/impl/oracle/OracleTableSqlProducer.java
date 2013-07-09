@@ -27,7 +27,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.Size;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.schema.DataTypeMapping;
@@ -171,16 +171,16 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 		sb.append(ProducerUtils.SPACE);
 
 		// column type
-		sb.append(translateDataType(column.getDataType()));
+		sb.append(translateDataType(column.getType()));
 
-		Size typeSize = column.getSize();
+		DataTypeSize typeSize = column.getSize();
 
 		// Determine whether or not the type size should be printed
 		boolean validTypeSize = typeSize != null;
 		if (validTypeSize) {
 			// do not populate the data size field if the type is a FLOAT but the size is 0
 			// leave it unspecified and let Oracle fill in the default
-			if (column.getDataType() == DataType.FLOAT && typeSize.getValue() == 0) {
+			if (column.getType() == DataType.FLOAT && typeSize.getValue() == 0) {
 				validTypeSize = false;
 			}
 		}
@@ -248,7 +248,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 		if (mapping.getSql() == null) {
 			StringBuilder sb = new StringBuilder();
 
-			DataType newDataType = column.getDataType();
+			DataType newDataType = column.getType();
 			if (mapping.getDataType() != null) {
 				newDataType = mapping.getDataType();
 			}

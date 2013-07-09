@@ -57,7 +57,7 @@ public class CompareUtils {
         Collection<ColumnDifference> results = new ArrayList<ColumnDifference>();
 
         // Check for data type difference
-        if (col1.getDataType() != col2.getDataType()) {
+        if (col1.getType() != col2.getType()) {
             ColumnDifference dataTypeDiff = new ColumnDifference(schema1, table1, col1, schema2, table2, col2);
             dataTypeDiff.setType(TableDifferenceType.COLUMN_DATA_TYPE);
             results.add(dataTypeDiff);

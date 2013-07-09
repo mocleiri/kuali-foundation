@@ -4,7 +4,7 @@ import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.Size;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.Nullifier;
 import org.springframework.util.Assert;
@@ -53,8 +53,8 @@ public class SchemaNullifier implements Nullifier {
 			column.setPrimaryKey(null);
 		}
 
-		Size typeSize = column.getSize();
-		if (typeSize != null && Size.DEFAULT_SCALE_SET.equals(typeSize.isScaleSet())) {
+		DataTypeSize typeSize = column.getSize();
+		if (typeSize != null && DataTypeSize.DEFAULT_SCALE_SET.equals(typeSize.isScaleSet())) {
 			typeSize.setScaleSet(null);
 		}
 	}

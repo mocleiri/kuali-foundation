@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * Bean that contains size information of a column data type
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class Size {
+public class DataTypeSize {
 
 	public static final Boolean DEFAULT_SCALE_SET = false;
 
@@ -34,22 +34,22 @@ public class Size {
 	/**
 	 * This is a copy constructor. It must create a perfect, deep, copy of this object
 	 */
-	public Size(Size size) {
+	public DataTypeSize(DataTypeSize size) {
 		super();
 		this.value = size.getValue();
 		this.scale = size.getScale();
 		this.scaleSet = size.isScaleSet();
 	}
 
-	public Size() {
+	public DataTypeSize() {
 		this(null, null);
 	}
 
-	public Size(Integer size) {
+	public DataTypeSize(Integer size) {
 		this(size, null);
 	}
 
-	public Size(Integer size, Integer scale) {
+	public DataTypeSize(Integer size, Integer scale) {
 		this.value = size;
 		this.scale = scale;
 		this.scaleSet = (this.scale != null);
@@ -88,11 +88,11 @@ public class Size {
 			return false;
 		}
 
-		if (!(obj instanceof Size)) {
+		if (!(obj instanceof DataTypeSize)) {
 			return false;
 		}
 
-		Size other = (Size) obj;
+		DataTypeSize other = (DataTypeSize) obj;
 
 		if (!getValue().equals(other.getValue())) {
 			return false;

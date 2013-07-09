@@ -260,7 +260,7 @@ public class DefaultDumpDataService implements DumpDataService {
 	 */
 	protected String getColumnValueAsString(String dateFormat, ResultSet rs, int index, Column column) throws SQLException {
 		// Clob's and Date's need special handling
-		switch (column.getDataType()) {
+		switch (column.getType()) {
 		case CLOB:
 			Clob clob = rs.getClob(index);
 			if (clob == null) {

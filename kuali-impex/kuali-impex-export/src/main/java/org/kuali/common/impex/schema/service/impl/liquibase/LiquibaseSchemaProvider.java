@@ -44,7 +44,7 @@ import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.Size;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.model.util.NamedElementComparator;
@@ -237,7 +237,7 @@ public class LiquibaseSchemaProvider {
 			String defaultValue = sourceColumn.getDefaultValue().toString().trim();
 
 			// if the column is a string data type, check that it may need single quotes added
-			if (col.getDataType() == DataType.STRING || col.getDataType() == DataType.CLOB) {
+			if (col.getType() == DataType.STRING || col.getType() == DataType.CLOB) {
 				// ignore adding single quotes if the default value contains a reseved keyword
 				if (notReservedDefaultValue(defaultValue)) {
 					if (!defaultValue.startsWith(SINGLE_QUOTE)) {
@@ -256,12 +256,12 @@ public class LiquibaseSchemaProvider {
 			int size = sourceColumn.getType().getColumnSize();
 
 			// if there are no decimal digits set, create a TypeSize with just a size
-			Size ts;
+			DataTypeSize ts;
 			if (sourceColumn.getType().getDecimalDigits() == null) {
-				ts = new Size(size);
+				ts = new DataTypeSize(size);
 			} else {
 				int scale = sourceColumn.getType().getDecimalDigits();
-				ts = new Size(size, scale);
+				ts = new DataTypeSize(size, scale);
 			}
 
 			col.setSize(ts);
