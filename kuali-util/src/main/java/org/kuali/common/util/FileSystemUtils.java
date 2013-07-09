@@ -213,9 +213,17 @@ public class FileSystemUtils {
 	/**
 	 * Return a recursive listing of all files in the directory but ignoring .svn and .git
 	 */
-	public static List<File> getAllFiles(File dir) {
+	public static List<File> getAllNonScmFiles(File dir) {
 		SimpleScanner scanner = new SimpleScanner(dir, Arrays.asList("**/*"), Arrays.asList("**/.svn/**", "**/.git/**"));
 		return scanner.getFiles();
+	}
+
+	/**
+	 * Return a recursive listing of all files in the directory but ignoring .svn and .git
+	 */
+	@Deprecated
+	protected static List<File> getAllFiles(File dir) {
+		return getAllNonScmFiles(dir);
 	}
 
 }

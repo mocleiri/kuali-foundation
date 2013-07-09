@@ -51,7 +51,7 @@ public class PrepareScmDirExecutable implements Executable {
 		Assert.isExistingDir(scmDir, "scmDir is not an existing directory");
 
 		// Get a listing of all files in the source directory
-		List<File> srcFiles = FileSystemUtils.getAllFiles(srcDir);
+		List<File> srcFiles = FileSystemUtils.getAllNonScmFiles(srcDir);
 
 		// Create a sync request
 		SyncRequest request = new SyncRequest(srcDir, srcFiles, scmDir);
