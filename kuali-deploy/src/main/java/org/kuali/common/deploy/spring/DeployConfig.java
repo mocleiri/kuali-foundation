@@ -19,7 +19,6 @@ import org.kuali.common.deploy.SysAdminExecutable;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
-import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -36,14 +35,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ SqlControllerConfig.class })
+@Import({ DeploySqlControllerConfig.class })
 public class DeployConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
 
 	@Autowired
-	SqlControllerConfig sqlControllerConfig;
+	DeploySqlControllerConfig sqlControllerConfig;
 
 	protected Artifact getJdbcDriverArtifact() {
 		Artifact a = new Artifact();
