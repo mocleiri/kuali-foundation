@@ -33,7 +33,7 @@ public class UpdateScmConfig {
 	@Bean
 	public BuildScmExecutable buildScmExecutable() {
 
-		boolean skip = SpringUtils.getBoolean(env, UPDATE_KEY);
+		boolean skip = SpringUtils.getBoolean(env, UPDATE_KEY, true);
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
 		List<PrepareScmDirExecutable> preparers = projectPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = new ScmRequest();
