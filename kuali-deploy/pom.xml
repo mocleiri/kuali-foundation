@@ -48,7 +48,7 @@
     <!-- These properties modify the release process -->
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
 
-    <kuali-jdbc.version>3.1.8-SNAPSHOT</kuali-jdbc.version>
+    <!-- <kuali-jdbc.version>3.1.8-SNAPSHOT</kuali-jdbc.version> -->
   </properties>
   <profiles>
     <profile>

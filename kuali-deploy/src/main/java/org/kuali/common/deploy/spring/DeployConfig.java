@@ -19,7 +19,7 @@ import org.kuali.common.deploy.SysAdminExecutable;
 import org.kuali.common.deploy.TomcatApplicationServer;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
-import org.kuali.common.jdbc.spring.BaseSqlControllerConfig;
+import org.kuali.common.jdbc.spring.SqlControllerConfig;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
@@ -36,14 +36,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ BaseSqlControllerConfig.class })
+@Import({ SqlControllerConfig.class })
 public class DeployConfig {
 
 	@Autowired
 	ConfigurableEnvironment env;
 
 	@Autowired
-	BaseSqlControllerConfig baseSqlControllerConfig;
+	SqlControllerConfig sqlControllerConfig;
 
 	protected Artifact getJdbcDriverArtifact() {
 		Artifact a = new Artifact();
@@ -425,7 +425,7 @@ public class DeployConfig {
 		dds.setChannel(kdoSecureChannel());
 		dds.setMonitoring(getMonitoring());
 		dds.setAppServer(getApplicationServer());
-		dds.setDatabaseResetExecutable(baseSqlControllerConfig.sqlExecutable());
+		dds.setDatabaseResetExecutable(sqlControllerConfig.sqlExecutable());
 		dds.setContext(getDeployContext());
 		dds.setSysAdminExecutable(getSysAdminExecutable());
 		return dds;
