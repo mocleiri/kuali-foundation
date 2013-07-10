@@ -23,7 +23,6 @@ public class ProjectPrepareScmConfig {
 
 	// SCM directories to ignore
 	public static final String IGNORES_KEY = "impex.scm.ignores";
-
 	private static final String PREPARE_KEY = "impex.scm.prepare.skip";
 
 	@Autowired
