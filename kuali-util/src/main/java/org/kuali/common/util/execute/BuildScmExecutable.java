@@ -36,7 +36,9 @@ public class BuildScmExecutable implements Executable {
 	List<PrepareScmDirExecutable> executables;
 	ScmRequest request;
 	String commitMessage;
-	boolean skipCommit = true;
+
+	// Make them explicitly override this to false in order for a commit happen
+	boolean skipScm = true;
 
 	@Override
 	public void execute() {
@@ -58,7 +60,7 @@ public class BuildScmExecutable implements Executable {
 		ScmExecutable exec = new ScmExecutable();
 		exec.setRequest(request);
 		exec.setService(service);
-		exec.setSkip(skipCommit);
+		exec.setSkip(skipScm);
 		exec.execute();
 
 	}
@@ -123,12 +125,12 @@ public class BuildScmExecutable implements Executable {
 		this.commitMessage = commitMessage;
 	}
 
-	public boolean isSkipCommit() {
-		return skipCommit;
+	public boolean isSkipScm() {
+		return skipScm;
 	}
 
-	public void setSkipCommit(boolean skipCommit) {
-		this.skipCommit = skipCommit;
+	public void setSkipScm(boolean skipScm) {
+		this.skipScm = skipScm;
 	}
 
 }
