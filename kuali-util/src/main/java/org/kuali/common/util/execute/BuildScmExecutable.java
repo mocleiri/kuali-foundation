@@ -23,6 +23,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.DirectoryDiff;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.ScmRequest;
+import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,8 @@ public class BuildScmExecutable implements Executable {
 			diffs.add(exec.getDiff());
 		}
 
+		// Execute a single request to the ScmService that takes into account all the project
+		// directories + anything from the ScmRequest object we are explicitly configured with
 		ScmRequest request = getScmRequest(diffs, this.request, commitMessage);
 		ScmExecutable exec = new ScmExecutable();
 		exec.setRequest(request);
@@ -77,12 +80,12 @@ public class BuildScmExecutable implements Executable {
 			commits.add(diff.getDir2());
 		}
 
-		ScmRequest result = (request == null) ? new ScmRequest() : ScmRequest.clone(request);
-		result.setAdds(CollectionUtils.nullSafeCombine(result.getAdds(), adds));
-		result.setDeletes(CollectionUtils.nullSafeCombine(result.getDeletes(), deletes));
-		result.setCommits(CollectionUtils.nullSafeCombine(result.getCommits(), commits));
-		result.setCommitMessage(commitMessage);
-		return result;
+		ScmRequest sr = ScmUtils.cloneOrNew(request);
+		sr.setAdds(CollectionUtils.nullSafeCombine(sr.getAdds(), adds));
+		sr.setDeletes(CollectionUtils.nullSafeCombine(sr.getDeletes(), deletes));
+		sr.setCommits(CollectionUtils.nullSafeCombine(sr.getCommits(), commits));
+		sr.setCommitMessage(commitMessage);
+		return sr;
 	}
 
 	public boolean isSkip() {
