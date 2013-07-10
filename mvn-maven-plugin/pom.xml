@@ -44,9 +44,9 @@
     <project.scm.vendor>svn</project.scm.vendor>
   </properties>
   <scm>
-    <connection>scm:${project.scm.vendor}:http://svn.kuali.org/repos/foundation/trunk/mvn-maven-plugin</connection>
-    <developerConnection>scm:${project.scm.vendor}:http://svn.kuali.org/repos/foundation/trunk/mvn-maven-plugin</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/mvn-maven-plugin</url>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/mvn-maven-plugin</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/mvn-maven-plugin</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/trunk/mvn-maven-plugin</url>
   </scm>
   <build>
     <testResources>
