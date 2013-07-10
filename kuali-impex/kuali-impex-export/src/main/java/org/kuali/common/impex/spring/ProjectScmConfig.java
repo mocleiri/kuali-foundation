@@ -39,7 +39,7 @@ public class ProjectScmConfig {
 		// These are the projects we are updating
 		List<Project> projects = ConfigUtils.getProjects(env, PROJECTS_KEY);
 
-		// Return a list of executables that can prepare the directories
+		// Return a list of executables that can prepare the project's SCM directories
 		return getPrepareScmDirExecutables(stagingDir, projects);
 	}
 
