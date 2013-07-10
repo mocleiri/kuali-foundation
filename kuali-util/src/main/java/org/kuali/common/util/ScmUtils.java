@@ -3,7 +3,29 @@ package org.kuali.common.util;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.service.ScmService;
+import org.kuali.common.util.service.ScmType;
+import org.kuali.common.util.service.SvnService;
+import org.springframework.util.Assert;
+
 public class ScmUtils {
+
+	public static ScmService getScmService(String url) {
+		Assert.hasText(url, "URL has no text");
+		// scm:svn:https://svn.kuali.org/repos/student/trunk
+		String[] tokens = StringUtils.split(url, ":");
+		String scmType = tokens[1].toUpperCase();
+		ScmType type = ScmType.valueOf(scmType);
+		switch (type) {
+		case SVN:
+			return new SvnService();
+		case GIT:
+			throw new IllegalArgumentException("GIT support is coming soon!");
+		default:
+			throw new IllegalArgumentException("SCM type [" + scmType + "] is unknown");
+		}
+	}
 
 	public static ScmRequest cloneOrNew(ScmRequest request) {
 		if (request == null) {

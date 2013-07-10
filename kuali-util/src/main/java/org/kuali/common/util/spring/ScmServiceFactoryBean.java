@@ -15,12 +15,9 @@
  */
 package org.kuali.common.util.spring;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.service.ScmService;
-import org.kuali.common.util.service.ScmType;
-import org.kuali.common.util.service.SvnService;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.util.Assert;
 
 public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 
@@ -29,19 +26,7 @@ public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 
 	@Override
 	public ScmService getObject() {
-		Assert.hasText(url, "URL has no text");
-		// scm:svn:https://svn.kuali.org/repos/student/trunk
-		String[] tokens = StringUtils.split(url, ":");
-		String scmType = tokens[1].toUpperCase();
-		ScmType type = ScmType.valueOf(scmType);
-		switch (type) {
-		case SVN:
-			return new SvnService();
-		case GIT:
-			throw new IllegalArgumentException("GIT support is coming soon!");
-		default:
-			throw new IllegalArgumentException("SCM type [" + scmType + "] is unknown");
-		}
+		return ScmUtils.getScmService(url);
 	}
 
 	@Override
