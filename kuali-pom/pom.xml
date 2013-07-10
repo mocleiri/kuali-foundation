@@ -93,7 +93,7 @@
     <!-- These are used by multiple plugins (compiler, javadoc, xref, etc) -->
     <project.compile.source>${project.java.version}</project.compile.source>
     <project.compile.target>${project.java.version}</project.compile.target>
-    <!-- svn/git -->
+    <!-- Either "svn" or "git" -->
     <project.scm.vendor>svn</project.scm.vendor>
 
     <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
