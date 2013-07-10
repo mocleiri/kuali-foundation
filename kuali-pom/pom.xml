@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -93,12 +93,14 @@
     <!-- These are used by multiple plugins (compiler, javadoc, xref, etc) -->
     <project.compile.source>${project.java.version}</project.compile.source>
     <project.compile.target>${project.java.version}</project.compile.target>
+    <!-- svn/git -->
+    <project.scm.vendor>svn</project.scm.vendor>
 
     <!-- Mimic Maven's handling of system properties and environment variables in Spring -->
     <kuali.properties.global>BOTH</kuali.properties.global>
     <kuali.properties.missing>INFORM</kuali.properties.missing>
 
-    <!-- These properties are deprecated.  Always use ${project.compile.*} instead} -->
+    <!-- These properties are deprecated. Always use ${project.compile.*} instead} -->
     <kuali.compile.source>${project.compile.source}</kuali.compile.source>
     <kuali.compile.target>${project.compile.target}</kuali.compile.target>
 
@@ -286,8 +288,8 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-pom</url>
   </scm>
   <build>
