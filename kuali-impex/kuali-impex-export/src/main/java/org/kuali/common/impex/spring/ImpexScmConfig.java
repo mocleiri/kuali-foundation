@@ -1,6 +1,5 @@
 package org.kuali.common.impex.spring;
 
-import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.ScmRequest;
@@ -52,13 +51,10 @@ public class ImpexScmConfig {
 	}
 
 	protected ScmRequest getScmRequest() {
-		List<File> adds = SpringUtils.getFilesFromCSV(env, ADDS_KEY);
-		List<File> deletes = SpringUtils.getFilesFromCSV(env, DELETES_KEY);
-		List<File> commits = SpringUtils.getFilesFromCSV(env, COMMITS_KEY);
 		ScmRequest request = new ScmRequest();
-		request.setAdds(adds);
-		request.setCommits(commits);
-		request.setDeletes(deletes);
+		request.setAdds(SpringUtils.getFilesFromCSV(env, ADDS_KEY));
+		request.setCommits(SpringUtils.getFilesFromCSV(env, COMMITS_KEY));
+		request.setDeletes(SpringUtils.getFilesFromCSV(env, DELETES_KEY));
 		return request;
 	}
 }
