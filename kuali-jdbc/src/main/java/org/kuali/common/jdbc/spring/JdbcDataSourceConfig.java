@@ -16,12 +16,12 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.Arrays;
-
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.ShowConfigExecutable;
 import org.kuali.common.jdbc.ShowSimpleConfigExecutable;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.DefaultBeanNullifier;
 import org.kuali.common.util.property.Constants;
@@ -37,7 +37,33 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Import(JdbcCommonConfig.class)
 public class JdbcDataSourceConfig {
 
-	@Autowired
+    protected static final String VENDOR_KEY = "db.vendor";
+
+    protected static final String DRIVER_KEY = "jdbc.driver";
+
+    protected static final String URL_KEY = "jdbc.url";
+
+    protected static final String USERNAME_KEY = "jdbc.username";
+
+    protected static final String PASSWORD_KEY = "jdbc.password";
+
+    protected static final String DBA_URL_KEY = "jdbc.dba.url";
+
+    protected static final String DBA_USERNAME_KEY = "jdbc.dba.username";
+
+    protected static final String DBA_PASSWORD_KEY = "jdbc.dba.password";
+
+    protected static final String ENCODING_KEY = "sql.encoding";
+
+    protected static final String SCHEMA_KEY = "sql.schema";
+
+    protected static final String SHOW_CONFIG_SKIP_KEY = "jdbc.showconfig.skip";
+
+    protected static final boolean DEFAULT_SHOW_CONFIG_SKIP = false;
+
+    protected static final String NULLIFIED_CONTEXT_PROPERTIES_CSV = "username,passowrd,dbaUsername,dbaPassword";
+
+    @Autowired
 	Environment env;
 
 	@Autowired
@@ -46,20 +72,21 @@ public class JdbcDataSourceConfig {
 	@Bean
 	public DatabaseProcessContext jdbcDatabaseProcessContext() {
 		DatabaseProcessContext ctx = new DatabaseProcessContext();
-		ctx.setVendor(SpringUtils.getProperty(env, "db.vendor"));
-		ctx.setDriver(SpringUtils.getProperty(env, "jdbc.driver"));
-		ctx.setUrl(SpringUtils.getProperty(env, "jdbc.url"));
-		ctx.setUsername(SpringUtils.getProperty(env, "jdbc.username"));
-		ctx.setPassword(SpringUtils.getProperty(env, "jdbc.password"));
-		ctx.setDbaUrl(SpringUtils.getProperty(env, "jdbc.dba.url"));
-		ctx.setDbaUsername(SpringUtils.getProperty(env, "jdbc.dba.username"));
-		ctx.setDbaPassword(SpringUtils.getProperty(env, "jdbc.dba.password"));
-		ctx.setEncoding(SpringUtils.getProperty(env, "sql.encoding"));
+		ctx.setVendor(SpringUtils.getProperty(env, VENDOR_KEY));
+		ctx.setDriver(SpringUtils.getProperty(env, DRIVER_KEY));
+		ctx.setUrl(SpringUtils.getProperty(env, URL_KEY));
+		ctx.setUsername(SpringUtils.getProperty(env, USERNAME_KEY));
+		ctx.setPassword(SpringUtils.getProperty(env, PASSWORD_KEY));
+		ctx.setDbaUrl(SpringUtils.getProperty(env, DBA_URL_KEY));
+		ctx.setDbaUsername(SpringUtils.getProperty(env, DBA_USERNAME_KEY));
+		ctx.setDbaPassword(SpringUtils.getProperty(env, DBA_PASSWORD_KEY));
+		ctx.setEncoding(SpringUtils.getProperty(env, ENCODING_KEY));
+        ctx.setSchema(SpringUtils.getProperty(env, SCHEMA_KEY));
 
 		DefaultBeanNullifier nullifier = new DefaultBeanNullifier();
 		nullifier.setBean(ctx);
 		nullifier.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
-		nullifier.setProperties(Arrays.asList("username", "password", "dbaUsername", "dbaPassword"));
+		nullifier.setProperties(CollectionUtils.getTrimmedListFromCSV(NULLIFIED_CONTEXT_PROPERTIES_CSV));
 
 		// Null out usernames/passwords that are set to NONE or NULL
 		nullifier.nullify();
@@ -98,7 +125,7 @@ public class JdbcDataSourceConfig {
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
 		sce.setDataSource(jdbcDbaDataSource());
-		sce.setSkip(SpringUtils.getBoolean(env, "jdbc.showconfig.skip", false));
+		sce.setSkip(SpringUtils.getBoolean(env, SHOW_CONFIG_SKIP_KEY, DEFAULT_SHOW_CONFIG_SKIP));
 		return sce;
 	}
 
@@ -108,7 +135,7 @@ public class JdbcDataSourceConfig {
 		sce.setService(commonConfig.jdbcService());
 		sce.setContext(jdbcDatabaseProcessContext());
 		sce.setDataSource(jdbcDataSource());
-		sce.setSkip(SpringUtils.getBoolean(env, "jdbc.showconfig.skip", false));
+		sce.setSkip(SpringUtils.getBoolean(env, SHOW_CONFIG_SKIP_KEY, DEFAULT_SHOW_CONFIG_SKIP));
 		return sce;
 	}
 }

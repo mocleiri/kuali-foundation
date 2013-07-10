@@ -26,8 +26,9 @@ public class DatabaseProcessContext {
 	String dbaUsername;
 	String dbaPassword;
 	String encoding;
+    String schema;
 
-	public String getDriver() {
+    public String getDriver() {
 		return driver;
 	}
 
@@ -99,4 +100,11 @@ public class DatabaseProcessContext {
 		this.encoding = encoding;
 	}
 
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
 }
