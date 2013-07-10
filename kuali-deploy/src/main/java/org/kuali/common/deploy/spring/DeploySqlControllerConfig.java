@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Deprecated
 public class DeploySqlControllerConfig extends AbstractSqlController {
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable sqlExecutable() {
 		return getSqlExecutable();
 	}
