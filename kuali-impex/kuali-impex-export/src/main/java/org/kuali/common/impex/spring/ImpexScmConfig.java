@@ -1,6 +1,6 @@
 package org.kuali.common.impex.spring;
 
-import java.util.Arrays;
+import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.ScmRequest;
@@ -17,12 +17,14 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ ProjectPrepareScmConfig.class })
-public class UpdateScmConfig {
+public class ImpexScmConfig {
 
+	private static final String SCM_URL_KEY = "impex.scm.update.url";
 	private static final String UPDATE_KEY = "impex.scm.update.skip";
 	private static final String MESSAGE_KEY = "impex.scm.update.commitMessage";
-	private static final String SCM_URL_KEY = "project.scm.developerConnection";
-	private static final String STATS_KEY = DumpDataConfig.STATS_LOCATION_KEY;
+	private static final String COMMITS_KEY = "impex.scm.update.commits";
+	private static final String ADDS_KEY = "impex.scm.update.adds";
+	private static final String DELETES_KEY = "impex.scm.update.deletes";
 
 	@Autowired
 	Environment env;
@@ -36,8 +38,7 @@ public class UpdateScmConfig {
 		boolean skip = SpringUtils.getBoolean(env, UPDATE_KEY, true);
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
 		List<PrepareScmDirExecutable> preparers = projectPrepareScmConfig.prepareScmDirExecutables();
-		ScmRequest request = new ScmRequest();
-		request.setCommits(Arrays.asList(SpringUtils.getFile(env, STATS_KEY)));
+		ScmRequest request = getScmRequest();
 		String url = SpringUtils.getProperty(env, SCM_URL_KEY);
 		ScmService service = ScmUtils.getScmService(url);
 
@@ -48,5 +49,16 @@ public class UpdateScmConfig {
 		exec.setRequest(request);
 		exec.setService(service);
 		return exec;
+	}
+
+	protected ScmRequest getScmRequest() {
+		List<File> adds = SpringUtils.getFilesFromCSV(env, ADDS_KEY);
+		List<File> deletes = SpringUtils.getFilesFromCSV(env, DELETES_KEY);
+		List<File> commits = SpringUtils.getFilesFromCSV(env, COMMITS_KEY);
+		ScmRequest request = new ScmRequest();
+		request.setAdds(adds);
+		request.setCommits(commits);
+		request.setDeletes(deletes);
+		return request;
 	}
 }
