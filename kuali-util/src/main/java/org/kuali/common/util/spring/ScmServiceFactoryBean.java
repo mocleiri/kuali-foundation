@@ -19,6 +19,10 @@ import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.service.ScmService;
 import org.springframework.beans.factory.FactoryBean;
 
+/**
+ * Use <code>ScmConfig</code> instead.
+ */
+@Deprecated
 public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
 
 	String url;

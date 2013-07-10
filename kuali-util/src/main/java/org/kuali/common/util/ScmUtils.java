@@ -11,6 +11,10 @@ import org.springframework.util.Assert;
 
 public class ScmUtils {
 
+	/**
+	 * Use <code>ScmConfig</code> instead
+	 */
+	@Deprecated
 	public static ScmService getScmService(String url) {
 		Assert.hasText(url, "URL has no text");
 		// scm:svn:https://svn.kuali.org/repos/student/trunk
