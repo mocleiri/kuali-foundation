@@ -53,6 +53,8 @@ public class ExtractSchemaConfig {
     protected static final String VIEW_FINDER_KEY = "impex.extract.schema.viewfinder";
     protected static final String SEQUENCE_FINDER_KEY = "impex.extract.schema.sequencefinder";
 
+    protected static final String SCHEMA_NAME_KEY = "impex.extract.schema.name";
+
 	@Autowired
 	Environment env;
 
@@ -77,8 +79,7 @@ public class ExtractSchemaConfig {
 		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
 
 		// This is the schema inside the database to extract
-		// TODO This isn't always necessarily the case, there might be several different users granted access to a single schema
-		String schemaName = dbContext.getUsername();
+        String schemaName = SpringUtils.getProperty(env, SCHEMA_NAME_KEY);
 
 		// Number of threads to use
 		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
