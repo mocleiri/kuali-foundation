@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.1.14</version>
+    <version>3.2.3</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-util</artifactId>
@@ -31,8 +31,8 @@
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <inceptionYear>2010</inceptionYear>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-util</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-util</developerConnection>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-util</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-util</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-util</url>
   </scm>
   <properties>
