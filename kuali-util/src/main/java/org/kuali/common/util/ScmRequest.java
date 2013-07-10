@@ -16,6 +16,7 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScmRequest {
@@ -24,6 +25,48 @@ public class ScmRequest {
 	List<File> deletes;
 	List<File> commits;
 	String commitMessage;
+
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of the <code>ScmRequest</code> passed in.
+	 */
+	public ScmRequest(ScmRequest request) {
+		super();
+		ScmRequest clone = clone(request);
+		this.adds = clone.getAdds();
+		this.deletes = clone.getDeletes();
+		this.commits = clone.getCommits();
+		this.commitMessage = clone.getCommitMessage();
+	}
+
+	public static ScmRequest clone(ScmRequest request) {
+		ScmRequest clone = new ScmRequest();
+		clone.setCommitMessage(request.getCommitMessage());
+
+		if (!CollectionUtils.isEmpty(request.getAdds())) {
+			clone.setAdds(new ArrayList<File>(request.getAdds()));
+		}
+
+		if (!CollectionUtils.isEmpty(request.getDeletes())) {
+			clone.setDeletes(new ArrayList<File>(request.getDeletes()));
+		}
+
+		if (!CollectionUtils.isEmpty(request.getCommits())) {
+			clone.setCommits(new ArrayList<File>(request.getCommits()));
+		}
+		return clone;
+	}
+
+	public ScmRequest() {
+		this(null, null, null, null);
+	}
+
+	public ScmRequest(List<File> adds, List<File> deletes, List<File> commits, String commitMessage) {
+		super();
+		this.adds = adds;
+		this.deletes = deletes;
+		this.commits = commits;
+		this.commitMessage = commitMessage;
+	}
 
 	public List<File> getAdds() {
 		return adds;

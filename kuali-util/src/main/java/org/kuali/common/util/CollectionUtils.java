@@ -410,6 +410,17 @@ public class CollectionUtils {
 		return list;
 	}
 
+	public static final <T> List<T> nullSafeCombine(List<T> list1, List<T> list2) {
+		List<T> combined = new ArrayList<T>();
+		if (!isEmpty(list1)) {
+			combined.addAll(list1);
+		}
+		if (!isEmpty(list2)) {
+			combined.addAll(list2);
+		}
+		return combined;
+	}
+
 	public static final List<String> combineStrings(List<String> list1, List<String> list2, List<String> list3) {
 		List<String> combined = new ArrayList<String>();
 		nullSafeAdd(combined, list1);
