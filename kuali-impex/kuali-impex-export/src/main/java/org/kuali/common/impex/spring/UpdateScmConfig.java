@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.ScmRequest;
+import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.execute.PrepareScmDirExecutable;
+import org.kuali.common.util.service.ScmService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,12 +38,15 @@ public class UpdateScmConfig {
 		List<PrepareScmDirExecutable> preparers = projectPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = new ScmRequest();
 		request.setCommits(Arrays.asList(SpringUtils.getFile(env, STATS_KEY)));
+		String url = SpringUtils.getProperty(env, SCM_URL_KEY);
+		ScmService service = ScmUtils.getScmService(url);
 
 		BuildScmExecutable exec = new BuildScmExecutable();
 		exec.setExecutables(preparers);
 		exec.setSkip(skip);
 		exec.setCommitMessage(commitMessage);
 		exec.setRequest(request);
+		exec.setService(service);
 		return exec;
 	}
 }
