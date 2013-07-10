@@ -1,6 +1,10 @@
 package org.kuali.common.impex.spring;
 
+import java.util.List;
+
 import org.kuali.common.util.execute.BuildScmExecutable;
+import org.kuali.common.util.execute.PrepareScmDirExecutable;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +15,9 @@ import org.springframework.core.env.Environment;
 @Import({ ProjectPrepareScmConfig.class })
 public class UpdateScmConfig {
 
+	private static final String UPDATE_KEY = "impex.scm.update.skip";
+	private static final String MESSAGE_KEY = "impex.scm.update.commitMessage";
+
 	@Autowired
 	Environment env;
 
@@ -19,8 +26,15 @@ public class UpdateScmConfig {
 
 	@Bean
 	public BuildScmExecutable buildScmExecutable() {
+
+		boolean skip = SpringUtils.getBoolean(env, UPDATE_KEY);
+		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
+		List<PrepareScmDirExecutable> preparers = projectPrepareScmConfig.prepareScmDirExecutables();
+
 		BuildScmExecutable exec = new BuildScmExecutable();
-		exec.setExecutables(projectPrepareScmConfig.prepareScmDirExecutables());
+		exec.setExecutables(preparers);
+		exec.setSkip(skip);
+		exec.setCommitMessage(commitMessage);
 		return exec;
 	}
 
