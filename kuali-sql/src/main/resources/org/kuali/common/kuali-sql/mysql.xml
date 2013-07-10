@@ -21,7 +21,7 @@
   <comment>MySQL SQL</comment>
   <!-- Both the database and user must be gone when this SQL completes -->
   <entry key="mysql.drop">
-    DROP DATABASE IF EXISTS ${sql.database}
+    DROP DATABASE IF EXISTS ${sql.schema}
     /
     GRANT USAGE ON *.* TO '${sql.username}'@'%' IDENTIFIED BY '${sql.password}'
     /
@@ -33,15 +33,15 @@
     /
   </entry>
   <entry key="mysql.create">
-    CREATE DATABASE IF NOT EXISTS ${sql.database} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'
+    CREATE DATABASE IF NOT EXISTS ${sql.schema} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'
     /
     CREATE USER '${sql.username}'@'%' IDENTIFIED BY '${sql.password}'
     /
     CREATE USER '${sql.username}'@'localhost' IDENTIFIED BY '${sql.password}'
     /
-    GRANT ALL ON ${sql.database}.* TO '${sql.username}'@'%' WITH GRANT OPTION
+    GRANT ALL ON ${sql.schema}.* TO '${sql.username}'@'%' WITH GRANT OPTION
     /
-    GRANT ALL ON ${sql.database}.* TO '${sql.username}'@'localhost' WITH GRANT OPTION
+    GRANT ALL ON ${sql.schema}.* TO '${sql.username}'@'localhost' WITH GRANT OPTION
     /
   </entry>
   <entry key="mysql.validate">
