@@ -25,15 +25,21 @@ public class ProjectScmConfig {
 	public static final String IGNORES_KEY = "impex.scm.ignores";
 
 	private static final String PREPARE_KEY = "impex.scm.prepare.skip";
-	private static final String COMMIT_KEY = "impex.scm.commit.skip";
+	private static final String SKIP_KEY = "impex.scm.skip";
 
 	@Autowired
 	Environment env;
 
 	@Bean
 	public List<PrepareScmDirExecutable> prepareScmDirExecutables() {
+
+		// This is the directory files get copied out of
 		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
+
+		// These are the projects we are updating
 		List<Project> projects = ConfigUtils.getProjects(env, PROJECTS_KEY);
+
+		// Return a list of executables that can prepare the directories
 		return getPrepareScmDirExecutables(stagingDir, projects);
 	}
 
@@ -46,7 +52,7 @@ public class ProjectScmConfig {
 		for (Project project : projects) {
 
 			// Figure out the project specific directory being managed by SCM
-			// This is the destination directory files get copied into
+			// This is the directory files get copied into
 			String projectScmDirKey = "impex.scm." + project.getArtifactId() + ".dir";
 			File projectDir = SpringUtils.getFile(env, projectScmDirKey);
 			File scmDir = ProjectUtils.getResourceDirectory(projectDir, project);
