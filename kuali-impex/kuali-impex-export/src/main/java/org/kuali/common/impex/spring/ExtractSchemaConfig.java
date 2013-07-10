@@ -16,6 +16,7 @@
 package org.kuali.common.impex.spring;
 
 import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.SequenceFinder;
@@ -23,7 +24,6 @@ import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.ExtractSchemaContext;
 import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.impex.util.DumpConstants;
-import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.spring.SpringUtils;
@@ -50,10 +50,10 @@ public class ExtractSchemaConfig {
 
 	protected static final String SKIP_KEY = "impex.extract.schema.skip";
 
-    protected static final String VIEW_FINDER_KEY = "impex.extract.schema.viewfinder";
-    protected static final String SEQUENCE_FINDER_KEY = "impex.extract.schema.sequencefinder";
+	protected static final String VIEW_FINDER_KEY = "impex.extract.schema.viewfinder";
+	protected static final String SEQUENCE_FINDER_KEY = "impex.extract.schema.sequencefinder";
 
-    protected static final String SCHEMA_NAME_KEY = "impex.extract.schema.name";
+	protected static final String SCHEMA_NAME_KEY = "impex.extract.schema.name";
 
 	@Autowired
 	Environment env;
@@ -75,11 +75,8 @@ public class ExtractSchemaConfig {
 	 */
 	protected ExtractSchemaContext getSchemaExtractionContext() {
 
-		// This provides the configuration needed for connecting to the database
-		DatabaseProcessContext dbContext = dataSourceConfig.jdbcDatabaseProcessContext();
-
 		// This is the schema inside the database to extract
-        String schemaName = SpringUtils.getProperty(env, SCHEMA_NAME_KEY);
+		String schemaName = SpringUtils.getProperty(env, SCHEMA_NAME_KEY);
 
 		// Number of threads to use
 		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
@@ -91,8 +88,8 @@ public class ExtractSchemaConfig {
 		StringFilter nameFilter = getNameFilter();
 
 		// Get database specific finders for sequences and views
-        SequenceFinder sequenceFinder = SpringUtils.getInstance(env, SEQUENCE_FINDER_KEY);
-        ViewFinder viewFinder = SpringUtils.getInstance(env, VIEW_FINDER_KEY);
+		SequenceFinder sequenceFinder = SpringUtils.getInstance(env, SEQUENCE_FINDER_KEY);
+		ViewFinder viewFinder = SpringUtils.getInstance(env, VIEW_FINDER_KEY);
 
 		// Setup our context with pojo's aggregated from the Spring configuration
 		ExtractSchemaContext context = new ExtractSchemaContext();
