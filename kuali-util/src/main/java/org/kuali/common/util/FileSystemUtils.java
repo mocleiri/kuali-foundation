@@ -114,8 +114,8 @@ public class FileSystemUtils {
 	}
 
 	/**
-	 * Compare two directories on the file system and return an object containing the results. It will place all of the files contained in either of the two directories into one of
-	 * three categories.
+	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 3
+	 * categories.
 	 * 
 	 * <pre>
 	 * 1 - Both       - Files that exist in both directories
@@ -123,7 +123,7 @@ public class FileSystemUtils {
 	 * 3 - Dir 2 Only - Files that exist only in directory 2
 	 * </pre>
 	 * 
-	 * The <code>DirectoryDiff</code> object returned by this method contains three lists containing the relative paths to files found for each category.
+	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
 	 */
 	public static DirectoryDiff getDiff(DirectoryDiffRequest request) {
 
