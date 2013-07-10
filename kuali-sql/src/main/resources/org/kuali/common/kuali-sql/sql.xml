@@ -23,4 +23,5 @@
     INSERT INTO DATABASECHANGELOGLOCK (ID,LOCKED) VALUES (1,0)
     /
   </entry>
+  <entry key="sql.database">${sql.schema}</entry>
 </properties>
