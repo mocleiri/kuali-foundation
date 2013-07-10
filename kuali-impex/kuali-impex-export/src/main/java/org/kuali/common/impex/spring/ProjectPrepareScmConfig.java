@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ProjectScmConfig {
+public class ProjectPrepareScmConfig {
 
 	public static final String STAGING_DIR_KEY = ProjectStagingConfig.DIR_KEY;
 	public static final String PROJECTS_KEY = "impex.scm.projects";
@@ -25,7 +25,6 @@ public class ProjectScmConfig {
 	public static final String IGNORES_KEY = "impex.scm.ignores";
 
 	private static final String PREPARE_KEY = "impex.scm.prepare.skip";
-	private static final String SKIP_KEY = "impex.scm.skip";
 
 	@Autowired
 	Environment env;
