@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.jdbc.spring.SqlControllerConfig;
+import org.kuali.common.jdbc.spring.SqlControllerExecutableConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -53,9 +53,9 @@ public class BuildDatabaseUtility {
 
 	protected static List<Class<?>> getAnnotatedClasses(boolean includeMpxConfig) {
 		if (includeMpxConfig) {
-			return CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
+			return CollectionUtils.asList(MpxSupplierConfig.class, SchemaXmlSupplierConfig.class, SqlControllerExecutableConfig.class);
 		} else {
-			return CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerConfig.class);
+			return CollectionUtils.asList(SchemaXmlSupplierConfig.class, SqlControllerExecutableConfig.class);
 		}
 	}
 
