@@ -16,7 +16,6 @@
 package org.kuali.common.impex.spring;
 
 import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.SequenceFinder;
@@ -53,8 +52,6 @@ public class ExtractSchemaConfig {
 	protected static final String VIEW_FINDER_KEY = "impex.extract.schema.viewfinder";
 	protected static final String SEQUENCE_FINDER_KEY = "impex.extract.schema.sequencefinder";
 
-	protected static final String SCHEMA_NAME_KEY = "impex.extract.schema.name";
-
 	@Autowired
 	Environment env;
 
@@ -75,32 +72,32 @@ public class ExtractSchemaConfig {
 	 */
 	protected ExtractSchemaContext getSchemaExtractionContext() {
 
-		// This is the schema inside the database to extract
-		String schemaName = SpringUtils.getProperty(env, SCHEMA_NAME_KEY);
+        // This is the schema inside the database to extract
+        String schemaName = dataSourceConfig.jdbcDatabaseProcessContext().getSchema();
 
-		// Number of threads to use
-		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
+        // Number of threads to use
+        int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
 
-		// DataSource for obtaining connections to the database
-		DataSource dataSource = dataSourceConfig.jdbcDataSource();
+        // DataSource for obtaining connections to the database
+        DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
-		// This is used to filter out tables/views/sequences/foreign keys
-		StringFilter nameFilter = getNameFilter();
+        // This is used to filter out tables/views/sequences/foreign keys
+        StringFilter nameFilter = getNameFilter();
 
-		// Get database specific finders for sequences and views
-		SequenceFinder sequenceFinder = SpringUtils.getInstance(env, SEQUENCE_FINDER_KEY);
-		ViewFinder viewFinder = SpringUtils.getInstance(env, VIEW_FINDER_KEY);
+        // Get database specific finders for sequences and views
+        SequenceFinder sequenceFinder = SpringUtils.getInstance(env, SEQUENCE_FINDER_KEY);
+        ViewFinder viewFinder = SpringUtils.getInstance(env, VIEW_FINDER_KEY);
 
-		// Setup our context with pojo's aggregated from the Spring configuration
-		ExtractSchemaContext context = new ExtractSchemaContext();
-		context.setSchemaName(schemaName);
-		context.setDataSource(dataSource);
-		context.setNameFilter(nameFilter);
-		context.setThreadCount(threadCount);
-		context.setSequenceFinder(sequenceFinder);
-		context.setViewFinder(viewFinder);
-		return context;
-	}
+        // Setup our context with pojo's aggregated from the Spring configuration
+        ExtractSchemaContext context = new ExtractSchemaContext();
+        context.setSchemaName(schemaName);
+        context.setDataSource(dataSource);
+        context.setNameFilter(nameFilter);
+        context.setThreadCount(threadCount);
+        context.setSequenceFinder(sequenceFinder);
+        context.setViewFinder(viewFinder);
+        return context;
+    }
 
 	protected StringFilter getNameFilter() {
 
