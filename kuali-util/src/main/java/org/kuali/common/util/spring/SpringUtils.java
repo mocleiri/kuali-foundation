@@ -423,6 +423,16 @@ public class SpringUtils {
 		return new File(value);
 	}
 
+	public static List<File> getFilesFromCSV(Environment env, String key) {
+		List<String> strings = getNoneSensitiveListFromCSV(env, key);
+		List<File> files = new ArrayList<File>();
+		for (String string : strings) {
+			File file = new File(string);
+			files.add(file);
+		}
+		return files;
+	}
+
 	public static File getFile(Environment env, String key, File defaultValue) {
 		String value = getProperty(env, key, LocationUtils.getCanonicalPath(defaultValue));
 		return new File(value);
