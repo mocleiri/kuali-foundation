@@ -97,7 +97,7 @@ public class ProjectUtils {
 	public static String getResourcePath(Project project) {
 		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
 		String artifactId = project.getArtifactId();
-		return groupIdPath + artifactId;
+		return groupIdPath + "/" + artifactId;
 	}
 
 	/**
