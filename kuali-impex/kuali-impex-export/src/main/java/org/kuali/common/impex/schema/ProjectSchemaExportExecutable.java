@@ -64,7 +64,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		// Clone the existing schema
 		Schema clone = new Schema(schema);
 
-		// Filter out model objects not relevant to this project
+		// Filter out model objects not relevant to this export
 		ModelUtils.filter(clone, nameFilter);
 
 		// The location of the schema file is always based on groupId + artifactId
@@ -73,7 +73,7 @@ public class ProjectSchemaExportExecutable implements Executable {
 		// Log the name of the file we are creating
 		logger.info("Creating - [{}]", FileSystemUtils.getRelativePathQuietly(basedir, schemaFile));
 
-		// Persist the cloned schema to disk as XML
+		// Persist the cloned and filtered schema to disk as XML
 		service.dumpSchema(clone, schemaFile);
 
 	}
