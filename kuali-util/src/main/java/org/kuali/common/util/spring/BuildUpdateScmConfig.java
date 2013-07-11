@@ -26,7 +26,7 @@ public class BuildUpdateScmConfig {
 	Environment env;
 
 	@Autowired
-	BuildPrepareScmConfig projectPrepareScmConfig;
+	BuildPrepareScmConfig buildPrepareScmConfig;
 
 	@Autowired
 	ScmConfig scmConfig;
@@ -36,7 +36,7 @@ public class BuildUpdateScmConfig {
 
 		boolean skip = SpringUtils.getBoolean(env, UPDATE_KEY, true);
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
-		List<PrepareScmDirExecutable> preparers = projectPrepareScmConfig.prepareScmDirExecutables();
+		List<PrepareScmDirExecutable> preparers = buildPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = getScmRequest();
 		ScmService service = scmConfig.scmService();
 
