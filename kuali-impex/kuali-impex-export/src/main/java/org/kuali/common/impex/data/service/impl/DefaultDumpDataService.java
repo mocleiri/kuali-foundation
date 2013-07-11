@@ -299,8 +299,8 @@ public class DefaultDumpDataService implements DumpDataService {
 		for (DumpTableContext context : contexts) {
 			rowCount += context.getRowCount();
 		}
-		// In the absence of a reasonably accurate estimate for the number of rows contained in the db,
-		// just print a dot to the console every time we successfully dump 1,000 rows
+		// In the absence of a reasonably accurate estimate for the total number of rows contained in the db,
+		// just print a dot to the console every time we successfully dump 1% of the default row count #
 		return rowCount == 0 ? DEFAULT_DATABASE_ROW_COUNT : rowCount;
 	}
 
