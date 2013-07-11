@@ -34,14 +34,14 @@ public class ScmConfig {
 
 	@Bean
 	public ScmContext scmContext() {
-
-		ScmService service = SpringUtils.getInstance(env, SERVICE_KEY);
-
 		ScmContext context = new ScmContext();
 		context.setVendor(SpringUtils.getProperty(env, VENDOR_KEY));
 		context.setUrl(SpringUtils.getProperty(env, URL_KEY));
-		context.setService(service);
 		return context;
 	}
 
+	@Bean
+	public ScmService scmService() {
+		return SpringUtils.getInstance(env, SERVICE_KEY);
+	}
 }
