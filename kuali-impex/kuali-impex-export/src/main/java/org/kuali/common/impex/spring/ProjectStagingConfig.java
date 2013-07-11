@@ -8,7 +8,6 @@ import java.util.List;
 import org.kuali.common.impex.schema.CopySchemaFileExecutable;
 import org.kuali.common.impex.schema.DumpSchemaExecutable;
 import org.kuali.common.impex.util.DumpConstants;
-import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.execute.CopyFilesExecutable;
@@ -23,10 +22,11 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ProjectStagingConfig {
 
-	public static final String GAVS_KEY = "impex.staging.projects";
-	public static final String DIR_KEY = "impex.staging.dir";
-	public static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
-	public static final String RELATIVE_DIR_KEY = "impex.staging.dir.relative";
+	private static final String GAVS_KEY = "impex.staging.projects";
+	private static final String DST_DIR_KEY = "impex.staging.dir.dst";
+	private static final String SRC_DIR_KEY = "impex.staging.dir.src";
+	private static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
+	private static final String RELATIVE_DIR_KEY = "impex.staging.dir.relative";
 
 	private static final String SKIP_KEY = "impex.staging.skip";
 	private static final String SERVICE_KEY = "impex.staging.schema.service";
@@ -37,14 +37,14 @@ public class ProjectStagingConfig {
 	@Bean
 	public Executable projectStagingExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
-		List<Executable> execs = Arrays.asList(createCopyFilteredSchemasExecutable(), copyProjectDataFilesExecutable());
+		List<Executable> execs = Arrays.asList(copySchemaFilesExecutable(), copyProjectDataFilesExecutable());
 		return new ExecutablesExecutable(execs, skip);
 	}
 
 	@Bean
-	public Executable createCopyFilteredSchemasExecutable() {
+	public Executable copySchemaFilesExecutable() {
 		File inputSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
-		File stagingDir = SpringUtils.getFile(env, DIR_KEY);
+		File stagingDir = SpringUtils.getFile(env, DST_DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		List<Project> projects = getProjects();
 		List<CopySchemaFileExecutable> execs = new ArrayList<CopySchemaFileExecutable>();
@@ -59,14 +59,14 @@ public class ProjectStagingConfig {
 	@Bean
 	public Executable copyProjectDataFilesExecutable() {
 
-		File stagingDir = SpringUtils.getFile(env, ProjectStagingConfig.DIR_KEY);
+		File stagingDir = SpringUtils.getFile(env, DST_DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
-		File dumpDir = SpringUtils.getFile(env, DumpDataConfig.DIR_KEY);
-		List<String> gavs = SpringUtils.getListFromCSV(env, ProjectStagingConfig.GAVS_KEY);
+		File sourceDir = SpringUtils.getFile(env, SRC_DIR_KEY);
+		List<String> gavs = SpringUtils.getListFromCSV(env, GAVS_KEY);
 
 		List<CopyFilesExecutable> executables = new ArrayList<CopyFilesExecutable>();
 		for (String gav : gavs) {
-			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, dumpDir, stagingDir);
+			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, sourceDir, stagingDir);
 			exec.setRelativeDir(relativeDir);
 			executables.add(exec);
 		}
@@ -79,7 +79,7 @@ public class ProjectStagingConfig {
 		Project project = ProjectUtils.loadProject(gav);
 
 		// dstDir is always based on groupId + artifactId
-		File dstDir = DumpUtils.getOutputDir(stagingDir, project);
+		File dstDir = ProjectUtils.getResourceDirectory(stagingDir, project);
 
 		// Setup the includes/excludes appropriate for this project
 		String includesKey = "impex.staging.data." + project.getArtifactId() + ".includes";
@@ -101,7 +101,7 @@ public class ProjectStagingConfig {
 		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_INCLUDE);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_EXCLUDE);
-		File outputFile = DumpUtils.getSchemaFile(stagingDir, project, inputSchemaFile);
+		File outputFile = ProjectUtils.getResourceFile(stagingDir, project, inputSchemaFile.getName());
 		CopySchemaFileExecutable exec = new CopySchemaFileExecutable();
 		exec.setIncludes(includes);
 		exec.setExcludes(excludes);

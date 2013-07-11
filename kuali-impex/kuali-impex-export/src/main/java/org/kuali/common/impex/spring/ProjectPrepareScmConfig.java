@@ -17,9 +17,9 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ProjectPrepareScmConfig {
 
-	public static final String STAGING_DIR_KEY = ProjectStagingConfig.DIR_KEY;
-	public static final String PROJECTS_KEY = "impex.scm.projects";
-	public static final String RELATIVE_DIR_KEY = "impex.scm.dir.relative";
+	private static final String PROJECTS_KEY = "impex.scm.projects";
+	private static final String RELATIVE_DIR_KEY = "impex.scm.dir.relative";
+	private static final String SRC_DIR_KEY = "impex.scm.dir.src";
 
 	// SCM directories to ignore
 	public static final String IGNORES_KEY = "impex.scm.ignores";
@@ -32,16 +32,16 @@ public class ProjectPrepareScmConfig {
 	public List<PrepareScmDirExecutable> prepareScmDirExecutables() {
 
 		// This is the directory files get copied out of
-		File stagingDir = SpringUtils.getFile(env, STAGING_DIR_KEY);
+		File srcDir = SpringUtils.getFile(env, SRC_DIR_KEY);
 
 		// These are the projects we are updating
 		List<Project> projects = ConfigUtils.getProjects(env, PROJECTS_KEY);
 
 		// Return a list of executables that can prepare the project's SCM directories
-		return getPrepareScmDirExecutables(stagingDir, projects);
+		return getPrepareScmDirExecutables(srcDir, projects);
 	}
 
-	protected List<PrepareScmDirExecutable> getPrepareScmDirExecutables(File stagingDir, List<Project> projects) {
+	protected List<PrepareScmDirExecutable> getPrepareScmDirExecutables(File srcDir, List<Project> projects) {
 
 		// Setup some storage for the executables
 		List<PrepareScmDirExecutable> execs = new ArrayList<PrepareScmDirExecutable>();
@@ -55,15 +55,15 @@ public class ProjectPrepareScmConfig {
 			File projectDir = SpringUtils.getFile(env, projectScmDirKey);
 			File scmDir = ProjectUtils.getResourceDirectory(projectDir, project);
 
-			// This is the source directory containing the files to copy to the project directory
-			File srcDir = ProjectUtils.getResourceDirectory(stagingDir, project);
+			// This is the directory containing the files to copy to the project directory
+			File resourceDir = ProjectUtils.getResourceDirectory(srcDir, project);
 
 			// Ignore SCM meta data directories
 			List<String> scmIgnorePatterns = SpringUtils.getNoneSensitiveListFromCSV(env, IGNORES_KEY);
 
 			// Setup the request
 			PrepareScmDirRequest request = new PrepareScmDirRequest();
-			request.setSrcDir(srcDir);
+			request.setSrcDir(resourceDir);
 			request.setScmDir(scmDir);
 			request.setScmIgnorePatterns(scmIgnorePatterns);
 

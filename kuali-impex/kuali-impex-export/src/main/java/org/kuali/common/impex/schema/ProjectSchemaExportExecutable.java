@@ -19,10 +19,10 @@ import java.io.File;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
-import org.kuali.common.impex.util.DumpUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
@@ -34,9 +34,11 @@ public class ProjectSchemaExportExecutable implements Executable {
 
 	public static final boolean DEFAULT_EXECUTION_SKIP = false;
 	public static final DumpSchemaService DEFAULT_EXPORT_SCHEMA_SERVICE = new DefaultDumpSchemaService();
+	public static final String DEFAULT_SCHEMA_FILENAME = "schema.xml";
 
 	boolean skip = DEFAULT_EXECUTION_SKIP;
 	DumpSchemaService service = DEFAULT_EXPORT_SCHEMA_SERVICE;
+	String schemaFilename = DEFAULT_SCHEMA_FILENAME;
 
 	Project project;
 	Schema schema;
@@ -59,18 +61,20 @@ public class ProjectSchemaExportExecutable implements Executable {
 		Assert.notNull(stagingDir, "stagingDir is null");
 		Assert.notNull(basedir, "basedir is null");
 
-		// Clone the existing schema but filter out model objects not relevant to this project
+		// Clone the existing schema
 		Schema clone = new Schema(schema);
+
+		// Filter out model objects not relevant to this project
 		ModelUtils.filter(clone, nameFilter);
 
-		// The output file is always based on groupId + artifactId
-		File outputFile = DumpUtils.getSchemaFile(stagingDir, project);
+		// The location of the schema file is always based on groupId + artifactId
+		File schemaFile = ProjectUtils.getResourceFile(stagingDir, project, schemaFilename);
 
 		// Log the name of the file we are creating
-		logger.info("Creating - [{}]", FileSystemUtils.getRelativePathQuietly(basedir, outputFile));
+		logger.info("Creating - [{}]", FileSystemUtils.getRelativePathQuietly(basedir, schemaFile));
 
 		// Persist the cloned schema to disk as XML
-		service.dumpSchema(clone, outputFile);
+		service.dumpSchema(clone, schemaFile);
 
 	}
 

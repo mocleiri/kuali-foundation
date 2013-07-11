@@ -34,18 +34,18 @@ import org.springframework.core.env.Environment;
 public class DumpDataConfig {
 
 	// These are often customized
-	public static final String DIR_KEY = "impex.dump.data.dir";
-	public static final String STATS_LOCATION_KEY = "impex.dump.data.stats.location";
-	public static final String INCLUDES_KEY = "impex.dump.data.includes";
-	public static final String EXCLUDES_KEY = "impex.dump.data.excludes";
+	private static final String DIR_KEY = "impex.dump.data.dir";
+	private static final String STATS_LOCATION_KEY = "impex.dump.data.stats.location";
+	private static final String INCLUDES_KEY = "impex.dump.data.includes";
+	private static final String EXCLUDES_KEY = "impex.dump.data.excludes";
 
 	// Defaults for these are usually ok
-	public static final String ENCODING_KEY = "impex.dump.data.encoding";
-	public static final String THREADS_KEY = "impex.dump.data.threads";
-	public static final String ROW_INTERVAL_KEY = "impex.dump.data.rowInterval";
-	public static final String DATA_INTERVAL_KEY = "impex.dump.data.dataInterval";
-	public static final String SERVICE_KEY = "impex.dump.data.service";
-	public static final String SKIP_KEY = "impex.dump.data.skip";
+	private static final String ENCODING_KEY = "impex.dump.data.encoding";
+	private static final String THREADS_KEY = "impex.dump.data.threads";
+	private static final String ROW_INTERVAL_KEY = "impex.dump.data.rowInterval";
+	private static final String DATA_INTERVAL_KEY = "impex.dump.data.dataInterval";
+	private static final String SERVICE_KEY = "impex.dump.data.service";
+	private static final String SKIP_KEY = "impex.dump.data.skip";
 
 	@Autowired
 	Environment env;
@@ -75,7 +75,7 @@ public class DumpDataConfig {
 		context.setRowCountInterval(SpringUtils.getInteger(env, ROW_INTERVAL_KEY, DumpUtils.DEFAULT_ROW_INTERVAL));
 		context.setDataSizeInterval(SpringUtils.getBytesInteger(env, DATA_INTERVAL_KEY, DumpUtils.DEFAULT_DATA_INTERVAL));
 		context.setDataSource(dataSourceConfig.jdbcDataSource());
-		context.setEncoding(dataSourceConfig.jdbcDatabaseProcessContext().getEncoding());
+		context.setEncoding(SpringUtils.getProperty(env, ENCODING_KEY));
 		context.setTableNameFilter(getTableNameFilter());
 		return context;
 	}
