@@ -25,8 +25,8 @@ public class ProjectStagingConfig {
 	private static final String GAVS_KEY = "impex.staging.projects";
 	private static final String DST_DIR_KEY = "impex.staging.dir.dst";
 	private static final String SRC_DIR_KEY = "impex.staging.dir.src";
-	private static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
 	private static final String RELATIVE_DIR_KEY = "impex.staging.dir.relative";
+	private static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
 
 	private static final String SKIP_KEY = "impex.staging.skip";
 	private static final String SERVICE_KEY = "impex.staging.schema.service";
