@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
 @Import({ ScmConfig.class, BuildPrepareScmConfig.class })
 public class BuildUpdateScmConfig {
 
-	private static final String UPDATE_KEY = "build.scm.update.skip";
+	private static final String SKIP_KEY = "build.scm.update.skip";
 	private static final String MESSAGE_KEY = "build.scm.update.commitMessage";
 	private static final String COMMITS_KEY = "build.scm.update.commits";
 	private static final String ADDS_KEY = "build.scm.update.adds";
@@ -34,7 +34,7 @@ public class BuildUpdateScmConfig {
 	@Bean
 	public BuildScmExecutable buildScmExecutable() {
 
-		boolean skip = SpringUtils.getBoolean(env, UPDATE_KEY, true);
+		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, true);
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
 		List<PrepareScmDirExecutable> preparers = buildPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = getScmRequest();
@@ -46,6 +46,7 @@ public class BuildUpdateScmConfig {
 		exec.setCommitMessage(commitMessage);
 		exec.setRequest(request);
 		exec.setService(service);
+		exec.setSkipScm(skip);
 		return exec;
 	}
 
