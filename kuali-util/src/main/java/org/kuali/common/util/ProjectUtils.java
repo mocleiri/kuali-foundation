@@ -75,13 +75,20 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Given <code>/tmp/mydirectory</code> and <code>org.kuali.common:kuali-util</code> return <code>/tmp/mydirectory/org/kuali/common/kuali-util</code>
+	 * Given <code>/tmp/x/y/z</code> and <code>org.kuali.common:kuali-util</code> return <code>/tmp/x/y/z/org/kuali/common/kuali-util</code>
 	 */
 	public static File getResourceDirectory(File directory, Project project) {
 		String resourcePath = getResourcePath(project);
 		File file = new File(directory, resourcePath);
-		File canonical = new File(LocationUtils.getCanonicalPath(file));
-		return canonical;
+		return new File(LocationUtils.getCanonicalPath(file));
+	}
+
+	/**
+	 * Given <code>/tmp/x/y/z</code>, <code>org.kuali.common:kuali-util</code>, and "file.txt" return <code>/tmp/x/y/z/org/kuali/common/kuali-util/file.txt</code>
+	 */
+	public static File getResourceFile(File directory, Project project, String filename) {
+		File dir = getResourceDirectory(directory, project);
+		return new File(dir, filename);
 	}
 
 	/**
