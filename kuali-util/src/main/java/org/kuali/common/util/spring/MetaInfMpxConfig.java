@@ -31,7 +31,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class MetaInfMpxConfig {
 
-	private static final String DEFAULT_INCLUDE_PATTERN = "**/${project.groupId.base.path}/${project.artifactId}/*.mpx";
+	private static final String DEFAULT_INCLUDE_PATTERN = "**/*.mpx";
 	private static final String DEFAULT_OUTPUT_FILE = "${project.build.outputDirectory}/META-INF/${project.groupId.base.path}/${project.artifactId}/data.resources";
 	private static final String INCLUDES_KEY = "impex.metainf.includes";
 	private static final String OUTPUT_FILE_KEY = "impex.metainf.includes";
