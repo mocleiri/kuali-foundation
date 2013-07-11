@@ -310,7 +310,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		logger.info("[data:dump:starting]");
 		List<DumpTableContext> tableContexts = new ArrayList<DumpTableContext>();
 
-		Collection<Table> includedTables = DumpUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
+		Collection<Table> includedTables = ModelUtils.getIncludedElements(context.getTableNameFilter(), schema.getTables());
 
 		logger.debug("includedTables.size=" + includedTables.size());
 
