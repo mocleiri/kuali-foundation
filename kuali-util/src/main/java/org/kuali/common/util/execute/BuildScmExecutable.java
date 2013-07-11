@@ -23,7 +23,6 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.DirectoryDiff;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.ScmRequest;
-import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,18 +56,22 @@ public class BuildScmExecutable implements Executable {
 			diffs.add(exec.getDiff());
 		}
 
-		// Execute a single request to the ScmService that takes into account all the project
-		// directories + anything from the ScmRequest object we are explicitly configured with
-		ScmRequest request = getScmRequest(diffs, this.request, commitMessage);
+		// Create an ScmRequest object that takes into account all the adds and deletes from each of the preparation steps
+		ScmRequest request = getScmRequest(diffs);
+
+		// Combine it with the request we've been directly supplied
+		ScmRequest combined = combine(commitMessage, request, this.request);
+
+		// Create an executable that will handle the combined request as a single commit
 		ScmExecutable exec = new ScmExecutable();
-		exec.setRequest(request);
+		exec.setRequest(combined);
 		exec.setService(service);
 		exec.setSkip(skipScm);
 		exec.execute();
 
 	}
 
-	protected ScmRequest getScmRequest(List<DirectoryDiff> diffs, ScmRequest request, String commitMessage) {
+	protected ScmRequest getScmRequest(List<DirectoryDiff> diffs) {
 		List<File> adds = new ArrayList<File>();
 		List<File> deletes = new ArrayList<File>();
 		List<File> commits = new ArrayList<File>();
@@ -84,12 +87,24 @@ public class BuildScmExecutable implements Executable {
 			commits.add(diff.getDir2());
 		}
 
-		ScmRequest sr = ScmUtils.cloneOrNew(request);
-		sr.setAdds(CollectionUtils.nullSafeCombine(sr.getAdds(), adds));
-		sr.setDeletes(CollectionUtils.nullSafeCombine(sr.getDeletes(), deletes));
-		sr.setCommits(CollectionUtils.nullSafeCombine(sr.getCommits(), commits));
-		sr.setCommitMessage(commitMessage);
+		ScmRequest sr = new ScmRequest();
+		sr.setAdds(adds);
+		sr.setDeletes(deletes);
+		sr.setCommits(commits);
 		return sr;
+	}
+
+	protected ScmRequest combine(String commitMessage, ScmRequest... requests) {
+		ScmRequest combined = new ScmRequest();
+		for (ScmRequest request : requests) {
+			if (request != null) {
+				combined.setAdds(CollectionUtils.nullSafeCombine(combined.getAdds(), request.getAdds()));
+				combined.setDeletes(CollectionUtils.nullSafeCombine(combined.getDeletes(), request.getDeletes()));
+				combined.setCommits(CollectionUtils.nullSafeCombine(combined.getCommits(), request.getCommits()));
+			}
+		}
+		combined.setCommitMessage(commitMessage);
+		return combined;
 	}
 
 	public boolean isSkip() {
