@@ -300,7 +300,7 @@ public class DefaultDumpDataService implements DumpDataService {
 			rowCount += context.getRowCount();
 		}
 		// In the absence of a reasonably accurate estimate for the total number of rows contained in the db,
-		// just print a dot to the console every time we successfully dump 1% of the default row count #
+		// just print a dot to the console every time we successfully dump 5,000 rows (1% of 500,000)
 		return rowCount == 0 ? DEFAULT_DATABASE_ROW_COUNT : rowCount;
 	}
 
@@ -348,7 +348,7 @@ public class DefaultDumpDataService implements DumpDataService {
 		thc.setMin(buckets.size());
 		thc.setDivisor(1);
 
-		// Start threads to to concurrently dump data from 15 tables at a time
+		// Start threads to concurrently dump data from 15 tables at a time
 		informer.start();
 		ExecutionStatistics stats = new ThreadInvoker().invokeThreads(thc);
 		informer.stop();
