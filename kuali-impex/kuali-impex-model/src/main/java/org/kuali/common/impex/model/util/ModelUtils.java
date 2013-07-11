@@ -64,6 +64,19 @@ public class ModelUtils {
 		}
 	}
 
+	public static <T extends NamedElement> List<T> getIncludedElements(StringFilter filter, List<T> elements) {
+
+		List<T> included = new ArrayList<T>();
+
+		for (T element : elements) {
+			if (filter.include(element.getName())) {
+				included.add(element);
+			}
+		}
+
+		return included;
+	}
+
 	public static Schema filter(Schema schema, StringFilter nameFilter) {
 		List<Table> excludedTables = ModelUtils.filterAndSortElements(schema.getTables(), nameFilter);
 		List<View> excludedViews = ModelUtils.filterAndSortElements(schema.getViews(), nameFilter);
