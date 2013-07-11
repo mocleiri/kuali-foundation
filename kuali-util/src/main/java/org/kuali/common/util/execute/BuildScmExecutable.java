@@ -75,8 +75,12 @@ public class BuildScmExecutable implements Executable {
 		for (DirectoryDiff diff : diffs) {
 			List<File> addFiles = FileSystemUtils.getFullPaths(diff.getDir2(), diff.getDir1Only());
 			List<File> deleteFiles = FileSystemUtils.getFullPaths(diff.getDir2(), diff.getDir2Only());
+
+			// Need to add/delete individual files
 			adds.addAll(addFiles);
 			deletes.addAll(deleteFiles);
+
+			// Only need to commit the top level SCM dir
 			commits.add(diff.getDir2());
 		}
 
