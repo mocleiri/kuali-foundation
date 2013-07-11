@@ -192,9 +192,9 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		logger.info("[schema:extract:tablenames] - {}", LoggerUtils.getLogMsg(context.getNameFilter()));
 		List<String> tableNames = ExtractionUtils.getTableNames(context.getDataSource(), context.getSchemaName());
 		List<String> excluded = CollectionUtils.filterAndSort(tableNames, context.getNameFilter());
+		String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 		String original = FormatUtils.getCount(tableNames.size() + excluded.size());
 		String filtered = FormatUtils.getCount(tableNames.size());
-		String time = FormatUtils.getTime(System.currentTimeMillis() - start);
 		if (!CollectionUtils.isEmpty(excluded)) {
 			logger.info("  excluded -> [{}]", CollectionUtils.getSpaceSeparatedCSV(excluded));
 		}
