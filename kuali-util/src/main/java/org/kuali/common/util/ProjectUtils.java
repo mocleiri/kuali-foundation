@@ -45,6 +45,15 @@ public class ProjectUtils {
 
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
+	public static List<Project> getProjects(List<String> gavs) {
+		List<Project> projects = new ArrayList<Project>();
+		for (String gav : gavs) {
+			Project project = ProjectUtils.loadProject(gav);
+			projects.add(project);
+		}
+		return projects;
+	}
+
 	/**
 	 * Given <code>kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
 	 */
