@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.execute;
 
+import java.io.File;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.DirectoryDiff;
 import org.kuali.common.util.FileSystemUtils;
@@ -30,6 +32,9 @@ public class PrepareScmDirExecutable implements Executable {
 
 	// Required
 	PrepareScmDirRequest request;
+
+	// Optional
+	File relativeDir;
 
 	// Filled in during execution
 	DirectoryDiff diff;
@@ -47,7 +52,7 @@ public class PrepareScmDirExecutable implements Executable {
 
 		// Copy files into the SCM directory
 		// The DirectoryDiff object captures the differences between the 2 directories *before* any files were copied
-		this.diff = FileSystemUtils.prepareScmDir(request);
+		this.diff = FileSystemUtils.prepareScmDir(request, relativeDir);
 	}
 
 	/**
@@ -71,6 +76,14 @@ public class PrepareScmDirExecutable implements Executable {
 
 	public void setRequest(PrepareScmDirRequest request) {
 		this.request = request;
+	}
+
+	public File getRelativeDir() {
+		return relativeDir;
+	}
+
+	public void setRelativeDir(File relativeDir) {
+		this.relativeDir = relativeDir;
 	}
 
 }

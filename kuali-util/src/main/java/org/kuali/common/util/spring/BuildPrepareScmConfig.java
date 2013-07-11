@@ -18,6 +18,7 @@ public class BuildPrepareScmConfig {
 
 	private static final String PROJECTS_KEY = "build.scm.prepare.projects";
 	private static final String SRC_DIR_KEY = "build.scm.prepare.dir.src";
+	private static final String RELATIVE_DIR_KEY = "build.scm.prepare.dir.relative";
 
 	// SCM directories to ignore
 	private static final String IGNORES_KEY = "build.scm.prepare.ignores";
@@ -31,16 +32,17 @@ public class BuildPrepareScmConfig {
 
 		// This is the directory files get copied out of
 		File srcDir = SpringUtils.getFile(env, SRC_DIR_KEY);
+		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, srcDir);
 
 		// These are the projects we are updating
 		List<String> gavs = SpringUtils.getNoneSensitiveListFromCSV(env, PROJECTS_KEY);
 		List<Project> projects = ProjectUtils.getProjects(gavs);
 
 		// Return a list of executables that can prepare the project's SCM directories
-		return getPrepareScmDirExecutables(srcDir, projects);
+		return getPrepareScmDirExecutables(srcDir, projects, relativeDir);
 	}
 
-	protected List<PrepareScmDirExecutable> getPrepareScmDirExecutables(File srcDir, List<Project> projects) {
+	protected List<PrepareScmDirExecutable> getPrepareScmDirExecutables(File srcDir, List<Project> projects, File relativeDir) {
 
 		// Setup some storage for the executables
 		List<PrepareScmDirExecutable> execs = new ArrayList<PrepareScmDirExecutable>();
@@ -70,6 +72,7 @@ public class BuildPrepareScmConfig {
 			PrepareScmDirExecutable exec = new PrepareScmDirExecutable();
 			exec.setRequest(request);
 			exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
+			exec.setRelativeDir(relativeDir);
 
 			// Add the executable to our list
 			execs.add(exec);
