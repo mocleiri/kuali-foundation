@@ -74,10 +74,7 @@ public class CopyFilesExecutable implements Executable {
 	}
 
 	protected void logCopy() {
-		String path = LocationUtils.getCanonicalPath(dstDir);
-		if (FileSystemUtils.isParent(relativeDir, dstDir)) {
-			path = FileSystemUtils.getRelativePath(relativeDir, dstDir);
-		}
+		String path = FileSystemUtils.getRelativePathQuietly(relativeDir, dstDir);
 		Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
 		logger.debug("srcDir - [{}]", LocationUtils.getCanonicalPath(srcDir));
 		logger.info("Copying to - [{}] - {}", args);

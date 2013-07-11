@@ -331,8 +331,8 @@ public class FileSystemUtils {
 	}
 
 	/**
-	 * Return the relative path to <code>file</code> from <code>relativePath</code>. <code>relativePath</code> is optional and can be <code>null</code>. If
-	 * <code>relativePath</code> is not supplied (or is not a parent directory to <code>file</code> the canonical path to <code>file</code> is returned.
+	 * Return the relative path to <code>file</code> from <code>parentDir</code>. <code>parentDir</code> is optional and can be <code>null</code>. If <code>parentDir</code> is not
+	 * supplied (or is not a parent directory to <code>file</code> the canonical path to <code>file</code> is returned.
 	 */
 	public static String getRelativePathQuietly(File parentDir, File file) {
 		Assert.notNull(file, "file is null");
