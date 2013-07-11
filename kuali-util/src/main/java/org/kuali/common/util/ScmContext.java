@@ -15,11 +15,13 @@
  */
 package org.kuali.common.util;
 
+import java.util.List;
 
 public class ScmContext {
 
 	String vendor;
 	String url;
+	List<String> ignores;
 
 	public String getVendor() {
 		return vendor;
@@ -35,6 +37,14 @@ public class ScmContext {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public List<String> getIgnores() {
+		return ignores;
+	}
+
+	public void setIgnores(List<String> ignores) {
+		this.ignores = ignores;
 	}
 
 }
