@@ -18,7 +18,7 @@ import org.springframework.core.env.Environment;
 public class ProjectPrepareScmConfig {
 
 	private static final String PROJECTS_KEY = "impex.scm.projects";
-	private static final String RELATIVE_DIR_KEY = "impex.scm.dir.relative";
+	// private static final String RELATIVE_DIR_KEY = "impex.scm.dir.relative";
 	private static final String SRC_DIR_KEY = "impex.scm.dir.src";
 
 	// SCM directories to ignore
