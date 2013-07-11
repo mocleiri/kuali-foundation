@@ -17,8 +17,7 @@ import org.springframework.core.env.Environment;
 public class ProjectPrepareScmConfig {
 
 	private static final String PROJECTS_KEY = "build.scm.projects";
-	// private static final String RELATIVE_DIR_KEY = "impex.scm.dir.relative";
-	private static final String SRC_DIR_KEY = "impex.scm.dir.src";
+	private static final String SRC_DIR_KEY = "build.scm.dir.src";
 
 	// SCM directories to ignore
 	public static final String IGNORES_KEY = "build.scm.ignores";
@@ -51,7 +50,7 @@ public class ProjectPrepareScmConfig {
 
 			// Figure out the project specific directory being managed by SCM
 			// This is the directory files get copied into
-			String projectScmDirKey = "impex.scm." + project.getArtifactId() + ".dir";
+			String projectScmDirKey = "build.scm." + project.getArtifactId() + ".dir";
 			File projectDir = SpringUtils.getFile(env, projectScmDirKey);
 			File scmDir = ProjectUtils.getResourceDirectory(projectDir, project);
 
