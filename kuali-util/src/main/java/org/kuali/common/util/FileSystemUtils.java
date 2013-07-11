@@ -69,6 +69,22 @@ public class FileSystemUtils {
 	 * SCM system.
 	 */
 	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request) {
+		return prepareScmDir(request, null);
+	}
+
+	/**
+	 * This method recursively copies one file system directory to another directory under the control of SCM. Before doing so, it records 3 types of files:
+	 * 
+	 * <pre>
+	 *  1 - both     - files that exist in both directories 
+	 *  2 - dir1Only - files that exist in the source directory but not the SCM directory
+	 *  3 - dir2Only - files that exist in the SCM directory but not the source directory
+	 * </pre>
+	 * 
+	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
+	 * SCM system.
+	 */
+	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
@@ -93,6 +109,7 @@ public class FileSystemUtils {
 		exec.setSrcDir(request.getSrcDir());
 		exec.setDstDir(request.getScmDir());
 		exec.setExcludes(request.getScmIgnorePatterns());
+		exec.setRelativeDir(relativeDir);
 		exec.execute();
 
 		// Return the diff so we'll know what SCM needs to add/delete from its directory
