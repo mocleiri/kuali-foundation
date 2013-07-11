@@ -20,7 +20,7 @@ public class BuildPrepareScmConfig {
 	private static final String SRC_DIR_KEY = "build.scm.prepare.dir.src";
 
 	// SCM directories to ignore
-	public static final String IGNORES_KEY = "build.scm.prepare.ignores";
+	private static final String IGNORES_KEY = "build.scm.prepare.ignores";
 	private static final String PREPARE_KEY = "build.scm.prepare.skip";
 
 	@Autowired
