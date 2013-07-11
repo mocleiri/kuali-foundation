@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,7 +31,11 @@ public abstract class Constraint implements NamedElement {
     @XmlAttribute
     protected String name;
 
-    protected List<String> columnNames;
+    protected List<String> columnNames = new ArrayList<String>();
+
+    public Constraint() {
+        super();
+    }
 
     public Constraint(List<String> colNames, String name) {
         this.columnNames = colNames;
