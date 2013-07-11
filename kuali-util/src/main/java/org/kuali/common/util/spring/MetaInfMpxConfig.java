@@ -31,8 +31,11 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class MetaInfMpxConfig {
 
-	public static final String DEFAULT_INCLUDE_PATTERN = "**/${project.groupId.base.path}/${project.artifactId}/*.mpx";
-	public static final String DEFAULT_OUTPUT_FILE = "${project.build.outputDirectory}/META-INF/${project.groupId.base.path}/${project.artifactId}/data.resources";
+	private static final String DEFAULT_INCLUDE_PATTERN = "**/${project.groupId.base.path}/${project.artifactId}/*.mpx";
+	private static final String DEFAULT_OUTPUT_FILE = "${project.build.outputDirectory}/META-INF/${project.groupId.base.path}/${project.artifactId}/data.resources";
+	private static final String INCLUDES_KEY = "impex.metainf.includes";
+	private static final String OUTPUT_FILE_KEY = "impex.metainf.includes";
+	private static final String BUILD_OUTPUT_DIR_KEY = "project.build.outputDirectory";
 
 	@Autowired
 	Environment env;
@@ -41,26 +44,26 @@ public class MetaInfMpxConfig {
 	public Executable mpxMetaInfExecutable() {
 
 		// Extract the CSV include patterns and convert to a list
-		String csv = SpringUtils.getProperty(env, "impex.metainf.includes", DEFAULT_INCLUDE_PATTERN);
+		String csv = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDE_PATTERN);
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(csv);
 
 		// This is the base directory to scan
-		File baseDir = new File(SpringUtils.getProperty(env, "project.build.outputDirectory"));
+		File buildOutputDir = new File(SpringUtils.getProperty(env, BUILD_OUTPUT_DIR_KEY));
 
 		// Output file contains one line of text for each file that gets located
-		// Each line is an entry similar to this "classpath:MYCONTENT.mpx"
-		File outputFile = new File(SpringUtils.getProperty(env, "impex.metainf.outputFile", DEFAULT_OUTPUT_FILE));
+		// Each line is an entry similar to this "classpath:<groupId>/<artifactId>/<tablename>.mpx"
+		File outputFile = new File(SpringUtils.getProperty(env, OUTPUT_FILE_KEY, DEFAULT_OUTPUT_FILE));
 
 		// Setup the context
 		MetaInfContext context = new MetaInfContext();
-		context.setBaseDir(baseDir);
+		context.setBaseDir(buildOutputDir);
 		context.setOutputFile(outputFile);
 		context.setIncludes(includes);
 
 		// Setup and return an executable
-		MetaInfExecutable mie = new MetaInfExecutable();
-		mie.setContexts(Arrays.asList(context));
-		return mie;
+		MetaInfExecutable exec = new MetaInfExecutable();
+		exec.setContexts(Arrays.asList(context));
+		return exec;
 	}
 
 }
