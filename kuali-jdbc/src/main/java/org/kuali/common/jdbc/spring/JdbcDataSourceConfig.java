@@ -16,6 +16,7 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.Arrays;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.ShowConfigExecutable;
@@ -37,33 +38,24 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Import(JdbcCommonConfig.class)
 public class JdbcDataSourceConfig {
 
-    protected static final String VENDOR_KEY = "db.vendor";
+	// Property keys
+	protected static final String VENDOR_KEY = "db.vendor";
+	protected static final String DRIVER_KEY = "jdbc.driver";
+	protected static final String URL_KEY = "jdbc.url";
+	protected static final String USERNAME_KEY = "jdbc.username";
+	protected static final String PASSWORD_KEY = "jdbc.password";
+	protected static final String DBA_URL_KEY = "jdbc.dba.url";
+	protected static final String DBA_USERNAME_KEY = "jdbc.dba.username";
+	protected static final String DBA_PASSWORD_KEY = "jdbc.dba.password";
+	protected static final String ENCODING_KEY = "sql.encoding";
+	protected static final String SCHEMA_KEY = "sql.schema";
+	protected static final String SHOW_CONFIG_SKIP_KEY = "jdbc.showconfig.skip";
 
-    protected static final String DRIVER_KEY = "jdbc.driver";
+	// Default values
+	protected static final boolean DEFAULT_SHOW_CONFIG_SKIP = false;
+	protected static final String NULLIFIED_CONTEXT_PROPERTIES_CSV = "username,password,dbaUsername,dbaPassword";
 
-    protected static final String URL_KEY = "jdbc.url";
-
-    protected static final String USERNAME_KEY = "jdbc.username";
-
-    protected static final String PASSWORD_KEY = "jdbc.password";
-
-    protected static final String DBA_URL_KEY = "jdbc.dba.url";
-
-    protected static final String DBA_USERNAME_KEY = "jdbc.dba.username";
-
-    protected static final String DBA_PASSWORD_KEY = "jdbc.dba.password";
-
-    protected static final String ENCODING_KEY = "sql.encoding";
-
-    protected static final String SCHEMA_KEY = "sql.schema";
-
-    protected static final String SHOW_CONFIG_SKIP_KEY = "jdbc.showconfig.skip";
-
-    protected static final boolean DEFAULT_SHOW_CONFIG_SKIP = false;
-
-    protected static final String NULLIFIED_CONTEXT_PROPERTIES_CSV = "username,passowrd,dbaUsername,dbaPassword";
-
-    @Autowired
+	@Autowired
 	Environment env;
 
 	@Autowired
@@ -81,7 +73,7 @@ public class JdbcDataSourceConfig {
 		ctx.setDbaUsername(SpringUtils.getProperty(env, DBA_USERNAME_KEY));
 		ctx.setDbaPassword(SpringUtils.getProperty(env, DBA_PASSWORD_KEY));
 		ctx.setEncoding(SpringUtils.getProperty(env, ENCODING_KEY));
-        ctx.setSchema(SpringUtils.getProperty(env, SCHEMA_KEY));
+		ctx.setSchema(SpringUtils.getProperty(env, SCHEMA_KEY));
 
 		DefaultBeanNullifier nullifier = new DefaultBeanNullifier();
 		nullifier.setBean(ctx);
