@@ -28,6 +28,7 @@ public class ScmConfig {
 	private static final String VENDOR_KEY = "scm.vendor";
 	private static final String URL_KEY = "scm.url";
 	private static final String SERVICE_KEY = "scm.service";
+	private static final String IGNORES_KEY = "scm.ignores";
 
 	@Autowired
 	Environment env;
@@ -37,6 +38,7 @@ public class ScmConfig {
 		ScmContext context = new ScmContext();
 		context.setVendor(SpringUtils.getProperty(env, VENDOR_KEY));
 		context.setUrl(SpringUtils.getProperty(env, URL_KEY));
+		context.setIgnores(SpringUtils.getNoneSensitiveListFromCSV(env, IGNORES_KEY));
 		return context;
 	}
 
