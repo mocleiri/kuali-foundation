@@ -16,6 +16,7 @@
 package org.kuali.common.util.spring;
 
 import org.kuali.common.util.ScmContext;
+import org.kuali.common.util.service.ScmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,10 +34,13 @@ public class ScmConfig {
 
 	@Bean
 	public ScmContext scmContext() {
+
+		ScmService service = SpringUtils.getInstance(env, SERVICE_KEY);
+
 		ScmContext context = new ScmContext();
 		context.setVendor(SpringUtils.getProperty(env, VENDOR_KEY));
 		context.setUrl(SpringUtils.getProperty(env, URL_KEY));
-		context.setService(SpringUtils.getProperty(env, SERVICE_KEY));
+		context.setService(service);
 		return context;
 	}
 

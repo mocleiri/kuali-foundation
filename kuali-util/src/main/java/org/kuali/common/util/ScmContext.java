@@ -15,11 +15,13 @@
  */
 package org.kuali.common.util;
 
+import org.kuali.common.util.service.ScmService;
+
 public class ScmContext {
 
 	String vendor;
 	String url;
-	String service;
+	ScmService service;
 
 	public String getVendor() {
 		return vendor;
@@ -37,11 +39,11 @@ public class ScmContext {
 		this.url = url;
 	}
 
-	public String getService() {
+	public ScmService getService() {
 		return service;
 	}
 
-	public void setService(String service) {
+	public void setService(ScmService service) {
 		this.service = service;
 	}
 
