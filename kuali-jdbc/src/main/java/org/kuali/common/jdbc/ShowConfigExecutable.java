@@ -49,6 +49,7 @@ public class ShowConfigExecutable implements Executable {
 		logger.info("------------------------------------------------------------------------");
 		logger.info("Vendor - {}", context.getVendor());
 		logger.info("URL - {}", context.getUrl());
+		logger.info("Schema - {}", context.getSchema());
 		logger.info("User - {}", LoggerUtils.getUsername(context.getUsername()));
 		logger.info("Password - {}", LoggerUtils.getPassword(context.getUsername(), context.getPassword()));
 		logger.info("DBA URL - {}", context.getDbaUrl());
