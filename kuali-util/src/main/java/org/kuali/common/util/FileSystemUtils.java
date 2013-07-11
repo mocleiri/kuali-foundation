@@ -57,12 +57,12 @@ public class FileSystemUtils {
 	}
 
 	/**
-	 * This method recursively copies a file system directory to a different directory under the control of SCM. Before it does so, it records 3 types of files:
+	 * This method recursively copies one file system directory to another directory under the control of SCM. Before doing so, it records 3 types of files:
 	 * 
 	 * <pre>
-	 *  1 - updates - files that exist in both directories 
-	 *  2 - adds    - files that exist in the source directory but not the SCM directory
-	 *  3 - deletes - files that exist in the SCM directory but not the source directory
+	 *  1 - both     - files that exist in both directories 
+	 *  2 - dir1Only - files that exist in the source directory but not the SCM directory
+	 *  3 - dir2Only - files that exist in the SCM directory but not the source directory
 	 * </pre>
 	 * 
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
