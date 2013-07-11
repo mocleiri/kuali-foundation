@@ -6,8 +6,6 @@ import org.kuali.common.util.ScmRequest;
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.execute.PrepareScmDirExecutable;
 import org.kuali.common.util.service.ScmService;
-import org.kuali.common.util.spring.ScmConfig;
-import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +14,13 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @Import({ ScmConfig.class, BuildPrepareScmConfig.class })
-public class BuildScmConfig {
+public class BuildUpdateScmConfig {
 
-	private static final String UPDATE_KEY = "impex.scm.update.skip";
-	private static final String MESSAGE_KEY = "impex.scm.update.commitMessage";
-	private static final String COMMITS_KEY = "impex.scm.update.commits";
-	private static final String ADDS_KEY = "impex.scm.update.adds";
-	private static final String DELETES_KEY = "impex.scm.update.deletes";
+	private static final String UPDATE_KEY = "build.scm.update.skip";
+	private static final String MESSAGE_KEY = "build.scm.update.commitMessage";
+	private static final String COMMITS_KEY = "build.scm.update.commits";
+	private static final String ADDS_KEY = "build.scm.update.adds";
+	private static final String DELETES_KEY = "build.scm.update.deletes";
 
 	@Autowired
 	Environment env;
