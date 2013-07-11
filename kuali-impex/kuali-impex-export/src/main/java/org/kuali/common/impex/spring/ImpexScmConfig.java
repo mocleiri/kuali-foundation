@@ -3,10 +3,10 @@ package org.kuali.common.impex.spring;
 import java.util.List;
 
 import org.kuali.common.util.ScmRequest;
-import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.execute.PrepareScmDirExecutable;
 import org.kuali.common.util.service.ScmService;
+import org.kuali.common.util.spring.ScmConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,10 +15,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ProjectPrepareScmConfig.class })
+@Import({ ScmConfig.class, ProjectPrepareScmConfig.class })
 public class ImpexScmConfig {
 
-	private static final String SCM_URL_KEY = "impex.scm.update.url";
 	private static final String UPDATE_KEY = "impex.scm.update.skip";
 	private static final String MESSAGE_KEY = "impex.scm.update.commitMessage";
 	private static final String COMMITS_KEY = "impex.scm.update.commits";
@@ -31,6 +30,9 @@ public class ImpexScmConfig {
 	@Autowired
 	ProjectPrepareScmConfig projectPrepareScmConfig;
 
+	@Autowired
+	ScmConfig scmConfig;
+
 	@Bean
 	public BuildScmExecutable buildScmExecutable() {
 
@@ -38,8 +40,7 @@ public class ImpexScmConfig {
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
 		List<PrepareScmDirExecutable> preparers = projectPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = getScmRequest();
-		String url = SpringUtils.getProperty(env, SCM_URL_KEY);
-		ScmService service = ScmUtils.getScmService(url);
+		ScmService service = scmConfig.scmService();
 
 		BuildScmExecutable exec = new BuildScmExecutable();
 		exec.setExecutables(preparers);
