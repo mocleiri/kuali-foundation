@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ScmConfig.class, ProjectPrepareScmConfig.class })
+@Import({ ScmConfig.class, BuildPrepareScmConfig.class })
 public class BuildScmConfig {
 
 	private static final String UPDATE_KEY = "impex.scm.update.skip";
@@ -28,7 +28,7 @@ public class BuildScmConfig {
 	Environment env;
 
 	@Autowired
-	ProjectPrepareScmConfig projectPrepareScmConfig;
+	BuildPrepareScmConfig projectPrepareScmConfig;
 
 	@Autowired
 	ScmConfig scmConfig;

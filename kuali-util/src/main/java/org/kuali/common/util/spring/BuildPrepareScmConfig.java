@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ProjectPrepareScmConfig {
+public class BuildPrepareScmConfig {
 
-	private static final String PROJECTS_KEY = "build.scm.projects";
-	private static final String SRC_DIR_KEY = "build.scm.dir.src";
+	private static final String PROJECTS_KEY = "build.scm.prepare.projects";
+	private static final String SRC_DIR_KEY = "build.scm.prepare.dir.src";
 
 	// SCM directories to ignore
-	public static final String IGNORES_KEY = "build.scm.ignores";
+	public static final String IGNORES_KEY = "build.scm.prepare.ignores";
 	private static final String PREPARE_KEY = "build.scm.prepare.skip";
 
 	@Autowired
@@ -50,7 +50,7 @@ public class ProjectPrepareScmConfig {
 
 			// Figure out the project specific directory being managed by SCM
 			// This is the directory files get copied into
-			String projectScmDirKey = "build.scm." + project.getArtifactId() + ".dir";
+			String projectScmDirKey = "build.scm.prepare." + project.getArtifactId() + ".dir";
 			File projectDir = SpringUtils.getFile(env, projectScmDirKey);
 			File scmDir = ProjectUtils.getResourceDirectory(projectDir, project);
 
