@@ -35,6 +35,15 @@
     <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-util</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-util</url>
   </scm>
+  <developers>
+    <developer>
+      <id>jcaddel</id>
+      <name>Jeff Caddel</name>
+      <organization>rSmart</organization>
+      <timezone>-7</timezone>
+      <email>jcaddel@kuali.org</email>
+    </developer>
+  </developers>
   <properties>
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
     <spring.version>3.2.0.RELEASE</spring.version>
@@ -47,15 +56,6 @@
     <jsch.version>0.1.49</jsch.version>
     <plexus-utils.version>3.0.10</plexus-utils.version>
   </properties>
-  <developers>
-    <developer>
-      <id>jcaddel</id>
-      <name>Jeff Caddel</name>
-      <organization>rSmart</organization>
-      <timezone>-7</timezone>
-      <email>jcaddel@kuali.org</email>
-    </developer>
-  </developers>
   <build>
     <testResources>
       <testResource>
