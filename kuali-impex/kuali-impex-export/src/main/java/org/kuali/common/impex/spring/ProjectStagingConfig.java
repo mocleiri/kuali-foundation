@@ -33,13 +33,12 @@ public class ProjectStagingConfig {
 	private static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
 
 	private static final String SKIP_KEY = "impex.staging.skip";
-	private static final String SERVICE_KEY = "impex.staging.schema.service";
 
 	@Autowired
 	Environment env;
 
 	@Autowired
-	ExportServicesConfig exportCommonConfig;
+	ExportServicesConfig exportServicesConfig;
 
 	@Bean
 	public Executable projectStagingExecutable() {
@@ -51,7 +50,7 @@ public class ProjectStagingConfig {
 	@Bean
 	public Executable dumpSchemaFilesExecutable() {
 		File existingSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
-		DumpSchemaService service = exportCommonConfig.exportDumpSchemaService();
+		DumpSchemaService service = exportServicesConfig.exportDumpSchemaService();
 		Schema schema = service.getSchema(existingSchemaFile);
 
 		File stagingDir = SpringUtils.getFile(env, DST_DIR_KEY);
@@ -108,10 +107,14 @@ public class ProjectStagingConfig {
 	}
 
 	protected DumpSchemaRequest getDumpSchemaRequest(Project project, File stagingDir, Schema schema, File existingSchemaFile) {
+
+		// Setup project specific includes/excludes
 		String includesKey = "impex.staging.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_REGEX_INCLUDE);
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_REGEX_EXCLUDE);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey);
+
+		// Project specific output file
 		File outputFile = ProjectUtils.getResourceFile(stagingDir, project, existingSchemaFile.getName());
 
 		DumpSchemaRequest request = new DumpSchemaRequest();
