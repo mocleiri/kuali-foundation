@@ -37,7 +37,7 @@ public class BuildScmExecutable implements Executable {
 	ScmRequest request;
 	String commitMessage;
 
-	// Make them explicitly override this to false in order for a commit happen
+	// Make them explicitly override this to false in order for any SCM updating to occur
 	boolean skipScm = true;
 
 	@Override
