@@ -32,6 +32,9 @@ import org.springframework.core.env.Environment;
 @Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
 public class DumpDatabaseConfig {
 
+	private static final String SKIP_KEY = "impex.dump.skip";
+	private static final boolean DEFAULT_SKIP_VALUE = false;
+
 	@Autowired
 	Environment env;
 
@@ -50,20 +53,22 @@ public class DumpDatabaseConfig {
 	@Bean
 	public Executable dumpDatabaseExecutable() {
 
-		boolean skip = SpringUtils.getBoolean(env, "impex.dump.skip", false);
+		// Setup a new executable
 		DumpDatabaseExecutable exec = new DumpDatabaseExecutable();
-		exec.setSkip(skip);
+
+		// Figure out if we are skipping execution all together
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, DEFAULT_SKIP_VALUE));
 
 		// Show the JDBC configuration
 		exec.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
 
-		// Connect to the db and create model objects in memory that represent the schema
+		// Connect to the db using JDBC and extract the information needed to create model objects representing the schema
 		exec.setExtractSchemaExecutable(extractSchemaConfig.extractSchemaExecutable());
 
-		// Dump the schema model object from memory to disk as XML
+		// Dump the schema model objects from memory to disk as XML
 		exec.setDumpSchemaExecutable(dumpSchemaConfig.dumpSchemaExecutable());
 
-		// Connect to the db, extract data from the tables, and persist it to disk
+		// Connect to the db, extract data from the tables, and dump it to disk as MPX files
 		exec.setDumpDataExecutable(dumpDataConfig.dumpDataExecutable());
 
 		// Return the configured executable
