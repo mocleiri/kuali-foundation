@@ -52,7 +52,6 @@ public class CopyFilesExecutable implements Executable {
 		Assert.notNull(requests, "requests is null");
 
 		for (CopyFileRequest request : requests) {
-			Assert.exists(request.getSource());
 			copyFile(request.getSource(), request.getDestination());
 		}
 	}
