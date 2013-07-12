@@ -5,7 +5,6 @@ import java.util.List;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.schema.DumpSchemaService;
-import org.kuali.common.impex.schema.SchemaFileRequest;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.StringFilter;
@@ -19,7 +18,7 @@ public class CreateSchemaFilesExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(CreateSchemaFilesExecutable.class);
 
 	DumpSchemaService service = DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE;
-	List<SchemaFileRequest> requests;
+	List<CreateSchemaFileRequest> requests;
 	Schema schema;
 	boolean skip;
 
@@ -33,12 +32,12 @@ public class CreateSchemaFilesExecutable implements Executable {
 		Assert.notNull(schema, "schema is null");
 		Assert.notNull(requests, "requests is null");
 
-		for (SchemaFileRequest request : requests) {
+		for (CreateSchemaFileRequest request : requests) {
 			doRequest(schema, request);
 		}
 	}
 
-	protected void doRequest(Schema schema, SchemaFileRequest request) {
+	protected void doRequest(Schema schema, CreateSchemaFileRequest request) {
 
 		// Create a filter from the includes/excludes they supplied
 		StringFilter filter = StringFilter.getInstance(request.getIncludes(), request.getExcludes());
@@ -72,11 +71,11 @@ public class CreateSchemaFilesExecutable implements Executable {
 		this.service = service;
 	}
 
-	public List<SchemaFileRequest> getRequests() {
+	public List<CreateSchemaFileRequest> getRequests() {
 		return requests;
 	}
 
-	public void setRequests(List<SchemaFileRequest> requests) {
+	public void setRequests(List<CreateSchemaFileRequest> requests) {
 		this.requests = requests;
 	}
 

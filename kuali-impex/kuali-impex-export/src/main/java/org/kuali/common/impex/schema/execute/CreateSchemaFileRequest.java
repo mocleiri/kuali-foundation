@@ -1,9 +1,9 @@
-package org.kuali.common.impex.schema;
+package org.kuali.common.impex.schema.execute;
 
 import java.io.File;
 import java.util.List;
 
-public class SchemaFileRequest {
+public class CreateSchemaFileRequest {
 
 	List<String> includes;
 	List<String> excludes;
