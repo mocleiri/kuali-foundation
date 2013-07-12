@@ -16,6 +16,7 @@
 package org.kuali.common.impex.spring;
 
 import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.SequenceFinder;
@@ -36,21 +37,21 @@ import org.springframework.core.env.Environment;
 @Import({ JdbcDataSourceConfig.class })
 public class ExtractSchemaConfig {
 
-	protected static final int DEFAULT_THREADS = 8;
-	public static final String INCLUDES_KEY = "impex.extract.schema.includes";
-	public static final String EXCLUDES_KEY = "impex.extract.schema.excludes";
+	private static final int DEFAULT_THREADS = 8;
+	private static final String INCLUDES_KEY = "impex.extract.schema.includes";
+	private static final String EXCLUDES_KEY = "impex.extract.schema.excludes";
 
-	public static final String THREADS_KEY = "impex.extract.schema.threads";
-	public static final String SERVICE_KEY = "impex.extract.schema.service";
+	private static final String THREADS_KEY = "impex.extract.schema.threads";
+	private static final String SERVICE_KEY = "impex.extract.schema.service";
 
 	// By default, include everything, exclude nothing
-	protected static final String DEFAULT_INCLUDES = DumpConstants.DEFAULT_INCLUDE;
-	protected static final String DEFAULT_EXCLUDES = DumpConstants.DEFAULT_EXCLUDE;
+	private static final String DEFAULT_INCLUDES = DumpConstants.DEFAULT_INCLUDE;
+	private static final String DEFAULT_EXCLUDES = DumpConstants.DEFAULT_EXCLUDE;
 
-	protected static final String SKIP_KEY = "impex.extract.schema.skip";
+	private static final String SKIP_KEY = "impex.extract.schema.skip";
 
-	protected static final String VIEW_FINDER_KEY = "impex.extract.schema.viewfinder";
-	protected static final String SEQUENCE_FINDER_KEY = "impex.extract.schema.sequencefinder";
+	private static final String VIEW_FINDER_KEY = "impex.extract.schema.viewfinder";
+	private static final String SEQUENCE_FINDER_KEY = "impex.extract.schema.sequencefinder";
 
 	@Autowired
 	Environment env;
