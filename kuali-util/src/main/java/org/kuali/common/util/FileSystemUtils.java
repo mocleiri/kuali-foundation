@@ -161,6 +161,9 @@ public class FileSystemUtils {
 		// Paths that exist in dir2 but not dir1
 		Set<String> dir2Only = SetUtils.difference(dir2Paths, dir1Paths);
 
+		logger.debug("dir1={}, dir1Only.size()={}", request.getDir1(), dir1Only.size());
+		logger.debug("dir2={}, dir2Only.size()={}", request.getDir2(), dir2Only.size());
+
 		// Store the information we've collected into a result object
 		DirectoryDiff result = new DirectoryDiff(request.getDir1(), request.getDir2());
 
