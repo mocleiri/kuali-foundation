@@ -29,6 +29,7 @@ public class PrepareScmDirExecutable implements Executable {
 	private static final Logger logger = LoggerFactory.getLogger(PrepareScmDirExecutable.class);
 
 	boolean skip;
+	boolean skipCopy;
 
 	// Required
 	PrepareScmDirRequest request;
@@ -52,7 +53,7 @@ public class PrepareScmDirExecutable implements Executable {
 
 		// Copy files into the SCM directory
 		// The DirectoryDiff object captures the differences between the 2 directories *before* any files were copied
-		this.diff = FileSystemUtils.prepareScmDir(request, relativeDir);
+		this.diff = FileSystemUtils.prepareScmDir(request, relativeDir, skipCopy);
 	}
 
 	/**
@@ -84,6 +85,14 @@ public class PrepareScmDirExecutable implements Executable {
 
 	public void setRelativeDir(File relativeDir) {
 		this.relativeDir = relativeDir;
+	}
+
+	public boolean isSkipCopy() {
+		return skipCopy;
+	}
+
+	public void setSkipCopy(boolean skipCopy) {
+		this.skipCopy = skipCopy;
 	}
 
 }

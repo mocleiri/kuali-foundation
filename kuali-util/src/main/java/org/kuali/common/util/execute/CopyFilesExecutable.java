@@ -43,9 +43,14 @@ public class CopyFilesExecutable implements Executable {
 	File srcDir;
 	File dstDir;
 	File relativeDir;
+	boolean skip;
 
 	@Override
 	public void execute() {
+
+		if (skip) {
+			return;
+		}
 
 		// Make sure we are configured correctly
 		Assert.notNull(srcDir, "srcDir is null");
@@ -118,5 +123,13 @@ public class CopyFilesExecutable implements Executable {
 
 	public void setRelativeDir(File relativeDir) {
 		this.relativeDir = relativeDir;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
 	}
 }

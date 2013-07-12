@@ -69,7 +69,7 @@ public class FileSystemUtils {
 	 * SCM system.
 	 */
 	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request) {
-		return prepareScmDir(request, null);
+		return prepareScmDir(request, null, false);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class FileSystemUtils {
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
 	 */
-	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir) {
+	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir, boolean skipCopy) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
@@ -110,6 +110,7 @@ public class FileSystemUtils {
 		exec.setDstDir(request.getScmDir());
 		exec.setExcludes(request.getScmIgnorePatterns());
 		exec.setRelativeDir(relativeDir);
+		exec.setSkip(skipCopy);
 		exec.execute();
 
 		// Return the diff so we'll know what SCM needs to add/delete from its directory
