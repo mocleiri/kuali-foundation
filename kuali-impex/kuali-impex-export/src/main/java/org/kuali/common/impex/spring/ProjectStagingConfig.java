@@ -12,7 +12,7 @@ import org.kuali.common.impex.schema.execute.DumpSchemasExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.execute.CopyFilesExecutable;
+import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -73,9 +73,9 @@ public class ProjectStagingConfig {
 		File sourceDir = SpringUtils.getFile(env, SRC_DIR_KEY);
 		List<String> gavs = SpringUtils.getListFromCSV(env, GAVS_KEY);
 
-		List<CopyFilesExecutable> executables = new ArrayList<CopyFilesExecutable>();
+		List<CopyFilePatternsExecutable> executables = new ArrayList<CopyFilePatternsExecutable>();
 		for (String gav : gavs) {
-			CopyFilesExecutable exec = getCopyDataFilesExecutable(gav, sourceDir, stagingDir);
+			CopyFilePatternsExecutable exec = getCopyDataFilesExecutable(gav, sourceDir, stagingDir);
 			exec.setRelativeDir(relativeDir);
 			executables.add(exec);
 		}
@@ -83,7 +83,7 @@ public class ProjectStagingConfig {
 		return new ExecutablesExecutable(executables);
 	}
 
-	protected CopyFilesExecutable getCopyDataFilesExecutable(String gav, File dumpDir, File stagingDir) {
+	protected CopyFilePatternsExecutable getCopyDataFilesExecutable(String gav, File dumpDir, File stagingDir) {
 
 		// Get a Project model object from the GAV
 		Project project = ProjectUtils.loadProject(gav);
@@ -98,7 +98,7 @@ public class ProjectStagingConfig {
 		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_FILE_EXCLUDE);
 
 		// Configure our executable
-		CopyFilesExecutable exec = new CopyFilesExecutable();
+		CopyFilePatternsExecutable exec = new CopyFilePatternsExecutable();
 		exec.setIncludes(includes);
 		exec.setExcludes(excludes);
 		exec.setSrcDir(dumpDir);

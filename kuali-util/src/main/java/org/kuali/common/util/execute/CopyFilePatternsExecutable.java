@@ -30,9 +30,9 @@ import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CopyFilesExecutable implements Executable {
+public class CopyFilePatternsExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(CopyFilesExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(CopyFilePatternsExecutable.class);
 
 	public static final List<String> DEFAULT_INCLUDES = FileSystemUtils.DEFAULT_RECURSIVE_INCLUDES;
 	public static final List<String> DEFAULT_EXCLUDES = new ArrayList<String>();

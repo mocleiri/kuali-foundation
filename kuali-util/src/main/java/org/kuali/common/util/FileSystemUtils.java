@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.execute.CopyFilesExecutable;
+import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +106,7 @@ public class FileSystemUtils {
 
 		// Copy files from the source directory to the SCM directory
 		if (!diffOnly) {
-			CopyFilesExecutable exec = new CopyFilesExecutable();
+			CopyFilePatternsExecutable exec = new CopyFilePatternsExecutable();
 			exec.setSrcDir(request.getSrcDir());
 			exec.setDstDir(request.getScmDir());
 			exec.setExcludes(request.getScmIgnorePatterns());
