@@ -34,11 +34,11 @@ public class FileSystemUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
-	public static final String RECURSIVE_FILE_INCLUDE_PATTERN = "**/*";
+	public static final String RECURSIVE_FILE_INCLUDE_PATTERN = "**/**";
 	public static final List<String> DEFAULT_RECURSIVE_INCLUDES = Arrays.asList(RECURSIVE_FILE_INCLUDE_PATTERN);
 
-	private static final String SVN_PATTERN = "**/.svn/*";
-	private static final String GIT_PATTERN = "**/.git/*";
+	private static final String SVN_PATTERN = "**/.svn/**";
+	private static final String GIT_PATTERN = "**/.git/**";
 	public static final List<String> DEFAULT_SCM_IGNORE_PATTERNS = Arrays.asList(SVN_PATTERN, GIT_PATTERN);
 
 	/**
