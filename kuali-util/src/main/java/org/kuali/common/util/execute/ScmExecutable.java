@@ -16,22 +16,30 @@
 package org.kuali.common.util.execute;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ScmRequest;
+import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 
 public class ScmExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScmExecutable.class);
 
 	boolean skip;
+	boolean logConfiguration;
 	ScmService service;
 	ScmRequest request;
 
 	@Override
 	public void execute() {
+
+		// Show our current configuration
+		if (logConfiguration) {
+			log(this);
+		}
 
 		// They have explicitly asked that execution be skipped
 		if (skip) {
@@ -75,6 +83,19 @@ public class ScmExecutable implements Executable {
 		}
 	}
 
+	protected void log(ScmExecutable exec) {
+		ScmRequest request = ScmUtils.cloneOrNew(exec.getRequest());
+		String adds = FormatUtils.getCount(CollectionUtils.toEmptyList(request.getAdds()).size());
+		String deletes = FormatUtils.getCount(CollectionUtils.toEmptyList(request.getDeletes()).size());
+		String commits = FormatUtils.getCount(CollectionUtils.toEmptyList(request.getCommits()).size());
+
+		logger.info(" -- SCM --");
+		logger.info("Adds: {}", adds);
+		logger.info("Deletes: {}", deletes);
+		logger.info("Commits: {}", commits);
+		logger.info("Skip: {}", skip);
+	}
+
 	public boolean isEmpty(ScmRequest request) {
 		if (!CollectionUtils.isEmpty(request.getAdds())) {
 			return false;
@@ -110,6 +131,14 @@ public class ScmExecutable implements Executable {
 
 	public void setRequest(ScmRequest request) {
 		this.request = request;
+	}
+
+	public boolean isLogConfiguration() {
+		return logConfiguration;
+	}
+
+	public void setLogConfiguration(boolean logConfiguration) {
+		this.logConfiguration = logConfiguration;
 	}
 
 }
