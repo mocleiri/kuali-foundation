@@ -27,15 +27,50 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.model.util.SchemaNullifier;
+import org.kuali.common.impex.schema.execute.DumpSchemaRequest;
+import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.nullify.Nullifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
- * This service provides methods for reading/persisting a Schema object to/from XML.
+ * This service provides methods for dumping a <code>Schema</code> to XML, and for reading in an XML file to create a <code>Schema</code>
  */
 public class DefaultDumpSchemaService implements DumpSchemaService {
+
+	private static final Logger logger = LoggerFactory.getLogger(DefaultDumpSchemaService.class);
+
+	public void dumpSchema(DumpSchemaRequest context, Schema schema) {
+
+		// Create a filter from the includes/excludes they supplied
+		StringFilter filter = StringFilter.getInstance(context.getIncludes(), context.getExcludes());
+
+		// Clone the schema so the act of dumping it to disk does not alter the original schema object they gave us in any way
+		Schema clone = new Schema(schema);
+
+		// Filter the schema and keep track of any schema objects that got filtered out
+		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
+
+		// The full file system path can sometimes be annoyingly long
+		String path = FileSystemUtils.getRelativePathQuietly(context.getRelativeDir(), context.getOutputFile());
+
+		// Show what we are up to
+		logger.info("Creating - [{}] - {}", path, LoggerUtils.getLogMsg(context.getIncludes(), context.getExcludes()));
+
+		// Log the objects that got filtered out if they asked us to
+		if (context.isLogExcludedSchemaObjects()) {
+			ModelUtils.logTable(excludedSchemaObjects, "Excluded Schema Objects");
+		}
+
+		// Persist the schema to disk as XML
+		dumpSchema(clone, context.getOutputFile());
+	}
 
 	@Override
 	public void dumpSchema(Schema schema, File file) {

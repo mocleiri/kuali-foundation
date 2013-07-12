@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.kuali.common.impex.schema.DumpSchemaService;
 import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
+import org.kuali.common.impex.schema.execute.DumpSchemaRequest;
+import org.kuali.common.impex.schema.execute.DumpSchemasExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,25 +46,26 @@ public class DumpSchemaConfig {
 	@Bean
 	public DumpSchemaExecutable dumpSchemaExecutable() {
 
+		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemasExecutable.DEFAULT_SERVICE.getClass());
+
 		// Extract some context from the environment
 		File outputFile = SpringUtils.getFile(env, FILE_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, outputFile);
-		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass());
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_REGEX_INCLUDE);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_REGEX_EXCLUDE);
 		boolean logExcludedSchemaObjects = SpringUtils.getBoolean(env, LOG_EXCLUDES_KEY, false);
 
-		// Configure an executable
-		DumpSchemaExecutable exec = new DumpSchemaExecutable();
-		exec.setOutputFile(outputFile);
-		exec.setRelativeDir(relativeDir);
-		exec.setService(service);
-		exec.setSkip(skip);
-		exec.setIncludes(includes);
-		exec.setExcludes(excludes);
-		exec.setLogExcludedSchemaObjects(logExcludedSchemaObjects);
-		return exec;
+		// Setup the request
+		DumpSchemaRequest request = new DumpSchemaRequest();
+		request.setOutputFile(outputFile);
+		request.setExcludes(excludes);
+		request.setIncludes(includes);
+		request.setLogExcludedSchemaObjects(logExcludedSchemaObjects);
+		request.setRelativeDir(relativeDir);
+
+		// Setup the executable
+		return new DumpSchemaExecutable(service, skip, request);
 	}
 
 }

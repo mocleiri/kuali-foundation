@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.kuali.common.impex.schema.execute.CopySchemaFileExecutable;
-import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
+import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.schema.DumpSchemaService;
+import org.kuali.common.impex.schema.execute.DumpSchemaRequest;
+import org.kuali.common.impex.schema.execute.DumpSchemasExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
@@ -17,9 +19,11 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Import({ ExportCommonConfig.class })
 public class ProjectStagingConfig {
 
 	private static final String GAVS_KEY = "impex.staging.projects";
@@ -34,26 +38,32 @@ public class ProjectStagingConfig {
 	@Autowired
 	Environment env;
 
+	@Autowired
+	ExportCommonConfig exportCommonConfig;
+
 	@Bean
 	public Executable projectStagingExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
-		List<Executable> execs = Arrays.asList(copySchemaFilesExecutable(), copyProjectDataFilesExecutable());
+		List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable(), copyProjectDataFilesExecutable());
 		return new ExecutablesExecutable(execs, skip);
 	}
 
 	@Bean
-	public Executable copySchemaFilesExecutable() {
-		File inputSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
+	public Executable dumpSchemaFilesExecutable() {
+		File existingSchemaFile = SpringUtils.getFile(env, SCHEMA_FILE_KEY);
+		DumpSchemaService service = exportCommonConfig.exportDumpSchemaService();
+		Schema schema = service.getSchema(existingSchemaFile);
+
 		File stagingDir = SpringUtils.getFile(env, DST_DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		List<Project> projects = getProjects();
-		List<CopySchemaFileExecutable> execs = new ArrayList<CopySchemaFileExecutable>();
+		List<DumpSchemaRequest> requests = new ArrayList<DumpSchemaRequest>();
 		for (Project project : projects) {
-			CopySchemaFileExecutable exec = getCreateFilteredSchemaExecutable(project, stagingDir, inputSchemaFile);
-			exec.setRelativeDir(relativeDir);
-			execs.add(exec);
+			DumpSchemaRequest request = getDumpSchemaRequest(project, stagingDir, schema, existingSchemaFile);
+			request.setRelativeDir(relativeDir);
+			requests.add(request);
 		}
-		return new ExecutablesExecutable(execs);
+		return new DumpSchemasExecutable(requests, service, false);
 	}
 
 	@Bean
@@ -70,6 +80,7 @@ public class ProjectStagingConfig {
 			exec.setRelativeDir(relativeDir);
 			executables.add(exec);
 		}
+
 		return new ExecutablesExecutable(executables);
 	}
 
@@ -96,19 +107,19 @@ public class ProjectStagingConfig {
 		return exec;
 	}
 
-	protected CopySchemaFileExecutable getCreateFilteredSchemaExecutable(Project project, File stagingDir, File inputSchemaFile) {
+	protected DumpSchemaRequest getDumpSchemaRequest(Project project, File stagingDir, Schema schema, File existingSchemaFile) {
 		String includesKey = "impex.staging.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_REGEX_INCLUDE);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_REGEX_EXCLUDE);
-		File outputFile = ProjectUtils.getResourceFile(stagingDir, project, inputSchemaFile.getName());
-		CopySchemaFileExecutable exec = new CopySchemaFileExecutable();
-		exec.setIncludes(includes);
-		exec.setExcludes(excludes);
-		exec.setSchemaOutputFile(outputFile);
-		exec.setSchemaInputFile(inputSchemaFile);
-		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass()));
-		return exec;
+		File outputFile = ProjectUtils.getResourceFile(stagingDir, project, existingSchemaFile.getName());
+
+		DumpSchemaRequest request = new DumpSchemaRequest();
+		request.setIncludes(includes);
+		request.setExcludes(excludes);
+		request.setOutputFile(outputFile);
+		request.setSchema(schema);
+		return request;
 	}
 
 	protected List<Project> getProjects() {

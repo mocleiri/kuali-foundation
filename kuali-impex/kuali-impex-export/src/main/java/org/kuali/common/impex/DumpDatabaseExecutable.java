@@ -22,6 +22,9 @@ import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
+/**
+ * Connect to a database using JDBC, extract schema information needed for Kuali applications, and dump it to disk as XML
+ */
 public class DumpDatabaseExecutable implements Executable {
 
 	boolean skip;
@@ -50,17 +53,17 @@ public class DumpDatabaseExecutable implements Executable {
 		// Connect to the database and extract the schema info
 		extractSchemaExecutable.execute();
 
-		// Get the schema model object generated during the extract
+		// Get the schema object generated during the extract
 		Schema schema = extractSchemaExecutable.getResult().getSchema();
 
 		// Schema can't be null here
 		Assert.notNull(schema, "schema is null");
 
-		// Persist the schema to disk as XML
-		dumpSchemaExecutable.setSchema(schema);
+		// Dump the schema to disk as XML
+		dumpSchemaExecutable.getRequest().setSchema(schema);
 		dumpSchemaExecutable.execute();
 
-		// Connect to the database, extract the data, and persist it to disk
+		// Connect to the database, extract the data, and dump it to disk
 		dumpDataExecutable.setSchema(schema);
 		dumpDataExecutable.execute();
 	}

@@ -1,9 +1,11 @@
 package org.kuali.common.impex.schema.execute;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.impex.schema.DefaultDumpSchemaService;
 import org.kuali.common.impex.schema.DumpSchemaService;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LoggerUtils;
@@ -16,10 +18,31 @@ import org.springframework.util.Assert;
 public class DumpSchemasExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(DumpSchemasExecutable.class);
+	public static final DumpSchemaService DEFAULT_SERVICE = new DefaultDumpSchemaService();
+	public static final boolean DEFAULT_SKIP_VALUE = false;
 
-	DumpSchemaService service = DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE;
+	DumpSchemaService service = DEFAULT_SERVICE;
 	List<DumpSchemaRequest> requests;
 	boolean skip;
+
+	public DumpSchemasExecutable() {
+		this((List<DumpSchemaRequest>) null);
+	}
+
+	public DumpSchemasExecutable(DumpSchemaRequest request, DumpSchemaService service, boolean skip) {
+		this(Arrays.asList(request), service, skip);
+	}
+
+	public DumpSchemasExecutable(List<DumpSchemaRequest> requests) {
+		this(requests, DEFAULT_SERVICE, DEFAULT_SKIP_VALUE);
+	}
+
+	public DumpSchemasExecutable(List<DumpSchemaRequest> requests, DumpSchemaService service, boolean skip) {
+		super();
+		this.requests = requests;
+		this.service = service;
+		this.skip = skip;
+	}
 
 	@Override
 	public void execute() {

@@ -4,15 +4,23 @@ import java.io.File;
 import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
+import org.kuali.common.impex.util.DumpConstants;
 
 public class DumpSchemaRequest {
 
+	public static final boolean DEFAULT_LOG_EXCLUDED_SCHEMA_OBJECTS = false;
+	public static final List<String> DEFAULT_INCLUDES = DumpConstants.DEFAULT_REGEX_INCLUDES;
+	public static final List<String> DEFAULT_EXCLUDES = DumpConstants.DEFAULT_REGEX_EXCLUDES;
+
+	boolean logExcludedSchemaObjects = DEFAULT_LOG_EXCLUDED_SCHEMA_OBJECTS;
+	List<String> includes = DEFAULT_INCLUDES;
+	List<String> excludes = DEFAULT_EXCLUDES;
+
 	Schema schema;
-	List<String> includes;
-	List<String> excludes;
 	File outputFile;
+
+	// Optional
 	File relativeDir;
-	boolean logExcludedSchemaObjects;
 
 	public List<String> getIncludes() {
 		return includes;
