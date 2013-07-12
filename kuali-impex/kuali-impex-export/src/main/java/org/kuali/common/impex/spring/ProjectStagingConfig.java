@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ExportCommonConfig.class })
+@Import({ ExportServicesConfig.class })
 public class ProjectStagingConfig {
 
 	private static final String GAVS_KEY = "impex.staging.projects";
@@ -39,7 +39,7 @@ public class ProjectStagingConfig {
 	Environment env;
 
 	@Autowired
-	ExportCommonConfig exportCommonConfig;
+	ExportServicesConfig exportCommonConfig;
 
 	@Bean
 	public Executable projectStagingExecutable() {

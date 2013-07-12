@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcDataSourceConfig.class, ExportCommonConfig.class })
+@Import({ JdbcDataSourceConfig.class, ExportServicesConfig.class })
 public class ExtractSchemaConfig {
 
 	private static final int DEFAULT_THREADS = 8;
@@ -42,7 +42,6 @@ public class ExtractSchemaConfig {
 	private static final String EXCLUDES_KEY = "impex.extract.schema.excludes";
 
 	private static final String THREADS_KEY = "impex.extract.schema.threads";
-	private static final String SERVICE_KEY = "impex.extract.schema.service";
 
 	// By default, include everything, exclude nothing
 	private static final String DEFAULT_INCLUDES = DumpConstants.DEFAULT_REGEX_INCLUDE;
@@ -60,13 +59,13 @@ public class ExtractSchemaConfig {
 	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
-	ExportCommonConfig exportCommonConfig;
+	ExportServicesConfig exportServicesConfig;
 
 	@Bean
 	public ExtractSchemaExecutable extractSchemaExecutable() {
 		ExtractSchemaExecutable exec = new ExtractSchemaExecutable();
 		exec.setContext(getSchemaExtractionContext());
-		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, exportCommonConfig.exportExtractSchemaService().getClass()));
+		exec.setService(exportServicesConfig.exportExtractSchemaService());
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, ExtractSchemaExecutable.DEFAULT_SKIP));
 		return exec;
 	}

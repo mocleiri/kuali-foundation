@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ExportCommonConfig {
+public class ExportServicesConfig {
 
 	private static final String DUMP_SCHEMA_SERVICE_KEY = "impex.dump.schema.service";
 	private static final String DUMP_DATA_SERVICE_KEY = "impex.dump.data.service";
