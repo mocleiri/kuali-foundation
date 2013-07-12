@@ -18,6 +18,7 @@ public class CreateSchemaFilesExecutable implements Executable {
 
 	DumpSchemaService service = DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE;
 	List<SchemaFileRequest> requests;
+	Schema schema;
 	boolean skip;
 
 	@Override
@@ -27,20 +28,21 @@ public class CreateSchemaFilesExecutable implements Executable {
 			return;
 		}
 
+		Assert.notNull(schema, "schema is null");
 		Assert.notNull(requests, "requests is null");
 
 		for (SchemaFileRequest request : requests) {
-			doRequest(request);
+			doRequest(schema, request);
 		}
 	}
 
-	protected void doRequest(SchemaFileRequest request) {
+	protected void doRequest(Schema schema, SchemaFileRequest request) {
 
 		// Create a filter from the includes/excludes they supplied
 		StringFilter filter = StringFilter.getInstance(request.getIncludes(), request.getExcludes());
 
 		// Clone the schema so the act of dumping it to disk does not alter the original schema object they gave us in any way
-		Schema clone = new Schema(request.getSchema());
+		Schema clone = new Schema(schema);
 
 		// Filter the schema and keep track of any schema objects that got filtered out
 		Schema excludedSchemaObjects = ModelUtils.filter(clone, filter);
