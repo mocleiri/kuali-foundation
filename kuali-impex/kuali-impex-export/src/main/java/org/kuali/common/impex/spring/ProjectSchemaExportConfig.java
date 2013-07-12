@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.schema.ProjectSchemaExportExecutable;
+import org.kuali.common.impex.schema.execute.ProjectSchemaExportExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;

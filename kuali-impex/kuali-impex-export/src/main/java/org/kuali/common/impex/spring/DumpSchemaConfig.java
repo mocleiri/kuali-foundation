@@ -18,8 +18,8 @@ package org.kuali.common.impex.spring;
 import java.io.File;
 import java.util.List;
 
-import org.kuali.common.impex.schema.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.DumpSchemaService;
+import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

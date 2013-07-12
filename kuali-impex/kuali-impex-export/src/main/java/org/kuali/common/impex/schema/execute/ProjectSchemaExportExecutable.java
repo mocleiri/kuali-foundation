@@ -13,12 +13,14 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.schema;
+package org.kuali.common.impex.schema.execute;
 
 import java.io.File;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.util.ModelUtils;
+import org.kuali.common.impex.schema.DefaultDumpSchemaService;
+import org.kuali.common.impex.schema.DumpSchemaService;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.Project;

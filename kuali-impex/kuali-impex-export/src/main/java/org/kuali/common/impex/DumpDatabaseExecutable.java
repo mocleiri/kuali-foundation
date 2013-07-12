@@ -17,7 +17,7 @@ package org.kuali.common.impex;
 
 import org.kuali.common.impex.data.DumpDataExecutable;
 import org.kuali.common.impex.model.Schema;
-import org.kuali.common.impex.schema.DumpSchemaExecutable;
+import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;

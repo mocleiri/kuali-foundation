@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.impex.schema.DefaultDumpSchemaService;
-import org.kuali.common.impex.schema.ModularSchemaExportExecutable;
+import org.kuali.common.impex.schema.execute.ModularSchemaExportExecutable;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

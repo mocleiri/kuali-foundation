@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.kuali.common.impex.schema.CopySchemaFileExecutable;
-import org.kuali.common.impex.schema.DumpSchemaExecutable;
+import org.kuali.common.impex.schema.execute.CopySchemaFileExecutable;
+import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
