@@ -113,21 +113,21 @@ public class JdbcDataSourceConfig {
 	 */
 	@Bean
 	public Executable jdbcShowDbaConfigExecutable() {
-		ShowConfigExecutable sce = new ShowConfigExecutable();
-		sce.setService(commonConfig.jdbcService());
-		sce.setContext(jdbcDatabaseProcessContext());
-		sce.setDataSource(jdbcDbaDataSource());
-		sce.setSkip(SpringUtils.getBoolean(env, SHOW_CONFIG_SKIP_KEY, DEFAULT_SHOW_CONFIG_SKIP));
-		return sce;
+		ShowConfigExecutable exec = new ShowConfigExecutable();
+		exec.setService(commonConfig.jdbcService());
+		exec.setContext(jdbcDatabaseProcessContext());
+		exec.setDataSource(jdbcDbaDataSource());
+		exec.setSkip(SpringUtils.getBoolean(env, SHOW_CONFIG_SKIP_KEY, DEFAULT_SHOW_CONFIG_SKIP));
+		return exec;
 	}
 
 	@Bean
 	public Executable jdbcShowConfigExecutable() {
-		ShowSimpleConfigExecutable sce = new ShowSimpleConfigExecutable();
-		sce.setService(commonConfig.jdbcService());
-		sce.setContext(jdbcDatabaseProcessContext());
-		sce.setDataSource(jdbcDataSource());
-		sce.setSkip(SpringUtils.getBoolean(env, SHOW_CONFIG_SKIP_KEY, DEFAULT_SHOW_CONFIG_SKIP));
-		return sce;
+		ShowSimpleConfigExecutable exec = new ShowSimpleConfigExecutable();
+		exec.setService(commonConfig.jdbcService());
+		exec.setContext(jdbcDatabaseProcessContext());
+		exec.setDataSource(jdbcDataSource());
+		exec.setSkip(SpringUtils.getBoolean(env, SHOW_CONFIG_SKIP_KEY, DEFAULT_SHOW_CONFIG_SKIP));
+		return exec;
 	}
 }
