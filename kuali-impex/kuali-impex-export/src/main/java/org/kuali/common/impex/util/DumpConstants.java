@@ -15,6 +15,9 @@
 
 package org.kuali.common.impex.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DumpConstants {
 
 	public static final String DB_VENDOR_KEY = "db.vendor";
@@ -26,9 +29,19 @@ public class DumpConstants {
 	public static final String DEFAULT_INCLUDE = ".*";
 
 	/**
+	 * Default value for matching regular expressions. All names are matched by default
+	 */
+	public static final List<String> DEFAULT_INCLUDES = Arrays.asList(DEFAULT_INCLUDE);
+
+	/**
 	 * Default exclude value for name matching. No names are excluded by default
 	 */
 	public static final String DEFAULT_EXCLUDE = "";
+
+	/**
+	 * Default exclude value for name matching. No names are excluded by default
+	 */
+	public static final List<String> DEFAULT_EXCLUDES = Arrays.asList(DEFAULT_EXCLUDE);
 
 	/**
 	 * Default value for matching regular expressions. All names are matched by default
