@@ -26,8 +26,6 @@ import org.springframework.util.Assert;
 
 public class MetaInfExecutable implements Executable {
 
-    private static final Logger logger = LoggerFactory.getLogger(MetaInfExecutable.class);
-
 	List<MetaInfContext> contexts;
 	boolean skip;
 
@@ -35,8 +33,6 @@ public class MetaInfExecutable implements Executable {
 
 	@Override
 	public void execute() {
-
-        logger.info("STARTING EXECUTE");
 
 		if (skip) {
 			return;
@@ -49,8 +45,6 @@ public class MetaInfExecutable implements Executable {
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
-
-        logger.info("ENDING EXECUTE");
 
 	}
 
