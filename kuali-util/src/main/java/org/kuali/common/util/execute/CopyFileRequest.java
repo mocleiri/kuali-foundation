@@ -7,6 +7,16 @@ public class CopyFileRequest {
 	File source;
 	File destination;
 
+	public CopyFileRequest() {
+		this(null, null);
+	}
+
+	public CopyFileRequest(File source, File destination) {
+		super();
+		this.source = source;
+		this.destination = destination;
+	}
+
 	public File getSource() {
 		return source;
 	}
