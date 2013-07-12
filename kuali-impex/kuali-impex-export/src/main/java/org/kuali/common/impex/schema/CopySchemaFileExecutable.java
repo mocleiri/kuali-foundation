@@ -23,9 +23,9 @@ public class CopySchemaFileExecutable implements Executable {
 	public void execute() {
 		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
-		Assert.notNull(schemaInputFile, "inputSchemaFile is null");
-		Assert.notNull(schemaOutputFile, "outputSchemaFile is null");
-		Assert.isTrue(LocationUtils.exists(schemaInputFile), "inputSchemaFile does not exist");
+		Assert.notNull(schemaInputFile, "schemaInputFile is null");
+		Assert.notNull(schemaOutputFile, "schemaOutputFile is null");
+		Assert.isTrue(LocationUtils.exists(schemaInputFile), "schemaInputFile does not exist");
 
 		// Materialize a Schema object from the XML file
 		Schema schema = service.getSchema(schemaInputFile);
@@ -35,14 +35,14 @@ public class CopySchemaFileExecutable implements Executable {
 		exec.execute();
 	}
 
-	protected Executable getDumpSchemaExecutable(CopySchemaFileExecutable csfe, Schema schema) {
-		DumpSchemaExecutable dse = new DumpSchemaExecutable();
-		dse.setSchema(schema);
-		dse.setIncludes(csfe.getIncludes());
-		dse.setExcludes(csfe.getExcludes());
-		dse.setOutputFile(csfe.getSchemaOutputFile());
-		dse.setRelativeDir(csfe.getRelativeDir());
-		return dse;
+	protected Executable getDumpSchemaExecutable(CopySchemaFileExecutable exec, Schema schema) {
+		DumpSchemaExecutable returnValue = new DumpSchemaExecutable();
+		returnValue.setSchema(schema);
+		returnValue.setIncludes(exec.getIncludes());
+		returnValue.setExcludes(exec.getExcludes());
+		returnValue.setOutputFile(exec.getSchemaOutputFile());
+		returnValue.setRelativeDir(exec.getRelativeDir());
+		return returnValue;
 	}
 
 	public DumpSchemaService getService() {
