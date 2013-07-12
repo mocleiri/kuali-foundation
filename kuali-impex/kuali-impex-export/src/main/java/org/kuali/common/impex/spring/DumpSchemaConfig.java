@@ -52,8 +52,8 @@ public class DumpSchemaConfig {
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, outputFile);
 		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE.getClass());
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_INCLUDE);
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_EXCLUDE);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_REGEX_INCLUDE);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_REGEX_EXCLUDE);
 		boolean logExcludedSchemaObjects = SpringUtils.getBoolean(env, LOG_EXCLUDES_KEY, false);
 
 		// Configure an executable

@@ -13,8 +13,8 @@ import org.springframework.util.Assert;
 public class CopySchemaFileExecutable implements Executable {
 
 	DumpSchemaService service = DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE;
-	List<String> includes = Arrays.asList(DumpConstants.DEFAULT_INCLUDE);
-	List<String> excludes = Arrays.asList(DumpConstants.DEFAULT_EXCLUDE);
+	List<String> includes = Arrays.asList(DumpConstants.DEFAULT_REGEX_INCLUDE);
+	List<String> excludes = Arrays.asList(DumpConstants.DEFAULT_REGEX_EXCLUDE);
 	File schemaInputFile;
 	File schemaOutputFile;
 	File relativeDir;

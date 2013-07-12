@@ -20,36 +20,44 @@ import java.util.List;
 
 public class DumpConstants {
 
-	public static final String DB_VENDOR_KEY = "db.vendor";
-	public static final String DIR_KEY = "impex.dump.dir";
-
 	/**
 	 * Default value for matching regular expressions. All names are matched by default
 	 */
-	public static final String DEFAULT_INCLUDE = ".*";
-
-	/**
-	 * Default value for matching regular expressions. All names are matched by default
-	 */
-	public static final List<String> DEFAULT_INCLUDES = Arrays.asList(DEFAULT_INCLUDE);
+	public static final String DEFAULT_REGEX_INCLUDE = ".*";
 
 	/**
 	 * Default exclude value for name matching. No names are excluded by default
 	 */
-	public static final String DEFAULT_EXCLUDE = "";
-
-	/**
-	 * Default exclude value for name matching. No names are excluded by default
-	 */
-	public static final List<String> DEFAULT_EXCLUDES = Arrays.asList(DEFAULT_EXCLUDE);
+	public static final String DEFAULT_REGEX_EXCLUDE = "";
 
 	/**
 	 * Default value for matching regular expressions. All names are matched by default
 	 */
-	public static final String DEFAULT_FILE_INCLUDE = "**/*";
+	public static final List<String> DEFAULT_REGEX_INCLUDES = Arrays.asList(DEFAULT_REGEX_INCLUDE);
+
+	/**
+	 * Default exclude value for name matching. No names are excluded by default
+	 */
+	public static final List<String> DEFAULT_REGEX_EXCLUDES = Arrays.asList(DEFAULT_REGEX_EXCLUDE);
+
+	/**
+	 * Default value for matching regular expressions. All names are matched by default
+	 */
+	public static final String DEFAULT_FILE_INCLUDE = "**/**";
 
 	/**
 	 * Default exclude value for name matching. No names are excluded by default
 	 */
 	public static final String DEFAULT_FILE_EXCLUDE = "";
+
+	/**
+	 * Default value for matching regular expressions. All names are matched by default
+	 */
+	public static final List<String> DEFAULT_FILE_INCLUDES = Arrays.asList(DEFAULT_FILE_INCLUDE);
+
+	/**
+	 * Default exclude value for name matching. No names are excluded by default
+	 */
+	public static final List<String> DEFAULT_FILE_EXCLUDES = Arrays.asList(DEFAULT_FILE_EXCLUDE);
+
 }

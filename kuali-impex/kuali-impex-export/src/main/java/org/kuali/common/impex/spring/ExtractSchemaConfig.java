@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ JdbcDataSourceConfig.class })
+@Import({ JdbcDataSourceConfig.class, ExportCommonConfig.class })
 public class ExtractSchemaConfig {
 
 	private static final int DEFAULT_THREADS = 8;
@@ -45,8 +45,8 @@ public class ExtractSchemaConfig {
 	private static final String SERVICE_KEY = "impex.extract.schema.service";
 
 	// By default, include everything, exclude nothing
-	private static final String DEFAULT_INCLUDES = DumpConstants.DEFAULT_INCLUDE;
-	private static final String DEFAULT_EXCLUDES = DumpConstants.DEFAULT_EXCLUDE;
+	private static final String DEFAULT_INCLUDES = DumpConstants.DEFAULT_REGEX_INCLUDE;
+	private static final String DEFAULT_EXCLUDES = DumpConstants.DEFAULT_REGEX_EXCLUDE;
 
 	private static final String SKIP_KEY = "impex.extract.schema.skip";
 
@@ -59,11 +59,14 @@ public class ExtractSchemaConfig {
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
 
+	@Autowired
+	ExportCommonConfig exportCommonConfig;
+
 	@Bean
 	public ExtractSchemaExecutable extractSchemaExecutable() {
 		ExtractSchemaExecutable exec = new ExtractSchemaExecutable();
 		exec.setContext(getSchemaExtractionContext());
-		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, ExtractSchemaExecutable.DEFAULT_SERVICE.getClass()));
+		exec.setService(SpringUtils.getInstance(env, SERVICE_KEY, exportCommonConfig.exportExtractSchemaService().getClass()));
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, ExtractSchemaExecutable.DEFAULT_SKIP));
 		return exec;
 	}
@@ -73,32 +76,32 @@ public class ExtractSchemaConfig {
 	 */
 	protected ExtractSchemaContext getSchemaExtractionContext() {
 
-        // This is the schema inside the database to extract
-        String schemaName = dataSourceConfig.jdbcDatabaseProcessContext().getSchema();
+		// This is the schema inside the database to extract
+		String schemaName = dataSourceConfig.jdbcDatabaseProcessContext().getSchema();
 
-        // Number of threads to use
-        int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
+		// Number of threads to use
+		int threadCount = SpringUtils.getInteger(env, THREADS_KEY, DEFAULT_THREADS);
 
-        // DataSource for obtaining connections to the database
-        DataSource dataSource = dataSourceConfig.jdbcDataSource();
+		// DataSource for obtaining connections to the database
+		DataSource dataSource = dataSourceConfig.jdbcDataSource();
 
-        // This is used to filter out tables/views/sequences/foreign keys
-        StringFilter nameFilter = getNameFilter();
+		// This is used to filter out tables/views/sequences/foreign keys
+		StringFilter nameFilter = getNameFilter();
 
-        // Get database specific finders for sequences and views
-        SequenceFinder sequenceFinder = SpringUtils.getInstance(env, SEQUENCE_FINDER_KEY);
-        ViewFinder viewFinder = SpringUtils.getInstance(env, VIEW_FINDER_KEY);
+		// Get database specific finders for sequences and views
+		SequenceFinder sequenceFinder = SpringUtils.getInstance(env, SEQUENCE_FINDER_KEY);
+		ViewFinder viewFinder = SpringUtils.getInstance(env, VIEW_FINDER_KEY);
 
-        // Setup our context with pojo's aggregated from the Spring configuration
-        ExtractSchemaContext context = new ExtractSchemaContext();
-        context.setSchemaName(schemaName);
-        context.setDataSource(dataSource);
-        context.setNameFilter(nameFilter);
-        context.setThreadCount(threadCount);
-        context.setSequenceFinder(sequenceFinder);
-        context.setViewFinder(viewFinder);
-        return context;
-    }
+		// Setup our context with pojo's aggregated from the Spring configuration
+		ExtractSchemaContext context = new ExtractSchemaContext();
+		context.setSchemaName(schemaName);
+		context.setDataSource(dataSource);
+		context.setNameFilter(nameFilter);
+		context.setThreadCount(threadCount);
+		context.setSequenceFinder(sequenceFinder);
+		context.setViewFinder(viewFinder);
+		return context;
+	}
 
 	protected StringFilter getNameFilter() {
 

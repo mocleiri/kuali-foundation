@@ -72,8 +72,8 @@ public class ProjectSchemaExportConfig {
 	protected StringFilter getNameFilter(Project project) {
 		String includesKey = "impex.export.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.export.schema." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_INCLUDE);
-		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_EXCLUDE);
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_REGEX_INCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_REGEX_EXCLUDE);
 		return StringFilter.getInstance(includes, excludes);
 	}
 

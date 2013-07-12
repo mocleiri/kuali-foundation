@@ -50,8 +50,8 @@ public class DumpSchemaExecutable implements Executable {
 
 	// Optional
 	File relativeDir;
-	List<String> includes = Arrays.asList(DumpConstants.DEFAULT_INCLUDE);
-	List<String> excludes = Arrays.asList(DumpConstants.DEFAULT_EXCLUDE);
+	List<String> includes = Arrays.asList(DumpConstants.DEFAULT_REGEX_INCLUDE);
+	List<String> excludes = Arrays.asList(DumpConstants.DEFAULT_REGEX_EXCLUDE);
 
 	@Override
 	public void execute() {

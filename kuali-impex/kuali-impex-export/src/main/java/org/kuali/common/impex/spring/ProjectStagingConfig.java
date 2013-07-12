@@ -99,8 +99,8 @@ public class ProjectStagingConfig {
 	protected CopySchemaFileExecutable getCreateFilteredSchemaExecutable(Project project, File stagingDir, File inputSchemaFile) {
 		String includesKey = "impex.staging.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_INCLUDE);
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_EXCLUDE);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, DumpConstants.DEFAULT_REGEX_INCLUDE);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_REGEX_EXCLUDE);
 		File outputFile = ProjectUtils.getResourceFile(stagingDir, project, inputSchemaFile.getName());
 		CopySchemaFileExecutable exec = new CopySchemaFileExecutable();
 		exec.setIncludes(includes);

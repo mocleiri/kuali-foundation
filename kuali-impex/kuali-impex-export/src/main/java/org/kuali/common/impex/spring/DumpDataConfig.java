@@ -81,8 +81,8 @@ public class DumpDataConfig {
 	}
 
 	protected StringFilter getTableNameFilter() {
-		List<String> tableIncludes = SpringUtils.getListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_INCLUDE);
-		List<String> tableExcludes = SpringUtils.getListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_EXCLUDE);
+		List<String> tableIncludes = SpringUtils.getListFromCSV(env, INCLUDES_KEY, DumpConstants.DEFAULT_REGEX_INCLUDE);
+		List<String> tableExcludes = SpringUtils.getListFromCSV(env, EXCLUDES_KEY, DumpConstants.DEFAULT_REGEX_EXCLUDE);
 		return StringFilter.getInstance(tableIncludes, tableExcludes);
 	}
 
