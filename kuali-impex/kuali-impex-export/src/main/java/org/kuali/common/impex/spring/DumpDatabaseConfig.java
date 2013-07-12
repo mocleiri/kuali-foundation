@@ -18,10 +18,12 @@ package org.kuali.common.impex.spring;
 import org.kuali.common.impex.DumpDatabaseExecutable;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 
 /**
  * Configures tasks related to dumping data and schema information from a database to disk
@@ -29,6 +31,9 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
 public class DumpDatabaseConfig {
+
+	@Autowired
+	Environment env;
 
 	@Autowired
 	JdbcDataSourceConfig dataSourceConfig;
@@ -44,22 +49,25 @@ public class DumpDatabaseConfig {
 
 	@Bean
 	public Executable dumpDatabaseExecutable() {
-		DumpDatabaseExecutable executable = new DumpDatabaseExecutable();
+
+		boolean skip = SpringUtils.getBoolean(env, "impex.dump.skip", false);
+		DumpDatabaseExecutable exec = new DumpDatabaseExecutable();
+		exec.setSkip(skip);
 
 		// Show the JDBC configuration
-		executable.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
+		exec.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
 
 		// Connect to the db and create model objects in memory that represent the schema
-		executable.setExtractSchemaExecutable(extractSchemaConfig.extractSchemaExecutable());
+		exec.setExtractSchemaExecutable(extractSchemaConfig.extractSchemaExecutable());
 
 		// Dump the schema model object from memory to disk as XML
-		executable.setDumpSchemaExecutable(dumpSchemaConfig.dumpSchemaExecutable());
+		exec.setDumpSchemaExecutable(dumpSchemaConfig.dumpSchemaExecutable());
 
 		// Connect to the db, extract data from the tables, and persist it to disk
-		executable.setDumpDataExecutable(dumpDataConfig.dumpDataExecutable());
+		exec.setDumpDataExecutable(dumpDataConfig.dumpDataExecutable());
 
 		// Return the configured executable
-		return executable;
+		return exec;
 	}
 
 }
