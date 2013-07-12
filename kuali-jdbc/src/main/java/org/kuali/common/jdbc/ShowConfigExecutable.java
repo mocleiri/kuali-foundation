@@ -52,9 +52,6 @@ public class ShowConfigExecutable implements Executable {
 		logger.info("Schema - {}", context.getSchema());
 		logger.info("User - {}", LoggerUtils.getUsername(context.getUsername()));
 		logger.info("Password - {}", LoggerUtils.getPassword(context.getUsername(), context.getPassword()));
-		logger.info("DBA URL - {}", context.getDbaUrl());
-		logger.info("DBA User - {}", LoggerUtils.getUsername(context.getDbaUsername()));
-		logger.info("DBA Password - {}", LoggerUtils.getPassword(context.getDbaUsername(), context.getDbaPassword()));
 		logger.info("Driver - {}", context.getDriver());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		// Establish a connection to the db to extract more detailed info

@@ -19,8 +19,8 @@ import java.util.Arrays;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.jdbc.ShowDbaConfigExecutable;
 import org.kuali.common.jdbc.ShowConfigExecutable;
-import org.kuali.common.jdbc.ShowSimpleConfigExecutable;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
@@ -113,7 +113,7 @@ public class JdbcDataSourceConfig {
 	 */
 	@Bean
 	public Executable jdbcShowDbaConfigExecutable() {
-		ShowConfigExecutable exec = new ShowConfigExecutable();
+		ShowDbaConfigExecutable exec = new ShowDbaConfigExecutable();
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(jdbcDatabaseProcessContext());
 		exec.setDataSource(jdbcDbaDataSource());
@@ -123,7 +123,7 @@ public class JdbcDataSourceConfig {
 
 	@Bean
 	public Executable jdbcShowConfigExecutable() {
-		ShowSimpleConfigExecutable exec = new ShowSimpleConfigExecutable();
+		ShowConfigExecutable exec = new ShowConfigExecutable();
 		exec.setService(commonConfig.jdbcService());
 		exec.setContext(jdbcDatabaseProcessContext());
 		exec.setDataSource(jdbcDataSource());
