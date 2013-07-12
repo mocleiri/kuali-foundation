@@ -12,6 +12,7 @@ public class SchemaFileRequest {
 	List<String> excludes;
 	File outputFile;
 	File relativeDir;
+	boolean logExcludedSchemaObjects;
 
 	public Schema getSchema() {
 		return schema;
@@ -51,6 +52,14 @@ public class SchemaFileRequest {
 
 	public void setRelativeDir(File relativeDir) {
 		this.relativeDir = relativeDir;
+	}
+
+	public boolean isLogExcludedSchemaObjects() {
+		return logExcludedSchemaObjects;
+	}
+
+	public void setLogExcludedSchemaObjects(boolean logExcludedSchemaObjects) {
+		this.logExcludedSchemaObjects = logExcludedSchemaObjects;
 	}
 
 }
