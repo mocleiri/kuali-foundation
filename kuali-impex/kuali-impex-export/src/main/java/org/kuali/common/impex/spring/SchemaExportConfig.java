@@ -25,7 +25,6 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
 import org.kuali.common.impex.schema.DefaultDumpSchemaService;
 import org.kuali.common.impex.schema.DumpSchemaService;
-import org.kuali.common.impex.schema.execute.DumpSchemaExecutableOld;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -92,42 +91,26 @@ public class SchemaExportConfig {
 
 		// The location to write table information
 		String tableLocation = SpringUtils.getProperty(env, TABLES_LOCATION_KEY, schemaLocation);
-        result.put(tableLocation, Table.class);
+		result.put(tableLocation, Table.class);
 
 		// The location to write view information
 		String viewLocation = SpringUtils.getProperty(env, VIEWS_LOCATION_KEY, schemaLocation);
-        result.put(viewLocation, View.class);
+		result.put(viewLocation, View.class);
 
 		// The location to write sequence information
 		String sequenceLocation = SpringUtils.getProperty(env, SEQUENCES_LOCATION_KEY, schemaLocation);
-        result.put(sequenceLocation, Sequence.class);
+		result.put(sequenceLocation, Sequence.class);
 
 		// The location to write foreign key information
 		String foreignKeyLocation = SpringUtils.getProperty(env, FOREIGNKEY_LOCATION_KEY, schemaLocation);
-        result.put(foreignKeyLocation, ForeignKey.class);
+		result.put(foreignKeyLocation, ForeignKey.class);
 
 		return result;
 	}
 
-    @Bean
-    public DumpSchemaService exportService() {
-        return SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultDumpSchemaService.class);
-    }
-
-    @Bean
-    public Boolean executionSkip() {
-        return SpringUtils.getBoolean(env, SKIP_EXECUTION_KEY, DumpSchemaExecutableOld.DEFAULT_SKIP_EXECUTION);
-    }
-
 	@Bean
-	public DumpSchemaExecutableOld exportSchemaExecutable() {
-
-		DumpSchemaExecutableOld exec = new DumpSchemaExecutableOld();
-
-		exec.setExportService(exportService());
-        exec.setSkip(executionSkip());
-
-		return exec;
+	public DumpSchemaService exportService() {
+		return SpringUtils.getInstance(env, EXPORT_SCHEMA_SERVICE_KEY, DefaultDumpSchemaService.class);
 	}
 
 }
