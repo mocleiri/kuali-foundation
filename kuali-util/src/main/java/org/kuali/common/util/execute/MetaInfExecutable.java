@@ -18,7 +18,7 @@ package org.kuali.common.util.execute;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.util.MetaInfContext;
+import org.kuali.common.util.spring.metainf.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
 import org.springframework.util.Assert;
 
@@ -26,6 +26,8 @@ public class MetaInfExecutable implements Executable {
 
 	List<MetaInfContext> contexts;
 	boolean skip;
+
+    public final static boolean DEFAULT_EXECUTION_SKIP = false;
 
 	@Override
 	public void execute() {

@@ -25,6 +25,7 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.spring.metainf.MetaInfContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +52,7 @@ public class MetaInfUtils {
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
-		List<File> files = scanner.getFiles();
-		return files;
+        return scanner.getFiles();
 	}
 
 	protected static String getPatternLogMessage(MetaInfContext context) {
@@ -61,10 +61,10 @@ public class MetaInfUtils {
 		String excl = CollectionUtils.getSpaceSeparatedString(context.getExcludes());
 		sb.append("[");
 		if (!StringUtils.isBlank(incl)) {
-			sb.append("include: " + incl);
+			sb.append("include: ").append(incl);
 		}
 		if (!StringUtils.isBlank(excl)) {
-			sb.append(", exclude:" + excl);
+			sb.append(", exclude:").append(excl);
 		}
 		boolean includeEverything = StringUtils.isBlank(incl) && StringUtils.isBlank(excl);
 		if (includeEverything) {
@@ -117,10 +117,10 @@ public class MetaInfUtils {
 
 	public static List<MetaInfResource> getResources(MetaInfContext context, List<File> files) throws IOException {
 		List<MetaInfResource> resources = new ArrayList<MetaInfResource>();
-		for (int i = 0; i < files.size(); i++) {
-			MetaInfResource resource = getResource(context, files.get(i));
-			resources.add(resource);
-		}
+        for (File file : files) {
+            MetaInfResource resource = getResource(context, file);
+            resources.add(resource);
+        }
 		return resources;
 	}
 
@@ -134,10 +134,10 @@ public class MetaInfUtils {
 
 	public static List<String> getLocations(File baseDir, List<File> files, String prefix) throws IOException {
 		List<String> locations = new ArrayList<String>();
-		for (int i = 0; i < files.size(); i++) {
-			String location = getLocation(baseDir, files.get(i), prefix);
-			locations.add(location);
-		}
+        for (File file : files) {
+            String location = getLocation(baseDir, file, prefix);
+            locations.add(location);
+        }
 		return locations;
 	}
 

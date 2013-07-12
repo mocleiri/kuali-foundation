@@ -27,7 +27,7 @@
   <!-- List of MetaInfContext objects controlling the content created under META-INF -->
   <util:list id="metaInf.sql.contextList">
     <!-- Schema -->
-    <bean class=" org.kuali.common.util.MetaInfContext ">
+    <bean class=" org.kuali.common.util.spring.metainf.MetaInfContext ">
       <property name="outputFile" value="${metainf.output.schema}" />
       <property name="baseDir" value="${project.build.outputDirectory}" />
       <property name="includes">
@@ -37,7 +37,7 @@
       </property>
     </bean>
     <!-- Data -->
-    <bean class="org.kuali.common.util.MetaInfContext">
+    <bean class="org.kuali.common.util.spring.metainf.MetaInfContext">
       <property name="outputFile" value="${metainf.output.data}" />
       <property name="baseDir" value="${project.build.outputDirectory}" />
       <property name="includes">
@@ -47,7 +47,7 @@
       </property>
     </bean>
     <!-- Constraints -->
-    <bean class="org.kuali.common.util.MetaInfContext">
+    <bean class="org.kuali.common.util.spring.metainf.MetaInfContext">
       <property name="outputFile" value="${metainf.output.constraints}" />
       <property name="baseDir" value="${project.build.outputDirectory}" />
       <property name="includes">
@@ -57,7 +57,7 @@
       </property>
     </bean>
     <!-- Other -->
-    <bean class="org.kuali.common.util.MetaInfContext">
+    <bean class="org.kuali.common.util.spring.metainf.MetaInfContext">
       <property name="outputFile" value="${metainf.output.other}" />
       <property name="baseDir" value="${project.build.outputDirectory}" />
       <property name="includes">

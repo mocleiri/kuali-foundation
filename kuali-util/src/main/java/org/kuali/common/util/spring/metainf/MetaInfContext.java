@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.spring.metainf;
 
 import java.io.File;
 import java.util.List;
 
 public class MetaInfContext {
 
+    /**
+     * These default constants are set here to ensure backwards compatibility with
+     * deprecated config classes using MetaInfContext
+     */
+    public static final String DEFAULT_PREFIX = "classpath:";
+
+    public static final boolean DEFAULT_SORT = true;
+
 	File baseDir;
 	File outputFile;
-	String prefix = "classpath:";
-	boolean sort = true;
+	String prefix = DEFAULT_PREFIX;
+	boolean sort = DEFAULT_SORT;
 	List<String> includes;
 	List<String> excludes;
 	boolean addPropertiesFile;
