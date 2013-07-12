@@ -18,6 +18,8 @@ package org.kuali.common.util.spring.metainf;
 import java.io.File;
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
+
 public class MetaInfContext {
 
     /**
@@ -100,4 +102,19 @@ public class MetaInfContext {
 	public void setAddLineCount(boolean addLineCount) {
 		this.addLineCount = addLineCount;
 	}
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("addPropertiesFile: ").append(addPropertiesFile);
+        sb.append("addLineCount: ").append(addLineCount);
+        sb.append("includes: ").append(CollectionUtils.getCSV(getIncludes()));
+        sb.append("excludes: ").append(CollectionUtils.getCSV(getExcludes()));
+        sb.append("output: ").append(outputFile.toString());
+        sb.append("basedir: ").append(baseDir.toString());
+        sb.append("prefix: ").append(prefix);
+        sb.append("sort: ").append(sort);
+
+        return sb.toString();
+    }
 }

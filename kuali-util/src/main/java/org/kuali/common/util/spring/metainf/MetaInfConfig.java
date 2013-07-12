@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.MetaInfExecutable;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class BaseMetaInfConfig {
+public class MetaInfConfig {
 
     protected static final String EXECUTABLE_SKIP_KEY = "util.metainf.skip";
 
@@ -52,7 +53,9 @@ public class BaseMetaInfConfig {
 
     protected static final String INCLUDES_KEY = ".includes";
 
-    protected static final String EXCLUDES_KEY = "excludes";
+    protected static final String EXCLUDES_KEY = ".excludes";
+
+    protected static final String DEFAULT_EXCLUDES = Constants.NONE;
 
     protected static final String PREFIX_KEY = ".prefix";
 
@@ -68,6 +71,8 @@ public class BaseMetaInfConfig {
 
         List<String> contextKeys = CollectionUtils.getTrimmedListFromCSV(prefixes);
 
+        List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
+
         for (String contextKey : contextKeys) {
             MetaInfContext context = new MetaInfContext();
 
@@ -79,14 +84,12 @@ public class BaseMetaInfConfig {
             context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
 
             context.setIncludes(SpringUtils.getIncludes(env, buildContextKey(contextKey, INCLUDES_KEY)));
-            context.setExcludes(SpringUtils.getExcludes(env, buildContextKey(contextKey, EXCLUDES_KEY)));
+            context.setExcludes(SpringUtils.getExcludes(env, buildContextKey(contextKey, EXCLUDES_KEY), DEFAULT_EXCLUDES));
 
             context.setPrefix(SpringUtils.getProperty(env, buildContextKey(contextKey, PREFIX_KEY), DEFAULT_PREFIX));
 
-
+            contexts.add(context);
         }
-
-        List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
 
         MetaInfExecutable mie = new MetaInfExecutable();
         mie.setSkip(SpringUtils.getBoolean(env, EXECUTABLE_SKIP_KEY, MetaInfExecutable.DEFAULT_EXECUTION_SKIP));
