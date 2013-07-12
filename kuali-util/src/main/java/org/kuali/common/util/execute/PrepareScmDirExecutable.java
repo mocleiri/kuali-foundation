@@ -91,7 +91,7 @@ public class PrepareScmDirExecutable implements Executable {
 		return diffOnly;
 	}
 
-	public void setSkipCopy(boolean diffOnly) {
+	public void setDiffOnly(boolean diffOnly) {
 		this.diffOnly = diffOnly;
 	}
 

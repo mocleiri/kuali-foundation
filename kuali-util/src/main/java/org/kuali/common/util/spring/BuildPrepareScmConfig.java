@@ -38,7 +38,7 @@ public class BuildPrepareScmConfig {
 	// SCM directories to ignore
 	private static final String IGNORES_KEY = "build.scm.prepare.ignores";
 	private static final String SKIP_KEY = "build.scm.prepare.skip";
-	private static final String SKIP_COPY_FILES_KEY = "build.scm.prepare.copyfiles.skip";
+	private static final String DIFF_ONLY_KEY = "build.scm.prepare.diffOnly";
 
 	@Autowired
 	Environment env;
@@ -88,7 +88,7 @@ public class BuildPrepareScmConfig {
 			PrepareScmDirExecutable exec = new PrepareScmDirExecutable();
 			exec.setRequest(request);
 			exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
-			exec.setSkipCopy(SpringUtils.getBoolean(env, SKIP_COPY_FILES_KEY, false));
+			exec.setDiffOnly(SpringUtils.getBoolean(env, DIFF_ONLY_KEY, false));
 			exec.setRelativeDir(relativeDir);
 
 			// Add the executable to our list
