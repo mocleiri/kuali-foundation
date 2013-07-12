@@ -37,6 +37,11 @@ public class BuildUpdateScmConfig {
 	private static final String ADDS_KEY = "build.scm.update.adds";
 	private static final String DELETES_KEY = "build.scm.update.deletes";
 
+	// By default, skip the SCM update. Force them to explicitly configure this to true
+	// The reason for this, is that this code alters the contents of the SCM system
+	// We want to force clients to manually configure something in order to make that happen
+	private static final boolean DEFAULT_SKIP_VALUE = true;
+
 	@Autowired
 	Environment env;
 
@@ -49,7 +54,7 @@ public class BuildUpdateScmConfig {
 	@Bean
 	public BuildScmExecutable buildScmExecutable() {
 
-		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, true);
+		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, DEFAULT_SKIP_VALUE);
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
 		List<PrepareScmDirExecutable> preparers = buildPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = getScmRequest();
