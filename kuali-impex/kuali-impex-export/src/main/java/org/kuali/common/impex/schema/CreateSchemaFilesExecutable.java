@@ -22,6 +22,7 @@ public class CreateSchemaFilesExecutable implements Executable {
 
 	@Override
 	public void execute() {
+
 		if (skip) {
 			return;
 		}
