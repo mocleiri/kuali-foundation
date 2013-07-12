@@ -24,7 +24,7 @@ import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.DumpSchemaExecutableOld;
+import org.kuali.common.impex.schema.execute.DumpSchemaExecutableOld;
 import org.kuali.common.impex.schema.service.ExtractSchemaResult;
 import org.kuali.common.impex.spring.SchemaExportConfig;
 import org.kuali.common.impex.spring.ExtractSchemaConfig;
