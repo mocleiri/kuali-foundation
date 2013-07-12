@@ -16,6 +16,7 @@ public class DumpProjectContext extends DefaultProjectContext {
 		String prefix = ProjectUtils.getCommonClassPathPrefix(Constants.ARTIFACT_ID);
 		List<String> locations = new ArrayList<String>();
 		locations.add(prefix + "/common.properties");
+		locations.add(prefix + "/extract.properties");
 		locations.add(prefix + "/dump.properties");
 		return locations;
 	}
