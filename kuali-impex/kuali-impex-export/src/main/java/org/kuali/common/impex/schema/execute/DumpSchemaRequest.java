@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
 
-public class DumpSchemaFileRequest {
+public class DumpSchemaRequest {
 
 	Schema schema;
 	List<String> includes;

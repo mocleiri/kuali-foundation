@@ -13,12 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-public class DumpSchemaFilesExecutable implements Executable {
+public class DumpSchemasExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(DumpSchemaFilesExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(DumpSchemasExecutable.class);
 
 	DumpSchemaService service = DumpSchemaExecutable.DEFAULT_EXPORT_SCHEMA_SERVICE;
-	List<DumpSchemaFileRequest> requests;
+	List<DumpSchemaRequest> requests;
 	boolean skip;
 
 	@Override
@@ -30,12 +30,12 @@ public class DumpSchemaFilesExecutable implements Executable {
 
 		Assert.notNull(requests, "requests is null");
 
-		for (DumpSchemaFileRequest request : requests) {
+		for (DumpSchemaRequest request : requests) {
 			doRequest(request);
 		}
 	}
 
-	protected void doRequest(DumpSchemaFileRequest request) {
+	protected void doRequest(DumpSchemaRequest request) {
 
 		// Create a filter from the includes/excludes they supplied
 		StringFilter filter = StringFilter.getInstance(request.getIncludes(), request.getExcludes());
@@ -69,11 +69,11 @@ public class DumpSchemaFilesExecutable implements Executable {
 		this.service = service;
 	}
 
-	public List<DumpSchemaFileRequest> getRequests() {
+	public List<DumpSchemaRequest> getRequests() {
 		return requests;
 	}
 
-	public void setRequests(List<DumpSchemaFileRequest> requests) {
+	public void setRequests(List<DumpSchemaRequest> requests) {
 		this.requests = requests;
 	}
 
