@@ -30,16 +30,13 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DumpSchemaConfig {
 
-	// Required (no default value)
-	public static final String FILE_KEY = "impex.dump.schema.file";
-
-	// Optional
-	public static final String SERVICE_KEY = "impex.dump.schema.service";
-	public static final String INCLUDES_KEY = "impex.dump.schema.includes";
-	public static final String EXCLUDES_KEY = "impex.dump.schema.excludes";
-	public static final String SKIP_KEY = "impex.dump.schema.skip";
-	public static final String RELATIVE_DIR_KEY = "impex.dump.schema.dir.relative";
-	public static final String LOG_EXCLUDES_KEY = "impex.dump.schema.log.excludes";
+	private static final String FILE_KEY = "impex.dump.schema.file";
+	private static final String SERVICE_KEY = "impex.dump.schema.service";
+	private static final String INCLUDES_KEY = "impex.dump.schema.includes";
+	private static final String EXCLUDES_KEY = "impex.dump.schema.excludes";
+	private static final String SKIP_KEY = "impex.dump.schema.skip";
+	private static final String RELATIVE_DIR_KEY = "impex.dump.schema.dir.relative";
+	private static final String LOG_EXCLUDES_KEY = "impex.dump.schema.log.excludes";
 
 	@Autowired
 	Environment env;
