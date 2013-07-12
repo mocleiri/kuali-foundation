@@ -67,6 +67,7 @@ public class BuildScmExecutable implements Executable {
 		exec.setRequest(combined);
 		exec.setService(service);
 		exec.setSkip(skipScm);
+		exec.setLogConfiguration(true);
 		exec.execute();
 
 	}
