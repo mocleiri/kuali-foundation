@@ -13,9 +13,11 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.spring;
+package org.kuali.common.impex.database;
 
-import org.kuali.common.impex.DumpDatabaseExecutable;
+import org.kuali.common.impex.spring.DumpDataConfig;
+import org.kuali.common.impex.spring.DumpSchemaConfig;
+import org.kuali.common.impex.spring.ExtractSchemaConfig;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;

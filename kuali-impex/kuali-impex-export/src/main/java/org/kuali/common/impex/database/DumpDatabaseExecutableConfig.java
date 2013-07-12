@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.spring;
+package org.kuali.common.impex.database;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.ExecutableConfig;
