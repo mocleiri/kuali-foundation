@@ -84,7 +84,7 @@ public class FileSystemUtils {
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
 	 */
-	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir, boolean skipCopy) {
+	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir, boolean diffOnly) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(request, "request is null");
@@ -105,13 +105,14 @@ public class FileSystemUtils {
 		DirectoryDiff diff = getDiff(diffRequest);
 
 		// Copy files from the source directory to the SCM directory
-		CopyFilesExecutable exec = new CopyFilesExecutable();
-		exec.setSrcDir(request.getSrcDir());
-		exec.setDstDir(request.getScmDir());
-		exec.setExcludes(request.getScmIgnorePatterns());
-		exec.setRelativeDir(relativeDir);
-		exec.setSkip(skipCopy);
-		exec.execute();
+		if (!diffOnly) {
+			CopyFilesExecutable exec = new CopyFilesExecutable();
+			exec.setSrcDir(request.getSrcDir());
+			exec.setDstDir(request.getScmDir());
+			exec.setExcludes(request.getScmIgnorePatterns());
+			exec.setRelativeDir(relativeDir);
+			exec.execute();
+		}
 
 		// Return the diff so we'll know what SCM needs to add/delete from its directory
 		return diff;
