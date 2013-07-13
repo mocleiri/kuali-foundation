@@ -19,15 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.UtilProjectContext;
 
 /**
  *
  */
-public abstract class MetaInfProcessContext extends DefaultProjectContext {
+public abstract class MetaInfProcessContext extends UtilProjectContext {
 
-	protected static final String ARTIFACT_ID = ProjectUtils.KUALI_UTIL_ARTIFACT_ID;
 	protected static final String FEATURE_ID = "metainf";
 	protected static final String PROPERTIES_LOCATION_PREFIX = ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/" + FEATURE_ID;
 	protected static final String COMMON_PROPERTIES_LOCATION = PROPERTIES_LOCATION_PREFIX + "/common.properties";
@@ -37,6 +36,6 @@ public abstract class MetaInfProcessContext extends DefaultProjectContext {
 	}
 
 	public MetaInfProcessContext(List<String> propertyLocations) {
-		super(ARTIFACT_ID, CollectionUtils.combine(COMMON_PROPERTIES_LOCATION, propertyLocations));
+		super(CollectionUtils.combine(COMMON_PROPERTIES_LOCATION, propertyLocations));
 	}
 }

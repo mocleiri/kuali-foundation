@@ -39,6 +39,7 @@ public class ProjectUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	private static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
 
 	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
 	public static final String KUALI_UTIL_ARTIFACT_ID = UtilProjectContext.ARTIFACT_ID;
@@ -65,7 +66,8 @@ public class ProjectUtils {
 	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
 	 */
 	public static String getClassPathPrefix(String groupId, String artifactId) {
-		return "classpath:" + Str.getPath(groupId) + "/" + artifactId;
+		Project project = loadProject(groupId, artifactId);
+		return "classpath:" + getResourcePath(project);
 	}
 
 	/**
@@ -104,7 +106,7 @@ public class ProjectUtils {
 	 * Given <code>org.kuali.common:kuali-util</code> return <code>org/kuali/common/kuali-util</code>
 	 */
 	public static String getResourcePath(Project project) {
-		String groupIdPath = project.getProperties().getProperty("project.groupId.base.path");
+		String groupIdPath = project.getProperties().getProperty(GROUP_ID_BASE_PATH_KEY);
 		String artifactId = project.getArtifactId();
 		return groupIdPath + "/" + artifactId;
 	}

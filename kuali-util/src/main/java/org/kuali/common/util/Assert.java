@@ -21,6 +21,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class Assert extends org.springframework.util.Assert {
 
+	public static void exists(String location) {
+		exists(location, "[Assertion failed] - [" + location + "] does not exist");
+	}
+
+	public static void exists(String location, String message) {
+		isTrue(LocationUtils.exists(location), message);
+	}
+
 	public static void isExistingDir(File dir) {
 		isExistingDir(dir, "[Assertion failed] - [" + dir + "] is not an existing directory");
 	}
