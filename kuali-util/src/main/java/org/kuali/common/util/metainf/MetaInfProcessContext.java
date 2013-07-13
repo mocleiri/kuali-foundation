@@ -15,10 +15,10 @@
  */
 package org.kuali.common.util.metainf;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectUtils;
 
@@ -32,15 +32,11 @@ public abstract class MetaInfProcessContext extends DefaultProjectContext {
 	protected static final String PROPERTIES_LOCATION_PREFIX = ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/" + FEATURE_ID;
 	protected static final String COMMON_PROPERTIES_LOCATION = PROPERTIES_LOCATION_PREFIX + "/common.properties";
 
-	public MetaInfProcessContext(String location) {
-		this(Arrays.asList(location));
+	public MetaInfProcessContext(String propertyLocation) {
+		this(Arrays.asList(propertyLocation));
 	}
 
-	public MetaInfProcessContext(List<String> locations) {
-		super(ARTIFACT_ID);
-		List<String> propertyLocations = new ArrayList<String>();
-		propertyLocations.add(COMMON_PROPERTIES_LOCATION);
-		propertyLocations.addAll(locations);
-		setPropertyLocations(propertyLocations);
+	public MetaInfProcessContext(List<String> propertyLocations) {
+		super(ARTIFACT_ID, CollectionUtils.combine(COMMON_PROPERTIES_LOCATION, propertyLocations));
 	}
 }
