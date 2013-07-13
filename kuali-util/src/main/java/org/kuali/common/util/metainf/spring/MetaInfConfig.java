@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.metainf;
+package org.kuali.common.util.metainf.spring;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.MetaInfExecutable;
+import org.kuali.common.util.metainf.MetaInfContext;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
