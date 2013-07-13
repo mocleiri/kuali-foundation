@@ -31,20 +31,23 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class MetaInfConfig {
 
-	protected static final String EXECUTABLE_SKIP_KEY = "metainf.skip";
+	// Environment property keys
 	protected static final String METAINF_CONTEXTS_KEY = "metainf.contexts";
+	protected static final String EXECUTABLE_SKIP_KEY = "metainf.skip";
 	protected static final String ADD_LINE_COUNT_KEY = ".linecount";
-	protected static final boolean DEFAULT_ADD_LINE_COUNT = false;
 	protected static final String ADD_PROPERTIES_FILE_KEY = ".propertiesfile";
-	protected static final boolean DEFAULT_ADD_PROPERTIES_FILE = false;
-	protected static final String SORT_KEY = ".sort";
-	protected static final boolean DEFAULT_SORT = MetaInfContext.DEFAULT_SORT;
 	protected static final String BASE_DIR_KEY = ".basedir";
 	protected static final String OUTPUT_FILE_KEY = ".output";
 	protected static final String INCLUDES_KEY = ".includes";
 	protected static final String EXCLUDES_KEY = ".excludes";
-	protected static final String DEFAULT_EXCLUDES = Constants.NONE;
+	protected static final String SORT_KEY = ".sort";
 	protected static final String PREFIX_KEY = ".prefix";
+
+	// Default values
+	protected static final boolean DEFAULT_ADD_LINE_COUNT = false;
+	protected static final boolean DEFAULT_ADD_PROPERTIES_FILE = false;
+	protected static final boolean DEFAULT_SORT = MetaInfContext.DEFAULT_SORT;
+	protected static final String DEFAULT_EXCLUDES = Constants.NONE;
 	protected static final String DEFAULT_PREFIX = MetaInfContext.DEFAULT_PREFIX;
 
 	@Autowired
@@ -62,9 +65,9 @@ public class MetaInfConfig {
 		for (String contextKey : contextKeys) {
 			MetaInfContext context = new MetaInfContext();
 
-			context.setAddLineCount(getDefaultedBoolean(contextKey, ADD_LINE_COUNT_KEY, DEFAULT_ADD_LINE_COUNT));
-			context.setAddPropertiesFile(getDefaultedBoolean(contextKey, ADD_PROPERTIES_FILE_KEY, DEFAULT_ADD_PROPERTIES_FILE));
-			context.setSort(getDefaultedBoolean(contextKey, SORT_KEY, DEFAULT_SORT));
+			context.setAddLineCount(getBoolean(contextKey, ADD_LINE_COUNT_KEY, DEFAULT_ADD_LINE_COUNT));
+			context.setAddPropertiesFile(getBoolean(contextKey, ADD_PROPERTIES_FILE_KEY, DEFAULT_ADD_PROPERTIES_FILE));
+			context.setSort(getBoolean(contextKey, SORT_KEY, DEFAULT_SORT));
 
 			context.setBaseDir(SpringUtils.getFile(env, buildContextKey(contextKey, BASE_DIR_KEY)));
 			context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
@@ -77,19 +80,19 @@ public class MetaInfConfig {
 			contexts.add(context);
 		}
 
-		MetaInfExecutable mie = new MetaInfExecutable();
-		mie.setSkip(SpringUtils.getBoolean(env, EXECUTABLE_SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
-		mie.setContexts(contexts);
-		return mie;
+		MetaInfExecutable exec = new MetaInfExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, EXECUTABLE_SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
+		exec.setContexts(contexts);
+		return exec;
 	}
 
-	private boolean getDefaultedBoolean(String contextKey, String keySuffix, boolean defaultVal) {
-		String key = buildContextKey(contextKey, keySuffix);
-		return SpringUtils.getBoolean(env, key, defaultVal);
+	protected boolean getBoolean(String context, String suffix, boolean defaultValue) {
+		String key = buildContextKey(context, suffix);
+		return SpringUtils.getBoolean(env, key, defaultValue);
 	}
 
-	private String buildContextKey(String contextKey, String keySuffix) {
-		return contextKey + keySuffix;
+	protected String buildContextKey(String context, String suffix) {
+		return context + suffix;
 	}
 
 }
