@@ -11,7 +11,8 @@ public final class Constants {
 	public static final String ARTIFACT_ID = ProjectUtils.KUALI_UTIL_ARTIFACT_ID;
 
 	public static final String METAINF = "metainf";
-	public static final String LOCATION_PREFIX = ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/" + METAINF;
+	public static final String PROPERTIES_LOCATION_PREFIX = ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/" + METAINF;
+	public static final String COMMON_PROPERTIES_LOCATION = PROPERTIES_LOCATION_PREFIX + "/common.properties";
 
 	/**
 	 * These default values help ensure backwards compatibility with deprecated config classes using MetaInfContext

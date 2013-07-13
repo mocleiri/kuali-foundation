@@ -33,8 +33,8 @@ public class SqlMetaProcessContext extends DefaultProjectContext {
 
 	protected static List<String> getLocations() {
 		List<String> locations = new ArrayList<String>();
-		locations.add(Constants.LOCATION_PREFIX + "/common.properties");
-		locations.add(Constants.LOCATION_PREFIX + "/sql.properties");
+		locations.add(Constants.COMMON_PROPERTIES_LOCATION);
+		locations.add(Constants.PROPERTIES_LOCATION_PREFIX + "/sql.properties");
 		return locations;
 	}
 
