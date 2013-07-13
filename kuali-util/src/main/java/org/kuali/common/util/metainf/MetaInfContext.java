@@ -22,13 +22,12 @@ import org.kuali.common.util.CollectionUtils;
 
 public class MetaInfContext {
 
-    /**
-     * These default constants are set here to ensure backwards compatibility with
-     * deprecated config classes using MetaInfContext
-     */
-    public static final String DEFAULT_PREFIX = "classpath:";
-
-    public static final boolean DEFAULT_SORT = true;
+	/**
+	 * These default constants are set here to ensure backwards compatibility with deprecated config classes using MetaInfContext
+	 */
+	public static final String DEFAULT_PREFIX = "classpath:";
+	public static final boolean DEFAULT_SORT = true;
+	public static final String METAINF = "metainf";
 
 	File baseDir;
 	File outputFile;
@@ -103,18 +102,19 @@ public class MetaInfContext {
 		this.addLineCount = addLineCount;
 	}
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
 
-        sb.append("addPropertiesFile: ").append(addPropertiesFile);
-        sb.append("addLineCount: ").append(addLineCount);
-        sb.append("includes: ").append(CollectionUtils.getCSV(getIncludes()));
-        sb.append("excludes: ").append(CollectionUtils.getCSV(getExcludes()));
-        sb.append("output: ").append(outputFile.toString());
-        sb.append("basedir: ").append(baseDir.toString());
-        sb.append("prefix: ").append(prefix);
-        sb.append("sort: ").append(sort);
+		sb.append("addPropertiesFile: ").append(addPropertiesFile);
+		sb.append("addLineCount: ").append(addLineCount);
+		sb.append("includes: ").append(CollectionUtils.getCSV(getIncludes()));
+		sb.append("excludes: ").append(CollectionUtils.getCSV(getExcludes()));
+		sb.append("output: ").append(outputFile.toString());
+		sb.append("basedir: ").append(baseDir.toString());
+		sb.append("prefix: ").append(prefix);
+		sb.append("sort: ").append(sort);
 
-        return sb.toString();
-    }
+		return sb.toString();
+	}
 }

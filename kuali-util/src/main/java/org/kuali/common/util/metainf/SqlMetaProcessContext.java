@@ -35,10 +35,10 @@ public class SqlMetaProcessContext extends DefaultProjectContext {
 	}
 
 	protected static List<String> getLocations() {
-		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID);
+		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID) + "/" + MetaInfContext.METAINF;
 		List<String> locations = new ArrayList<String>();
-		locations.add(prefix + "/metainf/common.properties");
-		locations.add(prefix + "/metainf/sql.properties");
+		locations.add(prefix + "/common.properties");
+		locations.add(prefix + "/sql.properties");
 		return locations;
 	}
 

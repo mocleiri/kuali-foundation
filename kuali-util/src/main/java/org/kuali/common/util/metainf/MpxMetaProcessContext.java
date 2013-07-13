@@ -32,10 +32,10 @@ public class MpxMetaProcessContext extends DefaultProjectContext {
 	}
 
 	protected static List<String> getLocations() {
-		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID);
+		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID) + "/" + MetaInfContext.METAINF;
 		List<String> locations = new ArrayList<String>();
-		locations.add(prefix + "/metainf/common.properties");
-		locations.add(prefix + "/metainf/mpx.properties");
+		locations.add(prefix + "/common.properties");
+		locations.add(prefix + "/mpx.properties");
 		return locations;
 	}
 
