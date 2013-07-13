@@ -41,7 +41,7 @@ public class ProjectUtils {
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
-	public static final String KUALI_UTIL_ARTIFACT_ID = ProjectConstants.UTIL_ARTIFACT_ID;
+	public static final String KUALI_UTIL_ARTIFACT_ID = UtilProjectContext.ARTIFACT_ID;
 
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
@@ -143,6 +143,15 @@ public class ProjectUtils {
 
 	public static String getGav(String groupId, String artifactId) {
 		return groupId + ":" + artifactId;
+	}
+
+	/**
+	 * Create a <code>Project</code> object from <code>groupId</code>,<code>artifactId</code> pair. This includes loading the corresponding <code>project.properties</code> file
+	 * from disk.
+	 */
+	public static Project loadProject(String groupId, String artifactId) {
+		String gav = getGav(groupId, artifactId);
+		return loadProject(gav);
 	}
 
 	/**
