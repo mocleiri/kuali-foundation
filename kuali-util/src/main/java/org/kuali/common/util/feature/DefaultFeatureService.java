@@ -35,7 +35,7 @@ public class DefaultFeatureService implements FeatureService {
 
 	protected List<FeatureContext> getFeatureContexts(Feature feature) {
 		Properties properties = feature.getProperties();
-		String contextsKey = "feature." + feature.getFeatureId() + ".contexts";
+		String contextsKey = "feature.contexts";
 		String csv = properties.getProperty(contextsKey);
 		List<String> contextNames = CollectionUtils.getTrimmedListFromCSV(csv);
 
@@ -49,25 +49,25 @@ public class DefaultFeatureService implements FeatureService {
 		return contexts;
 	}
 
-	protected FeatureContext getFeatureContext(String featureId, String name, Properties properties) {
-		String key = "feature." + featureId + "." + name + ".locations";
-		String csvKeys = properties.getProperty(key);
-		List<String> keys = CollectionUtils.getTrimmedListFromCSV(csvKeys);
-		List<LocationContext> locationContexts = getLocationContexts(featureId, name, keys, properties);
+	protected FeatureContext getFeatureContext(String contextName, Properties properties) {
+		String key = "feature." + contextName + ".locations";
+		String csv = properties.getProperty(key);
+		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(csv);
+		List<LocationContext> locationContexts = getLocationContexts(locationKeys, properties);
 		FeatureContext context = new FeatureContext();
-		context.setName(name);
+		context.setName(contextName);
 		context.setLocationContexts(locationContexts);
 		return context;
 	}
 
-	protected List<LocationContext> getLocationContexts(String featureId, String name, List<String> keys, Properties properties) {
+	protected List<LocationContext> getLocationContexts(List<String> locationKeys, Properties properties) {
 		List<LocationContext> locationContexts = new ArrayList<LocationContext>();
-		for (String key : keys) {
-			String modeKey = key + ".mode";
-			String encodingKey = key + ".encoding";
+		for (String locationKey : locationKeys) {
+			String modeKey = locationKey + ".mode";
+			String encodingKey = locationKey + ".encoding";
 
-			String location = properties.getProperty(key);
-			Assert.hasText(location, "[" + key + "] is not set");
+			String location = properties.getProperty(locationKey);
+			Assert.hasText(location, "[" + locationKey + "] is not set");
 			Assert.exists(location);
 
 			String modeValue = properties.getProperty(modeKey);
