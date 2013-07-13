@@ -20,24 +20,26 @@ import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectConstants;
+import org.kuali.common.util.ProjectUtils;
 
 /**
- * This class represents a property context for the process of producing META-INF resource files
- * specific to the standard Kuali structure for sql resources
- *
+ * This class represents a property context for the process of producing META-INF resource files specific to the standard Kuali structure for sql resources
+ * 
  * TODO maybe a link to a wiki entry for this standard?
- *
+ * 
  */
 public class SqlMetaProcessContext extends DefaultProjectContext {
 
-    public SqlMetaProcessContext() {
-        super(ProjectConstants.COMMON_GROUP_ID, ProjectConstants.UTIL_ARTIFACT_ID);
+	public SqlMetaProcessContext() {
+		super(ProjectConstants.COMMON_GROUP_ID, ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
+	}
 
-        // build property locations
-        List<String> sqlPropertyLocations = new ArrayList<String>();
-        sqlPropertyLocations.add("classpath:org/kuali/common/kuali-util/metainf/common.properties");
-        sqlPropertyLocations.add("classpath:org/kuali/common/kuali-util/metainf/sql.properties");
-        setPropertyLocations(sqlPropertyLocations);
-    }
+	protected static List<String> getLocations() {
+		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID);
+		List<String> locations = new ArrayList<String>();
+		locations.add(prefix + "/metainf/common.properties");
+		locations.add(prefix + "/metainf/sql.properties");
+		return locations;
+	}
 
 }
