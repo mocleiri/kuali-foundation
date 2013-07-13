@@ -16,7 +16,7 @@
 package org.kuali.common.impex.cli;
 
 import org.kuali.common.impex.DumpProjectContext;
-import org.kuali.common.impex.database.DumpDatabaseExecutableConfig;
+import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
