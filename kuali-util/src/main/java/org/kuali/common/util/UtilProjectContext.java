@@ -15,10 +15,23 @@
  */
 package org.kuali.common.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class UtilProjectContext extends DefaultProjectContext {
 
+	// The artifact id for Kuali's util project
+	public static final String ARTIFACT_ID = "kuali-util";
+
 	public UtilProjectContext() {
-		super(ProjectConstants.UTIL_ARTIFACT_ID);
+		this((List<String>) null);
 	}
 
+	public UtilProjectContext(String propertyLocation) {
+		this(Arrays.asList(propertyLocation));
+	}
+
+	public UtilProjectContext(List<String> propertyLocations) {
+		super(ARTIFACT_ID, propertyLocations);
+	}
 }
