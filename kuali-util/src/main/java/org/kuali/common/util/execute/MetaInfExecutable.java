@@ -24,10 +24,10 @@ import org.springframework.util.Assert;
 
 public class MetaInfExecutable implements Executable {
 
-	List<MetaInfContext> contexts;
-	boolean skip;
+	public static final boolean DEFAULT_SKIP = false;
 
-	public final static boolean DEFAULT_EXECUTION_SKIP = false;
+	boolean skip = DEFAULT_SKIP;
+	List<MetaInfContext> contexts;
 
 	@Override
 	public void execute() {
@@ -36,7 +36,7 @@ public class MetaInfExecutable implements Executable {
 			return;
 		}
 
-		Assert.notNull(contexts, "contexts are null");
+		Assert.notNull(contexts, "contexts is null");
 
 		try {
 			MetaInfUtils.scanAndCreateFiles(contexts);

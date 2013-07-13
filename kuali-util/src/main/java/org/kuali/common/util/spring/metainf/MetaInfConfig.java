@@ -92,7 +92,7 @@ public class MetaInfConfig {
         }
 
         MetaInfExecutable mie = new MetaInfExecutable();
-        mie.setSkip(SpringUtils.getBoolean(env, EXECUTABLE_SKIP_KEY, MetaInfExecutable.DEFAULT_EXECUTION_SKIP));
+        mie.setSkip(SpringUtils.getBoolean(env, EXECUTABLE_SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
         mie.setContexts(contexts);
         return mie;
     }
