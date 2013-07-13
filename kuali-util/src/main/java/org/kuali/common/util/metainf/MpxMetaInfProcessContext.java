@@ -15,25 +15,14 @@
  */
 package org.kuali.common.util.metainf;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.common.util.DefaultProjectContext;
 
 /**
  * This class represents a property context for the process of producing META-INF resource files specific to the standard Kuali structure for .mpx resources
  */
-public class MpxMetaProcessContext extends DefaultProjectContext {
+public class MpxMetaInfProcessContext extends MetaInfProcessContext {
 
-	public MpxMetaProcessContext() {
-		super(Constants.ARTIFACT_ID, getLocations());
-	}
-
-	protected static List<String> getLocations() {
-		List<String> locations = new ArrayList<String>();
-		locations.add(Constants.COMMON_PROPERTIES_LOCATION);
-		locations.add(Constants.PROPERTIES_LOCATION_PREFIX + "/mpx.properties");
-		return locations;
+	public MpxMetaInfProcessContext() {
+		super(PROPERTIES_LOCATION_PREFIX + "/mpx.properties");
 	}
 
 }

@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.metainf.spring;
 
-import org.kuali.common.util.metainf.MpxMetaProcessContext;
+import org.kuali.common.util.metainf.MpxMetaInfProcessContext;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.AbstractPropertySourceConfig;
 import org.kuali.common.util.spring.ConfigUtils;
@@ -24,7 +24,7 @@ public class MpxMetaPropertySourceConfig extends AbstractPropertySourceConfig {
 
     @Override
     protected ProjectProperties getProjectProperties() {
-        return ConfigUtils.getProjectProperties(new MpxMetaProcessContext());
+        return ConfigUtils.getProjectProperties(new MpxMetaInfProcessContext());
     }
 
 }
