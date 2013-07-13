@@ -42,7 +42,7 @@ public class FileSystemUtils {
 	public static final List<String> DEFAULT_SCM_IGNORE_PATTERNS = Arrays.asList(SVN_PATTERN, GIT_PATTERN);
 
 	/**
-	 * Return a recursive listing of all files in the directory ignoring <code>&#43;&#43;/.svn/*</code> and <code>&#43;&#43;/.git/*</code>
+	 * Return a recursive listing of all files in the directory ignoring <code>&#43;&#43;/.svn/&#43;&#43;</code> and <code>&#43;&#43;/.git/&#43;&#43;</code>
 	 */
 	public static List<File> getAllNonScmFiles(File dir) {
 		return getAllNonScmFiles(dir, DEFAULT_SCM_IGNORE_PATTERNS);
