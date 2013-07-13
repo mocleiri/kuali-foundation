@@ -21,19 +21,19 @@ import java.util.List;
 import org.kuali.common.impex.schema.DumpSchemaService;
 import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.execute.DumpSchemaRequest;
-import org.kuali.common.impex.schema.execute.DumpSchemasExecutable;
 import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Import({ ExportServicesConfig.class })
 public class DumpSchemaConfig {
 
 	private static final String FILE_KEY = "impex.dump.schema.file";
-	private static final String SERVICE_KEY = "impex.dump.schema.service";
 	private static final String INCLUDES_KEY = "impex.dump.schema.includes";
 	private static final String EXCLUDES_KEY = "impex.dump.schema.excludes";
 	private static final String SKIP_KEY = "impex.dump.schema.skip";
@@ -43,10 +43,13 @@ public class DumpSchemaConfig {
 	@Autowired
 	Environment env;
 
+	@Autowired
+	ExportServicesConfig exportServicesConfig;
+
 	@Bean
 	public DumpSchemaExecutable dumpSchemaExecutable() {
 
-		DumpSchemaService service = SpringUtils.getInstance(env, SERVICE_KEY, DumpSchemasExecutable.DEFAULT_SERVICE.getClass());
+		DumpSchemaService service = exportServicesConfig.exportDumpSchemaService();
 
 		// Extract some context from the environment
 		File outputFile = SpringUtils.getFile(env, FILE_KEY);
