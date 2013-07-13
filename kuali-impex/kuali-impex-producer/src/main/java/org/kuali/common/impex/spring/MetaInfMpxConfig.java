@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.MetaInfContext;
 import org.kuali.common.util.MetaInfUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.metainf.MetaInfContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
