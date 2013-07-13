@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.kuali.common.util.MetaInfUtils;
-import org.kuali.common.util.spring.metainf.MetaInfContext;
+import org.kuali.common.util.metainf.MetaInfContext;
 import org.springframework.util.Assert;
 
 public class MetaInfExecutable implements Executable {

@@ -13,17 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.spring.metainf;
+package org.kuali.common.util.metainf.spring;
 
+import org.kuali.common.util.metainf.SqlMetaProcessContext;
 import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.spring.AbstractPropertySourceConfig;
 import org.kuali.common.util.spring.ConfigUtils;
+import org.springframework.context.annotation.Configuration;
 
-public class MpxMetaPropertySourceConfig extends AbstractPropertySourceConfig {
+@Configuration
+public class SqlMetaPropertySourceConfig extends AbstractPropertySourceConfig {
 
     @Override
     protected ProjectProperties getProjectProperties() {
-        return ConfigUtils.getProjectProperties(new MpxMetaProcessContext());
+        return ConfigUtils.getProjectProperties(new SqlMetaProcessContext());
     }
 
 }

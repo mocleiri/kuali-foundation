@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.spring.metainf.MetaInfContext;
+import org.kuali.common.util.metainf.MetaInfContext;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.MetaInfExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
