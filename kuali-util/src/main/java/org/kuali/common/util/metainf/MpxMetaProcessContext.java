@@ -28,7 +28,7 @@ import org.kuali.common.util.ProjectUtils;
 public class MpxMetaProcessContext extends DefaultProjectContext {
 
 	public MpxMetaProcessContext() {
-		super(ProjectConstants.COMMON_GROUP_ID, ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
+		super(ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
 	}
 
 	protected static List<String> getLocations() {

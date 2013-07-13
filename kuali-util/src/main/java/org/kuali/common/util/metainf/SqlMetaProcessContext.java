@@ -26,12 +26,11 @@ import org.kuali.common.util.ProjectUtils;
  * This class represents a property context for the process of producing META-INF resource files specific to the standard Kuali structure for sql resources
  * 
  * TODO maybe a link to a wiki entry for this standard?
- * 
  */
 public class SqlMetaProcessContext extends DefaultProjectContext {
 
 	public SqlMetaProcessContext() {
-		super(ProjectConstants.COMMON_GROUP_ID, ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
+		super(ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
 	}
 
 	protected static List<String> getLocations() {
