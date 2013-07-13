@@ -34,7 +34,7 @@ public class MetaInfConfig {
 
 	// Environment property keys
 	protected static final String METAINF_CONTEXTS_KEY = "metainf.contexts";
-	protected static final String EXECUTABLE_SKIP_KEY = "metainf.skip";
+	protected static final String SKIP_KEY = "metainf.skip";
 	protected static final String ADD_LINE_COUNT_KEY = ".linecount";
 	protected static final String ADD_PROPERTIES_FILE_KEY = ".propertiesfile";
 	protected static final String BASE_DIR_KEY = ".basedir";
@@ -82,7 +82,7 @@ public class MetaInfConfig {
 		}
 
 		MetaInfExecutable exec = new MetaInfExecutable();
-		exec.setSkip(SpringUtils.getBoolean(env, EXECUTABLE_SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
 		exec.setContexts(contexts);
 		return exec;
 	}
