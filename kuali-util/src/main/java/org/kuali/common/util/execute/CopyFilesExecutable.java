@@ -17,16 +17,20 @@ package org.kuali.common.util.execute;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.codehaus.plexus.util.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.Assert;
 
 public class CopyFilesExecutable implements Executable {
 
-	List<CopyFileRequest> requests;
 	boolean skip;
+	List<CopyFileRequest> requests;
+
+	// Filled in during execution
+	List<CopyFileResult> results;
 
 	public CopyFilesExecutable() {
 		this(null, false);
@@ -51,19 +55,29 @@ public class CopyFilesExecutable implements Executable {
 
 		Assert.notNull(requests, "requests is null");
 
+		List<CopyFileResult> results = new ArrayList<CopyFileResult>();
 		for (CopyFileRequest request : requests) {
-			copyFile(request.getSource(), request.getDestination());
+			CopyFileResult result = copyFile(request.getSource(), request.getDestination());
+			results.add(result);
 		}
+		this.results = results;
 	}
 
 	protected CopyFileResult copyFile(File src, File dst) {
 		try {
 			boolean overwritten = dst.exists();
 			FileUtils.copyFile(src, dst);
-			return new CopyFileResult(dst, overwritten);
+			return new CopyFileResult(src, dst, overwritten);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
+	}
+
+	/**
+	 * Expose the copy results via a getter
+	 */
+	public List<CopyFileResult> getResults() {
+		return results;
 	}
 
 	public List<CopyFileRequest> getRequests() {

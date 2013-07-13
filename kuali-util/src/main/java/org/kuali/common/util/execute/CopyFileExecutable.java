@@ -17,21 +17,25 @@ package org.kuali.common.util.execute;
 
 import java.io.File;
 
+import org.kuali.common.util.Assert;
+
 public class CopyFileExecutable implements Executable {
 
 	boolean skip;
-	File source;
-	File destination;
+	CopyFileRequest request;
+	CopyFileResult result;
 
 	public CopyFileExecutable() {
-		this(null, null, false);
+		this(null);
 	}
 
-	public CopyFileExecutable(File source, File destination, boolean skip) {
+	public CopyFileExecutable(File source, File destination) {
+		this(new CopyFileRequest(source, destination));
+	}
+
+	public CopyFileExecutable(CopyFileRequest request) {
 		super();
-		this.skip = skip;
-		this.source = source;
-		this.destination = destination;
+		this.request = request;
 	}
 
 	@Override
@@ -41,9 +45,11 @@ public class CopyFileExecutable implements Executable {
 			return;
 		}
 
-		CopyFileRequest request = new CopyFileRequest(source, destination);
+		Assert.notNull(request, "request is null");
+
 		CopyFilesExecutable exec = new CopyFilesExecutable(request);
 		exec.execute();
+		this.result = exec.getResults().get(0);
 	}
 
 	public boolean isSkip() {
@@ -52,22 +58,6 @@ public class CopyFileExecutable implements Executable {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
-	}
-
-	public File getSource() {
-		return source;
-	}
-
-	public void setSource(File source) {
-		this.source = source;
-	}
-
-	public File getDestination() {
-		return destination;
-	}
-
-	public void setDestination(File destination) {
-		this.destination = destination;
 	}
 
 }
