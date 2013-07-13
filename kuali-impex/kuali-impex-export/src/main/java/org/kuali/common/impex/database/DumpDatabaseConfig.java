@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 /**
- * Configures tasks related to dumping data and schema information from a database to disk
+ * Configures tasks related to dumping a database to disk
  */
 @Configuration
 @Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
