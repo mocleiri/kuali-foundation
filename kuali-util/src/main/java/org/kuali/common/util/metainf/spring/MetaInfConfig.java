@@ -21,8 +21,8 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.MetaInfExecutable;
+import org.kuali.common.util.metainf.Constants;
 import org.kuali.common.util.metainf.MetaInfContext;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,9 +47,9 @@ public class MetaInfConfig {
 	// Default values
 	protected static final boolean DEFAULT_ADD_LINE_COUNT = false;
 	protected static final boolean DEFAULT_ADD_PROPERTIES_FILE = false;
-	protected static final boolean DEFAULT_SORT = MetaInfContext.DEFAULT_SORT;
-	protected static final String DEFAULT_EXCLUDES = Constants.NONE;
-	protected static final String DEFAULT_PREFIX = MetaInfContext.DEFAULT_PREFIX;
+	protected static final boolean DEFAULT_SORT = Constants.DEFAULT_SORT;
+	protected static final String DEFAULT_EXCLUDES = org.kuali.common.util.property.Constants.NONE;
+	protected static final String DEFAULT_PREFIX = Constants.DEFAULT_PREFIX;
 
 	@Autowired
 	Environment env;

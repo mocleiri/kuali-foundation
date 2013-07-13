@@ -22,17 +22,10 @@ import org.kuali.common.util.CollectionUtils;
 
 public class MetaInfContext {
 
-	/**
-	 * These default constants are set here to ensure backwards compatibility with deprecated config classes using MetaInfContext
-	 */
-	public static final String DEFAULT_PREFIX = "classpath:";
-	public static final boolean DEFAULT_SORT = true;
-	public static final String METAINF = "metainf";
-
+	String prefix = Constants.DEFAULT_PREFIX;
+	boolean sort = Constants.DEFAULT_SORT;
 	File baseDir;
 	File outputFile;
-	String prefix = DEFAULT_PREFIX;
-	boolean sort = DEFAULT_SORT;
 	List<String> includes;
 	List<String> excludes;
 	boolean addPropertiesFile;

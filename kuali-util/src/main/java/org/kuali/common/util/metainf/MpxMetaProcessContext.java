@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
-import org.kuali.common.util.ProjectConstants;
-import org.kuali.common.util.ProjectUtils;
 
 /**
  * This class represents a property context for the process of producing META-INF resource files specific to the standard Kuali structure for .mpx resources
@@ -28,14 +26,13 @@ import org.kuali.common.util.ProjectUtils;
 public class MpxMetaProcessContext extends DefaultProjectContext {
 
 	public MpxMetaProcessContext() {
-		super(ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
+		super(Constants.ARTIFACT_ID, getLocations());
 	}
 
 	protected static List<String> getLocations() {
-		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID) + "/" + MetaInfContext.METAINF;
 		List<String> locations = new ArrayList<String>();
-		locations.add(prefix + "/common.properties");
-		locations.add(prefix + "/mpx.properties");
+		locations.add(Constants.LOCATION_PREFIX + "/common.properties");
+		locations.add(Constants.LOCATION_PREFIX + "/mpx.properties");
 		return locations;
 	}
 
