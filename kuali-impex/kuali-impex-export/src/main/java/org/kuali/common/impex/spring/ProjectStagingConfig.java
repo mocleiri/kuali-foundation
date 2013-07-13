@@ -43,7 +43,8 @@ public class ProjectStagingConfig {
 	@Bean
 	public Executable projectStagingExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
-		List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable(), copyProjectDataFilesExecutable());
+		// List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable(), copyProjectDataFilesExecutable());
+		List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable());
 		return new ExecutablesExecutable(execs, skip);
 	}
 
@@ -112,7 +113,7 @@ public class ProjectStagingConfig {
 		String includesKey = "impex.staging.schema." + project.getArtifactId() + ".includes";
 		String excludesKey = "impex.staging.schema." + project.getArtifactId() + ".excludes";
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey);
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, DumpConstants.DEFAULT_REGEX_EXCLUDE);
 
 		// Project specific output file
 		File outputFile = ProjectUtils.getResourceFile(stagingDir, project, existingSchemaFile.getName());
