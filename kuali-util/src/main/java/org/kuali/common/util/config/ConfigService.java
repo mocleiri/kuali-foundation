@@ -18,7 +18,11 @@ package org.kuali.common.util.config;
 public interface ConfigService {
 
 	/**
-	 * <code>org.kuali.common:kuali-util:metainf:mpx</code>
+	 * <pre>
+	 *   org.kuali.common:kuali-util             - project config
+	 *   org.kuali.common:kuali-util:metainf     - feature config
+	 *   org.kuali.common:kuali-util:metainf:mpx - feature + context config
+	 * </pre>
 	 */
 	ConfigMetadata loadMetaData(String id);
 
