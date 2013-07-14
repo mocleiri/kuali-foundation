@@ -64,8 +64,8 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 		Properties featureProperties = loadAndCache(project, cm.getFeatureId());
 		Properties enhanced = getEnhanced(project, cm.getFeatureId(), cm.getContextId());
 		Properties resolved = getResolved(featureProperties, enhanced);
-		List<LocationContext> locationContexts = getLocationContexts(project, cm.getFeatureId(), cm.getContextId(), resolved);
-		cm.setLocationContexts(locationContexts);
+		List<Location> locationContexts = getLocationContexts(project, cm.getFeatureId(), cm.getContextId(), resolved);
+		cm.setLocations(locationContexts);
 		return cm;
 	}
 
@@ -94,7 +94,7 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 		return cm;
 	}
 
-	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {
+	protected List<Location> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {
 		// Either there isn't a feature.properties file, or there are no entries in the feature.properties file
 		if (StringUtils.isBlank(contextId) || PropertyUtils.isEmpty(properties)) {
 			return Arrays.asList(getDefaultLocationContext(project, featureName));
@@ -116,12 +116,12 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 		return getLocationContexts(project, featureName, contextId, locationKeys, properties);
 	}
 
-	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, List<String> locationKeys, Properties properties) {
-		List<LocationContext> locationContexts = new ArrayList<LocationContext>();
+	protected List<Location> getLocationContexts(Project project, String featureName, String contextId, List<String> locationKeys, Properties properties) {
+		List<Location> locationContexts = new ArrayList<Location>();
 		for (String locationKey : locationKeys) {
 			MagicValue magicValue = getMagicValue(locationKey);
 			if (magicValue != null) {
-				LocationContext locationContext = getMagicValueLocationContext(project, magicValue, featureName, contextId);
+				Location locationContext = getMagicValueLocationContext(project, magicValue, featureName, contextId);
 				locationContexts.add(locationContext);
 			} else {
 				String modeKey = locationKey + ".mode";
@@ -129,9 +129,9 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 				String location = properties.getProperty(locationKey);
 				Assert.hasText(location, "[" + locationKey + "] is not set");
 				String encoding = PropertyUtils.getProperty(properties, encodingKey, project.getEncoding());
-				String modeString = PropertyUtils.getProperty(properties, modeKey, LocationContext.DEFAULT_MISSING_MODE.name());
+				String modeString = PropertyUtils.getProperty(properties, modeKey, Location.DEFAULT_MISSING_MODE.name());
 				Mode missingLocationMode = Mode.valueOf(StringUtils.upperCase(modeString));
-				LocationContext locationContext = new LocationContext(location, encoding, missingLocationMode);
+				Location locationContext = new Location(location, encoding, missingLocationMode);
 				locationContexts.add(locationContext);
 			}
 		}
@@ -148,7 +148,7 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 		return null;
 	}
 
-	protected LocationContext getMagicValueLocationContext(Project project, MagicValue value, String featureName, String contextId) {
+	protected Location getMagicValueLocationContext(Project project, MagicValue value, String featureName, String contextId) {
 		switch (value) {
 		case COMMON:
 			return getDefaultLocationContext(project, featureName);
@@ -159,19 +159,19 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 		}
 	}
 
-	protected LocationContext getDefaultLocationContext(Project project, String featureName) {
+	protected Location getDefaultLocationContext(Project project, String featureName) {
 		String location = getClasspathLocation(project, featureName) + "/" + COMMON_PROPERTIES_FILENAME;
-		LocationContext context = new LocationContext();
+		Location context = new Location();
 		context.setEncoding(project.getEncoding());
-		context.setLocation(location);
+		context.setValue(location);
 		return context;
 	}
 
-	protected LocationContext getDefaultLocationContext(Project project, String featureName, String contextId) {
+	protected Location getDefaultLocationContext(Project project, String featureName, String contextId) {
 		String location = getClasspathLocation(project, featureName) + "/" + contextId + ".properties";
-		LocationContext context = new LocationContext();
+		Location context = new Location();
 		context.setEncoding(project.getEncoding());
-		context.setLocation(location);
+		context.setValue(location);
 		return context;
 	}
 

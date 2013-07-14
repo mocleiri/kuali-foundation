@@ -23,7 +23,7 @@ public class ConfigMetadata {
 	String artifactId;
 	String featureId;
 	String contextId;
-	List<LocationContext> locationContexts;
+	List<Location> locations;
 
 	public String getFeatureId() {
 		return featureId;
@@ -41,12 +41,12 @@ public class ConfigMetadata {
 		this.contextId = contextId;
 	}
 
-	public List<LocationContext> getLocationContexts() {
-		return locationContexts;
+	public List<Location> getLocations() {
+		return locations;
 	}
 
-	public void setLocationContexts(List<LocationContext> locationContexts) {
-		this.locationContexts = locationContexts;
+	public void setLocations(List<Location> locationContexts) {
+		this.locations = locationContexts;
 	}
 
 	public String getGroupId() {
