@@ -91,7 +91,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 
 	protected ContextConfig findContextConfig(List<ContextConfig> contexts, String contextId) {
 		for (ContextConfig context : contexts) {
-			if (StringUtils.equals(contextId, context.getName())) {
+			if (StringUtils.equals(contextId, context.getId())) {
 				return context;
 			}
 		}

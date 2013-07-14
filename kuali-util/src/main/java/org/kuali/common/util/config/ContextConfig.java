@@ -15,13 +15,13 @@ import org.kuali.common.util.CollectionUtils;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ContextConfig {
 
-	String name;
+	String id;
 	List<Location> locations = new ArrayList<Location>();
 	List<ContextConfig> children = new ArrayList<ContextConfig>();
 
 	public ContextConfig(ContextConfig config) {
 		super();
-		this.name = config.getName();
+		this.id = config.getId();
 		for (Location location : CollectionUtils.toEmptyList(config.getLocations())) {
 			this.locations.add(new Location(location));
 		}
@@ -40,13 +40,13 @@ public class ContextConfig {
 
 	public ContextConfig(String name, List<Location> locations) {
 		super();
-		this.name = name;
+		this.id = name;
 		this.locations = locations;
 	}
 
 	@XmlAttribute
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
 	}
 
 	@XmlElement(name = "location")
@@ -67,8 +67,8 @@ public class ContextConfig {
 		this.children = children;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(String name) {
+		this.id = name;
 	}
 
 }
