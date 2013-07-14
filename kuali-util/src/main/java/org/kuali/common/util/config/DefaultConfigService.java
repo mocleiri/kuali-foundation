@@ -44,7 +44,7 @@ public class DefaultConfigService implements ConfigService {
 	protected static final Map<String, Properties> FEATURE_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
 	@Override
-	public String getId(ConfigMetaData feature) {
+	public String getId(ConfigMetadata feature) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(feature.getGroupId());
 		sb.append(":");
@@ -59,12 +59,12 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
-	public ConfigMetaData loadMetaData(ConfigMetaData feature) {
+	public ConfigMetadata loadMetaData(ConfigMetadata feature) {
 		return loadMetaData(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
 	}
 
 	@Override
-	public ConfigMetaData loadMetaData(String id) {
+	public ConfigMetadata loadMetaData(String id) {
 		Assert.hasText(id, "id is blank");
 		String[] tokens = StringUtils.split(id, ":");
 		Assert.isTrue(tokens.length >= 3, "groupId, artifactId, and name are required");
@@ -76,7 +76,7 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
-	public ConfigMetaData loadMetaData(String groupId, String artifactId, String name, String contextId) {
+	public ConfigMetadata loadMetaData(String groupId, String artifactId, String name, String contextId) {
 		Assert.notBlank(groupId, artifactId, name, "groupId, artifactId, and name cannot be blank");
 
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
@@ -85,7 +85,7 @@ public class DefaultConfigService implements ConfigService {
 		Properties resolved = getResolved(featureProperties, enhanced);
 		List<LocationContext> locationContexts = getLocationContexts(project, name, contextId, resolved);
 
-		ConfigMetaData feature = new ConfigMetaData();
+		ConfigMetadata feature = new ConfigMetadata();
 		feature.setGroupId(groupId);
 		feature.setArtifactId(artifactId);
 		feature.setName(name);
@@ -95,7 +95,7 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
-	public ConfigMetaData loadMetaData(String groupId, String artifactId, String name) {
+	public ConfigMetadata loadMetaData(String groupId, String artifactId, String name) {
 		return loadMetaData(groupId, artifactId, name, null);
 	}
 

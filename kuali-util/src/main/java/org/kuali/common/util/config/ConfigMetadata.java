@@ -17,7 +17,7 @@ package org.kuali.common.util.config;
 
 import java.util.List;
 
-public class ConfigMetaData {
+public class ConfigMetadata {
 
 	String groupId;
 	String artifactId;

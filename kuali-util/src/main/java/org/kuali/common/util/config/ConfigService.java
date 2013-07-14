@@ -20,14 +20,14 @@ public interface ConfigService {
 	/**
 	 * <code>org.kuali.common:kuali-util:metainf:mpx</code>
 	 */
-	ConfigMetaData loadMetaData(String id);
+	ConfigMetadata loadMetaData(String id);
 
-	ConfigMetaData loadMetaData(ConfigMetaData feature);
+	ConfigMetadata loadMetaData(ConfigMetadata feature);
 
-	ConfigMetaData loadMetaData(String groupId, String artifactId, String name);
+	ConfigMetadata loadMetaData(String groupId, String artifactId, String name);
 
-	ConfigMetaData loadMetaData(String groupId, String artifactId, String name, String contextId);
+	ConfigMetadata loadMetaData(String groupId, String artifactId, String name, String contextId);
 	
-	String getId(ConfigMetaData feature);
+	String getId(ConfigMetadata feature);
 
 }

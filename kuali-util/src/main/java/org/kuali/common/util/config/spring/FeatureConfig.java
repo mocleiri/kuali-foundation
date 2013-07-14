@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.config.ConfigMetaData;
+import org.kuali.common.util.config.ConfigMetadata;
 import org.kuali.common.util.config.ConfigService;
 import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.property.Constants;
@@ -44,12 +44,12 @@ public class FeatureConfig {
 	}
 
 	@Bean
-	public Map<String, ConfigMetaData> utilFeatureMap() {
+	public Map<String, ConfigMetadata> utilFeatureMap() {
 		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, FEATURES_KEY, Constants.NONE);
 		ConfigService service = utilFeatureService();
-		Map<String, ConfigMetaData> features = new HashMap<String, ConfigMetaData>();
+		Map<String, ConfigMetadata> features = new HashMap<String, ConfigMetadata>();
 		for (String id : ids) {
-			ConfigMetaData feature = service.loadMetaData(id);
+			ConfigMetadata feature = service.loadMetaData(id);
 			features.put(id, feature);
 		}
 		return features;

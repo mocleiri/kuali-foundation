@@ -18,7 +18,7 @@ package org.kuali.common.util.feature;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.config.ConfigMetaData;
+import org.kuali.common.util.config.ConfigMetadata;
 import org.kuali.common.util.config.ConfigService;
 import org.kuali.common.util.config.LocationContext;
 import org.kuali.common.util.config.spring.FeatureConfig;
@@ -37,9 +37,9 @@ public class FeatureTestConfig {
 	@Bean
 	public Object whatup() {
 		ConfigService service = featureConfig.utilFeatureService();
-		Map<String, ConfigMetaData> features = featureConfig.utilFeatureMap();
+		Map<String, ConfigMetadata> features = featureConfig.utilFeatureMap();
 		System.out.println(features.size());
-		for (ConfigMetaData feature : features.values()) {
+		for (ConfigMetadata feature : features.values()) {
 			List<LocationContext> contexts = feature.getLocationContexts();
 			System.out.println(service.getId(feature));
 			for (LocationContext context : contexts) {
