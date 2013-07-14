@@ -115,7 +115,7 @@ public class DefaultFeatureService implements FeatureService {
 		String contextLocationsKey = contextId + ".locations";
 		String locationKeysCSV = properties.getProperty(contextLocationsKey);
 		if (StringUtils.isBlank(locationKeysCSV)) {
-			locationKeysCSV = MagicValue.DEFAULT + "," + MagicValue.COMMON;
+			locationKeysCSV = MagicValue.COMMON + "," + MagicValue.DEFAULT;
 		}
 		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(locationKeysCSV);
 		return getLocationContexts(project, featureName, contextId, locationKeys, properties);
