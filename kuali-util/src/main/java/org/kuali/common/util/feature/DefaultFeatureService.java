@@ -84,9 +84,12 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {
+		// Either there isn't a feature.properties file, or there are no entries in the feature.properties file
 		if (PropertyUtils.isEmpty(properties)) {
 			return Arrays.asList(getDefaultLocationContext(project, featureName));
 		}
+
+		// If we get here we located a feature.properties file with at least one entry
 		String csv = properties.getProperty(CONTEXTS_KEY);
 		Assert.hasText(csv);
 		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(csv);
@@ -96,16 +99,16 @@ public class DefaultFeatureService implements FeatureService {
 	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, List<String> locationKeys, Properties properties) {
 		List<LocationContext> locationContexts = new ArrayList<LocationContext>();
 		for (String locationKey : locationKeys) {
-			String modeKey = locationKey + ".mode";
-			String encodingKey = locationKey + ".encoding";
-
-			String location = properties.getProperty(locationKey);
-			Assert.hasText(location, "[" + locationKey + "] is not set");
-			Assert.exists(location);
-			if (isMagicValue(location)) {
-				LocationContext locationContext = getMagicValueLocationContext(project, location, featureName, contextId);
+			MagicValue magicValue = getMagicValue(locationKey);
+			if (magicValue != null) {
+				LocationContext locationContext = getMagicValueLocationContext(project, magicValue, featureName, contextId);
 				locationContexts.add(locationContext);
 			} else {
+				String modeKey = locationKey + ".mode";
+				String encodingKey = locationKey + ".encoding";
+				String location = properties.getProperty(locationKey);
+				Assert.hasText(location, "[" + locationKey + "] is not set");
+				Assert.exists(location);
 				String encoding = PropertyUtils.getProperty(properties, encodingKey, project.getEncoding());
 				String modeValue = properties.getProperty(modeKey);
 				Mode missingLocationMode = LocationContext.DEFAULT_MISSING_MODE;
@@ -119,27 +122,17 @@ public class DefaultFeatureService implements FeatureService {
 		return locationContexts;
 	}
 
-	protected boolean isMagicValue(String s) {
+	protected MagicValue getMagicValue(String s) {
 		MagicValue[] values = MagicValue.values();
 		for (MagicValue value : values) {
 			if (StringUtils.equals(value.name(), s)) {
-				return true;
+				return value;
 			}
 		}
-		return false;
+		return null;
 	}
 
-	protected LocationContext getMagicValueLocationContext(Project project, String location, String featureName, String contextId) {
-		MagicValue[] values = MagicValue.values();
-		for (MagicValue value : values) {
-			if (StringUtils.equals(value.name(), location)) {
-				return getLocationContext(project, value, featureName, contextId);
-			}
-		}
-		throw new IllegalStateException("[" + location + "] did not match a magic value");
-	}
-
-	protected LocationContext getLocationContext(Project project, MagicValue value, String featureName, String contextId) {
+	protected LocationContext getMagicValueLocationContext(Project project, MagicValue value, String featureName, String contextId) {
 		switch (value) {
 		case COMMON:
 			return getDefaultLocationContext(project, featureName);
