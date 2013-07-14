@@ -34,6 +34,10 @@ public class LocationContext {
 		this(location, DEFAULT_ENCODING, DEFAULT_MISSING_MODE);
 	}
 
+	public LocationContext(String location, String encoding) {
+		this(location, encoding, DEFAULT_MISSING_MODE);
+	}
+
 	public LocationContext(String location, String encoding, Mode missingMode) {
 		super();
 		this.missingMode = missingMode;
