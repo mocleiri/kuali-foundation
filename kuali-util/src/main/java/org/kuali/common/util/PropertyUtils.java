@@ -67,6 +67,15 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	public static String getProperty(Properties properties, String key, String defaultValue) {
+		String value = properties.getProperty(key);
+		if (StringUtils.isBlank(value)) {
+			return defaultValue;
+		} else {
+			return value;
+		}
+	}
+
 	public static boolean isEmpty(Properties properties) {
 		return properties == null || properties.size() == 0;
 	}

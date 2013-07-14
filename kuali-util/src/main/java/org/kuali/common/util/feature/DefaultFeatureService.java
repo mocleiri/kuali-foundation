@@ -96,18 +96,18 @@ public class DefaultFeatureService implements FeatureService {
 		return contexts;
 	}
 
-	protected FeatureContext getFeatureContext(String contextName, Properties properties) {
+	protected FeatureContext getFeatureContext(Project project, String contextName, Properties properties) {
 		String key = contextName + ".locations";
 		String csv = properties.getProperty(key);
 		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(csv);
-		List<LocationContext> locationContexts = getLocationContexts(locationKeys, properties);
+		List<LocationContext> locationContexts = getLocationContexts(project, locationKeys, properties);
 		FeatureContext context = new FeatureContext();
 		context.setName(contextName);
 		context.setLocationContexts(locationContexts);
 		return context;
 	}
 
-	protected List<LocationContext> getLocationContexts(List<String> locationKeys, Properties properties) {
+	protected List<LocationContext> getLocationContexts(Project project, List<String> locationKeys, Properties properties) {
 		List<LocationContext> locationContexts = new ArrayList<LocationContext>();
 		for (String locationKey : locationKeys) {
 			String modeKey = locationKey + ".mode";
@@ -117,16 +117,13 @@ public class DefaultFeatureService implements FeatureService {
 			Assert.hasText(location, "[" + locationKey + "] is not set");
 			Assert.exists(location);
 
+			String encoding = PropertyUtils.getProperty(properties, encodingKey, project.getEncoding());
+
 			String modeValue = properties.getProperty(modeKey);
-			String encodingValue = properties.getProperty(encodingKey);
 
 			Mode missingLocationMode = LocationContext.DEFAULT_MISSING_MODE;
 			if (!StringUtils.isBlank(modeValue)) {
 				missingLocationMode = Mode.valueOf(StringUtils.upperCase(modeValue));
-			}
-			String encoding = LocationContext.DEFAULT_ENCODING;
-			if (!StringUtils.isBlank(encodingValue)) {
-				encoding = encodingValue;
 			}
 			LocationContext locationContext = new LocationContext(location, encoding, missingLocationMode);
 			locationContexts.add(locationContext);
