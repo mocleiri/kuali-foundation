@@ -16,6 +16,7 @@
 package org.kuali.common.util.feature;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.Project;
@@ -36,9 +38,7 @@ public class DefaultFeatureService implements FeatureService {
 	protected static final String COMMON_PROPERTIES_FILENAME = "common.properties";
 	protected static final String FEATURE_PROPERTIES_FILENAME = "feature.properties";
 	protected static final String CLASSPATH_PREFIX = "classpath:";
-	protected static final String CONTEXTS_KEY = "project.feature.contexts";
-	protected static final String MAGIC_COMMON_VALUE = "COMMON";
-	protected static final String MAGIC_DEFAULT_VALUE = "DEFAULT";
+	protected static final String CONTEXTS_KEY = "feature.contexts";
 	protected static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	protected static final Map<String, Properties> FEATURE_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
@@ -67,18 +67,103 @@ public class DefaultFeatureService implements FeatureService {
 		Properties featureProperties = loadAndCache(project, name);
 		Properties enhanced = getEnhanced(project, name, contextId);
 		Properties resolved = getResolved(featureProperties, enhanced);
+		List<LocationContext> locationContexts = getLocationContexts(project, name, contextId, resolved);
 
 		Feature feature = new Feature();
 		feature.setGroupId(groupId);
 		feature.setArtifactId(artifactId);
 		feature.setName(name);
 		feature.setContextId(contextId);
+		feature.setLocationContexts(locationContexts);
 		return feature;
 	}
 
 	@Override
 	public Feature loadFeature(String groupId, String artifactId, String name) {
 		return loadFeature(groupId, artifactId, name, null);
+	}
+
+	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {
+		if (PropertyUtils.isEmpty(properties)) {
+			return Arrays.asList(getDefaultLocationContext(project, featureName));
+		}
+		String csv = properties.getProperty(CONTEXTS_KEY);
+		Assert.hasText(csv);
+		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(csv);
+		return getLocationContexts(project, featureName, contextId, locationKeys, properties);
+	}
+
+	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, List<String> locationKeys, Properties properties) {
+		List<LocationContext> locationContexts = new ArrayList<LocationContext>();
+		for (String locationKey : locationKeys) {
+			String modeKey = locationKey + ".mode";
+			String encodingKey = locationKey + ".encoding";
+
+			String location = properties.getProperty(locationKey);
+			Assert.hasText(location, "[" + locationKey + "] is not set");
+			Assert.exists(location);
+			if (isMagicValue(location)) {
+				LocationContext locationContext = getMagicValueLocationContext(project, location, featureName, contextId);
+				locationContexts.add(locationContext);
+			} else {
+				String encoding = PropertyUtils.getProperty(properties, encodingKey, project.getEncoding());
+				String modeValue = properties.getProperty(modeKey);
+				Mode missingLocationMode = LocationContext.DEFAULT_MISSING_MODE;
+				if (!StringUtils.isBlank(modeValue)) {
+					missingLocationMode = Mode.valueOf(StringUtils.upperCase(modeValue));
+				}
+				LocationContext locationContext = new LocationContext(location, encoding, missingLocationMode);
+				locationContexts.add(locationContext);
+			}
+		}
+		return locationContexts;
+	}
+
+	protected boolean isMagicValue(String s) {
+		MagicValue[] values = MagicValue.values();
+		for (MagicValue value : values) {
+			if (StringUtils.equals(value.name(), s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected LocationContext getMagicValueLocationContext(Project project, String location, String featureName, String contextId) {
+		MagicValue[] values = MagicValue.values();
+		for (MagicValue value : values) {
+			if (StringUtils.equals(value.name(), location)) {
+				return getLocationContext(project, value, featureName, contextId);
+			}
+		}
+		throw new IllegalStateException("[" + location + "] did not match a magic value");
+	}
+
+	protected LocationContext getLocationContext(Project project, MagicValue value, String featureName, String contextId) {
+		switch (value) {
+		case COMMON:
+			return getDefaultLocationContext(project, featureName);
+		case DEFAULT:
+			return getDefaultLocationContext(project, featureName, contextId);
+		default:
+			throw new IllegalArgumentException("[" + value + "] is an unknown magic value");
+		}
+	}
+
+	protected LocationContext getDefaultLocationContext(Project project, String featureName) {
+		String location = getResourcePath(project, featureName) + "/" + COMMON_PROPERTIES_FILENAME;
+		LocationContext context = new LocationContext();
+		context.setEncoding(project.getEncoding());
+		context.setLocation(location);
+		return context;
+	}
+
+	protected LocationContext getDefaultLocationContext(Project project, String featureName, String contextId) {
+		String location = getResourcePath(project, featureName) + "/" + contextId + ".properties";
+		LocationContext context = new LocationContext();
+		context.setEncoding(project.getEncoding());
+		context.setLocation(location);
+		return context;
 	}
 
 	protected Properties getEnhanced(Project project, String featureName, String contextId) {
@@ -111,30 +196,6 @@ public class DefaultFeatureService implements FeatureService {
 			properties.setProperty(key, resolvedValue);
 		}
 		return properties;
-	}
-
-	protected List<LocationContext> getLocationContexts(Project project, List<String> locationKeys, Properties properties) {
-		List<LocationContext> locationContexts = new ArrayList<LocationContext>();
-		for (String locationKey : locationKeys) {
-			String modeKey = locationKey + ".mode";
-			String encodingKey = locationKey + ".encoding";
-
-			String location = properties.getProperty(locationKey);
-			Assert.hasText(location, "[" + locationKey + "] is not set");
-			Assert.exists(location);
-
-			String encoding = PropertyUtils.getProperty(properties, encodingKey, project.getEncoding());
-
-			String modeValue = properties.getProperty(modeKey);
-
-			Mode missingLocationMode = LocationContext.DEFAULT_MISSING_MODE;
-			if (!StringUtils.isBlank(modeValue)) {
-				missingLocationMode = Mode.valueOf(StringUtils.upperCase(modeValue));
-			}
-			LocationContext locationContext = new LocationContext(location, encoding, missingLocationMode);
-			locationContexts.add(locationContext);
-		}
-		return locationContexts;
 	}
 
 	protected synchronized void clearCache() {
