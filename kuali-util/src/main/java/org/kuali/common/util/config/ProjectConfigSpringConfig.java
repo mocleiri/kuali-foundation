@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ProjectServiceConfig {
+public class ProjectConfigSpringConfig {
 
 	private static final String SERVICE_KEY = "project.config.service";
 
