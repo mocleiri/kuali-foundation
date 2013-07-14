@@ -50,7 +50,7 @@ public class DefaultConfigService implements ConfigService {
 		sb.append(":");
 		sb.append(feature.getArtifactId());
 		sb.append(":");
-		sb.append(feature.getName());
+		sb.append(feature.getFeatureId());
 		if (!StringUtils.isBlank(feature.getContextId())) {
 			sb.append(":");
 			sb.append(feature.getContextId());
@@ -60,7 +60,7 @@ public class DefaultConfigService implements ConfigService {
 
 	@Override
 	public ConfigMetadata loadMetaData(ConfigMetadata feature) {
-		return loadMetaData(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
+		return loadMetaData(feature.getGroupId(), feature.getArtifactId(), feature.getFeatureId(), feature.getContextId());
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class DefaultConfigService implements ConfigService {
 		ConfigMetadata feature = new ConfigMetadata();
 		feature.setGroupId(groupId);
 		feature.setArtifactId(artifactId);
-		feature.setName(name);
+		feature.setFeatureId(name);
 		feature.setContextId(contextId);
 		feature.setLocationContexts(locationContexts);
 		return feature;

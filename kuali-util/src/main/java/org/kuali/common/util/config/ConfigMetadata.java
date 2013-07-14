@@ -21,16 +21,16 @@ public class ConfigMetadata {
 
 	String groupId;
 	String artifactId;
-	String name;
+	String featureId;
 	String contextId;
 	List<LocationContext> locationContexts;
 
-	public String getName() {
-		return name;
+	public String getFeatureId() {
+		return featureId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFeatureId(String name) {
+		this.featureId = name;
 	}
 
 	public String getContextId() {
