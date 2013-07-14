@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.feature.spring;
+package org.kuali.common.util.config.spring;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.feature.DefaultConfigService;
-import org.kuali.common.util.feature.ConfigMetaData;
-import org.kuali.common.util.feature.ConfigService;
+import org.kuali.common.util.config.ConfigMetaData;
+import org.kuali.common.util.config.ConfigService;
+import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
