@@ -15,8 +15,10 @@ public class DefaultProjectConfigServiceTest {
 
 		try {
 			ProjectConfigService service = new DefaultProjectConfigService();
-			List<Location> locations = service.getLocations("org.kuali.common", "kuali-util");
-			System.out.println(locations.size());
+			List<Location> locations = service.getLocations("org.kuali.common", "kuali-util", "metainf:mpx");
+			for (Location location : locations) {
+				System.out.println(location.getValue());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

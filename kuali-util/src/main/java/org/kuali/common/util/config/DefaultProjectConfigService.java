@@ -67,19 +67,35 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	public List<Location> getLocations(List<ConfigRequest> requests) {
 		List<Location> locations = new ArrayList<Location>();
 		for (ConfigRequest request : requests) {
-			List<Location> requestLocations = getRequestLocations(request);
+			List<Location> requestLocations = findLocations(request);
 			locations.addAll(requestLocations);
 		}
 		return locations;
 	}
 
-	protected List<Location> getRequestLocations(ConfigRequest request) {
+	protected List<Location> findLocations(ConfigRequest request) {
 		ProjectConfig config = getCachedConfig(request.getGroupId(), request.getArtifactId());
 		if (StringUtils.isBlank(request.getContextId())) {
 			return new ArrayList<Location>(CollectionUtils.toEmptyList(config.getLocations()));
 		} else {
-			throw new IllegalStateException("contextId is not supported yet");
+			String[] tokens = StringUtils.split(request.getContextId(), ":");
+			List<ContextConfig> contexts = config.getContexts();
+			ContextConfig context = null;
+			for (String token : tokens) {
+				context = findContextConfig(contexts, token);
+				contexts = context.getChildren();
+			}
+			return context.getLocations();
 		}
+	}
+
+	protected ContextConfig findContextConfig(List<ContextConfig> contexts, String contextId) {
+		for (ContextConfig context : contexts) {
+			if (StringUtils.equals(contextId, context.getName())) {
+				return context;
+			}
+		}
+		throw new IllegalArgumentException("Unknown contextId [" + contextId + "]");
 	}
 
 	protected synchronized ProjectConfig getCachedConfig(String groupId, String artifactId) {
