@@ -96,14 +96,18 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		PROJECT_CONFIG_CACHE.clear();
 	}
 
+	protected String getMetadataConfigFilePath(Project project, String filename) {
+		String resourcePath = ProjectUtils.getResourcePath(project);
+		return CLASSPATH + METAINF + "/" + resourcePath + "/" + CONFIG + "/" + filename;
+	}
+
 	protected ProjectConfig loadMetadata(String groupId, String artifactId) {
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
-		String classpathPrefix = ProjectUtils.getClassPathPrefix(project);
-		String location = classpathPrefix + "/" + CONFIG + "/" + FILE;
+		String location = getMetadataConfigFilePath(project, FILE);
 		if (!LocationUtils.exists(location)) {
 			return new ProjectConfig(groupId, artifactId);
 		} else {
-			Properties properties = getFilterProperties(project, classpathPrefix);
+			Properties properties = getFilterProperties(project);
 			String content = getFilteredContent(location, properties, project.getEncoding());
 			return getProjectConfig(content, project.getEncoding());
 		}
@@ -128,10 +132,11 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		return filteredContent;
 	}
 
-	protected Properties getFilterProperties(Project project, String classpathPrefix) {
+	protected Properties getFilterProperties(Project project) {
+		String classpathPrefix = ProjectUtils.getClassPathPrefix(project);
 		Properties duplicate = PropertyUtils.duplicate(project.getProperties());
 		duplicate.setProperty(CLASSPATH_PREFIX_KEY, classpathPrefix);
-		String location = classpathPrefix + "/" + CONFIG + "/" + PROPS;
+		String location = getMetadataConfigFilePath(project, PROPS);
 		Properties metadata = new Properties();
 		if (LocationUtils.exists(location)) {
 			metadata = PropertyUtils.load(location, project.getEncoding());
