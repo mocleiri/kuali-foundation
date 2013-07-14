@@ -22,12 +22,12 @@ public interface ConfigService {
 	 */
 	ConfigMetadata loadMetaData(String id);
 
-	ConfigMetadata loadMetaData(ConfigMetadata feature);
+	ConfigMetadata loadMetaData(ConfigMetadata metadata);
 
 	ConfigMetadata loadMetaData(String groupId, String artifactId, String name);
 
 	ConfigMetadata loadMetaData(String groupId, String artifactId, String name, String contextId);
 	
-	String getId(ConfigMetadata feature);
+	String getId(ConfigMetadata metadata);
 
 }
