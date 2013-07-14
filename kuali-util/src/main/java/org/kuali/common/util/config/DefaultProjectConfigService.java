@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Project;
@@ -73,10 +75,11 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 
 	protected List<Location> getRequestLocations(ConfigRequest request) {
 		ProjectConfig config = getCachedConfig(request.getGroupId(), request.getArtifactId());
-
-		List<Location> locations = new ArrayList<Location>();
-
-		return locations;
+		if (StringUtils.isBlank(request.getContextId())) {
+			return new ArrayList<Location>(CollectionUtils.toEmptyList(config.getLocations()));
+		} else {
+			throw new IllegalStateException("contextId is not supported yet");
+		}
 	}
 
 	protected synchronized ProjectConfig getCachedConfig(String groupId, String artifactId) {
