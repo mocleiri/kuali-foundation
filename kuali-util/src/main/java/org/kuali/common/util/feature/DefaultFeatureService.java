@@ -36,7 +36,8 @@ import org.springframework.util.PropertyPlaceholderHelper;
 public class DefaultFeatureService implements FeatureService {
 
 	protected static final String COMMON_PROPERTIES_FILENAME = "common.properties";
-	protected static final String FEATURE_PROPERTIES_FILENAME = "feature.properties";
+	protected static final String METAINF_DIR = "META-INF";
+	protected static final String FEATURES_DIR = "features";
 	protected static final String CLASSPATH_PREFIX = "classpath:";
 	protected static final String CONTEXTS_KEY = "feature.contexts";
 	protected static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
@@ -175,12 +176,16 @@ public class DefaultFeatureService implements FeatureService {
 		return props;
 	}
 
+	protected String getFeatureMetaInfLocation(Project project, String featureName) {
+		return CLASSPATH_PREFIX + METAINF_DIR + "/" + ProjectUtils.getResourcePath(project) + "/" + FEATURES_DIR + "/" + featureName + ".properties";
+	}
+
 	protected String getClasspathLocation(Project project, String featureName) {
 		return CLASSPATH_PREFIX + ProjectUtils.getResourcePath(project) + "/" + featureName;
 	}
 
 	protected String getClasspathLocation(Project project, String featureName, String filename) {
-		return getClasspathLocation(project,featureName) +  "/" + filename;
+		return getClasspathLocation(project, featureName) + "/" + filename;
 	}
 
 	protected Properties getResolved(Properties properties, Properties resolverProperties) {
@@ -203,7 +208,7 @@ public class DefaultFeatureService implements FeatureService {
 		String cacheKey = ProjectUtils.getGav(project) + ":" + feature;
 		Properties properties = FEATURE_PROPERTIES_CACHE.get(cacheKey);
 		if (properties == null) {
-			String location = getClasspathLocation(project, feature, FEATURE_PROPERTIES_FILENAME);
+			String location = getFeatureMetaInfLocation(project, feature);
 			if (LocationUtils.exists(location)) {
 				properties = PropertyUtils.load(location, project.getEncoding());
 			} else {
