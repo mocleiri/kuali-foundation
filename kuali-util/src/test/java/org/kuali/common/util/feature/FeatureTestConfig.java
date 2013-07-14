@@ -37,9 +37,11 @@ public class FeatureTestConfig {
 		System.out.println(features.size());
 		for (Feature feature : features.values()) {
 			List<LocationContext> contexts = feature.getLocationContexts();
+			System.out.println(feature.getName() + ":" + feature.getContextId());
 			for (LocationContext context : contexts) {
 				System.out.println(context.getLocation());
 			}
+			System.out.println();
 		}
 		return null;
 	}
