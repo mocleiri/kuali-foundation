@@ -15,58 +15,75 @@
  */
 package org.kuali.common.util.config;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.kuali.common.util.Mode;
 
-public class LocationContext {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
 	Mode missingMode = DEFAULT_MISSING_MODE;
 	String encoding = DEFAULT_ENCODING;
-	String location;
+	String value;
 
-	public LocationContext() {
-		this(null);
+	public Location(Location location) {
+		super();
+		this.missingMode = location.getMissingMode();
+		this.encoding = location.getEncoding();
+		this.value = location.getValue();
 	}
 
-	public LocationContext(String location) {
-		this(location, DEFAULT_ENCODING, DEFAULT_MISSING_MODE);
+	public Location() {
+		this((String) null);
 	}
 
-	public LocationContext(String location, String encoding) {
-		this(location, encoding, DEFAULT_MISSING_MODE);
+	public Location(String value) {
+		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE);
 	}
 
-	public LocationContext(String location, String encoding, Mode missingMode) {
+	public Location(String value, String encoding) {
+		this(value, encoding, DEFAULT_MISSING_MODE);
+	}
+
+	public Location(String value, String encoding, Mode missingMode) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;
-		this.location = location;
+		this.value = value;
 	}
 
+	@XmlAttribute
 	public Mode getMissingMode() {
 		return missingMode;
+	}
+
+	@XmlAttribute
+	public String getEncoding() {
+		return encoding;
+	}
+
+	@XmlAttribute
+	public String getValue() {
+		return value;
 	}
 
 	public void setMissingMode(Mode missingMode) {
 		this.missingMode = missingMode;
 	}
 
-	public String getEncoding() {
-		return encoding;
-	}
-
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }
