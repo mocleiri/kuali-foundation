@@ -1,13 +1,13 @@
 <project>
-  <context name="scm">
+  <context id="scm">
     <location value="${classpath.prefix}/scm.properties" />
   </context>
-  <context name="metainf">
-    <context name="sql">
+  <context id="metainf">
+    <context id="sql">
       <location value="${metainf.common}" />
       <location value="${metainf.prefix}/sql.properties" />
     </context>
-    <context name="mpx">
+    <context id="mpx">
       <location value="${metainf.common}" />
       <location value="${metainf.prefix}/mpx.properties" />
     </context>
