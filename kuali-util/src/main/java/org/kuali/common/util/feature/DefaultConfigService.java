@@ -33,7 +33,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultFeatureService implements FeatureService {
+public class DefaultConfigService implements ConfigService {
 
 	protected static final String COMMON_PROPERTIES_FILENAME = "common.properties";
 	protected static final String METAINF_DIR = "META-INF";
@@ -44,7 +44,7 @@ public class DefaultFeatureService implements FeatureService {
 	protected static final Map<String, Properties> FEATURE_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
 	@Override
-	public String getId(Feature feature) {
+	public String getId(ConfigMetaData feature) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(feature.getGroupId());
 		sb.append(":");
@@ -59,12 +59,12 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	@Override
-	public Feature loadMetaData(Feature feature) {
+	public ConfigMetaData loadMetaData(ConfigMetaData feature) {
 		return loadMetaData(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
 	}
 
 	@Override
-	public Feature loadMetaData(String id) {
+	public ConfigMetaData loadMetaData(String id) {
 		Assert.hasText(id, "id is blank");
 		String[] tokens = StringUtils.split(id, ":");
 		Assert.isTrue(tokens.length >= 3, "groupId, artifactId, and name are required");
@@ -76,7 +76,7 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	@Override
-	public Feature loadMetaData(String groupId, String artifactId, String name, String contextId) {
+	public ConfigMetaData loadMetaData(String groupId, String artifactId, String name, String contextId) {
 		Assert.notBlank(groupId, artifactId, name, "groupId, artifactId, and name cannot be blank");
 
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
@@ -85,7 +85,7 @@ public class DefaultFeatureService implements FeatureService {
 		Properties resolved = getResolved(featureProperties, enhanced);
 		List<LocationContext> locationContexts = getLocationContexts(project, name, contextId, resolved);
 
-		Feature feature = new Feature();
+		ConfigMetaData feature = new ConfigMetaData();
 		feature.setGroupId(groupId);
 		feature.setArtifactId(artifactId);
 		feature.setName(name);
@@ -95,7 +95,7 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	@Override
-	public Feature loadMetaData(String groupId, String artifactId, String name) {
+	public ConfigMetaData loadMetaData(String groupId, String artifactId, String name) {
 		return loadMetaData(groupId, artifactId, name, null);
 	}
 

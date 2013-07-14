@@ -17,7 +17,7 @@ package org.kuali.common.util.feature;
 
 import java.util.List;
 
-public class Feature {
+public class ConfigMetaData {
 
 	String groupId;
 	String artifactId;

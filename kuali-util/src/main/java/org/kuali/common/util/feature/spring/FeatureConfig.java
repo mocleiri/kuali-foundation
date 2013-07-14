@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.feature.DefaultFeatureService;
-import org.kuali.common.util.feature.Feature;
-import org.kuali.common.util.feature.FeatureService;
+import org.kuali.common.util.feature.DefaultConfigService;
+import org.kuali.common.util.feature.ConfigMetaData;
+import org.kuali.common.util.feature.ConfigService;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +39,17 @@ public class FeatureConfig {
 	Environment env;
 
 	@Bean
-	public FeatureService utilFeatureService() {
-		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultFeatureService.class);
+	public ConfigService utilFeatureService() {
+		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigService.class);
 	}
 
 	@Bean
-	public Map<String, Feature> utilFeatureMap() {
+	public Map<String, ConfigMetaData> utilFeatureMap() {
 		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, FEATURES_KEY, Constants.NONE);
-		FeatureService service = utilFeatureService();
-		Map<String, Feature> features = new HashMap<String, Feature>();
+		ConfigService service = utilFeatureService();
+		Map<String, ConfigMetaData> features = new HashMap<String, ConfigMetaData>();
 		for (String id : ids) {
-			Feature feature = service.loadMetaData(id);
+			ConfigMetaData feature = service.loadMetaData(id);
 			features.put(id, feature);
 		}
 		return features;

@@ -15,19 +15,19 @@
  */
 package org.kuali.common.util.feature;
 
-public interface FeatureService {
+public interface ConfigService {
 
 	/**
 	 * <code>org.kuali.common:kuali-util:metainf:mpx</code>
 	 */
-	Feature loadMetaData(String id);
+	ConfigMetaData loadMetaData(String id);
 
-	Feature loadMetaData(Feature feature);
+	ConfigMetaData loadMetaData(ConfigMetaData feature);
 
-	Feature loadMetaData(String groupId, String artifactId, String name);
+	ConfigMetaData loadMetaData(String groupId, String artifactId, String name);
 
-	Feature loadMetaData(String groupId, String artifactId, String name, String contextId);
+	ConfigMetaData loadMetaData(String groupId, String artifactId, String name, String contextId);
 	
-	String getId(Feature feature);
+	String getId(ConfigMetaData feature);
 
 }
