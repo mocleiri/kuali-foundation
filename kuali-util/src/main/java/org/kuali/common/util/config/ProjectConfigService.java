@@ -31,7 +31,7 @@ public interface ProjectConfigService {
 	List<Location> getLocations(String id);
 
 	/**
-	 * Return a list of property locations associated with this groupId + artifactId combination
+	 * Return a list of property locations associated with this groupId + artifactId
 	 * 
 	 * <pre>
 	 *  org.kuali.common:kuali-util
@@ -40,7 +40,7 @@ public interface ProjectConfigService {
 	List<Location> getLocations(String groupId, String artifactId);
 
 	/**
-	 * Return a list of property locations associated with this groupId + artifactId + contextId combination
+	 * Return a list of property locations associated with this groupId + artifactId + contextId
 	 * 
 	 * <pre>
 	 *  org.kuali.common:kuali-util:metainf
