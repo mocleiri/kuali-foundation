@@ -25,9 +25,9 @@ public interface ConfigService {
 	 *   org.kuali.common:kuali-util:metainf:mpx - feature + context config
 	 * </pre>
 	 */
-	ConfigMetadata loadMetaData(String id);
+	ConfigMetadata loadMetadata(String id);
 
-	ConfigMetadata loadMetaData(ConfigMetadata metadata);
+	ConfigMetadata loadMetadata(ConfigMetadata metadata);
 
 	String getId(ConfigMetadata metadata);
 

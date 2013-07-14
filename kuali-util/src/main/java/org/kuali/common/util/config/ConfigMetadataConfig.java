@@ -46,7 +46,7 @@ public class ConfigMetadataConfig {
 		ConfigService service = utilConfigMetadataService();
 		Map<String, ConfigMetadata> features = new HashMap<String, ConfigMetadata>();
 		for (String id : ids) {
-			ConfigMetadata feature = service.loadMetaData(id);
+			ConfigMetadata feature = service.loadMetadata(id);
 			features.put(id, feature);
 		}
 		return features;

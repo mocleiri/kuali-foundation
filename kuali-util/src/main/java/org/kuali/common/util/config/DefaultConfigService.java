@@ -59,7 +59,7 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
-	public ConfigMetadata loadMetaData(ConfigMetadata cm) {
+	public ConfigMetadata loadMetadata(ConfigMetadata cm) {
 		Project project = ProjectUtils.loadProject(cm.getGroupId(), cm.getArtifactId());
 		Properties featureProperties = loadAndCache(project, cm.getFeatureId());
 		Properties enhanced = getEnhanced(project, cm.getFeatureId(), cm.getContextId());
@@ -70,9 +70,9 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
-	public ConfigMetadata loadMetaData(String id) {
+	public ConfigMetadata loadMetadata(String id) {
 		ConfigMetadata cm = getConfigMetadata(id);
-		return loadMetaData(cm);
+		return loadMetadata(cm);
 	}
 
 	protected ConfigMetadata getConfigMetadata(String id) {
