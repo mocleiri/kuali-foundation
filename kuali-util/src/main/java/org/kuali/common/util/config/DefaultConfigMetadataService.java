@@ -33,7 +33,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultConfigService implements ConfigService {
+public class DefaultConfigMetadataService implements ConfigMetadataService {
 
 	protected static final String COMMON_PROPERTIES_FILENAME = "common.properties";
 	protected static final String METAINF_DIR = "META-INF";

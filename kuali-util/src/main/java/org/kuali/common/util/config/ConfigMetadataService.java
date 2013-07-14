@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.config;
 
-public interface ConfigService {
+public interface ConfigMetadataService {
 
 	/**
 	 * <pre>

@@ -36,14 +36,14 @@ public class ConfigMetadataConfig {
 	Environment env;
 
 	@Bean
-	public ConfigService utilConfigMetadataService() {
-		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigService.class);
+	public ConfigMetadataService utilConfigMetadataService() {
+		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigMetadataService.class);
 	}
 
 	@Bean
 	public Map<String, ConfigMetadata> utilConfigMetadataMap() {
 		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, IDS_KEY, Constants.NONE);
-		ConfigService service = utilConfigMetadataService();
+		ConfigMetadataService service = utilConfigMetadataService();
 		Map<String, ConfigMetadata> features = new HashMap<String, ConfigMetadata>();
 		for (String id : ids) {
 			ConfigMetadata feature = service.loadMetadata(id);

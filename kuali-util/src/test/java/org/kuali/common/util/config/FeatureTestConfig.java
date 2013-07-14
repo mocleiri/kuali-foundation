@@ -32,7 +32,7 @@ public class FeatureTestConfig {
 
 	@Bean
 	public Object whatup() {
-		ConfigService service = featureConfig.utilConfigMetadataService();
+		ConfigMetadataService service = featureConfig.utilConfigMetadataService();
 		Map<String, ConfigMetadata> map = featureConfig.utilConfigMetadataMap();
 		System.out.println(map.size());
 		for (ConfigMetadata metadata : map.values()) {
