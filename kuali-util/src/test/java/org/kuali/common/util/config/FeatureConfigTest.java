@@ -1,4 +1,4 @@
-package org.kuali.common.util.feature;
+package org.kuali.common.util.config;
 
 import java.util.ArrayList;
 import java.util.List;

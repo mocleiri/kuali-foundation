@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.config.spring;
+package org.kuali.common.util.config;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.config.ConfigMetadata;
-import org.kuali.common.util.config.ConfigService;
-import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,23 +27,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class FeatureConfig {
+public class ConfigMetadataConfig {
 
-	protected static final String FEATURES_KEY = "feature.ids";
-	protected static final String SERVICE_KEY = "feature.service";
+	protected static final String IDS_KEY = "config.metadata.ids";
+	protected static final String SERVICE_KEY = "config.metadata.service";
 
 	@Autowired
 	Environment env;
 
 	@Bean
-	public ConfigService utilFeatureService() {
+	public ConfigService utilConfigMetadataService() {
 		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigService.class);
 	}
 
 	@Bean
-	public Map<String, ConfigMetadata> utilFeatureMap() {
-		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, FEATURES_KEY, Constants.NONE);
-		ConfigService service = utilFeatureService();
+	public Map<String, ConfigMetadata> utilConfigMetadataMap() {
+		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, IDS_KEY, Constants.NONE);
+		ConfigService service = utilConfigMetadataService();
 		Map<String, ConfigMetadata> features = new HashMap<String, ConfigMetadata>();
 		for (String id : ids) {
 			ConfigMetadata feature = service.loadMetaData(id);

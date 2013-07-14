@@ -13,35 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.feature;
+package org.kuali.common.util.config;
 
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.config.ConfigMetadata;
-import org.kuali.common.util.config.ConfigService;
-import org.kuali.common.util.config.LocationContext;
-import org.kuali.common.util.config.spring.FeatureConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ FeatureConfig.class })
+@Import({ ConfigMetadataConfig.class })
 public class FeatureTestConfig {
 
 	@Autowired
-	FeatureConfig featureConfig;
+	ConfigMetadataConfig featureConfig;
 
 	@Bean
 	public Object whatup() {
-		ConfigService service = featureConfig.utilFeatureService();
-		Map<String, ConfigMetadata> features = featureConfig.utilFeatureMap();
-		System.out.println(features.size());
-		for (ConfigMetadata feature : features.values()) {
-			List<LocationContext> contexts = feature.getLocationContexts();
-			System.out.println(service.getId(feature));
+		ConfigService service = featureConfig.utilConfigMetadataService();
+		Map<String, ConfigMetadata> map = featureConfig.utilConfigMetadataMap();
+		System.out.println(map.size());
+		for (ConfigMetadata metadata : map.values()) {
+			List<LocationContext> contexts = metadata.getLocationContexts();
+			System.out.println(service.getId(metadata));
 			for (LocationContext context : contexts) {
 				System.out.println(context.getLocation());
 			}
