@@ -16,18 +16,53 @@
 package org.kuali.common.util.feature;
 
 import java.util.List;
-import java.util.Properties;
 
-public interface Feature {
+public class Feature {
 
-	String getGroupId();
+	String groupId;
+	String artifactId;
+	String name;
+	String contextId;
+	List<LocationContext> locationContexts;
 
-	String getArtifactId();
+	public String getName() {
+		return name;
+	}
 
-	String getFeatureId();
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	List<FeatureContext> getContexts();
+	public String getContextId() {
+		return contextId;
+	}
 
-	Properties getProperties();
+	public void setContextId(String contextId) {
+		this.contextId = contextId;
+	}
+
+	public List<LocationContext> getLocationContexts() {
+		return locationContexts;
+	}
+
+	public void setLocationContexts(List<LocationContext> locationContexts) {
+		this.locationContexts = locationContexts;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
+	}
 
 }

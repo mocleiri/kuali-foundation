@@ -17,6 +17,15 @@ package org.kuali.common.util.feature;
 
 public interface FeatureService {
 
-	Feature getFeature(String groupId, String artifactId, String featureId);
+	/**
+	 * <code>org.kuali.common:kuali-util:metainf:mpx</code>
+	 */
+	Feature loadFeature(String id);
+
+	Feature loadFeature(Feature feature);
+
+	Feature loadFeature(String groupId, String artifactId, String name);
+
+	Feature loadFeature(String groupId, String artifactId, String name, String contextId);
 
 }

@@ -16,95 +16,101 @@
 package org.kuali.common.util.feature;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.Constants;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultFeatureService implements FeatureService {
 
 	protected static final String COMMON_PROPERTIES_FILENAME = "common.properties";
-	protected static final String DEFAULT_CONTEXT_NAME = "default";
 	protected static final String FEATURE_PROPERTIES_FILENAME = "feature.properties";
 	protected static final String CLASSPATH_PREFIX = "classpath:";
-	protected static final String CONTEXTS_KEY = "feature.contexts";
+	protected static final String CONTEXTS_KEY = "project.feature.contexts";
+	protected static final String MAGIC_COMMON_VALUE = "COMMON";
+	protected static final String MAGIC_DEFAULT_VALUE = "DEFAULT";
+	protected static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	protected static final Map<String, Properties> FEATURE_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
 	@Override
-	public Feature getFeature(String groupId, String artifactId, String featureId) {
+	public Feature loadFeature(Feature feature) {
+		return loadFeature(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
+	}
+
+	@Override
+	public Feature loadFeature(String id) {
+		Assert.hasText(id, "id is blank");
+		String[] tokens = StringUtils.split(id, ":");
+		Assert.isTrue(tokens.length >= 3, "groupId, artifactId, and name are required");
+		String groupId = tokens[0];
+		String artifactId = tokens[1];
+		String name = tokens[2];
+		String contextId = (tokens.length >= 3) ? tokens[3] : null;
+		return loadFeature(groupId, artifactId, name, contextId);
+	}
+
+	@Override
+	public Feature loadFeature(String groupId, String artifactId, String name, String contextId) {
+		Assert.notBlank(groupId, artifactId, name, "groupId, artifactId, and name cannot be blank");
+
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
+		Properties featureProperties = loadAndCache(project, name);
+		Properties enhanced = getEnhanced(project, name, contextId);
+		Properties resolved = getResolved(featureProperties, enhanced);
 
-		Properties featureProperties = getFeatureProperties(project, featureId);
-
-		DefaultFeature feature = new DefaultFeature();
-		feature.setArtifactId(artifactId);
+		Feature feature = new Feature();
 		feature.setGroupId(groupId);
-		feature.setFeatureId(featureId);
-		feature.setProperties(featureProperties);
+		feature.setArtifactId(artifactId);
+		feature.setName(name);
+		feature.setContextId(contextId);
 		return feature;
 	}
 
-	protected String getClasspathLocation(Project project, String featureId, String filename) {
-		String resourcePath = ProjectUtils.getResourcePath(project) + "/" + featureId;
+	@Override
+	public Feature loadFeature(String groupId, String artifactId, String name) {
+		return loadFeature(groupId, artifactId, name, null);
+	}
+
+	protected Properties getEnhanced(Project project, String featureName, String contextId) {
+		String resourcePath = getResourcePath(project, featureName);
+		Properties props = PropertyUtils.duplicate(project.getProperties());
+		props.setProperty("feature.name", featureName);
+		if (!StringUtils.isBlank(contextId)) {
+			props.setProperty("feature.contextId", contextId);
+		}
+		props.setProperty("feature.classpath.prefix", resourcePath);
+		return props;
+	}
+
+	protected String getResourcePath(Project project, String featureName) {
+		return ProjectUtils.getResourcePath(project) + "/" + featureName;
+	}
+
+	protected String getClasspathLocation(Project project, String featureName, String filename) {
+		String resourcePath = getResourcePath(project, featureName);
 		return CLASSPATH_PREFIX + resourcePath + "/" + filename;
 	}
 
-	protected Properties getFeatureProperties(Project project, String featureId) {
-		String location = getClasspathLocation(project, featureId, FEATURE_PROPERTIES_FILENAME);
-		if (LocationUtils.exists(location)) {
-			return PropertyUtils.load(location, project.getEncoding());
-		} else {
-			return new Properties();
+	protected Properties getResolved(Properties properties, Properties resolverProperties) {
+		Properties duplicate = PropertyUtils.duplicate(resolverProperties);
+		duplicate.putAll(properties);
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			String originalValue = properties.getProperty(key);
+			String resolvedValue = PPH.replacePlaceholders(originalValue, duplicate);
+			properties.setProperty(key, resolvedValue);
 		}
-	}
-
-	protected List<FeatureContext> getDefaultFeatureContexts(Project project, Feature feature) {
-		String location = getClasspathLocation(project, feature.getFeatureId(), COMMON_PROPERTIES_FILENAME);
-		if (LocationUtils.exists(location)) {
-			LocationContext locationContext = new LocationContext(location, project.getEncoding());
-			FeatureContext context = new FeatureContext();
-			context.setName(DEFAULT_CONTEXT_NAME);
-			context.setLocationContexts(Arrays.asList(locationContext));
-			return Arrays.asList(context);
-		} else {
-			return new ArrayList<FeatureContext>();
-		}
-	}
-
-	protected List<FeatureContext> getFeatureContexts(Project project, Feature feature) {
-		if (PropertyUtils.isEmpty(feature.getProperties())) {
-			return getDefaultFeatureContexts(project, feature);
-		}
-		Properties properties = feature.getProperties();
-		String csv = properties.getProperty(CONTEXTS_KEY);
-		List<String> contextNames = CollectionUtils.getTrimmedListFromCSV(csv);
-
-		List<FeatureContext> contexts = new ArrayList<FeatureContext>();
-		for (String contextName : contextNames) {
-			FeatureContext context = new FeatureContext();
-			context.setName(contextName);
-			contexts.add(context);
-		}
-
-		return contexts;
-	}
-
-	protected FeatureContext getFeatureContext(Project project, String contextName, Properties properties) {
-		String key = contextName + ".locations";
-		String csv = properties.getProperty(key);
-		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(csv);
-		List<LocationContext> locationContexts = getLocationContexts(project, locationKeys, properties);
-		FeatureContext context = new FeatureContext();
-		context.setName(contextName);
-		context.setLocationContexts(locationContexts);
-		return context;
+		return properties;
 	}
 
 	protected List<LocationContext> getLocationContexts(Project project, List<String> locationKeys, Properties properties) {
@@ -129,5 +135,24 @@ public class DefaultFeatureService implements FeatureService {
 			locationContexts.add(locationContext);
 		}
 		return locationContexts;
+	}
+
+	protected synchronized void clearCache() {
+		FEATURE_PROPERTIES_CACHE.clear();
+	}
+
+	protected synchronized Properties loadAndCache(Project project, String feature) {
+		String cacheKey = ProjectUtils.getGav(project) + ":" + feature;
+		Properties properties = FEATURE_PROPERTIES_CACHE.get(cacheKey);
+		if (properties == null) {
+			String location = getClasspathLocation(project, feature, FEATURE_PROPERTIES_FILENAME);
+			if (LocationUtils.exists(location)) {
+				properties = PropertyUtils.load(location, project.getEncoding());
+			} else {
+				properties = new Properties();
+			}
+			FEATURE_PROPERTIES_CACHE.put(cacheKey, properties);
+		}
+		return properties;
 	}
 }
