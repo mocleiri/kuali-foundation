@@ -44,16 +44,16 @@ public class DefaultConfigMetadataService implements ConfigMetadataService {
 	protected static final Map<String, Properties> FEATURE_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
 	@Override
-	public String getId(ConfigMetadata feature) {
+	public String getId(ConfigMetadata cm) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(feature.getGroupId());
+		sb.append(StringUtils.trimToEmpty(cm.getGroupId()));
 		sb.append(":");
-		sb.append(feature.getArtifactId());
+		sb.append(StringUtils.trimToEmpty(cm.getArtifactId()));
 		sb.append(":");
-		sb.append(feature.getFeatureId());
-		if (!StringUtils.isBlank(feature.getContextId())) {
+		sb.append(StringUtils.trimToEmpty(cm.getFeatureId()));
+		if (!StringUtils.isBlank(cm.getContextId())) {
 			sb.append(":");
-			sb.append(feature.getContextId());
+			sb.append(StringUtils.trimToEmpty(cm.getContextId()));
 		}
 		return sb.toString();
 	}
