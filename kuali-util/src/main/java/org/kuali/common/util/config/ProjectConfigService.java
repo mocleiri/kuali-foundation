@@ -19,10 +19,33 @@ import java.util.List;
 
 public interface ProjectConfigService {
 
+	/**
+	 * Return a list of property locations associated with the id passed in.
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-util
+	 *  org.kuali.common:kuali-util:metainf
+	 *  org.kuali.common:kuali-util:metainf:mpx
+	 * </pre>
+	 */
 	List<Location> getLocations(String id);
 
+	/**
+	 * Return a list of property locations associated with this groupId + artifactId combination
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-util
+	 * </pre>
+	 */
 	List<Location> getLocations(String groupId, String artifactId);
 
+	/**
+	 * Return a list of property locations associated with this groupId + artifactId + contextId combination
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-util:metainf
+	 * </pre>
+	 */
 	List<Location> getLocations(String groupId, String artifactId, String contextId);
 
 	List<Location> getLocations(ConfigRequest request);
