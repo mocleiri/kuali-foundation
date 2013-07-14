@@ -76,6 +76,11 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
+	public ConfigMetadata loadMetaData(String groupId, String artifactId) {
+		return null;
+	}
+
+	@Override
 	public ConfigMetadata loadMetaData(String groupId, String artifactId, String name, String contextId) {
 		Assert.notBlank(groupId, artifactId, name, "groupId, artifactId, and name cannot be blank");
 

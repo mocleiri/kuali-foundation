@@ -24,10 +24,12 @@ public interface ConfigService {
 
 	ConfigMetadata loadMetaData(ConfigMetadata metadata);
 
-	ConfigMetadata loadMetaData(String groupId, String artifactId, String name);
+	ConfigMetadata loadMetaData(String groupId, String artifactId);
 
-	ConfigMetadata loadMetaData(String groupId, String artifactId, String name, String contextId);
-	
+	ConfigMetadata loadMetaData(String groupId, String artifactId, String featureId);
+
+	ConfigMetadata loadMetaData(String groupId, String artifactId, String featureId, String contextId);
+
 	String getId(ConfigMetadata metadata);
 
 }
