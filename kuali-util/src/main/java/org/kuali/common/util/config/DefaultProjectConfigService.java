@@ -171,7 +171,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		Nullifier nullifier = new ProjectConfigNullifier(clone);
 		nullifier.nullify();
 
-		JAXBUtil.writeObject(clone, file);
+		JAXBUtil.write(clone, file);
 	}
 
 }

@@ -14,17 +14,17 @@ import org.apache.commons.io.IOUtils;
 
 public class JAXBUtil {
 
-	public static <T> void writeObject(T instance, File file) {
+	public static <T> void write(T instance, File file) {
 		Writer writer = null;
 		try {
 			writer = LocationUtils.openWriter(file);
-			writeObject(instance, writer);
+			write(instance, writer);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
 	}
 
-	public static <T> void writeObject(T instance, Writer writer) {
+	public static <T> void write(T instance, Writer writer) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(instance.getClass());
 			Marshaller marshaller = context.createMarshaller();
