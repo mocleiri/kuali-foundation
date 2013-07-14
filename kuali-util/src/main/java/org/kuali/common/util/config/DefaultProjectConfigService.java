@@ -19,6 +19,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
@@ -39,9 +44,56 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	protected static final String CONFIG = "config";
 	protected static final String FILE = "metadata.xml";
 	protected static final String PROPS = "metadata.properties";
+	protected static final Map<String, ProjectConfig> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfig>();
 
 	@Override
-	public ProjectConfig loadMetadata(String groupId, String artifactId) {
+	public List<Location> getLocations(String groupId, String artifactId) {
+		return getLocations(groupId, artifactId, null);
+	}
+
+	@Override
+	public List<Location> getLocations(String groupId, String artifactId, String contextId) {
+		return getLocations(new ConfigRequest(groupId, artifactId, contextId));
+	}
+
+	@Override
+	public List<Location> getLocations(ConfigRequest request) {
+		return getLocations(Arrays.asList(request));
+	}
+
+	@Override
+	public List<Location> getLocations(List<ConfigRequest> requests) {
+		List<Location> locations = new ArrayList<Location>();
+		for (ConfigRequest request : requests) {
+			List<Location> requestLocations = getRequestLocations(request);
+			locations.addAll(requestLocations);
+		}
+		return locations;
+	}
+
+	protected List<Location> getRequestLocations(ConfigRequest request) {
+		ProjectConfig config = getCachedConfig(request.getGroupId(), request.getArtifactId());
+
+		List<Location> locations = new ArrayList<Location>();
+
+		return locations;
+	}
+
+	protected synchronized ProjectConfig getCachedConfig(String groupId, String artifactId) {
+		String cacheKey = groupId + ":" + artifactId;
+		ProjectConfig config = PROJECT_CONFIG_CACHE.get(cacheKey);
+		if (config == null) {
+			config = loadMetadata(groupId, artifactId);
+			PROJECT_CONFIG_CACHE.put(cacheKey, config);
+		}
+		return config;
+	}
+
+	protected synchronized void clearCache() {
+		PROJECT_CONFIG_CACHE.clear();
+	}
+
+	protected ProjectConfig loadMetadata(String groupId, String artifactId) {
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		String classpathPrefix = ProjectUtils.getClassPathPrefix(project);
 		String location = classpathPrefix + "/" + CONFIG + "/" + FILE;
@@ -97,4 +149,5 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 
 		JAXBUtil.writeObject(clone, file);
 	}
+
 }

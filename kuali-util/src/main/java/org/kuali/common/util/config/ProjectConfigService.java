@@ -15,9 +15,16 @@
  */
 package org.kuali.common.util.config;
 
+import java.util.List;
 
 public interface ProjectConfigService {
 
-	ProjectConfig loadMetadata(String groupId, String artifactId);
+	List<Location> getLocations(String groupId, String artifactId);
+
+	List<Location> getLocations(String groupId, String artifactId, String contextId);
+
+	List<Location> getLocations(ConfigRequest request);
+
+	List<Location> getLocations(List<ConfigRequest> requests);
 
 }
