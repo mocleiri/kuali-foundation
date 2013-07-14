@@ -22,6 +22,7 @@ import java.util.Map;
 import org.kuali.common.util.feature.DefaultFeatureService;
 import org.kuali.common.util.feature.Feature;
 import org.kuali.common.util.feature.FeatureService;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +45,7 @@ public class FeatureConfig {
 
 	@Bean
 	public Map<String, Feature> utilFeatureMap() {
-		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, FEATURES_KEY);
+		List<String> ids = SpringUtils.getNoneSensitiveListFromCSV(env, FEATURES_KEY, Constants.NONE);
 		FeatureService service = utilFeatureService();
 		Map<String, Feature> features = new HashMap<String, Feature>();
 		for (String id : ids) {
