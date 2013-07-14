@@ -85,14 +85,20 @@ public class DefaultFeatureService implements FeatureService {
 
 	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {
 		// Either there isn't a feature.properties file, or there are no entries in the feature.properties file
-		if (PropertyUtils.isEmpty(properties)) {
+		if (StringUtils.isBlank(contextId) || PropertyUtils.isEmpty(properties)) {
 			return Arrays.asList(getDefaultLocationContext(project, featureName));
 		}
 
 		// If we get here we located a feature.properties file with at least one entry
 		String csv = properties.getProperty(CONTEXTS_KEY);
 		Assert.hasText(csv);
-		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(csv);
+		List<String> contextIds = CollectionUtils.getTrimmedListFromCSV(csv);
+		if (!contextIds.contains(contextId)) {
+			throw new IllegalStateException("[" + contextId + "] is an unknown contextId");
+		}
+		String contextLocationsKey = contextId + ".locations";
+		String locationKeysCSV = properties.getProperty(contextLocationsKey);
+		List<String> locationKeys = CollectionUtils.getTrimmedListFromCSV(locationKeysCSV);
 		return getLocationContexts(project, featureName, contextId, locationKeys, properties);
 	}
 
@@ -144,7 +150,7 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	protected LocationContext getDefaultLocationContext(Project project, String featureName) {
-		String location = getResourcePath(project, featureName) + "/" + COMMON_PROPERTIES_FILENAME;
+		String location = getClasspathLocation(project, featureName) + "/" + COMMON_PROPERTIES_FILENAME;
 		LocationContext context = new LocationContext();
 		context.setEncoding(project.getEncoding());
 		context.setLocation(location);
@@ -152,7 +158,7 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	protected LocationContext getDefaultLocationContext(Project project, String featureName, String contextId) {
-		String location = getResourcePath(project, featureName) + "/" + contextId + ".properties";
+		String location = getClasspathLocation(project, featureName) + "/" + contextId + ".properties";
 		LocationContext context = new LocationContext();
 		context.setEncoding(project.getEncoding());
 		context.setLocation(location);
@@ -160,7 +166,7 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	protected Properties getEnhanced(Project project, String featureName, String contextId) {
-		String resourcePath = getResourcePath(project, featureName);
+		String resourcePath = getClasspathLocation(project, featureName);
 		Properties props = PropertyUtils.duplicate(project.getProperties());
 		props.setProperty("feature.name", featureName);
 		if (!StringUtils.isBlank(contextId)) {
@@ -170,13 +176,12 @@ public class DefaultFeatureService implements FeatureService {
 		return props;
 	}
 
-	protected String getResourcePath(Project project, String featureName) {
-		return ProjectUtils.getResourcePath(project) + "/" + featureName;
+	protected String getClasspathLocation(Project project, String featureName) {
+		return CLASSPATH_PREFIX + ProjectUtils.getResourcePath(project) + "/" + featureName;
 	}
 
 	protected String getClasspathLocation(Project project, String featureName, String filename) {
-		String resourcePath = getResourcePath(project, featureName);
-		return CLASSPATH_PREFIX + resourcePath + "/" + filename;
+		return getClasspathLocation(project,featureName) +  "/" + filename;
 	}
 
 	protected Properties getResolved(Properties properties, Properties resolverProperties) {
