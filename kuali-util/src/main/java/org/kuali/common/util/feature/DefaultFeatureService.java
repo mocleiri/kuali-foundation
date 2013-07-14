@@ -114,7 +114,6 @@ public class DefaultFeatureService implements FeatureService {
 				String encodingKey = locationKey + ".encoding";
 				String location = properties.getProperty(locationKey);
 				Assert.hasText(location, "[" + locationKey + "] is not set");
-				Assert.exists(location);
 				String encoding = PropertyUtils.getProperty(properties, encodingKey, project.getEncoding());
 				String modeValue = properties.getProperty(modeKey);
 				Mode missingLocationMode = LocationContext.DEFAULT_MISSING_MODE;
