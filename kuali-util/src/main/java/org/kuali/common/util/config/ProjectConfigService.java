@@ -19,6 +19,8 @@ import java.util.List;
 
 public interface ProjectConfigService {
 
+	List<Location> getLocations(String id);
+
 	List<Location> getLocations(String groupId, String artifactId);
 
 	List<Location> getLocations(String groupId, String artifactId, String contextId);

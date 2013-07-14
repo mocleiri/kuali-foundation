@@ -47,6 +47,33 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	protected static final String FILE = "metadata.xml";
 	protected static final String PROPS = "metadata.properties";
 	protected static final Map<String, ProjectConfig> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfig>();
+	protected static final String DELIMITER = ":";
+
+	@Override
+	public List<Location> getLocations(String id) {
+		String[] tokens = StringUtils.split(id, DELIMITER);
+		if (tokens.length < 2) {
+			throw new IllegalArgumentException("2 tokens are required");
+		}
+		String groupId = tokens[0];
+		String artifactId = tokens[1];
+		String contextId = getContextId(tokens);
+		return getLocations(groupId, artifactId, contextId);
+	}
+
+	protected String getContextId(String[] tokens) {
+		if (tokens.length < 3) {
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 2; i < tokens.length; i++) {
+			if (i != 2) {
+				sb.append(DELIMITER);
+			}
+			sb.append(tokens[i]);
+		}
+		return sb.toString();
+	}
 
 	@Override
 	public List<Location> getLocations(String groupId, String artifactId) {
@@ -78,7 +105,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		if (StringUtils.isBlank(request.getContextId())) {
 			return new ArrayList<Location>(CollectionUtils.toEmptyList(config.getLocations()));
 		} else {
-			String[] tokens = StringUtils.split(request.getContextId(), ":");
+			String[] tokens = StringUtils.split(request.getContextId(), DELIMITER);
 			List<ContextConfig> contexts = config.getContexts();
 			ContextConfig context = null;
 			for (String token : tokens) {
@@ -99,7 +126,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	}
 
 	protected synchronized ProjectConfig getCachedConfig(String groupId, String artifactId) {
-		String cacheKey = groupId + ":" + artifactId;
+		String cacheKey = groupId + DELIMITER + artifactId;
 		ProjectConfig config = PROJECT_CONFIG_CACHE.get(cacheKey);
 		if (config == null) {
 			config = loadMetadata(groupId, artifactId);
