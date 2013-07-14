@@ -33,11 +33,12 @@ public class FeatureTestConfig {
 
 	@Bean
 	public Object whatup() {
+		FeatureService service = featureConfig.utilFeatureService();
 		Map<String, Feature> features = featureConfig.utilFeatureMap();
 		System.out.println(features.size());
 		for (Feature feature : features.values()) {
 			List<LocationContext> contexts = feature.getLocationContexts();
-			System.out.println(feature.getName() + ":" + feature.getContextId());
+			System.out.println(service.getId(feature));
 			for (LocationContext context : contexts) {
 				System.out.println(context.getLocation());
 			}
