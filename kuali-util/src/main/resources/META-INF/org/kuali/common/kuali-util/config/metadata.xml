@@ -1,0 +1,20 @@
+<project>
+  <feature id="metainf">
+    <context id="mpx">
+      <location>
+        <value>${feature.classpath.prefix}/common.properties</value>
+      </location>
+      <location>
+        <value>${feature.classpath.prefix}/mpx.properties</value>
+      </location>
+    </context>
+    <context id="sql">
+      <location>
+        <value>${feature.classpath.prefix}/common.properties</value>
+      </location>
+      <location>
+        <value>${feature.classpath.prefix}/mpx.properties</value>
+      </location>
+    </context>
+  </feature>
+</project>

@@ -36,10 +36,10 @@ public class FeatureTestConfig {
 		Map<String, ConfigMetadata> map = featureConfig.utilConfigMetadataMap();
 		System.out.println(map.size());
 		for (ConfigMetadata metadata : map.values()) {
-			List<LocationContext> contexts = metadata.getLocationContexts();
+			List<Location> contexts = metadata.getLocations();
 			System.out.println(service.getId(metadata));
-			for (LocationContext context : contexts) {
-				System.out.println(context.getLocation());
+			for (Location context : contexts) {
+				System.out.println(context.getValue());
 			}
 			System.out.println();
 		}
