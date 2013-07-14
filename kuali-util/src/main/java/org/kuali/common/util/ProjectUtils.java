@@ -64,6 +64,7 @@ public class ProjectUtils {
 
 	/**
 	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 * Given <code>org.kuali.student.db:ks-impex-rice-db</code>, return <code>classpath:org/kuali/student/ks-impex-rice-db</code>
 	 */
 	public static String getClassPathPrefix(String groupId, String artifactId) {
 		Project project = loadProject(groupId, artifactId);

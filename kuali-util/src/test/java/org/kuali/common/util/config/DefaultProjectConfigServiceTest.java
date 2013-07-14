@@ -27,7 +27,7 @@ public class DefaultProjectConfigServiceTest {
 			config.setArtifactId("kuali-util");
 			config.setLocations(locations);
 			config.setContexts(contexts);
-			ProjectConfigService service = new DefaultProjectConfigService();
+			DefaultProjectConfigService service = new DefaultProjectConfigService();
 			File file = new File("/tmp/metadata.xml");
 			service.store(file, config);
 		} catch (Exception e) {

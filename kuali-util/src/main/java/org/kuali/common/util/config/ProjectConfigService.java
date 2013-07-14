@@ -15,12 +15,9 @@
  */
 package org.kuali.common.util.config;
 
-import java.io.File;
 
 public interface ProjectConfigService {
 
 	ProjectConfig loadMetadata(String groupId, String artifactId);
-
-	void store(File file, ProjectConfig config);
 
 }

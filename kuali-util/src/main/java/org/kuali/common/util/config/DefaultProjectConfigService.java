@@ -15,33 +15,77 @@
  */
 package org.kuali.common.util.config;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.Writer;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.nullify.Nullifier;
 import org.springframework.util.Assert;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectConfigService implements ProjectConfigService {
 
-	protected static final String RESOURCES_DIR = "src/main/resources";
-	protected static final String PREFIX = "META-INF";
-	protected static final String XML_FILE = "metadata.xml";
-	protected static final String PROPS_FILE = "metadata.properties";
+	protected static final String METAINF = "META-INF";
+	protected static final String CLASSPATH = "classpath:";
+	protected static final String CLASSPATH_PREFIX_KEY = "classpath.prefix";
+	protected static final String CONFIG = "config";
+	protected static final String FILE = "metadata.xml";
+	protected static final String PROPS = "metadata.properties";
 
 	@Override
 	public ProjectConfig loadMetadata(String groupId, String artifactId) {
-		return null;
+		Project project = ProjectUtils.loadProject(groupId, artifactId);
+		String classpathPrefix = ProjectUtils.getClassPathPrefix(project);
+		String location = classpathPrefix + "/" + CONFIG + "/" + FILE;
+		if (!LocationUtils.exists(location)) {
+			return new ProjectConfig(groupId, artifactId);
+		} else {
+			Properties properties = getFilterProperties(project, classpathPrefix);
+			String content = getFilteredContent(location, properties, project.getEncoding());
+			return getProjectConfig(content, project.getEncoding());
+		}
 	}
 
-	@Override
-	public void store(File file, ProjectConfig config) {
+	protected ProjectConfig getProjectConfig(String content, String encoding) {
+		InputStream in = null;
+		try {
+			in = new ByteArrayInputStream(content.getBytes(encoding));
+			return JAXBUtil.getObject(in, ProjectConfig.class);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected String getFilteredContent(String location, Properties properties, String encoding) {
+		PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", true);
+		String originalContent = LocationUtils.toString(location, encoding);
+		String filteredContent = helper.replacePlaceholders(originalContent, properties);
+		return filteredContent;
+	}
+
+	protected Properties getFilterProperties(Project project, String classpathPrefix) {
+		Properties duplicate = PropertyUtils.duplicate(project.getProperties());
+		duplicate.setProperty(CLASSPATH_PREFIX_KEY, classpathPrefix);
+		String location = classpathPrefix + "/" + CONFIG + "/" + PROPS;
+		Properties metadata = new Properties();
+		if (LocationUtils.exists(location)) {
+			metadata = PropertyUtils.load(location, project.getEncoding());
+		}
+		duplicate.putAll(metadata);
+		return duplicate;
+	}
+
+	protected void store(File file, ProjectConfig config) {
 
 		Assert.notNull(file, "file is null");
 		Assert.notNull(config, "config is null");
@@ -51,19 +95,6 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		Nullifier nullifier = new ProjectConfigNullifier(clone);
 		nullifier.nullify();
 
-		Writer writer = null;
-		try {
-			writer = LocationUtils.openWriter(file);
-			JAXBContext context = JAXBContext.newInstance(ProjectConfig.class);
-			Marshaller marshaller = context.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			marshaller.marshal(clone, writer);
-		} catch (JAXBException e) {
-			throw new IllegalStateException("Unexpected JAXB error", e);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			IOUtils.closeQuietly(writer);
-		}
+		JAXBUtil.writeObject(clone, file);
 	}
 }

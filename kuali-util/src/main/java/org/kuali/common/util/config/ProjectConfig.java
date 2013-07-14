@@ -24,6 +24,12 @@ public class ProjectConfig {
 		super();
 	}
 
+	public ProjectConfig(String groupId, String artifactId) {
+		super();
+		this.groupId = groupId;
+		this.artifactId = artifactId;
+	}
+
 	public ProjectConfig(ProjectConfig config) {
 		super();
 		this.groupId = config.getGroupId();
