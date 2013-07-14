@@ -55,7 +55,7 @@ public class DefaultFeatureService implements FeatureService {
 		String groupId = tokens[0];
 		String artifactId = tokens[1];
 		String name = tokens[2];
-		String contextId = (tokens.length >= 3) ? tokens[3] : null;
+		String contextId = (tokens.length > 3) ? tokens[3] : null;
 		return loadFeature(groupId, artifactId, name, contextId);
 	}
 
