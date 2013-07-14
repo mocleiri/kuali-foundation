@@ -112,15 +112,22 @@ public class DefaultDumpSchemaService implements DumpSchemaService {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
+			return getSchema(in);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	@Override
+	public Schema getSchema(InputStream in) {
+		try {
 			JAXBContext context = JAXBContext.newInstance(Schema.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			return (Schema) unmarshaller.unmarshal(in);
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			IOUtils.closeQuietly(in);
 		}
 	}
 

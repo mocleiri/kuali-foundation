@@ -16,6 +16,7 @@
 package org.kuali.common.impex.schema;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.Writer;
 
 import org.kuali.common.impex.model.Schema;
@@ -33,6 +34,8 @@ public interface DumpSchemaService {
 	void dumpSchema(Schema schema, Writer writer);
 
 	Schema getSchema(String location);
+
+	Schema getSchema(InputStream in);
 
 	Schema getSchema(File file);
 
