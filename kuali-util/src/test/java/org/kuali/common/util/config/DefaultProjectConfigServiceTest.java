@@ -5,11 +5,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DefaultProjectConfigServiceTest {
 
 	@Test
+	public void testIt() {
+
+		try {
+			ProjectConfigService service = new DefaultProjectConfigService();
+			List<Location> locations = service.getLocations("org.kuali.common", "kuali-util");
+			System.out.println(locations.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
 	public void test() {
 
 		try {
