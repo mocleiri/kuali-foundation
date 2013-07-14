@@ -1,0 +1,7 @@
+<project>
+  <location value="${classpath.prefix}/sql.xml" />
+  <location value="${classpath.prefix}/h2.xml" />
+  <location value="${classpath.prefix}/derby.xml" />
+  <location value="${classpath.prefix}/oracle.xml" />
+  <location value="${classpath.prefix}/mysql.xml" />
+</project>
