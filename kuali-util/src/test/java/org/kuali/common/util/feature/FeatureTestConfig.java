@@ -19,20 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.util.config.ConfigMetadata;
+import org.kuali.common.util.config.ConfigMetadataConfig;
 import org.kuali.common.util.config.ConfigService;
 import org.kuali.common.util.config.LocationContext;
-import org.kuali.common.util.config.spring.FeatureConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ FeatureConfig.class })
+@Import({ ConfigMetadataConfig.class })
 public class FeatureTestConfig {
 
 	@Autowired
-	FeatureConfig featureConfig;
+	ConfigMetadataConfig featureConfig;
 
 	@Bean
 	public Object whatup() {
