@@ -14,7 +14,7 @@ import org.apache.commons.io.IOUtils;
 
 public class JAXBUtil {
 
-	public static <T> void write(T instance, File file) {
+	public static void write(Object instance, File file) {
 		Writer writer = null;
 		try {
 			writer = LocationUtils.openWriter(file);
@@ -24,7 +24,7 @@ public class JAXBUtil {
 		}
 	}
 
-	public static <T> void write(T instance, Writer writer) {
+	public static void write(Object instance, Writer writer) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(instance.getClass());
 			Marshaller marshaller = context.createMarshaller();
