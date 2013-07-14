@@ -59,49 +59,39 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	@Override
-	public ConfigMetadata loadMetaData(ConfigMetadata feature) {
-		return loadMetaData(feature.getGroupId(), feature.getArtifactId(), feature.getFeatureId(), feature.getContextId());
+	public ConfigMetadata loadMetaData(ConfigMetadata cm) {
+		Project project = ProjectUtils.loadProject(cm.getGroupId(), cm.getArtifactId());
+		Properties featureProperties = loadAndCache(project, cm.getFeatureId());
+		Properties enhanced = getEnhanced(project, cm.getFeatureId(), cm.getContextId());
+		Properties resolved = getResolved(featureProperties, enhanced);
+		List<LocationContext> locationContexts = getLocationContexts(project, cm.getFeatureId(), cm.getContextId(), resolved);
+		cm.setLocationContexts(locationContexts);
+		return cm;
 	}
 
 	@Override
 	public ConfigMetadata loadMetaData(String id) {
+		ConfigMetadata cm = getConfigMetadata(id);
+		return loadMetaData(cm);
+	}
+
+	protected ConfigMetadata getConfigMetadata(String id) {
+
 		Assert.hasText(id, "id is blank");
+
 		String[] tokens = StringUtils.split(id, ":");
-		Assert.isTrue(tokens.length >= 3, "groupId, artifactId, and name are required");
-		String groupId = tokens[0];
-		String artifactId = tokens[1];
-		String name = tokens[2];
-		String contextId = (tokens.length > 3) ? tokens[3] : null;
-		return loadMetaData(groupId, artifactId, name, contextId);
-	}
 
-	@Override
-	public ConfigMetadata loadMetaData(String groupId, String artifactId) {
-		return null;
-	}
+		String gid = (tokens.length > 0) ? StringUtils.trimToNull(tokens[0]) : null;
+		String aid = (tokens.length > 1) ? StringUtils.trimToNull(tokens[1]) : null;
+		String fid = (tokens.length > 2) ? StringUtils.trimToNull(tokens[2]) : null;
+		String cid = (tokens.length > 3) ? StringUtils.trimToNull(tokens[3]) : null;
 
-	@Override
-	public ConfigMetadata loadMetaData(String groupId, String artifactId, String name, String contextId) {
-		Assert.notBlank(groupId, artifactId, name, "groupId, artifactId, and name cannot be blank");
-
-		Project project = ProjectUtils.loadProject(groupId, artifactId);
-		Properties featureProperties = loadAndCache(project, name);
-		Properties enhanced = getEnhanced(project, name, contextId);
-		Properties resolved = getResolved(featureProperties, enhanced);
-		List<LocationContext> locationContexts = getLocationContexts(project, name, contextId, resolved);
-
-		ConfigMetadata feature = new ConfigMetadata();
-		feature.setGroupId(groupId);
-		feature.setArtifactId(artifactId);
-		feature.setFeatureId(name);
-		feature.setContextId(contextId);
-		feature.setLocationContexts(locationContexts);
-		return feature;
-	}
-
-	@Override
-	public ConfigMetadata loadMetaData(String groupId, String artifactId, String name) {
-		return loadMetaData(groupId, artifactId, name, null);
+		ConfigMetadata cm = new ConfigMetadata();
+		cm.setGroupId(gid);
+		cm.setArtifactId(aid);
+		cm.setFeatureId(fid);
+		cm.setContextId(cid);
+		return cm;
 	}
 
 	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {

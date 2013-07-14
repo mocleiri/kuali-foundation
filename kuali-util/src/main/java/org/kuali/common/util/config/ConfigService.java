@@ -20,6 +20,7 @@ public interface ConfigService {
 	/**
 	 * <pre>
 	 *   org.kuali.common:kuali-util             - project config
+	 *   org.kuali.common:kuali-util::foo        - project + context config
 	 *   org.kuali.common:kuali-util:metainf     - feature config
 	 *   org.kuali.common:kuali-util:metainf:mpx - feature + context config
 	 * </pre>
@@ -27,12 +28,6 @@ public interface ConfigService {
 	ConfigMetadata loadMetaData(String id);
 
 	ConfigMetadata loadMetaData(ConfigMetadata metadata);
-
-	ConfigMetadata loadMetaData(String groupId, String artifactId);
-
-	ConfigMetadata loadMetaData(String groupId, String artifactId, String featureId);
-
-	ConfigMetadata loadMetaData(String groupId, String artifactId, String featureId, String contextId);
 
 	String getId(ConfigMetadata metadata);
 
