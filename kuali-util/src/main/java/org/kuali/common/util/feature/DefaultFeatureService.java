@@ -37,7 +37,7 @@ public class DefaultFeatureService implements FeatureService {
 
 	protected static final String COMMON_PROPERTIES_FILENAME = "common.properties";
 	protected static final String METAINF_DIR = "META-INF";
-	protected static final String FEATURES_DIR = "features";
+	protected static final String FEATURE_DIR = "feature";
 	protected static final String CLASSPATH_PREFIX = "classpath:";
 	protected static final String CONTEXTS_KEY = "feature.contexts";
 	protected static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
@@ -192,7 +192,7 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	protected String getFeatureMetaInfLocation(Project project, String featureName) {
-		return CLASSPATH_PREFIX + METAINF_DIR + "/" + ProjectUtils.getResourcePath(project) + "/" + FEATURES_DIR + "/" + featureName + ".properties";
+		return CLASSPATH_PREFIX + METAINF_DIR + "/" + ProjectUtils.getResourcePath(project) + "/" + FEATURE_DIR + "/" + featureName + ".properties";
 	}
 
 	protected String getClasspathLocation(Project project, String featureName) {
