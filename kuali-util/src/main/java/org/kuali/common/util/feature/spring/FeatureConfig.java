@@ -49,7 +49,7 @@ public class FeatureConfig {
 		FeatureService service = utilFeatureService();
 		Map<String, Feature> features = new HashMap<String, Feature>();
 		for (String id : ids) {
-			Feature feature = service.loadFeature(id);
+			Feature feature = service.loadMetaData(id);
 			features.put(id, feature);
 		}
 		return features;

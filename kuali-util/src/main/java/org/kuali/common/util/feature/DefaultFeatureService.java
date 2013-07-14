@@ -59,12 +59,12 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	@Override
-	public Feature loadFeature(Feature feature) {
-		return loadFeature(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
+	public Feature loadMetaData(Feature feature) {
+		return loadMetaData(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
 	}
 
 	@Override
-	public Feature loadFeature(String id) {
+	public Feature loadMetaData(String id) {
 		Assert.hasText(id, "id is blank");
 		String[] tokens = StringUtils.split(id, ":");
 		Assert.isTrue(tokens.length >= 3, "groupId, artifactId, and name are required");
@@ -72,11 +72,11 @@ public class DefaultFeatureService implements FeatureService {
 		String artifactId = tokens[1];
 		String name = tokens[2];
 		String contextId = (tokens.length > 3) ? tokens[3] : null;
-		return loadFeature(groupId, artifactId, name, contextId);
+		return loadMetaData(groupId, artifactId, name, contextId);
 	}
 
 	@Override
-	public Feature loadFeature(String groupId, String artifactId, String name, String contextId) {
+	public Feature loadMetaData(String groupId, String artifactId, String name, String contextId) {
 		Assert.notBlank(groupId, artifactId, name, "groupId, artifactId, and name cannot be blank");
 
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
@@ -95,8 +95,8 @@ public class DefaultFeatureService implements FeatureService {
 	}
 
 	@Override
-	public Feature loadFeature(String groupId, String artifactId, String name) {
-		return loadFeature(groupId, artifactId, name, null);
+	public Feature loadMetaData(String groupId, String artifactId, String name) {
+		return loadMetaData(groupId, artifactId, name, null);
 	}
 
 	protected List<LocationContext> getLocationContexts(Project project, String featureName, String contextId, Properties properties) {

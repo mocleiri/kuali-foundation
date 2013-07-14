@@ -20,13 +20,13 @@ public interface FeatureService {
 	/**
 	 * <code>org.kuali.common:kuali-util:metainf:mpx</code>
 	 */
-	Feature loadFeature(String id);
+	Feature loadMetaData(String id);
 
-	Feature loadFeature(Feature feature);
+	Feature loadMetaData(Feature feature);
 
-	Feature loadFeature(String groupId, String artifactId, String name);
+	Feature loadMetaData(String groupId, String artifactId, String name);
 
-	Feature loadFeature(String groupId, String artifactId, String name, String contextId);
+	Feature loadMetaData(String groupId, String artifactId, String name, String contextId);
 	
 	String getId(Feature feature);
 
