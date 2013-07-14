@@ -1,4 +1,7 @@
 <project>
+  <context name="scm">
+    <location value="${classpath.prefix}/scm.properties" />
+  </context>
   <context name="metainf">
     <context name="sql">
       <location value="${metainf.common}" />
