@@ -27,5 +27,7 @@ public interface FeatureService {
 	Feature loadFeature(String groupId, String artifactId, String name);
 
 	Feature loadFeature(String groupId, String artifactId, String name, String contextId);
+	
+	String getId(Feature feature);
 
 }

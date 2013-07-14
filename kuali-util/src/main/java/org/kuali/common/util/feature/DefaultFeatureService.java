@@ -44,6 +44,21 @@ public class DefaultFeatureService implements FeatureService {
 	protected static final Map<String, Properties> FEATURE_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
 	@Override
+	public String getId(Feature feature) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(feature.getGroupId());
+		sb.append(":");
+		sb.append(feature.getArtifactId());
+		sb.append(":");
+		sb.append(feature.getName());
+		if (!StringUtils.isBlank(feature.getContextId())) {
+			sb.append(":");
+			sb.append(feature.getContextId());
+		}
+		return sb.toString();
+	}
+
+	@Override
 	public Feature loadFeature(Feature feature) {
 		return loadFeature(feature.getGroupId(), feature.getArtifactId(), feature.getName(), feature.getContextId());
 	}
