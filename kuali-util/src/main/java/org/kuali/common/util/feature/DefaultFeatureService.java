@@ -191,8 +191,12 @@ public class DefaultFeatureService implements FeatureService {
 		return props;
 	}
 
+	protected String getFeatureMetaInfLocation(Project project) {
+		return CLASSPATH_PREFIX + METAINF_DIR + "/" + ProjectUtils.getResourcePath(project) + "/config/metadata.properties";
+	}
+
 	protected String getFeatureMetaInfLocation(Project project, String featureName) {
-		return CLASSPATH_PREFIX + METAINF_DIR + "/" + ProjectUtils.getResourcePath(project) + "/" + FEATURE_DIR + "/" + featureName + ".properties";
+		return CLASSPATH_PREFIX + METAINF_DIR + "/" + ProjectUtils.getResourcePath(project) + "/config/" + featureName + "/metadata.properties";
 	}
 
 	protected String getClasspathLocation(Project project, String featureName) {
