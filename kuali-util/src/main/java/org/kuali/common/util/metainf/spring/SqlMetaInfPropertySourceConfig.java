@@ -18,13 +18,15 @@ package org.kuali.common.util.metainf.spring;
 import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.util.ProjectConstants;
 import org.kuali.common.util.config.spring.BuildPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SqlMetaInfPropertySourceConfig extends BuildPropertySourceConfig {
 
-	protected static final String UTIL_METAINF_SQL_CONFIG_ID = "org.kuali.common:kuali-util:metainf:sql";
+	protected static final String METAINF_SQL_CONTEXT_ID = "metainf:sql";
+	protected static final String UTIL_METAINF_SQL_CONFIG_ID = ProjectConstants.COMMON_GROUP_ID + ":" + ProjectConstants.UTIL_ARTIFACT_ID + ":" + METAINF_SQL_CONTEXT_ID;
 
 	@Override
 	protected List<String> getConfigIds() {
