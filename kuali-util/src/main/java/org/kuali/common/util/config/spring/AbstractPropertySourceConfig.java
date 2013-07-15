@@ -19,9 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.config.ConfigRequest;
 import org.kuali.common.util.config.ProjectConfigService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,23 +37,16 @@ public abstract class AbstractPropertySourceConfig {
 	@Autowired
 	ProjectConfigSpringConfig projectConfigSpringConfig;
 
-	protected abstract String getGroupId();
-
-	protected abstract String getArtifactId();
-
-	protected List<ConfigRequest> getConfigRequests() {
+	protected List<String> getConfigIds() {
 		return Collections.emptyList();
 	}
 
-	protected Properties getProjectProperties() {
-		Project project = ProjectUtils.loadProject(getGroupId(), getArtifactId());
-		return project.getProperties();
-	}
+	protected abstract Properties getProjectProperties();
 
 	protected PropertySource<?> getPropertySource() {
 		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
 		Properties projectProperties = getProjectProperties();
-		Properties properties = service.getProperties(projectProperties, getConfigRequests());
+		Properties properties = service.getPropertiesFromIds(projectProperties, getConfigIds());
 		return SpringUtils.getGlobalPropertySource(properties);
 	}
 

@@ -47,14 +47,4 @@ public class MavenPropertySourceConfig extends AbstractPropertySourceConfig {
 		return mavenProperties;
 	}
 
-	@Override
-	protected String getGroupId() {
-		return mavenProperties.getProperty("project.groupId");
-	}
-
-	@Override
-	protected String getArtifactId() {
-		return mavenProperties.getProperty("project.artifactId");
-	}
-
 }
