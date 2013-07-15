@@ -59,7 +59,7 @@ public abstract class AbstractPropertySourceConfig {
 	protected abstract Properties getProjectProperties();
 
 	/**
-	 * Combine loaded properties, with project properties and system/environment properties into a <code>PropertySource<?></code>
+	 * Combine loaded properties, project properties, and system/environment properties into a <code>PropertySource<?></code>
 	 */
 	protected PropertySource<?> getPropertySource() {
 		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
