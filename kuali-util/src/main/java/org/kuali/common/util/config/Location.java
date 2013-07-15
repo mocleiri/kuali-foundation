@@ -59,7 +59,7 @@ public class Location {
 		this.value = value;
 	}
 
-	@XmlAttribute
+	@XmlAttribute(name = "missing")
 	public Mode getMissingMode() {
 		return missingMode;
 	}
