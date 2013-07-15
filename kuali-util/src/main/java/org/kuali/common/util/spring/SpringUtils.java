@@ -468,6 +468,10 @@ public class SpringUtils {
 		return new PropertiesPropertySource(name, globalSource);
 	}
 
+	public static PropertySource<?> getGlobalPropertySource(Properties properties) {
+		return new PropertiesPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, properties);
+	}
+
 	/**
 	 * Return a SpringContext that resolves all placeholders from the PropertySource passed in
 	 */
@@ -475,7 +479,7 @@ public class SpringUtils {
 		Properties loaded = PropertyUtils.load(locations, encoding);
 		Properties global = PropertyUtils.getGlobalProperties(loaded);
 		PropertyUtils.prepareContextProperties(global);
-		return new PropertiesPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, global);
+		return getGlobalPropertySource(global);
 	}
 
 	/**
