@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.execute.StorePropertiesExecutable;
@@ -64,15 +63,13 @@ public class MetaInfProjectPropertiesSetupConfig {
 
 		// Extract property values from the environment
 		String encoding = SpringUtils.getProperty(env, "project.encoding");
-		String includesCSV = SpringUtils.getProperty(env, "project.metainf.includes");
-		String excludesCSV = SpringUtils.getProperty(env, "project.metainf.excludes");
 
-		// Make sure we are configured right
+		// Encoding must be provided
 		Assert.hasText(encoding);
 
-		// Convert the lists to CSV
-		List<String> includes = CollectionUtils.getTrimmedListFromCSV(includesCSV);
-		List<String> excludes = CollectionUtils.getTrimmedListFromCSV(excludesCSV);
+		// Setup includes / excludes
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, "project.metainf.includes");
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, "project.metainf.includes");
 
 		// Get the list of all properties spring knows about
 		Properties properties = springProperties();
