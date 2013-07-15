@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.metainf.spring;
+package org.kuali.common.util.config.spring;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Properties;
 
-import org.kuali.common.util.ProjectConstants;
-import org.kuali.common.util.config.spring.ProjectPropertySourceConfig;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
+import org.springframework.context.annotation.Configuration;
 
-public class MpxMetaPropertySourceConfig extends ProjectPropertySourceConfig {
+@Configuration
+public abstract class ProjectPropertySourceConfig extends AbstractPropertySourceConfig {
 
-	@Override
-	protected String getProjectId() {
-		return ProjectConstants.COMMON_GROUP_ID + ":" + ProjectConstants.UTIL_ARTIFACT_ID;
-	}
+	protected abstract String getProjectId();
 
 	@Override
-	protected List<String> getConfigIds() {
-		return Arrays.asList(getProjectId() + ":metainf:mpx");
+	protected Properties getProjectProperties() {
+		String projectId = getProjectId();
+		Project project = ProjectUtils.getProject(projectId);
+		return project.getProperties();
 	}
 
 }
