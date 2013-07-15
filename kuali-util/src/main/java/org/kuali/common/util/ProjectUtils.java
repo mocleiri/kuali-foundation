@@ -42,7 +42,7 @@ public class ProjectUtils {
 	private static final String CLASSPATH = "classpath:";
 
 	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
-	
+
 	@SuppressWarnings("deprecation")
 	public static final String KUALI_UTIL_ARTIFACT_ID = UtilProjectContext.ARTIFACT_ID;
 
@@ -325,8 +325,8 @@ public class ProjectUtils {
 		Assert.hasText(project.getArtifactId(), "artifactId has no text");
 
 		Properties properties = new Properties();
-		properties.setProperty("project.groupId.path", Str.getPath(project.getGroupId()));
-		properties.setProperty("project.artifactId", project.getArtifactId());
+		properties.setProperty(Constants.GROUP_ID_BASE_PATH_KEY, Str.getPath(project.getGroupId()));
+		properties.setProperty(Constants.ARTIFACT_ID_KEY, project.getArtifactId());
 
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
 	}

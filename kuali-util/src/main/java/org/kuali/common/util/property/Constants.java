@@ -58,7 +58,10 @@ public final class Constants {
 	public static final String ENCRYPTION_PREFIX = "ENC(";
 	public static final String ENCRYPTION_SUFFIX = ")";
 
-	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${project.groupId.path}/${project.artifactId}";
+	// KS uses a bunch of groupId's. Always translate those to "org.kuali.student" when reading/writing project.properties
+	public static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
+	public static final String ARTIFACT_ID_KEY = "project.artifactId";
+	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${" + GROUP_ID_BASE_PATH_KEY + "}/${" + ARTIFACT_ID_KEY + "}";
 	public static final String PROJECT_PROPERTIES_FRAGMENT = PROJECT_PROPERTIES_BASE + "/project.properties";
 	public static final String PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + PROJECT_PROPERTIES_FRAGMENT;
 	public static final String PROJECT_PROPERTIES_LOCATION = "classpath:" + PROJECT_PROPERTIES_FRAGMENT;
