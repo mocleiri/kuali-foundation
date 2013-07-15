@@ -24,11 +24,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SqlMetaInfPropertySourceConfig extends BuildPropertySourceConfig {
 
-	private static final String CONFIG_ID = "org.kuali.common:kuali-util:metainf:sql";
+	protected static final String UTIL_METAINF_SQL_CONFIG_ID = "org.kuali.common:kuali-util:metainf:sql";
 
 	@Override
 	protected List<String> getConfigIds() {
-		return Arrays.asList(CONFIG_ID);
+		return Arrays.asList(UTIL_METAINF_SQL_CONFIG_ID);
 	}
 
 }
