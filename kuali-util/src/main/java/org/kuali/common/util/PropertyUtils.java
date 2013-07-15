@@ -422,7 +422,7 @@ public class PropertyUtils {
 	public static final Properties combine(List<Properties> properties) {
 		Properties combined = new Properties();
 		for (Properties p : properties) {
-			combined.putAll(PropertyUtils.toEmpty(p));
+			combined.putAll(toEmpty(p));
 		}
 		return combined;
 	}
