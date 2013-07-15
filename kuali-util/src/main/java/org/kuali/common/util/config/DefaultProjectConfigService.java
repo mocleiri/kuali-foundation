@@ -212,7 +212,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		String location = getMetadataConfigFilePath(project, FILE);
 
-		// Throw an exception if they are asking for config info that doesn't exist
+		// Throw an exception if they are asking for config metadata that doesn't exist
 		Assert.isTrue(LocationUtils.exists(location), "[" + location + "] does not exist");
 
 		Properties properties = getFilterProperties(project);
