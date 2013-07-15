@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,7 +153,7 @@ public class ProjectUtils {
 	 * 
 	 */
 	@Deprecated
-	public static ProjectProperties getProjectProperties(ProjectContext context) {
+	public static org.kuali.common.util.property.ProjectProperties getProjectProperties(ProjectContext context) {
 
 		// Get a project object based on the context information
 		Project project = loadProject(context);
@@ -165,7 +164,7 @@ public class ProjectUtils {
 		propertiesContext.setLocations(context.getPropertyLocations());
 
 		// Return a project properties object
-		return new ProjectProperties(project, propertiesContext);
+		return new org.kuali.common.util.property.ProjectProperties(project, propertiesContext);
 	}
 
 	/**

@@ -22,7 +22,6 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -37,7 +36,6 @@ import org.springframework.core.env.PropertySource;
 /**
  * Maven utilities that don't depend on Maven libraries
  */
-@SuppressWarnings("deprecation")
 public class MavenUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
@@ -87,13 +85,13 @@ public class MavenUtils {
 	}
 
 	@Deprecated
-	public static ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
+	public static org.kuali.common.util.property.ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
 
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
 
-		ProjectProperties pp = new ProjectProperties();
+		org.kuali.common.util.property.ProjectProperties pp = new org.kuali.common.util.property.ProjectProperties();
 		pp.setProject(project);
 		pp.setPropertiesContext(pc);
 		return pp;

@@ -24,6 +24,7 @@ import java.util.Properties;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.metainf.MetaInfContext;
 
 public class DefaultProjectConfigServiceTest {
@@ -40,7 +41,8 @@ public class DefaultProjectConfigServiceTest {
 			Properties properties1 = service.getProperties(project, configId);
 			String sql = new KualiUtilConfigRequest(MetaInfContext.SQL_CONTEXT_ID).toString();
 			Properties properties2 = service.getProperties(project, sql);
-			// PropertyUtils.info(properties);
+			PropertyUtils.info(properties1);
+			PropertyUtils.info(properties2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

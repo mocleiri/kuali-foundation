@@ -38,7 +38,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.PropertyFormat;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
@@ -199,13 +198,13 @@ public class PropertyUtils {
 	}
 
 	@Deprecated
-	public static Properties load(List<ProjectProperties> pps) {
+	public static Properties load(List<org.kuali.common.util.property.ProjectProperties> pps) {
 
 		// Create some storage for the Properties object we will be returning
 		Properties properties = new Properties();
 
 		// Cycle through the list of project properties, loading them as we go
-		for (ProjectProperties pp : pps) {
+		for (org.kuali.common.util.property.ProjectProperties pp : pps) {
 
 			logger.debug("oracle.dba.url.1={}", properties.getProperty("oracle.dba.url"));
 

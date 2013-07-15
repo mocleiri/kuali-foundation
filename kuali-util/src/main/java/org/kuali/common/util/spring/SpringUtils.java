@@ -34,7 +34,6 @@ import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
@@ -42,7 +41,6 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.PropertySourceContext;
@@ -71,7 +69,7 @@ public class SpringUtils {
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
 	@Deprecated
-	public static SpringContext getSpringContext(List<Class<?>> annotatedClasses, ProjectContext project, List<ProjectContext> others) {
+	public static SpringContext getSpringContext(List<Class<?>> annotatedClasses, org.kuali.common.util.ProjectContext project, List<org.kuali.common.util.ProjectContext> others) {
 		// This PropertySource object is backed by a set of properties that has been
 		// 1 - fully resolved
 		// 2 - contains all properties needed by Spring
@@ -96,7 +94,7 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static SpringContext getSpringContext(Class<?> annotatedClass, ProjectContext project, List<ProjectContext> others) {
+	public static SpringContext getSpringContext(Class<?> annotatedClass, org.kuali.common.util.ProjectContext project, List<org.kuali.common.util.ProjectContext> others) {
 		return getSpringContext(CollectionUtils.asList(annotatedClass), project, others);
 	}
 
@@ -104,7 +102,7 @@ public class SpringUtils {
 	 * 
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, ProjectContext other) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext project, org.kuali.common.util.ProjectContext other) {
 		return getGlobalPropertySource(project, Arrays.asList(other));
 	}
 
@@ -112,7 +110,7 @@ public class SpringUtils {
 	 * 
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext project, List<org.kuali.common.util.ProjectContext> others) {
 		return getGlobalPropertySource(project, others, null);
 	}
 
@@ -120,15 +118,15 @@ public class SpringUtils {
 	 * 
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode) {
-		return getGlobalPropertySource(project, missingLocationsMode, Collections.<ProjectContext> emptyList());
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext project, Mode missingLocationsMode) {
+		return getGlobalPropertySource(project, missingLocationsMode, Collections.<org.kuali.common.util.ProjectContext> emptyList());
 	}
 
 	/**
 	 * 
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode, ProjectContext... others) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext project, Mode missingLocationsMode, org.kuali.common.util.ProjectContext... others) {
 		return getGlobalPropertySource(project, missingLocationsMode, Arrays.asList(others));
 	}
 
@@ -136,16 +134,18 @@ public class SpringUtils {
 	 * 
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode, List<ProjectContext> others) {
-		ProjectProperties pp = ConfigUtils.getProjectProperties(project);
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext project, Mode missingLocationsMode,
+			List<org.kuali.common.util.ProjectContext> others) {
+		org.kuali.common.util.property.ProjectProperties pp = ConfigUtils.getProjectProperties(project);
 		pp.getPropertiesContext().setMissingLocationsMode(missingLocationsMode);
 		return getGlobalPropertySource(pp, others, null);
 	}
 
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectProperties projectProperties, List<ProjectContext> others, Properties properties) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.property.ProjectProperties projectProperties, List<org.kuali.common.util.ProjectContext> others,
+			Properties properties) {
 		ConfigUtils.combine(projectProperties, properties);
-		List<ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
+		List<org.kuali.common.util.property.ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return getGlobalPropertySource(projectProperties, otherProjectProperties);
 	}
@@ -155,11 +155,11 @@ public class SpringUtils {
 	 * in wins.
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others, Properties properties) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext project, List<org.kuali.common.util.ProjectContext> others, Properties properties) {
 
-		ProjectProperties projectProperties = ConfigUtils.getProjectProperties(project, properties);
+		org.kuali.common.util.property.ProjectProperties projectProperties = ConfigUtils.getProjectProperties(project, properties);
 
-		List<ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
+		List<org.kuali.common.util.property.ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
 
 		// Get a PropertySource object backed by the properties loaded from the list as well as system/environment properties
 		return getGlobalPropertySource(projectProperties, otherProjectProperties);
@@ -170,7 +170,7 @@ public class SpringUtils {
 	 * in wins.
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.property.ProjectProperties project) {
 		return getGlobalPropertySource(project, null);
 	}
 
@@ -179,9 +179,9 @@ public class SpringUtils {
 	 * in wins.
 	 */
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project, List<ProjectProperties> others) {
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.property.ProjectProperties project, List<org.kuali.common.util.property.ProjectProperties> others) {
 		// Property loading uses a "last one in wins" strategy
-		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
+		List<org.kuali.common.util.property.ProjectProperties> list = new ArrayList<org.kuali.common.util.property.ProjectProperties>();
 
 		// Add project properties first so they can be used to resolve locations
 		list.add(project);
@@ -460,7 +460,7 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(String name, List<ProjectProperties> pps) {
+	public static PropertySource<?> getGlobalPropertySource(String name, List<org.kuali.common.util.property.ProjectProperties> pps) {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
 
@@ -498,7 +498,7 @@ public class SpringUtils {
 	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
 	 */
 	@Deprecated
-	public static SpringContext getSinglePropertySourceContext(ProjectContext context, String location) {
+	public static SpringContext getSinglePropertySourceContext(org.kuali.common.util.ProjectContext context, String location) {
 		PropertySource<?> source = getGlobalPropertySource(context, location);
 		return getSinglePropertySourceContext(source);
 	}
@@ -507,7 +507,7 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
-	public static SpringExecutable getSpringExecutable(ProjectContext project, String location, List<Class<?>> annotatedClasses) {
+	public static SpringExecutable getSpringExecutable(org.kuali.common.util.ProjectContext project, String location, List<Class<?>> annotatedClasses) {
 		SpringContext context = getSinglePropertySourceContext(project, location);
 		context.setAnnotatedClasses(annotatedClasses);
 
@@ -529,7 +529,7 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
-	public static SpringExecutable getSpringExecutable(ProjectContext project, String location, Class<?> annotatedClass) {
+	public static SpringExecutable getSpringExecutable(org.kuali.common.util.ProjectContext project, String location, Class<?> annotatedClass) {
 		return getSpringExecutable(project, location, CollectionUtils.asList(annotatedClass));
 	}
 
@@ -537,9 +537,9 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
-	public static SpringExecutable getSpringExecutable(Class<?> annotatedClass, String location, ProjectContext... projects) {
-		List<ProjectProperties> list = ConfigUtils.getProjectProperties(projects);
-		ProjectProperties last = list.get(list.size() - 1);
+	public static SpringExecutable getSpringExecutable(Class<?> annotatedClass, String location, org.kuali.common.util.ProjectContext... projects) {
+		List<org.kuali.common.util.property.ProjectProperties> list = ConfigUtils.getProjectProperties(projects);
+		org.kuali.common.util.property.ProjectProperties last = list.get(list.size() - 1);
 		PropertiesContext pc = last.getPropertiesContext();
 		if (!StringUtils.isBlank(location)) {
 			List<String> locations = new ArrayList<String>(CollectionUtils.toEmptyList(pc.getLocations()));
@@ -579,8 +579,8 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static PropertySource<?> getGlobalPropertySource(ProjectContext context, String... locations) {
-		ProjectProperties pp = ProjectUtils.getProjectProperties(context);
+	public static PropertySource<?> getGlobalPropertySource(org.kuali.common.util.ProjectContext context, String... locations) {
+		org.kuali.common.util.property.ProjectProperties pp = ProjectUtils.getProjectProperties(context);
 		PropertiesContext pc = pp.getPropertiesContext();
 		List<String> existingLocations = CollectionUtils.toEmptyList(pc.getLocations());
 		if (locations != null) {
@@ -593,7 +593,7 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
+	public static PropertySource<?> getPropertySource(String name, List<org.kuali.common.util.property.ProjectProperties> pps) {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
 
