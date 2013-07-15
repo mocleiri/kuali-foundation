@@ -40,6 +40,7 @@ public class ProjectUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
+	private static final String CLASSPATH = "classpath:";
 
 	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
 	public static final String KUALI_UTIL_ARTIFACT_ID = UtilProjectContext.ARTIFACT_ID;
@@ -56,23 +57,34 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Given <code>kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 * <pre>
+	 *   kuali-util = classpath:org/kuali/common/kuali-util
+	 * </pre>
 	 */
 	public static String getCommonClassPathPrefix(String artifactId) {
 		return getClassPathPrefix(ProjectConstants.COMMON_GROUP_ID, artifactId);
 	}
 
 	/**
-	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
-	 * Given <code>org.kuali.student.db:ks-impex-rice-db</code>, return <code>classpath:org/kuali/student/ks-impex-rice-db</code>
+	 * Given a groupId and artifactId, convert the groupId to groupId.base, then return the classpath prefix
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db = classpath:org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util           = classpath:org/kuali/common/kuali-util
+	 * </pre>
 	 */
 	public static String getClassPathPrefix(String groupId, String artifactId) {
 		Project project = loadProject(groupId, artifactId);
-		return "classpath:" + getResourcePath(project);
+		return CLASSPATH + getResourcePath(project);
 	}
 
 	/**
-	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 * Given groupId:artifactId, convert the groupId to groupId.base, then return the classpath prefix
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db = classpath:org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util           = classpath:org/kuali/common/kuali-util
+	 * </pre>
 	 */
 	public static String getClassPathPrefixFromGAV(String gav) {
 		Project project = getProject(gav);
@@ -80,14 +92,26 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Given <code>org.kuali.common:kuali-util</code>, return <code>classpath:org/kuali/common/kuali-util</code>
+	 * Given a project containing groupId + artifactId, convert the groupId to groupId.base, then return the classpath prefix
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db = classpath:org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util           = classpath:org/kuali/common/kuali-util
+	 * </pre>
 	 */
 	public static String getClassPathPrefix(Project project) {
 		return getClassPathPrefix(project.getGroupId(), project.getArtifactId());
 	}
 
 	/**
-	 * Given <code>/tmp/x/y/z</code> and <code>org.kuali.common:kuali-util</code> return <code>/tmp/x/y/z/org/kuali/common/kuali-util</code>
+	 * Given a groupId and artifactId, convert the groupId to groupId.base, then return a resource path relative to directory
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db    = org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util              = org/kuali/common/kuali-util
+	 *   
+	 *   /tmp/x/y/z + org.kuali.common:kuali-util = /tmp/x/y/z/org/kuali/common/kuali-util
+	 * </pre>
 	 */
 	public static File getResourceDirectory(File directory, Project project) {
 		String resourcePath = getResourcePath(project);
@@ -96,7 +120,14 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Given <code>/tmp/x/y/z</code>, <code>org.kuali.common:kuali-util</code>, and "file.txt" return <code>/tmp/x/y/z/org/kuali/common/kuali-util/file.txt</code>
+	 * Given a groupId and artifactId, convert the groupId to groupId.base, then return a handle to a file relative to directory with the given filename
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db              = org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util                        = org/kuali/common/kuali-util
+	 *   
+	 *   /tmp/x/y/z + org.kuali.common:kuali-util + foo.txt = /tmp/x/y/z/org/kuali/common/kuali-util/foo.txt
+	 * </pre>
 	 */
 	public static File getResourceFile(File directory, Project project, String filename) {
 		File dir = getResourceDirectory(directory, project);
@@ -104,7 +135,12 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Given <code>org.kuali.common:kuali-util</code> return <code>org/kuali/common/kuali-util</code>
+	 * Given groupId:artifactId, convert the groupId to groupId.base, then return a resource friendly prefix
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db = org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util           = org/kuali/common/kuali-util
+	 * </pre>
 	 */
 	public static String getResourcePath(Project project) {
 		String groupIdPath = project.getProperties().getProperty(GROUP_ID_BASE_PATH_KEY);
@@ -115,6 +151,7 @@ public class ProjectUtils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static ProjectProperties getProjectProperties(ProjectContext context) {
 
 		// Get a project object based on the context information
@@ -132,10 +169,12 @@ public class ProjectUtils {
 	/**
 	 * Create a <code>Project</code> object from the <code>context</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
 	 */
+	@Deprecated
 	public static Project loadProject(ProjectContext context) {
 		return loadProject(getGav(context));
 	}
 
+	@Deprecated
 	public static String getGav(ProjectContext context) {
 		return getGav(context.getGroupId(), context.getArtifactId());
 	}
@@ -271,9 +310,10 @@ public class ProjectUtils {
 
 	protected static Properties loadAndCache(Project project, String gav) {
 		String location = getPropertiesFileLocation(project);
-		if (!LocationUtils.exists(location)) {
-			throw new IllegalArgumentException("[" + location + "] does not exist");
-		}
+
+		// If it doesn't exist, we've got issues
+		Assert.exists(location);
+
 		Properties properties = PropertyUtils.load(location);
 		PROJECT_PROPERTIES_CACHE.put(gav, properties);
 		return properties;
