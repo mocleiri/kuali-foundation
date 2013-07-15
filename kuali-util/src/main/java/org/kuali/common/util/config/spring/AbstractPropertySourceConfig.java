@@ -37,16 +37,26 @@ public abstract class AbstractPropertySourceConfig {
 	@Autowired
 	ProjectConfigSpringConfig projectConfigSpringConfig;
 
+	/**
+	 * Returns <code>Collections.emptyList()</code> by default. Override this method to pull in properties from other sources.
+	 */
 	protected List<String> getConfigIds() {
 		return Collections.emptyList();
 	}
 
+	/**
+	 * Return properties for the current project.
+	 */
 	protected abstract Properties getProjectProperties();
 
+	/**
+	 * Combine loaded properties, with project properties and system/environment properties into a <code>PropertySource<?></code>
+	 */
 	protected PropertySource<?> getPropertySource() {
 		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
 		Properties projectProperties = getProjectProperties();
-		Properties properties = service.getPropertiesFromIds(projectProperties, getConfigIds());
+		List<String> configIds = getConfigIds();
+		Properties properties = service.getPropertiesFromIds(projectProperties, configIds);
 		return SpringUtils.getGlobalPropertySource(properties);
 	}
 
