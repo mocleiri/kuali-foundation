@@ -28,8 +28,9 @@ public class MetaInfExecutableConfig extends ExecutableConfig {
     @Autowired
     MetaInfConfig metaInfConfig;
 
-    public Executable getExecutable() {
-        return metaInfConfig.metaInfExecutable();
+    @Override
+	public Executable getExecutable() {
+        return metaInfConfig.utilMetaInfExecutable();
     }
 
 }

@@ -18,7 +18,6 @@ package org.kuali.common.util.metainf.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.MetaInfExecutable;
 import org.kuali.common.util.metainf.MetaInfContext;
@@ -55,29 +54,11 @@ public class MetaInfConfig {
 	Environment env;
 
 	@Bean
-	public Executable metaInfExecutable() {
-
-		String prefixes = SpringUtils.getProperty(env, METAINF_CONTEXTS_KEY);
-
-		List<String> contextKeys = CollectionUtils.getTrimmedListFromCSV(prefixes);
-
+	public Executable utilMetaInfExecutable() {
+		List<String> contextKeys = SpringUtils.getNoneSensitiveListFromCSV(env, METAINF_CONTEXTS_KEY);
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-
 		for (String contextKey : contextKeys) {
-			MetaInfContext context = new MetaInfContext();
-
-			context.setAddLineCount(getBoolean(contextKey, ADD_LINE_COUNT_KEY, DEFAULT_ADD_LINE_COUNT));
-			context.setAddPropertiesFile(getBoolean(contextKey, ADD_PROPERTIES_FILE_KEY, DEFAULT_ADD_PROPERTIES_FILE));
-			context.setSort(getBoolean(contextKey, SORT_KEY, DEFAULT_SORT));
-
-			context.setBaseDir(SpringUtils.getFile(env, buildContextKey(contextKey, BASE_DIR_KEY)));
-			context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
-
-			context.setIncludes(SpringUtils.getIncludes(env, buildContextKey(contextKey, INCLUDES_KEY)));
-			context.setExcludes(SpringUtils.getExcludes(env, buildContextKey(contextKey, EXCLUDES_KEY), DEFAULT_EXCLUDES));
-
-			context.setPrefix(SpringUtils.getProperty(env, buildContextKey(contextKey, PREFIX_KEY), DEFAULT_PREFIX));
-
+			MetaInfContext context = getMetaInfContext(contextKey);
 			contexts.add(context);
 		}
 
@@ -85,6 +66,23 @@ public class MetaInfConfig {
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
 		exec.setContexts(contexts);
 		return exec;
+	}
+
+	protected MetaInfContext getMetaInfContext(String contextKey) {
+		MetaInfContext context = new MetaInfContext();
+
+		context.setAddLineCount(getBoolean(contextKey, ADD_LINE_COUNT_KEY, DEFAULT_ADD_LINE_COUNT));
+		context.setAddPropertiesFile(getBoolean(contextKey, ADD_PROPERTIES_FILE_KEY, DEFAULT_ADD_PROPERTIES_FILE));
+		context.setSort(getBoolean(contextKey, SORT_KEY, DEFAULT_SORT));
+
+		context.setBaseDir(SpringUtils.getFile(env, buildContextKey(contextKey, BASE_DIR_KEY)));
+		context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
+
+		context.setIncludes(SpringUtils.getIncludes(env, buildContextKey(contextKey, INCLUDES_KEY)));
+		context.setExcludes(SpringUtils.getExcludes(env, buildContextKey(contextKey, EXCLUDES_KEY), DEFAULT_EXCLUDES));
+
+		context.setPrefix(SpringUtils.getProperty(env, buildContextKey(contextKey, PREFIX_KEY), DEFAULT_PREFIX));
+		return context;
 	}
 
 	protected boolean getBoolean(String context, String suffix, boolean defaultValue) {
