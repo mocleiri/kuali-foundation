@@ -20,6 +20,10 @@ public abstract class ProjectConstants {
 	// Kuali Group Id's
 	public static final String COMMON_GROUP_ID = "org.kuali.common";
 	public static final String RICE_GROUP_ID = "org.kuali.rice";
+	public static final String STUDENT_GROUP_ID = "org.kuali.student";
+	public static final String MOBILITY_GROUP_ID = "org.kuali.mobility";
+	public static final String OLE_GROUP_ID = "org.kuali.ole";
+	public static final String KPME_GROUP_ID = "org.kuali.kpme";
 
 	// Common Artifact Id's
 	public static final String SQL_ARTIFACT_ID = "kuali-sql";

@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.config.spring;
 
-import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.ProjectConstants;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -23,7 +23,7 @@ public abstract class KualiCommonPropertySourceConfig extends RuntimePropertySou
 
 	@Override
 	protected String getGroupId() {
-		return ProjectUtils.KUALI_COMMON_GROUP_ID;
+		return ProjectConstants.COMMON_GROUP_ID;
 	}
 
 }
