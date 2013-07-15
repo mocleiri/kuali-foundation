@@ -48,14 +48,6 @@ public abstract class AbstractPropertySourceConfig {
 	@Autowired
 	ProjectConfigSpringConfig projectConfigSpringConfig;
 
-	protected abstract String getGroupId();
-
-	protected abstract String getArtifactId();
-
-	protected List<String> getConfigIds() {
-		return Collections.emptyList();
-	}
-
 	@Bean
 	public List<Location> utilProjectConfigLocations() {
 		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
@@ -66,6 +58,14 @@ public abstract class AbstractPropertySourceConfig {
 			locations.addAll(list);
 		}
 		return locations;
+	}
+
+	protected abstract String getGroupId();
+
+	protected abstract String getArtifactId();
+
+	protected List<String> getConfigIds() {
+		return Collections.emptyList();
 	}
 
 	protected List<Location> getLocations() {
