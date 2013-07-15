@@ -53,12 +53,18 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
+	public Properties getProperties(Properties project, String configId) {
+		return getProperties(project, Arrays.asList(configId));
+	}
+
+	@Override
 	public Properties getProperties(Properties project, List<String> configIds) {
 		List<ConfigRequest> requests = getRequests(configIds);
 		return getPropertiesFromRequests(project, requests);
 	}
 
-	public Properties getPropertiesFromRequests(Properties project, List<ConfigRequest> requests) {
+	protected Properties getPropertiesFromRequests(Properties project, List<ConfigRequest> requests) {
+		// Convert the ConfigRequest objects into Location objects
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
 		Properties properties = new Properties();
@@ -100,7 +106,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		return requests;
 	}
 
-	public List<Location> getLocations(String configId) {
+	protected List<Location> getLocations(String configId) {
 		ConfigRequest request = getConfigRequest(configId);
 		return getLocations(request.getGroupId(), request.getArtifactId(), request.getContextId());
 	}
@@ -137,19 +143,19 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		return sb.toString();
 	}
 
-	public List<Location> getLocations(String groupId, String artifactId) {
+	protected List<Location> getLocations(String groupId, String artifactId) {
 		return getLocations(groupId, artifactId, null);
 	}
 
-	public List<Location> getLocations(String groupId, String artifactId, String contextId) {
+	protected List<Location> getLocations(String groupId, String artifactId, String contextId) {
 		return getLocations(new ConfigRequest(groupId, artifactId, contextId));
 	}
 
-	public List<Location> getLocations(ConfigRequest request) {
+	protected List<Location> getLocations(ConfigRequest request) {
 		return getLocations(Arrays.asList(request));
 	}
 
-	public List<Location> getLocations(List<ConfigRequest> requests) {
+	protected List<Location> getLocations(List<ConfigRequest> requests) {
 		List<Location> locations = new ArrayList<Location>();
 		for (ConfigRequest request : requests) {
 			List<Location> requestLocations = findLocations(request);

@@ -31,4 +31,14 @@ public interface ProjectConfigService {
 	 */
 	Properties getProperties(Properties project, List<String> configIds);
 
+	/**
+	 * Return properties for the project and configId passed in.
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-sql
+	 *  org.kuali.common:kuali-util:scm
+	 *  org.kuali.common:kuali-util:metainf:mpx
+	 * </pre>
+	 */
+	Properties getProperties(Properties project, String configId);
 }
