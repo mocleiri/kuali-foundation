@@ -15,18 +15,18 @@
  */
 package org.kuali.common.util.metainf.spring;
 
-import org.kuali.common.util.metainf.SqlMetaInfProcessContext;
-import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.spring.AbstractPropertySourceConfig;
-import org.kuali.common.util.spring.ConfigUtils;
+import java.util.Arrays;
+import java.util.List;
+
+import org.kuali.common.util.config.spring.KualiUtilPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SqlMetaPropertySourceConfig extends AbstractPropertySourceConfig {
+public class SqlMetaInfPropertySourceConfig extends KualiUtilPropertySourceConfig {
 
-    @Override
-    protected ProjectProperties getProjectProperties() {
-        return ConfigUtils.getProjectProperties(new SqlMetaInfProcessContext());
-    }
+	@Override
+	protected List<String> getConfigIds() {
+		return Arrays.asList(getProjectId() + ":metainf:sql");
+	}
 
 }
