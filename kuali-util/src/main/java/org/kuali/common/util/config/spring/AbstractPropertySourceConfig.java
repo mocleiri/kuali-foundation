@@ -46,6 +46,7 @@ public abstract class AbstractPropertySourceConfig {
 	 * 
 	 * <pre>
 	 *   org.kuali.common:kuali-sql
+	 *   org.kuali.common:kuali-util:scm
 	 *   org.kuali.common:kuali-util:metainf:mpx
 	 *   org.kuali.common:kuali-util:metainf:sql
 	 * </pre>
