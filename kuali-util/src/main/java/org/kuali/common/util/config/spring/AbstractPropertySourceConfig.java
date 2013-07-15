@@ -15,7 +15,6 @@
  */
 package org.kuali.common.util.config.spring;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,8 +24,10 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.Location;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 import org.springframework.util.PropertyPlaceholderHelper;
 
@@ -34,15 +35,19 @@ import org.springframework.util.PropertyPlaceholderHelper;
  * 
  */
 @Configuration
+@Import({ ProjectConfigSpringConfig.class })
 public abstract class AbstractPropertySourceConfig {
 
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	@Autowired
+	ProjectConfigSpringConfig projectConfigSpringConfig;
+
 	/**
-	 * 
+	 * Default behavior is to acquire locations via <code>project.config.ids</code>
 	 */
 	protected List<Location> getLocations() {
-		return Collections.emptyList();
+		return projectConfigSpringConfig.utilProjectConfigLocations();
 	}
 
 	protected abstract Properties getProjectProperties();
@@ -77,8 +82,7 @@ public abstract class AbstractPropertySourceConfig {
 		properties.putAll(global);
 		// Decrypt them
 		PropertyUtils.decrypt(properties);
-		// Make sure every single placeholder is fully resolved and throw an exception if that is not the case
-		// *MUCH* better to immediately error out as opposed to allowing things to proceed only to discover we've got some random unresolved property that causes issues at runtime
+		// Resolve them, throw an exception if we can't
 		PropertyUtils.resolve(properties);
 		// Convert the properties into a PropertySource<?> for Spring
 		return SpringUtils.getGlobalPropertySource(properties);
