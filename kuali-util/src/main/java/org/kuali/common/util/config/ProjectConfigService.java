@@ -24,12 +24,12 @@ public interface ProjectConfigService {
 	 * Return a list of property locations associated with the id passed in.
 	 * 
 	 * <pre>
-	 *  org.kuali.common:kuali-util
-	 *  org.kuali.common:kuali-util:metainf
+	 *  org.kuali.common:kuali-sql
+	 *  org.kuali.common:kuali-util:scm
 	 *  org.kuali.common:kuali-util:metainf:mpx
 	 * </pre>
 	 */
-	List<Location> getLocations(String id);
+	List<Location> getLocations(String configId);
 
 	/**
 	 * Return a list of property locations associated with this groupId + artifactId
