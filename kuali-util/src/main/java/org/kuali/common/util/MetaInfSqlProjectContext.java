@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import java.util.Arrays;
 
+@Deprecated
 public class MetaInfSqlProjectContext extends DefaultProjectContext {
 
 	private static final String ARTIFACT_ID = ProjectConstants.UTIL_ARTIFACT_ID;

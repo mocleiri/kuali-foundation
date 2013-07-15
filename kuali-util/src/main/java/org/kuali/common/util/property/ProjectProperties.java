@@ -17,6 +17,7 @@ package org.kuali.common.util.property;
 
 import org.kuali.common.util.Project;
 
+@Deprecated
 public class ProjectProperties {
 
 	Project project;

@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import java.util.Arrays;
 
+@Deprecated
 public class MpxProjectContext extends DefaultProjectContext {
 
 	private static final String ARTIFACT_ID = ProjectUtils.KUALI_UTIL_ARTIFACT_ID;

@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.util.Arrays;
 import java.util.List;
 
+@Deprecated
 public class UtilProjectContext extends DefaultProjectContext {
 
 	// The artifact id for Kuali's util project

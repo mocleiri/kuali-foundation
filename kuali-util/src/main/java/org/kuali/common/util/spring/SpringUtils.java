@@ -129,12 +129,14 @@ public class SpringUtils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode, List<ProjectContext> others) {
 		ProjectProperties pp = ConfigUtils.getProjectProperties(project);
 		pp.getPropertiesContext().setMissingLocationsMode(missingLocationsMode);
 		return getGlobalPropertySource(pp, others, null);
 	}
 
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectProperties projectProperties, List<ProjectContext> others, Properties properties) {
 		ConfigUtils.combine(projectProperties, properties);
 		List<ProjectProperties> otherProjectProperties = ConfigUtils.getProjectProperties(others);
@@ -146,6 +148,7 @@ public class SpringUtils {
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others, Properties properties) {
 
 		ProjectProperties projectProperties = ConfigUtils.getProjectProperties(project, properties);
@@ -521,6 +524,7 @@ public class SpringUtils {
 	/**
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
+	@Deprecated
 	public static SpringExecutable getSpringExecutable(Class<?> annotatedClass, String location, ProjectContext... projects) {
 		List<ProjectProperties> list = ConfigUtils.getProjectProperties(projects);
 		ProjectProperties last = list.get(list.size() - 1);
@@ -562,6 +566,7 @@ public class SpringUtils {
 		return context;
 	}
 
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext context, String... locations) {
 		ProjectProperties pp = ProjectUtils.getProjectProperties(context);
 		PropertiesContext pc = pp.getPropertiesContext();

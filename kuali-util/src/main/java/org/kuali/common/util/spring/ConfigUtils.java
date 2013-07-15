@@ -29,6 +29,7 @@ import org.kuali.common.util.property.PropertiesContext;
 
 public class ConfigUtils {
 
+	@Deprecated
 	public static ProjectProperties getProjectProperties(ProjectContext project, Properties properties) {
 		ProjectProperties projectProperties = ProjectUtils.getProjectProperties(project);
 		combine(projectProperties, properties);
@@ -41,6 +42,7 @@ public class ConfigUtils {
 		projectProperties.getPropertiesContext().setProperties(combined);
 	}
 
+	@Deprecated
 	public static List<ProjectProperties> getProjectProperties(List<ProjectContext> contexts) {
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
 		for (ProjectContext context : contexts) {
@@ -51,15 +53,18 @@ public class ConfigUtils {
 		return list;
 	}
 
+	@Deprecated
 	public static List<ProjectProperties> getProjectProperties(ProjectContext... contexts) {
 		return getProjectProperties(Arrays.asList(contexts));
 	}
 
+	@Deprecated
 	public static ProjectProperties getProjectProperties(ProjectContext context) {
 		Project project = ProjectUtils.loadProject(context);
 		return getProjectProperties(project, context.getPropertyLocations());
 	}
 
+	@Deprecated
 	public static ProjectProperties getProjectProperties(Project project, List<String> locations) {
 		PropertiesContext pc = new PropertiesContext();
 		pc.setEncoding(project.getEncoding());

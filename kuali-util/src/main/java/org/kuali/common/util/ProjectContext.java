@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import java.util.List;
 
+@Deprecated
 public interface ProjectContext {
 
 	String getGroupId();

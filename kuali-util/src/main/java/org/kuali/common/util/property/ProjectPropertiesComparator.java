@@ -22,6 +22,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.Project;
 import org.springframework.util.CollectionUtils;
 
+@Deprecated
 public class ProjectPropertiesComparator implements Comparator<ProjectProperties> {
 
 	List<String> order;

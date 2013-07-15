@@ -23,6 +23,7 @@ import org.kuali.common.util.ProjectContext;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.env.PropertySource;
 
+@Deprecated
 public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<?>> {
 
 	ProjectContext project;

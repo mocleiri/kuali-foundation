@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Deprecated
 public class DefaultProjectContext implements ProjectContext {
 
 	public static final List<String> DEFAULT_PROPERTY_LOCATIONS = Collections.emptyList();
