@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.config.spring.KualiUtilPropertySourceConfig;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class MpxMetaInfPropertySourceConfig extends KualiUtilPropertySourceConfig {
 
 	@Override
