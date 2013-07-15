@@ -25,6 +25,7 @@ import org.kuali.common.util.service.SpringContext;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringUtils;
 
+@Deprecated
 public class OleResetTest {
 
 	@Test

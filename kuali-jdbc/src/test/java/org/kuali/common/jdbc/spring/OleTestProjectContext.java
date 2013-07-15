@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.spring;
 
 import org.kuali.common.util.DefaultProjectContext;
 
+@Deprecated
 public class OleTestProjectContext extends DefaultProjectContext {
 
 	public OleTestProjectContext() {

@@ -237,6 +237,7 @@ public class SqlConfigUtils {
 		return getSummaryAndProgressListener(env);
 	}
 
+	@Deprecated
 	protected static JdbcContext getBaseJdbcContext(SqlConfigContext scc) {
 		SqlExecutionContext sec = scc.getContext();
 		// dba, schema, data, constraints, other

@@ -22,6 +22,7 @@ import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectConstants;
 import org.kuali.common.util.ProjectUtils;
 
+@Deprecated
 public class JdbcProjectContext extends DefaultProjectContext {
 
 	private static final List<String> LOCATIONS = getLocations();

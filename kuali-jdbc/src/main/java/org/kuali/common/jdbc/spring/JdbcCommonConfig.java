@@ -22,7 +22,6 @@ import java.util.Map;
 
 import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
-import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.SqlReader;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
@@ -54,8 +53,9 @@ public class JdbcCommonConfig {
 	}
 
 	@Bean
+	@Deprecated
 	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
-		Project project = ProjectUtils.loadProject(new JdbcProjectContext());
+		Project project = ProjectUtils.loadProject(new org.kuali.common.jdbc.JdbcProjectContext());
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
 		sls.setReader(jdbcSqlReader());
@@ -70,6 +70,7 @@ public class JdbcCommonConfig {
 		return map;
 	}
 
+	@Deprecated
 	public List<SqlSupplier> getSqlSuppliers(String propertyKey) {
 		LocationSuppliersFactoryBean factory = new LocationSuppliersFactoryBean();
 		factory.setPropertyKey(propertyKey);

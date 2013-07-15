@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * This lets properties defined in the pom override properties defined elsewhere. System/environment properties still override everything.
  */
+@Deprecated
 @Configuration
 public class JdbcMavenPropertySourceConfig extends MavenPropertySourceConfig {
 
