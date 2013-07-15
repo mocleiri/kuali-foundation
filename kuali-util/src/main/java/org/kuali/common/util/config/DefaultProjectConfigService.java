@@ -31,10 +31,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.nullify.Nullifier;
+import org.kuali.common.util.property.Constants;
 import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
@@ -48,6 +50,40 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	protected static final String PROPS = "metadata.properties";
 	protected static final Map<String, ProjectConfig> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfig>();
 	protected static final String DELIMITER = ":";
+	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+
+	@Override
+	public Properties getProperties(Properties project, List<ConfigRequest> requests) {
+		List<Location> locations = getLocations(requests);
+		// Allocate some storage
+		Properties properties = new Properties();
+		// Get system/environment properties
+		Properties global = PropertyUtils.getGlobalProperties();
+		// Cycle through our list of locations
+		for (Location location : locations) {
+			// Combine properties we've already loaded with project and global properties
+			Properties resolver = PropertyUtils.combine(properties, project, global);
+			// Use the combined properties to resolve any placeholders in the location
+			String resolvedLocation = HELPER.replacePlaceholders(location.getValue(), resolver);
+			// If the location exists, load it
+			if (LocationUtils.exists(resolvedLocation)) {
+				Properties loaded = PropertyUtils.load(resolvedLocation, location.getEncoding());
+				properties.putAll(loaded);
+			} else {
+				// Take appropriate action for missing locations (ignore, inform, warn, or error out)
+				ModeUtils.validate(location.getMissingMode(), "Non-existent location [" + resolvedLocation + "]");
+			}
+		}
+		properties.putAll(project);
+		// Override everything with system/environment properties
+		properties.putAll(global);
+		// Decrypt them
+		PropertyUtils.decrypt(properties);
+		// Resolve them, throw an exception if any values cannot be fully resolved
+		PropertyUtils.resolve(properties);
+		// Return what we've found
+		return properties;
+	}
 
 	@Override
 	public List<Location> getLocations(String id) {

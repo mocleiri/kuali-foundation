@@ -16,6 +16,7 @@
 package org.kuali.common.util.config;
 
 import java.util.List;
+import java.util.Properties;
 
 public interface ProjectConfigService {
 
@@ -51,5 +52,7 @@ public interface ProjectConfigService {
 	List<Location> getLocations(ConfigRequest request);
 
 	List<Location> getLocations(List<ConfigRequest> requests);
+
+	Properties getProperties(Properties project, List<ConfigRequest> requests);
 
 }
