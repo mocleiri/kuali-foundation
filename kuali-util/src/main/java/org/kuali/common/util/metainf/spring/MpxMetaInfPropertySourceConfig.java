@@ -18,13 +18,15 @@ package org.kuali.common.util.metainf.spring;
 import java.util.Arrays;
 import java.util.List;
 
+import org.kuali.common.util.config.KualiUtilConfigRequest;
 import org.kuali.common.util.config.spring.BuildPropertySourceConfig;
+import org.kuali.common.util.metainf.MetaInfContext;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MpxMetaInfPropertySourceConfig extends BuildPropertySourceConfig {
 
-	private static final String CONFIG_ID = "org.kuali.common:kuali-util:metainf:mpx";
+	private static final String CONFIG_ID = new KualiUtilConfigRequest(MetaInfContext.MPX_CONTEXT_ID).toString();
 
 	@Override
 	protected List<String> getConfigIds() {
