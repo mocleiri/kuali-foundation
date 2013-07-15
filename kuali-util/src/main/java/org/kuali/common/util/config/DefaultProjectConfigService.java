@@ -100,7 +100,6 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		return requests;
 	}
 
-	@Override
 	public List<Location> getLocations(String configId) {
 		ConfigRequest request = getConfigRequest(configId);
 		return getLocations(request.getGroupId(), request.getArtifactId(), request.getContextId());
@@ -138,22 +137,18 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		return sb.toString();
 	}
 
-	@Override
 	public List<Location> getLocations(String groupId, String artifactId) {
 		return getLocations(groupId, artifactId, null);
 	}
 
-	@Override
 	public List<Location> getLocations(String groupId, String artifactId, String contextId) {
 		return getLocations(new ConfigRequest(groupId, artifactId, contextId));
 	}
 
-	@Override
 	public List<Location> getLocations(ConfigRequest request) {
 		return getLocations(Arrays.asList(request));
 	}
 
-	@Override
 	public List<Location> getLocations(List<ConfigRequest> requests) {
 		List<Location> locations = new ArrayList<Location>();
 		for (ConfigRequest request : requests) {

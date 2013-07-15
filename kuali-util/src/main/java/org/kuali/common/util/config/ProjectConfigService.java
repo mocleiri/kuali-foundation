@@ -29,30 +29,6 @@ public interface ProjectConfigService {
 	 *  org.kuali.common:kuali-util:metainf:mpx
 	 * </pre>
 	 */
-	List<Location> getLocations(String configId);
-
-	/**
-	 * Return a list of property locations associated with this groupId + artifactId
-	 * 
-	 * <pre>
-	 *  org.kuali.common:kuali-util
-	 * </pre>
-	 */
-	List<Location> getLocations(String groupId, String artifactId);
-
-	/**
-	 * Return a list of property locations associated with this groupId + artifactId + contextId
-	 * 
-	 * <pre>
-	 *  org.kuali.common:kuali-util:metainf
-	 * </pre>
-	 */
-	List<Location> getLocations(String groupId, String artifactId, String contextId);
-
-	List<Location> getLocations(ConfigRequest request);
-
-	List<Location> getLocations(List<ConfigRequest> requests);
-
 	Properties getProperties(Properties project, List<String> configIds);
 
 }
