@@ -19,9 +19,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 
 public class DefaultProjectConfigServiceTest {
 
@@ -29,11 +32,13 @@ public class DefaultProjectConfigServiceTest {
 	public void testIt() {
 
 		try {
+			String groupId = "org.kuali.common";
+			String artifactId = "kuali-util";
+			String configId = groupId + ":" + artifactId + ":scm";
+			Properties project = ProjectUtils.loadProject(groupId, artifactId).getProperties();
 			ProjectConfigService service = new DefaultProjectConfigService();
-			List<Location> locations = service.getLocations("org.kuali.common", "kuali-util", "metainf:mpx");
-			for (Location location : locations) {
-				System.out.println(location.getValue());
-			}
+			Properties properties = service.getProperties(project, Arrays.asList(configId));
+			PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
