@@ -21,7 +21,7 @@ import java.util.Properties;
 public interface ProjectConfigService {
 
 	/**
-	 * Return a list of property locations associated with the id passed in.
+	 * Return properties for the project and configIds passed in.
 	 * 
 	 * <pre>
 	 *  org.kuali.common:kuali-sql
