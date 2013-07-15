@@ -36,7 +36,7 @@ public class MetaInfConfig {
 	protected static final String SKIP_KEY = "metainf.skip";
 	protected static final String ADD_LINE_COUNT_KEY = ".linecount";
 	protected static final String ADD_PROPERTIES_FILE_KEY = ".propertiesfile";
-	protected static final String BASE_DIR_KEY = ".basedir";
+	protected static final String BASE_DIR_KEY = "project.build.outputDirectory";
 	protected static final String OUTPUT_FILE_KEY = ".output";
 	protected static final String INCLUDES_KEY = ".includes";
 	protected static final String EXCLUDES_KEY = ".excludes";
@@ -55,9 +55,9 @@ public class MetaInfConfig {
 
 	@Bean
 	public Executable utilMetaInfExecutable() {
-		List<String> contextKeys = SpringUtils.getNoneSensitiveListFromCSV(env, METAINF_CONTEXTS_KEY);
+		List<String> contextList = SpringUtils.getNoneSensitiveListFromCSV(env, METAINF_CONTEXTS_KEY);
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		for (String contextKey : contextKeys) {
+		for (String contextKey : contextList) {
 			MetaInfContext context = getMetaInfContext(contextKey);
 			contexts.add(context);
 		}
@@ -71,17 +71,18 @@ public class MetaInfConfig {
 	protected MetaInfContext getMetaInfContext(String contextKey) {
 		MetaInfContext context = new MetaInfContext();
 
+		// Required - no default value
+		context.setBaseDir(SpringUtils.getFile(env, BASE_DIR_KEY));
+		context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
+		context.setIncludes(SpringUtils.getIncludes(env, buildContextKey(contextKey, INCLUDES_KEY)));
+
+		// Optional
 		context.setAddLineCount(getBoolean(contextKey, ADD_LINE_COUNT_KEY, DEFAULT_ADD_LINE_COUNT));
 		context.setAddPropertiesFile(getBoolean(contextKey, ADD_PROPERTIES_FILE_KEY, DEFAULT_ADD_PROPERTIES_FILE));
 		context.setSort(getBoolean(contextKey, SORT_KEY, DEFAULT_SORT));
-
-		context.setBaseDir(SpringUtils.getFile(env, buildContextKey(contextKey, BASE_DIR_KEY)));
-		context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
-
-		context.setIncludes(SpringUtils.getIncludes(env, buildContextKey(contextKey, INCLUDES_KEY)));
 		context.setExcludes(SpringUtils.getExcludes(env, buildContextKey(contextKey, EXCLUDES_KEY), DEFAULT_EXCLUDES));
-
 		context.setPrefix(SpringUtils.getProperty(env, buildContextKey(contextKey, PREFIX_KEY), DEFAULT_PREFIX));
+
 		return context;
 	}
 
