@@ -211,13 +211,13 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	protected ProjectConfig loadMetadata(String groupId, String artifactId) {
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		String location = getMetadataConfigFilePath(project, FILE);
-		if (!LocationUtils.exists(location)) {
-			return new ProjectConfig(groupId, artifactId);
-		} else {
-			Properties properties = getFilterProperties(project);
-			String content = getFilteredContent(location, properties, project.getEncoding());
-			return getProjectConfig(content, project.getEncoding());
-		}
+
+		// Throw an exception if they are asking for config info that doesn't exist
+		Assert.isTrue(LocationUtils.exists(location), "[" + location + "] does not exist");
+
+		Properties properties = getFilterProperties(project);
+		String content = getFilteredContent(location, properties, project.getEncoding());
+		return getProjectConfig(content, project.getEncoding());
 	}
 
 	protected ProjectConfig getProjectConfig(String content, String encoding) {
