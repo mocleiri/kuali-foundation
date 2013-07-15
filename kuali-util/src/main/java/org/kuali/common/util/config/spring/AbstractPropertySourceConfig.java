@@ -15,13 +15,18 @@
  */
 package org.kuali.common.util.config.spring;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ModeUtils;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.Location;
+import org.kuali.common.util.config.ProjectConfigService;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +48,36 @@ public abstract class AbstractPropertySourceConfig {
 	@Autowired
 	ProjectConfigSpringConfig projectConfigSpringConfig;
 
-	/**
-	 * Default behavior is to acquire locations via <code>project.config.ids</code>
-	 */
-	protected List<Location> getLocations() {
-		return projectConfigSpringConfig.utilProjectConfigLocations();
+	protected abstract String getGroupId();
+
+	protected abstract String getArtifactId();
+
+	protected List<String> getConfigIds() {
+		return Collections.emptyList();
 	}
 
-	protected abstract Properties getProjectProperties();
+	@Bean
+	public List<Location> utilProjectConfigLocations() {
+		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
+		List<Location> locations = new ArrayList<Location>();
+		List<String> configIds = getConfigIds();
+		for (String configId : configIds) {
+			List<Location> list = service.getLocations(configId);
+			locations.addAll(list);
+		}
+		return locations;
+	}
 
-	public PropertySource<?> getPropertySource() {
+	protected List<Location> getLocations() {
+		return utilProjectConfigLocations();
+	}
+
+	protected Properties getProjectProperties() {
+		Project project = ProjectUtils.loadProject(getGroupId(), getArtifactId());
+		return project.getProperties();
+	}
+
+	protected PropertySource<?> getPropertySource() {
 		// Do "something" to get project properties
 		Properties project = getProjectProperties();
 		// Do "something" to get the list of locations holding properties we need to load
@@ -82,7 +107,7 @@ public abstract class AbstractPropertySourceConfig {
 		properties.putAll(global);
 		// Decrypt them
 		PropertyUtils.decrypt(properties);
-		// Resolve them, throw an exception if we can't
+		// Resolve them, throw an exception if any values cannot be fully resolved
 		PropertyUtils.resolve(properties);
 		// Convert the properties into a PropertySource<?> for Spring
 		return SpringUtils.getGlobalPropertySource(properties);
