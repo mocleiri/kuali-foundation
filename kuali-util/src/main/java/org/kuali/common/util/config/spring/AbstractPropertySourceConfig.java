@@ -66,7 +66,7 @@ public abstract class AbstractPropertySourceConfig {
 		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
 		Properties projectProperties = getProjectProperties();
 		List<String> configIds = getConfigIds();
-		Properties properties = service.getPropertiesFromIds(projectProperties, configIds);
+		Properties properties = service.getProperties(projectProperties, configIds);
 		return SpringUtils.getGlobalPropertySource(properties);
 	}
 

@@ -53,13 +53,12 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
-	public Properties getPropertiesFromIds(Properties project, List<String> configIds) {
+	public Properties getProperties(Properties project, List<String> configIds) {
 		List<ConfigRequest> requests = getRequests(configIds);
-		return getProperties(project, requests);
+		return getPropertiesFromRequests(project, requests);
 	}
 
-	@Override
-	public Properties getProperties(Properties project, List<ConfigRequest> requests) {
+	public Properties getPropertiesFromRequests(Properties project, List<ConfigRequest> requests) {
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
 		Properties properties = new Properties();

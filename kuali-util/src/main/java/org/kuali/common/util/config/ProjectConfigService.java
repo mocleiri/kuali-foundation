@@ -53,8 +53,6 @@ public interface ProjectConfigService {
 
 	List<Location> getLocations(List<ConfigRequest> requests);
 
-	Properties getProperties(Properties project, List<ConfigRequest> requests);
-
-	Properties getPropertiesFromIds(Properties project, List<String> configIds);
+	Properties getProperties(Properties project, List<String> configIds);
 
 }
