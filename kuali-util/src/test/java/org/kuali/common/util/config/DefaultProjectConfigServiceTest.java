@@ -24,7 +24,7 @@ import java.util.Properties;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.metainf.MetaInfContext;
 
 public class DefaultProjectConfigServiceTest {
 
@@ -37,8 +37,10 @@ public class DefaultProjectConfigServiceTest {
 			String configId = groupId + ":" + artifactId + ":scm";
 			Properties project = ProjectUtils.loadProject(groupId, artifactId).getProperties();
 			ProjectConfigService service = new DefaultProjectConfigService();
-			Properties properties = service.getProperties(project, Arrays.asList(configId));
-			PropertyUtils.info(properties);
+			Properties properties1 = service.getProperties(project, configId);
+			String sql = new KualiUtilConfigRequest(MetaInfContext.SQL_CONTEXT_ID).toString();
+			Properties properties2 = service.getProperties(project, sql);
+			// PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

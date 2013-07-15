@@ -9,7 +9,7 @@ public class KualiUtilConfigRequest extends ConfigRequest {
 	}
 
 	public KualiUtilConfigRequest(String contextId) {
-		super(ProjectConstants.COMMON_GROUP_ID, ProjectConstants.UTIL_ARTIFACT_ID);
+		super(ProjectConstants.COMMON_GROUP_ID, ProjectConstants.UTIL_ARTIFACT_ID, contextId);
 	}
 
 }
