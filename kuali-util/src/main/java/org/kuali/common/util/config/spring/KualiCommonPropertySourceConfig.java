@@ -15,29 +15,15 @@
  */
 package org.kuali.common.util.config.spring;
 
-import java.util.Properties;
-
-import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public abstract class ProjectPropertySourceConfig extends AbstractPropertySourceConfig {
-
-	protected abstract String getGroupId();
-
-	protected abstract String getArtifactId();
-
-	protected String getProjectId() {
-		return getGroupId() + ":" + getArtifactId();
-	}
+public abstract class KualiCommonPropertySourceConfig extends ProjectPropertySourceConfig {
 
 	@Override
-	protected Properties getProjectProperties() {
-		String groupId = getGroupId();
-		String artifactId = getArtifactId();
-		Project project = ProjectUtils.loadProject(groupId, artifactId);
-		return project.getProperties();
+	protected String getGroupId() {
+		return ProjectUtils.KUALI_COMMON_GROUP_ID;
 	}
 
 }
