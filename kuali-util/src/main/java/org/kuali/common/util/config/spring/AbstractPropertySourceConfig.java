@@ -38,7 +38,16 @@ public abstract class AbstractPropertySourceConfig {
 	ProjectConfigSpringConfig projectConfigSpringConfig;
 
 	/**
+	 * <p>
 	 * Returns <code>Collections.emptyList()</code> by default. Override this method to pull in properties from other sources.
+	 * </p>
+	 * 
+	 * Example configIds:
+	 * 
+	 * <pre>
+	 *   org.kuali.common:kuali-sql
+	 *   org.kuali.common:kuali-util:metainf:mpx
+	 * </pre>
 	 */
 	protected List<String> getConfigIds() {
 		return Collections.emptyList();
