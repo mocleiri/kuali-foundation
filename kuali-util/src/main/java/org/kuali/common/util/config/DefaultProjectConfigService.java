@@ -53,6 +53,12 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
+	public Properties getPropertiesFromIds(Properties project, List<String> configIds) {
+		List<ConfigRequest> requests = getRequests(configIds);
+		return getProperties(project, requests);
+	}
+
+	@Override
 	public Properties getProperties(Properties project, List<ConfigRequest> requests) {
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
@@ -74,6 +80,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 				ModeUtils.validate(location.getMissingMode(), "Non-existent location [" + resolvedLocation + "]");
 			}
 		}
+		// Override the loaded properties with project properties
 		properties.putAll(project);
 		// Override everything with system/environment properties
 		properties.putAll(global);
@@ -85,16 +92,37 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		return properties;
 	}
 
+	protected List<ConfigRequest> getRequests(List<String> configIds) {
+		List<ConfigRequest> requests = new ArrayList<ConfigRequest>();
+		for (String configId : configIds) {
+			ConfigRequest request = getConfigRequest(configId);
+			requests.add(request);
+		}
+		return requests;
+	}
+
 	@Override
-	public List<Location> getLocations(String id) {
-		String[] tokens = StringUtils.split(id, DELIMITER);
+	public List<Location> getLocations(String configId) {
+		ConfigRequest request = getConfigRequest(configId);
+		return getLocations(request.getGroupId(), request.getArtifactId(), request.getContextId());
+	}
+
+	protected ConfigRequest getConfigRequest(String configId) {
+
+		String[] tokens = StringUtils.split(configId, DELIMITER);
 		if (tokens.length < 2) {
 			throw new IllegalArgumentException("2 tokens are required");
 		}
+
 		String groupId = tokens[0];
 		String artifactId = tokens[1];
 		String contextId = getContextId(tokens);
-		return getLocations(groupId, artifactId, contextId);
+
+		ConfigRequest request = new ConfigRequest();
+		request.setGroupId(groupId);
+		request.setArtifactId(artifactId);
+		request.setContextId(contextId);
+		return request;
 	}
 
 	protected String getContextId(String[] tokens) {

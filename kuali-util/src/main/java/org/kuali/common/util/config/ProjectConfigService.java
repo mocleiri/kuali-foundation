@@ -55,4 +55,6 @@ public interface ProjectConfigService {
 
 	Properties getProperties(Properties project, List<ConfigRequest> requests);
 
+	Properties getPropertiesFromIds(Properties project, List<String> configIds);
+
 }
