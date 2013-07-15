@@ -70,6 +70,7 @@ public class SpringUtils {
 
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
+	@Deprecated
 	public static SpringContext getSpringContext(List<Class<?>> annotatedClasses, ProjectContext project, List<ProjectContext> others) {
 		// This PropertySource object is backed by a set of properties that has been
 		// 1 - fully resolved
@@ -94,6 +95,7 @@ public class SpringUtils {
 		return context;
 	}
 
+	@Deprecated
 	public static SpringContext getSpringContext(Class<?> annotatedClass, ProjectContext project, List<ProjectContext> others) {
 		return getSpringContext(CollectionUtils.asList(annotatedClass), project, others);
 	}
@@ -101,6 +103,7 @@ public class SpringUtils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, ProjectContext other) {
 		return getGlobalPropertySource(project, Arrays.asList(other));
 	}
@@ -108,6 +111,7 @@ public class SpringUtils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, List<ProjectContext> others) {
 		return getGlobalPropertySource(project, others, null);
 	}
@@ -115,6 +119,7 @@ public class SpringUtils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode) {
 		return getGlobalPropertySource(project, missingLocationsMode, Collections.<ProjectContext> emptyList());
 	}
@@ -122,6 +127,7 @@ public class SpringUtils {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectContext project, Mode missingLocationsMode, ProjectContext... others) {
 		return getGlobalPropertySource(project, missingLocationsMode, Arrays.asList(others));
 	}
@@ -163,6 +169,7 @@ public class SpringUtils {
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project) {
 		return getGlobalPropertySource(project, null);
 	}
@@ -171,6 +178,7 @@ public class SpringUtils {
 	 * <code>project</code> needs to be a top level project eg rice-sampleapp, olefs-webapp. <code>others</code> is projects for submodules organized into a list where the last one
 	 * in wins.
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(ProjectProperties project, List<ProjectProperties> others) {
 		// Property loading uses a "last one in wins" strategy
 		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
@@ -451,6 +459,7 @@ public class SpringUtils {
 		return Boolean.parseBoolean(value);
 	}
 
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(String name, List<ProjectProperties> pps) {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);
@@ -488,6 +497,7 @@ public class SpringUtils {
 	/**
 	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
 	 */
+	@Deprecated
 	public static SpringContext getSinglePropertySourceContext(ProjectContext context, String location) {
 		PropertySource<?> source = getGlobalPropertySource(context, location);
 		return getSinglePropertySourceContext(source);
@@ -496,6 +506,7 @@ public class SpringUtils {
 	/**
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
+	@Deprecated
 	public static SpringExecutable getSpringExecutable(ProjectContext project, String location, List<Class<?>> annotatedClasses) {
 		SpringContext context = getSinglePropertySourceContext(project, location);
 		context.setAnnotatedClasses(annotatedClasses);
@@ -517,6 +528,7 @@ public class SpringUtils {
 	/**
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
+	@Deprecated
 	public static SpringExecutable getSpringExecutable(ProjectContext project, String location, Class<?> annotatedClass) {
 		return getSpringExecutable(project, location, CollectionUtils.asList(annotatedClass));
 	}
@@ -580,6 +592,7 @@ public class SpringUtils {
 		return getGlobalPropertySource(pp);
 	}
 
+	@Deprecated
 	public static PropertySource<?> getPropertySource(String name, List<ProjectProperties> pps) {
 		// Load them from disk
 		Properties source = PropertyUtils.load(pps);

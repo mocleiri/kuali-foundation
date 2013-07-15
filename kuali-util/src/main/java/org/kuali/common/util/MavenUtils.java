@@ -37,6 +37,7 @@ import org.springframework.core.env.PropertySource;
 /**
  * Maven utilities that don't depend on Maven libraries
  */
+@SuppressWarnings("deprecation")
 public class MavenUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
@@ -85,6 +86,7 @@ public class MavenUtils {
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
 	}
 
+	@Deprecated
 	public static ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
 		Project project = ProjectUtils.getProject(mavenProperties);
 

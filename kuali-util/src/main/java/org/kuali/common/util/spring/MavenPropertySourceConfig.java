@@ -28,6 +28,7 @@ import org.springframework.util.Assert;
 /**
  * Enhance the wired in Maven properties and create a <code>ProjectProperties</code> bean from them.
  */
+@Deprecated
 @Configuration
 public class MavenPropertySourceConfig extends AbstractPropertySourceConfig {
 

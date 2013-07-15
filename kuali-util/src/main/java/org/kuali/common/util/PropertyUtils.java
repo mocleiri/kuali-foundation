@@ -198,6 +198,7 @@ public class PropertyUtils {
 		properties.setProperty(key, newValue);
 	}
 
+	@Deprecated
 	public static Properties load(List<ProjectProperties> pps) {
 
 		// Create some storage for the Properties object we will be returning

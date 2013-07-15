@@ -26,6 +26,7 @@ import org.springframework.core.env.PropertySource;
 /**
  * 
  */
+@Deprecated
 @Configuration
 public abstract class AbstractPropertySourceConfig {
 

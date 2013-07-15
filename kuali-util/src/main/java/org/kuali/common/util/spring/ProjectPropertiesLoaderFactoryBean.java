@@ -34,6 +34,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * 
  */
+@Deprecated
 public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Properties> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectPropertiesLoaderFactoryBean.class);
