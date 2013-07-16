@@ -37,6 +37,8 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.config.ConfigService;
+import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
@@ -525,7 +527,23 @@ public class SpringUtils {
 		return new SpringExecutable(context);
 	}
 
-	/**
+    public static SpringExecutable getSpringExecutable(List<String> configIds, List<Class<?>> annotatedClasses, String propertyLocation, ConfigService service) {
+        Properties overrides = PropertyUtils.load(propertyLocation);
+        Properties properties = service.getProperties(configIds, overrides);
+        PropertySource<?> source = getGlobalPropertySource(properties);
+        SpringContext context = getSinglePropertySourceContext(source);
+        context.setAnnotatedClasses(annotatedClasses);
+        return new SpringExecutable(context);
+    }
+
+    /**
+     * Return a SpringExecutable for the config ids, annotated classes, and property location passed in
+     */
+    public static SpringExecutable getSpringExecutable(List<String> configIds, List<Class<?>> annotatedClasses, String propertyLocation) {
+        return getSpringExecutable(configIds, annotatedClasses, propertyLocation, new DefaultConfigService());
+    }
+
+    /**
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
