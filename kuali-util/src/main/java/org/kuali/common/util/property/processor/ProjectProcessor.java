@@ -40,7 +40,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		// This is to deal with KS using a god awful amount of groupIds instead of just "org.kuali.student"
 		// For example, this shortens "org.kuali.student.deployments" to "org.kuali.student"
 		// KS is changing their poms to just use "org.kuali.student" but they are not there yet
-		fixFunkyKualiProjects(p);
+		fixFunkyGroupIds(p);
 
 		String userHome = System.getProperty("user.home");
 		String orgHome = userHome + FS + DOT + p.getOrgCode();
@@ -61,7 +61,7 @@ public class ProjectProcessor implements PropertyProcessor {
 	/**
 	 * If <code>project</code> is a Kuali project where groupIdBase != groupId, update groupId to be groupIdBase
 	 */
-	protected static void fixFunkyKualiProjects(Project project) {
+	protected static void fixFunkyGroupIds(Project project) {
 
 		// Ignore any non-Kuali projects
 		if (!StringUtils.startsWith(project.getGroupId(), KUALI_ORG)) {
@@ -74,12 +74,11 @@ public class ProjectProcessor implements PropertyProcessor {
 		int groupIdLength = groupId.length();
 		int groupIdBaseLength = groupIdBase.length();
 
-		// Make sure groupIdBase is not longer than groupId
+		// If this isn't true something has gone haywire
 		Assert.isTrue(groupIdBaseLength <= groupIdLength, "groupIdBaseLength > groupIdLength");
 
 		// Update groupId to be groupIdBase if they are not the same
 		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
-			System.out.println("fix that sheeeit");
 			project.setGroupId(groupIdBase);
 		}
 	}
