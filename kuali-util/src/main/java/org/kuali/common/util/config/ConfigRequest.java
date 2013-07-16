@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.config;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class ConfigRequest {
 
 	String groupId;
@@ -25,6 +23,17 @@ public class ConfigRequest {
 
 	public ConfigRequest() {
 		this(null, null);
+	}
+
+	public ConfigRequest(ConfigRequest request) {
+		super();
+		this.groupId = request.getGroupId();
+		this.artifactId = request.getArtifactId();
+		this.contextId = request.getContextId();
+	}
+
+	public ConfigRequest(String id) {
+		this(ConfigUtils.getConfigRequest(id));
 	}
 
 	public ConfigRequest(String groupId, String artifactId) {
@@ -36,6 +45,10 @@ public class ConfigRequest {
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 		this.contextId = contextId;
+	}
+
+	public String getId() {
+		return ConfigUtils.getConfigId(this);
 	}
 
 	public String getGroupId() {
@@ -64,15 +77,7 @@ public class ConfigRequest {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(StringUtils.trimToEmpty(groupId));
-		sb.append(":");
-		sb.append(StringUtils.trimToEmpty(artifactId));
-		if (!StringUtils.isBlank(contextId)) {
-			sb.append(":");
-			sb.append(StringUtils.trimToEmpty(contextId));
-		}
-		return sb.toString();
+		return getId();
 	}
 
 }

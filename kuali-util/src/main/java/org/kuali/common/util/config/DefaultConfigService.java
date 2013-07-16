@@ -52,9 +52,9 @@ public class DefaultConfigService implements ConfigService {
 	protected static final String CONFIG = "config";
 	protected static final String FILE = "metadata.xml";
 	protected static final String PROPS = "metadata.properties";
+	protected static final String DELIMITER = ConfigUtils.DELIMITER;
 	protected static final Map<String, ProjectConfig> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfig>();
-	protected static final String DELIMITER = ":";
-	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+	protected static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
 	public Properties getProperties(String configId) {
@@ -114,45 +114,15 @@ public class DefaultConfigService implements ConfigService {
 	protected List<ConfigRequest> getRequests(List<String> configIds) {
 		List<ConfigRequest> requests = new ArrayList<ConfigRequest>();
 		for (String configId : configIds) {
-			ConfigRequest request = getConfigRequest(configId);
+			ConfigRequest request = ConfigUtils.getConfigRequest(configId);
 			requests.add(request);
 		}
 		return requests;
 	}
 
 	protected List<Location> getLocations(String configId) {
-		ConfigRequest request = getConfigRequest(configId);
+		ConfigRequest request = ConfigUtils.getConfigRequest(configId);
 		return getLocations(request.getGroupId(), request.getArtifactId(), request.getContextId());
-	}
-
-	protected ConfigRequest getConfigRequest(String configId) {
-
-		String[] tokens = StringUtils.split(configId, DELIMITER);
-		Assert.isTrue(tokens.length > 1, "2 tokens are required");
-
-		String groupId = tokens[0];
-		String artifactId = tokens[1];
-		String contextId = getContextId(tokens);
-
-		ConfigRequest request = new ConfigRequest();
-		request.setGroupId(groupId);
-		request.setArtifactId(artifactId);
-		request.setContextId(contextId);
-		return request;
-	}
-
-	protected String getContextId(String[] tokens) {
-		if (tokens.length < 3) {
-			return null;
-		}
-		StringBuilder sb = new StringBuilder();
-		for (int i = 2; i < tokens.length; i++) {
-			if (i != 2) {
-				sb.append(DELIMITER);
-			}
-			sb.append(tokens[i]);
-		}
-		return sb.toString();
 	}
 
 	protected List<Location> getLocations(String groupId, String artifactId) {
