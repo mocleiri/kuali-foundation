@@ -245,6 +245,11 @@ public class ProjectUtils {
 		// Update groupId to be groupIdBase if they are not the same
 		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
 			project.setGroupId(groupIdBase);
+			Properties props = project.getProperties();
+			// TODO This hard coded list is extremely brittle.
+			// TODO As other groupId related properties get added into the mix they get missed here
+			props.setProperty("project.groupId", props.getProperty("project.groupId.base"));
+			props.setProperty("project.groupId.path", props.getProperty("project.groupId.base.path"));
 		}
 	}
 
