@@ -10,7 +10,7 @@ public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
 
-	public static List<String> getConfigIds(List<ConfigRequest> requests) {
+	public static List<String> getConfigIds(List<? extends ConfigRequest> requests) {
 		List<String> configIds = new ArrayList<String>();
 		for (ConfigRequest request : requests) {
 			configIds.add(request.getId());
