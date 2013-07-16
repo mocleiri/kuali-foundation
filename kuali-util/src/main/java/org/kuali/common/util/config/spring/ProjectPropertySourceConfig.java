@@ -31,11 +31,11 @@ import org.springframework.core.env.PropertySource;
  * 
  */
 @Configuration
-@Import({ ProjectConfigSpringConfig.class })
+@Import({ ServiceConfig.class })
 public abstract class ProjectPropertySourceConfig {
 
 	@Autowired
-	ProjectConfigSpringConfig projectConfigSpringConfig;
+	ServiceConfig projectConfigSpringConfig;
 
 	/**
 	 * <p>

@@ -15,8 +15,8 @@
  */
 package org.kuali.common.util.config.spring;
 
-import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.config.ConfigService;
+import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +24,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ProjectConfigSpringConfig {
+public class ServiceConfig {
 
-	private static final String SERVICE_KEY = "project.config.service";
+	private static final String SERVICE_KEY = "config.service";
 
 	@Autowired
 	Environment env;
