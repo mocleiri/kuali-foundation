@@ -145,7 +145,9 @@ public class ProjectUtils {
 	 * </pre>
 	 */
 	public static String getResourcePath(Project project) {
-		String groupIdPath = project.getProperties().getProperty(GROUP_ID_BASE_PATH_KEY);
+		Properties properties = project.getProperties();
+		String groupIdPath = properties.getProperty(GROUP_ID_BASE_PATH_KEY);
+		Assert.hasText(groupIdPath, "groupIdPath has no text");
 		String artifactId = project.getArtifactId();
 		return groupIdPath + "/" + artifactId;
 	}
@@ -190,7 +192,7 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Create a <code>Project</code> object from <code>groupId</code>,<code>artifactId</code> pair. This includes loading the corresponding <code>project.properties</code> file
+	 * Create a <code>Project</code> object from <code>groupId</code>, <code>artifactId</code> pair. This includes loading the corresponding <code>project.properties</code> file
 	 * from disk.
 	 */
 	public static Project loadProject(String groupId, String artifactId) {
@@ -279,6 +281,7 @@ public class ProjectUtils {
 		String csv = RepositoryUtils.toNull(properties.getProperty("project.dependencies"));
 		List<Dependency> dependencies = getDependencies(csv);
 		project.setDependencies(dependencies);
+		logger.info("g:" + project.getGroupId() + " a:" + project.getArtifactId());
 		return project;
 	}
 
@@ -301,6 +304,9 @@ public class ProjectUtils {
 		return loadProperties(getProject(gav));
 	}
 
+	/**
+	 * Use the groupId and artifactId from this project to load the corresponding project.properties file and cache it in our internal Map
+	 */
 	public static synchronized Properties loadProperties(Project project) {
 		String gav = getGav(project.getGroupId(), project.getArtifactId());
 		Properties properties = PROJECT_PROPERTIES_CACHE.get(gav);
