@@ -35,12 +35,8 @@ public class ProjectProcessor implements PropertyProcessor {
 		Project p = getProject(properties);
 		validate(p);
 		String groupCode = OrgUtils.getGroupCode(p.getOrgId(), p.getGroupId());
-		p.setGroupIdBase(OrgUtils.getGroupBase(p.getOrgId(), p.getGroupId()));
 
-		// This is to deal with KS using a god awful amount of groupIds instead of just "org.kuali.student"
-		// For example, this shortens "org.kuali.student.deployments" to "org.kuali.student"
-		// KS is changing their poms to just use "org.kuali.student" but they are not there yet
-		fixFunkyGroupIds(p);
+		doGroupIdBase(p, properties);
 
 		String userHome = System.getProperty("user.home");
 		String orgHome = userHome + FS + DOT + p.getOrgCode();
@@ -48,8 +44,6 @@ public class ProjectProcessor implements PropertyProcessor {
 		properties.setProperty("project.groupId", p.getGroupId());
 		properties.setProperty("project.groupId.code", groupCode);
 		properties.setProperty("project.groupId.path", Str.getPath(p.getGroupId()));
-		properties.setProperty("project.groupId.base", p.getGroupIdBase());
-		properties.setProperty("project.groupId.base.path", Str.getPath(p.getGroupIdBase()));
 		properties.setProperty("project.orgId.home", orgHome);
 		properties.setProperty("project.groupId.home", groupHome);
 
@@ -58,9 +52,23 @@ public class ProjectProcessor implements PropertyProcessor {
 
 	}
 
+	@Deprecated
+	protected void doGroupIdBase(Project p, Properties properties) {
+		p.setGroupIdBase(OrgUtils.getGroupBase(p.getOrgId(), p.getGroupId()));
+
+		// This is to deal with KS using a god awful amount of groupIds instead of just "org.kuali.student"
+		// For example, this shortens "org.kuali.student.deployments" to "org.kuali.student"
+		// KS is changing their poms to just use "org.kuali.student" but they are not there yet
+		fixFunkyGroupIds(p);
+
+		properties.setProperty("project.groupId.base", p.getGroupIdBase());
+		properties.setProperty("project.groupId.base.path", Str.getPath(p.getGroupIdBase()));
+	}
+
 	/**
 	 * If <code>project</code> is a Kuali project where groupIdBase != groupId, update groupId to be groupIdBase
 	 */
+	@Deprecated
 	protected static void fixFunkyGroupIds(Project project) {
 
 		// Ignore any non-Kuali projects
@@ -77,7 +85,9 @@ public class ProjectProcessor implements PropertyProcessor {
 		// If this isn't true something has gone haywire
 		Assert.isTrue(groupIdLength >= groupIdBaseLength, "groupIdLength < groupIdBaseLength");
 
-		// Update groupId to be groupIdBase if they are not the same
+		// Update groupId to be groupIdBase if (and only if)
+		// 1 - This is a Kuali project
+		// 2 - This Kuali project is using more than one groupId
 		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
 			project.setGroupId(groupIdBase);
 		}

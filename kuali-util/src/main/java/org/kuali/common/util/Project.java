@@ -33,6 +33,7 @@ public class Project {
 	String groupId;
 
 	// org.kuali.student
+	@Deprecated
 	String groupIdBase;
 
 	// student
@@ -89,10 +90,12 @@ public class Project {
 		this.groupId = groupId;
 	}
 
+	@Deprecated
 	public String getGroupIdBase() {
 		return groupIdBase;
 	}
 
+	@Deprecated
 	public void setGroupIdBase(String groupIdBase) {
 		this.groupIdBase = groupIdBase;
 	}
