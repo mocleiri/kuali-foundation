@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.config.spring;
 
-import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.ProjectConstants;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -23,7 +23,7 @@ public class KualiUtilPropertySourceConfig extends KualiCommonPropertySourceConf
 
 	@Override
 	protected String getArtifactId() {
-		return ProjectUtils.KUALI_UTIL_ARTIFACT_ID;
+		return ProjectConstants.UTIL_ARTIFACT_ID;
 	}
 
 }
