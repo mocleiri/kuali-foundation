@@ -30,6 +30,10 @@ public class ExecutablesExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecutablesExecutable.class);
 
+	List<? extends Executable> executables;
+	boolean skip;
+	boolean timed;
+
 	public ExecutablesExecutable() {
 		this(null);
 	}
@@ -44,10 +48,6 @@ public class ExecutablesExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	List<? extends Executable> executables;
-	boolean skip;
-	boolean timed;
-
 	@Override
 	public void execute() {
 		if (skip) {
@@ -58,11 +58,10 @@ public class ExecutablesExecutable implements Executable {
 		for (Executable executable : executables) {
 			executable.execute();
 		}
-		long stop = System.currentTimeMillis();
 		if (timed) {
-			String elapsed = FormatUtils.getTime(stop - start);
+			long stop = System.currentTimeMillis();
 			logger.info("------------------------------------------------------------------------");
-			logger.info("Total Time: {}", elapsed);
+			logger.info("Total Time: {}", FormatUtils.getTime(stop - start));
 			logger.info("Finished at: {}", new Date(stop));
 			logger.info("------------------------------------------------------------------------");
 		}
