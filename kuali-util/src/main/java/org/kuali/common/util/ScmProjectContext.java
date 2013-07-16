@@ -22,11 +22,11 @@ import java.util.List;
 public class ScmProjectContext extends DefaultProjectContext {
 
 	public ScmProjectContext() {
-		super(ProjectConstants.UTIL_ARTIFACT_ID, getLocations());
+		super(KualiProjectConstants.UTIL_ARTIFACT_ID, getLocations());
 	}
 
 	protected static List<String> getLocations() {
-		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.UTIL_ARTIFACT_ID);
+		String prefix = ProjectUtils.getCommonClassPathPrefix(KualiProjectConstants.UTIL_ARTIFACT_ID);
 		List<String> locations = new ArrayList<String>();
 		locations.add(prefix + "/scm.properties");
 		return locations;

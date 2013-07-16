@@ -42,7 +42,7 @@ public class ProjectUtils {
 	private static final String CLASSPATH = "classpath:";
 
 	@Deprecated
-	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
+	public static final String KUALI_COMMON_GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
 
 	@Deprecated
 	public static final String KUALI_UTIL_ARTIFACT_ID = UtilProjectContext.ARTIFACT_ID;
@@ -64,7 +64,7 @@ public class ProjectUtils {
 	 * </pre>
 	 */
 	public static String getCommonClassPathPrefix(String artifactId) {
-		return getClassPathPrefix(ProjectConstants.COMMON_GROUP_ID, artifactId);
+		return getClassPathPrefix(KualiProjectConstants.COMMON_GROUP_ID, artifactId);
 	}
 
 	/**

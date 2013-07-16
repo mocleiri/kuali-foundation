@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.config;
 
-import org.kuali.common.util.ProjectConstants;
+import org.kuali.common.util.KualiProjectConstants;
 
 public class KualiUtilConfigRequest extends KualiCommonConfigRequest {
 
@@ -24,7 +24,7 @@ public class KualiUtilConfigRequest extends KualiCommonConfigRequest {
 	}
 
 	public KualiUtilConfigRequest(String contextId) {
-		super(ProjectConstants.UTIL_ARTIFACT_ID, contextId);
+		super(KualiProjectConstants.UTIL_ARTIFACT_ID, contextId);
 	}
 
 }

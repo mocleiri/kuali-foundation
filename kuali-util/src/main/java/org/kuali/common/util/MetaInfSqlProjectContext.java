@@ -20,7 +20,7 @@ import java.util.Arrays;
 @Deprecated
 public class MetaInfSqlProjectContext extends DefaultProjectContext {
 
-	private static final String ARTIFACT_ID = ProjectConstants.UTIL_ARTIFACT_ID;
+	private static final String ARTIFACT_ID = KualiProjectConstants.UTIL_ARTIFACT_ID;
 	private static final String LOCATION = ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/sql/metainf.properties";
 
 	public MetaInfSqlProjectContext() {
