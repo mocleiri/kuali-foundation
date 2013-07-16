@@ -18,14 +18,14 @@ package org.kuali.common.jdbc;
 import java.util.Arrays;
 import java.util.List;
 
-import org.kuali.common.util.ProjectConstants;
+import org.kuali.common.util.KualiProjectConstants;
 
 public class JdbcConfigConstants {
 
-    public static final String JDBC_CONFIG_ID = ProjectConstants.COMMON_GROUP_ID + ":" + ProjectConstants.JDBC_ARIFACT_ID;
+	public static final String JDBC_CONFIG_ID = KualiProjectConstants.COMMON_GROUP_ID + ":" + KualiProjectConstants.JDBC_ARTIFACT_ID;
 
-    public static final String SQL_CONFIG_ID = ProjectConstants.COMMON_GROUP_ID + ":" + ProjectConstants.SQL_ARTIFACT_ID;
+	public static final String SQL_CONFIG_ID = KualiProjectConstants.COMMON_GROUP_ID + ":" + KualiProjectConstants.SQL_ARTIFACT_ID;
 
-    public static final List<String> JDBC_PROJECT_CONFIG_IDS = Arrays.asList(SQL_CONFIG_ID, JDBC_CONFIG_ID);
+	public static final List<String> JDBC_PROJECT_CONFIG_IDS = Arrays.asList(SQL_CONFIG_ID, JDBC_CONFIG_ID);
 
 }

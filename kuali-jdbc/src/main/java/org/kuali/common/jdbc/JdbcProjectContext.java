@@ -26,7 +26,7 @@ import org.kuali.common.util.ProjectUtils;
 public class JdbcProjectContext extends DefaultProjectContext {
 
 	private static final List<String> LOCATIONS = getLocations();
-	private static final String ARTIFACT_ID = KualiProjectConstants.JDBC_ARIFACT_ID;
+	private static final String ARTIFACT_ID = KualiProjectConstants.JDBC_ARTIFACT_ID;
 
 	public JdbcProjectContext() {
 		super(ARTIFACT_ID, LOCATIONS);
