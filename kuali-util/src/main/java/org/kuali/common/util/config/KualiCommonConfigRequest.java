@@ -20,7 +20,11 @@ import org.kuali.common.util.ProjectConstants;
 public class KualiCommonConfigRequest extends ConfigRequest {
 
 	public KualiCommonConfigRequest() {
-		this(ProjectConstants.COMMON_GROUP_ID, null);
+		this(null);
+	}
+
+	public KualiCommonConfigRequest(String artifactId) {
+		this(artifactId, null);
 	}
 
 	public KualiCommonConfigRequest(String artifactId, String contextId) {
