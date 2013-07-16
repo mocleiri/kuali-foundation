@@ -1,7 +1,0 @@
-<project>
-    <context id="dump">
-        <location value="${export.common}" />
-        <location value="${classpath.prefix}/extract.properties" />
-        <location value="${classpath.prefix}/dump.properties" />
-    </context>
-</project>

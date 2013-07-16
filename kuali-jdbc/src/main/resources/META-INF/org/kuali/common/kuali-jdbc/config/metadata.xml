@@ -1,3 +1,0 @@
-<project>
-  <location value="${classpath.prefix}/jdbc.properties" />
-</project>
