@@ -17,14 +17,14 @@ package org.kuali.common.util.config;
 
 import org.kuali.common.util.ProjectConstants;
 
-public class KualiUtilConfigRequest extends KualiCommonConfigRequest {
+public class KualiCommonConfigRequest extends ConfigRequest {
 
-	public KualiUtilConfigRequest() {
-		this(null);
+	public KualiCommonConfigRequest() {
+		this(ProjectConstants.COMMON_GROUP_ID, null);
 	}
 
-	public KualiUtilConfigRequest(String contextId) {
-		super(ProjectConstants.UTIL_ARTIFACT_ID, contextId);
+	public KualiCommonConfigRequest(String artifactId, String contextId) {
+		super(ProjectConstants.COMMON_GROUP_ID, artifactId, contextId);
 	}
 
 }
