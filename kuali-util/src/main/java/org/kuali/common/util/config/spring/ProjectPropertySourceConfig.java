@@ -15,65 +15,24 @@
  */
 package org.kuali.common.util.config.spring;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.config.ConfigService;
-import org.kuali.common.util.spring.SpringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.PropertySource;
 
 /**
- * 
+ * Extend this class in order for project properties to always "win" over properties loaded from configuration.
  */
 @Configuration
-@Import({ ServiceConfig.class })
-public abstract class ProjectPropertySourceConfig {
-
-	@Autowired
-	ServiceConfig projectConfigSpringConfig;
-
-	/**
-	 * <p>
-	 * Returns <code>Collections.emptyList()</code> by default. Override this method to pull in properties from other sources.
-	 * </p>
-	 * 
-	 * Example configIds:
-	 * 
-	 * <pre>
-	 *   org.kuali.common:kuali-sql
-	 *   org.kuali.common:kuali-util:scm
-	 *   org.kuali.common:kuali-util:metainf:mpx
-	 *   org.kuali.common:kuali-util:metainf:sql
-	 * </pre>
-	 */
-	protected List<String> getConfigIds() {
-		return Collections.emptyList();
-	}
+public abstract class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
 	/**
 	 * Return properties for the current project.
 	 */
 	protected abstract Properties getProjectProperties();
 
-	/**
-	 * Combine loaded properties, project properties, and system/environment properties into a <code>PropertySource<?></code>
-	 */
-	protected PropertySource<?> getPropertySource() {
-		ConfigService service = projectConfigSpringConfig.utilProjectConfigService();
-		Properties projectProperties = getProjectProperties();
-		List<String> configIds = getConfigIds();
-		Properties properties = service.getProperties(configIds, projectProperties);
-		return SpringUtils.getGlobalPropertySource(properties);
-	}
-
-	@Bean
-	public PropertySource<?> springPropertySource() {
-		return getPropertySource();
+	@Override
+	protected Properties getOverrides() {
+		return getProjectProperties();
 	}
 
 }
