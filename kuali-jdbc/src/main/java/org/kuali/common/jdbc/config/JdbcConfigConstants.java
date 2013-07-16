@@ -9,7 +9,7 @@ import org.kuali.common.util.config.ConfigUtils;
 
 public abstract class JdbcConfigConstants {
 
-	public static final List<? extends ConfigRequest> CONFIG_REQUESTS = Arrays.asList(new SqlConfigRequest(), new JdbcConfigRequest());
+	public static final List<? extends ConfigRequest> CONFIG_REQUESTS = Collections.unmodifiableList(Arrays.asList(new SqlConfigRequest(), new JdbcConfigRequest()));
 	public static final List<String> CONFIG_IDS = Collections.unmodifiableList(ConfigUtils.getConfigIds(CONFIG_REQUESTS));
 
 }
