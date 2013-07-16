@@ -16,4 +16,20 @@ public class ProjectPropertiesSupplier implements PropertiesSupplier {
 		return project.getProperties();
 	}
 
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
+	}
+
 }
