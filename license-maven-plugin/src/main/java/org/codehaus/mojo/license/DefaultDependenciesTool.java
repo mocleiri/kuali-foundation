@@ -154,6 +154,7 @@ public class DefaultDependenciesTool extends AbstractLogEnabled implements Depen
             } else {
                 // build project
                 try {
+                	System.out.println(artifact.getGroupId() + ":" + artifact.getArtifactId());
                     depMavenProject = mavenProjectBuilder.buildFromRepository(artifact, remoteRepositories,
                             localRepository, true);
                 } catch (ProjectBuildingException e) {
