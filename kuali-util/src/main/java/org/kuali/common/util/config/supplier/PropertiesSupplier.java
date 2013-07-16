@@ -1,4 +1,4 @@
-package org.kuali.common.util.config.properties;
+package org.kuali.common.util.config.supplier;
 
 import java.util.Properties;
 
