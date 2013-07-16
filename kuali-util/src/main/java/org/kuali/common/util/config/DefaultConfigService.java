@@ -57,17 +57,27 @@ public class DefaultConfigService implements ConfigService {
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
+	public Properties getProperties(String configId) {
+		return getProperties(Arrays.asList(configId));
+	}
+
+	@Override
+	public Properties getProperties(List<String> configIds) {
+		return getProperties(configIds, null);
+	}
+
+	@Override
 	public Properties getProperties(String configId, Properties overrides) {
 		return getProperties(Arrays.asList(configId), overrides);
 	}
 
 	@Override
-	public Properties getProperties(List<String> configIds, Properties project) {
+	public Properties getProperties(List<String> configIds, Properties overrides) {
 		List<ConfigRequest> requests = getRequests(configIds);
-		return getPropertiesFromRequests(project, requests);
+		return getPropertiesFromRequests(PropertyUtils.toEmpty(overrides), requests);
 	}
 
-	protected Properties getPropertiesFromRequests(Properties project, List<ConfigRequest> requests) {
+	protected Properties getPropertiesFromRequests(Properties overrides, List<ConfigRequest> requests) {
 		// Convert the ConfigRequest objects into Location objects
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
@@ -76,8 +86,8 @@ public class DefaultConfigService implements ConfigService {
 		Properties global = PropertyUtils.getGlobalProperties();
 		// Cycle through our list of locations
 		for (Location location : locations) {
-			// Combine properties we've already loaded with project and global properties
-			Properties resolver = PropertyUtils.combine(properties, project, global);
+			// Combine properties we've already loaded with overrides and global properties
+			Properties resolver = PropertyUtils.combine(properties, overrides, global);
 			// Use the combined properties to resolve any placeholders in the location
 			String resolvedLocation = HELPER.replacePlaceholders(location.getValue(), resolver);
 			// If the location exists, load it
@@ -89,8 +99,8 @@ public class DefaultConfigService implements ConfigService {
 				ModeUtils.validate(location.getMissingMode(), "Non-existent location [" + resolvedLocation + "]");
 			}
 		}
-		// Override the loaded properties with project properties
-		properties.putAll(project);
+		// Override the loaded properties with overrides properties
+		properties.putAll(overrides);
 		// Override everything with system/environment properties
 		properties.putAll(global);
 		// Decrypt them

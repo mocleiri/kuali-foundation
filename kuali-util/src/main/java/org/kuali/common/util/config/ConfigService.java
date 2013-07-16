@@ -21,6 +21,28 @@ import java.util.Properties;
 public interface ConfigService {
 
 	/**
+	 * Load and return properties corresponding to <code>configIds</code>.
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-sql
+	 *  org.kuali.common:kuali-util:scm
+	 *  org.kuali.common:kuali-util:metainf:mpx
+	 * </pre>
+	 */
+	Properties getProperties(List<String> configIds);
+
+	/**
+	 * Load and return properties corresponding to <code>configId</code>.
+	 * 
+	 * <pre>
+	 *  org.kuali.common:kuali-sql
+	 *  org.kuali.common:kuali-util:scm
+	 *  org.kuali.common:kuali-util:metainf:mpx
+	 * </pre>
+	 */
+	Properties getProperties(String configId);
+
+	/**
 	 * Load and return properties corresponding to <code>configIds</code>, any properties from <code>overrides</code> "win" over properties loaded from the configuration.
 	 * 
 	 * <pre>
