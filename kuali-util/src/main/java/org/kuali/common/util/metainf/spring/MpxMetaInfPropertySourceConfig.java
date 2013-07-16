@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MpxMetaInfPropertySourceConfig extends BuildPropertySourceConfig {
 
-	private static final String CONFIG_ID = new KualiUtilConfigRequest(MetaInfContext.MPX_CONTEXT_ID).toString();
+	private static final String CONFIG_ID = new KualiUtilConfigRequest(MetaInfContext.MPX_CONTEXT_ID).getId();
 
 	@Override
 	protected List<String> getConfigIds() {
