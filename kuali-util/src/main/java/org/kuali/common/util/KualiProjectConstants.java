@@ -28,6 +28,6 @@ public abstract class KualiProjectConstants {
 	// Common Artifact Id's
 	public static final String SQL_ARTIFACT_ID = "kuali-sql";
 	public static final String UTIL_ARTIFACT_ID = "kuali-util";
-	public static final String JDBC_ARIFACT_ID = "kuali-jdbc";
+	public static final String JDBC_ARTIFACT_ID = "kuali-jdbc";
 
 }
