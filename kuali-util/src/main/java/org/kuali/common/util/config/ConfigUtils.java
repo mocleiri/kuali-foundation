@@ -1,11 +1,22 @@
 package org.kuali.common.util.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
+
+	public static List<String> getConfigIds(List<ConfigRequest> requests) {
+		List<String> configIds = new ArrayList<String>();
+		for (ConfigRequest request : requests) {
+			configIds.add(request.getId());
+		}
+		return configIds;
+	}
 
 	public static String getConfigId(ConfigRequest request) {
 		StringBuilder sb = new StringBuilder();
