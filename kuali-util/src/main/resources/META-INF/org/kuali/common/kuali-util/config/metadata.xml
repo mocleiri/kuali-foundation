@@ -35,6 +35,10 @@
       <location value="${metainf.common.runtime}" />
       <location value="${metainf.prefix.mpx}/build.properties" />
       <location value="${metainf.prefix.mpx}/runtime.properties" />
+      <context id="runtime">
+        <location value="${metainf.common.runtime}" />
+        <location value="${metainf.prefix.mpx}/runtime.properties" />
+      </context>
     </context>
   </context>
 </project>
