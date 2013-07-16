@@ -22,7 +22,7 @@ import org.kuali.common.util.ProjectUtils;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public abstract class RuntimePropertySourceConfig extends AbstractPropertySourceConfig {
+public abstract class RuntimePropertySourceConfig extends ProjectPropertySourceConfig {
 
 	protected abstract String getGroupId();
 

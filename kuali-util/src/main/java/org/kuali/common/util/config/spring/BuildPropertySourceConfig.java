@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
  * Enhance the wired in Maven properties and return them
  */
 @Configuration
-public class BuildPropertySourceConfig extends AbstractPropertySourceConfig {
+public class BuildPropertySourceConfig extends ProjectPropertySourceConfig {
 
 	@Autowired
 	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)

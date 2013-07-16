@@ -32,7 +32,7 @@ import org.springframework.core.env.PropertySource;
  */
 @Configuration
 @Import({ ProjectConfigSpringConfig.class })
-public abstract class AbstractPropertySourceConfig {
+public abstract class ProjectPropertySourceConfig {
 
 	@Autowired
 	ProjectConfigSpringConfig projectConfigSpringConfig;
