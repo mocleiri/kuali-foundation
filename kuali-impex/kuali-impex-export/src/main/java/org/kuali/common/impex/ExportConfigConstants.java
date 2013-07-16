@@ -23,8 +23,9 @@ import org.kuali.common.util.KualiProjectConstants;
 
 public class ExportConfigConstants {
 
+	// GroupId + ArtifactId
 	private static final String GA = KualiProjectConstants.COMMON_GROUP_ID + ":" + ExportProjectConstants.ARTIFACT_ID;
-	
+
 	public static final String DUMP_CONTEXT_ID = "dump";
 	public static final String DUMP_CONFIG_ID = GA + ":" + DUMP_CONTEXT_ID;
 	public static final List<String> DUMP_CONFIG_IDS = Collections.unmodifiableList(Arrays.asList(DUMP_CONFIG_ID));
