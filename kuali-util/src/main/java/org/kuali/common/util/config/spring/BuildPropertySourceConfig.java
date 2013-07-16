@@ -25,7 +25,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Assert;
 
 /**
- * Enhance the wired in Maven properties and return them
+ * A Spring process running as part of a Maven build already has a set of project properties wired in. Enhance them, and return them so the current project properties override
+ * everything else except system or environment properties.
  */
 @Configuration
 public class BuildPropertySourceConfig extends ProjectPropertySourceConfig {

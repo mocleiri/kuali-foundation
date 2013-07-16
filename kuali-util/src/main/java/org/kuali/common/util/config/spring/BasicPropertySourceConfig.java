@@ -39,7 +39,7 @@ public class BasicPropertySourceConfig {
 
 	/**
 	 * <p>
-	 * Returns <code>Collections.emptyList()</code> by default. Override this method to pull in properties from other sources.
+	 * Returns <code>Collections.emptyList()</code> by default. Override this method to pull in properties from other locations
 	 * </p>
 	 * 
 	 * Example configIds:
@@ -57,7 +57,7 @@ public class BasicPropertySourceConfig {
 
 	/**
 	 * <p>
-	 * Returns an empty properties object by default. Override this method to inject properties that will override anything loaded from the configuration.
+	 * Returns an empty properties object by default. Override this method to inject properties that will override anything loaded from other locations
 	 * </p>
 	 */
 	protected Properties getOverrides() {

@@ -20,7 +20,7 @@ import java.util.Properties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Extend this class in order for project properties to always "win" over properties loaded from configuration.
+ * Extend this class in order to have project properties always "win" over properties loaded from other locations.
  */
 @Configuration
 public abstract class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
