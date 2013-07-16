@@ -40,7 +40,6 @@ public class ProjectUtils {
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
 	private static final String CLASSPATH = "classpath:";
-	private static final String KUALI_ORG = "org.kuali";
 
 	@Deprecated
 	public static final String KUALI_COMMON_GROUP_ID = ProjectConstants.COMMON_GROUP_ID;
@@ -214,43 +213,8 @@ public class ProjectUtils {
 		// Return a fully configured project object based on the properties
 		Project loadedProject = getProject(properties);
 
-		// This is to deal with KS using a god awful amount of groupIds instead of just "org.kuali.student"
-		// For example, this shortens "org.kuali.student.deployments" to "org.kuali.student"
-		// KS is changing their poms to just use "org.kuali.student" but they are not there yet
-		fixFunkyKualiProjects(loadedProject);
-
 		// return the project we loaded
 		return loadedProject;
-	}
-
-	/**
-	 * If <code>project</code> is a Kuali project where groupIdBase != groupId, update groupId to be groupIdBase
-	 */
-	protected static void fixFunkyKualiProjects(Project project) {
-
-		// Ignore any non-Kuali projects
-		if (!StringUtils.startsWith(project.getGroupId(), KUALI_ORG)) {
-			return;
-		}
-
-		String groupId = project.getGroupId();
-		String groupIdBase = project.getGroupIdBase();
-
-		int groupIdLength = groupId.length();
-		int groupIdBaseLength = groupIdBase.length();
-
-		// Make sure groupIdBase is not longer than groupId
-		Assert.isTrue(groupIdBaseLength <= groupIdLength, "groupIdBaseLength > groupIdLength");
-
-		// Update groupId to be groupIdBase if they are not the same
-		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
-			project.setGroupId(groupIdBase);
-			Properties props = project.getProperties();
-			// TODO This hard coded list is extremely brittle.
-			// TODO As other groupId related properties get added into the mix they get missed here
-			props.setProperty("project.groupId", props.getProperty("project.groupId.base"));
-			props.setProperty("project.groupId.path", props.getProperty("project.groupId.base.path"));
-		}
 	}
 
 	/**
