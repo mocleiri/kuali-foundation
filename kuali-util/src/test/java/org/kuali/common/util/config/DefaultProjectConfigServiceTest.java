@@ -40,9 +40,9 @@ public class DefaultProjectConfigServiceTest {
 			ProjectConfigService service = new DefaultProjectConfigService();
 			Properties properties1 = service.getProperties(project, configId);
 			String sql = new KualiUtilConfigRequest(MetaInfContext.SQL_CONTEXT_ID).toString();
-			Properties properties2 = service.getProperties(project, sql);
+			// Properties properties2 = service.getProperties(project, sql);
 			PropertyUtils.info(properties1);
-			PropertyUtils.info(properties2);
+			// PropertyUtils.info(properties2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
