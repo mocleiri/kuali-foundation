@@ -24,20 +24,20 @@
       <location value="${metainf.common.build}" />
       <location value="${metainf.common.runtime}" />
       <location value="${metainf.prefix.sql}/build.properties" />
-      <location value="${metainf.prefix.sql}/runtime.properties" />
+      <location value="${metainf.sql.runtime}" />
       <context id="runtime">
         <location value="${metainf.common.runtime}" />
-        <location value="${metainf.prefix.sql}/runtime.properties" />
+        <location value="${metainf.sql.runtime}" />
       </context>
     </context>
     <context id="mpx">
       <location value="${metainf.common.build}" />
       <location value="${metainf.common.runtime}" />
       <location value="${metainf.prefix.mpx}/build.properties" />
-      <location value="${metainf.prefix.mpx}/runtime.properties" />
+      <location value="${metainf.mpx.runtime}" />
       <context id="runtime">
         <location value="${metainf.common.runtime}" />
-        <location value="${metainf.prefix.mpx}/runtime.properties" />
+        <location value="${metainf.mpx.runtime}" />
       </context>
     </context>
   </context>
