@@ -31,11 +31,11 @@ import org.springframework.core.env.PropertySource;
  * 
  */
 @Configuration
-@Import({ ServiceConfig.class })
+@Import({ ConfigServiceConfig.class })
 public class BasicPropertySourceConfig {
 
 	@Autowired
-	ServiceConfig projectConfigSpringConfig;
+	ConfigServiceConfig utilConfigServiceConfig;
 
 	/**
 	 * <p>
@@ -68,7 +68,7 @@ public class BasicPropertySourceConfig {
 	 * Combine loaded properties, project properties, and system/environment properties into a <code>PropertySource<?></code>
 	 */
 	protected PropertySource<?> getPropertySource() {
-		ConfigService service = projectConfigSpringConfig.utilProjectConfigService();
+		ConfigService service = utilConfigServiceConfig.utilProjectConfigService();
 		List<String> configIds = getConfigIds();
 		Properties properties = service.getProperties(configIds, getOverrides());
 		return SpringUtils.getGlobalPropertySource(properties);

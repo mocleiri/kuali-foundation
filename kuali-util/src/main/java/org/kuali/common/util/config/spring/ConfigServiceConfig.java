@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ServiceConfig {
+public class ConfigServiceConfig {
 
 	private static final String SERVICE_KEY = "config.service";
 
