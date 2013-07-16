@@ -15,12 +15,13 @@
 
 package org.kuali.common.impex.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.impex.util.spring.SchemaExportExecutionConfig;
-import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.impex.ExportConfigConstants;
+import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
+import org.kuali.common.jdbc.JdbcConfigConstants;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 
@@ -35,9 +36,12 @@ public class SchemaExportUtility {
 		}
 
 		try {
-			ProjectContext project = new JdbcProjectContext();
-			List<Class<?>> annotatedClasses = CollectionUtils.asList(SchemaExportExecutionConfig.class);
-			SpringExecutable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, annotatedClasses);
+			List<Class<?>> annotatedClasses = CollectionUtils.asList(DumpDatabaseExecutableConfig.class);
+
+            List<String> configIds = new ArrayList<String>(JdbcConfigConstants.JDBC_PROJECT_CONFIG_IDS);
+            configIds.addAll(ExportConfigConstants.DUMP_CONFIG_IDS);
+
+            SpringExecutable executable = SpringUtils.getSpringExecutable(configIds, annotatedClasses, propertiesLocation);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();

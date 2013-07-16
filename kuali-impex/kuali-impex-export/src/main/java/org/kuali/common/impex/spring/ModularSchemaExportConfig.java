@@ -35,6 +35,8 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class ModularSchemaExportConfig {
 
+    public static final Boolean DEFAULT_EXECUTION_SKIP = false;
+
 	public static final String PROPERTY_PREFIXES_KEY = "impex.export.schema.modular.prefixes";
 	public static final String OUTPUT_LOCATION_KEY = "schema.output";
 	public static final String EXECUTION_SKIP_KEY = "schema.skip";
@@ -55,7 +57,7 @@ public class ModularSchemaExportConfig {
 		for (String prefix : prefixes) {
 			String outpuLocation = SpringUtils.getProperty(env, prefix + OUTPUT_LOCATION_KEY);
 
-			boolean skip = SpringUtils.getBoolean(env, prefix + EXECUTION_SKIP_KEY, ModularSchemaExportExecutable.DEFAULT_EXECUTION_SKIP);
+			boolean skip = SpringUtils.getBoolean(env, prefix + EXECUTION_SKIP_KEY, DEFAULT_EXECUTION_SKIP);
 			// if this property is set to true for any module, then foreign key schema will be created in a separate file
 			boolean separateForeignKeys = SpringUtils.getBoolean(env, prefix + SEPARATE_FOREIGN_KEYS_KEY, DEFAULT_SEPARATE_FOREIGN_KEYS);
 

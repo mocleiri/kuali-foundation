@@ -13,23 +13,16 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.util.spring;
+package org.kuali.common.impex;
 
-import org.kuali.common.impex.spring.ExtractSchemaConfig;
-import org.kuali.common.impex.spring.SchemaExportConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-@Configuration
-@Import({ SchemaExportConfig.class, ExtractSchemaConfig.class })
-public class SchemaExportExecutionConfig {
+import org.kuali.common.util.ProjectConstants;
 
-	@Autowired
-	ExtractSchemaConfig extractionConfig;
+public class ExportConfigConstants {
 
-	@Autowired
-	SchemaExportConfig exportConfig;
-
+    public static final List<String> DUMP_CONFIG_IDS = Collections.unmodifiableList(Arrays.asList(ProjectConstants.COMMON_GROUP_ID + ":" + Constants.ARTIFACT_ID + ":dump"));
 
 }

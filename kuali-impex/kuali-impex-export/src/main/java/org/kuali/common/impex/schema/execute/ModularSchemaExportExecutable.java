@@ -27,10 +27,7 @@ import org.kuali.common.util.execute.Executable;
 
 public class ModularSchemaExportExecutable implements Executable {
 
-	public static final Boolean DEFAULT_EXECUTION_SKIP = false;
-
-	boolean skip = DEFAULT_EXECUTION_SKIP;
-
+	boolean skip;
 	String outputLocation;
 	Schema schema;
 	DumpSchemaService exportService;
