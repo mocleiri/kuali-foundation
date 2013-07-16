@@ -114,9 +114,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 	protected ConfigRequest getConfigRequest(String configId) {
 
 		String[] tokens = StringUtils.split(configId, DELIMITER);
-		if (tokens.length < 2) {
-			throw new IllegalArgumentException("2 tokens are required");
-		}
+		Assert.isTrue(tokens.length >= 2, "2 tokens are required");
 
 		String groupId = tokens[0];
 		String artifactId = tokens[1];
