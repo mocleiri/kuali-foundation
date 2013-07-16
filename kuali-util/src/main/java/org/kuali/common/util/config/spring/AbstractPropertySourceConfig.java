@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.config.ProjectConfigService;
+import org.kuali.common.util.config.ConfigService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -64,10 +64,10 @@ public abstract class AbstractPropertySourceConfig {
 	 * Combine loaded properties, project properties, and system/environment properties into a <code>PropertySource<?></code>
 	 */
 	protected PropertySource<?> getPropertySource() {
-		ProjectConfigService service = projectConfigSpringConfig.utilProjectConfigService();
+		ConfigService service = projectConfigSpringConfig.utilProjectConfigService();
 		Properties projectProperties = getProjectProperties();
 		List<String> configIds = getConfigIds();
-		Properties properties = service.getProperties(projectProperties, configIds);
+		Properties properties = service.getProperties(configIds, projectProperties);
 		return SpringUtils.getGlobalPropertySource(properties);
 	}
 
