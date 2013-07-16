@@ -69,7 +69,7 @@ public class MetaInfProjectPropertiesSetupConfig {
 
 		// Setup includes / excludes
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, "project.metainf.includes");
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, "project.metainf.includes");
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, "project.metainf.excludes");
 
 		// Get the list of all properties spring knows about
 		Properties properties = springProperties();
