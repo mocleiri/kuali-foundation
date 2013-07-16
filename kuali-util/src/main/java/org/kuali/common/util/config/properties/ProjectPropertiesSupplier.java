@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
+import org.springframework.util.Assert;
 
 public class ProjectPropertiesSupplier implements PropertiesSupplier {
 
@@ -12,6 +13,10 @@ public class ProjectPropertiesSupplier implements PropertiesSupplier {
 
 	@Override
 	public Properties getProperties() {
+
+		Assert.hasText(groupId, "groupId has no text");
+		Assert.hasText(artifactId, "artifactId has no text");
+
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		return project.getProperties();
 	}
