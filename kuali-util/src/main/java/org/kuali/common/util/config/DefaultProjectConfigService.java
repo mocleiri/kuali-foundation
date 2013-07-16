@@ -38,9 +38,13 @@ import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.property.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectConfigService implements ProjectConfigService {
+
+	private static final Logger logger = LoggerFactory.getLogger(DefaultProjectConfigService.class);
 
 	protected static final String METAINF = "META-INF";
 	protected static final String CLASSPATH = "classpath:";
@@ -192,6 +196,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		ProjectConfig config = PROJECT_CONFIG_CACHE.get(cacheKey);
 		if (config == null) {
 			config = loadMetadata(groupId, artifactId);
+			logger.debug("Caching [{}]", cacheKey);
 			PROJECT_CONFIG_CACHE.put(cacheKey, config);
 		}
 		return config;
