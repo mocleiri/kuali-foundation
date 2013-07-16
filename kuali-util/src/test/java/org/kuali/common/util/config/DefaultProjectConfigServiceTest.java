@@ -37,10 +37,10 @@ public class DefaultProjectConfigServiceTest {
 			String artifactId = "kuali-util";
 			String configId = groupId + ":" + artifactId + ":scm";
 			Properties project = ProjectUtils.loadProject(groupId, artifactId).getProperties();
-			ProjectConfigService service = new DefaultProjectConfigService();
-			Properties properties1 = service.getProperties(project, configId);
+			ConfigService service = new DefaultConfigService();
+			Properties properties1 = service.getProperties(configId, project);
 			String mpx = new KualiUtilConfigRequest(MetaInfContext.SQL_CONTEXT_ID).toString();
-			Properties properties2 = service.getProperties(project, mpx);
+			Properties properties2 = service.getProperties(mpx, project);
 			PropertyUtils.info(properties1);
 			PropertyUtils.info(properties2);
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ public class DefaultProjectConfigServiceTest {
 			config.setArtifactId("kuali-util");
 			config.setLocations(locations);
 			config.setContexts(contexts);
-			DefaultProjectConfigService service = new DefaultProjectConfigService();
+			DefaultConfigService service = new DefaultConfigService();
 			File file = new File("/tmp/metadata.xml");
 			service.store(file, config);
 		} catch (Exception e) {
