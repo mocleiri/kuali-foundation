@@ -29,7 +29,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
-import org.apache.maven.project.ProjectBuildingException;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.logging.Logger;
 
@@ -152,7 +151,7 @@ public class DefaultDependenciesTool extends AbstractLogEnabled implements Depen
 				// build project
 				try {
 					depMavenProject = mavenProjectBuilder.buildFromRepository(artifact, remoteRepositories, localRepository, true);
-				} catch (ProjectBuildingException e) {
+				} catch (Exception e) {
 					log.warn("Unable to obtain POM for artifact : " + artifact, e);
 					continue;
 				}
