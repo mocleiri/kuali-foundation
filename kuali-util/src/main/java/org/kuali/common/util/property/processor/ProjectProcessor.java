@@ -75,7 +75,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		int groupIdBaseLength = groupIdBase.length();
 
 		// If this isn't true something has gone haywire
-		Assert.isTrue(groupIdBaseLength <= groupIdLength, "groupIdBaseLength > groupIdLength");
+		Assert.isTrue(groupIdLength >= groupIdBaseLength, "groupIdLength < groupIdBaseLength");
 
 		// Update groupId to be groupIdBase if they are not the same
 		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
