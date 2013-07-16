@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.DefaultProjectContext;
-import org.kuali.common.util.ProjectConstants;
+import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.ProjectUtils;
 
 @Deprecated
 public class JdbcProjectContext extends DefaultProjectContext {
 
 	private static final List<String> LOCATIONS = getLocations();
-	private static final String ARTIFACT_ID = ProjectConstants.JDBC_ARIFACT_ID;
+	private static final String ARTIFACT_ID = KualiProjectConstants.JDBC_ARIFACT_ID;
 
 	public JdbcProjectContext() {
 		super(ARTIFACT_ID, LOCATIONS);
@@ -39,7 +39,7 @@ public class JdbcProjectContext extends DefaultProjectContext {
 		locations.add(ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/jdbc.properties");
 
 		// Add SQL properties
-		String prefix = ProjectUtils.getCommonClassPathPrefix(ProjectConstants.SQL_ARTIFACT_ID);
+		String prefix = ProjectUtils.getCommonClassPathPrefix(KualiProjectConstants.SQL_ARTIFACT_ID);
 		locations.add(prefix + "/sql.xml");
 		locations.add(prefix + "/mysql.xml");
 		locations.add(prefix + "/oracle.xml");

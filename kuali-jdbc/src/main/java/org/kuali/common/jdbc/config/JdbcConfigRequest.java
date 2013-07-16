@@ -1,12 +1,12 @@
 package org.kuali.common.jdbc.config;
 
-import org.kuali.common.util.ProjectConstants;
+import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.config.KualiCommonConfigRequest;
 
 public class JdbcConfigRequest extends KualiCommonConfigRequest {
 
 	public JdbcConfigRequest() {
-		super(ProjectConstants.JDBC_ARIFACT_ID);
+		super(KualiProjectConstants.JDBC_ARIFACT_ID);
 	}
 
 }
