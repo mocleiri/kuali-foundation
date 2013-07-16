@@ -28,6 +28,7 @@ import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
@@ -37,7 +38,6 @@ import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.property.Constants;
-import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectConfigService implements ProjectConfigService {
@@ -211,7 +211,7 @@ public class DefaultProjectConfigService implements ProjectConfigService {
 		String location = getMetadataConfigFilePath(project, FILE);
 
 		// Throw an exception if they are asking for config metadata that doesn't exist
-		Assert.isTrue(LocationUtils.exists(location), "[" + location + "] does not exist");
+		Assert.exists(location, "[" + location + "] does not exist");
 
 		Properties properties = getFilterProperties(project);
 		String content = getFilteredContent(location, properties, project.getEncoding());
