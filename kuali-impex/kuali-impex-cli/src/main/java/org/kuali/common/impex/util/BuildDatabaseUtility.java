@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
-import org.kuali.common.jdbc.JdbcConfigConstants;
+import org.kuali.common.jdbc.config.JdbcConfigConstants;
 import org.kuali.common.jdbc.spring.SqlControllerExecutableConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -42,8 +42,8 @@ public class BuildDatabaseUtility {
 		try {
 			List<Class<?>> configClasses = getAnnotatedClasses(includeMpxConfig);
 
-            SpringExecutable executable = SpringUtils.getSpringExecutable(JdbcConfigConstants.JDBC_PROJECT_CONFIG_IDS, configClasses, propertiesLocation);
-            executable.execute();
+			SpringExecutable executable = SpringUtils.getSpringExecutable(JdbcConfigConstants.CONFIG_IDS, configClasses, propertiesLocation);
+			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

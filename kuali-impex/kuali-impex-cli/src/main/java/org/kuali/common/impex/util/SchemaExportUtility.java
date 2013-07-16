@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.kuali.common.impex.ExportConfigConstants;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
-import org.kuali.common.jdbc.JdbcConfigConstants;
+import org.kuali.common.jdbc.config.JdbcConfigConstants;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -38,10 +38,10 @@ public class SchemaExportUtility {
 		try {
 			List<Class<?>> annotatedClasses = CollectionUtils.asList(DumpDatabaseExecutableConfig.class);
 
-            List<String> configIds = new ArrayList<String>(JdbcConfigConstants.JDBC_PROJECT_CONFIG_IDS);
-            configIds.addAll(ExportConfigConstants.DUMP_CONFIG_IDS);
+			List<String> configIds = new ArrayList<String>(JdbcConfigConstants.CONFIG_IDS);
+			configIds.addAll(ExportConfigConstants.DUMP_CONFIG_IDS);
 
-            SpringExecutable executable = SpringUtils.getSpringExecutable(configIds, annotatedClasses, propertiesLocation);
+			SpringExecutable executable = SpringUtils.getSpringExecutable(configIds, annotatedClasses, propertiesLocation);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
