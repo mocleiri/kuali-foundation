@@ -65,7 +65,7 @@ public class ConfigUtils {
 	/**
 	 * Return a String containing the tokens passed in separated by <code>:</code>
 	 */
-	public static String getIdString(String... tokens) {
+	public static String getId(String... tokens) {
 		return CollectionUtils.getStringWithSeparator(Arrays.asList(tokens), DELIMITER);
 	}
 
@@ -73,7 +73,7 @@ public class ConfigUtils {
 	 * Convert tokens representing a single configId into an unmodifiable list with one element in it
 	 */
 	public static List<String> unmodifiableSingleElementList(String... configIdTokens) {
-		String configId = getIdString(configIdTokens);
+		String configId = getId(configIdTokens);
 		return Collections.unmodifiableList(Arrays.asList(configId));
 	}
 
