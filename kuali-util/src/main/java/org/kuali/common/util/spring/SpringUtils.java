@@ -37,8 +37,6 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.config.ConfigService;
-import org.kuali.common.util.config.DefaultConfigService;
 import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -523,10 +521,17 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClass passed in
 	 */
 	public static SpringExecutable getSpringExecutable(PropertiesSupplier supplier, Class<?> annotatedClass) {
+		return getSpringExecutable(supplier, CollectionUtils.asList(annotatedClass));
+	}
+
+	/**
+	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClasses passed in
+	 */
+	public static SpringExecutable getSpringExecutable(PropertiesSupplier supplier, List<Class<?>> annotatedClasses) {
 		Properties properties = supplier.getProperties();
 		PropertySource<?> source = getGlobalPropertySource(properties);
 		SpringContext context = getSinglePropertySourceContext(source);
-		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+		context.setAnnotatedClasses(annotatedClasses);
 		return new SpringExecutable(context);
 	}
 
@@ -537,22 +542,6 @@ public class SpringUtils {
 		SpringContext context = getSinglePropertySourceContext(source);
 		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
 		return new SpringExecutable(context);
-	}
-
-	public static SpringExecutable getSpringExecutable(List<String> configIds, List<Class<?>> annotatedClasses, String propertyLocation, ConfigService service) {
-		Properties overrides = PropertyUtils.load(propertyLocation);
-		Properties properties = service.getProperties(configIds, overrides);
-		PropertySource<?> source = getGlobalPropertySource(properties);
-		SpringContext context = getSinglePropertySourceContext(source);
-		context.setAnnotatedClasses(annotatedClasses);
-		return new SpringExecutable(context);
-	}
-
-	/**
-	 * Return a SpringExecutable for the config ids, annotated classes, and property location passed in
-	 */
-	public static SpringExecutable getSpringExecutable(List<String> configIds, List<Class<?>> annotatedClasses, String propertyLocation) {
-		return getSpringExecutable(configIds, annotatedClasses, propertyLocation, new DefaultConfigService());
 	}
 
 	/**
