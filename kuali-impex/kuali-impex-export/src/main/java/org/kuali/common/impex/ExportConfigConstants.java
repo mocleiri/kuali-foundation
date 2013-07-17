@@ -27,12 +27,12 @@ import org.kuali.common.util.config.ConfigUtils;
 public class ExportConfigConstants {
 
 	// GroupId + ArtifactId
-	private static final String GA = ConfigUtils.getIdString(KualiProjectConstants.COMMON_GROUP_ID, ExportProjectConstants.ARTIFACT_ID);
+	private static final String GA = ConfigUtils.getId(KualiProjectConstants.COMMON_GROUP_ID, ExportProjectConstants.ARTIFACT_ID);
 
 	public static final String DUMP_CONTEXT_ID = "dump";
-	public static final String DUMP_BUILD_CONTEXT_ID = ConfigUtils.getIdString(DUMP_CONTEXT_ID, ConfigConstants.BUILD);
-	public static final String DUMP_CONFIG_ID = ConfigUtils.getIdString(GA, DUMP_CONTEXT_ID);
-	public static final String DUMP_BUILD_CONFIG_ID = ConfigUtils.getIdString(GA, DUMP_BUILD_CONTEXT_ID);
+	public static final String DUMP_BUILD_CONTEXT_ID = ConfigUtils.getId(DUMP_CONTEXT_ID, ConfigConstants.BUILD);
+	public static final String DUMP_CONFIG_ID = ConfigUtils.getId(GA, DUMP_CONTEXT_ID);
+	public static final String DUMP_BUILD_CONFIG_ID = ConfigUtils.getId(GA, DUMP_BUILD_CONTEXT_ID);
 
 	public static final List<String> DUMP_CONFIG_IDS = getDumpConfigIds();
 
