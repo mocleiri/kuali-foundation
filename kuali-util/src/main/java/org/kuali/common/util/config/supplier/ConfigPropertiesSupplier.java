@@ -15,12 +15,9 @@
  */
 package org.kuali.common.util.config.supplier;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.ConfigService;
@@ -43,7 +40,7 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 	}
 
 	public ConfigPropertiesSupplier(List<String> configIds, String location) {
-		this(configIds, StringUtils.isBlank(location) ? Collections.<String> emptyList() : Arrays.asList(location));
+		this(configIds, CollectionUtils.toEmptyList(location));
 	}
 
 	public ConfigPropertiesSupplier(List<String> configIds, List<String> locations) {

@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +68,7 @@ public class DefaultConfigService implements ConfigService {
 
 	@Override
 	public Properties getProperties(String configId, Properties overrides) {
-		return getProperties(StringUtils.isBlank(configId) ? Collections.<String> emptyList() : Arrays.asList(configId), overrides);
+		return getProperties(CollectionUtils.toEmptyList(configId), overrides);
 	}
 
 	@Override
