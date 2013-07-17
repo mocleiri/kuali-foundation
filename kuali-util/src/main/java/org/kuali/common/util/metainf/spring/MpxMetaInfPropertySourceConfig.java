@@ -18,7 +18,7 @@ package org.kuali.common.util.metainf.spring;
 import java.util.List;
 
 import org.kuali.common.util.config.spring.BuildPropertySourceConfig;
-import org.kuali.common.util.metainf.MetaInfConfigConstants;
+import org.kuali.common.util.metainf.MpxMetaInfConstants;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -26,7 +26,7 @@ public class MpxMetaInfPropertySourceConfig extends BuildPropertySourceConfig {
 
 	@Override
 	protected List<String> getConfigIds() {
-		return MetaInfConfigConstants.MPX_CONFIG_IDS;
+		return MpxMetaInfConstants.CONFIG_IDS;
 	}
 
 }
