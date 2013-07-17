@@ -15,10 +15,10 @@
 
 package org.kuali.common.impex.cli;
 
-import org.kuali.common.impex.DumpProjectContext;
+import org.kuali.common.impex.ExportConfigConstants;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
-import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.util.ProjectContext;
+import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
+import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.spring.SpringUtils;
 
@@ -27,16 +27,14 @@ public class DumpDatabase {
 	public static void main(String[] args) {
 
 		try {
-			String props = getPropertiesLocation(args);
+			String location = getPropertiesLocation(args);
 
-			if (props == null) {
+			if (location == null) {
 				printHelpAndExit();
 			}
 
-			ProjectContext jdbc = new JdbcProjectContext();
-			ProjectContext dump = new DumpProjectContext();
-
-			SpringExecutable executable = SpringUtils.getSpringExecutable(DumpDatabaseExecutableConfig.class, props, jdbc, dump);
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(ExportConfigConstants.DUMP_CONFIG_IDS, location);
+			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, DumpDatabaseExecutableConfig.class);
 			executable.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
