@@ -39,18 +39,26 @@ public class Str {
 	public static final String CDATA_SUFFIX = "]]>";
 
 	/**
-	 * Convert an array of tokens into an id string where the tokens are delimited by <code>:</code>
+	 * Convert the tokens into a string delimited by the colon <code>:</code> character
+	 * 
+	 * <pre>
+	 *   "foo","bar" ,"baz"  -> foo:bar:baz
+	 *   "foo", null ,"baz"  -> foo::baz
+	 *   "foo", ""   ,"baz"  -> foo::baz
+	 *   "foo", null , null  -> foo::
+	 *    null, "bar", null  -> :bar:
+	 * </pre>
 	 */
-	public static final String getId(String... strings) {
-		if (strings == null) {
+	public static final String getId(String... tokens) {
+		if (tokens == null) {
 			return null;
 		}
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < strings.length; i++) {
+		for (int i = 0; i < tokens.length; i++) {
 			if (i != 0) {
 				sb.append(COLON);
 			}
-			sb.append(StringUtils.trimToEmpty(strings[i]));
+			sb.append(StringUtils.trimToEmpty(tokens[i]));
 		}
 		return sb.toString();
 	}

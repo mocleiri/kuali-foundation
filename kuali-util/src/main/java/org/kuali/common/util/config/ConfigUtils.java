@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Str;
 import org.springframework.util.Assert;
 
 public class ConfigUtils {
@@ -63,17 +63,10 @@ public class ConfigUtils {
 	}
 
 	/**
-	 * Return a String containing the tokens passed in separated by <code>:</code>
-	 */
-	public static String getId(String... tokens) {
-		return CollectionUtils.getStringWithSeparator(Arrays.asList(tokens), DELIMITER);
-	}
-
-	/**
 	 * Convert tokens representing a single configId into an unmodifiable list with one element in it
 	 */
 	public static List<String> unmodifiableSingleElementList(String... configIdTokens) {
-		String configId = getId(configIdTokens);
+		String configId = Str.getId(configIdTokens);
 		return Collections.unmodifiableList(Arrays.asList(configId));
 	}
 
