@@ -1,0 +1,9 @@
+Nexus directory sizes as of 07/17/2013
+
+Recursive listing for /usr/local/sonatype-work/nexus/storage
+
+12G     ./kuali-release
+6.5G    ./central
+6.8G    ./kuali-snapshot
+5.5G    ./kuali-builds
+32G     .
