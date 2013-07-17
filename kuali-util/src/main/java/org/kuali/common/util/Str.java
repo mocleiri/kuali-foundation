@@ -32,10 +32,28 @@ public class Str {
 	public static final String CR = "\r";
 	public static final String LF = "\n";
 	public static final String DOT = ".";
+	public static final String COLON = ":";
 	public static final String FORWARD_SLASH = "/";
 	public static final char DOUBLE_QUOTE = '"';
 	public static final String CDATA_PREFIX = "<![CDATA[";
 	public static final String CDATA_SUFFIX = "]]>";
+
+	/**
+	 * Convert an array of tokens into an id string where the tokens are delimited by <code>:</code>
+	 */
+	public static final String getId(String... strings) {
+		if (strings == null) {
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < strings.length; i++) {
+			if (i != 0) {
+				sb.append(COLON);
+			}
+			sb.append(StringUtils.trimToEmpty(strings[i]));
+		}
+		return sb.toString();
+	}
 
 	/**
 	 * Turn the string into CDATA - http://en.wikipedia.org/wiki/CDATA
