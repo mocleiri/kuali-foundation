@@ -26,8 +26,8 @@ public abstract class JdbcConfigConstants {
 	public static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
 	public static final String ARTIFACT_ID = KualiProjectConstants.JDBC_ARTIFACT_ID;
 
-	public static final String SQL_CONFIG_ID = ConfigUtils.getIdString(GROUP_ID, KualiProjectConstants.SQL_ARTIFACT_ID);
-	public static final String JDBC_CONFIG_ID = ConfigUtils.getIdString(GROUP_ID, ARTIFACT_ID);
+	public static final String SQL_CONFIG_ID = ConfigUtils.getId(GROUP_ID, KualiProjectConstants.SQL_ARTIFACT_ID);
+	public static final String JDBC_CONFIG_ID = ConfigUtils.getId(GROUP_ID, ARTIFACT_ID);
 
 	public static final List<String> CONFIG_IDS = CollectionUtils.unmodifiableList(SQL_CONFIG_ID, JDBC_CONFIG_ID);
 
