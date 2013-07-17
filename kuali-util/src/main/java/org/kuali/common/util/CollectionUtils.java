@@ -37,6 +37,21 @@ import org.kuali.common.util.property.Constants;
 public class CollectionUtils {
 
 	/**
+	 * Get an unmodifiable list from the single element. Return emptyList() if element is null.
+	 */
+	public static <T> List<T> unmodifiableList(T element) {
+		List<T> list = toEmptyList(element);
+		return Collections.unmodifiableList(list);
+	}
+
+	/**
+	 * Get an unmodifiable list from the single element. Return emptyList() if element is null.
+	 */
+	public static <T> List<T> unmodifiableList(T... elements) {
+		return Collections.unmodifiableList(Arrays.asList(elements));
+	}
+
+	/**
 	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
 	 */
 	public static List<String> getNoneSensitiveListFromCSV(String csv) {
