@@ -31,7 +31,10 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
 	public static final ConfigService DEFAULT_CONFIG_SERVICE = new DefaultConfigService();
 
+	// Required
 	ConfigService service = DEFAULT_CONFIG_SERVICE;
+
+	// Optional
 	List<String> configIds;
 	List<String> locations;
 
@@ -52,9 +55,14 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 	@Override
 	public Properties getProperties() {
 
+		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
 
+		// Load properties from the locations they've provided
+		// Returns an empty Properties if no locations were provided
 		Properties overrides = getOverrides(locations);
+
+		// Use the service to load and process properties
 		return service.getProperties(CollectionUtils.toEmptyList(configIds), overrides);
 	}
 
