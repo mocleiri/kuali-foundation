@@ -51,10 +51,9 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 	public Properties getProperties() {
 
 		Assert.notNull(service, "service is null");
-		Assert.notNull(configIds, "configIds is null");
 
 		Properties overrides = getOverrides(locations);
-		return service.getProperties(configIds, overrides);
+		return service.getProperties(CollectionUtils.toEmptyList(configIds), overrides);
 	}
 
 	protected Properties getOverrides(List<String> locations) {
