@@ -39,14 +39,14 @@ public class Str {
 	public static final String CDATA_SUFFIX = "]]>";
 
 	/**
-	 * Convert the tokens into a string delimited by the colon <code>:</code> character
+	 * Convert the tokens into a string delimited by the colon "<code>:</code>" character
 	 * 
 	 * <pre>
 	 *   "foo","bar" ,"baz"  -> foo:bar:baz
 	 *   "foo", null ,"baz"  -> foo::baz
 	 *   "foo", ""   ,"baz"  -> foo::baz
 	 *   "foo", null , null  -> foo::
-	 *    null, "bar", null  -> :bar:
+	 *    null,"bar" , null  -> :bar:
 	 * </pre>
 	 */
 	public static final String getId(String... tokens) {
