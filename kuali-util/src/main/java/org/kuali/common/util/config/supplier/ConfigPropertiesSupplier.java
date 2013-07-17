@@ -59,7 +59,7 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 		Assert.notNull(service, "service is null");
 
 		// Load properties from the locations they've provided
-		// Returns an empty Properties if no locations were provided
+		// Returns an empty Properties object if no locations were provided
 		Properties overrides = getOverrides(locations);
 
 		// Use the service to load and process properties
