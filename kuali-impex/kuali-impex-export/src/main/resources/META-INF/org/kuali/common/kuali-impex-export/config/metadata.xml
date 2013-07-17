@@ -1,10 +1,10 @@
 <project>
   <context id="dump">
+    <context id="build">
+      <location value="${export.build.common}" />
+    </context>
     <location value="${export.common}" />
     <location value="${classpath.prefix}/extract.properties" />
     <location value="${classpath.prefix}/dump.properties" />
-  </context>
-  <context id="maven">
-    <location value="${classpath.prefix}/maven.properties" />
   </context>
 </project>
