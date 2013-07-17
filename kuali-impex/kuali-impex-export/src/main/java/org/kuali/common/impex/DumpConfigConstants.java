@@ -24,22 +24,22 @@ import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.config.ConfigConstants;
 
-public class ExportConfigConstants {
+public class DumpConfigConstants {
 
 	// Shorthand for GroupId + ArtifactId
 	private static final String GA = Str.getId(KualiProjectConstants.COMMON_GROUP_ID, ExportProjectConstants.ARTIFACT_ID);
 
-	public static final String DUMP_CONTEXT_ID = "dump";
-	public static final String DUMP_BUILD_CONTEXT_ID = Str.getId(DUMP_CONTEXT_ID, ConfigConstants.BUILD);
-	public static final String DUMP_CONFIG_ID = Str.getId(GA, DUMP_CONTEXT_ID);
-	public static final String DUMP_BUILD_CONFIG_ID = Str.getId(GA, DUMP_BUILD_CONTEXT_ID);
+	public static final String CONTEXT_ID = "dump";
+	public static final String BUILD_CONTEXT_ID = Str.getId(CONTEXT_ID, ConfigConstants.BUILD);
+	public static final String CONFIG_ID = Str.getId(GA, CONTEXT_ID);
+	public static final String BUILD_CONFIG_ID = Str.getId(GA, BUILD_CONTEXT_ID);
 
-	public static final List<String> DUMP_CONFIG_IDS = getDumpConfigIds();
+	public static final List<String> CONFIG_IDS = getConfigIds();
 
-	protected static List<String> getDumpConfigIds() {
+	protected static List<String> getConfigIds() {
 		List<String> configIds = new ArrayList<String>();
 		configIds.addAll(JdbcConfigConstants.CONFIG_IDS);
-		configIds.add(DUMP_CONFIG_ID);
+		configIds.add(CONFIG_ID);
 		return Collections.unmodifiableList(configIds);
 	}
 

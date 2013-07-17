@@ -17,7 +17,7 @@ package org.kuali.common.impex.util;
 
 import java.util.List;
 
-import org.kuali.common.impex.ExportConfigConstants;
+import org.kuali.common.impex.DumpConfigConstants;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
@@ -37,7 +37,7 @@ public class SchemaExportUtility {
 
 		try {
 			List<Class<?>> annotatedClasses = CollectionUtils.asList(DumpDatabaseExecutableConfig.class);
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(ExportConfigConstants.DUMP_CONFIG_IDS, propertiesLocation);
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(DumpConfigConstants.CONFIG_IDS, propertiesLocation);
 			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, annotatedClasses);
 			executable.execute();
 		} catch (Exception e) {
