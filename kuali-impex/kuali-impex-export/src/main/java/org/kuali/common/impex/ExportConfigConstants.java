@@ -30,9 +30,9 @@ public class ExportConfigConstants {
 	private static final String GA = ConfigUtils.getIdString(KualiProjectConstants.COMMON_GROUP_ID, ExportProjectConstants.ARTIFACT_ID);
 
 	public static final String DUMP_CONTEXT_ID = "dump";
-	public static final String BUILD_DUMP_CONTEXT_ID = ConfigUtils.getIdString(DUMP_CONTEXT_ID, ConfigConstants.BUILD);
+	public static final String DUMP_BUILD_CONTEXT_ID = ConfigUtils.getIdString(DUMP_CONTEXT_ID, ConfigConstants.BUILD);
 	public static final String DUMP_CONFIG_ID = ConfigUtils.getIdString(GA, DUMP_CONTEXT_ID);
-	public static final String BUILD_DUMP_CONFIG_ID = ConfigUtils.getIdString(GA, BUILD_DUMP_CONTEXT_ID);
+	public static final String DUMP_BUILD_CONFIG_ID = ConfigUtils.getIdString(GA, DUMP_BUILD_CONTEXT_ID);
 
 	public static final List<String> DUMP_CONFIG_IDS = getDumpConfigIds();
 
