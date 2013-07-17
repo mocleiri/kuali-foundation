@@ -5,6 +5,14 @@
     </context>
     <location value="${export.common}" />
     <location value="${classpath.prefix}/extract.properties" />
-    <location value="${classpath.prefix}/dump.properties" />
+    <location value="${export.dump}" />
+  </context>
+  <context id="staging">
+    <context id="build">
+      <location value="${export.build.common}" />
+    </context>
+    <location value="${export.common}" />
+    <location value="${export.dump}" />
+    <location value="${classpath.prefix}/staging.properties" />
   </context>
 </project>
