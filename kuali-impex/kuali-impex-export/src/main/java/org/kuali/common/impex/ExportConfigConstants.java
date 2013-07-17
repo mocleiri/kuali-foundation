@@ -26,7 +26,7 @@ import org.kuali.common.util.config.ConfigConstants;
 
 public class ExportConfigConstants {
 
-	// GroupId + ArtifactId
+	// Shorthand for GroupId + ArtifactId
 	private static final String GA = Str.getId(KualiProjectConstants.COMMON_GROUP_ID, ExportProjectConstants.ARTIFACT_ID);
 
 	public static final String DUMP_CONTEXT_ID = "dump";
