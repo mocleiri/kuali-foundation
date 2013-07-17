@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.config.supplier;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -31,6 +32,20 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 	ConfigService service = DEFAULT_CONFIG_SERVICE;
 	List<String> configIds;
 	List<String> locations;
+
+	public ConfigPropertiesSupplier() {
+		this(null, (String) null);
+	}
+
+	public ConfigPropertiesSupplier(List<String> configIds, String location) {
+		this(configIds, Arrays.asList(location));
+	}
+
+	public ConfigPropertiesSupplier(List<String> configIds, List<String> locations) {
+		super();
+		this.configIds = configIds;
+		this.locations = locations;
+	}
 
 	@Override
 	public Properties getProperties() {
