@@ -2,7 +2,12 @@ Nexus directory sizes as of 07/17/2013
 
 Recursive listing for /usr/local/sonatype-work/nexus/storage
 
-12G     ./kuali-release
+Added 1 new task to the nexus instance:
+Evict unused proxied items from kuali-release older than 90 days
+Running that task, and then running the empty-trash task, cleared out 7.2G of artifacts from kuali-release
+
+
+4.8G    ./kuali-release
 6.5G    ./central
 6.8G    ./kuali-snapshot
 5.5G    ./kuali-builds
