@@ -25,6 +25,15 @@ public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
 
+	public static List<ConfigRequest> getRequests(List<String> configIds) {
+		List<ConfigRequest> requests = new ArrayList<ConfigRequest>();
+		for (String configId : configIds) {
+			ConfigRequest request = ConfigUtils.getConfigRequest(configId);
+			requests.add(request);
+		}
+		return requests;
+	}
+
 	public static List<String> getConfigIds(List<? extends ConfigRequest> requests) {
 		List<String> configIds = new ArrayList<String>();
 		for (ConfigRequest request : requests) {
