@@ -15,10 +15,11 @@
 
 package org.kuali.common.impex;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.kuali.common.jdbc.config.JdbcConfigConstants;
 import org.kuali.common.util.KualiProjectConstants;
 
 public class ExportConfigConstants {
@@ -30,7 +31,14 @@ public class ExportConfigConstants {
 	public static final String MAVEN_CONTEXT_ID = "maven";
 	public static final String DUMP_CONFIG_ID = GA + ":" + DUMP_CONTEXT_ID;
 	public static final String MAVEN_CONFIG_ID = GA + ":" + MAVEN_CONTEXT_ID;
-	
-	public static final List<String> DUMP_CONFIG_IDS = Collections.unmodifiableList(Arrays.asList(DUMP_CONFIG_ID));
+
+	public static final List<String> DUMP_CONFIG_IDS = Collections.unmodifiableList(getDumpConfigIds());
+
+	protected static List<String> getDumpConfigIds() {
+		List<String> configIds = new ArrayList<String>();
+		configIds.addAll(JdbcConfigConstants.CONFIG_IDS);
+		configIds.add(DUMP_CONFIG_ID);
+		return configIds;
+	}
 
 }
