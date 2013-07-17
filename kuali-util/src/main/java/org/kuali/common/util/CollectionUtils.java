@@ -443,6 +443,21 @@ public class CollectionUtils {
 		return combineStrings(list1, (String) null, list2);
 	}
 
+	/**
+	 * Return a new list containing all of the elements from the lists passed in
+	 */
+	public static final <T> List<T> combine(List<T> list1, List<T> list2) {
+		return combine(list1, list2, null);
+	}
+
+	public static final <T> List<T> combine(List<T> list1, List<T> list2, List<T> list3) {
+		List<T> combined = new ArrayList<T>();
+		combined.addAll(toEmptyList(list1));
+		combined.addAll(toEmptyList(list2));
+		combined.addAll(toEmptyList(list3));
+		return combined;
+	}
+
 	public static final <T> void nullSafeAdd(List<T> list1, List<T> list2) {
 		if (list2 != null) {
 			list1.addAll(list2);
