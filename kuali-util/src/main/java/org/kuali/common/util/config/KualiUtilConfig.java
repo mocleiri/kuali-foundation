@@ -17,7 +17,7 @@ public enum KualiUtilConfig implements ConfigIdSupplier {
 
 	private KualiUtilConfig(String contextId) {
 		this.contextId = contextId;
-		this.configId = project.getId() + ":" + contextId;
+		this.configId = ConfigUtils.getConfigId(project.getGroupId(), project.getArtifactId(), contextId);
 	}
 
 	public String getContextId() {

@@ -60,13 +60,19 @@ public class ConfigUtils {
 	}
 
 	public static String getConfigId(ConfigRequest request) {
+		return getConfigId(request.getGroupId(), request.getArtifactId(), request.getContextId());
+	}
+
+	public static String getConfigId(String groupId, String artifactId, String contextId) {
+		Assert.hasText(groupId, "groupId is blank");
+		Assert.hasText(artifactId, "artifactId is blank");
 		StringBuilder sb = new StringBuilder();
-		sb.append(StringUtils.trimToEmpty(request.getGroupId()));
-		sb.append(":");
-		sb.append(StringUtils.trimToEmpty(request.getArtifactId()));
-		if (!StringUtils.isBlank(request.getContextId())) {
-			sb.append(":");
-			sb.append(StringUtils.trimToEmpty(request.getContextId()));
+		sb.append(StringUtils.trimToEmpty(groupId));
+		sb.append(DELIMITER);
+		sb.append(StringUtils.trimToEmpty(artifactId));
+		if (!StringUtils.isBlank(contextId)) {
+			sb.append(DELIMITER);
+			sb.append(StringUtils.trimToEmpty(contextId));
 		}
 		return sb.toString();
 	}
