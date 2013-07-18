@@ -14,9 +14,11 @@
     limitations under the License.
 ====
 
-Any files containing properties that can only be resolved at build time must go here.
+Any properties that can only be _resolved_ at build time *must* go in this directory.
 
 These are typically project properties that have the word "build" in them, eg "project.build.directory".
+
+Any properties that are only _used_ at build time *should* also go here.
 
 A project property like "project.version" is ok to use in a properties file outside this directory.
 
