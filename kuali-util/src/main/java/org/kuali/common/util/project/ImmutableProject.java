@@ -6,6 +6,7 @@ public final class ImmutableProject {
 
 	final String groupId;
 	final String artifactId;
+	final String id;
 
 	public ImmutableProject(String groupId, String artifactId) {
 		super();
@@ -13,10 +14,11 @@ public final class ImmutableProject {
 		Assert.hasText(artifactId, "artifactId is blank");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
+		this.id = groupId + ":" + artifactId;
 	}
 
 	public String getId() {
-		return getGroupId() + ":" + getArtifactId();
+		return id;
 	}
 
 	@Override
