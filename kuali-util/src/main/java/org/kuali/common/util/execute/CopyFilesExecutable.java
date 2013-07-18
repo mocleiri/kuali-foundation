@@ -75,9 +75,10 @@ public class CopyFilesExecutable implements Executable {
 
 	protected CopyFileResult copyFile(File src, File dst) {
 		try {
+			long start = System.currentTimeMillis();
 			boolean overwritten = dst.exists();
 			FileUtils.copyFile(src, dst);
-			return new CopyFileResult(src, dst, overwritten);
+			return new CopyFileResult(src, dst, overwritten, System.currentTimeMillis() - start);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
