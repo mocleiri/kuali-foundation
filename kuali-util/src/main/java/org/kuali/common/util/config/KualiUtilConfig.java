@@ -1,8 +1,5 @@
 package org.kuali.common.util.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.project.ImmutableProject;
 
@@ -27,17 +24,9 @@ public enum KualiUtilConfig implements ConfigIdSupplier {
 		return contextId;
 	}
 
+	@Override
 	public String getConfigId() {
 		return configId;
-	}
-
-	@Override
-	public List<String> getConfigIds() {
-		List<String> configIds = new ArrayList<String>();
-		for (KualiUtilConfig config : values()) {
-			configIds.add(config.getConfigId());
-		}
-		return configIds;
 	}
 
 }
