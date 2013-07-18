@@ -7,7 +7,4 @@ public abstract class ExportProjectConstants {
 
 	public static final ImmutableProject PROJECT = new ImmutableProject(KualiProjectConstants.COMMON_GROUP_ID, "kuali-impex-export");
 
-	@Deprecated
-	public static final String ARTIFACT_ID = "kuali-impex-export";
-
 }
