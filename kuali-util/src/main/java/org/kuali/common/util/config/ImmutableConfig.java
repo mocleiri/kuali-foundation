@@ -4,13 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.project.ImmutableProject;
 import org.springframework.util.Assert;
 
-public final class ImmutableConfigRequest {
+public final class ImmutableConfig {
 
 	final ImmutableProject project;
 	final String contextId;
 	final String id;
 
-	public ImmutableConfigRequest(ImmutableProject project, String contextId) {
+	public ImmutableConfig(ImmutableProject project, String contextId) {
 		super();
 
 		Assert.notNull(project, "project is null");
