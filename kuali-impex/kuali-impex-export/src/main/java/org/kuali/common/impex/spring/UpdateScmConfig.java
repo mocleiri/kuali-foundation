@@ -28,8 +28,7 @@ public class UpdateScmConfig {
 	public Executable updateScmExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
 		List<Executable> execs = new ArrayList<Executable>();
-		execs.add(projectStagingConfig.dumpSchemaFilesExecutable());
-		// execs.add(projectStagingConfig.copyProjectDataFilesExecutable());
+		execs.add(projectStagingConfig.projectStagingExecutable());
 		return new ExecutablesExecutable(execs, skip);
 	}
 

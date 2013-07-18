@@ -10,9 +10,12 @@ import org.kuali.common.impex.schema.DumpSchemaService;
 import org.kuali.common.impex.schema.execute.DumpSchemaRequest;
 import org.kuali.common.impex.schema.execute.DumpSchemasExecutable;
 import org.kuali.common.impex.util.DumpConstants;
+import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.execute.CopyFilePatternsExecutable;
+import org.kuali.common.util.execute.CopyFileRequest;
+import org.kuali.common.util.execute.CopyFilesExecutable;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.spring.SpringUtils;
@@ -33,6 +36,7 @@ public class ProjectStagingConfig {
 	private static final String SCHEMA_FILE_KEY = "impex.staging.schema.file";
 
 	private static final String SKIP_KEY = "impex.staging.skip";
+	private static final String TIMED_KEY = "impex.staging.timed";
 
 	@Autowired
 	Environment env;
@@ -43,9 +47,9 @@ public class ProjectStagingConfig {
 	@Bean
 	public Executable projectStagingExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, false);
-		// List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable(), copyProjectDataFilesExecutable());
-		List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable());
-		return new ExecutablesExecutable(execs, skip);
+		boolean timed = SpringUtils.getBoolean(env, TIMED_KEY, false);
+		List<Executable> execs = Arrays.asList(dumpSchemaFilesExecutable(), copyProjectDataFilesExecutable());
+		return new ExecutablesExecutable(execs, skip, timed);
 	}
 
 	@Bean
@@ -74,14 +78,30 @@ public class ProjectStagingConfig {
 		File sourceDir = SpringUtils.getFile(env, SRC_DIR_KEY);
 		List<String> projectIds = SpringUtils.getListFromCSV(env, PROJECTS_KEY);
 
-		List<CopyFilePatternsExecutable> executables = new ArrayList<CopyFilePatternsExecutable>();
+		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
 		for (String projectId : projectIds) {
-			CopyFilePatternsExecutable exec = getCopyDataFilesExecutable(projectId, sourceDir, stagingDir);
-			exec.setRelativeDir(relativeDir);
-			executables.add(exec);
+			List<CopyFileRequest> projectRequests = getCopyFileRequests(projectId, sourceDir, stagingDir);
+			requests.addAll(projectRequests);
 		}
+		return new CopyFilesExecutable(requests);
+	}
 
-		return new ExecutablesExecutable(executables);
+	protected List<CopyFileRequest> getCopyFileRequests(String projectId, File dumpDir, File stagingDir) {
+
+		// Get a Project model object from the projectId
+		Project project = ProjectUtils.loadProject(projectId);
+
+		// dstDir is always based on groupId + artifactId
+		File dstDir = ProjectUtils.getResourceDirectory(stagingDir, project);
+
+		// Setup the includes/excludes appropriate for this project
+		String includesKey = "impex.staging.data." + project.getArtifactId() + ".includes";
+		String excludesKey = "impex.staging.data." + project.getArtifactId() + ".excludes";
+		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_FILE_INCLUDE);
+		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_FILE_EXCLUDE);
+
+		// Setup the list of files to copy
+		return FileSystemUtils.getCopyFileRequests(dumpDir, includes, excludes, dstDir);
 	}
 
 	protected CopyFilePatternsExecutable getCopyDataFilesExecutable(String projectId, File dumpDir, File stagingDir) {
