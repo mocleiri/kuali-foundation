@@ -46,7 +46,7 @@ public class SimpleStringSupplier extends AbstractSupplier {
 	public void open() {
 		// Make sure we've got something to work with
 		Assert.notNull(strings, "strings is null");
-		Assert.isTrue(closed, "closed is true");
+		Assert.isTrue(closed, "closed is false");
 		this.closed = false;
 	}
 
