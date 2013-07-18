@@ -4,8 +4,8 @@
     <location value="${export.extract}" />
     <location value="${export.dump}" />
     <context id="build">
-      <location value="${export.build.common}" />
       <location value="${export.common}" />
+      <location value="${export.build.common}" />
       <location value="${export.extract}" />
       <location value="${export.dump}" />
     </context>
@@ -15,8 +15,8 @@
     <location value="${export.dump}" />
     <location value="${export.staging}" />
     <context id="build">
-      <location value="${export.build.common}" />
       <location value="${export.common}" />
+      <location value="${export.build.common}" />
       <location value="${export.dump}" />
       <location value="${export.staging}" />
     </context>
