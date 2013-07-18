@@ -61,7 +61,7 @@ public class DefaultProjectConfigServiceTest {
 
 			List<Location> locations = new ArrayList<Location>();
 			locations.add(new Location("${classpath.prefix}/sql.xml"));
-			ProjectConfig config = new ProjectConfig();
+			ProjectConfigContainer config = new ProjectConfigContainer();
 			config.setGroupId("org.kuali.common");
 			config.setArtifactId("kuali-util");
 			config.setLocations(locations);
