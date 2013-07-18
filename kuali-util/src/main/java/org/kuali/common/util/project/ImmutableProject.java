@@ -1,5 +1,7 @@
 package org.kuali.common.util.project;
 
+import org.springframework.util.Assert;
+
 public final class ImmutableProject {
 
 	final String groupId;
@@ -7,6 +9,8 @@ public final class ImmutableProject {
 
 	public ImmutableProject(String groupId, String artifactId) {
 		super();
+		Assert.hasText(groupId, "groupId is blank");
+		Assert.hasText(artifactId, "artifactId is blank");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 	}
