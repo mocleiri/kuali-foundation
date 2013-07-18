@@ -34,10 +34,10 @@
       <location value="${metainf.common}" />
       <location value="${metainf.mpx}" />
       <context id="build">
-        <location value="${metainf.common.build}" />
         <location value="${metainf.common}" />
-        <location value="${metainf.mpx.build}" />
+        <location value="${metainf.common.build}" />
         <location value="${metainf.mpx}" />
+        <location value="${metainf.mpx.build}" />
       </context>
     </context>
   </context>
