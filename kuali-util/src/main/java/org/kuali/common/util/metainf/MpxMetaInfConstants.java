@@ -30,10 +30,11 @@ public class MpxMetaInfConstants {
 	public static final String MPX = "mpx";
 
 	public static final String CONTEXT_ID = MetaInfConstants.METAINF + ":" + MPX;
+	public static final String BUILD_CONTEXT_ID = CONTEXT_ID + "," + ConfigConstants.BUILD;
+
 	public static final ImmutableConfig CONFIG = new ImmutableConfig(PROJECT, CONTEXT_ID);
 	public static final List<String> CONFIG_IDS = CollectionUtils.unmodifiableList(CONFIG.getId());
 
-	public static final String BUILD_CONTEXT_ID = CONTEXT_ID + "," + ConfigConstants.BUILD;
 	public static final ImmutableConfig BUILD_CONFIG = new ImmutableConfig(PROJECT, BUILD_CONTEXT_ID);
 	public static final List<String> BUILD_CONFIG_IDS = CollectionUtils.unmodifiableList(BUILD_CONFIG.getId());
 
