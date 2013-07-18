@@ -27,6 +27,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.CopyFilePatternsExecutable;
+import org.kuali.common.util.execute.CopyFileRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -372,6 +373,20 @@ public class FileSystemUtils {
 			throw new IllegalArgumentException(file + " does not reside under " + dir);
 		}
 		return StringUtils.remove(filePath, dirPath);
+	}
+
+	public static List<CopyFileRequest> getCopyFileRequests(File srcDir, List<String> includes, List<String> excludes, File dstDir) {
+		SimpleScanner scanner = new SimpleScanner(srcDir, includes, excludes);
+		List<File> srcFiles = scanner.getFiles();
+
+		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
+		for (File srcFile : srcFiles) {
+			String relativePath = FileSystemUtils.getRelativePath(srcDir, srcFile);
+			File dstFile = new File(dstDir, relativePath);
+			CopyFileRequest request = new CopyFileRequest(srcFile, dstFile);
+			requests.add(request);
+		}
+		return requests;
 	}
 
 }

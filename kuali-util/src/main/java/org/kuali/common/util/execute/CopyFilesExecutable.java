@@ -40,6 +40,10 @@ public class CopyFilesExecutable implements Executable {
 		this(Arrays.asList(request), false);
 	}
 
+	public CopyFilesExecutable(List<CopyFileRequest> requests) {
+		this(requests, false);
+	}
+
 	public CopyFilesExecutable(List<CopyFileRequest> requests, boolean skip) {
 		super();
 		this.requests = requests;
