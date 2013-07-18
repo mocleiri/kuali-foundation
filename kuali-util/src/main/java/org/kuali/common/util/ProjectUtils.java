@@ -337,10 +337,10 @@ public class ProjectUtils {
 	 * Use the groupId and artifactId from this project to load the corresponding project.properties file and cache it in our internal Map
 	 */
 	public static synchronized Properties loadProperties(Project project) {
-		String gav = getGav(project.getGroupId(), project.getArtifactId());
-		Properties properties = PROJECT_PROPERTIES_CACHE.get(gav);
+		String projectId = getProjectId(project.getGroupId(), project.getArtifactId());
+		Properties properties = PROJECT_PROPERTIES_CACHE.get(projectId);
 		if (properties == null) {
-			properties = loadAndCache(project, gav);
+			properties = loadAndCache(project, projectId);
 		}
 		return properties;
 	}
