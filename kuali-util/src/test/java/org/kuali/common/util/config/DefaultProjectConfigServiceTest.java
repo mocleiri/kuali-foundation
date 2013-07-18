@@ -25,7 +25,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.metainf.SqlMetaInfConstants;
 
 public class DefaultProjectConfigServiceTest {
 
@@ -39,9 +38,7 @@ public class DefaultProjectConfigServiceTest {
 			Properties project = ProjectUtils.loadProject(groupId, artifactId).getProperties();
 			ConfigService service = new DefaultConfigService();
 			Properties properties1 = service.getProperties(configId, project);
-			Properties properties2 = service.getProperties(SqlMetaInfConstants.CONFIG_IDS, project);
 			PropertyUtils.info(properties1);
-			PropertyUtils.info(properties2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
