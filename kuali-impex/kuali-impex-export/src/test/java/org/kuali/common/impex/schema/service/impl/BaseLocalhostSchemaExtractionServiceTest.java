@@ -31,11 +31,12 @@ import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.ExtractSchemaContext;
 import org.kuali.common.impex.schema.service.ExtractSchemaService;
-import org.kuali.common.jdbc.JdbcProjectContext;
+import org.kuali.common.jdbc.config.JdbcConfigConstants;
 import org.kuali.common.jdbc.spring.SqlControllerExecutableConfig;
-import org.kuali.common.util.ProjectContext;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
+import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -53,10 +54,9 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			// Set a system property to establish the database vendor
 			System.setProperty("db.vendor", getDatabaseVendor());
 
-			// load the schema
-			ProjectContext project = new JdbcProjectContext();
 			String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/localhost.properties";
-			Executable executable = SpringUtils.getSpringExecutable(project, propertiesLocation, SqlControllerExecutableConfig.class);
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(JdbcConfigConstants.DEFAULT_CONFIG_IDS, propertiesLocation);
+			Executable executable = SpringUtils.getSpringExecutable(supplier, SqlControllerExecutableConfig.class);
 			executable.execute();
 
 			// extract the schema
