@@ -19,6 +19,11 @@ public final class ImmutableProject {
 		return getGroupId() + ":" + getArtifactId();
 	}
 
+	@Override
+	public String toString() {
+		return getId();
+	}
+
 	public String getGroupId() {
 		return groupId;
 	}
