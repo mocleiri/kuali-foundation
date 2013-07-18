@@ -23,8 +23,12 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CopyFilesExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(CopyFilesExecutable.class);
 
 	boolean skip;
 	List<CopyFileRequest> requests;
@@ -58,6 +62,8 @@ public class CopyFilesExecutable implements Executable {
 		}
 
 		Assert.notNull(requests, "requests is null");
+
+		logger.info("Copying {} files", requests.size());
 
 		List<CopyFileResult> results = new ArrayList<CopyFileResult>();
 		for (CopyFileRequest request : requests) {
