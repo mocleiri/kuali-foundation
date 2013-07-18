@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import org.kuali.common.util.project.ImmutableProject;
+
 public abstract class KualiProjectConstants {
 
 	// Kuali Group Id's
@@ -29,5 +31,9 @@ public abstract class KualiProjectConstants {
 	public static final String SQL_ARTIFACT_ID = "kuali-sql";
 	public static final String UTIL_ARTIFACT_ID = "kuali-util";
 	public static final String JDBC_ARTIFACT_ID = "kuali-jdbc";
+
+	public static final ImmutableProject KUALI_UTIL = new ImmutableProject(COMMON_GROUP_ID, UTIL_ARTIFACT_ID);
+	public static final ImmutableProject KUALI_JDBC = new ImmutableProject(COMMON_GROUP_ID, JDBC_ARTIFACT_ID);
+	public static final ImmutableProject KUALI_SQL = new ImmutableProject(COMMON_GROUP_ID, SQL_ARTIFACT_ID);
 
 }
