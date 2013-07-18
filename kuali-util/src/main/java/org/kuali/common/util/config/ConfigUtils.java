@@ -21,12 +21,21 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.Str;
 import org.springframework.util.Assert;
 
 public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
+
+	public static ConfigRequest getCommonConfigRequest(String artifactId, String contextId) {
+		return new ConfigRequest(KualiProjectConstants.COMMON_GROUP_ID, artifactId, contextId);
+	}
+
+	public static ConfigRequest getUtilConfigRequest(String contextId) {
+		return getCommonConfigRequest(KualiProjectConstants.UTIL_ARTIFACT_ID, contextId);
+	}
 
 	public static List<ConfigRequest> getRequests(List<String> configIds) {
 		List<ConfigRequest> requests = new ArrayList<ConfigRequest>();
