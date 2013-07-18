@@ -3,7 +3,7 @@ package org.kuali.common.util.config;
 import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.project.ImmutableProject;
 
-public enum KualiUtilConfig implements ConfigIdSupplier {
+public enum KualiUtilConfig implements ProjectConfig {
 
 	SCM("scm"), // Config for SCM related process
 	SQL("metainf:sql"), // Config for META-INF processing for SQL resources
@@ -20,6 +20,17 @@ public enum KualiUtilConfig implements ConfigIdSupplier {
 		this.configId = ConfigUtils.getConfigId(project, contextId);
 	}
 
+	@Override
+	public String getGroupId() {
+		return project.getGroupId();
+	}
+
+	@Override
+	public String getArtifactId() {
+		return project.getArtifactId();
+	}
+
+	@Override
 	public String getContextId() {
 		return contextId;
 	}
@@ -27,10 +38,6 @@ public enum KualiUtilConfig implements ConfigIdSupplier {
 	@Override
 	public String getConfigId() {
 		return configId;
-	}
-
-	public ImmutableProject getProject() {
-		return project;
 	}
 
 }

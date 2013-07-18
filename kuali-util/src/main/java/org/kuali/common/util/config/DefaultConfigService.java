@@ -53,7 +53,7 @@ public class DefaultConfigService implements ConfigService {
 	protected static final String FILE = "metadata.xml";
 	protected static final String PROPS = "metadata.properties";
 	protected static final String DELIMITER = ConfigUtils.DELIMITER;
-	protected static final Map<String, ProjectConfig> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfig>();
+	protected static final Map<String, ProjectConfigContainer> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfigContainer>();
 	protected static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	@Override
@@ -73,11 +73,11 @@ public class DefaultConfigService implements ConfigService {
 
 	@Override
 	public Properties getProperties(List<String> configIds, Properties overrides) {
-		List<ConfigRequest> requests = ConfigUtils.getRequests(CollectionUtils.toEmptyList(configIds));
+		List<DefaultProjectConfig> requests = ConfigUtils.getRequests(CollectionUtils.toEmptyList(configIds));
 		return getPropertiesFromRequests(PropertyUtils.toEmpty(overrides), requests);
 	}
 
-	protected Properties getPropertiesFromRequests(Properties overrides, List<ConfigRequest> requests) {
+	protected Properties getPropertiesFromRequests(Properties overrides, List<DefaultProjectConfig> requests) {
 		// Convert the ConfigRequest objects into Location objects
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
@@ -112,7 +112,7 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	protected List<Location> getLocations(String configId) {
-		ConfigRequest request = ConfigUtils.getConfigRequest(configId);
+		ProjectConfig request = ConfigUtils.getConfigRequest(configId);
 		return getLocations(request.getGroupId(), request.getArtifactId(), request.getContextId());
 	}
 
@@ -121,24 +121,24 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	protected List<Location> getLocations(String groupId, String artifactId, String contextId) {
-		return getLocations(new ConfigRequest(groupId, artifactId, contextId));
+		return getLocations(new DefaultProjectConfig(groupId, artifactId, contextId));
 	}
 
-	protected List<Location> getLocations(ConfigRequest request) {
+	protected List<Location> getLocations(DefaultProjectConfig request) {
 		return getLocations(Arrays.asList(request));
 	}
 
-	protected List<Location> getLocations(List<ConfigRequest> requests) {
+	protected List<Location> getLocations(List<DefaultProjectConfig> requests) {
 		List<Location> locations = new ArrayList<Location>();
-		for (ConfigRequest request : requests) {
+		for (ProjectConfig request : requests) {
 			List<Location> requestLocations = findLocations(request);
 			locations.addAll(requestLocations);
 		}
 		return locations;
 	}
 
-	protected List<Location> findLocations(ConfigRequest request) {
-		ProjectConfig config = getCachedConfig(request.getGroupId(), request.getArtifactId());
+	protected List<Location> findLocations(ProjectConfig request) {
+		ProjectConfigContainer config = getCachedConfig(request.getGroupId(), request.getArtifactId());
 		if (StringUtils.isBlank(request.getContextId())) {
 			return new ArrayList<Location>(CollectionUtils.toEmptyList(config.getLocations()));
 		} else {
@@ -162,9 +162,9 @@ public class DefaultConfigService implements ConfigService {
 		throw new IllegalArgumentException("Unknown contextId [" + contextId + "]");
 	}
 
-	protected synchronized ProjectConfig getCachedConfig(String groupId, String artifactId) {
+	protected synchronized ProjectConfigContainer getCachedConfig(String groupId, String artifactId) {
 		String cacheKey = groupId + DELIMITER + artifactId;
-		ProjectConfig config = PROJECT_CONFIG_CACHE.get(cacheKey);
+		ProjectConfigContainer config = PROJECT_CONFIG_CACHE.get(cacheKey);
 		if (config == null) {
 			config = loadMetadata(groupId, artifactId);
 			logger.debug("Caching [{}]", cacheKey);
@@ -182,7 +182,7 @@ public class DefaultConfigService implements ConfigService {
 		return CLASSPATH + METAINF + "/" + resourcePath + "/" + CONFIG + "/" + filename;
 	}
 
-	protected ProjectConfig loadMetadata(String groupId, String artifactId) {
+	protected ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		String location = getMetadataConfigFilePath(project, FILE);
 
@@ -194,11 +194,11 @@ public class DefaultConfigService implements ConfigService {
 		return getProjectConfig(content, project.getEncoding());
 	}
 
-	protected ProjectConfig getProjectConfig(String content, String encoding) {
+	protected ProjectConfigContainer getProjectConfig(String content, String encoding) {
 		InputStream in = null;
 		try {
 			in = new ByteArrayInputStream(content.getBytes(encoding));
-			return JAXBUtil.getObject(in, ProjectConfig.class);
+			return JAXBUtil.getObject(in, ProjectConfigContainer.class);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -226,14 +226,14 @@ public class DefaultConfigService implements ConfigService {
 		return duplicate;
 	}
 
-	protected void store(File file, ProjectConfig config) {
+	protected void store(File file, ProjectConfigContainer config) {
 
 		Assert.notNull(file, "file is null");
 		Assert.notNull(config, "config is null");
 
-		ProjectConfig clone = new ProjectConfig(config);
+		ProjectConfigContainer clone = new ProjectConfigContainer(config);
 
-		Nullifier nullifier = new ProjectConfigNullifier(clone);
+		Nullifier nullifier = new ProjectConfigContainerNullifier(clone);
 		nullifier.nullify();
 
 		JAXBUtil.write(clone, file);

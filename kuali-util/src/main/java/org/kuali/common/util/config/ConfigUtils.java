@@ -30,37 +30,37 @@ public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
 
-	public static ConfigRequest getCommonConfigRequest(String artifactId, String contextId) {
-		return new ConfigRequest(KualiProjectConstants.COMMON_GROUP_ID, artifactId, contextId);
+	public static ProjectConfig getCommonConfigRequest(String artifactId, String contextId) {
+		return new DefaultProjectConfig(KualiProjectConstants.COMMON_GROUP_ID, artifactId, contextId);
 	}
 
-	public static ConfigRequest getUtilConfigRequest(String contextId) {
+	public static ProjectConfig getUtilConfigRequest(String contextId) {
 		return getCommonConfigRequest(KualiProjectConstants.UTIL_ARTIFACT_ID, contextId);
 	}
 
-	public static List<ConfigRequest> getRequests(List<String> configIds) {
-		List<ConfigRequest> requests = new ArrayList<ConfigRequest>();
+	public static List<DefaultProjectConfig> getRequests(List<String> configIds) {
+		List<DefaultProjectConfig> requests = new ArrayList<DefaultProjectConfig>();
 		for (String configId : configIds) {
-			ConfigRequest request = ConfigUtils.getConfigRequest(configId);
+			DefaultProjectConfig request = ConfigUtils.getConfigRequest(configId);
 			requests.add(request);
 		}
 		return requests;
 	}
 
-	public static List<String> getConfigIds(List<? extends ConfigRequest> requests) {
+	public static List<String> getConfigIds(List<? extends DefaultProjectConfig> requests) {
 		List<String> configIds = new ArrayList<String>();
-		for (ConfigRequest request : requests) {
-			configIds.add(request.getId());
+		for (ProjectConfig request : requests) {
+			configIds.add(request.getConfigId());
 		}
 		return configIds;
 	}
 
-	public static List<String> unmodifiableList(List<? extends ConfigRequest> requests) {
+	public static List<String> unmodifiableList(List<? extends DefaultProjectConfig> requests) {
 		List<String> configIds = getConfigIds(requests);
 		return Collections.unmodifiableList(configIds);
 	}
 
-	public static String getConfigId(ConfigRequest request) {
+	public static String getConfigId(ProjectConfig request) {
 		return getConfigId(request.getGroupId(), request.getArtifactId(), request.getContextId());
 	}
 
@@ -90,7 +90,7 @@ public class ConfigUtils {
 		return Collections.unmodifiableList(Arrays.asList(configId));
 	}
 
-	public static ConfigRequest getConfigRequest(String configId) {
+	public static DefaultProjectConfig getConfigRequest(String configId) {
 
 		// Split the id up into tokens
 		String[] tokens = StringUtils.split(configId, DELIMITER);
@@ -105,7 +105,7 @@ public class ConfigUtils {
 		String contextId = getContextId(tokens);
 
 		// Store the variable inside an object
-		ConfigRequest request = new ConfigRequest();
+		DefaultProjectConfig request = new DefaultProjectConfig();
 		request.setGroupId(groupId);
 		request.setArtifactId(artifactId);
 		request.setContextId(contextId);
