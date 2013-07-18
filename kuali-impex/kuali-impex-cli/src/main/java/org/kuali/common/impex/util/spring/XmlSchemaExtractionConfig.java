@@ -27,15 +27,15 @@ import org.springframework.context.annotation.Import;
 @Import(XmlSchemaConfig.class)
 public class XmlSchemaExtractionConfig {
 
-    @Autowired
-    Schema schema;
+	@Autowired
+	Schema schema;
 
-    @Bean
-    public ExtractSchemaResult extractionResult() {
-        ExtractSchemaResult result = new ExtractSchemaResult();
-        result.setSchema(schema);
+	@Bean
+	public ExtractSchemaResult extractionResult() {
+		ExtractSchemaResult result = new ExtractSchemaResult();
+		result.setSchema(schema);
 
-        return result;
-    }
+		return result;
+	}
 
 }

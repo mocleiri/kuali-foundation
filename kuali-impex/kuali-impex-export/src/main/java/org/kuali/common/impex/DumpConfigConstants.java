@@ -19,27 +19,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.jdbc.config.JdbcConfigConstants;
-import org.kuali.common.util.KualiProjectConstants;
-import org.kuali.common.util.Str;
-import org.kuali.common.util.config.ConfigConstants;
+import org.kuali.common.impex.config.KualiImpexExportConfig;
+import org.kuali.common.jdbc.config.KualiJdbcConfig;
+import org.kuali.common.jdbc.config.KualiSqlConfig;
 
 public class DumpConfigConstants {
-
-	// Shorthand for GroupId + ArtifactId
-	private static final String GA = Str.getId(KualiProjectConstants.COMMON_GROUP_ID, ExportProjectConstants.ARTIFACT_ID);
-
-	public static final String CONTEXT_ID = "dump";
-	public static final String BUILD_CONTEXT_ID = Str.getId(CONTEXT_ID, ConfigConstants.BUILD);
-	public static final String CONFIG_ID = Str.getId(GA, CONTEXT_ID);
-	public static final String BUILD_CONFIG_ID = Str.getId(GA, BUILD_CONTEXT_ID);
 
 	public static final List<String> CONFIG_IDS = getConfigIds();
 
 	protected static List<String> getConfigIds() {
 		List<String> configIds = new ArrayList<String>();
-		configIds.addAll(JdbcConfigConstants.DEFAULT_CONFIG_IDS);
-		configIds.add(CONFIG_ID);
+		configIds.add(KualiSqlConfig.DEFAULT.getConfigId());
+		configIds.add(KualiJdbcConfig.DEFAULT.getConfigId());
+		configIds.add(KualiImpexExportConfig.DUMP.getConfigId());
 		return Collections.unmodifiableList(configIds);
 	}
 
