@@ -21,13 +21,16 @@ import java.util.List;
 
 public abstract class JdbcConfigConstants {
 
+	/**
+	 * Returns the unmodifiable list of default configuration ids needed by JDBC related process
+	 */
 	public static final List<String> DEFAULT_CONFIG_IDS = getDefaultConfigIds();
 
 	protected static List<String> getDefaultConfigIds() {
-		List<String> list = new ArrayList<String>();
-		list.add(KualiSqlConfig.DEFAULT.getConfigId());
-		list.add(KualiJdbcConfig.DEFAULT.getConfigId());
-		return Collections.unmodifiableList(list);
+		List<String> configIds = new ArrayList<String>();
+		configIds.add(KualiSqlConfig.DEFAULT.getConfigId());
+		configIds.add(KualiJdbcConfig.DEFAULT.getConfigId());
+		return Collections.unmodifiableList(configIds);
 	}
 
 }
