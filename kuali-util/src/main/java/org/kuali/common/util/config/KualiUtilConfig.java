@@ -29,4 +29,8 @@ public enum KualiUtilConfig implements ConfigIdSupplier {
 		return configId;
 	}
 
+	public ImmutableProject getProject() {
+		return project;
+	}
+
 }

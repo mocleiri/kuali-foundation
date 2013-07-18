@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.project.ImmutableProject;
 import org.springframework.util.Assert;
 
 public class ConfigUtils {
@@ -61,6 +62,10 @@ public class ConfigUtils {
 
 	public static String getConfigId(ConfigRequest request) {
 		return getConfigId(request.getGroupId(), request.getArtifactId(), request.getContextId());
+	}
+
+	public static String getConfigId(ImmutableProject project, String contextId) {
+		return getConfigId(project.getGroupId(), project.getArtifactId(), contextId);
 	}
 
 	public static String getConfigId(String groupId, String artifactId, String contextId) {
