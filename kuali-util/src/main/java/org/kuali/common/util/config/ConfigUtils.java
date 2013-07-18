@@ -16,47 +16,22 @@
 package org.kuali.common.util.config;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.KualiProjectConstants;
-import org.kuali.common.util.Str;
 import org.springframework.util.Assert;
 
 public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
 
-	public static ProjectConfig getCommonConfigRequest(String artifactId, String contextId) {
-		return new DefaultProjectConfig(KualiProjectConstants.COMMON_GROUP_ID, artifactId, contextId);
-	}
-
-	public static ProjectConfig getUtilConfigRequest(String contextId) {
-		return getCommonConfigRequest(KualiProjectConstants.UTIL_ARTIFACT_ID, contextId);
-	}
-
-	public static List<DefaultProjectConfig> getRequests(List<String> configIds) {
+	public static List<DefaultProjectConfig> getDefaultProjectConfigs(List<String> configIds) {
 		List<DefaultProjectConfig> requests = new ArrayList<DefaultProjectConfig>();
 		for (String configId : configIds) {
-			DefaultProjectConfig request = ConfigUtils.getConfigRequest(configId);
+			DefaultProjectConfig request = ConfigUtils.getDefaultProjectConfig(configId);
 			requests.add(request);
 		}
 		return requests;
-	}
-
-	public static List<String> getConfigIds(List<? extends DefaultProjectConfig> requests) {
-		List<String> configIds = new ArrayList<String>();
-		for (ProjectConfig request : requests) {
-			configIds.add(request.getConfigId());
-		}
-		return configIds;
-	}
-
-	public static List<String> unmodifiableList(List<? extends DefaultProjectConfig> requests) {
-		List<String> configIds = getConfigIds(requests);
-		return Collections.unmodifiableList(configIds);
 	}
 
 	public static String getConfigId(ProjectConfig request) {
@@ -77,15 +52,7 @@ public class ConfigUtils {
 		return sb.toString();
 	}
 
-	/**
-	 * Convert tokens representing a single configId into an unmodifiable list with one element in it
-	 */
-	public static List<String> unmodifiableSingleElementList(String... configIdTokens) {
-		String configId = Str.getId(configIdTokens);
-		return Collections.unmodifiableList(Arrays.asList(configId));
-	}
-
-	public static DefaultProjectConfig getConfigRequest(String configId) {
+	public static DefaultProjectConfig getDefaultProjectConfig(String configId) {
 
 		// Split the id up into tokens
 		String[] tokens = StringUtils.split(configId, DELIMITER);

@@ -73,7 +73,7 @@ public class DefaultConfigService implements ConfigService {
 
 	@Override
 	public Properties getProperties(List<String> configIds, Properties overrides) {
-		List<DefaultProjectConfig> requests = ConfigUtils.getRequests(CollectionUtils.toEmptyList(configIds));
+		List<DefaultProjectConfig> requests = ConfigUtils.getDefaultProjectConfigs(CollectionUtils.toEmptyList(configIds));
 		return getPropertiesFromRequests(PropertyUtils.toEmpty(overrides), requests);
 	}
 
@@ -112,7 +112,7 @@ public class DefaultConfigService implements ConfigService {
 	}
 
 	protected List<Location> getLocations(String configId) {
-		ProjectConfig request = ConfigUtils.getConfigRequest(configId);
+		ProjectConfig request = ConfigUtils.getDefaultProjectConfig(configId);
 		return getLocations(request.getGroupId(), request.getArtifactId(), request.getContextId());
 	}
 
