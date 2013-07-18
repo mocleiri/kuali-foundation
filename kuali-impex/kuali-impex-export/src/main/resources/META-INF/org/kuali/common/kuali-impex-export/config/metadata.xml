@@ -21,4 +21,7 @@
       <location value="${export.staging}" />
     </context>
   </context>
+  <context id="scm">
+    <location value="${classpath.prefix}/scm.properties" />
+  </context>
 </project>
