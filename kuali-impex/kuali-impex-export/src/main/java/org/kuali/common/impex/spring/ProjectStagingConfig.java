@@ -26,7 +26,7 @@ import org.springframework.core.env.Environment;
 @Import({ ExportServicesConfig.class })
 public class ProjectStagingConfig {
 
-	private static final String GAVS_KEY = "impex.staging.projects";
+	private static final String PROJECTS_KEY = "impex.staging.projects";
 	private static final String DST_DIR_KEY = "impex.staging.dir.dst";
 	private static final String SRC_DIR_KEY = "impex.staging.dir.src";
 	private static final String RELATIVE_DIR_KEY = "impex.staging.dir.relative";
@@ -72,11 +72,11 @@ public class ProjectStagingConfig {
 		File stagingDir = SpringUtils.getFile(env, DST_DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		File sourceDir = SpringUtils.getFile(env, SRC_DIR_KEY);
-		List<String> gavs = SpringUtils.getListFromCSV(env, GAVS_KEY);
+		List<String> projectIds = SpringUtils.getListFromCSV(env, PROJECTS_KEY);
 
 		List<CopyFilePatternsExecutable> executables = new ArrayList<CopyFilePatternsExecutable>();
-		for (String gav : gavs) {
-			CopyFilePatternsExecutable exec = getCopyDataFilesExecutable(gav, sourceDir, stagingDir);
+		for (String projectId : projectIds) {
+			CopyFilePatternsExecutable exec = getCopyDataFilesExecutable(projectId, sourceDir, stagingDir);
 			exec.setRelativeDir(relativeDir);
 			executables.add(exec);
 		}
@@ -127,7 +127,7 @@ public class ProjectStagingConfig {
 	}
 
 	protected List<Project> getProjects() {
-		List<String> gavs = SpringUtils.getNoneSensitiveListFromCSV(env, GAVS_KEY);
+		List<String> gavs = SpringUtils.getNoneSensitiveListFromCSV(env, PROJECTS_KEY);
 		List<Project> projects = new ArrayList<Project>();
 		for (String gav : gavs) {
 			Project project = ProjectUtils.loadProject(gav);
