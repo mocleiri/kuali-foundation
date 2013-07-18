@@ -12,6 +12,7 @@ public final class ImmutableConfigRequest {
 
 	public ImmutableConfigRequest(ImmutableProject project, String contextId) {
 		super();
+
 		Assert.notNull(project, "project is null");
 
 		this.project = project;
