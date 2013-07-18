@@ -9,38 +9,33 @@ import org.kuali.common.util.project.ImmutableProject;
 public enum KualiUtilConfig implements ConfigIdSupplier {
 
 	SCM("scm"), // Config for SCM related process
-	SQL("metainf:sql"), // Config for META-INF process related for SQL
-	SQL_BUILD("metainf:sql:build"), // Config for META-INF process related to SQL, only available during a build
-	MPX("metainf:mpx"), // Config for META-INF process related to MPX
-	MPX_BUILD("metainf:mpx:build"); // Config for META-INF process related to MPX, only available during a build
+	SQL("metainf:sql"), // Config for META-INF processing for SQL resources
+	MPX("metainf:mpx"), // Config for META-INF processing for MPX resources
+	SQL_BUILD("metainf:sql:build"), // Config for META-INF processing for SQL files, only available during a build
+	MPX_BUILD("metainf:mpx:build"); // Config for META-INF processing for MPX files, only available during a build
 
 	private final ImmutableProject project = KualiProjectConstants.KUALI_UTIL;
 	private final String contextId;
-	private final String id;
+	private final String configId;
 
 	private KualiUtilConfig(String contextId) {
 		this.contextId = contextId;
-		this.id = project.getId() + ":" + contextId;
+		this.configId = project.getId() + ":" + contextId;
 	}
 
 	public String getContextId() {
 		return contextId;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	@Override
-	public String toString() {
-		return id;
+	public String getConfigId() {
+		return configId;
 	}
 
 	@Override
 	public List<String> getConfigIds() {
 		List<String> configIds = new ArrayList<String>();
 		for (KualiUtilConfig config : values()) {
-			configIds.add(config.getId());
+			configIds.add(config.getConfigId());
 		}
 		return configIds;
 	}
