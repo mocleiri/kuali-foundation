@@ -1,18 +1,24 @@
 <project>
   <context id="dump">
     <location value="${export.common}" />
-    <location value="${classpath.prefix}/extract.properties" />
+    <location value="${export.extract}" />
     <location value="${export.dump}" />
     <context id="build">
       <location value="${export.build.common}" />
+      <location value="${export.common}" />
+      <location value="${export.extract}" />
+      <location value="${export.dump}" />
     </context>
   </context>
   <context id="staging">
     <location value="${export.common}" />
     <location value="${export.dump}" />
-    <location value="${classpath.prefix}/staging.properties" />
+    <location value="${export.staging}" />
     <context id="build">
       <location value="${export.build.common}" />
+      <location value="${export.common}" />
+      <location value="${export.dump}" />
+      <location value="${export.staging}" />
     </context>
   </context>
 </project>
