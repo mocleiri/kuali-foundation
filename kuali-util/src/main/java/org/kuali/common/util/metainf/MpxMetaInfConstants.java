@@ -19,23 +19,22 @@ import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.KualiProjectConstants;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.config.ConfigConstants;
-import org.kuali.common.util.config.ImmutableConfig;
-import org.kuali.common.util.project.ImmutableProject;
 
 public class MpxMetaInfConstants {
 
-	private static final ImmutableProject PROJECT = KualiProjectConstants.KUALI_UTIL;
+	// Shorthand for GroupId + ArtifactId
+	private static final String GA = Str.getId(KualiProjectConstants.COMMON_GROUP_ID, KualiProjectConstants.UTIL_ARTIFACT_ID);
 
 	public static final String MPX = "mpx";
 
-	public static final String CONTEXT_ID = MetaInfConstants.METAINF + ":" + MPX;
-	public static final String BUILD_CONTEXT_ID = CONTEXT_ID + "," + ConfigConstants.BUILD;
+	public static final String CONTEXT_ID = Str.getId(MetaInfConstants.METAINF, MPX);
+	public static final String CONFIG_ID = Str.getId(GA, CONTEXT_ID);
+	public static final List<String> CONFIG_IDS = CollectionUtils.unmodifiableList(CONFIG_ID);
 
-	public static final ImmutableConfig CONFIG = new ImmutableConfig(PROJECT, CONTEXT_ID);
-	public static final List<String> CONFIG_IDS = CollectionUtils.unmodifiableList(CONFIG.getId());
-
-	public static final ImmutableConfig BUILD_CONFIG = new ImmutableConfig(PROJECT, BUILD_CONTEXT_ID);
-	public static final List<String> BUILD_CONFIG_IDS = CollectionUtils.unmodifiableList(BUILD_CONFIG.getId());
+	public static final String BUILD_CONTEXT_ID = Str.getId(CONTEXT_ID, ConfigConstants.BUILD);
+	public static final String BUILD_CONFIG_ID = Str.getId(GA, BUILD_CONTEXT_ID);
+	public static final List<String> BUILD_CONFIG_IDS = CollectionUtils.unmodifiableList(BUILD_CONFIG_ID);
 
 }
