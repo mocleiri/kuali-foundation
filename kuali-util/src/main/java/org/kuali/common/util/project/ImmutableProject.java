@@ -17,7 +17,7 @@ public final class ImmutableProject {
 
 	@Override
 	public String toString() {
-		return getGroupId() + ":" + getArtifactId();
+		return groupId + ":" + artifactId;
 	}
 
 	public String getGroupId() {
