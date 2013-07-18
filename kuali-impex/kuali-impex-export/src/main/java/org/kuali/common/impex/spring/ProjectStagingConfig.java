@@ -86,7 +86,7 @@ public class ProjectStagingConfig {
 
 	protected CopyFilePatternsExecutable getCopyDataFilesExecutable(String projectId, File dumpDir, File stagingDir) {
 
-		// Get a Project model object from the GAV
+		// Get a Project model object from the projectId
 		Project project = ProjectUtils.loadProject(projectId);
 
 		// dstDir is always based on groupId + artifactId
