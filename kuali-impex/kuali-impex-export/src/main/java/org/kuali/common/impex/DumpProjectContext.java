@@ -6,6 +6,7 @@ import java.util.List;
 import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.ProjectUtils;
 
+@Deprecated
 public class DumpProjectContext extends DefaultProjectContext {
 
 	public DumpProjectContext() {

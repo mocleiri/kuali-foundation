@@ -23,6 +23,7 @@ import org.kuali.common.impex.config.KualiImpexExportConfig;
 import org.kuali.common.jdbc.config.KualiJdbcConfig;
 import org.kuali.common.jdbc.config.KualiSqlConfig;
 
+@Deprecated
 public class DumpConfigConstants {
 
 	public static final List<String> CONFIG_IDS = getConfigIds();
