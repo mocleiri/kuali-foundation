@@ -32,7 +32,7 @@ public class MpxMetaInfConstants {
 	public static final String CONTEXT_ID = Str.getId(MetaInfConstants.METAINF, MPX);
 	public static final String CONFIG_ID = Str.getId(GA, CONTEXT_ID);
 	public static final String BUILD_CONTEXT_ID = Str.getId(CONTEXT_ID, ConfigConstants.BUILD);
-	public static final String BUILD_CONFIG_ID = Str.getId(BUILD_CONTEXT_ID, ConfigConstants.BUILD);
+	public static final String BUILD_CONFIG_ID = Str.getId(GA, BUILD_CONTEXT_ID);
 	public static final List<String> CONFIG_IDS = CollectionUtils.unmodifiableList(CONFIG_ID);
 	public static final List<String> BUILD_CONFIG_IDS = CollectionUtils.unmodifiableList(BUILD_CONFIG_ID);
 
