@@ -49,10 +49,10 @@ public class ProjectUtils {
 
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
-	public static List<Project> getProjects(List<String> gavs) {
+	public static List<Project> getProjects(List<String> projectIds) {
 		List<Project> projects = new ArrayList<Project>();
-		for (String gav : gavs) {
-			Project project = ProjectUtils.loadProject(gav);
+		for (String projectId : projectIds) {
+			Project project = ProjectUtils.loadProject(projectId);
 			projects.add(project);
 		}
 		return projects;
@@ -87,9 +87,25 @@ public class ProjectUtils {
 	 *   org.kuali.student.db:ks-impex-rice-db = classpath:org/kuali/student/ks-impex-rice-db
 	 *   org.kuali.common:kuali-util           = classpath:org/kuali/common/kuali-util
 	 * </pre>
+	 * 
+	 * Use getClassPathPrefixFromProjectId() instead
 	 */
+	@Deprecated
 	public static String getClassPathPrefixFromGAV(String gav) {
 		Project project = getProject(gav);
+		return getClassPathPrefix(project);
+	}
+
+	/**
+	 * Given groupId:artifactId, convert the groupId to groupId.base, then return the classpath prefix
+	 * 
+	 * <pre>
+	 *   org.kuali.student.db:ks-impex-rice-db = classpath:org/kuali/student/ks-impex-rice-db
+	 *   org.kuali.common:kuali-util           = classpath:org/kuali/common/kuali-util
+	 * </pre>
+	 */
+	public static String getClassPathPrefixFromProjectId(String projectId) {
+		Project project = getProject(projectId);
 		return getClassPathPrefix(project);
 	}
 
@@ -183,11 +199,21 @@ public class ProjectUtils {
 		return getGav(context.getGroupId(), context.getArtifactId());
 	}
 
+	@Deprecated
 	public static String getGav(Project project) {
 		return getGav(project.getGroupId(), project.getArtifactId());
 	}
 
+	@Deprecated
 	public static String getGav(String groupId, String artifactId) {
+		return groupId + ":" + artifactId;
+	}
+
+	public static String getProjectId(Project project) {
+		return getProjectId(project.getGroupId(), project.getArtifactId());
+	}
+
+	public static String getProjectId(String groupId, String artifactId) {
 		return groupId + ":" + artifactId;
 	}
 
@@ -196,16 +222,16 @@ public class ProjectUtils {
 	 * from disk.
 	 */
 	public static Project loadProject(String groupId, String artifactId) {
-		String gav = getGav(groupId, artifactId);
-		return loadProject(gav);
+		String projectId = getProjectId(groupId, artifactId);
+		return loadProject(projectId);
 	}
 
 	/**
-	 * Create a <code>Project</code> object from the <code>gav</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
+	 * Create a <code>Project</code> object from the <code>projectId</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
 	 */
-	public static Project loadProject(String gav) {
-		// Convert the gav into a Project
-		Project project = getProject(gav);
+	public static Project loadProject(String projectId) {
+		// Convert the projectId into a Project
+		Project project = getProject(projectId);
 
 		// Load properties from a .properties file for this project
 		Properties properties = loadProperties(project);
@@ -225,7 +251,8 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Create a skeleton <code>Project</code> object from the <code>gav</code>. Nothing but the GAV info gets filled in. Does not read <code>project.properties</code> from disk.
+	 * Create a skeleton <code>Project</code> object from the <code>gav</code>. Nothing but the GAV info (groupId:artifactId:packaging:version:classifier) gets filled in. Does not
+	 * read <code>project.properties</code> from disk.
 	 */
 	public static Project getProject(String gav) {
 		logger.debug("Processing [{}]", gav);
