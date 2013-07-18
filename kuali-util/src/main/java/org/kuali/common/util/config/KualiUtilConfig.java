@@ -17,7 +17,7 @@ public enum KualiUtilConfig implements ProjectConfig {
 
 	private KualiUtilConfig(String contextId) {
 		this.contextId = contextId;
-		this.configId = ConfigUtils.getConfigId(project, contextId);
+		this.configId = ConfigUtils.getConfigId(this);
 	}
 
 	@Override
