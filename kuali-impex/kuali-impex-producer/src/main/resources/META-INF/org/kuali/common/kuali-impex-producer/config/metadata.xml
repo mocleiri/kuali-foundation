@@ -5,7 +5,8 @@
             <location value="${schema.sql.prefix}/schema.properties" />
         </context>
         <context id="mpx">
-
+            <location value="${producer.common}" />
+            <location value="${schema.sql.prefix}/mpx.properties" />
         </context>
     </context>
 </project>
