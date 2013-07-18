@@ -1,0 +1,11 @@
+<project>
+    <context id="sql">
+        <context id="schema">
+            <location value="${producer.common}" />
+            <location value="${schema.sql.prefix}/schema.properties" />
+        </context>
+        <context id="mpx">
+
+        </context>
+    </context>
+</project>

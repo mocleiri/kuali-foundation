@@ -21,12 +21,10 @@ import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.SchemaSqlProducer;
+import org.kuali.common.impex.schema.impl.AbstractSchemaSqlProducer;
 import org.kuali.common.impex.schema.impl.NoOpProvider;
 
-public class MySqlSchemaProducer implements SchemaSqlProducer {
-
-    public static final String SUPPORTED_VENDOR = "mysql";
+public class MySqlSchemaProducer extends AbstractSchemaSqlProducer {
 
     private MySqlTableSqlProducer tableSqlProducer = new MySqlTableSqlProducer();
 
@@ -42,10 +40,6 @@ public class MySqlSchemaProducer implements SchemaSqlProducer {
 
     public MySqlTableSqlProducer getTableSqlProducer() {
         return tableSqlProducer;
-    }
-
-    public void setTableSqlProducer(MySqlTableSqlProducer tableSqlProducer) {
-        this.tableSqlProducer = tableSqlProducer;
     }
 
     @Override

@@ -19,8 +19,7 @@ import org.kuali.common.impex.model.DataType;
 import org.kuali.common.impex.schema.DataTypeMapping;
 import org.kuali.common.impex.schema.DataTypeMappingProvider;
 import org.kuali.common.impex.schema.impl.DefaultDataTypeMappingProvider;
-import org.kuali.common.impex.schema.impl.mysql.MySqlSchemaProducer;
-import org.kuali.common.impex.schema.impl.oracle.OracleSchemaProducer;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +29,9 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class DataTypeMappingProviderConfig {
 
-    // TODO KSENROLL-6764 Should be able to retrieve this as an enum from a kuali-jdbc level config
-    protected static final String DB_VENDOR_KEY = "db.vendor";
+    protected static final String DATATYPE_SIZE_OVERRIDES_KEY = "producer.sql.schema.datatype.size.overrides";
+
+    protected static final String DEFAULT_DATATYPE_SIZE_OVERRIDES = "";
 
     @Autowired
     Environment env;
@@ -39,66 +39,16 @@ public class DataTypeMappingProviderConfig {
     @Bean
     public DataTypeMappingProvider defaultMappingProvider() {
 
-        String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+        String datatypeSizeOverrides = SpringUtils.getProperty(env, DATATYPE_SIZE_OVERRIDES_KEY, DEFAULT_DATATYPE_SIZE_OVERRIDES);
 
-        if (dbVendor.equalsIgnoreCase(OracleSchemaProducer.SUPPORTED_VENDOR)) {
-            DefaultDataTypeMappingProvider mappingProvider = new DefaultDataTypeMappingProvider();
+        DefaultDataTypeMappingProvider mappingProvider = new DefaultDataTypeMappingProvider();
 
-            mappingProvider.getDataTypeMatches().put(DataType.DATE, overrideOracleDateColumnSize());
-            mappingProvider.getDataTypeMatches().put(DataType.TIMESTAMP, overrideOracleTimestampColumnSize());
-            mappingProvider.getDataTypeMatches().put(DataType.CLOB, overrideOracleClobColumnSize());
-            mappingProvider.getDataTypeMatches().put(DataType.BLOB, overrideOracleBlobColumnSize());
-
-            return mappingProvider;
+        for (String token : CollectionUtils.getTrimmedListFromCSV(datatypeSizeOverrides)) {
+            DataType dataType = DataType.valueOf(token);
+            mappingProvider.getDataTypeMatches().put(dataType, nullTypeSizeMapping(dataType));
         }
 
-        if (dbVendor.equalsIgnoreCase(MySqlSchemaProducer.SUPPORTED_VENDOR)) {
-            DefaultDataTypeMappingProvider mappingProvider = new DefaultDataTypeMappingProvider();
-
-            mappingProvider.getDataTypeMatches().put(DataType.DATE, overrideMySqlDateColumnSize());
-            mappingProvider.getDataTypeMatches().put(DataType.TIMESTAMP, overrideMySqlTimestampColumnSize());
-            mappingProvider.getDataTypeMatches().put(DataType.CLOB, overrideMySqlClobColumnSize());
-
-            return mappingProvider;
-        }
-
-        throw new UnsupportedOperationException("Could not map db vendor '" + dbVendor + "' to a known SchemaSqlProducer implementation");
-
-    }
-
-    @Bean
-    public DataTypeMapping overrideMySqlDateColumnSize() {
-        return nullTypeSizeMapping(DataType.DATE);
-    }
-
-    @Bean
-    public DataTypeMapping overrideMySqlTimestampColumnSize() {
-        return nullTypeSizeMapping(DataType.TIMESTAMP);
-    }
-
-    @Bean
-    public DataTypeMapping overrideMySqlClobColumnSize() {
-        return nullTypeSizeMapping(DataType.CLOB);
-    }
-
-    @Bean
-    public DataTypeMapping overrideOracleDateColumnSize() {
-        return nullTypeSizeMapping(DataType.DATE);
-    }
-
-    @Bean
-    public DataTypeMapping overrideOracleBlobColumnSize() {
-        return nullTypeSizeMapping(DataType.BLOB);
-    }
-
-    @Bean
-    public DataTypeMapping overrideOracleClobColumnSize() {
-        return nullTypeSizeMapping(DataType.CLOB);
-    }
-
-    @Bean
-    public DataTypeMapping overrideOracleTimestampColumnSize() {
-        return nullTypeSizeMapping(DataType.TIMESTAMP);
+        return mappingProvider;
     }
 
     protected DataTypeMapping nullTypeSizeMapping(DataType type) {

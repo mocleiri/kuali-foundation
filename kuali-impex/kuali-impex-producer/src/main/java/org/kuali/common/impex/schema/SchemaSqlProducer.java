@@ -17,4 +17,7 @@ public interface SchemaSqlProducer {
 
     List<String> getViewsSql(List<View> views);
 
+    void setDataTypeMappingProvider(DataTypeMappingProvider dataTypeMappingProvider);
+
+    DataTypeMappingProvider getDataTypeMappingProvider();
 }

@@ -45,7 +45,6 @@ public class SchemaXmlSupplierConfig {
         SchemaXmlLocationSupplier supplier = new SchemaXmlLocationSupplier();
         supplier.setProducer(sqlProducer);
 
-        // This hands out clones of MpxLocationSupplier, one for every .mpx file being parsed
         LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();
         lssb.setSupplierClass(SchemaXmlLocationSupplier.class);
         lssb.setSupplierInstance(supplier);

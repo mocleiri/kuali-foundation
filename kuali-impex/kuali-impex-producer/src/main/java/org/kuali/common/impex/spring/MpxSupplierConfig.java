@@ -16,14 +16,11 @@
 package org.kuali.common.impex.spring;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import javax.xml.bind.JAXBException;
 
 import org.kuali.common.impex.data.SqlProducer;
 import org.kuali.common.impex.data.impl.MpxLocationSupplier;
-import org.kuali.common.impex.data.impl.mysql.MySqlProducer;
-import org.kuali.common.impex.data.impl.oracle.OracleProducer;
 import org.kuali.common.jdbc.spring.JdbcCommonConfig;
 import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
@@ -53,31 +50,16 @@ public class MpxSupplierConfig {
     @Autowired
     XmlSchemaConfig modelProviderConfig;
 
-    private static final String DB_VENDOR_KEY = "db.vendor";
-
-    @Bean
-    Map<String, SqlProducer> vendorProducerMap() {
-        Map<String, SqlProducer> results = new HashMap<String, SqlProducer>();
-
-        results.put(OracleProducer.SUPPORTED_VENDOR, configureProducer(new OracleProducer()));
-        results.put(MySqlProducer.SUPPORTED_VENDOR, configureProducer(new MySqlProducer()));
-
-        return results;
-    }
-
-    private SqlProducer configureProducer(SqlProducer sqlProducer) {
-
-        sqlProducer.setBatchDataSizeLimit(batchConfig.impexBatchSize());
-        sqlProducer.setBatchRowCountLimit(batchConfig.impexBatchRows());
-
-        return sqlProducer;
-    }
+    protected static final String PRODUCER_IMPL_KEY = "producer.sql.mpx.impl";
 
     @Bean
     public SqlProducer impexProducer() {
-        String vendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+        SqlProducer producer = SpringUtils.getInstance(env, PRODUCER_IMPL_KEY);
 
-        return vendorProducerMap().get(vendor);
+        producer.setBatchDataSizeLimit(batchConfig.impexBatchSize());
+        producer.setBatchRowCountLimit(batchConfig.impexBatchRows());
+
+        return producer;
     }
 
     @Bean

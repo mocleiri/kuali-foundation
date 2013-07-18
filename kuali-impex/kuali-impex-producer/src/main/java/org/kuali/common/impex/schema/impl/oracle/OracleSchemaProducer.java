@@ -21,12 +21,10 @@ import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.Sequence;
 import org.kuali.common.impex.model.Table;
 import org.kuali.common.impex.model.View;
-import org.kuali.common.impex.schema.SchemaSqlProducer;
+import org.kuali.common.impex.schema.impl.AbstractSchemaSqlProducer;
 import org.kuali.common.impex.schema.impl.NoOpProvider;
 
-public class OracleSchemaProducer implements SchemaSqlProducer {
-
-    public static final String SUPPORTED_VENDOR = "oracle";
+public class OracleSchemaProducer extends AbstractSchemaSqlProducer {
 
     protected OracleTableSqlProducer tableSqlProducer = new OracleTableSqlProducer();
 
@@ -45,10 +43,6 @@ public class OracleSchemaProducer implements SchemaSqlProducer {
 
     public OracleTableSqlProducer getTableSqlProducer() {
         return tableSqlProducer;
-    }
-
-    public void setTableSqlProducer(OracleTableSqlProducer tableSqlProducer) {
-        this.tableSqlProducer = tableSqlProducer;
     }
 
     @Override

@@ -16,8 +16,6 @@
 package org.kuali.common.impex.spring;
 
 import org.kuali.common.impex.schema.SchemaSqlProducer;
-import org.kuali.common.impex.schema.impl.mysql.MySqlSchemaProducer;
-import org.kuali.common.impex.schema.impl.oracle.OracleSchemaProducer;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,9 +27,7 @@ import org.springframework.core.env.Environment;
 @Import({DataTypeMappingProviderConfig.class})
 public class SchemaSqlProducerConfig {
 
-    // TODO KSENROLL-6764 Should be able to retrieve the name of this key as a constant from a kuali-common resource
-    // Possibly match the values to a common enum
-    protected static final String DB_VENDOR_KEY = "db.vendor";
+    protected static final String PRODUCER_IMPL_KEY = "producer.sql.schema.impl";
 
     @Autowired
     Environment env;
@@ -42,21 +38,10 @@ public class SchemaSqlProducerConfig {
     @Bean
     public SchemaSqlProducer schemaSqlProducer() {
 
-        String dbVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
+        SchemaSqlProducer producer = SpringUtils.getInstance(env, PRODUCER_IMPL_KEY);
+        producer.setDataTypeMappingProvider(mappingProviderConfig.defaultMappingProvider());
 
-        if (dbVendor.equalsIgnoreCase(OracleSchemaProducer.SUPPORTED_VENDOR)) {
-            OracleSchemaProducer schemaProducer = new OracleSchemaProducer();
-            schemaProducer.getTableSqlProducer().setMappingProvider(mappingProviderConfig.defaultMappingProvider());
-            return schemaProducer;
-        }
-
-        if (dbVendor.equalsIgnoreCase(MySqlSchemaProducer.SUPPORTED_VENDOR)) {
-            MySqlSchemaProducer schemaProducer = new MySqlSchemaProducer();
-            schemaProducer.getTableSqlProducer().setMappingProvider(mappingProviderConfig.defaultMappingProvider());
-            return schemaProducer;
-        }
-
-        throw new UnsupportedOperationException("Could not map db vendor '" + dbVendor + "' to a known SchemaSqlProducer implementation");
+        return producer;
     }
 
 }
