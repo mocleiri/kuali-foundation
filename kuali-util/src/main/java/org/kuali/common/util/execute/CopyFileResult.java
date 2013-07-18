@@ -19,11 +19,11 @@ import java.io.File;
 
 public class CopyFileResult {
 
-	protected static final boolean DEFAULT_OVERWRITTEN_VALUE = false;
+	public static final boolean DEFAULT_OVERWRITTEN_VALUE = false;
 
+	boolean overwritten = DEFAULT_OVERWRITTEN_VALUE;
 	File source;
 	File destination;
-	boolean overwritten = DEFAULT_OVERWRITTEN_VALUE;
 
 	public CopyFileResult() {
 		this(null, null, DEFAULT_OVERWRITTEN_VALUE);
