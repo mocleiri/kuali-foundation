@@ -27,6 +27,6 @@ public class MetaInfMpxPropertySourceConfig extends BuildPropertySourceConfig {
 
 	@Override
 	protected List<String> getConfigIds() {
-		return Arrays.asList(KualiUtilConfig.METAINF_MPX.getConfigId());
+		return Arrays.asList(KualiUtilConfig.METAINF_MPX_BUILD.getConfigId());
 	}
 }
