@@ -23,7 +23,7 @@ import org.kuali.common.util.config.spring.BuildPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MpxMetaInfBuildPropertySourceConfig extends BuildPropertySourceConfig {
+public class MetaInfMpxPropertySourceConfig extends BuildPropertySourceConfig {
 
 	@Override
 	protected List<String> getConfigIds() {
