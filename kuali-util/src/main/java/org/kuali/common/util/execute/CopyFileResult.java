@@ -20,7 +20,9 @@ import java.io.File;
 public class CopyFileResult {
 
 	public static final boolean DEFAULT_OVERWRITTEN_VALUE = false;
+	public static final long DEFAULT_ELAPSED_VALUE = -1;
 
+	long elapsed = DEFAULT_ELAPSED_VALUE;
 	boolean overwritten = DEFAULT_OVERWRITTEN_VALUE;
 	File source;
 	File destination;
@@ -30,10 +32,15 @@ public class CopyFileResult {
 	}
 
 	public CopyFileResult(File source, File destination, boolean overwritten) {
+		this(source, destination, overwritten, DEFAULT_ELAPSED_VALUE);
+	}
+
+	public CopyFileResult(File source, File destination, boolean overwritten, long elapsed) {
 		super();
 		this.source = source;
 		this.destination = destination;
 		this.overwritten = overwritten;
+		this.elapsed = elapsed;
 	}
 
 	public File getDestination() {
@@ -50,6 +57,22 @@ public class CopyFileResult {
 
 	public void setOverwritten(boolean overwritten) {
 		this.overwritten = overwritten;
+	}
+
+	public long getElapsed() {
+		return elapsed;
+	}
+
+	public void setElapsed(long elapsed) {
+		this.elapsed = elapsed;
+	}
+
+	public File getSource() {
+		return source;
+	}
+
+	public void setSource(File source) {
+		this.source = source;
 	}
 
 }
