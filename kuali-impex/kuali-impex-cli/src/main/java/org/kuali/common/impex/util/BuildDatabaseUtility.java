@@ -15,8 +15,10 @@
 
 package org.kuali.common.impex.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.impex.KualiImpexProducerConfig;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
 import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
 import org.kuali.common.jdbc.config.JdbcConfigConstants;
@@ -43,7 +45,12 @@ public class BuildDatabaseUtility {
 
 		try {
 			List<Class<?>> configClasses = getAnnotatedClasses(includeMpxConfig);
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(JdbcConfigConstants.DEFAULT_CONFIG_IDS, propertiesLocation);
+            List<String> configIds = new ArrayList<String>(JdbcConfigConstants.DEFAULT_CONFIG_IDS);
+            configIds.add(KualiImpexProducerConfig.SCHEMA_SQL.getConfigId());
+            if (includeMpxConfig) {
+                configIds.add(KualiImpexProducerConfig.MPX_SQL.getConfigId());
+            }
+            PropertiesSupplier supplier = new ConfigPropertiesSupplier(configIds, propertiesLocation);
 			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, configClasses);
 			executable.execute();
 		} catch (Exception e) {

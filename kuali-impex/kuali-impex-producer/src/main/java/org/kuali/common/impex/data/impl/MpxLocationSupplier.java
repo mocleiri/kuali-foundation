@@ -28,6 +28,7 @@ import org.kuali.common.impex.model.Table;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
+import org.kuali.common.jdbc.supplier.LocationSupplierUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.TextMetaData;
@@ -59,9 +60,13 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 	@Override
 	public void open() throws IOException {
 		this.table = getTable();
-		this.reader = LocationUtils.getBufferedReader(location, encoding);
+		this.reader = LocationUtils.getBufferedReader(getResourceLocation(), encoding);
         this.headerData = getHeader(reader);
 	}
+
+    protected String getResourceLocation() {
+        return LocationSupplierUtils.getLocationFromContextLocation(location);
+    }
 
 	@Override
 	public List<String> getSql() throws IOException {
@@ -75,9 +80,12 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
 	}
 
 	protected Table getTable() {
-		String filename = LocationUtils.getFilename(location);
+
+        String resourceLocation = getResourceLocation();
+
+		String filename = LocationUtils.getFilename(resourceLocation);
 		if (!StringUtils.endsWithIgnoreCase(filename, extension)) {
-			throw new IllegalArgumentException(location + " does not end with " + extension);
+			throw new IllegalArgumentException(resourceLocation + " does not end with " + extension);
 		}
 		int end = filename.length() - extension.length();
 		String tableName = StringUtils.substring(filename, 0, end);
@@ -91,9 +99,9 @@ public class MpxLocationSupplier extends AbstractSupplier implements LocationSup
         throw new IllegalArgumentException("Unable to locate table [" + tableName + "]");
 	}
 
-	@Override
+    @Override
 	public void fillInMetaData() {
-		TextMetaData tmd = LocationUtils.getTextMetaData(location);
+		TextMetaData tmd = LocationUtils.getTextMetaData(getResourceLocation());
 		this.metaData = new SqlMetaData(tmd.getLines() - 1, tmd.getSize());
 	}
 

@@ -22,18 +22,21 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.ProducerUtils;
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.SchemaSqlProducer;
 import org.kuali.common.jdbc.SqlMetaData;
 import org.kuali.common.jdbc.supplier.AbstractSupplier;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
+import org.kuali.common.jdbc.supplier.LocationSupplierUtils;
 
 public class SchemaXmlLocationSupplier extends AbstractSupplier implements LocationSupplier {
 
     SchemaSqlProducer producer;
     String location;
     Schema schema;
+    SchemaLocationMode locationMode;
 
     protected List<String> schemaSql;
 
@@ -47,20 +50,65 @@ public class SchemaXmlLocationSupplier extends AbstractSupplier implements Locat
         return location;
     }
 
+    /**
+     * This method assumes the given location is a "context location"
+     *
+     * See kuali-jdbc/LocationSupplierUtils for format information
+     *
+     * @param contextLocation a context location
+     */
     @Override
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocation(String contextLocation) {
+        if (StringUtils.isNotEmpty(contextLocation)) {
+            this.locationMode = SchemaLocationMode.valueOf(LocationSupplierUtils.getContextFromContextLocation(contextLocation));
+            this.location = LocationSupplierUtils.getLocationFromContextLocation(contextLocation);
+        }
     }
 
     @Override
     public void open() throws IOException {
         try {
-            schema = ProducerUtils.unmarshalSchema(location);
+            Schema locationSchema = ProducerUtils.unmarshalSchema(location);
+
+            schema = buildSchema(locationSchema);
+
         } catch (JAXBException e) {
             throw new IOException("Could not load schema from location " + location + " due to JAXBException", e);
         }
 
         readingIterator = getSchemaSql().iterator();
+    }
+
+    /**
+     * Builds a schema object based on the full schema from the resource location and the location mode
+     *
+     * @param locationSchema the full loaded schema from the resource
+     * @return a schema based on the location mode
+     */
+    protected Schema buildSchema(Schema locationSchema) {
+        switch (locationMode) {
+            case NONE:
+                return locationSchema;
+            case SCHEMA:
+            {
+                Schema resultSchema = new Schema();
+                resultSchema.setTables(locationSchema.getTables());
+                resultSchema.setSequences(locationSchema.getSequences());
+                resultSchema.setViews(locationSchema.getViews());
+
+                return resultSchema;
+            }
+            case FOREIGNKEYS: {
+                Schema resultSchema = new Schema();
+
+                resultSchema.setForeignKeys(locationSchema.getForeignKeys());
+
+                return resultSchema;
+            }
+            default: {
+                throw new UnsupportedOperationException("Unknown location mode: " + locationMode);
+            }
+        }
     }
 
     public Schema getSchema() throws IOException {
