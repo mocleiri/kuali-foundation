@@ -20,21 +20,28 @@ public class SqlExecutionContext {
 	String key;
 	String group;
 	SqlMode mode;
+    String context;
 
 	public SqlExecutionContext() {
 		this(null, null);
 	}
 
 	public SqlExecutionContext(String group, SqlMode mode) {
-		this(null, group, mode);
+		this(null, group, mode, null);
 	}
 
-	public SqlExecutionContext(String key, String group, SqlMode mode) {
+    public SqlExecutionContext(String key, String group, SqlMode mode) {
+        this(key, group, mode, null);
+    }
+
+	public SqlExecutionContext(String key, String group, SqlMode mode, String context) {
 		super();
 		this.key = key;
 		this.group = group;
 		this.mode = mode;
-	}
+        this.context = context;
+    }
+
 
 	public String getGroup() {
 		return group;
@@ -60,4 +67,11 @@ public class SqlExecutionContext {
 		this.key = key;
 	}
 
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
 }

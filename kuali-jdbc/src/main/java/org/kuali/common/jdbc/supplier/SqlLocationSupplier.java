@@ -52,10 +52,14 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	public void open() throws IOException {
 		Assert.hasText(location, "location has no text");
 		Assert.notNull(reader, "reader is null");
-		in = LocationUtils.getBufferedReader(location, encoding);
+		in = getLocationReader();
 	}
 
-	@Override
+    private BufferedReader getLocationReader() throws IOException {
+        return LocationUtils.getBufferedReader(LocationSupplierUtils.getLocationFromContextLocation(location), encoding);
+    }
+
+    @Override
 	public List<String> getSql() throws IOException {
 		return reader.getSql(in);
 	}
@@ -70,9 +74,9 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 		Assert.hasText(location, "location has no text");
 		BufferedReader in = null;
 		try {
-			in = LocationUtils.getBufferedReader(location, encoding);
-			this.metaData = JdbcUtils.getSqlMetaData(in, reader);
-		} catch (IOException e) {
+            in = getLocationReader();
+            this.metaData = JdbcUtils.getSqlMetaData(in, reader);
+        } catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(in);

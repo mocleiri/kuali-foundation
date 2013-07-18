@@ -34,13 +34,13 @@ public class SqlConfigUtilsTest {
     /**
      * All of these keys should fail to provide a valid SqlExecutionContext
      */
-    protected static final List<String> INVALID_EXECUTION_CONTEXT_PROPERTY_KEYS = Arrays.asList("foo.bar.nonconcurrent", "", "aSingleInvalidToken");
+    protected static final List<String> INVALID_EXECUTION_CONTEXT_PROPERTY_KEYS = Arrays.asList("sql.foo.bar.nonconcurrent", "", "aSingleInvalidToken", "foo.bar.sequential");
 
     protected static final String SIMPLE_SCHEMA_KEY = "sql.schema";
 
     protected static final String SIMPLE_DATA_KEY = "sql.data";
 
-    protected static final String COMPLEX_KEY = "a.very.long.series.of.period.separated.words";
+    protected static final String COMPLEX_KEY = "sql.a.very.long.series.of.period.separated.words";
 
     protected static final List<String> EXPECTED_EXECUTION_CONTEXT_GROUP_NAMES = Arrays.asList(SIMPLE_SCHEMA_KEY, SIMPLE_DATA_KEY, COMPLEX_KEY);
 

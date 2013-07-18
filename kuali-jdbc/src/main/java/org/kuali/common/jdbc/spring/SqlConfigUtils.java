@@ -17,7 +17,6 @@ package org.kuali.common.jdbc.spring;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,17 +24,13 @@ import org.kuali.common.jdbc.JdbcExecutable;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.kuali.common.jdbc.context.SqlMode;
-import org.kuali.common.jdbc.listener.DataSummaryListener;
 import org.kuali.common.jdbc.listener.LogSqlListener;
-import org.kuali.common.jdbc.listener.LogSqlMode;
 import org.kuali.common.jdbc.listener.NotifyingListener;
 import org.kuali.common.jdbc.listener.ProgressListener;
 import org.kuali.common.jdbc.listener.SqlListener;
-import org.kuali.common.jdbc.listener.SummaryListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
@@ -46,13 +41,21 @@ import org.springframework.util.Assert;
 
 public class SqlConfigUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
 
 	public static final String SQL_ORDER_KEY = "sql.execution.order";
 	public static final String RESOURCES_SUFFIX = ".resources";
 
-	public static JdbcExecutable getJdbcExecutable(SqlConfigContext scc) {
-		String skipKey = "jdbc." + scc.getContext().getGroup() + ".skip";
+    public static final String SQL_NAMESPACE_TOKEN = "sql";
+
+    protected static final String SKIP_PROPERTY_KEY_SUFFIX = ".skip";
+
+    protected static final String SKIP_EXECUTABLE_PROPERTY_KEY_SUFFIX = ".executable.skip";
+
+    protected static final String TRACK_PROGRESS_KEY_SUFFIX = ".trackProgressByUpdateCount";
+
+    public static JdbcExecutable getJdbcExecutable(SqlConfigContext scc) {
+		String skipKey = scc.getContext().getGroup() + SKIP_EXECUTABLE_PROPERTY_KEY_SUFFIX;
 
 		JdbcContext context = getJdbcContext(scc);
 		context.setListener(getSqlListener(scc.getContext().getMode()));
@@ -141,26 +144,6 @@ public class SqlConfigUtils {
 		}
 	}
 
-	public static List<String> getLocations(Environment env, String key, String suffix) {
-
-		// Allocate some storage for the locations we find
-		List<String> locations = new ArrayList<String>();
-
-		// This is a either a list of locations or a location itself
-		String value = SpringUtils.getProperty(env, key);
-
-		if (StringUtils.endsWithIgnoreCase(key, suffix)) {
-			// If the key ends with .list, it's a list of locations
-			locations.addAll(LocationUtils.getLocations(value));
-		} else {
-			// Otherwise it is a location itself
-			locations.add(value);
-		}
-
-		// Return the list of locations
-		return locations;
-	}
-
 	public static List<SqlExecutionContext> getSqlExecutionContexts(List<String> propertyKeys) {
 
 		// Setup some storage for the contexts
@@ -169,18 +152,40 @@ public class SqlConfigUtils {
 		// Each property key will be something like "sql.schema.concurrent" where the last 2 tokens represent the "group" and the "execution mode"
 		for (String propertyKey : propertyKeys) {
 
-			// ["sql", "schema", "concurrent"]
-			String[] tokens = StringUtils.split(propertyKey, ".");
+			// properties are assumed to have the following structure:
+            // "sql." + any user string + "." + valid SqlMode
+            // ex.  "sql.foo.bar.concurrent"
+			String[] tokens = StringUtils.split(propertyKey, Str.DOT);
 
-			// Must have at least 2 tokens
-			Assert.isTrue(tokens.length >= 2, "tokens.length < 2");
+			// Must have at least 3 tokens
+			Assert.isTrue(tokens.length >= 3, "tokens.length < 3");
 
-			// These are the indexes corresponding to the tokens that indicate group and mode
-			int groupIndex = tokens.length - 2;
+            // These are the indexes corresponding to the tokens that indicate sql prefix and mode
+            int sqlTokenIndex = 0;
 			int modeIndex = tokens.length - 1;
 
+            Assert.isTrue(tokens[sqlTokenIndex].equals(SQL_NAMESPACE_TOKEN), "sql execution properties must start with a 'sql.' namespace");
+
+            StringBuilder sb = new StringBuilder();
+            boolean first = true;
+            for(int i = 0; i < tokens.length; i++) {
+
+                if (i != modeIndex) {
+                    // append a dot, but only if at least one token has been appended
+                    if(first) {
+                        first = false;
+                    }
+                    else {
+                        sb.append(Str.DOT);
+                    }
+
+                    // append the token
+                    sb.append(tokens[i]);
+                }
+            }
+
 			// Extract the group. This can be any arbitrary text that indicates some kind of SQL grouping, eg "schema", "data", "other"
-			String group = StringUtils.trim(tokens[groupIndex]);
+            String group = sb.toString();
 
 			// Extract the mode and convert to upper case
 			// Only values allowed here are "sequential" and "concurrent"
@@ -195,17 +200,6 @@ public class SqlConfigUtils {
 
 		// Return the list we created
 		return contexts;
-	}
-
-	public static DataSummaryListener getConcurrentDataSummaryListener(SqlConfigContext scc) {
-		String propertyKey = scc.getContext().getKey();
-		String label = SpringUtils.getProperty(scc.getEnv(), propertyKey + ".progress.label", "Rows");
-		String throughputLabel = SpringUtils.getProperty(scc.getEnv(), propertyKey + ".progress.label.throughput", "rows/s");
-		DataSummaryListener dsl = new DataSummaryListener();
-		dsl.setLabel(label);
-		dsl.setThroughputLabel(throughputLabel);
-		dsl.setLoggerLevel(LoggerLevel.DEBUG);
-		return dsl;
 	}
 
 	public static JdbcContext getConcurrentJdbcContext(SqlConfigContext rcc) {
@@ -223,32 +217,20 @@ public class SqlConfigUtils {
 		return ctx;
 	}
 
-	public static LogSqlListener getLogSqlListener(Environment env) {
-		String level = SpringUtils.getProperty(env, "sql.log.level", LogSqlListener.DEFAULT_LOGGER_LEVEL.name());
-		String mode = SpringUtils.getProperty(env, "sql.log.mode", LogSqlListener.DEFAULT_MODE.name());
-
-		LogSqlListener lsl = new LogSqlListener();
-		lsl.setLevel(LoggerLevel.valueOf(level));
-		lsl.setMode(LogSqlMode.valueOf(mode));
-		return lsl;
-	}
-
-	public static NotifyingListener getOtherListener(Environment env) {
-		return getSummaryAndProgressListener(env);
-	}
-
-	@Deprecated
 	protected static JdbcContext getBaseJdbcContext(SqlConfigContext scc) {
 		SqlExecutionContext sec = scc.getContext();
 		// dba, schema, data, constraints, other
 		String group = sec.getGroup();
 		// sql.dba.concurrent, sql.dba.sequential, sql.schema.concurrent, sql.schema.sequential, etc
 		String propertyKey = scc.getContext().getKey();
+        String skipKey = group + SKIP_PROPERTY_KEY_SUFFIX;
+        String trackProgressKey = propertyKey + TRACK_PROGRESS_KEY_SUFFIX;
 		String message = "[" + sec.getGroup() + ":" + sec.getMode().name().toLowerCase() + "]";
-		boolean skip = SpringUtils.getBoolean(scc.getEnv(), "sql." + group + ".skip", false);
-		String key = propertyKey + ".trackProgressByUpdateCount";
-		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(scc.getEnv(), key, false);
-		logger.debug("{}={}", key, trackProgressByUpdateCount);
+
+
+        boolean skip = SpringUtils.getBoolean(scc.getEnv(), skipKey, false);
+		boolean trackProgressByUpdateCount = SpringUtils.getBoolean(scc.getEnv(), trackProgressKey, false);
+		logger.debug("{}={}", trackProgressKey, trackProgressByUpdateCount);
 		List<SqlSupplier> suppliers = scc.getCommonConfig().getSqlSuppliers(propertyKey);
 		DataSource dataSource = scc.getDataSourceConfig().jdbcDataSource();
 
@@ -259,28 +241,6 @@ public class SqlConfigUtils {
 		ctx.setTrackProgressByUpdateCount(trackProgressByUpdateCount);
 		ctx.setSuppliers(suppliers);
 		return ctx;
-	}
-
-	public static NotifyingListener getConstraintsListener(Environment env) {
-		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener(false, LoggerLevel.DEBUG));
-		list.add(getLogSqlListener(env));
-		return new NotifyingListener(list);
-	}
-
-	public static NotifyingListener getSchemaListener(Environment env) {
-		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener(false, LoggerLevel.DEBUG));
-		list.add(getLogSqlListener(env));
-		return new NotifyingListener(list);
-	}
-
-	public static NotifyingListener getSummaryAndProgressListener(Environment env) {
-		List<SqlListener> list = new ArrayList<SqlListener>();
-		list.add(new SummaryListener(true, LoggerLevel.DEBUG));
-		list.add(new ProgressListener());
-		list.add(getLogSqlListener(env));
-		return new NotifyingListener(list);
 	}
 
 }

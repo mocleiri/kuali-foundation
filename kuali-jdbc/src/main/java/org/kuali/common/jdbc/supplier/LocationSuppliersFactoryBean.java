@@ -41,14 +41,16 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	Environment env;
 	String propertyKey;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
+    LocationSupplierContext context;
 
-	@Override
+    @Override
 	public List<LocationSupplier> getObject() {
 
 		// Make sure we are configured correctly
 		Assert.notNull(env, "env is null");
 		Assert.notNull(propertyKey, "propertyKey is null");
 		Assert.notNull(extensionMappings, "extensionMappings is null");
+        Assert.notNull(context, "context is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
 		List<String> locations = getLocations(env, propertyKey, resourcesSuffix);
@@ -100,7 +102,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 				throw new IllegalArgumentException("Unknown extension [" + extension + "]");
 			}
 
-			// Add it to the list
+            // create a LocationSupplier instance and add it to the list
 			suppliers.add(getLocationSupplierInstance(sourceBean, location));
 		}
 
@@ -114,17 +116,21 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	 * @param sourceBean
 	 *            the LocationSupplierSourceBean
 	 * @param location
-	 *            the location for the new instance
+	 *            the context location for the new instance
 	 * 
 	 * @return a new instance of LocationSupplier with properties from the LocationSupplierSourceBean
 	 */
 	protected LocationSupplier getLocationSupplierInstance(LocationSupplierSourceBean sourceBean, String location) {
+        String contextLocation = LocationSupplierUtils.getContextLocation(context, location);
+
 		// Request a new supplier from the builder
 		LocationSupplier supplier = sourceBean.getSupplierInstance();
 
 		LocationSupplier newInstance = ReflectionUtils.newInstance(supplier.getClass());
 		BeanUtils.copyProperties(supplier, newInstance);
-		newInstance.setLocation(location);
+
+        // set the location of the LocationSupplier as a "context location"
+		newInstance.setLocation(contextLocation);
 
 		return newInstance;
 	}
@@ -203,5 +209,13 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	public void setExtensionMappings(Map<String, LocationSupplierSourceBean> extensionMappings) {
 		this.extensionMappings = extensionMappings;
 	}
+
+    public LocationSupplierContext getContext() {
+        return context;
+    }
+
+    public void setContext(LocationSupplierContext context) {
+        this.context = context;
+    }
 
 }
