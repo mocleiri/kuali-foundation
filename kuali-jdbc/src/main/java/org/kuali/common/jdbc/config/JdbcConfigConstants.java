@@ -26,7 +26,7 @@ public abstract class JdbcConfigConstants {
 	 */
 	public static final List<String> DEFAULT_CONFIG_IDS = getDefaultConfigIds();
 
-	protected static List<String> getDefaultConfigIds() {
+	protected static final List<String> getDefaultConfigIds() {
 		List<String> configIds = new ArrayList<String>();
 		configIds.add(KualiSqlConfig.DEFAULT.getConfigId());
 		configIds.add(KualiJdbcConfig.DEFAULT.getConfigId());
