@@ -84,10 +84,10 @@ public class ProjectStagingConfig {
 		return new ExecutablesExecutable(executables);
 	}
 
-	protected CopyFilePatternsExecutable getCopyDataFilesExecutable(String gav, File dumpDir, File stagingDir) {
+	protected CopyFilePatternsExecutable getCopyDataFilesExecutable(String projectId, File dumpDir, File stagingDir) {
 
 		// Get a Project model object from the GAV
-		Project project = ProjectUtils.loadProject(gav);
+		Project project = ProjectUtils.loadProject(projectId);
 
 		// dstDir is always based on groupId + artifactId
 		File dstDir = ProjectUtils.getResourceDirectory(stagingDir, project);
