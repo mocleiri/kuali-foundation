@@ -22,6 +22,7 @@ import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.config.ConfigConstants;
 
+@Deprecated
 public class MpxMetaInfConstants {
 
 	// Shorthand for GroupId + ArtifactId

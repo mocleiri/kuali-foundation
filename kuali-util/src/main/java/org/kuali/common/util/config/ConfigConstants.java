@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.config;
 
+@Deprecated
 public abstract class ConfigConstants {
 
 	// Used to indicate a config grouping that is unsafe to use anywhere except during a build.

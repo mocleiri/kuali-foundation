@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.metainf;
 
-
+@Deprecated
 public class MetaInfConstants {
 
 	public static final String METAINF = "metainf";
