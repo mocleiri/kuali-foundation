@@ -91,8 +91,8 @@ public class ProjectUtils {
 	 * Use getClassPathPrefixFromProjectId() instead
 	 */
 	@Deprecated
-	public static String getClassPathPrefixFromGAV(String gav) {
-		Project project = getProject(gav);
+	public static String getClassPathPrefixFromGAV(String projectId) {
+		Project project = getProject(projectId);
 		return getClassPathPrefix(project);
 	}
 
@@ -345,14 +345,14 @@ public class ProjectUtils {
 		return properties;
 	}
 
-	protected static Properties loadAndCache(Project project, String gav) {
+	protected static Properties loadAndCache(Project project, String projectId) {
 		String location = getPropertiesFileLocation(project);
 
 		// If it doesn't exist, we've got issues
 		Assert.exists(location);
 
 		Properties properties = PropertyUtils.load(location);
-		PROJECT_PROPERTIES_CACHE.put(gav, properties);
+		PROJECT_PROPERTIES_CACHE.put(projectId, properties);
 		return properties;
 	}
 
