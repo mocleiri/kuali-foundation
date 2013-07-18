@@ -32,8 +32,8 @@ public class DefaultProjectConfig implements ProjectConfig {
 		this.contextId = request.getContextId();
 	}
 
-	public DefaultProjectConfig(String id) {
-		this(ConfigUtils.getConfigRequest(id));
+	public DefaultProjectConfig(String configId) {
+		this(ConfigUtils.getConfigRequest(configId));
 	}
 
 	public DefaultProjectConfig(String groupId, String artifactId) {
@@ -47,7 +47,9 @@ public class DefaultProjectConfig implements ProjectConfig {
 		this.contextId = contextId;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.kuali.common.util.config.ConfigRequest#getId()
 	 */
 	@Override
@@ -55,7 +57,9 @@ public class DefaultProjectConfig implements ProjectConfig {
 		return ConfigUtils.getConfigId(this);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.kuali.common.util.config.ConfigRequest#getGroupId()
 	 */
 	@Override
@@ -67,7 +71,9 @@ public class DefaultProjectConfig implements ProjectConfig {
 		this.groupId = groupId;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.kuali.common.util.config.ConfigRequest#getArtifactId()
 	 */
 	@Override
@@ -79,7 +85,9 @@ public class DefaultProjectConfig implements ProjectConfig {
 		this.artifactId = artifactId;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.kuali.common.util.config.ConfigRequest#getContextId()
 	 */
 	@Override
