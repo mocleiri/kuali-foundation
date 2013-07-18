@@ -43,7 +43,7 @@ public class BuildDatabaseUtility {
 
 		try {
 			List<Class<?>> configClasses = getAnnotatedClasses(includeMpxConfig);
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(JdbcConfigConstants.CONFIG_IDS, propertiesLocation);
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(JdbcConfigConstants.DEFAULT_CONFIG_IDS, propertiesLocation);
 			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, configClasses);
 			executable.execute();
 		} catch (Exception e) {

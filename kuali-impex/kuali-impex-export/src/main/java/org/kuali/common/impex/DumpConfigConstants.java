@@ -38,7 +38,7 @@ public class DumpConfigConstants {
 
 	protected static List<String> getConfigIds() {
 		List<String> configIds = new ArrayList<String>();
-		configIds.addAll(JdbcConfigConstants.CONFIG_IDS);
+		configIds.addAll(JdbcConfigConstants.DEFAULT_CONFIG_IDS);
 		configIds.add(CONFIG_ID);
 		return Collections.unmodifiableList(configIds);
 	}
