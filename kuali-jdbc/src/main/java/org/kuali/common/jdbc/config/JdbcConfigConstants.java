@@ -15,20 +15,19 @@
  */
 package org.kuali.common.jdbc.config;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.KualiProjectConstants;
-import org.kuali.common.util.Str;
 
 public abstract class JdbcConfigConstants {
 
-	public static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
-	public static final String ARTIFACT_ID = KualiProjectConstants.JDBC_ARTIFACT_ID;
+	public static final List<String> DEFAULT_CONFIG_IDS = getDefaultConfigIds();
 
-	public static final String SQL_CONFIG_ID = Str.getId(GROUP_ID, KualiProjectConstants.SQL_ARTIFACT_ID);
-	public static final String JDBC_CONFIG_ID = Str.getId(GROUP_ID, ARTIFACT_ID);
-
-	public static final List<String> CONFIG_IDS = CollectionUtils.unmodifiableList(SQL_CONFIG_ID, JDBC_CONFIG_ID);
+	protected static List<String> getDefaultConfigIds() {
+		List<String> list = new ArrayList<String>();
+		list.add(KualiSqlConfig.DEFAULT.getConfigId());
+		list.add(KualiJdbcConfig.DEFAULT.getConfigId());
+		return Collections.unmodifiableList(list);
+	}
 
 }
