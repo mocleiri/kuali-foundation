@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Deprecated
 public class MetaInfMpxConfig {
 
 	@Autowired
