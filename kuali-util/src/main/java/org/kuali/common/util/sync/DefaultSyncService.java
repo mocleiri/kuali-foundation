@@ -113,7 +113,7 @@ public class DefaultSyncService implements SyncService {
 	}
 
 	/**
-	 * Convert the diff into into requests for copying files.
+	 * Convert the diff into requests for copying files.
 	 */
 	protected List<CopyFileRequest> getCopyFileRequests(DirDiff diff) {
 
