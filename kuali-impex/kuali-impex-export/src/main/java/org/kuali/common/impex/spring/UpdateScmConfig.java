@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
-import org.kuali.common.util.spring.ScmConfig;
+import org.kuali.common.util.scm.ScmConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
