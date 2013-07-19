@@ -26,9 +26,11 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Import({ ScmConfig.class })
 public class BuildScmConfig {
 
 	private static final String PROJECTS_KEY = "build.scm.projects";
@@ -42,6 +44,9 @@ public class BuildScmConfig {
 
 	@Autowired
 	Environment env;
+
+	@Autowired
+	ScmConfig scmConfig;
 
 	@Bean
 	public UpdateScmExecutable updateScmExecutable() {
@@ -60,6 +65,7 @@ public class BuildScmConfig {
 		UpdateScmExecutable exec = new UpdateScmExecutable();
 		exec.setRequests(requests);
 		exec.setCommitPaths(commits);
+		exec.setScmService(scmConfig.scmService());
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, false));
 
 		return exec;
