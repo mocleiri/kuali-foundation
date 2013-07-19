@@ -137,13 +137,30 @@ public class FileSystemUtils {
 	}
 
 	/**
+	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 4
+	 * categories.
+	 * 
+	 * <pre>
+	 * 1 - Both            - Files that exist in both directories
+	 * 2 - Different       - Files that exist in both directories but who's MD5 checksums do not match 
+	 * 3 - Source Dir Only - Files that exist only in directory 1
+	 * 4 - Target Dir Only - Files that exist only in directory 2
+	 * </pre>
+	 * 
+	 * The 4 lists in <code>DirDiff</code> contain the relative paths to files for each category.
+	 */
+	public static DirDiff getMD5Diff(DirRequest request) {
+		return null;
+	}
+
+	/**
 	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 3
 	 * categories.
 	 * 
 	 * <pre>
-	 * 1 - Both       - Files that exist in both directories
-	 * 2 - Dir 1 Only - Files that exist only in directory 1
-	 * 3 - Dir 2 Only - Files that exist only in directory 2
+	 * 1 - Both            - Files that exist in both directories
+	 * 2 - Source Dir Only - Files that exist only in directory 1
+	 * 3 - Target Dir Only - Files that exist only in directory 2
 	 * </pre>
 	 * 
 	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
