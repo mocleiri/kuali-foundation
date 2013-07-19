@@ -2,13 +2,11 @@ package org.kuali.common.impex.config;
 
 import org.kuali.common.impex.ExportProjectConstants;
 import org.kuali.common.util.config.ConfigUtils;
-import org.kuali.common.util.config.KualiUtilConfig;
 import org.kuali.common.util.config.ProjectConfig;
 import org.kuali.common.util.project.ImmutableProject;
 
 public enum KualiImpexExportConfig implements ProjectConfig {
 
-	SCM(KualiUtilConfig.SCM.getContextId()), //
 	DUMP("dump"), //
 	DUMP_BUILD("dump:build"), //
 	STAGING("staging"), //
