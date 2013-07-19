@@ -10,7 +10,7 @@
     <property name="groupId" value="${project.groupId}" />
     <property name="artifactId" value="${project.artifactId}" />
     <property name="contexts">
-      <util:list>
+      <list>
         <bean class="org.kuali.common.util.config.ContextConfig">
           <property name="id" value="scm" />
           <property name="locations">
@@ -22,69 +22,79 @@
         <bean class="org.kuali.common.util.config.ContextConfig">
           <property name="id" value="metainf" />
           <property name="children">
-            <bean class="org.kuali.common.util.config.ContextConfig">
-              <property name="id" value="sql" />
-              <property name="locations">
-                <bean class="org.kuali.common.util.config.Location">
-                  <property name="value" value="${metainf.common}" />
-                </bean>
-                <bean class="org.kuali.common.util.config.Location">
-                  <property name="value" value="${metainf.sql}" />
-                </bean>
-              </property>
-              <property name="children">
-                <bean class="org.kuali.common.util.config.ContextConfig">
-                  <property name="id" value="build" />
-                  <property name="locations">
+            <list>
+              <bean class="org.kuali.common.util.config.ContextConfig">
+                <property name="id" value="sql" />
+                <property name="locations">
+                  <list>
                     <bean class="org.kuali.common.util.config.Location">
                       <property name="value" value="${metainf.common}" />
-                    </bean>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.common.build}" />
-                    </bean>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.sql.build}" />
                     </bean>
                     <bean class="org.kuali.common.util.config.Location">
                       <property name="value" value="${metainf.sql}" />
                     </bean>
-                  </property>
-                </bean>
-              </property>
-            </bean>
-            <bean class="org.kuali.common.util.config.ContextConfig">
-              <property name="id" value="mpx" />
-              <property name="locations">
-                <bean class="org.kuali.common.util.config.Location">
-                  <property name="value" value="${metainf.common}" />
-                </bean>
-                <bean class="org.kuali.common.util.config.Location">
-                  <property name="value" value="${metainf.mpx}" />
-                </bean>
-              </property>
-              <property name="children">
-                <bean class="org.kuali.common.util.config.ContextConfig">
-                  <property name="id" value="build" />
-                  <property name="locations">
+                  </list>
+                </property>
+                <property name="children">
+                  <bean class="org.kuali.common.util.config.ContextConfig">
+                    <property name="id" value="build" />
+                    <property name="locations">
+                      <list>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.common}" />
+                        </bean>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.common.build}" />
+                        </bean>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.sql.build}" />
+                        </bean>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.sql}" />
+                        </bean>
+                      </list>
+                    </property>
+                  </bean>
+                </property>
+              </bean>
+              <bean class="org.kuali.common.util.config.ContextConfig">
+                <property name="id" value="mpx" />
+                <property name="locations">
+                  <list>
                     <bean class="org.kuali.common.util.config.Location">
                       <property name="value" value="${metainf.common}" />
                     </bean>
                     <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.common.build}" />
-                    </bean>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.mpx.build}" />
-                    </bean>
-                    <bean class="org.kuali.common.util.config.Location">
                       <property name="value" value="${metainf.mpx}" />
                     </bean>
-                  </property>
-                </bean>
-              </property>
-            </bean>
+                  </list>
+                </property>
+                <property name="children">
+                  <bean class="org.kuali.common.util.config.ContextConfig">
+                    <property name="id" value="build" />
+                    <property name="locations">
+                      <list>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.common}" />
+                        </bean>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.common.build}" />
+                        </bean>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.mpx.build}" />
+                        </bean>
+                        <bean class="org.kuali.common.util.config.Location">
+                          <property name="value" value="${metainf.mpx}" />
+                        </bean>
+                      </list>
+                    </property>
+                  </bean>
+                </property>
+              </bean>
+            </list>
           </property>
         </bean>
-      </util:list>
+      </list>
     </property>
   </bean>
 
