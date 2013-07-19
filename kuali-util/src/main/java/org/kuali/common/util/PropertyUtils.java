@@ -1112,9 +1112,10 @@ public class PropertyUtils {
 		}
 		boolean overwrite = !StringUtils.isBlank(oldValue);
 
-		// TODO Yuck! Do something smarter here
 		String logNewValue = newValue;
 		String logOldValue = oldValue;
+
+		// TODO Yuck! Do something smarter here
 		if (obscure(key)) {
 			logNewValue = "*********";
 			logOldValue = "*********";
