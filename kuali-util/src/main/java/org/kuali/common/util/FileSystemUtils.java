@@ -153,7 +153,7 @@ public class FileSystemUtils {
 	 */
 	public static DirDiff getMD5Diff(DirRequest request) {
 
-		// Do a quick diff (just figures out what files are unique to each directory and what files are in both)
+		// Do a quick diff (just figures out what files are unique to each directory vs files that are in both)
 		DirDiff diff = getQuickDiff(request);
 
 		// Do a deep diff
