@@ -138,7 +138,7 @@ public class FileSystemUtils {
 	}
 
 	/**
-	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 5
+	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get aggregated into 5
 	 * categories.
 	 * 
 	 * <pre>
