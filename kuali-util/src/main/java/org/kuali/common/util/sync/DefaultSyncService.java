@@ -55,6 +55,9 @@ public class DefaultSyncService implements SyncService {
 		}
 
 		// Scan the file system and record the differences between the directories
+		// This does a deep, heavy, scan of both directories
+		// Recursively examines the contents of both
+		// Files that exist in both, are compared for equality using an MD5 checksum
 		List<DirDiff> diffs = getDiffs(requests);
 
 		// Use the diff info to generate a list of files to copy
