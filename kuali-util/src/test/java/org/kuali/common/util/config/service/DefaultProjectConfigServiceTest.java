@@ -23,7 +23,10 @@ import java.util.Properties;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ContextConfig;
 import org.kuali.common.util.config.Location;
 import org.kuali.common.util.config.ProjectConfigContainer;
@@ -36,9 +39,11 @@ public class DefaultProjectConfigServiceTest {
 		try {
 			String groupId = "org.kuali.common";
 			String artifactId = "kuali-util";
-			String configId = groupId + ":" + artifactId + ":scm";
+			String contextId = "scm";
+			String configId = ConfigUtils.getConfigId(groupId, artifactId, contextId);
+			Project project = ProjectUtils.loadProject(groupId, artifactId);
 			ConfigService service = new DefaultConfigService();
-			Properties properties = service.getProperties(configId);
+			Properties properties = service.getProperties(configId, project.getProperties());
 			PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();
