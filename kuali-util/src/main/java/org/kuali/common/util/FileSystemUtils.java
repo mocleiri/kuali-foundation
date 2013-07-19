@@ -165,7 +165,7 @@ public class FileSystemUtils {
 	}
 
 	public static List<MD5Result> getMD5Results(List<File> sources, List<File> targets) {
-		Assert.isTrue(sources.size() == targets.size(), "list are not the same size");
+		Assert.isTrue(sources.size() == targets.size(), "lists are not the same size");
 		List<MD5Result> results = new ArrayList<MD5Result>();
 		for (int i = 0; i < sources.size(); i++) {
 			File source = sources.get(i);
