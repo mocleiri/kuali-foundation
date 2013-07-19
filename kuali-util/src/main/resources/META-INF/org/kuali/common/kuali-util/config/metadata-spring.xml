@@ -45,7 +45,7 @@
                 <property name="value" value="${metainf.common}" />
               </bean>
               <bean class="org.kuali.common.util.config.Location">
-                <property name="value" value="${metainf.common}" />
+                <property name="value" value="${metainf.sql}" />
               </bean>
             </property>
             <property name="children">
@@ -63,6 +63,36 @@
                   </bean>
                   <bean class="org.kuali.common.util.config.Location">
                     <property name="value" value="${metainf.sql}" />
+                  </bean>
+                </property>
+              </bean>
+            </property>
+          </bean>
+          <bean class="org.kuali.common.util.config.ContextConfig">
+            <property name="id" value="mpx" />
+            <property name="locations">
+              <bean class="org.kuali.common.util.config.Location">
+                <property name="value" value="${metainf.common}" />
+              </bean>
+              <bean class="org.kuali.common.util.config.Location">
+                <property name="value" value="${metainf.mpx}" />
+              </bean>
+            </property>
+            <property name="children">
+              <bean class="org.kuali.common.util.config.ContextConfig">
+                <property name="id" value="build" />
+                <property name="locations">
+                  <bean class="org.kuali.common.util.config.Location">
+                    <property name="value" value="${metainf.common}" />
+                  </bean>
+                  <bean class="org.kuali.common.util.config.Location">
+                    <property name="value" value="${metainf.common.build}" />
+                  </bean>
+                  <bean class="org.kuali.common.util.config.Location">
+                    <property name="value" value="${metainf.mpx.build}" />
+                  </bean>
+                  <bean class="org.kuali.common.util.config.Location">
+                    <property name="value" value="${metainf.mpx}" />
                   </bean>
                 </property>
               </bean>
