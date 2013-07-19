@@ -86,8 +86,10 @@ public class UpdateScmExecutable implements Executable {
 			updates.addAll(result.getUpdates());
 		}
 
-		List<File> commits = new ArrayList<File>();
-		commits.addAll(CollectionUtils.toEmptyList(commitPaths));
+		// Add any commit paths they explicitly provided
+		List<File> commits = new ArrayList<File>(CollectionUtils.toEmptyList(commitPaths));
+
+		// Add each target directory as a path to recursively commit
 		for (DirRequest request : CollectionUtils.toEmptyList(requests)) {
 			commits.add(request.getTargetDir());
 		}
