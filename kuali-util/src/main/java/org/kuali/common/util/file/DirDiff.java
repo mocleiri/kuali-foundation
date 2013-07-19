@@ -27,6 +27,7 @@ public class DirDiff {
 	// Relative paths characterizing what files were found where
 	List<String> both;
 	List<MD5Result> different;
+	List<MD5Result> identical;
 	List<String> sourceDirOnly;
 	List<String> targetDirOnly;
 
@@ -86,6 +87,14 @@ public class DirDiff {
 
 	public void setTargetDirOnly(List<String> targetDirOnly) {
 		this.targetDirOnly = targetDirOnly;
+	}
+
+	public List<MD5Result> getIdentical() {
+		return identical;
+	}
+
+	public void setIdentical(List<MD5Result> identical) {
+		this.identical = identical;
 	}
 
 }
