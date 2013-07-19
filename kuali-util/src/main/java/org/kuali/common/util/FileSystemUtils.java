@@ -32,6 +32,7 @@ import org.kuali.common.util.execute.CopyFileResult;
 import org.kuali.common.util.file.DirDiff;
 import org.kuali.common.util.file.DirRequest;
 import org.kuali.common.util.file.MD5DirDiff;
+import org.kuali.common.util.file.MD5Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,8 +156,45 @@ public class FileSystemUtils {
 
 		List<File> sources = getFullPaths(request.getSourceDir(), diff.getBoth());
 		List<File> targets = getFullPaths(request.getTargetDir(), diff.getBoth());
+		List<MD5Result> results = new ArrayList<MD5Result>();
+		for (int i = 0; i < sources.size(); i++) {
+			File source = sources.get(i);
+			File target = targets.get(i);
+			MD5Result md5Result = getMD5Result(source, target);
+			results.add(md5Result);
+		}
+
+		List<MD5Result> different = new ArrayList<MD5Result>();
+		for (MD5Result md5Result : results) {
+			String sourceChecksum = md5Result.getSourceChecksum();
+			String targetChecksum = md5Result.getTargetChecksum();
+			Assert.notNull(sourceChecksum, "sourceChecksum is null");
+			Assert.notNull(targetChecksum, "targetChecksum is null");
+			if (!StringUtils.equals(sourceChecksum, targetChecksum)) {
+				different.add(md5Result);
+			}
+		}
 
 		MD5DirDiff result = new MD5DirDiff();
+		result.setBoth(diff.getBoth());
+		result.setDifferent(different);
+		result.setSourceDir(diff.getSourceDir());
+		result.setTargetDir(diff.getTargetDir());
+		result.setSourceDirOnly(diff.getSourceDirOnly());
+		result.setTargetDirOnly(diff.getTargetDirOnly());
+		return result;
+	}
+
+	public static MD5Result getMD5Result(File source, File target) {
+
+		String sourceChecksum = LocationUtils.getMD5Checksum(source);
+		String targetChecksum = LocationUtils.getMD5Checksum(source);
+
+		MD5Result result = new MD5Result();
+		result.setSource(source);
+		result.setTarget(target);
+		result.setSourceChecksum(sourceChecksum);
+		result.setTargetChecksum(targetChecksum);
 		return result;
 	}
 
