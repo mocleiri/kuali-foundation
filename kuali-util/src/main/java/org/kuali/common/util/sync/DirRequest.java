@@ -3,7 +3,7 @@ package org.kuali.common.util.sync;
 import java.io.File;
 import java.util.List;
 
-public class DirectoryRequest {
+public class DirRequest {
 
 	List<String> includes;
 	List<String> excludes;

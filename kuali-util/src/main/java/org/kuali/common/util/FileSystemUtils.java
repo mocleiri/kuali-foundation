@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
-import org.kuali.common.util.sync.DirectoryRequest;
+import org.kuali.common.util.sync.DirRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,13 +147,20 @@ public class FileSystemUtils {
 	 * 
 	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
 	 */
-	public static DirectoryDiff getDiff(DirectoryRequest request) {
+	public static org.kuali.common.util.sync.DirDiff getDiff(DirRequest request) {
 		DirectoryDiffRequest ddr = new DirectoryDiffRequest();
 		ddr.setDir1(request.getSourceDir());
 		ddr.setDir2(request.getTargetDir());
 		ddr.setExcludes(request.getExcludes());
 		ddr.setIncludes(request.getIncludes());
-		return getDiff(ddr);
+		DirectoryDiff oldDiff = getDiff(ddr);
+		org.kuali.common.util.sync.DirDiff newDiff = new org.kuali.common.util.sync.DirDiff();
+		newDiff.setBoth(oldDiff.getBoth());
+		newDiff.setTargetDir(oldDiff.getDir2());
+		newDiff.setSourceDir(oldDiff.getDir1());
+		newDiff.setSourceDirOnly(oldDiff.getDir1Only());
+		newDiff.setTargetDirOnly(oldDiff.getDir2Only());
+		return newDiff;
 	}
 
 	/**
@@ -398,6 +405,19 @@ public class FileSystemUtils {
 		return StringUtils.remove(filePath, dirPath);
 	}
 
+	public static List<CopyFileRequest> getCopyFileRequests(List<org.kuali.common.util.sync.DirDiff> diffs) {
+
+		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
+		for (org.kuali.common.util.sync.DirDiff diff : diffs) {
+		}
+		return requests;
+	}
+
+	public static List<CopyFileRequest> getCopyFileRequests(DirectoryDiff diff) {
+		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
+		return null;
+	}
+
 	public static List<CopyFileRequest> getCopyFileRequests(File srcDir, List<String> includes, List<String> excludes, File dstDir) {
 		SimpleScanner scanner = new SimpleScanner(srcDir, includes, excludes);
 		List<File> srcFiles = scanner.getFiles();
@@ -426,7 +446,7 @@ public class FileSystemUtils {
 	public static List<CopyFileResult> getCopyFileResults(List<CopyFileRequest> requests) {
 		List<CopyFileResult> results = new ArrayList<CopyFileResult>();
 		for (CopyFileRequest request : requests) {
-			CopyFileResult result = FileSystemUtils.copyFile(request.getSource(), request.getDestination());
+			CopyFileResult result = copyFile(request.getSource(), request.getDestination());
 			results.add(result);
 		}
 		return results;

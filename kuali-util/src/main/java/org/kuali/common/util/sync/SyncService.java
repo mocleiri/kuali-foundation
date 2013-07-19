@@ -17,17 +17,16 @@ package org.kuali.common.util.sync;
 
 import java.util.List;
 
-import org.kuali.common.util.DirectoryDiff;
 import org.kuali.common.util.SyncResult;
 
 public interface SyncService {
 
-	DirectoryDiff getDiff(DirectoryRequest request);
+	DirDiff getDiff(DirRequest request);
 
-	List<DirectoryDiff> getDiffs(List<DirectoryRequest> requests);
+	List<DirDiff> getDiffs(List<DirRequest> requests);
 
-	SyncResult sync(DirectoryRequest request);
+	SyncResult sync(DirRequest request);
 
-	List<SyncResult> sync(List<DirectoryRequest> requests);
+	List<SyncResult> sync(List<DirRequest> requests);
 
 }
