@@ -1116,8 +1116,8 @@ public class PropertyUtils {
 		String logNewValue = newValue;
 		String logOldValue = oldValue;
 		if (obscure(key)) {
-			logNewValue = "PROTECTED";
-			logOldValue = "PROTECTED";
+			logNewValue = "*********";
+			logOldValue = "*********";
 		}
 
 		if (overwrite) {
