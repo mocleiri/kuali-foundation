@@ -103,9 +103,9 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 			}
 		}
 		// Override the loaded properties with overrides properties
-		properties.putAll(overrides);
+		new OverrideProcessor(Mode.INFORM, overrides, 2).process(properties);
 		// Override everything with system/environment properties
-		properties.putAll(global);
+		new OverrideProcessor(Mode.INFORM, global, 2).process(properties);
 		// Decrypt them
 		PropertyUtils.decrypt(properties);
 		// Resolve them, throw an exception if any values cannot be fully resolved
