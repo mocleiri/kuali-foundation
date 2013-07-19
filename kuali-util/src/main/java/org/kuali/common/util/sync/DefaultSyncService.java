@@ -81,7 +81,10 @@ public class DefaultSyncService implements SyncService {
 	protected SyncResult getSyncResult(DirDiff diff) {
 		List<File> adds = FileSystemUtils.getFullPaths(diff.getTargetDir(), diff.getSourceDirOnly());
 		List<File> deletes = FileSystemUtils.getFullPaths(diff.getTargetDir(), diff.getTargetDirOnly());
-		List<File> updates = FileSystemUtils.getFullPaths(diff.getTargetDir(), diff.getBoth());
+		List<File> updates = new ArrayList<File>();
+		for (MD5Result result : diff.getDifferent()) {
+			updates.add(result.getTarget());
+		}
 
 		SyncResult result = new SyncResult();
 		result.setAdds(adds);
