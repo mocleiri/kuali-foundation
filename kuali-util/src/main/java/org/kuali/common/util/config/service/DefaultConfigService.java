@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.config;
+package org.kuali.common.util.config.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -35,15 +35,21 @@ import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.config.ConfigUtils;
+import org.kuali.common.util.config.ContextConfig;
+import org.kuali.common.util.config.Location;
+import org.kuali.common.util.config.ProjectConfig;
+import org.kuali.common.util.config.ProjectConfigContainer;
+import org.kuali.common.util.config.ProjectConfigContainerNullifier;
 import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class SpringConfigService implements ConfigService {
+public class DefaultConfigService implements ConfigService {
 
-	private static final Logger logger = LoggerFactory.getLogger(SpringConfigService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultConfigService.class);
 
 	protected static final String METAINF = "META-INF";
 	protected static final String CLASSPATH = "classpath:";
@@ -110,10 +116,10 @@ public class SpringConfigService implements ConfigService {
 		return properties;
 	}
 
-	protected List<Location> getLocations(List<ProjectConfig> requests) {
+	protected List<Location> getLocations(List<ProjectConfig> configs) {
 		List<Location> locations = new ArrayList<Location>();
-		for (ProjectConfig request : requests) {
-			List<Location> requestLocations = findLocations(request);
+		for (ProjectConfig config : configs) {
+			List<Location> requestLocations = findLocations(config);
 			locations.addAll(requestLocations);
 		}
 		return locations;

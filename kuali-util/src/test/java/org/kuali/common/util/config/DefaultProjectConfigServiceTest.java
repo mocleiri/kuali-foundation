@@ -25,6 +25,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.config.service.ConfigService;
+import org.kuali.common.util.config.service.DefaultConfigService;
 
 public class DefaultProjectConfigServiceTest {
 

@@ -23,7 +23,7 @@ import org.springframework.util.Assert;
 
 public class ConfigUtils {
 
-	protected static final String DELIMITER = ":";
+	public static final String DELIMITER = ":";
 
 	public static List<ProjectConfig> getProjectConfigs(List<String> configIds) {
 		List<ProjectConfig> requests = new ArrayList<ProjectConfig>();
