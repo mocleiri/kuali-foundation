@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="projectConfig" class="org.kuali.common.util.config.ProjectConfigContainer" p:groupId="${project.groupId}" p:artifactId="${project.artifactId}">
+  <bean id="projectConfig" class="org.kuali.common.util.config.ProjectConfigContainer">
     <property name="contexts">
       <list>
         <bean class="org.kuali.common.util.config.ContextConfig" p:id="scm">
