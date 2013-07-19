@@ -254,10 +254,10 @@ public class FileSystemUtils {
 		// Paths that exist in both directories
 		Set<String> both = SetUtils.intersection(sourcePaths, targetPaths);
 
-		// Paths that exist in dir1 but not dir2
+		// Paths that exist in source but not target
 		Set<String> sourceOnly = SetUtils.difference(sourcePaths, targetPaths);
 
-		// Paths that exist in dir2 but not dir1
+		// Paths that exist in target but not source
 		Set<String> targetOnly = SetUtils.difference(targetPaths, sourcePaths);
 
 		logger.debug("source={}, sourceOnly.size()={}", request.getSourceDir(), sourceOnly.size());
