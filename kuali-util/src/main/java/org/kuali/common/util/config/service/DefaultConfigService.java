@@ -20,13 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.JAXBUtil;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.config.ProjectConfigContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,18 +51,12 @@ public class DefaultConfigService extends AbstractCachingConfigService {
 		PROJECT_CONFIG_CACHE.clear();
 	}
 
-	protected ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
-		Project project = ProjectUtils.loadProject(groupId, artifactId);
-		String location = getMetadataConfigFilePath(project, FILE);
-
-		// Throw an exception if they are asking for config metadata that doesn't exist
-		Assert.exists(location, "[" + location + "] does not exist");
-
-		Properties properties = getFilterProperties(project);
-		String content = getFilteredContent(location, properties, project.getEncoding());
-		return getProjectConfig(content, project.getEncoding());
+	@Override
+	protected String getFilename() {
+		return FILE;
 	}
 
+	@Override
 	protected ProjectConfigContainer getProjectConfig(String content, String encoding) {
 		InputStream in = null;
 		try {
