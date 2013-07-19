@@ -54,9 +54,9 @@ public class DefaultSyncService implements SyncService {
 			logger.info("  [{}] -> [{}]", src, dst);
 		}
 
-		// Scan the file system and record the differences between the directories
-		// This does a deep, heavy, scan of both directories
-		// Recursively examines the contents of both
+		// Scan the file system and record the differences between the directories.
+		// This does a deep, heavy, scan of both directories.
+		// It recursively examines the contents of both directories.
 		// Files that exist in both, are compared for equality using an MD5 checksum
 		List<DirDiff> diffs = getDiffs(requests);
 
@@ -65,7 +65,7 @@ public class DefaultSyncService implements SyncService {
 
 		// Show how many files we are copying
 		if (copyRequests.size() > 0) {
-			logger.info("Copying {} changed files", copyRequests.size());
+			logger.info("Copying {} files", copyRequests.size());
 		}
 
 		// Copy the files and record the results
