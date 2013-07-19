@@ -12,6 +12,7 @@ import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
 import org.kuali.common.util.file.DirDiff;
 import org.kuali.common.util.file.DirRequest;
+import org.kuali.common.util.file.MD5Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,17 +99,29 @@ public class DefaultSyncService implements SyncService {
 		return copyRequests;
 	}
 
+	/**
+	 * Convert the diff into into requests for copying files.
+	 */
 	protected List<CopyFileRequest> getCopyFileRequests(DirDiff diff) {
-		// Need to copy all files that appear in sourceDir
-
-		// Copy all the files that were in both directories
-		List<CopyFileRequest> both = getCopyFileRequests(diff, diff.getBoth());
-
 		// Copy all the files that were in source dir only
 		List<CopyFileRequest> source = getCopyFileRequests(diff, diff.getSourceDirOnly());
 
+		// Copy files that are in both directories but have different contents
+		List<CopyFileRequest> different = getCopyFileRequestsForFilesThatAreDifferent(diff.getDifferent());
+
 		// Return the combined list
-		return CollectionUtils.combine(both, source);
+		return CollectionUtils.combine(different, source);
+	}
+
+	protected List<CopyFileRequest> getCopyFileRequestsForFilesThatAreDifferent(List<MD5Result> different) {
+		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
+		for (MD5Result md5Result : different) {
+			File source = md5Result.getSource();
+			File target = md5Result.getTarget();
+			CopyFileRequest request = new CopyFileRequest(source, target);
+			requests.add(request);
+		}
+		return requests;
 	}
 
 	protected List<CopyFileRequest> getCopyFileRequests(DirDiff diff, List<String> relativePaths) {
