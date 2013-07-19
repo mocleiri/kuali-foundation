@@ -11,9 +11,7 @@
       <list>
         <bean class="org.kuali.common.util.config.ContextConfig" p:id="scm">
           <property name="locations">
-            <bean class="org.kuali.common.util.config.Location">
-              <property name="value" value="${classpath.prefix}/scm.properties" />
-            </bean>
+            <bean class="org.kuali.common.util.config.Location" p:value="${classpath.prefix}/scm.properties" />
           </property>
         </bean>
         <bean class="org.kuali.common.util.config.ContextConfig" p:id="metainf">
@@ -22,30 +20,18 @@
               <bean class="org.kuali.common.util.config.ContextConfig" p:id="sql">
                 <property name="locations">
                   <list>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.common}" />
-                    </bean>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.sql}" />
-                    </bean>
+                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
+                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.sql}" />
                   </list>
                 </property>
                 <property name="children">
                   <bean class="org.kuali.common.util.config.ContextConfig" p:id="build">
                     <property name="locations">
                       <list>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.common}" />
-                        </bean>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.common.build}" />
-                        </bean>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.sql.build}" />
-                        </bean>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.sql}" />
-                        </bean>
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common.build}" />
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.sql.build}" />
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.sql}" />
                       </list>
                     </property>
                   </bean>
@@ -54,30 +40,18 @@
               <bean class="org.kuali.common.util.config.ContextConfig" p:id="mpx">
                 <property name="locations">
                   <list>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.common}" />
-                    </bean>
-                    <bean class="org.kuali.common.util.config.Location">
-                      <property name="value" value="${metainf.mpx}" />
-                    </bean>
+                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
+                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.mpx}" />
                   </list>
                 </property>
                 <property name="children">
                   <bean class="org.kuali.common.util.config.ContextConfig" p:id="build">
                     <property name="locations">
                       <list>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.common}" />
-                        </bean>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.common.build}" />
-                        </bean>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.mpx.build}" />
-                        </bean>
-                        <bean class="org.kuali.common.util.config.Location">
-                          <property name="value" value="${metainf.mpx}" />
-                        </bean>
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common.build}" />
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.mpx.build}" />
+                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.mpx}" />
                       </list>
                     </property>
                   </bean>
@@ -89,5 +63,4 @@
       </list>
     </property>
   </bean>
-
 </beans>
