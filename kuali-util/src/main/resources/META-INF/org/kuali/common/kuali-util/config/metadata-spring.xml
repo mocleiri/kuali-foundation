@@ -9,49 +9,49 @@
   <bean id="projectConfig" class="org.kuali.common.util.config.ProjectConfigContainer">
     <property name="contexts">
       <list>
-        <bean class="org.kuali.common.util.config.ContextConfig" p:id="scm">
+        <bean class="${context.class}" p:id="scm">
           <property name="locations">
-            <bean class="org.kuali.common.util.config.Location" p:value="${classpath.prefix}/scm.properties" />
+            <bean class="${location.class}" p:value="${classpath.prefix}/scm.properties" />
           </property>
         </bean>
-        <bean class="org.kuali.common.util.config.ContextConfig" p:id="metainf">
+        <bean class="${context.class}" p:id="metainf">
           <property name="children">
             <list>
-              <bean class="org.kuali.common.util.config.ContextConfig" p:id="sql">
+              <bean class="${context.class}" p:id="sql">
                 <property name="locations">
                   <list>
-                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
-                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.sql}" />
+                    <bean class="${location.class}" p:value="${metainf.common}" />
+                    <bean class="${location.class}" p:value="${metainf.sql}" />
                   </list>
                 </property>
                 <property name="children">
-                  <bean class="org.kuali.common.util.config.ContextConfig" p:id="build">
+                  <bean class="${context.class}" p:id="build">
                     <property name="locations">
                       <list>
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common.build}" />
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.sql.build}" />
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.sql}" />
+                        <bean class="${location.class}" p:value="${metainf.common}" />
+                        <bean class="${location.class}" p:value="${metainf.common.build}" />
+                        <bean class="${location.class}" p:value="${metainf.sql.build}" />
+                        <bean class="${location.class}" p:value="${metainf.sql}" />
                       </list>
                     </property>
                   </bean>
                 </property>
               </bean>
-              <bean class="org.kuali.common.util.config.ContextConfig" p:id="mpx">
+              <bean class="${context.class}" p:id="mpx">
                 <property name="locations">
                   <list>
-                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
-                    <bean class="org.kuali.common.util.config.Location" p:value="${metainf.mpx}" />
+                    <bean class="${location.class}" p:value="${metainf.common}" />
+                    <bean class="${location.class}" p:value="${metainf.mpx}" />
                   </list>
                 </property>
                 <property name="children">
-                  <bean class="org.kuali.common.util.config.ContextConfig" p:id="build">
+                  <bean class="${context.class}" p:id="build">
                     <property name="locations">
                       <list>
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common}" />
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.common.build}" />
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.mpx.build}" />
-                        <bean class="org.kuali.common.util.config.Location" p:value="${metainf.mpx}" />
+                        <bean class="${location.class}" p:value="${metainf.common}" />
+                        <bean class="${location.class}" p:value="${metainf.common.build}" />
+                        <bean class="${location.class}" p:value="${metainf.mpx.build}" />
+                        <bean class="${location.class}" p:value="${metainf.mpx}" />
                       </list>
                     </property>
                   </bean>
