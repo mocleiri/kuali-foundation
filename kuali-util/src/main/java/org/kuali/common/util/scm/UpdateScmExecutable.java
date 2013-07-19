@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
+package org.kuali.common.util.scm;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.SyncResult;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.DirRequest;
 import org.kuali.common.util.service.ScmService;
 import org.kuali.common.util.sync.DefaultSyncService;
@@ -54,6 +55,24 @@ public class UpdateScmExecutable implements Executable {
 
 		List<SyncResult> results = syncService.sync(requests);
 
+		ScmRequest request = getScmRequest(requests, results, commitPaths);
+
+		logger.info("---------- Sync results ----------");
+		logger.info("Files added - {}", request.getAdds().size());
+		logger.info("Files updated - {}", request.getUpdates().size());
+		logger.info("Files deleted - {}", request.getDeletes().size());
+		logger.info("---------- Sync results ----------");
+
+		if (commitChanges) {
+			scmService.add(request.getAdds());
+			scmService.delete(request.getDeletes());
+			scmService.commit(request.getCommits(), message);
+		} else {
+			logger.info("Skipping SCM commit");
+		}
+	}
+
+	protected ScmRequest getScmRequest(List<DirRequest> requests, List<SyncResult> results, List<File> commitPaths) {
 		List<File> adds = new ArrayList<File>();
 		List<File> deletes = new ArrayList<File>();
 		List<File> updates = new ArrayList<File>();
@@ -64,24 +83,18 @@ public class UpdateScmExecutable implements Executable {
 			updates.addAll(result.getUpdates());
 		}
 
-		logger.info("---------- Sync results ----------");
-		logger.info("Files added - {}", adds.size());
-		logger.info("Files updated - {}", updates.size());
-		logger.info("Files deleted - {}", deletes.size());
-		logger.info("---------- Sync results ----------");
-
-		if (commitChanges) {
-			List<File> paths = new ArrayList<File>();
-			paths.addAll(CollectionUtils.toEmptyList(commitPaths));
-			for (DirRequest request : CollectionUtils.toEmptyList(requests)) {
-				paths.add(request.getTargetDir());
-			}
-			scmService.add(adds);
-			scmService.delete(deletes);
-			scmService.commit(paths, message);
-		} else {
-			logger.info("Skipping SCM commit");
+		List<File> commits = new ArrayList<File>();
+		commits.addAll(CollectionUtils.toEmptyList(commitPaths));
+		for (DirRequest request : CollectionUtils.toEmptyList(requests)) {
+			commits.add(request.getTargetDir());
 		}
+
+		ScmRequest scmRequest = new ScmRequest();
+		scmRequest.setAdds(adds);
+		scmRequest.setUpdates(updates);
+		scmRequest.setDeletes(deletes);
+		scmRequest.setCommits(commits);
+		return scmRequest;
 	}
 
 	public boolean isSkip() {
