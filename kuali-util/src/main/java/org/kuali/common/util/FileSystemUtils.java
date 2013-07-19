@@ -28,6 +28,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.CopyFileRequest;
+import org.kuali.common.util.execute.CopyFileResult;
+import org.kuali.common.util.sync.DirectoryRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -131,6 +133,27 @@ public class FileSystemUtils {
 		request.setIncludes(includes);
 		request.setExcludes(excludes);
 		return getDiff(request);
+	}
+
+	/**
+	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 3
+	 * categories.
+	 * 
+	 * <pre>
+	 * 1 - Both       - Files that exist in both directories
+	 * 2 - Dir 1 Only - Files that exist only in directory 1
+	 * 3 - Dir 2 Only - Files that exist only in directory 2
+	 * </pre>
+	 * 
+	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
+	 */
+	public static DirectoryDiff getDiff(DirectoryRequest request) {
+		DirectoryDiffRequest ddr = new DirectoryDiffRequest();
+		ddr.setDir1(request.getSourceDir());
+		ddr.setDir2(request.getTargetDir());
+		ddr.setExcludes(request.getExcludes());
+		ddr.setIncludes(request.getIncludes());
+		return getDiff(ddr);
 	}
 
 	/**
@@ -387,6 +410,26 @@ public class FileSystemUtils {
 			requests.add(request);
 		}
 		return requests;
+	}
+
+	public static CopyFileResult copyFile(File src, File dst) {
+		try {
+			long start = System.currentTimeMillis();
+			boolean overwritten = dst.exists();
+			FileUtils.copyFile(src, dst);
+			return new CopyFileResult(src, dst, overwritten, System.currentTimeMillis() - start);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
+	}
+
+	public static List<CopyFileResult> getCopyFileResults(List<CopyFileRequest> requests) {
+		List<CopyFileResult> results = new ArrayList<CopyFileResult>();
+		for (CopyFileRequest request : requests) {
+			CopyFileResult result = FileSystemUtils.copyFile(request.getSource(), request.getDestination());
+			results.add(result);
+		}
+		return results;
 	}
 
 }

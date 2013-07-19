@@ -15,14 +15,11 @@
  */
 package org.kuali.common.util.execute;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FileSystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,31 +54,22 @@ public class CopyFilesExecutable implements Executable {
 	@Override
 	public void execute() {
 
+		// Might be nothing to do
 		if (skip) {
 			return;
 		}
 
+		// Make sure we are configured correctly
 		Assert.notNull(requests, "requests is null");
 
+		// Show how many files we are copying
 		logger.info("Copying {} files", requests.size());
 
-		List<CopyFileResult> results = new ArrayList<CopyFileResult>();
-		for (CopyFileRequest request : requests) {
-			CopyFileResult result = copyFile(request.getSource(), request.getDestination());
-			results.add(result);
-		}
-		this.results = results;
-	}
+		// Perform the file system copy
+		List<CopyFileResult> results = FileSystemUtils.getCopyFileResults(requests);
 
-	protected CopyFileResult copyFile(File src, File dst) {
-		try {
-			long start = System.currentTimeMillis();
-			boolean overwritten = dst.exists();
-			FileUtils.copyFile(src, dst);
-			return new CopyFileResult(src, dst, overwritten, System.currentTimeMillis() - start);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		}
+		// Store the results in our internal member variable
+		this.results = results;
 	}
 
 	/**

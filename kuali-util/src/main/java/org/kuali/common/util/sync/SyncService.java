@@ -18,12 +18,16 @@ package org.kuali.common.util.sync;
 import java.util.List;
 
 import org.kuali.common.util.DirectoryDiff;
-import org.kuali.common.util.DirectoryDiffRequest;
+import org.kuali.common.util.SyncResult;
 
 public interface SyncService {
 
-	DirectoryDiff getDiff(DirectoryDiffRequest request);
+	DirectoryDiff getDiff(DirectoryRequest request);
 
-	List<DirectoryDiff> getDiffs(List<DirectoryDiff> requests);
+	List<DirectoryDiff> getDiffs(List<DirectoryRequest> requests);
+
+	SyncResult sync(DirectoryRequest request);
+
+	List<SyncResult> sync(List<DirectoryRequest> requests);
 
 }
