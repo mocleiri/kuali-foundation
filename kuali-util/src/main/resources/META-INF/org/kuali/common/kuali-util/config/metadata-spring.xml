@@ -15,7 +15,7 @@
           </property>
         </bean>
         <bean class="${context.class}" p:id="metainf">
-          <property name="children">
+          <property name="contexts">
             <list>
               <bean class="${context.class}" p:id="sql">
                 <property name="locations">
@@ -24,7 +24,7 @@
                     <bean class="${location.class}" p:value="${metainf.sql}" />
                   </list>
                 </property>
-                <property name="children">
+                <property name="contexts">
                   <bean class="${context.class}" p:id="build">
                     <property name="locations">
                       <list>
@@ -44,7 +44,7 @@
                     <bean class="${location.class}" p:value="${metainf.mpx}" />
                   </list>
                 </property>
-                <property name="children">
+                <property name="contexts">
                   <bean class="${context.class}" p:id="build">
                     <property name="locations">
                       <list>
