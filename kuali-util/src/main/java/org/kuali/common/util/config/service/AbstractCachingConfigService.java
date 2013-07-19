@@ -148,7 +148,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 			ContextConfig context = null;
 			for (String token : tokens) {
 				context = findContextConfig(contexts, token);
-				contexts = context.getChildren();
+				contexts = context.getContexts();
 			}
 			return context.getLocations();
 		}

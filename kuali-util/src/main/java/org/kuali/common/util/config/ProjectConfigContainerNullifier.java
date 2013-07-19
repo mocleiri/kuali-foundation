@@ -48,7 +48,7 @@ public class ProjectConfigContainerNullifier implements Nullifier {
 	protected void nullifyContexts(List<ContextConfig> contexts) {
 		for (ContextConfig context : CollectionUtils.toEmptyList(contexts)) {
 			nullifyLocations(context.getLocations());
-			nullifyContexts(context.getChildren());
+			nullifyContexts(context.getContexts());
 		}
 	}
 

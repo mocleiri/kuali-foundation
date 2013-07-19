@@ -32,7 +32,7 @@ public class ContextConfig {
 
 	String id;
 	List<Location> locations = new ArrayList<Location>();
-	List<ContextConfig> children = new ArrayList<ContextConfig>();
+	List<ContextConfig> contexts = new ArrayList<ContextConfig>();
 
 	public ContextConfig(ContextConfig config) {
 		super();
@@ -40,8 +40,8 @@ public class ContextConfig {
 		for (Location location : CollectionUtils.toEmptyList(config.getLocations())) {
 			this.locations.add(new Location(location));
 		}
-		for (ContextConfig child : CollectionUtils.toEmptyList(config.getChildren())) {
-			this.children.add(new ContextConfig(child));
+		for (ContextConfig child : CollectionUtils.toEmptyList(config.getContexts())) {
+			this.contexts.add(new ContextConfig(child));
 		}
 	}
 
@@ -70,16 +70,16 @@ public class ContextConfig {
 	}
 
 	@XmlElement(name = "context")
-	public List<ContextConfig> getChildren() {
-		return children;
+	public List<ContextConfig> getContexts() {
+		return contexts;
 	}
 
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
 	}
 
-	public void setChildren(List<ContextConfig> children) {
-		this.children = children;
+	public void setContexts(List<ContextConfig> children) {
+		this.contexts = children;
 	}
 
 	public void setId(String name) {

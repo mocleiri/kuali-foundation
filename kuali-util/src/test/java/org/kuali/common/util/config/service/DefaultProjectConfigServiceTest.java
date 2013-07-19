@@ -57,7 +57,7 @@ public class DefaultProjectConfigServiceTest {
 			ContextConfig mpx = new ContextConfig("mpx", Arrays.asList(new Location("${metainf.common}/mpx.properties")));
 			ContextConfig sql = new ContextConfig("sql", Arrays.asList(new Location("${metainf.common}/sql.properties")));
 			ContextConfig metainf = new ContextConfig("metainf");
-			metainf.setChildren(Arrays.asList(mpx, sql));
+			metainf.setContexts(Arrays.asList(mpx, sql));
 			List<ContextConfig> contexts = new ArrayList<ContextConfig>();
 			contexts.add(metainf);
 
