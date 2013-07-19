@@ -20,6 +20,7 @@ import java.util.List;
 import org.kuali.common.util.ScmRequest;
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.execute.PrepareScmDirExecutable;
+import org.kuali.common.util.scm.ScmConfig;
 import org.kuali.common.util.service.ScmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
