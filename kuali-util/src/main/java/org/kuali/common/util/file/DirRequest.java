@@ -3,10 +3,12 @@ package org.kuali.common.util.file;
 import java.io.File;
 import java.util.List;
 
+import org.kuali.common.util.FileSystemUtils;
+
 public class DirRequest {
 
-	List<String> includes;
-	List<String> excludes;
+	List<String> includes = FileSystemUtils.DEFAULT_RECURSIVE_INCLUDES;
+	List<String> excludes = FileSystemUtils.DEFAULT_SCM_IGNORE_PATTERNS;
 
 	File sourceDir;
 	File targetDir;
