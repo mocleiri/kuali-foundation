@@ -59,7 +59,7 @@ public class DefaultSyncService implements SyncService {
 		// Log the number of files copied
 		logger.debug("Copied {} files", copyResults.size());
 
-		// Convert the diff info into sync info (adds, deletes, updates)
+		// Convert the diff info sync info (adds, deletes, updates)
 		List<SyncResult> results = getSyncResults(diffs);
 
 		// return the sync info
