@@ -103,6 +103,7 @@ public class DefaultSyncService implements SyncService {
 	 * Convert the diff into into requests for copying files.
 	 */
 	protected List<CopyFileRequest> getCopyFileRequests(DirDiff diff) {
+
 		// Copy all the files that were in source dir only
 		List<CopyFileRequest> source = getCopyFileRequests(diff, diff.getSourceDirOnly());
 
