@@ -29,9 +29,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
-import org.kuali.common.util.sync.DirDiff;
-import org.kuali.common.util.sync.DirRequest;
-import org.kuali.common.util.sync.MD5DirDiff;
+import org.kuali.common.util.file.DirDiff;
+import org.kuali.common.util.file.DirRequest;
+import org.kuali.common.util.file.MD5DirDiff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,7 +151,13 @@ public class FileSystemUtils {
 	 * The 4 lists in <code>MD5DirDiff</code> contain the relative paths to files for each category.
 	 */
 	public static MD5DirDiff getMD5Diff(DirRequest request) {
-		return null;
+		DirDiff diff = getDiff(request);
+
+		List<File> sources = getFullPaths(request.getSourceDir(), diff.getBoth());
+		List<File> targets = getFullPaths(request.getTargetDir(), diff.getBoth());
+
+		MD5DirDiff result = new MD5DirDiff();
+		return result;
 	}
 
 	/**

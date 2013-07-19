@@ -18,6 +18,8 @@ package org.kuali.common.util.sync;
 import java.util.List;
 
 import org.kuali.common.util.SyncResult;
+import org.kuali.common.util.file.DirDiff;
+import org.kuali.common.util.file.DirRequest;
 
 public interface SyncService {
 

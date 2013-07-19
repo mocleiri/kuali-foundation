@@ -10,6 +10,8 @@ import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.SyncResult;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
+import org.kuali.common.util.file.DirDiff;
+import org.kuali.common.util.file.DirRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,24 +78,15 @@ public class DefaultSyncService implements SyncService {
 	}
 
 	protected SyncResult getSyncResult(DirDiff diff) {
-		List<File> adds = getFiles(diff.getTargetDir(), diff.getSourceDirOnly());
-		List<File> deletes = getFiles(diff.getTargetDir(), diff.getTargetDirOnly());
-		List<File> updates = getFiles(diff.getTargetDir(), diff.getBoth());
+		List<File> adds = FileSystemUtils.getFullPaths(diff.getTargetDir(), diff.getSourceDirOnly());
+		List<File> deletes = FileSystemUtils.getFullPaths(diff.getTargetDir(), diff.getTargetDirOnly());
+		List<File> updates = FileSystemUtils.getFullPaths(diff.getTargetDir(), diff.getBoth());
 
 		SyncResult result = new SyncResult();
 		result.setAdds(adds);
 		result.setDeletes(deletes);
 		result.setUpdates(updates);
 		return result;
-	}
-
-	protected List<File> getFiles(File dir, List<String> relativePaths) {
-		List<File> files = new ArrayList<File>();
-		for (String relativePath : relativePaths) {
-			File file = new File(dir, relativePath);
-			files.add(file);
-		}
-		return files;
 	}
 
 	protected List<CopyFileRequest> getCopyFileRequests(List<DirDiff> diffs) {
