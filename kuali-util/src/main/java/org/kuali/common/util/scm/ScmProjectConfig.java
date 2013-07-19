@@ -28,6 +28,7 @@ public class ScmProjectConfig {
 	private static final String SKIP_KEY = "scm.skip";
 	private static final String COMMIT_SKIP_KEY = "scm.commit.skip";
 	private static final String COMMIT_PATHS_KEY = "scm.commit.paths";
+	private static final String COMMIT_MESSAGE_KEY = "scm.commit.message";
 
 	@Autowired
 	Environment env;
@@ -41,6 +42,7 @@ public class ScmProjectConfig {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_VALUE);
 		boolean skipCommit = SpringUtils.getBoolean(env, COMMIT_SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_COMMIT_VALUE);
 		List<File> commitPaths = SpringUtils.getFilesFromCSV(env, COMMIT_PATHS_KEY, Constants.NONE);
+		String commitMessage = SpringUtils.getProperty(env, COMMIT_MESSAGE_KEY);
 
 		UpdateScmExecutable exec = new UpdateScmExecutable();
 		exec.setRequests(projectScmConfigDirRequests());
@@ -48,6 +50,7 @@ public class ScmProjectConfig {
 		exec.setSkip(skip);
 		exec.setSkipCommit(skipCommit);
 		exec.setCommitPaths(commitPaths);
+		exec.setMessage(commitMessage);
 		return exec;
 	}
 
