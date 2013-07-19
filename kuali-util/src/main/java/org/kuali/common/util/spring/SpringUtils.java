@@ -435,14 +435,18 @@ public class SpringUtils {
 		return new File(value);
 	}
 
-	public static List<File> getFilesFromCSV(Environment env, String key) {
-		List<String> strings = getNoneSensitiveListFromCSV(env, key);
+	public static List<File> getFilesFromCSV(Environment env, String key, String defaultValue) {
+		List<String> strings = getNoneSensitiveListFromCSV(env, key, defaultValue);
 		List<File> files = new ArrayList<File>();
 		for (String string : strings) {
 			File file = new File(string);
 			files.add(file);
 		}
 		return files;
+	}
+
+	public static List<File> getFilesFromCSV(Environment env, String key) {
+		return getFilesFromCSV(env, key, null);
 	}
 
 	public static File getFile(Environment env, String key, File defaultValue) {

@@ -34,9 +34,12 @@ public class UpdateScmExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(UpdateScmExecutable.class);
 
-	boolean skip;
-	// Don't commit changes unless they specifically set this to true
-	boolean commitChanges;
+	public static final boolean DEFAULT_SKIP_VALUE = false;
+	public static final boolean DEFAULT_SKIP_COMMIT_VALUE = true;
+
+	boolean skip = DEFAULT_SKIP_VALUE;
+	// Always skip the commit step, unless the specifically set this to false
+	boolean skipCommit = DEFAULT_SKIP_COMMIT_VALUE;
 	ScmService scmService;
 	SyncService syncService = new DefaultSyncService();
 	List<DirRequest> requests;
@@ -63,7 +66,7 @@ public class UpdateScmExecutable implements Executable {
 		logger.info("Files deleted - {}", request.getDeletes().size());
 		logger.info("---------- Sync results ----------");
 
-		if (commitChanges) {
+		if (skipCommit) {
 			scmService.add(request.getAdds());
 			scmService.delete(request.getDeletes());
 			scmService.commit(request.getCommits(), message);
@@ -105,12 +108,12 @@ public class UpdateScmExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public boolean isCommitChanges() {
-		return commitChanges;
+	public boolean isSkipCommit() {
+		return skipCommit;
 	}
 
-	public void setCommitChanges(boolean commitChanges) {
-		this.commitChanges = commitChanges;
+	public void setSkipCommit(boolean commitChanges) {
+		this.skipCommit = commitChanges;
 	}
 
 	public ScmService getScmService() {

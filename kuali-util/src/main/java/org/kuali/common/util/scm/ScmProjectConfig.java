@@ -8,6 +8,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.DirRequest;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,9 @@ public class ScmProjectConfig {
 	private static final String SOURCE_DIR_KEY = "scm.build.dir.src";
 	private static final String INCLUDES_KEY = "scm.build.includes";
 	private static final String EXCLUDES_KEY = "scm.build.excludes";
+	private static final String SKIP_KEY = "scm.build.skip";
+	private static final String SKIP_COMMIT_KEY = "scm.build.commit.skip";
+	private static final String COMMITS_KEY = "scm.build.commits";
 
 	@Autowired
 	Environment env;
@@ -33,9 +37,16 @@ public class ScmProjectConfig {
 
 	@Bean
 	public Executable projectScmConfigUpdateScmExecutable() {
+		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_VALUE);
+		boolean skipCommit = SpringUtils.getBoolean(env, SKIP_COMMIT_KEY, UpdateScmExecutable.DEFAULT_SKIP_COMMIT_VALUE);
+		List<File> commits = SpringUtils.getFilesFromCSV(env, COMMITS_KEY, Constants.NONE);
+
 		UpdateScmExecutable exec = new UpdateScmExecutable();
 		exec.setRequests(projectScmConfigDirRequests());
 		exec.setScmService(scmConfig.scmService());
+		exec.setSkip(skip);
+		exec.setSkipCommit(skipCommit);
+		exec.setCommitPaths(commits);
 		return exec;
 	}
 
