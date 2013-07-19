@@ -71,7 +71,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	@Override
 	public Properties getProperties(List<String> configIds, Properties overrides) {
 		List<ProjectConfig> requests = ConfigUtils.getProjectConfigs(CollectionUtils.toEmptyList(configIds));
-		return getPropertiesFromRequests(PropertyUtils.toEmpty(overrides), requests);
+		return loadProperties(requests, PropertyUtils.toEmpty(overrides));
 	}
 
 	protected abstract ProjectConfigContainer getCachedConfig(String groupId, String artifactId);
@@ -82,7 +82,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 
 	protected abstract String getFilename();
 
-	protected Properties getPropertiesFromRequests(Properties overrides, List<ProjectConfig> requests) {
+	protected Properties loadProperties(List<ProjectConfig> requests, Properties overrides) {
 		// Convert the ConfigRequest objects into Location objects
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
