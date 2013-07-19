@@ -66,7 +66,7 @@ public class CopyFilesExecutable implements Executable {
 		logger.info("Copying {} files", requests.size());
 
 		// Perform the file system copy
-		List<CopyFileResult> results = FileSystemUtils.getCopyFileResults(requests);
+		List<CopyFileResult> results = FileSystemUtils.copyFiles(requests);
 
 		// Store the results in our internal member variable
 		this.results = results;

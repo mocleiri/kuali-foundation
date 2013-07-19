@@ -406,19 +406,6 @@ public class FileSystemUtils {
 		return StringUtils.remove(filePath, dirPath);
 	}
 
-	public static List<CopyFileRequest> getCopyFileRequests(List<DirDiff> diffs) {
-
-		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
-		for (DirDiff diff : diffs) {
-		}
-		return requests;
-	}
-
-	public static List<CopyFileRequest> getCopyFileRequests(DirectoryDiff diff) {
-		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
-		return null;
-	}
-
 	public static List<CopyFileRequest> getCopyFileRequests(File srcDir, List<String> includes, List<String> excludes, File dstDir) {
 		SimpleScanner scanner = new SimpleScanner(srcDir, includes, excludes);
 		List<File> srcFiles = scanner.getFiles();
@@ -444,7 +431,7 @@ public class FileSystemUtils {
 		}
 	}
 
-	public static List<CopyFileResult> getCopyFileResults(List<CopyFileRequest> requests) {
+	public static List<CopyFileResult> copyFiles(List<CopyFileRequest> requests) {
 		List<CopyFileResult> results = new ArrayList<CopyFileResult>();
 		for (CopyFileRequest request : requests) {
 			CopyFileResult result = copyFile(request.getSource(), request.getDestination());
