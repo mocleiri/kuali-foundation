@@ -21,13 +21,13 @@ import org.springframework.core.env.Environment;
 public class ScmProjectConfig {
 
 	private static final String PROJECTS_KEY = "scm.build.projects";
-	private static final String RELATIVE_DIR_KEY = "scm.build.dir.relative";
-	private static final String SOURCE_DIR_KEY = "scm.build.dir.src";
-	private static final String INCLUDES_KEY = "scm.build.includes";
-	private static final String EXCLUDES_KEY = "scm.build.excludes";
-	private static final String SKIP_KEY = "scm.build.skip";
-	private static final String COMMIT_SKIP_KEY = "scm.build.commit.skip";
-	private static final String COMMIT_PATHS_KEY = "scm.build.commit.paths";
+	private static final String RELATIVE_DIR_KEY = "scm.dir.relative";
+	private static final String SOURCE_DIR_KEY = "scm.dir.src";
+	private static final String INCLUDES_KEY = "scm.includes";
+	private static final String EXCLUDES_KEY = "scm.excludes";
+	private static final String SKIP_KEY = "scm.skip";
+	private static final String COMMIT_SKIP_KEY = "scm.commit.skip";
+	private static final String COMMIT_PATHS_KEY = "scm.commit.paths";
 
 	@Autowired
 	Environment env;
