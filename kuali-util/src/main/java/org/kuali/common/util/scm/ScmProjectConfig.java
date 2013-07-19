@@ -26,8 +26,8 @@ public class ScmProjectConfig {
 	private static final String INCLUDES_KEY = "scm.build.includes";
 	private static final String EXCLUDES_KEY = "scm.build.excludes";
 	private static final String SKIP_KEY = "scm.build.skip";
-	private static final String SKIP_COMMIT_KEY = "scm.build.commit.skip";
-	private static final String COMMITS_KEY = "scm.build.commits";
+	private static final String COMMIT_SKIP_KEY = "scm.build.commit.skip";
+	private static final String COMMIT_PATHS_KEY = "scm.build.commit.paths";
 
 	@Autowired
 	Environment env;
@@ -38,15 +38,15 @@ public class ScmProjectConfig {
 	@Bean
 	public Executable projectScmConfigUpdateScmExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_VALUE);
-		boolean skipCommit = SpringUtils.getBoolean(env, SKIP_COMMIT_KEY, UpdateScmExecutable.DEFAULT_SKIP_COMMIT_VALUE);
-		List<File> commits = SpringUtils.getFilesFromCSV(env, COMMITS_KEY, Constants.NONE);
+		boolean skipCommit = SpringUtils.getBoolean(env, COMMIT_SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_COMMIT_VALUE);
+		List<File> commitPaths = SpringUtils.getFilesFromCSV(env, COMMIT_PATHS_KEY, Constants.NONE);
 
 		UpdateScmExecutable exec = new UpdateScmExecutable();
 		exec.setRequests(projectScmConfigDirRequests());
 		exec.setScmService(scmConfig.scmService());
 		exec.setSkip(skip);
 		exec.setSkipCommit(skipCommit);
-		exec.setCommitPaths(commits);
+		exec.setCommitPaths(commitPaths);
 		return exec;
 	}
 
