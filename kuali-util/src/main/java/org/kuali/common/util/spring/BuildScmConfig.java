@@ -85,7 +85,7 @@ public class BuildScmConfig {
 
 			// Figure out the project specific directory being managed by SCM
 			// This is the directory files get copied into
-			String projectScmDirKey = "build.scm.prepare." + project.getArtifactId() + ".dir";
+			String projectScmDirKey = "build.scm." + project.getArtifactId() + ".dir";
 			// This is ${project.basedir}/src/main/resources
 			File projectDir = SpringUtils.getFile(env, projectScmDirKey);
 			// This is ${project.basedir}/src/main/resources/${project.groupId.path}/${project.artifactId}
