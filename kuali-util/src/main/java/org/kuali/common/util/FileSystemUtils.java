@@ -31,7 +31,6 @@ import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
 import org.kuali.common.util.file.DirDiff;
 import org.kuali.common.util.file.DirRequest;
-import org.kuali.common.util.file.MD5DirDiff;
 import org.kuali.common.util.file.MD5Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,11 +150,18 @@ public class FileSystemUtils {
 	 * 
 	 * The 4 lists in <code>MD5DirDiff</code> contain the relative paths to files for each category.
 	 */
-	public static MD5DirDiff getMD5Diff(DirRequest request) {
-		DirDiff diff = getDiff(request);
+	public static DirDiff getMD5Diff(DirRequest request) {
+		// Do the quick diff
+		DirDiff diff = getQuickDiff(request);
+		// Do the deep diff computes MD5 checksums for any files present in both directories
+		List<MD5Result> different = getDifferent(diff);
+		diff.setDifferent(different);
+		return diff;
+	}
 
-		List<File> sources = getFullPaths(request.getSourceDir(), diff.getBoth());
-		List<File> targets = getFullPaths(request.getTargetDir(), diff.getBoth());
+	public static List<MD5Result> getDifferent(DirDiff diff) {
+		List<File> sources = getFullPaths(diff.getSourceDir(), diff.getBoth());
+		List<File> targets = getFullPaths(diff.getTargetDir(), diff.getBoth());
 		List<MD5Result> results = new ArrayList<MD5Result>();
 		for (int i = 0; i < sources.size(); i++) {
 			File source = sources.get(i);
@@ -174,15 +180,7 @@ public class FileSystemUtils {
 				different.add(md5Result);
 			}
 		}
-
-		MD5DirDiff result = new MD5DirDiff();
-		result.setBoth(diff.getBoth());
-		result.setDifferent(different);
-		result.setSourceDir(diff.getSourceDir());
-		result.setTargetDir(diff.getTargetDir());
-		result.setSourceDirOnly(diff.getSourceDirOnly());
-		result.setTargetDirOnly(diff.getTargetDirOnly());
-		return result;
+		return different;
 	}
 
 	public static MD5Result getMD5Result(File source, File target) {
@@ -203,34 +201,6 @@ public class FileSystemUtils {
 	 * categories.
 	 * 
 	 * <pre>
-	 * 1 - Both            - Files that exist in both directories
-	 * 2 - Source Dir Only - Files that exist only in directory 1
-	 * 3 - Target Dir Only - Files that exist only in directory 2
-	 * </pre>
-	 * 
-	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
-	 */
-	public static DirDiff getDiff(DirRequest request) {
-		DirectoryDiffRequest ddr = new DirectoryDiffRequest();
-		ddr.setDir1(request.getSourceDir());
-		ddr.setDir2(request.getTargetDir());
-		ddr.setExcludes(request.getExcludes());
-		ddr.setIncludes(request.getIncludes());
-		DirectoryDiff oldDiff = getDiff(ddr);
-		DirDiff newDiff = new DirDiff();
-		newDiff.setBoth(oldDiff.getBoth());
-		newDiff.setTargetDir(oldDiff.getDir2());
-		newDiff.setSourceDir(oldDiff.getDir1());
-		newDiff.setSourceDirOnly(oldDiff.getDir1Only());
-		newDiff.setTargetDirOnly(oldDiff.getDir2Only());
-		return newDiff;
-	}
-
-	/**
-	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 3
-	 * categories.
-	 * 
-	 * <pre>
 	 * 1 - Both       - Files that exist in both directories
 	 * 2 - Dir 1 Only - Files that exist only in directory 1
 	 * 3 - Dir 2 Only - Files that exist only in directory 2
@@ -239,39 +209,54 @@ public class FileSystemUtils {
 	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
 	 */
 	public static DirectoryDiff getDiff(DirectoryDiffRequest request) {
+		DirRequest newRequest = new DirRequest();
+		newRequest.setExcludes(request.getExcludes());
+		newRequest.setIncludes(request.getIncludes());
+		newRequest.setSourceDir(request.getDir1());
+		newRequest.setTargetDir(request.getDir2());
+		DirDiff diff = getQuickDiff(newRequest);
+
+		DirectoryDiff dd = new DirectoryDiff(diff.getSourceDir(), diff.getTargetDir());
+		dd.setBoth(diff.getBoth());
+		dd.setDir1Only(diff.getSourceDirOnly());
+		dd.setDir2Only(diff.getTargetDirOnly());
+		return dd;
+	}
+
+	public static DirDiff getQuickDiff(DirRequest request) {
 
 		// Get a listing of files from both directories using the exact same includes/excludes
-		List<File> dir1Files = getFiles(request.getDir1(), request.getIncludes(), request.getExcludes());
-		List<File> dir2Files = getFiles(request.getDir2(), request.getIncludes(), request.getExcludes());
+		List<File> sourceFiles = getFiles(request.getSourceDir(), request.getIncludes(), request.getExcludes());
+		List<File> targetFiles = getFiles(request.getTargetDir(), request.getIncludes(), request.getExcludes());
 
 		// Get the unique set of paths for each file relative to their parent directory
-		Set<String> dir1Paths = new HashSet<String>(getRelativePaths(request.getDir1(), dir1Files));
-		Set<String> dir2Paths = new HashSet<String>(getRelativePaths(request.getDir2(), dir2Files));
+		Set<String> sourcePaths = new HashSet<String>(getRelativePaths(request.getSourceDir(), sourceFiles));
+		Set<String> targetPaths = new HashSet<String>(getRelativePaths(request.getTargetDir(), targetFiles));
 
 		// Paths that exist in both directories
-		Set<String> both = SetUtils.intersection(dir1Paths, dir2Paths);
+		Set<String> both = SetUtils.intersection(sourcePaths, targetPaths);
 
 		// Paths that exist in dir1 but not dir2
-		Set<String> dir1Only = SetUtils.difference(dir1Paths, dir2Paths);
+		Set<String> sourceOnly = SetUtils.difference(sourcePaths, targetPaths);
 
 		// Paths that exist in dir2 but not dir1
-		Set<String> dir2Only = SetUtils.difference(dir2Paths, dir1Paths);
+		Set<String> targetOnly = SetUtils.difference(targetPaths, sourcePaths);
 
-		logger.debug("dir1={}, dir1Only.size()={}", request.getDir1(), dir1Only.size());
-		logger.debug("dir2={}, dir2Only.size()={}", request.getDir2(), dir2Only.size());
+		logger.debug("source={}, sourceOnly.size()={}", request.getSourceDir(), sourceOnly.size());
+		logger.debug("target={}, targetOnly.size()={}", request.getTargetDir(), targetOnly.size());
 
 		// Store the information we've collected into a result object
-		DirectoryDiff result = new DirectoryDiff(request.getDir1(), request.getDir2());
+		DirDiff result = new DirDiff(request.getSourceDir(), request.getTargetDir());
 
 		// Store the relative paths on the diff object
 		result.setBoth(new ArrayList<String>(both));
-		result.setDir1Only(new ArrayList<String>(dir1Only));
-		result.setDir2Only(new ArrayList<String>(dir2Only));
+		result.setSourceDirOnly(new ArrayList<String>(sourceOnly));
+		result.setTargetDirOnly(new ArrayList<String>(targetOnly));
 
 		// Sort the relative paths
 		Collections.sort(result.getBoth());
-		Collections.sort(result.getDir1Only());
-		Collections.sort(result.getDir2Only());
+		Collections.sort(result.getSourceDirOnly());
+		Collections.sort(result.getTargetDirOnly());
 
 		// return the diff
 		return result;

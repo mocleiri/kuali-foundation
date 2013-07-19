@@ -30,7 +30,7 @@ public class DefaultSyncService implements SyncService {
 	public List<DirDiff> getDiffs(List<DirRequest> requests) {
 		List<DirDiff> diffs = new ArrayList<DirDiff>();
 		for (DirRequest request : requests) {
-			DirDiff diff = FileSystemUtils.getDiff(request);
+			DirDiff diff = FileSystemUtils.getMD5Diff(request);
 			diffs.add(diff);
 		}
 		return diffs;

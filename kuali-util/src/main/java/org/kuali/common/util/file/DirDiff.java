@@ -26,6 +26,7 @@ public class DirDiff {
 
 	// Relative paths characterizing what files were found where
 	List<String> both;
+	List<MD5Result> different;
 	List<String> sourceDirOnly;
 	List<String> targetDirOnly;
 
@@ -33,26 +34,26 @@ public class DirDiff {
 		this(null, null);
 	}
 
-	public DirDiff(File dir1, File dir2) {
+	public DirDiff(File sourceDir, File targetDir) {
 		super();
-		this.sourceDir = dir1;
-		this.targetDir = dir2;
+		this.sourceDir = sourceDir;
+		this.targetDir = targetDir;
 	}
 
-	public List<String> getSourceDirOnly() {
-		return sourceDirOnly;
+	public File getSourceDir() {
+		return sourceDir;
 	}
 
-	public void setSourceDirOnly(List<String> dir1Only) {
-		this.sourceDirOnly = dir1Only;
+	public void setSourceDir(File sourceDir) {
+		this.sourceDir = sourceDir;
 	}
 
-	public List<String> getTargetDirOnly() {
-		return targetDirOnly;
+	public File getTargetDir() {
+		return targetDir;
 	}
 
-	public void setTargetDirOnly(List<String> dir2Only) {
-		this.targetDirOnly = dir2Only;
+	public void setTargetDir(File targetDir) {
+		this.targetDir = targetDir;
 	}
 
 	public List<String> getBoth() {
@@ -63,20 +64,28 @@ public class DirDiff {
 		this.both = both;
 	}
 
-	public File getSourceDir() {
-		return sourceDir;
+	public List<MD5Result> getDifferent() {
+		return different;
 	}
 
-	public void setSourceDir(File dir1) {
-		this.sourceDir = dir1;
+	public void setDifferent(List<MD5Result> different) {
+		this.different = different;
 	}
 
-	public File getTargetDir() {
-		return targetDir;
+	public List<String> getSourceDirOnly() {
+		return sourceDirOnly;
 	}
 
-	public void setTargetDir(File dir2) {
-		this.targetDir = dir2;
+	public void setSourceDirOnly(List<String> sourceDirOnly) {
+		this.sourceDirOnly = sourceDirOnly;
+	}
+
+	public List<String> getTargetDirOnly() {
+		return targetDirOnly;
+	}
+
+	public void setTargetDirOnly(List<String> targetDirOnly) {
+		this.targetDirOnly = targetDirOnly;
 	}
 
 }
