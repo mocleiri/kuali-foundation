@@ -28,19 +28,25 @@ public class OverrideProcessor implements PropertyProcessor {
 	Properties overrideProperties;
 	List<String> includes;
 	List<String> excludes;
+	int indent;
 
 	public OverrideProcessor() {
 		this(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE);
 	}
 
 	public OverrideProcessor(Mode propertyOverwriteMode) {
-		this(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, null);
+		this(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, null, 0);
 	}
 
 	public OverrideProcessor(Mode propertyOverwriteMode, Properties overrideProperties) {
+		this(Constants.DEFAULT_PROPERTY_OVERWRITE_MODE, overrideProperties, 0);
+	}
+
+	public OverrideProcessor(Mode propertyOverwriteMode, Properties overrideProperties, int indent) {
 		super();
 		this.propertyOverwriteMode = propertyOverwriteMode;
 		this.overrideProperties = overrideProperties;
+		this.indent = indent;
 	}
 
 	@Override
@@ -48,7 +54,7 @@ public class OverrideProcessor implements PropertyProcessor {
 		List<String> keys = PropertyUtils.getSortedKeys(overrideProperties, includes, excludes);
 		for (String key : keys) {
 			String newValue = overrideProperties.getProperty(key);
-			PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode);
+			PropertyUtils.addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode, indent);
 		}
 	}
 

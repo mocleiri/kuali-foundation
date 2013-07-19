@@ -25,6 +25,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
@@ -37,13 +38,10 @@ import org.kuali.common.util.config.ProjectConfigContainer;
 import org.kuali.common.util.config.ProjectConfigContainerNullifier;
 import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.property.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public abstract class AbstractCachingConfigService implements ConfigService {
-
-	private static final Logger logger = LoggerFactory.getLogger(AbstractCachingConfigService.class);
 
 	private static final String METAINF = "META-INF";
 	private static final String CLASSPATH = "classpath:";
@@ -97,9 +95,8 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 			String resolvedLocation = HELPER.replacePlaceholders(location.getValue(), resolver);
 			// If the location exists, load it
 			if (LocationUtils.exists(resolvedLocation)) {
-				logger.debug("Loading [{}]", resolvedLocation);
 				Properties loaded = PropertyUtils.load(resolvedLocation, location.getEncoding());
-				properties.putAll(loaded);
+				new OverrideProcessor(Mode.INFORM, loaded, 2).process(properties);
 			} else {
 				// Take appropriate action for missing locations (ignore, inform, warn, or error out)
 				ModeUtils.validate(location.getMissingMode(), "Non-existent location [" + resolvedLocation + "]");
