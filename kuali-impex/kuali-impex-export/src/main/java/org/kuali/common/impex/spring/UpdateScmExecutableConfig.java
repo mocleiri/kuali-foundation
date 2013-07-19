@@ -16,7 +16,6 @@
 package org.kuali.common.impex.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.HelloWorldExecutable;
 import org.kuali.common.util.spring.ExecutableConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -29,12 +28,11 @@ import org.springframework.context.annotation.Import;
 public class UpdateScmExecutableConfig extends ExecutableConfig {
 
 	// @Autowired
-	// UpdateScmConfig updateScmConfig;
+	UpdateScmConfig updateScmConfig;
 
 	@Override
 	protected Executable getExecutable() {
-		// return updateScmConfig.updateScmExecutable();
-		return new HelloWorldExecutable();
+		return updateScmConfig.updateScmExecutable();
 	}
 
 }
