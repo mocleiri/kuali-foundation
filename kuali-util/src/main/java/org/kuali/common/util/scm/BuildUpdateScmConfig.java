@@ -17,7 +17,6 @@ package org.kuali.common.util.scm;
 
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.service.ScmService;
-import org.kuali.common.util.spring.BuildScmConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
