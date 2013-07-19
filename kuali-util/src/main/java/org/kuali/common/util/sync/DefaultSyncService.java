@@ -47,7 +47,7 @@ public class DefaultSyncService implements SyncService {
 	@Override
 	public List<SyncResult> sync(List<DirRequest> requests) {
 
-		// Scan the file system and record the differences between the directories being sync'd
+		// Scan the file system and record the differences between the directories
 		List<DirDiff> diffs = getDiffs(requests);
 
 		// Use the diff info to generate a list of files to copy
