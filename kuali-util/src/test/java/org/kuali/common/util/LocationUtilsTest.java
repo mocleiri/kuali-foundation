@@ -18,11 +18,27 @@ package org.kuali.common.util;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class LocationUtilsTest {
 
 	@Test
+	public void testMD5() throws IOException {
+		try {
+			String location1 = "classpath:car.properties";
+			String location2 = "classpath:chevy.properties";
+			String md51 = LocationUtils.getMD5Checksum(location1);
+			String md52 = LocationUtils.getMD5Checksum(location2);
+			System.out.println(md51);
+			System.out.println(md52);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
 	public void testGetURLString() throws IOException {
 		try {
 			File file = new File("./temp/../temp");
