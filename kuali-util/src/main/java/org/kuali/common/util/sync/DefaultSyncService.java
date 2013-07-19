@@ -47,6 +47,13 @@ public class DefaultSyncService implements SyncService {
 	@Override
 	public List<SyncResult> sync(List<DirRequest> requests) {
 
+		logger.info("Synchronizing {} directories", requests.size());
+		for (DirRequest request : requests) {
+			String src = FileSystemUtils.getRelativePathQuietly(request.getRelativeDir(), request.getSourceDir());
+			String dst = FileSystemUtils.getRelativePathQuietly(request.getRelativeDir(), request.getTargetDir());
+			logger.info("  [{}] -> [{}]", src, dst);
+		}
+
 		// Scan the file system and record the differences between the directories
 		List<DirDiff> diffs = getDiffs(requests);
 

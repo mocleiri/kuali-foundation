@@ -10,6 +10,7 @@ public class DirRequest {
 
 	File sourceDir;
 	File targetDir;
+	File relativeDir;
 
 	public List<String> getIncludes() {
 		return includes;
@@ -41,6 +42,14 @@ public class DirRequest {
 
 	public void setTargetDir(File targetDir) {
 		this.targetDir = targetDir;
+	}
+
+	public File getRelativeDir() {
+		return relativeDir;
+	}
+
+	public void setRelativeDir(File relativeDir) {
+		this.relativeDir = relativeDir;
 	}
 
 }
