@@ -6,7 +6,6 @@ import java.util.List;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.scm.BuildScmConfig;
-import org.kuali.common.util.scm.ScmConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +14,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ScmConfig.class, ProjectStagingConfig.class, BuildScmConfig.class })
+@Import({ ProjectStagingConfig.class, BuildScmConfig.class })
 public class UpdateScmConfig {
 
 	private static final String SKIP_KEY = "impex.scm.skip";
