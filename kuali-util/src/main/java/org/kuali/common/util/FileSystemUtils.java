@@ -204,7 +204,7 @@ public class FileSystemUtils {
 	public static MD5Result getMD5Result(File source, File target) {
 
 		String sourceChecksum = LocationUtils.getMD5Checksum(source);
-		String targetChecksum = LocationUtils.getMD5Checksum(source);
+		String targetChecksum = LocationUtils.getMD5Checksum(target);
 
 		MD5Result result = new MD5Result();
 		result.setSource(source);
