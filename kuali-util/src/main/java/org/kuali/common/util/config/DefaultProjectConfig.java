@@ -33,7 +33,7 @@ public class DefaultProjectConfig implements ProjectConfig {
 	}
 
 	public DefaultProjectConfig(String configId) {
-		this(ConfigUtils.getDefaultProjectConfig(configId));
+		this(ConfigUtils.getProjectConfig(configId));
 	}
 
 	public DefaultProjectConfig(String groupId, String artifactId) {

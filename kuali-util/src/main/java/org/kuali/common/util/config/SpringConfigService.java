@@ -41,9 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultConfigService implements ConfigService {
+public class SpringConfigService implements ConfigService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultConfigService.class);
+	private static final Logger logger = LoggerFactory.getLogger(SpringConfigService.class);
 
 	protected static final String METAINF = "META-INF";
 	protected static final String CLASSPATH = "classpath:";
@@ -110,10 +110,10 @@ public class DefaultConfigService implements ConfigService {
 		return properties;
 	}
 
-	protected List<Location> getLocations(List<ProjectConfig> configs) {
+	protected List<Location> getLocations(List<ProjectConfig> requests) {
 		List<Location> locations = new ArrayList<Location>();
-		for (ProjectConfig config : configs) {
-			List<Location> requestLocations = findLocations(config);
+		for (ProjectConfig request : requests) {
+			List<Location> requestLocations = findLocations(request);
 			locations.addAll(requestLocations);
 		}
 		return locations;

@@ -25,10 +25,10 @@ public class ConfigUtils {
 
 	protected static final String DELIMITER = ":";
 
-	public static List<DefaultProjectConfig> getDefaultProjectConfigs(List<String> configIds) {
-		List<DefaultProjectConfig> requests = new ArrayList<DefaultProjectConfig>();
+	public static List<ProjectConfig> getProjectConfigs(List<String> configIds) {
+		List<ProjectConfig> requests = new ArrayList<ProjectConfig>();
 		for (String configId : configIds) {
-			DefaultProjectConfig request = ConfigUtils.getDefaultProjectConfig(configId);
+			ProjectConfig request = ConfigUtils.getProjectConfig(configId);
 			requests.add(request);
 		}
 		return requests;
@@ -52,7 +52,7 @@ public class ConfigUtils {
 		return sb.toString();
 	}
 
-	public static DefaultProjectConfig getDefaultProjectConfig(String configId) {
+	public static ProjectConfig getProjectConfig(String configId) {
 
 		// Split the id up into tokens
 		String[] tokens = StringUtils.split(configId, DELIMITER);
@@ -67,11 +67,11 @@ public class ConfigUtils {
 		String contextId = getContextId(tokens);
 
 		// Store the variable inside an object
-		DefaultProjectConfig request = new DefaultProjectConfig();
-		request.setGroupId(groupId);
-		request.setArtifactId(artifactId);
-		request.setContextId(contextId);
-		return request;
+		DefaultProjectConfig config = new DefaultProjectConfig();
+		config.setGroupId(groupId);
+		config.setArtifactId(artifactId);
+		config.setContextId(contextId);
+		return config;
 	}
 
 	protected static String getContextId(String[] tokens) {
