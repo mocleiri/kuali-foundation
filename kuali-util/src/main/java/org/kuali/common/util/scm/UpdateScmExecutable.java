@@ -67,11 +67,11 @@ public class UpdateScmExecutable implements Executable {
 		logger.info("---------- Sync results ----------");
 
 		if (skipCommit) {
+			logger.info("Skipping SCM commit");
+		} else {
 			scmService.add(request.getAdds());
 			scmService.delete(request.getDeletes());
 			scmService.commit(request.getCommits(), message);
-		} else {
-			logger.info("Skipping SCM commit");
 		}
 	}
 
