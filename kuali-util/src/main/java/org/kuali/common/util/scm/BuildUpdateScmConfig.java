@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.spring;
+package org.kuali.common.util.scm;
 
 import java.util.List;
 
 import org.kuali.common.util.ScmRequest;
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.execute.PrepareScmDirExecutable;
-import org.kuali.common.util.scm.ScmConfig;
 import org.kuali.common.util.service.ScmService;
+import org.kuali.common.util.spring.BuildPrepareScmConfig;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
