@@ -138,30 +138,34 @@ public class FileSystemUtils {
 	}
 
 	/**
-	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 4
+	 * Compare 2 directories on the file system and return an object containing the results. All of the files contained in either of the 2 directories get placed into one of 5
 	 * categories.
 	 * 
 	 * <pre>
 	 * 1 - Both            - Files that exist in both directories
 	 * 2 - Different       - Files that exist in both directories but who's MD5 checksums do not match 
-	 * 3 - Source Dir Only - Files that exist only in directory 1
-	 * 4 - Target Dir Only - Files that exist only in directory 2
+	 * 3 - Identical       - Files that exist in both directories with matching MD5 checksums 
+	 * 4 - Source Dir Only - Files that exist only in directory 1
+	 * 5 - Target Dir Only - Files that exist only in directory 2
 	 * </pre>
 	 * 
 	 * The 4 lists in <code>MD5DirDiff</code> contain the relative paths to files for each category.
 	 */
 	public static DirDiff getMD5Diff(DirRequest request) {
-		// Do the quick diff
+
+		// Do a quick diff
 		DirDiff diff = getQuickDiff(request);
-		// Do the deep diff computes MD5 checksums for any files present in both directories
-		List<MD5Result> different = getDifferent(diff);
-		diff.setDifferent(different);
+
+		// Do a deep diff
+		// This computes MD5 checksums for any files present in both directories
+		fillInMD5Results(diff);
+
+		// return the diff result
 		return diff;
 	}
 
-	public static List<MD5Result> getDifferent(DirDiff diff) {
-		List<File> sources = getFullPaths(diff.getSourceDir(), diff.getBoth());
-		List<File> targets = getFullPaths(diff.getTargetDir(), diff.getBoth());
+	public static List<MD5Result> getMD5Results(List<File> sources, List<File> targets) {
+		Assert.isTrue(sources.size() == targets.size(), "list are not the same size");
 		List<MD5Result> results = new ArrayList<MD5Result>();
 		for (int i = 0; i < sources.size(); i++) {
 			File source = sources.get(i);
@@ -169,18 +173,32 @@ public class FileSystemUtils {
 			MD5Result md5Result = getMD5Result(source, target);
 			results.add(md5Result);
 		}
+		return results;
+	}
+
+	protected static void fillInMD5Results(DirDiff diff) {
+		List<File> sources = getFullPaths(diff.getSourceDir(), diff.getBoth());
+		List<File> targets = getFullPaths(diff.getTargetDir(), diff.getBoth());
+
+		List<MD5Result> results = getMD5Results(sources, targets);
 
 		List<MD5Result> different = new ArrayList<MD5Result>();
+		List<MD5Result> identical = new ArrayList<MD5Result>();
 		for (MD5Result md5Result : results) {
 			String sourceChecksum = md5Result.getSourceChecksum();
 			String targetChecksum = md5Result.getTargetChecksum();
 			Assert.notNull(sourceChecksum, "sourceChecksum is null");
 			Assert.notNull(targetChecksum, "targetChecksum is null");
-			if (!StringUtils.equals(sourceChecksum, targetChecksum)) {
+			if (StringUtils.equals(sourceChecksum, targetChecksum)) {
+				identical.add(md5Result);
+			} else {
 				different.add(md5Result);
 			}
 		}
-		return different;
+
+		//
+		diff.setDifferent(different);
+		diff.setIdentical(identical);
 	}
 
 	public static MD5Result getMD5Result(File source, File target) {
