@@ -13,7 +13,6 @@ import org.kuali.common.impex.util.DumpConstants;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFilesExecutable;
 import org.kuali.common.util.execute.Executable;
@@ -74,7 +73,6 @@ public class ProjectStagingConfig {
 	public Executable copyProjectDataFilesExecutable() {
 
 		File stagingDir = SpringUtils.getFile(env, DST_DIR_KEY);
-		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY, stagingDir);
 		File sourceDir = SpringUtils.getFile(env, SRC_DIR_KEY);
 		List<String> projectIds = SpringUtils.getListFromCSV(env, PROJECTS_KEY);
 
@@ -102,29 +100,6 @@ public class ProjectStagingConfig {
 
 		// Setup the list of files to copy
 		return FileSystemUtils.getCopyFileRequests(dumpDir, includes, excludes, dstDir);
-	}
-
-	protected CopyFilePatternsExecutable getCopyDataFilesExecutable(String projectId, File dumpDir, File stagingDir) {
-
-		// Get a Project model object from the projectId
-		Project project = ProjectUtils.loadProject(projectId);
-
-		// dstDir is always based on groupId + artifactId
-		File dstDir = ProjectUtils.getResourceDirectory(stagingDir, project);
-
-		// Setup the includes/excludes appropriate for this project
-		String includesKey = "impex.staging.data." + project.getArtifactId() + ".includes";
-		String excludesKey = "impex.staging.data." + project.getArtifactId() + ".excludes";
-		List<String> includes = SpringUtils.getListFromCSV(env, includesKey, DumpConstants.DEFAULT_FILE_INCLUDE);
-		List<String> excludes = SpringUtils.getListFromCSV(env, excludesKey, DumpConstants.DEFAULT_FILE_EXCLUDE);
-
-		// Configure our executable
-		CopyFilePatternsExecutable exec = new CopyFilePatternsExecutable();
-		exec.setIncludes(includes);
-		exec.setExcludes(excludes);
-		exec.setSrcDir(dumpDir);
-		exec.setDstDir(dstDir);
-		return exec;
 	}
 
 	protected DumpSchemaRequest getDumpSchemaRequest(Project project, File stagingDir, Schema schema, File existingSchemaFile) {
