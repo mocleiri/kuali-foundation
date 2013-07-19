@@ -6,25 +6,20 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="projectConfig" class="org.kuali.common.util.config.ProjectConfigContainer">
-    <property name="groupId" value="${project.groupId}" />
-    <property name="artifactId" value="${project.artifactId}" />
+  <bean id="projectConfig" class="org.kuali.common.util.config.ProjectConfigContainer" p:groupId="${project.groupId}" p:artifactId="${project.artifactId}">
     <property name="contexts">
       <list>
-        <bean class="org.kuali.common.util.config.ContextConfig">
-          <property name="id" value="scm" />
+        <bean class="org.kuali.common.util.config.ContextConfig" p:id="scm">
           <property name="locations">
             <bean class="org.kuali.common.util.config.Location">
               <property name="value" value="${classpath.prefix}/scm.properties" />
             </bean>
           </property>
         </bean>
-        <bean class="org.kuali.common.util.config.ContextConfig">
-          <property name="id" value="metainf" />
+        <bean class="org.kuali.common.util.config.ContextConfig" p:id="metainf">
           <property name="children">
             <list>
-              <bean class="org.kuali.common.util.config.ContextConfig">
-                <property name="id" value="sql" />
+              <bean class="org.kuali.common.util.config.ContextConfig" p:id="sql">
                 <property name="locations">
                   <list>
                     <bean class="org.kuali.common.util.config.Location">
@@ -36,8 +31,7 @@
                   </list>
                 </property>
                 <property name="children">
-                  <bean class="org.kuali.common.util.config.ContextConfig">
-                    <property name="id" value="build" />
+                  <bean class="org.kuali.common.util.config.ContextConfig" p:id="build">
                     <property name="locations">
                       <list>
                         <bean class="org.kuali.common.util.config.Location">
@@ -57,8 +51,7 @@
                   </bean>
                 </property>
               </bean>
-              <bean class="org.kuali.common.util.config.ContextConfig">
-                <property name="id" value="mpx" />
+              <bean class="org.kuali.common.util.config.ContextConfig" p:id="mpx">
                 <property name="locations">
                   <list>
                     <bean class="org.kuali.common.util.config.Location">
@@ -70,8 +63,7 @@
                   </list>
                 </property>
                 <property name="children">
-                  <bean class="org.kuali.common.util.config.ContextConfig">
-                    <property name="id" value="build" />
+                  <bean class="org.kuali.common.util.config.ContextConfig" p:id="build">
                     <property name="locations">
                       <list>
                         <bean class="org.kuali.common.util.config.Location">
