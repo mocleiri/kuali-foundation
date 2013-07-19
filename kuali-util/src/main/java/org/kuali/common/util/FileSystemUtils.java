@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
+import org.kuali.common.util.sync.DirDiff;
 import org.kuali.common.util.sync.DirRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,14 +148,14 @@ public class FileSystemUtils {
 	 * 
 	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
 	 */
-	public static org.kuali.common.util.sync.DirDiff getDiff(DirRequest request) {
+	public static DirDiff getDiff(DirRequest request) {
 		DirectoryDiffRequest ddr = new DirectoryDiffRequest();
 		ddr.setDir1(request.getSourceDir());
 		ddr.setDir2(request.getTargetDir());
 		ddr.setExcludes(request.getExcludes());
 		ddr.setIncludes(request.getIncludes());
 		DirectoryDiff oldDiff = getDiff(ddr);
-		org.kuali.common.util.sync.DirDiff newDiff = new org.kuali.common.util.sync.DirDiff();
+		DirDiff newDiff = new DirDiff();
 		newDiff.setBoth(oldDiff.getBoth());
 		newDiff.setTargetDir(oldDiff.getDir2());
 		newDiff.setSourceDir(oldDiff.getDir1());
@@ -405,10 +406,10 @@ public class FileSystemUtils {
 		return StringUtils.remove(filePath, dirPath);
 	}
 
-	public static List<CopyFileRequest> getCopyFileRequests(List<org.kuali.common.util.sync.DirDiff> diffs) {
+	public static List<CopyFileRequest> getCopyFileRequests(List<DirDiff> diffs) {
 
 		List<CopyFileRequest> requests = new ArrayList<CopyFileRequest>();
-		for (org.kuali.common.util.sync.DirDiff diff : diffs) {
+		for (DirDiff diff : diffs) {
 		}
 		return requests;
 	}
