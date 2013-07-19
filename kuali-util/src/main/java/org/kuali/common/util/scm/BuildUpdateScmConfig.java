@@ -15,12 +15,9 @@
  */
 package org.kuali.common.util.scm;
 
-import java.util.List;
-
 import org.kuali.common.util.execute.BuildScmExecutable;
-import org.kuali.common.util.execute.PrepareScmDirExecutable;
 import org.kuali.common.util.service.ScmService;
-import org.kuali.common.util.spring.BuildPrepareScmConfig;
+import org.kuali.common.util.spring.BuildScmConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +26,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ScmConfig.class, BuildPrepareScmConfig.class })
+@Import({ ScmConfig.class, BuildScmConfig.class })
 public class BuildUpdateScmConfig {
 
 	private static final String SKIP_KEY = "build.scm.update.skip";
@@ -47,7 +44,7 @@ public class BuildUpdateScmConfig {
 	Environment env;
 
 	@Autowired
-	BuildPrepareScmConfig buildPrepareScmConfig;
+	BuildScmConfig buildPrepareScmConfig;
 
 	@Autowired
 	ScmConfig scmConfig;
@@ -57,12 +54,10 @@ public class BuildUpdateScmConfig {
 
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, DEFAULT_SKIP_VALUE);
 		String commitMessage = SpringUtils.getProperty(env, MESSAGE_KEY);
-		List<PrepareScmDirExecutable> preparers = buildPrepareScmConfig.prepareScmDirExecutables();
 		ScmRequest request = getScmRequest();
 		ScmService service = scmConfig.scmService();
 
 		BuildScmExecutable exec = new BuildScmExecutable();
-		exec.setExecutables(preparers);
 		exec.setSkip(skip);
 		exec.setCommitMessage(commitMessage);
 		exec.setRequest(request);
