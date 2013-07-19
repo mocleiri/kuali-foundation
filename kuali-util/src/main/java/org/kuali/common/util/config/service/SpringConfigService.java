@@ -18,8 +18,14 @@ package org.kuali.common.util.config.service;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import org.kuali.common.util.KualiProjectConstants;
+import org.kuali.common.util.Project;
+import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.ProjectConfigContainer;
+import org.kuali.common.util.project.ImmutableProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -32,6 +38,7 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	private static final Map<String, ProjectConfigContainer> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfigContainer>();
 	private static final String FILE = "metadata-spring.xml";
+	private static final String PROPS = "spring.properties";
 	private static final String BEAN = "projectConfig";
 
 	@Override
@@ -54,6 +61,13 @@ public class SpringConfigService extends AbstractCachingConfigService {
 	@Override
 	protected String getFilename() {
 		return FILE;
+	}
+
+	@Override
+	protected Properties getBaseFilterProperties() {
+		ImmutableProject immutable = KualiProjectConstants.KUALI_UTIL;
+		Project project = ProjectUtils.loadProject(immutable.getGroupId(), immutable.getArtifactId());
+		return PropertyUtils.load(getMetadataConfigFilePath(project, PROPS));
 	}
 
 	@Override

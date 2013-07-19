@@ -117,14 +117,19 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		return properties;
 	}
 
+	protected Properties getBaseFilterProperties() {
+		return new Properties();
+	}
+
 	protected ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		String location = getMetadataConfigFilePath(project, getFilename());
 
 		// Throw an exception if they are asking for config metadata that doesn't exist
 		Assert.exists(location, "[" + location + "] does not exist");
-
-		Properties properties = getFilterProperties(project);
+		Properties properties = getBaseFilterProperties();
+		Properties projectProperties = getFilterProperties(project);
+		properties.putAll(projectProperties);
 		String content = getFilteredContent(location, properties, project.getEncoding());
 		return getProjectConfig(content, project.getEncoding());
 	}
