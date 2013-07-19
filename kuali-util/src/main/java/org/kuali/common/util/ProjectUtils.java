@@ -49,7 +49,7 @@ public class ProjectUtils {
 
 	private static final Map<String, Properties> PROJECT_PROPERTIES_CACHE = new HashMap<String, Properties>();
 
-	public static List<Project> getProjects(List<String> projectIds) {
+	public static List<Project> loadProjects(List<String> projectIds) {
 		List<Project> projects = new ArrayList<Project>();
 		for (String projectId : projectIds) {
 			Project project = ProjectUtils.loadProject(projectId);

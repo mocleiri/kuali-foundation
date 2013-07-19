@@ -57,7 +57,7 @@ public class BuildScmConfig {
 
 		// These are the projects we are updating
 		List<String> projectIds = SpringUtils.getNoneSensitiveListFromCSV(env, PROJECTS_KEY);
-		List<Project> projects = ProjectUtils.getProjects(projectIds);
+		List<Project> projects = ProjectUtils.loadProjects(projectIds);
 		List<File> commits = getCommits();
 
 		List<DirRequest> requests = getDirRequests(srcDir, projects, relativeDir);

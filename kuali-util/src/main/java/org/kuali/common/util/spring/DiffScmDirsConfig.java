@@ -52,7 +52,7 @@ public class DiffScmDirsConfig {
 
 		// These are the projects we are updating
 		List<String> gavs = SpringUtils.getNoneSensitiveListFromCSV(env, PROJECTS_KEY);
-		List<Project> projects = ProjectUtils.getProjects(gavs);
+		List<Project> projects = ProjectUtils.loadProjects(gavs);
 
 		// Return a list of executables that can prepare the project's SCM directories
 		return getPrepareScmDirExecutables(srcDir, projects, relativeDir);

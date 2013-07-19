@@ -64,7 +64,9 @@ public class DefaultSyncService implements SyncService {
 		List<CopyFileRequest> copyRequests = getCopyFileRequests(diffs);
 
 		// Show how many files we are copying
-		logger.info("Copying {} changed files", requests.size());
+		if (copyRequests.size() > 0) {
+			logger.info("Copying {} changed files", copyRequests.size());
+		}
 
 		// Copy the files and record the results
 		List<CopyFileResult> copyResults = FileSystemUtils.copyFiles(copyRequests);
