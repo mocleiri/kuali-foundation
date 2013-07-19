@@ -36,6 +36,8 @@ public class JAXBUtil {
 			write(instance, writer);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(writer);
 		}
 	}
 
