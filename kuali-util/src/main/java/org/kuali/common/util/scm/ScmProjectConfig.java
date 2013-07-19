@@ -37,6 +37,7 @@ public class ScmProjectConfig {
 
 	@Bean
 	public Executable projectScmConfigUpdateScmExecutable() {
+
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_VALUE);
 		boolean skipCommit = SpringUtils.getBoolean(env, COMMIT_SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_COMMIT_VALUE);
 		List<File> commitPaths = SpringUtils.getFilesFromCSV(env, COMMIT_PATHS_KEY, Constants.NONE);
