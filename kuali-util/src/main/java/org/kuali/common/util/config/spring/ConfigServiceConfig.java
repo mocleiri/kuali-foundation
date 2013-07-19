@@ -16,7 +16,7 @@
 package org.kuali.common.util.config.spring;
 
 import org.kuali.common.util.config.service.ConfigService;
-import org.kuali.common.util.config.service.SpringConfigService;
+import org.kuali.common.util.config.service.DefaultConfigService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +33,7 @@ public class ConfigServiceConfig {
 
 	@Bean
 	public ConfigService utilProjectConfigService() {
-		return SpringUtils.getInstance(env, SERVICE_KEY, SpringConfigService.class);
+		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigService.class);
 	}
 
 }
