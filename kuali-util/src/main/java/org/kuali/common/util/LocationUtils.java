@@ -32,6 +32,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,6 +61,21 @@ public class LocationUtils {
 	private static final String DOT_DOT_SLASH = "../";
 	private static final String SLASH_DOT_DOT = "/..";
 	private static final String CLASSPATH = "classpath:";
+	private static final String MD5 = "MD5";
+
+	/**
+	 * Get the MD5 checksum of the location
+	 */
+	public static String getMD5Checksum(String location) {
+		return getChecksum(location, MD5);
+	}
+
+	/**
+	 * Get the MD5 checksum of the file
+	 */
+	public static String getMD5Checksum(File file) {
+		return getChecksum(getCanonicalPath(file), MD5);
+	}
 
 	/**
 	 * Open a <code>PrintStream</code> to the indicated file. Parent directories are created if necessary.
@@ -686,6 +703,43 @@ public class LocationUtils {
 		result.getDeleted().removeAll(newLocations);
 
 		return result;
+	}
+
+	public static String getChecksum(String location, String algorithm) {
+		byte[] b = createChecksum(location, algorithm);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < b.length; i++) {
+			sb.append(Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1));
+		}
+		return sb.toString();
+	}
+
+	public static byte[] createChecksum(String location, String algorithm) {
+
+		InputStream in = null;
+		try {
+
+			// Open an input stream
+			in = LocationUtils.getInputStream(location);
+
+			byte[] buffer = new byte[1024];
+			MessageDigest complete = MessageDigest.getInstance(algorithm);
+			int numRead;
+			do {
+				numRead = in.read(buffer);
+				if (numRead > 0) {
+					complete.update(buffer, 0, numRead);
+				}
+			} while (numRead != -1);
+			IOUtils.closeQuietly(in);
+			return complete.digest();
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalStateException("Unexpected message digest error", e);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
 	}
 
 }
