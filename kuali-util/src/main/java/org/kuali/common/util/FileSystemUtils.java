@@ -145,11 +145,11 @@ public class FileSystemUtils {
 	 * 1 - Both            - Files that exist in both directories
 	 * 2 - Different       - Files that exist in both directories but who's MD5 checksums do not match 
 	 * 3 - Identical       - Files that exist in both directories with matching MD5 checksums 
-	 * 4 - Source Dir Only - Files that exist only in directory 1
-	 * 5 - Target Dir Only - Files that exist only in directory 2
+	 * 4 - Source Dir Only - Files that exist only in the source directory
+	 * 5 - Target Dir Only - Files that exist only in the target directory
 	 * </pre>
 	 * 
-	 * The 4 lists in <code>MD5DirDiff</code> contain the relative paths to files for each category.
+	 * The 5 lists in <code>DirDiff</code> contain the relative paths to files for each category.
 	 */
 	public static DirDiff getMD5Diff(DirRequest request) {
 
