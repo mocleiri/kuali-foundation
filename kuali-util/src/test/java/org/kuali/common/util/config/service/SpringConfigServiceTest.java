@@ -20,7 +20,6 @@ import java.util.Properties;
 import org.junit.Test;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.ConfigUtils;
 
 public class SpringConfigServiceTest {
@@ -36,7 +35,7 @@ public class SpringConfigServiceTest {
 			Project project = ProjectUtils.loadProject(groupId, artifactId);
 			ConfigService service = new SpringConfigService();
 			Properties properties = service.getProperties(configId, project.getProperties());
-			PropertyUtils.info(properties);
+			System.out.println("scm.service=" + properties.getProperty("scm.service"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
