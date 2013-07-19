@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.scm.ScmRequest;
 import org.kuali.common.util.service.ScmService;
 import org.kuali.common.util.service.ScmType;
 import org.kuali.common.util.service.SvnService;

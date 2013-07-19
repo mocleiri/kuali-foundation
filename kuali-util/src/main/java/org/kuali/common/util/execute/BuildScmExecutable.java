@@ -22,7 +22,7 @@ import java.util.List;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.DirectoryDiff;
 import org.kuali.common.util.FileSystemUtils;
-import org.kuali.common.util.ScmRequest;
+import org.kuali.common.util.scm.ScmRequest;
 import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

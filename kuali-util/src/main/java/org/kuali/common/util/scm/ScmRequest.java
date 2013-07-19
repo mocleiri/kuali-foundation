@@ -1,14 +1,56 @@
+/**
+ * Copyright 2010-2013 The Kuali Foundation
+ *
+ * Licensed under the Educational Community License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.opensource.org/licenses/ecl2.php
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.kuali.common.util.scm;
 
 import java.io.File;
 import java.util.List;
 
+import org.kuali.common.util.ScmUtils;
+
 public class ScmRequest {
 
 	List<File> adds;
 	List<File> deletes;
-	List<File> updates;
 	List<File> commits;
+	List<File> updates;
+	String commitMessage;
+
+	/**
+	 * This is a copy constructor. It must create a perfect, deep, copy of the <code>ScmRequest</code> passed in.
+	 */
+	public ScmRequest(ScmRequest request) {
+		super();
+		ScmRequest clone = ScmUtils.clone(request);
+		this.adds = clone.getAdds();
+		this.deletes = clone.getDeletes();
+		this.commits = clone.getCommits();
+		this.commitMessage = clone.getCommitMessage();
+	}
+
+	public ScmRequest() {
+		this(null, null, null, null);
+	}
+
+	public ScmRequest(List<File> adds, List<File> deletes, List<File> commits, String commitMessage) {
+		super();
+		this.adds = adds;
+		this.deletes = deletes;
+		this.commits = commits;
+		this.commitMessage = commitMessage;
+	}
 
 	public List<File> getAdds() {
 		return adds;
@@ -32,6 +74,14 @@ public class ScmRequest {
 
 	public void setCommits(List<File> commits) {
 		this.commits = commits;
+	}
+
+	public String getCommitMessage() {
+		return commitMessage;
+	}
+
+	public void setCommitMessage(String commitMessage) {
+		this.commitMessage = commitMessage;
 	}
 
 	public List<File> getUpdates() {

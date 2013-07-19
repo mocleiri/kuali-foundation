@@ -17,7 +17,6 @@ package org.kuali.common.util.scm;
 
 import java.util.List;
 
-import org.kuali.common.util.ScmRequest;
 import org.kuali.common.util.execute.BuildScmExecutable;
 import org.kuali.common.util.execute.PrepareScmDirExecutable;
 import org.kuali.common.util.service.ScmService;
