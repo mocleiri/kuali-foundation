@@ -19,11 +19,11 @@ import org.springframework.core.env.Environment;
 @Import(ScmConfig.class)
 public class ScmProjectConfig {
 
-	private static final String PROJECTS_KEY = "build.scm.projects";
-	private static final String RELATIVE_DIR_KEY = "build.scm.dir.relative";
-	private static final String SOURCE_DIR_KEY = "build.scm.dir.src";
-	private static final String INCLUDES_KEY = "build.scm.includes";
-	private static final String EXCLUDES_KEY = "build.scm.excludes";
+	private static final String PROJECTS_KEY = "scm.build.projects";
+	private static final String RELATIVE_DIR_KEY = "scm.build.dir.relative";
+	private static final String SOURCE_DIR_KEY = "scm.build.dir.src";
+	private static final String INCLUDES_KEY = "scm.build.includes";
+	private static final String EXCLUDES_KEY = "scm.build.excludes";
 
 	@Autowired
 	Environment env;
@@ -49,19 +49,24 @@ public class ScmProjectConfig {
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY);
 		List<DirRequest> requests = new ArrayList<DirRequest>();
 		for (Project project : projects) {
-			String key = "build.scm." + project.getArtifactId() + ".dir";
-			File projectResourceDir = SpringUtils.getFile(env, key);
-			File targetDir = ProjectUtils.getResourceDirectory(projectResourceDir, project);
-			File sourceDir = ProjectUtils.getResourceDirectory(stagingDir, project);
-			DirRequest request = new DirRequest();
-			request.setRelativeDir(relativeDir);
-			request.setTargetDir(targetDir);
-			request.setSourceDir(sourceDir);
-			request.setIncludes(includes);
-			request.setExcludes(excludes);
+			DirRequest request = getDirRequest(project, stagingDir, relativeDir, includes, excludes);
 			requests.add(request);
 		}
 		return requests;
+	}
+
+	protected DirRequest getDirRequest(Project project, File stagingDir, File relativeDir, List<String> includes, List<String> excludes) {
+		String key = "scm.build." + project.getArtifactId() + ".dir";
+		File projectResourceDir = SpringUtils.getFile(env, key);
+		File targetDir = ProjectUtils.getResourceDirectory(projectResourceDir, project);
+		File sourceDir = ProjectUtils.getResourceDirectory(stagingDir, project);
+		DirRequest request = new DirRequest();
+		request.setRelativeDir(relativeDir);
+		request.setTargetDir(targetDir);
+		request.setSourceDir(sourceDir);
+		request.setIncludes(includes);
+		request.setExcludes(excludes);
+		return request;
 	}
 
 }
