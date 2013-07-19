@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MD5DirDiff extends DirDiff {
 
-	List<String> different;
+	List<MD5Result> different;
 
 	public MD5DirDiff() {
 		this(null, null);
@@ -32,11 +32,11 @@ public class MD5DirDiff extends DirDiff {
 		this.targetDir = targetDir;
 	}
 
-	public List<String> getDifferent() {
+	public List<MD5Result> getDifferent() {
 		return different;
 	}
 
-	public void setDifferent(List<String> different) {
+	public void setDifferent(List<MD5Result> different) {
 		this.different = different;
 	}
 

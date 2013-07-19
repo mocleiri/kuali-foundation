@@ -31,6 +31,7 @@ import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
 import org.kuali.common.util.sync.DirDiff;
 import org.kuali.common.util.sync.DirRequest;
+import org.kuali.common.util.sync.MD5DirDiff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,9 +148,9 @@ public class FileSystemUtils {
 	 * 4 - Target Dir Only - Files that exist only in directory 2
 	 * </pre>
 	 * 
-	 * The 4 lists in <code>DirDiff</code> contain the relative paths to files for each category.
+	 * The 4 lists in <code>MD5DirDiff</code> contain the relative paths to files for each category.
 	 */
-	public static DirDiff getMD5Diff(DirRequest request) {
+	public static MD5DirDiff getMD5Diff(DirRequest request) {
 		return null;
 	}
 
