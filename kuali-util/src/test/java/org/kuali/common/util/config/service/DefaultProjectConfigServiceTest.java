@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.config;
+package org.kuali.common.util.config.service;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +25,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.config.ContextConfig;
+import org.kuali.common.util.config.Location;
+import org.kuali.common.util.config.ProjectConfigContainer;
 import org.kuali.common.util.config.service.ConfigService;
 import org.kuali.common.util.config.service.DefaultConfigService;
 
