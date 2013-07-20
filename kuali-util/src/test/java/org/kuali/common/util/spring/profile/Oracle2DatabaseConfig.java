@@ -17,10 +17,9 @@ package org.kuali.common.util.spring.profile;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile(value = DatabaseConstants.ORACLE)
+@Oracle
 public class Oracle2DatabaseConfig {
 
 	@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
