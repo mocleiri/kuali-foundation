@@ -7,10 +7,15 @@ public class DatabaseConfigTest {
 
 	@Test
 	public void test() {
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-		ctx.getEnvironment().setActiveProfiles(DatabaseConstants.ORACLE);
-		ctx.register(ShowDatabaseExecutableConfig.class);
-		ctx.refresh();
+		try {
+			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+			ctx.getEnvironment().setActiveProfiles(DatabaseConstants.ORACLE);
+			ctx.register(ShowDatabaseExecutableConfig.class);
+			ctx.refresh();
+			ctx.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
