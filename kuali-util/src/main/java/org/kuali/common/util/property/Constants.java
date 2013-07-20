@@ -15,8 +15,8 @@
  */
 package org.kuali.common.util.property;
 
-import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.processor.NoOpProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.springframework.util.PropertyPlaceholderHelper;

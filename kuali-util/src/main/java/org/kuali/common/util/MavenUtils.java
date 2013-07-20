@@ -15,50 +15,29 @@
  */
 package org.kuali.common.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.PropertiesContext;
-import org.kuali.common.util.property.processor.ProjectProcessor;
-import org.kuali.common.util.property.processor.PropertyProcessor;
-import org.kuali.common.util.property.processor.VersionProcessor;
 import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.spring.SpringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.PropertySource;
 
 /**
  * Maven utilities that don't depend on Maven libraries
  */
+@Deprecated
 public class MavenUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
-
-	public static final String POM = "pom";
-	public static final String PROJECT_VERSION_KEY = "project.version";
-	public static final String PROJECT_ENCODING_KEY = "project.encoding";
+	public static final String POM = org.kuali.common.util.maven.MavenUtils.POM;
+	public static final String PROJECT_VERSION_KEY = org.kuali.common.util.maven.MavenUtils.PROJECT_VERSION_KEY;
+	public static final String PROJECT_ENCODING_KEY = org.kuali.common.util.maven.MavenUtils.PROJECT_ENCODING_KEY;
 
 	public static SpringContext getMavenizedSpringContext(Class<?> propertySourceConfig) {
-		return getMavenizedSpringContext(null, propertySourceConfig);
+		return org.kuali.common.util.maven.MavenUtils.getMavenizedSpringContext(propertySourceConfig);
 	}
 
 	/**
 	 * Return a SpringContext that resolves placeholders using the single <code>PropertySource</code> registered with <code>propertySourceConfig</code>
 	 */
 	public static SpringContext getMavenizedSpringContext(Properties mavenProperties, Class<?> propertySourceConfig) {
-		// This PropertySource object is backed by a set of properties that has been
-		// 1 - fully resolved
-		// 2 - contains all properties needed by Spring
-		// 3 - contains system/environment properties where system/env properties override loaded properties
-		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
-
-		return SpringUtils.getSinglePropertySourceContext(source);
+		return org.kuali.common.util.maven.MavenUtils.getMavenizedSpringContext(mavenProperties, propertySourceConfig);
 	}
 
 	/**
@@ -66,70 +45,19 @@ public class MavenUtils {
 	 * build
 	 */
 	public static void augmentProjectProperties(Properties mavenProperties) {
-		// Setup some processors
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-
-		// Add some organization, group, and path properties
-		processors.add(new ProjectProcessor());
-
-		// Tokenize the version number and add properties for each token (major/minor/incremental)
-		// Also add a boolean property indicating if this is a SNAPSHOT build
-		processors.add(new VersionProcessor(Arrays.asList(PROJECT_VERSION_KEY), true));
-
-		// Process default Maven properties and add in our custom properties
-		PropertyUtils.process(mavenProperties, processors);
-
-		// Finish preparing the properties using the encoding from the project
-		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, PROJECT_ENCODING_KEY);
-		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
+		org.kuali.common.util.maven.MavenUtils.augmentProjectProperties(mavenProperties);
 	}
 
 	@Deprecated
 	public static org.kuali.common.util.property.ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
-		Project project = ProjectUtils.getProject(mavenProperties);
-
-		PropertiesContext pc = new PropertiesContext();
-		pc.setProperties(mavenProperties);
-
-		org.kuali.common.util.property.ProjectProperties pp = new org.kuali.common.util.property.ProjectProperties();
-		pp.setProject(project);
-		pp.setPropertiesContext(pc);
-		return pp;
-	}
-
-	protected static List<String> getList(Properties properties, String key) {
-		String csv = properties.getProperty(key);
-		List<String> list = new ArrayList<String>();
-		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv));
-		return list;
-	}
-
-	protected static List<String> getList(Environment env, Properties properties, String key) {
-		String csv = env.getProperty(key);
-		List<String> list = new ArrayList<String>();
-		list.addAll(CollectionUtils.getTrimmedListFromCSV(csv));
-		list.addAll(getList(properties, key));
-		return list;
+		return org.kuali.common.util.maven.MavenUtils.getMavenProjectProperties(mavenProperties);
 	}
 
 	/**
 	 * Always return false if <code>forceMojoExecution</code> is true, otherwise return true only if <code>skip</code> is true or <code>packaging</code> is pom.
 	 */
 	public static final boolean skip(boolean forceMojoExecution, boolean skip, String packaging) {
-		if (forceMojoExecution) {
-			logger.info("Forced mojo execution");
-			return false;
-		}
-		if (skip) {
-			logger.info("Skipping mojo execution");
-			return true;
-		}
-		if (StringUtils.equalsIgnoreCase(packaging, POM)) {
-			logger.info("Skipping mojo execution for project with packaging type '{}'", POM);
-			return true;
-		} else {
-			return false;
-		}
+		return org.kuali.common.util.maven.MavenUtils.skip(forceMojoExecution, skip, packaging);
 	}
 
 }

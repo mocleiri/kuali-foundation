@@ -17,7 +17,7 @@ package org.kuali.common.util.config.spring;
 
 import java.util.Properties;
 
-import org.kuali.common.util.MavenUtils;
+import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
