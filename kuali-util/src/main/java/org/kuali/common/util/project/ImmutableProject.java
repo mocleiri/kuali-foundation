@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.project;
 
-import org.springframework.util.Assert;
+import org.kuali.common.util.Assert;
 
 public final class ImmutableProject {
 
