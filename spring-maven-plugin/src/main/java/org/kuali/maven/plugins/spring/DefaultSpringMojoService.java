@@ -163,9 +163,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	protected List<PropertySource<?>> getPropertySources(PropertySourcesContext ctx) {
 		if (ctx.getLocation() != null) {
-			return SpringUtils.getPropertySources(null, ctx.getLocation(), ctx.getPropertiesBeanName(), ctx.getProperties());
+			return SpringUtils.getPropertySources(ctx.getLocation(), ctx.getPropertiesBeanName(), ctx.getProperties());
 		} else if (ctx.getAnnotatedClass() != null) {
-			return SpringUtils.getPropertySources(null, ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties());
+			return SpringUtils.getPropertySources(ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties());
 		} else {
 			throw new IllegalArgumentException("Must supply either location or an annotated class");
 		}
