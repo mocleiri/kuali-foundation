@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 public class DefaultDatabaseConfig {
 
 	@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
-	public String vendor() {
+	public String databaseConfigVendor() {
 		return DatabaseConstants.MYSQL;
 	}
 

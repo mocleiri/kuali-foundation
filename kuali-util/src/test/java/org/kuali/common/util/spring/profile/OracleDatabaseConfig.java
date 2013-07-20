@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Profile;
 public class OracleDatabaseConfig {
 
 	@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
-	public String vendor() {
+	public String databaseConfigVendor() {
 		return DatabaseConstants.ORACLE;
 	}
 
