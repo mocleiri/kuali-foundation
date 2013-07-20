@@ -17,27 +17,20 @@ package org.kuali.common.util.config.spring;
 
 import java.util.Properties;
 
-import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.project.ImmutableProject;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public abstract class RuntimePropertySourceConfig extends ProjectPropertySourceConfig {
 
-	protected abstract String getGroupId();
-
-	protected abstract String getArtifactId();
-
-	protected String getProjectId() {
-		return getGroupId() + ":" + getArtifactId();
-	}
+	protected abstract ImmutableProject getProject();
 
 	@Override
 	protected Properties getProjectProperties() {
-		String groupId = getGroupId();
-		String artifactId = getArtifactId();
-		Project project = ProjectUtils.loadProject(groupId, artifactId);
-		return project.getProperties();
+		ImmutableProject project = getProject();
+
+		return ProjectUtils.loadProject(project).getProperties();
 	}
 
 }
