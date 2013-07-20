@@ -104,7 +104,7 @@ public class DefaultSpringService implements SpringService {
 		context.setBeans(CollectionUtils.toEmptyList(context.getBeans()));
 		context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
 		context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
-		context.setProfiles(CollectionUtils.toEmptyList(context.getProfiles()));
+		context.setActiveProfiles(CollectionUtils.toEmptyList(context.getActiveProfiles()));
 
 		// Make sure we have at least one location or annotated class
 		boolean empty = CollectionUtils.isEmpty(context.getLocations()) && CollectionUtils.isEmpty(context.getAnnotatedClasses());
@@ -137,7 +137,7 @@ public class DefaultSpringService implements SpringService {
 				// Add custom property sources (if any)
 				addPropertySources(context, annotationChild);
 				// Add active profiles (if any)
-				addProfiles(annotationChild, context.getProfiles());
+				addProfiles(annotationChild, context.getActiveProfiles());
 
 			}
 
@@ -150,7 +150,7 @@ public class DefaultSpringService implements SpringService {
 				// Add custom property sources (if any)
 				addPropertySources(context, xmlChild);
 				// Add active profiles (if any)
-				addProfiles(xmlChild, context.getProfiles());
+				addProfiles(xmlChild, context.getActiveProfiles());
 			}
 
 			// Invoke refresh to load the context

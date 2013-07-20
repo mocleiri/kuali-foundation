@@ -26,7 +26,7 @@ public class SpringContext {
 	List<String> beanNames;
 	List<Object> beans;
 	PropertySourceContext propertySourceContext;
-	List<String> profiles;
+	List<String> activeProfiles;
 
 	public List<String> getLocations() {
 		return locations;
@@ -84,12 +84,12 @@ public class SpringContext {
 		this.displayName = displayName;
 	}
 
-	public List<String> getProfiles() {
-		return profiles;
+	public List<String> getActiveProfiles() {
+		return activeProfiles;
 	}
 
-	public void setProfiles(List<String> profiles) {
-		this.profiles = profiles;
+	public void setActiveProfiles(List<String> activeProfiles) {
+		this.activeProfiles = activeProfiles;
 	}
 
 }
