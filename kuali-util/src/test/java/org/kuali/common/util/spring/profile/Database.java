@@ -1,6 +1,6 @@
 package org.kuali.common.util.spring.profile;
 
-public interface DatabaseConfigSupplier {
+public interface Database {
 
 	String getVendor();
 
