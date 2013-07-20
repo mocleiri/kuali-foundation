@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.model.Profile;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.maven.spring.MavenAwareUtils;
@@ -190,13 +191,31 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> beanNames = CollectionUtils.getList(includes, allBeanNames);
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
+		// Accumulate any active Maven profiles into a list (this always has one profile called "maven" as the first element in the list)
+		List<String> activeProfiles = getActiveProfiles(mojo.getProject());
+
 		// Assemble a SpringContext from the information we have
 		SpringContext context = new SpringContext();
 		context.setDisplayName("Spring Maven Plugin : Load : " + SEQUENCE.increment());
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
+		context.setProfiles(activeProfiles);
 		return context;
+	}
+
+	/**
+	 * Return a list that always has at least one entry called "maven" as the first element. The id's of any other active maven profiles are also included.
+	 */
+	protected List<String> getActiveProfiles(MavenProject project) {
+		List<Profile> mavenProfiles = project.getActiveProfiles();
+		List<String> profiles = new ArrayList<String>();
+		profiles.add(org.kuali.common.util.maven.MavenConstants.MAVEN_SPRING_PROFILE_NAME);
+		for (Profile profile : CollectionUtils.toEmptyList(mavenProfiles)) {
+			String profileId = profile.getId();
+			profiles.add(profileId);
+		}
+		return profiles;
 	}
 
 	protected List<String> getAnnotatedClassNames(LoadMojo mojo) {
@@ -258,11 +277,15 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> beanNames = CollectionUtils.getList(includes, allBeanNames);
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
+		// Accumulate any active Maven profiles into a list (this always has one profile called "maven" as the first element in the list)
+		List<String> activeProfiles = getActiveProfiles(mojo.getProject());
+
 		SpringContext context = new SpringContext();
 		context.setDisplayName("Spring Maven Plugin : LoadXML : " + SEQUENCE.increment());
 		context.setLocations(contextLocations);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
+		context.setProfiles(activeProfiles);
 		return context;
 	}
 
