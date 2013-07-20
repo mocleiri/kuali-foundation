@@ -68,7 +68,7 @@ public class BasicPropertySourceConfig {
 	 * Combine loaded properties, project properties, and system/environment properties into a <code>PropertySource<?></code>
 	 */
 	protected PropertySource<?> getPropertySource() {
-		ConfigService service = utilConfigServiceConfig.utilProjectConfigService();
+		ConfigService service = utilConfigServiceConfig.kualiUtilProjectConfigService();
 		List<String> configIds = getConfigIds();
 		Properties properties = service.getProperties(configIds, getOverrides());
 		return SpringUtils.getGlobalPropertySource(properties);
