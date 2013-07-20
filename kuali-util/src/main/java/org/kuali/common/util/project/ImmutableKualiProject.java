@@ -19,35 +19,22 @@ import java.util.Properties;
 
 import org.kuali.common.util.property.ImmutableProperties;
 
-public final class ImmutableKualiProject implements KualiProject {
+public class ImmutableKualiProject extends ImmutableProject implements KualiProject {
 
-	final ImmutableProject project;
 	final Properties properties;
 
-	public ImmutableKualiProject(Project project, Properties properties) {
-		super();
-		this.project = new ImmutableProject(project.getGroupId(), project.getArtifactId());
-		this.properties = new ImmutableProperties(properties);
-	}
-
-	@Override
-	public String toString() {
-		return project.toString();
+	public ImmutableKualiProject(String groupId, String artifactId, Properties properties) {
+		super(groupId, artifactId);
+		if (properties instanceof ImmutableProperties) {
+			this.properties = properties;
+		} else {
+			this.properties = new ImmutableProperties(properties);
+		}
 	}
 
 	@Override
 	public Properties getProperties() {
 		return this.properties;
-	}
-
-	@Override
-	public String getGroupId() {
-		return project.getGroupId();
-	}
-
-	@Override
-	public String getArtifactId() {
-		return project.getArtifactId();
 	}
 
 }

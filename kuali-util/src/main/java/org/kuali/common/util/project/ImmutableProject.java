@@ -17,7 +17,7 @@ package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
 
-public final class ImmutableProject implements Project {
+public class ImmutableProject implements Project {
 
 	final String groupId;
 	final String artifactId;
@@ -35,10 +35,12 @@ public final class ImmutableProject implements Project {
 		return groupId + ":" + artifactId;
 	}
 
+	@Override
 	public String getGroupId() {
 		return groupId;
 	}
 
+	@Override
 	public String getArtifactId() {
 		return artifactId;
 	}
