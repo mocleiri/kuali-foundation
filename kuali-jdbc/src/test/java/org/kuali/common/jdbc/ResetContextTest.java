@@ -21,6 +21,7 @@ import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class ResetContextTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResetContextTest.class);
@@ -30,7 +31,7 @@ public class ResetContextTest {
 		try {
 			logger.debug("");
 			SpringService ss = new DefaultSpringService();
-			//ss.load("classpath:org/kuali/common/jdbc/reset-properties.xml");
+			// ss.load("classpath:org/kuali/common/jdbc/reset-properties.xml");
 			ss.load("classpath:org/kuali/common/jdbc/jdbc-client-context.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
