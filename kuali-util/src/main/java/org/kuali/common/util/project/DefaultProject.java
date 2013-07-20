@@ -19,14 +19,18 @@ import java.util.Properties;
 
 import org.kuali.common.util.property.ImmutableProperties;
 
-public final class ImmutableProject implements Project {
+public final class DefaultProject implements Project {
 
-	final String groupId;
-	final String artifactId;
-	final String version;
-	final Properties properties;
+	String groupId;
+	String artifactId;
+	String version;
+	Properties properties;
 
-	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
+	public DefaultProject() {
+		this(null, null, null, null);
+	}
+
+	public DefaultProject(String groupId, String artifactId, String version, Properties properties) {
 		super();
 		this.groupId = groupId;
 		this.artifactId = artifactId;
@@ -57,6 +61,22 @@ public final class ImmutableProject implements Project {
 	@Override
 	public Properties getProperties() {
 		return properties;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 }
