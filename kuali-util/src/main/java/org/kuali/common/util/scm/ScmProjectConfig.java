@@ -87,6 +87,7 @@ public class ScmProjectConfig {
 
 	protected DirRequest getDirRequest(Project project, File stagingDir, File relativeDir, List<String> includes, List<String> excludes) {
 		String key = "scm.build." + project.getArtifactId() + ".dir";
+		// This is ${project.basedir}/src/main/resources
 		File projectResourceDir = SpringUtils.getFile(env, key);
 		File targetDir = ProjectUtils.getResourceDirectory(projectResourceDir, project);
 		File sourceDir = ProjectUtils.getResourceDirectory(stagingDir, project);
