@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ DefaultDatabaseConfig.class, Oracle2DatabaseConfig.class, Oracle1DatabaseConfig.class })
+@Import({ DefaultDatabaseConfig.class, Oracle1DatabaseConfig.class, Oracle2DatabaseConfig.class })
 public class DatabaseConfig {
 
 	@Autowired
