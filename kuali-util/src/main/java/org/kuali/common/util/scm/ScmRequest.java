@@ -18,8 +18,6 @@ package org.kuali.common.util.scm;
 import java.io.File;
 import java.util.List;
 
-import org.kuali.common.util.ScmUtils;
-
 public class ScmRequest {
 
 	List<File> adds;
@@ -27,18 +25,6 @@ public class ScmRequest {
 	List<File> commits;
 	List<File> updates;
 	String commitMessage;
-
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of the <code>ScmRequest</code> passed in.
-	 */
-	public ScmRequest(ScmRequest request) {
-		super();
-		ScmRequest clone = ScmUtils.clone(request);
-		this.adds = clone.getAdds();
-		this.deletes = clone.getDeletes();
-		this.commits = clone.getCommits();
-		this.commitMessage = clone.getCommitMessage();
-	}
 
 	public ScmRequest() {
 		this(null, null, null, null);
