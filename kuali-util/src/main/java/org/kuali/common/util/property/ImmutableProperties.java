@@ -3,9 +3,12 @@ package org.kuali.common.util.property;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.kuali.common.util.Assert;
 
@@ -19,7 +22,7 @@ public final class ImmutableProperties extends Properties {
 		// original can't be null
 		Assert.notNull(original, "original is null");
 
-		// Make sure they don't change original on us while we are setting things up
+		// Original can't change while we are setting things up
 		synchronized (original) {
 
 			// Make sure original contains only string values
@@ -64,6 +67,21 @@ public final class ImmutableProperties extends Properties {
 	@Override
 	public void clear() {
 		throw new UnsupportedOperationException(UOE_MSG);
+	}
+
+	@Override
+	public Set<Object> keySet() {
+		return Collections.unmodifiableSet(super.keySet());
+	}
+
+	@Override
+	public Set<java.util.Map.Entry<Object, Object>> entrySet() {
+		return Collections.unmodifiableSet(super.entrySet());
+	}
+
+	@Override
+	public Collection<Object> values() {
+		return Collections.unmodifiableCollection(super.values());
 	}
 
 }
