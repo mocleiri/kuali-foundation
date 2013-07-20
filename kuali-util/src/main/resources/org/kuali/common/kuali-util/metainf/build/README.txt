@@ -14,15 +14,8 @@
     limitations under the License.
 ====
 
-Any properties that can only be _resolved_ at build time *must* go in this directory.
+Any properties that can only be RESOLVED at build time *MUST* go in this directory.
 
 These are typically project properties that have the word "build" in them, eg "project.build.directory".
 
-Any properties that are only _used_ at build time *should* also go here.
-
-A project property like "project.version" is ok to use in a properties file outside this directory.
-
-"project.version" is included in the project.properties file bundled into every Kuali jar.
-
-It is thus available in a transparent way to both runtime and build time processes.
-
+Any properties that are only USED at build time *SHOULD* also go here.
