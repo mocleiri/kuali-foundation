@@ -18,7 +18,6 @@ package org.kuali.common.util;
 import java.util.List;
 import java.util.Properties;
 
-@Deprecated
 public class Project {
 
 	// org.kuali
