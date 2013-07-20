@@ -29,8 +29,9 @@ public abstract class RuntimePropertySourceConfig extends ProjectPropertySourceC
 	@Override
 	protected Properties getProjectProperties() {
 		ImmutableProject project = getProject();
-
-		return ProjectUtils.loadProject(project).getProperties();
+		String groupId = project.getGroupId();
+		String artifactId = project.getArtifactId();
+		return ProjectUtils.loadProject(groupId, artifactId).getProperties();
 	}
 
 }

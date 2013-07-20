@@ -25,7 +25,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.project.ImmutableProject;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertiesContext;
 import org.slf4j.Logger;
@@ -185,13 +184,6 @@ public class ProjectUtils {
 
 		// Return a project properties object
 		return new org.kuali.common.util.property.ProjectProperties(project, propertiesContext);
-	}
-
-	/**
-	 * Create a <code>Project</code> object from the <code>immutableProject</code>. This includes loading the corresponding <code>project.properties</code> file from disk.
-	 */
-	public static Project loadProject(ImmutableProject immutableProject) {
-		return loadProject(immutableProject.getGroupId(), immutableProject.getArtifactId());
 	}
 
 	/**
