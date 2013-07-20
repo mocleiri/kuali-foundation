@@ -48,7 +48,6 @@ public class MavenUtils {
 		org.kuali.common.util.maven.MavenUtils.augmentProjectProperties(mavenProperties);
 	}
 
-	@Deprecated
 	public static org.kuali.common.util.property.ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
 		return org.kuali.common.util.maven.MavenUtils.getMavenProjectProperties(mavenProperties);
 	}
