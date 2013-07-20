@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@Deprecated
 public class ParserProjectConfig {
 
 	public static final String GROUP_ID = MavenConstants.KUALI_COMMON_GROUP_ID;
