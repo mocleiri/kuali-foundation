@@ -19,5 +19,6 @@ public abstract class MavenConstants {
 
 	public static final String MAVEN_PROJECT_BEAN_NAME = "mavenProject";
 	public static final String MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
+	public static final String MAVEN_SPRING_PROFILE_NAME = "maven";
 
 }
