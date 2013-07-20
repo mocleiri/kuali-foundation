@@ -19,8 +19,8 @@ import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.maven.MavenUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;

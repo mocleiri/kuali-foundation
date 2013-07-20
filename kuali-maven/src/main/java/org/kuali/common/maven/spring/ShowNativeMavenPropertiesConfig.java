@@ -18,9 +18,9 @@ package org.kuali.common.maven.spring;
 import java.util.List;
 
 import org.apache.maven.project.MavenProject;
-import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ShowPropertiesExecutable;
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
