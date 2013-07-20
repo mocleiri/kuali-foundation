@@ -146,7 +146,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		psc.setLocation(mojo.getPropertySourcesLocation());
 		psc.setProperties(context.getMavenProperties());
 		psc.setService(context.getService());
-		psc.setPropertiesBeanName(mojo.getMavenPropertiesBeanName());
+		psc.setPropertiesBeanName(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
 		return psc;
 	}
 
@@ -157,7 +157,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		psc.setAnnotatedClass(annotatedClass);
 		psc.setProperties(context.getMavenProperties());
 		psc.setService(context.getService());
-		psc.setPropertiesBeanName(mojo.getMavenPropertiesBeanName());
+		psc.setPropertiesBeanName(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
 		return psc;
 	}
 
@@ -179,9 +179,15 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Convert the strings into actual classes
 		List<Class<?>> annotatedClasses = getAnnotatedClasses(annotatedClassNames);
 
+		// These are the bean names for the Maven specific model objects
+		List<String> allBeanNames = new ArrayList<String>();
+		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
+		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME);
+		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
+
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
-		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
+		List<String> beanNames = CollectionUtils.getList(includes, allBeanNames);
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		// Assemble a SpringContext from the information we have
@@ -241,9 +247,15 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(location, mojo.getLocations());
 
+		// These are the bean names for the Maven specific model objects
+		List<String> allBeanNames = new ArrayList<String>();
+		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
+		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME);
+		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
+
 		// Assemble any beans we may be injecting
 		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
-		List<String> beanNames = CollectionUtils.getList(includes, Arrays.asList(mojo.getMavenPropertiesBeanName(), mojo.getMavenProjectBeanName(), mojo.getMavenMojoBeanName()));
+		List<String> beanNames = CollectionUtils.getList(includes, allBeanNames);
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
 		SpringContext context = new SpringContext();
@@ -264,10 +276,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			logger.debug("Displaying " + props.size() + " properties\n\n" + PropertyUtils.toString(props));
 		}
 		if (mojo.isInjectMavenProject()) {
-			logger.debug("Injecting [{}] -> [{}]", mojo.getMavenProjectBeanName(), mojo.getProject().getClass().getName());
+			logger.debug("Injecting [{}] -> [{}]", MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME, mojo.getProject().getClass().getName());
 		}
 		if (mojo.isInjectMavenMojo()) {
-			logger.debug("Injecting [{}] -> [{}]", mojo.getMavenMojoBeanName(), mojo.getClass().getName());
+			logger.debug("Injecting [{}] -> [{}]", MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo.getClass().getName());
 		}
 	}
 

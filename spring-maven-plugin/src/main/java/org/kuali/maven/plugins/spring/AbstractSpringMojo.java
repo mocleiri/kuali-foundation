@@ -61,24 +61,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	boolean injectMavenMojo = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_MOJO);
 
 	/**
-	 * The name under which the Maven properties object is injected
-	 */
-	@Parameter(property = "spring.mavenPropertiesBeanName", defaultValue = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
-	String mavenPropertiesBeanName = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
-
-	/**
-	 * The name under which the Maven project object is injected
-	 */
-	@Parameter(property = "spring.mavenProjectBeanName", defaultValue = MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME)
-	String mavenProjectBeanName = MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME;
-
-	/**
-	 * The name under which this mojo is injected
-	 */
-	@Parameter(property = "spring.mavenMojoBeanName", defaultValue = MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME)
-	String mavenMojoBeanName = MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME;
-
-	/**
 	 * The implementation of SpringService to use. If not supplied this defaults to <code>org.kuali.common.util.service.DefaultSpringService</code>
 	 */
 	@Parameter(property = "spring.springService")
@@ -189,30 +171,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public void setInjectMavenMojo(boolean injectMavenMojo) {
 		this.injectMavenMojo = injectMavenMojo;
-	}
-
-	public String getMavenPropertiesBeanName() {
-		return mavenPropertiesBeanName;
-	}
-
-	public void setMavenPropertiesBeanName(String mavenPropertiesBeanName) {
-		this.mavenPropertiesBeanName = mavenPropertiesBeanName;
-	}
-
-	public String getMavenProjectBeanName() {
-		return mavenProjectBeanName;
-	}
-
-	public void setMavenProjectBeanName(String mavenProjectBeanName) {
-		this.mavenProjectBeanName = mavenProjectBeanName;
-	}
-
-	public String getMavenMojoBeanName() {
-		return mavenMojoBeanName;
-	}
-
-	public void setMavenMojoBeanName(String mavenMojoBeanName) {
-		this.mavenMojoBeanName = mavenMojoBeanName;
 	}
 
 	public Properties getProperties() {
