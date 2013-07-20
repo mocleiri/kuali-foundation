@@ -30,8 +30,9 @@ import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
-import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.service.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -62,7 +63,7 @@ public class MavenUtils {
 		// 3 - contains system/environment properties where system/env properties override loaded properties
 		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
 
-		return SpringUtils.getSinglePropertySourceContext(source);
+		return PropertySourceUtils.getSinglePropertySourceContext(source);
 	}
 
 	/**

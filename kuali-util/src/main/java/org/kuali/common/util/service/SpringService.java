@@ -17,6 +17,7 @@ package org.kuali.common.util.service;
 
 import org.springframework.core.env.PropertySource;
 
+@Deprecated
 public interface SpringService {
 
 	void load(Class<?> annotatedClass);
@@ -32,6 +33,5 @@ public interface SpringService {
 	void load(String location, String beanName, Object bean, PropertySource<?> propertySource);
 
 	void load(SpringContext context);
-
 
 }

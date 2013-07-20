@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 
+@Deprecated
 public class PropertiesLoaderFactoryBeanTest {
 
 	@Test

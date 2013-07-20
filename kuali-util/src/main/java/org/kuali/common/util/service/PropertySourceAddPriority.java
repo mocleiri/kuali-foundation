@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.service;
 
+@Deprecated
 public enum PropertySourceAddPriority {
 
 	FIRST, LAST;

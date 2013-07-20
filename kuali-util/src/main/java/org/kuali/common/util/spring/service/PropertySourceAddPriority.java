@@ -13,24 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.spring.test;
+package org.kuali.common.util.spring.service;
 
-import org.junit.Test;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.config.PropertySourcesPlaceholderConfig;
+public enum PropertySourceAddPriority {
 
-@Deprecated
-public class PropertySourcesPlaceholderConfigTest {
-
-	@Test
-	public void test() {
-		try {
-			SpringService ss = new DefaultSpringService();
-			ss.load(PropertySourcesPlaceholderConfig.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	FIRST, LAST;
 
 }

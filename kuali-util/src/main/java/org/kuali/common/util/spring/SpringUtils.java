@@ -39,14 +39,9 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.SpringExecutable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertiesContext;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.PropertySourceContext;
-import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -70,7 +65,8 @@ public class SpringUtils {
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
 	@Deprecated
-	public static SpringContext getSpringContext(List<Class<?>> annotatedClasses, org.kuali.common.util.ProjectContext project, List<org.kuali.common.util.ProjectContext> others) {
+	public static org.kuali.common.util.service.SpringContext getSpringContext(List<Class<?>> annotatedClasses, org.kuali.common.util.ProjectContext project,
+			List<org.kuali.common.util.ProjectContext> others) {
 		// This PropertySource object is backed by a set of properties that has been
 		// 1 - fully resolved
 		// 2 - contains all properties needed by Spring
@@ -79,10 +75,10 @@ public class SpringUtils {
 
 		// Setup a property source context such that our single property source is the only one registered with Spring
 		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
-		PropertySourceContext psc = new PropertySourceContext(source, true);
+		org.kuali.common.util.service.PropertySourceContext psc = new org.kuali.common.util.service.PropertySourceContext(source, true);
 
 		// Setup a Spring context
-		SpringContext context = new SpringContext();
+		org.kuali.common.util.service.SpringContext context = new org.kuali.common.util.service.SpringContext();
 
 		// Supply Spring with our PropertySource
 		context.setPropertySourceContext(psc);
@@ -95,7 +91,8 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static SpringContext getSpringContext(Class<?> annotatedClass, org.kuali.common.util.ProjectContext project, List<org.kuali.common.util.ProjectContext> others) {
+	public static org.kuali.common.util.service.SpringContext getSpringContext(Class<?> annotatedClass, org.kuali.common.util.ProjectContext project,
+			List<org.kuali.common.util.ProjectContext> others) {
 		return getSpringContext(CollectionUtils.asList(annotatedClass), project, others);
 	}
 
@@ -268,7 +265,8 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static List<PropertySource<?>> getPropertySources(SpringService service, Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
+	public static List<PropertySource<?>> getPropertySources(org.kuali.common.util.service.SpringService service, Class<?> annotatedClass, String propertiesBeanName,
+			Properties properties) {
 		return getPropertySources(annotatedClass, propertiesBeanName, properties);
 	}
 
@@ -308,7 +306,8 @@ public class SpringUtils {
 	}
 
 	@Deprecated
-	public static List<PropertySource<?>> getPropertySources(SpringService service, String location, String mavenPropertiesBeanName, Properties mavenProperties) {
+	public static List<PropertySource<?>> getPropertySources(org.kuali.common.util.service.SpringService service, String location, String mavenPropertiesBeanName,
+			Properties mavenProperties) {
 		return getPropertySources(location, mavenPropertiesBeanName, mavenProperties);
 	}
 
@@ -319,21 +318,22 @@ public class SpringUtils {
 		return SpringUtils.getPropertySources(child);
 	}
 
+	@Deprecated
 	public static Executable getSpringExecutable(Environment env, boolean skip, PropertySource<?> ps, List<Class<?>> annotatedClasses) {
 		/**
 		 * This line creates a property source containing 100% of the properties needed by Spring to resolve any/all placeholders. It will be the only property source available to
 		 * Spring so it needs to include system properties and environment variables
 		 */
-		PropertySourceContext psc = new PropertySourceContext(ps, true);
+		org.kuali.common.util.service.PropertySourceContext psc = new org.kuali.common.util.service.PropertySourceContext(ps, true);
 
 		// Setup the Spring context
-		SpringContext context = new SpringContext();
+		org.kuali.common.util.service.SpringContext context = new org.kuali.common.util.service.SpringContext();
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setPropertySourceContext(psc);
 
 		// Load the context
-		SpringExecutable se = new SpringExecutable();
-		se.setService(new DefaultSpringService());
+		org.kuali.common.util.execute.SpringExecutable se = new org.kuali.common.util.execute.SpringExecutable();
+		se.setService(new org.kuali.common.util.service.DefaultSpringService());
 		se.setContext(context);
 		se.setSkip(skip);
 		return se;
@@ -503,7 +503,7 @@ public class SpringUtils {
 	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
 	 */
 	@Deprecated
-	public static SpringContext getSinglePropertySourceContext(org.kuali.common.util.ProjectContext context, String location) {
+	public static org.kuali.common.util.service.SpringContext getSinglePropertySourceContext(org.kuali.common.util.ProjectContext context, String location) {
 		PropertySource<?> source = getGlobalPropertySource(context, location);
 		return getSinglePropertySourceContext(source);
 	}
@@ -512,11 +512,11 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
-	public static SpringExecutable getSpringExecutable(org.kuali.common.util.ProjectContext project, String location, List<Class<?>> annotatedClasses) {
-		SpringContext context = getSinglePropertySourceContext(project, location);
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(org.kuali.common.util.ProjectContext project, String location, List<Class<?>> annotatedClasses) {
+		org.kuali.common.util.service.SpringContext context = getSinglePropertySourceContext(project, location);
 		context.setAnnotatedClasses(annotatedClasses);
 
-		SpringExecutable executable = new SpringExecutable();
+		org.kuali.common.util.execute.SpringExecutable executable = new org.kuali.common.util.execute.SpringExecutable();
 		executable.setContext(context);
 		return executable;
 	}
@@ -524,35 +524,38 @@ public class SpringUtils {
 	/**
 	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClass passed in
 	 */
-	public static SpringExecutable getSpringExecutable(PropertiesSupplier supplier, Class<?> annotatedClass) {
+	@Deprecated
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(PropertiesSupplier supplier, Class<?> annotatedClass) {
 		return getSpringExecutable(supplier, CollectionUtils.asList(annotatedClass));
 	}
 
 	/**
 	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClasses passed in
 	 */
-	public static SpringExecutable getSpringExecutable(PropertiesSupplier supplier, List<Class<?>> annotatedClasses) {
+	@Deprecated
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(PropertiesSupplier supplier, List<Class<?>> annotatedClasses) {
 		Properties properties = supplier.getProperties();
 		PropertySource<?> source = getGlobalPropertySource(properties);
-		SpringContext context = getSinglePropertySourceContext(source);
+		org.kuali.common.util.service.SpringContext context = getSinglePropertySourceContext(source);
 		context.setAnnotatedClasses(annotatedClasses);
-		return new SpringExecutable(context);
+		return new org.kuali.common.util.execute.SpringExecutable(context);
 	}
 
 	/**
 	 * Return a SpringExecutable for the PropertySource and annotatedClass passed in
 	 */
-	public static SpringExecutable getSpringExecutable(PropertySource<?> source, Class<?> annotatedClass) {
-		SpringContext context = getSinglePropertySourceContext(source);
+	@Deprecated
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(PropertySource<?> source, Class<?> annotatedClass) {
+		org.kuali.common.util.service.SpringContext context = getSinglePropertySourceContext(source);
 		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-		return new SpringExecutable(context);
+		return new org.kuali.common.util.execute.SpringExecutable(context);
 	}
 
 	/**
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
-	public static SpringExecutable getSpringExecutable(org.kuali.common.util.ProjectContext project, String location, Class<?> annotatedClass) {
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(org.kuali.common.util.ProjectContext project, String location, Class<?> annotatedClass) {
 		return getSpringExecutable(project, location, CollectionUtils.asList(annotatedClass));
 	}
 
@@ -560,7 +563,7 @@ public class SpringUtils {
 	 * Return a SpringExecutable for the project, properties location, and config passed in.
 	 */
 	@Deprecated
-	public static SpringExecutable getSpringExecutable(Class<?> annotatedClass, String location, org.kuali.common.util.ProjectContext... projects) {
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(Class<?> annotatedClass, String location, org.kuali.common.util.ProjectContext... projects) {
 		List<org.kuali.common.util.property.ProjectProperties> list = ConfigUtils.getProjectProperties(projects);
 		org.kuali.common.util.property.ProjectProperties last = list.get(list.size() - 1);
 		PropertiesContext pc = last.getPropertiesContext();
@@ -570,15 +573,16 @@ public class SpringUtils {
 			pc.setLocations(locations);
 		}
 		PropertySource<?> source = getGlobalPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, list);
-		SpringContext context = getSinglePropertySourceContext(source);
+		org.kuali.common.util.service.SpringContext context = getSinglePropertySourceContext(source);
 		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-		return new SpringExecutable(context);
+		return new org.kuali.common.util.execute.SpringExecutable(context);
 	}
 
 	/**
 	 * Return a SpringContext that resolves all placeholders from the list of property locations passed in + System/Environment properties
 	 */
-	public static SpringContext getSinglePropertySourceContext(List<String> locations, String encoding) {
+	@Deprecated
+	public static org.kuali.common.util.service.SpringContext getSinglePropertySourceContext(List<String> locations, String encoding) {
 		PropertySource<?> source = getGlobalPropertySource(locations, encoding);
 		return getSinglePropertySourceContext(source);
 	}
@@ -586,13 +590,14 @@ public class SpringUtils {
 	/**
 	 * Return a SpringContext that resolves all placeholders from the PropertySource passed in
 	 */
-	public static SpringContext getSinglePropertySourceContext(PropertySource<?> source) {
+	@Deprecated
+	public static org.kuali.common.util.service.SpringContext getSinglePropertySourceContext(PropertySource<?> source) {
 		// Setup a property source context such that our single property source is the only one registered with Spring
 		// This will make it so our PropertySource is the ONLY thing used to resolve placeholders
-		PropertySourceContext psc = new PropertySourceContext(source, true);
+		org.kuali.common.util.service.PropertySourceContext psc = new org.kuali.common.util.service.PropertySourceContext(source, true);
 
 		// Setup a Spring context
-		SpringContext context = new SpringContext();
+		org.kuali.common.util.service.SpringContext context = new org.kuali.common.util.service.SpringContext();
 
 		// Supply Spring with our PropertySource
 		context.setPropertySourceContext(psc);

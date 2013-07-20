@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util.spring.service;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +36,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 
-@Deprecated
 public class DefaultSpringService implements SpringService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);

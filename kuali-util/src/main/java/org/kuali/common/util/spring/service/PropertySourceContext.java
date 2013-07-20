@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util.spring.service;
 
 import java.util.List;
 
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.PropertySource;
 
-@Deprecated
 public class PropertySourceContext {
 
 	public static final boolean DEFAULT_REMOVE_EXISTING_SOURCES = false;

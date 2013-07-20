@@ -26,6 +26,7 @@ import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.core.env.PropertySource;
 
+@Deprecated
 public class CarConfigTest {
 
 	@Test

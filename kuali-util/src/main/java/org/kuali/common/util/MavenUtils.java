@@ -17,7 +17,9 @@ package org.kuali.common.util;
 
 import java.util.Properties;
 
-import org.kuali.common.util.service.SpringContext;
+import org.kuali.common.util.spring.service.PropertySourceAddPriority;
+import org.kuali.common.util.spring.service.PropertySourceContext;
+import org.kuali.common.util.spring.service.SpringContext;
 
 /**
  * Maven utilities that don't depend on Maven libraries
@@ -29,8 +31,43 @@ public class MavenUtils {
 	public static final String PROJECT_VERSION_KEY = org.kuali.common.util.maven.MavenUtils.PROJECT_VERSION_KEY;
 	public static final String PROJECT_ENCODING_KEY = org.kuali.common.util.maven.MavenUtils.PROJECT_ENCODING_KEY;
 
-	public static SpringContext getMavenizedSpringContext(Class<?> propertySourceConfig) {
-		return org.kuali.common.util.maven.MavenUtils.getMavenizedSpringContext(propertySourceConfig);
+	public static org.kuali.common.util.service.SpringContext getMavenizedSpringContext(Class<?> propertySourceConfig) {
+		SpringContext context = org.kuali.common.util.maven.MavenUtils.getMavenizedSpringContext(propertySourceConfig);
+		return convert(context);
+	}
+
+	private static final org.kuali.common.util.service.SpringContext convert(SpringContext newContext) {
+		if (newContext == null) {
+			return null;
+		}
+		org.kuali.common.util.service.SpringContext oldContext = new org.kuali.common.util.service.SpringContext();
+		oldContext.setAnnotatedClasses(newContext.getAnnotatedClasses());
+		oldContext.setBeanNames(newContext.getBeanNames());
+		oldContext.setBeans(newContext.getBeans());
+		oldContext.setDisplayName(newContext.getDisplayName());
+		oldContext.setId(newContext.getId());
+		oldContext.setLocations(newContext.getLocations());
+		oldContext.setPropertySourceContext(convert(newContext.getPropertySourceContext()));
+		return oldContext;
+	}
+
+	private static final org.kuali.common.util.service.PropertySourceContext convert(PropertySourceContext newContext) {
+		if (newContext == null) {
+			return null;
+		}
+		org.kuali.common.util.service.PropertySourceContext oldContext = new org.kuali.common.util.service.PropertySourceContext();
+		oldContext.setLastOneInWins(newContext.isLastOneInWins());
+		oldContext.setRemoveExistingSources(newContext.isRemoveExistingSources());
+		oldContext.setSources(newContext.getSources());
+		oldContext.setPriority(convert(newContext.getPriority()));
+		return oldContext;
+	}
+
+	private static final org.kuali.common.util.service.PropertySourceAddPriority convert(PropertySourceAddPriority newPriority) {
+		if (newPriority == null) {
+			return null;
+		}
+		return org.kuali.common.util.service.PropertySourceAddPriority.valueOf(newPriority.name());
 	}
 
 	/**

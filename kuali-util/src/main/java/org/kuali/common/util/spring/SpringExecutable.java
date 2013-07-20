@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
+package org.kuali.common.util.spring;
 
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Deprecated
 public class SpringExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringExecutable.class);

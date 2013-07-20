@@ -20,6 +20,7 @@ import org.kuali.common.util.service.DefaultSpringService;
 import org.kuali.common.util.service.SpringService;
 import org.kuali.common.util.spring.config.DuplicateBeanConfig;
 
+@Deprecated
 public class DuplicateBeanConfigTest {
 
 	@Test
