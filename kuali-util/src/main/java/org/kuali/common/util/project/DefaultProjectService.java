@@ -13,7 +13,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectService implements ProjectService {
 
-	private static final Map<String, ImmutableProject> PROJECT_CACHE = new HashMap<String, ImmutableProject>();
+	private static final Map<String, FullImmutableProject> PROJECT_CACHE = new HashMap<String, FullImmutableProject>();
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String PROJECT_PROPERTIES_ENCODING_KEY = "project.properties.encoding";
 	private static final String PROJECT_VERSION_KEY = "project.version";
@@ -56,7 +56,7 @@ public class DefaultProjectService implements ProjectService {
 		Assert.hasText(version, "no version for [" + groupId + ":" + artifactId + "]");
 
 		// Create a new immutable project
-		ImmutableProject project = new ImmutableProject(groupId, artifactId, version, properties);
+		FullImmutableProject project = new FullImmutableProject(groupId, artifactId, version, properties);
 
 		String key = groupId + ":" + artifactId;
 		PROJECT_CACHE.put(key, project);
