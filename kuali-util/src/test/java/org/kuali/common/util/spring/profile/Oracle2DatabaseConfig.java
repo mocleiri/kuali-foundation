@@ -21,11 +21,11 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile(value = DatabaseConstants.ORACLE)
-public class Oracle11gDatabaseConfig {
+public class Oracle2DatabaseConfig {
 
 	@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
 	public String databaseConfigVendor() {
-		return "oracle11g";
+		return "oracle2";
 	}
 
 }
