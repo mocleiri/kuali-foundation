@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.io.File;
 import java.util.List;
 
+@Deprecated
 public class DirectoryDiffRequest {
 
 	List<String> includes = FileSystemUtils.DEFAULT_RECURSIVE_INCLUDES;

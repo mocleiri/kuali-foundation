@@ -73,6 +73,7 @@ public class FileSystemUtils {
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
 	 */
+	@Deprecated
 	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request) {
 		return prepareScmDir(request, null, false);
 	}
@@ -89,6 +90,7 @@ public class FileSystemUtils {
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
 	 */
+	@Deprecated
 	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir, boolean diffOnly) {
 
 		// Make sure we are configured correctly
@@ -128,6 +130,7 @@ public class FileSystemUtils {
 		return scanner.getFiles();
 	}
 
+	@Deprecated
 	public static DirectoryDiff getDiff(File dir1, File dir2, List<String> includes, List<String> excludes) {
 		DirectoryDiffRequest request = new DirectoryDiffRequest();
 		request.setDir1(dir1);
@@ -226,6 +229,7 @@ public class FileSystemUtils {
 	 * 
 	 * The 3 lists in <code>DirectoryDiff</code> contain the relative paths to files for each category.
 	 */
+	@Deprecated
 	public static DirectoryDiff getDiff(DirectoryDiffRequest request) {
 		DirRequest newRequest = new DirRequest();
 		newRequest.setExcludes(request.getExcludes());
