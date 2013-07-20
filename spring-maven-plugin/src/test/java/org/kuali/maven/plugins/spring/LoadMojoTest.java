@@ -1,8 +1,8 @@
 package org.kuali.maven.plugins.spring;
 
 import org.junit.Test;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.LoadMojoTestConfig;
 
 public class LoadMojoTest {

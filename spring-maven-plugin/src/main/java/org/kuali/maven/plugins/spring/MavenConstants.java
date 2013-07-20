@@ -1,8 +1,8 @@
 package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
 
 public final class MavenConstants {

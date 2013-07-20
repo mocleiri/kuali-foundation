@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.Properties;
 
-import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.service.SpringService;
 
 public class LoadContext {
 
