@@ -1,13 +1,9 @@
 package org.kuali.common.util.project;
 
-import java.util.Properties;
-
 public interface Project {
 
-	String groupId();
+	String getGroupId();
 
-	String artifactId();
-
-	Properties getProperties();
+	String getArtifactId();
 
 }
