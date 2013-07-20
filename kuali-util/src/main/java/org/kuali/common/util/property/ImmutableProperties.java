@@ -25,8 +25,8 @@ public final class ImmutableProperties extends Properties {
 		// Original can't change while we are setting things up
 		synchronized (original) {
 
-			// Original must contain only string values
-			Assert.isTrue(original.stringPropertyNames().size() == original.size(), "Immutable properties only support string property values");
+			// Original must contain only strings (for both keys and values)
+			Assert.isTrue(original.stringPropertyNames().size() == original.size(), "Immutable properties only support strings");
 
 			// Copy original
 			super.putAll(original);

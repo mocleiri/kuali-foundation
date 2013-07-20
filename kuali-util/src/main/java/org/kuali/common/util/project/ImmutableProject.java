@@ -17,7 +17,7 @@ package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
 
-public class ImmutableProject implements Project {
+public final class ImmutableProject implements Project {
 
 	final String groupId;
 	final String artifactId;

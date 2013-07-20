@@ -34,6 +34,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 /**
  * 
  */
+@Deprecated
 public class ProjectUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
