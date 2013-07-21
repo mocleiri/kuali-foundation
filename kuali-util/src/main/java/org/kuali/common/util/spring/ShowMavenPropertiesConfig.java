@@ -20,7 +20,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ShowPropertiesExecutable;
-import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.maven.MavenConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +34,7 @@ public class ShowMavenPropertiesConfig {
 	Environment env;
 
 	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	@Qualifier(MavenConstants.PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
 	@Bean

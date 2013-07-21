@@ -25,7 +25,6 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -61,7 +60,7 @@ public class MavenUtils {
 		// 1 - fully resolved
 		// 2 - contains all properties needed by Spring
 		// 3 - contains system/environment properties where system/env properties override loaded properties
-		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
+		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, MavenConstants.PROPERTIES_BEAN_NAME, mavenProperties);
 
 		return PropertySourceUtils.getSinglePropertySourceContext(source);
 	}

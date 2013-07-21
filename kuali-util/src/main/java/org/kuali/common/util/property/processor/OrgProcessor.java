@@ -20,6 +20,7 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class OrgProcessor implements PropertyProcessor {
 	Mode propertyOverwriteMode = Constants.DEFAULT_PROPERTY_OVERWRITE_MODE;
 
 	String organizationGroupCodeSuffix = Constants.GROUP_ID + "." + Constants.DEFAULT_CODE_SUFFIX;
-	String groupCodeProperty = Constants.DEFAULT_GROUP_ID_PROPERTY + "." + Constants.DEFAULT_CODE_SUFFIX;
+	String groupCodeProperty = MavenConstants.GROUP_ID_KEY + "." + Constants.DEFAULT_CODE_SUFFIX;
 	String organizationGroupId;
 	String groupId;
 

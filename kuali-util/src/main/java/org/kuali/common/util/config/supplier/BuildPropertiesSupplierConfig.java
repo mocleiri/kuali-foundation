@@ -17,8 +17,8 @@ package org.kuali.common.util.config.supplier;
 
 import java.util.Properties;
 
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
-import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
 public class BuildPropertiesSupplierConfig implements PropertiesSupplier {
 
 	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	@Qualifier(MavenConstants.PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
 	@Override

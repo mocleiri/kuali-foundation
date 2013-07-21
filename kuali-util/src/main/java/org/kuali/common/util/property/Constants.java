@@ -25,7 +25,8 @@ public final class Constants {
 
 	public static final String UTF8 = "UTF-8";
 	public static final String DEFAULT_ENCODING = UTF8;
-	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = MavenConstants.MAVEN_PROPERTIES_BEAN_NAME;
+	@Deprecated
+	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = MavenConstants.PROPERTIES_BEAN_NAME;
 	public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 	public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 	public static final String DEFAULT_VALUE_SEPARATOR = ":";
@@ -42,10 +43,13 @@ public final class Constants {
 	public static final String DEFAULT_SNAPSHOT_VERSION_SUFFIX = "snapshot";
 	public static final String DEFAULT_CODE_SUFFIX = "code";
 	public static final String DEFAULT_HOME_SUFFIX = "home";
-	public static final String DEFAULT_GROUP_ID_PROPERTY = "project.groupId";
-	public static final String DEFAULT_ARTIFACT_ID_PROPERTY = "project.artifactId";
+	@Deprecated
+	public static final String DEFAULT_GROUP_ID_PROPERTY = MavenConstants.GROUP_ID_KEY;
+	@Deprecated
+	public static final String DEFAULT_ARTIFACT_ID_PROPERTY = MavenConstants.ARTIFACT_ID_KEY;
+	@Deprecated
+	public static final String DEFAULT_VERSION_PROPERTY = MavenConstants.VERSION_KEY;
 	public static final String DEFAULT_USER_HOME_PROPERTY = "user.home";
-	public static final String DEFAULT_VERSION_PROPERTY = "project.version";
 	public static final Mode DEFAULT_PROPERTY_OVERWRITE_MODE = Mode.INFORM;
 	public static final GlobalPropertiesMode DEFAULT_GLOBAL_PROPERTIES_MODE = GlobalPropertiesMode.BOTH;
 	public static final PropertyPlaceholderHelper DEFAULT_PROPERTY_PLACEHOLDER_HELPER = getDefaultHelper();

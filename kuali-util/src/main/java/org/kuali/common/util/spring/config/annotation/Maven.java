@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(MavenConstants.MAVEN_SPRING_PROFILE_NAME)
+@Profile(MavenConstants.SPRING_PROFILE_NAME)
 public @interface Maven {
 
 }

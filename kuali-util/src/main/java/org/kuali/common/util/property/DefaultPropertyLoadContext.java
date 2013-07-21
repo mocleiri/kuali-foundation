@@ -24,6 +24,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.HomeProcessor;
 import org.kuali.common.util.property.processor.OrgProcessor;
@@ -37,7 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);
 
 	List<String> locations;
@@ -49,8 +50,8 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	List<String> locationHelperIncludes;
 	List<String> locationHelperExcludes;
 	String organizationGroupId;
-	String groupIdProperty = Constants.DEFAULT_GROUP_ID_PROPERTY;
-	String versionProperty = Constants.DEFAULT_VERSION_PROPERTY;
+	String groupIdProperty = MavenConstants.GROUP_ID_KEY;
+	String versionProperty = MavenConstants.VERSION_KEY;
 
 	@Override
 	public Properties init() {

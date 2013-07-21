@@ -20,34 +20,53 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.Charsets;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectService implements ProjectService {
 
-	private static final Map<String, FullImmutableProject> PROJECT_CACHE = new HashMap<String, FullImmutableProject>();
+	private static final Map<String, Project> CACHE = new HashMap<String, Project>();
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	private static final String PROJECT_PROPERTIES_ENCODING_KEY = "project.properties.encoding";
-	private static final String PROJECT_VERSION_KEY = "project.version";
-	private static final String PROJECT_PROPERTIES_ENCODING_DEFAULT = Charsets.UTF_8.toString();
+	private static final String PROPERTIES_ENCODING_KEY = "project.properties.encoding";
+	private static final String PROPERTIES_ENCODING_DEFAULT = Charsets.UTF_8.toString();
 
 	@Override
-	public Project loadProject(String groupId, String artifactId) {
-		Assert.hasText(groupId, "groupId has no text");
-		Assert.hasText(artifactId, "artifactId has no text");
+	public Project getProject(Properties properties) {
+		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
+		String artifactId = properties.getProperty(MavenConstants.ARTIFACT_ID_KEY);
+		String version = properties.getProperty(MavenConstants.VERSION_KEY);
+		return new FullImmutableProject(groupId, artifactId, version, properties);
 
-		String key = groupId + ":" + artifactId;
-		Project project = PROJECT_CACHE.get(key);
+	}
+
+	@Override
+	public Project loadProject(String projectId) {
+
+		Assert.hasText(projectId, "projectId is blank");
+
+		Project project = CACHE.get(projectId);
 		if (project == null) {
-			project = loadAndCache(groupId, artifactId);
+			project = loadAndCache(projectId);
 		}
 		return project;
 	}
 
-	protected Project loadAndCache(String groupId, String artifactId) {
+	protected Project loadAndCache(String projectId) {
+
+		// Split the id into tokens
+		String[] tokens = StringUtils.split(projectId, ":");
+
+		// Project id's should always have exactly 2 tokens
+		Assert.isTrue(tokens.length == 2, "tokens.length != 2");
+
+		// 1st token is groupId, 2nd token is artifactId
+		String groupId = tokens[0];
+		String artifactId = tokens[1];
 
 		// Get the unique path to the project.properties file
 		String location = getPropertiesFileLocation(groupId, artifactId);
@@ -59,22 +78,18 @@ public class DefaultProjectService implements ProjectService {
 		Properties global = PropertyUtils.getGlobalProperties();
 
 		// Use UTF-8 to load project.properties, unless they've set the system property "project.properties.encoding"
-		String encoding = global.getProperty(PROJECT_PROPERTIES_ENCODING_KEY, PROJECT_PROPERTIES_ENCODING_DEFAULT);
+		String encoding = global.getProperty(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
 
 		// Load the properties from disk
 		Properties properties = PropertyUtils.load(location, encoding);
 
-		// Extract the project version from the properties
-		String version = properties.getProperty(PROJECT_VERSION_KEY);
+		// Convert the properties into a project
+		Project project = getProject(properties);
 
-		// Make sure we found a version
-		Assert.hasText(version, "no version for [" + groupId + ":" + artifactId + "]");
+		// Store the project in our cache
+		CACHE.put(projectId, project);
 
-		// Create a new immutable project
-		FullImmutableProject project = new FullImmutableProject(groupId, artifactId, version, properties);
-
-		String key = groupId + ":" + artifactId;
-		PROJECT_CACHE.put(key, project);
+		// Return the project
 		return project;
 	}
 

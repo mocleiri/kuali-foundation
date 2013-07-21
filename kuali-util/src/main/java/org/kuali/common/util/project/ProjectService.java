@@ -15,8 +15,17 @@
  */
 package org.kuali.common.util.project;
 
+import java.util.Properties;
+
 public interface ProjectService {
 
-	Project loadProject(String groupId, String artifactId);
+	/**
+	 * <pre>
+	 *   org.kuali.common:kuali-util
+	 * </pre>
+	 */
+	Project loadProject(String projectId);
+
+	Project getProject(Properties properties);
 
 }

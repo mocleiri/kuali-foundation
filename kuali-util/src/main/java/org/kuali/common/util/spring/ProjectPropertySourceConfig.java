@@ -17,8 +17,8 @@ package org.kuali.common.util.spring;
 
 import java.util.Properties;
 
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
-import org.kuali.common.util.property.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +37,7 @@ public class ProjectPropertySourceConfig {
 	 * spring-maven-plugin auto-wires Maven properties by default
 	 */
 	@Autowired
-	@Qualifier(Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
+	@Qualifier(MavenConstants.PROPERTIES_BEAN_NAME)
 	Properties mavenProperties;
 
 	@Bean
@@ -47,7 +47,7 @@ public class ProjectPropertySourceConfig {
 		MavenUtils.augmentProjectProperties(mavenProperties);
 
 		// Return the augmented set of Maven properties as a Spring PropertySource
-		String name = Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+		String name = MavenConstants.PROPERTIES_BEAN_NAME;
 		return new PropertiesPropertySource(name, mavenProperties);
 	}
 }

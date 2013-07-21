@@ -17,7 +17,17 @@ package org.kuali.common.util.maven;
 
 public abstract class MavenConstants {
 
-	public static final String MAVEN_PROJECT_BEAN_NAME = "mavenProject";
-	public static final String MAVEN_PROPERTIES_BEAN_NAME = "mavenProperties";
-	public static final String MAVEN_SPRING_PROFILE_NAME = "maven";
+	public static final String PROJECT_BEAN_NAME = "mavenProject";
+	public static final String PROPERTIES_BEAN_NAME = "mavenProperties";
+	public static final String SPRING_PROFILE_NAME = "maven";
+	public static final String GROUP_ID_KEY = "project.groupId";
+	public static final String ARTIFACT_ID_KEY = "project.artifactId";
+	public static final String VERSION_KEY = "project.version";
+
+	@Deprecated
+	public static final String MAVEN_PROJECT_BEAN_NAME = PROJECT_BEAN_NAME;
+
+	@Deprecated
+	public static final String MAVEN_PROPERTIES_BEAN_NAME = PROPERTIES_BEAN_NAME;
+
 }
