@@ -51,11 +51,11 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 	class DefaultConfig {
 
 		@Autowired
-		@Qualifier("project.groupId")
+		@Qualifier(MavenConstants.GROUP_ID_BEAN_NAME)
 		String groupId;
 
 		@Autowired
-		@Qualifier("project.artifactId")
+		@Qualifier(MavenConstants.ARTIFACT_ID_BEAN_NAME)
 		String artifactId;
 
 		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
