@@ -32,7 +32,7 @@ public class ConfigServiceConfig {
 	Environment env;
 
 	@Bean
-	public ConfigService kualiUtilProjectConfigService() {
+	public ConfigService kualiUtilConfigService() {
 		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigService.class);
 	}
 
