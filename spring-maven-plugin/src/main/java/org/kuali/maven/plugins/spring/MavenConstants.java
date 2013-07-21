@@ -1,6 +1,5 @@
 package org.kuali.maven.plugins.spring;
 
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.service.DefaultSpringService;
 import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
@@ -10,7 +9,7 @@ public final class MavenConstants {
 	public static final String LOAD_MOJO = "load";
 	public static final String LOAD_XML_MOJO = "loadxml";
 	public static final String SPRING_MOJO_SERVICE_BEAN_NAME = "springMojoService";
-	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = Constants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
+	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = org.kuali.common.util.maven.MavenConstants.PROPERTIES_BEAN_NAME;
 	public static final String DEFAULT_MAVEN_PROJECT_BEAN_NAME = "mavenProject";
 	public static final String DEFAULT_MAVEN_MOJO_BEAN_NAME = "mavenMojo";
 	public static final String DEFAULT_ADD_PROPERTY_SOURCES = "true";
