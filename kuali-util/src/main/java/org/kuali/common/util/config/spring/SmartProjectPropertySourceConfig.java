@@ -21,7 +21,6 @@ import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.maven.Maven;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
-import org.kuali.common.util.project.ImmutableProject;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.profile.annotation.Default;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +33,9 @@ import org.springframework.util.Assert;
  * 
  */
 @Configuration
-public abstract class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig {
+public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
 	private static final String PROJECT_PROPERTIES_BEAN_NAME = "project.properties";
-
-	protected abstract ImmutableProject getProject();
 
 	@Autowired
 	@Qualifier(PROJECT_PROPERTIES_BEAN_NAME)
@@ -52,11 +49,17 @@ public abstract class SmartProjectPropertySourceConfig extends BasicPropertySour
 	@Configuration
 	@Default
 	class DefaultConfig {
+
+		@Autowired
+		@Qualifier("project.groupId")
+		String groupId;
+
+		@Autowired
+		@Qualifier("project.artifactId")
+		String artifactId;
+
 		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
 		public Properties projectProperties() {
-			ImmutableProject project = getProject();
-			String groupId = project.getGroupId();
-			String artifactId = project.getArtifactId();
 			Properties properties = ProjectUtils.loadProject(groupId, artifactId).getProperties();
 			return new ImmutableProperties(properties);
 		}
