@@ -24,13 +24,13 @@ import org.kuali.common.jdbc.DefaultJdbcService;
 import org.kuali.common.jdbc.DefaultSqlReader;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.SqlReader;
+import org.kuali.common.jdbc.config.JdbcProjectConstants;
 import org.kuali.common.jdbc.supplier.LocationSupplier;
 import org.kuali.common.jdbc.supplier.LocationSupplierContext;
 import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
 import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
-import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.property.Constants;
@@ -43,7 +43,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @Configuration
 public class JdbcCommonConfig {
 
-    protected final static String CONTEXT_KEY_SUFFIX = ".context";
+	protected final static String CONTEXT_KEY_SUFFIX = ".context";
 
 	@Autowired
 	ConfigurableEnvironment env;
@@ -60,32 +60,32 @@ public class JdbcCommonConfig {
 
 	@Bean
 	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
-        Project project = ProjectUtils.loadProject(KualiProjectConstants.KUALI_JDBC.getGroupId(), KualiProjectConstants.KUALI_JDBC.getArtifactId());
+		Project project = ProjectUtils.loadProject(JdbcProjectConstants.GROUP_ID, JdbcProjectConstants.ARTIFACT_ID);
 
-        SqlLocationSupplier sls = new SqlLocationSupplier();
-        sls.setReader(jdbcSqlReader());
-        sls.setEncoding(project.getEncoding());
+		SqlLocationSupplier sls = new SqlLocationSupplier();
+		sls.setReader(jdbcSqlReader());
+		sls.setEncoding(project.getEncoding());
 
-        LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();
-        lssb.setSupplierClass(SqlLocationSupplier.class);
-        lssb.setSupplierInstance(sls);
+		LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();
+		lssb.setSupplierClass(SqlLocationSupplier.class);
+		lssb.setSupplierInstance(sls);
 
-        Map<String, LocationSupplierSourceBean> map = new HashMap<String, LocationSupplierSourceBean>();
-        map.put("sql", lssb);
-        return map;
-    }
+		Map<String, LocationSupplierSourceBean> map = new HashMap<String, LocationSupplierSourceBean>();
+		map.put("sql", lssb);
+		return map;
+	}
 
 	public List<SqlSupplier> getSqlSuppliers(String propertyKey) {
-        String contextValue = SpringUtils.getProperty(env, propertyKey + CONTEXT_KEY_SUFFIX, Constants.NONE);
-        LocationSupplierContext context = new LocationSupplierContext();
-        context.setValue(contextValue);
+		String contextValue = SpringUtils.getProperty(env, propertyKey + CONTEXT_KEY_SUFFIX, Constants.NONE);
+		LocationSupplierContext context = new LocationSupplierContext();
+		context.setValue(contextValue);
 
 		LocationSuppliersFactoryBean factory = new LocationSuppliersFactoryBean();
 		factory.setPropertyKey(propertyKey);
 		factory.setEnv(env);
 		factory.setExtensionMappings(jdbcExtensionMappings());
-        factory.setContext(context);
-        List<LocationSupplier> list = factory.getObject();
+		factory.setContext(context);
+		List<LocationSupplier> list = factory.getObject();
 		return new ArrayList<SqlSupplier>(list);
 	}
 }
