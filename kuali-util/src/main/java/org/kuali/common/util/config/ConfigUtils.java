@@ -34,8 +34,8 @@ public class ConfigUtils {
 		return requests;
 	}
 
-	public static String getConfigId(ProjectConfig request) {
-		return getConfigId(request.getGroupId(), request.getArtifactId(), request.getContextId());
+	public static String getConfigId(ProjectConfig config) {
+		return getConfigId(config.getGroupId(), config.getArtifactId(), config.getContextId());
 	}
 
 	public static String getConfigId(String groupId, String artifactId, String contextId) {

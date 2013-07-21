@@ -15,8 +15,8 @@
  */
 package org.kuali.common.util.config;
 
-import org.kuali.common.util.KualiProjectConstants;
-import org.kuali.common.util.project.ImmutableProject;
+import org.kuali.common.util.project.KualiConstants;
+import org.kuali.common.util.project.UtilConstants;
 
 public enum KualiUtilConfig implements ProjectConfig {
 
@@ -26,7 +26,6 @@ public enum KualiUtilConfig implements ProjectConfig {
 	METAINF_SQL_BUILD("metainf:sql:build"), // Config for META-INF processing for SQL files, only available during a build
 	METAINF_MPX_BUILD("metainf:mpx:build"); // Config for META-INF processing for MPX files, only available during a build
 
-	private final ImmutableProject project = KualiProjectConstants.KUALI_UTIL;
 	private final String contextId;
 	private final String configId;
 
@@ -37,12 +36,12 @@ public enum KualiUtilConfig implements ProjectConfig {
 
 	@Override
 	public String getGroupId() {
-		return project.getGroupId();
+		return KualiConstants.COMMON_GROUP_ID;
 	}
 
 	@Override
 	public String getArtifactId() {
-		return project.getArtifactId();
+		return UtilConstants.ARTIFACT_ID;
 	}
 
 	@Override
