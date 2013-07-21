@@ -20,11 +20,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.kuali.common.util.spring.config.SpringConfigConstants;
 import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile("default")
+@Profile(SpringConfigConstants.DEFAULT_PROFILE_ID)
 public @interface Default {
 
 }
