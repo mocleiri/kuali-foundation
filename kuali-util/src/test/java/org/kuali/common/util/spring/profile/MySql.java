@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(DatabaseConstants.MYSQL)
+@Profile(DatabaseConstants.MYSQL_SPRING_PROFILE_NAME)
 public @interface MySql {
 
 }

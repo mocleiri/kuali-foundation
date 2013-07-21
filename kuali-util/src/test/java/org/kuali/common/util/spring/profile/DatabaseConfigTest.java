@@ -29,6 +29,7 @@ public class DatabaseConfigTest {
 		try {
 			SpringContext context = new SpringContext(ShowDatabaseExecutableConfig.class);
 			context.setActiveProfiles(Arrays.asList(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME));
+			context.setActiveProfiles(Arrays.asList(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME));
 			SpringService ss = new DefaultSpringService();
 			ss.load(context);
 		} catch (Exception e) {
