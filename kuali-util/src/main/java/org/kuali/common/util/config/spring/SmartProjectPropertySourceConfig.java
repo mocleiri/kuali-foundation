@@ -53,36 +53,21 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 	static class RuntimeProjectConfig {
 
 		@Autowired
-		@Qualifier(SpringConfigConstants.GROUP_ID_BEAN_NAME)
-		String groupId;
-
-		@Autowired
-		@Qualifier(SpringConfigConstants.ARTIFACT_ID_BEAN_NAME)
-		String artifactId;
+		@Qualifier(SpringConfigConstants.PROJECT_ID_BEAN_NAME)
+		String projectId;
 
 		@Bean(name = PROJECT_BEAN_NAME)
 		public Project immutableProject() {
 
 			// Make sure the maven properties got wired in correctly
-			Assert.hasText(groupId, "groupId is blank");
-
-			// Make sure the maven properties got wired in correctly
-			Assert.hasText(artifactId, "artifactId is blank");
+			Assert.hasText(projectId, "projectId is blank");
 
 			// Load project.properties from disk
-			Properties properties = ProjectUtils.loadProject(groupId, artifactId).getProperties();
+			Properties properties = ProjectUtils.loadProject(projectId).getProperties();
 
 			// Get an immutable project from the properties
 			return getImmutableProject(properties);
 		}
-
-	}
-
-	protected static FullImmutableProject getImmutableProject(Properties properties) {
-		String groupId = properties.getProperty("project.groupId");
-		String artifactId = properties.getProperty("project.artifactId");
-		String version = properties.getProperty("project.version");
-		return new FullImmutableProject(groupId, artifactId, version, properties);
 
 	}
 
@@ -105,6 +90,14 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			// Get an immutable project from the properties
 			return getImmutableProject(mavenProperties);
 		}
+	}
+
+	protected static FullImmutableProject getImmutableProject(Properties properties) {
+		String groupId = properties.getProperty("project.groupId");
+		String artifactId = properties.getProperty("project.artifactId");
+		String version = properties.getProperty("project.version");
+		return new FullImmutableProject(groupId, artifactId, version, properties);
+
 	}
 
 }
