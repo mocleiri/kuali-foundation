@@ -18,10 +18,11 @@ package org.kuali.common.util.config.spring;
 import java.util.Properties;
 
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.maven.Maven;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.spring.config.Maven;
+import org.kuali.common.util.spring.config.SpringConfigConstants;
 import org.kuali.common.util.spring.profile.annotation.Default;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,11 +52,11 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 	class DefaultConfig {
 
 		@Autowired
-		@Qualifier(MavenConstants.GROUP_ID_BEAN_NAME)
+		@Qualifier(SpringConfigConstants.GROUP_ID_BEAN_NAME)
 		String groupId;
 
 		@Autowired
-		@Qualifier(MavenConstants.ARTIFACT_ID_BEAN_NAME)
+		@Qualifier(SpringConfigConstants.ARTIFACT_ID_BEAN_NAME)
 		String artifactId;
 
 		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
