@@ -137,7 +137,7 @@ public class DefaultSpringService implements SpringService {
 				// Add custom property sources (if any)
 				addPropertySources(context, annotationChild);
 				// Add active profiles (if any)
-				addProfiles(annotationChild, context.getActiveProfiles());
+				addActiveProfiles(annotationChild, context.getActiveProfiles());
 
 			}
 
@@ -150,7 +150,7 @@ public class DefaultSpringService implements SpringService {
 				// Add custom property sources (if any)
 				addPropertySources(context, xmlChild);
 				// Add active profiles (if any)
-				addProfiles(xmlChild, context.getActiveProfiles());
+				addActiveProfiles(xmlChild, context.getActiveProfiles());
 			}
 
 			// Invoke refresh to load the context
@@ -218,11 +218,11 @@ public class DefaultSpringService implements SpringService {
 		return ctx;
 	}
 
-	protected void addProfiles(ConfigurableApplicationContext applicationContext, List<String> profiles) {
-		if (!CollectionUtils.isEmpty(profiles)) {
+	protected void addActiveProfiles(ConfigurableApplicationContext applicationContext, List<String> activeProfiles) {
+		if (!CollectionUtils.isEmpty(activeProfiles)) {
 			ConfigurableEnvironment env = applicationContext.getEnvironment();
-			for (String profile : profiles) {
-				env.addActiveProfile(profile);
+			for (String activeProfile : activeProfiles) {
+				env.addActiveProfile(activeProfile);
 			}
 		}
 	}
