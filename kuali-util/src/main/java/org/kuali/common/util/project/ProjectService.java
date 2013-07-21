@@ -20,10 +20,12 @@ import java.util.Properties;
 public interface ProjectService {
 
 	/**
-	 * Create a <code>Project</code> by loading <code>project.properties</code> from disk
+	 * Create a <code>Project</code> from the <code>projectId</code>
 	 * 
 	 * <pre>
 	 *   org.kuali.common:kuali-util
+	 *   org.kuali.common:kuali-jdbc
+	 *   org.kuali.common:kuali-impex-export
 	 * </pre>
 	 */
 	Project getProject(String projectId);
