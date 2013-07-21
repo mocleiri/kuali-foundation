@@ -37,7 +37,7 @@ public final class ImmutableProperties extends Properties {
 		// original can't be null
 		Assert.notNull(original, "original is null");
 
-		// Original can't change while we are setting things up
+		// Prevent anything from changing original while we are getting things setup
 		synchronized (original) {
 
 			// Original must contain only strings (for both keys and values)
