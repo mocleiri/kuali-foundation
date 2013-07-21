@@ -35,7 +35,7 @@ public final class FullImmutableProject implements Project {
 		this.artifactId = artifactId;
 		this.version = version;
 		if (properties instanceof ImmutableProperties) {
-			// If they are already immutable, just reference the existing object
+			// If they are already immutable, just reference them
 			this.properties = properties;
 		} else {
 			// Otherwise create an immutable copy of them
