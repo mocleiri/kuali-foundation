@@ -22,6 +22,7 @@ public class PowerWebappConfig {
 	ConfigurableEnvironment env;
 
 	@Autowired
+	@Qualifier(value = "printMessageConfig")
 	PrintMessageConfig printMessageConfig;
 
 	@Autowired

@@ -14,7 +14,7 @@ public class PrintMessageConfig {
 	@Autowired
 	Environment env;
 
-	@Bean
+	@Bean(name = "printMessageConfig")
 	public Executable printMessageExecutable() {
 		String message = SpringUtils.getProperty(env, "print.message", "NONE");
 		PrintMessageExecutable pme = new PrintMessageExecutable();

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Maven
 public class PrintMavenMessageConfig {
 
-	@Bean
+	@Bean(name = "printMessageConfig")
 	public Executable printMessageExecutable() {
 		PrintMessageExecutable pme = new PrintMessageExecutable();
 		pme.setMessage("maven override message");
