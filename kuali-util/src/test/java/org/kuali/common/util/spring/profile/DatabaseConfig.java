@@ -19,10 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ Oracle2DatabaseConfig.class, DefaultDatabaseConfig.class, Oracle1DatabaseConfig.class })
 public class DatabaseConfig {
 
 	@Autowired
@@ -34,6 +32,32 @@ public class DatabaseConfig {
 		DefaultDatabase dd = new DefaultDatabase();
 		dd.setVendor(vendor);
 		return dd;
+	}
+
+	@Configuration
+	@Oracle
+	static class Oracle2VendorConfig {
+		@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
+		String dataSource() {
+			return "oracle2";
+		}
+	}
+
+	@Configuration
+	static class MySqlVendorConfig {
+		@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
+		String dataSource() {
+			return "mysql";
+		}
+	}
+
+	@Configuration
+	@Oracle
+	static class Oracle1VendorConfig {
+		@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
+		String dataSource() {
+			return "oracle1";
+		}
 	}
 
 }
