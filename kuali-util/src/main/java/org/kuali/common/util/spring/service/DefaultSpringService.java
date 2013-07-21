@@ -105,6 +105,7 @@ public class DefaultSpringService implements SpringService {
 		context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
 		context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
 		context.setActiveProfiles(CollectionUtils.toEmptyList(context.getActiveProfiles()));
+		context.setDefaultProfiles(CollectionUtils.toEmptyList(context.getDefaultProfiles()));
 
 		// Make sure we have at least one location or annotated class
 		boolean empty = CollectionUtils.isEmpty(context.getLocations()) && CollectionUtils.isEmpty(context.getAnnotatedClasses());
@@ -136,7 +137,9 @@ public class DefaultSpringService implements SpringService {
 				annotationChild = getAnnotationContext(context, parent);
 				// Add custom property sources (if any)
 				addPropertySources(context, annotationChild);
-				// Add active profiles (if any)
+				// Set default profiles (if any)
+				setDefaultProfiles(annotationChild, context.getDefaultProfiles());
+				// Set active profiles (if any)
 				setActiveProfiles(annotationChild, context.getActiveProfiles());
 
 			}
@@ -222,6 +225,13 @@ public class DefaultSpringService implements SpringService {
 		if (!CollectionUtils.isEmpty(activeProfiles)) {
 			ConfigurableEnvironment env = applicationContext.getEnvironment();
 			env.setActiveProfiles(CollectionUtils.toStringArray(activeProfiles));
+		}
+	}
+
+	protected void setDefaultProfiles(ConfigurableApplicationContext applicationContext, List<String> defaultProfiles) {
+		if (!CollectionUtils.isEmpty(defaultProfiles)) {
+			ConfigurableEnvironment env = applicationContext.getEnvironment();
+			env.setDefaultProfiles(CollectionUtils.toStringArray(defaultProfiles));
 		}
 	}
 
