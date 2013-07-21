@@ -292,6 +292,22 @@ public class SpringUtils {
 	}
 
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
+		return getPropertySources(annotatedClass, propertiesBeanName, properties, null, null);
+	}
+
+	public static void setupProfiles(ConfigurableApplicationContext ctx, List<String> activeProfiles, List<String> defaultProfiles) {
+		if (!CollectionUtils.isEmpty(activeProfiles)) {
+			ConfigurableEnvironment env = ctx.getEnvironment();
+			env.setActiveProfiles(CollectionUtils.toStringArray(activeProfiles));
+		}
+		if (!CollectionUtils.isEmpty(defaultProfiles)) {
+			ConfigurableEnvironment env = ctx.getEnvironment();
+			env.setDefaultProfiles(CollectionUtils.toStringArray(defaultProfiles));
+		}
+	}
+
+	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String propertiesBeanName, Properties properties, List<String> activeProfiles,
+			List<String> defaultProfiles) {
 		ConfigurableApplicationContext parent = null;
 		if (properties == null) {
 			parent = getConfigurableApplicationContext();
@@ -300,6 +316,7 @@ public class SpringUtils {
 		}
 		AnnotationConfigApplicationContext child = new AnnotationConfigApplicationContext();
 		child.setParent(parent);
+		setupProfiles(child, activeProfiles, defaultProfiles);
 		child.register(annotatedClass);
 		child.refresh();
 		return getPropertySources(child);
@@ -311,11 +328,18 @@ public class SpringUtils {
 		return getPropertySources(location, mavenPropertiesBeanName, mavenProperties);
 	}
 
-	public static List<PropertySource<?>> getPropertySources(String location, String mavenPropertiesBeanName, Properties mavenProperties) {
+	public static List<PropertySource<?>> getPropertySources(String location, String propertiesBeanName, Properties properties) {
+		return getPropertySources(location, propertiesBeanName, properties, null, null);
+	}
+
+	public static List<PropertySource<?>> getPropertySources(String location, String propertiesBeanName, Properties properties, List<String> activeProfiles,
+			List<String> defaultProfiles) {
 		String[] locationsArray = { location };
-		ConfigurableApplicationContext parent = getContextWithPreRegisteredBean(mavenPropertiesBeanName, mavenProperties);
-		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, parent);
-		return SpringUtils.getPropertySources(child);
+		ConfigurableApplicationContext parent = getContextWithPreRegisteredBean(propertiesBeanName, properties);
+		ConfigurableApplicationContext child = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+		setupProfiles(child, activeProfiles, defaultProfiles);
+		child.refresh();
+		return getPropertySources(child);
 	}
 
 	@Deprecated

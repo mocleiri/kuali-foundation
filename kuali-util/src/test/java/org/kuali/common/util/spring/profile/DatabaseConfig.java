@@ -42,6 +42,11 @@ public class DatabaseConfig {
 	@Configuration
 	@MySql
 	static class a {
+
+		@Autowired
+		@Qualifier("foo")
+		String bar;
+
 		@Bean(name = VENDOR_BEAN)
 		public String aa() {
 			return "mysql";
@@ -51,6 +56,11 @@ public class DatabaseConfig {
 	@Configuration
 	@Oracle
 	static class b {
+
+		@Autowired
+		@Qualifier("foo")
+		String bar;
+
 		@Bean(name = VENDOR_BEAN)
 		public String aa() {
 			return "oracle";

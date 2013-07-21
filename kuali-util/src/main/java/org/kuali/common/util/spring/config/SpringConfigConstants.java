@@ -4,6 +4,7 @@ public abstract class SpringConfigConstants {
 
 	public static final String GROUP_ID_BEAN_NAME = "projectGroupId";
 	public static final String ARTIFACT_ID_BEAN_NAME = "projectArtifactId";
+	public static final String VERSION_BEAN_NAME = "projectVersion";
 	public static final String DEFAULT_PROFILE_ID = "default";
 
 }

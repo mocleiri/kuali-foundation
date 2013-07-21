@@ -36,7 +36,7 @@ import org.springframework.util.Assert;
 @Configuration
 public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
-	private static final String PROJECT_PROPERTIES_BEAN_NAME = "project.properties";
+	public static final String PROJECT_PROPERTIES_BEAN_NAME = "projectProperties";
 
 	@Autowired
 	@Qualifier(PROJECT_PROPERTIES_BEAN_NAME)
@@ -49,7 +49,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 
 	@Configuration
 	@Default
-	static class DefaultConfig {
+	static class RuntimeProjectConfig {
 
 		@Autowired
 		@Qualifier(SpringConfigConstants.GROUP_ID_BEAN_NAME)
@@ -68,11 +68,12 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			// Make them immutable and return
 			return new ImmutableProperties(properties);
 		}
+
 	}
 
 	@Configuration
 	@Maven
-	static class MavenConfig {
+	static class BuildProjectConfig {
 
 		@Autowired
 		@Qualifier(MavenConstants.MAVEN_PROPERTIES_BEAN_NAME)
@@ -89,7 +90,6 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			// Make them immutable and return
 			return new ImmutableProperties(mavenProperties);
 		}
-
 	}
 
 }
