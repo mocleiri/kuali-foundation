@@ -200,7 +200,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		context.setAnnotatedClasses(annotatedClasses);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
-		context.setProfiles(activeProfiles);
+		context.setActiveProfiles(activeProfiles);
 		return context;
 	}
 
@@ -285,7 +285,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		context.setLocations(contextLocations);
 		context.setBeanNames(beanNames);
 		context.setBeans(beans);
-		context.setProfiles(activeProfiles);
+		context.setActiveProfiles(activeProfiles);
 		return context;
 	}
 
