@@ -20,12 +20,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.ProjectConfigContainer;
-import org.kuali.common.util.project.ImmutableProject;
+import org.kuali.common.util.project.KualiConstants;
+import org.kuali.common.util.project.UtilConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -65,8 +65,9 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	@Override
 	protected Properties getBaseFilterProperties() {
-		ImmutableProject immutable = KualiProjectConstants.KUALI_UTIL;
-		Project project = ProjectUtils.loadProject(immutable.getGroupId(), immutable.getArtifactId());
+		String groupId = KualiConstants.COMMON_GROUP_ID;
+		String artifactId = UtilConstants.ARTIFACT_ID;
+		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		return PropertyUtils.load(getMetadataConfigFilePath(project, PROPS));
 	}
 
