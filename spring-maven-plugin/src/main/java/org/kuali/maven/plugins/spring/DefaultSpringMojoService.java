@@ -210,6 +210,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	protected List<String> getActiveProfiles(MavenProject project) {
 		List<Profile> mavenProfiles = project.getActiveProfiles();
 		List<String> profiles = new ArrayList<String>();
+		// Always add "maven" as an active profile
 		profiles.add(org.kuali.common.util.maven.MavenConstants.MAVEN_SPRING_PROFILE_NAME);
 		for (Profile profile : CollectionUtils.toEmptyList(mavenProfiles)) {
 			String profileId = profile.getId();
