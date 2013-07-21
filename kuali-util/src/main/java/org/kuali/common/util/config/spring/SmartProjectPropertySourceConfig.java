@@ -59,7 +59,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 		@Bean(name = PROJECT_BEAN_NAME)
 		public Project immutableProject() {
 
-			// Make sure the maven properties got wired in correctly
+			// Make sure projectId got wired in correctly
 			Assert.hasText(projectId, "projectId is blank");
 
 			// Load project.properties from disk
