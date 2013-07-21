@@ -41,7 +41,7 @@ public class DatabaseConfig {
 
 	@Configuration
 	@MySql
-	static class c {
+	static class a {
 		@Bean(name = VENDOR_BEAN)
 		public String aa() {
 			return "mysql";
@@ -59,7 +59,7 @@ public class DatabaseConfig {
 
 	@Configuration
 	@Default
-	static class a {
+	static class c {
 		@Bean(name = VENDOR_BEAN)
 		public String aa() {
 			return "h2";
