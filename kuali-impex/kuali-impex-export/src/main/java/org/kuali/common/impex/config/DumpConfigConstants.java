@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex;
+package org.kuali.common.impex.config;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.impex.config.KualiImpexExportConfig;
 import org.kuali.common.jdbc.config.KualiJdbcConfig;
 import org.kuali.common.jdbc.config.KualiSqlConfig;
 

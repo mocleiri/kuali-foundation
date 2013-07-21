@@ -1,6 +1,5 @@
 package org.kuali.common.impex.config;
 
-import org.kuali.common.impex.ExportProjectConstants;
 import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
 

@@ -1,4 +1,4 @@
-package org.kuali.common.impex;
+package org.kuali.common.impex.config;
 
 import org.kuali.common.util.project.KualiConstants;
 
