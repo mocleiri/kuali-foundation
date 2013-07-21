@@ -86,8 +86,8 @@ public class ProjectProcessor implements PropertyProcessor {
 		Assert.isTrue(groupIdLength >= groupIdBaseLength, "groupIdLength < groupIdBaseLength");
 
 		// Update groupId to be groupIdBase if (and only if)
-		// 1 - This is a Kuali project
-		// 2 - This Kuali project is using more than one groupId
+		// 1 - This is a KS project
+		// 2 - This KS project is using more than one groupId
 		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
 			project.setGroupId(groupIdBase);
 		}
