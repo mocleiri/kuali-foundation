@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 
 public class ProjectProcessor implements PropertyProcessor {
 
-	private static final String KUALI_ORG = "org.kuali";
+	private static final String KS_GROUP_ID = "org.kuali.student";
 	private static final String FS = File.separator;
 	private static final String DOT = ".";
 
@@ -71,8 +71,8 @@ public class ProjectProcessor implements PropertyProcessor {
 	@Deprecated
 	protected static void fixFunkyGroupIds(Project project) {
 
-		// Ignore any non-Kuali projects
-		if (!StringUtils.startsWith(project.getGroupId(), KUALI_ORG)) {
+		// Only muck with the KS groupId's
+		if (!StringUtils.startsWith(project.getGroupId(), KS_GROUP_ID)) {
 			return;
 		}
 
