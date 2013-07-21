@@ -15,14 +15,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import(PrintMessageConfig.class)
+@Import({ PrintMavenMessageConfig.class, PrintMessageConfig.class })
 public class PowerWebappConfig {
 
 	@Autowired
-	PrintMessageConfig pmc;
+	ConfigurableEnvironment env;
 
 	@Autowired
-	ConfigurableEnvironment env;
+	PrintMessageConfig printMessageConfig;
 
 	@Autowired
 	@Qualifier(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME)
@@ -31,9 +31,9 @@ public class PowerWebappConfig {
 	@Bean(initMethod = "execute")
 	public Executable executablesExecutable() {
 		List<Executable> executables = new ArrayList<Executable>();
-		executables.add(pmc.printMessageExecutable());
-		executables.add(new ShowPropertiesExecutable(mavenProperties));
-		executables.add(new ShowPropertySourcesExecutable(env));
+		executables.add(printMessageConfig.printMessageExecutable());
+		// executables.add(new ShowPropertiesExecutable(mavenProperties));
+		// executables.add(new ShowPropertySourcesExecutable(env));
 		return new ExecutablesExecutable(executables);
 	}
 }
