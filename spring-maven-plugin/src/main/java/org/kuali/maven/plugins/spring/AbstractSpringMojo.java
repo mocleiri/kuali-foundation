@@ -67,6 +67,18 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String springService = MavenConstants.DEFAULT_SPRING_SERVICE.getName();
 
 	/**
+	 * Comma separated list of profiles to activate. A profile named "maven" is always activated. Anything profiles provided here are in addition to the "maven" profile.
+	 */
+	@Parameter(property = "spring.profiles.active")
+	String activeProfiles;
+
+	/**
+	 * Comma separated list of default profiles. Spring always uses a single profile named <code>default</code> if no other default profiles are specified.
+	 */
+	@Parameter(property = "spring.profiles.default")
+	String defaultProfiles;
+
+	/**
 	 * The implementation of SpringMojoService to use. If not supplied this defaults to <code>org.kuali.maven.plugins.spring.DefaultSpringMojoService</code>
 	 */
 	@Parameter(property = "spring.springMojoService")
@@ -219,6 +231,22 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public void setRemoveExistingPropertySources(boolean removeExistingPropertySources) {
 		this.removeExistingPropertySources = removeExistingPropertySources;
+	}
+
+	public String getActiveProfiles() {
+		return activeProfiles;
+	}
+
+	public void setActiveProfiles(String activeProfiles) {
+		this.activeProfiles = activeProfiles;
+	}
+
+	public String getDefaultProfiles() {
+		return defaultProfiles;
+	}
+
+	public void setDefaultProfiles(String defaultProfiles) {
+		this.defaultProfiles = defaultProfiles;
 	}
 
 }
