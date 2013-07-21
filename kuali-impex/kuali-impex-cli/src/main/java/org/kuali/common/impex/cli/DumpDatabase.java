@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.cli;
 
-import org.kuali.common.impex.DumpConfigConstants;
+import org.kuali.common.impex.config.DumpConfigConstants;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
 import org.kuali.common.util.config.supplier.PropertiesSupplier;
