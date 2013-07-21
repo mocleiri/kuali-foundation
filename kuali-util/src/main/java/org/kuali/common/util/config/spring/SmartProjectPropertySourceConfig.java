@@ -20,6 +20,7 @@ import java.util.Properties;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.maven.Maven;
 import org.kuali.common.util.maven.MavenConstants;
+import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.project.ImmutableProject;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.profile.annotation.Default;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Assert;
 
 /**
  * 
@@ -55,7 +57,8 @@ public abstract class SmartProjectPropertySourceConfig extends BasicPropertySour
 			ImmutableProject project = getProject();
 			String groupId = project.getGroupId();
 			String artifactId = project.getArtifactId();
-			return ProjectUtils.loadProject(groupId, artifactId).getProperties();
+			Properties properties = ProjectUtils.loadProject(groupId, artifactId).getProperties();
+			return new ImmutableProperties(properties);
 		}
 	}
 
@@ -69,6 +72,13 @@ public abstract class SmartProjectPropertySourceConfig extends BasicPropertySour
 
 		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
 		public Properties projectProperties() {
+			// Make sure the maven properties got wired in correctly
+			Assert.notNull(mavenProperties, "mavenProperties are null");
+
+			// Add in org, group, home, and enhanced version properties
+			MavenUtils.augmentProjectProperties(mavenProperties);
+
+			// Return what we've got
 			return new ImmutableProperties(mavenProperties);
 		}
 
