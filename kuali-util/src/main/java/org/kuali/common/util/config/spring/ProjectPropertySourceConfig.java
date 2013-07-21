@@ -33,7 +33,17 @@ import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
 /**
+ * You can use this configuration transparently between the Maven CLI and a normal runtime by injecting <code>projectId</code> into your context.
  * 
+ * When running from the Maven CLI, <code>projectId</code> is ignored because project properties are pre-injected into the context by spring-maven-plugin.
+ * 
+ * When running in a normal runtime, <code>projectId</code> is used to load a <code>project.properties</code> file.
+ * 
+ * Project Id's are in this format:
+ * 
+ * <pre>
+ *   org.kuali.common:kuali-util
+ * </pre>
  */
 @Configuration
 public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
@@ -72,7 +82,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 			// Get a reference to the project service
 			ProjectService service = projectServiceConfig.projectService();
 
-			// Load project.properties to create a Project object
+			// Use the service to convert the projectId into a Project
 			return service.getProject(projectId);
 		}
 	}
@@ -101,7 +111,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 			// Get a reference to the project service
 			ProjectService service = projectServiceConfig.projectService();
 
-			// Get an immutable project from the properties
+			// Use the service to convert the properties into a Project
 			return service.getProject(mavenProperties);
 		}
 	}
