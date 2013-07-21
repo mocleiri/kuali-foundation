@@ -40,7 +40,7 @@ public class DefaultProjectService implements ProjectService {
 		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
 		String artifactId = properties.getProperty(MavenConstants.ARTIFACT_ID_KEY);
 		String version = properties.getProperty(MavenConstants.VERSION_KEY);
-		return new FullImmutableProject(groupId, artifactId, version, properties);
+		return new ImmutableProject(groupId, artifactId, version, properties);
 
 	}
 

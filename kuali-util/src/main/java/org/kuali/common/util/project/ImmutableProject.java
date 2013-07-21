@@ -20,14 +20,14 @@ import java.util.Properties;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.property.ImmutableProperties;
 
-public final class FullImmutableProject implements Project {
+public final class ImmutableProject implements Project {
 
 	final String groupId;
 	final String artifactId;
 	final String version;
 	final Properties properties;
 
-	public FullImmutableProject(String groupId, String artifactId, String version, Properties properties) {
+	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
 		super();
 		Assert.notBlank(groupId, artifactId, version, "GAV info can't be blank");
 		Assert.notNull(properties, "properties can't be null");
