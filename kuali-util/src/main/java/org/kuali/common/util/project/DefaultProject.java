@@ -17,8 +17,6 @@ package org.kuali.common.util.project;
 
 import java.util.Properties;
 
-import org.kuali.common.util.property.ImmutableProperties;
-
 public final class DefaultProject implements Project {
 
 	String groupId;
@@ -35,7 +33,7 @@ public final class DefaultProject implements Project {
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 		this.version = version;
-		this.properties = new ImmutableProperties(properties);
+		this.properties = properties;
 	}
 
 	@Override
