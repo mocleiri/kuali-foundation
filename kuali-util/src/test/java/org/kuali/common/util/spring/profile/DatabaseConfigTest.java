@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.spring.profile;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 import org.kuali.common.util.spring.service.DefaultSpringService;
 import org.kuali.common.util.spring.service.SpringContext;
@@ -28,8 +26,8 @@ public class DatabaseConfigTest {
 	public void test() {
 		try {
 			SpringContext context = new SpringContext(ShowDatabaseExecutableConfig.class);
-			context.setActiveProfiles(Arrays.asList(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME));
-			context.setActiveProfiles(Arrays.asList(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME));
+			// context.setActiveProfiles(Arrays.asList(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME));
+			// context.setActiveProfiles(Arrays.asList(DatabaseConstants.MYSQL_SPRING_PROFILE_NAME));
 			SpringService ss = new DefaultSpringService();
 			ss.load(context);
 		} catch (Exception e) {

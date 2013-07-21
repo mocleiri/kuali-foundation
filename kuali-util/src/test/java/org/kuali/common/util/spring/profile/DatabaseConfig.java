@@ -23,8 +23,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DatabaseConfig {
 
+	private static final String VENDOR_BEAN = "db.vendor";
+
 	@Autowired
-	@Qualifier("foo")
+	@Qualifier(VENDOR_BEAN)
 	String vendor;
 
 	@Bean
@@ -35,17 +37,27 @@ public class DatabaseConfig {
 	}
 
 	@Configuration
+	@Default
+	static class a {
+		@Bean(name = VENDOR_BEAN)
+		public String blobbity() {
+			return "h2";
+		}
+	}
+
+	@Configuration
 	@Oracle
 	static class b {
-		@Bean(name = "foo")
+		@Bean(name = VENDOR_BEAN)
 		public String blibbity() {
 			return "oracle";
 		}
 	}
 
 	@Configuration
-	static class a {
-		@Bean(name = "foo")
+	@MySql
+	static class c {
+		@Bean(name = VENDOR_BEAN)
 		public String blabbity() {
 			return "mysql";
 		}
