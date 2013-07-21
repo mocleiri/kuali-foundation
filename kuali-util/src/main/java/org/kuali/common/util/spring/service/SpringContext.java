@@ -42,6 +42,7 @@ public class SpringContext {
 	List<Object> beans;
 	PropertySourceContext propertySourceContext;
 	List<String> activeProfiles;
+	List<String> defaultProfiles;
 
 	public List<String> getLocations() {
 		return locations;
@@ -105,6 +106,14 @@ public class SpringContext {
 
 	public void setActiveProfiles(List<String> activeProfiles) {
 		this.activeProfiles = activeProfiles;
+	}
+
+	public List<String> getDefaultProfiles() {
+		return defaultProfiles;
+	}
+
+	public void setDefaultProfiles(List<String> defaultProfiles) {
+		this.defaultProfiles = defaultProfiles;
 	}
 
 }
