@@ -22,7 +22,6 @@ import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectServiceConfig;
-import org.kuali.common.util.spring.config.SpringConfigConstants;
 import org.kuali.common.util.spring.config.annotation.Default;
 import org.kuali.common.util.spring.config.annotation.Maven;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +48,7 @@ import org.springframework.util.Assert;
 public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
 	private static final String PROJECT_BEAN_NAME = "project.immutable";
+	public static final String PROJECT_ID_BEAN_NAME = "project.id";
 
 	@Autowired
 	@Qualifier(PROJECT_BEAN_NAME)
@@ -67,7 +67,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 		// Use of this configuration at runtime requires "projectId" wired into the context
 		// Format for "projectId" is [groupId:artifactId], eg "org.kuali.common:kuali-util"
 		@Autowired
-		@Qualifier(SpringConfigConstants.PROJECT_ID_BEAN_NAME)
+		@Qualifier(PROJECT_ID_BEAN_NAME)
 		String projectId;
 
 		@Autowired
