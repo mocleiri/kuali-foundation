@@ -19,11 +19,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.config.KualiUtilConfig;
-import org.kuali.common.util.config.spring.SmartProjectPropertySourceConfig;
+import org.kuali.common.util.config.spring.ProjectPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SmartMetaInfMpxPropertySourceConfig extends SmartProjectPropertySourceConfig {
+public class MetaInfMpxPropertySourceConfig extends ProjectPropertySourceConfig {
 
 	@Override
 	protected List<String> getConfigIds() {
