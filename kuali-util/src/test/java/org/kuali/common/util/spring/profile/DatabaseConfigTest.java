@@ -31,6 +31,7 @@ public class DatabaseConfigTest {
 			String mysql = DatabaseConstants.MYSQL_SPRING_PROFILE_NAME;
 			SpringContext context = new SpringContext(ShowDatabaseExecutableConfig.class);
 			context.setActiveProfiles(Arrays.asList(mysql));
+			context.setActiveProfiles(Arrays.asList(oracle));
 			SpringService ss = new DefaultSpringService();
 			ss.load(context);
 		} catch (Exception e) {
