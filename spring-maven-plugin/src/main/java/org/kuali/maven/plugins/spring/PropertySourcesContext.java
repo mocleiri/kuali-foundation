@@ -1,5 +1,6 @@
 package org.kuali.maven.plugins.spring;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.spring.service.SpringService;
@@ -11,6 +12,8 @@ public class PropertySourcesContext {
 	Class<?> annotatedClass;
 	String propertiesBeanName;
 	Properties properties;
+	List<String> activeProfiles;
+	List<String> defaultProfiles;
 
 	public SpringService getService() {
 		return service;
@@ -50,6 +53,22 @@ public class PropertySourcesContext {
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public List<String> getActiveProfiles() {
+		return activeProfiles;
+	}
+
+	public void setActiveProfiles(List<String> activeProfiles) {
+		this.activeProfiles = activeProfiles;
+	}
+
+	public List<String> getDefaultProfiles() {
+		return defaultProfiles;
+	}
+
+	public void setDefaultProfiles(List<String> defaultProfiles) {
+		this.defaultProfiles = defaultProfiles;
 	}
 
 }
