@@ -43,19 +43,19 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	boolean removeExistingPropertySources = new Boolean(MavenConstants.DEFAULT_REMOVE_EXISTING_PROPERTY_SOURCES);
 
 	/**
-	 * If true, Maven properties are injected into the context as a <code>java.util.Properties</code> bean
+	 * If true, Maven properties are injected into the context as a <code>java.util.Properties</code> bean under the name <code>mavenProperties</code>
 	 */
 	@Parameter(property = "spring.injectMavenProperties", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_PROPERTIES)
 	boolean injectMavenProperties = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_PROPERTIES);
 
 	/**
-	 * If true, the Maven project object is injected into the context
+	 * If true, the Maven project object is injected into the context under the name <code>mavenProject</code>
 	 */
 	@Parameter(property = "spring.injectMavenProject", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_PROJECT)
 	boolean injectMavenProject = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_PROJECT);
 
 	/**
-	 * If true, the Maven project object is injected into the context
+	 * If true, this Maven mojo object is injected into the context under the name <code>mavenMojo</code>
 	 */
 	@Parameter(property = "spring.injectMavenMojo", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_MOJO)
 	boolean injectMavenMojo = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_MOJO);
@@ -73,7 +73,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String activeProfiles;
 
 	/**
-	 * Comma separated list of default profiles. Spring always uses a single profile named <code>default</code> if no other default profiles are specified.
+	 * Comma separated list of default profiles. Spring always uses a single profile named <code>default</code> if no default profiles are provided.
 	 */
 	@Parameter(property = "spring.profiles.default")
 	String defaultProfiles;
