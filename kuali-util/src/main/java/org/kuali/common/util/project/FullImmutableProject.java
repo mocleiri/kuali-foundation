@@ -17,6 +17,7 @@ package org.kuali.common.util.project;
 
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.property.ImmutableProperties;
 
 public final class FullImmutableProject implements Project {
@@ -28,10 +29,18 @@ public final class FullImmutableProject implements Project {
 
 	public FullImmutableProject(String groupId, String artifactId, String version, Properties properties) {
 		super();
+		Assert.notBlank(groupId, artifactId, version, "GAV info can't be blank");
+		Assert.notNull(properties, "properties can't be null");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 		this.version = version;
-		this.properties = new ImmutableProperties(properties);
+		if (properties instanceof ImmutableProperties) {
+			// If they are already immutable, just reference the existing object
+			this.properties = properties;
+		} else {
+			// Otherwise create an immutable copy of them
+			this.properties = new ImmutableProperties(properties);
+		}
 	}
 
 	@Override

@@ -20,7 +20,8 @@ import java.util.Properties;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
-import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.project.FullImmutableProject;
+import org.kuali.common.util.project.Project;
 import org.kuali.common.util.spring.config.SpringConfigConstants;
 import org.kuali.common.util.spring.config.annotation.Default;
 import org.kuali.common.util.spring.config.annotation.Maven;
@@ -36,15 +37,15 @@ import org.springframework.util.Assert;
 @Configuration
 public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
-	public static final String PROJECT_PROPERTIES_BEAN_NAME = "projectProperties";
+	public static final String PROJECT_BEAN_NAME = "project.immutable";
 
 	@Autowired
-	@Qualifier(PROJECT_PROPERTIES_BEAN_NAME)
-	Properties projectProperties;
+	@Qualifier(PROJECT_BEAN_NAME)
+	Project project;
 
 	@Override
 	protected Properties getOverrides() {
-		return projectProperties;
+		return project.getProperties();
 	}
 
 	@Configuration
@@ -59,15 +60,29 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 		@Qualifier(SpringConfigConstants.ARTIFACT_ID_BEAN_NAME)
 		String artifactId;
 
-		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
-		public Properties projectProperties() {
+		@Bean(name = PROJECT_BEAN_NAME)
+		public Project immutableProject() {
+
+			// Make sure the maven properties got wired in correctly
+			Assert.hasText(groupId, "groupId is blank");
+
+			// Make sure the maven properties got wired in correctly
+			Assert.hasText(artifactId, "artifactId is blank");
 
 			// Load project.properties from disk
 			Properties properties = ProjectUtils.loadProject(groupId, artifactId).getProperties();
 
 			// Make them immutable and return
-			return new ImmutableProperties(properties);
+			return getImmutableProject(properties);
 		}
+
+	}
+
+	protected static FullImmutableProject getImmutableProject(Properties properties) {
+		String groupId = properties.getProperty("project.groupId");
+		String artifactId = properties.getProperty("project.artifactId");
+		String version = properties.getProperty("project.version");
+		return new FullImmutableProject(groupId, artifactId, version, properties);
 
 	}
 
@@ -79,8 +94,8 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 		@Qualifier(MavenConstants.MAVEN_PROPERTIES_BEAN_NAME)
 		Properties mavenProperties;
 
-		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
-		public Properties projectProperties() {
+		@Bean(name = PROJECT_BEAN_NAME)
+		public Project projectProperties() {
 			// Make sure the maven properties got wired in correctly
 			Assert.notNull(mavenProperties, "mavenProperties are null");
 
@@ -88,7 +103,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			MavenUtils.augmentProjectProperties(mavenProperties);
 
 			// Make them immutable and return
-			return new ImmutableProperties(mavenProperties);
+			return getImmutableProject(mavenProperties);
 		}
 	}
 
