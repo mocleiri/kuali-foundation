@@ -105,7 +105,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 			// Make sure the maven properties got wired in correctly
 			Assert.notNull(mavenProperties, "mavenProperties are null");
 
-			// Add in org, group, home, and enhanced version properties
+			// Enhance the default set of Maven properties
 			MavenUtils.augmentProjectProperties(mavenProperties);
 
 			// Get a reference to the project service
