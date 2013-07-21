@@ -17,6 +17,7 @@ package org.kuali.common.util;
 
 import org.kuali.common.util.project.ImmutableProject;
 
+@Deprecated
 public abstract class KualiProjectConstants {
 
 	// Kuali Group Id's
