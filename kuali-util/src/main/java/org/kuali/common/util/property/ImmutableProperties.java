@@ -25,8 +25,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.kuali.common.util.Assert;
-
 public final class ImmutableProperties extends Properties {
 
 	private static final long serialVersionUID = -3964884087103719367L;
@@ -35,18 +33,32 @@ public final class ImmutableProperties extends Properties {
 	public ImmutableProperties(Properties original) {
 
 		// original can't be null
-		Assert.notNull(original, "original is null");
+		if (original == null) {
+			throw new IllegalArgumentException("original is null");
+		}
 
-		// Prevent anything from changing original while we are getting things setup
+		// Prevent anything from changing original until we are done
 		synchronized (original) {
 
-			// Original must contain only strings (for both keys and values)
-			Assert.isTrue(original.stringPropertyNames().size() == original.size(), "Immutable properties only support strings");
+			// Extract only those keys where both the key and its corresponding value are strings
+			Set<String> keys = original.stringPropertyNames();
 
-			// Copy original
-			super.putAll(original);
+			// If the sizes are different, original contains at least one key or value that is not a string
+			if (keys.size() != original.size()) {
+				throw new IllegalArgumentException("Immutable properties only support strings");
+			}
 
+			// Copy all of the key/value pairs from original
+			// Can't use super.putAll() here, since it tries to invoke this.put(), which we've disabled
+			for (String key : keys) {
+				super.put(key, original.getProperty(key));
+			}
 		}
+	}
+
+	@Override
+	public Object setProperty(String key, String value) {
+		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override
