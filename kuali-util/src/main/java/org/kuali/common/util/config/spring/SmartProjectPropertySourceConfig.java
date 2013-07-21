@@ -18,10 +18,10 @@ package org.kuali.common.util.config.spring;
 import java.util.Properties;
 
 import org.kuali.common.util.ProjectUtils;
-import org.kuali.common.util.maven.Maven;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.spring.config.Maven;
 import org.kuali.common.util.spring.profile.annotation.Default;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
