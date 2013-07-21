@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.project;
 
-import org.kuali.common.util.project.ImmutableProject;
 
-public abstract class KualiProjectConstants {
+public abstract class KualiConstants {
 
 	// Kuali Group Id's
 	public static final String COMMON_GROUP_ID = "org.kuali.common";
@@ -26,16 +25,5 @@ public abstract class KualiProjectConstants {
 	public static final String MOBILITY_GROUP_ID = "org.kuali.mobility";
 	public static final String OLE_GROUP_ID = "org.kuali.ole";
 	public static final String KPME_GROUP_ID = "org.kuali.kpme";
-
-	// Common Artifact Id's
-	public static final String SQL_ARTIFACT_ID = "kuali-sql";
-	public static final String UTIL_ARTIFACT_ID = "kuali-util";
-	public static final String JDBC_ARTIFACT_ID = "kuali-jdbc";
-
-	public static final String UTIL_PROJECT_ID = COMMON_GROUP_ID + ":" + UTIL_ARTIFACT_ID;
-
-	public static final ImmutableProject KUALI_UTIL = new ImmutableProject(COMMON_GROUP_ID, UTIL_ARTIFACT_ID);
-	public static final ImmutableProject KUALI_JDBC = new ImmutableProject(COMMON_GROUP_ID, JDBC_ARTIFACT_ID);
-	public static final ImmutableProject KUALI_SQL = new ImmutableProject(COMMON_GROUP_ID, SQL_ARTIFACT_ID);
 
 }

@@ -10,12 +10,13 @@ import org.springframework.core.env.Environment;
 public class ProjectServiceConfig {
 
 	private static final String SERVICE_KEY = "project.service";
+	public static final String SERVICE_BEAN = UtilConstants.PROJECT_ID + ":projectServiceConfig:projectService";
 
 	@Autowired
 	Environment env;
 
-	@Bean
-	public ProjectService projectServiceConfigService() {
+	@Bean(name = SERVICE_BEAN)
+	public ProjectService projectService() {
 		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultProjectService.class);
 	}
 

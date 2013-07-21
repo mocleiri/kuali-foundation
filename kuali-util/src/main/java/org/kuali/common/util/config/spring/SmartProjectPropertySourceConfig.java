@@ -54,8 +54,8 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 	@Import({ ProjectServiceConfig.class })
 	static class RuntimeProjectConfig {
 
-		// Use of this configuration at runtime requires that "projectId" is wired into the context
-		// Format for "projectId" is <groupId>:<artifactId>, eg "org.kuali.common:kuali-util"
+		// Use of this configuration at runtime requires "projectId" wired into the context
+		// Format for "projectId" is [groupId:artifactId], eg "org.kuali.common:kuali-util"
 		@Autowired
 		@Qualifier(SpringConfigConstants.PROJECT_ID_BEAN_NAME)
 		String projectId;
@@ -70,7 +70,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			Assert.hasText(projectId, "projectId is blank");
 
 			// Get a reference to the project service
-			ProjectService service = projectServiceConfig.projectServiceConfigService();
+			ProjectService service = projectServiceConfig.projectService();
 
 			// Load project.properties to create a Project object
 			return service.getProject(projectId);
@@ -99,7 +99,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			MavenUtils.augmentProjectProperties(mavenProperties);
 
 			// Get a reference to the project service
-			ProjectService service = projectServiceConfig.projectServiceConfigService();
+			ProjectService service = projectServiceConfig.projectService();
 
 			// Get an immutable project from the properties
 			return service.getProject(mavenProperties);
