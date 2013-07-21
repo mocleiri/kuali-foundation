@@ -26,7 +26,7 @@ public interface ProjectService {
 	 *   org.kuali.common:kuali-util
 	 * </pre>
 	 */
-	Project loadProject(String projectId);
+	Project getProject(String projectId);
 
 	/**
 	 * Create a <code>Project</code> from the properties.

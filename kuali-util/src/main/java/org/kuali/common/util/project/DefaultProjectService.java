@@ -45,7 +45,7 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
-	public Project loadProject(String projectId) {
+	public Project getProject(String projectId) {
 
 		Assert.hasText(projectId, "projectId is blank");
 
