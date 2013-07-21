@@ -30,9 +30,7 @@ public interface ExecutableSpringConfig {
 
 	public static final String EXECUTABLE_INIT_METHOD = "execute";
 
-	Executable getExecutable();
-
 	@Bean(initMethod = EXECUTABLE_INIT_METHOD)
-	public Executable executable();
+	public Executable springExecutable();
 
 }
