@@ -229,6 +229,9 @@ public class DefaultSpringService implements SpringService {
 
 	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
 		PropertySourceContext psc = context.getPropertySourceContext();
+		if (psc == null) {
+			return;
+		}
 		ConfigurableEnvironment env = applicationContext.getEnvironment();
 		if (psc.isRemoveExistingSources()) {
 			logger.debug("Removing all existing property sources");

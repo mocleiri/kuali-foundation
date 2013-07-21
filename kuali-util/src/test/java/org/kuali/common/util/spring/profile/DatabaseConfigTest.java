@@ -16,18 +16,19 @@
 package org.kuali.common.util.spring.profile;
 
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
 
 public class DatabaseConfigTest {
 
 	@Test
 	public void test() {
 		try {
-			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-			ctx.getEnvironment().setActiveProfiles(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME);
-			ctx.register(ShowDatabaseExecutableConfig.class);
-			ctx.refresh();
-			ctx.close();
+			SpringContext context = new SpringContext(ShowDatabaseExecutableConfig.class);
+			// context.setActiveProfiles(Arrays.asList(DatabaseConstants.ORACLE_SPRING_PROFILE_NAME));
+			SpringService ss = new DefaultSpringService();
+			ss.load(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

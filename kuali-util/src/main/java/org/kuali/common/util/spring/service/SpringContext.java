@@ -17,7 +17,22 @@ package org.kuali.common.util.spring.service;
 
 import java.util.List;
 
+import org.kuali.common.util.CollectionUtils;
+
 public class SpringContext {
+
+	public SpringContext() {
+		this((Class<?>) null);
+	}
+
+	public SpringContext(Class<?> annotatedClass) {
+		this(CollectionUtils.asList(annotatedClass));
+	}
+
+	public SpringContext(List<Class<?>> annotatedClasses) {
+		super();
+		this.annotatedClasses = annotatedClasses;
+	}
 
 	String id;
 	String displayName;
