@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.spring.profile;
 
-import org.kuali.common.util.spring.profile.annotation.Default;
+import org.kuali.common.util.spring.config.annotation.Default;
 import org.kuali.common.util.spring.profile.annotation.MySql;
 import org.kuali.common.util.spring.profile.annotation.Oracle;
 import org.springframework.beans.factory.annotation.Autowired;
