@@ -22,11 +22,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.Project;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.project.KualiConstants;
 import org.springframework.util.Assert;
 
 public class ProjectProcessor implements PropertyProcessor {
 
-	private static final String KS_GROUP_ID = "org.kuali.student";
+	private static final String KS_GROUP_ID = KualiConstants.STUDENT_GROUP_ID;
 	private static final String FS = File.separator;
 	private static final String DOT = ".";
 
