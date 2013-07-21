@@ -1,7 +1,6 @@
 package org.kuali.maven.plugins.spring;
 
-import java.lang.reflect.InvocationTargetException;
-
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,23 +24,8 @@ public class MojoExecutable implements Executable {
 		invoker.setTargetObject(service);
 		invoker.setTargetMethod(serviceMethod);
 		invoker.setArguments(new Object[] { mojo });
-		invoke(invoker);
+		ReflectionUtils.invoke(invoker);
 		logger.debug("Completed - [{}.{}({})]", args);
-	}
-
-	protected void invoke(MethodInvoker invoker) {
-		try {
-			invoker.prepare();
-			invoker.invoke();
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException(e);
-		} catch (NoSuchMethodException e) {
-			throw new IllegalStateException(e);
-		} catch (InvocationTargetException e) {
-			throw new IllegalStateException(e);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	public MethodInvoker getInvoker() {
