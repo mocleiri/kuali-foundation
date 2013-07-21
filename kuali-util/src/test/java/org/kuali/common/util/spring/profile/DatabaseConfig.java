@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class DatabaseConfig {
 
 	@Autowired
-	@Qualifier(DatabaseConstants.VENDOR_BEAN_NAME)
+	@Qualifier("foo")
 	String vendor;
 
 	@Bean
@@ -36,27 +36,18 @@ public class DatabaseConfig {
 
 	@Configuration
 	@Oracle
-	static class Oracle2VendorConfig {
-		@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
-		String dataSource() {
-			return "oracle2";
+	static class b {
+		@Bean(name = "foo")
+		public String blibbity() {
+			return "oracle";
 		}
 	}
 
 	@Configuration
-	static class MySqlVendorConfig {
-		@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
-		String dataSource() {
+	static class a {
+		@Bean(name = "foo")
+		public String blabbity() {
 			return "mysql";
-		}
-	}
-
-	@Configuration
-	@Oracle
-	static class Oracle1VendorConfig {
-		@Bean(name = DatabaseConstants.VENDOR_BEAN_NAME)
-		String dataSource() {
-			return "oracle1";
 		}
 	}
 
