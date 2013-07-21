@@ -15,18 +15,18 @@
  */
 package org.kuali.common.util.spring.profile;
 
+import org.kuali.common.util.spring.profile.annotation.Default;
 import org.kuali.common.util.spring.profile.annotation.MySql;
 import org.kuali.common.util.spring.profile.annotation.Oracle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class DatabaseConfig {
 
-	private static final String VENDOR_BEAN = "dbbbbbb.vendor";
+	private static final String VENDOR_BEAN = DatabaseConstants.VENDOR_BEAN_NAME;
 
 	@Autowired
 	@Qualifier(VENDOR_BEAN)
@@ -40,11 +40,11 @@ public class DatabaseConfig {
 	}
 
 	@Configuration
-	@Profile("snausages")
+	@MySql
 	static class c {
 		@Bean(name = VENDOR_BEAN)
-		public String blobbity() {
-			return "h2";
+		public String aa() {
+			return "mysql";
 		}
 	}
 
@@ -52,17 +52,17 @@ public class DatabaseConfig {
 	@Oracle
 	static class b {
 		@Bean(name = VENDOR_BEAN)
-		public String blibbity() {
+		public String aa() {
 			return "oracle";
 		}
 	}
 
 	@Configuration
-	@MySql
+	@Default
 	static class a {
 		@Bean(name = VENDOR_BEAN)
-		public String blabbity() {
-			return "mysql";
+		public String aa() {
+			return "h2";
 		}
 	}
 
