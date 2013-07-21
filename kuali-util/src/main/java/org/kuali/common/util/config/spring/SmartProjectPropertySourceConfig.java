@@ -61,7 +61,11 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 
 		@Bean(name = PROJECT_PROPERTIES_BEAN_NAME)
 		public Properties projectProperties() {
+
+			// Load project.properties from disk
 			Properties properties = ProjectUtils.loadProject(groupId, artifactId).getProperties();
+
+			// Make them immutable and return
 			return new ImmutableProperties(properties);
 		}
 	}
@@ -82,7 +86,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 			// Add in org, group, home, and enhanced version properties
 			MavenUtils.augmentProjectProperties(mavenProperties);
 
-			// Return what we've got
+			// Make them immutable and return
 			return new ImmutableProperties(mavenProperties);
 		}
 
