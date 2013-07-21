@@ -15,44 +15,42 @@
 
 package org.kuali.common.impex;
 
-import org.kuali.common.util.KualiProjectConstants;
 import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
-import org.kuali.common.util.project.ImmutableProject;
+import org.kuali.common.util.project.KualiConstants;
 
 public enum KualiImpexProducerConfig implements ProjectConfig {
 
-    SCHEMA_SQL("sql:schema"),
-    MPX_SQL("sql:mpx");
+	SCHEMA_SQL("sql:schema"), //
+	MPX_SQL("sql:mpx");
 
-    public static final String ARTIFACT_ID = "kuali-impex-producer";
+	public static final String ARTIFACT_ID = "kuali-impex-producer";
 
-    private final ImmutableProject project = new ImmutableProject(KualiProjectConstants.COMMON_GROUP_ID, ARTIFACT_ID);
-    private final String contextId;
-    private final String configId;
+	private final String contextId;
+	private final String configId;
 
-    private KualiImpexProducerConfig(String contextId) {
-        this.contextId = contextId;
-        this.configId = ConfigUtils.getConfigId(this);
-    }
+	private KualiImpexProducerConfig(String contextId) {
+		this.contextId = contextId;
+		this.configId = ConfigUtils.getConfigId(this);
+	}
 
-    @Override
-    public String getGroupId() {
-        return project.getGroupId();
-    }
+	@Override
+	public String getGroupId() {
+		return KualiConstants.COMMON_GROUP_ID;
+	}
 
-    @Override
-    public String getArtifactId() {
-        return project.getArtifactId();
-    }
+	@Override
+	public String getArtifactId() {
+		return ARTIFACT_ID;
+	}
 
-    @Override
-    public String getContextId() {
-        return contextId;
-    }
+	@Override
+	public String getContextId() {
+		return contextId;
+	}
 
-    @Override
-    public String getConfigId() {
-        return configId;
-    }
+	@Override
+	public String getConfigId() {
+		return configId;
+	}
 }
