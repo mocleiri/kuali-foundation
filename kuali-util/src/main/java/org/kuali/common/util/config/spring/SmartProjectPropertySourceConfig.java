@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
 @Configuration
 public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
-	public static final String PROJECT_BEAN_NAME = "project.immutable";
+	private static final String PROJECT_BEAN_NAME = "project.immutable";
 
 	@Autowired
 	@Qualifier(PROJECT_BEAN_NAME)
