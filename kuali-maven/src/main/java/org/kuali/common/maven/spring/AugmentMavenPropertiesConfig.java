@@ -32,7 +32,7 @@ public class AugmentMavenPropertiesConfig {
 	Environment env;
 
 	@Autowired
-	@Qualifier(MavenConstants.MAVEN_PROJECT_BEAN_NAME)
+	@Qualifier(MavenConstants.PROJECT_BEAN_NAME)
 	MavenProject mavenProject;
 
 	@Bean(initMethod = "execute")
