@@ -20,7 +20,7 @@ import java.util.Properties;
 public interface ProjectService {
 
 	/**
-	 * Load <code>project.properties</code> from disk
+	 * Create a <code>Project</code> by loading <code>project.properties</code> from disk
 	 * 
 	 * <pre>
 	 *   org.kuali.common:kuali-util
