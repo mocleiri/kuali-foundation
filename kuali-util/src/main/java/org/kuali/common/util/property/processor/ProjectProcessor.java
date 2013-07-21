@@ -66,7 +66,7 @@ public class ProjectProcessor implements PropertyProcessor {
 	}
 
 	/**
-	 * If <code>project</code> is a Kuali project where groupIdBase != groupId, update groupId to be groupIdBase
+	 * If <code>project</code> is a KS project where groupIdBase != groupId, update groupId to be groupIdBase
 	 */
 	@Deprecated
 	protected static void fixFunkyGroupIds(Project project) {
