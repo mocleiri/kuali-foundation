@@ -80,7 +80,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 		Properties mavenProperties;
 
 		@Bean(name = PROJECT_BEAN_NAME)
-		public Project projectProperties() {
+		public Project immutableProject() {
 			// Make sure the maven properties got wired in correctly
 			Assert.notNull(mavenProperties, "mavenProperties are null");
 
