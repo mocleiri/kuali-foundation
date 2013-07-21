@@ -49,7 +49,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 
 	@Configuration
 	@Default
-	class DefaultConfig {
+	static class DefaultConfig {
 
 		@Autowired
 		@Qualifier(SpringConfigConstants.GROUP_ID_BEAN_NAME)
@@ -72,7 +72,7 @@ public class SmartProjectPropertySourceConfig extends BasicPropertySourceConfig 
 
 	@Configuration
 	@Maven
-	class MavenConfig {
+	static class MavenConfig {
 
 		@Autowired
 		@Qualifier(MavenConstants.MAVEN_PROPERTIES_BEAN_NAME)
