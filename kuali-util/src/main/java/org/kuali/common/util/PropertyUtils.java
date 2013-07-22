@@ -778,6 +778,53 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Examine both system properties and environment variables to get a value for <code>key</code>. Return <code>null</code> if nothing is found.
+	 * 
+	 * <pre>
+	 *   project.groupId -> System property check for "project.groupId"
+	 *   project.groupId -> Environment check for "PROJECT_GROUPID"
+	 * </pre>
+	 */
+	public static final String getGlobalProperty(String key) {
+		return getGlobalProperty(key, null);
+	}
+
+	/**
+	 * Examine both system properties and environment variables to get a value for <code>key</code>. Return <code>defaultValue</code> if nothing is found
+	 * 
+	 * <pre>
+	 *   project.groupId -> System property check for "project.groupId"
+	 *   project.groupId -> Environment check for "PROJECT_GROUPID"
+	 * </pre>
+	 */
+	public static final String getGlobalProperty(String key, String defaultValue) {
+		// Acquire a handle to both system properties and environment variables
+		Properties properties = getGlobalProperties();
+
+		// Check to see if we have an exact match
+		String globalValue = properties.getProperty(key);
+
+		// If so, we are done
+		if (globalValue != null) {
+			return globalValue;
+		}
+
+		// Reformat the key as an environment variable key
+		String environmentKey = getEnvironmentVariableKey(key);
+
+		// Check to see if we have a match for an environment variable
+		String environmentValue = properties.getProperty(environmentKey);
+
+		if (environmentValue != null) {
+			// If so, return the value of the environment variable
+			return environmentValue;
+		} else {
+			// If not, return the default value
+			return defaultValue;
+		}
+	}
+
+	/**
 	 * Return a new properties object containing the properties from <code>getEnvAsProperties()</code> and <code>System.getProperties()</code>. Properties from
 	 * <code>System.getProperties()</code> override properties from <code>getEnvAsProperties</code> if there are duplicates.
 	 */
@@ -1084,13 +1131,35 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * Replace periods with an underscore and convert to uppercase
+	 * 
+	 * <pre>
+	 *   project.groupId -> PROJECT_GROUPID
+	 * </pre>
+	 */
+	public static final String convertToEnvironmentVariable(String key) {
+		return StringUtils.upperCase(StringUtils.replace(key, ".", "_"));
+	}
+
+	/**
+	 * Replace periods with an underscore, convert to uppercase, and prefix with <code>env</code>
+	 * 
+	 * <pre>
+	 *   project.groupId -> env.PROJECT_GROUPID
+	 * </pre>
+	 */
+	public static final String getEnvironmentVariableKey(String key) {
+		return ENV_PREFIX + "." + convertToEnvironmentVariable(key);
+	}
+
+	/**
 	 * Return a new properties object where the keys have been converted to upper case and periods have been replaced with an underscore.
 	 */
 	public static final Properties reformatKeysAsEnvVars(Properties properties) {
 		Properties newProperties = new Properties();
 		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);
-			String newKey = StringUtils.upperCase(StringUtils.replace(key, ".", "-"));
+			String newKey = convertToEnvironmentVariable(key);
 			newProperties.setProperty(newKey, value);
 		}
 		return newProperties;
