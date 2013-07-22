@@ -7,23 +7,24 @@ import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.Str;
 
+@Deprecated
 public class DeployProjectContext extends DefaultProjectContext {
 
-	private static final String ARTIFACT_ID = "kuali-deploy";
-	private static final List<String> LOCATIONS = getLocations();
+    private static final String ARTIFACT_ID = "kuali-deploy";
+    private static final List<String> LOCATIONS = getLocations();
 
-	public DeployProjectContext() {
-		super(ARTIFACT_ID, new ArrayList<String>(LOCATIONS));
-	}
+    public DeployProjectContext() {
+        super(ARTIFACT_ID, new ArrayList<String>(LOCATIONS));
+    }
 
-	private static final List<String> getLocations() {
-		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/deploy.properties");
-		locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/driver.properties");
-		locations.add("classpath:${project.groupId.path}/deploy.properties");
-		locations.add("classpath:${project.groupId.path}/${project.artifactId}.properties");
-		locations.add("classpath:${project.groupId.path}/env${deploy.env}.properties");
-		return locations;
-	}
+    private static final List<String> getLocations() {
+        List<String> locations = new ArrayList<String>();
+        locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/deploy.properties");
+        locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/driver.properties");
+        locations.add("classpath:${project.groupId.path}/deploy.properties");
+        locations.add("classpath:${project.groupId.path}/${project.artifactId}.properties");
+        locations.add("classpath:${project.groupId.path}/env${deploy.env}.properties");
+        return locations;
+    }
 
 }

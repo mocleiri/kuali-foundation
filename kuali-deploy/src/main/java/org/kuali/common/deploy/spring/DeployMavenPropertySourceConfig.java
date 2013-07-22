@@ -18,35 +18,30 @@ package org.kuali.common.deploy.spring;
 import java.util.Arrays;
 import java.util.List;
 
-import org.kuali.common.deploy.DeployProjectContext;
-import org.kuali.common.jdbc.JdbcProjectContext;
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.spring.ConfigUtils;
-import org.kuali.common.util.spring.MavenPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * This lets properties defined in the pom override properties defined elsewhere. System/environment properties still override everything.
  */
 @Configuration
-public class DeployMavenPropertySourceConfig extends MavenPropertySourceConfig {
+@Deprecated
+public class DeployMavenPropertySourceConfig extends org.kuali.common.util.spring.MavenPropertySourceConfig {
 
-	@Override
-	protected List<ProjectProperties> getOtherProjectProperties() {
-		ProjectContext jdbc = new JdbcProjectContext();
-		ProjectProperties jpp = ConfigUtils.getProjectProperties(jdbc);
-		ProjectProperties dpp = getDeployProjectProperties();
-		return Arrays.asList(jpp, dpp);
-	}
+    @Override
+    protected List<org.kuali.common.util.property.ProjectProperties> getOtherProjectProperties() {
+        org.kuali.common.util.ProjectContext jdbc = new org.kuali.common.jdbc.JdbcProjectContext();
+        org.kuali.common.util.property.ProjectProperties jpp = org.kuali.common.util.spring.ConfigUtils.getProjectProperties(jdbc);
+        org.kuali.common.util.property.ProjectProperties dpp = getDeployProjectProperties();
+        return Arrays.asList(jpp, dpp);
+    }
 
-	public ProjectProperties getDeployProjectProperties() {
-		ProjectContext deploy = new DeployProjectContext();
-		ProjectProperties dpp = ConfigUtils.getProjectProperties(deploy);
-		// Some environments don't have any special properties and thus no corresponding properties file
-		dpp.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
-		return dpp;
-	}
+    public org.kuali.common.util.property.ProjectProperties getDeployProjectProperties() {
+        org.kuali.common.util.ProjectContext deploy = new org.kuali.common.deploy.DeployProjectContext();
+        org.kuali.common.util.property.ProjectProperties dpp = org.kuali.common.util.spring.ConfigUtils.getProjectProperties(deploy);
+        // Some environments don't have any special properties and thus no corresponding properties file
+        dpp.getPropertiesContext().setMissingLocationsMode(Mode.INFORM);
+        return dpp;
+    }
 
 }
