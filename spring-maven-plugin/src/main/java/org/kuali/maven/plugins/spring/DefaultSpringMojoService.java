@@ -209,16 +209,18 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	 * Return a list that always has at least one entry called "maven" as the first element. The id's of any other active maven profiles are also included.
 	 */
 	protected List<String> getActiveProfiles(AbstractSpringMojo mojo) {
+
+		// Setup some storage
+		List<String> profiles = new ArrayList<String>();
+
 		// Add any active Maven profiles
 		List<Profile> mavenProfiles = mojo.getProject().getActiveProfiles();
-		List<String> profiles = new ArrayList<String>();
-		// Always add "maven" as the first active profile
-		profiles.add(org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME);
 		for (Profile profile : CollectionUtils.toEmptyList(mavenProfiles)) {
 			String profileId = profile.getId();
 			profiles.add(profileId);
 		}
-		// Add any profiles they have explicitly provided (if any) in the plugin config
+
+		// Add profiles from the plugin config (if any)
 		List<String> additionalActiveProfiles = CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfiles());
 		profiles.addAll(additionalActiveProfiles);
 		return profiles;
