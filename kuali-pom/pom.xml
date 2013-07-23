@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali.pom</groupId>
-  <version>3.2.9-SNAPSHOT</version>
+  <version>3.2.9</version>
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
@@ -288,9 +288,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-pom</url>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-pom-3.2.9</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-pom-3.2.9</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/tags/kuali-pom-3.2.9</url>
   </scm>
   <build>
     <extensions>
@@ -1407,37 +1407,37 @@
                   <target>
                     <echo>svn copy ${svn.from} ${svn.to} --parents -m '${svn.copy.message}'</echo>
                     <exec executable="svn" failonerror="true">
-                      <arg value="copy"/>
-                      <arg value="${svn.from}"/>
-                      <arg value="${svn.to}"/>
-                      <arg value="--parents"/>
-                      <arg value="-m"/>
-                      <arg value="${svn.copy.message}"/>
+                      <arg value="copy" />
+                      <arg value="${svn.from}" />
+                      <arg value="${svn.to}" />
+                      <arg value="--parents" />
+                      <arg value="-m" />
+                      <arg value="${svn.copy.message}" />
                     </exec>
                     <echo>svn checkout ${svn.to} ${project.build.directory}/checkout</echo>
                     <exec executable="svn" failonerror="true">
-                      <arg value="checkout"/>
-                      <arg value="${svn.to}"/>
-                      <arg value="${project.build.directory}/checkout"/>
+                      <arg value="checkout" />
+                      <arg value="${svn.to}" />
+                      <arg value="${project.build.directory}/checkout" />
                     </exec>
                     <echo>cd ${project.build.directory}/checkout</echo>
                     <echo>${mvn.binary} versions:set -DnewVersion=${nightly.version} -N</echo>
                     <exec dir="${project.build.directory}/checkout" executable="${mvn.binary}" failonerror="true">
-                      <arg value="versions:set"/>
-                      <arg value="-DnewVersion=${nightly.version}"/>
-                      <arg value="-N"/>
+                      <arg value="versions:set" />
+                      <arg value="-DnewVersion=${nightly.version}" />
+                      <arg value="-N" />
                     </exec>
                     <echo>${mvn.binary} process-resources -Pupdatescm -N</echo>
                     <exec dir="${project.build.directory}/checkout" executable="${mvn.binary}" failonerror="true">
-                      <arg value="process-resources"/>
-                      <arg value="-Pupdatescm"/>
-                      <arg value="-N"/>
+                      <arg value="process-resources" />
+                      <arg value="-Pupdatescm" />
+                      <arg value="-N" />
                     </exec>
                     <echo>svn commit -m "${svn.commit.message}"</echo>
                     <exec dir="${project.build.directory}/checkout" executable="svn" failonerror="true">
-                      <arg value="commit"/>
-                      <arg value="-m"/>
-                      <arg value="${svn.commit.message}"/>
+                      <arg value="commit" />
+                      <arg value="-m" />
+                      <arg value="${svn.commit.message}" />
                     </exec>
                   </target>
                 </configuration>
