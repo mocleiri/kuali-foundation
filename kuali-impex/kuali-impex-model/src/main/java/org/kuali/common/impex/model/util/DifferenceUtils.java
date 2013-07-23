@@ -34,10 +34,10 @@ public class DifferenceUtils {
 	public static final String COMMA = ".";
 	public static final String SPACE = " ";
 	public static final String NOT_EQUAL_SEPARATOR = " != ";
-	public static final String OPEN_PAREN = "(";
-	public static final String CLOSE_PAREN = ")";
+	public static final String OPEN_PAD_PAREN = " ( ";
+	public static final String CLOSE_PAD_PAREN = " ) ";
 
-	static String buildDifferenceToken(String label, SchemaDifference difference) {
+	public static String buildDifferenceToken(String label, SchemaDifference difference) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(label);
@@ -49,6 +49,14 @@ public class DifferenceUtils {
 		return sb.toString();
 	}
 
+    /**
+     * Build a token to label the first "side" of a difference.
+     *
+     * This method will append applicable labels from instances of subclasses of TableDifference as well.
+     *
+     * @param t the TableDifference containing table data
+     * @return a String representation of the first side of the given table data
+     */
 	public static String buildTable1DifferenceToken(TableDifference t) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(t.getTable1().getName());
@@ -75,6 +83,12 @@ public class DifferenceUtils {
 		return sb.toString();
 	}
 
+    /**
+     * Build a token to label the first "side" of a schema difference.
+     *
+     * @param difference the SchemaDifference containing difference data
+     * @return a String representation of the first side of the given difference data
+     */
 	public static String buildSchema1Token(SchemaDifference difference) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(difference.getSchema1().getName());
@@ -98,6 +112,12 @@ public class DifferenceUtils {
 		return sb.toString();
 	}
 
+    /**
+     * Build a token to label the second "side" of a schema difference.
+     *
+     * @param difference the SchemaDifference containing difference data
+     * @return a String representation of the second side of the given difference data
+     */
 	public static String buildSchema2Token(SchemaDifference difference) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(difference.getSchema2().getName());
@@ -121,6 +141,14 @@ public class DifferenceUtils {
 		return sb.toString();
 	}
 
+    /**
+     * Build a token to label the second "side" of a difference.
+     *
+     * This method will append applicable labels from instances of subclasses of TableDifference as well.
+     *
+     * @param t the TableDifference containing table data
+     * @return a String representation of the second side of the given table data
+     */
 	public static String buildTable2DifferenceToken(TableDifference t) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(t.getTable2().getName());
@@ -147,6 +175,17 @@ public class DifferenceUtils {
 		return sb.toString();
 	}
 
+    /**
+     * Build a token representing a missing schema element
+     *
+     * @param typeLabel label for the type of difference
+     * @param foundToken token labeling the found element
+     * @param notFoundToken token labeling the missing element
+     * @return a token describing with the following format;
+     *
+     * [typeLabel] : FOUND IN : [foundToken] NOT FOUND IN: [notFoundToken]
+     *
+     */
 	public static String buildMissingElementToken(String typeLabel, String foundToken, String notFoundToken) {
 		StringBuilder sb = new StringBuilder();
 
@@ -162,19 +201,25 @@ public class DifferenceUtils {
 		return sb.toString();
 	}
 
+    /**
+     * Wraps a token in space padded parenthesis
+     *
+     * @param s input String
+     * @return the input surrounded by space-padded parentheses
+     */
 	public static String parenWrapToken(String s) {
-		return SPACE + OPEN_PAREN + SPACE + s + SPACE + CLOSE_PAREN + SPACE;
+		return OPEN_PAD_PAREN + s + CLOSE_PAD_PAREN;
 	}
 
 	public static String buildTypeSizeToken(DataTypeSize typeSize) {
-		String typeSizeString = "";
-		if (typeSize != null) {
-			typeSizeString = typeSize.getValue().toString();
-			if (typeSize.isScaleSet()) {
-				typeSizeString += COMMA + typeSize.getScale();
-			}
-		}
+        StringBuilder typeSizeString = new StringBuilder();
+        if (typeSize != null) {
+            typeSizeString.append(typeSize.getValue().toString());
+            if (typeSize.isScaleSet()) {
+                typeSizeString.append(COMMA).append(typeSize.getScale());
+            }
+        }
 
-		return typeSizeString;
-	}
+        return typeSizeString.toString();
+    }
 }
