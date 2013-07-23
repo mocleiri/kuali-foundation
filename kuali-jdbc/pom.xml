@@ -45,7 +45,7 @@
 
     <!-- These properties modify the release process -->
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
-    <kuali-util.version>4.2.17-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.3.2-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
