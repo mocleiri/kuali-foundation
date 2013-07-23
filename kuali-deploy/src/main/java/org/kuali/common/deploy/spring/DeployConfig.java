@@ -56,7 +56,9 @@ public class DeployConfig {
 
     protected Artifact getpplicationArtifact() {
         Artifact a = new Artifact();
-        a.setGroupId(SpringUtils.getProperty(env, "project.groupId"));
+        // TODO This only works because deploy.groupId is set inside the top level kuali-pom
+        // TODO Come up with something better here
+        a.setGroupId(SpringUtils.getProperty(env, "deploy.groupId"));
         a.setArtifactId(SpringUtils.getProperty(env, "project.artifactId"));
         a.setVersion(SpringUtils.getProperty(env, "project.version"));
         a.setClassifier(SpringUtils.getProperty(env, "project.classifier", "NONE"));
