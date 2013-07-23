@@ -63,6 +63,7 @@ public final class Constants {
 	public static final String ENCRYPTION_SUFFIX = ")";
 
 	// KS uses a bunch of groupId's. Always translate those to "org.kuali.student" when reading/writing project.properties
+	// This can be shortened to "project.groupId.path" only after the KS CM 2.0 branch as been retired
 	public static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
 	public static final String ARTIFACT_ID_KEY = "project.artifactId";
 	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${" + GROUP_ID_BASE_PATH_KEY + "}/${" + ARTIFACT_ID_KEY + "}";
