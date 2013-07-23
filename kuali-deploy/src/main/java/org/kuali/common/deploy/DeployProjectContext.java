@@ -3,6 +3,7 @@ package org.kuali.common.deploy;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.deploy.config.DeployProjectConstants;
 import org.kuali.common.util.DefaultProjectContext;
 import org.kuali.common.util.MavenConstants;
 import org.kuali.common.util.Str;
@@ -10,7 +11,7 @@ import org.kuali.common.util.Str;
 @Deprecated
 public class DeployProjectContext extends DefaultProjectContext {
 
-    private static final String ARTIFACT_ID = "kuali-deploy";
+    private static final String ARTIFACT_ID = DeployProjectConstants.ARTIFACT_ID;
     private static final List<String> LOCATIONS = getLocations();
 
     public DeployProjectContext() {
