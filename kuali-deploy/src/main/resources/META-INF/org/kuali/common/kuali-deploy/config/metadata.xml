@@ -1,0 +1,3 @@
+<project>
+  <location value="${deploy.prefix}/deploy.properties"/>
+</project>
