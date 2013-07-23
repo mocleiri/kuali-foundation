@@ -19,6 +19,12 @@ public class DeployProjectContext extends DefaultProjectContext {
 
     private static final List<String> getLocations() {
         List<String> locations = new ArrayList<String>();
+
+        // Added for backwards compatibility reasons only
+        locations.add("classpath:org/kuali/common/kuali-impex-producer/sql/schema.properties");
+        locations.add("classpath:org/kuali/common/kuali-impex-producer/sql/mpx.properties");
+        // Added for backwards compatibility reasons only
+
         locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/deploy.properties");
         locations.add("classpath:" + Str.getPath(MavenConstants.KUALI_COMMON_GROUP_ID) + "/deploy/driver.properties");
         locations.add("classpath:${project.groupId.path}/deploy.properties");
