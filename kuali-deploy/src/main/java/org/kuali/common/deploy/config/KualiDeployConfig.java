@@ -18,18 +18,18 @@ package org.kuali.common.deploy.config;
 import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
 
-public enum KualiJdbcConfig implements ProjectConfig {
+public enum KualiDeployConfig implements ProjectConfig {
 
     DEFAULT(); // Provides the default set of configuration for deploy related processes
 
     private final String contextId;
     private final String configId;
 
-    private KualiJdbcConfig() {
+    private KualiDeployConfig() {
         this(null);
     }
 
-    private KualiJdbcConfig(String contextId) {
+    private KualiDeployConfig(String contextId) {
         this.contextId = contextId;
         this.configId = ConfigUtils.getConfigId(this);
     }
