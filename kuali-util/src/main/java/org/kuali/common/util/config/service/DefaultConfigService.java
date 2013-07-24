@@ -31,24 +31,24 @@ public class DefaultConfigService extends AbstractCachingConfigService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultConfigService.class);
 
-	private static final Map<String, ProjectConfigContainer> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfigContainer>();
+	private static final Map<String, ProjectConfigContainer> CACHE = new HashMap<String, ProjectConfigContainer>();
 	private static final String FILE = "metadata.xml";
 
 	@Override
 	protected synchronized ProjectConfigContainer getCachedConfig(String groupId, String artifactId) {
 		String cacheKey = groupId + ":" + artifactId;
-		ProjectConfigContainer config = PROJECT_CONFIG_CACHE.get(cacheKey);
+		ProjectConfigContainer config = CACHE.get(cacheKey);
 		if (config == null) {
 			config = loadMetadata(groupId, artifactId);
 			logger.debug("Caching [{}]", cacheKey);
-			PROJECT_CONFIG_CACHE.put(cacheKey, config);
+			CACHE.put(cacheKey, config);
 		}
 		return config;
 	}
 
 	@Override
 	protected synchronized void clearCache() {
-		PROJECT_CONFIG_CACHE.clear();
+	    CACHE.clear();
 	}
 
 	@Override
