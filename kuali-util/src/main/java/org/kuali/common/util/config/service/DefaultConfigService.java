@@ -60,7 +60,7 @@ public class DefaultConfigService extends AbstractCachingConfigService {
 	protected ProjectConfigContainer getProjectConfig(String content, String encoding) {
 		InputStream in = null;
 		try {
-			in = new ByteArrayInputStream(content.getBytes(encoding));
+		    in = new ByteArrayInputStream(content.getBytes(encoding));
 			return JAXBUtil.getObject(in, ProjectConfigContainer.class);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
