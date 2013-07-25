@@ -28,6 +28,7 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,7 @@ public class DefaultHttpService implements HttpService {
             requestResults.add(rr);
             if (!isFinishState(context, rr, end)) {
                 logHttpRequestResult(context.getLogMsgPrefix(), rr, context.getUrl(), end);
-                sleep(context.getSleepIntervalMillis());
+                ThreadUtils.sleep(context.getSleepIntervalMillis());
             } else {
                 HttpStatus status = getResultStatus(context, rr, end);
                 waitResult.setStatus(status);
@@ -186,11 +187,4 @@ public class DefaultHttpService implements HttpService {
         return client;
     }
 
-    protected void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new IllegalStateException(e);
-        }
-    }
 }
