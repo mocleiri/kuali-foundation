@@ -266,12 +266,12 @@ public class DeployUtils {
         String processId = StringUtils.trim(tokens[1]);
         // The command starts where "CMD" starts in the header line
         int pos = header.indexOf(CMD);
-        if (pos == -1) {
-            throw new IllegalStateException("[" + line + "] does not contain [" + CMD + "]");
-        }
+        // Make sure we found the string "CMD"
+        Assert.isFalse(pos == -1, "[" + line + "] does not contain [" + CMD + "]");
+        // This is the command used to launch the process
         String command = StringUtils.trim(StringUtils.substring(line, pos));
 
-        //
+        // Store the information we've parsed out into pojo
         UnixProcess process = new UnixProcess();
         process.setUserId(userId);
         process.setProcessId(Integer.parseInt(processId));
@@ -282,7 +282,7 @@ public class DeployUtils {
     public static Result executeCommand(SecureChannel channel, String command, boolean validateResult) {
         Result result = channel.executeCommand(command);
         if (validateResult) {
-            DeployUtils.validateResult(result);
+            validateResult(result);
         }
         return result;
     }
