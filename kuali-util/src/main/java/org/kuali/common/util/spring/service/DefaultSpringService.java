@@ -69,13 +69,19 @@ public class DefaultSpringService implements SpringService {
         load(location, contextBeans, null);
     }
 
+    protected Map<String, Object> getContextBeans(SpringContext context) {
+        // Null-safe handling for parameters
+        Map<String, Object> contextBeans = context.getContextBeans() == null ? new HashMap<String, Object>() : context.getContextBeans();
+        CollectionUtils.combine(contextBeans, context.getBeanNames(), context.getBeans());
+        return contextBeans;
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void load(SpringContext context) {
 
-        // Null-safe handling for parameters
-        Map<String, Object> contextBeans = context.getContextBeans() == null ? new HashMap<String, Object>() : context.getContextBeans();
-        CollectionUtils.combine(contextBeans, context.getBeanNames(), context.getBeans());
+        // Null-safe handling for optional parameters
+        context.setContextBeans(getContextBeans(context));
         context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
         context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
         context.setActiveProfiles(CollectionUtils.toEmptyList(context.getActiveProfiles()));

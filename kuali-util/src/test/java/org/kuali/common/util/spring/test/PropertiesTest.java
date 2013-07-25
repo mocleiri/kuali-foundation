@@ -15,22 +15,31 @@
  */
 package org.kuali.common.util.spring.test;
 
-import org.junit.Test;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.config.PropertiesConfig;
+import java.util.Arrays;
 
-@Deprecated
+import org.junit.Test;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.spring.config.PropertiesConfig;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
+
 public class PropertiesTest {
 
-	@Test
-	public void test() {
-		try {
-			SpringService ss = new DefaultSpringService();
-			ss.load(PropertiesConfig.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    @Test
+    public void test() {
+        try {
+            String beanName = "foo";
+            Object bean = "bar";
+            SpringService ss = new DefaultSpringService();
+            SpringContext ctx = new SpringContext();
+            ctx.setBeanNames(Arrays.asList(beanName));
+            ctx.setBeans(Arrays.asList(bean));
+            ctx.setAnnotatedClasses(CollectionUtils.asList(PropertiesConfig.class));
+            ss.load(ctx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
