@@ -225,7 +225,7 @@ public class DeployUtils {
 		}
 
 		// Make sure exit value was zero
-		DeployUtils.validateResult(result);
+		validateResult(result);
 
 		// Need the header line in order to parse the process lines
 		String header = lines.get(0);
