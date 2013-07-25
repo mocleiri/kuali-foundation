@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.2.9</version>
+    <version>3.2.12</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-impex</artifactId>
@@ -43,11 +43,6 @@
     <commons-collections.version>3.2.1</commons-collections.version>
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
-
-    <!-- Remove these before release -->
-    <kuali-sql.version>2.1.0-SNAPSHOT</kuali-sql.version>
-    <kuali-util.version>4.3.2-SNAPSHOT</kuali-util.version>
-    <kuali-jdbc.version>3.1.8-SNAPSHOT</kuali-jdbc.version>
   </properties>
   <developers>
     <developer>
