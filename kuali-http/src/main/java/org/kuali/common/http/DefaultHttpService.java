@@ -101,9 +101,7 @@ public class DefaultHttpService implements HttpService {
 
         // If we have not timed out and there is no exception, we must have gotten a valid http response code back
         Integer statusCode = rr.getStatusCode();
-        if (statusCode == null) {
-            throw new IllegalStateException("statusCode should never be null here");
-        }
+        Assert.notNull(statusCode, "statusCode should never be null here");
 
         // If there is a status code and it matches a success code, we are done
         if (isSuccess(context.getSuccessCodes(), statusCode)) {
