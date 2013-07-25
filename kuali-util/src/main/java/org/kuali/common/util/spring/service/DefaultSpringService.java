@@ -42,6 +42,33 @@ public class DefaultSpringService implements SpringService {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
+    @Override
+    public void load(Class<?> annotatedClass, Map<String, Object> contextBeans) {
+        load(annotatedClass, contextBeans, null);
+    }
+
+    @Override
+    public void load(Class<?> annotatedClass, Map<String, Object> contextBeans, PropertySource<?> propertySource) {
+        // Make sure the annotatedClass isn't null
+        Assert.notNull(annotatedClass, "annotatedClass is null");
+
+        // Setup a SpringContext
+        SpringContext context = new SpringContext();
+        context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+        context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+
+        // Null safe handling for non-required parameters
+        context.setContextBeans(CollectionUtils.toEmptyMap(contextBeans));
+
+        // Load the context
+        load(context);
+    }
+
+    @Override
+    public void load(String location, Map<String, Object> contextBeans) {
+        load(location, contextBeans, null);
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void load(SpringContext context) {
@@ -272,33 +299,6 @@ public class DefaultSpringService implements SpringService {
             }
         }
         return converted;
-    }
-
-    @Override
-    public void load(Class<?> annotatedClass, Map<String, Object> contextBeans) {
-        load(annotatedClass, contextBeans, null);
-    }
-
-    @Override
-    public void load(Class<?> annotatedClass, Map<String, Object> contextBeans, PropertySource<?> propertySource) {
-        // Make sure the annotatedClass isn't null
-        Assert.notNull(annotatedClass, "annotatedClass is null");
-
-        // Setup a SpringContext
-        SpringContext context = new SpringContext();
-        context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-        context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
-
-        // Null safe handling for non-required parameters
-        context.setContextBeans(CollectionUtils.toEmptyMap(contextBeans));
-
-        // Load the context
-        load(context);
-    }
-
-    @Override
-    public void load(String location, Map<String, Object> contextBeans) {
-        load(location, contextBeans, null);
     }
 
     @Deprecated
