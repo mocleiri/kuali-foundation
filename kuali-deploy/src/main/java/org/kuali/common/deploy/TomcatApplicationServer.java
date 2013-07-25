@@ -83,7 +83,7 @@ public class TomcatApplicationServer implements ApplicationServer {
 	@Override
 	public void start() {
 		long start = System.currentTimeMillis();
-		logger.info("[tomcat:starting]");
+		logger.info("[tomcat:start]");
 		DeployUtils.runscript(channel, username, startup);
 		httpWait.execute();
 		logger.info("[tomcat:started] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
