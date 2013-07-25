@@ -1,4 +1,0 @@
-<project>
-  <location value="${deploy.prefix}/deploy.properties"/>
-  <location value="${deploy.prefix}/driver.properties"/>
-</project>
