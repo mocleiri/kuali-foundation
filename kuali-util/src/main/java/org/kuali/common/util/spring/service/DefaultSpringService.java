@@ -19,7 +19,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
@@ -38,268 +40,289 @@ import org.springframework.core.env.PropertySource;
 
 public class DefaultSpringService implements SpringService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
-	@Override
-	public void load(Class<?> annotatedClass) {
-		load(annotatedClass, null, null);
-	}
+    @SuppressWarnings("deprecation")
+    @Override
+    public void load(SpringContext context) {
 
-	@Override
-	public void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource) {
-		// Make sure the annotatedClass isn't null
-		Assert.notNull(annotatedClass, "annotatedClass is null");
+        // Null-safe handling for parameters
+        Map<String, Object> contextBeans = context.getContextBeans() == null ? new HashMap<String, Object>() : context.getContextBeans();
+        CollectionUtils.combine(contextBeans, context.getBeanNames(), context.getBeans());
+        context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
+        context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
+        context.setActiveProfiles(CollectionUtils.toEmptyList(context.getActiveProfiles()));
+        context.setDefaultProfiles(CollectionUtils.toEmptyList(context.getDefaultProfiles()));
 
-		// Setup a SpringContext
-		SpringContext context = new SpringContext();
-		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+        // Make sure we have at least one location or annotated class
+        boolean empty = CollectionUtils.isEmpty(context.getLocations()) && CollectionUtils.isEmpty(context.getAnnotatedClasses());
+        Assert.isFalse(empty, "Both locations and annotatedClasses are empty");
 
-		// Null safe handling for non-required parameters
-		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
-		context.setBeans(CollectionUtils.toEmptyList(bean));
+        // Make sure all of the locations exist
+        SpringUtils.validateExists(context.getLocations());
 
-		// Load the configuration from the annotated class
-		load(context);
-	}
+        // Convert any file names to fully qualified file system URL's
+        List<String> convertedLocations = getConvertedLocations(context.getLocations());
 
-	@Override
-	public void load(Class<?> annotatedClass, String beanName, Object bean) {
-		load(annotatedClass, beanName, bean, null);
-	}
+        // The Spring classes prefer array's
+        String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
-	@Override
-	public void load(String location) {
-		load(location, null, null);
-	}
+        ConfigurableApplicationContext parent = null;
+        ClassPathXmlApplicationContext xmlChild = null;
+        AnnotationConfigApplicationContext annotationChild = null;
+        try {
+            if (!CollectionUtils.isEmpty(context.getContextBeans())) {
+                // Construct a parent context if necessary
+                parent = SpringUtils.getContextWithPreRegisteredBeans(context.getId(), context.getDisplayName(), context.getContextBeans());
+            }
 
-	@Override
-	public void load(String location, String beanName, Object bean, PropertySource<?> propertySource) {
-		// Make sure the location isn't empty
-		Assert.hasText(location, "location is null");
+            if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
+                // Create an annotation based application context wrapped in a parent context
+                annotationChild = getAnnotationContext(context, parent);
+                // Add custom property sources (if any)
+                addPropertySources(context, annotationChild);
+                // Set default profiles (if any)
+                setDefaultProfiles(annotationChild, context.getDefaultProfiles());
+                // Set active profiles (if any)
+                setActiveProfiles(annotationChild, context.getActiveProfiles());
 
-		// Setup a SpringContext
-		SpringContext context = new SpringContext();
-		context.setLocations(Arrays.asList(location));
-		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+            }
 
-		// Null safe handling for non-required parameters
-		context.setBeanNames(CollectionUtils.toEmptyList(beanName));
-		context.setBeans(CollectionUtils.toEmptyList(bean));
+            if (!CollectionUtils.isEmpty(context.getLocations())) {
+                // Create an XML application context wrapped in a parent context
+                xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+                if (parent == null) {
+                    addMetaInfo(xmlChild, context);
+                }
+                // Add custom property sources (if any)
+                addPropertySources(context, xmlChild);
+                // Add active profiles (if any)
+                setActiveProfiles(xmlChild, context.getActiveProfiles());
+            }
 
-		// Load the location using a SpringContext
-		load(context);
-	}
+            // Invoke refresh to load the context
+            SpringUtils.refreshQuietly(annotationChild);
+            SpringUtils.refreshQuietly(xmlChild);
+            debugQuietly(parent, annotationChild, xmlChild);
+        } finally {
+            // cleanup
+            // closeQuietly(annotationChild);
+            // closeQuietly(xmlChild);
+            // closeQuietly(parent);
+        }
+    }
 
-	@Override
-	public void load(String location, String beanName, Object bean) {
-		load(location, beanName, bean, null);
-	}
+    @Override
+    public void load(String location, Map<String, Object> contextBeans, PropertySource<?> propertySource) {
+        // Make sure the location isn't empty
+        Assert.hasText(location, "location is null");
 
-	@Override
-	public void load(SpringContext context) {
+        // Setup a SpringContext
+        SpringContext context = new SpringContext();
+        context.setLocations(Arrays.asList(location));
+        context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 
-		// Null-safe handling for parameters
-		context.setBeanNames(CollectionUtils.toEmptyList(context.getBeanNames()));
-		context.setBeans(CollectionUtils.toEmptyList(context.getBeans()));
-		context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
-		context.setLocations(CollectionUtils.toEmptyList(context.getLocations()));
-		context.setActiveProfiles(CollectionUtils.toEmptyList(context.getActiveProfiles()));
-		context.setDefaultProfiles(CollectionUtils.toEmptyList(context.getDefaultProfiles()));
+        // Null safe handling for non-required parameters
+        context.setContextBeans(CollectionUtils.toEmptyMap(contextBeans));
 
-		// Make sure we have at least one location or annotated class
-		boolean empty = CollectionUtils.isEmpty(context.getLocations()) && CollectionUtils.isEmpty(context.getAnnotatedClasses());
-		Assert.isFalse(empty, "Both locations and annotatedClasses are empty");
+        // Load the location using a SpringContext
+        load(context);
+    }
 
-		// Make sure we have a name for every bean
-		Assert.isTrue(context.getBeanNames().size() == context.getBeans().size());
+    @Override
+    public void load(Class<?> annotatedClass) {
+        load(annotatedClass, (String) null, (Object) null);
+    }
 
-		// Make sure all of the locations exist
-		SpringUtils.validateExists(context.getLocations());
+    @Override
+    public void load(String location) {
+        load(location, (String) null, (Object) null);
+    }
 
-		// Convert any file names to fully qualified file system URL's
-		List<String> convertedLocations = getConvertedLocations(context.getLocations());
+    protected void debugQuietly(ApplicationContext parent, ApplicationContext child1, ApplicationContext child2) {
+        if (!logger.isDebugEnabled()) {
+            return;
+        }
+        if (parent != null) {
+            SpringUtils.debug(parent);
+        } else {
+            if (child1 != null) {
+                SpringUtils.debug(child1);
+            }
+            if (child2 != null) {
+                SpringUtils.debug(child2);
+            }
+        }
+    }
 
-		// The Spring classes prefer array's
-		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
+    /**
+     * Add id and display name to the ApplicationContext if they are not blank
+     */
+    protected void addMetaInfo(AnnotationConfigApplicationContext ctx, SpringContext sc) {
+        if (!StringUtils.isBlank(sc.getId())) {
+            ctx.setId(sc.getId());
+        }
+        if (!StringUtils.isBlank(sc.getDisplayName())) {
+            ctx.setDisplayName(sc.getDisplayName());
+        }
+    }
 
-		ConfigurableApplicationContext parent = null;
-		ClassPathXmlApplicationContext xmlChild = null;
-		AnnotationConfigApplicationContext annotationChild = null;
-		try {
-			if (isParentContextRequired(context)) {
-				// Construct a parent context if necessary
-				parent = SpringUtils.getContextWithPreRegisteredBeans(context.getId(), context.getDisplayName(), context.getBeanNames(), context.getBeans());
-			}
+    /**
+     * Add id and display name to the ApplicationContext if they are not blank
+     */
+    protected void addMetaInfo(ClassPathXmlApplicationContext ctx, SpringContext sc) {
+        if (!StringUtils.isBlank(sc.getId())) {
+            ctx.setId(sc.getId());
+        }
+        if (!StringUtils.isBlank(sc.getDisplayName())) {
+            ctx.setDisplayName(sc.getDisplayName());
+        }
+    }
 
-			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
-				// Create an annotation based application context wrapped in a parent context
-				annotationChild = getAnnotationContext(context, parent);
-				// Add custom property sources (if any)
-				addPropertySources(context, annotationChild);
-				// Set default profiles (if any)
-				setDefaultProfiles(annotationChild, context.getDefaultProfiles());
-				// Set active profiles (if any)
-				setActiveProfiles(annotationChild, context.getActiveProfiles());
+    protected AnnotationConfigApplicationContext getAnnotationContext(SpringContext context, ConfigurableApplicationContext parent) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        if (parent != null) {
+            ctx.setParent(parent);
+        } else {
+            addMetaInfo(ctx, context);
+        }
+        for (Class<?> annotatedClass : context.getAnnotatedClasses()) {
+            ctx.register(annotatedClass);
+        }
+        return ctx;
+    }
 
-			}
+    protected void setActiveProfiles(ConfigurableApplicationContext applicationContext, List<String> activeProfiles) {
+        if (!CollectionUtils.isEmpty(activeProfiles)) {
+            ConfigurableEnvironment env = applicationContext.getEnvironment();
+            env.setActiveProfiles(CollectionUtils.toStringArray(activeProfiles));
+        }
+    }
 
-			if (!CollectionUtils.isEmpty(context.getLocations())) {
-				// Create an XML application context wrapped in a parent context
-				xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
-				if (parent == null) {
-					addMetaInfo(xmlChild, context);
-				}
-				// Add custom property sources (if any)
-				addPropertySources(context, xmlChild);
-				// Add active profiles (if any)
-				setActiveProfiles(xmlChild, context.getActiveProfiles());
-			}
+    protected void setDefaultProfiles(ConfigurableApplicationContext applicationContext, List<String> defaultProfiles) {
+        if (!CollectionUtils.isEmpty(defaultProfiles)) {
+            ConfigurableEnvironment env = applicationContext.getEnvironment();
+            env.setDefaultProfiles(CollectionUtils.toStringArray(defaultProfiles));
+        }
+    }
 
-			// Invoke refresh to load the context
-			SpringUtils.refreshQuietly(annotationChild);
-			SpringUtils.refreshQuietly(xmlChild);
-			debugQuietly(parent, annotationChild, xmlChild);
-		} finally {
-			// cleanup
-			// closeQuietly(annotationChild);
-			// closeQuietly(xmlChild);
-			// closeQuietly(parent);
-		}
-	}
+    protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
+        PropertySourceContext psc = context.getPropertySourceContext();
+        if (psc == null) {
+            return;
+        }
+        ConfigurableEnvironment env = applicationContext.getEnvironment();
+        if (psc.isRemoveExistingSources()) {
+            logger.debug("Removing all existing property sources");
+            SpringUtils.removeAllPropertySources(env);
+        }
 
-	protected void debugQuietly(ApplicationContext parent, ApplicationContext child1, ApplicationContext child2) {
-		if (!logger.isDebugEnabled()) {
-			return;
-		}
-		if (parent != null) {
-			SpringUtils.debug(parent);
-		} else {
-			if (child1 != null) {
-				SpringUtils.debug(child1);
-			}
-			if (child2 != null) {
-				SpringUtils.debug(child2);
-			}
-		}
-	}
+        if (CollectionUtils.isEmpty(psc.getSources())) {
+            return;
+        }
+        List<PropertySource<?>> propertySources = psc.getSources();
+        MutablePropertySources sources = env.getPropertySources();
+        if (psc.isLastOneInWins()) {
+            Collections.reverse(propertySources);
+        }
+        PropertySourceAddPriority priority = psc.getPriority();
+        for (PropertySource<?> propertySource : propertySources) {
+            Object[] args = { propertySource.getName(), propertySource.getClass().getName(), priority };
+            logger.debug("Adding property source - [{}] -> [{}] Priority=[{}]", args);
+            switch (priority) {
+            case FIRST:
+                sources.addFirst(propertySource);
+                break;
+            case LAST:
+                sources.addLast(propertySource);
+                break;
+            default:
+                throw new IllegalStateException(priority + " is an unknown priority");
+            }
+        }
+    }
 
-	/**
-	 * Add id and display name to the ApplicationContext if they are not blank
-	 */
-	protected void addMetaInfo(AnnotationConfigApplicationContext ctx, SpringContext sc) {
-		if (!StringUtils.isBlank(sc.getId())) {
-			ctx.setId(sc.getId());
-		}
-		if (!StringUtils.isBlank(sc.getDisplayName())) {
-			ctx.setDisplayName(sc.getDisplayName());
-		}
-	}
+    /**
+     * Return true if the context contains any beans or beanNames, false otherwise.
+     */
+    @Deprecated
+    protected boolean isParentContextRequired(SpringContext context) {
+        if (!CollectionUtils.isEmpty(context.getBeanNames())) {
+            return true;
+        } else if (!CollectionUtils.isEmpty(context.getBeans())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * Add id and display name to the ApplicationContext if they are not blank
-	 */
-	protected void addMetaInfo(ClassPathXmlApplicationContext ctx, SpringContext sc) {
-		if (!StringUtils.isBlank(sc.getId())) {
-			ctx.setId(sc.getId());
-		}
-		if (!StringUtils.isBlank(sc.getDisplayName())) {
-			ctx.setDisplayName(sc.getDisplayName());
-		}
-	}
+    /**
+     * Convert any locations representing an existing file into a fully qualified file system url. Leave any locations that do not resolve to an existing file alone.
+     */
+    protected List<String> getConvertedLocations(List<String> locations) {
+        List<String> converted = new ArrayList<String>();
+        for (String location : locations) {
+            if (LocationUtils.isExistingFile(location)) {
+                File file = new File(location);
+                // ClassPathXmlApplicationContext needs a fully qualified URL, not a filename
+                String url = LocationUtils.getCanonicalURLString(file);
+                converted.add(url);
+            } else {
+                converted.add(location);
+            }
+        }
+        return converted;
+    }
 
-	protected AnnotationConfigApplicationContext getAnnotationContext(SpringContext context, ConfigurableApplicationContext parent) {
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-		if (parent != null) {
-			ctx.setParent(parent);
-		} else {
-			addMetaInfo(ctx, context);
-		}
-		for (Class<?> annotatedClass : context.getAnnotatedClasses()) {
-			ctx.register(annotatedClass);
-		}
-		return ctx;
-	}
+    @Override
+    public void load(Class<?> annotatedClass, Map<String, Object> contextBeans) {
+        load(annotatedClass, contextBeans, null);
+    }
 
-	protected void setActiveProfiles(ConfigurableApplicationContext applicationContext, List<String> activeProfiles) {
-		if (!CollectionUtils.isEmpty(activeProfiles)) {
-			ConfigurableEnvironment env = applicationContext.getEnvironment();
-			env.setActiveProfiles(CollectionUtils.toStringArray(activeProfiles));
-		}
-	}
+    @Override
+    public void load(Class<?> annotatedClass, Map<String, Object> contextBeans, PropertySource<?> propertySource) {
+        // Make sure the annotatedClass isn't null
+        Assert.notNull(annotatedClass, "annotatedClass is null");
 
-	protected void setDefaultProfiles(ConfigurableApplicationContext applicationContext, List<String> defaultProfiles) {
-		if (!CollectionUtils.isEmpty(defaultProfiles)) {
-			ConfigurableEnvironment env = applicationContext.getEnvironment();
-			env.setDefaultProfiles(CollectionUtils.toStringArray(defaultProfiles));
-		}
-	}
+        // Setup a SpringContext
+        SpringContext context = new SpringContext();
+        context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
+        context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
 
-	protected void addPropertySources(SpringContext context, ConfigurableApplicationContext applicationContext) {
-		PropertySourceContext psc = context.getPropertySourceContext();
-		if (psc == null) {
-			return;
-		}
-		ConfigurableEnvironment env = applicationContext.getEnvironment();
-		if (psc.isRemoveExistingSources()) {
-			logger.debug("Removing all existing property sources");
-			SpringUtils.removeAllPropertySources(env);
-		}
+        // Null safe handling for non-required parameters
+        context.setContextBeans(CollectionUtils.toEmptyMap(contextBeans));
 
-		if (CollectionUtils.isEmpty(psc.getSources())) {
-			return;
-		}
-		List<PropertySource<?>> propertySources = psc.getSources();
-		MutablePropertySources sources = env.getPropertySources();
-		if (psc.isLastOneInWins()) {
-			Collections.reverse(propertySources);
-		}
-		PropertySourceAddPriority priority = psc.getPriority();
-		for (PropertySource<?> propertySource : propertySources) {
-			Object[] args = { propertySource.getName(), propertySource.getClass().getName(), priority };
-			logger.debug("Adding property source - [{}] -> [{}] Priority=[{}]", args);
-			switch (priority) {
-			case FIRST:
-				sources.addFirst(propertySource);
-				break;
-			case LAST:
-				sources.addLast(propertySource);
-				break;
-			default:
-				throw new IllegalStateException(priority + " is an unknown priority");
-			}
-		}
-	}
+        // Load the context
+        load(context);
+    }
 
-	/**
-	 * Return true if the context contains any beans or beanNames, false otherwise.
-	 */
-	protected boolean isParentContextRequired(SpringContext context) {
-		if (!CollectionUtils.isEmpty(context.getBeanNames())) {
-			return true;
-		} else if (!CollectionUtils.isEmpty(context.getBeans())) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public void load(String location, Map<String, Object> contextBeans) {
+        load(location, contextBeans, null);
+    }
 
-	/**
-	 * Convert any locations representing an existing file into a fully qualified file system url. Leave any locations that do not resolve to an existing file alone.
-	 */
-	protected List<String> getConvertedLocations(List<String> locations) {
-		List<String> converted = new ArrayList<String>();
-		for (String location : locations) {
-			if (LocationUtils.isExistingFile(location)) {
-				File file = new File(location);
-				// ClassPathXmlApplicationContext needs a fully qualified URL, not a filename
-				String url = LocationUtils.getCanonicalURLString(file);
-				converted.add(url);
-			} else {
-				converted.add(location);
-			}
-		}
-		return converted;
-	}
+    @Deprecated
+    @Override
+    public void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource) {
+        load(annotatedClass, CollectionUtils.toEmptyMap(beanName, bean), propertySource);
+    }
+
+    @Deprecated
+    @Override
+    public void load(Class<?> annotatedClass, String beanName, Object bean) {
+        load(annotatedClass, beanName, bean, null);
+    }
+
+    @Deprecated
+    @Override
+    public void load(String location, String beanName, Object bean, PropertySource<?> propertySource) {
+        load(location, CollectionUtils.toEmptyMap(beanName, bean), propertySource);
+    }
+
+    @Deprecated
+    @Override
+    public void load(String location, String beanName, Object bean) {
+        load(location, beanName, bean, null);
+    }
 
 }

@@ -16,104 +16,122 @@
 package org.kuali.common.util.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kuali.common.util.CollectionUtils;
 
 public class SpringContext {
 
-	public SpringContext() {
-		this((Class<?>) null);
-	}
+    public SpringContext() {
+        this((Class<?>) null);
+    }
 
-	public SpringContext(Class<?> annotatedClass) {
-		this(CollectionUtils.asList(annotatedClass));
-	}
+    public SpringContext(Class<?> annotatedClass) {
+        this(CollectionUtils.asList(annotatedClass));
+    }
 
-	public SpringContext(List<Class<?>> annotatedClasses) {
-		super();
-		this.annotatedClasses = annotatedClasses;
-	}
+    public SpringContext(List<Class<?>> annotatedClasses) {
+        super();
+        this.annotatedClasses = annotatedClasses;
+    }
 
-	String id;
-	String displayName;
-	List<String> locations;
-	List<Class<?>> annotatedClasses;
-	List<String> beanNames;
-	List<Object> beans;
-	PropertySourceContext propertySourceContext;
-	List<String> activeProfiles;
-	List<String> defaultProfiles;
+    String id;
+    String displayName;
+    List<String> locations;
+    List<Class<?>> annotatedClasses;
+    Map<String, Object> contextBeans;
+    PropertySourceContext propertySourceContext;
+    List<String> activeProfiles;
+    List<String> defaultProfiles;
 
-	public List<String> getLocations() {
-		return locations;
-	}
+    @Deprecated
+    List<String> beanNames;
 
-	public void setLocations(List<String> locations) {
-		this.locations = locations;
-	}
+    @Deprecated
+    List<Object> beans;
 
-	public List<Class<?>> getAnnotatedClasses() {
-		return annotatedClasses;
-	}
+    public List<String> getLocations() {
+        return locations;
+    }
 
-	public void setAnnotatedClasses(List<Class<?>> annotatedClasses) {
-		this.annotatedClasses = annotatedClasses;
-	}
+    public void setLocations(List<String> locations) {
+        this.locations = locations;
+    }
 
-	public List<String> getBeanNames() {
-		return beanNames;
-	}
+    public List<Class<?>> getAnnotatedClasses() {
+        return annotatedClasses;
+    }
 
-	public void setBeanNames(List<String> beanNames) {
-		this.beanNames = beanNames;
-	}
+    public void setAnnotatedClasses(List<Class<?>> annotatedClasses) {
+        this.annotatedClasses = annotatedClasses;
+    }
 
-	public List<Object> getBeans() {
-		return beans;
-	}
+    @Deprecated
+    public List<String> getBeanNames() {
+        return beanNames;
+    }
 
-	public void setBeans(List<Object> beans) {
-		this.beans = beans;
-	}
+    @Deprecated
+    public void setBeanNames(List<String> beanNames) {
+        this.beanNames = beanNames;
+    }
 
-	public PropertySourceContext getPropertySourceContext() {
-		return propertySourceContext;
-	}
+    @Deprecated
+    public List<Object> getBeans() {
+        return beans;
+    }
 
-	public void setPropertySourceContext(PropertySourceContext propertySourceContext) {
-		this.propertySourceContext = propertySourceContext;
-	}
+    @Deprecated
+    public void setBeans(List<Object> beans) {
+        this.beans = beans;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public PropertySourceContext getPropertySourceContext() {
+        return propertySourceContext;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setPropertySourceContext(PropertySourceContext propertySourceContext) {
+        this.propertySourceContext = propertySourceContext;
+    }
 
-	public String getDisplayName() {
-		return displayName;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public List<String> getActiveProfiles() {
-		return activeProfiles;
-	}
+    public String getDisplayName() {
+        return displayName;
+    }
 
-	public void setActiveProfiles(List<String> activeProfiles) {
-		this.activeProfiles = activeProfiles;
-	}
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
-	public List<String> getDefaultProfiles() {
-		return defaultProfiles;
-	}
+    public List<String> getActiveProfiles() {
+        return activeProfiles;
+    }
 
-	public void setDefaultProfiles(List<String> defaultProfiles) {
-		this.defaultProfiles = defaultProfiles;
-	}
+    public void setActiveProfiles(List<String> activeProfiles) {
+        this.activeProfiles = activeProfiles;
+    }
+
+    public List<String> getDefaultProfiles() {
+        return defaultProfiles;
+    }
+
+    public void setDefaultProfiles(List<String> defaultProfiles) {
+        this.defaultProfiles = defaultProfiles;
+    }
+
+    public Map<String, Object> getContextBeans() {
+        return contextBeans;
+    }
+
+    public void setContextBeans(Map<String, Object> contextBeans) {
+        this.contextBeans = contextBeans;
+    }
 
 }

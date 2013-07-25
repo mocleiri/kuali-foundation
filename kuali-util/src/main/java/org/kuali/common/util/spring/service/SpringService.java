@@ -15,23 +15,36 @@
  */
 package org.kuali.common.util.spring.service;
 
+import java.util.Map;
+
 import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
 
-	void load(Class<?> annotatedClass);
+    void load(Class<?> annotatedClass);
 
-	void load(Class<?> annotatedClass, String beanName, Object bean);
+    void load(Class<?> annotatedClass, Map<String, Object> contextBeans);
 
-	void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource);
+    void load(Class<?> annotatedClass, Map<String, Object> contextBeans, PropertySource<?> propertySource);
 
-	void load(String location);
+    void load(String location);
 
-	void load(String location, String beanName, Object bean);
+    void load(String location, Map<String, Object> contextBeans, PropertySource<?> propertySource);
 
-	void load(String location, String beanName, Object bean, PropertySource<?> propertySource);
+    void load(String location, Map<String, Object> contextBeans);
 
-	void load(SpringContext context);
+    void load(SpringContext context);
 
+    @Deprecated
+    void load(String location, String beanName, Object bean);
+
+    @Deprecated
+    void load(String location, String beanName, Object bean, PropertySource<?> propertySource);
+
+    @Deprecated
+    void load(Class<?> annotatedClass, String beanName, Object bean);
+
+    @Deprecated
+    void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource);
 
 }
