@@ -290,8 +290,8 @@ public class DeployUtils {
     public static void kill(SecureChannel channel, UnixProcess process) {
         String command = CMDS.kill(process.getProcessId());
         Result result = channel.executeCommand(command);
-        DeployUtils.logResult(result, logger, LoggerLevel.DEBUG);
-        DeployUtils.validateResult(result);
+        logResult(result, logger, LoggerLevel.DEBUG);
+        validateResult(result);
     }
 
     public static List<UnixProcess> getUnixProcesses(SecureChannel channel, String user) {
