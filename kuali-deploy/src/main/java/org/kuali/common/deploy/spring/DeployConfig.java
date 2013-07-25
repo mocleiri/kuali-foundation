@@ -57,6 +57,7 @@ public class DeployConfig {
     protected Artifact getpplicationArtifact() {
         Artifact a = new Artifact();
         // TODO This only works because deploy.groupId is set inside the top level kuali-pom
+        // TODO This won't work on process not launched from the Maven CLI
         // TODO Come up with something better here
         a.setGroupId(SpringUtils.getProperty(env, "deploy.groupId"));
         a.setArtifactId(SpringUtils.getProperty(env, "project.artifactId"));
@@ -341,7 +342,7 @@ public class DeployConfig {
         context.setUrl(url);
         context.setOverallTimeoutMillis(overallTimeoutMillis.intValue());
         context.setRequestTimeoutMillis(requestTimeoutMillis.intValue());
-        context.setLogMsgPrefix(SpringUtils.getProperty(env, "http.logMsgPrefix", "[tomcat:wait] - "));
+        context.setLogMsgPrefix(SpringUtils.getProperty(env, "http.logMsgPrefix", "[tomcat:starting] - "));
 
         // Setup the executable
         HttpWaitExecutable executable = new HttpWaitExecutable();
