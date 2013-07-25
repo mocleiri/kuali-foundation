@@ -54,7 +54,7 @@ public class DeployConfig {
         return a;
     }
 
-    protected Artifact getpplicationArtifact() {
+    protected Artifact getApplicationArtifact() {
         Artifact a = new Artifact();
         // TODO This only works because deploy.groupId is set inside the top level kuali-pom
         // TODO This won't work on process not launched from the Maven CLI
@@ -73,7 +73,7 @@ public class DeployConfig {
         ctx.setHostname(SpringUtils.getProperty(env, "kdo.channel.hostname"));
         ctx.setUsername(SpringUtils.getProperty(env, "kdo.channel.username"));
         ctx.setJdbcDriver(getJdbcDriverArtifact());
-        ctx.setApplication(getpplicationArtifact());
+        ctx.setApplication(getApplicationArtifact());
         ctx.setConfigFiles(getApplicationConfig());
         return ctx;
     }
@@ -247,7 +247,7 @@ public class DeployConfig {
     }
 
     protected String getApplicationPath() {
-        Artifact app = getpplicationArtifact();
+        Artifact app = getApplicationArtifact();
         ArtifactPathFactoryBean factory = new ArtifactPathFactoryBean();
         factory.setGroupId(app.getGroupId());
         factory.setArtifactId(app.getArtifactId());
