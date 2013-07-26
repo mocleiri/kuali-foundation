@@ -19,12 +19,12 @@ import java.util.Arrays;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.ShowDbaConfigExecutable;
 import org.kuali.common.jdbc.ShowConfigExecutable;
+import org.kuali.common.jdbc.ShowDbaConfigExecutable;
 import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.nullify.DefaultBeanNullifier;
+import org.kuali.common.util.nullify.BeanNullifier;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +75,7 @@ public class JdbcDataSourceConfig {
 		ctx.setEncoding(SpringUtils.getProperty(env, ENCODING_KEY));
 		ctx.setSchema(SpringUtils.getProperty(env, SCHEMA_KEY));
 
-		DefaultBeanNullifier nullifier = new DefaultBeanNullifier();
+		BeanNullifier nullifier = new BeanNullifier();
 		nullifier.setBean(ctx);
 		nullifier.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
 		nullifier.setProperties(CollectionUtils.getTrimmedListFromCSV(NULLIFIED_CONTEXT_PROPERTIES_CSV));

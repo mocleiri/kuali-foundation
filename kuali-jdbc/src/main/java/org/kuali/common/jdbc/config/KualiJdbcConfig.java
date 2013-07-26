@@ -17,11 +17,13 @@ package org.kuali.common.jdbc.config;
 
 import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
+import org.kuali.common.util.project.ProjectIdentifier;
 
 public enum KualiJdbcConfig implements ProjectConfig {
 
 	DEFAULT(); // Provides the default set of configuration for JDBC related processes
 
+	private final ProjectIdentifier identifier = JdbcProjectConstants.PROJECT_IDENTIFIER;
 	private final String contextId;
 	private final String configId;
 
@@ -36,12 +38,12 @@ public enum KualiJdbcConfig implements ProjectConfig {
 
 	@Override
 	public String getGroupId() {
-		return JdbcProjectConstants.GROUP_ID;
+		return identifier.getGroupId();
 	}
 
 	@Override
 	public String getArtifactId() {
-		return JdbcProjectConstants.ARTIFACT_ID;
+		return identifier.getArtifactId();
 	}
 
 	@Override

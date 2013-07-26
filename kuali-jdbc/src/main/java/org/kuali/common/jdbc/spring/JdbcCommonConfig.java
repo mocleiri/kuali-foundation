@@ -31,22 +31,29 @@ import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
 import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.project.ProjectServiceConfig;
+import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
+@Import({ ProjectServiceConfig.class })
 public class JdbcCommonConfig {
 
 	protected final static String CONTEXT_KEY_SUFFIX = ".context";
 
 	@Autowired
 	ConfigurableEnvironment env;
+
+	@Autowired
+	ProjectServiceConfig projectServiceConfig;
 
 	@Bean
 	public SqlReader jdbcSqlReader() {
@@ -60,11 +67,14 @@ public class JdbcCommonConfig {
 
 	@Bean
 	public Map<String, LocationSupplierSourceBean> jdbcExtensionMappings() {
-		Project project = ProjectUtils.loadProject(JdbcProjectConstants.GROUP_ID, JdbcProjectConstants.ARTIFACT_ID);
+
+		ProjectService service = projectServiceConfig.projectService();
+
+		Project project = service.getProject(JdbcProjectConstants.PROJECT_IDENTIFIER);
 
 		SqlLocationSupplier sls = new SqlLocationSupplier();
 		sls.setReader(jdbcSqlReader());
-		sls.setEncoding(project.getEncoding());
+		sls.setEncoding(ProjectUtils.getEncoding(project));
 
 		LocationSupplierSourceBean lssb = new LocationSupplierSourceBean();
 		lssb.setSupplierClass(SqlLocationSupplier.class);

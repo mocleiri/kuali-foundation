@@ -15,14 +15,33 @@
  */
 package org.kuali.common.jdbc.config;
 
-import org.kuali.common.util.project.KualiConstants;
+import org.kuali.common.util.project.ImmutableProjectIdentifier;
+import org.kuali.common.util.project.KualiProjectConstants;
+import org.kuali.common.util.project.ProjectIdentifier;
 
 public class JdbcProjectConstants {
 
-	public static final String GROUP_ID = KualiConstants.COMMON_GROUP_ID;
-	public static final String ARTIFACT_ID = "kuali-jdbc";
+	private static final String GID = KualiProjectConstants.COMMON_GROUP_ID;
+	private static final String AID = "kuali=jdbc";
+	private static final String KUALI_SQL_ARTIFACT_ID = "kuali-sql";
+
+	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, AID);
+
+	public static final ProjectIdentifier KUALI_SQL_PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, KUALI_SQL_ARTIFACT_ID);
+
+	@Deprecated
+	public static final String GROUP_ID = GID;
+
+	@Deprecated
+	public static final String ARTIFACT_ID = AID;
+
+	@Deprecated
 	public static final String PROJECT_ID = GROUP_ID + ":" + ARTIFACT_ID;
+
+	@Deprecated
 	public static final String SQL_ARTIFACT_ID = "kuali-sql";
+
+	@Deprecated
 	public static final String SQL_PROJECT_ID = GROUP_ID + ":" + SQL_ARTIFACT_ID;
 
 }
