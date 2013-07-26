@@ -20,98 +20,116 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.OrgUtils;
-import org.kuali.common.util.Project;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.KualiProjectConstants;
+import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.ProjectService;
 import org.springframework.util.Assert;
 
+/**
+ * This processor is called *very* early in the Maven build lifecyle in order to augment the default set of Maven properties.
+ */
 public class ProjectProcessor implements PropertyProcessor {
 
 	private static final String KS_GROUP_ID = KualiProjectConstants.STUDENT_GROUP_ID;
 	private static final String FS = File.separator;
 	private static final String DOT = ".";
 
+	ProjectService service;
+
 	@Override
 	public void process(Properties properties) {
-		Project p = getProject(properties);
-		validate(p);
-		String groupCode = OrgUtils.getGroupCode(p.getOrgId(), p.getGroupId());
 
-		doGroupIdBase(p, properties);
+		// Make sure we are configured correctly
+		Assert.notNull(properties, "properties are null");
+		Assert.notNull(service, "service is null");
 
+		// Make sure groupId, artifactId, orgId, and orgCode are present
+		validate(properties);
+
+		// Fix the funk in KS groupId's (if its a KS project)
+		fixKSGroupIds(properties);
+
+		// Use the service to get a Project object from the properties
+		Project p = service.getProject(properties);
+
+		// Extract org info
+		String orgId = properties.getProperty(MavenConstants.ORG_ID_KEY);
+		String orgCode = properties.getProperty(MavenConstants.ORG_ID_CODE_KEY);
+
+		// Figure out the group code (eg "rice", "student", "ole", etc)
+		String groupCode = OrgUtils.getGroupCode(orgId, p.getGroupId());
+
+		// Setup some org and group paths based on user.home
 		String userHome = System.getProperty("user.home");
-		String orgHome = userHome + FS + DOT + p.getOrgCode();
+		String orgHome = userHome + FS + DOT + orgCode;
 		String groupHome = orgHome + FS + groupCode;
-		properties.setProperty("project.groupId", p.getGroupId());
-		properties.setProperty("project.groupId.code", groupCode);
+
+		// Store the org and group paths
 		properties.setProperty("project.groupId.path", Str.getPath(p.getGroupId()));
 		properties.setProperty("project.orgId.home", orgHome);
 		properties.setProperty("project.groupId.home", groupHome);
+
+		// Store the groupCode
+		properties.setProperty("project.groupId.code", groupCode);
 
 		// Add the current milliseconds value as a project property
 		properties.setProperty("project.build.timestamp.millis", Long.toString(System.currentTimeMillis()));
 
 	}
 
-	@Deprecated
-	protected void doGroupIdBase(Project p, Properties properties) {
-		p.setGroupIdBase(OrgUtils.getGroupBase(p.getOrgId(), p.getGroupId()));
-
-		// This is to deal with KS using a god awful amount of groupIds instead of just "org.kuali.student"
-		// For example, this shortens "org.kuali.student.deployments" to "org.kuali.student"
-		// KS is changing their poms to just use "org.kuali.student" but they are not there yet
-		fixFunkyGroupIds(p);
-
-		properties.setProperty("project.groupId.base", p.getGroupIdBase());
-		properties.setProperty("project.groupId.base.path", Str.getPath(p.getGroupIdBase()));
+	protected void validate(Properties properties) {
+		Assert.notNull(properties.getProperty(MavenConstants.GROUP_ID_KEY));
+		Assert.notNull(properties.getProperty(MavenConstants.ARTIFACT_ID_KEY));
+		Assert.notNull(properties.getProperty(MavenConstants.ORG_ID_CODE_KEY));
+		Assert.notNull(properties.getProperty(MavenConstants.ORG_ID_KEY));
 	}
 
-	/**
-	 * If <code>project</code> is a KS project where groupIdBase != groupId, update groupId to be groupIdBase
-	 */
-	@Deprecated
-	protected static void fixFunkyGroupIds(Project project) {
+	protected void fixKSGroupIds(Properties properties) {
+		// Extract the groupId
+		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
 
-		// Only muck with the KS groupId's
-		if (!StringUtils.startsWith(project.getGroupId(), KS_GROUP_ID)) {
+		// If it isn't a KS project, don't do anything
+		if (!StringUtils.startsWith(groupId, KS_GROUP_ID)) {
 			return;
 		}
 
-		String groupId = project.getGroupId();
-		String groupIdBase = project.getGroupIdBase();
+		// Extract the groupId base property
+		String groupIdBase = properties.getProperty("project.groupId.base");
 
+		// If groupIdBase isn't set, we are done
+		if (StringUtils.isBlank(groupIdBase)) {
+			return;
+		}
+
+		// If we get here, we are in a KS project where the property "project.groupId.base" has been set
+		// When set, the property "project.groupId.base" for a KS project must always be "org.kuali.student" without exception
+
+		// If this method executes without throwing an exception, groupIdBase==org.kuali.student
+		validateKSGroupIdInfo(groupId, groupIdBase);
+
+		// Make sure the properties object holds the correct project.groupId
+		properties.setProperty(MavenConstants.GROUP_ID_KEY, KualiProjectConstants.STUDENT_GROUP_ID);
+
+		// Make sure the properties object holds the correct project.groupId.path
+		properties.setProperty("project.groupId.path", Str.getPath(KualiProjectConstants.STUDENT_GROUP_ID));
+	}
+
+	protected void validateKSGroupIdInfo(String groupId, String groupIdBase) {
+
+		// Double check that this is a KS project
+		Assert.isTrue(StringUtils.startsWith(groupId, KS_GROUP_ID), "Group id does not start with [" + KS_GROUP_ID + "]");
+
+		// Extract the lengths
 		int groupIdLength = groupId.length();
 		int groupIdBaseLength = groupIdBase.length();
 
 		// If this isn't true something has gone haywire
 		Assert.isTrue(groupIdLength >= groupIdBaseLength, "groupIdLength < groupIdBaseLength");
 
-		// Update groupId to be groupIdBase if (and only if)
-		// 1 - This is a KS project
-		// 2 - This KS project is using more than one groupId
-		if (!StringUtils.equalsIgnoreCase(groupIdBase, groupId)) {
-			project.setGroupId(groupIdBase);
-		}
-	}
-
-	protected void validate(Project project) {
-		Assert.notNull(project.getOrgId(), "orgId is null");
-		Assert.notNull(project.getOrgCode(), "orgCode is null");
-		Assert.notNull(project.getOrgPath(), "orgPath is null");
-		Assert.notNull(project.getGroupId(), "groupId is null");
-		Assert.notNull(project.getArtifactId(), "artifactId is null");
-		Assert.notNull(project.getVersion(), "version is null");
-	}
-
-	protected Project getProject(Properties properties) {
-		Project project = new Project();
-		project.setOrgId(properties.getProperty("project.orgId"));
-		project.setOrgCode(properties.getProperty("project.orgId.code"));
-		project.setOrgPath(properties.getProperty("project.orgId.path"));
-		project.setGroupId(properties.getProperty("project.groupId"));
-		project.setArtifactId(properties.getProperty("project.artifactId"));
-		project.setVersion(properties.getProperty("project.version"));
-		return project;
+		// If this isn't true something has gone haywire
+		Assert.isTrue(StringUtils.equals(groupIdBase, KualiProjectConstants.STUDENT_GROUP_ID));
 	}
 
 }
