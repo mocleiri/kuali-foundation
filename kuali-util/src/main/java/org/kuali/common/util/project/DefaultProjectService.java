@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.Charsets;
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -45,28 +44,26 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
-	public Project getProject(String projectId) {
+	public synchronized Project getProject(String groupId, String artifactId) {
 
-		Assert.hasText(projectId, "projectId is blank");
+		// Both of these are required
+		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
 
-		Project project = CACHE.get(projectId);
+		// Construct the cache key
+		String cacheKey = groupId + ":" + artifactId;
+
+		// Check the cache
+		Project project = CACHE.get(cacheKey);
 		if (project == null) {
-			project = loadAndCache(projectId);
+			// Construct a project object from project.properties
+			project = load(groupId, artifactId);
+			// Cache it
+			CACHE.put(cacheKey, project);
 		}
 		return project;
 	}
 
-	protected Project loadAndCache(String projectId) {
-
-		// Split the id into tokens
-		String[] tokens = StringUtils.split(projectId, ":");
-
-		// Project id's should always have exactly 2 tokens
-		Assert.isTrue(tokens.length == 2, "tokens.length != 2");
-
-		// 1st token is groupId, 2nd token is artifactId
-		String groupId = tokens[0];
-		String artifactId = tokens[1];
+	protected Project load(String groupId, String artifactId) {
 
 		// Get the unique path to the project.properties file
 		String location = getPropertiesFileLocation(groupId, artifactId);
@@ -84,13 +81,7 @@ public class DefaultProjectService implements ProjectService {
 		Properties properties = PropertyUtils.load(location, encoding);
 
 		// Convert the properties into a project
-		Project project = getProject(properties);
-
-		// Store the project in our cache
-		CACHE.put(projectId, project);
-
-		// Return the project
-		return project;
+		return getProject(properties);
 	}
 
 	protected String getPropertiesFileLocation(String groupId, String artifactId) {

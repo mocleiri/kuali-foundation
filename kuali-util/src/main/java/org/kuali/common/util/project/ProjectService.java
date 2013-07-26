@@ -20,15 +20,9 @@ import java.util.Properties;
 public interface ProjectService {
 
 	/**
-	 * Create a <code>Project</code> from the <code>projectId</code>
-	 * 
-	 * <pre>
-	 *   org.kuali.common:kuali-util
-	 *   org.kuali.common:kuali-jdbc
-	 *   org.kuali.common:kuali-impex-export
-	 * </pre>
+	 * Create a <code>Project</code> from <code>groupId</code> and <code>artifactId</code>
 	 */
-	Project getProject(String projectId);
+	Project getProject(String groupId, String artifactId);
 
 	/**
 	 * Create a <code>Project</code> from the properties.
