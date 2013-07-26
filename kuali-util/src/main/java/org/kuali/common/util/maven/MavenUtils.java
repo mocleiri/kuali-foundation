@@ -23,7 +23,6 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
@@ -94,7 +93,7 @@ public class MavenUtils {
 	 */
 	@Deprecated
 	public static void augmentProjectProperties(Properties mavenProperties) {
-		augmentProjectProperties(new DefaultProjectService(), mavenProperties);
+		augmentProjectProperties(ProjectProcessor.DEFAULT_PROJECT_SERVICE, mavenProperties);
 	}
 
 	@Deprecated
