@@ -15,15 +15,12 @@
  */
 package org.kuali.common.util.project;
 
+public abstract class KualiUtilProjectConstants {
 
-public abstract class KualiConstants {
+	// This must always exactly match what is in the pom
+	public static final String ARTIFACT_ID = "kuali-util";
 
-	// Kuali Group Id's
-	public static final String COMMON_GROUP_ID = "org.kuali.common";
-	public static final String RICE_GROUP_ID = "org.kuali.rice";
-	public static final String STUDENT_GROUP_ID = "org.kuali.student";
-	public static final String MOBILITY_GROUP_ID = "org.kuali.mobility";
-	public static final String OLE_GROUP_ID = "org.kuali.ole";
-	public static final String KPME_GROUP_ID = "org.kuali.kpme";
+	// This must always exactly match what is in the pom
+	public static final String PROJECT_ID = KualiProjectConstants.COMMON_GROUP_ID + ":" + ARTIFACT_ID;
 
 }

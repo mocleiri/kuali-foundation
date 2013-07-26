@@ -25,7 +25,7 @@ import org.springframework.core.env.Environment;
 public class ProjectServiceConfig {
 
 	private static final String SERVICE_KEY = "project.service";
-	private static final String SERVICE_BEAN = UtilConstants.PROJECT_ID + ":projectServiceConfig:projectService";
+	private static final String SERVICE_BEAN = KualiUtilProjectConstants.PROJECT_ID + ":projectServiceConfig:projectService";
 
 	@Autowired
 	Environment env;
