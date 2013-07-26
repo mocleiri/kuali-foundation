@@ -44,6 +44,11 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
+	public Project getProject(ProjectIdentifier identifier) {
+		return getProject(identifier.getGroupId(), identifier.getArtifactId());
+	}
+
+	@Override
 	public synchronized Project getProject(String groupId, String artifactId) {
 
 		// Both of these are required
@@ -63,6 +68,10 @@ public class DefaultProjectService implements ProjectService {
 		return project;
 	}
 
+	protected synchronized void clearCache() {
+		CACHE.clear();
+	}
+
 	protected Project load(String groupId, String artifactId) {
 
 		// Get the unique path to the project.properties file
@@ -71,11 +80,8 @@ public class DefaultProjectService implements ProjectService {
 		// If that location doesn't exist, we have issues
 		Assert.exists(location, "[" + location + "] does not exist");
 
-		// Load system/environment properties
-		Properties global = PropertyUtils.getGlobalProperties();
-
 		// Use UTF-8 to load project.properties, unless they've set the system property "project.properties.encoding"
-		String encoding = global.getProperty(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
+		String encoding = PropertyUtils.getGlobalProperty(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
 
 		// Load the properties from disk
 		Properties properties = PropertyUtils.load(location, encoding);

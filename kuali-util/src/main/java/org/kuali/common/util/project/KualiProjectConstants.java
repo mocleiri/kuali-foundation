@@ -15,7 +15,6 @@
  */
 package org.kuali.common.util.project;
 
-
 public abstract class KualiProjectConstants {
 
 	// Kuali Group Id's

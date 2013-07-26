@@ -24,8 +24,8 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.ProjectConfigContainer;
-import org.kuali.common.util.project.KualiConstants;
-import org.kuali.common.util.project.UtilConstants;
+import org.kuali.common.util.project.KualiUtilProjectConstants;
+import org.kuali.common.util.project.ProjectIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -36,7 +36,7 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringConfigService.class);
 
-	private static final Map<String, ProjectConfigContainer> PROJECT_CONFIG_CACHE = new HashMap<String, ProjectConfigContainer>();
+	private static final Map<String, ProjectConfigContainer> CACHE = new HashMap<String, ProjectConfigContainer>();
 	private static final String FILE = "metadata-spring.xml";
 	private static final String PROPS = "spring.properties";
 	private static final String BEAN = "projectConfig";
@@ -44,18 +44,18 @@ public class SpringConfigService extends AbstractCachingConfigService {
 	@Override
 	protected synchronized ProjectConfigContainer getCachedConfig(String groupId, String artifactId) {
 		String cacheKey = groupId + ":" + artifactId;
-		ProjectConfigContainer config = PROJECT_CONFIG_CACHE.get(cacheKey);
+		ProjectConfigContainer config = CACHE.get(cacheKey);
 		if (config == null) {
 			config = loadMetadata(groupId, artifactId);
 			logger.debug("Caching [{}]", cacheKey);
-			PROJECT_CONFIG_CACHE.put(cacheKey, config);
+			CACHE.put(cacheKey, config);
 		}
 		return config;
 	}
 
 	@Override
 	protected synchronized void clearCache() {
-		PROJECT_CONFIG_CACHE.clear();
+		CACHE.clear();
 	}
 
 	@Override
@@ -65,8 +65,9 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	@Override
 	protected Properties getBaseFilterProperties() {
-		String groupId = KualiConstants.COMMON_GROUP_ID;
-		String artifactId = UtilConstants.ARTIFACT_ID;
+		ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+		String groupId = identifier.getGroupId();
+		String artifactId = identifier.getArtifactId();
 		Project project = ProjectUtils.loadProject(groupId, artifactId);
 		return PropertyUtils.load(getMetadataConfigFilePath(project, PROPS));
 	}
