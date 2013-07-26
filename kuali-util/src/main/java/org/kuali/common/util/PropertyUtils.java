@@ -781,8 +781,8 @@ public class PropertyUtils {
 	 * Examine both system properties and environment variables to get a value for <code>key</code>. Return <code>null</code> if nothing is found.
 	 * 
 	 * <pre>
-	 *   project.groupId -> System property check for "project.groupId"
-	 *   project.groupId -> Environment check for "PROJECT_GROUPID"
+	 *   foo.bar -> System property check for "foo.bar"
+	 *   foo.bar -> Environment check for "FOO_BAR"
 	 * </pre>
 	 */
 	public static final String getGlobalProperty(String key) {
@@ -793,27 +793,24 @@ public class PropertyUtils {
 	 * Examine both system properties and environment variables to get a value for <code>key</code>. Return <code>defaultValue</code> if nothing is found
 	 * 
 	 * <pre>
-	 *   project.groupId -> System property check for "project.groupId"
-	 *   project.groupId -> Environment check for "PROJECT_GROUPID"
+	 *   foo.bar -> System property check for "foo.bar"
+	 *   foo.bar -> Environment check for "FOO_BAR"
 	 * </pre>
 	 */
 	public static final String getGlobalProperty(String key, String defaultValue) {
-		// Acquire a handle to both system properties and environment variables
-		Properties properties = getGlobalProperties();
-
-		// Check to see if we have an exact match
-		String globalValue = properties.getProperty(key);
+		// Check to see if there is a system property for this key
+		String systemValue = System.getProperty(key);
 
 		// If so, we are done
-		if (globalValue != null) {
-			return globalValue;
+		if (systemValue != null) {
+			return systemValue;
 		}
 
 		// Reformat the key as an environment variable key
-		String environmentKey = getEnvironmentVariableKey(key);
+		String environmentVariable = convertToEnvironmentVariable(key);
 
 		// Check to see if we have a match for an environment variable
-		String environmentValue = properties.getProperty(environmentKey);
+		String environmentValue = System.getenv(environmentVariable);
 
 		if (environmentValue != null) {
 			// If so, return the value of the environment variable
@@ -1134,7 +1131,7 @@ public class PropertyUtils {
 	 * Replace periods with an underscore and convert to uppercase
 	 * 
 	 * <pre>
-	 *   project.groupId -> PROJECT_GROUPID
+	 *   foo.bar -> FOO_BAR
 	 * </pre>
 	 */
 	public static final String convertToEnvironmentVariable(String key) {
@@ -1145,7 +1142,7 @@ public class PropertyUtils {
 	 * Replace periods with an underscore, convert to uppercase, and prefix with <code>env</code>
 	 * 
 	 * <pre>
-	 *   project.groupId -> env.PROJECT_GROUPID
+	 *   foo.bar -> env.FOO_BAR
 	 * </pre>
 	 */
 	public static final String getEnvironmentVariableKey(String key) {
