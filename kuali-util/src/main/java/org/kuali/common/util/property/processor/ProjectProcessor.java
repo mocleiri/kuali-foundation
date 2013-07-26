@@ -36,6 +36,7 @@ public class ProjectProcessor implements PropertyProcessor {
 	private static final String KS_GROUP_ID = KualiProjectConstants.STUDENT_GROUP_ID;
 	private static final String FS = File.separator;
 	private static final String DOT = ".";
+	private static final String PROJECT_GROUP_ID_PATH = "project.groupId.path";
 	public static final ProjectService DEFAULT_PROJECT_SERVICE = new DefaultProjectService();
 
 	@Deprecated
@@ -63,7 +64,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		// Fix the funk in KS groupId's (if its a KS project)
 		fixKSGroupIds(properties);
 
-		// Now that the properties are fixed, it is safe to use them to get a project object
+		// Now that the groupId is fixed, it is safe to use them to get a project object
 		Project p = service.getProject(properties);
 
 		// Extract org info
@@ -79,7 +80,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		String groupHome = orgHome + FS + groupCode;
 
 		// Store the org and group paths
-		properties.setProperty("project.groupId.path", Str.getPath(p.getGroupId()));
+		properties.setProperty(PROJECT_GROUP_ID_PATH, Str.getPath(p.getGroupId()));
 		properties.setProperty("project.orgId.home", orgHome);
 		properties.setProperty("project.groupId.home", groupHome);
 
@@ -103,46 +104,12 @@ public class ProjectProcessor implements PropertyProcessor {
 		// Extract the groupId
 		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
 
-		// If it isn't a KS project, don't do anything
-		if (!StringUtils.startsWith(groupId, KS_GROUP_ID)) {
-			return;
+		// Only muck with KS projects
+		if (StringUtils.startsWith(groupId, KS_GROUP_ID)) {
+
+			// All KS projects should have a groupId of "org.kuali.student" no matter what
+			properties.setProperty(MavenConstants.GROUP_ID_KEY, KualiProjectConstants.STUDENT_GROUP_ID);
 		}
-
-		// Extract the groupId base property
-		String groupIdBase = properties.getProperty("project.groupId.base");
-
-		// If groupIdBase isn't set, we are done
-		if (StringUtils.isBlank(groupIdBase)) {
-			return;
-		}
-
-		// If we get here, we are in a KS project where the property "project.groupId.base" has been set
-		// When set, the property "project.groupId.base" for a KS project must always be "org.kuali.student" without exception
-
-		// If this method executes without throwing an exception, groupIdBase==org.kuali.student
-		validateKSGroupIdInfo(groupId, groupIdBase);
-
-		// Make sure the properties object holds the correct project.groupId
-		properties.setProperty(MavenConstants.GROUP_ID_KEY, KualiProjectConstants.STUDENT_GROUP_ID);
-
-		// Make sure the properties object holds the correct project.groupId.path
-		properties.setProperty("project.groupId.path", Str.getPath(KualiProjectConstants.STUDENT_GROUP_ID));
-	}
-
-	protected void validateKSGroupIdInfo(String groupId, String groupIdBase) {
-
-		// Double check that this is a KS project
-		Assert.isTrue(StringUtils.startsWith(groupId, KS_GROUP_ID), "Group id does not start with [" + KS_GROUP_ID + "]");
-
-		// Extract the lengths
-		int groupIdLength = groupId.length();
-		int groupIdBaseLength = groupIdBase.length();
-
-		// If this isn't true something has gone haywire
-		Assert.isTrue(groupIdLength >= groupIdBaseLength, "groupIdLength < groupIdBaseLength");
-
-		// If this isn't true something has gone haywire
-		Assert.isTrue(StringUtils.equals(groupIdBase, KualiProjectConstants.STUDENT_GROUP_ID));
 	}
 
 }

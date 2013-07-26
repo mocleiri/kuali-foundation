@@ -92,8 +92,8 @@ public class DefaultProjectService implements ProjectService {
 
 	protected String getPropertiesFileLocation(String groupId, String artifactId) {
 		Properties properties = new Properties();
-		properties.setProperty(Constants.GROUP_ID_BASE_PATH_KEY, Str.getPath(groupId));
-		properties.setProperty(Constants.ARTIFACT_ID_KEY, artifactId);
+		properties.setProperty(MavenConstants.GROUP_ID_KEY, Str.getPath(groupId));
+		properties.setProperty(MavenConstants.ARTIFACT_ID_KEY, artifactId);
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
 	}
 
