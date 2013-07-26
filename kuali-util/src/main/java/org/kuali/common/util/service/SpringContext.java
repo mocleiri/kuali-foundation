@@ -17,6 +17,9 @@ package org.kuali.common.util.service;
 
 import java.util.List;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class SpringContext {
 

@@ -20,51 +20,50 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.ProjectProperties;
 import org.kuali.common.util.property.PropertiesContext;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class ConfigUtils {
 
-	public static ProjectProperties getProjectProperties(ProjectContext project, Properties properties) {
-		ProjectProperties projectProperties = ProjectUtils.getProjectProperties(project);
+	public static org.kuali.common.util.property.ProjectProperties getProjectProperties(org.kuali.common.util.ProjectContext project, Properties properties) {
+		org.kuali.common.util.property.ProjectProperties projectProperties = org.kuali.common.util.ProjectUtils.getProjectProperties(project);
 		combine(projectProperties, properties);
 		return projectProperties;
 	}
 
-	public static void combine(ProjectProperties projectProperties, Properties properties) {
+	public static void combine(org.kuali.common.util.property.ProjectProperties projectProperties, Properties properties) {
 		Properties existing = projectProperties.getPropertiesContext().getProperties();
 		Properties combined = PropertyUtils.combine(existing, properties);
 		projectProperties.getPropertiesContext().setProperties(combined);
 	}
 
-	public static List<ProjectProperties> getProjectProperties(List<ProjectContext> contexts) {
-		List<ProjectProperties> list = new ArrayList<ProjectProperties>();
-		for (ProjectContext context : contexts) {
-			Project project = ProjectUtils.loadProject(context);
-			ProjectProperties pp = getProjectProperties(project, context.getPropertyLocations());
+	public static List<org.kuali.common.util.property.ProjectProperties> getProjectProperties(List<org.kuali.common.util.ProjectContext> contexts) {
+		List<org.kuali.common.util.property.ProjectProperties> list = new ArrayList<org.kuali.common.util.property.ProjectProperties>();
+		for (org.kuali.common.util.ProjectContext context : contexts) {
+			org.kuali.common.util.Project project = org.kuali.common.util.ProjectUtils.loadProject(context);
+			org.kuali.common.util.property.ProjectProperties pp = getProjectProperties(project, context.getPropertyLocations());
 			list.add(pp);
 		}
 		return list;
 	}
 
-	public static List<ProjectProperties> getProjectProperties(ProjectContext... contexts) {
+	public static List<org.kuali.common.util.property.ProjectProperties> getProjectProperties(org.kuali.common.util.ProjectContext... contexts) {
 		return getProjectProperties(Arrays.asList(contexts));
 	}
 
-	public static ProjectProperties getProjectProperties(ProjectContext context) {
-		Project project = ProjectUtils.loadProject(context);
+	public static org.kuali.common.util.property.ProjectProperties getProjectProperties(org.kuali.common.util.ProjectContext context) {
+		org.kuali.common.util.Project project = org.kuali.common.util.ProjectUtils.loadProject(context);
 		return getProjectProperties(project, context.getPropertyLocations());
 	}
 
-	public static ProjectProperties getProjectProperties(Project project, List<String> locations) {
+	public static org.kuali.common.util.property.ProjectProperties getProjectProperties(org.kuali.common.util.Project project, List<String> locations) {
 		PropertiesContext pc = new PropertiesContext();
 		pc.setEncoding(project.getEncoding());
 		pc.setLocations(locations);
-		return new ProjectProperties(project, pc);
+		return new org.kuali.common.util.property.ProjectProperties(project, pc);
 	}
 }

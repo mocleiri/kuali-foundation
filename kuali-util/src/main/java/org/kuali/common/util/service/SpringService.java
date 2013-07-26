@@ -17,6 +17,9 @@ package org.kuali.common.util.service;
 
 import org.springframework.core.env.PropertySource;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public interface SpringService {
 

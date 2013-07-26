@@ -19,9 +19,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.Project;
 import org.springframework.util.CollectionUtils;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class ProjectPropertiesComparator implements Comparator<ProjectProperties> {
 
@@ -49,7 +51,7 @@ public class ProjectPropertiesComparator implements Comparator<ProjectProperties
 	}
 
 	protected String getIdString(ProjectProperties pp) {
-		Project p = pp.getProject();
+		org.kuali.common.util.Project p = pp.getProject();
 		StringBuilder sb = new StringBuilder();
 		sb.append(p.getGroupId());
 		sb.append(":");

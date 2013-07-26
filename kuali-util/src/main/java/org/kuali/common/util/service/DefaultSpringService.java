@@ -36,6 +36,9 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class DefaultSpringService implements SpringService {
 

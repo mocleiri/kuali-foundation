@@ -17,6 +17,9 @@ package org.kuali.common.util;
 
 import java.util.Arrays;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class MpxProjectContext extends DefaultProjectContext {
 
