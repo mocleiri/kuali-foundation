@@ -39,7 +39,7 @@ public class JdbcProjectConstants {
 	public static final String PROJECT_ID = GROUP_ID + ":" + ARTIFACT_ID;
 
 	@Deprecated
-	public static final String SQL_ARTIFACT_ID = "kuali-sql";
+	public static final String SQL_ARTIFACT_ID = KUALI_SQL_ARTIFACT_ID;
 
 	@Deprecated
 	public static final String SQL_PROJECT_ID = GROUP_ID + ":" + SQL_ARTIFACT_ID;
