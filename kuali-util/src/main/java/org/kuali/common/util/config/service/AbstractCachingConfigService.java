@@ -122,6 +122,9 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	}
 
 	protected ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
+
+		Assert.notNull(projectService, "projectService is null");
+
 		Project project = projectService.getProject(groupId, artifactId);
 		String location = getMetadataConfigFilePath(project, getFilename());
 
