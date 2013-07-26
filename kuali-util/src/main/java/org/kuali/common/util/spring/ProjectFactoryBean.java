@@ -20,6 +20,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.springframework.beans.factory.FactoryBean;
 
+@Deprecated
 public class ProjectFactoryBean<T> implements FactoryBean<Project> {
 
 	String gav;

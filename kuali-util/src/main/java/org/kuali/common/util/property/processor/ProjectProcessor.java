@@ -63,7 +63,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		// Fix the funk in KS groupId's (if its a KS project)
 		fixKSGroupIds(properties);
 
-		// Use the service to get a Project object from the properties
+		// Now that the properties are fixed, it is safe to use them to get a project object
 		Project p = service.getProject(properties);
 
 		// Extract org info

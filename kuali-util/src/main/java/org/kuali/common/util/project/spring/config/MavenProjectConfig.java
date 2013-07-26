@@ -51,7 +51,7 @@ public class MavenProjectConfig implements ProjectConfig {
 		Assert.notNull(mavenProperties, "mavenProperties are null");
 
 		// Enhance the default set of Maven properties
-		MavenUtils.augmentProjectProperties(mavenProperties);
+		MavenUtils.augmentProjectProperties(projectServiceConfig.projectService(), mavenProperties);
 
 		// Get a reference to the project service
 		ProjectService service = projectServiceConfig.projectService();

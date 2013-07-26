@@ -170,7 +170,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	}
 
 	protected String getMetadataConfigFilePath(Project project, String filename) {
-		String resourcePath = ProjectUtils.getResourcePath(project);
+		String resourcePath = ProjectUtils.getResourcePath(project.getArtifactId(), project.getArtifactId());
 		return CLASSPATH + METAINF + "/" + resourcePath + "/" + CONFIG + "/" + filename;
 	}
 
@@ -182,7 +182,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	}
 
 	protected Properties getFilterProperties(Project project) {
-		String classpathPrefix = ProjectUtils.getClassPathPrefix(project);
+		String classpathPrefix = ProjectUtils.getClassPathPrefix(project.getGroupId(), project.getArtifactId());
 		Properties duplicate = PropertyUtils.duplicate(project.getProperties());
 		duplicate.setProperty(CLASSPATH_PREFIX_KEY, classpathPrefix);
 		String location = getMetadataConfigFilePath(project, PROPS);
