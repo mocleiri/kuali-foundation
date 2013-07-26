@@ -18,36 +18,28 @@ package org.kuali.common.jdbc.spring;
 import java.util.Arrays;
 
 import org.junit.Test;
-import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.jdbc.config.KualiJdbcConfig;
+import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
+import org.kuali.common.util.config.supplier.PropertiesSupplier;
+import org.kuali.common.util.spring.SpringExecUtils;
+import org.kuali.common.util.spring.SpringExecutable;
 
-@Deprecated
 public class OleResetTest {
 
 	@Test
 	public void test() {
 		try {
-			// Default Spring service will do what we need
-			SpringService ss = new DefaultSpringService();
+			String configId = KualiJdbcConfig.DEFAULT.getConfigId();
+			String location = "classpath:ole-fs.properties";
 
-			// The main project who's properties need to be loaded and made available to Spring
-			ProjectContext project = new OleTestProjectContext();
-
-			// Other projects who's properties we need to make available to Spring
-			ProjectContext other = new JdbcProjectContext();
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(Arrays.asList(configId), Arrays.asList(location));
 
 			// The annotated java class containing the Spring configuration that does what we need it to do
 			Class<?> annotatedClass = SqlControllerExecutableConfig.class;
 
 			// Prepare a Spring context
-			SpringContext context = SpringUtils.getSpringContext(annotatedClass, project, Arrays.asList(other));
-
-			// Execute Spring
-			ss.load(context);
+			SpringExecutable exec = SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
+			exec.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
