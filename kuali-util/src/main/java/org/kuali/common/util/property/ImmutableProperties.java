@@ -34,7 +34,7 @@ public final class ImmutableProperties extends Properties {
 
 		// original can't be null
 		if (original == null) {
-			throw new IllegalArgumentException("original is null");
+			throw new NullPointerException("original is null");
 		}
 
 		// Prevent anything from changing original until we are done
@@ -48,8 +48,7 @@ public final class ImmutableProperties extends Properties {
 				throw new IllegalArgumentException("Immutable properties only support strings");
 			}
 
-			// Copy all of the key/value pairs from original
-			// Can't use super.putAll() here, since it tries to invoke this.put(), which we've disabled
+			// Copy every key/value pair from original
 			for (String key : keys) {
 				super.put(key, original.getProperty(key));
 			}
