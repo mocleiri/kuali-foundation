@@ -36,6 +36,11 @@ public class ProjectProcessor implements PropertyProcessor {
 	private static final String FS = File.separator;
 	private static final String DOT = ".";
 
+	public ProjectProcessor(ProjectService service) {
+		super();
+		this.service = service;
+	}
+
 	ProjectService service;
 
 	@Override

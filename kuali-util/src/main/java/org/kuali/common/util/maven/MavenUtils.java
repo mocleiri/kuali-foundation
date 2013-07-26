@@ -23,6 +23,8 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.project.DefaultProjectService;
+import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -67,12 +69,12 @@ public class MavenUtils {
 	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
 	 * build
 	 */
-	public static void augmentProjectProperties(Properties mavenProperties) {
+	public static void augmentProjectProperties(ProjectService service, Properties mavenProperties) {
 		// Setup some processors
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
 		// Add some organization, group, and path properties
-		processors.add(new ProjectProcessor());
+		processors.add(new ProjectProcessor(service));
 
 		// Tokenize the version number and add properties for each token (major/minor/incremental)
 		// Also add a boolean property indicating if this is a SNAPSHOT build
@@ -84,6 +86,15 @@ public class MavenUtils {
 		// Finish preparing the properties using the encoding from the project
 		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, PROJECT_ENCODING_KEY);
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
+	}
+
+	/**
+	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
+	 * build
+	 */
+	@Deprecated
+	public static void augmentProjectProperties(Properties mavenProperties) {
+		augmentProjectProperties(new DefaultProjectService(), mavenProperties);
 	}
 
 	@Deprecated
