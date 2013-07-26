@@ -18,24 +18,19 @@ package org.kuali.common.jdbc.spring;
 import java.util.Arrays;
 import java.util.List;
 
-import org.kuali.common.jdbc.JdbcProjectContext;
-import org.kuali.common.util.ProjectContext;
-import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.spring.ConfigUtils;
-import org.kuali.common.util.spring.MavenPropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * This lets properties defined in the pom override properties defined elsewhere. System/environment properties still override everything.
+ * @deprecated
  */
 @Deprecated
 @Configuration
-public class JdbcMavenPropertySourceConfig extends MavenPropertySourceConfig {
+public class JdbcMavenPropertySourceConfig extends org.kuali.common.util.spring.MavenPropertySourceConfig {
 
 	@Override
-	protected List<ProjectProperties> getOtherProjectProperties() {
-		ProjectContext jdbc = new JdbcProjectContext();
-		return ConfigUtils.getProjectProperties(Arrays.asList(jdbc));
+	protected List<org.kuali.common.util.property.ProjectProperties> getOtherProjectProperties() {
+		org.kuali.common.util.ProjectContext jdbc = new org.kuali.common.jdbc.JdbcProjectContext();
+		return org.kuali.common.util.spring.ConfigUtils.getProjectProperties(Arrays.asList(jdbc));
 	}
 
 }

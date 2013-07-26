@@ -18,15 +18,14 @@ package org.kuali.common.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.util.DefaultProjectContext;
-import org.kuali.common.util.KualiProjectConstants;
-import org.kuali.common.util.ProjectUtils;
-
+/**
+ * @deprecated
+ */
 @Deprecated
-public class JdbcProjectContext extends DefaultProjectContext {
+public class JdbcProjectContext extends org.kuali.common.util.DefaultProjectContext {
 
 	private static final List<String> LOCATIONS = getLocations();
-	private static final String ARTIFACT_ID = KualiProjectConstants.JDBC_ARTIFACT_ID;
+	private static final String ARTIFACT_ID = org.kuali.common.util.KualiProjectConstants.JDBC_ARTIFACT_ID;
 
 	public JdbcProjectContext() {
 		super(ARTIFACT_ID, LOCATIONS);
@@ -36,10 +35,10 @@ public class JdbcProjectContext extends DefaultProjectContext {
 		List<String> locations = new ArrayList<String>();
 
 		// Add JDBC properties
-		locations.add(ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/jdbc.properties");
+		locations.add(org.kuali.common.util.ProjectUtils.getCommonClassPathPrefix(ARTIFACT_ID) + "/jdbc.properties");
 
 		// Add SQL properties
-		String prefix = ProjectUtils.getCommonClassPathPrefix(KualiProjectConstants.SQL_ARTIFACT_ID);
+		String prefix = org.kuali.common.util.ProjectUtils.getCommonClassPathPrefix(org.kuali.common.util.KualiProjectConstants.SQL_ARTIFACT_ID);
 		locations.add(prefix + "/sql.xml");
 		locations.add(prefix + "/mysql.xml");
 		locations.add(prefix + "/oracle.xml");
