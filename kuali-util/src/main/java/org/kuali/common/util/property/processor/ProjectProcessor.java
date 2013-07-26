@@ -79,6 +79,7 @@ public class ProjectProcessor implements PropertyProcessor {
 
 	}
 
+	// Make sure the properties hold basic project identifier info
 	protected void validate(Properties properties) {
 		Assert.notNull(properties.getProperty(MavenConstants.GROUP_ID_KEY));
 		Assert.notNull(properties.getProperty(MavenConstants.ARTIFACT_ID_KEY));
