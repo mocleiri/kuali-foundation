@@ -17,12 +17,13 @@ package org.kuali.common.util.config.supplier;
 
 import java.util.Properties;
 
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
+import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.ProjectService;
 import org.springframework.util.Assert;
 
 public class ProjectPropertiesSupplier implements PropertiesSupplier {
 
+	ProjectService service;
 	String groupId;
 	String artifactId;
 
@@ -32,7 +33,7 @@ public class ProjectPropertiesSupplier implements PropertiesSupplier {
 		Assert.hasText(groupId, "groupId has no text");
 		Assert.hasText(artifactId, "artifactId has no text");
 
-		Project project = ProjectUtils.loadProject(groupId, artifactId);
+		Project project = service.getProject(groupId, artifactId);
 		return project.getProperties();
 	}
 
