@@ -21,19 +21,14 @@ import java.util.Properties;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.service.ConfigService;
-import org.kuali.common.util.config.service.DefaultConfigService;
 import org.springframework.util.Assert;
 
 public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
-	public static final ConfigService DEFAULT_CONFIG_SERVICE = new DefaultConfigService();
-
-	// Required
-	ConfigService service = DEFAULT_CONFIG_SERVICE;
-
 	// Optional
 	List<String> configIds;
 	List<String> locations;
+	ConfigService service;
 
 	public ConfigPropertiesSupplier() {
 		this(null, (String) null);
