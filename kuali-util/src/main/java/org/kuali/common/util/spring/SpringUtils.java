@@ -230,7 +230,7 @@ public class SpringUtils {
         String className = getProperty(env, key, defaultValue.getCanonicalName());
         return ReflectionUtils.newInstance(className);
     }
-
+    
     /**
      * Given a property holding the name of a class, return an instance of that class
      */

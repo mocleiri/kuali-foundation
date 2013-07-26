@@ -17,23 +17,28 @@ package org.kuali.common.util.config.spring;
 
 import org.kuali.common.util.config.service.ConfigService;
 import org.kuali.common.util.config.service.DefaultConfigService;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.project.ProjectServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Import({ ProjectServiceConfig.class })
 public class ConfigServiceConfig {
 
-	private static final String SERVICE_KEY = "config.service";
+	@Autowired
+	ProjectServiceConfig projectServiceConfig;
 
 	@Autowired
 	Environment env;
 
 	@Bean
 	public ConfigService configService() {
-		return SpringUtils.getInstance(env, SERVICE_KEY, DefaultConfigService.class);
+		DefaultConfigService service = new DefaultConfigService();
+		service.setProjectService(projectServiceConfig.projectService());
+		return service;
 	}
 
 }

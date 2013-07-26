@@ -24,7 +24,7 @@ public interface Project {
 	String getArtifactId();
 
 	String getVersion();
-
+	
 	Properties getProperties();
 
 }

@@ -27,8 +27,6 @@ import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ContextConfig;
@@ -37,6 +35,9 @@ import org.kuali.common.util.config.ProjectConfig;
 import org.kuali.common.util.config.ProjectConfigContainer;
 import org.kuali.common.util.config.ProjectConfigContainerNullifier;
 import org.kuali.common.util.nullify.Nullifier;
+import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -50,6 +51,8 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	private static final String PROPS = "metadata.properties";
 	private static final String DELIMITER = ":";
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
+
+	ProjectService projectService;
 
 	@Override
 	public Properties getProperties(String configId) {
@@ -119,7 +122,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	}
 
 	protected ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
-		Project project = ProjectUtils.loadProject(groupId, artifactId);
+		Project project = projectService.getProject(groupId, artifactId);
 		String location = getMetadataConfigFilePath(project, getFilename());
 
 		// Throw an exception if they are asking for config metadata that doesn't exist
@@ -127,8 +130,9 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		Properties properties = getBaseFilterProperties();
 		Properties projectProperties = getFilterProperties(project);
 		properties.putAll(projectProperties);
-		String content = getFilteredContent(location, properties, project.getEncoding());
-		return getProjectConfig(content, project.getEncoding());
+		String encoding = ProjectUtils.getEncoding(project);
+		String content = getFilteredContent(location, properties, encoding);
+		return getProjectConfig(content, encoding);
 	}
 
 	protected List<Location> getLocations(List<ProjectConfig> configs) {
@@ -184,7 +188,8 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		String location = getMetadataConfigFilePath(project, PROPS);
 		Properties metadata = new Properties();
 		if (LocationUtils.exists(location)) {
-			metadata = PropertyUtils.load(location, project.getEncoding());
+			String encoding = ProjectUtils.getEncoding(project);
+			metadata = PropertyUtils.load(location, encoding);
 		}
 		duplicate.putAll(metadata);
 		return duplicate;
@@ -201,6 +206,14 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		nullifier.nullify();
 
 		JAXBUtil.write(clone, file);
+	}
+
+	public ProjectService getProjectService() {
+		return projectService;
+	}
+
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 }
