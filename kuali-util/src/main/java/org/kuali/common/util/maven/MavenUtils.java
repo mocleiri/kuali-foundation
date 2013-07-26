@@ -22,8 +22,6 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.processor.ProjectProcessor;
@@ -90,7 +88,7 @@ public class MavenUtils {
 
 	@Deprecated
 	public static org.kuali.common.util.property.ProjectProperties getMavenProjectProperties(Properties mavenProperties) {
-		Project project = ProjectUtils.getProject(mavenProperties);
+		org.kuali.common.util.Project project = org.kuali.common.util.ProjectUtils.getProject(mavenProperties);
 
 		PropertiesContext pc = new PropertiesContext();
 		pc.setProperties(mavenProperties);
