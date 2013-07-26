@@ -24,7 +24,7 @@ public class DefaultProjectContext implements ProjectContext {
 
 	public static final List<String> DEFAULT_PROPERTY_LOCATIONS = Collections.emptyList();
 
-	public static final String DEFAULT_GROUP_ID = ProjectUtils.KUALI_COMMON_GROUP_ID;
+	public static final String DEFAULT_GROUP_ID = org.kuali.common.util.ProjectUtils.KUALI_COMMON_GROUP_ID;
 
 	List<String> propertyLocations = DEFAULT_PROPERTY_LOCATIONS;
 	String groupId = DEFAULT_GROUP_ID;

@@ -18,8 +18,6 @@ package org.kuali.common.util.config.service;
 import java.util.Properties;
 
 import org.junit.Test;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.config.ConfigUtils;
 
 @Deprecated
@@ -33,7 +31,7 @@ public class SpringConfigServiceTest {
 			String artifactId = "kuali-util";
 			String contextId = "scm";
 			String configId = ConfigUtils.getConfigId(groupId, artifactId, contextId);
-			Project project = ProjectUtils.loadProject(groupId, artifactId);
+			org.kuali.common.util.Project project = org.kuali.common.util.ProjectUtils.loadProject(groupId, artifactId);
 			ConfigService service = new SpringConfigService();
 			Properties properties = service.getProperties(configId, project.getProperties());
 			System.out.println("scm.service=" + properties.getProperty("scm.service"));

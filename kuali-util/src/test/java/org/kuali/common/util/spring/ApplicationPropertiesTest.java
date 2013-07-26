@@ -17,12 +17,11 @@ package org.kuali.common.util.spring;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringService;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Deprecated
 public class ApplicationPropertiesTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationPropertiesTest.class);
