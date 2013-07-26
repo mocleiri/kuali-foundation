@@ -18,6 +18,9 @@ package org.kuali.common.util;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class ScmProjectContext extends DefaultProjectContext {
 

@@ -19,15 +19,17 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ProjectContext;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.env.PropertySource;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<?>> {
 
-	ProjectContext project;
-	List<ProjectContext> others;
+	org.kuali.common.util.ProjectContext project;
+	List<org.kuali.common.util.ProjectContext> others;
 	Properties properties;
 
 	@Override
@@ -46,19 +48,19 @@ public class GetPropertySourceFactoryBean implements FactoryBean<PropertySource<
 		return false;
 	}
 
-	public ProjectContext getProject() {
+	public org.kuali.common.util.ProjectContext getProject() {
 		return project;
 	}
 
-	public void setProject(ProjectContext project) {
+	public void setProject(org.kuali.common.util.ProjectContext project) {
 		this.project = project;
 	}
 
-	public List<ProjectContext> getOthers() {
+	public List<org.kuali.common.util.ProjectContext> getOthers() {
 		return others;
 	}
 
-	public void setOthers(List<ProjectContext> others) {
+	public void setOthers(List<org.kuali.common.util.ProjectContext> others) {
 		this.others = others;
 	}
 

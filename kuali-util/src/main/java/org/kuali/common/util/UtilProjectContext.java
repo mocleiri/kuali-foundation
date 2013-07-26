@@ -18,6 +18,9 @@ package org.kuali.common.util;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class UtilProjectContext extends DefaultProjectContext {
 
