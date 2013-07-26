@@ -16,25 +16,26 @@
 package org.kuali.common.util.spring;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.Project;
-import org.kuali.common.util.ProjectUtils;
 import org.springframework.beans.factory.FactoryBean;
 
+/**
+ * @deprecated
+ */
 @Deprecated
-public class ProjectFactoryBean<T> implements FactoryBean<Project> {
+public class ProjectFactoryBean<T> implements FactoryBean<org.kuali.common.util.Project> {
 
 	String gav;
 	boolean singleton = true;
 
 	@Override
-	public Project getObject() {
+	public org.kuali.common.util.Project getObject() {
 		Assert.hasText(gav);
-		return ProjectUtils.loadProject(gav);
+		return org.kuali.common.util.ProjectUtils.loadProject(gav);
 	}
 
 	@Override
-	public Class<Project> getObjectType() {
-		return Project.class;
+	public Class<org.kuali.common.util.Project> getObjectType() {
+		return org.kuali.common.util.Project.class;
 	}
 
 	@Override

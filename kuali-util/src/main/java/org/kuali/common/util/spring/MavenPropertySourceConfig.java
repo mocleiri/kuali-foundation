@@ -17,9 +17,7 @@ package org.kuali.common.util.spring;
 
 import java.util.Properties;
 
-import org.kuali.common.util.MavenUtils;
 import org.kuali.common.util.property.Constants;
-import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +25,8 @@ import org.springframework.util.Assert;
 
 /**
  * Enhance the wired in Maven properties and create a <code>ProjectProperties</code> bean from them.
+ * 
+ * @deprecated
  */
 @Deprecated
 @Configuration
@@ -37,16 +37,16 @@ public class MavenPropertySourceConfig extends AbstractPropertySourceConfig {
 	Properties mavenProperties;
 
 	@Override
-	protected ProjectProperties getProjectProperties() {
+	protected org.kuali.common.util.property.ProjectProperties getProjectProperties() {
 
 		// Make sure the maven properties got wired in correctly
 		Assert.notNull(mavenProperties, "mavenProperties are null");
 
 		// Add in org, group, home, and enhanced version properties
-		MavenUtils.augmentProjectProperties(mavenProperties);
+		org.kuali.common.util.MavenUtils.augmentProjectProperties(mavenProperties);
 
 		// Create a ProjectProperties pojo from the properties
-		return MavenUtils.getMavenProjectProperties(mavenProperties);
+		return org.kuali.common.util.MavenUtils.getMavenProjectProperties(mavenProperties);
 	}
 
 }

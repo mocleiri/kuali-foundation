@@ -18,13 +18,12 @@ package org.kuali.common.util.spring;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.util.property.ProjectProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.PropertySource;
 
 /**
- * 
+ * @deprecated
  */
 @Deprecated
 @Configuration
@@ -33,15 +32,15 @@ public abstract class AbstractPropertySourceConfig {
 	/**
 	 * This returns an empty list by default. Add in <code>ProjectProperties</code> as appropriate. Properties from this list use a "last one in wins" strategy.
 	 */
-	protected List<ProjectProperties> getOtherProjectProperties() {
+	protected List<org.kuali.common.util.property.ProjectProperties> getOtherProjectProperties() {
 		return Collections.emptyList();
 	}
 
-	protected abstract ProjectProperties getProjectProperties();
+	protected abstract org.kuali.common.util.property.ProjectProperties getProjectProperties();
 
 	public PropertySource<?> getPropertySource() {
-		ProjectProperties project = getProjectProperties();
-		List<ProjectProperties> others = getOtherProjectProperties();
+		org.kuali.common.util.property.ProjectProperties project = getProjectProperties();
+		List<org.kuali.common.util.property.ProjectProperties> others = getOtherProjectProperties();
 		return SpringUtils.getGlobalPropertySource(project, others);
 	}
 

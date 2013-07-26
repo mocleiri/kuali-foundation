@@ -23,6 +23,7 @@ import java.util.Arrays;
 @Deprecated
 public class MpxProjectContext extends DefaultProjectContext {
 
+	@Deprecated
 	private static final String ARTIFACT_ID = ProjectUtils.KUALI_UTIL_ARTIFACT_ID;
 	private static final String LOCATION = "classpath:org/kuali/common/kuali-util/mpx/metainf.properties";
 

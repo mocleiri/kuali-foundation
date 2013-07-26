@@ -23,8 +23,6 @@ import java.util.Properties;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.property.ProjectPropertiesComparator;
 import org.kuali.common.util.property.PropertiesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +30,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.CollectionUtils;
 
 /**
- * 
+ * @deprecated
  */
 @Deprecated
 public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Properties> {
@@ -41,21 +39,21 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 	List<String> locations;
 	boolean singleton = true;
-	ProjectPropertiesComparator comparator;
+	org.kuali.common.util.property.ProjectPropertiesComparator comparator;
 
 	@Override
 	public Properties getObject() {
 		Assert.isFalse(CollectionUtils.isEmpty(locations), "locations is empty");
 		long start = System.currentTimeMillis();
-		List<ProjectProperties> pps = new ArrayList<ProjectProperties>();
+		List<org.kuali.common.util.property.ProjectProperties> pps = new ArrayList<org.kuali.common.util.property.ProjectProperties>();
 		// Extract any ProjectProperties beans anywhere in the context
 		for (String location : locations) {
-			Map<String, ProjectProperties> beans = SpringUtils.getAllBeans(location, ProjectProperties.class);
+			Map<String, org.kuali.common.util.property.ProjectProperties> beans = SpringUtils.getAllBeans(location, org.kuali.common.util.property.ProjectProperties.class);
 			logger.info("Located {} sets of project properties", beans.size());
 
-			List<ProjectProperties> list = new ArrayList<ProjectProperties>();
+			List<org.kuali.common.util.property.ProjectProperties> list = new ArrayList<org.kuali.common.util.property.ProjectProperties>();
 			// Add them to a list
-			for (ProjectProperties bean : beans.values()) {
+			for (org.kuali.common.util.property.ProjectProperties bean : beans.values()) {
 				list.add(bean);
 			}
 			// Sort them by sequence (only relevant if there is more than one which there typically is not)
@@ -64,7 +62,7 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 
 		// Cycle through the list we have adding in properties as we go
 		Properties properties = new Properties();
-		for (ProjectProperties pp : pps) {
+		for (org.kuali.common.util.property.ProjectProperties pp : pps) {
 			PropertiesContext ctx = pp.getPropertiesContext();
 			Properties combined = PropertyUtils.combine(properties, ctx.getProperties());
 			ctx.setProperties(combined);
@@ -98,11 +96,11 @@ public class ProjectPropertiesLoaderFactoryBean implements FactoryBean<Propertie
 		this.locations = locations;
 	}
 
-	public ProjectPropertiesComparator getComparator() {
+	public org.kuali.common.util.property.ProjectPropertiesComparator getComparator() {
 		return comparator;
 	}
 
-	public void setComparator(ProjectPropertiesComparator comparator) {
+	public void setComparator(org.kuali.common.util.property.ProjectPropertiesComparator comparator) {
 		this.comparator = comparator;
 	}
 

@@ -15,28 +15,28 @@
  */
 package org.kuali.common.util.execute;
 
-import org.kuali.common.util.service.DefaultSpringService;
-import org.kuali.common.util.service.SpringContext;
-import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class SpringExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringExecutable.class);
 
-	public static final SpringService DEFAULT_SPRING_SERVICE = new DefaultSpringService();
+	public static final org.kuali.common.util.service.SpringService DEFAULT_SPRING_SERVICE = new org.kuali.common.util.service.DefaultSpringService();
 
-	SpringService service = DEFAULT_SPRING_SERVICE;
-	SpringContext context;
+	org.kuali.common.util.service.SpringService service = DEFAULT_SPRING_SERVICE;
+	org.kuali.common.util.service.SpringContext context;
 	boolean skip;
 
 	public SpringExecutable() {
 		this(null);
 	}
 
-	public SpringExecutable(SpringContext context) {
+	public SpringExecutable(org.kuali.common.util.service.SpringContext context) {
 		super();
 		this.context = context;
 	}
@@ -50,19 +50,19 @@ public class SpringExecutable implements Executable {
 		}
 	}
 
-	public SpringService getService() {
+	public org.kuali.common.util.service.SpringService getService() {
 		return service;
 	}
 
-	public void setService(SpringService service) {
+	public void setService(org.kuali.common.util.service.SpringService service) {
 		this.service = service;
 	}
 
-	public SpringContext getContext() {
+	public org.kuali.common.util.service.SpringContext getContext() {
 		return context;
 	}
 
-	public void setContext(SpringContext context) {
+	public void setContext(org.kuali.common.util.service.SpringContext context) {
 		this.context = context;
 	}
 
