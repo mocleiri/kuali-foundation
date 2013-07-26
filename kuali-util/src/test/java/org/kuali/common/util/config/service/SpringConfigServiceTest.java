@@ -22,6 +22,7 @@ import org.kuali.common.util.Project;
 import org.kuali.common.util.ProjectUtils;
 import org.kuali.common.util.config.ConfigUtils;
 
+@Deprecated
 public class SpringConfigServiceTest {
 
 	@Test

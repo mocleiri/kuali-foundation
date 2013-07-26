@@ -24,22 +24,23 @@ import org.kuali.common.util.spring.service.DefaultSpringService;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
 
+@Deprecated
 public class PropertiesTest {
 
-    @Test
-    public void test() {
-        try {
-            String beanName = "foo";
-            Object bean = "bar";
-            SpringService ss = new DefaultSpringService();
-            SpringContext ctx = new SpringContext();
-            ctx.setBeanNames(Arrays.asList(beanName));
-            ctx.setBeans(Arrays.asList(bean));
-            ctx.setAnnotatedClasses(CollectionUtils.asList(PropertiesConfig.class));
-            ss.load(ctx);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	@Test
+	public void test() {
+		try {
+			String beanName = "foo";
+			Object bean = "bar";
+			SpringService ss = new DefaultSpringService();
+			SpringContext ctx = new SpringContext();
+			ctx.setBeanNames(Arrays.asList(beanName));
+			ctx.setBeans(Arrays.asList(bean));
+			ctx.setAnnotatedClasses(CollectionUtils.asList(PropertiesConfig.class));
+			ss.load(ctx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -30,6 +30,7 @@ import org.kuali.common.util.config.ContextConfig;
 import org.kuali.common.util.config.Location;
 import org.kuali.common.util.config.ProjectConfigContainer;
 
+@Deprecated
 public class DefaultProjectConfigServiceTest {
 
 	@Test
