@@ -17,6 +17,9 @@ package org.kuali.common.util.config.spring.aggregation;
 
 import org.springframework.core.env.PropertySource;
 
+/**
+ * A <code>PropertySourceConfig</code> is Spring config who's primary purpose is to accumulate a set of properties into a <code>PropertySource<?></code>
+ */
 public interface PropertySourceConfig {
 
 	PropertySource<?> propertySource();

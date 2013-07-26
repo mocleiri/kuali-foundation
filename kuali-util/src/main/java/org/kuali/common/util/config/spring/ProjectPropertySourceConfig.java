@@ -83,7 +83,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 			ProjectService service = projectServiceConfig.projectService();
 
 			// Use the service to convert the projectId into a Project
-			return service.getProject(projectId);
+			return service.getProject("", "");
 		}
 	}
 
