@@ -25,7 +25,6 @@ import org.springframework.util.Assert;
 
 public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
-	// Optional
 	List<String> configIds;
 	List<String> locations;
 	ConfigService service;
@@ -39,9 +38,14 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 	}
 
 	public ConfigPropertiesSupplier(List<String> configIds, List<String> locations) {
+		this(configIds, locations, null);
+	}
+
+	public ConfigPropertiesSupplier(List<String> configIds, List<String> locations, ConfigService service) {
 		super();
 		this.configIds = configIds;
 		this.locations = locations;
+		this.service = service;
 	}
 
 	@Override
