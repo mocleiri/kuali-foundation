@@ -81,10 +81,10 @@ public class ProjectProcessor implements PropertyProcessor {
 
 	// Make sure the properties hold basic project identifier info
 	protected void validate(Properties properties) {
-		Assert.notNull(properties.getProperty(MavenConstants.GROUP_ID_KEY));
-		Assert.notNull(properties.getProperty(MavenConstants.ARTIFACT_ID_KEY));
-		Assert.notNull(properties.getProperty(MavenConstants.ORG_ID_CODE_KEY));
-		Assert.notNull(properties.getProperty(MavenConstants.ORG_ID_KEY));
+		Assert.notNull(properties.getProperty(MavenConstants.GROUP_ID_KEY), MavenConstants.GROUP_ID_KEY + " is null");
+		Assert.notNull(properties.getProperty(MavenConstants.ARTIFACT_ID_KEY), MavenConstants.ARTIFACT_ID_KEY + " is null");
+		Assert.notNull(properties.getProperty(MavenConstants.ORG_ID_KEY), MavenConstants.ORG_ID_KEY + " is null");
+		Assert.notNull(properties.getProperty(MavenConstants.ORG_ID_CODE_KEY), MavenConstants.ORG_ID_CODE_KEY + " is null");
 	}
 
 	protected void fixKSGroupIds(Properties properties) {
