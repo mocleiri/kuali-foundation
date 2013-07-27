@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @NotMaven
-public class PrintMessageConfig {
+public class PrintNonMavenMessage {
 
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
