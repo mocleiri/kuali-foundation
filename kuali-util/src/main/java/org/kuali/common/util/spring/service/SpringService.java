@@ -17,9 +17,12 @@ package org.kuali.common.util.spring.service;
 
 import java.util.Map;
 
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
+
+	ConfigurableApplicationContext getApplicationContext(SpringContext context);
 
 	void load(Class<?> annotatedClass);
 

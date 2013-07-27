@@ -48,6 +48,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -681,7 +682,7 @@ public class SpringUtils {
 		}
 	}
 
-	public static ConfigurableApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, Map<String, Object> beans) {
+	public static AbstractApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, Map<String, Object> beans) {
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
 		if (!StringUtils.isBlank(id)) {
 			appContext.setId(id);
@@ -828,6 +829,13 @@ public class SpringUtils {
 			}
 		}
 		return list;
+	}
+
+	public static void debugQuietly(ApplicationContext ctx) {
+		if (!logger.isDebugEnabled() || ctx == null) {
+			return;
+		}
+		debug(ctx);
 	}
 
 	public static void debug(ApplicationContext ctx) {

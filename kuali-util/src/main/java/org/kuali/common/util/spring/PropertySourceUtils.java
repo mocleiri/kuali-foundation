@@ -15,11 +15,16 @@
  */
 package org.kuali.common.util.spring;
 
+import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.springframework.core.env.PropertySource;
 
 public class PropertySourceUtils {
+
+	public static PropertySource<?> getPropertySource(PropertySourceConfig config) {
+		return null;
+	}
 
 	public static SpringContext getSinglePropertySourceContext(PropertySource<?> source) {
 		// Setup a property source context such that this property source is the only one registered with Spring

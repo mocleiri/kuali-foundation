@@ -29,9 +29,9 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
@@ -76,9 +76,16 @@ public class DefaultSpringService implements SpringService {
 		return contextBeans;
 	}
 
-	@Override
-	public void load(SpringContext context) {
+	protected AbstractApplicationContext getXmlChild(String[] locationsArray, AbstractApplicationContext parent, SpringContext context) {
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(locationsArray, false, parent);
+		if (parent == null) {
+			addMetaInfo(ctx, context);
+		}
+		return ctx;
+	}
 
+	@Override
+	public ConfigurableApplicationContext getApplicationContext(SpringContext context) {
 		// Null-safe handling for optional parameters
 		context.setContextBeans(getContextBeans(context));
 		context.setAnnotatedClasses(CollectionUtils.toEmptyList(context.getAnnotatedClasses()));
@@ -99,48 +106,42 @@ public class DefaultSpringService implements SpringService {
 		// The Spring classes prefer array's
 		String[] locationsArray = CollectionUtils.toStringArray(convertedLocations);
 
-		ConfigurableApplicationContext parent = null;
-		ClassPathXmlApplicationContext xmlChild = null;
-		AnnotationConfigApplicationContext annotationChild = null;
+		AbstractApplicationContext parent = null;
+
+		// Construct a parent context if necessary
+		if (!CollectionUtils.isEmpty(context.getContextBeans())) {
+			parent = SpringUtils.getContextWithPreRegisteredBeans(context.getId(), context.getDisplayName(), context.getContextBeans());
+		}
+
+		AbstractApplicationContext child = null;
+		if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
+			child = getAnnotationContext(context, parent);
+		} else if (!CollectionUtils.isEmpty(context.getLocations())) {
+			child = getXmlChild(locationsArray, parent, context);
+		} else {
+			throw new IllegalStateException("No annotated classes or locations");
+		}
+
+		// Add custom property sources (if any)
+		addPropertySources(context, child);
+		// Set default profiles (if any)
+		setDefaultProfiles(child, context.getDefaultProfiles());
+		// Set active profiles (if any)
+		setActiveProfiles(child, context.getActiveProfiles());
+
+		// Setup the load context
+		return child;
+	}
+
+	@Override
+	public void load(SpringContext context) {
+
+		ConfigurableApplicationContext ctx = getApplicationContext(context);
 		try {
-			if (!CollectionUtils.isEmpty(context.getContextBeans())) {
-				// Construct a parent context if necessary
-				parent = SpringUtils.getContextWithPreRegisteredBeans(context.getId(), context.getDisplayName(), context.getContextBeans());
-			}
-
-			if (!CollectionUtils.isEmpty(context.getAnnotatedClasses())) {
-				// Create an annotation based application context wrapped in a parent context
-				annotationChild = getAnnotationContext(context, parent);
-				// Add custom property sources (if any)
-				addPropertySources(context, annotationChild);
-				// Set default profiles (if any)
-				setDefaultProfiles(annotationChild, context.getDefaultProfiles());
-				// Set active profiles (if any)
-				setActiveProfiles(annotationChild, context.getActiveProfiles());
-
-			}
-
-			if (!CollectionUtils.isEmpty(context.getLocations())) {
-				// Create an XML application context wrapped in a parent context
-				xmlChild = new ClassPathXmlApplicationContext(locationsArray, false, parent);
-				if (parent == null) {
-					addMetaInfo(xmlChild, context);
-				}
-				// Add custom property sources (if any)
-				addPropertySources(context, xmlChild);
-				// Add active profiles (if any)
-				setActiveProfiles(xmlChild, context.getActiveProfiles());
-			}
-
-			// Invoke refresh to load the context
-			SpringUtils.refreshQuietly(annotationChild);
-			SpringUtils.refreshQuietly(xmlChild);
-			debugQuietly(parent, annotationChild, xmlChild);
+			ctx.refresh();
+			SpringUtils.debugQuietly(ctx);
 		} finally {
-			// cleanup
-			// closeQuietly(annotationChild);
-			// closeQuietly(xmlChild);
-			// closeQuietly(parent);
+			SpringUtils.closeQuietly(ctx);
 		}
 	}
 
@@ -171,19 +172,14 @@ public class DefaultSpringService implements SpringService {
 		load(location, (String) null, (Object) null);
 	}
 
-	protected void debugQuietly(ApplicationContext parent, ApplicationContext child1, ApplicationContext child2) {
+	protected void debugQuietly(LoadContext context) {
 		if (!logger.isDebugEnabled()) {
 			return;
 		}
-		if (parent != null) {
-			SpringUtils.debug(parent);
-		} else {
-			if (child1 != null) {
-				SpringUtils.debug(child1);
-			}
-			if (child2 != null) {
-				SpringUtils.debug(child2);
-			}
+		if (context.getParent() != null) {
+			SpringUtils.debug(context.getParent());
+		} else if (context.getChild() != null) {
+			SpringUtils.debug(context.getChild());
 		}
 	}
 
@@ -211,7 +207,7 @@ public class DefaultSpringService implements SpringService {
 		}
 	}
 
-	protected AnnotationConfigApplicationContext getAnnotationContext(SpringContext context, ConfigurableApplicationContext parent) {
+	protected AbstractApplicationContext getAnnotationContext(SpringContext context, ConfigurableApplicationContext parent) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		if (parent != null) {
 			ctx.setParent(parent);
