@@ -22,6 +22,10 @@ import org.kuali.common.util.CollectionUtils;
 
 public class SpringContext {
 
+	public SpringContext(Map<String, Object> beans, Class<?> annotatedClass) {
+		this(beans, CollectionUtils.asList(annotatedClass), null);
+	}
+
 	public SpringContext(PropertySourceContext propertySourceContext) {
 		this(null, propertySourceContext);
 	}
@@ -39,7 +43,12 @@ public class SpringContext {
 	}
 
 	public SpringContext(List<Class<?>> annotatedClasses, PropertySourceContext propertySourceContext) {
+		this(null, annotatedClasses, propertySourceContext);
+	}
+
+	public SpringContext(Map<String, Object> contextBeans, List<Class<?>> annotatedClasses, PropertySourceContext propertySourceContext) {
 		super();
+		this.contextBeans = contextBeans;
 		this.annotatedClasses = annotatedClasses;
 		this.propertySourceContext = propertySourceContext;
 	}
