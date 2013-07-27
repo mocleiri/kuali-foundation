@@ -135,7 +135,7 @@ public class DefaultSpringService implements SpringService {
 		// Set active profiles (if any)
 		setActiveProfiles(child, context.getActiveProfiles());
 
-		// Setup the load context
+		// Return the fully configured context
 		return child;
 	}
 
@@ -143,6 +143,17 @@ public class DefaultSpringService implements SpringService {
 	public void load(SpringContext context) {
 
 		ConfigurableApplicationContext ctx = getApplicationContext(context);
+		ConfigurableEnvironment env = ctx.getEnvironment();
+		StringBuilder sb = new StringBuilder();
+		for (String profile : env.getActiveProfiles()) {
+			sb.append(profile + ",");
+		}
+		logger.info("active={}", sb);
+		sb = new StringBuilder();
+		for (String profile : env.getDefaultProfiles()) {
+			sb.append(profile + ",");
+		}
+		logger.info("default={}", sb);
 		try {
 			ctx.refresh();
 			SpringUtils.debugQuietly(ctx);
