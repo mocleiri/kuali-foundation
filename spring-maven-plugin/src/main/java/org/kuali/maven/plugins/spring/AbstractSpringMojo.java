@@ -73,8 +73,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String springService = MavenConstants.DEFAULT_SPRING_SERVICE.getName();
 
 	/**
-	 * The annotated Spring configuration class that Maven delegates execution of this mojo to. This defaults to
-	 * <code>org.kuali.maven.plugins.spring.config.MojoExecutableConfig</code>
+	 * The annotated Spring configuration class used to execute this mojo. This defaults to <code>org.kuali.maven.plugins.spring.config.MojoExecutableConfig</code>
 	 */
 	@Parameter(property = "spring.mojoExecutableConfig")
 	String mojoExecutableConfig = MojoExecutableConfig.class.getName();
