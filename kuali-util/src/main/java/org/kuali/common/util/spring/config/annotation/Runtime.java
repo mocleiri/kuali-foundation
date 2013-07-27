@@ -20,12 +20,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.util.spring.config.SpringConfigConstants;
+import org.kuali.common.util.maven.MavenConstants;
 import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(SpringConfigConstants.RUNTIME_PROFILE_ID)
+@Profile("!" + MavenConstants.SPRING_PROFILE_NAME)
 public @interface Runtime {
 
 }

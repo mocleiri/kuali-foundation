@@ -22,9 +22,4 @@ public abstract class SpringConfigConstants {
 	 */
 	public static final String DEFAULT_PROFILE_ID = "default";
 
-	/**
-	 * The id for a profile that activates at runtime
-	 */
-	public static final String RUNTIME_PROFILE_ID = "runtime";
-
 }
