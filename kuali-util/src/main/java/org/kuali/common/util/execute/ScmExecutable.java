@@ -24,6 +24,7 @@ import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class ScmExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScmExecutable.class);

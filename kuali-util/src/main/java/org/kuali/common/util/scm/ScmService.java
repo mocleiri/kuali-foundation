@@ -13,36 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util.scm;
 
 import java.io.File;
 import java.util.List;
 
-@Deprecated
-public interface ScmService extends org.kuali.common.util.scm.ScmService {
+public interface ScmService {
 
 	/**
 	 * Add <code>paths</code> so they are included in files managed by the SCM system.
 	 */
-	@Override
 	void add(List<File> paths);
 
 	/**
 	 * Delete <code>paths</code> so they are no longer managed by the SCM system.
 	 */
-	@Override
 	void delete(List<File> paths);
 
 	/**
 	 * Commit <code>paths</code> with a commit message.
 	 */
-	@Override
 	void commit(List<File> paths, String message);
 
 	/**
 	 * Display version information.
 	 */
-	@Override
 	void version();
 
 }

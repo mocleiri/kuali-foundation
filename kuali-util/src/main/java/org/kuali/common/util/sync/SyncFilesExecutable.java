@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
+package org.kuali.common.util.sync;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,11 +24,11 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.SyncRequest;
 import org.kuali.common.util.SyncResult;
-import org.kuali.common.util.service.ScmService;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.scm.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Deprecated
 public class SyncFilesExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(SyncFilesExecutable.class);

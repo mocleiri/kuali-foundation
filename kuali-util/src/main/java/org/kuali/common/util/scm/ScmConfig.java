@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.scm;
 
-import org.kuali.common.util.ScmContext;
-import org.kuali.common.util.service.ScmService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,24 +25,13 @@ import org.springframework.core.env.Environment;
 public class ScmConfig {
 
 	private static final String VENDOR_KEY = "scm.vendor";
-	private static final String URL_KEY = "scm.url";
-	private static final String SERVICE_KEY = "scm.service";
-	private static final String IGNORES_KEY = "scm.ignores";
 
 	@Autowired
 	Environment env;
 
 	@Bean
-	public ScmContext scmContext() {
-		ScmContext context = new ScmContext();
-		context.setVendor(SpringUtils.getProperty(env, VENDOR_KEY));
-		context.setUrl(SpringUtils.getProperty(env, URL_KEY));
-		context.setIgnores(SpringUtils.getNoneSensitiveListFromCSV(env, IGNORES_KEY));
-		return context;
-	}
-
-	@Bean
 	public ScmService scmService() {
-		return SpringUtils.getInstance(env, SERVICE_KEY);
+		String vendor = SpringUtils.getInstance(env, VENDOR_KEY);
+		return ScmUtils.getScmService(vendor);
 	}
 }

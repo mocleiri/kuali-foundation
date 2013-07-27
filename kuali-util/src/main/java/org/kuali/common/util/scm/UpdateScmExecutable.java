@@ -24,7 +24,6 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.SyncResult;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.DirRequest;
-import org.kuali.common.util.service.ScmService;
 import org.kuali.common.util.sync.DefaultSyncService;
 import org.kuali.common.util.sync.SyncService;
 import org.slf4j.Logger;

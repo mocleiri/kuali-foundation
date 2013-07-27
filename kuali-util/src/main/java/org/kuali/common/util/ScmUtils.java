@@ -25,6 +25,7 @@ import org.kuali.common.util.service.ScmType;
 import org.kuali.common.util.service.SvnService;
 import org.springframework.util.Assert;
 
+@Deprecated
 public class ScmUtils {
 
 	/**

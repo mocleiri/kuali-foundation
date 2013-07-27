@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util.scm;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.service.DefaultExecService;
 
-@Deprecated
 public class SvnService extends DefaultExecService implements ScmService {
 
 	private static final String SVN = "svn";

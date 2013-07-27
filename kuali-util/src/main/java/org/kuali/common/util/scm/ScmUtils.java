@@ -13,11 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.service;
+package org.kuali.common.util.scm;
 
-@Deprecated
-public enum ScmType {
+import org.codehaus.plexus.util.StringUtils;
+import org.springframework.util.Assert;
 
-	SVN, GIT;
+public class ScmUtils {
+
+	/**
+	 * Use <code>ScmConfig</code> instead
+	 */
+	public static ScmService getScmService(String vendor) {
+		Assert.hasText(vendor, "vendor is blank");
+		ScmType type = ScmType.valueOf(StringUtils.upperCase(vendor));
+		switch (type) {
+		case SVN:
+			return new SvnService();
+		case GIT:
+			throw new IllegalArgumentException("GIT support is coming soon!");
+		default:
+			throw new IllegalArgumentException("SCM type [" + vendor + "] is unknown");
+		}
+	}
 
 }
