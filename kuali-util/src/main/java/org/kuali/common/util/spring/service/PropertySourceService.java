@@ -9,4 +9,6 @@ public interface PropertySourceService {
 
 	PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> profiles, Class<PropertySourceConfig> config);
 
+	PropertySource<?> getPropertySource(Class<PropertySourceConfig> config);
+
 }

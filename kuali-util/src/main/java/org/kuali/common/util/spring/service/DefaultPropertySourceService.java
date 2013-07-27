@@ -12,6 +12,11 @@ public class DefaultPropertySourceService implements PropertySourceService {
 	SpringService springService;
 
 	@Override
+	public PropertySource<?> getPropertySource(Class<PropertySourceConfig> config) {
+		return getPropertySource(null, null, config);
+	}
+
+	@Override
 	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> profiles, Class<PropertySourceConfig> config) {
 		SpringContext context = new SpringContext();
 		context.setContextBeans(beans);
