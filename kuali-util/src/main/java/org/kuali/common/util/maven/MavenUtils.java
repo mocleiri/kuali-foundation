@@ -75,7 +75,7 @@ public class MavenUtils {
 	public static SpringContext getMavenizedSpringContext(PropertySourceService service, Properties mavenProperties, Class<?> propertySourceConfig) {
 		Map<String, Object> beans = CollectionUtils.toEmptyMap(MavenConstants.PROPERTIES_BEAN_NAME, (Object) mavenProperties);
 		List<PropertySource<?>> sources = service.getPropertySources(beans, null, null, propertySourceConfig);
-		Assert.isTrue(sources.size() == 1, "sources.size!=1");
+		Assert.isTrue(sources.size() == 1, "sources.size != 1");
 		return PropertySourceUtils.getSinglePropertySourceContext(sources.get(0));
 	}
 
