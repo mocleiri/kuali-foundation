@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.Assert;
 
 /**
  * Maven utilities that don't depend on Maven libraries
@@ -73,8 +74,9 @@ public class MavenUtils {
 	@Deprecated
 	public static SpringContext getMavenizedSpringContext(PropertySourceService service, Properties mavenProperties, Class<?> propertySourceConfig) {
 		Map<String, Object> beans = CollectionUtils.toEmptyMap(MavenConstants.PROPERTIES_BEAN_NAME, (Object) mavenProperties);
-		PropertySource<?> source = service.getPropertySourceFromUntypedConfig(beans, null, null, propertySourceConfig);
-		return PropertySourceUtils.getSinglePropertySourceContext(source);
+		List<PropertySource<?>> sources = service.getPropertySources(beans, null, null, propertySourceConfig);
+		Assert.isTrue(sources.size() == 1, "sources.size!=1");
+		return PropertySourceUtils.getSinglePropertySourceContext(sources.get(0));
 	}
 
 	/**

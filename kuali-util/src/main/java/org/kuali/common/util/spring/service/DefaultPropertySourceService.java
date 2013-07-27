@@ -14,16 +14,6 @@ public class DefaultPropertySourceService implements PropertySourceService {
 	SpringService springService;
 
 	@Override
-	public List<PropertySource<?>> getPropertySources(Class<PropertySourceConfig> config) {
-		return getPropertySources(null, null, null, config);
-	}
-
-	@Override
-	public List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config) {
-		return getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config);
-	}
-
-	@Override
 	public PropertySource<?> getPropertySource(Class<PropertySourceConfig> config) {
 		return getPropertySource(null, null, null, config);
 	}
@@ -34,14 +24,7 @@ public class DefaultPropertySourceService implements PropertySourceService {
 	}
 
 	@Override
-	@Deprecated
-	public PropertySource<?> getPropertySourceFromUntypedConfig(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
-		return getPropertySourceInternal(beans, defaultProfiles, activeProfiles, config);
-	}
-
-	@Override
-	@Deprecated
-	public List<PropertySource<?>> getPropertySourcesFromUntypedConfig(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
+	public List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
 		return getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config);
 	}
 

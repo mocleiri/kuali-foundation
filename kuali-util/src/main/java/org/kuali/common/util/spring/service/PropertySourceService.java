@@ -11,14 +11,6 @@ public interface PropertySourceService {
 
 	PropertySource<?> getPropertySource(Class<PropertySourceConfig> config);
 
-	List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config);
-
-	List<PropertySource<?>> getPropertySources(Class<PropertySourceConfig> config);
-
-	@Deprecated
-	PropertySource<?> getPropertySourceFromUntypedConfig(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config);
-
-	@Deprecated
-	List<PropertySource<?>> getPropertySourcesFromUntypedConfig(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config);
+	List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config);
 
 }
