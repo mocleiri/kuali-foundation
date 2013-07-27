@@ -141,7 +141,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Create a map containing a reference to this mojo
 		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
 
-		// Use the default Spring config class (unless they have overridden it)
+		// Get a config class
 		Class<?> config = ReflectionUtils.getClass(mojoExecutableConfig);
 
 		// Setup a context containing the mojo and config class
