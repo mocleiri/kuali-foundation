@@ -48,7 +48,7 @@ public final class ImmutableProperties extends Properties {
 				throw new IllegalArgumentException("Immutable properties only support strings");
 			}
 
-			// Copy every key/value pair from original
+			// Copy every key/value pair from original - can't just use putAll() because it calls put() which is now disabled
 			for (String key : keys) {
 				super.put(key, original.getProperty(key));
 			}
