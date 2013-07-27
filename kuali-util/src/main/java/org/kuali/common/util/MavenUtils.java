@@ -23,12 +23,17 @@ import org.kuali.common.util.spring.service.SpringContext;
 
 /**
  * Maven utilities that don't depend on Maven libraries
+ * 
+ * @deprecated
  */
 @Deprecated
 public class MavenUtils {
 
+	@Deprecated
 	public static final String POM = org.kuali.common.util.maven.MavenUtils.POM;
+	@Deprecated
 	public static final String PROJECT_VERSION_KEY = org.kuali.common.util.maven.MavenUtils.PROJECT_VERSION_KEY;
+	@Deprecated
 	public static final String PROJECT_ENCODING_KEY = org.kuali.common.util.maven.MavenUtils.PROJECT_ENCODING_KEY;
 
 	public static org.kuali.common.util.service.SpringContext getMavenizedSpringContext(Class<?> propertySourceConfig) {

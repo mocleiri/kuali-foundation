@@ -18,8 +18,12 @@ package org.kuali.common.util.config.spring;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * @deprecated
+ */
 @Configuration
 @PropertySource({ FooPropertySourceConfig.PROJECT_PROPERTIES, FooPropertySourceConfig.CONFIG_METADATA_PROPERTIES })
+@Deprecated
 public class FooPropertySourceConfig extends BasicPropertySourceConfig {
 
 	public static final String META_CLASSPATH_PREFIX = "META-INF/org/kuali/common/kuali-util";
