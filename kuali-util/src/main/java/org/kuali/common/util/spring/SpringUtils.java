@@ -850,10 +850,12 @@ public class SpringUtils {
 	}
 
 	public static void debugQuietly(ApplicationContext ctx) {
-		if (!logger.isDebugEnabled() || ctx == null) {
-			return;
+		if (logger.isDebugEnabled() && ctx != null) {
+			if (ctx.getParent() != null) {
+				debug(ctx.getParent());
+			}
+			debug(ctx);
 		}
-		debug(ctx);
 	}
 
 	public static void debug(ApplicationContext ctx) {
