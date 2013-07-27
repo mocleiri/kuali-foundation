@@ -2,30 +2,23 @@ package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.Executable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.util.MethodInvoker;
 
-@Component
 public class MojoExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(MojoExecutable.class);
+	private static final String SERVICE_CALLBACK_METHOD_NAME = "mojoCallback";
 
 	MethodInvoker invoker = new MethodInvoker();
-	String serviceMethod = "mojoCallback";
+	String serviceMethod = SERVICE_CALLBACK_METHOD_NAME;
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 
 	@Override
 	public void execute() {
-		Object[] args = { service.getClass().getName(), serviceMethod, mojo.getClass().getSimpleName() };
-		logger.debug("Invoking  - [{}.{}({})]", args);
 		invoker.setTargetObject(service);
 		invoker.setTargetMethod(serviceMethod);
 		invoker.setArguments(new Object[] { mojo });
 		ReflectionUtils.invoke(invoker);
-		logger.debug("Completed - [{}.{}({})]", args);
 	}
 
 	public MethodInvoker getInvoker() {
