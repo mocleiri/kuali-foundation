@@ -188,22 +188,27 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Setup some storage
 		List<String> profiles = new ArrayList<String>();
 
-		List<String> includes = CollectionUtils.getTrimmedListFromCSV(mojo.getActiveMavenProfileIncludes());
-		List<String> excludes = CollectionUtils.getNoneSensitiveListFromCSV(mojo.getActiveMavenProfileExcludes());
-
-		StringFilter filter = StringFilter.getInstance(includes, excludes);
-
 		// Add any active Maven profiles
 		List<Profile> mavenProfiles = mojo.getProject().getActiveProfiles();
 		for (Profile profile : CollectionUtils.toEmptyList(mavenProfiles)) {
 			String profileId = profile.getId();
-			if (filter.include(profileId)) {
-				profiles.add(profileId);
-			}
+			profiles.add(profileId);
 		}
 
 		// Add profiles from the plugin config (if any)
 		profiles.addAll(CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfiles()));
+
+		// Setup includes / excludes
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfileIncludes());
+		List<String> excludes = CollectionUtils.getNoneSensitiveListFromCSV(mojo.getActiveProfileExcludes());
+
+		// Setup a filter
+		StringFilter filter = StringFilter.getInstance(includes, excludes);
+
+		// Filter out profiles that don't belong
+		CollectionUtils.filterAndSort(profiles, filter);
+
+		// Return the list
 		return profiles;
 	}
 
@@ -211,7 +216,19 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	 * Convert the default profiles CSV to a list
 	 */
 	protected List<String> getDefaultProfiles(AbstractSpringMojo mojo) {
-		return CollectionUtils.getTrimmedListFromCSV(mojo.getDefaultProfiles());
+		List<String> profiles = CollectionUtils.getTrimmedListFromCSV(mojo.getDefaultProfiles());
+
+		// Setup includes / excludes
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(mojo.getDefaultProfileIncludes());
+		List<String> excludes = CollectionUtils.getNoneSensitiveListFromCSV(mojo.getDefaultProfileExcludes());
+
+		// Setup a filter
+		StringFilter filter = StringFilter.getInstance(includes, excludes);
+
+		// Filter out profiles that don't belong
+		CollectionUtils.filterAndSort(profiles, filter);
+
+		return profiles;
 	}
 
 	protected List<String> getAnnotatedClassNames(LoadMojo mojo) {

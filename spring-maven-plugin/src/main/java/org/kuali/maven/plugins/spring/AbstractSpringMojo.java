@@ -26,6 +26,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
@@ -85,16 +86,28 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String activeProfiles = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME;
 
 	/**
-	 * Comma separated list of active Maven profiles to include as active Spring profiles. By default, all active Maven profiles become active Spring profiles.
+	 * Comma separated list of active profiles to include. By default, all active Maven profiles plus the profile "maven" are set as active Spring profiles.
 	 */
-	@Parameter(property = "spring.activeMavenProfileIncludes")
-	String activeMavenProfileIncludes;
+	@Parameter(property = "spring.activeProfileIncludes")
+	String activeProfileIncludes;
 
 	/**
-	 * Comma separated list of active Maven profiles to exclude from Spring. By default, all active Maven profiles become active Spring profiles.
+	 * Comma separated list of active profiles to exclude. By default, all active Maven profiles plus the profile "maven" are set as active Spring profiles.
 	 */
-	@Parameter(property = "spring.activeMavenProfileExcludes")
-	String activeMavenProfileExcludes;
+	@Parameter(property = "spring.activeProfileExcludes", defaultValue = Constants.NONE)
+	String activeProfileExcludes;
+
+	/**
+	 * Comma separated list of default profiles to include. Spring uses the profile "default" when no other active or default profiles are specified.
+	 */
+	@Parameter(property = "spring.defaultProfileIncludes")
+	String defaultProfileIncludes;
+
+	/**
+	 * Comma separated list of default profiles to exclude. Spring uses the profile "default" when no other active or default profiles are specified.
+	 */
+	@Parameter(property = "spring.defaultProfileExcludes", defaultValue = Constants.NONE)
+	String defaultProfileExcludes;
 
 	/**
 	 * Comma separated list of default profiles. Spring always uses a single profile named <code>default</code> if no default profiles are provided.
@@ -287,20 +300,36 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		this.mojoExecutableConfig = mojoExecutableConfig;
 	}
 
-	public String getActiveMavenProfileIncludes() {
-		return activeMavenProfileIncludes;
+	public String getActiveProfileIncludes() {
+		return activeProfileIncludes;
 	}
 
-	public void setActiveMavenProfileIncludes(String activeMavenProfileIncludes) {
-		this.activeMavenProfileIncludes = activeMavenProfileIncludes;
+	public void setActiveProfileIncludes(String activeProfileIncludes) {
+		this.activeProfileIncludes = activeProfileIncludes;
 	}
 
-	public String getActiveMavenProfileExcludes() {
-		return activeMavenProfileExcludes;
+	public String getActiveProfileExcludes() {
+		return activeProfileExcludes;
 	}
 
-	public void setActiveMavenProfileExcludes(String activeMavenProfileExcludes) {
-		this.activeMavenProfileExcludes = activeMavenProfileExcludes;
+	public void setActiveProfileExcludes(String activeProfileExcludes) {
+		this.activeProfileExcludes = activeProfileExcludes;
+	}
+
+	public String getDefaultProfileIncludes() {
+		return defaultProfileIncludes;
+	}
+
+	public void setDefaultProfileIncludes(String defaultProfileIncludes) {
+		this.defaultProfileIncludes = defaultProfileIncludes;
+	}
+
+	public String getDefaultProfileExcludes() {
+		return defaultProfileExcludes;
+	}
+
+	public void setDefaultProfileExcludes(String defaultProfileExcludes) {
+		this.defaultProfileExcludes = defaultProfileExcludes;
 	}
 
 }
