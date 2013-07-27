@@ -414,4 +414,12 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		return new LoadContext(mavenProperties, service);
 	}
+
+	public PropertySourceService getPropertySourceService() {
+		return propertySourceService;
+	}
+
+	public void setPropertySourceService(PropertySourceService propertySourceService) {
+		this.propertySourceService = propertySourceService;
+	}
 }
