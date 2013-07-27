@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -54,7 +53,6 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
@@ -681,15 +679,7 @@ public class SpringUtils {
 	 */
 	@Deprecated
 	public static void validateExists(List<String> locations) {
-		StringBuilder sb = new StringBuilder();
-		for (String location : locations) {
-			if (!LocationUtils.exists(location)) {
-				sb.append("Location [" + location + "] does not exist\n");
-			}
-		}
-		if (sb.length() > 0) {
-			throw new IllegalArgumentException(sb.toString());
-		}
+		LocationUtils.validateExists(locations);
 	}
 
 	public static AbstractApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, Map<String, Object> beans) {
@@ -758,20 +748,12 @@ public class SpringUtils {
 
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
-		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
-		return extractPropertySourcesAndClose(context);
+		return PropertySourceUtils.getPropertySources(annotatedClass);
 	}
 
 	@Deprecated
 	public static List<PropertySource<?>> extractPropertySourcesAndClose(ConfigurableApplicationContext context) {
-		// Extract PropertySources (if any)
-		List<PropertySource<?>> sources = getPropertySources(context);
-
-		// Close the context
-		closeQuietly(context);
-
-		// Return the list
-		return sources;
+		return PropertySourceUtils.extractPropertySourcesAndClose(context);
 	}
 
 	/**
@@ -788,8 +770,7 @@ public class SpringUtils {
 	 */
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
-		// Sort them by name
-		return getPropertySources(context, new PropertySourceNameComparator());
+		return PropertySourceUtils.getPropertySources(context);
 	}
 
 	public static <T> Map<String, T> getAllBeans(List<String> locations, Class<T> type) {
@@ -816,46 +797,25 @@ public class SpringUtils {
 	 */
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context, Comparator<PropertySource<?>> comparator) {
-		// Extract all beans that implement the PropertySource interface
-		@SuppressWarnings("rawtypes")
-		Map<String, PropertySource> map = BeanFactoryUtils.beansOfTypeIncludingAncestors(context, PropertySource.class);
-
-		// Extract the PropertySource beans into a list
-		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
-		for (PropertySource<?> source : map.values()) {
-			list.add(source);
-		}
-
-		// Sort them using the provided comparator
-		Collections.sort(list, comparator);
-
-		// Return the list
-		return list;
+		return PropertySourceUtils.getPropertySources(context, comparator);
 	}
 
 	/**
 	 * Null safe method for converting an untyped array of property sources into a list. Never returns null.
 	 */
+	@Deprecated
 	public static List<PropertySource<?>> asList(PropertySource<?>... sources) {
-		List<PropertySource<?>> list = new ArrayList<PropertySource<?>>();
-		if (sources == null) {
-			return list;
-		}
-		for (PropertySource<?> element : sources) {
-			if (element != null) {
-				list.add(element);
-			}
-		}
-		return list;
+		return PropertySourceUtils.asList(sources);
 	}
 
 	public static void debugQuietly(ApplicationContext ctx) {
-		if (logger.isDebugEnabled() && ctx != null) {
-			if (ctx.getParent() != null) {
-				debug(ctx.getParent());
-			}
-			debug(ctx);
+		if (!logger.isDebugEnabled() || ctx == null) {
+			return;
 		}
+		if (ctx.getParent() != null) {
+			debug(ctx.getParent());
+		}
+		debug(ctx);
 	}
 
 	public static void debug(ApplicationContext ctx) {
@@ -959,20 +919,7 @@ public class SpringUtils {
 	 */
 	@Deprecated
 	public static void reconfigurePropertySources(ConfigurableEnvironment env, String name, Properties properties) {
-		// Remove all existing property sources
-		removeAllPropertySources(env);
-
-		// MutablePropertySources allow us to manipulate the list of property sources
-		MutablePropertySources mps = env.getPropertySources();
-
-		// Make sure there are no existing property sources
-		Assert.isTrue(mps.size() == 0);
-
-		// Create a property source backed by the properties object passed in
-		PropertiesPropertySource pps = new PropertiesPropertySource(name, properties);
-
-		// Add it to the environment
-		mps.addFirst(pps);
+		PropertySourceUtils.reconfigurePropertySources(env, name, properties);
 	}
 
 	/**
@@ -980,12 +927,7 @@ public class SpringUtils {
 	 */
 	@Deprecated
 	public static void removeAllPropertySources(ConfigurableEnvironment env) {
-		MutablePropertySources mps = env.getPropertySources();
-		List<PropertySource<?>> sources = getPropertySources(env);
-		for (PropertySource<?> source : sources) {
-			String name = source.getName();
-			mps.remove(name);
-		}
+		PropertySourceUtils.removeAllPropertySources(env);
 	}
 
 	/**
@@ -993,19 +935,13 @@ public class SpringUtils {
 	 */
 	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
-		MutablePropertySources mps = env.getPropertySources();
-		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
-		Iterator<PropertySource<?>> itr = mps.iterator();
-		while (itr.hasNext()) {
-			PropertySource<?> source = itr.next();
-			sources.add(source);
-		}
-		return sources;
+		return PropertySourceUtils.getPropertySources(env);
 	}
 
 	/**
 	 * Convert any PropertySources that extend EnumerablePropertySource into Properties object's
 	 */
+	@Deprecated
 	public static PropertySourceConversionResult convertEnumerablePropertySources(List<PropertySource<?>> sources) {
 		PropertySourceConversionResult result = new PropertySourceConversionResult();
 		List<Properties> list = new ArrayList<Properties>();
@@ -1013,16 +949,11 @@ public class SpringUtils {
 		List<PropertySource<?>> skipped = new ArrayList<PropertySource<?>>();
 		// Extract property values from the sources and place them in a Properties object
 		for (PropertySource<?> source : sources) {
-			logger.debug("Adding [{}]", source.getName());
-			if (source instanceof EnumerablePropertySource) {
-				EnumerablePropertySource<?> eps = (EnumerablePropertySource<?>) source;
-				Properties sourceProperties = convert(eps);
-				list.add(sourceProperties);
-				converted.add(source);
-			} else {
-				logger.debug("Unable to obtain properties from property source [{}] -> [{}]", source.getName(), source.getClass().getName());
-				skipped.add(source);
-			}
+			Assert.isTrue(source instanceof EnumerablePropertySource, "[" + source + "] is not enumerable");
+			EnumerablePropertySource<?> eps = (EnumerablePropertySource<?>) source;
+			Properties sourceProperties = convert(eps);
+			list.add(sourceProperties);
+			converted.add(source);
 		}
 		result.setConverted(converted);
 		result.setSkipped(skipped);
@@ -1033,6 +964,7 @@ public class SpringUtils {
 	/**
 	 * Convert an EnumerablePropertySource into a Properties object.
 	 */
+	@Deprecated
 	public static Properties convert(EnumerablePropertySource<?> source) {
 		Properties properties = new Properties();
 		String[] names = source.getPropertyNames();

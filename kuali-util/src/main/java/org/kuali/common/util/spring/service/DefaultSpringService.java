@@ -26,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class DefaultSpringService implements SpringService {
 		// Setup a SpringContext
 		SpringContext context = new SpringContext();
 		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+		context.setPropertySourceContext(new PropertySourceContext(PropertySourceUtils.asList(propertySource)));
 
 		// Null safe handling for non-required parameters
 		context.setContextBeans(CollectionUtils.toEmptyMap(contextBeans));
@@ -98,7 +99,7 @@ public class DefaultSpringService implements SpringService {
 		Assert.isFalse(empty, "Both locations and annotatedClasses are empty");
 
 		// Make sure all of the locations exist
-		SpringUtils.validateExists(context.getLocations());
+		LocationUtils.validateExists(context.getLocations());
 
 		// Convert any file names to fully qualified file system URL's
 		List<String> convertedLocations = getConvertedLocations(context.getLocations());
@@ -155,7 +156,7 @@ public class DefaultSpringService implements SpringService {
 		// Setup a SpringContext
 		SpringContext context = new SpringContext();
 		context.setLocations(Arrays.asList(location));
-		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+		context.setPropertySourceContext(new PropertySourceContext(PropertySourceUtils.asList(propertySource)));
 
 		// Null safe handling for non-required parameters
 		context.setContextBeans(CollectionUtils.toEmptyMap(contextBeans));
@@ -233,7 +234,7 @@ public class DefaultSpringService implements SpringService {
 		ConfigurableEnvironment env = applicationContext.getEnvironment();
 		if (psc.isRemoveExistingSources()) {
 			logger.debug("Removing all existing property sources");
-			SpringUtils.removeAllPropertySources(env);
+			PropertySourceUtils.removeAllPropertySources(env);
 		}
 
 		if (CollectionUtils.isEmpty(psc.getSources())) {

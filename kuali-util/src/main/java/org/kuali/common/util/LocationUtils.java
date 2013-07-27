@@ -624,6 +624,18 @@ public class LocationUtils {
 		}
 	}
 
+	public static void validateExists(List<String> locations) {
+		StringBuilder sb = new StringBuilder();
+		for (String location : locations) {
+			if (!LocationUtils.exists(location)) {
+				sb.append("Location [" + location + "] does not exist\n");
+			}
+		}
+		if (sb.length() > 0) {
+			throw new IllegalArgumentException(sb.toString());
+		}
+	}
+
 	/**
 	 * Null safe method for determining if <code>location</code> exists.
 	 */

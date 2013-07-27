@@ -17,7 +17,7 @@ package org.kuali.common.util.spring.service;
 
 import java.util.List;
 
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.springframework.core.env.PropertySource;
 
 public class PropertySourceContext {
@@ -48,7 +48,7 @@ public class PropertySourceContext {
 	}
 
 	public PropertySourceContext(PropertySource<?> source, boolean removeExistingSources) {
-		this(SpringUtils.asList(source), removeExistingSources);
+		this(PropertySourceUtils.asList(source), removeExistingSources);
 	}
 
 	public PropertySourceContext(List<PropertySource<?>> sources, boolean removeExistingSources) {
