@@ -12,7 +12,7 @@ public class PrintNonMavenMessage {
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage("hello world");
+		exec.setMessage("maven sucks!!!");
 		return exec;
 	}
 
