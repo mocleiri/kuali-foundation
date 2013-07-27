@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.PropertySource;
 import org.springframework.util.Assert;
@@ -28,7 +29,10 @@ public class DefaultPropertySourceService implements PropertySourceService {
 		context.setAnnotatedClasses(CollectionUtils.asList(config));
 		ConfigurableApplicationContext ctx = springService.getApplicationContext(context);
 		ctx.refresh();
-		return null;
+		List<PropertySource<?>> sources = PropertySourceUtils.getPropertySources(ctx);
+		Assert.isTrue(sources.size() == 1, "sources.size() != 1");
+		PropertySource<?> source = sources.get(0);
+		return source;
 	}
 
 	public SpringService getSpringService() {
