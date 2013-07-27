@@ -20,6 +20,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.config.service.ConfigService;
 import org.kuali.common.util.config.spring.ConfigServiceConfig;
+import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

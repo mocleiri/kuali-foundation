@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.config.spring.aggregation;
+package org.kuali.common.util.spring.service;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.PropertySource;
