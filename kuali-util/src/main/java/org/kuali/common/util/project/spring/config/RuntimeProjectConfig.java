@@ -19,14 +19,14 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectServiceConfig;
-import org.kuali.common.util.spring.config.annotation.Default;
+import org.kuali.common.util.spring.config.annotation.Runtime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Default
+@Runtime
 @Import({ ProjectServiceConfig.class })
 public class RuntimeProjectConfig implements ProjectConfig {
 

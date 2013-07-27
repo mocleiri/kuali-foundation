@@ -18,8 +18,8 @@ package org.kuali.common.util.metainf.spring;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.spring.ExecutableConfig;
-import org.kuali.common.util.spring.config.annotation.Default;
 import org.kuali.common.util.spring.config.annotation.Maven;
+import org.kuali.common.util.spring.config.annotation.Runtime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +47,7 @@ public class SimpleConfig extends ExecutableConfig {
 	}
 
 	@Configuration
-	@Default
+	@Runtime
 	static class a {
 
 		@Autowired
