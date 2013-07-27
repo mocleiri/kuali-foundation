@@ -119,13 +119,15 @@ public class DefaultSpringService implements SpringService {
 		} else if (!CollectionUtils.isEmpty(context.getLocations())) {
 			child = getXmlChild(locationsArray, parent, context);
 		} else {
-			throw new IllegalStateException("No annotated classes or locations");
+			throw new IllegalStateException("Must provide either annotated classes or locations");
 		}
 
 		// Add custom property sources (if any)
 		addPropertySources(context, child);
+
 		// Set default profiles (if any)
 		setDefaultProfiles(child, context.getDefaultProfiles());
+
 		// Set active profiles (if any)
 		setActiveProfiles(child, context.getActiveProfiles());
 
@@ -170,17 +172,6 @@ public class DefaultSpringService implements SpringService {
 	@Override
 	public void load(String location) {
 		load(location, (String) null, (Object) null);
-	}
-
-	protected void debugQuietly(LoadContext context) {
-		if (!logger.isDebugEnabled()) {
-			return;
-		}
-		if (context.getParent() != null) {
-			SpringUtils.debug(context.getParent());
-		} else if (context.getChild() != null) {
-			SpringUtils.debug(context.getChild());
-		}
 	}
 
 	/**
