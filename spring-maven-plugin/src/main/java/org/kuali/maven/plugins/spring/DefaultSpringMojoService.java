@@ -26,7 +26,6 @@ import org.apache.maven.model.Profile;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.maven.spring.MavenAwareUtils;
-import org.kuali.common.util.BeanConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.PropertyUtils;
@@ -271,22 +270,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			contextBeans.put(key, bean);
 		}
 		return contextBeans;
-	}
-
-	protected List<String> getBeanNames(List<BeanConfig> beans) {
-		List<String> strings = new ArrayList<String>();
-		for (BeanConfig bean : beans) {
-			strings.add(bean.getName());
-		}
-		return strings;
-	}
-
-	protected List<Object> getBeanObjects(List<BeanConfig> beans) {
-		List<Object> objects = new ArrayList<Object>();
-		for (BeanConfig bean : beans) {
-			objects.add(bean.getObject());
-		}
-		return objects;
 	}
 
 	protected SpringContext getSpringContext(LoadXmlMojo mojo, Properties mavenProperties) {
