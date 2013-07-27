@@ -31,6 +31,7 @@ import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.spring.service.PropertySourceContext;
@@ -187,16 +188,22 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Setup some storage
 		List<String> profiles = new ArrayList<String>();
 
+		List<String> includes = CollectionUtils.getTrimmedListFromCSV(mojo.getActiveMavenProfileIncludes());
+		List<String> excludes = CollectionUtils.getNoneSensitiveListFromCSV(mojo.getActiveMavenProfileExcludes());
+
+		StringFilter filter = StringFilter.getInstance(includes, excludes);
+
 		// Add any active Maven profiles
 		List<Profile> mavenProfiles = mojo.getProject().getActiveProfiles();
 		for (Profile profile : CollectionUtils.toEmptyList(mavenProfiles)) {
 			String profileId = profile.getId();
-			profiles.add(profileId);
+			if (filter.include(profileId)) {
+				profiles.add(profileId);
+			}
 		}
 
 		// Add profiles from the plugin config (if any)
-		List<String> additionalActiveProfiles = CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfiles());
-		profiles.addAll(additionalActiveProfiles);
+		profiles.addAll(CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfiles()));
 		return profiles;
 	}
 

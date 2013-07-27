@@ -287,4 +287,20 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		this.mojoExecutableConfig = mojoExecutableConfig;
 	}
 
+	public String getActiveMavenProfileIncludes() {
+		return activeMavenProfileIncludes;
+	}
+
+	public void setActiveMavenProfileIncludes(String activeMavenProfileIncludes) {
+		this.activeMavenProfileIncludes = activeMavenProfileIncludes;
+	}
+
+	public String getActiveMavenProfileExcludes() {
+		return activeMavenProfileExcludes;
+	}
+
+	public void setActiveMavenProfileExcludes(String activeMavenProfileExcludes) {
+		this.activeMavenProfileExcludes = activeMavenProfileExcludes;
+	}
+
 }
