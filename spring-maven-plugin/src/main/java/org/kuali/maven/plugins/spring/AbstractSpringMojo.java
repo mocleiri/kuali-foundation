@@ -15,6 +15,8 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,10 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.spring.SpringExecutable;
+import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
+import org.kuali.maven.plugins.spring.config.MojoExecutableConfig;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
 
@@ -67,6 +73,11 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String springService = MavenConstants.DEFAULT_SPRING_SERVICE.getName();
 
 	/**
+	 */
+	@Parameter(property = "spring.mojoExecutableConfig")
+	String mojoExecutableConfig = MojoExecutableConfig.class.getName();
+
+	/**
 	 * Comma separated list of profiles to activate. By default a profile named <code>maven</code> is activated.
 	 */
 	@Parameter(property = "spring.profiles.active", defaultValue = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME)
@@ -77,12 +88,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	 */
 	@Parameter(property = "spring.profiles.default")
 	String defaultProfiles;
-
-	/**
-	 * The implementation of SpringMojoService to use. If not supplied this defaults to <code>org.kuali.maven.plugins.spring.DefaultSpringMojoService</code>
-	 */
-	@Parameter(property = "spring.springMojoService")
-	String springMojoService = MavenConstants.DEFAULT_SPRING_MOJO_SERVICE.getName();
 
 	/**
 	 * Extra properties supplied directly to the mojo
@@ -107,9 +112,13 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Keep log4j in sync with Maven logging with regards to debug mode
 		configureLogging();
 
-		// Delegate execution to Spring
-		SpringMojoService service = ReflectionUtils.newInstance(springMojoService);
-		service.loadSpring(this);
+		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
+		Class<?> config = ReflectionUtils.getClass(mojoExecutableConfig);
+		SpringService service = ReflectionUtils.newInstance(springService);
+
+		SpringContext context = new SpringContext(beans, config);
+		SpringExecutable exec = new SpringExecutable(service, context);
+		exec.execute();
 	}
 
 	/**
@@ -117,9 +126,18 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	 * Maven command line)
 	 */
 	protected boolean isDebugLoggingEnabled() {
-		return Boolean.getBoolean("spring.debug") || getLog().isDebugEnabled();
+		if (getLog().isDebugEnabled()) {
+			return true;
+		}
+		String key = "spring.debug";
+		if (Boolean.getBoolean(key)) {
+			return true;
+		}
+		String value = getProject().getProperties().getProperty(key);
+		return Boolean.parseBoolean(value);
 	}
 
+	@Deprecated
 	protected void configureLogging() {
 		// We are not in debug mode, don't do anything
 		if (!isDebugLoggingEnabled()) {
@@ -215,14 +233,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public void setSpringService(String serviceClassName) {
 		this.springService = serviceClassName;
-	}
-
-	public String getSpringMojoService() {
-		return springMojoService;
-	}
-
-	public void setSpringMojoService(String springMojoService) {
-		this.springMojoService = springMojoService;
 	}
 
 	public boolean isRemoveExistingPropertySources() {
