@@ -17,7 +17,9 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.maven.model.Profile;
@@ -32,8 +34,9 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.service.PropertySourceContext;
+import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoConfig;
@@ -41,35 +44,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
-import org.springframework.stereotype.Service;
 
-@Service
 public class DefaultSpringMojoService implements SpringMojoService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
 	private static final LongCounter SEQUENCE = new LongCounter();
+
+	PropertySourceService propertySourceService;
 
 	@Override
 	public void loadSpring(AbstractSpringMojo mojo) {
 		logger.debug("----------------- Delegating mojo execution to Spring ------------------");
 		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
 
-		List<String> beanNames = new ArrayList<String>();
-		beanNames.add(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME);
-		beanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
-
-		List<Object> beans = new ArrayList<Object>();
-		beans.add(this);
-		beans.add(mojo);
+		Map<String, Object> beans = new HashMap<String, Object>();
+		beans.put(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME, this);
+		beans.put(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo);
 
 		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
 
 		SpringContext context = new SpringContext();
 		context.setDisplayName("Spring Maven Plugin : " + SEQUENCE.increment());
-		context.setPropertySourceContext(new PropertySourceContext(SpringUtils.asList(propertySource)));
+		context.setPropertySourceContext(new PropertySourceContext(PropertySourceUtils.asList(propertySource)));
 		context.setAnnotatedClasses(CollectionUtils.asList(MojoConfig.class));
-		context.setBeanNames(beanNames);
-		context.setBeans(beans);
+		context.setContextBeans(beans);
 		context.setActiveProfiles(getActiveProfiles(mojo));
 		context.setDefaultProfiles(getDefaultProfiles(mojo));
 		service.load(context);
@@ -170,10 +168,11 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected List<PropertySource<?>> getPropertySources(PropertySourcesContext ctx) {
+		Map<String, Object> beans = CollectionUtils.toEmptyMap(ctx.getPropertiesBeanName(), (Object) ctx.getProperties());
 		if (ctx.getLocation() != null) {
-			return SpringUtils.getPropertySources(ctx.getLocation(), ctx.getPropertiesBeanName(), ctx.getProperties());
+			return propertySourceService.getPropertySources(beans, ctx.getDefaultProfiles(), ctx.getActiveProfiles(), ctx.getLocation());
 		} else if (ctx.getAnnotatedClass() != null) {
-			return SpringUtils.getPropertySources(ctx.getAnnotatedClass(), ctx.getPropertiesBeanName(), ctx.getProperties(), ctx.getActiveProfiles(), ctx.getDefaultProfiles());
+			return propertySourceService.getPropertySources(beans, ctx.getDefaultProfiles(), ctx.getActiveProfiles(), ctx.getAnnotatedClass());
 		} else {
 			throw new IllegalArgumentException("Must supply either location or an annotated class");
 		}
@@ -187,8 +186,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Convert the strings into actual classes
 		List<Class<?>> annotatedClasses = getAnnotatedClasses(annotatedClassNames);
 
-		// These are the bean names containing Maven GAV info and (if configured) the Maven model objects
-		List<BeanConfig> beanConfigs = getBeanConfigs(mojo, mavenProperties);
+		// These are the beans containing Maven GAV info and (if configured) the Maven model objects
+		Map<String, Object> beans = getBeans(mojo, mavenProperties);
 
 		// Accumulate any active Maven profiles into a list (this always has one profile called "maven" as the first element in the list)
 		List<String> activeProfiles = getActiveProfiles(mojo);
@@ -198,8 +197,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		SpringContext context = new SpringContext();
 		context.setDisplayName("Spring Maven Plugin : Load : " + SEQUENCE.increment());
 		context.setAnnotatedClasses(annotatedClasses);
-		context.setBeanNames(getBeanNames(beanConfigs));
-		context.setBeans(getBeanObjects(beanConfigs));
+		context.setContextBeans(beans);
 		context.setActiveProfiles(activeProfiles);
 		context.setDefaultProfiles(defaultProfiles);
 		return context;
@@ -274,7 +272,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return annotatedClasses;
 	}
 
-	protected List<BeanConfig> getBeanConfigs(AbstractSpringMojo mojo, Properties mavenProperties) {
+	protected Map<String, Object> getBeans(AbstractSpringMojo mojo, Properties mavenProperties) {
 		// These are the bean names for the Maven specific model objects
 		List<String> allBeanNames = new ArrayList<String>();
 		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
@@ -286,14 +284,13 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> beanNames = CollectionUtils.getList(includes, allBeanNames);
 		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
 
-		List<BeanConfig> beanConfigs = new ArrayList<BeanConfig>();
+		Map<String, Object> contextBeans = new HashMap<String, Object>();
 		for (int i = 0; i < beanNames.size(); i++) {
-			BeanConfig config = new BeanConfig();
-			config.setObject(beans.get(i));
-			config.setName(beanNames.get(i));
-			beanConfigs.add(config);
+			String key = beanNames.get(i);
+			Object bean = beans.get(i);
+			contextBeans.put(key, bean);
 		}
-		return beanConfigs;
+		return contextBeans;
 	}
 
 	protected List<String> getBeanNames(List<BeanConfig> beans) {
@@ -319,8 +316,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Combine the main context location with any optional locations
 		List<String> contextLocations = CollectionUtils.combine(location, mojo.getLocations());
 
-		// These are the bean names containing Maven GAV info and (if configured) the Maven model objects
-		List<BeanConfig> beanConfigs = getBeanConfigs(mojo, mavenProperties);
+		// These are the beans containing Maven GAV info and (if configured) the Maven model objects
+		Map<String, Object> beans = getBeans(mojo, mavenProperties);
 
 		// Accumulate any active Maven profiles into a list (this always has one profile called "maven" as the first element in the list)
 		List<String> activeProfiles = getActiveProfiles(mojo);
@@ -329,8 +326,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		SpringContext context = new SpringContext();
 		context.setDisplayName("Spring Maven Plugin : LoadXML : " + SEQUENCE.increment());
 		context.setLocations(contextLocations);
-		context.setBeanNames(getBeanNames(beanConfigs));
-		context.setBeans(getBeanObjects(beanConfigs));
+		context.setContextBeans(beans);
 		context.setActiveProfiles(activeProfiles);
 		context.setDefaultProfiles(defaultProfiles);
 		return context;

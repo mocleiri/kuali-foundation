@@ -20,7 +20,7 @@ public class ShowPropertySourcesExecutable implements Executable {
 	public void execute() {
 		Properties properties = SpringUtils.getAllEnumerableProperties(environment);
 		PropertyUtils.info(properties);
-		SpringUtils.showPropertySources(environment);
+		// SpringUtils.showPropertySources(environment);
 	}
 
 	public ConfigurableEnvironment getEnvironment() {
