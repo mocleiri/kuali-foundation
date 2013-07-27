@@ -21,6 +21,7 @@ import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.MavenUtils;
+import org.kuali.common.util.project.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -31,6 +32,7 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 
 	MavenProject mavenProject;
 	boolean skip;
+	ProjectService service;
 
 	@Override
 	public void execute() {
@@ -59,7 +61,7 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 
 		// Add organization, group, and path properties and tokenize the version number adding properties for each token along with
 		// a boolean property indicating if this is a SNAPSHOT build
-		MavenUtils.augmentProjectProperties(mavenProperties);
+		MavenUtils.augmentProjectProperties(service, mavenProperties);
 
 		// Print something useful if we are in debug mode
 		logger.debug("Added {} properties", FormatUtils.getCount(mavenProperties.size() - originalSize));
@@ -80,6 +82,14 @@ public class AugmentMavenPropertiesExecutable implements Executable {
 
 	public void setSkip(boolean skip) {
 		this.skip = skip;
+	}
+
+	public ProjectService getService() {
+		return service;
+	}
+
+	public void setService(ProjectService service) {
+		this.service = service;
 	}
 
 }
