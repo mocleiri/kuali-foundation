@@ -73,6 +73,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String springService = MavenConstants.DEFAULT_SPRING_SERVICE.getName();
 
 	/**
+	 * The annotated Spring configuration class that Maven delegates execution of this mojo to. This defaults to
+	 * <code>org.kuali.maven.plugins.spring.config.MojoExecutableConfig</code>
 	 */
 	@Parameter(property = "spring.mojoExecutableConfig")
 	String mojoExecutableConfig = MojoExecutableConfig.class.getName();
@@ -112,13 +114,20 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Keep log4j in sync with Maven logging with regards to debug mode
 		configureLogging();
 
+		// Create a map containing a reference to this mojo
 		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
+
+		// Use the default Spring config class (unless they have overridden it)
 		Class<?> config = ReflectionUtils.getClass(mojoExecutableConfig);
+
+		// Setup a context containing the mojo and config class
+		SpringContext context = new SpringContext(beans, config);
+
+		// Use DefaultSpringService (unless they have overridden it)
 		SpringService service = ReflectionUtils.newInstance(springService);
 
-		SpringContext context = new SpringContext(beans, config);
-		SpringExecutable exec = new SpringExecutable(service, context);
-		exec.execute();
+		// Delegate execution to Spring via SpringExecutable
+		new SpringExecutable(service, context).execute();
 	}
 
 	/**
@@ -257,6 +266,14 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public void setDefaultProfiles(String defaultProfiles) {
 		this.defaultProfiles = defaultProfiles;
+	}
+
+	public String getMojoExecutableConfig() {
+		return mojoExecutableConfig;
+	}
+
+	public void setMojoExecutableConfig(String mojoExecutableConfig) {
+		this.mojoExecutableConfig = mojoExecutableConfig;
 	}
 
 }
