@@ -8,8 +8,8 @@ public class MojoExecutable implements Executable {
 
 	private static final String SERVICE_CALLBACK_METHOD_NAME = "mojoCallback";
 
-	MethodInvoker invoker = new MethodInvoker();
 	String serviceMethod = SERVICE_CALLBACK_METHOD_NAME;
+	MethodInvoker invoker = new MethodInvoker();
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 

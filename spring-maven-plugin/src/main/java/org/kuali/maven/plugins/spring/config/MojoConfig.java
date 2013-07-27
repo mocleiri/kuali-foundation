@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringMojoServiceConfig.class })
 public class MojoConfig {
 
-	// See the execute() method of AbstractSpringMojo for how this gets wired in
+	// The mojo being executed gets wired in as a bean in the parent context
 	@Autowired
 	@Qualifier(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME)
 	AbstractSpringMojo mojo;
