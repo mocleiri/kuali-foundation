@@ -262,20 +262,6 @@ public class DefaultSpringService implements SpringService {
 	}
 
 	/**
-	 * Return true if the context contains any beans or beanNames, false otherwise.
-	 */
-	@Deprecated
-	protected boolean isParentContextRequired(SpringContext context) {
-		if (!CollectionUtils.isEmpty(context.getBeanNames())) {
-			return true;
-		} else if (!CollectionUtils.isEmpty(context.getBeans())) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * Convert any locations representing an existing file into a fully qualified file system url. Leave any locations that do not resolve to an existing file alone.
 	 */
 	protected List<String> getConvertedLocations(List<String> locations) {

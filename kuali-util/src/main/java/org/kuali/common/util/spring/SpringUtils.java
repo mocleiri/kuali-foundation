@@ -274,6 +274,7 @@ public class SpringUtils {
 	 * Scan the annotated class to find the single bean registered in the context that implements <code>PropertySource</code>. If more than one bean is located, throw
 	 * <code>IllegalStateException</code>.
 	 */
+	@Deprecated
 	public static PropertySource<?> getSinglePropertySource(Class<?> annotatedClass) {
 		return getSinglePropertySource(annotatedClass, null, null);
 	}
@@ -282,12 +283,14 @@ public class SpringUtils {
 	 * Scan the annotated class to find the single bean registered in the context that implements <code>PropertySource</code>. If more than one bean is located, throw
 	 * <code>IllegalStateException</code>.
 	 */
+	@Deprecated
 	public static PropertySource<?> getSinglePropertySource(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		List<PropertySource<?>> sources = getPropertySources(annotatedClass, propertiesBeanName, properties);
 		Assert.isTrue(sources.size() == 1, "Must be exactly one PropertySource registered in the context");
 		return sources.get(0);
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		return getPropertySources(annotatedClass, propertiesBeanName, properties, null, null);
 	}
@@ -303,6 +306,7 @@ public class SpringUtils {
 		}
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String propertiesBeanName, Properties properties, List<String> activeProfiles,
 			List<String> defaultProfiles) {
 		ConfigurableApplicationContext parent = null;
@@ -325,10 +329,12 @@ public class SpringUtils {
 		return getPropertySources(location, mavenPropertiesBeanName, mavenProperties);
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(String location, String propertiesBeanName, Properties properties) {
 		return getPropertySources(location, propertiesBeanName, properties, null, null);
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(String location, String propertiesBeanName, Properties properties, List<String> activeProfiles,
 			List<String> defaultProfiles) {
 		String[] locationsArray = { location };
@@ -506,6 +512,7 @@ public class SpringUtils {
 		return new PropertiesPropertySource(name, globalSource);
 	}
 
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(Properties properties) {
 		return new PropertiesPropertySource(GLOBAL_SPRING_PROPERTY_SOURCE_NAME, properties);
 	}
@@ -513,6 +520,7 @@ public class SpringUtils {
 	/**
 	 * Return a SpringContext that resolves all placeholders from the PropertySource passed in
 	 */
+	@Deprecated
 	public static PropertySource<?> getGlobalPropertySource(List<String> locations, String encoding) {
 		Properties loaded = PropertyUtils.load(locations, encoding);
 		Properties global = PropertyUtils.getGlobalProperties(loaded);
@@ -668,8 +676,10 @@ public class SpringUtils {
 	}
 
 	/**
-	 * Make sure all of the locations actually exist
+	 * Make sure all of the locations actually exist.<br>
+	 * TODO Move this to LocationUtils
 	 */
+	@Deprecated
 	public static void validateExists(List<String> locations) {
 		StringBuilder sb = new StringBuilder();
 		for (String location : locations) {
@@ -712,6 +722,7 @@ public class SpringUtils {
 		return getContextWithPreRegisteredBeans(null, null, beanNames, beans);
 	}
 
+	@Deprecated
 	public static ConfigurableApplicationContext getConfigurableApplicationContext() {
 		return new GenericXmlApplicationContext();
 	}
@@ -734,20 +745,24 @@ public class SpringUtils {
 		}
 	}
 
+	@Deprecated
 	public static ConfigurableApplicationContext getContextWithPreRegisteredBean(String beanName, Object bean) {
 		return getContextWithPreRegisteredBeans(Arrays.asList(beanName), Arrays.asList(bean));
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySourcesFromAnnotatedClass(String annotatedClassName) {
 		Class<?> annotatedClass = ReflectionUtils.getClass(annotatedClassName);
 		return getPropertySources(annotatedClass);
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass) {
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(annotatedClass);
 		return extractPropertySourcesAndClose(context);
 	}
 
+	@Deprecated
 	public static List<PropertySource<?>> extractPropertySourcesAndClose(ConfigurableApplicationContext context) {
 		// Extract PropertySources (if any)
 		List<PropertySource<?>> sources = getPropertySources(context);
@@ -762,6 +777,7 @@ public class SpringUtils {
 	/**
 	 * Scan the XML Spring context for any beans that implement <code>PropertySource</code>
 	 */
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(String location) {
 		ConfigurableApplicationContext context = new GenericXmlApplicationContext(location);
 		return extractPropertySourcesAndClose(context);
@@ -770,6 +786,7 @@ public class SpringUtils {
 	/**
 	 * This method returns a list of any PropertySource objects registered in the indicated context. They are sorted by property source name.
 	 */
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context) {
 		// Sort them by name
 		return getPropertySources(context, new PropertySourceNameComparator());
@@ -797,6 +814,7 @@ public class SpringUtils {
 	/**
 	 * This method returns a list of any PropertySource objects registered in the indicated context. The comparator is responsible for putting them in correct order.
 	 */
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableApplicationContext context, Comparator<PropertySource<?>> comparator) {
 		// Extract all beans that implement the PropertySource interface
 		@SuppressWarnings("rawtypes")
@@ -859,6 +877,7 @@ public class SpringUtils {
 		logger.debug("----------------------------------------------------------------------");
 	}
 
+	@Deprecated
 	public static void showPropertySources(List<PropertySource<?>> propertySources) {
 		List<String> columns = Arrays.asList("Name", "Impl", "Source");
 		List<Object[]> rows = new ArrayList<Object[]>();
@@ -872,6 +891,7 @@ public class SpringUtils {
 		LoggerUtils.logTable(columns, rows, LoggerLevel.INFO, logger, true);
 	}
 
+	@Deprecated
 	public static void showPropertySources(ConfigurableEnvironment env) {
 		showPropertySources(getPropertySources(env));
 	}
@@ -935,6 +955,7 @@ public class SpringUtils {
 	/**
 	 * Remove any existing property sources and add one property source backed by the properties passed in
 	 */
+	@Deprecated
 	public static void reconfigurePropertySources(ConfigurableEnvironment env, String name, Properties properties) {
 		// Remove all existing property sources
 		removeAllPropertySources(env);
@@ -955,6 +976,7 @@ public class SpringUtils {
 	/**
 	 * Remove any existing property sources
 	 */
+	@Deprecated
 	public static void removeAllPropertySources(ConfigurableEnvironment env) {
 		MutablePropertySources mps = env.getPropertySources();
 		List<PropertySource<?>> sources = getPropertySources(env);
@@ -967,6 +989,7 @@ public class SpringUtils {
 	/**
 	 * Get all PropertySource objects from the environment as a List.
 	 */
+	@Deprecated
 	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
 		MutablePropertySources mps = env.getPropertySources();
 		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
