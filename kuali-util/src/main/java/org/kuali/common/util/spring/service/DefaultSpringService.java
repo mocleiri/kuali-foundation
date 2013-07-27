@@ -42,6 +42,11 @@ public class DefaultSpringService implements SpringService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringService.class);
 
 	@Override
+	public PropertySource<?> getPropertySource(PropertySourceConfig config) {
+		return null;
+	}
+
+	@Override
 	public void load(Class<?> annotatedClass, Map<String, Object> contextBeans) {
 		load(annotatedClass, contextBeans, null);
 	}

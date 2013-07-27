@@ -283,11 +283,8 @@ public class SpringUtils {
 	 */
 	public static PropertySource<?> getSinglePropertySource(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {
 		List<PropertySource<?>> sources = getPropertySources(annotatedClass, propertiesBeanName, properties);
-		if (sources.size() > 1) {
-			throw new IllegalStateException("More than one PropertySource was registered in the context");
-		} else {
-			return sources.get(0);
-		}
+		Assert.isTrue(sources.size() == 1, "Must be exactly one PropertySource registered in the context");
+		return sources.get(0);
 	}
 
 	public static List<PropertySource<?>> getPropertySources(Class<?> annotatedClass, String propertiesBeanName, Properties properties) {

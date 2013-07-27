@@ -21,30 +21,32 @@ import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
 
-    void load(Class<?> annotatedClass);
+	PropertySource<?> getPropertySource(PropertySourceConfig config);
 
-    void load(Class<?> annotatedClass, Map<String, Object> contextBeans);
+	void load(Class<?> annotatedClass);
 
-    void load(Class<?> annotatedClass, Map<String, Object> contextBeans, PropertySource<?> propertySource);
+	void load(Class<?> annotatedClass, Map<String, Object> contextBeans);
 
-    void load(String location);
+	void load(Class<?> annotatedClass, Map<String, Object> contextBeans, PropertySource<?> propertySource);
 
-    void load(String location, Map<String, Object> contextBeans, PropertySource<?> propertySource);
+	void load(String location);
 
-    void load(String location, Map<String, Object> contextBeans);
+	void load(String location, Map<String, Object> contextBeans, PropertySource<?> propertySource);
 
-    void load(SpringContext context);
+	void load(String location, Map<String, Object> contextBeans);
 
-    @Deprecated
-    void load(String location, String beanName, Object bean);
+	void load(SpringContext context);
 
-    @Deprecated
-    void load(String location, String beanName, Object bean, PropertySource<?> propertySource);
+	@Deprecated
+	void load(String location, String beanName, Object bean);
 
-    @Deprecated
-    void load(Class<?> annotatedClass, String beanName, Object bean);
+	@Deprecated
+	void load(String location, String beanName, Object bean, PropertySource<?> propertySource);
 
-    @Deprecated
-    void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource);
+	@Deprecated
+	void load(Class<?> annotatedClass, String beanName, Object bean);
+
+	@Deprecated
+	void load(Class<?> annotatedClass, String beanName, Object bean, PropertySource<?> propertySource);
 
 }

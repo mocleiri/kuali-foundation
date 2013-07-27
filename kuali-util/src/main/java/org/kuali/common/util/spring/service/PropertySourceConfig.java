@@ -15,13 +15,11 @@
  */
 package org.kuali.common.util.spring.service;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.PropertySource;
 
 /**
  * A <code>PropertySourceConfig</code> is Spring config who's primary purpose is to accumulate a set of properties into a <code>PropertySource<?></code>
  */
-@Configuration
 public interface PropertySourceConfig {
 
 	PropertySource<?> propertySource();
