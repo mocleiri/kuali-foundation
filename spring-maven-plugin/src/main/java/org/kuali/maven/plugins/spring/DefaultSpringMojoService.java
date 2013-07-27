@@ -181,7 +181,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	/**
-	 * Return a list that always has at least one entry called "maven" as the first element. The id's of any other active maven profiles are also included.
+	 * Return a list of any active Maven profiles + any named profiles provided in the mojo configuration
 	 */
 	protected List<String> getActiveProfiles(AbstractSpringMojo mojo) {
 
@@ -202,25 +202,28 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	/**
-	 * Return a list that always has at least one entry called "maven" as the first element. The id's of any other active maven profiles are also included.
+	 * Convert the active profiles CSV to a list
 	 */
 	protected List<String> getDefaultProfiles(AbstractSpringMojo mojo) {
 		return CollectionUtils.getTrimmedListFromCSV(mojo.getDefaultProfiles());
 	}
 
 	protected List<String> getAnnotatedClassNames(LoadMojo mojo) {
-		List<String> acns = new ArrayList<String>();
+		List<String> names = new ArrayList<String>();
+		// Add the single annotated class
 		if (!StringUtils.isBlank(mojo.getAnnotatedClass())) {
-			acns.add(mojo.getAnnotatedClass());
+			names.add(mojo.getAnnotatedClass());
 		}
+		// Add any additional annotated classes
 		if (!CollectionUtils.isEmpty(mojo.getAnnotatedClasses())) {
-			acns.addAll(mojo.getAnnotatedClasses());
+			names.addAll(mojo.getAnnotatedClasses());
 		}
-		if (acns.size() == 0) {
-			String acn = getDefaultAnnotatedClassname(mojo.getProject());
-			acns.add(acn);
+		// If nothing has been provided derive a default annotated classname from the project info
+		if (names.size() == 0) {
+			String name = getDefaultAnnotatedClassname(mojo.getProject());
+			names.add(name);
 		}
-		return acns;
+		return names;
 	}
 
 	/**
