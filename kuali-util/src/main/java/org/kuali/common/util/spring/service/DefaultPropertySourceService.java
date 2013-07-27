@@ -6,6 +6,7 @@ import java.util.Map;
 import org.kuali.common.util.CollectionUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.Assert;
 
 public class DefaultPropertySourceService implements PropertySourceService {
 
@@ -18,6 +19,9 @@ public class DefaultPropertySourceService implements PropertySourceService {
 
 	@Override
 	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> profiles, Class<PropertySourceConfig> config) {
+
+		Assert.notNull(springService, "springService is null");
+
 		SpringContext context = new SpringContext();
 		context.setContextBeans(beans);
 		context.setActiveProfiles(profiles);
