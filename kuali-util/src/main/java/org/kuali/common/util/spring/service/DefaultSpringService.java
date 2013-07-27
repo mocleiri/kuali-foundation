@@ -141,19 +141,7 @@ public class DefaultSpringService implements SpringService {
 
 	@Override
 	public void load(SpringContext context) {
-
 		ConfigurableApplicationContext ctx = getApplicationContext(context);
-		ConfigurableEnvironment env = ctx.getEnvironment();
-		StringBuilder sb = new StringBuilder();
-		for (String profile : env.getActiveProfiles()) {
-			sb.append(profile + ",");
-		}
-		logger.info("active={}", sb);
-		sb = new StringBuilder();
-		for (String profile : env.getDefaultProfiles()) {
-			sb.append(profile + ",");
-		}
-		logger.info("default={}", sb);
 		try {
 			ctx.refresh();
 			SpringUtils.debugQuietly(ctx);
