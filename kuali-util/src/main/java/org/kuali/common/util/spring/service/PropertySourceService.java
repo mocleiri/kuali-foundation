@@ -11,4 +11,6 @@ public interface PropertySourceService {
 
 	PropertySource<?> getPropertySource(Class<PropertySourceConfig> config);
 
+	PropertySource<?> getPropertySourceFromUntypedConfig(Map<String, Object> beans, List<String> profiles, Class<?> config);
+
 }

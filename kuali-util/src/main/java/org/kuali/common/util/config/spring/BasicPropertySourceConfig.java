@@ -32,6 +32,7 @@ import org.springframework.core.env.PropertySource;
  */
 @Configuration
 @Import({ ConfigServiceConfig.class })
+@Deprecated
 public class BasicPropertySourceConfig {
 
 	@Autowired

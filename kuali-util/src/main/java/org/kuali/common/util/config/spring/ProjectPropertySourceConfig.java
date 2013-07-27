@@ -43,8 +43,11 @@ import org.springframework.util.Assert;
  * <pre>
  *   org.kuali.common:kuali-util
  * </pre>
+ * 
+ * @deprecated
  */
 @Configuration
+@Deprecated
 public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 
 	private static final String PROJECT_BEAN_NAME = "project.immutable";

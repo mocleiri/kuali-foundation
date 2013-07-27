@@ -18,6 +18,7 @@ package org.kuali.common.util.maven;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +30,9 @@ import org.kuali.common.util.property.processor.ProjectProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.kuali.common.util.spring.PropertySourceUtils;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.service.DefaultPropertySourceService;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +46,16 @@ public class MavenUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MavenUtils.class);
 
-	public static final String POM = "pom";
-	public static final String PROJECT_VERSION_KEY = "project.version";
-	public static final String PROJECT_ENCODING_KEY = "project.encoding";
+	@Deprecated
+	public static final String POM = MavenConstants.POM;
 
+	@Deprecated
+	public static final String PROJECT_VERSION_KEY = MavenConstants.VERSION_KEY;
+
+	@Deprecated
+	public static final String PROJECT_ENCODING_KEY = MavenConstants.ENCODING_KEY;
+
+	@Deprecated
 	public static SpringContext getMavenizedSpringContext(Class<?> propertySourceConfig) {
 		return getMavenizedSpringContext(null, propertySourceConfig);
 	}
@@ -54,13 +63,16 @@ public class MavenUtils {
 	/**
 	 * Return a SpringContext that resolves placeholders using the single <code>PropertySource</code> registered with <code>propertySourceConfig</code>
 	 */
+	@Deprecated
 	public static SpringContext getMavenizedSpringContext(Properties mavenProperties, Class<?> propertySourceConfig) {
-		// This PropertySource object is backed by a set of properties that has been
-		// 1 - fully resolved
-		// 2 - contains all properties needed by Spring
-		// 3 - contains system/environment properties where system/env properties override loaded properties
-		PropertySource<?> source = SpringUtils.getSinglePropertySource(propertySourceConfig, MavenConstants.PROPERTIES_BEAN_NAME, mavenProperties);
+		DefaultPropertySourceService service = new DefaultPropertySourceService();
+		service.setSpringService(new DefaultSpringService());
+		return getMavenizedSpringContext(service, mavenProperties, propertySourceConfig);
+	}
 
+	public static SpringContext getMavenizedSpringContext(PropertySourceService service, Properties mavenProperties, Class<?> propertySourceConfig) {
+		Map<String, Object> beans = CollectionUtils.toEmptyMap(MavenConstants.PROPERTIES_BEAN_NAME, (Object) mavenProperties);
+		PropertySource<?> source = service.getPropertySourceFromUntypedConfig(beans, null, propertySourceConfig);
 		return PropertySourceUtils.getSinglePropertySourceContext(source);
 	}
 
@@ -77,13 +89,13 @@ public class MavenUtils {
 
 		// Tokenize the version number and add properties for each token (major/minor/incremental)
 		// Also add a boolean property indicating if this is a SNAPSHOT build
-		processors.add(new VersionProcessor(Arrays.asList(PROJECT_VERSION_KEY), true));
+		processors.add(new VersionProcessor(Arrays.asList(MavenConstants.VERSION_KEY), true));
 
 		// Process default Maven properties and add in our custom properties
 		PropertyUtils.process(mavenProperties, processors);
 
 		// Finish preparing the properties using the encoding from the project
-		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, PROJECT_ENCODING_KEY);
+		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, MavenConstants.ENCODING_KEY);
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
 	}
 
@@ -109,6 +121,7 @@ public class MavenUtils {
 		return pp;
 	}
 
+	@Deprecated
 	protected static List<String> getList(Properties properties, String key) {
 		String csv = properties.getProperty(key);
 		List<String> list = new ArrayList<String>();
@@ -116,6 +129,7 @@ public class MavenUtils {
 		return list;
 	}
 
+	@Deprecated
 	protected static List<String> getList(Environment env, Properties properties, String key) {
 		String csv = env.getProperty(key);
 		List<String> list = new ArrayList<String>();

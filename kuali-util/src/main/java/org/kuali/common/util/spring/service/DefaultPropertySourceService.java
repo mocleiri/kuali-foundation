@@ -20,6 +20,11 @@ public class DefaultPropertySourceService implements PropertySourceService {
 
 	@Override
 	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> profiles, Class<PropertySourceConfig> config) {
+		return getPropertySourceFromUntypedConfig(beans, profiles, config);
+	}
+
+	@Override
+	public PropertySource<?> getPropertySourceFromUntypedConfig(Map<String, Object> beans, List<String> profiles, Class<?> config) {
 
 		Assert.notNull(springService, "springService is null");
 
