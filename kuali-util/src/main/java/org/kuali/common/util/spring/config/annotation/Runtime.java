@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(SpringConfigConstants.RUNTIME_PROFILE_ID)
-public @interface Default {
+@Profile(SpringConfigConstants.DEFAULT_PROFILE_ID)
+public @interface Runtime {
 
 }
