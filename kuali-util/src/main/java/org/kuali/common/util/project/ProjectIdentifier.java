@@ -19,7 +19,7 @@ package org.kuali.common.util.project;
  * The project identifier concept embodied by this interface is based on two facts.
  * 
  * <p>
- * 1 - Kuali projects produce at most one artifact containing executable java code and associated resources.<br>
+ * 1 - All Kuali projects produce only one artifact containing executable java code and associated resources.<br>
  * 2 - There is only ever one version of a Kuali project in the java classpath.<br>
  * </p>
  * 
