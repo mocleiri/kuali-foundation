@@ -14,30 +14,55 @@ public class DefaultPropertySourceService implements PropertySourceService {
 	SpringService springService;
 
 	@Override
+	public List<PropertySource<?>> getPropertySources(Class<PropertySourceConfig> config) {
+		return getPropertySources(null, null, null, config);
+	}
+
+	@Override
+	public List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config) {
+		return getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config);
+	}
+
+	@Override
 	public PropertySource<?> getPropertySource(Class<PropertySourceConfig> config) {
-		return getPropertySource(null, null, config);
+		return getPropertySource(null, null, null, config);
 	}
 
 	@Override
-	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> profiles, Class<PropertySourceConfig> config) {
-		return getPropertySourceFromUntypedConfig(beans, profiles, config);
+	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config) {
+		return getPropertySourceInternal(beans, defaultProfiles, activeProfiles, config);
 	}
 
 	@Override
-	public PropertySource<?> getPropertySourceFromUntypedConfig(Map<String, Object> beans, List<String> profiles, Class<?> config) {
+	@Deprecated
+	public PropertySource<?> getPropertySourceFromUntypedConfig(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
+		return getPropertySourceInternal(beans, defaultProfiles, activeProfiles, config);
+	}
+
+	@Override
+	@Deprecated
+	public List<PropertySource<?>> getPropertySourcesFromUntypedConfig(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
+		return getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config);
+	}
+
+	protected PropertySource<?> getPropertySourceInternal(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
+		List<PropertySource<?>> sources = getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config);
+		Assert.isTrue(sources.size() == 1, "sizes != 1");
+		return sources.get(0);
+	}
+
+	protected List<PropertySource<?>> getPropertySourcesInternal(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
 
 		Assert.notNull(springService, "springService is null");
 
 		SpringContext context = new SpringContext();
 		context.setContextBeans(beans);
-		context.setActiveProfiles(profiles);
+		context.setActiveProfiles(activeProfiles);
+		context.setDefaultProfiles(defaultProfiles);
 		context.setAnnotatedClasses(CollectionUtils.asList(config));
 		ConfigurableApplicationContext ctx = springService.getApplicationContext(context);
 		ctx.refresh();
-		List<PropertySource<?>> sources = PropertySourceUtils.getPropertySources(ctx);
-		Assert.isTrue(sources.size() == 1, "sources.size() != 1");
-		PropertySource<?> source = sources.get(0);
-		return source;
+		return PropertySourceUtils.getPropertySources(ctx);
 	}
 
 	public SpringService getSpringService() {

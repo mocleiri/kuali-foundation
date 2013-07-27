@@ -70,9 +70,10 @@ public class MavenUtils {
 		return getMavenizedSpringContext(service, mavenProperties, propertySourceConfig);
 	}
 
+	@Deprecated
 	public static SpringContext getMavenizedSpringContext(PropertySourceService service, Properties mavenProperties, Class<?> propertySourceConfig) {
 		Map<String, Object> beans = CollectionUtils.toEmptyMap(MavenConstants.PROPERTIES_BEAN_NAME, (Object) mavenProperties);
-		PropertySource<?> source = service.getPropertySourceFromUntypedConfig(beans, null, propertySourceConfig);
+		PropertySource<?> source = service.getPropertySourceFromUntypedConfig(beans, null, null, propertySourceConfig);
 		return PropertySourceUtils.getSinglePropertySourceContext(source);
 	}
 
