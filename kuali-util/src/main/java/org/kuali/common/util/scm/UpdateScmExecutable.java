@@ -38,7 +38,7 @@ public class UpdateScmExecutable implements Executable {
 	public static final boolean DEFAULT_SKIP_COMMIT_VALUE = true;
 
 	boolean skip = DEFAULT_SKIP_VALUE;
-	// Always skip the commit step, unless the specifically set this to false
+	// Always skip the commit step, unless they specifically set this to false
 	boolean skipCommit = DEFAULT_SKIP_COMMIT_VALUE;
 	ScmService scmService;
 	SyncService syncService = new DefaultSyncService();
