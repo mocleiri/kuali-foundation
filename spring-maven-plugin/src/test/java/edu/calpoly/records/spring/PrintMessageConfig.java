@@ -1,12 +1,12 @@
 package edu.calpoly.records.spring;
 
 import org.kuali.common.util.execute.PrintMessageExecutable;
-import org.kuali.common.util.spring.config.annotation.Default;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Default
+@Profile("default")
 public class PrintMessageConfig {
 
 	@Bean

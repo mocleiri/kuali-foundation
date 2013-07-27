@@ -85,6 +85,18 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String activeProfiles = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME;
 
 	/**
+	 * Comma separated list of active Maven profiles to include as active Spring profiles. By default, all active Maven profiles become active Spring profiles.
+	 */
+	@Parameter(property = "spring.activeMavenProfileIncludes")
+	String activeMavenProfileIncludes;
+
+	/**
+	 * Comma separated list of active Maven profiles to exclude from Spring. By default, all active Maven profiles become active Spring profiles.
+	 */
+	@Parameter(property = "spring.activeMavenProfileExcludes")
+	String activeMavenProfileExcludes;
+
+	/**
 	 * Comma separated list of default profiles. Spring always uses a single profile named <code>default</code> if no default profiles are provided.
 	 */
 	@Parameter(property = "spring.profiles.default")
@@ -125,7 +137,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Use DefaultSpringService (unless they have overridden it)
 		SpringService service = ReflectionUtils.newInstance(springService);
 
-		// Delegate execution to Spring via SpringExecutable
+		// Delegate execution to Spring
 		new SpringExecutable(service, context).execute();
 	}
 

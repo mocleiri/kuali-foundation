@@ -201,7 +201,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	/**
-	 * Convert the active profiles CSV to a list
+	 * Convert the default profiles CSV to a list
 	 */
 	protected List<String> getDefaultProfiles(AbstractSpringMojo mojo) {
 		return CollectionUtils.getTrimmedListFromCSV(mojo.getDefaultProfiles());
