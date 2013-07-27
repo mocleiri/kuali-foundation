@@ -21,7 +21,6 @@ import org.junit.Test;
 import org.kuali.common.jdbc.config.KualiJdbcConfig;
 import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
 import org.kuali.common.util.config.supplier.PropertiesSupplier;
-import org.kuali.common.util.spring.SpringExecUtils;
 import org.kuali.common.util.spring.SpringExecutable;
 
 public class OleResetTest {
@@ -38,7 +37,7 @@ public class OleResetTest {
 			Class<?> annotatedClass = SqlControllerExecutableConfig.class;
 
 			// Prepare a Spring context
-			SpringExecutable exec = SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
+			SpringExecutable exec = null;// SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
 			exec.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
