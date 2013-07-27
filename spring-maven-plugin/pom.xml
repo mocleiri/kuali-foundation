@@ -25,18 +25,19 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>spring-maven-plugin</artifactId>
-  <version>2.1.1-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Spring Maven Plugin</name>
   <description>
     This plugin provides integration between Spring and Maven.  
-    Plugin goals support loading an arbitrary Spring context XML file as part of the Maven build lifecycle.  
+    Plugin goals support loading a Spring context XML file as part of the Maven build lifecycle.  
     The XML file can be on the local file system or be accessible via any URL Spring's resource loading mechanism can understand.  
     Spring's "classpath:context.xml" style notation is supported.   
-    From version 2.0.0 on, annotated Java classes can also be used to load a Spring context.
-    The full set of Maven properties are injected into the Spring context (both XML and annotation style) as a bean named "mavenProperties".  
+    Annotated Java classes can also be used to load a Spring context.
+    Maven properties are injected into the Spring context (both XML and annotation style) as a java.util.Properties bean named "mavenProperties".  
     Maven properties are also registered as a top level PropertySource so that Spring's placeholder resolution framework automatically considers them.   
     See Project Reports -&gt; Plugin Documentation for details on plugin goals.
+    By default, the profile "maven" is set as an active Spring profile along with any other active Maven profiles.
   </description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
