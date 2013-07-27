@@ -6,7 +6,7 @@ import org.springframework.util.MethodInvoker;
 
 public class MojoExecutable implements Executable {
 
-	private static final String SERVICE_CALLBACK_METHOD_NAME = "mojoCallback";
+	private static final String SERVICE_CALLBACK_METHOD_NAME = "callback";
 
 	String serviceMethod = SERVICE_CALLBACK_METHOD_NAME;
 	MethodInvoker invoker = new MethodInvoker();
