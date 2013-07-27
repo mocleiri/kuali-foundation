@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ PrintMessageConfig.class, PrintMavenMessageConfig.class })
+@Import({ PrintMavenMessageConfig.class, PrintMessageConfig.class })
 public class PowerWebappConfig {
 
 	@Autowired
