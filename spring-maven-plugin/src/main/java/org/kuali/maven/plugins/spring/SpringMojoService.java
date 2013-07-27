@@ -2,10 +2,8 @@ package org.kuali.maven.plugins.spring;
 
 public interface SpringMojoService {
 
-	void loadSpring(AbstractSpringMojo mojo);
+	void callback(LoadMojo mojo);
 
-	void mojoCallback(LoadMojo mojo);
-
-	void mojoCallback(LoadXmlMojo mojo);
+	void callback(LoadXmlMojo mojo);
 
 }

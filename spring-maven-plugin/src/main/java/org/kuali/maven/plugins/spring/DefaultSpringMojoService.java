@@ -34,12 +34,10 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.property.GlobalPropertiesMode;
-import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
-import org.kuali.maven.plugins.spring.config.MojoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.PropertiesPropertySource;
@@ -53,28 +51,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	PropertySourceService propertySourceService;
 
 	@Override
-	public void loadSpring(AbstractSpringMojo mojo) {
-		logger.debug("----------------- Delegating mojo execution to Spring ------------------");
-		SpringService service = ReflectionUtils.newInstance(mojo.getSpringService());
-
-		Map<String, Object> beans = new HashMap<String, Object>();
-		beans.put(MavenConstants.SPRING_MOJO_SERVICE_BEAN_NAME, this);
-		beans.put(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo);
-
-		PropertiesPropertySource propertySource = getMavenPropertySource(mojo);
-
-		SpringContext context = new SpringContext();
-		context.setDisplayName("Spring Maven Plugin : " + SEQUENCE.increment());
-		context.setPropertySourceContext(new PropertySourceContext(PropertySourceUtils.asList(propertySource)));
-		context.setAnnotatedClasses(CollectionUtils.asList(MojoConfig.class));
-		context.setContextBeans(beans);
-		context.setActiveProfiles(getActiveProfiles(mojo));
-		context.setDefaultProfiles(getDefaultProfiles(mojo));
-		service.load(context);
-	}
-
-	@Override
-	public void mojoCallback(LoadXmlMojo mojo) {
+	public void callback(LoadXmlMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
@@ -96,7 +73,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	@Override
-	public void mojoCallback(LoadMojo mojo) {
+	public void callback(LoadMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
 			return;
@@ -319,7 +296,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// These are the beans containing Maven GAV info and (if configured) the Maven model objects
 		Map<String, Object> beans = getBeans(mojo, mavenProperties);
 
-		// Accumulate any active Maven profiles into a list (this always has one profile called "maven" as the first element in the list)
+		// Accumulate any active Maven profiles into a list (default is one profile named "maven")
 		List<String> activeProfiles = getActiveProfiles(mojo);
 		List<String> defaultProfiles = getDefaultProfiles(mojo);
 
