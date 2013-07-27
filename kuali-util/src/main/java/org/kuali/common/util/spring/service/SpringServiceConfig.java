@@ -11,4 +11,10 @@ public class SpringServiceConfig {
 		return new DefaultSpringService();
 	}
 
+	@Bean
+	public PropertySourceService propertySourceService() {
+		DefaultPropertySourceService service = new DefaultPropertySourceService();
+		service.setSpringService(springService());
+		return service;
+	}
 }
