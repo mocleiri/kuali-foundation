@@ -15,34 +15,12 @@
  */
 package org.kuali.common.util.spring;
 
-import java.util.List;
-import java.util.Properties;
-
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.springframework.core.env.PropertySource;
 
 public class SpringExecUtils {
-
-	/**
-	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClass passed in
-	 */
-	public static SpringExecutable getSpringExecutable(PropertiesSupplier supplier, Class<?> annotatedClass) {
-		return getSpringExecutable(supplier, CollectionUtils.asList(annotatedClass));
-	}
-
-	/**
-	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClasses passed in
-	 */
-	public static SpringExecutable getSpringExecutable(PropertiesSupplier supplier, List<Class<?>> annotatedClasses) {
-		Properties properties = supplier.getProperties();
-		PropertySource<?> source = SpringUtils.getGlobalPropertySource(properties);
-		SpringContext context = getSinglePropertySourceContext(source);
-		context.setAnnotatedClasses(annotatedClasses);
-		return new SpringExecutable(context);
-	}
 
 	/**
 	 * Return a SpringExecutable for the PropertySource and annotatedClass passed in
