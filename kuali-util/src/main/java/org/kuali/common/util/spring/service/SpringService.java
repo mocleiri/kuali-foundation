@@ -21,8 +21,6 @@ import org.springframework.core.env.PropertySource;
 
 public interface SpringService {
 
-	PropertySource<?> getPropertySource(PropertySourceConfig config);
-
 	void load(Class<?> annotatedClass);
 
 	void load(Class<?> annotatedClass, Map<String, Object> contextBeans);
