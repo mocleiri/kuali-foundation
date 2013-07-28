@@ -78,30 +78,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>maven.properties</include>
-          <include>**/PropertyUtilsTest-context.xml</include>
-          <include>**/SpringServiceTest-context.xml</include>
-          <include>**/MavenTest-context.xml</include>
-          <include>**/build-properties-context.xml</include>
-        </includes>
-      </testResource>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>maven.properties</exclude>
-          <exclude>**/PropertyUtilsTest-context.xml</exclude>
-          <exclude>**/SpringServiceTest-context.xml</exclude>
-          <exclude>**/MavenTest-context.xml</exclude>
-          <exclude>**/build-properties-context.xml</exclude>
-        </excludes>
-      </testResource>
-    </testResources>
   </build>
   <dependencies>
     <dependency>
