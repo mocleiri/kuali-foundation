@@ -42,11 +42,11 @@ public class AutomaticProjectConfig implements ProjectConfig {
 		@Bean
 		public Project project() {
 
-			String groupId = projectIdentifierConfig.projectGroupId();
-			String artifactId = projectIdentifierConfig.projectArtifactId();
-
 			// Get a reference to the project service
 			ProjectService service = projectServiceConfig.projectService();
+
+			String groupId = projectIdentifierConfig.projectGroupId();
+			String artifactId = projectIdentifierConfig.projectArtifactId();
 
 			// Use the service to convert the projectId into a Project
 			return service.getProject(groupId, artifactId);
@@ -72,11 +72,11 @@ public class AutomaticProjectConfig implements ProjectConfig {
 			// Make sure the maven properties got wired in correctly
 			Assert.notNull(mavenProperties, "mavenProperties are null");
 
-			// Enhance the default set of Maven properties
-			MavenUtils.augmentProjectProperties(projectServiceConfig.projectService(), mavenProperties);
-
 			// Get a reference to the project service
 			ProjectService service = projectServiceConfig.projectService();
+
+			// Enhance the default set of Maven properties
+			MavenUtils.augmentProjectProperties(service, mavenProperties);
 
 			// Use the service to convert the properties into a Project
 			return service.getProject(mavenProperties);
