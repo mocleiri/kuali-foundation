@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ AutomaticProjectConfig.class })
+@Import({ AutowiredProjectConfig.class })
 public class KualiUtilProjectConfig implements ProjectIdentifierConfig {
 
 	protected static final ProjectIdentifier IDENTIFIER = KualiUtilProjectConstants.PROJECT_IDENTIFIER;

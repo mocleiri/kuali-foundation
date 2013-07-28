@@ -18,13 +18,13 @@ package org.kuali.common.util.config.spring.aggregation;
 import java.util.Properties;
 
 import org.kuali.common.util.project.Project;
-import org.kuali.common.util.project.spring.AutomaticProjectConfig;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ AutomaticProjectConfig.class })
+@Import({ AutowiredProjectConfig.class })
 public class ProjectConfigOverridesConfig implements ConfigOverridesConfig {
 
 	@Autowired

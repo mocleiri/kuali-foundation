@@ -22,7 +22,7 @@ import org.springframework.util.Assert;
  * obtain a <code>Project</code> object.
  */
 @Configuration
-public class AutomaticProjectConfig {
+public class AutowiredProjectConfig {
 
 	// There can be only two results here:
 	// 1 - A project object is successfully constructed and wired into the Spring context
