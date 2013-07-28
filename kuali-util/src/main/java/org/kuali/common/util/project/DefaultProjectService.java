@@ -80,7 +80,8 @@ public class DefaultProjectService implements ProjectService {
 		// If that location doesn't exist, we have issues
 		Assert.exists(location, "[" + location + "] does not exist");
 
-		// Use UTF-8 to load project.properties, unless they've set the system property "project.properties.encoding"
+		// Use UTF-8 to load project.properties
+		// Set the system property "project.properties.encoding" or the environment variable "PROJECT_PROPERTIES_ENCODING" to override
 		String encoding = PropertyUtils.getGlobalProperty(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
 
 		// Load the properties from disk
@@ -92,8 +93,8 @@ public class DefaultProjectService implements ProjectService {
 
 	protected String getPropertiesFileLocation(String groupId, String artifactId) {
 		Properties properties = new Properties();
-		properties.setProperty(MavenConstants.GROUP_ID_KEY, Str.getPath(groupId));
-		properties.setProperty(MavenConstants.ARTIFACT_ID_KEY, artifactId);
+		properties.setProperty(Constants.GROUP_ID_PATH_KEY, Str.getPath(groupId));
+		properties.setProperty(Constants.ARTIFACT_ID_KEY, artifactId);
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
 	}
 
