@@ -1,19 +1,19 @@
 package edu.calpoly.records.spring;
 
 import org.kuali.common.util.execute.PrintMessageExecutable;
-import org.kuali.common.util.maven.MavenConstants;
-import org.kuali.common.util.spring.config.annotation.NotMaven;
+import org.kuali.common.util.maven.spring.MavenProfileConstants;
+import org.kuali.common.util.maven.spring.NoAutowiredMavenProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@NotMaven
+@NoAutowiredMavenProperties
 public class PrintNotMavenMessage {
 
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage(MavenConstants.NEGATED_SPRING_PROFILE_NAME);
+		exec.setMessage(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NEGATED);
 		return exec;
 	}
 
