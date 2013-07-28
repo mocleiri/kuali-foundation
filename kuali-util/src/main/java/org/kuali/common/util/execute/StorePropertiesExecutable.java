@@ -28,6 +28,7 @@ public class StorePropertiesExecutable implements Executable {
 	String encoding = "UTF-8";
 	boolean skip;
 	boolean skipIfExists = true;
+	boolean skipIfEqual = true;
 	Properties properties;
 	File outputFile;
 	List<String> includes;
@@ -43,14 +44,18 @@ public class StorePropertiesExecutable implements Executable {
 		// Make sure we have an output file
 		Assert.notNull(outputFile, "outputFile is null");
 
-		// Might not need to do anything
-		boolean exists = LocationUtils.exists(outputFile);
-		if (exists && skipIfExists) {
+		// May not need to go any further
+		if (LocationUtils.exists(outputFile) && skipIfExists) {
 			return;
 		}
 
 		// Make sure we have some properties to work with
 		Assert.notNull(properties, "properties is null");
+
+		// Might not need to store them
+		if (!isStoreProperties(outputFile, skipIfEqual, properties)) {
+			return;
+		}
 
 		// Clone the properties they passed us
 		Properties duplicate = PropertyUtils.duplicate(properties);
@@ -60,6 +65,30 @@ public class StorePropertiesExecutable implements Executable {
 
 		// Persist them to the file system
 		store(duplicate, outputFile, encoding);
+	}
+
+	protected boolean isStoreProperties(File outputFile, boolean skipIfEqual, Properties properties) {
+		// Always return true if the file does not exist
+		if (!LocationUtils.exists(outputFile)) {
+			return true;
+		}
+
+		// The file might exists and contain the exact same properties, but it doesn't matter
+		if (!skipIfEqual) {
+			return true;
+		}
+
+		// Load the existing properties
+		Properties loaded = PropertyUtils.loadSilently(outputFile);
+
+		// Compare the loaded properties with the properties we have
+		boolean equal = PropertyUtils.equals(loaded, properties);
+
+		// If they are not equal to each other, we need to store them
+		boolean storeProperties = !equal;
+
+		// Return our value
+		return storeProperties;
 	}
 
 	protected void store(Properties properties, File outputFile, String encoding) {
@@ -120,6 +149,14 @@ public class StorePropertiesExecutable implements Executable {
 
 	public void setSkipIfExists(boolean skipIfExists) {
 		this.skipIfExists = skipIfExists;
+	}
+
+	public boolean isSkipIfEqual() {
+		return skipIfEqual;
+	}
+
+	public void setSkipIfEqual(boolean skipIfEqual) {
+		this.skipIfEqual = skipIfEqual;
 	}
 
 }
