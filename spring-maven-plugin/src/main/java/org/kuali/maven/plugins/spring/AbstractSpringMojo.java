@@ -155,8 +155,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Returns true if the System property <code>spring.debug</code> is set to true OR debug logging has been enabled for the execution of this mojo (typically done via -X on the
-	 * Maven command line)
+	 * If this returns true, put log4j into debug mode
 	 */
 	protected boolean isDebugLoggingEnabled() {
 		if (getLog().isDebugEnabled()) {
