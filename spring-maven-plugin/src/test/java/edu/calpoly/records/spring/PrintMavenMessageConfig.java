@@ -12,7 +12,7 @@ public class PrintMavenMessageConfig {
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage("maven rocks!!!");
+		exec.setMessage("maven");
 		return exec;
 	}
 

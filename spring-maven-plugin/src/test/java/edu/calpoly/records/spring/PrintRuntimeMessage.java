@@ -12,7 +12,7 @@ public class PrintRuntimeMessage {
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage("maven sucks!!!");
+		exec.setMessage("runtime");
 		return exec;
 	}
 
