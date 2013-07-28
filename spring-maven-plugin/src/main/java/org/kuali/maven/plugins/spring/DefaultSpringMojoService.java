@@ -166,7 +166,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// These are the beans containing Maven GAV info and (if configured) the Maven model objects
 		Map<String, Object> beans = getBeans(mojo, mavenProperties);
 
-		// Accumulate any active Maven profiles into a list (this always has one profile called "maven" as the first element in the list)
+		// Accumulate any active Maven profiles into a list
 		List<String> activeProfiles = getActiveProfiles(mojo);
 		List<String> defaultProfiles = getDefaultProfiles(mojo);
 
