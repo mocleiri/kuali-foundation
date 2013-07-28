@@ -18,7 +18,7 @@ package org.kuali.common.util.config.spring.aggregation;
 import java.util.Properties;
 
 import org.kuali.common.util.project.Project;
-import org.kuali.common.util.project.spring.config.AutomaticProjectConfig;
+import org.kuali.common.util.project.spring.AutomaticProjectConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

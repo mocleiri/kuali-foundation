@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.project;
+package org.kuali.common.util.project.spring;
 
+import org.kuali.common.util.project.DefaultProjectService;
+import org.kuali.common.util.project.ProjectService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

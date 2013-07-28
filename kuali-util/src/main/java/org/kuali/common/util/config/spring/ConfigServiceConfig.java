@@ -17,7 +17,7 @@ package org.kuali.common.util.config.spring;
 
 import org.kuali.common.util.config.service.ConfigService;
 import org.kuali.common.util.config.service.DefaultConfigService;
-import org.kuali.common.util.project.ProjectServiceConfig;
+import org.kuali.common.util.project.spring.ProjectServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

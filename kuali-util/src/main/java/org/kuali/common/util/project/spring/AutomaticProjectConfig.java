@@ -1,4 +1,4 @@
-package org.kuali.common.util.project.spring.config;
+package org.kuali.common.util.project.spring;
 
 import java.util.Properties;
 
@@ -6,7 +6,6 @@ import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
-import org.kuali.common.util.project.ProjectServiceConfig;
 import org.kuali.common.util.spring.config.annotation.Maven;
 import org.kuali.common.util.spring.config.annotation.NotMaven;
 import org.springframework.beans.factory.annotation.Autowired;

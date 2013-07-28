@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.project.spring.config;
+package org.kuali.common.util.project.spring;
 
-public interface ProjectIdentifierConfig {
+import org.kuali.common.util.project.Project;
 
-	String projectGroupId();
+public interface ProjectConfig {
 
-	String projectArtifactId();
+	Project project();
 
 }

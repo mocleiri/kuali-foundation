@@ -1,8 +1,8 @@
-package org.kuali.common.util.project;
+package org.kuali.common.util.project.spring;
 
-import org.kuali.common.util.project.spring.config.AutomaticProjectConfig;
-import org.kuali.common.util.project.spring.config.ProjectConfig;
-import org.kuali.common.util.project.spring.config.ProjectIdentifierConfig;
+import org.kuali.common.util.project.KualiUtilProjectConstants;
+import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.ProjectIdentifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
