@@ -37,27 +37,26 @@ public class DefaultPropertySourceService implements PropertySourceService {
 
 	@Override
 	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config) {
-		return getPropertySourceInternal(beans, defaultProfiles, activeProfiles, config, null);
+		return getPropertySource(beans, defaultProfiles, activeProfiles, config, null);
 	}
 
 	@Override
 	public List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config) {
-		return getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config, null);
+		return getPropertySources(beans, defaultProfiles, activeProfiles, config, null);
 	}
 
 	@Override
 	public List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, String location) {
-		return getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, null, location);
+		return getPropertySources(beans, defaultProfiles, activeProfiles, null, location);
 	}
 
-	protected PropertySource<?> getPropertySourceInternal(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config, String location) {
-		List<PropertySource<?>> sources = getPropertySourcesInternal(beans, defaultProfiles, activeProfiles, config, null);
+	protected PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config, String location) {
+		List<PropertySource<?>> sources = getPropertySources(beans, defaultProfiles, activeProfiles, config, location);
 		Assert.isTrue(sources.size() == 1, "sizes != 1");
 		return sources.get(0);
 	}
 
-	protected List<PropertySource<?>> getPropertySourcesInternal(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config,
-			String location) {
+	protected List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config, String location) {
 
 		Assert.notNull(springService, "springService is null");
 
