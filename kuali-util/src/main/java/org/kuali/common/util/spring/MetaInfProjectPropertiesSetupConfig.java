@@ -77,15 +77,19 @@ public class MetaInfProjectPropertiesSetupConfig {
 		// Setup the regular properties file executable
 		StorePropertiesExecutable spe = new StorePropertiesExecutable();
 		spe.setSkip(SpringUtils.getBoolean(env, "project.metainf.skip", false));
+		spe.setSkipIfExists(SpringUtils.getBoolean(env, "project.metainf.skipIfExists", true));
+		spe.setSkipIfEqual(SpringUtils.getBoolean(env, "project.metainf.skipIfEqual", true));
 		spe.setEncoding(encoding);
 		spe.setOutputFile(outputFile);
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
-		
+
 		// Setup the Rice style properties file executable
 		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
-		srpe.setSkip(SpringUtils.getBoolean(env, "project.metainf.rice.skip", false));
+		spe.setSkip(SpringUtils.getBoolean(env, "project.metainf.skip", false));
+		spe.setSkipIfExists(SpringUtils.getBoolean(env, "project.metainf.skipIfExists", true));
+		spe.setSkipIfEqual(SpringUtils.getBoolean(env, "project.metainf.skipIfEqual", true));
 		srpe.setEncoding(encoding);
 		srpe.setOutputFile(riceOutputFile);
 		srpe.setProperties(properties);
