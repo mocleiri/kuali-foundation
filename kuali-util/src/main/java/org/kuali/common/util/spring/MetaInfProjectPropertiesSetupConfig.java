@@ -55,7 +55,7 @@ public class MetaInfProjectPropertiesSetupConfig {
 
 	@Bean
 	public Properties springProperties() {
-		return SpringUtils.getAllEnumerableProperties(env);
+		return PropertySourceUtils.getAllEnumerableProperties(env);
 	}
 
 	@Bean

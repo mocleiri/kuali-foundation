@@ -40,6 +40,26 @@ public class PropertySourceUtils {
 	// private static final Logger logger = LoggerFactory.getLogger(PropertySourceUtils.class);
 
 	/**
+	 * Examine <code>ConfigurableEnvironment</code> for <code>PropertySource</code>'s that extend <code>EnumerablePropertySource</code> and aggregate them into a single
+	 * <code>Properties</code> object
+	 */
+	public static Properties getAllEnumerableProperties(ConfigurableEnvironment env) {
+
+		// Extract the list of PropertySources from the environment
+		List<PropertySource<?>> sources = getPropertySources(env);
+
+		// Spring provides PropertySource objects ordered from highest priority to lowest priority
+		// We reverse the order here so things follow the typical "last one in wins" strategy
+		Collections.reverse(sources);
+
+		// Make sure every property source is enumerable
+		List<EnumerablePropertySource<?>> enumerables = asEnumerableList(sources);
+
+		// Combine them into a single Properties object
+		return convert(enumerables);
+	}
+
+	/**
 	 * Convert sources into an EnumerablePropertySource list
 	 * 
 	 * @throws <code>IllegalStateException</code> if any source inside sources is not enumerable

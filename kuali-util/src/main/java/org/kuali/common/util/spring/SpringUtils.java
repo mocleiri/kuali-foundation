@@ -897,6 +897,7 @@ public class SpringUtils {
 	 * Examine <code>ConfigurableEnvironment</code> for <code>PropertySource</code>'s that extend <code>EnumerablePropertySource</code> and aggregate them into a single
 	 * <code>Properties</code> object
 	 */
+	@Deprecated
 	public static Properties getAllEnumerableProperties(ConfigurableEnvironment env) {
 
 		// Extract the list of PropertySources from the environment
