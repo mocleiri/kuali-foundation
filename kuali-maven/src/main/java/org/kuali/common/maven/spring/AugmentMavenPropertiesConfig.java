@@ -17,11 +17,9 @@ package org.kuali.common.maven.spring;
 
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.maven.MavenConstants;
-import org.kuali.common.util.project.ProjectServiceConfig;
+import org.kuali.common.util.project.spring.ProjectServiceConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -35,11 +33,10 @@ public class AugmentMavenPropertiesConfig {
 	Environment env;
 
 	@Autowired
-	ProjectServiceConfig projectServiceConfig;
+	MavenProject mavenProject;
 
 	@Autowired
-	@Qualifier(MavenConstants.PROJECT_BEAN_NAME)
-	MavenProject mavenProject;
+	ProjectServiceConfig projectServiceConfig;
 
 	@Bean(initMethod = "execute")
 	public Executable augmentMavenProperties() {
