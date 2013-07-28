@@ -63,7 +63,7 @@ public class AutomaticProjectConfig {
 	@Import({ ProjectServiceConfig.class })
 	static class MavenProjectConfig implements ProjectConfig {
 
-		// Spring Maven Plugin wires this in for us
+		// spring-maven-plugin wires this in for us
 		@Autowired
 		@Qualifier(MavenConstants.PROPERTIES_BEAN_NAME)
 		Properties mavenProperties;
