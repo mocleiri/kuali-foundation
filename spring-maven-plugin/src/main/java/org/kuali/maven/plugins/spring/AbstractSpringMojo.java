@@ -15,8 +15,6 @@
  */
 package org.kuali.maven.plugins.spring;
 
-import static org.kuali.common.util.maven.MavenConstants.SPRING_MAVEN_PLUGIN_PROFILE_NAME;
-
 import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
@@ -82,10 +80,10 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String mojoExecutableConfig = MojoExecutableConfig.class.getName();
 
 	/**
-	 * Comma separated list of profiles to activate. By default the profiles <code>maven</code> and <code>springMavenPlugin</code> are activated.
+	 * Comma separated list of profiles to activate. By default the profile <code>maven</code> is activated.
 	 */
-	@Parameter(property = "spring.profiles.active", defaultValue = SPRING_MAVEN_PLUGIN_PROFILE_NAME)
-	String activeProfiles = SPRING_MAVEN_PLUGIN_PROFILE_NAME;
+	@Parameter(property = "spring.profiles.active", defaultValue = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME)
+	String activeProfiles = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME;
 
 	/**
 	 * Comma separated list of active profiles to include. By default, all active Maven profiles plus any profiles from <code>activeProfiles</code> are activated.

@@ -2,12 +2,12 @@ package edu.calpoly.records.spring;
 
 import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.maven.MavenConstants;
-import org.kuali.common.util.spring.config.annotation.SpringMavenPlugin;
+import org.kuali.common.util.spring.config.annotation.Maven;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@SpringMavenPlugin
+@Maven
 public class PrintMavenMessageConfig {
 
 	@Bean
