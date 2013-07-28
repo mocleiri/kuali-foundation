@@ -21,10 +21,10 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.maven.MavenConstants;
 
 public class ProjectUtils {
 
-	private static final String ENCODING_KEY = "project.encoding";
 	private static final String CLASSPATH = "classpath:";
 
 	/**
@@ -77,7 +77,7 @@ public class ProjectUtils {
 	 * Convenience method for extracting the value of the property <code>project.encoding</code>
 	 */
 	public static String getEncoding(Project project) {
-		return project.getProperties().getProperty(ENCODING_KEY);
+		return project.getProperties().getProperty(MavenConstants.ENCODING_KEY);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class ProjectUtils {
 	 * Return a resource friendly prefix.
 	 * 
 	 * <pre>
-	 *   org.kuali.common:kuali-util = org/kuali/common/kuali-util
+	 *   org.kuali.common:kuali-util  ->  org/kuali/common/kuali-util
 	 * </pre>
 	 */
 	public static String getResourcePath(String groupId, String artifactId) {
@@ -107,7 +107,7 @@ public class ProjectUtils {
 	 * Return a classpath prefix.
 	 * 
 	 * <pre>
-	 *   org.kuali.common:kuali-util = classpath:org/kuali/common/kuali-util
+	 *   org.kuali.common:kuali-util  ->  classpath:org/kuali/common/kuali-util
 	 * </pre>
 	 */
 	public static String getClassPathPrefix(String groupId, String artifactId) {

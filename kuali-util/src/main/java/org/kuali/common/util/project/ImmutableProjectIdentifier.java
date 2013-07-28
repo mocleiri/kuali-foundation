@@ -15,12 +15,15 @@
  */
 package org.kuali.common.util.project;
 
+import org.kuali.common.util.Assert;
+
 public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
+		Assert.notBlank(groupId, artifactId, "groupId + artifactId cannot be blank");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 	}
