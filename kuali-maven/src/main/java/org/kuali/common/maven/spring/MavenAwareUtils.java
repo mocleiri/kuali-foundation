@@ -64,16 +64,8 @@ public class MavenAwareUtils {
 			nullSafeSet(properties, "project.scm.url", project.getScm().getDeveloperConnection());
 		}
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
-		if (project.getDependencies() != null) {
-			List<Dependency> pojos = convertToSimplePojos(project.getDependencies());
-			if (pojos.size() == 0) {
-				nullSafeSet(properties, "project.dependencies", Constants.NONE);
-			} else {
-				nullSafeSet(properties, "project.dependencies", getDependenciesCSV(pojos));
-			}
-		} else {
-			nullSafeSet(properties, "project.dependencies", Constants.NONE);
-		}
+		List<Dependency> dependencies = convertToSimplePojos(project.getDependencies());
+		nullSafeSet(properties, "project.dependencies", getDependenciesCSV(dependencies));
 		return properties;
 	}
 
@@ -107,7 +99,7 @@ public class MavenAwareUtils {
 	 */
 	public static List<Dependency> convertToSimplePojos(List<org.apache.maven.model.Dependency> dependencies) {
 		List<Dependency> pojos = new ArrayList<Dependency>();
-		for (org.apache.maven.model.Dependency d : dependencies) {
+		for (org.apache.maven.model.Dependency d : CollectionUtils.toEmptyList(dependencies)) {
 			Dependency pojo = new Dependency();
 			pojo.setGroupId(d.getGroupId());
 			pojo.setArtifactId(d.getArtifactId());
