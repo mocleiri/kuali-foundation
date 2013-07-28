@@ -4,7 +4,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectIdentifier;
@@ -31,7 +30,7 @@ public class AutomaticProjectConfigTest {
 		logger.info("   Loaded: [" + project.getGroupId() + ":" + project.getArtifactId() + "]");
 		Assert.assertEquals(ID.getGroupId(), project.getGroupId());
 		Assert.assertEquals(ID.getArtifactId(), project.getArtifactId());
-		PropertyUtils.info(project.getProperties());
+		// PropertyUtils.info(project.getProperties());
 	}
 
 }
