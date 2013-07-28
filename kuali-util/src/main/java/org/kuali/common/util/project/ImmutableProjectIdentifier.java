@@ -23,7 +23,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 	private final String artifactId;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
-		Assert.notBlank(groupId, artifactId, "groupId + artifactId cannot be blank");
+		Assert.notBlank(groupId, artifactId, "groupId and artifactId cannot be blank");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 	}
