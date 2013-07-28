@@ -7,12 +7,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @NotMaven
-public class PrintNonMavenMessage {
+public class PrintNotMavenMessage {
 
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage("runtime");
+		exec.setMessage("!maven");
 		return exec;
 	}
 
