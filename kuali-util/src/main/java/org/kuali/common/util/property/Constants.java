@@ -67,7 +67,7 @@ public final class Constants {
 	@Deprecated
 	public static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
 	public static final String ARTIFACT_ID_KEY = MavenConstants.ARTIFACT_ID_KEY;
-	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${" + MavenConstants.GROUP_ID_KEY + "}/${" + ARTIFACT_ID_KEY + "}";
+	public static final String PROJECT_PROPERTIES_BASE = "META-INF/${" + MavenConstants.GROUP_ID_PATH_KEY + "}/${" + ARTIFACT_ID_KEY + "}";
 	public static final String PROJECT_PROPERTIES_FRAGMENT = PROJECT_PROPERTIES_BASE + "/project.properties";
 	public static final String PROJECT_PROPERTIES_OUTPUTFILE = "${project.build.outputDirectory}/" + PROJECT_PROPERTIES_FRAGMENT;
 	public static final String PROJECT_PROPERTIES_LOCATION = "classpath:" + PROJECT_PROPERTIES_FRAGMENT;
