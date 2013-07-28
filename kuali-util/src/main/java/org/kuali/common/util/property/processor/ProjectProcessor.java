@@ -116,7 +116,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		// All KS projects should have a groupId of "org.kuali.student" no matter what
 		properties.setProperty(MavenConstants.GROUP_ID_KEY, KualiProjectConstants.STUDENT_GROUP_ID);
 
-		// This KS project has some other group id for some reason
+		// This KS project is using some other group id for some reason
 		// Store it in project.properties just for posterity
 		if (!StringUtils.equals(groupId, KualiProjectConstants.STUDENT_GROUP_ID)) {
 			logger.debug("original={}", groupId);
