@@ -9,24 +9,16 @@ public class MojoExecutable implements Executable {
 	private static final String SERVICE_CALLBACK_METHOD_NAME = "callback";
 
 	String serviceMethod = SERVICE_CALLBACK_METHOD_NAME;
-	MethodInvoker invoker = new MethodInvoker();
 	AbstractSpringMojo mojo;
 	SpringMojoService service;
 
 	@Override
 	public void execute() {
+		MethodInvoker invoker = new MethodInvoker();
 		invoker.setTargetObject(service);
 		invoker.setTargetMethod(serviceMethod);
 		invoker.setArguments(new Object[] { mojo });
 		ReflectionUtils.invoke(invoker);
-	}
-
-	public MethodInvoker getInvoker() {
-		return invoker;
-	}
-
-	public void setInvoker(MethodInvoker invoker) {
-		this.invoker = invoker;
 	}
 
 	public String getServiceMethod() {
