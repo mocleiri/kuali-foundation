@@ -25,6 +25,9 @@ public abstract class MavenConstants {
 	public static final String NEGATED_SPRING_PROFILE_NAME = "!" + SPRING_PROFILE_NAME;
 	public static final String GROUP_ID_KEY = "project.groupId";
 	public static final String GROUP_ID_PATH_KEY = "project.groupId.path";
+	// KS is using a ton of groupId's that all get translated to "org.kuali.student" on the way out to project.properties
+	// The original groupId is preserved under this key (just in case)
+	public static final String GROUP_ID_ORIGINAL_KEY = "project.groupId.original";
 	public static final String ARTIFACT_ID_KEY = "project.artifactId";
 	public static final String VERSION_KEY = "project.version";
 	public static final String ENCODING_KEY = "project.encoding";

@@ -26,12 +26,16 @@ import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
  * This processor is called *very* early in the Maven build lifecyle in order to augment the default set of Maven properties.
  */
 public class ProjectProcessor implements PropertyProcessor {
+
+	private static final Logger logger = LoggerFactory.getLogger(ProjectProcessor.class);
 
 	private static final String KS_GROUP_ID = KualiProjectConstants.STUDENT_GROUP_ID;
 	private static final String FS = File.separator;
@@ -105,10 +109,18 @@ public class ProjectProcessor implements PropertyProcessor {
 		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
 
 		// Only muck with KS projects
-		if (StringUtils.startsWith(groupId, KS_GROUP_ID)) {
+		if (!StringUtils.startsWith(groupId, KS_GROUP_ID)) {
+			return;
+		}
 
-			// All KS projects should have a groupId of "org.kuali.student" no matter what
-			properties.setProperty(MavenConstants.GROUP_ID_KEY, KualiProjectConstants.STUDENT_GROUP_ID);
+		// All KS projects should have a groupId of "org.kuali.student" no matter what
+		properties.setProperty(MavenConstants.GROUP_ID_KEY, KualiProjectConstants.STUDENT_GROUP_ID);
+
+		// This KS project has some other group id for some reason
+		// Store it in project.properties just for posterity
+		if (!StringUtils.equals(groupId, KualiProjectConstants.STUDENT_GROUP_ID)) {
+			logger.debug("original={}", groupId);
+			properties.setProperty(MavenConstants.GROUP_ID_ORIGINAL_KEY, groupId);
 		}
 	}
 
