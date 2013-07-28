@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -40,8 +41,10 @@ public class PropertySourceUtils {
 	// private static final Logger logger = LoggerFactory.getLogger(PropertySourceUtils.class);
 
 	/**
-	 * Examine <code>ConfigurableEnvironment</code> for <code>PropertySource</code>'s that extend <code>EnumerablePropertySource</code> and aggregate them into a single
-	 * <code>Properties</code> object
+	 * Aggregate every property from every <code>PropertySource</code> in the <code>ConfigurableEnvironment</code> into a <code>Properties</code> object.
+	 * 
+	 * @throws IllegalArgumentException
+	 *             If any <code>PropertySource</code> is not an <code>EnumerablePropertySource</code> or if any values are not <code>java.lang.String</code>
 	 */
 	public static Properties getAllEnumerableProperties(ConfigurableEnvironment env) {
 
@@ -49,7 +52,7 @@ public class PropertySourceUtils {
 		List<PropertySource<?>> sources = getPropertySources(env);
 
 		// Spring provides PropertySource objects ordered from highest priority to lowest priority
-		// We reverse the order here so things follow the typical "last one in wins" strategy
+		// We reverse the order here so things follow the "last one in wins" strategy
 		Collections.reverse(sources);
 
 		// Make sure every property source is enumerable
@@ -60,9 +63,19 @@ public class PropertySourceUtils {
 	}
 
 	/**
-	 * Convert sources into an EnumerablePropertySource list
+	 * Aggregate every property from every <code>PropertySource</code> in the <code>ConfigurableEnvironment</code> into an <code>Properties</code> object.
 	 * 
-	 * @throws <code>IllegalStateException</code> if any source inside sources is not enumerable
+	 * @throws IllegalArgumentException
+	 *             If any <code>PropertySource</code> is not an <code>EnumerablePropertySource</code> or if any values are not <code>java.lang.String</code>
+	 */
+	public static ImmutableProperties getEnvAsImmutableProperties(ConfigurableEnvironment env) {
+		return new ImmutableProperties(getAllEnumerableProperties(env));
+	}
+
+	/**
+	 * Create an <code>EnumerablePropertySource</code> list from a <code>PropertySource</code> list
+	 * 
+	 * @throws <code>IllegalArgumentException</code> if any element in <code>sources</code> is not an <code>EnumerablePropertySource</code>
 	 */
 	public static List<EnumerablePropertySource<?>> asEnumerableList(List<PropertySource<?>> sources) {
 		List<EnumerablePropertySource<?>> list = new ArrayList<EnumerablePropertySource<?>>();
@@ -93,7 +106,7 @@ public class PropertySourceUtils {
 	/**
 	 * Copy the key/value pairs from <code>source</code> into a <code>java.util.Properties</code> object.
 	 * 
-	 * @throws <code>IllegalArgumentException</code> if any value is <code>null</code> or not a string.
+	 * @throws <code>IllegalArgumentException</code> if any value is <code>null</code> or is not a <code>java.lang.String</code>
 	 */
 	public static Properties convert(EnumerablePropertySource<?> source) {
 		Assert.notNull(source, "source is null");
@@ -111,7 +124,7 @@ public class PropertySourceUtils {
 	/**
 	 * Copy the key/value pairs from <code>sources</code> into a <code>java.util.Properties</code> object.
 	 * 
-	 * @throws <code>IllegalArgumentException</code> if any value is <code>null</code> or not a string.
+	 * @throws <code>IllegalArgumentException</code> if any value is <code>null</code> or is not a <code>java.lang.String</code>
 	 */
 	public static Properties convert(List<EnumerablePropertySource<?>> sources) {
 		Properties converted = new Properties();
