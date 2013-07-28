@@ -29,6 +29,7 @@ public class AutomaticProjectConfig {
 	@Autowired
 	Project project;
 
+	@Bean
 	public Project project() {
 		return project;
 	}
