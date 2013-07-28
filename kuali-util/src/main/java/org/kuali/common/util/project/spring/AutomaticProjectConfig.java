@@ -27,9 +27,10 @@ public class AutomaticProjectConfig {
 	// There can be only two results here:
 	// 1 - A project object is successfully constructed and wired into the Spring context
 	// 2 - An exception is thrown
-	// The pair of static classes below, are setup to activate with maven and !maven, so one (and only one) of them will always load
+	// The pair of static classes below, are setup to activate via the Spring profiles "maven" and "!maven"
+	// This makes it so that one (and only one) of them will always load no matter what
 
-	// This config class only loads if the Spring profile "maven" is NOT active
+	// This config class loads if the Spring profile "maven" is NOT active
 	@Configuration
 	@NotMaven
 	@Import({ ProjectServiceConfig.class })
@@ -57,7 +58,7 @@ public class AutomaticProjectConfig {
 		}
 	}
 
-	// This config class only loads if the Spring profile "maven" IS active
+	// This config class loads if the Spring profile "maven" IS active
 	@Configuration
 	@Maven
 	@Import({ ProjectServiceConfig.class })
