@@ -25,7 +25,10 @@ import org.springframework.util.Assert;
 @Configuration
 public class AutomaticProjectConfig {
 
-	// One of the two static classes below is *guaranteed* to have wired this in
+	// There can be only two results here:
+	// 1 - One of the static classes below successfully constructs a Project object
+	// 2 - An exception is thrown
+	// The pair of them are setup to activate with maven and !maven, so one (and only one) of them will always load
 	@Autowired
 	Project project;
 
