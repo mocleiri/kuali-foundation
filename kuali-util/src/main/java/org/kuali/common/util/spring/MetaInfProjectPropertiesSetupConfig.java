@@ -82,7 +82,7 @@ public class MetaInfProjectPropertiesSetupConfig {
 		spe.setProperties(properties);
 		spe.setIncludes(includes);
 		spe.setExcludes(excludes);
-
+		
 		// Setup the Rice style properties file executable
 		StoreRicePropertiesExecutable srpe = new StoreRicePropertiesExecutable();
 		srpe.setSkip(SpringUtils.getBoolean(env, "project.metainf.rice.skip", false));
