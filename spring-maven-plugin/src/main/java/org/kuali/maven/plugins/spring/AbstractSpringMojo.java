@@ -170,7 +170,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		return Boolean.parseBoolean(value);
 	}
 
-	@Deprecated
+	// TODO Move the log4j configuration being done here into Spring
 	protected void configureLogging() {
 		// We are not in debug mode, don't do anything
 		if (!isDebugLoggingEnabled()) {
