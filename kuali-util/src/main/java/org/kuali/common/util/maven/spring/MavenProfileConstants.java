@@ -1,6 +1,6 @@
 package org.kuali.common.util.maven.spring;
 
-public abstract class MavenAnnotationConstants {
+public abstract class MavenProfileConstants {
 
 	public static final String MAVEN_PROFILE = "maven";
 	public static final String MAVEN_PROFILE_NEGATED = "!" + MAVEN_PROFILE;
