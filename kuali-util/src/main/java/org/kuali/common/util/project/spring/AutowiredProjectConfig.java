@@ -4,11 +4,11 @@ import java.util.Properties;
 
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
+import org.kuali.common.util.maven.spring.AutowiredMavenProperties;
+import org.kuali.common.util.maven.spring.NoAutowiredMavenProperties;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectIdentifier;
 import org.kuali.common.util.project.ProjectService;
-import org.kuali.common.util.spring.config.annotation.Maven;
-import org.kuali.common.util.spring.config.annotation.NotMaven;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -51,12 +51,12 @@ public class AutowiredProjectConfig {
 	// There can be only two results here:
 	// 1 - A project object is successfully constructed and wired into the Spring context
 	// 2 - An exception is thrown
-	// The pair of static classes below, are setup to activate via the Spring profiles "maven" and "!maven"
+	// The pair of static classes below, are setup to activate via the Spring profiles "autowiredMavenProperties" and "!autowiredMavenProperties"
 	// This makes it so that one (and only one) of them will always load no matter what
 
-	// This config class loads if the Spring profile "maven" is NOT active
+	// This config class loads if the Spring profile "autowiredMavenProperties" is NOT active
 	@Configuration
-	@NotMaven
+	@NoAutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
 	static class NotMavenProjectConfig implements ProjectConfig {
 
@@ -81,9 +81,9 @@ public class AutowiredProjectConfig {
 		}
 	}
 
-	// This config class loads if the Spring profile "maven" IS active
+	// This config class loads if the Spring profile "autowiredMavenProperties" IS active
 	@Configuration
-	@Maven
+	@AutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
 	static class MavenProjectConfig implements ProjectConfig {
 

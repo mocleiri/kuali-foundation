@@ -62,6 +62,10 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 		return project.getProperties();
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	@Configuration
 	@Maven
 	@Import({ ProjectServiceConfig.class })
@@ -90,6 +94,10 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	@Configuration
 	@NotMaven
 	@Import({ ProjectServiceConfig.class })

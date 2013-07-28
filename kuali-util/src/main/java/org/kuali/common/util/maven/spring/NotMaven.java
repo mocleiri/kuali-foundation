@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.spring.config.annotation;
+package org.kuali.common.util.maven.spring;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.util.maven.MavenConstants;
 import org.springframework.context.annotation.Profile;
 
-/**
- * @deprecated
- */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(MavenConstants.NEGATED_SPRING_PROFILE_NAME)
-@Deprecated
+@Profile(AnnotationConstants.MAVEN_PROFILE_NEGATED)
 public @interface NotMaven {
 
 }
