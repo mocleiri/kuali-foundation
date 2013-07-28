@@ -10,17 +10,9 @@ import org.springframework.context.annotation.Import;
 @Import({ AutowiredProjectConfig.class })
 public class KualiUtilProjectConfig implements ProjectIdentifierConfig {
 
-	protected static final ProjectIdentifier IDENTIFIER = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
-
 	@Override
 	@Bean
-	public String projectGroupId() {
-		return IDENTIFIER.getGroupId();
-	}
-
-	@Override
-	@Bean
-	public String projectArtifactId() {
-		return IDENTIFIER.getArtifactId();
+	public ProjectIdentifier projectIdentifier() {
+		return KualiUtilProjectConstants.PROJECT_IDENTIFIER;
 	}
 }

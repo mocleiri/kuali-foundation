@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.ProjectIdentifier;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.spring.config.annotation.Maven;
 import org.kuali.common.util.spring.config.annotation.NotMaven;
@@ -73,11 +74,10 @@ public class AutowiredProjectConfig {
 			// Get a reference to the project service
 			ProjectService service = projectServiceConfig.projectService();
 
-			String groupId = projectIdentifierConfig.projectGroupId();
-			String artifactId = projectIdentifierConfig.projectArtifactId();
+			ProjectIdentifier identifier = projectIdentifierConfig.projectIdentifier();
 
-			// Use the service to convert the projectId into a Project
-			return service.getProject(groupId, artifactId);
+			// Use the service to convert groupId + artifactId into a Project
+			return service.getProject(identifier.getGroupId(), identifier.getArtifactId());
 		}
 	}
 
