@@ -16,6 +16,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
+/**
+ * This config class injects a <code>Project</code> object into the Spring context. If the <code>maven</code> profile is active it assumes "something else" (most likely the
+ * spring-maven-plugin) has wired a <code>java.util.Properties</code> bean under the name <code>mavenProperties</code> into the Spring context. It uses those properties to obtain a
+ * <code>Project</code> object. If the <code>maven</code> profile is not active, it assumes "something else" has wired in a <code>ProjectIdentifierConfig</code> and uses that to
+ * obtain a <code>Project</code> object.
+ */
 @Configuration
 public class AutomaticProjectConfig implements ProjectConfig {
 
@@ -33,6 +39,7 @@ public class AutomaticProjectConfig implements ProjectConfig {
 	@Import({ ProjectServiceConfig.class })
 	static class NotMavenProjectConfig {
 
+		// Something else needs to have wired this in
 		@Autowired
 		ProjectIdentifierConfig projectIdentifierConfig;
 
