@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(AnnotationConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NEGATED)
+@Profile(MavenAnnotationConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NEGATED)
 public @interface NoAutowiredMavenProperties {
 
 }

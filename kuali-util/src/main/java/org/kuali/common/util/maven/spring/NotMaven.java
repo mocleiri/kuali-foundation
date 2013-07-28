@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(AnnotationConstants.MAVEN_PROFILE_NEGATED)
+@Profile(MavenAnnotationConstants.MAVEN_PROFILE_NEGATED)
 public @interface NotMaven {
 
 }
