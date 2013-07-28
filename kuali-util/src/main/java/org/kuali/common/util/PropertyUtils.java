@@ -66,6 +66,72 @@ public class PropertyUtils {
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
+	/**
+	 * Return true if both contain an identical set of string keys and values, or both are <code>null</code>, false otherwise.
+	 */
+	public static boolean equals(Properties one, Properties two) {
+
+		// Return true if they are both null
+		if (one == null && two == null) {
+			return true;
+		}
+
+		// If we get here, both are not null (but one or the other might be)
+
+		// Return false if one is null but not the other
+		if (one == null || two == null) {
+			return false;
+		}
+
+		// If we get here, neither one is null
+
+		// Extract the string property keys
+		List<String> keys1 = getSortedKeys(one);
+		List<String> keys2 = getSortedKeys(two);
+
+		// If the sizes are different, return false
+		if (keys1.size() != keys2.size()) {
+			return false;
+		}
+
+		// If we get here, they have the same number of string property keys
+
+		// The sizes are the same, just pick one
+		int size = keys1.size();
+
+		// Iterate through the keys comparing both the keys and values for equality
+		for (int i = 0; i < size; i++) {
+
+			// Extract the keys (this works because the keys are in sorted order)
+			String key1 = keys1.get(i);
+			String key2 = keys2.get(i);
+
+			// Compare the keys for equality
+			if (!StringUtils.equals(key1, key2)) {
+				return false;
+			}
+
+			// Extract the values
+			String val1 = one.getProperty(key1);
+			String val2 = two.getProperty(key2);
+
+			// Compare the values for equality
+			if (!StringUtils.equals(val1, val2)) {
+				return false;
+			}
+		}
+
+		// If we get here we know 3 things:
+
+		// 1 - Both have the exact same number of string based keys/values
+		// 2 - Both have an identical set of string based keys
+		// 3 - Both have the exact same string value for each string key
+
+		// This means they are equal, return true
+		return true;
+
+	}
+
 	public static String getProperty(Properties properties, String key, String defaultValue) {
 		String value = properties.getProperty(key);
 		if (StringUtils.isBlank(value)) {
