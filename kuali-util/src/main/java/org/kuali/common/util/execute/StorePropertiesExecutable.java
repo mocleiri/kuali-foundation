@@ -52,16 +52,16 @@ public class StorePropertiesExecutable implements Executable {
 		// Make sure we have some properties to work with
 		Assert.notNull(properties, "properties is null");
 
-		// Might not need to store them
-		if (!isStoreProperties(outputFile, skipIfEqual, properties)) {
-			return;
-		}
-
 		// Clone the properties they passed us
 		Properties duplicate = PropertyUtils.duplicate(properties);
 
 		// Trim out unwanted properties
 		PropertyUtils.trim(duplicate, includes, excludes);
+
+		// Might not need to store them
+		if (!isStoreProperties(outputFile, skipIfEqual, duplicate)) {
+			return;
+		}
 
 		// Persist them to the file system
 		store(duplicate, outputFile, encoding);
@@ -73,7 +73,7 @@ public class StorePropertiesExecutable implements Executable {
 			return true;
 		}
 
-		// The file might exists and contain the exact same properties, but it doesn't matter
+		// The file might exist and contain the exact same properties, but it doesn't matter
 		if (!skipIfEqual) {
 			return true;
 		}
