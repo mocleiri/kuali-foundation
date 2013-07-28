@@ -33,6 +33,7 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.maven.MavenUtils;
+import org.kuali.common.util.maven.spring.MavenProfileConstants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.PropertySourceService;
@@ -197,6 +198,14 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		// Add profiles from the plugin config (if any)
 		profiles.addAll(CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfiles()));
+
+		if (mojo.isInjectMavenProperties()) {
+			// If we have wired in the Maven properties, activate the profile "autowiredMavenProperties"
+			profiles.add(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE);
+		} else {
+			// otherwise activate the profile "!autowiredMavenProperties"
+			profiles.add(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NEGATED);
+		}
 
 		// Setup includes / excludes
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfileIncludes());
