@@ -18,7 +18,7 @@ package org.kuali.common.util.spring.config;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class PropertiesConfig {
 
 	@Bean
 	public Object whatever() {
-		Properties properties = SpringUtils.getAllEnumerableProperties(env);
+		Properties properties = PropertySourceUtils.getAllEnumerableProperties(env);
 		PropertyUtils.info(properties);
 		return null;
 	}
