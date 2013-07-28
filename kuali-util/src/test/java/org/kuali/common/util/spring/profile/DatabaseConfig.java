@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.spring.profile;
 
-import org.kuali.common.util.spring.config.annotation.NotSpringMavenPlugin;
+import org.kuali.common.util.spring.config.annotation.AutowiredMavenProperties;
 import org.kuali.common.util.spring.profile.annotation.MySql;
 import org.kuali.common.util.spring.profile.annotation.Oracle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +68,7 @@ public class DatabaseConfig {
 	}
 
 	@Configuration
-	@NotSpringMavenPlugin
+	@AutowiredMavenProperties
 	static class c {
 		@Bean(name = VENDOR_BEAN)
 		public String aa() {

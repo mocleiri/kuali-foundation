@@ -20,11 +20,9 @@ public abstract class MavenConstants {
 	public static final String POM = "pom";
 	public static final String PROJECT_BEAN_NAME = "mavenProject";
 	public static final String PROPERTIES_BEAN_NAME = "mavenProperties";
-	public static final String SPRING_MAVEN_PLUGIN_PROFILE_NAME = "springMavenPlugin";
-	public static final String NEGATED_SPRING_MAVEN_PLUGIN_PROFILE_NAME = "!" + SPRING_MAVEN_PLUGIN_PROFILE_NAME;
-	@Deprecated
+	public static final String AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NAME = "autowiredMavenProperties";
+	public static final String NEGATED_AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NAME = "!" + AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NAME;
 	public static final String SPRING_PROFILE_NAME = "maven";
-	@Deprecated
 	public static final String NEGATED_SPRING_PROFILE_NAME = "!" + SPRING_PROFILE_NAME;
 	public static final String GROUP_ID_KEY = "project.groupId";
 	public static final String GROUP_ID_PATH_KEY = "project.groupId.path";
