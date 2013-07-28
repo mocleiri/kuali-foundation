@@ -16,10 +16,30 @@ import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
 /**
- * This config class wires a <code>Project</code> object into the Spring context. If the <code>maven</code> profile is active it assumes "something else" (most likely the
- * spring-maven-plugin) has wired a <code>java.util.Properties</code> bean under the name <code>mavenProperties</code> into the Spring context. It uses those properties to obtain a
- * <code>Project</code> object. If the <code>maven</code> profile is not active, it assumes "something else" has wired in a <code>ProjectIdentifierConfig</code> and uses that to
- * obtain a <code>Project</code> object.
+ * <p>
+ * This class automatically wires a <code>Project</code> object into the Spring context:
+ * 
+ * <pre>
+ * &#064;Autowired
+ * Project project;
+ * </pre>
+ * 
+ * </p>
+ * 
+ * <p>
+ * For Spring process launched by Maven via the spring-maven-plugin (which activates the Spring profile "maven") the project wiring is completed entirely in memory using the
+ * <code>java.util.Properties</code> object from the Maven runtime.
+ * </p>
+ * 
+ * <p>
+ * For Spring process launched using any other method, the project wiring is completed by loading the <code>project.properties</code> file corresponding to the
+ * <code>groupId:artifactId</code> for the current project. The properties file for the <code>kuali-util</code> project (for example) is located at:
+ * 
+ * <pre>
+ * classpath:META-INF/org/kuali/common/kuali-util/project.properties
+ * </pre>
+ * 
+ * </p>
  */
 @Configuration
 public class AutowiredProjectConfig {
