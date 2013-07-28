@@ -39,6 +39,9 @@ import org.springframework.util.Assert;
  * classpath:META-INF/org/kuali/common/kuali-util/project.properties
  * </pre>
  * 
+ * The <code>project.properties</code> file for every Kuali project is automatically created by Maven early in the default build lifecycle, (the <code>generate-resources</code>
+ * phase) and is thus available to any process that comes after that. For example, the <code>test</code> phase.
+ * 
  * </p>
  */
 @Configuration

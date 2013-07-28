@@ -22,7 +22,7 @@ public class AutomaticProjectConfigTest {
 	protected static final ProjectIdentifier ID = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
 
 	@Autowired
-	private Project project;
+	Project project;
 
 	@Test
 	public void test() {
