@@ -20,7 +20,7 @@ package org.kuali.common.util.project;
  * 
  * <p>
  * 1 - All Kuali projects produce only one artifact containing executable java code and associated resources.<br>
- * 2 - There is only ever one version of a Kuali project in the java classpath.<br>
+ * 2 - There is only ever one version of any given Kuali project in the java classpath.<br>
  * </p>
  * 
  * <p>
