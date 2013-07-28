@@ -23,6 +23,7 @@ public class AutomaticProjectConfig implements ProjectConfig {
 	Project project;
 
 	@Override
+	@Bean
 	public Project project() {
 		return project;
 	}
