@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 public class ShowPropertySourcesExecutable implements Executable {
@@ -18,7 +18,7 @@ public class ShowPropertySourcesExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		Properties properties = SpringUtils.getAllEnumerableProperties(environment);
+		Properties properties = PropertySourceUtils.getAllEnumerableProperties(environment);
 		PropertyUtils.info(properties);
 		// SpringUtils.showPropertySources(environment);
 	}
