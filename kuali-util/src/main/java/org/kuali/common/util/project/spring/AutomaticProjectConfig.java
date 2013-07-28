@@ -22,26 +22,18 @@ import org.springframework.util.Assert;
  * obtain a <code>Project</code> object.
  */
 @Configuration
-public class AutomaticProjectConfig implements ProjectConfig {
+public class AutomaticProjectConfig {
 
 	// There can be only two results here:
 	// 1 - A project object is successfully constructed and wired into the Spring context
 	// 2 - An exception is thrown
 	// The pair of static classes below, are setup to activate with maven and !maven, so one (and only one) of them will always load
-	@Autowired
-	Project project;
-
-	@Override
-	@Bean
-	public Project project() {
-		return project;
-	}
 
 	// This config class only loads if the Spring profile "maven" is NOT active
 	@Configuration
 	@NotMaven
 	@Import({ ProjectServiceConfig.class })
-	static class NotMavenProjectConfig {
+	static class NotMavenProjectConfig implements ProjectConfig {
 
 		// Something else needs to have wired this in
 		@Autowired
@@ -50,6 +42,7 @@ public class AutomaticProjectConfig implements ProjectConfig {
 		@Autowired
 		ProjectServiceConfig projectServiceConfig;
 
+		@Override
 		@Bean
 		public Project project() {
 
@@ -68,7 +61,7 @@ public class AutomaticProjectConfig implements ProjectConfig {
 	@Configuration
 	@Maven
 	@Import({ ProjectServiceConfig.class })
-	static class MavenProjectConfig {
+	static class MavenProjectConfig implements ProjectConfig {
 
 		// Spring Maven Plugin wires this in for us
 		@Autowired
@@ -78,6 +71,7 @@ public class AutomaticProjectConfig implements ProjectConfig {
 		@Autowired
 		ProjectServiceConfig projectServiceConfig;
 
+		@Override
 		@Bean
 		public Project project() {
 
