@@ -6,8 +6,8 @@ import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
-import org.kuali.common.util.spring.config.annotation.NotAutowiredMavenProperties;
-import org.kuali.common.util.spring.config.annotation.AutowiredMavenProperties;
+import org.kuali.common.util.spring.config.annotation.Maven;
+import org.kuali.common.util.spring.config.annotation.NotMaven;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -55,7 +55,7 @@ public class AutowiredProjectConfig {
 
 	// This config class loads if the Spring profile "maven" is NOT active
 	@Configuration
-	@AutowiredMavenProperties
+	@NotMaven
 	@Import({ ProjectServiceConfig.class })
 	static class NotMavenProjectConfig implements ProjectConfig {
 
@@ -83,7 +83,7 @@ public class AutowiredProjectConfig {
 
 	// This config class loads if the Spring profile "maven" IS active
 	@Configuration
-	@NotAutowiredMavenProperties
+	@Maven
 	@Import({ ProjectServiceConfig.class })
 	static class MavenProjectConfig implements ProjectConfig {
 

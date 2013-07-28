@@ -23,13 +23,9 @@ import java.lang.annotation.Target;
 import org.kuali.common.util.maven.MavenConstants;
 import org.springframework.context.annotation.Profile;
 
-/**
- * @deprecated
- */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Profile(MavenConstants.SPRING_PROFILE_NAME)
-@Deprecated
 public @interface Maven {
 
 }

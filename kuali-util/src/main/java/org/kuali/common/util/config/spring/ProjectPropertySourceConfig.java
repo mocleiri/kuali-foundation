@@ -22,8 +22,8 @@ import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
-import org.kuali.common.util.spring.config.annotation.NotAutowiredMavenProperties;
-import org.kuali.common.util.spring.config.annotation.AutowiredMavenProperties;
+import org.kuali.common.util.spring.config.annotation.Maven;
+import org.kuali.common.util.spring.config.annotation.NotMaven;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -63,7 +63,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 	}
 
 	@Configuration
-	@AutowiredMavenProperties
+	@Maven
 	@Import({ ProjectServiceConfig.class })
 	static class RuntimeProjectConfig {
 
@@ -91,7 +91,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 	}
 
 	@Configuration
-	@NotAutowiredMavenProperties
+	@NotMaven
 	@Import({ ProjectServiceConfig.class })
 	static class BuildProjectConfig {
 
