@@ -147,7 +147,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Setup a context containing the mojo and config class
 		SpringContext context = new SpringContext(beans, config);
 
-		// Use DefaultSpringService (unless they have overridden it)
+		// Get a reference to a SpringService instance (this is DefaultSpringService unless overridden)
 		SpringService service = ReflectionUtils.newInstance(springService);
 
 		// Delegate execution to Spring
