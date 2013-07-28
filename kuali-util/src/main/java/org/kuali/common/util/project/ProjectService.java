@@ -20,7 +20,7 @@ import java.util.Properties;
 public interface ProjectService {
 
 	/**
-	 * Create a <code>Project</code> from <code>groupId</code> and <code>artifactId</code>
+	 * Create a <code>Project</code> from <code>identifier</code>
 	 */
 	Project getProject(ProjectIdentifier identifier);
 
@@ -30,7 +30,7 @@ public interface ProjectService {
 	Project getProject(String groupId, String artifactId);
 
 	/**
-	 * Create a <code>Project</code> from the properties.
+	 * Create a <code>Project</code> from <code>properties</code>
 	 */
 	Project getProject(Properties properties);
 
