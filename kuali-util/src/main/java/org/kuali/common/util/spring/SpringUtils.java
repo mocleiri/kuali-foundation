@@ -675,14 +675,13 @@ public class SpringUtils {
 
 	/**
 	 * Make sure all of the locations actually exist.<br>
-	 * TODO Move this to LocationUtils
 	 */
 	@Deprecated
 	public static void validateExists(List<String> locations) {
 		LocationUtils.validateExists(locations);
 	}
 
-	public static AbstractApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, Map<String, Object> beans) {
+	public static AbstractApplicationContext getContextWithPreRegisteredBeans(String id, String displayName, Map<String, ?> beans) {
 		GenericXmlApplicationContext appContext = new GenericXmlApplicationContext();
 		if (!StringUtils.isBlank(id)) {
 			appContext.setId(id);
