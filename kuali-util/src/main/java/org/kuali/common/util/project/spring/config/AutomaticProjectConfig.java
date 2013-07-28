@@ -31,7 +31,7 @@ public class AutomaticProjectConfig implements ProjectConfig {
 	@Configuration
 	@NotMaven
 	@Import({ ProjectServiceConfig.class })
-	static class RuntimeProjectConfig {
+	static class NotMavenProjectConfig {
 
 		@Autowired
 		ProjectIdentifierConfig projectIdentifierConfig;
