@@ -15,6 +15,8 @@
  */
 package org.kuali.maven.plugins.spring;
 
+import static org.kuali.common.util.maven.MavenConstants.SPRING_MAVEN_PLUGIN_PROFILE_NAME;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
@@ -80,25 +82,25 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	String mojoExecutableConfig = MojoExecutableConfig.class.getName();
 
 	/**
-	 * Comma separated list of profiles to activate. By default a profile named <code>maven</code> is activated.
+	 * Comma separated list of profiles to activate. By default the profiles <code>maven</code> and <code>springMavenPlugin</code> are activated.
 	 */
-	@Parameter(property = "spring.profiles.active", defaultValue = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME)
-	String activeProfiles = org.kuali.common.util.maven.MavenConstants.SPRING_PROFILE_NAME;
+	@Parameter(property = "spring.profiles.active", defaultValue = SPRING_MAVEN_PLUGIN_PROFILE_NAME)
+	String activeProfiles = SPRING_MAVEN_PLUGIN_PROFILE_NAME;
 
 	/**
-	 * Comma separated list of active profiles to include. By default, all active Maven profiles plus the profile "maven" are set as active Spring profiles.
+	 * Comma separated list of active profiles to include. By default, all active Maven profiles plus any profiles from <code>activeProfiles</code> are activated.
 	 */
 	@Parameter(property = "spring.activeProfileIncludes")
 	String activeProfileIncludes;
 
 	/**
-	 * Comma separated list of active profiles to exclude. By default, all active Maven profiles plus the profile "maven" are set as active Spring profiles.
+	 * Comma separated list of active profiles to exclude. By default, all active Maven profiles plus any profiles from <code>activeProfiles</code> are activated.
 	 */
 	@Parameter(property = "spring.activeProfileExcludes", defaultValue = Constants.NONE)
 	String activeProfileExcludes;
 
 	/**
-	 * Comma separated list of default profiles to include. Spring uses the profile "default" when no other active or default profiles are specified.
+	 * Comma separated list of default profiles to include. Spring uses the profile <code>default</code> when no other active or default profiles are specified.
 	 */
 	@Parameter(property = "spring.defaultProfileIncludes")
 	String defaultProfileIncludes;

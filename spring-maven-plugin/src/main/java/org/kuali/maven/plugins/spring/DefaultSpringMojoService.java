@@ -136,8 +136,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 		PropertySourcesContext psc = new PropertySourcesContext();
 		psc.setAnnotatedClass(annotatedClass);
-		psc.setProperties(context.getMavenProperties());
 		psc.setService(context.getService());
+		psc.setProperties(context.getMavenProperties());
 		psc.setPropertiesBeanName(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
 		psc.setActiveProfiles(getActiveProfiles(mojo));
 		psc.setDefaultProfiles(getDefaultProfiles(mojo));
