@@ -26,6 +26,6 @@ import org.springframework.context.annotation.Profile;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Profile("!" + MavenConstants.SPRING_PROFILE_NAME)
-public @interface Runtime {
+public @interface NotMaven {
 
 }
