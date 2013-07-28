@@ -28,11 +28,10 @@ import org.springframework.context.annotation.Import;
 public class ProjectConfigOverridesConfig implements ConfigOverridesConfig {
 
 	@Autowired
-	AutomaticProjectConfig defaultProjectConfig;
+	Project project;
 
 	@Override
 	public Properties configOverrideProperties() {
-		Project project = defaultProjectConfig.project();
 		Properties overrides = project.getProperties();
 		return overrides;
 	}
