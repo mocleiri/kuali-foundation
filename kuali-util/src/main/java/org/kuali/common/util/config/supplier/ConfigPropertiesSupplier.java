@@ -18,34 +18,28 @@ package org.kuali.common.util.config.supplier;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.config.service.ConfigService;
 import org.springframework.util.Assert;
 
 public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
-	List<String> configIds;
-	List<String> locations;
 	ConfigService service;
+	List<String> configIds;
+	Properties overrides;
 
 	public ConfigPropertiesSupplier() {
-		this(null, (String) null);
+		this(null, null);
 	}
 
-	public ConfigPropertiesSupplier(List<String> configIds, String location) {
-		this(configIds, CollectionUtils.toEmptyList(location));
+	public ConfigPropertiesSupplier(List<String> configIds, ConfigService service) {
+		this(configIds, service, null);
 	}
 
-	public ConfigPropertiesSupplier(List<String> configIds, List<String> locations) {
-		this(configIds, locations, null);
-	}
-
-	public ConfigPropertiesSupplier(List<String> configIds, List<String> locations, ConfigService service) {
+	public ConfigPropertiesSupplier(List<String> configIds, ConfigService service, Properties overrides) {
 		super();
 		this.configIds = configIds;
-		this.locations = locations;
 		this.service = service;
+		this.overrides = overrides;
 	}
 
 	@Override
@@ -54,20 +48,8 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
 
-		// Load properties from the locations they've provided (if any)
-		Properties overrides = getOverrides(locations);
-
 		// Load properties for the configIds they've provided (if any)
 		return service.getProperties(configIds, overrides);
-	}
-
-	protected Properties getOverrides(List<String> locations) {
-		Properties overrides = new Properties();
-		for (String location : CollectionUtils.toEmptyList(locations)) {
-			Properties loaded = PropertyUtils.load(location);
-			overrides.putAll(loaded);
-		}
-		return overrides;
 	}
 
 	public ConfigService getService() {
@@ -84,6 +66,14 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
 	public void setConfigIds(List<String> configIds) {
 		this.configIds = configIds;
+	}
+
+	public Properties getOverrides() {
+		return overrides;
+	}
+
+	public void setOverrides(Properties overrides) {
+		this.overrides = overrides;
 	}
 
 }

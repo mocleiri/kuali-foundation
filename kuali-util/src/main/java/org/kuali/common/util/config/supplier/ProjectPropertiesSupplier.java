@@ -32,6 +32,7 @@ public class ProjectPropertiesSupplier implements PropertiesSupplier {
 
 		Assert.hasText(groupId, "groupId has no text");
 		Assert.hasText(artifactId, "artifactId has no text");
+		Assert.notNull(service, "service is null");
 
 		Project project = service.getProject(groupId, artifactId);
 		return project.getProperties();
@@ -51,6 +52,14 @@ public class ProjectPropertiesSupplier implements PropertiesSupplier {
 
 	public void setArtifactId(String artifactId) {
 		this.artifactId = artifactId;
+	}
+
+	public ProjectService getService() {
+		return service;
+	}
+
+	public void setService(ProjectService service) {
+		this.service = service;
 	}
 
 }
