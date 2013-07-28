@@ -15,27 +15,27 @@
  */
 package org.kuali.common.util.spring;
 
-import org.kuali.common.util.ScmUtils;
-import org.kuali.common.util.service.ScmService;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
  * Use <code>ScmConfig</code> instead.
+ * 
+ * @deprecated
  */
 @Deprecated
-public class ScmServiceFactoryBean implements FactoryBean<ScmService> {
+public class ScmServiceFactoryBean implements FactoryBean<org.kuali.common.util.service.ScmService> {
 
 	String url;
 	boolean singleton = true;
 
 	@Override
-	public ScmService getObject() {
-		return ScmUtils.getScmService(url);
+	public org.kuali.common.util.service.ScmService getObject() {
+		return org.kuali.common.util.ScmUtils.getScmService(url);
 	}
 
 	@Override
-	public Class<ScmService> getObjectType() {
-		return ScmService.class;
+	public Class<org.kuali.common.util.service.ScmService> getObjectType() {
+		return org.kuali.common.util.service.ScmService.class;
 	}
 
 	@Override

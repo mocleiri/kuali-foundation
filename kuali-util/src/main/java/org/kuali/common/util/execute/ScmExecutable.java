@@ -18,12 +18,13 @@ package org.kuali.common.util.execute;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ScmUtils;
 import org.kuali.common.util.scm.ScmRequest;
-import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class ScmExecutable implements Executable {
 
@@ -31,7 +32,7 @@ public class ScmExecutable implements Executable {
 
 	boolean skip;
 	boolean logConfiguration;
-	ScmService service;
+	org.kuali.common.util.service.ScmService service;
 	ScmRequest request;
 
 	@Override
@@ -76,7 +77,7 @@ public class ScmExecutable implements Executable {
 		}
 	}
 
-	protected void validateConfiguration(ScmService service, ScmRequest request) {
+	protected void validateConfiguration(org.kuali.common.util.service.ScmService service, ScmRequest request) {
 		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
 		if (!CollectionUtils.isEmpty(request.getCommits())) {
@@ -85,7 +86,7 @@ public class ScmExecutable implements Executable {
 	}
 
 	protected void log(ScmExecutable exec) {
-		ScmRequest request = ScmUtils.cloneOrNew(exec.getRequest());
+		ScmRequest request = org.kuali.common.util.ScmUtils.cloneOrNew(exec.getRequest());
 		String adds = FormatUtils.getCount(CollectionUtils.toEmptyList(request.getAdds()).size());
 		String deletes = FormatUtils.getCount(CollectionUtils.toEmptyList(request.getDeletes()).size());
 		String commits = FormatUtils.getCount(CollectionUtils.toEmptyList(request.getCommits()).size());
@@ -110,11 +111,11 @@ public class ScmExecutable implements Executable {
 		return true;
 	}
 
-	public ScmService getService() {
+	public org.kuali.common.util.service.ScmService getService() {
 		return service;
 	}
 
-	public void setService(ScmService service) {
+	public void setService(org.kuali.common.util.service.ScmService service) {
 		this.service = service;
 	}
 

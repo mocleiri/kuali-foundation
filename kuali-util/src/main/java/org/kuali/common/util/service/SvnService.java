@@ -24,6 +24,9 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class SvnService extends DefaultExecService implements ScmService {
 

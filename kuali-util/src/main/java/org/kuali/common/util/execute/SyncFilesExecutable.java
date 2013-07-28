@@ -24,7 +24,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.SyncRequest;
 import org.kuali.common.util.SyncResult;
-import org.kuali.common.util.service.ScmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public class SyncFilesExecutable implements Executable {
 	boolean skip;
 	// Don't commit changes unless they specifically set this to true
 	boolean commitChanges;
-	ScmService service;
+	org.kuali.common.util.service.ScmService service;
 	String message = "Automated update";
 	List<SyncRequest> requests;
 	List<File> commitPaths;
@@ -92,11 +91,11 @@ public class SyncFilesExecutable implements Executable {
 		this.skip = skip;
 	}
 
-	public ScmService getService() {
+	public org.kuali.common.util.service.ScmService getService() {
 		return service;
 	}
 
-	public void setService(ScmService service) {
+	public void setService(org.kuali.common.util.service.ScmService service) {
 		this.service = service;
 	}
 

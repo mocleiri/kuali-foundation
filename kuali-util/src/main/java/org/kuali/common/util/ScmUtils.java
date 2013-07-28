@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.scm.ScmRequest;
-import org.kuali.common.util.service.ScmService;
-import org.kuali.common.util.service.ScmType;
-import org.kuali.common.util.service.SvnService;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class ScmUtils {
 
@@ -32,15 +32,15 @@ public class ScmUtils {
 	 * Use <code>ScmConfig</code> instead
 	 */
 	@Deprecated
-	public static ScmService getScmService(String url) {
+	public static org.kuali.common.util.service.ScmService getScmService(String url) {
 		Assert.hasText(url, "URL has no text");
 		// scm:svn:https://svn.kuali.org/repos/student/trunk
 		String[] tokens = StringUtils.split(url, ":");
 		String scmType = tokens[1].toUpperCase();
-		ScmType type = ScmType.valueOf(scmType);
+		org.kuali.common.util.service.ScmType type = org.kuali.common.util.service.ScmType.valueOf(scmType);
 		switch (type) {
 		case SVN:
-			return new SvnService();
+			return new org.kuali.common.util.service.SvnService();
 		case GIT:
 			throw new IllegalArgumentException("GIT support is coming soon!");
 		default:
