@@ -8,8 +8,14 @@ public class Log4JLevel {
 
 	public static final Class<Level> DEFAULT_JAVA_CLASS = Level.class;
 
+	public Log4JLevel(Log4JLevel level) {
+		super();
+		this.javaClass = level.getJavaClass();
+		this.value = level.getValue();
+	}
+
 	public Log4JLevel() {
-		this(null);
+		this((Log4JLevelValue) null);
 	}
 
 	public Log4JLevel(Log4JLevelValue value) {
