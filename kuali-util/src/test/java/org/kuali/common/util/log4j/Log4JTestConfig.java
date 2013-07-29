@@ -35,9 +35,8 @@ public class Log4JTestConfig {
 
 	@Bean
 	public Executable log4jResetExecutable() {
-		Log4JResetExecutable exec = new Log4JResetExecutable();
+		Log4JConfigurationExecutable exec = new Log4JConfigurationExecutable();
 		exec.setService(log4JServiceConfig.log4jService());
-		exec.setContexts(log4JCommonConfig.log4JMaven());
 		return exec;
 	}
 
