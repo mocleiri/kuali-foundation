@@ -80,6 +80,11 @@
             <version>${kuali-util.version}</version>
           </dependency>
           <dependency>
+            <groupId>org.kuali.common</groupId>
+            <artifactId>kuali-maven</artifactId>
+            <version>${kuali-maven.version}</version>
+          </dependency>
+          <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${project.artifactId}</artifactId>
             <version>${project.version}</version>
