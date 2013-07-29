@@ -12,8 +12,9 @@ import org.apache.log4j.Logger;
 public class DefaultLog4JService implements Log4JService {
 
 	@Override
-	public void shutdown() {
+	public void reset() {
 		LogManager.shutdown();
+		LogManager.resetConfiguration();
 	}
 
 	@Override

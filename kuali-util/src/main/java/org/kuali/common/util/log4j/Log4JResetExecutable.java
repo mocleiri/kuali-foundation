@@ -46,7 +46,7 @@ public class Log4JResetExecutable implements Executable {
 		Assert.notNull(service, "service is null");
 
 		// Turn off all logging and remove all log4j configuration
-		service.shutdown();
+		service.reset();
 
 		// Re-configure log4j
 		service.configure(contexts);

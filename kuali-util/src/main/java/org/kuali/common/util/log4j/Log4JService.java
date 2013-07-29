@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Log4JService {
 
-	void shutdown();
+	void reset();
 
 	void configure(List<LoggerContext> contexts);
 
