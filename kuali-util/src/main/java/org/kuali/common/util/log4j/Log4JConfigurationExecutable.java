@@ -36,7 +36,7 @@ public class Log4JConfigurationExecutable implements Executable {
 		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
 
-		// Turn off all logging and remove all log4j configuration
+		// Configure log4j as indicated by the context
 		service.configure(context);
 	}
 
