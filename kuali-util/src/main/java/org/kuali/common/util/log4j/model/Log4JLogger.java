@@ -4,8 +4,10 @@ import java.util.List;
 
 public class Log4JLogger {
 
+	public static final boolean DEFAULT_ADDITIVITY_LEVEL = true;
+
 	String name;
-	boolean additivity = true;
+	boolean additivity = DEFAULT_ADDITIVITY_LEVEL;
 	List<Log4JAppender> appenders;
 
 	public String getName() {
