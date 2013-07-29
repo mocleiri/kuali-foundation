@@ -8,18 +8,10 @@ public class Log4JLogger {
 
 	public static final boolean DEFAULT_ADDITIVITY_VALUE = true;
 
-	String name;
 	boolean additivity = DEFAULT_ADDITIVITY_VALUE;
-	List<Log4JAppender> appenders;
+	String name;
+	List<String> appenders;
 	Level level;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public boolean isAdditivity() {
 		return additivity;
@@ -29,11 +21,19 @@ public class Log4JLogger {
 		this.additivity = additivity;
 	}
 
-	public List<Log4JAppender> getAppenders() {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<String> getAppenders() {
 		return appenders;
 	}
 
-	public void setAppenders(List<Log4JAppender> appenders) {
+	public void setAppenders(List<String> appenders) {
 		this.appenders = appenders;
 	}
 
@@ -44,4 +44,5 @@ public class Log4JLogger {
 	public void setLevel(Level level) {
 		this.level = level;
 	}
+
 }
