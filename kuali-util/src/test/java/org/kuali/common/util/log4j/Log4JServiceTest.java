@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JAppender;
 import org.kuali.common.util.log4j.model.Log4JAppenderReference;
 import org.kuali.common.util.log4j.model.Log4JContext;
+import org.kuali.common.util.log4j.model.Log4JContextNullifier;
 import org.kuali.common.util.log4j.model.Log4JLayout;
 import org.kuali.common.util.log4j.model.Log4JLevel;
 import org.kuali.common.util.log4j.model.Log4JLogger;
@@ -26,6 +27,7 @@ import org.kuali.common.util.log4j.model.Log4JPatternConstants;
 import org.kuali.common.util.log4j.model.param.Log4JConversionPatternParam;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
+import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,9 @@ public class Log4JServiceTest {
 			Log4JAppenderReference consoleReference = new Log4JAppenderReference(console.getName());
 			Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Log4JLevel(Level.INFO.toString()));
 			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
+
+			Nullifier nullifier = new Log4JContextNullifier(ctx);
+			nullifier.nullify();
 
 			XmlService service = xmlServiceConfig.xmlService();
 			String xml = service.toString(ctx, "UTF-8");
