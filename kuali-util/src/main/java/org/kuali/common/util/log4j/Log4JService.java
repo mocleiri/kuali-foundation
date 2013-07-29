@@ -15,4 +15,6 @@ public interface Log4JService {
 
 	void configure(Element element);
 
+	void configure(String location);
+
 }

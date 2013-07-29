@@ -22,6 +22,11 @@ public class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
+	public void configure(String location) {
+		// Do something here
+	}
+
+	@Override
 	public void configure(Properties properties) {
 		PropertyConfigurator.configure(properties);
 	}
