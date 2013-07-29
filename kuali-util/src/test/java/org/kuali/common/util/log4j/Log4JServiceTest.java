@@ -11,7 +11,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JAppender;
@@ -49,9 +48,7 @@ public class Log4JServiceTest {
 	public void testXml() {
 		try {
 			Log4JParam param = new Log4JConversionPatternParam(Log4JPatternConstants.DEFAULT);
-			Log4JLayout layout = new Log4JLayout();
-			layout.setJavaClass(PatternLayout.class);
-			layout.setParams(Arrays.asList(param));
+			Log4JLayout layout = new Log4JLayout(PatternLayout.class, Arrays.asList(param));
 
 			Log4JAppender console = new Log4JAppender();
 			console.setJavaClass(ConsoleAppender.class);
@@ -73,7 +70,6 @@ public class Log4JServiceTest {
 	}
 
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			logger.info("before");

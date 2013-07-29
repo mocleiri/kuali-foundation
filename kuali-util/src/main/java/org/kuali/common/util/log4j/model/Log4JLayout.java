@@ -10,6 +10,16 @@ public class Log4JLayout {
 	Class<?> javaClass;
 	List<Log4JParam> params;
 
+	public Log4JLayout() {
+		this(null, null);
+	}
+
+	public Log4JLayout(Class<?> javaClass, List<Log4JParam> params) {
+		super();
+		this.javaClass = javaClass;
+		this.params = params;
+	}
+
 	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
 		return javaClass;
