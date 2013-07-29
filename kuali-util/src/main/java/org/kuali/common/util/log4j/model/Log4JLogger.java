@@ -2,6 +2,8 @@ package org.kuali.common.util.log4j.model;
 
 import java.util.List;
 
+import org.apache.log4j.Level;
+
 public class Log4JLogger {
 
 	public static final boolean DEFAULT_ADDITIVITY_VALUE = true;
@@ -9,6 +11,7 @@ public class Log4JLogger {
 	String name;
 	boolean additivity = DEFAULT_ADDITIVITY_VALUE;
 	List<Log4JAppender> appenders;
+	Level level;
 
 	public String getName() {
 		return name;
@@ -32,5 +35,13 @@ public class Log4JLogger {
 
 	public void setAppenders(List<Log4JAppender> appenders) {
 		this.appenders = appenders;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 }
