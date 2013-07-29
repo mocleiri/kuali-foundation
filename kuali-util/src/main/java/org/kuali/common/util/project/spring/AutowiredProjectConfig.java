@@ -28,13 +28,13 @@ import org.springframework.util.Assert;
  * </p>
  * 
  * <p>
- * For Spring process launched by Maven via the spring-maven-plugin (which activates the Spring profile "maven") the project wiring is completed entirely in memory using the
- * <code>java.util.Properties</code> object from the Maven runtime.
+ * For Spring process launched by Maven via the spring-maven-plugin the project wiring is completed entirely in memory using the <code>java.util.Properties</code> object from the
+ * Maven runtime.
  * </p>
  * 
  * <p>
  * For Spring process launched using any other method, the project wiring is completed by loading the <code>project.properties</code> file corresponding to the
- * <code>groupId:artifactId</code> for the current project. The properties file for the <code>kuali-util</code> project (for example) is located at:
+ * <code>[groupId:artifactId]</code> for the current project. The properties file for the <code>kuali-util</code> project (for example) is located at:
  * 
  * <pre>
  * classpath:META-INF/org/kuali/common/kuali-util/project.properties
