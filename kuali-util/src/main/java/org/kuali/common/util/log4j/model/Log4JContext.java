@@ -14,7 +14,7 @@ public class Log4JContext {
 
 	public static final Boolean DEFAULT_RESET_VALUE = false;
 	public static final Log4JDebug DEFAULT_DEBUG_VALUE = Log4JDebug.NULL;
-	public static final Log4JThreshold DEFAULT_THRESHOLD_VALUE = Log4JThreshold.NULL;
+	public static final Log4JLevelValue DEFAULT_THRESHOLD_VALUE = Log4JLevelValue.NULL;
 
 	public Log4JContext() {
 		this(null, null);
@@ -33,7 +33,7 @@ public class Log4JContext {
 
 	Boolean reset = DEFAULT_RESET_VALUE;
 	Log4JDebug debug = DEFAULT_DEBUG_VALUE;
-	Log4JThreshold threshold = DEFAULT_THRESHOLD_VALUE;
+	Log4JLevelValue threshold = DEFAULT_THRESHOLD_VALUE;
 	List<Log4JAppender> appenders;
 	Log4JLogger root;
 	List<Log4JLogger> loggers;
@@ -49,7 +49,7 @@ public class Log4JContext {
 	}
 
 	@XmlAttribute
-	public Log4JThreshold getThreshold() {
+	public Log4JLevelValue getThreshold() {
 		return threshold;
 	}
 
@@ -76,7 +76,7 @@ public class Log4JContext {
 		this.debug = debug;
 	}
 
-	public void setThreshold(Log4JThreshold threshold) {
+	public void setThreshold(Log4JLevelValue threshold) {
 		this.threshold = threshold;
 	}
 

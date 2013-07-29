@@ -12,13 +12,13 @@ public class Log4JLevel {
 		this(null);
 	}
 
-	public Log4JLevel(String value) {
+	public Log4JLevel(Log4JLevelValue value) {
 		super();
 		this.value = value;
 	}
 
 	Class<?> javaClass = DEFAULT_JAVA_CLASS;
-	String value;
+	Log4JLevelValue value;
 
 	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
@@ -26,7 +26,7 @@ public class Log4JLevel {
 	}
 
 	@XmlAttribute
-	public String getValue() {
+	public Log4JLevelValue getValue() {
 		return value;
 	}
 
@@ -34,7 +34,7 @@ public class Log4JLevel {
 		this.javaClass = javaClass;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Log4JLevelValue value) {
 		this.value = value;
 	}
 
