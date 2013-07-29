@@ -199,8 +199,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Add profiles from the plugin config (if any)
 		profiles.addAll(CollectionUtils.getTrimmedListFromCSV(mojo.getActiveProfiles()));
 
+		// If we have wired in the Maven properties, activate the profile "autowiredMavenProperties"
 		if (mojo.isInjectMavenProperties()) {
-			// If we have wired in the Maven properties, activate the profile "autowiredMavenProperties"
 			profiles.add(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE);
 		}
 
