@@ -25,7 +25,11 @@ public class Log4JLogger {
 	}
 
 	public Log4JLogger(String name) {
-		this(name, null);
+		this(name, (Log4JLevel) null);
+	}
+
+	public Log4JLogger(String name, Log4JLevel level) {
+		this(name, null, level);
 	}
 
 	public Log4JLogger(String name, List<Log4JAppenderReference> references) {

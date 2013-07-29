@@ -1,14 +1,10 @@
 package org.kuali.common.util.log4j;
 
-import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.LogManager;
@@ -30,13 +26,10 @@ import org.kuali.common.util.log4j.model.Log4JPatternConstants;
 import org.kuali.common.util.log4j.model.param.Log4JConversionPatternParam;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
-import org.kuali.common.util.nullify.Nullifier;
-import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.w3c.dom.Document;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { Log4JServiceConfig.class, Log4JCommonConfig.class, XmlServiceConfig.class })
@@ -56,30 +49,19 @@ public class Log4JServiceTest {
 	@Test
 	public void testXml() {
 		try {
-			Log4JParam pattern = new Log4JConversionPatternParam(Log4JPatternConstants.DEFAULT);
+			logger.info("before");
+			Log4JParam pattern = new Log4JConversionPatternParam(Log4JPatternConstants.MAVEN);
 			Log4JLayout layout = new Log4JLayout(PatternLayout.class, Arrays.asList(pattern));
 			Log4JAppender console = new Log4JAppender("StdOut", ConsoleAppender.class, layout);
 			Log4JAppenderReference consoleReference = new Log4JAppenderReference(console.getName());
 			Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Log4JLevel(Log4JLevelValue.ALL));
-			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
+			Log4JLogger spring = new Log4JLogger("org.springframework", new Log4JLevel(Log4JLevelValue.ALL));
+			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring));
 			ctx.setReset(true);
-			ctx.setThreshold(Log4JLevelValue.INFO);
 
-			Nullifier nullifier = new Log4JContextNullifier(ctx);
-			nullifier.nullify();
-
-			XmlService service = xmlServiceConfig.xmlService();
-			String xml = service.toString(ctx, "UTF-8");
-
-			logger.info("\n\n" + xml);
-
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder parser = dbf.newDocumentBuilder();
-
-			ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-			Document document = parser.parse(in);
-			DOMConfigurator.configure(document.getDocumentElement());
-
+			Log4JService service = log4JServiceConfig.log4jService();
+			service.configure(ctx);
+			logger.info("after");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
