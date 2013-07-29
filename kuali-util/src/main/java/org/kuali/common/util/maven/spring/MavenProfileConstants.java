@@ -21,5 +21,5 @@ public abstract class MavenProfileConstants {
 	public static final String MAVEN_NEGATED = "!" + MAVEN;
 
 	public static final String AUTOWIRED_MAVEN_PROPERTIES = "autowiredMavenProperties";
-	public static final String AUTOWIRED_MAVEN_PROPERTIES_PROFILE = "!" + AUTOWIRED_MAVEN_PROPERTIES;
+	public static final String AUTOWIRED_MAVEN_PROPERTIES_NEGATED = "!" + AUTOWIRED_MAVEN_PROPERTIES;
 }
