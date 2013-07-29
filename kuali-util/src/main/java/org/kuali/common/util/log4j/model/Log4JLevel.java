@@ -11,7 +11,7 @@ public class Log4JLevel {
 	Class<?> javaClass = DEFAULT_JAVA_CLASS;
 	Level value;
 
-	@XmlAttribute
+	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
 		return javaClass;
 	}

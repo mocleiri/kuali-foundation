@@ -5,8 +5,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.apache.log4j.Level;
-
 public class Log4JLogger {
 
 	public static final Boolean DEFAULT_ADDITIVITY_VALUE = true;
@@ -32,7 +30,7 @@ public class Log4JLogger {
 	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
 	String name;
 	List<Log4JAppenderReference> references;
-	Level level;
+	Log4JLevel level;
 
 	@XmlElement(name = "appender-ref")
 	public List<Log4JAppenderReference> getReferences() {
@@ -57,16 +55,16 @@ public class Log4JLogger {
 		this.name = name;
 	}
 
-	public Level getLevel() {
+	public void setReferences(List<Log4JAppenderReference> references) {
+		this.references = references;
+	}
+
+	public Log4JLevel getLevel() {
 		return level;
 	}
 
-	public void setLevel(Level level) {
+	public void setLevel(Log4JLevel level) {
 		this.level = level;
-	}
-
-	public void setReferences(List<Log4JAppenderReference> references) {
-		this.references = references;
 	}
 
 }
