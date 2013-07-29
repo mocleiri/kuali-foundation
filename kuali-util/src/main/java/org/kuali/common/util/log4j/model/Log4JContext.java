@@ -1,15 +1,12 @@
 package org.kuali.common.util.log4j.model;
 
-import java.util.Map;
-
-import org.apache.log4j.Appender;
+import java.util.List;
 
 public class Log4JContext {
 
 	boolean reset;
-	Debug debug;
-	Threshold threshold;
-
-	Map<String, ? extends Appender> appenders;
+	Log4JDebug debug;
+	Log4JThreshold threshold;
+	List<Log4JAppender> appenders;
 
 }
