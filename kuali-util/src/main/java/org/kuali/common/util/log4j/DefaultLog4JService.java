@@ -30,7 +30,8 @@ public class DefaultLog4JService implements Log4JService {
 		DOMConfigurator.configure(element);
 	}
 
-	protected Element getElement(Log4JContext context) {
-		return null;
+	protected Properties getProperties(Log4JContext context) {
+		Properties properties = new Properties();
+		return properties;
 	}
 }
