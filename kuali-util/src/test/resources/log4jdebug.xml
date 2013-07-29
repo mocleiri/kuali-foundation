@@ -22,6 +22,7 @@
     <param name="Target" value="System.out" />
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern" value="[%-4p] %c.%M - %m%n" />
+                                             [%-4p] %C.%M - %m%n 
     </layout>
   </appender>
   <root>

@@ -19,22 +19,31 @@ public class LoggerContext {
 	}
 
 	public LoggerContext(Class<?> loggerClass) {
-		this(loggerClass, null, DEFAULT_LEVEL);
+		this(loggerClass, null, DEFAULT_LEVEL, null);
 	}
 
 	public LoggerContext(Class<?> loggerClass, Level level) {
-		this(loggerClass, null, level);
+		this(loggerClass, level, null);
+	}
+
+	public LoggerContext(Class<?> loggerClass, Level level, List<? extends Appender> appenders) {
+		this(loggerClass, null, level, appenders);
 	}
 
 	public LoggerContext(String loggerName, Level level) {
-		this(null, loggerName, level);
+		this(loggerName, level, null);
 	}
 
-	protected LoggerContext(Class<?> loggerClass, String loggerName, Level level) {
+	public LoggerContext(String loggerName, Level level, List<? extends Appender> appenders) {
+		this(null, loggerName, level, appenders);
+	}
+
+	LoggerContext(Class<?> loggerClass, String loggerName, Level level, List<? extends Appender> appenders) {
 		super();
 		this.level = level;
 		this.loggerName = loggerName;
 		this.loggerClass = loggerClass;
+		this.appenders = appenders;
 	}
 
 	Level level = DEFAULT_LEVEL;
