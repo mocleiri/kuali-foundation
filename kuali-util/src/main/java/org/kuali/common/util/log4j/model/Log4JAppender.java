@@ -1,13 +1,13 @@
 package org.kuali.common.util.log4j.model;
 
-import java.util.Map;
+import java.util.List;
 
 public class Log4JAppender {
 
 	String name;
 	Class<?> javaClass;
 	Log4JLayout layout;
-	Map<String, String> params;
+	List<Log4JParam> params;
 
 	public String getName() {
 		return name;
@@ -33,12 +33,11 @@ public class Log4JAppender {
 		this.layout = layout;
 	}
 
-	public Map<String, String> getParams() {
+	public List<Log4JParam> getParams() {
 		return params;
 	}
 
-	public void setParams(Map<String, String> params) {
+	public void setParams(List<Log4JParam> params) {
 		this.params = params;
 	}
-
 }
