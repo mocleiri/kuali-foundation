@@ -89,6 +89,7 @@ public class AutowiredProjectConfig {
 			// Get a reference to the project service
 			ProjectService service = projectServiceConfig.projectService();
 
+			// Get a reference to a project identifier (groupId + artifactId)
 			ProjectIdentifier identifier = projectIdentifierConfig.projectIdentifier();
 
 			// Use the service to convert groupId + artifactId into a Project
