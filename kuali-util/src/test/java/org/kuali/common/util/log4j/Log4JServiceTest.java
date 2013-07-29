@@ -3,10 +3,13 @@ package org.kuali.common.util.log4j;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 
+import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
@@ -31,14 +34,26 @@ public class Log4JServiceTest {
 	public void test() {
 		try {
 			logger.info("before");
-			System.out.println(getLoggers().size());
 			LogManager.resetConfiguration();
-			DOMConfigurator.configure("/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-util/target/test-classes/log4j.xml");
-			System.out.println(getLoggers().size());
+			Properties log4jProperties = getProperties();
+			PropertyConfigurator.configure(log4jProperties);
+			// DOMConfigurator.configure("/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-util/target/test-classes/log4j.xml");
 			logger.info("after");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected Properties getProperties() {
+		String appenderName = "StdOut";
+		String appenderClass = ConsoleAppender.class.getName();
+		String layoutClass = PatternLayout.class.getName();
+		Properties props = new Properties();
+		props.setProperty("log4j.rootLogger", "DEBUG, " + appenderName);
+		props.setProperty("log4j.appender." + appenderName, appenderClass);
+		props.setProperty("log4j.appender." + appenderName + ".layout", layoutClass);
+		props.setProperty("log4j.appender." + appenderName + ".layout.ConversionPattern", Log4JPatternConstants.MAVEN);
+		return props;
 	}
 
 	@SuppressWarnings("unchecked")
