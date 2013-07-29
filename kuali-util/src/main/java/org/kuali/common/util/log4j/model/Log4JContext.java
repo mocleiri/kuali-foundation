@@ -48,6 +48,11 @@ public class Log4JContext {
 		return loggers;
 	}
 
+	@XmlElement
+	public void setRoot(Log4JLogger root) {
+		this.root = root;
+	}
+
 	public void setReset(Boolean reset) {
 		this.reset = reset;
 	}
@@ -70,10 +75,6 @@ public class Log4JContext {
 
 	public Log4JLogger getRoot() {
 		return root;
-	}
-
-	public void setRoot(Log4JLogger root) {
-		this.root = root;
 	}
 
 }
