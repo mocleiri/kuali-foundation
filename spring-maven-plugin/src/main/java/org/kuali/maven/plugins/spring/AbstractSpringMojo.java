@@ -83,8 +83,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	/**
 	 * Comma separated list of profiles to activate. By default the profile <code>maven</code> is activated.
 	 */
-	@Parameter(property = "spring.profiles.active", defaultValue = MavenProfileConstants.MAVEN_PROFILE)
-	String activeProfiles = MavenProfileConstants.MAVEN_PROFILE;
+	@Parameter(property = "spring.profiles.active", defaultValue = MavenProfileConstants.MAVEN)
+	String activeProfiles = MavenProfileConstants.MAVEN;
 
 	/**
 	 * Comma separated list of active profiles to include. By default, all active Maven profiles plus any profiles from <code>activeProfiles</code> are activated.

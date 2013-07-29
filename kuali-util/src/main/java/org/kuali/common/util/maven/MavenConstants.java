@@ -34,10 +34,10 @@ public abstract class MavenConstants {
 	public static final String ORG_ID_CODE_KEY = "project.orgId.code";
 
 	@Deprecated
-	public static final String SPRING_PROFILE_NAME = MavenProfileConstants.MAVEN_PROFILE;
+	public static final String SPRING_PROFILE_NAME = MavenProfileConstants.MAVEN;
 
 	@Deprecated
-	public static final String NEGATED_SPRING_PROFILE_NAME = MavenProfileConstants.MAVEN_PROFILE_NEGATED;
+	public static final String NEGATED_SPRING_PROFILE_NAME = MavenProfileConstants.MAVEN_NEGATED;
 
 	@Deprecated
 	public static final String MAVEN_PROJECT_BEAN_NAME = PROJECT_BEAN_NAME;

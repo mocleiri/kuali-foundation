@@ -13,7 +13,7 @@ public class PrintNotMavenMessage {
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NEGATED);
+		exec.setMessage(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE);
 		return exec;
 	}
 

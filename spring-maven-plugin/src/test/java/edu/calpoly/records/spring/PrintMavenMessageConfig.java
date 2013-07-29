@@ -13,7 +13,7 @@ public class PrintMavenMessageConfig {
 	@Bean
 	public PrintMessageExecutable printMessageExecutable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE);
+		exec.setMessage(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES);
 		return exec;
 	}
 
