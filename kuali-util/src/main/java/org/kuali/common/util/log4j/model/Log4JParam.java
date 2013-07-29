@@ -1,5 +1,7 @@
 package org.kuali.common.util.log4j.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class Log4JParam {
 
 	String name;
@@ -15,16 +17,18 @@ public class Log4JParam {
 		this.value = value;
 	}
 
+	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	@XmlAttribute
 	public String getValue() {
 		return value;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setValue(String value) {

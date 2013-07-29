@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JAppender;
 import org.kuali.common.util.log4j.model.Log4JContext;
+import org.kuali.common.util.log4j.model.Log4JLayout;
 import org.kuali.common.util.log4j.model.Log4JLogger;
 import org.kuali.common.util.log4j.model.Log4JPatternConstants;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
@@ -44,6 +45,7 @@ public class Log4JServiceTest {
 	@Test
 	public void testXml() {
 		try {
+			Log4JLayout layout = new Log4JLayout();
 			Log4JAppender console = new Log4JAppender();
 			console.setJavaClass(ConsoleAppender.class);
 			console.setName("StdOut");
