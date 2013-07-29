@@ -12,6 +12,7 @@ import org.apache.log4j.PatternLayout;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.log4j.model.Log4JPatternConstants;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;

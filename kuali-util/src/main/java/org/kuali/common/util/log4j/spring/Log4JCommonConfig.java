@@ -8,8 +8,8 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
-import org.kuali.common.util.log4j.Log4JPatternConstants;
 import org.kuali.common.util.log4j.LoggerContext;
+import org.kuali.common.util.log4j.model.Log4JPatternConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

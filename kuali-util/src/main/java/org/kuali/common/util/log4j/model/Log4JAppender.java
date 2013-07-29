@@ -1,4 +1,4 @@
-package org.kuali.common.util.log4j;
+package org.kuali.common.util.log4j.model;
 
 import java.util.Map;
 
