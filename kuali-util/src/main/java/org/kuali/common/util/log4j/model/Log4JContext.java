@@ -1,5 +1,6 @@
 package org.kuali.common.util.log4j.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -7,6 +8,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.kuali.common.util.CollectionUtils;
 
 @XmlRootElement(name = "log4j:configuration")
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -31,12 +34,28 @@ public class Log4JContext {
 		this.loggers = loggers;
 	}
 
+	public Log4JContext(Log4JContext context) {
+		super();
+		this.reset = context.getReset();
+		this.debug = context.getDebug();
+		this.threshold = context.getThreshold();
+		this.root = context.getRoot();
+
+		for (Log4JAppender appender : CollectionUtils.toEmptyList(context.getAppenders())) {
+			this.appenders.add(new Log4JAppender(appender));
+		}
+
+		for (Log4JLogger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
+			this.loggers.add(new Log4JLogger(logger));
+		}
+	}
+
 	Boolean reset = DEFAULT_RESET_VALUE;
 	Log4JDebug debug = DEFAULT_DEBUG_VALUE;
 	Log4JLevelValue threshold = DEFAULT_THRESHOLD_VALUE;
-	List<Log4JAppender> appenders;
 	Log4JLogger root;
-	List<Log4JLogger> loggers;
+	List<Log4JAppender> appenders = new ArrayList<Log4JAppender>();
+	List<Log4JLogger> loggers = new ArrayList<Log4JLogger>();
 
 	@XmlAttribute
 	public Boolean getReset() {
