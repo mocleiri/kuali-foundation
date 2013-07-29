@@ -1,5 +1,6 @@
 package org.kuali.common.util.log4j;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.log4j.model.Log4JAppender;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Log4JLogger;
 import org.kuali.common.util.log4j.model.Log4JPatternConstants;
@@ -42,9 +44,14 @@ public class Log4JServiceTest {
 	@Test
 	public void testXml() {
 		try {
+			Log4JAppender console = new Log4JAppender();
+			console.setJavaClass(ConsoleAppender.class);
+			console.setName("StdOut");
 			Log4JContext ctx = new Log4JContext();
 			Log4JLogger root = new Log4JLogger();
+			root.setAppenders(Arrays.asList(console.getName()));
 			ctx.setRoot(root);
+			ctx.setAppenders(Arrays.asList(console));
 			XmlService service = xmlServiceConfig.xmlService();
 			String xml = service.toString(ctx, "UTF-8");
 			logger.info(xml);

@@ -2,6 +2,8 @@ package org.kuali.common.util.log4j.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class Log4JAppender {
 
 	String name;
@@ -9,16 +11,18 @@ public class Log4JAppender {
 	Log4JLayout layout;
 	List<Log4JParam> params;
 
+	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
 		return javaClass;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setJavaClass(Class<?> javaClass) {
