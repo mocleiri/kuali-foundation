@@ -21,7 +21,6 @@ import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JAppender;
 import org.kuali.common.util.log4j.model.Log4JAppenderReference;
 import org.kuali.common.util.log4j.model.Log4JContext;
-import org.kuali.common.util.log4j.model.Log4JContextNullifier;
 import org.kuali.common.util.log4j.model.Log4JLayout;
 import org.kuali.common.util.log4j.model.Log4JLevel;
 import org.kuali.common.util.log4j.model.Log4JLevelValue;

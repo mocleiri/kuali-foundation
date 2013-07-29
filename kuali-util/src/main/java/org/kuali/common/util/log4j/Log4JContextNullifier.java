@@ -1,7 +1,10 @@
-package org.kuali.common.util.log4j.model;
+package org.kuali.common.util.log4j;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.log4j.model.Log4JContext;
+import org.kuali.common.util.log4j.model.Log4JLevel;
+import org.kuali.common.util.log4j.model.Log4JLogger;
 import org.kuali.common.util.nullify.Nullifier;
 
 public class Log4JContextNullifier implements Nullifier {
