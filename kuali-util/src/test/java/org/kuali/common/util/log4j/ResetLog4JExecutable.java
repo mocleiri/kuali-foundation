@@ -39,7 +39,7 @@ public class ResetLog4JExecutable implements Executable {
 				logger.addAppender(appender);
 			}
 
-			// Set other configuration
+			// Set other logger configuration
 			logger.setResourceBundle(context.getResourceBundle());
 			logger.setAdditivity(context.isAdditive());
 		}
