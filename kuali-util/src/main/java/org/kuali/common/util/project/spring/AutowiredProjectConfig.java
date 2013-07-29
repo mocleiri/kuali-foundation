@@ -96,7 +96,8 @@ public class AutowiredProjectConfig {
 		}
 	}
 
-	// This config class loads if the Spring profile "autowiredMavenProperties" IS active
+	// This config class only loads if the Spring profile "autowiredMavenProperties" IS active
+	// spring-maven-plugin activates this profile by default when Spring is launched by Maven during a build
 	@Configuration
 	@AutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
