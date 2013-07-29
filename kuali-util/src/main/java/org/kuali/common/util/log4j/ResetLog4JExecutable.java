@@ -32,8 +32,8 @@ public class ResetLog4JExecutable implements Executable {
 	@Override
 	public void execute() {
 
+		// Might have nothing to do
 		if (skip) {
-			// Don't do anything
 			return;
 		}
 
