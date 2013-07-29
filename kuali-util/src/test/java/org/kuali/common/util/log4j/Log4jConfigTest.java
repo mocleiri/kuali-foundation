@@ -8,6 +8,7 @@ import org.kuali.common.util.project.spring.AutowiredProjectConfigTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,9 +21,13 @@ public class Log4jConfigTest {
 	@Autowired
 	ProjectTestingConfig projectTestingConfig;
 
+	@Bean
+	public File workingDir() {
+		return new File(projectTestingConfig.buildDirectory(), "log4j");
+	}
+
 	@Test
 	public void test() {
-		File baseDir = projectTestingConfig.baseDir();
-		logger.info(baseDir + "");
+		logger.info(workingDir() + "");
 	}
 }
