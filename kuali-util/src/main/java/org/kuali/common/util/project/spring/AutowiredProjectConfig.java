@@ -69,7 +69,7 @@ public class AutowiredProjectConfig {
 	// The pair of static classes below, are setup to activate via the Spring profiles "autowiredMavenProperties" and "!autowiredMavenProperties"
 	// This makes it so that one (and only one) of them will always load no matter what
 
-	// This config class loads if the Spring profile "autowiredMavenProperties" is NOT active
+	// This config class loads if the Spring profile "autowiredMavenProperties" is NOT active (which will usually be the case)
 	@Configuration
 	@NoAutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
