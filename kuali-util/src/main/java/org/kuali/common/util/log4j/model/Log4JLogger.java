@@ -17,14 +17,23 @@ public class Log4JLogger {
 		this(null, references);
 	}
 
+	public Log4JLogger(List<Log4JAppenderReference> references, Log4JLevel level) {
+		this(null, references, level);
+	}
+
 	public Log4JLogger(String name) {
 		this(name, null);
 	}
 
 	public Log4JLogger(String name, List<Log4JAppenderReference> references) {
+		this(name, references, null);
+	}
+
+	public Log4JLogger(String name, List<Log4JAppenderReference> references, Log4JLevel level) {
 		super();
 		this.name = name;
 		this.references = references;
+		this.level = level;
 	}
 
 	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;

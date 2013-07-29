@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.LogManager;
@@ -18,6 +19,7 @@ import org.kuali.common.util.log4j.model.Log4JAppender;
 import org.kuali.common.util.log4j.model.Log4JAppenderReference;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Log4JLayout;
+import org.kuali.common.util.log4j.model.Log4JLevel;
 import org.kuali.common.util.log4j.model.Log4JLogger;
 import org.kuali.common.util.log4j.model.Log4JParam;
 import org.kuali.common.util.log4j.model.Log4JPatternConstants;
@@ -52,7 +54,7 @@ public class Log4JServiceTest {
 			Log4JLayout layout = new Log4JLayout(PatternLayout.class, Arrays.asList(pattern));
 			Log4JAppender console = new Log4JAppender("StdOut", ConsoleAppender.class, layout);
 			Log4JAppenderReference consoleReference = new Log4JAppenderReference(console.getName());
-			Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference));
+			Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Log4JLevel(Level.INFO.toString()));
 			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
 
 			XmlService service = xmlServiceConfig.xmlService();

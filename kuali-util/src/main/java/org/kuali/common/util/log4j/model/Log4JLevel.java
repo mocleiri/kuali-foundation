@@ -8,8 +8,17 @@ public class Log4JLevel {
 
 	public static final Class<Level> DEFAULT_JAVA_CLASS = Level.class;
 
+	public Log4JLevel() {
+		this(null);
+	}
+
+	public Log4JLevel(String value) {
+		super();
+		this.value = value;
+	}
+
 	Class<?> javaClass = DEFAULT_JAVA_CLASS;
-	Level value;
+	String value;
 
 	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
@@ -17,7 +26,7 @@ public class Log4JLevel {
 	}
 
 	@XmlAttribute
-	public Level getValue() {
+	public String getValue() {
 		return value;
 	}
 
@@ -25,7 +34,7 @@ public class Log4JLevel {
 		this.javaClass = javaClass;
 	}
 
-	public void setValue(Level value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 
