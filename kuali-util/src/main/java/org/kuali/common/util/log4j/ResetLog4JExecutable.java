@@ -41,6 +41,10 @@ public class ResetLog4JExecutable implements Executable {
 		LogManager.shutdown();
 
 		// Re-configure log4j as desired
+		configure(contexts);
+	}
+
+	protected void configure(List<LoggerContext> contexts) {
 		for (LoggerContext context : toEmptyList(contexts)) {
 
 			// Get a handle to the the appropriate logger
