@@ -8,10 +8,12 @@ import org.apache.log4j.Level;
 
 public class LoggerContext {
 
+	public static final Level DEFAULT_LEVEL = Level.INFO;
+
+	Level level = DEFAULT_LEVEL;
 	boolean rootLogger;
 	Class<?> loggerClass;
 	List<? extends Appender> appenders;
-	Level level;
 	boolean additive;
 	ResourceBundle resourceBundle;
 
