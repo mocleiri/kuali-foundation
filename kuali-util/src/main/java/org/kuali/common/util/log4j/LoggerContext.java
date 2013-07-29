@@ -46,7 +46,7 @@ public class LoggerContext {
 		this(null, loggerName, level, appenders);
 	}
 
-	// Users of this class should only be providing a name OR a class, not both
+	// Restricted access constructor, because users of this class should only be providing a name OR a class, not both
 	LoggerContext(Class<?> loggerClass, String loggerName, Level level, List<? extends Appender> appenders) {
 		super();
 		this.level = level;
