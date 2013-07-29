@@ -1,4 +1,7 @@
-package org.kuali.common.util.log4j.model;
+package org.kuali.common.util.log4j.model.param;
+
+import org.kuali.common.util.log4j.model.Log4JParam;
+import org.kuali.common.util.log4j.model.Log4JThreshold;
 
 
 public class Log4JThresholdParam extends Log4JParam {
