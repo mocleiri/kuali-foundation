@@ -30,10 +30,6 @@ public class Log4jConfigTest {
 		return new File(projectTestingConfig.buildDirectory(), "log4j");
 	}
 
-	protected void info(String msg) {
-		System.out.println(msg);
-	}
-
 	@Test
 	public void test() {
 		logger.info("before");
