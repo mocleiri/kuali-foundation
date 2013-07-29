@@ -9,13 +9,14 @@ import org.apache.log4j.Level;
 public class LoggerContext {
 
 	public static final Level DEFAULT_LEVEL = Level.INFO;
+	public static final boolean DEFAULT_ADDITIVE = true;
 
 	Level level = DEFAULT_LEVEL;
+	boolean additive = DEFAULT_ADDITIVE;
 	boolean rootLogger;
 	Class<?> loggerClass;
 	String loggerName;
 	List<? extends Appender> appenders;
-	boolean additive;
 	ResourceBundle resourceBundle;
 
 	public LoggerContext() {

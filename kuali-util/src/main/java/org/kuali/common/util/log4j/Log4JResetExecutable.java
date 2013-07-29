@@ -6,29 +6,29 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 
-public class ResetLog4JExecutable implements Executable {
+public class Log4JResetExecutable implements Executable {
 
 	boolean skip;
 	List<LoggerContext> contexts;
 	Log4JService service;
 
-	public ResetLog4JExecutable() {
+	public Log4JResetExecutable() {
 		this((LoggerContext) null);
 	}
 
-	public ResetLog4JExecutable(LoggerContext context) {
+	public Log4JResetExecutable(LoggerContext context) {
 		this(CollectionUtils.toEmptyList(context));
 	}
 
-	public ResetLog4JExecutable(Log4JService service, LoggerContext context) {
+	public Log4JResetExecutable(Log4JService service, LoggerContext context) {
 		this(service, CollectionUtils.toEmptyList(context));
 	}
 
-	public ResetLog4JExecutable(List<LoggerContext> contexts) {
+	public Log4JResetExecutable(List<LoggerContext> contexts) {
 		this(null, contexts);
 	}
 
-	public ResetLog4JExecutable(Log4JService service, List<LoggerContext> contexts) {
+	public Log4JResetExecutable(Log4JService service, List<LoggerContext> contexts) {
 		super();
 		this.service = service;
 		this.contexts = contexts;
@@ -50,6 +50,30 @@ public class ResetLog4JExecutable implements Executable {
 
 		// Re-configure log4j
 		service.configure(contexts);
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+
+	public List<LoggerContext> getContexts() {
+		return contexts;
+	}
+
+	public void setContexts(List<LoggerContext> contexts) {
+		this.contexts = contexts;
+	}
+
+	public Log4JService getService() {
+		return service;
+	}
+
+	public void setService(Log4JService service) {
+		this.service = service;
 	}
 
 }

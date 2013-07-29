@@ -24,7 +24,7 @@ public class Log4JCommonConfig {
 	}
 
 	@Bean
-	public List<LoggerContext> log4JDebug() {
+	public List<LoggerContext> log4JTest() {
 		return Arrays.asList(getRootLoggerContext(Log4JPatternConstants.DEBUG));
 	}
 
@@ -36,7 +36,7 @@ public class Log4JCommonConfig {
 	}
 
 	@Bean
-	public List<LoggerContext> log4JMavenDebug() {
+	public List<LoggerContext> log4JDebug() {
 		return Arrays.asList(getRootLoggerContext(Level.DEBUG, Log4JPatternConstants.DEBUG));
 	}
 
