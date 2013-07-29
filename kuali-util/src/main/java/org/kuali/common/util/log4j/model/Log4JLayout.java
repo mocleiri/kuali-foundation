@@ -17,7 +17,7 @@ public class Log4JLayout {
 		super();
 		this.javaClass = layout.getJavaClass();
 		for (Log4JParam param : CollectionUtils.toEmptyList(layout.getParams())) {
-			params.add(new Log4JParam(param));
+			this.params.add(new Log4JParam(param));
 		}
 	}
 
