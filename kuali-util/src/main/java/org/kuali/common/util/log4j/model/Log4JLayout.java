@@ -1,14 +1,25 @@
 package org.kuali.common.util.log4j.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.kuali.common.util.CollectionUtils;
+
 public class Log4JLayout {
 
 	Class<?> javaClass;
-	List<Log4JParam> params;
+	List<Log4JParam> params = new ArrayList<Log4JParam>();
+
+	public Log4JLayout(Log4JLayout layout) {
+		super();
+		this.javaClass = layout.getJavaClass();
+		for (Log4JParam param : CollectionUtils.toEmptyList(layout.getParams())) {
+			params.add(new Log4JParam(param));
+		}
+	}
 
 	public Log4JLayout() {
 		this(null, null);

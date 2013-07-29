@@ -7,6 +7,12 @@ public class Log4JParam {
 	String name;
 	String value;
 
+	public Log4JParam(Log4JParam param) {
+		super();
+		this.name = param.getName();
+		this.value = param.getValue();
+	}
+
 	public Log4JParam() {
 		this(null, null);
 	}

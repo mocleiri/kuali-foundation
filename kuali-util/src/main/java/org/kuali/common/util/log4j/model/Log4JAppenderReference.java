@@ -6,8 +6,13 @@ public class Log4JAppenderReference {
 
 	String name;
 
+	public Log4JAppenderReference(Log4JAppenderReference reference) {
+		super();
+		this.name = reference.getName();
+	}
+
 	public Log4JAppenderReference() {
-		this(null);
+		this((String) null);
 	}
 
 	public Log4JAppenderReference(String name) {
