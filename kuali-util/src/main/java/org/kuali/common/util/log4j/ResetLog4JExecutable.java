@@ -1,31 +1,36 @@
 package org.kuali.common.util.log4j;
 
-import static org.kuali.common.util.CollectionUtils.toEmptyList;
-
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Appender;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 
 public class ResetLog4JExecutable implements Executable {
 
 	boolean skip;
 	List<LoggerContext> contexts;
+	Log4JService service;
 
 	public ResetLog4JExecutable() {
 		this((LoggerContext) null);
 	}
 
 	public ResetLog4JExecutable(LoggerContext context) {
-		this(Arrays.asList(context));
+		this(CollectionUtils.toEmptyList(context));
+	}
+
+	public ResetLog4JExecutable(Log4JService service, LoggerContext context) {
+		this(null, CollectionUtils.toEmptyList(context));
 	}
 
 	public ResetLog4JExecutable(List<LoggerContext> contexts) {
+		this(null, contexts);
+	}
+
+	public ResetLog4JExecutable(Log4JService service, List<LoggerContext> contexts) {
 		super();
+		this.service = service;
 		this.contexts = contexts;
 	}
 
@@ -37,40 +42,10 @@ public class ResetLog4JExecutable implements Executable {
 			return;
 		}
 
-		// Remove all existing log4j configuration
-		LogManager.shutdown();
+		Assert.notNull(service, "service is null");
 
-		// Re-configure
-		for (LoggerContext context : toEmptyList(contexts)) {
-			configure(context);
-		}
-	}
-
-	protected void configure(LoggerContext context) {
-		// Get a handle to the the appropriate logger
-		Logger logger = getLogger(context);
-
-		// Set the logging level
-		logger.setLevel(context.getLevel());
-
-		// Add appenders
-		for (Appender appender : toEmptyList(context.getAppenders())) {
-			logger.addAppender(appender);
-		}
-
-		// Add other configuration
-		logger.setResourceBundle(context.getResourceBundle());
-		logger.setAdditivity(context.isAdditive());
-	}
-
-	protected Logger getLogger(LoggerContext context) {
-		if (context.isRootLogger()) {
-			return Logger.getRootLogger();
-		} else if (!StringUtils.isBlank(context.getLoggerName())) {
-			return Logger.getLogger(context.getLoggerName());
-		} else {
-			return Logger.getLogger(context.getLoggerClass());
-		}
+		service.shutdown();
+		service.configure(contexts);
 	}
 
 }
