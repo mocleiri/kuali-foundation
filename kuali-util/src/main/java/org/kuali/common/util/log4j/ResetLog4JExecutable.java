@@ -41,27 +41,26 @@ public class ResetLog4JExecutable implements Executable {
 		LogManager.shutdown();
 
 		// Re-configure log4j as desired
-		configure(contexts);
+		for (LoggerContext context : toEmptyList(contexts)) {
+			configure(context);
+		}
 	}
 
-	protected void configure(List<LoggerContext> contexts) {
-		for (LoggerContext context : toEmptyList(contexts)) {
+	protected void configure(LoggerContext context) {
+		// Get a handle to the the appropriate logger
+		Logger logger = getLogger(context);
 
-			// Get a handle to the the appropriate logger
-			Logger logger = getLogger(context);
+		// Set the logging level
+		logger.setLevel(context.getLevel());
 
-			// Set the logging level
-			logger.setLevel(context.getLevel());
-
-			// Add appenders
-			for (Appender appender : toEmptyList(context.getAppenders())) {
-				logger.addAppender(appender);
-			}
-
-			// Add other configuration
-			logger.setResourceBundle(context.getResourceBundle());
-			logger.setAdditivity(context.isAdditive());
+		// Add appenders
+		for (Appender appender : toEmptyList(context.getAppenders())) {
+			logger.addAppender(appender);
 		}
+
+		// Add other configuration
+		logger.setResourceBundle(context.getResourceBundle());
+		logger.setAdditivity(context.isAdditive());
 	}
 
 	protected Logger getLogger(LoggerContext context) {
