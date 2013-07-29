@@ -2,6 +2,7 @@ package org.kuali.common.util.log4j;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.ConsoleAppender;
@@ -36,13 +37,19 @@ public class Log4jConfigTest {
 	@Test
 	public void test() {
 		logger.info("before");
-		new ResetLog4JExecutable(getRootContext()).execute();
+		String pattern = "[%-4p] %m%n";
+		Appender appender = getConsoleAppender(pattern);
+		List<LoggerContext> contexts = Arrays.asList(getRootContext(appender), getSpringContext(appender));
+		new ResetLog4JExecutable(contexts).execute();
 		logger.info("after");
 	}
 
-	protected LoggerContext getRootContext() {
-		Layout layout = new PatternLayout("[%-4p] %m%n");
-		Appender appender = new ConsoleAppender(layout);
+	protected Appender getConsoleAppender(String pattern) {
+		Layout layout = new PatternLayout(pattern);
+		return new ConsoleAppender(layout);
+	}
+
+	protected LoggerContext getRootContext(Appender appender) {
 		Level level = Level.INFO;
 
 		LoggerContext context = new LoggerContext();
@@ -52,15 +59,9 @@ public class Log4jConfigTest {
 		return context;
 	}
 
-	protected LoggerContext getSpringContext() {
-		Layout layout = new PatternLayout("[%-4p] %m%n");
-		Appender appender = new ConsoleAppender(layout);
-		Level level = Level.INFO;
-
-		LoggerContext context = new LoggerContext();
-		context.setRootLogger(true);
+	protected LoggerContext getSpringContext(Appender appender) {
+		LoggerContext context = new LoggerContext("org.springframework", Level.ALL);
 		context.setAppenders(Arrays.asList(appender));
-		context.setLevel(level);
 		return context;
 	}
 
