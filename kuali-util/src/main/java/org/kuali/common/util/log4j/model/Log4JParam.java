@@ -5,6 +5,16 @@ public class Log4JParam {
 	String name;
 	String value;
 
+	public Log4JParam() {
+		this(null, null);
+	}
+
+	public Log4JParam(String name, String value) {
+		super();
+		this.name = name;
+		this.value = value;
+	}
+
 	public String getName() {
 		return name;
 	}
