@@ -1,9 +1,12 @@
 package org.kuali.common.util.log4j.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import org.kuali.common.util.CollectionUtils;
 
 public class Log4JLogger {
 
@@ -36,9 +39,19 @@ public class Log4JLogger {
 		this.level = level;
 	}
 
+	public Log4JLogger(Log4JLogger logger) {
+		super();
+		this.additivity = logger.getAdditivity();
+		this.name = logger.getName();
+		this.level = logger.getLevel();
+		for (Log4JAppenderReference reference : CollectionUtils.toEmptyList(logger.getReferences())) {
+			this.references.add(new Log4JAppenderReference(reference));
+		}
+	}
+
 	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
 	String name;
-	List<Log4JAppenderReference> references;
+	List<Log4JAppenderReference> references = new ArrayList<Log4JAppenderReference>();
 	Log4JLevel level;
 
 	@XmlElement(name = "appender-ref")
