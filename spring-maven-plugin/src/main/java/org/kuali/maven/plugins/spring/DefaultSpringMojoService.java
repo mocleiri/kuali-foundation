@@ -202,9 +202,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		if (mojo.isInjectMavenProperties()) {
 			// If we have wired in the Maven properties, activate the profile "autowiredMavenProperties"
 			profiles.add(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE);
-		} else {
-			// otherwise activate the profile "!autowiredMavenProperties"
-			profiles.add(MavenProfileConstants.AUTOWIRED_MAVEN_PROPERTIES_PROFILE_NEGATED);
 		}
 
 		// Setup includes / excludes
