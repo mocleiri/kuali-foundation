@@ -42,9 +42,13 @@ public class ResetLog4JExecutable implements Executable {
 			return;
 		}
 
+		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
 
+		// Turn off all logging and remove all log4j configuration
 		service.shutdown();
+
+		// Re-configure log4j
 		service.configure(contexts);
 	}
 

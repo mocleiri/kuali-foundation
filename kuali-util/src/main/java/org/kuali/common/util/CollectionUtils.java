@@ -363,7 +363,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * If <code>o==null</code> return an empty list otherwise return a singleton list.
+	 * If <code>o==null</code> return <code>Collections.&lt;T> emptyList()</code> otherwise return <code>Collections.singletonList(o)</code>
 	 */
 	public static final <T> List<T> toEmptyList(T o) {
 		if (o == null) {
