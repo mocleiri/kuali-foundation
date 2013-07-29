@@ -73,7 +73,7 @@ public class AutowiredProjectConfig {
 	@Configuration
 	@NoAutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
-	static class NotMavenProjectConfig implements ProjectConfig {
+	static class NoAutowiredMavenPropertiesProjectConfig implements ProjectConfig {
 
 		// Something else needs to have wired this in
 		@Autowired
@@ -100,7 +100,7 @@ public class AutowiredProjectConfig {
 	@Configuration
 	@AutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
-	static class MavenProjectConfig implements ProjectConfig {
+	static class AutowiredMavenPropertiesProjectConfig implements ProjectConfig {
 
 		// spring-maven-plugin wires this in for us
 		@Autowired
