@@ -32,7 +32,7 @@ public class Log4JCommonConfig {
 	public List<LoggerContext> log4JMaven() {
 		LoggerContext root = getRootLoggerContext(Log4JPatternConstants.MAVEN);
 		LoggerContext spring = new LoggerContext(SPRING, Level.WARN, root.getAppenders());
-		return Arrays.asList(root); // Arrays.asList(root, spring);
+		return Arrays.asList(root, spring);
 	}
 
 	@Bean
