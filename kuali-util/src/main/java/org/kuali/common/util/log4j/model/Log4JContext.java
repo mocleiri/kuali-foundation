@@ -12,13 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Log4JContext {
 
-	public static final Boolean DEFAULT_RESET_VALUE = null;
+	public static final Boolean DEFAULT_RESET_VALUE = true;
 	public static final Log4JDebug DEFAULT_DEBUG_VALUE = Log4JDebug.NULL;
 	public static final Log4JThreshold DEFAULT_THRESHOLD_VALUE = Log4JThreshold.NULL;
 
 	Boolean reset = DEFAULT_RESET_VALUE;
-	Log4JDebug debug = Log4JDebug.NULL;
-	Log4JThreshold threshold = Log4JThreshold.NULL;
+	Log4JDebug debug = DEFAULT_DEBUG_VALUE;
+	Log4JThreshold threshold = DEFAULT_THRESHOLD_VALUE;
 	List<Log4JAppender> appenders;
 	Log4JLogger root;
 	List<Log4JLogger> loggers;

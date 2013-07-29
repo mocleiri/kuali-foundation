@@ -10,17 +10,22 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.log4j.model.Log4JContext;
+import org.kuali.common.util.log4j.model.Log4JLogger;
 import org.kuali.common.util.log4j.model.Log4JPatternConstants;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
+import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { Log4JServiceConfig.class, Log4JCommonConfig.class })
+@ContextConfiguration(classes = { Log4JServiceConfig.class, Log4JCommonConfig.class, XmlServiceConfig.class })
 public class Log4JServiceTest {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Log4JServiceTest.class);
@@ -31,7 +36,25 @@ public class Log4JServiceTest {
 	@Autowired
 	Log4JCommonConfig log4JCommonConfig;
 
+	@Autowired
+	XmlServiceConfig xmlServiceConfig;
+
 	@Test
+	public void testXml() {
+		try {
+			Log4JContext ctx = new Log4JContext();
+			Log4JLogger root = new Log4JLogger();
+			ctx.setRoot(root);
+			XmlService service = xmlServiceConfig.xmlService();
+			String xml = service.toString(ctx, "UTF-8");
+			logger.info(xml);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
 	public void test() {
 		try {
 			logger.info("before");

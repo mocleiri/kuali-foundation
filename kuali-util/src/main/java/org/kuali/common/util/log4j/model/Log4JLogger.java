@@ -6,18 +6,18 @@ import org.apache.log4j.Level;
 
 public class Log4JLogger {
 
-	public static final boolean DEFAULT_ADDITIVITY_VALUE = true;
+	public static final Boolean DEFAULT_ADDITIVITY_VALUE = true;
 
-	boolean additivity = DEFAULT_ADDITIVITY_VALUE;
+	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
 	String name;
 	List<String> appenders;
 	Level level;
 
-	public boolean isAdditivity() {
+	public Boolean isAdditivity() {
 		return additivity;
 	}
 
-	public void setAdditivity(boolean additivity) {
+	public void setAdditivity(Boolean additivity) {
 		this.additivity = additivity;
 	}
 
