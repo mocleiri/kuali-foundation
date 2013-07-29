@@ -9,7 +9,7 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JPatternConstants;
@@ -36,9 +36,9 @@ public class Log4JServiceTest {
 		try {
 			logger.info("before");
 			LogManager.resetConfiguration();
-			Properties log4jProperties = getProperties();
-			PropertyConfigurator.configure(log4jProperties);
-			// DOMConfigurator.configure("/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-util/target/test-classes/log4j.xml");
+			// Properties log4jProperties = getProperties();
+			// PropertyConfigurator.configure(log4jProperties);
+			DOMConfigurator.configure("/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-util/target/test-classes/log4j.xml");
 			logger.info("after");
 		} catch (Exception e) {
 			e.printStackTrace();
