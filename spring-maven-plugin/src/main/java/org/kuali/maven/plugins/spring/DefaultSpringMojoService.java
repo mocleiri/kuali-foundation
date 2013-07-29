@@ -16,7 +16,6 @@
 package org.kuali.maven.plugins.spring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -282,24 +281,21 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected Map<String, Object> getBeans(AbstractSpringMojo mojo, Properties mavenProperties) {
-		// These are the bean names for the Maven specific model objects
-		List<String> allBeanNames = new ArrayList<String>();
-		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
-		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME);
-		allBeanNames.add(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME);
+		Map<String, Object> beans = new HashMap<String, Object>();
 
-		// Assemble any beans we may be injecting
-		List<Boolean> includes = Arrays.asList(mojo.isInjectMavenProperties(), mojo.isInjectMavenProject(), mojo.isInjectMavenMojo());
-		List<String> beanNames = CollectionUtils.getList(includes, allBeanNames);
-		List<Object> beans = CollectionUtils.getList(includes, Arrays.asList(mavenProperties, mojo.getProject(), mojo));
-
-		Map<String, Object> contextBeans = new HashMap<String, Object>();
-		for (int i = 0; i < beanNames.size(); i++) {
-			String key = beanNames.get(i);
-			Object bean = beans.get(i);
-			contextBeans.put(key, bean);
+		if (mojo.isInjectMavenProperties()) {
+			beans.put(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
 		}
-		return contextBeans;
+
+		if (mojo.isInjectMavenProject()) {
+			beans.put(MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME, mojo.getProject());
+		}
+		
+		if (mojo.isInjectMavenMojo()) {
+			beans.put(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo);
+		}
+
+		return beans;
 	}
 
 	protected SpringContext getSpringContext(LoadXmlMojo mojo, Properties mavenProperties) {
