@@ -4,10 +4,15 @@ import java.util.List;
 
 public class Log4JContext {
 
-	boolean reset;
-	Log4JDebug debug;
-	Log4JThreshold threshold;
+	public static final boolean DEFAULT_RESET_VALUE = false;
+	public static final Log4JDebug DEFAULT_DEBUG_VALUE = Log4JDebug.NULL;
+	public static final Log4JThreshold DEFAULT_THRESHOLD_VALUE = Log4JThreshold.NULL;
+
+	boolean reset = DEFAULT_RESET_VALUE;
+	Log4JDebug debug = Log4JDebug.NULL;
+	Log4JThreshold threshold = Log4JThreshold.NULL;
 	List<Log4JAppender> appenders;
+	Log4JLogger root;
 	List<Log4JLogger> loggers;
 
 	public boolean isReset() {
@@ -48,6 +53,14 @@ public class Log4JContext {
 
 	public void setLoggers(List<Log4JLogger> loggers) {
 		this.loggers = loggers;
+	}
+
+	public Log4JLogger getRoot() {
+		return root;
+	}
+
+	public void setRoot(Log4JLogger root) {
+		this.root = root;
 	}
 
 }
