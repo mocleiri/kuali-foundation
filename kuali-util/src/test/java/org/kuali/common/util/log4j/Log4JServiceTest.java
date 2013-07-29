@@ -15,10 +15,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JAppender;
+import org.kuali.common.util.log4j.model.Log4JAppenderReference;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Log4JLayout;
 import org.kuali.common.util.log4j.model.Log4JLogger;
+import org.kuali.common.util.log4j.model.Log4JParam;
 import org.kuali.common.util.log4j.model.Log4JPatternConstants;
+import org.kuali.common.util.log4j.model.param.Log4JConversionPatternParam;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
 import org.kuali.common.util.xml.XmlService;
@@ -45,13 +48,20 @@ public class Log4JServiceTest {
 	@Test
 	public void testXml() {
 		try {
+			Log4JParam param = new Log4JConversionPatternParam(Log4JPatternConstants.DEFAULT);
 			Log4JLayout layout = new Log4JLayout();
+			layout.setJavaClass(PatternLayout.class);
+			layout.setParams(Arrays.asList(param));
+
 			Log4JAppender console = new Log4JAppender();
 			console.setJavaClass(ConsoleAppender.class);
 			console.setName("StdOut");
+			console.setLayout(layout);
 			Log4JContext ctx = new Log4JContext();
 			Log4JLogger root = new Log4JLogger();
-			root.setAppenders(Arrays.asList(console.getName()));
+			Log4JAppenderReference reference = new Log4JAppenderReference();
+			reference.setName(console.getName());
+			root.setReferences(Arrays.asList(reference));
 			ctx.setRoot(root);
 			ctx.setAppenders(Arrays.asList(console));
 			XmlService service = xmlServiceConfig.xmlService();

@@ -2,6 +2,8 @@ package org.kuali.common.util.log4j.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import org.apache.log4j.Level;
 
 public class Log4JLogger {
@@ -10,8 +12,13 @@ public class Log4JLogger {
 
 	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
 	String name;
-	List<String> appenders;
+	List<Log4JAppenderReference> references;
 	Level level;
+
+	@XmlElement(name = "appender-ref")
+	public List<Log4JAppenderReference> getReferences() {
+		return references;
+	}
 
 	public Boolean isAdditivity() {
 		return additivity;
@@ -29,20 +36,20 @@ public class Log4JLogger {
 		this.name = name;
 	}
 
-	public List<String> getAppenders() {
-		return appenders;
-	}
-
-	public void setAppenders(List<String> appenders) {
-		this.appenders = appenders;
-	}
-
 	public Level getLevel() {
 		return level;
 	}
 
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+
+	public void setReferences(List<Log4JAppenderReference> references) {
+		this.references = references;
+	}
+
+	public Boolean getAdditivity() {
+		return additivity;
 	}
 
 }

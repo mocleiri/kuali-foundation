@@ -6,11 +6,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Log4JDebug;
-import org.kuali.common.util.log4j.model.Log4JLogger;
-import org.kuali.common.util.log4j.model.Log4JParam;
 import org.kuali.common.util.log4j.model.Log4JThreshold;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,19 +58,4 @@ public class DefaultLog4JService implements Log4JService {
 		return properties;
 	}
 
-	protected Log4JParam getRootLoggerProperty(Log4JContext context) {
-		Log4JLogger root = context.getRoot();
-		String name = "log4j.rootLogger";
-		StringBuilder sb = new StringBuilder();
-		sb.append(root.getLevel());
-		int count = CollectionUtils.toEmptyList(root.getAppenders()).size();
-		for (int i = 0; i < count; i++) {
-			if (i != 0) {
-				sb.append(", ");
-			}
-			String appender = root.getAppenders().get(i);
-			sb.append(appender);
-		}
-		return new Log4JParam(name, sb.toString());
-	}
 }
