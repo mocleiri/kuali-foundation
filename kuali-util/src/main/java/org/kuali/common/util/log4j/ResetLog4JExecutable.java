@@ -21,7 +21,7 @@ public class ResetLog4JExecutable implements Executable {
 	}
 
 	public ResetLog4JExecutable(Log4JService service, LoggerContext context) {
-		this(null, CollectionUtils.toEmptyList(context));
+		this(service, CollectionUtils.toEmptyList(context));
 	}
 
 	public ResetLog4JExecutable(List<LoggerContext> contexts) {
