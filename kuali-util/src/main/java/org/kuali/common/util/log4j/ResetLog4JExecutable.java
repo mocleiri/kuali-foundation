@@ -5,6 +5,7 @@ import static org.kuali.common.util.CollectionUtils.toEmptyList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Appender;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -43,7 +44,7 @@ public class ResetLog4JExecutable implements Executable {
 		for (LoggerContext context : toEmptyList(contexts)) {
 
 			// Get a handle to the the appropriate logger
-			Logger logger = context.isRootLogger() ? Logger.getRootLogger() : Logger.getLogger(context.getLoggerClass());
+			Logger logger = getLogger(context);
 
 			// Set the logging level
 			logger.setLevel(context.getLevel());
@@ -56,6 +57,16 @@ public class ResetLog4JExecutable implements Executable {
 			// Add other configuration
 			logger.setResourceBundle(context.getResourceBundle());
 			logger.setAdditivity(context.isAdditive());
+		}
+	}
+
+	protected Logger getLogger(LoggerContext context) {
+		if (context.isRootLogger()) {
+			return Logger.getRootLogger();
+		} else if (!StringUtils.isBlank(context.getLoggerName())) {
+			return Logger.getLogger(context.getLoggerName());
+		} else {
+			return Logger.getLogger(context.getLoggerClass());
 		}
 	}
 

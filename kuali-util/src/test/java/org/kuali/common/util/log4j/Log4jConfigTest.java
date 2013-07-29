@@ -52,4 +52,16 @@ public class Log4jConfigTest {
 		return context;
 	}
 
+	protected LoggerContext getSpringContext() {
+		Layout layout = new PatternLayout("[%-4p] %m%n");
+		Appender appender = new ConsoleAppender(layout);
+		Level level = Level.INFO;
+
+		LoggerContext context = new LoggerContext();
+		context.setRootLogger(true);
+		context.setAppenders(Arrays.asList(appender));
+		context.setLevel(level);
+		return context;
+	}
+
 }

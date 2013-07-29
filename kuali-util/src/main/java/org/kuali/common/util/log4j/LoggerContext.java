@@ -10,9 +10,37 @@ public class LoggerContext {
 
 	public static final Level DEFAULT_LEVEL = Level.INFO;
 
+	public LoggerContext() {
+		this((String) null);
+	}
+
+	public LoggerContext(String loggerName) {
+		this(loggerName, DEFAULT_LEVEL);
+	}
+
+	public LoggerContext(Class<?> loggerClass) {
+		this(loggerClass, null, DEFAULT_LEVEL);
+	}
+
+	public LoggerContext(Class<?> loggerClass, Level level) {
+		this(loggerClass, null, level);
+	}
+
+	public LoggerContext(String loggerName, Level level) {
+		this(null, loggerName, level);
+	}
+
+	protected LoggerContext(Class<?> loggerClass, String loggerName, Level level) {
+		super();
+		this.level = level;
+		this.loggerName = loggerName;
+		this.loggerClass = loggerClass;
+	}
+
 	Level level = DEFAULT_LEVEL;
 	boolean rootLogger;
 	Class<?> loggerClass;
+	String loggerName;
 	List<? extends Appender> appenders;
 	boolean additive;
 	ResourceBundle resourceBundle;
@@ -63,6 +91,14 @@ public class LoggerContext {
 
 	public void setRootLogger(boolean rootLogger) {
 		this.rootLogger = rootLogger;
+	}
+
+	public String getLoggerName() {
+		return loggerName;
+	}
+
+	public void setLoggerName(String loggerName) {
+		this.loggerName = loggerName;
 	}
 
 }
