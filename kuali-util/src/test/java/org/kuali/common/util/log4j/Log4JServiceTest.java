@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
@@ -30,12 +31,10 @@ public class Log4JServiceTest {
 	public void test() {
 		try {
 			logger.info("before");
-			Log4JService service = log4JServiceConfig.log4jService();
 			System.out.println(getLoggers().size());
-			service.reset();
+			LogManager.resetConfiguration();
+			DOMConfigurator.configure("/Users/jcaddel/sts/3.1.0.RELEASE/workspace/kuali-util/target/test-classes/log4j.xml");
 			System.out.println(getLoggers().size());
-			// List<LoggerContext> contexts = log4JCommonConfig.log4JMaven();
-			// service.configure(contexts);
 			logger.info("after");
 		} catch (Exception e) {
 			e.printStackTrace();
