@@ -29,4 +29,8 @@ public class DefaultLog4JService implements Log4JService {
 	public void configure(Element element) {
 		DOMConfigurator.configure(element);
 	}
+
+	protected Element getElement(Log4JContext context) {
+		return null;
+	}
 }
