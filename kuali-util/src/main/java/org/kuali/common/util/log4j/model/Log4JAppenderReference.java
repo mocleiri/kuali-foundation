@@ -6,6 +6,15 @@ public class Log4JAppenderReference {
 
 	String name;
 
+	public Log4JAppenderReference() {
+		this(null);
+	}
+
+	public Log4JAppenderReference(String name) {
+		super();
+		this.name = name;
+	}
+
 	@XmlAttribute(name = "ref")
 	public String getName() {
 		return name;

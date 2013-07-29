@@ -11,6 +11,17 @@ public class Log4JAppender {
 	Log4JLayout layout;
 	List<Log4JParam> params;
 
+	public Log4JAppender() {
+		this(null, null, null);
+	}
+
+	public Log4JAppender(String name, Class<?> javaClass, Log4JLayout layout) {
+		super();
+		this.name = name;
+		this.javaClass = javaClass;
+		this.layout = layout;
+	}
+
 	@XmlAttribute
 	public String getName() {
 		return name;

@@ -11,6 +11,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Log4JAppender;
@@ -47,29 +48,23 @@ public class Log4JServiceTest {
 	@Test
 	public void testXml() {
 		try {
-			Log4JParam param = new Log4JConversionPatternParam(Log4JPatternConstants.DEFAULT);
-			Log4JLayout layout = new Log4JLayout(PatternLayout.class, Arrays.asList(param));
+			Log4JParam pattern = new Log4JConversionPatternParam(Log4JPatternConstants.DEFAULT);
+			Log4JLayout layout = new Log4JLayout(PatternLayout.class, Arrays.asList(pattern));
+			Log4JAppender console = new Log4JAppender("StdOut", ConsoleAppender.class, layout);
+			Log4JAppenderReference consoleReference = new Log4JAppenderReference(console.getName());
+			Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference));
+			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
 
-			Log4JAppender console = new Log4JAppender();
-			console.setJavaClass(ConsoleAppender.class);
-			console.setName("StdOut");
-			console.setLayout(layout);
-			Log4JContext ctx = new Log4JContext();
-			Log4JLogger root = new Log4JLogger();
-			Log4JAppenderReference reference = new Log4JAppenderReference();
-			reference.setName(console.getName());
-			root.setReferences(Arrays.asList(reference));
-			ctx.setRoot(root);
-			ctx.setAppenders(Arrays.asList(console));
 			XmlService service = xmlServiceConfig.xmlService();
 			String xml = service.toString(ctx, "UTF-8");
-			logger.info(xml);
+			logger.info("\n\n" + xml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
+	@Ignore
 	public void test() {
 		try {
 			logger.info("before");
