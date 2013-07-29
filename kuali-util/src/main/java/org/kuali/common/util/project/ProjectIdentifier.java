@@ -16,7 +16,7 @@
 package org.kuali.common.util.project;
 
 /**
- * The project identifier concept embodied by this interface is based on two facts.
+ * The project identifier concept behind this interface is based on two facts:
  * 
  * <p>
  * 1 - All Kuali projects produce only one artifact containing executable java code and associated resources.<br>
@@ -24,8 +24,8 @@ package org.kuali.common.util.project;
  * </p>
  * 
  * <p>
- * Thus, groupId + artifactId is a simple way to uniquely identify a project. It also provides a simple way to uniquely address resources inside a project assuming the directory
- * structure includes groupId + artifactId.<br>
+ * Thus, groupId + artifactId is a simple way to uniquely identify a project at runtime. It also provides a simple way to uniquely address resources inside a project assuming the
+ * directory structure includes groupId + artifactId.<br>
  * 
  * For example:
  * 
