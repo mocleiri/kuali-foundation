@@ -4,12 +4,34 @@ import java.util.List;
 
 import org.kuali.common.util.config.Location;
 
-public interface PropertiesContext {
+public class PropertiesContext {
 
-	String getId();
+	String id;
+	List<Location> locations;
+	List<PropertiesContext> contexts;
 
-	List<Location> getLocations();
+	public List<Location> getLocations() {
+		return locations;
+	}
 
-	List<PropertiesContext> getContexts();
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
+
+	public List<PropertiesContext> getContexts() {
+		return contexts;
+	}
+
+	public void setContexts(List<PropertiesContext> contexts) {
+		this.contexts = contexts;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }
