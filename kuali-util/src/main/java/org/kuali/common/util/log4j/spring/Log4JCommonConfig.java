@@ -10,7 +10,7 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Layout;
 import org.kuali.common.util.log4j.model.Level;
 import org.kuali.common.util.log4j.model.LevelValue;
-import org.kuali.common.util.log4j.model.Log4JLogger;
+import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.PatternConstants;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
@@ -41,7 +41,7 @@ public class Log4JCommonConfig {
 	@Bean
 	public Log4JContext log4JContextMaven() {
 		Log4JContext context = getLog4JContext(PatternConstants.MAVEN, LevelValue.INFO);
-		Log4JLogger spring = new Log4JLogger(SPRING, new Level(LevelValue.WARN));
+		Logger spring = new Logger(SPRING, new Level(LevelValue.WARN));
 		context.setLoggers(Arrays.asList(spring));
 		return context;
 	}
@@ -51,7 +51,7 @@ public class Log4JCommonConfig {
 		Layout layout = new Layout(PatternLayout.class, Arrays.asList(patternParam));
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
 		AppenderRef consoleReference = new AppenderRef(console.getName());
-		Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Level(level));
+		Logger root = new Logger(Arrays.asList(consoleReference), new Level(level));
 		Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
 		ctx.setReset(true);
 		return ctx;

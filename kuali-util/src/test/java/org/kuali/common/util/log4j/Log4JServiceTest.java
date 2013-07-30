@@ -15,7 +15,7 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Layout;
 import org.kuali.common.util.log4j.model.Level;
 import org.kuali.common.util.log4j.model.LevelValue;
-import org.kuali.common.util.log4j.model.Log4JLogger;
+import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.PatternConstants;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
@@ -49,8 +49,8 @@ public class Log4JServiceTest {
 			Layout layout = new Layout(PatternLayout.class, Arrays.asList(pattern));
 			Appender console = new Appender("StdOut", ConsoleAppender.class, layout);
 			AppenderRef consoleReference = new AppenderRef(console.getName());
-			Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Level(LevelValue.ALL));
-			Log4JLogger spring = new Log4JLogger("org.springframework", new Level(LevelValue.ALL));
+			Logger root = new Logger(Arrays.asList(consoleReference), new Level(LevelValue.ALL));
+			Logger spring = new Logger("org.springframework", new Level(LevelValue.ALL));
 			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring));
 			ctx.setReset(true);
 

@@ -8,42 +8,42 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.CollectionUtils;
 
-public class Log4JLogger {
+public class Logger {
 
 	public static final Boolean DEFAULT_ADDITIVITY_VALUE = true;
 
-	public Log4JLogger() {
+	public Logger() {
 		this((String) null);
 	}
 
-	public Log4JLogger(List<AppenderRef> references) {
+	public Logger(List<AppenderRef> references) {
 		this(null, references);
 	}
 
-	public Log4JLogger(List<AppenderRef> references, Level level) {
+	public Logger(List<AppenderRef> references, Level level) {
 		this(null, references, level);
 	}
 
-	public Log4JLogger(String name) {
+	public Logger(String name) {
 		this(name, (Level) null);
 	}
 
-	public Log4JLogger(String name, Level level) {
+	public Logger(String name, Level level) {
 		this(name, null, level);
 	}
 
-	public Log4JLogger(String name, List<AppenderRef> references) {
+	public Logger(String name, List<AppenderRef> references) {
 		this(name, references, null);
 	}
 
-	public Log4JLogger(String name, List<AppenderRef> references, Level level) {
+	public Logger(String name, List<AppenderRef> references, Level level) {
 		super();
 		this.name = name;
 		this.references = references;
 		this.level = level;
 	}
 
-	public Log4JLogger(Log4JLogger logger) {
+	public Logger(Logger logger) {
 		super();
 		this.additivity = logger.getAdditivity();
 		this.name = logger.getName();

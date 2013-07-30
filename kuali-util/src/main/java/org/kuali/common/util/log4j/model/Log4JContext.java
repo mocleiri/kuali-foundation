@@ -23,11 +23,11 @@ public class Log4JContext {
 		this(null, null);
 	}
 
-	public Log4JContext(List<Appender> appenders, Log4JLogger root) {
+	public Log4JContext(List<Appender> appenders, Logger root) {
 		this(appenders, root, null);
 	}
 
-	public Log4JContext(List<Appender> appenders, Log4JLogger root, List<Log4JLogger> loggers) {
+	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
 		super();
 		this.appenders = appenders;
 		this.root = root;
@@ -45,17 +45,17 @@ public class Log4JContext {
 			this.appenders.add(new Appender(appender));
 		}
 
-		for (Log4JLogger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
-			this.loggers.add(new Log4JLogger(logger));
+		for (Logger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
+			this.loggers.add(new Logger(logger));
 		}
 	}
 
 	Boolean reset = DEFAULT_RESET_VALUE;
 	Boolean debug = DEFAULT_DEBUG_VALUE;
 	LevelValue threshold = DEFAULT_THRESHOLD_VALUE;
-	Log4JLogger root;
+	Logger root;
 	List<Appender> appenders = new ArrayList<Appender>();
-	List<Log4JLogger> loggers = new ArrayList<Log4JLogger>();
+	List<Logger> loggers = new ArrayList<Logger>();
 
 	@XmlAttribute
 	public Boolean getReset() {
@@ -78,12 +78,12 @@ public class Log4JContext {
 	}
 
 	@XmlElement(name = "logger")
-	public List<Log4JLogger> getLoggers() {
+	public List<Logger> getLoggers() {
 		return loggers;
 	}
 
 	@XmlElement
-	public void setRoot(Log4JLogger root) {
+	public void setRoot(Logger root) {
 		this.root = root;
 	}
 
@@ -103,11 +103,11 @@ public class Log4JContext {
 		this.appenders = appenders;
 	}
 
-	public void setLoggers(List<Log4JLogger> loggers) {
+	public void setLoggers(List<Logger> loggers) {
 		this.loggers = loggers;
 	}
 
-	public Log4JLogger getRoot() {
+	public Logger getRoot() {
 		return root;
 	}
 

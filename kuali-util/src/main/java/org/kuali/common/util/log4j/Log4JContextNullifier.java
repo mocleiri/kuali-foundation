@@ -4,7 +4,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Level;
-import org.kuali.common.util.log4j.model.Log4JLogger;
+import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.nullify.Nullifier;
 
 public class Log4JContextNullifier implements Nullifier {
@@ -27,7 +27,7 @@ public class Log4JContextNullifier implements Nullifier {
 
 		nullify(context);
 		nullify(context.getRoot());
-		for (Log4JLogger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
+		for (Logger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
 			nullify(logger);
 		}
 
@@ -47,11 +47,11 @@ public class Log4JContextNullifier implements Nullifier {
 		}
 	}
 
-	protected void nullify(Log4JLogger logger) {
+	protected void nullify(Logger logger) {
 		if (logger == null) {
 			return;
 		}
-		if (Log4JLogger.DEFAULT_ADDITIVITY_VALUE.equals(logger.getAdditivity())) {
+		if (Logger.DEFAULT_ADDITIVITY_VALUE.equals(logger.getAdditivity())) {
 			logger.setAdditivity(null);
 		}
 		if (logger.getLevel() == null) {
