@@ -1,6 +1,8 @@
-package org.kuali.common.util.config;
+package org.kuali.common.util.properties;
 
 import java.util.List;
+
+import org.kuali.common.util.config.Location;
 
 public class DefaultConfigContext implements ConfigContext {
 
