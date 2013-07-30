@@ -61,17 +61,16 @@ public class DefaultLog4JService implements Log4JService {
 		}
 	}
 
-	protected void configureFromXmlLocation(String location) {
-		InputStream in = null;
-		try {
-			in = LocationUtils.getInputStream(location);
-			Document document = getDocument(in);
-			DOMConfigurator.configure(document.getDocumentElement());
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
+	@Override
+	public String getXml(Log4JContext context) {
+		Log4JContext clone = new Log4JContext(context);
+		new Log4JContextNullifier(clone).nullify();
+		return xmlService.toString(clone, ENCODING);
+	}
+
+	@Override
+	public void configure(Element element) {
+		DOMConfigurator.configure(element);
 	}
 
 	@Override
@@ -84,21 +83,6 @@ public class DefaultLog4JService implements Log4JService {
 		String xml = getXml(context);
 		Document document = getDocument(xml);
 		DOMConfigurator.configure(document.getDocumentElement());
-	}
-
-	protected Document getDocument(InputStream in) throws IOException, SAXException, ParserConfigurationException {
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder parser = dbf.newDocumentBuilder();
-		return parser.parse(in);
-	}
-
-	protected Document getDocument(String xml) {
-		try {
-			ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes(ENCODING));
-			return getDocument(in);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	@Override
@@ -115,16 +99,32 @@ public class DefaultLog4JService implements Log4JService {
 		}
 	}
 
-	@Override
-	public String getXml(Log4JContext context) {
-		Log4JContext clone = new Log4JContext(context);
-		new Log4JContextNullifier(clone).nullify();
-		return xmlService.toString(clone, ENCODING);
+	protected void configureFromXmlLocation(String location) {
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			Document document = getDocument(in);
+			DOMConfigurator.configure(document.getDocumentElement());
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
 	}
 
-	@Override
-	public void configure(Element element) {
-		DOMConfigurator.configure(element);
+	protected Document getDocument(InputStream in) throws IOException, SAXException, ParserConfigurationException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder parser = dbf.newDocumentBuilder();
+		return parser.parse(in);
+	}
+
+	protected Document getDocument(String xml) {
+		try {
+			ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes(ENCODING));
+			return getDocument(in);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	public XmlService getXmlService() {
