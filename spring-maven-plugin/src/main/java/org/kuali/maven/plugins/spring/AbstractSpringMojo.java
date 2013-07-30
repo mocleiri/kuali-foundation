@@ -19,7 +19,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -136,10 +135,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		// Keep log4j in sync with Maven with regards to debug mode
-		// configureLogging();
-
-		// Create a map containing a reference to this mojo
+		// Create a map containing a reference to the mojo
 		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
 
 		// Get a config class
@@ -153,47 +149,6 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 		// Delegate execution to Spring
 		new SpringExecutable(service, context).execute();
-	}
-
-	/**
-	 * If this returns true, put log4j into debug mode
-	 */
-	protected boolean isDebugLoggingEnabled() {
-		if (getLog().isDebugEnabled()) {
-			return true;
-		}
-		String key = "spring.debug";
-		if (Boolean.getBoolean(key)) {
-			return true;
-		}
-		String value = getProject().getProperties().getProperty(key);
-		return Boolean.parseBoolean(value);
-	}
-
-	// TODO Move the log4j configuration being done here into Spring
-	protected void configureLogging() {
-		// We are not in debug mode, don't do anything
-		if (!isDebugLoggingEnabled()) {
-			return;
-		}
-
-		String log4jDebug = System.getProperty("log4j.debug");
-		if (StringUtils.isBlank(log4jDebug)) {
-			// This makes log4j show how it is initializing itself
-			getLog().debug("Setting system property - [log4j.debug=true]");
-			System.setProperty("log4j.debug", "true");
-		}
-
-		// Did they supply a log4j.configuration setting already?
-		String log4jConfig = System.getProperty("log4j.configuration");
-		if (StringUtils.isBlank(log4jConfig)) {
-			// If not, use the log4jdebug.xml bundled with the plugin
-			getLog().debug("Setting system property - [log4j.configuration=log4jdebug.xml]");
-			System.setProperty("log4j.configuration", "log4jdebug.xml");
-		} else {
-			// If so, just use the one they specified
-			getLog().debug("Using existing value for the system property log4j.configuration=[" + log4jConfig + "]");
-		}
 	}
 
 	public MavenProject getProject() {
