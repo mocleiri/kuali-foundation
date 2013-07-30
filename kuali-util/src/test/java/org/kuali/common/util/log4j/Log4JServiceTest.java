@@ -11,10 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log4j.model.Appender;
 import org.kuali.common.util.log4j.model.AppenderRef;
-import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Layout;
 import org.kuali.common.util.log4j.model.Level;
 import org.kuali.common.util.log4j.model.LevelValue;
+import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.PatternConstants;
@@ -51,10 +51,12 @@ public class Log4JServiceTest {
 			AppenderRef consoleReference = new AppenderRef(console.getName());
 			Logger root = new Logger(Arrays.asList(consoleReference), new Level(LevelValue.ALL));
 			Logger spring = new Logger("org.springframework", new Level(LevelValue.ALL));
-			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring));
-			ctx.setReset(true);
-
+			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring), true);
 			Log4JService service = log4JServiceConfig.log4jService();
+
+			String xml = xmlServiceConfig.xmlService().toString(ctx, "UTF-8");
+			System.out.println(xml);
+
 			service.configure(ctx);
 			logger.info("after");
 		} catch (Exception e) {

@@ -1,5 +1,6 @@
 package org.kuali.common.util.log4j.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 public class AppenderRef {
 
@@ -19,6 +20,7 @@ public class AppenderRef {
 		this.ref = name;
 	}
 
+	@XmlAttribute
 	public String getRef() {
 		return ref;
 	}

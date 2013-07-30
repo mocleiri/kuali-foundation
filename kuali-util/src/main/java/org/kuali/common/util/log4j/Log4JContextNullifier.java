@@ -2,8 +2,8 @@ package org.kuali.common.util.log4j;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Level;
+import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.nullify.Nullifier;
 
@@ -42,8 +42,22 @@ public class Log4JContextNullifier implements Nullifier {
 			context.setDebug(null);
 		}
 
-		if (Log4JContext.DEFAULT_THRESHOLD_VALUE.equals(context.getThreshold())) {
+		if (nullSafeEquals(Log4JContext.DEFAULT_THRESHOLD_VALUE, context.getThreshold())) {
 			context.setThreshold(null);
+		}
+	}
+
+	protected boolean nullSafeEquals(Object one, Object two) {
+		// If both are null, they are equal
+		if (one == null && two == null) {
+			return true;
+		}
+		// If one is null, but not the other, they are not equal
+		if (one == null || two == null) {
+			return false;
+		} else {
+			// Neither one is null, use the equals comparison
+			return one.equals(two);
 		}
 	}
 
