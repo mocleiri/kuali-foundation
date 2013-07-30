@@ -2,12 +2,14 @@ package org.kuali.common.util.log4j;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.PropertyConfigurator;
@@ -23,7 +25,10 @@ import org.xml.sax.SAXException;
 
 public class DefaultLog4JService implements Log4JService {
 
-	public static final String ENCODING = "UTF-8";
+	protected static final String ENCODING = "UTF-8";
+	protected static final String PROPERTIES_SUFFIX = ".properties";
+	protected static final String XML_SUFFIX = ".xml";
+	protected static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";
 
 	XmlService xmlService;
 
@@ -34,13 +39,35 @@ public class DefaultLog4JService implements Log4JService {
 
 	@Override
 	public void configure(String location) {
+
+		// Make sure the location exists
 		Assert.isTrue(LocationUtils.exists(location), "[" + location + "] does not exist");
-		if (StringUtils.endsWithIgnoreCase(location, ".properties")) {
+
+		// Make sure it is either a .properties or .xml
+		boolean properties = StringUtils.endsWithIgnoreCase(location, PROPERTIES_SUFFIX);
+		boolean xml = StringUtils.endsWithIgnoreCase(location, XML_SUFFIX);
+		Assert.isTrue(properties || xml, UNSUPPORTED_LOCATION_TYPE);
+
+		if (properties) {
 			configure(PropertyUtils.load(location, ENCODING));
-		} else if (StringUtils.endsWithIgnoreCase(location, ".xml")) {
-			DOMConfigurator.configure(location);
+		} else if (xml) {
+			configureFromXmlLocation(location);
 		} else {
-			throw new IllegalArgumentException("Only .properties and .xml files are supported");
+			// Should never get here since the earlier assertions ensure it is either .xml or .properties
+			throw new IllegalArgumentException(UNSUPPORTED_LOCATION_TYPE);
+		}
+	}
+
+	protected void configureFromXmlLocation(String location) {
+		InputStream in = null;
+		try {
+			in = LocationUtils.getInputStream(location);
+			Document document = getDocument(in);
+			DOMConfigurator.configure(document.getDocumentElement());
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -56,18 +83,18 @@ public class DefaultLog4JService implements Log4JService {
 		DOMConfigurator.configure(document.getDocumentElement());
 	}
 
+	protected Document getDocument(InputStream in) throws IOException, SAXException, ParserConfigurationException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder parser = dbf.newDocumentBuilder();
+		return parser.parse(in);
+	}
+
 	protected Document getDocument(String xml) {
 		try {
 			ByteArrayInputStream in = new ByteArrayInputStream(xml.getBytes(ENCODING));
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder parser = dbf.newDocumentBuilder();
-			return parser.parse(in);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} catch (SAXException e) {
-			throw new IllegalStateException("Unexpected SAX error", e);
-		} catch (ParserConfigurationException e) {
-			throw new IllegalStateException("Unexpected parser config error", e);
+			return getDocument(in);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
 		}
 	}
 
