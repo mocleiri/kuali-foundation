@@ -17,7 +17,14 @@ public class Log4JContext {
 
 	public static final Boolean DEFAULT_RESET_VALUE = false;
 	public static final Boolean DEFAULT_DEBUG_VALUE = false;
-	public static final LevelValue DEFAULT_THRESHOLD_VALUE = null;
+	public static final LevelValue DEFAULT_THRESHOLD_VALUE = LevelValue.NULL;
+
+	Boolean reset = DEFAULT_RESET_VALUE;
+	Boolean debug = DEFAULT_DEBUG_VALUE;
+	LevelValue threshold = DEFAULT_THRESHOLD_VALUE;
+	Logger root;
+	List<Appender> appenders = new ArrayList<Appender>();
+	List<Logger> loggers = new ArrayList<Logger>();
 
 	public Log4JContext() {
 		this(null, null);
@@ -58,13 +65,6 @@ public class Log4JContext {
 			this.loggers.add(new Logger(logger));
 		}
 	}
-
-	Boolean reset = DEFAULT_RESET_VALUE;
-	Boolean debug = DEFAULT_DEBUG_VALUE;
-	LevelValue threshold = DEFAULT_THRESHOLD_VALUE;
-	Logger root;
-	List<Appender> appenders = new ArrayList<Appender>();
-	List<Logger> loggers = new ArrayList<Logger>();
 
 	@XmlAttribute
 	public Boolean getReset() {
