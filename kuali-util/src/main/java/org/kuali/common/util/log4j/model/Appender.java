@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 public class Appender {
 
@@ -43,6 +44,11 @@ public class Appender {
 		return javaClass;
 	}
 
+	@XmlElement(name = "param")
+	public List<Param> getParams() {
+		return params;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -57,10 +63,6 @@ public class Appender {
 
 	public void setLayout(Layout layout) {
 		this.layout = layout;
-	}
-
-	public List<Param> getParams() {
-		return params;
 	}
 
 	public void setParams(List<Param> params) {
