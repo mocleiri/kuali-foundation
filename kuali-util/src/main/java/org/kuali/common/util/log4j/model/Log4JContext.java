@@ -16,8 +16,8 @@ import org.kuali.common.util.CollectionUtils;
 public class Log4JContext {
 
 	public static final Boolean DEFAULT_RESET_VALUE = false;
-	public static final Log4JDebug DEFAULT_DEBUG_VALUE = Log4JDebug.NULL;
-	public static final Log4JLevelValue DEFAULT_THRESHOLD_VALUE = Log4JLevelValue.NULL;
+	public static final Boolean DEFAULT_DEBUG_VALUE = false;
+	public static final Log4JLevelValue DEFAULT_THRESHOLD_VALUE = null;
 
 	public Log4JContext() {
 		this(null, null);
@@ -51,7 +51,7 @@ public class Log4JContext {
 	}
 
 	Boolean reset = DEFAULT_RESET_VALUE;
-	Log4JDebug debug = DEFAULT_DEBUG_VALUE;
+	Boolean debug = DEFAULT_DEBUG_VALUE;
 	Log4JLevelValue threshold = DEFAULT_THRESHOLD_VALUE;
 	Log4JLogger root;
 	List<Log4JAppender> appenders = new ArrayList<Log4JAppender>();
@@ -63,7 +63,7 @@ public class Log4JContext {
 	}
 
 	@XmlAttribute
-	public Log4JDebug getDebug() {
+	public Boolean getDebug() {
 		return debug;
 	}
 
@@ -91,7 +91,7 @@ public class Log4JContext {
 		this.reset = reset;
 	}
 
-	public void setDebug(Log4JDebug debug) {
+	public void setDebug(Boolean debug) {
 		this.debug = debug;
 	}
 
