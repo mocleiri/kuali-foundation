@@ -26,8 +26,7 @@ public class KualiUtilPropertiesConfig {
 	protected PropertiesContext getScm() {
 		PropertiesContext context = new PropertiesContext();
 		context.setId(projectId + ":scm");
-		String location = classpathPrefix + "/scm.properties";
-		context.setLocations(Arrays.asList(new PropertiesLocation()));
+		context.setLocations(Arrays.asList(new PropertiesLocation(classpathPrefix + "/scm.properties")));
 		return context;
 	}
 
