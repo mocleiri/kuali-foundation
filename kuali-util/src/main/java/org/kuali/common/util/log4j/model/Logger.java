@@ -12,6 +12,11 @@ public class Logger {
 
 	public static final Boolean DEFAULT_ADDITIVITY_VALUE = true;
 
+	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
+	String name;
+	List<AppenderRef> references = new ArrayList<AppenderRef>();
+	Level level;
+
 	public Logger() {
 		this((String) null);
 	}
@@ -52,11 +57,6 @@ public class Logger {
 			this.references.add(new AppenderRef(reference));
 		}
 	}
-
-	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
-	String name;
-	List<AppenderRef> references = new ArrayList<AppenderRef>();
-	Level level;
 
 	@XmlElement(name = "appender-ref")
 	public List<AppenderRef> getReferences() {
