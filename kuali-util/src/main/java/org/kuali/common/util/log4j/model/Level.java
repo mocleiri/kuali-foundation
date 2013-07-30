@@ -6,6 +6,9 @@ public class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_JAVA_CLASS = org.apache.log4j.Level.class;
 
+	Class<?> javaClass = DEFAULT_JAVA_CLASS;
+	LevelValue value;
+
 	public Level(Level level) {
 		super();
 		this.javaClass = level.getJavaClass();
@@ -20,9 +23,6 @@ public class Level {
 		super();
 		this.value = value;
 	}
-
-	Class<?> javaClass = DEFAULT_JAVA_CLASS;
-	LevelValue value;
 
 	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
