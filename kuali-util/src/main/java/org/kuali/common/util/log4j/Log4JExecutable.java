@@ -35,6 +35,7 @@ public class Log4JExecutable implements Executable {
 
 		// Make sure we are configured correctly
 		Assert.notNull(service, "service is null");
+		Assert.notNull(context, "context is null");
 
 		// Configure log4j as indicated by the context
 		service.configure(context);
