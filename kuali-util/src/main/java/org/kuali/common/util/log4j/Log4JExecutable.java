@@ -4,21 +4,21 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log4j.model.Log4JContext;
 
-public class Log4JConfigExecutable implements Executable {
+public class Log4JExecutable implements Executable {
 
 	boolean skip;
 	Log4JContext context;
 	Log4JService service;
 
-	public Log4JConfigExecutable() {
+	public Log4JExecutable() {
 		this(null, null);
 	}
 
-	public Log4JConfigExecutable(Log4JService service, Log4JContext context) {
+	public Log4JExecutable(Log4JService service, Log4JContext context) {
 		this(service, context, false);
 	}
 
-	public Log4JConfigExecutable(Log4JService service, Log4JContext context, boolean skip) {
+	public Log4JExecutable(Log4JService service, Log4JContext context, boolean skip) {
 		super();
 		this.service = service;
 		this.context = context;
