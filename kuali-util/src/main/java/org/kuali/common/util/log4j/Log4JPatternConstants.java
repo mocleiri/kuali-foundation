@@ -1,6 +1,6 @@
-package org.kuali.common.util.log4j.model;
+package org.kuali.common.util.log4j;
 
-public abstract class PatternConstants {
+public abstract class Log4JPatternConstants {
 
 	/**
 	 * <pre>

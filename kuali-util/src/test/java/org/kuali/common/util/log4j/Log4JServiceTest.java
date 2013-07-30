@@ -17,7 +17,6 @@ import org.kuali.common.util.log4j.model.LevelValue;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
-import org.kuali.common.util.log4j.model.PatternConstants;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
@@ -45,7 +44,7 @@ public class Log4JServiceTest {
 	public void testXml() {
 		try {
 			logger.info("before");
-			Param pattern = new ConversionPatternParam(PatternConstants.MAVEN);
+			Param pattern = new ConversionPatternParam(Log4JPatternConstants.MAVEN);
 			Layout layout = new Layout(PatternLayout.class, Arrays.asList(pattern));
 			Appender console = new Appender("StdOut", ConsoleAppender.class, layout);
 			AppenderRef consoleReference = new AppenderRef(console.getName());
