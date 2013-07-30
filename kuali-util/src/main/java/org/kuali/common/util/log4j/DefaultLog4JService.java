@@ -36,6 +36,13 @@ public class DefaultLog4JService implements Log4JService {
 	XmlService xmlService;
 
 	@Override
+	public void configure(Log4JContext context) {
+		String xml = toXml(context);
+		Document document = getDocument(xml);
+		configure(document);
+	}
+
+	@Override
 	public void reset() {
 		LogManager.resetConfiguration();
 	}
@@ -76,13 +83,6 @@ public class DefaultLog4JService implements Log4JService {
 	@Override
 	public void configure(Properties properties) {
 		PropertyConfigurator.configure(properties);
-	}
-
-	@Override
-	public void configure(Log4JContext context) {
-		String xml = toXml(context);
-		Document document = getDocument(xml);
-		configure(document);
 	}
 
 	@Override
