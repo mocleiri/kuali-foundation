@@ -6,6 +6,8 @@ import org.kuali.common.util.config.Location;
 
 public interface ConfigContext {
 
+	String getId();
+
 	List<Location> getLocations();
 
 	List<ConfigContext> getContexts();

@@ -6,6 +6,7 @@ import org.kuali.common.util.config.Location;
 
 public class DefaultConfigContext implements ConfigContext {
 
+	String id;
 	List<Location> locations;
 	List<ConfigContext> contexts;
 
@@ -25,6 +26,15 @@ public class DefaultConfigContext implements ConfigContext {
 
 	public void setContexts(List<ConfigContext> contexts) {
 		this.contexts = contexts;
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
