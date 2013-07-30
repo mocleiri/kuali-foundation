@@ -98,7 +98,8 @@ public class DefaultLog4JService implements Log4JService {
 		}
 	}
 
-	protected String getXml(Log4JContext context) {
+	@Override
+	public String getXml(Log4JContext context) {
 		Log4JContext clone = new Log4JContext(context);
 		new Log4JContextNullifier(clone).nullify();
 		return xmlService.toString(clone, ENCODING);

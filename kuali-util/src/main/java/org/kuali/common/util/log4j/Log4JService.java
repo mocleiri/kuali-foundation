@@ -11,6 +11,8 @@ public interface Log4JService {
 
 	void configure(Log4JContext context);
 
+	String getXml(Log4JContext context);
+
 	void configure(Properties properties);
 
 	void configure(Element element);
