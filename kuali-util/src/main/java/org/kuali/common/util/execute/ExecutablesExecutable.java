@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.execute;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,11 @@ public class ExecutablesExecutable implements Executable {
 	boolean timed;
 
 	public ExecutablesExecutable() {
-		this(null);
+		this((Executable[]) null);
+	}
+
+	public ExecutablesExecutable(Executable... executables) {
+		this(Arrays.asList(executables));
 	}
 
 	public ExecutablesExecutable(List<? extends Executable> executables) {
