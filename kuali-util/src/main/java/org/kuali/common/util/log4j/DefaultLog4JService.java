@@ -56,7 +56,7 @@ public class DefaultLog4JService implements Log4JService {
 		} else if (xml) {
 			configureFromXmlLocation(location);
 		} else {
-			// Should never get here since the earlier assertions ensure it is either .xml or .properties
+			// Should never get here since the earlier assertions guarantee it is either .xml or .properties
 			throw new IllegalArgumentException(UNSUPPORTED_LOCATION_TYPE);
 		}
 	}
