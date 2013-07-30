@@ -46,13 +46,12 @@ public class Log4JCommonConfig {
 		return context;
 	}
 
-	protected Log4JContext getLog4JContext(String pattern, LevelValue level) {
+	protected Log4JContext getLog4JContext(String pattern, LevelValue levelValue) {
 		Param param = new ConversionPatternParam(pattern);
 		Layout layout = new Layout(PatternLayout.class, Arrays.asList(param));
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
 		AppenderRef consoleRef = new AppenderRef(console.getName());
-		Logger root = new Logger(Arrays.asList(consoleRef), new Level(level));
-		Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, true);
-		return ctx;
+		Logger root = new Logger(Arrays.asList(consoleRef), new Level(levelValue));
+		return new Log4JContext(Arrays.asList(console), root, true);
 	}
 }
