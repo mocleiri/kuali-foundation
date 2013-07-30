@@ -2,19 +2,17 @@ package org.kuali.common.util.properties;
 
 import java.util.List;
 
-import org.kuali.common.util.config.Location;
-
 public class PropertiesContext {
 
 	String id;
-	List<Location> locations;
+	List<PropertiesLocation> locations;
 	List<PropertiesContext> contexts;
 
-	public List<Location> getLocations() {
+	public List<PropertiesLocation> getLocations() {
 		return locations;
 	}
 
-	public void setLocations(List<Location> locations) {
+	public void setLocations(List<PropertiesLocation> locations) {
 		this.locations = locations;
 	}
 
