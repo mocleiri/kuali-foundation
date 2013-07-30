@@ -137,7 +137,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		// Keep log4j in sync with Maven with regards to debug mode
-		configureLogging();
+		// configureLogging();
 
 		// Create a map containing a reference to this mojo
 		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
