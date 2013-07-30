@@ -67,7 +67,8 @@ public class PropertyUtils {
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
 	/**
-	 * Return true if the value for <code>key</code> evaluates to the string <code>true</code> (ignoring case).
+	 * Return true if the value for <code>key</code> evaluates to the string <code>true</code> (ignoring case). The properties passed in along with the system and environment
+	 * variables are all inspected with the value for system or environment variables "winning" over the value from the properties passed in.
 	 */
 	public static boolean getGlobalBoolean(String key, Properties properties) {
 		String defaultValue = properties.getProperty(key);
