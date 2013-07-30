@@ -53,15 +53,9 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	@Override
 	public boolean isDebugLoggingEnabled(AbstractSpringMojo mojo) {
 		boolean mojoDebug = mojo.getLog().isDebugEnabled();
-		boolean log4JDebug = getBoolean("log4j.debug", mojo.getProperties());
-		boolean springDebug = getBoolean("spring.debug", mojo.getProperties());
+		boolean log4JDebug = PropertyUtils.getGlobalBoolean("log4j.debug", mojo.getProperties());
+		boolean springDebug = PropertyUtils.getGlobalBoolean("spring.debug", mojo.getProperties());
 		return mojoDebug || log4JDebug || springDebug;
-	}
-
-	protected boolean getBoolean(String key, Properties properties) {
-		String defaultValue = properties.getProperty(key);
-		String value = PropertyUtils.getGlobalProperty(key, defaultValue);
-		return Boolean.parseBoolean(value);
 	}
 
 	@Override
