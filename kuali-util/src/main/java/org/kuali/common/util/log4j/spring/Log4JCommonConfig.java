@@ -41,6 +41,7 @@ public class Log4JCommonConfig {
 	@Bean
 	public Log4JContext log4JContextMaven() {
 		Log4JContext context = getLog4JContext(Log4JPatternConstants.MAVEN, LevelValue.INFO);
+		// Tone down Spring logging when we are running a build
 		Logger spring = new Logger(SPRING, new Level(LevelValue.WARN));
 		context.setLoggers(Arrays.asList(spring));
 		return context;
