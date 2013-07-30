@@ -1,5 +1,6 @@
 package org.kuali.common.util.log4j;
 
+import java.io.File;
 import java.util.Properties;
 
 import org.kuali.common.util.log4j.model.Log4JContext;
@@ -12,6 +13,8 @@ public interface Log4JService {
 	void configure(Log4JContext context);
 
 	String getXml(Log4JContext context);
+
+	void store(File file, Log4JContext context);
 
 	void configure(Properties properties);
 

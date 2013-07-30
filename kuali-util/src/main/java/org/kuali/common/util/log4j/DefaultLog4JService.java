@@ -1,14 +1,17 @@
 package org.kuali.common.util.log4j;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -95,6 +98,20 @@ public class DefaultLog4JService implements Log4JService {
 			return getDocument(in);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
+		}
+	}
+
+	@Override
+	public void store(File file, Log4JContext context) {
+		OutputStream out = null;
+		try {
+			String xml = getXml(context);
+			out = FileUtils.openOutputStream(file);
+			IOUtils.write(xml, out, ENCODING);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(out);
 		}
 	}
 

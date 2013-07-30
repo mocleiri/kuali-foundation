@@ -54,7 +54,7 @@ public class Log4JServiceTest {
 			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring), true);
 			Log4JService service = log4JServiceConfig.log4jService();
 
-			String xml = xmlServiceConfig.xmlService().toString(ctx, "UTF-8");
+			String xml = service.getXml(ctx);
 			System.out.println(xml);
 
 			service.configure(ctx);
