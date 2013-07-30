@@ -1,6 +1,7 @@
 package org.kuali.common.util.log4j.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -23,6 +24,10 @@ public class Logger {
 
 	public Logger(List<AppenderRef> references) {
 		this(null, references);
+	}
+
+	public Logger(AppenderRef reference, Level level) {
+		this(Arrays.asList(reference), level);
 	}
 
 	public Logger(List<AppenderRef> references, Level level) {

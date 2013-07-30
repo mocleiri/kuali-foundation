@@ -1,6 +1,7 @@
 package org.kuali.common.util.log4j.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -22,7 +23,11 @@ public class Layout {
 	}
 
 	public Layout() {
-		this(null, null);
+		this(null, (List<Param>) null);
+	}
+
+	public Layout(Class<?> javaClass, Param param) {
+		this(javaClass, Arrays.asList(param));
 	}
 
 	public Layout(Class<?> javaClass, List<Param> params) {

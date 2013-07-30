@@ -1,6 +1,7 @@
 package org.kuali.common.util.log4j.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -40,6 +41,10 @@ public class Log4JContext {
 
 	public Log4JContext(List<Appender> appenders, Logger root, boolean reset) {
 		this(appenders, root, null, reset);
+	}
+
+	public Log4JContext(Appender appender, Logger root, boolean reset) {
+		this(Arrays.asList(appender), root, null, reset);
 	}
 
 	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers, boolean reset) {
