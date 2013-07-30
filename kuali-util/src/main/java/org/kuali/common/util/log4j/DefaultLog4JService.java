@@ -82,7 +82,7 @@ public class DefaultLog4JService implements Log4JService {
 	public void configure(Log4JContext context) {
 		String xml = getXml(context);
 		Document document = getDocument(xml);
-		DOMConfigurator.configure(document.getDocumentElement());
+		configure(document);
 	}
 
 	@Override
@@ -99,12 +99,16 @@ public class DefaultLog4JService implements Log4JService {
 		}
 	}
 
+	protected void configure(Document document) {
+		DOMConfigurator.configure(document.getDocumentElement());
+	}
+
 	protected void configureFromXmlLocation(String location) {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
 			Document document = getDocument(in);
-			DOMConfigurator.configure(document.getDocumentElement());
+			configure(document);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
