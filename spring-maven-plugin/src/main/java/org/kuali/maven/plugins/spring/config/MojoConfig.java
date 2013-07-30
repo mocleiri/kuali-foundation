@@ -1,7 +1,5 @@
 package org.kuali.maven.plugins.spring.config;
 
-import java.util.Arrays;
-
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.log4j.Log4JExecutable;
@@ -35,7 +33,7 @@ public class MojoConfig {
 
 	@Bean
 	public Executable mojoExecutable() {
-		return new ExecutablesExecutable(Arrays.asList(log4JExecutable(), mojoServiceExecutable()));
+		return new ExecutablesExecutable(log4JExecutable(), mojoServiceExecutable());
 	}
 
 	@Bean
