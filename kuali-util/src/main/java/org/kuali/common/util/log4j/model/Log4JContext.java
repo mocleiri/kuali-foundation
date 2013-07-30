@@ -31,6 +31,10 @@ public class Log4JContext {
 		this(appenders, root, loggers, DEFAULT_RESET_VALUE);
 	}
 
+	public Log4JContext(List<Appender> appenders, Logger root, boolean reset) {
+		this(appenders, root, null, reset);
+	}
+
 	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers, boolean reset) {
 		super();
 		this.appenders = appenders;

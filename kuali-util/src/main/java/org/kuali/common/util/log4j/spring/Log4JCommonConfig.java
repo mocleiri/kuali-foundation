@@ -6,10 +6,10 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.kuali.common.util.log4j.model.Appender;
 import org.kuali.common.util.log4j.model.AppenderRef;
-import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Layout;
 import org.kuali.common.util.log4j.model.Level;
 import org.kuali.common.util.log4j.model.LevelValue;
+import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.PatternConstants;
@@ -52,8 +52,7 @@ public class Log4JCommonConfig {
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
 		AppenderRef consoleReference = new AppenderRef(console.getName());
 		Logger root = new Logger(Arrays.asList(consoleReference), new Level(level));
-		Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
-		ctx.setReset(true);
+		Log4JContext ctx = new Log4JContext(Arrays.asList(console), root,true);
 		return ctx;
 	}
 }
