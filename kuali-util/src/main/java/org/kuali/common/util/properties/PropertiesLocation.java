@@ -25,7 +25,7 @@ import org.kuali.common.util.property.PropertyFormat;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class Location {
+public class PropertiesLocation {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final String DEFAULT_ENCODING = "UTF-8";
@@ -35,26 +35,26 @@ public class Location {
 	String value;
 	PropertyFormat format;
 
-	public Location(Location location) {
+	public PropertiesLocation(PropertiesLocation location) {
 		super();
 		this.missingMode = location.getMissingMode();
 		this.encoding = location.getEncoding();
 		this.value = location.getValue();
 	}
 
-	public Location() {
+	public PropertiesLocation() {
 		this((String) null);
 	}
 
-	public Location(String value) {
+	public PropertiesLocation(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE);
 	}
 
-	public Location(String value, String encoding) {
+	public PropertiesLocation(String value, String encoding) {
 		this(value, encoding, DEFAULT_MISSING_MODE);
 	}
 
-	public Location(String value, String encoding, Mode missingMode) {
+	public PropertiesLocation(String value, String encoding, Mode missingMode) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;

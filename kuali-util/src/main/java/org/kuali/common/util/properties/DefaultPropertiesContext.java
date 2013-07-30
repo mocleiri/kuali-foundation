@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.kuali.common.util.config.Location;
 
-public class DefaultConfigContext implements ConfigContext {
+public class DefaultPropertiesContext implements PropertiesContext {
 
 	String id;
 	List<Location> locations;
-	List<ConfigContext> contexts;
+	List<PropertiesContext> contexts;
 
 	@Override
 	public List<Location> getLocations() {
@@ -20,11 +20,11 @@ public class DefaultConfigContext implements ConfigContext {
 	}
 
 	@Override
-	public List<ConfigContext> getContexts() {
+	public List<PropertiesContext> getContexts() {
 		return contexts;
 	}
 
-	public void setContexts(List<ConfigContext> contexts) {
+	public void setContexts(List<PropertiesContext> contexts) {
 		this.contexts = contexts;
 	}
 

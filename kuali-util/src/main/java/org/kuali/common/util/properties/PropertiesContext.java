@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.kuali.common.util.config.Location;
 
-public interface ConfigContext {
+public interface PropertiesContext {
 
 	String getId();
 
 	List<Location> getLocations();
 
-	List<ConfigContext> getContexts();
+	List<PropertiesContext> getContexts();
 
 }
