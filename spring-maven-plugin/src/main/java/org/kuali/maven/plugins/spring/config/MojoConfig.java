@@ -2,11 +2,13 @@ package org.kuali.maven.plugins.spring.config;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log4j.Log4JExecutable;
+import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
 import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
 import org.kuali.maven.plugins.spring.AbstractSpringMojo;
 import org.kuali.maven.plugins.spring.MavenConstants;
 import org.kuali.maven.plugins.spring.MojoExecutable;
+import org.kuali.maven.plugins.spring.SpringMojoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +46,16 @@ public class MojoConfig {
 	public Executable log4JExecutable() {
 		Log4JExecutable exec = new Log4JExecutable();
 		exec.setService(log4JServiceConfig.log4jService());
-		exec.setContext(log4JCommonConfig.log4JContextMaven());
+		exec.setContext(getLog4JContext());
 		return exec;
+	}
+
+	protected Log4JContext getLog4JContext() {
+		SpringMojoService service = springMojoServiceConfig.springMojoService();
+		if (service.isDebugLoggingEnabled(mojo)) {
+			return log4JCommonConfig.log4JContextDebug();
+		} else {
+			return log4JCommonConfig.log4JContextMaven();
+		}
 	}
 }
