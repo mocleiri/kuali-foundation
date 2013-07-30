@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
+import org.kuali.common.util.log4j.DefaultLog4JService;
 import org.kuali.common.util.log4j.Log4JPatternConstants;
+import org.kuali.common.util.log4j.Log4JService;
 import org.kuali.common.util.log4j.model.Appender;
 import org.kuali.common.util.log4j.model.AppenderRef;
 import org.kuali.common.util.log4j.model.Layout;
@@ -14,14 +16,28 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
+import org.kuali.common.util.xml.spring.XmlServiceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-public class Log4JCommonConfig {
+@Import({ XmlServiceConfig.class })
+public class Log4JConfig {
 
 	protected static final String SPRING = "org.springframework";
 	protected static final String STDOUT = "stdout";
+
+	@Autowired
+	XmlServiceConfig xmlServiceConfig;
+
+	@Bean
+	public Log4JService log4jService() {
+		DefaultLog4JService service = new DefaultLog4JService();
+		service.setXmlService(xmlServiceConfig.xmlService());
+		return service;
+	}
 
 	@Bean
 	public Log4JContext log4JContextDefault() {

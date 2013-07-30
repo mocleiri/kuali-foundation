@@ -18,27 +18,19 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
-import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
-import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
-import org.kuali.common.util.xml.spring.XmlServiceConfig;
+import org.kuali.common.util.log4j.spring.Log4JConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { Log4JServiceConfig.class, Log4JCommonConfig.class, XmlServiceConfig.class })
+@ContextConfiguration(classes = { Log4JConfig.class })
 public class Log4JServiceTest {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Log4JServiceTest.class);
 
 	@Autowired
-	Log4JServiceConfig log4JServiceConfig;
-
-	@Autowired
-	Log4JCommonConfig log4JCommonConfig;
-
-	@Autowired
-	XmlServiceConfig xmlServiceConfig;
+	Log4JConfig log4JConfig;
 
 	@Test
 	public void testXml() {
@@ -51,10 +43,10 @@ public class Log4JServiceTest {
 			Logger root = new Logger(Arrays.asList(consoleReference), new Level(LevelValue.ALL));
 			Logger spring = new Logger("org.springframework", new Level(LevelValue.ALL));
 			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring), true);
-			Log4JService service = log4JServiceConfig.log4jService();
+			Log4JService service = log4JConfig.log4jService();
 
 			String xml = service.getXml(ctx);
-			System.out.println(xml);
+			logger.info("\n\n" + xml);
 
 			service.configure(ctx);
 			logger.info("after");

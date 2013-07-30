@@ -16,27 +16,23 @@
 package org.kuali.common.util.log4j;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.log4j.spring.Log4JCommonConfig;
-import org.kuali.common.util.log4j.spring.Log4JServiceConfig;
+import org.kuali.common.util.log4j.spring.Log4JConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ Log4JServiceConfig.class, Log4JCommonConfig.class })
+@Import({ Log4JConfig.class })
 public class Log4JTestConfig {
 
 	@Autowired
-	Log4JServiceConfig log4JServiceConfig;
-
-	@Autowired
-	Log4JCommonConfig log4JCommonConfig;
+	Log4JConfig log4JConfig;
 
 	@Bean
 	public Executable log4jResetExecutable() {
 		Log4JExecutable exec = new Log4JExecutable();
-		exec.setService(log4JServiceConfig.log4jService());
+		exec.setService(log4JConfig.log4jService());
 		return exec;
 	}
 
