@@ -62,7 +62,7 @@ public class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public String getXml(Log4JContext context) {
+	public String toXml(Log4JContext context) {
 		Log4JContext clone = new Log4JContext(context);
 		new Log4JContextNullifier(clone).nullify();
 		return xmlService.toString(clone, ENCODING);
@@ -80,7 +80,7 @@ public class DefaultLog4JService implements Log4JService {
 
 	@Override
 	public void configure(Log4JContext context) {
-		String xml = getXml(context);
+		String xml = toXml(context);
 		Document document = getDocument(xml);
 		configure(document);
 	}
@@ -89,7 +89,7 @@ public class DefaultLog4JService implements Log4JService {
 	public void store(File file, Log4JContext context) {
 		OutputStream out = null;
 		try {
-			String xml = getXml(context);
+			String xml = toXml(context);
 			out = FileUtils.openOutputStream(file);
 			IOUtils.write(xml, out, ENCODING);
 		} catch (IOException e) {

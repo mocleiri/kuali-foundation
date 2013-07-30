@@ -12,7 +12,7 @@ public interface Log4JService {
 
 	void configure(Log4JContext context);
 
-	String getXml(Log4JContext context);
+	String toXml(Log4JContext context);
 
 	void store(File file, Log4JContext context);
 

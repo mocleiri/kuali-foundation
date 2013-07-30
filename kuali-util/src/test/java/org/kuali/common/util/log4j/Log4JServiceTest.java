@@ -45,7 +45,7 @@ public class Log4JServiceTest {
 			Log4JContext ctx = new Log4JContext(Arrays.asList(console), root, Arrays.asList(spring), true);
 			Log4JService service = log4JConfig.log4jService();
 
-			String xml = service.getXml(ctx);
+			String xml = service.toXml(ctx);
 			logger.info("\n\n" + xml);
 
 			service.configure(ctx);
