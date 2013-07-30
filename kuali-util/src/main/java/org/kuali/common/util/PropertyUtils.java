@@ -112,11 +112,11 @@ public class PropertyUtils {
 		// Iterate through the keys comparing both the keys and values for equality
 		for (int i = 0; i < size; i++) {
 
-			// Extract the keys (this works because the keys are in sorted order)
+			// Extract the keys
 			String key1 = keys1.get(i);
 			String key2 = keys2.get(i);
 
-			// Compare the keys for equality
+			// Compare the keys for equality (this works because the keys are in sorted order)
 			if (!StringUtils.equals(key1, key2)) {
 				return false;
 			}
