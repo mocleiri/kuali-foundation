@@ -15,9 +15,9 @@ public class AppenderRef {
 		this((String) null);
 	}
 
-	public AppenderRef(String name) {
+	public AppenderRef(String ref) {
 		super();
-		this.ref = name;
+		this.ref = ref;
 	}
 
 	@XmlAttribute
@@ -25,8 +25,8 @@ public class AppenderRef {
 		return ref;
 	}
 
-	public void setRef(String name) {
-		this.ref = name;
+	public void setRef(String ref) {
+		this.ref = ref;
 	}
 
 }
