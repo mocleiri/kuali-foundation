@@ -1,14 +1,9 @@
 package org.kuali.common.util.log4j;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.junit.Ignore;
@@ -82,28 +77,4 @@ public class Log4JServiceTest {
 		}
 	}
 
-	protected Properties getProperties() {
-		String appenderName = "StdOut";
-		String appenderClass = ConsoleAppender.class.getName();
-		String layoutClass = PatternLayout.class.getName();
-		Properties props = new Properties();
-		props.setProperty("log4j.rootLogger", "DEBUG, " + appenderName);
-		props.setProperty("log4j.appender." + appenderName, appenderClass);
-		props.setProperty("log4j.appender." + appenderName + ".layout", layoutClass);
-		props.setProperty("log4j.appender." + appenderName + ".layout.ConversionPattern", Log4JPatternConstants.MAVEN);
-		return props;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected List<Logger> getLoggers() {
-		return Collections.<Logger> list(LogManager.getCurrentLoggers());
-	}
-
-	protected void showLoggers() {
-		Enumeration<?> e = LogManager.getCurrentLoggers();
-		while (e.hasMoreElements()) {
-			Logger logger = (Logger) e.nextElement();
-			System.out.println(logger.getName());
-		}
-	}
 }
