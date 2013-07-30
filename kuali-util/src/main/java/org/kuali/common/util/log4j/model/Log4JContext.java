@@ -17,17 +17,17 @@ public class Log4JContext {
 
 	public static final Boolean DEFAULT_RESET_VALUE = false;
 	public static final Boolean DEFAULT_DEBUG_VALUE = false;
-	public static final Log4JLevelValue DEFAULT_THRESHOLD_VALUE = null;
+	public static final LevelValue DEFAULT_THRESHOLD_VALUE = null;
 
 	public Log4JContext() {
 		this(null, null);
 	}
 
-	public Log4JContext(List<Log4JAppender> appenders, Log4JLogger root) {
+	public Log4JContext(List<Appender> appenders, Log4JLogger root) {
 		this(appenders, root, null);
 	}
 
-	public Log4JContext(List<Log4JAppender> appenders, Log4JLogger root, List<Log4JLogger> loggers) {
+	public Log4JContext(List<Appender> appenders, Log4JLogger root, List<Log4JLogger> loggers) {
 		super();
 		this.appenders = appenders;
 		this.root = root;
@@ -41,8 +41,8 @@ public class Log4JContext {
 		this.threshold = context.getThreshold();
 		this.root = context.getRoot();
 
-		for (Log4JAppender appender : CollectionUtils.toEmptyList(context.getAppenders())) {
-			this.appenders.add(new Log4JAppender(appender));
+		for (Appender appender : CollectionUtils.toEmptyList(context.getAppenders())) {
+			this.appenders.add(new Appender(appender));
 		}
 
 		for (Log4JLogger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
@@ -52,9 +52,9 @@ public class Log4JContext {
 
 	Boolean reset = DEFAULT_RESET_VALUE;
 	Boolean debug = DEFAULT_DEBUG_VALUE;
-	Log4JLevelValue threshold = DEFAULT_THRESHOLD_VALUE;
+	LevelValue threshold = DEFAULT_THRESHOLD_VALUE;
 	Log4JLogger root;
-	List<Log4JAppender> appenders = new ArrayList<Log4JAppender>();
+	List<Appender> appenders = new ArrayList<Appender>();
 	List<Log4JLogger> loggers = new ArrayList<Log4JLogger>();
 
 	@XmlAttribute
@@ -68,12 +68,12 @@ public class Log4JContext {
 	}
 
 	@XmlAttribute
-	public Log4JLevelValue getThreshold() {
+	public LevelValue getThreshold() {
 		return threshold;
 	}
 
 	@XmlElement(name = "appender")
-	public List<Log4JAppender> getAppenders() {
+	public List<Appender> getAppenders() {
 		return appenders;
 	}
 
@@ -95,11 +95,11 @@ public class Log4JContext {
 		this.debug = debug;
 	}
 
-	public void setThreshold(Log4JLevelValue threshold) {
+	public void setThreshold(LevelValue threshold) {
 		this.threshold = threshold;
 	}
 
-	public void setAppenders(List<Log4JAppender> appenders) {
+	public void setAppenders(List<Appender> appenders) {
 		this.appenders = appenders;
 	}
 

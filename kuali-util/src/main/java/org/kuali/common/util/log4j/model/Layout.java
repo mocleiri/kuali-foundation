@@ -8,24 +8,24 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.CollectionUtils;
 
-public class Log4JLayout {
+public class Layout {
 
 	Class<?> javaClass;
-	List<Log4JParam> params = new ArrayList<Log4JParam>();
+	List<Param> params = new ArrayList<Param>();
 
-	public Log4JLayout(Log4JLayout layout) {
+	public Layout(Layout layout) {
 		super();
 		this.javaClass = layout.getJavaClass();
-		for (Log4JParam param : CollectionUtils.toEmptyList(layout.getParams())) {
-			this.params.add(new Log4JParam(param));
+		for (Param param : CollectionUtils.toEmptyList(layout.getParams())) {
+			this.params.add(new Param(param));
 		}
 	}
 
-	public Log4JLayout() {
+	public Layout() {
 		this(null, null);
 	}
 
-	public Log4JLayout(Class<?> javaClass, List<Log4JParam> params) {
+	public Layout(Class<?> javaClass, List<Param> params) {
 		super();
 		this.javaClass = javaClass;
 		this.params = params;
@@ -37,7 +37,7 @@ public class Log4JLayout {
 	}
 
 	@XmlElement(name = "param")
-	public List<Log4JParam> getParams() {
+	public List<Param> getParams() {
 		return params;
 	}
 
@@ -45,7 +45,7 @@ public class Log4JLayout {
 		this.javaClass = javaClass;
 	}
 
-	public void setParams(List<Log4JParam> params) {
+	public void setParams(List<Param> params) {
 		this.params = params;
 	}
 

@@ -3,7 +3,7 @@ package org.kuali.common.util.log4j;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log4j.model.Log4JContext;
-import org.kuali.common.util.log4j.model.Log4JLevel;
+import org.kuali.common.util.log4j.model.Level;
 import org.kuali.common.util.log4j.model.Log4JLogger;
 import org.kuali.common.util.nullify.Nullifier;
 
@@ -57,7 +57,7 @@ public class Log4JContextNullifier implements Nullifier {
 		if (logger.getLevel() == null) {
 			return;
 		}
-		if (Log4JLevel.DEFAULT_JAVA_CLASS.equals(logger.getLevel().getJavaClass())) {
+		if (Level.DEFAULT_JAVA_CLASS.equals(logger.getLevel().getJavaClass())) {
 			logger.getLevel().setJavaClass(null);
 		}
 	}

@@ -2,22 +2,22 @@ package org.kuali.common.util.log4j.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-public class Log4JParam {
+public class Param {
 
 	String name;
 	String value;
 
-	public Log4JParam(Log4JParam param) {
+	public Param(Param param) {
 		super();
 		this.name = param.getName();
 		this.value = param.getValue();
 	}
 
-	public Log4JParam() {
+	public Param() {
 		this(null, null);
 	}
 
-	public Log4JParam(String name, String value) {
+	public Param(String name, String value) {
 		super();
 		this.name = name;
 		this.value = value;

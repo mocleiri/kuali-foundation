@@ -4,16 +4,16 @@ import java.util.Arrays;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
-import org.kuali.common.util.log4j.model.Log4JAppender;
-import org.kuali.common.util.log4j.model.Log4JAppenderReference;
+import org.kuali.common.util.log4j.model.Appender;
+import org.kuali.common.util.log4j.model.AppenderRef;
 import org.kuali.common.util.log4j.model.Log4JContext;
-import org.kuali.common.util.log4j.model.Log4JLayout;
-import org.kuali.common.util.log4j.model.Log4JLevel;
-import org.kuali.common.util.log4j.model.Log4JLevelValue;
+import org.kuali.common.util.log4j.model.Layout;
+import org.kuali.common.util.log4j.model.Level;
+import org.kuali.common.util.log4j.model.LevelValue;
 import org.kuali.common.util.log4j.model.Log4JLogger;
-import org.kuali.common.util.log4j.model.Log4JParam;
-import org.kuali.common.util.log4j.model.Log4JPatternConstants;
-import org.kuali.common.util.log4j.model.param.Log4JConversionPatternParam;
+import org.kuali.common.util.log4j.model.Param;
+import org.kuali.common.util.log4j.model.PatternConstants;
+import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,33 +25,33 @@ public class Log4JCommonConfig {
 
 	@Bean
 	public Log4JContext log4JContextDefault() {
-		return getLog4JContext(Log4JPatternConstants.DEFAULT, Log4JLevelValue.INFO);
+		return getLog4JContext(PatternConstants.DEFAULT, LevelValue.INFO);
 	}
 
 	@Bean
 	public Log4JContext log4JContextTest() {
-		return getLog4JContext(Log4JPatternConstants.DEBUG, Log4JLevelValue.INFO);
+		return getLog4JContext(PatternConstants.DEBUG, LevelValue.INFO);
 	}
 
 	@Bean
 	public Log4JContext log4JContextDebug() {
-		return getLog4JContext(Log4JPatternConstants.DEBUG, Log4JLevelValue.DEBUG);
+		return getLog4JContext(PatternConstants.DEBUG, LevelValue.DEBUG);
 	}
 
 	@Bean
 	public Log4JContext log4JContextMaven() {
-		Log4JContext context = getLog4JContext(Log4JPatternConstants.MAVEN, Log4JLevelValue.INFO);
-		Log4JLogger spring = new Log4JLogger(SPRING, new Log4JLevel(Log4JLevelValue.WARN));
+		Log4JContext context = getLog4JContext(PatternConstants.MAVEN, LevelValue.INFO);
+		Log4JLogger spring = new Log4JLogger(SPRING, new Level(LevelValue.WARN));
 		context.setLoggers(Arrays.asList(spring));
 		return context;
 	}
 
-	protected Log4JContext getLog4JContext(String pattern, Log4JLevelValue level) {
-		Log4JParam patternParam = new Log4JConversionPatternParam(pattern);
-		Log4JLayout layout = new Log4JLayout(PatternLayout.class, Arrays.asList(patternParam));
-		Log4JAppender console = new Log4JAppender(STDOUT, ConsoleAppender.class, layout);
-		Log4JAppenderReference consoleReference = new Log4JAppenderReference(console.getName());
-		Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Log4JLevel(level));
+	protected Log4JContext getLog4JContext(String pattern, LevelValue level) {
+		Param patternParam = new ConversionPatternParam(pattern);
+		Layout layout = new Layout(PatternLayout.class, Arrays.asList(patternParam));
+		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
+		AppenderRef consoleReference = new AppenderRef(console.getName());
+		Log4JLogger root = new Log4JLogger(Arrays.asList(consoleReference), new Level(level));
 		Log4JContext ctx = new Log4JContext(Arrays.asList(console), root);
 		ctx.setReset(true);
 		return ctx;

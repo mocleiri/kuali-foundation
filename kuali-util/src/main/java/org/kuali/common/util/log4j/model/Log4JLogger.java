@@ -16,27 +16,27 @@ public class Log4JLogger {
 		this((String) null);
 	}
 
-	public Log4JLogger(List<Log4JAppenderReference> references) {
+	public Log4JLogger(List<AppenderRef> references) {
 		this(null, references);
 	}
 
-	public Log4JLogger(List<Log4JAppenderReference> references, Log4JLevel level) {
+	public Log4JLogger(List<AppenderRef> references, Level level) {
 		this(null, references, level);
 	}
 
 	public Log4JLogger(String name) {
-		this(name, (Log4JLevel) null);
+		this(name, (Level) null);
 	}
 
-	public Log4JLogger(String name, Log4JLevel level) {
+	public Log4JLogger(String name, Level level) {
 		this(name, null, level);
 	}
 
-	public Log4JLogger(String name, List<Log4JAppenderReference> references) {
+	public Log4JLogger(String name, List<AppenderRef> references) {
 		this(name, references, null);
 	}
 
-	public Log4JLogger(String name, List<Log4JAppenderReference> references, Log4JLevel level) {
+	public Log4JLogger(String name, List<AppenderRef> references, Level level) {
 		super();
 		this.name = name;
 		this.references = references;
@@ -48,18 +48,18 @@ public class Log4JLogger {
 		this.additivity = logger.getAdditivity();
 		this.name = logger.getName();
 		this.level = logger.getLevel();
-		for (Log4JAppenderReference reference : CollectionUtils.toEmptyList(logger.getReferences())) {
-			this.references.add(new Log4JAppenderReference(reference));
+		for (AppenderRef reference : CollectionUtils.toEmptyList(logger.getReferences())) {
+			this.references.add(new AppenderRef(reference));
 		}
 	}
 
 	Boolean additivity = DEFAULT_ADDITIVITY_VALUE;
 	String name;
-	List<Log4JAppenderReference> references = new ArrayList<Log4JAppenderReference>();
-	Log4JLevel level;
+	List<AppenderRef> references = new ArrayList<AppenderRef>();
+	Level level;
 
 	@XmlElement(name = "appender-ref")
-	public List<Log4JAppenderReference> getReferences() {
+	public List<AppenderRef> getReferences() {
 		return references;
 	}
 
@@ -81,15 +81,15 @@ public class Log4JLogger {
 		this.name = name;
 	}
 
-	public void setReferences(List<Log4JAppenderReference> references) {
+	public void setReferences(List<AppenderRef> references) {
 		this.references = references;
 	}
 
-	public Log4JLevel getLevel() {
+	public Level getLevel() {
 		return level;
 	}
 
-	public void setLevel(Log4JLevel level) {
+	public void setLevel(Level level) {
 		this.level = level;
 	}
 

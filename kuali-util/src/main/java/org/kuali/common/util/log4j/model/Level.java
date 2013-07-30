@@ -2,29 +2,27 @@ package org.kuali.common.util.log4j.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import org.apache.log4j.Level;
+public class Level {
 
-public class Log4JLevel {
+	public static final Class<org.apache.log4j.Level> DEFAULT_JAVA_CLASS = org.apache.log4j.Level.class;
 
-	public static final Class<Level> DEFAULT_JAVA_CLASS = Level.class;
-
-	public Log4JLevel(Log4JLevel level) {
+	public Level(Level level) {
 		super();
 		this.javaClass = level.getJavaClass();
 		this.value = level.getValue();
 	}
 
-	public Log4JLevel() {
-		this((Log4JLevelValue) null);
+	public Level() {
+		this((LevelValue) null);
 	}
 
-	public Log4JLevel(Log4JLevelValue value) {
+	public Level(LevelValue value) {
 		super();
 		this.value = value;
 	}
 
 	Class<?> javaClass = DEFAULT_JAVA_CLASS;
-	Log4JLevelValue value;
+	LevelValue value;
 
 	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
@@ -32,7 +30,7 @@ public class Log4JLevel {
 	}
 
 	@XmlAttribute
-	public Log4JLevelValue getValue() {
+	public LevelValue getValue() {
 		return value;
 	}
 
@@ -40,7 +38,7 @@ public class Log4JLevel {
 		this.javaClass = javaClass;
 	}
 
-	public void setValue(Log4JLevelValue value) {
+	public void setValue(LevelValue value) {
 		this.value = value;
 	}
 
