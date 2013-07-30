@@ -28,10 +28,15 @@ public class Log4JContext {
 	}
 
 	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
+		this(appenders, root, loggers, DEFAULT_RESET_VALUE);
+	}
+
+	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers, boolean reset) {
 		super();
 		this.appenders = appenders;
 		this.root = root;
 		this.loggers = loggers;
+		this.reset = reset;
 	}
 
 	public Log4JContext(Log4JContext context) {
