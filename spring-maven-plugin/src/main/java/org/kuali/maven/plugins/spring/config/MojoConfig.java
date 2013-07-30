@@ -43,19 +43,19 @@ public class MojoConfig {
 	}
 
 	@Bean
-	public Executable mojoServiceExecutable() {
-		MojoExecutable executable = new MojoExecutable();
-		executable.setService(springMojoServiceConfig.springMojoService());
-		executable.setMojo(mojo);
-		return executable;
-	}
-
-	@Bean
 	public Executable log4JExecutable() {
 		Log4JExecutable exec = new Log4JExecutable();
 		exec.setService(log4JServiceConfig.log4jService());
 		exec.setContext(getLog4JContext());
 		return exec;
+	}
+
+	@Bean
+	public Executable mojoServiceExecutable() {
+		MojoExecutable executable = new MojoExecutable();
+		executable.setService(springMojoServiceConfig.springMojoService());
+		executable.setMojo(mojo);
+		return executable;
 	}
 
 	protected Log4JContext getLog4JContext() {
