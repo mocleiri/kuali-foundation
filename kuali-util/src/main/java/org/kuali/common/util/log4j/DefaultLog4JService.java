@@ -22,8 +22,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.sun.org.apache.xerces.internal.impl.xs.opti.DefaultDocument;
-
 public class DefaultLog4JService implements Log4JService {
 
 	public static final String ENCODING = "UTF-8";
@@ -85,11 +83,6 @@ public class DefaultLog4JService implements Log4JService {
 	@Override
 	public void configure(Element element) {
 		DOMConfigurator.configure(element);
-	}
-
-	protected Element getElement(Log4JContext context) {
-		Document document = new DefaultDocument();
-		return document.getDocumentElement();
 	}
 
 	public XmlService getXmlService() {
