@@ -2,6 +2,9 @@ package org.kuali.common.util.properties.spring;
 
 import java.util.Arrays;
 
+import org.kuali.common.util.Str;
+import org.kuali.common.util.project.KualiUtilProjectConstants;
+import org.kuali.common.util.project.ProjectIdentifier;
 import org.kuali.common.util.properties.PropertiesContext;
 import org.kuali.common.util.properties.PropertiesLocation;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class KualiUtilPropertiesConfig {
+
+	ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+	String projectId = identifier.getGroupId() + ":" + identifier.getArtifactId();
+	String classpathPrefix = "classpath:" + Str.getPath(identifier.getGroupId()) + "/" + identifier.getArtifactId();
 
 	@Bean
 	public PropertiesContext propertiesContext() {
@@ -18,7 +25,8 @@ public class KualiUtilPropertiesConfig {
 
 	protected PropertiesContext getScm() {
 		PropertiesContext context = new PropertiesContext();
-		context.setId("org.kuali.common:kuali-util:scm");
+		context.setId(projectId + ":scm");
+		String location = classpathPrefix + "/scm.properties";
 		context.setLocations(Arrays.asList(new PropertiesLocation()));
 		return context;
 	}

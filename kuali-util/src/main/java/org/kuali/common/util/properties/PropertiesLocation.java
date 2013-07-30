@@ -28,12 +28,13 @@ import org.kuali.common.util.property.PropertyFormat;
 public class PropertiesLocation {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
+	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
 	Mode missingMode = DEFAULT_MISSING_MODE;
 	String encoding = DEFAULT_ENCODING;
+	PropertyFormat format = DEFAULT_PROPERTY_FORMAT;
 	String value;
-	PropertyFormat format;
 
 	public PropertiesLocation(PropertiesLocation location) {
 		super();
