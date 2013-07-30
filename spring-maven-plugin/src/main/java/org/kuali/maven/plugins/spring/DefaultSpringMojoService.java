@@ -51,6 +51,20 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	PropertySourceService propertySourceService;
 
 	@Override
+	public boolean isDebugLoggingEnabled(AbstractSpringMojo mojo) {
+		boolean mojoDebug = mojo.getLog().isDebugEnabled();
+		boolean log4JDebug = getBoolean("log4j.debug", mojo.getProperties());
+		boolean springDebug = getBoolean("spring.debug", mojo.getProperties());
+		return mojoDebug || log4JDebug || springDebug;
+	}
+
+	protected boolean getBoolean(String key, Properties properties) {
+		String defaultValue = properties.getProperty(key);
+		String value = PropertyUtils.getGlobalProperty(key, defaultValue);
+		return Boolean.parseBoolean(value);
+	}
+
+	@Override
 	public void callback(LoadXmlMojo mojo) {
 		LoadContext lc = getLoadContext(mojo);
 		if (lc == null) {
@@ -290,7 +304,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		if (mojo.isInjectMavenProject()) {
 			beans.put(MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME, mojo.getProject());
 		}
-		
+
 		if (mojo.isInjectMavenMojo()) {
 			beans.put(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, mojo);
 		}
