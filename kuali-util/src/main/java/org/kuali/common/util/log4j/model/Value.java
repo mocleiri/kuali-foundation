@@ -1,6 +1,6 @@
 package org.kuali.common.util.log4j.model;
 
-public enum LevelValue {
+public enum Value {
 
 	ALL, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF, NULL;
 	// Log4j only supports "null" (lowercase) as a value inside log4j.xml
