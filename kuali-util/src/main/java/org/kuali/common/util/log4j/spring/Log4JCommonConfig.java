@@ -50,8 +50,8 @@ public class Log4JCommonConfig {
 		Param param = new ConversionPatternParam(pattern);
 		Layout layout = new Layout(PatternLayout.class, Arrays.asList(param));
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
-		AppenderRef consoleRef = new AppenderRef(console.getName());
-		Logger root = new Logger(Arrays.asList(consoleRef), new Level(levelValue));
+		AppenderRef ref = new AppenderRef(console.getName());
+		Logger root = new Logger(Arrays.asList(ref), new Level(levelValue));
 		return new Log4JContext(Arrays.asList(console), root, true);
 	}
 }
