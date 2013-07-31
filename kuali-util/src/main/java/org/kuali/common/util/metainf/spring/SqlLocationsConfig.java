@@ -5,38 +5,32 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.properties.Location;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ MetaInfLocationsConfig.class })
-public class SqlLocationsConfig {
-
-	@Autowired
-	MetaInfLocationsConfig metaInfLocationConfig;
+public class SqlLocationsConfig extends MetaInfLocationsConfig {
 
 	@Bean
-	public List<Location> mpxLocations() {
+	public List<Location> metaInfSqlLocations() {
 		List<Location> locations = new ArrayList<Location>();
-		locations.add(metaInfLocationConfig.getMetaInfCommon());
-		locations.add(getMpx());
+		locations.add(getMetaInfCommon());
+		locations.add(getSql());
 		return Collections.unmodifiableList(locations);
 	}
 
 	@Bean
-	public List<Location> metaInfMpxBuildLocations() {
+	public List<Location> metaInfSqlBuildLocations() {
 		List<Location> locations = new ArrayList<Location>();
-		locations.add(metaInfLocationConfig.getMetaInfCommon());
-		locations.add(metaInfLocationConfig.getMetaInfCommonBuild());
-		locations.add(getMpx());
-		locations.add(metaInfLocationConfig.getLocation("/build/sql.properties"));
+		locations.add(getMetaInfCommon());
+		locations.add(getMetaInfCommonBuild());
+		locations.add(getSql());
+		locations.add(getLocation("/build/sql.properties"));
 		return Collections.unmodifiableList(locations);
 	}
 
-	protected Location getMpx() {
-		return metaInfLocationConfig.getLocation("/sql.properties");
+	protected Location getSql() {
+		return getLocation("/sql.properties");
 	}
 
 }
