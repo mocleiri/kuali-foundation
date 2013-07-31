@@ -36,7 +36,7 @@ public class ExecutablesExecutable implements Executable {
 	boolean timed;
 
 	public ExecutablesExecutable() {
-		this((Executable[]) null);
+		this((List<? extends Executable>) null);
 	}
 
 	public ExecutablesExecutable(Executable... executables) {
