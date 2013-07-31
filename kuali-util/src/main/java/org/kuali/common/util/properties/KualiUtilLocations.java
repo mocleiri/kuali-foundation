@@ -13,6 +13,16 @@ public class KualiUtilLocations {
 	// classpath:org/kuali/common/kuali-util
 	private static final String PREFIX = ProjectUtils.getClasspathPrefix(KualiUtilProjectConstants.PROJECT_IDENTIFIER);
 
+	public static List<Location> getAll() {
+		List<Location> locations = new ArrayList<Location>();
+		locations.addAll(Scm.getLocations());
+		locations.addAll(MetaInf.Mpx.getLocations());
+		locations.addAll(MetaInf.Mpx.Build.getLocations());
+		locations.addAll(MetaInf.Sql.getLocations());
+		locations.addAll(MetaInf.Sql.Build.getLocations());
+		return Collections.unmodifiableList(locations);
+	}
+
 	public static class Scm {
 		public static List<Location> getLocations() {
 			return Collections.singletonList(new Location(PREFIX + "/scm.properties"));
