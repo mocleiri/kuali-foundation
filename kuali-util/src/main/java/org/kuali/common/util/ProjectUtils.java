@@ -362,7 +362,7 @@ public class ProjectUtils {
 		Assert.hasText(project.getArtifactId(), "artifactId has no text");
 
 		Properties properties = new Properties();
-		properties.setProperty(Constants.GROUP_ID_BASE_PATH_KEY, Str.getPath(project.getGroupId()));
+		properties.setProperty(Constants.GROUP_ID_PATH_KEY, Str.getPath(project.getGroupId()));
 		properties.setProperty(Constants.ARTIFACT_ID_KEY, project.getArtifactId());
 
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
