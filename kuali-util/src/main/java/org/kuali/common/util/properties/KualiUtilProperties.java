@@ -1,4 +1,4 @@
-package org.kuali.common.util.properties.spring;
+package org.kuali.common.util.properties;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.properties.model.Location;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class PropertiesConfig {
+public class KualiUtilProperties {
 
 	public static class Scm {
 		public static List<Location> getLocations() {
