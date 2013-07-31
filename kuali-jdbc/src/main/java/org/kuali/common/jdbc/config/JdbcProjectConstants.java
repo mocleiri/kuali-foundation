@@ -22,7 +22,7 @@ import org.kuali.common.util.project.ProjectIdentifier;
 public class JdbcProjectConstants {
 
 	private static final String GID = KualiProjectConstants.COMMON_GROUP_ID;
-	private static final String AID = "kuali=jdbc";
+	private static final String AID = "kuali-jdbc";
 	private static final String KUALI_SQL_ARTIFACT_ID = "kuali-sql";
 
 	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, AID);
