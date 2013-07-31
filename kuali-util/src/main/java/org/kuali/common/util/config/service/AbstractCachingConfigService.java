@@ -185,7 +185,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	}
 
 	protected Properties getFilterProperties(Project project) {
-		String classpathPrefix = ProjectUtils.getClassPathPrefix(project.getGroupId(), project.getArtifactId());
+		String classpathPrefix = ProjectUtils.getClasspathPrefix(project.getGroupId(), project.getArtifactId());
 		Properties duplicate = PropertyUtils.duplicate(project.getProperties());
 		duplicate.setProperty(CLASSPATH_PREFIX_KEY, classpathPrefix);
 		String location = getMetadataConfigFilePath(project, PROPS);
