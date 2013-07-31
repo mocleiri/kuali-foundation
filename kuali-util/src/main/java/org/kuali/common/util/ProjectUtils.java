@@ -39,7 +39,6 @@ public class ProjectUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectUtils.class);
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	private static final String GROUP_ID_BASE_PATH_KEY = "project.groupId.base.path";
 	private static final String CLASSPATH = "classpath:";
 
 	@Deprecated
@@ -163,7 +162,7 @@ public class ProjectUtils {
 	 */
 	public static String getResourcePath(Project project) {
 		Properties properties = project.getProperties();
-		String groupIdPath = properties.getProperty(GROUP_ID_BASE_PATH_KEY);
+		String groupIdPath = properties.getProperty(Constants.GROUP_ID_PATH_KEY);
 		Assert.hasText(groupIdPath, "groupIdPath has no text");
 		String artifactId = project.getArtifactId();
 		return groupIdPath + "/" + artifactId;
