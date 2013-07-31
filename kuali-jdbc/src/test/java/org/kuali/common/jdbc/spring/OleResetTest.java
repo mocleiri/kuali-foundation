@@ -15,12 +15,8 @@
  */
 package org.kuali.common.jdbc.spring;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 import org.kuali.common.jdbc.config.KualiJdbcConfig;
-import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
-import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.spring.SpringExecutable;
 
 public class OleResetTest {
@@ -31,7 +27,7 @@ public class OleResetTest {
 			String configId = KualiJdbcConfig.DEFAULT.getConfigId();
 			String location = "classpath:ole-fs.properties";
 
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(Arrays.asList(configId), Arrays.asList(location));
+			// PropertiesSupplier supplier = new ConfigPropertiesSupplier(Arrays.asList(configId), Arrays.asList(location));
 
 			// The annotated java class containing the Spring configuration that does what we need it to do
 			Class<?> annotatedClass = SqlControllerExecutableConfig.class;
