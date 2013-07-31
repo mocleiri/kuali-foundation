@@ -16,25 +16,23 @@
 package org.kuali.common.jdbc.spring;
 
 import org.junit.Test;
-import org.kuali.common.jdbc.config.KualiJdbcConfig;
-import org.kuali.common.util.spring.SpringExecutable;
 
 public class OleResetTest {
 
 	@Test
 	public void test() {
 		try {
-			String configId = KualiJdbcConfig.DEFAULT.getConfigId();
-			String location = "classpath:ole-fs.properties";
+			// String configId = KualiJdbcConfig.DEFAULT.getConfigId();
+			// String location = "classpath:ole-fs.properties";
 
 			// PropertiesSupplier supplier = new ConfigPropertiesSupplier(Arrays.asList(configId), Arrays.asList(location));
 
 			// The annotated java class containing the Spring configuration that does what we need it to do
-			Class<?> annotatedClass = SqlControllerExecutableConfig.class;
+			// Class<?> annotatedClass = SqlControllerExecutableConfig.class;
 
 			// Prepare a Spring context
-			SpringExecutable exec = null;// SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
-			exec.execute();
+			// SpringExecutable exec = null;// SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
+			// exec.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
