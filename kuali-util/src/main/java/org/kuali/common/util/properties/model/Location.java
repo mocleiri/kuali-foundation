@@ -15,25 +15,18 @@
  */
 package org.kuali.common.util.properties.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class Location {
+public final class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
-	Mode missingMode = DEFAULT_MISSING_MODE;
-	String encoding = DEFAULT_ENCODING;
-	PropertyFormat format = DEFAULT_PROPERTY_FORMAT;
+	Mode missingMode;
+	String encoding;
+	PropertyFormat format;
 	String value;
 
 	public Location(Location location) {
@@ -41,6 +34,7 @@ public class Location {
 		this.missingMode = location.getMissingMode();
 		this.encoding = location.getEncoding();
 		this.value = location.getValue();
+		this.format = location.getFormat();
 	}
 
 	public Location() {
@@ -48,33 +42,39 @@ public class Location {
 	}
 
 	public Location(String value) {
-		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE);
+		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
 	public Location(String value, String encoding) {
-		this(value, encoding, DEFAULT_MISSING_MODE);
+		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
-	public Location(String value, String encoding, Mode missingMode) {
+	public Location(String value, String encoding, Mode missingMode, PropertyFormat format) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;
 		this.value = value;
+		this.format = format;
 	}
 
-	@XmlAttribute(name = "missing")
 	public Mode getMissingMode() {
 		return missingMode;
 	}
 
-	@XmlAttribute
 	public String getEncoding() {
 		return encoding;
 	}
 
-	@XmlAttribute
 	public String getValue() {
 		return value;
+	}
+
+	public PropertyFormat getFormat() {
+		return format;
+	}
+
+	public static PropertyFormat getDefaultPropertyFormat() {
+		return DEFAULT_PROPERTY_FORMAT;
 	}
 
 	public void setMissingMode(Mode missingMode) {
@@ -85,16 +85,12 @@ public class Location {
 		this.encoding = encoding;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public PropertyFormat getFormat() {
-		return format;
-	}
-
 	public void setFormat(PropertyFormat format) {
 		this.format = format;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }
