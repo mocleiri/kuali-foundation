@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-public final class Location {
+public final class ImmutableLocation {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
@@ -31,15 +31,15 @@ public final class Location {
 	final PropertyFormat format;
 	final String value;
 
-	public Location(String value) {
+	public ImmutableLocation(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
-	public Location(String value, String encoding) {
+	public ImmutableLocation(String value, String encoding) {
 		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
-	public Location(String value, String encoding, Mode missingMode, PropertyFormat format) {
+	public ImmutableLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;

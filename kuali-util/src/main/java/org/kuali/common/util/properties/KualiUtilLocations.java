@@ -16,26 +16,26 @@ public class KualiUtilLocations {
 	private static final String ENCODING = KualiProjectConstants.ENCODING;
 
 	public static class Scm {
-		public static List<Location> getLocations() {
+		public static List<ImmutableLocation> getLocations() {
 			return Collections.singletonList(getLoc(PREFIX + "/scm.properties"));
 		}
 	}
 
 	public static class MetaInf {
 		private static final String METAINF_PREFIX = PREFIX + "/metainf";
-		private static Location COMMON = getLoc(METAINF_PREFIX + "/common.properties");
-		private static Location COMMON_BUILD = getLoc(METAINF_PREFIX + "/build/common.properties");
+		private static ImmutableLocation COMMON = getLoc(METAINF_PREFIX + "/common.properties");
+		private static ImmutableLocation COMMON_BUILD = getLoc(METAINF_PREFIX + "/build/common.properties");
 
 		public static class Mpx {
-			private static Location MPX = getLoc(METAINF_PREFIX + "/mpx.properties");
+			private static ImmutableLocation MPX = getLoc(METAINF_PREFIX + "/mpx.properties");
 
-			public static List<Location> getLocations() {
+			public static List<ImmutableLocation> getLocations() {
 				return Collections.unmodifiableList(Arrays.asList(COMMON, MPX));
 			}
 
 			public static class Build {
-				public static List<Location> getLocations() {
-					List<Location> locations = new ArrayList<Location>();
+				public static List<ImmutableLocation> getLocations() {
+					List<ImmutableLocation> locations = new ArrayList<ImmutableLocation>();
 					locations.add(COMMON);
 					locations.add(COMMON_BUILD);
 					locations.add(MPX);
@@ -46,15 +46,15 @@ public class KualiUtilLocations {
 		}
 
 		public static class Sql {
-			private static Location SQL = getLoc(METAINF_PREFIX + "/sql.properties");
+			private static ImmutableLocation SQL = getLoc(METAINF_PREFIX + "/sql.properties");
 
-			public static List<Location> getLocations() {
+			public static List<ImmutableLocation> getLocations() {
 				return Collections.unmodifiableList(Arrays.asList(COMMON, SQL));
 			}
 
 			public static class Build {
-				public static List<Location> getLocations() {
-					List<Location> locations = new ArrayList<Location>();
+				public static List<ImmutableLocation> getLocations() {
+					List<ImmutableLocation> locations = new ArrayList<ImmutableLocation>();
 					locations.add(COMMON);
 					locations.add(COMMON_BUILD);
 					locations.add(SQL);
@@ -68,8 +68,8 @@ public class KualiUtilLocations {
 	/**
 	 * Convenience method for obtaining all locations packaged inside the kuali-util project
 	 */
-	public static List<Location> getAll() {
-		List<Location> locations = new ArrayList<Location>();
+	public static List<ImmutableLocation> getAll() {
+		List<ImmutableLocation> locations = new ArrayList<ImmutableLocation>();
 		locations.addAll(Scm.getLocations());
 		locations.addAll(MetaInf.Mpx.getLocations());
 		locations.addAll(MetaInf.Mpx.Build.getLocations());
@@ -78,8 +78,8 @@ public class KualiUtilLocations {
 		return Collections.unmodifiableList(locations);
 	}
 
-	protected static Location getLoc(String value) {
-		return new Location(value, ENCODING);
+	protected static ImmutableLocation getLoc(String value) {
+		return new ImmutableLocation(value, ENCODING);
 	}
 
 }

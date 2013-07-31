@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface LocationSupplier {
 
-	List<Location> getLocations();
+	List<ImmutableLocation> getLocations();
 
 }
