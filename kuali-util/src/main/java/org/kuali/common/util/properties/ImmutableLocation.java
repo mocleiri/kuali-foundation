@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-public final class ImmutableLocation {
+public final class ImmutableLocation implements Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
@@ -47,18 +47,22 @@ public final class ImmutableLocation {
 		this.format = format;
 	}
 
+	@Override
 	public Mode getMissingMode() {
 		return missingMode;
 	}
 
+	@Override
 	public String getEncoding() {
 		return encoding;
 	}
 
+	@Override
 	public String getValue() {
 		return value;
 	}
 
+	@Override
 	public PropertyFormat getFormat() {
 		return format;
 	}
