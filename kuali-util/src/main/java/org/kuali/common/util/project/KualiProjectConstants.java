@@ -25,4 +25,7 @@ public abstract class KualiProjectConstants {
 	public static final String OLE_GROUP_ID = "org.kuali.ole";
 	public static final String KPME_GROUP_ID = "org.kuali.kpme";
 
+	//
+	public static final String ENCODING = "UTF-8";
+
 }
