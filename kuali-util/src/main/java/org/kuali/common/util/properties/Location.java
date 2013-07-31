@@ -24,22 +24,10 @@ public final class Location {
 	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
-	Mode missingMode;
-	String encoding;
-	PropertyFormat format;
-	String value;
-
-	public Location(Location location) {
-		super();
-		this.missingMode = location.getMissingMode();
-		this.encoding = location.getEncoding();
-		this.value = location.getValue();
-		this.format = location.getFormat();
-	}
-
-	public Location() {
-		this((String) null);
-	}
+	final Mode missingMode;
+	final String encoding;
+	final PropertyFormat format;
+	final String value;
 
 	public Location(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
@@ -71,26 +59,6 @@ public final class Location {
 
 	public PropertyFormat getFormat() {
 		return format;
-	}
-
-	public static PropertyFormat getDefaultPropertyFormat() {
-		return DEFAULT_PROPERTY_FORMAT;
-	}
-
-	public void setMissingMode(Mode missingMode) {
-		this.missingMode = missingMode;
-	}
-
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
-
-	public void setFormat(PropertyFormat format) {
-		this.format = format;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
 	}
 
 }
