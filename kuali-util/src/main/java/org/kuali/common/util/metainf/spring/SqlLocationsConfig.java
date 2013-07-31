@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ MetaInfLocationsConfig.class })
-public class MpxLocationsConfig {
+public class SqlLocationsConfig {
 
 	@Autowired
 	MetaInfLocationsConfig metaInfLocationConfig;
@@ -31,12 +31,12 @@ public class MpxLocationsConfig {
 		locations.add(metaInfLocationConfig.getMetaInfCommon());
 		locations.add(metaInfLocationConfig.getMetaInfCommonBuild());
 		locations.add(getMpx());
-		locations.add(metaInfLocationConfig.getLocation("/build/mpx.properties"));
+		locations.add(metaInfLocationConfig.getLocation("/build/sql.properties"));
 		return Collections.unmodifiableList(locations);
 	}
 
 	protected Location getMpx() {
-		return metaInfLocationConfig.getLocation("/mpx.properties");
+		return metaInfLocationConfig.getLocation("/sql.properties");
 	}
 
 }
