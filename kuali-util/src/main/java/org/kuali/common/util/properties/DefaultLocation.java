@@ -29,6 +29,10 @@ public final class DefaultLocation implements Location {
 	PropertyFormat format;
 	String value;
 
+	public DefaultLocation() {
+		this(null);
+	}
+
 	public DefaultLocation(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
