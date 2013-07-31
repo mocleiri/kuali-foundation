@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.properties;
 
+import java.nio.charset.Charset;
+
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
@@ -22,7 +24,7 @@ public final class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
-	public static final String DEFAULT_ENCODING = "UTF-8";
+	public static final String DEFAULT_ENCODING = Charset.defaultCharset().toString();
 
 	final Mode missingMode;
 	final String encoding;
