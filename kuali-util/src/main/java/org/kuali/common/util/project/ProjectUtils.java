@@ -104,13 +104,23 @@ public class ProjectUtils {
 	}
 
 	/**
+	 * Use <code>getClassPathPrefix()</code> instead. (fixed the uppercase "p" in the word classpath)
+	 * 
+	 * @deprecated
+	 */
+	@Deprecated
+	public static String getClassPathPrefix(String groupId, String artifactId) {
+		return getClasspathPrefix(groupId, artifactId);
+	}
+
+	/**
 	 * Return a classpath prefix.
 	 * 
 	 * <pre>
 	 *   org.kuali.common:kuali-util  ->  classpath:org/kuali/common/kuali-util
 	 * </pre>
 	 */
-	public static String getClassPathPrefix(String groupId, String artifactId) {
+	public static String getClasspathPrefix(String groupId, String artifactId) {
 		return CLASSPATH + getResourcePath(groupId, artifactId);
 	}
 
