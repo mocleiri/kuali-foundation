@@ -6,14 +6,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.project.KualiUtilProjectConstants;
-import org.kuali.common.util.project.ProjectIdentifier;
 import org.kuali.common.util.project.ProjectUtils;
 
 public class KualiUtilProperties {
 
-	private static final ProjectIdentifier PID = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
 	// classpath:org/kuali/common/kuali-util
-	private static final String PREFIX = ProjectUtils.getClasspathPrefix(PID);
+	private static final String PREFIX = ProjectUtils.getClasspathPrefix(KualiUtilProjectConstants.PROJECT_IDENTIFIER);
 
 	public static class Scm {
 		public static List<Location> getLocations() {
