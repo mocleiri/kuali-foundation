@@ -114,4 +114,15 @@ public class ProjectUtils {
 		return CLASSPATH + getResourcePath(groupId, artifactId);
 	}
 
+	/**
+	 * Return a classpath prefix.
+	 * 
+	 * <pre>
+	 *   org.kuali.common:kuali-util  ->  classpath:org/kuali/common/kuali-util
+	 * </pre>
+	 */
+	public static String getClasspathPrefix(ProjectIdentifier identifier) {
+		return getClassPathPrefix(identifier.getGroupId(), identifier.getArtifactId());
+	}
+
 }
