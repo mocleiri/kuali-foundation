@@ -22,22 +22,22 @@ import static org.kuali.common.util.properties.LocationConstants.DEFAULT_PROPERT
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-public final class ImmutableLocation implements Location {
+public final class DefaultLocation implements Location {
 
-	final Mode missingMode;
-	final String encoding;
-	final PropertyFormat format;
-	final String value;
+	Mode missingMode;
+	String encoding;
+	PropertyFormat format;
+	String value;
 
-	public ImmutableLocation(String value) {
+	public DefaultLocation(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
-	public ImmutableLocation(String value, String encoding) {
+	public DefaultLocation(String value, String encoding) {
 		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
-	public ImmutableLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
+	public DefaultLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;
@@ -63,6 +63,22 @@ public final class ImmutableLocation implements Location {
 	@Override
 	public PropertyFormat getFormat() {
 		return format;
+	}
+
+	public void setMissingMode(Mode missingMode) {
+		this.missingMode = missingMode;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	public void setFormat(PropertyFormat format) {
+		this.format = format;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }
