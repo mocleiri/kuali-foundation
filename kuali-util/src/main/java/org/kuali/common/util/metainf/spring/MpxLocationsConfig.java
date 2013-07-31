@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class MpxLocationsConfig extends MetaInfLocationsConfig {
 
 	@Bean
-	public List<Location> mpxLocations() {
+	public List<Location> metaInfMpxLocations() {
 		List<Location> locations = new ArrayList<Location>();
 		locations.add(getMetaInfCommon());
 		locations.add(getMpx());
@@ -20,7 +20,7 @@ public class MpxLocationsConfig extends MetaInfLocationsConfig {
 	}
 
 	@Bean
-	public List<Location> mpxBuildLocations() {
+	public List<Location> metaInfMpxBuildLocations() {
 		List<Location> locations = new ArrayList<Location>();
 		locations.add(getMetaInfCommon());
 		locations.add(getMetaInfCommonBuild());
