@@ -8,7 +8,7 @@ import java.util.List;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 
-public class KualiUtilProperties {
+public class KualiUtilLocations {
 
 	// classpath:org/kuali/common/kuali-util
 	private static final String PREFIX = ProjectUtils.getClasspathPrefix(KualiUtilProjectConstants.PROJECT_IDENTIFIER);
