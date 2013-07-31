@@ -12,6 +12,7 @@ import org.kuali.common.util.project.ProjectUtils;
 public class KualiUtilProperties {
 
 	private static final ProjectIdentifier PID = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+	// classpath:org/kuali/common/kuali-util
 	private static final String PREFIX = ProjectUtils.getClasspathPrefix(PID);
 
 	public static class Scm {
