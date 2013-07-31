@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.properties;
+package org.kuali.common.util.properties.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,7 +25,7 @@ import org.kuali.common.util.property.PropertyFormat;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class PropertiesLocation {
+public class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final PropertyFormat DEFAULT_PROPERTY_FORMAT = PropertyFormat.NORMAL;
@@ -36,26 +36,26 @@ public class PropertiesLocation {
 	PropertyFormat format = DEFAULT_PROPERTY_FORMAT;
 	String value;
 
-	public PropertiesLocation(PropertiesLocation location) {
+	public Location(Location location) {
 		super();
 		this.missingMode = location.getMissingMode();
 		this.encoding = location.getEncoding();
 		this.value = location.getValue();
 	}
 
-	public PropertiesLocation() {
+	public Location() {
 		this((String) null);
 	}
 
-	public PropertiesLocation(String value) {
+	public Location(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE);
 	}
 
-	public PropertiesLocation(String value, String encoding) {
+	public Location(String value, String encoding) {
 		this(value, encoding, DEFAULT_MISSING_MODE);
 	}
 
-	public PropertiesLocation(String value, String encoding, Mode missingMode) {
+	public Location(String value, String encoding, Mode missingMode) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;
