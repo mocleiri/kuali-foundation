@@ -15,20 +15,6 @@ public class KualiUtilLocations {
 	private static final String PREFIX = ProjectUtils.getClasspathPrefix(KualiUtilProjectConstants.PROJECT_IDENTIFIER);
 	private static final String ENCODING = KualiProjectConstants.ENCODING;
 
-	public static List<Location> getAll() {
-		List<Location> locations = new ArrayList<Location>();
-		locations.addAll(Scm.getLocations());
-		locations.addAll(MetaInf.Mpx.getLocations());
-		locations.addAll(MetaInf.Mpx.Build.getLocations());
-		locations.addAll(MetaInf.Sql.getLocations());
-		locations.addAll(MetaInf.Sql.Build.getLocations());
-		return Collections.unmodifiableList(locations);
-	}
-
-	protected static Location getLoc(String value) {
-		return new Location(value, ENCODING);
-	}
-
 	public static class Scm {
 		public static List<Location> getLocations() {
 			return Collections.singletonList(getLoc(PREFIX + "/scm.properties"));
@@ -78,4 +64,22 @@ public class KualiUtilLocations {
 			}
 		}
 	}
+
+	/**
+	 * Convenience method for obtaining all locations packaged inside the kuali-util project
+	 */
+	public static List<Location> getAll() {
+		List<Location> locations = new ArrayList<Location>();
+		locations.addAll(Scm.getLocations());
+		locations.addAll(MetaInf.Mpx.getLocations());
+		locations.addAll(MetaInf.Mpx.Build.getLocations());
+		locations.addAll(MetaInf.Sql.getLocations());
+		locations.addAll(MetaInf.Sql.Build.getLocations());
+		return Collections.unmodifiableList(locations);
+	}
+
+	protected static Location getLoc(String value) {
+		return new Location(value, ENCODING);
+	}
+
 }
