@@ -5,11 +5,8 @@ import java.util.Properties;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.processor.OverrideProcessor;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultPropertiesService implements PropertiesService {
-
-	final PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 
 	@Override
 	public Properties getProperties(List<Location> locations) {

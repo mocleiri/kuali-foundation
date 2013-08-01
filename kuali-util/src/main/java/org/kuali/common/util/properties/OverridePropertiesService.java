@@ -64,8 +64,9 @@ public class OverridePropertiesService implements PropertiesService {
 			// Resolve the location using the resolver
 			String resolvedLocation = resolver.resolve(location.getValue());
 
-			// Setup a loader capable of correctly handling this Location + resolvedLocation
-			// It might be perfectly acceptable for the location to not even exist (eg default user override locations)
+			// Setup a loader capable of correctly handling things
+			// It might be perfectly acceptable for the location to not even exist
+			// The location might point to the default location for user specified overrides and the user hasn't provided any (for example)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
 			PropertiesLoader loader = new LocationLoader(location, resolvedLocation);
 
