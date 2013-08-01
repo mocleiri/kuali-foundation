@@ -18,12 +18,12 @@ public class MetaInfLocationsConfig {
 	@Autowired
 	Project project;
 
-	protected Location getMetaInfCommonBuild() {
-		return getLocation("/build/common.properties");
-	}
-
 	protected Location getMetaInfCommon() {
 		return getLocation("/common.properties");
+	}
+
+	protected Location getMetaInfCommonBuild() {
+		return getLocation("/build/common.properties");
 	}
 
 	protected Location getLocation(String suffix) {
