@@ -13,8 +13,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class OverridePropertiesService implements PropertiesService {
 
-	private static final PropertyPlaceholderHelper PPH = new PropertyPlaceholderHelper("${", "}", ":", false);
-
+	final PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 	final Properties overrides;
 
 	public OverridePropertiesService(Properties overrides) {
@@ -34,7 +33,7 @@ public class OverridePropertiesService implements PropertiesService {
 			// Combine properties we've already loaded with overrides and global properties
 			Properties resolver = PropertyUtils.combine(properties, overrides, global);
 			// Use the combined properties to resolve any placeholders in the location
-			String resolvedLocation = PPH.replacePlaceholders(location.getValue(), resolver);
+			String resolvedLocation = helper.replacePlaceholders(location.getValue(), resolver);
 			// If the location exists, load it
 			if (LocationUtils.exists(resolvedLocation)) {
 				Properties loaded = PropertyUtils.load(resolvedLocation, location.getEncoding());
