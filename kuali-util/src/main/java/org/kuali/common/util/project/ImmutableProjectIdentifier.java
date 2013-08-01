@@ -39,6 +39,11 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 	}
 
 	@Override
+	public String toString() {
+		return groupId + ":" + artifactId;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
