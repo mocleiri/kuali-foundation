@@ -28,7 +28,7 @@ public class MpxPropertySourceConfig implements PropertySourceConfig {
 	@Bean
 	public PropertySource<?> propertySource() {
 		List<Location> locations = mpxLocationsConfig.metaInfMpxBuildLocations();
-		PropertiesService service = projectPropertiesServiceConfig.overridePropertiesService();
+		PropertiesService service = projectPropertiesServiceConfig.projectPropertiesService();
 		Properties properties = service.getProperties(locations);
 		return new PropertiesPropertySource("propertiesPropertySource", properties);
 	}

@@ -17,7 +17,7 @@ public class ProjectPropertiesServiceConfig {
 	Project project;
 
 	@Bean
-	public PropertiesService overridePropertiesService() {
+	public PropertiesService projectPropertiesService() {
 		return new OverridePropertiesService(project.getProperties());
 	}
 
