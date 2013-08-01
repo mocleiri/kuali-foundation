@@ -38,6 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.PropertyFormat;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
@@ -59,6 +60,7 @@ public class PropertyUtils {
 
 	public static final String ADDITIONAL_LOCATIONS = "properties.additional.locations";
 	public static final String ADDITIONAL_LOCATIONS_ENCODING = ADDITIONAL_LOCATIONS + ".encoding";
+	public static final Properties EMPTY = new ImmutableProperties(new Properties());
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
