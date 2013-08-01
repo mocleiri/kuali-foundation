@@ -2,35 +2,36 @@ package org.kuali.common.util.resolver;
 
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultValueResolver implements ValueResolver {
+public class PropertiesValueResolver implements ValueResolver {
 
 	private static final PropertyPlaceholderHelper DEFAULT_HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
 	final Properties properties;
 	final PropertyPlaceholderHelper helper;
 
-	public DefaultValueResolver() {
+	public PropertiesValueResolver() {
 		this(PropertyUtils.EMPTY);
 	}
 
-	public DefaultValueResolver(Properties properties) {
+	public PropertiesValueResolver(Properties properties) {
 		this(properties, DEFAULT_HELPER);
 	}
 
-	public DefaultValueResolver(Properties properties, PropertyPlaceholderHelper helper) {
+	public PropertiesValueResolver(Properties properties, PropertyPlaceholderHelper helper) {
 		super();
+		Assert.notNull(properties, "properties are null");
+		Assert.notNull(helper, "helper is null");
 		this.properties = properties;
 		this.helper = helper;
 	}
 
 	@Override
 	public String resolve(String value) {
-		Properties global = PropertyUtils.getGlobalProperties();
-		Properties resolver = PropertyUtils.combine(properties, global);
-		return helper.replacePlaceholders(value, resolver);
+		return helper.replacePlaceholders(value, properties);
 	}
 
 }

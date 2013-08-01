@@ -6,12 +6,12 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.OverrideProcessor;
+import org.kuali.common.util.resolver.PropertiesValueResolver;
+import org.kuali.common.util.resolver.ValueResolver;
 import org.springframework.util.Assert;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 public class OverridePropertiesService implements PropertiesService {
 
-	final PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 	final Properties overrides;
 
 	public OverridePropertiesService() {
@@ -32,10 +32,9 @@ public class OverridePropertiesService implements PropertiesService {
 		Properties global = PropertyUtils.getGlobalProperties();
 		// Cycle through our list of locations
 		for (Location location : locations) {
-			// Combine properties we've already loaded with overrides and global properties
-			Properties resolver = PropertyUtils.combine(properties, overrides, global);
-			// Use the combined properties to resolve any placeholders in the location
-			String resolvedLocation = helper.replacePlaceholders(location.getValue(), resolver);
+			Properties combined = PropertyUtils.combine(properties, overrides);
+			ValueResolver resolver = new PropertiesValueResolver(combined);
+			String resolvedLocation = resolver.resolve(location.getValue());
 			LocationLoader loader = new ValidatingLoader(resolvedLocation);
 			Properties loaded = loader.load(location);
 			new OverrideProcessor(Mode.INFORM, loaded, 2).process(properties);
