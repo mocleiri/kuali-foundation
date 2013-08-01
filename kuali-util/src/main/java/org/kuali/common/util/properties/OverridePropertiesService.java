@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.OverrideProcessor;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
 import org.kuali.common.util.resolver.ValueResolver;
 import org.springframework.util.Assert;
@@ -33,25 +34,26 @@ public class OverridePropertiesService implements PropertiesService {
 		this.overrideMode = overrideMode;
 	}
 
+	protected void override(Properties existing, Properties overrides) {
+		PropertyProcessor processor = new OverrideProcessor(overrideMode, overrides, 2);
+		processor.process(existing);
+	}
+
 	@Override
 	public Properties getProperties(List<Location> locations) {
 		// Allocate some storage
 		Properties properties = new Properties();
-		// Get system/environment properties
-		Properties global = PropertyUtils.getGlobalProperties();
 		// Cycle through our list of locations
 		for (Location location : locations) {
-			Properties combined = PropertyUtils.combine(properties, overrides, global);
+			Properties combined = PropertyUtils.combine(properties, overrides);
 			ValueResolver resolver = new PropertiesValueResolver(combined);
 			String resolvedLocation = resolver.resolve(location.getValue());
 			LocationLoader loader = new ValidatingLoader(resolvedLocation);
 			Properties loaded = loader.load(location);
-			new OverrideProcessor(overrideMode, loaded, 2).process(properties);
+			override(properties, loaded);
 		}
 		// Override the loaded properties with overrides properties
-		new OverrideProcessor(overrideMode, overrides, 2).process(properties);
-		// Override everything with system/environment properties
-		new OverrideProcessor(overrideMode, global, 2).process(properties);
+		override(properties, overrides);
 		// Decrypt them
 		PropertyUtils.decrypt(properties);
 		// Resolve them, throwing an exception if any value cannot be fully resolved
