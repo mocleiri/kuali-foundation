@@ -16,6 +16,10 @@ public class OverridePropertiesService implements PropertiesService {
 	final PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}", ":", false);
 	final Properties overrides;
 
+	public OverridePropertiesService() {
+		this(new Properties());
+	}
+
 	public OverridePropertiesService(Properties overrides) {
 		super();
 		Assert.notNull(overrides, "overrides cannot be null");
