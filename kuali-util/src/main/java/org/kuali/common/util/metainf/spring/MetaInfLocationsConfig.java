@@ -36,8 +36,9 @@ public class MetaInfLocationsConfig {
 	}
 
 	public Location getLocation(String suffix) {
-		String encoding = ProjectUtils.getEncoding(kualiUtilProject());
-		String classpathPrefix = ProjectUtils.getClasspathPrefix(kualiUtilProject().getGroupId(), kualiUtilProject().getArtifactId());
+		Project project = kualiUtilProject();
+		String encoding = ProjectUtils.getEncoding(project);
+		String classpathPrefix = ProjectUtils.getClasspathPrefix(project.getGroupId(), project.getArtifactId());
 		String prefix = classpathPrefix + "/" + METAINF;
 		return new ImmutableLocation(prefix + suffix, encoding);
 	}
