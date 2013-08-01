@@ -32,7 +32,7 @@ public class OverridePropertiesService implements PropertiesService {
 		Properties global = PropertyUtils.getGlobalProperties();
 		// Cycle through our list of locations
 		for (Location location : locations) {
-			Properties combined = PropertyUtils.combine(properties, overrides);
+			Properties combined = PropertyUtils.combine(properties, overrides, global);
 			ValueResolver resolver = new PropertiesValueResolver(combined);
 			String resolvedLocation = resolver.resolve(location.getValue());
 			LocationLoader loader = new ValidatingLoader(resolvedLocation);
