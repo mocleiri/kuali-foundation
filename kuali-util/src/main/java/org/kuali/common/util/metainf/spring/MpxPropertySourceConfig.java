@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.properties.spring.PropertiesServiceConfig;
 import org.kuali.common.util.spring.service.PropertySourceConfig;
-import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +17,11 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ MpxLocationsConfig.class, SpringServiceConfig.class, PropertiesServiceConfig.class })
+@Import({ AutowiredProjectConfig.class, MpxLocationsConfig.class, PropertiesServiceConfig.class })
 public class MpxPropertySourceConfig implements PropertySourceConfig {
 
 	@Autowired
 	MpxLocationsConfig mpxLocationsConfig;
-
-	@Autowired
-	SpringServiceConfig springServiceConfig;
 
 	@Autowired
 	PropertiesServiceConfig propertiesServiceConfig;
