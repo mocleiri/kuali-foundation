@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 public class OverridePropertiesService implements PropertiesService {
 
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
+	private static final int DEFAULT_LOG_MESSAGE_INDENT = 2;
 
 	final List<Properties> overrides;
 	final Mode overrideMode;
@@ -29,7 +30,7 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode) {
-		this(overrides, overrideMode, 2);
+		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT);
 	}
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
