@@ -18,12 +18,12 @@ public class OverridePropertiesService implements PropertiesService {
 
 	public OverridePropertiesService(Properties overrides) {
 		super();
+		Assert.notNull(overrides, "overrides cannot be null");
 		this.overrides = overrides;
 	}
 
 	@Override
 	public Properties getProperties(List<Location> locations) {
-		Assert.notNull(overrides);
 		// Allocate some storage
 		Properties properties = new Properties();
 		// Get system/environment properties
