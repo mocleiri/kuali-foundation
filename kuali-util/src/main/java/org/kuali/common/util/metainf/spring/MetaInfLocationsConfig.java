@@ -36,7 +36,6 @@ public class MetaInfLocationsConfig {
 	}
 
 	public Location getLocation(String suffix) {
-		System.out.println("yo");
 		Project project = kualiUtilProject();
 		String encoding = ProjectUtils.getEncoding(project);
 		String classpathPrefix = ProjectUtils.getClasspathPrefix(project.getGroupId(), project.getArtifactId());
