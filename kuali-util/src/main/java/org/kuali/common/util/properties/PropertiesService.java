@@ -7,6 +7,4 @@ public interface PropertiesService {
 
 	Properties getProperties(List<Location> locations);
 
-	Properties getProperties(List<Location> locations, Properties overrides);
-
 }

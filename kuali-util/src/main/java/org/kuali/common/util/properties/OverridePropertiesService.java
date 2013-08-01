@@ -8,19 +8,23 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.OverrideProcessor;
+import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public class DefaultPropertiesService implements PropertiesService {
+public class OverridePropertiesService implements PropertiesService {
 
 	private static final PropertyPlaceholderHelper PPH = new PropertyPlaceholderHelper("${", "}", ":", false);
 
-	@Override
-	public Properties getProperties(List<Location> locations) {
-		return getProperties(locations, new Properties());
+	final Properties overrides;
+
+	public OverridePropertiesService(Properties overrides) {
+		super();
+		this.overrides = overrides;
 	}
 
 	@Override
-	public Properties getProperties(List<Location> locations, Properties overrides) {
+	public Properties getProperties(List<Location> locations) {
+		Assert.notNull(overrides);
 		// Allocate some storage
 		Properties properties = new Properties();
 		// Get system/environment properties
