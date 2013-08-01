@@ -46,17 +46,6 @@ public class OverridePropertiesService implements PropertiesService {
 		this.logMessageIndent = indent;
 	}
 
-	protected void override(Properties existing, Properties overrides) {
-		override(existing, Arrays.asList(overrides));
-	}
-
-	protected void override(Properties existing, List<Properties> overrides) {
-		for (Properties properties : overrides) {
-			PropertyProcessor processor = new OverrideProcessor(overrideMode, properties, logMessageIndent);
-			processor.process(existing);
-		}
-	}
-
 	@Override
 	public Properties getProperties(List<Location> locations) {
 
@@ -98,6 +87,17 @@ public class OverridePropertiesService implements PropertiesService {
 
 		// Return what we've found
 		return properties;
+	}
+
+	protected void override(Properties existing, Properties overrides) {
+		override(existing, Arrays.asList(overrides));
+	}
+
+	protected void override(Properties existing, List<Properties> overrides) {
+		for (Properties properties : overrides) {
+			PropertyProcessor processor = new OverrideProcessor(overrideMode, properties, logMessageIndent);
+			processor.process(existing);
+		}
 	}
 
 }
