@@ -17,6 +17,7 @@ public class OverridePropertiesService implements PropertiesService {
 
 	final Properties overrides;
 	final Mode overrideMode;
+	final int logMessageIndent;
 
 	public OverridePropertiesService() {
 		this(new Properties());
@@ -27,15 +28,20 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	public OverridePropertiesService(Properties overrides, Mode overrideMode) {
+		this(overrides, overrideMode, 2);
+	}
+
+	public OverridePropertiesService(Properties overrides, Mode overrideMode, int indent) {
 		super();
 		Assert.notNull(overrides, "overrides cannot be null");
 		Assert.notNull(overrideMode, "overrideMode is null");
 		this.overrides = overrides;
 		this.overrideMode = overrideMode;
+		this.logMessageIndent = indent;
 	}
 
 	protected void override(Properties existing, Properties overrides) {
-		PropertyProcessor processor = new OverrideProcessor(overrideMode, overrides, 2);
+		PropertyProcessor processor = new OverrideProcessor(overrideMode, overrides, logMessageIndent);
 		processor.process(existing);
 	}
 
