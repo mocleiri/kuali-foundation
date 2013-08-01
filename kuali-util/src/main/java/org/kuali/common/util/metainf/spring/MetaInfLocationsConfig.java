@@ -18,15 +18,15 @@ public class MetaInfLocationsConfig {
 	@Autowired
 	Project project;
 
-	protected Location getMetaInfCommon() {
+	public Location getMetaInfCommon() {
 		return getLocation("/common.properties");
 	}
 
-	protected Location getMetaInfCommonBuild() {
+	public Location getMetaInfCommonBuild() {
 		return getLocation("/build/common.properties");
 	}
 
-	protected Location getLocation(String suffix) {
+	public Location getLocation(String suffix) {
 		String encoding = ProjectUtils.getEncoding(project);
 		String classpathPrefix = ProjectUtils.getClasspathPrefix(project.getGroupId(), project.getArtifactId());
 		String prefix = classpathPrefix + "/" + METAINF;
