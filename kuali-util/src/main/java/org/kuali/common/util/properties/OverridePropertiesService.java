@@ -3,9 +3,7 @@ package org.kuali.common.util.properties;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.springframework.util.Assert;
@@ -38,14 +36,9 @@ public class OverridePropertiesService implements PropertiesService {
 			Properties resolver = PropertyUtils.combine(properties, overrides, global);
 			// Use the combined properties to resolve any placeholders in the location
 			String resolvedLocation = helper.replacePlaceholders(location.getValue(), resolver);
-			// If the location exists, load it
-			if (LocationUtils.exists(resolvedLocation)) {
-				Properties loaded = PropertyUtils.load(resolvedLocation, location.getEncoding());
-				new OverrideProcessor(Mode.INFORM, loaded, 2).process(properties);
-			} else {
-				// Take appropriate action for missing locations (ignore, inform, warn, or error out)
-				ModeUtils.validate(location.getMissingMode(), "Non-existent location [" + resolvedLocation + "]");
-			}
+			LocationLoader loader = new ValidatingLoader(resolvedLocation);
+			Properties loaded = loader.load(location);
+			new OverrideProcessor(Mode.INFORM, loaded, 2).process(properties);
 		}
 		// Override the loaded properties with overrides properties
 		new OverrideProcessor(Mode.INFORM, overrides, 2).process(properties);
