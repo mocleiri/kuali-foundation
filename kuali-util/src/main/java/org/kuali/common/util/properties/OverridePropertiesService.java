@@ -41,23 +41,43 @@ public class OverridePropertiesService implements PropertiesService {
 
 	@Override
 	public Properties getProperties(List<Location> locations) {
-		// Allocate some storage
+
+		// Allocate a new properties object
 		Properties properties = new Properties();
+
 		// Cycle through our list of locations
 		for (Location location : locations) {
+
+			// Override anything we've loaded with properties from overrides
 			Properties combined = PropertyUtils.combine(properties, overrides);
+
+			// Use the combined properties to resolve values
 			ValueResolver resolver = new PropertiesValueResolver(combined);
+
+			// Resolve the location using the resolver
 			String resolvedLocation = resolver.resolve(location.getValue());
+
+			// Setup a loader that capable of correctly validating the resolved location
+			// It might be perfectly acceptable for the location to not even exist (eg default user override locations)
+			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
 			LocationLoader loader = new ValidatingLoader(resolvedLocation);
+
+			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load(location);
+
+			// Override what we've got so far with what we just loaded
 			override(properties, loaded);
 		}
+
 		// Override the loaded properties with overrides properties
 		override(properties, overrides);
+
 		// Decrypt them
 		PropertyUtils.decrypt(properties);
+
 		// Resolve them, throwing an exception if any value cannot be fully resolved
 		PropertyUtils.resolve(properties);
+
 		// Return what we've found
 		return properties;
 	}
