@@ -17,8 +17,8 @@ public class DefaultPropertiesService implements PropertiesService {
 		Properties properties = new Properties();
 		// Cycle through our list of locations
 		for (Location location : locations) {
-			LocationLoader loader = new ValidatingLoader(location.getValue());
-			Properties loaded = loader.load(location);
+			PropertiesLoader loader = new LocationLoader(location);
+			Properties loaded = loader.load();
 			new OverrideProcessor(Mode.INFORM, loaded, 2).process(properties);
 		}
 		return properties;

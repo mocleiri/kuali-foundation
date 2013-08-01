@@ -66,10 +66,10 @@ public class OverridePropertiesService implements PropertiesService {
 			// Setup a loader that capable of correctly validating the resolved location
 			// It might be perfectly acceptable for the location to not even exist (eg default user override locations)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
-			LocationLoader loader = new ValidatingLoader(resolvedLocation);
+			PropertiesLoader loader = new LocationLoader(location, resolvedLocation);
 
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
-			Properties loaded = loader.load(location);
+			Properties loaded = loader.load();
 
 			// Override what we've got so far with what we just loaded
 			override(properties, loaded);
