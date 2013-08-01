@@ -23,10 +23,12 @@ public class ProjectPropertiesServiceConfig {
 	public PropertiesService projectPropertiesService() {
 
 		// Setup a properties object where system/environment properties "win" over project properties
-		Properties overrides = PropertyUtils.getGlobalProperties(project.getProperties());
+		Properties global = PropertyUtils.getGlobalProperties();
+
+		Properties combined = PropertyUtils.combine(project.getProperties(), global);
 
 		// Setup a service where system + project properties "win" over properties loaded from all other locations
-		return new OverridePropertiesService(overrides);
+		return new OverridePropertiesService(combined);
 	}
 
 }

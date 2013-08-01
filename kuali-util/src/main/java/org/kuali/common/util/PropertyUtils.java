@@ -497,6 +497,16 @@ public class PropertyUtils {
 		}
 	}
 
+	public static final Properties[] toArray(List<Properties> properties) {
+		return properties.toArray(new Properties[properties.size()]);
+	}
+
+	public static final Properties combine(Properties properties, List<Properties> list) {
+		List<Properties> newList = new ArrayList<Properties>(CollectionUtils.toEmptyList(list));
+		newList.add(0, toEmpty(properties));
+		return combine(newList);
+	}
+
 	public static final Properties combine(List<Properties> properties) {
 		Properties combined = new Properties();
 		for (Properties p : properties) {

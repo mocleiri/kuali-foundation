@@ -1,5 +1,6 @@
 package org.kuali.common.util.properties;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -15,23 +16,23 @@ public class OverridePropertiesService implements PropertiesService {
 
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 
-	final Properties overrides;
+	final List<Properties> overrides;
 	final Mode overrideMode;
 	final int logMessageIndent;
 
 	public OverridePropertiesService() {
-		this(new Properties());
+		this(PropertyUtils.EMPTY);
 	}
 
 	public OverridePropertiesService(Properties overrides) {
-		this(overrides, DEFAULT_OVERRIDE_MODE);
+		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
 	}
 
-	public OverridePropertiesService(Properties overrides, Mode overrideMode) {
+	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode) {
 		this(overrides, overrideMode, 2);
 	}
 
-	public OverridePropertiesService(Properties overrides, Mode overrideMode, int indent) {
+	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
 		super();
 		Assert.notNull(overrides, "overrides cannot be null");
 		Assert.notNull(overrideMode, "overrideMode is null");
@@ -41,8 +42,14 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	protected void override(Properties existing, Properties overrides) {
-		PropertyProcessor processor = new OverrideProcessor(overrideMode, overrides, logMessageIndent);
-		processor.process(existing);
+		override(existing, Arrays.asList(overrides));
+	}
+
+	protected void override(Properties existing, List<Properties> overrides) {
+		for (Properties properties : overrides) {
+			PropertyProcessor processor = new OverrideProcessor(overrideMode, properties, logMessageIndent);
+			processor.process(existing);
+		}
 	}
 
 	@Override
@@ -63,7 +70,7 @@ public class OverridePropertiesService implements PropertiesService {
 			// Resolve the location using the resolver
 			String resolvedLocation = resolver.resolve(location.getValue());
 
-			// Setup a loader that capable of correctly validating the resolved location
+			// Setup a loader capable of correctly handling this Location + resolvedLocation
 			// It might be perfectly acceptable for the location to not even exist (eg default user override locations)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
 			PropertiesLoader loader = new LocationLoader(location, resolvedLocation);
