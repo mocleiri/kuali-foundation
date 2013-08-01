@@ -25,6 +25,10 @@ public class OverridePropertiesService implements PropertiesService {
 		this(PropertyUtils.EMPTY);
 	}
 
+	public OverridePropertiesService(Properties... overrides) {
+		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
+	}
+
 	public OverridePropertiesService(Properties overrides) {
 		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
 	}
