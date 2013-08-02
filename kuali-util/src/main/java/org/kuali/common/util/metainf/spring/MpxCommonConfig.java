@@ -17,11 +17,10 @@ public class MpxCommonConfig {
 	public static final String RESOURCES = "resources";
 	public static final String CLASSPATH = "classpath:";
 	public static final String METAINF = "META-INF";
+	public static final List<String> INCLUDES = Arrays.asList("**/*.mpx");
 
 	@Autowired
 	Project project;
-
-	public static final List<String> INCLUDES = Arrays.asList("**/*.mpx");
 
 	/**
 	 * <code>META-INF/org/kuali/util</code>
