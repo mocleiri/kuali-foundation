@@ -20,6 +20,10 @@ import org.kuali.common.util.property.PropertyFormat;
 
 public final class ImmutableLocation extends DefaultLocation {
 
+	public ImmutableLocation(String value, String encoding, Mode missingMode, PropertyFormat format, boolean cacheable) {
+		super(value, encoding, missingMode, format, cacheable);
+	}
+
 	private static final String UOE_MSG = "Immutable locations cannot be changed";
 
 	public ImmutableLocation(String value) {
@@ -32,6 +36,11 @@ public final class ImmutableLocation extends DefaultLocation {
 
 	public ImmutableLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
 		super(value, encoding, missingMode, format);
+	}
+
+	@Override
+	public void setCacheable(boolean cacheable) {
+		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override

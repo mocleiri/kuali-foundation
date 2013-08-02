@@ -13,4 +13,6 @@ public interface Location {
 
 	String getValue();
 
+	boolean isCacheable();
+
 }

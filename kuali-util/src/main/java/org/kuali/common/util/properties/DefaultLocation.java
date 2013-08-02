@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.properties;
 
+import static org.kuali.common.util.properties.LocationConstants.DEFAULT_CACHEABLE;
 import static org.kuali.common.util.properties.LocationConstants.DEFAULT_ENCODING;
 import static org.kuali.common.util.properties.LocationConstants.DEFAULT_MISSING_MODE;
 import static org.kuali.common.util.properties.LocationConstants.DEFAULT_PROPERTY_FORMAT;
@@ -28,6 +29,7 @@ public class DefaultLocation implements Location {
 	String encoding;
 	PropertyFormat format;
 	String value;
+	boolean cacheable;
 
 	public DefaultLocation() {
 		this(null);
@@ -42,11 +44,16 @@ public class DefaultLocation implements Location {
 	}
 
 	public DefaultLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
+		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT, DEFAULT_CACHEABLE);
+	}
+
+	public DefaultLocation(String value, String encoding, Mode missingMode, PropertyFormat format, boolean cacheable) {
 		super();
 		this.missingMode = missingMode;
 		this.encoding = encoding;
 		this.value = value;
 		this.format = format;
+		this.cacheable = cacheable;
 	}
 
 	@Override
@@ -83,6 +90,15 @@ public class DefaultLocation implements Location {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	@Override
+	public boolean isCacheable() {
+		return cacheable;
+	}
+
+	public void setCacheable(boolean cacheable) {
+		this.cacheable = cacheable;
 	}
 
 }
