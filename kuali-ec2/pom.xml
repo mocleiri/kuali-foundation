@@ -274,6 +274,34 @@
         <heap.max>2g</heap.max>
         <heap.maxPermSize>512m</heap.maxPermSize>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>bashrc</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>/home/tomcat</outputDirectory>
+                  <resources>
+                    <resource>
+                      <filtering>true</filtering>
+                      <directory>${project.basedir}/src/main/resources</directory>
+                      <includes>
+                        <include>.bashrc</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>appdynamics</id>
