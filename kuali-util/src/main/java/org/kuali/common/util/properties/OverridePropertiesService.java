@@ -18,11 +18,11 @@ public class OverridePropertiesService implements PropertiesService {
 
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	private static final int DEFAULT_LOG_MESSAGE_INDENT = 2;
+	private static final Cache<String, Properties> CACHE = new DefaultCache<String, Properties>();
 
 	final List<Properties> overrides;
 	final Mode overrideMode;
 	final int logMessageIndent;
-	final Cache<String, Properties> cache = new DefaultCache<String, Properties>();
 
 	public OverridePropertiesService() {
 		this(PropertyUtils.EMPTY);
@@ -71,7 +71,7 @@ public class OverridePropertiesService implements PropertiesService {
 			// It might be perfectly acceptable for the location to not even exist
 			// The location might point to the default location for user specified overrides and the user hasn't provided any (for example)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
-			PropertiesLoader loader = new CachingLoader(location, resolvedLocation, cache);
+			PropertiesLoader loader = new CachingLoader(location, resolvedLocation, CACHE);
 
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load();
