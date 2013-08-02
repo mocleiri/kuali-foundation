@@ -77,7 +77,7 @@ public class OverridePropertiesService implements PropertiesService {
 			override(properties, loaded);
 		}
 
-		// Override the loaded properties with overrides properties
+		// Override the final set of loaded properties with overrides properties
 		override(properties, overrides);
 
 		// Decrypt them
