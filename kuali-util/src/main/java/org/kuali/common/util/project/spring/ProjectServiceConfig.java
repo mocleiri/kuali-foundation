@@ -15,17 +15,32 @@
  */
 package org.kuali.common.util.project.spring;
 
+import java.util.Collections;
+
 import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.ProjectService;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ProjectServiceConfig {
 
+	private static final Cache CACHE = new ConcurrentMapCache("project");
+
 	@Bean
 	public ProjectService projectService() {
 		return new DefaultProjectService();
+	}
+
+	@Bean
+	public CacheManager projectCacheManager() {
+		SimpleCacheManager cacheManager = new SimpleCacheManager();
+		cacheManager.setCaches(Collections.singletonList(CACHE));
+		return cacheManager;
 	}
 
 }

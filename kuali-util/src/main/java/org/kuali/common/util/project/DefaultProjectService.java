@@ -15,21 +15,21 @@
  */
 package org.kuali.common.util.project;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.Charsets;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.cache.Cache;
+import org.kuali.common.util.cache.DefaultCache;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectService implements ProjectService {
 
-	private static final Map<String, Project> CACHE = new HashMap<String, Project>();
+	private static final Cache<String, Project> CACHE = new DefaultCache<String, Project>();
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String PROPERTIES_ENCODING_KEY = "project.properties.encoding";
 	private static final String PROPERTIES_ENCODING_DEFAULT = Charsets.UTF_8.toString();
@@ -49,7 +49,7 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
-	public synchronized Project getProject(String groupId, String artifactId) {
+	public Project getProject(String groupId, String artifactId) {
 
 		// Both of these are required
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");

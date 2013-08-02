@@ -6,8 +6,6 @@ import java.util.Properties;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.cache.Cache;
-import org.kuali.common.util.cache.DefaultCache;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
@@ -18,7 +16,6 @@ public class OverridePropertiesService implements PropertiesService {
 
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	private static final int DEFAULT_LOG_MESSAGE_INDENT = 2;
-	private static final Cache<String, Properties> CACHE = new DefaultCache<String, Properties>();
 
 	final List<Properties> overrides;
 	final Mode overrideMode;
@@ -71,7 +68,7 @@ public class OverridePropertiesService implements PropertiesService {
 			// It might be perfectly acceptable for the location to not even exist
 			// The location might point to the default location for user specified overrides and the user hasn't provided any (for example)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
-			PropertiesLoader loader = new CachingLoader(location, resolvedLocation, CACHE);
+			PropertiesLoader loader = new LocationLoader(location, resolvedLocation);
 
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load();
