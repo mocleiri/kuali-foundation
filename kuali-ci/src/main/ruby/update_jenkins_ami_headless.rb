@@ -44,6 +44,6 @@ puts "updating ami value to #{ami_value}"
 @browser.text_field(:name => "_.ami").set ami_value
 
 # This is the id for the "Save" button
-@browser.button(:id => "yui-gen78-button").click
+@browser.button(:id => "yui-gen76-button").click
 
 @browser.link(:text => "log out").click
