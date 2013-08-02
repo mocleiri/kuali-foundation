@@ -68,6 +68,9 @@
     <tomcat.dir>/usr/local/${tomcat.artifactId}-${tomcat.version}</tomcat.dir>
     <ant.phase>none</ant.phase>
     <ant.file>src/main/resources/build.xml</ant.file>
+    <heap.min>512m</heap.min>
+    <heap.max>2g</heap.max>
+    <heap.maxPermSize>512m</heap.maxPermSize>
   </properties>
   <build>
     <pluginManagement>
