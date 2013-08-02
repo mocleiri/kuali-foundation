@@ -6,6 +6,8 @@ import java.util.Properties;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.cache.Cache;
+import org.kuali.common.util.cache.DefaultCache;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
@@ -15,11 +17,14 @@ import org.springframework.util.Assert;
 public class OverridePropertiesService implements PropertiesService {
 
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
+	public static final boolean DEFAULT_CACHE_LOADED_PROPERTIES = true;
 	private static final int DEFAULT_LOG_MESSAGE_INDENT = 2;
+	private static final Cache<String, Properties> CACHE = new DefaultCache<String, Properties>();
 
 	final List<Properties> overrides;
 	final Mode overrideMode;
 	final int logMessageIndent;
+	final boolean cacheLoadedProperties;
 
 	public OverridePropertiesService() {
 		this(PropertyUtils.EMPTY);
@@ -38,12 +43,17 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
+		this(overrides, overrideMode, indent, DEFAULT_CACHE_LOADED_PROPERTIES);
+	}
+
+	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent, boolean cacheLoadedProperties) {
 		super();
 		Assert.notNull(overrides, "overrides cannot be null");
 		Assert.notNull(overrideMode, "overrideMode is null");
 		this.overrides = overrides;
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
+		this.cacheLoadedProperties = cacheLoadedProperties;
 	}
 
 	@Override
@@ -88,6 +98,14 @@ public class OverridePropertiesService implements PropertiesService {
 
 		// Return what we've found
 		return properties;
+	}
+
+	protected LocationLoader getLoader(Location location, String resolvedLocation) {
+		if (cacheLoadedProperties) {
+			return new CachingLoader(location, resolvedLocation, CACHE);
+		} else {
+			return new LocationLoader(location, resolvedLocation);
+		}
 	}
 
 	protected void override(Properties existing, Properties overrides) {
