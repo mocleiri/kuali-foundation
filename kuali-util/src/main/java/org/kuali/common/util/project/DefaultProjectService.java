@@ -49,7 +49,7 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
-	public synchronized Project getProject(String groupId, String artifactId) {
+	public Project getProject(String groupId, String artifactId) {
 
 		// Both of these are required
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
@@ -68,7 +68,7 @@ public class DefaultProjectService implements ProjectService {
 		return project;
 	}
 
-	protected synchronized void clearCache() {
+	protected void clearCache() {
 		CACHE.clear();
 	}
 
