@@ -40,6 +40,6 @@ public class MetaInfLocationsConfig {
 		String encoding = ProjectUtils.getEncoding(project);
 		String classpathPrefix = ProjectUtils.getClasspathPrefix(project.getGroupId(), project.getArtifactId());
 		String prefix = classpathPrefix + "/" + METAINF;
-		return new ImmutableLocation(prefix + suffix, encoding);
+		return new ImmutableLocation(prefix + suffix, encoding, true);
 	}
 }
