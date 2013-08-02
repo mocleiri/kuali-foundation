@@ -28,4 +28,8 @@ public class CachingLoader extends LocationLoader {
 		return properties;
 	}
 
+	public Cache<String, Properties> getCache() {
+		return cache;
+	}
+
 }

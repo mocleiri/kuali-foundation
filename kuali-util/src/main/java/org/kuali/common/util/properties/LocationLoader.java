@@ -32,4 +32,12 @@ public class LocationLoader implements PropertiesLoader {
 		}
 	}
 
+	public String getValue() {
+		return value;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
 }
