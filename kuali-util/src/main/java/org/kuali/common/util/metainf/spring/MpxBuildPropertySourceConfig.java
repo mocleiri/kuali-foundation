@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ MpxBuildLocationsConfig.class, ProjectPropertiesServiceConfig.class })
-public class MpxPropertySourceConfig extends LocationPropertySourceConfig {
+public class MpxBuildPropertySourceConfig extends LocationPropertySourceConfig {
 
 }
