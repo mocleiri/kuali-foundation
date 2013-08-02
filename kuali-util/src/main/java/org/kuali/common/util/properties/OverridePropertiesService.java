@@ -16,11 +16,9 @@ import org.springframework.util.Assert;
 
 public class OverridePropertiesService implements PropertiesService {
 
-	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
-	public static final boolean DEFAULT_CACHE_LOADED_PROPERTIES = true;
-
-	protected static int DEFAULT_LOG_MESSAGE_INDENT = 2;
-	protected static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
+	private static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
+	private static int DEFAULT_LOG_MESSAGE_INDENT = 2;
+	private static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	final List<Properties> overrides;
 	final Mode overrideMode;
