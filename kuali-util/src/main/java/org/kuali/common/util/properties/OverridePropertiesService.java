@@ -6,6 +6,8 @@ import java.util.Properties;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.cache.Cache;
+import org.kuali.common.util.cache.DefaultCache;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
@@ -20,6 +22,7 @@ public class OverridePropertiesService implements PropertiesService {
 	final List<Properties> overrides;
 	final Mode overrideMode;
 	final int logMessageIndent;
+	final Cache<String, Properties> cache = new DefaultCache<String, Properties>();
 
 	public OverridePropertiesService() {
 		this(PropertyUtils.EMPTY);
