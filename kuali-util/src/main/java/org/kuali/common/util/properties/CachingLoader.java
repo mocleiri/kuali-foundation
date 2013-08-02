@@ -25,10 +25,10 @@ public class CachingLoader extends LocationLoader {
 			return super.load();
 		}
 
-		Properties properties = cache.get(getValue());
+		Properties properties = cache.get(value);
 		if (properties == null) {
 			properties = new ImmutableProperties(super.load());
-			this.cache.put(getValue(), properties);
+			this.cache.put(value, properties);
 		}
 		return properties;
 
