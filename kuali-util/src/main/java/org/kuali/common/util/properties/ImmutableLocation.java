@@ -15,54 +15,43 @@
  */
 package org.kuali.common.util.properties;
 
-import static org.kuali.common.util.properties.LocationConstants.DEFAULT_ENCODING;
-import static org.kuali.common.util.properties.LocationConstants.DEFAULT_MISSING_MODE;
-import static org.kuali.common.util.properties.LocationConstants.DEFAULT_PROPERTY_FORMAT;
-
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-public final class ImmutableLocation implements Location {
+public final class ImmutableLocation extends DefaultLocation {
 
-	final Mode missingMode;
-	final String encoding;
-	final PropertyFormat format;
-	final String value;
+	private static final String UOE_MSG = "Immutable locations cannot be changed";
 
 	public ImmutableLocation(String value) {
-		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
+		super(value);
 	}
 
 	public ImmutableLocation(String value, String encoding) {
-		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
+		super(value, encoding);
 	}
 
 	public ImmutableLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
-		super();
-		this.missingMode = missingMode;
-		this.encoding = encoding;
-		this.value = value;
-		this.format = format;
+		super(value, encoding, missingMode, format);
 	}
 
 	@Override
-	public Mode getMissingMode() {
-		return missingMode;
+	public void setMissingMode(Mode missingMode) {
+		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override
-	public String getEncoding() {
-		return encoding;
+	public void setEncoding(String encoding) {
+		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override
-	public String getValue() {
-		return value;
+	public void setFormat(PropertyFormat format) {
+		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override
-	public PropertyFormat getFormat() {
-		return format;
+	public void setValue(String value) {
+		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 }
