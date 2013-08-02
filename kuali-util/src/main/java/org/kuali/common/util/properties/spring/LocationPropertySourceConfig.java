@@ -15,6 +15,8 @@ import org.springframework.core.env.PropertySource;
 @Configuration
 public class LocationPropertySourceConfig implements PropertySourceConfig {
 
+	private static final String PROPERTY_SOURCE_NAME = "propertiesPropertySource";
+
 	@Autowired
 	PropertyLocationsConfig propertyLocationsConfig;
 
@@ -27,7 +29,7 @@ public class LocationPropertySourceConfig implements PropertySourceConfig {
 		List<Location> locations = propertyLocationsConfig.propertyLocations();
 		PropertiesService service = propertiesServiceConfig.propertiesService();
 		Properties properties = service.getProperties(locations);
-		return new PropertiesPropertySource("propertiesPropertySource", properties);
+		return new PropertiesPropertySource(PROPERTY_SOURCE_NAME, properties);
 	}
 
 }
