@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Import;
 @Import({ MpxCommonConfig.class })
 public class MpxBuildConfig implements MetaInfContextsConfig {
 
+	public static final List<String> RECURSIVE_MPX_INCLUDES = Arrays.asList("**/*.mpx");
+
 	@Autowired
 	MpxCommonConfig mpxCommonConfig;
 
@@ -33,7 +35,7 @@ public class MpxBuildConfig implements MetaInfContextsConfig {
 	public List<MetaInfContext> metaInfContexts() {
 		MetaInfContext context = new MetaInfContext();
 		context.setOutputFile(new File(getResourceBase() + MpxCommonConfig.DATA_FILENAME));
-		context.setIncludes(MpxCommonConfig.RECURSIVE_MPX_INCLUDES);
+		context.setIncludes(RECURSIVE_MPX_INCLUDES);
 		return Arrays.asList(context);
 	}
 

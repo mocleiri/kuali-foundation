@@ -1,8 +1,5 @@
 package org.kuali.common.util.metainf.spring;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.kuali.common.util.Str;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
@@ -12,9 +9,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
-public class MpxCommonConfig {
-
-	public static final List<String> RECURSIVE_MPX_INCLUDES = Arrays.asList("**/*.mpx");
+public class MetaInfCommonConfig {
 
 	public static final String RESOURCES = "resources";
 	public static final String CLASSPATH = "classpath:";
