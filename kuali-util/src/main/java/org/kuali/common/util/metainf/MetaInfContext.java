@@ -27,6 +27,7 @@ public class MetaInfContext {
 	 */
 	public static final String DEFAULT_PREFIX = "classpath:";
 	public static final boolean DEFAULT_SORT = true;
+	public static final String METAINF = "META-INF";
 
 	String prefix = DEFAULT_PREFIX;
 	boolean sort = DEFAULT_SORT;
