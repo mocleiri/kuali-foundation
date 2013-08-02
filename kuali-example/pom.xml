@@ -42,7 +42,7 @@
   <profiles>
     <profile>
       <!-- Reset an environment. Spin up a new EC2 server and associate a friendly DNS name with the new server -->
-      <id>resetenv</id>
+      <id>reset-ec2-environment</id>
       <build>
         <plugins>
           <plugin>
