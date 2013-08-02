@@ -32,10 +32,58 @@
   <properties>
     <plugin.ec2.version>1.1.5</plugin.ec2.version>
     <kuali-deploy.version>2.2.6</kuali-deploy.version>
+    <kuali-ec2.version>1.0.7-SNAPSHOT</kuali-ec2.version>
   </properties>
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</connection>
     <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-example</url>
   </scm>
+  <profiles>
+    <profile>
+      <!-- Reset an environment. Spin up a new EC2 server and associate a friendly DNS name with the new server -->
+      <id>resetenv</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.kuali.maven.plugins</groupId>
+            <artifactId>mvn-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>resetenv</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>mvn</goal>
+                </goals>
+                <configuration>
+                  <pom>classpath:org/kuali/common/deploy/mvn/resetenv.xml</pom>
+                  <args>
+                    <arg>clean</arg>
+                    <arg>initialize</arg>
+                  </args>
+                  <filterPom>true</filterPom>
+                  <properties>
+                    <property>deploy.groupId</property>
+                    <property>deploy.env</property>
+                    <property>tomcat.version</property>
+                    <property>jdk.version</property>
+                    <property>heap.max</property>
+                    <property>heap.min</property>
+                    <property>heap.maxPermSize</property>
+                  </properties>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.kuali.common</groupId>
+                <artifactId>kuali-deploy</artifactId>
+                <version>${kuali-deploy.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
