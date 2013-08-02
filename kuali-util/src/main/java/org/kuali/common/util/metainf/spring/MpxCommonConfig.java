@@ -14,10 +14,15 @@ import org.springframework.context.annotation.Import;
 @Import({ AutowiredProjectConfig.class })
 public class MpxCommonConfig {
 
+	public static final List<String> INCLUDES = Arrays.asList("**/*.mpx");
+
 	public static final String RESOURCES = "resources";
 	public static final String CLASSPATH = "classpath:";
 	public static final String METAINF = "META-INF";
-	public static final List<String> INCLUDES = Arrays.asList("**/*.mpx");
+	public static final String DATA = "data." + RESOURCES;
+	public static final String SCHEMA = "schema." + RESOURCES;
+	public static final String CONSTRAINTS = "constraints." + RESOURCES;
+	public static final String OTHER = "other." + RESOURCES;
 
 	@Autowired
 	Project project;
