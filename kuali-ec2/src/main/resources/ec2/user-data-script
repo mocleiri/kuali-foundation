@@ -23,7 +23,7 @@ svn co https://svn.kuali.org/repos/foundation/trunk/kuali-ec2 /root/kuali-ec2
 cd /root/kuali-ec2
 MVN=/opt/asf/mvn/bin/mvn
 $MVN clean install
-$PROFILES="tomcat,${tomcat.version},medium"
-$ARGS="-Djdk.version=${jdk.version} -Dheap.max=${heap.max} -Dheap.min=${heap.min} -Dheap.maxPermSize=${heap.maxPermSize}"
+PROFILES="tomcat,${tomcat.version},medium"
+ARGS="-Djdk.version=${jdk.version} -Dheap.max=${heap.max} -Dheap.min=${heap.min} -Dheap.maxPermSize=${heap.maxPermSize}"
 $MVN clean process-resources -P$PROFILES $ARGS
 $MVN clean process-resources -Pappdynamics
