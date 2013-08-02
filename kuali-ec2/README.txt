@@ -18,8 +18,8 @@
 Commands for EC2 medium instances
 ---------------------------------
 
-mcp -Ptomcat,6,medium -Djdk.version=jdk6/jdk7
-mcp -Ptomcat,7,medium -Djdk.version=jdk6/jdk7
+mcp -Ptomcat,6,medium -Djdk.version=jdk6/jdk7 -Dheap.max=2g -Dheap.min=512m -Dheap.maxPermSize=512m
+mcp -Ptomcat,7,medium -Djdk.version=jdk6/jdk7 -Dheap.max=2g -Dheap.min=512m -Dheap.maxPermSize=512m
 
 
 --------------------------------
