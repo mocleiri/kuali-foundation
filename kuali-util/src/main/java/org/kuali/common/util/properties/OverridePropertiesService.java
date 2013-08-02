@@ -24,7 +24,6 @@ public class OverridePropertiesService implements PropertiesService {
 	final List<Properties> overrides;
 	final Mode overrideMode;
 	final int logMessageIndent;
-	final boolean cacheLoadedProperties;
 
 	public OverridePropertiesService() {
 		this(PropertyUtils.EMPTY);
@@ -43,17 +42,12 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
-		this(overrides, overrideMode, indent, DEFAULT_CACHE_LOADED_PROPERTIES);
-	}
-
-	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent, boolean cacheLoadedProperties) {
 		super();
 		Assert.notNull(overrides, "overrides cannot be null");
 		Assert.notNull(overrideMode, "overrideMode is null");
 		this.overrides = overrides;
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
-		this.cacheLoadedProperties = cacheLoadedProperties;
 	}
 
 	@Override
@@ -78,7 +72,7 @@ public class OverridePropertiesService implements PropertiesService {
 			// It might be perfectly acceptable for the location to not even exist
 			// The location might point to the default location for user specified overrides and the user hasn't provided any (for example)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
-			PropertiesLoader loader = getLoader(location, resolvedLocation, cacheLoadedProperties, CACHE);
+			PropertiesLoader loader = new CachingLoader(location, resolvedLocation, CACHE);
 
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load();
@@ -98,14 +92,6 @@ public class OverridePropertiesService implements PropertiesService {
 
 		// Return what we've found
 		return properties;
-	}
-
-	protected LocationLoader getLoader(Location location, String resolvedLocation, boolean useCache, Cache<String, Properties> cache) {
-		if (useCache) {
-			return new CachingLoader(location, resolvedLocation, cache);
-		} else {
-			return new LocationLoader(location, resolvedLocation);
-		}
 	}
 
 	protected void override(Properties existing, Properties overrides) {
