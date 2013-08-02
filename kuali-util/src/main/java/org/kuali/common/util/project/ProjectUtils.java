@@ -74,6 +74,27 @@ public class ProjectUtils {
 	}
 
 	/**
+	 * Convenience method for extracting the value of the property <code>project.build.directory</code>
+	 */
+	public static File getBuildDirectory(Project project) {
+		return new File(project.getProperties().getProperty(MavenConstants.BUILD_DIRECTORY_KEY));
+	}
+
+	/**
+	 * Convenience method for extracting the value of the property <code>project.basedir</code>
+	 */
+	public static File getBasedir(Project project) {
+		return new File(project.getProperties().getProperty(MavenConstants.BASEDIR_KEY));
+	}
+
+	/**
+	 * Convenience method for extracting the value of the property <code>project.build.outputDirectory</code>
+	 */
+	public static File getBuildOutputDirectory(Project project) {
+		return new File(project.getProperties().getProperty(MavenConstants.BUILD_OUTPUT_DIRECTORY_KEY));
+	}
+
+	/**
 	 * Convenience method for extracting the value of the property <code>project.encoding</code>
 	 */
 	public static String getEncoding(Project project) {

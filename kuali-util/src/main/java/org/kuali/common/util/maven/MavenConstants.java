@@ -30,6 +30,9 @@ public abstract class MavenConstants {
 	public static final String ARTIFACT_ID_KEY = "project.artifactId";
 	public static final String VERSION_KEY = "project.version";
 	public static final String ENCODING_KEY = "project.encoding";
+	public static final String BUILD_DIRECTORY_KEY = "project.build.directory";
+	public static final String BUILD_OUTPUT_DIRECTORY_KEY = "project.build.outputDirectory";
+	public static final String BASEDIR_KEY = "project.basedir";
 	public static final String ORG_ID_KEY = "project.orgId";
 	public static final String ORG_ID_CODE_KEY = "project.orgId.code";
 
