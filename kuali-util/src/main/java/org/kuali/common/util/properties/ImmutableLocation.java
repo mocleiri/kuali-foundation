@@ -30,6 +30,10 @@ public final class ImmutableLocation extends DefaultLocation {
 		super(value, encoding);
 	}
 
+	public ImmutableLocation(String value, String encoding, boolean cacheable) {
+		super(value, encoding, cacheable);
+	}
+
 	public ImmutableLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
 		super(value, encoding, missingMode, format);
 	}

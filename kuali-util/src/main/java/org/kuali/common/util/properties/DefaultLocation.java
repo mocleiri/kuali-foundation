@@ -43,6 +43,10 @@ public class DefaultLocation implements Location {
 		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
 
+	public DefaultLocation(String value, String encoding, boolean cacheable) {
+		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT, cacheable);
+	}
+
 	public DefaultLocation(String value, String encoding, Mode missingMode, PropertyFormat format) {
 		this(value, encoding, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT, DEFAULT_CACHEABLE);
 	}
