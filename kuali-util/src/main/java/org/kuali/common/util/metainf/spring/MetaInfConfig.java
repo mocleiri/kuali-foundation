@@ -54,7 +54,7 @@ public class MetaInfConfig {
 	Environment env;
 
 	@Bean
-	public Executable metaInfExecutable() {
+	public Executable utilMetaInfExecutable() {
 		List<String> contextList = SpringUtils.getNoneSensitiveListFromCSV(env, METAINF_CONTEXTS_KEY);
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
 		for (String contextKey : contextList) {

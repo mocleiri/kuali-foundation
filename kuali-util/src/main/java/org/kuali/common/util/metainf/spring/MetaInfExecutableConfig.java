@@ -30,7 +30,7 @@ public class MetaInfExecutableConfig extends ExecutableConfig {
 
     @Override
 	public Executable getExecutable() {
-        return metaInfConfig.metaInfExecutable();
+        return metaInfConfig.utilMetaInfExecutable();
     }
 
 }
