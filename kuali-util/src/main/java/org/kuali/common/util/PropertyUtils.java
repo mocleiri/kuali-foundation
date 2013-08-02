@@ -586,8 +586,8 @@ public class PropertyUtils {
 	 * perform property resolution as indicated by <code>globalPropertiesMode</code>
 	 */
 	public static final Properties getResolvedProperties(Properties properties, PropertyPlaceholderHelper helper, GlobalPropertiesMode globalPropertiesMode) {
-		Properties global = PropertyUtils.getProperties(properties, globalPropertiesMode);
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		Properties global = getProperties(properties, globalPropertiesMode);
+		List<String> keys = getSortedKeys(properties);
 		Properties newProperties = new Properties();
 		for (String key : keys) {
 			String originalValue = properties.getProperty(key);
