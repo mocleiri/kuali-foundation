@@ -106,6 +106,9 @@
       <filterset begintoken="${" endtoken="}">
         <filter token="environment" value="${environment}" />
         <filter token="jdk.version" value="${jdk.version}" />
+        <filter token="heap.max" value="${heap.max}" />
+        <filter token="heap.min" value="${heap.min}" />
+        <filter token="heap.maxPermSize" value="${heap.maxPermSize}" />
       </filterset>
     </copy>
     <copy file="src/main/resources/rice.keystore" tofile="/home/${tomcat.user}/.ssh/rice.keystore" overwrite="true" />
