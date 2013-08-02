@@ -244,7 +244,7 @@ public class PropertyUtils {
 			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
 			EncryptionStrength es = EncryptionStrength.valueOf(strength);
 			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
-			PropertyUtils.decrypt(properties, decryptor);
+			decrypt(properties, decryptor);
 		}
 	}
 
