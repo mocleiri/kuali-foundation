@@ -14,8 +14,9 @@ import org.springframework.context.annotation.Import;
 @Import({ AutowiredProjectConfig.class })
 public class MpxCommonConfig {
 
-	private static final String CLASSPATH = "classpath:";
-	private static final String METAINF = "META-INF";
+	public static final String RESOURCES = "resources";
+	public static final String CLASSPATH = "classpath:";
+	public static final String METAINF = "META-INF";
 
 	@Autowired
 	Project project;
@@ -23,10 +24,17 @@ public class MpxCommonConfig {
 	public static final List<String> INCLUDES = Arrays.asList("**/*.mpx");
 
 	/**
+	 * <code>META-INF/org/kuali/util</code>
+	 */
+	protected String getGroupPrefix() {
+		return METAINF + "/" + Str.getPath(project.getGroupId());
+	}
+
+	/**
 	 * <code>META-INF/org/kuali/util/kuali-util</code>
 	 */
 	protected String getResourcePrefix() {
-		return METAINF + "/" + Str.getPath(project.getGroupId()) + "/" + project.getArtifactId();
+		return getGroupPrefix() + "/" + project.getArtifactId();
 	}
 
 	/**
