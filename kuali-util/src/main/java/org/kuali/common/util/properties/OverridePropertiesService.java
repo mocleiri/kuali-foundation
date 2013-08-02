@@ -94,6 +94,10 @@ public class OverridePropertiesService implements PropertiesService {
 		return properties;
 	}
 
+	public void clearCache() {
+		CACHE.clear();
+	}
+
 	protected void override(Properties existing, Properties overrides) {
 		override(existing, Arrays.asList(overrides));
 	}
