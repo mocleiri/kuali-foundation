@@ -14,13 +14,14 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
-public class ProjectPropertiesServiceConfig {
+public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 
 	@Autowired
 	Project project;
 
+	@Override
 	@Bean
-	public PropertiesService projectPropertiesService() {
+	public PropertiesService propertiesService() {
 
 		// Get system + environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
