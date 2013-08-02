@@ -22,7 +22,7 @@ import static org.kuali.common.util.properties.LocationConstants.DEFAULT_PROPERT
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-public final class DefaultLocation implements Location {
+public class DefaultLocation implements Location {
 
 	Mode missingMode;
 	String encoding;
