@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.cache.Cache;
-import org.kuali.common.util.cache.DefaultCache;
+import org.kuali.common.util.cache.SimpleCache;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
@@ -19,7 +19,7 @@ public class OverridePropertiesService implements PropertiesService {
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	public static final boolean DEFAULT_CACHE_LOADED_PROPERTIES = true;
 	private static final int DEFAULT_LOG_MESSAGE_INDENT = 2;
-	private static final Cache<String, Properties> CACHE = new DefaultCache<String, Properties>();
+	private static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	final List<Properties> overrides;
 	final Mode overrideMode;

@@ -22,14 +22,14 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.cache.Cache;
-import org.kuali.common.util.cache.DefaultCache;
+import org.kuali.common.util.cache.SimpleCache;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectService implements ProjectService {
 
-	private static final Cache<String, Project> CACHE = new DefaultCache<String, Project>();
+	private static final Cache<String, Project> CACHE = new SimpleCache<String, Project>();
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String PROPERTIES_ENCODING_KEY = "project.properties.encoding";
 	private static final String PROPERTIES_ENCODING_DEFAULT = Charsets.UTF_8.toString();

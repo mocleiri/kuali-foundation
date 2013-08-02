@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultCache<K, V> implements Cache<K, V> {
+public class SimpleCache<K, V> implements Cache<K, V> {
 
 	Map<K, V> map = Collections.synchronizedMap(new HashMap<K, V>());
 
