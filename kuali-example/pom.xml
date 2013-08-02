@@ -32,7 +32,7 @@
   <properties>
     <plugin.ec2.version>1.1.5</plugin.ec2.version>
     <kuali-deploy.version>2.2.6</kuali-deploy.version>
-    <kuali-ec2.version>1.0.7-SNAPSHOT</kuali-ec2.version>
+    <kuali-ec2.version>1.0.7</kuali-ec2.version>
   </properties>
   <scm>
     <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-example</connection>
