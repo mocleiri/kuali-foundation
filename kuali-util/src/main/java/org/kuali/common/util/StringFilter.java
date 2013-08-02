@@ -34,12 +34,12 @@ public class StringFilter {
 	/**
 	 * List of include regular expressions.
 	 */
-	List<String> includes;
+	final List<String> includes;
 
 	/**
 	 * List of exclude regular expressions.
 	 */
-	List<String> excludes;
+	final List<String> excludes;
 
 	protected List<Pattern> includePatterns;
 	protected List<Pattern> excludePatterns;
