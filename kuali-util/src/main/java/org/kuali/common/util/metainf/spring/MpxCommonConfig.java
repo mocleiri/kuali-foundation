@@ -39,7 +39,7 @@ public class MpxCommonConfig {
 	/**
 	 * <code>classpath:META-INF</code>
 	 */
-	protected String getMetaInfClasspathPrefix() {
+	protected String getClasspathPrefix() {
 		return CLASSPATH + METAINF;
 	}
 
