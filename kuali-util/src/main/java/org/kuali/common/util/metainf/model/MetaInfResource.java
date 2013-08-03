@@ -17,9 +17,16 @@ package org.kuali.common.util.metainf.model;
 
 public final class MetaInfResource {
 
+	public static final long UNKNOWN_SIZE = -1;
+	public static final long UNKNOWN_LINECOUNT = -1;
+
 	private final String location;
 	private final long size;
 	private final long lineCount;
+
+	public MetaInfResource(String location) {
+		this(location, UNKNOWN_SIZE, UNKNOWN_LINECOUNT);
+	}
 
 	public MetaInfResource(String location, long size, long lineCount) {
 		super();
