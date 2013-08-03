@@ -2,6 +2,7 @@ package org.kuali.common.util.metainf.model;
 
 import java.io.File;
 
+import org.springframework.util.Assert;
 import org.springframework.util.ResourceUtils;
 
 public final class RelativeContext {
@@ -13,6 +14,8 @@ public final class RelativeContext {
 
 	public RelativeContext(File directory, String urlPrefix) {
 		super();
+		Assert.notNull(directory, "directory is null");
+		Assert.notNull(urlPrefix, "urlPrefix is null");
 		this.directory = directory;
 		this.urlPrefix = urlPrefix;
 	}

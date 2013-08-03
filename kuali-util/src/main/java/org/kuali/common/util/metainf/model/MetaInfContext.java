@@ -17,53 +17,47 @@ package org.kuali.common.util.metainf.model;
 
 import java.io.File;
 
-public class MetaInfContext {
+public final class MetaInfContext {
 
 	public static final boolean DEFAULT_SORT = true;
 
-	boolean sort = DEFAULT_SORT;
-	PropertiesContext propertiesContext = PropertiesContext.DEFAULT_PROPERTIES_CONTEXT;
-	File outputFile;
-	ScanContext scanContext;
-	RelativeContext relativeContext;
+	private final boolean sort;
+	private final PropertiesContext propertiesContext;
+	private final File outputFile;
+	private final ScanContext scanContext;
+	private final RelativeContext relativeContext;
+
+	public MetaInfContext(File outputFile, ScanContext scanContext, RelativeContext relativeContext) {
+		this(outputFile, scanContext, relativeContext, DEFAULT_SORT, PropertiesContext.DEFAULT_PROPERTIES_CONTEXT);
+	}
+
+	public MetaInfContext(File outputFile, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
+		super();
+		this.outputFile = outputFile;
+		this.scanContext = scanContext;
+		this.relativeContext = relativeContext;
+		this.sort = sort;
+		this.propertiesContext = propertiesContext;
+	}
 
 	public boolean isSort() {
 		return sort;
-	}
-
-	public void setSort(boolean sort) {
-		this.sort = sort;
 	}
 
 	public File getOutputFile() {
 		return outputFile;
 	}
 
-	public void setOutputFile(File outputFile) {
-		this.outputFile = outputFile;
-	}
-
 	public ScanContext getScanContext() {
 		return scanContext;
-	}
-
-	public void setScanContext(ScanContext scanContext) {
-		this.scanContext = scanContext;
 	}
 
 	public RelativeContext getRelativeContext() {
 		return relativeContext;
 	}
 
-	public void setRelativeContext(RelativeContext relativeContext) {
-		this.relativeContext = relativeContext;
-	}
-
 	public PropertiesContext getPropertiesContext() {
 		return propertiesContext;
 	}
 
-	public void setPropertiesContext(PropertiesContext propertiesContext) {
-		this.propertiesContext = propertiesContext;
-	}
 }
