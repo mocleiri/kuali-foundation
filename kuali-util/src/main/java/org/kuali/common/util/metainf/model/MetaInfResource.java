@@ -15,34 +15,29 @@
  */
 package org.kuali.common.util.metainf.model;
 
-public class MetaInfResource {
+public final class MetaInfResource {
 
-	String location;
-	long size = -1;
-	long lineCount = -1;
+	private final String location;
+	private final long size;
+	private final long lineCount;
+
+	public MetaInfResource(String location, long size, long lineCount) {
+		super();
+		this.location = location;
+		this.size = size;
+		this.lineCount = lineCount;
+	}
 
 	public String getLocation() {
 		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	public long getSize() {
 		return size;
 	}
 
-	public void setSize(long size) {
-		this.size = size;
-	}
-
 	public long getLineCount() {
 		return lineCount;
-	}
-
-	public void setLineCount(long lineCount) {
-		this.lineCount = lineCount;
 	}
 
 }
