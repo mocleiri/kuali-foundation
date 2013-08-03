@@ -61,7 +61,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected List<File> getFiles(MetaInfContext context) {
-		Assert.notNull(context.getRelativeDir(), "baseDir is null");
+		Assert.notNull(context.getRelativeDir(), "relativeDir is null");
 		Assert.notNull(context.getOutputFile(), "outputFile is null");
 		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getRelativeDir()));
 		logger.debug("Patterns - {}", getPatternLogMessage(context));
