@@ -103,19 +103,18 @@ public class DefaultMetaInfService implements MetaInfService {
 	protected MetaInfResource getResource(MetaInfContext context, File file) {
 		String location = getLocation(context.getBaseDir(), file, context.getPrefix());
 		long size = file.length();
+
 		long lines = -1;
-		
-		// This ends up scanning the entire file
 		if (context.isAddLineCount()) {
+			// This reads through the entire file
+			// Only complete this expensive task if required to do so
 			lines = LocationUtils.getLineCount(file);
 		}
-		String key = getPropertyKey(location);
 
 		MetaInfResource resource = new MetaInfResource();
 		resource.setLocation(location);
 		resource.setSize(size);
-		resource.setKey(key);
-		resource.setLines(lines);
+		resource.setLineCount(lines);
 		return resource;
 	}
 
@@ -141,11 +140,12 @@ public class DefaultMetaInfService implements MetaInfService {
 	protected Properties getProperties(MetaInfContext context, List<MetaInfResource> resources) {
 		Properties properties = new Properties();
 		for (MetaInfResource resource : resources) {
-			String sizeKey = resource.getKey() + ".size";
+			String key = getPropertyKey(resource.getLocation());
+			String sizeKey = key + ".size";
 			properties.setProperty(sizeKey, resource.getSize() + "");
 			if (context.isAddLineCount()) {
-				String linesKey = resource.getKey() + ".lines";
-				properties.setProperty(linesKey, resource.getLines() + "");
+				String linesKey = key + ".lines";
+				properties.setProperty(linesKey, resource.getLineCount() + "");
 			}
 		}
 		return properties;
