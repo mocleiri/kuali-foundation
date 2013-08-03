@@ -111,6 +111,7 @@ public class DefaultMetaInfService implements MetaInfService {
 			lineCount = LocationUtils.getLineCount(file);
 		}
 
+		// Create a resource object from the information we've collected
 		MetaInfResource resource = new MetaInfResource();
 		resource.setLocation(location);
 		resource.setSize(size);
