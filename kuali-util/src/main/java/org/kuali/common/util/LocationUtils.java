@@ -159,7 +159,7 @@ public class LocationUtils {
 	 * Count the lines of text in the file.
 	 * 
 	 * @param file
-	 *            The file containing lines of text to count
+	 *            The file to read lines of text from
 	 * @return A count representing the number of lines of text
 	 * @throws IllegalStateException
 	 *             If there is an i/o exception reading the file
