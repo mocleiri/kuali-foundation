@@ -16,19 +16,16 @@
 package org.kuali.common.util.metainf.model;
 
 import java.io.File;
-import java.util.List;
 
 public class MetaInfContext {
 
 	public static final boolean DEFAULT_SORT = true;
 
 	boolean sort = DEFAULT_SORT;
-	File outputFile;
-	File baseDir;
-	RelativeContext relativeContext;
 	PropertiesContext propertiesContext = PropertiesContext.DEFAULT_PROPERTIES_CONTEXT;
-	List<String> includes;
-	List<String> excludes;
+	File outputFile;
+	ScanContext scanContext;
+	RelativeContext relativeContext;
 
 	public boolean isSort() {
 		return sort;
@@ -46,12 +43,12 @@ public class MetaInfContext {
 		this.outputFile = outputFile;
 	}
 
-	public File getBaseDir() {
-		return baseDir;
+	public ScanContext getScanContext() {
+		return scanContext;
 	}
 
-	public void setBaseDir(File baseDir) {
-		this.baseDir = baseDir;
+	public void setScanContext(ScanContext scanContext) {
+		this.scanContext = scanContext;
 	}
 
 	public RelativeContext getRelativeContext() {
@@ -62,22 +59,6 @@ public class MetaInfContext {
 		this.relativeContext = relativeContext;
 	}
 
-	public List<String> getIncludes() {
-		return includes;
-	}
-
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-
-	public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public void setExcludes(List<String> excludes) {
-		this.excludes = excludes;
-	}
-
 	public PropertiesContext getPropertiesContext() {
 		return propertiesContext;
 	}
@@ -85,5 +66,4 @@ public class MetaInfContext {
 	public void setPropertiesContext(PropertiesContext propertiesContext) {
 		this.propertiesContext = propertiesContext;
 	}
-
 }
