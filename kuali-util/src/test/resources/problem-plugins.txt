@@ -12,6 +12,6 @@ license=1.9.0
 metainf=2.0.2
 properties=2.0.1
 sql=1.0.15
+klicense=1.6.4
 
 http=1.0.5
-klicense=1.6.4
