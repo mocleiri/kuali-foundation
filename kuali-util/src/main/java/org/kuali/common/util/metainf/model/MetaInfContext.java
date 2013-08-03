@@ -78,4 +78,12 @@ public class MetaInfContext {
 		this.excludes = excludes;
 	}
 
+	public PropertiesContext getPropertiesContext() {
+		return propertiesContext;
+	}
+
+	public void setPropertiesContext(PropertiesContext propertiesContext) {
+		this.propertiesContext = propertiesContext;
+	}
+
 }
