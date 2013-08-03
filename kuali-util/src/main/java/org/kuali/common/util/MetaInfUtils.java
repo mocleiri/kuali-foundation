@@ -29,6 +29,10 @@ import org.kuali.common.util.metainf.MetaInfContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class MetaInfUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfUtils.class);
@@ -52,7 +56,7 @@ public class MetaInfUtils {
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
 		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
-        return scanner.getFiles();
+		return scanner.getFiles();
 	}
 
 	protected static String getPatternLogMessage(MetaInfContext context) {
@@ -117,10 +121,10 @@ public class MetaInfUtils {
 
 	public static List<MetaInfResource> getResources(MetaInfContext context, List<File> files) throws IOException {
 		List<MetaInfResource> resources = new ArrayList<MetaInfResource>();
-        for (File file : files) {
-            MetaInfResource resource = getResource(context, file);
-            resources.add(resource);
-        }
+		for (File file : files) {
+			MetaInfResource resource = getResource(context, file);
+			resources.add(resource);
+		}
 		return resources;
 	}
 
@@ -134,10 +138,10 @@ public class MetaInfUtils {
 
 	public static List<String> getLocations(File baseDir, List<File> files, String prefix) throws IOException {
 		List<String> locations = new ArrayList<String>();
-        for (File file : files) {
-            String location = getLocation(baseDir, file, prefix);
-            locations.add(location);
-        }
+		for (File file : files) {
+			String location = getLocation(baseDir, file, prefix);
+			locations.add(location);
+		}
 		return locations;
 	}
 

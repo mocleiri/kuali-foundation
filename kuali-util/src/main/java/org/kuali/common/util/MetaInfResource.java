@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class MetaInfResource {
 
 	String key;
