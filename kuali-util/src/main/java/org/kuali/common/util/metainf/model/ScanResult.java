@@ -2,14 +2,10 @@ package org.kuali.common.util.metainf.model;
 
 import java.util.List;
 
-public class ScanResult {
+public final class ScanResult {
 
-	MetaInfContext context;
-	List<MetaInfResource> resources;
-
-	public ScanResult() {
-		this(null, null);
-	}
+	private final MetaInfContext context;
+	private final List<MetaInfResource> resources;
 
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
 		super();
@@ -21,16 +17,8 @@ public class ScanResult {
 		return context;
 	}
 
-	public void setContext(MetaInfContext context) {
-		this.context = context;
-	}
-
 	public List<MetaInfResource> getResources() {
 		return resources;
-	}
-
-	public void setResources(List<MetaInfResource> resources) {
-		this.resources = resources;
 	}
 
 }
