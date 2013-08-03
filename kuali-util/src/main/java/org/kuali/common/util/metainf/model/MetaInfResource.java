@@ -17,10 +17,9 @@ package org.kuali.common.util.metainf.model;
 
 public class MetaInfResource {
 
-	String key;
 	String location;
 	long size = -1;
-	long lines = -1;
+	long lineCount = -1;
 
 	public String getLocation() {
 		return location;
@@ -38,20 +37,12 @@ public class MetaInfResource {
 		this.size = size;
 	}
 
-	public long getLines() {
-		return lines;
+	public long getLineCount() {
+		return lineCount;
 	}
 
-	public void setLines(long lines) {
-		this.lines = lines;
-	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
+	public void setLineCount(long lineCount) {
+		this.lineCount = lineCount;
 	}
 
 }
