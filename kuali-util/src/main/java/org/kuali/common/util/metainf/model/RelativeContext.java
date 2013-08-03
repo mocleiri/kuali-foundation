@@ -7,6 +7,11 @@ import org.springframework.util.ResourceUtils;
 
 public final class RelativeContext {
 
+	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
+
+	private final File directory;
+	private final String urlPrefix;
+
 	public RelativeContext(File directory) {
 		this(directory, DEFAULT_RELATIVE_URL_PREFIX);
 
@@ -19,11 +24,6 @@ public final class RelativeContext {
 		this.directory = directory;
 		this.urlPrefix = urlPrefix;
 	}
-
-	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
-
-	private final File directory;
-	private final String urlPrefix;
 
 	public File getDirectory() {
 		return directory;
