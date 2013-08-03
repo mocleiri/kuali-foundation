@@ -14,7 +14,6 @@ public final class RelativeContext {
 
 	public RelativeContext(File directory) {
 		this(directory, DEFAULT_RELATIVE_URL_PREFIX);
-
 	}
 
 	public RelativeContext(File directory, String urlPrefix) {
