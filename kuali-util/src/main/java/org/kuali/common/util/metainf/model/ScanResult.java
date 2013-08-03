@@ -7,6 +7,16 @@ public class ScanResult {
 	MetaInfContext context;
 	List<MetaInfResource> resources;
 
+	public ScanResult() {
+		this(null, null);
+	}
+
+	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
+		super();
+		this.context = context;
+		this.resources = resources;
+	}
+
 	public MetaInfContext getContext() {
 		return context;
 	}

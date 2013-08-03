@@ -38,9 +38,8 @@ public class DefaultMetaInfService implements MetaInfService {
 		for (MetaInfContext context : contexts) {
 			List<File> files = getFiles(context);
 			List<MetaInfResource> resources = getResources(context, files);
-			if (context.isAddPropertiesFile()) {
-				doProperties(context, resources);
-			}
+			ScanResult result = new ScanResult(context, resources);
+			results.add(result);
 		}
 		return results;
 	}
