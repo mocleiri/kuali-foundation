@@ -155,10 +155,28 @@ public class LocationUtils {
 		}
 	}
 
+	/**
+	 * Count the lines of text in the file.
+	 * 
+	 * @param file
+	 *            - The file containing lines of text to count
+	 * @see BufferedReader
+	 * @return A count representing the number of lines of text in the file
+	 * @throws IllegalStateException
+	 *             If there is an i/o exception reading the file
+	 */
 	public static long getLineCount(File file) {
 		return getLineCount(getCanonicalPath(file));
 	}
 
+	/**
+	 * Count the lines of text in the location.
+	 * 
+	 * @see java.io.BufferedReader.readLine()
+	 * @return The number of lines of text in the file
+	 * @throws IllegalStateException
+	 *             if there is an i/o exception reading the file
+	 */
 	public static long getLineCount(String location) {
 		long count = 0;
 		BufferedReader in = null;

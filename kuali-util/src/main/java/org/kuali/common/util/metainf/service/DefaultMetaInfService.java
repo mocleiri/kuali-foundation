@@ -17,6 +17,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
+import org.kuali.common.util.metainf.model.ScanResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,20 +26,23 @@ public class DefaultMetaInfService implements MetaInfService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultMetaInfService.class);
 
 	@Override
-	public void scanAndCreateFile(MetaInfContext context) {
-		scanAndCreateFiles(Arrays.asList(context));
+	public ScanResult scan(MetaInfContext context) {
+		List<ScanResult> results = scan(Arrays.asList(context));
+		Assert.isTrue(results.size() == 1, "size != 1");
+		return results.get(0);
 	}
 
 	@Override
-	public void scanAndCreateFiles(List<MetaInfContext> contexts) {
+	public List<ScanResult> scan(List<MetaInfContext> contexts) {
+		List<ScanResult> results = new ArrayList<ScanResult>();
 		for (MetaInfContext context : contexts) {
 			List<File> files = getFiles(context);
 			List<MetaInfResource> resources = getResources(context, files);
-			doLocations(context, resources);
 			if (context.isAddPropertiesFile()) {
 				doProperties(context, resources);
 			}
 		}
+		return results;
 	}
 
 	protected void doLocations(MetaInfContext context, List<MetaInfResource> resources) {
@@ -100,6 +104,8 @@ public class DefaultMetaInfService implements MetaInfService {
 		String location = getLocation(context.getBaseDir(), file, context.getPrefix());
 		long size = file.length();
 		long lines = -1;
+		
+		// This ends up scanning the entire file
 		if (context.isAddLineCount()) {
 			lines = LocationUtils.getLineCount(file);
 		}
