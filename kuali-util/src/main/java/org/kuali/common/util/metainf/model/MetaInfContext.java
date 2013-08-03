@@ -18,21 +18,17 @@ package org.kuali.common.util.metainf.model;
 import java.io.File;
 import java.util.List;
 
-import org.springframework.util.ResourceUtils;
-
 public class MetaInfContext {
 
-	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 	public static final boolean DEFAULT_SORT = true;
 
 	boolean sort = DEFAULT_SORT;
 	File outputFile;
 	File baseDir;
 	RelativeContext relativeContext;
+	PropertiesContext propertiesContext = PropertiesContext.DEFAULT_PROPERTIES_CONTEXT;
 	List<String> includes;
 	List<String> excludes;
-	boolean addPropertiesFile;
-	boolean addLineCount;
 
 	public boolean isSort() {
 		return sort;
@@ -80,22 +76,6 @@ public class MetaInfContext {
 
 	public void setExcludes(List<String> excludes) {
 		this.excludes = excludes;
-	}
-
-	public boolean isAddPropertiesFile() {
-		return addPropertiesFile;
-	}
-
-	public void setAddPropertiesFile(boolean addPropertiesFile) {
-		this.addPropertiesFile = addPropertiesFile;
-	}
-
-	public boolean isAddLineCount() {
-		return addLineCount;
-	}
-
-	public void setAddLineCount(boolean addLineCount) {
-		this.addLineCount = addLineCount;
 	}
 
 }
