@@ -169,7 +169,7 @@ public class LocationUtils {
 			}
 			return count;
 		} catch (IOException e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
