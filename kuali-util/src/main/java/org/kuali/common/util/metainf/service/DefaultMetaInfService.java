@@ -104,17 +104,17 @@ public class DefaultMetaInfService implements MetaInfService {
 		String location = getLocation(context.getBaseDir(), file, context.getPrefix());
 		long size = file.length();
 
-		long lines = -1;
+		long lineCount = -1;
 		if (context.isAddLineCount()) {
 			// This reads through the entire file
 			// Only complete this expensive task if required to do so
-			lines = LocationUtils.getLineCount(file);
+			lineCount = LocationUtils.getLineCount(file);
 		}
 
 		MetaInfResource resource = new MetaInfResource();
 		resource.setLocation(location);
 		resource.setSize(size);
-		resource.setLineCount(lines);
+		resource.setLineCount(lineCount);
 		return resource;
 	}
 
