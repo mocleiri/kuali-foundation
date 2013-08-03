@@ -18,29 +18,28 @@ package org.kuali.common.util.metainf.model;
 import java.io.File;
 import java.util.List;
 
-import org.kuali.common.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
 public class MetaInfContext {
 
-	public static final String DEFAULT_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
+	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 	public static final boolean DEFAULT_SORT = true;
 
-	String prefix = DEFAULT_PREFIX;
 	boolean sort = DEFAULT_SORT;
-	File relativeDir;
 	File outputFile;
+	File baseDir;
+	RelativeContext relativeContext;
 	List<String> includes;
 	List<String> excludes;
 	boolean addPropertiesFile;
 	boolean addLineCount;
 
-	public File getRelativeDir() {
-		return relativeDir;
+	public boolean isSort() {
+		return sort;
 	}
 
-	public void setRelativeDir(File relativeDir) {
-		this.relativeDir = relativeDir;
+	public void setSort(boolean sort) {
+		this.sort = sort;
 	}
 
 	public File getOutputFile() {
@@ -51,20 +50,20 @@ public class MetaInfContext {
 		this.outputFile = outputFile;
 	}
 
-	public String getPrefix() {
-		return prefix;
+	public File getBaseDir() {
+		return baseDir;
 	}
 
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
+	public void setBaseDir(File baseDir) {
+		this.baseDir = baseDir;
 	}
 
-	public boolean isSort() {
-		return sort;
+	public RelativeContext getRelativeContext() {
+		return relativeContext;
 	}
 
-	public void setSort(boolean sort) {
-		this.sort = sort;
+	public void setRelativeContext(RelativeContext relativeContext) {
+		this.relativeContext = relativeContext;
 	}
 
 	public List<String> getIncludes() {
@@ -99,17 +98,4 @@ public class MetaInfContext {
 		this.addLineCount = addLineCount;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("addPropertiesFile: ").append(addPropertiesFile);
-		sb.append("addLineCount: ").append(addLineCount);
-		sb.append("includes: ").append(CollectionUtils.getCSV(getIncludes()));
-		sb.append("excludes: ").append(CollectionUtils.getCSV(getExcludes()));
-		sb.append("output: ").append(outputFile.toString());
-		sb.append("basedir: ").append(relativeDir.toString());
-		sb.append("prefix: ").append(prefix);
-		sb.append("sort: ").append(sort);
-		return sb.toString();
-	}
 }
