@@ -27,6 +27,10 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.IOUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class JAXBUtil {
 
 	public static void write(Object instance, File file) {
