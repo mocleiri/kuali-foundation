@@ -11,7 +11,7 @@ public final class ScanContext {
 		super();
 		this.directory = directory;
 		this.includes = includes == null ? null : Collections.unmodifiableList(new ArrayList<String>(includes));
-		this.excludes = includes == null ? null : Collections.unmodifiableList(new ArrayList<String>(excludes));
+		this.excludes = excludes == null ? null : Collections.unmodifiableList(new ArrayList<String>(excludes));
 	}
 
 	private final File directory;
