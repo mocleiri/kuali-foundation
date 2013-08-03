@@ -50,7 +50,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		if (context.isSort()) {
 			Collections.sort(locations);
 		}
-		String path1 = LocationUtils.getCanonicalPath(context.getBaseDir());
+		String path1 = LocationUtils.getCanonicalPath(context.getRelativeDir());
 		String path2 = LocationUtils.getCanonicalPath(context.getOutputFile());
 		String path = StringUtils.remove(path2, path1);
 		logger.info("Creating [" + path + "] - {} resources", locations.size());
@@ -62,13 +62,13 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected List<File> getFiles(MetaInfContext context) {
-		Assert.notNull(context.getBaseDir(), "baseDir is null");
+		Assert.notNull(context.getRelativeDir(), "baseDir is null");
 		Assert.notNull(context.getOutputFile(), "outputFile is null");
-		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getBaseDir()));
+		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getRelativeDir()));
 		logger.debug("Patterns - {}", getPatternLogMessage(context));
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
-		SimpleScanner scanner = new SimpleScanner(context.getBaseDir(), includes, excludes);
+		SimpleScanner scanner = new SimpleScanner(context.getRelativeDir(), includes, excludes);
 		return scanner.getFiles();
 	}
 
@@ -101,7 +101,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected MetaInfResource getResource(MetaInfContext context, File file) {
-		String location = getLocation(context.getBaseDir(), file, context.getPrefix());
+		String location = getLocationURL(file, context.getRelativeDir(), context.getPrefix());
 		long size = file.length();
 
 		long lineCount = -1;
@@ -119,11 +119,43 @@ public class DefaultMetaInfService implements MetaInfService {
 		return resource;
 	}
 
-	protected String getLocation(File baseDir, File file, String prefix) {
-		String dir = LocationUtils.getCanonicalPath(baseDir);
-		String path = LocationUtils.getCanonicalPath(file);
-		int pos = dir.length() + 1;
-		return prefix + StringUtils.substring(path, pos);
+	/**
+	 * Get a URL string that can be used to address <code>file</code>. This is usually a Spring pseudo-url classpath location, eg - [<code>classpath:foo/bar.txt</code>]
+	 * 
+	 * @param file
+	 *            The file to get a location url for. eg - [<code>/x/y/z/src/main/resources/foo/bar.txt</code>]
+	 * @param relativeDir
+	 *            The base directory (optional). eg - [<code>/x/y/z/src/main/resources</code>]. If supplied, <code>file</code> must reside underneath <code>relativeDir</code>
+	 * @param relativeUrlPrefix
+	 *            The prefix (optional) to prepend to the relative location. eg - [<code>classpath:</code>]
+	 * 
+	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
+	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if either <code>relativeDir</code> or <code>relativeUrlPrefix</code> are <code>null</code>
+	 */
+	protected String getLocationURL(File file, File relativeDir, String relativeUrlPrefix) {
+		// Make sure file has been supplied
+		Assert.notNull(file, "file is null");
+
+		// If either of these are null just return the fully qualified local file system url
+		if (relativeDir == null || relativeUrlPrefix == null) {
+			return LocationUtils.getCanonicalURLString(file);
+		}
+
+		// Get a string representing the canonical path to the relative dir
+		String relativeDirPath = LocationUtils.getCanonicalPath(relativeDir);
+
+		// Get a string representing the canonical path to the file
+		String filePath = LocationUtils.getCanonicalPath(file);
+
+		// Make sure file resides underneath relative dir
+		Assert.isTrue(StringUtils.contains(filePath, relativeDirPath), "[" + filePath + "] does not contain [" + relativeDirPath + "]");
+
+		// Extract the portion of the path to file that is relative to relative dir
+		int relativePos = relativeDirPath.length() + 1;
+		String relativePath = StringUtils.substring(filePath, relativePos);
+
+		// Prepend the prefix and return
+		return relativeUrlPrefix + relativePath;
 	}
 
 	protected String getPropertyKey(String location) {
@@ -152,10 +184,10 @@ public class DefaultMetaInfService implements MetaInfService {
 		return properties;
 	}
 
-	protected List<String> getLocations(File baseDir, List<File> files, String prefix) throws IOException {
+	protected List<String> getLocations(File relativeDir, List<File> files, String prefix) throws IOException {
 		List<String> locations = new ArrayList<String>();
 		for (File file : files) {
-			String location = getLocation(baseDir, file, prefix);
+			String location = getLocationURL(file, relativeDir, prefix);
 			locations.add(location);
 		}
 		return locations;

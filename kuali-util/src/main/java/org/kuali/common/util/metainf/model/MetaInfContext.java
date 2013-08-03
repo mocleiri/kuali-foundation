@@ -28,19 +28,19 @@ public class MetaInfContext {
 
 	String prefix = DEFAULT_PREFIX;
 	boolean sort = DEFAULT_SORT;
-	File baseDir;
+	File relativeDir;
 	File outputFile;
 	List<String> includes;
 	List<String> excludes;
 	boolean addPropertiesFile;
 	boolean addLineCount;
 
-	public File getBaseDir() {
-		return baseDir;
+	public File getRelativeDir() {
+		return relativeDir;
 	}
 
-	public void setBaseDir(File baseDir) {
-		this.baseDir = baseDir;
+	public void setRelativeDir(File relativeDir) {
+		this.relativeDir = relativeDir;
 	}
 
 	public File getOutputFile() {
@@ -107,7 +107,7 @@ public class MetaInfContext {
 		sb.append("includes: ").append(CollectionUtils.getCSV(getIncludes()));
 		sb.append("excludes: ").append(CollectionUtils.getCSV(getExcludes()));
 		sb.append("output: ").append(outputFile.toString());
-		sb.append("basedir: ").append(baseDir.toString());
+		sb.append("basedir: ").append(relativeDir.toString());
 		sb.append("prefix: ").append(prefix);
 		sb.append("sort: ").append(sort);
 		return sb.toString();
