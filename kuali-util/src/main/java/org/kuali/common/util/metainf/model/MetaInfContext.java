@@ -19,13 +19,11 @@ import java.io.File;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
+import org.springframework.util.ResourceUtils;
 
 public class MetaInfContext {
 
-	/**
-	 * These default values help ensure backwards compatibility with deprecated config classes using MetaInfContext
-	 */
-	public static final String DEFAULT_PREFIX = "classpath:";
+	public static final String DEFAULT_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 	public static final boolean DEFAULT_SORT = true;
 
 	String prefix = DEFAULT_PREFIX;
