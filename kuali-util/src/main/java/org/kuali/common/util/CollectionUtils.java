@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -193,26 +194,13 @@ public class CollectionUtils {
 	 * Return a new <code>List</code> containing the unique set of strings from <code>strings</code>
 	 */
 	public static final List<String> getUniqueStrings(List<String> strings) {
-		List<String> unique = new ArrayList<String>();
-		for (String string : strings) {
-			if (!unique.contains(string)) {
-				unique.add(string);
-			}
-		}
-		return unique;
+		LinkedHashSet<String> unique = new LinkedHashSet<String>(strings);
+		return new ArrayList<String>(unique);
 	}
 
 	public static final List<File> getUniqueFiles(List<File> files) {
-		List<String> strings = new ArrayList<String>();
-		for (File file : files) {
-			strings.add(LocationUtils.getCanonicalPath(file));
-		}
-		List<String> uniqueStrings = getUniqueStrings(strings);
-		List<File> uniqueFiles = new ArrayList<File>();
-		for (String uniqueString : uniqueStrings) {
-			uniqueFiles.add(new File(uniqueString));
-		}
-		return uniqueFiles;
+		LinkedHashSet<File> unique = new LinkedHashSet<File>(files);
+		return new ArrayList<File>(unique);
 	}
 
 	public static final List<String> getLines(String s) {
