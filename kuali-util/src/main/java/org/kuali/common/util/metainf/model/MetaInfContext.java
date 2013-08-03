@@ -104,7 +104,6 @@ public class MetaInfContext {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-
 		sb.append("addPropertiesFile: ").append(addPropertiesFile);
 		sb.append("addLineCount: ").append(addLineCount);
 		sb.append("includes: ").append(CollectionUtils.getCSV(getIncludes()));
@@ -113,7 +112,6 @@ public class MetaInfContext {
 		sb.append("basedir: ").append(baseDir.toString());
 		sb.append("prefix: ").append(prefix);
 		sb.append("sort: ").append(sort);
-
 		return sb.toString();
 	}
 }
