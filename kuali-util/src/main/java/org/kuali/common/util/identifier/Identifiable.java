@@ -1,6 +1,6 @@
 package org.kuali.common.util.identifier;
 
-public interface Identifier {
+public interface Identifiable {
 
 	String getIdentifier();
 

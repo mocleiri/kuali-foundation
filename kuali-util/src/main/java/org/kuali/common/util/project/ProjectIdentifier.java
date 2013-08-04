@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.project;
 
-import org.kuali.common.util.identifier.Identifier;
+import org.kuali.common.util.identifier.Identifiable;
 
 /**
  * The project identifier concept is based on two facts:
@@ -44,7 +44,7 @@ import org.kuali.common.util.identifier.Identifier;
  * 
  * </p>
  */
-public interface ProjectIdentifier extends Identifier {
+public interface ProjectIdentifier extends Identifiable {
 
 	String getGroupId();
 
