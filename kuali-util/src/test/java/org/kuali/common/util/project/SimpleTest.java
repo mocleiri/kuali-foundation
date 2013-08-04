@@ -3,6 +3,7 @@ package org.kuali.common.util.project;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.identity.StringIdentifier;
 
@@ -20,9 +21,10 @@ public class SimpleTest {
 			System.out.println(p2.hashCode());
 			StringIdentifier aa = new StringIdentifier("Aa");
 			StringIdentifier bb = new StringIdentifier("BB");
-			System.out.println(aa.hashCode());
-			System.out.println(bb.hashCode());
-			System.out.println(aa.equals(bb));
+			// Prove that the hash codes are the same
+			Assert.assertEquals(aa.hashCode(), bb.hashCode());
+			// Prove that an equals comparison fails even though the hash codes are identical
+			Assert.assertFalse(aa.equals(bb));
 			Map<StringIdentifier, String> map = new HashMap<StringIdentifier, String>();
 			map.put(aa, "foo");
 			map.put(bb, "bar");
