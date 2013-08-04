@@ -32,10 +32,10 @@ public class MetaInfServiceTest {
 	@Test
 	public void test() {
 		try {
-			File buildOutputDirectory = ProjectUtils.getBuildOutputDirectory(project);
-			File outputFile = new CanonicalFile(buildOutputDirectory, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
+			File bod = ProjectUtils.getBuildOutputDirectory(project);
+			File outputFile = new CanonicalFile(bod, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
 			String encoding = ProjectUtils.getEncoding(project);
-			MetaInfContext context = new MetaInfContext(outputFile, encoding, buildOutputDirectory, "**/*.class");
+			MetaInfContext context = new MetaInfContext(outputFile, encoding, bod, "**/*.class");
 			ScanResult result = service.scan(context);
 			logger.info("size={}", result.getResources().size());
 			service.write(result);
