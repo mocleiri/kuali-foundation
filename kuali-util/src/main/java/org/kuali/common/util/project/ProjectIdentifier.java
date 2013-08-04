@@ -16,6 +16,7 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.identifier.Identifier;
 
 /**
  * The project identifier concept is based on two facts:
@@ -44,7 +45,7 @@ import org.kuali.common.util.Assert;
  * 
  * </p>
  */
-public final class ProjectIdentifier {
+public final class ProjectIdentifier implements Identifier {
 
 	private final String groupId;
 	private final String artifactId;
@@ -75,6 +76,11 @@ public final class ProjectIdentifier {
 	}
 
 	@Override
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	@Override
 	public String toString() {
 		return identifier;
 	}
@@ -101,10 +107,6 @@ public final class ProjectIdentifier {
 
 		// The hashcodes being the same AND the identifier strings being the same, constitutes equality
 		return hashCode == other.hashCode && identifier.equals(other.identifier);
-	}
-
-	public String getIdentifier() {
-		return identifier;
 	}
 
 }
