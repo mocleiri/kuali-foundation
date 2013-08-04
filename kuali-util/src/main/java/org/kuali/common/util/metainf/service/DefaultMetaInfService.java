@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
@@ -16,6 +17,7 @@ import org.kuali.common.util.metainf.model.RelativeContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 import org.kuali.common.util.metainf.model.WriteLines;
+import org.kuali.common.util.metainf.model.WriteProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +62,34 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public void write(List<ScanResult> results) {
-		List<WriteLines> requests = getWriteLines(results);
+		List<WriteLines> lines = getWriteLines(results);
+		List<WriteProperties> properties = getWriteProperties(results);
+	}
+
+	protected List<WriteProperties> getWriteProperties(List<ScanResult> results) {
+		List<WriteProperties> requests = new ArrayList<WriteProperties>();
+		for (ScanResult result : results) {
+			WriteProperties request = getWriteProperties(result);
+			requests.add(request);
+		}
+		return requests;
+	}
+
+	protected WriteProperties getWriteProperties(ScanResult result) {
+		List<MetaInfResource> resources = result.getResources();
+		Properties properties = new Properties();
+		for (MetaInfResource resource : resources) {
+			String key = getPropertyKey(resource.getLocation());
+			String sizeKey = key + ".size";
+			String linesKey = key + ".lines";
+			properties.setProperty(sizeKey, Long.toString(resource.getSize()));
+			properties.setProperty(linesKey, Long.toString(resource.getLineCount()));
+		}
+		MetaInfContext context = result.getContext();
+		File outputFile = new File(context.getOutputFile().getAbsolutePath() + ".properties");
+		String encoding = context.getEncoding();
+		File relativeDir = context.getRelativeContext().getDirectory();
+		return new WriteProperties(properties, outputFile, encoding, relativeDir);
 	}
 
 	protected List<WriteLines> getWriteLines(List<ScanResult> results) {
