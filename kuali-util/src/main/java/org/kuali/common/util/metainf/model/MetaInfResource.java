@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.metainf.model;
 
+import org.kuali.common.util.Assert;
+
 public class MetaInfResource implements Comparable<MetaInfResource> {
 
 	public static final long UNKNOWN_SIZE = -1;
@@ -29,9 +31,7 @@ public class MetaInfResource implements Comparable<MetaInfResource> {
 	}
 
 	public MetaInfResource(String location, long size, long lineCount) {
-		if (location == null) {
-			throw new NullPointerException();
-		}
+		Assert.notNull(location, "location is null");
 		this.location = location;
 		this.size = size;
 		this.lineCount = lineCount;

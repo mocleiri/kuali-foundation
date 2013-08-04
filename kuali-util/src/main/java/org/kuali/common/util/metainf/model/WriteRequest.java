@@ -17,7 +17,6 @@ public class WriteRequest {
 	}
 
 	WriteRequest(File outputFile, String encoding, File relativeDir) {
-		super();
 		Assert.notNull(outputFile, "outputFile is null");
 		Assert.notNull(encoding, "encoding is null");
 		this.outputFile = outputFile;

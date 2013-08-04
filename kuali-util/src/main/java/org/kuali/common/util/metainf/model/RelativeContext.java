@@ -17,7 +17,6 @@ public class RelativeContext {
 	}
 
 	public RelativeContext(File directory, String urlPrefix) {
-		super();
 		Assert.notNull(directory, "directory is null");
 		Assert.notNull(urlPrefix, "urlPrefix is null");
 		this.directory = directory;

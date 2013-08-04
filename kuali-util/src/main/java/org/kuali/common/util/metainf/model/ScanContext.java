@@ -8,7 +8,6 @@ import java.util.List;
 public class ScanContext {
 
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
-		super();
 		this.directory = directory;
 		this.includes = Collections.unmodifiableList(new ArrayList<String>(includes));
 		this.excludes = Collections.unmodifiableList(new ArrayList<String>(excludes));

@@ -9,7 +9,6 @@ public class PropertiesContext {
 	}
 
 	public PropertiesContext(boolean includePropertiesFile, boolean includeFileSizes, boolean includeLineCounts) {
-		super();
 		this.includePropertiesFile = includePropertiesFile;
 		this.includeFileSizes = includeFileSizes;
 		this.includeLineCounts = includeLineCounts;

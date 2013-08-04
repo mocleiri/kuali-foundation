@@ -10,7 +10,6 @@ public class ScanResult {
 	private final List<MetaInfResource> resources;
 
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
-		super();
 		this.context = context;
 		this.resources = Collections.unmodifiableList(new ArrayList<MetaInfResource>(resources));
 	}
