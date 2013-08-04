@@ -52,7 +52,6 @@ public final class ProjectIdentifier {
 	private final int hashCode;
 
 	public ProjectIdentifier(String groupId, String artifactId) {
-
 		// Make sure neither one is blank
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
 
