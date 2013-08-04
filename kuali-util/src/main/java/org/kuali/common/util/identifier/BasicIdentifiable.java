@@ -23,12 +23,22 @@ public class BasicIdentifiable implements Identifiable {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object != null && object instanceof BasicIdentifiable) {
-			BasicIdentifiable other = (BasicIdentifiable) object;
-			return identifier.equals(other.identifier);
-		} else {
+
+		// These are the exact same two physical objects
+		if (this == object) {
+			return true;
+		}
+
+		// Make sure object isn't null and is a BasicIdentifiable
+		if (object == null || !(object instanceof BasicIdentifiable)) {
 			return false;
 		}
+
+		// Cast to a BasicIdentifiable
+		BasicIdentifiable other = (BasicIdentifiable) object;
+
+		// The hash codes being the same AND the equals method returning true constitutes equality
+		return identifier.hashCode() == other.identifier.hashCode() && identifier.equals(other.identifier);
 	}
 
 	@Override
