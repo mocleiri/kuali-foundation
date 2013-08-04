@@ -22,18 +22,20 @@ public final class MetaInfContext {
 	public static final boolean DEFAULT_SORT = true;
 
 	private final boolean sort;
+	private final String encoding;
 	private final PropertiesContext propertiesContext;
 	private final File outputFile;
 	private final ScanContext scanContext;
 	private final RelativeContext relativeContext;
 
-	public MetaInfContext(File outputFile, ScanContext scanContext, RelativeContext relativeContext) {
-		this(outputFile, scanContext, relativeContext, DEFAULT_SORT, PropertiesContext.DEFAULT_PROPERTIES_CONTEXT);
+	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext) {
+		this(outputFile, encoding, scanContext, relativeContext, DEFAULT_SORT, PropertiesContext.DEFAULT_PROPERTIES_CONTEXT);
 	}
 
-	public MetaInfContext(File outputFile, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
+	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
 		super();
 		this.outputFile = outputFile;
+		this.encoding = encoding;
 		this.scanContext = scanContext;
 		this.relativeContext = relativeContext;
 		this.sort = sort;
@@ -58,6 +60,10 @@ public final class MetaInfContext {
 
 	public PropertiesContext getPropertiesContext() {
 		return propertiesContext;
+	}
+
+	public String getEncoding() {
+		return encoding;
 	}
 
 }

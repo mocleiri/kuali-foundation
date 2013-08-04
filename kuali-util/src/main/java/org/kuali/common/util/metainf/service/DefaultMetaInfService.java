@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -42,6 +43,13 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public void write(ScanResult result) {
+		MetaInfContext context = result.getContext();
+		List<MetaInfResource> resources = result.getResources();
+		List<String> locations = new ArrayList<String>();
+		for (MetaInfResource resource : resources) {
+			locations.add(resource.getLocation());
+		}
+		FileUtils.writeLines(context.getOutputFile(), locations, "UTF-8");
 		write(Arrays.asList(result));
 	}
 
