@@ -7,12 +7,12 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.springframework.util.PropertyPlaceholderHelper;
 
-public final class PropertiesValueResolver implements ValueResolver {
+public class PropertiesValueResolver implements ValueResolver {
 
 	private static final PropertyPlaceholderHelper DEFAULT_HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
-	private final Properties properties;
-	private final PropertyPlaceholderHelper helper;
+	final Properties properties;
+	final PropertyPlaceholderHelper helper;
 
 	public PropertiesValueResolver() {
 		this(PropertyUtils.EMPTY);
