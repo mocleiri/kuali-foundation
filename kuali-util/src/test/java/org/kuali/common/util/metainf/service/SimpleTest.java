@@ -1,4 +1,4 @@
-package org.kuali.common.util.metainf;
+package org.kuali.common.util.metainf.service;
 
 import java.io.File;
 import java.util.HashMap;

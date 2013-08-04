@@ -1,8 +1,14 @@
-package org.kuali.common.util.metainf;
+package org.kuali.common.util.metainf.service;
+
+import java.io.File;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.metainf.service.MetaInfService;
+import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.model.RelativeContext;
+import org.kuali.common.util.metainf.model.ScanContext;
+import org.kuali.common.util.metainf.model.ScanResult;
 import org.kuali.common.util.metainf.spring.MetaInfServiceConfig;
 import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectUtils;
@@ -28,9 +34,15 @@ public class MetaInfServiceTest {
 	@Test
 	public void test() {
 		try {
-			logger.info(project.getGroupId());
-			logger.info(ProjectUtils.getBasedir(project) + "");
-			System.out.println(service);
+			File buildOutputDirectory = ProjectUtils.getBuildOutputDirectory(project);
+			File outputFile = new CanonicalFile(buildOutputDirectory, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
+			String encoding = ProjectUtils.getEncoding(project);
+			ScanContext sc = new ScanContext(buildOutputDirectory, "**/*.class");
+			RelativeContext rc = new RelativeContext(buildOutputDirectory);
+			MetaInfContext context = new MetaInfContext(outputFile, encoding, sc, rc);
+			ScanResult result = service.scan(context);
+			logger.info("size={}", result.getResources().size());
+			service.write(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

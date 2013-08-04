@@ -2,10 +2,15 @@ package org.kuali.common.util.metainf.model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class ScanContext {
+
+	public ScanContext(File directory, String includes) {
+		this(directory, Arrays.asList(includes), Collections.<String> emptyList());
+	}
 
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		this.directory = directory;

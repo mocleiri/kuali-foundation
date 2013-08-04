@@ -89,7 +89,7 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	protected void write(WriteRequest request, List<String> lines) {
 		try {
-			FileUtils.writeLines(request.getOutputFile(), lines, request.getEncoding());
+			FileUtils.writeLines(request.getOutputFile(), request.getEncoding(), lines);
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO error", e);
 		}

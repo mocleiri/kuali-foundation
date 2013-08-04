@@ -13,21 +13,21 @@ public class MetaInfUtils {
 	/**
 	 * <code>META-INF/org/kuali/util</code>
 	 */
-	protected String getGroupPrefix(Project project) {
+	public static String getGroupPrefix(Project project) {
 		return METAINF + "/" + Str.getPath(project.getGroupId());
 	}
 
 	/**
 	 * <code>META-INF/org/kuali/util/kuali-util</code>
 	 */
-	protected String getResourcePrefix(Project project) {
+	public static String getResourcePrefix(Project project) {
 		return getGroupPrefix(project) + "/" + project.getArtifactId();
 	}
 
 	/**
 	 * <code>classpath:META-INF</code>
 	 */
-	protected String getClasspathPrefix() {
+	public static String getClasspathPrefix() {
 		return CLASSPATH + METAINF;
 	}
 
