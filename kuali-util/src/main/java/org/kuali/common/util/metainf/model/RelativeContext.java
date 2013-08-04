@@ -2,7 +2,7 @@ package org.kuali.common.util.metainf.model;
 
 import java.io.File;
 
-import org.springframework.util.Assert;
+import org.kuali.common.util.Assert;
 import org.springframework.util.ResourceUtils;
 
 public final class RelativeContext {
