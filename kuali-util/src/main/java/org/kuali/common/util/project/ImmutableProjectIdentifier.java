@@ -28,7 +28,11 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
+
+		// Cache a reference to the groupId + artifactId combination
 		this.combined = groupId + ":" + artifactId;
+
+		// Cache the hashcode of the combined string
 		this.hashCode = combined.hashCode();
 	}
 
