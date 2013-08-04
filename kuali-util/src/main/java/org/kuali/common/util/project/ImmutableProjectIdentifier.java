@@ -21,11 +21,15 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
+	private final int hashCode;
+	private final String id;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
+		this.id = groupId + ":" + artifactId;
+		this.hashCode = id.hashCode();
 	}
 
 	@Override
@@ -40,38 +44,41 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	@Override
 	public String toString() {
-		return groupId + ":" + artifactId;
+		return id;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((artifactId == null) ? 0 : artifactId.hashCode());
-		result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
-		return result;
+		return hashCode;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Object other) {
+		// Other is us (and we are other)
+		// ie, we are comparing the exact same 2 objects
+		if (this == other) {
 			return true;
-		if (obj == null)
+		}
+
+		// We can't be equal to other if it is null
+		if (other == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+
+		// If other is a different runtime class type than us, it cannot be equal to us
+		if (getClass() != other.getClass()) {
 			return false;
-		ImmutableProjectIdentifier other = (ImmutableProjectIdentifier) obj;
-		if (artifactId == null) {
-			if (other.artifactId != null)
-				return false;
-		} else if (!artifactId.equals(other.artifactId))
-			return false;
-		if (groupId == null) {
-			if (other.groupId != null)
-				return false;
-		} else if (!groupId.equals(other.groupId))
-			return false;
-		return true;
+		}
+
+		// We now know 2 things:
+		// 1 - other is not null
+		// 2 - other is an ImmutableProjectIdentifier
+
+		// Cast other to an ImmutableProjectIdentifier
+		ImmutableProjectIdentifier identifier = (ImmutableProjectIdentifier) other;
+
+		// The two id strings being equal constitutes equality
+		return this.id.equals(identifier.id);
 	}
 
 }

@@ -11,12 +11,14 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
+import org.kuali.common.util.metainf.model.RelativeContext;
+import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	public List<ScanResult> scan(List<MetaInfContext> contexts) {
 		List<ScanResult> results = new ArrayList<ScanResult>();
 		for (MetaInfContext context : contexts) {
-			List<File> files = getFiles(context);
+			List<File> files = getFiles(context.getScanContext());
 			List<MetaInfResource> resources = getResources(context, files);
 			ScanResult result = new ScanResult(context, resources);
 			results.add(result);
@@ -60,62 +62,38 @@ public class DefaultMetaInfService implements MetaInfService {
 		}
 	}
 
-	protected List<File> getFiles(MetaInfContext context) {
-		Assert.notNull(context.getRelativeDir(), "relativeDir is null");
-		Assert.notNull(context.getOutputFile(), "outputFile is null");
-		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getRelativeDir()));
-		logger.debug("Patterns - {}", getPatternLogMessage(context));
+	protected List<File> getFiles(ScanContext context) {
+		File dir = context.getDirectory();
+		Assert.isExistingDir(dir);
+		logger.debug("Examining [" + LocationUtils.getCanonicalPath(dir) + "]");
 		List<String> includes = context.getIncludes();
 		List<String> excludes = context.getExcludes();
-		SimpleScanner scanner = new SimpleScanner(context.getRelativeDir(), includes, excludes);
+		logger.debug("Patterns - {}", LoggerUtils.getLogMsg(includes, excludes));
+		SimpleScanner scanner = new SimpleScanner(dir, includes, excludes);
 		return scanner.getFiles();
-	}
-
-	protected String getPatternLogMessage(MetaInfContext context) {
-		StringBuilder sb = new StringBuilder();
-		String incl = CollectionUtils.getSpaceSeparatedString(context.getIncludes());
-		String excl = CollectionUtils.getSpaceSeparatedString(context.getExcludes());
-		sb.append("[");
-		if (!StringUtils.isBlank(incl)) {
-			sb.append("include: ").append(incl);
-		}
-		if (!StringUtils.isBlank(excl)) {
-			sb.append(", exclude:").append(excl);
-		}
-		boolean includeEverything = StringUtils.isBlank(incl) && StringUtils.isBlank(excl);
-		if (includeEverything) {
-			sb.append("include: *");
-		}
-		sb.append("]");
-		return sb.toString();
 	}
 
 	protected List<MetaInfResource> getResources(MetaInfContext context, List<File> files) {
 		List<MetaInfResource> resources = new ArrayList<MetaInfResource>();
 		for (File file : files) {
-			MetaInfResource resource = getResource(context, file);
+			MetaInfResource resource = getResource(file, context);
 			resources.add(resource);
 		}
 		return resources;
 	}
 
-	protected MetaInfResource getResource(MetaInfContext context, File file) {
-		String location = getLocationURL(file, context.getRelativeDir(), context.getPrefix());
-		long size = file.length();
+	protected MetaInfResource getResource(File file, MetaInfContext context) {
+		String location = getLocationURL(file, context.getRelativeContext());
 
-		long lineCount = -1;
-		if (context.isAddLineCount()) {
+		long lineCount = MetaInfResource.UNKNOWN_LINECOUNT;
+		if (context.getPropertiesContext().isIncludeLineCounts()) {
 			// This reads through the entire file
 			// Only complete this expensive task if required to do so
 			lineCount = LocationUtils.getLineCount(file);
 		}
 
 		// Create a resource object from the information we've collected
-		MetaInfResource resource = new MetaInfResource();
-		resource.setLocation(location);
-		resource.setSize(size);
-		resource.setLineCount(lineCount);
-		return resource;
+		return new MetaInfResource(location, file.length(), lineCount);
 	}
 
 	/**
@@ -123,25 +101,23 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * 
 	 * @param file
 	 *            The file to get a location url for. eg - [<code>/x/y/z/src/main/resources/foo/bar.txt</code>]
-	 * @param relativeDir
-	 *            The base directory (optional). eg - [<code>/x/y/z/src/main/resources</code>]. If supplied, <code>file</code> must reside underneath <code>relativeDir</code>
-	 * @param relativeUrlPrefix
-	 *            The prefix (optional) to prepend to the relative location. eg - [<code>classpath:</code>]
+	 * @param relativeContext
+	 *            Context information for generating a relative location url. (optional). eg - [<code>/x/y/z/src/main/resources</code>] and [<code>classpath:</code>].
 	 * 
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
-	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if either <code>relativeDir</code> or <code>relativeUrlPrefix</code> are <code>null</code>
+	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if <code>relativeContext</code> is <code>null</code>
 	 */
-	protected String getLocationURL(File file, File relativeDir, String relativeUrlPrefix) {
+	protected String getLocationURL(File file, RelativeContext relativeContext) {
 		// Make sure file has been supplied
 		Assert.notNull(file, "file is null");
 
-		// If either of these are null just return the fully qualified local file system url
-		if (relativeDir == null || relativeUrlPrefix == null) {
+		// If there is no relative context, just return the fully qualified local file system url
+		if (relativeContext == null) {
 			return LocationUtils.getCanonicalURLString(file);
 		}
 
 		// Get a string representing the canonical path to the relative dir
-		String relativeDirPath = LocationUtils.getCanonicalPath(relativeDir);
+		String relativeDirPath = LocationUtils.getCanonicalPath(relativeContext.getDirectory());
 
 		// Get a string representing the canonical path to the file
 		String filePath = LocationUtils.getCanonicalPath(file);
@@ -154,7 +130,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		String relativePath = StringUtils.substring(filePath, relativePos);
 
 		// Prepend the prefix and return
-		return relativeUrlPrefix + relativePath;
+		return relativeContext.getUrlPrefix() + relativePath;
 	}
 
 	protected String getPropertyKey(String location) {
