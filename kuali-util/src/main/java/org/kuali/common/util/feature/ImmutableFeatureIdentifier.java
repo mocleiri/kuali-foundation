@@ -12,6 +12,7 @@ public final class ImmutableFeatureIdentifier implements Identifier {
 	private final int hashCode;
 
 	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
+
 		// Make sure we are being configured correctly
 		Assert.notNull(project, "project is null");
 		Assert.notBlank(featureId, "featureId is blank");
