@@ -3,8 +3,17 @@ package org.kuali.common.util;
 public class ObjectUtils {
 
 	/**
-	 * Return <code>true</code> immediately if <code>main==other</code> (ie they are the same object). Return <code>false</code> immediately if <code>other==null</code> OR is a
-	 * different runtime type than <code>main</code>. If both are the exact same runtime type, compare their respective <code>toString()</code> methods for equality.
+	 * <p>
+	 * This method returns <code>true</code> if both <code>toString()</code> methods return matching strings and both objects are the same type.
+	 * </p>
+	 * 
+	 * <p>
+	 * Returns <code>true</code> immediately if <code>main==other</code> (ie they are the same object).
+	 * </p>
+	 * <p>
+	 * Returns <code>false</code> immediately if <code>other==null</code> OR is a different runtime type than <code>main</code>.
+	 * </p>
+	 * If both are the exact same runtime type, compare their respective <code>toString()</code> methods for equality.
 	 * 
 	 * @param main
 	 *            The object <code>other</code> is being compared to.
