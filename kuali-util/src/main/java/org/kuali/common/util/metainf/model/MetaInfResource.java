@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.metainf.model;
 
-public final class MetaInfResource {
+public final class MetaInfResource implements Comparable<MetaInfResource> {
 
 	public static final long UNKNOWN_SIZE = -1;
 	public static final long UNKNOWN_LINECOUNT = -1;
@@ -30,9 +30,17 @@ public final class MetaInfResource {
 
 	public MetaInfResource(String location, long size, long lineCount) {
 		super();
+		if (location == null) {
+			throw new NullPointerException();
+		}
 		this.location = location;
 		this.size = size;
 		this.lineCount = lineCount;
+	}
+
+	@Override
+	public int compareTo(MetaInfResource other) {
+		return location.compareTo(other.getLocation());
 	}
 
 	public String getLocation() {
