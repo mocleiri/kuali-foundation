@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.kuali.common.util.Assert;
 
-abstract class WriteRequest {
+public final class WriteRequest {
 
 	private static final File DEFAULT_RELATIVE_DIR = null;
 

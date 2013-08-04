@@ -25,6 +25,7 @@ import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 import org.kuali.common.util.metainf.model.WriteLines;
 import org.kuali.common.util.metainf.model.WriteProperties;
+import org.kuali.common.util.metainf.model.WriteRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,18 +77,19 @@ public class DefaultMetaInfService implements MetaInfService {
 		List<WriteLines> lines = getWriteLines(results);
 		List<WriteProperties> properties = getWriteProperties(results);
 		for (WriteLines element : CollectionUtils.toEmptyList(lines)) {
-			String relativePath = FileSystemUtils.getRelativePathQuietly(element.getOutputFile(), element.getRelativeDir());
+			String relativePath = FileSystemUtils.getRelativePathQuietly(element.getRequest().getRelativeDir(), element.getRequest().getOutputFile());
 			logger.info("Creating [{}]", relativePath);
-			write(element);
+			write(element.getRequest(), element.getLines());
 		}
 		for (WriteProperties element : CollectionUtils.toEmptyList(properties)) {
-			PropertyUtils.store(element.getProperties(), element.getOutputFile(), element.getEncoding());
+			WriteRequest request = element.getRequest();
+			PropertyUtils.store(element.getProperties(), request.getOutputFile(), request.getEncoding());
 		}
 	}
 
-	protected void write(WriteLines lines) {
+	protected void write(WriteRequest request, List<String> lines) {
 		try {
-			FileUtils.writeLines(lines.getOutputFile(), lines.getLines(), lines.getEncoding());
+			FileUtils.writeLines(request.getOutputFile(), lines, request.getEncoding());
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Unexpected IO error", e);
 		}
