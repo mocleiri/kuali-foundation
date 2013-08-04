@@ -8,6 +8,7 @@ public final class StringIdentifier implements Identifiable {
 	private final int hashCode;
 
 	public StringIdentifier(String identifier) {
+
 		// Can't be null, and can't be blank
 		Assert.noBlanks("identifier is blank", identifier);
 
