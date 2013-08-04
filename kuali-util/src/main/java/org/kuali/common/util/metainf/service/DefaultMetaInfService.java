@@ -3,6 +3,7 @@ package org.kuali.common.util.metainf.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -54,7 +55,7 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public void write(ScanResult result) {
-		//
+		write(Arrays.asList(result));
 	}
 
 	protected WriteLines getWriteLines(ScanResult result) {
