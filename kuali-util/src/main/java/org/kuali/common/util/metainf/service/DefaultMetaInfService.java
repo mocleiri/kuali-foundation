@@ -2,11 +2,9 @@ package org.kuali.common.util.metainf.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -17,6 +15,7 @@ import org.kuali.common.util.metainf.model.MetaInfResource;
 import org.kuali.common.util.metainf.model.RelativeContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
+import org.kuali.common.util.metainf.model.WriteLinesRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,19 +42,25 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public void write(ScanResult result) {
-		MetaInfContext context = result.getContext();
+		//
+	}
+
+	protected WriteLinesRequest getWriteRequest(ScanResult result) {
 		List<MetaInfResource> resources = result.getResources();
 		List<String> locations = new ArrayList<String>();
 		for (MetaInfResource resource : resources) {
 			locations.add(resource.getLocation());
 		}
-		FileUtils.writeLines(context.getOutputFile(), locations, "UTF-8");
-		write(Arrays.asList(result));
+		return new WriteLinesRequest(locations, result.getContext().getOutputFile(), result.getContext().getEncoding());
 	}
 
 	@Override
 	public void write(List<ScanResult> results) {
-
+		List<WriteLinesRequest> requests = new ArrayList<WriteLinesRequest>();
+		for (ScanResult result : results) {
+			WriteLinesRequest request = getWriteRequest(result);
+			requests.add(request);
+		}
 	}
 
 	protected List<File> getFiles(ScanContext context) {
