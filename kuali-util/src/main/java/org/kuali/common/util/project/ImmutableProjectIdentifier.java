@@ -17,7 +17,6 @@ package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.identity.BasicIdentifiable;
-import org.kuali.common.util.identity.ImmutableIdentifier;
 
 /**
  * The project identifier concept is based on two facts:
@@ -56,7 +55,7 @@ public final class ImmutableProjectIdentifier extends BasicIdentifiable implemen
 	}
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
-		super(new ImmutableIdentifier(groupId + ":" + artifactId));
+		super(groupId + ":" + artifactId);
 
 		// Make sure neither one is blank
 		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);

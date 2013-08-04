@@ -1,14 +1,12 @@
 package org.kuali.common.util.identity;
 
-import org.springframework.util.Assert;
 
 public class BasicIdentifiable implements Identifiable {
 
-	private final ImmutableIdentifier identifier;
+	private final StringIdentifier identifier;
 
-	public BasicIdentifiable(ImmutableIdentifier identifier) {
-		Assert.notNull(identifier, "identifier is null");
-		this.identifier = identifier;
+	public BasicIdentifiable(String identifier) {
+		this.identifier = new StringIdentifier(identifier);
 	}
 
 	@Override

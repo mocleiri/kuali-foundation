@@ -2,12 +2,12 @@ package org.kuali.common.util.identity;
 
 import org.kuali.common.util.Assert;
 
-public final class ImmutableIdentifier implements Identifiable {
+public final class StringIdentifier implements Identifiable {
 
 	private final String identifier;
 	private final int hashCode;
 
-	public ImmutableIdentifier(String identifier) {
+	public StringIdentifier(String identifier) {
 		// Can't be null, and can't be blank
 		Assert.noBlanks("identifier is blank", identifier);
 
@@ -42,7 +42,7 @@ public final class ImmutableIdentifier implements Identifiable {
 		}
 
 		// Cast to an ImmutableIdentifier
-		ImmutableIdentifier other = (ImmutableIdentifier) object;
+		StringIdentifier other = (StringIdentifier) object;
 
 		// The hash code's being equal AND the identifier strings being equal, constitutes equality
 		return hashCode == other.hashCode && identifier.equals(other.identifier);
