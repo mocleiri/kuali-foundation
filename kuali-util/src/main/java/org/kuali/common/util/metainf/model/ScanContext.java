@@ -10,8 +10,8 @@ public final class ScanContext {
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		super();
 		this.directory = directory;
-		this.includes = includes == null ? null : Collections.unmodifiableList(new ArrayList<String>(includes));
-		this.excludes = excludes == null ? null : Collections.unmodifiableList(new ArrayList<String>(excludes));
+		this.includes = Collections.unmodifiableList(new ArrayList<String>(includes));
+		this.excludes = Collections.unmodifiableList(new ArrayList<String>(excludes));
 	}
 
 	private final File directory;
