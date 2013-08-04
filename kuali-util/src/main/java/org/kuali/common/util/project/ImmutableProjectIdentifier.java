@@ -16,8 +16,8 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identify.BasicIdentifiable;
-import org.kuali.common.util.identify.ImmutableIdentifier;
+import org.kuali.common.util.identity.BasicIdentifiable;
+import org.kuali.common.util.identity.ImmutableIdentifier;
 
 /**
  * The project identifier concept is based on two facts:

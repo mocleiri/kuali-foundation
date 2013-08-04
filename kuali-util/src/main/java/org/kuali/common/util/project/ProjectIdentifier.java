@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.project;
 
-import org.kuali.common.util.identify.Identifiable;
+import org.kuali.common.util.identity.Identifiable;
 
 /**
  * The project identifier concept is based on two facts:

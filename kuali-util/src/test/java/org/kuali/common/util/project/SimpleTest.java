@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.common.util.identify.ImmutableIdentifier;
+import org.kuali.common.util.identity.ImmutableIdentifier;
 
 public class SimpleTest {
 
