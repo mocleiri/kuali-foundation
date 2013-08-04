@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 
-public class WriterExecutable implements Executable {
+public class WriteExecutable implements Executable {
 
 	List<WriteLines> lines;
 	List<WriteProperties> properties;

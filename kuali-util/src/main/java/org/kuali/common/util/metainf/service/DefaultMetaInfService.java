@@ -13,6 +13,7 @@ import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
+import org.kuali.common.util.metainf.model.PropertiesContext;
 import org.kuali.common.util.metainf.model.RelativeContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
@@ -73,7 +74,8 @@ public class DefaultMetaInfService implements MetaInfService {
 	protected List<WriteProperties> getWriteProperties(List<ScanResult> results) {
 		List<WriteProperties> requests = new ArrayList<WriteProperties>();
 		for (ScanResult result : results) {
-			if (result.getContext().getPropertiesContext().isIncludePropertiesFile()) {
+			PropertiesContext context = result.getContext().getPropertiesContext();
+			if (context.isIncludePropertiesFile()) {
 				WriteProperties request = getWriteProperties(result);
 				requests.add(request);
 			}
