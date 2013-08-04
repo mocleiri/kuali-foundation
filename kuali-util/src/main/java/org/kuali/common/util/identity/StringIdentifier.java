@@ -2,7 +2,7 @@ package org.kuali.common.util.identity;
 
 import org.kuali.common.util.Assert;
 
-public final class StringIdentifier implements Identifiable {
+public class StringIdentifier implements Identifiable {
 
 	private final String identifier;
 	private final int hashCode;
