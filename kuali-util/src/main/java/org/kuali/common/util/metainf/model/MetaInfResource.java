@@ -29,7 +29,6 @@ public final class MetaInfResource implements Comparable<MetaInfResource> {
 	}
 
 	public MetaInfResource(String location, long size, long lineCount) {
-		super();
 		if (location == null) {
 			throw new NullPointerException();
 		}
