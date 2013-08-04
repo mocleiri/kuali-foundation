@@ -52,6 +52,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 	private final int hashCode;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
+
 		// Make sure neither one is blank
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId cannot be blank");
 
