@@ -16,6 +16,7 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.identifier.AbstractIdentifier;
 import org.kuali.common.util.identifier.ImmutableIdentifier;
 
 /**
@@ -45,13 +46,13 @@ import org.kuali.common.util.identifier.ImmutableIdentifier;
  * 
  * </p>
  */
-public final class ImmutableProjectIdentifier implements ProjectIdentifier {
+public final class ImmutableProjectIdentifier extends AbstractIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
-	private final ImmutableIdentifier identifier;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
+		super(new ImmutableIdentifier(groupId + ":" + artifactId));
 
 		// Make sure neither one is blank
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId cannot be blank");
@@ -59,9 +60,6 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 		// Store groupId and artifactId
 		this.groupId = groupId;
 		this.artifactId = artifactId;
-
-		// Cache the groupId + artifactId combination
-		this.identifier = new ImmutableIdentifier(groupId + ":" + artifactId);
 	}
 
 	@Override
@@ -72,21 +70,6 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 	@Override
 	public String getArtifactId() {
 		return this.artifactId;
-	}
-
-	@Override
-	public String getIdentifier() {
-		return identifier.getIdentifier();
-	}
-
-	@Override
-	public String toString() {
-		return identifier.toString();
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		return identifier.equals(object);
 	}
 
 }
