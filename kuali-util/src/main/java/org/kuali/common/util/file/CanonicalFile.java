@@ -2,6 +2,7 @@ package org.kuali.common.util.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 /**
  * A <code>CanonicalFile</code> is always both absolute and unique.
@@ -9,6 +10,18 @@ import java.io.IOException;
 public final class CanonicalFile extends File {
 
 	private static final long serialVersionUID = -8366640724070158688L;
+
+	public CanonicalFile(File parent, String child) {
+		this(new File(parent, child));
+	}
+
+	public CanonicalFile(String parent, String child) {
+		this(new File(parent, child));
+	}
+
+	public CanonicalFile(URI uri) {
+		this(new File(uri));
+	}
 
 	public CanonicalFile(String path) {
 		this(new File(path));
