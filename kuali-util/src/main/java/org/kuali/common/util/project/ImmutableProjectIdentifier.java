@@ -49,6 +49,8 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
+
+	// This is used to simplify hashCode() and equals()
 	private final String identifier;
 
 	public ImmutableProjectIdentifier(ProjectIdentifier project) {

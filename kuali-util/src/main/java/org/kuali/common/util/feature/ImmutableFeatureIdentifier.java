@@ -9,6 +9,8 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 	private final String groupId;
 	private final String artifactId;
 	private final String featureId;
+
+	// This is used to simplify hashCode() and equals()
 	private final String identifier;
 
 	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
@@ -19,7 +21,7 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 		// Make sure we are being configured correctly
 		Assert.noBlanks("groupId, artifactId, and featureId are required", groupId, artifactId, featureId);
 
-		// Store the project identifier and featureId
+		// Store the groupId, artifactId, and featureId
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 		this.featureId = featureId;
