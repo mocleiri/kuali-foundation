@@ -22,10 +22,10 @@ import org.kuali.common.util.property.ImmutableProperties;
 
 public final class ImmutableProject implements Project {
 
-	final String groupId;
-	final String artifactId;
-	final String version;
-	final Properties properties;
+	private final String groupId;
+	private final String artifactId;
+	private final String version;
+	private final Properties properties;
 
 	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
 		super();
