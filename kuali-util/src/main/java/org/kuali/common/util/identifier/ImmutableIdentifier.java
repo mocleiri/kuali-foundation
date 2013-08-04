@@ -30,6 +30,7 @@ public final class ImmutableIdentifier implements Identifiable {
 
 	@Override
 	public boolean equals(Object object) {
+
 		// They are the exact same physical object
 		if (this == object) {
 			return true;
