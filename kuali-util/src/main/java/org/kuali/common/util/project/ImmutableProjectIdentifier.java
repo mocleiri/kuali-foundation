@@ -16,7 +16,7 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identity.StringIdentifier;
+import org.kuali.common.util.identify.StringIdentifier;
 
 /**
  * The project identifier concept is based on two facts:

@@ -1,4 +1,4 @@
-package org.kuali.common.util.identity;
+package org.kuali.common.util.identify;
 
 import org.kuali.common.util.Assert;
 

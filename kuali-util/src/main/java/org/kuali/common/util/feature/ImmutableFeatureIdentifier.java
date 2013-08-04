@@ -1,7 +1,7 @@
 package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identity.StringIdentifier;
+import org.kuali.common.util.identify.StringIdentifier;
 import org.kuali.common.util.project.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.ProjectIdentifier;
 

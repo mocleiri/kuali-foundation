@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.common.util.identity.StringIdentifier;
+import org.kuali.common.util.identify.StringIdentifier;
 
 public class SimpleTest {
 
