@@ -104,4 +104,8 @@ public final class ProjectIdentifier {
 		return hashCode == other.hashCode && identifier.equals(other.identifier);
 	}
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
 }
