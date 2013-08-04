@@ -10,8 +10,12 @@ public final class ImmutableFeatureIdentifier extends BasicIdentifiable implemen
 	private final ProjectIdentifier project;
 	private final String featureId;
 
+	public ImmutableFeatureIdentifier(String groupId, String artifactId, String featureId) {
+		this(new ImmutableProjectIdentifier(groupId, artifactId), featureId);
+	}
+
 	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
-		this(new ImmutableProjectIdentifier(project), featureId);
+		this(new ImmutableProjectIdentifier(project.getGroupId(), project.getArtifactId()), featureId);
 	}
 
 	public ImmutableFeatureIdentifier(ImmutableProjectIdentifier project, String featureId) {
