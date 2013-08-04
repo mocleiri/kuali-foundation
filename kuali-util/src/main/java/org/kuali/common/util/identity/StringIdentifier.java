@@ -41,7 +41,7 @@ public final class StringIdentifier implements Identifiable {
 			return false;
 		}
 
-		// Cast to an ImmutableIdentifier
+		// Cast to an StringIdentifier
 		StringIdentifier other = (StringIdentifier) object;
 
 		// The hash code's being equal AND the identifier strings being equal, constitutes equality
