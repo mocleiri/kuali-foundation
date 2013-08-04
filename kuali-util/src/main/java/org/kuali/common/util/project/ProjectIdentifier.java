@@ -15,7 +15,6 @@
  */
 package org.kuali.common.util.project;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.identifier.Identifier;
 
 /**
@@ -45,68 +44,10 @@ import org.kuali.common.util.identifier.Identifier;
  * 
  * </p>
  */
-public final class ProjectIdentifier implements Identifier {
+public interface ProjectIdentifier extends Identifier {
 
-	private final String groupId;
-	private final String artifactId;
-	private final String identifier;
-	private final int hashCode;
+	String getGroupId();
 
-	public ProjectIdentifier(String groupId, String artifactId) {
-		// Make sure neither one is blank
-		Assert.notBlank(groupId, artifactId, "groupId and artifactId cannot be blank");
-
-		// Store groupId and artifactId
-		this.groupId = groupId;
-		this.artifactId = artifactId;
-
-		// Cache the groupId + artifactId combination
-		this.identifier = groupId + ":" + artifactId;
-
-		// Cache the hashcode of the combined string
-		this.hashCode = identifier.hashCode();
-	}
-
-	public String getGroupId() {
-		return this.groupId;
-	}
-
-	public String getArtifactId() {
-		return this.artifactId;
-	}
-
-	@Override
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	@Override
-	public String toString() {
-		return identifier;
-	}
-
-	@Override
-	public int hashCode() {
-		return hashCode;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		// They are the exact same physical object
-		if (this == object) {
-			return true;
-		}
-
-		// Make sure other isn't null and is the exact same runtime type
-		if (object == null || getClass() != object.getClass()) {
-			return false;
-		}
-
-		// Cast to an immutable project identifier
-		ProjectIdentifier other = (ProjectIdentifier) object;
-
-		// The hashcodes being the same AND the identifier strings being the same, constitutes equality
-		return hashCode == other.hashCode && identifier.equals(other.identifier);
-	}
+	String getArtifactId();
 
 }

@@ -52,7 +52,7 @@ public class ProjectUtils {
 		String artifactId = tokens[1];
 
 		// Create a project identifier from the strings
-		return new ProjectIdentifier(groupId, artifactId);
+		return new ImmutableProjectIdentifier(groupId, artifactId);
 	}
 
 	/**
