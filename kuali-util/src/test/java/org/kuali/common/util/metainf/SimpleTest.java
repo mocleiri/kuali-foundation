@@ -6,13 +6,13 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.file.CanonicalFile;
 
 public class SimpleTest {
 
 	@Test
 	public void test() {
 		try {
-			new File((String) null);
 			String one = "one";
 			String two = new String("one");
 			String three = new StringBuilder("one").toString();
@@ -25,11 +25,12 @@ public class SimpleTest {
 			map.put(one, one);
 			map.put(two, two);
 
-			File f1 = new File("/Users/jcaddel/ws");
-			File f2 = new File("/Users/jcaddel/sts/3.1.0.RELEASE/workspace");
+			File f1 = new CanonicalFile("/Users/jcaddel/ws");
+			File f2 = new CanonicalFile("/Users/jcaddel/sts/3.1.0.RELEASE/workspace");
 			File f3 = new File(LocationUtils.getCanonicalPath(f1));
 			File f4 = new File(f1, "kuali-util");
 			File f5 = new File(f3, "kuali-util");
+			File f6 = new CanonicalFile("blibbity-blabbity");
 			System.out.println(f5.equals(f4));
 
 			System.out.println(f1.hashCode());
@@ -37,6 +38,7 @@ public class SimpleTest {
 			System.out.println(f3.hashCode());
 			System.out.println(f1.equals(f2));
 			System.out.println(f2.equals(f3));
+			System.out.println(f6);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
