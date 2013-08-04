@@ -1,8 +1,7 @@
-package org.kuali.common.util.feature;
+package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.project.ProjectIdentifier;
 
 public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 
