@@ -16,6 +16,7 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.identifier.ImmutableIdentifier;
 
 /**
  * The project identifier concept is based on two facts:
@@ -48,8 +49,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
-	private final String identifier;
-	private final int hashCode;
+	private final ImmutableIdentifier identifier;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
 
@@ -61,10 +61,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 		this.artifactId = artifactId;
 
 		// Cache the groupId + artifactId combination
-		this.identifier = groupId + ":" + artifactId;
-
-		// Cache the hashcode of the combined string
-		this.hashCode = identifier.hashCode();
+		this.identifier = new ImmutableIdentifier(groupId + ":" + artifactId);
 	}
 
 	@Override
@@ -79,36 +76,17 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	@Override
 	public String getIdentifier() {
-		return identifier;
+		return identifier.getIdentifier();
 	}
 
 	@Override
 	public String toString() {
-		return identifier;
-	}
-
-	@Override
-	public int hashCode() {
-		return hashCode;
+		return identifier.toString();
 	}
 
 	@Override
 	public boolean equals(Object object) {
-		// They are the exact same physical object
-		if (this == object) {
-			return true;
-		}
-
-		// Make sure other isn't null and is the exact same runtime type
-		if (object == null || getClass() != object.getClass()) {
-			return false;
-		}
-
-		// Cast to an immutable project identifier
-		ImmutableProjectIdentifier other = (ImmutableProjectIdentifier) object;
-
-		// The hashcodes being the same AND the identifier strings being the same, constitutes equality
-		return hashCode == other.hashCode && identifier.equals(other.identifier);
+		return identifier.equals(object);
 	}
 
 }

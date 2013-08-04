@@ -1,14 +1,14 @@
 package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.identifier.ImmutableIdentifier;
 import org.kuali.common.util.project.ProjectIdentifier;
 
 public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 
 	private final ProjectIdentifier project;
 	private final String featureId;
-	private final String identifier;
-	private final int hashCode;
+	private final ImmutableIdentifier identifier;
 
 	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
 
@@ -21,10 +21,7 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 		this.featureId = featureId;
 
 		// Cache a reference to the fully qualified feature identifier string
-		this.identifier = project.getIdentifier() + ":" + featureId;
-
-		// Cache the hash code of the identifier string
-		this.hashCode = identifier.hashCode();
+		this.identifier = new ImmutableIdentifier(project.getIdentifier() + ":" + featureId);
 	}
 
 	@Override
@@ -44,37 +41,22 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 
 	@Override
 	public String toString() {
-		return identifier;
+		return identifier.toString();
 	}
 
 	@Override
 	public int hashCode() {
-		return hashCode;
+		return identifier.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object object) {
-
-		// They are the exact same physical object
-		if (this == object) {
-			return true;
-		}
-
-		// If object is null or a different runtime type, it's not equal
-		if (object == null || getClass() != object.getClass()) {
-			return false;
-		}
-
-		// Cast object to a FeatureIdentifier
-		ImmutableFeatureIdentifier other = (ImmutableFeatureIdentifier) object;
-
-		// The hashcode's being equal AND the identifier strings being equal, constitutes equality
-		return hashCode == other.hashCode && identifier.equals(other.identifier);
+		return identifier.equals(object);
 	}
 
 	@Override
 	public String getIdentifier() {
-		return identifier;
+		return identifier.getIdentifier();
 	}
 
 }
