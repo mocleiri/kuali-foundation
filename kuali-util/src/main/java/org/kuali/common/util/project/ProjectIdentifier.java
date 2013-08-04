@@ -48,19 +48,23 @@ public final class ProjectIdentifier implements ProjectIdentifierInterface {
 
 	private final String groupId;
 	private final String artifactId;
-	private final String combined;
+	private final String identifier;
 	private final int hashCode;
 
 	public ProjectIdentifier(String groupId, String artifactId) {
+
+		// Make sure neither one is blank
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
+
+		// Store groupId and artifactId
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 
-		// Cache a reference to the groupId + artifactId combination
-		this.combined = groupId + ":" + artifactId;
+		// Cache the groupId + artifactId combination
+		this.identifier = groupId + ":" + artifactId;
 
 		// Cache the hashcode of the combined string
-		this.hashCode = combined.hashCode();
+		this.hashCode = identifier.hashCode();
 	}
 
 	@Override
@@ -75,7 +79,7 @@ public final class ProjectIdentifier implements ProjectIdentifierInterface {
 
 	@Override
 	public String toString() {
-		return combined;
+		return identifier;
 	}
 
 	@Override
@@ -98,8 +102,8 @@ public final class ProjectIdentifier implements ProjectIdentifierInterface {
 		// Cast to an immutable project identifier
 		ProjectIdentifier other = (ProjectIdentifier) object;
 
-		// The hashcodes being the same AND the combined strings being the same, constitutes equality
-		return hashCode == other.hashCode && combined.equals(other.combined);
+		// The hashcodes being the same AND the identifier strings being the same, constitutes equality
+		return hashCode == other.hashCode && identifier.equals(other.identifier);
 	}
 
 }
