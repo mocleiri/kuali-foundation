@@ -17,8 +17,8 @@ package org.kuali.common.util.config.supplier;
 
 import java.util.Properties;
 
-import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.project.model.Project;
 import org.springframework.util.Assert;
 
 public class ProjectPropertiesSupplier implements PropertiesSupplier {

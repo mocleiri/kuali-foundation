@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.project;
+package org.kuali.common.util.project.model;
 
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.ObjectUtils;
 
 /**
  * The project identifier concept is based on two facts:
@@ -43,10 +45,54 @@ package org.kuali.common.util.project;
  * 
  * </p>
  */
-public interface ProjectIdentifier {
+public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
-	String getGroupId();
+	private final String groupId;
+	private final String artifactId;
 
-	String getArtifactId();
+	// This is used to simplify hashCode() and equals()
+	private final String identifier;
+
+	public ImmutableProjectIdentifier(ProjectIdentifier project) {
+		this(project.getGroupId(), project.getArtifactId());
+	}
+
+	public ImmutableProjectIdentifier(String groupId, String artifactId) {
+		// Make sure neither one is blank
+		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);
+
+		// Store groupId and artifactId
+		this.groupId = groupId;
+		this.artifactId = artifactId;
+
+		// Changing this affects both hashCode() and equals(), be careful ...
+		this.identifier = groupId + ":" + artifactId;
+	}
+
+	@Override
+	public String getGroupId() {
+		return this.groupId;
+	}
+
+	@Override
+	public String getArtifactId() {
+		return this.artifactId;
+	}
+
+	@Override
+	public String toString() {
+		// Changing this affects both hashCode() and equals(), be careful ...
+		return identifier;
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		return ObjectUtils.equalsByToString(this, object);
+	}
 
 }

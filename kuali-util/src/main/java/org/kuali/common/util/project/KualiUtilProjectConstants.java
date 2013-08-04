@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.project;
 
+import org.kuali.common.util.project.model.ImmutableProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectIdentifier;
+
 public abstract class KualiUtilProjectConstants {
 
 	// These 2 must exactly match what is in the Maven pom

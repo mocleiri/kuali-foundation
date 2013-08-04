@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.project;
+package org.kuali.common.util.project.model;
 
 import java.util.Properties;
 

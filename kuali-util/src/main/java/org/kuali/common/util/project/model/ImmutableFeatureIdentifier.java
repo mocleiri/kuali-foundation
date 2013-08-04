@@ -1,4 +1,4 @@
-package org.kuali.common.util.project;
+package org.kuali.common.util.project.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;

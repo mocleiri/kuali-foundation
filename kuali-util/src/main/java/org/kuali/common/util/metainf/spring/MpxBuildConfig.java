@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.metainf.MetaInfContext;
-import org.kuali.common.util.project.Project;
 import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

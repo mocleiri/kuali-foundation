@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.project.spring;
 
-import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.model.Project;
 
 public interface ProjectConfig {
 

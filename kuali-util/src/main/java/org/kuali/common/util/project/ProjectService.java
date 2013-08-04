@@ -17,6 +17,9 @@ package org.kuali.common.util.project;
 
 import java.util.Properties;
 
+import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.model.ProjectIdentifier;
+
 public interface ProjectService {
 
 	/**

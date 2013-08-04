@@ -17,7 +17,7 @@ package org.kuali.common.util.log4j;
 
 import java.io.File;
 
-import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

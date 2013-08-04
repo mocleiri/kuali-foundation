@@ -16,7 +16,7 @@
 package org.kuali.common.util.project.spring;
 
 import org.kuali.common.util.project.KualiUtilProjectConstants;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

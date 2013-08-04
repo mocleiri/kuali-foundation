@@ -24,6 +24,9 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.cache.Cache;
 import org.kuali.common.util.cache.SimpleCache;
 import org.kuali.common.util.maven.MavenConstants;
+import org.kuali.common.util.project.model.ImmutableProject;
+import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 

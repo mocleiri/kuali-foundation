@@ -16,7 +16,7 @@
 package org.kuali.common.util.config;
 
 import org.kuali.common.util.project.KualiUtilProjectConstants;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public enum KualiUtilConfig implements ProjectConfig {
 

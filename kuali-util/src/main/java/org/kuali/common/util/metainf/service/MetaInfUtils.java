@@ -1,7 +1,7 @@
 package org.kuali.common.util.metainf.service;
 
 import org.kuali.common.util.Str;
-import org.kuali.common.util.project.Project;
+import org.kuali.common.util.project.model.Project;
 import org.springframework.util.ResourceUtils;
 
 public class MetaInfUtils {
