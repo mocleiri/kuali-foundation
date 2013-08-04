@@ -14,7 +14,7 @@ public final class FeatureIdentifier implements Identifier {
 	public FeatureIdentifier(ProjectIdentifier project, String featureId) {
 		// Make sure we are being configured correctly
 		Assert.notNull(project, "project is null");
-		Assert.notBlank(featureId, "featureId is required");
+		Assert.notBlank(featureId, "featureId is blank");
 
 		// Store the project identifier and featureId
 		this.project = project;
@@ -65,6 +65,7 @@ public final class FeatureIdentifier implements Identifier {
 		return hashCode == other.hashCode && identifier.equals(other.identifier);
 	}
 
+	@Override
 	public String getIdentifier() {
 		return identifier;
 	}

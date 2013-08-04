@@ -54,7 +54,7 @@ public final class ProjectIdentifier implements Identifier {
 
 	public ProjectIdentifier(String groupId, String artifactId) {
 		// Make sure neither one is blank
-		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
+		Assert.notBlank(groupId, artifactId, "groupId and artifactId cannot be blank");
 
 		// Store groupId and artifactId
 		this.groupId = groupId;
