@@ -44,6 +44,12 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 	}
 
 	@Override
+	public String toString() {
+		// Changing this affects both hashCode() and equals(), be careful ...
+		return identifier;
+	}
+
+	@Override
 	public int hashCode() {
 		return toString().hashCode();
 	}
@@ -51,12 +57,6 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 	@Override
 	public boolean equals(Object object) {
 		return ObjectUtils.equalsByToString(this, object);
-	}
-
-	@Override
-	public String toString() {
-		// Changing this affects both hashCode() and equals(), be careful ...
-		return identifier;
 	}
 
 }
