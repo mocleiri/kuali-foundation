@@ -26,4 +26,14 @@ public final class CanonicalFile extends File {
 		}
 	}
 
+	@Override
+	public String getCanonicalPath() {
+		return super.getPath();
+	}
+
+	@Override
+	public File getCanonicalFile() {
+		return this;
+	}
+
 }
