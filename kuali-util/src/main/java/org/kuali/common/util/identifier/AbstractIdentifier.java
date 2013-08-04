@@ -23,7 +23,12 @@ public abstract class AbstractIdentifier implements Identifiable {
 
 	@Override
 	public boolean equals(Object object) {
-		return identifier.equals(object);
+		if (object instanceof AbstractIdentifier) {
+			AbstractIdentifier other = (AbstractIdentifier) object;
+			return identifier.equals(other.getIdentifier());
+		} else {
+			return false;
+		}
 	}
 
 	@Override
