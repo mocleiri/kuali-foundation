@@ -1,5 +1,7 @@
 package org.kuali.common.util.metainf.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class ScanResult {
@@ -10,7 +12,7 @@ public final class ScanResult {
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
 		super();
 		this.context = context;
-		this.resources = resources;
+		this.resources = Collections.unmodifiableList(new ArrayList<MetaInfResource>(resources));
 	}
 
 	public MetaInfContext getContext() {
