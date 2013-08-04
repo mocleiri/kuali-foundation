@@ -19,7 +19,7 @@ public final class ImmutableIdentifier implements Identifiable {
 	}
 
 	@Override
-	public String getIdentity() {
+	public String getIdentifier() {
 		return identifier;
 	}
 

@@ -16,7 +16,7 @@ public final class ImmutableFeatureIdentifier extends BasicIdentifiable implemen
 	}
 
 	public ImmutableFeatureIdentifier(ImmutableProjectIdentifier project, String featureId) {
-		super(new ImmutableIdentifier(project.getIdentity() + ":" + featureId));
+		super(new ImmutableIdentifier(project.getIdentifier() + ":" + featureId));
 
 		// Make sure we are being configured correctly
 		Assert.noBlanks("featureId is blank", featureId);
