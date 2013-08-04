@@ -9,7 +9,7 @@ public final class ImmutableIdentifier implements Identifiable {
 
 	public ImmutableIdentifier(String identifier) {
 		// Can't be null, and can't be blank
-		Assert.notBlank(identifier);
+		Assert.noBlanks("identifier is blank", identifier);
 
 		// Store the string based identifier
 		this.identifier = identifier;
