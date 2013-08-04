@@ -8,8 +8,13 @@ public final class ImmutableIdentifier implements Identifiable {
 	private final int hashCode;
 
 	public ImmutableIdentifier(String identifier) {
+		// Can't be null, and can't be blank
 		Assert.notBlank(identifier, "identifier is blank");
+
+		// Store the string based identifier
 		this.identifier = identifier;
+
+		// Cache the hash code of the identifier string
 		this.hashCode = identifier.hashCode();
 	}
 
@@ -30,7 +35,7 @@ public final class ImmutableIdentifier implements Identifiable {
 			return true;
 		}
 
-		// Make sure other isn't null and is the exact same runtime type
+		// Make sure other isn't null AND is the exact same runtime type
 		if (object == null || getClass() != object.getClass()) {
 			return false;
 		}
