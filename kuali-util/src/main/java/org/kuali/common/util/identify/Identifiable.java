@@ -1,4 +1,4 @@
-package org.kuali.common.util.identifier;
+package org.kuali.common.util.identify;
 
 public interface Identifiable {
 

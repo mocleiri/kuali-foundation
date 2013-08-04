@@ -1,8 +1,8 @@
 package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identifier.BasicIdentifiable;
-import org.kuali.common.util.identifier.ImmutableIdentifier;
+import org.kuali.common.util.identify.BasicIdentifiable;
+import org.kuali.common.util.identify.ImmutableIdentifier;
 import org.kuali.common.util.project.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.ProjectIdentifier;
 
