@@ -31,6 +31,8 @@ public class SimpleTest {
 			File f4 = new File(f1, "kuali-util");
 			File f5 = new File(f3, "kuali-util");
 			File f6 = new CanonicalFile("blibbity-blabbity");
+			File f7 = new CanonicalFile("");
+			File f8 = new CanonicalFile(".");
 			System.out.println(f5.equals(f4));
 
 			System.out.println(f1.hashCode());
@@ -39,6 +41,8 @@ public class SimpleTest {
 			System.out.println(f1.equals(f2));
 			System.out.println(f2.equals(f3));
 			System.out.println(f6);
+			System.out.println(f7);
+			System.out.println(f8);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
