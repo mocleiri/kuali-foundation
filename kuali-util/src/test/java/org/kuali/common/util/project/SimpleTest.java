@@ -1,5 +1,8 @@
 package org.kuali.common.util.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.kuali.common.util.identifier.ImmutableIdentifier;
 
@@ -15,8 +18,18 @@ public class SimpleTest {
 			System.out.println(p1.equals(p2));
 			System.out.println(p1.hashCode());
 			System.out.println(p2.hashCode());
-			ImmutableIdentifier ii = new ImmutableIdentifier("");
-			System.out.println(ii.hashCode());
+			ImmutableIdentifier aa = new ImmutableIdentifier("Aa");
+			ImmutableIdentifier bb = new ImmutableIdentifier("BB");
+			System.out.println(aa.hashCode());
+			System.out.println(bb.hashCode());
+			System.out.println(aa.equals(bb));
+			Map<ImmutableIdentifier, String> map = new HashMap<ImmutableIdentifier, String>();
+			map.put(aa, "foo");
+			map.put(bb, "bar");
+			System.out.println(map.size());
+			ImmutableIdentifier test = new ImmutableIdentifier("Aa");
+			String string = map.get(test);
+			System.out.println(string);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
