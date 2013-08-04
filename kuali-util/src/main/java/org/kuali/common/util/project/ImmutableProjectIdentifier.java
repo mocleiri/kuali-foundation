@@ -16,7 +16,6 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identify.StringIdentifier;
 
 /**
  * The project identifier concept is based on two facts:
@@ -45,7 +44,7 @@ import org.kuali.common.util.identify.StringIdentifier;
  * 
  * </p>
  */
-public final class ImmutableProjectIdentifier extends StringIdentifier implements ProjectIdentifier {
+public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
@@ -55,8 +54,6 @@ public final class ImmutableProjectIdentifier extends StringIdentifier implement
 	}
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
-		super(groupId + ":" + artifactId);
-
 		// Make sure neither one is blank
 		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);
 
@@ -73,6 +70,24 @@ public final class ImmutableProjectIdentifier extends StringIdentifier implement
 	@Override
 	public String getArtifactId() {
 		return this.artifactId;
+	}
+
+	@Override
+	public String toString() {
+		return groupId + ":" + artifactId;
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object == null || getClass() != object.getClass()) {
+			return false;
+		}
+		return toString().equals(object.toString());
 	}
 
 }
