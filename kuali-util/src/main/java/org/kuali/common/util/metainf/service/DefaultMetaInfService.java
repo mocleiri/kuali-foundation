@@ -15,7 +15,7 @@ import org.kuali.common.util.metainf.model.MetaInfResource;
 import org.kuali.common.util.metainf.model.RelativeContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
-import org.kuali.common.util.metainf.model.WriteLinesRequest;
+import org.kuali.common.util.metainf.model.WriteLines;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,20 +45,20 @@ public class DefaultMetaInfService implements MetaInfService {
 		//
 	}
 
-	protected WriteLinesRequest getWriteRequest(ScanResult result) {
+	protected WriteLines getWriteRequest(ScanResult result) {
 		List<MetaInfResource> resources = result.getResources();
 		List<String> locations = new ArrayList<String>();
 		for (MetaInfResource resource : resources) {
 			locations.add(resource.getLocation());
 		}
-		return new WriteLinesRequest(locations, result.getContext().getOutputFile(), result.getContext().getEncoding());
+		return new WriteLines(locations, result.getContext().getOutputFile(), result.getContext().getEncoding());
 	}
 
 	@Override
 	public void write(List<ScanResult> results) {
-		List<WriteLinesRequest> requests = new ArrayList<WriteLinesRequest>();
+		List<WriteLines> requests = new ArrayList<WriteLines>();
 		for (ScanResult result : results) {
-			WriteLinesRequest request = getWriteRequest(result);
+			WriteLines request = getWriteRequest(result);
 			requests.add(request);
 		}
 	}

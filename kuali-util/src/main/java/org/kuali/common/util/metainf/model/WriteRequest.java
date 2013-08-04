@@ -6,6 +6,9 @@ import org.kuali.common.util.Assert;
 
 abstract class WriteRequest {
 
+	private final File outputFile;
+	private final String encoding;
+
 	WriteRequest(File outputFile, String encoding) {
 		super();
 		Assert.notNull(outputFile, "outputFile is null");
@@ -13,9 +16,6 @@ abstract class WriteRequest {
 		this.outputFile = outputFile;
 		this.encoding = encoding;
 	}
-
-	private final File outputFile;
-	private final String encoding;
 
 	public File getOutputFile() {
 		return outputFile;
