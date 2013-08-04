@@ -32,7 +32,7 @@ public class StringIdentifier implements Identifiable {
 	@Override
 	public boolean equals(Object object) {
 
-		// They are the exact same physical object
+		// We are comparing ourself against ourself
 		if (this == object) {
 			return true;
 		}
