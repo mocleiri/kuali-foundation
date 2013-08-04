@@ -19,7 +19,7 @@ public final class FeatureIdentifier {
 		this.project = project;
 		this.featureId = featureId;
 
-		// Cache a reference to the fully qualified identifier string
+		// Cache a reference to the fully qualified feature identifier string
 		this.identifier = project.getIdentifier() + ":" + featureId;
 
 		// Cache the hash code of the identifier string
