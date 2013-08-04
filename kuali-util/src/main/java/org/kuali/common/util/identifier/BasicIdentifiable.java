@@ -23,7 +23,7 @@ public class BasicIdentifiable implements Identifiable {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object instanceof BasicIdentifiable) {
+		if (object != null && object instanceof BasicIdentifiable) {
 			BasicIdentifiable other = (BasicIdentifiable) object;
 			return identifier.equals(other.identifier);
 		} else {
