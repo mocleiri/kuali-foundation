@@ -3,8 +3,8 @@ package org.kuali.common.util;
 public class ObjectUtils {
 
 	/**
-	 * Return true immediately if <code>main==other</code>. Return false immediately if <code>other==null</code> OR is a different runtime type than <code>main</code>. If both are
-	 * the exact same runtime type, compare their respective <code>toString()</code> methods for equality.
+	 * Return <code>true</code> immediately if <code>main==other</code> (ie they are the same object). Return <code>false</code> immediately if <code>other==null</code> OR is a
+	 * different runtime type than <code>main</code>. If both are the exact same runtime type, compare their respective <code>toString()</code> methods for equality.
 	 * 
 	 * @param main
 	 *            The object <code>other</code> is being compared to.
@@ -12,7 +12,7 @@ public class ObjectUtils {
 	 *            The object being examined for equality with <code>main</code>.
 	 * 
 	 * @throws NullPointerException
-	 *             If <code>main==null</code> or <code>main.toString()</code> returns <code>null</code>
+	 *             If <code>main</cod> is <code>null</code> or <code>main.toString()</code> returns <code>null</code>
 	 */
 	public static boolean equalsByToString(Object main, Object other) {
 		if (main == null) {
