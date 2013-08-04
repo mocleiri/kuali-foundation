@@ -21,7 +21,7 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 		this.featureId = featureId;
 
 		// Cache a reference to the fully qualified feature identifier string
-		this.identifier = project.getGroupId() + ":" + project.getArtifactId() + ":" + featureId;
+		this.identifier = project.getIdentifier() + ":" + featureId;
 
 		// Cache the hash code of the identifier string
 		this.hashCode = identifier.hashCode();
