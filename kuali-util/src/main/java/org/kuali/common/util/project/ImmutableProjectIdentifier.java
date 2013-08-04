@@ -72,7 +72,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 		ImmutableProjectIdentifier other = (ImmutableProjectIdentifier) object;
 
 		// The hashcodes being the same AND the combined strings being the same, constitutes equality
-		return hashCode == other.hashCode() && combined.equals(other.combined);
+		return hashCode == other.hashCode && combined.equals(other.combined);
 	}
 
 }
