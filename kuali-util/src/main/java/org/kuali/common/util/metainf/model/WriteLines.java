@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class WriteLinesRequest extends WriteRequest {
+public final class WriteLines extends WriteRequest {
 
 	private final List<String> lines;
 
-	public WriteLinesRequest(List<String> lines, File outputFile, String encoding) {
+	public WriteLines(List<String> lines, File outputFile, String encoding) {
 		super(outputFile, encoding);
 		this.lines = Collections.unmodifiableList(new ArrayList<String>(lines));
 	}
