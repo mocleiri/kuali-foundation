@@ -23,7 +23,6 @@ public final class PropertiesValueResolver implements ValueResolver {
 	}
 
 	public PropertiesValueResolver(Properties properties, PropertyPlaceholderHelper helper) {
-		super();
 		Assert.notNull(properties, "properties are null");
 		Assert.notNull(helper, "helper is null");
 		this.properties = new ImmutableProperties(properties);
