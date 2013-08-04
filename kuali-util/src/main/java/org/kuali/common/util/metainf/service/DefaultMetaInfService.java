@@ -126,8 +126,9 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected String getPropertyKey(String location) {
-		String key = StringUtils.replace(location, ":", ".");
-		return StringUtils.replace(key, "/", ".");
+		location = StringUtils.replace(location, ":", ".");
+		location = StringUtils.replace(location, "/", ".");
+		return location;
 	}
 
 }
