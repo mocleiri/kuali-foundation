@@ -1,40 +1,41 @@
 package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.project.ImmutableProjectIdentifier;
+import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.project.ProjectIdentifier;
 
 public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 
-	private final ImmutableProjectIdentifier project;
+	private final String groupId;
+	private final String artifactId;
 	private final String featureId;
+	private final String identifier;
 
 	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
 		this(project.getGroupId(), project.getArtifactId(), featureId);
 	}
 
 	public ImmutableFeatureIdentifier(String groupId, String artifactId, String featureId) {
-		this(new ImmutableProjectIdentifier(groupId, artifactId), featureId);
-	}
-
-	public ImmutableFeatureIdentifier(ImmutableProjectIdentifier project, String featureId) {
 		// Make sure we are being configured correctly
-		Assert.noBlanks("featureId is blank", featureId);
-		Assert.notNull(project, "project is null");
+		Assert.noBlanks("groupId, artifactId, and featureId are required", groupId, artifactId, featureId);
 
 		// Store the project identifier and featureId
-		this.project = project;
+		this.groupId = groupId;
+		this.artifactId = artifactId;
 		this.featureId = featureId;
+
+		// Changing this affects both hashCode() and equals(), be careful ...
+		this.identifier = groupId + ":" + artifactId + ":" + featureId;
 	}
 
 	@Override
 	public String getGroupId() {
-		return project.getGroupId();
+		return groupId;
 	}
 
 	@Override
 	public String getArtifactId() {
-		return project.getArtifactId();
+		return artifactId;
 	}
 
 	@Override
@@ -49,15 +50,13 @@ public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object == null || getClass() != object.getClass()) {
-			return false;
-		}
-		return toString().equals(object.toString());
+		return ObjectUtils.equalsByToString(this, object);
 	}
 
 	@Override
 	public String toString() {
-		return project.toString() + ":" + featureId;
+		// Changing this affects both hashCode() and equals(), be careful ...
+		return identifier;
 	}
 
 }

@@ -16,6 +16,7 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ObjectUtils;
 
 /**
  * The project identifier concept is based on two facts:
@@ -48,6 +49,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
+	private final String identifier;
 
 	public ImmutableProjectIdentifier(ProjectIdentifier project) {
 		this(project.getGroupId(), project.getArtifactId());
@@ -60,6 +62,9 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 		// Store groupId and artifactId
 		this.groupId = groupId;
 		this.artifactId = artifactId;
+
+		// Changing this affects both hashCode() and equals(), be careful ...
+		this.identifier = groupId + ":" + artifactId;
 	}
 
 	@Override
@@ -74,7 +79,8 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	@Override
 	public String toString() {
-		return groupId + ":" + artifactId;
+		// Changing this affects both hashCode() and equals(), be careful ...
+		return identifier;
 	}
 
 	@Override
@@ -84,10 +90,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object == null || getClass() != object.getClass()) {
-			return false;
-		}
-		return toString().equals(object.toString());
+		return ObjectUtils.equalsByToString(this, object);
 	}
 
 }
