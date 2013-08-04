@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class ScanContext {
+public class ScanContext {
 
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		super();

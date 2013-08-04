@@ -1,6 +1,6 @@
 package org.kuali.common.util.metainf.model;
 
-public final class PropertiesContext {
+public class PropertiesContext {
 
 	public static final PropertiesContext DEFAULT_PROPERTIES_CONTEXT = new PropertiesContext();
 

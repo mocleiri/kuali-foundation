@@ -15,7 +15,7 @@
  */
 package org.kuali.common.util.metainf.model;
 
-public final class MetaInfResource implements Comparable<MetaInfResource> {
+public class MetaInfResource implements Comparable<MetaInfResource> {
 
 	public static final long UNKNOWN_SIZE = -1;
 	public static final long UNKNOWN_LINECOUNT = -1;

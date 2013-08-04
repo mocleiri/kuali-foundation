@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class WriteLines {
+public class WriteLines {
 
 	private final List<String> lines;
 	private final WriteRequest request;

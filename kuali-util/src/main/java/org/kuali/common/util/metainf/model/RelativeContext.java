@@ -5,7 +5,7 @@ import java.io.File;
 import org.kuali.common.util.Assert;
 import org.springframework.util.ResourceUtils;
 
-public final class RelativeContext {
+public class RelativeContext {
 
 	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 

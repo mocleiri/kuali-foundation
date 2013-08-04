@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class ScanResult {
+public class ScanResult {
 
 	private final MetaInfContext context;
 	private final List<MetaInfResource> resources;

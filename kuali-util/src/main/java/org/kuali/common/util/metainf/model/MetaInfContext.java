@@ -20,7 +20,7 @@ import java.io.File;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.file.CanonicalFile;
 
-public final class MetaInfContext {
+public class MetaInfContext {
 
 	public static final boolean DEFAULT_SORT = true;
 

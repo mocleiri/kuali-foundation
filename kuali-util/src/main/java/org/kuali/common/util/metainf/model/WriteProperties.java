@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.property.ImmutableProperties;
 
-public final class WriteProperties {
+public class WriteProperties {
 
 	private final Properties properties;
 	private final WriteRequest request;
