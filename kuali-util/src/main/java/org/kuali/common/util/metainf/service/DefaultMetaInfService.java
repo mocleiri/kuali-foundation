@@ -25,6 +25,10 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultMetaInfService.class);
 
+	protected static final String PROPERTIES = "properties";
+	protected static final String SIZE = "size";
+	protected static final String LINES = "lines";
+
 	@Override
 	public ScanResult scan(MetaInfContext context) {
 		List<File> files = scanFileSystem(context.getScanContext());
@@ -69,8 +73,10 @@ public class DefaultMetaInfService implements MetaInfService {
 	protected List<WriteProperties> getWriteProperties(List<ScanResult> results) {
 		List<WriteProperties> requests = new ArrayList<WriteProperties>();
 		for (ScanResult result : results) {
-			WriteProperties request = getWriteProperties(result);
-			requests.add(request);
+			if (result.getContext().getPropertiesContext().isIncludePropertiesFile()) {
+				WriteProperties request = getWriteProperties(result);
+				requests.add(request);
+			}
 		}
 		return requests;
 	}
@@ -80,13 +86,13 @@ public class DefaultMetaInfService implements MetaInfService {
 		Properties properties = new Properties();
 		for (MetaInfResource resource : resources) {
 			String key = getPropertyKey(resource.getLocation());
-			String sizeKey = key + ".size";
-			String linesKey = key + ".lines";
+			String sizeKey = key + "." + SIZE;
+			String linesKey = key + "." + LINES;
 			properties.setProperty(sizeKey, Long.toString(resource.getSize()));
 			properties.setProperty(linesKey, Long.toString(resource.getLineCount()));
 		}
 		MetaInfContext context = result.getContext();
-		File outputFile = new File(context.getOutputFile().getAbsolutePath() + ".properties");
+		File outputFile = new File(context.getOutputFile().getAbsolutePath() + "." + PROPERTIES);
 		String encoding = context.getEncoding();
 		File relativeDir = context.getRelativeContext().getDirectory();
 		return new WriteProperties(properties, outputFile, encoding, relativeDir);
