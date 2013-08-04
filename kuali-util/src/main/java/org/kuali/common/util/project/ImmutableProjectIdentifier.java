@@ -51,6 +51,10 @@ public final class ImmutableProjectIdentifier extends BasicIdentifiable implemen
 	private final String groupId;
 	private final String artifactId;
 
+	public ImmutableProjectIdentifier(ProjectIdentifier project) {
+		this(project.getGroupId(), project.getArtifactId());
+	}
+
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
 		super(new ImmutableIdentifier(groupId + ":" + artifactId));
 
