@@ -16,7 +16,7 @@
 package org.kuali.common.util.project.spring;
 
 import org.kuali.common.util.project.KualiUtilProjectConstants;
-import org.kuali.common.util.project.ProjectIdentifierInterface;
+import org.kuali.common.util.project.ProjectIdentifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -27,7 +27,7 @@ public class KualiUtilProjectConfig implements ProjectIdentifierConfig {
 
 	@Override
 	@Bean
-	public ProjectIdentifierInterface projectIdentifier() {
+	public ProjectIdentifier projectIdentifier() {
 		return KualiUtilProjectConstants.PROJECT_IDENTIFIER;
 	}
 }

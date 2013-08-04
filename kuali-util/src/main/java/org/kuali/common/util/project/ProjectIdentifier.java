@@ -44,7 +44,7 @@ import org.kuali.common.util.Assert;
  * 
  * </p>
  */
-public final class ProjectIdentifier implements ProjectIdentifierInterface {
+public final class ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
@@ -67,12 +67,10 @@ public final class ProjectIdentifier implements ProjectIdentifierInterface {
 		this.hashCode = identifier.hashCode();
 	}
 
-	@Override
 	public String getGroupId() {
 		return this.groupId;
 	}
 
-	@Override
 	public String getArtifactId() {
 		return this.artifactId;
 	}

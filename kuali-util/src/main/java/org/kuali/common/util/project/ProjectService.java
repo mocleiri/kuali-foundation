@@ -22,7 +22,7 @@ public interface ProjectService {
 	/**
 	 * Create a <code>Project</code> from <code>identifier</code>
 	 */
-	Project getProject(ProjectIdentifierInterface identifier);
+	Project getProject(ProjectIdentifier identifier);
 
 	/**
 	 * Create a <code>Project</code> from <code>groupId</code> and <code>artifactId</code>
