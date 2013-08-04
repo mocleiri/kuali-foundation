@@ -25,7 +25,7 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public ScanResult scan(MetaInfContext context) {
-		List<File> files = getFiles(context.getScanContext());
+		List<File> files = scanFileSystem(context.getScanContext());
 		List<MetaInfResource> resources = getResources(context, files);
 		return new ScanResult(context, resources);
 	}
@@ -63,7 +63,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		}
 	}
 
-	protected List<File> getFiles(ScanContext context) {
+	protected List<File> scanFileSystem(ScanContext context) {
 		File dir = context.getDirectory();
 		Assert.isExistingDir(dir);
 		logger.debug("Examining [" + LocationUtils.getCanonicalPath(dir) + "]");
