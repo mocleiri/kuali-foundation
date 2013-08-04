@@ -1,11 +1,11 @@
 package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identifier.AbstractIdentifier;
+import org.kuali.common.util.identifier.BasicIdentifiable;
 import org.kuali.common.util.identifier.ImmutableIdentifier;
 import org.kuali.common.util.project.ProjectIdentifier;
 
-public final class ImmutableFeatureIdentifier extends AbstractIdentifier implements FeatureIdentifier {
+public final class ImmutableFeatureIdentifier extends BasicIdentifiable implements FeatureIdentifier {
 
 	private final ProjectIdentifier project;
 	private final String featureId;
