@@ -1,6 +1,7 @@
-package org.kuali.common.util.project;
+package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.project.ProjectIdentifier;
 
 public final class FeatureIdentifier {
 
