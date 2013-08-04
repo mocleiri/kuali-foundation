@@ -42,7 +42,7 @@ public class BasicIdentifiable implements Identifiable {
 	}
 
 	@Override
-	public String getIdentifier() {
-		return identifier.getIdentifier();
+	public String getIdentity() {
+		return identifier.getIdentity();
 	}
 }
