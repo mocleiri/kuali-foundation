@@ -25,18 +25,17 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public ScanResult scan(MetaInfContext context) {
-		List<ScanResult> results = scan(Arrays.asList(context));
-		Assert.isTrue(results.size() == 1, "size != 1");
-		return results.get(0);
+		List<File> files = getFiles(context.getScanContext());
+		List<MetaInfResource> resources = getResources(context, files);
+		return new ScanResult(context, resources);
 	}
 
 	@Override
 	public List<ScanResult> scan(List<MetaInfContext> contexts) {
 		List<ScanResult> results = new ArrayList<ScanResult>();
 		for (MetaInfContext context : contexts) {
-			List<File> files = getFiles(context.getScanContext());
-			List<MetaInfResource> resources = getResources(context, files);
-			results.add(new ScanResult(context, resources));
+			ScanResult result = scan(context);
+			results.add(result);
 		}
 		return results;
 	}
