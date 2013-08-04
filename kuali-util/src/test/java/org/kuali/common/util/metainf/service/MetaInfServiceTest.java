@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 import org.kuali.common.util.metainf.spring.MetaInfServiceConfig;
@@ -33,7 +32,7 @@ public class MetaInfServiceTest {
 	public void test() {
 		try {
 			File bod = ProjectUtils.getBuildOutputDirectory(project);
-			File outputFile = new CanonicalFile(bod, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
+			File outputFile = new File(bod, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
 			String encoding = ProjectUtils.getEncoding(project);
 			MetaInfContext context = new MetaInfContext(outputFile, encoding, bod, "**/*.class");
 			ScanResult result = service.scan(context);
