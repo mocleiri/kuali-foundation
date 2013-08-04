@@ -25,7 +25,4 @@ public abstract class KualiProjectConstants {
 	public static final String OLE_GROUP_ID = "org.kuali.ole";
 	public static final String KPME_GROUP_ID = "org.kuali.kpme";
 
-	// This must always match the project.encoding property in the top level Kuali pom
-	public static final String ENCODING = "UTF-8";
-
 }
