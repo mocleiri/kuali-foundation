@@ -22,7 +22,7 @@ import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.maven.spring.AutowiredMavenProperties;
 import org.kuali.common.util.maven.spring.NoAutowiredMavenProperties;
 import org.kuali.common.util.project.Project;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.ProjectIdentifierInterface;
 import org.kuali.common.util.project.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -90,7 +90,7 @@ public class AutowiredProjectConfig {
 			ProjectService service = projectServiceConfig.projectService();
 
 			// Get a reference to a project identifier (groupId + artifactId)
-			ProjectIdentifier identifier = projectIdentifierConfig.projectIdentifier();
+			ProjectIdentifierInterface identifier = projectIdentifierConfig.projectIdentifier();
 
 			// Use the service to convert groupId + artifactId into a Project
 			return service.getProject(identifier.getGroupId(), identifier.getArtifactId());

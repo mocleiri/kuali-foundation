@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.DirRequest;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.ProjectIdentifierInterface;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
@@ -74,18 +74,18 @@ public class ScmProjectConfig {
 		List<String> projectIds = SpringUtils.getNoneSensitiveListFromCSV(env, PROJECTS_KEY);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY);
-		List<ProjectIdentifier> identifiers = ProjectUtils.getIdentifiers(projectIds);
+		List<ProjectIdentifierInterface> identifiers = ProjectUtils.getIdentifiers(projectIds);
 		File stagingDir = SpringUtils.getFile(env, SOURCE_DIR_KEY);
 		File relativeDir = SpringUtils.getFile(env, RELATIVE_DIR_KEY);
 		List<DirRequest> requests = new ArrayList<DirRequest>();
-		for (ProjectIdentifier identifier : identifiers) {
+		for (ProjectIdentifierInterface identifier : identifiers) {
 			DirRequest request = getDirRequest(identifier, stagingDir, relativeDir, includes, excludes);
 			requests.add(request);
 		}
 		return requests;
 	}
 
-	protected DirRequest getDirRequest(ProjectIdentifier identifier, File stagingDir, File relativeDir, List<String> includes, List<String> excludes) {
+	protected DirRequest getDirRequest(ProjectIdentifierInterface identifier, File stagingDir, File relativeDir, List<String> includes, List<String> excludes) {
 		String key = "scm.build." + identifier.getArtifactId() + ".dir";
 		// This is ${project.basedir}/src/main/resources
 		File projectResourceDir = SpringUtils.getFile(env, key);

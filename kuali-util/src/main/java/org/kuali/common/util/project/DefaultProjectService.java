@@ -44,7 +44,7 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
-	public Project getProject(ProjectIdentifier identifier) {
+	public Project getProject(ProjectIdentifierInterface identifier) {
 		return getProject(identifier.getGroupId(), identifier.getArtifactId());
 	}
 

@@ -15,31 +15,64 @@
  */
 package org.kuali.common.util.project;
 
-/**
- * The project identifier concept behind this interface is based on two facts:
- * 
- * <p>
- * 1 - All Kuali projects produce only one artifact containing executable java code and associated resources.<br>
- * 2 - There is only ever one version of any given Kuali project in the java classpath.<br>
- * </p>
- * 
- * <p>
- * Thus, groupId + artifactId is a simple way to uniquely identify a project at runtime. It also provides a simple way to uniquely address resources inside a project assuming the
- * directory structure includes groupId + artifactId.<br>
- * 
- * For example:
- * 
- * <pre>
- *   src/main/resources/org/kuali/common/kuali-util/foo.txt
- *   src/main/resources/org/kuali/common/kuali-util/bar.txt
- * </pre>
- * 
- * </p>
- */
-public interface ProjectIdentifier {
+import org.kuali.common.util.Assert;
 
-	String getGroupId();
+public final class ProjectIdentifier implements ProjectIdentifierInterface {
 
-	String getArtifactId();
+	private final String groupId;
+	private final String artifactId;
+	private final String combined;
+	private final int hashCode;
+
+	public ProjectIdentifier(String groupId, String artifactId) {
+		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
+		this.groupId = groupId;
+		this.artifactId = artifactId;
+
+		// Cache a reference to the groupId + artifactId combination
+		this.combined = groupId + ":" + artifactId;
+
+		// Cache the hashcode of the combined string
+		this.hashCode = combined.hashCode();
+	}
+
+	@Override
+	public String getGroupId() {
+		return this.groupId;
+	}
+
+	@Override
+	public String getArtifactId() {
+		return this.artifactId;
+	}
+
+	@Override
+	public String toString() {
+		return combined;
+	}
+
+	@Override
+	public int hashCode() {
+		return hashCode;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// They are the exact same physical object
+		if (this == object) {
+			return true;
+		}
+
+		// Make sure other isn't null and is the exact same runtime type
+		if (object == null || getClass() != object.getClass()) {
+			return false;
+		}
+
+		// Cast to an immutable project identifier
+		ProjectIdentifier other = (ProjectIdentifier) object;
+
+		// The hashcodes being the same AND the combined strings being the same, constitutes equality
+		return hashCode == other.hashCode && combined.equals(other.combined);
+	}
 
 }

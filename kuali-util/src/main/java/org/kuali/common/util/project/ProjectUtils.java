@@ -36,7 +36,7 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util
 	 * </pre>
 	 */
-	public static ProjectIdentifier getIdentifier(String projectId) {
+	public static ProjectIdentifierInterface getIdentifier(String projectId) {
 
 		// Project id can't be blank
 		Assert.notBlank(projectId, "project id is blank");
@@ -52,7 +52,7 @@ public class ProjectUtils {
 		String artifactId = tokens[1];
 
 		// Create a project identifier from the strings
-		return new ImmutableProjectIdentifier(groupId, artifactId);
+		return new ProjectIdentifier(groupId, artifactId);
 	}
 
 	/**
@@ -64,10 +64,10 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util
 	 * </pre>
 	 */
-	public static List<ProjectIdentifier> getIdentifiers(List<String> projectIds) {
-		List<ProjectIdentifier> list = new ArrayList<ProjectIdentifier>();
+	public static List<ProjectIdentifierInterface> getIdentifiers(List<String> projectIds) {
+		List<ProjectIdentifierInterface> list = new ArrayList<ProjectIdentifierInterface>();
 		for (String projectId : projectIds) {
-			ProjectIdentifier element = getIdentifier(projectId);
+			ProjectIdentifierInterface element = getIdentifier(projectId);
 			list.add(element);
 		}
 		return list;
@@ -152,7 +152,7 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util  ->  classpath:org/kuali/common/kuali-util
 	 * </pre>
 	 */
-	public static String getClasspathPrefix(ProjectIdentifier identifier) {
+	public static String getClasspathPrefix(ProjectIdentifierInterface identifier) {
 		return getClassPathPrefix(identifier.getGroupId(), identifier.getArtifactId());
 	}
 

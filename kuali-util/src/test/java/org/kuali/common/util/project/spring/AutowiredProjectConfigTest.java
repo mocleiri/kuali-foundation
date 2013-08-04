@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.Project;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.ProjectIdentifierInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class AutowiredProjectConfigTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(AutowiredProjectConfigTest.class);
 
-	protected static final ProjectIdentifier ID = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+	protected static final ProjectIdentifierInterface ID = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
 
 	@Autowired
 	Project project;
