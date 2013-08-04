@@ -11,7 +11,7 @@ public class ObjectUtils {
 	 * Returns <code>true</code> immediately if <code>main==other</code> (ie they are the same object).
 	 * </p>
 	 * <p>
-	 * Returns <code>false</code> immediately if <code>other==null</code> OR is a different runtime type than <code>main</code>.
+	 * Returns <code>false</code> immediately if <code>other==null</code> or is a different runtime type than <code>main</code>.
 	 * </p>
 	 * If both are the exact same runtime type, compare their respective <code>toString()</code> methods for equality.
 	 * 
