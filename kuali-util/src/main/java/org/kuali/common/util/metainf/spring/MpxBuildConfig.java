@@ -35,7 +35,7 @@ public class MpxBuildConfig implements MetaInfContextsConfig {
 
 	protected File getResourceBase() {
 		File outputDir = ProjectUtils.getBuildOutputDirectory(project);
-		String subDirectory = metaInfCommonConfig.getResourcePrefix();
+		String subDirectory = null;// metaInfCommonConfig.getResourcePrefix();
 		return new File(outputDir, subDirectory);
 	}
 
