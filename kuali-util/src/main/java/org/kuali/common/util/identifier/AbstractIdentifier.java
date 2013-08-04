@@ -25,14 +25,14 @@ public abstract class AbstractIdentifier implements Identifiable {
 	public boolean equals(Object object) {
 		if (object instanceof AbstractIdentifier) {
 			AbstractIdentifier other = (AbstractIdentifier) object;
-			return identifier.equals(other.getIdentifier());
+			return identifier.equals(other.identifier);
 		} else {
 			return false;
 		}
 	}
 
 	@Override
-	public String getIdentifier() {
-		return identifier.getIdentifier();
+	public String getIdentity() {
+		return identifier.getIdentity();
 	}
 }

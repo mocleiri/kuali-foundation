@@ -11,7 +11,7 @@ public final class ImmutableFeatureIdentifier extends AbstractIdentifier impleme
 	private final String featureId;
 
 	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
-		super(new ImmutableIdentifier(project.getIdentifier() + ":" + featureId));
+		super(new ImmutableIdentifier(project.getIdentity() + ":" + featureId));
 
 		// Make sure we are being configured correctly
 		Assert.notNull(project, "project is null");
