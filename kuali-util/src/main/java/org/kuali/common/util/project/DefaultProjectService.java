@@ -15,9 +15,9 @@
  */
 package org.kuali.common.util.project;
 
+import java.nio.charset.Charset;
 import java.util.Properties;
 
-import org.apache.commons.io.Charsets;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -35,7 +35,7 @@ public class DefaultProjectService implements ProjectService {
 	private static final Cache<String, Project> CACHE = new SimpleCache<String, Project>();
 	private static final PropertyPlaceholderHelper PPH = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 	private static final String PROPERTIES_ENCODING_KEY = "project.properties.encoding";
-	private static final String PROPERTIES_ENCODING_DEFAULT = Charsets.UTF_8.toString();
+	private static final String PROPERTIES_ENCODING_DEFAULT = Charset.defaultCharset().toString();
 
 	@Override
 	public Project getProject(Properties properties) {
@@ -83,7 +83,7 @@ public class DefaultProjectService implements ProjectService {
 		// If that location doesn't exist, we have issues
 		Assert.exists(location, "[" + location + "] does not exist");
 
-		// Use UTF-8 to load project.properties
+		// Use platform default encoding to load project.properties
 		// Set the system property "project.properties.encoding" or the environment variable "PROJECT_PROPERTIES_ENCODING" to override
 		String encoding = PropertyUtils.getGlobalProperty(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
 
