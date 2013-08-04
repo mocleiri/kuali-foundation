@@ -16,7 +16,7 @@
 package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identity.BasicIdentifiable;
+import org.kuali.common.util.identity.BasicIdentifier;
 
 /**
  * The project identifier concept is based on two facts:
@@ -45,7 +45,7 @@ import org.kuali.common.util.identity.BasicIdentifiable;
  * 
  * </p>
  */
-public final class ImmutableProjectIdentifier extends BasicIdentifiable implements ProjectIdentifier {
+public final class ImmutableProjectIdentifier extends BasicIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;

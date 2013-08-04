@@ -1,11 +1,11 @@
 package org.kuali.common.util.identity;
 
 
-public class BasicIdentifiable implements Identifiable {
+public class BasicIdentifier implements Identifiable {
 
 	private final StringIdentifier identifier;
 
-	public BasicIdentifiable(String identifier) {
+	public BasicIdentifier(String identifier) {
 		this.identifier = new StringIdentifier(identifier);
 	}
 
@@ -28,12 +28,12 @@ public class BasicIdentifiable implements Identifiable {
 		}
 
 		// Make sure object isn't null and is a BasicIdentifiable
-		if (object == null || !(object instanceof BasicIdentifiable)) {
+		if (object == null || !(object instanceof BasicIdentifier)) {
 			return false;
 		}
 
 		// Cast to a BasicIdentifiable
-		BasicIdentifiable other = (BasicIdentifiable) object;
+		BasicIdentifier other = (BasicIdentifier) object;
 
 		// The hash codes being the same AND the equals method returning true constitutes equality
 		return identifier.hashCode() == other.identifier.hashCode() && identifier.equals(other.identifier);
