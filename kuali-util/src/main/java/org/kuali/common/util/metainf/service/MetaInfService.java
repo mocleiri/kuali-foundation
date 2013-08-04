@@ -11,4 +11,8 @@ public interface MetaInfService {
 
 	List<ScanResult> scan(List<MetaInfContext> contexts);
 
+	void write(List<ScanResult> results);
+
+	void write(ScanResult result);
+
 }

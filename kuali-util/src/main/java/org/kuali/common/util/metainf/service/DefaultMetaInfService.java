@@ -1,19 +1,15 @@
 package org.kuali.common.util.metainf.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
@@ -40,26 +36,19 @@ public class DefaultMetaInfService implements MetaInfService {
 		for (MetaInfContext context : contexts) {
 			List<File> files = getFiles(context.getScanContext());
 			List<MetaInfResource> resources = getResources(context, files);
-			ScanResult result = new ScanResult(context, resources);
-			results.add(result);
+			results.add(new ScanResult(context, resources));
 		}
 		return results;
 	}
 
-	protected void doLocations(MetaInfContext context, List<MetaInfResource> resources) {
-		List<String> locations = getLocations(resources);
-		if (context.isSort()) {
-			Collections.sort(locations);
-		}
-		String path1 = LocationUtils.getCanonicalPath(context.getRelativeDir());
-		String path2 = LocationUtils.getCanonicalPath(context.getOutputFile());
-		String path = StringUtils.remove(path2, path1);
-		logger.info("Creating [" + path + "] - {} resources", locations.size());
-		try {
-			FileUtils.writeLines(context.getOutputFile(), locations);
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		}
+	@Override
+	public void write(ScanResult result) {
+		write(Arrays.asList(result));
+	}
+
+	@Override
+	public void write(List<ScanResult> results) {
+
 	}
 
 	protected List<File> getFiles(ScanContext context) {
@@ -78,6 +67,9 @@ public class DefaultMetaInfService implements MetaInfService {
 		for (File file : files) {
 			MetaInfResource resource = getResource(file, context);
 			resources.add(resource);
+		}
+		if (context.isSort()) {
+			Collections.sort(resources);
 		}
 		return resources;
 	}
@@ -107,17 +99,17 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
 	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if <code>relativeContext</code> is <code>null</code>
 	 */
-	protected String getLocationURL(File file, RelativeContext relativeContext) {
+	protected String getLocationURL(File file, RelativeContext context) {
 		// Make sure file has been supplied
 		Assert.notNull(file, "file is null");
 
 		// If there is no relative context, just return the fully qualified local file system url
-		if (relativeContext == null) {
+		if (context == null) {
 			return LocationUtils.getCanonicalURLString(file);
 		}
 
 		// Get a string representing the canonical path to the relative dir
-		String relativeDirPath = LocationUtils.getCanonicalPath(relativeContext.getDirectory());
+		String relativeDirPath = LocationUtils.getCanonicalPath(context.getDirectory());
 
 		// Get a string representing the canonical path to the file
 		String filePath = LocationUtils.getCanonicalPath(file);
@@ -130,50 +122,12 @@ public class DefaultMetaInfService implements MetaInfService {
 		String relativePath = StringUtils.substring(filePath, relativePos);
 
 		// Prepend the prefix and return
-		return relativeContext.getUrlPrefix() + relativePath;
+		return context.getUrlPrefix() + relativePath;
 	}
 
 	protected String getPropertyKey(String location) {
 		String key = StringUtils.replace(location, ":", ".");
 		return StringUtils.replace(key, "/", ".");
-	}
-
-	protected void doProperties(MetaInfContext context, List<MetaInfResource> resources) {
-		logger.debug("doProperties()");
-		Properties properties = getProperties(context, resources);
-		File propertiesFile = new File(LocationUtils.getCanonicalPath(context.getOutputFile()) + ".properties");
-		PropertyUtils.store(properties, propertiesFile, "UTF-8");
-	}
-
-	protected Properties getProperties(MetaInfContext context, List<MetaInfResource> resources) {
-		Properties properties = new Properties();
-		for (MetaInfResource resource : resources) {
-			String key = getPropertyKey(resource.getLocation());
-			String sizeKey = key + ".size";
-			properties.setProperty(sizeKey, resource.getSize() + "");
-			if (context.isAddLineCount()) {
-				String linesKey = key + ".lines";
-				properties.setProperty(linesKey, resource.getLineCount() + "");
-			}
-		}
-		return properties;
-	}
-
-	protected List<String> getLocations(File relativeDir, List<File> files, String prefix) throws IOException {
-		List<String> locations = new ArrayList<String>();
-		for (File file : files) {
-			String location = getLocationURL(file, relativeDir, prefix);
-			locations.add(location);
-		}
-		return locations;
-	}
-
-	protected List<String> getLocations(List<MetaInfResource> resources) {
-		List<String> locations = new ArrayList<String>();
-		for (MetaInfResource resource : resources) {
-			locations.add(resource.getLocation());
-		}
-		return locations;
 	}
 
 }
