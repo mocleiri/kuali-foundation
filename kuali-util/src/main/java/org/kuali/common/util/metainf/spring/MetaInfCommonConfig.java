@@ -6,13 +6,14 @@ import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.util.ResourceUtils;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
 public class MetaInfCommonConfig {
 
 	public static final String RESOURCES = "resources";
-	public static final String CLASSPATH = "classpath:";
+	public static final String CLASSPATH = ResourceUtils.CLASSPATH_URL_PREFIX;
 	public static final String METAINF = "META-INF";
 	public static final String DATA_FILENAME = "data." + RESOURCES;
 	public static final String SCHEMA_FILENAME = "schema." + RESOURCES;
