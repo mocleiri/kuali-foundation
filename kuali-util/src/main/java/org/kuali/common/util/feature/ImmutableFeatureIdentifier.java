@@ -3,6 +3,7 @@ package org.kuali.common.util.feature;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.identifier.BasicIdentifiable;
 import org.kuali.common.util.identifier.ImmutableIdentifier;
+import org.kuali.common.util.project.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.ProjectIdentifier;
 
 public final class ImmutableFeatureIdentifier extends BasicIdentifiable implements FeatureIdentifier {
@@ -10,11 +11,10 @@ public final class ImmutableFeatureIdentifier extends BasicIdentifiable implemen
 	private final ProjectIdentifier project;
 	private final String featureId;
 
-	public ImmutableFeatureIdentifier(ProjectIdentifier project, String featureId) {
+	public ImmutableFeatureIdentifier(ImmutableProjectIdentifier project, String featureId) {
 		super(new ImmutableIdentifier(project.getIdentity() + ":" + featureId));
 
 		// Make sure we are being configured correctly
-		Assert.notNull(project, "project is null");
 		Assert.notBlank(featureId, "featureId is blank");
 
 		// Store the project identifier and featureId
