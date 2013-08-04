@@ -21,15 +21,15 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
+	private final String combined;
 	private final int hashCode;
-	private final String id;
 
 	public ImmutableProjectIdentifier(String groupId, String artifactId) {
 		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
 		this.groupId = groupId;
 		this.artifactId = artifactId;
-		this.id = groupId + ":" + artifactId;
-		this.hashCode = id.hashCode();
+		this.combined = groupId + ":" + artifactId;
+		this.hashCode = combined.hashCode();
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 
 	@Override
 	public String toString() {
-		return id;
+		return combined;
 	}
 
 	@Override
@@ -53,32 +53,22 @@ public final class ImmutableProjectIdentifier implements ProjectIdentifier {
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		// Other is us (and we are other)
-		// ie, we are comparing the exact same 2 objects
-		if (this == other) {
+	public boolean equals(Object object) {
+		// They are the exact same physical object
+		if (this == object) {
 			return true;
 		}
 
-		// We can't be equal to other if it is null
-		if (other == null) {
+		// Make sure other isn't null and is the exact same runtime type
+		if (object == null || getClass() != object.getClass()) {
 			return false;
 		}
 
-		// If other is a different runtime class type than us, it cannot be equal to us
-		if (getClass() != other.getClass()) {
-			return false;
-		}
+		// Cast to an immutable project identifier
+		ImmutableProjectIdentifier other = (ImmutableProjectIdentifier) object;
 
-		// We now know 2 things:
-		// 1 - other is not null
-		// 2 - other is an ImmutableProjectIdentifier
-
-		// Cast other to an ImmutableProjectIdentifier
-		ImmutableProjectIdentifier identifier = (ImmutableProjectIdentifier) other;
-
-		// The two id strings being equal constitutes equality
-		return this.id.equals(identifier.id);
+		// The hashcodes being the same AND the combined strings being the same, constitutes equality
+		return hashCode == other.hashCode() && combined.equals(other.combined);
 	}
 
 }
