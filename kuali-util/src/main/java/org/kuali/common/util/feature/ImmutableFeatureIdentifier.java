@@ -1,10 +1,9 @@
 package org.kuali.common.util.feature;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.identifier.Identifier;
 import org.kuali.common.util.project.ProjectIdentifier;
 
-public final class ImmutableFeatureIdentifier implements Identifier {
+public final class ImmutableFeatureIdentifier implements FeatureIdentifier {
 
 	private final ProjectIdentifier project;
 	private final String featureId;
@@ -22,23 +21,30 @@ public final class ImmutableFeatureIdentifier implements Identifier {
 		this.featureId = featureId;
 
 		// Cache a reference to the fully qualified feature identifier string
-		this.identifier = project.getIdentifier() + ":" + featureId;
+		this.identifier = project.getGroupId() + ":" + project.getArtifactId() + ":" + featureId;
 
 		// Cache the hash code of the identifier string
 		this.hashCode = identifier.hashCode();
 	}
 
-	public ProjectIdentifier getProject() {
-		return project;
+	@Override
+	public String getGroupId() {
+		return project.getGroupId();
+	}
+
+	@Override
+	public String getArtifactId() {
+		return project.getArtifactId();
+	}
+
+	@Override
+	public String getFeatureId() {
+		return featureId;
 	}
 
 	@Override
 	public String toString() {
 		return identifier;
-	}
-
-	public String getFeatureId() {
-		return featureId;
 	}
 
 	@Override

@@ -1,8 +1,8 @@
 package org.kuali.common.util.feature;
 
-import org.kuali.common.util.identifier.Identifier;
+import org.kuali.common.util.project.ProjectIdentifier;
 
-public interface FeatureIdentifier extends Identifier {
+public interface FeatureIdentifier extends ProjectIdentifier {
 
 	String getFeatureId();
 
