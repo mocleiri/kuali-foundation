@@ -9,8 +9,8 @@ public final class WriteProperties extends WriteRequest {
 
 	private final Properties properties;
 
-	public WriteProperties(Properties properties, File outputFile, String encoding) {
-		super(outputFile, encoding);
+	public WriteProperties(Properties properties, File outputFile, String encoding, File relativeDir) {
+		super(outputFile, encoding, relativeDir);
 		this.properties = new ImmutableProperties(properties);
 	}
 

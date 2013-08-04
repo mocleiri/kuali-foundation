@@ -45,22 +45,31 @@ public class DefaultMetaInfService implements MetaInfService {
 		//
 	}
 
-	protected WriteLines getWriteRequest(ScanResult result) {
+	protected WriteLines getWriteLines(ScanResult result) {
 		List<MetaInfResource> resources = result.getResources();
 		List<String> locations = new ArrayList<String>();
 		for (MetaInfResource resource : resources) {
 			locations.add(resource.getLocation());
 		}
-		return new WriteLines(locations, result.getContext().getOutputFile(), result.getContext().getEncoding());
+		MetaInfContext context = result.getContext();
+		File outputFile = context.getOutputFile();
+		String encoding = context.getEncoding();
+		File relativeDir = context.getRelativeContext().getDirectory();
+		return new WriteLines(locations, outputFile, encoding, relativeDir);
 	}
 
 	@Override
 	public void write(List<ScanResult> results) {
+		List<WriteLines> requests = getWriteLines(results);
+	}
+
+	protected List<WriteLines> getWriteLines(List<ScanResult> results) {
 		List<WriteLines> requests = new ArrayList<WriteLines>();
 		for (ScanResult result : results) {
-			WriteLines request = getWriteRequest(result);
+			WriteLines request = getWriteLines(result);
 			requests.add(request);
 		}
+		return requests;
 	}
 
 	protected List<File> scanFileSystem(ScanContext context) {

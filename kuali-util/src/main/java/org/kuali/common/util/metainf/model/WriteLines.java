@@ -9,8 +9,8 @@ public final class WriteLines extends WriteRequest {
 
 	private final List<String> lines;
 
-	public WriteLines(List<String> lines, File outputFile, String encoding) {
-		super(outputFile, encoding);
+	public WriteLines(List<String> lines, File outputFile, String encoding, File relativeDir) {
+		super(outputFile, encoding, relativeDir);
 		this.lines = Collections.unmodifiableList(new ArrayList<String>(lines));
 	}
 

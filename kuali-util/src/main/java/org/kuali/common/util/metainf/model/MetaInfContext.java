@@ -17,6 +17,9 @@ package org.kuali.common.util.metainf.model;
 
 import java.io.File;
 
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.file.CanonicalFile;
+
 public final class MetaInfContext {
 
 	public static final boolean DEFAULT_SORT = true;
@@ -34,7 +37,8 @@ public final class MetaInfContext {
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
 		super();
-		this.outputFile = outputFile;
+		Assert.notNull(outputFile, encoding, scanContext, relativeContext, propertiesContext);
+		this.outputFile = new CanonicalFile(outputFile);
 		this.encoding = encoding;
 		this.scanContext = scanContext;
 		this.relativeContext = relativeContext;

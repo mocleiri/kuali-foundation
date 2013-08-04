@@ -70,6 +70,12 @@ public abstract class Assert extends org.springframework.util.Assert {
 		isTrue(!condition, message);
 	}
 
+	public static void notNull(Object... objects) {
+		for (Object object : objects) {
+			notNull(object);
+		}
+	}
+
 	public static void notBlank(String... strings) {
 		for (String string : strings) {
 			isFalse(StringUtils.isBlank(string));
