@@ -1,6 +1,7 @@
 package org.kuali.common.util.project;
 
 import org.junit.Test;
+import org.kuali.common.util.identifier.ImmutableIdentifier;
 
 public class SimpleTest {
 
@@ -14,6 +15,8 @@ public class SimpleTest {
 			System.out.println(p1.equals(p2));
 			System.out.println(p1.hashCode());
 			System.out.println(p2.hashCode());
+			ImmutableIdentifier ii = new ImmutableIdentifier("");
+			System.out.println(ii.hashCode());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -76,9 +76,18 @@ public abstract class Assert extends org.springframework.util.Assert {
 		}
 	}
 
+	public static void notBlank(String string) {
+		isFalse(StringUtils.isBlank(string));
+	}
+
+	@Deprecated
 	public static void notBlank(String... strings) {
+		noBlanks("blank strings are not allowed", strings);
+	}
+
+	public static void noBlanks(String msg, String... strings) {
 		for (String string : strings) {
-			isFalse(StringUtils.isBlank(string));
+			isFalse(StringUtils.isBlank(string), msg);
 		}
 	}
 

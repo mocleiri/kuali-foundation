@@ -28,7 +28,7 @@ public class RequiredProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			Assert.notBlank(value, "Property [" + key + "] is blank");
+			Assert.noBlanks("Property [" + key + "] is blank", value);
 		}
 	}
 

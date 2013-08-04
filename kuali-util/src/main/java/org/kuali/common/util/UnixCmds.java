@@ -222,7 +222,7 @@ public class UnixCmds {
 
 	public String chown(List<String> options, String owner, String group, List<String> paths) {
 		Assert.notEmpty(paths);
-		Assert.notBlank(owner, group);
+		Assert.noBlanks(owner, group);
 		return cmd(CHOWN, CollectionUtils.combineStrings(options, owner + ":" + group, paths));
 	}
 

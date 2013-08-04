@@ -39,7 +39,7 @@ public class ProjectUtils {
 	public static ProjectIdentifier getIdentifier(String projectId) {
 
 		// Project id can't be blank
-		Assert.notBlank(projectId, "project id is blank");
+		Assert.noBlanks("projectId is blank", projectId);
 
 		// Split up the id
 		String[] tokens = Str.split(projectId, ":", true);

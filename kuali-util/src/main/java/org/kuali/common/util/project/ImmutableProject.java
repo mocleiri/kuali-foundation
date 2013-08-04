@@ -29,7 +29,7 @@ public final class ImmutableProject implements Project {
 
 	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
 		// Make sure we are being configured correctly
-		Assert.notBlank(groupId, artifactId, version, "GAV info is required");
+		Assert.noBlanks("GAV info is required", groupId, artifactId, version);
 		Assert.notNull(properties, "properties can't be null");
 
 		// Store the GAV info

@@ -59,7 +59,7 @@ public final class ImmutableProjectIdentifier extends BasicIdentifiable implemen
 		super(new ImmutableIdentifier(groupId + ":" + artifactId));
 
 		// Make sure neither one is blank
-		Assert.notBlank(groupId, artifactId, "groupId and artifactId cannot be blank");
+		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);
 
 		// Store groupId and artifactId
 		this.groupId = groupId;

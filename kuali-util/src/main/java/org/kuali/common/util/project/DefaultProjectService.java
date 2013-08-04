@@ -52,7 +52,7 @@ public class DefaultProjectService implements ProjectService {
 	public Project getProject(String groupId, String artifactId) {
 
 		// Both of these are required
-		Assert.notBlank(groupId, artifactId, "groupId and artifactId are required");
+		Assert.noBlanks("groupId and artifactId are required", groupId, artifactId);
 
 		// Construct the cache key
 		String cacheKey = groupId + ":" + artifactId;

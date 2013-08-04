@@ -76,7 +76,7 @@ public class SvnService extends DefaultExecService implements ScmService {
 			// Nothing to do
 			return;
 		}
-		Assert.notBlank(message, "Commit message is blank");
+		Assert.noBlanks("Commit message is blank", message);
 		String command = "commit";
 		List<String> cpaths = LocationUtils.getCanonicalPaths(paths);
 		List<String> options = Arrays.asList("--depth", "infinity", "--message", message);
