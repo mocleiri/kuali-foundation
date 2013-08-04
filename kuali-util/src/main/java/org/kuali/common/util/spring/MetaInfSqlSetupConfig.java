@@ -20,14 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.metainf.MetaInfContext;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.MetaInfExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 public class MetaInfSqlSetupConfig {
 
@@ -36,26 +38,26 @@ public class MetaInfSqlSetupConfig {
 
 	@Bean
 	public Executable metaInfExecutable() {
-		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
+		List<org.kuali.common.util.metainf.MetaInfContext> contexts = new ArrayList<org.kuali.common.util.metainf.MetaInfContext>();
 		contexts.add(getMetaInfContext("sql.metainf.output.schema", "sql.metainf.include.schema"));
 		contexts.add(getMetaInfContext("sql.metainf.output.data", "sql.metainf.include.data"));
 		contexts.add(getMetaInfContext("sql.metainf.output.constraints", "sql.metainf.include.constraints"));
 		contexts.add(getMetaInfContext("sql.metainf.output.other", "sql.metainf.include.other"));
 
-		MetaInfExecutable mie = new MetaInfExecutable();
+		org.kuali.common.util.execute.MetaInfExecutable mie = new org.kuali.common.util.execute.MetaInfExecutable();
 		mie.setSkip(SpringUtils.getBoolean(env, "sql.metainf.sql.skip", false));
 		mie.setContexts(contexts);
 		return mie;
 
 	}
 
-	protected MetaInfContext getMetaInfContext(String outputFileKey, String includesKey) {
+	protected org.kuali.common.util.metainf.MetaInfContext getMetaInfContext(String outputFileKey, String includesKey) {
 		String csv = SpringUtils.getProperty(env, includesKey);
 		List<String> includes = CollectionUtils.getTrimmedListFromCSV(csv);
 		File outputFile = new File(SpringUtils.getProperty(env, outputFileKey));
 		File baseDir = new File(SpringUtils.getProperty(env, "project.build.outputDirectory"));
 
-		MetaInfContext context = new MetaInfContext();
+		org.kuali.common.util.metainf.MetaInfContext context = new org.kuali.common.util.metainf.MetaInfContext();
 		context.setBaseDir(baseDir);
 		context.setOutputFile(outputFile);
 		context.setIncludes(includes);

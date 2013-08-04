@@ -22,6 +22,10 @@ import org.kuali.common.util.MetaInfUtils;
 import org.kuali.common.util.metainf.MetaInfContext;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class MetaInfExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;

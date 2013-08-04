@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.config.ProjectConfigContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +47,7 @@ public class DefaultConfigService extends AbstractCachingConfigService {
 
 	@Override
 	protected synchronized void clearCache() {
-	    CACHE.clear();
+		CACHE.clear();
 	}
 
 	@Override
@@ -60,8 +59,8 @@ public class DefaultConfigService extends AbstractCachingConfigService {
 	protected ProjectConfigContainer getProjectConfig(String content, String encoding) {
 		InputStream in = null;
 		try {
-		    in = new ByteArrayInputStream(content.getBytes(encoding));
-			return JAXBUtil.getObject(in, ProjectConfigContainer.class);
+			in = new ByteArrayInputStream(content.getBytes(encoding));
+			return xmlService.getObject(in, ProjectConfigContainer.class);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {

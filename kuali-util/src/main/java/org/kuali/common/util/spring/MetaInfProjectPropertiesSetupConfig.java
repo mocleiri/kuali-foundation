@@ -34,8 +34,9 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.Assert;
 
 /**
- * Create project.properties and embed it inside META-INF for jar's/war's
+ * @deprecated
  */
+@Deprecated
 @Configuration
 public class MetaInfProjectPropertiesSetupConfig {
 

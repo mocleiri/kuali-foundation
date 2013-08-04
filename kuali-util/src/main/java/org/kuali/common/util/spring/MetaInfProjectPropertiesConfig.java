@@ -21,9 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Create project.properties and embed it inside META-INF for jar's/war's
- * 
- * This class is deprecated in favor of <code>MetaInfProjectPropertiesExecutableConfig</code>
+ * @deprecated
  */
 @Configuration
 @Import(MetaInfProjectPropertiesSetupConfig.class)

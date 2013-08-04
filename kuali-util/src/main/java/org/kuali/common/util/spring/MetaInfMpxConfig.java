@@ -20,14 +20,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.metainf.MetaInfContext;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.MetaInfExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 public class MetaInfMpxConfig {
 
@@ -55,13 +57,13 @@ public class MetaInfMpxConfig {
 		File outputFile = new File(SpringUtils.getProperty(env, OUTPUT_FILE_KEY, DEFAULT_OUTPUT_FILE));
 
 		// Setup the context
-		MetaInfContext context = new MetaInfContext();
+		org.kuali.common.util.metainf.MetaInfContext context = new org.kuali.common.util.metainf.MetaInfContext();
 		context.setBaseDir(buildOutputDir);
 		context.setOutputFile(outputFile);
 		context.setIncludes(includes);
 
 		// Setup and return an executable
-		MetaInfExecutable exec = new MetaInfExecutable();
+		org.kuali.common.util.execute.MetaInfExecutable exec = new org.kuali.common.util.execute.MetaInfExecutable();
 		exec.setContexts(Arrays.asList(context));
 		return exec;
 	}

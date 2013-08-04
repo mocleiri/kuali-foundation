@@ -23,7 +23,6 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.JAXBUtil;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
@@ -40,6 +39,7 @@ import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.processor.OverrideProcessor;
+import org.kuali.common.util.xml.XmlService;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public abstract class AbstractCachingConfigService implements ConfigService {
@@ -53,6 +53,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
 	ProjectService projectService;
+	XmlService xmlService;
 
 	@Override
 	public Properties getProperties(String configId) {
@@ -208,7 +209,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		Nullifier nullifier = new ProjectConfigContainerNullifier(clone);
 		nullifier.nullify();
 
-		JAXBUtil.write(clone, file);
+		xmlService.write(file, clone);
 	}
 
 	public ProjectService getProjectService() {
