@@ -28,14 +28,14 @@ import org.kuali.common.util.Assert;
  * <p>
  * Thus, groupId + artifactId is a simple way to uniquely namespace project resources at runtime.
  * 
- * For example, files residing in the project at the following locations:
+ * For example, files residing in the kuali-util project at the following locations:
  * 
  * <pre>
  *   src/main/resources/org/kuali/common/kuali-util/foo.txt
  *   src/main/resources/org/kuali/common/kuali-util/bar.txt
  * </pre>
  * 
- * Can be referenced at runtime as:
+ * Can be uniquely referenced at runtime as:
  * 
  * <pre>
  *   classpath:org/kuali/common/kuali-util/foo.txt
