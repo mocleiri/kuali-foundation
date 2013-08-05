@@ -12,6 +12,10 @@ public class ScanContext {
 		this(directory, Arrays.asList(includes), Collections.<String> emptyList());
 	}
 
+	public ScanContext(File directory, String... includes) {
+		this(directory, Arrays.asList(includes), Collections.<String> emptyList());
+	}
+
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		this.directory = directory;
 		this.includes = Collections.unmodifiableList(new ArrayList<String>(includes));
