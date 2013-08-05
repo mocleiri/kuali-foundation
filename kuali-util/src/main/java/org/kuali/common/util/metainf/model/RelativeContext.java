@@ -10,8 +10,8 @@ public class RelativeContext {
 
 	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 
-	private final File parent;
-	private final File child;
+	private final CanonicalFile parent;
+	private final CanonicalFile child;
 	private final String urlPrefix;
 
 	public RelativeContext(File parent) {
@@ -33,11 +33,11 @@ public class RelativeContext {
 		return urlPrefix;
 	}
 
-	public File getParent() {
+	public CanonicalFile getParent() {
 		return parent;
 	}
 
-	public File getChild() {
+	public CanonicalFile getChild() {
 		return child;
 	}
 
