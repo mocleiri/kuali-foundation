@@ -6,12 +6,13 @@ import org.kuali.common.util.Assert;
 
 public class ProjectDirs {
 
-	public ProjectDirs(File base, File build, File buildOutput) {
-		this(base, build, buildOutput, null, null, null, null);
+	public ProjectDirs(Project project, File base, File build, File buildOutput) {
+		this(project, base, build, buildOutput, null, null, null, null);
 	}
 
-	public ProjectDirs(File base, File build, File buildOutput, File buildSource, File buildScriptSource, File buildTestOutput, File buildTestSource) {
-		Assert.noNulls("base, build, and buildOutput are required", base, build, buildOutput);
+	public ProjectDirs(Project project, File base, File build, File buildOutput, File buildSource, File buildScriptSource, File buildTestOutput, File buildTestSource) {
+		Assert.noNulls(project, base, build, buildOutput);
+		this.project = project;
 		this.base = base;
 		this.build = build;
 		this.buildOutput = buildOutput;
@@ -21,6 +22,7 @@ public class ProjectDirs {
 		this.buildTestSource = buildTestSource;
 	}
 
+	private final Project project;
 	private final File base;
 	private final File build;
 	private final File buildOutput;
@@ -55,6 +57,10 @@ public class ProjectDirs {
 
 	public File getBuildTestSource() {
 		return buildTestSource;
+	}
+
+	public Project getProject() {
+		return project;
 	}
 
 }

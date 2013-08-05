@@ -21,8 +21,10 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.model.ProjectDirs;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class ProjectUtils {
@@ -76,24 +78,42 @@ public class ProjectUtils {
 	}
 
 	/**
+	 * Return a <code>ProjectDirs</code> object with base directory, build directory, and build output directory filled in.
+	 * 
+	 * The typical directory structure is this:
+	 * 
+	 * <pre>
+	 *  kuali-util/
+	 *  kuali-util/target
+	 *  kuali-util/target/classes
+	 * </pre>
+	 */
+	public static ProjectDirs getDirs(Project project) {
+		File base = new CanonicalFile(getBasedir(project));
+		File build = new CanonicalFile(getBuildDirectory(project));
+		File output = new CanonicalFile(getBuildOutputDirectory(project));
+		return new ProjectDirs(project, base, build, output);
+	}
+
+	/**
 	 * Convenience method for extracting the value of the property <code>project.build.directory</code>
 	 */
 	public static File getBuildDirectory(Project project) {
-		return new File(project.getProperties().getProperty(MavenConstants.BUILD_DIRECTORY_KEY));
+		return new CanonicalFile(project.getProperties().getProperty(MavenConstants.BUILD_DIRECTORY_KEY));
 	}
 
 	/**
 	 * Convenience method for extracting the value of the property <code>project.basedir</code>
 	 */
 	public static File getBasedir(Project project) {
-		return new File(project.getProperties().getProperty(MavenConstants.BASEDIR_KEY));
+		return new CanonicalFile(project.getProperties().getProperty(MavenConstants.BASEDIR_KEY));
 	}
 
 	/**
 	 * Convenience method for extracting the value of the property <code>project.build.outputDirectory</code>
 	 */
 	public static File getBuildOutputDirectory(Project project) {
-		return new File(project.getProperties().getProperty(MavenConstants.BUILD_OUTPUT_DIRECTORY_KEY));
+		return new CanonicalFile(project.getProperties().getProperty(MavenConstants.BUILD_OUTPUT_DIRECTORY_KEY));
 	}
 
 	/**
@@ -127,7 +147,7 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Use <code>getClassPathPrefix()</code> instead. (fixed the uppercase "p" in the word classpath)
+	 * Use <code>getClasspathPrefix()</code> instead. (lowercase "p" in the word classpath)
 	 * 
 	 * @deprecated
 	 */
