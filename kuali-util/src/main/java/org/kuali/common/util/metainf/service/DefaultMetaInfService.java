@@ -17,6 +17,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
 import org.kuali.common.util.metainf.model.PropertiesContext;
@@ -68,7 +69,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		MetaInfContext context = result.getContext();
 		File outputFile = context.getOutputFile();
 		String encoding = context.getEncoding();
-		File relativeDir = context.getRelativeContext().getDirectory();
+		File relativeDir = context.getRelativeContext().getParent();
 		return new WriteLines(locations, outputFile, encoding, relativeDir);
 	}
 
@@ -120,7 +121,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		MetaInfContext context = result.getContext();
 		File outputFile = new File(context.getOutputFile().getAbsolutePath() + "." + PROPERTIES);
 		String encoding = context.getEncoding();
-		File relativeDir = context.getRelativeContext().getDirectory();
+		File relativeDir = context.getRelativeContext().getParent();
 		return new WriteProperties(properties, outputFile, encoding, relativeDir);
 	}
 
@@ -157,7 +158,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected MetaInfResource getResource(File file, MetaInfContext context) {
-		String location = getLocationURL(file, context.getRelativeContext());
+		String location = getLocationURL(context.getRelativeContext());
 
 		long lineCount = MetaInfResource.UNKNOWN_LINECOUNT;
 		if (context.getPropertiesContext().isIncludeLineCounts()) {
@@ -181,27 +182,27 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
 	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if <code>relativeContext</code> is <code>null</code>
 	 */
-	protected String getLocationURL(File file, RelativeContext context) {
-		// Make sure file has been supplied
-		Assert.notNull(file, "file is null");
+	protected String getLocationURL(RelativeContext context) {
+		CanonicalFile parent = context.getParent();
+		CanonicalFile outputFile = context.getOutputFile();
 
-		// If there is no relative context, just return the fully qualified local file system url
-		if (context == null) {
-			return LocationUtils.getCanonicalURLString(file);
+		// If they are the same, just return the fully qualified file system URL representing the output file
+		if (outputFile.equals(parent)) {
+			return LocationUtils.getCanonicalURLString(outputFile);
 		}
 
-		// Get a string representing the canonical path to the relative dir
-		String relativeDirPath = LocationUtils.getCanonicalPath(context.getDirectory());
+		// Get a string representing the canonical path to the parent dir
+		String parentPath = parent.getPath();
 
-		// Get a string representing the canonical path to the file
-		String filePath = LocationUtils.getCanonicalPath(file);
+		// Get a string representing the canonical path to the output file
+		String outputPath = outputFile.getPath();
 
-		// Make sure file resides underneath relative dir
-		Assert.isTrue(StringUtils.contains(filePath, relativeDirPath), "[" + filePath + "] does not contain [" + relativeDirPath + "]");
+		// Make sure the output file resides underneath the parent dir
+		Assert.isTrue(StringUtils.contains(outputPath, parentPath), "[" + outputPath + "] does not contain [" + parentPath + "]");
 
-		// Extract the portion of the path to file that is relative to relative dir
-		int relativePos = relativeDirPath.length() + 1;
-		String relativePath = StringUtils.substring(filePath, relativePos);
+		// Extract the portion of the path to the output file that is relative to the parent dir
+		int relativePos = parentPath.length() + 1;
+		String relativePath = StringUtils.substring(outputPath, relativePos);
 
 		// Prepend the prefix and return
 		return context.getUrlPrefix() + relativePath;

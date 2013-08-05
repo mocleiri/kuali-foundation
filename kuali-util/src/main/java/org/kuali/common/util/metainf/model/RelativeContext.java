@@ -11,7 +11,7 @@ public class RelativeContext {
 	public static final String DEFAULT_RELATIVE_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 
 	private final CanonicalFile parent;
-	private final CanonicalFile child;
+	private final CanonicalFile outputFile;
 	private final String urlPrefix;
 
 	public RelativeContext(File parent) {
@@ -22,10 +22,10 @@ public class RelativeContext {
 		this(parent, child, DEFAULT_RELATIVE_URL_PREFIX);
 	}
 
-	public RelativeContext(File parent, File child, String urlPrefix) {
-		Assert.noNulls("parent, child, and urlPrefix are required", parent, child, urlPrefix);
+	public RelativeContext(File parent, File outputFile, String urlPrefix) {
+		Assert.noNulls("parent, outputFile, and urlPrefix are required", parent, outputFile, urlPrefix);
 		this.parent = new CanonicalFile(parent);
-		this.child = new CanonicalFile(parent);
+		this.outputFile = new CanonicalFile(parent);
 		this.urlPrefix = urlPrefix;
 	}
 
@@ -37,8 +37,8 @@ public class RelativeContext {
 		return parent;
 	}
 
-	public CanonicalFile getChild() {
-		return child;
+	public CanonicalFile getOutputFile() {
+		return outputFile;
 	}
 
 }
