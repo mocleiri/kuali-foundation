@@ -51,7 +51,7 @@ public class MetaInfContext {
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
 		super();
-		Assert.notNull(outputFile, encoding, scanContext, relativeContext, propertiesContext);
+		Assert.noNulls(outputFile, encoding, scanContext, relativeContext, propertiesContext);
 		this.outputFile = new CanonicalFile(outputFile);
 		this.encoding = encoding;
 		this.scanContext = scanContext;
