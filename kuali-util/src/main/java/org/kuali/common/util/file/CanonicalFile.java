@@ -11,22 +11,37 @@ public final class CanonicalFile extends File {
 
 	private static final long serialVersionUID = -8366640724070158688L;
 
+	/**
+	 * A <code>CanonicalFile</code> is always both absolute and unique.
+	 */
 	public CanonicalFile(File parent, String child) {
 		this(new File(parent, child));
 	}
 
+	/**
+	 * A <code>CanonicalFile</code> is always both absolute and unique.
+	 */
 	public CanonicalFile(String parent, String child) {
 		this(new File(parent, child));
 	}
 
+	/**
+	 * A <code>CanonicalFile</code> is always both absolute and unique.
+	 */
 	public CanonicalFile(URI uri) {
 		this(new File(uri));
 	}
 
+	/**
+	 * A <code>CanonicalFile</code> is always both absolute and unique.
+	 */
 	public CanonicalFile(String path) {
 		this(new File(path));
 	}
 
+	/**
+	 * A <code>CanonicalFile</code> is always both absolute and unique.
+	 */
 	public CanonicalFile(File file) {
 		super(getCanonicalPath(file));
 	}
