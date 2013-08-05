@@ -38,6 +38,10 @@ public class MetaInfContext {
 		this(outputFile, encoding, scanDir, Arrays.asList(includes));
 	}
 
+	public MetaInfContext(File outputFile, String encoding, File scanDir, String includes, boolean generateRelativePaths) {
+		this(outputFile, encoding, scanDir, Arrays.asList(includes), generateRelativePaths);
+	}
+
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String... includes) {
 		this(outputFile, encoding, scanDir, Arrays.asList(includes));
 	}
