@@ -80,7 +80,7 @@ public class ProjectUtils {
 	/**
 	 * Return a <code>ProjectDirs</code> object with base directory, build directory, and build output directory filled in.
 	 * 
-	 * The typical directory structure is this:
+	 * The typical directory structure looks like this:
 	 * 
 	 * <pre>
 	 *  kuali-util/
