@@ -89,9 +89,9 @@ public class ProjectUtils {
 	 * </pre>
 	 */
 	public static ProjectDirs getDirs(Project project) {
-		File base = new CanonicalFile(getBasedir(project));
-		File build = new CanonicalFile(getBuildDirectory(project));
-		File output = new CanonicalFile(getBuildOutputDirectory(project));
+		File base = getBasedir(project);
+		File build = getBuildDirectory(project);
+		File output = getBuildOutputDirectory(project);
 		return new ProjectDirs(project, base, build, output);
 	}
 
