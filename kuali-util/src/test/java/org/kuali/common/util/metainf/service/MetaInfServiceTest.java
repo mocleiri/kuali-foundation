@@ -42,4 +42,19 @@ public class MetaInfServiceTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void test1() {
+		try {
+			File bod = ProjectUtils.getBuildOutputDirectory(project);
+			File outputFile = new File(bod, MetaInfUtils.getResourcePrefix(project) + "/classes-fullpath.resources");
+			String encoding = ProjectUtils.getEncoding(project);
+			MetaInfContext context = new MetaInfContext(outputFile, encoding, bod, "**/*.class", false);
+			ScanResult result = service.scan(context);
+			logger.info("size={}", result.getResources().size());
+			service.write(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
