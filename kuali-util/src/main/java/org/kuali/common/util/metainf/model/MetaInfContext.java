@@ -16,6 +16,8 @@
 package org.kuali.common.util.metainf.model;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.file.CanonicalFile;
@@ -32,11 +34,15 @@ public class MetaInfContext {
 	private final RelativeContext relativeContext;
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String includes) {
-		this(outputFile, encoding, scanDir, new String[] { includes });
+		this(outputFile, encoding, scanDir, Arrays.asList(includes));
 	}
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String... includes) {
-		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir));
+		this(outputFile, encoding, scanDir, Arrays.asList(includes));
+	}
+
+	public MetaInfContext(File outputFile, String encoding, File scanDir, List<String> includes) {
+		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir, outputFile));
 	}
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext) {

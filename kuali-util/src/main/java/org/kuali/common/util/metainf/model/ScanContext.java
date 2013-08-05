@@ -9,11 +9,15 @@ import java.util.List;
 public class ScanContext {
 
 	public ScanContext(File directory, String includes) {
-		this(directory, Arrays.asList(includes), Collections.<String> emptyList());
+		this(directory, Arrays.asList(includes));
 	}
 
 	public ScanContext(File directory, String... includes) {
-		this(directory, Arrays.asList(includes), Collections.<String> emptyList());
+		this(directory, Arrays.asList(includes));
+	}
+
+	public ScanContext(File directory, List<String> includes) {
+		this(directory, includes, Collections.<String> emptyList());
 	}
 
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
