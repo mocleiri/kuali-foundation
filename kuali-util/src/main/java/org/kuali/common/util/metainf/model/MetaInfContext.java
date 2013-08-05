@@ -25,6 +25,7 @@ import org.kuali.common.util.file.CanonicalFile;
 public class MetaInfContext {
 
 	public static final boolean DEFAULT_SORT = true;
+	public static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
 
 	private final boolean sort;
 	private final String encoding;
@@ -45,12 +46,15 @@ public class MetaInfContext {
 		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir));
 	}
 
+	public MetaInfContext(File outputFile, String encoding, File scanDir, List<String> includes, boolean generateRelativePaths) {
+		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir, generateRelativePaths));
+	}
+
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext) {
 		this(outputFile, encoding, scanContext, relativeContext, DEFAULT_SORT, PropertiesContext.DEFAULT_PROPERTIES_CONTEXT);
 	}
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
-		super();
 		Assert.noNulls(outputFile, encoding, scanContext, relativeContext, propertiesContext);
 		this.outputFile = new CanonicalFile(outputFile);
 		this.encoding = encoding;
