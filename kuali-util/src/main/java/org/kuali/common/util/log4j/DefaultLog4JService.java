@@ -33,7 +33,11 @@ public class DefaultLog4JService implements Log4JService {
 	protected static final String XML_SUFFIX = ".xml";
 	protected static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";
 
-	XmlService xmlService;
+	private final XmlService xmlService;
+
+	public DefaultLog4JService(XmlService xmlService) {
+		this.xmlService = xmlService;
+	}
 
 	@Override
 	public void configure(Log4JContext context) {
@@ -129,14 +133,6 @@ public class DefaultLog4JService implements Log4JService {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-	}
-
-	public XmlService getXmlService() {
-		return xmlService;
-	}
-
-	public void setXmlService(XmlService xmlService) {
-		this.xmlService = xmlService;
 	}
 
 }

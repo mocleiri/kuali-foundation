@@ -16,6 +16,7 @@ import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.Value;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
+import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,9 +35,8 @@ public class Log4JConfig {
 
 	@Bean
 	public Log4JService log4jService() {
-		DefaultLog4JService service = new DefaultLog4JService();
-		service.setXmlService(xmlServiceConfig.xmlService());
-		return service;
+		XmlService service = xmlServiceConfig.xmlService();
+		return new DefaultLog4JService(service);
 	}
 
 	@Bean
