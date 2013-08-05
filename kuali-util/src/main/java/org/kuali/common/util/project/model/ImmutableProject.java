@@ -18,6 +18,7 @@ package org.kuali.common.util.project.model;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 
 public final class ImmutableProject implements Project {
@@ -26,6 +27,8 @@ public final class ImmutableProject implements Project {
 	private final String artifactId;
 	private final String version;
 	private final Properties properties;
+
+	private final String identifier;
 
 	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
 		// Make sure we are being configured correctly
@@ -43,11 +46,9 @@ public final class ImmutableProject implements Project {
 			// Otherwise create an immutable copy of them
 			this.properties = new ImmutableProperties(properties);
 		}
-	}
 
-	@Override
-	public String toString() {
-		return groupId + ":" + artifactId + ":" + version;
+		// Changing this affects both hashCode() and equals(), be careful ...
+		this.identifier = groupId + ":" + artifactId + ":" + version;
 	}
 
 	@Override
@@ -68,6 +69,22 @@ public final class ImmutableProject implements Project {
 	@Override
 	public Properties getProperties() {
 		return properties;
+	}
+
+	@Override
+	public String toString() {
+		// Changing this affects both hashCode() and equals(), be careful ...
+		return identifier;
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return ObjectUtils.equalsByToString(this, other);
 	}
 
 }
