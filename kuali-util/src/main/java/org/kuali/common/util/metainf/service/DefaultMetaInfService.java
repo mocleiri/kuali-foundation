@@ -70,7 +70,8 @@ public class DefaultMetaInfService implements MetaInfService {
 		File outputFile = context.getOutputFile();
 		String encoding = context.getEncoding();
 		File relativeDir = context.getRelativeContext().getParent();
-		return new WriteLines(locations, outputFile, encoding, relativeDir);
+		WriteRequest request = new WriteRequest(outputFile, encoding, relativeDir);
+		return new WriteLines(request, locations);
 	}
 
 	@Override
@@ -123,7 +124,8 @@ public class DefaultMetaInfService implements MetaInfService {
 		File outputFile = new File(context.getOutputFile().getAbsolutePath() + "." + PROPERTIES);
 		String encoding = context.getEncoding();
 		File relativeDir = context.getRelativeContext().getParent();
-		return new WriteProperties(properties, outputFile, encoding, relativeDir);
+		WriteRequest request = new WriteRequest(outputFile, encoding, relativeDir);
+		return new WriteProperties(request, properties);
 	}
 
 	protected List<WriteLines> getWriteLines(List<ScanResult> results) {

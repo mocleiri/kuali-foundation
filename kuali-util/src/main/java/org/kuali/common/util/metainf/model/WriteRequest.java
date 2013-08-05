@@ -12,13 +12,12 @@ public class WriteRequest {
 	private final String encoding;
 	private final File relativeDir;
 
-	WriteRequest(File outputFile, String encoding) {
+	public WriteRequest(File outputFile, String encoding) {
 		this(outputFile, encoding, DEFAULT_RELATIVE_DIR);
 	}
 
-	WriteRequest(File outputFile, String encoding, File relativeDir) {
-		Assert.notNull(outputFile, "outputFile is null");
-		Assert.notNull(encoding, "encoding is null");
+	public WriteRequest(File outputFile, String encoding, File relativeDir) {
+		Assert.noNulls(outputFile, encoding);
 		this.outputFile = outputFile;
 		this.encoding = encoding;
 		this.relativeDir = relativeDir;

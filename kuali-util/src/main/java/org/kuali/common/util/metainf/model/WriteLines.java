@@ -1,17 +1,16 @@
 package org.kuali.common.util.metainf.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class WriteLines {
 
-	private final List<String> lines;
 	private final WriteRequest request;
+	private final List<String> lines;
 
-	public WriteLines(List<String> lines, File outputFile, String encoding, File relativeDir) {
-		this.request = new WriteRequest(outputFile, encoding, relativeDir);
+	public WriteLines(WriteRequest request, List<String> lines) {
+		this.request = request;
 		this.lines = Collections.unmodifiableList(new ArrayList<String>(lines));
 	}
 
