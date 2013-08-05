@@ -70,6 +70,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 		isTrue(!condition, message);
 	}
 
+	@Deprecated
 	public static void notNull(Object... objects) {
 		for (Object object : objects) {
 			notNull(object);
@@ -89,6 +90,10 @@ public abstract class Assert extends org.springframework.util.Assert {
 		for (String string : strings) {
 			isFalse(StringUtils.isBlank(string), msg);
 		}
+	}
+
+	public static void noNulls(Object... objects) {
+		noNulls("null is not allowed", objects);
 	}
 
 	public static void noNulls(String msg, Object... objects) {
