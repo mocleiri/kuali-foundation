@@ -175,13 +175,12 @@ public class DefaultMetaInfService implements MetaInfService {
 	/**
 	 * Get a URL string that can be used to address <code>file</code>. This is usually a Spring pseudo-url classpath location, eg - [<code>classpath:foo/bar.txt</code>]
 	 * 
-	 * @param file
+	 * @param resourceFile
 	 *            The file to get a location url for. eg - [<code>/x/y/z/src/main/resources/foo/bar.txt</code>]
-	 * @param relativeContext
-	 *            Context information for generating a relative location url. (optional). eg - [<code>/x/y/z/src/main/resources</code>] and [<code>classpath:</code>].
+	 * @param context
+	 *            Context information for generating a relative location url. eg - [<code>/x/y/z/src/main/resources</code>] and [<code>classpath:</code>].
 	 * 
-	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
-	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if <code>relativeContext</code> is <code>null</code>
+	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>]
 	 */
 	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext context) {
 

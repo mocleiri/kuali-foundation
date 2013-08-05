@@ -42,7 +42,7 @@ public class MetaInfContext {
 	}
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, List<String> includes) {
-		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir, outputFile));
+		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir));
 	}
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext) {
