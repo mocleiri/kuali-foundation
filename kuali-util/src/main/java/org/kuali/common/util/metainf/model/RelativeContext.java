@@ -14,12 +14,12 @@ public class RelativeContext {
 	private final CanonicalFile outputFile;
 	private final String urlPrefix;
 
-	public RelativeContext(File parent) {
-		this(parent, parent, DEFAULT_RELATIVE_URL_PREFIX);
+	public RelativeContext(File outputFile) {
+		this(outputFile, outputFile, DEFAULT_RELATIVE_URL_PREFIX);
 	}
 
-	public RelativeContext(File parent, File child) {
-		this(parent, child, DEFAULT_RELATIVE_URL_PREFIX);
+	public RelativeContext(File parent, File outputFile) {
+		this(parent, outputFile, DEFAULT_RELATIVE_URL_PREFIX);
 	}
 
 	public RelativeContext(File parent, File outputFile, String urlPrefix) {
