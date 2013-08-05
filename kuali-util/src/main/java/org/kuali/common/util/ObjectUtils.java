@@ -4,7 +4,7 @@ public class ObjectUtils {
 
 	/**
 	 * <p>
-	 * This method returns <code>true</code> if both <code>toString()</code> methods return matching strings and both objects are the same type.
+	 * This method returns <code>true</code> if both <code>toString()</code> methods return matching strings AND both objects are the exact same type.
 	 * </p>
 	 * 
 	 * <p>
@@ -16,7 +16,7 @@ public class ObjectUtils {
 	 * </p>
 	 * 
 	 * <p>
-	 * If both are the exact same runtime type, compare their respective <code>toString()</code> methods for equality.
+	 * If neither one is <code>null</code>, and both are the exact same runtime type, then compare their respective <code>toString()</code> methods for equality.
 	 * </p>
 	 * 
 	 * @param main
@@ -28,15 +28,22 @@ public class ObjectUtils {
 	 *             If <code>main</cod> is <code>null</code> or <code>main.toString()</code> returns <code>null</code>
 	 */
 	public static boolean equalsByToString(Object main, Object other) {
+
+		// Main can't be null
 		if (main == null) {
 			throw new NullPointerException("main is null");
 		}
+
+		// They are the same object
 		if (main == other) {
 			return true;
 		}
+
 		if (other == null || main.getClass() != other.getClass()) {
+			// They are not equal if other is null or is a different runtime type
 			return false;
 		} else {
+			// They are equal only if both toString() methods produce the exact same string
 			return main.toString().equals(other.toString());
 		}
 	}
