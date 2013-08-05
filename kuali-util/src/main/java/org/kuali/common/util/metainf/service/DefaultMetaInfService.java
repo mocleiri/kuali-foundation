@@ -183,32 +183,29 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
 	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if <code>relativeContext</code> is <code>null</code>
 	 */
-	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext relativity) {
+	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext context) {
 
-		// If there is no relative pathing information, just return the fully qualified file system url
-		if (relativity == null) {
-			return LocationUtils.getCanonicalURLString(resourceFile);
-		}
+		// Extract the parent directory
+		CanonicalFile parent = context.getParent();
 
-		CanonicalFile parent = relativity.getParent();
-
+		// Make sure it is an existing directory
 		Assert.isExistingDir(parent);
 
-		// Get a string representing the canonical path to the parent dir
+		// Get a string representing the path to the parent dir
 		String parentPath = parent.getPath();
 
-		// Get a string representing the canonical path to the output file
-		String outputPath = resourceFile.getPath();
+		// Get a string representing the path to the resource file
+		String resourcePath = resourceFile.getPath();
 
-		// Make sure the output file resides underneath the parent dir
-		Assert.isTrue(StringUtils.contains(outputPath, parentPath), "[" + outputPath + "] does not contain [" + parentPath + "]");
+		// Make sure the resource file resides underneath the parent dir
+		Assert.isTrue(StringUtils.contains(resourcePath, parentPath), "[" + resourcePath + "] does not contain [" + parentPath + "]");
 
-		// Extract the portion of the path to the output file that is relative to the parent dir
+		// Extract the portion of the path to the resource file that is relative to the parent dir
 		int relativePos = parentPath.length() + 1;
-		String relativePath = StringUtils.substring(outputPath, relativePos);
+		String relativePath = StringUtils.substring(resourcePath, relativePos);
 
 		// Prepend the prefix and return
-		return relativity.getUrlPrefix() + relativePath;
+		return context.getUrlPrefix() + relativePath;
 	}
 
 	protected String getPropertyKey(String location) {
