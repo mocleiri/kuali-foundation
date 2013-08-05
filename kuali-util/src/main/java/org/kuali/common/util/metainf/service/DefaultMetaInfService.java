@@ -158,18 +158,18 @@ public class DefaultMetaInfService implements MetaInfService {
 		return resources;
 	}
 
-	protected MetaInfResource getResource(File file, MetaInfContext context) {
-		String location = getLocationURL(context.getRelativeContext());
+	protected MetaInfResource getResource(File resourceFile, MetaInfContext context) {
+		String location = getLocationURL(new CanonicalFile(resourceFile), context.getRelativeContext());
 
 		long lineCount = MetaInfResource.UNKNOWN_LINECOUNT;
 		if (context.getPropertiesContext().isIncludeLineCounts()) {
 			// This reads through the entire file
 			// Only complete this expensive task if required to do so
-			lineCount = LocationUtils.getLineCount(file);
+			lineCount = LocationUtils.getLineCount(resourceFile);
 		}
 
 		// Create a resource object from the information we've collected
-		return new MetaInfResource(location, file.length(), lineCount);
+		return new MetaInfResource(location, resourceFile.length(), lineCount);
 	}
 
 	/**
@@ -183,20 +183,22 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>] or
 	 *         [file:///x/y/z/src/main/resources/foo/bar.txt] if <code>relativeContext</code> is <code>null</code>
 	 */
-	protected String getLocationURL(RelativeContext context) {
-		CanonicalFile parent = context.getParent();
-		CanonicalFile outputFile = context.getOutputFile();
+	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext relativity) {
 
-		// If they are the same, just return the fully qualified file system URL representing the output file
-		if (outputFile.equals(parent)) {
-			return LocationUtils.getCanonicalURLString(outputFile);
+		// If there is no relative pathing information, just return the fully qualified file system url
+		if (relativity == null) {
+			return LocationUtils.getCanonicalURLString(resourceFile);
 		}
+
+		CanonicalFile parent = relativity.getParent();
+
+		Assert.isExistingDir(parent);
 
 		// Get a string representing the canonical path to the parent dir
 		String parentPath = parent.getPath();
 
 		// Get a string representing the canonical path to the output file
-		String outputPath = outputFile.getPath();
+		String outputPath = resourceFile.getPath();
 
 		// Make sure the output file resides underneath the parent dir
 		Assert.isTrue(StringUtils.contains(outputPath, parentPath), "[" + outputPath + "] does not contain [" + parentPath + "]");
@@ -206,7 +208,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		String relativePath = StringUtils.substring(outputPath, relativePos);
 
 		// Prepend the prefix and return
-		return context.getUrlPrefix() + relativePath;
+		return relativity.getUrlPrefix() + relativePath;
 	}
 
 	protected String getPropertyKey(String location) {
