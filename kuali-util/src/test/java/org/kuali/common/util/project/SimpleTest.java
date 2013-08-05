@@ -3,7 +3,6 @@ package org.kuali.common.util.project;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.kuali.common.util.project.model.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class SimpleTest {
@@ -11,9 +10,9 @@ public class SimpleTest {
 	@Test
 	public void test() {
 		try {
-			ProjectIdentifier p1 = new ImmutableProjectIdentifier("org.kuali.common", "kuali-util");
-			ProjectIdentifier p2 = new ImmutableProjectIdentifier("org.kuali.common", "kuali-util");
-			ProjectIdentifier p3 = new ImmutableProjectIdentifier("org.kuali.common", "kuali-jdbc");
+			ProjectIdentifier p1 = new ProjectIdentifier("org.kuali.common", "kuali-util");
+			ProjectIdentifier p2 = new ProjectIdentifier("org.kuali.common", "kuali-util");
+			ProjectIdentifier p3 = new ProjectIdentifier("org.kuali.common", "kuali-jdbc");
 			System.out.println(p1.hashCode());
 			System.out.println(p2.hashCode());
 			System.out.println(p3.hashCode());

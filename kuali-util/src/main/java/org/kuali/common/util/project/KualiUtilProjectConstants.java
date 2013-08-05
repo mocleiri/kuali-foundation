@@ -15,7 +15,6 @@
  */
 package org.kuali.common.util.project;
 
-import org.kuali.common.util.project.model.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public abstract class KualiUtilProjectConstants {
@@ -24,6 +23,6 @@ public abstract class KualiUtilProjectConstants {
 	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
 	private static final String ARTIFACT_ID = "kuali-util";
 
-	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GROUP_ID, ARTIFACT_ID);
+	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ProjectIdentifier(GROUP_ID, ARTIFACT_ID);
 
 }

@@ -22,7 +22,6 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.maven.MavenConstants;
-import org.kuali.common.util.project.model.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
@@ -55,7 +54,7 @@ public class ProjectUtils {
 		String artifactId = tokens[1];
 
 		// Create a project identifier from the strings
-		return new ImmutableProjectIdentifier(groupId, artifactId);
+		return new ProjectIdentifier(groupId, artifactId);
 	}
 
 	/**
