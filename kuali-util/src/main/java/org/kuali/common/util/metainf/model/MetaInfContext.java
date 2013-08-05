@@ -27,12 +27,12 @@ public class MetaInfContext {
 	private final boolean sort;
 	private final String encoding;
 	private final PropertiesContext propertiesContext;
-	private final File outputFile;
+	private final CanonicalFile outputFile;
 	private final ScanContext scanContext;
 	private final RelativeContext relativeContext;
 
-	public MetaInfContext(File outputFile, String encoding, File directory, String includes) {
-		this(outputFile, encoding, new ScanContext(directory, includes), new RelativeContext(directory));
+	public MetaInfContext(File outputFile, String encoding, File scanDir, String includes) {
+		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir));
 	}
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext) {
@@ -54,7 +54,7 @@ public class MetaInfContext {
 		return sort;
 	}
 
-	public File getOutputFile() {
+	public CanonicalFile getOutputFile() {
 		return outputFile;
 	}
 
