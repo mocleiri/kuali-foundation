@@ -32,6 +32,10 @@ public class MetaInfContext {
 	private final RelativeContext relativeContext;
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String includes) {
+		this(outputFile, encoding, scanDir, new String[] { includes });
+	}
+
+	public MetaInfContext(File outputFile, String encoding, File scanDir, String... includes) {
 		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir));
 	}
 
