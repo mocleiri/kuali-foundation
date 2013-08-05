@@ -25,7 +25,7 @@ public class RelativeContext {
 	public RelativeContext(File parent, File outputFile, String urlPrefix) {
 		Assert.noNulls("parent, outputFile, and urlPrefix are required", parent, outputFile, urlPrefix);
 		this.parent = new CanonicalFile(parent);
-		this.outputFile = new CanonicalFile(parent);
+		this.outputFile = new CanonicalFile(outputFile);
 		this.urlPrefix = urlPrefix;
 	}
 
