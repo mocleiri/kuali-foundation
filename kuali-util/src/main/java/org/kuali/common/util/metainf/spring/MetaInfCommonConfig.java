@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Import;
 @Import({ AutowiredProjectConfig.class })
 public class MetaInfCommonConfig {
 
-	public static final String DATA_FILENAME = "data." + MetaInfUtils.RESOURCES;
-	public static final String SCHEMA_FILENAME = "schema." + MetaInfUtils.RESOURCES;
-	public static final String CONSTRAINTS_FILENAME = "constraints." + MetaInfUtils.RESOURCES;
-	public static final String OTHER_FILENAME = "other." + MetaInfUtils.RESOURCES;
+	public static final String DATA_FILENAME = "data." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
+	public static final String SCHEMA_FILENAME = "schema." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
+	public static final String CONSTRAINTS_FILENAME = "constraints." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
+	public static final String OTHER_FILENAME = "other." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
 
 	@Autowired
 	Project project;

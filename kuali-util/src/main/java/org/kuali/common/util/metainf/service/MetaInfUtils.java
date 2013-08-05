@@ -6,15 +6,14 @@ import org.springframework.util.ResourceUtils;
 
 public class MetaInfUtils {
 
-	public static final String RESOURCES = "resources";
-	public static final String CLASSPATH = ResourceUtils.CLASSPATH_URL_PREFIX;
-	public static final String METAINF = "META-INF";
+	public static final String RESOURCES_FILENAME_EXTENSION = "resources";
+	public static final String METAINF_DIRECTORY_NAME = "META-INF";
 
 	/**
 	 * <code>META-INF/org/kuali/util</code>
 	 */
 	public static String getGroupPrefix(Project project) {
-		return METAINF + "/" + Str.getPath(project.getGroupId());
+		return METAINF_DIRECTORY_NAME + "/" + Str.getPath(project.getGroupId());
 	}
 
 	/**
@@ -28,7 +27,7 @@ public class MetaInfUtils {
 	 * <code>classpath:META-INF</code>
 	 */
 	public static String getClasspathPrefix() {
-		return CLASSPATH + METAINF;
+		return ResourceUtils.CLASSPATH_URL_PREFIX + METAINF_DIRECTORY_NAME;
 	}
 
 }
