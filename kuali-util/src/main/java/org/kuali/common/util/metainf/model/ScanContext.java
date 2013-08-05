@@ -27,7 +27,7 @@ public class ScanContext {
 	}
 
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
-		Assert.noNulls(directory, includes, excludes);
+		Assert.noNulls("directory, includes, and excludes are required", directory, includes, excludes);
 		this.directory = directory;
 		this.includes = Collections.unmodifiableList(new ArrayList<String>(includes));
 		this.excludes = Collections.unmodifiableList(new ArrayList<String>(excludes));
