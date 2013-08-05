@@ -172,6 +172,14 @@ public class DefaultMetaInfService implements MetaInfService {
 		return new MetaInfResource(location, resourceFile.length(), lineCount);
 	}
 
+	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext context) {
+		if (!context.isGenerateRelativePaths()) {
+			return LocationUtils.getCanonicalURLString(resourceFile);
+		} else {
+			return getRelativeLocationURL(resourceFile, context);
+		}
+	}
+
 	/**
 	 * Get a URL string that can be used to address <code>file</code>. This is usually a Spring pseudo-url classpath location, eg - [<code>classpath:foo/bar.txt</code>]
 	 * 
@@ -182,7 +190,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * 
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>]
 	 */
-	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext context) {
+	protected String getRelativeLocationURL(CanonicalFile resourceFile, RelativeContext context) {
 
 		// Extract the parent directory
 		CanonicalFile parent = context.getParent();
