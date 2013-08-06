@@ -40,10 +40,10 @@ public class ObjectUtils {
 		}
 
 		if (other == null || main.getClass() != other.getClass()) {
-			// They are not equal if other is null or is a different runtime type
+			// other being null or a different runtime type means they are not equal
 			return false;
 		} else {
-			// They are equal only if both toString() methods produce the exact same string
+			// Both toString() methods producing the exact same string constitutes equality
 			return main.toString().equals(other.toString());
 		}
 	}
