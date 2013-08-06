@@ -74,7 +74,7 @@ public class PropertyUtils {
 	public static List<Properties> toImmutable(List<Properties> properties) {
 		List<Properties> immutables = new ArrayList<Properties>();
 		for (Properties p : properties) {
-			immutables.add(new ImmutableProperties(p));
+			immutables.add((p instanceof ImmutableProperties) ? p : new ImmutableProperties(p));
 		}
 		return Collections.unmodifiableList(immutables);
 	}
