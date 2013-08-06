@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -36,10 +35,9 @@ public class MpxContextsConfig implements MetaInfContextsConfig {
 	public List<MetaInfContext> metaInfContexts() {
 		File buildOutputDir = projectDirectories.getBuildOutput();
 		String outputPath = MetaInfUtils.getResourcePrefix(project) + MetaInfCommonConfig.DATA_FILENAME;
-		File outputFile = new CanonicalFile(buildOutputDir, outputPath);
-		String encoding = ProjectUtils.getEncoding(project);
-		File scanDir = buildOutputDir;
-		return Collections.singletonList(new MetaInfContext(outputFile, encoding, scanDir, RECURSIVE_MPX_INCLUDES));
+		File outputFile = new File(buildOutputDir, outputPath);
+		MetaInfContext context = new MetaInfContext(outputFile, ProjectUtils.getEncoding(project), buildOutputDir, RECURSIVE_MPX_INCLUDES);
+		return Collections.singletonList(context);
 	}
 
 }
