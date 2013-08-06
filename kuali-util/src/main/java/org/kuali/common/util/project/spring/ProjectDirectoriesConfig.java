@@ -15,10 +15,22 @@
  */
 package org.kuali.common.util.project.spring;
 
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectDirectories;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-public interface ProjectDirectoriesConfig {
+@Configuration
+public class ProjectDirectoriesConfig {
 
-	ProjectDirectories projectDirectories();
+	@Autowired
+	Project project;
+
+	@Bean
+	public ProjectDirectories projectDirectories() {
+		return ProjectUtils.getDirs(project);
+	}
 
 }
