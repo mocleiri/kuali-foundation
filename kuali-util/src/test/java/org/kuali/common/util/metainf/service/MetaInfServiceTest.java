@@ -12,7 +12,7 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
-import org.kuali.common.util.project.spring.ProjectDirectoriesConfig;
+import org.kuali.common.util.project.spring.BuildConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { KualiUtilProjectConfig.class, MetaInfServiceConfig.class, ProjectDirectoriesConfig.class })
+@ContextConfiguration(classes = { KualiUtilProjectConfig.class, MetaInfServiceConfig.class, BuildConfig.class })
 public class MetaInfServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfServiceTest.class);
