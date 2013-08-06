@@ -19,7 +19,7 @@ public class AutowiredProjectConfigTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(AutowiredProjectConfigTest.class);
 
-	protected static final ProjectIdentifier ID = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+	protected static final ProjectIdentifier ID = KualiUtilProjectConstants.PROJECT_ID;
 
 	@Autowired
 	Project project;

@@ -23,7 +23,7 @@ public class MetaInfLocationsConfig {
 	@Bean
 	public Project kualiUtilProject() {
 		ProjectService service = projectServiceConfig.projectService();
-		return service.getProject(KualiUtilProjectConstants.PROJECT_IDENTIFIER);
+		return service.getProject(KualiUtilProjectConstants.PROJECT_ID);
 	}
 
 	public Location getMetaInfCommon() {

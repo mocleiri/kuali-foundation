@@ -65,7 +65,7 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	@Override
 	protected Properties getBaseFilterProperties() {
-		ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+		ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_ID;
 		Project project = projectService.getProject(identifier);
 		String location = getMetadataConfigFilePath(project, PROPS);
 		String encoding = ProjectUtils.getEncoding(project);

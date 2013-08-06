@@ -28,6 +28,6 @@ public class KualiUtilProjectConfig implements ProjectIdentifierConfig {
 	@Override
 	@Bean
 	public ProjectIdentifier projectIdentifier() {
-		return KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+		return KualiUtilProjectConstants.PROJECT_ID;
 	}
 }

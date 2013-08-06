@@ -26,7 +26,7 @@ public enum KualiUtilConfig implements ProjectConfig {
 	METAINF_SQL_BUILD("metainf:sql:build"), // Config for META-INF processing for SQL files, only available during a build
 	METAINF_MPX_BUILD("metainf:mpx:build"); // Config for META-INF processing for MPX files, only available during a build
 
-	private final ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+	private final ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_ID;
 	private final String contextId;
 	private final String configId;
 
