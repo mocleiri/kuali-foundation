@@ -15,10 +15,10 @@
  */
 package org.kuali.common.util.project.spring;
 
-import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectId;
 
 public interface ProjectIdentifierConfig {
 
-	ProjectIdentifier projectIdentifier();
+	ProjectId projectIdentifier();
 
 }

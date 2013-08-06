@@ -18,14 +18,14 @@ package org.kuali.common.util.project;
 import java.util.Properties;
 
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectId;
 
 public interface ProjectService {
 
 	/**
 	 * Create a <code>Project</code> from <code>identifier</code>
 	 */
-	Project getProject(ProjectIdentifier identifier);
+	Project getProject(ProjectId identifier);
 
 	/**
 	 * Create a <code>Project</code> from <code>groupId</code> and <code>artifactId</code>

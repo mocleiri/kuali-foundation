@@ -26,7 +26,7 @@ import org.kuali.common.util.cache.SimpleCache;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectId;
 import org.kuali.common.util.property.Constants;
 import org.springframework.util.PropertyPlaceholderHelper;
 
@@ -47,7 +47,7 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
-	public Project getProject(ProjectIdentifier identifier) {
+	public Project getProject(ProjectId identifier) {
 		return getProject(identifier.getGroupId(), identifier.getArtifactId());
 	}
 

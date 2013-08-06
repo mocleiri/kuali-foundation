@@ -45,7 +45,7 @@ import org.kuali.common.util.ObjectUtils;
  * 
  * </p>
  */
-public class ProjectIdentifier {
+public class ProjectId {
 
 	private final String groupId;
 	private final String artifactId;
@@ -53,7 +53,7 @@ public class ProjectIdentifier {
 	// This is used to simplify hashCode() and equals()
 	private final String identifier;
 
-	public ProjectIdentifier(String groupId, String artifactId) {
+	public ProjectId(String groupId, String artifactId) {
 		// Make sure neither one is blank
 		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);
 
