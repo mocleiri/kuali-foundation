@@ -6,13 +6,14 @@ import org.kuali.common.util.Assert;
 
 public class Build {
 
-	public Build(Project project, File projectDir, File dir, File outputDir) {
-		this(project, projectDir, dir, outputDir, null, null, null, null);
+	public Build(Project project, String encoding, File projectDir, File dir, File outputDir) {
+		this(project, encoding, projectDir, dir, outputDir, null, null, null, null);
 	}
 
-	public Build(Project project, File projectDir, File dir, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
-		Assert.noNulls(project, projectDir, dir, outputDir);
+	public Build(Project project, String encoding, File projectDir, File dir, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
+		Assert.noNulls(project, encoding, projectDir, dir, outputDir);
 		this.project = project;
+		this.encoding = encoding;
 		this.projectDir = projectDir;
 		this.directory = dir;
 		this.outputDir = outputDir;
@@ -23,6 +24,7 @@ public class Build {
 	}
 
 	private final Project project;
+	private final String encoding;
 	private final File projectDir;
 	private final File directory;
 	private final File outputDir;
@@ -61,6 +63,10 @@ public class Build {
 
 	public Project getProject() {
 		return project;
+	}
+
+	public String getEncoding() {
+		return encoding;
 	}
 
 }

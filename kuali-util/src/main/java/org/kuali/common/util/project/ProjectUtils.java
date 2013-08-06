@@ -90,9 +90,10 @@ public class ProjectUtils {
 	 */
 	public static Build getBuild(Project project) {
 		File projectDir = getBasedir(project);
+		String encoding = getEncoding(project);
 		File buildDir = getBuildDirectory(project);
 		File outputDir = getBuildOutputDirectory(project);
-		return new Build(project, projectDir, buildDir, outputDir);
+		return new Build(project, encoding, projectDir, buildDir, outputDir);
 	}
 
 	/**
