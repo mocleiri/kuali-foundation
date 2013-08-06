@@ -12,15 +12,15 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectDirectories;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
+import org.kuali.common.util.project.spring.ProjectDirectoriesConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { KualiUtilProjectConfig.class, MetaInfServiceConfig.class })
+@ContextConfiguration(classes = { KualiUtilProjectConfig.class, MetaInfServiceConfig.class, ProjectDirectoriesConfig.class })
 public class MetaInfServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfServiceTest.class);
@@ -31,15 +31,13 @@ public class MetaInfServiceTest {
 	@Autowired
 	Project project;
 
-	@Bean
-	public ProjectDirectories dirs() {
-		return ProjectUtils.getDirs(project);
-	}
+	@Autowired
+	ProjectDirectories dirs;
 
 	@Test
 	public void test() {
 		try {
-			File bod = new CanonicalFile(dirs().getBuildOutput());
+			File bod = new CanonicalFile(dirs.getBuildOutput());
 			logger.info("bod={}", bod);
 			File outputFile = new File(bod, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
 			String encoding = ProjectUtils.getEncoding(project);
