@@ -1,8 +1,6 @@
 package org.kuali.common.util.properties;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -44,7 +42,7 @@ public class OverridePropertiesService implements PropertiesService {
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
 		Assert.noNulls(overrides, overrideMode);
-		this.overrides = Collections.unmodifiableList(new ArrayList<Properties>(overrides));
+		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
 	}
