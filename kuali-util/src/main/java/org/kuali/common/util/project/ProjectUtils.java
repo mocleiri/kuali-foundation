@@ -24,7 +24,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectDirs;
+import org.kuali.common.util.project.model.ProjectDirectories;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class ProjectUtils {
@@ -88,11 +88,11 @@ public class ProjectUtils {
 	 *  kuali-util/target/classes
 	 * </pre>
 	 */
-	public static ProjectDirs getDirs(Project project) {
+	public static ProjectDirectories getDirs(Project project) {
 		File base = getBasedir(project);
 		File build = getBuildDirectory(project);
 		File output = getBuildOutputDirectory(project);
-		return new ProjectDirs(project, base, build, output);
+		return new ProjectDirectories(project, base, build, output);
 	}
 
 	/**

@@ -4,13 +4,13 @@ import java.io.File;
 
 import org.kuali.common.util.Assert;
 
-public class ProjectDirs {
+public class ProjectDirectories {
 
-	public ProjectDirs(Project project, File base, File build, File buildOutput) {
+	public ProjectDirectories(Project project, File base, File build, File buildOutput) {
 		this(project, base, build, buildOutput, null, null, null, null);
 	}
 
-	public ProjectDirs(Project project, File base, File build, File buildOutput, File buildSource, File buildScriptSource, File buildTestOutput, File buildTestSource) {
+	public ProjectDirectories(Project project, File base, File build, File buildOutput, File buildSource, File buildScriptSource, File buildTestOutput, File buildTestSource) {
 		Assert.noNulls(project, base, build, buildOutput);
 		this.project = project;
 		this.base = base;
