@@ -14,7 +14,7 @@ public class Build {
 		Assert.noNulls(project, projectDir, dir, outputDir);
 		this.project = project;
 		this.projectDir = projectDir;
-		this.dir = dir;
+		this.directory = dir;
 		this.outputDir = outputDir;
 		this.sourceDir = sourceDir;
 		this.scriptSourceDir = scriptSourceDir;
@@ -24,7 +24,7 @@ public class Build {
 
 	private final Project project;
 	private final File projectDir;
-	private final File dir;
+	private final File directory;
 	private final File outputDir;
 	private final File sourceDir;
 	private final File scriptSourceDir;
@@ -35,8 +35,8 @@ public class Build {
 		return projectDir;
 	}
 
-	public File getDir() {
-		return dir;
+	public File getDirectory() {
+		return directory;
 	}
 
 	public File getOutputDir() {
