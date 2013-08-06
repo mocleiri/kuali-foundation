@@ -10,7 +10,7 @@ public class Build {
 		this(project, projectDir, dir, outputDir, null, null, null, null);
 	}
 
-	public Build(Project project, File projectDir, File dir, File outputDir, File sourceDir, File scriptSourceDir, File testOutPutDir, File testSourceDir) {
+	public Build(Project project, File projectDir, File dir, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
 		Assert.noNulls(project, projectDir, dir, outputDir);
 		this.project = project;
 		this.projectDir = projectDir;
@@ -18,7 +18,7 @@ public class Build {
 		this.outputDir = outputDir;
 		this.sourceDir = sourceDir;
 		this.scriptSourceDir = scriptSourceDir;
-		this.testOutputDir = testOutPutDir;
+		this.testOutputDir = testOutputDir;
 		this.testSourceDir = testSourceDir;
 	}
 
