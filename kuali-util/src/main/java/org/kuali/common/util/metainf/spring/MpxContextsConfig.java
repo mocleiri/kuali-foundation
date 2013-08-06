@@ -18,8 +18,11 @@ import org.springframework.core.env.Environment;
 @Import({ MetaInfCommonConfig.class })
 public class MpxContextsConfig implements MetaInfContextsConfig {
 
-	private static final String DEFAULT_INCLUDES = "**/*.mpx";
+	private static final String DEFAULT_INCLUDES = "**/*.class";
 	private static final String INCLUDES_KEY = MetaInfCommonConfig.PROPERTY_PREFIX + ".mpx.includes";
+
+	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
+	private static final String RELATIVE_KEY = MetaInfCommonConfig.PROPERTY_PREFIX + ".mpx.relative";
 
 	@Autowired
 	Environment env;
@@ -33,10 +36,11 @@ public class MpxContextsConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
+		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		String includes = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDES);
 		String outputPath = MetaInfCommonConfig.getResourcePrefix(project) + "/" + MetaInfCommonConfig.DATA_FILENAME;
 		File outputFile = new File(build.getOutputDir(), outputPath);
-		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes);
+		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
 		return Collections.singletonList(context);
 	}
 
