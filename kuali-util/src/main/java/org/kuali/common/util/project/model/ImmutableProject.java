@@ -19,7 +19,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
-import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.PropertyUtils;
 
 public final class ImmutableProject implements Project {
 
@@ -39,13 +39,7 @@ public final class ImmutableProject implements Project {
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 		this.version = version;
-		if (properties instanceof ImmutableProperties) {
-			// If they are already immutable, just reference them
-			this.properties = properties;
-		} else {
-			// Otherwise create an immutable copy of them
-			this.properties = new ImmutableProperties(properties);
-		}
+		this.properties = PropertyUtils.toImmutable(properties);
 
 		// Changing this affects both hashCode() and equals(), be careful ...
 		this.identifier = groupId + ":" + artifactId + ":" + version;
