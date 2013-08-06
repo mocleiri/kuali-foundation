@@ -18,7 +18,7 @@ import org.springframework.core.env.Environment;
 @Import({ MetaInfCommonConfig.class })
 public class MpxContextsConfig implements MetaInfContextsConfig {
 
-	private static final String DEFAULT_INCLUDES = "**/*.class";
+	private static final String DEFAULT_INCLUDES = "**/*.mpx";
 	private static final String INCLUDES_KEY = MetaInfCommonConfig.PROPERTY_PREFIX + ".mpx.includes";
 
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
