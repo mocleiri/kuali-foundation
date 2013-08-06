@@ -6,10 +6,6 @@ import org.kuali.common.util.Assert;
 
 public class Build {
 
-	public Build(Project project, String encoding, File projectDir, File directory, File outputDir) {
-		this(project, encoding, projectDir, directory, outputDir, null, null, null, null);
-	}
-
 	public Build(Project project, String encoding, File projectDir, File directory, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
 		Assert.noNulls(project, encoding, projectDir, directory, outputDir, sourceDir, scriptSourceDir, testOutputDir, testSourceDir);
 		this.project = project;
