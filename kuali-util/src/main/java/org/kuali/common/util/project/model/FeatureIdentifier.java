@@ -3,7 +3,7 @@ package org.kuali.common.util.project.model;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
 
-public class FeatureId {
+public class FeatureIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
@@ -12,11 +12,11 @@ public class FeatureId {
 	// This is used to simplify hashCode() and equals()
 	private final String identifier;
 
-	public FeatureId(ProjectId projectId, String featureId) {
+	public FeatureIdentifier(ProjectIdentifier projectId, String featureId) {
 		this(projectId.getGroupId(), projectId.getArtifactId(), featureId);
 	}
 
-	public FeatureId(String groupId, String artifactId, String featureId) {
+	public FeatureIdentifier(String groupId, String artifactId, String featureId) {
 		// Make sure we are being configured correctly
 		Assert.noBlanks("groupId, artifactId, and featureId are required", groupId, artifactId, featureId);
 

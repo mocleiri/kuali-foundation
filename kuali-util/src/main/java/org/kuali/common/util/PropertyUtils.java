@@ -69,6 +69,17 @@ public class PropertyUtils {
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
 	/**
+	 * The list returned by this method is unmodifiable and contains only <code>ImmutableProperties</code>
+	 */
+	public static List<Properties> toImmutable(List<Properties> properties) {
+		List<Properties> immutables = new ArrayList<Properties>();
+		for (Properties p : properties) {
+			immutables.add(new ImmutableProperties(p));
+		}
+		return Collections.unmodifiableList(immutables);
+	}
+
+	/**
 	 * Return true if the value for <code>key</code> evaluates to the string <code>true</code> (ignoring case). The properties passed in along with the system and environment
 	 * variables are all inspected with the value for system or environment variables "winning" over the value from the properties passed in.
 	 */

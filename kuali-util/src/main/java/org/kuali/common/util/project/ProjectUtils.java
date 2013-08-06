@@ -25,7 +25,7 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectDirectories;
-import org.kuali.common.util.project.model.ProjectId;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class ProjectUtils {
 
@@ -40,7 +40,7 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util
 	 * </pre>
 	 */
-	public static ProjectId getIdentifier(String projectId) {
+	public static ProjectIdentifier getIdentifier(String projectId) {
 
 		// Project id can't be blank
 		Assert.noBlanks("projectId is blank", projectId);
@@ -56,7 +56,7 @@ public class ProjectUtils {
 		String artifactId = tokens[1];
 
 		// Create a project identifier from the strings
-		return new ProjectId(groupId, artifactId);
+		return new ProjectIdentifier(groupId, artifactId);
 	}
 
 	/**
@@ -68,10 +68,10 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util
 	 * </pre>
 	 */
-	public static List<ProjectId> getIdentifiers(List<String> projectIds) {
-		List<ProjectId> list = new ArrayList<ProjectId>();
+	public static List<ProjectIdentifier> getIdentifiers(List<String> projectIds) {
+		List<ProjectIdentifier> list = new ArrayList<ProjectIdentifier>();
 		for (String projectId : projectIds) {
-			ProjectId element = getIdentifier(projectId);
+			ProjectIdentifier element = getIdentifier(projectId);
 			list.add(element);
 		}
 		return list;
@@ -174,7 +174,7 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util  ->  classpath:org/kuali/common/kuali-util
 	 * </pre>
 	 */
-	public static String getClasspathPrefix(ProjectId identifier) {
+	public static String getClasspathPrefix(ProjectIdentifier identifier) {
 		return getClassPathPrefix(identifier.getGroupId(), identifier.getArtifactId());
 	}
 

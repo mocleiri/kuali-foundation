@@ -25,7 +25,7 @@ import org.kuali.common.util.config.ProjectConfigContainer;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectId;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -65,7 +65,7 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	@Override
 	protected Properties getBaseFilterProperties() {
-		ProjectId identifier = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
+		ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_IDENTIFIER;
 		Project project = projectService.getProject(identifier);
 		String location = getMetadataConfigFilePath(project, PROPS);
 		String encoding = ProjectUtils.getEncoding(project);
