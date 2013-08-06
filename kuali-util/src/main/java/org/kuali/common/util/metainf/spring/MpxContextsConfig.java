@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
-import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class MpxContextsConfig implements MetaInfContextsConfig {
 	public static final List<String> RECURSIVE_MPX_INCLUDES = Arrays.asList("**/*.mpx");
 
 	@Autowired
-	MetaInfCommonConfig metaInfCommonConfig;
-
-	@Autowired
 	Project project;
 
 	@Autowired
@@ -32,7 +28,7 @@ public class MpxContextsConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		String outputPath = MetaInfUtils.getResourcePrefix(project) + MetaInfCommonConfig.DATA_FILENAME;
+		String outputPath = MetaInfCommonConfig.getResourcePrefix(project) + MetaInfCommonConfig.DATA_FILENAME;
 		File outputFile = new File(build.getOutputDir(), outputPath);
 		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), RECURSIVE_MPX_INCLUDES);
 		return Collections.singletonList(context);

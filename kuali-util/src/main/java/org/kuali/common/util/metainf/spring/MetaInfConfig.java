@@ -19,21 +19,19 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.service.DefaultMetaInfService;
 import org.kuali.common.util.metainf.service.MetaInfExecutable;
 import org.kuali.common.util.metainf.service.MetaInfService;
-import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ MetaInfServiceConfig.class })
 public class MetaInfConfig {
 
-	private static final String PREFIX = MetaInfUtils.FEATURE_ID.getFeatureId();
+	private static final String PREFIX = MetaInfCommonConfig.FEATURE_ID.getFeatureId();
 
 	@Autowired
 	Environment env;
@@ -41,14 +39,15 @@ public class MetaInfConfig {
 	@Autowired
 	MetaInfContextsConfig metaInfContextsConfig;
 
-	@Autowired
-	MetaInfServiceConfig metaInfServiceConfig;
+	public MetaInfService metaInfService() {
+		return new DefaultMetaInfService();
+	}
 
 	@Bean
 	public Executable metaInfExecutable() {
-		boolean skip = SpringUtils.getBoolean(env, PREFIX + ".skip");
+		boolean skip = SpringUtils.getBoolean(env, PREFIX + ".skip", false);
 		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
-		MetaInfService service = metaInfServiceConfig.metaInfService();
+		MetaInfService service = metaInfService();
 		return new MetaInfExecutable(contexts, service, skip);
 	}
 
