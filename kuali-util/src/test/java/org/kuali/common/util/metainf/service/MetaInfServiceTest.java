@@ -9,10 +9,10 @@ import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 import org.kuali.common.util.metainf.spring.MetaInfServiceConfig;
 import org.kuali.common.util.project.ProjectUtils;
-import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.Build;
-import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
+import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.BuildConfig;
+import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +32,12 @@ public class MetaInfServiceTest {
 	Project project;
 
 	@Autowired
-	Build dirs;
+	Build build;
 
 	@Test
 	public void test() {
 		try {
-			File bod = new CanonicalFile(dirs.getOutputDir());
+			File bod = new CanonicalFile(build.getOutputDir());
 			logger.info("bod={}", bod);
 			File outputFile = new File(bod, MetaInfUtils.getResourcePrefix(project) + "/classes.resources");
 			String encoding = ProjectUtils.getEncoding(project);
