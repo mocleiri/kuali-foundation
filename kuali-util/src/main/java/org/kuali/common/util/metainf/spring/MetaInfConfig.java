@@ -48,8 +48,7 @@ public class MetaInfConfig {
 	public Executable metaInfExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, PREFIX + ".skip", false);
 		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
-		MetaInfService service = metaInfService();
-		return new MetaInfExecutable(contexts, service, skip);
+		return new MetaInfExecutable(contexts, metaInfService(), skip);
 	}
 
 }
