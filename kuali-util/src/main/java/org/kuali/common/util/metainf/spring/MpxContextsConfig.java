@@ -1,7 +1,6 @@
 package org.kuali.common.util.metainf.spring;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import org.springframework.context.annotation.Import;
 @Import({ MetaInfCommonConfig.class })
 public class MpxContextsConfig implements MetaInfContextsConfig {
 
-	public static final List<String> RECURSIVE_MPX_INCLUDES = Arrays.asList("**/*.mpx");
+	public static final String RECURSIVE_MPX_INCLUDES = "**/*.mpx";
 
 	@Autowired
 	Project project;
