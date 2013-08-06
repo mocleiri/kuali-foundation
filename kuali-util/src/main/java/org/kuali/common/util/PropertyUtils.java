@@ -69,12 +69,19 @@ public class PropertyUtils {
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
 	/**
+	 * If the properties passed in are already immutable, just return them, otherwise, return a new ImmutableProperties object
+	 */
+	public static Properties toImmutable(Properties properties) {
+		return (properties instanceof ImmutableProperties) ? properties : new ImmutableProperties(properties);
+	}
+
+	/**
 	 * The list returned by this method is unmodifiable and contains only <code>ImmutableProperties</code>
 	 */
 	public static List<Properties> toImmutable(List<Properties> properties) {
 		List<Properties> immutables = new ArrayList<Properties>();
 		for (Properties p : properties) {
-			immutables.add((p instanceof ImmutableProperties) ? p : new ImmutableProperties(p));
+			immutables.add(toImmutable(p));
 		}
 		return Collections.unmodifiableList(immutables);
 	}

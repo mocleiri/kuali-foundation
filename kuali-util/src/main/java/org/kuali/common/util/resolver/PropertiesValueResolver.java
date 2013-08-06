@@ -4,7 +4,6 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.ImmutableProperties;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesValueResolver implements ValueResolver {
@@ -24,7 +23,7 @@ public class PropertiesValueResolver implements ValueResolver {
 
 	public PropertiesValueResolver(Properties properties, PropertyPlaceholderHelper helper) {
 		Assert.noNulls(properties, helper);
-		this.properties = (properties instanceof ImmutableProperties) ? properties : new ImmutableProperties(properties);
+		this.properties = PropertyUtils.toImmutable(properties);
 		this.helper = helper;
 	}
 
