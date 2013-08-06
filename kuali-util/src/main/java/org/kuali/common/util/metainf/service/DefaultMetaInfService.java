@@ -121,7 +121,8 @@ public class DefaultMetaInfService implements MetaInfService {
 			properties.setProperty(linesKey, Long.toString(resource.getLineCount()));
 		}
 		MetaInfContext context = result.getContext();
-		File outputFile = new File(context.getOutputFile().getAbsolutePath() + "." + PROPERTIES);
+		File canonical = new CanonicalFile(context.getOutputFile());
+		File outputFile = new File(canonical.getPath() + "." + PROPERTIES);
 		String encoding = context.getEncoding();
 		File relativeDir = context.getRelativeContext().getParent();
 		WriteRequest request = new WriteRequest(outputFile, encoding, relativeDir);
