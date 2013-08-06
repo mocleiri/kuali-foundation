@@ -17,7 +17,7 @@ package org.kuali.common.util.project.spring;
 
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectDirectories;
+import org.kuali.common.util.project.model.Build;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +29,7 @@ public class ProjectDirectoriesConfig {
 	Project project;
 
 	@Bean
-	public ProjectDirectories projectDirectories() {
+	public Build projectDirectories() {
 		return ProjectUtils.getDirs(project);
 	}
 

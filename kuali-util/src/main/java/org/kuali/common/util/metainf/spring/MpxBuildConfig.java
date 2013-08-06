@@ -8,7 +8,7 @@ import java.util.List;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectDirectories;
+import org.kuali.common.util.project.model.Build;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,14 +27,14 @@ public class MpxBuildConfig implements MetaInfContextsConfig {
 	Project project;
 
 	@Autowired
-	ProjectDirectories projectDirectories;
+	Build projectDirectories;
 
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
 		File outputFile = new File(getResourceBase() + MetaInfCommonConfig.DATA_FILENAME);
 		String encoding = ProjectUtils.getEncoding(project);
-		File scanDir = projectDirectories.getBuildOutput();
+		File scanDir = projectDirectories.getOutputDir();
 		return Collections.singletonList(new MetaInfContext(outputFile, encoding, scanDir, RECURSIVE_MPX_INCLUDES));
 	}
 
