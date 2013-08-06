@@ -15,84 +15,41 @@
  */
 package org.kuali.common.util.metainf.spring;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.MetaInfExecutable;
-import org.kuali.common.util.metainf.MetaInfContext;
-import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.service.DefaultMetaInfService;
+import org.kuali.common.util.metainf.service.MetaInfExecutable;
+import org.kuali.common.util.metainf.service.MetaInfService;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Import({ MetaInfServiceConfig.class })
 public class MetaInfConfig {
-
-	// Environment property keys
-	protected static final String METAINF_CONTEXTS_KEY = "metainf.contexts";
-	protected static final String SKIP_KEY = "metainf.skip";
-	protected static final String ADD_LINE_COUNT_KEY = ".linecount";
-	protected static final String ADD_PROPERTIES_FILE_KEY = ".propertiesfile";
-	protected static final String BASE_DIR_KEY = "project.build.outputDirectory";
-	protected static final String OUTPUT_FILE_KEY = ".output";
-	protected static final String INCLUDES_KEY = ".includes";
-	protected static final String EXCLUDES_KEY = ".excludes";
-	protected static final String SORT_KEY = ".sort";
-	protected static final String PREFIX_KEY = ".prefix";
-
-	// Default values
-	protected static final boolean DEFAULT_ADD_LINE_COUNT = false;
-	protected static final boolean DEFAULT_ADD_PROPERTIES_FILE = false;
-	protected static final boolean DEFAULT_SORT = MetaInfContext.DEFAULT_SORT;
-	protected static final String DEFAULT_EXCLUDES = Constants.NONE;
-	protected static final String DEFAULT_PREFIX = MetaInfContext.DEFAULT_PREFIX;
 
 	@Autowired
 	Environment env;
 
+	@Autowired
+	MetaInfContextsConfig metaInfContextsConfig;
+
 	@Bean
 	public Executable metaInfExecutable() {
-		List<String> contextList = SpringUtils.getNoneSensitiveListFromCSV(env, METAINF_CONTEXTS_KEY);
-		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		for (String contextKey : contextList) {
-			MetaInfContext context = getMetaInfContext(contextKey);
-			contexts.add(context);
-		}
-
-		MetaInfExecutable exec = new MetaInfExecutable();
-		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, MetaInfExecutable.DEFAULT_SKIP));
-		exec.setContexts(contexts);
-		return exec;
+		boolean skip = SpringUtils.getBoolean(env, "metainf.skip");
+		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
+		MetaInfService service = metaInfService();
+		return new MetaInfExecutable(contexts, service, skip);
 	}
 
-	protected MetaInfContext getMetaInfContext(String contextKey) {
-		MetaInfContext context = new MetaInfContext();
-
-		// Required - no default value
-		context.setBaseDir(SpringUtils.getFile(env, BASE_DIR_KEY));
-		context.setOutputFile(SpringUtils.getFile(env, buildContextKey(contextKey, OUTPUT_FILE_KEY)));
-		context.setIncludes(SpringUtils.getIncludes(env, buildContextKey(contextKey, INCLUDES_KEY)));
-
-		// Optional
-		context.setAddLineCount(getBoolean(contextKey, ADD_LINE_COUNT_KEY, DEFAULT_ADD_LINE_COUNT));
-		context.setAddPropertiesFile(getBoolean(contextKey, ADD_PROPERTIES_FILE_KEY, DEFAULT_ADD_PROPERTIES_FILE));
-		context.setSort(getBoolean(contextKey, SORT_KEY, DEFAULT_SORT));
-		context.setExcludes(SpringUtils.getExcludes(env, buildContextKey(contextKey, EXCLUDES_KEY), DEFAULT_EXCLUDES));
-		context.setPrefix(SpringUtils.getProperty(env, buildContextKey(contextKey, PREFIX_KEY), DEFAULT_PREFIX));
-
-		return context;
-	}
-
-	protected boolean getBoolean(String context, String suffix, boolean defaultValue) {
-		String key = buildContextKey(context, suffix);
-		return SpringUtils.getBoolean(env, key, defaultValue);
-	}
-
-	protected String buildContextKey(String context, String suffix) {
-		return context + suffix;
+	@Bean
+	public MetaInfService metaInfService() {
+		return new DefaultMetaInfService();
 	}
 
 }
