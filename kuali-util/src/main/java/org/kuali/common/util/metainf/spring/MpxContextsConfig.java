@@ -27,7 +27,7 @@ public class MpxContextsConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		String outputPath = MetaInfCommonConfig.getResourcePrefix(project) + MetaInfCommonConfig.DATA_FILENAME;
+		String outputPath = MetaInfCommonConfig.getResourcePrefix(project) + "/" + MetaInfCommonConfig.DATA_FILENAME;
 		File outputFile = new File(build.getOutputDir(), outputPath);
 		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), RECURSIVE_MPX_INCLUDES);
 		return Collections.singletonList(context);
