@@ -6,15 +6,15 @@ import org.kuali.common.util.Assert;
 
 public class Build {
 
-	public Build(Project project, File projectDir, File baseDir, File outputDir) {
-		this(project, projectDir, baseDir, outputDir, null, null, null, null);
+	public Build(Project project, File projectDir, File dir, File outputDir) {
+		this(project, projectDir, dir, outputDir, null, null, null, null);
 	}
 
-	public Build(Project project, File projectDir, File baseDir, File outputDir, File sourceDir, File scriptSourceDir, File testOutPutDir, File testSourceDir) {
-		Assert.noNulls(project, projectDir, baseDir, outputDir);
+	public Build(Project project, File projectDir, File dir, File outputDir, File sourceDir, File scriptSourceDir, File testOutPutDir, File testSourceDir) {
+		Assert.noNulls(project, projectDir, dir, outputDir);
 		this.project = project;
 		this.projectDir = projectDir;
-		this.baseDir = baseDir;
+		this.dir = dir;
 		this.outputDir = outputDir;
 		this.sourceDir = sourceDir;
 		this.scriptSourceDir = scriptSourceDir;
@@ -24,7 +24,7 @@ public class Build {
 
 	private final Project project;
 	private final File projectDir;
-	private final File baseDir;
+	private final File dir;
 	private final File outputDir;
 	private final File sourceDir;
 	private final File scriptSourceDir;
@@ -35,8 +35,8 @@ public class Build {
 		return projectDir;
 	}
 
-	public File getBaseDir() {
-		return baseDir;
+	public File getDir() {
+		return dir;
 	}
 
 	public File getOutputDir() {
