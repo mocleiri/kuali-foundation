@@ -101,7 +101,7 @@ public class AutowiredProjectConfig {
 	// spring-maven-plugin activates this profile by default when Spring is launched by Maven during a build
 	@Configuration
 	@AutowiredMavenProperties
-	@Import({ ProjectServiceConfig.class })
+	@Import({ ProjectServiceConfig.class, ProjectDirectoriesConfig.class })
 	static class AutowiredMavenPropertiesProjectConfig implements ProjectConfig {
 
 		// spring-maven-plugin wires this in for us
@@ -128,5 +128,6 @@ public class AutowiredProjectConfig {
 			// Use the service to convert the properties into a Project
 			return service.getProject(mavenProperties);
 		}
+
 	}
 }
