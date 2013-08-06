@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.metainf.model.MetaInfContext;
-import org.kuali.common.util.metainf.service.DefaultMetaInfService;
 import org.kuali.common.util.metainf.service.MetaInfExecutable;
 import org.kuali.common.util.metainf.service.MetaInfService;
 import org.kuali.common.util.spring.SpringUtils;
@@ -39,17 +38,15 @@ public class MetaInfConfig {
 	@Autowired
 	MetaInfContextsConfig metaInfContextsConfig;
 
+	@Autowired
+	MetaInfServiceConfig metaInfServiceConfig;
+
 	@Bean
 	public Executable metaInfExecutable() {
 		boolean skip = SpringUtils.getBoolean(env, "metainf.skip");
 		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
-		MetaInfService service = metaInfService();
+		MetaInfService service = metaInfServiceConfig.metaInfService();
 		return new MetaInfExecutable(contexts, service, skip);
-	}
-
-	@Bean
-	public MetaInfService metaInfService() {
-		return new DefaultMetaInfService();
 	}
 
 }

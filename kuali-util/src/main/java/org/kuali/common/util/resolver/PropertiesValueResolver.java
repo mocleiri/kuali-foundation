@@ -11,8 +11,8 @@ public class PropertiesValueResolver implements ValueResolver {
 
 	private static final PropertyPlaceholderHelper DEFAULT_HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 
-	final Properties properties;
-	final PropertyPlaceholderHelper helper;
+	private final Properties properties;
+	private final PropertyPlaceholderHelper helper;
 
 	public PropertiesValueResolver() {
 		this(PropertyUtils.EMPTY);
@@ -23,8 +23,7 @@ public class PropertiesValueResolver implements ValueResolver {
 	}
 
 	public PropertiesValueResolver(Properties properties, PropertyPlaceholderHelper helper) {
-		Assert.notNull(properties, "properties are null");
-		Assert.notNull(helper, "helper is null");
+		Assert.noNulls(helper, properties);
 		this.properties = new ImmutableProperties(properties);
 		this.helper = helper;
 	}
@@ -32,6 +31,14 @@ public class PropertiesValueResolver implements ValueResolver {
 	@Override
 	public String resolve(String value) {
 		return helper.replacePlaceholders(value, properties);
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public PropertyPlaceholderHelper getHelper() {
+		return helper;
 	}
 
 }
