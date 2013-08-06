@@ -5,7 +5,6 @@ import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
-import org.kuali.common.util.properties.ImmutableLocation;
 import org.kuali.common.util.properties.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +39,6 @@ public class MetaInfLocationsConfig {
 		String encoding = ProjectUtils.getEncoding(project);
 		String classpathPrefix = ProjectUtils.getClasspathPrefix(project.getGroupId(), project.getArtifactId());
 		String prefix = classpathPrefix + "/" + METAINF;
-		return new ImmutableLocation(prefix + suffix, encoding, true);
+		return new Location(prefix + suffix, encoding, true);
 	}
 }
