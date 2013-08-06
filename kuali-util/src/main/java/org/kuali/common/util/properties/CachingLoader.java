@@ -7,7 +7,7 @@ import org.kuali.common.util.property.ImmutableProperties;
 
 public class CachingLoader extends LocationLoader {
 
-	final Cache<String, Properties> cache;
+	private final Cache<String, Properties> cache;
 
 	public CachingLoader(Location location, Cache<String, Properties> cache) {
 		this(location, location.getValue(), cache);
