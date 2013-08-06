@@ -23,8 +23,8 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
-import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.Build;
+import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class ProjectUtils {
@@ -78,7 +78,7 @@ public class ProjectUtils {
 	}
 
 	/**
-	 * Return a <code>ProjectDirs</code> object with base directory, build directory, and build output directory filled in.
+	 * Get a build object with local file system directories filled in.
 	 * 
 	 * The typical directory structure looks like this:
 	 * 
@@ -88,11 +88,11 @@ public class ProjectUtils {
 	 *  kuali-util/target/classes
 	 * </pre>
 	 */
-	public static Build getDirs(Project project) {
-		File base = getBasedir(project);
-		File build = getBuildDirectory(project);
-		File output = getBuildOutputDirectory(project);
-		return new Build(project, base, build, output);
+	public static Build getBuild(Project project) {
+		File projectDir = getBasedir(project);
+		File buildDir = getBuildDirectory(project);
+		File outputDir = getBuildOutputDirectory(project);
+		return new Build(project, projectDir, buildDir, outputDir);
 	}
 
 	/**

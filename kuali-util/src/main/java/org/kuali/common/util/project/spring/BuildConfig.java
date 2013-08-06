@@ -23,14 +23,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ProjectDirectoriesConfig {
+public class BuildConfig {
 
 	@Autowired
 	Project project;
 
 	@Bean
-	public Build projectDirectories() {
-		return ProjectUtils.getDirs(project);
+	public Build build() {
+		return ProjectUtils.getBuild(project);
 	}
 
 }
