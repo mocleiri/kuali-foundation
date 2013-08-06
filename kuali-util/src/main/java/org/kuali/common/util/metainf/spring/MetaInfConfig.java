@@ -31,8 +31,6 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class MetaInfConfig {
 
-	private static final String PREFIX = MetaInfCommonConfig.FEATURE_ID.getFeatureId();
-
 	@Autowired
 	Environment env;
 
@@ -46,7 +44,7 @@ public class MetaInfConfig {
 
 	@Bean
 	public Executable metaInfExecutable() {
-		boolean skip = SpringUtils.getBoolean(env, PREFIX + ".skip", false);
+		boolean skip = SpringUtils.getBoolean(env, MetaInfCommonConfig.PROPERTY_PREFIX + ".skip", false);
 		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
 		return new MetaInfExecutable(contexts, metaInfService(), skip);
 	}

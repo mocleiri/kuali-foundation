@@ -22,6 +22,8 @@ public class MetaInfCommonConfig {
 	public static final String CONSTRAINTS_FILENAME = "constraints." + RESOURCES_FILENAME_EXTENSION;
 	public static final String OTHER_FILENAME = "other." + RESOURCES_FILENAME_EXTENSION;
 
+	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
+
 	/**
 	 * <code>META-INF/org/kuali/util</code>
 	 */
