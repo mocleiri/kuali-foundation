@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.cache.Cache;
@@ -12,7 +13,6 @@ import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
 import org.kuali.common.util.resolver.ValueResolver;
-import org.springframework.util.Assert;
 
 public class OverridePropertiesService implements PropertiesService {
 
@@ -41,9 +41,7 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
-		super();
-		Assert.notNull(overrides, "overrides cannot be null");
-		Assert.notNull(overrideMode, "overrideMode is null");
+		Assert.noNulls(overrides, overrideMode);
 		this.overrides = overrides;
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
