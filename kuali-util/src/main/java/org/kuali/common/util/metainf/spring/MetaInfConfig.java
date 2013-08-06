@@ -39,6 +39,7 @@ public class MetaInfConfig {
 	@Autowired
 	MetaInfContextsConfig metaInfContextsConfig;
 
+	@Bean
 	public MetaInfService metaInfService() {
 		return new DefaultMetaInfService();
 	}
