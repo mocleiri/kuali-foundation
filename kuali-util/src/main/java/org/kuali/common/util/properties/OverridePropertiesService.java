@@ -18,7 +18,7 @@ public class OverridePropertiesService implements PropertiesService {
 
 	private static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	private static int DEFAULT_LOG_MESSAGE_INDENT = 2;
-	private static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
+	protected static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	private final List<Properties> overrides;
 	private final Mode overrideMode;
