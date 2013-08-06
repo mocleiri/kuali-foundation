@@ -6,16 +6,16 @@ import org.kuali.common.util.Assert;
 
 public class Build {
 
-	public Build(Project project, String encoding, File projectDir, File dir, File outputDir) {
-		this(project, encoding, projectDir, dir, outputDir, null, null, null, null);
+	public Build(Project project, String encoding, File projectDir, File directory, File outputDir) {
+		this(project, encoding, projectDir, directory, outputDir, null, null, null, null);
 	}
 
-	public Build(Project project, String encoding, File projectDir, File dir, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
-		Assert.noNulls(project, encoding, projectDir, dir, outputDir);
+	public Build(Project project, String encoding, File projectDir, File directory, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
+		Assert.noNulls(project, encoding, projectDir, directory, outputDir);
 		this.project = project;
 		this.encoding = encoding;
 		this.projectDir = projectDir;
-		this.directory = dir;
+		this.directory = directory;
 		this.outputDir = outputDir;
 		this.sourceDir = sourceDir;
 		this.scriptSourceDir = scriptSourceDir;
