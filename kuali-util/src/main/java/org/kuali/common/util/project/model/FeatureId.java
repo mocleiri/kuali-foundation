@@ -12,8 +12,8 @@ public class FeatureId {
 	// This is used to simplify hashCode() and equals()
 	private final String identifier;
 
-	public FeatureId(ProjectId project, String featureId) {
-		this(project.getGroupId(), project.getArtifactId(), featureId);
+	public FeatureId(ProjectId projectId, String featureId) {
+		this(projectId.getGroupId(), projectId.getArtifactId(), featureId);
 	}
 
 	public FeatureId(String groupId, String artifactId, String featureId) {
