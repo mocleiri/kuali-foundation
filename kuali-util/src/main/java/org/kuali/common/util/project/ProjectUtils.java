@@ -93,7 +93,11 @@ public class ProjectUtils {
 		String encoding = getEncoding(project);
 		File buildDir = getBuildDirectory(project);
 		File outputDir = getBuildOutputDirectory(project);
-		return new Build(project, encoding, projectDir, buildDir, outputDir);
+		File sourceDirectory = new CanonicalFile(project.getProperties().getProperty(MavenConstants.SOURCE_DIRECTORY_KEY));
+		File testOutputDir = new CanonicalFile(project.getProperties().getProperty(MavenConstants.TEST_OUTPUT_DIRECTORY_KEY));
+		File testSourceDir = new CanonicalFile(project.getProperties().getProperty(MavenConstants.TEST_SOURCE_DIRECTORY_KEY));
+		File scriptSourceDirectory = new CanonicalFile(project.getProperties().getProperty(MavenConstants.SCRIPT_SOURCE_DIRECTORY_KEY));
+		return new Build(project, encoding, projectDir, buildDir, outputDir, sourceDirectory, scriptSourceDirectory, testOutputDir, testSourceDir);
 	}
 
 	/**
