@@ -19,10 +19,6 @@ public class Location {
 	private final String value;
 	private final boolean cacheable;
 
-	public Location() {
-		this(null);
-	}
-
 	public Location(String value) {
 		this(value, DEFAULT_ENCODING, DEFAULT_MISSING_MODE, DEFAULT_PROPERTY_FORMAT);
 	}
