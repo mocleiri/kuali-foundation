@@ -19,41 +19,33 @@ import java.io.File;
 
 public class MD5Result {
 
-	File source;
-	String sourceChecksum;
-	File target;
-	String targetChecksum;
+	public MD5Result(File source, String sourceChecksum, File target, String targetChecksum) {
+		super();
+		this.source = source;
+		this.sourceChecksum = sourceChecksum;
+		this.target = target;
+		this.targetChecksum = targetChecksum;
+	}
+
+	private final File source;
+	private final String sourceChecksum;
+	private final File target;
+	private final String targetChecksum;
 
 	public File getSource() {
 		return source;
-	}
-
-	public void setSource(File source) {
-		this.source = source;
 	}
 
 	public String getSourceChecksum() {
 		return sourceChecksum;
 	}
 
-	public void setSourceChecksum(String sourceChecksum) {
-		this.sourceChecksum = sourceChecksum;
-	}
-
 	public File getTarget() {
 		return target;
 	}
 
-	public void setTarget(File target) {
-		this.target = target;
-	}
-
 	public String getTargetChecksum() {
 		return targetChecksum;
-	}
-
-	public void setTargetChecksum(String targetChecksum) {
-		this.targetChecksum = targetChecksum;
 	}
 
 }

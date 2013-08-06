@@ -209,12 +209,7 @@ public class FileSystemUtils {
 		String sourceChecksum = LocationUtils.getMD5Checksum(source);
 		String targetChecksum = LocationUtils.getMD5Checksum(target);
 
-		MD5Result result = new MD5Result();
-		result.setSource(source);
-		result.setTarget(target);
-		result.setSourceChecksum(sourceChecksum);
-		result.setTargetChecksum(targetChecksum);
-		return result;
+		return new MD5Result(source, sourceChecksum, target, targetChecksum);
 	}
 
 	/**
