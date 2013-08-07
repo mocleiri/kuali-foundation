@@ -1,24 +1,22 @@
 package org.kuali.common.util.spring.main;
 
-public class MainContext {
+public final class MainContext {
 
-	Class<?> mainClass;
-	String[] args;
-
-	public Class<?> getMainClass() {
-		return mainClass;
+	public MainContext(Class<?> getJavaClass, String[] args) {
+		super();
+		this.javaClass = getJavaClass;
+		this.args = args;
 	}
 
-	public void setMainClass(Class<?> mainClass) {
-		this.mainClass = mainClass;
+	private final Class<?> javaClass;
+	private final String[] args;
+
+	public Class<?> getJavaClass() {
+		return javaClass;
 	}
 
 	public String[] getArgs() {
 		return args;
-	}
-
-	public void setArgs(String[] args) {
-		this.args = args;
 	}
 
 }

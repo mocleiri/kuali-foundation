@@ -11,20 +11,12 @@ import org.springframework.context.annotation.Configuration;
 public class MainRunnerConfig {
 
 	@Autowired
-	@Qualifier(MainUtils.ARGS_BEAN_NAME)
-	String[] args;
-
-	@Autowired
-	@Qualifier(MainUtils.MAIN_CLASS_BEAN_NAME)
-	Class<?> mainClass;
+	@Qualifier(MainUtils.MAIN_CONTEXT_BEAN_NAME)
+	MainContext main;
 
 	@Bean
 	public Executable mainExecutable() {
-		Object ma = args;
-		if (ma instanceof String[]) {
-			System.out.println("yo");
-		}
-		System.out.println(ma);
+		System.out.println(main);
 		return new HelloWorldExecutable();
 	}
 
