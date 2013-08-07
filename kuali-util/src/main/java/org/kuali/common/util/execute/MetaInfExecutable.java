@@ -18,8 +18,6 @@ package org.kuali.common.util.execute;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.util.MetaInfUtils;
-import org.kuali.common.util.metainf.MetaInfContext;
 import org.springframework.util.Assert;
 
 /**
@@ -31,7 +29,7 @@ public class MetaInfExecutable implements Executable {
 	public static final boolean DEFAULT_SKIP = false;
 
 	boolean skip = DEFAULT_SKIP;
-	List<MetaInfContext> contexts;
+	List<org.kuali.common.util.metainf.MetaInfContext> contexts;
 
 	@Override
 	public void execute() {
@@ -43,18 +41,18 @@ public class MetaInfExecutable implements Executable {
 		Assert.notNull(contexts, "contexts is null");
 
 		try {
-			MetaInfUtils.scanAndCreateFiles(contexts);
+			org.kuali.common.util.MetaInfUtils.scanAndCreateFiles(contexts);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
 
 	}
 
-	public List<MetaInfContext> getContexts() {
+	public List<org.kuali.common.util.metainf.MetaInfContext> getContexts() {
 		return contexts;
 	}
 
-	public void setContexts(List<MetaInfContext> contexts) {
+	public void setContexts(List<org.kuali.common.util.metainf.MetaInfContext> contexts) {
 		this.contexts = contexts;
 	}
 
