@@ -13,11 +13,11 @@ public class MainUtils {
 	public static final String MAIN_CONTEXT_BEAN_NAME = "mainContext";
 	public static final String MAIN_PROFILE_NAME = "main";
 
-	public static void runAndExit(Class<? extends MainConfig> main, String[] args) {
+	public static void runAndExit(Class<?> mainClass, String[] args, Class<?> config) {
 		try {
-			MainContext mainContext = new MainContext(main, args);
+			MainContext mainContext = new MainContext(mainClass, args);
 			Map<String, Object> beans = Collections.singletonMap(MAIN_CONTEXT_BEAN_NAME, (Object) mainContext);
-			List<Class<?>> annotatedClasses = CollectionUtils.asList(main, MainExecutableConfig.class);
+			List<Class<?>> annotatedClasses = CollectionUtils.asList(mainClass, config);
 			SpringContext context = new SpringContext(beans, annotatedClasses, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
 			exec.execute();
