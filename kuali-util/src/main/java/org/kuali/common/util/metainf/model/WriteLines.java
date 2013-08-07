@@ -1,10 +1,9 @@
 package org.kuali.common.util.metainf.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
 public class WriteLines {
 
@@ -14,7 +13,7 @@ public class WriteLines {
 	public WriteLines(WriteRequest request, List<String> lines) {
 		Assert.noNulls(request, lines);
 		this.request = request;
-		this.lines = Collections.unmodifiableList(new ArrayList<String>(lines));
+		this.lines = CollectionUtils.immutableCopy(lines);
 	}
 
 	public List<String> getLines() {
