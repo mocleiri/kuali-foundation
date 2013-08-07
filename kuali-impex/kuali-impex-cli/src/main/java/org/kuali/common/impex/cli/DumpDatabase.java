@@ -36,9 +36,11 @@ public class DumpDatabase {
 	@Bean(initMethod = "execute")
 	public Executable executable() {
 		String[] args = context.getArgs();
-		PrintMessageExecutable exec = new PrintMessageExecutable();
-		exec.setMessage("args.length=" + args.length);
-		return exec;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < args.length; i++) {
+			sb.append("args[" + i + "]=" + args[i] + "\n");
+		}
+		return new PrintMessageExecutable(sb.toString());
 	}
 
 }
