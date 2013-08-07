@@ -15,12 +15,30 @@
 
 package org.kuali.common.impex.cli;
 
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.PrintMessageExecutable;
+import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class DumpDatabase {
 
 	public static void main(String[] args) {
 		MainUtils.runAndExit(DumpDatabase.class, args);
+	}
+
+	@Autowired
+	MainContext context;
+
+	@Bean(initMethod = "execute")
+	public Executable executable() {
+		String[] args = context.getArgs();
+		PrintMessageExecutable exec = new PrintMessageExecutable();
+		exec.setMessage("args.length=" + args.length);
+		return exec;
 	}
 
 }
