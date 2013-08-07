@@ -1,8 +1,11 @@
 package org.kuali.common.util.spring.main;
 
+import org.kuali.common.util.Assert;
+
 public final class MainContext {
 
 	public MainContext(Class<?> javaClass, String[] args) {
+		Assert.noNulls(javaClass, args);
 		this.javaClass = javaClass;
 		this.args = args;
 	}
