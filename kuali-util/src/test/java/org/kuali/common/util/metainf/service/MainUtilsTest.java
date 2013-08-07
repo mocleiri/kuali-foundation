@@ -8,7 +8,7 @@ public class MainUtilsTest {
 	@Test
 	public void test() {
 		try {
-			MainUtils.runAndExit(MainUtilsTest.class, null);
+			MainUtils.runAndExit(SimpleMain.class, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
