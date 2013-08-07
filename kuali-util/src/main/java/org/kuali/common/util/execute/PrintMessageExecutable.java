@@ -22,6 +22,16 @@ public class PrintMessageExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(PrintMessageExecutable.class);
 
+	public PrintMessageExecutable() {
+		this(null);
+
+	}
+
+	public PrintMessageExecutable(String message) {
+		this.message = message;
+		this.skip = false;
+	}
+
 	String message;
 	boolean skip;
 
