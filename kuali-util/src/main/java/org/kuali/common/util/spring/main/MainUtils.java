@@ -3,6 +3,7 @@ package org.kuali.common.util.spring.main;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.kuali.common.util.Str;
 import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.service.SpringContext;
 
@@ -19,7 +20,7 @@ public class MainUtils {
 	public static void runAndExit(Class<?> mainClass, String[] args, Class<?> config) {
 		try {
 			Map<String, Object> beans = new HashMap<String, Object>();
-			beans.put(ARGS_BEAN_NAME, args);
+			beans.put(ARGS_BEAN_NAME, Str.toEmptyArray(args));
 			beans.put(MAIN_CLASS_BEAN_NAME, mainClass);
 			SpringContext context = new SpringContext(beans, config, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
