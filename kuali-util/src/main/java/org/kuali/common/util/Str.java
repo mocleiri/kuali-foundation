@@ -37,6 +37,18 @@ public class Str {
 	public static final char DOUBLE_QUOTE = '"';
 	public static final String CDATA_PREFIX = "<![CDATA[";
 	public static final String CDATA_SUFFIX = "]]>";
+	public static final String[] EMPTY_ARRAY = new String[0];
+
+	/**
+	 * If <code>strings</code> are <code>null</code> return <code>EMPTY_ARRAY</code>, otherwise return <code>strings</code>.
+	 */
+	public static final String[] toEmptyArray(String[] strings) {
+		if (strings == null) {
+			return EMPTY_ARRAY;
+		} else {
+			return strings;
+		}
+	}
 
 	/**
 	 * Convert the tokens into a string delimited by the colon "<code>:</code>" character
