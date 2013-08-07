@@ -82,7 +82,7 @@ public class DefaultXmlService implements XmlService {
 			in = LocationUtils.getInputStream(location);
 			return getObject(in, type);
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected JAXB error", e);
+			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
