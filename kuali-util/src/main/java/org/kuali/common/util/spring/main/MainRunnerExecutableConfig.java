@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ MainRunnerConfig.class })
+@Import({ MainConfig.class })
 public class MainRunnerExecutableConfig extends ExecutableConfig {
 
 	@Autowired
-	MainRunnerConfig mainRunnerConfig;
+	MainConfig mainConfig;
 
 	@Override
 	protected Executable getExecutable() {
-		return mainRunnerConfig.mainExecutable();
+		return mainConfig.mainExecutable();
 	}
 
 }
