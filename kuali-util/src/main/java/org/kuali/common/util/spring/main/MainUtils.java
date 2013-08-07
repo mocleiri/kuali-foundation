@@ -17,7 +17,7 @@ public class MainUtils {
 			Map<String, Object> beans = new HashMap<String, Object>();
 			beans.put(ARGS_BEAN_NAME, args);
 			beans.put(MAIN_CLASS_BEAN_NAME, mainClass);
-			SpringContext context = new SpringContext(beans, mainClass);
+			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
 			exec.execute();
 			System.exit(0);
