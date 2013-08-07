@@ -78,7 +78,7 @@
     <project.orgId.path>org/kuali</project.orgId.path>
     <project.orgId.code>kuali</project.orgId.code>
     <project.metainf.includes>project.*</project.metainf.includes>
-    <project.metainf.excludes>project.basedir,project.issueManagement.*,project.build.*irectory,project.build.sourceEncoding,project.ciManagement.*,project.*.home,project.metainf.*,project.gav.*,project.augment.*</project.metainf.excludes>
+    <project.metainf.excludes>project.basedir,project.issueManagement.*,project.build.*irectory,project.build.sourceEncoding,project.ciManagement.*,project.*.home,project.metainf.*,project.gav.*,project.augment.*,project.home</project.metainf.excludes>
     <project.metainf.skip>false</project.metainf.skip>
     <project.metainf.phase>generate-resources</project.metainf.phase>
     <project.augment.phase>initialize</project.augment.phase>
