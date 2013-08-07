@@ -1,18 +1,22 @@
-package org.kuali.common.util.spring;
+package org.kuali.common.util.spring.main;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.common.util.Str;
+import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.service.SpringContext;
 
 public class MainUtils {
 
 	public static final String ARGS_BEAN_NAME = "mainArgs";
+	public static final String MAIN_CLASS_BEAN_NAME = "mainClass";
+	public static final String MAIN_PROFILE_NAME = "main";
 
 	public static void runAndExit(Class<?> mainClass, String[] args) {
 		try {
-			Map<String, Object> beans = Collections.singletonMap(ARGS_BEAN_NAME, (Object) Str.toEmptyArray(args));
+			Map<String, Object> beans = new HashMap<String, Object>();
+			beans.put(ARGS_BEAN_NAME, args);
+			beans.put(MAIN_CLASS_BEAN_NAME, mainClass);
 			SpringContext context = new SpringContext(beans, mainClass);
 			SpringExecutable exec = new SpringExecutable(context);
 			exec.execute();
