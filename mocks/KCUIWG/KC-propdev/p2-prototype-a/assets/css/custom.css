@@ -1,0 +1,83 @@
+/*
+SASS overrides
+Chris Rodriguez, clrux@bu.edu
+-----------------------------*/
+.navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse .nav li {
+  text-transform: none !important;
+  text-shadow: 0 1px 0 black !important;
+  font-size: 1.2em !important; }
+  .navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse .nav li a {
+    color: #d2d2d2 !important; }
+  .navbar.navbar-inverse.navbar-fixed-top .navbar-inner .container .nav-collapse.collapse .nav li a:hover {
+    background: #ce004b; }
+
+.portaltoolbar ul.barButtons li a {
+  font-size: 1em !important;
+  height: auto !important;
+  max-height: 1.6em !important;
+  padding: .25em .5em !important; }
+.portaltoolbar ul.barButtons li ul li a {
+  max-height: 100% !important; }
+.portaltoolbar .topBarInner ul.barButtons li a .icon {
+  position: relative !important;
+  margin-top: -3px !important; }
+.portaltoolbar .topBarInner ul.barButtons li a span {
+  padding-left: 4px !important; }
+
+.docHeader h2 {
+  display: block; }
+  .docHeader h2 span {
+    color: #888; }
+.docHeader .header-meta {
+  margin-bottom: .55em;
+  float: left; }
+  .docHeader .header-meta .initiator, .docHeader .header-meta .updated, .docHeader .header-meta .more {
+    display: inline;
+    margin-right: 1em; }
+    .docHeader .header-meta .initiator span, .docHeader .header-meta .updated span, .docHeader .header-meta .more span {
+      color: #888; }
+.docHeader .header-status {
+  margin-bottom: .55em;
+  float: right; }
+  .docHeader .header-status .completion, .docHeader .header-status .actions {
+    display: inline;
+    margin-left: 1em; }
+    .docHeader .header-status .completion span, .docHeader .header-status .actions span {
+      color: #888; }
+
+.submenus ul li {
+  line-height: 130% !important;
+  margin-bottom: 2%; }
+
+#ToC a:hover {
+  text-decoration: underline; }
+
+.form-horizontal {
+  max-width: 768px; }
+  .form-horizontal .control-group {
+    margin: 0;
+    padding: 1%; }
+  .form-horizontal .control-group:first-child {
+    border-top: 0px; }
+
+.a11y-jump-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  .a11y-jump-links ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+    .a11y-jump-links ul li a {
+      position: absolute;
+      left: -999em;
+      z-index: 9999;
+      background: white;
+      display: block;
+      text-align: center;
+      padding: 2%; }
+    .a11y-jump-links ul li a:focus {
+      left: 0; }
+
+#content.focusable {
+  outline: none; }
