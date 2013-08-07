@@ -13,7 +13,7 @@ public class MainUtils {
 	public static final String MAIN_PROFILE_NAME = "main";
 
 	public static void runAndExit(Class<?> mainClass, String[] args) {
-		runAndExit(mainClass, args, MainRunnerConfig.class);
+		runAndExit(mainClass, args, MainRunnerExecutableConfig.class);
 	}
 
 	public static void runAndExit(Class<?> mainClass, String[] args, Class<?> config) {
