@@ -3,7 +3,7 @@ package org.kuali.common.util.metainf.model;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.PropertyUtils;
 
 public class WriteProperties {
 
@@ -13,7 +13,7 @@ public class WriteProperties {
 	public WriteProperties(WriteRequest request, Properties properties) {
 		Assert.noNulls(request, properties);
 		this.request = request;
-		this.properties = new ImmutableProperties(properties);
+		this.properties = PropertyUtils.toImmutable(properties);
 	}
 
 	public Properties getProperties() {
