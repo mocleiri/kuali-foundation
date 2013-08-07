@@ -38,9 +38,9 @@ import org.kuali.common.util.property.Constants;
 public class CollectionUtils {
 
 	/**
-	 * Returns a new list using <code>Collections.unmodifiableList()</code> containing the elements from <code>list</code>
+	 * Returns a new unmodifiable list containing the elements from <code>list</code>
 	 */
-	public static <T> List<T> toImmutable(List<T> list) {
+	public static <T> List<T> immutableCopy(List<T> list) {
 		return Collections.unmodifiableList(new ArrayList<T>(list));
 	}
 
