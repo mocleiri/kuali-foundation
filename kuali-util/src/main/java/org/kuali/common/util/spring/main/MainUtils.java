@@ -13,11 +13,15 @@ public class MainUtils {
 	public static final String MAIN_PROFILE_NAME = "main";
 
 	public static void runAndExit(Class<?> mainClass, String[] args) {
+		runAndExit(mainClass, args, MainRunnerConfig.class);
+	}
+
+	public static void runAndExit(Class<?> mainClass, String[] args, Class<?> config) {
 		try {
 			Map<String, Object> beans = new HashMap<String, Object>();
 			beans.put(ARGS_BEAN_NAME, args);
 			beans.put(MAIN_CLASS_BEAN_NAME, mainClass);
-			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
+			SpringContext context = new SpringContext(beans, config, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
 			exec.execute();
 			System.exit(0);
