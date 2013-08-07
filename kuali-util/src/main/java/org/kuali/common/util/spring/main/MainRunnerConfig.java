@@ -1,5 +1,7 @@
 package org.kuali.common.util.spring.main;
 
+import java.util.List;
+
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.HelloWorldExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ public class MainRunnerConfig {
 
 	@Autowired
 	@Qualifier(MainUtils.ARGS_BEAN_NAME)
-	String[] args;
+	List<String> mainArgs;
 
 	@Autowired
 	@Qualifier(MainUtils.MAIN_CLASS_BEAN_NAME)

@@ -1,6 +1,8 @@
 package org.kuali.common.util.spring.main;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.util.Str;
@@ -19,8 +21,9 @@ public class MainUtils {
 
 	public static void runAndExit(Class<?> mainClass, String[] args, Class<?> config) {
 		try {
+			List<String> mainArgs = Arrays.asList(Str.toEmptyArray(args));
 			Map<String, Object> beans = new HashMap<String, Object>();
-			beans.put(ARGS_BEAN_NAME, Str.toEmptyArray(args));
+			beans.put(ARGS_BEAN_NAME, mainArgs);
 			beans.put(MAIN_CLASS_BEAN_NAME, mainClass);
 			SpringContext context = new SpringContext(beans, config, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
