@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ MainConfig.class })
-public class MainRunnerExecutableConfig extends ExecutableConfig {
+public class MainExecutableConfig extends ExecutableConfig {
 
 	@Autowired
 	MainConfig mainConfig;
