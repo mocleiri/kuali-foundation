@@ -3,7 +3,6 @@ package org.kuali.common.util.spring.main;
 public final class MainContext {
 
 	public MainContext(Class<?> javaClass, String[] args) {
-		super();
 		this.javaClass = javaClass;
 		this.args = args;
 	}
