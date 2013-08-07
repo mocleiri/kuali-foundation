@@ -24,11 +24,15 @@ import org.kuali.common.util.CollectionUtils;
 public class SpringContext {
 
 	public SpringContext(Map<String, Object> beans, Class<?> annotatedClass) {
-		this(beans, CollectionUtils.asList(annotatedClass), null);
+		this(beans, CollectionUtils.asList(annotatedClass), (String) null);
 	}
 
 	public SpringContext(Map<String, Object> beans, Class<?> annotatedClass, String activeProfile) {
 		this(beans, CollectionUtils.asList(annotatedClass), null, Arrays.asList(activeProfile));
+	}
+
+	public SpringContext(Map<String, Object> beans, List<Class<?>> annotatedClasses, String activeProfile) {
+		this(beans, annotatedClasses, null, Arrays.asList(activeProfile));
 	}
 
 	public SpringContext(PropertySourceContext propertySourceContext) {
