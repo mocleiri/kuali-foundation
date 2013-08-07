@@ -52,10 +52,7 @@ public class SpringContext {
 	}
 
 	public SpringContext(Map<String, Object> contextBeans, List<Class<?>> annotatedClasses, PropertySourceContext propertySourceContext) {
-		super();
-		this.contextBeans = contextBeans;
-		this.annotatedClasses = annotatedClasses;
-		this.propertySourceContext = propertySourceContext;
+		this(contextBeans, annotatedClasses, propertySourceContext, null);
 	}
 
 	public SpringContext(Map<String, Object> contextBeans, List<Class<?>> annotatedClasses, PropertySourceContext propertySourceContext, List<String> activeProfiles) {
