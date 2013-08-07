@@ -307,6 +307,7 @@
     </profile>
     <profile>
       <!-- Reset an environment. Spin up a new EC2 server and associate a friendly DNS name with the new server -->
+      <!-- The profile "reset-ec2-environment" in the kuali-example pom.xml is what resets environments now  -->
       <id>resetenv</id>
       <build>
         <plugins>
