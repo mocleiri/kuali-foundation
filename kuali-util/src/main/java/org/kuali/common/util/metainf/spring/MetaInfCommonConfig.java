@@ -52,7 +52,7 @@ public class MetaInfCommonConfig {
 	public static Location getLocation(FeatureIdentifier identifier, Project project, String filename) {
 		String value = ProjectUtils.getClasspathPrefix(MetaInfCommonConfig.FEATURE_ID) + "/" + filename;
 		String encoding = ProjectUtils.getEncoding(project);
-		return new Location(value, encoding);
+		return new Location(value, encoding, true);
 	}
 
 }
