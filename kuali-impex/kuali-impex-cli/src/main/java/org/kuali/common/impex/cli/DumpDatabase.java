@@ -15,48 +15,12 @@
 
 package org.kuali.common.impex.cli;
 
-import org.kuali.common.impex.config.DumpConfigConstants;
-import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
-import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
-import org.kuali.common.util.config.supplier.PropertiesSupplier;
-import org.kuali.common.util.execute.SpringExecutable;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.main.MainUtils;
 
 public class DumpDatabase {
 
 	public static void main(String[] args) {
-
-		try {
-			String location = getPropertiesLocation(args);
-
-			if (location == null) {
-				printHelpAndExit();
-			}
-
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(DumpConfigConstants.CONFIG_IDS, location);
-			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, DumpDatabaseExecutableConfig.class);
-			executable.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		MainUtils.runAndExit(DumpDatabase.class, args);
 	}
 
-	private static void printHelpAndExit() {
-		System.out.println("This program requrires one argument, a properties file location.");
-		System.out.println("The properties file will usually define at least these 4 properties:");
-		System.out.println("db.vendor=oracle/mysql");
-		System.out.println("jdbc.username=[username]");
-		System.out.println("jdbc.password=[password]");
-		System.out.println("jdbc.url=[JDBC connection URL]");
-		System.exit(1);
-	}
-
-	protected static String getPropertiesLocation(String[] args) {
-		if (args == null || args.length < 1) {
-			return null;
-		} else {
-			return args[0];
-		}
-	}
 }
