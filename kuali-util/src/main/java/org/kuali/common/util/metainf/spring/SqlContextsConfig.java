@@ -26,6 +26,7 @@ public class SqlContextsConfig implements MetaInfContextsConfig {
 	private static final String DATA_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.data.includes";
 	private static final String CONSTRAINTS_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.constraints.includes";
 	private static final String OTHER_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.other.includes";
+	private static final String DB_VENDOR_KEY = "db.vendor";
 
 	@Autowired
 	Environment env;
@@ -48,9 +49,10 @@ public class SqlContextsConfig implements MetaInfContextsConfig {
 	}
 
 	protected MetaInfContext getMetaInfContext(String includesKey, String filename) {
+		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey);
-		String outputPath = MetaInfCommonConfig.getResourcePrefix(project) + "/" + filename;
+		String outputPath = MetaInfCommonConfig.getResourcePrefix(project) + "/" + databaseVendor + "/" + filename;
 		File outputFile = new File(build.getOutputDir(), outputPath);
 		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
 	}
