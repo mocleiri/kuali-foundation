@@ -24,6 +24,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.Build;
+import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
@@ -180,7 +181,17 @@ public class ProjectUtils {
 	 * </pre>
 	 */
 	public static String getClasspathPrefix(ProjectIdentifier identifier) {
-		return getClassPathPrefix(identifier.getGroupId(), identifier.getArtifactId());
+		return getClasspathPrefix(identifier.getGroupId(), identifier.getArtifactId());
 	}
 
+	/**
+	 * Return a classpath prefix.
+	 * 
+	 * <pre>
+	 *   org.kuali.common:kuali-util:metainf  ->  classpath:org/kuali/common/kuali-util/metainf
+	 * </pre>
+	 */
+	public static String getClasspathPrefix(FeatureIdentifier identifier) {
+		return getClasspathPrefix(identifier.getGroupId(), identifier.getArtifactId()) + "/" + identifier.getFeatureId();
+	}
 }
