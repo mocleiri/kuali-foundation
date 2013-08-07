@@ -25,7 +25,6 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.metainf.MetaInfContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +36,8 @@ public class MetaInfUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfUtils.class);
 
-	public static void scanAndCreateFiles(List<MetaInfContext> contexts) throws IOException {
-		for (MetaInfContext context : contexts) {
+	public static void scanAndCreateFiles(List<org.kuali.common.util.metainf.MetaInfContext> contexts) throws IOException {
+		for (org.kuali.common.util.metainf.MetaInfContext context : contexts) {
 			List<File> files = getFiles(context);
 			List<MetaInfResource> resources = getResources(context, files);
 			doLocations(context, resources);
@@ -48,7 +47,7 @@ public class MetaInfUtils {
 		}
 	}
 
-	public static List<File> getFiles(MetaInfContext context) throws IOException {
+	public static List<File> getFiles(org.kuali.common.util.metainf.MetaInfContext context) throws IOException {
 		Assert.notNull(context.getBaseDir(), "baseDir is null");
 		Assert.notNull(context.getOutputFile(), "outputFile is null");
 		logger.debug("Examining " + LocationUtils.getCanonicalPath(context.getBaseDir()));
@@ -59,7 +58,7 @@ public class MetaInfUtils {
 		return scanner.getFiles();
 	}
 
-	protected static String getPatternLogMessage(MetaInfContext context) {
+	protected static String getPatternLogMessage(org.kuali.common.util.metainf.MetaInfContext context) {
 		StringBuilder sb = new StringBuilder();
 		String incl = CollectionUtils.getSpaceSeparatedString(context.getIncludes());
 		String excl = CollectionUtils.getSpaceSeparatedString(context.getExcludes());
@@ -78,7 +77,7 @@ public class MetaInfUtils {
 		return sb.toString();
 	}
 
-	public static void doLocations(MetaInfContext context, List<MetaInfResource> resources) throws IOException {
+	public static void doLocations(org.kuali.common.util.metainf.MetaInfContext context, List<MetaInfResource> resources) throws IOException {
 		List<String> locations = getLocations(resources);
 		if (context.isSort()) {
 			Collections.sort(locations);
@@ -90,14 +89,14 @@ public class MetaInfUtils {
 		FileUtils.writeLines(context.getOutputFile(), locations);
 	}
 
-	public static void doProperties(MetaInfContext context, List<MetaInfResource> resources) {
+	public static void doProperties(org.kuali.common.util.metainf.MetaInfContext context, List<MetaInfResource> resources) {
 		logger.debug("doProperties()");
 		Properties properties = getProperties(context, resources);
 		File propertiesFile = new File(LocationUtils.getCanonicalPath(context.getOutputFile()) + ".properties");
 		PropertyUtils.store(properties, propertiesFile, "UTF-8");
 	}
 
-	public static Properties getProperties(MetaInfContext context, List<MetaInfResource> resources) {
+	public static Properties getProperties(org.kuali.common.util.metainf.MetaInfContext context, List<MetaInfResource> resources) {
 		Properties properties = new Properties();
 		for (MetaInfResource resource : resources) {
 			String sizeKey = resource.getKey() + ".size";
@@ -115,11 +114,11 @@ public class MetaInfUtils {
 		return StringUtils.replace(key, "/", ".");
 	}
 
-	public static void scanAndCreateFile(MetaInfContext context) throws IOException {
+	public static void scanAndCreateFile(org.kuali.common.util.metainf.MetaInfContext context) throws IOException {
 		scanAndCreateFiles(Arrays.asList(context));
 	}
 
-	public static List<MetaInfResource> getResources(MetaInfContext context, List<File> files) throws IOException {
+	public static List<MetaInfResource> getResources(org.kuali.common.util.metainf.MetaInfContext context, List<File> files) throws IOException {
 		List<MetaInfResource> resources = new ArrayList<MetaInfResource>();
 		for (File file : files) {
 			MetaInfResource resource = getResource(context, file);
@@ -145,7 +144,7 @@ public class MetaInfUtils {
 		return locations;
 	}
 
-	public static MetaInfResource getResource(MetaInfContext context, File file) throws IOException {
+	public static MetaInfResource getResource(org.kuali.common.util.metainf.MetaInfContext context, File file) throws IOException {
 		String location = getLocation(context.getBaseDir(), file, context.getPrefix());
 		long size = file.length();
 		long lines = -1;
