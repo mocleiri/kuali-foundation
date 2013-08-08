@@ -4,17 +4,17 @@ import org.kuali.common.util.Assert;
 
 public final class MainContext {
 
-	public MainContext(Class<?> javaClass, String[] args) {
-		Assert.noNulls(javaClass, args);
-		this.javaClass = javaClass;
+	public MainContext(Class<?> mainClass, String[] args) {
+		Assert.noNulls(mainClass, args);
+		this.mainClass = mainClass;
 		this.args = args;
 	}
 
-	private final Class<?> javaClass;
+	private final Class<?> mainClass;
 	private final String[] args;
 
-	public Class<?> getJavaClass() {
-		return javaClass;
+	public Class<?> getMainClass() {
+		return mainClass;
 	}
 
 	public String[] getArgs() {
