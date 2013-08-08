@@ -1305,7 +1305,7 @@ dl.headermeta dd {
   .navbar-static-top .container,
   .navbar-fixed-top .container,
   .navbar-fixed-bottom .container {
-    width: 1200px;
+    width: 1200px !important;
   }
   .subnav {
     width: 1000px;
@@ -1316,6 +1316,9 @@ dl.headermeta dd {
   }
   .row-fluid.column-navleft {
     background-position: -31px;
+  }
+  .sectionContents .container {
+    width: 1200px !important;
   }
 }
 @media (max-width: 480px) {
