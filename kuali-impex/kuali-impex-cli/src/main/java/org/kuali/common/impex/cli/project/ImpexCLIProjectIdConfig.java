@@ -1,6 +1,5 @@
-package org.kuali.common.impex.cli.spring;
+package org.kuali.common.impex.cli.project;
 
-import org.kuali.common.impex.cli.project.ImpexCLIProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.project.spring.ProjectIdentifierConfig;
 import org.springframework.context.annotation.Configuration;

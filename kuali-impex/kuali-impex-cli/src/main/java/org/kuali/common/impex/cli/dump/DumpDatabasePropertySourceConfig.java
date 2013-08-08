@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.cli;
+package org.kuali.common.impex.cli.dump;
 
 import org.kuali.common.util.properties.spring.PropertiesLocationServiceConfig;
 import org.kuali.common.util.spring.main.MainContext;

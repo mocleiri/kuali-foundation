@@ -1,6 +1,7 @@
 package org.kuali.common.impex.cli;
 
 import org.junit.Test;
+import org.kuali.common.impex.cli.dump.DumpDatabase;
 
 public class DumpDatabaseTest {
 
