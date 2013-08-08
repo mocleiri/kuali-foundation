@@ -57,7 +57,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	public PropertySource<?> propertySource() {
 		List<Location> locations = getLocations();
 		Properties properties = service.getProperties(locations);
-		return new PropertiesPropertySource("dumpDatabasePropertySource", properties);
+		return new PropertiesPropertySource("propertiesPropertySource", properties);
 	}
 
 	protected List<Location> getLocations() {
