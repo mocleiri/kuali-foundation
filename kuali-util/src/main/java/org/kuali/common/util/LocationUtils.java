@@ -347,7 +347,14 @@ public class LocationUtils {
 	 * Throw IllegalArgumentException if the location does not exist
 	 */
 	public static final void validateLocation(String location) {
-		Assert.isTrue(exists(location), "[" + location + "] does not exist");
+		validateLocation(location, "[" + location + "] does not exist");
+	}
+
+	/**
+	 * Throw IllegalArgumentException if the location does not exist
+	 */
+	public static final void validateLocation(String location, String message) {
+		Assert.isTrue(exists(location), message);
 	}
 
 	public static final List<String> getLocations(List<String> locationListings, String encoding) {

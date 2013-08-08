@@ -1,11 +1,12 @@
 package org.kuali.common.util.spring.main;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
-public class ValidatePropertyLocationArgsExecutable implements Executable {
+public final class ValidatePropertyLocationArgsExecutable implements Executable {
 
-	private ValidatePropertyLocationArgsExecutable(MainContext context, String message) {
+	public ValidatePropertyLocationArgsExecutable(MainContext context, String message) {
 		Assert.noNulls(context, message);
 		this.context = context;
 		this.message = message;
@@ -19,6 +20,8 @@ public class ValidatePropertyLocationArgsExecutable implements Executable {
 		String[] args = context.getArgs();
 		Assert.notNull(args, message);
 		Assert.isTrue(args.length > 0, message);
+		String location = args[0];
+		LocationUtils.validateLocation(location);
 	}
 
 	public String getMessage() {
