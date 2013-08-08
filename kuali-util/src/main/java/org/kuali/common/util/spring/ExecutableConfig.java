@@ -24,8 +24,11 @@ import org.springframework.context.annotation.Configuration;
  * for extending classes to capture what it is they want to do in an <code>Executable</code> and then have Spring automatically execute it.
  * 
  * The idea here is to provide a clean separation between the configuring and assembling of Executables from their actual execution.
+ * 
+ * @deprecated
  */
 @Configuration
+@Deprecated
 public abstract class ExecutableConfig {
 
 	protected abstract Executable getExecutable();

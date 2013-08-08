@@ -16,19 +16,20 @@
 package org.kuali.common.util.spring;
 
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(HelloWorldConfig.class)
-public class HelloWorldExecutableConfig extends ExecutableConfig {
+public class HelloWorldExecutableConfig {
 
 	@Autowired
 	HelloWorldConfig helloWorldConfig;
 
-	@Override
-	protected Executable getExecutable() {
+	@Execute
+	protected Executable executable() {
 		return helloWorldConfig.helloWorldExecutable();
 	}
 

@@ -16,20 +16,20 @@
 package org.kuali.common.util.spring.config;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.ExecutableConfig;
+import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(AutowiredMessagesConfig.class)
-public class AutowiredMessagesExecutableConfig extends ExecutableConfig {
+public class AutowiredMessagesExecutableConfig {
 
 	@Autowired
 	AutowiredMessagesConfig awmc;
 
-	@Override
-	protected Executable getExecutable() {
+	@Execute
+	protected Executable executable() {
 		return awmc.printMessagesExecutable();
 	}
 
