@@ -19,6 +19,10 @@ import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum KualiJdbcConfig implements ProjectConfig {
 
 	DEFAULT(); // Provides the default set of configuration for JDBC related processes
