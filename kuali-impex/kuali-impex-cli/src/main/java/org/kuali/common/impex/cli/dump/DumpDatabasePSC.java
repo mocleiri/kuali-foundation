@@ -34,7 +34,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
-import org.springframework.util.Assert;
 
 @Configuration
 @Import({ ImpexCLIProjectIdConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
@@ -69,8 +68,6 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	}
 
 	protected Location getLocation(String[] args) {
-		Assert.notNull(args, "args is null");
-		Assert.isTrue(args.length > 0, "args.length <= 0");
 		String value = args[0];
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding);
