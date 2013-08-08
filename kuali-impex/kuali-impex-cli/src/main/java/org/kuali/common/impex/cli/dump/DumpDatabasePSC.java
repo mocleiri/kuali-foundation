@@ -79,7 +79,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 
 	public String getInvalidArgsMessage() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nThis program requires one argument containing a properties file location.\n");
+		sb.append("\n\nThis program requires one argument containing a properties file location.\n");
 		sb.append("The properties file will usually define at least these 4 properties:\n");
 		sb.append("db.vendor=oracle/mysql\n");
 		sb.append("jdbc.username=[username]\n");
