@@ -15,17 +15,35 @@
 
 package org.kuali.common.impex.spring;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.kuali.common.impex.config.ImpexExportProjectConstants;
+import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesLocationService;
 import org.kuali.common.util.properties.spring.PropertiesLocationServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ PropertiesLocationServiceConfig.class })
-public class DumpDatabasePropertyLocationsConfig {
+public class DumpLocationsConfig {
 
 	@Autowired
 	PropertiesLocationService service;
+
+	@Bean
+	public List<Location> dumpPropertiesLocations() {
+		return service.getLocations(ImpexExportProjectConstants.PROJECT_ID, getFilenames());
+	}
+
+	protected List<String> getFilenames() {
+		List<String> filenames = new ArrayList<String>();
+		filenames.add("common.properties");
+		filenames.add("dump.properties");
+		return filenames;
+	}
 
 }
