@@ -22,9 +22,9 @@ import org.springframework.core.env.PropertySource;
 
 public interface PropertySourceService {
 
-	PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config);
+	PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<? extends PropertySourceConfig> config);
 
-	PropertySource<?> getPropertySource(Class<PropertySourceConfig> config);
+	PropertySource<?> getPropertySource(Class<? extends PropertySourceConfig> config);
 
 	List<PropertySource<?>> getPropertySources(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<?> config);
 

@@ -31,12 +31,12 @@ public class DefaultPropertySourceService implements PropertySourceService {
 	SpringService springService;
 
 	@Override
-	public PropertySource<?> getPropertySource(Class<PropertySourceConfig> config) {
+	public PropertySource<?> getPropertySource(Class<? extends PropertySourceConfig> config) {
 		return getPropertySource(null, null, null, config);
 	}
 
 	@Override
-	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<PropertySourceConfig> config) {
+	public PropertySource<?> getPropertySource(Map<String, Object> beans, List<String> defaultProfiles, List<String> activeProfiles, Class<? extends PropertySourceConfig> config) {
 		return getPropertySource(beans, defaultProfiles, activeProfiles, config, null);
 	}
 
