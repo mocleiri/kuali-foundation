@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.spring.config;
+package org.kuali.common.util.spring.config.annotation;
 
-public abstract class SpringConfigConstants {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-	/**
-	 * This is the default profile Spring uses when no explicit default profile is provided.
-	 */
-	public static final String DEFAULT_PROFILE_ID = "default";
+import org.kuali.common.util.spring.config.SpringConfigConstants;
+import org.springframework.context.annotation.Bean;
 
-	/**
-	 * The method to invoke on an executable via the @Execute annotation
-	 */
-	public static final String EXECUTABLE_INIT_METHOD = "execute";
+@Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Bean(initMethod = SpringConfigConstants.EXECUTABLE_INIT_METHOD)
+public @interface Execute {
 
 }
