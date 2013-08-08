@@ -44,6 +44,7 @@
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
     <kuali-util.version>4.4.1-SNAPSHOT</kuali-util.version>
+    <kuali-jdbc.version>3.1.9-SNAPSHOT</kuali-jdbc.version>
   </properties>
   <developers>
     <developer>
