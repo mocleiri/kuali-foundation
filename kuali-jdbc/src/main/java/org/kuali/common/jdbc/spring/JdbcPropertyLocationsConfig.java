@@ -1,6 +1,7 @@
 package org.kuali.common.jdbc.spring;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.jdbc.config.JdbcProjectConstants;
@@ -25,7 +26,7 @@ public class JdbcPropertyLocationsConfig {
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(getKualiSqlLocations());
 		locations.addAll(getJdbcLocations());
-		return locations;
+		return Collections.unmodifiableList(locations);
 	}
 
 	protected List<Location> getJdbcLocations() {
