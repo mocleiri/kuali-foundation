@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 public class JdbcPropertyLocationsConfig {
 
 	@Autowired
-	PropertyLocationsCommonConfig propertyLocationsCommonConfig;
+	PropertyLocationsCommonConfig commonConfig;
 
 	@Bean
 	public List<Location> jdbcPropertyLocations() {
@@ -30,13 +30,13 @@ public class JdbcPropertyLocationsConfig {
 	protected List<Location> getJdbcLocations() {
 		List<String> filenames = getJdbcList();
 		ProjectIdentifier identifier = JdbcProjectConstants.PROJECT_IDENTIFIER;
-		return propertyLocationsCommonConfig.getLocations(identifier, filenames);
+		return commonConfig.getLocations(identifier, filenames);
 	}
 
 	protected List<Location> getKualiSqlLocations() {
 		List<String> filenames = getKualiSqlList();
 		ProjectIdentifier identifier = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
-		return propertyLocationsCommonConfig.getLocations(identifier, filenames);
+		return commonConfig.getLocations(identifier, filenames);
 	}
 
 	protected List<String> getJdbcList() {
