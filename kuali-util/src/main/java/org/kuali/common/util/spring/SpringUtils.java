@@ -35,7 +35,6 @@ import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
@@ -549,18 +548,19 @@ public class SpringUtils {
 	}
 
 	/**
-	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClass passed in
+	 * Return a SpringExecutable for the org.kuali.common.util.config.supplier.PropertiesSupplier and annotatedClass passed in
 	 */
 	@Deprecated
-	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(PropertiesSupplier supplier, Class<?> annotatedClass) {
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(org.kuali.common.util.config.supplier.PropertiesSupplier supplier, Class<?> annotatedClass) {
 		return getSpringExecutable(supplier, CollectionUtils.asList(annotatedClass));
 	}
 
 	/**
-	 * Return a SpringExecutable for the PropertiesSupplier and annotatedClasses passed in
+	 * Return a SpringExecutable for the org.kuali.common.util.config.supplier.PropertiesSupplier and annotatedClasses passed in
 	 */
 	@Deprecated
-	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(PropertiesSupplier supplier, List<Class<?>> annotatedClasses) {
+	public static org.kuali.common.util.execute.SpringExecutable getSpringExecutable(org.kuali.common.util.config.supplier.PropertiesSupplier supplier,
+			List<Class<?>> annotatedClasses) {
 		Properties properties = supplier.getProperties();
 		PropertySource<?> source = getGlobalPropertySource(properties);
 		org.kuali.common.util.service.SpringContext context = getSinglePropertySourceContext(source);
