@@ -16,6 +16,7 @@ import org.springframework.core.env.Environment;
 public class PropertiesLocationServiceConfig {
 
 	private static final String CACHE_KEY = "properties.cache";
+	private static final boolean DEFAULT_CACHE_PROPERTIES_VALUE = true;
 
 	@Autowired
 	Environment env;
@@ -25,7 +26,7 @@ public class PropertiesLocationServiceConfig {
 
 	@Bean
 	public PropertiesLocationService propertiesLocationService() {
-		boolean cache = SpringUtils.getBoolean(env, CACHE_KEY);
+		boolean cache = SpringUtils.getBoolean(env, CACHE_KEY, DEFAULT_CACHE_PROPERTIES_VALUE);
 		return new DefaultPropertiesLocationService(projectService, cache);
 	}
 
