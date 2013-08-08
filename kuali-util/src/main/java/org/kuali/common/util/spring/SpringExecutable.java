@@ -41,7 +41,6 @@ public class SpringExecutable implements Executable {
 	}
 
 	public SpringExecutable(SpringService service, SpringContext context) {
-		super();
 		this.service = service;
 		this.context = context;
 	}
