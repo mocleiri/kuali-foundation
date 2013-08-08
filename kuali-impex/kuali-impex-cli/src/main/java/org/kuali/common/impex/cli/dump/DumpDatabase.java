@@ -45,7 +45,7 @@ public class DumpDatabase {
 	MainService service;
 
 	@Execute
-	public Executable executable() {
+	public Executable dumpDatabaseExecutable() {
 		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
 		PropertySourceContext psc = new PropertySourceContext(propertySource, true);
 		SpringContext context = new SpringContext(DumpDatabaseExecutableConfig.class, psc);
