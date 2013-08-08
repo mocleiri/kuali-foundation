@@ -16,10 +16,10 @@
 package org.kuali.common.impex.cli.dump;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainUtils;
+import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class })
+@Import({ SpringServiceConfig.class, DumpDatabasePropertySourceConfig.class })
 public class DumpDatabaseConfig {
 
 	public static void main(String[] args) {
@@ -40,14 +40,13 @@ public class DumpDatabaseConfig {
 	@Autowired
 	PropertySourceService propertySourceService;
 
+	@Autowired
+	PropertySourceConfig propertySourceConfig;
+
 	@Execute
 	public Executable executable() {
-		String[] args = context.getArgs();
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < args.length; i++) {
-			sb.append("args[" + i + "]=" + args[i] + "\n");
-		}
-		return new PrintMessageExecutable(sb.toString());
+		System.out.println(propertySourceConfig);
+		return null;
 	}
 
 }
