@@ -50,7 +50,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	PropertiesService service;
 
 	@Autowired
-	JdbcPropertyLocationsConfig jdbcLocations;
+	JdbcPropertyLocationsConfig jdbc;
 
 	@Override
 	@Bean
@@ -63,7 +63,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	protected List<Location> getLocations() {
 		Location location = getLocation(context.getArgs());
 		List<Location> locations = new ArrayList<Location>();
-		locations.addAll(jdbcLocations.jdbcPropertyLocations());
+		locations.addAll(jdbc.jdbcPropertyLocations());
 		locations.add(location);
 		return locations;
 	}
