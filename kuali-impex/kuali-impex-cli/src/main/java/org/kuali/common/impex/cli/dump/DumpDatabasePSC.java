@@ -47,7 +47,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	Project project;
 
 	@Autowired
-	PropertiesService propertiesService;
+	PropertiesService service;
 
 	@Autowired
 	JdbcPropertyLocationsConfig jdbcPropertyLocationsConfig;
@@ -56,7 +56,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	@Bean
 	public PropertySource<?> propertySource() {
 		List<Location> locations = getLocations();
-		Properties properties = propertiesService.getProperties(locations);
+		Properties properties = service.getProperties(locations);
 		return new PropertiesPropertySource("dumpDatabasePropertySource", properties);
 	}
 
