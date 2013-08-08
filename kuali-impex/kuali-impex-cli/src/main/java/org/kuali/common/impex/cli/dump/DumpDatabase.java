@@ -38,11 +38,11 @@ public class DumpDatabase {
 	MainContext context;
 
 	@Autowired
-	PropertySourceService propertySourceService;
+	PropertySourceService service;
 
 	@Execute
 	public Executable executable() {
-		PropertySource<?> propertySource = MainUtils.getPropertySource(propertySourceService, context, DumpDatabasePSC.class);
+		PropertySource<?> propertySource = MainUtils.getPropertySource(service, context, DumpDatabasePSC.class);
 		System.out.println(propertySource);
 		return null;
 	}
