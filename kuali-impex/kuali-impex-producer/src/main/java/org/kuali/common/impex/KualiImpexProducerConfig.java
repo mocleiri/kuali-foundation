@@ -19,6 +19,10 @@ import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
 import org.kuali.common.util.project.KualiConstants;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum KualiImpexProducerConfig implements ProjectConfig {
 
 	SCHEMA_SQL("sql:schema"), //
