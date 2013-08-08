@@ -22,7 +22,6 @@ import org.kuali.common.impex.config.ImpexExportProjectConstants;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesLocationService;
 import org.kuali.common.util.properties.spring.PropertiesLocationServiceConfig;
-import org.kuali.common.util.properties.spring.PropertyLocationsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,14 +29,13 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ PropertiesLocationServiceConfig.class })
-public class DumpPropertyLocationsConfig implements PropertyLocationsConfig {
+public class DumpPropertyLocationsConfig {
 
 	@Autowired
 	PropertiesLocationService service;
 
-	@Override
 	@Bean
-	public List<Location> propertyLocations() {
+	public List<Location> dumpPropertyLocations() {
 		return service.getLocations(ImpexExportProjectConstants.PROJECT_ID, getFilenames());
 	}
 
