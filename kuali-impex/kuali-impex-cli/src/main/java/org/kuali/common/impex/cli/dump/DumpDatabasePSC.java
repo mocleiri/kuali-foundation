@@ -38,7 +38,7 @@ import org.springframework.util.Assert;
 
 @Configuration
 @Import({ ImpexCLIProjectIdConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
-public class DumpDatabasePropertySourceConfig implements PropertySourceConfig {
+public class DumpDatabasePSC implements PropertySourceConfig {
 
 	@Autowired
 	MainContext context;

@@ -42,7 +42,7 @@ public class DumpDatabaseConfig {
 
 	@Execute
 	public Executable executable() {
-		PropertySource<?> propertySource = MainUtils.getPropertySource(propertySourceService, context, DumpDatabasePropertySourceConfig.class);
+		PropertySource<?> propertySource = MainUtils.getPropertySource(propertySourceService, context, DumpDatabasePSC.class);
 		System.out.println(propertySource);
 		return null;
 	}
