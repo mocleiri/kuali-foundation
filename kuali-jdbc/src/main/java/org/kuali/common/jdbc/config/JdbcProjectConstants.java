@@ -15,9 +15,8 @@
  */
 package org.kuali.common.jdbc.config;
 
-import org.kuali.common.util.project.ImmutableProjectIdentifier;
 import org.kuali.common.util.project.KualiProjectConstants;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class JdbcProjectConstants {
 
@@ -25,9 +24,9 @@ public class JdbcProjectConstants {
 	private static final String AID = "kuali-jdbc";
 	private static final String KUALI_SQL_AID = "kuali-sql";
 
-	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, AID);
+	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ProjectIdentifier(GID, AID);
 
-	public static final ProjectIdentifier KUALI_SQL_PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, KUALI_SQL_AID);
+	public static final ProjectIdentifier KUALI_SQL_PROJECT_IDENTIFIER = new ProjectIdentifier(GID, KUALI_SQL_AID);
 
 	@Deprecated
 	public static final String GROUP_ID = GID;

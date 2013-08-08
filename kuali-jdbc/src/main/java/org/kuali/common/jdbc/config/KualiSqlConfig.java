@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.config;
 
 import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ProjectConfig;
-import org.kuali.common.util.project.ProjectIdentifier;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public enum KualiSqlConfig implements ProjectConfig {
 
