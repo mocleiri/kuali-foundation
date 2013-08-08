@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.cli.dump;
 
+import org.kuali.common.impex.cli.project.ImpexCLIProjectIdConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.properties.spring.PropertiesLocationServiceConfig;
 import org.kuali.common.util.spring.main.MainContext;
@@ -27,7 +28,7 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.util.Assert;
 
 @Configuration
-@Import({ PropertiesLocationServiceConfig.class })
+@Import({ ImpexCLIProjectIdConfig.class, PropertiesLocationServiceConfig.class })
 public class DumpDatabasePropertySourceConfig implements PropertySourceConfig {
 
 	@Autowired
