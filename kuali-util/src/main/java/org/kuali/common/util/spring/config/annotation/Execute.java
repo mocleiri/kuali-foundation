@@ -23,6 +23,9 @@ import java.lang.annotation.Target;
 import org.kuali.common.util.spring.config.SpringConfigConstants;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * This annotation is the equivalent of @Bean(initMethod="execute")
+ */
 @Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Bean(initMethod = SpringConfigConstants.EXECUTABLE_INIT_METHOD)
