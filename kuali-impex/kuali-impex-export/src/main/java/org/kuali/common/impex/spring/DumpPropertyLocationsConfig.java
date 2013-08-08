@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ PropertiesLocationServiceConfig.class })
-public class DumpLocationsConfig {
+public class DumpPropertyLocationsConfig {
 
 	@Autowired
 	PropertiesLocationService service;
