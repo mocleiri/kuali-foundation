@@ -16,21 +16,22 @@
 package org.kuali.common.jdbc.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.ExecutableConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
  * Default SQL controller class. It displays the JDBC configuration, then executes SQL statements organized into groups. Use <code>SqlControllerExectuableConfig</code> instead.
+ * 
+ * @deprecated
  */
 @Configuration
 @Import(BaseSqlControllerConfig.class)
 @Deprecated
-public class SqlControllerConfig extends ExecutableConfig {
+public class SqlControllerConfig extends org.kuali.common.util.spring.ExecutableConfig {
 
 	@Autowired
-    BaseSqlControllerConfig abstractSqlController;
+	BaseSqlControllerConfig abstractSqlController;
 
 	@Override
 	protected Executable getExecutable() {

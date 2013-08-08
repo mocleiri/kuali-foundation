@@ -6,18 +6,19 @@ import java.util.List;
 import org.kuali.common.jdbc.config.JdbcProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.properties.Location;
-import org.kuali.common.util.properties.spring.PropertyLocationsCommonConfig;
+import org.kuali.common.util.properties.PropertiesLocationService;
+import org.kuali.common.util.properties.spring.PropertiesLocationServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ PropertyLocationsCommonConfig.class })
+@Import({ PropertiesLocationServiceConfig.class })
 public class JdbcPropertyLocationsConfig {
 
 	@Autowired
-	PropertyLocationsCommonConfig commonConfig;
+	PropertiesLocationService service;
 
 	@Bean
 	public List<Location> jdbcPropertyLocations() {
@@ -30,13 +31,13 @@ public class JdbcPropertyLocationsConfig {
 	protected List<Location> getJdbcLocations() {
 		List<String> filenames = getJdbcList();
 		ProjectIdentifier identifier = JdbcProjectConstants.PROJECT_IDENTIFIER;
-		return commonConfig.getLocations(identifier, filenames);
+		return service.getLocations(identifier, filenames);
 	}
 
 	protected List<Location> getKualiSqlLocations() {
 		List<String> filenames = getKualiSqlList();
 		ProjectIdentifier identifier = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
-		return commonConfig.getLocations(identifier, filenames);
+		return service.getLocations(identifier, filenames);
 	}
 
 	protected List<String> getJdbcList() {
