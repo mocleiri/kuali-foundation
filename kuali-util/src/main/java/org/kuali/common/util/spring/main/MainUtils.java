@@ -22,7 +22,7 @@ public class MainUtils {
 			new SpringExecutable(context).execute();
 			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.print(e.getMessage());
 			System.exit(Status.FAILURE.getValue());
 		}
 	}
