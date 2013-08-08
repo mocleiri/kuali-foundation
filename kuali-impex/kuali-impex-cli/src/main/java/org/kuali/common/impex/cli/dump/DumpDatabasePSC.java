@@ -65,11 +65,10 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	}
 
 	protected List<Location> getLocations() {
-		Location location = getLocation(context.getArgs());
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(jdbc.jdbcPropertyLocations());
 		locations.addAll(dump.dumpPropertiesLocations());
-		locations.add(location);
+		locations.add(getLocation(context.getArgs()));
 		return locations;
 	}
 
