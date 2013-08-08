@@ -18,16 +18,16 @@ package org.kuali.common.impex.cli.dump;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
+import org.kuali.common.util.spring.main.MainService;
 import org.kuali.common.util.spring.main.MainUtils;
-import org.kuali.common.util.spring.service.PropertySourceService;
-import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.kuali.common.util.spring.main.spring.MainServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ SpringServiceConfig.class })
+@Import({ MainServiceConfig.class })
 public class DumpDatabase {
 
 	public static void main(String[] args) {
@@ -38,11 +38,11 @@ public class DumpDatabase {
 	MainContext context;
 
 	@Autowired
-	PropertySourceService service;
+	MainService service;
 
 	@Execute
 	public Executable executable() {
-		PropertySource<?> propertySource = MainUtils.getPropertySource(service, context, DumpDatabasePSC.class);
+		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
 		System.out.println(propertySource);
 		return null;
 	}
