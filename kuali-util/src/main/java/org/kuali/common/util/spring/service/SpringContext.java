@@ -15,7 +15,6 @@
  */
 package org.kuali.common.util.spring.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -28,11 +27,11 @@ public class SpringContext {
 	}
 
 	public SpringContext(Map<String, Object> beans, Class<?> annotatedClass, String activeProfile) {
-		this(beans, CollectionUtils.asList(annotatedClass), null, Arrays.asList(activeProfile));
+		this(beans, CollectionUtils.asList(annotatedClass), null, CollectionUtils.toEmptyList(activeProfile));
 	}
 
 	public SpringContext(Map<String, Object> beans, List<Class<?>> annotatedClasses, String activeProfile) {
-		this(beans, annotatedClasses, null, Arrays.asList(activeProfile));
+		this(beans, annotatedClasses, null, CollectionUtils.toEmptyList(activeProfile));
 	}
 
 	public SpringContext(PropertySourceContext propertySourceContext) {
@@ -60,7 +59,6 @@ public class SpringContext {
 	}
 
 	public SpringContext(Map<String, Object> contextBeans, List<Class<?>> annotatedClasses, PropertySourceContext propertySourceContext, List<String> activeProfiles) {
-		super();
 		this.contextBeans = contextBeans;
 		this.annotatedClasses = annotatedClasses;
 		this.propertySourceContext = propertySourceContext;
