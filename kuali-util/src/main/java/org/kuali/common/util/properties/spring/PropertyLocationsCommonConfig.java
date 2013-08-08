@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
-import org.kuali.common.util.project.model.Feature;
+import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
@@ -50,12 +50,10 @@ public class PropertyLocationsCommonConfig {
 		return new Location(value, encoding, cache);
 	}
 
-	public Location getLocation(Feature feature, String filename) {
+	public Location getLocation(FeatureIdentifier identifier, String filename) {
 		boolean cache = SpringUtils.getBoolean(env, PROPERTIES_CACHE_KEY, DEFAULT_CACHE_PROPERTIES_VALUE);
-		String groupId = feature.getIdentifier().getGroupId();
-		String artifactId = feature.getIdentifier().getArtifactId();
-		Project project = projectService.getProject(groupId, artifactId);
-		String value = ProjectUtils.getClasspathPrefix(feature.getIdentifier()) + "/" + filename;
+		Project project = projectService.getProject(identifier.getGroupId(), identifier.getArtifactId());
+		String value = ProjectUtils.getClasspathPrefix(identifier) + "/" + filename;
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding, cache);
 	}
