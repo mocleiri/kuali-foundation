@@ -17,7 +17,7 @@ import org.springframework.core.env.Environment;
 @Import({ ProjectServiceConfig.class })
 public class PropertyLocationsCommonConfig {
 
-	public static final boolean DEFAULT_CACHE_LOCATION_PROPERTIES_VALUE = true;
+	private static final boolean DEFAULT_CACHE_PROPERTIES_VALUE = true;
 	private static final String PROPERTIES_CACHE_KEY = "properties.cache";
 
 	@Autowired
@@ -27,18 +27,15 @@ public class PropertyLocationsCommonConfig {
 	ProjectService projectService;
 
 	public Location getLocation(ProjectIdentifier identifier, String filename) {
-		boolean cache = SpringUtils.getBoolean(env, PROPERTIES_CACHE_KEY, DEFAULT_CACHE_LOCATION_PROPERTIES_VALUE);
+		boolean cache = SpringUtils.getBoolean(env, PROPERTIES_CACHE_KEY, DEFAULT_CACHE_PROPERTIES_VALUE);
 		Project project = projectService.getProject(identifier);
 		String value = ProjectUtils.getClasspathPrefix(identifier) + "/" + filename;
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding, cache);
 	}
 
-	/**
-	 * 
-	 */
 	public Location getLocation(Feature feature, String filename) {
-		boolean cache = SpringUtils.getBoolean(env, PROPERTIES_CACHE_KEY, DEFAULT_CACHE_LOCATION_PROPERTIES_VALUE);
+		boolean cache = SpringUtils.getBoolean(env, PROPERTIES_CACHE_KEY, DEFAULT_CACHE_PROPERTIES_VALUE);
 		String groupId = feature.getIdentifier().getGroupId();
 		String artifactId = feature.getIdentifier().getArtifactId();
 		Project project = projectService.getProject(groupId, artifactId);
