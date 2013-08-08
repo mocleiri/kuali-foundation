@@ -35,7 +35,7 @@ public class SpringContext {
 	}
 
 	public SpringContext(PropertySourceContext propertySourceContext) {
-		this(null, propertySourceContext);
+		this((Class<?>) null, propertySourceContext);
 	}
 
 	public SpringContext() {
@@ -44,6 +44,10 @@ public class SpringContext {
 
 	public SpringContext(Class<?> annotatedClass) {
 		this(CollectionUtils.asList(annotatedClass));
+	}
+
+	public SpringContext(Class<?> annotatedClass, PropertySourceContext propertySourceContext) {
+		this(CollectionUtils.asList(annotatedClass), propertySourceContext);
 	}
 
 	public SpringContext(List<Class<?>> annotatedClasses) {
