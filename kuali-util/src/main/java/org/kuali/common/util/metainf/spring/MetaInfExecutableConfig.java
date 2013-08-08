@@ -16,21 +16,21 @@
 package org.kuali.common.util.metainf.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.ExecutableConfig;
+import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(MetaInfConfig.class)
-public class MetaInfExecutableConfig extends ExecutableConfig {
+public class MetaInfExecutableConfig {
 
-    @Autowired
-    MetaInfConfig metaInfConfig;
+	@Autowired
+	MetaInfConfig metaInfConfig;
 
-    @Override
-	public Executable getExecutable() {
-        return metaInfConfig.metaInfExecutable();
-    }
+	@Execute
+	public Executable executable() {
+		return metaInfConfig.metaInfExecutable();
+	}
 
 }
