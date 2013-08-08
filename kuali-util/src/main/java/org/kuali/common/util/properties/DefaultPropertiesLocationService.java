@@ -50,12 +50,16 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 
 	@Override
 	public List<Location> getLocations(FeatureIdentifier identifier, String... filenames) {
-		return null;
+		return getLocations(identifier, Arrays.asList(filenames));
 	}
 
 	@Override
 	public List<Location> getLocations(FeatureIdentifier identifier, List<String> filenames) {
-		return null;
+		List<Location> locations = new ArrayList<Location>();
+		for (String filename : filenames) {
+			locations.add(getLocation(identifier, filename));
+		}
+		return locations;
 	}
 
 	@Override
