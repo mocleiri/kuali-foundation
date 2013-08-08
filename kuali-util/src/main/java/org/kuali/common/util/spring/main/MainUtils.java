@@ -11,6 +11,9 @@ public class MainUtils {
 	public static final String MAIN_CONTEXT_BEAN_NAME = "mainContext";
 	public static final String MAIN_PROFILE_NAME = "main";
 
+	/**
+	 * Load the @Configuration <code>mainClass</code> using Spring and then terminate the JVM.
+	 */
 	public static void runAndExit(Class<?> mainClass, String[] args) {
 		try {
 			MainContext mainContext = new MainContext(mainClass, args);
