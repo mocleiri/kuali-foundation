@@ -3,7 +3,7 @@ package org.kuali.common.impex.cli.project;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
-public class ImpexCLIProjectConstants {
+public abstract class ImpexCLIProjectConstants {
 
 	// These 2 must always exactly match what is in the Maven pom.xml
 	private static final String GID = KualiProjectConstants.COMMON_GROUP_ID;
