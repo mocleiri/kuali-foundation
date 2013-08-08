@@ -16,11 +16,14 @@
 package org.kuali.common.impex.cli.dump;
 
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.ExecutablesExecutable;
+import org.kuali.common.util.execute.HelloWorldExecutable;
+import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainService;
 import org.kuali.common.util.spring.main.MainUtils;
-import org.kuali.common.util.spring.main.ValidatePropertyLocationExecutable;
+import org.kuali.common.util.spring.main.ValidatePropertiesLocationExecutable;
 import org.kuali.common.util.spring.main.spring.MainServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -43,13 +46,28 @@ public class DumpDatabase {
 
 	@Execute
 	public Executable executable() {
-		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
-		System.out.println(propertySource);
-		return null;
+		return new ExecutablesExecutable(validateArgsExecutable(), springExecutable());
 	}
 
-	protected Executable validateArgs() {
-		return new ValidatePropertyLocationExecutable(context, "");
+	protected Executable springExecutable() {
+		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
+		SpringExecutable exec = new SpringExecutable();
+		return new HelloWorldExecutable();
+	}
+
+	protected Executable validateArgsExecutable() {
+		return new ValidatePropertiesLocationExecutable(context, getInvalidArgsMessage());
+	}
+
+	protected String getInvalidArgsMessage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\nThis program requires one argument containing a properties file location.\n");
+		sb.append("The properties file will usually define at least these 4 properties:\n");
+		sb.append("db.vendor=oracle/mysql\n");
+		sb.append("jdbc.username=[username]\n");
+		sb.append("jdbc.password=[password]\n");
+		sb.append("jdbc.url=[JDBC connection URL]\n");
+		return sb.toString();
 	}
 
 }
