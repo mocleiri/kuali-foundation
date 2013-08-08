@@ -28,10 +28,10 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class })
-public class DumpDatabase {
+public class DumpDatabaseConfig {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(DumpDatabase.class, args);
+		MainUtils.runAndExit(DumpDatabaseConfig.class, args);
 	}
 
 	@Autowired
