@@ -23,8 +23,20 @@ public class JdbcPropertyLocationsConfig {
 	public List<Location> jdbcPropertyLocations() {
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(getKualiSqlLocations());
-		locations.addAll(getJdbcSqlLocations());
+		locations.addAll(getJdbcLocations());
 		return locations;
+	}
+
+	protected List<Location> getJdbcLocations() {
+		List<String> filenames = getJdbcList();
+		ProjectIdentifier identifier = JdbcProjectConstants.PROJECT_IDENTIFIER;
+		return propertyLocationsCommonConfig.getLocations(identifier, filenames);
+	}
+
+	protected List<Location> getKualiSqlLocations() {
+		List<String> filenames = getKualiSqlList();
+		ProjectIdentifier identifier = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
+		return propertyLocationsCommonConfig.getLocations(identifier, filenames);
 	}
 
 	protected List<String> getJdbcList() {
@@ -41,18 +53,6 @@ public class JdbcPropertyLocationsConfig {
 		filenames.add("oracle.xml");
 		filenames.add("sql.xml");
 		return filenames;
-	}
-
-	protected List<Location> getJdbcSqlLocations() {
-		List<String> filenames = getJdbcList();
-		ProjectIdentifier identifier = JdbcProjectConstants.PROJECT_IDENTIFIER;
-		return propertyLocationsCommonConfig.getLocations(identifier, filenames);
-	}
-
-	protected List<Location> getKualiSqlLocations() {
-		List<String> filenames = getKualiSqlList();
-		ProjectIdentifier identifier = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
-		return propertyLocationsCommonConfig.getLocations(identifier, filenames);
 	}
 
 }
