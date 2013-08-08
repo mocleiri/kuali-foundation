@@ -21,7 +21,7 @@ public class MainUtils {
 			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.exit(1);
+			System.exit(Status.FAILURE.getValue());
 		}
 	}
 
