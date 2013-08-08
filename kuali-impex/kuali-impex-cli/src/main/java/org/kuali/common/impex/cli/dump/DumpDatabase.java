@@ -15,7 +15,7 @@
 
 package org.kuali.common.impex.cli.dump;
 
-import org.kuali.common.impex.spring.DumpDatabaseConfig;
+import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
@@ -48,7 +48,7 @@ public class DumpDatabase {
 	public Executable executable() {
 		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
 		PropertySourceContext psc = new PropertySourceContext(propertySource, true);
-		SpringContext context = new SpringContext(DumpDatabaseConfig.class, psc);
+		SpringContext context = new SpringContext(DumpDatabaseExecutableConfig.class, psc);
 		return new SpringExecutable(context);
 	}
 
