@@ -28,10 +28,10 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ SpringServiceConfig.class })
-public class DumpDatabaseConfig {
+public class DumpDatabase {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(DumpDatabaseConfig.class, args);
+		MainUtils.runAndExit(DumpDatabase.class, args);
 	}
 
 	@Autowired

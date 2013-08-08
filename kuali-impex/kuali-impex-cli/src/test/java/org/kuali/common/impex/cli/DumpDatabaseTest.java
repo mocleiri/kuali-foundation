@@ -1,14 +1,14 @@
 package org.kuali.common.impex.cli;
 
 import org.junit.Test;
-import org.kuali.common.impex.cli.dump.DumpDatabaseConfig;
+import org.kuali.common.impex.cli.dump.DumpDatabase;
 
 public class DumpDatabaseTest {
 
 	@Test
 	public void test() {
 		String[] args = { "classpath:jc.properties" };
-		DumpDatabaseConfig.main(args);
+		DumpDatabase.main(args);
 	}
 
 }
