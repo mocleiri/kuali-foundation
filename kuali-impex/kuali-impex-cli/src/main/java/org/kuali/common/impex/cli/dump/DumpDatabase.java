@@ -25,13 +25,15 @@ import org.kuali.common.util.spring.main.MainUtils;
 import org.kuali.common.util.spring.main.spring.MainServiceConfig;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ MainServiceConfig.class })
+@Import({ MainServiceConfig.class, SpringServiceConfig.class })
 public class DumpDatabase {
 
 	public static void main(String[] args) {
@@ -42,14 +44,17 @@ public class DumpDatabase {
 	MainContext context;
 
 	@Autowired
-	MainService service;
+	MainService mainService;
+
+	@Autowired
+	SpringService springService;
 
 	@Execute
 	public Executable main() {
-		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
+		PropertySource<?> propertySource = mainService.getPropertySource(context, DumpDatabasePSC.class);
 		PropertySourceContext psc = new PropertySourceContext(propertySource, true);
 		SpringContext context = new SpringContext(DumpDatabaseExecutableConfig.class, psc);
-		return new SpringExecutable(context);
+		return new SpringExecutable(springService, context);
 	}
 
 }
