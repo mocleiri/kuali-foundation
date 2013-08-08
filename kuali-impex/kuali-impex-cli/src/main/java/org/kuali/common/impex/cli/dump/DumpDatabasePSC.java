@@ -69,15 +69,15 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	}
 
 	protected Location getLocation(String[] args) {
-		Assert.notNull(args, invalidArgsMessage());
-		Assert.isTrue(args.length > 0, invalidArgsMessage());
+		String msg = getInvalidArgsMessage();
+		Assert.notNull(args, msg);
+		Assert.isTrue(args.length > 0, msg);
 		String value = args[0];
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding, true);
 	}
 
-	@Bean
-	public String invalidArgsMessage() {
+	public String getInvalidArgsMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nThis program requires one argument containing a properties file location.\n");
 		sb.append("The properties file will usually define at least these 4 properties:\n");
