@@ -21,6 +21,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ConfigUtils {
 
 	public static final String DELIMITER = ":";

@@ -42,6 +42,10 @@ import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.xml.XmlService;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public abstract class AbstractCachingConfigService implements ConfigService {
 
 	private static final String METAINF = "META-INF";

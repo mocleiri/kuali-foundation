@@ -23,6 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import({ AutowiredProjectConfig.class })
 public class ProjectConfigOverridesConfig implements ConfigOverridesConfig {

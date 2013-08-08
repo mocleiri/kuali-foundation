@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util.config;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultProjectConfig implements ProjectConfig {
 
 	String groupId;

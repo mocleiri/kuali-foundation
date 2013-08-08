@@ -26,6 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.CollectionUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @XmlRootElement(name = "project")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ProjectConfigContainer {

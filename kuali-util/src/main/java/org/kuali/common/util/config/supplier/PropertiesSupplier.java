@@ -17,6 +17,10 @@ package org.kuali.common.util.config.supplier;
 
 import java.util.Properties;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface PropertiesSupplier {
 
 	Properties getProperties();

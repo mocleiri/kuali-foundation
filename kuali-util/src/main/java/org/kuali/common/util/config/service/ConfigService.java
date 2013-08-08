@@ -18,6 +18,10 @@ package org.kuali.common.util.config.service;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface ConfigService {
 
 	/**

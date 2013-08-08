@@ -32,6 +32,10 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SpringConfigService extends AbstractCachingConfigService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringConfigService.class);

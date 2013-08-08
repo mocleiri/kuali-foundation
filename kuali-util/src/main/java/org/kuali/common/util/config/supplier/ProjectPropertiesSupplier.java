@@ -21,6 +21,10 @@ import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.model.Project;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ProjectPropertiesSupplier implements PropertiesSupplier {
 
 	ProjectService service;

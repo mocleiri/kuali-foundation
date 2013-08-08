@@ -18,6 +18,10 @@ package org.kuali.common.util.config;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum KualiUtilConfig implements ProjectConfig {
 
 	SCM("scm"), // Config for SCM related process

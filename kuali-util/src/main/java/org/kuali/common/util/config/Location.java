@@ -22,6 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Mode;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Location {

@@ -22,6 +22,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.Nullifier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ProjectConfigContainerNullifier implements Nullifier {
 
 	ProjectConfigContainer config;

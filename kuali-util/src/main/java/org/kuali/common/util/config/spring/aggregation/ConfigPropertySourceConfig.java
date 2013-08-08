@@ -29,8 +29,9 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 /**
- * 
+ * @deprecated
  */
+@Deprecated
 @Configuration
 @Import({ ConfigServiceConfig.class })
 public class ConfigPropertySourceConfig implements PropertySourceConfig {

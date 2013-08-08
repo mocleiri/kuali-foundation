@@ -21,6 +21,10 @@ import java.util.Properties;
 import org.kuali.common.util.config.service.ConfigService;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
 	ConfigService service;

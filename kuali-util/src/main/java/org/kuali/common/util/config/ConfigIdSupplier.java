@@ -16,6 +16,10 @@
 package org.kuali.common.util.config;
 
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface ConfigIdSupplier {
 
 	String getConfigId();

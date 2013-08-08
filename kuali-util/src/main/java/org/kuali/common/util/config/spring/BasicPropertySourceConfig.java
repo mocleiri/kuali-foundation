@@ -28,11 +28,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 /**
- * 
+ * @deprecated
  */
+@Deprecated
 @Configuration
 @Import({ ConfigServiceConfig.class })
-@Deprecated
 public class BasicPropertySourceConfig {
 
 	@Autowired

@@ -18,6 +18,10 @@ package org.kuali.common.util.config.spring.aggregation;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import({ ProjectConfigOverridesConfig.class, ConfigPropertySourceConfig.class })
 public abstract class ProjectPropertySourceConfig implements ConfigIdsConfig {

@@ -17,6 +17,10 @@ package org.kuali.common.util.config.spring.aggregation;
 
 import java.util.Properties;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface ConfigOverridesConfig {
 
 	Properties configOverrideProperties();

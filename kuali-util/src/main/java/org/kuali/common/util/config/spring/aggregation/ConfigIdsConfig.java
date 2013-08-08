@@ -17,6 +17,10 @@ package org.kuali.common.util.config.spring.aggregation;
 
 import java.util.List;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface ConfigIdsConfig {
 
 	List<String> configIds();

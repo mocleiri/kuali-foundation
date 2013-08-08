@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.config;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public abstract class ConfigConstants {
 

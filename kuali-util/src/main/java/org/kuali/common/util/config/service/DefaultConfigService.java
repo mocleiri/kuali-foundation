@@ -26,6 +26,10 @@ import org.kuali.common.util.config.ProjectConfigContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultConfigService extends AbstractCachingConfigService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultConfigService.class);
