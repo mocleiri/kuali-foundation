@@ -15,15 +15,16 @@
 
 package org.kuali.common.impex.cli.dump;
 
+import org.kuali.common.impex.spring.DumpDatabaseConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.ExecutablesExecutable;
-import org.kuali.common.util.execute.HelloWorldExecutable;
 import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainService;
 import org.kuali.common.util.spring.main.MainUtils;
 import org.kuali.common.util.spring.main.spring.MainServiceConfig;
+import org.kuali.common.util.spring.service.PropertySourceContext;
+import org.kuali.common.util.spring.service.SpringContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -45,13 +46,10 @@ public class DumpDatabase {
 
 	@Execute
 	public Executable executable() {
-		return new ExecutablesExecutable(springExecutable());
-	}
-
-	protected Executable springExecutable() {
 		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
-		SpringExecutable exec = new SpringExecutable();
-		return new HelloWorldExecutable();
+		PropertySourceContext psc = new PropertySourceContext(propertySource, true);
+		SpringContext context = new SpringContext(DumpDatabaseConfig.class, psc);
+		return new SpringExecutable(context);
 	}
 
 }
