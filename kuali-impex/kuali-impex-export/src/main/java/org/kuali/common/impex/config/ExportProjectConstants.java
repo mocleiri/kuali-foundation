@@ -1,11 +1,17 @@
 package org.kuali.common.impex.config;
 
-import org.kuali.common.util.project.KualiConstants;
-
+/**
+ * @deprecated
+ */
+@Deprecated
 public abstract class ExportProjectConstants {
 
-	public static final String GROUP_ID = KualiConstants.COMMON_GROUP_ID;
+	public static final String GROUP_ID = org.kuali.common.util.project.KualiConstants.COMMON_GROUP_ID;
+
+	@Deprecated
 	public static final String ARTIFACT_ID = "kuali-impex-export";
+
+	@Deprecated
 	public static final String PROJECT_ID = GROUP_ID + ":" + ARTIFACT_ID;
 
 }
