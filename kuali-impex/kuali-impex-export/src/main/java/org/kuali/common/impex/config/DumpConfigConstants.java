@@ -22,6 +22,10 @@ import java.util.List;
 import org.kuali.common.jdbc.config.KualiJdbcConfig;
 import org.kuali.common.jdbc.config.KualiSqlConfig;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DumpConfigConstants {
 
 	public static final List<String> CONFIG_IDS = getConfigIds();
