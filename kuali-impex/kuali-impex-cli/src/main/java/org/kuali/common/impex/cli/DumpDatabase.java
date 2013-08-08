@@ -19,11 +19,15 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainUtils;
+import org.kuali.common.util.spring.service.PropertySourceService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import({ SpringServiceConfig.class })
 public class DumpDatabase {
 
 	public static void main(String[] args) {
@@ -32,6 +36,9 @@ public class DumpDatabase {
 
 	@Autowired
 	MainContext context;
+
+	@Autowired
+	PropertySourceService propertySourceService;
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
