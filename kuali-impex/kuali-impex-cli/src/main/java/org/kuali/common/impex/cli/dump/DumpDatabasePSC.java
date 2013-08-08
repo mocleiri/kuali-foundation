@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.impex.cli.project.ImpexCLIProjectConfig;
+import org.kuali.common.impex.spring.DumpLocationsConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertyLocationsConfig;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
@@ -37,7 +38,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ ImpexCLIProjectConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
+@Import({ ImpexCLIProjectConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class, DumpLocationsConfig.class })
 public class DumpDatabasePSC implements PropertySourceConfig {
 
 	@Autowired
@@ -52,6 +53,9 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	@Autowired
 	JdbcPropertyLocationsConfig jdbc;
 
+	@Autowired
+	DumpLocationsConfig dump;
+
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
@@ -64,6 +68,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 		Location location = getLocation(context.getArgs());
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(jdbc.jdbcPropertyLocations());
+		locations.addAll(dump.dumpPropertiesLocations());
 		locations.add(location);
 		return locations;
 	}
