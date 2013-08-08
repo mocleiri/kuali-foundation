@@ -2,7 +2,7 @@ package org.kuali.common.util.project.model;
 
 import org.kuali.common.util.Assert;
 
-public class Feature {
+public final class Feature {
 
 	public Feature(FeatureIdentifier identifier, String name, String description) {
 		Assert.noNulls(identifier, name);

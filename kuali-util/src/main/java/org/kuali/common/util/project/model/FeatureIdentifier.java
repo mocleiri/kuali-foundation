@@ -3,7 +3,7 @@ package org.kuali.common.util.project.model;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
 
-public class FeatureIdentifier {
+public final class FeatureIdentifier {
 
 	private final String groupId;
 	private final String artifactId;

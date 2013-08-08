@@ -45,7 +45,7 @@ import org.kuali.common.util.ObjectUtils;
  * 
  * </p>
  */
-public class ProjectIdentifier {
+public final class ProjectIdentifier {
 
 	private final String groupId;
 	private final String artifactId;
