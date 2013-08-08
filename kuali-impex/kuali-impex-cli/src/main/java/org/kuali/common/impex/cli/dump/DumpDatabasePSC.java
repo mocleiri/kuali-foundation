@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.impex.cli.project.ImpexCLIProjectIdConfig;
+import org.kuali.common.impex.cli.project.ImpexCLIProjectConfig;
 import org.kuali.common.jdbc.spring.JdbcPropertyLocationsConfig;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
@@ -37,7 +37,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ ImpexCLIProjectIdConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
+@Import({ ImpexCLIProjectConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
 public class DumpDatabasePSC implements PropertySourceConfig {
 
 	@Autowired

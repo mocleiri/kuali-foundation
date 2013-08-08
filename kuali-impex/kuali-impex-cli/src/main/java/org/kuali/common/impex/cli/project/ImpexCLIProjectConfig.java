@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
-public class ImpexCLIProjectIdConfig implements ProjectIdentifierConfig {
+public class ImpexCLIProjectConfig implements ProjectIdentifierConfig {
 
 	@Override
 	@Bean
