@@ -20,6 +20,7 @@ import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainService;
 import org.kuali.common.util.spring.main.MainUtils;
+import org.kuali.common.util.spring.main.ValidatePropertyLocationExecutable;
 import org.kuali.common.util.spring.main.spring.MainServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -45,6 +46,10 @@ public class DumpDatabase {
 		PropertySource<?> propertySource = service.getPropertySource(context, DumpDatabasePSC.class);
 		System.out.println(propertySource);
 		return null;
+	}
+
+	protected Executable validateArgs() {
+		return new ValidatePropertyLocationExecutable(context, "");
 	}
 
 }
