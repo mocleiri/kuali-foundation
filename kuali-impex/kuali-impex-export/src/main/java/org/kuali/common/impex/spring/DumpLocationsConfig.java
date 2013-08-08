@@ -43,6 +43,7 @@ public class DumpLocationsConfig {
 		List<String> filenames = new ArrayList<String>();
 		filenames.add("common.properties");
 		filenames.add("dump.properties");
+		filenames.add("extract.properties");
 		return filenames;
 	}
 
