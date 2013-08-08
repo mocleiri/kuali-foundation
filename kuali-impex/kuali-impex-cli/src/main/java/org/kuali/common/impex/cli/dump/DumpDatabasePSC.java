@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.Assert;
 
 @Configuration
 @Import({ ImpexCLIProjectIdConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
@@ -68,9 +69,23 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	}
 
 	protected Location getLocation(String[] args) {
+		Assert.notNull(args, invalidArgsMessage());
+		Assert.isTrue(args.length > 0, invalidArgsMessage());
 		String value = args[0];
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding, true);
+	}
+
+	@Bean
+	public String invalidArgsMessage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\nThis program requires one argument containing a properties file location.\n");
+		sb.append("The properties file will usually define at least these 4 properties:\n");
+		sb.append("db.vendor=oracle/mysql\n");
+		sb.append("jdbc.username=[username]\n");
+		sb.append("jdbc.password=[password]\n");
+		sb.append("jdbc.url=[JDBC connection URL]\n");
+		return sb.toString();
 	}
 
 }
