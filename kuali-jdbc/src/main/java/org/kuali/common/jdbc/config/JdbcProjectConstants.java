@@ -23,11 +23,11 @@ public class JdbcProjectConstants {
 
 	private static final String GID = KualiProjectConstants.COMMON_GROUP_ID;
 	private static final String AID = "kuali-jdbc";
-	private static final String KUALI_SQL_ARTIFACT_ID = "kuali-sql";
+	private static final String KUALI_SQL_AID = "kuali-sql";
 
 	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, AID);
 
-	public static final ProjectIdentifier KUALI_SQL_PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, KUALI_SQL_ARTIFACT_ID);
+	public static final ProjectIdentifier KUALI_SQL_PROJECT_IDENTIFIER = new ImmutableProjectIdentifier(GID, KUALI_SQL_AID);
 
 	@Deprecated
 	public static final String GROUP_ID = GID;
@@ -39,7 +39,7 @@ public class JdbcProjectConstants {
 	public static final String PROJECT_ID = GROUP_ID + ":" + ARTIFACT_ID;
 
 	@Deprecated
-	public static final String SQL_ARTIFACT_ID = KUALI_SQL_ARTIFACT_ID;
+	public static final String SQL_ARTIFACT_ID = KUALI_SQL_AID;
 
 	@Deprecated
 	public static final String SQL_PROJECT_ID = GROUP_ID + ":" + SQL_ARTIFACT_ID;
