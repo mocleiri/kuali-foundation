@@ -18,7 +18,7 @@ public class MainUtils {
 			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
 			exec.execute();
-			System.exit(0);
+			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
