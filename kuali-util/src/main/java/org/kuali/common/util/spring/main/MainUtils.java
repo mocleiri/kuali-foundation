@@ -19,8 +19,7 @@ public class MainUtils {
 			MainContext mainContext = new MainContext(mainClass, args);
 			Map<String, Object> beans = Collections.singletonMap(MAIN_CONTEXT_BEAN_NAME, (Object) mainContext);
 			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
-			SpringExecutable exec = new SpringExecutable(context);
-			exec.execute();
+			new SpringExecutable(context).execute();
 			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
 			e.printStackTrace();
