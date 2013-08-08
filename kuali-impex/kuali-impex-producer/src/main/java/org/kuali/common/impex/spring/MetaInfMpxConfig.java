@@ -6,16 +6,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.MetaInfUtils;
-import org.kuali.common.util.metainf.MetaInfContext;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-@Configuration
+/**
+ * @deprecated
+ */
 @Deprecated
+@Configuration
 public class MetaInfMpxConfig {
 
 	@Autowired
@@ -35,14 +36,14 @@ public class MetaInfMpxConfig {
 		File outputFile = new File(SpringUtils.getProperty(env, "impex.metainf.outputFile"));
 
 		// Setup the context
-		MetaInfContext context = new MetaInfContext();
+		org.kuali.common.util.metainf.MetaInfContext context = new org.kuali.common.util.metainf.MetaInfContext();
 		context.setBaseDir(baseDir);
 		context.setOutputFile(outputFile);
 		context.setIncludes(includes);
 
 		try {
-			// Invoke MetaInfUtils to create the resource listings
-			MetaInfUtils.scanAndCreateFiles(Arrays.asList(context));
+			// Invoke org.kuali.common.util.MetaInfUtils to create the resource listings
+			org.kuali.common.util.MetaInfUtils.scanAndCreateFiles(Arrays.asList(context));
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
