@@ -16,7 +16,7 @@
 package org.kuali.common.impex.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.ExecutableConfig;
+import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -26,13 +26,13 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({ DumpDatabaseConfig.class })
-public class DumpDatabaseExecutableConfig extends ExecutableConfig {
+public class DumpDatabaseExecutableConfig {
 
 	@Autowired
 	DumpDatabaseConfig dumpDatabaseConfig;
 
-	@Override
-	protected Executable getExecutable() {
+	@Execute
+	public Executable executable() {
 		return dumpDatabaseConfig.dumpDatabaseExecutable();
 	}
 
