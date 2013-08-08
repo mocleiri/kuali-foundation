@@ -25,7 +25,7 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
-import org.kuali.common.util.properties.spring.PropertiesServiceConfig;
+import org.kuali.common.util.properties.spring.ProjectPropertiesServiceConfig;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.util.Assert;
 
 @Configuration
-@Import({ ImpexCLIProjectIdConfig.class, JdbcPropertyLocationsConfig.class, PropertiesServiceConfig.class })
+@Import({ ImpexCLIProjectIdConfig.class, JdbcPropertyLocationsConfig.class, ProjectPropertiesServiceConfig.class })
 public class DumpDatabasePropertySourceConfig implements PropertySourceConfig {
 
 	@Autowired
