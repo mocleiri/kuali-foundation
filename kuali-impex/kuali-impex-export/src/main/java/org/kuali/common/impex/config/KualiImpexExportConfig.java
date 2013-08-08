@@ -1,9 +1,11 @@
 package org.kuali.common.impex.config;
 
-import org.kuali.common.util.config.ConfigUtils;
-import org.kuali.common.util.config.ProjectConfig;
 
-public enum KualiImpexExportConfig implements ProjectConfig {
+/**
+ * @deprecated
+ */
+@Deprecated
+public enum KualiImpexExportConfig implements org.kuali.common.util.config.ProjectConfig {
 
 	DUMP("dump"), //
 	DUMP_BUILD("dump:build"), //
@@ -15,7 +17,7 @@ public enum KualiImpexExportConfig implements ProjectConfig {
 
 	private KualiImpexExportConfig(String contextId) {
 		this.contextId = contextId;
-		this.configId = ConfigUtils.getConfigId(this);
+		this.configId = org.kuali.common.util.config.ConfigUtils.getConfigId(this);
 	}
 
 	@Override
