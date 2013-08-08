@@ -19,15 +19,15 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainUtils;
-import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DumpDatabasePropertySourceConfig.class })
+@Import({ SpringServiceConfig.class })
 public class DumpDatabaseConfig {
 
 	public static void main(String[] args) {
@@ -40,12 +40,10 @@ public class DumpDatabaseConfig {
 	@Autowired
 	PropertySourceService propertySourceService;
 
-	@Autowired
-	PropertySourceConfig propertySourceConfig;
-
 	@Execute
 	public Executable executable() {
-		System.out.println(propertySourceConfig);
+		PropertySource<?> propertySource = propertySourceService.getPropertySource(DumpDatabasePropertySourceConfig.class);
+		System.out.println(propertySource);
 		return null;
 	}
 
