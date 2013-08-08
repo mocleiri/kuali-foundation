@@ -4,6 +4,9 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
+/**
+ * Validate <code>String[] args</code> is not null, contains at least one argument and points to a location that exists.
+ */
 public final class ValidatePropertyLocationArgsExecutable implements Executable {
 
 	public ValidatePropertyLocationArgsExecutable(MainContext context, String message) {
@@ -21,7 +24,8 @@ public final class ValidatePropertyLocationArgsExecutable implements Executable 
 		Assert.notNull(args, message);
 		Assert.isTrue(args.length > 0, message);
 		String location = args[0];
-		LocationUtils.validateLocation(location);
+		Assert.noBlanks(message, location);
+		LocationUtils.validateLocation(location, message);
 	}
 
 	public String getMessage() {
