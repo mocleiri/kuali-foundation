@@ -28,7 +28,7 @@ public class LocationLoader implements PropertiesLoader {
 			ModeUtils.validate(location.getMissingMode(), "Non-existent location [" + value + "]");
 			return PropertyUtils.EMPTY;
 		} else {
-			return PropertyUtils.load(value, location.getEncoding());
+			return PropertyUtils.load(value, location.getEncoding(), location.getFormat());
 		}
 	}
 
