@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.Assert;
 
 @Configuration
 @Import({ PropertiesLocationServiceConfig.class })
@@ -34,6 +35,12 @@ public class DumpDatabasePropertySourceConfig implements PropertySourceConfig {
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
+		String[] args = context.getArgs();
+		Assert.notNull(args, "args is null");
+		Assert.isTrue(args.length > 0, "args.length <= 0");
+
+		String location = args[0];
+
 		return null;
 	}
 
