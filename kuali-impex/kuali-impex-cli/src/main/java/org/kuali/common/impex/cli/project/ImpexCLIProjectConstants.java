@@ -5,6 +5,7 @@ import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class ImpexCLIProjectConstants {
 
+	// These 2 must always exactly match what is in the Maven pom.xml
 	private static final String GID = KualiProjectConstants.COMMON_GROUP_ID;
 	private static final String AID = "kuali-impex-cli";
 
