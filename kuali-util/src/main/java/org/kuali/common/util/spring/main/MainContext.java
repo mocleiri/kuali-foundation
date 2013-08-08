@@ -5,7 +5,7 @@ import org.kuali.common.util.Assert;
 public final class MainContext {
 
 	public MainContext(Class<?> mainClass, String[] args) {
-		Assert.noNulls(mainClass, args);
+		Assert.noNulls(mainClass);
 		this.mainClass = mainClass;
 		this.args = args;
 	}

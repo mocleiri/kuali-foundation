@@ -3,7 +3,6 @@ package org.kuali.common.util.spring.main;
 import java.util.Collections;
 import java.util.Map;
 
-import org.kuali.common.util.Str;
 import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.service.SpringContext;
 
@@ -14,7 +13,7 @@ public class MainUtils {
 
 	public static void runAndExit(Class<?> mainClass, String[] args) {
 		try {
-			MainContext mainContext = new MainContext(mainClass, Str.toEmptyArray(args));
+			MainContext mainContext = new MainContext(mainClass, args);
 			Map<String, Object> beans = Collections.singletonMap(MAIN_CONTEXT_BEAN_NAME, (Object) mainContext);
 			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
 			SpringExecutable exec = new SpringExecutable(context);
