@@ -7,9 +7,9 @@ import org.kuali.common.util.execute.Executable;
 /**
  * Validate <code>String[] args</code> is not null, contains at least one argument and points to a location that exists.
  */
-public final class ValidatePropertyLocationArgsExecutable implements Executable {
+public final class ValidatePropertyLocationExecutable implements Executable {
 
-	public ValidatePropertyLocationArgsExecutable(MainContext context, String message) {
+	public ValidatePropertyLocationExecutable(MainContext context, String message) {
 		Assert.noNulls(context, message);
 		this.context = context;
 		this.message = message;
