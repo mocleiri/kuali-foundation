@@ -70,7 +70,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 	protected Location getLocation(String[] args) {
 		String value = args[0];
 		String encoding = ProjectUtils.getEncoding(project);
-		return new Location(value, encoding);
+		return new Location(value, encoding, true);
 	}
 
 }
