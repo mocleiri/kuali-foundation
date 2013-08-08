@@ -1,15 +1,10 @@
 package org.kuali.common.util.spring.main;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.util.spring.SpringExecutable;
-import org.kuali.common.util.spring.service.PropertySourceConfig;
-import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringContext;
-import org.springframework.core.env.PropertySource;
 
 public class MainUtils {
 
@@ -31,12 +26,6 @@ public class MainUtils {
 			e.printStackTrace();
 			System.exit(Status.FAILURE.getValue());
 		}
-	}
-
-	public static PropertySource<?> getPropertySource(PropertySourceService service, MainContext context, Class<? extends PropertySourceConfig> config) {
-		Map<String, Object> beans = Collections.singletonMap(MAIN_CONTEXT_BEAN_NAME, (Object) context);
-		List<String> activeProfiles = Arrays.asList(MAIN_PROFILE_NAME);
-		return service.getPropertySource(beans, null, activeProfiles, config);
 	}
 
 }
