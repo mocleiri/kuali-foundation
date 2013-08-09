@@ -18,7 +18,6 @@ package org.kuali.common.util.config.supplier;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.config.service.ConfigService;
 import org.springframework.util.Assert;
 
 /**
@@ -27,7 +26,7 @@ import org.springframework.util.Assert;
 @Deprecated
 public class ConfigPropertiesSupplier implements PropertiesSupplier {
 
-	ConfigService service;
+	org.kuali.common.util.config.service.ConfigService service;
 	List<String> configIds;
 	Properties overrides;
 
@@ -35,11 +34,11 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 		this(null, null);
 	}
 
-	public ConfigPropertiesSupplier(List<String> configIds, ConfigService service) {
+	public ConfigPropertiesSupplier(List<String> configIds, org.kuali.common.util.config.service.ConfigService service) {
 		this(configIds, service, null);
 	}
 
-	public ConfigPropertiesSupplier(List<String> configIds, ConfigService service, Properties overrides) {
+	public ConfigPropertiesSupplier(List<String> configIds, org.kuali.common.util.config.service.ConfigService service, Properties overrides) {
 		super();
 		this.configIds = configIds;
 		this.service = service;
@@ -56,11 +55,11 @@ public class ConfigPropertiesSupplier implements PropertiesSupplier {
 		return service.getProperties(configIds, overrides);
 	}
 
-	public ConfigService getService() {
+	public org.kuali.common.util.config.service.ConfigService getService() {
 		return service;
 	}
 
-	public void setService(ConfigService service) {
+	public void setService(org.kuali.common.util.config.service.ConfigService service) {
 		this.service = service;
 	}
 

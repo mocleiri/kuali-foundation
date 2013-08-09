@@ -18,8 +18,6 @@ package org.kuali.common.util.config.spring.aggregation;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.config.service.ConfigService;
-import org.kuali.common.util.config.spring.ConfigServiceConfig;
 import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +31,13 @@ import org.springframework.core.env.PropertySource;
  */
 @Deprecated
 @Configuration
-@Import({ ConfigServiceConfig.class })
+@Import({ org.kuali.common.util.config.spring.ConfigServiceConfig.class })
 public class ConfigPropertySourceConfig implements PropertySourceConfig {
 
 	private static final String PROPERTY_SOURCE_NAME = "configPropertySource";
 
 	@Autowired
-	ConfigServiceConfig configServiceConfig;
+	org.kuali.common.util.config.spring.ConfigServiceConfig configServiceConfig;
 
 	@Autowired
 	ConfigOverridesConfig configOverridesConfig;
@@ -50,7 +48,7 @@ public class ConfigPropertySourceConfig implements PropertySourceConfig {
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
-		ConfigService service = configServiceConfig.configService();
+		org.kuali.common.util.config.service.ConfigService service = configServiceConfig.configService();
 		Properties overrides = configOverridesConfig.configOverrideProperties();
 		List<String> configIds = configIdsConfig.configIds();
 		Properties properties = service.getProperties(configIds, overrides);
