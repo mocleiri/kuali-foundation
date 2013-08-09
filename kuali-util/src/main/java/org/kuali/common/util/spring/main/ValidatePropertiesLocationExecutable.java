@@ -5,7 +5,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 
 /**
- * Validate <code>String[] args</code> is not null, contains at least one argument and points to a location that exists.
+ * Validate <code>String[] args</code> is not null, contains at least one non-blank value and points to a location that exists.
  */
 public final class ValidatePropertiesLocationExecutable implements Executable {
 
