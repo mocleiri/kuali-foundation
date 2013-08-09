@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.config.ProjectConfigContainer;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
@@ -40,15 +39,15 @@ public class SpringConfigService extends AbstractCachingConfigService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringConfigService.class);
 
-	private static final Map<String, ProjectConfigContainer> CACHE = new HashMap<String, ProjectConfigContainer>();
+	private static final Map<String, org.kuali.common.util.config.ProjectConfigContainer> CACHE = new HashMap<String, org.kuali.common.util.config.ProjectConfigContainer>();
 	private static final String FILE = "metadata-spring.xml";
 	private static final String PROPS = "spring.properties";
 	private static final String BEAN = "projectConfig";
 
 	@Override
-	protected synchronized ProjectConfigContainer getCachedConfig(String groupId, String artifactId) {
+	protected synchronized org.kuali.common.util.config.ProjectConfigContainer getCachedConfig(String groupId, String artifactId) {
 		String cacheKey = groupId + ":" + artifactId;
-		ProjectConfigContainer config = CACHE.get(cacheKey);
+		org.kuali.common.util.config.ProjectConfigContainer config = CACHE.get(cacheKey);
 		if (config == null) {
 			config = loadMetadata(groupId, artifactId);
 			logger.debug("Caching [{}]", cacheKey);
@@ -77,13 +76,13 @@ public class SpringConfigService extends AbstractCachingConfigService {
 	}
 
 	@Override
-	protected ProjectConfigContainer getProjectConfig(String content, String encoding) {
+	protected org.kuali.common.util.config.ProjectConfigContainer getProjectConfig(String content, String encoding) {
 		GenericXmlApplicationContext context = null;
 		try {
 			Resource resource = new ByteArrayResource(content.getBytes(encoding));
 			context = new GenericXmlApplicationContext();
 			context.load(resource);
-			return (ProjectConfigContainer) context.getBean(BEAN);
+			return (org.kuali.common.util.config.ProjectConfigContainer) context.getBean(BEAN);
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalStateException(e);
 		} finally {
