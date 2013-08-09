@@ -18,6 +18,7 @@ package org.kuali.common.util.spring;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
 import org.springframework.core.env.PropertySource;
 
 public class SpringExecUtils {
@@ -25,10 +26,18 @@ public class SpringExecUtils {
 	/**
 	 * Return a SpringExecutable for the PropertySource and annotatedClass passed in
 	 */
-	public static SpringExecutable getSpringExecutable(PropertySource<?> source, Class<?> annotatedClass) {
+	public static SpringExecutable getSpringExecutable(SpringService service, PropertySource<?> source, Class<?> annotatedClass) {
 		SpringContext context = getSinglePropertySourceContext(source);
 		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
-		return new SpringExecutable(context);
+		return new SpringExecutable(service, context);
+	}
+
+	/**
+	 * Return a SpringExecutable for the PropertySource and annotatedClass passed in
+	 */
+	@Deprecated
+	public static SpringExecutable getSpringExecutable(PropertySource<?> source, Class<?> annotatedClass) {
+		return getSpringExecutable(SpringExecutable.DEFAULT_SPRING_SERVICE, source, annotatedClass);
 	}
 
 	/**
