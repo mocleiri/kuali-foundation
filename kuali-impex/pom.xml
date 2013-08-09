@@ -139,13 +139,13 @@
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql.version}</version>
-        <scope>runtime</scope>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.oracle</groupId>
         <artifactId>ojdbc6_g</artifactId>
         <version>${oracle.version}</version>
-        <scope>runtime</scope>
+        <scope>provided</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
