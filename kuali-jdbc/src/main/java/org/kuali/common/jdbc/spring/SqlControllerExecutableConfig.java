@@ -16,7 +16,6 @@
 package org.kuali.common.jdbc.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.ExecutableConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -29,7 +28,7 @@ import org.springframework.context.annotation.Import;
 @Deprecated
 @Configuration
 @Import(BaseSqlControllerConfig.class)
-public class SqlControllerExecutableConfig extends ExecutableConfig {
+public class SqlControllerExecutableConfig extends org.kuali.common.util.spring.ExecutableConfig {
 
 	@Autowired
 	BaseSqlControllerConfig baseSqlControllerConfig;
