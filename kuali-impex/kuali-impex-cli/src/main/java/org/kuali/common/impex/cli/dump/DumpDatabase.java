@@ -39,7 +39,7 @@ public class DumpDatabase {
 	}
 
 	@Autowired
-	MainContext context;
+	MainContext mainContext;
 
 	@Autowired
 	MainService mainService;
@@ -49,7 +49,7 @@ public class DumpDatabase {
 
 	@Execute
 	public Executable main() {
-		PropertySource<?> source = mainService.getPropertySource(context, DumpDatabasePSC.class);
+		PropertySource<?> source = mainService.getPropertySource(mainContext, DumpDatabasePSC.class);
 		return SpringExecUtils.getSpringExecutable(springService, source, DumpDatabaseExecutableConfig.class);
 	}
 
