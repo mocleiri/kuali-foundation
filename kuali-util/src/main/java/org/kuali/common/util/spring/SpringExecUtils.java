@@ -24,7 +24,7 @@ import org.springframework.core.env.PropertySource;
 public class SpringExecUtils {
 
 	/**
-	 * Return a SpringExecutable for the PropertySource and annotatedClass passed in
+	 * Return an executable that resolves all placeholder values against <code>source</code>.
 	 */
 	public static SpringExecutable getSpringExecutable(SpringService service, PropertySource<?> source, Class<?> annotatedClass) {
 		SpringContext context = getSinglePropertySourceContext(source);
