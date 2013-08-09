@@ -97,6 +97,9 @@ public class VersionProcessor implements PropertyProcessor {
 		if (v.getQualifier() != null) {
 			String newKey = key + "." + qualifierSuffix;
 			properties.setProperty(newKey, v.getQualifier());
+			String sanitizedKey = key + "." + sanitizedQualifierSuffix;
+			String sanitizedValue = VersionUtils.getSanitizedQualifier(v.getQualifier());
+			properties.setProperty(sanitizedKey, sanitizedValue);
 		}
 		if (v.getTrimmed() != null) {
 			String newKey = key + "." + trimmedSuffix;
