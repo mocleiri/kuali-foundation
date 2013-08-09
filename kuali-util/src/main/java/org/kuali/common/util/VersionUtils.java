@@ -38,7 +38,7 @@ public class VersionUtils {
 
 	/**
 	 * Return <code>version</code> with <code>.SNAPSHOT</code> or <code>-SNAPSHOT</code> removed from the end (if present)
-	 *
+	 * 
 	 * <pre>
 	 * 1.0.0-SNAPSHOT returns 1.0.0
 	 * 1.0.0.SNAPSHOT returns 1.0.0
@@ -56,10 +56,9 @@ public class VersionUtils {
 	}
 
 	/**
-	 * Parse a <code>Version</code> object from the <code>version</code> string. The logic here is crudely simple. First
-	 * <code>SNAPSHOT</code> is trimmed off the end of the string (if it exists). Whatever remains is then split into tokens using
-	 * <code>.</code> and <code>-</code> as delimiters. The first 3 tokens encountered are <code>major</code>, <code>minor</code>, and
-	 * <code>incremental</code>, respectively. Anything after that is the <code>qualifier</code>
+	 * Parse a <code>Version</code> object from the <code>version</code> string. The logic here is crudely simple. First <code>SNAPSHOT</code> is trimmed off the end of the string
+	 * (if it exists). Whatever remains is then split into tokens using <code>.</code> and <code>-</code> as delimiters. The first 3 tokens encountered are <code>major</code>,
+	 * <code>minor</code>, and <code>incremental</code>, respectively. Anything after that is the <code>qualifier</code>
 	 */
 	public static final Version getVersion(String version) {
 		boolean snapshot = isSnapshot(version);
@@ -80,6 +79,15 @@ public class VersionUtils {
 		String qualifier = getQualifier(trimmed, tokens);
 		v.setQualifier(qualifier);
 		return v;
+	}
+
+	public static final String getSanitizedQualifier(String qualifier) {
+		if (qualifier == null) {
+			return null;
+		}
+		qualifier = StringUtils.replace(qualifier, ".", "_");
+		qualifier = StringUtils.replace(qualifier, "-", "_");
+		return StringUtils.upperCase(qualifier);
 	}
 
 	protected static final String getQualifier(String trimmed, String[] tokens) {
