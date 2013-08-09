@@ -31,8 +31,8 @@
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <inceptionYear>2010</inceptionYear>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</developerConnection>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</url>
   </scm>
   <properties>
