@@ -35,6 +35,10 @@ public class OverridePropertiesService implements PropertiesService {
 		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
 	}
 
+	public OverridePropertiesService(PropertyProcessor postProcessor, Properties... overrides) {
+		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE, postProcessor);
+	}
+
 	public OverridePropertiesService(Properties overrides) {
 		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
 	}
