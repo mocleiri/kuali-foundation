@@ -1,0 +1,29 @@
+package org.kuali.common.util.property.processor;
+
+import java.util.List;
+import java.util.Properties;
+
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
+
+public class ProcessorsProcessor implements PropertyProcessor {
+
+	private ProcessorsProcessor(List<PropertyProcessor> processors) {
+		Assert.noNulls(processors);
+		this.processors = CollectionUtils.immutableCopy(processors);
+	}
+
+	private final List<PropertyProcessor> processors;
+
+	@Override
+	public void process(Properties properties) {
+		for (PropertyProcessor processor : processors) {
+			processor.process(properties);
+		}
+	}
+
+	public List<PropertyProcessor> getProcessors() {
+		return processors;
+	}
+
+}
