@@ -27,12 +27,8 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.config.ConfigUtils;
 import org.kuali.common.util.config.ContextConfig;
 import org.kuali.common.util.config.Location;
-import org.kuali.common.util.config.ProjectConfig;
-import org.kuali.common.util.config.ProjectConfigContainer;
-import org.kuali.common.util.config.ProjectConfigContainerNullifier;
 import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
@@ -76,19 +72,19 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 
 	@Override
 	public Properties getProperties(List<String> configIds, Properties overrides) {
-		List<ProjectConfig> requests = ConfigUtils.getProjectConfigs(CollectionUtils.toEmptyList(configIds));
+		List<org.kuali.common.util.config.ProjectConfig> requests = org.kuali.common.util.config.ConfigUtils.getProjectConfigs(CollectionUtils.toEmptyList(configIds));
 		return loadProperties(requests, PropertyUtils.toEmpty(overrides));
 	}
 
-	protected abstract ProjectConfigContainer getCachedConfig(String groupId, String artifactId);
+	protected abstract org.kuali.common.util.config.ProjectConfigContainer getCachedConfig(String groupId, String artifactId);
 
 	protected abstract void clearCache();
 
-	protected abstract ProjectConfigContainer getProjectConfig(String content, String encoding);
+	protected abstract org.kuali.common.util.config.ProjectConfigContainer getProjectConfig(String content, String encoding);
 
 	protected abstract String getFilename();
 
-	protected Properties loadProperties(List<ProjectConfig> requests, Properties overrides) {
+	protected Properties loadProperties(List<org.kuali.common.util.config.ProjectConfig> requests, Properties overrides) {
 		// Convert the ConfigRequest objects into Location objects
 		List<Location> locations = getLocations(requests);
 		// Allocate some storage
@@ -126,7 +122,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		return new Properties();
 	}
 
-	protected ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
+	protected org.kuali.common.util.config.ProjectConfigContainer loadMetadata(String groupId, String artifactId) {
 
 		Assert.notNull(projectService, "projectService is null");
 
@@ -143,17 +139,17 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		return getProjectConfig(content, encoding);
 	}
 
-	protected List<Location> getLocations(List<ProjectConfig> configs) {
+	protected List<Location> getLocations(List<org.kuali.common.util.config.ProjectConfig> configs) {
 		List<Location> locations = new ArrayList<Location>();
-		for (ProjectConfig config : configs) {
+		for (org.kuali.common.util.config.ProjectConfig config : configs) {
 			List<Location> requestLocations = findLocations(config);
 			locations.addAll(requestLocations);
 		}
 		return locations;
 	}
 
-	protected List<Location> findLocations(ProjectConfig request) {
-		ProjectConfigContainer config = getCachedConfig(request.getGroupId(), request.getArtifactId());
+	protected List<Location> findLocations(org.kuali.common.util.config.ProjectConfig request) {
+		org.kuali.common.util.config.ProjectConfigContainer config = getCachedConfig(request.getGroupId(), request.getArtifactId());
 		if (StringUtils.isBlank(request.getContextId())) {
 			return new ArrayList<Location>(CollectionUtils.toEmptyList(config.getLocations()));
 		} else {
@@ -203,14 +199,14 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		return duplicate;
 	}
 
-	protected void store(File file, ProjectConfigContainer config) {
+	protected void store(File file, org.kuali.common.util.config.ProjectConfigContainer config) {
 
 		Assert.notNull(file, "file is null");
 		Assert.notNull(config, "config is null");
 
-		ProjectConfigContainer clone = new ProjectConfigContainer(config);
+		org.kuali.common.util.config.ProjectConfigContainer clone = new org.kuali.common.util.config.ProjectConfigContainer(config);
 
-		Nullifier nullifier = new ProjectConfigContainerNullifier(clone);
+		Nullifier nullifier = new org.kuali.common.util.config.ProjectConfigContainerNullifier(clone);
 		nullifier.nullify();
 
 		xmlService.write(file, clone);
