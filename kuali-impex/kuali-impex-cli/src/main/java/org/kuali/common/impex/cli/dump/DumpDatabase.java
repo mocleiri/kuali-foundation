@@ -22,6 +22,7 @@ import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.main.MainContext;
 import org.kuali.common.util.spring.main.MainService;
 import org.kuali.common.util.spring.main.MainUtils;
+import org.kuali.common.util.spring.main.spring.MainConfig;
 import org.kuali.common.util.spring.main.spring.MainServiceConfig;
 import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -32,7 +33,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ SpringServiceConfig.class, MainServiceConfig.class })
-public class DumpDatabase {
+public class DumpDatabase implements MainConfig {
 
 	public static void main(String[] args) {
 		MainUtils.runAndExit(DumpDatabase.class, args);
@@ -47,6 +48,7 @@ public class DumpDatabase {
 	@Autowired
 	SpringService springService;
 
+	@Override
 	@Execute
 	public Executable main() {
 		PropertySource<?> source = mainService.getPropertySource(mainContext, DumpDatabasePSC.class);
