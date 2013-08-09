@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.main;
+package org.kuali.common.util.main;
 
 import java.util.Arrays;
 import java.util.Collections;

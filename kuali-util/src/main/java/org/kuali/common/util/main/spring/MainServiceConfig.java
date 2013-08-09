@@ -1,7 +1,7 @@
-package org.kuali.common.util.spring.main.spring;
+package org.kuali.common.util.main.spring;
 
-import org.kuali.common.util.spring.main.DefaultMainService;
-import org.kuali.common.util.spring.main.MainService;
+import org.kuali.common.util.main.DefaultMainService;
+import org.kuali.common.util.main.MainService;
 import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;

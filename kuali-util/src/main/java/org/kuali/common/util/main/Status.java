@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.main;
+package org.kuali.common.util.main;
 
 public enum Status {
 

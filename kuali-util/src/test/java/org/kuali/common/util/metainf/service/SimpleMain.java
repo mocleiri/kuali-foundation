@@ -2,8 +2,8 @@ package org.kuali.common.util.metainf.service;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.HelloWorldExecutable;
-import org.kuali.common.util.spring.main.MainContext;
-import org.kuali.common.util.spring.main.MainUtils;
+import org.kuali.common.util.main.MainContext;
+import org.kuali.common.util.main.MainUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

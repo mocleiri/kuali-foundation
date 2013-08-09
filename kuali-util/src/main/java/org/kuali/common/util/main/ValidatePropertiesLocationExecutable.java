@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.main;
+package org.kuali.common.util.main;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
