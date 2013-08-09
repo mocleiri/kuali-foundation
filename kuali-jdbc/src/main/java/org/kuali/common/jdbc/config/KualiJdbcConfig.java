@@ -15,15 +15,13 @@
  */
 package org.kuali.common.jdbc.config;
 
-import org.kuali.common.util.config.ConfigUtils;
-import org.kuali.common.util.config.ProjectConfig;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 /**
  * @deprecated
  */
 @Deprecated
-public enum KualiJdbcConfig implements ProjectConfig {
+public enum KualiJdbcConfig implements org.kuali.common.util.config.ProjectConfig {
 
 	DEFAULT(); // Provides the default set of configuration for JDBC related processes
 
@@ -37,7 +35,7 @@ public enum KualiJdbcConfig implements ProjectConfig {
 
 	private KualiJdbcConfig(String contextId) {
 		this.contextId = contextId;
-		this.configId = ConfigUtils.getConfigId(this);
+		this.configId = org.kuali.common.util.config.ConfigUtils.getConfigId(this);
 	}
 
 	@Override
