@@ -1,5 +1,6 @@
 package org.kuali.common.util.property.processor;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -8,7 +9,11 @@ import org.kuali.common.util.CollectionUtils;
 
 public class ProcessorsProcessor implements PropertyProcessor {
 
-	private ProcessorsProcessor(List<PropertyProcessor> processors) {
+	public ProcessorsProcessor(PropertyProcessor... processors) {
+		this(Arrays.asList(processors));
+	}
+
+	public ProcessorsProcessor(List<PropertyProcessor> processors) {
 		Assert.noNulls(processors);
 		this.processors = CollectionUtils.immutableCopy(processors);
 	}
