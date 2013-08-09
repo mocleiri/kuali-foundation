@@ -9,6 +9,7 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.cache.Cache;
 import org.kuali.common.util.cache.SimpleCache;
+import org.kuali.common.util.property.processor.NoOpProcessor;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
@@ -18,11 +19,13 @@ public class OverridePropertiesService implements PropertiesService {
 
 	private static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	private static int DEFAULT_LOG_MESSAGE_INDENT = 2;
+	private static final PropertyProcessor DEFAULT_POST_PROCESSOR = NoOpProcessor.INSTANCE;
 	protected static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	private final List<Properties> overrides;
 	private final Mode overrideMode;
 	private final int logMessageIndent;
+	private final PropertyProcessor postProcessor;
 
 	public OverridePropertiesService() {
 		this(PropertyUtils.EMPTY);
@@ -37,14 +40,19 @@ public class OverridePropertiesService implements PropertiesService {
 	}
 
 	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode) {
-		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT);
+		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, DEFAULT_POST_PROCESSOR);
 	}
 
-	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent) {
-		Assert.noNulls(overrides, overrideMode);
+	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, PropertyProcessor postProcessor) {
+		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, postProcessor);
+	}
+
+	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor) {
+		Assert.noNulls(overrides, overrideMode, postProcessor);
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
+		this.postProcessor = postProcessor;
 	}
 
 	@Override
@@ -81,11 +89,8 @@ public class OverridePropertiesService implements PropertiesService {
 		// Override the final set of loaded properties with overrides properties
 		override(properties, overrides);
 
-		// Decrypt them
-		PropertyUtils.decrypt(properties);
-
-		// Resolve them, throwing an exception if any value cannot be fully resolved
-		PropertyUtils.resolve(properties);
+		// Do any post processing as needed
+		postProcessor.process(properties);
 
 		// Return what we've found
 		return properties;

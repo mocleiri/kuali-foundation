@@ -17,10 +17,11 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-public class NoOpProcessor implements PropertyProcessor {
-
+public final class NoOpProcessor implements PropertyProcessor {
+	
+	public static final PropertyProcessor INSTANCE = new NoOpProcessor();
+	
 	@Override
 	public void process(Properties properties) {
-		// Do nothing!
 	}
 }
