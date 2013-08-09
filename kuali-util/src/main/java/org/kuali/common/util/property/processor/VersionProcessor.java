@@ -27,10 +27,13 @@ import org.kuali.common.util.property.Constants;
 
 public class VersionProcessor implements PropertyProcessor {
 
+	public static final String SANITIZED_QUALIFIER = Constants.DEFAULT_QUALIFIER_VERSION_SUFFIX + ".sanitized";
+
 	String majorSuffix = Constants.DEFAULT_MAJOR_VERSION_SUFFIX;
 	String minorSuffix = Constants.DEFAULT_MINOR_VERSION_SUFFIX;
 	String incrementalSuffix = Constants.DEFAULT_INCREMENTAL_VERSION_SUFFIX;
 	String qualifierSuffix = Constants.DEFAULT_QUALIFIER_VERSION_SUFFIX;
+	String sanitizedQualifierSuffix = SANITIZED_QUALIFIER;
 	String trimmedSuffix = Constants.DEFAULT_TRIMMED_VERSION_SUFFIX;
 	String snapshotSuffix = Constants.DEFAULT_SNAPSHOT_VERSION_SUFFIX;
 	boolean alwaysAddOrOverride;
@@ -182,6 +185,14 @@ public class VersionProcessor implements PropertyProcessor {
 
 	public void setAlwaysAddOrOverride(boolean alwaysAddOrOverride) {
 		this.alwaysAddOrOverride = alwaysAddOrOverride;
+	}
+
+	public String getSanitizedQualifierSuffix() {
+		return sanitizedQualifierSuffix;
+	}
+
+	public void setSanitizedQualifierSuffix(String sanitizedQualifierSuffix) {
+		this.sanitizedQualifierSuffix = sanitizedQualifierSuffix;
 	}
 
 }
