@@ -42,7 +42,7 @@ import org.springframework.core.env.PropertySource;
 public class DumpDatabasePSC implements PropertySourceConfig {
 
 	@Autowired
-	MainContext context;
+	MainContext mainContext;
 
 	@Autowired
 	Project project;
@@ -68,12 +68,12 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(jdbc.jdbcPropertyLocations());
 		locations.addAll(dump.dumpPropertyLocations());
-		locations.add(getLocation(context.getArgs()));
+		locations.add(getLocation(mainContext.getArgs()));
 		return locations;
 	}
 
 	protected Location getLocation(String[] args) {
-		new ValidatePropertiesLocationExecutable(context, getInvalidArgsMessage()).execute();
+		new ValidatePropertiesLocationExecutable(mainContext, getInvalidArgsMessage()).execute();
 		String value = args[0];
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding, true);
