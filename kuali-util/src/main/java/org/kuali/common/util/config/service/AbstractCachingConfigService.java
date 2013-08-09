@@ -27,8 +27,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.config.ContextConfig;
-import org.kuali.common.util.config.Location;
 import org.kuali.common.util.nullify.Nullifier;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
@@ -86,13 +84,13 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 
 	protected Properties loadProperties(List<org.kuali.common.util.config.ProjectConfig> requests, Properties overrides) {
 		// Convert the ConfigRequest objects into Location objects
-		List<Location> locations = getLocations(requests);
+		List<org.kuali.common.util.config.Location> locations = getLocations(requests);
 		// Allocate some storage
 		Properties properties = new Properties();
 		// Get system/environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
 		// Cycle through our list of locations
-		for (Location location : locations) {
+		for (org.kuali.common.util.config.Location location : locations) {
 			// Combine properties we've already loaded with overrides and global properties
 			Properties resolver = PropertyUtils.combine(properties, overrides, global);
 			// Use the combined properties to resolve any placeholders in the location
@@ -139,23 +137,23 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		return getProjectConfig(content, encoding);
 	}
 
-	protected List<Location> getLocations(List<org.kuali.common.util.config.ProjectConfig> configs) {
-		List<Location> locations = new ArrayList<Location>();
+	protected List<org.kuali.common.util.config.Location> getLocations(List<org.kuali.common.util.config.ProjectConfig> configs) {
+		List<org.kuali.common.util.config.Location> locations = new ArrayList<org.kuali.common.util.config.Location>();
 		for (org.kuali.common.util.config.ProjectConfig config : configs) {
-			List<Location> requestLocations = findLocations(config);
+			List<org.kuali.common.util.config.Location> requestLocations = findLocations(config);
 			locations.addAll(requestLocations);
 		}
 		return locations;
 	}
 
-	protected List<Location> findLocations(org.kuali.common.util.config.ProjectConfig request) {
+	protected List<org.kuali.common.util.config.Location> findLocations(org.kuali.common.util.config.ProjectConfig request) {
 		org.kuali.common.util.config.ProjectConfigContainer config = getCachedConfig(request.getGroupId(), request.getArtifactId());
 		if (StringUtils.isBlank(request.getContextId())) {
-			return new ArrayList<Location>(CollectionUtils.toEmptyList(config.getLocations()));
+			return new ArrayList<org.kuali.common.util.config.Location>(CollectionUtils.toEmptyList(config.getLocations()));
 		} else {
 			String[] tokens = StringUtils.split(request.getContextId(), DELIMITER);
-			List<ContextConfig> contexts = config.getContexts();
-			ContextConfig context = null;
+			List<org.kuali.common.util.config.ContextConfig> contexts = config.getContexts();
+			org.kuali.common.util.config.ContextConfig context = null;
 			for (String token : tokens) {
 				context = findContextConfig(contexts, token);
 				contexts = context.getContexts();
@@ -164,8 +162,8 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		}
 	}
 
-	protected ContextConfig findContextConfig(List<ContextConfig> contexts, String contextId) {
-		for (ContextConfig context : contexts) {
+	protected org.kuali.common.util.config.ContextConfig findContextConfig(List<org.kuali.common.util.config.ContextConfig> contexts, String contextId) {
+		for (org.kuali.common.util.config.ContextConfig context : contexts) {
 			if (StringUtils.equals(contextId, context.getId())) {
 				return context;
 			}
