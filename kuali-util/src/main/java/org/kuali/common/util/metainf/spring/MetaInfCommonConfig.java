@@ -3,12 +3,10 @@ package org.kuali.common.util.metainf.spring;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.ProjectService;
-import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
-import org.kuali.common.util.properties.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -52,14 +50,4 @@ public class MetaInfCommonConfig {
 	public static String getClasspathPrefix() {
 		return ResourceUtils.CLASSPATH_URL_PREFIX + METAINF_DIRECTORY_NAME;
 	}
-
-	/**
-	 */
-	public Location getLocation(FeatureIdentifier identifier, String filename) {
-		Project project = projectService.getProject(identifier.getGroupId(), identifier.getArtifactId());
-		String value = ProjectUtils.getClasspathPrefix(MetaInfCommonConfig.FEATURE_ID) + "/" + filename;
-		String encoding = ProjectUtils.getEncoding(project);
-		return new Location(value, encoding, true);
-	}
-
 }
