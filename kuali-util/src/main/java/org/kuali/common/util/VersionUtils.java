@@ -81,6 +81,9 @@ public class VersionUtils {
 		return v;
 	}
 
+	/**
+	 * Convert dots and dashes to underscores and convert to uppercase
+	 */
 	public static final String getSanitizedQualifier(String qualifier) {
 		if (qualifier == null) {
 			return null;
