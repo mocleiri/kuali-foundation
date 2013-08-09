@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ MainServiceConfig.class, SpringServiceConfig.class })
+@Import({ SpringServiceConfig.class, MainServiceConfig.class })
 public class DumpDatabase {
 
 	public static void main(String[] args) {
