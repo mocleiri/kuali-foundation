@@ -23,10 +23,6 @@ import java.util.Properties;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kuali.common.util.config.ConfigUtils;
-import org.kuali.common.util.config.ContextConfig;
-import org.kuali.common.util.config.Location;
-import org.kuali.common.util.config.ProjectConfigContainer;
 
 @Deprecated
 public class DefaultProjectConfigServiceTest {
@@ -38,7 +34,7 @@ public class DefaultProjectConfigServiceTest {
 			String groupId = "org.kuali.common";
 			String artifactId = "kuali-util";
 			String contextId = "scm";
-			String configId = ConfigUtils.getConfigId(groupId, artifactId, contextId);
+			String configId = org.kuali.common.util.config.ConfigUtils.getConfigId(groupId, artifactId, contextId);
 			org.kuali.common.util.Project project = org.kuali.common.util.ProjectUtils.loadProject(groupId, artifactId);
 			ConfigService service = new DefaultConfigService();
 			Properties properties = service.getProperties(configId, project.getProperties());
@@ -53,16 +49,16 @@ public class DefaultProjectConfigServiceTest {
 	public void test() {
 
 		try {
-			ContextConfig mpx = new ContextConfig("mpx", Arrays.asList(new Location("${metainf.common}/mpx.properties")));
-			ContextConfig sql = new ContextConfig("sql", Arrays.asList(new Location("${metainf.common}/sql.properties")));
-			ContextConfig metainf = new ContextConfig("metainf");
+			org.kuali.common.util.config.ContextConfig mpx = new org.kuali.common.util.config.ContextConfig("mpx", Arrays.asList(new org.kuali.common.util.config.Location("${metainf.common}/mpx.properties")));
+			org.kuali.common.util.config.ContextConfig sql = new org.kuali.common.util.config.ContextConfig("sql", Arrays.asList(new org.kuali.common.util.config.Location("${metainf.common}/sql.properties")));
+			org.kuali.common.util.config.ContextConfig metainf = new org.kuali.common.util.config.ContextConfig("metainf");
 			metainf.setContexts(Arrays.asList(mpx, sql));
-			List<ContextConfig> contexts = new ArrayList<ContextConfig>();
+			List<org.kuali.common.util.config.ContextConfig> contexts = new ArrayList<org.kuali.common.util.config.ContextConfig>();
 			contexts.add(metainf);
 
-			List<Location> locations = new ArrayList<Location>();
-			locations.add(new Location("${classpath.prefix}/sql.xml"));
-			ProjectConfigContainer config = new ProjectConfigContainer();
+			List<org.kuali.common.util.config.Location> locations = new ArrayList<org.kuali.common.util.config.Location>();
+			locations.add(new org.kuali.common.util.config.Location("${classpath.prefix}/sql.xml"));
+			org.kuali.common.util.config.ProjectConfigContainer config = new org.kuali.common.util.config.ProjectConfigContainer();
 			config.setGroupId("org.kuali.common");
 			config.setArtifactId("kuali-util");
 			config.setLocations(locations);
