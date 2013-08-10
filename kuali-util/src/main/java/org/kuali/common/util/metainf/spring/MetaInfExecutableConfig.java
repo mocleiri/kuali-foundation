@@ -30,6 +30,7 @@ public class MetaInfExecutableConfig {
 
 	@Execute
 	public Executable executable() {
+		System.out.println("yo");
 		return metaInfConfig.metaInfExecutable();
 	}
 

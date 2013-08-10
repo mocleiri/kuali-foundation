@@ -1,14 +1,12 @@
-package org.kuali.common.util.metainf.spring;
+package org.kuali.common.util.metainf.service;
 
 import org.kuali.common.util.Str;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 
-@Configuration
-public class MetaInfCommonConfig {
+public class MetaInfUtils {
 
 	public static final String RESOURCES_FILENAME_EXTENSION = "resources";
 	public static final String METAINF_DIRECTORY_NAME = "META-INF";

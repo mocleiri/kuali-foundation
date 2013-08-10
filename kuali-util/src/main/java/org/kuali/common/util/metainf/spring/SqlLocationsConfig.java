@@ -3,6 +3,7 @@ package org.kuali.common.util.metainf.spring;
 import java.util.Collections;
 import java.util.List;
 
+import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesLocationService;
 import org.kuali.common.util.properties.spring.PropertiesLocationServiceConfig;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ MetaInfCommonConfig.class, PropertiesLocationServiceConfig.class })
+@Import({ MetaInfUtils.class, PropertiesLocationServiceConfig.class })
 public class SqlLocationsConfig {
 
 	@Autowired
@@ -20,7 +21,7 @@ public class SqlLocationsConfig {
 
 	@Bean
 	public List<Location> metaInfSqlLocations() {
-		Location location = locationService.getLocation(MetaInfCommonConfig.FEATURE_ID, "sql.properties");
+		Location location = locationService.getLocation(MetaInfUtils.FEATURE_ID, "sql.properties");
 		return Collections.singletonList(location);
 	}
 }
