@@ -38,7 +38,7 @@ public class MetaInfExecutableConfig implements ExecutionConfig {
 	Environment env;
 
 	@Autowired
-	MetaInfContextsConfig metaInfContextsConfig;
+	MetaInfContextsConfig contextsConfig;
 
 	@Autowired
 	MetaInfService service;
@@ -47,7 +47,7 @@ public class MetaInfExecutableConfig implements ExecutionConfig {
 	@Bean(initMethod = "execute")
 	public Executable executable() {
 		boolean skip = SpringUtils.getBoolean(env, MetaInfUtils.PROPERTY_PREFIX + ".skip", false);
-		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
+		List<MetaInfContext> contexts = contextsConfig.metaInfContexts();
 		return new MetaInfExecutable(contexts, service, skip);
 	}
 
