@@ -1,8 +1,8 @@
 package org.kuali.common.util.metainf.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import org.kuali.common.util.CollectionUtils;
 
 public class ScanResult {
 
@@ -11,7 +11,7 @@ public class ScanResult {
 
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
 		this.context = context;
-		this.resources = Collections.unmodifiableList(new ArrayList<MetaInfResource>(resources));
+		this.resources = CollectionUtils.immutableCopy(resources);
 	}
 
 	public MetaInfContext getContext() {
