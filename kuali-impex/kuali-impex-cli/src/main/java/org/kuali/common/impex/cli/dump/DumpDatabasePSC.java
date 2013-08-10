@@ -76,7 +76,7 @@ public class DumpDatabasePSC implements PropertySourceConfig {
 		new ValidatePropertiesLocationExecutable(mainContext, getInvalidArgsMessage()).execute();
 		String value = args[0];
 		String encoding = ProjectUtils.getEncoding(project);
-		return new Location(value, encoding, true);
+		return new Location(value, encoding);
 	}
 
 	protected String getInvalidArgsMessage() {
