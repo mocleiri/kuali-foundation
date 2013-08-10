@@ -1,7 +1,11 @@
 package org.kuali.common.util.metainf.service;
 
+import java.io.File;
+
 import org.kuali.common.util.Str;
+import org.kuali.common.util.metainf.spring.MetaInfGroup;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
+import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.springframework.util.ResourceUtils;
@@ -13,6 +17,18 @@ public class MetaInfUtils {
 	public static final FeatureIdentifier FEATURE_ID = new FeatureIdentifier(KualiUtilProjectConstants.PROJECT_ID, "metainf");
 
 	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
+
+	/**
+	 * 
+	 */
+	public static File getOutputFile(Project project, Build build, MetaInfGroup group) {
+		String outputPath = getResourcePrefix(project) + "/" + getFilename(group);
+		return new File(build.getOutputDir(), outputPath);
+	}
+
+	public static String getFilename(MetaInfGroup group) {
+		return group.name().toLowerCase() + "." + RESOURCES_FILENAME_EXTENSION;
+	}
 
 	/**
 	 * <code>META-INF/org/kuali/util</code>
