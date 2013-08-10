@@ -19,13 +19,16 @@ public class MetaInfUtils {
 	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
 
 	/**
-	 * 
+	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/data.resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, MetaInfGroup group) {
 		String outputPath = getResourcePrefix(project) + "/" + getFilename(group);
 		return new File(build.getOutputDir(), outputPath);
 	}
 
+	/**
+	 * Convert to lowercase and append <code>.resources</code>
+	 */
 	public static String getFilename(MetaInfGroup group) {
 		return group.name().toLowerCase() + "." + RESOURCES_FILENAME_EXTENSION;
 	}
