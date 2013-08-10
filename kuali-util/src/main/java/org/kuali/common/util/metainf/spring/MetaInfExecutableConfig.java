@@ -25,6 +25,7 @@ import org.kuali.common.util.metainf.service.MetaInfService;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.spring.ExecutionConfig;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +46,7 @@ public class MetaInfExecutableConfig implements ExecutionConfig {
 	}
 
 	@Override
-	@Bean(initMethod = "execute")
+	@Execute
 	public Executable executable() {
 		boolean skip = SpringUtils.getBoolean(env, MetaInfUtils.PROPERTY_PREFIX + ".skip", false);
 		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
