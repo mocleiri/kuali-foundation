@@ -15,7 +15,13 @@ public class MetaInfConfigUtils {
 	}
 
 	/**
-	 * <code>metainf.[prefix].[group].[suffix]</code>
+	 * <code>group</code> is optional
+	 * 
+	 * <pre>
+	 * metainf.[prefix].[group].[suffix]
+	 * 
+	 * metainf.[prefix].[suffix]
+	 * </pre>
 	 */
 	public static String getKey(String prefix, MetaInfGroup group, String suffix) {
 		Assert.noNulls(prefix, suffix);
