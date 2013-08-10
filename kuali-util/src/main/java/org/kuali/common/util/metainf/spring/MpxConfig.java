@@ -40,7 +40,7 @@ public class MpxConfig implements MetaInfContextsConfig {
 	public List<MetaInfContext> metaInfContexts() {
 		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		String includes = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDES);
-		String outputPath = MetaInfUtils.getResourcePrefix(project) + "/" + MetaInfUtils.DATA_FILENAME;
+		String outputPath = MetaInfUtils.getResourcePrefix(project) + "/" + SqlGroup.DATA.name().toLowerCase() + "." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
 		File outputFile = new File(build.getOutputDir(), outputPath);
 		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
 		return Collections.singletonList(context);

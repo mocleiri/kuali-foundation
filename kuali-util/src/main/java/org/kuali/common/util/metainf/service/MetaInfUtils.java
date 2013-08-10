@@ -12,11 +12,6 @@ public class MetaInfUtils {
 	public static final String METAINF_DIRECTORY_NAME = "META-INF";
 	public static final FeatureIdentifier FEATURE_ID = new FeatureIdentifier(KualiUtilProjectConstants.PROJECT_ID, "metainf");
 
-	public static final String DATA_FILENAME = "data." + RESOURCES_FILENAME_EXTENSION;
-	public static final String SCHEMA_FILENAME = "schema." + RESOURCES_FILENAME_EXTENSION;
-	public static final String CONSTRAINTS_FILENAME = "constraints." + RESOURCES_FILENAME_EXTENSION;
-	public static final String OTHER_FILENAME = "other." + RESOURCES_FILENAME_EXTENSION;
-
 	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
 
 	/**

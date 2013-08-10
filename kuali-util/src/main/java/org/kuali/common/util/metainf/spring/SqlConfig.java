@@ -23,11 +23,6 @@ public class SqlConfig implements MetaInfContextsConfig {
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".sql.relative";
 	private static final String PROPERTY_PREFIX = MetaInfUtils.FEATURE_ID.getFeatureId();
-
-	private static final String SCHEMA_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.schema.includes";
-	private static final String DATA_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.data.includes";
-	private static final String CONSTRAINTS_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.constraints.includes";
-	private static final String OTHER_INCLUDES_KEY = PROPERTY_PREFIX + ".sql.other.includes";
 	private static final String DB_VENDOR_KEY = "db.vendor";
 
 	@Autowired
@@ -43,14 +38,16 @@ public class SqlConfig implements MetaInfContextsConfig {
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		contexts.add(getMetaInfContext(SCHEMA_INCLUDES_KEY, MetaInfUtils.SCHEMA_FILENAME));
-		contexts.add(getMetaInfContext(DATA_INCLUDES_KEY, MetaInfUtils.DATA_FILENAME));
-		contexts.add(getMetaInfContext(CONSTRAINTS_INCLUDES_KEY, MetaInfUtils.CONSTRAINTS_FILENAME));
-		contexts.add(getMetaInfContext(OTHER_INCLUDES_KEY, MetaInfUtils.OTHER_FILENAME));
+		for (SqlGroup group : SqlGroup.values()) {
+			MetaInfContext context = getMetaInfContext(group);
+			contexts.add(context);
+		}
 		return contexts;
 	}
 
-	protected MetaInfContext getMetaInfContext(String includesKey, String filename) {
+	protected MetaInfContext getMetaInfContext(SqlGroup group) {
+		String filename = group.name().toLowerCase() + "." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
+		String includesKey = PROPERTY_PREFIX + ".sql." + group.name().toLowerCase() + ".includes";
 		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey);
