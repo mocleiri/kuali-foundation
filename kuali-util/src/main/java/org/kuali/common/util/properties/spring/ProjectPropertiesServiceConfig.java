@@ -29,11 +29,11 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		// Decrypt and resolve the properties after having loaded them
 		ProcessorsProcessor postProcessor = new ProcessorsProcessor(new DecryptingProcessor(), new ResolvingProcessor());
 
-		// Get system + environment properties
-		Properties global = PropertyUtils.getGlobalProperties();
+		// Setup a properties object where project properties "win" over everything except system properties
+		Properties overrides = PropertyUtils.combine(project.getProperties(), PropertyUtils.getGlobalProperties());
 
-		// Setup a service where project properties "win" over everything except system properties
-		return new OverridePropertiesService(postProcessor, project.getProperties(), global);
+		// Setup a service with the overrides and postProcessor we've configured
+		return new OverridePropertiesService(postProcessor, overrides);
 	}
 
 }
