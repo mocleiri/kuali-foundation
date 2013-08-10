@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +22,11 @@ import org.springframework.core.env.Environment;
 @Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class })
 public class MpxConfig implements MetaInfContextsConfig {
 
+	private static final String PREFIX = "mpx";
 	private static final String DEFAULT_INCLUDES = "**/*.mpx";
-	private static final String INCLUDES_KEY = MetaInfUtils.PROPERTY_PREFIX + ".mpx.includes";
+	private static final String DEFAULT_EXCLUDES = Constants.NONE;
+	private static final String INCLUDES_KEY = MetaInfConfigUtils.getIncludesKey(PREFIX);
+	private static final String EXCLUDES_KEY = MetaInfConfigUtils.getExcludesKey(PREFIX);
 
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".mpx.relative";
@@ -39,10 +44,15 @@ public class MpxConfig implements MetaInfContextsConfig {
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
 		boolean relativePathing = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
-		String includes = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDES);
+		ScanContext scanContext = getScanContext();
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
-		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, relativePathing);
+		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), scanContext, relativePathing);
 		return Collections.singletonList(context);
 	}
 
+	protected ScanContext getScanContext() {
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DEFAULT_INCLUDES);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
+		return new ScanContext(build.getOutputDir(), includes, excludes);
+	}
 }
