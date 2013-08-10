@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Import;
 public class SqlLocationsConfig {
 
 	@Autowired
-	PropertiesLocationService locationService;
+	PropertiesLocationService service;
 
 	@Bean
 	public List<Location> metaInfSqlLocations() {
-		Location location = locationService.getLocation(MetaInfUtils.FEATURE_ID, "sql.properties");
+		Location location = service.getLocation(MetaInfUtils.FEATURE_ID, "sql.properties");
 		return Collections.singletonList(location);
 	}
 }
