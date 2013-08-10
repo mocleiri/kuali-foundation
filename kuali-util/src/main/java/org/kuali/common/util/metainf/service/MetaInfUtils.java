@@ -27,6 +27,14 @@ public class MetaInfUtils {
 	}
 
 	/**
+	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/oracle/data.resources</code>
+	 */
+	public static File getOutputFile(Project project, Build build, String databaseVendor, MetaInfGroup group) {
+		String outputPath = getResourcePrefix(project) + "/" + databaseVendor + "/" + getFilename(group);
+		return new File(build.getOutputDir(), outputPath);
+	}
+
+	/**
 	 * Convert to lowercase and append <code>.resources</code>
 	 */
 	public static String getFilename(MetaInfGroup group) {
