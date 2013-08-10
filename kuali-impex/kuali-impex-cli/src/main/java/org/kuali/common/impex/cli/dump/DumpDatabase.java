@@ -17,13 +17,13 @@ package org.kuali.common.impex.cli.dump;
 
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.main.MainContext;
+import org.kuali.common.util.main.MainService;
+import org.kuali.common.util.main.MainUtils;
+import org.kuali.common.util.main.spring.MainConfig;
+import org.kuali.common.util.main.spring.MainServiceConfig;
 import org.kuali.common.util.spring.SpringExecUtils;
 import org.kuali.common.util.spring.config.annotation.Execute;
-import org.kuali.common.util.spring.main.MainContext;
-import org.kuali.common.util.spring.main.MainService;
-import org.kuali.common.util.spring.main.MainUtils;
-import org.kuali.common.util.spring.main.spring.MainConfig;
-import org.kuali.common.util.spring.main.spring.MainServiceConfig;
 import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
