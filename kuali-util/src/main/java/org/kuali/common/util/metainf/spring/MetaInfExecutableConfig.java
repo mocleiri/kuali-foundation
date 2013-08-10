@@ -16,8 +16,8 @@
 package org.kuali.common.util.metainf.spring;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -28,9 +28,8 @@ public class MetaInfExecutableConfig {
 	@Autowired
 	MetaInfConfig metaInfConfig;
 
-	@Execute
-	public Executable doSomeCoolShit() {
-		System.out.println("yo");
+	@Bean(initMethod = "execute")
+	public Executable executable() {
 		return metaInfConfig.metaInfExecutable();
 	}
 
