@@ -2,7 +2,10 @@ package org.kuali.common.util.metainf.spring;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
@@ -22,7 +25,6 @@ public class SqlConfig implements MetaInfContextsConfig {
 
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".sql.relative";
-	private static final String PROPERTY_PREFIX = MetaInfUtils.FEATURE_ID.getFeatureId();
 	private static final String DB_VENDOR_KEY = "db.vendor";
 
 	@Autowired
@@ -39,18 +41,27 @@ public class SqlConfig implements MetaInfContextsConfig {
 	public List<MetaInfContext> metaInfContexts() {
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
 		for (MetaInfGroup group : MetaInfGroup.values()) {
-			MetaInfContext context = getMetaInfContext(group);
+			MetaInfContext context = getMetaInfContext(group, metaInfSqlIncludesMap());
 			contexts.add(context);
 		}
 		return contexts;
 	}
 
-	protected MetaInfContext getMetaInfContext(MetaInfGroup group) {
-		String includesKey = PROPERTY_PREFIX + ".sql." + group.name().toLowerCase() + ".includes";
+	protected MetaInfContext getMetaInfContext(MetaInfGroup group, Map<MetaInfGroup, String> includesMap) {
 		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey);
+		List<String> includes = Arrays.asList(includesMap.get(group));
 		File outputFile = MetaInfUtils.getOutputFile(project, build, databaseVendor, group);
 		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
+	}
+
+	@Bean
+	public Map<MetaInfGroup, String> metaInfSqlIncludesMap() {
+		Map<MetaInfGroup, String> map = new HashMap<MetaInfGroup, String>();
+		map.put(MetaInfGroup.SCHEMA, "**/initial-db/**/*create-schema.sql");
+		map.put(MetaInfGroup.DATA, "**/initial-db/**/data/*.sql");
+		map.put(MetaInfGroup.CONSTRAINTS, "**/initial-db/**/*constraints.sql");
+		map.put(MetaInfGroup.OTHER, "**/upgrades/**/*.sql");
+		return map;
 	}
 }
