@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ AutowiredProjectConfig.class, MetaInfConfig.class, MetaInfExecutableConfig.class })
+@Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class })
 public class MpxConfig implements MetaInfContextsConfig {
 
 	private static final String DEFAULT_INCLUDES = "**/*.mpx";
