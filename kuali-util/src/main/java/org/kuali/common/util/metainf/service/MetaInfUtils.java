@@ -35,7 +35,7 @@ public class MetaInfUtils {
 	}
 
 	/**
-	 * Convert to lowercase and append <code>.resources</code>
+	 * Returns <code>[group].resources</code> (always lowercase)
 	 */
 	public static String getFilename(MetaInfGroup group) {
 		return group.name().toLowerCase() + "." + RESOURCES_FILENAME_EXTENSION;
