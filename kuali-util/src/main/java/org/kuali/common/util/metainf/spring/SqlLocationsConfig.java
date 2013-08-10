@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ MetaInfUtils.class, PropertiesLocationServiceConfig.class })
+@Import({ PropertiesLocationServiceConfig.class })
 public class SqlLocationsConfig {
 
 	@Autowired
