@@ -2,21 +2,22 @@ package org.kuali.common.util.properties;
 
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ModeUtils;
 import org.kuali.common.util.PropertyUtils;
 
-public class LocationLoader implements PropertiesLoader {
+public final class LocationLoader implements PropertiesLoader {
 
-	final String value;
-	final Location location;
+	private final String value;
+	private final Location location;
 
 	public LocationLoader(Location location) {
 		this(location, location.getValue());
 	}
 
 	public LocationLoader(Location location, String value) {
-		super();
+		Assert.noNulls(location, value);
 		this.value = value;
 		this.location = location;
 	}

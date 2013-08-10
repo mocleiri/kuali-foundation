@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-public class Location {
+public final class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
 	public static final boolean DEFAULT_CACHEABLE = false;
