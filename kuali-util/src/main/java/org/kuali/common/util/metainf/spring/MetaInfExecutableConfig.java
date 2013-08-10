@@ -15,24 +15,41 @@
  */
 package org.kuali.common.util.metainf.spring;
 
+import java.util.List;
+
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.service.DefaultMetaInfService;
+import org.kuali.common.util.metainf.service.MetaInfExecutable;
+import org.kuali.common.util.metainf.service.MetaInfService;
+import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.spring.ExecutionConfig;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 
 @Configuration
-@Import(MetaInfConfig.class)
 public class MetaInfExecutableConfig implements ExecutionConfig {
 
 	@Autowired
-	MetaInfConfig metaInfConfig;
+	Environment env;
+
+	@Autowired
+	MetaInfContextsConfig metaInfContextsConfig;
+
+	@Bean
+	public MetaInfService metaInfService() {
+		return new DefaultMetaInfService();
+	}
 
 	@Override
 	@Bean(initMethod = "execute")
 	public Executable executable() {
-		return metaInfConfig.metaInfExecutable();
+		boolean skip = SpringUtils.getBoolean(env, MetaInfUtils.PROPERTY_PREFIX + ".skip", false);
+		List<MetaInfContext> contexts = metaInfContextsConfig.metaInfContexts();
+		return new MetaInfExecutable(contexts, metaInfService(), skip);
 	}
 
 }
