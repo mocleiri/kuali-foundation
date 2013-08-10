@@ -8,6 +8,7 @@ import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ MetaInfUtils.class })
+@Import({ AutowiredProjectConfig.class })
 public class SqlContextsConfig implements MetaInfContextsConfig {
 
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
