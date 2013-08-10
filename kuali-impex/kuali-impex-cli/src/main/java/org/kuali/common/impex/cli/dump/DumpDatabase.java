@@ -46,13 +46,13 @@ public class DumpDatabase implements MainConfig {
 	MainService mainService;
 
 	@Autowired
-	SpringService springService;
+	SpringService service;
 
 	@Override
 	@Execute
 	public Executable main() {
 		PropertySource<?> source = mainService.getPropertySource(mainContext, DumpDatabasePSC.class);
-		return SpringExecUtils.getSpringExecutable(springService, source, DumpDatabaseExecutableConfig.class);
+		return SpringExecUtils.getSpringExecutable(service, source, DumpDatabaseExecutableConfig.class);
 	}
 
 }
