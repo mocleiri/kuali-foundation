@@ -4,6 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ MpxContextsConfig.class, MetaInfConfig.class, MetaInfExecutableConfig.class })
+@Import({ MpxContextsConfig.class, MetaInfExecutableConfig.class })
 public class MpxConfig {
 }
