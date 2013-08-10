@@ -29,7 +29,7 @@ public class MetaInfExecutableConfig {
 	MetaInfConfig metaInfConfig;
 
 	@Execute
-	public Executable executable() {
+	public Executable doSomeCoolShit() {
 		System.out.println("yo");
 		return metaInfConfig.metaInfExecutable();
 	}
