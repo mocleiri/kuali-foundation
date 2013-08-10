@@ -38,10 +38,10 @@ public class MpxConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		boolean relativePathing = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		String includes = SpringUtils.getProperty(env, INCLUDES_KEY, DEFAULT_INCLUDES);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
-		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
+		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, relativePathing);
 		return Collections.singletonList(context);
 	}
 
