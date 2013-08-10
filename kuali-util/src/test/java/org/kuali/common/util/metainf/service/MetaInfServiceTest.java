@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.metainf.spring.MetaInfConfig;
-import org.kuali.common.util.metainf.spring.MpxContextsConfig;
+import org.kuali.common.util.metainf.spring.MpxConfig;
 import org.kuali.common.util.project.spring.BuildConfig;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { KualiUtilProjectConfig.class, BuildConfig.class, MpxContextsConfig.class, MetaInfConfig.class })
+@ContextConfiguration(classes = { KualiUtilProjectConfig.class, BuildConfig.class, MpxConfig.class, MetaInfConfig.class })
 public class MetaInfServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaInfServiceTest.class);
