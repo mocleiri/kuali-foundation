@@ -49,11 +49,12 @@ public class SqlConfig implements MetaInfContextsConfig {
 
 	protected MetaInfContext getMetaInfContext(MetaInfGroup group, Map<MetaInfGroup, String> defaultIncludes) {
 		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
-		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		boolean relativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		// metainf.sql.data.includes
 		String includesKey = MetaInfUtils.PROPERTY_PREFIX + ".sql." + group.name().toLowerCase() + ".includes";
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
 		File outputFile = MetaInfUtils.getOutputFile(project, build, databaseVendor, group);
-		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
+		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, relativePaths);
 	}
 
 	protected Map<MetaInfGroup, String> getDefaultIncludes() {
