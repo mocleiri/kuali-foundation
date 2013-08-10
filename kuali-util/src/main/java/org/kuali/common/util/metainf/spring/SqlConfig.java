@@ -39,9 +39,10 @@ public class SqlConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
+		Map<MetaInfGroup, String> includesMap = getIncludesMapping();
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
 		for (MetaInfGroup group : MetaInfGroup.values()) {
-			MetaInfContext context = getMetaInfContext(group, metaInfSqlIncludesMap());
+			MetaInfContext context = getMetaInfContext(group, includesMap);
 			contexts.add(context);
 		}
 		return contexts;
@@ -55,8 +56,7 @@ public class SqlConfig implements MetaInfContextsConfig {
 		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, generateRelativePaths);
 	}
 
-	@Bean
-	public Map<MetaInfGroup, String> metaInfSqlIncludesMap() {
+	protected Map<MetaInfGroup, String> getIncludesMapping() {
 		Map<MetaInfGroup, String> map = new HashMap<MetaInfGroup, String>();
 		map.put(MetaInfGroup.SCHEMA, "**/initial-db/**/*create-schema.sql");
 		map.put(MetaInfGroup.DATA, "**/initial-db/**/data/*.sql");
