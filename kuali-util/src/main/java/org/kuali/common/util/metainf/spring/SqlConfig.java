@@ -46,7 +46,7 @@ public class SqlConfig implements MetaInfContextsConfig {
 	}
 
 	protected MetaInfContext getMetaInfContext(MetaInfGroup group) {
-		String filename = group.name().toLowerCase() + "." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
+		String filename = MetaInfUtils.getFilename(group);
 		String includesKey = PROPERTY_PREFIX + ".sql." + group.name().toLowerCase() + ".includes";
 		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		boolean generateRelativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
