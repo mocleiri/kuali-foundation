@@ -39,7 +39,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ ImpexCLIProjectConfig.class, ProjectPropertiesServiceConfig.class, JdbcPropertyLocationsConfig.class, DumpPropertyLocationsConfig.class })
-public class DumpDatabasePSC implements PropertySourceConfig {
+public class DumpDatabasePropertySourceConfig implements PropertySourceConfig {
 
 	@Autowired
 	MainContext mainContext;
