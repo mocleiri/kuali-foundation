@@ -29,6 +29,7 @@ public class MetaInfExecutableConfig implements ExecutionConfig {
 	@Autowired
 	MetaInfConfig metaInfConfig;
 
+	@Override
 	@Bean(initMethod = "execute")
 	public Executable executable() {
 		return metaInfConfig.metaInfExecutable();
