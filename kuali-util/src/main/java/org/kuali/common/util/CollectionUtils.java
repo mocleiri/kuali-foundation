@@ -40,7 +40,7 @@ public class CollectionUtils {
 	/**
 	 * Returns a new unmodifiable list containing the elements from <code>list</code>
 	 */
-	public static <T> List<T> immutableCopy(List<T> list) {
+	public static <T> List<T> unmodifiableCopy(List<T> list) {
 		return Collections.unmodifiableList(new ArrayList<T>(list));
 	}
 

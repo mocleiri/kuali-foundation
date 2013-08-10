@@ -15,7 +15,7 @@ public class ProcessorsProcessor implements PropertyProcessor {
 
 	public ProcessorsProcessor(List<PropertyProcessor> processors) {
 		Assert.noNulls(processors);
-		this.processors = CollectionUtils.immutableCopy(processors);
+		this.processors = CollectionUtils.unmodifiableCopy(processors);
 	}
 
 	private final List<PropertyProcessor> processors;

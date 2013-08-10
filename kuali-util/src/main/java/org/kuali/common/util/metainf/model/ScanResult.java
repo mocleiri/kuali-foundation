@@ -11,7 +11,7 @@ public class ScanResult {
 
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
 		this.context = context;
-		this.resources = CollectionUtils.immutableCopy(resources);
+		this.resources = CollectionUtils.unmodifiableCopy(resources);
 	}
 
 	public MetaInfContext getContext() {

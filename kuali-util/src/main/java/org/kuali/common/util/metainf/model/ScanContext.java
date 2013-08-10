@@ -29,8 +29,8 @@ public class ScanContext {
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		Assert.noNulls(directory, includes, excludes);
 		this.directory = directory;
-		this.includes = CollectionUtils.immutableCopy(includes);
-		this.excludes = CollectionUtils.immutableCopy(excludes);
+		this.includes = CollectionUtils.unmodifiableCopy(includes);
+		this.excludes = CollectionUtils.unmodifiableCopy(excludes);
 	}
 
 	public File getDirectory() {

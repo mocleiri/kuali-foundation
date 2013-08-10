@@ -13,7 +13,7 @@ public class WriteLines {
 	public WriteLines(WriteRequest request, List<String> lines) {
 		Assert.noNulls(request, lines);
 		this.request = request;
-		this.lines = CollectionUtils.immutableCopy(lines);
+		this.lines = CollectionUtils.unmodifiableCopy(lines);
 	}
 
 	public List<String> getLines() {
