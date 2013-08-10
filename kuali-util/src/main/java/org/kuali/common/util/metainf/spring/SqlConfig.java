@@ -38,14 +38,14 @@ public class SqlConfig implements MetaInfContextsConfig {
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
 		List<MetaInfContext> contexts = new ArrayList<MetaInfContext>();
-		for (SqlGroup group : SqlGroup.values()) {
+		for (MetaInfGroup group : MetaInfGroup.values()) {
 			MetaInfContext context = getMetaInfContext(group);
 			contexts.add(context);
 		}
 		return contexts;
 	}
 
-	protected MetaInfContext getMetaInfContext(SqlGroup group) {
+	protected MetaInfContext getMetaInfContext(MetaInfGroup group) {
 		String filename = group.name().toLowerCase() + "." + MetaInfUtils.RESOURCES_FILENAME_EXTENSION;
 		String includesKey = PROPERTY_PREFIX + ".sql." + group.name().toLowerCase() + ".includes";
 		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
