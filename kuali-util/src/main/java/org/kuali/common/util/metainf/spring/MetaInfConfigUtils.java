@@ -14,6 +14,9 @@ public class MetaInfConfigUtils {
 		return null;
 	}
 
+	/**
+	 * <code>metainf.[prefix].[group].includes</code>
+	 */
 	public static String getKey(MetaInfGroup group, String prefix, String suffix) {
 		Assert.noNulls(prefix, suffix);
 		StringBuilder sb = new StringBuilder();
@@ -29,18 +32,30 @@ public class MetaInfConfigUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * <code>metainf.[prefix].includes</code>
+	 */
 	public static String getIncludesKey(String prefix) {
 		return getKey(null, prefix, INCLUDES);
 	}
 
+	/**
+	 * <code>metainf.[prefix].excludes</code>
+	 */
 	public static String getExcludesKey(String prefix) {
 		return getKey(null, prefix, EXCLUDES);
 	}
 
+	/**
+	 * <code>metainf.[prefix].[group].includes</code>
+	 */
 	public static String getIncludesKey(MetaInfGroup group, String prefix) {
 		return getKey(group, prefix, INCLUDES);
 	}
 
+	/**
+	 * <code>metainf.[prefix].[group].excludes</code>
+	 */
 	public static String getExcludesKey(MetaInfGroup group, String prefix) {
 		return getKey(group, prefix, EXCLUDES);
 	}
