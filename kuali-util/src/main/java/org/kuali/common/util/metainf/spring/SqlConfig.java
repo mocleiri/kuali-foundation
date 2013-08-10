@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
+import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,7 @@ public class SqlConfig implements MetaInfContextsConfig {
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".sql.relative";
 	private static final String DB_VENDOR_KEY = "db.vendor";
+	private static final String PREFIX = "sql";
 
 	@Autowired
 	Environment env;
@@ -48,13 +51,19 @@ public class SqlConfig implements MetaInfContextsConfig {
 	}
 
 	protected MetaInfContext getMetaInfContext(MetaInfGroup group, Map<MetaInfGroup, String> defaultIncludes) {
-		// metainf.sql.data.includes
-		String includesKey = MetaInfUtils.PROPERTY_PREFIX + ".sql." + group.name().toLowerCase() + ".includes";
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
+		ScanContext scanContext = getScanContext(group, defaultIncludes);
 		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
 		boolean relativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, databaseVendor, group);
-		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), includes, relativePaths);
+		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), scanContext, relativePaths);
+	}
+
+	protected ScanContext getScanContext(MetaInfGroup group, Map<MetaInfGroup, String> defaultIncludes) {
+		String includesKey = MetaInfConfigUtils.getIncludesKey(group, PREFIX);
+		String excludesKey = MetaInfConfigUtils.getExcludesKey(group, PREFIX);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, Constants.NONE);
+		return new ScanContext(build.getOutputDir(), includes, excludes);
 	}
 
 	protected Map<MetaInfGroup, String> getDefaultIncludes() {

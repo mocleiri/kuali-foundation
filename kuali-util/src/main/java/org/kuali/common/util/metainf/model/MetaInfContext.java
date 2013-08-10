@@ -50,6 +50,14 @@ public class MetaInfContext {
 		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir));
 	}
 
+	public MetaInfContext(File outputFile, String encoding, File scanDir, ScanContext scanContext) {
+		this(outputFile, encoding, scanContext, new RelativeContext(scanDir));
+	}
+
+	public MetaInfContext(File outputFile, String encoding, File scanDir, ScanContext scanContext, boolean generateRelativePaths) {
+		this(outputFile, encoding, scanContext, new RelativeContext(scanDir, generateRelativePaths));
+	}
+
 	public MetaInfContext(File outputFile, String encoding, File scanDir, List<String> includes, boolean generateRelativePaths) {
 		this(outputFile, encoding, new ScanContext(scanDir, includes), new RelativeContext(scanDir, generateRelativePaths));
 	}
