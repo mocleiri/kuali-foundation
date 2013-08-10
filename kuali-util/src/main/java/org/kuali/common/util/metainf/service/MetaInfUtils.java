@@ -19,7 +19,7 @@ public class MetaInfUtils {
 	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
 
 	/**
-	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/data.resources</code>
+	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, MetaInfGroup group) {
 		String outputPath = getResourcePrefix(project) + "/" + getFilename(group);
@@ -27,7 +27,7 @@ public class MetaInfUtils {
 	}
 
 	/**
-	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/oracle/data.resources</code>
+	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[vendor]/[group].resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, String databaseVendor, MetaInfGroup group) {
 		String outputPath = getResourcePrefix(project) + "/" + databaseVendor + "/" + getFilename(group);
