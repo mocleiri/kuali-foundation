@@ -2,18 +2,12 @@ package org.kuali.common.util.metainf.spring;
 
 import org.kuali.common.util.Str;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
-import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.spring.AutowiredProjectConfig;
-import org.kuali.common.util.project.spring.ProjectServiceConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.util.ResourceUtils;
 
 @Configuration
-@Import({ AutowiredProjectConfig.class, ProjectServiceConfig.class })
 public class MetaInfCommonConfig {
 
 	public static final String RESOURCES_FILENAME_EXTENSION = "resources";
@@ -26,9 +20,6 @@ public class MetaInfCommonConfig {
 	public static final String OTHER_FILENAME = "other." + RESOURCES_FILENAME_EXTENSION;
 
 	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
-
-	@Autowired
-	ProjectService projectService;
 
 	/**
 	 * <code>META-INF/org/kuali/util</code>

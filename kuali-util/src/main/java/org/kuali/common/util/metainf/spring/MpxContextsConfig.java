@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ MetaInfCommonConfig.class })
+@Import({ AutowiredProjectConfig.class })
 public class MpxContextsConfig implements MetaInfContextsConfig {
 
 	private static final String DEFAULT_INCLUDES = "**/*.mpx";
