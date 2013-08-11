@@ -14,16 +14,20 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class })
 public class SystemEncContextConfig implements EncryptionServiceContextConfig {
 
+	private static final String PASSWORD_KEY = "system.enc.password";
+	private static final String STRENGTH_KEY = "system.enc.strength";
+	private static final String ENABLED_KEY = "system.enc.enabled";
+
 	@Autowired
 	EnvironmentService env;
 
 	@Override
 	@Bean
 	public EncryptionServiceContext encryptionServiceContext() {
-		boolean enabled = env.getBoolean("system.enc.enabled", EncryptionServiceContext.DEFAULT_ENABLED);
+		boolean enabled = env.getBoolean(ENABLED_KEY, EncryptionServiceContext.DEFAULT_ENABLED);
 		if (enabled) {
-			String password = env.getString("system.enc.password");
-			EncStrength strength = getStrength("system.enc.strength");
+			String password = env.getString(PASSWORD_KEY);
+			EncStrength strength = getStrength(STRENGTH_KEY);
 			return new EncryptionServiceContext(password, strength, enabled);
 		} else {
 			return EncryptionServiceContext.DISABLED;
