@@ -39,10 +39,10 @@ public class DefaultEnvironmentService implements EnvironmentService {
 		Assert.noNulls(context);
 		// Extract a value from Spring's Environment abstraction
 		T springValue = getSpringValue(context.getKey(), context.getType());
-		// If that value is null, use whatever default value they gave us (might be null)
+		// If that value is null, use whatever default value they gave us (this might also be null)
 		T returnValue = (springValue == null) ? context.getDefaultValue() : springValue;
 		if (returnValue == null) {
-			// If we could not location a property value, we may need to error out
+			// If we could not locate a property value, we may need to error out
 			ModeUtils.validate(missingPropertyMode, getMissingPropertyMessage(context));
 		}
 		return returnValue;
