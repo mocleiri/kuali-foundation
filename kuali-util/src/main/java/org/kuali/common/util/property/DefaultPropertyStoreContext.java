@@ -17,6 +17,10 @@ package org.kuali.common.util.property;
 
 import java.io.File;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultPropertyStoreContext extends DefaultPropertyContext implements PropertyStoreContext {
 
 	// The file to store properties to

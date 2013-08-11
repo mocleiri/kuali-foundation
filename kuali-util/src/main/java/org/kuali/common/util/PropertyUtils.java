@@ -250,6 +250,7 @@ public class PropertyUtils {
 		}
 	}
 
+	@Deprecated
 	public static void decrypt(Properties properties) {
 		// Are we decrypting property values?
 		boolean decrypt = Boolean.parseBoolean(getRequiredResolvedProperty(properties, "properties.decrypt", "false"));

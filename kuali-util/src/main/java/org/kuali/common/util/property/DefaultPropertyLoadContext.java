@@ -37,6 +37,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultPropertyLoadContext extends DefaultPropertyContext implements PropertyLoadContext {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);

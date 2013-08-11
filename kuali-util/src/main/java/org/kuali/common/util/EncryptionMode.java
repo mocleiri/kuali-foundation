@@ -15,6 +15,12 @@
  */
 package org.kuali.common.util;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum EncryptionMode {
+
 	NONE, ENCRYPT, DECRYPT;
+
 }

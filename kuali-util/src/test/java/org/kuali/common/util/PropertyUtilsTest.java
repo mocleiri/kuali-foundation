@@ -146,6 +146,7 @@ public class PropertyUtilsTest {
 	}
 
 	@Test
+	@Deprecated
 	public void encryptTest() {
 		TextEncryptor encryptor = EncUtils.getTextEncryptor("password");
 		Properties props = new Properties();

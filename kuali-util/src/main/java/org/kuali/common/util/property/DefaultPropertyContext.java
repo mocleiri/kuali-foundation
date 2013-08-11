@@ -22,9 +22,6 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.util.EncUtils;
-import org.kuali.common.util.EncryptionMode;
-import org.kuali.common.util.EncryptionStrength;
 import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -43,6 +40,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultPropertyContext implements PropertyContext {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyContext.class);
@@ -51,8 +52,8 @@ public class DefaultPropertyContext implements PropertyContext {
 	String resolvePlaceholders = Boolean.toString(Constants.DEFAULT_RESOLVE_PLACEHOLDERS);
 	Obscurer obscurer = new DefaultObscurer();
 	String style = PropertyStyle.NORMAL.name();
-	String encryptionMode = EncryptionMode.NONE.name();
-	String encryptionStrength = EncryptionStrength.BASIC.name();
+	String encryptionMode = org.kuali.common.util.EncryptionMode.NONE.name();
+	String encryptionStrength = org.kuali.common.util.EncryptionStrength.BASIC.name();
 	String encryptionPassword;
 	String prefix;
 	List<PropertyProcessor> processors;
@@ -78,8 +79,8 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		// Decrypt/encrypt as appropriate
 		if (encryptionMode != null) {
-			EncryptionMode mode = EncryptionMode.valueOf(encryptionMode);
-			EncryptionStrength strength = EncryptionStrength.valueOf(encryptionStrength);
+			org.kuali.common.util.EncryptionMode mode = org.kuali.common.util.EncryptionMode.valueOf(encryptionMode);
+			org.kuali.common.util.EncryptionStrength strength = org.kuali.common.util.EncryptionStrength.valueOf(encryptionStrength);
 			processors.add(getEncProcessor(mode, strength, encryptionPassword));
 		}
 
@@ -126,15 +127,15 @@ public class DefaultPropertyContext implements PropertyContext {
 		}
 	}
 
-	protected PropertyProcessor getEncProcessor(EncryptionMode mode, EncryptionStrength strength, String password) {
+	protected PropertyProcessor getEncProcessor(org.kuali.common.util.EncryptionMode mode, org.kuali.common.util.EncryptionStrength strength, String password) {
 		switch (mode) {
 		case NONE:
 			return Constants.NO_OP_PROCESSOR;
 		case ENCRYPT:
-			TextEncryptor encryptor = EncUtils.getTextEncryptor(strength, password);
+			TextEncryptor encryptor = org.kuali.common.util.EncUtils.getTextEncryptor(strength, password);
 			return new EndsWithEncryptProcessor(encryptor);
 		case DECRYPT:
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(strength, password);
+			TextEncryptor decryptor = org.kuali.common.util.EncUtils.getTextEncryptor(strength, password);
 			return new EndsWithDecryptProcessor(decryptor);
 		default:
 			throw new IllegalArgumentException("Encryption mode '" + mode + "' is unknown");
@@ -142,7 +143,7 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	protected void log() {
-		if (!StringUtils.equals(EncryptionMode.NONE.name(), encryptionMode)) {
+		if (!StringUtils.equals(org.kuali.common.util.EncryptionMode.NONE.name(), encryptionMode)) {
 			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
 			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
 			String displayPassword = LoggerUtils.getNullAsNone(encryptionPassword);
@@ -188,8 +189,8 @@ public class DefaultPropertyContext implements PropertyContext {
 	}
 
 	protected void validate() {
-		EncryptionMode.valueOf(encryptionMode);
-		EncryptionStrength.valueOf(encryptionStrength);
+		org.kuali.common.util.EncryptionMode.valueOf(encryptionMode);
+		org.kuali.common.util.EncryptionStrength.valueOf(encryptionStrength);
 		PropertyStyle.valueOf(style);
 		Boolean.parseBoolean(resolvePlaceholders);
 	}

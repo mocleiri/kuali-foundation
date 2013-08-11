@@ -18,12 +18,15 @@ package org.kuali.common.util.spring;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.property.DefaultPropertyLoadContext;
 import org.kuali.common.util.service.DefaultPropertyService;
 import org.kuali.common.util.service.PropertyService;
 import org.springframework.beans.factory.FactoryBean;
 
-public class PropertyFactoryBean extends DefaultPropertyLoadContext implements FactoryBean<Properties> {
+/**
+ * @deprecated
+ */
+@Deprecated
+public class PropertyFactoryBean extends org.kuali.common.util.property.DefaultPropertyLoadContext implements FactoryBean<Properties> {
 
 	protected static Properties instance;
 	boolean singleton = false;

@@ -13,15 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.property.processor;
+package org.kuali.common.util.enc;
 
-import java.util.Properties;
-
-public class DecryptingProcessor implements PropertyProcessor {
-
-	@Override
-	public void process(Properties properties) {
-		// PropertyUtils.decrypt(properties);
-	}
-
+public enum EncryptionMode {
+	NONE, ENCRYPT, DECRYPT;
 }
