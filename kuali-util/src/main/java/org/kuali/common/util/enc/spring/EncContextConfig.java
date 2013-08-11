@@ -1,9 +1,9 @@
 package org.kuali.common.util.enc.spring;
 
-import org.kuali.common.util.enc.EncryptionContext;
+import org.kuali.common.util.enc.EncContext;
 
 public interface EncContextConfig {
 
-	EncryptionContext encryptionContext();
+	EncContext encryptionContext();
 
 }

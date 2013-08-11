@@ -7,7 +7,7 @@ public class DefaultEncryptionService implements EncryptionService {
 
 	private final TextEncryptor encryptor;
 
-	public DefaultEncryptionService(EncryptionContext context) {
+	public DefaultEncryptionService(EncContext context) {
 		this(EncUtils.getTextEncryptor(context.getPassword(), context.getStrength()));
 	}
 
@@ -17,11 +17,11 @@ public class DefaultEncryptionService implements EncryptionService {
 	}
 
 	public DefaultEncryptionService(String password) {
-		this(password, EncryptionContext.DEFAULT_ENC_STRENGTH);
+		this(password, EncContext.DEFAULT_ENC_STRENGTH);
 	}
 
 	public DefaultEncryptionService(String password, EncStrength strength) {
-		this(new EncryptionContext(password, strength));
+		this(new EncContext(password, strength));
 	}
 
 	@Override
