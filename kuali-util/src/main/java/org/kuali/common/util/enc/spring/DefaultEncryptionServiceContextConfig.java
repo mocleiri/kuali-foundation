@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class })
-public class SystemEncContextConfig implements EncryptionServiceContextConfig {
+public class DefaultEncryptionServiceContextConfig implements EncryptionServiceContextConfig {
 
 	private static final String PASSWORD_KEY = "system.enc.password";
 	private static final String STRENGTH_KEY = "system.enc.strength";
