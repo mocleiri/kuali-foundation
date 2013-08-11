@@ -19,8 +19,8 @@ public class EncryptionServiceConfig {
 	@Bean
 	public EncryptionService encryptionService() {
 		EncryptionServiceContext context = contextConfig.encryptionServiceContext();
-		TextEncryptor encryptor = EncUtils.getTextEncryptor(context.getPassword(), context.getStrength());
 		if (context.isEnabled()) {
+			TextEncryptor encryptor = EncUtils.getTextEncryptor(context.getPassword(), context.getStrength());
 			return new DefaultEncryptionService(encryptor);
 		} else {
 			return new NoOpEncryptionService();
