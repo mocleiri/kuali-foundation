@@ -6,7 +6,8 @@ public final class EncryptionServiceContext {
 
 	public static final EncStrength DEFAULT_STRENGTH = EncStrength.BASIC;
 	public static final boolean DEFAULT_ENABLED = false;
-	public static final EncryptionServiceContext DISABLED = new EncryptionServiceContext("DISABLED");
+	public static final String DEFAULT_DISABLED_PASSWORD = "DISABLED";
+	public static final EncryptionServiceContext DISABLED = new EncryptionServiceContext(DEFAULT_DISABLED_PASSWORD);
 
 	public EncryptionServiceContext(String password) {
 		this(password, DEFAULT_ENABLED);

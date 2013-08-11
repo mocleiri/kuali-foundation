@@ -15,13 +15,29 @@
  */
 package org.kuali.common.util.property.processor;
 
+import java.util.List;
 import java.util.Properties;
+
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.enc.EncryptionService;
 
 public class DecryptingProcessor implements PropertyProcessor {
 
+	public DecryptingProcessor(EncryptionService service) {
+		Assert.noNulls(service);
+		this.service = service;
+	}
+
+	private final EncryptionService service;
+
 	@Override
 	public void process(Properties properties) {
-		// PropertyUtils.decrypt(properties);
+		List<String> keys = PropertyUtils.getEncryptedKeys(properties);
+	}
+
+	public EncryptionService getService() {
+		return service;
 	}
 
 }

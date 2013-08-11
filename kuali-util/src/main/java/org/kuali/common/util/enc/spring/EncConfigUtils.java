@@ -24,13 +24,10 @@ public class EncConfigUtils {
 
 	public static EncryptionServiceContext getEncryptionServiceContext(EnvironmentService service, String passwordKey, String enabledKey, String strengthKey) {
 		boolean enabled = service.getBoolean(enabledKey, EncryptionServiceContext.DEFAULT_ENABLED);
-		if (enabled) {
-			String password = service.getString(passwordKey);
-			EncStrength strength = getStrength(service, strengthKey);
-			return new EncryptionServiceContext(password, strength, enabled);
-		} else {
-			return EncryptionServiceContext.DISABLED;
-		}
+		String defaultPassword = enabled ? null : EncryptionServiceContext.DEFAULT_DISABLED_PASSWORD;
+		String password = service.getString(passwordKey, defaultPassword);
+		EncStrength strength = getStrength(service, strengthKey);
+		return new EncryptionServiceContext(password, strength, enabled);
 	}
 
 	public static EncStrength getStrength(EnvironmentService service, String key) {

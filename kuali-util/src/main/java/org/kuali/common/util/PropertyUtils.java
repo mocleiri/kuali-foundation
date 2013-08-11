@@ -404,12 +404,29 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static Properties getEncryptedProperties(Properties properties) {
-		List<String> keys = getSortedKeys(properties);
+		List<String> keys = getEncryptedKeys(properties);
 		Properties encrypted = new Properties();
 		for (String key : keys) {
 			String value = properties.getProperty(key);
+			encrypted.setProperty(key, value);
+		}
+		return encrypted;
+	}
+
+	/**
+	 * Return a list containing only those keys whose values are encrypted. Encrypted values are surrounded by ENC(...), like:
+	 * 
+	 * <pre>
+	 * my.value = ENC(DGA"$S24FaIO)
+	 * </pre>
+	 */
+	public static List<String> getEncryptedKeys(Properties properties) {
+		List<String> all = getSortedKeys(properties);
+		List<String> encrypted = new ArrayList<String>();
+		for (String key : all) {
+			String value = properties.getProperty(key);
 			if (isEncryptedPropertyValue(value)) {
-				encrypted.setProperty(key, value);
+				encrypted.add(key);
 			}
 		}
 		return encrypted;
