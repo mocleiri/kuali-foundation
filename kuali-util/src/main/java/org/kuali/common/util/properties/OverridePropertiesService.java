@@ -22,7 +22,7 @@ public class OverridePropertiesService implements PropertiesService {
 	private static final PropertyProcessor DEFAULT_POST_PROCESSOR = NoOpProcessor.INSTANCE;
 	protected static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
-	private final List<Properties> overrides;
+	private final Properties overrides;
 	private final Mode overrideMode;
 	private final int logMessageIndent;
 	private final PropertyProcessor postProcessor;
@@ -31,27 +31,23 @@ public class OverridePropertiesService implements PropertiesService {
 		this(PropertyUtils.EMPTY);
 	}
 
-	public OverridePropertiesService(Properties... overrides) {
-		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
-	}
-
-	public OverridePropertiesService(PropertyProcessor postProcessor, Properties... overrides) {
-		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE, postProcessor);
-	}
-
 	public OverridePropertiesService(Properties overrides) {
-		this(Arrays.asList(overrides), DEFAULT_OVERRIDE_MODE);
+		this(overrides, DEFAULT_OVERRIDE_MODE);
 	}
 
-	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode) {
+	public OverridePropertiesService(Properties overrides, PropertyProcessor postProcessor) {
+		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor);
+	}
+
+	public OverridePropertiesService(Properties overrides, Mode overrideMode) {
 		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, DEFAULT_POST_PROCESSOR);
 	}
 
-	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, PropertyProcessor postProcessor) {
+	public OverridePropertiesService(Properties overrides, Mode overrideMode, PropertyProcessor postProcessor) {
 		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, postProcessor);
 	}
 
-	public OverridePropertiesService(List<Properties> overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor) {
+	public OverridePropertiesService(Properties overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor) {
 		Assert.noNulls(overrides, overrideMode, postProcessor);
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;

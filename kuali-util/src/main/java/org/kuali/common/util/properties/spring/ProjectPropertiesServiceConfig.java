@@ -33,7 +33,7 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		Properties overrides = PropertyUtils.combine(project.getProperties(), PropertyUtils.getGlobalProperties());
 
 		// Setup a service with the overrides and postProcessor we've configured
-		return new OverridePropertiesService(postProcessor, overrides);
+		return new OverridePropertiesService(overrides, postProcessor);
 	}
 
 }
