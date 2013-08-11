@@ -6,4 +6,6 @@ public interface EncryptionServiceContextConfig {
 
 	EncryptionServiceContext encryptionServiceContext();
 
+	String encryptionPasswordKey();
+
 }

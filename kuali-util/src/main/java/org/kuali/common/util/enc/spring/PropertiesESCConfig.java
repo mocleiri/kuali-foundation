@@ -25,4 +25,10 @@ public class PropertiesESCConfig implements EncryptionServiceContextConfig {
 		return EncConfigUtils.getEncryptionServiceContext(env, PASSWORD_KEY, ENABLED_KEY, STRENGTH_KEY);
 	}
 
+	@Override
+	@Bean
+	public String encryptionPasswordKey() {
+		return PASSWORD_KEY;
+	}
+
 }
