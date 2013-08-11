@@ -1,6 +1,8 @@
 package org.kuali.common.util.enc.spring;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.EncContext;
+import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.sys.SystemService;
 import org.kuali.common.util.sys.spring.SystemServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,10 @@ public class SystemEncContextConfig implements EncContextConfig {
 	@Override
 	@Bean
 	public EncContext encryptionContext() {
-		return null;
+		String password = service.getGlobalProperty("system.enc.password");
+		String strength = service.getGlobalProperty("system.enc.strength");
+		Assert.noNulls(password, strength);
+		return new EncContext(password, EncStrength.valueOf(strength.toUpperCase()));
 	}
 
 }
