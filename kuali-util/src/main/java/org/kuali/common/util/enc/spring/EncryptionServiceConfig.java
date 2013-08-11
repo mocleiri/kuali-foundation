@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class EncServiceConfig {
+public class EncryptionServiceConfig {
 
 	@Autowired
 	EncryptionServiceContext context;
