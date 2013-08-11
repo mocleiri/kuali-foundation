@@ -7,17 +7,21 @@ public class DefaultEncryptionService implements EncryptionService {
 
 	private final TextEncryptor encryptor;
 
+	public DefaultEncryptionService(EncryptionContext context) {
+		this(EncUtils.getTextEncryptor(context.getPassword(), context.getStrength()));
+	}
+
 	public DefaultEncryptionService(TextEncryptor encryptor) {
 		Assert.noNulls(encryptor);
 		this.encryptor = encryptor;
 	}
 
 	public DefaultEncryptionService(String password) {
-		this(password, EncUtils.DEFAULT_ENC_STRENGTH);
+		this(password, EncryptionContext.DEFAULT_ENC_STRENGTH);
 	}
 
 	public DefaultEncryptionService(String password, EncStrength strength) {
-		this(EncUtils.getTextEncryptor(strength, password));
+		this(new EncryptionContext(password, strength));
 	}
 
 	@Override

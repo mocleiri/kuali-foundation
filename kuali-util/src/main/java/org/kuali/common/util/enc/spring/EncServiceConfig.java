@@ -1,7 +1,8 @@
 package org.kuali.common.util.enc.spring;
 
+import org.kuali.common.util.enc.DefaultEncryptionService;
+import org.kuali.common.util.enc.EncryptionContext;
 import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.sys.SystemService;
 import org.kuali.common.util.sys.spring.SystemServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +18,11 @@ public class EncServiceConfig {
 	Environment env;
 
 	@Autowired
-	SystemService service;
+	EncryptionContext context;
 
 	@Bean
 	public EncryptionService encryptionService() {
-		return null;
+		return new DefaultEncryptionService(context);
 	}
 
 }
