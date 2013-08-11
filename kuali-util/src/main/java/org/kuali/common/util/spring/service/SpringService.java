@@ -20,6 +20,9 @@ import java.util.Map;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.PropertySource;
 
+/**
+ * 
+ */
 public interface SpringService {
 
 	ConfigurableApplicationContext getApplicationContext(SpringContext context);
