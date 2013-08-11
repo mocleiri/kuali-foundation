@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.property.processor;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -27,6 +28,10 @@ public class TrimProcessor implements PropertyProcessor {
 
 	public TrimProcessor() {
 		this(null, null);
+	}
+
+	public TrimProcessor(String include) {
+		this(Arrays.asList(include), null);
 	}
 
 	public TrimProcessor(List<String> includes, List<String> excludes) {
