@@ -2,8 +2,8 @@ package org.kuali.common.util.enc.spring;
 
 import org.kuali.common.util.enc.EncryptionServiceContext;
 
-public interface EncContextConfig {
+public interface EncryptionServiceContextConfig {
 
-	EncryptionServiceContext encryptionContext();
+	EncryptionServiceContext encryptionServiceContext();
 
 }
