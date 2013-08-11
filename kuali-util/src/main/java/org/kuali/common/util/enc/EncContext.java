@@ -6,9 +6,14 @@ public final class EncContext {
 
 	public static final EncStrength DEFAULT_STRENGTH = EncStrength.BASIC;
 	public static final boolean DEFAULT_ENABLED = false;
+	public static final EncContext DISABLED = new EncContext("DISABLED");
 
 	public EncContext(String password) {
-		this(password, DEFAULT_STRENGTH);
+		this(password, DEFAULT_ENABLED);
+	}
+
+	public EncContext(String password, boolean enabled) {
+		this(password, DEFAULT_STRENGTH, enabled);
 	}
 
 	public EncContext(String password, EncStrength strength) {
