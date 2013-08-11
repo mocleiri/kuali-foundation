@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class })
-public class PropertiesEncryptionServiceContextConfig implements EncryptionServiceContextConfig {
+public class DefaultESCConfig implements EncryptionServiceContextConfig {
 
-	private static final String PASSWORD_KEY = "properties.enc.password";
-	private static final String STRENGTH_KEY = "properties.enc.strength";
-	private static final String ENABLED_KEY = "properties.decrypt";
+	private static final String PASSWORD_KEY = "system.enc.password";
+	private static final String STRENGTH_KEY = "system.enc.strength";
+	private static final String ENABLED_KEY = "system.enc.enabled";
 
 	@Autowired
 	EnvironmentService env;
