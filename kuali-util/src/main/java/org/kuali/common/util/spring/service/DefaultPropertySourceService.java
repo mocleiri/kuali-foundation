@@ -20,15 +20,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.PropertySource;
-import org.springframework.util.Assert;
 
-public class DefaultPropertySourceService implements PropertySourceService {
+public final class DefaultPropertySourceService implements PropertySourceService {
 
-	SpringService springService;
+	public DefaultPropertySourceService(SpringService springService) {
+		Assert.noNulls(springService);
+		this.springService = springService;
+	}
+
+	private final SpringService springService;
 
 	@Override
 	public PropertySource<?> getPropertySource(Class<? extends PropertySourceConfig> config) {
@@ -78,10 +83,6 @@ public class DefaultPropertySourceService implements PropertySourceService {
 
 	public SpringService getSpringService() {
 		return springService;
-	}
-
-	public void setSpringService(SpringService springService) {
-		this.springService = springService;
 	}
 
 }

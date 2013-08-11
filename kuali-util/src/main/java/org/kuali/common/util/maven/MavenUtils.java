@@ -66,8 +66,7 @@ public class MavenUtils {
 	 */
 	@Deprecated
 	public static SpringContext getMavenizedSpringContext(Properties mavenProperties, Class<?> propertySourceConfig) {
-		DefaultPropertySourceService service = new DefaultPropertySourceService();
-		service.setSpringService(new DefaultSpringService());
+		PropertySourceService service = new DefaultPropertySourceService(new DefaultSpringService());
 		return getMavenizedSpringContext(service, mavenProperties, propertySourceConfig);
 	}
 

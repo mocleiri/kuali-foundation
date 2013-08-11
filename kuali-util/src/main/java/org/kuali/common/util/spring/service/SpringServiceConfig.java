@@ -15,11 +15,18 @@
  */
 package org.kuali.common.util.spring.service;
 
+import org.kuali.common.util.spring.env.DefaultEnvironmentService;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 @Configuration
 public class SpringServiceConfig {
+
+	@Autowired
+	Environment env;
 
 	@Bean
 	public SpringService springService() {
@@ -28,8 +35,11 @@ public class SpringServiceConfig {
 
 	@Bean
 	public PropertySourceService propertySourceService() {
-		DefaultPropertySourceService service = new DefaultPropertySourceService();
-		service.setSpringService(springService());
-		return service;
+		return new DefaultPropertySourceService(springService());
+	}
+
+	@Bean
+	public EnvironmentService environmentService() {
+		return new DefaultEnvironmentService(env, true);
 	}
 }

@@ -63,7 +63,7 @@ public class PropertyUtils {
 
 	private static final String XML_EXTENSION = ".xml";
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
-	private static final String ENV_PREFIX = "env";
+	public static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
 
