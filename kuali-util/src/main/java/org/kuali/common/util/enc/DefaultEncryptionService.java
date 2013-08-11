@@ -5,10 +5,10 @@ import org.kuali.common.util.Assert;
 
 public final class DefaultEncryptionService implements EncryptionService {
 
-	private final EncContext context;
+	private final EncryptionContext context;
 	private final TextEncryptor encryptor;
 
-	public DefaultEncryptionService(EncContext context) {
+	public DefaultEncryptionService(EncryptionContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 		this.encryptor = EncUtils.getTextEncryptor(context.getPassword(), context.getStrength());
