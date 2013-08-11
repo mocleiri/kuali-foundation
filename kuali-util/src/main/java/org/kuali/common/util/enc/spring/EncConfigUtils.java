@@ -22,12 +22,6 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class EncConfigUtils {
 
-	public static EncStrength getStrength(EnvironmentService service, String key) {
-		EncStrength defaultStrength = EncryptionServiceContext.DEFAULT_STRENGTH;
-		EnvContext<EncStrength> ctx = EnvContext.<EncStrength> newCtx(key, EncStrength.class, defaultStrength);
-		return service.getProperty(ctx);
-	}
-
 	public static EncryptionServiceContext getEncryptionServiceContext(EnvironmentService service, String passwordKey, String enabledKey, String strengthKey) {
 		boolean enabled = service.getBoolean(enabledKey, EncryptionServiceContext.DEFAULT_ENABLED);
 		if (enabled) {
@@ -37,6 +31,12 @@ public class EncConfigUtils {
 		} else {
 			return EncryptionServiceContext.DISABLED;
 		}
+	}
+
+	public static EncStrength getStrength(EnvironmentService service, String key) {
+		EncStrength defaultStrength = EncryptionServiceContext.DEFAULT_STRENGTH;
+		EnvContext<EncStrength> ctx = EnvContext.<EncStrength> newCtx(key, EncStrength.class, defaultStrength);
+		return service.getProperty(ctx);
 	}
 
 }
