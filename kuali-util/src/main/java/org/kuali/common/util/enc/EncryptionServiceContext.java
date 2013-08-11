@@ -4,7 +4,6 @@ import org.kuali.common.util.Assert;
 
 public final class EncryptionServiceContext {
 
-	public static final EncStrength DEFAULT_STRENGTH = EncStrength.BASIC;
 	public static final boolean DEFAULT_ENABLED = false;
 	public static final String DEFAULT_DISABLED_PASSWORD = "DISABLED";
 	public static final EncryptionServiceContext DISABLED = new EncryptionServiceContext(DEFAULT_DISABLED_PASSWORD);
@@ -14,7 +13,7 @@ public final class EncryptionServiceContext {
 	}
 
 	public EncryptionServiceContext(String password, boolean enabled) {
-		this(password, DEFAULT_STRENGTH, enabled);
+		this(password, EncStrength.DEFAULT_VALUE, enabled);
 	}
 
 	public EncryptionServiceContext(String password, EncStrength strength) {

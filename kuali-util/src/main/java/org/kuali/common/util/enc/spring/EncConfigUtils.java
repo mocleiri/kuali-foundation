@@ -33,7 +33,7 @@ public class EncConfigUtils {
 	}
 
 	public static EncStrength getStrength(EnvironmentService service, String key) {
-		EncStrength defaultStrength = EncryptionServiceContext.DEFAULT_STRENGTH;
+		EncStrength defaultStrength = EncStrength.DEFAULT_VALUE;
 		EnvContext<EncStrength> ctx = EnvContext.<EncStrength> newCtx(key, EncStrength.class, defaultStrength);
 		return service.getProperty(ctx);
 	}

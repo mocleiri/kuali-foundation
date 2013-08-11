@@ -25,7 +25,7 @@ public class EncUtils {
 	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
 	 */
 	public static TextEncryptor getTextEncryptor(String password) {
-		return getTextEncryptor(password, EncryptionServiceContext.DEFAULT_STRENGTH);
+		return getTextEncryptor(password, EncStrength.DEFAULT_VALUE);
 	}
 
 	/**

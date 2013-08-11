@@ -19,4 +19,5 @@ public enum EncStrength {
 
 	BASIC, STRONG;
 
+	public static final EncStrength DEFAULT_VALUE = BASIC;
 }
