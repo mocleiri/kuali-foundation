@@ -492,6 +492,20 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static String decryptPropertyValue(TextEncryptor encryptor, String value) {
+		String unwrapped = unwrapEncryptedValue(value);
+
+		// Return the decrypted value
+		return encryptor.decrypt(unwrapped);
+	}
+
+	/**
+	 * Return the encrypted text enclosed with ENC()
+	 * 
+	 * <pre>
+	 * ENC(DGA"$S24FaIO) -> DGA"$S24FaIO
+	 * </pre>
+	 */
+	public static String unwrapEncryptedValue(String value) {
 		// Ensure this property value really is encrypted
 		Assert.isTrue(StringUtils.startsWith(value, Constants.ENCRYPTION_PREFIX), "value does not start with " + Constants.ENCRYPTION_PREFIX);
 		Assert.isTrue(StringUtils.endsWith(value, Constants.ENCRYPTION_SUFFIX), "value does not end with " + Constants.ENCRYPTION_SUFFIX);
@@ -499,10 +513,7 @@ public class PropertyUtils {
 		// Extract the value inside the ENC(...) wrapping
 		int start = Constants.ENCRYPTION_PREFIX.length();
 		int end = StringUtils.length(value) - Constants.ENCRYPTION_SUFFIX.length();
-		String unwrapped = StringUtils.substring(value, start, end);
-
-		// Return the decrypted value
-		return encryptor.decrypt(unwrapped);
+		return StringUtils.substring(value, start, end);
 	}
 
 	/**
@@ -514,6 +525,17 @@ public class PropertyUtils {
 	 */
 	public static String encryptPropertyValue(TextEncryptor encryptor, String value) {
 		String encryptedValue = encryptor.encrypt(value);
+		return wrapEncryptedPropertyValue(encryptedValue);
+	}
+
+	/**
+	 * Return the encrypted version of the property value. A value is considered "encrypted" when it appears surrounded by ENC(...).
+	 * 
+	 * <pre>
+	 * my.value = ENC(DGA"$S24FaIO)
+	 * </pre>
+	 */
+	public static String wrapEncryptedPropertyValue(String encryptedValue) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(Constants.ENCRYPTION_PREFIX);
 		sb.append(encryptedValue);

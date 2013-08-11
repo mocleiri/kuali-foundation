@@ -1,35 +1,35 @@
 package org.kuali.common.util.enc;
 
+import java.util.Properties;
+
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 
 public final class DefaultEncryptionService implements EncryptionService {
 
-	private final EncryptionServiceContext context;
 	private final TextEncryptor encryptor;
 
-	public DefaultEncryptionService(EncryptionServiceContext context) {
-		Assert.noNulls(context);
-		this.context = context;
-		this.encryptor = EncUtils.getTextEncryptor(context.getPassword(), context.getStrength());
+	public DefaultEncryptionService(TextEncryptor encryptor) {
+		Assert.noNulls(encryptor);
+		this.encryptor = encryptor;
 	}
 
 	@Override
 	public String encrypt(String string) {
-		if (context.isEnabled()) {
-			return encryptor.encrypt(string);
-		} else {
-			return string;
-		}
+		return encryptor.encrypt(string);
 	}
 
 	@Override
 	public String decrypt(String string) {
-		if (context.isEnabled()) {
-			return encryptor.decrypt(string);
-		} else {
-			return string;
-		}
+		return encryptor.decrypt(string);
+	}
+
+	@Override
+	public void decrypt(Properties properties) {
+	}
+
+	@Override
+	public void encrypt(Properties properties) {
 	}
 
 }

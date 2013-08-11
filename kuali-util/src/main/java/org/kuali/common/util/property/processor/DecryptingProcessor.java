@@ -34,6 +34,12 @@ public class DecryptingProcessor implements PropertyProcessor {
 	@Override
 	public void process(Properties properties) {
 		List<String> keys = PropertyUtils.getEncryptedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String unwrapped = PropertyUtils.unwrapEncryptedValue(value);
+			String decrypted = service.decrypt(unwrapped);
+			properties.setProperty(key, decrypted);
+		}
 	}
 
 	public EncryptionService getService() {
