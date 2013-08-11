@@ -1,18 +1,12 @@
 package org.kuali.common.util.metainf.spring;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
-import org.kuali.common.util.project.model.Build;
 
 public class MetaInfConfigUtils {
 
 	private static final String INCLUDES = "includes";
 	private static final String EXCLUDES = "includes";
-
-	public static ScanContext getScanContext(Build build) {
-		return null;
-	}
 
 	/**
 	 * <code>group</code> is optional
