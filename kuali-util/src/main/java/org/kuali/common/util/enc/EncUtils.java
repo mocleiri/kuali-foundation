@@ -24,14 +24,14 @@ public class EncUtils {
 	/**
 	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
 	 */
-	public static final TextEncryptor getTextEncryptor(String password) {
+	public static TextEncryptor getTextEncryptor(String password) {
 		return getTextEncryptor(EncryptionStrength.BASIC, password);
 	}
 
 	/**
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */
-	public static final TextEncryptor getTextEncryptor(EncryptionStrength strength, String password) {
+	public static TextEncryptor getTextEncryptor(EncryptionStrength strength, String password) {
 		switch (strength) {
 		case BASIC:
 			BasicTextEncryptor basic = new BasicTextEncryptor();
