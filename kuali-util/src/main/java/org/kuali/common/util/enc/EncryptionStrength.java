@@ -16,5 +16,7 @@
 package org.kuali.common.util.enc;
 
 public enum EncryptionStrength {
+
 	BASIC, STRONG;
+
 }
