@@ -6,7 +6,11 @@ public final class EncryptionServiceContext {
 
 	public static final EncStrength DEFAULT_STRENGTH = EncStrength.BASIC;
 	public static final boolean DEFAULT_ENABLED = false;
-	public static final EncryptionServiceContext DISABLED = new EncryptionServiceContext("DISABLED");
+	public static final EncryptionServiceContext DISABLED = new EncryptionServiceContext();
+
+	public EncryptionServiceContext() {
+		this(null);
+	}
 
 	public EncryptionServiceContext(String password) {
 		this(password, DEFAULT_ENABLED);
@@ -21,8 +25,10 @@ public final class EncryptionServiceContext {
 	}
 
 	public EncryptionServiceContext(String password, EncStrength strength, boolean enabled) {
-		Assert.noNulls(password, strength);
-		Assert.noBlanks(password);
+		if (enabled) {
+			Assert.noNulls(password, strength);
+			Assert.noBlanks(password);
+		}
 		this.password = password;
 		this.strength = strength;
 		this.enabled = enabled;
