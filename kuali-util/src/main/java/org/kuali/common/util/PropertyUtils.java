@@ -529,10 +529,10 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return the encrypted version of the property value. A value is considered "encrypted" when it appears surrounded by ENC(...).
+	 * Return the value enclosed with ENC()
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * DGA"$S24FaIO -> ENC(DGA"$S24FaIO)
 	 * </pre>
 	 */
 	public static String wrapEncryptedPropertyValue(String encryptedValue) {
