@@ -30,7 +30,6 @@ public class TrimProcessor implements PropertyProcessor {
 	}
 
 	public TrimProcessor(List<String> includes, List<String> excludes) {
-		super();
 		this.includes = includes;
 		this.excludes = excludes;
 	}
