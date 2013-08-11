@@ -24,6 +24,8 @@ public class EncConfigUtils {
 
 	public static EncryptionServiceContext getEncryptionServiceContext(EnvironmentService service, String passwordKey, String enabledKey, String strengthKey) {
 		boolean enabled = service.getBoolean(enabledKey, EncryptionServiceContext.DEFAULT_ENABLED);
+		// Set the default password to null if encryption is turned on
+		// This will result in a startup exception unless they have explicitly supplied an encryption password
 		String defaultPassword = enabled ? null : EncryptionServiceContext.DEFAULT_DISABLED_PASSWORD;
 		String password = service.getString(passwordKey, defaultPassword);
 		EncStrength strength = getStrength(service, strengthKey);
