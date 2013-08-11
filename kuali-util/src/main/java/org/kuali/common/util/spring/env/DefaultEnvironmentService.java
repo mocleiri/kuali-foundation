@@ -35,7 +35,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	}
 
 	@Override
-	public <T> T getProperty(EnvironmentContext<T> context) {
+	public <T> T getProperty(EnvContext<T> context) {
 
 		// If this is null, we have issues
 		Assert.noNulls(context);
@@ -55,7 +55,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 		return returnValue;
 	}
 
-	protected String getMissingPropertyMessage(EnvironmentContext<?> context) {
+	protected String getMissingPropertyMessage(EnvContext<?> context) {
 		if (checkEnvironmentVariables) {
 			String envKey = getEnvironmentVariableKey(context.getKey());
 			return "No value for [" + context.getKey() + "] or [" + envKey + "]";
@@ -81,7 +81,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 	@Override
 	public String getString(String key, String defaultValue) {
-		String text = getProperty(EnvironmentContext.newString(key, defaultValue));
+		String text = getProperty(EnvContext.newString(key, defaultValue));
 		if (resolveStrings) {
 			return env.resolveRequiredPlaceholders(text);
 		} else {
@@ -96,7 +96,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 	@Override
 	public Boolean getBoolean(String key, Boolean defaultValue) {
-		return getProperty(EnvironmentContext.newBoolean(key, defaultValue));
+		return getProperty(EnvContext.newBoolean(key, defaultValue));
 	}
 
 	/**

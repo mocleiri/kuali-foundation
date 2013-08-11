@@ -2,7 +2,7 @@ package org.kuali.common.util.enc.spring;
 
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncryptionServiceContext;
-import org.kuali.common.util.spring.env.EnvironmentContext;
+import org.kuali.common.util.spring.env.EnvContext;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class SystemEncContextConfig implements EncryptionServiceContextConfig {
 
 	protected EncStrength getStrength(String key) {
 		EncStrength defaultStrength = EncryptionServiceContext.DEFAULT_STRENGTH;
-		EnvironmentContext<EncStrength> ctx = EnvironmentContext.<EncStrength> newCtx(key, EncStrength.class, defaultStrength);
+		EnvContext<EncStrength> ctx = EnvContext.<EncStrength> newCtx(key, EncStrength.class, defaultStrength);
 		return env.getProperty(ctx);
 	}
 

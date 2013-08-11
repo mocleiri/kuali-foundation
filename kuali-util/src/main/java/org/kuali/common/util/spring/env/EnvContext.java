@@ -2,13 +2,13 @@ package org.kuali.common.util.spring.env;
 
 import org.kuali.common.util.Assert;
 
-public final class EnvironmentContext<T> {
+public final class EnvContext<T> {
 
-	public EnvironmentContext(String key, Class<T> type) {
+	public EnvContext(String key, Class<T> type) {
 		this(key, type, null);
 	}
 
-	public EnvironmentContext(String key, Class<T> type, T defaultValue) {
+	public EnvContext(String key, Class<T> type, T defaultValue) {
 		Assert.noNulls(key, type);
 		this.key = key;
 		this.type = type;
@@ -31,15 +31,15 @@ public final class EnvironmentContext<T> {
 		return defaultValue;
 	}
 
-	public static <T> EnvironmentContext<T> newCtx(String key, Class<T> type, T defaultValue) {
-		return new EnvironmentContext<T>(key, type, defaultValue);
+	public static <T> EnvContext<T> newCtx(String key, Class<T> type, T defaultValue) {
+		return new EnvContext<T>(key, type, defaultValue);
 	}
 
-	public static EnvironmentContext<String> newString(String key, String defaultValue) {
+	public static EnvContext<String> newString(String key, String defaultValue) {
 		return newCtx(key, String.class, defaultValue);
 	}
 
-	public static EnvironmentContext<Boolean> newBoolean(String key, Boolean defaultValue) {
+	public static EnvContext<Boolean> newBoolean(String key, Boolean defaultValue) {
 		return newCtx(key, Boolean.class, defaultValue);
 	}
 

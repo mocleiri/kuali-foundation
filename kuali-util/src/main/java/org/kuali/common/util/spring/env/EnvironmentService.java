@@ -2,7 +2,7 @@ package org.kuali.common.util.spring.env;
 
 public interface EnvironmentService {
 
-	<T> T getProperty(EnvironmentContext<T> context);
+	<T> T getProperty(EnvContext<T> context);
 
 	String getString(String key);
 
