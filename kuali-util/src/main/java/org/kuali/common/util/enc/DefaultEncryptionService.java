@@ -11,7 +11,11 @@ public final class DefaultEncryptionService implements EncryptionService {
 	public DefaultEncryptionService(EncryptionServiceContext context) {
 		Assert.noNulls(context);
 		this.context = context;
-		this.encryptor = EncUtils.getTextEncryptor(context.getPassword(), context.getStrength());
+		if (context.isEnabled()) {
+			this.encryptor = EncUtils.getTextEncryptor(context.getPassword(), context.getStrength());
+		} else {
+			this.encryptor = null;
+		}
 	}
 
 	@Override
