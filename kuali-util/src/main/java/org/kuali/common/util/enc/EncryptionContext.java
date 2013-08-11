@@ -12,6 +12,7 @@ public final class EncryptionContext {
 
 	public EncryptionContext(String password, EncStrength strength) {
 		Assert.noNulls(password, strength);
+		Assert.noBlanks(password);
 		this.password = password;
 		this.strength = strength;
 	}
