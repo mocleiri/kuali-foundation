@@ -1,6 +1,6 @@
 package org.kuali.common.util.enc.spring;
 
-import org.kuali.common.util.enc.EncryptionContext;
+import org.kuali.common.util.enc.EncryptionServiceContext;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SystemEncContextConfig implements EncContextConfig {
 
 	@Override
 	@Bean
-	public EncryptionContext encryptionContext() {
+	public EncryptionServiceContext encryptionContext() {
 		return null;
 	}
 

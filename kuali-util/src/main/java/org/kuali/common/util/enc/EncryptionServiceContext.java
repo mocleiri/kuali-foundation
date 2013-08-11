@@ -2,25 +2,25 @@ package org.kuali.common.util.enc;
 
 import org.kuali.common.util.Assert;
 
-public final class EncryptionContext {
+public final class EncryptionServiceContext {
 
 	public static final EncStrength DEFAULT_STRENGTH = EncStrength.BASIC;
 	public static final boolean DEFAULT_ENABLED = false;
-	public static final EncryptionContext DISABLED = new EncryptionContext("DISABLED");
+	public static final EncryptionServiceContext DISABLED = new EncryptionServiceContext("DISABLED");
 
-	public EncryptionContext(String password) {
+	public EncryptionServiceContext(String password) {
 		this(password, DEFAULT_ENABLED);
 	}
 
-	public EncryptionContext(String password, boolean enabled) {
+	public EncryptionServiceContext(String password, boolean enabled) {
 		this(password, DEFAULT_STRENGTH, enabled);
 	}
 
-	public EncryptionContext(String password, EncStrength strength) {
+	public EncryptionServiceContext(String password, EncStrength strength) {
 		this(password, strength, DEFAULT_ENABLED);
 	}
 
-	public EncryptionContext(String password, EncStrength strength, boolean enabled) {
+	public EncryptionServiceContext(String password, EncStrength strength, boolean enabled) {
 		Assert.noNulls(password, strength);
 		Assert.noBlanks(password);
 		this.password = password;
