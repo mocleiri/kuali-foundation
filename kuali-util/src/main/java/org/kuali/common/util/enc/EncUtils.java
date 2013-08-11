@@ -21,11 +21,13 @@ import org.jasypt.util.text.TextEncryptor;
 
 public class EncUtils {
 
+	public static final EncStrength DEFAULT_ENC_STRENGTH = EncStrength.BASIC;
+
 	/**
 	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
 	 */
 	public static TextEncryptor getTextEncryptor(String password) {
-		return getTextEncryptor(EncStrength.BASIC, password);
+		return getTextEncryptor(DEFAULT_ENC_STRENGTH, password);
 	}
 
 	/**

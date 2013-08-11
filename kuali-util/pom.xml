@@ -139,6 +139,11 @@
       <version>${jasypt.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt-spring31</artifactId>
+      <version>${jasypt.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
