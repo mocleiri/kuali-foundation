@@ -3,6 +3,7 @@ package org.kuali.common.util.sys;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +18,22 @@ public class DefaultSystemService implements SystemService {
 
 	@Override
 	public Properties getEnvironment() {
-		return PropertyUtils.getEnvAsProperties();
+		return new ImmutableProperties(PropertyUtils.getEnvAsProperties());
 	}
 
 	@Override
 	public Properties getGlobalProperties() {
 		return PropertyUtils.getGlobalProperties();
+	}
+
+	@Override
+	public String getGlobalProperty(String key) {
+		return getGlobalProperty(key, null);
+	}
+
+	@Override
+	public String getGlobalProperty(String key, String defaultValue) {
+		return PropertyUtils.getGlobalProperty(key, defaultValue);
 	}
 
 	@Override

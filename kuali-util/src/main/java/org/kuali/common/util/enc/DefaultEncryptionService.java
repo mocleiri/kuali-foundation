@@ -17,7 +17,7 @@ public class DefaultEncryptionService implements EncryptionService {
 	}
 
 	public DefaultEncryptionService(String password) {
-		this(password, EncContext.DEFAULT_ENC_STRENGTH);
+		this(password, EncContext.DEFAULT_STRENGTH);
 	}
 
 	public DefaultEncryptionService(String password, EncStrength strength) {

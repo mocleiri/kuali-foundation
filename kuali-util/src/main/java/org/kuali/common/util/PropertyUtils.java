@@ -46,7 +46,6 @@ import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
@@ -905,6 +904,8 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static final String getGlobalProperty(String key, String defaultValue) {
+		Assert.noNulls(key);
+
 		// Check to see if there is a system property for this key
 		String systemValue = System.getProperty(key);
 
