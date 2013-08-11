@@ -2,7 +2,6 @@ package org.kuali.common.util.enc.spring;
 
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncryptionServiceContext;
-import org.kuali.common.util.spring.env.EnvContext;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +26,11 @@ public class DefaultEncryptionServiceContextConfig implements EncryptionServiceC
 		boolean enabled = env.getBoolean(ENABLED_KEY, EncryptionServiceContext.DEFAULT_ENABLED);
 		if (enabled) {
 			String password = env.getString(PASSWORD_KEY);
-			EncStrength strength = getStrength(STRENGTH_KEY);
+			EncStrength strength = EncConfigUtils.getStrength(env, STRENGTH_KEY);
 			return new EncryptionServiceContext(password, strength, enabled);
 		} else {
 			return EncryptionServiceContext.DISABLED;
 		}
-	}
-
-	protected EncStrength getStrength(String key) {
-		EncStrength defaultStrength = EncryptionServiceContext.DEFAULT_STRENGTH;
-		EnvContext<EncStrength> ctx = EnvContext.<EncStrength> newCtx(key, EncStrength.class, defaultStrength);
-		return env.getProperty(ctx);
 	}
 
 }
