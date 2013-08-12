@@ -39,6 +39,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.PropertiesContext;
+import org.kuali.common.util.spring.env.EnvironmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -250,6 +251,14 @@ public class SpringUtils {
 	 */
 	public static List<String> getNoneSensitiveListFromCSV(Environment env, String key) {
 		String csv = SpringUtils.getProperty(env, key);
+		return CollectionUtils.getNoneSensitiveListFromCSV(csv);
+	}
+
+	/**
+	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
+	 */
+	public static List<String> getNoneSensitiveListFromCSV(EnvironmentService env, String key, String defaultValue) {
+		String csv = env.getString(key, defaultValue);
 		return CollectionUtils.getNoneSensitiveListFromCSV(csv);
 	}
 

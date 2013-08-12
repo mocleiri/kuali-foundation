@@ -12,14 +12,15 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class })
+@Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class, SpringServiceConfig.class })
 public class MpxConfig implements MetaInfContextsConfig {
 
 	private static final String PREFIX = "mpx";
@@ -32,7 +33,7 @@ public class MpxConfig implements MetaInfContextsConfig {
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".mpx.relative";
 
 	@Autowired
-	Environment env;
+	EnvironmentService env;
 
 	@Autowired
 	Project project;
@@ -43,7 +44,7 @@ public class MpxConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		boolean relativePathing = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		boolean relativePathing = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		ScanContext scanContext = getScanContext();
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
 		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), scanContext, relativePathing);
