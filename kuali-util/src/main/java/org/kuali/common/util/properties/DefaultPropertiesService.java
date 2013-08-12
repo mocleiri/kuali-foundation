@@ -64,7 +64,7 @@ public class DefaultPropertiesService implements PropertiesService {
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor, List<String> systemPropertiesToRemove) {
-		Assert.noNulls(overrides, overrideMode, postProcessor);
+		Assert.noNulls(overrides, overrideMode, postProcessor, systemPropertiesToRemove);
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
