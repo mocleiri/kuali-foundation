@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.properties.Location;
+import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
@@ -38,7 +40,14 @@ import org.springframework.core.env.PropertySource;
 
 public class PropertySourceUtils {
 
+	private static final String PROPERTIES_PROPERTY_SOURCE = "propertiesPropertySource";
+
 	// private static final Logger logger = LoggerFactory.getLogger(PropertySourceUtils.class);
+
+	public static PropertySource<?> getPropertySource(PropertiesService service, List<Location> locations) {
+		Properties properties = service.getProperties(locations);
+		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, properties);
+	}
 
 	/**
 	 * Aggregate every property from every <code>PropertySource</code> in the <code>ConfigurableEnvironment</code> into a <code>Properties</code> object.
