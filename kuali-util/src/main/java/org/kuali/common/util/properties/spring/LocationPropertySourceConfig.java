@@ -3,7 +3,6 @@ package org.kuali.common.util.properties.spring;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.spring.service.PropertySourceConfig;
@@ -30,7 +29,6 @@ public class LocationPropertySourceConfig implements PropertySourceConfig {
 		List<Location> locations = propertyLocationsConfig.propertyLocations();
 		PropertiesService service = propertiesServiceConfig.propertiesService();
 		Properties properties = service.getProperties(locations);
-		PropertyUtils.info(properties);
 		return new PropertiesPropertySource(PROPERTY_SOURCE_NAME, properties);
 	}
 
