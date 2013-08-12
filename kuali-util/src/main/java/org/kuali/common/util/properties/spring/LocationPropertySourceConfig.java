@@ -21,13 +21,12 @@ public class LocationPropertySourceConfig implements PropertySourceConfig {
 	PropertyLocationsConfig propertyLocationsConfig;
 
 	@Autowired
-	PropertiesServiceConfig propertiesServiceConfig;
+	PropertiesService service;
 
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
 		List<Location> locations = propertyLocationsConfig.propertyLocations();
-		PropertiesService service = propertiesServiceConfig.propertiesService();
 		Properties properties = service.getProperties(locations);
 		return new PropertiesPropertySource(PROPERTY_SOURCE_NAME, properties);
 	}
