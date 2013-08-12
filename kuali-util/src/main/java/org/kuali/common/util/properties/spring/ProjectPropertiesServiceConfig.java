@@ -1,6 +1,5 @@
 package org.kuali.common.util.properties.spring;
 
-import java.util.Arrays;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
@@ -52,7 +51,7 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		PropertyProcessor decryptor = new DecryptingProcessor(passwordKey);
 		PropertyProcessor resolver = new ResolvingProcessor();
 		PropertyProcessor trimmer = new TrimmingProcessor(passwordKey);
-		return new ProcessorsProcessor(Arrays.asList(decryptor, resolver, trimmer));
+		return new ProcessorsProcessor(decryptor, resolver, trimmer);
 	}
 
 }
