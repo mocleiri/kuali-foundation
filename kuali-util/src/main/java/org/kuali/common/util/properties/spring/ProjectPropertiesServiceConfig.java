@@ -12,7 +12,7 @@ import org.kuali.common.util.property.processor.DecryptingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
-import org.kuali.common.util.property.processor.TrimProcessor;
+import org.kuali.common.util.property.processor.TrimmingProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +45,7 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 	protected PropertyProcessor getPostProcessor(String passwordKey) {
 		PropertyProcessor decryptor = new DecryptingProcessor(passwordKey);
 		PropertyProcessor resolver = new ResolvingProcessor();
-		PropertyProcessor trimmer = new TrimProcessor(passwordKey);
+		PropertyProcessor trimmer = new TrimmingProcessor(passwordKey);
 		return new ProcessorsProcessor(Arrays.asList(decryptor, resolver, trimmer));
 	}
 
