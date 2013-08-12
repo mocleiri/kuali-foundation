@@ -1,6 +1,5 @@
 package org.kuali.common.util.properties;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -101,14 +100,8 @@ public class DefaultPropertiesService implements PropertiesService {
 	}
 
 	protected void override(Properties existing, Properties overrides) {
-		override(existing, Arrays.asList(overrides));
-	}
-
-	protected void override(Properties existing, List<Properties> overrides) {
-		for (Properties properties : overrides) {
-			PropertyProcessor processor = new OverrideProcessor(overrideMode, properties, logMessageIndent);
-			processor.process(existing);
-		}
+		PropertyProcessor processor = new OverrideProcessor(overrideMode, overrides, logMessageIndent);
+		processor.process(existing);
 	}
 
 }
