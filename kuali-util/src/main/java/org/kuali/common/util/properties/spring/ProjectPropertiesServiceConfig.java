@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
-import org.kuali.common.util.properties.OverridePropertiesService;
+import org.kuali.common.util.properties.DefaultPropertiesService;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.processor.DecryptingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
@@ -37,7 +37,7 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		PropertyProcessor processor = getPostProcessor();
 
 		// Setup a service with the overrides and post processor we've configured
-		return new OverridePropertiesService(overrides, processor);
+		return new DefaultPropertiesService(overrides, processor);
 	}
 
 	protected PropertyProcessor getPostProcessor() {
