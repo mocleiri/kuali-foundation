@@ -35,7 +35,7 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		// This property contains the password for decrypting any encrypted values
 		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
 
-		// Decrypt and resolve the properties after having loaded them
+		// Process the properties after loading them, decrypt, resolve, and remove the encryption password
 		PropertyProcessor processor = getPostProcessor(passwordKey);
 
 		// Setup a service with the overrides and post processor we've configured
