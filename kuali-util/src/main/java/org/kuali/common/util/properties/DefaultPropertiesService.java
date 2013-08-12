@@ -42,6 +42,10 @@ public class DefaultPropertiesService implements PropertiesService {
 		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor);
 	}
 
+	public DefaultPropertiesService(Properties overrides, PropertyProcessor postProcessor, List<String> systemPropertiesToRemove) {
+		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor, systemPropertiesToRemove);
+	}
+
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode) {
 		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, DEFAULT_POST_PROCESSOR);
 	}
