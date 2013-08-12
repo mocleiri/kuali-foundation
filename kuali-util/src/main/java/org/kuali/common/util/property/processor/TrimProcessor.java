@@ -15,10 +15,10 @@
  */
 package org.kuali.common.util.property.processor;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 
 public class TrimProcessor implements PropertyProcessor {
@@ -31,7 +31,7 @@ public class TrimProcessor implements PropertyProcessor {
 	}
 
 	public TrimProcessor(String include) {
-		this(Arrays.asList(include), null);
+		this(CollectionUtils.toEmptyList(include), null);
 	}
 
 	public TrimProcessor(List<String> includes, List<String> excludes) {
