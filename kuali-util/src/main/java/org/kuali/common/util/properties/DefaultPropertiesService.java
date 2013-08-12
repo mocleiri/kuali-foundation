@@ -1,12 +1,10 @@
 package org.kuali.common.util.properties;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.cache.Cache;
@@ -22,14 +20,12 @@ public class DefaultPropertiesService implements PropertiesService {
 	private static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	private static int DEFAULT_LOG_MESSAGE_INDENT = 2;
 	private static final PropertyProcessor DEFAULT_POST_PROCESSOR = NoOpProcessor.INSTANCE;
-	private static final List<String> DEFAULT_SYSTEM_PROPERTIES_TO_REMOVE = Collections.<String> emptyList();
 	protected static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	private final Properties overrides;
 	private final Mode overrideMode;
 	private final int logMessageIndent;
 	private final PropertyProcessor postProcessor;
-	private final List<String> systemPropertiesToRemove;
 
 	public DefaultPropertiesService() {
 		this(PropertyUtils.EMPTY);
@@ -43,16 +39,8 @@ public class DefaultPropertiesService implements PropertiesService {
 		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor);
 	}
 
-	public DefaultPropertiesService(Properties overrides, PropertyProcessor postProcessor, String systemPropertyToRemove) {
-		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor, CollectionUtils.noNullsSingletonList(systemPropertyToRemove));
-	}
-
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode) {
 		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, DEFAULT_POST_PROCESSOR);
-	}
-
-	public DefaultPropertiesService(Properties overrides, Mode overrideMode, PropertyProcessor postProcessor, List<String> systemPropertiesToRemove) {
-		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, postProcessor, systemPropertiesToRemove);
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode, PropertyProcessor postProcessor) {
@@ -60,16 +48,11 @@ public class DefaultPropertiesService implements PropertiesService {
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor) {
-		this(overrides, overrideMode, indent, postProcessor, DEFAULT_SYSTEM_PROPERTIES_TO_REMOVE);
-	}
-
-	public DefaultPropertiesService(Properties overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor, List<String> systemPropertiesToRemove) {
-		Assert.noNulls(overrides, overrideMode, postProcessor, systemPropertiesToRemove);
+		Assert.noNulls(overrides, overrideMode, postProcessor);
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
 		this.logMessageIndent = indent;
 		this.postProcessor = postProcessor;
-		this.systemPropertiesToRemove = systemPropertiesToRemove;
 	}
 
 	@Override
@@ -108,9 +91,6 @@ public class DefaultPropertiesService implements PropertiesService {
 
 		// Do any post processing as needed
 		postProcessor.process(properties);
-
-		// Remove any sensitive system properties now that we are done setting up properties
-		PropertyUtils.removeSystemProperties(systemPropertiesToRemove);
 
 		// Return what we've found
 		return properties;
