@@ -32,7 +32,7 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		// Project properties "win" over everything except system properties
 		Properties overrides = PropertyUtils.combine(project.getProperties(), PropertyUtils.getGlobalProperties());
 
-		// This is the key to a property containing the password used to decrypt any encrypted property values
+		// This property contains the password for decrypting any encrypted values
 		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
 
 		// Decrypt and resolve the properties after having loaded them
