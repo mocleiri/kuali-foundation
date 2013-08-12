@@ -46,16 +46,21 @@ public class DecryptingProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		boolean decrypt = PropertyUtils.getBoolean(decryptKey, properties, false);
 		if (decrypt) {
-			// If they asked to decrypt, a password is required
-			String password = PropertyUtils.getRequiredResolvedProperty(properties, passwordKey);
-
-			// Strength is optional (defaults to BASIC)
-			String defaultStrength = EncStrength.BASIC.name();
-			String strengthString = PropertyUtils.getRequiredResolvedProperty(properties, strengthKey, defaultStrength);
-			EncStrength strength = EncStrength.valueOf(strengthString.toUpperCase());
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(password, strength);
-			PropertyUtils.decrypt(properties, decryptor);
+			TextEncryptor encryptor = getTextEncryptor(properties);
+			PropertyUtils.decrypt(properties, encryptor);
 		}
+	}
+
+	protected TextEncryptor getTextEncryptor(Properties properties) {
+		// If they asked to decrypt, a password is required
+		String password = PropertyUtils.getRequiredResolvedProperty(properties, passwordKey);
+
+		// Strength is optional (defaults to BASIC)
+		String strengthString = PropertyUtils.getRequiredResolvedProperty(properties, strengthKey, EncStrength.DEFAULT_VALUE.name());
+		EncStrength strength = EncStrength.valueOf(strengthString.toUpperCase());
+
+		// Setup a TextEncryptor with the appropriate password and strength
+		return EncUtils.getTextEncryptor(password, strength);
 	}
 
 	public String getDecryptKey() {
