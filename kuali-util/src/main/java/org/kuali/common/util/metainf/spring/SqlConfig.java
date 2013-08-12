@@ -14,14 +14,15 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class })
+@Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class, SpringServiceConfig.class })
 public class SqlConfig implements MetaInfContextsConfig {
 
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
@@ -30,7 +31,7 @@ public class SqlConfig implements MetaInfContextsConfig {
 	private static final String PREFIX = "sql";
 
 	@Autowired
-	Environment env;
+	EnvironmentService env;
 
 	@Autowired
 	Project project;
@@ -52,8 +53,8 @@ public class SqlConfig implements MetaInfContextsConfig {
 
 	protected MetaInfContext getMetaInfContext(MetaInfGroup group, Map<MetaInfGroup, String> defaultIncludes) {
 		ScanContext scanContext = getScanContext(group, defaultIncludes);
-		String databaseVendor = SpringUtils.getProperty(env, DB_VENDOR_KEY);
-		boolean relativePaths = SpringUtils.getBoolean(env, RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		String databaseVendor = env.getString(DB_VENDOR_KEY);
+		boolean relativePaths = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, databaseVendor, group);
 		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), scanContext, relativePaths);
 	}
