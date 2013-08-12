@@ -41,9 +41,10 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 	}
 
 	protected PropertyProcessor getPostProcessor() {
-		DecryptingProcessor decryptor = new DecryptingProcessor();
-		ResolvingProcessor resolver = new ResolvingProcessor();
-		TrimProcessor trimmer = new TrimProcessor(decryptor.getPasswordKey());
+		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
+		PropertyProcessor decryptor = new DecryptingProcessor(passwordKey);
+		PropertyProcessor resolver = new ResolvingProcessor();
+		PropertyProcessor trimmer = new TrimProcessor(passwordKey);
 		List<PropertyProcessor> processors = Arrays.asList(decryptor, resolver, trimmer);
 		return new ProcessorsProcessor(processors);
 	}

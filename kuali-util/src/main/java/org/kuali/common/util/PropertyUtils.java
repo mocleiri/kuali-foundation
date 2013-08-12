@@ -260,6 +260,14 @@ public class PropertyUtils {
 		}
 	}
 
+	public static void removeSystemProperties(List<String> keys) {
+		Properties system = System.getProperties();
+		for (String key : keys) {
+			logger.debug("Removing system property [{}]", key);
+			system.remove(key);
+		}
+	}
+
 	public static void resolve(Properties properties) {
 		// Are we resolving placeholders?
 		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
