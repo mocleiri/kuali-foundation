@@ -109,7 +109,7 @@ public class DefaultPropertiesService implements PropertiesService {
 		// Do any post processing as needed
 		postProcessor.process(properties);
 
-		// Remove any sensitive system properties now that our properties are completely setup
+		// Remove any sensitive system properties now that we are done setting up properties
 		PropertyUtils.removeSystemProperties(systemPropertiesToRemove);
 
 		// Return what we've found
