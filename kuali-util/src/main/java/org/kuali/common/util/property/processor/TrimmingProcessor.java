@@ -28,12 +28,12 @@ public final class TrimmingProcessor implements PropertyProcessor {
 	private final List<String> includes;
 	private final List<String> excludes;
 
-	public TrimmingProcessor(String include) {
-		this(CollectionUtils.noNullsSingletonList(include), Collections.<String> emptyList());
+	public TrimmingProcessor(String exclude) {
+		this(CollectionUtils.noNullsSingletonList(exclude));
 	}
 
-	public TrimmingProcessor(List<String> includes) {
-		this(includes, Collections.<String> emptyList());
+	public TrimmingProcessor(List<String> excludes) {
+		this(Collections.<String> emptyList(), excludes);
 	}
 
 	public TrimmingProcessor(List<String> includes, List<String> excludes) {
