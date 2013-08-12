@@ -39,7 +39,13 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		PropertyProcessor processor = getPostProcessor(passwordKey);
 
 		// Setup a service with the overrides and post processor we've configured
-		return new DefaultPropertiesService(overrides, processor, passwordKey);
+		PropertiesService service = new DefaultPropertiesService(overrides, processor);
+
+		// Now that the service is setup, we can remove the password as a system property (if it has been set there)
+		PropertyUtils.removeSystemProperty(passwordKey);
+
+		// Return the configured service
+		return service;
 	}
 
 	protected PropertyProcessor getPostProcessor(String passwordKey) {
