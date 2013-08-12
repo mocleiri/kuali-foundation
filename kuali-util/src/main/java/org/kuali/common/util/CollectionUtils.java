@@ -369,7 +369,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * If <code>o==null</code> return <code>Collections.&lt;T> emptyList()</code> otherwise return <code>Collections.singletonList(o)</code>
+	 * Returns <code>Collections.singletonList(o)</code>. If o is null IllegalArgumentException is thrown
 	 */
 	public static final <T> List<T> noNullsSingletonList(T o) {
 		if (o != null) {
