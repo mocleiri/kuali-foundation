@@ -1,7 +1,6 @@
 package org.kuali.common.util.properties.spring;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
@@ -33,20 +32,21 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		// Project properties "win" over everything except system properties
 		Properties overrides = PropertyUtils.combine(project.getProperties(), PropertyUtils.getGlobalProperties());
 
+		// This is the key containing the password used to decrypt any encrypted values
+		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
+
 		// Decrypt and resolve the properties after having loaded them
-		PropertyProcessor processor = getPostProcessor();
+		PropertyProcessor processor = getPostProcessor(passwordKey);
 
 		// Setup a service with the overrides and post processor we've configured
-		return new DefaultPropertiesService(overrides, processor);
+		return new DefaultPropertiesService(overrides, processor, passwordKey);
 	}
 
-	protected PropertyProcessor getPostProcessor() {
-		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
+	protected PropertyProcessor getPostProcessor(String passwordKey) {
 		PropertyProcessor decryptor = new DecryptingProcessor(passwordKey);
 		PropertyProcessor resolver = new ResolvingProcessor();
 		PropertyProcessor trimmer = new TrimProcessor(passwordKey);
-		List<PropertyProcessor> processors = Arrays.asList(decryptor, resolver, trimmer);
-		return new ProcessorsProcessor(processors);
+		return new ProcessorsProcessor(Arrays.asList(decryptor, resolver, trimmer));
 	}
 
 }

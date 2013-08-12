@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.cache.Cache;
@@ -42,8 +43,8 @@ public class DefaultPropertiesService implements PropertiesService {
 		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor);
 	}
 
-	public DefaultPropertiesService(Properties overrides, PropertyProcessor postProcessor, List<String> systemPropertiesToRemove) {
-		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor, systemPropertiesToRemove);
+	public DefaultPropertiesService(Properties overrides, PropertyProcessor postProcessor, String systemPropertyToRemove) {
+		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor, CollectionUtils.toEmptyList(systemPropertyToRemove));
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode) {
