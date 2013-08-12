@@ -18,12 +18,45 @@ package org.kuali.common.util.property.processor;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 public class ResolvingProcessor implements PropertyProcessor {
 
+	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE = false;
+	public static final String DEFAULT_RESOLVE_KEY = "properties.resolve";
+
+	public ResolvingProcessor() {
+		this(DEFAULT_IGNORE_UNRESOLVABLE, DEFAULT_RESOLVE_KEY);
+	}
+
+	public ResolvingProcessor(boolean ignoreUnresolvable, String resolveKey) {
+		this.ignoreUnresolvable = ignoreUnresolvable;
+		this.resolveKey = resolveKey;
+		this.helper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvable);
+	}
+
+	private final boolean ignoreUnresolvable;
+	private final String resolveKey;
+	private final PropertyPlaceholderHelper helper;
+
 	@Override
 	public void process(Properties properties) {
-		PropertyUtils.resolve(properties);
+		boolean resolve = PropertyUtils.getBoolean(resolveKey, properties, true);
+		if (resolve) {
+			PropertyUtils.resolve(properties, helper);
+		}
+	}
+
+	public boolean isIgnoreUnresolvable() {
+		return ignoreUnresolvable;
+	}
+
+	public String getResolveKey() {
+		return resolveKey;
+	}
+
+	public PropertyPlaceholderHelper getHelper() {
+		return helper;
 	}
 
 }

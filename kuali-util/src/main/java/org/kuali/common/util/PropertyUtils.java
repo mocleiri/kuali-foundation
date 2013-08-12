@@ -248,6 +248,18 @@ public class PropertyUtils {
 		prepareContextProperties(properties, null);
 	}
 
+	public static void resolve(Properties properties, PropertyPlaceholderHelper helper) {
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			String original = properties.getProperty(key);
+			String resolved = helper.replacePlaceholders(original, properties);
+			if (!StringUtils.equals(original, resolved)) {
+				logger.debug("Resolved [{}]", key);
+				properties.setProperty(key, resolved);
+			}
+		}
+	}
+
 	public static void resolve(Properties properties) {
 		// Are we resolving placeholders?
 		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
