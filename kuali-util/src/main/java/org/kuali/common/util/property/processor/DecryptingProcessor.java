@@ -22,7 +22,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
 
-public class DecryptingProcessor implements PropertyProcessor {
+public final class DecryptingProcessor implements PropertyProcessor {
 
 	public static final String DEFAULT_DECRYPT_KEY = "properties.decrypt";
 	public static final String DEFAULT_PASSWORD_KEY = "properties.enc.password";
