@@ -32,6 +32,10 @@ public class DecryptingProcessor implements PropertyProcessor {
 		this(DEFAULT_DECRYPT_KEY, DEFAULT_PASSWORD_KEY, DEFAULT_STRENGTH_KEY);
 	}
 
+	public DecryptingProcessor(String passwordKey) {
+		this(DEFAULT_DECRYPT_KEY, passwordKey, DEFAULT_STRENGTH_KEY);
+	}
+
 	public DecryptingProcessor(String decryptKey, String passwordKey, String strengthKey) {
 		this.decryptKey = decryptKey;
 		this.passwordKey = passwordKey;
