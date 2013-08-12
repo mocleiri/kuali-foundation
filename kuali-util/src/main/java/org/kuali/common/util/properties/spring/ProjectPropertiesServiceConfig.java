@@ -1,14 +1,10 @@
 package org.kuali.common.util.properties.spring;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.enc.spring.EncryptionServiceConfig;
-import org.kuali.common.util.enc.spring.EncryptionServiceContextConfig;
-import org.kuali.common.util.enc.spring.PropertiesESCConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.properties.OverridePropertiesService;
@@ -24,17 +20,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ AutowiredProjectConfig.class, EncryptionServiceConfig.class, PropertiesESCConfig.class })
+@Import({ AutowiredProjectConfig.class })
 public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 
 	@Autowired
 	Project project;
-
-	@Autowired
-	EncryptionService service;
-
-	@Autowired
-	EncryptionServiceContextConfig encryptionConfig;
 
 	@Override
 	@Bean
@@ -51,10 +41,10 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 	}
 
 	protected PropertyProcessor getPostProcessor() {
-		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
-		processors.add(new DecryptingProcessor(service));
-		processors.add(new ResolvingProcessor());
-		processors.add(new TrimProcessor(encryptionConfig.encryptionPasswordKey()));
+		DecryptingProcessor decryptor = new DecryptingProcessor();
+		ResolvingProcessor resolver = new ResolvingProcessor();
+		TrimProcessor trimmer = new TrimProcessor(decryptor.getPasswordKey());
+		List<PropertyProcessor> processors = Arrays.asList(decryptor, resolver, trimmer);
 		return new ProcessorsProcessor(processors);
 	}
 

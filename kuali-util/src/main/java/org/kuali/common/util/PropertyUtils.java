@@ -95,6 +95,15 @@ public class PropertyUtils {
 		return Boolean.parseBoolean(value);
 	}
 
+	public static boolean getBoolean(String key, Properties properties, boolean defaultValue) {
+		String value = properties.getProperty(key);
+		if (value == null) {
+			return defaultValue;
+		} else {
+			return Boolean.parseBoolean(value);
+		}
+	}
+
 	/**
 	 * Return true if both contain an identical set of string keys and values, or both are <code>null</code>, false otherwise.
 	 */

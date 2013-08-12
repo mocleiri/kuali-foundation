@@ -17,25 +17,57 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.enc.EncryptionService;
+import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.enc.EncUtils;
 
 public class DecryptingProcessor implements PropertyProcessor {
 
-	public DecryptingProcessor(EncryptionService service) {
-		Assert.noNulls(service);
-		this.service = service;
+	public static final String DEFAULT_DECRYPT_KEY = "properties.decrypt";
+	public static final String DEFAULT_PASSWORD_KEY = "properties.enc.password";
+	public static final String DEFAULT_STRENGTH_KEY = "properties.enc.strength";
+
+	public DecryptingProcessor() {
+		this(DEFAULT_DECRYPT_KEY, DEFAULT_PASSWORD_KEY, DEFAULT_STRENGTH_KEY);
 	}
 
-	private final EncryptionService service;
+	public DecryptingProcessor(String decryptKey, String passwordKey, String strengthKey) {
+		this.decryptKey = decryptKey;
+		this.passwordKey = passwordKey;
+		this.strengthKey = strengthKey;
+	}
+
+	private final String decryptKey;
+	private final String passwordKey;
+	private final String strengthKey;
 
 	@Override
 	public void process(Properties properties) {
-		service.decrypt(properties);
+		boolean decrypt = PropertyUtils.getBoolean(decryptKey, properties, false);
+		if (decrypt) {
+			// If they asked to decrypt, a password is required
+			String password = PropertyUtils.getRequiredResolvedProperty(properties, passwordKey);
+
+			// Strength is optional (defaults to BASIC)
+			String defaultStrength = EncStrength.BASIC.name();
+			String strengthString = PropertyUtils.getRequiredResolvedProperty(properties, strengthKey, defaultStrength);
+			EncStrength strength = EncStrength.valueOf(strengthString.toUpperCase());
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(password, strength);
+			PropertyUtils.decrypt(properties, decryptor);
+		}
 	}
 
-	public EncryptionService getService() {
-		return service;
+	public String getDecryptKey() {
+		return decryptKey;
+	}
+
+	public String getPasswordKey() {
+		return passwordKey;
+	}
+
+	public String getStrengthKey() {
+		return strengthKey;
 	}
 
 }
