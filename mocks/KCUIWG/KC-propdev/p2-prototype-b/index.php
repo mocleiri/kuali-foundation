@@ -3,22 +3,20 @@
 $page = 'index';
 
 # Includes
-require_once( 'assets/inc/head.php' );
-require_once( 'assets/inc/nav.php' );
+require_once( 'kc/inc/head.php' );
+require_once( 'kc/inc/nav.php' );
+require_once( 'kc/inc/toolbar.php' );
 ?>
 
 <section>
 
 	<div class="container">
-		<?php require_once( 'assets/inc/toolbar.php' ); ?>
-
+		
 		<div class="row">
-			<div class="col-lg-12">
-				<div class="content-container">
-					<h2>Coeus 5.0</h2>
-					<p class="p0">Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
-					<p class="p0">Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
-				</div>
+			<div>
+				<h2>Coeus 5.0</h2>
+				<p>Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismodt. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
 			</div>
 		</div>
 
@@ -104,10 +102,10 @@ require_once( 'assets/inc/nav.php' );
 			</div>
 		</div>
 
-	</div>
+		<?php require_once( 'kc/inc/third-tier.php' ); ?>
 
-	<?php require_once( 'assets/inc/third-tier.php' ); ?>
+	</div>
 
 </section>
 
-<?php require_once( 'assets/inc/footer.php' ); ?>
+<?php require_once( 'kc/inc/footer.php' ); ?>

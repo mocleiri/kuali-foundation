@@ -1,0 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+ul,
+ol,
+li,
+input,
+button,
+textarea,
+select {
+  font-family: 'Droid Sans', 'Helvetica', 'Arial', sans-serif;
+}
+/*
+	Variables
+*/
+#toolbar {
+  margin-top: 30px;
+}
+/*
+	Clearfix
+*/
+.clealrfix:before,
+.clealrfix:after {
+  content: " ";
+  display: table;
+}
+.clealrfix:after {
+  clear: both;
+}
+.clealrfix {
+  *zoom: 1;
+}
