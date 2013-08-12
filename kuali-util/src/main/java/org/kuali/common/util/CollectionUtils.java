@@ -369,6 +369,17 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * If <code>o==null</code> return <code>Collections.&lt;T> emptyList()</code> otherwise return <code>Collections.singletonList(o)</code>
+	 */
+	public static final <T> List<T> noNullsSingletonList(T o) {
+		if (o != null) {
+			return Collections.singletonList(o);
+		} else {
+			throw new IllegalArgumentException("nulls not allowed");
+		}
+	}
+
+	/**
 	 * Add keys and values to map. Keys and values must be the same size (or both null). Map cannot be null.
 	 */
 	public static final <K, V> void combine(Map<K, V> map, List<K> keys, List<V> values) {

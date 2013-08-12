@@ -44,7 +44,7 @@ public class DefaultPropertiesService implements PropertiesService {
 	}
 
 	public DefaultPropertiesService(Properties overrides, PropertyProcessor postProcessor, String systemPropertyToRemove) {
-		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor, CollectionUtils.toEmptyList(systemPropertyToRemove));
+		this(overrides, DEFAULT_OVERRIDE_MODE, postProcessor, CollectionUtils.noNullsSingletonList(systemPropertyToRemove));
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode) {
