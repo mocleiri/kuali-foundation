@@ -263,8 +263,11 @@ public class PropertyUtils {
 	public static void removeSystemProperties(List<String> keys) {
 		Properties system = System.getProperties();
 		for (String key : keys) {
-			logger.debug("Removing system property [{}]", key);
-			system.remove(key);
+			String value = system.getProperty(key);
+			if (value != null) {
+				logger.debug("Removing system property [{}]", key);
+				system.remove(key);
+			}
 		}
 	}
 
