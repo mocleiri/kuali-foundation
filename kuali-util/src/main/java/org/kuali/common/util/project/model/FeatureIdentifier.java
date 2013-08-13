@@ -27,7 +27,7 @@ public final class FeatureIdentifier implements Identifiable {
 		this.featureId = featureId;
 
 		// Cache the identifier string + the hashcode of the identifier string to speed up hashing functions
-		this.identifier = groupId + ":" + artifactId;
+		this.identifier = groupId + ":" + artifactId + ":" + featureId;
 		this.hashCode = identifier.hashCode();
 	}
 
