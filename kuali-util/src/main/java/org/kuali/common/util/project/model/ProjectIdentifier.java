@@ -62,6 +62,7 @@ public final class ProjectIdentifier implements Identifiable {
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 
+		// Cache the identifier string + the hashcode of the identifier string to speed up hashing functions
 		this.identifier = groupId + ":" + artifactId;
 		this.hashCode = identifier.hashCode();
 	}
