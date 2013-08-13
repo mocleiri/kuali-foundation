@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.model;
 
 public enum LineSeparator {
 
-	CR("\r"), LF("\n"), CRLF("\r\n");
+	CR("\r"), LF("\n"), CRLF(CR.getValue() + LF.getValue());
 
 	private LineSeparator(String value) {
 		this.value = value;
