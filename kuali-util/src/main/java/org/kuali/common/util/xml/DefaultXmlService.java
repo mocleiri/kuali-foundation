@@ -29,6 +29,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 
 public class DefaultXmlService implements XmlService {
@@ -90,6 +91,7 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public <T> String toString(T instance, String encoding) {
+		Assert.noBlanks(encoding);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		write(out, instance);
 		try {
