@@ -21,54 +21,45 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.jdbc.model.Comments;
+import org.kuali.common.jdbc.model.Delimiter;
 import org.kuali.common.jdbc.model.DelimiterMode;
 import org.kuali.common.jdbc.model.LineSeparator;
 import org.kuali.common.jdbc.model.SqlMetaData;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 
 public final class DefaultSqlReader implements SqlReader {
 
 	public DefaultSqlReader() {
-		this(DEFAULT_DELIMITER, DelimiterMode.DEFAULT_VALUE, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(Delimiter.DEFAULT_DELIMITER, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
 	public DefaultSqlReader(String delimiter) {
-		this(delimiter, DelimiterMode.DEFAULT_VALUE, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(new Delimiter(delimiter), LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
 	public DefaultSqlReader(DelimiterMode delimiterMode) {
-		this(DEFAULT_DELIMITER, delimiterMode, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(new Delimiter(delimiterMode), LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
 	public DefaultSqlReader(String delimiter, DelimiterMode delimiterMode) {
-		this(delimiter, delimiterMode, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(new Delimiter(delimiter, delimiterMode), LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
-	public DefaultSqlReader(String delimiter, DelimiterMode delimiterMode, LineSeparator lineSeparator, boolean trim, boolean ignoreComments, List<String> commentTokens) {
-		Assert.noNulls(delimiterMode, lineSeparator, commentTokens);
-		Assert.noBlanks(delimiter);
+	public DefaultSqlReader(Delimiter delimiter, LineSeparator lineSeparator, boolean trim, Comments comments) {
+		Assert.noNulls(delimiter, lineSeparator, comments);
 		this.delimiter = delimiter;
-		this.delimiterMode = delimiterMode;
 		this.lineSeparator = lineSeparator;
 		this.trim = trim;
-		this.ignoreComments = ignoreComments;
-		this.commentTokens = CollectionUtils.unmodifiableCopy(commentTokens);
+		this.comments = comments;
 	}
 
-	public static final String DEFAULT_DELIMITER = "/";
-	public static final DelimiterMode DEFAULT_DELIMITER_MODE = DelimiterMode.OWN_LINE;
-	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
-	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList("#", "--");
 	public static final boolean DEFAULT_TRIM = true;
-	public static final boolean DEFAULT_IGNORE_COMMENTS = true;
 
-	private final String delimiter;
-	private final DelimiterMode delimiterMode;
+	private final Delimiter delimiter;
 	private final LineSeparator lineSeparator;
 	private final boolean trim;
-	private final boolean ignoreComments;
-	private final List<String> commentTokens;
+	private final Comments comments;
 
 	@Override
 	public SqlMetaData getMetaData(BufferedReader reader) throws IOException {
@@ -78,7 +69,7 @@ public final class DefaultSqlReader implements SqlReader {
 		String trimmedLine = StringUtils.trimToNull(line);
 		while (line != null) {
 			size += line.length();
-			if (isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode)) {
+			if (isEndOfSqlStatement(trimmedLine, delimiter.getValue(), delimiter.getMode())) {
 				count++;
 			}
 			line = reader.readLine();
@@ -93,10 +84,10 @@ public final class DefaultSqlReader implements SqlReader {
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null) {
-			if (isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode)) {
+			if (isEndOfSqlStatement(trimmedLine, delimiter.getValue(), delimiter.getMode())) {
 				return Arrays.asList(getReturnValue(sb.toString() + line, trim, lineSeparator));
 			}
-			if (!ignore(ignoreComments, sb, trimmedLine, commentTokens)) {
+			if (!ignore(comments.isIgnore(), sb, trimmedLine, comments.getTokens())) {
 				sb.append(line + lineSeparator.getValue());
 			}
 			line = reader.readLine();
@@ -113,8 +104,8 @@ public final class DefaultSqlReader implements SqlReader {
 	}
 
 	protected String getReturnValue(String sql, boolean trim, LineSeparator lineSeparator) {
-		if (StringUtils.endsWith(sql, delimiter)) {
-			int endIndex = sql.length() - delimiter.length();
+		if (StringUtils.endsWith(sql, delimiter.getValue())) {
+			int endIndex = sql.length() - delimiter.getValue().length();
 			sql = StringUtils.substring(sql, 0, endIndex);
 		}
 		if (trim) {
@@ -169,12 +160,8 @@ public final class DefaultSqlReader implements SqlReader {
 		return false;
 	}
 
-	public String getDelimiter() {
+	public Delimiter getDelimiter() {
 		return delimiter;
-	}
-
-	public DelimiterMode getDelimiterMode() {
-		return delimiterMode;
 	}
 
 	public LineSeparator getLineSeparator() {
@@ -185,12 +172,8 @@ public final class DefaultSqlReader implements SqlReader {
 		return trim;
 	}
 
-	public boolean isIgnoreComments() {
-		return ignoreComments;
-	}
-
-	public List<String> getCommentTokens() {
-		return commentTokens;
+	public Comments getComments() {
+		return comments;
 	}
 
 }
