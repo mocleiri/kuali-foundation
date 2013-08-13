@@ -20,15 +20,16 @@ import java.util.Properties;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.identify.Identifiable;
 
-public final class ImmutableProject implements Project {
+public final class ImmutableProject implements Project, Identifiable {
 
-	private final String groupId;
-	private final String artifactId;
+	private final ProjectIdentifier projectIdentifier;
 	private final String version;
 	private final Properties properties;
 
 	private final String identifier;
+	private final int hashCode;
 
 	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
 		// Make sure we are being configured correctly
@@ -36,23 +37,23 @@ public final class ImmutableProject implements Project {
 		Assert.notNull(properties, "properties can't be null");
 
 		// Store the GAV info
-		this.groupId = groupId;
-		this.artifactId = artifactId;
+		this.projectIdentifier = new ProjectIdentifier(groupId, artifactId);
 		this.version = version;
 		this.properties = PropertyUtils.toImmutable(properties);
 
-		// Changing this affects both hashCode() and equals(), be careful ...
-		this.identifier = groupId + ":" + artifactId + ":" + version;
+		// Cache both the identifier and the hashcode of the identifier to help speed up hashing functions
+		this.identifier = projectIdentifier + ":" + version;
+		this.hashCode = identifier.hashCode();
 	}
 
 	@Override
 	public String getGroupId() {
-		return groupId;
+		return projectIdentifier.getGroupId();
 	}
 
 	@Override
 	public String getArtifactId() {
-		return artifactId;
+		return projectIdentifier.getArtifactId();
 	}
 
 	@Override
@@ -66,19 +67,23 @@ public final class ImmutableProject implements Project {
 	}
 
 	@Override
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	@Override
 	public String toString() {
-		// Changing this affects both hashCode() and equals(), be careful ...
 		return identifier;
 	}
 
 	@Override
 	public int hashCode() {
-		return toString().hashCode();
+		return hashCode;
 	}
 
 	@Override
 	public boolean equals(Object other) {
-		return ObjectUtils.equalsByToString(this, other);
+		return ObjectUtils.equalsByHashCode(this, other);
 	}
 
 }
