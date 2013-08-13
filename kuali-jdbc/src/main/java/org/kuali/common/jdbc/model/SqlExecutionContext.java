@@ -25,8 +25,8 @@ public final class SqlExecutionContext {
 	private final String context;
 
 	public SqlExecutionContext(String key, String group, SqlMode mode, String context) {
-		Assert.noNulls(mode);
 		Assert.noBlanks(key, group, context);
+		Assert.noNulls(mode);
 		this.key = key;
 		this.group = group;
 		this.mode = mode;
