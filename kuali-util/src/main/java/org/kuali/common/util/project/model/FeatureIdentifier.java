@@ -2,15 +2,16 @@ package org.kuali.common.util.project.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
+import org.kuali.common.util.identify.Identifiable;
 
-public final class FeatureIdentifier {
+public final class FeatureIdentifier implements Identifiable {
 
 	private final String groupId;
 	private final String artifactId;
 	private final String featureId;
 
-	// This is used to simplify hashCode() and equals()
 	private final String identifier;
+	private final int hashCode;
 
 	public FeatureIdentifier(ProjectIdentifier projectId, String featureId) {
 		this(projectId.getGroupId(), projectId.getArtifactId(), featureId);
@@ -25,8 +26,9 @@ public final class FeatureIdentifier {
 		this.artifactId = artifactId;
 		this.featureId = featureId;
 
-		// Changing this affects both hashCode() and equals(), be careful ...
-		this.identifier = groupId + ":" + artifactId + ":" + featureId;
+		// Cache the identifier string + the hashcode of the identifier string to speed up hashing functions
+		this.identifier = groupId + ":" + artifactId;
+		this.hashCode = identifier.hashCode();
 	}
 
 	public String getGroupId() {
@@ -42,19 +44,23 @@ public final class FeatureIdentifier {
 	}
 
 	@Override
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	@Override
 	public String toString() {
-		// Changing this affects both hashCode() and equals(), be careful ...
 		return identifier;
 	}
 
 	@Override
 	public int hashCode() {
-		return toString().hashCode();
+		return hashCode;
 	}
 
 	@Override
 	public boolean equals(Object object) {
-		return ObjectUtils.equalsByToString(this, object);
+		return ObjectUtils.equalsByHashCode(this, object);
 	}
 
 }
