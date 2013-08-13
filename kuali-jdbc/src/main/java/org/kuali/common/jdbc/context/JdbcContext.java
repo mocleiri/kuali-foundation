@@ -24,6 +24,10 @@ import org.kuali.common.jdbc.listener.NoOpSqlListener;
 import org.kuali.common.jdbc.listener.SqlListener;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class JdbcContext {
 
 	// If true, no SQL is executed.

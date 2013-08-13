@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum DelimiterMode {
 
 	END_OF_LINE, OWN_LINE

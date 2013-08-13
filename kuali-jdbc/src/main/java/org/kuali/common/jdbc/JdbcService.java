@@ -21,6 +21,10 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.context.JdbcContext;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface JdbcService {
 
 	/**

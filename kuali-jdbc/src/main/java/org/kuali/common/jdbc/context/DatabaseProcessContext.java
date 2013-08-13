@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc.context;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DatabaseProcessContext {
 
 	String vendor;
@@ -26,9 +30,9 @@ public class DatabaseProcessContext {
 	String dbaUsername;
 	String dbaPassword;
 	String encoding;
-    String schema;
+	String schema;
 
-    public String getDriver() {
+	public String getDriver() {
 		return driver;
 	}
 
@@ -100,11 +104,11 @@ public class DatabaseProcessContext {
 		this.encoding = encoding;
 	}
 
-    public String getSchema() {
-        return schema;
-    }
+	public String getSchema() {
+		return schema;
+	}
 
-    public void setSchema(String schema) {
-        this.schema = schema;
-    }
+	public void setSchema(String schema) {
+		this.schema = schema;
+	}
 }

@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc.context;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum SqlMode {
 
 	SEQUENTIAL, CONCURRENT;

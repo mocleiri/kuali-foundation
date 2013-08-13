@@ -15,6 +15,12 @@
  */
 package org.kuali.common.jdbc;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum CommitMode {
+
 	PER_STATEMENT, PER_SUPPLIER, PER_EXECUTION, NONE;
+
 }

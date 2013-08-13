@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlMetaData implements Comparable<SqlMetaData> {
 
 	// The number of individual sql statements
