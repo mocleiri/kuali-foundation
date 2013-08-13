@@ -1,10 +1,19 @@
 package org.kuali.common.jdbc.model;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 public final class ConnectionContext {
 
-	private ConnectionContext(String url, String username, String password) {
+	public ConnectionContext(String url) {
+		this(url, NullUtils.NONE, NullUtils.NONE);
+	}
+
+	public ConnectionContext(String url, String username) {
+		this(url, username, NullUtils.NONE);
+	}
+
+	public ConnectionContext(String url, String username, String password) {
 		Assert.noBlanks(url, username, password);
 		this.url = url;
 		this.username = username;
