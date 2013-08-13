@@ -19,7 +19,7 @@ import org.kuali.common.util.Assert;
 
 public final class JdbcMetaData {
 
-	private JdbcMetaData(Product product, Driver driver, String url, String username) {
+	public JdbcMetaData(Product product, Driver driver, String url, String username) {
 		Assert.noNulls(product, driver);
 		Assert.noBlanks(url, username);
 		this.product = product;
