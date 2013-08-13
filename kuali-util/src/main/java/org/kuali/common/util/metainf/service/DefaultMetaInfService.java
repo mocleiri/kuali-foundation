@@ -80,9 +80,11 @@ public class DefaultMetaInfService implements MetaInfService {
 		List<WriteProperties> properties = getWriteProperties(results);
 		for (WriteLines element : CollectionUtils.toEmptyList(lines)) {
 			WriteRequest request = element.getRequest();
-			String relativePath = FileSystemUtils.getRelativePathQuietly(request.getRelativeDir(), request.getOutputFile());
-			logger.info("Creating [{}] - {} resources", relativePath, element.getLines().size());
-			write(request, element.getLines());
+			if (!CollectionUtils.isEmpty(element.getLines())) {
+				String relativePath = FileSystemUtils.getRelativePathQuietly(request.getRelativeDir(), request.getOutputFile());
+				logger.info("Creating [{}] - {} resources", relativePath, element.getLines().size());
+				write(request, element.getLines());
+			}
 		}
 		for (WriteProperties element : CollectionUtils.toEmptyList(properties)) {
 			WriteRequest request = element.getRequest();
