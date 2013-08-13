@@ -15,96 +15,52 @@
  */
 package org.kuali.common.jdbc.model;
 
-public class DatabaseProcessContext {
+import java.sql.Driver;
 
-	String vendor;
-	String driver;
-	String url;
-	String username;
-	String password;
-	String dbaUrl;
-	String dbaUsername;
-	String dbaPassword;
-	String encoding;
-    String schema;
+import org.kuali.common.util.Assert;
 
-    public String getDriver() {
-		return driver;
-	}
+public final class DatabaseProcessContext {
 
-	public void setDriver(String driver) {
+	public DatabaseProcessContext(String vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
+		Assert.noNulls(driver, normal, dba);
+		Assert.noBlanks(vendor, encoding, schema);
+		this.vendor = vendor;
 		this.driver = driver;
+		this.normal = normal;
+		this.dba = dba;
+		this.encoding = encoding;
+		this.schema = schema;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getDbaUrl() {
-		return dbaUrl;
-	}
-
-	public void setDbaUrl(String dbaUrl) {
-		this.dbaUrl = dbaUrl;
-	}
-
-	public String getDbaUsername() {
-		return dbaUsername;
-	}
-
-	public void setDbaUsername(String dbaUsername) {
-		this.dbaUsername = dbaUsername;
-	}
-
-	public String getDbaPassword() {
-		return dbaPassword;
-	}
-
-	public void setDbaPassword(String dbaPassword) {
-		this.dbaPassword = dbaPassword;
-	}
+	private final String vendor;
+	private final Driver driver;
+	private final ConnectionContext normal;
+	private final ConnectionContext dba;
+	private final String encoding;
+	private final String schema;
 
 	public String getVendor() {
 		return vendor;
 	}
 
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public ConnectionContext getNormal() {
+		return normal;
+	}
+
+	public ConnectionContext getDba() {
+		return dba;
 	}
 
 	public String getEncoding() {
 		return encoding;
 	}
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
+	public String getSchema() {
+		return schema;
 	}
 
-    public String getSchema() {
-        return schema;
-    }
-
-    public void setSchema(String schema) {
-        this.schema = schema;
-    }
 }

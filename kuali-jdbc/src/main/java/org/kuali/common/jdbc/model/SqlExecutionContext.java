@@ -15,63 +15,38 @@
  */
 package org.kuali.common.jdbc.model;
 
-public class SqlExecutionContext {
+import org.kuali.common.util.Assert;
 
-	String key;
-	String group;
-	SqlMode mode;
-    String context;
+public final class SqlExecutionContext {
 
-	public SqlExecutionContext() {
-		this(null, null);
-	}
-
-	public SqlExecutionContext(String group, SqlMode mode) {
-		this(null, group, mode, null);
-	}
-
-    public SqlExecutionContext(String key, String group, SqlMode mode) {
-        this(key, group, mode, null);
-    }
+	private final String key;
+	private final String group;
+	private final SqlMode mode;
+	private final String context;
 
 	public SqlExecutionContext(String key, String group, SqlMode mode, String context) {
-		super();
+		Assert.noNulls(mode);
+		Assert.noBlanks(key, group, context);
 		this.key = key;
 		this.group = group;
 		this.mode = mode;
-        this.context = context;
-    }
-
+		this.context = context;
+	}
 
 	public String getGroup() {
 		return group;
-	}
-
-	public void setGroup(String group) {
-		this.group = group;
 	}
 
 	public SqlMode getMode() {
 		return mode;
 	}
 
-	public void setMode(SqlMode mode) {
-		this.mode = mode;
-	}
-
 	public String getKey() {
 		return key;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public String getContext() {
+		return context;
 	}
 
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
 }

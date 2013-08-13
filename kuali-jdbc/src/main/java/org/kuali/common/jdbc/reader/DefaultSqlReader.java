@@ -84,10 +84,7 @@ public final class DefaultSqlReader implements SqlReader {
 			line = reader.readLine();
 			trimmedLine = StringUtils.trimToNull(line);
 		}
-		SqlMetaData smd = new SqlMetaData();
-		smd.setCount(count);
-		smd.setSize(size);
-		return smd;
+		return new SqlMetaData(count, size);
 	}
 
 	@Override
