@@ -58,7 +58,7 @@ public final class DefaultPropertiesService implements PropertiesService {
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load();
 
-			// Override what we've got so far with what we just loaded
+			// Any freshly loaded properties "win" over properties we've already loaded
 			new OverridingProcessor(loaded).process(properties);
 		}
 
