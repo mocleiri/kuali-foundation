@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
-public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
+public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
 	@Autowired
 	Project project;

@@ -86,9 +86,6 @@ public final class DefaultPropertiesService implements PropertiesService {
 			override(properties, loaded);
 		}
 
-		// Override the final set of loaded properties with overrides properties
-		override(properties, overrides);
-
 		// Do any post processing as needed
 		postProcessor.process(properties);
 
