@@ -17,11 +17,9 @@ public final class FeatureIdentifier implements Identifiable {
 		Assert.noNulls(project);
 		Assert.noBlanks(featureId);
 
-		// Store the project + featureId
+		// Finish setting things up
 		this.project = project;
 		this.featureId = featureId;
-
-		// Cache the identifier string + the hashcode of the identifier string to speed up hashing functions
 		this.identifier = project.getIdentifier() + ":" + featureId;
 		this.hashCode = identifier.hashCode();
 	}

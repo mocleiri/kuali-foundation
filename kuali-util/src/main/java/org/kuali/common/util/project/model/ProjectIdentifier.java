@@ -55,14 +55,12 @@ public final class ProjectIdentifier implements Identifiable {
 	private final int hashCode;
 
 	public ProjectIdentifier(String groupId, String artifactId) {
-		// Make sure neither one is blank
+		// Make sure we are being configured correctly
 		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);
 
-		// Store groupId and artifactId
+		// Finish setting things up
 		this.groupId = groupId;
 		this.artifactId = artifactId;
-
-		// Cache the identifier string + the hashcode of the identifier string to help speed up hashing functions
 		this.identifier = groupId + ":" + artifactId;
 		this.hashCode = identifier.hashCode();
 	}
