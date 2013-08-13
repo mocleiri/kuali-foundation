@@ -25,7 +25,7 @@ import org.kuali.common.jdbc.context.DatabaseProcessContext;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.BeanNullifier;
-import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -77,7 +77,7 @@ public class JdbcDataSourceConfig {
 
 		BeanNullifier nullifier = new BeanNullifier();
 		nullifier.setBean(ctx);
-		nullifier.setNullTokens(Arrays.asList(Constants.NONE, Constants.NULL));
+		nullifier.setNullTokens(Arrays.asList(NullUtils.NONE, NullUtils.NULL));
 		nullifier.setProperties(CollectionUtils.getTrimmedListFromCSV(NULLIFIED_CONTEXT_PROPERTIES_CSV));
 
 		// Null out usernames/passwords that are set to NONE or NULL

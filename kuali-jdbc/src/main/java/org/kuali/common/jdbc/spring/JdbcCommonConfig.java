@@ -31,11 +31,11 @@ import org.kuali.common.jdbc.supplier.LocationSupplierSourceBean;
 import org.kuali.common.jdbc.supplier.LocationSuppliersFactoryBean;
 import org.kuali.common.jdbc.supplier.SqlLocationSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -86,7 +86,7 @@ public class JdbcCommonConfig {
 	}
 
 	public List<SqlSupplier> getSqlSuppliers(String propertyKey) {
-		String contextValue = SpringUtils.getProperty(env, propertyKey + CONTEXT_KEY_SUFFIX, Constants.NONE);
+		String contextValue = SpringUtils.getProperty(env, propertyKey + CONTEXT_KEY_SUFFIX, NullUtils.NONE);
 		LocationSupplierContext context = new LocationSupplierContext();
 		context.setValue(contextValue);
 
