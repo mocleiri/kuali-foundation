@@ -14,12 +14,13 @@ import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
 import org.kuali.common.util.resolver.ValueResolver;
 
-public class DefaultPropertiesService implements PropertiesService {
+public final class DefaultPropertiesService implements PropertiesService {
+
+	private static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	private static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
 	private static int DEFAULT_LOG_MESSAGE_INDENT = 2;
 	private static final PropertyProcessor DEFAULT_POST_PROCESSOR = NoOpProcessor.INSTANCE;
-	protected static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 
 	private final Properties overrides;
 	private final Mode overrideMode;
@@ -39,14 +40,14 @@ public class DefaultPropertiesService implements PropertiesService {
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode) {
-		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, DEFAULT_POST_PROCESSOR);
+		this(overrides, overrideMode, DEFAULT_POST_PROCESSOR, DEFAULT_LOG_MESSAGE_INDENT);
 	}
 
 	public DefaultPropertiesService(Properties overrides, Mode overrideMode, PropertyProcessor postProcessor) {
-		this(overrides, overrideMode, DEFAULT_LOG_MESSAGE_INDENT, postProcessor);
+		this(overrides, overrideMode, postProcessor, DEFAULT_LOG_MESSAGE_INDENT);
 	}
 
-	public DefaultPropertiesService(Properties overrides, Mode overrideMode, int indent, PropertyProcessor postProcessor) {
+	public DefaultPropertiesService(Properties overrides, Mode overrideMode, PropertyProcessor postProcessor, int indent) {
 		Assert.noNulls(overrides, overrideMode, postProcessor);
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
