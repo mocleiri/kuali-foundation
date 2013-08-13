@@ -42,46 +42,6 @@ public class ObjectUtils {
 		}
 	}
 
-	/**
-	 * <p>
-	 * This method returns <code>true</code> if both <code>hashCode()</code> methods return matching values AND both objects are the exact same runtime type.
-	 * </p>
-	 * 
-	 * <p>
-	 * Returns <code>true</code> immediately if <code>main==other</code> (ie they are the same object).
-	 * </p>
-	 * 
-	 * <p>
-	 * Returns <code>false</code> immediately if <code>other==null</code> or is a different runtime type than <code>main</code>.
-	 * </p>
-	 * 
-	 * <p>
-	 * Only if both are not <code>null</code>, and both are the exact same runtime type, are their respective <code>hashCode()</code> values compared.
-	 * </p>
-	 * 
-	 * @param main
-	 *            The object <code>other</code> is being compared to.
-	 * @param other
-	 *            The object being examined for equality with <code>main</code>.
-	 * 
-	 * @throws NullPointerException
-	 *             If <code>main</cod> is <code>null</code>
-	 */
-	public static boolean equalsByHashCode(Object main, Object other) {
-
-		// They are the same object
-		if (sameObject(main, other)) {
-			return true;
-		}
-
-		// Only bother comparing the hashcode's if they are the exact same runtime type
-		if (sameType(main, other)) {
-			return main.hashCode() == other.hashCode();
-		} else {
-			return false;
-		}
-	}
-
 	public static boolean sameObject(Object main, Object other) {
 
 		// Main can't be null

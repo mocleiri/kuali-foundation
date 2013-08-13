@@ -85,7 +85,7 @@ public final class ImmutableProject implements Project, Identifiable {
 
 	@Override
 	public boolean equals(Object other) {
-		return ObjectUtils.equalsByHashCode(this, other);
+		return ObjectUtils.equalsByToString(this, other);
 	}
 
 }

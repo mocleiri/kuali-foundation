@@ -90,7 +90,7 @@ public final class ProjectIdentifier implements Identifiable {
 
 	@Override
 	public boolean equals(Object object) {
-		return ObjectUtils.equalsByHashCode(this, object);
+		return ObjectUtils.equalsByToString(this, object);
 	}
 
 }
