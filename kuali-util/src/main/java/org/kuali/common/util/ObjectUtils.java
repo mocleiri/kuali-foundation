@@ -56,7 +56,7 @@ public class ObjectUtils {
 	 * </p>
 	 * 
 	 * <p>
-	 * If neither one is <code>null</code>, and both are the exact same runtime type, then compare their respective <code>hashCode()</code> values.
+	 * Only if both are not <code>null</code>, and both are the exact same runtime type, are their respective <code>hashCode()</code> values compared.
 	 * </p>
 	 * 
 	 * @param main
@@ -67,7 +67,7 @@ public class ObjectUtils {
 	 * @throws NullPointerException
 	 *             If <code>main</cod> is <code>null</code>
 	 */
-	public static boolean equalsByHashcode(Object main, Object other) {
+	public static boolean equalsByHashCode(Object main, Object other) {
 
 		// They are the same object
 		if (sameObject(main, other)) {
