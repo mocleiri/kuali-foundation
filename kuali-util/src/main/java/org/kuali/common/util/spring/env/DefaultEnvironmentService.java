@@ -8,7 +8,7 @@ import org.springframework.core.env.Environment;
 
 public class DefaultEnvironmentService implements EnvironmentService {
 
-	public static final boolean DEFAULT_CHECK_ENVIRONMENT_VARIABLES = false;
+	public static final boolean DEFAULT_CHECK_ENVIRONMENT_VARIABLES = true;
 	public static final boolean DEFAULT_RESOLVE_STRINGS = true;
 	public static final Mode DEFAULT_MISSING_PROPERTY_MODE = Mode.ERROR;
 	public static final String ENV_PREFIX = "env";
@@ -106,6 +106,22 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	 */
 	protected String getEnvironmentVariableKey(String key) {
 		return ENV_PREFIX + "." + StringUtils.upperCase(StringUtils.replace(key, ".", "_"));
+	}
+
+	public boolean isCheckEnvironmentVariables() {
+		return checkEnvironmentVariables;
+	}
+
+	public boolean isResolveStrings() {
+		return resolveStrings;
+	}
+
+	public Environment getEnv() {
+		return env;
+	}
+
+	public Mode getMissingPropertyMode() {
+		return missingPropertyMode;
 	}
 
 }
