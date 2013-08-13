@@ -27,7 +27,6 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -41,16 +40,16 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	Environment env;
 	String propertyKey;
 	Map<String, LocationSupplierSourceBean> extensionMappings;
-    LocationSupplierContext context;
+	LocationSupplierContext context;
 
-    @Override
+	@Override
 	public List<LocationSupplier> getObject() {
 
 		// Make sure we are configured correctly
 		Assert.notNull(env, "env is null");
 		Assert.notNull(propertyKey, "propertyKey is null");
 		Assert.notNull(extensionMappings, "extensionMappings is null");
-        Assert.notNull(context, "context is null");
+		Assert.notNull(context, "context is null");
 
 		// Get a list of locations using properties, prefix, and listSuffix
 		List<String> locations = getLocations(env, propertyKey, resourcesSuffix);
@@ -102,7 +101,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 				throw new IllegalArgumentException("Unknown extension [" + extension + "]");
 			}
 
-            // create a LocationSupplier instance and add it to the list
+			// create a LocationSupplier instance and add it to the list
 			suppliers.add(getLocationSupplierInstance(sourceBean, location));
 		}
 
@@ -121,7 +120,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	 * @return a new instance of LocationSupplier with properties from the LocationSupplierSourceBean
 	 */
 	protected LocationSupplier getLocationSupplierInstance(LocationSupplierSourceBean sourceBean, String location) {
-        String contextLocation = LocationSupplierUtils.getContextLocation(context, location);
+		String contextLocation = LocationSupplierUtils.getContextLocation(context, location);
 
 		// Request a new supplier from the builder
 		LocationSupplier supplier = sourceBean.getSupplierInstance();
@@ -129,7 +128,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		LocationSupplier newInstance = ReflectionUtils.newInstance(supplier.getClass());
 		BeanUtils.copyProperties(supplier, newInstance);
 
-        // set the location of the LocationSupplier as a "context location"
+		// set the location of the LocationSupplier as a "context location"
 		newInstance.setLocation(contextLocation);
 
 		return newInstance;
@@ -141,7 +140,7 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 	protected List<String> getLocations(Environment env, String propertyKey, String resourcesSuffix) {
 
 		// Extract the list of resources (comma delimited)
-		String csv = SpringUtils.getProperty(env, propertyKey, Constants.NONE);
+		String csv = SpringUtils.getProperty(env, propertyKey, NullUtils.NONE);
 
 		// If no resources were provided, we are done
 		if (NullUtils.isNullOrNone(csv)) {
@@ -210,12 +209,12 @@ public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSu
 		this.extensionMappings = extensionMappings;
 	}
 
-    public LocationSupplierContext getContext() {
-        return context;
-    }
+	public LocationSupplierContext getContext() {
+		return context;
+	}
 
-    public void setContext(LocationSupplierContext context) {
-        this.context = context;
-    }
+	public void setContext(LocationSupplierContext context) {
+		this.context = context;
+	}
 
 }
