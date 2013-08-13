@@ -19,9 +19,9 @@ import java.sql.Driver;
 
 import org.kuali.common.util.Assert;
 
-public final class DatabaseProcessContext {
+public final class DatabaseContext {
 
-	public DatabaseProcessContext(Vendor vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
+	public DatabaseContext(Vendor vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
 		Assert.noNulls(vendor, driver, normal, dba);
 		Assert.noBlanks(encoding, schema);
 		this.vendor = vendor;
