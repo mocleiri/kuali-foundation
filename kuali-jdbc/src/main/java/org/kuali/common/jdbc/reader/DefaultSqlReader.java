@@ -46,7 +46,8 @@ public final class DefaultSqlReader implements SqlReader {
 	}
 
 	public DefaultSqlReader(String delimiter, DelimiterMode delimiterMode, LineSeparator lineSeparator, boolean trim, boolean ignoreComments, List<String> commentTokens) {
-		Assert.noNulls(delimiter, delimiterMode, lineSeparator, commentTokens);
+		Assert.noNulls(delimiterMode, lineSeparator, commentTokens);
+		Assert.noBlanks(delimiter);
 		this.delimiter = delimiter;
 		this.delimiterMode = delimiterMode;
 		this.lineSeparator = lineSeparator;
