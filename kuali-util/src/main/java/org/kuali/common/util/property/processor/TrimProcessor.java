@@ -21,6 +21,10 @@ import java.util.Properties;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.PropertyUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class TrimProcessor implements PropertyProcessor {
 
 	List<String> includes;

@@ -24,6 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ResolvePlaceholdersProcessor implements PropertyProcessor {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResolvePlaceholdersProcessor.class);

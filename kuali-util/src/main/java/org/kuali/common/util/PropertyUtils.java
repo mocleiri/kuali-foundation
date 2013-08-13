@@ -43,7 +43,6 @@ import org.kuali.common.util.property.PropertiesContext;
 import org.kuali.common.util.property.PropertyFormat;
 import org.kuali.common.util.property.processor.AddPropertiesProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
-import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -273,11 +272,12 @@ public class PropertyUtils {
 		}
 	}
 
+	@Deprecated
 	public static void resolve(Properties properties) {
 		// Are we resolving placeholders?
 		boolean resolve = new Boolean(getRequiredResolvedProperty(properties, "properties.resolve", "true"));
 		if (resolve) {
-			ResolvePlaceholdersProcessor rpp = new ResolvePlaceholdersProcessor();
+			org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor rpp = new org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor();
 			rpp.setHelper(HELPER);
 			rpp.process(properties);
 		}
