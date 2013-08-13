@@ -29,14 +29,16 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 	@Bean
 	public PropertiesService propertiesService() {
 
-		// Project properties "win" over everything except system properties
+		// Extract system + environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
+
+		// Project properties override everything except system / environment properties
 		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
 
-		// This property contains the password for decrypting any encrypted values
+		// This property contains the password for decrypting any encrypted property values
 		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
 
-		// Process the properties after loading them. Decrypt, resolve, and remove the encryption password
+		// The default service provides a hook for processing properties after having loaded them
 		PropertyProcessor processor = getPostProcessor(passwordKey);
 
 		// Setup a service with the overrides and post processor we've configured
