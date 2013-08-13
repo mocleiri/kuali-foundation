@@ -72,7 +72,6 @@ public final class DefaultSqlReader implements SqlReader {
 
 	@Override
 	public SqlMetaData getMetaData(BufferedReader reader) throws IOException {
-		Assert.notNull(delimiter, "delimiter is null");
 		long count = 0;
 		long size = 0;
 		String line = reader.readLine();
@@ -90,7 +89,6 @@ public final class DefaultSqlReader implements SqlReader {
 
 	@Override
 	public List<String> getSql(BufferedReader reader) throws IOException {
-		Assert.notNull(delimiter, "delimiter is null");
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
