@@ -15,45 +15,30 @@
  */
 package org.kuali.common.jdbc.model;
 
-public class SqlMetaData implements Comparable<SqlMetaData> {
+public final class SqlMetaData implements Comparable<SqlMetaData> {
 
 	// The number of individual sql statements
-	long count;
+	private final long count;
 
 	// The collective size of the individual sql statements
-	long size;
-
-	public SqlMetaData() {
-		this(0, 0);
-	}
+	private final long size;
 
 	public SqlMetaData(long count, long size) {
-		super();
 		this.count = count;
 		this.size = size;
 	}
 
 	@Override
 	public int compareTo(SqlMetaData other) {
-		Long size1 = this.size;
-		Long size2 = other.getSize();
-		return size1.compareTo(size2);
+		return Double.compare(size, other.getSize());
 	}
 
 	public long getCount() {
 		return count;
 	}
 
-	public void setCount(long count) {
-		this.count = count;
-	}
-
 	public long getSize() {
 		return size;
-	}
-
-	public void setSize(long size) {
-		this.size = size;
 	}
 
 }
