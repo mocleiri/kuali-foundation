@@ -15,7 +15,6 @@
  */
 package org.kuali.common.jdbc.model;
 
-
-public class JdbcContext {
+public final class JdbcContext {
 
 }
