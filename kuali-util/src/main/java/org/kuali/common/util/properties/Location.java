@@ -36,7 +36,8 @@ public final class Location {
 	}
 
 	public Location(String value, String encoding, Mode missingMode, PropertyFormat format, boolean cacheable) {
-		Assert.noNulls(value, encoding, missingMode, format);
+		Assert.noBlanks(value, encoding);
+		Assert.noNulls(missingMode, format);
 		this.value = value;
 		this.encoding = encoding;
 		this.missingMode = missingMode;
