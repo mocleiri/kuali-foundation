@@ -15,21 +15,27 @@
  */
 package org.kuali.common.jdbc.model;
 
-public final class SqlMetaData implements Comparable<SqlMetaData> {
+import java.util.List;
 
-	// The number of individual sql statements
-	private final long count;
+import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
-	// The collective size of the individual sql statements
-	private final long size;
+public final class SqlBucket implements Comparable<SqlBucket> {
 
-	public SqlMetaData(long count, long size) {
+	public SqlBucket(long count, long size, List<SqlSupplier> suppliers) {
+		Assert.noNulls(suppliers);
 		this.count = count;
 		this.size = size;
+		this.suppliers = CollectionUtils.unmodifiableCopy(suppliers);
 	}
 
+	private final long count;
+	private final long size;
+	private final List<SqlSupplier> suppliers;
+
 	@Override
-	public int compareTo(SqlMetaData other) {
+	public int compareTo(SqlBucket other) {
 		return Double.compare(size, other.getSize());
 	}
 
@@ -41,4 +47,7 @@ public final class SqlMetaData implements Comparable<SqlMetaData> {
 		return size;
 	}
 
+	public List<SqlSupplier> getSuppliers() {
+		return suppliers;
+	}
 }

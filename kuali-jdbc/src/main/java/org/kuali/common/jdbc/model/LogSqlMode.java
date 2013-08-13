@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc.model;
 
-public final class JdbcContext {
+public enum LogSqlMode {
+
+	BEFORE, AFTER, BOTH;
 
 }
