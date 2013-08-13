@@ -29,6 +29,9 @@ public final class DefaultEncryptionService implements EncryptionService {
 		return encryptor.decrypt(string);
 	}
 
+	/**
+	 * Decrypt any encrypted property values.
+	 */
 	@Override
 	public void decrypt(Properties properties) {
 		List<String> keys = PropertyUtils.getEncryptedKeys(properties);
@@ -40,6 +43,9 @@ public final class DefaultEncryptionService implements EncryptionService {
 		}
 	}
 
+	/**
+	 * Encrypt any property values that are not already encrypted.
+	 */
 	@Override
 	public void encrypt(Properties properties) {
 		Set<String> allKeys = new HashSet<String>(PropertyUtils.getSortedKeys(properties));
