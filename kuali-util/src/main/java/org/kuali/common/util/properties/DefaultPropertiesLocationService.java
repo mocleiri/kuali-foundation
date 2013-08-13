@@ -64,7 +64,7 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 
 	@Override
 	public Location getLocation(FeatureIdentifier identifier, String filename) {
-		Project project = projectService.getProject(identifier.getGroupId(), identifier.getArtifactId());
+		Project project = projectService.getProject(identifier.getProject());
 		String value = ProjectUtils.getClasspathPrefix(identifier) + "/" + filename;
 		String encoding = ProjectUtils.getEncoding(project);
 		return new Location(value, encoding, cache);

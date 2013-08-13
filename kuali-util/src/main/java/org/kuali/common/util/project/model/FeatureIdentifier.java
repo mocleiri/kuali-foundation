@@ -6,37 +6,32 @@ import org.kuali.common.util.identify.Identifiable;
 
 public final class FeatureIdentifier implements Identifiable {
 
-	private final String groupId;
-	private final String artifactId;
+	private final ProjectIdentifier project;
 	private final String featureId;
 
 	private final String identifier;
 	private final int hashCode;
 
-	public FeatureIdentifier(ProjectIdentifier projectId, String featureId) {
-		this(projectId.getGroupId(), projectId.getArtifactId(), featureId);
-	}
-
-	public FeatureIdentifier(String groupId, String artifactId, String featureId) {
+	public FeatureIdentifier(ProjectIdentifier project, String featureId) {
 		// Make sure we are being configured correctly
-		Assert.noBlanks("groupId, artifactId, and featureId are required", groupId, artifactId, featureId);
+		Assert.noNulls(project, featureId);
+		Assert.noBlanks(featureId);
 
-		// Store the groupId, artifactId, and featureId
-		this.groupId = groupId;
-		this.artifactId = artifactId;
+		// Store the project + featureId
+		this.project = project;
 		this.featureId = featureId;
 
 		// Cache the identifier string + the hashcode of the identifier string to speed up hashing functions
-		this.identifier = groupId + ":" + artifactId + ":" + featureId;
+		this.identifier = project.getIdentifier() + ":" + featureId;
 		this.hashCode = identifier.hashCode();
 	}
 
-	public String getGroupId() {
-		return groupId;
+	public FeatureIdentifier(String groupId, String artifactId, String featureId) {
+		this(new ProjectIdentifier(groupId, artifactId), featureId);
 	}
 
-	public String getArtifactId() {
-		return artifactId;
+	public ProjectIdentifier getProject() {
+		return project;
 	}
 
 	public String getFeatureId() {

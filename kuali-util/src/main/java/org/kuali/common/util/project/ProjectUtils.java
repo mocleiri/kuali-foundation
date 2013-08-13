@@ -149,6 +149,7 @@ public class ProjectUtils {
 	 * </pre>
 	 */
 	public static String getResourcePath(String groupId, String artifactId) {
+		Assert.noBlanks(groupId, artifactId);
 		return Str.getPath(groupId) + "/" + artifactId;
 	}
 
@@ -180,8 +181,8 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util  ->  classpath:org/kuali/common/kuali-util
 	 * </pre>
 	 */
-	public static String getClasspathPrefix(ProjectIdentifier identifier) {
-		return getClasspathPrefix(identifier.getGroupId(), identifier.getArtifactId());
+	public static String getClasspathPrefix(ProjectIdentifier project) {
+		return getClasspathPrefix(project.getGroupId(), project.getArtifactId());
 	}
 
 	/**
@@ -191,7 +192,7 @@ public class ProjectUtils {
 	 *   org.kuali.common:kuali-util:metainf  ->  classpath:org/kuali/common/kuali-util/metainf
 	 * </pre>
 	 */
-	public static String getClasspathPrefix(FeatureIdentifier identifier) {
-		return getClasspathPrefix(identifier.getGroupId(), identifier.getArtifactId()) + "/" + identifier.getFeatureId();
+	public static String getClasspathPrefix(FeatureIdentifier feature) {
+		return getClasspathPrefix(feature.getProject()) + "/" + feature.getFeatureId();
 	}
 }
