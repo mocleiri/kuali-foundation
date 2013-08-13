@@ -14,7 +14,7 @@ public final class FeatureIdentifier implements Identifiable {
 
 	public FeatureIdentifier(ProjectIdentifier project, String featureId) {
 		// Make sure we are being configured correctly
-		Assert.noNulls(project, featureId);
+		Assert.noNulls(project);
 		Assert.noBlanks(featureId);
 
 		// Store the project + featureId
