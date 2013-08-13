@@ -30,19 +30,19 @@ import org.kuali.common.util.CollectionUtils;
 public final class DefaultSqlReader implements SqlReader {
 
 	public DefaultSqlReader() {
-		this(DEFAULT_DELIMITER, DelimiterMode.DEFAULT_VALUE, LineSeparator.DEFAULT_VALUE, DEFAULT_IS_TRIM, DEFAULT_IS_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(DEFAULT_DELIMITER, DelimiterMode.DEFAULT_VALUE, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
 	}
 
 	public DefaultSqlReader(String delimiter) {
-		this(delimiter, DelimiterMode.DEFAULT_VALUE, LineSeparator.DEFAULT_VALUE, DEFAULT_IS_TRIM, DEFAULT_IS_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(delimiter, DelimiterMode.DEFAULT_VALUE, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
 	}
 
 	public DefaultSqlReader(DelimiterMode delimiterMode) {
-		this(DEFAULT_DELIMITER, delimiterMode, LineSeparator.DEFAULT_VALUE, DEFAULT_IS_TRIM, DEFAULT_IS_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(DEFAULT_DELIMITER, delimiterMode, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
 	}
 
 	public DefaultSqlReader(String delimiter, DelimiterMode delimiterMode) {
-		this(delimiter, delimiterMode, LineSeparator.DEFAULT_VALUE, DEFAULT_IS_TRIM, DEFAULT_IS_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
+		this(delimiter, delimiterMode, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, DEFAULT_IGNORE_COMMENTS, DEFAULT_COMMENT_TOKENS);
 	}
 
 	public DefaultSqlReader(String delimiter, DelimiterMode delimiterMode, LineSeparator lineSeparator, boolean trim, boolean ignoreComments, List<String> commentTokens) {
@@ -60,8 +60,8 @@ public final class DefaultSqlReader implements SqlReader {
 	public static final DelimiterMode DEFAULT_DELIMITER_MODE = DelimiterMode.OWN_LINE;
 	public static final LineSeparator DEFAULT_LINE_SEPARATOR = LineSeparator.LF;
 	public static final List<String> DEFAULT_COMMENT_TOKENS = Arrays.asList("#", "--");
-	public static final boolean DEFAULT_IS_TRIM = true;
-	public static final boolean DEFAULT_IS_IGNORE_COMMENTS = true;
+	public static final boolean DEFAULT_TRIM = true;
+	public static final boolean DEFAULT_IGNORE_COMMENTS = true;
 
 	private final String delimiter;
 	private final DelimiterMode delimiterMode;
