@@ -21,9 +21,9 @@ import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.DirRequest;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.ProjectIdentifier;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +56,7 @@ public class ScmProjectConfig {
 
 		boolean skip = SpringUtils.getBoolean(env, SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_VALUE);
 		boolean skipCommit = SpringUtils.getBoolean(env, COMMIT_SKIP_KEY, UpdateScmExecutable.DEFAULT_SKIP_COMMIT_VALUE);
-		List<File> commitPaths = SpringUtils.getFilesFromCSV(env, COMMIT_PATHS_KEY, Constants.NONE);
+		List<File> commitPaths = SpringUtils.getFilesFromCSV(env, COMMIT_PATHS_KEY, NullUtils.NONE);
 		String commitMessage = SpringUtils.getProperty(env, COMMIT_MESSAGE_KEY);
 
 		UpdateScmExecutable exec = new UpdateScmExecutable();

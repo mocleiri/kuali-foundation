@@ -16,9 +16,11 @@
 package org.kuali.common.util.nullify;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.property.Constants;
 
 public class NullUtils {
+
+	public static final String NONE = "NONE";
+	public static final String NULL = "NULL";
 
 	/**
 	 * Return true if:
@@ -32,7 +34,7 @@ public class NullUtils {
 		if (s == null) {
 			return true;
 		} else {
-			return StringUtils.equalsIgnoreCase(Constants.NULL, s);
+			return StringUtils.equalsIgnoreCase(NULL, s);
 		}
 	}
 
@@ -45,7 +47,7 @@ public class NullUtils {
 	 * </pre>
 	 */
 	public static final boolean isNone(String s) {
-		return StringUtils.equalsIgnoreCase(Constants.NONE, s);
+		return StringUtils.equalsIgnoreCase(NONE, s);
 	}
 
 	/**

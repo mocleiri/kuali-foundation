@@ -7,10 +7,10 @@ import java.util.List;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -25,7 +25,7 @@ public class MpxConfig implements MetaInfContextsConfig {
 
 	private static final String PREFIX = "mpx";
 	private static final String DEFAULT_INCLUDES = "**/*.mpx";
-	private static final String DEFAULT_EXCLUDES = Constants.NONE;
+	private static final String DEFAULT_EXCLUDES = NullUtils.NONE;
 	private static final String INCLUDES_KEY = MetaInfConfigUtils.getIncludesKey(PREFIX);
 	private static final String EXCLUDES_KEY = MetaInfConfigUtils.getExcludesKey(PREFIX);
 

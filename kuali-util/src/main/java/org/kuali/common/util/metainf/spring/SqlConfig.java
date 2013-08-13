@@ -9,10 +9,10 @@ import java.util.Map;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
-import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -63,7 +63,7 @@ public class SqlConfig implements MetaInfContextsConfig {
 		String includesKey = MetaInfConfigUtils.getIncludesKey(group, PREFIX);
 		String excludesKey = MetaInfConfigUtils.getExcludesKey(group, PREFIX);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, Constants.NONE);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, NullUtils.NONE);
 		return new ScanContext(build.getOutputDir(), includes, excludes);
 	}
 

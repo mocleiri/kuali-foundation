@@ -21,14 +21,13 @@ import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.property.Constants;
 import org.springframework.util.Assert;
 
 public class BeanNullifier implements Nullifier {
 
 	Object bean;
 	List<String> properties;
-	List<String> nullTokens = Arrays.asList(Constants.NULL);
+	List<String> nullTokens = Arrays.asList(NullUtils.NULL);
 	boolean caseSensitive = false;
 
 	@Override

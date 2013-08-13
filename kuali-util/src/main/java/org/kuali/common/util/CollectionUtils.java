@@ -33,7 +33,6 @@ import java.util.TreeSet;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.property.Constants;
 
 public class CollectionUtils {
 
@@ -448,7 +447,7 @@ public class CollectionUtils {
 			if (element != null) {
 				sb.append(element.toString());
 			} else {
-				sb.append(Constants.NULL);
+				sb.append(NullUtils.NULL);
 			}
 		}
 		return sb.toString();

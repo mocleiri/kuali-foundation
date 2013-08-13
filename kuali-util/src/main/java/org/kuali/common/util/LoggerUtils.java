@@ -260,7 +260,7 @@ public class LoggerUtils {
 
 	public static final String getNullAsNone(String string) {
 		if (string == null) {
-			return Constants.NONE;
+			return NullUtils.NONE;
 		} else {
 			return string;
 		}
@@ -277,7 +277,7 @@ public class LoggerUtils {
 	public static final String getPassword(String username, String password, Obscurer obscurer) {
 		if (isNullOrNone(password)) {
 			// There is no password, return NONE
-			return Constants.NONE;
+			return NullUtils.NONE;
 		} else if (StringUtils.equals(username, password)) {
 			// Not exactly high security, display the clear text value
 			return password;

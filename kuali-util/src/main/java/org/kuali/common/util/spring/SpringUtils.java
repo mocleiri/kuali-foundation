@@ -838,8 +838,8 @@ public class SpringUtils {
 		Collections.sort(names);
 		for (String name : names) {
 			Object bean = ctx.getBean(name);
-			String instance = (bean == null) ? Constants.NULL : bean.getClass().getSimpleName();
-			String hashcode = (bean == null) ? Constants.NULL : Integer.toHexString(bean.hashCode());
+			String instance = (bean == null) ? NullUtils.NULL : bean.getClass().getSimpleName();
+			String hashcode = (bean == null) ? NullUtils.NULL : Integer.toHexString(bean.hashCode());
 			Object[] row = { name, instance, hashcode };
 			rows.add(row);
 		}

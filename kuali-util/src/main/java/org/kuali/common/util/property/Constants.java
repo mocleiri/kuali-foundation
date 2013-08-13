@@ -56,7 +56,9 @@ public final class Constants {
 	public static final PropertyProcessor NO_OP_PROCESSOR = new NoOpProcessor();
 	public static final String GROUP_ID = "groupId";
 	public static final String GROUP = "group";
+	@Deprecated
 	public static final String NONE = "NONE";
+	@Deprecated
 	public static final String NULL = "NULL";
 	public static final String WILDCARD = "*";
 	public static final String ENCRYPTION_PREFIX = "ENC(";
