@@ -20,8 +20,8 @@ public final class ExecutionResult {
 	private final long updateCount;
 	private final long startTimeMillis;
 	private final long stopTimeMillis;
-	private final long elapsed;
 	private final long statementsExecuted;
+	private final long elapsed;
 
 	public ExecutionResult(long updateCount, long startTimeMillis, long stopTimeMillis, long statementsExecuted) {
 		this.updateCount = updateCount;
