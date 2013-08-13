@@ -3,20 +3,14 @@ package org.kuali.common.util.properties;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.Mode;
-import org.kuali.common.util.property.processor.OverrideProcessor;
-
 public class SimplePropertiesService implements PropertiesService {
 
 	@Override
 	public Properties getProperties(List<Location> locations) {
-		// Allocate some storage
 		Properties properties = new Properties();
-		// Cycle through our list of locations
 		for (Location location : locations) {
-			PropertiesLoader loader = new LocationLoader(location);
-			Properties loaded = loader.load();
-			new OverrideProcessor(Mode.INFORM, loaded, 2).process(properties);
+			Properties loaded = new LocationLoader(location).load();
+			properties.putAll(loaded);
 		}
 		return properties;
 	}
