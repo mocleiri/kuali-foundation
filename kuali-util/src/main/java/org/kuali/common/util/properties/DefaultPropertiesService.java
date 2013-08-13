@@ -16,7 +16,6 @@ import org.kuali.common.util.resolver.ValueResolver;
 public final class DefaultPropertiesService implements PropertiesService {
 
 	private static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
-
 	private static final PropertyProcessor DEFAULT_POST_PROCESSOR = NoOpProcessor.INSTANCE;
 
 	private final Properties overrides;
@@ -72,6 +71,14 @@ public final class DefaultPropertiesService implements PropertiesService {
 
 	public void clearCache() {
 		CACHE.clear();
+	}
+
+	public Properties getOverrides() {
+		return overrides;
+	}
+
+	public PropertyProcessor getPostProcessor() {
+		return postProcessor;
 	}
 
 }
