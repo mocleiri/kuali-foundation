@@ -21,6 +21,10 @@ import org.kuali.common.util.Assert;
 
 public final class DatabaseContext {
 
+	public DatabaseContext(Vendor vendor, Driver driver, ConnectionContext context, String encoding, String schema) {
+		this(vendor, driver, context, context, encoding, schema);
+	}
+
 	public DatabaseContext(Vendor vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
 		Assert.noNulls(vendor, driver, normal, dba);
 		Assert.noBlanks(encoding, schema);
