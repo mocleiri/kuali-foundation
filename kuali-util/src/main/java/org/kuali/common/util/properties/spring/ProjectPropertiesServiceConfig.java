@@ -7,6 +7,7 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.properties.DefaultPropertiesService;
 import org.kuali.common.util.properties.PropertiesService;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.property.processor.DecryptingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
@@ -29,7 +30,8 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 	public PropertiesService propertiesService() {
 
 		// Project properties "win" over everything except system properties
-		Properties overrides = PropertyUtils.combine(project.getProperties(), PropertyUtils.getGlobalProperties());
+		Properties global = PropertyUtils.getGlobalProperties();
+		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
 
 		// This property contains the password for decrypting any encrypted values
 		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
