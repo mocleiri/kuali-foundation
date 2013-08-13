@@ -19,6 +19,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface SqlReader {
 
 	List<String> getSql(BufferedReader reader) throws IOException;

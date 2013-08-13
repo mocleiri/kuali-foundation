@@ -16,10 +16,12 @@
 package org.kuali.common.jdbc;
 
 /**
- * This only works reliably because the data written to disk by mysqldump escapes carriage returns and linefeeds. If the text data contained
- * in a database happens to have the character sequence ";\n", mysqldump escapes the "\n" and thus prevents the ";" from appearing at the
- * end of the line.
+ * This only works reliably because the data written to disk by mysqldump escapes carriage returns and linefeeds. If the text data contained in a database happens to have the
+ * character sequence ";\n", mysqldump escapes the "\n" and thus prevents the ";" from appearing at the end of the line.
+ * 
+ * @deprecated
  */
+@Deprecated
 public class MySQLDumpReader extends DefaultSqlReader {
 
 	public MySQLDumpReader() {

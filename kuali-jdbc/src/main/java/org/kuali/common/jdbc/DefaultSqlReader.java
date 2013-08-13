@@ -23,6 +23,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultSqlReader implements SqlReader {
 
 	public static final String DEFAULT_DELIMITER = "/";
