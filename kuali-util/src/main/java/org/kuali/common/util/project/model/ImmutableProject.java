@@ -31,19 +31,23 @@ public final class ImmutableProject implements Project, Identifiable {
 	private final String identifier;
 	private final int hashCode;
 
-	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
+	public ImmutableProject(ProjectIdentifier projectIdentifier, String version, Properties properties) {
 		// Make sure we are being configured correctly
-		Assert.noBlanks("GAV info is required", groupId, artifactId, version);
-		Assert.notNull(properties, "properties can't be null");
+		Assert.noBlanks("version is required", version);
+		Assert.notNull(properties, "properties are null");
 
 		// Store the GAV info
-		this.projectIdentifier = new ProjectIdentifier(groupId, artifactId);
+		this.projectIdentifier = projectIdentifier;
 		this.version = version;
 		this.properties = PropertyUtils.toImmutable(properties);
 
 		// Cache both the identifier and the hashcode of the identifier to help speed up hashing functions
 		this.identifier = projectIdentifier + ":" + version;
 		this.hashCode = identifier.hashCode();
+	}
+
+	public ImmutableProject(String groupId, String artifactId, String version, Properties properties) {
+		this(new ProjectIdentifier(groupId, artifactId), version, properties);
 	}
 
 	@Override
