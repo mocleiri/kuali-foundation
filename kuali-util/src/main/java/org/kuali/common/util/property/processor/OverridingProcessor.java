@@ -50,7 +50,7 @@ public final class OverridingProcessor implements PropertyProcessor {
 	public OverridingProcessor(Properties overrides, Mode overrideMode, List<String> includes, List<String> excludes, int indent) {
 		Assert.noNulls(overrides, overrideMode, includes, excludes);
 		Assert.isTrue(indent >= 0, "indent is negative");
-		this.overrides = overrides;
+		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
 		this.includes = CollectionUtils.unmodifiableCopy(includes);
 		this.excludes = CollectionUtils.unmodifiableCopy(excludes);

@@ -9,6 +9,7 @@ import org.kuali.common.util.properties.DefaultPropertiesService;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.property.processor.DecryptingProcessor;
+import org.kuali.common.util.property.processor.OverridingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
@@ -32,14 +33,14 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		// Extract system + environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
 
-		// Project properties override everything except system / environment properties
+		// Setup a properties object where system properties "win" over project properties
 		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
 
 		// This property contains the password for decrypting any encrypted property values
 		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
 
 		// The default service provides a hook for processing properties after having loaded them
-		PropertyProcessor processor = getPostProcessor(passwordKey);
+		PropertyProcessor processor = getPostProcessor(overrides, passwordKey);
 
 		// Setup a service with the overrides and post processor we've configured
 		PropertiesService service = new DefaultPropertiesService(overrides, processor);
@@ -51,11 +52,12 @@ public class ProjectPropertiesServiceConfig implements PropertiesServiceConfig {
 		return service;
 	}
 
-	protected PropertyProcessor getPostProcessor(String passwordKey) {
+	protected PropertyProcessor getPostProcessor(Properties overrides, String passwordKey) {
+		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new DecryptingProcessor(passwordKey);
 		PropertyProcessor resolve = new ResolvingProcessor();
 		PropertyProcessor trim = new TrimmingProcessor(passwordKey);
-		return new ProcessorsProcessor(decrypt, resolve, trim);
+		return new ProcessorsProcessor(override, decrypt, resolve, trim);
 	}
 
 }
