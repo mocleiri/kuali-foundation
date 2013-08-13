@@ -25,6 +25,10 @@ import org.kuali.common.util.property.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class EndsWithEncryptProcessor extends DecryptProcessor {
 
 	private static final Logger logger = LoggerFactory.getLogger(EndsWithEncryptProcessor.class);

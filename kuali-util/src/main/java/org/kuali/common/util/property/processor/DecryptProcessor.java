@@ -22,6 +22,10 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DecryptProcessor implements PropertyProcessor {
 
 	TextEncryptor encryptor;
