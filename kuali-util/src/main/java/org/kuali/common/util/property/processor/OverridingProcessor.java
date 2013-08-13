@@ -28,9 +28,8 @@ public final class OverridingProcessor implements PropertyProcessor {
 
 	public static final int DEFAULT_INDENT = 2;
 	public static final Mode DEFAULT_OVERRIDE_MODE = Mode.INFORM;
-
-	// Convenience reference
-	private static final List<String> EMPTY = Collections.<String> emptyList();
+	public static final List<String> DEFAULT_INCLUDES = Collections.<String> emptyList();
+	public static final List<String> DEFAULT_EXCLUDES = Collections.<String> emptyList();
 
 	private final Mode overrideMode;
 	private final Properties overrides;
@@ -39,11 +38,11 @@ public final class OverridingProcessor implements PropertyProcessor {
 	private final int indent;
 
 	public OverridingProcessor(Properties overrides) {
-		this(overrides, DEFAULT_OVERRIDE_MODE, EMPTY, EMPTY, DEFAULT_INDENT);
+		this(overrides, DEFAULT_OVERRIDE_MODE, DEFAULT_INCLUDES, DEFAULT_EXCLUDES, DEFAULT_INDENT);
 	}
 
 	public OverridingProcessor(Properties overrides, List<String> includes) {
-		this(overrides, DEFAULT_OVERRIDE_MODE, includes, EMPTY, DEFAULT_INDENT);
+		this(overrides, DEFAULT_OVERRIDE_MODE, includes, DEFAULT_EXCLUDES, DEFAULT_INDENT);
 	}
 
 	public OverridingProcessor(Properties overrides, List<String> includes, List<String> excludes) {
