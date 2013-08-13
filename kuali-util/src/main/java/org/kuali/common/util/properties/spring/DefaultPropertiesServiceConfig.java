@@ -30,14 +30,14 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 	@Bean
 	public PropertiesService propertiesService() {
 
-		// Extract system + environment properties
+		// This property contains the password for decrypting any encrypted property values
+		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
+
+		// Get a reference to system + environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
 
 		// Setup a properties object where system properties "win" over project properties
 		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
-
-		// This property contains the password for decrypting any encrypted property values
-		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
 
 		// The default service provides a hook for processing properties after having loaded them
 		PropertyProcessor processor = getPostProcessor(overrides, passwordKey);
