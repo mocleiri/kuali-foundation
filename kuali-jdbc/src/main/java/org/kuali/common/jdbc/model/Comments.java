@@ -5,8 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
-public class Comments {
+public final class Comments {
 
 	public static final boolean DEFAULT_IGNORE = true;
 	public static final List<String> DEFAULT_TOKENS = Collections.unmodifiableList(Arrays.asList("#", "--"));
@@ -27,7 +28,7 @@ public class Comments {
 	public Comments(boolean ignore, List<String> tokens) {
 		Assert.noNulls(tokens);
 		this.ignore = ignore;
-		this.tokens = tokens;
+		this.tokens = CollectionUtils.unmodifiableCopy(tokens);
 	}
 
 	private final boolean ignore;
