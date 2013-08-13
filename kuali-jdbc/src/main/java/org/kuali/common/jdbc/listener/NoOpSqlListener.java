@@ -15,7 +15,10 @@
  */
 package org.kuali.common.jdbc.listener;
 
-
+/**
+ * @deprecated
+ */
+@Deprecated
 public class NoOpSqlListener implements SqlListener {
 
 	@Override

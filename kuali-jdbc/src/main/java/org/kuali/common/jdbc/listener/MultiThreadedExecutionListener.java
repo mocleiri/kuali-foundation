@@ -19,7 +19,10 @@ import org.kuali.common.util.PercentCompleteInformer;
 
 /**
  * Thread safe tracking of SQL execution related statistics
+ * 
+ * @deprecated
  */
+@Deprecated
 public class MultiThreadedExecutionListener extends NoOpSqlListener {
 
 	long aggregateTime;

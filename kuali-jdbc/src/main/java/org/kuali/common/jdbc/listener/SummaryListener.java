@@ -22,6 +22,10 @@ import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SummaryListener extends NoOpSqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(SummaryListener.class);

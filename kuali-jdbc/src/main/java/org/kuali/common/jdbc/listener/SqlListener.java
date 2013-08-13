@@ -16,6 +16,10 @@
 package org.kuali.common.jdbc.listener;
 
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface SqlListener {
 
 	void beforeExecution(SqlExecutionEvent event);

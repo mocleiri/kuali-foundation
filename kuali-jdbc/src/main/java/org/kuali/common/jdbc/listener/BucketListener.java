@@ -31,7 +31,10 @@ import org.slf4j.LoggerFactory;
 /**
  * This listener will print statistics related to how the SQL is being divided up into different buckets for execution. Only useful when concurrent SQL execution is being
  * performed.
+ * 
+ * @deprecated
  */
+@Deprecated
 public class BucketListener extends NoOpSqlListener implements SqlListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(BucketListener.class);

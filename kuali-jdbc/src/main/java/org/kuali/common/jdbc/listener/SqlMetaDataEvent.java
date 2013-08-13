@@ -17,6 +17,10 @@ package org.kuali.common.jdbc.listener;
 
 import org.kuali.common.jdbc.context.JdbcContext;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlMetaDataEvent {
 
 	JdbcContext context;

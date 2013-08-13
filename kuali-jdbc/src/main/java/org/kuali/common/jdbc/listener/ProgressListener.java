@@ -20,7 +20,10 @@ import org.kuali.common.util.PercentCompleteInformer;
 
 /**
  * Print a dot to the console each time 1% of the SQL finishes executing
+ * 
+ * @deprecated
  */
+@Deprecated
 public class ProgressListener extends NoOpSqlListener {
 
 	PercentCompleteInformer informer = new PercentCompleteInformer();

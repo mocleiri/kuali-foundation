@@ -21,6 +21,10 @@ import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.FormatUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class MetaDataListener extends NoOpSqlListener {
 
 	@Override

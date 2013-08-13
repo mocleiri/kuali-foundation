@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc.listener;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class AbstractTimedEvent {
 
 	long startTimeMillis;

@@ -20,6 +20,10 @@ import java.util.List;
 import org.kuali.common.jdbc.context.JdbcContext;
 import org.kuali.common.jdbc.threads.SqlBucket;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class BucketEvent {
 
 	JdbcContext context;

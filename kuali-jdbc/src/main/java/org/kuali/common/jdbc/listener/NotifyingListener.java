@@ -20,7 +20,10 @@ import java.util.List;
 
 /**
  * Notify other listeners about SQL related events
+ * 
+ * @deprecated
  */
+@Deprecated
 public class NotifyingListener implements SqlListener {
 
 	List<SqlListener> listeners = new ArrayList<SqlListener>();

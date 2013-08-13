@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc.listener;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlEvent {
 
 	private static final int DEFAULT_UPDATE_COUNT = -1;
