@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-public class DefaultLog4JService implements Log4JService {
+public final class DefaultLog4JService implements Log4JService {
 
 	protected static final String ENCODING = "UTF-8";
 	protected static final String PROPERTIES_SUFFIX = ".properties";
@@ -36,6 +36,7 @@ public class DefaultLog4JService implements Log4JService {
 	private final XmlService xmlService;
 
 	public DefaultLog4JService(XmlService xmlService) {
+		Assert.noNulls(xmlService);
 		this.xmlService = xmlService;
 	}
 
@@ -133,6 +134,10 @@ public class DefaultLog4JService implements Log4JService {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	public XmlService getXmlService() {
+		return xmlService;
 	}
 
 }
