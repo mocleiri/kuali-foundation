@@ -1351,7 +1351,7 @@ public class PropertyUtils {
 		addOrOverrideProperty(properties, key, newValue, propertyOverwriteMode, 0);
 	}
 
-	public static final void addOrOverrideProperty(Properties properties, String key, String newValue, Mode propertyOverwriteMode, int indent) {
+	public static final void addOrOverrideProperty(Properties properties, String key, String newValue, Mode overrideMode, int indent) {
 		String oldValue = properties.getProperty(key);
 		if (StringUtils.equals(newValue, oldValue)) {
 			// Nothing to do! New value is the same as old value.
@@ -1372,7 +1372,7 @@ public class PropertyUtils {
 			// This property already has a value, and it is different from the new value
 			// Check to make sure we are allowed to override the old value before doing so
 			Object[] args = new Object[] { StringUtils.repeat(" ", indent), key, Str.flatten(logNewValue), Str.flatten(logOldValue) };
-			ModeUtils.validate(propertyOverwriteMode, "{}override [{}] -> [{}]", args, "Override of existing property [" + key + "] is not allowed.");
+			ModeUtils.validate(overrideMode, "{}override [{}] -> [{}]", args, "Override of existing property [" + key + "] is not allowed.");
 		} else {
 			// There is no existing value for this key
 			logger.debug("Adding [{}={}]", key, Str.flatten(logNewValue));

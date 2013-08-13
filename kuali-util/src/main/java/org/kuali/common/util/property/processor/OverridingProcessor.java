@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.PropertyUtils;
 
 public final class OverridingProcessor implements PropertyProcessor {
 
@@ -58,6 +59,11 @@ public final class OverridingProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
+		List<String> keys = PropertyUtils.getSortedKeys(overrides, includes, excludes);
+		for (String key : keys) {
+			String newValue = overrides.getProperty(key);
+			PropertyUtils.addOrOverrideProperty(properties, key, newValue, overrideMode, indent);
+		}
 	}
 
 	public Mode getOverrideMode() {
