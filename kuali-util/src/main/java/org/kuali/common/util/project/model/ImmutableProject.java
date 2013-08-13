@@ -36,12 +36,10 @@ public final class ImmutableProject implements Project, Identifiable {
 		Assert.noBlanks("version is required", version);
 		Assert.notNull(properties, "properties are null");
 
-		// Store the GAV info
+		// Finish setting things up
 		this.projectIdentifier = projectIdentifier;
 		this.version = version;
 		this.properties = PropertyUtils.toImmutable(properties);
-
-		// Cache both the identifier and the hashcode of the identifier to help speed up hashing functions
 		this.identifier = projectIdentifier + ":" + version;
 		this.hashCode = identifier.hashCode();
 	}
