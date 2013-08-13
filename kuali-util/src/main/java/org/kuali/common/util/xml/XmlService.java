@@ -27,10 +27,10 @@ public interface XmlService {
 
 	<T> T getObject(String location, Class<T> type);
 
-	<T> void write(File file, T instance);
+	void write(File file, Object object);
 
-	<T> void write(OutputStream out, T instance);
+	void write(OutputStream out, Object object);
 
-	<T> String toString(T instance, String encoding);
+	String toString(Object object, String encoding);
 
 }

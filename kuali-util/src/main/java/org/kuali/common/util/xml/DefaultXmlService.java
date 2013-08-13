@@ -35,11 +35,11 @@ import org.kuali.common.util.LocationUtils;
 public class DefaultXmlService implements XmlService {
 
 	@Override
-	public <T> void write(File file, T instance) {
+	public void write(File file, Object object) {
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(file);
-			write(out, instance);
+			write(out, object);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -48,12 +48,12 @@ public class DefaultXmlService implements XmlService {
 	}
 
 	@Override
-	public <T> void write(OutputStream out, T instance) {
+	public void write(OutputStream out, Object object) {
 		try {
-			JAXBContext context = JAXBContext.newInstance(instance.getClass());
+			JAXBContext context = JAXBContext.newInstance(object.getClass());
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			marshaller.marshal(instance, out);
+			marshaller.marshal(object, out);
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
 		}
@@ -90,10 +90,10 @@ public class DefaultXmlService implements XmlService {
 	}
 
 	@Override
-	public <T> String toString(T instance, String encoding) {
+	public String toString(Object object, String encoding) {
 		Assert.noBlanks(encoding);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		write(out, instance);
+		write(out, object);
 		try {
 			return out.toString(encoding);
 		} catch (UnsupportedEncodingException e) {
