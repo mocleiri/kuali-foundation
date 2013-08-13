@@ -21,9 +21,9 @@ import org.kuali.common.util.Assert;
 
 public final class DatabaseProcessContext {
 
-	public DatabaseProcessContext(String vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
-		Assert.noNulls(driver, normal, dba);
-		Assert.noBlanks(vendor, encoding, schema);
+	public DatabaseProcessContext(Vendor vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
+		Assert.noNulls(vendor, driver, normal, dba);
+		Assert.noBlanks(encoding, schema);
 		this.vendor = vendor;
 		this.driver = driver;
 		this.normal = normal;
@@ -32,14 +32,14 @@ public final class DatabaseProcessContext {
 		this.schema = schema;
 	}
 
-	private final String vendor;
+	private final Vendor vendor;
 	private final Driver driver;
 	private final ConnectionContext normal;
 	private final ConnectionContext dba;
 	private final String encoding;
 	private final String schema;
 
-	public String getVendor() {
+	public Vendor getVendor() {
 		return vendor;
 	}
 
