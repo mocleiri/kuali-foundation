@@ -370,7 +370,7 @@ public class CollectionUtils {
 	/**
 	 * Returns <code>Collections.singletonList(o)</code>. If o is null IllegalArgumentException is thrown
 	 */
-	public static final <T> List<T> noNullsSingletonList(T o) {
+	public static final <T> List<T> singletonList(T o) {
 		if (o != null) {
 			return Collections.singletonList(o);
 		} else {

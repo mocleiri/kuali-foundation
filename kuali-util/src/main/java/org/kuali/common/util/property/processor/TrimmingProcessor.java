@@ -29,7 +29,7 @@ public final class TrimmingProcessor implements PropertyProcessor {
 	private final List<String> excludes;
 
 	public TrimmingProcessor(String exclude) {
-		this(CollectionUtils.noNullsSingletonList(exclude));
+		this(CollectionUtils.singletonList(exclude));
 	}
 
 	public TrimmingProcessor(List<String> excludes) {
