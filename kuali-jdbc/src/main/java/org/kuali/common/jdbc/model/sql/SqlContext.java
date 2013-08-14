@@ -6,18 +6,17 @@ public final class SqlContext {
 
 	public static final int DEFAULT_THREADS = 5;
 
-	public SqlContext(Dba dba, Admin admin, String username, String password, String schema, String encoding) {
-		this(dba, admin, username, password, schema, encoding, DEFAULT_THREADS);
+	public SqlContext(Dba dba, Admin admin, Credentials credentials, String schema, String encoding) {
+		this(dba, admin, credentials, schema, encoding, DEFAULT_THREADS);
 	}
 
-	public SqlContext(Dba dba, Admin admin, String username, String password, String schema, String encoding, int threads) {
-		Assert.noNulls(dba, admin);
-		Assert.noBlanks(username, password, schema, encoding);
+	public SqlContext(Dba dba, Admin admin, Credentials credentials, String schema, String encoding, int threads) {
+		Assert.noNulls(dba, admin, credentials);
+		Assert.noBlanks(schema, encoding);
 		Assert.isTrue(threads > 0, "threads must be a positive integer");
 		this.dba = dba;
 		this.admin = admin;
-		this.username = username;
-		this.password = password;
+		this.credentials = credentials;
 		this.schema = schema;
 		this.encoding = encoding;
 		this.threads = threads;
@@ -25,8 +24,7 @@ public final class SqlContext {
 
 	private final Dba dba;
 	private final Admin admin;
-	private final String username;
-	private final String password;
+	private final Credentials credentials;
 	private final String schema;
 	private final String encoding;
 	private final int threads;
@@ -39,14 +37,6 @@ public final class SqlContext {
 		return admin;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
 	public String getSchema() {
 		return schema;
 	}
@@ -57,6 +47,10 @@ public final class SqlContext {
 
 	public int getThreads() {
 		return threads;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
 	}
 
 }
