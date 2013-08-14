@@ -103,7 +103,6 @@ public class JdbcUtils {
 		}
 	}
 
-	@Deprecated
 	public static SqlMetaData getSqlMetaData(BufferedReader in, org.kuali.common.jdbc.SqlReader reader) throws IOException {
 		long count = 0;
 		long size = 0;
