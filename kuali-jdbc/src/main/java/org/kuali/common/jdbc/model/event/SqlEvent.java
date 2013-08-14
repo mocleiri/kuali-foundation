@@ -24,6 +24,10 @@ public final class SqlEvent {
 	private final long stopTimeMillis;
 	private final int updateCount;
 
+	public SqlEvent(String sql, long startTimeMillis) {
+		this(sql, startTimeMillis, -1);
+	}
+
 	public SqlEvent(String sql, long startTimeMillis, long stopTimeMillis) {
 		this(sql, DEFAULT_UPDATE_COUNT, startTimeMillis, stopTimeMillis);
 	}

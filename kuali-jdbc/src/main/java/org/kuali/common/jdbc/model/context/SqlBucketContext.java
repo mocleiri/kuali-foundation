@@ -17,10 +17,12 @@ package org.kuali.common.jdbc.model.context;
 
 import org.kuali.common.jdbc.model.SqlBucket;
 import org.kuali.common.jdbc.service.JdbcService;
+import org.kuali.common.util.Assert;
 
 public final class SqlBucketContext {
 
-	private SqlBucketContext(SqlBucket bucket, JdbcContext context, JdbcService service) {
+	public SqlBucketContext(SqlBucket bucket, JdbcContext context, JdbcService service) {
+		Assert.noNulls(bucket, context, service);
 		this.bucket = bucket;
 		this.context = context;
 		this.service = service;

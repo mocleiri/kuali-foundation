@@ -17,8 +17,8 @@ package org.kuali.common.jdbc.model.event;
 
 import java.util.List;
 
+import org.kuali.common.jdbc.model.SqlBucket;
 import org.kuali.common.jdbc.model.context.JdbcContext;
-import org.kuali.common.jdbc.threads.SqlBucket;
 
 public final class BucketEvent {
 
