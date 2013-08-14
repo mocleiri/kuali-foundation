@@ -19,35 +19,41 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.KeyValue;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.PropertyUtils;
 
 public class MobilityFixPomsForRelease {
 
 	public static void main(String[] args) {
 		try {
-			File basedir = new File("/Users/jcaddel/ws/mobility-2.1.0-RC1");
-			SimpleScanner ss = new SimpleScanner(basedir, "**/pom.xml", "**/target/**");
-			List<File> files = ss.getFiles();
-			List<String> paths = new ArrayList<String>();
-			for (File file : files) {
-				String path = LocationUtils.getCanonicalPath(file);
-				paths.add(path);
+			Properties props = PropertyUtils.load("classpath:mobility.properties");
+			List<String> keys = PropertyUtils.getSortedKeys(props);
+			List<String> tokens = getTokens(keys);
+			File pom = new File("/Users/jcaddel/ws/mobility-2.1.0-RC1/pom.xml");
+			String content = LocationUtils.toString(pom);
+			for (String token : tokens) {
+				content = StringUtils.replace(content, token, "${project.version}");
 			}
-			Collections.sort(paths);
-			for (String path : paths) {
-				System.out.println(path);
-			}
+			FileUtils.write(pom, content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static List<String> getTokens(List<String> keys) {
+		List<String> tokens = new ArrayList<String>();
+		for (String key : keys) {
+			String token = "${" + key + "}";
+			tokens.add(token);
+		}
+		return tokens;
 	}
 
 	protected static Pom getPom(List<String> lines) {
