@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
 public final class SqlBucket implements Comparable<SqlBucket> {
 
@@ -30,7 +31,7 @@ public final class SqlBucket implements Comparable<SqlBucket> {
 		Assert.noNulls(suppliers);
 		this.count = count;
 		this.size = size;
-		this.suppliers = suppliers;
+		this.suppliers = CollectionUtils.unmodifiableCopy(suppliers);
 	}
 
 	@Override

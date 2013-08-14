@@ -250,10 +250,10 @@ public class DefaultJdbcService implements JdbcService {
 			// Get a new bucket derived from the smallest bucket
 			SqlBucket newBucket = getNewBucket(smallest, supplier);
 
-			// Remove the existing smallest bucket
+			// Remove the smallest bucket
 			buckets.remove(0);
 
-			// Add our new bucket to the list
+			// Add the new bucket to the list
 			buckets.add(newBucket);
 		}
 
