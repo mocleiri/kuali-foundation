@@ -7,15 +7,15 @@ public final class SqlContext {
 	public static final int DEFAULT_THREADS = 5;
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
-	public SqlContext(Dba dba, Admin admin, Credentials credentials, String schema) {
+	public SqlContext(DbaSql dba, AdminSql admin, Credentials credentials, String schema) {
 		this(dba, admin, credentials, schema, DEFAULT_ENCODING, DEFAULT_THREADS);
 	}
 
-	public SqlContext(Dba dba, Admin admin, Credentials credentials, String schema, String encoding) {
+	public SqlContext(DbaSql dba, AdminSql admin, Credentials credentials, String schema, String encoding) {
 		this(dba, admin, credentials, schema, encoding, DEFAULT_THREADS);
 	}
 
-	public SqlContext(Dba dba, Admin admin, Credentials credentials, String schema, String encoding, int threads) {
+	public SqlContext(DbaSql dba, AdminSql admin, Credentials credentials, String schema, String encoding, int threads) {
 		Assert.noNulls(dba, admin, credentials);
 		Assert.noBlanks(schema, encoding);
 		Assert.isTrue(threads > 0, "threads must be a positive integer");
@@ -27,18 +27,18 @@ public final class SqlContext {
 		this.threads = threads;
 	}
 
-	private final Dba dba;
-	private final Admin admin;
+	private final DbaSql dba;
+	private final AdminSql admin;
 	private final Credentials credentials;
 	private final String schema;
 	private final String encoding;
 	private final int threads;
 
-	public Dba getDba() {
+	public DbaSql getDba() {
 		return dba;
 	}
 
-	public Admin getAdmin() {
+	public AdminSql getAdmin() {
 		return admin;
 	}
 

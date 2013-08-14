@@ -2,9 +2,9 @@ package org.kuali.common.jdbc.model.sql;
 
 import org.kuali.common.util.Assert;
 
-public final class Admin {
+public final class AdminSql {
 
-	public Admin(String validate, String create, String drop) {
+	public AdminSql(String validate, String create, String drop) {
 		Assert.noBlanks(validate, create, drop);
 		this.validate = validate;
 		this.create = create;

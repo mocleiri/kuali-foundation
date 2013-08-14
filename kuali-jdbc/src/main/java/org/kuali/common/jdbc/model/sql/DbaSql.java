@@ -2,9 +2,9 @@ package org.kuali.common.jdbc.model.sql;
 
 import org.kuali.common.util.Assert;
 
-public final class Dba {
+public final class DbaSql {
 
-	public Dba(String before, String after) {
+	public DbaSql(String before, String after) {
 		Assert.noBlanks(before, after);
 		this.before = before;
 		this.after = after;
