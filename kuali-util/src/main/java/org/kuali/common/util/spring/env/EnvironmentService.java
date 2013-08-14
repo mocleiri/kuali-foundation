@@ -14,4 +14,6 @@ public interface EnvironmentService {
 
 	<T> Class<T> getClass(String key, Class<T> type);
 
+	<T> Class<T> getClass(String key, Class<T> type, Class<T> defaultValue);
+
 }
