@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseVendorsConfig.class)
-@ActiveProfiles(profiles = "mysql")
+@ActiveProfiles(profiles = "oracle")
 public class DatabaseVendorsConfigTest {
 
 	@Autowired
