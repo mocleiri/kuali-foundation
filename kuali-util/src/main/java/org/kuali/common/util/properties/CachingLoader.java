@@ -16,7 +16,8 @@ public final class CachingLoader implements PropertiesLoader {
 	}
 
 	public CachingLoader(Location location, String value, Cache<String, Properties> cache) {
-		Assert.noNulls(location, value, cache);
+		Assert.noNulls(location, cache);
+		Assert.noBlanks(value);
 		this.cache = cache;
 		this.loader = new LocationLoader(location, value);
 	}
