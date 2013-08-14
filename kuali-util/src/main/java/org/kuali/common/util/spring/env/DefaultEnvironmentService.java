@@ -99,7 +99,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 			ModeUtils.validate(missingPropertyMode, getMissingPropertyMessage(key));
 		}
 
-		// Return the value we've located
+		// Return what we've got
 		return returnValue;
 	}
 
