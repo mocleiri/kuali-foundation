@@ -56,7 +56,7 @@ public final class ProjectIdentifier implements Identifiable {
 
 	public ProjectIdentifier(String groupId, String artifactId) {
 		// Make sure we are being configured correctly
-		Assert.noBlanks("groupId and artifactId cannot be blank", groupId, artifactId);
+		Assert.noBlanks(groupId, artifactId);
 
 		// Finish setting things up
 		this.groupId = groupId;
