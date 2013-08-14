@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.cache.Cache;
 import org.kuali.common.util.property.ImmutableProperties;
 
-public class CachingLoader implements PropertiesLoader {
+public final class CachingLoader implements PropertiesLoader {
 
 	private final Cache<String, Properties> cache;
 	private final LocationLoader loader;
