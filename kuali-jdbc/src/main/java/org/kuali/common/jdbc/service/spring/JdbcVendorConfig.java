@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.service.spring;
 
-import org.kuali.common.jdbc.model.Vendor;
+import org.kuali.common.jdbc.model.VendorName;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class JdbcVendorConfig {
 
 	@Bean
-	public Vendor oracleVendor() {
+	public VendorName oracleVendor() {
 		return null;
 	}
 

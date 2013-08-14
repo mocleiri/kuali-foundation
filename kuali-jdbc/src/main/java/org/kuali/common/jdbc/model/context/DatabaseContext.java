@@ -17,16 +17,16 @@ package org.kuali.common.jdbc.model.context;
 
 import java.sql.Driver;
 
-import org.kuali.common.jdbc.model.Vendor;
+import org.kuali.common.jdbc.model.VendorName;
 import org.kuali.common.util.Assert;
 
 public final class DatabaseContext {
 
-	public DatabaseContext(Vendor vendor, Class<? extends Driver> driver, ConnectionContext context, String encoding, String schema) {
+	public DatabaseContext(VendorName vendor, Class<? extends Driver> driver, ConnectionContext context, String encoding, String schema) {
 		this(vendor, driver, context, context, encoding, schema);
 	}
 
-	public DatabaseContext(Vendor vendor, Class<? extends Driver> driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
+	public DatabaseContext(VendorName vendor, Class<? extends Driver> driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
 		Assert.noNulls(vendor, driver, normal, dba);
 		Assert.noBlanks(encoding, schema);
 		this.vendor = vendor;
@@ -37,14 +37,14 @@ public final class DatabaseContext {
 		this.schema = schema;
 	}
 
-	private final Vendor vendor;
+	private final VendorName vendor;
 	private final Class<? extends Driver> driver;
 	private final ConnectionContext normal;
 	private final ConnectionContext dba;
 	private final String encoding;
 	private final String schema;
 
-	public Vendor getVendor() {
+	public VendorName getVendor() {
 		return vendor;
 	}
 

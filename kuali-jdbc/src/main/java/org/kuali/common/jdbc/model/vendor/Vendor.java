@@ -2,12 +2,13 @@ package org.kuali.common.jdbc.model.vendor;
 
 import java.sql.Driver;
 
+import org.kuali.common.jdbc.model.VendorName;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.util.Assert;
 
 public final class Vendor {
 
-	public Vendor(Vendor name, ConnectionContext dba, String url, Driver driver) {
+	public Vendor(VendorName name, ConnectionContext dba, String url, Driver driver) {
 		Assert.noNulls(name, dba, driver);
 		Assert.noBlanks(url);
 		this.name = name;
@@ -16,12 +17,12 @@ public final class Vendor {
 		this.driver = driver;
 	}
 
-	private final Vendor name;
+	private final VendorName name;
 	private final ConnectionContext dba;
 	private final String url;
 	private final Driver driver;
 
-	public Vendor getName() {
+	public VendorName getName() {
 		return name;
 	}
 
