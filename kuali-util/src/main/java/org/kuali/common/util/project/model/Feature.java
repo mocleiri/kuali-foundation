@@ -5,7 +5,8 @@ import org.kuali.common.util.Assert;
 public final class Feature {
 
 	public Feature(FeatureIdentifier identifier, String name, String description) {
-		Assert.noNulls(identifier, name);
+		Assert.noNulls(identifier);
+		Assert.noBlanks(name);
 		this.identifier = identifier;
 		this.name = name;
 		this.description = description;
