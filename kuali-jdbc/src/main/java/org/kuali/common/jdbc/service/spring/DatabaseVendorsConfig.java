@@ -7,6 +7,8 @@ import oracle.jdbc.driver.OracleDriver;
 import org.kuali.common.jdbc.model.DatabaseVendor;
 import org.kuali.common.jdbc.model.Vendors;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
+import org.kuali.common.jdbc.service.spring.annotation.MySql;
+import org.kuali.common.jdbc.service.spring.annotation.Oracle;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -14,13 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class DatabaseVendorsConfig {
 
+	@Configuration
+	@Oracle
 	@Import({ SpringServiceConfig.class })
-	@Profile("oracle")
 	public static class OracleConfig implements DatabaseVendorConfig {
 
 		@Autowired
@@ -48,8 +50,9 @@ public class DatabaseVendorsConfig {
 		}
 	}
 
+	@Configuration
+	@MySql
 	@Import({ SpringServiceConfig.class })
-	@Profile("mysql")
 	public static class MySqlConfig implements DatabaseVendorConfig {
 
 		@Autowired
