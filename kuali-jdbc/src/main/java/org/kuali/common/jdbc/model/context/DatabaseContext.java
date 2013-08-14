@@ -22,11 +22,11 @@ import org.kuali.common.util.Assert;
 
 public final class DatabaseContext {
 
-	public DatabaseContext(Vendor vendor, Driver driver, ConnectionContext context, String encoding, String schema) {
+	public DatabaseContext(Vendor vendor, Class<? extends Driver> driver, ConnectionContext context, String encoding, String schema) {
 		this(vendor, driver, context, context, encoding, schema);
 	}
 
-	public DatabaseContext(Vendor vendor, Driver driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
+	public DatabaseContext(Vendor vendor, Class<? extends Driver> driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
 		Assert.noNulls(vendor, driver, normal, dba);
 		Assert.noBlanks(encoding, schema);
 		this.vendor = vendor;
@@ -38,7 +38,7 @@ public final class DatabaseContext {
 	}
 
 	private final Vendor vendor;
-	private final Driver driver;
+	private final Class<? extends Driver> driver;
 	private final ConnectionContext normal;
 	private final ConnectionContext dba;
 	private final String encoding;
@@ -48,7 +48,7 @@ public final class DatabaseContext {
 		return vendor;
 	}
 
-	public Driver getDriver() {
+	public Class<? extends Driver> getDriver() {
 		return driver;
 	}
 
