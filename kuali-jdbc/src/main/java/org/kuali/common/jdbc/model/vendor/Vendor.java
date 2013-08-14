@@ -8,7 +8,7 @@ import org.kuali.common.util.Assert;
 
 public final class Vendor {
 
-	public Vendor(VendorName name, ConnectionContext dba, String url, Driver driver) {
+	public Vendor(VendorName name, ConnectionContext dba, String url, Class<? extends Driver> driver) {
 		Assert.noNulls(name, dba, driver);
 		Assert.noBlanks(url);
 		this.name = name;
@@ -20,7 +20,7 @@ public final class Vendor {
 	private final VendorName name;
 	private final ConnectionContext dba;
 	private final String url;
-	private final Driver driver;
+	private final Class<? extends Driver> driver;
 
 	public VendorName getName() {
 		return name;
@@ -34,7 +34,7 @@ public final class Vendor {
 		return url;
 	}
 
-	public Driver getDriver() {
+	public Class<? extends Driver> getDriver() {
 		return driver;
 	}
 
