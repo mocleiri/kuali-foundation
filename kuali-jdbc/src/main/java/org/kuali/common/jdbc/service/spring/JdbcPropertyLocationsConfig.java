@@ -31,14 +31,14 @@ public class JdbcPropertyLocationsConfig {
 
 	protected List<Location> getJdbcLocations() {
 		List<String> filenames = getJdbcList();
-		ProjectIdentifier identifier = JdbcProjectConstants.PROJECT_IDENTIFIER;
-		return service.getLocations(identifier, filenames);
+		ProjectIdentifier pid = JdbcProjectConstants.PROJECT_IDENTIFIER;
+		return service.getLocations(pid, filenames);
 	}
 
 	protected List<Location> getKualiSqlLocations() {
 		List<String> filenames = getKualiSqlList();
-		ProjectIdentifier identifier = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
-		return service.getLocations(identifier, filenames);
+		ProjectIdentifier pid = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
+		return service.getLocations(pid, filenames);
 	}
 
 	protected List<String> getJdbcList() {
