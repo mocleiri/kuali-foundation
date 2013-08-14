@@ -1,10 +1,12 @@
 package org.kuali.common.jdbc.model.sql;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
+import org.kuali.common.util.Assert;
 
 public final class JdbcContext {
 
 	private JdbcContext(ConnectionContext normal, ConnectionContext dba) {
+		Assert.noNulls(normal, dba);
 		this.normal = normal;
 		this.dba = dba;
 	}
