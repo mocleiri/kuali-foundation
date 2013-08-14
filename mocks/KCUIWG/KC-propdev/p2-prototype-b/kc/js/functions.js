@@ -12,11 +12,32 @@
 
 $(document).ready(function() {
 
-	// Subnavigation
+	/*
+		Subnavigation
+		Expanding and collapsing handler
+	*/
 	$('#subnav').find('ul ul').slideUp();
+
 	$('#subnav ul li a').on('click', function() {
-		$(this).parent().parent().find('ul').slideDown();
+		if ($(this).attr('href') !== "#" || "") {
+			window.location = $(this).attr('href');
+		} else if ($(this).hasClass('expanded')) {
+			$(this).parent().parent().find('ul').slideUp();
+			$(this).removeClass('expanded');
+		} else {
+			$(this).parent().parent().find('ul').slideUp();
+			$('#subnav').find('.expanded').removeClass('expanded');
+			$(this).parent().find('ul').slideDown();
+			$(this).addClass('expanded');
+		}		
 	});
+
+	$('#subnav ul li a.expanded').on('click', function() {
+		$(this).parent().find('ul').slideUp();
+		$(this).removeClass('expanded');
+	});
+
+
 
 	// Document search, Fancybox
 	$("#docsearch").click(function () {

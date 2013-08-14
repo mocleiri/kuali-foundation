@@ -56,7 +56,7 @@ require_once( 'kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="mail_by" class="control-label col-lg-3">Mail by:</label>
 								<div class="col-lg-5">
-									<select name="mail_by" id="mail_by" class="form-control col-lg-8">
+									<select name="mail_by" id="mail_by" class="form-control input-sm col-lg-8">
 										<option value="">select</option>
 									</select>
 								</div>
@@ -65,7 +65,7 @@ require_once( 'kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="mail_type" class="control-label col-lg-3">Type:</label>
 								<div class="col-lg-5">
-									<select name="mail_type" id="mail_type" class="form-control col-lg-8">
+									<select name="mail_type" id="mail_type" class="form-control input-sm col-lg-8">
 										<option value="">select</option>
 									</select>
 								</div>
@@ -74,21 +74,21 @@ require_once( 'kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="mail_account_id" class="control-label col-lg-3">Mail account ID:</label>
 								<div class="col-lg-5">
-									<input type="text" class="form-control" name="mail_account_id" id="mail_account_id" />
+									<input type="text" class="form-control input-sm" name="mail_account_id" id="mail_account_id" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="number_of_copies" class="control-label col-lg-3">Number of copies:</label>
 								<div class="col-lg-5">
-									<input type="text" class="form-control" name="number_of_copies" id="number_of_copies" />
+									<input type="text" class="form-control input-sm" name="number_of_copies" id="number_of_copies" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="mail_description" class="control-label col-lg-3">Mail description:</label>
 								<div class="col-lg-5">
-									<textarea name="mail_description" id="mail_description" class="form-control"></textarea>
+									<textarea name="mail_description" id="mail_description" class="form-control input-sm"></textarea>
 								</div>
 							</div>
 						</fieldset>
