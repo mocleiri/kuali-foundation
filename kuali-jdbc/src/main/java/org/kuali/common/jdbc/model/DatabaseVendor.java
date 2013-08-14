@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.model.vendor;
+package org.kuali.common.jdbc.model;
 
 import java.sql.Driver;
 
@@ -6,9 +6,9 @@ import org.kuali.common.jdbc.model.VendorName;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.util.Assert;
 
-public final class Vendor {
+public final class DatabaseVendor {
 
-	public Vendor(VendorName name, ConnectionContext dba, String url, Class<? extends Driver> driver) {
+	public DatabaseVendor(VendorName name, ConnectionContext dba, String url, Class<? extends Driver> driver) {
 		Assert.noNulls(name, dba, driver);
 		Assert.noBlanks(url);
 		this.name = name;
