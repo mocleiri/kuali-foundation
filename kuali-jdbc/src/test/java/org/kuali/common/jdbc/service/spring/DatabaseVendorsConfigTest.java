@@ -13,7 +13,7 @@ public class DatabaseVendorsConfigTest {
 	@Test
 	public void test() {
 		try {
-			List<Class<?>> annotatedClasses = CollectionUtils.asList(JdbcProjectConfig.class, JdbcPropertySourceConfig.class);
+			List<Class<?>> annotatedClasses = CollectionUtils.asList(DatabaseVendorsPropertySourceConfig.class);
 			SpringContext context = new SpringContext();
 			context.setAnnotatedClasses(annotatedClasses);
 			SpringService ss = new DefaultSpringService();
