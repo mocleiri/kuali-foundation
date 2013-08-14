@@ -5,8 +5,9 @@ import java.sql.Driver;
 import oracle.jdbc.driver.OracleDriver;
 
 import org.kuali.common.jdbc.model.DatabaseVendor;
-import org.kuali.common.jdbc.model.Vendors;
+import org.kuali.common.jdbc.model.Vendor;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
+import org.kuali.common.jdbc.model.sql.AdminSql;
 import org.kuali.common.jdbc.service.spring.annotation.MySql;
 import org.kuali.common.jdbc.service.spring.annotation.Oracle;
 import org.kuali.common.util.nullify.NullUtils;
@@ -39,7 +40,9 @@ public class DatabaseVendorsConfig {
 			String url = env.getString("oracle.url", DEFAULT_URL);
 			Class<? extends Driver> driver = env.getClass("oracle.driver", Driver.class, OracleDriver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			return new DatabaseVendor(Vendors.ORACLE, dba, url, driver);
+			Vendor vendor = Vendor.ORACLE;
+			AdminSql sql = getAdminSql(env, vendor);
+			return new DatabaseVendor(vendor, dba, url, driver, sql);
 		}
 	}
 
@@ -62,8 +65,17 @@ public class DatabaseVendorsConfig {
 			String url = env.getString("mysql.url", DEFAULT_URL) + "/" + env.getString("jdbc.username");
 			Class<? extends Driver> driver = env.getClass("mysql.driver", Driver.class, com.mysql.jdbc.Driver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			return new DatabaseVendor(Vendors.MYSQL, dba, url, driver);
+			Vendor vendor = Vendor.MYSQL;
+			AdminSql sql = getAdminSql(env, vendor);
+			return new DatabaseVendor(vendor, dba, url, driver, sql);
 		}
 
+	}
+
+	protected static AdminSql getAdminSql(EnvironmentService env, Vendor vendor) {
+		String validate = env.getString(vendor.getText() + ".validate");
+		String create = env.getString(vendor.getText() + ".create");
+		String drop = env.getString(vendor.getText() + ".drop");
+		return new AdminSql(validate, create, drop);
 	}
 }
