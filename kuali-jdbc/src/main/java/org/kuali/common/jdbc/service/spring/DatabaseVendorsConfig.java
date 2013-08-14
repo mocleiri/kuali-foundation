@@ -21,11 +21,12 @@ public class DatabaseVendorsConfig {
 
 	@Import({ SpringServiceConfig.class })
 	@Profile("oracle")
-	public static class OracleDatabaseVendor {
+	public static class OracleDatabaseVendor implements DatabaseVendorConfig {
 
 		@Autowired
 		EnvironmentService env;
 
+		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
 			String dbaUsr = env.getString("oracle.dba.username", Dba.USERNAME);
@@ -49,11 +50,12 @@ public class DatabaseVendorsConfig {
 
 	@Import({ SpringServiceConfig.class })
 	@Profile("mysql")
-	public static class MySqlDatabaseVendor {
+	public static class MySqlDatabaseVendor implements DatabaseVendorConfig {
 
 		@Autowired
 		EnvironmentService env;
 
+		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
 			String dbaUsr = env.getString("mysql.dba.username", Dba.USERNAME);
