@@ -17,6 +17,7 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.PropertyPlaceholderHelper;
 
@@ -30,6 +31,7 @@ public class ResolvingProcessor implements PropertyProcessor {
 	}
 
 	public ResolvingProcessor(boolean ignoreUnresolvable, String resolveKey) {
+		Assert.noBlanks(resolveKey);
 		this.ignoreUnresolvable = ignoreUnresolvable;
 		this.resolveKey = resolveKey;
 		this.helper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvable);
