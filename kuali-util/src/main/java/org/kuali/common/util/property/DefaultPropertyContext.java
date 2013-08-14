@@ -28,13 +28,10 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
 import org.kuali.common.util.property.processor.AddPrefixProcessor;
-import org.kuali.common.util.property.processor.EndsWithDecryptProcessor;
-import org.kuali.common.util.property.processor.EndsWithEncryptProcessor;
 import org.kuali.common.util.property.processor.GlobalOverrideProcessor;
 import org.kuali.common.util.property.processor.OverrideProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ReformatKeysAsEnvVarsProcessor;
-import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -99,7 +96,7 @@ public class DefaultPropertyContext implements PropertyContext {
 
 		// By default, all placeholders in the properties are resolved
 		if (Boolean.parseBoolean(resolvePlaceholders)) {
-			processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
+			processors.add(new org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor(helper, gpm));
 		}
 
 		// Add a prefix to the property keys if appropriate
@@ -133,10 +130,10 @@ public class DefaultPropertyContext implements PropertyContext {
 			return Constants.NO_OP_PROCESSOR;
 		case ENCRYPT:
 			TextEncryptor encryptor = org.kuali.common.util.EncUtils.getTextEncryptor(strength, password);
-			return new EndsWithEncryptProcessor(encryptor);
+			return new org.kuali.common.util.property.processor.EndsWithEncryptProcessor(encryptor);
 		case DECRYPT:
 			TextEncryptor decryptor = org.kuali.common.util.EncUtils.getTextEncryptor(strength, password);
-			return new EndsWithDecryptProcessor(decryptor);
+			return new org.kuali.common.util.property.processor.EndsWithDecryptProcessor(decryptor);
 		default:
 			throw new IllegalArgumentException("Encryption mode '" + mode + "' is unknown");
 		}
