@@ -32,7 +32,7 @@ public class SqlContextConfig {
 		ConnectionContext normal = context.getNormal();
 
 		int threads = env.getInteger("sql.threads", SqlContext.DEFAULT_THREADS);
-		String encoding = env.getString("sql.encoding");
+		String encoding = env.getString("sql.encoding"); // No default value. Force them to explicitly supply this.
 		String schema = env.getString("sql.schema", normal.getUsername());
 		String username = env.getString("sql.username", normal.getUsername());
 		String password = env.getString("sql.password", normal.getPassword());
