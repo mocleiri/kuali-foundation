@@ -28,25 +28,18 @@ public class DatabaseVendorsConfig {
 		@Autowired
 		EnvironmentService env;
 
+		public static final String DEFAULT_URL = "jdbc:oracle:thin:@localhost:1521:XE";
+
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			String dbaUsr = env.getString("oracle.dba.username", Dba.USERNAME);
-			String dbaPwd = env.getString("oracle.dba.password", Dba.PASSWORD);
-			String dbaUrl = env.getString("oracle.dba.url", Dba.URL);
+			String dbaUsr = env.getString("oracle.dba.username", "system");
+			String dbaPwd = env.getString("oracle.dba.password", "manager");
+			String dbaUrl = env.getString("oracle.dba.url", DEFAULT_URL);
+			String regUrl = env.getString("oracle.url", DEFAULT_URL);
+			Class<? extends Driver> driver = env.getClass("oracle.driver", Driver.class, OracleDriver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			Class<? extends Driver> driver = env.getClass("oracle.driver", DRIVER);
-			String url = env.getString("oracle.url", URL);
-			return new DatabaseVendor(Vendors.ORACLE, dba, url, driver);
-		}
-
-		public static final Class<? extends Driver> DRIVER = OracleDriver.class;
-		public static final String URL = Dba.URL;
-
-		public static class Dba {
-			public static final String USERNAME = "system";
-			public static final String PASSWORD = "manager";
-			public static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+			return new DatabaseVendor(Vendors.ORACLE, dba, regUrl, driver);
 		}
 	}
 
@@ -58,25 +51,19 @@ public class DatabaseVendorsConfig {
 		@Autowired
 		EnvironmentService env;
 
+		public static final String DEFAULT_URL = "jdbc:mysql://localhost";
+
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			String dbaUsr = env.getString("mysql.dba.username", Dba.USERNAME);
-			String dbaPwd = env.getString("mysql.dba.password", Dba.PASSWORD);
-			String dbaUrl = env.getString("mysql.dba.url", Dba.URL);
+			String dbaUsr = env.getString("mysql.dba.username", "root");
+			String dbaPwd = env.getString("mysql.dba.password", NullUtils.NONE);
+			String dbaUrl = env.getString("mysql.dba.url", DEFAULT_URL);
+			String regUrl = env.getString("mysql.url", DEFAULT_URL + "/${jdbc.username}");
+			Class<? extends Driver> driver = env.getClass("mysql.driver", Driver.class, com.mysql.jdbc.Driver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			Class<? extends Driver> driver = env.getClass("mysql.driver", DRIVER);
-			String url = env.getString("mysql.url", URL);
-			return new DatabaseVendor(Vendors.MYSQL, dba, url, driver);
+			return new DatabaseVendor(Vendors.MYSQL, dba, regUrl, driver);
 		}
 
-		public static final Class<? extends Driver> DRIVER = com.mysql.jdbc.Driver.class;
-		public static final String URL = Dba.URL + "/${jdbc.username}";
-
-		public static class Dba {
-			public static final String USERNAME = "root";
-			public static final String PASSWORD = NullUtils.NONE;
-			public static final String URL = "jdbc:mysql://localhost";
-		}
 	}
 }
