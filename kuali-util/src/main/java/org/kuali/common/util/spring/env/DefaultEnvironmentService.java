@@ -48,19 +48,19 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 		// If we could not locate a value, we may need to error out
 		if (returnValue == null) {
-			ModeUtils.validate(missingPropertyMode, getMissingPropertyMessage(context));
+			ModeUtils.validate(missingPropertyMode, getMissingPropertyMessage(context.getKey()));
 		}
 
 		// Return the value we've located
 		return returnValue;
 	}
 
-	protected String getMissingPropertyMessage(EnvContext<?> context) {
+	protected String getMissingPropertyMessage(String key) {
 		if (checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(context.getKey());
-			return "No value for [" + context.getKey() + "] or [" + envKey + "]";
+			String envKey = getEnvironmentVariableKey(key);
+			return "No value for [" + key + "] or [" + envKey + "]";
 		} else {
-			return "No value for [" + context.getKey() + "]";
+			return "No value for [" + key + "]";
 		}
 	}
 
@@ -74,20 +74,32 @@ public class DefaultEnvironmentService implements EnvironmentService {
 		}
 	}
 
+	protected <T> Class<? extends T> getSpringValueAsClass(String key, Class<? extends T> type) {
+		Class<? extends T> value = env.getPropertyAsClass(key, type);
+		if (value == null && checkEnvironmentVariables) {
+			String envKey = getEnvironmentVariableKey(key);
+			return env.getPropertyAsClass(envKey, type);
+		} else {
+			return value;
+		}
+	}
+
 	@Override
-	public <T> Class<T> getClass(String key, Class<T> type) {
+	public <T> Class<? extends T> getClass(String key, Class<? extends T> type) {
 		return getClass(key, type, null);
 	}
 
 	@Override
-	public <T> Class<T> getClass(String key, Class<T> type, Class<T> defaultValue) {
-		Class<T> springValue = env.getPropertyAsClass(key, type);
-		Class<T> returnValue = springValue == null ? defaultValue : springValue;
+	public <T> Class<? extends T> getClass(String key, Class<? extends T> type, Class<? extends T> defaultValue) {
+		Class<? extends T> springValue = getSpringValueAsClass(key, type);
+		Class<? extends T> returnValue = (springValue != null) ? springValue : defaultValue;
+
+		// If we could not locate a value, we may need to error out
 		if (returnValue == null) {
-			EnvContext<T> ctx = new EnvContext<T>(key, type);
-			String msg = getMissingPropertyMessage(ctx);
-			ModeUtils.validate(missingPropertyMode, msg);
+			ModeUtils.validate(missingPropertyMode, getMissingPropertyMessage(key));
 		}
+
+		// Return the value we've located
 		return returnValue;
 	}
 
