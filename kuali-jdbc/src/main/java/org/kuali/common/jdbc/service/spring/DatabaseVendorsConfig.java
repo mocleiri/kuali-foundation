@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-public class JdbcVendorsConfig {
+public class DatabaseVendorsConfig {
 
 	@Import({ SpringServiceConfig.class })
 	@Profile("oracle")
