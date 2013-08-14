@@ -1,7 +1,14 @@
 package org.kuali.common.jdbc.service.spring;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.jdbc.model.Vendor;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.spring.SpringExecUtils;
+import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,12 +19,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DatabaseVendorsConfigTest {
 
 	@Autowired
-	PropertySource<?> propertySource;
+	PropertySource<?> source;
+
+	@Autowired
+	SpringService service;
 
 	@Test
 	public void test() {
 		try {
-			System.out.println(propertySource);
+			String vendorString = (String) source.getProperty("db.vendor");
+			Vendor vendor = Vendor.valueOf(vendorString.toUpperCase());
+			String profile = vendor.getCode();
+			SpringContext context = SpringExecUtils.getSinglePropertySourceContext(source);
+			context.setAnnotatedClasses(CollectionUtils.asList(DatabaseVendorsConfig.class));
+			context.setActiveProfiles(Arrays.asList(profile));
+			service.load(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

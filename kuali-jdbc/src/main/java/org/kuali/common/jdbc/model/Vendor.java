@@ -10,7 +10,7 @@ public enum Vendor {
 
 	private Vendor(String code, String username, String password, String url) {
 		this.code = code;
-		this.dba = new ConnectionContext(username, password, url);
+		this.dba = new ConnectionContext(url, username, password);
 	}
 
 	private final String code;
