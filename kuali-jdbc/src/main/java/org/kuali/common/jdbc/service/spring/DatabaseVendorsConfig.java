@@ -29,16 +29,13 @@ public class DatabaseVendorsConfig {
 		EnvironmentService env;
 
 		public static final Vendor VENDOR = Vendor.ORACLE;
+		public static final Class<? extends Driver> DEFAULT_DRIVER = OracleDriver.class;
 
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
 			String url = getString(env, VENDOR, "url", VENDOR.getDba().getUrl());
-			Class<? extends Driver> driver = getDriver(env, VENDOR, OracleDriver.class);
-			ConnectionContext dba = getDbaContext(env, VENDOR);
-			AdminSql sql = getAdminSql(env, VENDOR);
-			String dbaAfter = getString(env, VENDOR, "dba.after");
-			return new DatabaseVendor(VENDOR, dba, url, driver, sql, dbaAfter);
+			return getDatabaseVendor(env, VENDOR, url, DEFAULT_DRIVER);
 		}
 	}
 
@@ -51,26 +48,27 @@ public class DatabaseVendorsConfig {
 		EnvironmentService env;
 
 		public static final Vendor VENDOR = Vendor.MYSQL;
+		public static final Class<? extends Driver> DEFAULT_DRIVER = com.mysql.jdbc.Driver.class;
 
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
 			String url = getString(env, VENDOR, "url", VENDOR.getDba().getUrl()) + "/" + env.getString("jdbc.username");
-			Class<? extends Driver> driver = getDriver(env, VENDOR, com.mysql.jdbc.Driver.class);
-			ConnectionContext dba = getDbaContext(env, VENDOR);
-			AdminSql sql = getAdminSql(env, VENDOR);
-			String dbaAfter = getString(env, VENDOR, "dba.after");
-			return new DatabaseVendor(VENDOR, dba, url, driver, sql, dbaAfter);
+			return getDatabaseVendor(env, VENDOR, url, DEFAULT_DRIVER);
 		}
 
 	}
 
-	protected static Class<? extends Driver> getDriver(EnvironmentService env, Vendor vendor, Class<? extends Driver> defaultClass) {
-		return env.getClass(vendor.getCode() + ".driver", Driver.class, defaultClass);
+	public static DatabaseVendor getDatabaseVendor(EnvironmentService env, Vendor vendor, String url, Class<? extends Driver> defaultDriver) {
+		Class<? extends Driver> driver = getDriver(env, vendor, defaultDriver);
+		ConnectionContext dba = getDbaContext(env, vendor);
+		AdminSql sql = getAdminSql(env, vendor);
+		String dbaAfter = getString(env, vendor, "dba.after", null);
+		return new DatabaseVendor(vendor, dba, url, driver, sql, dbaAfter);
 	}
 
-	protected static String getString(EnvironmentService env, Vendor vendor, String suffix) {
-		return getString(env, vendor, suffix);
+	protected static Class<? extends Driver> getDriver(EnvironmentService env, Vendor vendor, Class<? extends Driver> defaultClass) {
+		return env.getClass(vendor.getCode() + ".driver", Driver.class, defaultClass);
 	}
 
 	protected static String getString(EnvironmentService env, Vendor vendor, String suffix, String defaultValue) {
