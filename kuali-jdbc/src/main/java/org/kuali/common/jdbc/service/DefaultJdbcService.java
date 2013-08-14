@@ -247,11 +247,14 @@ public class DefaultJdbcService implements JdbcService {
 			// First bucket in the list is the smallest
 			SqlBucket smallest = buckets.get(0);
 
-			// Add this source to the bucket
-			smallest.getSuppliers().add(supplier);
+			// Get a new bucket derived from the smallest bucket
+			SqlBucket newBucket = getNewBucket(smallest, supplier);
 
-			// Update the bucket metadata holding overall size
-			updateCounts(smallest, supplier);
+			// Remove the existing smallest bucket
+			buckets.remove(0);
+
+			// Add our new bucket to the list
+			buckets.add(newBucket);
 		}
 
 		// Return the buckets
@@ -259,10 +262,13 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	@SuppressWarnings("deprecation")
-	protected void updateCounts(SqlBucket bucket, SqlSupplier supplier) {
+	protected SqlBucket getNewBucket(SqlBucket bucket, SqlSupplier supplier) {
+		List<SqlSupplier> list = new ArrayList<SqlSupplier>(bucket.getSuppliers());
+		list.add(supplier);
 		org.kuali.common.jdbc.SqlMetaData smd = supplier.getMetaData();
-		bucket.setCount(bucket.getCount() + smd.getCount());
-		bucket.setSize(bucket.getSize() + smd.getSize());
+		long count = bucket.getCount() + smd.getCount();
+		long size = bucket.getSize() + smd.getSize();
+		return new SqlBucket(count, size, list);
 	}
 
 	protected ExecutionStats executeSequentially(JdbcContext context) {
