@@ -25,6 +25,7 @@ public class JdbcPropertyLocationsConfig {
 	public List<Location> jdbcPropertyLocations() {
 		ProjectIdentifier pid = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
 		List<Location> locations = service.getLocations(pid, getKualiSqlFilenames());
+		locations.add(service.getLocation(JdbcProjectConstants.PROJECT_IDENTIFIER, "config.properties"));
 		return Collections.unmodifiableList(locations);
 	}
 
