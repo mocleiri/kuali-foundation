@@ -12,4 +12,6 @@ public interface EnvironmentService {
 
 	Boolean getBoolean(String key, Boolean defaultValue);
 
+	<T> Class<T> getClass(String key, Class<T> type);
+
 }

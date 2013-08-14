@@ -75,6 +75,17 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	}
 
 	@Override
+	public <T> Class<T> getClass(String key, Class<T> type) {
+		Class<T> returnValue = env.getPropertyAsClass(key, type);
+		if (returnValue == null) {
+			EnvContext<T> ctx = new EnvContext<T>(key, type);
+			String msg = getMissingPropertyMessage(ctx);
+			ModeUtils.validate(missingPropertyMode, msg);
+		}
+		return returnValue;
+	}
+
+	@Override
 	public String getString(String key) {
 		return getString(key, null);
 	}
