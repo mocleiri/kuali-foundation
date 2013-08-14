@@ -59,7 +59,7 @@ public class DatabaseVendorsConfig {
 			String dbaUsr = env.getString("mysql.dba.username", "root");
 			String dbaPwd = env.getString("mysql.dba.password", NullUtils.NONE);
 			String dbaUrl = env.getString("mysql.dba.url", DEFAULT_URL);
-			String regUrl = env.getString("mysql.url", DEFAULT_URL + "/${jdbc.username}");
+			String regUrl = env.getString("mysql.url", DEFAULT_URL) + "/" + env.getString("jdbc.username");
 			Class<? extends Driver> driver = env.getClass("mysql.driver", Driver.class, com.mysql.jdbc.Driver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 			return new DatabaseVendor(Vendors.MYSQL, dba, regUrl, driver);
