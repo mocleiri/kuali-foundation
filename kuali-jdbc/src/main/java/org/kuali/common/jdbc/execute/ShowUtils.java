@@ -26,7 +26,7 @@ public class ShowUtils {
 	}
 
 	public static void showClose(Logger logger, DatabaseContext context, JdbcService service, DataSource dataSource) {
-		logger.info("Driver - {}", context.getDriver());
+		logger.info("Driver - {}", context.getDriver().getName());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		// Establish a connection to the db to extract more detailed info
 		JdbcMetaData metadata = service.getJdbcMetaData(dataSource);
