@@ -30,19 +30,17 @@ public class DatabaseVendorsConfig {
 		EnvironmentService env;
 
 		public static final String DEFAULT_URL = "jdbc:oracle:thin:@localhost:1521:XE";
+		public static final Vendor VENDOR = Vendor.ORACLE;
 
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			String dbaUsr = env.getString("oracle.dba.username", "system");
-			String dbaPwd = env.getString("oracle.dba.password", "manager");
-			String dbaUrl = env.getString("oracle.dba.url", DEFAULT_URL);
-			String url = env.getString("oracle.url", DEFAULT_URL);
-			Class<? extends Driver> driver = env.getClass("oracle.driver", Driver.class, OracleDriver.class);
-			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			Vendor vendor = Vendor.ORACLE;
-			AdminSql sql = getAdminSql(env, vendor);
-			return new DatabaseVendor(vendor, dba, url, driver, sql);
+			String url = getString(env, VENDOR, "url", DEFAULT_URL);
+			Class<? extends Driver> driver = getDriver(env, VENDOR, OracleDriver.class);
+			ConnectionContext dba = getDbaContext(env, VENDOR, "system", "manager", DEFAULT_URL);
+			AdminSql sql = getAdminSql(env, VENDOR);
+			String dbaAfter = getString(env, VENDOR, "dba.after");
+			return new DatabaseVendor(VENDOR, dba, url, driver, sql, dbaAfter);
 		}
 	}
 
@@ -55,27 +53,49 @@ public class DatabaseVendorsConfig {
 		EnvironmentService env;
 
 		public static final String DEFAULT_URL = "jdbc:mysql://localhost";
+		public static final Vendor VENDOR = Vendor.MYSQL;
 
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			String dbaUsr = env.getString("mysql.dba.username", "root");
-			String dbaPwd = env.getString("mysql.dba.password", NullUtils.NONE);
-			String dbaUrl = env.getString("mysql.dba.url", DEFAULT_URL);
-			String url = env.getString("mysql.url", DEFAULT_URL) + "/" + env.getString("jdbc.username");
-			Class<? extends Driver> driver = env.getClass("mysql.driver", Driver.class, com.mysql.jdbc.Driver.class);
-			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			Vendor vendor = Vendor.MYSQL;
-			AdminSql sql = getAdminSql(env, vendor);
-			return new DatabaseVendor(vendor, dba, url, driver, sql);
+			String url = getString(env, VENDOR, "url", DEFAULT_URL) + "/" + env.getString("jdbc.username");
+			Class<? extends Driver> driver = getDriver(env, VENDOR, com.mysql.jdbc.Driver.class);
+			ConnectionContext dba = getDbaContext(env, VENDOR, "root", NullUtils.NONE, DEFAULT_URL);
+			AdminSql sql = getAdminSql(env, VENDOR);
+			String dbaAfter = getString(env, VENDOR, "dba.after");
+			return new DatabaseVendor(VENDOR, dba, url, driver, sql, dbaAfter);
 		}
 
 	}
 
+	protected static Class<? extends Driver> getDriver(EnvironmentService env, Vendor vendor, Class<? extends Driver> defaultClass) {
+		String key = vendor.name().toLowerCase() + ".driver";
+		return env.getClass(key, Driver.class, defaultClass);
+	}
+
+	protected static String getString(EnvironmentService env, Vendor vendor, String suffix) {
+		return getString(env, vendor, suffix);
+	}
+
+	protected static String getString(EnvironmentService env, Vendor vendor, String suffix, String defaultValue) {
+		String prefix = vendor.name().toLowerCase();
+		String key = prefix + "." + suffix;
+		return env.getString(key, defaultValue);
+	}
+
+	protected static ConnectionContext getDbaContext(EnvironmentService env, Vendor vendor, String usr, String pwd, String url) {
+		String prefix = vendor.name().toLowerCase();
+		String dbaUsr = env.getString(prefix + ".dba.username", usr);
+		String dbaPwd = env.getString(prefix + ".dba.password", pwd);
+		String dbaUrl = env.getString(prefix + ".dba.url", url);
+		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
+	}
+
 	protected static AdminSql getAdminSql(EnvironmentService env, Vendor vendor) {
-		String validate = env.getString(vendor.getText() + ".validate");
-		String create = env.getString(vendor.getText() + ".create");
-		String drop = env.getString(vendor.getText() + ".drop");
+		String prefix = vendor.name().toLowerCase();
+		String validate = env.getString(prefix + ".validate");
+		String create = env.getString(prefix + ".create");
+		String drop = env.getString(prefix + ".drop");
 		return new AdminSql(validate, create, drop);
 	}
 }
