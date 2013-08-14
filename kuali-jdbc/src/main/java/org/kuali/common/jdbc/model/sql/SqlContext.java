@@ -5,13 +5,8 @@ import org.kuali.common.util.Assert;
 public final class SqlContext {
 
 	public static final int DEFAULT_THREADS = 5;
-	public static final String DEFAULT_ENCODING = "UTF-8";
 
-	public SqlContext(DbaSql dba, Credentials credentials, String schema) {
-		this(dba, credentials, schema, DEFAULT_ENCODING, DEFAULT_THREADS);
-	}
-
-	public SqlContext(DbaSql dba, AdminSql admin, Credentials credentials, String schema, String encoding) {
+	public SqlContext(DbaSql dba, Credentials credentials, String schema, String encoding) {
 		this(dba, credentials, schema, encoding, DEFAULT_THREADS);
 	}
 
