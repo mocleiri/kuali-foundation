@@ -23,31 +23,12 @@ public class JdbcPropertyLocationsConfig {
 
 	@Bean
 	public List<Location> jdbcPropertyLocations() {
-		List<Location> locations = new ArrayList<Location>();
-		locations.addAll(getKualiSqlLocations());
-		locations.addAll(getJdbcLocations());
+		ProjectIdentifier pid = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
+		List<Location> locations = service.getLocations(pid, getKualiSqlFilenames());
 		return Collections.unmodifiableList(locations);
 	}
 
-	protected List<Location> getJdbcLocations() {
-		List<String> filenames = getJdbcList();
-		ProjectIdentifier pid = JdbcProjectConstants.PROJECT_IDENTIFIER;
-		return service.getLocations(pid, filenames);
-	}
-
-	protected List<Location> getKualiSqlLocations() {
-		List<String> filenames = getKualiSqlList();
-		ProjectIdentifier pid = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
-		return service.getLocations(pid, filenames);
-	}
-
-	protected List<String> getJdbcList() {
-		List<String> filenames = new ArrayList<String>();
-		filenames.add("jdbc.properties");
-		return filenames;
-	}
-
-	protected List<String> getKualiSqlList() {
+	protected List<String> getKualiSqlFilenames() {
 		List<String> filenames = new ArrayList<String>();
 		filenames.add("derby.xml");
 		filenames.add("h2.xml");
