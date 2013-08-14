@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.model;
 
-public enum VendorName {
+public enum Vendors {
 
 	ORACLE, MYSQL;
 

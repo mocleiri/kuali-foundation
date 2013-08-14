@@ -5,7 +5,7 @@ import java.sql.Driver;
 import oracle.jdbc.driver.OracleDriver;
 
 import org.kuali.common.jdbc.model.DatabaseVendor;
-import org.kuali.common.jdbc.model.VendorName;
+import org.kuali.common.jdbc.model.Vendors;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -28,14 +28,13 @@ public class JdbcVendorsConfig {
 
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			VendorName name = VendorName.ORACLE;
 			String dbaUsr = env.getString("oracle.dba.username", Dba.USERNAME);
 			String dbaPwd = env.getString("oracle.dba.password", Dba.PASSWORD);
 			String dbaUrl = env.getString("oracle.dba.url", Dba.URL);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 			Class<? extends Driver> driver = env.getClass("oracle.driver", DRIVER);
 			String url = env.getString("oracle.url", URL);
-			return new DatabaseVendor(name, dba, url, driver);
+			return new DatabaseVendor(Vendors.ORACLE, dba, url, driver);
 		}
 
 		public static final Class<? extends Driver> DRIVER = OracleDriver.class;
@@ -57,14 +56,13 @@ public class JdbcVendorsConfig {
 
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			VendorName name = VendorName.MYSQL;
 			String dbaUsr = env.getString("mysql.dba.username", Dba.USERNAME);
 			String dbaPwd = env.getString("mysql.dba.password", Dba.PASSWORD);
 			String dbaUrl = env.getString("mysql.dba.url", Dba.URL);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 			Class<? extends Driver> driver = env.getClass("mysql.driver", DRIVER);
 			String url = env.getString("mysql.url", URL);
-			return new DatabaseVendor(name, dba, url, driver);
+			return new DatabaseVendor(Vendors.MYSQL, dba, url, driver);
 		}
 
 		public static final Class<? extends Driver> DRIVER = com.mysql.jdbc.Driver.class;
