@@ -204,7 +204,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 
 		org.kuali.common.util.config.ProjectConfigContainer clone = new org.kuali.common.util.config.ProjectConfigContainer(config);
 
-		Nullifier nullifier = new org.kuali.common.util.config.ProjectConfigContainerNullifier(clone);
+		Nullifier nullifier = new org.kuali.common.util.config.ProjectConfigContainerNullifier();
 		nullifier.nullify();
 
 		xmlService.write(file, clone);
