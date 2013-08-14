@@ -18,8 +18,6 @@ package org.kuali.common.jdbc.supplier;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.jdbc.SqlMetaData;
-
 public interface SqlSupplier extends Comparable<SqlSupplier> {
 
 	/**
@@ -45,6 +43,7 @@ public interface SqlSupplier extends Comparable<SqlSupplier> {
 	/**
 	 * Return SQL count and overall size
 	 */
-	SqlMetaData getMetaData();
+	@Deprecated
+	org.kuali.common.jdbc.SqlMetaData getMetaData();
 
 }

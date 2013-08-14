@@ -20,6 +20,10 @@ import java.util.List;
 
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlBucket implements Comparable<SqlBucket> {
 
 	long count;

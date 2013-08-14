@@ -28,22 +28,24 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.listener.BucketEvent;
-import org.kuali.common.jdbc.listener.LogSqlListener;
-import org.kuali.common.jdbc.listener.MultiThreadedExecutionListener;
-import org.kuali.common.jdbc.listener.NotifyingListener;
-import org.kuali.common.jdbc.listener.SqlEvent;
-import org.kuali.common.jdbc.listener.SqlListener;
-import org.kuali.common.jdbc.listener.SqlMetaDataEvent;
+import org.kuali.common.jdbc.listen.LogSqlListener;
+import org.kuali.common.jdbc.listen.MultiThreadedExecutionListener;
+import org.kuali.common.jdbc.listen.NotifyingListener;
+import org.kuali.common.jdbc.listen.SqlListener;
 import org.kuali.common.jdbc.model.ExecutionResult;
 import org.kuali.common.jdbc.model.ExecutionStats;
+import org.kuali.common.jdbc.model.SqlBucket;
 import org.kuali.common.jdbc.model.context.JdbcContext;
+import org.kuali.common.jdbc.model.context.SqlBucketContext;
+import org.kuali.common.jdbc.model.event.BucketEvent;
+import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
+import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
+import org.kuali.common.jdbc.model.meta.Driver;
+import org.kuali.common.jdbc.model.meta.JdbcMetaData;
+import org.kuali.common.jdbc.model.meta.Product;
 import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
-import org.kuali.common.jdbc.threads.SqlBucket;
-import org.kuali.common.jdbc.threads.SqlBucketContext;
-import org.kuali.common.jdbc.threads.SqlBucketHandler;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -51,6 +53,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -198,13 +201,8 @@ public class DefaultJdbcService implements JdbcService {
 		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
 
 		for (SqlBucket bucket : buckets) {
-
 			JdbcContext newJdbcContext = getJdbcContext(context, bucket, listener);
-
-			SqlBucketContext sbc = new SqlBucketContext();
-			sbc.setService(this);
-			sbc.setBucket(bucket);
-			sbc.setContext(newJdbcContext);
+			SqlBucketContext sbc = new SqlBucketContext(bucket, newJdbcContext, this);
 			sbcs.add(sbc);
 		}
 		return sbcs;
@@ -253,12 +251,18 @@ public class DefaultJdbcService implements JdbcService {
 			smallest.getSuppliers().add(supplier);
 
 			// Update the bucket metadata holding overall size
-			smallest.setCount(smallest.getCount() + supplier.getMetaData().getCount());
-			smallest.setSize(smallest.getSize() + supplier.getMetaData().getSize());
+			updateCounts(smallest, supplier);
 		}
 
 		// Return the buckets
 		return buckets;
+	}
+
+	@SuppressWarnings("deprecation")
+	protected void updateCounts(SqlBucket bucket, SqlSupplier supplier) {
+		org.kuali.common.jdbc.SqlMetaData smd = supplier.getMetaData();
+		bucket.setCount(bucket.getCount() + smd.getCount());
+		bucket.setSize(bucket.getSize() + smd.getSize());
 	}
 
 	protected ExecutionStats executeSequentially(JdbcContext context) {
@@ -347,13 +351,27 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected JdbcMetaData getJdbcMetaData(DatabaseMetaData dbmd) throws SQLException {
-		JdbcMetaData md = new JdbcMetaData();
-		md.setDatabaseProductName(dbmd.getDatabaseProductName());
-		md.setDatabaseProductVersion(dbmd.getDatabaseProductVersion());
-		md.setDriverName(dbmd.getDriverName());
-		md.setDriverVersion(dbmd.getDriverVersion());
-		md.setUrl(dbmd.getURL());
-		md.setUsername(dbmd.getUserName());
-		return md;
+		Product product = getProduct(dbmd);
+		Driver driver = getDriver(dbmd);
+		String url = dbmd.getURL();
+		String username = dbmd.getUserName();
+		if (username == null) {
+			username = NullUtils.NULL;
+		} else if (StringUtils.isBlank(username)) {
+			username = NullUtils.NONE;
+		}
+		return new JdbcMetaData(product, driver, url, username);
+	}
+
+	protected Product getProduct(DatabaseMetaData dbmd) throws SQLException {
+		String name = dbmd.getDatabaseProductName();
+		String version = dbmd.getDatabaseProductVersion();
+		return new Product(name, version);
+	}
+
+	protected Driver getDriver(DatabaseMetaData dbmd) throws SQLException {
+		String name = dbmd.getDriverName();
+		String version = dbmd.getDriverVersion();
+		return new Driver(name, version);
 	}
 }

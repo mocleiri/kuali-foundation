@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.threads;
+package org.kuali.common.jdbc.service;
 
-import org.kuali.common.jdbc.JdbcService;
+import org.kuali.common.jdbc.model.context.SqlBucketContext;
 import org.kuali.common.threads.ElementHandler;
 import org.kuali.common.threads.ListIteratorContext;
 
-/**
- * @deprecated
- */
-@Deprecated
 public class SqlBucketHandler implements ElementHandler<SqlBucketContext> {
 
 	@Override

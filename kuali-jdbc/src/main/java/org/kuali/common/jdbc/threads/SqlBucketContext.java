@@ -18,6 +18,10 @@ package org.kuali.common.jdbc.threads;
 import org.kuali.common.jdbc.JdbcService;
 import org.kuali.common.jdbc.context.JdbcContext;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlBucketContext {
 
 	SqlBucket bucket;
