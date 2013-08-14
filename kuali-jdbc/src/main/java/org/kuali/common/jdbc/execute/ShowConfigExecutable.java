@@ -57,4 +57,20 @@ public final class ShowConfigExecutable implements Executable {
 		ShowUtils.showClose(logger, context, service, dataSource);
 	}
 
+	public DatabaseContext getContext() {
+		return context;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public JdbcService getService() {
+		return service;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
 }
