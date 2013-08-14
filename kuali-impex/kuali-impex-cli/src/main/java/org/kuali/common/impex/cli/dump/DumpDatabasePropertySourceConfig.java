@@ -17,11 +17,10 @@ package org.kuali.common.impex.cli.dump;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.kuali.common.impex.cli.project.ImpexCLIProjectConfig;
 import org.kuali.common.impex.spring.DumpPropertyLocationsConfig;
-import org.kuali.common.jdbc.spring.JdbcPropertyLocationsConfig;
+import org.kuali.common.jdbc.service.spring.JdbcPropertyLocationsConfig;
 import org.kuali.common.util.main.MainContext;
 import org.kuali.common.util.main.ValidatePropertiesLocationExecutable;
 import org.kuali.common.util.project.ProjectUtils;
@@ -29,12 +28,12 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.properties.spring.DefaultPropertiesServiceConfig;
+import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
@@ -59,9 +58,7 @@ public class DumpDatabasePropertySourceConfig implements PropertySourceConfig {
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
-		List<Location> locations = getLocations();
-		Properties properties = service.getProperties(locations);
-		return new PropertiesPropertySource("propertiesPropertySource", properties);
+		return PropertySourceUtils.getPropertySource(service, getLocations());
 	}
 
 	protected List<Location> getLocations() {
