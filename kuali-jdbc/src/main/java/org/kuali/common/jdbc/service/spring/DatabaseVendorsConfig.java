@@ -21,7 +21,7 @@ public class DatabaseVendorsConfig {
 
 	@Import({ SpringServiceConfig.class })
 	@Profile("oracle")
-	public static class OracleDatabaseVendor implements DatabaseVendorConfig {
+	public static class OracleConfig implements DatabaseVendorConfig {
 
 		@Autowired
 		EnvironmentService env;
@@ -50,7 +50,7 @@ public class DatabaseVendorsConfig {
 
 	@Import({ SpringServiceConfig.class })
 	@Profile("mysql")
-	public static class MySqlDatabaseVendor implements DatabaseVendorConfig {
+	public static class MySqlConfig implements DatabaseVendorConfig {
 
 		@Autowired
 		EnvironmentService env;
