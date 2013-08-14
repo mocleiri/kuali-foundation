@@ -92,7 +92,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	@Override
 	public <T> Class<? extends T> getClass(String key, Class<? extends T> type, Class<? extends T> defaultValue) {
 		Class<? extends T> springValue = getSpringValueAsClass(key, type);
-		Class<? extends T> returnValue = (springValue != null) ? springValue : defaultValue;
+		Class<? extends T> returnValue = (springValue == null) ? defaultValue : springValue;
 
 		// If we could not locate a value, we may need to error out
 		if (returnValue == null) {
@@ -126,6 +126,16 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	@Override
 	public Boolean getBoolean(String key, Boolean defaultValue) {
 		return getProperty(EnvContext.newBoolean(key, defaultValue));
+	}
+
+	@Override
+	public Integer getInteger(String key, Integer defaultValue) {
+		return getProperty(EnvContext.newInteger(key, defaultValue));
+	}
+
+	@Override
+	public Integer getInteger(String key) {
+		return getInteger(key, null);
 	}
 
 	/**

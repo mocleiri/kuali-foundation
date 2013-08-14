@@ -44,4 +44,8 @@ public final class EnvContext<T> {
 		return newCtx(key, Boolean.class, defaultValue);
 	}
 
+	public static EnvContext<Integer> newInteger(String key, Integer defaultValue) {
+		return newCtx(key, Integer.class, defaultValue);
+	}
+
 }
