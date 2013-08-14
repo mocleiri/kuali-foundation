@@ -2,12 +2,12 @@
 	<ul>
 		<li><a href="#">Basics</a>
 			<ul>
-				<li><a href="#">Proposal Details</a></li>
-				<li><a href="#">Opportunity Search</a></li>
-				<li><a href="#">Sponsor &amp; Program Information</a></li>
-				<li><a href="#">Organization &amp; Location</a></li>
-				<li><a href="#">Delivery Info</a></li>
-				<li><a href="#">Keywords</a></li>
+				<li><a href="prop.basics.details.php">Proposal Details</a></li>
+				<li><a href="prop.basics.oppsearch-search.php">Opportunity Search</a></li>
+				<li><a href="prop.basics.sponsor.php">Sponsor &amp; Program Information</a></li>
+				<li><a href="prop.basics.orgloc.php">Organization &amp; Location</a></li>
+				<li><a href="prop.basics.deliveryinfo.php">Delivery Info</a></li>
+				<li><a href="prop.basics.keywords.php">Keywords</a></li>
 			</ul>
 		</li>
 		<li><a href="#">Key Pesonnel</a>

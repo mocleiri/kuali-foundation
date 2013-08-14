@@ -12,6 +12,12 @@
 
 $(document).ready(function() {
 
+	// Subnavigation
+	$('#subnav').find('ul ul').slideUp();
+	$('#subnav ul li a').on('click', function() {
+		$(this).parent().parent().find('ul').slideDown();
+	});
+
 	// Document search, Fancybox
 	$("#docsearch").click(function () {
 		$.fancybox.open({

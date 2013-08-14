@@ -1,4 +1,4 @@
-<section id="toolbar">
+<section id="toolbar" class="clearfix">
 	<div class="navbar">
 		<div class="container">
 			<div class="row">

@@ -8,11 +8,11 @@ require_once( 'kc/inc/nav.php' );
 require_once( 'kc/inc/toolbar.php' );
 ?>
 
-<section>
+<section id="main">
+		
+	<?php require_once( 'kc/inc/doc-header.php' ); ?>
 
 	<div class="container">
-		
-		<?php require_once( 'kc/inc/doc-header.php' ); ?>
 
 		<div class="row">
 
@@ -21,7 +21,6 @@ require_once( 'kc/inc/toolbar.php' );
 			</div>
 
 			<div class="col-lg-9">
-
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -29,8 +28,100 @@ require_once( 'kc/inc/toolbar.php' );
 				</div>
 
 				<div class="section-content">
-					<form action="#" method="post">
-						
+					<form action="#" method="post" class="form-horizontal">
+						<fieldset>
+							<legend>Enter any relevant details for this proposal</legend>
+							<div class="form-group clearfix">
+								<label for="proposal_type" class="control-label col-lg-3">Proposal type:</label>
+								<div class="col-lg-5">
+									<select name="proposal_type" id="proposal_type" class="form-control col-lg-8">
+										<option value="">select</option>
+										<option value="4">Continuation</option>
+										<option value="1" selected="selected">New</option>
+										<option value="3">Renewal</option>
+										<option value="2">Resubmission</option>
+										<option value="5">Revision</option>
+										<option value="6">Task Order</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="lead_unit" class="control-label col-lg-3">Lead unit:</label>
+								<div class="col-lg-5">
+									<select name="lead_unit" id="lead_unit" class="form-control col-lg-8">
+										<option value="">select</option>
+										<option value="000001" selected="selected">000001 - University</option>
+										<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
+										<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
+										<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="activity_type" class="control-label col-lg-3">Activity type:</label>
+								<div class="col-lg-5">
+									<select name="activity_type" id="activity_type" class="form-control col-lg-8">
+										<option value="">select</option>
+										<option value="4" selected="selected">Clinical Trial</option>
+										<option value="9">Construction</option>
+										<option value="7">Fellowship - Post-Doctoral</option>
+										<option value="6">Fellowship - Pre-Doctoral</option>
+										<option value="2">Instruction</option>
+										<option value="3">Public Service</option>
+										<option value="1">Research</option>
+										<option value="8">Student Services</option>
+										<option value="5">other</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="project_start" class="control-label col-lg-3">Start date:</label>
+								<div class="col-lg-3">
+									<input type="text" class="form-control" name="project_start" id="project_start" placeholder="Start date" />
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="project_end" class="control-label col-lg-3">End date:</label>
+								<div class="col-lg-3">
+									<input type="text" class="form-control" name="project_end" id="project_end" placeholder="End date" />
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="sponsor_code" class="control-label col-lg-3">Sponsor code:</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" name="sponsor_code" id="sponsor_code" />
+									<button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default">Search</button>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="project_title" class="control-label col-lg-3">Project title:</label>
+								<div class="col-lg-5">
+									<textarea name="project_title" id="project_title" class="form-control"></textarea>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="award_id" class="control-label col-lg-3">Award ID:</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" name="award_id" id="award_id" />
+									<button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default">Search</button>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="inst_proposal_id" class="control-label col-lg-3">Original institutional ID:</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" name="inst_proposal_id" id="inst_proposal_id" />
+									<button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default">Search</button>
+								</div>
+							</div>
+						</fieldset>
 					</form>
 				</div>
 
@@ -41,6 +132,17 @@ require_once( 'kc/inc/toolbar.php' );
 		</div>
 
 	</div>
+
+	<!-- Button row -->
+	<div class="button-row">
+		<div class="container">
+			<div class="row">
+				<button class="btn btn-default">Save</button>
+				<button class="btn btn-primary">Save and continue...</button>
+			</div>
+		</div>
+	</div>
+	<!-- // -->
 
 </section>
 

@@ -8,7 +8,7 @@ require_once( 'kc/inc/nav.php' );
 require_once( 'kc/inc/toolbar.php' );
 ?>
 
-<section>
+<section id="main">
 
 	<div class="container">
 		
@@ -21,7 +21,7 @@ require_once( 'kc/inc/toolbar.php' );
 		</div>
 
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-9">
 				<h3>Action List Preview</h3>
 				<table class="table table-striped table-condensed">
 					<thead>
@@ -73,7 +73,7 @@ require_once( 'kc/inc/toolbar.php' );
 				</table>
 			</div>
 
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<h3>Reports</h3>
 				<strong>Metric 1</strong><span class="pull-right">30%</span>
 				<div class="progress progress-info active" style="max-height:4px;">

@@ -2,14 +2,12 @@
   <div class="footer">
     <div class="container">
       <div class="row">
-        <div class="span12">
-          <div class="span4 foundation">
-            &copy; 2013
-            <a href="#" target="_blank">Kuali Foundation</a>
-          </div>
-          <div class="span4 offset4 credit">
-            <span>site built with KRAD</span>
-          </div>
+        <div class="foundation col_lg_6">
+          &copy; 2013
+          <a href="#" target="_blank">Kuali Foundation</a>
+        </div>
+        <div class="credit col_lg_6">
+          <span>site built with KRAD</span>
         </div>
       </div>
     </div>

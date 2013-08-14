@@ -10,35 +10,40 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, input, button, textarea, s
 	Variables
 */
 
-@body_background:					'#333';
-@header_background:					'#123123';
+@body_background:					#111;
+@header_background:					#aa003e;
+@white_background:					#fff;
+@shaded_background:					#f6f6f6;
+@dark_background:					@body_background;
 
+@link_blue:							blue;
+@link_blue_hover:					darken(@link_blue, 7%);
+@link_red:							@header_background;
+@link_red_hover:					darken(@link_red, 7%);
+@link_white:						@white_background;
 
+@text_dark:							#222;
+@text_white:						@white_background;
+@text_light_gray:					#f2f2f2;
+@text_med_gray:						#ccc;
 
-// @import "header";
-@import "toolbar";
-// @import "nav";
-// @import "sidebar";
-// @import "content";
-// @import "tables";
-// @import "footer";
+@border_color:						@text_med_gray;
 
 
 
 
 /*
-	Clearfix
+	Pieces
 */
 
-.clealrfix:before, .clealrfix:after {
-	content: " ";
-	display: table;
-}
+@import "globals";
+@import "header";
+@import "toolbar";
+@import "doc-header.less";
+@import "subnav";
+// @import "sidebar";
+@import "content";
+// @import "tables";
+@import "footer";
 
-.clealrfix:after {
-	clear: both;
-}
 
-.clealrfix {
-	*zoom: 1;
-}
