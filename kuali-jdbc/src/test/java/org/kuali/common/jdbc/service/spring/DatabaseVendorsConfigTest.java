@@ -1,24 +1,27 @@
 package org.kuali.common.jdbc.service.spring;
 
+import java.util.List;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.kuali.common.jdbc.model.DatabaseVendor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
+import org.kuali.common.util.spring.service.DefaultSpringService;
+import org.kuali.common.util.spring.service.SpringContext;
+import org.kuali.common.util.spring.service.SpringService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseVendorsConfig.class)
-@ActiveProfiles(profiles = "oracle")
 public class DatabaseVendorsConfigTest {
-
-	@Autowired
-	DatabaseVendor vendor;
 
 	@Test
 	public void test() {
-		System.out.println(vendor.getDriver().getName());
+		try {
+			List<Class<?>> annotatedClasses = CollectionUtils.asList(AutowiredProjectConfig.class, JdbcPropertySourceConfig.class);
+			SpringContext context = new SpringContext();
+			context.setAnnotatedClasses(annotatedClasses);
+			SpringService ss = new DefaultSpringService();
+			ss.load(context);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
