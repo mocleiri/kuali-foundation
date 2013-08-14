@@ -29,37 +29,21 @@ public class ObjectUtils {
 	 */
 	public static boolean equalsByToString(Object main, Object other) {
 
+		// Main can't be null
+		if (main == null) {
+			throw new NullPointerException("main is null");
+		}
+
 		// They are the same object
-		if (sameObject(main, other)) {
+		if (main == other) {
 			return true;
 		}
 
 		// Only bother comparing the toString() methods if they are the exact same runtime type
-		if (sameType(main, other)) {
+		if (other != null && main.getClass() == other.getClass()) {
 			return main.toString().equals(other.toString());
 		} else {
 			return false;
 		}
-	}
-
-	public static boolean sameObject(Object main, Object other) {
-
-		// Main can't be null
-		if (main == null) {
-			throw new NullPointerException("main is null");
-		}
-
-		// They are the same object
-		return main == other;
-	}
-
-	public static boolean sameType(Object main, Object other) {
-
-		// Main can't be null
-		if (main == null) {
-			throw new NullPointerException("main is null");
-		}
-
-		return other != null && main.getClass() == other.getClass();
 	}
 }
