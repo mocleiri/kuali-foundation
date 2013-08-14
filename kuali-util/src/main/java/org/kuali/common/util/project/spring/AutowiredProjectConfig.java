@@ -22,6 +22,8 @@ import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.maven.spring.AutowiredMavenProperties;
 import org.kuali.common.util.maven.spring.NoAutowiredMavenProperties;
 import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +103,7 @@ public class AutowiredProjectConfig {
 	// spring-maven-plugin activates this profile by default when Spring is launched by Maven during a build
 	@Configuration
 	@AutowiredMavenProperties
-	@Import({ ProjectServiceConfig.class, BuildConfig.class })
+	@Import({ ProjectServiceConfig.class })
 	static class AutowiredMavenPropertiesProjectConfig implements ProjectConfig {
 
 		// spring-maven-plugin wires this in for us
@@ -127,6 +129,11 @@ public class AutowiredProjectConfig {
 
 			// Use the service to convert the properties into a Project
 			return service.getProject(mavenProperties);
+		}
+
+		@Bean
+		public Build build() {
+			return ProjectUtils.getBuild(project());
 		}
 
 	}
