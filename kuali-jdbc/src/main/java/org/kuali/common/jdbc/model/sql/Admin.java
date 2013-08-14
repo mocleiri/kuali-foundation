@@ -1,10 +1,10 @@
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.model.sql;
 
 import org.kuali.common.util.Assert;
 
-public final class Sql {
+public final class Admin {
 
-	public Sql(String validate, String create, String drop, DbaSql dba) {
+	public Admin(String validate, String create, String drop, Dba dba) {
 		Assert.notNull(dba);
 		Assert.noBlanks(validate, create, drop);
 		this.validate = validate;
@@ -16,7 +16,7 @@ public final class Sql {
 	private final String validate;
 	private final String create;
 	private final String drop;
-	private final DbaSql dba;
+	private final Dba dba;
 
 	public String getValidate() {
 		return validate;
@@ -30,7 +30,7 @@ public final class Sql {
 		return drop;
 	}
 
-	public DbaSql getDba() {
+	public Dba getDba() {
 		return dba;
 	}
 

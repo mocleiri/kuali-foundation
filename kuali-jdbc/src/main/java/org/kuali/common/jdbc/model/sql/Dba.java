@@ -1,8 +1,8 @@
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.model.sql;
 
-public final class DbaSql {
+public final class Dba {
 
-	public DbaSql(String before, String after) {
+	public Dba(String before, String after) {
 		this.before = before;
 		this.after = after;
 	}
