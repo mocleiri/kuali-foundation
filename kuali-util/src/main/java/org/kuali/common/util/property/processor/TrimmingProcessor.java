@@ -38,8 +38,8 @@ public final class TrimmingProcessor implements PropertyProcessor {
 
 	public TrimmingProcessor(List<String> includes, List<String> excludes) {
 		Assert.noNulls(includes, excludes);
-		this.includes = includes;
-		this.excludes = excludes;
+		this.includes = CollectionUtils.unmodifiableCopy(includes);
+		this.excludes = CollectionUtils.unmodifiableCopy(excludes);
 	}
 
 	@Override
