@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.spring;
+package org.kuali.common.jdbc.service.spring;
 
 import java.util.ArrayList;
 import java.util.Collections;
