@@ -22,17 +22,22 @@ public class JdbcContextConfig {
 
 	@Bean
 	public JdbcContext jdbcContext() {
-
-		ConnectionContext normal = getConnectionContext("jdbc.username", "jdbc.password", "jdbc.url");
-		ConnectionContext dba = getConnectionContext("jdbc.dba.username", "jdbc.dba.password", "jdbc.dba.url");
-
+		ConnectionContext normal = getNormal();
+		ConnectionContext dba = getDba();
 		return new JdbcContext(normal, dba);
 	}
 
-	protected ConnectionContext getConnectionContext(String usernameKey, String passwordKey, String urlKey) {
-		String username = env.getString(usernameKey);
-		String password = env.getString(passwordKey);
-		String url = env.getString(urlKey);
+	protected ConnectionContext getNormal() {
+		String username = env.getString("jdbc.username"); // No default value. They must supply ${jdbc.username}
+		String password = env.getString("jdbc.password", username);
+		String url = env.getString("jdbc.url", vendor.getUrl());
+		return new ConnectionContext(url, username, password);
+	}
+
+	protected ConnectionContext getDba() {
+		String username = env.getString("jdbc.dba.username", vendor.getDba().getUsername());
+		String password = env.getString("jdbc.dba.password", vendor.getDba().getPassword());
+		String url = env.getString("jdbc.dba.url", vendor.getDba().getUrl());
 		return new ConnectionContext(url, username, password);
 	}
 }
