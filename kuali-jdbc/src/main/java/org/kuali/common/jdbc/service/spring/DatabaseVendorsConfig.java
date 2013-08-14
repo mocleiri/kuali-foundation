@@ -36,10 +36,10 @@ public class DatabaseVendorsConfig {
 			String dbaUsr = env.getString("oracle.dba.username", "system");
 			String dbaPwd = env.getString("oracle.dba.password", "manager");
 			String dbaUrl = env.getString("oracle.dba.url", DEFAULT_URL);
-			String regUrl = env.getString("oracle.url", DEFAULT_URL);
+			String url = env.getString("oracle.url", DEFAULT_URL);
 			Class<? extends Driver> driver = env.getClass("oracle.driver", Driver.class, OracleDriver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			return new DatabaseVendor(Vendors.ORACLE, dba, regUrl, driver);
+			return new DatabaseVendor(Vendors.ORACLE, dba, url, driver);
 		}
 	}
 
@@ -59,10 +59,10 @@ public class DatabaseVendorsConfig {
 			String dbaUsr = env.getString("mysql.dba.username", "root");
 			String dbaPwd = env.getString("mysql.dba.password", NullUtils.NONE);
 			String dbaUrl = env.getString("mysql.dba.url", DEFAULT_URL);
-			String regUrl = env.getString("mysql.url", DEFAULT_URL) + "/" + env.getString("jdbc.username");
+			String url = env.getString("mysql.url", DEFAULT_URL) + "/" + env.getString("jdbc.username");
 			Class<? extends Driver> driver = env.getClass("mysql.driver", Driver.class, com.mysql.jdbc.Driver.class);
 			ConnectionContext dba = new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-			return new DatabaseVendor(Vendors.MYSQL, dba, regUrl, driver);
+			return new DatabaseVendor(Vendors.MYSQL, dba, url, driver);
 		}
 
 	}
