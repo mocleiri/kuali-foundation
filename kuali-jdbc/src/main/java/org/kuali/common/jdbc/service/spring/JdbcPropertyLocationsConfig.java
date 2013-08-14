@@ -18,18 +18,21 @@ import org.springframework.context.annotation.Import;
 @Import({ PropertiesLocationServiceConfig.class })
 public class JdbcPropertyLocationsConfig {
 
+	private static final ProjectIdentifier SQL = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
+	private static final ProjectIdentifier JDBC = JdbcProjectConstants.PROJECT_IDENTIFIER;
+
 	@Autowired
 	PropertiesLocationService service;
 
 	@Bean
 	public List<Location> jdbcPropertyLocations() {
-		ProjectIdentifier pid = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
-		List<Location> locations = service.getLocations(pid, getKualiSqlFilenames());
-		locations.add(service.getLocation(JdbcProjectConstants.PROJECT_IDENTIFIER, "config.properties"));
+		List<Location> locations = new ArrayList<Location>();
+		locations.addAll(service.getLocations(SQL, getSqlFilenames()));
+		locations.add(service.getLocation(JDBC, "config.properties"));
 		return Collections.unmodifiableList(locations);
 	}
 
-	protected List<String> getKualiSqlFilenames() {
+	protected List<String> getSqlFilenames() {
 		List<String> filenames = new ArrayList<String>();
 		filenames.add("derby.xml");
 		filenames.add("h2.xml");
