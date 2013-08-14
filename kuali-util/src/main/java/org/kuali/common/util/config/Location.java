@@ -25,9 +25,9 @@ import org.kuali.common.util.Mode;
 /**
  * @deprecated
  */
-@Deprecated
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@Deprecated
 public class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
