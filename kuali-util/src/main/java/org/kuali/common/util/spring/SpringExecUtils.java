@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.spring;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
@@ -26,10 +29,18 @@ public class SpringExecUtils {
 	/**
 	 * Return an executable that resolves all placeholder values against <code>source</code>.
 	 */
-	public static SpringExecutable getSpringExecutable(SpringService service, PropertySource<?> source, Class<?> annotatedClass) {
+	public static SpringExecutable getSpringExecutable(SpringService service, PropertySource<?> source, Class<?> annotatedClass, List<String> activeProfiles) {
 		SpringContext context = getSinglePropertySourceContext(source);
+		context.setActiveProfiles(activeProfiles);
 		context.setAnnotatedClasses(CollectionUtils.asList(annotatedClass));
 		return new SpringExecutable(service, context);
+	}
+
+	/**
+	 * Return an executable that resolves all placeholder values against <code>source</code>.
+	 */
+	public static SpringExecutable getSpringExecutable(SpringService service, PropertySource<?> source, Class<?> annotatedClass) {
+		return getSpringExecutable(service, source, annotatedClass, Collections.<String> emptyList());
 	}
 
 	/**

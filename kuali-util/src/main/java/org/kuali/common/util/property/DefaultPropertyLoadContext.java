@@ -30,8 +30,6 @@ import org.kuali.common.util.property.processor.HomeProcessor;
 import org.kuali.common.util.property.processor.OrgProcessor;
 import org.kuali.common.util.property.processor.PathProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
-import org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor;
-import org.kuali.common.util.property.processor.TrimProcessor;
 import org.kuali.common.util.property.processor.VersionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,7 +147,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 		processors.add(new GlobalOverrideProcessor(gpm));
-		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
+		processors.add(new org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor(helper, gpm));
 		return processors;
 	}
 
@@ -168,7 +166,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 		this.locationHelperIncludes = CollectionUtils.sortedMerge(locationHelperIncludes, locationHelperInclude);
 		this.locationHelperExcludes = CollectionUtils.sortedMerge(locationHelperExcludes, locationHelperExclude);
-		processors.add(new TrimProcessor(locationHelperIncludes, locationHelperExcludes));
+		processors.add(new org.kuali.common.util.property.processor.TrimProcessor(locationHelperIncludes, locationHelperExcludes));
 
 		String groupId = getGroupId();
 		if (organizationGroupId != null && groupId != null) {
@@ -186,7 +184,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 
 		GlobalPropertiesMode gpm = GlobalPropertiesMode.valueOf(globalPropertiesMode);
 		processors.add(new GlobalOverrideProcessor(gpm));
-		processors.add(new ResolvePlaceholdersProcessor(helper, gpm));
+		processors.add(new org.kuali.common.util.property.processor.ResolvePlaceholdersProcessor(helper, gpm));
 
 		return processors;
 	}
