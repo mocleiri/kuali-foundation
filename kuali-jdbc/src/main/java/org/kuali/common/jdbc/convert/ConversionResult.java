@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.convert;
 
 import java.io.File;
 
-import org.kuali.common.jdbc.SqlMetaData;
+import org.kuali.common.jdbc.model.meta.SqlMetaData;
 
 public class ConversionResult {
 

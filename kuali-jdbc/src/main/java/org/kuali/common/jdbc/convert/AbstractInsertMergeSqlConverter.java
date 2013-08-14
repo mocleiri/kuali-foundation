@@ -24,9 +24,9 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.DefaultSqlReader;
-import org.kuali.common.jdbc.SqlMetaData;
-import org.kuali.common.jdbc.SqlReader;
+import org.kuali.common.jdbc.model.meta.SqlMetaData;
+import org.kuali.common.jdbc.reader.DefaultSqlReader;
+import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +47,7 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
 		logger.debug("Converting {}", LocationUtils.getCanonicalPath(context.getOldFile()));
 		File newFile = context.getNewFile();
 		File oldFile = context.getOldFile();
-		DefaultSqlReader reader = new DefaultSqlReader();
-		reader.setDelimiter(context.getDelimiter());
+		DefaultSqlReader reader = new DefaultSqlReader(context.getDelimiter());
 
 		BufferedReader in = null;
 		OutputStream out = null;

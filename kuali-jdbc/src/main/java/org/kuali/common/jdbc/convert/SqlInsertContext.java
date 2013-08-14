@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.convert;
 
 import java.io.BufferedReader;
 
-import org.kuali.common.jdbc.SqlReader;
+import org.kuali.common.jdbc.reader.SqlReader;
 
 public class SqlInsertContext {
 
