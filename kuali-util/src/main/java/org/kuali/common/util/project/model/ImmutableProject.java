@@ -33,8 +33,8 @@ public final class ImmutableProject implements Project, Identifiable {
 
 	public ImmutableProject(ProjectIdentifier projectIdentifier, String version, Properties properties) {
 		// Make sure we are being configured correctly
-		Assert.noBlanks("version is required", version);
-		Assert.notNull(properties, "properties are null");
+		Assert.noNulls(projectIdentifier, properties);
+		Assert.noBlanks(version);
 
 		// Finish setting things up
 		this.projectIdentifier = projectIdentifier;
