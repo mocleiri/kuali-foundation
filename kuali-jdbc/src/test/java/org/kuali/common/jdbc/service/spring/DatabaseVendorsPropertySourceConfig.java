@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
-import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.properties.spring.DefaultPropertiesServiceConfig;
@@ -23,9 +22,6 @@ public class DatabaseVendorsPropertySourceConfig implements PropertySourceConfig
 
 	@Autowired
 	JdbcPropertyLocationsConfig jdbc;
-
-	@Autowired
-	ProjectIdentifier pid;
 
 	@Autowired
 	Project project;

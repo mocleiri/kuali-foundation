@@ -1,23 +1,23 @@
 package org.kuali.common.jdbc.service.spring;
 
-import java.util.List;
-
 import org.junit.Test;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.spring.service.DefaultSpringService;
-import org.kuali.common.util.spring.service.SpringContext;
-import org.kuali.common.util.spring.service.SpringService;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.PropertySource;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = DatabaseVendorsPropertySourceConfig.class)
 public class DatabaseVendorsConfigTest {
+
+	@Autowired
+	PropertySource<?> propertySource;
 
 	@Test
 	public void test() {
 		try {
-			List<Class<?>> annotatedClasses = CollectionUtils.asList(DatabaseVendorsPropertySourceConfig.class);
-			SpringContext context = new SpringContext();
-			context.setAnnotatedClasses(annotatedClasses);
-			SpringService ss = new DefaultSpringService();
-			ss.load(context);
+			System.out.println(propertySource);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
