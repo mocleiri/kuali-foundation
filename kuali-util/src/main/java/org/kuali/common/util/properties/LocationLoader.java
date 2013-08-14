@@ -17,7 +17,8 @@ public final class LocationLoader implements PropertiesLoader {
 	}
 
 	public LocationLoader(Location location, String value) {
-		Assert.noNulls(location, value);
+		Assert.noNulls(location);
+		Assert.noBlanks(value);
 		this.value = value;
 		this.location = location;
 	}
