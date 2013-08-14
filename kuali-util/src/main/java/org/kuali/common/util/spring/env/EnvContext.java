@@ -9,7 +9,8 @@ public final class EnvContext<T> {
 	}
 
 	public EnvContext(String key, Class<T> type, T defaultValue) {
-		Assert.noNulls(key, type);
+		Assert.noNulls(type);
+		Assert.noBlanks(key);
 		this.key = key;
 		this.type = type;
 		this.defaultValue = defaultValue;

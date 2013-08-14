@@ -37,7 +37,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	@Override
 	public <T> T getProperty(EnvContext<T> context) {
 
-		// If this is null, we have issues
+		// If context is null, we have issues
 		Assert.noNulls(context);
 
 		// Extract a value from Spring's Environment abstraction
