@@ -6,13 +6,13 @@ import org.kuali.common.util.Assert;
 
 public enum Vendor {
 
-	ORACLE(VendorConstants.ORACLE_CODE, "system", "manager", "jdbc:oracle:thin:@localhost:1521:XE"), //
-	MYSQL(VendorConstants.MYSQL_CODE, "root", Credentials.NO_PASSWORD, "jdbc:mysql://localhost");
+	ORACLE(VendorConstants.ORACLE_CODE, "jdbc:oracle:thin:@localhost:1521:XE", "system", "manager"), //
+	MYSQL(VendorConstants.MYSQL_CODE, "jdbc:mysql://localhost", "root", Credentials.NO_PASSWORD);
 
-	private Vendor(String code, String defaultDbaUsername, String defaultDbaPassword, String url) {
+	private Vendor(String code, String defaultDbaUrl, String defaultDbaUsername, String defaultDbaPassword) {
 		Assert.noBlanks(code);
 		this.code = code;
-		this.dba = new ConnectionContext(url, defaultDbaUsername, defaultDbaPassword);
+		this.dba = new ConnectionContext(defaultDbaUrl, defaultDbaUsername, defaultDbaPassword);
 	}
 
 	private final String code;
