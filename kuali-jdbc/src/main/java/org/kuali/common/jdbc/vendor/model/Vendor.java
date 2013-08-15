@@ -8,9 +8,9 @@ public enum Vendor {
 	ORACLE(VendorConstants.ORACLE_CODE, "system", "manager", "jdbc:oracle:thin:@localhost:1521:XE"), //
 	MYSQL(VendorConstants.MYSQL_CODE, "root", Credentials.NO_PASSWORD, "jdbc:mysql://localhost");
 
-	private Vendor(String code, String username, String password, String url) {
+	private Vendor(String code, String defaultDbaUsername, String defaultDbaPassword, String url) {
 		this.code = code;
-		this.dba = new ConnectionContext(url, username, password);
+		this.dba = new ConnectionContext(url, defaultDbaUsername, defaultDbaPassword);
 	}
 
 	private final String code;
