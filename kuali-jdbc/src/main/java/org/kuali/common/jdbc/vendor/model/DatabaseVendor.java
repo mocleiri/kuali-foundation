@@ -9,17 +9,17 @@ import org.kuali.common.util.PropertyUtils;
 
 public final class DatabaseVendor {
 
-	public DatabaseVendor(String name, ConnectionContext dba, String url, Class<? extends Driver> driver, Properties sql) {
-		Assert.noNulls(dba, sql, driver);
-		Assert.noBlanks(name, url);
-		this.name = name;
+	public DatabaseVendor(Vendor vendor, ConnectionContext dba, String url, Class<? extends Driver> driver, Properties sql) {
+		Assert.noNulls(dba, sql, driver, vendor);
+		Assert.noBlanks(url);
 		this.dba = dba;
 		this.url = url;
+		this.vendor = vendor;
 		this.driver = driver;
 		this.sql = PropertyUtils.toImmutable(sql);
 	}
 
-	private final String name;
+	private final Vendor vendor;
 	private final ConnectionContext dba;
 	private final String url;
 	private final Class<? extends Driver> driver;
@@ -29,8 +29,8 @@ public final class DatabaseVendor {
 		return sql;
 	}
 
-	public String getName() {
-		return name;
+	public Vendor getVendor() {
+		return vendor;
 	}
 
 	public ConnectionContext getDba() {
