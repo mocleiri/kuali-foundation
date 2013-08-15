@@ -10,7 +10,7 @@ import org.kuali.common.util.PropertyUtils;
 public final class DatabaseVendor {
 
 	public DatabaseVendor(Vendor vendor, ConnectionContext dba, String url, Class<? extends Driver> driver, Properties sql) {
-		Assert.noNulls(dba, sql, driver, vendor);
+		Assert.noNulls(vendor, dba, driver, sql);
 		Assert.noBlanks(url);
 		this.dba = dba;
 		this.url = url;
