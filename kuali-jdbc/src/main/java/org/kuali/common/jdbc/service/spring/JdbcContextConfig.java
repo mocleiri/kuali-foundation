@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.service.spring;
 
 import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.sql.model.JdbcContext;
+import org.kuali.common.jdbc.sql.model.Connections;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -22,10 +22,10 @@ public class JdbcContextConfig {
 	EnvironmentService env;
 
 	@Bean
-	public JdbcContext jdbcContext() {
+	public Connections jdbcContext() {
 		ConnectionContext normal = getNormal();
 		ConnectionContext dba = getDba();
-		return new JdbcContext(normal, dba);
+		return new Connections(normal, dba);
 	}
 
 	protected ConnectionContext getNormal() {
