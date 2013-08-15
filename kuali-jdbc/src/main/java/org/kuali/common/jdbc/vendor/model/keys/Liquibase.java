@@ -11,7 +11,7 @@ public enum Liquibase implements KeySuffix {
 	private final String value;
 
 	@Override
-	public String getValue() {
+	public String getKeySuffix() {
 		return value;
 	}
 }
