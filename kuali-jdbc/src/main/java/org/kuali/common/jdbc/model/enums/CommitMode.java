@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.model.enums;
 
-public enum SqlMode {
+public enum CommitMode {
 
-	SEQUENTIAL, CONCURRENT;
+	PER_STATEMENT, PER_SUPPLIER, PER_EXECUTION, NONE;
 
 }

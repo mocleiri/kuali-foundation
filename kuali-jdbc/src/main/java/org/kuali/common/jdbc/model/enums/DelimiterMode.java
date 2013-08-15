@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.model.enums;
 
-public enum ExecutionMode {
+public enum DelimiterMode {
 
-	SEQUENTIAL, CONCURRENT;
+	END_OF_LINE, OWN_LINE;
+
+	public static final DelimiterMode DEFAULT_VALUE = OWN_LINE;
 
 }

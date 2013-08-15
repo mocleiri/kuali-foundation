@@ -13,22 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.model.enums;
 
-public enum LineSeparator {
+public enum ExecutionMode {
 
-	CR("\r"), LF("\n"), CRLF(CR.getValue() + LF.getValue());
-
-	private LineSeparator(String value) {
-		this.value = value;
-	}
-
-	private String value;
-
-	public String getValue() {
-		return this.value;
-	}
-
-	public static final LineSeparator DEFAULT_VALUE = LF;
+	SEQUENTIAL, CONCURRENT;
 
 }

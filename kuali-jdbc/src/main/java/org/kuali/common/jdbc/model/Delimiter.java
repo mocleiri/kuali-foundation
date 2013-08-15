@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc.model;
 
+import org.kuali.common.jdbc.model.enums.DelimiterMode;
 import org.kuali.common.util.Assert;
 
 public final class Delimiter {

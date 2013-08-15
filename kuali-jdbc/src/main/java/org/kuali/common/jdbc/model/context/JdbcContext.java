@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.listen.NoOpSqlListener;
 import org.kuali.common.jdbc.listen.SqlListener;
-import org.kuali.common.jdbc.model.CommitMode;
+import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 
 public final class JdbcContext {

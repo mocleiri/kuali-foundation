@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc.model.context;
 
-import org.kuali.common.jdbc.model.SqlMode;
+import org.kuali.common.jdbc.model.enums.SqlMode;
 import org.kuali.common.util.Assert;
 
 public final class SqlExecutionContext {

@@ -23,8 +23,8 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.model.Comments;
 import org.kuali.common.jdbc.model.Delimiter;
-import org.kuali.common.jdbc.model.DelimiterMode;
-import org.kuali.common.jdbc.model.LineSeparator;
+import org.kuali.common.jdbc.model.enums.DelimiterMode;
+import org.kuali.common.jdbc.model.enums.LineSeparator;
 import org.kuali.common.jdbc.model.meta.SqlMetaData;
 import org.kuali.common.util.Assert;
 
