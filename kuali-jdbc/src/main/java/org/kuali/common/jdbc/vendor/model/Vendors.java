@@ -1,47 +1,45 @@
 package org.kuali.common.jdbc.vendor.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.kuali.common.jdbc.model.Credentials;
+import org.kuali.common.jdbc.model.context.ConnectionContext;
 
 public final class Vendors {
 
-	public static final class Defaults {
+	public static final Map<Vendor, DatabaseVendorBase> DEFAULTS = getSimpleVendors();
 
-		public static final class Oracle {
+	public static final Map<Vendor, DatabaseVendorBase> getSimpleVendors() {
+		DatabaseVendorBase oracle = new DatabaseVendorBase(Codes.ORACLE, Oracle.DBA, Oracle.DRIVER);
+		DatabaseVendorBase mysql = new DatabaseVendorBase(Codes.MYSQL, MySql.DBA, MySql.DRIVER);
+		Map<Vendor, DatabaseVendorBase> map = new HashMap<Vendor, DatabaseVendorBase>();
+		map.put(Vendor.ORACLE, oracle);
+		map.put(Vendor.MYSQL, mysql);
+		return map;
+	}
 
-			public static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+	private static final class Oracle {
 
-			public static final class Dba {
-				public static final String USERNAME = "system";
-				public static final String PASSWORD = "manager";
-				public static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-			}
+		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+		private static final ConnectionContext DBA = new ConnectionContext(Dba.URL, Dba.USERNAME, Dba.PASSWORD);
 
-		}
-
-		public static final class MySql {
-
-			public static final String DRIVER = "com.mysql.jdbc.Driver";
-
-			public static final class Dba {
-				public static final String USERNAME = "root";
-				public static final String PASSWORD = Credentials.NO_PASSWORD;
-				public static final String URL = "jdbc:mysql://localhost";
-			}
+		private static final class Dba {
+			private static final String USERNAME = "system";
+			private static final String PASSWORD = "manager";
+			private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 		}
 	}
 
-	public enum Code {
+	private static final class MySql {
 
-		ORACLE(Codes.ORACLE), MYSQL(Codes.MYSQL);
+		private static final String DRIVER = "com.mysql.jdbc.Driver";
+		private static final ConnectionContext DBA = new ConnectionContext(Dba.URL, Dba.USERNAME, Dba.PASSWORD);
 
-		private Code(String value) {
-			this.value = value;
-		}
-
-		private final String value;
-
-		public String getValue() {
-			return value;
+		private static final class Dba {
+			private static final String USERNAME = "root";
+			private static final String PASSWORD = Credentials.NO_PASSWORD;
+			private static final String URL = "jdbc:mysql://localhost";
 		}
 	}
 
