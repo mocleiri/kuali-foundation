@@ -20,12 +20,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.jdbc.vendor.model.VendorCodes;
+import org.kuali.common.jdbc.vendor.model.Vendors;
 import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(VendorCodes.MYSQL)
+@Profile(Vendors.Profiles.MYSQL)
 public @interface MySql {
 
 }
