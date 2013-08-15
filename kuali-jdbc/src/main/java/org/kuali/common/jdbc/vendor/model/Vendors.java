@@ -8,12 +8,12 @@ import org.kuali.common.jdbc.model.context.ConnectionContext;
 
 public final class Vendors {
 
-	public static final Map<Vendor, DatabaseVendorBase> DEFAULTS = getSimpleVendors();
+	public static final Map<Vendor, VendorBase> DEFAULTS = getSimpleVendors();
 
-	public static final Map<Vendor, DatabaseVendorBase> getSimpleVendors() {
-		DatabaseVendorBase oracle = new DatabaseVendorBase(Codes.ORACLE, Oracle.DBA, Oracle.DRIVER);
-		DatabaseVendorBase mysql = new DatabaseVendorBase(Codes.MYSQL, MySql.DBA, MySql.DRIVER);
-		Map<Vendor, DatabaseVendorBase> map = new HashMap<Vendor, DatabaseVendorBase>();
+	public static final Map<Vendor, VendorBase> getSimpleVendors() {
+		VendorBase oracle = new VendorBase(Vendor.ORACLE, Oracle.DBA, Oracle.DRIVER);
+		VendorBase mysql = new VendorBase(Vendor.MYSQL, MySql.DBA, MySql.DRIVER);
+		Map<Vendor, VendorBase> map = new HashMap<Vendor, VendorBase>();
 		map.put(Vendor.ORACLE, oracle);
 		map.put(Vendor.MYSQL, mysql);
 		return map;
