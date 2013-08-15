@@ -6,13 +6,15 @@ import org.kuali.common.util.nullify.NullUtils;
 public final class Credentials {
 
 	public static final Credentials EMPTY = new Credentials();
+	public static final String NO_USERNAME = NullUtils.NONE;
+	public static final String NO_PASSWORD = NullUtils.NONE;
 
 	public Credentials() {
-		this(NullUtils.NONE, NullUtils.NONE);
+		this(NO_USERNAME, NO_PASSWORD);
 	}
 
 	public Credentials(String username) {
-		this(username, NullUtils.NONE);
+		this(username, NO_PASSWORD);
 	}
 
 	public Credentials(String username, String password) {
