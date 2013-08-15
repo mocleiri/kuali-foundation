@@ -13,27 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.execute;
+package org.kuali.common.jdbc.show;
 
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.DatabaseContext;
 import org.kuali.common.jdbc.service.JdbcService;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class ShowDbaConfigExecutable implements Executable {
+public final class ShowConfigExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(ShowDbaConfigExecutable.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(ShowConfigExecutable.class);
 	public static final boolean DEFAULT_SKIP = false;
 
-	public ShowDbaConfigExecutable(DatabaseContext context, DataSource dataSource, JdbcService service) {
+	public ShowConfigExecutable(DatabaseContext context, DataSource dataSource, JdbcService service) {
 		this(context, dataSource, service, DEFAULT_SKIP);
 	}
 
-	public ShowDbaConfigExecutable(DatabaseContext context, DataSource dataSource, JdbcService service, boolean skip) {
+	public ShowConfigExecutable(DatabaseContext context, DataSource dataSource, JdbcService service, boolean skip) {
+		Assert.noNulls(context, dataSource, service);
 		this.context = context;
 		this.dataSource = dataSource;
 		this.service = service;
@@ -53,7 +54,6 @@ public final class ShowDbaConfigExecutable implements Executable {
 		}
 
 		ShowUtils.showOpen(logger, context);
-		ShowUtils.showDba(logger, context.getDba());
 		ShowUtils.showClose(logger, context, service, dataSource);
 	}
 

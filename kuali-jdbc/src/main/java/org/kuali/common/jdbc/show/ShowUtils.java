@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.execute;
+package org.kuali.common.jdbc.show;
 
 import javax.sql.DataSource;
 
