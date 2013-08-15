@@ -1,14 +1,18 @@
 package org.kuali.common.jdbc.service.spring;
 
 import java.sql.Driver;
+import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.service.spring.annotation.MySql;
 import org.kuali.common.jdbc.service.spring.annotation.Oracle;
-import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.jdbc.vendor.model.Vendor;
+import org.kuali.common.jdbc.vendor.model.VendorBase;
 import org.kuali.common.jdbc.vendor.model.Vendors;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -28,13 +32,13 @@ public class DatabaseVendorsConfig {
 		@Autowired
 		EnvironmentService env;
 
-		public static final VendorDefaults DEFAULTS = VendorDefaults.ORACLE;
+		public static final VendorBase BASE = Vendors.DEFAULTS.get(Vendors.Profiles.ORACLE);
 
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			String url = getString(env, DEFAULTS.getVendor(), "url", DEFAULTS.getDba().getUrl());
-			return getDatabaseVendor(env, DEFAULTS, url);
+			String url = getString(env, BASE.getVendor(), "url", BASE.getDba().getUrl());
+			return getDatabaseVendor(env, BASE, url);
 		}
 	}
 
@@ -46,49 +50,53 @@ public class DatabaseVendorsConfig {
 		@Autowired
 		EnvironmentService env;
 
-		public static final VendorDefaults DEFAULTS = VendorDefaults.ORACLE;
+		public static final VendorBase BASE = Vendors.DEFAULTS.get(Vendors.Profiles.MYSQL);
 
 		@Override
 		@Bean
 		public DatabaseVendor databaseVendor() {
-			String url = getString(env, DEFAULTS.getVendor(), "url", DEFAULTS.getDba().getUrl()) + "/" + env.getString("jdbc.username");
-			return getDatabaseVendor(env, DEFAULTS, url);
+			String url = getString(env, BASE.getVendor(), "url", BASE.getDba().getUrl()) + "/" + env.getString("jdbc.username");
+			return getDatabaseVendor(env, BASE, url);
 		}
 
 	}
 
-	public static DatabaseVendor getDatabaseVendor(EnvironmentService env, VendorDefaults defaults, String url) {
-		Vendors vendor = defaults.getVendor();
-		Class<? extends Driver> driver = getDriver(env, defaults);
-		ConnectionContext dba = getDbaContext(env, defaults);
-		AdminSql sql = getAdminSql(env, vendor);
-		String dbaAfter = getString(env, vendor, "dba.after", null);
-		return new DatabaseVendor(vendor, dba, url, driver, sql, dbaAfter);
+	public static Properties getSql(EnvironmentService env, Vendor vendor) {
+		List<String> keys = Vendors.DEFAULT_SQL_KEYS;
+		Properties props = new Properties();
+		for (String key : keys) {
+			String fullKey = vendor.getCode() + "." + key;
+			String sql = env.getString(fullKey);
+			props.setProperty(fullKey, sql);
+		}
+		return PropertyUtils.toImmutable(props);
 	}
 
-	protected static Class<? extends Driver> getDriver(EnvironmentService env, VendorDefaults defaults) {
-		Class<? extends Driver> defaultClass = ReflectionUtils.newInstance(defaults.getDriver());
-		String code = defaults.getVendor().getCode();
+	public static DatabaseVendor getDatabaseVendor(EnvironmentService env, VendorBase base, String url) {
+		Vendor vendor = base.getVendor();
+		Class<? extends Driver> driver = getDriver(env, base);
+		ConnectionContext dba = getDbaContext(env, base);
+		Properties sql = getSql(env, vendor);
+		return new DatabaseVendor(vendor, dba, url, driver, sql);
+	}
+
+	protected static Class<? extends Driver> getDriver(EnvironmentService env, VendorBase base) {
+		Class<? extends Driver> defaultClass = ReflectionUtils.newInstance(base.getDriver());
+		String code = base.getVendor().getCode();
 		return env.getClass(code + ".driver", Driver.class, defaultClass);
 	}
 
-	protected static String getString(EnvironmentService env, Vendors vendor, String suffix, String defaultValue) {
+	protected static String getString(EnvironmentService env, Vendor vendor, String suffix, String defaultValue) {
 		return env.getString(vendor.getCode() + "." + suffix, defaultValue);
 	}
 
-	protected static ConnectionContext getDbaContext(EnvironmentService env, VendorDefaults defaults) {
-		Credentials auth = defaults.getDba().getCredentials();
-		Vendors vendor = defaults.getVendor();
+	protected static ConnectionContext getDbaContext(EnvironmentService env, VendorBase base) {
+		Credentials auth = base.getDba().getCredentials();
+		Vendor vendor = base.getVendor();
 		String dbaUsr = env.getString(vendor.getCode() + ".dba.username", auth.getUsername());
 		String dbaPwd = env.getString(vendor.getCode() + ".dba.password", auth.getPassword());
-		String dbaUrl = env.getString(vendor.getCode() + ".dba.url", defaults.getDba().getUrl());
+		String dbaUrl = env.getString(vendor.getCode() + ".dba.url", base.getDba().getUrl());
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}
 
-	protected static AdminSql getAdminSql(EnvironmentService env, Vendors vendor) {
-		String validate = env.getString(vendor.getCode() + ".validate");
-		String create = env.getString(vendor.getCode() + ".create");
-		String drop = env.getString(vendor.getCode() + ".drop");
-		return new AdminSql(validate, create, drop);
-	}
 }
