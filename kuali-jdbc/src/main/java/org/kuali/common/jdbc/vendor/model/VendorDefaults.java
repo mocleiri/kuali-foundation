@@ -3,7 +3,7 @@ package org.kuali.common.jdbc.vendor.model;
 import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 
-public abstract class VendorDefaults {
+public final class VendorDefaults {
 
 	public static final class Oracle {
 
