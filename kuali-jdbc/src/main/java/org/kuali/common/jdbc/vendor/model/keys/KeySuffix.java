@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.vendor.model.keys;
 
-public interface Value {
+public interface KeySuffix {
 
 	String getValue();
 

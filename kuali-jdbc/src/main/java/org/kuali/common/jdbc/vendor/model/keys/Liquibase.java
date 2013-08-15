@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.vendor.model.keys;
 
-public enum Liquibase implements Value {
+public enum Liquibase implements KeySuffix {
 
 	DROP("liquibase.drop"), CREATE("liquibase.create");
 

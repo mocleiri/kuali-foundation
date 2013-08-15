@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.vendor.model.keys;
 
-public enum Admin implements Value {
+public enum Admin implements KeySuffix {
 
 	VALIDATE("validate"), DROP("drop"), CREATE("create");
 
