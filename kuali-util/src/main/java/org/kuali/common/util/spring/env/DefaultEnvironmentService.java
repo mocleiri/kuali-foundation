@@ -6,6 +6,17 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.springframework.core.env.Environment;
 
+/**
+ * <p>
+ * By default, this service throws an exception if a value cannot be located for any key (unless a default value has been supplied).
+ * </p>
+ * 
+ * <p>
+ * By default environment variables are automatically checked if a normal property value cannot be found.
+ * 
+ * For example, given the key <code>db.vendor</code> the service will also automatically check <code>env.DB_VENDOR</code>
+ * </p>
+ */
 public class DefaultEnvironmentService implements EnvironmentService {
 
 	public static final boolean DEFAULT_CHECK_ENVIRONMENT_VARIABLES = true;
