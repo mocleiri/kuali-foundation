@@ -56,7 +56,7 @@ public class DumpDatabase implements MainConfig {
 	public Executable main() {
 		PropertySource<?> source = mainService.getPropertySource(mainContext, DumpDatabasePropertySourceConfig.class);
 		String vendor = (String) source.getProperty("db.vendor");
-		List<String> activeProfiles = CollectionUtils.noNullsSingletonList(vendor);
+		List<String> activeProfiles = CollectionUtils.singletonList(vendor);
 		return SpringExecUtils.getSpringExecutable(service, source, DumpDatabaseExecutableConfig.class, activeProfiles);
 	}
 
