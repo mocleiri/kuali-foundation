@@ -551,7 +551,23 @@
                     <table class="elementhead_table CustomData01" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c1"><img id="img1" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c1").toggle(
+											function()
+											{
+												$("#div1").slideUp(200);
+												$("#img1").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div1").slideDown(400);
+												$("#img1").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Surgical Procedures: Non-survival 
                             </th>
                             <th class="elementhead_right">
@@ -559,7 +575,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData01" style="display:none;" >
+                    <div id="div1" class="CustomData01" style="display:none;" >
                         <table class="content_table"> 
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -606,7 +622,23 @@
                     <table class="elementhead_table CustomData02" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c2"><img id="img2" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c2").toggle(
+											function()
+											{
+												$("#div2").slideUp(200);
+												$("#img2").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div2").slideDown(400);
+												$("#img2").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Surgical Procedures: Multiple Major Survival
                             </th>
                             <th class="elementhead_right">
@@ -614,7 +646,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData02" style="display:none;" >
+                    <div id="div2" class="CustomData02" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -661,15 +693,31 @@
                     <table class="elementhead_table CustomData03">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
-                                Surgical Procedures: Survival
+                                <a href="#" id="c3"><img id="img3" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c3").toggle(
+											function()
+											{
+												$("#div3").slideUp(200);
+												$("#img3").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div3").slideDown(400);
+												$("#img3").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
+								Surgical Procedures: Survival
                             </th>
                             <th class="elementhead_right">
                                 <input src="../images/my_cp_inf.gif" onclick="javascript: alert('This would open the help dialog for this section.'); return false;" style="border:none;" alt="help" title="Help" type="image" />
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData03" >
+                    <div id="div3" class="CustomData03" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -731,7 +779,7 @@
                                     <input type="text" style="width:50px;" value="10" />
                                 </td>
                                 <td class="content_white" style="width:70px; text-align:center;" rowspan="2">
-                                    <img src="../images/tinybutton-update.gif" style="border:none;" alt="update" title="Update" type="image" onclick="alert('This would update the indicated record.');" />
+                                    <img src="../images/tinybutton-save1.gif" style="border:none;" alt="update" title="Save" type="image" onclick="alert('This would update the indicated record.');" />
                                     <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" type="image" onclick="alert('This would delete the associated species.');" />
                                 </td>
                             </tr>
@@ -870,7 +918,7 @@
                                     <input type="text" style="width:50px;" value="8" />
                                 </td>
                                 <td class="content_white" style="width:70px; text-align:center;" rowspan="2">
-                                    <img src="../images/tinybutton-update.gif" style="border:none;" alt="update" title="Update" type="image" onclick="alert('This would update the indicated record.');" />
+                                    <img src="../images/tinybutton-save1.gif" style="border:none;" alt="update" title="Save" type="image" onclick="alert('This would update the indicated record.');" />
                                     <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" type="image" onclick="alert('This would delete the associated species.');" />
                                 </td>
                             </tr>
@@ -997,7 +1045,23 @@
                     <table class="elementhead_table CustomData04" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c4a"><img id="img4a" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c4a").toggle(
+											function()
+											{
+												$("#div4a").slideUp(200);
+												$("#img4a").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div4a").slideDown(400);
+												$("#img4a").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Xenografts
                             </th>
                             <th class="elementhead_right">
@@ -1005,7 +1069,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData04" style="display:none;" >
+                    <div id="div4a" class="CustomData04" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1052,7 +1116,23 @@
                     <table class="elementhead_table CustomData05" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c4"><img id="img4" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c4").toggle(
+											function()
+											{
+												$("#div4").slideUp(200);
+												$("#img4").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div4").slideDown(400);
+												$("#img4").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Antibody Production
                             </th>
                             <th class="elementhead_right">
@@ -1060,7 +1140,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData05" style="display:none;" >
+                    <div id="div4" class="CustomData05" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1107,7 +1187,23 @@
                     <table class="elementhead_table CustomData06" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c5"><img id="img5" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c5").toggle(
+											function()
+											{
+												$("#div5").slideUp(200);
+												$("#img5").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div5").slideDown(400);
+												$("#img5").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Implantation/Injection
                             </th>
                             <th class="elementhead_right">
@@ -1115,7 +1211,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData06" style="display:none;" >
+                    <div id="div5" class="CustomData06" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1162,7 +1258,23 @@
                     <table class="elementhead_table CustomData07" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c7"><img id="img7" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c7").toggle(
+											function()
+											{
+												$("#div7").slideUp(200);
+												$("#img1").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div7").slideDown(400);
+												$("#img7").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Fluid Sampling
                             </th>
                             <th class="elementhead_right">
@@ -1170,7 +1282,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData07" style="display:none;" >
+                    <div id="div7" class="CustomData07" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1217,7 +1329,23 @@
                     <table class="elementhead_table CustomData08" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c8"><img id="img8" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c8").toggle(
+											function()
+											{
+												$("#div8").slideUp(200);
+												$("#img8").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div8").slideDown(400);
+												$("#img8").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Nutritional Studies
                             </th>
                             <th class="elementhead_right">
@@ -1225,7 +1353,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData08" style="display:none;" >
+                    <div id="div8" class="CustomData08" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1272,7 +1400,23 @@
                     <table class="elementhead_table CustomData09" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c9"><img id="img9" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c9").toggle(
+											function()
+											{
+												$("#div9").slideUp(200);
+												$("#img9").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div9").slideDown(400);
+												$("#img9").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Breeding
                             </th>
                             <th class="elementhead_right">
@@ -1280,7 +1424,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData09" style="display:none;" >
+                    <div id="div9" class="CustomData09" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1327,7 +1471,23 @@
                     <table class="elementhead_table CustomData10" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c10"><img id="img10" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c10").toggle(
+											function()
+											{
+												$("#div10").slideUp(200);
+												$("#img10").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div10").slideDown(400);
+												$("#img10").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Anesthesia/Analgesia
                             </th>
                             <th class="elementhead_right">
@@ -1335,7 +1495,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData10" style="display:none;" >
+                    <div id="div10" class="CustomData10" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1382,7 +1542,23 @@
                     <table class="elementhead_table CustomData11" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c11"><img id="img11" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c11").toggle(
+											function()
+											{
+												$("#div11").slideUp(200);
+												$("#img11").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div11").slideDown(400);
+												$("#img11").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Behavioral Studies
                             </th>
                             <th class="elementhead_right">
@@ -1390,7 +1566,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData11" style="display:none;" >
+                    <div id="div11" class="CustomData11" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1437,7 +1613,23 @@
                     <table class="elementhead_table CustomData12" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c12"><img id="img12" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c12").toggle(
+											function()
+											{
+												$("#div12").slideUp(200);
+												$("#img12").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div12").slideDown(400);
+												$("#img12").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Blood Collection
                             </th>
                             <th class="elementhead_right">
@@ -1445,7 +1637,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData12" style="display:none;" >
+                    <div id="div12" class="CustomData12" style="display:none;" >
                         <table class="content_table"> 
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1492,7 +1684,23 @@
                     <table class="elementhead_table CustomData13" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c13"><img id="img13" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c13").toggle(
+											function()
+											{
+												$("#div13").slideUp(200);
+												$("#img13").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div13").slideDown(400);
+												$("#img13").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Drug Administration
                             </th>
                             <th class="elementhead_right">
@@ -1500,7 +1708,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData13" style="display:none;" >
+                    <div id="div13" class="CustomData13" style="display:none;" >
                         <table class="content_table"> 
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1547,7 +1755,23 @@
                     <table class="elementhead_table CustomData14">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c14"><img id="img14" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c14").toggle(
+											function()
+											{
+												$("#div14").slideUp(200);
+												$("#img14").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div14").slideDown(400);
+												$("#img14").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Food/Fluid Restriction (not pre-sx)
                             </th>
                             <th class="elementhead_right">
@@ -1555,7 +1779,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData14" >
+                    <div id="div14" class="CustomData14" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1616,7 +1840,7 @@
                                     <input type="text" style="width:50px;" value="5" />
                                 </td>
                                 <td class="content_white" style="width:70px; text-align:center;" rowspan="2">
-                                    <img src="../images/tinybutton-update.gif" style="border:none;" alt="update" title="Update" type="image" onclick="alert('This would update the indicated record.');" />
+                                    <img src="../images/tinybutton-save1.gif" style="border:none;" alt="update" title="Save" type="image" onclick="alert('This would update the indicated record.');" />
                                     <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" type="image" onclick="alert('This would delete the associated species.');" />
                                 </td>
                             </tr>
@@ -1684,7 +1908,23 @@
                     <table class="elementhead_table CustomData15" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c15"><img id="img15" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c15").toggle(
+											function()
+											{
+												$("#div15").slideUp(200);
+												$("#img15").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div15").slideDown(400);
+												$("#img15").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Gavage (Oral or Other)
                             </th>
                             <th class="elementhead_right">
@@ -1692,7 +1932,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData15" style="display:none;" >
+                    <div id="div15" class="CustomData15" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1739,7 +1979,23 @@
                     <table class="elementhead_table CustomData16" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c16"><img id="img16" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c16").toggle(
+											function()
+											{
+												$("#div16").slideUp(200);
+												$("#img16").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div16").slideDown(400);
+												$("#img16").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Handling
                             </th>
                             <th class="elementhead_right">
@@ -1747,7 +2003,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData16" style="display:none;" >
+                    <div id="div16" class="CustomData16" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1794,7 +2050,23 @@
                     <table class="elementhead_table CustomData17" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c17"><img id="img17" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c17").toggle(
+											function()
+											{
+												$("#div17").slideUp(200);
+												$("#img17").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div17").slideDown(400);
+												$("#img17").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Imaging
                             </th>
                             <th class="elementhead_right">
@@ -1802,7 +2074,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData17" style="display:none;" >
+                    <div id="div17" class="CustomData17" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1849,7 +2121,23 @@
                     <table class="elementhead_table CustomData18" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c18"><img id="img18" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c18").toggle(
+											function()
+											{
+												$("#div18").slideUp(200);
+												$("#img18").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div18").slideDown(400);
+												$("#img18").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Physiology Testing
                             </th>
                             <th class="elementhead_right">
@@ -1857,7 +2145,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData18" style="display:none;" >
+                    <div id="div18" class="CustomData18" style="display:none;" >
                         <table class="content_table"> 
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1904,7 +2192,23 @@
                     <table class="elementhead_table CustomData19" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c19"><img id="img19" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c19").toggle(
+											function()
+											{
+												$("#div19").slideUp(200);
+												$("#img19").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div19").slideDown(400);
+												$("#img19").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Prolonged Restraint (Chemical or Physical)
                             </th>
                             <th class="elementhead_right">
@@ -1912,7 +2216,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData19" style="display:none;" >
+                    <div id="div19" class="CustomData19" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -1959,7 +2263,23 @@
                     <table class="elementhead_table CustomData20" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c21"><img id="img21" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c21").toggle(
+											function()
+											{
+												$("#div21").slideUp(200);
+												$("#img21").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div21").slideDown(400);
+												$("#img21").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Non-surgical Procedures: Tissue or Cell Sampling/Biopsy
                             </th>
                             <th class="elementhead_right">
@@ -1967,7 +2287,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData20" style="display:none;" >
+                    <div id="div21" class="CustomData20" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2016,7 +2336,23 @@
                     <table class="elementhead_table CustomData21" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c22"><img id="img22" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c22").toggle(
+											function()
+											{
+												$("#div22").slideUp(200);
+												$("#img22").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div22").slideDown(400);
+												$("#img22").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Euthanasia: Chemical Method
                             </th>
                             <th class="elementhead_right">
@@ -2024,7 +2360,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData21" style="display:none;" >
+                    <div id="div22" class="CustomData21" style="display:none;" >
                         <table class="content_table">   
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2071,7 +2407,23 @@
                     <table class="elementhead_table CustomData22" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c23"><img id="img23" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c23").toggle(
+											function()
+											{
+												$("#div23").slideUp(200);
+												$("#img23").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div23").slideDown(400);
+												$("#img23").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Euthanasia: Physical Method
                             </th>
                             <th class="elementhead_right">
@@ -2079,7 +2431,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData22" style="display:none;" >
+                    <div id="div23" class="CustomData22" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2126,7 +2478,23 @@
                     <table class="elementhead_table CustomData23" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c24"><img id="img24" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c24").toggle(
+											function()
+											{
+												$("#div24").slideUp(200);
+												$("#img24").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div24").slideDown(400);
+												$("#img24").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Euthanasia: Chemical/Physical Combined
                             </th>
                             <th class="elementhead_right">
@@ -2134,7 +2502,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData23" style="display:none;" >
+                    <div id="div24" class="CustomData23" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2183,7 +2551,23 @@
                     <table class="elementhead_table CustomData24" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c25"><img id="img25" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c25").toggle(
+											function()
+											{
+												$("#div25").slideUp(200);
+												$("#img25").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div25").slideDown(400);
+												$("#img25").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Drugs: Paralytics
                             </th>
                             <th class="elementhead_right">
@@ -2191,7 +2575,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData24" style="display:none;" >
+                    <div id="div25" class="CustomData24" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2238,7 +2622,23 @@
                     <table class="elementhead_table CustomData25">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c26"><img id="img26" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c26").toggle(
+											function()
+											{
+												$("#div26").slideUp(200);
+												$("#img26").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div26").slideDown(400);
+												$("#img26").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Drugs: Anesthesia
                             </th>
                             <th class="elementhead_right">
@@ -2246,7 +2646,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData25" >
+                    <div id="div26" class="CustomData25" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2307,7 +2707,7 @@
                                     <input type="text" style="width:50px;" value="20" />
                                 </td>
                                 <td class="content_white" style="width:70px; text-align:center;" rowspan="2">
-                                    <img src="../images/tinybutton-update.gif" style="border:none;" alt="update" title="Update" type="image" onclick="alert('This would update the indicated record.');" />
+                                    <img src="../images/tinybutton-save1.gif" style="border:none;" alt="update" title="Save" type="image" onclick="alert('This would update the indicated record.');" />
                                     <img src="../images/tinybutton-delete1.gif" style="border:none;" alt="delete" title="Delete" type="image" onclick="alert('This would delete the associated species.');" />
                                 </td>
                             </tr>
@@ -2384,7 +2784,23 @@
                     <table class="elementhead_table CustomData26" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c27"><img id="img27" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c27").toggle(
+											function()
+											{
+												$("#div27").slideUp(200);
+												$("#img27").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div27").slideDown(400);
+												$("#img27").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Drugs: Analgesics
                             </th>
                             <th class="elementhead_right">
@@ -2392,7 +2808,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData26" style="display:none;" >
+                    <div id="div27" class="CustomData26" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2441,7 +2857,23 @@
                     <table class="elementhead_table CustomData27" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c28"><img id="img28" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c28").toggle(
+											function()
+											{
+												$("#div28").slideUp(200);
+												$("#img28").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div28").slideDown(400);
+												$("#img28").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Hazardous Agents : Aversive Stimuli
                             </th>
                             <th class="elementhead_right">
@@ -2449,7 +2881,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData27" style="display:none;" >
+                    <div id="div28" class="CustomData27" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2496,7 +2928,23 @@
                     <table class="elementhead_table CustomData28" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c29"><img id="img29" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c29").toggle(
+											function()
+											{
+												$("#div29").slideUp(200);
+												$("#img29").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div29").slideDown(400);
+												$("#img29").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Hazardous Agents : Irradiation
                             </th>
                             <th class="elementhead_right">
@@ -2504,7 +2952,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData28" style="display:none;" >
+                    <div id="div29" class="CustomData28" style="display:none;" >
                         <table class="content_table">   
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2551,7 +2999,23 @@
                     <table class="elementhead_table CustomData29" style="display:none;">
                         <tr>
                             <th class="elementhead_left">
-                                <!--<a href="#" class="control01"><img id="image01" src="../images/tinybutton-show.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>-->
+                                <a href="#" id="c30"><img id="img30" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+                                <script type="text/javascript">
+									$(document).ready(function(){
+										$("#c30").toggle(
+											function()
+											{
+												$("#div30").slideUp(200);
+												$("#img30").attr("src","../images/tinybutton-show.gif");
+											},
+											function()
+											{
+												$("#div30").slideDown(400);
+												$("#img30").attr("src","../images/tinybutton-hide.gif");
+											}
+										);	
+									});
+								</script>
                                 Hazardous Agents : Radioactive Isotopes
                             </th>
                             <th class="elementhead_right">
@@ -2559,7 +3023,7 @@
                             </th>
                         </tr>
                     </table>
-                    <div id="div_procedures" class="CustomData29" style="display:none;" >
+                    <div id="div30" class="CustomData29" style="display:none;" >
                         <table class="content_table">  
                             <tr>
                                 <td class="content_grey" style="text-align:center;">&nbsp;
@@ -2679,7 +3143,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:left;" colspan="2">
-                                                    Species: <input type="text" style="width:300px;" value="Flying Frogs" />
+                                                    Species: Flying Frogs
                                                 </td>
                                             </tr> 
                                             <tr>
@@ -2692,7 +3156,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:left;" colspan="2">
-                                                    Species: <input type="text" style="width:300px;" value="Flying Salamanders " />
+                                                    Species: Flying Salamanders
                                                 </td>
                                             </tr> 
                                             <tr>
@@ -2714,7 +3178,7 @@
                                                     <table style="border:none; background:none; width:100%;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td style="border:none; background:none;">
-                                                                <textarea name="z" style="width:100%; text-align:left;" rows="4">Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design.</textarea>
+                                                                <textarea name="z" style="width:100%; height:160px; text-align:left;" rows="4">Works well under pressure as part of a team. Well-groomed appearance. Polite, respectful, and courteous manners. Responsible, efficient, and flexible. Ability to work in a fast-paced, intense environment smoothly. Ability to elicit confidence and build rapport.  Beer pong champion of the world. Talented in problem solving and office system design.</textarea>
                                                             </td>
                                                             <td style="border:none; background:none; width:26px; vertical-align:bottom; text-align:center;">
                                                                 <input name="x" src="../images/pencil_add.png" onclick="javascript: alert('This would open a larger editable text area for this field.'); return false" style="border:none;" alt="Expanded Text Area" type="image" />
@@ -2888,7 +3352,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:left;" colspan="2">
-                                                    Species: <input type="text" style="width:300px;" value="Flying Frogs" />
+                                                    Species: Flying Frogs
                                                 </td>
                                             </tr> 
                                             <tr>
@@ -2901,7 +3365,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="content_grey" style="text-align:left;" colspan="2">
-                                                    Species: <input type="text" style="width:300px;" value="Flying Salamanders " />
+                                                    Species: Flying Salamanders
                                                 </td>
                                             </tr> 
                                             <tr>
@@ -3036,10 +3500,29 @@
                                         <!-- header -->
                                         <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
                                             <div>
-                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Group 1: Flying Frogs</strong></div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;">
+                                                <a href="#" id="c100"><img id="img100" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+												<script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        $("#c100").toggle(
+                                                            function()
+                                                            {
+                                                                $("#div100").slideUp(200);
+                                                                $("#img100").attr("src","../images/tinybutton-show.gif");
+                                                            },
+                                                            function()
+                                                            {
+                                                                $("#div100").slideDown(400);
+                                                                $("#img100").attr("src","../images/tinybutton-hide.gif");
+                                                            }
+                                                        );	
+                                                    });
+                                                </script>
+                                                <strong>Group 1: Flying Frogs</strong></div>
                                                 <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 15</div>
                                             </div>
                                         </div>
+                                        <div id="div100">
                                         
                                         <!-- Surgical Procedures: Survival  -->
                                         <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
@@ -3105,6 +3588,8 @@
                                             
                                         </div>
                                         
+                                        </div>
+                                        
                                     </div>
                                     
                                     <!-- Group 2: Flying Salamanders  -->
@@ -3113,10 +3598,29 @@
                                         <!-- header -->
                                         <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
                                             <div>
-                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Group 2: Flying Salamanders </strong></div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;">
+                                                <a href="#" id="c101"><img id="img101" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+												<script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        $("#c101").toggle(
+                                                            function()
+                                                            {
+                                                                $("#div101").slideUp(200);
+                                                                $("#img101").attr("src","../images/tinybutton-show.gif");
+                                                            },
+                                                            function()
+                                                            {
+                                                                $("#div101").slideDown(400);
+                                                                $("#img101").attr("src","../images/tinybutton-hide.gif");
+                                                            }
+                                                        );	
+                                                    });
+                                                </script>
+                                                <strong>Group 2: Flying Salamanders </strong></div>
                                                 <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 8</div>
                                             </div>
                                         </div>
+                                        <div id="div101">
                                         
                                         <!-- Surgical Procedures: Survival  -->
                                         <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
@@ -3150,6 +3654,8 @@
                                             
                                         </div>
                                         
+                                        </div>
+                                        
                                     </div>
                                     
                                     <!-- Group 3: Flying Salamanders  -->
@@ -3158,10 +3664,29 @@
                                         <!-- header -->
                                         <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
                                             <div>
-                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Group 3: Flying Salamanders </strong></div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;">
+                                                <a href="#" id="c102"><img id="img102" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+												<script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        $("#c102").toggle(
+                                                            function()
+                                                            {
+                                                                $("#div102").slideUp(200);
+                                                                $("#img102").attr("src","../images/tinybutton-show.gif");
+                                                            },
+                                                            function()
+                                                            {
+                                                                $("#div102").slideDown(400);
+                                                                $("#img102").attr("src","../images/tinybutton-hide.gif");
+                                                            }
+                                                        );	
+                                                    });
+                                                </script>
+                                                <strong>Group 3: Flying Salamanders </strong></div>
                                                 <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 20</div>
                                             </div>
                                         </div>
+                                        <div id="div102">
                                         
                                         <!-- Drugs: Anesthesia Species -->
                                         <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
@@ -3193,6 +3718,8 @@
                                                 Description
                                             </div>
                                             
+                                        </div>
+                                        
                                         </div>
                                         
                                     </div>
@@ -3207,10 +3734,29 @@
                                         <!-- header -->
                                         <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
                                             <div>
-                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Flying Frogs</strong></div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;">
+                                                <a href="#" id="c105"><img id="img105" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+												<script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        $("#c105").toggle(
+                                                            function()
+                                                            {
+                                                                $("#div105").slideUp(200);
+                                                                $("#img105").attr("src","../images/tinybutton-show.gif");
+                                                            },
+                                                            function()
+                                                            {
+                                                                $("#div105").slideDown(400);
+                                                                $("#img105").attr("src","../images/tinybutton-hide.gif");
+                                                            }
+                                                        );	
+                                                    });
+                                                </script>
+                                                <strong>Flying Frogs</strong></div>
                                                 <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 15</div>
                                             </div>
                                         </div>
+                                        <div id="div105">
                                         
                                         <!-- Surgical Procedures: Survival  -->
                                         <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
@@ -3276,6 +3822,8 @@
                                             
                                         </div>
                                         
+                                        </div>
+                                        
                                     </div>
                                     
                                     <!-- Flying Salamanders  -->
@@ -3284,10 +3832,29 @@
                                         <!-- header -->
                                         <div style="width:100%; background-color:#CCC; padding:0px; margin:0px; border-bottom:1px solid #999; height:21px;">
                                             <div>
-                                                <div style="float:left; width:250px; padding:3px; height:15px;"><strong>Flying Salamanders </strong></div>
+                                                <div style="float:left; width:250px; padding:3px; height:15px;">
+                                                <a href="#" id="c106"><img id="img106" src="../images/tinybutton-hide.gif" alt="show/hide sub-panel" width="45" height="15" border="0" align="top" /></a>
+												<script type="text/javascript">
+                                                    $(document).ready(function(){
+                                                        $("#c106").toggle(
+                                                            function()
+                                                            {
+                                                                $("#div106").slideUp(200);
+                                                                $("#img106").attr("src","../images/tinybutton-show.gif");
+                                                            },
+                                                            function()
+                                                            {
+                                                                $("#div106").slideDown(400);
+                                                                $("#img106").attr("src","../images/tinybutton-hide.gif");
+                                                            }
+                                                        );	
+                                                    });
+                                                </script>
+                                                <strong>Flying Salamanders </strong></div>
                                                 <div style="float:right; width:125px; border-left:1px solid #999; padding:3px; height:15px;">Total Count: 28</div>
                                             </div>
                                         </div>
+                                        <div id="div106">
                                         
                                         <!-- Surgical Procedures: Survival  -->
                                         <div style="border:1px solid #999; padding:0px; margin:15px; margin-left:30px; background-image:url('../BFN/images/black05.png');">
@@ -3351,6 +3918,8 @@
                                                 Description
                                             </div>
                                             
+                                        </div>
+                                        
                                         </div>
                                         
                                     </div>
