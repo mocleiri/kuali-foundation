@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.model.meta.SqlMetaData;
+import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

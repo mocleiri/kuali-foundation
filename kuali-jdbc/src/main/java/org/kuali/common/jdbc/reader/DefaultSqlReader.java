@@ -21,11 +21,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.model.meta.SqlMetaData;
 import org.kuali.common.jdbc.reader.model.Comments;
 import org.kuali.common.jdbc.reader.model.Delimiter;
 import org.kuali.common.jdbc.reader.model.DelimiterMode;
 import org.kuali.common.jdbc.reader.model.LineSeparator;
+import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
 
 public final class DefaultSqlReader implements SqlReader {
