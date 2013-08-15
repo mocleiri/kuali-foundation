@@ -29,7 +29,7 @@ public class JdbcContextConfig {
 	}
 
 	protected ConnectionContext getNormal() {
-		String username = env.getString("jdbc.username"); // No default value. They must supply ${jdbc.username}
+		String username = env.getString("jdbc.username"); // No default value. They must supply jdbc.username
 		String password = env.getString("jdbc.password", username);
 		String url = env.getString("jdbc.url", vendor.getUrl());
 		return new ConnectionContext(url, username, password);
