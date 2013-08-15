@@ -21,38 +21,30 @@ public final class Vendors {
 	}
 
 	private static final class Oracle {
-
 		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 		private static final String USERNAME = "system";
 		private static final String PASSWORD = "manager";
 		private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 		private static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
-
 	}
 
 	private static final class MySql {
-
 		private static final String DRIVER = "com.mysql.jdbc.Driver";
 		private static final String USERNAME = "root";
 		private static final String PASSWORD = Credentials.NO_PASSWORD;
 		private static final String URL = "jdbc:mysql://localhost";
 		private static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
-
 	}
 
 	// This is used by the Vendor enum
 	public static final class Codes {
-
 		public static final String ORACLE = "oracle";
 		public static final String MYSQL = "mysql";
-
 	}
 
 	// This is used when working with Spring annotations.
 	public static final class Profiles {
-
 		public static final String ORACLE = Codes.ORACLE;
 		public static final String MYSQL = Codes.MYSQL;
-
 	}
 }
