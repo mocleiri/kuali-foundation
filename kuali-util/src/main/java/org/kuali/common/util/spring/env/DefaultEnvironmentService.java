@@ -8,11 +8,15 @@ import org.springframework.core.env.Environment;
 
 /**
  * <p>
- * By default, this service throws an exception if a value cannot be located for any key (unless a default value has been supplied).
+ * By default, an exception is thrown if a value cannot be located (unless a default value has been supplied).
  * </p>
  * 
  * <p>
- * By default environment variables are automatically checked if a normal property value cannot be found.
+ * By default, an exception is thrown if any placeholders cannot be resolved in any string values.
+ * </p>
+ * 
+ * <p>
+ * By default, environment variables are automatically checked if a normal property value cannot be found.
  * 
  * For example, given the key <code>db.vendor</code> the service will also automatically check <code>env.DB_VENDOR</code>
  * </p>
