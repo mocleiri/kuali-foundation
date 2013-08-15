@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.service.spring;
 
 import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.sql.model.Connections;
+import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DatabaseVendorsConfig.class })
-public class ConnectionsConfig {
+public class JdbcConnectionsConfig {
 
 	@Autowired
 	DatabaseVendor vendor;
@@ -22,10 +22,10 @@ public class ConnectionsConfig {
 	EnvironmentService env;
 
 	@Bean
-	public Connections connections() {
+	public JdbcConnections connections() {
 		ConnectionContext normal = getNormal();
 		ConnectionContext dba = getDba();
-		return new Connections(normal, dba);
+		return new JdbcConnections(normal, dba);
 	}
 
 	protected ConnectionContext getNormal() {
