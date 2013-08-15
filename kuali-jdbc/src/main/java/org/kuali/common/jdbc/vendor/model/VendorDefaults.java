@@ -1,29 +1,30 @@
 package org.kuali.common.jdbc.vendor.model;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.util.Assert;
 
-public enum VendorDefaults {
+public abstract class VendorDefaults {
 
-	ORACLE(new ConnectionContext("jdbc:oracle:thin:@localhost:1521:XE", "system", "manager"), "oracle.jdbc.driver.OracleDriver"), //
-	MYSQL(new ConnectionContext("jdbc:mysql://localhost", "root"), "com.mysql.jdbc.Driver");
+	public static final class Oracle {
 
-	private VendorDefaults(ConnectionContext dba, String driver) {
-		Assert.noNulls(dba);
-		Assert.noBlanks(driver);
-		this.dba = dba;
-		this.driver = driver;
+		public static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+
+		private static final String USERNAME = "system";
+		private static final String PASSWORD = "manager";
+		private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+
+		public static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
 	}
 
-	private final ConnectionContext dba;
-	private final String driver;
+	public static final class MySql {
 
-	public ConnectionContext getDba() {
-		return dba;
+		public static final String DRIVER = "com.mysql.jdbc.Driver";
+
+		private static final String USERNAME = "root";
+		private static final String PASSWORD = Credentials.NO_PASSWORD;
+		private static final String URL = "jdbc:mysql://localhost";
+
+		public static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
+
 	}
-
-	public String getDriver() {
-		return driver;
-	}
-
 }
