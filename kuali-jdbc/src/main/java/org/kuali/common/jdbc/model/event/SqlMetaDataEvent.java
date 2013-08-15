@@ -17,28 +17,17 @@ package org.kuali.common.jdbc.model.event;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
 
-public final class SqlMetaDataEvent {
+public final class SqlMetaDataEvent extends AbstractTimedEvent {
 
 	private final JdbcContext context;
-	private final long startTimeMillis;
-	private final long stopTimeMillis;
 
 	public SqlMetaDataEvent(JdbcContext context, long startTimeMillis, long stopTimeMillis) {
+		super(startTimeMillis, stopTimeMillis);
 		this.context = context;
-		this.startTimeMillis = startTimeMillis;
-		this.stopTimeMillis = stopTimeMillis;
 	}
 
 	public JdbcContext getContext() {
 		return context;
-	}
-
-	public long getStartTimeMillis() {
-		return startTimeMillis;
-	}
-
-	public long getStopTimeMillis() {
-		return stopTimeMillis;
 	}
 
 }
