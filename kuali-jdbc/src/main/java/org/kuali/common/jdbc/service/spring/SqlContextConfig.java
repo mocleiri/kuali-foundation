@@ -2,11 +2,11 @@ package org.kuali.common.jdbc.service.spring;
 
 import org.kuali.common.jdbc.model.DatabaseVendor;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.model.sql.AdminSql;
-import org.kuali.common.jdbc.model.sql.Credentials;
-import org.kuali.common.jdbc.model.sql.DbaSql;
-import org.kuali.common.jdbc.model.sql.JdbcContext;
-import org.kuali.common.jdbc.model.sql.SqlContext;
+import org.kuali.common.jdbc.sql.model.AdminSql;
+import org.kuali.common.jdbc.sql.model.Credentials;
+import org.kuali.common.jdbc.sql.model.DbaSql;
+import org.kuali.common.jdbc.sql.model.JdbcContext;
+import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;

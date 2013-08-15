@@ -3,7 +3,7 @@ package org.kuali.common.jdbc.model;
 import java.sql.Driver;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.model.sql.AdminSql;
+import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.util.Assert;
 
 public final class DatabaseVendor {

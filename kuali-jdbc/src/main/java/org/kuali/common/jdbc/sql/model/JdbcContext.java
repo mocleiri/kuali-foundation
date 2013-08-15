@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.model.sql;
+package org.kuali.common.jdbc.sql.model;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.util.Assert;
