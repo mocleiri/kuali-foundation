@@ -56,7 +56,7 @@ public final class Vendors {
 		public static final String MYSQL = "mysql";
 	}
 
-	// This is used when working with Spring annotations.
+	// This is used by Spring annotations.
 	public static class Profiles {
 		public static final String ORACLE = Codes.ORACLE;
 		public static final String MYSQL = Codes.MYSQL;
