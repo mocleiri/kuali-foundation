@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DatabaseVendorsConfig.class, JdbcContextConfig.class })
+@Import({ SpringServiceConfig.class, DatabaseVendorsConfig.class, ConnectionsConfig.class })
 public class SqlContextConfig {
 
 	@Autowired

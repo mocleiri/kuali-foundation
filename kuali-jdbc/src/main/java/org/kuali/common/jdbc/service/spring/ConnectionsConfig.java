@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DatabaseVendorsConfig.class })
-public class JdbcContextConfig {
+public class ConnectionsConfig {
 
 	@Autowired
 	DatabaseVendor vendor;
@@ -22,7 +22,7 @@ public class JdbcContextConfig {
 	EnvironmentService env;
 
 	@Bean
-	public Connections jdbcContext() {
+	public Connections connections() {
 		ConnectionContext normal = getNormal();
 		ConnectionContext dba = getDba();
 		return new Connections(normal, dba);
