@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.model.context;
 
 import java.sql.Driver;
 
-import org.kuali.common.jdbc.model.Vendor;
+import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.util.Assert;
 
 public final class DatabaseContext {

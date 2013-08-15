@@ -20,7 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.jdbc.model.VendorConstants;
+import org.kuali.common.jdbc.vendor.model.VendorConstants;
 import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)

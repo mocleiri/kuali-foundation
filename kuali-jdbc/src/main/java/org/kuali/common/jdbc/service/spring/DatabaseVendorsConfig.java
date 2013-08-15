@@ -4,12 +4,12 @@ import java.sql.Driver;
 
 import oracle.jdbc.driver.OracleDriver;
 
-import org.kuali.common.jdbc.model.DatabaseVendor;
-import org.kuali.common.jdbc.model.Vendor;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.service.spring.annotation.MySql;
 import org.kuali.common.jdbc.service.spring.annotation.Oracle;
 import org.kuali.common.jdbc.sql.model.AdminSql;
+import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;

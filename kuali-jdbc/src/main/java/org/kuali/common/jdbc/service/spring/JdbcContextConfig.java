@@ -1,8 +1,8 @@
 package org.kuali.common.jdbc.service.spring;
 
-import org.kuali.common.jdbc.model.DatabaseVendor;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.JdbcContext;
+import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.jdbc.model.Vendor;
+import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.SpringExecUtils;
 import org.kuali.common.util.spring.service.SpringContext;

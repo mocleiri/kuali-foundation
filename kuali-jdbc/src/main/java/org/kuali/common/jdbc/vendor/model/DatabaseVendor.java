@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.vendor.model;
 
 import java.sql.Driver;
 
