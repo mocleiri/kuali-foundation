@@ -1,39 +1,36 @@
 package org.kuali.common.jdbc.model.context;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
 
 public final class ConnectionContext {
 
 	public ConnectionContext(String url) {
-		this(url, NullUtils.NONE, NullUtils.NONE);
+		this(url, Credentials.EMPTY);
 	}
 
 	public ConnectionContext(String url, String username) {
-		this(url, username, NullUtils.NONE);
+		this(url, new Credentials(username));
 	}
 
 	public ConnectionContext(String url, String username, String password) {
-		Assert.noBlanks(url, username, password);
+		this(url, new Credentials(username, password));
+	}
+
+	public ConnectionContext(String url, Credentials credentials) {
+		Assert.noBlanks(url);
 		this.url = url;
-		this.username = username;
-		this.password = password;
+		this.credentials = credentials;
 	}
 
 	private final String url;
-	private final String username;
-	private final String password;
+	private final Credentials credentials;
 
 	public String getUrl() {
 		return url;
 	}
 
-	public String getUsername() {
-		return username;
+	public Credentials getCredentials() {
+		return credentials;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
 }

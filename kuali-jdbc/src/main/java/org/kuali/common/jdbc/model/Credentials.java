@@ -5,6 +5,8 @@ import org.kuali.common.util.nullify.NullUtils;
 
 public final class Credentials {
 
+	public static final Credentials EMPTY = new Credentials();
+
 	public Credentials() {
 		this(NullUtils.NONE, NullUtils.NONE);
 	}
