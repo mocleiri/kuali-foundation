@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.reader.model;
 
 import org.kuali.common.jdbc.model.enums.DelimiterMode;
 import org.kuali.common.util.Assert;

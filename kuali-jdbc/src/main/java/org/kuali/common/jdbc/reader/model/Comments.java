@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.model;
+package org.kuali.common.jdbc.reader.model;
 
 import java.util.Arrays;
 import java.util.Collections;
