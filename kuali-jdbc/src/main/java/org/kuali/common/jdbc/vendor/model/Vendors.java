@@ -19,10 +19,10 @@ public final class Vendors {
 		return map;
 	}
 
-	private static final class Oracle {
+	public static final class Oracle {
 
-		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-		private static final ConnectionContext DBA = new ConnectionContext(Dba.URL, Dba.USERNAME, Dba.PASSWORD);
+		public static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+		public static final ConnectionContext DBA = new ConnectionContext(Dba.URL, Dba.USERNAME, Dba.PASSWORD);
 
 		private static final class Dba {
 			private static final String USERNAME = "system";
@@ -31,10 +31,10 @@ public final class Vendors {
 		}
 	}
 
-	private static final class MySql {
+	public static final class MySql {
 
-		private static final String DRIVER = "com.mysql.jdbc.Driver";
-		private static final ConnectionContext DBA = new ConnectionContext(Dba.URL, Dba.USERNAME, Dba.PASSWORD);
+		public static final String DRIVER = "com.mysql.jdbc.Driver";
+		public static final ConnectionContext DBA = new ConnectionContext(Dba.URL, Dba.USERNAME, Dba.PASSWORD);
 
 		private static final class Dba {
 			private static final String USERNAME = "root";
