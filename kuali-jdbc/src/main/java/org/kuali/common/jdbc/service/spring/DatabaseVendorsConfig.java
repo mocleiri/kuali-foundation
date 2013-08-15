@@ -8,8 +8,8 @@ import org.kuali.common.jdbc.service.spring.annotation.MySql;
 import org.kuali.common.jdbc.service.spring.annotation.Oracle;
 import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
-import org.kuali.common.jdbc.vendor.model.Vendor;
-import org.kuali.common.jdbc.vendor.model.VendorDefaults;
+import org.kuali.common.jdbc.vendor.model.Vendors;
+import org.kuali.common.jdbc.vendor.model.Vendors;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -59,7 +59,7 @@ public class DatabaseVendorsConfig {
 	}
 
 	public static DatabaseVendor getDatabaseVendor(EnvironmentService env, VendorDefaults defaults, String url) {
-		Vendor vendor = defaults.getVendor();
+		Vendors vendor = defaults.getVendor();
 		Class<? extends Driver> driver = getDriver(env, defaults);
 		ConnectionContext dba = getDbaContext(env, defaults);
 		AdminSql sql = getAdminSql(env, vendor);
@@ -73,20 +73,20 @@ public class DatabaseVendorsConfig {
 		return env.getClass(code + ".driver", Driver.class, defaultClass);
 	}
 
-	protected static String getString(EnvironmentService env, Vendor vendor, String suffix, String defaultValue) {
+	protected static String getString(EnvironmentService env, Vendors vendor, String suffix, String defaultValue) {
 		return env.getString(vendor.getCode() + "." + suffix, defaultValue);
 	}
 
 	protected static ConnectionContext getDbaContext(EnvironmentService env, VendorDefaults defaults) {
 		Credentials auth = defaults.getDba().getCredentials();
-		Vendor vendor = defaults.getVendor();
+		Vendors vendor = defaults.getVendor();
 		String dbaUsr = env.getString(vendor.getCode() + ".dba.username", auth.getUsername());
 		String dbaPwd = env.getString(vendor.getCode() + ".dba.password", auth.getPassword());
 		String dbaUrl = env.getString(vendor.getCode() + ".dba.url", defaults.getDba().getUrl());
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}
 
-	protected static AdminSql getAdminSql(EnvironmentService env, Vendor vendor) {
+	protected static AdminSql getAdminSql(EnvironmentService env, Vendors vendor) {
 		String validate = env.getString(vendor.getCode() + ".validate");
 		String create = env.getString(vendor.getCode() + ".create");
 		String drop = env.getString(vendor.getCode() + ".drop");
