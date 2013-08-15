@@ -9,7 +9,6 @@ import org.kuali.common.jdbc.service.spring.annotation.Oracle;
 import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendors;
-import org.kuali.common.jdbc.vendor.model.Vendors;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
