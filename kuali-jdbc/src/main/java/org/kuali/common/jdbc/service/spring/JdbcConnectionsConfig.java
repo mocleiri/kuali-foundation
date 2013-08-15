@@ -22,7 +22,7 @@ public class JdbcConnectionsConfig {
 	EnvironmentService env;
 
 	@Bean
-	public JdbcConnections connections() {
+	public JdbcConnections jdbcConnections() {
 		ConnectionContext normal = getNormal();
 		ConnectionContext dba = getDba();
 		return new JdbcConnections(normal, dba);
