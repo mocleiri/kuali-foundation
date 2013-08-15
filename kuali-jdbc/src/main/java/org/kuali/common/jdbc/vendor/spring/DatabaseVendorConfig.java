@@ -1,7 +1,5 @@
 package org.kuali.common.jdbc.vendor.spring;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +9,10 @@ import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorBase;
 import org.kuali.common.jdbc.vendor.model.Vendors;
+import org.kuali.common.jdbc.vendor.model.keys.Admin;
+import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
+import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
+import org.kuali.common.jdbc.vendor.model.keys.Oracle;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -51,34 +53,13 @@ public class DatabaseVendorConfig {
 	}
 
 	@Bean
-	public Map<Vendor, List<String>> vendorSqlKeysMap() {
-		List<String> oracle = CollectionUtils.combineStrings(getAdminKeys(), getLiquibaseKeys(), getOracleKeys());
-		List<String> mysql = CollectionUtils.combineStrings(getAdminKeys(), getLiquibaseKeys());
-		Map<Vendor, List<String>> map = new HashMap<Vendor, List<String>>();
-		map.put(Vendor.ORACLE, getPrefixedKeys(Vendor.ORACLE, oracle));
-		map.put(Vendor.MYSQL, getPrefixedKeys(Vendor.MYSQL, mysql));
+	public Map<Vendor, List<KeySuffix>> vendorSqlKeysMap() {
+		List<KeySuffix> oracle = Collections.unmodifiableList(CollectionUtils.combine(Admin.asList(), Liquibase.asList(), Oracle.asList()));
+		List<KeySuffix> mysql = Collections.unmodifiableList(CollectionUtils.combine(Admin.asList(), Liquibase.asList()));
+		Map<Vendor, List<KeySuffix>> map = new HashMap<Vendor, List<KeySuffix>>();
+		map.put(Vendor.ORACLE, oracle);
+		map.put(Vendor.MYSQL, mysql);
 		return Collections.unmodifiableMap(map);
-	}
-
-	protected List<String> getPrefixedKeys(Vendor vendor, List<String> keys) {
-		List<String> prefixedKeys = new ArrayList<String>();
-		for (String key : keys) {
-			String prefixedKey = vendor.getCode() + "." + key;
-			prefixedKeys.add(prefixedKey);
-		}
-		return Collections.unmodifiableList(prefixedKeys);
-	}
-
-	protected List<String> getAdminKeys() {
-		return Collections.unmodifiableList(Arrays.asList("validate", "create", "drop"));
-	}
-
-	protected List<String> getLiquibaseKeys() {
-		return Collections.unmodifiableList(Arrays.asList("liquibase.create", "liquibase.create"));
-	}
-
-	protected List<String> getOracleKeys() {
-		return Collections.unmodifiableList(Arrays.asList("killAndDrop", "killAndDrop.rds", "schemaStats"));
 	}
 
 }

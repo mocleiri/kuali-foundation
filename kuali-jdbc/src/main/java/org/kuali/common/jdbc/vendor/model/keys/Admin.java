@@ -9,15 +9,15 @@ public enum Admin implements KeySuffix {
 
 	VALIDATE("validate"), DROP("drop"), CREATE("create");
 
-	private Admin(String value) {
-		this.value = value;
+	private Admin(String suffix) {
+		this.suffix = suffix;
 	}
 
-	private final String value;
+	private final String suffix;
 
 	@Override
 	public String getKeySuffix() {
-		return value;
+		return suffix;
 	}
 
 	public static List<KeySuffix> asList() {

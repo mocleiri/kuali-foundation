@@ -9,15 +9,15 @@ public enum Oracle implements KeySuffix {
 
 	KILL_AND_DROP("killAndDrop"), KILL_AND_DROP_RDS("killAndDrop.rds"), SCHEMA_STATS("schemaStats");
 
-	private Oracle(String value) {
-		this.value = value;
+	private Oracle(String suffix) {
+		this.suffix = suffix;
 	}
 
-	private final String value;
+	private final String suffix;
 
 	@Override
 	public String getKeySuffix() {
-		return value;
+		return suffix;
 	}
 
 	public static List<KeySuffix> asList() {
