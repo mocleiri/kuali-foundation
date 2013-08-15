@@ -30,6 +30,21 @@ public final class Vendors {
 		}
 	}
 
+	public enum Code {
+
+		ORACLE(Codes.ORACLE), MYSQL(Codes.MYSQL);
+
+		private Code(String value) {
+			this.value = value;
+		}
+
+		private final String value;
+
+		public String getValue() {
+			return value;
+		}
+	}
+
 	public static final class Codes {
 
 		public static final String ORACLE = "oracle";
