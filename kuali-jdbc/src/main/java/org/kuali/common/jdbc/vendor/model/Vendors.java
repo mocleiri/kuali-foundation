@@ -1,7 +1,9 @@
 package org.kuali.common.jdbc.vendor.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.jdbc.model.Credentials;
@@ -11,7 +13,19 @@ public final class Vendors {
 
 	public static final Map<Vendor, VendorBase> DEFAULTS = getDefaults();
 
-	public static final Map<Vendor, VendorBase> getDefaults() {
+	public static final List<String> DEFAULT_SQL_KEYS = getDefaultSqlKeys();
+
+	private static List<String> getDefaultSqlKeys() {
+		List<String> keys = new ArrayList<String>();
+		keys.add("validate");
+		keys.add("create");
+		keys.add("drop");
+		keys.add("liquibase.drop");
+		keys.add("liquibase.create");
+		return Collections.unmodifiableList(keys);
+	}
+
+	private static Map<Vendor, VendorBase> getDefaults() {
 		VendorBase oracle = new VendorBase(Vendor.ORACLE, Oracle.DBA, Oracle.DRIVER);
 		VendorBase mysql = new VendorBase(Vendor.MYSQL, MySql.DBA, MySql.DRIVER);
 		Map<Vendor, VendorBase> map = new HashMap<Vendor, VendorBase>();
@@ -20,7 +34,7 @@ public final class Vendors {
 		return Collections.unmodifiableMap(map);
 	}
 
-	private static final class Oracle {
+	private static class Oracle {
 		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 		private static final String USERNAME = "system";
 		private static final String PASSWORD = "manager";
@@ -28,7 +42,7 @@ public final class Vendors {
 		private static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
 	}
 
-	private static final class MySql {
+	private static class MySql {
 		private static final String DRIVER = "com.mysql.jdbc.Driver";
 		private static final String USERNAME = "root";
 		private static final String PASSWORD = Credentials.NO_PASSWORD;
@@ -37,13 +51,13 @@ public final class Vendors {
 	}
 
 	// This is used by the Vendor enum
-	public static final class Codes {
+	public static class Codes {
 		public static final String ORACLE = "oracle";
 		public static final String MYSQL = "mysql";
 	}
 
 	// This is used when working with Spring annotations.
-	public static final class Profiles {
+	public static class Profiles {
 		public static final String ORACLE = Codes.ORACLE;
 		public static final String MYSQL = Codes.MYSQL;
 	}
