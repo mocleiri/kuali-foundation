@@ -1,6 +1,5 @@
 package org.kuali.common.jdbc.vendor.model;
 
-import java.sql.Driver;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
@@ -9,9 +8,9 @@ import org.kuali.common.util.PropertyUtils;
 
 public final class DatabaseVendor {
 
-	public DatabaseVendor(VendorCode code, ConnectionContext dba, String url, Class<? extends Driver> driver, Properties sql) {
-		Assert.noNulls(code, dba, driver, sql);
-		Assert.noBlanks(url);
+	public DatabaseVendor(VendorCode code, ConnectionContext dba, String url, String driver, Properties sql) {
+		Assert.noNulls(code, dba, sql);
+		Assert.noBlanks(url, driver);
 		this.code = code;
 		this.dba = dba;
 		this.url = url;
@@ -22,7 +21,7 @@ public final class DatabaseVendor {
 	private final VendorCode code;
 	private final ConnectionContext dba;
 	private final String url;
-	private final Class<? extends Driver> driver;
+	private final String driver;
 	private final Properties sql;
 
 	public Properties getSql() {
@@ -41,7 +40,7 @@ public final class DatabaseVendor {
 		return url;
 	}
 
-	public Class<? extends Driver> getDriver() {
+	public String getDriver() {
 		return driver;
 	}
 
