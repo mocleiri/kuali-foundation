@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc.sql.model;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.util.Assert;
 
 public final class SqlContext {

@@ -1,9 +1,9 @@
 package org.kuali.common.jdbc.service.spring;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.DatabaseVendor;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.AdminSql;
-import org.kuali.common.jdbc.sql.model.Credentials;
 import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.sql.model.JdbcContext;
 import org.kuali.common.jdbc.sql.model.SqlContext;

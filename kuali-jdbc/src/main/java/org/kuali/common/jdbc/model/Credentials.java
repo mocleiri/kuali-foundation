@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.sql.model;
+package org.kuali.common.jdbc.model;
 
 import org.kuali.common.util.Assert;
 
