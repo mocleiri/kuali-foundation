@@ -45,6 +45,6 @@ public class SqlContextConfig {
 		AdminSql admin = new AdminSql(validate, create, drop);
 		Credentials creds = new Credentials(username, password);
 
-		return new SqlContext(dba, admin, creds, schema, encoding, threads);
+		return new SqlContext(creds, dba, admin, schema, encoding, threads);
 	}
 }
