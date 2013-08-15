@@ -40,6 +40,7 @@ public final class Vendors {
 
 	}
 
+	// This is used by the Vendor enum
 	public static final class Codes {
 
 		public static final String ORACLE = "oracle";
@@ -47,6 +48,7 @@ public final class Vendors {
 
 	}
 
+	// This is used when working with Spring annotations.
 	public static final class Profiles {
 
 		public static final String ORACLE = Codes.ORACLE;
