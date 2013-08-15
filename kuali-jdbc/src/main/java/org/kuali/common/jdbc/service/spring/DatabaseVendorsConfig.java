@@ -4,6 +4,7 @@ import java.sql.Driver;
 
 import oracle.jdbc.driver.OracleDriver;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.service.spring.annotation.MySql;
 import org.kuali.common.jdbc.service.spring.annotation.Oracle;
@@ -76,8 +77,9 @@ public class DatabaseVendorsConfig {
 	}
 
 	protected static ConnectionContext getDbaContext(EnvironmentService env, Vendor vendor) {
-		String dbaUsr = env.getString(vendor.getCode() + ".dba.username", vendor.getDba().getUsername());
-		String dbaPwd = env.getString(vendor.getCode() + ".dba.password", vendor.getDba().getPassword());
+		Credentials auth = vendor.getDba().getCredentials();
+		String dbaUsr = env.getString(vendor.getCode() + ".dba.username", auth.getUsername());
+		String dbaPwd = env.getString(vendor.getCode() + ".dba.password", auth.getPassword());
 		String dbaUrl = env.getString(vendor.getCode() + ".dba.url", vendor.getDba().getUrl());
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}

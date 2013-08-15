@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.service.spring;
 
 import org.kuali.common.jdbc.model.Credentials;
-import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.sql.model.JdbcContext;
@@ -29,13 +28,13 @@ public class SqlContextConfig {
 
 	@Bean
 	public SqlContext sqlContext() {
-		ConnectionContext normal = context.getNormal();
+		Credentials auth = context.getNormal().getCredentials();
 
 		int threads = env.getInteger("sql.threads", SqlContext.DEFAULT_THREADS);
 		String encoding = env.getString("sql.encoding"); // No default value. Force them to explicitly supply this.
-		String schema = env.getString("sql.schema", normal.getUsername());
-		String username = env.getString("sql.username", normal.getUsername());
-		String password = env.getString("sql.password", normal.getPassword());
+		String schema = env.getString("sql.schema", auth.getUsername());
+		String username = env.getString("sql.username", auth.getUsername());
+		String password = env.getString("sql.password", auth.getPassword());
 		String validate = env.getString("sql.validate", vendor.getAdminSql().getValidate());
 		String create = env.getString("sql.create", vendor.getAdminSql().getCreate());
 		String drop = env.getString("sql.drop", vendor.getAdminSql().getDrop());

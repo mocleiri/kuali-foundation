@@ -1,5 +1,6 @@
 package org.kuali.common.jdbc.service.spring;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.JdbcContext;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
@@ -35,8 +36,9 @@ public class JdbcContextConfig {
 	}
 
 	protected ConnectionContext getDba() {
-		String username = env.getString("jdbc.dba.username", vendor.getDba().getUsername());
-		String password = env.getString("jdbc.dba.password", vendor.getDba().getPassword());
+		Credentials auth = vendor.getDba().getCredentials();
+		String username = env.getString("jdbc.dba.username", auth.getUsername());
+		String password = env.getString("jdbc.dba.password", auth.getPassword());
 		String url = env.getString("jdbc.dba.url", vendor.getDba().getUrl());
 		return new ConnectionContext(url, username, password);
 	}
