@@ -20,12 +20,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.jdbc.vendor.model.Vendors;
+import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.springframework.context.annotation.Profile;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(Vendors.Profiles.ORACLE)
+@Profile(Vendor.Profiles.ORACLE)
 public @interface Oracle {
 
 }
