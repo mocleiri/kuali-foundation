@@ -1,6 +1,6 @@
 package org.kuali.common.jdbc.vendor.model;
 
-import org.kuali.common.jdbc.vendor.model.Vendor.Codes;
+import org.kuali.common.jdbc.vendor.model.Vendors.Codes;
 
 public enum VendorCode {
 

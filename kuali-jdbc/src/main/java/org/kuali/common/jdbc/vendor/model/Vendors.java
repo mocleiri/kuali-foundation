@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.vendor.model;
 
 import org.kuali.common.jdbc.model.Credentials;
 
-public final class Vendor {
+public final class Vendors {
 
 	public static final class Defaults {
 
