@@ -15,18 +15,18 @@
  */
 package org.kuali.common.jdbc.model.event;
 
-import org.kuali.common.jdbc.model.context.JdbcContext;
+import org.kuali.common.jdbc.model.context.DataContext;
 
 public final class SqlExecutionEvent extends AbstractTimedEvent {
 
-	private final JdbcContext context;
+	private final DataContext context;
 
-	public SqlExecutionEvent(JdbcContext context, long startTimeMillis, long stopTimeMillis) {
+	public SqlExecutionEvent(DataContext context, long startTimeMillis, long stopTimeMillis) {
 		super(startTimeMillis, stopTimeMillis);
 		this.context = context;
 	}
 
-	public JdbcContext getContext() {
+	public DataContext getContext() {
 		return context;
 	}
 
