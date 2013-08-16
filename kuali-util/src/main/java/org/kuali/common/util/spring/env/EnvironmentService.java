@@ -16,8 +16,8 @@ public interface EnvironmentService {
 
 	Integer getInteger(String key, Integer defaultValue);
 
-	<T> Class<? extends T> getClass(String key, Class<? extends T> type);
+	<T> Class<T> getClass(String key, Class<T> type);
 
-	<T> Class<? extends T> getClass(String key, Class<? extends T> type, Class<? extends T> defaultValue);
+	<T> Class<T> getClass(String key, Class<T> type, Class<T> defaultValue);
 
 }
