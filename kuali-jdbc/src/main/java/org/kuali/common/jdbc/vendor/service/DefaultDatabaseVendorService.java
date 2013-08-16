@@ -12,9 +12,7 @@ import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendor;
-import org.kuali.common.jdbc.vendor.model.VendorBase;
 import org.kuali.common.jdbc.vendor.model.VendorSql;
-import org.kuali.common.jdbc.vendor.model.Vendors;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
@@ -26,35 +24,35 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
-	public DefaultDatabaseVendorService(EnvironmentService env, VendorBase base) {
-		Assert.noNulls(env, base);
+	public DefaultDatabaseVendorService(EnvironmentService env, Vendor vendor) {
+		Assert.noNulls(env, vendor);
 		this.env = env;
-		this.base = base;
+		this.vendor = vendor;
 	}
 
 	private final EnvironmentService env;
-	private final VendorBase base;
+	private final Vendor vendor;
 
 	protected String getUrl() {
-		String prefix = base.getVendor().getCode();
+		String prefix = vendor.getCode();
 		String key = prefix + ".url";
-		return env.getString(key, base.getDba().getUrl());
+		return env.getString(key, vendor.getDba().getUrl());
 	}
 
 	@Override
 	public DatabaseVendor getDatabaseVendor() {
-		ConnectionContext dba = getDba(base);
+		ConnectionContext dba = getDba(vendor);
 		Class<? extends Driver> driver = getDriver();
 		Properties sql = getSql();
 		AdminSql adminSql = getAdminSql(sql);
 		DbaSql dbaSql = getDbaSql(adminSql, sql);
 		VendorSql vendorSql = new VendorSql(adminSql, dbaSql, sql);
 		String url = getUrl();
-		return new DatabaseVendor(base.getVendor(), dba, url, driver, vendorSql);
+		return new DatabaseVendor(vendor, dba, url, driver, vendorSql);
 	}
 
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
-		String prefix = base.getVendor().getCode();
+		String prefix = vendor.getCode();
 		String before = getDbaBefore(prefix + ".dba.before", adminSql, sql);
 		String after = getDbaAfter(prefix + ".dba.after", adminSql, sql);
 		return new DbaSql(before, after);
@@ -69,7 +67,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected AdminSql getAdminSql(Properties sql) {
-		String prefix = base.getVendor().getCode();
+		String prefix = vendor.getCode();
 		String validate = sql.getProperty(prefix + "." + Admin.VALIDATE.getValue());
 		String create = sql.getProperty(prefix + "." + Admin.CREATE.getValue());
 		String drop = sql.getProperty(prefix + "." + Admin.DROP.getValue());
@@ -82,7 +80,6 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Properties getSql() {
-		Vendor vendor = base.getVendor();
 		List<KeySuffix> suffixes = getVendorSqlKeysMap().get(vendor);
 		Properties properties = new Properties();
 		for (KeySuffix suffix : suffixes) {
@@ -94,26 +91,17 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Class<? extends Driver> getDriver() {
-		String prefix = base.getVendor().getCode();
-		String driver = env.getString(prefix + ".driver", base.getDriver());
+		String prefix = vendor.getCode();
+		String driver = env.getString(prefix + ".driver", vendor.getDriver());
 		return ReflectionUtils.getTypedClass(driver);
 	}
 
-	protected ConnectionContext getDba(VendorBase base) {
-		String prefix = base.getVendor().getCode();
-		String dbaUrl = env.getString(prefix + ".dba.url", base.getDba().getUrl());
-		String dbaUsr = env.getString(prefix + ".dba.username", base.getDba().getCredentials().getUsername());
-		String dbaPwd = env.getString(prefix + ".dba.password", base.getDba().getCredentials().getPassword());
+	protected ConnectionContext getDba(Vendor vendor) {
+		String prefix = vendor.getCode();
+		String dbaUrl = env.getString(prefix + ".dba.url", vendor.getDba().getUrl());
+		String dbaUsr = env.getString(prefix + ".dba.username", vendor.getDba().getCredentials().getUsername());
+		String dbaPwd = env.getString(prefix + ".dba.password", vendor.getDba().getCredentials().getPassword());
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
-	}
-
-	protected Map<Vendor, VendorBase> getVendorBaseMap() {
-		VendorBase oracle = new VendorBase(Vendor.ORACLE, Vendors.Oracle.DBA, Vendors.Oracle.DRIVER);
-		VendorBase mysql = new VendorBase(Vendor.MYSQL, Vendors.MySql.DBA, Vendors.MySql.DRIVER);
-		Map<Vendor, VendorBase> map = new HashMap<Vendor, VendorBase>();
-		map.put(Vendor.ORACLE, oracle);
-		map.put(Vendor.MYSQL, mysql);
-		return Collections.unmodifiableMap(map);
 	}
 
 	protected Map<Vendor, List<KeySuffix>> getVendorSqlKeysMap() {
@@ -129,8 +117,8 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return env;
 	}
 
-	public VendorBase getBase() {
-		return base;
+	public Vendor getVendor() {
+		return vendor;
 	}
 
 }
