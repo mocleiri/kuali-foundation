@@ -20,7 +20,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ JdbcProjectConfig.class, JdbcPropertyLocationsConfig.class, DefaultPropertiesServiceConfig.class })
-public class DatabaseVendorPropertySourceConfig implements PropertySourceConfig {
+public class ShowPropertySourceConfig implements PropertySourceConfig {
 
 	@Autowired
 	JdbcPropertyLocationsConfig jdbc;

@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(DatabaseProcessContextConfig.class)
-public class ShowVendorConfig {
+public class ShowConfigConfig {
 
 	@Autowired
 	DatabaseProcessContext context;

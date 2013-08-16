@@ -32,10 +32,10 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ SpringServiceConfig.class, MainServiceConfig.class })
-public class ShowVendor implements MainConfig {
+public class ShowConfig implements MainConfig {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(ShowVendor.class, args);
+		MainUtils.runAndExit(ShowConfig.class, args);
 	}
 
 	@Autowired
@@ -50,8 +50,8 @@ public class ShowVendor implements MainConfig {
 	@Override
 	@Execute
 	public Executable main() {
-		PropertySource<?> source = mainService.getPropertySource(mainContext, DatabaseVendorPropertySourceConfig.class);
-		return SpringExecUtils.getSpringExecutable(service, source, ShowVendorConfig.class);
+		PropertySource<?> source = mainService.getPropertySource(mainContext, ShowPropertySourceConfig.class);
+		return SpringExecUtils.getSpringExecutable(service, source, ShowConfigConfig.class);
 	}
 
 }
