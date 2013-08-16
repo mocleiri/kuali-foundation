@@ -23,7 +23,7 @@ public class DatabaseVendorConfig {
 
 	@Bean
 	public DatabaseVendorService databaseVendorService() {
-		String vendorString = env.getString(VENDOR_KEY); // No default value. db.vendor must be supplied
+		String vendorString = env.getString(VENDOR_KEY); // No default value. They must supply db.vendor
 		Vendor vendor = Vendor.valueOf(vendorString.toUpperCase());
 		switch (vendor) {
 		case ORACLE:
