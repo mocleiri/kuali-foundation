@@ -21,13 +21,13 @@ public final class Vendors {
 		public static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
 	}
 
-	// This is used by the Vendor enum
+	// These are used by the Vendor enum
 	public static class Codes {
 		public static final String ORACLE = "oracle";
 		public static final String MYSQL = "mysql";
 	}
 
-	// This is used in Spring annotations
+	// These are used in Spring annotations
 	public static class Profiles {
 		public static final String ORACLE = Codes.ORACLE;
 		public static final String MYSQL = Codes.MYSQL;
