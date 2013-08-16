@@ -32,10 +32,10 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ SpringServiceConfig.class, MainServiceConfig.class })
-public class DumpDatabase implements MainConfig {
+public class ShowVendor implements MainConfig {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(DumpDatabase.class, args);
+		MainUtils.runAndExit(ShowVendor.class, args);
 	}
 
 	@Autowired
