@@ -27,6 +27,13 @@ public class ShowUtils {
 		logger.info("Password - {}", LoggerUtils.getPassword(auth.getUsername(), auth.getPassword()));
 	}
 
+	public static void showDba(Logger logger, ConnectionContext dba) {
+		Credentials auth = dba.getCredentials();
+		logger.info("DBA URL - {}", dba.getUrl());
+		logger.info("DBA User - {}", LoggerUtils.getUsername(auth.getUsername()));
+		logger.info("DBA Password - {}", LoggerUtils.getPassword(auth.getUsername(), auth.getPassword()));
+	}
+
 	public static void showClose(Logger logger, DatabaseContext context, JdbcService service, DataSource dataSource) {
 		logger.info("Driver - {}", context.getDriver().getName());
 		logger.info("SQL Encoding - {}", context.getEncoding());
@@ -40,13 +47,6 @@ public class ShowUtils {
 		logger.info("Driver Version - {}", driver.getVersion());
 		logger.info("------------------------------------------------------------------------");
 
-	}
-
-	public static void showDba(Logger logger, ConnectionContext dba) {
-		Credentials auth = dba.getCredentials();
-		logger.info("DBA URL - {}", dba.getUrl());
-		logger.info("DBA User - {}", LoggerUtils.getUsername(auth.getUsername()));
-		logger.info("DBA Password - {}", LoggerUtils.getPassword(auth.getUsername(), auth.getPassword()));
 	}
 
 }
