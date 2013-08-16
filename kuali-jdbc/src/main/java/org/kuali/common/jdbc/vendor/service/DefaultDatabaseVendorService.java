@@ -12,6 +12,8 @@ import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
+import org.kuali.common.jdbc.vendor.model.keys.Dba;
+import org.kuali.common.jdbc.vendor.model.keys.Jdbc;
 import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ReflectionUtils;
@@ -29,7 +31,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	private final Vendor vendor;
 
 	protected String getUrl() {
-		String key = vendor.getCode() + ".url";
+		String key = vendor.getCode() + "." + Jdbc.URL;
 		return env.getString(key, vendor.getDba().getUrl());
 	}
 
@@ -46,8 +48,8 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
-		String before = getDbaBefore(vendor.getCode() + ".dba.before", adminSql, sql);
-		String after = getDbaAfter(vendor.getCode() + ".dba.after", adminSql, sql);
+		String before = getDbaBefore(vendor.getCode() + "." + Dba.BEFORE, adminSql, sql);
+		String after = getDbaAfter(vendor.getCode() + "." + Dba.AFTER, adminSql, sql);
 		return new DbaSql(before, after);
 	}
 
@@ -83,14 +85,14 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Class<? extends Driver> getDriver() {
-		String driver = env.getString(vendor.getCode() + ".driver", vendor.getDriver());
+		String driver = env.getString(vendor.getCode() + "." + Jdbc.URL, vendor.getDriver());
 		return ReflectionUtils.getTypedClass(driver);
 	}
 
 	protected ConnectionContext getDba() {
-		String dbaUrl = env.getString(vendor.getCode() + ".dba.url", vendor.getDba().getUrl());
-		String dbaUsr = env.getString(vendor.getCode() + ".dba.username", vendor.getDba().getCredentials().getUsername());
-		String dbaPwd = env.getString(vendor.getCode() + ".dba.password", vendor.getDba().getCredentials().getPassword());
+		String dbaUrl = env.getString(vendor.getCode() + "." + Dba.URL, vendor.getDba().getUrl());
+		String dbaUsr = env.getString(vendor.getCode() + "." + Dba.USERNAME, vendor.getDba().getCredentials().getUsername());
+		String dbaPwd = env.getString(vendor.getCode() + "." + Dba.PASSWORD, vendor.getDba().getCredentials().getPassword());
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}
 
