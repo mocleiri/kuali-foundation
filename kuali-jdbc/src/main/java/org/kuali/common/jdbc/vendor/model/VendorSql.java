@@ -9,16 +9,16 @@ import org.kuali.common.util.PropertyUtils;
 
 public final class VendorSql {
 
-	public VendorSql(AdminSql admin, DbaSql dba, Properties sql) {
-		Assert.noNulls(admin, dba, sql);
+	public VendorSql(AdminSql admin, DbaSql dba, Properties all) {
+		Assert.noNulls(admin, dba, all);
 		this.admin = admin;
 		this.dba = dba;
-		this.sql = PropertyUtils.toImmutable(sql);
+		this.all = PropertyUtils.toImmutable(all);
 	}
 
 	private final AdminSql admin;
 	private final DbaSql dba;
-	private final Properties sql;
+	private final Properties all;
 
 	public AdminSql getAdmin() {
 		return admin;
@@ -28,8 +28,8 @@ public final class VendorSql {
 		return dba;
 	}
 
-	public Properties getSql() {
-		return sql;
+	public Properties getAll() {
+		return all;
 	}
 
 }

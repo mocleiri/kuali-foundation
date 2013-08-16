@@ -35,11 +35,11 @@ public class SqlContextConfig {
 		String schema = env.getString("sql.schema", auth.getUsername());
 		String username = env.getString("sql.username", auth.getUsername());
 		String password = env.getString("sql.password", auth.getPassword());
-		String validate = env.getString("sql.validate", vendor.getAdminSql().getValidate());
-		String create = env.getString("sql.create", vendor.getAdminSql().getCreate());
-		String drop = env.getString("sql.drop", vendor.getAdminSql().getDrop());
-		String dbaBefore = env.getString("sql.dba.before", vendor.getDbaSql().getBefore());
-		String dbaAfter = env.getString("sql.dba.after", vendor.getDbaSql().getAfter());
+		String validate = env.getString("sql.validate", vendor.getSql().getAdmin().getValidate());
+		String create = env.getString("sql.create", vendor.getSql().getAdmin().getCreate());
+		String drop = env.getString("sql.drop", vendor.getSql().getAdmin().getDrop());
+		String dbaBefore = env.getString("sql.dba.before", vendor.getSql().getDba().getBefore());
+		String dbaAfter = env.getString("sql.dba.after", vendor.getSql().getDba().getAfter());
 
 		DbaSql dba = new DbaSql(dbaBefore, dbaAfter);
 		AdminSql admin = new AdminSql(validate, create, drop);
