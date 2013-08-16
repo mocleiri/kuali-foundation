@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DatabaseVendorsConfig.class })
+@Import({ SpringServiceConfig.class, DatabaseVendorConfig.class })
 public class JdbcConnectionsConfig {
 
 	@Autowired

@@ -44,7 +44,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		Class<? extends Driver> driver = getDriver();
 		Properties sql = getSql();
 		String url = getUrl();
-		return new DatabaseVendor(base.getVendor(), dba, url, driver, sql);
+		return new DatabaseVendor(base.getVendor(), dba, url, driver, null, null, sql);
 	}
 
 	protected Properties getSql() {

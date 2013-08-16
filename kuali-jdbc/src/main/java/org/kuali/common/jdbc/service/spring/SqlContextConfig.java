@@ -2,8 +2,8 @@ package org.kuali.common.jdbc.service.spring;
 
 import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.sql.model.AdminSql;
-import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.sql.model.DbaSql;
+import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DatabaseVendorsConfig.class, JdbcConnectionsConfig.class })
+@Import({ SpringServiceConfig.class, DatabaseVendorConfig.class, JdbcConnectionsConfig.class })
 public class SqlContextConfig {
 
 	@Autowired
@@ -38,8 +38,8 @@ public class SqlContextConfig {
 		String validate = env.getString("sql.validate", vendor.getAdminSql().getValidate());
 		String create = env.getString("sql.create", vendor.getAdminSql().getCreate());
 		String drop = env.getString("sql.drop", vendor.getAdminSql().getDrop());
-		String dbaBefore = env.getString("sql.dba.before", validate + create + drop);
-		String dbaAfter = env.getString("sql.dba.after", vendor.getDbaAfter());
+		String dbaBefore = env.getString("sql.dba.before", vendor.getDbaSql().getBefore());
+		String dbaAfter = env.getString("sql.dba.after", vendor.getDbaSql().getAfter());
 
 		DbaSql dba = new DbaSql(dbaBefore, dbaAfter);
 		AdminSql admin = new AdminSql(validate, create, drop);
