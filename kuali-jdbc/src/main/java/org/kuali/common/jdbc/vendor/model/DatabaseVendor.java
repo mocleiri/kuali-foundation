@@ -12,19 +12,19 @@ public final class DatabaseVendor {
 		Assert.noBlanks(url);
 		this.dba = dba;
 		this.url = url;
-		this.vendor = vendor;
+		this.code = vendor.getCode();
 		this.driver = driver;
 		this.sql = sql;
 	}
 
-	private final Vendor vendor;
+	private final String code;
 	private final ConnectionContext dba;
 	private final String url;
 	private final Class<? extends Driver> driver;
 	private final VendorSql sql;
 
-	public Vendor getVendor() {
-		return vendor;
+	public String getCode() {
+		return code;
 	}
 
 	public ConnectionContext getDba() {

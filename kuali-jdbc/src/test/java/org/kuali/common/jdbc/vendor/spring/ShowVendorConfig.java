@@ -35,8 +35,8 @@ public class ShowVendorConfig {
 	@Execute
 	protected Executable executable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		String before = vendor.getVendor().getCode() + ".dba.before=" + Str.flatten(vendor.getSql().getDba().getBefore());
-		String after = vendor.getVendor().getCode() + ".dba.after=" + Str.flatten(vendor.getSql().getDba().getAfter());
+		String before = vendor.getCode() + ".dba.before=" + Str.flatten(vendor.getSql().getDba().getBefore());
+		String after = vendor.getCode() + ".dba.after=" + Str.flatten(vendor.getSql().getDba().getAfter());
 		String message = "\n\n" + PropertyUtils.toString(vendor.getSql().getAll()) + "\n\n" + before + "\n" + after + "\n\n";
 		exec.setMessage(message);
 		return exec;
