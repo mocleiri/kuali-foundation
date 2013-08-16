@@ -10,6 +10,7 @@ public enum Jdbc implements EnvironmentKey {
 	URL("jdbc.url"), //
 	USERNAME("jdbc.username"), //
 	PASSWORD("jdbc.password"), //
+	DRIVER("jdbc.driver"), //
 	DBA_URL("jdbc.dba.url"), //
 	DBA_USERNAME("jdbc.dba.username"), //
 	DBA_PASSWORD("jdbc.dba.password"); //
