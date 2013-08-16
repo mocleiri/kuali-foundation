@@ -35,7 +35,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
 	@Override
 	public DatabaseVendor getDatabaseVendor() {
-		ConnectionContext dba = getDba(vendor);
+		ConnectionContext dba = getDba();
 		Class<? extends Driver> driver = getDriver();
 		Properties sql = getSql();
 		AdminSql adminSql = getAdminSql(sql);
@@ -87,7 +87,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return ReflectionUtils.getTypedClass(driver);
 	}
 
-	protected ConnectionContext getDba(Vendor vendor) {
+	protected ConnectionContext getDba() {
 		String dbaUrl = env.getString(vendor.getCode() + ".dba.url", vendor.getDba().getUrl());
 		String dbaUsr = env.getString(vendor.getCode() + ".dba.username", vendor.getDba().getCredentials().getUsername());
 		String dbaPwd = env.getString(vendor.getCode() + ".dba.password", vendor.getDba().getCredentials().getPassword());
