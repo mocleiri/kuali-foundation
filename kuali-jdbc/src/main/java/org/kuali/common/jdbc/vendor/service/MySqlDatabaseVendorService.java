@@ -24,7 +24,7 @@ public class MySqlDatabaseVendorService extends DefaultDatabaseVendorService {
 	}
 
 	@Override
-	protected List<KeySuffix> getSqlKeys() {
+	protected List<KeySuffix> getSqlKeySuffixes() {
 		List<KeySuffix> keys = new ArrayList<KeySuffix>();
 		keys.addAll(Admin.asList());
 		keys.addAll(Liquibase.asList());

@@ -72,7 +72,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Properties getSql() {
-		List<KeySuffix> suffixes = getSqlKeys();
+		List<KeySuffix> suffixes = getSqlKeySuffixes();
 		Properties properties = new Properties();
 		for (KeySuffix suffix : suffixes) {
 			String key = vendor.getCode() + "." + suffix.getValue();
@@ -94,7 +94,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}
 
-	protected List<KeySuffix> getSqlKeys() {
+	protected List<KeySuffix> getSqlKeySuffixes() {
 		return Collections.unmodifiableList(Admin.asList());
 	}
 
