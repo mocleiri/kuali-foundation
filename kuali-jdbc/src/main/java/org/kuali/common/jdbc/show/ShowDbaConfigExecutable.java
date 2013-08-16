@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.service.JdbcService;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,7 @@ public final class ShowDbaConfigExecutable implements Executable {
 	}
 
 	public ShowDbaConfigExecutable(DatabaseProcessContext context, DataSource dataSource, JdbcService service, boolean skip) {
+		Assert.noNulls(context, dataSource, service);
 		this.context = context;
 		this.dataSource = dataSource;
 		this.service = service;
