@@ -15,27 +15,32 @@
  */
 package org.kuali.common.jdbc.model.context;
 
+import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.Assert;
 
 public final class DatabaseProcessContext {
 
-	public DatabaseProcessContext(DatabaseVendor vendor, ConnectionContext connectionContext, String encoding, String schema) {
-		Assert.noNulls(vendor, connectionContext);
+	public DatabaseProcessContext(DatabaseVendor vendor, JdbcConnections connections, String encoding, String schema) {
+		Assert.noNulls(vendor, connections);
 		Assert.noBlanks(encoding, schema);
-		this.vendor = vendor;
-		this.connectionContext = connectionContext;
+		this.vendor = vendor.getCode();
+		this.connections = connections;
 		this.encoding = encoding;
 		this.schema = schema;
 	}
 
-	private final DatabaseVendor vendor;
-	private final ConnectionContext connectionContext;
+	private final String vendor;
+	private final JdbcConnections connections;
 	private final String encoding;
 	private final String schema;
 
-	public DatabaseVendor getVendor() {
+	public String getVendor() {
 		return vendor;
+	}
+
+	public JdbcConnections getConnections() {
+		return connections;
 	}
 
 	public String getEncoding() {
@@ -44,10 +49,6 @@ public final class DatabaseProcessContext {
 
 	public String getSchema() {
 		return schema;
-	}
-
-	public ConnectionContext getConnectionContext() {
-		return connectionContext;
 	}
 
 }
