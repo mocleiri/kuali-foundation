@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.jdbc.vendor.model.Vendors;
+import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.SpringExecUtils;
 import org.kuali.common.util.spring.service.SpringContext;
@@ -28,10 +28,10 @@ public class DatabaseVendorsConfigTest {
 	public void test() {
 		try {
 			String vendorString = (String) source.getProperty("db.vendor");
-			Vendors vendor = Vendors.valueOf(vendorString.toUpperCase());
+			Vendor vendor = Vendor.valueOf(vendorString.toUpperCase());
 			String profile = vendor.getCode();
 			SpringContext context = SpringExecUtils.getSinglePropertySourceContext(source);
-			context.setAnnotatedClasses(CollectionUtils.asList(DatabaseVendorsConfig.class));
+			context.setAnnotatedClasses(CollectionUtils.asList(DatabaseVendorConfig.class));
 			context.setActiveProfiles(Arrays.asList(profile));
 			service.load(context);
 		} catch (Exception e) {
