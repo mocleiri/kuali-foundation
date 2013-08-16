@@ -2,9 +2,7 @@ package org.kuali.common.jdbc.vendor.service;
 
 import java.sql.Driver;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
@@ -15,10 +13,7 @@ import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
-import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
-import org.kuali.common.jdbc.vendor.model.keys.Oracle;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
@@ -80,7 +75,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Properties getSql() {
-		List<KeySuffix> suffixes = getVendorSqlKeysMap().get(vendor);
+		List<KeySuffix> suffixes = getSqlKeys();
 		Properties properties = new Properties();
 		for (KeySuffix suffix : suffixes) {
 			String key = vendor.getCode() + "." + suffix.getValue();
@@ -104,13 +99,8 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}
 
-	protected Map<Vendor, List<KeySuffix>> getVendorSqlKeysMap() {
-		List<KeySuffix> oracle = CollectionUtils.combine(Admin.asList(), Liquibase.asList(), Oracle.asList());
-		List<KeySuffix> mysql = CollectionUtils.combine(Admin.asList(), Liquibase.asList());
-		Map<Vendor, List<KeySuffix>> map = new HashMap<Vendor, List<KeySuffix>>();
-		map.put(Vendor.ORACLE, Collections.unmodifiableList(oracle));
-		map.put(Vendor.MYSQL, Collections.unmodifiableList(mysql));
-		return Collections.unmodifiableMap(map);
+	protected List<KeySuffix> getSqlKeys() {
+		return Collections.unmodifiableList(Admin.asList());
 	}
 
 	public EnvironmentService getEnv() {
