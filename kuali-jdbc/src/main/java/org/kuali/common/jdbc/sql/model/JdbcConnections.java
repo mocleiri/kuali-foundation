@@ -8,7 +8,7 @@ import org.kuali.common.util.Assert;
 public final class JdbcConnections {
 
 	public JdbcConnections(ConnectionContext normal, ConnectionContext dba, Class<? extends Driver> driver) {
-		Assert.noNulls(normal, dba);
+		Assert.noNulls(normal, dba, driver);
 		this.normal = normal;
 		this.dba = dba;
 		this.driver = driver;
