@@ -52,7 +52,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		List<KeySuffix> suffixes = getVendorSqlKeysMap().get(vendor);
 		Properties properties = new Properties();
 		for (KeySuffix suffix : suffixes) {
-			String key = vendor.getCode() + "." + suffix.getKeySuffix();
+			String key = vendor.getCode() + "." + suffix.getValue();
 			String sql = env.getString(key);
 			properties.setProperty(key, sql);
 		}

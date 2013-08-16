@@ -16,7 +16,7 @@ public enum Oracle implements KeySuffix {
 	private final String suffix;
 
 	@Override
-	public String getKeySuffix() {
+	public String getValue() {
 		return suffix;
 	}
 
