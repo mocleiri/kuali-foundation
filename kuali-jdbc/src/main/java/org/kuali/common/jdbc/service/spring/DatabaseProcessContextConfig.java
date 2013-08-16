@@ -3,6 +3,7 @@ package org.kuali.common.jdbc.service.spring;
 import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.sql.model.SqlContext;
+import org.kuali.common.jdbc.sql.spring.SqlContextConfig;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

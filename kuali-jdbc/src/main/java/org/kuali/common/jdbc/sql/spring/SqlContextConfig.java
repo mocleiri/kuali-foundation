@@ -1,6 +1,7 @@
-package org.kuali.common.jdbc.service.spring;
+package org.kuali.common.jdbc.sql.spring;
 
 import org.kuali.common.jdbc.model.Credentials;
+import org.kuali.common.jdbc.service.spring.JdbcConnectionsConfig;
 import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.sql.model.JdbcConnections;
