@@ -60,9 +60,9 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
 	protected AdminSql getAdminSql(Properties sql) {
 		String prefix = base.getVendor().getCode();
-		String validate = getSql(prefix + "." + Admin.VALIDATE.getValue(), sql);
-		String create = getSql(prefix + "." + Admin.CREATE.getValue(), sql);
-		String drop = getSql(prefix + "." + Admin.DROP.getValue(), sql);
+		String validate = sql.getProperty(prefix + "." + Admin.VALIDATE.getValue());
+		String create = sql.getProperty(prefix + "." + Admin.CREATE.getValue());
+		String drop = sql.getProperty(prefix + "." + Admin.DROP.getValue());
 		return new AdminSql(validate, create, drop);
 	}
 

@@ -9,8 +9,8 @@ import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorBase;
 import org.kuali.common.jdbc.vendor.model.Vendors;
 import org.kuali.common.jdbc.vendor.service.DatabaseVendorService;
-import org.kuali.common.jdbc.vendor.service.DefaultDatabaseVendorService;
 import org.kuali.common.jdbc.vendor.service.MySqlDatabaseVendorService;
+import org.kuali.common.jdbc.vendor.service.OracleDatabaseVendorService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class DatabaseVendorConfig {
 		VendorBase base = vendorBaseMap().get(vendor);
 		switch (vendor) {
 		case ORACLE:
-			return new DefaultDatabaseVendorService(env, base);
+			return new OracleDatabaseVendorService(env, base);
 		case MYSQL:
 			return new MySqlDatabaseVendorService(env, base);
 		default:
