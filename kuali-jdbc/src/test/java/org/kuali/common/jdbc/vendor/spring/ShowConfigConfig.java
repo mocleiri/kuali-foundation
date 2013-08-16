@@ -15,27 +15,22 @@
  */
 package org.kuali.common.jdbc.vendor.spring;
 
-import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
-import org.kuali.common.jdbc.service.spring.DatabaseProcessContextConfig;
+import org.kuali.common.jdbc.service.spring.JdbcShowConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(DatabaseProcessContextConfig.class)
+@Import({ JdbcShowConfig.class })
 public class ShowConfigConfig {
 
 	@Autowired
-	DatabaseProcessContext context;
+	JdbcShowConfig config;
 
 	@Execute
 	protected Executable executable() {
-		PrintMessageExecutable exec = new PrintMessageExecutable();
-		String message = context.getVendor();
-		exec.setMessage(message);
-		return exec;
+		return config.showDbaConfigExecutable();
 	}
 }

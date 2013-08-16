@@ -51,7 +51,7 @@ public class ShowConfig implements MainConfig {
 	@Execute
 	public Executable main() {
 		PropertySource<?> source = mainService.getPropertySource(mainContext, ShowPropertySourceConfig.class);
-		return SpringExecUtils.getSpringExecutable(service, source, ShowConfigConfig.class);
+		return SpringExecUtils.getSpringExecutable(service, source, ShowConfig.class);
 	}
 
 }
