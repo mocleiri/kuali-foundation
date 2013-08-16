@@ -62,4 +62,11 @@ public class NullUtils {
 	public static final boolean isNullOrNone(String s) {
 		return isNull(s) || isNone(s);
 	}
+
+	/**
+	 * Return <code>null</code> if <code>isNullOrNone()</code> returns true, otherwise return <code>s</code>
+	 */
+	public static final String toNull(String s) {
+		return isNullOrNone(s) ? null : s;
+	}
 }
