@@ -52,8 +52,6 @@ CREATE USER 'JDBCTEST'@'localhost' IDENTIFIED BY 'JDBCTEST';
 GRANT ALL ON JDBCTEST.* TO 'JDBCTEST'@'%' WITH GRANT OPTION;
 GRANT ALL ON JDBCTEST.* TO 'JDBCTEST'@'localhost' WITH GRANT OPTION;
 
-
-
 # Redirect all internally generated traffic from port 80 to port 8080
 iptables -t nat -A OUTPUT -p tcp -o lo --dport 80 -j DNAT --to 127.0.0.1:8080
 
