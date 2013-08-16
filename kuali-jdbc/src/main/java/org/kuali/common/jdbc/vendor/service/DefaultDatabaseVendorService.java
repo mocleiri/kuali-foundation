@@ -53,9 +53,17 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
 		String prefix = base.getVendor().getCode();
-		String before = env.getString(prefix + ".dba.before", adminSql.getValidate() + adminSql.getDrop() + adminSql.getCreate());
-		String after = env.getString(prefix + ".dba.after", adminSql.getValidate());
+		String before = getDbaBefore(prefix + ".dba.before", adminSql, sql);
+		String after = getDbaAfter(prefix + ".dba.after", adminSql, sql);
 		return new DbaSql(before, after);
+	}
+
+	protected String getDbaBefore(String key, AdminSql adminSql, Properties sql) {
+		return env.getString(key, adminSql.getValidate() + adminSql.getDrop() + adminSql.getCreate());
+	}
+
+	protected String getDbaAfter(String key, AdminSql adminSql, Properties sql) {
+		return env.getString(key, adminSql.getValidate());
 	}
 
 	protected AdminSql getAdminSql(Properties sql) {
