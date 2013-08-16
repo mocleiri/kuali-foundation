@@ -21,7 +21,7 @@ public enum Admin implements KeySuffix {
 	}
 
 	public static List<KeySuffix> asList() {
-		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(Admin.values())));
+		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(values())));
 	}
 
 }

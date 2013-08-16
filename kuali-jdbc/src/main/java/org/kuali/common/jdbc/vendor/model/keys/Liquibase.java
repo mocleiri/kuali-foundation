@@ -21,7 +21,7 @@ public enum Liquibase implements KeySuffix {
 	}
 
 	public static List<KeySuffix> asList() {
-		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(Liquibase.values())));
+		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(values())));
 	}
 
 }

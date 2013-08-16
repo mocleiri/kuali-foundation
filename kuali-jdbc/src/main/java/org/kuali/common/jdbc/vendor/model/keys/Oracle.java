@@ -21,7 +21,7 @@ public enum Oracle implements KeySuffix {
 	}
 
 	public static List<KeySuffix> asList() {
-		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(Oracle.values())));
+		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(values())));
 	}
 
 }
