@@ -39,13 +39,6 @@ public class CollectionUtils {
 	/**
 	 * Returns a new unmodifiable list containing the elements from <code>list</code>
 	 */
-	public static <T> List<? extends T> unmodifiableListt(T[] array) {
-		return Collections.unmodifiableList(new ArrayList<T>(Arrays.asList(array)));
-	}
-
-	/**
-	 * Returns a new unmodifiable list containing the elements from <code>list</code>
-	 */
 	public static <T> List<T> unmodifiableCopy(List<T> list) {
 		return Collections.unmodifiableList(new ArrayList<T>(list));
 	}
