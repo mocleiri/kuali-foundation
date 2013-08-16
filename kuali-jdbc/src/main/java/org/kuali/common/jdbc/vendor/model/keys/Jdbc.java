@@ -7,7 +7,8 @@ import java.util.List;
 
 public enum Jdbc implements KeySuffix {
 
-	URL("url"), DRIVER("driver");
+	URL("url"), 
+	DRIVER("driver");
 
 	private Jdbc(String suffix) {
 		this.suffix = suffix;
