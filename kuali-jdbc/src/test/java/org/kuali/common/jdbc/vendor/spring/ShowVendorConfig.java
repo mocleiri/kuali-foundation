@@ -16,6 +16,7 @@
 package org.kuali.common.jdbc.vendor.spring;
 
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.PrintMessageExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
@@ -33,7 +34,7 @@ public class ShowVendorConfig {
 	@Execute
 	protected Executable executable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		String message = vendor.getDbaSql().getBefore() + "\n" + vendor.getDbaSql().getAfter();
+		String message = "\n\n" + PropertyUtils.toString(vendor.getSql());
 		exec.setMessage(message);
 		return exec;
 	}
