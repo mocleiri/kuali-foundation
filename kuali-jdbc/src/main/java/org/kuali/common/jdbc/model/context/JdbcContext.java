@@ -24,7 +24,7 @@ import org.kuali.common.jdbc.listen.SqlListener;
 import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 
-public final class JdbcContextOld {
+public final class JdbcContext {
 
 	// If true, no SQL is executed.
 	// Everything leading up to SQL execution still takes place

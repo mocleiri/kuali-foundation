@@ -21,7 +21,7 @@ import org.kuali.common.util.Assert;
 
 public final class SqlBucketContext {
 
-	public SqlBucketContext(SqlBucket bucket, JdbcContextOld context, JdbcService service) {
+	public SqlBucketContext(SqlBucket bucket, JdbcContext context, JdbcService service) {
 		Assert.noNulls(bucket, context, service);
 		this.bucket = bucket;
 		this.context = context;
@@ -29,14 +29,14 @@ public final class SqlBucketContext {
 	}
 
 	private final SqlBucket bucket;
-	private final JdbcContextOld context;
+	private final JdbcContext context;
 	private final JdbcService service;
 
 	public SqlBucket getBucket() {
 		return bucket;
 	}
 
-	public JdbcContextOld getContext() {
+	public JdbcContext getContext() {
 		return context;
 	}
 

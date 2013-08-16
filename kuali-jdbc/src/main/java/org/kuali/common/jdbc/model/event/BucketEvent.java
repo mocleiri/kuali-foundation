@@ -18,19 +18,19 @@ package org.kuali.common.jdbc.model.event;
 import java.util.List;
 
 import org.kuali.common.jdbc.model.SqlBucket;
-import org.kuali.common.jdbc.model.context.JdbcContextOld;
+import org.kuali.common.jdbc.model.context.JdbcContext;
 
 public final class BucketEvent {
 
-	private final JdbcContextOld context;
+	private final JdbcContext context;
 	private final List<SqlBucket> buckets;
 
-	public BucketEvent(JdbcContextOld context, List<SqlBucket> buckets) {
+	public BucketEvent(JdbcContext context, List<SqlBucket> buckets) {
 		this.context = context;
 		this.buckets = buckets;
 	}
 
-	public JdbcContextOld getContext() {
+	public JdbcContext getContext() {
 		return context;
 	}
 
