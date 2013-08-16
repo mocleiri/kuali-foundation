@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum Jdbc implements KeySuffix {
+public enum Basic implements KeySuffix {
 
 	URL("url"), 
 	DRIVER("driver");
 
-	private Jdbc(String suffix) {
+	private Basic(String suffix) {
 		this.suffix = suffix;
 	}
 
