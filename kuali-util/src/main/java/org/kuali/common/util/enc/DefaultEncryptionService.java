@@ -59,4 +59,8 @@ public final class DefaultEncryptionService implements EncryptionService {
 		}
 	}
 
+	public TextEncryptor getEncryptor() {
+		return encryptor;
+	}
+
 }
