@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
+import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorBase;
@@ -43,8 +44,22 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		ConnectionContext dba = getDba(base);
 		Class<? extends Driver> driver = getDriver();
 		Properties sql = getSql();
+		AdminSql adminSql = getAdminSql(sql);
 		String url = getUrl();
-		return new DatabaseVendor(base.getVendor(), dba, url, driver, null, null, sql);
+		return new DatabaseVendor(base.getVendor(), dba, url, driver, adminSql, null, sql);
+	}
+
+	protected AdminSql getAdminSql(Properties sql) {
+		String prefix = base.getVendor().getCode();
+		String validate = getSql(prefix + "." + Admin.VALIDATE.getValue(), sql);
+		String create = getSql(prefix + "." + Admin.CREATE.getValue(), sql);
+		String drop = getSql(prefix + "." + Admin.DROP.getValue(), sql);
+		return new AdminSql(validate, create, drop);
+	}
+
+	protected String getSql(String key, Properties sql) {
+		String defaultValue = sql.getProperty(key);
+		return env.getString(key, defaultValue);
 	}
 
 	protected Properties getSql() {
