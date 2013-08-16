@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum Oracle implements KeySuffix {
+public enum Oracle implements EnvironmentKeySuffix {
 
 	KILL_AND_DROP("killAndDrop"), //
 	KILL_AND_DROP_RDS("killAndDrop.rds"), //
@@ -22,8 +22,8 @@ public enum Oracle implements KeySuffix {
 		return suffix;
 	}
 
-	public static List<KeySuffix> asList() {
-		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(values())));
+	public static List<EnvironmentKeySuffix> asList() {
+		return Collections.unmodifiableList(new ArrayList<EnvironmentKeySuffix>(Arrays.asList(values())));
 	}
 
 }

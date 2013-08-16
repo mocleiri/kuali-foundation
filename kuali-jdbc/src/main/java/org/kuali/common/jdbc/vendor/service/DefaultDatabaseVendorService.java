@@ -13,7 +13,7 @@ import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Basic;
 import org.kuali.common.jdbc.vendor.model.keys.Dba;
-import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
+import org.kuali.common.jdbc.vendor.model.keys.EnvironmentKeySuffix;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -73,9 +73,9 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Properties getSql() {
-		List<KeySuffix> suffixes = getSqlKeySuffixes();
+		List<EnvironmentKeySuffix> suffixes = getSqlKeySuffixes();
 		Properties properties = new Properties();
-		for (KeySuffix suffix : suffixes) {
+		for (EnvironmentKeySuffix suffix : suffixes) {
 			String key = vendor.getCode() + "." + suffix.getValue();
 			String sql = env.getString(key);
 			properties.setProperty(key, sql);
@@ -95,7 +95,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
 	}
 
-	protected List<KeySuffix> getSqlKeySuffixes() {
+	protected List<EnvironmentKeySuffix> getSqlKeySuffixes() {
 		return Admin.asList();
 	}
 

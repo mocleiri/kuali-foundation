@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum Dba implements KeySuffix {
+public enum Dba implements EnvironmentKeySuffix {
 
 	USERNAME("dba.username"), //
 	URL("dba.url"), //
@@ -24,8 +24,8 @@ public enum Dba implements KeySuffix {
 		return suffix;
 	}
 
-	public static List<KeySuffix> asList() {
-		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(values())));
+	public static List<EnvironmentKeySuffix> asList() {
+		return Collections.unmodifiableList(new ArrayList<EnvironmentKeySuffix>(Arrays.asList(values())));
 	}
 
 }

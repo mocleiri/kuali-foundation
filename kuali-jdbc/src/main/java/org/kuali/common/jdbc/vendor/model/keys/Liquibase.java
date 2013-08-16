@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum Liquibase implements KeySuffix {
+public enum Liquibase implements EnvironmentKeySuffix {
 
 	DROP("liquibase.drop"), //
 	CREATE("liquibase.create");
@@ -21,8 +21,8 @@ public enum Liquibase implements KeySuffix {
 		return suffix;
 	}
 
-	public static List<KeySuffix> asList() {
-		return Collections.unmodifiableList(new ArrayList<KeySuffix>(Arrays.asList(values())));
+	public static List<EnvironmentKeySuffix> asList() {
+		return Collections.unmodifiableList(new ArrayList<EnvironmentKeySuffix>(Arrays.asList(values())));
 	}
 
 }
