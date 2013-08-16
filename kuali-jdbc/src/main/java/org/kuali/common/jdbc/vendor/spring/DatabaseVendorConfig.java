@@ -5,6 +5,7 @@ import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.service.DatabaseVendorService;
 import org.kuali.common.jdbc.vendor.service.MySqlDatabaseVendorService;
 import org.kuali.common.jdbc.vendor.service.OracleDatabaseVendorService;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class DatabaseVendorConfig {
 	@Bean
 	public DatabaseVendorService databaseVendorService() {
 		String vendorString = env.getString(VENDOR_KEY); // No default value. They must supply db.vendor
+		Assert.noBlanks(vendorString);
 		Vendor vendor = Vendor.valueOf(vendorString.toUpperCase());
 		switch (vendor) {
 		case ORACLE:
