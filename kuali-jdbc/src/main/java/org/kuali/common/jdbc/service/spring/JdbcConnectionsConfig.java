@@ -28,12 +28,12 @@ public class JdbcConnectionsConfig {
 
 	@Bean
 	public JdbcContext jdbcContext() {
-		Class<? extends Driver> driver = getDriver(env, Jdbc.DRIVER.getValue(), vendor.getDriver());
+		Class<? extends Driver> driver = getDriver(env, vendor.getDriver());
 		return new JdbcContext(driver, new JdbcConnections(getNormal(), getDba()));
 	}
 
-	protected Class<? extends Driver> getDriver(EnvironmentService env, String key, Class<? extends Driver> defaultValue) {
-		String driver = env.getString(key, defaultValue.getName());
+	protected Class<? extends Driver> getDriver(EnvironmentService env, Class<? extends Driver> defaultValue) {
+		String driver = env.getString(Jdbc.DRIVER.getValue(), defaultValue.getName());
 		return ReflectionUtils.getTypedClass(driver);
 	}
 
