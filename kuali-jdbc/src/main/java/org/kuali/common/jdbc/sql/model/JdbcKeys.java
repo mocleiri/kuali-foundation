@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum Jdbc implements EnvironmentKey {
+public enum JdbcKeys implements EnvironmentKey {
 
 	URL("jdbc.url"), //
 	USERNAME("jdbc.username"), //
@@ -15,7 +15,7 @@ public enum Jdbc implements EnvironmentKey {
 	DBA_USERNAME("jdbc.dba.username"), //
 	DBA_PASSWORD("jdbc.dba.password"); //
 
-	private Jdbc(String value) {
+	private JdbcKeys(String value) {
 		this.value = value;
 	}
 

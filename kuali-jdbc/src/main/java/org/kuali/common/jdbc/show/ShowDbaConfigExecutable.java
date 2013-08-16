@@ -53,7 +53,7 @@ public final class ShowDbaConfigExecutable implements Executable {
 		}
 
 		ShowUtils.showOpen(logger, context);
-		ShowUtils.showDba(logger, context.getConnections().getDba());
+		ShowUtils.showDba(logger, context.getConnectionsContext()
 		ShowUtils.showClose(logger, context, service, dataSource);
 	}
 

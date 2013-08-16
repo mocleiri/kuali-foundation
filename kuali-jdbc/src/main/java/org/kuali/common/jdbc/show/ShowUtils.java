@@ -9,12 +9,14 @@ import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
 import org.kuali.common.jdbc.service.JdbcService;
+import org.kuali.common.jdbc.sql.model.JdbcConnectionsContext;
 import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 
 public class ShowUtils {
 
 	public static void showOpen(Logger logger, DatabaseProcessContext context) {
+		JdbcConnectionsContext jcc = context.getContext();
 		Credentials auth = context.getConnections().getNormal().getCredentials();
 		String url = context.getConnections().getNormal().getUrl();
 		logger.info("------------------------------------------------------------------------");
