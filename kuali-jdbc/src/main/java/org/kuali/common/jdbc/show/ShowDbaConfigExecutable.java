@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.show;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.model.context.DatabaseContext;
+import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
@@ -29,18 +29,18 @@ public final class ShowDbaConfigExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;
 
-	public ShowDbaConfigExecutable(DatabaseContext context, DataSource dataSource, JdbcService service) {
+	public ShowDbaConfigExecutable(DatabaseProcessContext context, DataSource dataSource, JdbcService service) {
 		this(context, dataSource, service, DEFAULT_SKIP);
 	}
 
-	public ShowDbaConfigExecutable(DatabaseContext context, DataSource dataSource, JdbcService service, boolean skip) {
+	public ShowDbaConfigExecutable(DatabaseProcessContext context, DataSource dataSource, JdbcService service, boolean skip) {
 		this.context = context;
 		this.dataSource = dataSource;
 		this.service = service;
 		this.skip = skip;
 	}
 
-	private final DatabaseContext context;
+	private final DatabaseProcessContext context;
 	private final DataSource dataSource;
 	private final JdbcService service;
 	private final boolean skip;
@@ -57,7 +57,7 @@ public final class ShowDbaConfigExecutable implements Executable {
 		ShowUtils.showClose(logger, context, service, dataSource);
 	}
 
-	public DatabaseContext getContext() {
+	public DatabaseProcessContext getContext() {
 		return context;
 	}
 

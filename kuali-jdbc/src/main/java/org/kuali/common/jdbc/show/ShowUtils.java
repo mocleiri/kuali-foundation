@@ -4,7 +4,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.model.context.DatabaseContext;
+import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 
 public class ShowUtils {
 
-	public static void showOpen(Logger logger, DatabaseContext context) {
+	public static void showOpen(Logger logger, DatabaseProcessContext context) {
 		Credentials auth = context.getNormal().getCredentials();
 		String url = context.getNormal().getUrl();
 		logger.info("------------------------------------------------------------------------");
@@ -34,7 +34,7 @@ public class ShowUtils {
 		logger.info("DBA Password - {}", LoggerUtils.getPassword(auth.getUsername(), auth.getPassword()));
 	}
 
-	public static void showClose(Logger logger, DatabaseContext context, JdbcService service, DataSource dataSource) {
+	public static void showClose(Logger logger, DatabaseProcessContext context, JdbcService service, DataSource dataSource) {
 		logger.info("Driver - {}", context.getDriver().getName());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		// Establish a connection to the db to extract more detailed info

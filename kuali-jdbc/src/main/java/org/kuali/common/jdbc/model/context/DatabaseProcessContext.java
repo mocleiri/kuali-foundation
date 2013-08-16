@@ -15,49 +15,27 @@
  */
 package org.kuali.common.jdbc.model.context;
 
-import java.sql.Driver;
-
-import org.kuali.common.jdbc.vendor.model.Vendors;
+import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.Assert;
 
-public final class DatabaseContext {
+public final class DatabaseProcessContext {
 
-	public DatabaseContext(Vendors vendor, Class<? extends Driver> driver, ConnectionContext context, String encoding, String schema) {
-		this(vendor, driver, context, context, encoding, schema);
-	}
-
-	public DatabaseContext(Vendors vendor, Class<? extends Driver> driver, ConnectionContext normal, ConnectionContext dba, String encoding, String schema) {
-		Assert.noNulls(vendor, driver, normal, dba);
+	public DatabaseProcessContext(DatabaseVendor vendor, ConnectionContext connectionContext, String encoding, String schema) {
+		Assert.noNulls(vendor, connectionContext);
 		Assert.noBlanks(encoding, schema);
 		this.vendor = vendor;
-		this.driver = driver;
-		this.normal = normal;
-		this.dba = dba;
+		this.connectionContext = connectionContext;
 		this.encoding = encoding;
 		this.schema = schema;
 	}
 
-	private final Vendors vendor;
-	private final Class<? extends Driver> driver;
-	private final ConnectionContext normal;
-	private final ConnectionContext dba;
+	private final DatabaseVendor vendor;
+	private final ConnectionContext connectionContext;
 	private final String encoding;
 	private final String schema;
 
-	public Vendors getVendor() {
+	public DatabaseVendor getVendor() {
 		return vendor;
-	}
-
-	public Class<? extends Driver> getDriver() {
-		return driver;
-	}
-
-	public ConnectionContext getNormal() {
-		return normal;
-	}
-
-	public ConnectionContext getDba() {
-		return dba;
 	}
 
 	public String getEncoding() {
@@ -66,6 +44,10 @@ public final class DatabaseContext {
 
 	public String getSchema() {
 		return schema;
+	}
+
+	public ConnectionContext getConnectionContext() {
+		return connectionContext;
 	}
 
 }
