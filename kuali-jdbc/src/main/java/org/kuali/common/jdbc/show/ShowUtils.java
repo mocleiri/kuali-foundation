@@ -15,8 +15,8 @@ import org.slf4j.Logger;
 public class ShowUtils {
 
 	public static void showOpen(Logger logger, DatabaseProcessContext context) {
-		Credentials auth = context.getConnectionContext().getCredentials();
-		String url = context.getConnectionContext().getUrl();
+		Credentials auth = context.getConnections().getNormal().getCredentials();
+		String url = context.getConnections().getNormal().getUrl();
 		logger.info("------------------------------------------------------------------------");
 		logger.info("JDBC Configuration");
 		logger.info("------------------------------------------------------------------------");
@@ -35,7 +35,7 @@ public class ShowUtils {
 	}
 
 	public static void showClose(Logger logger, DatabaseProcessContext context, JdbcService service, DataSource dataSource) {
-		logger.info("Driver - {}", context.getVendor().getDriver().getName());
+		logger.info("Driver - {}", context.getDriver().getName());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		// Establish a connection to the db to extract more detailed info
 		JdbcMetaData metadata = service.getJdbcMetaData(dataSource);

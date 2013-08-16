@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc.model.context;
 
+import java.sql.Driver;
+
 import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.Assert;
@@ -25,11 +27,13 @@ public final class DatabaseProcessContext {
 		Assert.noNulls(vendor, connections);
 		Assert.noBlanks(encoding, schema);
 		this.vendor = vendor.getCode();
+		this.driver = vendor.getDriver();
 		this.connections = connections;
 		this.encoding = encoding;
 		this.schema = schema;
 	}
 
+	private final Class<? extends Driver> driver;
 	private final String vendor;
 	private final JdbcConnections connections;
 	private final String encoding;
@@ -49,6 +53,10 @@ public final class DatabaseProcessContext {
 
 	public String getSchema() {
 		return schema;
+	}
+
+	public Class<? extends Driver> getDriver() {
+		return driver;
 	}
 
 }
