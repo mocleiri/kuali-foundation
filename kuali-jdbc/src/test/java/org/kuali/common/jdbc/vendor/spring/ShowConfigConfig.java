@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc.vendor.spring;
 
-import org.kuali.common.jdbc.service.spring.JdbcShowConfig;
+import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;

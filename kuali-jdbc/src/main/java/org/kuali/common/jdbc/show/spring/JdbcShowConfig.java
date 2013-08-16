@@ -1,7 +1,9 @@
-package org.kuali.common.jdbc.service.spring;
+package org.kuali.common.jdbc.show.spring;
 
 import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.service.JdbcService;
+import org.kuali.common.jdbc.service.spring.DataSourceConfig;
+import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.show.ShowConfigExecutable;
 import org.kuali.common.jdbc.show.ShowDbaConfigExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
