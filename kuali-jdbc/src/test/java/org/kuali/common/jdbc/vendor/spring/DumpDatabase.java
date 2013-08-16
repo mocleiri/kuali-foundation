@@ -21,7 +21,6 @@ import org.kuali.common.util.main.MainService;
 import org.kuali.common.util.main.MainUtils;
 import org.kuali.common.util.main.spring.MainConfig;
 import org.kuali.common.util.main.spring.MainServiceConfig;
-import org.kuali.common.util.spring.HelloWorldExecutableConfig;
 import org.kuali.common.util.spring.SpringExecUtils;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.service.SpringService;
@@ -52,7 +51,7 @@ public class DumpDatabase implements MainConfig {
 	@Execute
 	public Executable main() {
 		PropertySource<?> source = mainService.getPropertySource(mainContext, DatabaseVendorPropertySourceConfig.class);
-		return SpringExecUtils.getSpringExecutable(service, source, HelloWorldExecutableConfig.class);
+		return SpringExecUtils.getSpringExecutable(service, source, ShowVendorConfig.class);
 	}
 
 }
