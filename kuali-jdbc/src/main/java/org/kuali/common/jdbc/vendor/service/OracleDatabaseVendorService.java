@@ -18,7 +18,7 @@ public class OracleDatabaseVendorService extends DefaultDatabaseVendorService {
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
 		String prefix = getBase().getVendor().getCode();
 		String afterKey = prefix + ".dba.after";
-		String defaultAfter = sql.getProperty(Oracle.SCHEMA_STATS.getValue());
+		String defaultAfter = sql.getProperty(prefix + "." + Oracle.SCHEMA_STATS.getValue());
 		String after = getEnv().getString(afterKey, defaultAfter);
 		DbaSql original = super.getDbaSql(adminSql, sql);
 		return new DbaSql(original.getBefore(), after);
