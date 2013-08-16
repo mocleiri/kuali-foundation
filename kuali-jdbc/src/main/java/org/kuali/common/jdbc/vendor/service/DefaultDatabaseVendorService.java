@@ -16,43 +16,38 @@ import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
 import org.kuali.common.jdbc.vendor.model.keys.Oracle;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
-	private static final String VENDOR_KEY = "db.vendor";
-
-	public DefaultDatabaseVendorService(EnvironmentService env) {
+	public DefaultDatabaseVendorService(EnvironmentService env, VendorBase base) {
+		Assert.noNulls(env, base);
 		this.env = env;
+		this.base = base;
 	}
 
 	private final EnvironmentService env;
+	private final VendorBase base;
 
-	protected String getUrl(VendorBase base) {
+	protected String getUrl() {
 		String prefix = base.getVendor().getCode();
 		String key = prefix + ".url";
 		return env.getString(key, base.getDba().getUrl());
 	}
-	
-	protected Vendor getDatabaseVendorEnum() {
-		String vendor = env.getString(VENDOR_KEY);
-		return Vendor.valueOf(vendor.toUpperCase());
-	}
 
 	@Override
 	public DatabaseVendor getDatabaseVendor() {
-		Vendor vendor = getDatabaseVendorEnum();
-		VendorBase base = getVendorBaseMap().get(vendor);
 		ConnectionContext dba = getDba(base);
-		Class<? extends Driver> driver = getDriver(base);
-		Properties sql = getSql(base);
-		String url = getUrl(base);
-		return new DatabaseVendor(vendor, dba, url, driver, sql);
+		Class<? extends Driver> driver = getDriver();
+		Properties sql = getSql();
+		String url = getUrl();
+		return new DatabaseVendor(base.getVendor(), dba, url, driver, sql);
 	}
 
-	protected Properties getSql(VendorBase base) {
+	protected Properties getSql() {
 		Vendor vendor = base.getVendor();
 		List<KeySuffix> suffixes = getVendorSqlKeysMap().get(vendor);
 		Properties properties = new Properties();
@@ -64,7 +59,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return properties;
 	}
 
-	protected Class<? extends Driver> getDriver(VendorBase base) {
+	protected Class<? extends Driver> getDriver() {
 		String prefix = base.getVendor().getCode();
 		String driver = env.getString(prefix + ".driver", base.getDriver());
 		return ReflectionUtils.newInstance(driver);
@@ -98,6 +93,10 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
 	public EnvironmentService getEnv() {
 		return env;
+	}
+
+	public VendorBase getBase() {
+		return base;
 	}
 
 }

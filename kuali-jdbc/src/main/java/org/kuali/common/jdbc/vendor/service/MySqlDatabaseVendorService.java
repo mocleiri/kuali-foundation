@@ -5,13 +5,15 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class MySqlDatabaseVendorService extends DefaultDatabaseVendorService {
 
-	public MySqlDatabaseVendorService(EnvironmentService env) {
-		super(env);
+	private static final String USERNAME_KEY = "jdbc.username";
+
+	public MySqlDatabaseVendorService(EnvironmentService env, VendorBase base) {
+		super(env, base);
 	}
 
 	@Override
-	protected String getUrl(VendorBase base) {
-		return super.getUrl(base) + "/" + getEnv().getString("jdbc.username");
+	protected String getUrl() {
+		return super.getUrl() + "/" + getEnv().getString(USERNAME_KEY);
 	}
 
 }
