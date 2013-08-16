@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.AdminSql;
+import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorBase;
@@ -49,6 +50,13 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return new DatabaseVendor(base.getVendor(), dba, url, driver, adminSql, null, sql);
 	}
 
+	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
+		String prefix = base.getVendor().getCode();
+		String before = env.getString(prefix + ".dba.before", adminSql.getValidate() + adminSql.getDrop() + adminSql.getCreate());
+		String after = env.getString(prefix + ".dba.after", adminSql.getValidate());
+		return new DbaSql(before, after);
+	}
+
 	protected AdminSql getAdminSql(Properties sql) {
 		String prefix = base.getVendor().getCode();
 		String validate = getSql(prefix + "." + Admin.VALIDATE.getValue(), sql);
@@ -77,7 +85,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	protected Class<? extends Driver> getDriver() {
 		String prefix = base.getVendor().getCode();
 		String driver = env.getString(prefix + ".driver", base.getDriver());
-		return ReflectionUtils.newInstance(driver);
+		return ReflectionUtils.getTypedClass(driver);
 	}
 
 	protected ConnectionContext getDba(VendorBase base) {
