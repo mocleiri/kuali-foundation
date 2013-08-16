@@ -7,7 +7,9 @@ import java.util.List;
 
 public enum Admin implements KeySuffix {
 
-	VALIDATE("validate"), DROP("drop"), CREATE("create");
+	VALIDATE("validate"), //
+	DROP("drop"), //
+	CREATE("create");
 
 	private Admin(String suffix) {
 		this.suffix = suffix;

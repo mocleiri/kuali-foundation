@@ -7,7 +7,8 @@ import java.util.List;
 
 public enum Liquibase implements KeySuffix {
 
-	DROP("liquibase.drop"), CREATE("liquibase.create");
+	DROP("liquibase.drop"), //
+	CREATE("liquibase.create");
 
 	private Liquibase(String suffix) {
 		this.suffix = suffix;

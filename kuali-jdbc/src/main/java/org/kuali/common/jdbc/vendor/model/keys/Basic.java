@@ -7,7 +7,7 @@ import java.util.List;
 
 public enum Basic implements KeySuffix {
 
-	URL("url"), 
+	URL("url"), //
 	DRIVER("driver");
 
 	private Basic(String suffix) {

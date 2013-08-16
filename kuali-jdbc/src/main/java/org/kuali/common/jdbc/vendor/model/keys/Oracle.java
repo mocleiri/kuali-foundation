@@ -7,7 +7,9 @@ import java.util.List;
 
 public enum Oracle implements KeySuffix {
 
-	KILL_AND_DROP("killAndDrop"), KILL_AND_DROP_RDS("killAndDrop.rds"), SCHEMA_STATS("schemaStats");
+	KILL_AND_DROP("killAndDrop"), //
+	KILL_AND_DROP_RDS("killAndDrop.rds"), //
+	SCHEMA_STATS("schemaStats");
 
 	private Oracle(String suffix) {
 		this.suffix = suffix;
