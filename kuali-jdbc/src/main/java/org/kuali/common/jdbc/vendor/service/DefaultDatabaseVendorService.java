@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.vendor.service;
 
 import java.sql.Driver;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -97,7 +96,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected List<KeySuffix> getSqlKeySuffixes() {
-		return Collections.unmodifiableList(Admin.asList());
+		return Admin.asList();
 	}
 
 	public EnvironmentService getEnv() {
