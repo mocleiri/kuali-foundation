@@ -22,14 +22,9 @@ public class DatabaseVendorConfig {
 	EnvironmentService env;
 
 	@Bean
-	public Vendor databaseVendorEnum() {
-		String vendor = env.getString(VENDOR_KEY);
-		return Vendor.valueOf(vendor.toUpperCase());
-	}
-
-	@Bean
 	public DatabaseVendorService databaseVendorService() {
-		Vendor vendor = databaseVendorEnum();
+		String vendorString = env.getString(VENDOR_KEY);
+		Vendor vendor = Vendor.valueOf(vendorString.toUpperCase());
 		switch (vendor) {
 		case ORACLE:
 			return new OracleDatabaseVendorService(env, vendor);
