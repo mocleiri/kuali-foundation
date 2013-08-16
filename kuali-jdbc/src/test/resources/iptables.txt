@@ -9,4 +9,3 @@ iptables --table nat --delete OUTPUT 1
 
 # List all iptables rules
 iptables --table nat --numeric --list --line-numbers
-
