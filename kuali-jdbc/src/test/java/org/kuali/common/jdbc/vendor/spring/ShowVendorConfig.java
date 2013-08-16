@@ -34,7 +34,7 @@ public class ShowVendorConfig {
 	@Execute
 	protected Executable executable() {
 		PrintMessageExecutable exec = new PrintMessageExecutable();
-		String message = "\n\n" + PropertyUtils.toString(vendor.getSql());
+		String message = "\n\n" + PropertyUtils.toString(vendor.getSql().getAll());
 		exec.setMessage(message);
 		return exec;
 	}
