@@ -20,7 +20,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.ExecutionResult;
-import org.kuali.common.jdbc.model.context.DataContext;
+import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 
 public interface JdbcService {
@@ -33,7 +33,7 @@ public interface JdbcService {
 	/**
 	 * Execute SQL as dictated by the context
 	 */
-	ExecutionResult executeSql(DataContext context);
+	ExecutionResult executeSql(JdbcContext context);
 
 	/**
 	 * Execute a single SQL statement
