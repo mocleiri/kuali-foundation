@@ -30,11 +30,6 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	private final EnvironmentService env;
 	private final Vendor vendor;
 
-	protected String getUrl() {
-		String key = vendor.getCode() + "." + Basic.URL;
-		return env.getString(key, vendor.getDba().getUrl());
-	}
-
 	@Override
 	public DatabaseVendor getDatabaseVendor() {
 		ConnectionContext dba = getDba();
@@ -45,6 +40,11 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		VendorSql vendorSql = new VendorSql(adminSql, dbaSql, sql);
 		String url = getUrl();
 		return new DatabaseVendor(vendor, dba, url, driver, vendorSql);
+	}
+
+	protected String getUrl() {
+		String key = vendor.getCode() + "." + Basic.URL;
+		return env.getString(key, vendor.getDba().getUrl());
 	}
 
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
