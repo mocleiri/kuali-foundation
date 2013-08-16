@@ -6,7 +6,7 @@ import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.Jdbc;
 import org.kuali.common.jdbc.sql.model.JdbcConnections;
-import org.kuali.common.jdbc.sql.model.JdbcContext;
+import org.kuali.common.jdbc.sql.model.JdbcConnectionsContext;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -27,9 +27,9 @@ public class JdbcConnectionsConfig {
 	EnvironmentService env;
 
 	@Bean
-	public JdbcContext jdbcContext() {
+	public JdbcConnectionsContext jdbcContext() {
 		Class<? extends Driver> driver = getDriver(env, vendor.getDriver());
-		return new JdbcContext(driver, new JdbcConnections(getNormal(), getDba()));
+		return new JdbcConnectionsContext(driver, new JdbcConnections(getNormal(), getDba()));
 	}
 
 	protected Class<? extends Driver> getDriver(EnvironmentService env, Class<? extends Driver> defaultValue) {

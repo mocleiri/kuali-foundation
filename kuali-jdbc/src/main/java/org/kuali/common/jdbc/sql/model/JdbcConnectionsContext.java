@@ -4,9 +4,9 @@ import java.sql.Driver;
 
 import org.kuali.common.util.Assert;
 
-public class JdbcContext {
+public class JdbcConnectionsContext {
 
-	public JdbcContext(Class<? extends Driver> driver, JdbcConnections connections) {
+	public JdbcConnectionsContext(Class<? extends Driver> driver, JdbcConnections connections) {
 		Assert.noNulls(driver, connections);
 		this.driver = driver;
 		this.connections = connections;
