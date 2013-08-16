@@ -36,7 +36,7 @@ public class DatabaseVendorConfig {
 	@Bean
 	public DatabaseVendorService databaseVendorService() {
 		Vendor vendor = databaseVendorEnum();
-		VendorBase base = getVendorBaseMap().get(vendor);
+		VendorBase base = vendorBaseMap().get(vendor);
 		switch (vendor) {
 		case ORACLE:
 			return new DefaultDatabaseVendorService(env, base);
@@ -53,7 +53,8 @@ public class DatabaseVendorConfig {
 		return databaseVendorService().getDatabaseVendor();
 	}
 
-	protected Map<Vendor, VendorBase> getVendorBaseMap() {
+	@Bean
+	public Map<Vendor, VendorBase> vendorBaseMap() {
 		VendorBase oracle = new VendorBase(Vendor.ORACLE, Vendors.Oracle.DBA, Vendors.Oracle.DRIVER);
 		VendorBase mysql = new VendorBase(Vendor.MYSQL, Vendors.MySql.DBA, Vendors.MySql.DRIVER);
 		Map<Vendor, VendorBase> map = new HashMap<Vendor, VendorBase>();
