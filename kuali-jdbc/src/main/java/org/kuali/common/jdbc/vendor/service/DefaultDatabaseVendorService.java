@@ -13,6 +13,7 @@ import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorBase;
+import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.Vendors;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
@@ -47,8 +48,9 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		Properties sql = getSql();
 		AdminSql adminSql = getAdminSql(sql);
 		DbaSql dbaSql = getDbaSql(adminSql, sql);
+		VendorSql vendorSql = new VendorSql(adminSql, dbaSql, sql);
 		String url = getUrl();
-		return new DatabaseVendor(base.getVendor(), dba, url, driver, adminSql, dbaSql, sql);
+		return new DatabaseVendor(base.getVendor(), dba, url, driver, vendorSql);
 	}
 
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
