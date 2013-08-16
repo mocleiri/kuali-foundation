@@ -13,7 +13,7 @@ import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Dba;
-import org.kuali.common.jdbc.vendor.model.keys.Jdbc;
+import org.kuali.common.jdbc.vendor.model.keys.Basic;
 import org.kuali.common.jdbc.vendor.model.keys.KeySuffix;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ReflectionUtils;
@@ -31,7 +31,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	private final Vendor vendor;
 
 	protected String getUrl() {
-		String key = vendor.getCode() + "." + Jdbc.URL;
+		String key = vendor.getCode() + "." + Basic.URL;
 		return env.getString(key, vendor.getDba().getUrl());
 	}
 
@@ -85,7 +85,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Class<? extends Driver> getDriver() {
-		String driver = env.getString(vendor.getCode() + "." + Jdbc.URL, vendor.getDriver());
+		String driver = env.getString(vendor.getCode() + "." + Basic.URL, vendor.getDriver());
 		return ReflectionUtils.getTypedClass(driver);
 	}
 
