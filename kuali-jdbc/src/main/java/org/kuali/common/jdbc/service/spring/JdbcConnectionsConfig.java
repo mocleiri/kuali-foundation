@@ -7,6 +7,7 @@ import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.JdbcConnections;
 import org.kuali.common.jdbc.sql.model.JdbcKeys;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.jdbc.vendor.spring.DatabaseVendorConfig;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
