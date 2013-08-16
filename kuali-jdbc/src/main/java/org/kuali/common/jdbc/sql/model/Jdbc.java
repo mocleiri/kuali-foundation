@@ -1,5 +1,10 @@
 package org.kuali.common.jdbc.sql.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public enum Jdbc implements EnvironmentKey {
 
 	URL("jdbc.url"), //
@@ -20,4 +25,7 @@ public enum Jdbc implements EnvironmentKey {
 		return this.value;
 	}
 
+	public static List<EnvironmentKey> asList() {
+		return Collections.unmodifiableList(new ArrayList<EnvironmentKey>(Arrays.asList(values())));
+	}
 }
