@@ -3,12 +3,12 @@ package org.kuali.common.jdbc.vendor.model;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.util.Assert;
 
-public enum VendorEnum {
+public enum Vendor {
 
 	ORACLE(Vendors.Codes.ORACLE, Vendors.Oracle.DBA, Vendors.Oracle.DRIVER), //
 	MYSQL(Vendors.Codes.MYSQL, Vendors.MySql.DBA, Vendors.MySql.DRIVER);
 
-	private VendorEnum(String code, ConnectionContext dba, String driver) {
+	private Vendor(String code, ConnectionContext dba, String driver) {
 		Assert.noNulls(dba);
 		Assert.noBlanks(code, driver);
 		this.code = code;

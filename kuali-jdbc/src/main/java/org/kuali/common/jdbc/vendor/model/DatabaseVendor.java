@@ -7,7 +7,7 @@ import org.kuali.common.util.Assert;
 
 public final class DatabaseVendor {
 
-	public DatabaseVendor(VendorEnum vendor, ConnectionContext dba, String url, Class<? extends Driver> driver, VendorSql sql) {
+	public DatabaseVendor(Vendor vendor, ConnectionContext dba, String url, Class<? extends Driver> driver, VendorSql sql) {
 		Assert.noNulls(vendor, dba, driver, sql);
 		Assert.noBlanks(url);
 		this.dba = dba;
@@ -17,13 +17,13 @@ public final class DatabaseVendor {
 		this.sql = sql;
 	}
 
-	private final VendorEnum vendor;
+	private final Vendor vendor;
 	private final ConnectionContext dba;
 	private final String url;
 	private final Class<? extends Driver> driver;
 	private final VendorSql sql;
 
-	public VendorEnum getVendor() {
+	public Vendor getVendor() {
 		return vendor;
 	}
 
