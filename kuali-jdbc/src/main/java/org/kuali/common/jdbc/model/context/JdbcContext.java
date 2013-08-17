@@ -28,8 +28,12 @@ import org.kuali.common.util.CollectionUtils;
 
 public final class JdbcContext {
 
-	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers) {
-		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, null, DEFAULT_SKIP_METADATA,
+	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message) {
+		this(dataSource, CollectionUtils.singletonList(supplier), message);
+	}
+
+	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message) {
+		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_SKIP_METADATA,
 				DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 

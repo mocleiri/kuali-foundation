@@ -192,7 +192,7 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public ExecutionResult executeSql(DataSource dataSource, List<String> sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(sql);
-		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier));
+		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier), null);
 		return executeSql(context);
 	}
 
