@@ -47,7 +47,7 @@
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
 
     <kuali-util.version>4.4.1-SNAPSHOT</kuali-util.version>
-    <kuali-util.version>2.1.1-SNAPSHOT</kuali-util.version>
+    <kuali-sql.version>2.1.1-SNAPSHOT</kuali-sql.version>
   </properties>
   <developers>
     <developer>
