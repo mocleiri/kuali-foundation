@@ -22,6 +22,11 @@ import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
 
 public class NoOpSqlListener implements SqlListener {
 
+	public static final NoOpSqlListener INSTANCE = new NoOpSqlListener();
+
+	protected NoOpSqlListener() {
+	}
+
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
 	}

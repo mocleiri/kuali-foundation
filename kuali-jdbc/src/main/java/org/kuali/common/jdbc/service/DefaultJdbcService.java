@@ -37,6 +37,7 @@ import org.kuali.common.jdbc.model.ExecutionStats;
 import org.kuali.common.jdbc.model.SqlBucket;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.model.context.SqlBucketContext;
+import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
@@ -191,15 +192,12 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public ExecutionResult executeSql(DataSource dataSource, List<String> sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(sql);
-		JdbcContext context = new JdbcContext();
-		context.setDataSource(dataSource);
-		context.setSuppliers(Arrays.asList(supplier));
+		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier));
 		return executeSql(context);
 	}
 
 	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, JdbcContext context, SqlListener listener) {
 		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
-
 		for (SqlBucket bucket : buckets) {
 			JdbcContext newJdbcContext = getJdbcContext(context, bucket, listener);
 			SqlBucketContext sbc = new SqlBucketContext(bucket, newJdbcContext, this);
@@ -209,15 +207,13 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected JdbcContext getJdbcContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
-		JdbcContext context = new JdbcContext();
-		context.setSuppliers(bucket.getSuppliers());
-		context.setDataSource(original.getDataSource());
-		context.setCommitMode(original.getCommitMode());
-		context.setThreads(1);
-		context.setSkip(original.isSkip());
-		context.setListener(listener);
-		context.setSkipMetaData(true);
-		return context;
+		boolean skip = original.isSkip();
+		DataSource dataSource = original.getDataSource();
+		List<SqlSupplier> suppliers = bucket.getSuppliers();
+		int threads = JdbcContext.DEFAULT_THREADS;
+		CommitMode commitMode = original.getCommitMode();
+		boolean skipMetaData = original.isSkipMetaData();
+		return new JdbcContext(skip, dataSource, suppliers, threads, listener, commitMode, skipMetaData);
 	}
 
 	protected List<SqlBucket> getSqlBuckets(JdbcContext context) {
