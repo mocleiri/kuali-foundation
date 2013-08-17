@@ -37,7 +37,7 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	private final String encoding;
 	private final SqlReader reader;
 	private SqlMetaData metaData;
-	private boolean open;
+	private boolean open = false;
 
 	public SqlLocationSupplier(String location, String encoding, SqlReader reader) {
 		Assert.noBlanks(location, encoding);
@@ -51,6 +51,7 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	@Override
 	public synchronized void open() throws IOException {
 		Assert.isFalse(open, "Already open");
+		open = true;
 		in = LocationUtils.getBufferedReader(location);
 	}
 
@@ -63,8 +64,8 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	@Override
 	public synchronized void close() {
 		Assert.isTrue(open, "Not open");
-		IOUtils.closeQuietly(in);
 		this.open = false;
+		IOUtils.closeQuietly(in);
 	}
 
 	@Override
