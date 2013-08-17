@@ -45,8 +45,9 @@ import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
 import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
-import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.jdbc.suppliers.SimpleStringSupplier;
+import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -111,7 +112,7 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Fill in SQL metadata
 		for (SqlSupplier supplier : context.getSuppliers()) {
-			supplier.fillInMetaData();
+			supplier.getMetaData();
 		}
 
 		// Fire an event now that metadata calculation is complete
@@ -257,11 +258,10 @@ public class DefaultJdbcService implements JdbcService {
 		return buckets;
 	}
 
-	@SuppressWarnings("deprecation")
 	protected SqlBucket getNewBucket(SqlBucket bucket, SqlSupplier supplier) {
 		List<SqlSupplier> list = new ArrayList<SqlSupplier>(bucket.getSuppliers());
 		list.add(supplier);
-		org.kuali.common.jdbc.SqlMetaData smd = supplier.getMetaData();
+		SqlMetaData smd = supplier.getMetaData();
 		long count = bucket.getCount() + smd.getCount();
 		long size = bucket.getSize() + smd.getSize();
 		return new SqlBucket(count, size, list);
