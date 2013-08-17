@@ -17,25 +17,25 @@ public class MainUtils {
 	 */
 	public static void runAndExit(Class<?> mainClass, String[] args) {
 		try {
-			// Preserve the context info for the class where main(String[] args) was invoked
+			// Preserve the context info from the class where main() was invoked
 			MainContext mainContext = new MainContext(mainClass, args);
 
-			// Create beans for the Spring context
+			// Create a map containing the context so we can register it with Spring
 			Map<String, Object> beans = Collections.singletonMap(MAIN_CONTEXT_BEAN_NAME, (Object) mainContext);
 
-			// Create a SpringContext with the beans and an active profile called "main"
+			// Create a SpringContext using the map and main() class, with 1 active profile called "main"
 			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
 
-			// DefaultSpringService will does what we need
+			// DefaultSpringService does what we need
 			SpringService service = SpringExecutable.DEFAULT_SPRING_SERVICE;
 
-			// SpringExecutable will load the @Configuration annotated main class
+			// This causes Spring to load the @Configuration annotated main class
 			new SpringExecutable(service, context).execute();
 
-			// As long as no exception was thrown we assume everything finished ok
+			// Exit with zero if there is no exception
 			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
-			// Otherwise print the message from the exception and return a non-zero exit code
+			// Otherwise print the error message and exit with non-zero
 			System.err.print(e.getMessage());
 			System.exit(Status.FAILURE.getValue());
 		}
