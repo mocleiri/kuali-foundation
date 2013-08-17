@@ -17,17 +17,19 @@ package org.kuali.common.jdbc.suppliers;
 
 import java.util.List;
 
+import org.kuali.common.jdbc.service.JdbcUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.springframework.util.Assert;
 
 /**
  * Supply SQL from strings that have one SQL statement each
  */
 public final class SimpleStringSupplier extends AbstractSupplier {
 
+	private final SqlMetaData metaData;
 	private final List<String> strings;
-	private boolean closed = true;
+	private boolean open = false;
 
 	public SimpleStringSupplier(String sql) {
 		this(CollectionUtils.singletonList(sql));
@@ -36,48 +38,37 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	public SimpleStringSupplier(List<String> strings) {
 		Assert.notNull(strings);
 		this.strings = CollectionUtils.unmodifiableCopy(strings);
+		this.metaData = JdbcUtils.getSqlMetaData(strings);
 	}
 
 	@Override
 	public synchronized void open() {
-		Assert.isTrue(closed, "Already open");
-		this.closed = false;
+		Assert.isFalse(open, "Already open");
+		this.open = true;
 	}
 
 	@Override
 	public synchronized List<String> getSql() {
-		if (closed) {
-			return null;
-		} else {
-			this.closed = true;
+		if (open) {
+			this.open = false;
 			return strings;
+		} else {
+			return null;
 		}
-	}
-
-	public synchronized boolean isClosed() {
-		return closed;
 	}
 
 	@Override
 	public synchronized void close() {
-		this.closed = true;
+		this.open = false;
+	}
+
+	@Override
+	public SqlMetaData getMetaData() {
+		return metaData;
 	}
 
 	public List<String> getStrings() {
 		return strings;
-	}
-
-	@Override
-	public synchronized SqlMetaData getMetaData() {
-		if (metaData == null) {
-			int count = strings.size();
-			long size = 0;
-			for (String string : strings) {
-				size += string.length();
-			}
-			this.metaData = new SqlMetaData(count, size);
-		}
-		return this.metaData;
 	}
 
 }

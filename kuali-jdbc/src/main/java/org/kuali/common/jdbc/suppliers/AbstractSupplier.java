@@ -15,15 +15,12 @@
  */
 package org.kuali.common.jdbc.suppliers;
 
-import org.kuali.common.jdbc.sql.model.SqlMetaData;
 
 public abstract class AbstractSupplier implements SqlSupplier {
 
-	protected SqlMetaData metaData;
-
 	@Override
 	public int compareTo(SqlSupplier other) {
-		return Double.compare(metaData.getSize(), other.getMetaData().getSize());
+		return Double.compare(getMetaData().getSize(), other.getMetaData().getSize());
 	}
 
 }
