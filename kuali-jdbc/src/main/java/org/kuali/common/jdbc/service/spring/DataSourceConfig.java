@@ -40,10 +40,14 @@ public class DataSourceConfig {
 
 	protected DataSource getDataSource(ConnectionContext context, Class<? extends Driver> driver) {
 		Credentials creds = context.getCredentials();
-		String username = StringUtils.equals(creds.getUsername(), Credentials.NO_USERNAME) ? null : creds.getUsername();
-		String password = StringUtils.equals(creds.getPassword(), Credentials.NO_PASSWORD) ? null : creds.getPassword();
+		String username = toNull(creds.getUsername(), Credentials.NO_USERNAME);
+		String password = toNull(creds.getPassword(), Credentials.NO_PASSWORD);
 		DriverManagerDataSource dmds = new DriverManagerDataSource(context.getUrl(), username, password);
 		dmds.setDriverClassName(driver.getName());
 		return dmds;
+	}
+
+	protected String toNull(String token, String nullToken) {
+		return StringUtils.equals(token, nullToken) ? null : token;
 	}
 }
