@@ -24,17 +24,17 @@ public class DataSourceConfig {
 	@Bean
 	public DataSource dataSource() {
 		ConnectionContext normal = context.getConnections().getNormal();
-		return getDataSource(normal, jdbcDriver());
+		return getDataSource(normal, jdbcDriverClass());
 	}
 
 	@Bean
 	public DataSource dataSourceDba() {
 		ConnectionContext dba = context.getConnections().getDba();
-		return getDataSource(dba, jdbcDriver());
+		return getDataSource(dba, jdbcDriverClass());
 	}
 
 	@Bean
-	public Class<? extends Driver> jdbcDriver() {
+	public Class<? extends Driver> jdbcDriverClass() {
 		return context.getConnections().getDriver();
 	}
 
