@@ -3,9 +3,9 @@ package org.kuali.common.jdbc.service.spring;
 import java.sql.Driver;
 
 import org.kuali.common.jdbc.model.Credentials;
+import org.kuali.common.jdbc.model.JdbcConnections;
+import org.kuali.common.jdbc.model.JdbcKeys;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.sql.model.JdbcConnections;
-import org.kuali.common.jdbc.sql.model.JdbcKeys;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.spring.DatabaseVendorConfig;
 import org.kuali.common.util.ReflectionUtils;

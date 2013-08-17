@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc.model.context;
 
-import org.kuali.common.jdbc.sql.model.JdbcConnections;
+import org.kuali.common.jdbc.model.JdbcConnections;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.Assert;
 
