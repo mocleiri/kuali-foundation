@@ -30,6 +30,7 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	private final SqlMetaData metaData;
 	private final List<String> strings;
 	private boolean open = false;
+	private boolean done = false;
 
 	public SimpleStringSupplier(String sql) {
 		this(CollectionUtils.singletonList(sql));
@@ -44,22 +45,25 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	@Override
 	public synchronized void open() {
 		Assert.isFalse(open, "Already open");
-		this.open = true;
+		open = true;
+		done = false;
 	}
 
 	@Override
 	public synchronized List<String> getSql() {
-		if (open) {
-			this.open = false;
-			return strings;
-		} else {
+		Assert.isTrue(open, "Not open");
+		if (done) {
 			return null;
+		} else {
+			done = true;
+			return strings;
 		}
 	}
 
 	@Override
 	public synchronized void close() {
-		this.open = false;
+		Assert.isTrue(open, "Not open");
+		open = false;
 	}
 
 	@Override
