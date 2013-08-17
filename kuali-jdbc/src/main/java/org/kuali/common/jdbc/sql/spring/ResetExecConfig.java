@@ -8,6 +8,8 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.model.context.SqlExecutionContext;
+import org.kuali.common.jdbc.reader.SqlReader;
+import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.ComplexStringSupplier;
@@ -17,11 +19,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ DataSourceConfig.class, SqlContextConfig.class })
+@Import({ DataSourceConfig.class, SqlContextConfig.class, SqlReaderConfig.class })
 public class ResetExecConfig implements SqlExecConfig {
 
 	@Autowired
 	SqlContext sqlContext;
+
+	@Autowired
+	SqlReader reader;
 
 	@Autowired
 	DataSourceConfig dataSourceConfig;
@@ -35,7 +40,7 @@ public class ResetExecConfig implements SqlExecConfig {
 
 	protected SqlExecutionContext getContext(String message, String sql) {
 		DataSource dataSource = dataSourceConfig.dbaDataSource();
-		SqlSupplier supplier = new ComplexStringSupplier(sql);
+		SqlSupplier supplier = new ComplexStringSupplier(sql, reader);
 		JdbcContext context = new JdbcContext(dataSource, supplier, message);
 		return new SqlExecutionContext(message, context);
 	}
