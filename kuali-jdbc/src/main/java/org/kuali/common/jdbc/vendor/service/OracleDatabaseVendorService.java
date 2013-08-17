@@ -11,8 +11,8 @@ import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
 import org.kuali.common.jdbc.vendor.model.keys.Oracle;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.spring.env.EnvironmentKeySuffix;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.env.model.EnvironmentKeySuffix;
 
 public class OracleDatabaseVendorService extends DefaultDatabaseVendorService {
 

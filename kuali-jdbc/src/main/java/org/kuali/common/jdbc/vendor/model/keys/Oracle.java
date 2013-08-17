@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.util.spring.env.EnvironmentKeySuffix;
+import org.kuali.common.util.spring.env.model.EnvironmentKeySuffix;
 
 public enum Oracle implements EnvironmentKeySuffix {
 

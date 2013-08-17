@@ -7,8 +7,8 @@ import java.util.List;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
-import org.kuali.common.util.spring.env.EnvironmentKeySuffix;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.env.model.EnvironmentKeySuffix;
 
 public class MySqlDatabaseVendorService extends DefaultDatabaseVendorService {
 
