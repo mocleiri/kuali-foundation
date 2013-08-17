@@ -30,6 +30,6 @@ public class JdbcProjectConfig implements ProjectIdentifierConfig {
 	@Override
 	@Bean
 	public ProjectIdentifier projectIdentifier() {
-		return JdbcProjectConstants.PROJECT_IDENTIFIER;
+		return JdbcProjectConstants.PROJECT_ID;
 	}
 }

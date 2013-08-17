@@ -22,7 +22,7 @@ public class JdbcProjectConstants {
 
 	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
 
-	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ProjectIdentifier(GROUP_ID, "kuali-jdbc");
+	public static final ProjectIdentifier PROJECT_ID = new ProjectIdentifier(GROUP_ID, "kuali-jdbc");
 	public static final ProjectIdentifier KUALI_SQL = new ProjectIdentifier(GROUP_ID, "kuali-sql");
 
 }

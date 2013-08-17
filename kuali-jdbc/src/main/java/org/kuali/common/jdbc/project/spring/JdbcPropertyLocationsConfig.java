@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Import;
 public class JdbcPropertyLocationsConfig {
 
 	private static final ProjectIdentifier SQL = JdbcProjectConstants.KUALI_SQL;
-	private static final ProjectIdentifier JDBC = JdbcProjectConstants.PROJECT_IDENTIFIER;
+	private static final ProjectIdentifier JDBC = JdbcProjectConstants.PROJECT_ID;
 
 	@Autowired
 	PropertiesLocationService service;
