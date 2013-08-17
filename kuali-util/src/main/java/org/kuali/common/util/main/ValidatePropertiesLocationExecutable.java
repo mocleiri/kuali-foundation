@@ -10,7 +10,8 @@ import org.kuali.common.util.execute.Executable;
 public final class ValidatePropertiesLocationExecutable implements Executable {
 
 	public ValidatePropertiesLocationExecutable(MainContext context, String message) {
-		Assert.noNulls(context, message);
+		Assert.noNulls(context);
+		Assert.noBlanks(message);
 		this.context = context;
 		this.message = message;
 	}
