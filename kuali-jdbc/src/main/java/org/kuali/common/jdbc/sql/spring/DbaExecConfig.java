@@ -1,9 +1,5 @@
 package org.kuali.common.jdbc.sql.spring;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
@@ -20,7 +16,10 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ DataSourceConfig.class, SqlContextConfig.class, SqlReaderConfig.class })
-public class ResetExecConfig implements SqlExecConfig {
+public class DbaExecConfig {
+
+	private static final String BEFORE = "[dba:before]";
+	private static final String AFTER = "[dba:after]";
 
 	@Autowired
 	SqlContext sqlContext;
@@ -31,11 +30,12 @@ public class ResetExecConfig implements SqlExecConfig {
 	@Autowired
 	DataSourceConfig dataSourceConfig;
 
-	@Override
-	public List<SqlExecutionContext> sqlExecutionContexts() {
-		SqlExecutionContext before = getContext("[dba:before]", sqlContext.getDba().getBefore());
-		SqlExecutionContext after = getContext("[dba:after]", sqlContext.getDba().getAfter());
-		return Collections.unmodifiableList(Arrays.asList(before, after));
+	public SqlExecutionContext dbaBeforeContext() {
+		return getContext(BEFORE, sqlContext.getDba().getBefore());
+	}
+
+	public SqlExecutionContext dbaAfterContext() {
+		return getContext(AFTER, sqlContext.getDba().getAfter());
 	}
 
 	protected SqlExecutionContext getContext(String message, String sql) {
