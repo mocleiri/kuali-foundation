@@ -29,7 +29,7 @@ public class ResetExecConfig implements SqlExecConfig {
 	@Override
 	public List<SqlExecutionContext> sqlExecutionContexts() {
 		SqlExecutionContext before = getContext("[dba:before]", sqlContext.getDba().getBefore());
-		SqlExecutionContext after = getContext("[dba:after]", sqlContext.getDba().getBefore());
+		SqlExecutionContext after = getContext("[dba:after]", sqlContext.getDba().getAfter());
 		return Collections.unmodifiableList(Arrays.asList(before, after));
 	}
 
