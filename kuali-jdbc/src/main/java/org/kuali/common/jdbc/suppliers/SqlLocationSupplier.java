@@ -42,6 +42,7 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	public SqlLocationSupplier(String location, String encoding, SqlReader reader) {
 		Assert.noBlanks(location, encoding);
 		Assert.noNulls(reader);
+		Assert.isTrue(LocationUtils.exists(location));
 		this.location = location;
 		this.encoding = encoding;
 		this.reader = reader;
