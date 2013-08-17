@@ -1,4 +1,4 @@
- /**
+/**
  * Copyright 2010-2013 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
@@ -13,23 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.service.spring;
+package org.kuali.common.jdbc.project;
 
-import org.kuali.common.jdbc.config.JdbcProjectConstants;
+import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
-import org.kuali.common.util.project.spring.AutowiredProjectConfig;
-import org.kuali.common.util.project.spring.ProjectIdentifierConfig;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-@Configuration
-@Import({ AutowiredProjectConfig.class })
-public class JdbcProjectConfig implements ProjectIdentifierConfig {
+public class JdbcProjectConstants {
 
-	@Override
-	@Bean
-	public ProjectIdentifier projectIdentifier() {
-		return JdbcProjectConstants.PROJECT_IDENTIFIER;
-	}
+	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
+
+	public static final ProjectIdentifier PROJECT_IDENTIFIER = new ProjectIdentifier(GROUP_ID, "kuali-jdbc");
+	public static final ProjectIdentifier KUALI_SQL = new ProjectIdentifier(GROUP_ID, "kuali-sql");
+
 }
