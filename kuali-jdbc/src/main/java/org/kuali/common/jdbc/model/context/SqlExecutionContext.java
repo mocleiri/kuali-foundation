@@ -15,39 +15,28 @@
  */
 package org.kuali.common.jdbc.model.context;
 
-import org.kuali.common.jdbc.model.enums.SqlMode;
+import java.util.List;
+
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
 public final class SqlExecutionContext {
 
-	private final String key;
-	private final String group;
-	private final SqlMode mode;
-	private final String context;
+	private final String message;
+	private final List<JdbcContext> contexts;
 
-	public SqlExecutionContext(String key, String group, SqlMode mode, String context) {
-		Assert.noBlanks(key, group, context);
-		Assert.noNulls(mode);
-		this.key = key;
-		this.group = group;
-		this.mode = mode;
-		this.context = context;
+	public SqlExecutionContext(String message, List<JdbcContext> contexts) {
+		Assert.noNulls(contexts);
+		Assert.noBlanks(message);
+		this.message = message;
+		this.contexts = CollectionUtils.unmodifiableCopy(contexts);
 	}
 
-	public String getGroup() {
-		return group;
+	public String getMessage() {
+		return message;
 	}
 
-	public SqlMode getMode() {
-		return mode;
+	public List<JdbcContext> getContexts() {
+		return contexts;
 	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public String getContext() {
-		return context;
-	}
-
 }
