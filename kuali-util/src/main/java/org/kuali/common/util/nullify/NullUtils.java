@@ -31,19 +31,14 @@ public class NullUtils {
 	 * </pre>
 	 */
 	public static final boolean isNull(String s) {
-		if (s == null) {
-			return true;
-		} else {
-			return StringUtils.equalsIgnoreCase(NULL, s);
-		}
+		return s == null || StringUtils.equalsIgnoreCase(NULL, s);
 	}
 
 	/**
 	 * Return true if:
 	 * 
 	 * <pre>
-	 * . 
-	 * StringUtils.equalsIgnoreCase("none", s) == true
+	 * StringUtils.equalsIgnoreCase(&quot;none&quot;, s) == true
 	 * </pre>
 	 */
 	public static final boolean isNone(String s) {
