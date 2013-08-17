@@ -15,10 +15,7 @@
 
 package org.kuali.common.impex.cli.dump;
 
-import java.util.List;
-
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.main.MainContext;
 import org.kuali.common.util.main.MainService;
@@ -55,9 +52,7 @@ public class DumpDatabase implements MainConfig {
 	@Execute
 	public Executable main() {
 		PropertySource<?> source = mainService.getPropertySource(mainContext, DumpDatabasePropertySourceConfig.class);
-		String vendor = (String) source.getProperty("db.vendor");
-		List<String> activeProfiles = CollectionUtils.singletonList(vendor);
-		return SpringExecUtils.getSpringExecutable(service, source, DumpDatabaseExecutableConfig.class, activeProfiles);
+		return SpringExecUtils.getSpringExecutable(service, source, DumpDatabaseExecutableConfig.class);
 	}
 
 }
