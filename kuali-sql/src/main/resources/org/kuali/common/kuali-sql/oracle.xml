@@ -53,7 +53,7 @@
     /
   </entry>
   <entry key="oracle.create">
-    CREATE USER ${sql.username} IDENTIFIED BY ${sql.password} DEFAULT TABLESPACE ${oracle.tablespace.default} TEMPORARY TABLESPACE ${oracle.tablespace.temp} QUOTA ${oracle.tablespace.default.quote} ON ${oracle.tablespace.default}
+    CREATE USER ${sql.username} IDENTIFIED BY ${sql.password} DEFAULT TABLESPACE ${oracle.tablespace.default} TEMPORARY TABLESPACE ${oracle.tablespace.temp} QUOTA ${oracle.tablespace.default.quota} ON ${oracle.tablespace.default}
     /
     GRANT CREATE PROCEDURE, CREATE SEQUENCE, CREATE SESSION, CREATE SYNONYM, CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE VIEW TO ${sql.username}
     /
