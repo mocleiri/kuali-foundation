@@ -15,7 +15,7 @@ public final class ConnectionContext {
 	}
 
 	public ConnectionContext(String url, String username) {
-		this(url, Credentials.NO_USERNAME, Credentials.NO_PASSWORD);
+		this(url, username, Credentials.NO_PASSWORD);
 	}
 
 	public ConnectionContext(String url, String username, String password) {
