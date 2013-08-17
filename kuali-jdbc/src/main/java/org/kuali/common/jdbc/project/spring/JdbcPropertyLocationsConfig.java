@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.jdbc.config.JdbcProjectConstants;
+import org.kuali.common.jdbc.project.JdbcProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesLocationService;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 @Import({ PropertiesLocationServiceConfig.class })
 public class JdbcPropertyLocationsConfig {
 
-	private static final ProjectIdentifier SQL = JdbcProjectConstants.KUALI_SQL_PROJECT_IDENTIFIER;
+	private static final ProjectIdentifier SQL = JdbcProjectConstants.KUALI_SQL;
 	private static final ProjectIdentifier JDBC = JdbcProjectConstants.PROJECT_IDENTIFIER;
 
 	@Autowired

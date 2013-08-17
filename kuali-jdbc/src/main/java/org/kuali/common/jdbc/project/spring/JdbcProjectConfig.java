@@ -1,4 +1,4 @@
- /**
+/**
  * Copyright 2010-2013 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  */
 package org.kuali.common.jdbc.project.spring;
 
-import org.kuali.common.jdbc.config.JdbcProjectConstants;
+import org.kuali.common.jdbc.project.JdbcProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.project.spring.ProjectIdentifierConfig;
