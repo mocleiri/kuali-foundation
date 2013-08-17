@@ -45,7 +45,10 @@ public class CollectionUtils {
 
 	/**
 	 * Get an unmodifiable list from the single element. Return emptyList() if element is null.
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static <T> List<T> unmodifiableList(T element) {
 		List<T> list = toEmptyList(element);
 		return Collections.unmodifiableList(list);
@@ -71,6 +74,8 @@ public class CollectionUtils {
 
 	/**
 	 * Remove any Strings from the list that do not match the filter and then sort the ones that remain
+	 * 
+	 * @return The list of strings that were filtered out.
 	 */
 	public static List<String> filterAndSort(List<String> strings, StringFilter filter) {
 		List<String> excluded = filter(strings, filter);
@@ -368,7 +373,10 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Returns <code>Collections.singletonList(o)</code>. If o is null IllegalArgumentException is thrown
+	 * Returns an immutable list containing only the specified object. The returned list is serializable.
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if object is null
 	 */
 	public static final <T> List<T> singletonList(T o) {
 		if (o != null) {
