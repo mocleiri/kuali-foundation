@@ -26,7 +26,7 @@ public class MainUtils {
 			// Create a SpringContext with the beans and an active profile called "main"
 			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
 
-			// DefaultSpringService will do what we need it to do
+			// DefaultSpringService will does what we need
 			SpringService service = SpringExecutable.DEFAULT_SPRING_SERVICE;
 
 			// SpringExecutable will load the @Configuration annotated main class
