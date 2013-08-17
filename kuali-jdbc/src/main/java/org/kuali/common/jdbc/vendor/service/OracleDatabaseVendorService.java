@@ -23,9 +23,9 @@ public class OracleDatabaseVendorService extends DefaultDatabaseVendorService {
 	@Override
 	protected String getDbaAfter(String key, AdminSql adminSql, Properties sql) {
 		String defaultValueKey = getVendor().getCode() + "." + Oracle.SCHEMA_STATS.getValue();
-		String defaultAfter = sql.getProperty(defaultValueKey);
-		Assert.noBlanks(defaultAfter);
-		return getEnv().getString(key, defaultAfter);
+		String defaultValue = sql.getProperty(defaultValueKey);
+		Assert.noBlanks(defaultValue);
+		return getEnv().getString(key, defaultValue);
 	}
 
 	@Override
