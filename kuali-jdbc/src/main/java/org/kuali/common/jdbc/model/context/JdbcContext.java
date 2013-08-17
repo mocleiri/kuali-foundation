@@ -24,6 +24,7 @@ import org.kuali.common.jdbc.listen.SqlListener;
 import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.supplier.SqlSupplier;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
 public final class JdbcContext {
 
@@ -45,7 +46,7 @@ public final class JdbcContext {
 		this.listener = listener;
 		this.commitMode = commitMode;
 		this.dataSource = dataSource;
-		this.suppliers = suppliers;
+		this.suppliers = CollectionUtils.unmodifiableCopy(suppliers);
 		this.message = message;
 		this.skipMetaData = skipMetaData;
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
