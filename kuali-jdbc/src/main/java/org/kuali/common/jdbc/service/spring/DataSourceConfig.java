@@ -35,7 +35,7 @@ public class DataSourceConfig {
 	}
 
 	@Bean
-	public DataSource dataSourceDba() {
+	public DataSource dbaDataSource() {
 		ConnectionContext dba = context.getConnections().getDba();
 		return getDataSource(dba, jdbcDriver());
 	}

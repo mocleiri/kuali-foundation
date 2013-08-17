@@ -34,7 +34,7 @@ public class ResetExecConfig implements SqlExecConfig {
 	}
 
 	protected SqlExecutionContext getContext(String message, String sql) {
-		DataSource dataSource = dataSourceConfig.dataSourceDba();
+		DataSource dataSource = dataSourceConfig.dbaDataSource();
 		SqlSupplier supplier = new ComplexStringSupplier(sql);
 		JdbcContext context = new JdbcContext(dataSource, supplier, message);
 		return new SqlExecutionContext(message, context);

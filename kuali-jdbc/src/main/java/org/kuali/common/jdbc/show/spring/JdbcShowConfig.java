@@ -31,6 +31,6 @@ public class JdbcShowConfig {
 
 	@Bean
 	public ShowDbaConfigExecutable showDbaConfigExecutable() {
-		return new ShowDbaConfigExecutable(context, dataSourceConfig.dataSourceDba(), service);
+		return new ShowDbaConfigExecutable(context, dataSourceConfig.dbaDataSource(), service);
 	}
 }
