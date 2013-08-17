@@ -42,11 +42,8 @@ public class DataSourceConfig {
 		Credentials creds = context.getCredentials();
 		String username = NullUtils.toNull(creds.getUsername());
 		String password = NullUtils.toNull(creds.getPassword());
-		DriverManagerDataSource dmds = new DriverManagerDataSource();
+		DriverManagerDataSource dmds = new DriverManagerDataSource(context.getUrl(), username, password);
 		dmds.setDriverClassName(driver.getName());
-		dmds.setUrl(context.getUrl());
-		dmds.setUsername(username);
-		dmds.setPassword(password);
 		return dmds;
 	}
 }
