@@ -18,6 +18,10 @@ package org.kuali.common.jdbc.config;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class JdbcProjectConstants {
 
 	private static final String GID = KualiProjectConstants.COMMON_GROUP_ID;
