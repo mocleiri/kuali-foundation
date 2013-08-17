@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.kuali.common.util.spring.env.EnvironmentKey;
+
 public enum JdbcKeys implements EnvironmentKey {
 
 	URL("jdbc.url"), //

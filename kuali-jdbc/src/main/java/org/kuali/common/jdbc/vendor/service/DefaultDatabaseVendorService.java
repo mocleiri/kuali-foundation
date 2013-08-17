@@ -13,9 +13,9 @@ import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Basic;
 import org.kuali.common.jdbc.vendor.model.keys.Dba;
-import org.kuali.common.jdbc.vendor.model.keys.EnvironmentKeySuffix;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.spring.env.EnvironmentKeySuffix;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class DefaultDatabaseVendorService implements DatabaseVendorService {

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.jdbc.model.EnvironmentKey;
+import org.kuali.common.util.spring.env.EnvironmentKey;
 
 public enum SqlKeys implements EnvironmentKey {
 

@@ -8,10 +8,10 @@ import java.util.Properties;
 import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.vendor.model.Vendor;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
-import org.kuali.common.jdbc.vendor.model.keys.EnvironmentKeySuffix;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
 import org.kuali.common.jdbc.vendor.model.keys.Oracle;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.spring.env.EnvironmentKeySuffix;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 public class OracleDatabaseVendorService extends DefaultDatabaseVendorService {
