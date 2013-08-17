@@ -3,7 +3,6 @@ package org.kuali.common.jdbc.sql.spring;
 import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
-import org.kuali.common.jdbc.model.context.SqlExecutionContext;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
@@ -16,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ DataSourceConfig.class, SqlContextConfig.class, SqlReaderConfig.class })
-public class DbaExecConfig {
+public class DbaContextConfig {
 
 	private static final String BEFORE = "[dba:before]";
 	private static final String AFTER = "[dba:after]";
@@ -30,18 +29,17 @@ public class DbaExecConfig {
 	@Autowired
 	DataSourceConfig dataSourceConfig;
 
-	public SqlExecutionContext dbaBeforeContext() {
+	public JdbcContext dbaBeforeContext() {
 		return getContext(BEFORE, context.getDba().getBefore());
 	}
 
-	public SqlExecutionContext dbaAfterContext() {
+	public JdbcContext dbaAfterContext() {
 		return getContext(AFTER, context.getDba().getAfter());
 	}
 
-	protected SqlExecutionContext getContext(String message, String sql) {
+	protected JdbcContext getContext(String message, String sql) {
 		DataSource dataSource = dataSourceConfig.dbaDataSource();
 		SqlSupplier supplier = new ComplexStringSupplier(sql, reader);
-		JdbcContext context = new JdbcContext(dataSource, supplier, message);
-		return new SqlExecutionContext(message, context);
+		return new JdbcContext(dataSource, supplier, message);
 	}
 }
