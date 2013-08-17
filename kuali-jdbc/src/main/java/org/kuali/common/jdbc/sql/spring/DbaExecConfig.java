@@ -22,7 +22,7 @@ public class DbaExecConfig {
 	private static final String AFTER = "[dba:after]";
 
 	@Autowired
-	SqlContext sqlContext;
+	SqlContext context;
 
 	@Autowired
 	SqlReader reader;
@@ -31,11 +31,11 @@ public class DbaExecConfig {
 	DataSourceConfig dataSourceConfig;
 
 	public SqlExecutionContext dbaBeforeContext() {
-		return getContext(BEFORE, sqlContext.getDba().getBefore());
+		return getContext(BEFORE, context.getDba().getBefore());
 	}
 
 	public SqlExecutionContext dbaAfterContext() {
-		return getContext(AFTER, sqlContext.getDba().getAfter());
+		return getContext(AFTER, context.getDba().getAfter());
 	}
 
 	protected SqlExecutionContext getContext(String message, String sql) {
