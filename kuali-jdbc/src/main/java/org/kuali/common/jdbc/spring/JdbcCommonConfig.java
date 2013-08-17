@@ -43,8 +43,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+/**
+ * @deprecated
+ */
 @Configuration
 @Import({ ProjectServiceConfig.class })
+@Deprecated
 public class JdbcCommonConfig {
 
 	protected final static String CONTEXT_KEY_SUFFIX = ".context";

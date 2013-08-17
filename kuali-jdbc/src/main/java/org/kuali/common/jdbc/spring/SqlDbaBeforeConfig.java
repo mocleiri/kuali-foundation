@@ -19,6 +19,10 @@ import org.kuali.common.util.execute.Executable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 public class SqlDbaBeforeConfig extends AbstractSqlDbaConfig {
 

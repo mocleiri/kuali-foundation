@@ -20,6 +20,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class })
 public abstract class SqlBaseConfig {

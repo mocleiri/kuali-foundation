@@ -29,51 +29,51 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 /**
- *
+ * @deprecated
  */
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, SqlDbaAfterConfig.class })
 @Deprecated
 public abstract class AbstractSqlController {
 
-    @Autowired
-    Environment env;
+	@Autowired
+	Environment env;
 
-    @Autowired
-    JdbcDataSourceConfig dataSourceConfig;
+	@Autowired
+	JdbcDataSourceConfig dataSourceConfig;
 
-    @Autowired
-    SqlDbaBeforeConfig dbaBeforeConfig;
+	@Autowired
+	SqlDbaBeforeConfig dbaBeforeConfig;
 
-    @Autowired
-    SqlDbaAfterConfig dbaAfterConfig;
+	@Autowired
+	SqlDbaAfterConfig dbaAfterConfig;
 
-    @Autowired
-    JdbcCommonConfig commonConfig;
+	@Autowired
+	JdbcCommonConfig commonConfig;
 
-    @Bean
-    public Executable sqlExecutable() {
-        return getSqlExecutable();
-    }
+	@Bean
+	public Executable sqlExecutable() {
+		return getSqlExecutable();
+	}
 
-    protected Executable getSqlExecutable() {
-        List<Executable> executables = new ArrayList<Executable>();
-        executables.add(dataSourceConfig.jdbcShowDbaConfigExecutable());
-        executables.add(dbaBeforeConfig.getDbaPhaseExecutable());
-        List<SqlExecutionContext> contexts = SqlConfigUtils.getSqlExecutionContexts(env);
+	protected Executable getSqlExecutable() {
+		List<Executable> executables = new ArrayList<Executable>();
+		executables.add(dataSourceConfig.jdbcShowDbaConfigExecutable());
+		executables.add(dbaBeforeConfig.getDbaPhaseExecutable());
+		List<SqlExecutionContext> contexts = SqlConfigUtils.getSqlExecutionContexts(env);
 
-        for (SqlExecutionContext context : contexts) {
-            SqlConfigContext scc = new SqlConfigContext(env, context, commonConfig, dataSourceConfig);
-            Executable executable = SqlConfigUtils.getJdbcExecutable(scc);
-            executables.add(executable);
-        }
-        executables.add(dbaAfterConfig.getDbaPhaseExecutable());
+		for (SqlExecutionContext context : contexts) {
+			SqlConfigContext scc = new SqlConfigContext(env, context, commonConfig, dataSourceConfig);
+			Executable executable = SqlConfigUtils.getJdbcExecutable(scc);
+			executables.add(executable);
+		}
+		executables.add(dbaAfterConfig.getDbaPhaseExecutable());
 
-        ExecutablesExecutable exec = new ExecutablesExecutable();
-        exec.setSkip(SpringUtils.getBoolean(env, "jdbc.reset.skip", false));
-        exec.setTimed(SpringUtils.getBoolean(env, "jdbc.reset.timed", true));
-        exec.setExecutables(executables);
-        return exec;
-    }
+		ExecutablesExecutable exec = new ExecutablesExecutable();
+		exec.setSkip(SpringUtils.getBoolean(env, "jdbc.reset.skip", false));
+		exec.setTimed(SpringUtils.getBoolean(env, "jdbc.reset.timed", true));
+		exec.setExecutables(executables);
+		return exec;
+	}
 
 }

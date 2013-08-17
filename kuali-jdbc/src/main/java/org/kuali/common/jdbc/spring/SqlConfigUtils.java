@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.spring;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlConfigUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(SqlConfigUtils.class);
