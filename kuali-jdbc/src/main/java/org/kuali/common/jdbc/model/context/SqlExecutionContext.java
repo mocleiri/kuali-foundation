@@ -25,6 +25,10 @@ public final class SqlExecutionContext {
 	private final String message;
 	private final List<JdbcContext> contexts;
 
+	public SqlExecutionContext(String message, JdbcContext context) {
+		this(message, CollectionUtils.singletonList(context));
+	}
+
 	public SqlExecutionContext(String message, List<JdbcContext> contexts) {
 		Assert.noBlanks(message);
 		Assert.noNulls(contexts);
