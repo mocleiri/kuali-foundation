@@ -46,7 +46,7 @@ public class CollectionUtils {
 	/**
 	 * Get an unmodifiable list from the single element. Return emptyList() if element is null.
 	 * 
-	 * @deprecated
+	 * @deprecated Use CollectionUtils.singletonList() instead
 	 */
 	@Deprecated
 	public static <T> List<T> unmodifiableList(T element) {
