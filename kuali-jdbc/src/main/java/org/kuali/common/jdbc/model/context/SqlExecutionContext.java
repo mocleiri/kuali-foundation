@@ -26,8 +26,8 @@ public final class SqlExecutionContext {
 	private final List<JdbcContext> contexts;
 
 	public SqlExecutionContext(String message, List<JdbcContext> contexts) {
-		Assert.noNulls(contexts);
 		Assert.noBlanks(message);
+		Assert.noNulls(contexts);
 		this.message = message;
 		this.contexts = CollectionUtils.unmodifiableCopy(contexts);
 	}
