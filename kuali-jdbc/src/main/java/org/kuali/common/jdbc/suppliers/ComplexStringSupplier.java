@@ -51,7 +51,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	}
 
 	@Override
-	public void open() {
+	public synchronized void open() {
 		// Reset index to zero
 		index = 0;
 
@@ -60,7 +60,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	}
 
 	@Override
-	public List<String> getSql() {
+	public synchronized List<String> getSql() {
 		try {
 			// Have the reader produce a SQL statement
 			List<String> sql = reader.getSql(in);
@@ -97,7 +97,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
 		// Reset index to zero
 		index = 0;
 
