@@ -28,7 +28,7 @@ public class JdbcPropertyLocationsConfig {
 	public List<Location> jdbcPropertyLocations() {
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(service.getLocations(SQL, getSqlFilenames()));
-		locations.add(service.getLocation(JDBC, "config.properties"));
+		locations.addAll(service.getLocations(JDBC, "config.properties"));
 		return Collections.unmodifiableList(locations);
 	}
 
