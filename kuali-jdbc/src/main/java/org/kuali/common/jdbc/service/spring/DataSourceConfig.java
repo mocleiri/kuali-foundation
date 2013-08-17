@@ -47,7 +47,7 @@ public class DataSourceConfig {
 
 	@Bean
 	public Driver jdbcDriver() {
-		return BeanUtils.instantiate(jdbcDriverClass());
+		return BeanUtils.instantiateClass(jdbcDriverClass());
 	}
 
 	protected DataSource getDataSource(ConnectionContext context, Driver driver) {
