@@ -66,7 +66,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 			List<String> sql = reader.getSql(in);
 
 			if (sql != null) {
-				// We got a SQL statement we are done
+				// We got SQL we are done
 				return sql;
 			} else {
 				// We've exhausted the current string, move to the next one
@@ -81,7 +81,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 			// Open a reader to the new string
 			in = getBufferedReader(strings, index);
 
-			// Get a SQL statement from the new string
+			// Get SQL from the new string
 			return getSql();
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

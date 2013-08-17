@@ -39,6 +39,18 @@ public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
+	public static SqlMetaData getSqlMetaDataFromLocation(String location, SqlReader reader) {
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReader(location);
+			return JdbcUtils.getSqlMetaData(in, reader);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
 	public static SqlMetaData getSqlMetaData(List<String> sql, SqlReader reader) {
 		long count = 0;
 		long size = 0;
