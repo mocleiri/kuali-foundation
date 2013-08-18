@@ -92,9 +92,10 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		JdbcContext before = dba.dbaBeforeContext();
 		JdbcContext schemas = schemaJdbcContext();
 		JdbcContext data = dataJdbcContext();
+		JdbcContext other = otherJdbcContext();
 		JdbcContext constraints = constraintsJdbcContext();
 		JdbcContext after = dba.dbaAfterContext();
-		return Collections.unmodifiableList(Arrays.asList(before, schemas, data, constraints, after));
+		return Collections.unmodifiableList(Arrays.asList(before, schemas, data, other, constraints, after));
 	}
 
 	@Bean
@@ -104,9 +105,9 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	}
 
 	@Bean
-	public JdbcContext liquibaseJdbcContext() {
-		List<SqlSupplier> suppliers = getDataSuppliers();
-		return getJdbcContext("[data:concurrent]", suppliers);
+	public JdbcContext otherJdbcContext() {
+		List<SqlSupplier> suppliers = getLiquibaseSuppliers();
+		return getJdbcContext("[other:sequential]", suppliers, false);
 	}
 
 	@Bean
@@ -122,8 +123,12 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	}
 
 	protected JdbcContext getJdbcContext(String message, List<SqlSupplier> suppliers) {
+		return getJdbcContext(message, suppliers, true);
+	}
+
+	protected JdbcContext getJdbcContext(String message, List<SqlSupplier> suppliers, boolean multithreaded) {
 		DataSource dataSource = dataSources.dataSource();
-		return new JdbcContext(dataSource, suppliers, message, true);
+		return new JdbcContext(dataSource, suppliers, message, multithreaded);
 	}
 
 	protected List<SqlSupplier> getSuppliers(String suffix) {
@@ -137,10 +142,23 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	}
 
 	protected List<SqlSupplier> getLiquibaseSuppliers() {
+		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
+		return getSqlSuppliers(location);
+	}
+
+	protected List<SqlSupplier> getDataSuppliers() {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String schema : SCHEMAS) {
+			String location = "classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources";
+			suppliers.addAll(getSqlSuppliers(location));
+		}
+		return suppliers;
+	}
+
+	protected List<SqlSupplier> getSqlSuppliers(String resourcesLocation) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		String encoding = ProjectUtils.getEncoding(project);
-		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
-		List<String> resources = LocationUtils.getLocations(location, encoding);
+		List<String> resources = LocationUtils.getLocations(resourcesLocation, encoding);
 		for (String resource : resources) {
 			Assert.isTrue(LocationUtils.exists(resource));
 			Assert.isTrue(StringUtils.endsWithIgnoreCase(resource, ".sql"));
@@ -148,20 +166,4 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		}
 		return suppliers;
 	}
-
-	protected List<SqlSupplier> getDataSuppliers() {
-		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
-		for (String schema : SCHEMAS) {
-			String encoding = ProjectUtils.getEncoding(project);
-			String location = "classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources";
-			List<String> resources = LocationUtils.getLocations(location, encoding);
-			for (String resource : resources) {
-				Assert.isTrue(LocationUtils.exists(resource));
-				Assert.isTrue(StringUtils.endsWithIgnoreCase(resource, ".sql"));
-				suppliers.add(new SqlLocationSupplier(resource, encoding, reader));
-			}
-		}
-		return suppliers;
-	}
-
 }
