@@ -93,36 +93,30 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Bean
 	public JdbcContext schemaJdbcContext() {
-		String message = "[schema:concurrent]";
-		DataSource dataSource = dataSources.dataSource();
-		List<SqlSupplier> suppliers = getDDLSuppliers(getSchemas(), "");
-		return new JdbcContext(dataSource, suppliers, message, true);
+		List<SqlSupplier> suppliers = getSuppliers("");
+		return getJdbcContext("[schema:concurrent]", suppliers);
 	}
 
 	@Bean
 	public JdbcContext constraintsJdbcContext() {
-		String message = "[constraints:concurrent]";
+		List<SqlSupplier> suppliers = getSuppliers("-constraints");
+		return getJdbcContext("[constraints:concurrent]", suppliers);
+	}
+
+	protected JdbcContext getJdbcContext(String message, List<SqlSupplier> suppliers) {
 		DataSource dataSource = dataSources.dataSource();
-		List<SqlSupplier> suppliers = getDDLSuppliers(getSchemas(), "-constraints");
 		return new JdbcContext(dataSource, suppliers, message, true);
 	}
 
-	protected List<SqlSupplier> getDDLSuppliers(List<String> schemas, String suffix) {
+	protected List<SqlSupplier> getSuppliers(String suffix) {
+		List<String> schemas = Arrays.asList("ole-rice-sql", "ole-master-sql");
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
-			suppliers.add(getSqlSupplier(location));
+			String encoding = ProjectUtils.getEncoding(project);
+			suppliers.add(new SqlLocationSupplier(location, encoding, reader));
 		}
 		return suppliers;
-	}
-
-	protected SqlSupplier getSqlSupplier(String location) {
-		String encoding = ProjectUtils.getEncoding(project);
-		return new SqlLocationSupplier(location, encoding, reader);
-	}
-
-	protected List<String> getSchemas() {
-		return Arrays.asList("ole-rice-sql", "ole-master-sql");
 	}
 
 }
