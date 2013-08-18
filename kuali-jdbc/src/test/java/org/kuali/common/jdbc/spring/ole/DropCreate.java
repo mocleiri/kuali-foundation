@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class DropCreate extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(DropCreate.class, args);
+		MainUtils.runAndExit(DropCreate.class, args, true);
 	}
 
 	@Override

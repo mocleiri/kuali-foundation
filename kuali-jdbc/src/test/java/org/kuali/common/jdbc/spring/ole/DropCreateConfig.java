@@ -77,7 +77,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		String message = "[schema:concurrent]";
 		String location = "classpath:sql/" + vendor.getCode() + "/ole-rice-sql.sql";
 		String encoding = ProjectUtils.getEncoding(project);
-		DataSource dataSource = dataSourceConfig.dbaDataSource();
+		DataSource dataSource = dataSourceConfig.dataSource();
 		SqlSupplier supplier = new SqlLocationSupplier(location, encoding, reader);
 		SqlListener listener = new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER);
 		return new JdbcContext(dataSource, supplier, message, listener);
