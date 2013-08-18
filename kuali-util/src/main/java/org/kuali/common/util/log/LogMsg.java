@@ -22,7 +22,8 @@ public final class LogMsg {
 
 	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;
 	public static final String NO_MSG = NullUtils.NONE;
-	public static final LogMsg NOOP = new LogMsg(NO_MSG, null);
+	public static final Object[] NO_ARGS = new Object[] {};
+	public static final LogMsg NOOP = new LogMsg(NO_MSG, NO_ARGS);
 
 	private final LoggerLevel level;
 	private final String message;
@@ -32,9 +33,13 @@ public final class LogMsg {
 		this(message, args, DEFAULT_LOGGER_LEVEL);
 	}
 
+	public LogMsg(String message) {
+		this(message, NO_ARGS, DEFAULT_LOGGER_LEVEL);
+	}
+
 	public LogMsg(String message, Object[] args, LoggerLevel level) {
 		Assert.noBlanks(message);
-		Assert.noNulls(level);
+		Assert.noNulls(args, level);
 		this.message = message;
 		this.args = args;
 		this.level = level;
