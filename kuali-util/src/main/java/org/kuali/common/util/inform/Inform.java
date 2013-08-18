@@ -29,9 +29,10 @@ public final class Inform {
 	}
 
 	public Inform(PrintStream printStream, String startToken, String progressToken, String completeToken, LogMsg startMessage, LogMsg stopMessage) {
-		Assert.noNulls(printStream, startMessage, stopMessage, startToken, progressToken, completeToken);
-		// Printing a whitespace character to indicate progress is perfectly valid
-		// Assert.noBlanks(startToken, progressToken, completeToken);
+		Assert.noNulls(printStream, startMessage, stopMessage, completeToken);
+		// Printing a whitespace character to indicate progress completion is ok
+		// Assert.noBlanks(startToken, progressToken,completeToken);
+		Assert.noBlanks(startToken, progressToken);
 		this.printStream = printStream;
 		this.startToken = startToken;
 		this.progressToken = progressToken;
