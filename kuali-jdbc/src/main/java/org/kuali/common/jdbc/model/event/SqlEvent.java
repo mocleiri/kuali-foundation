@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc.model.event;
 
+import org.kuali.common.util.Assert;
+
 public final class SqlEvent {
 
 	private static final int DEFAULT_UPDATE_COUNT = -1;
@@ -33,6 +35,7 @@ public final class SqlEvent {
 	}
 
 	public SqlEvent(String sql, int updateCount, long startTimeMillis, long stopTimeMillis) {
+		Assert.noNulls(sql);
 		this.sql = sql;
 		this.updateCount = updateCount;
 		this.startTimeMillis = startTimeMillis;
