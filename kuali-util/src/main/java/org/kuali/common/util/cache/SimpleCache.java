@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleCache<K, V> implements Cache<K, V> {
+public final class SimpleCache<K, V> implements Cache<K, V> {
 
-	Map<K, V> map = Collections.synchronizedMap(new HashMap<K, V>());
+	private final Map<K, V> map = Collections.synchronizedMap(new HashMap<K, V>());
 
 	@Override
 	public void put(K key, V value) {
