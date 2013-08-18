@@ -145,9 +145,7 @@ public class DefaultJdbcService implements JdbcService {
 		long total = MetaDataUtils.getSqlCount(context.getSuppliers());
 		PercentCompleteInformer informer = new PercentCompleteInformer(total);
 		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener(informer, context.isTrackProgressByUpdateCount());
-		List<SqlListener> listeners = new ArrayList<SqlListener>();
-		listeners.add(new LogSqlListener());
-		listeners.add(etl);
+		List<SqlListener> listeners = new ArrayList<SqlListener>(Arrays.asList(new LogSqlListener(), etl));
 		NotifyingListener nl = new NotifyingListener(listeners);
 
 		// Provide some context for each bucket
