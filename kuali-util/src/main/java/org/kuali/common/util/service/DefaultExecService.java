@@ -22,8 +22,8 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LoggerLevel;
-import org.kuali.common.util.LoggingStreamConsumer;
+import org.kuali.common.util.log.LoggerLevel;
+import org.kuali.common.util.log.LoggingStreamConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,19 +60,28 @@ public class DefaultExecService implements ExecService {
 	protected int execute(ExecContext context, Commandline cl) {
 		try {
 			logger.debug("[{}]", cl);
-			StreamConsumer stdout = getStreamConsumer(context.getStandardOutConsumer(), logger, LoggerLevel.INFO);
-			StreamConsumer stderr = getStreamConsumer(context.getStandardErrConsumer(), logger, LoggerLevel.WARN);
+			StreamConsumer stdout = getConsumer(context.getStandardOutConsumer(), logger, LoggerLevel.INFO);
+			StreamConsumer stderr = getConsumer(context.getStandardErrConsumer(), logger, LoggerLevel.WARN);
 			return CommandLineUtils.executeCommandLine(cl, context.getInput(), stdout, stderr, context.getTimeoutInSeconds());
 		} catch (CommandLineException e) {
 			throw new IllegalStateException(e);
 		}
 	}
 
-	protected StreamConsumer getStreamConsumer(StreamConsumer provided, Logger logger, LoggerLevel level) {
+	protected StreamConsumer getConsumer(StreamConsumer provided, Logger logger, LoggerLevel level) {
 		if (provided != null) {
 			return provided;
 		} else {
 			return new LoggingStreamConsumer(logger, level);
+		}
+	}
+
+	@Deprecated
+	protected StreamConsumer getStreamConsumer(StreamConsumer provided, Logger logger, org.kuali.common.util.LoggerLevel level) {
+		if (provided != null) {
+			return provided;
+		} else {
+			return new org.kuali.common.util.LoggingStreamConsumer(logger, level);
 		}
 	}
 
