@@ -22,7 +22,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Print a dot to the console each time we make progress
+ * 
+ * @deprecated
  */
+@Deprecated
 public abstract class AbstractProgressInformer {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractProgressInformer.class);

@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.execute.CopyFilePatternsExecutable;
 import org.kuali.common.util.execute.CopyFileRequest;
 import org.kuali.common.util.execute.CopyFileResult;
 import org.kuali.common.util.file.DirDiff;
@@ -89,6 +88,8 @@ public class FileSystemUtils {
 	 * 
 	 * This provides enough information for SCM tooling to then complete the work of making the SCM directory exactly match the file system directory and commit any changes to the
 	 * SCM system.
+	 * 
+	 * @deprecated
 	 */
 	@Deprecated
 	public static DirectoryDiff prepareScmDir(PrepareScmDirRequest request, File relativeDir, boolean diffOnly) {
@@ -113,7 +114,7 @@ public class FileSystemUtils {
 
 		// Copy files from the source directory to the SCM directory
 		if (!diffOnly) {
-			CopyFilePatternsExecutable exec = new CopyFilePatternsExecutable();
+			org.kuali.common.util.execute.CopyFilePatternsExecutable exec = new org.kuali.common.util.execute.CopyFilePatternsExecutable();
 			exec.setSrcDir(request.getSrcDir());
 			exec.setDstDir(request.getScmDir());
 			exec.setExcludes(request.getScmIgnorePatterns());
