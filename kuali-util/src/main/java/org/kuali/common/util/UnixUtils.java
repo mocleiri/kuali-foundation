@@ -50,9 +50,9 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync source destination
 	 * </pre>
-	 *
-	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must
-	 * already exist. <code>destination</code> will be created if it does not exist.
+	 * 
+	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must already exist. <code>destination</code> will
+	 * be created if it does not exist.
 	 */
 	public static final int rsyncdirs(File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
@@ -69,7 +69,7 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync source [user@]hostname:destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>source</code> is a directory on the local file system. <code>source</code> must already exist.
 	 */
 	public static final int rsyncdirs(File source, String destination) {
@@ -81,7 +81,7 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [user@]hostname:source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
 	public static final int rsyncdirs(String source, File destination) {
@@ -93,9 +93,9 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [options] source destination
 	 * </pre>
-	 *
-	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must
-	 * already exist. <code>destination</code> will be created if it does not exist.
+	 * 
+	 * Where <code>source</code> and <code>destination</code> are both directories on the local file system. <code>source</code> must already exist. <code>destination</code> will
+	 * be created if it does not exist.
 	 */
 	public static final int rsyncdirs(List<String> options, File source, File destination) {
 		String sourcePath = validateRsyncSourceDir(source);
@@ -107,7 +107,7 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [options] source [user@]hostname:destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>source</code> is a directory on the local file system. <code>source</code> must already exist.
 	 */
 	public static final int rsync(List<String> options, File source, String destination) {
@@ -119,7 +119,7 @@ public class UnixUtils {
 	 * <pre>
 	 *  rsync [options] [user@]hostname:source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>destination</code> is a directory on the local file system. <code>destination</code> will be created if it does not exist
 	 */
 	public static final int rsyncdirs(List<String> options, String source, File destination) {
@@ -133,14 +133,14 @@ public class UnixUtils {
 	 *  rsync [options] source [user@]hostname:destination
 	 *  rsync [options] [user@]hostname:source destination
 	 * </pre>
-	 *
+	 * 
 	 * Always add a trailing slash to source when sync'ing directories.<br>
 	 * This forces rsync to behave like <code>cp</code>
-	 *
+	 * 
 	 * <pre>
 	 * cp -R /tmp/foo/bar  /tmp/xyz  -  creates files in /tmp/xyz
 	 * rsync /tmp/foo/bar/ /tmp/xyz  -  creates files in /tmp/xyz
-	 *
+	 * 
 	 * rsync /tmp/foo/bar  /tmp/xyz  -  creates files in /tmp/xyz/bar
 	 * </pre>
 	 */
@@ -510,9 +510,9 @@ public class UnixUtils {
 	 * <pre>
 	 * scp source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where both <code>source</code> and <code>destination</code> are in the format
-	 *
+	 * 
 	 * <pre>
 	 * [[user@]host:]file
 	 * </pre>
@@ -525,9 +525,9 @@ public class UnixUtils {
 	 * <pre>
 	 * scp [args] source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where both <code>source</code> and <code>destination</code> are in the format
-	 *
+	 * 
 	 * <pre>
 	 * [[user@]host:]file
 	 * </pre>
@@ -549,9 +549,9 @@ public class UnixUtils {
 	 * <pre>
 	 * scp [args] source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>source</code> is a file on the local file system and <code>destination</code> is in the format
-	 *
+	 * 
 	 * <pre>
 	 * [[user@]host:]file
 	 * </pre>
@@ -569,9 +569,9 @@ public class UnixUtils {
 	 * <pre>
 	 * scp [args] source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>destination</code> is a file on the local file system and <code>source</code> is in the format
-	 *
+	 * 
 	 * <pre>
 	 * [[user@]host:]file
 	 * </pre>
@@ -590,9 +590,9 @@ public class UnixUtils {
 	 * <pre>
 	 * scp source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>source</code> is a file on the local file system and <code>destination</code> is in the format
-	 *
+	 * 
 	 * <pre>
 	 * [[user@]host:]file
 	 * </pre>
@@ -605,9 +605,9 @@ public class UnixUtils {
 	 * <pre>
 	 * scp source destination
 	 * </pre>
-	 *
+	 * 
 	 * Where <code>destination</code> is a file on the local file system and <code>source</code> is in the format
-	 *
+	 * 
 	 * <pre>
 	 * [[user@]host:]file
 	 * </pre>
@@ -628,8 +628,8 @@ public class UnixUtils {
 
 	public static final int execute(Commandline cl) {
 		try {
-			StreamConsumer stdout = new LoggingStreamConsumer(logger, LoggerLevel.INFO);
-			StreamConsumer stderr = new LoggingStreamConsumer(logger, LoggerLevel.WARN);
+			StreamConsumer stdout = new org.kuali.common.util.log.LoggingStreamConsumer(logger, org.kuali.common.util.log.LoggerLevel.INFO);
+			StreamConsumer stderr = new org.kuali.common.util.log.LoggingStreamConsumer(logger, org.kuali.common.util.log.LoggerLevel.WARN);
 			logger.info(cl.toString());
 			return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
 		} catch (CommandLineException e) {
@@ -675,8 +675,8 @@ public class UnixUtils {
 	}
 
 	/**
-	 * Return a list containing the options <code>--recursive</code>, <code>--archive</code>, and <code>--delete</code> as the first 3
-	 * elements, with additional options coming after.
+	 * Return a list containing the options <code>--recursive</code>, <code>--archive</code>, and <code>--delete</code> as the first 3 elements, with additional options coming
+	 * after.
 	 */
 	protected static final List<String> getRsyncDirOptions(List<String> options) {
 		List<String> rsyncDirOptions = new ArrayList<String>();
