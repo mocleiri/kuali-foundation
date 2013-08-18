@@ -54,6 +54,13 @@ public final class PercentCompleteInformer {
 	private boolean started = false;
 
 	/**
+	 * Thread safe method indicating if we are in the "started" state or not
+	 */
+	public synchronized boolean isStarted() {
+		return started;
+	}
+
+	/**
 	 * Thread safe method exposing the current progress
 	 */
 	public synchronized long getProgress() {
@@ -126,6 +133,14 @@ public final class PercentCompleteInformer {
 
 	public long getTotal() {
 		return total;
+	}
+
+	public Inform getInform() {
+		return inform;
+	}
+
+	public StartStopInformer getInformer() {
+		return informer;
 	}
 
 }
