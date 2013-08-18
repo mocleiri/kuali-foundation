@@ -169,7 +169,7 @@ public class DefaultJdbcService implements JdbcService {
 
 	@Override
 	public ExecutionResult executeSql(DataSource dataSource, String sql) {
-		return executeSql(dataSource, Arrays.asList(sql));
+		return executeSql(dataSource, CollectionUtils.singletonList(sql));
 	}
 
 	@Override
