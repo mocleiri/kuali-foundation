@@ -105,8 +105,9 @@ public final class PercentCompleteInformer {
 
 		// Have we made at least 1% progress since the last time we were informed about progress occurring?
 		if (isEnoughProgress(newPercentCompleted, percentComplete, percentageIncrement)) {
-			// If so, print a dot to the console
+			// If so, update the field holding the percent complete
 			this.percentComplete = newPercentCompleted;
+			// And print a dot to the console
 			inform.getPrintStream().print(inform.getProgressToken());
 		}
 	}
