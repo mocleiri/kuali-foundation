@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -64,12 +63,10 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
 	}
 
 	protected ConversionResult convert(ConversionContext context, SqlReader reader, BufferedReader in, OutputStream out) throws IOException {
-		List<String> sql = reader.getSql(in);
+		String sql = reader.getSql(in);
 		while (sql != null) {
-			for (String s : sql) {
-				String outputSql = getOutputSql(context, in, s, reader);
-				out.write(outputSql.getBytes(context.getEncoding()));
-			}
+			String outputSql = getOutputSql(context, in, sql, reader);
+			out.write(outputSql.getBytes(context.getEncoding()));
 			sql = reader.getSql(in);
 		}
 		SqlMetaData before = getMetaData(context.getOldFile(), reader, context.getEncoding());

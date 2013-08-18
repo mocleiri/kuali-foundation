@@ -17,7 +17,6 @@ package org.kuali.common.jdbc.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -79,13 +78,13 @@ public final class DefaultSqlReader implements SqlReader {
 	}
 
 	@Override
-	public List<String> getSql(BufferedReader reader) throws IOException {
+	public String getSql(BufferedReader reader) throws IOException {
 		String line = reader.readLine();
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null) {
 			if (isEndOfSqlStatement(trimmedLine, delimiter.getValue(), delimiter.getMode())) {
-				return Arrays.asList(getReturnValue(sb.toString() + line, trim, lineSeparator));
+				return getReturnValue(sb.toString() + line, trim, lineSeparator);
 			}
 			if (!ignore(comments.isIgnore(), sb, trimmedLine, comments.getTokens())) {
 				sb.append(line + lineSeparator.getValue());
@@ -99,7 +98,7 @@ public final class DefaultSqlReader implements SqlReader {
 		if (result == null) {
 			return null;
 		} else {
-			return Arrays.asList(result);
+			return result;
 		}
 	}
 

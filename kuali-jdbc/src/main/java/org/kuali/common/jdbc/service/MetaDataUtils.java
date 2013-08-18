@@ -73,12 +73,10 @@ public class MetaDataUtils {
 	public static SqlMetaData getSqlMetaData(BufferedReader in, SqlReader reader) throws IOException {
 		long count = 0;
 		long size = 0;
-		List<String> sql = reader.getSql(in);
+		String sql = reader.getSql(in);
 		while (sql != null) {
-			for (String s : sql) {
-				count++;
-				size += s.length();
-			}
+			count++;
+			size += sql.length();
 			sql = reader.getSql(in);
 		}
 		return new SqlMetaData(count, size);

@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.suppliers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -73,11 +74,11 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 		}
 		try {
 			// Have the reader produce a SQL statement
-			List<String> sql = reader.getSql(in);
+			String sql = reader.getSql(in);
 
 			if (sql != null) {
 				// We got SQL we are done
-				return sql;
+				return Arrays.asList(sql);
 			} else {
 				// We've exhausted the current string, move to the next one
 				this.index++;

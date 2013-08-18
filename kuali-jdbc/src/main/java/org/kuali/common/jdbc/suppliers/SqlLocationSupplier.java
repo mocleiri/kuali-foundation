@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.suppliers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -31,34 +32,74 @@ import org.kuali.common.util.LocationUtils;
  */
 public final class SqlLocationSupplier extends AbstractSupplier implements SqlSupplier {
 
-	private BufferedReader in;
+	public static final int DEFAULT_MAX_COUNT = 50;
+	public static final int DEFAULT_MAX_SIZE = 50 * 1024;
 
 	private final String location;
 	private final String encoding;
 	private final SqlReader reader;
+	private final int maxCount;
+	private final int maxSize;
+
 	private SqlMetaData metaData;
 	private boolean open = false;
+	private boolean done = false;
+	private BufferedReader in;
 
 	public SqlLocationSupplier(String location, String encoding, SqlReader reader) {
+		this(location, encoding, reader, DEFAULT_MAX_COUNT, DEFAULT_MAX_SIZE);
+	}
+
+	public SqlLocationSupplier(String location, String encoding, SqlReader reader, int maxCount, int maxSize) {
 		Assert.noBlanks(location, encoding);
 		Assert.noNulls(reader);
 		Assert.isTrue(LocationUtils.exists(location));
 		this.location = location;
 		this.encoding = encoding;
 		this.reader = reader;
+		this.maxCount = maxCount;
+		this.maxSize = maxSize;
 	}
 
 	@Override
 	public synchronized void open() throws IOException {
 		Assert.isFalse(open, "Already open");
-		open = true;
-		in = LocationUtils.getBufferedReader(location, encoding);
+		this.open = true;
+		this.done = false;
+		this.in = LocationUtils.getBufferedReader(location, encoding);
 	}
 
 	@Override
 	public synchronized List<String> getSql() throws IOException {
 		Assert.isTrue(open, "Not open");
-		return reader.getSql(in);
+		if (done) {
+			return null;
+		}
+		List<String> sql = getSqlList();
+		if (sql.size() == 0) {
+			this.done = true;
+			return null;
+		} else {
+			return sql;
+		}
+	}
+
+	protected List<String> getSqlList() throws IOException {
+		int count = 0;
+		int size = 0;
+		List<String> list = new ArrayList<String>();
+		String sql = reader.getSql(in);
+		while (sql != null) {
+			count++;
+			size += sql.length();
+			if (count > maxCount || size > maxSize) {
+				break;
+			} else {
+				list.add(sql);
+				sql = reader.getSql(in);
+			}
+		}
+		return list;
 	}
 
 	@Override
