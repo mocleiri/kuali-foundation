@@ -24,11 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Print a dot to the console each time we make progress
+ * 
  */
-public abstract class AbstractProgressInformer {
+public final class StartStopProgressInformer {
 
-	private static final Logger logger = LoggerFactory.getLogger(AbstractProgressInformer.class);
+	private static final Logger logger = LoggerFactory.getLogger(StartStopProgressInformer.class);
 
 	public static final PrintStream DEFAULT_PRINT_STREAM = System.out;
 	public static final String DEFAULT_START_TOKEN = "[INFO] Progress: ";
@@ -37,17 +37,19 @@ public abstract class AbstractProgressInformer {
 	public static final LogMsg DEFAULT_START_MESSAGE = LogMsg.NOOP;
 	public static final LogMsg DEFAULT_STOP_MESSAGE = LogMsg.NOOP;
 
-	public static final long UNINITIALIZED_PROGRESS_INDICATOR = -1;
-
-	public AbstractProgressInformer() {
+	public StartStopProgressInformer() {
 		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, DEFAULT_START_MESSAGE, DEFAULT_STOP_MESSAGE);
 	}
 
-	public AbstractProgressInformer(LogMsg startMessage, LogMsg stopMessage) {
+	public StartStopProgressInformer(LogMsg startMessage) {
+		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, startMessage, DEFAULT_STOP_MESSAGE);
+	}
+
+	public StartStopProgressInformer(LogMsg startMessage, LogMsg stopMessage) {
 		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, startMessage, stopMessage);
 	}
 
-	public AbstractProgressInformer(PrintStream printStream, String startToken, String progressToken, String completeToken, LogMsg startMessage, LogMsg stopMessage) {
+	public StartStopProgressInformer(PrintStream printStream, String startToken, String progressToken, String completeToken, LogMsg startMessage, LogMsg stopMessage) {
 		Assert.noNulls(printStream, startMessage, stopMessage);
 		Assert.noBlanks(startToken, progressToken, completeToken);
 		this.printStream = printStream;
@@ -58,8 +60,7 @@ public abstract class AbstractProgressInformer {
 		this.stopMessage = stopMessage;
 	}
 
-	long progress = UNINITIALIZED_PROGRESS_INDICATOR;
-	boolean started = false;
+	private boolean started = false;
 
 	private final PrintStream printStream;
 	private final String startToken;
@@ -69,10 +70,10 @@ public abstract class AbstractProgressInformer {
 	private final LogMsg stopMessage;
 
 	/**
-	 * Thread safe method exposing the current progress
+	 * Thread safe method indicating if we are in the "started" state
 	 */
-	public synchronized long getProgress() {
-		return progress;
+	public synchronized boolean isStarted() {
+		return started;
 	}
 
 	/**
@@ -81,7 +82,6 @@ public abstract class AbstractProgressInformer {
 	public synchronized void start() {
 		Assert.isFalse(started, "Already started");
 		this.started = true;
-		this.progress = 0;
 		LoggerUtils.log(startMessage, logger);
 		printStream.print(startToken);
 	}
@@ -92,7 +92,6 @@ public abstract class AbstractProgressInformer {
 	public synchronized void stop() {
 		Assert.isTrue(started, "Not started");
 		this.started = false;
-		this.progress = UNINITIALIZED_PROGRESS_INDICATOR;
 		printStream.print(completeToken);
 		LoggerUtils.log(stopMessage, logger);
 	}
