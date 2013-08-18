@@ -104,6 +104,12 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	}
 
 	@Bean
+	public JdbcContext liquibaseJdbcContext() {
+		List<SqlSupplier> suppliers = getDataSuppliers();
+		return getJdbcContext("[data:concurrent]", suppliers);
+	}
+
+	@Bean
 	public JdbcContext dataJdbcContext() {
 		List<SqlSupplier> suppliers = getDataSuppliers();
 		return getJdbcContext("[data:concurrent]", suppliers);
@@ -126,6 +132,19 @@ public class DropCreateConfig implements JdbcContextsConfig {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
 			String encoding = ProjectUtils.getEncoding(project);
 			suppliers.add(new SqlLocationSupplier(location, encoding, reader));
+		}
+		return suppliers;
+	}
+
+	protected List<SqlSupplier> getLiquibaseSuppliers() {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		String encoding = ProjectUtils.getEncoding(project);
+		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
+		List<String> resources = LocationUtils.getLocations(location, encoding);
+		for (String resource : resources) {
+			Assert.isTrue(LocationUtils.exists(resource));
+			Assert.isTrue(StringUtils.endsWithIgnoreCase(resource, ".sql"));
+			suppliers.add(new SqlLocationSupplier(resource, encoding, reader));
 		}
 		return suppliers;
 	}
