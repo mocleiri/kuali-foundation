@@ -9,7 +9,7 @@ import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
 import org.kuali.common.jdbc.service.JdbcService;
-import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
 public class ShowUtils {
