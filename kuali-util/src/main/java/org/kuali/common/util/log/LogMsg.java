@@ -16,10 +16,13 @@
 package org.kuali.common.util.log;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 public final class LogMsg {
 
 	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;
+	public static final String NO_MSG = NullUtils.NONE;
+	public static final LogMsg NOOP = new LogMsg(NO_MSG, null);
 
 	private final LoggerLevel level;
 	private final String message;

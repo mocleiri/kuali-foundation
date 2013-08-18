@@ -18,8 +18,8 @@ package org.kuali.common.util.inform;
 import java.io.PrintStream;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.LogMsg;
-import org.kuali.common.util.LoggerUtils;
+import org.kuali.common.util.log.LogMsg;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +34,21 @@ public abstract class AbstractProgressInformer {
 	public static final String DEFAULT_START_TOKEN = "[INFO] Progress: ";
 	public static final String DEFAULT_PROGRESS_TOKEN = ".";
 	public static final String DEFAULT_COMPLETE_TOKEN = "\n";
+
+	public AbstractProgressInformer(LogMsg startMessage, LogMsg stopMessage) {
+		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, startMessage, stopMessage);
+	}
+
+	public AbstractProgressInformer(PrintStream printStream, String startToken, String progressToken, String completeToken, LogMsg startMessage, LogMsg stopMessage) {
+		Assert.noNulls(printStream);
+		Assert.noBlanks(startToken, progressToken, completeToken);
+		this.printStream = printStream;
+		this.startToken = startToken;
+		this.progressToken = progressToken;
+		this.completeToken = completeToken;
+		this.startMessage = startMessage;
+		this.stopMessage = stopMessage;
+	}
 
 	protected long progress;
 

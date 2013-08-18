@@ -219,6 +219,9 @@ public class LoggerUtils {
 	}
 
 	public static final void logMsg(String msg, Object[] args, Logger logger, LoggerLevel level) {
+		if (StringUtils.equals(LogMsg.NO_MSG, msg)) {
+			return;
+		}
 		switch (level) {
 		case DEBUG:
 			logger.debug(msg, args);
