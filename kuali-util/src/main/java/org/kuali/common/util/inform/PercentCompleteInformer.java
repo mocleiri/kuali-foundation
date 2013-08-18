@@ -75,8 +75,7 @@ public class PercentCompleteInformer {
 	/**
 	 * Thread safe method for incrementing progress by one
 	 */
-	public synchronized void incrementProgress() {
-		Assert.isTrue(started, "Not started");
+	public void incrementProgress() {
 		incrementProgress(1);
 	}
 
