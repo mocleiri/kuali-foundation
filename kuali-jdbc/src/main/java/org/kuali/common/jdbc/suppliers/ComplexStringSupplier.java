@@ -39,6 +39,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	private final SqlReader reader;
 	private final SqlMetaData metaData;
 	private boolean open = false;
+	private boolean done = false;
 
 	public ComplexStringSupplier(String sql, SqlReader reader) {
 		this(CollectionUtils.singletonList(sql), reader);
@@ -55,6 +56,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	public synchronized void open() {
 		Assert.isFalse(open, "Already open");
 		this.open = true;
+		this.done = false;
 
 		// Reset index to zero
 		this.index = 0;
@@ -66,6 +68,9 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	@Override
 	public synchronized List<String> getSql() {
 		Assert.isTrue(open, "Not open");
+		if (done) {
+			return null;
+		}
 		try {
 			// Have the reader produce a SQL statement
 			List<String> sql = reader.getSql(in);
@@ -80,6 +85,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 
 			// We've exhausted all of the strings, we are done
 			if (index == strings.size()) {
+				this.done = true;
 				return null;
 			}
 
@@ -97,6 +103,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	public synchronized void close() {
 		Assert.isTrue(open, "Not open");
 		this.open = false;
+		this.done = true;
 
 		// Reset index to zero
 		this.index = 0;
