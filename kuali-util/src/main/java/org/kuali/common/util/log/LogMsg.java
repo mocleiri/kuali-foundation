@@ -15,48 +15,38 @@
  */
 package org.kuali.common.util.log;
 
-public class LogMsg {
+import org.kuali.common.util.Assert;
 
-	LoggerLevel level = LoggerLevel.INFO;
-	String message;
-	Object[] args;
+public final class LogMsg {
 
-	public LogMsg() {
-		this(null, null, LoggerLevel.INFO);
-	}
+	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;
+
+	private final LoggerLevel level;
+	private final String message;
+	private final Object[] args;
 
 	public LogMsg(String message, Object[] args) {
-		this(message, args, LoggerLevel.INFO);
+		this(message, args, DEFAULT_LOGGER_LEVEL);
 	}
 
 	public LogMsg(String message, Object[] args, LoggerLevel level) {
+		Assert.noBlanks(message);
+		Assert.noNulls(level);
 		this.message = message;
 		this.args = args;
 		this.level = level;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Object[] getArgs() {
-		return args;
-	}
-
-	public void setArgs(Object[] args) {
-		this.args = args;
 	}
 
 	public LoggerLevel getLevel() {
 		return level;
 	}
 
-	public void setLevel(LoggerLevel level) {
-		this.level = level;
+	public String getMessage() {
+		return message;
+	}
+
+	public Object[] getArgs() {
+		return args;
 	}
 
 }

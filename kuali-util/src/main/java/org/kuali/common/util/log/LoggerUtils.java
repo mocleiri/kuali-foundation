@@ -79,7 +79,6 @@ public class LoggerUtils {
 	}
 
 	public static void log(LogMsg msg, Logger logger) {
-		Assert.notNull(msg.getLevel(), "level is null");
 		Assert.notNull(logger, "logger is null");
 		logMsg(msg.getMessage(), msg.getArgs(), logger, msg.getLevel());
 	}
@@ -137,13 +136,7 @@ public class LoggerUtils {
 	}
 
 	public static void logTable(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger, boolean leftAlign) {
-		LogTableContext context = new LogTableContext();
-		context.setColumns(columns);
-		context.setRows(rows);
-		context.setLevel(level);
-		context.setLogger(logger);
-		context.setLeftAlign(leftAlign);
-
+		LogTableContext context = new LogTableContext(columns, rows, level, logger, leftAlign);
 		logTable(context);
 	}
 
@@ -154,8 +147,6 @@ public class LoggerUtils {
 
 	public static String getTable(LogTableContext context) {
 		Assert.notNull(context, "context is null");
-		Assert.notNull(context.getColumns(), "columns is null");
-		Assert.notNull(context.getRows(), "rows is null");
 		int[] padding = getPadding(context.getColumns(), context.getRows());
 		int cols = context.getColumns().size();
 		int rows = context.getRows().size();
@@ -171,14 +162,9 @@ public class LoggerUtils {
 	}
 
 	public static void logTable(LogTableContext context) {
-
 		String table = getTable(context);
-
-		Assert.notNull(context.getLogger(), "logger is null");
-		Assert.notNull(context.getLevel(), "level is null");
-
-		String msg = context.getTitle() + "\n\n" + table;
-
+		String title = StringUtils.equals(LogTableContext.NO_TITLE, context.getTitle()) ? "" : context.getTitle() + "\n\n";
+		String msg = title + table;
 		logMsg(msg, context.getLogger(), context.getLevel());
 
 	}

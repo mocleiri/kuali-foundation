@@ -17,6 +17,9 @@ package org.kuali.common.util.log;
 
 import java.util.List;
 
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 
 public class LogTableContext {
@@ -24,82 +27,66 @@ public class LogTableContext {
 	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;
 	public static final boolean DEFAULT_LEFT_ALIGN = false;
 	public static final Logger DEFAULT_LOGGER = LoggerUtils.LOGGER_UTILS_LOGGER;
-	public static final String DEFAULT_TITLE = "Displaying Table";
+	public static final String NO_TITLE = NullUtils.NONE;
+	public static final String DEFAULT_TITLE = NO_TITLE;
 
-	LoggerLevel level = DEFAULT_LOGGER_LEVEL;
-	boolean leftAlign = DEFAULT_LEFT_ALIGN;
-	Logger logger = DEFAULT_LOGGER;
-
-	String title = DEFAULT_TITLE;
-	List<String> columns;
-	List<Object[]> rows;
-
-	public LogTableContext() {
-		this(null, null);
-	}
+	private final String title;
+	private final List<String> columns;
+	private final List<Object[]> rows;
+	private final Logger logger;
+	private final LoggerLevel level;
+	private final boolean leftAlign;
 
 	public LogTableContext(List<String> columns, List<Object[]> rows) {
 		this(columns, rows, DEFAULT_LOGGER);
 	}
 
 	public LogTableContext(List<String> columns, List<Object[]> rows, Logger logger) {
-		this(null, columns, rows, logger);
+		this(DEFAULT_TITLE, columns, rows, logger);
 	}
 
 	public LogTableContext(String title, List<String> columns, List<Object[]> rows, Logger logger) {
-		super();
+		this(title, columns, rows, DEFAULT_LOGGER_LEVEL, logger, DEFAULT_LEFT_ALIGN);
+
+	}
+
+	public LogTableContext(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger, boolean leftAlign) {
+		this(DEFAULT_TITLE, columns, rows, level, logger, leftAlign);
+	}
+
+	public LogTableContext(String title, List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger, boolean leftAlign) {
+		Assert.noNulls(columns, rows, logger, level);
+		Assert.noBlanks(title);
 		this.title = title;
-		this.columns = columns;
-		this.rows = rows;
-		this.logger = logger;
-	}
-
-	public LoggerLevel getLevel() {
-		return level;
-	}
-
-	public void setLevel(LoggerLevel level) {
+		this.columns = CollectionUtils.unmodifiableCopy(columns);
+		this.rows = CollectionUtils.unmodifiableCopy(rows);
 		this.level = level;
-	}
-
-	public boolean isLeftAlign() {
-		return leftAlign;
-	}
-
-	public void setLeftAlign(boolean leftAlign) {
-		this.leftAlign = leftAlign;
-	}
-
-	public Logger getLogger() {
-		return logger;
-	}
-
-	public void setLogger(Logger logger) {
 		this.logger = logger;
-	}
-
-	public List<String> getColumns() {
-		return columns;
-	}
-
-	public void setColumns(List<String> columns) {
-		this.columns = columns;
-	}
-
-	public List<Object[]> getRows() {
-		return rows;
-	}
-
-	public void setRows(List<Object[]> rows) {
-		this.rows = rows;
+		this.leftAlign = leftAlign;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public List<String> getColumns() {
+		return columns;
+	}
+
+	public List<Object[]> getRows() {
+		return rows;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public LoggerLevel getLevel() {
+		return level;
+	}
+
+	public boolean isLeftAlign() {
+		return leftAlign;
 	}
 
 }
