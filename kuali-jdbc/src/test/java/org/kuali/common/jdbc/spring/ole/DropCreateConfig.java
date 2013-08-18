@@ -31,10 +31,10 @@ import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
-import org.kuali.common.jdbc.sql.spring.JdbcContextsExecutableConfig;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.jdbc.vendor.spring.ShowConfig;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, JdbcContextsExecutableConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class, ShowConfig.class })
 public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Autowired
@@ -62,7 +62,10 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	SqlContext sqlContext;
 
 	@Autowired
-	DataSourceConfig dataSourceConfig;
+	DataSourceConfig dataSources;
+
+	@Autowired
+	ShowConfig show;
 
 	@Override
 	@Bean
@@ -77,33 +80,23 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	@Bean
 	public JdbcContext schemaJdbcContext() {
 		String message = "[schema:concurrent]";
-		DataSource dataSource = dataSourceConfig.dataSource();
-		List<SqlSupplier> suppliers = getSchemaSuppliers(getSchemas());
+		DataSource dataSource = dataSources.dataSource();
+		List<SqlSupplier> suppliers = getDDLSuppliers(getSchemas(), "");
 		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
 	}
 
 	@Bean
 	public JdbcContext constraintsJdbcContext() {
 		String message = "[constraints:concurrent]";
-		DataSource dataSource = dataSourceConfig.dataSource();
-		List<SqlSupplier> suppliers = getConstraintsSuppliers(getSchemas());
+		DataSource dataSource = dataSources.dataSource();
+		List<SqlSupplier> suppliers = getDDLSuppliers(getSchemas(), "-constraints");
 		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
 	}
 
-	protected List<SqlSupplier> getConstraintsSuppliers(List<String> schemas) {
+	protected List<SqlSupplier> getDDLSuppliers(List<String> schemas, String suffix) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
-			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + "-constraints.sql";
-			SqlSupplier supplier = getSupplier(location);
-			suppliers.add(supplier);
-		}
-		return suppliers;
-	}
-
-	protected List<SqlSupplier> getSchemaSuppliers(List<String> schemas) {
-		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
-		for (String schema : schemas) {
-			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + ".sql";
+			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
 			SqlSupplier supplier = getSupplier(location);
 			suppliers.add(supplier);
 		}

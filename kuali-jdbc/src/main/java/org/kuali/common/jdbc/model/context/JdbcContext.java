@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 import org.kuali.common.jdbc.listeners.NoOpSqlListener;
 import org.kuali.common.jdbc.listeners.SqlListener;
 import org.kuali.common.jdbc.model.enums.CommitMode;
+import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -42,6 +43,10 @@ public final class JdbcContext {
 
 	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, SqlListener listener) {
 		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, listener, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
+	}
+
+	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, boolean multithreaded) {
+		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, multithreaded, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
 	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, boolean multithreaded, int threads) {
@@ -67,7 +72,7 @@ public final class JdbcContext {
 	}
 
 	public static final boolean DEFAULT_SKIP = false;
-	public static final int DEFAULT_THREADS = 1;
+	public static final int DEFAULT_THREADS = SqlContext.DEFAULT_THREADS;
 	public static final boolean DEFAULT_MULTITHREADED = false;
 	public static final boolean DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT = false;
 	public static final SqlListener DEFAULT_LISTENER = NoOpSqlListener.INSTANCE;

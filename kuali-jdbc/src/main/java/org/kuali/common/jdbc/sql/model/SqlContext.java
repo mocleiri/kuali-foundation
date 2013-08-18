@@ -5,7 +5,7 @@ import org.kuali.common.util.Assert;
 
 public final class SqlContext {
 
-	public static final int DEFAULT_THREADS = 5;
+	public static final int DEFAULT_THREADS = 8;
 
 	public SqlContext(Credentials credentials, DbaSql dbaSql, AdminSql adminSql, String schema, String encoding, int threads) {
 		Assert.noNulls(credentials, dbaSql, adminSql);
