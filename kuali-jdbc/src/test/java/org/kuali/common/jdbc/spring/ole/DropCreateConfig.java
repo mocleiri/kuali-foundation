@@ -15,6 +15,7 @@
  */
 package org.kuali.common.jdbc.spring.ole;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -75,12 +76,24 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	@Bean
 	public JdbcContext schemaJdbcContext() {
 		String message = "[schema:concurrent]";
-		String location = "classpath:sql/" + vendor.getCode() + "/ole-rice-sql.sql";
-		String encoding = ProjectUtils.getEncoding(project);
 		DataSource dataSource = dataSourceConfig.dataSource();
-		SqlSupplier supplier = new SqlLocationSupplier(location, encoding, reader);
+		List<SqlSupplier> suppliers = getSuppliers(getSchemas());
 		SqlListener listener = new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER);
-		return new JdbcContext(dataSource, supplier, message, listener);
+		return new JdbcContext(dataSource, suppliers, message, listener);
+	}
+
+	protected List<SqlSupplier> getSuppliers(List<String> schemas) {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String schema : schemas) {
+			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + ".sql";
+			String encoding = ProjectUtils.getEncoding(project);
+			suppliers.add(new SqlLocationSupplier(location, encoding, reader));
+		}
+		return suppliers;
+	}
+
+	protected List<String> getSchemas() {
+		return Arrays.asList("ole-rice-sql", "ole-master-sql");
 	}
 
 }
