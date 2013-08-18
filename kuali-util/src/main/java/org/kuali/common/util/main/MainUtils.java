@@ -17,13 +17,13 @@ public class MainUtils {
 	 */
 	public static void runAndExit(Class<?> mainClass, String[] args) {
 		try {
-			// Preserve the context info from the class where main() was invoked
+			// Preserve the context info from the class where main(String[] args) was invoked
 			MainContext mainContext = new MainContext(mainClass, args);
 
 			// Create a map containing the context so we can register it with Spring
 			Map<String, Object> beans = Collections.singletonMap(MAIN_CONTEXT_BEAN_NAME, (Object) mainContext);
 
-			// Create a SpringContext using the map and main() class, with 1 active profile called "main"
+			// Create a SpringContext using the map and main class, with 1 active profile called "main"
 			SpringContext context = new SpringContext(beans, mainClass, MAIN_PROFILE_NAME);
 
 			// DefaultSpringService does what we need
