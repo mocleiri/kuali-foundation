@@ -16,7 +16,6 @@
 package org.kuali.common.util.inform;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.inform.model.Inform;
 
 /**
  * Print a dot to the console each time we make at least 1% progress towards a total

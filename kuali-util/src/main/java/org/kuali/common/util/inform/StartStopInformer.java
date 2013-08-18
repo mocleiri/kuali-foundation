@@ -16,7 +16,6 @@
 package org.kuali.common.util.inform;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.inform.model.Inform;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

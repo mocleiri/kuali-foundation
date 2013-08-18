@@ -1,4 +1,4 @@
-package org.kuali.common.util.inform.model;
+package org.kuali.common.util.inform;
 
 import java.io.PrintStream;
 
