@@ -28,7 +28,6 @@ import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
-import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
@@ -59,9 +58,6 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	SqlReader reader;
 
 	@Autowired
-	SqlContext sqlContext;
-
-	@Autowired
 	DataSourceConfig dataSources;
 
 	@Autowired
@@ -82,7 +78,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		String message = "[schema:concurrent]";
 		DataSource dataSource = dataSources.dataSource();
 		List<SqlSupplier> suppliers = getDDLSuppliers(getSchemas(), "");
-		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
+		return new JdbcContext(dataSource, suppliers, message, true);
 	}
 
 	@Bean
@@ -90,20 +86,20 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		String message = "[constraints:concurrent]";
 		DataSource dataSource = dataSources.dataSource();
 		List<SqlSupplier> suppliers = getDDLSuppliers(getSchemas(), "-constraints");
-		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
+		return new JdbcContext(dataSource, suppliers, message, true);
 	}
 
 	protected List<SqlSupplier> getDDLSuppliers(List<String> schemas, String suffix) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
-			SqlSupplier supplier = getSupplier(location);
+			SqlSupplier supplier = getSqlSupplier(location);
 			suppliers.add(supplier);
 		}
 		return suppliers;
 	}
 
-	protected SqlSupplier getSupplier(String location) {
+	protected SqlSupplier getSqlSupplier(String location) {
 		String encoding = ProjectUtils.getEncoding(project);
 		return new SqlLocationSupplier(location, encoding, reader);
 	}
