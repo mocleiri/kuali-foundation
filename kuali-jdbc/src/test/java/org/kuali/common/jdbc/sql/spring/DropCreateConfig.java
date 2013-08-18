@@ -38,7 +38,7 @@ public class DropCreateConfig implements SqlExecutionContextsConfig {
 	@Bean
 	public List<SqlExecutionContext> sqlExecutionContexts() {
 		JdbcContext before = config.dbaBeforeContext();
-		JdbcContext after = config.dbaBeforeContext();
+		JdbcContext after = config.dbaAfterContext();
 		SqlExecutionContext sec = new SqlExecutionContext("dba", Arrays.asList(before, after), false);
 		return Collections.singletonList(sec);
 	}
