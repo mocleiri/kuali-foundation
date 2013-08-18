@@ -19,9 +19,9 @@ import org.kuali.common.jdbc.model.LogSqlMode;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LoggerLevel;
-import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.log.LoggerLevel;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

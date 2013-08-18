@@ -53,8 +53,8 @@ import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,7 +144,7 @@ public class DefaultJdbcService implements JdbcService {
 		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
 		long total = MetaDataUtils.getSqlCount(context.getSuppliers());
 		PercentCompleteInformer informer = new PercentCompleteInformer(total);
-		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener(informer,context.isTrackProgressByUpdateCount());
+		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener(informer, context.isTrackProgressByUpdateCount());
 		List<SqlListener> listeners = new ArrayList<SqlListener>();
 		listeners.add(new LogSqlListener());
 		listeners.add(etl);

@@ -12,7 +12,7 @@ import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.ComplexStringSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
-import org.kuali.common.util.LoggerLevel;
+import org.kuali.common.util.log.LoggerLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

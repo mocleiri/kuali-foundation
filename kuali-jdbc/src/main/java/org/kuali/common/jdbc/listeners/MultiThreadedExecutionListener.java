@@ -18,7 +18,7 @@ package org.kuali.common.jdbc.listeners;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 
 /**
  * Thread safe tracking of SQL execution related statistics
