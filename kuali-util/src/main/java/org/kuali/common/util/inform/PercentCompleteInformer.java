@@ -54,6 +54,13 @@ public final class PercentCompleteInformer {
 	private boolean started = false;
 
 	/**
+	 * Thread safe method exposing the current progress
+	 */
+	public synchronized long getProgress() {
+		return progress;
+	}
+
+	/**
 	 * Thread safe method exposing the current percent completed.
 	 */
 	public synchronized int getPercentComplete() {
