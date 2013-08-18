@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Import;
 public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Autowired
-	DbaContextConfig config;
+	DbaContextConfig dba;
 
 	@Autowired
 	DatabaseVendor vendor;
@@ -66,10 +66,10 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	@Override
 	@Bean
 	public List<JdbcContext> jdbcContexts() {
-		JdbcContext before = config.dbaBeforeContext();
+		JdbcContext before = dba.dbaBeforeContext();
 		JdbcContext schemas = schemaJdbcContext();
 		JdbcContext constraints = schemaJdbcContext();
-		JdbcContext after = config.dbaAfterContext();
+		JdbcContext after = dba.dbaAfterContext();
 		return Collections.unmodifiableList(Arrays.asList(before, schemas, constraints, after));
 	}
 
@@ -93,8 +93,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
-			SqlSupplier supplier = getSqlSupplier(location);
-			suppliers.add(supplier);
+			suppliers.add(getSqlSupplier(location));
 		}
 		return suppliers;
 	}
