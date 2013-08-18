@@ -17,7 +17,10 @@ package org.kuali.common.util;
 
 /**
  * Print a dot to the console each time we make enough progress
+ * 
+ * @deprecated
  */
+@Deprecated
 public class ProgressInformer extends AbstractProgressInformer {
 
 	long interval;
