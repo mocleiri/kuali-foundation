@@ -20,7 +20,6 @@ import java.util.List;
 import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
-import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 
@@ -34,20 +33,6 @@ public final class NotifyingListener implements SqlListener {
 	public NotifyingListener(List<SqlListener> listeners) {
 		Assert.noNulls(listeners);
 		this.listeners = CollectionUtils.unmodifiableCopy(listeners);
-	}
-
-	@Override
-	public void beforeMetaData(SqlMetaDataEvent event) {
-		for (SqlListener listener : listeners) {
-			listener.beforeMetaData(event);
-		}
-	}
-
-	@Override
-	public void afterMetaData(SqlMetaDataEvent event) {
-		for (SqlListener listener : listeners) {
-			listener.afterMetaData(event);
-		}
 	}
 
 	@Override

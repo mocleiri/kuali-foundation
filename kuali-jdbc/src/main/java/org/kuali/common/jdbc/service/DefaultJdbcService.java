@@ -41,7 +41,6 @@ import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
-import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
 import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
@@ -80,9 +79,6 @@ public class DefaultJdbcService implements JdbcService {
 			return new ExecutionResult(0, start, System.currentTimeMillis(), 0);
 		}
 
-		// Calculate metadata
-		doMetaData(context);
-
 		// Fire an event before executing any SQL
 		long sqlStart = System.currentTimeMillis();
 		context.getListener().beforeExecution(new SqlExecutionEvent(context, start, -1));
@@ -99,23 +95,6 @@ public class DefaultJdbcService implements JdbcService {
 		context.getListener().afterExecution(new SqlExecutionEvent(context, sqlStart, System.currentTimeMillis()));
 
 		return new ExecutionResult(stats.getUpdateCount(), start, System.currentTimeMillis(), stats.getStatementCount());
-	}
-
-	protected void doMetaData(JdbcContext context) {
-
-		logger.debug("doMetaData()");
-
-		// Fire an event before we begin calculating metadata
-		long start = System.currentTimeMillis();
-		context.getListener().beforeMetaData(new SqlMetaDataEvent(context, start, -1));
-
-		// Fill in SQL metadata
-		for (SqlSupplier supplier : context.getSuppliers()) {
-			supplier.getMetaData();
-		}
-
-		// Fire an event now that metadata calculation is complete
-		context.getListener().afterMetaData(new SqlMetaDataEvent(context, start, System.currentTimeMillis()));
 	}
 
 	protected ExecutionStats executeMultiThreaded(JdbcContext context) {

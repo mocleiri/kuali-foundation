@@ -18,7 +18,6 @@ package org.kuali.common.jdbc.listeners;
 import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
-import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
 
 public class NoOpSqlListener implements SqlListener {
 
@@ -29,14 +28,6 @@ public class NoOpSqlListener implements SqlListener {
 
 	@Override
 	public void beforeExecution(SqlExecutionEvent event) {
-	}
-
-	@Override
-	public void beforeMetaData(SqlMetaDataEvent event) {
-	}
-
-	@Override
-	public void afterMetaData(SqlMetaDataEvent event) {
 	}
 
 	@Override
