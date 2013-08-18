@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
-import org.kuali.common.jdbc.model.context.SqlExecutionContext;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,10 +35,9 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Override
 	@Bean
-	public List<SqlExecutionContext> sqlExecutionContexts() {
+	public List<JdbcContext> jdbcContexts() {
 		JdbcContext before = config.dbaBeforeContext();
 		JdbcContext after = config.dbaAfterContext();
-		SqlExecutionContext sec = new SqlExecutionContext("dba", Arrays.asList(before, after), false);
-		return Collections.singletonList(sec);
+		return Collections.unmodifiableList(Arrays.asList(before, after));
 	}
 }
