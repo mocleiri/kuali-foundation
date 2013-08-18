@@ -80,9 +80,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 
 		// Calculate metadata
-		if (!context.isSkipMetaData()) {
-			doMetaData(context);
-		}
+		doMetaData(context);
 
 		// Fire an event before executing any SQL
 		long sqlStart = System.currentTimeMillis();
@@ -213,8 +211,7 @@ public class DefaultJdbcService implements JdbcService {
 		List<SqlSupplier> suppliers = bucket.getSuppliers();
 		int threads = JdbcContext.DEFAULT_THREADS;
 		CommitMode commitMode = original.getCommitMode();
-		boolean skipMetaData = original.isSkipMetaData();
-		return new JdbcContext(skip, dataSource, suppliers, threads, listener, commitMode, skipMetaData);
+		return new JdbcContext(skip, dataSource, suppliers, threads, listener, commitMode);
 	}
 
 	protected List<SqlBucket> getSqlBuckets(JdbcContext context) {
