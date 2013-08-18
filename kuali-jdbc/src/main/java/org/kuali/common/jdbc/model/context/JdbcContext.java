@@ -29,11 +29,19 @@ import org.kuali.common.util.CollectionUtils;
 public final class JdbcContext {
 
 	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message) {
+		this(dataSource, supplier, message, DEFAULT_LISTENER);
+	}
+
+	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message, SqlListener listener) {
 		this(dataSource, CollectionUtils.singletonList(supplier), message);
 	}
 
 	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message) {
-		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
+		this(dataSource, suppliers, message, DEFAULT_LISTENER);
+	}
+
+	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, SqlListener listener) {
+		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, listener, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
 	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode) {
