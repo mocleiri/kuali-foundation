@@ -26,46 +26,68 @@ import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
+import org.kuali.common.jdbc.service.JdbcExecutable;
+import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
+import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class, JdbcShowConfig.class })
 public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Autowired
-	DbaContextConfig dbaContextConfig;
+	DbaContextConfig dba;
 
 	@Autowired
-	DatabaseVendor databaseVendor;
+	DatabaseVendor vendor;
 
 	@Autowired
 	Project project;
 
 	@Autowired
-	SqlReader sqlReader;
+	SqlReader reader;
 
 	@Autowired
 	DataSourceConfig dataSources;
 
+	@Autowired
+	JdbcShowConfig show;
+
+	@Autowired
+	JdbcService service;
+
+	@Execute
+	public Executable executable() {
+		List<Executable> execs = new ArrayList<Executable>();
+		execs.add(show.showDbaConfigExecutable());
+		for (JdbcContext context : jdbcContexts()) {
+			execs.add(new JdbcExecutable(service, context));
+		}
+		return new ExecutablesExecutable(execs);
+	}
+
 	@Override
 	@Bean
 	public List<JdbcContext> jdbcContexts() {
-		JdbcContext before = dbaContextConfig.dbaBeforeContext();
+		JdbcContext before = dba.dbaBeforeContext();
 		JdbcContext schemas = schemaJdbcContext();
 		JdbcContext constraints = schemaJdbcContext();
-		JdbcContext after = dbaContextConfig.dbaAfterContext();
+		JdbcContext after = dba.dbaAfterContext();
 		return Collections.unmodifiableList(Arrays.asList(before, schemas, constraints, after));
 	}
 
@@ -88,7 +110,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	protected List<SqlSupplier> getDDLSuppliers(List<String> schemas, String suffix) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
-			String location = "classpath:sql/" + databaseVendor.getCode() + "/" + schema + suffix + ".sql";
+			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
 			suppliers.add(getSqlSupplier(location));
 		}
 		return suppliers;
@@ -96,7 +118,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	protected SqlSupplier getSqlSupplier(String location) {
 		String encoding = ProjectUtils.getEncoding(project);
-		return new SqlLocationSupplier(location, encoding, sqlReader);
+		return new SqlLocationSupplier(location, encoding, reader);
 	}
 
 	protected List<String> getSchemas() {
