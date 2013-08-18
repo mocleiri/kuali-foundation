@@ -15,43 +15,26 @@
 
 package org.kuali.common.jdbc.sql.spring;
 
-import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.main.MainContext;
-import org.kuali.common.util.main.MainService;
 import org.kuali.common.util.main.MainUtils;
-import org.kuali.common.util.main.spring.MainConfig;
-import org.kuali.common.util.main.spring.MainServiceConfig;
-import org.kuali.common.util.spring.SpringExecUtils;
-import org.kuali.common.util.spring.config.annotation.Execute;
-import org.kuali.common.util.spring.service.SpringService;
-import org.kuali.common.util.spring.service.SpringServiceConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.kuali.common.util.main.spring.AbstractMainRunner;
+import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ SpringServiceConfig.class, MainServiceConfig.class })
-public class DropCreate implements MainConfig {
+public class DropCreate extends AbstractMainRunner {
 
 	public static void main(String[] args) {
 		MainUtils.runAndExit(DropCreate.class, args);
 	}
 
-	@Autowired
-	MainContext mainContext;
-
-	@Autowired
-	MainService mainService;
-
-	@Autowired
-	SpringService service;
+	@Override
+	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
+		return DropCreatePSC.class;
+	}
 
 	@Override
-	@Execute
-	public Executable main() {
-		PropertySource<?> source = mainService.getPropertySource(mainContext, DropCreatePSC.class);
-		return SpringExecUtils.getSpringExecutable(service, source, DropCreateConfig.class);
+	protected Class<?> getConfig() {
+		return DropCreateConfig.class;
 	}
 
 }
