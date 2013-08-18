@@ -45,8 +45,8 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	@Override
 	public synchronized void open() {
 		Assert.isFalse(open, "Already open");
-		open = true;
-		done = false;
+		this.open = true;
+		this.done = false;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 		if (done) {
 			return null;
 		} else {
-			done = true;
+			this.done = true;
 			return strings;
 		}
 	}
@@ -63,7 +63,7 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	@Override
 	public synchronized void close() {
 		Assert.isTrue(open, "Not open");
-		open = false;
+		this.open = false;
 	}
 
 	@Override
