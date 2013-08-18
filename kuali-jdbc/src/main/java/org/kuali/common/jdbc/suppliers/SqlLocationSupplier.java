@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.reader.SqlReader;
-import org.kuali.common.jdbc.service.JdbcUtils;
+import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -71,7 +71,7 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	@Override
 	public synchronized SqlMetaData getMetaData() {
 		if (this.metaData == null) {
-			this.metaData = JdbcUtils.getSqlMetaData(this);
+			this.metaData = MetaDataUtils.getSqlMetaData(this);
 		}
 		return this.metaData;
 	}

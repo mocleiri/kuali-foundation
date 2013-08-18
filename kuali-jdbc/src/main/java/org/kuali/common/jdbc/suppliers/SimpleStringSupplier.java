@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.suppliers;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.service.JdbcUtils;
+import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -39,7 +39,7 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	public SimpleStringSupplier(List<String> strings) {
 		Assert.notNull(strings);
 		this.strings = CollectionUtils.unmodifiableCopy(strings);
-		this.metaData = JdbcUtils.getSqlMetaData(this);
+		this.metaData = MetaDataUtils.getSqlMetaData(this);
 	}
 
 	@Override
