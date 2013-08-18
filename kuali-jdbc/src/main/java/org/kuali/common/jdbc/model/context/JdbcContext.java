@@ -29,6 +29,13 @@ import org.kuali.common.util.CollectionUtils;
 
 public final class JdbcContext {
 
+	public static final boolean DEFAULT_SKIP = false;
+	public static final int DEFAULT_THREADS = SqlContext.DEFAULT_THREADS;
+	public static final boolean DEFAULT_MULTITHREADED = false;
+	public static final boolean DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT = false;
+	public static final SqlListener DEFAULT_LISTENER = NoOpSqlListener.INSTANCE;
+	public static final CommitMode DEFAULT_COMMIT_MODE = CommitMode.PER_SUPPLIER;
+
 	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message) {
 		this(dataSource, supplier, message, DEFAULT_LISTENER);
 	}
@@ -70,13 +77,6 @@ public final class JdbcContext {
 		this.message = message;
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
 	}
-
-	public static final boolean DEFAULT_SKIP = false;
-	public static final int DEFAULT_THREADS = SqlContext.DEFAULT_THREADS;
-	public static final boolean DEFAULT_MULTITHREADED = false;
-	public static final boolean DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT = false;
-	public static final SqlListener DEFAULT_LISTENER = NoOpSqlListener.INSTANCE;
-	public static final CommitMode DEFAULT_COMMIT_MODE = CommitMode.PER_SUPPLIER;
 
 	// If true, no SQL is executed.
 	// Everything leading up to SQL execution still takes place
