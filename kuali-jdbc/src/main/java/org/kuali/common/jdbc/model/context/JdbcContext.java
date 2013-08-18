@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.listeners.NoOpSqlListener;
+import org.kuali.common.jdbc.listeners.LogSqlListener;
 import org.kuali.common.jdbc.listeners.SqlListener;
 import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.sql.model.SqlContext;
@@ -33,7 +33,8 @@ public final class JdbcContext {
 	public static final int DEFAULT_THREADS = SqlContext.DEFAULT_THREADS;
 	public static final boolean DEFAULT_MULTITHREADED = false;
 	public static final boolean DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT = false;
-	public static final SqlListener DEFAULT_LISTENER = NoOpSqlListener.INSTANCE;
+	// The default listener logs every SQL statement being executed in debug mode
+	public static final SqlListener DEFAULT_LISTENER = new LogSqlListener();
 	public static final CommitMode DEFAULT_COMMIT_MODE = CommitMode.PER_SUPPLIER;
 
 	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message) {

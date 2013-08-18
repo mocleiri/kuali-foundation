@@ -28,10 +28,9 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.listeners.LogSqlListener;
-import org.kuali.common.jdbc.listeners.MultiThreadedExecutionListener;
 import org.kuali.common.jdbc.listeners.NotifyingListener;
 import org.kuali.common.jdbc.listeners.SqlListener;
+import org.kuali.common.jdbc.listeners.ThreadSafeListener;
 import org.kuali.common.jdbc.model.ExecutionResult;
 import org.kuali.common.jdbc.model.ExecutionStats;
 import org.kuali.common.jdbc.model.SqlBucket;
@@ -96,15 +95,7 @@ public class DefaultJdbcService implements JdbcService {
 		return new ExecutionResult(stats.getUpdateCount(), start, System.currentTimeMillis(), stats.getStatementCount());
 	}
 
-	protected ExecutionStats executeMultiThreaded(JdbcContext context) {
-
-		// Divide the SQL we have to execute up into buckets as "evenly" as possible
-		List<SqlBucket> buckets = getSqlBuckets(context);
-
-		// Sort the buckets largest to smallest
-		Collections.sort(buckets);
-		Collections.reverse(buckets);
-
+	protected ThreadsContext getThreadsContext(JdbcContext context) {
 		// The tracking built into the kuali-threads package assumes "progress" equals one element from the list completing
 		// It assumes you have a gigantic list where each element in the list = 1 unit of work
 		// A large list of files that need to be posted to S3 (for example).
@@ -117,15 +108,35 @@ public class DefaultJdbcService implements JdbcService {
 		// Our list of buckets is pretty small, even though the total number of SQL statements is quite large
 		// Only printing a dot to the console when each bucket completes is not granular enough
 
-		// This listener prints a dot each time 1% of the total number of SQL statements across all of the buckets has been executed.
+		// Calculate the total number of SQL statements across all of the suppliers
 		long total = MetaDataUtils.getSqlCount(context.getSuppliers());
+
+		// Setup an informer based on the total number of SQL statements
 		PercentCompleteInformer informer = new PercentCompleteInformer(total);
-		MultiThreadedExecutionListener etl = new MultiThreadedExecutionListener(informer, context.isTrackProgressByUpdateCount());
-		List<SqlListener> listeners = new ArrayList<SqlListener>(Arrays.asList(new LogSqlListener(), etl));
-		NotifyingListener nl = new NotifyingListener(listeners);
+
+		// Setup a thread safe listener that tracks SQL statements as they execute
+		ThreadSafeListener threadSafeListener = new ThreadSafeListener(informer, context.isTrackProgressByUpdateCount());
+
+		// Add the thread safe listener to whatever listeners were already there
+		List<SqlListener> listeners = new ArrayList<SqlListener>(Arrays.asList(context.getListener(), threadSafeListener));
+		SqlListener listener = new NotifyingListener(listeners);
+		return new ThreadsContext(informer, threadSafeListener, listener);
+	}
+
+	protected ExecutionStats executeMultiThreaded(JdbcContext context) {
+
+		// Divide the SQL we have to execute up into buckets as "evenly" as possible
+		List<SqlBucket> buckets = getSqlBuckets(context);
+
+		// Sort the buckets largest to smallest
+		Collections.sort(buckets);
+		Collections.reverse(buckets);
+
+		// Append a thread safe listener that prints a dot to the console each time 1% of the SQL that gets completed
+		ThreadsContext threadsContext = getThreadsContext(context);
 
 		// Provide some context for each bucket
-		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, nl);
+		List<SqlBucketContext> sbcs = getSqlBucketContexts(buckets, context, threadsContext.getListener());
 
 		// Store some context for the thread handler
 		ThreadHandlerContext<SqlBucketContext> thc = new ThreadHandlerContext<SqlBucketContext>();
@@ -137,22 +148,23 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Start threads to execute SQL from multiple suppliers concurrently
 		ThreadInvoker invoker = new ThreadInvoker();
-		informer.start();
+		threadsContext.getInformer().start();
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
-		informer.stop();
+		threadsContext.getInformer().stop();
 
 		// Display thread related stats
-		long aggregateTime = etl.getAggregateTime();
+		ThreadSafeListener tsl = threadsContext.getThreadSafeListener();
+		long aggregateTime = tsl.getAggregateTime();
 		long wallTime = stats.getExecutionTime();
 		String avgMillis = FormatUtils.getTime(aggregateTime / buckets.size());
 		String aTime = FormatUtils.getTime(aggregateTime);
 		String wTime = FormatUtils.getTime(wallTime);
-		String sqlCount = FormatUtils.getCount(etl.getAggregateSqlCount());
-		String sqlSize = FormatUtils.getSize(etl.getAggregateSqlSize());
+		String sqlCount = FormatUtils.getCount(tsl.getAggregateSqlCount());
+		String sqlSize = FormatUtils.getSize(tsl.getAggregateSqlSize());
 		Object[] args = { buckets.size(), wTime, aTime, avgMillis, sqlCount, sqlSize };
 		logger.debug("Threads - [count: {}  time: {}  aggregate: {}  avg: {}  sql: {} - {}]", args);
 
-		return new ExecutionStats(etl.getAggregateUpdateCount(), etl.getAggregateSqlCount());
+		return new ExecutionStats(tsl.getAggregateUpdateCount(), tsl.getAggregateSqlCount());
 	}
 
 	@Override

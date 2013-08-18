@@ -23,9 +23,9 @@ import org.kuali.common.util.inform.PercentCompleteInformer;
 /**
  * Thread safe tracking of SQL execution related statistics
  */
-public final class MultiThreadedExecutionListener extends NoOpSqlListener {
+public final class ThreadSafeListener extends NoOpSqlListener {
 
-	public MultiThreadedExecutionListener(PercentCompleteInformer informer, boolean trackProgressByUpdateCount) {
+	public ThreadSafeListener(PercentCompleteInformer informer, boolean trackProgressByUpdateCount) {
 		Assert.noNulls(informer);
 		this.informer = informer;
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
