@@ -17,19 +17,26 @@ package org.kuali.common.jdbc.listeners;
 
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.PercentCompleteInformer;
 
 /**
  * Thread safe tracking of SQL execution related statistics
  */
-public class MultiThreadedExecutionListener extends NoOpSqlListener {
+public final class MultiThreadedExecutionListener extends NoOpSqlListener {
 
-	long aggregateTime;
-	long aggregateUpdateCount;
-	long aggregateSqlCount;
-	long aggregateSqlSize;
-	PercentCompleteInformer informer;
-	boolean trackProgressByUpdateCount;
+	public MultiThreadedExecutionListener(PercentCompleteInformer informer, boolean trackProgressByUpdateCount) {
+		Assert.noNulls(informer);
+		this.informer = informer;
+		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
+	}
+
+	private long aggregateTime;
+	private long aggregateUpdateCount;
+	private long aggregateSqlCount;
+	private long aggregateSqlSize;
+	private final PercentCompleteInformer informer;
+	private final boolean trackProgressByUpdateCount;
 
 	@Override
 	public synchronized void afterExecution(SqlExecutionEvent event) {
@@ -60,16 +67,8 @@ public class MultiThreadedExecutionListener extends NoOpSqlListener {
 		return informer;
 	}
 
-	public void setInformer(PercentCompleteInformer informer) {
-		this.informer = informer;
-	}
-
 	public boolean isTrackProgressByUpdateCount() {
 		return trackProgressByUpdateCount;
-	}
-
-	public void setTrackProgressByUpdateCount(boolean trackProgressByUpdateCount) {
-		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
 	}
 
 	public long getAggregateSqlCount() {
