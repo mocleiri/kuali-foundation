@@ -68,27 +68,51 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	@Bean
 	public List<JdbcContext> jdbcContexts() {
 		JdbcContext before = config.dbaBeforeContext();
-		JdbcContext schema = schemaJdbcContext();
+		JdbcContext schemas = schemaJdbcContext();
+		JdbcContext constraints = schemaJdbcContext();
 		JdbcContext after = config.dbaAfterContext();
-		return Collections.unmodifiableList(Arrays.asList(before, schema, after));
+		return Collections.unmodifiableList(Arrays.asList(before, schemas, constraints, after));
 	}
 
 	@Bean
 	public JdbcContext schemaJdbcContext() {
 		String message = "[schema:concurrent]";
 		DataSource dataSource = dataSourceConfig.dataSource();
-		List<SqlSupplier> suppliers = getSuppliers(getSchemas());
+		List<SqlSupplier> suppliers = getSchemaSuppliers(getSchemas());
 		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
 	}
 
-	protected List<SqlSupplier> getSuppliers(List<String> schemas) {
+	@Bean
+	public JdbcContext constraintsJdbcContext() {
+		String message = "[constraints:concurrent]";
+		DataSource dataSource = dataSourceConfig.dataSource();
+		List<SqlSupplier> suppliers = getConstraintsSuppliers(getSchemas());
+		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
+	}
+
+	protected List<SqlSupplier> getConstraintsSuppliers(List<String> schemas) {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String schema : schemas) {
+			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + "-constraints.sql";
+			SqlSupplier supplier = getSupplier(location);
+			suppliers.add(supplier);
+		}
+		return suppliers;
+	}
+
+	protected List<SqlSupplier> getSchemaSuppliers(List<String> schemas) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + ".sql";
-			String encoding = ProjectUtils.getEncoding(project);
-			suppliers.add(new SqlLocationSupplier(location, encoding, reader));
+			SqlSupplier supplier = getSupplier(location);
+			suppliers.add(supplier);
 		}
 		return suppliers;
+	}
+
+	protected SqlSupplier getSupplier(String location) {
+		String encoding = ProjectUtils.getEncoding(project);
+		return new SqlLocationSupplier(location, encoding, reader);
 	}
 
 	protected List<String> getSchemas() {
