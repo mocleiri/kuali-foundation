@@ -38,7 +38,6 @@ import org.kuali.common.jdbc.model.SqlBucket;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.model.context.SqlBucketContext;
 import org.kuali.common.jdbc.model.enums.CommitMode;
-import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
 import org.kuali.common.jdbc.model.meta.Driver;
@@ -101,9 +100,6 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Divide the SQL we have to execute up into buckets as "evenly" as possible
 		List<SqlBucket> buckets = getSqlBuckets(context);
-
-		// Notify the listener now that buckets are created
-		context.getListener().bucketsCreated(new BucketEvent(context, buckets));
 
 		// Sort the buckets largest to smallest
 		Collections.sort(buckets);

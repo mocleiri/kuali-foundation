@@ -17,7 +17,6 @@ package org.kuali.common.jdbc.listeners;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
 import org.kuali.common.util.Assert;
@@ -39,13 +38,6 @@ public final class NotifyingListener implements SqlListener {
 	public void beforeExecution(SqlExecutionEvent event) {
 		for (SqlListener listener : listeners) {
 			listener.beforeExecution(event);
-		}
-	}
-
-	@Override
-	public void bucketsCreated(BucketEvent event) {
-		for (SqlListener listener : listeners) {
-			listener.bucketsCreated(event);
 		}
 	}
 

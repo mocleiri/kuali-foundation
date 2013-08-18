@@ -15,15 +15,12 @@
  */
 package org.kuali.common.jdbc.listeners;
 
-import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
 
 public interface SqlListener {
 
 	void beforeExecution(SqlExecutionEvent event);
-
-	void bucketsCreated(BucketEvent event);
 
 	void beforeExecuteSql(SqlEvent event);
 
