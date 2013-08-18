@@ -36,14 +36,14 @@ public final class JdbcContext {
 		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
-	public JdbcContext(boolean skip, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode) {
-		this(skip, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, null, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
+	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode) {
+		this(skipSqlExecution, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, null, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
-	public JdbcContext(boolean skip, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener, CommitMode commitMode,
-			String message, boolean trackProgressByUpdateCount) {
+	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener,
+			CommitMode commitMode, String message, boolean trackProgressByUpdateCount) {
 		Assert.noNulls(listener, commitMode, dataSource, suppliers);
-		this.skipSqlExecution = skip;
+		this.skipSqlExecution = skipSqlExecution;
 		this.threads = threads;
 		this.multithreaded = multithreaded;
 		this.listener = listener;
