@@ -20,7 +20,7 @@ import org.kuali.common.util.Assert;
 /**
  * Print a dot to the console each time we make at least 1% progress towards a total
  */
-public class PercentCompleteInformer {
+public final class PercentCompleteInformer {
 
 	public static final int DEFAULT_PERCENTAGE_INCREMENT = 1;
 	public static final long UNINITIALIZED_PROGRESS_INDICATOR = -1;
@@ -61,7 +61,7 @@ public class PercentCompleteInformer {
 	}
 
 	/**
-	 * Thread safe method indicating progress has begun
+	 * Thread safe method to indicate progress has begun
 	 */
 	public synchronized void start() {
 		Assert.isFalse(started, "Already started");
@@ -98,7 +98,7 @@ public class PercentCompleteInformer {
 	}
 
 	/**
-	 * Thread safe method indicating progress has stopped
+	 * Thread safe method to indicate progress has stopped
 	 */
 	public synchronized void stop() {
 		Assert.isTrue(started, "Not started");
