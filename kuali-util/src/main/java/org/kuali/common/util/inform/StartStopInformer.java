@@ -41,9 +41,9 @@ public final class StartStopInformer {
 	private boolean started = false;
 
 	/**
-	 * Thread safe method indicating if we are in the "started" state
+	 * Indicates if we are in the "started" state
 	 */
-	public synchronized boolean isStarted() {
+	public boolean isStarted() {
 		return started;
 	}
 
