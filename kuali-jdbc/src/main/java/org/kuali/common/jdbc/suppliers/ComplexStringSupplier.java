@@ -38,6 +38,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	private final List<String> strings;
 	private final SqlReader reader;
 	private final SqlMetaData metaData;
+	private boolean open = false;
 
 	public ComplexStringSupplier(String sql, SqlReader reader) {
 		this(CollectionUtils.singletonList(sql), reader);
@@ -52,15 +53,18 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 
 	@Override
 	public synchronized void open() {
+		Assert.isFalse(open, "Already open");
+		this.open = true;
 		// Reset index to zero
-		index = 0;
+		this.index = 0;
 
 		// Open a reader to the first string in the list
-		in = getBufferedReader(strings, index);
+		this.in = getBufferedReader(strings, index);
 	}
 
 	@Override
 	public synchronized List<String> getSql() {
+		Assert.isTrue(open, "Not open");
 		try {
 			// Have the reader produce a SQL statement
 			List<String> sql = reader.getSql(in);
@@ -70,7 +74,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 				return sql;
 			} else {
 				// We've exhausted the current string, move to the next one
-				index++;
+				this.index++;
 			}
 
 			// We've exhausted all of the strings, we are done
@@ -79,7 +83,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 			}
 
 			// Open a reader to the new string
-			in = getBufferedReader(strings, index);
+			this.in = getBufferedReader(strings, index);
 
 			// Get SQL from the new string
 			return getSql();
@@ -88,21 +92,24 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 		}
 	}
 
+	@Override
+	public synchronized void close() {
+		Assert.isTrue(open, "Not open");
+		this.open = false;
+
+		// Reset index to zero
+		this.index = 0;
+
+		// Make sure the BufferedReader is closed
+		IOUtils.closeQuietly(in);
+	}
+
 	/**
 	 * Extract a String from the list and open a BufferedReader that can read from it
 	 */
 	protected BufferedReader getBufferedReader(List<String> strings, int index) {
 		String string = strings.get(index);
 		return LocationUtils.getBufferedReaderFromString(string);
-	}
-
-	@Override
-	public synchronized void close() {
-		// Reset index to zero
-		index = 0;
-
-		// Make sure the BufferedReader is closed
-		IOUtils.closeQuietly(in);
 	}
 
 	@Override
