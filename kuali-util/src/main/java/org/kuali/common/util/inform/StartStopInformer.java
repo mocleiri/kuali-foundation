@@ -48,7 +48,7 @@ public final class StartStopInformer {
 	}
 
 	/**
-	 * Make sure we haven't already been started. Set the started indicator to true. Reset progress to zero. Log the start message. Print the start token.
+	 * Make sure we haven't already been started. Set the started indicator to true. Log the start message. Print the start token.
 	 */
 	public synchronized void start() {
 		Assert.isFalse(started, "Already started");
@@ -58,7 +58,7 @@ public final class StartStopInformer {
 	}
 
 	/**
-	 * Make sure we haven't already been stopped. Set the started indicator to false. Reset progress to -1. Log the stop message. Print the stop token.
+	 * Make sure we haven't already been stopped. Set the started indicator to false. Log the stop message. Print the stop token.
 	 */
 	public synchronized void stop() {
 		Assert.isTrue(started, "Not started");
