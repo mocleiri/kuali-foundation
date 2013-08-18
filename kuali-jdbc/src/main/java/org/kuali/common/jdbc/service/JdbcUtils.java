@@ -40,7 +40,7 @@ public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
-	public static SqlMetaData getSqlMetaDataFromLocation(SqlLocationSupplier supplier) {
+	public static SqlMetaData getSqlMetaData(SqlLocationSupplier supplier) {
 		BufferedReader in = null;
 		try {
 			in = LocationUtils.getBufferedReader(supplier.getLocation(), supplier.getEncoding());
