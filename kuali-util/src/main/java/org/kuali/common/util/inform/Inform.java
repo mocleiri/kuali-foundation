@@ -9,6 +9,13 @@ public final class Inform {
 
 	public static final Inform DEFAULT_INFORM = new Inform();
 
+	public static final PrintStream DEFAULT_PRINT_STREAM = System.out;
+	public static final String DEFAULT_START_TOKEN = "[INFO] Progress: ";
+	public static final String DEFAULT_PROGRESS_TOKEN = ".";
+	public static final String DEFAULT_COMPLETE_TOKEN = "\n";
+	public static final LogMsg DEFAULT_START_MESSAGE = LogMsg.NOOP;
+	public static final LogMsg DEFAULT_STOP_MESSAGE = LogMsg.NOOP;
+
 	public Inform() {
 		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, DEFAULT_START_MESSAGE, DEFAULT_STOP_MESSAGE);
 	}
@@ -31,13 +38,6 @@ public final class Inform {
 		this.startMessage = startMessage;
 		this.stopMessage = stopMessage;
 	}
-
-	public static final PrintStream DEFAULT_PRINT_STREAM = System.out;
-	public static final String DEFAULT_START_TOKEN = "[INFO] Progress: ";
-	public static final String DEFAULT_PROGRESS_TOKEN = ".";
-	public static final String DEFAULT_COMPLETE_TOKEN = "\n";
-	public static final LogMsg DEFAULT_START_MESSAGE = LogMsg.NOOP;
-	public static final LogMsg DEFAULT_STOP_MESSAGE = LogMsg.NOOP;
 
 	private final PrintStream printStream;
 	private final String startToken;
