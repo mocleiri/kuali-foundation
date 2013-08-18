@@ -15,22 +15,31 @@
  */
 package org.kuali.common.jdbc.sql.spring;
 
-import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
-import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.config.annotation.Execute;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.kuali.common.jdbc.model.context.JdbcContext;
+import org.kuali.common.jdbc.model.context.SqlExecutionContext;
+import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcShowConfig.class })
-public class DropCreateConfig {
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlExecutableConfig.class })
+public class DropCreateConfig implements SqlExecutionContextsConfig {
 
 	@Autowired
-	JdbcShowConfig config;
+	DbaContextConfig config;
 
-	@Execute
-	protected Executable executable() {
-		return config.showDbaConfigExecutable();
+	@Override
+	@Bean
+	public List<SqlExecutionContext> sqlExecutionContexts() {
+		JdbcContext before = config.dbaBeforeContext();
+		JdbcContext after = config.dbaBeforeContext();
+		SqlExecutionContext sec = new SqlExecutionContext("dba", Arrays.asList(before, after), false);
+		return Collections.singletonList(sec);
 	}
 }

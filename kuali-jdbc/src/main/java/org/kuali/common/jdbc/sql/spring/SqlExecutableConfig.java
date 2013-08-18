@@ -9,7 +9,6 @@ import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
-import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +22,7 @@ public class SqlExecutableConfig {
 	@Autowired
 	JdbcService service;
 
-	@Bean
-	@Execute
+	@Bean(initMethod = "execute")
 	public Executable executeSql() {
 		List<SqlExecutionContext> contexts = config.sqlExecutionContexts();
 		List<JdbcExecutable> execs = new ArrayList<JdbcExecutable>();
