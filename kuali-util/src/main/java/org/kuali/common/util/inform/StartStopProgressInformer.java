@@ -15,10 +15,8 @@
  */
 package org.kuali.common.util.inform;
 
-import java.io.PrintStream;
-
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.log.LogMsg;
+import org.kuali.common.util.inform.model.Inform;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,44 +28,18 @@ public final class StartStopProgressInformer {
 
 	private static final Logger logger = LoggerFactory.getLogger(StartStopProgressInformer.class);
 
-	public static final PrintStream DEFAULT_PRINT_STREAM = System.out;
-	public static final String DEFAULT_START_TOKEN = "[INFO] Progress: ";
-	public static final String DEFAULT_PROGRESS_TOKEN = ".";
-	public static final String DEFAULT_COMPLETE_TOKEN = "\n";
-	public static final LogMsg DEFAULT_START_MESSAGE = LogMsg.NOOP;
-	public static final LogMsg DEFAULT_STOP_MESSAGE = LogMsg.NOOP;
+	private final Inform inform;
 
 	public StartStopProgressInformer() {
-		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, DEFAULT_START_MESSAGE, DEFAULT_STOP_MESSAGE);
+		this(Inform.DEFAULT_INFORM);
 	}
 
-	public StartStopProgressInformer(LogMsg startMessage) {
-		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, startMessage, DEFAULT_STOP_MESSAGE);
-	}
-
-	public StartStopProgressInformer(LogMsg startMessage, LogMsg stopMessage) {
-		this(DEFAULT_PRINT_STREAM, DEFAULT_START_TOKEN, DEFAULT_PROGRESS_TOKEN, DEFAULT_COMPLETE_TOKEN, startMessage, stopMessage);
-	}
-
-	public StartStopProgressInformer(PrintStream printStream, String startToken, String progressToken, String completeToken, LogMsg startMessage, LogMsg stopMessage) {
-		Assert.noNulls(printStream, startMessage, stopMessage);
-		Assert.noBlanks(startToken, progressToken, completeToken);
-		this.printStream = printStream;
-		this.startToken = startToken;
-		this.progressToken = progressToken;
-		this.completeToken = completeToken;
-		this.startMessage = startMessage;
-		this.stopMessage = stopMessage;
+	public StartStopProgressInformer(Inform inform) {
+		Assert.noNulls(inform);
+		this.inform = inform;
 	}
 
 	private boolean started = false;
-
-	private final PrintStream printStream;
-	private final String startToken;
-	private final String progressToken;
-	private final String completeToken;
-	private final LogMsg startMessage;
-	private final LogMsg stopMessage;
 
 	/**
 	 * Thread safe method indicating if we are in the "started" state
@@ -82,8 +54,8 @@ public final class StartStopProgressInformer {
 	public synchronized void start() {
 		Assert.isFalse(started, "Already started");
 		this.started = true;
-		LoggerUtils.log(startMessage, logger);
-		printStream.print(startToken);
+		LoggerUtils.log(inform.getStartMessage(), logger);
+		inform.getPrintStream().print(inform.getStartToken());
 	}
 
 	/**
@@ -92,32 +64,12 @@ public final class StartStopProgressInformer {
 	public synchronized void stop() {
 		Assert.isTrue(started, "Not started");
 		this.started = false;
-		printStream.print(completeToken);
-		LoggerUtils.log(stopMessage, logger);
+		inform.getPrintStream().print(inform.getCompleteToken());
+		LoggerUtils.log(inform.getStopMessage(), logger);
 	}
 
-	public PrintStream getPrintStream() {
-		return printStream;
-	}
-
-	public String getStartToken() {
-		return startToken;
-	}
-
-	public String getProgressToken() {
-		return progressToken;
-	}
-
-	public String getCompleteToken() {
-		return completeToken;
-	}
-
-	public LogMsg getStartMessage() {
-		return startMessage;
-	}
-
-	public LogMsg getStopMessage() {
-		return stopMessage;
+	public Inform getInform() {
+		return inform;
 	}
 
 }

@@ -16,7 +16,7 @@
 package org.kuali.common.util.inform;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.log.LogMsg;
+import org.kuali.common.util.inform.model.Inform;
 
 /**
  * Print a dot to the console each time we make at least 1% progress towards the total
@@ -24,11 +24,12 @@ import org.kuali.common.util.log.LogMsg;
 public class PercentCompleteInformer {
 
 	public static final int DEFAULT_PERCENTAGE_INCREMENT = 1;
-	public static final LogMsg DEFAULT_START_MESSAGE = LogMsg.NOOP;
 	public static final long UNINITIALIZED_PROGRESS_INDICATOR = -1;
+	public static final int UNINITIALIZED_PERCENT_COMPLETE_INDICATOR = -1;
 
 	private final int percentageIncrement;
 	private final long total;
+	private final Inform inform;
 	private final StartStopProgressInformer informer;
 
 	public PercentCompleteInformer(long total) {
@@ -36,31 +37,29 @@ public class PercentCompleteInformer {
 	}
 
 	public PercentCompleteInformer(long total, int percentageIncrement) {
-		this(total, DEFAULT_PERCENTAGE_INCREMENT, DEFAULT_START_MESSAGE);
+		this(total, DEFAULT_PERCENTAGE_INCREMENT, Inform.DEFAULT_INFORM);
 	}
 
-	public PercentCompleteInformer(long total, int percentageIncrement, LogMsg startMessage) {
-		this(total, percentageIncrement, new StartStopProgressInformer(startMessage));
-	}
-
-	public PercentCompleteInformer(long total, int percentageIncrement, StartStopProgressInformer informer) {
+	public PercentCompleteInformer(long total, int percentageIncrement, Inform inform) {
 		Assert.isTrue(total >= 0, "total is negative");
 		Assert.isTrue(percentageIncrement > 0, "percentage increment must be > 0");
-		Assert.noNulls(informer);
+		Assert.noNulls(inform);
 		this.total = total;
+		this.inform = inform;
 		this.percentageIncrement = percentageIncrement;
-		this.informer = informer;
+		this.informer = new StartStopProgressInformer(inform);
 	}
 
-	int percentCompletePrevious;
+	int percentCompletePrevious = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
 	boolean started = false;
 	long progress = UNINITIALIZED_PROGRESS_INDICATOR;
 
 	public synchronized void start() {
 		Assert.isFalse(started, "Already started");
-		informer.start();
+		this.started = true;
 		this.percentCompletePrevious = 0;
 		this.progress = 0;
+		informer.start();
 	}
 
 	/**
@@ -86,8 +85,16 @@ public class PercentCompleteInformer {
 		if (isEnoughProgress(percentComplete, percentCompletePrevious, percentageIncrement)) {
 			// If so, print a dot to the console
 			this.percentCompletePrevious = percentComplete;
-			informer.getPrintStream().print(informer.getProgressToken());
+			inform.getPrintStream().print(inform.getProgressToken());
 		}
+	}
+
+	public synchronized void stop() {
+		Assert.isTrue(started, "Not started");
+		this.started = false;
+		this.percentCompletePrevious = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
+		this.progress = UNINITIALIZED_PROGRESS_INDICATOR;
+		informer.stop();
 	}
 
 	protected boolean isEnoughProgress(int percentComplete, int percentCompletePrevious, int percentageIncrement) {
