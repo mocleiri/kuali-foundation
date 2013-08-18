@@ -83,7 +83,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		for (JdbcContext context : jdbcContexts()) {
 			execs.add(new JdbcExecutable(service, context));
 		}
-		return new ExecutablesExecutable(execs);
+		return new ExecutablesExecutable(execs, false, true);
 	}
 
 	@Override
@@ -107,7 +107,8 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	@Bean
 	public JdbcContext otherJdbcContext() {
 		List<SqlSupplier> suppliers = getLiquibaseSuppliers();
-		return getJdbcContext("[other:sequential]", suppliers, false);
+		DataSource dataSource = dataSources.dataSource();
+		return new JdbcContext(dataSource, suppliers, "[other:sequential]", true, 1);
 	}
 
 	@Bean
@@ -123,12 +124,8 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	}
 
 	protected JdbcContext getJdbcContext(String message, List<SqlSupplier> suppliers) {
-		return getJdbcContext(message, suppliers, true);
-	}
-
-	protected JdbcContext getJdbcContext(String message, List<SqlSupplier> suppliers, boolean multithreaded) {
 		DataSource dataSource = dataSources.dataSource();
-		return new JdbcContext(dataSource, suppliers, message, multithreaded);
+		return new JdbcContext(dataSource, suppliers, message, true);
 	}
 
 	protected List<SqlSupplier> getSuppliers(String suffix) {
