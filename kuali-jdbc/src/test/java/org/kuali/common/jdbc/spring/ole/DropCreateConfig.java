@@ -33,7 +33,6 @@ import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
-import org.kuali.common.jdbc.vendor.spring.ShowConfig;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,34 +41,31 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class, ShowConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class })
 public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Autowired
-	DbaContextConfig dba;
+	DbaContextConfig dbaContextConfig;
 
 	@Autowired
-	DatabaseVendor vendor;
+	DatabaseVendor databaseVendor;
 
 	@Autowired
 	Project project;
 
 	@Autowired
-	SqlReader reader;
+	SqlReader sqlReader;
 
 	@Autowired
 	DataSourceConfig dataSources;
 
-	@Autowired
-	ShowConfig show;
-
 	@Override
 	@Bean
 	public List<JdbcContext> jdbcContexts() {
-		JdbcContext before = dba.dbaBeforeContext();
+		JdbcContext before = dbaContextConfig.dbaBeforeContext();
 		JdbcContext schemas = schemaJdbcContext();
 		JdbcContext constraints = schemaJdbcContext();
-		JdbcContext after = dba.dbaAfterContext();
+		JdbcContext after = dbaContextConfig.dbaAfterContext();
 		return Collections.unmodifiableList(Arrays.asList(before, schemas, constraints, after));
 	}
 
@@ -92,7 +88,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	protected List<SqlSupplier> getDDLSuppliers(List<String> schemas, String suffix) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : schemas) {
-			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
+			String location = "classpath:sql/" + databaseVendor.getCode() + "/" + schema + suffix + ".sql";
 			suppliers.add(getSqlSupplier(location));
 		}
 		return suppliers;
@@ -100,7 +96,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	protected SqlSupplier getSqlSupplier(String location) {
 		String encoding = ProjectUtils.getEncoding(project);
-		return new SqlLocationSupplier(location, encoding, reader);
+		return new SqlLocationSupplier(location, encoding, sqlReader);
 	}
 
 	protected List<String> getSchemas() {
