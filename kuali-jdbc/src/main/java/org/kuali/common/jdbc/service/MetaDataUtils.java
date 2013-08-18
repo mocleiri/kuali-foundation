@@ -39,7 +39,7 @@ public class MetaDataUtils {
 		try {
 			logger.debug("Getting metadata for [{}] - encoding {}", supplier.getLocation(), supplier.getEncoding());
 			in = LocationUtils.getBufferedReader(supplier.getLocation(), supplier.getEncoding());
-			return MetaDataUtils.getSqlMetaData(in, supplier.getReader());
+			return getSqlMetaData(in, supplier.getReader());
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
