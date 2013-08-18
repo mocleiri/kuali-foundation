@@ -51,6 +51,7 @@ import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
@@ -217,6 +218,9 @@ public class DefaultJdbcService implements JdbcService {
 
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getThreads(), suppliers.size());
+
+		// If bucket count is zero, we have issues
+		Assert.isTrue(bucketCount > 0, "bucket count <= 0");
 
 		// Sort the suppliers by SQL size
 		Collections.sort(suppliers);
