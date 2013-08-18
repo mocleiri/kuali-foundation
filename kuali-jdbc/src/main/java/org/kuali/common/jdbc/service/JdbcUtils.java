@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
@@ -39,11 +40,11 @@ public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
-	public static SqlMetaData getSqlMetaDataFromLocation(String location, SqlReader reader) {
+	public static SqlMetaData getSqlMetaDataFromLocation(SqlLocationSupplier supplier) {
 		BufferedReader in = null;
 		try {
-			in = LocationUtils.getBufferedReader(location);
-			return JdbcUtils.getSqlMetaData(in, reader);
+			in = LocationUtils.getBufferedReader(supplier.getLocation(), supplier.getEncoding());
+			return JdbcUtils.getSqlMetaData(in, supplier.getReader());
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -98,7 +99,7 @@ public class JdbcUtils {
 	}
 
 	/**
-	 * Return a count of the total number of SQL statements contained in <code>suppliers</code>. Assumes <code>suppliers</code> has had its <code>SqlMetaData</code> filled in.
+	 * Return a count of the total number of SQL statements contained in <code>suppliers</code>.
 	 */
 	public static long getSqlCount(List<SqlSupplier> suppliers) {
 		long count = 0;
