@@ -31,12 +31,13 @@ public final class MultiThreadedExecutionListener extends NoOpSqlListener {
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
 	}
 
+	private final PercentCompleteInformer informer;
+	private final boolean trackProgressByUpdateCount;
+
 	private long aggregateTime;
 	private long aggregateUpdateCount;
 	private long aggregateSqlCount;
 	private long aggregateSqlSize;
-	private final PercentCompleteInformer informer;
-	private final boolean trackProgressByUpdateCount;
 
 	@Override
 	public synchronized void afterExecution(SqlExecutionEvent event) {
