@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.jdbc.suppliers.ComplexStringSupplier;
 import org.kuali.common.jdbc.suppliers.SimpleStringSupplier;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
@@ -53,11 +54,11 @@ public class JdbcUtils {
 		}
 	}
 
-	public static SqlMetaData getSqlMetaData(List<String> sql, SqlReader reader) {
+	public static SqlMetaData getSqlMetaData(ComplexStringSupplier supplier) {
 		long count = 0;
 		long size = 0;
-		for (String string : sql) {
-			SqlMetaData smd = getSqlMetaData(string, reader);
+		for (String string : supplier.getStrings()) {
+			SqlMetaData smd = getSqlMetaData(string, supplier.getReader());
 			count += smd.getCount();
 			size += smd.getSize();
 		}

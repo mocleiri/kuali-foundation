@@ -48,7 +48,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 		Assert.noNulls(strings, reader);
 		this.strings = CollectionUtils.unmodifiableCopy(strings);
 		this.reader = reader;
-		this.metaData = JdbcUtils.getSqlMetaData(strings, reader);
+		this.metaData = JdbcUtils.getSqlMetaData(this);
 	}
 
 	@Override
