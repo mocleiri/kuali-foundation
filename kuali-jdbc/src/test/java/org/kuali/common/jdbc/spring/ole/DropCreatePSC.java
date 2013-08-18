@@ -35,7 +35,7 @@ public class DropCreatePSC implements PropertySourceConfig {
 	@Bean
 	public PropertySource<?> propertySource() {
 		List<Location> locations = new ArrayList<Location>(jdbc.jdbcPropertyLocations());
-		locations.add(new Location("classpath:jc.properties", ProjectUtils.getEncoding(project)));
+		locations.add(new Location("classpath:ole.properties", ProjectUtils.getEncoding(project)));
 		return PropertySourceUtils.getPropertySource(service, locations);
 	}
 }
