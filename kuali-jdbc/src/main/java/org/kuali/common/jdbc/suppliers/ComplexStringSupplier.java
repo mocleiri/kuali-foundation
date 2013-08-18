@@ -103,10 +103,6 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	public synchronized void close() {
 		Assert.isTrue(open, "Not open");
 		this.open = false;
-		this.done = true;
-
-		// Reset index to zero
-		this.index = 0;
 
 		// Make sure the BufferedReader is closed
 		IOUtils.closeQuietly(in);
