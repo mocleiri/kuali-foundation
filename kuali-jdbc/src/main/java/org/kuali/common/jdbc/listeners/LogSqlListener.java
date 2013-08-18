@@ -39,6 +39,10 @@ public final class LogSqlListener extends NoOpSqlListener {
 		this(DEFAULT_LOGGER_LEVEL, DEFAULT_MODE, DEFAULT_FLATTEN);
 	}
 
+	public LogSqlListener(LoggerLevel level, LogSqlMode mode) {
+		this(level, mode, DEFAULT_FLATTEN);
+	}
+
 	public LogSqlListener(LoggerLevel level, LogSqlMode mode, boolean flatten) {
 		this.level = level;
 		this.mode = mode;
