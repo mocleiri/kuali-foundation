@@ -39,7 +39,7 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 	public SimpleStringSupplier(List<String> strings) {
 		Assert.notNull(strings);
 		this.strings = CollectionUtils.unmodifiableCopy(strings);
-		this.metaData = JdbcUtils.getSqlMetaData(strings);
+		this.metaData = JdbcUtils.getSqlMetaData(this);
 	}
 
 	@Override
