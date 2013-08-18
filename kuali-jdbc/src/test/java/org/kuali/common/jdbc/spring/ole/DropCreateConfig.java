@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.jdbc.sql.spring;
+package org.kuali.common.jdbc.spring.ole;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,6 +22,9 @@ import java.util.List;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.model.context.SqlExecutionContext;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
+import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
+import org.kuali.common.jdbc.sql.spring.JdbcContextsExecutableConfig;
+import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

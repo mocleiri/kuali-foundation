@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
-import org.kuali.common.jdbc.model.context.SqlExecutionContext;
 import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.util.execute.Executable;
@@ -14,23 +13,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SqlExecutableConfig {
+public class JdbcContextsExecutableConfig {
 
 	@Autowired
-	SqlExecutionContextsConfig config;
+	JdbcContextsConfig config;
 
 	@Autowired
 	JdbcService service;
 
 	@Bean(initMethod = "execute")
 	public Executable executeSql() {
-		List<SqlExecutionContext> contexts = config.sqlExecutionContexts();
+		List<JdbcContext> contexts = config.jdbcContexts();
 		List<JdbcExecutable> execs = new ArrayList<JdbcExecutable>();
-		for (SqlExecutionContext context : contexts) {
-			for (JdbcContext jc : context.getContexts()) {
-				JdbcExecutable exec = new JdbcExecutable(service, jc, context.isSkip());
-				execs.add(exec);
-			}
+		for (JdbcContext context : contexts) {
+			JdbcExecutable exec = new JdbcExecutable(service, context);
+			execs.add(exec);
 		}
 		return new ExecutablesExecutable(execs);
 	}
