@@ -50,27 +50,27 @@ public final class PercentCompleteInformer {
 	}
 
 	private int percentComplete = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
-	private long progress = UNINITIALIZED_PROGRESS_INDICATOR;
+	private volatile long progress = UNINITIALIZED_PROGRESS_INDICATOR;
 	private boolean started = false;
 
 	/**
-	 * Thread safe method indicating if we are in the "started" state or not
+	 * Indicates if we are in the "started" state or not
 	 */
-	public synchronized boolean isStarted() {
+	public boolean isStarted() {
 		return started;
 	}
 
 	/**
-	 * Thread safe method exposing the current progress
+	 * Indicates how far along we are
 	 */
-	public synchronized long getProgress() {
+	public long getProgress() {
 		return progress;
 	}
 
 	/**
-	 * Thread safe method exposing the current percent completed.
+	 * Indicates how far along we are as a percentage
 	 */
-	public synchronized int getPercentComplete() {
+	public int getPercentComplete() {
 		return percentComplete;
 	}
 
@@ -96,18 +96,20 @@ public final class PercentCompleteInformer {
 	 * Thread safe method for incrementing progress by <code>amount</code>
 	 */
 	public synchronized void incrementProgress(long amount) {
+		// Make sure were are in the started state
 		Assert.isTrue(started, "Not started");
+
 		// Increment the progress indicator
 		this.progress += amount;
 
 		// Calculate how far along we are
 		int newPercentCompleted = (int) ((progress * 100) / total);
 
-		// Have we made at least 1% progress since the last time we were informed about progress occurring?
+		// Have we made at least 1% progress?
 		if (isEnoughProgress(newPercentCompleted, percentComplete, percentageIncrement)) {
 			// If so, update the field holding the percent complete
 			this.percentComplete = newPercentCompleted;
-			// And print a dot to the console
+			// and print a dot to the console
 			inform.getPrintStream().print(inform.getProgressToken());
 		}
 	}
