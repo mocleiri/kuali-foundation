@@ -22,22 +22,19 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.listeners.LogSqlListener;
-import org.kuali.common.jdbc.listeners.SqlListener;
-import org.kuali.common.jdbc.model.LogSqlMode;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
+import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsExecutableConfig;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
-import org.kuali.common.util.log.LoggerLevel;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +59,9 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	SqlReader reader;
 
 	@Autowired
+	SqlContext sqlContext;
+
+	@Autowired
 	DataSourceConfig dataSourceConfig;
 
 	@Override
@@ -78,8 +78,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		String message = "[schema:concurrent]";
 		DataSource dataSource = dataSourceConfig.dataSource();
 		List<SqlSupplier> suppliers = getSuppliers(getSchemas());
-		SqlListener listener = new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER);
-		return new JdbcContext(dataSource, suppliers, message, listener);
+		return new JdbcContext(dataSource, suppliers, message, true, sqlContext.getThreads());
 	}
 
 	protected List<SqlSupplier> getSuppliers(List<String> schemas) {

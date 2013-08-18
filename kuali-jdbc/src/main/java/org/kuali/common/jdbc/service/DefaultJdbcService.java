@@ -214,7 +214,7 @@ public class DefaultJdbcService implements JdbcService {
 	protected List<SqlBucket> getSqlBuckets(JdbcContext context) {
 
 		// Pull out our list of suppliers
-		List<SqlSupplier> suppliers = context.getSuppliers();
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>(context.getSuppliers());
 
 		// number of buckets equals thread count, unless thread count > total number of sources
 		int bucketCount = Math.min(context.getThreads(), suppliers.size());

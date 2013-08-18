@@ -15,6 +15,7 @@
  */
 package org.kuali.common.jdbc.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
@@ -23,9 +24,17 @@ import org.kuali.common.util.CollectionUtils;
 
 public final class SqlBucket implements Comparable<SqlBucket> {
 
+	public static final long DEFAULT_COUNT = 0;
+	public static final long DEFAULT_SIZE = 0;
+	public static List<SqlSupplier> DEFAULT_SUPPLIERS = Collections.<SqlSupplier> emptyList();
+
 	private final long count;
 	private final long size;
 	private final List<SqlSupplier> suppliers;
+
+	public SqlBucket() {
+		this(DEFAULT_COUNT, DEFAULT_SIZE, DEFAULT_SUPPLIERS);
+	}
 
 	public SqlBucket(long count, long size, List<SqlSupplier> suppliers) {
 		Assert.noNulls(suppliers);
