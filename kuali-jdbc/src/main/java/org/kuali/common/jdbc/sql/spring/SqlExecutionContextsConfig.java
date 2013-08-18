@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.jdbc.model.context.SqlExecutionContext;
 
-public interface SqlExecConfig {
+public interface SqlExecutionContextsConfig {
 
 	List<SqlExecutionContext> sqlExecutionContexts();
 

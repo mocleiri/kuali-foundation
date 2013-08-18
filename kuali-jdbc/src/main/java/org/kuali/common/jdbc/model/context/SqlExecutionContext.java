@@ -22,18 +22,22 @@ import org.kuali.common.util.CollectionUtils;
 
 public final class SqlExecutionContext {
 
+	public static final boolean DEFAULT_SKIP = false;
+
 	private final String message;
+	private final boolean skip;
 	private final List<JdbcContext> contexts;
 
 	public SqlExecutionContext(String message, JdbcContext context) {
-		this(message, CollectionUtils.singletonList(context));
+		this(message, CollectionUtils.singletonList(context), DEFAULT_SKIP);
 	}
 
-	public SqlExecutionContext(String message, List<JdbcContext> contexts) {
+	public SqlExecutionContext(String message, List<JdbcContext> contexts, boolean skip) {
 		Assert.noBlanks(message);
 		Assert.noNulls(contexts);
 		this.message = message;
 		this.contexts = CollectionUtils.unmodifiableCopy(contexts);
+		this.skip = skip;
 	}
 
 	public String getMessage() {
@@ -42,5 +46,9 @@ public final class SqlExecutionContext {
 
 	public List<JdbcContext> getContexts() {
 		return contexts;
+	}
+
+	public boolean isSkip() {
+		return skip;
 	}
 }
