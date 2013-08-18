@@ -33,16 +33,15 @@ public final class JdbcContext {
 	}
 
 	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message) {
-		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_SKIP_METADATA,
-				DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
+		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
-	public JdbcContext(boolean skip, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode, boolean skipMetaData) {
-		this(skip, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, null, skipMetaData, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
+	public JdbcContext(boolean skip, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode) {
+		this(skip, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, null, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
 	public JdbcContext(boolean skip, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener, CommitMode commitMode,
-			String message, boolean skipMetaData, boolean trackProgressByUpdateCount) {
+			String message, boolean trackProgressByUpdateCount) {
 		Assert.noNulls(listener, commitMode, dataSource, suppliers);
 		this.skip = skip;
 		this.threads = threads;
@@ -52,14 +51,12 @@ public final class JdbcContext {
 		this.dataSource = dataSource;
 		this.suppliers = CollectionUtils.unmodifiableCopy(suppliers);
 		this.message = message;
-		this.skipMetaData = skipMetaData;
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
 	}
 
 	public static final boolean DEFAULT_SKIP = false;
 	public static final int DEFAULT_THREADS = 1;
 	public static final boolean DEFAULT_MULTITHREADED = false;
-	public static final boolean DEFAULT_SKIP_METADATA = false;
 	public static final boolean DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT = false;
 	public static final SqlListener DEFAULT_LISTENER = NoOpSqlListener.INSTANCE;
 	public static final CommitMode DEFAULT_COMMIT_MODE = CommitMode.PER_SUPPLIER;
@@ -78,7 +75,6 @@ public final class JdbcContext {
 	private final DataSource dataSource;
 	private final List<SqlSupplier> suppliers;
 	private final String message;
-	private final boolean skipMetaData;
 	private final boolean trackProgressByUpdateCount;
 
 	public boolean isSkip() {
@@ -111,10 +107,6 @@ public final class JdbcContext {
 
 	public String getMessage() {
 		return message;
-	}
-
-	public boolean isSkipMetaData() {
-		return skipMetaData;
 	}
 
 	public boolean isTrackProgressByUpdateCount() {
