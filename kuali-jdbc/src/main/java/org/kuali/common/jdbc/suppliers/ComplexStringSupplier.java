@@ -55,6 +55,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 	public synchronized void open() {
 		Assert.isFalse(open, "Already open");
 		this.open = true;
+
 		// Reset index to zero
 		this.index = 0;
 
