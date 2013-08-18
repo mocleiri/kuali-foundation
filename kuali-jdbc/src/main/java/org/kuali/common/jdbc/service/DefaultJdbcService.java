@@ -206,7 +206,7 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected JdbcContext getJdbcContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
-		boolean skip = original.isSkip();
+		boolean skip = original.isSkipSqlExecution();
 		DataSource dataSource = original.getDataSource();
 		List<SqlSupplier> suppliers = bucket.getSuppliers();
 		int threads = JdbcContext.DEFAULT_THREADS;
@@ -316,7 +316,7 @@ public class DefaultJdbcService implements JdbcService {
 			int updateCount = 0;
 			long start = System.currentTimeMillis();
 			context.getListener().beforeExecuteSql(new SqlEvent(sql, start));
-			if (!context.isSkip()) {
+			if (!context.isSkipSqlExecution()) {
 
 				// Execute the SQL
 				statement.execute(sql);

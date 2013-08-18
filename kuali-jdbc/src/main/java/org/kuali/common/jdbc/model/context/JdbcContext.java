@@ -43,7 +43,7 @@ public final class JdbcContext {
 	public JdbcContext(boolean skip, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener, CommitMode commitMode,
 			String message, boolean trackProgressByUpdateCount) {
 		Assert.noNulls(listener, commitMode, dataSource, suppliers);
-		this.skip = skip;
+		this.skipSqlExecution = skip;
 		this.threads = threads;
 		this.multithreaded = multithreaded;
 		this.listener = listener;
@@ -64,7 +64,7 @@ public final class JdbcContext {
 	// If true, no SQL is executed.
 	// Everything leading up to SQL execution still takes place
 	// Connecting to the database, parsing SQL, etc.
-	private final boolean skip;
+	private final boolean skipSqlExecution;
 
 	// Use this to enable multi-threaded SQL execution
 	// When used, SQL supplied to this context does not execute sequentially
@@ -77,8 +77,8 @@ public final class JdbcContext {
 	private final String message;
 	private final boolean trackProgressByUpdateCount;
 
-	public boolean isSkip() {
-		return skip;
+	public boolean isSkipSqlExecution() {
+		return skipSqlExecution;
 	}
 
 	public int getThreads() {
