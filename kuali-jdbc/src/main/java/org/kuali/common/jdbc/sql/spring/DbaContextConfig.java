@@ -2,6 +2,7 @@ package org.kuali.common.jdbc.sql.spring;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.jdbc.listeners.LogSqlListener;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
@@ -40,6 +41,6 @@ public class DbaContextConfig {
 	protected JdbcContext getContext(String message, String sql) {
 		DataSource dataSource = dataSourceConfig.dbaDataSource();
 		SqlSupplier supplier = new ComplexStringSupplier(sql, reader);
-		return new JdbcContext(dataSource, supplier, message);
+		return new JdbcContext(dataSource, supplier, message, new LogSqlListener());
 	}
 }

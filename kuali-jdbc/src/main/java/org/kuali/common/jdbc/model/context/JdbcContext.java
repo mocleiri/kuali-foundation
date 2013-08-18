@@ -33,7 +33,7 @@ public final class JdbcContext {
 	}
 
 	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message, SqlListener listener) {
-		this(dataSource, CollectionUtils.singletonList(supplier), message);
+		this(dataSource, CollectionUtils.singletonList(supplier), message, listener);
 	}
 
 	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message) {
