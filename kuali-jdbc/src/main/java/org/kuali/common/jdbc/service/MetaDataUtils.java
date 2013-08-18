@@ -37,6 +37,7 @@ public class MetaDataUtils {
 	public static SqlMetaData getSqlMetaData(SqlLocationSupplier supplier) {
 		BufferedReader in = null;
 		try {
+			logger.debug("Getting metadata for [{}] - encoding {}", supplier.getLocation(), supplier.getEncoding());
 			in = LocationUtils.getBufferedReader(supplier.getLocation(), supplier.getEncoding());
 			return MetaDataUtils.getSqlMetaData(in, supplier.getReader());
 		} catch (IOException e) {
