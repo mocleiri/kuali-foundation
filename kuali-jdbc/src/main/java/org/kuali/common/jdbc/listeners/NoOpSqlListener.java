@@ -24,7 +24,7 @@ public class NoOpSqlListener implements SqlListener {
 
 	public static final NoOpSqlListener INSTANCE = new NoOpSqlListener();
 
-	protected NoOpSqlListener() {
+	NoOpSqlListener() {
 	}
 
 	@Override
