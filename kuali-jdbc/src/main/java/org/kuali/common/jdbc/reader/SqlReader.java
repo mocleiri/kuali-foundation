@@ -19,7 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.jdbc.model.meta.SqlMetaData;
+import org.kuali.common.jdbc.sql.model.SqlMetaData;
 
 public interface SqlReader {
 

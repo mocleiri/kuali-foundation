@@ -15,39 +15,40 @@
  */
 package org.kuali.common.jdbc.model.context;
 
-import org.kuali.common.jdbc.model.enums.SqlMode;
+import java.util.List;
+
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 
 public final class SqlExecutionContext {
 
-	private final String key;
-	private final String group;
-	private final SqlMode mode;
-	private final String context;
+	public static final boolean DEFAULT_SKIP = false;
 
-	public SqlExecutionContext(String key, String group, SqlMode mode, String context) {
-		Assert.noBlanks(key, group, context);
-		Assert.noNulls(mode);
-		this.key = key;
-		this.group = group;
-		this.mode = mode;
-		this.context = context;
+	private final String message;
+	private final boolean skip;
+	private final List<JdbcContext> contexts;
+
+	public SqlExecutionContext(String message, JdbcContext context) {
+		this(message, CollectionUtils.singletonList(context), DEFAULT_SKIP);
 	}
 
-	public String getGroup() {
-		return group;
+	public SqlExecutionContext(String message, List<JdbcContext> contexts, boolean skip) {
+		Assert.noBlanks(message);
+		Assert.noNulls(contexts);
+		this.message = message;
+		this.contexts = CollectionUtils.unmodifiableCopy(contexts);
+		this.skip = skip;
 	}
 
-	public SqlMode getMode() {
-		return mode;
+	public String getMessage() {
+		return message;
 	}
 
-	public String getKey() {
-		return key;
+	public List<JdbcContext> getContexts() {
+		return contexts;
 	}
 
-	public String getContext() {
-		return context;
+	public boolean isSkip() {
+		return skip;
 	}
-
 }

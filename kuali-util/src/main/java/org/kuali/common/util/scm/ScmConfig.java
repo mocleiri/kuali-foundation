@@ -31,6 +31,7 @@ public class ScmConfig {
 
 	@Bean
 	public ScmService scmService() {
+		// TODO This isn't right
 		String vendor = SpringUtils.getInstance(env, VENDOR_KEY);
 		return ScmUtils.getScmService(vendor);
 	}

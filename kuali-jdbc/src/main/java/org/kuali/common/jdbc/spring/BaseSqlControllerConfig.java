@@ -29,8 +29,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 /**
- *
+ * @deprecated
  */
+@Deprecated
 @Configuration
 @Import({ JdbcCommonConfig.class, JdbcDataSourceConfig.class, SqlDbaBeforeConfig.class, SqlDbaAfterConfig.class })
 public class BaseSqlControllerConfig {

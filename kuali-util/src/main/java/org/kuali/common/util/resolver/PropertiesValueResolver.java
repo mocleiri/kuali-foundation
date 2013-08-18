@@ -8,7 +8,13 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesValueResolver implements ValueResolver {
 
-	private static final PropertyPlaceholderHelper DEFAULT_HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
+	private static final String PREFIX = "${";
+	private static final String SUFFIX = "}";
+	private static final String SEPARATOR = ":";
+
+	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE = false;
+
+	private static final PropertyPlaceholderHelper DEFAULT_HELPER = new PropertyPlaceholderHelper(PREFIX, SUFFIX, SEPARATOR, DEFAULT_IGNORE_UNRESOLVABLE);
 
 	private final Properties properties;
 	private final PropertyPlaceholderHelper helper;
@@ -19,6 +25,10 @@ public class PropertiesValueResolver implements ValueResolver {
 
 	public PropertiesValueResolver(Properties properties) {
 		this(properties, DEFAULT_HELPER);
+	}
+
+	public PropertiesValueResolver(Properties properties, boolean ignoreUnresolvable) {
+		this(properties, new PropertyPlaceholderHelper(PREFIX, SUFFIX, SEPARATOR, ignoreUnresolvable));
 	}
 
 	public PropertiesValueResolver(Properties properties, PropertyPlaceholderHelper helper) {

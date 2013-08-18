@@ -18,6 +18,10 @@ package org.kuali.common.jdbc.spring;
 import org.kuali.common.jdbc.context.SqlExecutionContext;
 import org.springframework.core.env.Environment;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SqlConfigContext {
 
 	Environment env;

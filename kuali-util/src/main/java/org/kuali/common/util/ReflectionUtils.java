@@ -77,6 +77,15 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T> Class<? extends T> getTypedClass(String className) {
+		try {
+			return (Class<? extends T>) Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
 	public static <T> T newInstance(String className) {
 		@SuppressWarnings("unchecked")
 		Class<T> clazz = (Class<T>) getClass(className);

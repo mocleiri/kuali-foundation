@@ -21,7 +21,9 @@ import org.kuali.common.jdbc.SqlReader;
  * Simple builder that creates a SqlLocationSupplier for a location
  * 
  * @author andrewlubbers
+ * @deprecated
  */
+@Deprecated
 public class SqlExtensionSupplierBuilder implements LocationExtensionSupplierBuilder {
 
 	private final static String DEFAULT_EXTENSION = "sql";

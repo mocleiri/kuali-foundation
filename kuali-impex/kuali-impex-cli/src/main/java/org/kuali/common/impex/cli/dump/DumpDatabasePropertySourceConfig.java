@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.kuali.common.impex.cli.project.ImpexCLIProjectConfig;
 import org.kuali.common.impex.spring.DumpPropertyLocationsConfig;
-import org.kuali.common.jdbc.service.spring.JdbcPropertyLocationsConfig;
+import org.kuali.common.jdbc.project.spring.JdbcPropertyLocationsConfig;
 import org.kuali.common.util.main.MainContext;
 import org.kuali.common.util.main.ValidatePropertiesLocationExecutable;
 import org.kuali.common.util.project.ProjectUtils;

@@ -4,7 +4,7 @@ public class ObjectUtils {
 
 	/**
 	 * <p>
-	 * This method returns <code>true</code> if both <code>toString()</code> methods return matching strings AND both objects are the exact same runtime type.
+	 * This method returns <code>true</code> if the <code>toString()</code> methods on both objects return matching strings AND both objects are the exact same runtime type.
 	 * </p>
 	 * 
 	 * <p>
@@ -16,7 +16,7 @@ public class ObjectUtils {
 	 * </p>
 	 * 
 	 * <p>
-	 * If neither one is <code>null</code>, and both are the exact same runtime type, then compare their respective <code>toString()</code> methods for equality.
+	 * If neither one is <code>null</code>, and both are the exact same runtime type, then compare the <code>toString()</code> methods
 	 * </p>
 	 * 
 	 * @param main

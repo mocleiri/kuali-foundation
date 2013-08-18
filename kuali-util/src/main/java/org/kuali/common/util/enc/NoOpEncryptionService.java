@@ -4,6 +4,11 @@ import java.util.Properties;
 
 public final class NoOpEncryptionService implements EncryptionService {
 
+	public static final NoOpEncryptionService INSTANCE = new NoOpEncryptionService();
+
+	private NoOpEncryptionService() {
+	}
+
 	@Override
 	public String encrypt(String string) {
 		return string;

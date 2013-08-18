@@ -3,6 +3,8 @@ package org.kuali.common.jdbc.service.spring;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
+import org.kuali.common.jdbc.project.spring.JdbcPropertyLocationsConfig;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.properties.Location;

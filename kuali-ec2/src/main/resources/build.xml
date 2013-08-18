@@ -65,6 +65,7 @@
 
     <antcall target="installtomcat" />
     <antcall target="createmedium" />
+    <antcall target="updateiptables" />
   </target>
 
   <target name="resetall">
@@ -205,6 +206,11 @@
 
     <!-- This is for AppDynamics, it needs tools.jar in this exact spot -->
     <copy file="/usr/java/jdk6/lib/tools.jar" tofile="/usr/java/jdk6/jre/lib/ext/tools.jar" overwrite="true" />
+  </target>
+
+  <target name="updateiptables">
+    <copy file="src/main/resources/ec2/etc/iptables.rules" tofile="/etc/iptables.rules" overwrite="true" />
+    <exec executable="/sbin/iptables-restore" input="/etc/iptables.rules" />
   </target>
 
   <target name="installtomcat" depends="tomcatinit,updatejdk6,updatejdk7">

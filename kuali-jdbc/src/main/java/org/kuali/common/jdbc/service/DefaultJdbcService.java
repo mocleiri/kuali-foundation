@@ -28,15 +28,16 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.listen.LogSqlListener;
-import org.kuali.common.jdbc.listen.MultiThreadedExecutionListener;
-import org.kuali.common.jdbc.listen.NotifyingListener;
-import org.kuali.common.jdbc.listen.SqlListener;
+import org.kuali.common.jdbc.listeners.LogSqlListener;
+import org.kuali.common.jdbc.listeners.MultiThreadedExecutionListener;
+import org.kuali.common.jdbc.listeners.NotifyingListener;
+import org.kuali.common.jdbc.listeners.SqlListener;
 import org.kuali.common.jdbc.model.ExecutionResult;
 import org.kuali.common.jdbc.model.ExecutionStats;
 import org.kuali.common.jdbc.model.SqlBucket;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.model.context.SqlBucketContext;
+import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.model.event.BucketEvent;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
@@ -44,8 +45,9 @@ import org.kuali.common.jdbc.model.event.SqlMetaDataEvent;
 import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
-import org.kuali.common.jdbc.supplier.SimpleStringSupplier;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.jdbc.suppliers.SimpleStringSupplier;
+import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
@@ -78,9 +80,7 @@ public class DefaultJdbcService implements JdbcService {
 		}
 
 		// Calculate metadata
-		if (!context.isSkipMetaData()) {
-			doMetaData(context);
-		}
+		doMetaData(context);
 
 		// Fire an event before executing any SQL
 		long sqlStart = System.currentTimeMillis();
@@ -110,7 +110,7 @@ public class DefaultJdbcService implements JdbcService {
 
 		// Fill in SQL metadata
 		for (SqlSupplier supplier : context.getSuppliers()) {
-			supplier.fillInMetaData();
+			supplier.getMetaData();
 		}
 
 		// Fire an event now that metadata calculation is complete
@@ -191,15 +191,12 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public ExecutionResult executeSql(DataSource dataSource, List<String> sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(sql);
-		JdbcContext context = new JdbcContext();
-		context.setDataSource(dataSource);
-		context.setSuppliers(Arrays.asList(supplier));
+		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier), null);
 		return executeSql(context);
 	}
 
 	protected List<SqlBucketContext> getSqlBucketContexts(List<SqlBucket> buckets, JdbcContext context, SqlListener listener) {
 		List<SqlBucketContext> sbcs = new ArrayList<SqlBucketContext>();
-
 		for (SqlBucket bucket : buckets) {
 			JdbcContext newJdbcContext = getJdbcContext(context, bucket, listener);
 			SqlBucketContext sbc = new SqlBucketContext(bucket, newJdbcContext, this);
@@ -209,15 +206,12 @@ public class DefaultJdbcService implements JdbcService {
 	}
 
 	protected JdbcContext getJdbcContext(JdbcContext original, SqlBucket bucket, SqlListener listener) {
-		JdbcContext context = new JdbcContext();
-		context.setSuppliers(bucket.getSuppliers());
-		context.setDataSource(original.getDataSource());
-		context.setCommitMode(original.getCommitMode());
-		context.setThreads(1);
-		context.setSkip(original.isSkip());
-		context.setListener(listener);
-		context.setSkipMetaData(true);
-		return context;
+		boolean skip = original.isSkipSqlExecution();
+		DataSource dataSource = original.getDataSource();
+		List<SqlSupplier> suppliers = bucket.getSuppliers();
+		int threads = JdbcContext.DEFAULT_THREADS;
+		CommitMode commitMode = original.getCommitMode();
+		return new JdbcContext(skip, dataSource, suppliers, threads, listener, commitMode);
 	}
 
 	protected List<SqlBucket> getSqlBuckets(JdbcContext context) {
@@ -261,11 +255,10 @@ public class DefaultJdbcService implements JdbcService {
 		return buckets;
 	}
 
-	@SuppressWarnings("deprecation")
 	protected SqlBucket getNewBucket(SqlBucket bucket, SqlSupplier supplier) {
 		List<SqlSupplier> list = new ArrayList<SqlSupplier>(bucket.getSuppliers());
 		list.add(supplier);
-		org.kuali.common.jdbc.SqlMetaData smd = supplier.getMetaData();
+		SqlMetaData smd = supplier.getMetaData();
 		long count = bucket.getCount() + smd.getCount();
 		long size = bucket.getSize() + smd.getSize();
 		return new SqlBucket(count, size, list);
@@ -323,7 +316,7 @@ public class DefaultJdbcService implements JdbcService {
 			int updateCount = 0;
 			long start = System.currentTimeMillis();
 			context.getListener().beforeExecuteSql(new SqlEvent(sql, start));
-			if (!context.isSkip()) {
+			if (!context.isSkipSqlExecution()) {
 
 				// Execute the SQL
 				statement.execute(sql);

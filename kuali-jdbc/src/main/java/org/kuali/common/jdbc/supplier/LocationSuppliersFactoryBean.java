@@ -32,6 +32,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.env.Environment;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class LocationSuppliersFactoryBean implements FactoryBean<List<LocationSupplier>> {
 
 	public static final String DEFAULT_RESOURCES_SUFFIX = SqlConfigUtils.RESOURCES_SUFFIX;

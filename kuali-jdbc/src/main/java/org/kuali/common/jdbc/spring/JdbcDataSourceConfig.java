@@ -34,6 +34,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @Configuration
 @Import(JdbcCommonConfig.class)
 public class JdbcDataSourceConfig {

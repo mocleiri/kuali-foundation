@@ -7,12 +7,12 @@ public final class SqlContext {
 
 	public static final int DEFAULT_THREADS = 5;
 
-	public SqlContext(DbaSql dba, AdminSql admin, Credentials credentials, String schema, String encoding, int threads) {
-		Assert.noNulls(dba, credentials, admin);
+	public SqlContext(Credentials credentials, DbaSql dbaSql, AdminSql adminSql, String schema, String encoding, int threads) {
+		Assert.noNulls(credentials, dbaSql, adminSql);
 		Assert.noBlanks(schema, encoding);
 		Assert.isTrue(threads > 0, "threads must be a positive integer");
-		this.dba = dba;
-		this.admin = admin;
+		this.dba = dbaSql;
+		this.admin = adminSql;
 		this.credentials = credentials;
 		this.schema = schema;
 		this.encoding = encoding;

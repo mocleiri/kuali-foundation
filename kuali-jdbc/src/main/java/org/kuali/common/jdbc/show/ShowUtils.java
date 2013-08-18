@@ -2,8 +2,9 @@ package org.kuali.common.jdbc.show;
 
 import javax.sql.DataSource;
 
+import org.kuali.common.jdbc.model.Credentials;
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.model.context.DatabaseContext;
+import org.kuali.common.jdbc.model.context.DatabaseProcessContext;
 import org.kuali.common.jdbc.model.meta.Driver;
 import org.kuali.common.jdbc.model.meta.JdbcMetaData;
 import org.kuali.common.jdbc.model.meta.Product;
@@ -13,20 +14,28 @@ import org.slf4j.Logger;
 
 public class ShowUtils {
 
-	public static void showOpen(Logger logger, DatabaseContext context) {
-		ConnectionContext normal = context.getNormal();
+	public static void showOpen(Logger logger, DatabaseProcessContext context) {
+		Credentials auth = context.getConnections().getNormal().getCredentials();
+		String url = context.getConnections().getNormal().getUrl();
 		logger.info("------------------------------------------------------------------------");
 		logger.info("JDBC Configuration");
 		logger.info("------------------------------------------------------------------------");
 		logger.info("Vendor - {}", context.getVendor());
-		logger.info("URL - {}", normal.getUrl());
+		logger.info("URL - {}", url);
 		logger.info("Schema - {}", context.getSchema());
-		logger.info("User - {}", LoggerUtils.getUsername(normal.getUsername()));
-		logger.info("Password - {}", LoggerUtils.getPassword(normal.getUsername(), normal.getPassword()));
+		logger.info("User - {}", LoggerUtils.getUsername(auth.getUsername()));
+		logger.info("Password - {}", LoggerUtils.getPassword(auth.getUsername(), auth.getPassword()));
 	}
 
-	public static void showClose(Logger logger, DatabaseContext context, JdbcService service, DataSource dataSource) {
-		logger.info("Driver - {}", context.getDriver().getName());
+	public static void showDba(Logger logger, ConnectionContext dba) {
+		Credentials auth = dba.getCredentials();
+		logger.info("DBA URL - {}", dba.getUrl());
+		logger.info("DBA User - {}", LoggerUtils.getUsername(auth.getUsername()));
+		logger.info("DBA Password - {}", LoggerUtils.getPassword(auth.getUsername(), auth.getPassword()));
+	}
+
+	public static void showClose(Logger logger, DatabaseProcessContext context, JdbcService service, DataSource dataSource) {
+		logger.info("Driver - {}", context.getConnections().getDriver().getName());
 		logger.info("SQL Encoding - {}", context.getEncoding());
 		// Establish a connection to the db to extract more detailed info
 		JdbcMetaData metadata = service.getJdbcMetaData(dataSource);
@@ -38,12 +47,6 @@ public class ShowUtils {
 		logger.info("Driver Version - {}", driver.getVersion());
 		logger.info("------------------------------------------------------------------------");
 
-	}
-
-	public static void showDba(Logger logger, ConnectionContext dba) {
-		logger.info("DBA URL - {}", dba.getUrl());
-		logger.info("DBA User - {}", LoggerUtils.getUsername(dba.getUsername()));
-		logger.info("DBA Password - {}", LoggerUtils.getPassword(dba.getUsername(), dba.getPassword()));
 	}
 
 }

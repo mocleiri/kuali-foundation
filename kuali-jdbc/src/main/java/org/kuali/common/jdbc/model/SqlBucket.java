@@ -17,7 +17,7 @@ package org.kuali.common.jdbc.model;
 
 import java.util.List;
 
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 

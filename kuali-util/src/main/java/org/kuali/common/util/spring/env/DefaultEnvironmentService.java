@@ -6,6 +6,21 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
 import org.springframework.core.env.Environment;
 
+/**
+ * <p>
+ * By default, an exception is thrown if a value cannot be located (unless a default value has been supplied).
+ * </p>
+ * 
+ * <p>
+ * By default, an exception is thrown if any placeholders cannot be resolved in any string values.
+ * </p>
+ * 
+ * <p>
+ * By default, environment variables are automatically checked if a normal property value cannot be found.
+ * 
+ * For example, given the key <code>db.vendor</code> the service will also automatically check <code>env.DB_VENDOR</code>
+ * </p>
+ */
 public class DefaultEnvironmentService implements EnvironmentService {
 
 	public static final boolean DEFAULT_CHECK_ENVIRONMENT_VARIABLES = true;
@@ -74,8 +89,8 @@ public class DefaultEnvironmentService implements EnvironmentService {
 		}
 	}
 
-	protected <T> Class<? extends T> getSpringValueAsClass(String key, Class<? extends T> type) {
-		Class<? extends T> value = env.getPropertyAsClass(key, type);
+	protected <T> Class<T> getSpringValueAsClass(String key, Class<T> type) {
+		Class<T> value = env.getPropertyAsClass(key, type);
 		if (value == null && checkEnvironmentVariables) {
 			String envKey = getEnvironmentVariableKey(key);
 			return env.getPropertyAsClass(envKey, type);
@@ -85,14 +100,14 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	}
 
 	@Override
-	public <T> Class<? extends T> getClass(String key, Class<? extends T> type) {
+	public <T> Class<T> getClass(String key, Class<T> type) {
 		return getClass(key, type, null);
 	}
 
 	@Override
-	public <T> Class<? extends T> getClass(String key, Class<? extends T> type, Class<? extends T> defaultValue) {
-		Class<? extends T> springValue = getSpringValueAsClass(key, type);
-		Class<? extends T> returnValue = (springValue == null) ? defaultValue : springValue;
+	public <T> Class<T> getClass(String key, Class<T> type, Class<T> defaultValue) {
+		Class<T> springValue = getSpringValueAsClass(key, type);
+		Class<T> returnValue = (springValue == null) ? defaultValue : springValue;
 
 		// If we could not locate a value, we may need to error out
 		if (returnValue == null) {

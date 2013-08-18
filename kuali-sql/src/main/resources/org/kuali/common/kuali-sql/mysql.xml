@@ -33,7 +33,7 @@
     /
   </entry>
   <entry key="mysql.create">
-    CREATE DATABASE IF NOT EXISTS ${sql.schema} DEFAULT CHARACTER SET 'utf8' DEFAULT COLLATE 'utf8_bin'
+    CREATE DATABASE IF NOT EXISTS ${sql.schema} DEFAULT CHARACTER SET '${mysql.characterSet}' DEFAULT COLLATE '${mysql.collate}'
     /
     CREATE USER '${sql.username}'@'%' IDENTIFIED BY '${sql.password}'
     /
@@ -44,6 +44,8 @@
     GRANT ALL ON ${sql.schema}.* TO '${sql.username}'@'localhost' WITH GRANT OPTION
     /
   </entry>
+  <entry key="mysql.characterSet">utf8</entry>
+  <entry key="mysql.collate">utf8_bin</entry>
   <entry key="mysql.validate">
     SELECT 1
     /

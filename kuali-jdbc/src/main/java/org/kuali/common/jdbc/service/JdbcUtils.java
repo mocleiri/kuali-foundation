@@ -15,6 +15,8 @@
  */
 package org.kuali.common.jdbc.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +25,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.kuali.common.jdbc.model.meta.SqlMetaData;
-import org.kuali.common.jdbc.supplier.SqlSupplier;
+import org.apache.commons.io.IOUtils;
+import org.kuali.common.jdbc.reader.SqlReader;
+import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.jdbc.suppliers.SqlSupplier;
+import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -34,16 +39,71 @@ public class JdbcUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(JdbcUtils.class);
 
+	public static SqlMetaData getSqlMetaDataFromLocation(String location, SqlReader reader) {
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReader(location);
+			return JdbcUtils.getSqlMetaData(in, reader);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	public static SqlMetaData getSqlMetaData(List<String> sql, SqlReader reader) {
+		long count = 0;
+		long size = 0;
+		for (String string : sql) {
+			SqlMetaData smd = getSqlMetaData(string, reader);
+			count += smd.getCount();
+			size += smd.getSize();
+		}
+		return new SqlMetaData(count, size);
+	}
+
+	public static SqlMetaData getSqlMetaData(String sql, SqlReader reader) {
+		BufferedReader in = null;
+		try {
+			in = LocationUtils.getBufferedReaderFromString(sql);
+			return JdbcUtils.getSqlMetaData(in, reader);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	public static SqlMetaData getSqlMetaData(BufferedReader in, SqlReader reader) throws IOException {
+		long count = 0;
+		long size = 0;
+		List<String> sql = reader.getSql(in);
+		while (sql != null) {
+			for (String s : sql) {
+				count++;
+				size += s.length();
+			}
+			sql = reader.getSql(in);
+		}
+		return new SqlMetaData(count, size);
+	}
+
+	public static SqlMetaData getSqlMetaData(List<String> strings) {
+		int count = strings.size();
+		long size = 0;
+		for (String string : strings) {
+			size += string.length();
+		}
+		return new SqlMetaData(count, size);
+	}
+
 	/**
 	 * Return a count of the total number of SQL statements contained in <code>suppliers</code>. Assumes <code>suppliers</code> has had its <code>SqlMetaData</code> filled in.
 	 */
 	public static long getSqlCount(List<SqlSupplier> suppliers) {
 		long count = 0;
 		for (SqlSupplier supplier : suppliers) {
-			@SuppressWarnings("deprecation")
-			org.kuali.common.jdbc.SqlMetaData oldMeta = supplier.getMetaData();
-			@SuppressWarnings("deprecation")
-			SqlMetaData smd = new SqlMetaData(oldMeta.getCount(), oldMeta.getSize());
+			SqlMetaData smd = supplier.getMetaData();
 			count += smd.getCount();
 		}
 		return count;

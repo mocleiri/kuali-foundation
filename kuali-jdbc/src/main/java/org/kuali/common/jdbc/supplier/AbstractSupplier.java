@@ -17,6 +17,10 @@ package org.kuali.common.jdbc.supplier;
 
 import org.kuali.common.jdbc.SqlMetaData;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public abstract class AbstractSupplier implements SqlSupplier {
 
 	protected SqlMetaData metaData;

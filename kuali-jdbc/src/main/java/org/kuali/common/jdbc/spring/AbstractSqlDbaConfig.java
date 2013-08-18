@@ -27,6 +27,10 @@ import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public abstract class AbstractSqlDbaConfig extends SqlBaseConfig {
 
 	// This indicates before/after

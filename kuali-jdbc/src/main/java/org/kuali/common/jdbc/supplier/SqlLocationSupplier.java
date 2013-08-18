@@ -28,7 +28,10 @@ import org.springframework.util.Assert;
 
 /**
  * Supply SQL from a location containing pre-generated SQL statements
+ * 
+ * @deprecated
  */
+@Deprecated
 public class SqlLocationSupplier extends AbstractSupplier implements LocationSupplier {
 
 	private final static String DEFAULT_ENCODING = "UTF-8";
@@ -55,11 +58,11 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 		in = getLocationReader();
 	}
 
-    private BufferedReader getLocationReader() throws IOException {
-        return LocationUtils.getBufferedReader(LocationSupplierUtils.getLocationFromContextLocation(location), encoding);
-    }
+	private BufferedReader getLocationReader() throws IOException {
+		return LocationUtils.getBufferedReader(LocationSupplierUtils.getLocationFromContextLocation(location), encoding);
+	}
 
-    @Override
+	@Override
 	public List<String> getSql() throws IOException {
 		return reader.getSql(in);
 	}
@@ -74,9 +77,9 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 		Assert.hasText(location, "location has no text");
 		BufferedReader in = null;
 		try {
-            in = getLocationReader();
-            this.metaData = JdbcUtils.getSqlMetaData(in, reader);
-        } catch (IOException e) {
+			in = getLocationReader();
+			this.metaData = JdbcUtils.getSqlMetaData(in, reader);
+		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(in);

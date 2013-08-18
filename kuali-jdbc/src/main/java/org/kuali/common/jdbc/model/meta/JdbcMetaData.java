@@ -21,7 +21,7 @@ public final class JdbcMetaData {
 
 	public JdbcMetaData(Product product, Driver driver, String url, String username) {
 		Assert.noNulls(product, driver);
-		Assert.noBlanks(url, username);
+		Assert.noBlanks(url);
 		this.product = product;
 		this.driver = driver;
 		this.url = url;

@@ -23,7 +23,10 @@ import org.springframework.util.Assert;
 
 /**
  * Supply SQL from strings that have one SQL statement each
+ * 
+ * @deprecated
  */
+@Deprecated
 public class SimpleStringSupplier extends AbstractSupplier {
 
 	List<String> strings;
