@@ -54,6 +54,8 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 		Assert.noBlanks(location, encoding);
 		Assert.noNulls(reader);
 		Assert.isTrue(LocationUtils.exists(location));
+		Assert.isTrue(maxCount > 0, "max count must be a positive integer");
+		Assert.isTrue(maxSize >= 0, "max size is negative");
 		this.location = location;
 		this.encoding = encoding;
 		this.reader = reader;
@@ -90,14 +92,13 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 		List<String> list = new ArrayList<String>();
 		String sql = reader.getSql(in);
 		while (sql != null) {
+			list.add(sql);
 			count++;
 			size += sql.length();
 			if (count > maxCount || size > maxSize) {
 				break;
-			} else {
-				list.add(sql);
-				sql = reader.getSql(in);
 			}
+			sql = reader.getSql(in);
 		}
 		return list;
 	}
