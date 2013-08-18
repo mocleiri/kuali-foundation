@@ -86,6 +86,13 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 		}
 	}
 
+	@Override
+	public synchronized void close() {
+		Assert.isTrue(open, "Not open");
+		this.open = false;
+		IOUtils.closeQuietly(in);
+	}
+
 	protected List<String> getSqlList() throws IOException {
 		int count = 0;
 		int size = 0;
@@ -101,13 +108,6 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 			sql = reader.getSql(in);
 		}
 		return list;
-	}
-
-	@Override
-	public synchronized void close() {
-		Assert.isTrue(open, "Not open");
-		this.open = false;
-		IOUtils.closeQuietly(in);
 	}
 
 	@Override
