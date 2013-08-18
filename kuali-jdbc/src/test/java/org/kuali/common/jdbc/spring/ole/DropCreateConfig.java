@@ -19,28 +19,68 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.kuali.common.jdbc.listeners.LogSqlListener;
+import org.kuali.common.jdbc.listeners.SqlListener;
+import org.kuali.common.jdbc.model.LogSqlMode;
 import org.kuali.common.jdbc.model.context.JdbcContext;
+import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
+import org.kuali.common.jdbc.reader.SqlReader;
+import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
+import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsExecutableConfig;
+import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
+import org.kuali.common.jdbc.suppliers.SqlSupplier;
+import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.util.log.LoggerLevel;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, JdbcContextsExecutableConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, JdbcContextsExecutableConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class })
 public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Autowired
 	DbaContextConfig config;
 
+	@Autowired
+	DatabaseVendor vendor;
+
+	@Autowired
+	Project project;
+
+	@Autowired
+	SqlReader reader;
+
+	@Autowired
+	DataSourceConfig dataSourceConfig;
+
 	@Override
 	@Bean
 	public List<JdbcContext> jdbcContexts() {
 		JdbcContext before = config.dbaBeforeContext();
+		JdbcContext schema = schemaJdbcContext();
 		JdbcContext after = config.dbaAfterContext();
-		return Collections.unmodifiableList(Arrays.asList(before, after));
+		return Collections.unmodifiableList(Arrays.asList(before, schema, after));
 	}
+
+	@Bean
+	public JdbcContext schemaJdbcContext() {
+		String message = "[schema:concurrent]";
+		String location = "classpath:sql/" + vendor.getCode() + "/ole-rice-sql.sql";
+		String encoding = ProjectUtils.getEncoding(project);
+		DataSource dataSource = dataSourceConfig.dbaDataSource();
+		SqlSupplier supplier = new SqlLocationSupplier(location, encoding, reader);
+		SqlListener listener = new LogSqlListener(LoggerLevel.INFO, LogSqlMode.AFTER);
+		return new JdbcContext(dataSource, supplier, message, listener);
+	}
+
 }
