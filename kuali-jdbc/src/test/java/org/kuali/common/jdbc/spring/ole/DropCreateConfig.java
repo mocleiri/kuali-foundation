@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
 import org.kuali.common.jdbc.reader.SqlReader;
@@ -36,6 +37,7 @@ import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
 import org.kuali.common.util.project.ProjectUtils;
@@ -45,10 +47,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.util.Assert;
 
 @Configuration
 @Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class, JdbcShowConfig.class })
 public class DropCreateConfig implements JdbcContextsConfig {
+
+	private static final List<String> SCHEMAS = Arrays.asList("ole-rice-sql", "ole-master-sql");
 
 	@Autowired
 	DbaContextConfig dba;
@@ -86,15 +91,22 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	public List<JdbcContext> jdbcContexts() {
 		JdbcContext before = dba.dbaBeforeContext();
 		JdbcContext schemas = schemaJdbcContext();
-		JdbcContext constraints = schemaJdbcContext();
+		JdbcContext data = dataJdbcContext();
+		JdbcContext constraints = constraintsJdbcContext();
 		JdbcContext after = dba.dbaAfterContext();
-		return Collections.unmodifiableList(Arrays.asList(before, schemas, constraints, after));
+		return Collections.unmodifiableList(Arrays.asList(before, schemas, data, constraints, after));
 	}
 
 	@Bean
 	public JdbcContext schemaJdbcContext() {
 		List<SqlSupplier> suppliers = getSuppliers("");
 		return getJdbcContext("[schema:concurrent]", suppliers);
+	}
+
+	@Bean
+	public JdbcContext dataJdbcContext() {
+		List<SqlSupplier> suppliers = getDataSuppliers();
+		return getJdbcContext("[data:concurrent]", suppliers);
 	}
 
 	@Bean
@@ -109,12 +121,26 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	}
 
 	protected List<SqlSupplier> getSuppliers(String suffix) {
-		List<String> schemas = Arrays.asList("ole-rice-sql", "ole-master-sql");
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
-		for (String schema : schemas) {
+		for (String schema : SCHEMAS) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
 			String encoding = ProjectUtils.getEncoding(project);
 			suppliers.add(new SqlLocationSupplier(location, encoding, reader));
+		}
+		return suppliers;
+	}
+
+	protected List<SqlSupplier> getDataSuppliers() {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String schema : SCHEMAS) {
+			String encoding = ProjectUtils.getEncoding(project);
+			String location = "classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources";
+			List<String> resources = LocationUtils.getLocations(location, encoding);
+			for (String resource : resources) {
+				Assert.isTrue(LocationUtils.exists(resource));
+				Assert.isTrue(StringUtils.endsWithIgnoreCase(resource, ".sql"));
+				suppliers.add(new SqlLocationSupplier(resource, encoding, reader));
+			}
 		}
 		return suppliers;
 	}
