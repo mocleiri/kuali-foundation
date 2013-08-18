@@ -16,5 +16,7 @@
 package org.kuali.common.util.log;
 
 public enum LoggerLevel {
+
 	TRACE, DEBUG, INFO, WARN, ERROR;
+
 }
