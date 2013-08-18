@@ -17,6 +17,7 @@ package org.kuali.common.jdbc.listeners;
 
 import org.kuali.common.jdbc.model.LogSqlMode;
 import org.kuali.common.jdbc.model.event.SqlEvent;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LoggerLevel;
 import org.kuali.common.util.LoggerUtils;
@@ -44,6 +45,7 @@ public final class LogSqlListener extends NoOpSqlListener {
 	}
 
 	public LogSqlListener(LoggerLevel level, LogSqlMode mode, boolean flatten) {
+		Assert.noNulls(level, mode);
 		this.level = level;
 		this.mode = mode;
 		this.flatten = flatten;
