@@ -28,6 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class LoggerUtils {
 
 	public static final Logger LOGGER_UTILS_LOGGER = LoggerFactory.getLogger(LoggerUtils.class);

@@ -18,6 +18,10 @@ package org.kuali.common.util;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.slf4j.Logger;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class LoggingStreamConsumer implements StreamConsumer {
 
 	Logger logger;

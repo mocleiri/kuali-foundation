@@ -19,6 +19,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class LogTableContext {
 
 	public static final LoggerLevel DEFAULT_LOGGER_LEVEL = LoggerLevel.INFO;

@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class LogMsg {
 
 	LoggerLevel level = LoggerLevel.INFO;
@@ -30,7 +34,6 @@ public class LogMsg {
 	}
 
 	public LogMsg(String message, Object[] args, LoggerLevel level) {
-		super();
 		this.message = message;
 		this.args = args;
 		this.level = level;

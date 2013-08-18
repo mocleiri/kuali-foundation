@@ -30,6 +30,10 @@ import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class CopyFilePatternsExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CopyFilePatternsExecutable.class);

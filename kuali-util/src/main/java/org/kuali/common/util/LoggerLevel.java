@@ -15,6 +15,12 @@
  */
 package org.kuali.common.util;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum LoggerLevel {
+
 	TRACE, DEBUG, INFO, WARN, ERROR;
+
 }

@@ -17,7 +17,10 @@ package org.kuali.common.util;
 
 /**
  * Print a dot to the console each time we make at least 1% progress towards the total
+ * 
+ * @deprecated
  */
+@Deprecated
 public class PercentCompleteInformer extends AbstractProgressInformer {
 
 	protected long progress;
