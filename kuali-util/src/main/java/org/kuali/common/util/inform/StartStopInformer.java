@@ -24,17 +24,17 @@ import org.slf4j.LoggerFactory;
 /**
  * 
  */
-public final class StartStopProgressInformer {
+public final class StartStopInformer {
 
-	private static final Logger logger = LoggerFactory.getLogger(StartStopProgressInformer.class);
+	private static final Logger logger = LoggerFactory.getLogger(StartStopInformer.class);
 
 	private final Inform inform;
 
-	public StartStopProgressInformer() {
+	public StartStopInformer() {
 		this(Inform.DEFAULT_INFORM);
 	}
 
-	public StartStopProgressInformer(Inform inform) {
+	public StartStopInformer(Inform inform) {
 		Assert.noNulls(inform);
 		this.inform = inform;
 	}

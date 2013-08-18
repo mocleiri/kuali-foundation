@@ -19,7 +19,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.inform.model.Inform;
 
 /**
- * Print a dot to the console each time we make at least 1% progress towards the total
+ * Print a dot to the console each time we make at least 1% progress towards a total
  */
 public class PercentCompleteInformer {
 
@@ -30,7 +30,7 @@ public class PercentCompleteInformer {
 	private final int percentageIncrement;
 	private final long total;
 	private final Inform inform;
-	private final StartStopProgressInformer informer;
+	private final StartStopInformer informer;
 
 	public PercentCompleteInformer(long total) {
 		this(total, DEFAULT_PERCENTAGE_INCREMENT);
@@ -47,7 +47,7 @@ public class PercentCompleteInformer {
 		this.total = total;
 		this.inform = inform;
 		this.percentageIncrement = percentageIncrement;
-		this.informer = new StartStopProgressInformer(inform);
+		this.informer = new StartStopInformer(inform);
 	}
 
 	int percentCompletePrevious = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
