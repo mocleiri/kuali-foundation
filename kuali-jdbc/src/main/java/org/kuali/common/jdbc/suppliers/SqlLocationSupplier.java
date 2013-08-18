@@ -29,9 +29,9 @@ import org.kuali.common.util.LocationUtils;
 /**
  * Supply SQL from a location containing nothing but SQL statements
  */
-public class SqlLocationSupplier extends AbstractSupplier implements LocationSupplier {
+public final class SqlLocationSupplier extends AbstractSupplier implements SqlSupplier {
 
-	protected BufferedReader in;
+	private BufferedReader in;
 
 	private final String location;
 	private final String encoding;
@@ -52,7 +52,7 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 	public synchronized void open() throws IOException {
 		Assert.isFalse(open, "Already open");
 		open = true;
-		in = LocationUtils.getBufferedReader(location);
+		in = LocationUtils.getBufferedReader(location, encoding);
 	}
 
 	@Override
@@ -76,7 +76,6 @@ public class SqlLocationSupplier extends AbstractSupplier implements LocationSup
 		return this.metaData;
 	}
 
-	@Override
 	public String getLocation() {
 		return location;
 	}
