@@ -67,7 +67,7 @@ public class DefaultJdbcService implements JdbcService {
 		long start = System.currentTimeMillis();
 
 		// Log a message if provided
-		if (!StringUtils.isBlank(context.getMessage())) {
+		if (StringUtils.equals(JdbcContext.NO_MESSAGE, context.getMessage())) {
 			logger.info(context.getMessage());
 		}
 
@@ -175,7 +175,7 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public ExecutionResult executeSql(DataSource dataSource, List<String> sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(sql);
-		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier), null);
+		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier), JdbcContext.NO_MESSAGE);
 		return executeSql(context);
 	}
 
@@ -207,7 +207,7 @@ public class DefaultJdbcService implements JdbcService {
 		int bucketCount = Math.min(context.getThreads(), suppliers.size());
 
 		// If bucket count is zero, we have issues
-		Assert.isTrue(bucketCount > 0, "bucket count <= 0");
+		Assert.isTrue(bucketCount > 0, "bucket count must be a positive integer");
 
 		// Sort the suppliers by SQL size
 		Collections.sort(suppliers);

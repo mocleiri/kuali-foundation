@@ -26,6 +26,7 @@ import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 public final class JdbcContext {
 
@@ -36,6 +37,7 @@ public final class JdbcContext {
 	// The default listener logs every SQL statement being executed in debug mode
 	public static final SqlListener DEFAULT_LISTENER = new LogSqlListener();
 	public static final CommitMode DEFAULT_COMMIT_MODE = CommitMode.PER_SUPPLIER;
+	public static final String NO_MESSAGE = NullUtils.NONE;
 
 	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message) {
 		this(dataSource, supplier, message, DEFAULT_LISTENER);
@@ -68,6 +70,7 @@ public final class JdbcContext {
 	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener,
 			CommitMode commitMode, String message, boolean trackProgressByUpdateCount) {
 		Assert.noNulls(listener, commitMode, dataSource, suppliers);
+		Assert.noBlanks(message);
 		this.skipSqlExecution = skipSqlExecution;
 		this.threads = threads;
 		this.multithreaded = multithreaded;
