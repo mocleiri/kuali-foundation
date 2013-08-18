@@ -50,14 +50,24 @@ public class PercentCompleteInformer {
 		this.informer = new StartStopInformer(inform);
 	}
 
-	int percentCompletePrevious = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
-	boolean started = false;
-	long progress = UNINITIALIZED_PROGRESS_INDICATOR;
+	private int percentComplete = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
+	private long progress = UNINITIALIZED_PROGRESS_INDICATOR;
+	private boolean started = false;
 
+	/**
+	 * Thread safe method exposing the current percent completed.
+	 */
+	public synchronized int getPercentComplete() {
+		return percentComplete;
+	}
+
+	/**
+	 * Thread safe method indicating progress has begun
+	 */
 	public synchronized void start() {
 		Assert.isFalse(started, "Already started");
 		this.started = true;
-		this.percentCompletePrevious = 0;
+		this.percentComplete = 0;
 		this.progress = 0;
 		informer.start();
 	}
@@ -76,42 +86,37 @@ public class PercentCompleteInformer {
 	public synchronized void incrementProgress(long amount) {
 		Assert.isTrue(started, "Not started");
 		// Increment the progress indicator
-		this.progress = +amount;
+		this.progress += amount;
 
 		// Calculate how far along we are
-		int percentComplete = (int) ((progress * 100) / total);
+		int newPercentCompleted = (int) ((progress * 100) / total);
 
 		// Have we made at least 1% progress since the last time we were informed about progress occurring?
-		if (isEnoughProgress(percentComplete, percentCompletePrevious, percentageIncrement)) {
+		if (isEnoughProgress(newPercentCompleted, percentComplete, percentageIncrement)) {
 			// If so, print a dot to the console
-			this.percentCompletePrevious = percentComplete;
+			this.percentComplete = newPercentCompleted;
 			inform.getPrintStream().print(inform.getProgressToken());
 		}
 	}
 
+	/**
+	 * Thread safe method indicating progress has stopped
+	 */
 	public synchronized void stop() {
 		Assert.isTrue(started, "Not started");
 		this.started = false;
-		this.percentCompletePrevious = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
+		this.percentComplete = UNINITIALIZED_PERCENT_COMPLETE_INDICATOR;
 		this.progress = UNINITIALIZED_PROGRESS_INDICATOR;
 		informer.stop();
 	}
 
-	protected boolean isEnoughProgress(int percentComplete, int percentCompletePrevious, int percentageIncrement) {
-		int needed = percentCompletePrevious + percentageIncrement;
-		return percentComplete >= needed;
+	protected boolean isEnoughProgress(int newPercentCompleted, int percentComplete, int percentageIncrement) {
+		int needed = percentComplete + percentageIncrement;
+		return newPercentCompleted >= needed;
 	}
 
 	public int getPercentageIncrement() {
 		return percentageIncrement;
-	}
-
-	public int getPercentCompletePrevious() {
-		return percentCompletePrevious;
-	}
-
-	public void setPercentCompletePrevious(int percentCompletePrevious) {
-		this.percentCompletePrevious = percentCompletePrevious;
 	}
 
 	public long getTotal() {
