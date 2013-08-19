@@ -16,8 +16,8 @@ import org.kuali.common.util.CollectionUtils;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public final class Log4JContext {
 
-	public static final Boolean DEFAULT_RESET = false;
-	public static final Boolean DEFAULT_DEBUG = false;
+	public static final boolean DEFAULT_RESET = false;
+	public static final boolean DEFAULT_DEBUG = false;
 	public static final Value DEFAULT_THRESHOLD = Value.NULL;
 	public static final List<Logger> DEFAULT_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> DEFAULT_APPENDERS = Collections.<Appender> emptyList();
@@ -29,28 +29,20 @@ public final class Log4JContext {
 	private final boolean debug;
 	private final Value threshold;
 
-	public Log4JContext() {
-		this(null, null);
-	}
-
 	public Log4JContext(List<Appender> appenders, Logger root) {
-		this(appenders, root, null);
-	}
-
-	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
-		this(appenders, root, loggers, DEFAULT_RESET_VALUE);
-	}
-
-	public Log4JContext(List<Appender> appenders, Logger root, boolean reset) {
-		this(appenders, root, null, reset);
+		this(appenders, root, DEFAULT_LOGGERS);
 	}
 
 	public Log4JContext(Appender appender, Logger root, boolean reset) {
 		this(CollectionUtils.singletonList(appender), root, DEFAULT_LOGGERS, reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
 	}
 
+	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
+		this(appenders, root, loggers, DEFAULT_RESET, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
+	}
+
 	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers, boolean reset, boolean debug, Value threshold) {
-		Assert.noNulls(appenders, root, loggers);
+		Assert.noNulls(appenders, root, loggers, threshold);
 		this.appenders = appenders;
 		this.root = root;
 		this.loggers = loggers;
@@ -60,12 +52,12 @@ public final class Log4JContext {
 	}
 
 	@XmlAttribute
-	public Boolean getReset() {
+	public boolean getReset() {
 		return reset;
 	}
 
 	@XmlAttribute
-	public Boolean getDebug() {
+	public boolean getDebug() {
 		return debug;
 	}
 
@@ -85,30 +77,6 @@ public final class Log4JContext {
 	}
 
 	@XmlElement
-	public void setRoot(Logger root) {
-		this.root = root;
-	}
-
-	public void setReset(Boolean reset) {
-		this.reset = reset;
-	}
-
-	public void setDebug(Boolean debug) {
-		this.debug = debug;
-	}
-
-	public void setThreshold(Value threshold) {
-		this.threshold = threshold;
-	}
-
-	public void setAppenders(List<Appender> appenders) {
-		this.appenders = appenders;
-	}
-
-	public void setLoggers(List<Logger> loggers) {
-		this.loggers = loggers;
-	}
-
 	public Logger getRoot() {
 		return root;
 	}
