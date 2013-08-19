@@ -32,6 +32,14 @@ public final class ResourcesSupplierFactory {
 	private final String suffix;
 	private final List<SupplierFactory> factories;
 
+	public List<SqlSupplier> getSuppliers(List<String> resourceLocations) {
+		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+		for (String resourceLocation : resourceLocations) {
+			suppliers.addAll(getSuppliers(resourceLocation));
+		}
+		return suppliers;
+	}
+
 	public List<SqlSupplier> getSuppliers(String resourcesLocation) {
 		Assert.noBlanks(resourcesLocation);
 		Assert.isTrue(isMatch(resourcesLocation));

@@ -24,7 +24,6 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
-import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
@@ -34,12 +33,10 @@ import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
 import org.kuali.common.jdbc.suppliers.ResourcesSupplierFactory;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
-import org.kuali.common.jdbc.suppliers.SqlSupplierFactory;
 import org.kuali.common.jdbc.suppliers.spring.SuppliersFactoryConfig;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
-import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -59,19 +56,10 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	DatabaseVendor vendor;
 
 	@Autowired
-	Project project;
-
-	@Autowired
-	SqlReader reader;
-
-	@Autowired
 	DataSourceConfig dataSources;
 
 	@Autowired
 	ResourcesSupplierFactory factory;
-
-	@Autowired
-	SqlSupplierFactory sqlSupplierFactory;
 
 	@Autowired
 	JdbcShowConfig show;
@@ -109,14 +97,16 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Bean
 	public JdbcContext otherJdbcContext() {
-		List<SqlSupplier> suppliers = getLiquibaseSuppliers();
+		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
+		List<SqlSupplier> suppliers = factory.getSuppliers(location);
 		DataSource dataSource = dataSources.dataSource();
 		return new JdbcContext(dataSource, suppliers, "[other:sequential]", true, 1);
 	}
 
 	@Bean
 	public JdbcContext dataJdbcContext() {
-		List<SqlSupplier> suppliers = getDataSuppliers();
+		List<String> locations = getDataLocations();
+		List<SqlSupplier> suppliers = factory.getSuppliers(locations);
 		return getJdbcContext("[data:concurrent]", suppliers);
 	}
 
@@ -135,23 +125,18 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : SCHEMAS) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
-			SqlSupplier supplier = sqlSupplierFactory.getSupplier(location);
+			SqlSupplier supplier = factory.getSupplier(location);
 			suppliers.add(supplier);
 		}
 		return suppliers;
 	}
 
-	protected List<SqlSupplier> getLiquibaseSuppliers() {
-		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
-		return factory.getSuppliers(location);
-	}
-
-	protected List<SqlSupplier> getDataSuppliers() {
-		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
+	protected List<String> getDataLocations() {
+		List<String> locations = new ArrayList<String>();
 		for (String schema : SCHEMAS) {
 			String location = "classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources";
-			suppliers.addAll(factory.getSuppliers(location));
+			locations.add(location);
 		}
-		return suppliers;
+		return locations;
 	}
 }
