@@ -51,7 +51,7 @@ public final class ResourcesSupplierFactory {
 				return factory;
 			}
 		}
-		throw new IllegalStateException("Unable to location a factory for [" + location + "]");
+		throw new IllegalStateException("Unable to locate a factory for [" + location + "]");
 	}
 
 	public boolean isMatch(String location) {
