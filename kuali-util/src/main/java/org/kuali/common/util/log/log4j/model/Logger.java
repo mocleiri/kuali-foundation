@@ -1,20 +1,36 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 public class Logger {
 
-	public static final Boolean DEFAULT_ADDITIVITY = true;
+	public static final boolean DEFAULT_ADDITIVITY = true;
+	public static final List<AppenderRef> DEFAULT_APPENDER_REFS = Collections.<AppenderRef> emptyList();
+	public static final Logger DEFAULT_LOGGER = new Logger();
+	public static final String ROOT_LOGGER_NAME = "ROOT";
 
+	@XmlAttribute
 	private final String name;
+
+	@XmlElement(name = "appender-ref")
 	private final List<AppenderRef> references;
+
+	@XmlAttribute
 	private final Level level;
+
+	@XmlAttribute
 	private final boolean additivity;
+
+	private Logger() {
+		this(NullUtils.NONE, DEFAULT_APPENDER_REFS, Level.DEFAULT_LEVEL);
+	}
 
 	public Logger(String name, List<AppenderRef> references, Level level) {
 		this(name, references, level, DEFAULT_ADDITIVITY);
@@ -29,23 +45,24 @@ public class Logger {
 		this.additivity = additivity;
 	}
 
-	@XmlElement(name = "appender-ref")
 	public List<AppenderRef> getReferences() {
 		return references;
 	}
 
-	@XmlAttribute
 	public Boolean getAdditivity() {
 		return additivity;
 	}
 
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
 	public Level getLevel() {
 		return level;
+	}
+
+	public static Logger getRootLogger(List<AppenderRef> references, Level level) {
+		return new Logger(ROOT_LOGGER_NAME, references, level);
 	}
 
 }

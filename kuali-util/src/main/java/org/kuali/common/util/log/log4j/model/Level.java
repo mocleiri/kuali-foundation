@@ -7,7 +7,8 @@ import org.kuali.common.util.Assert;
 public final class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_CLASS = org.apache.log4j.Level.class;
-	public static final Value DEFAULT_VALUE = Value.NULL;
+	public static final Value DEFAULT_VALUE = Value.OFF;
+	public static final Level DEFAULT_LEVEL = new Level();
 
 	@XmlAttribute(name = "class")
 	private final Class<?> levelClass;
@@ -15,7 +16,6 @@ public final class Level {
 	@XmlAttribute
 	private final Value value;
 
-	@SuppressWarnings("unused")
 	private Level() {
 		this(DEFAULT_CLASS, DEFAULT_VALUE);
 	}
