@@ -8,30 +8,22 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.nullify.Nullifier;
 
-public class Log4JContextNullifier implements Nullifier {
+public final class Log4JContextNullifier implements Nullifier {
 
-	Log4JContext context;
-
-	public Log4JContextNullifier() {
-		this(null);
-	}
+	private final Log4JContext context;
 
 	public Log4JContextNullifier(Log4JContext context) {
-		super();
+		Assert.noNulls(context);
 		this.context = context;
 	}
 
 	@Override
 	public void nullify() {
-
-		Assert.notNull(context);
-
 		nullify(context);
 		nullify(context.getRoot());
 		for (Logger logger : CollectionUtils.toEmptyList(context.getLoggers())) {
 			nullify(logger);
 		}
-
 	}
 
 	protected void nullify(Log4JContext context) {
@@ -65,10 +57,6 @@ public class Log4JContextNullifier implements Nullifier {
 
 	public Log4JContext getContext() {
 		return context;
-	}
-
-	public void setContext(Log4JContext context) {
-		this.context = context;
 	}
 
 }
