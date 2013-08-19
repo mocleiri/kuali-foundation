@@ -14,7 +14,7 @@ public interface Log4JService {
 
 	String toXml(Log4JContext context);
 
-	void store(File file, Log4JContext context);
+	void write(File file, Log4JContext context);
 
 	void configure(Properties properties);
 

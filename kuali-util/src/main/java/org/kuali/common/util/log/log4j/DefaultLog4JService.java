@@ -91,7 +91,7 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public void store(File file, Log4JContext context) {
+	public void write(File file, Log4JContext context) {
 		OutputStream out = null;
 		try {
 			String xml = toXml(context);
