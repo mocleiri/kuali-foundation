@@ -21,7 +21,7 @@ public class ParamFactory {
 	}
 
 	public static Param getFile(File file) {
-		return getFile(new CanonicalFile(file).getAbsolutePath());
+		return getFile(new CanonicalFile(file).getPath());
 	}
 
 	public static Param getThreshold(Value value) {
