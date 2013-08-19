@@ -2,7 +2,7 @@ package org.kuali.common.util.log.log4j;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.log4j.model.Log4JContext;
+import org.kuali.common.util.log.log4j.model.Log4JContext;
 
 public final class Log4JExecutable implements Executable {
 

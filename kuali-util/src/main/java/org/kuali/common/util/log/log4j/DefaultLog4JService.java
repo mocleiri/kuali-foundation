@@ -20,7 +20,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.log4j.model.Log4JContext;
+import org.kuali.common.util.log.log4j.model.Log4JContext;
 import org.kuali.common.util.xml.XmlService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -75,9 +75,7 @@ public final class DefaultLog4JService implements Log4JService {
 
 	@Override
 	public String toXml(Log4JContext context) {
-		Log4JContext clone = new Log4JContext(context);
-		new Log4JContextNullifier(clone).nullify();
-		return xmlService.toString(clone, ENCODING);
+		return xmlService.toString(context, ENCODING);
 	}
 
 	@Override
