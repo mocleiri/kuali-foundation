@@ -4,6 +4,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 public class AdaptedTable {
 
+	public AdaptedTable() {
+		this(null, null);
+	}
+
 	public AdaptedTable(String name) {
 		this(name, null);
 	}
