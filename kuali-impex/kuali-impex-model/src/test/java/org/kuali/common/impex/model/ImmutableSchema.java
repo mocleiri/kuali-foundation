@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,13 +24,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public final class ImmutableSchema {
 
+	@XmlElement
 	private final String name;
+
+	@XmlElement(name = "table")
 	private final List<ImmutableTable> tables;
+
+	@SuppressWarnings("unused")
+	private ImmutableSchema() {
+		this(NullUtils.NONE, Collections.<ImmutableTable> emptyList());
+	}
 
 	public ImmutableSchema(String name, List<ImmutableTable> tables) {
 		Assert.noBlanks(name);
@@ -38,12 +48,10 @@ public final class ImmutableSchema {
 		this.tables = tables;
 	}
 
-	@XmlElement
 	public String getName() {
 		return name;
 	}
 
-	@XmlElement(name = "table")
 	public List<ImmutableTable> getTables() {
 		return tables;
 	}

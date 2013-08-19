@@ -6,25 +6,30 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
-/**
- * This interface provides an implementation-independent API to access database table model information
- */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public final class ImmutableTable implements NamedElement {
 
+	@XmlAttribute
 	private final String name;
+
+	@XmlAttribute
 	private final String description;
 
+	@SuppressWarnings("unused")
+	private ImmutableTable() {
+		this(NullUtils.NONE, NullUtils.NONE);
+	}
+
 	public ImmutableTable(String name, String description) {
-		Assert.noBlanks(name);
+		Assert.noBlanks(name, description);
 		this.name = name;
 		this.description = description;
 	}
 
 	@Override
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
