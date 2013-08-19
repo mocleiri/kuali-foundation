@@ -59,12 +59,7 @@ public class Log4JConfig {
 	}
 
 	protected Log4JContext getLog4JContext(String pattern, Value value) {
-		Param param = ParamFactory.getPatternParam(pattern);
-		Layout layout = new Layout(PatternLayout.class, param);
-		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
-		AppenderRef ref = new AppenderRef(console.getName());
-		Logger root = Logger.getRootLogger(ref, new Level(value));
-		return new Log4JContext(console, root, true);
+		return getLog4JContext(pattern, value, null);
 	}
 
 	protected Log4JContext getLog4JContext(String pattern, Value value, Logger logger) {
