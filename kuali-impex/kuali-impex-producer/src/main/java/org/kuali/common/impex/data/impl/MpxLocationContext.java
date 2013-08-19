@@ -8,11 +8,11 @@ public final class MpxLocationContext {
 
 	public static final String DEFAULT_EXTENSION = "mpx";
 
-	public MpxLocationContext(String encoding, SqlProducer producer, Schema schema) {
-		this(encoding, producer, schema, DEFAULT_EXTENSION);
+	public MpxLocationContext(SqlProducer producer, Schema schema, String encoding) {
+		this(producer, schema, DEFAULT_EXTENSION, encoding);
 	}
 
-	public MpxLocationContext(String encoding, SqlProducer producer, Schema schema, String extension) {
+	public MpxLocationContext(SqlProducer producer, Schema schema, String encoding, String extension) {
 		Assert.noNulls(producer, schema);
 		Assert.noBlanks(encoding, extension);
 		this.encoding = encoding;
