@@ -8,12 +8,14 @@ import org.kuali.common.util.nullify.NullUtils;
 
 @XmlJavaTypeAdapter(TableAdapter.class)
 public final class ImmutableTable implements NamedElement {
+	
+	public static final String DEFAULT_DESCRIPTION = NullUtils.NONE;
 
 	private final String name;
 	private final String description;
 
 	public ImmutableTable(String name) {
-		this(name, NullUtils.NONE);
+		this(name, DEFAULT_DESCRIPTION);
 	}
 
 	public ImmutableTable(String name, String description) {
