@@ -112,7 +112,7 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 
 	@Override
 	public synchronized SqlMetaData getMetaData() {
-		if (this.metaData == null) {
+		if (metaData == null) {
 			this.metaData = MetaDataUtils.getSqlMetaData(this);
 		}
 		return this.metaData;
