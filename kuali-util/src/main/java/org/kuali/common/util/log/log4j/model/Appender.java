@@ -22,10 +22,10 @@ public final class Appender {
 	@XmlAttribute(name = "class")
 	private final Class<? extends Appender> appenderClass;
 
-	private final Layout layout;
-
 	@XmlElement(name = "param")
 	private final List<Param> params;
+
+	private final Layout layout;
 
 	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout) {
 		this(name, appenderClass, layout, DEFAULT_PARAMS);
