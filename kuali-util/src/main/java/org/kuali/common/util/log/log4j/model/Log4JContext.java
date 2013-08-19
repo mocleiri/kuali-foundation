@@ -42,15 +42,15 @@ public final class Log4JContext {
 
 	@SuppressWarnings("unused")
 	private Log4JContext() {
-		this(NO_APPENDERS, Logger.getDefaultRootLogger());
+		this(NO_APPENDERS, Logger.getNoRootLogger());
 	}
 
 	public Log4JContext(List<Appender> appenders, Logger root) {
-		this(appenders, root, DEFAULT_LOGGERS);
+		this(appenders, root, NO_LOGGERS);
 	}
 
 	public Log4JContext(Appender appender, Logger root, boolean reset) {
-		this(CollectionUtils.singletonList(appender), root, DEFAULT_LOGGERS, reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
+		this(CollectionUtils.singletonList(appender), root, NO_LOGGERS, reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
 	}
 
 	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
