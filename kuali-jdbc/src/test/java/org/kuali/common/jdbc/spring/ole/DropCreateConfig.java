@@ -125,8 +125,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : SCHEMAS) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
-			SqlSupplier supplier = factory.getSupplier(location);
-			suppliers.add(supplier);
+			suppliers.add(factory.getSupplier(location));
 		}
 		return suppliers;
 	}
@@ -134,8 +133,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 	protected List<String> getDataLocations() {
 		List<String> locations = new ArrayList<String>();
 		for (String schema : SCHEMAS) {
-			String location = "classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources";
-			locations.add(location);
+			locations.add("classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources");
 		}
 		return locations;
 	}
