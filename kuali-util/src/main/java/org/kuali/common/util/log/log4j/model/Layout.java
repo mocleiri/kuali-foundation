@@ -13,8 +13,9 @@ import org.kuali.common.util.nullify.Null;
 
 public final class Layout {
 
-	public static final Class<?> DEFAULT_JAVA_CLASS = Null.class;
+	public static final Class<?> DEFAULT_LAYOUT_CLASS = Null.class;
 	public static final List<Param> DEFAULT_PARAMS = Collections.<Param> emptyList();
+	public static final Layout DEFAULT_LAYOUT = new Layout(DEFAULT_LAYOUT_CLASS, DEFAULT_PARAMS);
 
 	@XmlAttribute(name = "class")
 	private final Class<?> layoutClass;
@@ -24,7 +25,7 @@ public final class Layout {
 
 	@SuppressWarnings("unused")
 	private Layout() {
-		this(DEFAULT_JAVA_CLASS, new ArrayList<Param>());
+		this(DEFAULT_LAYOUT_CLASS, new ArrayList<Param>());
 	}
 
 	public Layout(Class<?> layoutClass, Param param) {
