@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement(name = "schema")
@@ -40,6 +41,10 @@ public final class ImmutableSchema {
 	@SuppressWarnings("unused")
 	private ImmutableSchema() {
 		this(NullUtils.NONE, new ArrayList<ImmutableTable>());
+	}
+
+	public ImmutableSchema(String name, ImmutableTable table) {
+		this(name, CollectionUtils.singletonList(table));
 	}
 
 	public ImmutableSchema(String name, List<ImmutableTable> tables) {
