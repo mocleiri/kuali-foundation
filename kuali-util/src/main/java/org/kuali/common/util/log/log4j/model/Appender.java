@@ -7,14 +7,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.log.log4j.NoOpAppender;
 import org.kuali.common.util.nullify.NullUtils;
 
 public final class Appender {
 
-	public static final List<Param> DEFAULT_PARAMS = Collections.<Param> emptyList();
-	public static final String DEFAULT_NAME = NullUtils.NONE;
-	public static final Class<NoOpAppender> DEFAULT_APPENDER_CLASS = NoOpAppender.class;
+	public static final List<Param> NO_PARAMS = Collections.<Param> emptyList();
+	public static final String NO_NAME = NullUtils.NONE;
+	public static final Class<? extends Appender> NO_APPENDER_CLASS = Appender.class;
+	public static final Appender NO_APPENDER = new Appender();
 
 	@XmlAttribute
 	private final String name;
@@ -27,8 +27,12 @@ public final class Appender {
 
 	private final Layout layout;
 
+	private Appender() {
+		this(NO_NAME, NO_APPENDER_CLASS, Layout.NO_LAYOUT);
+	}
+
 	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout) {
-		this(name, appenderClass, layout, DEFAULT_PARAMS);
+		this(name, appenderClass, layout, NO_PARAMS);
 	}
 
 	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout, List<Param> params) {
