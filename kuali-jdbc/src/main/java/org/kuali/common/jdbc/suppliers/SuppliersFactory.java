@@ -8,15 +8,15 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 
-public final class ResourcesFactory {
+public final class SuppliersFactory {
 
 	public static final String DEFAULT_EXTENSION = "resources";
 
-	public ResourcesFactory(List<SupplierFactory> factories) {
+	public SuppliersFactory(List<SupplierFactory> factories) {
 		this(DEFAULT_EXTENSION, factories);
 	}
 
-	public ResourcesFactory(String extension, List<SupplierFactory> factories) {
+	public SuppliersFactory(String extension, List<SupplierFactory> factories) {
 		Assert.noBlanks(extension);
 		Assert.isFalse(CollectionUtils.isEmpty(factories), "Must provide at least one factory");
 		this.factories = CollectionUtils.unmodifiableCopy(factories);
