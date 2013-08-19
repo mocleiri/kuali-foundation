@@ -35,6 +35,7 @@ public class ImmutableObjectXMLTest {
 			File file2 = new File(System.getProperty("user.home") + "/ws/kuali-impex/kuali-impex-model/target/schema2.xml");
 			logger.info("Creating [{}]", file2);
 			service.write(file2, in);
+			logger.info(in.getTables().get(0).getDescription());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
