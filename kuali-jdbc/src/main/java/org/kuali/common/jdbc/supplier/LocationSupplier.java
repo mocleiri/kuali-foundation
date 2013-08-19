@@ -15,7 +15,10 @@
  */
 package org.kuali.common.jdbc.supplier;
 
-
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface LocationSupplier extends SqlSupplier {
 
 	String getLocation();

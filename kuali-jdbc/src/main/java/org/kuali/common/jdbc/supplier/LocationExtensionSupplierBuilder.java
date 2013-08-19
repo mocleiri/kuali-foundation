@@ -16,12 +16,13 @@
 package org.kuali.common.jdbc.supplier;
 
 /**
- * @author andrewlubbers
+ * @deprecated
  */
+@Deprecated
 public interface LocationExtensionSupplierBuilder {
 
-    String getExtension();
+	String getExtension();
 
-    LocationSupplier buildSupplier(String location);
+	LocationSupplier buildSupplier(String location);
 
 }

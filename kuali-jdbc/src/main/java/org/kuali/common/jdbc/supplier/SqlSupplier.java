@@ -18,6 +18,10 @@ package org.kuali.common.jdbc.supplier;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface SqlSupplier extends Comparable<SqlSupplier> {
 
 	/**

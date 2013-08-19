@@ -15,6 +15,10 @@
  */
 package org.kuali.common.jdbc.supplier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class LocationSupplierSourceBean {
 
 	Class<? extends LocationSupplier> supplierClass;
