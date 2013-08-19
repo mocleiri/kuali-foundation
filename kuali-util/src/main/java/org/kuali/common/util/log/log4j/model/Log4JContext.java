@@ -18,7 +18,7 @@ public final class Log4JContext {
 
 	public static final boolean DEFAULT_RESET = false;
 	public static final boolean DEFAULT_DEBUG = false;
-	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT;
+	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT_VALUE;
 	public static final List<Logger> DEFAULT_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> DEFAULT_APPENDERS = Collections.<Appender> emptyList();
 
