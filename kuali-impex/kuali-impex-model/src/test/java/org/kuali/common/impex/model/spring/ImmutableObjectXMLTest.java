@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.kuali.common.impex.model.ImmutableSchema;
 import org.kuali.common.impex.model.ImmutableTable;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.slf4j.Logger;
@@ -30,11 +29,11 @@ public class ImmutableObjectXMLTest {
 		try {
 			ImmutableTable table = new ImmutableTable("foo");
 			ImmutableSchema out = new ImmutableSchema("bar", CollectionUtils.singletonList(table));
-			File file1 = new CanonicalFile(System.getProperty("user.home") + "/ws/kuali-impex/kuali-impex-model/target/schema1.xml");
+			File file1 = new File(System.getProperty("user.home") + "/ws/kuali-impex/kuali-impex-model/target/schema1.xml");
 			logger.info("Creating [{}]", file1);
 			service.write(file1, out);
 			ImmutableSchema in = service.getObject(file1, ImmutableSchema.class);
-			File file2 = new CanonicalFile(System.getProperty("user.home") + "/ws/kuali-impex/kuali-impex-model/target/schema2.xml");
+			File file2 = new File(System.getProperty("user.home") + "/ws/kuali-impex/kuali-impex-model/target/schema2.xml");
 			logger.info("Creating [{}]", file2);
 			service.write(file2, in);
 		} catch (Exception e) {
