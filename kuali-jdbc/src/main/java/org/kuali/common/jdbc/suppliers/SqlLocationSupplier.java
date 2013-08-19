@@ -24,7 +24,6 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
-import org.kuali.common.jdbc.suppliers.model.SqlLocationContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 

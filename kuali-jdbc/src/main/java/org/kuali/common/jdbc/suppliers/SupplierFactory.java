@@ -1,6 +1,5 @@
-package org.kuali.common.jdbc.suppliers.service;
+package org.kuali.common.jdbc.suppliers;
 
-import org.kuali.common.jdbc.suppliers.SqlSupplier;
 
 public interface SupplierFactory {
 

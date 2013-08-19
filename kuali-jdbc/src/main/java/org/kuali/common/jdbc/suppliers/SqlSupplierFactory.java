@@ -1,9 +1,6 @@
-package org.kuali.common.jdbc.suppliers.service;
+package org.kuali.common.jdbc.suppliers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
-import org.kuali.common.jdbc.suppliers.SqlSupplier;
-import org.kuali.common.jdbc.suppliers.model.SqlLocationContext;
 import org.kuali.common.util.Assert;
 
 public class SqlSupplierFactory implements SupplierFactory {

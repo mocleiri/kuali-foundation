@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.suppliers.model;
+package org.kuali.common.jdbc.suppliers;
 
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.util.Assert;
