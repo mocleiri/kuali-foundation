@@ -20,7 +20,11 @@ public final class ImmutableTable implements NamedElement {
 
 	@SuppressWarnings("unused")
 	private ImmutableTable() {
-		this(NullUtils.NONE, NullUtils.NONE);
+		this(NullUtils.NONE);
+	}
+
+	public ImmutableTable(String name) {
+		this(name, NullUtils.NONE);
 	}
 
 	public ImmutableTable(String name, String description) {
