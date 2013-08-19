@@ -33,7 +33,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<fieldset>
 							<legend>Opportunity actions</legend>
 							<div class="form-group clearfix">
-								<button class="btn btn-default">Load new opportunity...</button>
+								<button class="btn btn-default modal" data-page="page-name-here.html">Load new opportunity...</button>
 							</div>
 						</fieldset>
 					</form>

@@ -385,6 +385,9 @@ section.toolbar .dropdown a .caret {
 #main .box .boxHeader h4 {
   font-size: 13px;
 }
+#main .key-personnel {
+  margin-bottom: 3%;
+}
 footer {
   color: #f2f2f2;
 }

@@ -36,6 +36,22 @@ $(document).ready(function() {
 
 
 
+	/*
+		Modal handler
+		Calls Fancybox modal using the `page` data attribute
+	*/
+	$('.launch-modal').on('click', function(e){
+		e.preventDefault();
+
+		$.fancybox.open({
+			href: $(this).data('modal-page'),
+			type: 'iframe',
+			padding: 0
+		});
+	});
+
+
+
 
 
 	// Document search, Fancybox
