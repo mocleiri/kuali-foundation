@@ -29,11 +29,10 @@ public class Log4JConfig {
 	protected static final String STDOUT = "stdout";
 
 	@Autowired
-	XmlServiceConfig xmlServiceConfig;
+	XmlService service;
 
 	@Bean
 	public Log4JService log4jService() {
-		XmlService service = xmlServiceConfig.xmlService();
 		return new DefaultLog4JService(service);
 	}
 
