@@ -1,7 +1,5 @@
 package org.kuali.common.util.log.log4j.spring;
 
-import java.util.Arrays;
-
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.kuali.common.util.log.log4j.DefaultLog4JService;
@@ -56,11 +54,8 @@ public class Log4JConfig {
 
 	@Bean
 	public Log4JContext log4JContextMaven() {
-		Log4JContext context = getLog4JContext(Log4JPatternConstants.MAVEN, Value.INFO);
-		// Tone down Spring logging when we are running a build
 		Logger spring = new Logger(SPRING, new Level(Value.WARN));
-		context.setLoggers(Arrays.asList(spring));
-		return context;
+		return getLog4JContext(Log4JPatternConstants.MAVEN, Value.INFO, spring);
 	}
 
 	protected Log4JContext getLog4JContext(String pattern, Value value) {
@@ -68,8 +63,20 @@ public class Log4JConfig {
 		Layout layout = new Layout(PatternLayout.class, param);
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
 		AppenderRef ref = new AppenderRef(console.getName());
-		Logger root = new Logger(ref, new Level(value));
+		Logger root = Logger.getRootLogger(ref, new Level(value));
 		return new Log4JContext(console, root, true);
 	}
 
+	protected Log4JContext getLog4JContext(String pattern, Value value, Logger logger) {
+		Param param = ParamFactory.getPatternParam(pattern);
+		Layout layout = new Layout(PatternLayout.class, param);
+		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
+		AppenderRef ref = new AppenderRef(console.getName());
+		Logger root = Logger.getRootLogger(ref, new Level(value));
+		if (logger == null) {
+			return new Log4JContext(console, root, true);
+		} else {
+			return new Log4JContext(console, root, logger, true);
+		}
+	}
 }

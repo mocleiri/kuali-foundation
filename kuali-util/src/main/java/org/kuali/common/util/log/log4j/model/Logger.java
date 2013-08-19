@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 public class Logger {
@@ -29,6 +30,10 @@ public class Logger {
 
 	private Logger() {
 		this(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
+	}
+
+	public Logger(String name, Level level) {
+		this(name, AppenderRef.NO_APPENDER_REFS, level, DEFAULT_ADDITIVITY);
 	}
 
 	public Logger(String name, List<AppenderRef> references, Level level) {
@@ -58,6 +63,10 @@ public class Logger {
 
 	public Level getLevel() {
 		return level;
+	}
+
+	public static Logger getRootLogger(AppenderRef reference, Level level) {
+		return getRootLogger(CollectionUtils.singletonList(reference), level);
 	}
 
 	public static Logger getRootLogger(List<AppenderRef> references, Level level) {

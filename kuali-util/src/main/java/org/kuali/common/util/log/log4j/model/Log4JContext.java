@@ -53,6 +53,14 @@ public final class Log4JContext {
 		this(CollectionUtils.singletonList(appender), root, NO_LOGGERS, reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
 	}
 
+	public Log4JContext(Appender appender, Logger root, Logger other, boolean reset) {
+		this(CollectionUtils.singletonList(appender), root, other, reset);
+	}
+
+	public Log4JContext(List<Appender> appenders, Logger root, Logger other, boolean reset) {
+		this(appenders, root, CollectionUtils.singletonList(other), reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
+	}
+
 	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
 		this(appenders, root, loggers, DEFAULT_RESET, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
 	}
