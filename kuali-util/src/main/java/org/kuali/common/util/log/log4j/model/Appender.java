@@ -54,7 +54,7 @@ public final class Appender {
 	}
 
 	public List<Param> getParams() {
-		return params;
+		return Collections.unmodifiableList(params);
 	}
 
 	public Layout getLayout() {
