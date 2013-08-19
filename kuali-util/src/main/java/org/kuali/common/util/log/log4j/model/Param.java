@@ -1,11 +1,18 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 
 public final class Param {
+
+	public static final List<Param> NO_PARAMS = Collections.<Param> emptyList();
+	public static final String NO_NAME = NullUtils.NONE;
+	public static final String NO_VALUE = NullUtils.NONE;
 
 	@XmlAttribute
 	private final String name;
@@ -15,7 +22,7 @@ public final class Param {
 
 	@SuppressWarnings("unused")
 	private Param() {
-		this(NullUtils.NONE, NullUtils.NONE);
+		this(NO_NAME, NO_VALUE);
 	}
 
 	public Param(String name, String value) {
