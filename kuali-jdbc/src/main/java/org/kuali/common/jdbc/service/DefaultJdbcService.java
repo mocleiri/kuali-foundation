@@ -132,7 +132,7 @@ public class DefaultJdbcService implements JdbcService {
 		Collections.sort(buckets);
 		Collections.reverse(buckets);
 
-		// Append a thread safe listener that prints a dot to the console each time 1% of the SQL that gets completed
+		// This context includes a thread safe listener that prints a dot to the console each time 1% of the SQL gets completed
 		ThreadsContext threadsContext = getThreadsContext(context);
 
 		// Provide some context for each bucket
