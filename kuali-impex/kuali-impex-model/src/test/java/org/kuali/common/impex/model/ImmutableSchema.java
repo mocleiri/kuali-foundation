@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement(name = "schema")
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -38,18 +40,7 @@ public final class ImmutableSchema {
 
 	@SuppressWarnings("unused")
 	private ImmutableSchema() {
-		this(null, null, false);
-	}
-
-	private ImmutableSchema(String name, List<ImmutableTable> tables, boolean validate) {
-		if (validate) {
-			Assert.noBlanks(name);
-			Assert.noNulls(tables);
-			this.tables = Collections.unmodifiableList(tables);
-		} else {
-			this.tables = tables;
-		}
-		this.name = name;
+		this(NullUtils.NONE, new ArrayList<ImmutableTable>());
 	}
 
 	public ImmutableSchema(String name, ImmutableTable table) {
@@ -57,7 +48,10 @@ public final class ImmutableSchema {
 	}
 
 	public ImmutableSchema(String name, List<ImmutableTable> tables) {
-		this(name, tables, true);
+		Assert.noBlanks(name);
+		Assert.noNulls(tables);
+		this.tables = tables;
+		this.name = name;
 	}
 
 	public String getName() {
@@ -65,7 +59,7 @@ public final class ImmutableSchema {
 	}
 
 	public List<ImmutableTable> getTables() {
-		return tables;
+		return Collections.unmodifiableList(tables);
 	}
 
 }

@@ -18,8 +18,8 @@ public final class ImmutableTable implements NamedElement {
 
 	public ImmutableTable(String name, String description) {
 		Assert.noBlanks(name, description);
-		this.name = name;
 		this.description = description;
+		this.name = name;
 	}
 
 	@Override
