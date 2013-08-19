@@ -13,14 +13,14 @@ import org.kuali.common.util.nullify.NullUtils;
 public final class Appender {
 
 	public static final String NO_NAME = NullUtils.NONE;
-	public static final Class<? extends Appender> NO_APPENDER_CLASS = Appender.class;
+	public static final Class<? extends org.apache.log4j.Appender> NO_APPENDER_CLASS = org.apache.log4j.Appender.class;
 	public static final Appender NO_APPENDER = new Appender();
 
 	@XmlAttribute
 	private final String name;
 
 	@XmlAttribute(name = "class")
-	private final Class<? extends Appender> appenderClass;
+	private final Class<? extends org.apache.log4j.Appender> appenderClass;
 
 	@XmlElement(name = "param")
 	private final List<Param> params;
@@ -31,11 +31,11 @@ public final class Appender {
 		this(NO_NAME, NO_APPENDER_CLASS, Layout.NO_LAYOUT, new ArrayList<Param>());
 	}
 
-	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout) {
+	public Appender(String name, Class<? extends org.apache.log4j.Appender> appenderClass, Layout layout) {
 		this(name, appenderClass, layout, Param.NO_PARAMS);
 	}
 
-	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout, List<Param> params) {
+	public Appender(String name, Class<? extends org.apache.log4j.Appender> appenderClass, Layout layout, List<Param> params) {
 		Assert.noBlanks(name);
 		Assert.noNulls(appenderClass, layout, params);
 		this.name = name;
@@ -48,7 +48,7 @@ public final class Appender {
 		return name;
 	}
 
-	public Class<? extends Appender> getAppenderClass() {
+	public Class<? extends org.apache.log4j.Appender> getAppenderClass() {
 		return appenderClass;
 	}
 

@@ -7,6 +7,7 @@ import org.apache.log4j.PatternLayout;
 import org.kuali.common.util.log.log4j.DefaultLog4JService;
 import org.kuali.common.util.log.log4j.Log4JPatternConstants;
 import org.kuali.common.util.log.log4j.Log4JService;
+import org.kuali.common.util.log.log4j.ParamFactory;
 import org.kuali.common.util.log.log4j.model.Appender;
 import org.kuali.common.util.log.log4j.model.AppenderRef;
 import org.kuali.common.util.log.log4j.model.Layout;
@@ -15,7 +16,6 @@ import org.kuali.common.util.log.log4j.model.Log4JContext;
 import org.kuali.common.util.log.log4j.model.Logger;
 import org.kuali.common.util.log.log4j.model.Param;
 import org.kuali.common.util.log.log4j.model.Value;
-import org.kuali.common.util.log.log4j.model.param.ConversionPatternParam;
 import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,11 +64,12 @@ public class Log4JConfig {
 	}
 
 	protected Log4JContext getLog4JContext(String pattern, Value value) {
-		Param param = new ConversionPatternParam(pattern);
+		Param param = ParamFactory.getPatternParam(pattern);
 		Layout layout = new Layout(PatternLayout.class, param);
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
 		AppenderRef ref = new AppenderRef(console.getName());
 		Logger root = new Logger(ref, new Level(value));
 		return new Log4JContext(console, root, true);
 	}
+
 }
