@@ -32,6 +32,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<form action="#" method="post" class="">
 						<fieldset>
 							<legend>Search for and add key personnel</legend>
+
+							<div class="info-message">
+								<div class="alert alert-success">
+									Great, Edward Haskell was successfully added!
+								</div>
+							</div>
+
 							<p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, and any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).
 
 							<div class="key-personnel">
