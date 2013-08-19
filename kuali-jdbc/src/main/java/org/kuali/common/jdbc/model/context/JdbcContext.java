@@ -64,7 +64,7 @@ public final class JdbcContext {
 	}
 
 	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode) {
-		this(skipSqlExecution, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, null, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
+		this(skipSqlExecution, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, NO_MESSAGE, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
 	}
 
 	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener,
