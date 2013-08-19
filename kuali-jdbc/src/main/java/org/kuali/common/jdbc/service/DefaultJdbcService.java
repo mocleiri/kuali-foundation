@@ -152,19 +152,22 @@ public class DefaultJdbcService implements JdbcService {
 		ExecutionStatistics stats = invoker.invokeThreads(thc);
 		threadsContext.getInformer().stop();
 
+		ThreadSafeListener listener = threadsContext.getThreadSafeListener();
+		logStats(listener, stats, buckets);
+		return new ExecutionStats(listener.getAggregateUpdateCount(), listener.getAggregateSqlCount());
+	}
+
+	protected void logStats(ThreadSafeListener listener, ExecutionStatistics stats, List<SqlBucket> buckets) {
 		// Display thread related stats
-		ThreadSafeListener tsl = threadsContext.getThreadSafeListener();
-		long aggregateTime = tsl.getAggregateTime();
+		long aggregateTime = listener.getAggregateTime();
 		long wallTime = stats.getExecutionTime();
 		String avgMillis = FormatUtils.getTime(aggregateTime / buckets.size());
 		String aTime = FormatUtils.getTime(aggregateTime);
 		String wTime = FormatUtils.getTime(wallTime);
-		String sqlCount = FormatUtils.getCount(tsl.getAggregateSqlCount());
-		String sqlSize = FormatUtils.getSize(tsl.getAggregateSqlSize());
+		String sqlCount = FormatUtils.getCount(listener.getAggregateSqlCount());
+		String sqlSize = FormatUtils.getSize(listener.getAggregateSqlSize());
 		Object[] args = { buckets.size(), wTime, aTime, avgMillis, sqlCount, sqlSize };
 		logger.debug("Threads - [count: {}  time: {}  aggregate: {}  avg: {}  sql: {} - {}]", args);
-
-		return new ExecutionStats(tsl.getAggregateUpdateCount(), tsl.getAggregateSqlCount());
 	}
 
 	@Override
