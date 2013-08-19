@@ -25,6 +25,7 @@ public final class Appender {
 	@XmlElement(name = "param")
 	private final List<Param> params;
 
+	@XmlElement
 	private final Layout layout;
 
 	private Appender() {

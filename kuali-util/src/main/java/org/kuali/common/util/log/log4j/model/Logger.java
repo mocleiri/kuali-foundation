@@ -22,7 +22,7 @@ public class Logger {
 	@XmlElement(name = "appender-ref")
 	private final List<AppenderRef> references;
 
-	@XmlAttribute
+	// @XmlAttribute
 	private final Level level;
 
 	@XmlAttribute
