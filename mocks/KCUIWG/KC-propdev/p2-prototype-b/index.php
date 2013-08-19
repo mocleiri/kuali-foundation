@@ -3,9 +3,9 @@
 $page = 'index';
 
 # Includes
-require_once( 'kc/inc/head.php' );
-require_once( 'kc/inc/nav.php' );
-require_once( 'kc/inc/toolbar.php' );
+require_once( 'themes/kc/inc/head.php' );
+require_once( 'themes/kc/inc/nav.php' );
+require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
 <section id="main">
@@ -102,10 +102,10 @@ require_once( 'kc/inc/toolbar.php' );
 			</div>
 		</div>
 
-		<?php require_once( 'kc/inc/third-tier.php' ); ?>
+		<?php require_once( 'themes/kc/inc/third-tier.php' ); ?>
 
 	</div>
 
 </section>
 
-<?php require_once( 'kc/inc/footer.php' ); ?>
+<?php require_once( 'themes/kc/inc/footer.php' ); ?>

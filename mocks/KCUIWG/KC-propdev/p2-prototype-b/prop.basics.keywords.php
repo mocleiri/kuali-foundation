@@ -3,21 +3,21 @@
 $page = 'basics-keywords';
 
 # Includes
-require_once( 'kc/inc/head.php' );
-require_once( 'kc/inc/nav.php' );
-require_once( 'kc/inc/toolbar.php' );
+require_once( 'themes/kc/inc/head.php' );
+require_once( 'themes/kc/inc/nav.php' );
+require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
 <section id="main">
 		
-	<?php require_once( 'kc/inc/doc-header.php' ); ?>
+	<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 	<div class="container">
 
 		<div class="row">
 
 			<div class="col-lg-3">
-				<?php require_once( 'kc/inc/doc-subnav.php' ); ?>
+				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
 			<div class="col-lg-9">
@@ -63,4 +63,4 @@ require_once( 'kc/inc/toolbar.php' );
 
 </section>
 
-<?php require_once( 'kc/inc/footer.php' ); ?>
+<?php require_once( 'themes/kc/inc/footer.php' ); ?>
