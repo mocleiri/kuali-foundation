@@ -40,7 +40,18 @@ public final class ImmutableSchema {
 
 	@SuppressWarnings("unused")
 	private ImmutableSchema() {
-		this(NullUtils.NONE, new ArrayList<ImmutableTable>());
+		this(NullUtils.NONE, new ArrayList<ImmutableTable>(), false);
+	}
+
+	private ImmutableSchema(String name, List<ImmutableTable> tables, boolean validate) {
+		if (validate) {
+			Assert.noBlanks(name);
+			Assert.noNulls(tables);
+			this.tables = Collections.unmodifiableList(tables);
+		} else {
+			this.tables = tables;
+		}
+		this.name = name;
 	}
 
 	public ImmutableSchema(String name, ImmutableTable table) {
@@ -48,10 +59,7 @@ public final class ImmutableSchema {
 	}
 
 	public ImmutableSchema(String name, List<ImmutableTable> tables) {
-		Assert.noBlanks(name);
-		Assert.noNulls(tables);
-		this.name = name;
-		this.tables = tables;
+		this(name, tables, true);
 	}
 
 	public String getName() {
@@ -59,7 +67,7 @@ public final class ImmutableSchema {
 	}
 
 	public List<ImmutableTable> getTables() {
-		return Collections.unmodifiableList(tables);
+		return tables;
 	}
 
 }
