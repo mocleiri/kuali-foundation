@@ -1,5 +1,6 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
-import org.springframework.util.CollectionUtils;
 
 public final class Appender {
 
@@ -29,7 +29,7 @@ public final class Appender {
 	private final Layout layout;
 
 	private Appender() {
-		this(NO_NAME, NO_APPENDER_CLASS, Layout.NO_LAYOUT);
+		this(NO_NAME, NO_APPENDER_CLASS, Layout.NO_LAYOUT, new ArrayList<Param>());
 	}
 
 	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout) {
@@ -42,7 +42,7 @@ public final class Appender {
 		this.name = name;
 		this.appenderClass = appenderClass;
 		this.layout = layout;
-		this.params = CollectionUtils.isEmpty(params) ? NO_PARAMS : params;
+		this.params = params;
 	}
 
 	public String getName() {
