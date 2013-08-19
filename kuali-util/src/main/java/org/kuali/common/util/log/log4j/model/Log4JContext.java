@@ -40,39 +40,8 @@ public final class Log4JContext {
 	@XmlAttribute
 	private final Value threshold;
 
-	@SuppressWarnings("unused")
 	private Log4JContext() {
-		this(NO_APPENDERS, Logger.getNoRootLogger());
-	}
-
-	public Log4JContext(List<Appender> appenders, Logger root) {
-		this(appenders, root, NO_LOGGERS);
-	}
-
-	public Log4JContext(Appender appender, Logger root, boolean reset) {
-		this(CollectionUtils.singletonList(appender), root, NO_LOGGERS, reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
-	}
-
-	public Log4JContext(Appender appender, Logger root, Logger other, boolean reset) {
-		this(CollectionUtils.singletonList(appender), root, other, reset);
-	}
-
-	public Log4JContext(List<Appender> appenders, Logger root, Logger other, boolean reset) {
-		this(appenders, root, CollectionUtils.singletonList(other), reset, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
-	}
-
-	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers) {
-		this(appenders, root, loggers, DEFAULT_RESET, DEFAULT_DEBUG, DEFAULT_THRESHOLD);
-	}
-
-	public Log4JContext(List<Appender> appenders, Logger root, List<Logger> loggers, boolean reset, boolean debug, Value threshold) {
-		Assert.noNulls(appenders, root, loggers, threshold);
-		this.appenders = appenders;
-		this.root = root;
-		this.loggers = loggers;
-		this.reset = reset;
-		this.debug = debug;
-		this.threshold = threshold;
+		this(new Builder());
 	}
 
 	public boolean getReset() {
@@ -97,6 +66,73 @@ public final class Log4JContext {
 
 	public Logger getRoot() {
 		return root;
+	}
+
+	public static class Builder {
+
+		private List<Appender> appenders = NO_APPENDERS;
+		private Logger root = Logger.getNoRootLogger();
+		private List<Logger> loggers = NO_LOGGERS;
+		private boolean reset = DEFAULT_RESET;
+		private boolean debug = DEFAULT_DEBUG;
+		private Value threshold = DEFAULT_THRESHOLD;
+
+		public Builder() {
+		}
+
+		public Builder appenders(List<Appender> appenders) {
+			this.appenders = appenders;
+			return this;
+		}
+
+		public Builder appender(Appender appender) {
+			this.appenders = CollectionUtils.singletonList(appender);
+			return this;
+		}
+
+		public Builder root(Logger root) {
+			this.root = root;
+			return this;
+		}
+
+		public Builder logger(Logger logger) {
+			this.loggers = CollectionUtils.singletonList(logger);
+			return this;
+		}
+
+		public Builder loggers(List<Logger> loggers) {
+			this.loggers = loggers;
+			return this;
+		}
+
+		public Builder reset(boolean reset) {
+			this.reset = reset;
+			return this;
+		}
+
+		public Builder debug(boolean debug) {
+			this.debug = debug;
+			return this;
+		}
+
+		public Builder debug(Value threshold) {
+			this.threshold = threshold;
+			return this;
+		}
+
+		public Log4JContext build() {
+			Assert.noNulls(appenders, root, loggers);
+			return new Log4JContext(this);
+		}
+	}
+
+	private Log4JContext(Builder builder) {
+		this.appenders = builder.appenders;
+		this.root = builder.root;
+		this.loggers = builder.loggers;
+		this.reset = builder.reset;
+		this.debug = builder.debug;
+		this.threshold = builder.threshold;
 	}
 
 }

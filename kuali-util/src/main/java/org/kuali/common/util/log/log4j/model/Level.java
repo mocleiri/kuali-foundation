@@ -9,7 +9,7 @@ public final class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_CLASS = org.apache.log4j.Level.class;
 	public static final Class<Null> NO_CLASS = Null.class;
-	public static final Value NO_VALUE = Value.OFF;
+	public static final Value NO_VALUE = Value.NULL;
 	public static final Level NO_LEVEL = new Level();
 
 	@XmlAttribute(name = "class")
