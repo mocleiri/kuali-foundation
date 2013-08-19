@@ -69,9 +69,9 @@ public class Log4JConfig {
 		AppenderRef ref = new AppenderRef(console.getName());
 		Logger root = Logger.getRootLogger(ref, new Level(value));
 		if (logger == null) {
-			return new Log4JContext(console, root, true);
+			return new Log4JContext.Builder().appender(console).root(root).reset(true).build();
 		} else {
-			return new Log4JContext(console, root, logger, true);
+			return new Log4JContext.Builder().appender(console).root(root).logger(logger).reset(true).build();
 		}
 	}
 }
