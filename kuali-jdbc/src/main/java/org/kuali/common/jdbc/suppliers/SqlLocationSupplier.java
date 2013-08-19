@@ -34,6 +34,7 @@ import org.kuali.common.util.LocationUtils;
 public final class SqlLocationSupplier extends AbstractSupplier implements SqlSupplier {
 
 	private final SqlLocationContext context;
+	private final String location;
 
 	private SqlMetaData metaData;
 	private boolean open = false;
@@ -41,11 +42,14 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	private BufferedReader in;
 
 	public SqlLocationSupplier(String location, String encoding, SqlReader reader) {
-		this(new SqlLocationContext(location, encoding, reader));
+		this(location, new SqlLocationContext(encoding, reader));
 	}
 
-	public SqlLocationSupplier(SqlLocationContext context) {
+	public SqlLocationSupplier(String location, SqlLocationContext context) {
 		Assert.noNulls(context);
+		Assert.noBlanks(location);
+		Assert.isTrue(LocationUtils.exists(location));
+		this.location = location;
 		this.context = context;
 	}
 
@@ -54,7 +58,7 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 		Assert.isFalse(open, "Already open");
 		this.open = true;
 		this.done = false;
-		this.in = LocationUtils.getBufferedReader(context.getLocation(), context.getEncoding());
+		this.in = LocationUtils.getBufferedReader(location, context.getEncoding());
 	}
 
 	@Override
@@ -99,13 +103,17 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	@Override
 	public synchronized SqlMetaData getMetaData() {
 		if (metaData == null) {
-			this.metaData = MetaDataUtils.getSqlMetaData(context);
+			this.metaData = MetaDataUtils.getSqlMetaData(location, context);
 		}
 		return this.metaData;
 	}
 
 	public SqlLocationContext getContext() {
 		return context;
+	}
+
+	public String getLocation() {
+		return location;
 	}
 
 }

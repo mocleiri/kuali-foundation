@@ -34,11 +34,11 @@ public class MetaDataUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaDataUtils.class);
 
-	public static SqlMetaData getSqlMetaData(SqlLocationContext context) {
+	public static SqlMetaData getSqlMetaData(String location, SqlLocationContext context) {
 		BufferedReader in = null;
 		try {
-			logger.debug("Getting metadata for [{}] - encoding {}", context.getLocation(), context.getEncoding());
-			in = LocationUtils.getBufferedReader(context.getLocation(), context.getEncoding());
+			logger.debug("Getting metadata for [{}] - encoding {}", location, context.getEncoding());
+			in = LocationUtils.getBufferedReader(location, context.getEncoding());
 			return getSqlMetaData(in, context.getReader());
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
