@@ -65,4 +65,8 @@ public class Logger {
 		return new Logger(ROOT_LOGGER_NAME, references, level);
 	}
 
+	public static Logger getDefaultRootLogger() {
+		return new Logger(ROOT_LOGGER_NAME, DEFAULT_APPENDER_REFS, Level.DEFAULT_LEVEL);
+	}
+
 }

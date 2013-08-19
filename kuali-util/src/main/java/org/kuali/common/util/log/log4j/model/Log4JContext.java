@@ -18,16 +18,16 @@ public final class Log4JContext {
 
 	public static final boolean DEFAULT_RESET = false;
 	public static final boolean DEFAULT_DEBUG = false;
-	public static final Value DEFAULT_THRESHOLD = Value.NULL;
+	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT;
 	public static final List<Logger> DEFAULT_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> DEFAULT_APPENDERS = Collections.<Appender> emptyList();
 
 	@XmlElement(name = "appender")
 	private final List<Appender> appenders;
-	
+
 	@XmlElement
 	private final Logger root;
-	
+
 	@XmlElement(name = "logger")
 	private final List<Logger> loggers;
 
@@ -42,7 +42,7 @@ public final class Log4JContext {
 
 	@SuppressWarnings("unused")
 	private Log4JContext() {
-		this(DEFAULT_APPENDERS, Logger.DEFAULT_LOGGER);
+		this(DEFAULT_APPENDERS, Logger.getDefaultRootLogger());
 	}
 
 	public Log4JContext(List<Appender> appenders, Logger root) {
