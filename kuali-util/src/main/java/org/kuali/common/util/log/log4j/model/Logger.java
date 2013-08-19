@@ -1,6 +1,5 @@
 package org.kuali.common.util.log.log4j.model;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -12,9 +11,9 @@ import org.kuali.common.util.nullify.NullUtils;
 public class Logger {
 
 	public static final boolean DEFAULT_ADDITIVITY = true;
-	public static final List<AppenderRef> DEFAULT_APPENDER_REFS = Collections.<AppenderRef> emptyList();
 	public static final Logger DEFAULT_LOGGER = new Logger();
 	public static final String ROOT_LOGGER_NAME = "ROOT";
+	public static final String NO_NAME = NullUtils.NONE;
 
 	@XmlAttribute
 	private final String name;
@@ -29,7 +28,7 @@ public class Logger {
 	private final boolean additivity;
 
 	private Logger() {
-		this(NullUtils.NONE, DEFAULT_APPENDER_REFS, Level.DEFAULT_LEVEL);
+		this(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
 	}
 
 	public Logger(String name, List<AppenderRef> references, Level level) {
@@ -65,8 +64,8 @@ public class Logger {
 		return new Logger(ROOT_LOGGER_NAME, references, level);
 	}
 
-	public static Logger getDefaultRootLogger() {
-		return new Logger(ROOT_LOGGER_NAME, DEFAULT_APPENDER_REFS, Level.DEFAULT_LEVEL);
+	public static Logger getNoRootLogger() {
+		return new Logger(ROOT_LOGGER_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
 	}
 
 }

@@ -3,12 +3,14 @@ package org.kuali.common.util.log.log4j.model;
 import javax.xml.bind.annotation.XmlAttribute;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.Null;
 
 public final class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_CLASS = org.apache.log4j.Level.class;
-	public static final Value DEFAULT_VALUE = Value.OFF;
-	public static final Level DEFAULT_LEVEL = new Level();
+	public static final Class<Null> NO_CLASS = Null.class;
+	public static final Value NO_VALUE = Value.OFF;
+	public static final Level NO_LEVEL = new Level();
 
 	@XmlAttribute(name = "class")
 	private final Class<?> levelClass;
@@ -17,7 +19,7 @@ public final class Level {
 	private final Value value;
 
 	private Level() {
-		this(DEFAULT_CLASS, DEFAULT_VALUE);
+		this(NO_CLASS, NO_VALUE);
 	}
 
 	public Level(Value value) {
