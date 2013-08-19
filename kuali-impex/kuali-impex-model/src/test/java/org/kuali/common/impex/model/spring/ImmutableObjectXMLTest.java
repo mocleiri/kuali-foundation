@@ -35,6 +35,7 @@ public class ImmutableObjectXMLTest {
 			service.write(file1, out);
 			ImmutableSchema in = service.getObject(file1, ImmutableSchema.class);
 			File file2 = new CanonicalFile(System.getProperty("user.home") + "/ws/kuali-impex/kuali-impex-model/target/schema2.xml");
+			logger.info("Creating [{}]", file2);
 			service.write(file2, in);
 		} catch (Exception e) {
 			e.printStackTrace();
