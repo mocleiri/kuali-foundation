@@ -14,7 +14,7 @@ public final class MpxLocationContext {
 
 	public MpxLocationContext(String encoding, SqlProducer producer, Schema schema, String extension) {
 		Assert.noNulls(producer, schema);
-		Assert.noBlanks(encoding);
+		Assert.noBlanks(encoding, extension);
 		this.encoding = encoding;
 		this.producer = producer;
 		this.schema = schema;
