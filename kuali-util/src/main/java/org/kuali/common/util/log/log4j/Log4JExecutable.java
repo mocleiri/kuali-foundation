@@ -4,22 +4,20 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log4j.model.Log4JContext;
 
-public class Log4JExecutable implements Executable {
+public final class Log4JExecutable implements Executable {
 
-	boolean skip;
-	Log4JContext context;
-	Log4JService service;
+	public static final boolean DEFAULT_SKIP = false;
 
-	public Log4JExecutable() {
-		this(null, null);
-	}
+	private final boolean skip;
+	private final Log4JContext context;
+	private final Log4JService service;
 
 	public Log4JExecutable(Log4JService service, Log4JContext context) {
-		this(service, context, false);
+		this(service, context, DEFAULT_SKIP);
 	}
 
 	public Log4JExecutable(Log4JService service, Log4JContext context, boolean skip) {
-		super();
+		Assert.noNulls(service, context);
 		this.service = service;
 		this.context = context;
 		this.skip = skip;
@@ -33,10 +31,6 @@ public class Log4JExecutable implements Executable {
 			return;
 		}
 
-		// Make sure we are configured correctly
-		Assert.notNull(service, "service is null");
-		Assert.notNull(context, "context is null");
-
 		// Configure log4j as indicated by the context
 		service.configure(context);
 	}
@@ -45,24 +39,12 @@ public class Log4JExecutable implements Executable {
 		return skip;
 	}
 
-	public void setSkip(boolean skip) {
-		this.skip = skip;
-	}
-
 	public Log4JService getService() {
 		return service;
 	}
 
-	public void setService(Log4JService service) {
-		this.service = service;
-	}
-
 	public Log4JContext getContext() {
 		return context;
-	}
-
-	public void setContext(Log4JContext context) {
-		this.context = context;
 	}
 
 }
