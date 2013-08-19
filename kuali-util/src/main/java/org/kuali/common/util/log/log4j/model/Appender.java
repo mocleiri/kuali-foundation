@@ -12,9 +12,15 @@ public final class Appender {
 
 	public static final List<Param> DEFAULT_PARAMS = Collections.<Param> emptyList();
 
+	@XmlAttribute
 	private final String name;
+
+	@XmlAttribute(name = "class")
 	private final Class<?> javaClass;
+	
 	private final Layout layout;
+
+	@XmlElement(name = "param")
 	private final List<Param> params;
 
 	public Appender(String name, Class<?> javaClass, Layout layout) {
@@ -30,17 +36,14 @@ public final class Appender {
 		this.params = params;
 	}
 
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	@XmlAttribute(name = "class")
 	public Class<?> getJavaClass() {
 		return javaClass;
 	}
 
-	@XmlElement(name = "param")
 	public List<Param> getParams() {
 		return params;
 	}
