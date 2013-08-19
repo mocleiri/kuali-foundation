@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -18,7 +19,7 @@ public final class Layout {
 	@XmlAttribute(name = "class")
 	private final Class<?> javaClass;
 
-	@XmlAttribute(name = "class")
+	@XmlElement(name = "param")
 	private final List<Param> params;
 
 	@SuppressWarnings("unused")
