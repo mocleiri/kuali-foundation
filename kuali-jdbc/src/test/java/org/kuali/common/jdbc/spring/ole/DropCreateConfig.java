@@ -22,11 +22,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.project.spring.JdbcProjectConfig;
 import org.kuali.common.jdbc.reader.SqlReader;
-import org.kuali.common.jdbc.reader.spring.SqlReaderConfig;
 import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
@@ -34,23 +32,22 @@ import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
-import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
+import org.kuali.common.jdbc.suppliers.ResourcesSupplierFactory;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
+import org.kuali.common.jdbc.suppliers.SqlSupplierFactory;
+import org.kuali.common.jdbc.suppliers.spring.SuppliersFactoryConfig;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
-import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.ExecutablesExecutable;
-import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.util.Assert;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SqlReaderConfig.class, JdbcProjectConfig.class, JdbcShowConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SuppliersFactoryConfig.class, JdbcProjectConfig.class, JdbcShowConfig.class })
 public class DropCreateConfig implements JdbcContextsConfig {
 
 	private static final List<String> SCHEMAS = Arrays.asList("ole-rice-sql", "ole-master-sql");
@@ -69,6 +66,12 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	@Autowired
 	DataSourceConfig dataSources;
+
+	@Autowired
+	ResourcesSupplierFactory factory;
+
+	@Autowired
+	SqlSupplierFactory sqlSupplierFactory;
 
 	@Autowired
 	JdbcShowConfig show;
@@ -132,34 +135,22 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : SCHEMAS) {
 			String location = "classpath:sql/" + vendor.getCode() + "/" + schema + suffix + ".sql";
-			String encoding = ProjectUtils.getEncoding(project);
-			suppliers.add(new SqlLocationSupplier(location, encoding, reader));
+			SqlSupplier supplier = sqlSupplierFactory.getSupplier(location);
+			suppliers.add(supplier);
 		}
 		return suppliers;
 	}
 
 	protected List<SqlSupplier> getLiquibaseSuppliers() {
 		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
-		return getSqlSuppliers(location);
+		return factory.getSuppliers(location);
 	}
 
 	protected List<SqlSupplier> getDataSuppliers() {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
 		for (String schema : SCHEMAS) {
 			String location = "classpath:META-INF/sql/" + vendor.getCode() + "/" + schema + ".resources";
-			suppliers.addAll(getSqlSuppliers(location));
-		}
-		return suppliers;
-	}
-
-	protected List<SqlSupplier> getSqlSuppliers(String resourcesLocation) {
-		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
-		String encoding = ProjectUtils.getEncoding(project);
-		List<String> resources = LocationUtils.getLocations(resourcesLocation, encoding);
-		for (String resource : resources) {
-			Assert.isTrue(LocationUtils.exists(resource));
-			Assert.isTrue(StringUtils.endsWithIgnoreCase(resource, ".sql"));
-			suppliers.add(new SqlLocationSupplier(resource, encoding, reader));
+			suppliers.addAll(factory.getSuppliers(location));
 		}
 		return suppliers;
 	}

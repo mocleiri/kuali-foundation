@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
@@ -39,10 +38,6 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	private boolean open = false;
 	private boolean done = false;
 	private BufferedReader in;
-
-	public SqlLocationSupplier(String location, String encoding, SqlReader reader) {
-		this(location, new SqlLocationContext(encoding, reader));
-	}
 
 	public SqlLocationSupplier(String location, SqlLocationContext context) {
 		Assert.noNulls(context);
