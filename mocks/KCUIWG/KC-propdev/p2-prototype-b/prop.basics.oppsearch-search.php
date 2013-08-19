@@ -1,5 +1,6 @@
 <?php
 # Variables
+$section = 'basics';
 $page = 'basics-search';
 
 # Includes
@@ -16,11 +17,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 		<div class="row">
 
-			<div class="col-lg-3">
+			<div class="col-md-3">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-lg-9">
+			<div class="col-md-9">
 				<!-- Main content goes here -->
 
 				<div class="section-title">

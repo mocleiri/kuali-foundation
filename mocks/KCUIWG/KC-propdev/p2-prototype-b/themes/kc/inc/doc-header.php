@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="container">
     <div class="row doc-header">
       <div class="col-md-6">
         <header>

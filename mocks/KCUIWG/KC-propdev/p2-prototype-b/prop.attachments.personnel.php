@@ -1,5 +1,6 @@
 <?php
 # Variables
+$section = 'attachments';
 $page = 'attach-personnel';
 
 # Includes
@@ -16,11 +17,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 		<div class="row">
 
-			<div class="col-lg-3">
+			<div class="col-md-3">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-lg-9">
+			<div class="col-md-9">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -32,34 +33,34 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<fieldset>
 							<legend>Add attachments to this proposal</legend>
 							<div class="form-group clearfix">
-								<label for="file" class="control_label col-lg-3">File:</label>
-								<div class="col-lg-5">
+								<label for="file" class="control_label col-md-3">File:</label>
+								<div class="col-md-5">
 									<input type="file" name="file" id="file" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="person" class="control-label col-lg-3">Person:</label>
-								<div class="col-lg-5">
-									<select name="person" id="person" class="form-control input-sm col-lg-8">
+								<label for="person" class="control-label col-md-3">Person:</label>
+								<div class="col-md-5">
+									<select name="person" id="person" class="form-control input-sm col-md-8">
 										<option value="">select</option>
 									</select>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="attachment_type" class="control-label col-lg-3">Attachmenet type:</label>
-								<div class="col-lg-5">
-									<select name="attachment_type" id="attachment_type" class="form-control input-sm col-lg-8">
+								<label for="attachment_type" class="control-label col-md-3">Attachmenet type:</label>
+								<div class="col-md-5">
+									<select name="attachment_type" id="attachment_type" class="form-control input-sm col-md-8">
 										<option value="">select</option>
 									</select>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="description" class="control-label col-lg-3">Description:</label>
-								<div class="col-lg-5">
-									<textarea name="description" id="description" class="form-control input-sm col-lg-8"></textarea>
+								<label for="description" class="control-label col-md-3">Description:</label>
+								<div class="col-md-5">
+									<textarea name="description" id="description" class="form-control input-sm col-md-8"></textarea>
 								</div>
 							</div>
 						</fieldset>

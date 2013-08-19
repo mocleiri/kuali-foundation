@@ -21,6 +21,7 @@
 			}
 
 			ul {
+				display: none;
 
 				li {
 
@@ -30,20 +31,41 @@
 					}
 				}
 			}
+		}
 
-			a.expanded {
-				background: @white_background;
-				border-right: 1px solid white;
-				font-weight: 700;
+		li.expanded {
+			font-weight: 700;
+			background: darken(@shaded_background, 6%);
+			box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 10%);
+
+			ul {
+				font-weight: normal;
 			}
 		}
 
 		li.active {
+			font-weight: 700;
 
 			a {
-				background: @white_background;
-				border-right: 1px solid white;
-				font-weight: 700;
+				font-weight: normal;
+				background: @header_background;
+				color: @text_white;
+				position: relative;
+			}
+
+			a:after {
+				content: " ";
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				margin-top: -10px;
+				margin-right: -1px;
+				height: 0;
+				width: 0;
+				border-top: 10px solid transparent;
+				border-right: 10px solid @white_background;
+				border-bottom: 10px solid transparent;
 			}
 		}
 	}

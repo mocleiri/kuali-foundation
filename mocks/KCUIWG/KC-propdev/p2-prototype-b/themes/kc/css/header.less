@@ -1,64 +1,101 @@
 .portal-header {
-  background-color: @header_background;
-  .navbar {
     background-color: @header_background;
-    margin-bottom: 0px;
-    border: none;
-    div.logoBrand {
-      width: 200px;
-      height: 69px;
-      background-image: url(../img/logo.png);
-      position: absolute;
-      //z-index: 11111111;
-      top: 0px;
-    }
-    .nav {
-      li.active {
-        a {
-          background: darken(@header_background,3%);
+
+    .navbar {
+        background-color: @header_background;
+        margin-bottom: 0px;
+        border: none;
+
+        div.logoBrand {
+            width: 200px;
+            height: 69px;
+            background-image: url(../img/logo.png);
+            position: absolute;
+            top: 0px;
+            margin-left: -16px;
         }
-      }
-      .dropdown-menu {
-        li {
-          ul {
-            list-style: none;
-            margin: 0px;
-            padding: 0px;
-            li {
+
+        .nav {
+
+          li.active {
+
               a {
-                display: block;
-                padding: 3px 20px;
-                clear: both;
-                font-weight: normal;
-                color: @link_blue;
-                white-space: nowrap;
+                  background: darken(@header_background,3%);
               }
-            }
           }
+
+          .dropdown-menu {
+
+              li {
+
+                  ul {
+                      list-style: none;
+                      margin: 0px;
+                      padding: 0px;
+
+                      li {
+
+                          a {
+                              display: block;
+                              padding: 3px 20px;
+                              clear: both;
+                              font-weight: normal;
+                              color: @link_blue;
+                              white-space: nowrap;
+                          }
+                      }
+                  }
+              }
+          }
+
+          .dropdown-toggle {
+              text-transform: uppercase;
+          }
+
+          li {
+            position: relative;
+            z-index: 10;
+
+                a {
+                    text-transform:;
+                }
+            }
         }
-      }
-      .dropdown-toggle {
-        text-transform: uppercase;
-      }
-      li {
-        position: relative;
-        z-index: 10;
+
         a {
-          text-transform:;
+            color:#FFF;
         }
-      }
+
+        a:hover {
+            color:#FFF;
+            background: darken(@header_background,3%);
+        }
     }
-    a {
-      color:#FFF;
-    }
-    a:hover {
-      color:#FFF;
-      background: darken(@header_background,3%);
-    }
-  }
 }
-.portal-header .navbar .nav .dropdown-menu li ul li a:hover,.portal-header .navbar .nav .dropdown-menu li ul li a:focus {
-  text-decoration: none;
-  color: #FFF;
-  background-color: @header_background;
+
+.portal-header {
+
+    .navbar {
+
+        .nav {
+
+            .dropdown-menu {
+
+                li {
+
+                    ul {
+
+                        li {
+
+                            a:hover, a:focus {
+                                text-decoration: none;
+                                color: #FFF;
+                                background-color: @header_background;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

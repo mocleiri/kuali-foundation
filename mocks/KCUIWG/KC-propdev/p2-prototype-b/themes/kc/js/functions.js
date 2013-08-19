@@ -1,7 +1,7 @@
 /*
 	JavaScript functions for the Kuali Coeus protoype version 2
 	Dependencies:
-	- jQuery (1.7.2)
+	- jQuery (1.7.2 +)
 	- bootstrap.min.js
 	- Fancybox
 	- jquery.sticky.js
@@ -16,26 +16,25 @@ $(document).ready(function() {
 		Subnavigation
 		Expanding and collapsing handler
 	*/
-	$('#subnav').find('ul ul').slideUp();
+	$('#subnav ul li.expanded').find('ul').show();
 
-	$('#subnav ul li a').on('click', function() {
-		if ($(this).attr('href') !== "#" || "") {
-			window.location = $(this).attr('href');
-		} else if ($(this).hasClass('expanded')) {
-			$(this).parent().parent().find('ul').slideUp();
-			$(this).removeClass('expanded');
+	$('#subnav ul li a').on('click', function(e) {
+
+		if ($(this).parent().hasClass('expanded')) {
+
+			// Do nothing
+			e.preventDefault();
+			return false;
+
 		} else {
-			$(this).parent().parent().find('ul').slideUp();
-			$('#subnav').find('.expanded').removeClass('expanded');
+
+			// Slide open the child list
 			$(this).parent().find('ul').slideDown();
-			$(this).addClass('expanded');
+
 		}		
 	});
 
-	$('#subnav ul li a.expanded').on('click', function() {
-		$(this).parent().find('ul').slideUp();
-		$(this).removeClass('expanded');
-	});
+
 
 
 

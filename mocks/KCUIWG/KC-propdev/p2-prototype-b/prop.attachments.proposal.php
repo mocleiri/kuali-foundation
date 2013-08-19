@@ -1,5 +1,6 @@
 <?php
 # Variables
+$section = 'attachments';
 $page = 'attach-proposal';
 
 # Includes
@@ -16,11 +17,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 		<div class="row">
 
-			<div class="col-lg-3">
+			<div class="col-md-3">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-lg-9">
+			<div class="col-md-9">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -32,76 +33,76 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<fieldset>
 							<legend>Add attachments to this proposal</legend>
 							<div class="form-group clearfix">
-								<label for="file" class="control_label col-lg-3">File:</label>
-								<div class="col-lg-5">
+								<label for="file" class="control_label col-md-3">File:</label>
+								<div class="col-md-5">
 									<input type="file" name="file" id="file" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="attachment_type" class="control-label col-lg-3">Attachment type:</label>
-								<div class="col-lg-5">
-									<select name="attachment_type" id="attachment_type" class="form-control input-sm col-lg-8">
+								<label for="attachment_type" class="control-label col-md-3">Attachment type:</label>
+								<div class="col-md-5">
+									<select name="attachment_type" id="attachment_type" class="form-control input-sm col-md-8">
 										<option value="">select</option>
 									</select>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="status" class="control-label col-lg-3">Status:</label>
-								<div class="col-lg-5">
-									<select name="status" id="status" class="form-control input-sm col-lg-8">
+								<label for="status" class="control-label col-md-3">Status:</label>
+								<div class="col-md-5">
+									<select name="status" id="status" class="form-control input-sm col-md-8">
 										<option value="">select</option>
 									</select>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="contact_name" class="control-label col-lg-3">Contact name:</label>
-								<div class="col-lg-5">
-									<input type="text" name="contact_name" id="contact_name" class="form-control input-sm col-lg-8" />
+								<label for="contact_name" class="control-label col-md-3">Contact name:</label>
+								<div class="col-md-5">
+									<input type="text" name="contact_name" id="contact_name" class="form-control input-sm col-md-8" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="uploaded_by" class="control-label col-lg-3">Uploaded by:</label>
-								<div class="col-lg-5">
-									<input type="text" name="uploaded_by" id="uploaded_by" class="form-control input-sm col-lg-8" />
+								<label for="uploaded_by" class="control-label col-md-3">Uploaded by:</label>
+								<div class="col-md-5">
+									<input type="text" name="uploaded_by" id="uploaded_by" class="form-control input-sm col-md-8" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="email_address" class="control-label col-lg-3">Email address:</label>
-								<div class="col-lg-5">
-									<input type="text" name="email_address" id="email_address" class="form-control input-sm col-lg-8" />
+								<label for="email_address" class="control-label col-md-3">Email address:</label>
+								<div class="col-md-5">
+									<input type="text" name="email_address" id="email_address" class="form-control input-sm col-md-8" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="posted_timestamp" class="control-label col-lg-3">Posted timestamp:</label>
-								<div class="col-lg-5">
-									<input type="text" name="posted_timestamp" id="posted_timestamp" class="form-control input-sm col-lg-8" />
+								<label for="posted_timestamp" class="control-label col-md-3">Posted timestamp:</label>
+								<div class="col-md-5">
+									<input type="text" name="posted_timestamp" id="posted_timestamp" class="form-control input-sm col-md-8" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="phone_number" class="control-label col-lg-3">Phone number:</label>
-								<div class="col-lg-5">
-									<input type="text" name="phone_number" id="phone_number" class="form-control input-sm col-lg-8" />
+								<label for="phone_number" class="control-label col-md-3">Phone number:</label>
+								<div class="col-md-5">
+									<input type="text" name="phone_number" id="phone_number" class="form-control input-sm col-md-8" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="comments" class="control-label col-lg-3">Comments:</label>
-								<div class="col-lg-5">
-									<textarea name="comments" id="comments" class="form-control input-sm col-lg-8"></textarea>
+								<label for="comments" class="control-label col-md-3">Comments:</label>
+								<div class="col-md-5">
+									<textarea name="comments" id="comments" class="form-control input-sm col-md-8"></textarea>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="description" class="control-label col-lg-3">Description:</label>
-								<div class="col-lg-5">
-									<textarea name="description" id="description" class="form-control input-sm col-lg-8"></textarea>
+								<label for="description" class="control-label col-md-3">Description:</label>
+								<div class="col-md-5">
+									<textarea name="description" id="description" class="form-control input-sm col-md-8"></textarea>
 								</div>
 							</div>
 						</fieldset>

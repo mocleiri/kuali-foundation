@@ -16,11 +16,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 		<div class="row">
 
-			<div class="col-lg-3">
+			<div class="col-md-3">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-lg-9">
+			<div class="col-md-9">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -31,7 +31,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
 							<legend>Add compliance requirements for this proposal</legend>
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="compliance_type" class="control-label">Type:<br />&nbsp;</label>
 								<div>
 									<select name="compliance_type" id="compliance_type" class="form-control input-sm">
@@ -52,7 +52,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="approval_status" class="control-label">Approval status:</label>
 								<div>
 									<select name="approval_status" id="approval_status" class="form-control input-sm">
@@ -67,14 +67,14 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="protocol_number" class="control-label">Protocol number:</label>
 								<div>
 									<input type="text" class="form-control input-sm" name="protocol_number" id="protocol_number" />
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="app_date" class="control-label">Application date:</label>
 								<div class="input-group">
 									<input type="text" class="form-control input-sm" name="app_date" id="app_date" />
@@ -84,7 +84,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="approval_date" class="control-label">Approval date:</label>
 								<div class="input-group">
 									<input type="text" class="form-control input-sm" name="approval_date" id="approval_date" />
@@ -94,7 +94,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="exp_date" class="control-label">Expiration date:</label>
 								<div class="input-group">
 									<input type="text" class="form-control input-sm" name="exp_date" id="exp_date" />
@@ -104,14 +104,14 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<label for="excemption" class="control-label">Exemption #:<br />&nbsp;</label>
 								<div>
 									<input type="text" class="form-control input-sm" name="excemption" id="excemption" />
 								</div>
 							</div>
 
-							<div class="form-group col-lg-2">
+							<div class="form-group col-md-2">
 								<button class="btn btn-danger btn-xs">- Delete</button>
 							</div>
 						</fieldset>

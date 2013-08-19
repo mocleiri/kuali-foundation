@@ -6,15 +6,15 @@
 */
 a,
 a:link {
-  color: #0000ff;
+  color: #0033cc;
 }
 a:hover,
 a:focus {
-  color: #0000db;
+  color: #002aa8;
   text-decoration: underline;
 }
 body {
-  background-color: #ffffff;
+  background-color: #181818;
   font-size: 13px;
 }
 input,
@@ -22,6 +22,10 @@ select,
 textarea,
 button {
   font-size: 13px;
+}
+.off-screen {
+  position: absolute;
+  left: -9999em;
 }
 .portal-header {
   background-color: #aa003e;
@@ -37,6 +41,7 @@ button {
   background-image: url(../img/logo.png);
   position: absolute;
   top: 0px;
+  margin-left: -16px;
 }
 .portal-header .navbar .nav li.active a {
   background: #9b0038;
@@ -51,7 +56,7 @@ button {
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  color: #0000ff;
+  color: #0033cc;
   white-space: nowrap;
 }
 .portal-header .navbar .nav .dropdown-toggle {
@@ -93,7 +98,7 @@ section.toolbar {
   -webkit-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.07);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.07);
 }
-section.toolbar .dropdown > a {
+section.toolbar .dropdown a {
   padding-top: 3px;
   padding-right: 6px;
   padding-bottom: 3px;
@@ -104,7 +109,7 @@ section.toolbar .dropdown > a {
   -webkit-box-shadow: 1px 0px 0px 0px #cccccc;
   box-shadow: 1px 0px 0px 0px #cccccc;
 }
-section.toolbar .dropdown > a .caret {
+section.toolbar .dropdown a .caret {
   border-bottom-color: #666;
   border-top-color: #666;
 }
@@ -219,32 +224,166 @@ section.toolbar .dropdown > a .caret {
   border-bottom: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
 }
+#subnav ul li ul {
+  display: none;
+}
 #subnav ul li ul li a {
   font-size: .9em;
   padding-left: 12%;
 }
-#subnav ul li a.expanded {
-  background: #ffffff;
-  border-right: 1px solid white;
+#subnav ul li.expanded {
+  font-weight: 700;
+  background: #e7e7e7;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+#subnav ul li.expanded ul {
+  font-weight: normal;
+}
+#subnav ul li.active {
   font-weight: 700;
 }
 #subnav ul li.active a {
-  background: #ffffff;
-  border-right: 1px solid white;
-  font-weight: 700;
+  font-weight: normal;
+  background: #aa003e;
+  color: #ffffff;
+  position: relative;
+}
+#subnav ul li.active a:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -10px;
+  margin-right: -1px;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-right: 10px solid #ffffff;
+  border-bottom: 10px solid transparent;
 }
 #main {
   background: #ffffff;
+  padding-top: 40px;
 }
 #main label {
   line-height: 130%;
   padding-top: 0;
   text-align: left;
 }
+#main label.radio,
+#main label.checkbox {
+  font-weight: normal;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#main label.radio input,
+#main label.checkbox input {
+  float: left;
+  margin-top: 0px;
+}
+#main legend.legend-normal {
+  font-size: inherit;
+  border-bottom: 0px;
+}
+#main fieldset.fieldset-horizontal {
+  padding: 2% 0 0 0;
+  border-top: 1px dotted #cccccc;
+}
+#main fieldset.fieldset-horizontal:first-child {
+  border-top: 0px;
+}
 #main .button-row {
+  clear: both;
+  margin-top: 1.5%;
   padding: 2% 0 2% 0;
   border-top: 1px solid #cccccc;
   text-align: center;
+}
+#main .boxSubheader {
+  position: relative;
+}
+#main .boxSubheader h3 {
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  color: #000;
+  font-size: 13px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+#main .boxSubheader .boxControls {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+#main .nav-tabs {
+  margin-top: 3%;
+}
+#main .boxContent .well {
+  padding: 19px 19px 3px 19px !important;
+}
+#main .boxContent .well h3 {
+  margin: 0 0 12px 0 !important;
+}
+#main .boxContent .well .progress-details .empty {
+  float: left;
+  text-align: center;
+  padding: 4px 0 6px 0;
+  color: #aaa;
+}
+#main .boxContent .well .progress-details .empty.active {
+  color: inherit;
+  font-weight: 700;
+}
+#main .boxContent .well .progress-details .empty.complete {
+  color: inherit;
+}
+#main .boxContent .well .progress {
+  height: 3px;
+  clear: both;
+}
+#main .boxContent .proposal-actions {
+  margin-bottom: 1em;
+}
+#main .boxContent .comments .comment-actions {
+  margin-top: 1em;
+  margin-bottom: 3%;
+}
+#main .boxContent .comments .comment-row {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-top: 1px dotted #cccccc;
+}
+#main .boxContent .comments .comment-row.comment-headers {
+  font-weight: 700;
+  border-top: 0px;
+}
+#main .tab-content #Summary .well {
+  padding: 12px;
+}
+#main .tab-content #Summary .well h4 {
+  margin-top: 0px;
+  margin-bottom: 40px;
+}
+#main .summary .boxHeader h4 {
+  min-height: 20px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding-top: 8px;
+  padding-right: 4px;
+  padding-bottom: 8px;
+  padding-left: 24px;
+  background-position: 8px;
+}
+#main .box .boxHeader h4 {
+  font-size: 13px;
 }
 footer {
   color: #f2f2f2;
