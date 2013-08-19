@@ -14,8 +14,7 @@ import org.kuali.common.util.nullify.Null;
 public final class Layout {
 
 	public static final Class<?> NO_CLASS = Null.class;
-	public static final List<Param> NO_PARAMS = Collections.<Param> emptyList();
-	public static final Layout NO_LAYOUT = new Layout(NO_CLASS, NO_PARAMS);
+	public static final Layout NO_LAYOUT = new Layout(NO_CLASS, Param.NO_PARAMS);
 
 	@XmlAttribute(name = "class")
 	private final Class<?> layoutClass;

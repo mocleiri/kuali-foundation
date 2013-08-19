@@ -12,7 +12,6 @@ import org.kuali.common.util.nullify.NullUtils;
 
 public final class Appender {
 
-	public static final List<Param> NO_PARAMS = Collections.<Param> emptyList();
 	public static final String NO_NAME = NullUtils.NONE;
 	public static final Class<? extends Appender> NO_APPENDER_CLASS = Appender.class;
 	public static final Appender NO_APPENDER = new Appender();
@@ -33,7 +32,7 @@ public final class Appender {
 	}
 
 	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout) {
-		this(name, appenderClass, layout, NO_PARAMS);
+		this(name, appenderClass, layout, Param.NO_PARAMS);
 	}
 
 	public Appender(String name, Class<? extends Appender> appenderClass, Layout layout, List<Param> params) {
