@@ -67,7 +67,7 @@ public class DefaultJdbcService implements JdbcService {
 		long start = System.currentTimeMillis();
 
 		// Log a message if provided
-		if (StringUtils.equals(JdbcContext.NO_MESSAGE, context.getMessage())) {
+		if (!StringUtils.equals(JdbcContext.NO_MESSAGE, context.getMessage())) {
 			logger.info(context.getMessage());
 		}
 
