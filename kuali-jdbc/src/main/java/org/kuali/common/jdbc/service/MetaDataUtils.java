@@ -24,8 +24,8 @@ import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.jdbc.suppliers.ComplexStringSupplier;
 import org.kuali.common.jdbc.suppliers.SimpleStringSupplier;
-import org.kuali.common.jdbc.suppliers.SqlLocationSupplier;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
+import org.kuali.common.jdbc.suppliers.model.SqlLocationContext;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,12 +34,12 @@ public class MetaDataUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaDataUtils.class);
 
-	public static SqlMetaData getSqlMetaData(SqlLocationSupplier supplier) {
+	public static SqlMetaData getSqlMetaData(SqlLocationContext context) {
 		BufferedReader in = null;
 		try {
-			logger.debug("Getting metadata for [{}] - encoding {}", supplier.getLocation(), supplier.getEncoding());
-			in = LocationUtils.getBufferedReader(supplier.getLocation(), supplier.getEncoding());
-			return getSqlMetaData(in, supplier.getReader());
+			logger.debug("Getting metadata for [{}] - encoding {}", context.getLocation(), context.getEncoding());
+			in = LocationUtils.getBufferedReader(context.getLocation(), context.getEncoding());
+			return getSqlMetaData(in, context.getReader());
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {

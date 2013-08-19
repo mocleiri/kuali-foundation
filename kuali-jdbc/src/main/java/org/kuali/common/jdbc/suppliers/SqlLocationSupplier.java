@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
+import org.kuali.common.jdbc.suppliers.model.SqlLocationContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 
@@ -32,14 +33,7 @@ import org.kuali.common.util.LocationUtils;
  */
 public final class SqlLocationSupplier extends AbstractSupplier implements SqlSupplier {
 
-	public static final int DEFAULT_MAX_COUNT = 50;
-	public static final int DEFAULT_MAX_SIZE = 50 * 1024;
-
-	private final String location;
-	private final String encoding;
-	private final SqlReader reader;
-	private final int maxCount;
-	private final int maxSize;
+	private final SqlLocationContext context;
 
 	private SqlMetaData metaData;
 	private boolean open = false;
@@ -47,20 +41,12 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	private BufferedReader in;
 
 	public SqlLocationSupplier(String location, String encoding, SqlReader reader) {
-		this(location, encoding, reader, DEFAULT_MAX_COUNT, DEFAULT_MAX_SIZE);
+		this(new SqlLocationContext(location, encoding, reader));
 	}
 
-	public SqlLocationSupplier(String location, String encoding, SqlReader reader, int maxCount, int maxSize) {
-		Assert.noBlanks(location, encoding);
-		Assert.noNulls(reader);
-		Assert.isTrue(LocationUtils.exists(location));
-		Assert.isTrue(maxCount > 0, "max count must be a positive integer");
-		Assert.isTrue(maxSize >= 0, "max size is negative");
-		this.location = location;
-		this.encoding = encoding;
-		this.reader = reader;
-		this.maxCount = maxCount;
-		this.maxSize = maxSize;
+	public SqlLocationSupplier(SqlLocationContext context) {
+		Assert.noNulls(context);
+		this.context = context;
 	}
 
 	@Override
@@ -68,7 +54,7 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 		Assert.isFalse(open, "Already open");
 		this.open = true;
 		this.done = false;
-		this.in = LocationUtils.getBufferedReader(location, encoding);
+		this.in = LocationUtils.getBufferedReader(context.getLocation(), context.getEncoding());
 	}
 
 	@Override
@@ -97,15 +83,15 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 		int count = 0;
 		int size = 0;
 		List<String> list = new ArrayList<String>();
-		String sql = reader.getSql(in);
+		String sql = context.getReader().getSql(in);
 		while (sql != null) {
 			list.add(sql);
 			count++;
 			size += sql.length();
-			if (count > maxCount || size > maxSize) {
+			if (count > context.getMaxCount() || size > context.getMaxSize()) {
 				break;
 			}
-			sql = reader.getSql(in);
+			sql = context.getReader().getSql(in);
 		}
 		return list;
 	}
@@ -113,21 +99,13 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	@Override
 	public synchronized SqlMetaData getMetaData() {
 		if (metaData == null) {
-			this.metaData = MetaDataUtils.getSqlMetaData(this);
+			this.metaData = MetaDataUtils.getSqlMetaData(context);
 		}
 		return this.metaData;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public String getEncoding() {
-		return encoding;
-	}
-
-	public SqlReader getReader() {
-		return reader;
+	public SqlLocationContext getContext() {
+		return context;
 	}
 
 }

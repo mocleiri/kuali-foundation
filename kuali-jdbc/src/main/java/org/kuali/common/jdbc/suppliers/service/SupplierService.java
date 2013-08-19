@@ -8,4 +8,6 @@ public interface SupplierService {
 
 	List<SqlSupplier> getSuppliers(String resourcesLocation);
 
+	SqlSupplier getSupplier(String location);
+
 }
