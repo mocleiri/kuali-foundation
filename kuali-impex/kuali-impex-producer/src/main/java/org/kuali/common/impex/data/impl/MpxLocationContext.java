@@ -6,10 +6,10 @@ import org.kuali.common.util.Assert;
 
 public final class MpxLocationContext {
 
-	// The MPX specification dictates "mpx" be the file extension
+	// The MPX specification dictates "mpx" as the file extension
 	public static final String DEFAULT_EXTENSION = "mpx";
 
-	// The MPX specification dictates UTF-8 be the encoding scheme
+	// The MPX specification dictates UTF-8 as the encoding scheme
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
 	public MpxLocationContext(Schema schema, SqlProducer producer) {
@@ -17,7 +17,7 @@ public final class MpxLocationContext {
 	}
 
 	public MpxLocationContext(Schema schema, SqlProducer producer, String encoding, String extension) {
-		Assert.noNulls(producer, schema);
+		Assert.noNulls(schema, producer);
 		Assert.noBlanks(encoding, extension);
 		this.schema = schema;
 		this.producer = producer;
