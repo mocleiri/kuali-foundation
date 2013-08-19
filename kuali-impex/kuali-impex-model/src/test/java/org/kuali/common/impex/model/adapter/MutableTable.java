@@ -2,17 +2,17 @@ package org.kuali.common.impex.model.adapter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-public class AdaptedTable {
+public class MutableTable {
 
-	public AdaptedTable() {
+	public MutableTable() {
 		this(null, null);
 	}
 
-	public AdaptedTable(String name) {
+	public MutableTable(String name) {
 		this(name, null);
 	}
 
-	public AdaptedTable(String name, String description) {
+	public MutableTable(String name, String description) {
 		this.name = name;
 		this.description = description;
 	}

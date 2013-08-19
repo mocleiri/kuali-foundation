@@ -5,10 +5,10 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.kuali.common.impex.model.ImmutableTable;
 import org.kuali.common.util.nullify.NullUtils;
 
-public class TableAdapter extends XmlAdapter<AdaptedTable, ImmutableTable> {
+public class TableAdapter extends XmlAdapter<MutableTable, ImmutableTable> {
 
 	@Override
-	public ImmutableTable unmarshal(AdaptedTable table) throws Exception {
+	public ImmutableTable unmarshal(MutableTable table) throws Exception {
 		if (NullUtils.isNullOrNone(table.getDescription())) {
 			return new ImmutableTable(table.getName());
 		} else {
@@ -17,11 +17,11 @@ public class TableAdapter extends XmlAdapter<AdaptedTable, ImmutableTable> {
 	}
 
 	@Override
-	public AdaptedTable marshal(ImmutableTable table) throws Exception {
+	public MutableTable marshal(ImmutableTable table) throws Exception {
 		if (NullUtils.isNullOrNone(table.getDescription())) {
-			return new AdaptedTable(table.getName());
+			return new MutableTable(table.getName());
 		} else {
-			return new AdaptedTable(table.getName(), table.getDescription());
+			return new MutableTable(table.getName(), table.getDescription());
 		}
 	}
 
