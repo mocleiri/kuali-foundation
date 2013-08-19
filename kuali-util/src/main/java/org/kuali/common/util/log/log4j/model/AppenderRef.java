@@ -7,14 +7,14 @@ import org.kuali.common.util.nullify.NullUtils;
 
 public final class AppenderRef {
 
-	public static final String DEFAULT_REF = NullUtils.NONE;
+	public static final String NO_REF = NullUtils.NONE;
 
 	@XmlAttribute
 	private final String ref;
 
 	@SuppressWarnings("unused")
 	private AppenderRef() {
-		this(DEFAULT_REF);
+		this(NO_REF);
 	}
 
 	public AppenderRef(String ref) {
