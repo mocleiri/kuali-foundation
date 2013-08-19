@@ -17,7 +17,7 @@ public final class Layout {
 	public static final List<Param> DEFAULT_PARAMS = Collections.<Param> emptyList();
 
 	@XmlAttribute(name = "class")
-	private final Class<?> javaClass;
+	private final Class<?> layoutClass;
 
 	@XmlElement(name = "param")
 	private final List<Param> params;
@@ -27,18 +27,18 @@ public final class Layout {
 		this(DEFAULT_JAVA_CLASS, new ArrayList<Param>());
 	}
 
-	public Layout(Class<?> javaClass, Param param) {
-		this(javaClass, CollectionUtils.singletonList(param));
+	public Layout(Class<?> layoutClass, Param param) {
+		this(layoutClass, CollectionUtils.singletonList(param));
 	}
 
-	public Layout(Class<?> javaClass, List<Param> params) {
-		Assert.noNulls(javaClass, params);
-		this.javaClass = javaClass;
+	public Layout(Class<?> layoutClass, List<Param> params) {
+		Assert.noNulls(layoutClass, params);
+		this.layoutClass = layoutClass;
 		this.params = params;
 	}
 
-	public Class<?> getJavaClass() {
-		return javaClass;
+	public Class<?> getLayoutClass() {
+		return layoutClass;
 	}
 
 	public List<Param> getParams() {
