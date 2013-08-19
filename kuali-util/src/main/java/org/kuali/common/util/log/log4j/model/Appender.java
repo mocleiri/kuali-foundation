@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
+import org.springframework.util.CollectionUtils;
 
 public final class Appender {
 
@@ -41,7 +42,7 @@ public final class Appender {
 		this.name = name;
 		this.appenderClass = appenderClass;
 		this.layout = layout;
-		this.params = params;
+		this.params = CollectionUtils.isEmpty(params) ? NO_PARAMS : params;
 	}
 
 	public String getName() {
