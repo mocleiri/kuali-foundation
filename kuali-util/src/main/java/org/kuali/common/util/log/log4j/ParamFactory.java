@@ -12,19 +12,19 @@ public class ParamFactory {
 	public static final String FILE = "File";
 	public static final String THRESHOLD = "Threshold";
 
-	public static Param getConversionPattern(String pattern) {
+	public static Param getPatternParam(String pattern) {
 		return new Param(CONVERSION_PATTERN, pattern);
 	}
 
-	public static Param getFile(String filename) {
+	public static Param getFileParam(String filename) {
 		return new Param(FILE, filename);
 	}
 
-	public static Param getFile(File file) {
-		return getFile(new CanonicalFile(file).getPath());
+	public static Param getFileParam(File file) {
+		return getFileParam(new CanonicalFile(file).getPath());
 	}
 
-	public static Param getThreshold(Value value) {
+	public static Param getThresholdParam(Value value) {
 		return new Param(THRESHOLD, value.name());
 	}
 
