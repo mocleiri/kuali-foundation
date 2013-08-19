@@ -1,18 +1,18 @@
 package org.kuali.common.impex.data.impl;
 
 import org.kuali.common.impex.data.SqlProducer;
-import org.kuali.common.impex.model.ImmutableSchema;
+import org.kuali.common.impex.model.Schema;
 import org.kuali.common.util.Assert;
 
 public final class MpxLocationContext {
 
 	public static final String DEFAULT_EXTENSION = "mpx";
 
-	public MpxLocationContext(String encoding, SqlProducer producer, ImmutableSchema schema) {
+	public MpxLocationContext(String encoding, SqlProducer producer, Schema schema) {
 		this(encoding, producer, schema, DEFAULT_EXTENSION);
 	}
 
-	public MpxLocationContext(String encoding, SqlProducer producer, ImmutableSchema schema, String extension) {
+	public MpxLocationContext(String encoding, SqlProducer producer, Schema schema, String extension) {
 		Assert.noNulls(producer, schema);
 		Assert.noBlanks(encoding);
 		this.encoding = encoding;
@@ -24,7 +24,7 @@ public final class MpxLocationContext {
 
 	private final String encoding;
 	private final SqlProducer producer;
-	private final ImmutableSchema schema;
+	private final Schema schema;
 	private final String extension;
 	private final String suffix;
 
@@ -36,7 +36,7 @@ public final class MpxLocationContext {
 		return producer;
 	}
 
-	public ImmutableSchema getSchema() {
+	public Schema getSchema() {
 		return schema;
 	}
 
