@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement(name = "schema")
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -40,7 +38,7 @@ public final class ImmutableSchema {
 
 	@SuppressWarnings("unused")
 	private ImmutableSchema() {
-		this(NullUtils.NONE, new ArrayList<ImmutableTable>(), false);
+		this(null, null, false);
 	}
 
 	private ImmutableSchema(String name, List<ImmutableTable> tables, boolean validate) {
