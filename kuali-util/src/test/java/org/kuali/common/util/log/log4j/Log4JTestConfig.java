@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.log.log4j;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log.log4j.model.Log4JContext;
@@ -52,6 +54,7 @@ public class Log4JTestConfig {
 			Log4JContext derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JContext.class);
 			String xml2 = service.toXml(derived);
 			System.out.println(xml2);
+			Assert.assertEquals(xml1, xml2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
