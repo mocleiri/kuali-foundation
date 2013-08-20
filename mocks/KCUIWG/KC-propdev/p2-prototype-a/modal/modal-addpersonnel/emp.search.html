@@ -30,65 +30,53 @@
   <div class="modal-body">
     <fieldset>
       <legend>Search with any known details</legend>
-      <form class="form-horizontal">
-        <div class="control-group">
-          
-          <!-- Text input-->
-          <label class="control-label" for="input01">Last Name</label>
-          <div class="controls">
-            <input type="text" placeholder="" class="input-xlarge">
+      <form action="" method="post" class="form-horizontal">
+
+        <div class="form-group clearfix">
+          <label for="input01" class="control-label col-md-3">Last name:</label>
+          <div class="col-md-5">
+            <input type="text" name="input01" id="input01" class="form-control input-sm col-md-8" />
           </div>
         </div>
-        <div class="control-group">
-          
-          <!-- Text input-->
-          <label class="control-label" for="input01">First Name</label>
-          <div class="controls">
-            <input type="text" placeholder="" class="input-xlarge">
+
+        <div class="form-group clearfix">
+          <label for="input02" class="control-label col-md-3">First name:</label>
+          <div class="col-md-5">
+            <input type="text" name="input02" id="input02" class="form-control input-sm col-md-8" />
           </div>
         </div>
-        <div class="control-group">
-          <!-- Text input-->
-          <label class="control-label" for="input7">User Name</label>
-          <div class="controls">
-            <input type="text" class="input-xlarge">
+
+        <div class="form-group clearfix">
+          <label for="input03" class="control-label col-md-3">Username:</label>
+          <div class="col-md-5">
+            <input type="text" name="input03" id="input03" class="form-control input-sm col-md-8" />
           </div>
         </div>
-        <div class="control-group">
-          <!-- Text input-->
-          <label class="control-label" for="input8">Email Address</label>
-          <div class="controls">
-            <input type="text" placeholder="someone@somewhere.edu" class="input-xlarge">
+
+        <div class="form-group clearfix">
+          <label for="input04" class="control-label col-md-3">Email address:</label>
+          <div class="col-md-5">
+            <input type="text" name="input04" id="input04" class="form-control input-sm col-md-8" />
           </div>
         </div>
-        <div class="control-group">
-          <!-- Text input-->
-          <label class="control-label" for="input2">Office Phone</label>
-          <div class="controls">
-            <input type="text" placeholder="123-456-1234" class="input-xlarge">
+
+        <div class="form-group clearfix">
+          <label for="input05" class="control-label col-md-3">Office phone:</label>
+          <div class="col-md-5">
+            <input type="text" name="input05" id="input05" class="form-control input-sm col-md-8" />
           </div>
         </div>
-        <div class="control-group">
-          <label class="control-label">Active Employee</label>
-          <div class="controls">
-            <!-- Inline Radios -->
-            <label class="radio inline">
-              <input type="radio" value="1" checked="checked" name="group">
-              Yes </label>
-            <label class="radio inline">
-              <input type="radio" value="2" name="group">
-              No </label>
-            <!-- <label class="radio inline">
-              <input type="radio" value="3">
-              Both </label> -->
-          </div>
+
+        <div class="form-group clearfix">
+          <fieldset>
+            <legend>Is this an active employee?</legend>
+            <div>
+              <label class="radio" for="ryes"><input type="radio" value="1" id="ryes" checked="checked" name="group" /> Yes</label>
+              <label class="radio" for="rno"><input type="radio" value="1" id="rno" checked="checked" name="group" /> No</label>
+            </div>
+          </fieldset>
         </div>
-          
-          <!-- Text input-->
-          <label class="control-label" for="input4"></label>
-          <div class="controls">
-          </div>
-        </div>
+        
       </form>
     </fieldset>
   </div>

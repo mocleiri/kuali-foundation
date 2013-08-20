@@ -46,7 +46,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									<div class="panel">
 										<div class="panel-heading">
 											<h6 class="panel-title">
-												<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop1">Edward Haskell (haskelldw)</a>
+												<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop1">Edward Haskell (haskelldw)</a>
 											</h6>
 										</div>
 										<div id="prop1" class="panel-collapse collapse">
