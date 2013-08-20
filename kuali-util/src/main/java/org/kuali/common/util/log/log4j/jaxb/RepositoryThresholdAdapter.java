@@ -4,24 +4,23 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.log.log4j.model.Threshold;
 
-public class RepositoryThresholdAdapter extends XmlAdapter<String, String> {
+public class RepositoryThresholdAdapter extends XmlAdapter<String, Threshold> {
 
 	@Override
-	public final String marshal(String value) {
-		Threshold v = Threshold.valueOf(value.toUpperCase());
-		if (Threshold.DEFAULT_REPOSITORY_VALUE.equals(v)) {
+	public final String marshal(Threshold value) {
+		if (Threshold.DEFAULT_REPOSITORY_VALUE.equals(value)) {
 			return null;
 		} else {
-			return value;
+			return value.name().toLowerCase();
 		}
 	}
 
 	@Override
-	public final String unmarshal(String value) {
+	public final Threshold unmarshal(String value) {
 		if (value == null) {
-			return Threshold.DEFAULT_REPOSITORY_VALUE.name().toLowerCase();
+			return Threshold.DEFAULT_REPOSITORY_VALUE;
 		} else {
-			return value;
+			return Threshold.valueOf(value.toUpperCase());
 		}
 	}
 
