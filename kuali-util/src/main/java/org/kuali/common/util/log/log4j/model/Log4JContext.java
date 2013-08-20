@@ -9,9 +9,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -37,10 +39,12 @@ public final class Log4JContext {
 	private final List<Logger> loggers;
 
 	@XmlAttribute
-	private final boolean reset;
+	@XmlJavaTypeAdapter(DropFalseAdapter.class)
+	private final Boolean reset;
 
 	@XmlAttribute
-	private final boolean debug;
+	@XmlJavaTypeAdapter(DropFalseAdapter.class)
+	private final Boolean debug;
 
 	@XmlAttribute
 	private final Value threshold;
