@@ -74,9 +74,6 @@ public final class Log4JContext {
 		private boolean debug = DEFAULT_DEBUG;
 		private Value threshold = DEFAULT_THRESHOLD;
 
-		public Builder() {
-		}
-
 		public Builder appenders(List<Appender> appenders) {
 			this.appenders = appenders;
 			return this;
