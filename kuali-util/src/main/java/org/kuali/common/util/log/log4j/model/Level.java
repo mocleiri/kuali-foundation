@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.log.log4j.jaxb.DropLevelClassAdapter;
+import org.kuali.common.util.log.log4j.jaxb.ValueAdapter;
 
 public final class Level {
 
@@ -17,7 +18,8 @@ public final class Level {
 	private final Class<?> levelClass;
 
 	@XmlAttribute
-	private final Value value;
+	@XmlJavaTypeAdapter(ValueAdapter.class)
+	private final String value;
 
 	private Level() {
 		this(DEFAULT_CLASS, NO_VALUE);
@@ -30,14 +32,14 @@ public final class Level {
 	public Level(Class<?> levelClass, Value value) {
 		Assert.noNulls(levelClass, value);
 		this.levelClass = levelClass;
-		this.value = value;
+		this.value = value.name().toLowerCase();
 	}
 
 	public Class<?> getLevelClass() {
 		return levelClass;
 	}
 
-	public Value getValue() {
+	public String getValue() {
 		return value;
 	}
 
