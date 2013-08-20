@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.DropTrueAdapter;
 
 public class Logger {
 
@@ -28,7 +30,8 @@ public class Logger {
 	private final Level level;
 
 	@XmlAttribute
-	private final boolean additivity;
+	@XmlJavaTypeAdapter(DropTrueAdapter.class)
+	private final Boolean additivity;
 
 	private Logger() {
 		this(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);

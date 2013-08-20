@@ -2,7 +2,7 @@ package org.kuali.common.util.xml.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class DropBooleanAdapter extends XmlAdapter<Boolean, Boolean> {
+public abstract class DropBooleanAdapter extends XmlAdapter<Boolean, Boolean> {
 
 	public DropBooleanAdapter(boolean dropValue) {
 		this.dropValue = dropValue;
