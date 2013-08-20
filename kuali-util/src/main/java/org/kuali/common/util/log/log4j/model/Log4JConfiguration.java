@@ -83,7 +83,7 @@ public final class Log4JConfiguration {
 
 		public Builder(Logger root) {
 			Assert.notNull(root);
-			Assert.isFalse(Threshold.NULL.equals(root.getLevel().getValue()), "root logging value is null");
+			Assert.isFalse(Threshold.NULL.equals(root.getLevel().getValue()), "root logging level is null");
 			this.root = root;
 		}
 
@@ -137,7 +137,8 @@ public final class Log4JConfiguration {
 		}
 
 		public Log4JConfiguration build() {
-			Assert.noNulls(appenders, root, loggers);
+			Assert.noNulls(appenders, loggers, debug, threshold);
+			Assert.noBlanks(namespace);
 			return new Log4JConfiguration(this);
 		}
 	}

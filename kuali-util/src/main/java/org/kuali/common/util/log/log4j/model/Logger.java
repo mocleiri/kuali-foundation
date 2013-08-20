@@ -76,8 +76,6 @@ public class Logger {
 	}
 
 	public static Logger getRootLogger(List<AppenderRef> references, Level level) {
-		Assert.noNulls(references, level);
-		Assert.isFalse(Threshold.NULL.equals(level.getValue()), "root logger level can't be null");
 		return new Logger(NO_NAME, references, level);
 	}
 
