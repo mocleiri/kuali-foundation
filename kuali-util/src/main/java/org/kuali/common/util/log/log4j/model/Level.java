@@ -29,10 +29,10 @@ public final class Level {
 		this(DEFAULT_CLASS, value);
 	}
 
-	public Level(Class<?> levelClass, Threshold value) {
-		Assert.noNulls(levelClass, value);
+	public Level(Class<?> levelClass, Threshold threshold) {
+		Assert.noNulls(levelClass, threshold);
 		this.levelClass = levelClass;
-		this.value = value.name().toLowerCase();
+		this.value = threshold.name();
 	}
 
 	public Class<?> getLevelClass() {
