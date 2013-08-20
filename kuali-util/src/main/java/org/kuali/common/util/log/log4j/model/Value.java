@@ -13,7 +13,6 @@ public enum Value {
 	// Thus we have a method that works in both directions for dealing with "NULL" vs "null"
 	// Granted, this is a tad bit crazy and supremely brittle...
 
-	public static final Value DEFAULT_VALUE = INFO;
 	public static final Value NO_VALUE = OFF;
 
 }
