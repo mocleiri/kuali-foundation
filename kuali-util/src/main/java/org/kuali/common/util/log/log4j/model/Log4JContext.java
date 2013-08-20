@@ -40,10 +40,6 @@ public final class Log4JContext {
 	@XmlAttribute
 	private final Value threshold;
 
-	private Log4JContext() {
-		this(new Builder());
-	}
-
 	public boolean getReset() {
 		return reset;
 	}
@@ -124,6 +120,10 @@ public final class Log4JContext {
 			Assert.noNulls(appenders, root, loggers);
 			return new Log4JContext(this);
 		}
+	}
+
+	private Log4JContext() {
+		this(new Builder());
 	}
 
 	private Log4JContext(Builder builder) {
