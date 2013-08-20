@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
-import org.kuali.common.util.log.log4j.jaxb.ThresholdAdapter;
+import org.kuali.common.util.log.log4j.jaxb.RepositoryAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
@@ -24,7 +24,6 @@ public final class Log4JContext {
 	public static final boolean DEFAULT_RESET = false;
 	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
 	public static final Debug DEFAULT_DEBUG = Debug.DEFAULT_VALUE;
-	public static final Threshold DEFAULT_THRESHOLD = Threshold.DEFAULT_VALUE;
 	public static final List<Logger> NO_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> NO_APPENDERS = Collections.<Appender> emptyList();
 
@@ -49,7 +48,7 @@ public final class Log4JContext {
 	private final String debug;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(ThresholdAdapter.class)
+	@XmlJavaTypeAdapter(RepositoryAdapter.class)
 	private final String threshold;
 
 	public boolean getReset() {
@@ -88,7 +87,7 @@ public final class Log4JContext {
 		private List<Logger> loggers = NO_LOGGERS;
 		private boolean reset = DEFAULT_RESET;
 		private Debug debug = DEFAULT_DEBUG;
-		private Threshold threshold = DEFAULT_THRESHOLD;
+		private Threshold threshold = Threshold.DEFAULT_REPOSITORY_VALUE;
 
 		public Builder appenders(List<Appender> appenders) {
 			this.appenders = appenders;

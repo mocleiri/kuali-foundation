@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.log.log4j.jaxb.DropLevelClassAdapter;
-import org.kuali.common.util.log.log4j.jaxb.ThresholdAdapter;
+import org.kuali.common.util.log.log4j.jaxb.RepositoryAdapter;
 
 public final class Level {
 
@@ -18,7 +18,7 @@ public final class Level {
 	private final Class<?> levelClass;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(ThresholdAdapter.class)
+	@XmlJavaTypeAdapter(RepositoryAdapter.class)
 	private final String value;
 
 	private Level() {
