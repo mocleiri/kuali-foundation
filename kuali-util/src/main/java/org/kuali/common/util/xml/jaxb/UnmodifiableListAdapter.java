@@ -5,30 +5,26 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public abstract class UnmodifiableListAdapter<T> extends XmlAdapter<List<T>, List<T>> {
+public class UnmodifiableListAdapter<T> extends XmlAdapter<List<T>, List<T>> {
 
-	public UnmodifiableListAdapter(boolean dropValue) {
-		this.dropValue = dropValue;
-	}
-
-	private final Boolean dropValue;
+	private final List<T> EMPTY = Collections.<T> emptyList();
 
 	@Override
 	public final List<T> marshal(List<T> list) {
-		return list;
+		return toEmpty(list);
 	}
 
 	@Override
 	public final List<T> unmarshal(List<T> list) {
+		return toEmpty(list);
+	}
+
+	protected List<T> toEmpty(List<T> list) {
 		if (list == null) {
-			return Collections.<T> emptyList();
+			return EMPTY;
 		} else {
 			return Collections.unmodifiableList(list);
 		}
-	}
-
-	public final Boolean getDropValue() {
-		return dropValue;
 	}
 
 }
