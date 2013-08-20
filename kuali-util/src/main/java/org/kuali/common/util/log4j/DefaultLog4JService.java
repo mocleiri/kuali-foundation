@@ -33,11 +33,11 @@ public final class DefaultLog4JService implements Log4JService {
 	protected static final String XML_SUFFIX = ".xml";
 	protected static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";
 
-	private final XmlService service;
+	private final XmlService xmlService;
 
-	public DefaultLog4JService(XmlService service) {
-		Assert.noNulls(service);
-		this.service = service;
+	public DefaultLog4JService(XmlService xmlService) {
+		Assert.noNulls(xmlService);
+		this.xmlService = xmlService;
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public final class DefaultLog4JService implements Log4JService {
 	public String toXml(Log4JContext context) {
 		Log4JContext clone = new Log4JContext(context);
 		new Log4JContextNullifier(clone).nullify();
-		return service.toXml(clone, ENCODING);
+		return xmlService.toXml(clone, ENCODING);
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	public XmlService getXmlService() {
-		return service;
+		return xmlService;
 	}
 
 }
