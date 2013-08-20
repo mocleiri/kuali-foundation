@@ -144,7 +144,7 @@ public final class Log4JConfiguration {
 	}
 
 	private Log4JConfiguration() {
-		this(new Builder(Logger.getNoOpRootLogger()));
+		this(new Builder(Logger.NOOP_LOGGER));
 	}
 
 	private Log4JConfiguration(Builder builder) {

@@ -17,7 +17,7 @@ import org.kuali.common.util.xml.jaxb.DropTrueAdapter;
 public class Logger {
 
 	public static final boolean DEFAULT_ADDITIVITY = true;
-	public static final Logger DEFAULT_LOGGER = new Logger();
+	public static final Logger NOOP_LOGGER = new Logger();
 	public static final String NO_NAME = NullUtils.NONE;
 
 	@XmlAttribute
@@ -78,9 +78,4 @@ public class Logger {
 	public static Logger getRootLogger(List<AppenderRef> references, Level level) {
 		return new Logger(NO_NAME, references, level);
 	}
-
-	public static Logger getNoOpRootLogger() {
-		return getRootLogger(AppenderRef.NO_APPENDER_REFS, Level.DEFAULT_LEVEL);
-	}
-
 }
