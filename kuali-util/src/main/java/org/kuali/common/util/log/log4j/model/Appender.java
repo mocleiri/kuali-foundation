@@ -42,7 +42,7 @@ public final class Appender {
 		this.name = name;
 		this.appenderClass = appenderClass;
 		this.layout = layout;
-		this.params = params;
+		this.params = new ArrayList<Param>(params);
 	}
 
 	public String getName() {

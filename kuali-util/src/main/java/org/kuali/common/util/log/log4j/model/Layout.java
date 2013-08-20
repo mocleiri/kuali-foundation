@@ -34,15 +34,15 @@ public final class Layout {
 	public Layout(Class<?> layoutClass, List<Param> params) {
 		Assert.noNulls(layoutClass, params);
 		this.layoutClass = layoutClass;
-		this.params = params;
-	}
-
-	public Class<?> getLayoutClass() {
-		return layoutClass;
+		this.params = new ArrayList<Param>(params);
 	}
 
 	public List<Param> getParams() {
 		return Collections.unmodifiableList(params);
+	}
+
+	public Class<?> getLayoutClass() {
+		return layoutClass;
 	}
 
 }
