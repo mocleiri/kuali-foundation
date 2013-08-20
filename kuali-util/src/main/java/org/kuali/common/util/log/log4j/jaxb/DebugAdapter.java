@@ -4,24 +4,23 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.log.log4j.model.Debug;
 
-public class DebugAdapter extends XmlAdapter<String, String> {
+public class DebugAdapter extends XmlAdapter<String, Debug> {
 
 	@Override
-	public final String marshal(String value) {
-		Debug debug = Debug.valueOf(value.toUpperCase());
-		if (Debug.DEFAULT_VALUE.equals(debug)) {
+	public final String marshal(Debug value) {
+		if (Debug.DEFAULT_VALUE.equals(value)) {
 			return null;
 		} else {
-			return debug.name().toLowerCase();
+			return value.name().toLowerCase();
 		}
 	}
 
 	@Override
-	public final String unmarshal(String value) {
+	public final Debug unmarshal(String value) {
 		if (value == null) {
-			return Debug.DEFAULT_VALUE.name().toLowerCase();
+			return Debug.DEFAULT_VALUE;
 		} else {
-			return Debug.valueOf(value).name().toLowerCase();
+			return Debug.valueOf(value.toUpperCase());
 		}
 	}
 
