@@ -1,6 +1,5 @@
 package org.kuali.common.util.log.log4j.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,9 +12,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.log.log4j.jaxb.AppenderListAdapter;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
-import org.kuali.common.util.log.log4j.jaxb.AppenderListAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
@@ -54,11 +53,11 @@ public final class Log4JConfiguration {
 	private final Threshold threshold;
 
 	public List<Logger> getLoggers() {
-		return Collections.unmodifiableList(loggers);
+		return loggers;
 	}
 
 	public List<Appender> getAppenders() {
-		return Collections.unmodifiableList(appenders);
+		return appenders;
 	}
 
 	public boolean getReset() {
@@ -151,9 +150,8 @@ public final class Log4JConfiguration {
 
 	private Log4JConfiguration(Builder builder) {
 		this.root = builder.root;
-		// Can't make this an unmodifiable copy because doing so blows up JAXB
-		this.appenders = new ArrayList<Appender>(builder.appenders);
-		this.loggers = new ArrayList<Logger>(builder.loggers);
+		this.appenders = Collections.unmodifiableList(builder.appenders);
+		this.loggers = Collections.unmodifiableList(builder.loggers);
 		this.reset = builder.reset;
 		this.debug = builder.debug;
 		this.threshold = builder.threshold;
