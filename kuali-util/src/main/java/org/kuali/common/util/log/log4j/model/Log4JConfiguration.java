@@ -19,7 +19,7 @@ import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public final class Log4JContext {
+public final class Log4JConfiguration {
 
 	public static final boolean DEFAULT_RESET = false;
 	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
@@ -136,17 +136,17 @@ public final class Log4JContext {
 			return this;
 		}
 
-		public Log4JContext build() {
+		public Log4JConfiguration build() {
 			Assert.noNulls(appenders, root, loggers);
-			return new Log4JContext(this);
+			return new Log4JConfiguration(this);
 		}
 	}
 
-	private Log4JContext() {
+	private Log4JConfiguration() {
 		this(new Builder(Logger.getNoOpRootLogger()));
 	}
 
-	private Log4JContext(Builder builder) {
+	private Log4JConfiguration(Builder builder) {
 		this.appenders = new ArrayList<Appender>(builder.appenders);
 		this.root = builder.root;
 		this.loggers = new ArrayList<Logger>(builder.loggers);

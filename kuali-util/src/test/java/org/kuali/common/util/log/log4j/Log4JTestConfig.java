@@ -19,7 +19,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.log.log4j.model.Log4JContext;
+import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
@@ -52,10 +52,10 @@ public class Log4JTestConfig {
 	@Test
 	public void test() {
 		try {
-			Log4JContext original = config.log4JContextMaven();
+			Log4JConfiguration original = config.log4JContextMaven();
 			String xml1 = service.toXml(original);
 			System.out.println(xml1);
-			Log4JContext derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JContext.class);
+			Log4JConfiguration derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JConfiguration.class);
 			String xml2 = service.toXml(derived);
 			System.out.println(xml2);
 			Assert.assertEquals(xml1, xml2);

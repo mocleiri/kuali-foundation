@@ -20,7 +20,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.log.log4j.model.Log4JContext;
+import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.xml.XmlService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -41,7 +41,7 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public void configure(Log4JContext context) {
+	public void configure(Log4JConfiguration context) {
 		String xml = toXml(context);
 		Document document = getDocument(xml);
 		configure(document);
@@ -74,7 +74,7 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public String toXml(Log4JContext context) {
+	public String toXml(Log4JConfiguration context) {
 		return service.toXml(context, ENCODING);
 	}
 
@@ -89,7 +89,7 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public void write(File file, Log4JContext context) {
+	public void write(File file, Log4JConfiguration context) {
 		OutputStream out = null;
 		try {
 			String xml = toXml(context);
