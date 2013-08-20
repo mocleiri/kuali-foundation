@@ -64,7 +64,7 @@ public final class Log4JConfiguration {
 	}
 
 	public List<Appender> getAppenders() {
-		return Collections.unmodifiableList(appenders);
+		return appenders;
 	}
 
 	public List<Logger> getLoggers() {
