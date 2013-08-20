@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.log.log4j.model.Debug;
 
-public abstract class DebugAdapter extends XmlAdapter<String, String> {
+public class DebugAdapter extends XmlAdapter<String, String> {
 
 	@Override
 	public final String marshal(String value) {

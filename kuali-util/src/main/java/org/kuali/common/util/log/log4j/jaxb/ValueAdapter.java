@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.log.log4j.model.Value;
 
-public abstract class ValueAdapter extends XmlAdapter<String, String> {
+public class ValueAdapter extends XmlAdapter<String, String> {
 
 	@Override
 	public final String marshal(String value) {
