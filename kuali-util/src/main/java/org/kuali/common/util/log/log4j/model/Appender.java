@@ -1,6 +1,5 @@
 package org.kuali.common.util.log.log4j.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -32,7 +31,7 @@ public final class Appender {
 	private final Layout layout;
 
 	private Appender() {
-		this(NO_NAME, NO_APPENDER_CLASS, Layout.NO_LAYOUT, new ArrayList<Param>());
+		this(NO_NAME, NO_APPENDER_CLASS, Layout.NO_LAYOUT, Param.NO_PARAMS);
 	}
 
 	public Appender(String name, Class<? extends org.apache.log4j.Appender> appenderClass, Layout layout) {
