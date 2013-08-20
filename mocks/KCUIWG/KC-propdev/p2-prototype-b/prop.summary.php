@@ -69,7 +69,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<div class="panel">
 											<div class="panel-heading">
 												<h6 class="panel-title">
-													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop1">Proposal Summary</a>
+													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop1">Proposal Summary</a>
 												</h6>
 											</div>
 											<div id="prop1" class="panel-collapse collapse">
@@ -82,7 +82,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<div class="panel">
 											<div class="panel-heading">
 												<h6 class="panel-title">
-													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop2">Key Persons</a>
+													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop2">Key Persons</a>
 												</h6>
 											</div>
 											<div id="prop2" class="panel-collapse collapse">
@@ -95,7 +95,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<div class="panel">
 											<div class="panel-heading">
 												<h6 class="panel-title">
-													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop3">Attachments</a>
+													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop3">Attachments</a>
 												</h6>
 											</div>
 											<div id="prop3" class="panel-collapse collapse">
@@ -108,7 +108,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<div class="panel">
 											<div class="panel-heading">
 												<h6 class="panel-title">
-													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop4">Special Review</a>
+													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop4">Special Review</a>
 												</h6>
 											</div>
 											<div id="prop4" class="panel-collapse collapse">
@@ -121,7 +121,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<div class="panel">
 											<div class="panel-heading">
 												<h6 class="panel-title">
-													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop5">Proposal Print</a>
+													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop5">Proposal Print</a>
 												</h6>
 											</div>
 											<div id="prop5" class="panel-collapse collapse">
@@ -134,7 +134,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<div class="panel">
 											<div class="panel-heading">
 												<h6 class="panel-title">
-													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#prop6">Proposal Summary</a>
+													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop6">Proposal Summary</a>
 												</h6>
 											</div>
 											<div id="prop6" class="panel-collapse collapse">

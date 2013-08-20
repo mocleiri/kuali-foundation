@@ -411,6 +411,18 @@ section.toolbar .dropdown a .caret {
 #main .panel-group .panel .panel-heading .panel-title .accordion-toggle.collapsed:before {
   content: "\2295" !important;
 }
+#main .entry-row {
+  margin-bottom: 20px;
+}
+#main .entry-row .entry-row-internal {
+  margin-bottom: 1%;
+}
+#main .entry-row .entry-row-internal:after {
+  content: " ";
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
 .link-delete {
   color: #ff0000;
   font-weight: 700;
