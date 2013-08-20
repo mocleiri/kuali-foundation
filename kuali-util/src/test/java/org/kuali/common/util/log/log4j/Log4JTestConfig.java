@@ -54,8 +54,8 @@ public class Log4JTestConfig {
 		try {
 			logger.info("old logging configuration");
 			Log4JConfiguration original = config.log4JContextMaven();
-			service.configure(original);
-			logger.info("old logging configuration - 1");
+			// service.configure(original);
+			// logger.info("old logging configuration - 1");
 			String xml1 = service.toXml(original);
 			System.out.println(xml1);
 			Log4JConfiguration derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JConfiguration.class);

@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.log.log4j.jaxb.AppenderListAdapter;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.log.log4j.jaxb.LoggerListAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
@@ -32,7 +31,7 @@ public final class Log4JConfiguration {
 	private final String namespace;
 
 	@XmlElement(name = "appender")
-	@XmlJavaTypeAdapter(AppenderListAdapter.class)
+	//@XmlJavaTypeAdapter(AppenderListAdapter.class)
 	private final List<Appender> appenders;
 
 	@XmlElement
