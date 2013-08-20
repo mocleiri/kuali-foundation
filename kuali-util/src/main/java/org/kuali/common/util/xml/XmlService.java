@@ -33,6 +33,12 @@ public interface XmlService {
 
 	void write(OutputStream out, Object object);
 
+	/**
+	 * @deprecated Use toXML() instead
+	 */
+	@Deprecated
 	String toString(Object object, String encoding);
+
+	String toXml(Object object, String encoding);
 
 }

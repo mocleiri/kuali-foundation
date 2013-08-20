@@ -104,7 +104,7 @@ public class DefaultXmlService implements XmlService {
 	}
 
 	@Override
-	public String toString(Object object, String encoding) {
+	public String toXml(Object object, String encoding) {
 		Assert.noBlanks(encoding);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		write(out, object);
@@ -113,5 +113,10 @@ public class DefaultXmlService implements XmlService {
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException(e);
 		}
+	}
+
+	@Override
+	public String toString(Object object, String encoding) {
+		return toXml(object, encoding);
 	}
 }
