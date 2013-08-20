@@ -11,16 +11,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.DropNoneStringAdapter;
 import org.kuali.common.util.xml.jaxb.DropTrueAdapter;
 
 public class Logger {
 
 	public static final boolean DEFAULT_ADDITIVITY = true;
 	public static final Logger DEFAULT_LOGGER = new Logger();
-	public static final String ROOT_LOGGER_NAME = "ROOT";
 	public static final String NO_NAME = NullUtils.NONE;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(DropNoneStringAdapter.class)
 	private final String name;
 
 	@XmlElement(name = "appender-ref")
@@ -75,11 +76,11 @@ public class Logger {
 	}
 
 	public static Logger getRootLogger(List<AppenderRef> references, Level level) {
-		return new Logger(ROOT_LOGGER_NAME, references, level);
+		return new Logger(NO_NAME, references, level);
 	}
 
 	public static Logger getNoRootLogger() {
-		return new Logger(ROOT_LOGGER_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
+		return new Logger(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
 	}
 
 }
