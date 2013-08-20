@@ -53,11 +53,11 @@ public final class Log4JContext {
 	}
 
 	public List<Appender> getAppenders() {
-		return appenders;
+		return Collections.unmodifiableList(appenders);
 	}
 
 	public List<Logger> getLoggers() {
-		return loggers;
+		return Collections.unmodifiableList(loggers);
 	}
 
 	public Logger getRoot() {
