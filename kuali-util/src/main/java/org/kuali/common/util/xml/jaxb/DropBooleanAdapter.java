@@ -2,12 +2,9 @@ package org.kuali.common.util.xml.jaxb;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.kuali.common.util.Assert;
-
 public class DropBooleanAdapter extends XmlAdapter<Boolean, Boolean> {
 
-	public DropBooleanAdapter(Boolean dropValue) {
-		Assert.noNulls(dropValue);
+	public DropBooleanAdapter(boolean dropValue) {
 		this.dropValue = dropValue;
 	}
 
