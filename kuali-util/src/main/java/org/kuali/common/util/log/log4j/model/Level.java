@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.log.log4j.jaxb.DropLevelClassAdapter;
-import org.kuali.common.util.log.log4j.jaxb.RepositoryAdapter;
+import org.kuali.common.util.log.log4j.jaxb.LoggerAdapter;
 
 public final class Level {
 
@@ -18,8 +18,8 @@ public final class Level {
 	private final Class<?> levelClass;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(RepositoryAdapter.class)
-	private final String value;
+	@XmlJavaTypeAdapter(LoggerAdapter.class)
+	private final Threshold value;
 
 	private Level() {
 		this(DEFAULT_CLASS, NO_VALUE);
@@ -29,17 +29,17 @@ public final class Level {
 		this(DEFAULT_CLASS, value);
 	}
 
-	public Level(Class<?> levelClass, Threshold threshold) {
-		Assert.noNulls(levelClass, threshold);
+	public Level(Class<?> levelClass, Threshold value) {
+		Assert.noNulls(levelClass, value);
 		this.levelClass = levelClass;
-		this.value = threshold.name();
+		this.value = value;
 	}
 
 	public Class<?> getLevelClass() {
 		return levelClass;
 	}
 
-	public String getValue() {
+	public Threshold getValue() {
 		return value;
 	}
 
