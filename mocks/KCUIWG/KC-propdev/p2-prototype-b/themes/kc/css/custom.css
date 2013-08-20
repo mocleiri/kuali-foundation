@@ -28,7 +28,9 @@ button {
   left: -9999em;
 }
 .portal-header {
+  width: 100%;
   background-color: #aa003e;
+  z-index: 100;
 }
 .portal-header .navbar {
   background-color: #aa003e;
@@ -264,7 +266,7 @@ section.toolbar .dropdown a .caret {
 }
 #main {
   background: #ffffff;
-  padding-top: 40px;
+  padding-top: 75px;
 }
 #main label {
   line-height: 130%;
