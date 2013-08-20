@@ -7,11 +7,7 @@ import org.kuali.common.util.log.log4j.model.Appender;
 public class UnmodifiableAppenderListAdapter extends UnmodifiableListAdapter<Appender> {
 
 	@Override
-	protected Appender[] getArray(List<Appender> list) {
-		if (list == null) {
-			return new Appender[0];
-		} else {
-			return list.toArray(new Appender[list.size()]);
-		}
+	protected Appender[] getArrayFromNonEmptyList(List<Appender> list) {
+		return list.toArray(new Appender[list.size()]);
 	}
 }

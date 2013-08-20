@@ -10,14 +10,14 @@ public abstract class UnmodifiableListAdapter<T> extends XmlAdapter<T[], List<T>
 
 	private final List<T> EMPTY_LIST = Collections.<T> emptyList();
 
-	protected abstract T[] getArray(List<T> list);
+	protected abstract T[] getArrayFromNonEmptyList(List<T> list);
 
 	@Override
 	public T[] marshal(List<T> list) {
 		if (list == null || list.size() == 0) {
 			return null;
 		} else {
-			return getArray(list);
+			return getArrayFromNonEmptyList(list);
 		}
 	}
 
