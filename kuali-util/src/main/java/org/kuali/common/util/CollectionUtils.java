@@ -62,7 +62,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
+	 * If the CSV is whitespace, the empty string, <code>null</code>, <code>"null"</code>, or <code>"none"</code>, return an empty list.
 	 */
 	public static List<String> getNoneSensitiveListFromCSV(String csv) {
 		if (StringUtils.isBlank(csv) || NullUtils.isNullOrNone(csv)) {
