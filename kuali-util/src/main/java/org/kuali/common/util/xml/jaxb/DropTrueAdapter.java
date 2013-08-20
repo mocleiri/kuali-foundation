@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class DropTrueAdapter extends XmlAdapter<Boolean, Boolean> {
 
 	@Override
-	public Boolean unmarshal(Boolean value) {
+	public Boolean marshal(Boolean value) {
 		if (Boolean.TRUE.equals(value)) {
 			return null;
 		} else {
@@ -14,11 +14,12 @@ public class DropTrueAdapter extends XmlAdapter<Boolean, Boolean> {
 	}
 
 	@Override
-	public Boolean marshal(Boolean value) {
+	public Boolean unmarshal(Boolean value) {
 		if (value == null) {
 			return Boolean.TRUE;
 		} else {
 			return value;
 		}
 	}
+
 }
