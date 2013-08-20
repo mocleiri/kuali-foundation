@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.log.log4j.model.Threshold;
 
-public class ValueAdapter extends XmlAdapter<String, String> {
+public class ThresholdAdapter extends XmlAdapter<String, String> {
 
 	@Override
 	public final String marshal(String value) {

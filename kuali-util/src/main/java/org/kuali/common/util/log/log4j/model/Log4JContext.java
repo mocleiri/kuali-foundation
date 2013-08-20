@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
-import org.kuali.common.util.log.log4j.jaxb.ValueAdapter;
+import org.kuali.common.util.log.log4j.jaxb.ThresholdAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
@@ -49,7 +49,7 @@ public final class Log4JContext {
 	private final String debug;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(ValueAdapter.class)
+	@XmlJavaTypeAdapter(ThresholdAdapter.class)
 	private final String threshold;
 
 	public boolean getReset() {
