@@ -21,7 +21,7 @@
             <ul>
 
 <li role="presentation" class="dropdown-header">Dropdown header</li>
-<li><a href="#">Item 1</a></li>
+<li><a href="prop.basics.details.php">Create Proposal</a></li>
 <li><a href="#">Item 2</a></li>
 <li><a href="#">Item 3</a></li>
 </ul>
