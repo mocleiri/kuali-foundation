@@ -57,16 +57,16 @@ public class Log4JConfig {
 		return getLog4JContext(Log4JPatternConstants.MAVEN, Threshold.INFO, spring);
 	}
 
-	protected Log4JContext getLog4JContext(String pattern, Threshold value) {
-		return getLog4JContext(pattern, value, null);
+	protected Log4JContext getLog4JContext(String pattern, Threshold threshold) {
+		return getLog4JContext(pattern, threshold, null);
 	}
 
-	protected Log4JContext getLog4JContext(String pattern, Threshold value, Logger logger) {
+	protected Log4JContext getLog4JContext(String pattern, Threshold threshold, Logger logger) {
 		Param param = ParamFactory.getPatternParam(pattern);
 		Layout layout = new Layout(PatternLayout.class, param);
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);
 		AppenderRef ref = new AppenderRef(console.getName());
-		Logger root = Logger.getRootLogger(ref, new Level(value));
+		Logger root = Logger.getRootLogger(ref, new Level(threshold));
 		if (logger == null) {
 			return new Log4JContext.Builder().appender(console).root(root).reset(true).build();
 		} else {
