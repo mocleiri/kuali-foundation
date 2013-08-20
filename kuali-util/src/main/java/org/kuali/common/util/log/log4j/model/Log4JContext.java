@@ -22,7 +22,7 @@ public final class Log4JContext {
 	public static final boolean DEFAULT_RESET = false;
 	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
 	public static final boolean DEFAULT_DEBUG = false;
-	public static final Value DEFAULT_THRESHOLD = Value.NO_VALUE;
+	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT_VALUE;
 	public static final List<Logger> NO_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> NO_APPENDERS = Collections.<Appender> emptyList();
 
