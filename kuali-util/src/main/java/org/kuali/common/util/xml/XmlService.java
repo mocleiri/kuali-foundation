@@ -27,6 +27,8 @@ public interface XmlService {
 
 	<T> T getObject(String location, Class<T> type);
 
+	<T> T getObjectFromXml(String xml, String encoding, Class<T> type);
+
 	void write(File file, Object object);
 
 	void write(OutputStream out, Object object);

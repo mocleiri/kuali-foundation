@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.xml;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,19 @@ public class DefaultXmlService implements XmlService {
 			marshaller.marshal(object, out);
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
+		}
+	}
+
+	@Override
+	public <T> T getObjectFromXml(String xml, String encoding, Class<T> type) {
+		InputStream in = null;
+		try {
+			in = new ByteArrayInputStream(xml.getBytes(encoding));
+			return getObject(in, type);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
 		}
 	}
 
