@@ -35,7 +35,7 @@ public class Logger {
 	private final Boolean additivity;
 
 	private Logger() {
-		this(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
+		this(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.DEFAULT_LEVEL);
 	}
 
 	public Logger(String name, Level level) {
@@ -81,8 +81,8 @@ public class Logger {
 		return new Logger(NO_NAME, references, level);
 	}
 
-	public static Logger getNoRootLogger() {
-		return new Logger(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.NO_LEVEL);
+	public static Logger getNoOpRootLogger() {
+		return getRootLogger(AppenderRef.NO_APPENDER_REFS, Level.DEFAULT_LEVEL);
 	}
 
 }

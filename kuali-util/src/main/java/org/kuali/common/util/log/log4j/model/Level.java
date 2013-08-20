@@ -10,8 +10,7 @@ import org.kuali.common.util.log.log4j.jaxb.LoggerAdapter;
 public final class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_CLASS = org.apache.log4j.Level.class;
-	public static final Threshold NO_VALUE = Threshold.NULL;
-	public static final Level NO_LEVEL = new Level();
+	public static final Level DEFAULT_LEVEL = new Level();
 
 	@XmlAttribute(name = "class")
 	@XmlJavaTypeAdapter(DropLevelClassAdapter.class)
@@ -22,7 +21,7 @@ public final class Level {
 	private final Threshold value;
 
 	private Level() {
-		this(DEFAULT_CLASS, NO_VALUE);
+		this(DEFAULT_CLASS, Threshold.DEFAULT_LOGGER_VALUE);
 	}
 
 	public Level(Threshold value) {

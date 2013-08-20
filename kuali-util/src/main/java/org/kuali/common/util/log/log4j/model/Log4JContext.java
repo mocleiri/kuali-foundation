@@ -82,7 +82,7 @@ public final class Log4JContext {
 	public static class Builder {
 
 		private List<Appender> appenders = NO_APPENDERS;
-		private Logger root = Logger.getNoRootLogger();
+		private Logger root = Logger.getNoOpRootLogger();
 		private String namespace = DEFAULT_NAMESPACE;
 		private List<Logger> loggers = NO_LOGGERS;
 		private boolean reset = DEFAULT_RESET;
