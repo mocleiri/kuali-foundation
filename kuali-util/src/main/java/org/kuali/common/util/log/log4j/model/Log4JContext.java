@@ -81,8 +81,15 @@ public final class Log4JContext {
 
 	public static class Builder {
 
+		public Builder(Logger root) {
+			Assert.notNull(root);
+			Assert.isFalse(Threshold.NULL.equals(root.getLevel().getValue()), "root logging value is null");
+			this.root = root;
+		}
+
+		private final Logger root;
+
 		private List<Appender> appenders = NO_APPENDERS;
-		private Logger root = Logger.getNoOpRootLogger();
 		private String namespace = DEFAULT_NAMESPACE;
 		private List<Logger> loggers = NO_LOGGERS;
 		private boolean reset = DEFAULT_RESET;
@@ -94,18 +101,13 @@ public final class Log4JContext {
 			return this;
 		}
 
-		public Builder namespace(String namespace) {
-			this.namespace = namespace;
-			return this;
-		}
-
 		public Builder appender(Appender appender) {
 			this.appenders = CollectionUtils.singletonList(appender);
 			return this;
 		}
 
-		public Builder root(Logger root) {
-			this.root = root;
+		public Builder namespace(String namespace) {
+			this.namespace = namespace;
 			return this;
 		}
 
@@ -141,7 +143,7 @@ public final class Log4JContext {
 	}
 
 	private Log4JContext() {
-		this(new Builder());
+		this(new Builder(Logger.getNoOpRootLogger()));
 	}
 
 	private Log4JContext(Builder builder) {
