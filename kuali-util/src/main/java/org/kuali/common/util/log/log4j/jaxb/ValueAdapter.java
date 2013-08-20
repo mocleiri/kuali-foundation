@@ -12,7 +12,7 @@ public abstract class ValueAdapter extends XmlAdapter<String, String> {
 		if (Value.DEFAULT_VALUE.equals(v)) {
 			return null;
 		} else {
-			return v.name().toLowerCase();
+			return value;
 		}
 	}
 
