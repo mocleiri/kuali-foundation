@@ -1,5 +1,6 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -127,9 +128,9 @@ public final class Log4JContext {
 	}
 
 	private Log4JContext(Builder builder) {
-		this.appenders = builder.appenders;
+		this.appenders = new ArrayList<Appender>(builder.appenders);
 		this.root = builder.root;
-		this.loggers = builder.loggers;
+		this.loggers = new ArrayList<Logger>(builder.loggers);
 		this.reset = builder.reset;
 		this.debug = builder.debug;
 		this.threshold = builder.threshold;
