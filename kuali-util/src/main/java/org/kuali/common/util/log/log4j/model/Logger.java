@@ -1,5 +1,7 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -44,13 +46,13 @@ public class Logger {
 		Assert.noBlanks(name);
 		Assert.noNulls(references, level);
 		this.name = name;
-		this.references = references;
+		this.references = new ArrayList<AppenderRef>(references);
 		this.level = level;
 		this.additivity = additivity;
 	}
 
 	public List<AppenderRef> getReferences() {
-		return references;
+		return Collections.unmodifiableList(references);
 	}
 
 	public Boolean getAdditivity() {
