@@ -49,7 +49,7 @@ public final class Log4JConfiguration {
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(RepositoryThresholdAdapter.class)
-	private final String threshold;
+	private final Threshold threshold;
 
 	public boolean getReset() {
 		return reset;
@@ -59,7 +59,7 @@ public final class Log4JConfiguration {
 		return debug;
 	}
 
-	public String getThreshold() {
+	public Threshold getThreshold() {
 		return threshold;
 	}
 
@@ -152,7 +152,7 @@ public final class Log4JConfiguration {
 		this.loggers = new ArrayList<Logger>(builder.loggers);
 		this.reset = builder.reset;
 		this.debug = builder.debug;
-		this.threshold = builder.threshold.name().toLowerCase();
+		this.threshold = builder.threshold;
 		this.namespace = builder.namespace;
 	}
 
