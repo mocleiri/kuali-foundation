@@ -45,7 +45,7 @@ public final class Log4JConfiguration {
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(DebugAdapter.class)
-	private final String debug;
+	private final Debug debug;
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(RepositoryThresholdAdapter.class)
@@ -55,7 +55,7 @@ public final class Log4JConfiguration {
 		return reset;
 	}
 
-	public String getDebug() {
+	public Debug getDebug() {
 		return debug;
 	}
 
@@ -151,7 +151,7 @@ public final class Log4JConfiguration {
 		this.root = builder.root;
 		this.loggers = new ArrayList<Logger>(builder.loggers);
 		this.reset = builder.reset;
-		this.debug = builder.debug.name().toLowerCase();
+		this.debug = builder.debug;
 		this.threshold = builder.threshold.name().toLowerCase();
 		this.namespace = builder.namespace;
 	}
