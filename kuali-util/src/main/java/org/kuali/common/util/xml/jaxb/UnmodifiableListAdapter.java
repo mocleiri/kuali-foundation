@@ -20,7 +20,7 @@ public class UnmodifiableListAdapter<T> extends XmlAdapter<List<T>, List<T>> {
 	}
 
 	protected List<T> toEmpty(List<T> list) {
-		if (list == null) {
+		if (list == null || list.size() == 0) {
 			return EMPTY;
 		} else {
 			return Collections.unmodifiableList(list);
