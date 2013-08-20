@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
@@ -21,7 +22,7 @@ public final class Log4JContext {
 
 	public static final boolean DEFAULT_RESET = false;
 	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
-	public static final boolean DEFAULT_DEBUG = false;
+	public static final Debug DEFAULT_DEBUG = Debug.DEFAULT_VALUE;
 	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT_VALUE;
 	public static final List<Logger> NO_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> NO_APPENDERS = Collections.<Appender> emptyList();
@@ -43,8 +44,8 @@ public final class Log4JContext {
 	private final Boolean reset;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(DropFalseAdapter.class)
-	private final Boolean debug;
+	@XmlJavaTypeAdapter(DebugAdapter.class)
+	private final String debug;
 
 	@XmlAttribute
 	private final Value threshold;
@@ -53,7 +54,7 @@ public final class Log4JContext {
 		return reset;
 	}
 
-	public boolean getDebug() {
+	public String getDebug() {
 		return debug;
 	}
 
@@ -84,7 +85,7 @@ public final class Log4JContext {
 		private String namespace = DEFAULT_NAMESPACE;
 		private List<Logger> loggers = NO_LOGGERS;
 		private boolean reset = DEFAULT_RESET;
-		private boolean debug = DEFAULT_DEBUG;
+		private Debug debug = DEFAULT_DEBUG;
 		private Value threshold = DEFAULT_THRESHOLD;
 
 		public Builder appenders(List<Appender> appenders) {
@@ -122,7 +123,7 @@ public final class Log4JContext {
 			return this;
 		}
 
-		public Builder debug(boolean debug) {
+		public Builder debug(Debug debug) {
 			this.debug = debug;
 			return this;
 		}
@@ -147,7 +148,7 @@ public final class Log4JContext {
 		this.root = builder.root;
 		this.loggers = new ArrayList<Logger>(builder.loggers);
 		this.reset = builder.reset;
-		this.debug = builder.debug;
+		this.debug = builder.debug.name().toLowerCase();
 		this.threshold = builder.threshold;
 		this.namespace = builder.namespace;
 	}
