@@ -24,7 +24,7 @@ public final class Log4JContext {
 	public static final boolean DEFAULT_RESET = false;
 	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
 	public static final Debug DEFAULT_DEBUG = Debug.DEFAULT_VALUE;
-	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT_VALUE;
+	public static final Threshold DEFAULT_THRESHOLD = Threshold.DEFAULT_VALUE;
 	public static final List<Logger> NO_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> NO_APPENDERS = Collections.<Appender> emptyList();
 
@@ -88,7 +88,7 @@ public final class Log4JContext {
 		private List<Logger> loggers = NO_LOGGERS;
 		private boolean reset = DEFAULT_RESET;
 		private Debug debug = DEFAULT_DEBUG;
-		private Value threshold = DEFAULT_THRESHOLD;
+		private Threshold threshold = DEFAULT_THRESHOLD;
 
 		public Builder appenders(List<Appender> appenders) {
 			this.appenders = appenders;
@@ -130,7 +130,7 @@ public final class Log4JContext {
 			return this;
 		}
 
-		public Builder threshold(Value threshold) {
+		public Builder threshold(Threshold threshold) {
 			this.threshold = threshold;
 			return this;
 		}

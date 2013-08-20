@@ -13,7 +13,7 @@ import org.kuali.common.util.log.log4j.model.Level;
 import org.kuali.common.util.log.log4j.model.Log4JContext;
 import org.kuali.common.util.log.log4j.model.Logger;
 import org.kuali.common.util.log.log4j.model.Param;
-import org.kuali.common.util.log.log4j.model.Value;
+import org.kuali.common.util.log.log4j.model.Threshold;
 import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +38,30 @@ public class Log4JConfig {
 
 	@Bean
 	public Log4JContext log4JContextDefault() {
-		return getLog4JContext(Log4JPatternConstants.DEFAULT, Value.INFO);
+		return getLog4JContext(Log4JPatternConstants.DEFAULT, Threshold.INFO);
 	}
 
 	@Bean
 	public Log4JContext log4JContextTest() {
-		return getLog4JContext(Log4JPatternConstants.DEBUG, Value.INFO);
+		return getLog4JContext(Log4JPatternConstants.DEBUG, Threshold.INFO);
 	}
 
 	@Bean
 	public Log4JContext log4JContextDebug() {
-		return getLog4JContext(Log4JPatternConstants.DEBUG, Value.DEBUG);
+		return getLog4JContext(Log4JPatternConstants.DEBUG, Threshold.DEBUG);
 	}
 
 	@Bean
 	public Log4JContext log4JContextMaven() {
-		Logger spring = new Logger(SPRING, new Level(Value.WARN));
-		return getLog4JContext(Log4JPatternConstants.MAVEN, Value.INFO, spring);
+		Logger spring = new Logger(SPRING, new Level(Threshold.WARN));
+		return getLog4JContext(Log4JPatternConstants.MAVEN, Threshold.INFO, spring);
 	}
 
-	protected Log4JContext getLog4JContext(String pattern, Value value) {
+	protected Log4JContext getLog4JContext(String pattern, Threshold value) {
 		return getLog4JContext(pattern, value, null);
 	}
 
-	protected Log4JContext getLog4JContext(String pattern, Value value, Logger logger) {
+	protected Log4JContext getLog4JContext(String pattern, Threshold value, Logger logger) {
 		Param param = ParamFactory.getPatternParam(pattern);
 		Layout layout = new Layout(PatternLayout.class, param);
 		Appender console = new Appender(STDOUT, ConsoleAppender.class, layout);

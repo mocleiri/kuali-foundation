@@ -10,7 +10,7 @@ import org.kuali.common.util.log.log4j.jaxb.ValueAdapter;
 public final class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_CLASS = org.apache.log4j.Level.class;
-	public static final Value NO_VALUE = Value.NULL;
+	public static final Threshold NO_VALUE = Threshold.NULL;
 	public static final Level NO_LEVEL = new Level();
 
 	@XmlAttribute(name = "class")
@@ -25,11 +25,11 @@ public final class Level {
 		this(DEFAULT_CLASS, NO_VALUE);
 	}
 
-	public Level(Value value) {
+	public Level(Threshold value) {
 		this(DEFAULT_CLASS, value);
 	}
 
-	public Level(Class<?> levelClass, Value value) {
+	public Level(Class<?> levelClass, Threshold value) {
 		Assert.noNulls(levelClass, value);
 		this.levelClass = levelClass;
 		this.value = value.name().toLowerCase();
