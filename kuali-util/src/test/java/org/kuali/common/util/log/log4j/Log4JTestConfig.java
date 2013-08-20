@@ -52,16 +52,18 @@ public class Log4JTestConfig {
 	@Test
 	public void test() {
 		try {
+			logger.info("old logging configuration");
 			Log4JConfiguration original = config.log4JContextMaven();
+			service.configure(original);
+			logger.info("old logging configuration - 1");
 			String xml1 = service.toXml(original);
 			System.out.println(xml1);
 			Log4JConfiguration derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JConfiguration.class);
 			String xml2 = service.toXml(derived);
 			System.out.println(xml2);
 			Assert.assertEquals(xml1, xml2);
-			logger.info("old logging configuration");
 			service.configure(derived);
-			logger.info("new logging configuration");
+			logger.info("old logging configuration - 2");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
