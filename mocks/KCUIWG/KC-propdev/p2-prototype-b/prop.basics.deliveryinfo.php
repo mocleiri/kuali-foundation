@@ -30,7 +30,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
-						<h3>Recipient <span><a href="#">Change</a></span></h3>
+						<h3>Recipient <span><a class="link-edit" href="#">Change</a></span></h3>
 						<dl>
 							<dt>Organization</dt>
 							<dd>UNIVERSITY OF MICHIGAN</dd>

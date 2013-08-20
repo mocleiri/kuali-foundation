@@ -30,7 +30,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
-						<h3>Applicant Organization <span><a href="#">Change</a></span></h3>
+						<h3>Applicant Organization <span><a class="link-edit" href="#">Change</a></span></h3>
 						<dl>
 							<dt>Organization</dt>
 							<dd>UNIVERSITY OF MICHIGAN</dd>
@@ -51,16 +51,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<dd>48109-1273</dd>
 
 							<dt>Congressional District</dt>
-							<dd>MI-302 <button class="btn btn-danger btn-xs" href="#">- Delete</button></dd>
+							<dd>MI-302 <a class="link-delete" href="#">- Delete</a></dd>
 
 							<dt>Congressional District</dt>
-							<dd>MI-307 <button class="btn btn-danger btn-xs" href="#">- Delete</button></dd>
+							<dd>MI-307 <a class="link-delete" href="#">- Delete</a></dd>
 
 							<dt>Congressional District</dt>
-							<dd><button class="btn btn-success btn-xs" href="#">+ Add</button></dd>
+							<dd><a class="link-add" href="#">+ Add</a></dd>
 						</dl>
 
-						<h3>Performing Organization <span><a href="#">Change</a></span></h3>
+						<h3>Performing Organization <span><a class="link-edit" href="#">Change</a></span></h3>
 						<dl>
 							<dt>Organization</dt>
 							<dd>UNIVERSITY OF MICHIGAN</dd>
@@ -81,13 +81,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<dd>48109-1273</dd>
 
 							<dt>Congressional District</dt>
-							<dd>MI-302 <button class="btn btn-danger btn-xs" href="#">- Delete</button></dd>
+							<dd>MI-302 <a class="link-delete" href="#">- Delete</a></dd>
 
 							<dt>Congressional District</dt>
-							<dd>MI-307 <button class="btn btn-danger btn-xs" href="#">- Delete</button></dd>
+							<dd>MI-307 <a class="link-delete" href="#">- Delete</a></dd>
 
 							<dt>Congressional District</dt>
-							<dd><button class="btn btn-success btn-xs" href="#">+ Add</button></dd>
+							<dd><a class="link-add" href="#">+ Add</a></dd>
 						</dl>
 					</form>
 				</div>

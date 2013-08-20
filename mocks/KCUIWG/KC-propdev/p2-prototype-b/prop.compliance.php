@@ -112,7 +112,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 
 							<div class="form-group col-md-2">
-								<button class="btn btn-danger btn-xs">- Delete</button>
+								<a class="link-delete" href="#">- Delete</a>
 							</div>
 						</fieldset>
 

@@ -58,7 +58,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e1" class="off-screen">Explanation:</label><input type="text" name="e1" id="e1" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>
@@ -77,7 +77,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e2" class="off-screen">Explanation:</label><input type="text" name="e2" id="e2" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>
@@ -96,7 +96,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e3" class="off-screen">Explanation:</label><input type="text" name="e3" id="e3" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>
@@ -115,7 +115,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e4" class="off-screen">Explanation:</label><input type="text" name="e4" id="e4" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>
@@ -134,7 +134,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e5" class="off-screen">Explanation:</label><input type="text" name="e5" id="e5" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>
@@ -153,7 +153,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e6" class="off-screen">Explanation:</label><input type="text" name="e6" id="e6" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>
@@ -172,7 +172,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="col-md-4 input-group">
 								<label for="e7" class="off-screen">Explanation:</label><input type="text" name="e7" id="e7" class="form-control input-sm" />
 								<span class="input-group-btn">
-									<button class="btn btn-inverse input-sm">View</button>
+									<button class="btn btn-default input-sm">View</button>
 								</span>
 							</div>
 						</fieldset>

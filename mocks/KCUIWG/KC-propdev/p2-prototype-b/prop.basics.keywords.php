@@ -32,13 +32,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<form action="#" method="post" class="form-horizontal">
 						<dl>
 							<dt>1</dt>
-							<dd>Carbon <button class="btn btn-danger btn-xs" href="#">- Delete</button></dd>
+							<dd>Carbon <a class="link-delete" href="#">- Delete</a></dd>
 
 							<dt>2</dt>
-							<dd>Heat <button class="btn btn-danger btn-xs" href="#">- Delete</button></dd>
+							<dd>Heat <a class="link-delete" href="#">- Delete</a></dd>
 
 							<dt>3</dt>
-							<dd><button class="btn btn-success btn-xs" href="#">+ Add</button></dd>
+							<dd><a class="link-add" href="#">+ Add</a></dd>
 						</dl>
 					</form>
 				</div>

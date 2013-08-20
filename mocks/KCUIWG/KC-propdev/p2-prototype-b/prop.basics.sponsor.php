@@ -107,12 +107,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 
-							<div class="form-group checkbox clearfix">
-								<label for="subawards">
-									<input type="checkbox" value="" name="subawards" id="subawards" /> This proposal includes subaward(s)
-								</label>
-							</div>
-
 							<div class="form-group clearfix">
 								<label for="sponsor_div_code" class="control-label col-md-3">Sponsor Div code:</label>
 								<div class="col-md-5">
@@ -132,6 +126,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<div class="col-md-5">
 									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm"></textarea>
 								</div>
+							</div>
+
+							<div class="form-group checkbox clearfix">
+								<div class="blank col-md-3"></div>
+								<label for="subawards control-label col-md-5">
+									<input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" /> This proposal includes subaward(s)
+								</label>
 							</div>
 						</fieldset>
 					</form>

@@ -6,11 +6,11 @@
 */
 a,
 a:link {
-  color: #0033cc;
+  color: #0055cc;
 }
 a:hover,
 a:focus {
-  color: #002aa8;
+  color: #0046a8;
   text-decoration: underline;
 }
 body {
@@ -56,7 +56,7 @@ button {
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  color: #0033cc;
+  color: #0055cc;
   white-space: nowrap;
 }
 .portal-header .navbar .nav .dropdown-toggle {
@@ -300,6 +300,9 @@ section.toolbar .dropdown a .caret {
   border-top: 1px solid #cccccc;
   text-align: center;
 }
+#main h3 .link-edit {
+  font-size: .55em;
+}
 #main .boxSubheader {
   position: relative;
 }
@@ -387,6 +390,69 @@ section.toolbar .dropdown a .caret {
 }
 #main .key-personnel {
   margin-bottom: 3%;
+}
+#main .checkbox-radio-reset-margin {
+  margin-left: 0;
+  margin-right: 10px;
+}
+#main .panel-group .panel .panel-heading .panel-title {
+  color: inherit;
+  font-size: 1em;
+}
+#main .panel-group .panel .panel-heading .panel-title .accordion-toggle:before {
+  content: "\2297";
+  display: inline-block;
+  margin: -2px 6px 0 0;
+  font-size: 1.4em;
+  float: left;
+}
+#main .panel-group .panel .panel-heading .panel-title .accordion-toggle.collapsed:before {
+  content: "\2295" !important;
+}
+.link-delete {
+  color: #ff0000;
+  font-weight: 700;
+}
+.link-add {
+  color: #008000;
+  font-weight: 700;
+}
+.link-edit {
+  color: #0055cc;
+  font-weight: 700;
+}
+dl dt {
+  float: left;
+  margin: 0;
+  padding: 4px;
+  width: 25%;
+  background: #f6f6f6;
+  border-top: 1px dotted #cccccc;
+}
+dl dd {
+  float: left;
+  margin: 0;
+  padding: 4px;
+  width: 75%;
+  border-top: 1px dotted #cccccc;
+}
+dl dt:first-child {
+  border-top: 0px;
+}
+dl dd:first-child {
+  border-top: 0px;
+}
+dl:after {
+  content: " ";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.modal-header {
+  background: #f6f6f6;
+}
+.modal-footer {
+  background: #f6f6f6;
 }
 footer {
   color: #f2f2f2;

@@ -41,6 +41,17 @@
 		text-align: center;
 	}
 
+	h3 {
+
+		span {
+
+		}
+
+		.link-edit {
+			font-size: .55em;
+		}
+	}
+
 	.boxSubheader {
 		position: relative;
 
@@ -177,5 +188,43 @@
 
 	.key-personnel {
 		margin-bottom: 3%;
+	}
+
+	.checkbox-radio-reset-margin {
+		margin-left: 0;
+		margin-right: 10px;
+	}
+
+	.panel-group {
+
+		.panel {
+
+			.panel-heading {
+
+				.panel-title {
+					color: inherit;
+					font-size: 1em;
+
+					.accordion-toggle {
+					}
+
+					.accordion-toggle:before {
+						content: "\2297";
+						display: inline-block;
+						margin: -2px 6px 0 0;
+						font-size: 1.4em;
+						float: left;
+					}
+
+					.accordion-toggle.collapsed:before {
+						content: "\2295" !important;
+					}
+				}
+			}
+
+			.panel-collapse {
+
+			}
+		}
 	}
 }
