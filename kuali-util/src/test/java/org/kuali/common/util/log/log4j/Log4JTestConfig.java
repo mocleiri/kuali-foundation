@@ -25,6 +25,8 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
 import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.Log4JXmlServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,6 +34,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { KualiUtilProjectConfig.class, Log4JConfig.class, Log4JXmlServiceConfig.class })
 public class Log4JTestConfig {
+
+	private static final Logger logger = LoggerFactory.getLogger(Log4JTestConfig.class);
 
 	@Autowired
 	Log4JService service;
@@ -55,6 +59,9 @@ public class Log4JTestConfig {
 			String xml2 = service.toXml(derived);
 			System.out.println(xml2);
 			Assert.assertEquals(xml1, xml2);
+			logger.info("before");
+			service.configure(derived);
+			logger.info("after");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
