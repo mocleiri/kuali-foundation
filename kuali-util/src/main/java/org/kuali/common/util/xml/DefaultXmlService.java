@@ -62,6 +62,7 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public <T> T getObjectFromXml(String xml, String encoding, Class<T> type) {
+		Assert.noBlanks(encoding);
 		InputStream in = null;
 		try {
 			in = new ByteArrayInputStream(xml.getBytes(encoding));
