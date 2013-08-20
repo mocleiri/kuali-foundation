@@ -1,13 +1,15 @@
 package org.kuali.common.util.log.log4j.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.log.log4j.jaxb.ParamListAdapter;
 import org.kuali.common.util.nullify.NullUtils;
 
 public final class Appender {
@@ -23,6 +25,7 @@ public final class Appender {
 	private final Class<? extends org.apache.log4j.Appender> appenderClass;
 
 	@XmlElement(name = "param")
+	@XmlJavaTypeAdapter(ParamListAdapter.class)
 	private final List<Param> params;
 
 	@XmlElement
@@ -42,7 +45,7 @@ public final class Appender {
 		this.name = name;
 		this.appenderClass = appenderClass;
 		this.layout = layout;
-		this.params = new ArrayList<Param>(params);
+		this.params = CollectionUtils.unmodifiableCopy(params);
 	}
 
 	public String getName() {
@@ -54,7 +57,7 @@ public final class Appender {
 	}
 
 	public List<Param> getParams() {
-		return Collections.unmodifiableList(params);
+		return params;
 	}
 
 	public Layout getLayout() {
