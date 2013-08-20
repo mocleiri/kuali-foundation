@@ -18,10 +18,14 @@ import org.kuali.common.util.CollectionUtils;
 public final class Log4JContext {
 
 	public static final boolean DEFAULT_RESET = false;
+	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
 	public static final boolean DEFAULT_DEBUG = false;
 	public static final Value DEFAULT_THRESHOLD = Value.DEFAULT_VALUE;
 	public static final List<Logger> NO_LOGGERS = Collections.<Logger> emptyList();
 	public static final List<Appender> NO_APPENDERS = Collections.<Appender> emptyList();
+
+	@XmlAttribute(name = "xmlns:log4j")
+	private final String namespace;
 
 	@XmlElement(name = "appender")
 	private final List<Appender> appenders;
@@ -65,10 +69,15 @@ public final class Log4JContext {
 		return root;
 	}
 
+	public String getNamespace() {
+		return namespace;
+	}
+
 	public static class Builder {
 
 		private List<Appender> appenders = NO_APPENDERS;
 		private Logger root = Logger.getNoRootLogger();
+		private String namespace = DEFAULT_NAMESPACE;
 		private List<Logger> loggers = NO_LOGGERS;
 		private boolean reset = DEFAULT_RESET;
 		private boolean debug = DEFAULT_DEBUG;
@@ -76,6 +85,11 @@ public final class Log4JContext {
 
 		public Builder appenders(List<Appender> appenders) {
 			this.appenders = appenders;
+			return this;
+		}
+
+		public Builder namespace(String namespace) {
+			this.namespace = namespace;
 			return this;
 		}
 
@@ -131,6 +145,7 @@ public final class Log4JContext {
 		this.reset = builder.reset;
 		this.debug = builder.debug;
 		this.threshold = builder.threshold;
+		this.namespace = builder.namespace;
 	}
 
 }
