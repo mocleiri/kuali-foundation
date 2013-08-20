@@ -51,6 +51,14 @@ public final class Log4JConfiguration {
 	@XmlJavaTypeAdapter(RepositoryThresholdAdapter.class)
 	private final Threshold threshold;
 
+	public List<Logger> getLoggers() {
+		return Collections.unmodifiableList(loggers);
+	}
+
+	public List<Appender> getAppenders() {
+		return Collections.unmodifiableList(appenders);
+	}
+
 	public boolean getReset() {
 		return reset;
 	}
@@ -61,14 +69,6 @@ public final class Log4JConfiguration {
 
 	public Threshold getThreshold() {
 		return threshold;
-	}
-
-	public List<Appender> getAppenders() {
-		return appenders;
-	}
-
-	public List<Logger> getLoggers() {
-		return Collections.unmodifiableList(loggers);
 	}
 
 	public Logger getRoot() {
@@ -148,8 +148,10 @@ public final class Log4JConfiguration {
 	}
 
 	private Log4JConfiguration(Builder builder) {
-		this.appenders = new ArrayList<Appender>(builder.appenders);
 		this.root = builder.root;
+		// Defensive copies of whatever list we were passed
+		// Can't make an unmodifiable copy because doing so blows up JAXB
+		this.appenders = new ArrayList<Appender>(builder.appenders);
 		this.loggers = new ArrayList<Logger>(builder.loggers);
 		this.reset = builder.reset;
 		this.debug = builder.debug;

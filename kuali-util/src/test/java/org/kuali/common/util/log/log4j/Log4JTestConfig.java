@@ -59,9 +59,9 @@ public class Log4JTestConfig {
 			String xml2 = service.toXml(derived);
 			System.out.println(xml2);
 			Assert.assertEquals(xml1, xml2);
-			logger.info("before");
+			logger.info("old logging configuration");
 			service.configure(derived);
-			logger.info("after");
+			logger.info("new logging configuration");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
