@@ -75,7 +75,7 @@ public final class DefaultLog4JService implements Log4JService {
 
 	@Override
 	public String toXml(Log4JContext context) {
-		return xmlService.toString(context, ENCODING);
+		return xmlService.toXml(context, ENCODING);
 	}
 
 	@Override

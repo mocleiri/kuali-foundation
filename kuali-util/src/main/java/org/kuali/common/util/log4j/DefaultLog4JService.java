@@ -77,7 +77,7 @@ public final class DefaultLog4JService implements Log4JService {
 	public String toXml(Log4JContext context) {
 		Log4JContext clone = new Log4JContext(context);
 		new Log4JContextNullifier(clone).nullify();
-		return xmlService.toString(clone, ENCODING);
+		return xmlService.toXml(clone, ENCODING);
 	}
 
 	@Override

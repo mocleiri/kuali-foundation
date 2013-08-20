@@ -28,7 +28,7 @@ public final class Log4JContext {
 	@XmlElement
 	private final Logger root;
 
-	// @XmlElement(name = "logger")
+	@XmlElement(name = "logger")
 	private final List<Logger> loggers;
 
 	@XmlAttribute

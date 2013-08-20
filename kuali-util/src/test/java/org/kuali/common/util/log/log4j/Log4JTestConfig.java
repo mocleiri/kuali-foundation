@@ -17,20 +17,26 @@ package org.kuali.common.util.log.log4j;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.log.log4j.model.Log4JContext;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
+import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { KualiUtilProjectConfig.class, Log4JConfig.class })
+@ContextConfiguration(classes = { KualiUtilProjectConfig.class, Log4JConfig.class, XmlServiceConfig.class })
 public class Log4JTestConfig {
 
 	@Autowired
 	Log4JService service;
+
+	@Autowired
+	XmlService xmlService;
 
 	@Autowired
 	Log4JConfig config;
@@ -41,9 +47,14 @@ public class Log4JTestConfig {
 	@Test
 	public void test() {
 		try {
-			Log4JContext context = config.log4JContextMaven();
-			String xml = service.toXml(context);
-			System.out.println(xml);
+			Log4JContext original = config.log4JContextMaven();
+			String xml1 = service.toXml(original);
+			System.out.println(xml1);
+			String knownGoodXml = LocationUtils.toString("classpath:log4j2.xml");
+			System.out.println(knownGoodXml);
+			Log4JContext derived = xmlService.getObjectFromXml(knownGoodXml, "UTF-8", Log4JContext.class);
+			String xml2 = service.toXml(derived);
+			System.out.println(xml2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
