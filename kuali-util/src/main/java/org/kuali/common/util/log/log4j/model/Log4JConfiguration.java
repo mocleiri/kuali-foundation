@@ -15,6 +15,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
+import org.kuali.common.util.log.log4j.jaxb.UnmodifiableAppenderListAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
@@ -31,6 +32,7 @@ public final class Log4JConfiguration {
 	private final String namespace;
 
 	@XmlElement(name = "appender")
+	@XmlJavaTypeAdapter(UnmodifiableAppenderListAdapter.class)
 	private final List<Appender> appenders;
 
 	@XmlElement
@@ -149,8 +151,7 @@ public final class Log4JConfiguration {
 
 	private Log4JConfiguration(Builder builder) {
 		this.root = builder.root;
-		// Defensive copies of whatever list we were passed
-		// Can't make an unmodifiable copy because doing so blows up JAXB
+		// Can't make this an unmodifiable copy because doing so blows up JAXB
 		this.appenders = new ArrayList<Appender>(builder.appenders);
 		this.loggers = new ArrayList<Logger>(builder.loggers);
 		this.reset = builder.reset;
