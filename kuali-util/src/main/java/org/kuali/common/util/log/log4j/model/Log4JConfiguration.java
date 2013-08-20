@@ -14,6 +14,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.log4j.jaxb.AppenderListAdapter;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
+import org.kuali.common.util.log.log4j.jaxb.LoggerListAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
@@ -38,6 +39,7 @@ public final class Log4JConfiguration {
 	private final Logger root;
 
 	@XmlElement(name = "logger")
+	@XmlJavaTypeAdapter(LoggerListAdapter.class)
 	private final List<Logger> loggers;
 
 	@XmlAttribute
@@ -150,8 +152,8 @@ public final class Log4JConfiguration {
 
 	private Log4JConfiguration(Builder builder) {
 		this.root = builder.root;
-		this.appenders = Collections.unmodifiableList(builder.appenders);
-		this.loggers = Collections.unmodifiableList(builder.loggers);
+		this.appenders = CollectionUtils.unmodifiableCopy(builder.appenders);
+		this.loggers = CollectionUtils.unmodifiableCopy(builder.loggers);
 		this.reset = builder.reset;
 		this.debug = builder.debug;
 		this.threshold = builder.threshold;
