@@ -7,7 +7,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
-public final class Club extends FeeActivity {
+public final class Club extends Activity {
 
 	@SuppressWarnings("unused")
 	private Club() {

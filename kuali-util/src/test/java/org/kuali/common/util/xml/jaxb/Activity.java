@@ -5,16 +5,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 
-public abstract class FeeActivity {
+public abstract class Activity {
 
 	public static final Double FREE = Double.valueOf(-1);
 
 	@SuppressWarnings("unused")
-	private FeeActivity() {
+	private Activity() {
 		this(FREE);
 	}
 
-	public FeeActivity(double fee) {
+	public Activity(double fee) {
 		Assert.isTrue(fee == FREE || fee >= 0, "invalid fee");
 		this.fee = fee;
 	}
