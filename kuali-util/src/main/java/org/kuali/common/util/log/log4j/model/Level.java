@@ -9,7 +9,7 @@ import org.kuali.common.util.log.log4j.jaxb.OmitDefaultLog4JLevelClassAdapter;
 public final class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_CLASS = org.apache.log4j.Level.class;
-	public static final Level DEFAULT_LEVEL = new Level();
+	public static final Level DEFAULT = new Level();
 
 	@XmlAttribute(name = "class")
 	@XmlJavaTypeAdapter(OmitDefaultLog4JLevelClassAdapter.class)

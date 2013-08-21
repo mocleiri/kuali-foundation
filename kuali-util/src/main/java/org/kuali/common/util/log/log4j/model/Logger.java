@@ -34,7 +34,7 @@ public class Logger {
 	private final Boolean additivity;
 
 	private Logger() {
-		this(NullUtils.NONE, AppenderRef.EMPTY, Level.DEFAULT_LEVEL);
+		this(NullUtils.NONE, AppenderRef.EMPTY, Level.DEFAULT);
 	}
 
 	public Logger(String name, Level level) {
