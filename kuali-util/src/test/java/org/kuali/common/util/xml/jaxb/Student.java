@@ -40,6 +40,8 @@ public final class Student {
 
 		public Student build() {
 			Assert.noBlanks(name);
+			Assert.noNulls(clubs);
+			this.clubs = Collections.unmodifiableList(clubs);
 			return new Student(this);
 		}
 	}
