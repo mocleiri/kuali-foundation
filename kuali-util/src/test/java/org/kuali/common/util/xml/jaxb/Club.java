@@ -2,6 +2,7 @@ package org.kuali.common.util.xml.jaxb;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
@@ -9,7 +10,7 @@ import org.kuali.common.util.nullify.NullUtils;
 @XmlRootElement
 public final class Club {
 
-	public static final double FREE = -1;
+	public static final Double FREE = Double.valueOf(-1);
 
 	@SuppressWarnings("unused")
 	private Club() {
@@ -31,7 +32,8 @@ public final class Club {
 	private final String name;
 
 	@XmlAttribute
-	private final double fee;
+	@XmlJavaTypeAdapter(FeeAdapter.class)
+	private final Double fee;
 
 	public String getName() {
 		return name;
