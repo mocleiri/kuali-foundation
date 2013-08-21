@@ -1,6 +1,6 @@
 package org.kuali.common.util.xml.jaxb;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -11,8 +11,9 @@ public class ListWrapper<T> {
 
 	private final List<T> list;
 
-	public ListWrapper() {
-		this(new ArrayList<T>());
+	@SuppressWarnings("unused")
+	private ListWrapper() {
+		this(Collections.<T> emptyList());
 	}
 
 	public ListWrapper(List<T> list) {
