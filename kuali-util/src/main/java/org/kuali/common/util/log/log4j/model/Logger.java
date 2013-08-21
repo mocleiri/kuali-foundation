@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.DropNoneStringAdapter;
+import org.kuali.common.util.xml.jaxb.OmitNoneStringAdapter;
 import org.kuali.common.util.xml.jaxb.OmitTrueAdapter;
 
 public class Logger {
@@ -20,7 +20,7 @@ public class Logger {
 	public static final Logger NOOP = new Logger();
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(DropNoneStringAdapter.class)
+	@XmlJavaTypeAdapter(OmitNoneStringAdapter.class)
 	private final String name;
 
 	@XmlElement(name = "appender-ref")
