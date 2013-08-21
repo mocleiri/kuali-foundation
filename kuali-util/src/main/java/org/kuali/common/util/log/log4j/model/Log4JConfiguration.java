@@ -132,7 +132,7 @@ public final class Log4JConfiguration {
 		public Log4JConfiguration build() {
 			Assert.noNulls(root, appenders, loggers, debug, threshold);
 			Assert.isFalse(Logger.nullThreshold(root), "root logging threshold is null");
-			Assert.noBlanksWithMsg("namespace is blank", namespace);
+			Assert.noBlanks(namespace);
 			this.appenders = new ArrayList<Appender>(appenders);
 			this.loggers = new ArrayList<Logger>(loggers);
 			return new Log4JConfiguration(this);
