@@ -18,7 +18,7 @@ public final class Student {
 	@XmlAttribute
 	private final String name;
 
-	@XmlElement(name = "club")
+	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListWrapperAdapter.class)
 	private final List<Club> clubs;
 
