@@ -75,8 +75,8 @@ public final class Log4JConfiguration {
 
 	public static class Builder {
 
-		private List<Appender> appenders = Appender.EMPTY;
 		private String namespace = "http://jakarta.apache.org/log4j/";
+		private List<Appender> appenders = Appender.EMPTY;
 		private List<Logger> loggers = Logger.EMPTY;
 		private boolean reset = false;
 		private Debug debug = Debug.DEFAULT_VALUE;
