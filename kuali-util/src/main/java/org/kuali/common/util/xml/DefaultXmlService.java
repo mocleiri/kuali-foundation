@@ -37,6 +37,7 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public void write(File file, Object object) {
+		Assert.noNulls(file, object);
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(file);
@@ -50,6 +51,7 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public void write(OutputStream out, Object object) {
+		Assert.noNulls(out, object);
 		try {
 			JAXBContext context = JAXBContext.newInstance(object.getClass());
 			Marshaller marshaller = context.createMarshaller();
@@ -62,7 +64,8 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public <T> T getObjectFromXml(String xml, String encoding, Class<T> type) {
-		Assert.noBlanks(encoding);
+		Assert.noBlanks(xml, encoding);
+		Assert.noNulls(type);
 		InputStream in = null;
 		try {
 			in = new ByteArrayInputStream(xml.getBytes(encoding));
@@ -77,6 +80,7 @@ public class DefaultXmlService implements XmlService {
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T getObject(InputStream in, Class<T> type) {
+		Assert.noNulls(in, type);
 		try {
 			JAXBContext context = JAXBContext.newInstance(type);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -89,6 +93,7 @@ public class DefaultXmlService implements XmlService {
 	@Override
 	public <T> T getObject(File file, Class<T> type) {
 		Assert.exists(file);
+		Assert.noNulls(type);
 		return getObject(LocationUtils.getCanonicalPath(file), type);
 	}
 
