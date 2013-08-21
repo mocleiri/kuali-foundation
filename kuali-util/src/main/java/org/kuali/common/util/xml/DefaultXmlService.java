@@ -116,7 +116,11 @@ public class DefaultXmlService implements XmlService {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 */
 	@Override
+	@Deprecated
 	public String toString(Object object, String encoding) {
 		return toXml(object, encoding);
 	}

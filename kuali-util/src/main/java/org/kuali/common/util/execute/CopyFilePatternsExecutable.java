@@ -26,7 +26,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,7 +83,7 @@ public class CopyFilePatternsExecutable implements Executable {
 
 	protected void logCopy() {
 		String path = FileSystemUtils.getRelativePathQuietly(relativeDir, dstDir);
-		Object[] args = { path, LoggerUtils.getLogMsg(includes, excludes) };
+		Object[] args = { path, org.kuali.common.util.LoggerUtils.getLogMsg(includes, excludes) };
 		logger.debug("srcDir - [{}]", LocationUtils.getCanonicalPath(srcDir));
 		logger.info("Copying to - [{}] - {}", args);
 	}
