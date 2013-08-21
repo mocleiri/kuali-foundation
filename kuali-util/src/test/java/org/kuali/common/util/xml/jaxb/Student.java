@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -18,6 +19,7 @@ public final class Student {
 	private final String name;
 
 	@XmlElement(name = "club")
+	@XmlJavaTypeAdapter(ImmutableListWrapperAdapter.class)
 	private final List<Club> clubs;
 
 	public String getName() {
