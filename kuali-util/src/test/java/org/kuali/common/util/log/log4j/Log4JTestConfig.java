@@ -27,8 +27,11 @@ import javax.xml.bind.UnmarshallerHandler;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.log4j.ConsoleAppender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.util.log.log4j.model.Appender;
+import org.kuali.common.util.log.log4j.model.Layout;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.log.log4j.model.Logger;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
@@ -63,7 +66,8 @@ public class Log4JTestConfig {
 	@Test
 	public void test() {
 		try {
-			Log4JConfiguration original = new Log4JConfiguration.Builder(Logger.DEFAULT).build();
+			Appender appender = new Appender("stdout", ConsoleAppender.class, Layout.NONE);
+			Log4JConfiguration original = new Log4JConfiguration.Builder(Logger.DEFAULT).appender(appender).build();
 			String xml = toXml(original);
 			System.out.println(xml);
 			Log4JConfiguration derived = getObject(xml, Log4JConfiguration.class);

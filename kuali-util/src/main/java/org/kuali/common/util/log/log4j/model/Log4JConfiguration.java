@@ -23,13 +23,13 @@ public final class Log4JConfiguration {
 	@XmlAttribute(name = "xmlns:log4j")
 	private final String namespace;
 
-	// @XmlElement(name = "appender")
+	@XmlElement(name = "appender")
 	private final List<Appender> appenders;
 
 	@XmlElement
 	private final Logger root;
 
-	// @XmlElement(name = "logger")
+	@XmlElement(name = "logger")
 	private final List<Logger> loggers;
 
 	@XmlAttribute
@@ -130,18 +130,23 @@ public final class Log4JConfiguration {
 			return this;
 		}
 
-		public Log4JConfiguration build() {
+		private Builder finish() {
 			Assert.noNulls(root, appenders, loggers, debug, threshold);
 			Assert.isFalse(Logger.isThresholdNull(root), "root logging threshold is null");
 			Assert.noBlanks(namespace);
 			this.appenders = new ArrayList<Appender>(appenders);
 			this.loggers = new ArrayList<Logger>(loggers);
+			return this;
+		}
+
+		public Log4JConfiguration build() {
+			finish();
 			return new Log4JConfiguration(this);
 		}
 	}
 
 	private Log4JConfiguration() {
-		this(new Builder(Logger.DEFAULT));
+		this(new Builder(Logger.DEFAULT).finish());
 	}
 
 	private Log4JConfiguration(Builder builder) {
