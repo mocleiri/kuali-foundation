@@ -9,18 +9,20 @@ import org.kuali.common.util.nullify.NullUtils;
 @XmlRootElement
 public final class Club {
 
+	public static final double FREE = -1;
+
 	@SuppressWarnings("unused")
 	private Club() {
 		this(NullUtils.NONE);
 	}
 
 	public Club(String name) {
-		this(name, 0);
+		this(name, FREE);
 	}
 
 	public Club(String name, double fee) {
 		Assert.noBlanks(name);
-		Assert.isTrue(fee >= 0, "fee is negative");
+		Assert.isTrue(fee == FREE || fee >= 0, "invalid fee");
 		this.name = name;
 		this.fee = fee;
 	}
