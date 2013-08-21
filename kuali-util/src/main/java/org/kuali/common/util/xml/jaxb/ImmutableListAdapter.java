@@ -1,6 +1,5 @@
 package org.kuali.common.util.xml.jaxb;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,27 +7,26 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.springframework.util.CollectionUtils;
 
-public abstract class ImmutableListAdapter<T> extends XmlAdapter<T[], List<T>> {
+public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
-	private final List<T> EMPTY = Collections.<T> emptyList();
-
-	protected abstract T[] getArrayFromNonEmptyList(List<T> list);
+	private List<T> EMPTY_LIST = Collections.<T> emptyList();
+	private ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
 
 	@Override
-	public final T[] marshal(List<T> list) {
-		if (CollectionUtils.isEmpty(list)) {
-			return null;
+	public ListWrapper<T> marshal(List<T> list) {
+		if (list == null || list.size() == 0) {
+			return EMPTY_WRAPPER;
 		} else {
-			return getArrayFromNonEmptyList(list);
+			return new ListWrapper<T>(list);
 		}
 	}
 
 	@Override
-	public final List<T> unmarshal(T[] array) {
-		if (array == null || array.length == 0) {
-			return EMPTY;
+	public List<T> unmarshal(ListWrapper<T> wrapper) {
+		if (CollectionUtils.isEmpty(wrapper.getList())) {
+			return EMPTY_LIST;
 		} else {
-			return Collections.unmodifiableList(Arrays.asList(array));
+			return Collections.unmodifiableList(wrapper.getList());
 		}
 	}
 

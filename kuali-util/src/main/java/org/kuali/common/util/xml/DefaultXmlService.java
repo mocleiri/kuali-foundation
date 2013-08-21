@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -123,6 +126,28 @@ public class DefaultXmlService implements XmlService {
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException(e);
 		}
+	}
+
+	public String toXml(Object object, String encoding, Class<?>... types) {
+		Assert.noNulls(object, types);
+		Assert.noBlanks(encoding);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			JAXBContext context = JAXBContext.newInstance(combine(object.getClass(), types));
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.marshal(object, out);
+			return out.toString(encoding);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	protected Class<?>[] combine(Class<?> clazz, Class<?>[] classes) {
+		List<Class<?>> list = new ArrayList<Class<?>>();
+		list.add(clazz);
+		list.addAll(Arrays.asList(classes));
+		return list.toArray(new Class[list.size()]);
 	}
 
 	/**
