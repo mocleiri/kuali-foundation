@@ -99,9 +99,18 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void noNulls(Object... objects) {
-		noNulls("null is not allowed", objects);
+		for (Object object : objects) {
+			notNull(object);
+		}
 	}
 
+	public static void noNullsWithMsg(String msg, Object... objects) {
+		for (Object object : objects) {
+			notNull(object, msg);
+		}
+	}
+
+	@Deprecated
 	public static void noNulls(String msg, Object... objects) {
 		for (Object object : objects) {
 			notNull(object, msg);
