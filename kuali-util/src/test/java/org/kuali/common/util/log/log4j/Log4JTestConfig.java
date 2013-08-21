@@ -27,17 +27,13 @@ import javax.xml.bind.UnmarshallerHandler;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.ConsoleAppender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.util.log.log4j.model.Appender;
-import org.kuali.common.util.log.log4j.model.Layout;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
-import org.kuali.common.util.log.log4j.model.Logger;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
-import org.kuali.common.util.xml.spring.Log4JXmlServiceConfig;
+import org.kuali.common.util.xml.XmlService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -46,7 +42,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { KualiUtilProjectConfig.class, Log4JConfig.class, Log4JXmlServiceConfig.class })
+@ContextConfiguration(classes = { KualiUtilProjectConfig.class, Log4JConfig.class })
 public class Log4JTestConfig {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Log4JTestConfig.class);
@@ -55,7 +51,7 @@ public class Log4JTestConfig {
 	Log4JService service;
 
 	@Autowired
-	Log4JXmlServiceConfig log4JXmlServiceConfig;
+	XmlService xmlService;
 
 	@Autowired
 	Log4JConfig config;
@@ -66,11 +62,12 @@ public class Log4JTestConfig {
 	@Test
 	public void test() {
 		try {
-			Appender appender = new Appender("stdout", ConsoleAppender.class, Layout.NONE);
-			Log4JConfiguration original = new Log4JConfiguration.Builder(Logger.DEFAULT).appender(appender).build();
-			String xml = toXml(original);
-			System.out.println(xml);
-			Log4JConfiguration derived = getObject(xml, Log4JConfiguration.class);
+			Log4JConfiguration original = config.log4JContextMaven();
+			String xml1 = service.toXml(original);
+			System.out.println(xml1);
+			Log4JConfiguration derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JConfiguration.class);
+			String xml2 = service.toXml(derived);
+			System.out.println(xml2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
