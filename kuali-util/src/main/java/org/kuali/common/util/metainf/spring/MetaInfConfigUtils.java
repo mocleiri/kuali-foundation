@@ -18,7 +18,7 @@ public class MetaInfConfigUtils {
 	 * </pre>
 	 */
 	public static String getKey(String prefix, MetaInfGroup group, String suffix) {
-		Assert.noNulls(prefix, suffix);
+		Assert.noNullsWithMsg("prefix and suffix are required", prefix, suffix);
 		StringBuilder sb = new StringBuilder();
 		sb.append(MetaInfUtils.PROPERTY_PREFIX);
 		sb.append(".");

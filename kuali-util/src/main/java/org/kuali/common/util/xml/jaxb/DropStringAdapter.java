@@ -7,7 +7,7 @@ import org.kuali.common.util.Assert;
 public abstract class DropStringAdapter extends XmlAdapter<String, String> {
 
 	public DropStringAdapter(String dropValue) {
-		Assert.noNulls(dropValue);
+		Assert.noNullsWithMsg("dropValue is required", dropValue);
 		this.dropValue = dropValue;
 	}
 

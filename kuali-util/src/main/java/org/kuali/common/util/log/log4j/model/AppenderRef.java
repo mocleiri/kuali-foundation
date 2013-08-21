@@ -10,15 +10,14 @@ import org.kuali.common.util.nullify.NullUtils;
 
 public final class AppenderRef {
 
-	public static final String NO_REF = NullUtils.NONE;
-	public static final List<AppenderRef> NO_APPENDER_REFS = Collections.<AppenderRef> emptyList();
+	public static final List<AppenderRef> EMPTY = Collections.<AppenderRef> emptyList();
 
 	@XmlAttribute
 	private final String ref;
 
 	@SuppressWarnings("unused")
 	private AppenderRef() {
-		this(NO_REF);
+		this(NullUtils.NONE);
 	}
 
 	public AppenderRef(String ref) {

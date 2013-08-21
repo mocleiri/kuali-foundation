@@ -15,7 +15,17 @@
  */
 package org.kuali.common.util.log.log4j;
 
-import junit.framework.Assert;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.UnmarshallerHandler;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +33,14 @@ import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
-import org.kuali.common.util.xml.XmlService;
 import org.kuali.common.util.xml.spring.Log4JXmlServiceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { KualiUtilProjectConfig.class, Log4JConfig.class, Log4JXmlServiceConfig.class })
@@ -41,7 +52,7 @@ public class Log4JTestConfig {
 	Log4JService service;
 
 	@Autowired
-	XmlService xmlService;
+	Log4JXmlServiceConfig log4JXmlServiceConfig;
 
 	@Autowired
 	Log4JConfig config;
@@ -52,21 +63,45 @@ public class Log4JTestConfig {
 	@Test
 	public void test() {
 		try {
-			logger.info("old logging configuration");
 			Log4JConfiguration original = config.log4JContextMaven();
-			// service.configure(original);
-			// logger.info("old logging configuration - 1");
-			String xml1 = service.toXml(original);
-			System.out.println(xml1);
-			Log4JConfiguration derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JConfiguration.class);
-			String xml2 = service.toXml(derived);
-			System.out.println(xml2);
-			Assert.assertEquals(xml1, xml2);
-			service.configure(derived);
-			logger.info("old logging configuration - 2");
+			String xml = toXml(original);
+			System.out.println(xml);
+			Log4JConfiguration derived = getObject(xml, Log4JConfiguration.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public String toXml(Object object) throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		write(out, object);
+		return out.toString("UTF-8");
+	}
+
+	public void write(OutputStream out, Object object) throws Exception {
+		JAXBContext context = JAXBContext.newInstance(object.getClass());
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		marshaller.marshal(object, out);
+	}
+
+	public <T> T getObject(String s, Class<T> type) throws Exception {
+		ByteArrayInputStream in = new ByteArrayInputStream(s.getBytes("UTF-8"));
+		return getObject(in, type);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T getObject(InputStream in, Class<T> type) throws Exception {
+		JAXBContext jc = JAXBContext.newInstance(type);
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();
+
+		SAXParserFactory spf = SAXParserFactory.newInstance();
+		SAXParser sp = spf.newSAXParser();
+		XMLReader xr = sp.getXMLReader();
+		xr.setContentHandler(unmarshallerHandler);
+		InputSource xmlSource = new InputSource(in);
+		xr.parse(xmlSource);
+		return (T) unmarshallerHandler.getResult();
+	}
 }

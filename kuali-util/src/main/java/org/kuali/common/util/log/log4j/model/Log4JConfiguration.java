@@ -1,5 +1,6 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,32 +14,26 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
-import org.kuali.common.util.log.log4j.jaxb.LoggerListAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
 import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class Log4JConfiguration {
 
 	public static final boolean DEFAULT_RESET = false;
 	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
-	public static final Debug DEFAULT_DEBUG = Debug.DEFAULT_VALUE;
-	public static final List<Logger> NO_LOGGERS = Collections.<Logger> emptyList();
-	public static final List<Appender> NO_APPENDERS = Collections.<Appender> emptyList();
 
 	@XmlAttribute(name = "xmlns:log4j")
 	private final String namespace;
 
 	@XmlElement(name = "appender")
-	//@XmlJavaTypeAdapter(AppenderListAdapter.class)
 	private final List<Appender> appenders;
 
 	@XmlElement
 	private final Logger root;
 
 	@XmlElement(name = "logger")
-	@XmlJavaTypeAdapter(LoggerListAdapter.class)
 	private final List<Logger> loggers;
 
 	@XmlAttribute
@@ -54,11 +49,11 @@ public final class Log4JConfiguration {
 	private final Threshold threshold;
 
 	public List<Logger> getLoggers() {
-		return loggers;
+		return Collections.unmodifiableList(loggers);
 	}
 
 	public List<Appender> getAppenders() {
-		return appenders;
+		return Collections.unmodifiableList(appenders);
 	}
 
 	public boolean getReset() {
@@ -83,20 +78,19 @@ public final class Log4JConfiguration {
 
 	public static class Builder {
 
-		public Builder(Logger root) {
-			Assert.notNull(root);
-			Assert.isFalse(Threshold.NULL.equals(root.getLevel().getValue()), "root logging level is null");
-			this.root = root;
-		}
+		private List<Appender> appenders = Appender.EMPTY;
+		private String namespace = DEFAULT_NAMESPACE;
+		private List<Logger> loggers = Logger.EMPTY;
+		private boolean reset = DEFAULT_RESET;
+		private Debug debug = Debug.DEFAULT_VALUE;
+		private Threshold threshold = Threshold.DEFAULT_REPOSITORY_VALUE;
 
 		private final Logger root;
 
-		private List<Appender> appenders = NO_APPENDERS;
-		private String namespace = DEFAULT_NAMESPACE;
-		private List<Logger> loggers = NO_LOGGERS;
-		private boolean reset = DEFAULT_RESET;
-		private Debug debug = DEFAULT_DEBUG;
-		private Threshold threshold = Threshold.DEFAULT_REPOSITORY_VALUE;
+		public Builder(Logger root) {
+			Assert.noNulls(root);
+			this.root = root;
+		}
 
 		public Builder appenders(List<Appender> appenders) {
 			this.appenders = appenders;
@@ -139,20 +133,23 @@ public final class Log4JConfiguration {
 		}
 
 		public Log4JConfiguration build() {
-			Assert.noNulls(appenders, loggers, debug, threshold);
-			Assert.noBlanks(namespace);
+			Assert.noNullsWithMsg("required field is null", root, appenders, loggers, debug, threshold);
+			Assert.isFalse(Logger.nullThreshold(root), "root logging threshold is null");
+			Assert.noBlanksWithMsg("namespace is blank", namespace);
+			this.appenders = new ArrayList<Appender>(appenders);
+			this.loggers = new ArrayList<Logger>(loggers);
 			return new Log4JConfiguration(this);
 		}
 	}
 
 	private Log4JConfiguration() {
-		this(new Builder(Logger.NOOP_LOGGER));
+		this(new Builder(Logger.NOOP));
 	}
 
 	private Log4JConfiguration(Builder builder) {
 		this.root = builder.root;
-		this.appenders = CollectionUtils.unmodifiableCopy(builder.appenders);
-		this.loggers = CollectionUtils.unmodifiableCopy(builder.loggers);
+		this.appenders = builder.appenders;
+		this.loggers = builder.loggers;
 		this.reset = builder.reset;
 		this.debug = builder.debug;
 		this.threshold = builder.threshold;

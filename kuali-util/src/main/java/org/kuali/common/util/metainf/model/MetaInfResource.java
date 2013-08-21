@@ -31,7 +31,7 @@ public class MetaInfResource implements Comparable<MetaInfResource> {
 	}
 
 	public MetaInfResource(String location, long size, long lineCount) {
-		Assert.noNulls(location);
+		Assert.noBlanks(location);
 		this.location = location;
 		this.size = size;
 		this.lineCount = lineCount;

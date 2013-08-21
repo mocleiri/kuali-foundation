@@ -1,5 +1,6 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -14,9 +15,9 @@ import org.kuali.common.util.xml.jaxb.DropTrueAdapter;
 
 public class Logger {
 
+	public static final List<Logger> EMPTY = Collections.<Logger> emptyList();
 	public static final boolean DEFAULT_ADDITIVITY = true;
-	public static final Logger NOOP_LOGGER = new Logger();
-	public static final String NO_NAME = NullUtils.NONE;
+	public static final Logger NOOP = new Logger();
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(DropNoneStringAdapter.class)
@@ -33,11 +34,11 @@ public class Logger {
 	private final Boolean additivity;
 
 	private Logger() {
-		this(NO_NAME, AppenderRef.NO_APPENDER_REFS, Level.DEFAULT_LEVEL);
+		this(NullUtils.NONE, AppenderRef.EMPTY, Level.DEFAULT_LEVEL);
 	}
 
 	public Logger(String name, Level level) {
-		this(name, AppenderRef.NO_APPENDER_REFS, level, DEFAULT_ADDITIVITY);
+		this(name, AppenderRef.EMPTY, level, DEFAULT_ADDITIVITY);
 	}
 
 	public Logger(String name, List<AppenderRef> references, Level level) {
@@ -69,11 +70,15 @@ public class Logger {
 		return level;
 	}
 
+	public static boolean nullThreshold(Logger logger) {
+		return Threshold.NULL.equals(logger.getLevel().getValue());
+	}
+
 	public static Logger getRootLogger(AppenderRef reference, Level level) {
 		return getRootLogger(CollectionUtils.singletonList(reference), level);
 	}
 
 	public static Logger getRootLogger(List<AppenderRef> references, Level level) {
-		return new Logger(NO_NAME, references, level);
+		return new Logger(NullUtils.NONE, references, level);
 	}
 }

@@ -15,14 +15,14 @@ import org.kuali.common.util.log.log4j.model.Logger;
 import org.kuali.common.util.log.log4j.model.Param;
 import org.kuali.common.util.log.log4j.model.Threshold;
 import org.kuali.common.util.xml.XmlService;
-import org.kuali.common.util.xml.spring.XmlServiceConfig;
+import org.kuali.common.util.xml.spring.Log4JXmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ XmlServiceConfig.class })
+@Import({ Log4JXmlServiceConfig.class })
 public class Log4JConfig {
 
 	protected static final String SPRING = "org.springframework";

@@ -1,18 +1,18 @@
 package org.kuali.common.util.log.log4j.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.log.log4j.jaxb.ParamListAdapter;
 import org.kuali.common.util.nullify.NullUtils;
 
 public final class Appender {
 
+	public static final List<Appender> EMPTY = Collections.<Appender> emptyList();
 	public static final String NO_NAME = NullUtils.NONE;
 	public static final Class<? extends org.apache.log4j.Appender> NO_APPENDER_CLASS = org.apache.log4j.Appender.class;
 	public static final Appender NO_APPENDER = new Appender();
@@ -24,7 +24,7 @@ public final class Appender {
 	private final Class<? extends org.apache.log4j.Appender> appenderClass;
 
 	@XmlElement(name = "param")
-	@XmlJavaTypeAdapter(ParamListAdapter.class)
+	// @XmlJavaTypeAdapter(ParamListAdapter.class)
 	private final List<Param> params;
 
 	@XmlElement
