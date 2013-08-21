@@ -18,7 +18,7 @@ public class Logger {
 
 	public static final List<Logger> EMPTY = Collections.<Logger> emptyList();
 	public static final boolean DEFAULT_ADDITIVITY = true;
-	public static final Logger NOOP = new Logger();
+	public static final Logger DEFAULT = new Logger();
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitNoneStringAdapter.class)

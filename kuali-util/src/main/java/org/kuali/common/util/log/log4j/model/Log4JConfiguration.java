@@ -23,13 +23,13 @@ public final class Log4JConfiguration {
 	@XmlAttribute(name = "xmlns:log4j")
 	private final String namespace;
 
-	@XmlElement(name = "appender")
+	// @XmlElement(name = "appender")
 	private final List<Appender> appenders;
 
 	@XmlElement
 	private final Logger root;
 
-	@XmlElement(name = "logger")
+	// @XmlElement(name = "logger")
 	private final List<Logger> loggers;
 
 	@XmlAttribute
@@ -141,7 +141,7 @@ public final class Log4JConfiguration {
 	}
 
 	private Log4JConfiguration() {
-		this(new Builder(Logger.NOOP));
+		this(new Builder(Logger.DEFAULT));
 	}
 
 	private Log4JConfiguration(Builder builder) {
