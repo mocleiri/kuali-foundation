@@ -35,7 +35,7 @@ public final class SqlEvent {
 	}
 
 	public SqlEvent(String sql, int updateCount, long startTimeMillis, long stopTimeMillis) {
-		Assert.noNulls(sql);
+		Assert.notNull(sql);
 		this.sql = sql;
 		this.updateCount = updateCount;
 		this.startTimeMillis = startTimeMillis;

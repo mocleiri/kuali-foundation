@@ -70,7 +70,7 @@ public class DataSourceConfig {
 	}
 
 	protected String toNull(String token, String nullToken) {
-		Assert.noNulls(nullToken);
+		Assert.notNull(nullToken);
 		return StringUtils.equals(token, nullToken) ? null : token;
 	}
 }
