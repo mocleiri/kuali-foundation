@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 public final class DefaultLog4JService implements Log4JService {
 
+	// ASCII should actually be good enough, log4j config files shouldn't contain special characters
 	private static final String ENCODING = "UTF-8";
 	private static final String PROPERTIES_SUFFIX = ".properties";
 	private static final String XML_SUFFIX = ".xml";
