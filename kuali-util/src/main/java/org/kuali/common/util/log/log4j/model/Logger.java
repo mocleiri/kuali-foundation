@@ -60,7 +60,8 @@ public class Logger {
 	}
 
 	public List<AppenderRef> getReferences() {
-		return Collections.unmodifiableList(references);
+		// return Collections.unmodifiableList(references);
+		return references;
 	}
 
 	public boolean getAdditivity() {

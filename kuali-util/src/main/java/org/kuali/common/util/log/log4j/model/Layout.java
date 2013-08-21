@@ -1,7 +1,6 @@
 package org.kuali.common.util.log.log4j.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -36,7 +35,8 @@ public final class Layout {
 	}
 
 	public List<Param> getParams() {
-		return Collections.unmodifiableList(params);
+		// return Collections.unmodifiableList(params);
+		return params;
 	}
 
 	public Class<?> getLayoutClass() {
