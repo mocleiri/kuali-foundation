@@ -19,7 +19,7 @@ public final class Student {
 	private final String name;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListArrayAdapter.class)
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Club> clubs;
 
 	public String getName() {
