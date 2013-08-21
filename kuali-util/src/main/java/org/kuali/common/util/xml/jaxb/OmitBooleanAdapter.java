@@ -4,15 +4,15 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public abstract class OmitBooleanAdapter extends XmlAdapter<Boolean, Boolean> {
 
-	public OmitBooleanAdapter(boolean dropValue) {
-		this.dropValue = dropValue;
+	public OmitBooleanAdapter(boolean omitValue) {
+		this.omitValue = omitValue;
 	}
 
-	private final Boolean dropValue;
+	private final Boolean omitValue;
 
 	@Override
 	public final Boolean marshal(Boolean value) {
-		if (dropValue.equals(value)) {
+		if (omitValue.equals(value)) {
 			return null;
 		} else {
 			return value;
@@ -22,14 +22,14 @@ public abstract class OmitBooleanAdapter extends XmlAdapter<Boolean, Boolean> {
 	@Override
 	public final Boolean unmarshal(Boolean value) {
 		if (value == null) {
-			return dropValue;
+			return omitValue;
 		} else {
 			return value;
 		}
 	}
 
-	public final Boolean getDropValue() {
-		return dropValue;
+	public final boolean getOmitValue() {
+		return omitValue;
 	}
 
 }
