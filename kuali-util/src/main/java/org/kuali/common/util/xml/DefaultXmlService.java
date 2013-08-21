@@ -88,11 +88,14 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public <T> T getObject(File file, Class<T> type) {
+		Assert.exists(file);
 		return getObject(LocationUtils.getCanonicalPath(file), type);
 	}
 
 	@Override
 	public <T> T getObject(String location, Class<T> type) {
+		Assert.noBlanks(location);
+		Assert.noNulls(type);
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
@@ -106,6 +109,7 @@ public class DefaultXmlService implements XmlService {
 
 	@Override
 	public String toXml(Object object, String encoding) {
+		Assert.noNulls(object);
 		Assert.noBlanks(encoding);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		write(out, object);
