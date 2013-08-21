@@ -22,7 +22,6 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.util.LoggerUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.obscure.DefaultObscurer;
@@ -143,7 +142,7 @@ public class DefaultPropertyContext implements PropertyContext {
 		if (!StringUtils.equals(org.kuali.common.util.EncryptionMode.NONE.name(), encryptionMode)) {
 			logger.info("Encryption mode - " + StringUtils.trimToEmpty(encryptionMode));
 			logger.info("Encryption strength - " + StringUtils.trimToEmpty(encryptionStrength));
-			String displayPassword = LoggerUtils.getNullAsNone(encryptionPassword);
+			String displayPassword = org.kuali.common.util.LoggerUtils.getNullAsNone(encryptionPassword);
 			if (encryptionPassword != null) {
 				displayPassword = obscurer.obscure(encryptionPassword);
 			}

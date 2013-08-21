@@ -1,18 +1,16 @@
 package org.kuali.common.util.log4j.model.param;
 
-import org.kuali.common.util.log4j.model.Param;
-import org.kuali.common.util.log4j.model.Value;
 
 
 /**
  * @deprecated
  */
 @Deprecated
-public class ThresholdParam extends Param {
+public class ThresholdParam extends org.kuali.common.util.log4j.model.Param {
 
 	public static final String NAME = "Threshold";
 
-	public ThresholdParam(Value value) {
+	public ThresholdParam(org.kuali.common.util.log4j.model.Value value) {
 		super(NAME, value.name());
 	}
 
