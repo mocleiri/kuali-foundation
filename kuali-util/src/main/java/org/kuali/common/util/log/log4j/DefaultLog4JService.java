@@ -42,8 +42,8 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public void configure(Log4JConfiguration context) {
-		String xml = toXml(context);
+	public void configure(Log4JConfiguration config) {
+		String xml = toXml(config);
 		Document document = getDocument(xml);
 		configure(document);
 	}
@@ -75,8 +75,8 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public String toXml(Log4JConfiguration context) {
-		return service.toXml(context, ENCODING);
+	public String toXml(Log4JConfiguration config) {
+		return service.toXml(config, ENCODING);
 	}
 
 	@Override
@@ -90,10 +90,10 @@ public final class DefaultLog4JService implements Log4JService {
 	}
 
 	@Override
-	public void write(File file, Log4JConfiguration context) {
+	public void write(File file, Log4JConfiguration config) {
 		OutputStream out = null;
 		try {
-			String xml = toXml(context);
+			String xml = toXml(config);
 			out = FileUtils.openOutputStream(file);
 			IOUtils.write(xml, out, ENCODING);
 		} catch (IOException e) {
