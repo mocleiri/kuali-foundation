@@ -27,6 +27,8 @@ import javax.xml.bind.UnmarshallerHandler;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
@@ -68,6 +70,10 @@ public class Log4JTestConfig {
 			Log4JConfiguration derived = xmlService.getObjectFromXml(xml1, "UTF-8", Log4JConfiguration.class);
 			String xml2 = service.toXml(derived);
 			System.out.println(xml2);
+			Assert.assertEquals(xml1, xml2);
+			logger.info("old logging configuration");
+			service.configure(derived);
+			logger.info("new logging configuration");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

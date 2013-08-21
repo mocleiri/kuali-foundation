@@ -130,20 +130,27 @@ public final class Log4JConfiguration {
 		}
 
 		private Builder finish() {
+
+			// Ensure we are being configured correctly
 			Assert.noNulls(root, appenders, loggers, debug, threshold);
 			Assert.isFalse(Logger.isThresholdNull(root), "root logging threshold is null");
 			Assert.noBlanks(namespace);
+
+			// Defensive copies of the 2 lists we were passed
 			this.appenders = new ArrayList<Appender>(appenders);
 			this.loggers = new ArrayList<Logger>(loggers);
+
+			// Return the fully configured Builder
 			return this;
 		}
 
 		public Log4JConfiguration build() {
-			finish();
+			finish(); // Finish setting things up
 			return new Log4JConfiguration(this);
 		}
 	}
 
+	// This is a concession to JAXB so it can unmarshal the object from XML
 	private Log4JConfiguration() {
 		this(new Builder(Logger.DEFAULT).finish());
 	}
