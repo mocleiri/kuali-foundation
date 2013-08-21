@@ -42,6 +42,10 @@ public class Logger {
 		this(name, AppenderRef.EMPTY, level, DEFAULT_ADDITIVITY);
 	}
 
+	public Logger(String name, List<AppenderRef> references) {
+		this(name, references, Level.DEFAULT, DEFAULT_ADDITIVITY);
+	}
+
 	public Logger(String name, List<AppenderRef> references, Level level) {
 		this(name, references, level, DEFAULT_ADDITIVITY);
 	}
