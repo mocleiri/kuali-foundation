@@ -28,7 +28,7 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 		}
 	}
 
-	protected boolean isEmpty(List<T> list) {
+	protected static boolean isEmpty(List<?> list) {
 		return list == null || list.size() == 0;
 	}
 

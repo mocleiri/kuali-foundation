@@ -9,6 +9,7 @@ import org.kuali.common.util.Assert;
 
 public class ListWrapper<T> {
 
+	@XmlAnyElement(lax = true)
 	private final List<T> list;
 
 	@SuppressWarnings("unused")
@@ -21,7 +22,6 @@ public class ListWrapper<T> {
 		this.list = list;
 	}
 
-	@XmlAnyElement(lax = true)
 	public List<T> getList() {
 		return list;
 	}
