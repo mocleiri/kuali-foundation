@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 public final class Student {
 
@@ -38,12 +39,21 @@ public final class Student {
 			return this;
 		}
 
-		public Student build() {
+		private Builder finish() {
 			Assert.noBlanks(name);
 			Assert.noNulls(clubs);
 			this.clubs = Collections.unmodifiableList(clubs);
+			return this;
+		}
+
+		public Student build() {
+			finish();
 			return new Student(this);
 		}
+	}
+
+	private Student() {
+		this(new Builder(NullUtils.NONE).finish());
 	}
 
 	private Student(Builder builder) {
