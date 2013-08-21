@@ -7,20 +7,20 @@ import org.kuali.common.util.log.log4j.model.Threshold;
 public class RepositoryThresholdAdapter extends XmlAdapter<String, Threshold> {
 
 	@Override
-	public final String marshal(Threshold value) {
-		if (Threshold.DEFAULT_REPOSITORY_VALUE.equals(value)) {
+	public final String marshal(Threshold threshold) {
+		if (Threshold.DEFAULT_REPOSITORY_VALUE.equals(threshold)) {
 			return null;
 		} else {
-			return value.name().toLowerCase();
+			return threshold.name().toLowerCase();
 		}
 	}
 
 	@Override
-	public final Threshold unmarshal(String value) {
-		if (value == null) {
+	public final Threshold unmarshal(String threshold) {
+		if (threshold == null) {
 			return Threshold.DEFAULT_REPOSITORY_VALUE;
 		} else {
-			return Threshold.valueOf(value.toUpperCase());
+			return Threshold.valueOf(threshold.toUpperCase());
 		}
 	}
 
