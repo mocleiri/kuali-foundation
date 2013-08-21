@@ -70,7 +70,7 @@ public class Logger {
 		return level;
 	}
 
-	public static boolean nullThreshold(Logger logger) {
+	public static boolean isThresholdNull(Logger logger) {
 		return Threshold.NULL.equals(logger.getLevel().getValue());
 	}
 
