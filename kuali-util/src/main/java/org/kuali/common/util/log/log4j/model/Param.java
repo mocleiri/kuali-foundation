@@ -10,9 +10,7 @@ import org.kuali.common.util.nullify.NullUtils;
 
 public final class Param {
 
-	public static final List<Param> NO_PARAMS = Collections.<Param> emptyList();
-	public static final String NO_NAME = NullUtils.NONE;
-	public static final String NO_VALUE = NullUtils.NONE;
+	public static final List<Param> EMPTY = Collections.<Param> emptyList();
 
 	@XmlAttribute
 	private final String name;
@@ -22,7 +20,7 @@ public final class Param {
 
 	@SuppressWarnings("unused")
 	private Param() {
-		this(NO_NAME, NO_VALUE);
+		this(NullUtils.NONE, NullUtils.NONE);
 	}
 
 	public Param(String name, String value) {

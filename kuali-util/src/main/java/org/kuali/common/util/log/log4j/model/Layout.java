@@ -13,8 +13,7 @@ import org.kuali.common.util.nullify.Null;
 
 public final class Layout {
 
-	public static final Class<?> NO_CLASS = Null.class;
-	public static final Layout NO_LAYOUT = new Layout(NO_CLASS, Param.NO_PARAMS);
+	public static final Layout NONE = new Layout();
 
 	@XmlAttribute(name = "class")
 	private final Class<?> layoutClass;
@@ -22,9 +21,8 @@ public final class Layout {
 	@XmlElement(name = "param")
 	private final List<Param> params;
 
-	@SuppressWarnings("unused")
 	private Layout() {
-		this(NO_CLASS, new ArrayList<Param>());
+		this(Null.class, Param.EMPTY);
 	}
 
 	public Layout(Class<?> layoutClass, Param param) {
