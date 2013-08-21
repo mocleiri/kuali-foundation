@@ -3,13 +3,21 @@ package org.kuali.common.util.xml.jaxb;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+@XmlRootElement
 public final class Student {
 
+	@XmlAttribute
 	private final String name;
+
+	@XmlElement
 	private final List<Club> clubs;
 
 	public String getName() {
