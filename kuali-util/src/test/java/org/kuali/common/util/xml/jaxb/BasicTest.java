@@ -10,11 +10,16 @@ public class BasicTest {
 
 	public static void main(String[] args) {
 		try {
+			String encoding = "UTF-8";
 			XmlService service = new DefaultXmlService();
 			List<Club> clubs = Arrays.asList(new Club("soccer"), new Club("archery"));
 			Student student = new Student.Builder("jeff").clubs(clubs).build();
-			String xml = service.toXml(student, "UTF-8");
+			Student student2 = new Student.Builder("jeff").build();
+			String xml = service.toXml(student, encoding);
 			System.out.println(xml);
+			String xml2 = service.toXml(student2, encoding);
+			System.out.println(xml2);
+			Student derived = service.getObjectFromXml(xml, encoding, Student.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

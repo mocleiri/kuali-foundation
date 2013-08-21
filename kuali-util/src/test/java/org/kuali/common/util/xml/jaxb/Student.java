@@ -17,7 +17,7 @@ public final class Student {
 	@XmlAttribute
 	private final String name;
 
-	@XmlElement
+	@XmlElement(name = "club")
 	private final List<Club> clubs;
 
 	public String getName() {
