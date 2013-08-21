@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.springframework.util.CollectionUtils;
-
 public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
 	private final List<T> EMPTY_LIST = Collections.<T> emptyList();
@@ -14,7 +12,7 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 
 	@Override
 	public ListWrapper<T> marshal(List<T> list) {
-		if (list == null || list.size() == 0) {
+		if (isEmpty(list)) {
 			return EMPTY_WRAPPER;
 		} else {
 			return new ListWrapper<T>(list);
@@ -23,11 +21,15 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 
 	@Override
 	public List<T> unmarshal(ListWrapper<T> wrapper) {
-		if (CollectionUtils.isEmpty(wrapper.getList())) {
+		if (isEmpty(wrapper.getList())) {
 			return EMPTY_LIST;
 		} else {
 			return Collections.unmodifiableList(wrapper.getList());
 		}
+	}
+
+	protected boolean isEmpty(List<T> list) {
+		return list == null || list.size() == 0;
 	}
 
 }
