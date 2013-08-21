@@ -15,29 +15,7 @@
  */
 package org.kuali.common.util.log4j;
 
-import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.log4j.spring.Log4JConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-/**
- * @deprecated
- */
-@Deprecated
-@Configuration
-@Import({ Log4JConfig.class })
 public class Log4JTestConfig {
-
-	@Autowired
-	Log4JConfig log4JConfig;
-
-	@Bean
-	public Executable log4jResetExecutable() {
-		Log4JExecutable exec = new Log4JExecutable();
-		exec.setService(log4JConfig.log4jService());
-		return exec;
-	}
 
 }
