@@ -12,11 +12,11 @@ public class BasicTest {
 			String encoding = "UTF-8";
 			DefaultXmlService service = new DefaultXmlService();
 			List<Club> clubs = Arrays.asList(new Club("soccer"), new Club("archery", 15.0));
-			Student student = new Student.Builder("joe").clubs(clubs).build();
+			Student student = new Student.Builder("joe").clubs(clubs).sport(new Sport("soccer")).build();
 			Student student2 = new Student.Builder("joe").build();
-			String xml = service.toXml(student, encoding, Club.class);
+			String xml = service.toXml(student, encoding, Club.class, Sport.class);
 			System.out.println(xml);
-			String xml2 = service.toXml(student2, encoding, Club.class);
+			String xml2 = service.toXml(student2, encoding, Club.class, Sport.class);
 			System.out.println(xml2);
 			Student derived = service.getObjectFromXml(xml, encoding, Student.class);
 			System.out.println("size=" + derived.getClubs().size());

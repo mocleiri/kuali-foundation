@@ -6,7 +6,7 @@ public class FeeAdapter extends XmlAdapter<String, Double> {
 
 	@Override
 	public String marshal(Double fee) {
-		if (Club.FREE.equals(fee)) {
+		if (Club.UNKNOWN.equals(fee)) {
 			return "FREE";
 		} else {
 			return fee.toString();
@@ -16,7 +16,7 @@ public class FeeAdapter extends XmlAdapter<String, Double> {
 	@Override
 	public Double unmarshal(String fee) {
 		if ("FREE".equals(fee)) {
-			return Club.FREE;
+			return Club.UNKNOWN;
 		} else {
 			return Double.parseDouble(fee);
 		}

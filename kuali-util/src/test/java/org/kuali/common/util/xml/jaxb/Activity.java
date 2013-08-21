@@ -7,15 +7,15 @@ import org.kuali.common.util.Assert;
 
 public abstract class Activity {
 
-	public static final Double FREE = Double.valueOf(-1);
+	public static final Double UNKNOWN = Double.valueOf(-1);
 
 	@SuppressWarnings("unused")
 	private Activity() {
-		this(FREE);
+		this(UNKNOWN);
 	}
 
 	public Activity(double fee) {
-		Assert.isTrue(fee == FREE || fee >= 0, "invalid fee");
+		Assert.isTrue(fee == UNKNOWN || fee >= 0, "invalid fee");
 		this.fee = fee;
 	}
 
