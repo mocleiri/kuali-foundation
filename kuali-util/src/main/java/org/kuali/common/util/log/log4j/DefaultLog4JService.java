@@ -28,10 +28,10 @@ import org.xml.sax.SAXException;
 
 public final class DefaultLog4JService implements Log4JService {
 
-	protected static final String ENCODING = "UTF-8";
-	protected static final String PROPERTIES_SUFFIX = ".properties";
-	protected static final String XML_SUFFIX = ".xml";
-	protected static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";
+	private static final String ENCODING = "UTF-8";
+	private static final String PROPERTIES_SUFFIX = ".properties";
+	private static final String XML_SUFFIX = ".xml";
+	private static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";
 
 	private final XmlService service;
 
