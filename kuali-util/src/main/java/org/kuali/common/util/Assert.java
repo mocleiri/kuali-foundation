@@ -87,21 +87,17 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void noBlanks(String... strings) {
-		for (String string : strings) {
-			isFalse(StringUtils.isBlank(string));
-		}
+		noBlanksWithMsg("blank strings not allowed", strings);
 	}
 
 	public static void noBlanksWithMsg(String msg, String... strings) {
 		for (String string : strings) {
-			isFalse(StringUtils.isBlank(string));
+			isFalse(StringUtils.isBlank(string), msg);
 		}
 	}
 
 	public static void noNulls(Object... objects) {
-		for (Object object : objects) {
-			notNull(object);
-		}
+		noNullsWithMsg("null not allowed", objects);
 	}
 
 	public static void noNullsWithMsg(String msg, Object... objects) {
