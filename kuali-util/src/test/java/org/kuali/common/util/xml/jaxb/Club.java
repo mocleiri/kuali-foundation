@@ -15,7 +15,7 @@ public final class Club extends Activity {
 	}
 
 	public Club(String name) {
-		this(name, UNKNOWN);
+		this(name, UNKNOWN_FEE);
 	}
 
 	public Club(String name, double fee) {

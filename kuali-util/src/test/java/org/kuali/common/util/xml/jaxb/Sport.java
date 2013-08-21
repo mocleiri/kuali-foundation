@@ -15,7 +15,7 @@ public final class Sport extends Activity {
 	}
 
 	public Sport(String name) {
-		this(name, UNKNOWN);
+		this(name, UNKNOWN_FEE);
 	}
 
 	public Sport(String name, double fee) {
