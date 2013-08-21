@@ -977,7 +977,7 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static final String getGlobalProperty(String key, String defaultValue) {
-		Assert.noNulls(key);
+		Assert.noNullsWithMsg("key is required", key);
 
 		// Check to see if there is a system property for this key
 		String systemValue = System.getProperty(key);
