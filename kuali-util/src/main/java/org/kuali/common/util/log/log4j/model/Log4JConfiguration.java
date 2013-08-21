@@ -15,7 +15,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
-import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
+import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -34,7 +34,7 @@ public final class Log4JConfiguration {
 	private final List<Logger> loggers;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(DropFalseAdapter.class)
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final Boolean reset;
 
 	@XmlAttribute

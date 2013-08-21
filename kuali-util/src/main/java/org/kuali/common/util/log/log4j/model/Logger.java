@@ -11,7 +11,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.DropNoneStringAdapter;
-import org.kuali.common.util.xml.jaxb.DropTrueAdapter;
+import org.kuali.common.util.xml.jaxb.OmitTrueAdapter;
 
 public class Logger {
 
@@ -30,7 +30,7 @@ public class Logger {
 	private final Level level;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(DropTrueAdapter.class)
+	@XmlJavaTypeAdapter(OmitTrueAdapter.class)
 	private final Boolean additivity;
 
 	private Logger() {

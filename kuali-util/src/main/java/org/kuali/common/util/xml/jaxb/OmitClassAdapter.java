@@ -4,18 +4,18 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.Assert;
 
-public abstract class DropClassAdapter extends XmlAdapter<Class<?>, Class<?>> {
+public abstract class OmitClassAdapter extends XmlAdapter<Class<?>, Class<?>> {
 
-	public DropClassAdapter(Class<?> dropValue) {
-		Assert.noNulls(dropValue);
-		this.dropValue = dropValue;
+	public OmitClassAdapter(Class<?> omitClass) {
+		Assert.noNulls(omitClass);
+		this.omitClass = omitClass;
 	}
 
-	private final Class<?> dropValue;
+	private final Class<?> omitClass;
 
 	@Override
 	public final Class<?> marshal(Class<?> value) {
-		if (dropValue.equals(value)) {
+		if (omitClass == value) {
 			return null;
 		} else {
 			return value;
@@ -25,14 +25,14 @@ public abstract class DropClassAdapter extends XmlAdapter<Class<?>, Class<?>> {
 	@Override
 	public final Class<?> unmarshal(Class<?> value) {
 		if (value == null) {
-			return dropValue;
+			return omitClass;
 		} else {
 			return value;
 		}
 	}
 
-	public final Class<?> getDropValue() {
-		return dropValue;
+	public final Class<?> getOmitClass() {
+		return omitClass;
 	}
 
 }

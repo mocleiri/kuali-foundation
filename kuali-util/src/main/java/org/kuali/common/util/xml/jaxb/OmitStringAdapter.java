@@ -4,9 +4,9 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.kuali.common.util.Assert;
 
-public abstract class DropStringAdapter extends XmlAdapter<String, String> {
+public abstract class OmitStringAdapter extends XmlAdapter<String, String> {
 
-	public DropStringAdapter(String dropValue) {
+	public OmitStringAdapter(String dropValue) {
 		Assert.noNullsWithMsg("dropValue is required", dropValue);
 		this.dropValue = dropValue;
 	}
