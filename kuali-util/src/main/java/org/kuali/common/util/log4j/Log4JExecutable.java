@@ -2,7 +2,6 @@ package org.kuali.common.util.log4j;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.log4j.model.Log4JContext;
 
 /**
  * @deprecated
@@ -11,18 +10,18 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 public class Log4JExecutable implements Executable {
 
 	boolean skip;
-	Log4JContext context;
+	org.kuali.common.util.log4j.model.Log4JContext context;
 	Log4JService service;
 
 	public Log4JExecutable() {
 		this(null, null);
 	}
 
-	public Log4JExecutable(Log4JService service, Log4JContext context) {
+	public Log4JExecutable(Log4JService service, org.kuali.common.util.log4j.model.Log4JContext context) {
 		this(service, context, false);
 	}
 
-	public Log4JExecutable(Log4JService service, Log4JContext context, boolean skip) {
+	public Log4JExecutable(Log4JService service, org.kuali.common.util.log4j.model.Log4JContext context, boolean skip) {
 		super();
 		this.service = service;
 		this.context = context;
@@ -61,11 +60,11 @@ public class Log4JExecutable implements Executable {
 		this.service = service;
 	}
 
-	public Log4JContext getContext() {
+	public org.kuali.common.util.log4j.model.Log4JContext getContext() {
 		return context;
 	}
 
-	public void setContext(Log4JContext context) {
+	public void setContext(org.kuali.common.util.log4j.model.Log4JContext context) {
 		this.context = context;
 	}
 
