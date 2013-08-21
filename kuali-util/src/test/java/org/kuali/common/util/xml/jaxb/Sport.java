@@ -7,18 +7,18 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
-public final class Club extends FeeActivity {
+public final class Sport extends FeeActivity {
 
 	@SuppressWarnings("unused")
-	private Club() {
+	private Sport() {
 		this(NullUtils.NONE);
 	}
 
-	public Club(String name) {
+	public Sport(String name) {
 		this(name, FREE);
 	}
 
-	public Club(String name, double fee) {
+	public Sport(String name, double fee) {
 		super(fee);
 		Assert.noBlanks(name);
 		this.name = name;
