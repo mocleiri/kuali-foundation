@@ -9,8 +9,8 @@ import org.springframework.util.CollectionUtils;
 
 public class UnmodifiableListWrapperAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
-	private List<T> EMPTY = Collections.<T> emptyList();
-	private ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY);
+	private List<T> EMPTY_LIST = Collections.<T> emptyList();
+	private ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
 
 	@Override
 	public ListWrapper<T> marshal(List<T> list) {
@@ -24,7 +24,7 @@ public class UnmodifiableListWrapperAdapter<T> extends XmlAdapter<ListWrapper<T>
 	@Override
 	public List<T> unmarshal(ListWrapper<T> wrapper) {
 		if (CollectionUtils.isEmpty(wrapper.getList())) {
-			return EMPTY;
+			return EMPTY_LIST;
 		} else {
 			return Collections.unmodifiableList(wrapper.getList());
 		}
