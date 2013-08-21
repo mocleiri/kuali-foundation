@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 
-public final class Class {
+public final class Club {
 
-	public static final List<Class> EMPTY = Collections.<Class> emptyList();
+	public static final List<Club> EMPTY = Collections.<Club> emptyList();
 
-	public Class(String name, double fee) {
+	public Club(String name, double fee) {
 		Assert.noBlanks(name);
 		Assert.isTrue(fee >= 0, "fee is negative");
 		this.name = name;
