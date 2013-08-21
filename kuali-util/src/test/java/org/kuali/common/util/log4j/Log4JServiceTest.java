@@ -13,16 +13,20 @@ import org.kuali.common.util.log4j.model.Appender;
 import org.kuali.common.util.log4j.model.AppenderRef;
 import org.kuali.common.util.log4j.model.Layout;
 import org.kuali.common.util.log4j.model.Level;
-import org.kuali.common.util.log4j.model.Value;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.log4j.model.Param;
+import org.kuali.common.util.log4j.model.Value;
 import org.kuali.common.util.log4j.model.param.ConversionPatternParam;
 import org.kuali.common.util.log4j.spring.Log4JConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { Log4JConfig.class })
 public class Log4JServiceTest {
