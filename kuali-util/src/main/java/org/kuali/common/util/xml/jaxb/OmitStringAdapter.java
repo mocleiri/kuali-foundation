@@ -7,7 +7,7 @@ import org.kuali.common.util.Assert;
 public abstract class OmitStringAdapter extends XmlAdapter<String, String> {
 
 	public OmitStringAdapter(String omitString) {
-		Assert.noNullStrings(omitString);
+		Assert.notNull(omitString);
 		this.omitString = omitString;
 	}
 
