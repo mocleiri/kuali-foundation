@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.springframework.util.CollectionUtils;
 
-public class ImmutableListWrapperAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
+public class UnmodifiableListWrapperAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
 	private List<T> EMPTY = Collections.<T> emptyList();
 	private ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY);

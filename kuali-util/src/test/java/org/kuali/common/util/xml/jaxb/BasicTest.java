@@ -19,6 +19,9 @@ public class BasicTest {
 			String xml2 = service.toXml(student2, encoding, Club.class);
 			System.out.println(xml2);
 			Student derived = service.getObjectFromXml(xml, encoding, Student.class);
+			System.out.println("size=" + derived.getClubs().size());
+			List<Club> list = derived.getClubs();
+			list.add(new Club("bowling"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
