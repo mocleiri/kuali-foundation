@@ -6,33 +6,33 @@ import org.kuali.common.util.Assert;
 
 public abstract class OmitStringAdapter extends XmlAdapter<String, String> {
 
-	public OmitStringAdapter(String omitValue) {
-		Assert.noNulls((Object) omitValue);
-		this.omitValue = omitValue;
+	public OmitStringAdapter(String omitString) {
+		Assert.noNullStrings(omitString);
+		this.omitString = omitString;
 	}
 
-	private final String omitValue;
+	private final String omitString;
 
 	@Override
-	public final String marshal(String value) {
-		if (omitValue.equals(value)) {
+	public final String marshal(String string) {
+		if (omitString.equals(string)) {
 			return null;
 		} else {
-			return value;
+			return string;
 		}
 	}
 
 	@Override
-	public final String unmarshal(String value) {
-		if (value == null) {
-			return omitValue;
+	public final String unmarshal(String string) {
+		if (string == null) {
+			return omitString;
 		} else {
-			return value;
+			return string;
 		}
 	}
 
-	public final String getOmitValue() {
-		return omitValue;
+	public final String getOmitString() {
+		return omitString;
 	}
 
 }
