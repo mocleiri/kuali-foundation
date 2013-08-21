@@ -1,8 +1,13 @@
 package org.kuali.common.util.xml.jaxb;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.kuali.common.util.Assert;
 
 public final class Class {
+
+	public static final List<Class> EMPTY = Collections.<Class> emptyList();
 
 	public Class(String name, double fee) {
 		Assert.noBlanks(name);
