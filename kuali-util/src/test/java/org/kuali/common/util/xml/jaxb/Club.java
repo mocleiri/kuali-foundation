@@ -1,13 +1,8 @@
 package org.kuali.common.util.xml.jaxb;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.common.util.Assert;
 
 public final class Club {
-
-	public static final List<Club> EMPTY = Collections.<Club> emptyList();
 
 	public Club(String name, double fee) {
 		Assert.noBlanks(name);
