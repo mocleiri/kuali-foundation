@@ -1,6 +1,7 @@
 package org.kuali.common.util.log.log4j.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,13 +46,11 @@ public final class Log4JConfiguration {
 	private final Threshold threshold;
 
 	public List<Logger> getLoggers() {
-		// return Collections.unmodifiableList(loggers);
-		return loggers;
+		return Collections.unmodifiableList(loggers);
 	}
 
 	public List<Appender> getAppenders() {
-		// return Collections.unmodifiableList(appenders);
-		return appenders;
+		return Collections.unmodifiableList(appenders);
 	}
 
 	public boolean getReset() {

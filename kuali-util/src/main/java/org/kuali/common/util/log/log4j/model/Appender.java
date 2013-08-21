@@ -46,8 +46,7 @@ public final class Appender {
 	}
 
 	public List<Param> getParams() {
-		// return Collections.unmodifiableList(params);
-		return params;
+		return Collections.unmodifiableList(params);
 	}
 
 	public String getName() {
