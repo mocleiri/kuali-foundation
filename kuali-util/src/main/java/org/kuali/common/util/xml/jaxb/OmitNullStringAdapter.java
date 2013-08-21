@@ -2,9 +2,9 @@ package org.kuali.common.util.xml.jaxb;
 
 import org.kuali.common.util.nullify.NullUtils;
 
-public class DropNullStringAdapter extends OmitStringAdapter {
+public class OmitNullStringAdapter extends OmitStringAdapter {
 
-	public DropNullStringAdapter() {
+	public OmitNullStringAdapter() {
 		super(NullUtils.NULL);
 	}
 
