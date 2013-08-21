@@ -20,8 +20,6 @@ public class BasicTest {
 			System.out.println(xml2);
 			Student derived = service.getObjectFromXml(xml, encoding, Student.class);
 			System.out.println("size=" + derived.getClubs().size());
-			List<Club> list = derived.getClubs();
-			list.add(new Club("bowling"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
