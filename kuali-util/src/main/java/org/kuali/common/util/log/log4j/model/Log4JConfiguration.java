@@ -21,9 +21,6 @@ import org.kuali.common.util.xml.jaxb.DropFalseAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Log4JConfiguration {
 
-	public static final boolean DEFAULT_RESET = false;
-	public static final String DEFAULT_NAMESPACE = "http://jakarta.apache.org/log4j/";
-
 	@XmlAttribute(name = "xmlns:log4j")
 	private final String namespace;
 
@@ -79,9 +76,9 @@ public final class Log4JConfiguration {
 	public static class Builder {
 
 		private List<Appender> appenders = Appender.EMPTY;
-		private String namespace = DEFAULT_NAMESPACE;
+		private String namespace = "http://jakarta.apache.org/log4j/";
 		private List<Logger> loggers = Logger.EMPTY;
-		private boolean reset = DEFAULT_RESET;
+		private boolean reset = false;
 		private Debug debug = Debug.DEFAULT_VALUE;
 		private Threshold threshold = Threshold.DEFAULT_REPOSITORY_VALUE;
 
