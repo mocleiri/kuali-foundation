@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.log.log4j.jaxb.DropLevelClassAdapter;
+import org.kuali.common.util.log.log4j.jaxb.OmitDefaultLog4JLevelClassAdapter;
 
 public final class Level {
 
@@ -12,7 +12,7 @@ public final class Level {
 	public static final Level DEFAULT_LEVEL = new Level();
 
 	@XmlAttribute(name = "class")
-	@XmlJavaTypeAdapter(DropLevelClassAdapter.class)
+	@XmlJavaTypeAdapter(OmitDefaultLog4JLevelClassAdapter.class)
 	private final Class<?> levelClass;
 
 	@XmlAttribute
