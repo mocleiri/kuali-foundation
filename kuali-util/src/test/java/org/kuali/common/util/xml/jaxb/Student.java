@@ -22,6 +22,10 @@ public final class Student {
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Club> clubs;
 
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<Sport> sports;
+
 	public String getName() {
 		return name;
 	}
@@ -30,10 +34,15 @@ public final class Student {
 		return clubs;
 	}
 
+	public List<Sport> getSports() {
+		return sports;
+	}
+
 	public static class Builder {
 
 		private final String name;
 		private List<Club> clubs = Collections.<Club> emptyList();
+		private List<Sport> sports = Collections.<Sport> emptyList();
 
 		public Builder(String name) {
 			this.name = name;
@@ -49,10 +58,21 @@ public final class Student {
 			return this;
 		}
 
+		public Builder sport(Sport sport) {
+			this.sports = CollectionUtils.singletonList(sport);
+			return this;
+		}
+
+		public Builder sports(List<Sport> sports) {
+			this.sports = sports;
+			return this;
+		}
+
 		private Builder finish() {
 			Assert.noBlanks(name);
 			Assert.noNulls(clubs);
 			this.clubs = Collections.unmodifiableList(clubs);
+			this.sports = Collections.unmodifiableList(sports);
 			return this;
 		}
 
@@ -69,6 +89,7 @@ public final class Student {
 	private Student(Builder builder) {
 		this.name = builder.name;
 		this.clubs = builder.clubs;
+		this.sports = builder.sports;
 	}
 
 }
