@@ -9,6 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.CollectionUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Logger {
 
 	public static final Boolean DEFAULT_ADDITIVITY_VALUE = true;

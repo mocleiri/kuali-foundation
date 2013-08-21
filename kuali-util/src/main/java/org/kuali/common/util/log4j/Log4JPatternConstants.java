@@ -1,5 +1,9 @@
 package org.kuali.common.util.log4j;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public abstract class Log4JPatternConstants {
 
 	/**

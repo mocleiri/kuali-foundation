@@ -12,6 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.CollectionUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 @XmlRootElement(name = "log4j:configuration")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Log4JContext {

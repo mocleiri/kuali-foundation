@@ -8,6 +8,10 @@ import org.kuali.common.util.log4j.model.Log4JContext;
 import org.kuali.common.util.log4j.model.Logger;
 import org.kuali.common.util.nullify.Nullifier;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Log4JContextNullifier implements Nullifier {
 
 	Log4JContext context;

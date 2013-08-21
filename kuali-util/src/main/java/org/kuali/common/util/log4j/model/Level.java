@@ -2,6 +2,10 @@ package org.kuali.common.util.log4j.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Level {
 
 	public static final Class<org.apache.log4j.Level> DEFAULT_JAVA_CLASS = org.apache.log4j.Level.class;

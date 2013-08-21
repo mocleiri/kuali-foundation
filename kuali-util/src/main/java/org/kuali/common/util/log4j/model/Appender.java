@@ -6,6 +6,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Appender {
 
 	String name;

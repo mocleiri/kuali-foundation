@@ -9,6 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.kuali.common.util.CollectionUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Layout {
 
 	Class<?> javaClass;

@@ -4,6 +4,10 @@ import org.kuali.common.util.log4j.model.Param;
 import org.kuali.common.util.log4j.model.Value;
 
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ThresholdParam extends Param {
 
 	public static final String NAME = "Threshold";

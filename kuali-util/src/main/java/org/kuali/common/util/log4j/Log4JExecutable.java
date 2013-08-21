@@ -4,6 +4,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log4j.model.Log4JContext;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Log4JExecutable implements Executable {
 
 	boolean skip;

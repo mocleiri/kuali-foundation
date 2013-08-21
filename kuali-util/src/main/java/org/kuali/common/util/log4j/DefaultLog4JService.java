@@ -26,6 +26,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class DefaultLog4JService implements Log4JService {
 
 	protected static final String ENCODING = "UTF-8";

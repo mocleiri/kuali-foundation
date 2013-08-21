@@ -1,5 +1,9 @@
 package org.kuali.common.util.log4j.model;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum Value {
 
 	ALL, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF, NULL;

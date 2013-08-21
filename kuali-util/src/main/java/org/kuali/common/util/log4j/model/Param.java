@@ -2,6 +2,10 @@ package org.kuali.common.util.log4j.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Param {
 
 	String name;

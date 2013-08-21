@@ -6,6 +6,10 @@ import java.util.Properties;
 import org.kuali.common.util.log4j.model.Log4JContext;
 import org.w3c.dom.Element;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface Log4JService {
 
 	void reset();

@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.log4j.model.Param;
-import org.kuali.common.util.log4j.model.Value;
+import org.kuali.common.util.log.log4j.model.Threshold;
 
 public class ParamFactory {
 
@@ -24,8 +24,8 @@ public class ParamFactory {
 		return getFileParam(new CanonicalFile(file).getPath());
 	}
 
-	public static Param getThresholdParam(Value value) {
-		return new Param(THRESHOLD, value.name());
+	public static Param getThresholdParam(Threshold threshold) {
+		return new Param(THRESHOLD, threshold.name());
 	}
 
 }
