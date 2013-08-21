@@ -9,8 +9,8 @@ import org.springframework.util.CollectionUtils;
 
 public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
-	private List<T> EMPTY_LIST = Collections.<T> emptyList();
-	private ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
+	private final List<T> EMPTY_LIST = Collections.<T> emptyList();
+	private final ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
 
 	@Override
 	public ListWrapper<T> marshal(List<T> list) {
