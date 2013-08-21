@@ -21,8 +21,11 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class Assert extends org.springframework.util.Assert {
 
+	private static final String NO_NULLS = "null not allowed";
+	private static final String NO_BLANKS = "blank strings not allowed";
+
 	public static void exists(String location) {
-		exists(location, "[Assertion failed] - [" + location + "] does not exist");
+		exists(location, "[" + location + "] does not exist");
 	}
 
 	public static void exists(String location, String message) {
@@ -30,7 +33,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void isExistingDir(File dir) {
-		isExistingDir(dir, "[Assertion failed] - [" + dir + "] is not an existing directory");
+		isExistingDir(dir, "[" + dir + "] is not an existing directory");
 	}
 
 	public static void isExistingDir(File dir, String message) {
@@ -39,7 +42,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void exists(File file) {
-		exists(file, "[Assertion failed] - [" + file + "] does not exist");
+		exists(file, "[" + file + "] does not exist");
 	}
 
 	public static void exists(File file, String message) {
@@ -47,7 +50,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void isOdd(int i) {
-		isOdd(i, "[Assertion failed] - [" + i + "] is not an odd number");
+		isOdd(i, "[" + i + "] is not an odd number");
 	}
 
 	public static void isOdd(int i, String message) {
@@ -55,7 +58,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	public static void isEven(int i) {
-		isEven(i, "[Assertion failed] - [" + i + "] is not an even number");
+		isEven(i, "[" + i + "] is not an even number");
 	}
 
 	public static void isEven(int i, String message) {
@@ -70,24 +73,29 @@ public abstract class Assert extends org.springframework.util.Assert {
 		isTrue(!condition, message);
 	}
 
-	@Deprecated
-	public static void notNull(Object... objects) {
-		for (Object object : objects) {
-			notNull(object);
-		}
-	}
-
 	public static void notBlank(String string) {
 		isFalse(StringUtils.isBlank(string));
 	}
 
-	@Deprecated
-	public static void notBlank(String... strings) {
-		noBlanksWithMsg("blank strings not allowed", strings);
+	public static void noBlanks(String... strings) {
+		noBlanksWithMsg(NO_BLANKS, strings);
 	}
 
-	public static void noBlanks(String... strings) {
-		noBlanksWithMsg("blank strings not allowed", strings);
+	public static void noNullStrings(String... strings) {
+		notNull((Object) strings);
+		for (String string : strings) {
+			notNull(string, NO_NULLS);
+		}
+	}
+
+	public static void noNulls(Object... objects) {
+		noNullsWithMsg(NO_NULLS, objects);
+	}
+
+	public static void noNullsWithMsg(String msg, Object... objects) {
+		for (Object object : objects) {
+			notNull(object, msg);
+		}
 	}
 
 	public static void noBlanksWithMsg(String msg, String... strings) {
@@ -96,14 +104,16 @@ public abstract class Assert extends org.springframework.util.Assert {
 		}
 	}
 
-	public static void noNulls(Object... objects) {
-		noNullsWithMsg("null not allowed", objects);
+	@Deprecated
+	public static void notNull(Object... objects) {
+		for (Object object : objects) {
+			notNull(object);
+		}
 	}
 
-	public static void noNullsWithMsg(String msg, Object... objects) {
-		for (Object object : objects) {
-			notNull(object, msg);
-		}
+	@Deprecated
+	public static void notBlank(String... strings) {
+		noBlanksWithMsg(NO_BLANKS, strings);
 	}
 
 	@Deprecated
