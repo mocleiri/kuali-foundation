@@ -125,11 +125,11 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 	@Override
 	public String getString(String key, String defaultValue) {
-		String text = getProperty(EnvContext.newString(key, defaultValue));
+		String string = getProperty(EnvContext.newString(key, defaultValue));
 		if (resolveStrings) {
-			return env.resolveRequiredPlaceholders(text);
+			return env.resolveRequiredPlaceholders(string);
 		} else {
-			return text;
+			return string;
 		}
 	}
 
