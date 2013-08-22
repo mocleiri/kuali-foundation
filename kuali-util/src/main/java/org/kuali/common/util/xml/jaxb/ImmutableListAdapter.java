@@ -12,7 +12,7 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 
 	@Override
 	public ListWrapper<T> marshal(List<T> list) {
-		if (ImmutableCollectionAdapter.isEmpty(list)) {
+		if (isEmpty(list)) {
 			return EMPTY_WRAPPER;
 		} else {
 			return new ListWrapper<T>(list);
@@ -21,11 +21,16 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 
 	@Override
 	public List<T> unmarshal(ListWrapper<T> wrapper) {
-		if (ImmutableCollectionAdapter.isEmpty(wrapper.getList())) {
+		if (isEmpty(wrapper.getList())) {
 			return EMPTY_LIST;
 		} else {
-			return Collections.unmodifiableList(wrapper.getList());
+			// return Collections.unmodifiableList(wrapper.getList());
+			return wrapper.getList();
 		}
+	}
+
+	protected static boolean isEmpty(List<?> list) {
+		return list == null || list.size() == 0;
 	}
 
 }
