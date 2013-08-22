@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
-import org.kuali.common.util.metainf.model.RelativeContext;
-import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.model.Build;
@@ -45,17 +43,13 @@ public class MpxConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		boolean relativePathing = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
-		ScanContext scanContext = getScanContext();
+		boolean generateRelativePathing = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DEFAULT_INCLUDES);
+		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
-		RelativeContext relative = new RelativeContext(scanContext.getDirectory(), relativePathing);
-		MetaInfContext context = new MetaInfContext.Builder(outputFile, build.getEncoding(), scanContext).relative(relative).build();
+		MetaInfContext context = new MetaInfContext.Builder(outputFile, build.getEncoding(), build.getOutputDir()).includes(includes).excludes(excludes)
+				.relativePaths(generateRelativePathing).build();
 		return Collections.singletonList(context);
 	}
 
-	protected ScanContext getScanContext() {
-		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DEFAULT_INCLUDES);
-		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
-		return new ScanContext(build.getOutputDir(), includes, excludes);
-	}
 }
