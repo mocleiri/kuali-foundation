@@ -133,29 +133,23 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected MavenPropertySourceContext getPropertySourcesContext(LoadXmlMojo mojo, LoadContext context) {
-		MavenPropertySourceContext psc = new MavenPropertySourceContext();
-		psc.setLocation(mojo.getPropertySourcesLocation());
-		psc.setProperties(context.getMavenProperties());
-		psc.setService(context.getService());
-		psc.setPropertiesBeanName(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
-		psc.setActiveProfiles(getActiveProfiles(mojo));
-		psc.setDefaultProfiles(getDefaultProfiles(mojo));
-		return psc;
+		String location = mojo.getPropertySourcesLocation();
+		List<String> activeProfiles = getActiveProfiles(mojo);
+		List<String> defaultProfiles = getDefaultProfiles(mojo);
+		Properties properties = context.getMavenProperties();
+
+		return new MavenPropertySourceContext.Builder(context.getService()).location(location).properties(properties).activeProfiles(activeProfiles)
+				.defaultProfiles(defaultProfiles).build();
 	}
 
 	protected MavenPropertySourceContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
 		Class<?> config = ReflectionUtils.getClass(mojo.getPropertySourcesConfig());
 		List<String> activeProfiles = getActiveProfiles(mojo);
 		List<String> defaultProfiles = getDefaultProfiles(mojo);
+		Properties properties = context.getMavenProperties();
 
-		return new MavenPropertySourceContext.Builder(context.getService()).build();
-		psc.setAnnotatedClass(annotatedClass);
-		psc.setService(context.getService());
-		psc.setProperties(context.getMavenProperties());
-		psc.setPropertiesBeanName(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME);
-		psc.setActiveProfiles(getActiveProfiles(mojo));
-		psc.setDefaultProfiles(getDefaultProfiles(mojo));
-		return psc;
+		return new MavenPropertySourceContext.Builder(context.getService()).config(config).properties(properties).activeProfiles(activeProfiles).defaultProfiles(defaultProfiles)
+				.build();
 	}
 
 	protected List<PropertySource<?>> getPropertySources(MavenPropertySourceContext ctx) {
