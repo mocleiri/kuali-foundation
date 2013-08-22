@@ -71,7 +71,8 @@ public class DefaultXmlService implements XmlService {
 	public void write(OutputStream out, Object object) {
 		Assert.noNulls(out, object);
 		try {
-			JAXBContext context = JAXBContext.newInstance(object.getClass());
+			Class<?>[] bindings = getClassesToBeBound(object);
+			JAXBContext context = JAXBContext.newInstance(bindings);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.marshal(object, out);
