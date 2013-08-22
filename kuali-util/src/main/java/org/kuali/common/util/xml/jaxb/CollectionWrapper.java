@@ -1,11 +1,11 @@
 package org.kuali.common.util.xml.jaxb;
 
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
 
 public class CollectionWrapper<T> {
 
@@ -14,7 +14,7 @@ public class CollectionWrapper<T> {
 
 	@SuppressWarnings("unused")
 	private CollectionWrapper() {
-		this(Collections.<T> emptyList());
+		this(ListUtils.<T> newArrayList());
 	}
 
 	public CollectionWrapper(Collection<T> c) {
