@@ -42,7 +42,10 @@ public final class Student {
 
 	public static class Builder {
 
+		// Required
 		private final String name;
+
+		// Optional
 		private List<Club> clubs = Collections.<Club> emptyList();
 		private List<Sport> sports = Collections.<Sport> emptyList();
 
