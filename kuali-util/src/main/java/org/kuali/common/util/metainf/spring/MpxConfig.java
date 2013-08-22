@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.model.RelativeContext;
 import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.nullify.NullUtils;
@@ -47,7 +48,8 @@ public class MpxConfig implements MetaInfContextsConfig {
 		boolean relativePathing = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		ScanContext scanContext = getScanContext();
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
-		MetaInfContext context = new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), scanContext, relativePathing);
+		RelativeContext relative = new RelativeContext(scanContext.getDirectory(), relativePathing);
+		MetaInfContext context = new MetaInfContext.Builder(outputFile, build.getEncoding(), scanContext).relative(relative).build();
 		return Collections.singletonList(context);
 	}
 

@@ -16,31 +16,34 @@
 package org.kuali.common.util.metainf.model;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.file.CanonicalFile;
+import org.springframework.util.ResourceUtils;
 
 public class MetaInfContext {
 
-	private final CanonicalFile outputFile;
+	private final File outputFile;
 	private final File scanDir;
-	private final boolean sort;
 	private final String encoding;
+	private final boolean sort;
 	private final boolean includePropertiesFile;
 	private final boolean includeFileSizes;
 	private final boolean includeLineCounts;
 	private final List<String> includes;
 	private final List<String> excludes;
 	private final boolean generateRelativePaths;
-	private final CanonicalFile parent;
+	private final File relativeDir;
 	private final String urlPrefix;
 
 	public boolean isSort() {
 		return sort;
 	}
 
-	public CanonicalFile getOutputFile() {
+	public File getOutputFile() {
 		return outputFile;
 	}
 
@@ -50,15 +53,28 @@ public class MetaInfContext {
 
 	public static class Builder {
 
-		private final CanonicalFile outputFile;
+		// Required
+		private final File outputFile;
+		private final File scanDir;
 		private final String encoding;
 
+		// Optional
 		private boolean sort = true;
+		private boolean includePropertiesFile = false;
+		private boolean includeFileSizes = true;
+		private boolean includeLineCounts = false;
+		private List<String> includes = Collections.<String> emptyList();
+		private List<String> excludes = Collections.<String> emptyList();
+		private boolean generateRelativePaths = true;
+		private String urlPrefix = ResourceUtils.CLASSPATH_URL_PREFIX;
+
+		// Defaults to scanDir
+		private File relativeDir;
 
 		public Builder(File outputFile, String encoding, File scanDir) {
 			this.outputFile = new CanonicalFile(outputFile);
+			this.scanDir = new CanonicalFile(scanDir);
 			this.encoding = encoding;
-			this.relativeContext = new RelativeContext(scanContext.getDirectory());
 		}
 
 		public Builder sort(boolean sort) {
@@ -66,19 +82,41 @@ public class MetaInfContext {
 			return this;
 		}
 
-		public Builder relative(RelativeContext context) {
-			this.relativeContext = context;
+		public Builder includes(List<String> includes) {
+			this.includes = includes;
 			return this;
 		}
 
-		public Builder properties(PropertiesContext context) {
-			this.propertiesContext = context;
+		public Builder excludes(List<String> excludes) {
+			this.excludes = excludes;
+			return this;
+		}
+
+		public Builder relativePahs(boolean generateRelativePaths) {
+			this.generateRelativePaths = generateRelativePaths;
+			return this;
+		}
+
+		public Builder propertiesFile(boolean includePropertiesFile) {
+			this.includePropertiesFile = includePropertiesFile;
+			return this;
+		}
+
+		public Builder fileSizes(boolean includeFileSizes) {
+			this.includeFileSizes = includeFileSizes;
+			return this;
+		}
+
+		public Builder lineCounts(boolean includeLineCounts) {
+			this.includeLineCounts = includeLineCounts;
 			return this;
 		}
 
 		public MetaInfContext build() {
-			Assert.noNulls(outputFile, scanContext, relativeContext, propertiesContext);
-			Assert.noBlanks(encoding);
+			Assert.noNulls(outputFile, scanDir, includes, excludes, relativeDir);
+			Assert.noBlanks(encoding, urlPrefix);
+			this.includes = ListUtils.newImmutableArrayList(includes);
+			this.excludes = ListUtils.newImmutableArrayList(excludes);
 			return new MetaInfContext(this);
 		}
 
@@ -87,10 +125,52 @@ public class MetaInfContext {
 	private MetaInfContext(Builder builder) {
 		this.sort = builder.sort;
 		this.encoding = builder.encoding;
-		this.propertiesContext = builder.propertiesContext;
+		this.urlPrefix = builder.urlPrefix;
+		this.includeFileSizes = builder.includeFileSizes;
+		this.includeLineCounts = builder.includeLineCounts;
+		this.includePropertiesFile = builder.includePropertiesFile;
+		this.includes = builder.includes;
+		this.excludes = builder.excludes;
+		this.scanDir = builder.scanDir;
+		this.relativeDir = builder.relativeDir;
 		this.outputFile = builder.outputFile;
-		this.scanContext = builder.scanContext;
-		this.relativeContext = builder.relativeContext;
+		this.generateRelativePaths = builder.generateRelativePaths;
+	}
+
+	public File getScanDir() {
+		return scanDir;
+	}
+
+	public boolean isIncludePropertiesFile() {
+		return includePropertiesFile;
+	}
+
+	public boolean isIncludeFileSizes() {
+		return includeFileSizes;
+	}
+
+	public boolean isIncludeLineCounts() {
+		return includeLineCounts;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public boolean isGenerateRelativePaths() {
+		return generateRelativePaths;
+	}
+
+	public File getRelativeDir() {
+		return relativeDir;
+	}
+
+	public String getUrlPrefix() {
+		return urlPrefix;
 	}
 
 }

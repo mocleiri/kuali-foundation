@@ -56,6 +56,7 @@ public class SqlConfig implements MetaInfContextsConfig {
 		String databaseVendor = env.getString(DB_VENDOR_KEY);
 		boolean relativePaths = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, databaseVendor, group);
+		RelativeContext relative = new RelativeContext(scanContext.)
 		return new MetaInfContext(outputFile, build.getEncoding(), build.getOutputDir(), scanContext, relativePaths);
 	}
 
