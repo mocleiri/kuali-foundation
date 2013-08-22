@@ -150,7 +150,7 @@ public class MetaInfContext {
 
 		public MetaInfContext build() {
 			Assert.noNulls(outputFile, scanDir, includes, excludes, relativeDir);
-			Assert.noBlanks(urlPrefix);
+			Assert.noBlanks(encoding, urlPrefix);
 			this.includes = ListUtils.newImmutableArrayList(includes);
 			this.excludes = ListUtils.newImmutableArrayList(excludes);
 			return new MetaInfContext(this);
