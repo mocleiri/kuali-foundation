@@ -73,7 +73,7 @@ public class ListUtils {
 			}
 		}
 
-		// All values in both lists are the same ignoring case
+		// All values in both lists match
 		return true;
 	}
 

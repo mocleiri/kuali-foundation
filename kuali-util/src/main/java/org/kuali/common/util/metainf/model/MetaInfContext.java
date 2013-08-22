@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.file.CanonicalFile;
 
 public class MetaInfContext {
@@ -35,11 +36,11 @@ public class MetaInfContext {
 	private final RelativeContext relativeContext;
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String includes) {
-		this(outputFile, encoding, scanDir, Arrays.asList(includes));
+		this(outputFile, encoding, scanDir, CollectionUtils.singletonList(includes));
 	}
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String includes, boolean generateRelativePaths) {
-		this(outputFile, encoding, scanDir, Arrays.asList(includes), generateRelativePaths);
+		this(outputFile, encoding, scanDir, CollectionUtils.singletonList(includes), generateRelativePaths);
 	}
 
 	public MetaInfContext(File outputFile, String encoding, File scanDir, String... includes) {
@@ -67,7 +68,8 @@ public class MetaInfContext {
 	}
 
 	public MetaInfContext(File outputFile, String encoding, ScanContext scanContext, RelativeContext relativeContext, boolean sort, PropertiesContext propertiesContext) {
-		Assert.noNulls(outputFile, encoding, scanContext, relativeContext, propertiesContext);
+		Assert.noNulls(outputFile, scanContext, relativeContext, propertiesContext);
+		Assert.noBlanks(encoding);
 		this.outputFile = new CanonicalFile(outputFile);
 		this.encoding = encoding;
 		this.scanContext = scanContext;
@@ -78,6 +80,35 @@ public class MetaInfContext {
 
 	public static class Builder {
 
+		private final CanonicalFile outputFile;
+		private final String encoding;
+		private final ScanContext scanContext;
+
+		private boolean sort = true;
+		private PropertiesContext propertiesContext = PropertiesContext.DEFAULT_PROPERTIES_CONTEXT;
+		private RelativeContext relativeContext;
+
+		public Builder(File outputFile, String encoding, ScanContext scanContext) {
+			this.outputFile = new CanonicalFile(outputFile);
+			this.encoding = encoding;
+			this.scanContext = scanContext;
+		}
+
+		public MetaInfContext build() {
+			Assert.noNulls(outputFile, scanContext, propertiesContext);
+			Assert.noBlanks(encoding);
+			return new MetaInfContext(this);
+		}
+
+	}
+
+	private MetaInfContext(Builder builder) {
+		this.sort = builder.sort;
+		this.encoding = builder.encoding;
+		this.propertiesContext = builder.propertiesContext;
+		this.outputFile = builder.outputFile;
+		this.scanContext = builder.scanContext;
+		this.relativeContext = builder.relativeContext;
 	}
 
 	public boolean isSort() {
