@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ListUtils;
-import org.kuali.common.util.file.CanonicalFile;
 import org.springframework.util.ResourceUtils;
 
 public class MetaInfContext {
@@ -39,16 +38,52 @@ public class MetaInfContext {
 	private final File relativeDir;
 	private final String urlPrefix;
 
-	public boolean isSort() {
-		return sort;
-	}
-
 	public File getOutputFile() {
 		return outputFile;
 	}
 
+	public File getScanDir() {
+		return scanDir;
+	}
+
 	public String getEncoding() {
 		return encoding;
+	}
+
+	public boolean isSort() {
+		return sort;
+	}
+
+	public boolean isIncludePropertiesFile() {
+		return includePropertiesFile;
+	}
+
+	public boolean isIncludeFileSizes() {
+		return includeFileSizes;
+	}
+
+	public boolean isIncludeLineCounts() {
+		return includeLineCounts;
+	}
+
+	public List<String> getIncludes() {
+		return includes;
+	}
+
+	public List<String> getExcludes() {
+		return excludes;
+	}
+
+	public boolean isGenerateRelativePaths() {
+		return generateRelativePaths;
+	}
+
+	public File getRelativeDir() {
+		return relativeDir;
+	}
+
+	public String getUrlPrefix() {
+		return urlPrefix;
 	}
 
 	public static class Builder {
@@ -72,9 +107,10 @@ public class MetaInfContext {
 		private File relativeDir;
 
 		public Builder(File outputFile, String encoding, File scanDir) {
-			this.outputFile = new CanonicalFile(outputFile);
-			this.scanDir = new CanonicalFile(scanDir);
+			this.outputFile = outputFile;
+			this.scanDir = scanDir;
 			this.encoding = encoding;
+			this.relativeDir = scanDir;
 		}
 
 		public Builder sort(boolean sort) {
@@ -135,42 +171,6 @@ public class MetaInfContext {
 		this.relativeDir = builder.relativeDir;
 		this.outputFile = builder.outputFile;
 		this.generateRelativePaths = builder.relativePaths;
-	}
-
-	public File getScanDir() {
-		return scanDir;
-	}
-
-	public boolean isIncludePropertiesFile() {
-		return includePropertiesFile;
-	}
-
-	public boolean isIncludeFileSizes() {
-		return includeFileSizes;
-	}
-
-	public boolean isIncludeLineCounts() {
-		return includeLineCounts;
-	}
-
-	public List<String> getIncludes() {
-		return includes;
-	}
-
-	public List<String> getExcludes() {
-		return excludes;
-	}
-
-	public boolean isGenerateRelativePaths() {
-		return generateRelativePaths;
-	}
-
-	public File getRelativeDir() {
-		return relativeDir;
-	}
-
-	public String getUrlPrefix() {
-		return urlPrefix;
 	}
 
 }
