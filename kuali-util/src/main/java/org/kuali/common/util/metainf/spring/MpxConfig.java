@@ -47,8 +47,9 @@ public class MpxConfig implements MetaInfContextsConfig {
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DEFAULT_INCLUDES);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
-		MetaInfContext context = new MetaInfContext.Builder(outputFile, build.getEncoding(), build.getOutputDir()).includes(includes).excludes(excludes)
-				.relativePaths(generateRelativePathing).build();
+		String encoding = build.getEncoding();
+		File scanDir = build.getOutputDir();
+		MetaInfContext context = new MetaInfContext.Builder(outputFile, encoding, scanDir).includes(includes).excludes(excludes).relativePaths(generateRelativePathing).build();
 		return Collections.singletonList(context);
 	}
 
