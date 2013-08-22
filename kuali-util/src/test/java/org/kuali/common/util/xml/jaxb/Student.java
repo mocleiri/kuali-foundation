@@ -13,6 +13,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
+@XmlBind(classes = { Club.class, Sport.class })
 public final class Student {
 
 	@XmlAttribute
