@@ -31,7 +31,7 @@ public class ListUtils {
 	 */
 	public static void assertUniformRuntimeType(List<?> list) {
 		Assert.noNulls(list);
-		Assert.isFalse(CollectionUtils.isEmpty(list), "list is empty");
+		Assert.isTrue(list.size() > 0, "list is empty");
 		Assert.isFalse(list.contains(null), "list contains null");
 		Class<?> previous = list.get(0).getClass();
 		for (int i = 1; i < list.size(); i++) {
@@ -41,7 +41,15 @@ public class ListUtils {
 		}
 	}
 
+	public static boolean equals(List<String> one, List<String> two) {
+		return equals(one, two, false);
+	}
+
 	public static boolean equalsIgnoreCase(List<String> one, List<String> two) {
+		return equals(one, two, true);
+	}
+
+	protected static boolean equals(List<String> one, List<String> two, boolean ignoreCase) {
 
 		// Nulls not allowed
 		Assert.noNulls(one, two);
@@ -56,13 +64,21 @@ public class ListUtils {
 
 		// Iterate over both lists comparing each value for equality
 		for (int i = 0; i < size; i++) {
-			if (!StringUtils.equalsIgnoreCase(one.get(i), two.get(i))) {
+			if (!equal(one.get(i), two.get(i), ignoreCase)) {
 				return false;
 			}
 		}
 
 		// All values in both lists are the same ignoring case
 		return true;
+	}
+
+	protected static boolean equal(String one, String two, boolean ignoreCase) {
+		if (ignoreCase) {
+			return StringUtils.equalsIgnoreCase(one, two);
+		} else {
+			return StringUtils.equals(one, two);
+		}
 	}
 
 }
