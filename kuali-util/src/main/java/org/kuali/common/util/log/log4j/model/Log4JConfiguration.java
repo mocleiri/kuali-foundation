@@ -1,6 +1,5 @@
 package org.kuali.common.util.log.log4j.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
 import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
@@ -45,10 +45,12 @@ public final class Log4JConfiguration {
 	@XmlJavaTypeAdapter(RepositoryThresholdAdapter.class)
 	private final Threshold threshold;
 
+	// Only expose an unmodifiable version of our internal list
 	public List<Logger> getLoggers() {
 		return Collections.unmodifiableList(loggers);
 	}
 
+	// Only expose an unmodifiable version of our internal list
 	public List<Appender> getAppenders() {
 		return Collections.unmodifiableList(appenders);
 	}
@@ -137,8 +139,8 @@ public final class Log4JConfiguration {
 			Assert.noBlanks(namespace);
 
 			// Defensive copies of the 2 lists we were passed
-			this.appenders = new ArrayList<Appender>(appenders);
-			this.loggers = new ArrayList<Logger>(loggers);
+			this.appenders = ListUtils.newArrayList(appenders);
+			this.loggers = ListUtils.newArrayList(loggers);
 
 			// Return the fully configured Builder
 			return this;
