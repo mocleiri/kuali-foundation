@@ -167,7 +167,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		if (context.isIncludeLineCounts()) {
 			// This reads through the entire file
 			// Only complete this expensive task if required to do so
-			lineCount = LocationUtils.getLineCount(resourceFile);
+			lineCount = LocationUtils.getLineCount(resourceFile,context.getEncoding());
 		}
 
 		// Create a resource object from the information we've collected

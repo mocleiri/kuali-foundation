@@ -166,6 +166,10 @@ public class LocationUtils {
 	 * @see BufferedReader
 	 */
 	public static long getLineCount(File file) {
+		return getLineCount(file, null);
+	}
+
+	public static long getLineCount(File file, String encoding) {
 		return getLineCount(getCanonicalPath(file));
 	}
 
@@ -178,12 +182,28 @@ public class LocationUtils {
 	 * @throws IllegalStateException
 	 *             If there is an i/o exception reading the file
 	 * @see BufferedReader
+	 * @deprecated Use getLineCount(location,encoding) instead
 	 */
+	@Deprecated
 	public static long getLineCount(String location) {
+		return getLineCount(location, null);
+	}
+
+	/**
+	 * Count the lines of text in the location.
+	 * 
+	 * @param location
+	 *            The location to read lines of text from
+	 * @return A count representing the number of lines of text
+	 * @throws IllegalStateException
+	 *             If there is an i/o exception reading the file
+	 * @see BufferedReader
+	 */
+	public static long getLineCount(String location, String encoding) {
 		long count = 0;
 		BufferedReader in = null;
 		try {
-			in = getBufferedReader(location);
+			in = getBufferedReader(location, encoding);
 			while (in.readLine() != null) {
 				count++;
 			}
