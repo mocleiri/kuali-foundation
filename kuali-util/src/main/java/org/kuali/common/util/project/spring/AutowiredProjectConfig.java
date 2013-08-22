@@ -94,7 +94,7 @@ public class AutowiredProjectConfig {
 			// Get a reference to a project identifier (groupId + artifactId)
 			ProjectIdentifier identifier = projectIdentifierConfig.projectIdentifier();
 
-			// Use the service to convert groupId + artifactId into a Project
+			// Use the service to load the correct project.properties file and convert to a Project object
 			return service.getProject(identifier.getGroupId(), identifier.getArtifactId());
 		}
 	}
@@ -120,7 +120,7 @@ public class AutowiredProjectConfig {
 			// Enhance the default set of Maven properties
 			MavenUtils.augmentProjectProperties(mavenProperties);
 
-			// Use the service to convert the properties into a Project
+			// Convert the augmented properties into a Project object
 			return ProjectUtils.getProject(mavenProperties);
 		}
 
