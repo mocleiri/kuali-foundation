@@ -75,7 +75,7 @@ public final class Student {
 
 		private Builder finish() {
 			Assert.noBlanks(name);
-			Assert.noNulls(clubs);
+			Assert.noNulls(clubs, sports);
 			this.clubs = ListUtils.newImmutableArrayList(clubs);
 			this.sports = ListUtils.newImmutableArrayList(sports);
 			return this;
