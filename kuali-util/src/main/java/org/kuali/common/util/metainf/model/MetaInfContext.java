@@ -34,7 +34,7 @@ public class MetaInfContext {
 	private final boolean includeLineCounts;
 	private final List<String> includes;
 	private final List<String> excludes;
-	private final boolean generateRelativePaths;
+	private final boolean relativePaths;
 	private final File relativeDir;
 	private final String urlPrefix;
 
@@ -74,8 +74,8 @@ public class MetaInfContext {
 		return excludes;
 	}
 
-	public boolean isGenerateRelativePaths() {
-		return generateRelativePaths;
+	public boolean isRelativePaths() {
+		return relativePaths;
 	}
 
 	public File getRelativeDir() {
@@ -91,7 +91,6 @@ public class MetaInfContext {
 		// Required
 		private final File outputFile;
 		private final File scanDir;
-		private final String encoding;
 
 		// Optional
 		private boolean sort = true;
@@ -103,13 +102,15 @@ public class MetaInfContext {
 		private boolean relativePaths = true;
 		private String urlPrefix = ResourceUtils.CLASSPATH_URL_PREFIX;
 
+		// Encoding is required if includeLineCounts=true
+		private String encoding;
+
 		// Defaults to scanDir
 		private File relativeDir;
 
-		public Builder(File outputFile, String encoding, File scanDir) {
+		public Builder(File outputFile, File scanDir) {
 			this.outputFile = outputFile;
 			this.scanDir = scanDir;
-			this.encoding = encoding;
 			this.relativeDir = scanDir;
 		}
 
@@ -128,29 +129,34 @@ public class MetaInfContext {
 			return this;
 		}
 
-		public Builder relativePaths(boolean generateRelativePaths) {
-			this.relativePaths = generateRelativePaths;
+		public Builder relativePaths(boolean relativePaths) {
+			this.relativePaths = relativePaths;
 			return this;
 		}
 
-		public Builder propertiesFile(boolean includePropertiesFile) {
-			this.includePropertiesFile = includePropertiesFile;
+		public Builder includePropertiesFile() {
+			this.includePropertiesFile = true;
 			return this;
 		}
 
-		public Builder fileSizes(boolean includeFileSizes) {
-			this.includeFileSizes = includeFileSizes;
+		public Builder omitFileSizes() {
+			this.includeFileSizes = false;
 			return this;
 		}
 
-		public Builder lineCounts(boolean includeLineCounts) {
-			this.includeLineCounts = includeLineCounts;
+		/**
+		 * To get line counts for a text file an encoding must be supplied.
+		 */
+		public Builder includeLineCounts(String encoding) {
+			Assert.noBlanks(encoding);
+			this.encoding = encoding;
+			this.includeLineCounts = true;
 			return this;
 		}
 
 		public MetaInfContext build() {
 			Assert.noNulls(outputFile, scanDir, includes, excludes, relativeDir);
-			Assert.noBlanks(encoding, urlPrefix);
+			Assert.noBlanks(urlPrefix);
 			this.includes = ListUtils.newImmutableArrayList(includes);
 			this.excludes = ListUtils.newImmutableArrayList(excludes);
 			return new MetaInfContext(this);
@@ -170,7 +176,7 @@ public class MetaInfContext {
 		this.scanDir = builder.scanDir;
 		this.relativeDir = builder.relativeDir;
 		this.outputFile = builder.outputFile;
-		this.generateRelativePaths = builder.relativePaths;
+		this.relativePaths = builder.relativePaths;
 	}
 
 }
