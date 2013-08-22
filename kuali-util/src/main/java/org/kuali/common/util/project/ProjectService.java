@@ -35,6 +35,7 @@ public interface ProjectService {
 	/**
 	 * Create a <code>Project</code> from <code>properties</code>
 	 */
+	@Deprecated
 	Project getProject(Properties properties);
 
 }

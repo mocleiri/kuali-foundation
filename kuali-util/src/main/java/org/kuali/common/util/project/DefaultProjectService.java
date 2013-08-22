@@ -45,6 +45,10 @@ public class DefaultProjectService implements ProjectService {
 		this.env = env;
 	}
 
+	/**
+	 * @deprecated Use ProjectUtils.getProject(properties) instead
+	 */
+	@Deprecated
 	@Override
 	public Project getProject(Properties properties) {
 		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);

@@ -22,9 +22,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.OrgUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.maven.MavenConstants;
-import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.KualiProjectConstants;
-import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,26 +40,12 @@ public class ProjectProcessor implements PropertyProcessor {
 	private static final String FS = File.separator;
 	private static final String DOT = ".";
 	private static final String PROJECT_GROUP_ID_PATH = "project.groupId.path";
-	public static final ProjectService DEFAULT_PROJECT_SERVICE = new DefaultProjectService();
-
-	@Deprecated
-	public ProjectProcessor() {
-		this(DEFAULT_PROJECT_SERVICE);
-	}
-
-	public ProjectProcessor(ProjectService service) {
-		super();
-		this.service = service;
-	}
-
-	ProjectService service;
 
 	@Override
 	public void process(Properties properties) {
 
 		// Make sure we are configured correctly
 		Assert.notNull(properties, "properties are null");
-		Assert.notNull(service, "service is null");
 
 		// Make sure groupId, artifactId, orgId, and orgCode are present
 		validate(properties);
@@ -69,7 +54,7 @@ public class ProjectProcessor implements PropertyProcessor {
 		fixKSGroupIds(properties);
 
 		// Now that the groupId is fixed, it is safe to use the properties to get a project object
-		Project p = service.getProject(properties);
+		Project p = ProjectUtils.getProject(properties);
 
 		// Extract org info
 		String orgId = properties.getProperty(MavenConstants.ORG_ID_KEY);
