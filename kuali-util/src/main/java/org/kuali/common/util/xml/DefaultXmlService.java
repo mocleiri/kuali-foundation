@@ -35,6 +35,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.xml.jaxb.XmlBind;
 
 public class DefaultXmlService implements XmlService {
 
@@ -50,6 +51,20 @@ public class DefaultXmlService implements XmlService {
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
+	}
+
+	protected Class<?>[] getClassesToBeBound(Object object) {
+		XmlBind bindings = object.getClass().getAnnotation(XmlBind.class);
+		if (bindings == null) {
+			return new Class<?>[] { object.getClass() };
+		}
+		List<Class<?>> classes = new ArrayList<Class<?>>();
+		classes.add(object.getClass());
+		Class<?>[] bindingsArray = bindings.classes();
+		for (Class<?> binding : bindingsArray) {
+			classes.add(binding);
+		}
+		return classes.toArray(new Class<?>[classes.size()]);
 	}
 
 	@Override
