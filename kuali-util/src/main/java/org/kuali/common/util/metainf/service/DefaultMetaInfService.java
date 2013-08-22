@@ -20,9 +20,6 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
-import org.kuali.common.util.metainf.model.PropertiesContext;
-import org.kuali.common.util.metainf.model.RelativeContext;
-import org.kuali.common.util.metainf.model.ScanContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 import org.kuali.common.util.metainf.model.WriteLines;
 import org.kuali.common.util.metainf.model.WriteProperties;
@@ -40,7 +37,7 @@ public class DefaultMetaInfService implements MetaInfService {
 
 	@Override
 	public ScanResult scan(MetaInfContext context) {
-		List<File> files = scanFileSystem(context.getScanContext());
+		List<File> files = scanFileSystem(context);
 		List<MetaInfResource> resources = getResources(context, files);
 		return new ScanResult(context, resources);
 	}
@@ -69,7 +66,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		MetaInfContext context = result.getContext();
 		File outputFile = context.getOutputFile();
 		String encoding = context.getEncoding();
-		File relativeDir = context.getRelativeContext().getParent();
+		File relativeDir = context.getRelativeDir();
 		WriteRequest request = new WriteRequest(outputFile, encoding, relativeDir);
 		return new WriteLines(request, locations);
 	}
@@ -103,7 +100,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	protected List<WriteProperties> getWriteProperties(List<ScanResult> results) {
 		List<WriteProperties> requests = new ArrayList<WriteProperties>();
 		for (ScanResult result : results) {
-			PropertiesContext context = result.getContext().getPropertiesContext();
+			MetaInfContext context = result.getContext();
 			if (context.isIncludePropertiesFile()) {
 				WriteProperties request = getWriteProperties(result);
 				requests.add(request);
@@ -126,7 +123,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		File canonical = new CanonicalFile(context.getOutputFile());
 		File outputFile = new File(canonical.getPath() + "." + PROPERTIES);
 		String encoding = context.getEncoding();
-		File relativeDir = context.getRelativeContext().getParent();
+		File relativeDir = context.getRelativeDir();
 		WriteRequest request = new WriteRequest(outputFile, encoding, relativeDir);
 		return new WriteProperties(request, properties);
 	}
@@ -140,8 +137,8 @@ public class DefaultMetaInfService implements MetaInfService {
 		return requests;
 	}
 
-	protected List<File> scanFileSystem(ScanContext context) {
-		File dir = context.getDirectory();
+	protected List<File> scanFileSystem(MetaInfContext context) {
+		File dir = context.getScanDir();
 		Assert.isExistingDir(dir);
 		logger.debug("Examining [" + LocationUtils.getCanonicalPath(dir) + "]");
 		List<String> includes = context.getIncludes();
@@ -164,10 +161,10 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected MetaInfResource getResource(File resourceFile, MetaInfContext context) {
-		String location = getLocationURL(new CanonicalFile(resourceFile), context.getRelativeContext());
+		String location = getLocationURL(new CanonicalFile(resourceFile), context);
 
 		long lineCount = MetaInfResource.UNKNOWN_LINECOUNT;
-		if (context.getPropertiesContext().isIncludeLineCounts()) {
+		if (context.isIncludeLineCounts()) {
 			// This reads through the entire file
 			// Only complete this expensive task if required to do so
 			lineCount = LocationUtils.getLineCount(resourceFile);
@@ -177,7 +174,7 @@ public class DefaultMetaInfService implements MetaInfService {
 		return new MetaInfResource(location, resourceFile.length(), lineCount);
 	}
 
-	protected String getLocationURL(CanonicalFile resourceFile, RelativeContext context) {
+	protected String getLocationURL(CanonicalFile resourceFile, MetaInfContext context) {
 		if (!context.isGenerateRelativePaths()) {
 			return LocationUtils.getCanonicalURLString(resourceFile);
 		} else {
@@ -195,10 +192,10 @@ public class DefaultMetaInfService implements MetaInfService {
 	 * 
 	 * @return A string representing a fully qualified location URL for <code>file</code>. eg - [<code>classpath:foo/bar.txt</code>]
 	 */
-	protected String getRelativeLocationURL(CanonicalFile resourceFile, RelativeContext context) {
+	protected String getRelativeLocationURL(CanonicalFile resourceFile, MetaInfContext context) {
 
 		// Extract the parent directory
-		CanonicalFile parent = context.getParent();
+		CanonicalFile parent = new CanonicalFile(context.getRelativeDir());
 
 		// Make sure it is an existing directory
 		Assert.isExistingDir(parent);
