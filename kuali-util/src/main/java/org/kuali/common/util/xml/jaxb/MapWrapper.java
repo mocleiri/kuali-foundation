@@ -1,6 +1,6 @@
 package org.kuali.common.util.xml.jaxb;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -14,7 +14,7 @@ public class MapWrapper<K, V> {
 
 	@SuppressWarnings("unused")
 	private MapWrapper() {
-		this(Collections.<K, V> emptyMap());
+		this(new HashMap<K, V>());
 	}
 
 	public MapWrapper(Map<K, V> map) {
