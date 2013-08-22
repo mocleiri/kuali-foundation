@@ -22,7 +22,7 @@ import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.ScanResult;
 
-public class MetaInfExecutable implements Executable {
+public final class MetaInfExecutable implements Executable {
 
 	public static final boolean DEFAULT_SKIP = false;
 
