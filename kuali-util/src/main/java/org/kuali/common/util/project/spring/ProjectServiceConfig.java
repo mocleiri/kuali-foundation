@@ -17,15 +17,23 @@ package org.kuali.common.util.project.spring;
 
 import org.kuali.common.util.project.DefaultProjectService;
 import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import({ SpringServiceConfig.class })
 public class ProjectServiceConfig {
+
+	@Autowired
+	EnvironmentService env;
 
 	@Bean
 	public ProjectService projectService() {
-		return new DefaultProjectService();
+		return new DefaultProjectService(env);
 	}
 
 }

@@ -82,12 +82,21 @@ public class MavenUtils {
 	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
 	 * build
 	 */
+	@Deprecated
 	public static void augmentProjectProperties(ProjectService service, Properties mavenProperties) {
+		augmentProjectProperties(null, mavenProperties);
+	}
+
+	/**
+	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
+	 * build
+	 */
+	public static void augmentProjectProperties(Properties mavenProperties) {
 		// Setup some processors
 		List<PropertyProcessor> processors = new ArrayList<PropertyProcessor>();
 
 		// Add some organization, group, and path properties
-		processors.add(new ProjectProcessor(service));
+		processors.add(new ProjectProcessor());
 
 		// Tokenize the version number and add properties for each token (major/minor/incremental)
 		// Also add a boolean property indicating if this is a SNAPSHOT build
@@ -99,15 +108,6 @@ public class MavenUtils {
 		// Finish preparing the properties using the encoding from the project
 		String encoding = PropertyUtils.getRequiredResolvedProperty(mavenProperties, MavenConstants.ENCODING_KEY);
 		PropertyUtils.prepareContextProperties(mavenProperties, encoding);
-	}
-
-	/**
-	 * Add organization, group, and path properties and tokenize the version number adding properties for each token along with a boolean property indicating if this is a SNAPSHOT
-	 * build
-	 */
-	@Deprecated
-	public static void augmentProjectProperties(Properties mavenProperties) {
-		augmentProjectProperties(ProjectProcessor.DEFAULT_PROJECT_SERVICE, mavenProperties);
 	}
 
 	@Deprecated
