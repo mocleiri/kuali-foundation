@@ -8,6 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ListUtils {
 
+	public static <T> List<T> newArrayList() {
+		return newArrayList(new ArrayList<T>());
+	}
+
 	public static <T> List<T> newArrayList(List<T> list) {
 		return newArrayList(list, false);
 	}
