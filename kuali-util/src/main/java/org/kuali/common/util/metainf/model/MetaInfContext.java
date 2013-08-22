@@ -92,7 +92,7 @@ public class MetaInfContext {
 			return this;
 		}
 
-		public Builder relativePahs(boolean generateRelativePaths) {
+		public Builder relativePaths(boolean generateRelativePaths) {
 			this.generateRelativePaths = generateRelativePaths;
 			return this;
 		}
