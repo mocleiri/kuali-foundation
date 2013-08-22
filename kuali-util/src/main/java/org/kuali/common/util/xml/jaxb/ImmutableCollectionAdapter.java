@@ -5,14 +5,14 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
+public class ImmutableCollectionAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
 	private final List<T> EMPTY_LIST = Collections.<T> emptyList();
 	private final ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
 
 	@Override
 	public ListWrapper<T> marshal(List<T> list) {
-		if (ImmutableCollectionAdapter.isEmpty(list)) {
+		if (isEmpty(list)) {
 			return EMPTY_WRAPPER;
 		} else {
 			return new ListWrapper<T>(list);
@@ -21,11 +21,15 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 
 	@Override
 	public List<T> unmarshal(ListWrapper<T> wrapper) {
-		if (ImmutableCollectionAdapter.isEmpty(wrapper.getList())) {
+		if (isEmpty(wrapper.getList())) {
 			return EMPTY_LIST;
 		} else {
 			return Collections.unmodifiableList(wrapper.getList());
 		}
+	}
+
+	protected static boolean isEmpty(List<?> list) {
+		return list == null || list.size() == 0;
 	}
 
 }
