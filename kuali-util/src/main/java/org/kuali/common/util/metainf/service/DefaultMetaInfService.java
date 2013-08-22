@@ -175,7 +175,7 @@ public class DefaultMetaInfService implements MetaInfService {
 	}
 
 	protected String getLocationURL(CanonicalFile resourceFile, MetaInfContext context) {
-		if (!context.isGenerateRelativePaths()) {
+		if (!context.isRelativePaths()) {
 			return LocationUtils.getCanonicalURLString(resourceFile);
 		} else {
 			return getRelativeLocationURL(resourceFile, context);

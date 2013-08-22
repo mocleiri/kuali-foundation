@@ -43,13 +43,12 @@ public class MpxConfig implements MetaInfContextsConfig {
 	@Override
 	@Bean
 	public List<MetaInfContext> metaInfContexts() {
-		boolean generateRelativePathing = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
+		boolean relativePaths = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, INCLUDES_KEY, DEFAULT_INCLUDES);
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, EXCLUDES_KEY, DEFAULT_EXCLUDES);
 		File outputFile = MetaInfUtils.getOutputFile(project, build, MetaInfGroup.DATA);
-		String encoding = build.getEncoding();
 		File scanDir = build.getOutputDir();
-		MetaInfContext context = new MetaInfContext.Builder(outputFile, encoding, scanDir).includes(includes).excludes(excludes).relativePaths(generateRelativePathing).build();
+		MetaInfContext context = new MetaInfContext.Builder(outputFile, scanDir).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
 		return Collections.singletonList(context);
 	}
 
