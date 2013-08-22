@@ -115,7 +115,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
 			// Source is either an XML file or an annotated class
-			String source = ctx.getLocation() == null ? ctx.getAnnotatedClass().getName() : ctx.getLocation();
+			String source = ctx.getLocation() == null ? ctx.getConfig().getName() : ctx.getLocation();
 			// Extract PropertySource objects from the Spring application context
 			logger.debug("Acquiring custom property sources - [{}]", source);
 			List<PropertySource<?>> sources = getPropertySources(ctx);
@@ -144,9 +144,11 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	}
 
 	protected MavenPropertySourceContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
-		Class<?> annotatedClass = ReflectionUtils.getClass(mojo.getPropertySourcesConfig());
+		Class<?> config = ReflectionUtils.getClass(mojo.getPropertySourcesConfig());
+		List<String> activeProfiles = getActiveProfiles(mojo);
+		List<String> defaultProfiles = getDefaultProfiles(mojo);
 
-		MavenPropertySourceContext psc = new MavenPropertySourceContext();
+		return new MavenPropertySourceContext.Builder(context.getService()).build();
 		psc.setAnnotatedClass(annotatedClass);
 		psc.setService(context.getService());
 		psc.setProperties(context.getMavenProperties());
@@ -160,8 +162,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		Map<String, Object> beans = CollectionUtils.toEmptyMap(ctx.getPropertiesBeanName(), (Object) ctx.getProperties());
 		if (ctx.getLocation() != null) {
 			return propertySourceService.getPropertySources(beans, ctx.getDefaultProfiles(), ctx.getActiveProfiles(), ctx.getLocation());
-		} else if (ctx.getAnnotatedClass() != null) {
-			return propertySourceService.getPropertySources(beans, ctx.getDefaultProfiles(), ctx.getActiveProfiles(), ctx.getAnnotatedClass());
+		} else if (ctx.getConfig() != null) {
+			return propertySourceService.getPropertySources(beans, ctx.getDefaultProfiles(), ctx.getActiveProfiles(), ctx.getConfig());
 		} else {
 			throw new IllegalArgumentException("Must supply either location or an annotated class");
 		}
