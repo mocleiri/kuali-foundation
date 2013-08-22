@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
@@ -72,8 +73,8 @@ public final class Student {
 		private Builder finish() {
 			Assert.noBlanks(name);
 			Assert.noNulls(clubs);
-			this.clubs = Collections.unmodifiableList(clubs);
-			this.sports = Collections.unmodifiableList(sports);
+			this.clubs = ListUtils.newImmutableArrayList(clubs);
+			this.sports = ListUtils.newImmutableArrayList(sports);
 			return this;
 		}
 
