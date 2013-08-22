@@ -24,23 +24,23 @@ import org.kuali.common.util.identify.Identifiable;
 
 public final class ImmutableProject implements Project, Identifiable {
 
-	private final ProjectIdentifier projectIdentifier;
+	private final ProjectIdentifier identifier;
 	private final String version;
 	private final Properties properties;
 
-	private final String identifier;
+	private final String id;
 	private final int hashCode;
 
-	public ImmutableProject(ProjectIdentifier projectIdentifier, String version, Properties properties) {
+	public ImmutableProject(ProjectIdentifier identifier, String version, Properties properties) {
 		// Make sure we are being configured correctly
-		Assert.noNulls(projectIdentifier, properties);
+		Assert.noNulls(identifier, properties);
 		Assert.noBlanks(version);
 
 		// Finish setting things up
-		this.projectIdentifier = projectIdentifier;
+		this.identifier = identifier;
 		this.version = version;
 		this.properties = PropertyUtils.toImmutable(properties);
-		this.identifier = projectIdentifier + ":" + version;
+		this.id = identifier.getIdentifier() + ":" + version;
 		this.hashCode = identifier.hashCode();
 	}
 
@@ -50,12 +50,12 @@ public final class ImmutableProject implements Project, Identifiable {
 
 	@Override
 	public String getGroupId() {
-		return projectIdentifier.getGroupId();
+		return identifier.getGroupId();
 	}
 
 	@Override
 	public String getArtifactId() {
-		return projectIdentifier.getArtifactId();
+		return identifier.getArtifactId();
 	}
 
 	@Override
@@ -70,12 +70,12 @@ public final class ImmutableProject implements Project, Identifiable {
 
 	@Override
 	public String getIdentifier() {
-		return identifier;
+		return id;
 	}
 
 	@Override
 	public String toString() {
-		return identifier;
+		return id;
 	}
 
 	@Override
