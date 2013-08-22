@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertiesPropertySource;
 
 /**
@@ -33,7 +32,6 @@ import org.springframework.core.env.PropertiesPropertySource;
  * spring-maven-plugin auto-registers any beans that implement <code>PropertySource</code> as a top level property source
  */
 @Configuration
-@Import({ ProjectServiceConfig.class })
 public class ProjectPropertySourceConfig {
 
 	@Autowired
@@ -50,7 +48,7 @@ public class ProjectPropertySourceConfig {
 	public PropertiesPropertySource projectPropertySource() {
 
 		// organization, group, path and enhanced version properties
-		MavenUtils.augmentProjectProperties(projectServiceConfig.projectService(), mavenProperties);
+		MavenUtils.augmentProjectProperties(mavenProperties);
 
 		// Return the augmented set of Maven properties as a Spring PropertySource
 		String name = MavenConstants.PROPERTIES_BEAN_NAME;
