@@ -133,18 +133,18 @@ public class MetaInfContext {
 			return this;
 		}
 
-		public Builder includePropertiesFile() {
-			this.includePropertiesFile = true;
+		public Builder includePropertiesFile(boolean includePropertiesFile) {
+			this.includePropertiesFile = includePropertiesFile;
 			return this;
 		}
 
-		public Builder omitFileSizes() {
-			this.includeFileSizes = false;
+		public Builder includeFileSizes(boolean includeFileSizes) {
+			this.includeFileSizes = includeFileSizes;
 			return this;
 		}
 
-		public Builder includeLineCounts() {
-			this.includeLineCounts = true;
+		public Builder includeLineCounts(boolean includeLineCounts) {
+			this.includeLineCounts = includeLineCounts;
 			return this;
 		}
 
