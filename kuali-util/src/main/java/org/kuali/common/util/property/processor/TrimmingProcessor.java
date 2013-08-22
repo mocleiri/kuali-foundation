@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.PropertyUtils;
 
 public final class TrimmingProcessor implements PropertyProcessor {
@@ -38,8 +39,8 @@ public final class TrimmingProcessor implements PropertyProcessor {
 
 	public TrimmingProcessor(List<String> includes, List<String> excludes) {
 		Assert.noNulls(includes, excludes);
-		this.includes = CollectionUtils.unmodifiableCopy(includes);
-		this.excludes = CollectionUtils.unmodifiableCopy(excludes);
+		this.includes = ListUtils.newImmutableArrayList(includes);
+		this.excludes = ListUtils.newImmutableArrayList(excludes);
 	}
 
 	@Override

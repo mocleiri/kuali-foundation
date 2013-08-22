@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
 
@@ -54,8 +54,8 @@ public final class OverridingProcessor implements PropertyProcessor {
 		Assert.isTrue(indent >= 0, "indent is negative");
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
-		this.includes = CollectionUtils.unmodifiableCopy(includes);
-		this.excludes = CollectionUtils.unmodifiableCopy(excludes);
+		this.includes = ListUtils.newImmutableArrayList(includes);
+		this.excludes = ListUtils.newImmutableArrayList(excludes);
 		this.indent = indent;
 	}
 

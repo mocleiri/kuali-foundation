@@ -18,7 +18,7 @@ package org.kuali.common.util.log;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 
@@ -58,8 +58,8 @@ public class LogTableContext {
 		Assert.noNulls(columns, rows, logger, level);
 		Assert.noBlanks(title);
 		this.title = title;
-		this.columns = CollectionUtils.unmodifiableCopy(columns);
-		this.rows = CollectionUtils.unmodifiableCopy(rows);
+		this.columns = ListUtils.newImmutableArrayList(columns);
+		this.rows = ListUtils.newImmutableArrayList(rows);
 		this.level = level;
 		this.logger = logger;
 		this.leftAlign = leftAlign;

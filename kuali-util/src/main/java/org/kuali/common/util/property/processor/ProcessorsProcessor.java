@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 public class ProcessorsProcessor implements PropertyProcessor {
 
@@ -15,7 +15,7 @@ public class ProcessorsProcessor implements PropertyProcessor {
 
 	public ProcessorsProcessor(List<PropertyProcessor> processors) {
 		Assert.noNulls(processors);
-		this.processors = CollectionUtils.unmodifiableCopy(processors);
+		this.processors = ListUtils.newImmutableArrayList(processors);
 	}
 
 	private final List<PropertyProcessor> processors;
