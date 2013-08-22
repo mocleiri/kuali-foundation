@@ -16,7 +16,7 @@ public class BasicTest {
 			Student student2 = new Student.Builder("joe").build();
 			String xml = service.toXml(student, encoding);
 			System.out.println(xml);
-			String xml2 = service.toXml(student2, encoding, Club.class, Sport.class);
+			String xml2 = service.toXml(student2, encoding);
 			System.out.println(xml2);
 			Student derived = service.getObjectFromXml(xml, encoding, Student.class);
 			System.out.println("size=" + derived.getClubs().size());

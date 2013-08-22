@@ -53,13 +53,13 @@ public class DefaultXmlService implements XmlService {
 		}
 	}
 
-	protected Class<?>[] getClassesToBeBound(Object object) {
-		XmlBind bindings = object.getClass().getAnnotation(XmlBind.class);
+	protected Class<?>[] getClassesToBeBound(Class<?> clazz) {
+		XmlBind bindings = clazz.getAnnotation(XmlBind.class);
 		if (bindings == null) {
-			return new Class<?>[] { object.getClass() };
+			return new Class<?>[] { clazz };
 		}
 		List<Class<?>> classes = new ArrayList<Class<?>>();
-		classes.add(object.getClass());
+		classes.add(clazz);
 		Class<?>[] bindingsArray = bindings.classes();
 		for (Class<?> binding : bindingsArray) {
 			classes.add(binding);
@@ -71,7 +71,7 @@ public class DefaultXmlService implements XmlService {
 	public void write(OutputStream out, Object object) {
 		Assert.noNulls(out, object);
 		try {
-			Class<?>[] bindings = getClassesToBeBound(object);
+			Class<?>[] bindings = getClassesToBeBound(object.getClass());
 			JAXBContext context = JAXBContext.newInstance(bindings);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -101,7 +101,8 @@ public class DefaultXmlService implements XmlService {
 	public <T> T getObject(InputStream in, Class<T> type) {
 		Assert.noNulls(in, type);
 		try {
-			JAXBContext context = JAXBContext.newInstance(type);
+			Class<?>[] bindings = getClassesToBeBound(type);
+			JAXBContext context = JAXBContext.newInstance(bindings);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			return (T) unmarshaller.unmarshal(in);
 		} catch (JAXBException e) {
