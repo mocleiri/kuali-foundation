@@ -30,8 +30,8 @@ public class ScanContext {
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		Assert.noNulls(directory, includes, excludes);
 		this.directory = directory;
-		this.includes = ListUtils.newArrayList(includes, true);
-		this.excludes = ListUtils.newArrayList(excludes, true);
+		this.includes = ListUtils.newImmutableArrayList(includes);
+		this.excludes = ListUtils.newImmutableArrayList(excludes);
 	}
 
 	public File getDirectory() {

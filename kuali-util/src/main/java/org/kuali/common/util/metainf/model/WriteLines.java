@@ -3,7 +3,7 @@ package org.kuali.common.util.metainf.model;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 public class WriteLines {
 
@@ -13,7 +13,7 @@ public class WriteLines {
 	public WriteLines(WriteRequest request, List<String> lines) {
 		Assert.noNulls(request, lines);
 		this.request = request;
-		this.lines = CollectionUtils.unmodifiableCopy(lines);
+		this.lines = ListUtils.newImmutableArrayList(lines);
 	}
 
 	public List<String> getLines() {

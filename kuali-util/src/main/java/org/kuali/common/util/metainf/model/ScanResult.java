@@ -11,7 +11,7 @@ public class ScanResult {
 
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
 		this.context = context;
-		this.resources = ListUtils.newArrayList(resources, true);
+		this.resources = ListUtils.newImmutableArrayList(resources);
 	}
 
 	public MetaInfContext getContext() {
