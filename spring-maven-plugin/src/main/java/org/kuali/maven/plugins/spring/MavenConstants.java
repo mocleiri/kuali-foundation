@@ -2,7 +2,7 @@ package org.kuali.maven.plugins.spring;
 
 import org.kuali.common.util.spring.service.DefaultSpringService;
 import org.kuali.common.util.spring.service.SpringService;
-import org.kuali.maven.plugins.spring.config.PropertySourcesConfig;
+import org.kuali.maven.plugins.spring.config.MavenPropertySourceConfig;
 
 public final class MavenConstants {
 
@@ -21,7 +21,7 @@ public final class MavenConstants {
 	public static final String DEFAULT_SKIP = "false";
 	public static final Class<? extends SpringService> DEFAULT_SPRING_SERVICE = DefaultSpringService.class;
 	public static final Class<? extends SpringMojoService> DEFAULT_SPRING_MOJO_SERVICE = DefaultSpringMojoService.class;
-	public static final Class<?> DEFAULT_PROPERTY_SOURCES_CONFIG = PropertySourcesConfig.class;
+	public static final Class<?> DEFAULT_PROPERTY_SOURCES_CONFIG = MavenPropertySourceConfig.class;
 	public static final String DEFAULT_PROPERTY_SOURCES_LOCATION = "classpath:org/kuali/maven/plugins/spring/property-sources-context.xml";
 
 }
