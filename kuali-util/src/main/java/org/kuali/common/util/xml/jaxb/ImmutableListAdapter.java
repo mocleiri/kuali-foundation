@@ -24,8 +24,7 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 		if (isEmpty(wrapper.getList())) {
 			return EMPTY_LIST;
 		} else {
-			// return Collections.unmodifiableList(wrapper.getList());
-			return wrapper.getList();
+			return Collections.unmodifiableList(wrapper.getList());
 		}
 	}
 
