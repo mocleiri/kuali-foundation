@@ -97,7 +97,7 @@ public final class MetaInfContext {
 		private boolean sort = true;
 		private boolean includePropertiesFile = false;
 		private boolean includeFileSizes = true;
-		private boolean includeLineCounts = false;
+		private boolean includeLineCounts = false; // Make them explicitly set this to true, since it can be quite expensive
 		private List<String> includes = Collections.<String> emptyList();
 		private List<String> excludes = Collections.<String> emptyList();
 		private boolean relativePaths = true;
@@ -108,9 +108,9 @@ public final class MetaInfContext {
 
 		public Builder(File outputFile, String encoding, File scanDir) {
 			this.outputFile = outputFile;
-			this.scanDir = scanDir;
 			this.encoding = encoding;
-			this.relativeDir = scanDir;
+			this.scanDir = scanDir;
+			this.relativeDir = scanDir; // Paths are generated relative to the scanDir by default
 		}
 
 		public Builder sort(boolean sort) {
