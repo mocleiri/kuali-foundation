@@ -19,7 +19,6 @@ import java.util.Properties;
 
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
-import org.kuali.common.util.project.spring.ProjectServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -33,9 +32,6 @@ import org.springframework.core.env.PropertiesPropertySource;
  */
 @Configuration
 public class ProjectPropertySourceConfig {
-
-	@Autowired
-	ProjectServiceConfig projectServiceConfig;
 
 	/**
 	 * spring-maven-plugin auto-wires Maven properties by default

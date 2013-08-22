@@ -84,7 +84,7 @@ public class MavenUtils {
 	 */
 	@Deprecated
 	public static void augmentProjectProperties(ProjectService service, Properties mavenProperties) {
-		augmentProjectProperties(null, mavenProperties);
+		augmentProjectProperties(mavenProperties);
 	}
 
 	/**
