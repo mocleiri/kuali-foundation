@@ -59,7 +59,8 @@ public class SqlConfig implements MetaInfContextsConfig {
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, NullUtils.NONE);
 		File scanDir = build.getOutputDir();
-		return new MetaInfContext.Builder(outputFile, scanDir).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
+		String encoding = build.getEncoding();
+		return new MetaInfContext.Builder(outputFile, encoding, scanDir).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
 	}
 
 	protected Map<MetaInfGroup, String> getDefaultIncludes() {

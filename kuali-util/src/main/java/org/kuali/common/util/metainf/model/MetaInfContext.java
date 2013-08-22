@@ -91,6 +91,7 @@ public class MetaInfContext {
 		// Required
 		private final File outputFile;
 		private final File scanDir;
+		private final String encoding; // Encoding is required both for reading line counts and for creating the .resources file
 
 		// Optional
 		private boolean sort = true;
@@ -102,15 +103,13 @@ public class MetaInfContext {
 		private boolean relativePaths = true;
 		private String urlPrefix = ResourceUtils.CLASSPATH_URL_PREFIX;
 
-		// Encoding is required if includeLineCounts=true
-		private String encoding;
-
 		// Defaults to scanDir
 		private File relativeDir;
 
-		public Builder(File outputFile, File scanDir) {
+		public Builder(File outputFile, String encoding, File scanDir) {
 			this.outputFile = outputFile;
 			this.scanDir = scanDir;
+			this.encoding = encoding;
 			this.relativeDir = scanDir;
 		}
 
@@ -144,12 +143,7 @@ public class MetaInfContext {
 			return this;
 		}
 
-		/**
-		 * To get line counts for a text file an encoding must be supplied.
-		 */
-		public Builder includeLineCounts(String encoding) {
-			Assert.noBlanks(encoding);
-			this.encoding = encoding;
+		public Builder includeLineCounts() {
 			this.includeLineCounts = true;
 			return this;
 		}
