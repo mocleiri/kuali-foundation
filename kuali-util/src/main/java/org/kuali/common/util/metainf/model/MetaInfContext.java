@@ -65,7 +65,7 @@ public class MetaInfContext {
 		private boolean includeLineCounts = false;
 		private List<String> includes = Collections.<String> emptyList();
 		private List<String> excludes = Collections.<String> emptyList();
-		private boolean generateRelativePaths = true;
+		private boolean relativePaths = true;
 		private String urlPrefix = ResourceUtils.CLASSPATH_URL_PREFIX;
 
 		// Defaults to scanDir
@@ -93,7 +93,7 @@ public class MetaInfContext {
 		}
 
 		public Builder relativePaths(boolean generateRelativePaths) {
-			this.generateRelativePaths = generateRelativePaths;
+			this.relativePaths = generateRelativePaths;
 			return this;
 		}
 
@@ -134,7 +134,7 @@ public class MetaInfContext {
 		this.scanDir = builder.scanDir;
 		this.relativeDir = builder.relativeDir;
 		this.outputFile = builder.outputFile;
-		this.generateRelativePaths = builder.generateRelativePaths;
+		this.generateRelativePaths = builder.relativePaths;
 	}
 
 	public File getScanDir() {
