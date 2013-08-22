@@ -38,7 +38,10 @@ public class CollectionUtils {
 
 	/**
 	 * Returns a new unmodifiable list containing the elements from <code>list</code>
+	 * 
+	 * @deprecated See ListUtils.newArrayList() instead
 	 */
+	@Deprecated
 	public static <T> List<T> unmodifiableCopy(List<T> list) {
 		return Collections.unmodifiableList(new ArrayList<T>(list));
 	}

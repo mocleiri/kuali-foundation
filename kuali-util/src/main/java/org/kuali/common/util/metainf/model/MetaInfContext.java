@@ -76,6 +76,10 @@ public class MetaInfContext {
 		this.propertiesContext = propertiesContext;
 	}
 
+	public static class Builder {
+
+	}
+
 	public boolean isSort() {
 		return sort;
 	}

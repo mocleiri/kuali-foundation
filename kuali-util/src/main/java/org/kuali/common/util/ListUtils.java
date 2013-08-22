@@ -1,10 +1,25 @@
 package org.kuali.common.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class ListUtils {
+
+	public static <T> List<T> newArrayList(List<T> list) {
+		return newArrayList(list, false);
+	}
+
+	public static <T> List<T> newArrayList(List<T> list, boolean immutable) {
+		Assert.noNulls(list);
+		if (immutable) {
+			return Collections.unmodifiableList(new ArrayList<T>(list));
+		} else {
+			return new ArrayList<T>(list);
+		}
+	}
 
 	/**
 	 * This method completing successfully guarantees 4 things:<br>
