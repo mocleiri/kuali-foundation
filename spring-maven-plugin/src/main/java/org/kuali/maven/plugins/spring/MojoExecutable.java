@@ -1,48 +1,38 @@
 package org.kuali.maven.plugins.spring;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.util.MethodInvoker;
 
 public class MojoExecutable implements Executable {
 
+	public MojoExecutable(AbstractSpringMojo mojo, SpringMojoService service) {
+		Assert.noNulls(mojo, service);
+		this.mojo = mojo;
+		this.service = service;
+	}
+
 	private static final String SERVICE_CALLBACK_METHOD_NAME = "callback";
 
-	String serviceMethod = SERVICE_CALLBACK_METHOD_NAME;
-	AbstractSpringMojo mojo;
-	SpringMojoService service;
+	private final AbstractSpringMojo mojo;
+	private final SpringMojoService service;
 
 	@Override
 	public void execute() {
 		MethodInvoker invoker = new MethodInvoker();
 		invoker.setTargetObject(service);
-		invoker.setTargetMethod(serviceMethod);
+		invoker.setTargetMethod(SERVICE_CALLBACK_METHOD_NAME);
 		invoker.setArguments(new Object[] { mojo });
 		ReflectionUtils.invoke(invoker);
-	}
-
-	public String getServiceMethod() {
-		return serviceMethod;
-	}
-
-	public void setServiceMethod(String serviceMethod) {
-		this.serviceMethod = serviceMethod;
 	}
 
 	public AbstractSpringMojo getMojo() {
 		return mojo;
 	}
 
-	public void setMojo(AbstractSpringMojo mojo) {
-		this.mojo = mojo;
-	}
-
 	public SpringMojoService getService() {
 		return service;
-	}
-
-	public void setService(SpringMojoService service) {
-		this.service = service;
 	}
 
 }

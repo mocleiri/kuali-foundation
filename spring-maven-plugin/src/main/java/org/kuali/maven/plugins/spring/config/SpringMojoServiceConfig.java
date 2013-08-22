@@ -1,5 +1,6 @@
 package org.kuali.maven.plugins.spring.config;
 
+import org.kuali.common.util.spring.service.PropertySourceService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.kuali.maven.plugins.spring.DefaultSpringMojoService;
 import org.kuali.maven.plugins.spring.SpringMojoService;
@@ -13,12 +14,10 @@ import org.springframework.context.annotation.Import;
 public class SpringMojoServiceConfig {
 
 	@Autowired
-	SpringServiceConfig springServiceConfig;
+	PropertySourceService service;
 
 	@Bean
 	public SpringMojoService springMojoService() {
-		DefaultSpringMojoService service = new DefaultSpringMojoService();
-		service.setPropertySourceService(springServiceConfig.propertySourceService());
-		return service;
+		return new DefaultSpringMojoService(service);
 	}
 }

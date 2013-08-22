@@ -48,7 +48,11 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSpringMojoService.class);
 	private static final LongCounter SEQUENCE = new LongCounter();
 
-	PropertySourceService propertySourceService;
+	private final PropertySourceService propertySourceService;
+
+	public DefaultSpringMojoService(PropertySourceService propertySourceService) {
+		this.propertySourceService = propertySourceService;
+	}
 
 	@Override
 	public boolean isDebugLoggingEnabled(AbstractSpringMojo mojo) {
@@ -416,7 +420,4 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return propertySourceService;
 	}
 
-	public void setPropertySourceService(PropertySourceService propertySourceService) {
-		this.propertySourceService = propertySourceService;
-	}
 }

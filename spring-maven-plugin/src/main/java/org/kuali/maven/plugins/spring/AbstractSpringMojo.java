@@ -26,7 +26,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.maven.spring.MavenProfileConstants;
-import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringExecutable;
 import org.kuali.common.util.spring.service.SpringContext;
 import org.kuali.common.util.spring.service.SpringService;
@@ -94,7 +94,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	/**
 	 * Comma separated list of active profiles to exclude. By default, all active Maven profiles plus any profiles from <code>activeProfiles</code> are activated.
 	 */
-	@Parameter(property = "spring.activeProfileExcludes", defaultValue = Constants.NONE)
+	@Parameter(property = "spring.activeProfileExcludes", defaultValue = NullUtils.NONE)
 	String activeProfileExcludes;
 
 	/**
@@ -106,7 +106,7 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	/**
 	 * Comma separated list of default profiles to exclude. Spring uses the profile "default" when no other active or default profiles are specified.
 	 */
-	@Parameter(property = "spring.defaultProfileExcludes", defaultValue = Constants.NONE)
+	@Parameter(property = "spring.defaultProfileExcludes", defaultValue = NullUtils.NONE)
 	String defaultProfileExcludes;
 
 	/**

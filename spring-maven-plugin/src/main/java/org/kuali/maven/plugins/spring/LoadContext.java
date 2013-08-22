@@ -2,19 +2,16 @@ package org.kuali.maven.plugins.spring;
 
 import java.util.Properties;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.spring.service.SpringService;
 
-public class LoadContext {
+public final class LoadContext {
 
-	Properties mavenProperties;
-	SpringService service;
-
-	public LoadContext() {
-		this(null, null);
-	}
+	private final Properties mavenProperties;
+	private final SpringService service;
 
 	public LoadContext(Properties mavenProperties, SpringService service) {
-		super();
+		Assert.noNulls(mavenProperties, service);
 		this.mavenProperties = mavenProperties;
 		this.service = service;
 	}
@@ -23,16 +20,8 @@ public class LoadContext {
 		return mavenProperties;
 	}
 
-	public void setMavenProperties(Properties mavenProperties) {
-		this.mavenProperties = mavenProperties;
-	}
-
 	public SpringService getService() {
 		return service;
-	}
-
-	public void setService(SpringService service) {
-		this.service = service;
 	}
 
 }
