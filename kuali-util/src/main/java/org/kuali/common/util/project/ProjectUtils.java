@@ -18,6 +18,7 @@ package org.kuali.common.util.project;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
@@ -25,12 +26,23 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.FeatureIdentifier;
+import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
 public class ProjectUtils {
 
 	private static final String CLASSPATH = "classpath:";
+
+	/**
+	 * Get a <code>Project</code> from a <code>Properties</code>
+	 */
+	public static Project getProject(Properties properties) {
+		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
+		String artifactId = properties.getProperty(MavenConstants.ARTIFACT_ID_KEY);
+		String version = properties.getProperty(MavenConstants.VERSION_KEY);
+		return new ImmutableProject(groupId, artifactId, version, properties);
+	}
 
 	/**
 	 * Convert a project id into a <code>ProjectIdentifier's</code>

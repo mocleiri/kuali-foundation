@@ -28,6 +28,7 @@ import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.spring.env.EnvironmentService;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class DefaultProjectService implements ProjectService {
@@ -37,13 +38,19 @@ public class DefaultProjectService implements ProjectService {
 	private static final String PROPERTIES_ENCODING_KEY = "project.properties.encoding";
 	private static final String PROPERTIES_ENCODING_DEFAULT = Charset.defaultCharset().toString();
 
+	private final EnvironmentService env;
+
+	public DefaultProjectService(EnvironmentService env) {
+		Assert.noNulls(env);
+		this.env = env;
+	}
+
 	@Override
 	public Project getProject(Properties properties) {
 		String groupId = properties.getProperty(MavenConstants.GROUP_ID_KEY);
 		String artifactId = properties.getProperty(MavenConstants.ARTIFACT_ID_KEY);
 		String version = properties.getProperty(MavenConstants.VERSION_KEY);
 		return new ImmutableProject(groupId, artifactId, version, properties);
-
 	}
 
 	@Override
@@ -85,7 +92,7 @@ public class DefaultProjectService implements ProjectService {
 
 		// Use platform default encoding to load project.properties
 		// Set the system property "project.properties.encoding" or the environment variable "PROJECT_PROPERTIES_ENCODING" to override
-		String encoding = PropertyUtils.getGlobalProperty(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
+		String encoding = env.getString(PROPERTIES_ENCODING_KEY, PROPERTIES_ENCODING_DEFAULT);
 
 		// Load the properties from disk
 		Properties properties = PropertyUtils.load(location, encoding);
@@ -99,6 +106,10 @@ public class DefaultProjectService implements ProjectService {
 		properties.setProperty(Constants.GROUP_ID_PATH_KEY, Str.getPath(groupId));
 		properties.setProperty(Constants.ARTIFACT_ID_KEY, artifactId);
 		return PPH.replacePlaceholders(Constants.PROJECT_PROPERTIES_LOCATION, properties);
+	}
+
+	public EnvironmentService getEnv() {
+		return env;
 	}
 
 }
