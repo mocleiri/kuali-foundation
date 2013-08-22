@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import org.kuali.common.util.spring.service.SpringService;
 
-public class PropertySourcesContext {
+public class MavenPropertySourceContext {
 
 	SpringService service;
 	String location;

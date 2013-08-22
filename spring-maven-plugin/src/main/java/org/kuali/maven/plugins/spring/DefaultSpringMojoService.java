@@ -73,7 +73,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
 
 		// Provide some context for looking up property sources
-		PropertySourcesContext psc = getPropertySourcesContext(mojo, lc);
+		MavenPropertySourceContext psc = getPropertySourcesContext(mojo, lc);
 
 		// Add the property sources
 		addPropertySources(psc, mojo, context);
@@ -95,7 +95,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		SpringContext context = getSpringContext(mojo, lc.getMavenProperties());
 
 		// Provide some context for looking up property sources
-		PropertySourcesContext psc = getPropertySourcesContext(mojo, lc);
+		MavenPropertySourceContext psc = getPropertySourcesContext(mojo, lc);
 
 		// Add the property sources
 		addPropertySources(psc, mojo, context);
@@ -111,7 +111,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	 * Load the annotated class (or xml file) they provided. Scan it for any beans that implement <code>PropertySource</code>. Any <code>PropertySource</code> beans are sorted
 	 * alphabetically by name, and added to the <code>SpringContext</code>
 	 */
-	protected void addPropertySources(PropertySourcesContext ctx, AbstractSpringMojo mojo, SpringContext context) {
+	protected void addPropertySources(MavenPropertySourceContext ctx, AbstractSpringMojo mojo, SpringContext context) {
 		// Are we adding any custom property sources?
 		if (mojo.isAddPropertySources()) {
 			// Source is either an XML file or an annotated class
@@ -132,8 +132,8 @@ public class DefaultSpringMojoService implements SpringMojoService {
 
 	}
 
-	protected PropertySourcesContext getPropertySourcesContext(LoadXmlMojo mojo, LoadContext context) {
-		PropertySourcesContext psc = new PropertySourcesContext();
+	protected MavenPropertySourceContext getPropertySourcesContext(LoadXmlMojo mojo, LoadContext context) {
+		MavenPropertySourceContext psc = new MavenPropertySourceContext();
 		psc.setLocation(mojo.getPropertySourcesLocation());
 		psc.setProperties(context.getMavenProperties());
 		psc.setService(context.getService());
@@ -143,10 +143,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return psc;
 	}
 
-	protected PropertySourcesContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
+	protected MavenPropertySourceContext getPropertySourcesContext(LoadMojo mojo, LoadContext context) {
 		Class<?> annotatedClass = ReflectionUtils.getClass(mojo.getPropertySourcesConfig());
 
-		PropertySourcesContext psc = new PropertySourcesContext();
+		MavenPropertySourceContext psc = new MavenPropertySourceContext();
 		psc.setAnnotatedClass(annotatedClass);
 		psc.setService(context.getService());
 		psc.setProperties(context.getMavenProperties());
@@ -156,7 +156,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		return psc;
 	}
 
-	protected List<PropertySource<?>> getPropertySources(PropertySourcesContext ctx) {
+	protected List<PropertySource<?>> getPropertySources(MavenPropertySourceContext ctx) {
 		Map<String, Object> beans = CollectionUtils.toEmptyMap(ctx.getPropertiesBeanName(), (Object) ctx.getProperties());
 		if (ctx.getLocation() != null) {
 			return propertySourceService.getPropertySources(beans, ctx.getDefaultProfiles(), ctx.getActiveProfiles(), ctx.getLocation());
