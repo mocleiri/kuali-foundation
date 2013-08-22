@@ -1,35 +1,36 @@
 package org.kuali.common.util.xml.jaxb;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class ImmutableCollectionAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
+public class ImmutableCollectionAdapter<T> extends XmlAdapter<CollectionWrapper<T>, Collection<T>> {
 
-	private final List<T> EMPTY_LIST = Collections.<T> emptyList();
-	private final ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
+	private final List<T> EMPTY_COLLECTION = Collections.<T> emptyList();
+	private final CollectionWrapper<T> EMPTY_WRAPPER = new CollectionWrapper<T>(EMPTY_COLLECTION);
 
 	@Override
-	public ListWrapper<T> marshal(List<T> list) {
-		if (isEmpty(list)) {
+	public CollectionWrapper<T> marshal(Collection<T> c) {
+		if (isEmpty(c)) {
 			return EMPTY_WRAPPER;
 		} else {
-			return new ListWrapper<T>(list);
+			return new CollectionWrapper<T>(c);
 		}
 	}
 
 	@Override
-	public List<T> unmarshal(ListWrapper<T> wrapper) {
-		if (isEmpty(wrapper.getList())) {
-			return EMPTY_LIST;
+	public Collection<T> unmarshal(CollectionWrapper<T> wrapper) {
+		if (isEmpty(wrapper.getCollection())) {
+			return EMPTY_COLLECTION;
 		} else {
-			return Collections.unmodifiableList(wrapper.getList());
+			return Collections.unmodifiableCollection(wrapper.getCollection());
 		}
 	}
 
-	protected static boolean isEmpty(List<?> list) {
-		return list == null || list.size() == 0;
+	protected static boolean isEmpty(Collection<?> c) {
+		return c == null || c.size() == 0;
 	}
 
 }
