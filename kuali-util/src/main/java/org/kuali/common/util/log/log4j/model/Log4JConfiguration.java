@@ -77,14 +77,16 @@ public final class Log4JConfiguration {
 
 	public static class Builder {
 
+		// Required
+		private final Logger root;
+
+		// Optional
 		private String namespace = "http://jakarta.apache.org/log4j/";
 		private List<Appender> appenders = Appender.EMPTY;
 		private List<Logger> loggers = Logger.EMPTY;
 		private boolean reset = false;
 		private Debug debug = Debug.DEFAULT_VALUE;
 		private Threshold threshold = Threshold.DEFAULT_REPOSITORY_VALUE;
-
-		private final Logger root;
 
 		public Builder(Logger root) {
 			Assert.noNulls(root);
