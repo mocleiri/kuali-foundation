@@ -787,11 +787,12 @@ public class PropertyUtils {
 		if (value == null && pattern == null) {
 			// both are null
 			return true;
-		} else if (value != null && pattern == null || value == null && pattern != null) {
+		} else if (value == null || pattern == null) {
 			// One is null, but not the other
 			return false;
 		} else if (pattern.equals(Constants.WILDCARD)) {
-			// neither one is null and pattern is the wildcard. Value is irrelevant
+			// Neither one is null and pattern is the unqualified wildcard.
+			// Value is irrelevant, always return true
 			return true;
 		} else if (StringUtils.countMatches(pattern, Constants.WILDCARD) > 1) {
 			// More than one wildcard in the pattern is not supported
