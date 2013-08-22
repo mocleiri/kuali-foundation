@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 public class ScanContext {
 
@@ -15,7 +16,7 @@ public class ScanContext {
 	private final List<String> excludes;
 
 	public ScanContext(File directory, String includes) {
-		this(directory, Arrays.asList(includes));
+		this(directory, CollectionUtils.singletonList(includes));
 	}
 
 	public ScanContext(File directory, String... includes) {
@@ -29,8 +30,8 @@ public class ScanContext {
 	public ScanContext(File directory, List<String> includes, List<String> excludes) {
 		Assert.noNulls(directory, includes, excludes);
 		this.directory = directory;
-		this.includes = CollectionUtils.unmodifiableCopy(includes);
-		this.excludes = CollectionUtils.unmodifiableCopy(excludes);
+		this.includes = ListUtils.newArrayList(includes, true);
+		this.excludes = ListUtils.newArrayList(excludes, true);
 	}
 
 	public File getDirectory() {

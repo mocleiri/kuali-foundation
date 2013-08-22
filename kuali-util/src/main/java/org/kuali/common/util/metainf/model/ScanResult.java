@@ -2,7 +2,7 @@ package org.kuali.common.util.metainf.model;
 
 import java.util.List;
 
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 public class ScanResult {
 
@@ -11,7 +11,7 @@ public class ScanResult {
 
 	public ScanResult(MetaInfContext context, List<MetaInfResource> resources) {
 		this.context = context;
-		this.resources = CollectionUtils.unmodifiableCopy(resources);
+		this.resources = ListUtils.newArrayList(resources, true);
 	}
 
 	public MetaInfContext getContext() {

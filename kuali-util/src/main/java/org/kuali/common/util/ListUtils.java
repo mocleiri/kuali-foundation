@@ -12,6 +12,10 @@ public class ListUtils {
 		return newArrayList(list, false);
 	}
 
+	public static <T> List<T> newImmutableArrayList(List<T> list) {
+		return newArrayList(list, true);
+	}
+
 	public static <T> List<T> newArrayList(List<T> list, boolean immutable) {
 		Assert.noNulls(list);
 		if (immutable) {
