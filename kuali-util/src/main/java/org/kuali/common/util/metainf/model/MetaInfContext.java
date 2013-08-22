@@ -23,7 +23,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.ListUtils;
 import org.springframework.util.ResourceUtils;
 
-public class MetaInfContext {
+public final class MetaInfContext {
 
 	private final File outputFile;
 	private final File scanDir;
