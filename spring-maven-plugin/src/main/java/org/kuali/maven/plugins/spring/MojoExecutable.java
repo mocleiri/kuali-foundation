@@ -7,16 +7,16 @@ import org.springframework.util.MethodInvoker;
 
 public class MojoExecutable implements Executable {
 
+	private static final String SERVICE_CALLBACK_METHOD_NAME = "callback";
+
+	private final AbstractSpringMojo mojo;
+	private final SpringMojoService service;
+
 	public MojoExecutable(AbstractSpringMojo mojo, SpringMojoService service) {
 		Assert.noNulls(mojo, service);
 		this.mojo = mojo;
 		this.service = service;
 	}
-
-	private static final String SERVICE_CALLBACK_METHOD_NAME = "callback";
-
-	private final AbstractSpringMojo mojo;
-	private final SpringMojoService service;
 
 	@Override
 	public void execute() {
