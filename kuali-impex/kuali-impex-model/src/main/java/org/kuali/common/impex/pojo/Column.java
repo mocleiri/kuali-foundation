@@ -73,16 +73,17 @@ public class Column implements NamedElement {
 
 		private final String name;
 		private final DataType type;
+		private final DataTypeSize size;
 
-		private DataTypeSize size;
 		private String defaultValue;
 		private String description = NullUtils.NONE;
 		private boolean primaryKey = false;
 		private boolean nullable = true;
 
-		public Builder(String name, DataType type) {
+		public Builder(String name, DataType type, DataTypeSize size) {
 			this.name = name;
 			this.type = type;
+			this.size = size;
 		}
 
 		public Column build() {
