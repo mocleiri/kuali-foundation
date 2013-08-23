@@ -9,7 +9,8 @@ public class OmitOptionalAdapter<T> extends XmlAdapter<T, Optional<T>> {
 	@Override
 	public T marshal(Optional<T> optional) {
 		if (optional.isPresent()) {
-			return optional.get();
+			T value = optional.get();
+			return value;
 		} else {
 			return null;
 		}
