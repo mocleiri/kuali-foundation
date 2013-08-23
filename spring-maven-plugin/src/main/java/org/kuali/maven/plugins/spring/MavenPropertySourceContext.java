@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.spring.service.SpringService;
 
 public final class MavenPropertySourceContext {
@@ -69,6 +70,8 @@ public final class MavenPropertySourceContext {
 			Assert.noBlanks(propertiesBeanName);
 			Assert.isFalse(location == null && config == null, "Either location or config are required");
 			Assert.isTrue(location == null || config == null, "Cannot supply both location and config");
+			this.activeProfiles = ListUtils.newImmutableArrayList(activeProfiles);
+			this.defaultProfiles = ListUtils.newImmutableArrayList(defaultProfiles);
 			return new MavenPropertySourceContext(this);
 		}
 
