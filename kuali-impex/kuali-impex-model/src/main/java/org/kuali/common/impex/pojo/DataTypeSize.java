@@ -29,7 +29,6 @@ public final class DataTypeSize {
 
 	public static final boolean DEFAULT_SCALED = false;
 	public static final int NO_SCALE = -1;
-	public static final int NO_SIZE = 0;
 
 	@XmlAttribute
 	private final Integer value;
@@ -44,7 +43,7 @@ public final class DataTypeSize {
 
 	@SuppressWarnings("unused")
 	private DataTypeSize() {
-		this(NO_SIZE);
+		this(0);
 	}
 
 	public DataTypeSize(int size) {
