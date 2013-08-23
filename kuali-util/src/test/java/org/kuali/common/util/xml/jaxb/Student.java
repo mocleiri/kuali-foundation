@@ -10,10 +10,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
 @XmlBind(classes = { Club.class, Sport.class })
@@ -89,8 +89,8 @@ public final class Student {
 		private Builder finish() {
 			Assert.noBlanks(name);
 			Assert.noNulls(clubs, sports, ethnicity);
-			this.clubs = ListUtils.newImmutableArrayList(clubs);
-			this.sports = ListUtils.newImmutableArrayList(sports);
+			this.clubs = ImmutableList.<Club> copyOf(clubs);
+			this.sports = ImmutableList.<Sport> copyOf(sports);
 			return this;
 		}
 
