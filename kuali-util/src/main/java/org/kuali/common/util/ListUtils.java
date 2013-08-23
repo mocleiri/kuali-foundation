@@ -30,7 +30,7 @@ public class ListUtils {
 	}
 
 	/**
-	 * This method completing successfully guarantees 4 things:<br>
+	 * This method guarantees 4 things:<br>
 	 * 
 	 * 1 - The <code>list</code> is not null.<br>
 	 * 2 - The <code>list</code> is not empty. (size() > 0)<br>
@@ -44,7 +44,7 @@ public class ListUtils {
 		Class<?> previous = list.get(0).getClass();
 		for (int i = 1; i < list.size(); i++) {
 			Class<?> current = list.get(i).getClass();
-			Assert.isTrue(current == previous, "non-uniform runtime types near index " + i);
+			Assert.isTrue(current == previous, "non-uniform runtime types at index " + i);
 			previous = current;
 		}
 	}
