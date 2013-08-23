@@ -49,18 +49,19 @@ public final class MavenPropertySourceContext {
 
 		// Required
 		private final SpringService service;
+		private final Properties properties;
 
 		// Optional
 		private String location;
 		private Class<?> config;
 
 		private String propertiesBeanName = MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME;
-		private Properties properties;
 		private List<String> activeProfiles = Collections.<String> emptyList();
 		private List<String> defaultProfiles = Collections.<String> emptyList();
 
-		public Builder(SpringService service) {
+		public Builder(SpringService service, Properties properties) {
 			this.service = service;
+			this.properties = properties;
 		}
 
 		public MavenPropertySourceContext build() {
@@ -83,11 +84,6 @@ public final class MavenPropertySourceContext {
 
 		public Builder propertiesBeanName(String propertiesBeanName) {
 			this.propertiesBeanName = propertiesBeanName;
-			return this;
-		}
-
-		public Builder properties(Properties properties) {
-			this.properties = properties;
 			return this;
 		}
 
