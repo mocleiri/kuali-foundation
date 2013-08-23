@@ -35,7 +35,7 @@ public class ListUtils {
 	 * 1 - The <code>list</code> is not null.<br>
 	 * 2 - The <code>list</code> is not empty. (size() > 0)<br>
 	 * 3 - The <code>list</code> does not contain <code>null</code>.<br>
-	 * 4 - Every element in <code>list</code> is the exact same runtime type.<br>
+	 * 4 - Every element in the <code>list</code> is the exact same runtime type.<br>
 	 */
 	public static void assertUniformRuntimeType(List<?> list) {
 		Assert.noNulls(list);
