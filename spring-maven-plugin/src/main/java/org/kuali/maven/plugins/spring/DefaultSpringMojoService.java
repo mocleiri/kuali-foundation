@@ -139,7 +139,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> activeProfiles = getActiveProfiles(mojo);
 		List<String> defaultProfiles = getDefaultProfiles(mojo);
 		Properties properties = context.getMavenProperties();
-
 		return new MavenPropertySourceContext.Builder(context.getService(), properties).location(location).activeProfiles(activeProfiles).defaultProfiles(defaultProfiles).build();
 	}
 
@@ -148,7 +147,6 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> activeProfiles = getActiveProfiles(mojo);
 		List<String> defaultProfiles = getDefaultProfiles(mojo);
 		Properties properties = context.getMavenProperties();
-
 		return new MavenPropertySourceContext.Builder(context.getService(), properties).config(config).activeProfiles(activeProfiles).defaultProfiles(defaultProfiles).build();
 	}
 
