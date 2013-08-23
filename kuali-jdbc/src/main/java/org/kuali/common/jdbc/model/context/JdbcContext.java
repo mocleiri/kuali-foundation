@@ -26,62 +26,12 @@ import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 public final class JdbcContext {
 
-	public static final boolean DEFAULT_SKIP = false;
-	public static final int DEFAULT_THREADS = SqlContext.DEFAULT_THREADS;
-	public static final boolean DEFAULT_MULTITHREADED = false;
-	public static final boolean DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT = false;
-	// The default listener logs every SQL statement being executed in debug mode
-	public static final SqlListener DEFAULT_LISTENER = new LogSqlListener();
-	public static final CommitMode DEFAULT_COMMIT_MODE = CommitMode.PER_SUPPLIER;
-	public static final String NO_MESSAGE = NullUtils.NONE;
-
-	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message) {
-		this(dataSource, supplier, message, DEFAULT_LISTENER);
-	}
-
-	public JdbcContext(DataSource dataSource, SqlSupplier supplier, String message, SqlListener listener) {
-		this(dataSource, CollectionUtils.singletonList(supplier), message, listener);
-	}
-
-	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message) {
-		this(dataSource, suppliers, message, DEFAULT_LISTENER);
-	}
-
-	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, SqlListener listener) {
-		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, DEFAULT_MULTITHREADED, listener, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
-	}
-
-	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, boolean multithreaded) {
-		this(DEFAULT_SKIP, dataSource, suppliers, DEFAULT_THREADS, multithreaded, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
-	}
-
-	public JdbcContext(DataSource dataSource, List<SqlSupplier> suppliers, String message, boolean multithreaded, int threads) {
-		this(DEFAULT_SKIP, dataSource, suppliers, threads, multithreaded, DEFAULT_LISTENER, DEFAULT_COMMIT_MODE, message, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
-	}
-
-	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, SqlListener listener, CommitMode commitMode) {
-		this(skipSqlExecution, dataSource, suppliers, threads, DEFAULT_MULTITHREADED, listener, commitMode, NO_MESSAGE, DEFAULT_TRACK_PROGRESS_BY_UPDATE_COUNT);
-	}
-
-	public JdbcContext(boolean skipSqlExecution, DataSource dataSource, List<SqlSupplier> suppliers, int threads, boolean multithreaded, SqlListener listener,
-			CommitMode commitMode, String message, boolean trackProgressByUpdateCount) {
-		Assert.noNulls(listener, commitMode, dataSource, suppliers);
-		Assert.noBlanks(message);
-		this.skipSqlExecution = skipSqlExecution;
-		this.threads = threads;
-		this.multithreaded = multithreaded;
-		this.listener = listener;
-		this.commitMode = commitMode;
-		this.dataSource = dataSource;
-		this.suppliers = ListUtils.newImmutableArrayList(suppliers);
-		this.message = message;
-		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
-	}
+	private final DataSource dataSource;
+	private final List<SqlSupplier> suppliers;
 
 	// If true, no SQL is executed.
 	// Everything leading up to SQL execution still takes place
@@ -94,8 +44,6 @@ public final class JdbcContext {
 	private final boolean multithreaded;
 	private final SqlListener listener;
 	private final CommitMode commitMode;
-	private final DataSource dataSource;
-	private final List<SqlSupplier> suppliers;
 	private final String message;
 	private final boolean trackProgressByUpdateCount;
 
@@ -133,6 +81,88 @@ public final class JdbcContext {
 
 	public boolean isTrackProgressByUpdateCount() {
 		return trackProgressByUpdateCount;
+	}
+
+	public static class Builder {
+
+		// Required
+		private final DataSource dataSource;
+		private final List<SqlSupplier> suppliers;
+
+		// Optional
+		private boolean skipSqlExecution = false;
+		private int threads = SqlContext.DEFAULT_THREADS;
+		private boolean multithreaded = false;
+		private SqlListener listener = new LogSqlListener();
+		private CommitMode commitMode = CommitMode.PER_SUPPLIER;
+		private String message = NullUtils.NONE;
+		private boolean trackProgressByUpdateCount = false;
+
+		public JdbcContext build() {
+			Assert.noNulls(dataSource, suppliers, listener, commitMode);
+			Assert.noBlanks(message);
+			if (multithreaded) {
+				Assert.isTrue(threads > 0, "threads must be a positive integer");
+			}
+			return new JdbcContext(this);
+		}
+
+		public Builder(DataSource dataSource, SqlSupplier supplier) {
+			this(dataSource, CollectionUtils.singletonList(supplier));
+		}
+
+		public Builder(DataSource dataSource, List<SqlSupplier> suppliers) {
+			this.dataSource = dataSource;
+			this.suppliers = suppliers;
+		}
+
+		public Builder skipSqlExecution(boolean skipSqlExecution) {
+			this.skipSqlExecution = skipSqlExecution;
+			return this;
+		}
+
+		public Builder multithreaded(boolean multithreaded) {
+			this.multithreaded = multithreaded;
+			return this;
+		}
+
+		public Builder listener(SqlListener listener) {
+			this.listener = listener;
+			return this;
+		}
+
+		public Builder commitMode(CommitMode commitMode) {
+			this.commitMode = commitMode;
+			return this;
+		}
+
+		public Builder trackProgressByUpdateCount(boolean trackProgressByUpdateCount) {
+			this.trackProgressByUpdateCount = trackProgressByUpdateCount;
+			return this;
+		}
+
+		public Builder message(String message) {
+			this.message = message;
+			return this;
+		}
+
+		public Builder threads(int threads) {
+			this.threads = threads;
+			return this;
+		}
+
+	}
+
+	private JdbcContext(Builder builder) {
+		this.dataSource = builder.dataSource;
+		this.suppliers = builder.suppliers;
+		this.skipSqlExecution = builder.skipSqlExecution;
+		this.threads = builder.threads;
+		this.multithreaded = builder.multithreaded;
+		this.listener = builder.listener;
+		this.commitMode = builder.commitMode;
+		this.message = builder.message;
+		this.trackProgressByUpdateCount = builder.trackProgressByUpdateCount;
 	}
 
 }

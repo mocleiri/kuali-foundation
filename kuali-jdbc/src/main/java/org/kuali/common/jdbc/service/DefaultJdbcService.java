@@ -67,7 +67,7 @@ public class DefaultJdbcService implements JdbcService {
 		long start = System.currentTimeMillis();
 
 		// Log a message if provided
-		if (!StringUtils.equals(JdbcContext.NO_MESSAGE, context.getMessage())) {
+		if (!StringUtils.equals(NullUtils.NONE, context.getMessage())) {
 			logger.info(context.getMessage());
 		}
 
@@ -178,7 +178,7 @@ public class DefaultJdbcService implements JdbcService {
 	@Override
 	public ExecutionResult executeSql(DataSource dataSource, List<String> sql) {
 		SqlSupplier supplier = new SimpleStringSupplier(sql);
-		JdbcContext context = new JdbcContext(dataSource, CollectionUtils.singletonList(supplier), JdbcContext.NO_MESSAGE);
+		JdbcContext context = new JdbcContext.Builder(dataSource, supplier).build();
 		return executeSql(context);
 	}
 
@@ -196,9 +196,8 @@ public class DefaultJdbcService implements JdbcService {
 		boolean skip = original.isSkipSqlExecution();
 		DataSource dataSource = original.getDataSource();
 		List<SqlSupplier> suppliers = bucket.getSuppliers();
-		int threads = JdbcContext.DEFAULT_THREADS;
 		CommitMode commitMode = original.getCommitMode();
-		return new JdbcContext(skip, dataSource, suppliers, threads, listener, commitMode);
+		return new JdbcContext.Builder(dataSource, suppliers).listener(listener).commitMode(commitMode).skipSqlExecution(skip).build();
 	}
 
 	protected List<SqlBucket> getSqlBuckets(JdbcContext context) {

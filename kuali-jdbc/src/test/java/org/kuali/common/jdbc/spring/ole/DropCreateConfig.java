@@ -100,7 +100,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 		String location = "classpath:META-INF/org/kuali/ole/sql/" + vendor.getCode() + "/ole-liquibase-sql.resources";
 		List<SqlSupplier> suppliers = factory.getSuppliers(location);
 		DataSource dataSource = dataSources.dataSource();
-		return new JdbcContext(dataSource, suppliers, "[other:sequential]", true, 1);
+		return new JdbcContext.Builder(dataSource, suppliers).message("[other:sequential]").multithreaded(true).threads(1).build();
 	}
 
 	@Bean
@@ -118,7 +118,7 @@ public class DropCreateConfig implements JdbcContextsConfig {
 
 	protected JdbcContext getJdbcContext(String message, List<SqlSupplier> suppliers) {
 		DataSource dataSource = dataSources.dataSource();
-		return new JdbcContext(dataSource, suppliers, message, true);
+		return new JdbcContext.Builder(dataSource, suppliers).message(message).multithreaded(true).build();
 	}
 
 	protected List<SqlSupplier> getSuppliers(String suffix) {

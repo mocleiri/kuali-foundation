@@ -45,6 +45,6 @@ public class DbaContextConfig {
 		DataSource dataSource = dataSourceConfig.dbaDataSource();
 		SqlSupplier supplier = new ComplexStringSupplier(sql, reader);
 		SqlListener listener = new LogSqlListener(LoggerLevel.INFO, LogSqlMode.BEFORE);
-		return new JdbcContext(dataSource, supplier, message, listener);
+		return new JdbcContext.Builder(dataSource, supplier).message(message).listener(listener).build();
 	}
 }
