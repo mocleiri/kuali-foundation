@@ -26,6 +26,7 @@ import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 public final class JdbcContext {
@@ -77,7 +78,7 @@ public final class JdbcContext {
 		this.listener = listener;
 		this.commitMode = commitMode;
 		this.dataSource = dataSource;
-		this.suppliers = CollectionUtils.unmodifiableCopy(suppliers);
+		this.suppliers = ListUtils.newImmutableArrayList(suppliers);
 		this.message = message;
 		this.trackProgressByUpdateCount = trackProgressByUpdateCount;
 	}

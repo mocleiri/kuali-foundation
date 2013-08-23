@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 public final class SqlBucket implements Comparable<SqlBucket> {
 
@@ -40,7 +40,7 @@ public final class SqlBucket implements Comparable<SqlBucket> {
 		Assert.noNulls(suppliers);
 		this.count = count;
 		this.size = size;
-		this.suppliers = CollectionUtils.unmodifiableCopy(suppliers);
+		this.suppliers = ListUtils.newImmutableArrayList(suppliers);
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.LocationUtils;
 
 /**
@@ -48,7 +49,7 @@ public final class ComplexStringSupplier extends AbstractSupplier {
 
 	public ComplexStringSupplier(List<String> strings, SqlReader reader) {
 		Assert.noNulls(strings, reader);
-		this.strings = CollectionUtils.unmodifiableCopy(strings);
+		this.strings = ListUtils.newImmutableArrayList(strings);
 		this.reader = reader;
 		this.metaData = MetaDataUtils.getSqlMetaData(this);
 	}

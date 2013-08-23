@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.jdbc.model.event.SqlEvent;
 import org.kuali.common.jdbc.model.event.SqlExecutionEvent;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 /**
  * Notify other listeners about SQL related events
@@ -31,7 +31,7 @@ public final class NotifyingListener implements SqlListener {
 
 	public NotifyingListener(List<SqlListener> listeners) {
 		Assert.noNulls(listeners);
-		this.listeners = CollectionUtils.unmodifiableCopy(listeners);
+		this.listeners = ListUtils.newImmutableArrayList(listeners);
 	}
 
 	@Override

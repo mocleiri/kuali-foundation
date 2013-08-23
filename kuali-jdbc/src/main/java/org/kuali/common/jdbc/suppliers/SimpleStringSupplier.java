@@ -21,6 +21,7 @@ import org.kuali.common.jdbc.service.MetaDataUtils;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 
 /**
  * Supply SQL from strings that have one SQL statement each
@@ -38,7 +39,7 @@ public final class SimpleStringSupplier extends AbstractSupplier {
 
 	public SimpleStringSupplier(List<String> strings) {
 		Assert.notNull(strings);
-		this.strings = CollectionUtils.unmodifiableCopy(strings);
+		this.strings = ListUtils.newImmutableArrayList(strings);
 		this.metaData = MetaDataUtils.getSqlMetaData(this);
 	}
 

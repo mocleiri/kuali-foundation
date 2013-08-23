@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.LocationUtils;
 
 public final class ResourcesSupplierFactory {
@@ -23,7 +24,7 @@ public final class ResourcesSupplierFactory {
 	public ResourcesSupplierFactory(String extension, List<SupplierFactory> factories) {
 		Assert.noBlanks(extension);
 		Assert.isFalse(CollectionUtils.isEmpty(factories), "Must provide at least one factory");
-		this.factories = CollectionUtils.unmodifiableCopy(factories);
+		this.factories = ListUtils.newImmutableArrayList(factories);
 		this.extension = extension;
 		this.suffix = "." + extension;
 	}
