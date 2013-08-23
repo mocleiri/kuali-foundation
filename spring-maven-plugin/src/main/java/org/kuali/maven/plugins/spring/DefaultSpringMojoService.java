@@ -25,6 +25,7 @@ import org.apache.maven.model.Profile;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.maven.spring.MavenAwareUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.PropertyUtils;
@@ -51,6 +52,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	private final PropertySourceService propertySourceService;
 
 	public DefaultSpringMojoService(PropertySourceService propertySourceService) {
+		Assert.noNulls(propertySourceService);
 		this.propertySourceService = propertySourceService;
 	}
 
