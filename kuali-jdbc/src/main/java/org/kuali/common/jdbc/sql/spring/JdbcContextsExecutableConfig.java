@@ -26,8 +26,7 @@ public class JdbcContextsExecutableConfig {
 		List<JdbcContext> contexts = config.jdbcContexts();
 		List<JdbcExecutable> execs = new ArrayList<JdbcExecutable>();
 		for (JdbcContext context : contexts) {
-			JdbcExecutable exec = new JdbcExecutable(service, context);
-			execs.add(exec);
+			execs.add(new JdbcExecutable(service, context));
 		}
 		return new ExecutablesExecutable(execs);
 	}
