@@ -18,7 +18,9 @@ package org.kuali.common.impex.pojo;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
 import org.springframework.util.Assert;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,6 +34,7 @@ public final class DataTypeSize {
 	private final Integer value;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final Boolean scaled;
 
 	@XmlAttribute
@@ -51,7 +54,7 @@ public final class DataTypeSize {
 		if (scaled) {
 			Assert.isTrue(scale >= 0, "scale is negative");
 		} else {
-			Assert.isTrue(scale == NO_SCALE, "");
+			Assert.isTrue(scale == NO_SCALE, "scale must be set to -1 if scaled is false");
 		}
 		this.value = size;
 		this.scale = scale;
