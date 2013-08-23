@@ -42,6 +42,7 @@
     <commons-lang.version>3.1</commons-lang.version>
     <commons-collections.version>3.2.1</commons-collections.version>
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
+    <guava.version>14.0.1</guava.version>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
     <kuali-util.version>4.4.1-SNAPSHOT</kuali-util.version>
     <kuali-jdbc.version>3.1.9-SNAPSHOT</kuali-jdbc.version>
@@ -98,6 +99,11 @@
         <artifactId>slf4j-log4j12</artifactId>
         <version>${slf4j.version}</version>
         <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
       </dependency>
       <dependency>
         <groupId>org.kuali.common</groupId>
