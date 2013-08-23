@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
+import org.kuali.common.util.xml.jaxb.OmitNegativeOneAdapter;
 import org.springframework.util.Assert;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -38,6 +39,7 @@ public final class DataTypeSize {
 	private final Boolean scaled;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitNegativeOneAdapter.class)
 	private final Integer scale;
 
 	@SuppressWarnings("unused")
