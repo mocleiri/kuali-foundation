@@ -55,6 +55,7 @@
     <beanutils.version>1.8.3-kuali-4</beanutils.version>
     <jsch.version>0.1.49</jsch.version>
     <plexus-utils.version>3.0.10</plexus-utils.version>
+    <guava.version>14.0.1</guava.version>
   </properties>
   <profiles>
     <profile>
@@ -173,6 +174,11 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 </project>
