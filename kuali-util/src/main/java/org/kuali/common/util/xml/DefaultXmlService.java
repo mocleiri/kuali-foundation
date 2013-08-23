@@ -60,8 +60,7 @@ public class DefaultXmlService implements XmlService {
 		}
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		classes.add(clazz);
-		Class<?>[] bindingsArray = bindings.classes();
-		for (Class<?> binding : bindingsArray) {
+		for (Class<?> binding : bindings.classes()) {
 			classes.add(binding);
 		}
 		return classes.toArray(new Class<?>[classes.size()]);

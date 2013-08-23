@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Target({ TYPE })
 public @interface XmlBind {
 
-	Class<?>[] classes() default {};
+	Class<?>[] classes();
 
 }
