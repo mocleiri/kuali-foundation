@@ -38,9 +38,10 @@ public final class JdbcContext {
 	// Connecting to the database, parsing SQL, etc.
 	private final boolean skipSqlExecution;
 
-	// Use this to enable multi-threaded SQL execution
-	// When used, SQL supplied to this context does not execute sequentially
 	private final int threads;
+	// Use this to enable multi-threaded SQL execution
+	// When true, SQL from each supplier is executed sequentially, but the suppliers are not executed sequentially.
+	// The suppliers are split up evenly across the threads and executed concurrently
 	private final boolean multithreaded;
 	private final SqlListener listener;
 	private final CommitMode commitMode;
