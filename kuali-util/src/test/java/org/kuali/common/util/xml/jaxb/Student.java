@@ -13,6 +13,8 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.google.common.base.Optional;
+
 @XmlRootElement
 @XmlBind(classes = { Club.class, Sport.class })
 public final class Student {
@@ -27,6 +29,10 @@ public final class Student {
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Sport> sports;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(OmitOptionalAdapter.class)
+	private final Optional<String> ethnicity;
 
 	public String getName() {
 		return name;
@@ -48,9 +54,16 @@ public final class Student {
 		// Optional
 		private List<Club> clubs = Collections.<Club> emptyList();
 		private List<Sport> sports = Collections.<Sport> emptyList();
+		private Optional<String> ethnicity = Optional.<String> absent();
 
 		public Builder(String name) {
 			this.name = name;
+		}
+
+		public Builder ethnicity(String ethnicity) {
+			Assert.noBlanks(ethnicity);
+			this.ethnicity = Optional.of(ethnicity);
+			return this;
 		}
 
 		public Builder club(Club club) {
@@ -75,7 +88,7 @@ public final class Student {
 
 		private Builder finish() {
 			Assert.noBlanks(name);
-			Assert.noNulls(clubs, sports);
+			Assert.noNulls(clubs, sports, ethnicity);
 			this.clubs = ListUtils.newImmutableArrayList(clubs);
 			this.sports = ListUtils.newImmutableArrayList(sports);
 			return this;
@@ -95,6 +108,7 @@ public final class Student {
 		this.name = builder.name;
 		this.clubs = builder.clubs;
 		this.sports = builder.sports;
+		this.ethnicity = builder.ethnicity;
 	}
 
 }
