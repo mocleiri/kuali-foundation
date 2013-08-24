@@ -1,15 +1,23 @@
 package org.kuali.common.util.xml.spring;
 
-import org.kuali.common.util.xml.DefaultXmlService;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.kuali.common.util.xml.JAXBXmlService;
 import org.kuali.common.util.xml.XmlService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import({ SpringServiceConfig.class })
 public class XmlServiceConfig {
+
+	@Autowired
+	EnvironmentService env;
 
 	@Bean
 	public XmlService xmlService() {
-		return new DefaultXmlService();
+		return new JAXBXmlService();
 	}
 }

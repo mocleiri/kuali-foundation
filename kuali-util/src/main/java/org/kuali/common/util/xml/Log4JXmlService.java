@@ -30,7 +30,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-public class Log4JXmlService extends DefaultXmlService {
+public class Log4JXmlService extends JAXBXmlService {
 
 	@Override
 	@SuppressWarnings("unchecked")

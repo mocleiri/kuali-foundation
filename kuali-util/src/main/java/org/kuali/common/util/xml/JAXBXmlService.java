@@ -44,7 +44,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-public class DefaultXmlService implements XmlService {
+public class JAXBXmlService implements XmlService {
 
 	public static final boolean DEFAULT_FORMAT_OUTPUT = true;
 	public static final boolean DEFAULT_USE_NAMESPACE_AWARE_PARSER = true;
@@ -52,15 +52,15 @@ public class DefaultXmlService implements XmlService {
 	private final boolean formatOutput;
 	private final boolean useNamespaceAwareParser;
 
-	public DefaultXmlService() {
+	public JAXBXmlService() {
 		this(DEFAULT_FORMAT_OUTPUT);
 	}
 
-	public DefaultXmlService(boolean useNamespaceAwareParser) {
+	public JAXBXmlService(boolean useNamespaceAwareParser) {
 		this(DEFAULT_FORMAT_OUTPUT, useNamespaceAwareParser);
 	}
 
-	public DefaultXmlService(boolean formatOutput, boolean useNamespaceAwareParser) {
+	public JAXBXmlService(boolean formatOutput, boolean useNamespaceAwareParser) {
 		this.formatOutput = formatOutput;
 		this.useNamespaceAwareParser = useNamespaceAwareParser;
 	}

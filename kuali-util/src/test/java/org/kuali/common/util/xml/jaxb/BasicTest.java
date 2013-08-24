@@ -1,6 +1,6 @@
 package org.kuali.common.util.xml.jaxb;
 
-import org.kuali.common.util.xml.DefaultXmlService;
+import org.kuali.common.util.xml.JAXBXmlService;
 
 public class BasicTest {
 
@@ -9,7 +9,7 @@ public class BasicTest {
 			String version = System.getProperty("java.runtime.version");
 			System.out.println(version);
 			String encoding = "UTF-8";
-			DefaultXmlService service = new DefaultXmlService();
+			JAXBXmlService service = new JAXBXmlService();
 			Club club = new Club("Delta Tau", 15.0);
 			Sport soccer = new Sport("Soccer", 125);
 			Student student1 = new Student.Builder("joe").club(club).sport(soccer).ethnicity("caucasian").build();
