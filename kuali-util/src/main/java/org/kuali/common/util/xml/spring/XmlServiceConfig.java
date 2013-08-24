@@ -13,11 +13,16 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class })
 public class XmlServiceConfig {
 
+	private static final String FORMAT_OUTPUT_KEY = "jaxb.formatOutput";
+	private static final String USE_NAMESPACE_AWARE_PARSER_KEY = "jaxb.useNamespaceAwareParser";
+
 	@Autowired
 	EnvironmentService env;
 
 	@Bean
 	public XmlService xmlService() {
-		return new JAXBXmlService();
+		boolean formatOutput = env.getBoolean(FORMAT_OUTPUT_KEY, JAXBXmlService.DEFAULT_FORMAT_OUTPUT);
+		boolean useNamespaceAwareParser = env.getBoolean(USE_NAMESPACE_AWARE_PARSER_KEY, JAXBXmlService.DEFAULT_USE_NAMESPACE_AWARE_PARSER);
+		return new JAXBXmlService(formatOutput, useNamespaceAwareParser);
 	}
 }
