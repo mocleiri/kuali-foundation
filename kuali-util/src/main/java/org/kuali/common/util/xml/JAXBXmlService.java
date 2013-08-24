@@ -176,7 +176,7 @@ public class JAXBXmlService implements XmlService {
 
 	protected JAXBContext getJAXBContext(Class<?> clazz) throws JAXBException {
 		Class<?>[] classes = getClassesToBeBound(clazz);
-		if (properties.size() > 0) {
+		if (properties.size() == 0) {
 			return JAXBContext.newInstance(classes);
 		} else {
 			return JAXBContext.newInstance(classes, properties);
