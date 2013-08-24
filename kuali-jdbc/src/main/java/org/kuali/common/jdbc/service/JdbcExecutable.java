@@ -53,12 +53,16 @@ public final class JdbcExecutable implements Executable {
 
 		ExecutionResult result = service.executeSql(context);
 		if (result.getStatementsExecuted() > 0) {
-			String updates = FormatUtils.getCount(result.getUpdateCount());
-			String statements = FormatUtils.getCount(result.getStatementsExecuted());
-			String elapsed = FormatUtils.getTime(result.getElapsed());
-			Object[] args = { updates, statements, elapsed };
-			logger.info("Rows updated: {}  SQL Statements: {}  Total time: {}", args);
+			showResult(result);
 		}
+	}
+
+	protected void showResult(ExecutionResult result) {
+		String updates = FormatUtils.getCount(result.getUpdateCount());
+		String statements = FormatUtils.getCount(result.getStatementsExecuted());
+		String elapsed = FormatUtils.getTime(result.getElapsed());
+		Object[] args = { updates, statements, elapsed };
+		logger.info("Rows updated: {}  SQL Statements: {}  Total time: {}", args);
 	}
 
 	public JdbcService getService() {
