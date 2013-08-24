@@ -20,47 +20,36 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
+
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Sequence implements NamedElement {
 
-	String name;
-	String startValue;
+	@XmlAttribute
+	private final String name;
 
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of this object
-	 */
-	public Sequence(Sequence sequence) {
-		super();
-		this.name = sequence.getName();
-		this.startValue = sequence.getStartValue();
-	}
+	@XmlAttribute
+	private final String startValue;
 
 	public Sequence() {
-		this(null, null);
+		this(NullUtils.NONE, NullUtils.NONE);
 	}
 
 	public Sequence(String name, String startValue) {
+		Assert.noBlanks(name, startValue);
 		this.name = name;
 		this.startValue = startValue;
 	}
 
 	@Override
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@XmlAttribute
 	public String getStartValue() {
 		return startValue;
 	}
 
-	public void setStartValue(String startValue) {
-		this.startValue = startValue;
-	}
 }
