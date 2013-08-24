@@ -20,21 +20,10 @@ import java.util.List;
 /**
  * A unique constraint
  */
-public class UniqueConstraint extends Constraint {
+public final class UniqueConstraint extends Constraint {
 
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of this object
-	 */
-	public UniqueConstraint(UniqueConstraint uniqueConstraint) {
-		super(uniqueConstraint);
-	}
-
-	public UniqueConstraint() {
-		super();
-	}
-
-	public UniqueConstraint(List<String> colNames, String name) {
-		super(colNames, name);
+	public UniqueConstraint(String name, List<String> columnNames) {
+		super(name, columnNames);
 	}
 
 }
