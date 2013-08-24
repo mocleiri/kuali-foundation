@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.junit.Test;
 
+/**
+ * Unit test for https://java.net/jira/browse/JAXB-415
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JAXBIssue415Test {
