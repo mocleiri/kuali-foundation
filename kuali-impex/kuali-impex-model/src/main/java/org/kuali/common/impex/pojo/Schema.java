@@ -90,6 +90,10 @@ public final class Schema {
 			this.name = name;
 		}
 
+		public Builder table(Table table) {
+			return tables(Collections.singletonList(table));
+		}
+
 		public Builder tables(List<Table> tables) {
 			this.tables = tables;
 			return this;
