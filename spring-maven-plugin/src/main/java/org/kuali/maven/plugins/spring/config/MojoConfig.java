@@ -1,7 +1,7 @@
 package org.kuali.maven.plugins.spring.config;
 
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.ExecutablesExecutable;
+import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.kuali.common.util.log.log4j.Log4JExecutable;
 import org.kuali.common.util.log.log4j.Log4JService;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
