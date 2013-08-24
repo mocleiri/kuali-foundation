@@ -15,7 +15,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.log.log4j.jaxb.DebugAdapter;
 import org.kuali.common.util.log.log4j.jaxb.RepositoryThresholdAdapter;
-import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 @XmlRootElement(name = "log4j:configuration")
 @XmlAccessorType(XmlAccessType.FIELD)

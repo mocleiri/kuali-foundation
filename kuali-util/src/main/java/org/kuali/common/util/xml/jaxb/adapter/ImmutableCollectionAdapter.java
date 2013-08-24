@@ -1,9 +1,11 @@
-package org.kuali.common.util.xml.jaxb;
+package org.kuali.common.util.xml.jaxb.adapter;
 
 import java.util.Collection;
 import java.util.Collections;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import org.kuali.common.util.xml.jaxb.wrapper.CollectionWrapper;
 
 public class ImmutableCollectionAdapter<T> extends XmlAdapter<CollectionWrapper<T>, Collection<T>> {
 

@@ -1,9 +1,11 @@
-package org.kuali.common.util.xml.jaxb;
+package org.kuali.common.util.xml.jaxb.adapter;
 
 import java.util.Collections;
 import java.util.Map;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import org.kuali.common.util.xml.jaxb.wrapper.MapWrapper;
 
 public class ImmutableMapAdapter<K, V> extends XmlAdapter<MapWrapper<K, V>, Map<K, V>> {
 

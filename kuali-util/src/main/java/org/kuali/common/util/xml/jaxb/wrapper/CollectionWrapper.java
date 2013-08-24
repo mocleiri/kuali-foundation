@@ -1,4 +1,4 @@
-package org.kuali.common.util.xml.jaxb;
+package org.kuali.common.util.xml.jaxb.wrapper;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package org.kuali.common.util.xml.jaxb;
+package org.kuali.common.util.xml.jaxb.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

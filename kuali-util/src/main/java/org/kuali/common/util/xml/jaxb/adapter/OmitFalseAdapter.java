@@ -1,4 +1,4 @@
-package org.kuali.common.util.xml.jaxb;
+package org.kuali.common.util.xml.jaxb.adapter;
 
 public class OmitFalseAdapter extends OmitBooleanAdapter {
 
