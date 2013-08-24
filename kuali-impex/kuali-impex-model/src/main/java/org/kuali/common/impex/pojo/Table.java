@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
 import org.kuali.common.util.xml.jaxb.OmitOptionalStringAdapter;
@@ -52,9 +53,9 @@ public class Table implements NamedElement {
 		Assert.noNulls(description, columns, uniqueConstraints, indexes);
 		this.name = name;
 		this.description = description;
-		this.columns = columns;
-		this.uniqueConstraints = uniqueConstraints;
-		this.indexes = indexes;
+		this.columns = ListUtils.newImmutableArrayList(columns);
+		this.uniqueConstraints = ListUtils.newImmutableArrayList(uniqueConstraints);
+		this.indexes = ListUtils.newImmutableArrayList(indexes);
 	}
 
 	public List<Column> getColumns() {
