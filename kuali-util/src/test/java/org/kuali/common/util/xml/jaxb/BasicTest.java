@@ -1,6 +1,5 @@
 package org.kuali.common.util.xml.jaxb;
 
-import org.kuali.common.util.xml.JAXBXmlService;
 
 public class BasicTest {
 

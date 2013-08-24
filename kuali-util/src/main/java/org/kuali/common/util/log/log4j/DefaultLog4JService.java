@@ -21,7 +21,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
-import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

@@ -35,7 +35,7 @@ import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.KualiUtilProjectConfig;
-import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

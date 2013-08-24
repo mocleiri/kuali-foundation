@@ -1,7 +1,7 @@
 package org.kuali.common.util.xml.spring;
 
-import org.kuali.common.util.xml.JAXBXmlService;
-import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.jaxb.JAXBXmlService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
  * </p>
  * 
  * <p>
- * The technique being used for this at Kuali is to leverage a SAX parser that is not namespace aware (and thus treats the colon character just like any other character). This is
- * described in more detail on Blaise Doughan's blog - http://blog.bdoughan.com/2011/05/jaxb-and-dtd.html
+ * The technique being used to handle log4j.xml parsing is to leverage a SAX parser that is not namespace aware (and thus treats the colon character just like any other character).
+ * This is described in more detail on Blaise Doughan's blog - http://blog.bdoughan.com/2011/05/jaxb-and-dtd.html
  * </p>
  */
 @Configuration

@@ -14,7 +14,7 @@ import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.log.log4j.model.Logger;
 import org.kuali.common.util.log.log4j.model.Param;
 import org.kuali.common.util.log.log4j.model.Threshold;
-import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.kuali.common.util.xml.spring.Log4JXmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

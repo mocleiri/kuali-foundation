@@ -33,7 +33,7 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.processor.OverrideProcessor;
-import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
