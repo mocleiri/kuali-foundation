@@ -29,7 +29,7 @@ import com.google.common.base.Optional;
 public final class DataTypeSize {
 
 	@XmlAttribute
-	private final Integer value; // Integer instead of int for for JAXB and it's XmlAdapter API
+	private final Integer value; // Integer instead of int, for JAXB's XmlAdapter API
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
