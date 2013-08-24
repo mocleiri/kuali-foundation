@@ -56,6 +56,7 @@
     <jsch.version>0.1.49</jsch.version>
     <plexus-utils.version>3.0.10</plexus-utils.version>
     <guava.version>14.0.1</guava.version>
+    <eclipse-moxy.version>2.5.0</eclipse-moxy.version>
   </properties>
   <profiles>
     <profile>
@@ -178,7 +179,7 @@
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.moxy</artifactId>
-      <version>2.5.0</version>
+      <version>${eclipse-moxy.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
