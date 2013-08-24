@@ -86,16 +86,6 @@ public final class Column implements NamedElement {
 		private boolean primaryKey = false;
 		private boolean nullable = true;
 
-		private Builder finish() {
-			Assert.noBlanks(name);
-			Assert.noNulls(type, size, defaultValue, description);
-			return this;
-		}
-
-		public Column build() {
-			return new Column(this);
-		}
-
 		public Builder(String name, DataType type, DataTypeSize size) {
 			this.name = name;
 			this.type = type;
@@ -120,6 +110,16 @@ public final class Column implements NamedElement {
 		public Builder nullable(boolean nullable) {
 			this.nullable = nullable;
 			return this;
+		}
+
+		private Builder finish() {
+			Assert.noBlanks(name);
+			Assert.noNulls(type, size, defaultValue, description);
+			return this;
+		}
+
+		public Column build() {
+			return new Column(this);
 		}
 
 	}

@@ -1,6 +1,6 @@
 package org.kuali.common.impex.pojo;
 
-import org.kuali.common.util.xml.DefaultXmlService;
+import org.kuali.common.util.xml.JAXBXmlService;
 
 public class BasicTest {
 
@@ -9,7 +9,7 @@ public class BasicTest {
 			String version = System.getProperty("java.runtime.version");
 			System.out.println(version);
 			String encoding = "UTF-8";
-			DefaultXmlService service = new DefaultXmlService();
+			JAXBXmlService service = new JAXBXmlService.Builder().build();
 			Column column = new Column.Builder("column", DataType.FLOAT, new DataTypeSize(10, 2)).build();
 			Table table = new Table("table", column);
 			Schema schema = new Schema.Builder("schema").table(table).build();
