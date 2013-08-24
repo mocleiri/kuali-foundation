@@ -22,28 +22,36 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.XmlBind;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlBind(classes = { Table.class, Sequence.class, View.class, ForeignKey.class })
 public class Schema {
 
 	@XmlAttribute
 	private final String name;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Table> tables;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Sequence> sequences;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<View> views;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<ForeignKey> foreignKeys;
 
 	public String getName() {
