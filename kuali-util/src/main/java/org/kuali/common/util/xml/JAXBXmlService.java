@@ -243,7 +243,7 @@ public class JAXBXmlService implements XmlService {
 		private boolean useEclipseLinkMoxyProvider = USE_ECLIPSE_LINK_MOXY_PROVIDER;
 
 		public Builder useEclipseLinkMoxyProvider(boolean useEclipseLinkMoxyProvider) {
-			this.formatOutput = useEclipseLinkMoxyProvider;
+			this.useEclipseLinkMoxyProvider = useEclipseLinkMoxyProvider;
 			return this;
 		}
 
