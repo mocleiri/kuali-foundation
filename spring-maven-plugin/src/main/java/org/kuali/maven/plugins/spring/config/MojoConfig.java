@@ -7,11 +7,9 @@ import org.kuali.common.util.log.log4j.Log4JService;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
 import org.kuali.common.util.log.log4j.spring.Log4JConfig;
 import org.kuali.maven.plugins.spring.AbstractSpringMojo;
-import org.kuali.maven.plugins.spring.MavenConstants;
 import org.kuali.maven.plugins.spring.MojoExecutable;
 import org.kuali.maven.plugins.spring.SpringMojoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -21,9 +19,8 @@ import org.springframework.context.annotation.Import;
 public class MojoConfig {
 
 	// The mojo gets wired in by registering it as a bean in the parent context
-	// See the execute() method on AbstractSpringMojo for how that is done
+	// The execute() method on AbstractSpringMojo sets that up
 	@Autowired
-	@Qualifier(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME)
 	AbstractSpringMojo mojo;
 
 	@Autowired
