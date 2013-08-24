@@ -9,7 +9,7 @@ public class BasicTest {
 			String version = System.getProperty("java.runtime.version");
 			System.out.println(version);
 			String encoding = "UTF-8";
-			JAXBXmlService service = new JAXBXmlService.Builder().build();
+			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			Column column = new Column.Builder("column", DataType.FLOAT, new DataTypeSize(10, 2)).build();
 			Table table = new Table("table", column);
 			Schema schema = new Schema.Builder("schema").table(table).build();
