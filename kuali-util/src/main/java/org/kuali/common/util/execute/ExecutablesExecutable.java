@@ -26,7 +26,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Execute the list of <code>executables</code> supplied to this bean
+ * 
+ * @deprecated
+ * 
  */
+@Deprecated
 public class ExecutablesExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecutablesExecutable.class);
