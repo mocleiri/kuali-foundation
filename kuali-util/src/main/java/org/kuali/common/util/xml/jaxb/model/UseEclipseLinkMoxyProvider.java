@@ -9,7 +9,8 @@ public class UseEclipseLinkMoxyProvider {
 	 * </p>
 	 * 
 	 * <p>
-	 * If this issue https://java.net/jira/browse/JAXB-415 gets resolved, this class and the corresponding jaxb.properties file would no longer be needed.
+	 * If issue https://java.net/jira/browse/JAXB-415 gets resolved, this class and the corresponding jaxb.properties file can be removed, and the useEclipseLinkMoxyProvider flag
+	 * in JAXBXmlService can be defaulted to false.
 	 * </p>
 	 */
 }
