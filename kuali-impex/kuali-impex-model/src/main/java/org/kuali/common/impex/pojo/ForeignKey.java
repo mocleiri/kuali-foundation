@@ -123,8 +123,8 @@ public class ForeignKey implements NamedElement {
 		private Builder defaults() {
 			this.onDelete = ForeignKeyConstraintType.NO_ACTION;
 			this.onUpdate = ForeignKeyConstraintType.NO_ACTION;
-			this.localColumns = ListUtils.newImmutableArrayList(Arrays.asList(NullUtils.NONE));
-			this.foreignColumns = ListUtils.newImmutableArrayList(Arrays.asList(NullUtils.NONE));
+			this.localColumns = Arrays.asList(NullUtils.NONE);
+			this.foreignColumns = Arrays.asList(NullUtils.NONE);
 			return this;
 		}
 
