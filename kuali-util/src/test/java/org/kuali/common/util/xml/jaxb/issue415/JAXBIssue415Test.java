@@ -34,6 +34,7 @@ public class JAXBIssue415Test {
 			e.printStackTrace();
 		}
 	}
+
 	public class JAXBIssue415TestAdapter extends XmlAdapter<String, String> {
 
 		@Override
@@ -47,6 +48,5 @@ public class JAXBIssue415Test {
 		}
 
 	}
-
 
 }
