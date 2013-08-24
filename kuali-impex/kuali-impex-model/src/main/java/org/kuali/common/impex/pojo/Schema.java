@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -80,10 +81,10 @@ public final class Schema {
 		private final String name;
 
 		// Optional
-		private List<Table> tables;
-		private List<Sequence> sequences;
-		private List<View> views;
-		private List<ForeignKey> foreignKeys;
+		private List<Table> tables = Collections.<Table> emptyList();
+		private List<Sequence> sequences = Collections.<Sequence> emptyList();
+		private List<View> views = Collections.<View> emptyList();
+		private List<ForeignKey> foreignKeys = Collections.<ForeignKey> emptyList();
 
 		public Builder(String name) {
 			this.name = name;
