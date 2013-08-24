@@ -2,6 +2,8 @@ package org.kuali.common.impex.pojo;
 
 import org.kuali.common.util.xml.DefaultXmlService;
 
+import com.google.common.base.Optional;
+
 public class BasicTest {
 
 	public static void main(String[] args) {
@@ -10,7 +12,8 @@ public class BasicTest {
 			System.out.println(version);
 			String encoding = "UTF-8";
 			DefaultXmlService service = new DefaultXmlService();
-			Column column = new Column.Builder("column", DataType.BIT, new DataTypeSize(0)).build();
+			Optional<Integer> scale = Optional.<Integer> of(2);
+			Column column = new Column.Builder("column", DataType.FLOAT, new DataTypeSize(10, scale)).build();
 			Table table = new Table("table", column);
 			Schema schema = new Schema.Builder("schema").table(table).build();
 			String xml = service.toXml(schema, encoding);
@@ -19,5 +22,4 @@ public class BasicTest {
 			e.printStackTrace();
 		}
 	}
-
 }
