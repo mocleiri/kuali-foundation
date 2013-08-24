@@ -2,6 +2,8 @@ package org.kuali.common.util.spring.env;
 
 public interface EnvironmentService {
 
+	boolean containsProperty(String key);
+
 	<T> T getProperty(EnvContext<T> context);
 
 	String getString(String key);

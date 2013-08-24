@@ -50,6 +50,12 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	}
 
 	@Override
+	public boolean containsProperty(String key) {
+		Assert.noBlanks(key);
+		return env.containsProperty(key);
+	}
+
+	@Override
 	public <T> T getProperty(EnvContext<T> context) {
 
 		// If context is null, we have issues
