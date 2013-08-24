@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -39,6 +40,7 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -51,18 +53,25 @@ public class JAXBXmlService implements XmlService {
 
 	private final boolean formatOutput;
 	private final boolean useNamespaceAwareParser;
+	private final Properties properties;
 
 	public JAXBXmlService() {
 		this(DEFAULT_FORMAT_OUTPUT);
 	}
 
-	public JAXBXmlService(boolean useNamespaceAwareParser) {
-		this(DEFAULT_FORMAT_OUTPUT, useNamespaceAwareParser);
+	public JAXBXmlService(Properties properties) {
+		this(DEFAULT_FORMAT_OUTPUT, DEFAULT_USE_NAMESPACE_AWARE_PARSER, properties);
 	}
 
-	public JAXBXmlService(boolean formatOutput, boolean useNamespaceAwareParser) {
+	public JAXBXmlService(boolean useNamespaceAwareParser) {
+		this(DEFAULT_FORMAT_OUTPUT, DEFAULT_USE_NAMESPACE_AWARE_PARSER, PropertyUtils.EMPTY);
+	}
+
+	public JAXBXmlService(boolean formatOutput, boolean useNamespaceAwareParser, Properties properties) {
+		Assert.noNulls(properties);
 		this.formatOutput = formatOutput;
 		this.useNamespaceAwareParser = useNamespaceAwareParser;
+		this.properties = PropertyUtils.toImmutable(properties);
 	}
 
 	@Override
@@ -217,5 +226,9 @@ public class JAXBXmlService implements XmlService {
 
 	public boolean isUseNamespaceAwareParser() {
 		return useNamespaceAwareParser;
+	}
+
+	public Properties getProperties() {
+		return properties;
 	}
 }
