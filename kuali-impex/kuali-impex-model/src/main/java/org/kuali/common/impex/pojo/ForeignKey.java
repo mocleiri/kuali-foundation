@@ -15,115 +15,147 @@
 
 package org.kuali.common.impex.pojo;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ForeignKey implements NamedElement {
 
-	String name;
-	ForeignKeyConstraintType onDelete;
-	ForeignKeyConstraintType onUpdate;
-	List<String> localColumnNames;
-	List<String> foreignColumnNames;
-	String localTableName;
-	String foreignTableName;
-
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of this object
-	 */
-	public ForeignKey(ForeignKey fk) {
-		super();
-
-		this.name = fk.getName();
-		this.onDelete = fk.getOnDelete();
-		this.onUpdate = fk.getOnUpdate();
-		this.localColumnNames = new ArrayList<String>(CollectionUtils.toEmptyList(fk.getLocalColumnNames()));
-		this.foreignColumnNames = new ArrayList<String>(CollectionUtils.toEmptyList(fk.getForeignColumnNames()));
-		this.localTableName = fk.getLocalTableName();
-		this.foreignTableName = fk.getForeignTableName();
-	}
-
-	public ForeignKey() {
-		this(null, null, null);
-	}
-
-	public ForeignKey(String name, String localTableName, String foreignTableName) {
-		this.name = name;
-		this.localTableName = localTableName;
-		this.foreignTableName = foreignTableName;
-
-		localColumnNames = new ArrayList<String>();
-		foreignColumnNames = new ArrayList<String>();
-	}
+	@XmlAttribute
+	private final String name;
 
 	@XmlAttribute
-	public String getForeignTableName() {
-		return foreignTableName;
-	}
-
-	public void setForeignTableName(String foreignTableName) {
-		this.foreignTableName = foreignTableName;
-	}
+	private final String localTable;
 
 	@XmlAttribute
-	public String getLocalTableName() {
-		return localTableName;
+	private final String foreignTable;
+
+	@XmlAttribute
+	private final ForeignKeyConstraintType onDelete;
+
+	@XmlAttribute
+	private final ForeignKeyConstraintType onUpdate;
+
+	@XmlElement
+	private final List<String> localColumns;
+
+	@XmlElement
+	private final List<String> foreignColumns;
+
+	public String getForeignTable() {
+		return foreignTable;
 	}
 
-	public void setLocalTableName(String localTableName) {
-		this.localTableName = localTableName;
+	public String getLocalTable() {
+		return localTable;
 	}
 
 	@Override
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public List<String> getForeignColumns() {
+		return foreignColumns;
 	}
 
-	public List<String> getForeignColumnNames() {
-		return foreignColumnNames;
+	public List<String> getLocalColumns() {
+		return localColumns;
 	}
 
-	public void setForeignColumnNames(List<String> foreignColumnNames) {
-		this.foreignColumnNames = foreignColumnNames;
-	}
-
-	public List<String> getLocalColumnNames() {
-		return localColumnNames;
-	}
-
-	public void setLocalColumnNames(List<String> localColumnNames) {
-		this.localColumnNames = localColumnNames;
-	}
-
-	@XmlAttribute
 	public ForeignKeyConstraintType getOnDelete() {
 		return onDelete;
 	}
 
-	@XmlAttribute
 	public ForeignKeyConstraintType getOnUpdate() {
 		return onUpdate;
 	}
 
-	public void setOnDelete(ForeignKeyConstraintType onDelete) {
-		this.onDelete = onDelete;
+	public static class Builder {
+
+		private final String name;
+		private final String localTable;
+		private final String foreignTable;
+
+		private ForeignKeyConstraintType onDelete;
+		private ForeignKeyConstraintType onUpdate;
+		private List<String> localColumns;
+		private List<String> foreignColumns;
+
+		public Builder(String name, String localTable, String foreignTable) {
+			this.name = name;
+			this.localTable = localTable;
+			this.foreignTable = foreignTable;
+		}
+
+		public Builder onDelete(ForeignKeyConstraintType onDelete) {
+			this.onDelete = onDelete;
+			return this;
+		}
+
+		public Builder onUpdate(ForeignKeyConstraintType onUpdate) {
+			this.onUpdate = onUpdate;
+			return this;
+		}
+
+		public Builder localColumns(List<String> localColumns) {
+			this.localColumns = localColumns;
+			return this;
+		}
+
+		public Builder foreignColumns(List<String> foreignColumns) {
+			this.foreignColumns = foreignColumns;
+			return this;
+		}
+
+		private Builder defaults() {
+			this.onDelete = ForeignKeyConstraintType.NO_ACTION;
+			this.onUpdate = ForeignKeyConstraintType.NO_ACTION;
+			this.localColumns = ListUtils.newImmutableArrayList(Arrays.asList(NullUtils.NONE));
+			this.foreignColumns = ListUtils.newImmutableArrayList(Arrays.asList(NullUtils.NONE));
+			return this;
+		}
+
+		private Builder finish() {
+			Assert.noBlanks(name, localTable, foreignTable);
+			Assert.noNulls(onDelete, onUpdate, localColumns, foreignColumns);
+			Assert.isFalse(CollectionUtils.isEmpty(localColumns));
+			Assert.isFalse(CollectionUtils.isEmpty(foreignColumns));
+			this.localColumns = ListUtils.newImmutableArrayList(localColumns);
+			this.foreignColumns = ListUtils.newImmutableArrayList(foreignColumns);
+			return this;
+		}
+
+		public ForeignKey build() {
+			finish();
+			return new ForeignKey(this);
+		}
 	}
 
-	public void setOnUpdate(ForeignKeyConstraintType onUpdate) {
-		this.onUpdate = onUpdate;
+	private ForeignKey() {
+		this(new Builder(NullUtils.NONE, NullUtils.NONE, NullUtils.NONE).defaults().finish());
 	}
+
+	private ForeignKey(Builder builder) {
+		this.name = builder.name;
+		this.localTable = builder.localTable;
+		this.foreignTable = builder.foreignTable;
+		this.onDelete = builder.onDelete;
+		this.onUpdate = builder.onUpdate;
+		this.localColumns = builder.localColumns;
+		this.foreignColumns = builder.foreignColumns;
+	}
+
 }

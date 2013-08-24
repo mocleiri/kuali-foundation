@@ -20,42 +20,30 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class Index extends Constraint {
+import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
 
-	public static final Boolean DEFAULT_UNIQUE_VALUE = false;
+@XmlAccessorType(XmlAccessType.FIELD)
+public final class Index extends Constraint {
 
-	Boolean unique = DEFAULT_UNIQUE_VALUE;
-
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of this object
-	 */
-	public Index(Index index) {
-		super(index);
-		this.unique = index.isUnique();
-	}
-
-	public Index() {
-		super();
-	}
-
-	public Index(List<String> colNames, String name) {
-		super(colNames, name);
-	}
-
-	public Index(List<String> colNames, String name, Boolean unique) {
-		this(colNames, name);
-		this.unique = unique;
-	}
+	public static final boolean DEFAULT_UNIQUE_VALUE = false;
 
 	@XmlAttribute
-	public Boolean isUnique() {
-		return unique;
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
+	private final boolean unique;
+
+	public Index(String name, List<String> columnNames) {
+		this(name, columnNames, DEFAULT_UNIQUE_VALUE);
 	}
 
-	public void setUnique(Boolean unique) {
+	public Index(String name, List<String> columnNames, boolean unique) {
+		super(name, columnNames);
 		this.unique = unique;
+	}
+
+	public boolean isUnique() {
+		return unique;
 	}
 
 }

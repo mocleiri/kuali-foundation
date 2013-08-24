@@ -15,58 +15,45 @@
 
 package org.kuali.common.impex.pojo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
+import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
 
 /**
  * This class represents any named connection between columns
  */
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Constraint implements NamedElement {
 
-	String name;
-	List<String> columnNames = new ArrayList<String>();
+	@XmlAttribute
+	private final String name;
 
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of this object
-	 */
-	public Constraint(Constraint constraint) {
-		this.name = constraint.getName();
-		this.columnNames = new ArrayList<String>(CollectionUtils.toEmptyList(constraint.getColumnNames()));
-	}
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<String> columnNames;
 
-	public Constraint() {
-		super();
-	}
-
-	public Constraint(List<String> columnNames, String name) {
-		this.columnNames = columnNames;
+	public Constraint(String name, List<String> columnNames) {
+		Assert.noBlanks(name);
+		Assert.noNulls(columnNames);
+		this.columnNames = ListUtils.newImmutableArrayList(columnNames);
 		this.name = name;
 	}
 
-	@XmlElement(name = "column")
 	public List<String> getColumnNames() {
 		return columnNames;
 	}
 
 	@Override
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setColumnNames(List<String> columnNames) {
-		this.columnNames = columnNames;
-	}
 }
