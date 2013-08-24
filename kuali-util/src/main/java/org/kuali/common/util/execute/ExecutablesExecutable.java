@@ -27,8 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Execute the list of <code>executables</code> supplied to this bean
  * 
- * @deprecated
- * 
+ * @deprecated Use the ExecutablesExecutable from the .impl package instead
  */
 @Deprecated
 public class ExecutablesExecutable implements Executable {
