@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ListUtils;
-import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.springframework.util.CollectionUtils;
 
 /**

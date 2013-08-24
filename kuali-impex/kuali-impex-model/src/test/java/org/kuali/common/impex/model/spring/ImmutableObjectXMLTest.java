@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.impex.model.ImmutableSchema;
 import org.kuali.common.impex.model.ImmutableTable;
-import org.kuali.common.util.xml.XmlService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

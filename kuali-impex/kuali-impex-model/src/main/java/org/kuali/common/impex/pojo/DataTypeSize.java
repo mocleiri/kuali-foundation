@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.xml.jaxb.OmitOptionalIntegerAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalIntegerAdapter;
 import org.springframework.util.Assert;
 
 import com.google.common.base.Optional;

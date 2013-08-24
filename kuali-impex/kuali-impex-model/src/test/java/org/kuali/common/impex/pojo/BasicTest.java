@@ -1,6 +1,6 @@
 package org.kuali.common.impex.pojo;
 
-import org.kuali.common.util.xml.JAXBXmlService;
+import org.kuali.common.util.xml.jaxb.JAXBXmlService;
 
 public class BasicTest {
 

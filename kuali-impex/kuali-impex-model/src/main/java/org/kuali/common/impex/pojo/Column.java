@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
-import org.kuali.common.util.xml.jaxb.OmitOptionalStringAdapter;
-import org.kuali.common.util.xml.jaxb.OmitTrueAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalStringAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitTrueAdapter;
 
 import com.google.common.base.Optional;
 

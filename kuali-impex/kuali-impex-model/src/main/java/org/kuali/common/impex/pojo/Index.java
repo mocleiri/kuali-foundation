@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Index extends Constraint {

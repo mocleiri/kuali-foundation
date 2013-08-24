@@ -29,7 +29,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
