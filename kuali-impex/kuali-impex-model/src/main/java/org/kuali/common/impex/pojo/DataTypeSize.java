@@ -20,26 +20,20 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
-import org.kuali.common.util.xml.jaxb.OmitNegativeOneAdapter;
+import org.kuali.common.util.xml.jaxb.OmitOptionalIntegerAdapter;
 import org.springframework.util.Assert;
+
+import com.google.common.base.Optional;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class DataTypeSize {
-
-	public static final boolean DEFAULT_SCALED = false;
-	public static final int NO_SCALE = -1;
 
 	@XmlAttribute
 	private final Integer value;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final Boolean scaled;
-
-	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitNegativeOneAdapter.class)
-	private final Integer scale;
+	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
+	private final Optional<Integer> scale;
 
 	@SuppressWarnings("unused")
 	private DataTypeSize() {
@@ -47,30 +41,24 @@ public final class DataTypeSize {
 	}
 
 	public DataTypeSize(int size) {
-		this(size, DEFAULT_SCALED, NO_SCALE);
+		this(size, Optional.<Integer> absent());
 	}
 
-	public DataTypeSize(int size, boolean scaled, int scale) {
+	public DataTypeSize(int size, Optional<Integer> scale) {
 		Assert.isTrue(size >= 0, "size is negative");
-		if (scaled) {
-			Assert.isTrue(scale >= 0, "scale is negative");
-		} else {
-			Assert.isTrue(scale == NO_SCALE, "scale must be set to -1 if scaled is false");
+		Assert.notNull(scale);
+		if (scale.isPresent()) {
+			Assert.isTrue(scale.get() >= 0, "scale is negative");
 		}
 		this.value = size;
 		this.scale = scale;
-		this.scaled = scaled;
-	}
-
-	public boolean isScaled() {
-		return scaled;
 	}
 
 	public int getValue() {
 		return value;
 	}
 
-	public int getScale() {
+	public Optional<Integer> getScale() {
 		return scale;
 	}
 
