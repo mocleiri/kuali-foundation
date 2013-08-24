@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,6 +17,11 @@ public class View implements NamedElement {
 
 	@XmlAttribute
 	private final String query;
+
+	@SuppressWarnings("unused")
+	private View() {
+		this(NullUtils.NONE, NullUtils.NONE);
+	}
 
 	public View(String name, String query) {
 		Assert.noBlanks(name, query);
