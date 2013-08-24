@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  * 
  * <p>
  * The default technique being used at Kuali is to leverage a SAX parser that is not namespace aware. This is described in more detail on Blaise Doughan's blog -
- * https://plus.google.com/110628352733714681176/posts
+ * http://blog.bdoughan.com/2011/05/jaxb-and-dtd.html
  * </p>
  */
 @Configuration
