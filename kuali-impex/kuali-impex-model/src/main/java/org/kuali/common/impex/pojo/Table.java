@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
@@ -45,10 +46,18 @@ public final class Table implements NamedElement {
 
 	@SuppressWarnings("unused")
 	private Table() {
-		this(NullUtils.NONE, Optional.<String> absent(), Collections.<Column> emptyList(), Collections.<UniqueConstraint> emptyList(), Collections.<Index> emptyList());
+		this(NullUtils.NONE, Collections.<Column> emptyList());
 	}
 
-	public Table(String name, Optional<String> description, List<Column> columns, List<UniqueConstraint> uniqueConstraints, List<Index> indexes) {
+	public Table(String name, Column column) {
+		this(name, CollectionUtils.singletonList(column));
+	}
+
+	public Table(String name, List<Column> columns) {
+		this(name, columns, Collections.<UniqueConstraint> emptyList(), Collections.<Index> emptyList(), Optional.<String> absent());
+	}
+
+	public Table(String name, List<Column> columns, List<UniqueConstraint> uniqueConstraints, List<Index> indexes, Optional<String> description) {
 		Assert.noBlanks(name);
 		Assert.noNulls(description, columns, uniqueConstraints, indexes);
 		this.name = name;
