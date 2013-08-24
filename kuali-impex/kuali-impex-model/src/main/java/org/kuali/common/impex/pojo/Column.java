@@ -100,7 +100,7 @@ public final class Column implements NamedElement {
 		}
 
 		public Builder defaultValue(String defaultValue) {
-			this.defaultValue = Optional.<String> of(defaultValue);
+			this.defaultValue = Optional.<String> fromNullable(defaultValue);
 			return this;
 		}
 
