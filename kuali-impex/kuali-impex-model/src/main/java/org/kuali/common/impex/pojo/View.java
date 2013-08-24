@@ -5,45 +5,31 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.Assert;
+
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class View implements NamedElement {
 
-	String name;
-	String queryString;
+	@XmlAttribute
+	private final String name;
 
-	/**
-	 * This is a copy constructor. It must create a perfect, deep, copy of this object
-	 */
-	public View(View view) {
-		this.name = view.getName();
-		this.queryString = view.getQueryString();
-	}
+	@XmlAttribute
+	private final String query;
 
-	public View() {
-		this(null, null);
-	}
-
-	public View(String name, String queryString) {
+	public View(String name, String query) {
+		Assert.noBlanks(name, query);
 		this.name = name;
-		this.queryString = queryString;
+		this.query = query;
 	}
 
 	@Override
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getQuery() {
+		return query;
 	}
 
-	public String getQueryString() {
-		return queryString;
-	}
-
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
-	}
 }
