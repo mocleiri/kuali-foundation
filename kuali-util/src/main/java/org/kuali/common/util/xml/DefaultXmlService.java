@@ -40,6 +40,16 @@ import org.kuali.common.util.xml.jaxb.XmlBind;
 
 public class DefaultXmlService implements XmlService {
 
+	private final boolean formatOutput;
+
+	public DefaultXmlService() {
+		this(true);
+	}
+
+	public DefaultXmlService(boolean formatOutput) {
+		this.formatOutput = formatOutput;
+	}
+
 	@Override
 	public void write(File file, Object object) {
 		Assert.noNulls(file, object);
@@ -81,7 +91,7 @@ public class DefaultXmlService implements XmlService {
 			Class<?>[] classes = getClassesToBeBound(object.getClass());
 			JAXBContext context = JAXBContext.newInstance(classes);
 			Marshaller marshaller = context.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatOutput);
 			marshaller.marshal(object, out);
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
@@ -152,21 +162,6 @@ public class DefaultXmlService implements XmlService {
 		}
 	}
 
-	public String toXml(Object object, String encoding, Class<?>... types) {
-		Assert.noNulls(object, types);
-		Assert.noBlanks(encoding);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
-			JAXBContext context = JAXBContext.newInstance(combine(object.getClass(), types));
-			Marshaller marshaller = context.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			marshaller.marshal(object, out);
-			return out.toString(encoding);
-		} catch (Exception e) {
-			throw new IllegalArgumentException(e);
-		}
-	}
-
 	protected Class<?>[] combine(Class<?> clazz, Class<?>[] classes) {
 		List<Class<?>> list = new ArrayList<Class<?>>();
 		list.add(clazz);
@@ -175,11 +170,15 @@ public class DefaultXmlService implements XmlService {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Use toXml(object,encoding) instead
 	 */
 	@Override
 	@Deprecated
 	public String toString(Object object, String encoding) {
 		return toXml(object, encoding);
+	}
+
+	public boolean isFormatOutput() {
+		return formatOutput;
 	}
 }
