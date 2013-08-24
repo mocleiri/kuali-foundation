@@ -47,7 +47,6 @@ import org.xml.sax.XMLReader;
 public class DefaultXmlService implements XmlService {
 
 	public static final boolean DEFAULT_FORMAT_OUTPUT = true;
-
 	public static final boolean DEFAULT_USE_NAMESPACE_AWARE_PARSER = true;
 
 	private final boolean formatOutput;
