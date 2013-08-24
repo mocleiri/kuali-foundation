@@ -26,7 +26,8 @@ import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.nullify.NullUtils;
+
+import com.google.common.base.Optional;
 
 public final class JdbcContext {
 
@@ -45,7 +46,7 @@ public final class JdbcContext {
 	private final boolean multithreaded;
 	private final SqlListener listener;
 	private final CommitMode commitMode;
-	private final String message;
+	private final Optional<String> message;
 	private final boolean trackProgressByUpdateCount;
 
 	public boolean isSkipSqlExecution() {
@@ -76,7 +77,7 @@ public final class JdbcContext {
 		return suppliers;
 	}
 
-	public String getMessage() {
+	public Optional<String> getMessage() {
 		return message;
 	}
 
@@ -96,12 +97,11 @@ public final class JdbcContext {
 		private boolean multithreaded = false;
 		private SqlListener listener = new LogSqlListener();
 		private CommitMode commitMode = CommitMode.PER_SUPPLIER;
-		private String message = NullUtils.NONE;
+		private Optional<String> message = Optional.absent();
 		private boolean trackProgressByUpdateCount = false;
 
 		public JdbcContext build() {
-			Assert.noNulls(dataSource, suppliers, listener, commitMode);
-			Assert.noBlanks(message);
+			Assert.noNulls(dataSource, suppliers, listener, commitMode, message);
 			if (multithreaded) {
 				Assert.isTrue(threads > 0, "threads must be a positive integer");
 			}
@@ -143,7 +143,7 @@ public final class JdbcContext {
 		}
 
 		public Builder message(String message) {
-			this.message = message;
+			this.message = Optional.fromNullable(message);
 			return this;
 		}
 
