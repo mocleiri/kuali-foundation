@@ -31,12 +31,12 @@ public final class Index extends Constraint {
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final boolean unique;
 
-	public Index(String name, List<String> columnNames) {
-		this(name, columnNames, false);
+	public Index(String name, List<String> columns) {
+		this(name, columns, false);
 	}
 
-	public Index(String name, List<String> columnNames, boolean unique) {
-		super(name, columnNames);
+	public Index(String name, List<String> columns, boolean unique) {
+		super(name, columns);
 		this.unique = unique;
 	}
 
