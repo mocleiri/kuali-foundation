@@ -9,7 +9,7 @@ public class BasicTest {
 			String version = System.getProperty("java.runtime.version");
 			System.out.println(version);
 			String encoding = "UTF-8";
-			JAXBXmlService service = new JAXBXmlService();
+			JAXBXmlService service = new JAXBXmlService.Builder().build();
 			Club club = new Club("Delta Tau", 15.0);
 			Sport soccer = new Sport("Soccer", 125);
 			Student student1 = new Student.Builder("joe").club(club).sport(soccer).ethnicity("caucasian").build();
