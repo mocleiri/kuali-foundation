@@ -15,30 +15,32 @@ import org.junit.Test;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JAXBIssue415Test {
 
-	public JAXBIssue415Test() {
-		this.string = "foo";
-	}
-
 	@XmlElement
 	@XmlJavaTypeAdapter(JAXBIssue415TestAdapter.class)
-	private String string;
+	private String value = "foo";
 
 	@Test
 	public void testIssue415() throws Exception {
-		Marshaller m = JAXBContext.newInstance(JAXBIssue415Test.class).createMarshaller();
-		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		m.marshal(new JAXBIssue415Test(), System.out);
+		String os = System.getProperty("os.name") + ", " + System.getProperty("os.version");
+		String jdk = System.getProperty("java.vm.name") + ", " + System.getProperty("java.runtime.version");
+		try {
+			Marshaller m = JAXBContext.newInstance(JAXBIssue415Test.class).createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			m.marshal(new JAXBIssue415Test(), System.out);
+		} catch (NullPointerException e) {
+			throw new IllegalStateException("JAXB issue 415 is still occurring on [" + os + "] [" + jdk + "]", e);
+		}
 	}
 
 	public static class JAXBIssue415TestAdapter extends XmlAdapter<String, String> {
 
 		@Override
-		public String unmarshal(String v) {
+		public String marshal(String value) {
 			return null;
 		}
 
 		@Override
-		public String marshal(String v) {
+		public String unmarshal(String value) {
 			return null;
 		}
 	}
