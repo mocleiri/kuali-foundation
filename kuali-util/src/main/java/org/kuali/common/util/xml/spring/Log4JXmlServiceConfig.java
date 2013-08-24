@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
  * </p>
  * 
  * <p>
- * The default technique being used at Kuali is to leverage a SAX parser that is not namespace aware. This is described in more detail on Blaise Doughan's blog -
- * http://blog.bdoughan.com/2011/05/jaxb-and-dtd.html
+ * The default technique being used at Kuali is to leverage a SAX parser that is not namespace aware (and thus treats the colon character just like any other character). This is
+ * described in more detail on Blaise Doughan's blog - http://blog.bdoughan.com/2011/05/jaxb-and-dtd.html
  * </p>
  */
 @Configuration
