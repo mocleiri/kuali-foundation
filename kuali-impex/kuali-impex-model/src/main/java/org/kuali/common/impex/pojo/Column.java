@@ -5,16 +5,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
-import org.kuali.common.util.xml.jaxb.OmitNoneStringAdapter;
+import org.kuali.common.util.xml.jaxb.OmitOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.OmitTrueAdapter;
+
+import com.google.common.base.Optional;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Column implements NamedElement {
-
-	public static final Boolean DEFAULT_NULLABLE_VALUE = true;
-	public static final Boolean DEFAULT_PRIMARY_KEY_VALUE = false;
 
 	@XmlAttribute
 	private final String name;
@@ -26,11 +26,12 @@ public class Column implements NamedElement {
 	private final DataTypeSize size;
 
 	@XmlAttribute
-	private final String defaultValue;
+	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
+	private final Optional<String> defaultValue;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitNoneStringAdapter.class)
-	private final String description;
+	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
+	private final Optional<String> description;
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
@@ -53,11 +54,11 @@ public class Column implements NamedElement {
 		return size;
 	}
 
-	public String getDefaultValue() {
+	public Optional<String> getDefaultValue() {
 		return defaultValue;
 	}
 
-	public String getDescription() {
+	public Optional<String> getDescription() {
 		return description;
 	}
 
@@ -71,14 +72,26 @@ public class Column implements NamedElement {
 
 	public static class Builder {
 
+		// Required
 		private final String name;
 		private final DataType type;
 		private final DataTypeSize size;
 
-		private String defaultValue;
-		private String description = NullUtils.NONE;
+		// Optional
+		private Optional<String> defaultValue = Optional.<String> absent();
+		private Optional<String> description = Optional.<String> absent();
 		private boolean primaryKey = false;
 		private boolean nullable = true;
+
+		private Builder finish() {
+			Assert.noBlanks(name);
+			Assert.noNulls(type, size, defaultValue, description);
+			return this;
+		}
+
+		public Column build() {
+			return new Column(this);
+		}
 
 		public Builder(String name, DataType type, DataTypeSize size) {
 			this.name = name;
@@ -86,9 +99,30 @@ public class Column implements NamedElement {
 			this.size = size;
 		}
 
-		public Column build() {
-			return new Column(this);
+		public Builder defaultValue(String defaultValue) {
+			this.defaultValue = Optional.<String> of(defaultValue);
+			return this;
 		}
+
+		public Builder description(String description) {
+			this.description = Optional.<String> of(description);
+			return this;
+		}
+
+		public Builder primaryKey(boolean primaryKey) {
+			this.primaryKey = primaryKey;
+			return this;
+		}
+
+		public Builder nullable(boolean nullable) {
+			this.nullable = nullable;
+			return this;
+		}
+
+	}
+
+	private Column() {
+		this(new Builder(NullUtils.NONE, DataType.BIT, new DataTypeSize(0)).finish());
 	}
 
 	private Column(Builder builder) {
