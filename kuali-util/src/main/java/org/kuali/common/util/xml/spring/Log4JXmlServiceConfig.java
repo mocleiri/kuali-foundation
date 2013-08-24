@@ -28,6 +28,6 @@ public class Log4JXmlServiceConfig {
 
 	@Bean
 	public XmlService xmlService() {
-		return new JAXBXmlService(false);
+		return new JAXBXmlService.Builder().useNamespaceAwareParser(false).build();
 	}
 }

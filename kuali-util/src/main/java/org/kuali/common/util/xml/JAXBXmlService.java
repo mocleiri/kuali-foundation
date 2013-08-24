@@ -23,8 +23,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -40,7 +42,6 @@ import org.apache.commons.io.IOUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -48,31 +49,9 @@ import org.xml.sax.XMLReader;
 
 public class JAXBXmlService implements XmlService {
 
-	public static final boolean DEFAULT_FORMAT_OUTPUT = true;
-	public static final boolean DEFAULT_USE_NAMESPACE_AWARE_PARSER = true;
-
 	private final boolean formatOutput;
 	private final boolean useNamespaceAwareParser;
-	private final Properties properties;
-
-	public JAXBXmlService() {
-		this(DEFAULT_FORMAT_OUTPUT);
-	}
-
-	public JAXBXmlService(Properties properties) {
-		this(DEFAULT_FORMAT_OUTPUT, DEFAULT_USE_NAMESPACE_AWARE_PARSER, properties);
-	}
-
-	public JAXBXmlService(boolean useNamespaceAwareParser) {
-		this(DEFAULT_FORMAT_OUTPUT, DEFAULT_USE_NAMESPACE_AWARE_PARSER, PropertyUtils.EMPTY);
-	}
-
-	public JAXBXmlService(boolean formatOutput, boolean useNamespaceAwareParser, Properties properties) {
-		Assert.noNulls(properties);
-		this.formatOutput = formatOutput;
-		this.useNamespaceAwareParser = useNamespaceAwareParser;
-		this.properties = PropertyUtils.toImmutable(properties);
-	}
+	private final Map<String, ?> properties;
 
 	@Override
 	public void write(File file, Object object) {
@@ -197,7 +176,11 @@ public class JAXBXmlService implements XmlService {
 
 	protected JAXBContext getJAXBContext(Class<?> clazz) throws JAXBException {
 		Class<?>[] classes = getClassesToBeBound(clazz);
-		return JAXBContext.newInstance(classes);
+		if (properties.size() > 0) {
+			return JAXBContext.newInstance(classes);
+		} else {
+			return JAXBContext.newInstance(classes, properties);
+		}
 	}
 
 	protected Class<?>[] getClassesToBeBound(Class<?> clazz) {
@@ -228,7 +211,48 @@ public class JAXBXmlService implements XmlService {
 		return useNamespaceAwareParser;
 	}
 
-	public Properties getProperties() {
+	public static class Builder {
+
+		private static final Map<String, ?> EMPTY_MAP = Collections.unmodifiableMap(new HashMap<String, Object>());
+		public static final boolean FORMAT_OUTPUT = true;
+		public static final boolean USE_NAMESPACE_AWARE_PARSER = true;
+
+		// Optional fields with default values
+		private boolean formatOutput = FORMAT_OUTPUT;
+		private boolean useNamespaceAwareParser = USE_NAMESPACE_AWARE_PARSER;
+		private Map<String, ?> properties = EMPTY_MAP;
+
+		public Builder formatOutput(boolean formatOutput) {
+			this.formatOutput = formatOutput;
+			return this;
+		}
+
+		public Builder useNamespaceAwareParser(boolean useNamespaceAwareParser) {
+			this.useNamespaceAwareParser = useNamespaceAwareParser;
+			return this;
+		}
+
+		public Builder properties(Map<String, ?> properties) {
+			this.properties = properties;
+			return this;
+		}
+
+		public JAXBXmlService build() {
+			Assert.noNulls(properties);
+			this.properties = (properties == EMPTY_MAP) ? properties : Collections.unmodifiableMap(new HashMap<String, Object>(properties));
+			return new JAXBXmlService(this);
+		}
+
+	}
+
+	private JAXBXmlService(Builder builder) {
+		this.formatOutput = builder.formatOutput;
+		this.useNamespaceAwareParser = builder.useNamespaceAwareParser;
+		this.properties = builder.properties;
+	}
+
+	public Map<String, ?> getProperties() {
 		return properties;
 	}
+
 }

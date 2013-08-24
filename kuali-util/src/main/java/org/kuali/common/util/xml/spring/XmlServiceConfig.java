@@ -21,8 +21,8 @@ public class XmlServiceConfig {
 
 	@Bean
 	public XmlService xmlService() {
-		boolean formatOutput = env.getBoolean(FORMAT_OUTPUT_KEY, JAXBXmlService.DEFAULT_FORMAT_OUTPUT);
-		boolean useNamespaceAwareParser = env.getBoolean(USE_NAMESPACE_AWARE_PARSER_KEY, JAXBXmlService.DEFAULT_USE_NAMESPACE_AWARE_PARSER);
-		return new JAXBXmlService(formatOutput, useNamespaceAwareParser);
+		boolean formatOutput = env.getBoolean(FORMAT_OUTPUT_KEY, JAXBXmlService.Builder.FORMAT_OUTPUT);
+		boolean useNamespaceAwareParser = env.getBoolean(USE_NAMESPACE_AWARE_PARSER_KEY, JAXBXmlService.Builder.USE_NAMESPACE_AWARE_PARSER);
+		return new JAXBXmlService.Builder().formatOutput(formatOutput).useNamespaceAwareParser(useNamespaceAwareParser).build();
 	}
 }
