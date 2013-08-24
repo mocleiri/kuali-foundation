@@ -33,7 +33,8 @@ public class Sequence implements NamedElement {
 	@XmlAttribute
 	private final String startValue;
 
-	public Sequence() {
+	@SuppressWarnings("unused")
+	private Sequence() {
 		this(NullUtils.NONE, NullUtils.NONE);
 	}
 
