@@ -13,6 +13,8 @@ import org.junit.Test;
 
 /**
  * Unit test for https://java.net/jira/browse/JAXB-415
+ * 
+ * Marshaller.marshall throws NPE if an adapter adapts a non-null bound value to null
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
