@@ -33,8 +33,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 
@@ -55,11 +55,22 @@ public class DefaultXmlService implements XmlService {
 	}
 
 	protected Class<?>[] getClassesToBeBound(Class<?> clazz) {
+		List<Class<?>> classes = getClassesList(clazz);
+		return classes.toArray(new Class<?>[classes.size()]);
+	}
+
+	protected List<Class<?>> getClassesList(Class<?> clazz) {
 		XmlBind bindings = clazz.getAnnotation(XmlBind.class);
+		List<Class<?>> classes = new ArrayList<Class<?>>(CollectionUtils.singletonList(clazz));
 		if (bindings == null) {
-			return new Class<?>[] { clazz };
+			// base case
+			return classes;
 		} else {
-			return ArrayUtils.add(bindings.classes(), clazz);
+			// recurse
+			for (Class<?> binding : bindings.classes()) {
+				classes.addAll(getClassesList(binding));
+			}
+			return classes;
 		}
 	}
 

@@ -12,6 +12,13 @@ public class ListUtils {
 		return newArrayList(new ArrayList<T>());
 	}
 
+	public static <T> List<T> newArrayList(T element) {
+		Assert.noNulls(element);
+		List<T> list = newArrayList();
+		list.add(element);
+		return list;
+	}
+
 	public static <T> List<T> newArrayList(List<T> list) {
 		return newArrayList(list, false);
 	}
