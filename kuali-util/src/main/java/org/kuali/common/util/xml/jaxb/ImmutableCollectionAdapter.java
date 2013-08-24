@@ -2,13 +2,12 @@ package org.kuali.common.util.xml.jaxb;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class ImmutableCollectionAdapter<T> extends XmlAdapter<CollectionWrapper<T>, Collection<T>> {
 
-	private final List<T> EMPTY_COLLECTION = Collections.<T> emptyList();
+	private final Collection<T> EMPTY_COLLECTION = Collections.emptyList();
 	private final CollectionWrapper<T> EMPTY_WRAPPER = new CollectionWrapper<T>(EMPTY_COLLECTION);
 
 	@Override

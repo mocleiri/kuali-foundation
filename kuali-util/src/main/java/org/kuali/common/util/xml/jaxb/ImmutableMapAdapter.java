@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class ImmutableMapAdapter<K, V> extends XmlAdapter<MapWrapper<K, V>, Map<K, V>> {
 
-	private final Map<K, V> EMPTY_MAP = Collections.<K, V> emptyMap();
+	private final Map<K, V> EMPTY_MAP = Collections.emptyMap();
 	private final MapWrapper<K, V> EMPTY_WRAPPER = new MapWrapper<K, V>(EMPTY_MAP);
 
 	@Override

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>> {
 
-	private final List<T> EMPTY_LIST = Collections.<T> emptyList();
+	private final List<T> EMPTY_LIST = Collections.emptyList();
 	private final ListWrapper<T> EMPTY_WRAPPER = new ListWrapper<T>(EMPTY_LIST);
 
 	@Override
