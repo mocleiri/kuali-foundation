@@ -36,7 +36,7 @@ import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.jdbc.suppliers.spring.SuppliersFactoryConfig;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.ExecutablesExecutable;
+import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
