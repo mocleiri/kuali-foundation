@@ -23,11 +23,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -49,9 +51,11 @@ public class ForeignKey implements NamedElement {
 	private final ForeignKeyConstraintType onUpdate;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> localColumns;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> foreignColumns;
 
 	public String getForeignTable() {
