@@ -295,7 +295,7 @@ public class JAXBXmlService implements XmlService {
 		 * 
 		 * <p>
 		 * If issue https://java.net/jira/browse/JAXB-415 gets resolved, this class and the corresponding jaxb.properties file can be removed, and the useEclipseLinkMoxyProvider
-		 * flag in JAXBXmlService can be defaulted to false.
+		 * flag can be defaulted to false.
 		 * </p>
 		 */
 	}
