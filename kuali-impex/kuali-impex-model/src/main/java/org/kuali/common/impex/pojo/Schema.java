@@ -15,70 +15,119 @@
 
 package org.kuali.common.impex.pojo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
+import org.kuali.common.util.nullify.NullUtils;
+
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Schema {
 
-	String name;
-	List<Table> tables = new ArrayList<Table>();
-	List<Sequence> sequences = new ArrayList<Sequence>();
-	List<View> views = new ArrayList<View>();
-	List<ForeignKey> foreignKeys = new ArrayList<ForeignKey>();
-
-	public Schema() {
-		super();
-	}
+	@XmlAttribute
+	private final String name;
 
 	@XmlElement
+	private final List<Table> tables;
+
+	@XmlElement
+	private final List<Sequence> sequences;
+
+	@XmlElement
+	private final List<View> views;
+
+	@XmlElement
+	private final List<ForeignKey> foreignKeys;
+
 	public String getName() {
 		return name;
 	}
 
-	@XmlElement(name = "table")
 	public List<Table> getTables() {
 		return tables;
 	}
 
-	@XmlElement(name = "foreignKey")
-	public List<ForeignKey> getForeignKeys() {
-		return foreignKeys;
-	}
-
-	@XmlElement(name = "sequence")
 	public List<Sequence> getSequences() {
 		return sequences;
 	}
 
-	@XmlElement(name = "view")
 	public List<View> getViews() {
 		return views;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public List<ForeignKey> getForeignKeys() {
+		return foreignKeys;
 	}
 
-	public void setForeignKeys(List<ForeignKey> foreignKeys) {
-		this.foreignKeys = foreignKeys;
+	public static class Builder {
+
+		// Required
+		private final String name;
+
+		// Optional
+		private List<Table> tables;
+		private List<Sequence> sequences;
+		private List<View> views;
+		private List<ForeignKey> foreignKeys;
+
+		public Builder(String name) {
+			this.name = name;
+		}
+
+		public Builder tables(List<Table> tables) {
+			this.tables = tables;
+			return this;
+		}
+
+		public Builder sequences(List<Sequence> sequences) {
+			this.sequences = sequences;
+			return this;
+		}
+
+		public Builder views(List<View> views) {
+			this.views = views;
+			return this;
+		}
+
+		public Builder foreignKeys(List<ForeignKey> foreignKeys) {
+			this.foreignKeys = foreignKeys;
+			return this;
+		}
+
+		private Builder finish() {
+			Assert.noBlanks(name);
+			Assert.noNulls(tables, sequences, views, foreignKeys);
+			this.tables = ListUtils.newImmutableArrayList(tables);
+			this.sequences = ListUtils.newImmutableArrayList(sequences);
+			this.views = ListUtils.newImmutableArrayList(views);
+			this.foreignKeys = ListUtils.newImmutableArrayList(foreignKeys);
+			return this;
+		}
+
+		public Schema build() {
+			finish();
+			return new Schema(this);
+		}
+
 	}
 
-	public void setSequences(List<Sequence> sequences) {
-		this.sequences = sequences;
+	private Schema() {
+		this(new Builder(NullUtils.NONE).finish());
 	}
 
-	public void setTables(List<Table> tables) {
-		this.tables = tables;
+	private Schema(Builder builder) {
+		this.name = builder.name;
+		this.tables = builder.tables;
+		this.sequences = builder.sequences;
+		this.views = builder.views;
+		this.foreignKeys = builder.foreignKeys;
 	}
 
-	public void setViews(List<View> views) {
-		this.views = views;
-	}
 }
