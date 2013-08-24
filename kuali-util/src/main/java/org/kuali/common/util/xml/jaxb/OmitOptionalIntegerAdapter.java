@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.google.common.base.Optional;
 
-public class OmitOptionalAdapter<T> extends XmlAdapter<T, Optional<T>> {
+public class OmitOptionalIntegerAdapter extends XmlAdapter<Integer, Optional<Integer>> {
 
 	@Override
-	public T marshal(Optional<T> optional) {
+	public Integer marshal(Optional<Integer> optional) {
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -16,11 +16,11 @@ public class OmitOptionalAdapter<T> extends XmlAdapter<T, Optional<T>> {
 	}
 
 	@Override
-	public Optional<T> unmarshal(T value) {
+	public Optional<Integer> unmarshal(Integer value) {
 		if (value == null) {
-			return Optional.<T> absent();
+			return Optional.<Integer> absent();
 		} else {
-			return Optional.<T> of(value);
+			return Optional.<Integer> of(value);
 		}
 	}
 
