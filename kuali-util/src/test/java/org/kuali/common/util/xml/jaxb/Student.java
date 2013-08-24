@@ -10,10 +10,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
 @XmlBind(classes = { Club.class, Sport.class })
@@ -31,8 +31,20 @@ public final class Student {
 	private final List<Sport> sports;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(OmitOptionalAdapter.class)
+	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
 	private final Optional<String> ethnicity;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
+	private final Optional<Integer> iq;
+
+	public Optional<Integer> getIq() {
+		return iq;
+	}
+
+	public Optional<String> getEthnicity() {
+		return ethnicity;
+	}
 
 	public String getName() {
 		return name;
@@ -55,6 +67,7 @@ public final class Student {
 		private List<Club> clubs = Collections.<Club> emptyList();
 		private List<Sport> sports = Collections.<Sport> emptyList();
 		private Optional<String> ethnicity = Optional.<String> absent();
+		private Optional<Integer> iq = Optional.<Integer> absent();
 
 		public Builder(String name) {
 			this.name = name;
@@ -88,9 +101,9 @@ public final class Student {
 
 		private Builder finish() {
 			Assert.noBlanks(name);
-			Assert.noNulls(clubs, sports, ethnicity);
-			this.clubs = ImmutableList.<Club> copyOf(clubs);
-			this.sports = ImmutableList.<Sport> copyOf(sports);
+			Assert.noNulls(clubs, sports, ethnicity, iq);
+			this.clubs = ListUtils.newImmutableArrayList(clubs);
+			this.sports = ListUtils.newImmutableArrayList(sports);
 			return this;
 		}
 
@@ -107,8 +120,9 @@ public final class Student {
 	private Student(Builder builder) {
 		this.name = builder.name;
 		this.clubs = builder.clubs;
-		this.sports = builder.sports;
 		this.ethnicity = builder.ethnicity;
+		this.sports = builder.sports;
+		this.iq = builder.iq;
 	}
 
 }
