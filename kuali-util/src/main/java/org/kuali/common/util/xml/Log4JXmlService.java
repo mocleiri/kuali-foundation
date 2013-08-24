@@ -36,7 +36,8 @@ public class Log4JXmlService extends DefaultXmlService {
 	@SuppressWarnings("unchecked")
 	public <T> T getObject(InputStream in, Class<T> type) {
 		try {
-			JAXBContext jc = JAXBContext.newInstance(type);
+			Class<?>[] classes = getClassesToBeBound(type);
+			JAXBContext jc = JAXBContext.newInstance(classes);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();
 

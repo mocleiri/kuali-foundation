@@ -23,13 +23,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.UnmarshallerHandler;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -37,17 +40,30 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 public class DefaultXmlService implements XmlService {
 
+	public static final boolean DEFAULT_FORMAT_OUTPUT = true;
+
+	public static final boolean DEFAULT_USE_NAMESPACE_AWARE_PARSER = true;
+
 	private final boolean formatOutput;
+	private final boolean useNamespaceAwareParser;
 
 	public DefaultXmlService() {
-		this(true);
+		this(DEFAULT_FORMAT_OUTPUT);
 	}
 
-	public DefaultXmlService(boolean formatOutput) {
+	public DefaultXmlService(boolean useNamespaceAwareParser) {
+		this(DEFAULT_FORMAT_OUTPUT, useNamespaceAwareParser);
+	}
+
+	public DefaultXmlService(boolean formatOutput, boolean useNamespaceAwareParser) {
 		this.formatOutput = formatOutput;
+		this.useNamespaceAwareParser = useNamespaceAwareParser;
 	}
 
 	@Override
@@ -64,32 +80,11 @@ public class DefaultXmlService implements XmlService {
 		}
 	}
 
-	protected Class<?>[] getClassesToBeBound(Class<?> clazz) {
-		List<Class<?>> classes = getClassesList(clazz);
-		return classes.toArray(new Class<?>[classes.size()]);
-	}
-
-	protected List<Class<?>> getClassesList(Class<?> clazz) {
-		XmlBind bindings = clazz.getAnnotation(XmlBind.class);
-		List<Class<?>> classes = new ArrayList<Class<?>>(CollectionUtils.singletonList(clazz));
-		if (bindings == null) {
-			// base case
-			return classes;
-		} else {
-			// recurse
-			for (Class<?> binding : bindings.classes()) {
-				classes.addAll(getClassesList(binding));
-			}
-			return classes;
-		}
-	}
-
 	@Override
 	public void write(OutputStream out, Object object) {
 		Assert.noNulls(out, object);
 		try {
-			Class<?>[] classes = getClassesToBeBound(object.getClass());
-			JAXBContext context = JAXBContext.newInstance(classes);
+			JAXBContext context = getJAXBContext(object.getClass());
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatOutput);
 			marshaller.marshal(object, out);
@@ -118,12 +113,27 @@ public class DefaultXmlService implements XmlService {
 	public <T> T getObject(InputStream in, Class<T> type) {
 		Assert.noNulls(in, type);
 		try {
-			Class<?>[] bindings = getClassesToBeBound(type);
-			JAXBContext context = JAXBContext.newInstance(bindings);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			return (T) unmarshaller.unmarshal(in);
+			Unmarshaller unmarshaller = getUnmarshaller(type);
+			if (useNamespaceAwareParser) {
+				return (T) unmarshaller.unmarshal(in);
+			} else {
+				UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				SAXParser sp = spf.newSAXParser();
+				XMLReader xr = sp.getXMLReader();
+				xr.setContentHandler(unmarshallerHandler);
+				InputSource xmlSource = new InputSource(in);
+				xr.parse(xmlSource);
+				return (T) unmarshallerHandler.getResult();
+			}
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Unexpected JAXB error", e);
+		} catch (SAXException e) {
+			throw new IllegalStateException("Unexpected SAX error", e);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} catch (ParserConfigurationException e) {
+			throw new IllegalStateException("Unexpected parser configuration error", e);
 		}
 	}
 
@@ -162,13 +172,6 @@ public class DefaultXmlService implements XmlService {
 		}
 	}
 
-	protected Class<?>[] combine(Class<?> clazz, Class<?>[] classes) {
-		List<Class<?>> list = new ArrayList<Class<?>>();
-		list.add(clazz);
-		list.addAll(Arrays.asList(classes));
-		return list.toArray(new Class[list.size()]);
-	}
-
 	/**
 	 * @deprecated Use toXml(object,encoding) instead
 	 */
@@ -178,7 +181,42 @@ public class DefaultXmlService implements XmlService {
 		return toXml(object, encoding);
 	}
 
+	protected Unmarshaller getUnmarshaller(Class<?> clazz) throws JAXBException {
+		Class<?>[] classes = getClassesToBeBound(clazz);
+		JAXBContext jc = JAXBContext.newInstance(classes);
+		return jc.createUnmarshaller();
+	}
+
+	protected JAXBContext getJAXBContext(Class<?> clazz) throws JAXBException {
+		Class<?>[] classes = getClassesToBeBound(clazz);
+		return JAXBContext.newInstance(classes);
+	}
+
+	protected Class<?>[] getClassesToBeBound(Class<?> clazz) {
+		List<Class<?>> classes = getClassesList(clazz);
+		return classes.toArray(new Class<?>[classes.size()]);
+	}
+
+	protected List<Class<?>> getClassesList(Class<?> clazz) {
+		XmlBind bindings = clazz.getAnnotation(XmlBind.class);
+		List<Class<?>> classes = new ArrayList<Class<?>>(CollectionUtils.singletonList(clazz));
+		if (bindings == null) {
+			// base case
+			return classes;
+		} else {
+			// recurse
+			for (Class<?> binding : bindings.classes()) {
+				classes.addAll(getClassesList(binding));
+			}
+			return classes;
+		}
+	}
+
 	public boolean isFormatOutput() {
 		return formatOutput;
+	}
+
+	public boolean isUseNamespaceAwareParser() {
+		return useNamespaceAwareParser;
 	}
 }
