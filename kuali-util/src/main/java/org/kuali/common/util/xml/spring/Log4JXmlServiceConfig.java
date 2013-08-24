@@ -7,17 +7,20 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>
- * The XML for log4j contains element and attribute names that have the colon character as part of the name.
+ * The XML for log4j contains both elements and attributes that have the colon character as part of the name. A colon is almost universally used to represent a namespace prefix,
+ * but in the XML for log4j, the colon is part of the node name. This config class must return an XML service that can correctly parse XML that uses the colon character in
+ * attribute and element names.
  * 
  * <pre>
- * &lt;log4j:configuration  xmlns:log4j="">
+ * &lt;log4j:configuration  xmlns:log4j="http://jakarta.apache.org/log4j/">
  * &lt;/log4j:configuration>
  * </pre>
  * 
  * </p>
  * 
  * <p>
- * A colon is almost universally used to represent a namespace prefix, but in the XML for log4j, the colon is part of the node name.
+ * The default technique being used at Kuali is to leverage a SAX parser that is not namespace aware. This is described in more detail on Blaise Doughan's blog -
+ * https://plus.google.com/110628352733714681176/posts
  * </p>
  */
 @Configuration
