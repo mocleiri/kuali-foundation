@@ -29,7 +29,7 @@ import com.google.common.base.Optional;
 public final class DataTypeSize {
 
 	@XmlAttribute
-	private final Integer value;
+	private final Integer value; // Integer instead of int so the JAXB adapters work
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
@@ -44,7 +44,11 @@ public final class DataTypeSize {
 		this(size, Optional.<Integer> absent());
 	}
 
-	public DataTypeSize(int size, Optional<Integer> scale) {
+	public DataTypeSize(int size, int scale) {
+		this(size, Optional.<Integer> of(scale));
+	}
+
+	private DataTypeSize(int size, Optional<Integer> scale) {
 		Assert.isTrue(size >= 0, "size is negative");
 		Assert.notNull(scale);
 		if (scale.isPresent()) {
