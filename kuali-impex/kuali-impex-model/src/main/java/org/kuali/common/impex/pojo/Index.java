@@ -15,6 +15,7 @@
 
 package org.kuali.common.impex.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -22,6 +23,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -29,7 +31,12 @@ public final class Index extends Constraint {
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final boolean unique;
+	private final Boolean unique;
+
+	@SuppressWarnings("unused")
+	private Index() {
+		this(NullUtils.NONE, Collections.<String> emptyList(), false);
+	}
 
 	public Index(String name, List<String> columns) {
 		this(name, columns, false);
