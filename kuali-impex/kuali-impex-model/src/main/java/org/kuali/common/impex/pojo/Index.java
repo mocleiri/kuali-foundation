@@ -27,14 +27,12 @@ import org.kuali.common.util.xml.jaxb.OmitFalseAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Index extends Constraint {
 
-	public static final boolean DEFAULT_UNIQUE_VALUE = false;
-
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final boolean unique;
 
 	public Index(String name, List<String> columnNames) {
-		this(name, columnNames, DEFAULT_UNIQUE_VALUE);
+		this(name, columnNames, false);
 	}
 
 	public Index(String name, List<String> columnNames, boolean unique) {
