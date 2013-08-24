@@ -1,79 +1,77 @@
 package org.kuali.common.impex.pojo;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.OmitOptionalStringAdapter;
+
+import com.google.common.base.Optional;
 
 /**
  * This interface provides an implementation-independent API to access database table model information
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Table implements NamedElement {
 
-	String name;
-	String description;
-	List<Column> columns = new ArrayList<Column>();
-	List<UniqueConstraint> uniqueConstraints = new ArrayList<UniqueConstraint>();
-	List<Index> indices = new ArrayList<Index>();
+	@XmlElement
+	private final String name;
 
-	public Table() {
-		this((String) null);
+	@XmlElement
+	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
+	private final Optional<String> description;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<Column> columns;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<UniqueConstraint> uniqueConstraints;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<Index> indexes;
+
+	@SuppressWarnings("unused")
+	private Table() {
+		this(NullUtils.NONE, Optional.<String> absent(), Collections.<Column> emptyList(), Collections.<UniqueConstraint> emptyList(), Collections.<Index> emptyList());
 	}
 
-	public Table(String name) {
+	public Table(String name, Optional<String> description, List<Column> columns, List<UniqueConstraint> uniqueConstraints, List<Index> indexes) {
+		Assert.noBlanks(name);
+		Assert.noNulls(description, columns, uniqueConstraints, indexes);
 		this.name = name;
+		this.description = description;
+		this.columns = columns;
+		this.uniqueConstraints = uniqueConstraints;
+		this.indexes = indexes;
 	}
 
-	@XmlElement(name = "column")
 	public List<Column> getColumns() {
 		return columns;
 	}
 
-	@XmlElement(name = "uniqueConstraint")
 	public List<UniqueConstraint> getUniqueConstraints() {
 		return uniqueConstraints;
 	}
 
 	@Override
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 
-	@XmlAttribute
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@XmlElement(name = "index")
-	public List<Index> getIndices() {
-		return indices;
-	}
-
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setIndices(List<Index> indices) {
-		this.indices = indices;
-	}
-
-	public void setUniqueConstraints(List<UniqueConstraint> uniqueConstraints) {
-		this.uniqueConstraints = uniqueConstraints;
+	public List<Index> getIndexes() {
+		return indexes;
 	}
 
 }
