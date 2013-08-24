@@ -25,7 +25,7 @@ import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Sequence implements NamedElement {
+public final class Sequence implements NamedElement {
 
 	@XmlAttribute
 	private final String name;

@@ -14,7 +14,7 @@ import org.kuali.common.util.xml.jaxb.OmitTrueAdapter;
 import com.google.common.base.Optional;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Column implements NamedElement {
+public final class Column implements NamedElement {
 
 	@XmlAttribute
 	private final String name;

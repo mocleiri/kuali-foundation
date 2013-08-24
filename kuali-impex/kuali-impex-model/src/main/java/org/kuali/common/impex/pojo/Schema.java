@@ -33,7 +33,7 @@ import org.kuali.common.util.xml.jaxb.XmlBind;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlBind(classes = { Table.class, Sequence.class, View.class, ForeignKey.class })
-public class Schema {
+public final class Schema {
 
 	@XmlAttribute
 	private final String name;

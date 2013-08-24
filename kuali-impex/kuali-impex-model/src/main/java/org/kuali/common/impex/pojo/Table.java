@@ -22,7 +22,7 @@ import com.google.common.base.Optional;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Table implements NamedElement {
+public final class Table implements NamedElement {
 
 	@XmlElement
 	private final String name;

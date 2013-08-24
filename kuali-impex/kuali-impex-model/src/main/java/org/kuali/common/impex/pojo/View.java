@@ -10,7 +10,7 @@ import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class View implements NamedElement {
+public final class View implements NamedElement {
 
 	@XmlAttribute
 	private final String name;

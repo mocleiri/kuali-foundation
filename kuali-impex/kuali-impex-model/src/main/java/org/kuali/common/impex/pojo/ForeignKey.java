@@ -33,7 +33,7 @@ import org.kuali.common.util.xml.jaxb.ImmutableListAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ForeignKey implements NamedElement {
+public final class ForeignKey implements NamedElement {
 
 	@XmlAttribute
 	private final String name;
