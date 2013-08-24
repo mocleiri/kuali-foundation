@@ -41,7 +41,5 @@ public class JAXBIssue415Test {
 		public String marshal(String v) {
 			return null;
 		}
-
 	}
-
 }
