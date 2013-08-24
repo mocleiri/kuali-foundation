@@ -223,7 +223,7 @@ public class JAXBXmlService implements XmlService {
 		private boolean formatOutput = FORMAT_OUTPUT;
 		private Map<String, ?> properties = EMPTY_MAP;
 
-		// Set this to false if you need to parse a log4j.xml file (log4j.xml has an attribute containing the colon character)
+		// Set this to false if you need to parse a log4j.xml file (log4j.xml has an attribute containing the colon character in the attribute name itself)
 		private boolean useNamespaceAwareParser = USE_NAMESPACE_AWARE_PARSER;
 
 		// This flag switches the service to use EclipseLink MOXy instead of the JAXB reference implementation that ships with the JDK
