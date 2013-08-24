@@ -52,6 +52,7 @@ public class JAXBXmlService implements XmlService {
 	private final boolean formatOutput;
 	private final boolean useNamespaceAwareParser;
 	private final Map<String, ?> properties;
+	private final boolean useEclipseLinkMoxyProvider;
 
 	@Override
 	public void write(File file, Object object) {
@@ -223,17 +224,25 @@ public class JAXBXmlService implements XmlService {
 		private boolean formatOutput = FORMAT_OUTPUT;
 		private Map<String, ?> properties = EMPTY_MAP;
 
-		// Set this to false if you need to parse a log4j.xml file (log4j.xml has an attribute containing the colon character in the attribute name itself)
+		// Set this to false if you need to parse a log4j.xml file
+		// log4j.xml has an attribute containing the colon character in the name of the attribute itself
 		private boolean useNamespaceAwareParser = USE_NAMESPACE_AWARE_PARSER;
 
 		// This flag switches the service to use EclipseLink MOXy instead of the JAXB reference implementation that ships with the JDK
-		// The *reason* for defaulting the service to MOXy is there is a pretty serious bug in the reference implementation.
-		// The RI throws an NPE anytime an adapter adapts a non-null bound value to null.
-		// The jira for this issue is -> https://java.net/jira/browse/JAXB-415 (As of Aug 24 2013
-		// There are two pretty detailed discussions of this issue and how to get around it on stackoverflow
+		// The *reason* for defaulting the service to MOXy is there is a pretty serious bug in the RI.
+		// The RI throws an NPE if an adapter adapts a non-null bound value to null.
+		// The jira for this issue is -> https://java.net/jira/browse/JAXB-415
+		// This issue still occurs on the latest version of JDK7 as of August 24, 2013 (version 1.7.0_25-b15)
+		// There are two detailed discussions of this issue and how to get around it using MOXy on stackoverflow
 		// http://stackoverflow.com/questions/11894193/jaxb-marshal-empty-string-to-null-globally
 		// http://stackoverflow.com/questions/6110612/how-to-prevent-marshalling-empty-tags-in-jaxb-when-string-is-empty-but-not-null
+		// If the unit test JAXBIssue415Test.java ever starts passing, this flag would no longer be necessary
 		private boolean useEclipseLinkMoxyProvider = USE_ECLIPSE_LINK_MOXY_PROVIDER;
+
+		public Builder useEclipseLinkMoxyProvider(boolean useEclipseLinkMoxyProvider) {
+			this.formatOutput = useEclipseLinkMoxyProvider;
+			return this;
+		}
 
 		public Builder formatOutput(boolean formatOutput) {
 			this.formatOutput = formatOutput;
@@ -261,11 +270,16 @@ public class JAXBXmlService implements XmlService {
 	private JAXBXmlService(Builder builder) {
 		this.formatOutput = builder.formatOutput;
 		this.useNamespaceAwareParser = builder.useNamespaceAwareParser;
+		this.useEclipseLinkMoxyProvider = builder.useEclipseLinkMoxyProvider;
 		this.properties = builder.properties;
 	}
 
 	public Map<String, ?> getProperties() {
 		return properties;
+	}
+
+	public boolean isUseEclipseLinkMoxyProvider() {
+		return useEclipseLinkMoxyProvider;
 	}
 
 }
