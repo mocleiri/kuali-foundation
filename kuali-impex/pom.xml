@@ -46,6 +46,7 @@
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
     <kuali-util.version>4.4.1-SNAPSHOT</kuali-util.version>
     <kuali-jdbc.version>3.1.9-SNAPSHOT</kuali-jdbc.version>
+    <eclipse-moxy.version>2.5.0</eclipse-moxy.version>
   </properties>
   <developers>
     <developer>
@@ -146,6 +147,13 @@
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
         <version>${liquibase-core.version}</version>
+      </dependency>
+      <!-- This is only required until this bug is fixed https://java.net/jira/browse/JAXB-415 -->
+      <!-- The default JAXB shipped with the JDK blows up if an adapter returns a null -->
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.moxy</artifactId>
+        <version>${eclipse-moxy.version}</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
