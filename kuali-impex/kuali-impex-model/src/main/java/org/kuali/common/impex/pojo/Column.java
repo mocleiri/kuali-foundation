@@ -3,13 +3,13 @@ package org.kuali.common.impex.pojo;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalIntegerAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitTrueAdapter;
 
@@ -25,10 +25,15 @@ public final class Column implements NamedElement {
 	@XmlAttribute
 	private final DataType type;
 
-	@XmlElement
-	private final DataTypeSize size;
+	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
+	private final Optional<Integer> size;
 
-	@XmlElement
+	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
+	private final Optional<Integer> scale;
+
+	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
 	private final Optional<String> defaultValue;
 
@@ -53,10 +58,6 @@ public final class Column implements NamedElement {
 		return type;
 	}
 
-	public DataTypeSize getSize() {
-		return size;
-	}
-
 	public Optional<String> getDefaultValue() {
 		return defaultValue;
 	}
@@ -78,18 +79,28 @@ public final class Column implements NamedElement {
 		// Required
 		private final String name;
 		private final DataType type;
-		private final DataTypeSize size;
 
 		// Optional
+		private Optional<Integer> size = Optional.<Integer> absent();
+		private Optional<Integer> scale = Optional.<Integer> absent();
 		private Optional<String> defaultValue = Optional.<String> absent();
 		private Optional<String> description = Optional.<String> absent();
 		private boolean primaryKey = false;
 		private boolean nullable = true;
 
-		public Builder(String name, DataType type, DataTypeSize size) {
+		public Builder(String name, DataType type) {
 			this.name = name;
 			this.type = type;
-			this.size = size;
+		}
+
+		public Builder scale(int scale) {
+			this.scale = Optional.<Integer> of(scale);
+			return this;
+		}
+
+		public Builder size(int size) {
+			this.size = Optional.<Integer> of(size);
+			return this;
 		}
 
 		public Builder defaultValue(String defaultValue) {
@@ -114,7 +125,7 @@ public final class Column implements NamedElement {
 
 		private Builder finish() {
 			Assert.noBlanks(name);
-			Assert.noNulls(type, size, defaultValue, description);
+			Assert.noNulls(type, size, scale, defaultValue, description);
 			return this;
 		}
 
@@ -125,13 +136,14 @@ public final class Column implements NamedElement {
 	}
 
 	private Column() {
-		this(new Builder(NullUtils.NONE, DataType.BIT, new DataTypeSize(0)).finish());
+		this(new Builder(NullUtils.NONE, DataType.BIT).finish());
 	}
 
 	private Column(Builder builder) {
 		this.name = builder.name;
 		this.type = builder.type;
 		this.size = builder.size;
+		this.scale = builder.scale;
 		this.defaultValue = builder.defaultValue;
 		this.description = builder.description;
 		this.primaryKey = builder.primaryKey;
