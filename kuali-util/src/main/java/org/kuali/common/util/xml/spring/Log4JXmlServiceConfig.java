@@ -6,8 +6,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * The XML log4j knows how to parse has element and attribute names that contain the colon character. A colon is almost universally used to represent a namespace prefix, but in the
- * XML for log4j, the colon is part of the node name.
+ * <p>
+ * The XML for log4j contains element and attribute names that have the colon character as part of the name.
+ * 
+ * <pre>
+ * &lt;log4j:configuration  xmlns:log4j="">
+ * &lt;/log4j:configuration>
+ * </pre>
+ * 
+ * </p>
+ * 
+ * <p>
+ * A colon is almost universally used to represent a namespace prefix, but in the XML for log4j, the colon is part of the node name.
+ * </p>
  */
 @Configuration
 public class Log4JXmlServiceConfig {
