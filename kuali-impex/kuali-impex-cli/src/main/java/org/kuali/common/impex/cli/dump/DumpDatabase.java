@@ -16,43 +16,30 @@
 package org.kuali.common.impex.cli.dump;
 
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
-import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.main.MainContext;
-import org.kuali.common.util.main.MainService;
 import org.kuali.common.util.main.MainUtils;
-import org.kuali.common.util.main.spring.MainConfig;
+import org.kuali.common.util.main.spring.AbstractMainRunner;
 import org.kuali.common.util.main.spring.MainServiceConfig;
-import org.kuali.common.util.spring.SpringExecUtils;
-import org.kuali.common.util.spring.config.annotation.Execute;
-import org.kuali.common.util.spring.service.SpringService;
+import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ SpringServiceConfig.class, MainServiceConfig.class })
-public class DumpDatabase implements MainConfig {
+public class DumpDatabase extends AbstractMainRunner {
 
 	public static void main(String[] args) {
 		MainUtils.runAndExit(DumpDatabase.class, args);
 	}
 
-	@Autowired
-	MainContext mainContext;
-
-	@Autowired
-	MainService mainService;
-
-	@Autowired
-	SpringService service;
+	@Override
+	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
+		return DumpDatabasePropertySourceConfig.class;
+	}
 
 	@Override
-	@Execute
-	public Executable main() {
-		PropertySource<?> source = mainService.getPropertySource(mainContext, DumpDatabasePropertySourceConfig.class);
-		return SpringExecUtils.getSpringExecutable(service, source, DumpDatabaseExecutableConfig.class);
+	protected Class<?> getConfig() {
+		return DumpDatabaseExecutableConfig.class;
 	}
 
 }
