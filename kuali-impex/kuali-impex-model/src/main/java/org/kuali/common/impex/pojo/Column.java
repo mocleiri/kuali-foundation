@@ -105,7 +105,7 @@ public final class Column implements NamedElement {
 		}
 
 		public Builder description(String description) {
-			this.description = Optional.<String> fromNullable(description);
+			this.description = Optional.<String> of(description);
 			return this;
 		}
 
