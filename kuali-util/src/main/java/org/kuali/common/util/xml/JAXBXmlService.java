@@ -186,6 +186,7 @@ public class JAXBXmlService implements XmlService {
 
 	protected Class<?>[] getClassesToBeBound(Class<?> clazz) {
 		List<Class<?>> classes = getClassesList(clazz);
+		// Hack to get around https://java.net/jira/browse/JAXB-415
 		if (useEclipseLinkMoxyProvider) {
 			classes.add(0, UseEclipseLinkMoxyProvider.class);
 		}
