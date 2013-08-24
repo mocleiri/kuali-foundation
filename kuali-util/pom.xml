@@ -176,6 +176,8 @@
       <version>${slf4j.version}</version>
       <scope>provided</scope>
     </dependency>
+    <!-- This is only required until this bug is fixed https://java.net/jira/browse/JAXB-415 -->
+    <!-- The default JAXB shipped with the JDK blows up if an adapter returns a null -->
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.moxy</artifactId>
