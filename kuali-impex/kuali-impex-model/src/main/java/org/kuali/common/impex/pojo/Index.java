@@ -20,19 +20,16 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
-import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Index implements NamedElement {
+public final class Index extends Constraint {
 
 	private static final boolean DEFAULT_UNIQUE = false;
 
@@ -40,16 +37,8 @@ public final class Index implements NamedElement {
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final Boolean unique;
 
-	@XmlAttribute
-	private final String name;
-
-	@XmlElement
-	private final List<String> columns;
-
 	@SuppressWarnings("unused")
 	private Index() {
-		this.name = null;
-		this.columns = null;
 		this.unique = DEFAULT_UNIQUE;
 	}
 
@@ -74,28 +63,12 @@ public final class Index implements NamedElement {
 	}
 
 	public Index(String name, boolean unique, List<String> columns) {
-		Assert.noBlanks(name); // Name can't be blank
-		Assert.isFalse(CollectionUtils.isEmpty(columns)); // The column list can't be null and must contain at least one element
-		this.name = name;
-		this.columns = columns;
+		super(name, columns);
 		this.unique = unique;
 	}
 
 	public boolean isUnique() {
 		return unique;
-	}
-
-	public Boolean getUnique() {
-		return unique;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	public List<String> getColumns() {
-		return columns;
 	}
 
 }
