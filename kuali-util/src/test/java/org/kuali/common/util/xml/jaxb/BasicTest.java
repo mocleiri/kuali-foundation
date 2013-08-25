@@ -11,7 +11,7 @@ public class BasicTest {
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			Club club = new Club("Delta Tau", 15.0);
-			Sport soccer = new Sport("Soccer", 125, true);
+			Sport soccer = new Sport("Soccer");
 			Student student1 = new Student.Builder("joe").club(club).sport(soccer).ethnicity("caucasian").build();
 			// Student student2 = new Student.Builder("joe").ethnicity("caucasian").build();
 			// Student student3 = new Student.Builder("joe").build();
