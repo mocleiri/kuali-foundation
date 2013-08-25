@@ -34,8 +34,7 @@ public final class Student {
 		return sports;
 	}
 
-	@SuppressWarnings("unused")
-	private Student() {
+	Student() {
 		this.name = null;
 		this.teams = null;
 		this.sports = null;
@@ -49,8 +48,8 @@ public final class Student {
 		Assert.noBlanks(name);
 		Assert.noNulls(teams, sports);
 		this.name = name;
-		this.teams = teams;
-		this.sports = sports;
+		this.teams = ImmutableList.copyOf(teams);
+		this.sports = ImmutableList.copyOf(sports);
 	}
 
 }

@@ -2,33 +2,28 @@ package org.kuali.common.util.xml.jaxb;
 
 import java.util.List;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 @XmlRootElement
-@XmlBind(classes = { Student.class, Sport.class, Team.class })
 public class University {
 
 	@XmlElement
-	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Student> students;
 
 	@XmlElement
-	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Sport> sports;
 
 	@XmlElement
-	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Team> teams;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> colors;
 
 	public List<Student> getStudents() {
@@ -43,12 +38,8 @@ public class University {
 		return teams;
 	}
 
-	@SuppressWarnings("unused")
-	private University() {
-		this.students = null;
-		this.sports = null;
-		this.teams = null;
-		this.colors = null;
+	University() {
+		this(Lists.<Student> newArrayList(), Lists.<Sport> newArrayList(), Lists.<Team> newArrayList());
 	}
 
 	public University(List<Student> students, List<Sport> sports, Team... teams) {
@@ -57,10 +48,21 @@ public class University {
 
 	public University(List<Student> students, List<Sport> sports, List<Team> teams) {
 		Assert.noNulls(students, sports, teams);
-		this.students = students;
-		this.sports = sports;
-		this.teams = teams;
-		this.colors = ImmutableList.of("red");
+		this.students = ImmutableList.copyOf(students);
+		this.sports = ImmutableList.copyOf(sports);
+		this.teams = ImmutableList.copyOf(teams);
+		this.colors = ImmutableList.of("yellow", "green");
+	}
+
+	void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
+	}
+
+	static <T> List<T> of(List<T> list) {
+		if (list == null) {
+			return ImmutableList.<T> of();
+		} else {
+			return ImmutableList.<T> copyOf(list);
+		}
 	}
 
 }
