@@ -13,7 +13,8 @@ public class BasicTest {
 			System.out.println(jdk);
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
-			Column column = new Column.Builder("ID", DataType.FLOAT).size(10).scale(2).defaultValue("99").primaryKey(true).nullable(false).build();
+			String desc = "<metadata>\n<yo>12</yo>\n</metadata>";
+			Column column = new Column.Builder("ID", DataType.FLOAT).size(10).scale(2).defaultValue("99").primaryKey(true).nullable(false).description(desc).build();
 			Table table = new Table("VERSION", column);
 			Schema schema = new Schema.Builder("KS").table(table).build();
 			String xml = service.toXml(schema, encoding);

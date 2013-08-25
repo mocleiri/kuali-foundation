@@ -32,7 +32,7 @@ public final class Column implements NamedElement {
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
-	private final Optional<Integer> scale;
+	private final Optional<Integer> scale; // Number of digits to the right of the decimal point. Numeric values only
 
 	@XmlAttribute(name = "default")
 	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
@@ -128,7 +128,7 @@ public final class Column implements NamedElement {
 			Assert.noBlanks(name);
 			Assert.noNulls(type, size, scale, defaultValue, description);
 			if (scale.isPresent()) {
-				Assert.isTrue(DataType.isNumeric(type), "[" + type + "] is not numeric.  Can't use scale with non-numerics");
+				Assert.isTrue(DataType.FLOAT.equals(type), "scale is invalid for [" + type + "].  Scale only has meaning for a column of type [" + DataType.FLOAT + "]");
 			}
 			return this;
 		}
