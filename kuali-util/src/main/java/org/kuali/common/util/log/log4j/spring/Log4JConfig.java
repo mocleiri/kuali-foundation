@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Import;
 public class Log4JConfig {
 
 	protected static final String SPRING = "org.springframework";
+	protected static final String JAXB = "javax.xml.bind";
 	protected static final String STDOUT = "stdout";
 
 	@Autowired
@@ -39,6 +40,11 @@ public class Log4JConfig {
 	@Bean
 	public Log4JConfiguration log4JContextDefault() {
 		return getLog4JContext(Log4JPatternConstants.DEFAULT, Threshold.INFO);
+	}
+
+	@Bean
+	public Log4JConfiguration log4JContextJAXB() {
+		return getLog4JContext(Log4JPatternConstants.DEBUG, Threshold.INFO);
 	}
 
 	@Bean
