@@ -10,7 +10,7 @@ import com.google.common.base.Optional;
 public class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
 
 	public FlattenOptionalStringAdapter() {
-		this("${cr}", "${lf}");
+		this("${xml.cr}", "${xml.lf}");
 	}
 
 	public FlattenOptionalStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
