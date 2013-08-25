@@ -3,14 +3,11 @@ package org.kuali.common.util.xml.jaxb;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-@XmlRootElement
 public class Team {
 
 	@XmlAttribute
@@ -19,11 +16,21 @@ public class Team {
 	@XmlAttribute
 	private final String sport;
 
-	@XmlElement
 	private final List<String> students;
 
-	@SuppressWarnings("unused")
-	private Team() {
+	public String getName() {
+		return name;
+	}
+
+	public String getSport() {
+		return sport;
+	}
+
+	public List<String> getStudents() {
+		return students;
+	}
+
+	Team() {
 		this.name = null;
 		this.sport = null;
 		this.students = null;
@@ -43,18 +50,6 @@ public class Team {
 		this.name = name;
 		this.sport = sport;
 		this.students = students;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getSport() {
-		return sport;
-	}
-
-	public List<String> getStudents() {
-		return students;
 	}
 
 }

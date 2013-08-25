@@ -3,23 +3,17 @@ package org.kuali.common.util.xml.jaxb;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-@XmlRootElement
 public final class Student {
 
 	@XmlAttribute
 	private final String name;
 
-	@XmlElement
 	private final List<String> teams;
-
-	@XmlElement
 	private final List<String> sports;
 
 	public String getName() {
