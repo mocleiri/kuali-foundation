@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.impex.pojo.adapter.MpxFlattenAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
+import org.kuali.common.util.xml.jaxb.adapter.FlattenOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.base.Optional;
@@ -43,7 +43,7 @@ public final class Schema {
 	private final String name;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(MpxFlattenAdapter.class)
+	@XmlJavaTypeAdapter(FlattenOptionalStringAdapter.class)
 	private final Optional<String> description;
 
 	@XmlElement

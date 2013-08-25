@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.impex.pojo.adapter.MpxFlattenAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.adapter.FlattenOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalIntegerAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalStringAdapter;
@@ -47,7 +47,7 @@ public final class Column implements NamedElement {
 	private final Boolean nullable;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(MpxFlattenAdapter.class)
+	@XmlJavaTypeAdapter(FlattenOptionalStringAdapter.class)
 	private final Optional<String> description;
 
 	@Override
