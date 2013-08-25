@@ -18,6 +18,25 @@ import com.google.common.collect.ImmutableList;
 @XmlBind(classes = { Team.class })
 public final class Sport extends Activity {
 
+	@XmlAttribute
+	private final String name;
+
+	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
+	private final Boolean contact;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<Team> teams;
+
+	public String getName() {
+		return name;
+	}
+
+	public Boolean getContact() {
+		return contact;
+	}
+
 	@SuppressWarnings("unused")
 	private Sport() {
 		this(NullUtils.NONE);
@@ -41,25 +60,6 @@ public final class Sport extends Activity {
 		this.name = name;
 		this.contact = contact;
 		this.teams = teams;
-	}
-
-	@XmlAttribute
-	private final String name;
-
-	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final Boolean contact;
-
-	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	private final List<Team> teams;
-
-	public String getName() {
-		return name;
-	}
-
-	public Boolean getContact() {
-		return contact;
 	}
 
 }
