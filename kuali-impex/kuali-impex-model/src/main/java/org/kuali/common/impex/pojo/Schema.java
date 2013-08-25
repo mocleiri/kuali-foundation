@@ -143,11 +143,11 @@ public final class Schema {
 	}
 
 	// Necessary at the moment so JAXB can unmarshall things correctly.
-	// This does open a hole that could potentially allow null to sneak into these model objects
+	// This does open a hole that could potentially allow null to sneak into these model objects.
 	// There is no "normal" way to introduce null via the Builder.
-	// The assertions inside the build() method prevent it
+	// The assertions inside the build() method prevent it.
 	// However, if someone created a Schema object using the Builder, marshalled it to disk as XML, and then edited the XML by hand
-	// (removeing the "name" attribute for example), then unmarshalled a Schema object from the hand edited XML, the "name" field
+	// (removing the "name" attribute for example), then unmarshalled a Schema object from the hand edited XML, the "name" field
 	// would end up being null.
 	private Schema() {
 		this.name = null;
