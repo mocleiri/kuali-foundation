@@ -9,8 +9,8 @@ import com.google.common.base.Optional;
 
 public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
 
-	public static final String DEFAULT_CR_REPLACEMENT = "${xml.cr}";
-	public static final String DEFAULT_LF_REPLACEMENT = "${xml.lf}";
+	public static final String DEFAULT_CR_REPLACEMENT = "${jaxb.cr}";
+	public static final String DEFAULT_LF_REPLACEMENT = "${jaxb.lf}";
 
 	public FlattenOptionalStringAdapter() {
 		this(DEFAULT_CR_REPLACEMENT, DEFAULT_LF_REPLACEMENT);
