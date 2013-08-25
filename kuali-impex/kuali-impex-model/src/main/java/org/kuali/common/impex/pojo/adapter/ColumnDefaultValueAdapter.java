@@ -6,7 +6,7 @@ import org.kuali.common.impex.pojo.Column;
 
 import com.google.common.base.Optional;
 
-public abstract class ColumnDefaultValueAdapter extends XmlAdapter<Column, Column> {
+public class ColumnDefaultValueAdapter extends XmlAdapter<Column, Column> {
 
 	@Override
 	public final Column marshal(Column column) {
