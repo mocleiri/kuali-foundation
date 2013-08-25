@@ -35,6 +35,15 @@ public abstract class Constraint implements NamedElement {
 	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> columns;
 
+	public List<String> getColumns() {
+		return columns;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
 	Constraint() {
 		this.name = null;
 		this.columns = ImmutableList.of();
@@ -46,15 +55,6 @@ public abstract class Constraint implements NamedElement {
 		Assert.isFalse(CollectionUtils.isEmpty(columns));
 		this.columns = ImmutableList.copyOf(columns);
 		this.name = name;
-	}
-
-	public List<String> getColumns() {
-		return columns;
-	}
-
-	@Override
-	public String getName() {
-		return name;
 	}
 
 }
