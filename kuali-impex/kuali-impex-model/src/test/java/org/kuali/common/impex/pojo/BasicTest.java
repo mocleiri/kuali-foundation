@@ -18,6 +18,8 @@ public class BasicTest {
 			Column column2 = new Column.Builder("CREATED", DataType.TIMESTAMP).defaultValue("NOW()").nullable(false).description(desc).build();
 			UniqueConstraint uc1 = new UniqueConstraint("KS_VERSION_U1", column1.getName(), column2.getName());
 			UniqueConstraint uc2 = new UniqueConstraint("KS_VERSION_U2", column1.getName(), column2.getName());
+			Index i1 = new Index("KS_VERSION_U1", column1.getName(), column2.getName());
+			Index i2 = new Index("KS_VERSION_U2", column1.getName(), column2.getName());
 			Table table = new Table.Builder("VERSION").columns(column1, column2).uniqueConstraints(uc1, uc2).build();
 			Schema schema = new Schema.Builder("KS").table(table).build();
 			String xml = service.toXml(schema, encoding);

@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
+import com.google.common.collect.ImmutableList;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Index extends Constraint {
 
@@ -35,14 +37,30 @@ public final class Index extends Constraint {
 
 	@SuppressWarnings("unused")
 	private Index() {
-		this(NullUtils.NONE, Collections.<String> emptyList(), false);
+		this(NullUtils.NONE, Collections.<String> emptyList());
 	}
 
 	public Index(String name, List<String> columns) {
-		this(name, columns, false);
+		this(name, false, columns);
 	}
 
-	public Index(String name, List<String> columns, boolean unique) {
+	public Index(String name, String column) {
+		this(name, false, ImmutableList.of(column));
+	}
+
+	public Index(String name, String... columns) {
+		this(name, false, ImmutableList.copyOf(columns));
+	}
+
+	public Index(String name, boolean unique, String... columns) {
+		this(name, unique, ImmutableList.copyOf(columns));
+	}
+
+	public Index(String name, boolean unique, String column) {
+		this(name, unique, ImmutableList.of(column));
+	}
+
+	public Index(String name, boolean unique, List<String> columns) {
 		super(name, columns);
 		this.unique = unique;
 	}
