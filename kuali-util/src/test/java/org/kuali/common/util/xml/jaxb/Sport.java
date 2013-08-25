@@ -38,7 +38,7 @@ public final class Sport extends Activity {
 		return name;
 	}
 
-	public boolean getContact() {
+	public Boolean getContact() {
 		return contact;
 	}
 
