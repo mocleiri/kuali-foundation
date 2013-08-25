@@ -7,7 +7,6 @@ public class BasicTest {
 
 	public static void main(String[] args) {
 		try {
-			System.setProperty("jaxb.debug", "true");
 			String os = System.getProperty("os.name") + ", " + System.getProperty("os.version");
 			String jdk = System.getProperty("java.vm.name") + ", " + System.getProperty("java.runtime.version");
 			System.out.println(os);
