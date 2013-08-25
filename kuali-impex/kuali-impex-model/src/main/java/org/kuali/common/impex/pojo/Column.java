@@ -35,7 +35,7 @@ public final class Column implements NamedElement {
 	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
 	private final Optional<Integer> scale;
 
-	@XmlAttribute
+	@XmlAttribute(name = "default")
 	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
 	private final Optional<String> defaultValue;
 
