@@ -2,9 +2,11 @@ package org.kuali.common.util.xml.jaxb;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 @XmlRootElement
 public final class Sport extends Activity {
@@ -29,6 +31,7 @@ public final class Sport extends Activity {
 	private final String name;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final Boolean contact;
 
 	public String getName() {
