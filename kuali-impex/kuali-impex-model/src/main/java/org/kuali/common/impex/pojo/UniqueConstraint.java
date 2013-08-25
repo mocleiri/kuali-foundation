@@ -22,10 +22,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -63,7 +61,6 @@ public final class UniqueConstraint implements NamedElement {
 	private final String name;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> columns;
 
 	public List<String> getColumns() {
