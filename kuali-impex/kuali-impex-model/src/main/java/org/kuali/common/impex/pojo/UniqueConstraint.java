@@ -19,9 +19,14 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
+import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -30,11 +35,12 @@ import com.google.common.collect.ImmutableList;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class UniqueConstraint extends Constraint {
+public final class UniqueConstraint implements NamedElement {
 
 	@SuppressWarnings("unused")
 	private UniqueConstraint() {
-		this(NullUtils.NONE, NullUtils.NONE);
+		this.name = null;
+		this.columns = null;
 	}
 
 	public UniqueConstraint(String name, String column) {
@@ -45,8 +51,28 @@ public final class UniqueConstraint extends Constraint {
 		this(name, ImmutableList.copyOf(columns));
 	}
 
-	public UniqueConstraint(String name, List<String> column) {
-		super(name, column);
+	public UniqueConstraint(String name, List<String> columns) {
+		Assert.noBlanks(name);
+		Assert.noNulls(columns);
+		Assert.isFalse(CollectionUtils.isEmpty(columns));
+		this.columns = ImmutableList.copyOf(columns);
+		this.name = name;
+	}
+
+	@XmlAttribute
+	private final String name;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<String> columns;
+
+	public List<String> getColumns() {
+		return columns;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 }
