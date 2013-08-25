@@ -4,44 +4,36 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.collect.ImmutableList;
 
-@XmlRootElement
 public class Team {
 
 	@XmlAttribute
 	private final String name;
 
 	@XmlAttribute
-	private final String color;
+	private final Sport sport;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	private final List<String> students;
+	private final List<Student> students;
 
-	public Team() {
-		this(NullUtils.NONE, NullUtils.NONE, ImmutableList.<String> of());
+	@SuppressWarnings("unused")
+	private Team() {
+		this(null, null, (Student) null);
 	}
 
-	public Team(String name, String color, String student) {
-		this(name, color, ImmutableList.<String> of(student));
+	public Team(String name, Sport sport, Student student) {
+		this(name, sport, ImmutableList.<Student> of(student));
 	}
 
-	public Team(String name, String color, String... students) {
-		this(name, color, ImmutableList.<String> copyOf(students));
+	public Team(String name, Sport sport, Student... students) {
+		this(name, sport, ImmutableList.<Student> copyOf(students));
 	}
 
-	public Team(String name, String color, List<String> students) {
-		Assert.noBlanks(name, color);
+	public Team(String name, Sport sport, List<Student> students) {
 		this.name = name;
-		this.color = color;
+		this.sport = sport;
 		this.students = students;
 	}
 
@@ -49,11 +41,11 @@ public class Team {
 		return name;
 	}
 
-	public String getColor() {
-		return color;
+	public Sport getSport() {
+		return sport;
 	}
 
-	public List<String> getStudents() {
+	public List<Student> getStudents() {
 		return students;
 	}
 
