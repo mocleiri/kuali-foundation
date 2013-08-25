@@ -28,7 +28,6 @@ public class University {
 	private final List<Team> teams;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> colors;
 
 	public List<Student> getStudents() {
