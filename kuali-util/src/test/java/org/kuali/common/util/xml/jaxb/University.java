@@ -20,28 +20,28 @@ public class University {
 	private final List<Student> students;
 
 	@XmlElement
-	private final List<Team> teams;
+	private final List<Sport> sports;
 
 	@XmlElement
-	private final List<Sport> sports;
+	private final List<Team> teams;
 
 	public List<Student> getStudents() {
 		return students;
-	}
-
-	public List<Team> getTeams() {
-		return teams;
 	}
 
 	public List<Sport> getSports() {
 		return sports;
 	}
 
+	public List<Team> getTeams() {
+		return teams;
+	}
+
 	@SuppressWarnings("unused")
 	private University() {
 		this.students = null;
-		this.teams = null;
 		this.sports = null;
+		this.teams = null;
 	}
 
 	public University(List<Student> students, List<Sport> sports, Team... teams) {
@@ -51,8 +51,8 @@ public class University {
 	public University(List<Student> students, List<Sport> sports, List<Team> teams) {
 		Assert.noNulls(students, sports, teams);
 		this.students = students;
-		this.teams = teams;
 		this.sports = sports;
+		this.teams = teams;
 	}
 
 }
