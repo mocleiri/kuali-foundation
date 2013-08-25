@@ -13,7 +13,7 @@ public class BasicTest {
 			System.out.println(jdk);
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
-			String desc = "hi";
+			String desc = "1\n2";
 			Column column1 = new Column.Builder("ID", DataType.FLOAT).size(10).scale(2).defaultValue("99").primaryKey(true).nullable(false).description(desc).build();
 			Column column2 = new Column.Builder("CREATED", DataType.TIMESTAMP).defaultValue("NOW()").nullable(false).description(desc).build();
 			UniqueConstraint uc1 = new UniqueConstraint("KS_VERSION_U1", column1.getName(), column2.getName());
