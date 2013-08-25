@@ -10,9 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.eclipse.persistence.oxm.annotations.XmlPath;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.kuali.common.util.xml.jaxb.adapter.FlattenOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
@@ -33,17 +31,14 @@ public final class Table implements NamedElement {
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<Column> columns;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<UniqueConstraint> uniqueConstraints;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<Index> indexes;
 
 	@XmlAttribute
@@ -126,23 +121,22 @@ public final class Table implements NamedElement {
 			return this;
 		}
 
-		private Builder finish() {
+		public Table build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(columns, uniqueConstraints, indexes, description);
 			this.columns = ImmutableList.copyOf(columns);
 			this.uniqueConstraints = ImmutableList.copyOf(uniqueConstraints);
 			this.indexes = ImmutableList.copyOf(indexes);
-			return this;
-		}
-
-		public Table build() {
-			finish();
 			return new Table(this);
 		}
 	}
 
 	private Table() {
-		this(new Builder(NullUtils.NONE).finish());
+		this.name = null;
+		this.columns = null;
+		this.uniqueConstraints = null;
+		this.indexes = null;
+		this.description = null;
 	}
 
 	private Table(Builder builder) {
