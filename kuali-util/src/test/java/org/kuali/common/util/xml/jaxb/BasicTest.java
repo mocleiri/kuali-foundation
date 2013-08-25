@@ -2,6 +2,8 @@ package org.kuali.common.util.xml.jaxb;
 
 import java.util.Arrays;
 
+import org.springframework.util.Assert;
+
 public class BasicTest {
 
 	public static void main(String[] args) {
@@ -19,11 +21,12 @@ public class BasicTest {
 			Student jeff = new Student("Jeff", Arrays.asList(galaxy.getName(), raiders.getName()), soccer.getName(), football.getName());
 			Student joe = new Student("Joe", Arrays.asList(galaxy.getName()), soccer.getName());
 			University original = new University(Arrays.asList(joe, jeff), Arrays.asList(soccer, football), galaxy, raiders);
-			String originalMarshalled = service.toXml(original, encoding);
-			System.out.println(originalMarshalled);
-			University derived = service.getObjectFromXml(originalMarshalled, encoding, University.class);
-			String derivedMarshalled = service.toXml(derived, encoding);
-			System.out.println(derivedMarshalled);
+			String originalXml = service.toXml(original, encoding);
+			System.out.println(originalXml);
+			University derived = service.getObjectFromXml(originalXml, encoding, University.class);
+			String derivedXml = service.toXml(derived, encoding);
+			System.out.println(derivedXml);
+			Assert.isTrue(originalXml.equals(derivedXml));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
