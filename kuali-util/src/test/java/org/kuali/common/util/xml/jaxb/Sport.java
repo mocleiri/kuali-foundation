@@ -3,28 +3,22 @@ package org.kuali.common.util.xml.jaxb;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-@XmlRootElement
 public final class Sport {
 
 	@XmlAttribute
 	private final String name;
-
-	@XmlElement
 	private final List<String> teams;
 
 	public String getName() {
 		return name;
 	}
 
-	@SuppressWarnings("unused")
-	private Sport() {
+	Sport() {
 		this.name = null;
 		this.teams = null;
 	}
@@ -37,7 +31,7 @@ public final class Sport {
 		Assert.noBlanks(name);
 		Assert.noNulls(teams);
 		this.name = name;
-		this.teams = teams;
+		this.teams = ImmutableList.copyOf(teams);
 	}
 
 	public List<String> getTeams() {
