@@ -2,22 +2,31 @@ package org.kuali.common.util.xml.jaxb;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.TrimmingCSVStringAdapter;
 
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
+@XmlBind(classes = Sport.class)
+@XmlAccessorType(XmlAccessType.NONE)
 public class University {
 
 	@XmlAttribute
 	private final String name;
+	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Sport> sports;
+	@XmlElement
+	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> colors;
 
 	public List<Sport> getSports() {

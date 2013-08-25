@@ -1,6 +1,7 @@
 package org.kuali.common.util.xml.jaxb.test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
@@ -62,6 +63,28 @@ public class BasicTest {
 		XmlService service = getService();
 		List<Sport> sports = Arrays.asList(new Sport("soccer"), new Sport("football"));
 		List<String> colors = Arrays.asList("yellow", "green");
+		University original = new University("Cal Poly", sports, colors);
+		String originalXml = service.toXml(original, encoding);
+		University derived = service.getObjectFromXml(originalXml, encoding, University.class);
+		try {
+			derived.getSports().add(new Sport("tennis"));
+			Assert.fail("sports is mutable");
+		} catch (UnsupportedOperationException e) {
+			// ignore
+		}
+		try {
+			derived.getColors().add("blue");
+			Assert.fail("color's is mutable");
+		} catch (UnsupportedOperationException e) {
+			// ignore
+		}
+	}
+
+	@Test
+	public void testNullValuesAfterMarshalling() {
+		XmlService service = getService();
+		List<Sport> sports = Arrays.asList(new Sport("soccer"), new Sport("football"));
+		List<String> colors = Collections.emptyList();
 		University original = new University("Cal Poly", sports, colors);
 		String originalXml = service.toXml(original, encoding);
 		University derived = service.getObjectFromXml(originalXml, encoding, University.class);

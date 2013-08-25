@@ -1,9 +1,11 @@
 package org.kuali.common.util.xml.jaxb;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 
+@XmlRootElement
 public final class Sport {
 
 	@XmlAttribute
