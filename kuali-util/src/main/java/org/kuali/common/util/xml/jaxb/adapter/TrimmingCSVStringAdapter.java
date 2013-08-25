@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
 
 public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
+
+	private static final String DELIMITER = ",";
 
 	@Override
 	public final String marshal(List<String> strings) {
@@ -18,9 +21,13 @@ public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < strings.size(); i++) {
 				if (i != 0) {
-					sb.append(",");
+					sb.append(DELIMITER);
 				}
-				sb.append(strings.get(i).trim());
+				String value = strings.get(i).trim();
+				if (StringUtils.contains(value, DELIMITER)) {
+					throw new IllegalStateException("[" + value + "] contains '" + DELIMITER + "'");
+				}
+				sb.append(value);
 			}
 			return sb.toString();
 		}
