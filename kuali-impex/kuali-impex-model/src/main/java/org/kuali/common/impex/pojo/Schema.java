@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.kuali.common.util.xml.jaxb.adapter.FlattenOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
@@ -131,25 +130,32 @@ public final class Schema {
 			return this;
 		}
 
-		private Builder finish() {
+		public Schema build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(description, tables, sequences, views, foreignKeys);
 			this.tables = ImmutableList.copyOf(tables);
 			this.sequences = ImmutableList.copyOf(sequences);
 			this.views = ImmutableList.copyOf(views);
 			this.foreignKeys = ImmutableList.copyOf(foreignKeys);
-			return this;
-		}
-
-		public Schema build() {
-			finish();
 			return new Schema(this);
 		}
 
 	}
 
+	// Necessary at the moment so JAXB can unmarshall things correctly.
+	// This does open a hole that could potentially allow null to sneak into these model objects
+	// There is no "normal" way to introduce null via the Builder.
+	// The assertions inside the build() method prevent it
+	// However, if someone created a Schema object using the Builder, marshalled it to disk as XML, and then edited the XML by hand
+	// (removeing the "name" attribute for example), then unmarshalled a Schema object from the hand edited XML, the "name" field
+	// would end up being null.
 	private Schema() {
-		this(new Builder(NullUtils.NONE).finish());
+		this.name = null;
+		this.tables = null;
+		this.sequences = null;
+		this.views = null;
+		this.foreignKeys = null;
+		this.description = null;
 	}
 
 	private Schema(Builder builder) {
