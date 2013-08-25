@@ -8,10 +8,10 @@ public class OmitOptionalIntegerAdapter extends XmlAdapter<Integer, Optional<Int
 
 	@Override
 	public Integer marshal(Optional<Integer> optional) {
-		if (optional == null || !optional.isPresent()) {
-			return null;
-		} else {
+		if (optional.isPresent()) {
 			return optional.get();
+		} else {
+			return null;
 		}
 	}
 
