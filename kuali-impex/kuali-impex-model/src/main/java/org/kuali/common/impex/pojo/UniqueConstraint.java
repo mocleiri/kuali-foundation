@@ -27,7 +27,8 @@ import com.google.common.collect.ImmutableList;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class UniqueConstraint extends Constraint {
 
-	UniqueConstraint() {
+	@SuppressWarnings("unused")
+	private UniqueConstraint() {
 	}
 
 	public UniqueConstraint(String name, String column) {

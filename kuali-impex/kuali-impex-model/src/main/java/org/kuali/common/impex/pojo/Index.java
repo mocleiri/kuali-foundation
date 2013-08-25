@@ -37,7 +37,8 @@ public final class Index extends Constraint {
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final Boolean unique;
 
-	Index() {
+	@SuppressWarnings("unused")
+	private Index() {
 		this.unique = DEFAULT_UNIQUE;
 	}
 
