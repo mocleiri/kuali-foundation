@@ -87,6 +87,7 @@ public class BasicTest {
 		List<String> colors = Collections.emptyList();
 		University original = new University("Cal Poly", sports, colors);
 		String originalXml = service.toXml(original, encoding);
+		System.out.println(originalXml);
 		University derived = service.getObjectFromXml(originalXml, encoding, University.class);
 		Assert.assertNotNull(derived.getColors());
 		Assert.assertNotNull(derived.getSports());
