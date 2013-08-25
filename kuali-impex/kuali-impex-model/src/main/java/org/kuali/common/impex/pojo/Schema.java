@@ -31,7 +31,6 @@ import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -92,10 +91,10 @@ public final class Schema {
 
 		// Optional
 		private Optional<String> description = Optional.absent();
-		private List<Table> tables = Lists.newArrayList();
-		private List<Sequence> sequences = Lists.newArrayList();
-		private List<View> views = Lists.newArrayList();
-		private List<ForeignKey> foreignKeys = Lists.newArrayList();
+		private List<Table> tables = ImmutableList.of();
+		private List<Sequence> sequences = ImmutableList.of();
+		private List<View> views = ImmutableList.of();
+		private List<ForeignKey> foreignKeys = ImmutableList.of();
 
 		public Builder(String name) {
 			this.name = name;
