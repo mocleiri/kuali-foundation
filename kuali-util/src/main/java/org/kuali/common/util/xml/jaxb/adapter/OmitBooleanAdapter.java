@@ -12,7 +12,7 @@ public abstract class OmitBooleanAdapter extends XmlAdapter<String, Boolean> {
 
 	@Override
 	public final String marshal(Boolean value) {
-		if (omitValue.equals(value)) {
+		if (value == null || !omitValue.equals(value)) {
 			return null;
 		} else {
 			return value.toString();
