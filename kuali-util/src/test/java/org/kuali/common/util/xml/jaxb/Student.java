@@ -5,6 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.kuali.common.util.Assert;
+
+import com.google.common.collect.ImmutableList;
+
 public final class Student {
 
 	@XmlAttribute
@@ -30,10 +34,11 @@ public final class Student {
 
 	@SuppressWarnings("unused")
 	private Student() {
-		this(null, null, null);
+		this(null, ImmutableList.<String> of(), ImmutableList.<String> of());
 	}
 
 	public Student(String name, List<String> teams, List<String> sports) {
+		Assert.noNulls(teams, sports);
 		this.name = name;
 		this.teams = teams;
 		this.sports = sports;

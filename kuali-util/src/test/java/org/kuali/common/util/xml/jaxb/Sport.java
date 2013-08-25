@@ -1,13 +1,19 @@
 package org.kuali.common.util.xml.jaxb;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+import com.google.common.collect.ImmutableList;
+
 public final class Sport {
 
 	@XmlAttribute
 	private final String name;
+
+	@XmlElement
+	private final List<String> teams;
 
 	public String getName() {
 		return name;
@@ -15,11 +21,16 @@ public final class Sport {
 
 	@SuppressWarnings("unused")
 	private Sport() {
-		this(null);
+		this(null, ImmutableList.<String> of());
 	}
 
-	public Sport(String name) {
+	public Sport(String name, List<String> teams) {
 		this.name = name;
+		this.teams = teams;
+	}
+
+	public List<String> getTeams() {
+		return teams;
 	}
 
 }
