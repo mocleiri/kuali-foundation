@@ -15,7 +15,7 @@ public class BasicTest {
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			String desc = "<metadata>\n<yo>12</yo>\n</metadata>";
 			Column column = new Column.Builder("ID", DataType.FLOAT).size(10).scale(2).defaultValue("99").primaryKey(true).nullable(false).description(desc).build();
-			Table table = new Table("VERSION", column);
+			Table table = new Table.Builder("VERSION").column(column).build();
 			Schema schema = new Schema.Builder("KS").table(table).build();
 			String xml = service.toXml(schema, encoding);
 			System.out.println(xml);
