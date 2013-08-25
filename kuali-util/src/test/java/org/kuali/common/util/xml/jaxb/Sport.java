@@ -5,6 +5,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.kuali.common.util.Assert;
+
 import com.google.common.collect.ImmutableList;
 
 public final class Sport {
@@ -21,7 +23,8 @@ public final class Sport {
 
 	@SuppressWarnings("unused")
 	private Sport() {
-		this(null, ImmutableList.<String> of());
+		this.name = null;
+		this.teams = null;
 	}
 
 	public Sport(String name, String... teams) {
@@ -29,6 +32,8 @@ public final class Sport {
 	}
 
 	public Sport(String name, List<String> teams) {
+		Assert.noBlanks(name);
+		Assert.noNulls(teams);
 		this.name = name;
 		this.teams = teams;
 	}
