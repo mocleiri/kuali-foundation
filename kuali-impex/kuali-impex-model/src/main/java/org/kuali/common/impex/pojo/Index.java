@@ -24,9 +24,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
+import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -42,12 +42,13 @@ public final class Index implements NamedElement {
 	private final String name;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> columns;
 
 	@SuppressWarnings("unused")
 	private Index() {
-		this(NullUtils.NONE, NullUtils.NONE);
+		this.unique = null;
+		this.name = null;
+		this.columns = null;
 	}
 
 	public Index(String name, List<String> columns) {
@@ -71,6 +72,8 @@ public final class Index implements NamedElement {
 	}
 
 	public Index(String name, boolean unique, List<String> columns) {
+		Assert.noBlanks(name); // Name can't be blank
+		Assert.isFalse(CollectionUtils.isEmpty(columns)); // Columns can't be null and must contain at least one element
 		this.name = name;
 		this.columns = columns;
 		this.unique = unique;
