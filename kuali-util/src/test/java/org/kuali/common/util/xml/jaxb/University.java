@@ -12,7 +12,7 @@ import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
-@XmlBind(classes = Student.class)
+@XmlBind(classes = { Student.class, Sport.class, Team.class })
 public class University {
 
 	@XmlElement
@@ -20,9 +20,11 @@ public class University {
 	private final List<Student> students;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Sport> sports;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Team> teams;
 
 	public List<Student> getStudents() {
