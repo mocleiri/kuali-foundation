@@ -18,6 +18,10 @@ package org.kuali.common.impex.pojo;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -25,6 +29,8 @@ import com.google.common.collect.ImmutableList;
 /**
  * A unique constraint
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class UniqueConstraint extends Constraint {
 
 	@SuppressWarnings("unused")

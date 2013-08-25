@@ -24,9 +24,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.springframework.util.CollectionUtils;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * This class represents any named connection between columns
@@ -43,8 +44,9 @@ public abstract class Constraint implements NamedElement {
 
 	public Constraint(String name, List<String> columns) {
 		Assert.noBlanks(name);
+		Assert.noNulls(columns);
 		Assert.isFalse(CollectionUtils.isEmpty(columns));
-		this.columns = ListUtils.newImmutableArrayList(columns);
+		this.columns = ImmutableList.copyOf(columns);
 		this.name = name;
 	}
 
