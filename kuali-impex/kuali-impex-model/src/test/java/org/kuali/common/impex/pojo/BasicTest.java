@@ -20,8 +20,8 @@ public class BasicTest {
 			UniqueConstraint uc2 = new UniqueConstraint("KS_VERSION_U2", column1.getName(), column2.getName());
 			Index i1 = new Index("KS_VERSION_I1", column1.getName(), column2.getName());
 			Index i2 = new Index("KS_VERSION_I2", column1.getName(), column2.getName());
-			// Table table = new Table.Builder("VERSION").columns(column1, column2).uniqueConstraints(uc1, uc2).indexes(i1, i2).build();
-			Table table = new Table.Builder("VERSION").columns(column1, column2).build();
+			Table table = new Table.Builder("VERSION").columns(column1, column2).uniqueConstraints(uc1, uc2).indexes(i1, i2).build();
+			// Table table = new Table.Builder("VERSION").columns(column1, column2).build();
 			Schema schema = new Schema.Builder("KS").table(table).build();
 			String xml = service.toXml(schema, encoding);
 			System.out.println(xml);

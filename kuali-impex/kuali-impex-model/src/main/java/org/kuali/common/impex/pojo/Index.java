@@ -34,6 +34,8 @@ import com.google.common.collect.ImmutableList;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Index implements NamedElement {
 
+	private static final boolean DEFAULT_UNIQUE = false;
+
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final Boolean unique;
@@ -46,21 +48,21 @@ public final class Index implements NamedElement {
 
 	@SuppressWarnings("unused")
 	private Index() {
-		this.unique = null;
 		this.name = null;
 		this.columns = null;
+		this.unique = DEFAULT_UNIQUE;
 	}
 
 	public Index(String name, List<String> columns) {
-		this(name, false, columns);
+		this(name, DEFAULT_UNIQUE, columns);
 	}
 
 	public Index(String name, String column) {
-		this(name, false, ImmutableList.of(column));
+		this(name, DEFAULT_UNIQUE, ImmutableList.of(column));
 	}
 
 	public Index(String name, String... columns) {
-		this(name, false, ImmutableList.copyOf(columns));
+		this(name, DEFAULT_UNIQUE, ImmutableList.copyOf(columns));
 	}
 
 	public Index(String name, boolean unique, String... columns) {
@@ -73,7 +75,7 @@ public final class Index implements NamedElement {
 
 	public Index(String name, boolean unique, List<String> columns) {
 		Assert.noBlanks(name); // Name can't be blank
-		Assert.isFalse(CollectionUtils.isEmpty(columns)); // Columns can't be null and must contain at least one element
+		Assert.isFalse(CollectionUtils.isEmpty(columns)); // The column list can't be null and must contain at least one element
 		this.name = name;
 		this.columns = columns;
 		this.unique = unique;
