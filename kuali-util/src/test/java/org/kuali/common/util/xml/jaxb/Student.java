@@ -37,6 +37,10 @@ public final class Student {
 		this(null, ImmutableList.<String> of(), ImmutableList.<String> of());
 	}
 
+	public Student(String name, List<String> teams, String... sports) {
+		this(name, teams, ImmutableList.copyOf(sports));
+	}
+
 	public Student(String name, List<String> teams, List<String> sports) {
 		Assert.noNulls(teams, sports);
 		this.name = name;

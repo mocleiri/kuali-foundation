@@ -24,6 +24,10 @@ public final class Sport {
 		this(null, ImmutableList.<String> of());
 	}
 
+	public Sport(String name, String... teams) {
+		this(name, ImmutableList.<String> copyOf(teams));
+	}
+
 	public Sport(String name, List<String> teams) {
 		this.name = name;
 		this.teams = teams;
