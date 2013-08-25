@@ -49,7 +49,7 @@ public class Team {
 		Assert.noNulls(students);
 		this.name = name;
 		this.sport = sport;
-		this.students = students;
+		this.students = ImmutableList.copyOf(students);
 	}
 
 }
