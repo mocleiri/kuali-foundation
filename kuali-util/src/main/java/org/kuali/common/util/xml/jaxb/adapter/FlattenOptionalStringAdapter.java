@@ -7,7 +7,11 @@ import org.kuali.common.util.Str;
 
 import com.google.common.base.Optional;
 
-public abstract class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
+public class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
+
+	public FlattenOptionalStringAdapter() {
+		this("${cr}", "${lf}");
+	}
 
 	public FlattenOptionalStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
 		Assert.noNullStrings(carriageReturnReplacement, linefeedReplacement);
