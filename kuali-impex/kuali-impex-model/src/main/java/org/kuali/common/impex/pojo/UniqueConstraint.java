@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * A unique constraint
  */
@@ -30,8 +32,12 @@ public final class UniqueConstraint extends Constraint {
 		this(NullUtils.NONE, Collections.<String> emptyList());
 	}
 
-	public UniqueConstraint(String name, List<String> columnNames) {
-		super(name, columnNames);
+	public UniqueConstraint(String name, String column) {
+		this(name, ImmutableList.of(column));
+	}
+
+	public UniqueConstraint(String name, List<String> column) {
+		super(name, column);
 	}
 
 }
