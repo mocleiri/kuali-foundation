@@ -8,7 +8,7 @@
       xmlns:ns="http://docbook.org/ns/docbook">
   <title>FreeMarker Manual</title>
 
-  <subtitle>For FreeMarker 2.3.19</subtitle>
+  <subtitle>For FreeMarker 2.3.20</subtitle>
 
   <preface xml:id="preface">
     <title>Preface</title>
@@ -44,7 +44,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="figures/overview.png"></imagedata>
+          <imagedata fileref="figures/overview.png"/>
         </imageobject>
       </mediaobject>
 
@@ -71,15 +71,15 @@
 
       <itemizedlist>
         <listitem>
-          <para>designer, then you should read the <xref linkend="dgui" /> and
-          then you can look into the <xref linkend="ref" /> on an as-needed
+          <para>designer, then you should read the <xref linkend="dgui"/> and
+          then you can look into the <xref linkend="ref"/> on an as-needed
           basis for more specific details.</para>
         </listitem>
 
         <listitem>
-          <para>programmer, then you should read the <xref linkend="dgui" />
-          guide first, then the <xref linkend="pgui" /> and then you can look
-          into the <xref linkend="ref" /> on an as-needed basis for more
+          <para>programmer, then you should read the <xref linkend="dgui"/>
+          guide first, then the <xref linkend="pgui"/> and then you can look
+          into the <xref linkend="ref"/> on an as-needed basis for more
           specific details.</para>
         </listitem>
       </itemizedlist>
@@ -144,15 +144,15 @@
 
       <para>For the latest version of FreeMarker and to subscribe to the
       <emphasis>mailing lists</emphasis> visit the FreeMarker homepage: <olink
-      targetdoc="homepage"><phrase role="homepage"></phrase></olink></para>
+      targetdoc="homepage"><phrase role="homepage"/></olink></para>
 
       <para>If you <emphasis>need help</emphasis> or you have
       <emphasis>suggestions</emphasis>, use the mailing lists (mail archives
       can be searched without subscription) or the Web based forums. If you
       want to <emphasis>report a bug</emphasis>, use the Web based bug
       tracker, or the mailing lists. To find all of these visit <olink
-      targetdoc="homepage"><phrase role="homepage"></phrase></olink>. Also,
-      note that we have a <link linkend="app_faq">FAQ</link> and <link
+      targetdoc="homepage"><phrase role="homepage"/></olink>. Also, note that
+      we have a <link linkend="app_faq">FAQ</link> and <link
       linkend="alphaidx">index</link>; use them.</para>
     </section>
 
@@ -278,7 +278,7 @@
         from Java objects, but let that be the problem of the Java
         programmers.)</para>
 
-        <para>Compare this with what you seen in the template earlier:
+        <para>Compare this with what you saw in the template earlier:
         <literal>${user}</literal> and
         <literal>${latestProduct.name}</literal>. As an analogy, the data
         model is something like the file system of computers: the root and
@@ -341,15 +341,15 @@
         <literal>whatnot</literal>) are called <emphasis
         role="term">hashes</emphasis>. Hashes store other variables (the so
         called <anchor
-        xml:id="topic.dataModel.subVar" /><emphasis>subvariables</emphasis>)
-        by a lookup name (e.g., "animals", "mouse" or "price").</para>
+        xml:id="topic.dataModel.subVar"/><emphasis>subvariables</emphasis>) by
+        a lookup name (e.g., "animals", "mouse" or "price").</para>
 
         <para>The variables that store a single value
         (<literal>size</literal>, <literal>price</literal>,
         <literal>test</literal> and <literal>because</literal>) are called
         <emphasis role="term">scalars</emphasis>.</para>
 
-        <para><anchor xml:id="topic.qStart.accessVariables" />When you want to
+        <para><anchor xml:id="topic.qStart.accessVariables"/>When you want to
         use a subvariable in a template, you specify its path from the root,
         and separate the steps with dots. To access the
         <literal>price</literal> of a <literal>mouse</literal>, you start from
@@ -830,7 +830,7 @@ All Rights Reserved.
 
         <note>
           <para>It is assumed that you have already read the <xref
-          linkend="dgui_quickstart" /> chapter.</para>
+          linkend="dgui_quickstart"/> chapter.</para>
         </note>
 
         <para>Understanding the concept of values and types is crucial for the
@@ -1066,7 +1066,7 @@ brown</programlisting>
         <section xml:id="dgui_datamodel_scalar">
           <title>Scalars</title>
 
-          <anchor xml:id="topic.designer.scalarVariable" />
+          <anchor xml:id="topic.designer.scalarVariable"/>
 
           <para>These are the basic, simple kind of values. They can
           be:</para>
@@ -1260,7 +1260,7 @@ brown</programlisting>
           <section xml:id="dgui_datamodel_method">
             <title>Methods and functions</title>
 
-            <anchor xml:id="topic.designer.methodVariable" />
+            <anchor xml:id="topic.designer.methodVariable"/>
 
             <indexterm>
               <primary>method</primary>
@@ -1450,7 +1450,7 @@ The average of the price of a python and an elephant is:
 
       <note>
         <para>It is assumed that you have already read the <xref
-        linkend="dgui_quickstart" /> and the <xref linkend="dgui_datamodel" />
+        linkend="dgui_quickstart"/> and the <xref linkend="dgui_datamodel"/>
         chapter.</para>
       </note>
 
@@ -1597,7 +1597,7 @@ The average of the price of a python and an elephant is:
           <primary>#</primary>
         </indexterm>
 
-        <anchor xml:id="term.designer.directive" />
+        <anchor xml:id="term.designer.directive"/>
 
         <remark>Note that the Expressions chapter depends on this chapter, and
         Interpolations chapter depends on Expressions chapter. Thus Directives
@@ -1699,8 +1699,8 @@ The average of the price of a python and an elephant is:
         name.</para>
 
         <para>The complete list and description of all directives can be found
-        in the <xref linkend="ref_directives" /> (but I recommend that you
-        look at the chapter about expressions first).</para>
+        in the <xref linkend="ref_directives"/> (but I recommend that you look
+        at the chapter about expressions first).</para>
 
         <note>
           <para>FreeMarker can be configured to use <literal>[</literal> and
@@ -1709,7 +1709,7 @@ The average of the price of a python and an elephant is:
           <literal>[#if user == "Big
           Joe"]<replaceable>...</replaceable>[/#if]</literal>. For more
           information read: <xref
-          linkend="dgui_misc_alternativesyntax" />.</para>
+          linkend="dgui_misc_alternativesyntax"/>.</para>
         </note>
 
         <note>
@@ -1718,7 +1718,7 @@ The average of the price of a python and an elephant is:
           == "Big
           Joe"&gt;<replaceable>...</replaceable>&lt;/if&gt;</literal>).
           However we don't recommend the usage of this mode. For more
-          information read: <xref linkend="ref_depr_oldsyntax" /></para>
+          information read: <xref linkend="ref_depr_oldsyntax"/></para>
         </note>
       </section>
 
@@ -2007,7 +2007,7 @@ this is a backslash: \</programlisting>
               expressions.</para>
             </note>
 
-            <anchor xml:id="topic.escapeSequence" />
+            <anchor xml:id="topic.escapeSequence"/>
 
             <indexterm>
               <primary>escape sequences</primary>
@@ -3703,9 +3703,9 @@ ${("green " + "mouse")?upper_case} &lt;#-- GREEN MOUSE --&gt;
         <simplesect xml:id="dgui_template_valueinserion_universal_date">
           <title>Guide for inserting date/time values</title>
 
-          <para>If the expression evaluates to a date then the numerical value
-          will be transformed to a text according to a default format. Usually
-          the programmer should set the default format; you don't have to deal
+          <para>If the expression evaluates to a date then the date value will
+          be transformed to a text according to a default format. Usually the
+          programmer should set the default format; you don't have to deal
           with it (but if you care, see the <literal>date_format</literal>,
           <literal>time_format</literal> and
           <literal>datetime_format</literal> settings in the <link
@@ -3957,8 +3957,8 @@ ${("green " + "mouse")?upper_case} &lt;#-- GREEN MOUSE --&gt;
           that you use the value of variable <literal>Fred</literal> for the
           <literal>person</literal> parameter, rather than the string
           <literal>"Fred"</literal>. Of course parameter value need not be a
-          string, it can be number, boolean, hash, sequence, ...etc., also you
-          can use complex expression on the left side of <literal>=</literal>
+          string, it can be number, boolean, hash, sequence, etc., also you
+          can use complex expression on the right side of <literal>=</literal>
           (e.g. <literal>someParam=(price + 50)*1.25</literal>).</para>
 
           <para>User-defined directives can have multiple parameters. For
@@ -4033,7 +4033,7 @@ ${("green " + "mouse")?upper_case} &lt;#-- GREEN MOUSE --&gt;
 
           <para>A very important aspect of macro parameters is that they are
           local variables. For more information about local variables please
-          read: <xref linkend="dgui_misc_var" /></para>
+          read: <xref linkend="dgui_misc_var"/></para>
         </section>
 
         <section>
@@ -4166,7 +4166,7 @@ ${("green " + "mouse")?upper_case} &lt;#-- GREEN MOUSE --&gt;
 
           <para>Predefined directives like <literal>list</literal> can use
           so-called loop variables; you should read <xref
-          linkend="dgui_misc_var" /> to understand loop variables.</para>
+          linkend="dgui_misc_var"/> to understand loop variables.</para>
 
           <para>User-defined directives can also have loop variables. For
           example, let's extend the <literal>do_thrice</literal> directive of
@@ -4271,8 +4271,8 @@ ${("green " + "mouse")?upper_case} &lt;#-- GREEN MOUSE --&gt;
           directive</link>.</para>
 
           <para>Also, you may interested in namespaces: <xref
-          linkend="dgui_misc_namespace" />. Namespaces help you to organize
-          and reuse your commonly used macros.</para>
+          linkend="dgui_misc_namespace"/>. Namespaces help you to organize and
+          reuse your commonly used macros.</para>
         </section>
       </section>
 
@@ -4444,7 +4444,7 @@ ${user}          &lt;#-- prints: Joe Hider --&gt;
 ${.globals.user} &lt;#-- prints: Big Joe --&gt;</programlisting>
 
         <para>For information about syntax of variables please read: <xref
-        linkend="dgui_template_exp" /></para>
+        linkend="dgui_template_exp"/></para>
       </section>
 
       <section xml:id="dgui_misc_namespace">
@@ -5112,7 +5112,7 @@ That's all.</programlisting>
       <title>Getting Started</title>
 
       <para>Note that, if you are new to FreeMarker, you should read at least
-      the <xref linkend="dgui_quickstart" /> before this chapter.</para>
+      the <xref linkend="dgui_quickstart"/> before this chapter.</para>
 
       <section xml:id="pgui_quickstart_createconfiguration">
         <title>Create a configuration instance</title>
@@ -5132,18 +5132,35 @@ That's all.</programlisting>
         beginning of the application (possibly servlet) life-cycle:</para>
 
         <programlisting role="unspecified">Configuration cfg = new Configuration();
-// Specify the data source where the template files come from.
-// Here I set a file directory for it:
-cfg.setDirectoryForTemplateLoading(
-        new File("<replaceable>/where/you/store/templates</replaceable>"));
-// Specify how templates will see the data-model. This is an advanced topic...
-// but just use this:
-cfg.setObjectWrapper(new DefaultObjectWrapper());</programlisting>
 
-        <para>From now you should use this single configuration instance. Note
-        however that if a system has multiple independent components that use
-        FreeMarker, then of course they will use their own private
-        <literal>Configuration</literal> instance.</para>
+// Specify the data source where the template files come from. Here I set a
+// plain directory for it, but non-file-system are possible too:
+cfg.setDirectoryForTemplateLoading(new File("<replaceable>/where/you/store/templates</replaceable>"));
+
+// Specify how templates will see the data-model. This is an advanced topic...
+// for now just use this:
+cfg.setObjectWrapper(new DefaultObjectWrapper());
+
+// Set your preferred charset template files are stored in. UTF-8 is
+// a good choice in most applications:
+cfg.setDefaultEncoding("UTF-8");
+
+// Sets how errors will appear. Here we assume we are developing HTML pages.
+// For production systems TemplateExceptionHandler.RETHROW_HANDLER is better.
+cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
+
+// At least in new projects, specify that you want the fixes that aren't
+// 100% backward compatible too (these are very low-risk changes as far as the
+// 1st and 2nd version number remains):
+cfg.setIncompatibleImprovements(new Version(2, 3, 20));  // FreeMarker 2.3.20</programlisting>
+
+        <para>From now you should use this <emphasis>single</emphasis>
+        configuration instance (i.e., its a singleton). Note however that if a
+        system has multiple independent components that use FreeMarker, then
+        of course they will use their own private
+        <literal>Configuration</literal> instances. Do not needlessly
+        re-create configuration instances; it's expensive as you lose the
+        caches.</para>
       </section>
 
       <section xml:id="pgui_quickstart_createdatamodel">
@@ -5186,7 +5203,8 @@ cfg.setObjectWrapper(new DefaultObjectWrapper());</programlisting>
           <listitem>
             <para>Use your custom bean class for hashes where the items
             correspond to the bean properties. For example the
-            <literal>price</literal> property of <literal>product</literal>
+            <literal>price</literal> property
+            (<literal>getProperty()</literal>) of <literal>product</literal>
             can be get as <literal>product.price</literal>. (The actions of
             the beans can be exposed as well; see much later <link
             linkend="pgui_misc_beanwrapper">here</link>)</para>
@@ -5222,11 +5240,13 @@ root.put("latestProduct", latest);
 latest.put("url", "products/greenmouse.html");
 latest.put("name", "green mouse");</programlisting>
 
-        <para>For the <literal>latestProduct</literal> you migh as well use a
+        <para>For the <literal>latestProduct</literal> you might as well use a
         Java Bean that has <literal>url</literal> and <literal>name</literal>
         properties (that is, an object that has public <literal>String
         getURL()</literal> and <literal>String getName()</literal> methods);
-        it's the same from viewpoint of the template.</para>
+        it's the same from viewpoint of the template. Similarly, the root
+        could be a Java Bean with <literal>user</literal> and
+        <literal>lastestProduct</literal> properties.</para>
       </section>
 
       <section xml:id="pgui_quickstart_gettemplate">
@@ -5287,8 +5307,7 @@ latest.put("name", "green mouse");</programlisting>
         the standard output:</para>
 
         <programlisting role="unspecified">Writer out = new OutputStreamWriter(System.out);
-temp.process(root, out);
-out.flush();</programlisting>
+temp.process(root, out);</programlisting>
 
         <para>This will print to your terminal the output what you have seen
         in the <link linkend="example.first">first example</link> of the
@@ -5317,17 +5336,20 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
         
-        /* ------------------------------------------------------------------- */    
-        /* You should do this ONLY ONCE in the whole application life-cycle:   */    
+        /* ----------------------------------------------------------------------- */    
+        /* You should do this ONLY ONCE in the whole application life-cycle:       */    
     
         /* Create and adjust the configuration */
         Configuration cfg = new Configuration();
-        cfg.setDirectoryForTemplateLoading(
-                new File("<replaceable>/where/you/store/templates</replaceable>"));
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
 
-        /* ------------------------------------------------------------------- */    
-        /* You usually do these for many times in the application life-cycle:  */    
+        cfg.setDirectoryForTemplateLoading(new File("<replaceable>/where/you/store/templates</replaceable>"));
+        cfg.setObjectWrapper(new DefaultObjectWrapper());
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
+        cfg.setIncompatibleImprovements(new Version(2, 3, 20));
+
+        /* ----------------------------------------------------------------------- */    
+        /* You usually do these for many times in the application life-cycle:      */    
                 
         /* Get or create a template */
         Template temp = cfg.getTemplate("test.ftl");
@@ -5343,7 +5365,6 @@ public class Test {
         /* Merge data-model with template */
         Writer out = new OutputStreamWriter(System.out);
         temp.process(root, out);
-        out.flush();
     }
 }</programlisting>
 
@@ -5424,7 +5445,7 @@ public class Test {
         interface. Note that a class can implement multiple
         <literal>TemplateModel</literal> interfaces; this is why FTL variables
         can have multiple types (see: <xref
-        linkend="dgui_datamodel_basics" />)</para>
+        linkend="dgui_datamodel_basics"/>)</para>
 
         <para>Note that a trivial implementation of these interfaces is
         provided with the <literal>freemarker.template</literal> package. For
@@ -6598,13 +6619,13 @@ cfg.setSharedVariable("company", "Foo Inc.");  // Using ObjectWrapper.DEFAULT_WR
         settings for this example):</para>
 
         <informaltable border="1">
-          <col align="left" />
+          <col align="left"/>
 
-          <col align="center" span="6" />
+          <col align="center" span="6"/>
 
           <thead>
             <tr>
-              <th></th>
+              <th/>
 
               <th>Setting A</th>
 
@@ -7351,12 +7372,12 @@ c</programlisting>
           <itemizedlist>
             <listitem>
               <para>Handling missing/null variables: <xref
-              linkend="dgui_template_exp_missing" /></para>
+              linkend="dgui_template_exp_missing"/></para>
             </listitem>
 
             <listitem>
               <para>Surviving malfunctioning ``portlets'' and such expendable
-              page sections: <xref linkend="ref_directive_attempt" /></para>
+              page sections: <xref linkend="ref_directive_attempt"/></para>
             </listitem>
           </itemizedlist>
         </section>
@@ -7628,7 +7649,7 @@ env.process();</programlisting>
         for a single <literal>Template.process</literal> call to store the
         runtime state of processing), so you don't modify data that are
         possibly used by multiple threads. For more information read: <xref
-        linkend="pgui_misc_var" /></para>
+        linkend="pgui_misc_var"/></para>
       </section>
 
       <section xml:id="pgui_misc_beanwrapper">
@@ -8338,7 +8359,7 @@ TemplateHashModel roundingModeEnums =
       <section xml:id="pgui_misc_servlet">
         <title>Using FreeMarker with servlets</title>
 
-        <anchor xml:id="topic.servlet" />
+        <anchor xml:id="topic.servlet"/>
 
         <indexterm>
           <primary>Servlet</primary>
@@ -8396,7 +8417,7 @@ TemplateHashModel roundingModeEnums =
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="figures/model2sketch.png"></imagedata>
+              <imagedata fileref="figures/model2sketch.png"/>
             </imageobject>
           </mediaobject>
 
@@ -8499,9 +8520,9 @@ TemplateHashModel roundingModeEnums =
             will be called to generate the page.</para>
           </note>
 
-          <para><anchor xml:id="topic.servlet.scopeAttr" />For example,
-          instead of this JSP file (note that it heavily uses Struts tag-libs
-          to save designers from embedded Java monsters):</para>
+          <para><anchor xml:id="topic.servlet.scopeAttr"/>For example, instead
+          of this JSP file (note that it heavily uses Struts tag-libs to save
+          designers from embedded Java monsters):</para>
 
           <programlisting role="template">&lt;%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %&gt;
 &lt;%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %&gt;
@@ -8933,7 +8954,7 @@ grant codeBase "file:/path/to/freemarker.jar"
           model. To support this, a new XML wrapper package was introduced,
           <literal>freemarker.ext.dom</literal>. For new usage, we encourage
           you to use that. It is documented in the part <xref
-          linkend="xgui" />.</para>
+          linkend="xgui"/>.</para>
         </note>
 
         <para>The class <literal>freemarker.ext.xml.NodeListModel</literal>
@@ -9495,7 +9516,7 @@ grant codeBase "file:/path/to/freemarker.jar"
 
         <para>We will use this XML document for the examples:</para>
 
-        <anchor xml:id="misc.example.bookXml" />
+        <anchor xml:id="misc.example.bookXml"/>
 
         <programlisting role="unspecified">&lt;book&gt;
   &lt;title&gt;Test Book&lt;/title&gt;
@@ -10035,6 +10056,12 @@ Test Book</programlisting>
             is needed.)</para>
           </note>
 
+          <note>
+            <para>Don't use the sample XML from the previous section, where
+            <literal>title</literal> is an attribute; that applies only to
+            that section.</para>
+          </note>
+
           <para>If a hash key used with a node variable can't be interpreted
           otherwise (see the <link linkend="xgui_imperative_formal">next
           section</link> for the precise definition), then it will by
@@ -10043,7 +10070,8 @@ Test Book</programlisting>
           xlink:href="http://www.w3.org/TR/xpath">http://www.w3.org/TR/xpath</link>.</para>
 
           <para>For example, here we list the <literal>para</literal> elements
-          of the chapter with title ``Ch1'':</para>
+          of the chapter with <literal>title</literal> element (not
+          attribute!) content "Ch1'':</para>
 
           <programlisting role="template">&lt;#list doc["book/chapter[title='Ch1']/para"] as p&gt;
   &lt;p&gt;${p}
@@ -10228,7 +10256,7 @@ Test Book</programlisting>
         you can use them as string variables (for programmers: they implement
         <literal>TemplateScalarModel</literal>).</para>
 
-        <anchor xml:id="misc.xguiTable" />
+        <anchor xml:id="misc.xguiTable"/>
 
         <informaltable border="1">
           <thead>
@@ -10747,7 +10775,7 @@ End book</programlisting>
         <para>Here it is the template that transforms the XML to complete
         HTML:</para>
 
-        <anchor xml:id="misc.example.declarativeBookProcessor" />
+        <anchor xml:id="misc.example.declarativeBookProcessor"/>
 
         <programlisting role="template">&lt;#recurse doc&gt;
 
@@ -10819,7 +10847,7 @@ End book</programlisting>
         whitespace in the output by using the <link
         linkend="ref_directive_t">trim directives</link>, as
         <literal>&lt;#t&gt;</literal>. See also: <xref
-        linkend="dgui_misc_whitespace" /></para>
+        linkend="dgui_misc_whitespace"/></para>
 
         <para>You may say that the FTL that did it with imperative approach
         was much shorter. That's true, but the example XML uses a very simple
@@ -11023,6 +11051,10 @@ End book</programlisting>
 
         <itemizedlist spacing="compact">
           <listitem>
+            <para><link linkend="ref_builtin_abs">abs</link></para>
+          </listitem>
+
+          <listitem>
             <para><link
             linkend="ref_builtin_ancestors">ancestors</link></para>
           </listitem>
@@ -11032,7 +11064,8 @@ End book</programlisting>
           </listitem>
 
           <listitem>
-            <para><link linkend="ref_builtin_c">c</link></para>
+            <para>c <link linkend="ref_builtin_c">for strings</link>, <link
+            linkend="ref_builtin_c_boolean">for booleans</link></para>
           </listitem>
 
           <listitem>
@@ -11130,7 +11163,17 @@ End book</programlisting>
           </listitem>
 
           <listitem>
-            <para><link linkend="ref_builtin_isType">is_...</link></para>
+            <para><link
+            linkend="ref_builtin_is_infinite">is_infinite</link></para>
+          </listitem>
+
+          <listitem>
+            <para><link linkend="ref_builtin_is_nan">is_nan</link></para>
+          </listitem>
+
+          <listitem>
+            <para><link
+            linkend="ref_builtin_isType">is_<replaceable>type</replaceable></link></para>
           </listitem>
 
           <listitem>
@@ -11140,6 +11183,10 @@ End book</programlisting>
 
           <listitem>
             <para><link linkend="ref_builtin_j_string">j_string</link></para>
+          </listitem>
+
+          <listitem>
+            <para><link linkend="ref_builtin_join">join</link></para>
           </listitem>
 
           <listitem>
@@ -11338,9 +11385,12 @@ End book</programlisting>
           </listitem>
         </itemizedlist>
 
+        <para>See the built-ins filtered by left-hand-value type <link
+        linkend="ref_builtins">here</link>.</para>
+
         <para>If you don't find a built-in here that you have seen in a
         working template, probably you will find it here: <xref
-        linkend="ref_deprecated" /></para>
+        linkend="ref_deprecated"/></para>
       </section>
 
       <section xml:id="ref_builtins_string">
@@ -11351,6 +11401,13 @@ End book</programlisting>
 
           <secondary>built-ins</secondary>
         </indexterm>
+
+        <para>These built-ins act on a string left-value. However, if the
+        left-value is number or date or, since 2.3.20, boolean, it will
+        automatically converted to string according the current number-, date-
+        and boolean-format settings (which are the same formatters that are
+        applied when inserting such values with
+        <literal>${<replaceable>...</replaceable>}</literal>).</para>
 
         <section xml:id="ref_builtin_substring">
           <title>substring</title>
@@ -11629,6 +11686,15 @@ ${test3}</programlisting>
             <listitem>
               <para><literal>"</literal> replaced with
               <literal>&amp;quot;</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>if FreeMarker was configured by the programmers so (by
+              setting the <literal>incompatible_improvements</literal> setting
+              to <literal>2.3.20</literal> or higher; more <link
+              xlink:href="http://freemarker.org/docs/api/freemarker/template/Configuration.html#setIncompatibleImprovements%28freemarker.core.Version%29">here</link>),
+              <literal>'</literal> is replaced with
+              <literal>&amp;#39;</literal></para>
             </listitem>
           </itemizedlist>
 
@@ -12334,7 +12400,8 @@ ${x?url}</programlisting>
 - text</programlisting>
 
           <para>Note that it is assumed that all occurrences of the separator
-          is before a new item, thus:</para>
+          is before a new item (except with <literal>"r"</literal> flag - see
+          later), thus:</para>
 
           <programlisting role="template">&lt;#list "some,,test,text,"?split(",") as x&gt;
 - "${x}"
@@ -12350,7 +12417,11 @@ ${x?url}</programlisting>
 
           <para><literal>split</literal> accepts an optional <link
           linkend="ref_builtin_string_flags">flags parameter</link>, as its
-          2nd parameter.</para>
+          2nd parameter. There's a historical glitch with the
+          <literal>r</literal> (regular expression) flag; it removes the empty
+          elements from the end of the resulting list, so with
+          <literal>?split(",", "r")</literal> in the last example the last
+          <literal>""</literal> would be missing from the output.</para>
         </section>
 
         <section xml:id="ref_builtin_starts_with">
@@ -12659,7 +12730,7 @@ rif: foo XYr baar</programlisting>
               </tr>
 
               <tr>
-                <td><literal>match</literal></td>
+                <td><literal>matches</literal></td>
 
                 <td>Yes</td>
 
@@ -12693,8 +12764,32 @@ rif: foo XYr baar</programlisting>
         linkend="faq_number_decimal_point">this</link> FAQ entry, also note
         the <literal>c</literal> built-in above.</para>
 
+        <section xml:id="ref_builtin_abs">
+          <title>abs</title>
+
+          <indexterm>
+            <primary>abs built-in</primary>
+          </indexterm>
+
+          <indexterm>
+            <primary>absolute value</primary>
+          </indexterm>
+
+          <note>
+            <para>This built-in exists since FreeMarker 2.3.20.</para>
+          </note>
+
+          <para>Gives the absolute value of a number. For example
+          <literal>x?abs</literal> , if <literal>x</literal> is -5, will
+          evaluate to 5.</para>
+        </section>
+
         <section xml:id="ref_builtin_c">
-          <title>c</title>
+          <title>c (when used with numerical value)</title>
+
+          <indexterm>
+            <primary>c built-in</primary>
+          </indexterm>
 
           <indexterm>
             <primary>type-casting</primary>
@@ -12714,14 +12809,14 @@ rif: foo XYr baar</programlisting>
             <para>This built-in exists since FreeMarker 2.3.3.</para>
           </note>
 
-          <para>This built-in converts a number to string for ``computer
-          audience'' as opposed to human audience. That is, it formats with
-          the rules that programming languages used to use, which is
-          independent of all the locale and number format settings of
-          FreeMarker. It always uses dot as decimal separator, and it never
-          uses grouping separators (like 3,000,000), nor exponential form
-          (like 5E20), nor superfluous leading or trailing 0-s (like 03 or
-          1.0), nor + sign (like +1). It will print at most 16 digits after
+          <para>This built-in converts a number to string for a
+          <quote>computer language</quote> as opposed to for human audience.
+          That is, it formats with the rules that programming languages used
+          to use, which is independent of all the locale and number format
+          settings of FreeMarker. It always uses dot as decimal separator, and
+          it never uses grouping separators (like 3,000,000), nor exponential
+          form (like 5E20), nor superfluous leading or trailing 0-s (like 03
+          or 1.0), nor + sign (like +1). It will print at most 16 digits after
           the decimal dot, and thus numbers whose absolute value is less than
           1E-16 will be shown as 0. This built-in is crucial because be
           default (like with <literal>${x}</literal>) numbers are converted to
@@ -12737,6 +12832,10 @@ rif: foo XYr baar</programlisting>
           the decimal point is not dot, but comma in many countries) and the
           value of the number (like big numbers are possibly ``damaged'' by
           grouping separators).</para>
+
+          <para>Note that this built-in <link
+          linkend="ref_builtin_c_boolean">also works on
+          booleans</link>.</para>
         </section>
 
         <section xml:id="ref_builtin_string_for_number">
@@ -12891,6 +12990,53 @@ Hungarian people write: ${12345678?string(",##0.00")}</programlisting>
 
           <programlisting role="output">US people write:        12,345,678.00
 Hungarian people write: 12 345 678,00</programlisting>
+        </section>
+
+        <section xml:id="ref_builtin_is_infinite">
+          <title>is_infinite</title>
+
+          <indexterm>
+            <primary>is_infinte built-in</primary>
+          </indexterm>
+
+          <indexterm>
+            <primary>infinite</primary>
+          </indexterm>
+
+          <note>
+            <para>This built-in exists since FreeMarker 2.3.20.</para>
+          </note>
+
+          <para>Tells if a number is floating point infinite (according to
+          IEEE 754). For example, <literal>someNumber?is_infinite</literal>
+          evaluates to <literal>true</literal> or <literal>false</literal>
+          depending on if the value of <literal>someNumber</literal> is
+          infinite or not. Of course, if the underlying number is not of
+          floating point type, this will always return
+          <literal>false</literal>.</para>
+        </section>
+
+        <section xml:id="ref_builtin_is_nan">
+          <title>is_nan</title>
+
+          <indexterm>
+            <primary>is_nan built-in</primary>
+          </indexterm>
+
+          <indexterm>
+            <primary>NaN</primary>
+          </indexterm>
+
+          <note>
+            <para>This built-in exists since FreeMarker 2.3.20.</para>
+          </note>
+
+          <para>Tells if a number is floating point NaN (according to IEEE
+          754). For example, <literal>someNumber?is_nan</literal> evaluates to
+          <literal>true</literal> or <literal>false</literal> depending on if
+          the value of <literal>someNumber</literal> is NaN or not. Of course,
+          if the underlying number is not of floating point type, this will
+          always return <literal>false</literal>.</para>
         </section>
 
         <section xml:id="ref_builtin_rounding">
@@ -13413,6 +13559,44 @@ The usual variations are supported:
           <secondary>built-ins</secondary>
         </indexterm>
 
+        <section xml:id="ref_builtin_c_boolean">
+          <title>c (when used with boolean)</title>
+
+          <indexterm>
+            <primary>c built-in</primary>
+          </indexterm>
+
+          <indexterm>
+            <primary>type-casting</primary>
+          </indexterm>
+
+          <indexterm>
+            <primary>converting between types</primary>
+          </indexterm>
+
+          <indexterm>
+            <primary>format</primary>
+
+            <secondary>boolean</secondary>
+          </indexterm>
+
+          <note>
+            <para>This built-in exists since FreeMarker 2.3.20.</para>
+          </note>
+
+          <para>This built-in converts a boolean to string for a
+          <quote>computer language</quote> as opposed to for human audience.
+          The result will be <literal>"true"</literal> or
+          <literal>"false"</literal>, regardless of the
+          <literal>boolean_format</literal> setting. When generating
+          JavaScript and such, this should be used, as otherwise changing the
+          <literal>boolean_format</literal> can break the generated
+          computer-language output.</para>
+
+          <para>Note that this built-in <link linkend="ref_builtin_c">also
+          works on strings</link>.</para>
+        </section>
+
         <section xml:id="ref_builtin_string_for_boolean">
           <title>string (when used with a boolean value)</title>
 
@@ -13445,27 +13629,38 @@ The usual variations are supported:
 
           <itemizedlist>
             <listitem>
-              <para>As <literal>foo?string</literal>: This will convert the
-              boolean to string using the default strings for representing
-              true and false values. By default, true is rendered as
-              <literal>"true"</literal> and false is rendered as
-              <literal>"false"</literal>. This is mostly useful if you
-              generate source code with FreeMarker, since the values are not
-              locale (language, country) sensitive. To change these default
-              strings, you can use the <literal>boolean_format</literal> <link
-              linkend="ref_directive_setting">setting</link>. Note, that if
-              the variable is multi-type variable that is both boolean and
-              string, then the string value of the variable will be
-              returned.</para>
-            </listitem>
-
-            <listitem>
               <para>As <literal>foo?string("yes", "no")</literal>: This will
               return the first parameter (here: <literal>"yes"</literal>) if
               the boolean is true, otherwise the second parameter (here:
               <literal>"no"</literal>). Note that the return value is always a
               string; if the parameters were numbers, they would be converted
               to strings first.</para>
+            </listitem>
+
+            <listitem>
+              <para><literal>foo?string</literal>: <emphasis>Deprecated
+              starting from FreeMarker 2.3.20: use <link
+              linkend="ref_builtin_c_boolean"><literal>?c</literal></link>
+              instead, or set the <literal>boolean_format</literal> <link
+              linkend="ref_directive_setting">setting</link> to something like
+              <literal>"yes,no"</literal> and then the conversion can happen
+              automatically</emphasis>. If you still need to know about this,
+              this will convert the boolean to string using the default
+              strings for representing true and false values. By default, true
+              is rendered as <literal>"true"</literal> and false is rendered
+              as <literal>"false"</literal>. This is mostly useful if you
+              generate source code with FreeMarker <emphasis>(but use
+              <literal>?c</literal> for that starting from 2.3.20)</emphasis>,
+              since the values are not locale (language, country) sensitive.
+              To change these default strings, you can use the
+              <literal>boolean_format</literal> <link
+              linkend="ref_directive_setting">setting</link>.</para>
+
+              <para role="forProgrammers">Note, that in the very rare case
+              when a value is multi-typed and is both a boolean and a string,
+              then the string value of the variable will be returned, and so
+              the <literal>boolean_format</literal> setting will have no
+              effect.</para>
             </listitem>
           </itemizedlist>
         </section>
@@ -13489,6 +13684,71 @@ The usual variations are supported:
 
           <para>The first subvariable of the sequence. Template processing
           will die with error if the sequence is empty.</para>
+        </section>
+
+        <section xml:id="ref_builtin_join">
+          <title>join</title>
+
+          <indexterm>
+            <primary>join built-in</primary>
+          </indexterm>
+
+          <para>Concatenates the items of a sequence to a single string, with
+          the given separator. For example:</para>
+
+          <programlisting role="template">&lt;#assign colors = ["red", "green", "blue"]&gt;
+${colors?join(", ")}</programlisting>
+
+          <para>will output:</para>
+
+          <programlisting role="output">red, green, blue</programlisting>
+
+          <para>Sequence items that are not strings will be converted to
+          string with the same conversion rules as of
+          <literal>${<replaceable>...</replaceable>}</literal> (except, of
+          course, no automatic escaping is applied at this stage).</para>
+
+          <para><literal>?join(<replaceable>...</replaceable>)</literal> can
+          have up to 3 parameters:</para>
+
+          <orderedlist>
+            <listitem>
+              <para>Separator, required: The string that is inserted between
+              items</para>
+            </listitem>
+
+            <listitem>
+              <para>Empty value, defaults to <literal>""</literal> (empty
+              string): The value used if the sequence contains 0 value.</para>
+            </listitem>
+
+            <listitem>
+              <para>List ending, defaults to <literal>""</literal> (empty
+              string): The value printed after the last value, if the list
+              sequence wasn't empty.</para>
+            </listitem>
+          </orderedlist>
+
+          <para>So this (where <literal>[]</literal> means an empty
+          sequence):</para>
+
+          <programlisting role="template">${colors?join(", ", "-")}
+${[]?join(", ", "-")}
+
+${colors?join(", ", "-", ".")}
+${[]?join(", ", "-", ".")}</programlisting>
+
+          <para>will output:</para>
+
+          <programlisting role="output">red, green, blue
+-
+
+red, green, blue.
+-</programlisting>
+
+          <para role="forProgrammers">Sequences coming from Java might contain
+          <literal>null</literal> values. Those values will be ignored by this
+          built-in, exactly like if they were removed from the list.</para>
         </section>
 
         <section xml:id="ref_builtin_last">
@@ -14374,7 +14634,8 @@ May 16, 2011
               <tr>
                 <td><literal>is_macro</literal></td>
 
-                <td>macro</td>
+                <td>macro or function (yes, also for function; a historical
+                glitch)</td>
               </tr>
 
               <tr>
@@ -14420,7 +14681,8 @@ May 16, 2011
                 <td>Whatever kind of directive (for example a macro, <phrase
                 role="forProgrammers">or
                 <literal>TemplateDirectiveModel</literal>,
-                <literal>TemplateTransformModel</literal>, etc.</phrase>)</td>
+                <literal>TemplateTransformModel</literal>, etc.</phrase>), or
+                function (a historical glitch)</td>
               </tr>
 
               <tr>
@@ -14440,8 +14702,8 @@ May 16, 2011
           </indexterm>
 
           <para>This built-in returns the namespace (i.e. the ``gate'' hash to
-          the namespace) associated with a macro variable. You can use it with
-          macros only.</para>
+          the namespace) associated with a macro or function variable. You can
+          use it with macros and functions only.</para>
         </section>
 
         <section xml:id="ref_builtin_new">
@@ -14472,7 +14734,7 @@ May 16, 2011
 
           <para>For more information about how the constructor parameters are
           unwrapped and how overloaded constructor is chosen, read: <xref
-          linkend="pgui_misc_beanwrapper" /></para>
+          linkend="pgui_misc_beanwrapper"/></para>
 
           <para>This built-in can be a security concern because the template
           author can create arbitrary Java objects and then use them, as far
@@ -14653,17 +14915,17 @@ May 16, 2011
 
         <para>If you don't find a directive here that you have seen in a
         working template, probably you will find it in: <xref
-        linkend="ref_deprecated" /></para>
+        linkend="ref_deprecated"/></para>
       </section>
 
       <section xml:id="ref_directive_if">
         <title>if, else, elseif</title>
 
-        <anchor xml:id="ref.directive.if" />
+        <anchor xml:id="ref.directive.if"/>
 
-        <anchor xml:id="ref.directive.else" />
+        <anchor xml:id="ref.directive.else"/>
 
-        <anchor xml:id="ref.directive.elseif" />
+        <anchor xml:id="ref.directive.elseif"/>
 
         <indexterm>
           <primary>if directive</primary>
@@ -14762,7 +15024,7 @@ May 16, 2011
 &lt;/#if&gt;</programlisting>
 
           <para>To see more about boolean expressions, see: <xref
-          linkend="dgui_template_exp" />.</para>
+          linkend="dgui_template_exp"/>.</para>
 
           <para>You can nest <literal>if</literal> directives (of
           course):</para>
@@ -14794,13 +15056,13 @@ May 16, 2011
       <section xml:id="ref_directive_switch">
         <title>switch, case, default, break</title>
 
-        <anchor xml:id="ref.directive.switch" />
+        <anchor xml:id="ref.directive.switch"/>
 
-        <anchor xml:id="ref.directive.case" />
+        <anchor xml:id="ref.directive.case"/>
 
-        <anchor xml:id="ref.directive.default" />
+        <anchor xml:id="ref.directive.default"/>
 
-        <anchor xml:id="ref.directive.switch.break" />
+        <anchor xml:id="ref.directive.switch.break"/>
 
         <indexterm>
           <primary>switch directive</primary>
@@ -14896,9 +15158,9 @@ May 16, 2011
           <literal>&lt;#default&gt;</literal> tag. Example:</para>
 
           <programlisting role="template">&lt;#switch x&gt;
-  &lt;#case x = 1&gt;
+  &lt;#case 1&gt;
     1
-  &lt;#case x = 2&gt;
+  &lt;#case 2&gt;
     2
   &lt;#default&gt;
     d
@@ -14916,7 +15178,7 @@ May 16, 2011
       <section xml:id="ref_directive_list">
         <title>list, break</title>
 
-        <anchor xml:id="ref.directive.list" />
+        <anchor xml:id="ref.directive.list"/>
 
         <indexterm>
           <primary>list directive</primary>
@@ -15019,7 +15281,7 @@ May 16, 2011
           <para>Note that the above example will not work as you may expected
           if <literal>x</literal> is 0, as then it will print 0 and -1.</para>
 
-          <anchor xml:id="ref.directive.list.break" />
+          <anchor xml:id="ref.directive.list.break"/>
 
           <para>You can leave the <literal>list</literal> loop before it
           passes the last subvariable of the sequence with the
@@ -15054,7 +15316,7 @@ May 16, 2011
       <section xml:id="ref_directive_include">
         <title>include</title>
 
-        <anchor xml:id="ref.directive.include" />
+        <anchor xml:id="ref.directive.include"/>
 
         <indexterm>
           <primary>include directive</primary>
@@ -15394,7 +15656,7 @@ All rights reserved.</emphasis></programlisting>
       <section xml:id="ref_directive_import">
         <title>import</title>
 
-        <anchor xml:id="ref.directive.import" />
+        <anchor xml:id="ref.directive.import"/>
 
         <indexterm>
           <primary>import directive</primary>
@@ -15485,14 +15747,14 @@ All rights reserved.</emphasis></programlisting>
           <literal>Configuration</literal>.</phrase></para>
 
           <para>If you are new to namespaces, you should read: <xref
-          linkend="dgui_misc_namespace" /></para>
+          linkend="dgui_misc_namespace"/></para>
         </section>
       </section>
 
       <section xml:id="ref_directive_noparse">
         <title>noparse</title>
 
-        <anchor xml:id="ref.directive.noparse" />
+        <anchor xml:id="ref.directive.noparse"/>
 
         <indexterm>
           <primary>noparse directive</primary>
@@ -15541,7 +15803,7 @@ All rights reserved.</emphasis></programlisting>
       <section xml:id="ref_directive_compress">
         <title>compress</title>
 
-        <anchor xml:id="ref.directive.compress" />
+        <anchor xml:id="ref.directive.compress"/>
 
         <indexterm>
           <primary>compress directive</primary>
@@ -15599,9 +15861,9 @@ I said, test only)</programlisting>
       <section xml:id="ref_directive_escape">
         <title>escape, noescape</title>
 
-        <anchor xml:id="ref.directive.escape" />
+        <anchor xml:id="ref.directive.escape"/>
 
-        <anchor xml:id="ref.directive.noescape" />
+        <anchor xml:id="ref.directive.noescape"/>
 
         <indexterm>
           <primary>escape directive</primary>
@@ -15754,7 +16016,7 @@ m2: &amp;lt;test&amp;gt;</programlisting>
       <section xml:id="ref_directive_assign">
         <title>assign</title>
 
-        <anchor xml:id="ref.directive.assign" />
+        <anchor xml:id="ref.directive.assign"/>
 
         <indexterm>
           <primary>assign directive</primary>
@@ -15816,7 +16078,7 @@ or
           <literal>some_hash</literal>).</para>
 
           <para>For more information about variables, read this: <xref
-          linkend="dgui_misc_var" /></para>
+          linkend="dgui_misc_var"/></para>
 
           <para>Example: variable <literal>seasons</literal> will store a
           sequence:</para>
@@ -15887,7 +16149,7 @@ ${x}</programlisting>
       <section xml:id="ref_directive_global">
         <title>global</title>
 
-        <anchor xml:id="ref.directive.global" />
+        <anchor xml:id="ref.directive.global"/>
 
         <indexterm>
           <primary>global directive</primary>
@@ -15965,7 +16227,7 @@ or
       <section xml:id="ref_directive_local">
         <title>local</title>
 
-        <anchor xml:id="ref.directive.local" />
+        <anchor xml:id="ref.directive.local"/>
 
         <indexterm>
           <primary>local directive</primary>
@@ -16013,14 +16275,14 @@ or
           only works inside macro definitions and function definitons.</para>
 
           <para>For more information about variables, read this: <xref
-          linkend="dgui_misc_var" /></para>
+          linkend="dgui_misc_var"/></para>
         </section>
       </section>
 
       <section xml:id="ref_directive_setting">
         <title>setting</title>
 
-        <anchor xml:id="ref.directive.setting" />
+        <anchor xml:id="ref.directive.setting"/>
 
         <indexterm>
           <primary>setting directive</primary>
@@ -16057,7 +16319,7 @@ or
           and does not touch the template itself. The initial value of
           settings is set by the programmer <phrase
           role="forProgrammers">(see: <xref
-          linkend="pgui_config_settings" />)</phrase>.</para>
+          linkend="pgui_config_settings"/>)</phrase>.</para>
 
           <para>The supported settings are:</para>
 
@@ -16206,7 +16468,7 @@ ${1.2}</programlisting>
       <section xml:id="ref_directive_userDefined">
         <title>User-defined directive (&lt;@...&gt;)</title>
 
-        <anchor xml:id="ref.directive.userDefined" />
+        <anchor xml:id="ref.directive.userDefined"/>
 
         <indexterm>
           <primary>user-defined directive</primary>
@@ -16427,7 +16689,7 @@ Or all above but with positional parameter passing (<link
       <section xml:id="ref_directive_macro">
         <title>macro, nested, return</title>
 
-        <anchor xml:id="ref.directive.macro" />
+        <anchor xml:id="ref.directive.macro"/>
 
         <indexterm>
           <primary>macro directive</primary>
@@ -16638,7 +16900,7 @@ Or all above but with positional parameter passing (<link
           <section>
             <title>nested</title>
 
-            <anchor xml:id="ref.directive.nested" />
+            <anchor xml:id="ref.directive.nested"/>
 
             <para>The <literal>nested</literal> directive executes the
             template fragment between the start-tag and end-tags of the
@@ -16707,7 +16969,7 @@ Or all above but with positional parameter passing (<link
           <section>
             <title>return</title>
 
-            <anchor xml:id="ref.directive.macro.return" />
+            <anchor xml:id="ref.directive.macro.return"/>
 
             <para>With the <literal>return</literal> directive, you can leave
             a macro or function definition body anywhere. Example:</para>
@@ -16730,9 +16992,9 @@ Or all above but with positional parameter passing (<link
       <section xml:id="ref_directive_function">
         <title>function, return</title>
 
-        <anchor xml:id="ref.directive.function" />
+        <anchor xml:id="ref.directive.function"/>
 
-        <anchor xml:id="ref.directive.function.return" />
+        <anchor xml:id="ref.directive.function.return"/>
 
         <indexterm>
           <primary>function directive</primary>
@@ -16855,7 +17117,7 @@ N/A</programlisting>
       <section xml:id="ref_directive_flush">
         <title>flush</title>
 
-        <anchor xml:id="ref.directive.flush" />
+        <anchor xml:id="ref.directive.flush"/>
 
         <indexterm>
           <primary>flush directive</primary>
@@ -16895,7 +17157,7 @@ N/A</programlisting>
       <section xml:id="ref_directive_stop">
         <title>stop</title>
 
-        <anchor xml:id="ref.directive.stop" />
+        <anchor xml:id="ref.directive.stop"/>
 
         <indexterm>
           <primary>stop directive</primary>
@@ -16936,7 +17198,7 @@ or
       <section xml:id="ref_directive_ftl">
         <title>ftl</title>
 
-        <anchor xml:id="ref.directive.ftl" />
+        <anchor xml:id="ref.directive.ftl"/>
 
         <indexterm>
           <primary>ftl directive</primary>
@@ -17067,7 +17329,7 @@ or
               setting to <literal>true</literal> for this:
               <literal>config.setStrictSyntaxMode(true);</literal>)</phrase>
               For more information read: <xref
-              linkend="ref_depr_oldsyntax" /></para>
+              linkend="ref_depr_oldsyntax"/></para>
             </listitem>
 
             <listitem>
@@ -17147,11 +17409,11 @@ or
       <section xml:id="ref_directive_t">
         <title>t, lt, rt</title>
 
-        <anchor xml:id="ref.directive.t" />
+        <anchor xml:id="ref.directive.t"/>
 
-        <anchor xml:id="ref.directive.lt" />
+        <anchor xml:id="ref.directive.lt"/>
 
-        <anchor xml:id="ref.directive.rt" />
+        <anchor xml:id="ref.directive.rt"/>
 
         <indexterm>
           <primary>t directive</primary>
@@ -17269,7 +17531,7 @@ or
       <section xml:id="ref_directive_nt">
         <title>nt</title>
 
-        <anchor xml:id="ref.directive.nt" />
+        <anchor xml:id="ref.directive.nt"/>
 
         <indexterm>
           <primary>nt directive</primary>
@@ -17314,7 +17576,7 @@ or
       <section xml:id="ref_directive_attempt">
         <title>attempt, recover</title>
 
-        <anchor xml:id="ref.directive.attempt" />
+        <anchor xml:id="ref.directive.attempt"/>
 
         <indexterm>
           <primary>attempt directive</primary>
@@ -17472,7 +17734,7 @@ Primary content continued</programlisting>
       <section xml:id="ref_directive_visit">
         <title>visit, recurse, fallback</title>
 
-        <anchor xml:id="ref.directive.visit" />
+        <anchor xml:id="ref.directive.visit"/>
 
         <indexterm>
           <primary>visit directive</primary>
@@ -17675,7 +17937,7 @@ Done.</programlisting>
             user-defined directive to handle the node, then
             <literal>visit</literal> stops template processing with error.
             Some XML specific node types have special handling in this regard;
-            see: <xref linkend="xgui_declarative_details" />. Example:</para>
+            see: <xref linkend="xgui_declarative_details"/>. Example:</para>
 
             <programlisting role="template">&lt;#-- Assume that nodeWithNameX?node_name is "x" --&gt;
 &lt;#visit nodeWithNameX&gt;
@@ -17703,7 +17965,7 @@ There was no specific handler for node y
           <section>
             <title>Recurse</title>
 
-            <anchor xml:id="ref.directive.recurse" />
+            <anchor xml:id="ref.directive.recurse"/>
 
             <para>The <literal>&lt;#recurse&gt;</literal> directive is really
             syntactic sugar. It visits all children nodes of the node (and not
@@ -17732,7 +17994,7 @@ There was no specific handler for node y
           <section>
             <title>Fallback</title>
 
-            <anchor xml:id="ref.directive.fallback" />
+            <anchor xml:id="ref.directive.fallback"/>
 
             <para>As you could learn earlier, in the documentation of the
             <literal>visit</literal> directive, the user-defined directive
@@ -18139,9 +18401,9 @@ There was no specific handler for node y
       <section xml:id="ref_depr_oldmacro">
         <title>Old-style macro and call directives</title>
 
-        <anchor xml:id="ref.directive.oldmacro" />
+        <anchor xml:id="ref.directive.oldmacro"/>
 
-        <anchor xml:id="ref.directive.call" />
+        <anchor xml:id="ref.directive.call"/>
 
         <section>
           <title>Synopsis</title>
@@ -18270,7 +18532,7 @@ There was no specific handler for node y
       <section xml:id="ref_depr_transform">
         <title>Transform directive</title>
 
-        <anchor xml:id="ref.directive.transform" />
+        <anchor xml:id="ref.directive.transform"/>
 
         <indexterm>
           <primary>transform directive</primary>
@@ -18369,7 +18631,7 @@ some test
           most transforms in the
           <literal>freemarker.template.utility</literal> package. For more
           information see: <xref
-          linkend="pgui_config_sharedvariables" /></phrase></para>
+          linkend="pgui_config_sharedvariables"/></phrase></para>
         </section>
       </section>
 
@@ -18575,6 +18837,12 @@ or
         <primary>FAQ</primary>
       </indexterm>
 
+      <para>Translations: Chinese in the <link
+      xlink:href="https://sourceforge.net/projects/freemarker/files/chinese-manual/FreeMarker_Manual_zh_CN.pdf/download">Chinese
+      translation of the Manual (PDF)</link>, <link
+      xlink:href="http://science.webhostinggeeks.com/dodatak-faq">Serbo-Croatian
+      (based on FreeMarker 2.3.19)</link></para>
+
       <qandaset>
         <qandaentry xml:id="faq_jsp_vs_freemarker">
           <question>
@@ -18615,7 +18883,7 @@ or
               </listitem>
 
               <listitem>
-                <para>Locale sensitive number and date formatting by default.
+                <para>Locale-sensitive number and date formatting by default.
                 Since we mostly output for a human audience all you need to do
                 is just write <literal>${x}</literal> rather than
                 <literal>&lt;fmt:formatNumber value="${x}" /&gt;</literal>.
@@ -18624,7 +18892,8 @@ or
               </listitem>
 
               <listitem>
-                <para>Easier to define ad-hoc macros and functions.</para>
+                <para>Much easier to define ad-hoc macros and
+                functions.</para>
               </listitem>
 
               <listitem>
@@ -18671,9 +18940,9 @@ or
               <listitem>
                 <para>Not a ``standard''. There are fewer tools and IDE
                 integrations, fewer developers knows it and there's much less
-                industry support in general. (However, JSP tag libraries work
-                without modification in FreeMarker templates, if they are not
-                using <literal>.tag</literal> files.)</para>
+                industry support in general. (However, JSP tag libraries can
+                work in FreeMarker templates with the proper setup, unless
+                they are using <literal>.tag</literal> files.)</para>
               </listitem>
 
               <listitem>
@@ -18695,28 +18964,7 @@ or
             </itemizedlist>
 
             <para>You may read this if you are considering replacing JSP with
-            FreeMarker: <xref linkend="pgui_misc_servlet_model2" /></para>
-          </answer>
-        </qandaentry>
-
-        <qandaentry xml:id="faq_jsp_vs_velocity">
-          <question>
-            <para>Velocity versus FreeMarker?</para>
-
-            <indexterm>
-              <primary>Velocity</primary>
-            </indexterm>
-          </question>
-
-          <answer>
-            <para><link
-            xlink:href="http://jakarta.apache.org/velocity/index.html">Velocity</link>
-            is a simpler, more lightweight tool. Thus, it does not address
-            many tasks that FreeMarker does, and its template language is less
-            powerful in general, but it is simpler; visit <link
-            xlink:href="http://freemarker.org/fmVsVel.html">http://freemarker.org/fmVsVel.html</link>
-            for details. Currently (2005) Velocity has wider third party
-            support and larger user community.</para>
+            FreeMarker: <xref linkend="pgui_misc_servlet_model2"/></para>
           </answer>
         </qandaentry>
 
@@ -18744,47 +18992,49 @@ or
               <listitem>
                 <para>It potentially hides accidental mistakes, like a typo in
                 a variable name, or when the template author refers to a
-                variable that the programmer doesn't put into the data-model,
-                or for which the programmer uses a different name. Human is
-                prone to do such accidental mistakes, computers are not, so
-                missing this opportunity that the template engine can show
-                these errors is a bad business. Even if you very carefully
-                check the output of the templates during development, it is
-                easy to look over mistakes like <literal>&lt;#if
-                hasDetp&gt;<replaceable>print dept
+                variable that the programmer doesn't put into the data-model
+                for that template, or for which the programmer uses a
+                different name. Human beings are prone to do such mistakes,
+                while computers are not, so missing this opportunity that the
+                template engine can show these errors is a bad business. Even
+                if you very carefully check the output of the templates during
+                development, it is easy to look over mistakes like
+                <literal>&lt;#if hasWarnigs&gt;<replaceable>print warnings
                 here...</replaceable>&lt;/#if&gt;</literal>, which would then
-                silently never print the dept of the visitor, since you have
-                mistyped the variable name (it should be
-                <literal>hasDept</literal>). Also think about maintenance,
-                when you later modify your application... most probably you
-                will not re-check templates that carefully each time.</para>
+                silently never print the warnings, since you have mistyped the
+                variable name. Also think about maintenance, when you later
+                modify your application; probably you will not re-check
+                templates (many applications has hundreds of them) that
+                carefully each time, for all possible scenarios. Unit tests
+                typically doesn't cover web page content very good either (if
+                you have them at all...); they mostly only checks certain
+                manually set patterns in the web page, so they will often
+                gloss though changes that are actually bugs. But if the page
+                fails with exception, that's something human testers will
+                notice and unit sets will notice, and in production the
+                maintainers will notice (assuming somebody check error
+                logs).</para>
               </listitem>
 
               <listitem>
                 <para>Makes dangerous assumptions. The script language or
                 template engine knows nothing about the application domain, so
-                when it decides the value of something it don't know to be
-                0/false, it is a quite irresponsible and arbitrary thing. Just
-                because it is not know what's your current bank account
-                balance, can we just say it is $0 (and how easy it is to
-                accidentally write <literal>Balance: ${balanace}</literal>)?
-                Just because it is not known if a patient has penicillin
-                allergy, we can just say he/she doesn't have (and how easy it
-                is to accidentally write <literal>&lt;#if
-                hasPenicilinAllergy&gt;<replaceable>Warning...</replaceable>&lt;#else&gt;<replaceable>Allow...</replaceable>&lt;/#if&gt;</literal>;
-                there is a typo in this, if you didn't see)? Just consider the
-                implications of such mistakes for a moment. They can be quite
-                severe and troubling. Showing an error page is often better
-                than showing incorrect information that formally looks
-                good.</para>
+                when it decides the value of something that it doesn't know to
+                be 0/false, it is a quite irresponsible and arbitrary thing.
+                Just because it's not know what's your current balance at your
+                bank, can we just say it's $0? Just because it is not known if
+                a patient has penicillin allergy, we can just say he/she
+                doesn't have it? Just consider the implications of such
+                mistakes. Showing an error page is often better than showing
+                incorrect information that formally looks good.</para>
               </listitem>
             </itemizedlist>
 
             <para>Being not picky is mostly sweeping under the carpet in this
             case (not facing with the problems), which of course most people
-            feels more convenient, but still... we believe that in most cases
+            feels more convenient, but still, we believe that in most cases
             being strict will save your time and increase your software
-            quality in the long run.</para>
+            quality on the long run.</para>
 
             <para>On the other hand, we recognize that there are cases where
             you don't want FreeMarker to be that picky with good reason, and
@@ -18796,25 +19046,30 @@ or
                 <literal>null</literal>-s or have optional variables. In such
                 cases use <link linkend="dgui_template_exp_missing">these
                 operators</link>. If you use them too often, try to rethink
-                your data-model, because depending on them too much is not
-                just results in awkward verbose templates, but increases the
-                probability of hiding errors and printing arbitrary incorrect
-                output (for the reasons described earlier).</para>
+                your data-model, because depending on them too much won't just
+                make the templates too verbose, but increases the probability
+                of hiding errors and printing arbitrary incorrect output (for
+                the reasons described earlier).</para>
               </listitem>
 
               <listitem>
-                <para>On a production server you may rather want to show an
+                <para>In some application you may rather want to show an
                 incomplete/damaged page than an error page. In this case you
-                can <link linkend="pgui_config_errorhandling">use other error
-                handler</link> than the default. Error handlers can be made
-                that rather skip the problematic part than abort the whole
-                page rendering. Note, however, that although the error
+                can <link linkend="pgui_config_errorhandling">use another
+                error handler</link> than the default one. A custom error
+                handler can skip the problematic part instead of aborting the
+                whole page rendering. Note, however, that although the error
                 handlers don't give arbitrary default values to variables, for
                 pages that show critical information it's maybe still better
-                to show an error page. (Another feature you may interested in:
-                <link linkend="ref_directive_attempt">the
+                to show an error page.</para>
+              </listitem>
+
+              <listitem>
+                <para>If the pages contain parts that aren't critically
+                important (like side bars), another feature you may interested
+                in is <link linkend="ref_directive_attempt">the
                 <literal>attempt</literal>/<literal>recover</literal>
-                directives</link>)</para>
+                directives</link>.</para>
               </listitem>
             </itemizedlist>
           </answer>
@@ -18837,22 +19092,28 @@ or
             <para>Are you sure that the Java class loader finds the same
             <literal>freemarker.jar</literal> that you expect to use? Maybe
             there is an older version of <literal>freemarker.jar</literal>
-            around (such as in the Ant <literal>lib</literal> directory),
-            which has higher priority. To check this, try to print the version
-            number in a template with <literal>${.version}</literal>. If it
-            dies with ``Unknown built-in variable: version'' error message,
-            then you use a release before 2.3-final or 2.2.8, but you can
-            still try to get the version number in the Java code of your
+            around, which has higher priority. To check this, try to print the
+            version number in a template with <literal>${.version}</literal>.
+            If it dies with ``Unknown built-in variable: version'' error
+            message, then you use a release before 2.3-final or 2.2.8, but you
+            can still try to get the version number in the Java code of your
             application with
             <literal>Configuration.getVersionNumber()</literal>. If this
             method is not present either, then you are using an early
             2.3-preview, or a version before 2.2.6.</para>
 
+            <para>If you suspect that the problem is that you have multiple
+            <literal>freemarker.jar</literal>-s, the typical culprit is that
+            some module has a Maven dependency with group ID
+            <literal>freemarker</literal>, as opposed to
+            <literal>org.freemarker</literal>, while you have declared a
+            dependency on <literal>org.freemarker</literal>. In this case you
+            will have to exclude the <literal>freemarker</literal>
+            dependency.</para>
+
             <para>If you think that the documentation or FreeMarker is wrong,
-            please report it using the bug tracker, or the mailing list, or
-            the forums on <link
-            xlink:href="http://sourceforge.net/projects/freemarker/">http://sourceforge.net/projects/freemarker/</link>.
-            Thank you!</para>
+            please report it using the bug tracker, or the mailing list. Thank
+            you!</para>
           </answer>
         </qandaentry>
 
@@ -18877,9 +19138,10 @@ or
             <para>Note however than humans often find it hard to read big
             numbers without grouping separator. So in general it is
             recommended to keep them, and in cases where the numbers are for
-            ''computer audience'' that is confused on the grouping separators,
-            use the <link linkend="ref_builtin_c"><literal>c</literal>
-            built-in</link>. For example:</para>
+            ''computer audience'' (which is confused on the grouping
+            separators), use the <link
+            linkend="ref_builtin_c"><literal>c</literal> built-in</link>. For
+            example:</para>
 
             <programlisting role="template">&lt;a href="/shop/productdetails?id=${<emphasis>product.id?c</emphasis>}"&gt;Details...&lt;/a&gt;</programlisting>
           </answer>
@@ -18931,10 +19193,34 @@ or
             of formatting a boolean is like <literal>${washable?string("yes",
             "no")}</literal>, <literal>${caching?string("Enabled",
             "Disabled")}</literal>, <literal>${heating?string("on",
-            "off")}</literal>, etc. However, for generating source code
-            <literal>${washable?string("true", "false")}</literal> would be
-            very often used, so <literal>${washable?string}</literal> (i.e.,
-            omitting the parameter list) is equivalent with that.</para>
+            "off")}</literal>, etc.</para>
+
+            <para>However, there are two cases where this gets
+            impractical:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>When printing boolean to generate computer language
+                output, and hence you want
+                <literal>true</literal>/<literal>false</literal>, use
+                <literal>${<replaceable>someBoolean</replaceable>?c}</literal>.
+                (This requires at least FreeMarker 2.3.20. Before that, the
+                common practice was writing
+                <literal>${<replaceable>someBoolean</replaceable>?string}</literal>,
+                however that's dangerous because its output depends on the
+                boolean format settings, whose default is
+                <literal>"true"</literal>/<literal>"false"</literal>.)</para>
+              </listitem>
+
+              <listitem>
+                <para>When you have format most of the booleans on the same
+                way. In this case you can set the
+                <literal>boolean_format</literal> setting
+                (<literal>Configuration.setBooleanFormat</literal>) to reflect
+                that, and then since FreeMarker 2.3.20 you can just write
+                <literal>${<replaceable>someBoolean</replaceable>}</literal>.</para>
+              </listitem>
+            </itemizedlist>
           </answer>
         </qandaentry>
 
@@ -19551,10 +19837,10 @@ t.process(root, out);
 
             <para>When you use <literal>&lt;#assign x = "foo"&gt;</literal>,
             then you do not actually modify the data-model (since that is
-            read-only, see: <xref linkend="pgui_misc_multithreading" />), but
+            read-only, see: <xref linkend="pgui_misc_multithreading"/>), but
             create the <literal>x</literal> variable in the runtime <link
             linkend="gloss.environment">environment</link> of the processing
-            (see <xref linkend="pgui_misc_var" />). The problem is that this
+            (see <xref linkend="pgui_misc_var"/>). The problem is that this
             runtime environment will be discarded when
             <literal>Template.process</literal> returns, as it was created for
             a single <literal>Template.process</literal> call:</para>
@@ -19716,7 +20002,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
 
         <qandaentry xml:id="faq_nice_error_page">
           <question>
-            <para><anchor xml:id="misc.faq.niceErrorPage" /> In my Servlet
+            <para><anchor xml:id="misc.faq.niceErrorPage"/> In my Servlet
             based application, how do I show a nice error page instead of a
             stack trace when error occurs during template processing?</para>
           </question>
@@ -20013,31 +20299,659 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
         <primary>build</primary>
       </indexterm>
 
-      <para>If you want to modify the source code and rebuild
-      <literal>freemarker.jar</literal>, you need <link
-      xlink:href="http://ant.apache.org/">Ant</link> 1.6.1 (or newer) and JDK
-      5 (or newer). If these are satisfied, just run Ant from the root
-      directory of the distribution, and it will create the new
-      <literal>freemarker.jar</literal>. Note that for the very first build
-      you must be on-line, because the build task will download a lot of
-      required dependencies (about 20 MB) into the <literal>lib</literal>
-      subdirectory of distribution root directory.</para>
+      <para>You need Apache Ant and Ivy be installed. (As of this writing it
+      was tested with Ant 1.8.1 and Ivy 2.3.0.)</para>
 
-      <para>Maybe you should check the new jar file against our test suite.
-      This is done by running Ant with <literal>test</literal> target (go to
-      the root directory of the distribution, and issue "ant test"). If the
-      test fails, read the resulting <literal>.txt</literal> file in the
-      <literal>build/testcase</literal> directory for more details.</para>
+      <para>If you need to ensure compliance with certain J2SE versions, copy
+      <literal>build.properties.sample</literal> into
+      <literal>build.properties</literal>, and edit it accordingly.</para>
 
-      <para>Note that building a full distribution, which includes the
-      FreeMarker Manual and the off-line Web site, is not possible purely from
-      the source code that is included with the distribution. You will have to
-      check out the "docgen" and "site" sub-projects from the SVN repository
-      of FreeMarker for that.</para>
+      <para>To build <literal>freemarker.jar</literal>, just issue
+      <literal>ant</literal> in the project root directory, and it should
+      download all dependencies automatically and build
+      <literal>freemarker.jar</literal>.</para>
+
+      <para>If later you change the dependencies in
+      <literal>ivy.xml</literal>, or otherwise want to re-download some of
+      them, it will not happen automatically anymore. You have to issue
+      <literal>ant update-deps</literal> for that.</para>
+
+      <para>For development under Eclipse, you will need IvyDE installed. You
+      are advised to use the Eclipse project files included (otherwise set up
+      IvyDE to use the "IDE" configuration and the included
+      <literal>ivysettings.xml</literal>). Note that IvyDE will not find the
+      dependencies until ant <literal>update-deps</literal> has run once,
+      because it uses the mini-repository built by that Ant task. If you
+      change the dependencies in <literal>ivy.xml</literal>, you will have to
+      run <literal>ant update-deps</literal> again, and only after that tell
+      IvyDE to resolve the dependencies.</para>
     </appendix>
 
     <appendix xml:id="app_versions">
       <title>Versions</title>
+
+      <section xml:id="versions_2_3_20">
+        <title>2.3.20</title>
+
+        <para>Date of release: 2013-06-27</para>
+
+        <para>If you are IDE/tools author, <link
+        linkend="version_2_3_20_ide">note these changes</link>.</para>
+
+        <section>
+          <title>Changes on the FTL side</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>Error message quality improvements:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Many error messages are now more helpful, especially
+                  for users who are not experienced with FreeMarker. For
+                  example, some of the most common user mistakes are
+                  recognized and tips are shown to fix them, reducing support
+                  costs or the time employees spend to figure them out.</para>
+                </listitem>
+
+                <listitem>
+                  <para>It's now ensured that the error location in the
+                  template is included in the message returned by
+                  <literal>TemplateException.getMessage()</literal>. The stack
+                  trace always showed this information anyway, but some users
+                  only see the <quote>message</quote>, not the stack trace,
+                  and that often didn't contained the location.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The template language part of the stack trace is now
+                  more detailed, and easier to understand. This is especially
+                  helpful in applications that use a complex library of macros
+                  and functions.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Several smaller bugs were fixed that made the error
+                  information wrong or lacking.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The layout of the error messages is now more
+                  consistent, and generally easier to read.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Changes regarding boolean to string conversions and
+              formatting:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para><literal>?c</literal> (computer-language formatting)
+                  now works with booleans too, always giving
+                  <literal>"true"</literal> or <literal>"false"</literal>
+                  regardless of the <literal>boolean_format</literal>. This
+                  way it's safe for generating JavaScript in a context where
+                  human-readable text is also rendered.</para>
+                </listitem>
+
+                <listitem>
+                  <para>If the <literal>boolean_format</literal> setting is
+                  set to anything but the default
+                  <literal>"true,false"</literal> value, boolean values will
+                  be automatically converted to string where a string value is
+                  expected by the template language, instead of giving an
+                  error. This helps you spare
+                  those<literal>?string</literal>-s after boolean values. This
+                  is the same logic as with numbers and dates, which were
+                  always automatically converted to string, according the
+                  corresponding format setting. Except, the provided default
+                  boolean format is useless for automatic conversion (but it's
+                  still there for <literal>?string</literal>, for backward
+                  compatibility), hence it must be set manually. (We certainly
+                  couldn't come up with a sensible default anyway, as for
+                  booleans it depends too much on the application, not to
+                  mention the localisation issues.)</para>
+
+                  <para>Exactly like with numbers and dates, automatic
+                  conversion doesn't happen in these cases:</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Comparisons, i.e., <literal>someBoolean ==
+                      'true'</literal> is still an error</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>Method calls where the declared type of the
+                      parameter is <literal>String</literal> but the actual
+                      value is a boolean; still an error</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>When the boolean value is used as key in
+                      <literal><replaceable>expr</replaceable>[<replaceable>key</replaceable>]</literal>,
+                      it's still an error (there was no automatic conversion
+                      there for other types either, as numerical and string
+                      keys have different meaning)</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>The opposite direction, i.e., string to boolean
+                      conversion; won't happen</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>New built-ins for numbers: <link
+              linkend="ref_builtin_abs"><literal>abs</literal></link>, <link
+              linkend="ref_builtin_is_nan"><literal>is_nan</literal></link>,
+              <link
+              linkend="ref_builtin_is_infinite"><literal>is_infinite</literal></link>.
+              Like <literal>n?abs</literal> will give the absolute value of
+              <literal>n</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>New built-in for sequences: <link
+              linkend="ref_builtin_join"><literal>join</literal></link>. Like
+              <literal>[1, 2, 3]?join(", ")</literal> will give the string
+              <literal>"1, 2, 3"</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>If you set the
+              <literal>incompatible_improvements</literal> setting (see <link
+              xlink:href="http://freemarker.org/docs/api/freemarker/template/Configuration.html#setIncompatibleImprovements%28freemarker.core.Version%29">here</link>)
+              to <literal>2.3.20</literal> or higher, <literal>?html</literal>
+              will escape apostrophe-quotes just like
+              <literal>?xhtml</literal> does. Utilizing this is highly
+              recommended, because otherwise if interpolations are used inside
+              attribute values that use apostrophe-quotation (<literal>&lt;foo
+              bar='${val}'&gt;</literal>) instead of plain quotation mark
+              (<literal>&lt;foo bar="${val}"&gt;</literal>), they might
+              produce HTML/XML that's not well-formed. Note that
+              <literal>?html</literal> didn't do this because long ago there
+              was no cross-browser way of doing this, but it's not a real
+              concern anymore. Also note that this will be the default
+              behavior starting from 2.4.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix [<link
+              xlink:href="https://sourceforge.net/p/freemarker/bugs/390/">390</link>]
+              (and other improvements): <literal>?js_string</literal> and
+              <literal>?json_string</literal> didn't escape the
+              <literal>u2028</literal>-<literal>u2029</literal> line
+              terminators (problem for JavaScript) and the
+              <literal>u007F</literal>-<literal>u009F</literal> control
+              characters (maybe a problem in JSON, depending on
+              implementation). Furthermore, the escaping of
+              <literal>\</literal>, <literal>&lt;</literal>, and
+              <literal>&gt;</literal> become safer in that now they are
+              escaped whenever it can't be guaranteed that they won't be part
+              of <literal>&lt;!</literal>, <literal>]]&gt;</literal> or
+              <literal>&lt;/</literal>. Earlier they were only escaped when it
+              was known that they are part of these patterns, thus it was
+              possible to assemble these patterns from two adjacent
+              interpolations. Additionally, from now on
+              <literal>&lt;?</literal> and <literal>--&gt;</literal> also
+              count as dangerous patterns, and will trigger
+              <literal>&lt;</literal> and <literal>&gt;</literal>
+              escaping.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fixed: The following string built-ins didn't coerce
+              the numerical, date (and now the boolean) left-values to string,
+              instead they threw a type error: contains,
+              <literal>index_of</literal>, <literal>last_index_of</literal>,
+              <literal>left_pad</literal>, <literal>right_pad</literal>,
+              <literal>matches</literal>, <literal>replace</literal>,
+              <literal>split</literal>, <literal>new</literal>. The other
+              string built-ins already did this conversion for a long time;
+              this was an accidental inconsistency.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fixed: With the default arithmetic engine, it's now
+              supported to compare infinite (positive or negative) with 0, to
+              decide its sign.</para>
+            </listitem>
+          </itemizedlist>
+        </section>
+
+        <section>
+          <title>Changes on the Java side</title>
+
+          <itemizedlist>
+            <listitem>
+              <para><literal>BeansWrapper</literal> introspection cache
+              improvements:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Added public API to <literal>BeansWrapper</literal>
+                  for clearing the class cache:
+                  <literal>clearClassIntrospecitonCache()</literal>,
+                  <literal>removeFromClassIntrospectionCache(Class)</literal></para>
+                </listitem>
+
+                <listitem>
+                  <para>Significantly improved multi-core performance:</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>Uses <literal>ConcurrentHashMap</literal> when
+                      running on Java 5 or later.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>The cache won't block readers while introspecting
+                      a class after a cache miss</para>
+                    </listitem>
+
+                    <listitem>
+                      <para>If multiple threads need to introspect the same
+                      class that's not in the cache yet, only one of them will
+                      do it, the others will wait for its results.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+
+                <listitem>
+                  <para>Bug fix [<link
+                  xlink:href="https://sourceforge.net/p/freemarker/bugs/361/">361</link>]:
+                  There was a small chance of deadlock when class-reloading
+                  was detected. Locking was redesigned to prevent such
+                  oversights in the future.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The internal package-visible
+                  <literal>freemarker.ext.beans</literal> API was slightly
+                  changed as the result of internal cleanup. Nobody but the
+                  FreeMarker developers should define classes in that package,
+                  so it shouldn't break anything. But if somebody did some
+                  in-house hacks there, re-compile to see if it still
+                  works.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Nameless templates (those directly created with
+              <literal>new Template(null,
+              <replaceable>...</replaceable>)</literal> instead of loaded
+              through <literal>Configuration</literal>) couldn't include or
+              import other templates, and thrown a
+              <literal>NullPointerException</literal> when they tried to. Now
+              they resolve relative paths as if they were in the template root
+              directory.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix: Regular expression built-ins and some logger
+              libraries (most importantly Log4J) were unavailable on the
+              Google App Engine platform. This fix is only present in the
+              GAE-compatible build, 2.3.20-gae.</para>
+            </listitem>
+
+            <listitem>
+              <para>Added new method to <literal>Configuration</literal>:
+              <literal>CacheStorage getCacheStorage()</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>Added new methods to <literal>Environment</literal> to
+              make comparisons among <literal>TemplateModel</literal>-s
+              according the rules of the template language operators:
+              <literal>applyEqualsOperator</literal>,
+              <literal>applyEqualsOperatorLenient</literal>,
+              <literal>applyLessThanOperator</literal>,
+              <literal>applyLessThanOrEqualsOperator</literal>,
+              <literal>applyGreaterThanOperator</literal>,
+              <literal>applyWithGreaterThanOrEqualsOperator</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>Added new method,
+              <literal>Environment.isInAttemptBlock()</literal> to check if we
+              are within an <literal>#attempt</literal> block. This can be
+              useful for <literal>TemplateExceptionHandler</literal>-s, as
+              then they don't need to print the error to the output since
+              <literal>#attempt</literal> will roll it back anyway. This is
+              already utilized by the built-in
+              <literal>TemplateExceptionHandler</literal>-s
+              (<literal>DEBUG_HANDLER</literal> and
+              <literal>HTML_DEBUG_HANDLER</literal>).</para>
+            </listitem>
+
+            <listitem>
+              <para>Added convenience constructor <literal>Template(String
+              name, String sourceCode, Configuration cfg)</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para><literal>TemplateException</literal>-s and
+              <literal>TemplateModelExcepton</literal>-s now can have
+              <literal>Throwable</literal> cause, not just
+              <literal>Exception</literal> (it was an old oversight that
+              somehow wasn't fixed so far).</para>
+            </listitem>
+
+            <listitem>
+              <para>Parsing error messages under the JBoss Tools FreeMarker
+              IDE now doesn't contain the usual location line, so that the
+              actual error description is immediately visible in the Eclipse
+              <quote>Problems</quote> view. (It's a <quote>hack</quote> in
+              FreeMarler itself; it tries to detect if it runs under the
+              plugin and then changes its behavior.)</para>
+            </listitem>
+
+            <listitem xml:id="version_2_3_20_ide">
+              <para>Mostly concerning tool (like IDE plugin) authors:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>The error message formats (what
+                  <literal>Throwable.getMessage()</literal> returns) were
+                  heavily changed for <literal>TemplateException</literal>-s,
+                  and somewhat for <literal>ParseException</literal>-s. It's
+                  unlikely that anybody depends on these, but if you tried to
+                  parse these messages, be aware of this.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Fixed bug where <literal>ParseException</literal> has
+                  contained 0 as line and column number for lexical errors.
+                  Now it contains the correct information.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Added
+                  <literal>ParseException.getEditorMessage()</literal>: As in
+                  IDE-s the error markers show the error location to the user
+                  already, the location should not be repeated in the error
+                  message. So in IDE-s you should use this method instead of
+                  <literal>getMessage()</literal>. (Under JBoss Tools:
+                  FreeMarker now <emphasis>tries</emphasis> to detect that it
+                  runs under the plugin, and then it already does this, except
+                  that it still shows the column number as that's missing from
+                  the error marker location.)</para>
+                </listitem>
+
+                <listitem>
+                  <para>Added
+                  <literal>ParseException.getTemplateName()</literal></para>
+                </listitem>
+
+                <listitem>
+                  <para>Added
+                  <literal>Configuration.getSupportedBuiltInNames()</literal>.
+                  As new built-ins
+                  (<literal><replaceable>expr</replaceable>?<replaceable>builtin_name</replaceable></literal>)
+                  are very often added to new FreeMarker versions,
+                  auto-completion or syntax highlighting should use this set
+                  instead of a fixed set of a names.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The format returned by
+                  <literal>TemplateElement.getDescription()</literal> was
+                  heavily changed. It's what FTL stack traces and maybe some
+                  outline views (tree-views) show. It was always for human
+                  reading (and till now was too inconsistent for anything
+                  else), so it's unlikely that this breaks anything.</para>
+                </listitem>
+
+                <listitem>
+                  <para>There were some smaller changes in
+                  <literal>freemarker.debug</literal>, and it's expected that
+                  there will be more, so it was marked as experimental. As far
+                  as we know, nobody used it, so it shouldn't break
+                  anything.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>In <emphasis>experimental status only</emphasis>, but
+              <literal>freemarker.jar</literal> is now an OSGi bundle (see
+              <literal>freemarker.jar/META-INF/MANIFEST.MF</literal>).
+              Depending on user feedback, the bundle description may change in
+              the future. So please give feedback, especially if you are an
+              OSGi expert!</para>
+            </listitem>
+
+            <listitem>
+              <para>Improved the HTML generated by
+              <literal>HTML_DEBUG_HANDLER</literal> (the
+              red-on-yellow-background error message). Most importantly, now
+              it will word-wrap. Other changes are minor, like now it can
+              break out of CDATA sections, or now it has less intense
+              colors.</para>
+            </listitem>
+
+            <listitem>
+              <para>New <literal>Template</literal> method,
+              <literal>getActualTagSyntax()</literal>: Tells if the template
+              is using traditional or square-bracket syntax. As the syntax can
+              be overridden in the template, also it's possibly decided by
+              auto-detection, it wasn't trivial to it tell till now.</para>
+            </listitem>
+
+            <listitem>
+              <para>Added some utility methods that are useful for generating
+              error messages in custom directives:
+              <literal>ClassUtil.getFTLTypeDescription(TemplateModel)</literal>,
+              <literal>getShortClassName</literal>,
+              <literal>getShortClassNameOfObject</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix [<link
+              xlink:href="https://sourceforge.net/p/freemarker/bugs/364/">364</link>]:
+              <literal>freemarker.template.EmptyMap</literal> (which is passed
+              to <literal>TemplateDirectiveModel</literal>-s if there are no
+              parameters) now allows <literal>remove(key)</literal>,
+              <literal>clear()</literal> and
+              <literal>putAll(anyEmptyMap)</literal> as these do nothing
+              anyway.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix [<link
+              xlink:href="https://sourceforge.net/p/freemarker/bugs/375/">375</link>]:
+              <literal>NullPointerException</literal> on IBM J9 VM (not on the
+              Sun/Oracle implementation) in <literal>BeansWrapper</literal>
+              when the Java implementation legally returns
+              <literal>null</literal> for some <literal>BeanInfo</literal>
+              getters.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix: Cloning a <literal>Configuration</literal> didn't
+              deep-clone the data structures storing the
+              <literal>auto_imports</literal> and
+              <literal>auto_includes</literal> settings, hence possibly
+              leading to aliasing problems.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix [<link
+              xlink:href="https://sourceforge.net/p/freemarker/bugs/377/">377</link>]:
+              After a failed method call the exception handler could fail in
+              the rare occasion when
+              <literal>targetObject.toString()</literal> fails, raising a
+              runtime exception that not even the <literal>attempt</literal>
+              directive will catch.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fix [<link
+              xlink:href="https://sourceforge.net/p/freemarker/bugs/391/">391</link>]:
+              If a template name has contained <literal>*</literal> that was
+              not the only character in the path step, it threw
+              <literal>NegativeArraySizeException</literal> instead of
+              <literal>FileNotFoundException</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>With default arithmetic engine, performance optimizations
+              of comparison operations when some of the numbers is 0, and when
+              the sign of the numbers differ.</para>
+            </listitem>
+
+            <listitem>
+              <para>Some smaller fixes in
+              <literal>TemplateElement.getCanonicalForm()</literal>, also some
+              quality improvements there.</para>
+            </listitem>
+
+            <listitem>
+              <para>Bug fixes in <literal>classic_compatible</literal> mode
+              (this mode is to help migrating from FreeMarker 1), thanks to
+              Information Mosaic:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>When a macro was called with a
+                  <literal>null</literal>/missing parameter value, it has
+                  caused error like in FreeMarker 2.3</para>
+                </listitem>
+
+                <listitem>
+                  <para>When a hash literal contained reference to a
+                  <literal>null</literal>/missing variable, like in <literal>{
+                  'a': missingVar }</literal>, it has caused an error like in
+                  2.3</para>
+                </listitem>
+
+                <listitem>
+                  <para>When a sequence literal contained reference to a
+                  <literal>null</literal>/missing variable, like in
+                  <literal>[1, missingVar]</literal>, it has caused an error
+                  like in 2.3</para>
+                </listitem>
+
+                <listitem>
+                  <para>When a the left-side of the <literal>.</literal> (dot)
+                  or <literal>[<replaceable>key</replaceable>]</literal>
+                  operator was <literal>null</literal> or missing variable,
+                  like in <literal>missingVar.subVar</literal>, it has caused
+                  an error like in 2.3</para>
+                </listitem>
+
+                <listitem>
+                  <para>When <literal>BeanModel</literal>-s are tried to be
+                  treated as strings, for most subclasses it has failed with
+                  type error, like in 2.3. In FreeMarker 1 all
+                  <literal>BeanModel</literal>-s were
+                  <literal>TemplateScalarModel</literal>-s, so it should
+                  succeed. The fix for this only works where FreeMarker
+                  <emphasis>coerces</emphasis> to string (string built-ins on
+                  the left-side and concatenation (<literal>+</literal>) and
+                  interpolation
+                  (<literal>${<replaceable>...</replaceable>}</literal>) do
+                  that), otherwise unfortunately it will still fail.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The <literal>classic_compatible</literal> setting now
+                  accepts value <literal>2</literal> along
+                  <literal>true</literal> (alias <literal>1</literal>) and
+                  <literal>false</literal> (alias <literal>0</literal>).
+                  <literal>2</literal> means <literal>true</literal> but with
+                  emulating bugs in early 2.x classic-compatibility mode.
+                  Currently this only affects how booleans are converted to
+                  string; with <literal>1</literal> it's always
+                  <literal>"true"</literal>/<literal>""</literal>, but with
+                  <literal>2</literal> it's <literal>"true"/"false"</literal>
+                  for values wrapped by <literal>BeansWrapper</literal> as
+                  then <literal>Boolean.toString()</literal> prevails. Note
+                  that
+                  <literal><replaceable>someBoolean</replaceable>?string</literal>
+                  will always consistently format the boolean according the
+                  <literal>boolean_format</literal> setting, just like in
+                  FreeMarker 2.3.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Improved the performance of
+              <literal>(thisVarIsMissing.foo)!default</literal> and similar
+              <emphasis>parenthetical</emphasis> existence operators and
+              existence built-ins in the case when the
+              <literal>null</literal>/missing variable is not the last step
+              inside the parenthesis. In that case it's about 30 times faster
+              now, measured on Java 6. In other cases (when all variables
+              exists, or the the last step is missing) the performance is
+              about the same (relatively fast) as before.</para>
+            </listitem>
+
+            <listitem>
+              <para>Version and build information changes:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>The form of the nightly build version numbers has
+                  changed to be Maven/JSR 277 compliant. What earlier was
+                  <literal>2.3.19mod</literal> is now something like
+                  <literal>2.3.20-nightly_20130605T130506Z</literal> (note how
+                  the last points to the target release version instead of the
+                  last release version).</para>
+                </listitem>
+
+                <listitem>
+                  <para>The form of the Release Candidate and Preview version
+                  numbers where changed to be Maven/JSP 277 compliant:
+                  <literal>2.4pre2</literal> is now
+                  <literal>2.4.0-pre02</literal>, <literal>2.4rc1</literal> is
+                  now <literal>2.4.0-rc01</literal>.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Added new static method to
+                  <literal>Configuration</literal> to query build date:
+                  <literal>getBuildDate()</literal>. This is also printed by
+                  the main command line class.</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Various internal code cleanups.</para>
+            </listitem>
+          </itemizedlist>
+        </section>
+
+        <section>
+          <title>Other changes</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>Many JavaDoc improvements, mostly in the documentation of
+              the basic (most frequently used) classes.</para>
+            </listitem>
+
+            <listitem>
+              <para>FreeMarker source code has moved to GitHub (<link
+              xlink:href="???">https://github.com/freemarker/freemarker</link>),
+              other project resources has remained on sourceforge.net.</para>
+            </listitem>
+
+            <listitem>
+              <para>Project structure cleanup, Ivy-based build script.</para>
+            </listitem>
+          </itemizedlist>
+        </section>
+      </section>
 
       <section xml:id="versions_2_3_19">
         <title>2.3.19</title>
@@ -20068,8 +20982,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
             <listitem>
               <para>New built-in for escaping inside JSON string literals:
               <link
-              linkend="ref_builtin_json_string"><literal>json_string</literal></link>.
-              </para>
+              linkend="ref_builtin_json_string"><literal>json_string</literal></link>.</para>
             </listitem>
 
             <listitem>
@@ -22306,7 +23219,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               between two non-outputting elements, such as macro definitions,
               assignments, imports, or property settings, is now ignored. More
               information: <xref
-              linkend="dgui_misc_whitespace_stripping" /></para>
+              linkend="dgui_misc_whitespace_stripping"/></para>
             </listitem>
 
             <listitem>
@@ -22483,7 +23396,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               is removed in these cases as well.) Also, top-level white-space
               that separates macro definitions and/or assignments is now
               ignored. More information: <xref
-              linkend="dgui_misc_whitespace_stripping" /></para>
+              linkend="dgui_misc_whitespace_stripping"/></para>
             </listitem>
 
             <listitem>
@@ -23170,7 +24083,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
                 white-space is removed in these cases as well.) Also,
                 top-level white-space that separates macro definitions and/or
                 assignments is now ignored. More information: <xref
-                linkend="dgui_misc_whitespace_stripping" /></para>
+                linkend="dgui_misc_whitespace_stripping"/></para>
               </listitem>
 
               <listitem>
@@ -23212,7 +24125,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
                 <para>Many XML related changes. Some of them are incompatible
                 with the previous preview releases! For a more detailed
                 explanation of how XML related features now work, see: <xref
-                linkend="xgui" /></para>
+                linkend="xgui"/></para>
 
                 <itemizedlist>
                   <listitem>
@@ -23587,7 +24500,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
 
               <listitem>
                 <para>XML processing: Better documentation. Especially, note:
-                <xref linkend="xgui" /></para>
+                <xref linkend="xgui"/></para>
               </listitem>
 
               <listitem>
@@ -24012,8 +24925,8 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
           <itemizedlist>
             <listitem>
               <para>New scalar type: date. For more information read: <xref
-              linkend="dgui_datamodel_scalar" />, <xref
-              linkend="dgui_datamodel_scalar" />, <link
+              linkend="dgui_datamodel_scalar"/>, <xref
+              linkend="dgui_datamodel_scalar"/>, <link
               linkend="dgui_template_valueinserion_universal_date">interpolation</link>,
               <link linkend="ref_builtin_string_for_date">?string built-in for
               dates</link></para>
@@ -24028,7 +24941,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
             <listitem>
               <para>New <literal>TemplateModel</literal> subinterface:
               <literal>TemplateDateModel</literal>. For more information read
-              <xref linkend="pgui_datamodel_scalar" /></para>
+              <xref linkend="pgui_datamodel_scalar"/></para>
             </listitem>
 
             <listitem>
@@ -24180,7 +25093,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               will be the the default syntax starting from some of the later
               releases anyway. We plan to release a conversion tool for
               converting old templates. For more information please read:
-              <xref linkend="ref_depr_oldsyntax" /></para>
+              <xref linkend="ref_depr_oldsyntax"/></para>
             </listitem>
 
             <listitem>
@@ -24213,7 +25126,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               and <literal>?</literal> are reserved. Also, the template loader
               must not want paths starting with <literal>/</literal>. For more
               information please read: <xref
-              linkend="pgui_config_templateloading" /></para>
+              linkend="pgui_config_templateloading"/></para>
             </listitem>
 
             <listitem>
@@ -24241,7 +25154,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               you have a macro called <literal>sect</literal>, you may call it
               via <literal>&lt;@sect title="Blah" style="modern"&gt;Blah
               blah...&lt;/@sect&gt;</literal>. For more information read:
-              <xref linkend="dgui_misc_userdefdir" /></para>
+              <xref linkend="dgui_misc_userdefdir"/></para>
             </listitem>
 
             <listitem>
@@ -24262,7 +25175,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               collections you want to use in the same template. This is
               extremely important if FreeMarker users want to share their
               macro/transform collections. For more information read: <xref
-              linkend="dgui_misc_namespace" /></para>
+              linkend="dgui_misc_namespace"/></para>
             </listitem>
 
             <listitem>
@@ -24298,7 +25211,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               FreeMarker tags and comments, like the indentation spaces
               before- and line-break after <literal>&lt;#if ...&gt;</literal>
               tags. For more information read: <xref
-              linkend="dgui_misc_whitespace_stripping" /></para>
+              linkend="dgui_misc_whitespace_stripping"/></para>
             </listitem>
 
             <listitem>
@@ -24442,7 +25355,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               ...</replaceable>&gt;</literal> instead of
               <literal>&lt;/<replaceable>directive
               ...</replaceable>&gt;</literal>. For more info read: <xref
-              linkend="ref_depr_oldsyntax" /></para>
+              linkend="ref_depr_oldsyntax"/></para>
             </listitem>
 
             <listitem>
@@ -24474,7 +25387,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               <para>Arbitrary JSP custom tags can be used as FreeMarker
               transforms in <literal>FreemarkerServlet</literal>-driven
               templates. More information: <xref
-              linkend="pgui_misc_servlet" /></para>
+              linkend="pgui_misc_servlet"/></para>
             </listitem>
 
             <listitem>
@@ -24541,7 +25454,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               ships with two implementations:
               <literal>SoftCacheStorage</literal> and
               <literal>StrongCacheStorage</literal>. For more information
-              read: <xref linkend="pgui_config_templateloading" /></para>
+              read: <xref linkend="pgui_config_templateloading"/></para>
             </listitem>
 
             <listitem>
@@ -24794,7 +25707,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
                 ships with two implementations:
                 <literal>SoftCacheStorage</literal> and
                 <literal>StrongCacheStorage</literal>. For more information
-                read: <xref linkend="pgui_config_templateloading" /></para>
+                read: <xref linkend="pgui_config_templateloading"/></para>
               </listitem>
 
               <listitem>
@@ -25427,7 +26340,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
 
             <listitem>
               <para>Local and global variables. More info: <xref
-              linkend="dgui_misc_var" /></para>
+              linkend="dgui_misc_var"/></para>
 
               <itemizedlist>
                 <listitem>
@@ -25470,7 +26383,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               <para>Strict syntax mode: Allows you to generate arbitrary SGML
               (XML) without worrying about clashes with FreeMarker directives.
               For more information read: <xref
-              linkend="ref_depr_oldsyntax" /></para>
+              linkend="ref_depr_oldsyntax"/></para>
             </listitem>
 
             <listitem>
@@ -25574,7 +26487,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               settings, as well as commonly used variables that you want to
               have available from any template. Also it encapsulates the
               template cache and can be used to load templates. For more
-              information read <xref linkend="pgui_config" />.</para>
+              information read <xref linkend="pgui_config"/>.</para>
             </listitem>
 
             <listitem>
@@ -25595,7 +26508,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               <para><literal>TemplateBooleanModel</literal> introduced: Only
               objects that implements this interface can be used as a boolean
               in true/false conditions. More info: <xref
-              linkend="pgui_datamodel_scalar" /></para>
+              linkend="pgui_datamodel_scalar"/></para>
             </listitem>
 
             <listitem>
@@ -25626,7 +26539,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
                   <literal>TemplateTransformModel</literal> interface. More
                   flexible, and does not impose output holding. More
                   information: <xref
-                  linkend="pgui_datamodel_directive" /></para>
+                  linkend="pgui_datamodel_directive"/></para>
                 </listitem>
 
                 <listitem>
@@ -25648,7 +26561,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
                   the
                   <literal>freemarker.template.utility.HtmlEscape</literal>
                   transform. More information: <xref
-                  linkend="pgui_config_sharedvariables" /></para>
+                  linkend="pgui_config_sharedvariables"/></para>
                 </listitem>
               </itemizedlist>
             </listitem>
@@ -25679,7 +26592,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
             <listitem>
               <para>Logging: FreeMarker logs certain events (runtime errors
               for example). For more information read <xref
-              linkend="pgui_misc_logging" />.</para>
+              linkend="pgui_misc_logging"/>.</para>
             </listitem>
 
             <listitem>
@@ -26065,7 +26978,7 @@ TemplateModel x = env.getVariable("x");  // get variable x</programlisting>
               string, <literal>myString?upper_case</literal> puts the string
               all in capital letters, and <literal>myHash?keys</literal>
               provides a sequence containing the keys in the hash. See <xref
-              linkend="ref_builtins" /> for list of all available
+              linkend="ref_builtins"/> for list of all available
               built-ins.</para>
             </listitem>
 
@@ -26617,9 +27530,9 @@ included both in freemarker.jar and in the source code:
         linkend="gloss.template">templates</link>. They are invoked by <link
         linkend="gloss.FTLTag">FTL tags</link>.</para>
 
-        <glossseealso otherterm="gloss.predefinedDirective"></glossseealso>
+        <glossseealso otherterm="gloss.predefinedDirective"/>
 
-        <glossseealso otherterm="gloss.userDefinedDirective"></glossseealso>
+        <glossseealso otherterm="gloss.userDefinedDirective"/>
       </glossdef>
     </glossentry>
 
@@ -26642,7 +27555,7 @@ included both in freemarker.jar and in the source code:
         following content is not under the element. Example:
         <literal>&lt;/body&gt;</literal>.</para>
 
-        <glossseealso otherterm="gloss.startTag"></glossseealso>
+        <glossseealso otherterm="gloss.startTag"/>
       </glossdef>
     </glossentry>
 
@@ -26693,7 +27606,7 @@ included both in freemarker.jar and in the source code:
     <glossentry>
       <glossterm>FTL</glossterm>
 
-      <glosssee otherterm="gloss.FTL"></glosssee>
+      <glosssee otherterm="gloss.FTL"/>
     </glossentry>
 
     <glossentry xml:id="gloss.FTLTag">
@@ -26722,7 +27635,7 @@ included both in freemarker.jar and in the source code:
         <para>A variable that acts as a container that stores subvariables
         that can be retrieved via a string that is a lookup name.</para>
 
-        <glossseealso otherterm="gloss.sequenceVariable"></glossseealso>
+        <glossseealso otherterm="gloss.sequenceVariable"/>
       </glossdef>
     </glossentry>
 
@@ -26823,7 +27736,7 @@ included both in freemarker.jar and in the source code:
         Example of predefined directives: <literal>if</literal>,
         <literal>list</literal>, <literal>include</literal></para>
 
-        <glossseealso otherterm="gloss.userDefinedDirective"></glossseealso>
+        <glossseealso otherterm="gloss.userDefinedDirective"/>
       </glossdef>
     </glossentry>
 
@@ -26846,7 +27759,7 @@ included both in freemarker.jar and in the source code:
         index, where the index of the very first object is 0, the index of the
         second objects is 1, the index of the third object is 2, etc.</para>
 
-        <glossseealso otherterm="gloss.hashVariable"></glossseealso>
+        <glossseealso otherterm="gloss.hashVariable"/>
       </glossdef>
     </glossentry>
 
@@ -26871,7 +27784,7 @@ included both in freemarker.jar and in the source code:
     <glossentry>
       <glossterm>SGML</glossterm>
 
-      <glosssee otherterm="gloss.SGML"></glosssee>
+      <glosssee otherterm="gloss.SGML"/>
     </glossentry>
 
     <glossentry xml:id="gloss.SGML">
@@ -26905,9 +27818,9 @@ included both in freemarker.jar and in the source code:
         Examples of tags: <literal>&lt;body bgcolor=black&gt;</literal>,
         <literal>&lt;/body&gt;</literal></para>
 
-        <glossseealso otherterm="gloss.startTag"></glossseealso>
+        <glossseealso otherterm="gloss.startTag"/>
 
-        <glossseealso otherterm="gloss.endTag"></glossseealso>
+        <glossseealso otherterm="gloss.endTag"/>
       </glossdef>
     </glossentry>
 
@@ -26981,7 +27894,7 @@ included both in freemarker.jar and in the source code:
         pull-down menu generation directives, HTML form handling
         directives.</para>
 
-        <glossseealso otherterm="gloss.predefinedDirective"></glossseealso>
+        <glossseealso otherterm="gloss.predefinedDirective"/>
       </glossdef>
     </glossentry>
 
@@ -26998,7 +27911,7 @@ included both in freemarker.jar and in the source code:
         UCS is that we can specify any character with a unique number, not
         mater what the platform or the language is.</para>
 
-        <glossseealso otherterm="gloss.unicode"></glossseealso>
+        <glossseealso otherterm="gloss.unicode"/>
       </glossdef>
     </glossentry>
 
@@ -27024,14 +27937,14 @@ included both in freemarker.jar and in the source code:
         space, tab (horizontal and vertical), line breaks (CR and LF), form
         feed.</para>
 
-        <glossseealso otherterm="gloss.lineBreak"></glossseealso>
+        <glossseealso otherterm="gloss.lineBreak"/>
       </glossdef>
     </glossentry>
 
     <glossentry>
       <glossterm>XML</glossterm>
 
-      <glosssee otherterm="gloss.XML"></glosssee>
+      <glosssee otherterm="gloss.XML"/>
     </glossentry>
 
     <glossentry xml:id="gloss.attribute">
@@ -27051,7 +27964,7 @@ included both in freemarker.jar and in the source code:
         text='green'&gt;</literal>), while in HTML it is optional for certain
         values.</para>
 
-        <glossseealso otherterm="gloss.startTag"></glossseealso>
+        <glossseealso otherterm="gloss.startTag"/>
       </glossdef>
     </glossentry>
 
