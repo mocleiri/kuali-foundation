@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.eclipse.persistence.oxm.annotations.XmlPath;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
@@ -32,14 +33,17 @@ public final class Table implements NamedElement {
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	@XmlPath(".")
 	private final List<Column> columns;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	@XmlPath(".")
 	private final List<UniqueConstraint> uniqueConstraints;
 
-	@XmlElement(name = "index")
-	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	@XmlPath(".")
 	private final List<Index> indexes;
 
 	@XmlAttribute

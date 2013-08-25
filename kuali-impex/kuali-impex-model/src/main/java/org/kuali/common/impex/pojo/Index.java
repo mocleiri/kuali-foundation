@@ -17,15 +17,21 @@ package org.kuali.common.impex.pojo;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 import com.google.common.collect.ImmutableList;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class Index implements NamedElement {
 
 	@XmlAttribute
@@ -36,6 +42,7 @@ public final class Index implements NamedElement {
 	private final String name;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> columns;
 
 	@SuppressWarnings("unused")
