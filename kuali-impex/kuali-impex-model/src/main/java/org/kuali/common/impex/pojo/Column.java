@@ -126,6 +126,9 @@ public final class Column implements NamedElement {
 		private Builder finish() {
 			Assert.noBlanks(name);
 			Assert.noNulls(type, size, scale, defaultValue, description);
+			if (scale.isPresent()) {
+				Assert.isTrue(DataType.isNumeric(type), "[" + type + "] is not a numeric data type.  scale cannot be set for non-numerics");
+			}
 			return this;
 		}
 
