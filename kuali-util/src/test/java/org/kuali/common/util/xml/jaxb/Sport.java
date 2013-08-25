@@ -15,20 +15,28 @@ public final class Sport extends Activity {
 	}
 
 	public Sport(String name) {
-		this(name, UNKNOWN_FEE);
+		this(name, UNKNOWN_FEE, false);
 	}
 
-	public Sport(String name, double fee) {
+	public Sport(String name, double fee, boolean contact) {
 		super(fee);
 		Assert.noBlanks(name);
 		this.name = name;
+		this.contact = contact;
 	}
 
 	@XmlAttribute
 	private final String name;
 
+	@XmlAttribute
+	private final Boolean contact;
+
 	public String getName() {
 		return name;
+	}
+
+	public boolean getContact() {
+		return contact;
 	}
 
 }
