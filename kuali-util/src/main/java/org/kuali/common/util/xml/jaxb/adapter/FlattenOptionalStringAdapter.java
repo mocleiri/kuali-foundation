@@ -28,9 +28,9 @@ public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optio
 	@Override
 	public String marshal(Optional<String> optional) {
 		if (optional.isPresent()) {
-			return null;
-		} else {
 			return Str.flatten(optional.get(), carriageReturnReplacement, linefeedReplacement);
+		} else {
+			return null;
 		}
 	}
 
