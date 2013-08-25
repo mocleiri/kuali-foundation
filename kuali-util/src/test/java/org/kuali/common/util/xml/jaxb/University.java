@@ -3,7 +3,6 @@ package org.kuali.common.util.xml.jaxb;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
@@ -15,9 +14,7 @@ public class University {
 
 	@XmlAttribute
 	private final String name;
-	@XmlElement(name = "sport")
 	private final List<Sport> sports;
-	@XmlAttribute
 	private final List<String> colors;
 
 	public List<Sport> getSports() {
