@@ -135,7 +135,7 @@ public final class Column implements NamedElement {
 			return new Column(this);
 		}
 
-		public Builder copy(Column column, String defaultValue) {
+		public Builder copyOf(Column column, String defaultValue) {
 			this.size = column.size;
 			this.scale = column.scale;
 			this.defaultValue = Optional.fromNullable(defaultValue);

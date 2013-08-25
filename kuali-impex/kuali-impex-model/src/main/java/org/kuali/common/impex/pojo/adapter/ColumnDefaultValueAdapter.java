@@ -56,10 +56,14 @@ public abstract class ColumnDefaultValueAdapter extends XmlAdapter<Column, Colum
 			return column;
 		} else {
 			String trimmed = column.getDefaultValue().get().trim();
-			return new Column.Builder(column.getName(), column.getType()).copy(column, trimmed).build();
+			return copyOf(column, trimmed);
 		}
 	}
 
+	/**
+	 * JDBC drivers are supposed to return string based default values enclosed in single quotes. This methods trims whitespace only after checking to make sure the trimmed value
+	 * begins with and ends with a single quote.
+	 */
 	protected Column getTrimmedStringDefaultValue(Column column) {
 		if (trimmingWontChangeAnything(column)) {
 			return column;
@@ -70,10 +74,14 @@ public abstract class ColumnDefaultValueAdapter extends XmlAdapter<Column, Colum
 				return column;
 			}
 			if (trimmed.startsWith("'") && trimmed.endsWith("'")) {
-				return new Column.Builder(column.getName(), column.getType()).copy(column, trimmed).build();
+				return copyOf(column, trimmed);
 			} else {
 				return column;
 			}
 		}
+	}
+
+	protected Column copyOf(Column column, String defaultValue) {
+		return new Column.Builder(column.getName(), column.getType()).copyOf(column, defaultValue).build();
 	}
 }
