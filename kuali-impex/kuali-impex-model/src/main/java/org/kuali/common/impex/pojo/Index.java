@@ -15,12 +15,12 @@
 
 package org.kuali.common.impex.pojo;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.nullify.NullUtils;
@@ -28,6 +28,7 @@ import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 import com.google.common.collect.ImmutableList;
 
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Index extends Constraint {
 
@@ -37,7 +38,7 @@ public final class Index extends Constraint {
 
 	@SuppressWarnings("unused")
 	private Index() {
-		this(NullUtils.NONE, Collections.<String> emptyList());
+		this(NullUtils.NONE, NullUtils.NONE);
 	}
 
 	public Index(String name, List<String> columns) {
