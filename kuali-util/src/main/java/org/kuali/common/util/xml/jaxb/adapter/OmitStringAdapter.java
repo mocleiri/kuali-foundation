@@ -15,7 +15,7 @@ public abstract class OmitStringAdapter extends XmlAdapter<String, String> {
 
 	@Override
 	public final String marshal(String string) {
-		if (string == null || omitString.equals(string)) {
+		if (omitString.equals(string)) {
 			return null;
 		} else {
 			return string;

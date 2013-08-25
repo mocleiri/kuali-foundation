@@ -15,7 +15,7 @@ public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 
 	@Override
 	public final String marshal(List<String> strings) {
-		if (strings == null || strings.size() == 0) {
+		if (strings.size() == 0) {
 			return null;
 		} else {
 			StringBuilder sb = new StringBuilder();
