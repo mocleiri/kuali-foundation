@@ -7,10 +7,13 @@ import org.kuali.common.util.Str;
 
 import com.google.common.base.Optional;
 
-public class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
+public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
+
+	public static final String DEFAULT_CR_REPLACEMENT = "${xml.cr}";
+	public static final String DEFAULT_LF_REPLACEMENT = "${xml.lf}";
 
 	public FlattenOptionalStringAdapter() {
-		this("${xml.cr}", "${xml.lf}");
+		this(DEFAULT_CR_REPLACEMENT, DEFAULT_LF_REPLACEMENT);
 	}
 
 	public FlattenOptionalStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
