@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.impex.pojo.adapter.ColumnDefaultValueAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
@@ -18,7 +17,6 @@ import com.google.common.base.Optional;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlJavaTypeAdapter(ColumnDefaultValueAdapter.class)
 public final class Column implements NamedElement {
 
 	@XmlAttribute
