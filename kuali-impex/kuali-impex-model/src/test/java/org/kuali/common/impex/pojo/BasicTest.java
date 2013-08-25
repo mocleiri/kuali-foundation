@@ -12,7 +12,7 @@ public class BasicTest {
 			System.out.println(jdk);
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
-			Column column = new Column.Builder("column", DataType.STRING).size(10).defaultValue("Y").build();
+			Column column = new Column.Builder("column", DataType.STRING).size(10).defaultValue("Y").primaryKey(true).nullable(false).build();
 			Table table = new Table("table", column);
 			Schema schema = new Schema.Builder("schema").table(table).build();
 			String xml = service.toXml(schema, encoding);
