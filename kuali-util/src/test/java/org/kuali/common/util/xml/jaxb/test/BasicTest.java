@@ -66,14 +66,14 @@ public class BasicTest {
 		String originalXml = service.toXml(original, encoding);
 		University derived = service.getObjectFromXml(originalXml, encoding, University.class);
 		try {
-			derived.getColors().add("blue");
-			Assert.fail("color's is mutable");
+			derived.getSports().add(new Sport("tennis"));
+			Assert.fail("sports is mutable");
 		} catch (UnsupportedOperationException e) {
 			// ignore
 		}
 		try {
-			derived.getSports().add(new Sport("tennis"));
-			Assert.fail("sports is mutable");
+			derived.getColors().add("blue");
+			Assert.fail("color's is mutable");
 		} catch (UnsupportedOperationException e) {
 			// ignore
 		}
