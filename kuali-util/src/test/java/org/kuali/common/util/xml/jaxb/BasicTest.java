@@ -1,5 +1,7 @@
 package org.kuali.common.util.xml.jaxb;
 
+import java.util.Arrays;
+
 public class BasicTest {
 
 	public static void main(String[] args) {
@@ -11,7 +13,7 @@ public class BasicTest {
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			Club club = new Club("Delta Tau", 15.0);
-			Sport soccer = new Sport("Soccer");
+			Sport soccer = new Sport("Soccer", 125, true, Arrays.asList(new Team("Manchester United", "blue")));
 			Student student1 = new Student.Builder("joe").club(club).sport(soccer).ethnicity("caucasian").build();
 			// Student student2 = new Student.Builder("joe").ethnicity("caucasian").build();
 			// Student student3 = new Student.Builder("joe").build();

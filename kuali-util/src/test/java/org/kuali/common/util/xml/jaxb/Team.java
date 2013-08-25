@@ -1,9 +1,17 @@
 package org.kuali.common.util.xml.jaxb;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 
 public class Team {
+
+	@XmlAttribute
+	private final String name;
+
+	@XmlAttribute
+	private final String color;
 
 	public Team() {
 		this(NullUtils.NONE, NullUtils.NONE);
@@ -14,9 +22,6 @@ public class Team {
 		this.name = name;
 		this.color = color;
 	}
-
-	private final String name;
-	private final String color;
 
 	public String getName() {
 		return name;
