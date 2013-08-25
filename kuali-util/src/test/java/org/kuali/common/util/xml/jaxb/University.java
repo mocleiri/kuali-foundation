@@ -16,18 +16,19 @@ import com.google.common.collect.ImmutableList;
 public class University {
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Student> students;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Sport> sports;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	// @XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Team> teams;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> colors;
 
 	public List<Student> getStudents() {

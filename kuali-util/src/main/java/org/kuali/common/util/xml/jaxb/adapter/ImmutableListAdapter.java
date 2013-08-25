@@ -14,18 +14,24 @@ public class ImmutableListAdapter<T> extends XmlAdapter<ListWrapper<T>, List<T>>
 
 	@Override
 	public ListWrapper<T> marshal(List<T> list) {
+		System.out.println("1");
 		if (isEmpty(list)) {
+			System.out.println("2");
 			return EMPTY_WRAPPER;
 		} else {
+			System.out.println("3");
 			return new ListWrapper<T>(list);
 		}
 	}
 
 	@Override
 	public List<T> unmarshal(ListWrapper<T> wrapper) {
+		System.out.println("4");
 		if (isEmpty(wrapper.getList())) {
+			System.out.println("5");
 			return EMPTY_LIST;
 		} else {
+			System.out.println("6");
 			return Collections.unmodifiableList(wrapper.getList());
 		}
 	}
