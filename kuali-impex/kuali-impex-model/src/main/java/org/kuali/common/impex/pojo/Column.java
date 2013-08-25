@@ -131,7 +131,18 @@ public final class Column implements NamedElement {
 		}
 
 		public Column build() {
+			finish();
 			return new Column(this);
+		}
+
+		public Builder copy(Column column, String defaultValue) {
+			this.size = column.size;
+			this.scale = column.scale;
+			this.defaultValue = Optional.fromNullable(defaultValue);
+			this.description = column.description;
+			this.primaryKey = column.primaryKey;
+			this.nullable = column.nullable;
+			return this;
 		}
 
 	}
