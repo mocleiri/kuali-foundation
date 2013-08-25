@@ -105,8 +105,11 @@ public final class Table implements NamedElement {
 		}
 
 		public Builder index(Index index) {
-			this.indexes = ImmutableList.of(index);
-			return this;
+			return indexes(ImmutableList.of(index));
+		}
+
+		public Builder indexes(Index... indexes) {
+			return indexes(ImmutableList.copyOf(indexes));
 		}
 
 		public Builder indexes(List<Index> indexes) {
