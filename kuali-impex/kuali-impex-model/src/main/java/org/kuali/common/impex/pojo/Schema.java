@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.pojo;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,6 +31,7 @@ import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -92,10 +92,10 @@ public final class Schema {
 
 		// Optional
 		private Optional<String> description = Optional.absent();
-		private List<Table> tables = Collections.emptyList();
-		private List<Sequence> sequences = Collections.emptyList();
-		private List<View> views = Collections.emptyList();
-		private List<ForeignKey> foreignKeys = Collections.emptyList();
+		private List<Table> tables = Lists.newArrayList();
+		private List<Sequence> sequences = Lists.newArrayList();
+		private List<View> views = Lists.newArrayList();
+		private List<ForeignKey> foreignKeys = Lists.newArrayList();
 
 		public Builder(String name) {
 			this.name = name;
@@ -130,6 +130,10 @@ public final class Schema {
 			return this;
 		}
 
+		private Builder initialized() {
+			return this;
+		}
+
 		public Schema build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(description, tables, sequences, views, foreignKeys);
@@ -150,12 +154,7 @@ public final class Schema {
 	// (removing the "name" attribute for example), then unmarshalled a Schema object from the hand edited XML, the "name" field
 	// would end up being null.
 	private Schema() {
-		this.name = null;
-		this.tables = null;
-		this.sequences = null;
-		this.views = null;
-		this.foreignKeys = null;
-		this.description = Optional.absent();
+		this(new Builder(null).initialized());
 	}
 
 	private Schema(Builder builder) {

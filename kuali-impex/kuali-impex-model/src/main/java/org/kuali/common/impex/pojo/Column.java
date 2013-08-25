@@ -123,6 +123,10 @@ public final class Column implements NamedElement {
 			return this;
 		}
 
+		private Builder initialized() {
+			return this;
+		}
+
 		public Column build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(type, size, scale, defaultValue, description);
@@ -138,14 +142,7 @@ public final class Column implements NamedElement {
 	}
 
 	private Column() {
-		this.name = null;
-		this.type = null;
-		this.size = null;
-		this.scale = null;
-		this.defaultValue = null;
-		this.description = null;
-		this.primaryKey = null;
-		this.nullable = null;
+		this(new Builder(null, null).initialized());
 	}
 
 	private Column(Builder builder) {
