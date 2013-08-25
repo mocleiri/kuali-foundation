@@ -93,13 +93,13 @@ public final class Column implements NamedElement {
 			this.type = type;
 		}
 
-		public Builder scale(int scale) {
-			this.scale = Optional.<Integer> of(scale);
+		public Builder size(int size) {
+			this.size = Optional.<Integer> of(size);
 			return this;
 		}
 
-		public Builder size(int size) {
-			this.size = Optional.<Integer> of(size);
+		public Builder scale(int scale) {
+			this.scale = Optional.<Integer> of(scale);
 			return this;
 		}
 

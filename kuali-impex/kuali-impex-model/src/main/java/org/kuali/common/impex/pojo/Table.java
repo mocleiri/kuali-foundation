@@ -14,6 +14,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalStringAdapter;
 
@@ -24,6 +25,7 @@ import com.google.common.base.Optional;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlBind(classes = { Column.class, UniqueConstraint.class, Index.class })
 public final class Table implements NamedElement {
 
 	@XmlAttribute
