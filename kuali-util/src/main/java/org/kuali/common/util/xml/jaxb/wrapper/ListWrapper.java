@@ -13,8 +13,7 @@ public class ListWrapper<T> {
 	@XmlAnyElement(lax = true)
 	private final List<T> list;
 
-	@SuppressWarnings("unused")
-	private ListWrapper() {
+	ListWrapper() {
 		this(Lists.<T> newArrayList());
 	}
 
