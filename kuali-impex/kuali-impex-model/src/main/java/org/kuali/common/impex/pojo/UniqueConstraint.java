@@ -15,12 +15,20 @@
 
 package org.kuali.common.impex.pojo;
 
+import java.util.Collections;
 import java.util.List;
+
+import org.kuali.common.util.nullify.NullUtils;
 
 /**
  * A unique constraint
  */
 public final class UniqueConstraint extends Constraint {
+
+	@SuppressWarnings("unused")
+	private UniqueConstraint() {
+		this(NullUtils.NONE, Collections.<String> emptyList());
+	}
 
 	public UniqueConstraint(String name, List<String> columnNames) {
 		super(name, columnNames);
