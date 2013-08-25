@@ -38,6 +38,10 @@ public class University {
 		this(ImmutableList.<Student> of(), ImmutableList.<Sport> of(), ImmutableList.<Team> of());
 	}
 
+	public University(List<Student> students, List<Sport> sports, Team... teams) {
+		this(students, sports, ImmutableList.copyOf(teams));
+	}
+
 	public University(List<Student> students, List<Sport> sports, List<Team> teams) {
 		Assert.noNulls(students, teams, sports);
 		this.students = students;
