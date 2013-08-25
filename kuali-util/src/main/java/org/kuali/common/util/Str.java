@@ -238,4 +238,11 @@ public class Str {
 	public static final String flatten(String s, String cr, String lf) {
 		return StringUtils.replace(StringUtils.replace(s, CR, cr), LF, lf);
 	}
+
+	/**
+	 * Replace <code>cr</code> with carriage return and <code>lf</code> with linefeed.
+	 */
+	public static final String unflatten(String s, String cr, String lf) {
+		return StringUtils.replace(StringUtils.replace(s, cr, CR), lf, LF);
+	}
 }
