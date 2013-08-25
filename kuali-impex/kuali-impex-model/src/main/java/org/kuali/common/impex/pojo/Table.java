@@ -79,8 +79,11 @@ public final class Table implements NamedElement {
 		}
 
 		public Builder column(Column column) {
-			this.columns = ImmutableList.of(column);
-			return this;
+			return columns(ImmutableList.of(column));
+		}
+
+		public Builder columns(Column... columns) {
+			return columns(ImmutableList.copyOf(columns));
 		}
 
 		public Builder columns(List<Column> columns) {
@@ -89,8 +92,11 @@ public final class Table implements NamedElement {
 		}
 
 		public Builder uniqueConstraint(UniqueConstraint uniqueConstraint) {
-			this.uniqueConstraints = ImmutableList.of(uniqueConstraint);
-			return this;
+			return uniqueConstraints(ImmutableList.of(uniqueConstraint));
+		}
+
+		public Builder uniqueConstraints(UniqueConstraint... uniqueConstraints) {
+			return uniqueConstraints(ImmutableList.copyOf(uniqueConstraints));
 		}
 
 		public Builder uniqueConstraints(List<UniqueConstraint> uniqueConstraints) {

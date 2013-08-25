@@ -19,10 +19,8 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -36,7 +34,6 @@ public abstract class Constraint implements NamedElement {
 	private final String name;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> columns;
 
 	public Constraint(String name, List<String> columns) {

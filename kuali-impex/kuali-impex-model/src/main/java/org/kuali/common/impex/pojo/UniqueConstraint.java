@@ -41,6 +41,10 @@ public final class UniqueConstraint extends Constraint {
 		this(name, ImmutableList.of(column));
 	}
 
+	public UniqueConstraint(String name, String... columns) {
+		this(name, ImmutableList.copyOf(columns));
+	}
+
 	public UniqueConstraint(String name, List<String> column) {
 		super(name, column);
 	}
