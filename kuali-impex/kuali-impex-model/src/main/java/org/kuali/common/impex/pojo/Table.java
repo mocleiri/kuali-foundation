@@ -1,6 +1,5 @@
 package org.kuali.common.impex.pojo;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,6 +16,7 @@ import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 /**
  * This interface provides an implementation-independent API to access database table model information
@@ -68,9 +68,9 @@ public final class Table implements NamedElement {
 		private final String name;
 
 		// Optional
-		private List<Column> columns = Collections.emptyList();
-		private List<UniqueConstraint> uniqueConstraints = Collections.emptyList();
-		private List<Index> indexes = Collections.emptyList();
+		private List<Column> columns = Lists.newArrayList();
+		private List<UniqueConstraint> uniqueConstraints = Lists.newArrayList();
+		private List<Index> indexes = Lists.newArrayList();
 		private Optional<String> description = Optional.absent();
 
 		public Builder(String name) {
@@ -121,6 +121,10 @@ public final class Table implements NamedElement {
 			return this;
 		}
 
+		private Builder initialized() {
+			return this;
+		}
+
 		public Table build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(columns, uniqueConstraints, indexes, description);
@@ -132,11 +136,7 @@ public final class Table implements NamedElement {
 	}
 
 	private Table() {
-		this.name = null;
-		this.columns = null;
-		this.uniqueConstraints = null;
-		this.indexes = null;
-		this.description = null;
+		this(new Builder(null).initialized());
 	}
 
 	private Table(Builder builder) {
