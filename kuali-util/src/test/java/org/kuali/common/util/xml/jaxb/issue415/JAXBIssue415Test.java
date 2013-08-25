@@ -22,7 +22,7 @@ public class JAXBIssue415Test {
 
 	@XmlElement
 	@XmlJavaTypeAdapter(JAXBIssue415TestAdapter.class)
-	private String value = "foo";
+	private String value = "foo"; // Bound value is always initialized to "foo"
 
 	@Test
 	public void testIssue415() throws Exception {
@@ -41,7 +41,7 @@ public class JAXBIssue415Test {
 
 		@Override
 		public String marshal(String value) {
-			return null;
+			return null; // Ignore the bound value and just always return null
 		}
 
 		@Override
