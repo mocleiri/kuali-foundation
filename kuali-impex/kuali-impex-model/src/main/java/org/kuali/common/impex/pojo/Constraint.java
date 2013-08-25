@@ -18,25 +18,26 @@ package org.kuali.common.impex.pojo;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.xml.jaxb.adapter.TrimmingCSVStringAdapter;
 import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public abstract class Constraint implements NamedElement {
 
 	@XmlAttribute
 	private final String name;
 
-	@XmlElement
+	@XmlAttribute
+	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> columns;
 
 	Constraint() {
 		this.name = null;
-		this.columns = Lists.newArrayList();
+		this.columns = ImmutableList.of();
 	}
 
 	public Constraint(String name, List<String> columns) {
