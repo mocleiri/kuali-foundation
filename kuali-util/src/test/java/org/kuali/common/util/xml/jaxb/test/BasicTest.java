@@ -83,11 +83,13 @@ public class BasicTest {
 	@Test
 	public void testNullValuesAfterMarshalling() {
 		XmlService service = getService();
-		List<Sport> sports = Arrays.asList(new Sport("soccer"), new Sport("football"));
+		List<Sport> sports = Collections.emptyList();
 		List<String> colors = Collections.emptyList();
 		University original = new University("Cal Poly", sports, colors);
 		String originalXml = service.toXml(original, encoding);
 		University derived = service.getObjectFromXml(originalXml, encoding, University.class);
+		Assert.assertNotNull(derived.getColors());
+		Assert.assertNotNull(derived.getSports());
 		try {
 			derived.getSports().add(new Sport("tennis"));
 			Assert.fail("sports is mutable");

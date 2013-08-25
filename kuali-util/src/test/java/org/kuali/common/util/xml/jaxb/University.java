@@ -43,8 +43,8 @@ public class University {
 
 	University() {
 		this.name = null;
-		this.sports = null;
-		this.colors = null;
+		this.sports = ImmutableList.of();
+		this.colors = ImmutableList.of();
 	}
 
 	public University(String name, List<Sport> sports, List<String> colors) {
