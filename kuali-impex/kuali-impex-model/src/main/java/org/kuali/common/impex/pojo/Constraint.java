@@ -19,25 +19,25 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
-/**
- * This class represents any named connection between columns
- */
 public abstract class Constraint implements NamedElement {
 
 	@XmlAttribute
 	private final String name;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<String> columns;
+
+	Constraint() {
+		this.name = null;
+		this.columns = Lists.newArrayList();
+	}
 
 	public Constraint(String name, List<String> columns) {
 		Assert.noBlanks(name);
