@@ -10,13 +10,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.kuali.common.impex.pojo.adapter.MpxFlattenAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
-import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalStringAdapter;
 
 import com.google.common.base.Optional;
 
@@ -32,10 +32,6 @@ public final class Table implements NamedElement {
 	private final String name;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
-	private final Optional<String> description;
-
-	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Column> columns;
 
@@ -46,6 +42,10 @@ public final class Table implements NamedElement {
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Index> indexes;
+
+	@XmlAttribute
+	@XmlJavaTypeAdapter(MpxFlattenAdapter.class)
+	private final Optional<String> description;
 
 	@SuppressWarnings("unused")
 	private Table() {
