@@ -4,30 +4,28 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 public final class Student {
 
 	@XmlAttribute
 	private final String name;
 
 	@XmlElement
-	private final List<Sport> sports;
+	private final List<String> teams;
 
 	@XmlElement
-	private final List<Team> teams;
+	private final List<String> sports;
 
 	public String getName() {
 		return name;
 	}
 
-	public List<Sport> getSports() {
-		return sports;
+	public List<String> getTeams() {
+		return teams;
 	}
 
-	public List<Team> getTeams() {
-		return teams;
+	public List<String> getSports() {
+		return sports;
 	}
 
 	@SuppressWarnings("unused")
@@ -35,10 +33,10 @@ public final class Student {
 		this(null, null, null);
 	}
 
-	public Student(String name, List<Sport> sports, List<Team> teams) {
+	public Student(String name, List<String> teams, List<String> sports) {
 		this.name = name;
-		this.sports = sports;
 		this.teams = teams;
+		this.sports = sports;
 	}
 
 }

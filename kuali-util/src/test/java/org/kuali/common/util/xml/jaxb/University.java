@@ -5,6 +5,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.common.collect.ImmutableList;
+
 @XmlRootElement
 public class University {
 
@@ -31,7 +33,7 @@ public class University {
 
 	@SuppressWarnings("unused")
 	private University() {
-		this(null, null, null);
+		this(ImmutableList.<Student> of(), ImmutableList.<Sport> of(), ImmutableList.<Team> of());
 	}
 
 	public University(List<Student> students, List<Sport> sports, List<Team> teams) {

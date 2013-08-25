@@ -13,25 +13,25 @@ public class Team {
 	private final String name;
 
 	@XmlAttribute
-	private final Sport sport;
+	private final String sport;
 
 	@XmlElement
-	private final List<Student> students;
+	private final List<String> students;
 
 	@SuppressWarnings("unused")
 	private Team() {
-		this(null, null, (Student) null);
+		this(null, null, ImmutableList.<String> of());
 	}
 
-	public Team(String name, Sport sport, Student student) {
-		this(name, sport, ImmutableList.<Student> of(student));
+	public Team(String name, String sport, String student) {
+		this(name, sport, ImmutableList.<String> of(student));
 	}
 
-	public Team(String name, Sport sport, Student... students) {
-		this(name, sport, ImmutableList.<Student> copyOf(students));
+	public Team(String name, String sport, String... students) {
+		this(name, sport, ImmutableList.<String> copyOf(students));
 	}
 
-	public Team(String name, Sport sport, List<Student> students) {
+	public Team(String name, String sport, List<String> students) {
 		this.name = name;
 		this.sport = sport;
 		this.students = students;
@@ -41,11 +41,11 @@ public class Team {
 		return name;
 	}
 
-	public Sport getSport() {
+	public String getSport() {
 		return sport;
 	}
 
-	public List<Student> getStudents() {
+	public List<String> getStudents() {
 		return students;
 	}
 
