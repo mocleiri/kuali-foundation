@@ -5,7 +5,8 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlAnyElement;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
+
+import com.google.common.collect.Lists;
 
 public class CollectionWrapper<T> {
 
@@ -14,7 +15,7 @@ public class CollectionWrapper<T> {
 
 	@SuppressWarnings("unused")
 	private CollectionWrapper() {
-		this(ListUtils.<T> newArrayList());
+		this(Lists.<T> newArrayList());
 	}
 
 	public CollectionWrapper(Collection<T> collection) {
