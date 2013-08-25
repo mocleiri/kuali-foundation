@@ -26,10 +26,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalStringAdapter;
+
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -38,6 +41,10 @@ public final class Schema {
 
 	@XmlAttribute
 	private final String name;
+
+	@XmlElement
+	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
+	private final Optional<String> description;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
@@ -57,6 +64,10 @@ public final class Schema {
 
 	public String getName() {
 		return name;
+	}
+
+	public Optional<String> getDescription() {
+		return description;
 	}
 
 	public List<Table> getTables() {
@@ -81,17 +92,23 @@ public final class Schema {
 		private final String name;
 
 		// Optional
-		private List<Table> tables = Collections.<Table> emptyList();
-		private List<Sequence> sequences = Collections.<Sequence> emptyList();
-		private List<View> views = Collections.<View> emptyList();
-		private List<ForeignKey> foreignKeys = Collections.<ForeignKey> emptyList();
+		private Optional<String> description = Optional.absent();
+		private List<Table> tables = Collections.emptyList();
+		private List<Sequence> sequences = Collections.emptyList();
+		private List<View> views = Collections.emptyList();
+		private List<ForeignKey> foreignKeys = Collections.emptyList();
 
 		public Builder(String name) {
 			this.name = name;
 		}
 
+		public Builder description(String description) {
+			this.description = Optional.fromNullable(description);
+			return this;
+		}
+
 		public Builder table(Table table) {
-			return tables(Collections.singletonList(table));
+			return tables(ImmutableList.of(table));
 		}
 
 		public Builder tables(List<Table> tables) {
@@ -116,11 +133,11 @@ public final class Schema {
 
 		private Builder finish() {
 			Assert.noBlanks(name);
-			Assert.noNulls(tables, sequences, views, foreignKeys);
-			this.tables = ListUtils.newImmutableArrayList(tables);
-			this.sequences = ListUtils.newImmutableArrayList(sequences);
-			this.views = ListUtils.newImmutableArrayList(views);
-			this.foreignKeys = ListUtils.newImmutableArrayList(foreignKeys);
+			Assert.noNulls(description, tables, sequences, views, foreignKeys);
+			this.tables = ImmutableList.copyOf(tables);
+			this.sequences = ImmutableList.copyOf(sequences);
+			this.views = ImmutableList.copyOf(views);
+			this.foreignKeys = ImmutableList.copyOf(foreignKeys);
 			return this;
 		}
 
@@ -141,6 +158,7 @@ public final class Schema {
 		this.sequences = builder.sequences;
 		this.views = builder.views;
 		this.foreignKeys = builder.foreignKeys;
+		this.description = builder.description;
 	}
 
 }
