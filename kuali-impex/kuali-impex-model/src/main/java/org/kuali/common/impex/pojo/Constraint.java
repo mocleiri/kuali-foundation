@@ -17,11 +17,8 @@ package org.kuali.common.impex.pojo;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
@@ -33,8 +30,6 @@ import com.google.common.collect.ImmutableList;
 /**
  * This class represents any named connection between columns
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
 public abstract class Constraint implements NamedElement {
 
 	@XmlAttribute
