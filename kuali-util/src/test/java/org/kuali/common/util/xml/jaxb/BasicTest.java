@@ -13,7 +13,7 @@ public class BasicTest {
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			Club club = new Club("Delta Tau", 15.0);
-			Sport soccer = new Sport("Soccer", 125, true, new Team("Manchester United", "blue"));
+			Sport soccer = new Sport("Soccer", 125, true, new Team("Manchester United", "blue", "joe", "jeff"));
 			Student student1 = new Student.Builder("joe").club(club).sport(soccer).ethnicity("caucasian").build();
 			String xml1 = service.toXml(student1, encoding);
 			System.out.println(xml1);
