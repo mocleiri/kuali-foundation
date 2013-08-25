@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.eclipse.persistence.oxm.annotations.XmlPath;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.XmlBind;
@@ -49,22 +48,18 @@ public final class Schema {
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<Table> tables;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<Sequence> sequences;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<View> views;
 
 	@XmlElement
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
-	@XmlPath(".")
 	private final List<ForeignKey> foreignKeys;
 
 	public String getName() {
