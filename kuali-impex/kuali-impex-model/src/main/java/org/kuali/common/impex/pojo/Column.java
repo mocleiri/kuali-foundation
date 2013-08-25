@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.adapter.FlattenOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitOptionalIntegerAdapter;
@@ -32,7 +31,7 @@ public final class Column implements NamedElement {
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitOptionalIntegerAdapter.class)
-	private final Optional<Integer> scale; // Number of digits to the right of the decimal point. Numeric values only
+	private final Optional<Integer> scale; // Number of digits to the right of the decimal point for a numeric value
 
 	@XmlAttribute(name = "default")
 	@XmlJavaTypeAdapter(OmitOptionalStringAdapter.class)
@@ -124,7 +123,7 @@ public final class Column implements NamedElement {
 			return this;
 		}
 
-		private Builder finish() {
+		public Column build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(type, size, scale, defaultValue, description);
 			if (size.isPresent()) {
@@ -133,18 +132,20 @@ public final class Column implements NamedElement {
 			if (scale.isPresent()) {
 				Assert.isTrue(DataType.isScalable(type), "scale is invalid for type [" + type + "]");
 			}
-			return this;
-		}
-
-		public Column build() {
-			finish();
 			return new Column(this);
 		}
 
 	}
 
 	private Column() {
-		this(new Builder(NullUtils.NONE, DataType.BIT).finish());
+		this.name = null;
+		this.type = null;
+		this.size = null;
+		this.scale = null;
+		this.defaultValue = null;
+		this.description = null;
+		this.primaryKey = null;
+		this.nullable = null;
 	}
 
 	private Column(Builder builder) {
