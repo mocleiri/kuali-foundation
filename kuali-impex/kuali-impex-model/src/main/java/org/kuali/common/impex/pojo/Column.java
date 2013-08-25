@@ -127,8 +127,11 @@ public final class Column implements NamedElement {
 		private Builder finish() {
 			Assert.noBlanks(name);
 			Assert.noNulls(type, size, scale, defaultValue, description);
+			if (size.isPresent()) {
+				Assert.isTrue(DataType.isSizeable(type), "size is invalid for type [" + type + "]");
+			}
 			if (scale.isPresent()) {
-				Assert.isTrue(DataType.FLOAT.equals(type), "scale is invalid for [" + type + "].  Scale only has meaning for a column of type [" + DataType.FLOAT + "]");
+				Assert.isTrue(DataType.isScalable(type), "scale is invalid for type [" + type + "]");
 			}
 			return this;
 		}
