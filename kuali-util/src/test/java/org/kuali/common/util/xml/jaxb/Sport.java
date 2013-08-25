@@ -9,11 +9,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
+@XmlBind(classes = { Team.class })
 public final class Sport extends Activity {
 
 	@SuppressWarnings("unused")
@@ -49,6 +51,7 @@ public final class Sport extends Activity {
 	private final Boolean contact;
 
 	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Team> teams;
 
 	public String getName() {
