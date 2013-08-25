@@ -27,6 +27,10 @@ public class University {
 	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
 	private final List<Team> teams;
 
+	@XmlElement
+	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	private final List<String> colors;
+
 	public List<Student> getStudents() {
 		return students;
 	}
@@ -44,6 +48,7 @@ public class University {
 		this.students = null;
 		this.sports = null;
 		this.teams = null;
+		this.colors = null;
 	}
 
 	public University(List<Student> students, List<Sport> sports, Team... teams) {
@@ -55,6 +60,7 @@ public class University {
 		this.students = students;
 		this.sports = sports;
 		this.teams = teams;
+		this.colors = ImmutableList.of("red");
 	}
 
 }
