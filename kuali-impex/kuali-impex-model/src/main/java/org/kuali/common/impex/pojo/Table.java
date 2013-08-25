@@ -2,8 +2,6 @@ package org.kuali.common.impex.pojo;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,11 +15,7 @@ import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-/**
- * This interface provides an implementation-independent API to access database table model information
- */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlBind(classes = { Column.class, UniqueConstraint.class, Index.class })
 public final class Table implements NamedElement {
 

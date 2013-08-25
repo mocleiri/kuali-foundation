@@ -17,8 +17,6 @@ package org.kuali.common.impex.pojo;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,7 +31,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlBind(classes = { Table.class, Sequence.class, View.class, ForeignKey.class })
 public final class Schema {
 
