@@ -155,7 +155,7 @@ public final class Schema {
 		this.sequences = null;
 		this.views = null;
 		this.foreignKeys = null;
-		this.description = null;
+		this.description = Optional.absent();
 	}
 
 	private Schema(Builder builder) {
