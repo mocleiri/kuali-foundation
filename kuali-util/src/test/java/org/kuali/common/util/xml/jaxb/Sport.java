@@ -25,6 +25,14 @@ public final class Sport extends Activity {
 		this(name, UNKNOWN_FEE, false, ImmutableList.<Team> of());
 	}
 
+	public Sport(String name, double fee, boolean contact, Team team) {
+		this(name, fee, contact, ImmutableList.of(team));
+	}
+
+	public Sport(String name, double fee, boolean contact, Team... teams) {
+		this(name, fee, contact, ImmutableList.copyOf(teams));
+	}
+
 	public Sport(String name, double fee, boolean contact, List<Team> teams) {
 		super(fee);
 		Assert.noBlanks(name);
