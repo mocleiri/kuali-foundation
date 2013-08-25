@@ -16,7 +16,6 @@ import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 /**
  * This interface provides an implementation-independent API to access database table model information
@@ -68,9 +67,9 @@ public final class Table implements NamedElement {
 		private final String name;
 
 		// Optional
-		private List<Column> columns = Lists.newArrayList();
-		private List<UniqueConstraint> uniqueConstraints = Lists.newArrayList();
-		private List<Index> indexes = Lists.newArrayList();
+		private List<Column> columns = ImmutableList.of();
+		private List<UniqueConstraint> uniqueConstraints = ImmutableList.of();
+		private List<Index> indexes = ImmutableList.of();
 		private Optional<String> description = Optional.absent();
 
 		public Builder(String name) {
