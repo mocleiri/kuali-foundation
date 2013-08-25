@@ -29,7 +29,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.TrimmingCSVStringAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -51,11 +51,11 @@ public final class ForeignKey implements NamedElement {
 	private final ForeignKeyConstraintType onUpdate;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> localColumns;
 
 	@XmlElement
-	@XmlJavaTypeAdapter(ImmutableListAdapter.class)
+	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> foreignColumns;
 
 	public String getForeignTable() {
