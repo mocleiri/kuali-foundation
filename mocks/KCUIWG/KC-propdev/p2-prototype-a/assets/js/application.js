@@ -78,41 +78,5 @@ $(document).ready(function () {
         });
     }
    
-    /*
-    ACCESSIBILITY
-    Details: Allows focusing on the main content section of the page. Useful if we do 'skip links'.
-    --------------------------------------- */
-    if ($('#content').length) {
-        $('#content').attr('tabindex', '-1').addClass('focusable');
-    }
-
-    if ($('#incident-alerts').length) {
-        $('#incident-alerts').attr('tabindex', '-1').addClass('focusable');
-    }
-    
-    // If a URL has a page anchor hash, focus on it
-    if (document.location.hash) {
-        var anchorUponArrival = document.location.hash;
-        setTimeout(function() {
-            $(anchorUponArrival).focus();
-        }, 100);
-    }
-
-    /*
-    HIGHLIGHTING LABELS
-    Details: Highlights the current row of the selected label or form element
-    --------------------------------------- */
-    $('.control-group *').on('focus', function() {
-        $(this).addClass('control-group-focused');
-    }).on('blur', function() {
-        $('.control-group.control-group-focused').removeClass('control-group-focused');
-    });
-
-    /*
-    STICKY ELEMENTS
-    Details: Uses the jquery.sticky.js plugin to easily stick elements during scroll
-    --------------------------------------- */
-    $('#ToC').sticky({ topSpacing: 52 });
-    // $('.docControls').sticky({ topSpacing: 200 });
 
 });
