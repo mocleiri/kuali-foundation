@@ -67,15 +67,6 @@ public class RiceBaselineSqlConfig implements MetaInfContextsConfig {
 		return new MetaInfContext.Builder(outputFile, encoding, scanDir).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
 	}
 
-	protected Map<MetaInfGroup, String> getDefaultExcludes(Map<MetaInfGroup, String> defaultIncludes) {
-		Map<MetaInfGroup, String> map = new HashMap<MetaInfGroup, String>();
-		map.put(MetaInfGroup.SCHEMA, NullUtils.NONE); // The
-		map.put(MetaInfGroup.DATA, defaultIncludes.get(MetaInfGroup.SCHEMA) + "," + defaultIncludes.get(MetaInfGroup.CONSTRAINTS));
-		map.put(MetaInfGroup.CONSTRAINTS, NullUtils.NONE);
-		map.put(MetaInfGroup.OTHER, NullUtils.NONE);
-		return map;
-	}
-
 	protected Map<MetaInfGroup, String> getDefaultIncludes(Project project, String impexArtifactId, String vendor) {
 		String resourcePath = ProjectUtils.getResourcePath(project.getGroupId(), project.getArtifactId());
 		Map<MetaInfGroup, String> map = new HashMap<MetaInfGroup, String>();
@@ -85,4 +76,18 @@ public class RiceBaselineSqlConfig implements MetaInfContextsConfig {
 		map.put(MetaInfGroup.OTHER, resourcePath + "/upgrades/**/" + vendor + "/**/*.sql");
 		return map;
 	}
+
+	protected Map<MetaInfGroup, String> getDefaultExcludes(Map<MetaInfGroup, String> defaultIncludes) {
+		Map<MetaInfGroup, String> map = new HashMap<MetaInfGroup, String>();
+		// The schema includes specifies exactly one file, no need to exclude anything
+		map.put(MetaInfGroup.SCHEMA, NullUtils.NONE);
+		// Include all of the SQL except for the schema + constraints SQL
+		map.put(MetaInfGroup.DATA, defaultIncludes.get(MetaInfGroup.SCHEMA) + "," + defaultIncludes.get(MetaInfGroup.CONSTRAINTS));
+		// The constraints includes specifies exactly one file, no need to exclude anything
+		map.put(MetaInfGroup.CONSTRAINTS, NullUtils.NONE);
+		// No need to exclude any of the "upgrades" SQL
+		map.put(MetaInfGroup.OTHER, NullUtils.NONE);
+		return map;
+	}
+
 }
