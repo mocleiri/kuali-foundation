@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 @XmlRootElement
 public class ListWrapper<T> {
 
-	@XmlAnyElement(lax = false)
+	@XmlAnyElement(lax = true)
 	private final List<T> list;
 
 	ListWrapper() {
