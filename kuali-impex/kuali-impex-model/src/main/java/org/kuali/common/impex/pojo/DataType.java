@@ -5,6 +5,7 @@ public enum DataType {
 	DATE, TIMESTAMP, CLOB, STRING, CHAR, FLOAT, INTEGER, BIT, BLOB;
 
 	// Size has no meaning for date, timestamp, or bit
+	// TODO Return false for CLOB, BLOB, and CHAR also?
 	public static boolean isSizeable(DataType type) {
 		switch (type) {
 		case DATE:
