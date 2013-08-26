@@ -12,7 +12,8 @@ public final class FlattenStringAdapter extends XmlAdapter<String, String> {
 	}
 
 	public FlattenStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
-		Assert.noNullStrings(carriageReturnReplacement, linefeedReplacement);
+		// No blanks because this needs to work bi-directionally
+		Assert.noBlanks(carriageReturnReplacement, linefeedReplacement);
 		this.carriageReturnReplacement = carriageReturnReplacement;
 		this.linefeedReplacement = linefeedReplacement;
 	}
