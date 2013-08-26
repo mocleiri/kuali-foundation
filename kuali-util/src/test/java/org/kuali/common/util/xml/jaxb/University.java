@@ -14,7 +14,7 @@ import org.kuali.common.util.xml.jaxb.adapter.TrimmingCSVStringAdapter;
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
-@XmlBind(classes = Sport.class)
+@XmlRootElements(classes = Sport.class)
 public class University {
 
 	@XmlAttribute
