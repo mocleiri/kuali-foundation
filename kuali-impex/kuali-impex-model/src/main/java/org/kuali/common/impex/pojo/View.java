@@ -14,7 +14,8 @@ public final class View implements NamedElement {
 	@XmlAttribute
 	private final String query;
 
-	View() {
+	@SuppressWarnings("unused")
+	private View() {
 		this.name = null;
 		this.query = null;
 	}

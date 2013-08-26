@@ -111,9 +111,25 @@ public final class Schema {
 			return this;
 		}
 
+		public Builder sequence(Sequence sequence) {
+			return sequences(ImmutableList.of(sequence));
+		}
+
+		public Builder sequences(Sequence... sequences) {
+			return sequences(ImmutableList.copyOf(sequences));
+		}
+
 		public Builder sequences(List<Sequence> sequences) {
 			this.sequences = sequences;
 			return this;
+		}
+
+		public Builder view(View view) {
+			return views(ImmutableList.of(view));
+		}
+
+		public Builder views(View... views) {
+			return views(ImmutableList.copyOf(views));
 		}
 
 		public Builder views(List<View> views) {
