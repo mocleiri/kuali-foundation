@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="freemarker/ext/jsp/FreeMarkerJspFactory2.java|freemarker/ext/jsp/FreeMarkerPageContext1.java|freemarker/ext/jsp/FreeMarkerPageContext2.java|freemarker/testcase/models/BeanTestClass.java|freemarker/testcase/models/EnumTestClass.java|freemarker/testcase/models/BeanTestSuperclass.java|freemarker/testcase/models/BeanTestInterface.java|freemarker/ext/jython/Jython22VersionAdapter.java|freemarker/ext/jython/Jython25VersionAdapter.java" kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/xalan.jar"/>
-	<classpathentry kind="lib" path="lib/servlet.jar"/>
-	<classpathentry kind="lib" path="lib/saxpath.jar"/>
-	<classpathentry kind="lib" path="lib/logkit.jar"/>
-	<classpathentry kind="lib" path="lib/log4j.jar"/>
-	<classpathentry kind="lib" path="lib/junit.jar"/>
-	<classpathentry kind="lib" path="lib/js.jar"/>
-	<classpathentry kind="lib" path="lib/jdom.jar"/>
-	<classpathentry kind="lib" path="lib/jaxen.jar"/>
-	<classpathentry kind="lib" path="lib/emma.jar"/>
-	<classpathentry kind="lib" path="lib/emma_ant.jar"/>
-	<classpathentry kind="lib" path="lib/dom4j.jar"/>
-	<classpathentry kind="lib" path="lib/ant.jar"/>
-	<classpathentry kind="lib" path="lib/jsp-api-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/javarebel-sdk.jar"/>
-	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-api.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-jdk14.jar"/>
+	<classpathentry excluding="freemarker/ext/dom/SunInternalXalanXPathSupport.java|freemarker/ext/jsp/FreeMarkerJspFactory2.java|freemarker/ext/jsp/_FreeMarkerPageContext1.java|freemarker/ext/jsp/_FreeMarkerPageContext2.java|freemarker/ext/jython/_Jython20And21VersionAdapter.java|freemarker/ext/jython/_Jython22VersionAdapter.java" kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry kind="src" path="build/generated-sources/java">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=kuali-freemarker&amp;ivyXmlPath=ivy.xml&amp;confs=IDE&amp;ivySettingsPath=%24%7Bworkspace_loc%3Akuali-freemarker%2Fivysettings.xml%7D&amp;loadSettingsOnDemand=false&amp;propertyFiles="/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
-	<classpathentry kind="lib" path="lib/struts.jar"/>
-	<classpathentry kind="lib" path="lib/jython-2.0.jar"/>
-	<classpathentry kind="output" path=".bin"/>
+	<classpathentry kind="output" path=".bin/"/>
 </classpath>
