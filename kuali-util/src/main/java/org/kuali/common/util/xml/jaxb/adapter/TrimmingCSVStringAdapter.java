@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 
