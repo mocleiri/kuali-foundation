@@ -1,14 +1,11 @@
 package org.kuali.common.impex.pojo;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public final class View implements NamedElement {
 
 	@XmlAttribute

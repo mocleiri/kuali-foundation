@@ -15,16 +15,12 @@
 
 package org.kuali.common.impex.pojo;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public final class Sequence implements NamedElement {
 
 	@XmlAttribute
@@ -35,7 +31,8 @@ public final class Sequence implements NamedElement {
 
 	@SuppressWarnings("unused")
 	private Sequence() {
-		this(NullUtils.NONE, NullUtils.NONE);
+		this.name = null;
+		this.startValue = null;
 	}
 
 	public Sequence(String name, String startValue) {
