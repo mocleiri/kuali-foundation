@@ -3,20 +3,59 @@
 $page = 'basics-details';
 ?>
 <?php require_once( 'assets/inc/head.php' ) ?>
+
+<link rel="stylesheet" type="text/css" href="assets/js/tags/jquery.tagsinput.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/tags/jquery.tagsinput.js"></script>
+<!-- To test using the original jQuery.autocomplete, uncomment the following -->
+<!--
+	<script type='text/javascript' src='http://xoxco.com/x/tagsinput/jquery-autocomplete/jquery.autocomplete.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="http://xoxco.com/x/tagsinput/jquery-autocomplete/jquery.autocomplete.css" />
+	-->
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/start/jquery-ui.css" />
+<script type="text/javascript">
+		
+		function onAddTag(tag) {
+			alert("Added a tag: " + tag);
+		}
+		function onRemoveTag(tag) {
+			alert("Removed a tag: " + tag);
+		}
+		
+		function onChangeTag(input,tag) {
+			alert("Changed a tag: " + tag);
+		}
+		
+		$(function() {
+
+		
+			$('#tags_1, #tags_2, #tags_3, #tags_4').tagsInput({
+				width: 'auto',
+
+				//autocomplete_url:'test/fake_plaintext_endpoint.html' //jquery.autocomplete (not jquery ui)
+				autocomplete_url:'assets/js/tags/keywords.html' // jquery ui autocomplete requires a json endpoint
+			});
+			
+
+// Uncomment this line to see the callback functions in action
+//			$('input.tags').tagsInput({onAddTag:onAddTag,onRemoveTag:onRemoveTag,onChange: onChangeTag});		
+
+// Uncomment this line to see an input with no interface for adding new tags.
+//			$('input.tags').tagsInput({interactive:false});
+		});
+	
+	</script>
+    
+    <style> #tags_1_addTag { padding-top:5px}</style>
 <?php require_once( 'assets/inc/portal-nav.php' ) ?>
 <section>
   <div class="sectionContents col2">
-
     <?php require_once( 'assets/inc/portal-toolbar.php' ) ?>
-    
     <div class="container leftnav">
-     
       <?php require_once( 'assets/inc/document-header.php' ) ?>
-
       <div class="leftnavContent">
-        
         <?php require_once( 'assets/inc/document-nav.php' ) ?>
-        
         <div id="content" role="application">
           <div class="row-fluid">
             <div class="span12 content">
@@ -69,18 +108,18 @@ $page = 'basics-details';
                     </div>
                     <div class="control-group"> 
                       <!-- Text input-->
-                      <label class="control-label" for="input01">Date Range</label>
+                      <label class="control-label" for="input01">Project Start/End</label>
                       <div class="controls">
                         <div style="display:inline-block; margin-right:12px;" >
                           <div style="display:inline">
                             <input type="text" placeholder="mm/dd/yyyy" class="input-small">
-                          </div>
-                          <span style="display:block; width:100px; color:#999"><small>project start</small></span> </div>
-                        <div style="display:inline-block" >
-                          <div style="display:inline">
-                            <input type="text" placeholder="mm/dd/yyyy" class="input-small">
-                          </div>
-                          <span style="display:block; width:100px;color:#999"><small>project end</small></span> </div>
+                          </div>     <span style="display:block; width:100px; color:#999"><small>Start</small></span>
+                      </div>
+                      <div style="display:inline-block" >
+                        <div style="display:inline">
+                          <input type="text" placeholder="mm/dd/yyyy" class="input-small">
+                        </div>
+                        <span style="display:block; width:100px;color:#999"><small>End</small></span> </div>
                       </div>
                     </div>
                     <div class="control-group">
@@ -94,6 +133,13 @@ $page = 'basics-details';
                       <label class="control-label" for="projectTitle">Project Title</label>
                       <div class="controls">
                         <textarea name="textarea" id="projectTitle" class="input-xlarge" required>This is a test project</textarea>
+                      </div>
+                    </div>     
+                       <div class="control-group"> 
+                      <!-- Textarea -->
+                      <label class="control-label" for="projectTitle">Keywords (optional)</label>
+                      <div class="controls">
+                          <input id='tags_1' type='text' class='tags'>
                       </div>
                     </div>     
                        

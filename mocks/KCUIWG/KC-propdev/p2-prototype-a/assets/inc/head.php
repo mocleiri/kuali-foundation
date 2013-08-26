@@ -10,11 +10,12 @@
 <!--  styles -->
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="assets/css/bootstrap-editable.css" rel="stylesheet">
-<link href="assets/css/less/style.css" rel="stylesheet">
-<!-- <link href="assets/css/styles.css" rel="stylesheet"> -->
+<link href="assets/css/styles.css" rel="stylesheet">
+<link href="assets/css/custom.css" rel="stylesheet">
 <link href="assets/css/icons-custom.css" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="assets/js/fancybox/jquery.fancybox.css" media="screen" />
+
 
 <!--  HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -35,14 +36,15 @@
 <script src="assets/js/bootstrap-datepicker.js"></script>
 <script src="assets/js/bootstrap-typeahead.js"></script>
 <script src="assets/js/bootstrap-affix.js"></script>
+<script src="assets/js/application.js"></script>
 <script src="assets/js/site.js" type="text/javascript"></script>
 <script src="assets/js/toolbar.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="assets/js/jqplot.pieRenderer.min.js"></script>
 <script type="text/javascript" src="assets/js/fancybox/jquery.fancybox.js"></script>
-<script type="text/javascript" src="assets/js/jquery.sticky.js"></script>
+
+<link href="assets/css/bootstrap-editable.css" rel="stylesheet">
 <script src="assets/js/bootstrap-editable.js"></script>
-<script src="assets/js/application.js"></script>
 
 
 <script type="text/javascript">
@@ -158,11 +160,16 @@ $(document).ready(function() {
     });
 });
 </script>
-</head>
 
-<body>
-    <div class="a11y-jump-links">
-        <ul>
-            <li><a href="#content">Skip to main content</a></li>
-        </ul>
-    </div>
+<style>
+
+</style>
+
+
+
+
+    
+    
+    
+    
+</head>
