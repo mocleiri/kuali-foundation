@@ -28,7 +28,7 @@ public class BasicTest {
 			Sequence s1 = new Sequence("SEQ_1", "10000");
 			View v1 = new View("show_sysdate", "select sysdate from dual");
 			ForeignKey fk1 = new ForeignKey.Builder("KS_FK1", "VERSION", "VERSION").onDelete(ForeignKeyConstraintType.NO_ACTION).onUpdate(ForeignKeyConstraintType.NO_ACTION)
-					.localColumns(Arrays.asList("ID")).foreignColumns(Arrays.asList("ID")).build();
+					.localColumns(Arrays.asList("ID")).foreignColumns(Arrays.asList("ID", "SEQUENCE")).build();
 			Table table = new Table.Builder("VERSION").columns(column1, column2).uniqueConstraints(uc1, uc2).indexes(i1, i2).build();
 			// Table table = new Table.Builder("VERSION").columns(column1, column2).build();
 			Schema schema = new Schema.Builder("KS").table(table).sequence(s1).view(v1).foreignKeys(Arrays.asList(fk1)).build();
