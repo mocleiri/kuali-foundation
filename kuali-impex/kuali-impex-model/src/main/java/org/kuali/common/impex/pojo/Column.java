@@ -1,7 +1,5 @@
 package org.kuali.common.impex.pojo;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -16,7 +14,6 @@ import org.kuali.common.util.xml.jaxb.adapter.OmitTrueAdapter;
 import com.google.common.base.Optional;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public final class Column implements NamedElement {
 
 	@XmlAttribute
