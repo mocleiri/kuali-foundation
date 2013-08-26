@@ -16,7 +16,8 @@
 package org.kuali.common.impex.spring;
 
 import org.kuali.common.impex.database.DumpDatabaseExecutable;
-import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
+import org.kuali.common.jdbc.show.ShowConfigExecutable;
+import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import org.springframework.core.env.Environment;
  * Configures tasks related to dumping a database to disk
  */
 @Configuration
-@Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
+@Import({ JdbcShowConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
 public class DumpDatabaseConfig {
 
 	private static final String SKIP_KEY = "impex.dump.skip";
@@ -39,7 +40,7 @@ public class DumpDatabaseConfig {
 	Environment env;
 
 	@Autowired
-	JdbcDataSourceConfig dataSourceConfig;
+	ShowConfigExecutable showConfigExecutable;
 
 	@Autowired
 	ExtractSchemaConfig extractSchemaConfig;
@@ -60,7 +61,7 @@ public class DumpDatabaseConfig {
 		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, DEFAULT_SKIP_VALUE));
 
 		// Show the JDBC configuration
-		exec.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
+		exec.setShowConfigExecutable(showConfigExecutable);
 
 		// Connect to the db using JDBC and extract the information needed to create model objects representing the schema
 		exec.setExtractSchemaExecutable(extractSchemaConfig.extractSchemaExecutable());
