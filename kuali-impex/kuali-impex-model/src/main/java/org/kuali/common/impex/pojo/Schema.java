@@ -139,6 +139,14 @@ public final class Schema {
 			return this;
 		}
 
+		public Builder foreignKey(ForeignKey foreignKey) {
+			return foreignKeys(ImmutableList.of(foreignKey));
+		}
+
+		public Builder foreignKeys(ForeignKey... foreignKeys) {
+			return foreignKeys(ImmutableList.copyOf(foreignKeys));
+		}
+
 		public Builder foreignKeys(List<ForeignKey> foreignKeys) {
 			this.foreignKeys = foreignKeys;
 			return this;
