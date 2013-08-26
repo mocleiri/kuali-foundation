@@ -172,9 +172,8 @@ public final class Schema {
 	// The presence of this constructor does open a small hole that could potentially allow null to sneak into the pojo's
 	// There is no "normal" way to introduce null when objects are constructed using the Builder()
 	// The assertions inside the build() method prevent that from happening.
-	// However, if someone created a Schema object using the Builder, marshalled it to disk as XML, and then edited the XML by hand
-	// (removing the "name" attribute for example), then unmarshalled a Schema object from the hand edited XML, the "name" field
-	// would end up being null.
+	// However, if someone marshalls a Schema object to disk as XML, then edits the XML by hand (removing the "name" attribute for example),
+	// and then unmarshalls a Schema object from the edited XML, the "name" field in the pojo would be null
 	private Schema() {
 		this(new Builder(null).initialized());
 	}
