@@ -9,6 +9,13 @@ import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Convert List&lt;String> into a trimmed CSV string when going from Object -> XML.<br>
+ * Convert and trim a CSV string into List&lt;String> when going from XML -> Object
+ * 
+ * @throws IllegalStateException
+ *             If any elements in the list contain a comma
+ */
 public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 
 	private static final String DELIMITER = ",";
