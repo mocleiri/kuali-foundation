@@ -81,7 +81,7 @@ public class RiceBaselineSqlConfig implements MetaInfContextsConfig {
 		Map<MetaInfGroup, String> map = new HashMap<MetaInfGroup, String>();
 		// The schema includes specifies exactly one file, no need to exclude anything
 		map.put(MetaInfGroup.SCHEMA, NullUtils.NONE);
-		// Include all of the SQL except for the schema + constraints SQL
+		// Exclude the schema + constraints SQL
 		map.put(MetaInfGroup.DATA, defaultIncludes.get(MetaInfGroup.SCHEMA) + "," + defaultIncludes.get(MetaInfGroup.CONSTRAINTS));
 		// The constraints includes specifies exactly one file, no need to exclude anything
 		map.put(MetaInfGroup.CONSTRAINTS, NullUtils.NONE);
