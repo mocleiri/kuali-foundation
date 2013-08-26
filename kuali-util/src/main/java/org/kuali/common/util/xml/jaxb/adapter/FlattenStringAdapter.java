@@ -5,15 +5,13 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 
-import com.google.common.base.Optional;
+public final class FlattenStringAdapter extends XmlAdapter<String, String> {
 
-public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optional<String>> {
-
-	public FlattenOptionalStringAdapter() {
+	public FlattenStringAdapter() {
 		this(FlattenConstants.DEFAULT_CR_REPLACEMENT, FlattenConstants.DEFAULT_LF_REPLACEMENT);
 	}
 
-	public FlattenOptionalStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
+	public FlattenStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
 		Assert.noNullStrings(carriageReturnReplacement, linefeedReplacement);
 		this.carriageReturnReplacement = carriageReturnReplacement;
 		this.linefeedReplacement = linefeedReplacement;
@@ -23,20 +21,20 @@ public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optio
 	private final String linefeedReplacement;
 
 	@Override
-	public String marshal(Optional<String> optional) {
-		if (optional.isPresent()) {
-			return Str.flatten(optional.get(), carriageReturnReplacement, linefeedReplacement);
+	public String marshal(String string) {
+		if (string != null) {
+			return Str.flatten(string, carriageReturnReplacement, linefeedReplacement);
 		} else {
 			return null;
 		}
 	}
 
 	@Override
-	public Optional<String> unmarshal(String value) {
+	public String unmarshal(String value) {
 		if (value == null) {
-			return Optional.<String> absent();
+			return null;
 		} else {
-			return Optional.<String> of(Str.unflatten(value, carriageReturnReplacement, linefeedReplacement));
+			return Str.unflatten(value, carriageReturnReplacement, linefeedReplacement);
 		}
 	}
 
