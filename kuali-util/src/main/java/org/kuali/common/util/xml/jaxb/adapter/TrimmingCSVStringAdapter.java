@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -13,8 +14,10 @@ import com.google.common.collect.ImmutableList;
  * Convert List&lt;String> into a trimmed CSV string when going from Object -> XML.<br>
  * Convert and trim a CSV string into List&lt;String> when going from XML -> Object
  * 
- * @throws IllegalStateException
+ * @throws IllegalArgumentException
  *             If any elements in the list contain a comma
+ * @throws NullPointerException
+ *             If the list is null or any strings in the list are null
  */
 public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 
@@ -31,9 +34,7 @@ public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 					sb.append(DELIMITER);
 				}
 				String value = strings.get(i).trim();
-				if (StringUtils.contains(value, DELIMITER)) {
-					throw new IllegalStateException("[" + value + "] contains '" + DELIMITER + "'");
-				}
+				Assert.isFalse(StringUtils.contains(value, DELIMITER), "[" + value + "] contains '" + DELIMITER + "'");
 				sb.append(value);
 			}
 			return sb.toString();
