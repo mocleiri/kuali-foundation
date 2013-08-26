@@ -12,12 +12,13 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * Convert List&lt;String> into a trimmed CSV string when going from Object -> XML.<br>
- * Convert and trim a CSV string into List&lt;String> when going from XML -> Object
+ * Convert and trim a CSV string into List&lt;String> when going from XML -> Object.<br>
+ * The List&lt;String> returned when going from XML -> Object is immutable.</br>
  * 
- * @throws IllegalArgumentException
- *             If any elements in the list contain a comma
  * @throws NullPointerException
  *             If the list is null or any strings in the list are null
+ * @throws IllegalArgumentException
+ *             If any strings in the list contain a comma
  */
 public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 
