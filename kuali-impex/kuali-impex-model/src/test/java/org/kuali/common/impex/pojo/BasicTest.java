@@ -3,20 +3,14 @@ package org.kuali.common.impex.pojo;
 import java.util.Arrays;
 
 import org.junit.Assert;
+import org.kuali.common.util.execute.impl.ShowEnvExec;
 import org.kuali.common.util.xml.jaxb.JAXBXmlService;
 
 public class BasicTest {
 
-	static {
-		String os = System.getProperty("os.name") + ", " + System.getProperty("os.version");
-		String jdk = "Java version: " + System.getProperty("java.runtime.version") + ", vendor: " + System.getProperty("java.vm.vendor") + ", "
-				+ System.getProperty("java.vm.name");
-		System.out.println(os);
-		System.out.println(jdk);
-	}
-
 	public static void main(String[] args) {
 		try {
+			new ShowEnvExec().execute();
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			String desc = null;
