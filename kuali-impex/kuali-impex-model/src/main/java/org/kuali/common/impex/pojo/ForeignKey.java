@@ -15,7 +15,6 @@
 
 package org.kuali.common.impex.pojo;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -24,10 +23,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ListUtils;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.xml.jaxb.adapter.TrimmingCSVStringAdapter;
+
+import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
 public final class ForeignKey implements NamedElement {
@@ -92,8 +90,8 @@ public final class ForeignKey implements NamedElement {
 
 		private ForeignKeyConstraintType onDelete;
 		private ForeignKeyConstraintType onUpdate;
-		private List<String> localColumns;
-		private List<String> foreignColumns;
+		private List<String> localColumns = ImmutableList.of();
+		private List<String> foreignColumns = ImmutableList.of();
 
 		public Builder(String name, String localTable, String foreignTable) {
 			this.name = name;
@@ -121,21 +119,17 @@ public final class ForeignKey implements NamedElement {
 			return this;
 		}
 
-		private Builder defaults() {
-			this.onDelete = ForeignKeyConstraintType.NO_ACTION;
-			this.onUpdate = ForeignKeyConstraintType.NO_ACTION;
-			this.localColumns = Arrays.asList(NullUtils.NONE);
-			this.foreignColumns = Arrays.asList(NullUtils.NONE);
+		private Builder initialized() {
 			return this;
 		}
 
 		private Builder finish() {
 			Assert.noBlanks(name, localTable, foreignTable);
 			Assert.noNulls(onDelete, onUpdate, localColumns, foreignColumns);
-			Assert.isFalse(CollectionUtils.isEmpty(localColumns));
-			Assert.isFalse(CollectionUtils.isEmpty(foreignColumns));
-			this.localColumns = ListUtils.newImmutableArrayList(localColumns);
-			this.foreignColumns = ListUtils.newImmutableArrayList(foreignColumns);
+			Assert.isTrue(localColumns.size() > 0, "No local columns");
+			Assert.isTrue(foreignColumns.size() > 0, "No foreign columns");
+			this.localColumns = ImmutableList.copyOf(localColumns);
+			this.foreignColumns = ImmutableList.copyOf(foreignColumns);
 			return this;
 		}
 
@@ -146,7 +140,7 @@ public final class ForeignKey implements NamedElement {
 	}
 
 	private ForeignKey() {
-		this(new Builder(NullUtils.NONE, NullUtils.NONE, NullUtils.NONE).defaults().finish());
+		this(new Builder(null, null, null).initialized());
 	}
 
 	private ForeignKey(Builder builder) {
