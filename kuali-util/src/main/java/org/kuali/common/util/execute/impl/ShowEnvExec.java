@@ -8,28 +8,28 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ShowEnv implements Executable {
+public class ShowEnvExec implements Executable {
 
-	public ShowEnv() {
+	public ShowEnvExec() {
 		this(false);
 	}
 
-	public ShowEnv(boolean automatic) {
-		this.automatic = automatic;
-		if (automatic) {
-			execute();
-		}
+	public ShowEnvExec(boolean automatic) {
+		this.skip = automatic;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(ShowEnv.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShowEnvExec.class);
 
-	private final boolean automatic;
+	private final boolean skip;
 
 	@Override
 	public void execute() {
+		if (skip) {
+			return;
+		}
 		Object[] java = { System.getProperty("java.runtime.version"), System.getProperty("java.vm.name"), System.getProperty("java.vm.vendor") };
 		Object[] javaHome = { new CanonicalFile(System.getProperty("java.home")) };
-		Object[] other = { Locale.getDefault().getDisplayName(), Charset.defaultCharset().displayName() };
+		Object[] other = { Locale.getDefault().toString(), Charset.defaultCharset().displayName() };
 		Object[] os = { System.getProperty("os.name"), System.getProperty("os.version"), System.getProperty("os.arch") };
 		logger.info("Java version: {}, name: {}, vendor: {}", java);
 		logger.info("Java home: {}", javaHome);
@@ -37,8 +37,8 @@ public class ShowEnv implements Executable {
 		logger.info("OS name: {}, version: {}, arch: {}", os);
 	}
 
-	public boolean isAutomatic() {
-		return automatic;
+	public boolean isSkip() {
+		return skip;
 	}
 
 }
