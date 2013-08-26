@@ -14,17 +14,24 @@ import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
 import org.kuali.common.util.property.processor.TrimmingProcessor;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ AutowiredProjectConfig.class })
+@Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
 public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
+
+	private static final String REMOVE_SYSTEM_PROPERTY_PASSWORD_KEY = "properties.enc.password.remove";
 
 	@Autowired
 	Project project;
+
+	@Autowired
+	EnvironmentService env;
 
 	@Override
 	@Bean
@@ -39,14 +46,16 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		// This property contains the password for decrypting any encrypted property values
 		String passwordKey = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
 
-		// Do some processing of the properties after loading them
+		// Setup a processor that gets invoked on the properties *after* they have all been loaded
 		PropertyProcessor processor = getPostProcessor(overrides, passwordKey);
 
 		// Setup a service with the overrides and post processor we've configured
 		PropertiesService service = new DefaultPropertiesService(overrides, processor);
 
 		// Now that the service is setup, we can remove the password as a system property (if it has been set there)
-		PropertyUtils.removeSystemProperty(passwordKey);
+		if (env.getBoolean(REMOVE_SYSTEM_PROPERTY_PASSWORD_KEY, true)) {
+			PropertyUtils.removeSystemProperty(passwordKey);
+		}
 
 		// Return the configured service
 		return service;
