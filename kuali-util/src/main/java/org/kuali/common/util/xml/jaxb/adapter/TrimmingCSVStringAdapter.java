@@ -11,8 +11,8 @@ import org.kuali.common.util.CollectionUtils;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Convert List&lt;String> into a trimmed CSV string when going from Object -> XML.<br>
- * Convert and trim a CSV string into List&lt;String> when going from XML -> Object.<br>
+ * Trim each element from List&lt;String> to create the CSV when going from Object -> XML.<br>
+ * Convert the CSV back into List&lt;String> when going from XML -> Object.<br>
  * The List&lt;String> returned when going from XML -> Object is immutable.</br>
  * 
  * @throws NullPointerException
@@ -28,18 +28,17 @@ public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 	public final String marshal(List<String> strings) {
 		if (strings.size() == 0) {
 			return null;
-		} else {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < strings.size(); i++) {
-				if (i != 0) {
-					sb.append(DELIMITER);
-				}
-				String value = strings.get(i).trim();
-				Assert.isFalse(StringUtils.contains(value, DELIMITER), "[" + value + "] contains '" + DELIMITER + "'");
-				sb.append(value);
-			}
-			return sb.toString();
 		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < strings.size(); i++) {
+			if (i != 0) {
+				sb.append(DELIMITER);
+			}
+			String trimmed = strings.get(i).trim();
+			Assert.isFalse(StringUtils.contains(trimmed, DELIMITER), "[" + trimmed + "] contains '" + DELIMITER + "'");
+			sb.append(trimmed);
+		}
+		return sb.toString();
 	}
 
 	@Override
