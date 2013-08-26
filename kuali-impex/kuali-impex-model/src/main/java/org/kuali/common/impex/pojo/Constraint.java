@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.xml.jaxb.adapter.TrimmingCSVStringAdapter;
-import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -52,7 +51,7 @@ public abstract class Constraint implements NamedElement {
 	public Constraint(String name, List<String> columns) {
 		Assert.noBlanks(name);
 		Assert.noNulls(columns);
-		Assert.isFalse(CollectionUtils.isEmpty(columns));
+		Assert.isTrue(columns.size() > 0, "need at least 1 column");
 		this.columns = ImmutableList.copyOf(columns);
 		this.name = name;
 	}
