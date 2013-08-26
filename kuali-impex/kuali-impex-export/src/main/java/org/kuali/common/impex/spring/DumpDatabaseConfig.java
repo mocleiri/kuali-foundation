@@ -15,51 +15,64 @@
 
 package org.kuali.common.impex.spring;
 
-import org.kuali.common.impex.data.DumpDataExecutable;
-import org.kuali.common.impex.dump.exec.DumpDatabaseExecutable;
-import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
-import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
-import org.kuali.common.jdbc.show.ShowConfigExecutable;
-import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
+import org.kuali.common.impex.database.DumpDatabaseExecutable;
+import org.kuali.common.jdbc.spring.JdbcDataSourceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.env.EnvironmentService;
-import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 
 /**
  * Configures tasks related to dumping a database to disk
  */
 @Configuration
-@Import({ SpringServiceConfig.class, JdbcShowConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class, SpringServiceConfig.class })
-// @Import({ ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class, SpringServiceConfig.class })
+@Import({ JdbcDataSourceConfig.class, ExtractSchemaConfig.class, DumpSchemaConfig.class, DumpDataConfig.class })
 public class DumpDatabaseConfig {
 
 	private static final String SKIP_KEY = "impex.dump.skip";
+	private static final boolean DEFAULT_SKIP_VALUE = false;
 
 	@Autowired
-	EnvironmentService env;
+	Environment env;
 
 	@Autowired
-	ShowConfigExecutable showConfigExec; // Show the JDBC connection details
+	JdbcDataSourceConfig dataSourceConfig;
 
 	@Autowired
-	ExtractSchemaExecutable extractSchemaExec; // Use JDBC calls to construct model objects representing the schema
+	ExtractSchemaConfig extractSchemaConfig;
 
 	@Autowired
-	DumpSchemaExecutable dumpSchemaExec; // Dump the schema model objects from memory to disk as XML
+	DumpSchemaConfig dumpSchemaConfig;
 
 	@Autowired
-	DumpDataExecutable dumpDataExec; // Extracts data from every non-empty table, dumps to disk as MPX files
+	DumpDataConfig dumpDataConfig;
 
 	@Bean
 	public Executable dumpDatabaseExecutable() {
-		// Might be skipping execution all together
-		boolean skip = env.getBoolean(SKIP_KEY, DumpDatabaseExecutable.DEFAULT_SKIP);
+
+		// Setup a new executable
+		DumpDatabaseExecutable exec = new DumpDatabaseExecutable();
+
+		// Figure out if we are skipping execution all together
+		exec.setSkip(SpringUtils.getBoolean(env, SKIP_KEY, DEFAULT_SKIP_VALUE));
+
+		// Show the JDBC configuration
+		exec.setShowConfigExecutable(dataSourceConfig.jdbcShowConfigExecutable());
+
+		// Connect to the db using JDBC and extract the information needed to create model objects representing the schema
+		exec.setExtractSchemaExecutable(extractSchemaConfig.extractSchemaExecutable());
+
+		// Dump the schema model objects from memory to disk as XML
+		exec.setDumpSchemaExecutable(dumpSchemaConfig.dumpSchemaExecutable());
+
+		// Connect to the db, extract data from the tables, and dump it to disk as MPX files
+		exec.setDumpDataExecutable(dumpDataConfig.dumpDataExecutable());
 
 		// Return the configured executable
-		return new DumpDatabaseExecutable(showConfigExec, extractSchemaExec, dumpSchemaExec, dumpDataExec, skip);
+		return exec;
 	}
+
 }
