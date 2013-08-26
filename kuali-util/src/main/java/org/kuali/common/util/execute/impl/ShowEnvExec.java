@@ -6,7 +6,6 @@ import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.CanonicalFile;
-import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +43,7 @@ public class ShowEnvExec implements Executable {
 	public Object[] getJavaHomeEnvironmentVariable() {
 		String javaHome = System.getenv("JAVA_HOME");
 		if (StringUtils.isBlank(javaHome)) {
-			return new Object[] { NullUtils.NONE };
+			return new Object[] { "(Not set)" };
 		} else {
 			return new Object[] { new CanonicalFile(javaHome) };
 		}
