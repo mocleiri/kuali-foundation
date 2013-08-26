@@ -78,10 +78,10 @@ public final class Column implements NamedElement {
 		private final DataType type;
 
 		// Optional
-		private Optional<Integer> size = Optional.<Integer> absent();
-		private Optional<Integer> scale = Optional.<Integer> absent();
-		private Optional<String> defaultValue = Optional.<String> absent();
-		private Optional<String> description = Optional.<String> absent();
+		private Optional<Integer> size = Optional.absent();
+		private Optional<Integer> scale = Optional.absent();
+		private Optional<String> defaultValue = Optional.absent();
+		private Optional<String> description = Optional.absent();
 		private boolean primaryKey = false;
 		private boolean nullable = true;
 
