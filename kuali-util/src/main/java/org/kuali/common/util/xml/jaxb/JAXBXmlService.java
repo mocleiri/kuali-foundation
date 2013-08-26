@@ -240,7 +240,7 @@ public class JAXBXmlService implements XmlService {
 		// There are two detailed discussions of this issue and how to get around it using MOXy on stackoverflow
 		// http://stackoverflow.com/questions/11894193/jaxb-marshal-empty-string-to-null-globally
 		// http://stackoverflow.com/questions/6110612/how-to-prevent-marshalling-empty-tags-in-jaxb-when-string-is-empty-but-not-null
-		// If the unit test JAXBIssue415Test.java ever starts passing, this flag would no longer be necessary
+		// If the unit test related to this in kuali-util (JAXBIssue415Test.java) starts passing, we could switch back to the RI
 		private boolean useEclipseLinkMoxyProvider = USE_ECLIPSE_LINK_MOXY_PROVIDER;
 
 		public Builder useEclipseLinkMoxyProvider(boolean useEclipseLinkMoxyProvider) {
