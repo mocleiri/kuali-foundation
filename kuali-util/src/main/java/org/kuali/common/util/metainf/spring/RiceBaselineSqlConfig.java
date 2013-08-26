@@ -82,7 +82,7 @@ public class RiceBaselineSqlConfig implements MetaInfContextsConfig {
 		map.put(MetaInfGroup.SCHEMA, resourcePath + "/initial-db/sql/" + vendor + "/" + impexArtifactId + ".sql");
 		map.put(MetaInfGroup.DATA, resourcePath + "/initial-db/sql/" + vendor + "/*.sql");
 		map.put(MetaInfGroup.CONSTRAINTS, resourcePath + "/initial-db/sql/" + vendor + "/" + impexArtifactId + "-constraints.sql");
-		map.put(MetaInfGroup.OTHER, resourcePath + "/upgrades/sql/" + vendor + "/**/*.sql");
+		map.put(MetaInfGroup.OTHER, resourcePath + "/upgrades/**/" + vendor + "/**/*.sql");
 		return map;
 	}
 }
