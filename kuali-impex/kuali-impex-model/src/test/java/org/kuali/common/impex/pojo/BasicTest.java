@@ -1,6 +1,6 @@
 package org.kuali.common.impex.pojo;
 
-import org.kuali.common.util.Assert;
+import org.junit.Assert;
 import org.kuali.common.util.xml.jaxb.JAXBXmlService;
 
 public class BasicTest {
@@ -24,11 +24,12 @@ public class BasicTest {
 			// Table table = new Table.Builder("VERSION").columns(column1, column2).build();
 			Schema schema = new Schema.Builder("KS").table(table).build();
 			String xml = service.toXml(schema, encoding);
-			System.out.println(xml);
-			Schema derived = service.getObjectFromXml(xml, encoding, Schema.class);
-			String xml2 = service.toXml(derived, encoding);
-			System.out.println(xml2);
-			Assert.isTrue(xml.equals(xml2), "xml doesn't match");
+			Schema derived1 = service.getObjectFromXml(xml, encoding, Schema.class);
+			String derived1Xml = service.toXml(derived1, encoding);
+			Schema derived2 = service.getObjectFromXml(derived1Xml, encoding, Schema.class);
+			String derived2Xml = service.toXml(derived2, encoding);
+			System.out.println(derived1Xml);
+			Assert.assertEquals(derived1Xml, derived2Xml);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
