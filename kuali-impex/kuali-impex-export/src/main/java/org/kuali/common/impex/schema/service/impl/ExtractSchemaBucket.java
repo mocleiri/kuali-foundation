@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.kuali.common.impex.model.Schema;
 import org.kuali.common.impex.schema.service.ExtractSchemaContext;
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 
 public class ExtractSchemaBucket {
 

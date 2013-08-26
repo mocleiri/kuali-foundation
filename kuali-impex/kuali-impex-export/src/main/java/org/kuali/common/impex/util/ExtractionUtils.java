@@ -32,14 +32,14 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.util.NamedElementComparator;
-import org.kuali.common.jdbc.JdbcUtils;
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.jdbc.service.JdbcUtils;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

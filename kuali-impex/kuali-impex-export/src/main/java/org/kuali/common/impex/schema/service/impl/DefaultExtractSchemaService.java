@@ -33,14 +33,14 @@ import org.kuali.common.impex.model.util.NamedElementComparator;
 import org.kuali.common.impex.schema.service.ExtractSchemaContext;
 import org.kuali.common.impex.schema.service.ExtractSchemaService;
 import org.kuali.common.impex.util.ExtractionUtils;
-import org.kuali.common.jdbc.JdbcUtils;
+import org.kuali.common.jdbc.service.JdbcUtils;
 import org.kuali.common.threads.ExecutionStatistics;
 import org.kuali.common.threads.ThreadHandlerContext;
 import org.kuali.common.threads.ThreadInvoker;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.LoggerUtils;
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.inform.PercentCompleteInformer;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,8 +96,7 @@ public class DefaultExtractSchemaService implements ExtractSchemaService {
 		totalTasks += 2;
 
 		// The total number of tasks to track progress on will be (2 * number of tables) + 2
-		PercentCompleteInformer informer = new PercentCompleteInformer();
-		informer.setTotal(totalTasks);
+		PercentCompleteInformer informer = new PercentCompleteInformer(totalTasks);
 		context.setInformer(informer);
 
 		// One thread will handle all views and sequences, then split the table names among other threads

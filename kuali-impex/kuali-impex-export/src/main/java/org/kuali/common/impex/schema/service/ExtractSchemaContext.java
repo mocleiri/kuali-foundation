@@ -19,8 +19,8 @@ import javax.sql.DataSource;
 
 import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
-import org.kuali.common.util.PercentCompleteInformer;
 import org.kuali.common.util.StringFilter;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 
 public class ExtractSchemaContext {
 
