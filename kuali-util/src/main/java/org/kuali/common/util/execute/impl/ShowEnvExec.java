@@ -43,7 +43,7 @@ public class ShowEnvExec implements Executable {
 	public Object[] getJavaHomeEnvironmentVariable() {
 		String javaHome = System.getenv("JAVA_HOME");
 		if (StringUtils.isBlank(javaHome)) {
-			return new Object[] { "(Not set)" };
+			return new Object[] { " -- Not set -- " };
 		} else {
 			return new Object[] { new CanonicalFile(javaHome) };
 		}
