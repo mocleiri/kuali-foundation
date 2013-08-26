@@ -194,7 +194,7 @@ public class JAXBXmlService implements XmlService {
 	}
 
 	protected List<Class<?>> getClassesList(Class<?> clazz) {
-		XmlRootElements bindings = clazz.getAnnotation(XmlRootElements.class);
+		XmlClassBindings bindings = clazz.getAnnotation(XmlClassBindings.class);
 		List<Class<?>> classes = new ArrayList<Class<?>>(CollectionUtils.singletonList(clazz));
 		if (bindings == null) {
 			// base case
