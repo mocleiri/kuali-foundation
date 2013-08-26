@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.database;
+package org.kuali.common.impex.exec;
 
 import org.kuali.common.impex.data.DumpDataExecutable;
 import org.kuali.common.impex.model.Schema;
@@ -24,17 +24,28 @@ import org.kuali.common.util.execute.Executable;
 
 /**
  * Connect to a database using JDBC, extract schema information needed for Kuali applications, and dump it to disk as XML
- * 
- * @deprecated
  */
-@Deprecated
 public class DumpDatabaseExecutable implements Executable {
 
-	boolean skip;
-	Executable showConfigExecutable;
-	ExtractSchemaExecutable extractSchemaExecutable;
-	DumpSchemaExecutable dumpSchemaExecutable;
-	DumpDataExecutable dumpDataExecutable;
+	public DumpDatabaseExecutable(Executable showConfigExec, ExtractSchemaExecutable extractSchemaExec, DumpSchemaExecutable dumpSchemaExec, DumpDataExecutable dumpDataExec) {
+		this(showConfigExec, extractSchemaExec, dumpSchemaExec, dumpDataExec, false);
+	}
+
+	public DumpDatabaseExecutable(Executable showConfigExec, ExtractSchemaExecutable extractSchemaExec, DumpSchemaExecutable dumpSchemaExec, DumpDataExecutable dumpDataExec,
+			boolean skip) {
+		Assert.noNulls(showConfigExec, extractSchemaExec, dumpSchemaExec, dumpDataExec);
+		this.skip = skip;
+		this.showConfigExecutable = showConfigExec;
+		this.extractSchemaExecutable = extractSchemaExec;
+		this.dumpSchemaExecutable = dumpSchemaExec;
+		this.dumpDataExecutable = dumpDataExec;
+	}
+
+	private final boolean skip;
+	private final Executable showConfigExecutable;
+	private final ExtractSchemaExecutable extractSchemaExecutable;
+	private final DumpSchemaExecutable dumpSchemaExecutable;
+	private final DumpDataExecutable dumpDataExecutable;
 
 	@Override
 	public void execute() {
@@ -43,12 +54,6 @@ public class DumpDatabaseExecutable implements Executable {
 		if (skip) {
 			return;
 		}
-
-		// Make sure we are configured correctly
-		Assert.notNull(showConfigExecutable, "showConfigExecutable is null");
-		Assert.notNull(extractSchemaExecutable, "extractSchemaExecutable is null");
-		Assert.notNull(dumpSchemaExecutable, "dumpSchemaExecutable is null");
-		Assert.notNull(dumpDataExecutable, "dumpDataExecutable is null");
 
 		// Show the JDBC configuration we are using
 		showConfigExecutable.execute();
@@ -75,40 +80,20 @@ public class DumpDatabaseExecutable implements Executable {
 		return skip;
 	}
 
-	public void setSkip(boolean skip) {
-		this.skip = skip;
-	}
-
 	public Executable getShowConfigExecutable() {
 		return showConfigExecutable;
-	}
-
-	public void setShowConfigExecutable(Executable showConfigExecutable) {
-		this.showConfigExecutable = showConfigExecutable;
 	}
 
 	public ExtractSchemaExecutable getExtractSchemaExecutable() {
 		return extractSchemaExecutable;
 	}
 
-	public void setExtractSchemaExecutable(ExtractSchemaExecutable extractSchemaExecutable) {
-		this.extractSchemaExecutable = extractSchemaExecutable;
-	}
-
 	public DumpSchemaExecutable getDumpSchemaExecutable() {
 		return dumpSchemaExecutable;
 	}
 
-	public void setDumpSchemaExecutable(DumpSchemaExecutable dumpSchemaExecutable) {
-		this.dumpSchemaExecutable = dumpSchemaExecutable;
-	}
-
 	public DumpDataExecutable getDumpDataExecutable() {
 		return dumpDataExecutable;
-	}
-
-	public void setDumpDataExecutable(DumpDataExecutable dumpDataExecutable) {
-		this.dumpDataExecutable = dumpDataExecutable;
 	}
 
 }
