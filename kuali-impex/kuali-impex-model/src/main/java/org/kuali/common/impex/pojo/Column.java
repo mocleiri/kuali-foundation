@@ -91,22 +91,22 @@ public final class Column implements NamedElement {
 		}
 
 		public Builder size(int size) {
-			this.size = Optional.<Integer> of(size);
+			this.size = Optional.of(size);
 			return this;
 		}
 
 		public Builder scale(int scale) {
-			this.scale = Optional.<Integer> of(scale);
+			this.scale = Optional.of(scale);
 			return this;
 		}
 
 		public Builder defaultValue(String defaultValue) {
-			this.defaultValue = Optional.<String> fromNullable(defaultValue);
+			this.defaultValue = Optional.fromNullable(defaultValue);
 			return this;
 		}
 
 		public Builder description(String description) {
-			this.description = Optional.<String> fromNullable(description);
+			this.description = Optional.fromNullable(description);
 			return this;
 		}
 
