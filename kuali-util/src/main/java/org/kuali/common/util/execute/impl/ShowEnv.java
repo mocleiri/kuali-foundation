@@ -27,11 +27,11 @@ public class ShowEnv implements Executable {
 
 	@Override
 	public void execute() {
-		Object[] java = { System.getProperty("java.runtime.version"), System.getProperty("java.vm.vendor"), System.getProperty("java.vm.name") };
+		Object[] java = { System.getProperty("java.runtime.version"), System.getProperty("java.vm.name"), System.getProperty("java.vm.vendor") };
 		Object[] javaHome = { new CanonicalFile(System.getProperty("java.home")) };
 		Object[] other = { Locale.getDefault().getDisplayName(), Charset.defaultCharset().displayName() };
 		Object[] os = { System.getProperty("os.name"), System.getProperty("os.version"), System.getProperty("os.arch") };
-		logger.info("Java version: {}, vendor: {}, name: {}", java);
+		logger.info("Java version: {}, name: {}, vendor: {}", java);
 		logger.info("Java home: {}", javaHome);
 		logger.info("Default locale: {}, platform encoding: {}", other);
 		logger.info("OS name: {}, version: {}, arch: {}", os);
