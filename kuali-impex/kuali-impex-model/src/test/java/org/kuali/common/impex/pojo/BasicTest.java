@@ -9,7 +9,8 @@ public class BasicTest {
 
 	static {
 		String os = System.getProperty("os.name") + ", " + System.getProperty("os.version");
-		String jdk = System.getProperty("java.vm.name") + ", " + System.getProperty("java.runtime.version");
+		String jdk = "Java version: " + System.getProperty("java.runtime.version") + ", vendor: " + System.getProperty("java.vm.vendor") + ", "
+				+ System.getProperty("java.vm.name");
 		System.out.println(os);
 		System.out.println(jdk);
 	}
