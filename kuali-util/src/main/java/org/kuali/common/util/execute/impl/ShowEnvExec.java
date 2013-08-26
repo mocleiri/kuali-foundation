@@ -3,6 +3,7 @@ package org.kuali.common.util.execute.impl;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
@@ -33,6 +34,10 @@ public class ShowEnvExec implements Executable {
 		Object[] os = { System.getProperty("os.name"), System.getProperty("os.version"), System.getProperty("os.arch") };
 		logger.info("Java version: {}, name: {}, vendor: {}", java);
 		logger.info("Java home: {}", javaHome);
+		if (!StringUtils.isBlank(System.getenv("JAVA_HOME"))) {
+			Object[] JAVA_HOME = { new CanonicalFile(System.getenv("JAVA_HOME")) };
+			logger.info("JAVA_HOME : {}", JAVA_HOME);
+		}
 		logger.info("Default locale: {}, platform encoding: {}", other);
 		logger.info("OS name: {}, version: {}, arch: {}", os);
 	}
