@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.impex.exec;
+package org.kuali.common.impex.dump.exec;
 
 import org.kuali.common.impex.data.DumpDataExecutable;
 import org.kuali.common.impex.model.Schema;

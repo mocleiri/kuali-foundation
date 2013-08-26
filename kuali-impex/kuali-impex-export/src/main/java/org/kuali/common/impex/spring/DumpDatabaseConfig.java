@@ -16,7 +16,7 @@
 package org.kuali.common.impex.spring;
 
 import org.kuali.common.impex.data.DumpDataExecutable;
-import org.kuali.common.impex.exec.DumpDatabaseExecutable;
+import org.kuali.common.impex.dump.exec.DumpDatabaseExecutable;
 import org.kuali.common.impex.schema.execute.DumpSchemaExecutable;
 import org.kuali.common.impex.schema.service.ExtractSchemaExecutable;
 import org.kuali.common.jdbc.show.ShowConfigExecutable;
