@@ -55,7 +55,7 @@ public class DumpDatabaseConfig {
 	DumpSchemaExecutable dumpSchemaExec; // Dump the schema model objects from memory to disk as XML
 
 	@Autowired
-	DumpDataExecutable dumpDataExec; // Extracts data from every non-empty table, dumps to disk as MPX files
+	DumpDataExecutable dumpDataExec; // Extract data from every non-empty table, dump to disk as MPX files
 
 	@Bean
 	public Executable dumpDatabaseExecutable() {
