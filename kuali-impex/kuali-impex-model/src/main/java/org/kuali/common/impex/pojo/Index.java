@@ -28,7 +28,7 @@ import com.google.common.collect.ImmutableList;
 @XmlRootElement
 public final class Index extends Constraint {
 
-	private static final boolean DEFAULT_UNIQUE = false;
+	public static final boolean DEFAULT_UNIQUE = false;
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
