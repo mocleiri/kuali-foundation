@@ -20,6 +20,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
@@ -32,6 +33,7 @@ import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
 @XmlBind(classes = { Table.class, Sequence.class, View.class, ForeignKey.class })
+@XmlType(propOrder = { "tables", "foreignKeys", "sequences", "views" })
 public final class Schema {
 
 	@XmlAttribute
