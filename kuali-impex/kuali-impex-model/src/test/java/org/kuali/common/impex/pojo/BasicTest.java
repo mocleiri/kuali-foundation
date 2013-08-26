@@ -1,16 +1,21 @@
 package org.kuali.common.impex.pojo;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.kuali.common.util.xml.jaxb.JAXBXmlService;
 
 public class BasicTest {
 
+	static {
+		String os = System.getProperty("os.name") + ", " + System.getProperty("os.version");
+		String jdk = System.getProperty("java.vm.name") + ", " + System.getProperty("java.runtime.version");
+		System.out.println(os);
+		System.out.println(jdk);
+	}
+
 	public static void main(String[] args) {
 		try {
-			String os = System.getProperty("os.name") + ", " + System.getProperty("os.version");
-			String jdk = System.getProperty("java.vm.name") + ", " + System.getProperty("java.runtime.version");
-			System.out.println(os);
-			System.out.println(jdk);
 			String encoding = "UTF-8";
 			JAXBXmlService service = new JAXBXmlService.Builder().useEclipseLinkMoxyProvider(true).build();
 			String desc = null;
@@ -22,9 +27,11 @@ public class BasicTest {
 			Index i2 = new Index("KS_VERSION_I2", column1.getName(), column2.getName());
 			Sequence s1 = new Sequence("SEQ_1", "10000");
 			View v1 = new View("show_sysdate", "select sysdate from dual");
+			ForeignKey fk1 = new ForeignKey.Builder("KS_FK1", "VERSION", "VERSION").onDelete(ForeignKeyConstraintType.NO_ACTION).onUpdate(ForeignKeyConstraintType.NO_ACTION)
+					.localColumns(Arrays.asList("ID")).foreignColumns(Arrays.asList("ID")).build();
 			Table table = new Table.Builder("VERSION").columns(column1, column2).uniqueConstraints(uc1, uc2).indexes(i1, i2).build();
 			// Table table = new Table.Builder("VERSION").columns(column1, column2).build();
-			Schema schema = new Schema.Builder("KS").table(table).sequence(s1).view(v1).build();
+			Schema schema = new Schema.Builder("KS").table(table).sequence(s1).view(v1).foreignKeys(Arrays.asList(fk1)).build();
 			String xml = service.toXml(schema, encoding);
 			Schema derived1 = service.getObjectFromXml(xml, encoding, Schema.class);
 			String derived1Xml = service.toXml(derived1, encoding);

@@ -18,7 +18,6 @@ package org.kuali.common.impex.pojo;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -45,11 +44,11 @@ public final class ForeignKey implements NamedElement {
 	@XmlAttribute
 	private final ForeignKeyConstraintType onUpdate;
 
-	@XmlElement
+	@XmlAttribute
 	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> localColumns;
 
-	@XmlElement
+	@XmlAttribute
 	@XmlJavaTypeAdapter(TrimmingCSVStringAdapter.class)
 	private final List<String> foreignColumns;
 
