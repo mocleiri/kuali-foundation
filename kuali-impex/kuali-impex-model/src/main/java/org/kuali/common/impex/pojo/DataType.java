@@ -18,7 +18,7 @@ public enum DataType {
 	}
 
 	// scale == decimal digits, aka number of digits after the decimal point.
-	// In the simplified data types used by Kuali apps, scale only has meaning with FLOAT
+	// In the simplified list of data types supported by Kuali apps, scale only has meaning with FLOAT
 	public static boolean isScalable(DataType type) {
 		return FLOAT.equals(type);
 	}
