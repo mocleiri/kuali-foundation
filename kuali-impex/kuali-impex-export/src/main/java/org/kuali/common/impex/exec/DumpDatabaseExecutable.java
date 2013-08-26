@@ -27,8 +27,10 @@ import org.kuali.common.util.execute.Executable;
  */
 public class DumpDatabaseExecutable implements Executable {
 
+	public static final boolean DEFAULT_SKIP = false;
+
 	public DumpDatabaseExecutable(Executable showConfigExec, ExtractSchemaExecutable extractSchemaExec, DumpSchemaExecutable dumpSchemaExec, DumpDataExecutable dumpDataExec) {
-		this(showConfigExec, extractSchemaExec, dumpSchemaExec, dumpDataExec, false);
+		this(showConfigExec, extractSchemaExec, dumpSchemaExec, dumpDataExec, DEFAULT_SKIP);
 	}
 
 	public DumpDatabaseExecutable(Executable showConfigExec, ExtractSchemaExecutable extractSchemaExec, DumpSchemaExecutable dumpSchemaExec, DumpDataExecutable dumpDataExec,
