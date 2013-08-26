@@ -169,7 +169,7 @@ public final class Schema {
 	}
 
 	// The private constructor here is necessary at the moment so JAXB can unmarshall things correctly.
-	// This does open a small hole that could potentially allow null to sneak into the pojo's
+	// The presence of this constructor does open a small hole that could potentially allow null to sneak into the pojo's
 	// There is no "normal" way to introduce null when objects are constructed using the Builder()
 	// The assertions inside the build() method prevent that from happening.
 	// However, if someone created a Schema object using the Builder, marshalled it to disk as XML, and then edited the XML by hand
