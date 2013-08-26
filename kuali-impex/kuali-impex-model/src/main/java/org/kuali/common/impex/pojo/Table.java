@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.xml.jaxb.XmlRootElements;
+import org.kuali.common.util.xml.jaxb.XmlClassBindings;
 import org.kuali.common.util.xml.jaxb.adapter.FlattenOptionalStringAdapter;
 import org.kuali.common.util.xml.jaxb.adapter.ImmutableListAdapter;
 
@@ -16,7 +16,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement
-@XmlRootElements(classes = { Column.class, UniqueConstraint.class, Index.class })
+@XmlClassBindings(classes = { Column.class, UniqueConstraint.class, Index.class })
 public final class Table implements NamedElement {
 
 	@XmlAttribute
