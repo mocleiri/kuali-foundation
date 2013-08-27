@@ -222,7 +222,7 @@ public class JAXBXmlService implements XmlService {
 
 		public static final boolean FORMAT_OUTPUT = true;
 		public static final boolean USE_NAMESPACE_AWARE_PARSER = true;
-		public static final boolean USE_ECLIPSE_LINK_MOXY_PROVIDER = true;
+		public static final boolean USE_ECLIPSE_LINK_MOXY_PROVIDER = false; // Default this back to true after spring-maven-plugin 3.0.1+ is the default
 
 		// Optional fields with default values
 		private boolean formatOutput = FORMAT_OUTPUT;
