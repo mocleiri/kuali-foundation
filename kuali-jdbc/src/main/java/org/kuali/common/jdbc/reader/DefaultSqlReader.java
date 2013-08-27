@@ -86,7 +86,7 @@ public final class DefaultSqlReader implements SqlReader {
 			if (isEndOfSqlStatement(trimmedLine, delimiter)) {
 				return getReturnValue(sb.toString() + trimmedLine, trim, lineSeparator);
 			}
-			if (!ignore(comments.isIgnore(), sb, trimmedLine, comments.getTokens())) {
+			if (!ignore(comments, sb, trimmedLine)) {
 				sb.append(line + lineSeparator.getValue());
 			}
 			line = reader.readLine();
@@ -139,14 +139,14 @@ public final class DefaultSqlReader implements SqlReader {
 		return !endOfSqlStatement;
 	}
 
-	protected boolean ignore(boolean ignoreComments, StringBuilder sql, String trimmedLine, List<String> commentTokens) {
-		if (!ignoreComments) {
+	protected boolean ignore(Comments comments, StringBuilder sql, String trimmedLine) {
+		if (!comments.isIgnore()) {
 			return false;
 		}
 		if (!StringUtils.isBlank(sql.toString())) {
 			return false;
 		}
-		return isSqlComment(trimmedLine, commentTokens);
+		return isSqlComment(trimmedLine, comments.getTokens());
 	}
 
 	protected boolean isSqlComment(String trimmedLine, List<String> commentTokens) {
