@@ -68,7 +68,7 @@ public final class DefaultSqlReader implements SqlReader {
 		String trimmedLine = StringUtils.trimToNull(line);
 		while (line != null) {
 			size += line.length();
-			if (isEndOfSqlStatement(trimmedLine, delimiter.getValue(), delimiter.getMode())) {
+			if (isEndOfSqlStatement(trimmedLine, delimiter)) {
 				count++;
 			}
 			line = reader.readLine();
@@ -83,7 +83,7 @@ public final class DefaultSqlReader implements SqlReader {
 		String trimmedLine = StringUtils.trimToNull(line);
 		StringBuilder sb = new StringBuilder();
 		while (line != null) {
-			if (isEndOfSqlStatement(trimmedLine, delimiter.getValue(), delimiter.getMode())) {
+			if (isEndOfSqlStatement(trimmedLine, delimiter)) {
 				return getReturnValue(sb.toString() + trimmedLine, trim, lineSeparator);
 			}
 			if (!ignore(comments.isIgnore(), sb, trimmedLine, comments.getTokens())) {
@@ -120,22 +120,22 @@ public final class DefaultSqlReader implements SqlReader {
 		}
 	}
 
-	protected boolean isEndOfSqlStatement(String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
-		switch (delimiterMode) {
+	protected boolean isEndOfSqlStatement(String trimmedLine, Delimiter delimiter) {
+		switch (delimiter.getMode()) {
 		case END_OF_LINE:
-			return StringUtils.endsWith(trimmedLine, delimiter);
+			return StringUtils.endsWith(trimmedLine, delimiter.getValue());
 		case OWN_LINE:
-			return StringUtils.equals(trimmedLine, delimiter);
+			return StringUtils.equals(trimmedLine, delimiter.getValue());
 		default:
-			throw new IllegalArgumentException("Delimiter mode '" + delimiterMode + "' is unknown");
+			throw new IllegalArgumentException("Delimiter mode [" + delimiter.getMode() + "] is unknown");
 		}
 	}
 
-	protected boolean proceed(String line, String trimmedLine, String delimiter, DelimiterMode delimiterMode) {
+	protected boolean proceed(String line, String trimmedLine, Delimiter delimiter) {
 		if (line == null) {
 			return false;
 		}
-		boolean endOfSqlStatement = isEndOfSqlStatement(trimmedLine, delimiter, delimiterMode);
+		boolean endOfSqlStatement = isEndOfSqlStatement(trimmedLine, delimiter);
 		return !endOfSqlStatement;
 	}
 
