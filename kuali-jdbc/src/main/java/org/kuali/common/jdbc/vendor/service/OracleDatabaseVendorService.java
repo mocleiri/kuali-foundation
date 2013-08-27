@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.jdbc.sql.model.AdminSql;
-import org.kuali.common.jdbc.vendor.model.Vendor;
+import org.kuali.common.jdbc.vendor.model.VendorDefaults;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
 import org.kuali.common.jdbc.vendor.model.keys.Oracle;
@@ -16,13 +16,13 @@ import org.kuali.common.util.spring.env.model.EnvironmentKeySuffix;
 
 public class OracleDatabaseVendorService extends DefaultDatabaseVendorService {
 
-	public OracleDatabaseVendorService(EnvironmentService env, Vendor vendor) {
+	public OracleDatabaseVendorService(EnvironmentService env, VendorDefaults vendor) {
 		super(env, vendor);
 	}
 
 	@Override
 	protected String getDbaAfter(String key, AdminSql adminSql, Properties sql) {
-		String defaultValueKey = getVendor().getCode() + "." + Oracle.SCHEMA_STATS.getValue();
+		String defaultValueKey = getVendorDefaults().getCode() + "." + Oracle.SCHEMA_STATS.getValue();
 		String defaultValue = sql.getProperty(defaultValueKey);
 		Assert.noBlanks(defaultValue);
 		return getEnv().getString(key, defaultValue);

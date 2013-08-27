@@ -4,23 +4,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.kuali.common.jdbc.vendor.model.Vendor;
+import org.kuali.common.jdbc.model.context.ConnectionContext;
+import org.kuali.common.jdbc.vendor.model.VendorDefaults;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.env.model.EnvironmentKeySuffix;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MySqlDatabaseVendorService extends DefaultDatabaseVendorService {
 
+	private static final Logger logger = LoggerFactory.getLogger(MySqlDatabaseVendorService.class);
+
 	private static final String USERNAME_KEY = "jdbc.username";
 
-	public MySqlDatabaseVendorService(EnvironmentService env, Vendor vendor) {
+	public MySqlDatabaseVendorService(EnvironmentService env, VendorDefaults vendor) {
 		super(env, vendor);
 	}
 
 	@Override
-	protected String getUrl() {
-		return super.getUrl() + "/" + getEnv().getString(USERNAME_KEY);
+	protected String getUrl(ConnectionContext dba) {
+		String url = super.getUrl(dba) + "/" + getEnv().getString(USERNAME_KEY);
+		logger.debug("mysql url: {}", url);
+		return url;
 	}
 
 	@Override

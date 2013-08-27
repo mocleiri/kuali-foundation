@@ -11,6 +11,8 @@ import org.kuali.common.jdbc.vendor.spring.DatabaseVendorConfig;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,8 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({ SpringServiceConfig.class, DatabaseVendorConfig.class })
 public class JdbcConnectionsConfig {
+
+	private static final Logger logger = LoggerFactory.getLogger(JdbcConnectionsConfig.class);
 
 	@Autowired
 	DatabaseVendor vendor;
@@ -40,7 +44,15 @@ public class JdbcConnectionsConfig {
 	protected ConnectionContext getNormal() {
 		String username = env.getString(JdbcKeys.USERNAME.getValue()); // No default value. They must supply jdbc.username
 		String password = env.getString(JdbcKeys.PASSWORD.getValue(), username);
-		String url = env.getString(JdbcKeys.URL.getValue(), vendor.getUrl());
+
+		String key = JdbcKeys.URL.getValue();
+		String defaultValue = vendor.getUrl();
+		boolean contains = env.containsProperty(key);
+		String url = env.getString(key, defaultValue);
+
+		Object[] args = { key, defaultValue, url, contains };
+		logger.debug("key={} dv:{} av:{} contains:{}", args);
+
 		return new ConnectionContext(url, username, password);
 	}
 
