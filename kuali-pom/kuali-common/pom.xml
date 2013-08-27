@@ -122,9 +122,6 @@
     <kuali-sql.version>2.1.0</kuali-sql.version>
     <kuali-util.version>4.4.0</kuali-util.version>
     <impex.version>3.0.3</impex.version>
-    
-    <!-- Default this back to true after the pom depends on spring-maven-plugin 3.0.1+ by default -->
-    <jaxb.useEclipseLinkMoxyProvider>false</jaxb.useEclipseLinkMoxyProvider>
   </properties>
   <profiles>
     <profile>
