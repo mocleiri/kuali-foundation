@@ -15,15 +15,15 @@ public enum Dba implements EnvironmentKeySuffix {
 	AFTER("dba.after"), //
 	PASSWORD("dba.password");
 
-	private Dba(String suffix) {
-		this.suffix = suffix;
+	private Dba(String value) {
+		this.value = value;
 	}
 
-	private final String suffix;
+	private final String value;
 
 	@Override
 	public String getValue() {
-		return suffix;
+		return value;
 	}
 
 	public static List<EnvironmentKeySuffix> asList() {
