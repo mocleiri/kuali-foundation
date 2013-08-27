@@ -31,7 +31,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
-							<legend>Enter any relevant details for this proposal</legend>
+							<legend style="display:none">Enter any relevant details for this proposal</legend>
 							<div class="form-group clearfix">
 								<label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
 								<div class="col-md-5">
