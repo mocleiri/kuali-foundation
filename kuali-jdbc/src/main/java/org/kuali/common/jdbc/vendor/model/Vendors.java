@@ -5,7 +5,7 @@ import org.kuali.common.jdbc.model.context.ConnectionContext;
 
 public final class Vendors {
 
-	public static class Oracle {
+	public static final class Oracle {
 		public static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 		public static final String USERNAME = "system";
 		public static final String PASSWORD = "manager";
@@ -13,7 +13,7 @@ public final class Vendors {
 		public static final ConnectionContext DBA = new ConnectionContext(URL, USERNAME, PASSWORD);
 	}
 
-	public static class MySql {
+	public static final class MySql {
 		public static final String DRIVER = "com.mysql.jdbc.Driver";
 		public static final String USERNAME = "root";
 		public static final String PASSWORD = Credentials.NO_PASSWORD;
@@ -22,13 +22,13 @@ public final class Vendors {
 	}
 
 	// These are used by the Vendor enum
-	public static class Codes {
+	public static final class Codes {
 		public static final String ORACLE = "oracle";
 		public static final String MYSQL = "mysql";
 	}
 
 	// These are used in Spring annotations
-	public static class Profiles {
+	public static final class Profiles {
 		public static final String ORACLE = Codes.ORACLE;
 		public static final String MYSQL = Codes.MYSQL;
 	}
