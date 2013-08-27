@@ -146,8 +146,7 @@ public final class DefaultSqlReader implements SqlReader {
 		if (!StringUtils.isBlank(sql.toString())) {
 			return false;
 		}
-		boolean isComment = isSqlComment(trimmedLine, commentTokens);
-		return isComment;
+		return isSqlComment(trimmedLine, commentTokens);
 	}
 
 	protected boolean isSqlComment(String trimmedLine, List<String> commentTokens) {
