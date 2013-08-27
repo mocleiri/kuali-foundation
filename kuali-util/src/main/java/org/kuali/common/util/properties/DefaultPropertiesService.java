@@ -12,8 +12,12 @@ import org.kuali.common.util.property.processor.OverridingProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.resolver.PropertiesValueResolver;
 import org.kuali.common.util.resolver.ValueResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class DefaultPropertiesService implements PropertiesService {
+
+	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertiesService.class);
 
 	private static final Cache<String, Properties> CACHE = new SimpleCache<String, Properties>();
 	private static final PropertyProcessor DEFAULT_POST_PROCESSOR = NoOpProcessor.INSTANCE;
@@ -64,6 +68,11 @@ public final class DefaultPropertiesService implements PropertiesService {
 
 		// Do any post processing as needed
 		postProcessor.process(properties);
+
+		// Only do this if debug mode is enabled
+		if (logger.isDebugEnabled()) {
+			logger.debug("Displaying {} property values:\n\n{}", properties.size(), PropertyUtils.toString(properties));
+		}
 
 		// Return what we've found
 		return properties;
