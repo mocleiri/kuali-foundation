@@ -35,8 +35,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
 								<div class="col-md-5">
-									<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-										<option value="">select</option>
+									<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8 chzn">
 										<option value="4">Continuation</option>
 										<option value="1" selected="selected">New</option>
 										<option value="3">Renewal</option>
@@ -50,8 +49,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="lead_unit" class="control-label col-md-3">Lead unit:</label>
 								<div class="col-md-5">
-									<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-										<option value="">select</option>
+									<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8 chzn">
 										<option value="000001" selected="selected">000001 - University</option>
 										<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
 										<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
@@ -63,8 +61,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="activity_type" class="control-label col-md-3">Activity type:</label>
 								<div class="col-md-5">
-									<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
-										<option value="">select</option>
+									<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8 chzn">
 										<option value="4" selected="selected">Clinical Trial</option>
 										<option value="9">Construction</option>
 										<option value="7">Fellowship - Post-Doctoral</option>
@@ -132,6 +129,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									<span class="input-group-btn">
 										<button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default input-sm">Search</button>
 									</span>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="keywords" class="control-label col-md-3">Keywords:</label>
+								<div class="col-md-5">
+									<select name="keywords" id="keywords" class="form-control input-sm col-md-8 chzn" multiple>
+										<?php
+										include('_temp.select.filler.php');
+										?>
+									</select>
 								</div>
 							</div>
 						</fieldset>

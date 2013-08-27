@@ -67,6 +67,23 @@ $(document).ready(function() {
 
 
 
+	/*
+		Chosen implementation
+		Initializes the Chosen plugin on classed select/multiselect elements
+		Chris Rodriguez
+	*/
+	$('.chzn').each(function() {
+		if ($(this).hasClass('limit')) {
+			var limit = $(this).data('limit');
+			$(this).chosen({
+				'max_selected_options' : limit
+			});
+		} else {
+			$(this).chosen();
+		}
+	});
+	
+
 
 
 	// Document search, Fancybox
@@ -165,3 +182,4 @@ $(document).ready(function() {
 	});
 
 });
+
