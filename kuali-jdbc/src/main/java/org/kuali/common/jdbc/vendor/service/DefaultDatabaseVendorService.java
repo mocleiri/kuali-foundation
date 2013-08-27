@@ -42,13 +42,13 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected String getUrl() {
-		String key = vendor.getCode() + "." + Basic.URL;
+		String key = vendor.getCode() + "." + Basic.URL.getValue();
 		return env.getString(key, vendor.getDba().getUrl());
 	}
 
 	protected DbaSql getDbaSql(AdminSql adminSql, Properties sql) {
-		String before = getDbaBefore(vendor.getCode() + "." + Dba.BEFORE, adminSql, sql);
-		String after = getDbaAfter(vendor.getCode() + "." + Dba.AFTER, adminSql, sql);
+		String before = getDbaBefore(vendor.getCode() + "." + Dba.BEFORE.getValue(), adminSql, sql);
+		String after = getDbaAfter(vendor.getCode() + "." + Dba.AFTER.getValue(), adminSql, sql);
 		return new DbaSql(before, after);
 	}
 
@@ -84,7 +84,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected Class<? extends Driver> getDriver() {
-		String driver = env.getString(vendor.getCode() + "." + Basic.DRIVER, vendor.getDriver());
+		String driver = env.getString(vendor.getCode() + "." + Basic.DRIVER.getValue(), vendor.getDriver());
 		return ReflectionUtils.getTypedClass(driver);
 	}
 
