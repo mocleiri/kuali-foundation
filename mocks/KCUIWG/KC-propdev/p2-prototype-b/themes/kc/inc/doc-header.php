@@ -17,9 +17,10 @@
       </div>
       <div class="col-md-6 hidden-sm">
         <div class="doc-status hidden-xs">
-          <div class="dropdown pull-right" > <span>Doc Info</span> <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <em>(more...)</em> </a><br>
-            <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-              <table class="">
+          <div class="dropdown pull-right">
+            <span>Doc Info</span> <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <em>(more...)</em> </a><br>
+            <div class="dropdown-menu notch-top" role="menu" aria-labelledby="dLabel">
+              <table>
                 <tbody>
                   <tr>
                     <th scope="row">PI</th>

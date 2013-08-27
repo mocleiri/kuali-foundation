@@ -8,6 +8,7 @@
 
 	Chris Rodriguez, clrux@bu.edu
 	Tom Clark, thrclark@indiana.edu
+	Tadas Paegle, ...
 */
 
 $(document).ready(function() {
@@ -15,22 +16,17 @@ $(document).ready(function() {
 	/*
 		Subnavigation
 		Expanding and collapsing handler
+		Chris Rodriguez
 	*/
 	$('.uif-navigation ul li.expanded').find('ul').show();
 
 	$('.uif-navigation ul li a').on('click', function(e) {
 
 		if ($(this).parent().hasClass('expanded')) {
-
-			// Do nothing
 			e.preventDefault();
 			return false;
-
 		} else {
-
-			// Slide open the child list
 			$(this).parent().find('ul').slideDown();
-
 		}		
 	});
 
@@ -39,6 +35,7 @@ $(document).ready(function() {
 	/*
 		Modal handler
 		Calls Fancybox modal using the `page` data attribute
+		Chris Rodriguez
 	*/
 	$('.launch-modal').on('click', function(e){
 		e.preventDefault();
@@ -48,6 +45,24 @@ $(document).ready(function() {
 			type: 'iframe',
 			padding: 0
 		});
+	});
+
+
+
+	/*
+		Dropdown focus for accessibility
+		Brings focus to the popup/dropdown menu when the toggle is clicked
+		Chris Rodriguez
+	*/
+	$('.dropdown-toggle').on('click', function(e) {
+		var that = $(this).attr('id');
+		e.preventDefault();
+
+		if ($(this).parent().hasClass('open')) {
+			$(this).focus();
+		} else {
+			$(this).parent().find('.dropdown-menu').attr('tabindex', '-1').focus();
+		}
 	});
 
 
