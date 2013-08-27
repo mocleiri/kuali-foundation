@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.3.6</version>
+    <version>3.3.9</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jdbc</artifactId>
@@ -45,10 +45,6 @@
 
     <!-- These properties modify the release process -->
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
-
-    <kuali-util.version>4.4.1-SNAPSHOT</kuali-util.version>
-    <kuali-sql.version>2.1.1-SNAPSHOT</kuali-sql.version>
-    <plugin.spring.version>3.0.1-SNAPSHOT</plugin.spring.version>
   </properties>
   <developers>
     <developer>
