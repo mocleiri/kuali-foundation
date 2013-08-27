@@ -120,7 +120,7 @@
     <kuali-jdbc.version>3.1.8</kuali-jdbc.version>
     <kuali-maven.version>1.1.1</kuali-maven.version>
     <kuali-sql.version>2.1.0</kuali-sql.version>
-    <kuali-util.version>4.4.0</kuali-util.version>
+    <kuali-util.version>4.4.1</kuali-util.version>
     <impex.version>3.0.3</impex.version>
   </properties>
   <profiles>
@@ -240,9 +240,9 @@
                 <configuration>
                   <propertySourcesConfig>${spring.propertySourceConfig}</propertySourcesConfig>
                   <removeExistingPropertySources>true</removeExistingPropertySources>
-                  <!-- 
-                  Fix this as soon as kuali-impex based config is properly modularized
-                  Should not need all 3 annotated config classes declared here. 
+                  <!--
+                    Fix this as soon as kuali-impex based config is properly modularized
+                    Should not need all 3 annotated config classes declared here.
                   -->
                   <annotatedClasses>
                     <annotatedClass>org.kuali.common.impex.spring.MpxSupplierConfig</annotatedClass>
@@ -307,7 +307,7 @@
     </profile>
     <profile>
       <!-- Reset an environment. Spin up a new EC2 server and associate a friendly DNS name with the new server -->
-      <!-- The profile "reset-ec2-environment" in the kuali-example pom.xml is what resets environments now  -->
+      <!-- The profile "reset-ec2-environment" in the kuali-example pom.xml is what resets environments now -->
       <id>resetenv</id>
       <build>
         <plugins>
