@@ -10,6 +10,8 @@ import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
+import com.google.common.collect.ImmutableList;
+
 public class DefaultPropertiesLocationService implements PropertiesLocationService {
 
 	public DefaultPropertiesLocationService(ProjectService projectService) {
@@ -50,7 +52,7 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 
 	@Override
 	public List<Location> getLocations(FeatureIdentifier identifier, String... filenames) {
-		return getLocations(identifier, Arrays.asList(filenames));
+		return getLocations(identifier, ImmutableList.copyOf(filenames));
 	}
 
 	@Override
