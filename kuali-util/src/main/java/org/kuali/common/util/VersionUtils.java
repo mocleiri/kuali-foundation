@@ -99,6 +99,9 @@ public class VersionUtils {
 		return sanitize(sb.toString());
 	}
 
+	/**
+	 * Convert dots and dashes to underscores and convert to uppercase
+	 */
 	protected static String sanitize(String s) {
 		s = StringUtils.replace(s, ".", "_");
 		s = StringUtils.replace(s, "-", "_");

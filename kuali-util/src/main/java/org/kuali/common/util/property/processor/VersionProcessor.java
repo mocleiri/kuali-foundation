@@ -28,7 +28,7 @@ import org.kuali.common.util.property.Constants;
 public class VersionProcessor implements PropertyProcessor {
 
 	public static final String SANITIZED_QUALIFIER = Constants.DEFAULT_QUALIFIER_VERSION_SUFFIX + ".sanitized";
-	public static final String SANITIZED_VERSION = "project.version.sanitized";
+	public static final String SANITIZED_VERSION_KEY = "project.version.sanitized";
 
 	String majorSuffix = Constants.DEFAULT_MAJOR_VERSION_SUFFIX;
 	String minorSuffix = Constants.DEFAULT_MINOR_VERSION_SUFFIX;
@@ -107,7 +107,7 @@ public class VersionProcessor implements PropertyProcessor {
 		}
 		String newKey = key + "." + snapshotSuffix;
 		properties.setProperty(newKey, Boolean.toString(v.isSnapshot()));
-		properties.setProperty(SANITIZED_VERSION, VersionUtils.asSanitizedString(v));
+		properties.setProperty(SANITIZED_VERSION_KEY, VersionUtils.asSanitizedString(v));
 		return properties;
 	}
 
