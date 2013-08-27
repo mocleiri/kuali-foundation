@@ -23,7 +23,7 @@ import java.io.OutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.jdbc.reader.DefaultTextSqlReader;
+import org.kuali.common.jdbc.reader.TextSqlReader;
 import org.kuali.common.jdbc.reader.SqlReader;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.LocationUtils;
@@ -46,7 +46,7 @@ public abstract class AbstractInsertMergeSqlConverter implements SqlConverter {
 		logger.debug("Converting {}", LocationUtils.getCanonicalPath(context.getOldFile()));
 		File newFile = context.getNewFile();
 		File oldFile = context.getOldFile();
-		DefaultTextSqlReader reader = new DefaultTextSqlReader(context.getDelimiter());
+		TextSqlReader reader = new TextSqlReader(context.getDelimiter());
 
 		BufferedReader in = null;
 		OutputStream out = null;
