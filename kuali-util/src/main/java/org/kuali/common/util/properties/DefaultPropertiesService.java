@@ -69,7 +69,7 @@ public final class DefaultPropertiesService implements PropertiesService {
 		// Do any post processing as needed
 		postProcessor.process(properties);
 
-		// Only do this if debug mode is enabled
+		// This is expensive, only do this in debug mode
 		if (logger.isDebugEnabled()) {
 			logger.debug("Displaying {} property values:\n\n{}", properties.size(), PropertyUtils.toString(properties));
 		}
