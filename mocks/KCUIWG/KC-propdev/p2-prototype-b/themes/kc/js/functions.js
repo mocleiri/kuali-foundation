@@ -16,9 +16,9 @@ $(document).ready(function() {
 		Subnavigation
 		Expanding and collapsing handler
 	*/
-	$('#subnav ul li.expanded').find('ul').show();
+	$('.uif-navigation ul li.expanded').find('ul').show();
 
-	$('#subnav ul li a').on('click', function(e) {
+	$('.uif-navigation ul li a').on('click', function(e) {
 
 		if ($(this).parent().hasClass('expanded')) {
 

@@ -1,4 +1,4 @@
-<div id="subnav">
+<div class="uif-navigation">
 	<ul>
 		<li <?php if ($section == "basics") { echo 'class="expanded"'; } ?>><a href="#">Basics</a>
 			<ul>
