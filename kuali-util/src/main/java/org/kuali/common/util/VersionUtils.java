@@ -81,13 +81,19 @@ public class VersionUtils {
 		return v;
 	}
 
-	protected static String asSanitizedString(Version version) {
+	public static String asSanitizedString(Version version) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringUtils.trimToEmpty(version.getMajor()));
-		sb.append(StringUtils.trimToEmpty(version.getMinor()));
-		sb.append(StringUtils.trimToEmpty(version.getIncremental()));
+		if (!StringUtils.isBlank(version.getMinor())) {
+			sb.append(".");
+			sb.append(StringUtils.trimToEmpty(version.getMinor()));
+		}
+		if (!StringUtils.isBlank(version.getIncremental())) {
+			sb.append(".");
+			sb.append(StringUtils.trimToEmpty(version.getIncremental()));
+		}
 		if (!StringUtils.isBlank(version.getQualifier())) {
-			sb.append("_");
+			sb.append("-");
 			sb.append(version.getQualifier());
 		}
 		return sanitize(sb.toString());
