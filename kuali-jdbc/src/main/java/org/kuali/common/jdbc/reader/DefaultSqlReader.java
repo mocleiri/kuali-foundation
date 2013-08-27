@@ -84,7 +84,7 @@ public final class DefaultSqlReader implements SqlReader {
 		StringBuilder sb = new StringBuilder();
 		while (line != null) {
 			if (isEndOfSqlStatement(trimmedLine, delimiter.getValue(), delimiter.getMode())) {
-				return getReturnValue(sb.toString() + line, trim, lineSeparator);
+				return getReturnValue(sb.toString() + trimmedLine, trim, lineSeparator);
 			}
 			if (!ignore(comments.isIgnore(), sb, trimmedLine, comments.getTokens())) {
 				sb.append(line + lineSeparator.getValue());
