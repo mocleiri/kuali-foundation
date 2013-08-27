@@ -7,7 +7,7 @@ import org.kuali.common.util.Assert;
 
 public final class DatabaseVendor {
 
-	public DatabaseVendor(VendorDefaults vendor, ConnectionContext dba, String url, Class<? extends Driver> driver, VendorSql sql) {
+	public DatabaseVendor(VendorDefault vendor, ConnectionContext dba, String url, Class<? extends Driver> driver, VendorSql sql) {
 		Assert.noNulls(vendor, dba, driver, sql);
 		Assert.noBlanks(url);
 		this.dba = dba;

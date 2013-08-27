@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kuali.common.jdbc.vendor.model.VendorDefaults;
+import org.kuali.common.jdbc.vendor.model.VendorDefault;
 import org.kuali.common.jdbc.vendor.spring.DatabaseVendorConfig;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.spring.SpringExecUtils;
@@ -29,7 +29,7 @@ public class DatabaseVendorsConfigTest {
 	public void test() {
 		try {
 			String vendorString = (String) source.getProperty("db.vendor");
-			VendorDefaults vendor = VendorDefaults.valueOf(vendorString.toUpperCase());
+			VendorDefault vendor = VendorDefault.valueOf(vendorString.toUpperCase());
 			String profile = vendor.getCode();
 			SpringContext context = SpringExecUtils.getSinglePropertySourceContext(source);
 			context.setAnnotatedClasses(CollectionUtils.asList(DatabaseVendorConfig.class));

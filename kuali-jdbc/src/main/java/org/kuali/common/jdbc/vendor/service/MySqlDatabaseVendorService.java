@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.jdbc.model.context.ConnectionContext;
-import org.kuali.common.jdbc.vendor.model.VendorDefaults;
+import org.kuali.common.jdbc.vendor.model.VendorDefault;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Liquibase;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -19,7 +19,7 @@ public class MySqlDatabaseVendorService extends DefaultDatabaseVendorService {
 
 	private static final String USERNAME_KEY = "jdbc.username";
 
-	public MySqlDatabaseVendorService(EnvironmentService env, VendorDefaults vendor) {
+	public MySqlDatabaseVendorService(EnvironmentService env, VendorDefault vendor) {
 		super(env, vendor);
 	}
 

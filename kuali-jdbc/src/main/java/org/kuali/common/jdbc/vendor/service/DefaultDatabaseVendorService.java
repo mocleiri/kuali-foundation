@@ -8,7 +8,7 @@ import org.kuali.common.jdbc.model.context.ConnectionContext;
 import org.kuali.common.jdbc.sql.model.AdminSql;
 import org.kuali.common.jdbc.sql.model.DbaSql;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
-import org.kuali.common.jdbc.vendor.model.VendorDefaults;
+import org.kuali.common.jdbc.vendor.model.VendorDefault;
 import org.kuali.common.jdbc.vendor.model.VendorSql;
 import org.kuali.common.jdbc.vendor.model.keys.Admin;
 import org.kuali.common.jdbc.vendor.model.keys.Basic;
@@ -20,14 +20,14 @@ import org.kuali.common.util.spring.env.model.EnvironmentKeySuffix;
 
 public class DefaultDatabaseVendorService implements DatabaseVendorService {
 
-	public DefaultDatabaseVendorService(EnvironmentService env, VendorDefaults vendorDefaults) {
+	public DefaultDatabaseVendorService(EnvironmentService env, VendorDefault vendorDefaults) {
 		Assert.noNulls(env, vendorDefaults);
 		this.env = env;
 		this.vendorDefaults = vendorDefaults;
 	}
 
 	private final EnvironmentService env;
-	private final VendorDefaults vendorDefaults;
+	private final VendorDefault vendorDefaults;
 
 	@Override
 	public DatabaseVendor getDatabaseVendor() {
@@ -105,7 +105,7 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 		return env;
 	}
 
-	public VendorDefaults getVendorDefaults() {
+	public VendorDefault getVendorDefaults() {
 		return vendorDefaults;
 	}
 
