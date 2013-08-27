@@ -38,7 +38,7 @@ public class MetaInfUtils {
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[vendor]/[group].resources</code>
 	 */
 	public static String getClasspathResource(Project project, String databaseVendor, MetaInfGroup group) {
-		return ResourceUtils.CLASSPATH_URL_PREFIX + ":" + getResourcePrefix(project) + "/" + databaseVendor + "/" + getFilename(group);
+		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + databaseVendor + "/" + getFilename(group);
 	}
 
 	/**
