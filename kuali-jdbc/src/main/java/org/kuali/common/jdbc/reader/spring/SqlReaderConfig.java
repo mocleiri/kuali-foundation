@@ -3,7 +3,7 @@ package org.kuali.common.jdbc.reader.spring;
 import java.util.List;
 
 import org.kuali.common.jdbc.reader.SqlReader;
-import org.kuali.common.jdbc.reader.TextSqlReader;
+import org.kuali.common.jdbc.reader.DefaultSqlReader;
 import org.kuali.common.jdbc.reader.model.Comments;
 import org.kuali.common.jdbc.reader.model.Delimiter;
 import org.kuali.common.jdbc.reader.model.DelimiterMode;
@@ -33,11 +33,11 @@ public class SqlReaderConfig {
 
 	@Bean
 	public SqlReader sqlReader() {
-		boolean trim = env.getBoolean(TRIM_KEY, TextSqlReader.DEFAULT_TRIM);
+		boolean trim = env.getBoolean(TRIM_KEY, DefaultSqlReader.DEFAULT_TRIM);
 		Comments comments = sqlComments();
 		LineSeparator separator = sqlLineSeparator();
 		Delimiter delimiter = sqlDelimiter();
-		return new TextSqlReader(delimiter, separator, trim, comments);
+		return new DefaultSqlReader(delimiter, separator, trim, comments);
 	}
 
 	@Bean

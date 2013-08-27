@@ -27,25 +27,25 @@ import org.kuali.common.jdbc.reader.model.LineSeparator;
 import org.kuali.common.jdbc.sql.model.SqlMetaData;
 import org.kuali.common.util.Assert;
 
-public final class TextSqlReader implements SqlReader {
+public final class DefaultSqlReader implements SqlReader {
 
-	public TextSqlReader() {
+	public DefaultSqlReader() {
 		this(Delimiter.DEFAULT_DELIMITER, LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
-	public TextSqlReader(String delimiter) {
+	public DefaultSqlReader(String delimiter) {
 		this(new Delimiter(delimiter), LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
-	public TextSqlReader(DelimiterMode delimiterMode) {
+	public DefaultSqlReader(DelimiterMode delimiterMode) {
 		this(new Delimiter(delimiterMode), LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
-	public TextSqlReader(String delimiter, DelimiterMode delimiterMode) {
+	public DefaultSqlReader(String delimiter, DelimiterMode delimiterMode) {
 		this(new Delimiter(delimiter, delimiterMode), LineSeparator.DEFAULT_VALUE, DEFAULT_TRIM, Comments.DEFAULT_COMMENTS);
 	}
 
-	public TextSqlReader(Delimiter delimiter, LineSeparator lineSeparator, boolean trim, Comments comments) {
+	public DefaultSqlReader(Delimiter delimiter, LineSeparator lineSeparator, boolean trim, Comments comments) {
 		Assert.noNulls(delimiter, lineSeparator, comments);
 		this.delimiter = delimiter;
 		this.lineSeparator = lineSeparator;
