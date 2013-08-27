@@ -1,16 +1,15 @@
 package org.kuali.common.jdbc.reader.model;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
+
+import com.google.common.collect.ImmutableList;
 
 public final class Comments {
 
 	public static final boolean DEFAULT_IGNORE = true;
-	public static final List<String> DEFAULT_TOKENS = Collections.unmodifiableList(Arrays.asList("#", "--"));
+	public static final List<String> DEFAULT_TOKENS = ImmutableList.of("#", "--");
 	public static final Comments DEFAULT_COMMENTS = new Comments();
 
 	public Comments() {
@@ -28,7 +27,7 @@ public final class Comments {
 	public Comments(boolean ignore, List<String> tokens) {
 		Assert.noNulls(tokens);
 		this.ignore = ignore;
-		this.tokens = ListUtils.newImmutableArrayList(tokens);
+		this.tokens = ImmutableList.copyOf(tokens);
 	}
 
 	private final boolean ignore;
