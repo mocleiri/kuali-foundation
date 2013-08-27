@@ -568,6 +568,9 @@ textarea {
   color: #0055cc;
   font-weight: 700;
 }
+.btn {
+  border-radius: 2px !important;
+}
 dl dt {
   float: left;
   margin: 0;
