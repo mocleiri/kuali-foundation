@@ -89,7 +89,9 @@ public class DefaultDatabaseVendorService implements DatabaseVendorService {
 	}
 
 	protected ConnectionContext getDba() {
-		String dbaUrl = env.getString(vendor.getCode() + "." + Dba.URL, vendor.getDba().getUrl());
+		String dbaKey = vendor.getCode() + "." + Dba.URL;
+		System.out.println(dbaKey);
+		String dbaUrl = env.getString(dbaKey, vendor.getDba().getUrl());
 		String dbaUsr = env.getString(vendor.getCode() + "." + Dba.USERNAME, vendor.getDba().getCredentials().getUsername());
 		String dbaPwd = env.getString(vendor.getCode() + "." + Dba.PASSWORD, vendor.getDba().getCredentials().getPassword());
 		return new ConnectionContext(dbaUrl, dbaUsr, dbaPwd);
