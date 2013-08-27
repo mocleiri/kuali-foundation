@@ -81,16 +81,33 @@ public class VersionUtils {
 		return v;
 	}
 
+	protected static String asSanitizedString(Version version) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(StringUtils.trimToEmpty(version.getMajor()));
+		sb.append(StringUtils.trimToEmpty(version.getMinor()));
+		sb.append(StringUtils.trimToEmpty(version.getIncremental()));
+		if (!StringUtils.isBlank(version.getQualifier())) {
+			sb.append("_");
+			sb.append(version.getQualifier());
+		}
+		return sanitize(sb.toString());
+	}
+
+	protected static String sanitize(String s) {
+		s = StringUtils.replace(s, ".", "_");
+		s = StringUtils.replace(s, "-", "_");
+		return StringUtils.upperCase(s);
+	}
+
 	/**
 	 * Convert dots and dashes to underscores and convert to uppercase
 	 */
 	public static final String getSanitizedQualifier(String qualifier) {
 		if (qualifier == null) {
 			return null;
+		} else {
+			return sanitize(qualifier);
 		}
-		qualifier = StringUtils.replace(qualifier, ".", "_");
-		qualifier = StringUtils.replace(qualifier, "-", "_");
-		return StringUtils.upperCase(qualifier);
 	}
 
 	protected static final String getQualifier(String trimmed, String[] tokens) {
