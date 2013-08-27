@@ -28,7 +28,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<h2>Proposal Details</h2>
 				</div>
 
-				<div class="section-content">
+				<div class="section-content" id="content">
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
 							<legend style="display:none">Enter any relevant details for this proposal</legend>

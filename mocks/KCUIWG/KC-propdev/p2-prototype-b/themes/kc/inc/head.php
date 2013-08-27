@@ -26,7 +26,7 @@
 </head>
 
 <body>
-<div class="sr-only">
+<div class="skip-links">
 	<ul>
 		<li><a href="#content">Skip to main content</a></li>
 	</ul>
