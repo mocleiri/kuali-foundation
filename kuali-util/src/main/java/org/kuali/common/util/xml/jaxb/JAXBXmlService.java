@@ -265,7 +265,7 @@ public class JAXBXmlService implements XmlService {
 
 		public JAXBXmlService build() {
 			Assert.noNulls(properties);
-			this.properties = (properties == EMPTY_MAP) ? properties : Collections.unmodifiableMap(new HashMap<String, Object>(properties));
+			this.properties = Collections.unmodifiableMap(new HashMap<String, Object>(properties));
 			return new JAXBXmlService(this);
 		}
 
