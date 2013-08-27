@@ -463,7 +463,11 @@ public class CollectionUtils {
 		}
 		return sb.toString();
 	}
-	
+
+	public static final String asCSV(List<String> strings) {
+		return getCSV(strings);
+	}
+
 	public static final String getCSV(List<String> strings) {
 		return getStringWithSeparator(strings, ",");
 	}
