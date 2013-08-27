@@ -25,9 +25,9 @@ import org.kuali.common.jdbc.model.enums.CommitMode;
 import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.suppliers.SqlSupplier;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public final class JdbcContext {
 
@@ -109,7 +109,7 @@ public final class JdbcContext {
 		}
 
 		public Builder(DataSource dataSource, SqlSupplier supplier) {
-			this(dataSource, CollectionUtils.singletonList(supplier));
+			this(dataSource, ImmutableList.of(supplier));
 		}
 
 		public Builder(DataSource dataSource, List<SqlSupplier> suppliers) {
