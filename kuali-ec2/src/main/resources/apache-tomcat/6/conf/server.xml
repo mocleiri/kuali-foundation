@@ -26,8 +26,7 @@
     <Connector URIEncoding="UTF-8" port="${tomcat.http.port}" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="${tomcat.https.port}" compression="force" />
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
-        
-        
+       <Valve className="org.apache.catalina.valves.AccessLogValve" directory="${catalina.base}/logs" prefix="access_log" fileDateFormat="yyyy-MM-dd.HH" suffix=".log" pattern="%t %H cookie:%{SESSIONID}c request:%{SESSIONID}r %m %U %s %q %r" /> 
         <Context docBase="${catalina.base}" path="/tomcat" />
         <Context docBase="${user.home}" path="/home" />
       </Host>
