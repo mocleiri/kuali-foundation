@@ -81,15 +81,15 @@ public class VersionUtils {
 		return v;
 	}
 
+	/**
+	 * 2.4.0-beta1-SNAPSHOT -> 240BETA1
+	 */
 	public static String asSanitizedString(Version version) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringUtils.trimToEmpty(version.getMajor()));
 		sb.append(StringUtils.trimToEmpty(version.getMinor()));
 		sb.append(StringUtils.trimToEmpty(version.getIncremental()));
-		if (!StringUtils.isBlank(version.getQualifier())) {
-			sb.append("_");
-			sb.append(version.getQualifier());
-		}
+		sb.append(StringUtils.trimToEmpty(version.getQualifier()));
 		return sanitize(sb.toString());
 	}
 
