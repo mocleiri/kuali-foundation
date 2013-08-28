@@ -42,7 +42,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="attachment_type" class="control-label col-md-3">Attachmenet type:</label>
 								<div class="col-md-5">
-									<select name="attachment_type" id="attachment_type" class="form-control input-sm col-md-8">
+									<select name="attachment_type" id="attachment_type" class="form-control input-sm col-md-8 chzn">
 										<option value="">select</option>
 									</select>
 								</div>
@@ -61,10 +61,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<div class="panel">
 							<div class="panel-heading">
 								<h6 class="panel-title">
-									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#file1">some_file_here.pdf</a>
+									<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#file1">some_file_here.pdf</a>
 								</h6>
 							</div>
-							<div id="file1" class="panel-collapse collapse in">
+							<div id="file1" class="panel-collapse collapse">
 								<div class="panel-body">
 									<dl>
 										<dt>File:</dt>

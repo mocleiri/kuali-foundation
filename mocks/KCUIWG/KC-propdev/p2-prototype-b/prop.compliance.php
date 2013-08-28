@@ -35,8 +35,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<div class="entry-row-internal">
 									<div class="col-md-3">
 										<label for="compliance_type" class="control-label">Type:</label>
-										<select name="compliance_type" id="compliance_type" class="form-control input-sm">
-											<option value="">select</option>
+										<select name="compliance_type" id="compliance_type" class="form-control input-sm chzn">
 											<option value="1">Human Subjects</option>
 											<option value="2">Animal Usage</option>
 											<option value="3">Recombinant DNA</option>
@@ -54,8 +53,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 									<div class="col-md-3">
 										<label for="approval_status" class="control-label">Approval status:</label>
-										<select name="approval_status" id="approval_status" class="form-control input-sm">
-											<option value="">select</option>
+										<select name="approval_status" id="approval_status" class="form-control input-sm chzn">
 											<option value="2" selected="selected">Approved</option>
 											<option value="4">Exempt</option>
 											<option value="6">Link to IACUC</option>
@@ -149,8 +147,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<div class="entry-row-internal">
 									<div class="col-md-3">
 										<label for="compliance_type" class="control-label">Type:</label>
-										<select name="compliance_type" id="compliance_type" class="form-control input-sm">
-											<option value="">select</option>
+										<select name="compliance_type" id="compliance_type" class="form-control input-sm chzn">
 											<option value="1">Human Subjects</option>
 											<option value="2">Animal Usage</option>
 											<option value="3">Recombinant DNA</option>
@@ -168,8 +165,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 									<div class="col-md-3">
 										<label for="approval_status" class="control-label">Approval status:</label>
-										<select name="approval_status" id="approval_status" class="form-control input-sm">
-											<option value="">select</option>
+										<select name="approval_status" id="approval_status" class="form-control input-sm chzn">
 											<option value="2">Approved</option>
 											<option value="4">Exempt</option>
 											<option value="6">Link to IACUC</option>

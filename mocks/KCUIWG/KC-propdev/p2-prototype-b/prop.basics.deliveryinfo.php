@@ -7,6 +7,7 @@ $page = 'basics-deliveryinfo';
 require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
+include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
@@ -30,8 +31,62 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
-						<h3>Recipient <span><a class="link-edit" href="#">Change</a></span></h3>
-						<dl>
+						<h3>Recipient <span><a class="link-edit" href="#">Edit</a></span></h3>
+
+						<div class="form-group clearfix">
+							<label for="org_1" class="control-label col-md-3">Organization:</label>
+							<div class="col-md-5">
+								<input type="text" name="org_1" id="org_1" class="form-control input-sm col-md-8" value="UNIVERSITY OF MICHIGAN" disabled />
+							</div>
+						</div>
+
+						<div class="form-group clearfix">
+							<label for="address_1_1" class="control-label col-md-3">Address 1:</label>
+							<div class="col-md-5">
+								<input type="text" name="address_1_1" id="address_1_1" class="form-control input-sm col-md-8" value="2044 WOLVERINE TOWER" disabled />
+							</div>
+						</div>
+
+						<div class="form-group clearfix">
+							<label for="address_1_2" class="control-label col-md-3">Address 2:</label>
+							<div class="col-md-5">
+								<input type="text" name="address_1_2" id="address_1_2" class="form-control input-sm col-md-8" value="3003 STATE STREET" disabled />
+							</div>
+						</div>
+
+						<div class="form-group clearfix">
+							<label for="city_1" class="control-label col-md-3">City:</label>
+							<div class="col-md-5">
+								<input type="text" name="city_1" id="city_1" class="form-control input-sm col-md-8" value="ANN ARBOR" disabled />
+							</div>
+						</div>
+
+						<div class="form-group clearfix">
+							<label for="state_1" class="control-label col-md-3">State:</label>
+							<div class="col-md-5">
+								<input type="text" name="state_1" id="state_1" class="form-control input-sm col-md-8" value="MI" disabled />
+							</div>
+						</div>
+
+						<div class="form-group clearfix">
+							<label for="zip_1" class="control-label col-md-3">Zip:</label>
+							<div class="col-md-5">
+								<input type="text" name="zip_1" id="zip_1" class="form-control input-sm col-md-8" value="48109-1273" disabled />
+							</div>
+						</div>
+
+						 <div class="form-group clearfix">
+							<label for="congressional_2" class="control-label col-md-3">Congressional districts:</label>
+							<div class="col-md-5">
+								<select name="congressional_2" id="congressional_2" class="form-control input-sm col-md-8 chzn" multiple>
+									<?php
+									get_options();
+									?>
+								</select>
+							</div>
+						</div>
+
+						<!-- <dl>
 							<dt>Organization</dt>
 							<dd>UNIVERSITY OF MICHIGAN</dd>
 
@@ -49,7 +104,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 							<dt>Zip</dt>
 							<dd>48109-1273</dd>
-						</dl>
+						</dl> -->
 
 						<h3>Delivery Details</h3>
 						<fieldset>
@@ -57,8 +112,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="mail_by" class="control-label col-md-3">Mail by:</label>
 								<div class="col-md-5">
-									<select name="mail_by" id="mail_by" class="form-control input-sm col-md-8">
-										<option value="">select</option>
+									<select name="mail_by" id="mail_by" class="form-control input-sm col-md-8 chzn">
+										
 									</select>
 								</div>
 							</div>
@@ -66,8 +121,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="mail_type" class="control-label col-md-3">Type:</label>
 								<div class="col-md-5">
-									<select name="mail_type" id="mail_type" class="form-control input-sm col-md-8">
-										<option value="">select</option>
+									<select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 chzn">
+										
 									</select>
 								</div>
 							</div>

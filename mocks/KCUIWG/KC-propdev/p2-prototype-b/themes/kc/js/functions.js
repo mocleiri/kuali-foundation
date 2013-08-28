@@ -14,12 +14,33 @@
 $(document).ready(function() {
 
 	/*
+		Skip links for accessibility
+		When a link receives focus it's position is changed making it visible
+		Chris Rodriguez
+	*/
+	if (document.location.hash) {
+		var anchorUponArrival = document.location.hash;
+		setTimeout(function() {
+			$(anchorUponArrival).focus();
+		}, 100);
+	}
+
+	$('a[href^="#"]').click(function(e) {
+		e.preventDefault();
+		var inPageAnchor = "#" + this.href.split('#')[1];
+		setTimeout(function() {
+			$(inPageAnchor).focus();
+		}, 100);
+	});
+
+	
+
+	/*
 		Subnavigation
 		Expanding and collapsing handler
 		Chris Rodriguez
 	*/
 	$('.uif-navigation ul li.expanded').find('ul').show();
-
 	$('.uif-navigation ul li a').on('click', function(e) {
 
 		if ($(this).parent().hasClass('expanded')) {
@@ -87,38 +108,38 @@ $(document).ready(function() {
 
 
 	// Document search, Fancybox
-	$("#docsearch").click(function () {
-		$.fancybox.open({
-			href: 'modal/docsearch.html',
-			type: 'iframe',
-			padding: 0,
-		});
-	});
+	// $("#docsearch").click(function () {
+	// 	$.fancybox.open({
+	// 		href: 'modal/docsearch.html',
+	// 		type: 'iframe',
+	// 		padding: 0,
+	// 	});
+	// });
 
 	// Sign in, Fancybox
-	$("#signin").click(function () {
-		$.fancybox.open({
-			href: 'modal/login.html',
-			type: 'iframe',
-			padding: 0,
-			width: 500,
-		});
-	});
+	// $("#signin").click(function () {
+	// 	$.fancybox.open({
+	// 		href: 'modal/login.html',
+	// 		type: 'iframe',
+	// 		padding: 0,
+	// 		width: 500,
+	// 	});
+	// });
 
 	// Document info, Fancybox
-	$("#docinfo").on('click', function() {
-		$.fancybox.open({
-			href: 'modal/docinfo.html',
-			type: 'iframe',
-			padding: 0,
-			width: 640,
-		});
-	});
+	// $("#docinfo").on('click', function() {
+	// 	$.fancybox.open({
+	// 		href: 'modal/docinfo.html',
+	// 		type: 'iframe',
+	// 		padding: 0,
+	// 		width: 640,
+	// 	});
+	// });
 
 	// Trigger edit search, jQuery
-	$("#triggerEditSearch").click(function () {
-		$("#editSearch").slideToggle(500);
-	});
+	// $("#triggerEditSearch").click(function () {
+	// 	$("#editSearch").slideToggle(500);
+	// });
 
 	// Navigation handling, jQuery
 	$("#link1").click(function () {
@@ -181,35 +202,4 @@ $(document).ready(function() {
 		$("#menu5").slideUp(200);
 	});
 
-});
-
-
-
-/*
-	Skip links for accessibility
-	When a link receives focus it's position is changed making it visible
-	Chris Rodriguez
-*/
-// $('#content').each(function() {
-// 	var attr = $(this).attr('tabindex');
-
-// 	if (typeof attr !== 'undefined' && attr !== false) {
-// 		$(this).attr('tabindex', '-1');
-// 		console.log('Found one #content and added the tabindex');
-// 	}
-// });
-
-if (document.location.hash) {
-	var anchorUponArrival = document.location.hash;
-	setTimeout(function() {
-		$(anchorUponArrival).focus();
-	}, 100);
-}
-
-$('a[href^="#"]').click(function(event) {
-	var inPageAnchor = "#" + this.href.split('#')[1];
-	setTimeout(function() {
-		$(inPageAnchor).focus();
-	}, 100);
-	return false;
 });

@@ -13,8 +13,12 @@ function generate_random_select_options($len = 10) {
 	return substr(implode($word), 0, $len);
 }
 
-for ($i = 0; $i < 200; $i++) {
-	echo '<option>' . generate_random_select_options() . '</option>';
+function get_options() {
+
+	for ($i = 0; $i < 200; $i++) {
+		echo '<option>' . generate_random_select_options() . '</option>';
+	}
+
 }
 
 ?>

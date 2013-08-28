@@ -7,6 +7,7 @@ $page = 'basics-keywords';
 require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
+include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
@@ -30,7 +31,19 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
-						<dl>
+
+						<div class="form-group clearfix">
+							<label for="keywords" class="control-label col-md-3">Keywords:</label>
+							<div class="col-md-5">
+								<select name="keywords" id="keywords" class="form-control input-sm col-md-8 chzn" multiple>
+									<?php
+									get_options();
+									?>
+								</select>
+							</div>
+						</div>
+
+						<!-- <dl>
 							<dt>1</dt>
 							<dd>Carbon <a class="link-delete" href="#">- Delete</a></dd>
 
@@ -39,7 +52,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 							<dt>3</dt>
 							<dd><a class="link-add" href="#">+ Add</a></dd>
-						</dl>
+						</dl> -->
 					</form>
 				</div>
 

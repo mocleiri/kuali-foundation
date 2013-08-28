@@ -7,6 +7,7 @@ $page = 'basics-details';
 require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
+include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
@@ -137,7 +138,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<div class="col-md-5">
 									<select name="keywords" id="keywords" class="form-control input-sm col-md-8 chzn" multiple>
 										<?php
-										include('_temp.select.filler.php');
+										get_options();
 										?>
 									</select>
 								</div>

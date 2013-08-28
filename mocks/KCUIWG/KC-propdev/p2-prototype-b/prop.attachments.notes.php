@@ -52,10 +52,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<div class="panel">
 							<div class="panel-heading">
 								<h6 class="panel-title">
-									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#file1">some_file_here.pdf</a>
+									<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#file1">some_file_here.pdf</a>
 								</h6>
 							</div>
-							<div id="file1" class="panel-collapse collapse in">
+							<div id="file1" class="panel-collapse collapse">
 								<div class="panel-body">
 									<dl>
 										<dt>File:</dt>
