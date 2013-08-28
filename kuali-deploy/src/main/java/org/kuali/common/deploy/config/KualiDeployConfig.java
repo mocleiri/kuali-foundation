@@ -15,43 +15,45 @@
  */
 package org.kuali.common.deploy.config;
 
-import org.kuali.common.util.config.ConfigUtils;
-import org.kuali.common.util.config.ProjectConfig;
 
-public enum KualiDeployConfig implements ProjectConfig {
+/**
+ * @deprecated
+ */
+@Deprecated
+public enum KualiDeployConfig implements org.kuali.common.util.config.ProjectConfig {
 
-    DEFAULT(); // Provides the default set of configuration for deploy related processes
+	DEFAULT(); // Provides the default set of configuration for deploy related processes
 
-    private final String contextId;
-    private final String configId;
+	private final String contextId;
+	private final String configId;
 
-    private KualiDeployConfig() {
-        this(null);
-    }
+	private KualiDeployConfig() {
+		this(null);
+	}
 
-    private KualiDeployConfig(String contextId) {
-        this.contextId = contextId;
-        this.configId = ConfigUtils.getConfigId(this);
-    }
+	private KualiDeployConfig(String contextId) {
+		this.contextId = contextId;
+		this.configId = org.kuali.common.util.config.ConfigUtils.getConfigId(this);
+	}
 
-    @Override
-    public String getGroupId() {
-        return DeployProjectConstants.GROUP_ID;
-    }
+	@Override
+	public String getGroupId() {
+		return DeployProjectConstants.GROUP_ID;
+	}
 
-    @Override
-    public String getArtifactId() {
-        return DeployProjectConstants.ARTIFACT_ID;
-    }
+	@Override
+	public String getArtifactId() {
+		return DeployProjectConstants.ARTIFACT_ID;
+	}
 
-    @Override
-    public String getContextId() {
-        return contextId;
-    }
+	@Override
+	public String getContextId() {
+		return contextId;
+	}
 
-    @Override
-    public String getConfigId() {
-        return configId;
-    }
+	@Override
+	public String getConfigId() {
+		return configId;
+	}
 
 }
