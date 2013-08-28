@@ -87,7 +87,7 @@ public class VersionUtils {
 		sb.append(StringUtils.trimToEmpty(version.getMinor()));
 		sb.append(StringUtils.trimToEmpty(version.getIncremental()));
 		if (!StringUtils.isBlank(version.getQualifier())) {
-			sb.append("-");
+			sb.append("_");
 			sb.append(version.getQualifier());
 		}
 		return sanitize(sb.toString());
