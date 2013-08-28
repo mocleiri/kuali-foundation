@@ -28,6 +28,9 @@ public class Log4JXmlServiceConfig {
 
 	@Bean
 	public XmlService xmlService() {
+		// Not using MOXy with log4j because it gets confused by the attributes with colon's in the name where as the
+		// reference implementation that ships with the JDK has no issues as long as you also use a non-namespace aware
+		// parser.
 		return new JAXBXmlService.Builder().useNamespaceAwareParser(false).useEclipseLinkMoxyProvider(false).build();
 	}
 }
