@@ -85,11 +85,9 @@ public class VersionUtils {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringUtils.trimToEmpty(version.getMajor()));
 		if (!StringUtils.isBlank(version.getMinor())) {
-			sb.append(".");
 			sb.append(StringUtils.trimToEmpty(version.getMinor()));
 		}
 		if (!StringUtils.isBlank(version.getIncremental())) {
-			sb.append(".");
 			sb.append(StringUtils.trimToEmpty(version.getIncremental()));
 		}
 		if (!StringUtils.isBlank(version.getQualifier())) {
