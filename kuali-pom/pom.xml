@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -232,9 +232,7 @@
     <!-- Version 2.0 throws an NPE for "mvn versions:set -DnewVersion=x.y.z -N" -->
     <plugin.versions.version>1.3.1</plugin.versions.version>
 
-    <plugin.war.version>2.3</plugin.war.version>
-    <!-- maven-war-plugin ships with version 2.2 of plexus-archiver which has SERIOUS performance issues -->
-    <plugin.war.archiver.version>2.4</plugin.war.archiver.version>
+    <plugin.war.version>2.4</plugin.war.version>
 
     <!-- This gets set to false in the sonatype-oss-release profile -->
     <nexus.staging.skip>true</nexus.staging.skip>
@@ -632,28 +630,6 @@
               </manifestEntries>
             </archive>
           </configuration>
-          <!--
-            Remove this dependency override once maven-war-plugin upgrades itself to version >= 2.3 of plexus-archiver.
-            Using plexus-archiver >= 2.3 provides a massive performance gain when doing war overlays on mac/linux systems.
-            Sorting out the underlying issue and coming up with this fix for it comes courtesy of Jonathan Keller.
-          -->
-          <dependencies>
-            <dependency>
-              <groupId>org.codehaus.plexus</groupId>
-              <artifactId>plexus-archiver</artifactId>
-              <version>${plugin.war.archiver.version}</version>
-              <exclusions>
-                <exclusion>
-                  <groupId>org.codehaus.plexus</groupId>
-                  <artifactId>plexus-container-default</artifactId>
-                </exclusion>
-                <exclusion>
-                  <groupId>org.codehaus.plexus</groupId>
-                  <artifactId>plexus-component-api</artifactId>
-                </exclusion>
-              </exclusions>
-            </dependency>
-          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.kuali.maven.plugins</groupId>
