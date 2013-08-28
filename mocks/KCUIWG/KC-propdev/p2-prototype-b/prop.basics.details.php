@@ -21,14 +21,14 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-md-9">
+			<div class="col-md-9" id="content" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
 					<h2>Proposal Details</h2>
 				</div>
 
-				<div class="section-content" id="content">
+				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
 							<legend style="display:none">Enter any relevant details for this proposal</legend>

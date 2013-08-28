@@ -14,30 +14,6 @@
 $(document).ready(function() {
 
 	/*
-		Skip links for accessibility
-		When a link receives focus it's position is changed making it visible
-		Chris Rodriguez
-	*/
-	if (document.location.hash) {
-		var anchorUponArrival = document.location.hash;
-		$('#' + anchorUponArrival).attr('tabindex', '-1');
-		setTimeout(function() {
-			$(anchorUponArrival).focus();
-		}, 100);
-	}
-	
-	$('a[href^="#"]').click(function(event) {
-		var inPageAnchor = "#" + this.href.split('#')[1];
-		$('#' + inPageAnchor).attr('tabindex', '-1');
-		setTimeout(function() {
-			$(inPageAnchor).focus();
-		}, 100);
-		return false;
-	});
-
-
-
-	/*
 		Subnavigation
 		Expanding and collapsing handler
 		Chris Rodriguez
@@ -207,3 +183,33 @@ $(document).ready(function() {
 
 });
 
+
+
+/*
+	Skip links for accessibility
+	When a link receives focus it's position is changed making it visible
+	Chris Rodriguez
+*/
+// $('#content').each(function() {
+// 	var attr = $(this).attr('tabindex');
+
+// 	if (typeof attr !== 'undefined' && attr !== false) {
+// 		$(this).attr('tabindex', '-1');
+// 		console.log('Found one #content and added the tabindex');
+// 	}
+// });
+
+if (document.location.hash) {
+	var anchorUponArrival = document.location.hash;
+	setTimeout(function() {
+		$(anchorUponArrival).focus();
+	}, 100);
+}
+
+$('a[href^="#"]').click(function(event) {
+	var inPageAnchor = "#" + this.href.split('#')[1];
+	setTimeout(function() {
+		$(inPageAnchor).focus();
+	}, 100);
+	return false;
+});

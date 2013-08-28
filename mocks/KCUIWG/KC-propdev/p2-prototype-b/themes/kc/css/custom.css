@@ -525,6 +525,7 @@ section.toolbar .dropdown a .caret {
 #main .checkbox-radio-reset-margin {
   margin-left: 0;
   margin-right: 10px;
+  margin-top: 1px;
 }
 #main .panel-group .panel .panel-heading .panel-title {
   color: inherit;
@@ -586,6 +587,10 @@ textarea {
 }
 .input-group-btn > .btn {
   line-height: 100%;
+}
+.subawards {
+  display: block !important;
+  margin-bottom: 1.5em !important;
 }
 .link-delete {
   color: #ff0000;
