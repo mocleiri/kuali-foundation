@@ -1,36 +1,46 @@
 package org.kuali.common.deploy;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.NoOpExecutable;
+import org.kuali.common.util.execute.impl.NoOpExecutable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 public class DefaultDeployService implements DeployService {
 
+	private static final Executable DEFAULT_SYS_ADMIN_EXEC = NoOpExecutable.INSTANCE;
+	private static final Executable DEFAULT_DB_RESET_EXEC = NoOpExecutable.INSTANCE;
+
+	public DefaultDeployService(DeployContext context, SecureChannel channel, Monitoring monitoring, ApplicationServer appServer) {
+		this(context, channel, DEFAULT_SYS_ADMIN_EXEC, monitoring, appServer, DEFAULT_DB_RESET_EXEC);
+	}
+
+	public DefaultDeployService(DeployContext context, SecureChannel channel, Executable sysAdmin, Monitoring monitoring, ApplicationServer appServer, Executable dbReset) {
+		Assert.noNulls(context, channel, sysAdmin, monitoring, appServer, dbReset);
+		this.context = context;
+		this.channel = channel;
+		this.sysAdminExecutable = sysAdmin;
+		this.monitoring = monitoring;
+		this.appServer = appServer;
+		this.databaseResetExecutable = dbReset;
+	}
+
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
-	DeployContext context;
-	SecureChannel channel;
-	Executable sysAdminExecutable = new NoOpExecutable();
-	Monitoring monitoring;
-	ApplicationServer appServer;
-	Executable databaseResetExecutable = new NoOpExecutable();
+	private final DeployContext context;
+	private final SecureChannel channel;
+	private final Executable sysAdminExecutable;
+	private final Monitoring monitoring;
+	private final ApplicationServer appServer;
+	private final Executable databaseResetExecutable;
 
 	@Override
 	public void deploy() {
 		long start = System.currentTimeMillis();
 		logger.info("[deploy:starting]");
-		// Make sure we are configured correctly
-		Assert.notNull(context);
-		Assert.notNull(channel);
-		Assert.notNull(sysAdminExecutable);
-		Assert.notNull(monitoring);
-		Assert.notNull(appServer);
-		Assert.notNull(databaseResetExecutable);
 		try {
 			logger.info("---------------- Deploy Application ----------------");
 			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getHostname());
@@ -60,52 +70,32 @@ public class DefaultDeployService implements DeployService {
 		logger.info("[deploy:complete] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
 
-	public ApplicationServer getAppServer() {
-		return appServer;
-	}
-
-	public void setAppServer(ApplicationServer controller) {
-		this.appServer = controller;
-	}
-
-	public SecureChannel getChannel() {
-		return channel;
-	}
-
-	public void setChannel(SecureChannel channel) {
-		this.channel = channel;
+	public static Logger getLogger() {
+		return logger;
 	}
 
 	public DeployContext getContext() {
 		return context;
 	}
 
-	public void setContext(DeployContext context) {
-		this.context = context;
-	}
-
-	public Executable getDatabaseResetExecutable() {
-		return databaseResetExecutable;
-	}
-
-	public void setDatabaseResetExecutable(Executable databaseResetExecutable) {
-		this.databaseResetExecutable = databaseResetExecutable;
-	}
-
-	public Monitoring getMonitoring() {
-		return monitoring;
-	}
-
-	public void setMonitoring(Monitoring monitoring) {
-		this.monitoring = monitoring;
+	public SecureChannel getChannel() {
+		return channel;
 	}
 
 	public Executable getSysAdminExecutable() {
 		return sysAdminExecutable;
 	}
 
-	public void setSysAdminExecutable(Executable systemAdministration) {
-		this.sysAdminExecutable = systemAdministration;
+	public Monitoring getMonitoring() {
+		return monitoring;
+	}
+
+	public ApplicationServer getAppServer() {
+		return appServer;
+	}
+
+	public Executable getDatabaseResetExecutable() {
+		return databaseResetExecutable;
 	}
 
 }
