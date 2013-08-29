@@ -1,41 +1,44 @@
 package org.kuali.common.deploy;
 
-public class Deployable {
+import org.kuali.common.util.Assert;
 
-	boolean filter;
-	String local;
-	String remote;
-	String permissions;
+public final class Deployable {
+
+	public Deployable(String local, String remote) {
+		this(false, local, remote, null);
+	}
+
+	public Deployable(boolean filter, String local, String remote) {
+		this(filter, local, remote, null);
+	}
+
+	public Deployable(boolean filter, String local, String remote, String permissions) {
+		Assert.noBlanks(local, remote);
+		this.filter = filter;
+		this.local = local;
+		this.remote = remote;
+		this.permissions = permissions;
+	}
+
+	private final boolean filter;
+	private final String local;
+	private final String remote;
+	private final String permissions;
 
 	public boolean isFilter() {
 		return filter;
-	}
-
-	public void setFilter(boolean filter) {
-		this.filter = filter;
 	}
 
 	public String getLocal() {
 		return local;
 	}
 
-	public void setLocal(String local) {
-		this.local = local;
-	}
-
 	public String getRemote() {
 		return remote;
-	}
-
-	public void setRemote(String remote) {
-		this.remote = remote;
 	}
 
 	public String getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(String permissions) {
-		this.permissions = permissions;
-	}
 }

@@ -181,38 +181,32 @@ public class BaseDeployConfig {
 	}
 
 	protected Deployable getSetEnv() {
-		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "tomcat.setenv"));
-		d.setLocal(SpringUtils.getProperty(env, "tomcat.setenv.local"));
-		d.setFilter(true);
-		d.setPermissions("755");
-		return d;
+		String permissions = "755";
+		String local = SpringUtils.getProperty(env, "tomcat.setenv.local");
+		String remote = SpringUtils.getProperty(env, "tomcat.setenv");
+		return new Deployable(true, local, remote, permissions);
 	}
 
 	protected Deployable getMachineAgentController() {
-		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "appdynamics.ma.controller"));
-		d.setLocal(SpringUtils.getProperty(env, "appdynamics.ma.controller.local"));
-		d.setFilter(true);
-		return d;
+		String local = SpringUtils.getProperty(env, "appdynamics.ma.controller.local");
+		String remote = SpringUtils.getProperty(env, "appdynamics.ma.controller");
+		return new Deployable(true, local, remote);
 	}
 
 	protected Deployable getServerAgentController() {
-		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "appdynamics.sa.controller"));
-		d.setLocal(SpringUtils.getProperty(env, "appdynamics.sa.controller.local"));
-		d.setFilter(true);
-		return d;
+		String local = SpringUtils.getProperty(env, "appdynamics.sa.controller.local");
+		String remote = SpringUtils.getProperty(env, "appdynamics.sa.controller");
+		return new Deployable(true, local, remote);
 	}
 
 	protected List<Deployable> getJsps() {
-		Deployable environment = new Deployable();
-		environment.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.env"));
-		environment.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.env.local"));
+		String envLocal = SpringUtils.getProperty(env, "tomcat.jsp.env.local");
+		String envRemote = SpringUtils.getProperty(env, "tomcat.jsp.env");
+		Deployable environment = new Deployable(true, envLocal, envRemote);
 
-		Deployable tail = new Deployable();
-		tail.setRemote(SpringUtils.getProperty(env, "tomcat.jsp.tail"));
-		tail.setLocal(SpringUtils.getProperty(env, "tomcat.jsp.tail.local"));
+		String tailLocal = SpringUtils.getProperty(env, "tomcat.jsp.env.local");
+		String tailRemote = SpringUtils.getProperty(env, "tomcat.jsp.env");
+		Deployable tail = new Deployable(true, tailLocal, tailRemote);
 
 		List<Deployable> jsps = new ArrayList<Deployable>();
 		jsps.add(environment);
@@ -254,17 +248,15 @@ public class BaseDeployConfig {
 
 	protected Deployable getJdbcDriver() {
 		String lib = SpringUtils.getProperty(env, "tomcat.lib");
-		Deployable d = new Deployable();
-		d.setRemote(lib + "/" + getJdbcDriverFilename());
-		d.setLocal(getJdbcDriverPath());
-		return d;
+		String local = getJdbcDriverPath();
+		String remote = lib + "/" + getJdbcDriverFilename();
+		return new Deployable(local, remote);
 	}
 
 	protected Deployable getApplication() {
-		Deployable d = new Deployable();
-		d.setRemote(SpringUtils.getProperty(env, "tomcat.root.war"));
-		d.setLocal(getApplicationPath());
-		return d;
+		String local = getApplicationPath();
+		String remote = SpringUtils.getProperty(env, "tomcat.root.war");
+		return new Deployable(local, remote);
 	}
 
 	protected List<Deployable> getApplicationConfig() {
@@ -318,11 +310,7 @@ public class BaseDeployConfig {
 		}
 
 		// Create a new deployable from the information we gathered from the environment
-		Deployable d = new Deployable();
-		d.setRemote(remote);
-		d.setLocal(local);
-		d.setFilter(filter);
-		return d;
+		return new Deployable(filter, local, remote);
 	}
 
 	protected HttpWaitExecutable getHttpWaitExecutable() {
