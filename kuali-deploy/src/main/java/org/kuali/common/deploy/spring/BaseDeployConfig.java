@@ -27,12 +27,15 @@ import org.kuali.common.util.spring.ArtifactFilenameFactoryBean;
 import org.kuali.common.util.spring.ArtifactPathFactoryBean;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
+@Import(SpringServiceConfig.class)
 public class BaseDeployConfig {
 
 	@Autowired
@@ -61,14 +64,13 @@ public class BaseDeployConfig {
 	}
 
 	protected DeployContext getDeployContext() {
-		DeployContext ctx = new DeployContext();
-		ctx.setEnvironment(SpringUtils.getProperty(env, "deploy.env"));
-		ctx.setHostname(SpringUtils.getProperty(env, "kdo.channel.hostname"));
-		ctx.setUsername(SpringUtils.getProperty(env, "kdo.channel.username"));
-		ctx.setJdbcDriver(getJdbcDriverArtifact());
-		ctx.setApplication(getApplicationArtifact());
-		ctx.setConfigFiles(getApplicationConfig());
-		return ctx;
+		String environment = SpringUtils.getProperty(env, "deploy.env");
+		String hostname = SpringUtils.getProperty(env, "kdo.channel.hostname");
+		String username = SpringUtils.getProperty(env, "kdo.channel.username");
+		Artifact jdbcDriver = getJdbcDriverArtifact();
+		Artifact application = getApplicationArtifact();
+		List<Deployable> configFiles = getApplicationConfig();
+		return new DeployContext(environment, hostname, username, application, jdbcDriver, configFiles);
 	}
 
 	@Bean
