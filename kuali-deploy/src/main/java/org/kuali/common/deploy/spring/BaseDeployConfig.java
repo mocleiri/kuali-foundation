@@ -347,12 +347,11 @@ public class BaseDeployConfig {
 	}
 
 	protected ServerAgent getServerAgent() {
-		ServerAgent agent = new ServerAgent();
-		agent.setAppServerStartupOptions(SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options"));
-		agent.setBaseDir(SpringUtils.getProperty(env, "appdynamics.sa.base"));
-		agent.setLogsDir(SpringUtils.getProperty(env, "appdynamics.sa.logs"));
-		agent.setController(getServerAgentController());
-		return agent;
+		String startupOptions = SpringUtils.getProperty(env, "appdynamics.sa.tomcat.java.options");
+		String baseDir = SpringUtils.getProperty(env, "appdynamics.sa.base");
+		String logsDir = SpringUtils.getProperty(env, "appdynamics.sa.logs");
+		Deployable controller = getServerAgentController();
+		return new ServerAgent(startupOptions, controller, baseDir, logsDir);
 	}
 
 	protected Monitoring getMonitoring() {

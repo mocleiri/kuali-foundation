@@ -1,42 +1,37 @@
 package org.kuali.common.deploy;
 
+import org.kuali.common.util.Assert;
+
 public class ServerAgent {
 
-	String appServerStartupOptions;
-	Deployable controller;
-	String baseDir;
-	String logsDir;
+	public ServerAgent(String appServerStartupOptions, Deployable controller, String baseDir, String logsDir) {
+		Assert.noBlanks(appServerStartupOptions, baseDir, logsDir);
+		Assert.noNulls(controller);
+		this.appServerStartupOptions = appServerStartupOptions;
+		this.controller = controller;
+		this.baseDir = baseDir;
+		this.logsDir = logsDir;
+	}
+
+	private final String appServerStartupOptions;
+	private final Deployable controller;
+	private final String baseDir;
+	private final String logsDir;
+
+	public String getAppServerStartupOptions() {
+		return appServerStartupOptions;
+	}
 
 	public Deployable getController() {
 		return controller;
-	}
-
-	public void setController(Deployable controller) {
-		this.controller = controller;
 	}
 
 	public String getBaseDir() {
 		return baseDir;
 	}
 
-	public void setBaseDir(String baseDir) {
-		this.baseDir = baseDir;
-	}
-
 	public String getLogsDir() {
 		return logsDir;
-	}
-
-	public void setLogsDir(String logsDir) {
-		this.logsDir = logsDir;
-	}
-
-	public String getAppServerStartupOptions() {
-		return appServerStartupOptions;
-	}
-
-	public void setAppServerStartupOptions(String appServerStartupOptions) {
-		this.appServerStartupOptions = appServerStartupOptions;
 	}
 
 }
