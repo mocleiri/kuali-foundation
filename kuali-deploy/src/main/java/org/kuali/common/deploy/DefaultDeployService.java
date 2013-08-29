@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 public class DefaultDeployService implements DeployService {
 
+	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
+
 	private static final Executable DEFAULT_SYS_ADMIN_EXEC = NoOpExecutable.INSTANCE;
 	private static final Executable DEFAULT_DB_RESET_EXEC = NoOpExecutable.INSTANCE;
 
@@ -27,8 +29,6 @@ public class DefaultDeployService implements DeployService {
 		this.appServer = appServer;
 		this.databaseResetExecutable = dbReset;
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployService.class);
 
 	private final DeployContext context;
 	private final SecureChannel channel;
