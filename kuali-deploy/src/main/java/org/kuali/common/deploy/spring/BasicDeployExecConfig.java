@@ -25,7 +25,7 @@ public class BasicDeployExecConfig implements DeployExecConfig {
 	BaseDeployConfig baseConfig;
 
 	@Override
-	@Bean(initMethod = "execute")
+	@Bean
 	public DeployExecutable deployExecutable() {
 		SecureChannel channel = baseConfig.kdoSecureChannel();
 		Monitoring monitoring = baseConfig.getMonitoring();
