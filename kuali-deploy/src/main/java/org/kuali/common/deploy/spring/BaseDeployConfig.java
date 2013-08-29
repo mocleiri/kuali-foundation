@@ -27,15 +27,12 @@ import org.kuali.common.util.spring.ArtifactFilenameFactoryBean;
 import org.kuali.common.util.spring.ArtifactPathFactoryBean;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.SpringUtils;
-import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import(SpringServiceConfig.class)
 public class BaseDeployConfig {
 
 	@Autowired
