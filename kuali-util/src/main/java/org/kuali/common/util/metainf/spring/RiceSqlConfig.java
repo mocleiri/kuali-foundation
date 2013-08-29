@@ -29,7 +29,7 @@ public class RiceSqlConfig implements MetaInfContextsConfig {
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".sql.relative";
 	private static final String PREFIX = "sql";
 	private static final String DEFAULT_VENDORS = "mysql,oracle";
-	private static final String VENDORS_KEY = "metainf.db.vendors";
+	private static final String VENDORS_KEY = MetaInfUtils.PROPERTY_PREFIX + ".db.vendors";
 	private static final String IMPEX_ARTIFACT_ID = "rice-impex-master";
 
 	@Autowired
