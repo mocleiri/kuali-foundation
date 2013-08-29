@@ -55,6 +55,14 @@ public class ImmutableProperties extends Properties {
 		}
 	}
 
+	public static Properties of(Properties properties) {
+		if (properties instanceof ImmutableProperties) {
+			return properties;
+		} else {
+			return new ImmutableProperties(properties);
+		}
+	}
+
 	@Override
 	public Object setProperty(String key, String value) {
 		throw new UnsupportedOperationException(UOE_MSG);
