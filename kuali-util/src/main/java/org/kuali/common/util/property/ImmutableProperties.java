@@ -15,12 +15,10 @@
  */
 package org.kuali.common.util.property;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -69,17 +67,17 @@ public class ImmutableProperties extends Properties {
 	}
 
 	@Override
-	public void load(Reader reader) throws IOException {
+	public void load(Reader reader) {
 		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override
-	public void load(InputStream inStream) throws IOException {
+	public void load(InputStream inStream) {
 		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
 	@Override
-	public void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
+	public void loadFromXML(InputStream in) {
 		throw new UnsupportedOperationException(UOE_MSG);
 	}
 
