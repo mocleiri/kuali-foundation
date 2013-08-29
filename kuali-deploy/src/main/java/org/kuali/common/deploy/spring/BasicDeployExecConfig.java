@@ -9,14 +9,18 @@ import org.kuali.common.deploy.Monitoring;
 import org.kuali.common.jdbc.sql.spring.JdbcResetExecutableConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ BaseDeployConfig.class })
+@Import({ SpringServiceConfig.class, BaseDeployConfig.class })
 public class BasicDeployExecConfig implements DeployExecConfig {
+
+	private static final String SKIP_KEY = "deploy.skip";
 
 	@Autowired
 	JdbcResetExecutableConfig config;
@@ -24,9 +28,13 @@ public class BasicDeployExecConfig implements DeployExecConfig {
 	@Autowired
 	BaseDeployConfig baseConfig;
 
+	@Autowired
+	EnvironmentService env;
+
 	@Override
 	@Bean
 	public DeployExecutable deployExecutable() {
+		boolean skip = env.getBoolean(SKIP_KEY, false);
 		SecureChannel channel = baseConfig.kdoSecureChannel();
 		Monitoring monitoring = baseConfig.getMonitoring();
 		ApplicationServer appServer = baseConfig.getApplicationServer();
@@ -34,7 +42,7 @@ public class BasicDeployExecConfig implements DeployExecConfig {
 		DeployContext context = baseConfig.getDeployContext();
 		Executable sysAdmin = baseConfig.getSysAdminExecutable();
 		DeployService service = new DefaultDeployService(context, channel, sysAdmin, monitoring, appServer, databaseResetExec);
-		return new DeployExecutable(service);
+		return new DeployExecutable(service, skip);
 	}
 
 }
