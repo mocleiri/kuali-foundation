@@ -424,13 +424,6 @@ section.toolbar .dropdown a .caret {
 #main fieldset.fieldset-horizontal:first-child {
   border-top: 0px;
 }
-#main .button-row {
-  clear: both;
-  margin-top: 1.5%;
-  padding: 2% 0 2% 0;
-  border-top: 1px solid #cccccc;
-  text-align: center;
-}
 #main h3 .link-edit {
   font-size: .55em;
 }
@@ -531,15 +524,8 @@ section.toolbar .dropdown a .caret {
   color: inherit;
   font-size: 1em;
 }
-#main .panel-group .panel .panel-heading .panel-title .accordion-toggle:before {
-  content: "\2297";
-  display: inline-block;
-  margin: -2px 6px 0 0;
-  font-size: 1.4em;
-  float: left;
-}
-#main .panel-group .panel .panel-heading .panel-title .accordion-toggle.collapsed:before {
-  content: "\2295" !important;
+#main .panel-group .panel .panel-heading .panel-title .accordion-toggle.collapsed span.icon-caret-down:before {
+  content: "\f0da";
 }
 #main .entry-row {
   margin-bottom: 20px;
@@ -555,6 +541,17 @@ section.toolbar .dropdown a .caret {
 }
 #content:focus {
   outline: none;
+}
+.btn-row-page-action {
+  clear: both;
+  margin-top: 1.5%;
+  padding: 1% 0 1% 0;
+  text-align: center;
+}
+.btn-row-widget-action {
+  clear: both;
+  padding: 1% 0 1% 0;
+  text-align: left;
 }
 /*
 	Overriding the default Bootstrap input styles to better match the Chosen styles

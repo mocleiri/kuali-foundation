@@ -160,7 +160,7 @@ include( '_temp.select.filler.php' );
 	</div>
 
 	<!-- Button row -->
-	<div class="button-row">
+	<div class="btn-row-page-action">
 		<div class="container">
 			<div class="row">
 				<button class="btn btn-default">Save</button>

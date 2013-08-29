@@ -18,6 +18,7 @@
 <link href="themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
 <link href="themes/kc/js/chosen/chosen.css" rel="stylesheet" media="screen" />
 <link href="themes/kc/css/custom.css" rel="stylesheet" />
+<link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
