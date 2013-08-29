@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * @deprecated
@@ -20,9 +19,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @Import({ DeploySqlControllerConfig.class, BaseDeployConfig.class })
 @Deprecated
 public class DeployConfig {
-
-	@Autowired
-	ConfigurableEnvironment env;
 
 	@Autowired
 	DeploySqlControllerConfig sqlControllerConfig;
