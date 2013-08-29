@@ -23,17 +23,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.kuali.common.util.Assert;
+
 public class ImmutableProperties extends Properties {
 
 	private static final long serialVersionUID = -3964884087103719367L;
 	private static final String UOE_MSG = "Immutable properties cannot be changed";
 
 	public ImmutableProperties(Properties original) {
-
-		// original can't be null
-		if (original == null) {
-			throw new NullPointerException("original is null");
-		}
+		Assert.noNulls(original);
 
 		// Prevent anything from changing original until we are done
 		synchronized (original) {
