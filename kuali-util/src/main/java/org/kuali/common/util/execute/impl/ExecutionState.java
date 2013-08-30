@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
+package org.kuali.common.util.execute.impl;
 
-/**
- * @deprecated
- */
-@Deprecated
-public enum ExecutionMode {
+public enum ExecutionState {
 
-	TRUE, FALSE, RUNONCE, ALWAYS, NEVER, INPROGRESS, COMPLETED, FAILED, NULL;
+	INPROGRESS, COMPLETED, FAILED;
 
 }
