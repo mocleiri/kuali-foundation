@@ -76,7 +76,11 @@ public class PropertiesFileStateManager implements RunOnceStateManager {
 			// Log a message indicating we found the properties file and are going to inspect its contents
 			logger.info("Examining run once property [{}] in [{}]", persistentPropertyKey, propertiesFile);
 			String value = properties.getProperty(persistentPropertyKey);
-			return StringUtils.equalsIgnoreCase(Boolean.TRUE.toString(), value);
+			boolean runonce = StringUtils.equalsIgnoreCase(Boolean.TRUE.toString(), value);
+			if (!runonce) {
+				logger.info("Skipping execution - [{}={}]", persistentPropertyKey, value);
+			}
+			return runonce;
 		}
 	}
 
