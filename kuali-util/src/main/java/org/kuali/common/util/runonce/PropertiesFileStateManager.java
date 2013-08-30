@@ -17,7 +17,7 @@ public class PropertiesFileStateManager implements PersistentStateManager {
 	private final File propertiesFile;
 
 	@Override
-	public void updatePersistentState(String state) {
+	public void persistState(String state) {
 	}
 
 	public String getPersistentPropertyKey() {
