@@ -67,7 +67,7 @@ public class BaseDeployConfig {
 		Artifact jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
-		return new DeployContext(environment, hostname, username, application, jdbcDriver, configFiles);
+		return new DeployContext(environment, username, hostname, application, jdbcDriver, configFiles);
 	}
 
 	@Bean
