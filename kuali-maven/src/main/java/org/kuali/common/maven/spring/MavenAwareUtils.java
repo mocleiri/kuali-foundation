@@ -68,7 +68,6 @@ public class MavenAwareUtils {
 		List<Dependency> dependencies = convertToSimplePojos(project.getDependencies());
 		nullSafeSet(properties, "project.dependencies", getDependenciesCSV(dependencies));
 		if (settings != null) {
-			System.out.println("1");
 			nullSafeSet(properties, "settings.localRepository", settings.getLocalRepository());
 			nullSafeSet(properties, "settings.modelEncoding", settings.getModelEncoding());
 			nullSafeSet(properties, "settings.sourceLevel", settings.getSourceLevel());
@@ -87,13 +86,7 @@ public class MavenAwareUtils {
 	 * Don't call setProperty() if value is null
 	 */
 	public static void nullSafeSet(Properties properties, String key, String value) {
-		if (key.equals("settings.localRepository")) {
-			System.out.println("2");
-		}
 		if (value != null) {
-			if (key.equals("settings.localRepository")) {
-				System.out.println("3");
-			}
 			properties.setProperty(key, value);
 		}
 	}
