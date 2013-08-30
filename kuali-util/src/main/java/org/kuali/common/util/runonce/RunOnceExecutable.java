@@ -42,6 +42,7 @@ public class RunOnceExecutable implements Executable {
 		// Give the state manager a chance to initialize itself
 		stateManager.initialize();
 
+		// Let the state manager tell us if we are in RunOnce mode
 		if (!stateManager.isRunOnce()) {
 			return;
 		}
@@ -51,6 +52,7 @@ public class RunOnceExecutable implements Executable {
 
 		try {
 			// Now that the state manager has transitioned things to INPROGRESS it is safe to fire the executable
+			// The transition to INPROGRESS with prevent this executable from running again
 			executable.execute();
 
 			// Transition to COMPLETED
