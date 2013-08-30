@@ -24,6 +24,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.settings.Settings;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.maven.spring.MavenProfileConstants;
 import org.kuali.common.util.nullify.NullUtils;
@@ -36,6 +37,9 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	@Component
 	MavenProject project;
+
+	@Component
+	Settings settings;
 
 	/**
 	 * If true, any PropertySource's supplied to the mojo are added to the configured Spring environment.
@@ -285,6 +289,10 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public void setDefaultProfileExcludes(String defaultProfileExcludes) {
 		this.defaultProfileExcludes = defaultProfileExcludes;
+	}
+
+	public Settings getSettings() {
+		return settings;
 	}
 
 }
