@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.settings.Settings;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Dependency;
 import org.kuali.common.util.LocationUtils;
@@ -31,7 +32,7 @@ import org.kuali.common.util.property.Constants;
  */
 public class MavenAwareUtils {
 
-	public static Properties getInternalProperties(MavenProject project) {
+	public static Properties getInternalProperties(MavenProject project, Settings settings) {
 		Properties properties = new Properties();
 		nullSafeSet(properties, "project.id", project.getId());
 		nullSafeSet(properties, "project.groupId", project.getGroupId());
@@ -66,7 +67,19 @@ public class MavenAwareUtils {
 		nullSafeSet(properties, "project.pom.location", getPomLocation(project));
 		List<Dependency> dependencies = convertToSimplePojos(project.getDependencies());
 		nullSafeSet(properties, "project.dependencies", getDependenciesCSV(dependencies));
+		if (settings != null) {
+			nullSafeSet(properties, "settings.localRepository", settings.getLocalRepository());
+			nullSafeSet(properties, "settings.modelEncoding", settings.getModelEncoding());
+			nullSafeSet(properties, "settings.sourceLevel", settings.getSourceLevel());
+			if (settings.getInteractiveMode() != null) {
+				nullSafeSet(properties, "settings.interactiveMode", settings.getInteractiveMode() + "");
+			}
+		}
 		return properties;
+	}
+
+	public static Properties getInternalProperties(MavenProject project) {
+		return getInternalProperties(project, null);
 	}
 
 	/**
