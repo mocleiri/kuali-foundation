@@ -50,7 +50,7 @@ public class RunOnceExecutable implements Executable {
 		stateManager.updateState(RunOnceState.INPROGRESS);
 
 		try {
-			// Run the executable now that we have successfully transitioned things to INPROGRESS
+			// Now that the state manager has transitioned things to INPROGRESS it is safe to fire the executable
 			executable.execute();
 
 			// Transition to COMPLETED
