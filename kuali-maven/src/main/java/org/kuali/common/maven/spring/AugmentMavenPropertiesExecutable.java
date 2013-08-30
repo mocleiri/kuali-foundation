@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 public class AugmentMavenPropertiesExecutable implements Executable {
 
 	public AugmentMavenPropertiesExecutable(MavenProject mavenProject, Settings settings, boolean skip) {
-		Assert.noNulls(mavenProject, settings);
+		Assert.noNulls(mavenProject);
 		this.mavenProject = mavenProject;
 		this.settings = settings;
 		this.skip = skip;
