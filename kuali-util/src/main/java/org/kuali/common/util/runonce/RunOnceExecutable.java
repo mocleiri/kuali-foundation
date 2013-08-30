@@ -52,7 +52,7 @@ public class RunOnceExecutable implements Executable {
 
 		try {
 			// Now that the state manager has transitioned things to INPROGRESS it is safe to fire the executable
-			// The transition to INPROGRESS is what prevents this executable from running again
+			// The transition to INPROGRESS is what prevents us from executing the executable more than once
 			executable.execute();
 
 			// Transition to COMPLETED
