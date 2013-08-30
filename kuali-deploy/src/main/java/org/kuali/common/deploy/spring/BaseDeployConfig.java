@@ -93,6 +93,7 @@ public class BaseDeployConfig {
 		pathsToDelete.add(lib + "/ojdbc*.jar");
 		pathsToDelete.add(lib + "/classes12*.jar");
 		pathsToDelete.add(lib + "/orai18n*.jar");
+		pathsToDelete.add(lib + "/spring*.jar"); // Rice requires a Spring jar file in Tomcat lib now.
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.setenv"));
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.home.org"));
 		pathsToDelete.add(SpringUtils.getProperty(env, "tomcat.home.org.alt"));
