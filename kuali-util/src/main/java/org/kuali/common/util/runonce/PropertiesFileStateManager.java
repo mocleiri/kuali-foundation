@@ -60,23 +60,23 @@ public class PropertiesFileStateManager implements RunOnceStateManager {
 		return propertiesFile;
 	}
 
+	protected Properties getProperties() {
+		if (propertiesFile.exists()) {
+			return PropertyUtils.load(propertiesFile, encoding);
+		} else {
+			logger.info("Skipping execution. File does not exist - [{}]", propertiesFile);
+			return PropertyUtils.EMPTY;
+		}
+	}
+
 	protected boolean getRunOnce() {
-		if (properties == null) {
+		if (properties == PropertyUtils.EMPTY) {
 			return false;
 		} else {
 			// Log a message indicating we found the properties file and are going to inspect its contents
 			logger.info("Examining run once property [{}] in [{}]", persistentPropertyKey, propertiesFile);
 			String value = properties.getProperty(persistentPropertyKey);
 			return StringUtils.equalsIgnoreCase(Boolean.TRUE.toString(), value);
-		}
-	}
-
-	protected Properties getProperties() {
-		if (propertiesFile.exists()) {
-			return PropertyUtils.load(propertiesFile, encoding);
-		} else {
-			logger.info("Skipping execution. File does not exist - [{}]", propertiesFile);
-			return null;
 		}
 	}
 
