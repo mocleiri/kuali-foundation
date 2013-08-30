@@ -2,7 +2,7 @@ package org.kuali.common.jdbc.reset;
 
 import org.kuali.common.util.execute.Executable;
 
-public interface JdbcResetExecutableConfig {
+public interface JdbcResetExecConfig {
 
 	Executable jdbcResetExecutable();
 
