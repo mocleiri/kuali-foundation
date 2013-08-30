@@ -33,7 +33,7 @@ public class AugmentMavenPropertiesConfig {
 	@Autowired
 	MavenProject mavenProject;
 
-	@Autowired
+	@Autowired(required = false)
 	Settings settings;
 
 	@Bean(initMethod = "execute")
