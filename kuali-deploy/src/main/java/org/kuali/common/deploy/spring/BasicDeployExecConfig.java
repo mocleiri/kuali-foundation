@@ -6,7 +6,7 @@ import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployExecutable;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Monitoring;
-import org.kuali.common.jdbc.sql.spring.JdbcResetExecutableConfig;
+import org.kuali.common.jdbc.reset.JdbcResetExecConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -23,7 +23,7 @@ public class BasicDeployExecConfig implements DeployExecConfig {
 	private static final String SKIP_KEY = "deploy.skip";
 
 	@Autowired
-	JdbcResetExecutableConfig config;
+	JdbcResetExecConfig config;
 
 	@Autowired
 	BaseDeployConfig baseConfig;
