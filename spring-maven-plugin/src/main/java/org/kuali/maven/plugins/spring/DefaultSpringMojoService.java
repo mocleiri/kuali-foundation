@@ -351,7 +351,7 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	protected Properties getMavenProperties(AbstractSpringMojo mojo) {
 		MavenProject project = mojo.getProject();
 		// Get internal Maven config as a properties object
-		Properties internal = MavenAwareUtils.getInternalProperties(project);
+		Properties internal = MavenAwareUtils.getInternalProperties(project, mojo.getSettings());
 		// The ordering here is significant.
 		// Properties supplied directly to the mojo override properties from project.getProperties()
 		// But, internal Maven properties need to always win.

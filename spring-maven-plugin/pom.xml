@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.3.7</version>
+    <version>3.3.13</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>spring-maven-plugin</artifactId>
@@ -52,6 +52,7 @@
   </developers>
   <properties>
     <parent.version>${project.parent.version}</parent.version>
+    <kuali-maven.version>1.1.2-SNAPSHOT</kuali-maven.version>
   </properties>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
