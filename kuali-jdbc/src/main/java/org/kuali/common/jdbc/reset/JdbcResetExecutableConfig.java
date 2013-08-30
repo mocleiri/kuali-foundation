@@ -1,4 +1,4 @@
-package org.kuali.common.jdbc.sql.spring;
+package org.kuali.common.jdbc.reset;
 
 import org.kuali.common.util.execute.Executable;
 
