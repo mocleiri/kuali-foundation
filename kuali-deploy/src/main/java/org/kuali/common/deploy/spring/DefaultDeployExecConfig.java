@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, BaseDeployConfig.class })
-public class BasicDeployExecConfig implements DeployExecConfig {
+public class DefaultDeployExecConfig implements DeployExecConfig {
 
 	private static final String SKIP_KEY = "deploy.skip";
 
