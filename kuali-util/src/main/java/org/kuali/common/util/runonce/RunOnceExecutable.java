@@ -48,7 +48,7 @@ public class RunOnceExecutable implements Executable {
 		}
 
 		// Transition to INPROGRESS
-		stateManager.updateState(RunOnceState.INPROGRESS);
+		stateManager.persistState(RunOnceState.INPROGRESS);
 
 		try {
 			// Now that the state manager has transitioned things to INPROGRESS it is safe to fire the executable
@@ -56,10 +56,10 @@ public class RunOnceExecutable implements Executable {
 			executable.execute();
 
 			// Transition to COMPLETED
-			stateManager.updateState(RunOnceState.COMPLETED);
+			stateManager.persistState(RunOnceState.COMPLETED);
 		} catch (Exception e) {
 			// Transition to FAILED
-			stateManager.updateState(RunOnceState.FAILED);
+			stateManager.persistState(RunOnceState.FAILED);
 			throw new IllegalStateException("Unexpected execution error", e);
 		}
 	}
