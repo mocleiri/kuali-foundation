@@ -20,8 +20,6 @@ public class PropertiesFileStateManager implements RunOnceStateManager {
 		this.propertiesFile = new CanonicalFile(propertiesFile);
 		this.encoding = encoding;
 		this.persistentPropertyKey = persistentPropertyKey;
-		this.properties = getProperties();
-		this.runonce = getRunOnce();
 	}
 
 	private final String persistentPropertyKey;
@@ -63,16 +61,22 @@ public class PropertiesFileStateManager implements RunOnceStateManager {
 	}
 
 	protected boolean getRunOnce() {
-		String value = properties.getProperty(persistentPropertyKey);
-		return StringUtils.equalsIgnoreCase(Boolean.TRUE.toString(), value);
+		if (properties == null) {
+			return false;
+		} else {
+			// Log a message indicating we found the properties file and are going to inspect its contents
+			logger.info("Examining run once property [{}] in [{}]", persistentPropertyKey, propertiesFile);
+			String value = properties.getProperty(persistentPropertyKey);
+			return StringUtils.equalsIgnoreCase(Boolean.TRUE.toString(), value);
+		}
 	}
 
 	protected Properties getProperties() {
 		if (propertiesFile.exists()) {
 			return PropertyUtils.load(propertiesFile, encoding);
 		} else {
-			logger.info("Properties file [] does not exist.", propertiesFile);
-			return new Properties();
+			logger.info("Skipping execution. File does not exist - [{}]", propertiesFile);
+			return null;
 		}
 	}
 
