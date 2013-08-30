@@ -6,6 +6,6 @@ public interface RunOnceStateManager {
 
 	boolean isRunOnce();
 
-	void updateState(String state);
+	void updateState(RunOnceState state);
 
 }

@@ -45,10 +45,10 @@ public class PropertiesFileStateManager implements RunOnceStateManager {
 	}
 
 	@Override
-	public synchronized void updateState(String state) {
+	public synchronized void updateState(RunOnceState state) {
 		Assert.isTrue(initialized, "Not initialized");
-		Assert.noBlanks(state);
-		properties.setProperty(persistentPropertyKey, state);
+		Assert.noNulls(state);
+		properties.setProperty(persistentPropertyKey, state.name());
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}
 
