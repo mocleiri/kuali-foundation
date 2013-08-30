@@ -6,18 +6,11 @@ import java.util.List;
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.JdbcService;
-import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
-import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
-import org.kuali.common.jdbc.suppliers.ResourcesSupplierFactory;
-import org.kuali.common.jdbc.suppliers.spring.SuppliersFactoryConfig;
-import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.ExecutablesExecutable;
-import org.kuali.common.util.project.ProjectService;
-import org.kuali.common.util.project.spring.ProjectServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, SuppliersFactoryConfig.class, JdbcShowConfig.class, ProjectServiceConfig.class })
+@Import({ JdbcServiceConfig.class, JdbcShowConfig.class })
 public class DefaultJdbcResetConfig implements JdbcResetConfig {
 
 	private static final String TIMED_KEY = "jdbc.reset.timed";
@@ -35,22 +28,7 @@ public class DefaultJdbcResetConfig implements JdbcResetConfig {
 	JdbcService service;
 
 	@Autowired
-	DbaContextConfig dba;
-
-	@Autowired
-	ResourcesSupplierFactory factory;
-
-	@Autowired
 	JdbcShowConfig show;
-
-	@Autowired
-	ProjectService projectService;
-
-	@Autowired
-	DatabaseVendor vendor;
-
-	@Autowired
-	DataSourceConfig dataSources;
 
 	@Autowired
 	EnvironmentService env;
