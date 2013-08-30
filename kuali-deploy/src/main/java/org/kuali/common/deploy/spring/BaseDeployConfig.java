@@ -202,8 +202,8 @@ public class BaseDeployConfig {
 		String envRemote = SpringUtils.getProperty(env, "tomcat.jsp.env");
 		Deployable environment = new Deployable(true, envLocal, envRemote);
 
-		String tailLocal = SpringUtils.getProperty(env, "tomcat.jsp.env.local");
-		String tailRemote = SpringUtils.getProperty(env, "tomcat.jsp.env");
+		String tailLocal = SpringUtils.getProperty(env, "tomcat.jsp.tail.local");
+		String tailRemote = SpringUtils.getProperty(env, "tomcat.jsp.tail");
 		Deployable tail = new Deployable(true, tailLocal, tailRemote);
 
 		List<Deployable> jsps = new ArrayList<Deployable>();
