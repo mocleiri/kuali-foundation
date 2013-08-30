@@ -29,10 +29,11 @@ import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.springframework.util.ResourceUtils;
 
 public class ProjectUtils {
 
-	private static final String CLASSPATH = "classpath:";
+	private static final String CLASSPATH = ResourceUtils.CLASSPATH_URL_PREFIX;
 
 	/**
 	 * Get a <code>Project</code> from a <code>Properties</code>
@@ -195,6 +196,17 @@ public class ProjectUtils {
 	 */
 	public static String getClasspathPrefix(ProjectIdentifier project) {
 		return getClasspathPrefix(project.getGroupId(), project.getArtifactId());
+	}
+
+	/**
+	 * Return a classpath prefix.
+	 * 
+	 * <pre>
+	 *   org.kuali.common  ->  classpath:org/kuali/common
+	 * </pre>
+	 */
+	public static String getClasspathPrefix(String groupId) {
+		return CLASSPATH + Str.getPath(groupId);
 	}
 
 	/**
