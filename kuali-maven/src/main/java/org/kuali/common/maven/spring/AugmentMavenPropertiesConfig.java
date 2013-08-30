@@ -16,17 +16,15 @@
 package org.kuali.common.maven.spring;
 
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.settings.Settings;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.project.spring.ProjectServiceConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@Import({ ProjectServiceConfig.class })
 public class AugmentMavenPropertiesConfig {
 
 	@Autowired
@@ -36,15 +34,12 @@ public class AugmentMavenPropertiesConfig {
 	MavenProject mavenProject;
 
 	@Autowired
-	ProjectServiceConfig projectServiceConfig;
+	Settings settings;
 
 	@Bean(initMethod = "execute")
 	public Executable augmentMavenProperties() {
-		AugmentMavenPropertiesExecutable exec = new AugmentMavenPropertiesExecutable();
-		exec.setMavenProject(mavenProject);
-		exec.setService(projectServiceConfig.projectService());
-		exec.setSkip(SpringUtils.getBoolean(env, "properties.maven.augment.skip", false));
-		return exec;
+		boolean skip = SpringUtils.getBoolean(env, "properties.maven.augment.skip", false);
+		return new AugmentMavenPropertiesExecutable(mavenProject, settings, skip);
 	}
 
 }

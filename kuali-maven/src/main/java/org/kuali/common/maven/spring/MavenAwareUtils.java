@@ -25,7 +25,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.Dependency;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.RepositoryUtils;
-import org.kuali.common.util.property.Constants;
+import org.kuali.common.util.nullify.NullUtils;
 
 /**
  * Maven related utilities that are aware of the Maven model objects eg MavenProject
@@ -68,6 +68,7 @@ public class MavenAwareUtils {
 		List<Dependency> dependencies = convertToSimplePojos(project.getDependencies());
 		nullSafeSet(properties, "project.dependencies", getDependenciesCSV(dependencies));
 		if (settings != null) {
+			System.out.println("1");
 			nullSafeSet(properties, "settings.localRepository", settings.getLocalRepository());
 			nullSafeSet(properties, "settings.modelEncoding", settings.getModelEncoding());
 			nullSafeSet(properties, "settings.sourceLevel", settings.getSourceLevel());
@@ -86,7 +87,13 @@ public class MavenAwareUtils {
 	 * Don't call setProperty() if value is null
 	 */
 	public static void nullSafeSet(Properties properties, String key, String value) {
+		if (key.equals("settings.localRepository")) {
+			System.out.println("2");
+		}
 		if (value != null) {
+			if (key.equals("settings.localRepository")) {
+				System.out.println("3");
+			}
 			properties.setProperty(key, value);
 		}
 	}
@@ -131,7 +138,7 @@ public class MavenAwareUtils {
 	 */
 	public static String getDependenciesCSV(List<Dependency> dependencies) {
 		if (CollectionUtils.isEmpty(dependencies)) {
-			return Constants.NONE;
+			return NullUtils.NONE;
 		}
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < dependencies.size(); i++) {
