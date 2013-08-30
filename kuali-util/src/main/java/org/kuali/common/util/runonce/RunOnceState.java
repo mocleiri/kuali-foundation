@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute.impl;
+package org.kuali.common.util.runonce;
 
-public enum ExecutionState {
+public enum RunOnceState {
 
 	INPROGRESS, COMPLETED, FAILED;
 

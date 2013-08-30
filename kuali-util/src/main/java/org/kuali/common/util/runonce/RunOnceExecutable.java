@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute.impl;
+package org.kuali.common.util.runonce;
 
 import java.io.File;
 import java.util.Properties;
@@ -79,22 +79,22 @@ public class RunOnceExecutable implements Executable {
 		}
 
 		// Update the property in the properties file to INPROGRESS
-		updatePersistentState(properties, ExecutionState.INPROGRESS);
+		updatePersistentState(properties, RunOnceState.INPROGRESS);
 
 		try {
 			// Invoke execute now that we have successfully transitioned things to INPROGRESS
 			executable.execute();
 
 			// Update the property in the properties file to COMPLETED
-			updatePersistentState(properties, ExecutionState.COMPLETED);
+			updatePersistentState(properties, RunOnceState.COMPLETED);
 		} catch (Exception e) {
 			// Update the property in the properties file to FAILED
-			updatePersistentState(properties, ExecutionState.FAILED);
+			updatePersistentState(properties, RunOnceState.FAILED);
 			throw new IllegalStateException("Unexpected execution error", e);
 		}
 	}
 
-	protected void updatePersistentState(Properties properties, ExecutionState state) {
+	protected void updatePersistentState(Properties properties, RunOnceState state) {
 		properties.setProperty(property, state.name());
 		PropertyUtils.store(properties, propertiesFile, encoding);
 	}
