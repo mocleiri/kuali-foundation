@@ -13,7 +13,7 @@ public interface RunOnceStateManager {
 	boolean isRunOnce();
 
 	/**
-	 * Update the run once state in a way that survives a JVM restart
+	 * Update state in a way that persists across JVM restarts (eg database table, properties file, etc)
 	 */
 	void persistState(RunOnceState state);
 
