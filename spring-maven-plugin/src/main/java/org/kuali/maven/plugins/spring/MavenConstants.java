@@ -11,11 +11,13 @@ public final class MavenConstants {
 	public static final String SPRING_MOJO_SERVICE_BEAN_NAME = "springMojoService";
 	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = org.kuali.common.util.maven.MavenConstants.PROPERTIES_BEAN_NAME;
 	public static final String DEFAULT_MAVEN_PROJECT_BEAN_NAME = "mavenProject";
+	public static final String DEFAULT_MAVEN_SETTINGS_BEAN_NAME = "mavenSettings";
 	public static final String DEFAULT_MAVEN_MOJO_BEAN_NAME = "mavenMojo";
 	public static final String DEFAULT_ADD_PROPERTY_SOURCES = "true";
 	public static final String DEFAULT_REMOVE_EXISTING_PROPERTY_SOURCES = "false";
 	public static final String DEFAULT_INJECT_MAVEN_PROPERTIES = "true";
 	public static final String DEFAULT_INJECT_MAVEN_PROJECT = "false";
+	public static final String DEFAULT_INJECT_MAVEN_SETTINGS = "false";
 	public static final String DEFAULT_INJECT_MAVEN_MOJO = "false";
 	public static final String DEFAULT_FORCE_MOJO_EXECUTION = "false";
 	public static final String DEFAULT_SKIP = "false";

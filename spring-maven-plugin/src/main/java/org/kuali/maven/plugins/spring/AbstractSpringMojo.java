@@ -66,6 +66,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 	boolean injectMavenProject = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_PROJECT);
 
 	/**
+	 * If true, the Maven Settings object is injected into the context under the name <code>mavenSettings</code>
+	 */
+	@Parameter(property = "spring.injectMavenSettings", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_SETTINGS)
+	boolean injectMavenSettings = new Boolean(MavenConstants.DEFAULT_INJECT_MAVEN_SETTINGS);
+
+	/**
 	 * If true, this Maven mojo object is injected into the context under the name <code>mavenMojo</code>
 	 */
 	@Parameter(property = "spring.injectMavenMojo", defaultValue = MavenConstants.DEFAULT_INJECT_MAVEN_MOJO)
@@ -293,6 +299,14 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	public Settings getSettings() {
 		return settings;
+	}
+
+	public boolean isInjectMavenSettings() {
+		return injectMavenSettings;
+	}
+
+	public void setInjectMavenSettings(boolean injectMavenSettings) {
+		this.injectMavenSettings = injectMavenSettings;
 	}
 
 }
