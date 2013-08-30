@@ -293,6 +293,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 			beans.put(MavenConstants.DEFAULT_MAVEN_PROPERTIES_BEAN_NAME, mavenProperties);
 		}
 
+		if (mojo.isInjectMavenSettings()) {
+			beans.put(MavenConstants.DEFAULT_MAVEN_SETTINGS_BEAN_NAME, mojo.getSettings());
+		}
+
 		if (mojo.isInjectMavenProject()) {
 			beans.put(MavenConstants.DEFAULT_MAVEN_PROJECT_BEAN_NAME, mojo.getProject());
 		}
