@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class, ProjectServiceConfig.class })
-public class BasePropertyLocationsConfig {
+public class BaseLocationsConfig {
 
 	@Autowired
 	EnvironmentService env;

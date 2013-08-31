@@ -13,14 +13,14 @@ import org.springframework.context.annotation.Import;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ BasePropertyLocationsConfig.class })
-public class DeployPropertyLocationsConfig {
+@Import({ BaseLocationsConfig.class })
+public class DeployLocationsConfig {
 
 	@Autowired
 	EnvironmentService env;
 
 	@Autowired
-	BasePropertyLocationsConfig config;
+	BaseLocationsConfig config;
 
 	@Autowired
 	Project project;
