@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.maven;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,12 +21,13 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.Str;
+import org.kuali.common.util.maven.model.Artifact;
+import org.kuali.common.util.maven.model.Dependency;
 import org.kuali.common.util.nullify.NullUtils;
 
-/**
- * @deprecated
- */
-@Deprecated
 public class RepositoryUtils {
 
 	private static final String FS = File.separator;
