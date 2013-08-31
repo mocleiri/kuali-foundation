@@ -2,8 +2,8 @@ package org.kuali.common.deploy;
 
 import java.util.List;
 
-import org.kuali.common.util.Artifact;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.maven.model.Artifact;
 
 import com.google.common.collect.ImmutableList;
 

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
  * @deprecated
  */
 @Configuration
-@Import({ DeploySqlControllerConfig.class, BaseDeployConfig.class })
+@Import({ DeploySqlControllerConfig.class, BaseDeployConfig.class, DefaultSecureChannelConfig.class, AppDynamicsConfig.class, TomcatConfig.class, DefaultDeployContextConfig.class })
 @Deprecated
 public class DeployConfig {
 
@@ -26,13 +26,21 @@ public class DeployConfig {
 	@Autowired
 	BaseDeployConfig baseConfig;
 
+	@Autowired
+	SecureChannel channel;
+
+	@Autowired
+	Monitoring monitoring;
+
+	@Autowired
+	ApplicationServer appServer;
+
+	@Autowired
+	DeployContext context;
+
 	@Bean(initMethod = "deploy")
 	public DeployService kdoDeployService() {
-		SecureChannel channel = baseConfig.kdoSecureChannel();
-		Monitoring monitoring = baseConfig.getMonitoring();
-		ApplicationServer appServer = baseConfig.getApplicationServer();
 		Executable dbReset = sqlControllerConfig.sqlExecutable();
-		DeployContext context = baseConfig.getDeployContext();
 		Executable sysAdmin = baseConfig.getSysAdminExecutable();
 		return new DefaultDeployService(context, channel, sysAdmin, monitoring, appServer, dbReset);
 	}

@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, BaseDeployConfig.class })
+@Import({ SpringServiceConfig.class, BaseDeployConfig.class, DefaultSecureChannelConfig.class, AppDynamicsConfig.class, TomcatConfig.class, DefaultDeployContextConfig.class })
 public class DefaultDeployConfig implements DeploymentConfig {
 
 	private static final String SKIP_KEY = "deploy.skip";
@@ -26,20 +26,28 @@ public class DefaultDeployConfig implements DeploymentConfig {
 	JdbcResetConfig config;
 
 	@Autowired
+	EnvironmentService env;
+
+	@Autowired
 	BaseDeployConfig baseConfig;
 
 	@Autowired
-	EnvironmentService env;
+	SecureChannel channel;
+
+	@Autowired
+	Monitoring monitoring;
+
+	@Autowired
+	ApplicationServer appServer;
+
+	@Autowired
+	DeployContext context;
 
 	@Override
 	@Bean
 	public DeployExecutable deployExecutable() {
 		boolean skip = env.getBoolean(SKIP_KEY, false);
-		SecureChannel channel = baseConfig.kdoSecureChannel();
-		Monitoring monitoring = baseConfig.getMonitoring();
-		ApplicationServer appServer = baseConfig.getApplicationServer();
 		Executable databaseResetExec = config.jdbcResetExecutable();
-		DeployContext context = baseConfig.getDeployContext();
 		Executable sysAdmin = baseConfig.getSysAdminExecutable();
 		DeployService service = new DefaultDeployService(context, channel, sysAdmin, monitoring, appServer, databaseResetExec);
 		return new DeployExecutable(service, skip);

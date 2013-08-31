@@ -2,9 +2,9 @@ package org.kuali.common.deploy;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.RepositoryUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.NoOpExecutable;
+import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.secure.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
