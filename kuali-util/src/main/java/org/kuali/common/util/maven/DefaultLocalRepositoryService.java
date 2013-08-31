@@ -31,15 +31,15 @@ public final class DefaultLocalRepositoryService implements LocalRepositoryServi
 	private static final String FS = File.separator;
 	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
 
-	private final File localRepositoryDir;
+	private final File localRepository;
 
 	public DefaultLocalRepositoryService() {
 		this(getDefaultLocalRepositoryDir());
 	}
 
-	public DefaultLocalRepositoryService(File localRepositoryDir) {
-		Assert.noNulls(localRepositoryDir);
-		this.localRepositoryDir = new CanonicalFile(localRepositoryDir);
+	public DefaultLocalRepositoryService(File localRepository) {
+		Assert.noNulls(localRepository);
+		this.localRepository = new CanonicalFile(localRepository);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public final class DefaultLocalRepositoryService implements LocalRepositoryServi
 
 	@Override
 	public File getFile(Artifact artifact) {
-		return RepositoryUtils.getFile(localRepositoryDir, artifact);
+		return RepositoryUtils.getFile(localRepository, artifact);
 	}
 
 	public static File getDefaultLocalRepositoryDir() {
@@ -77,8 +77,8 @@ public final class DefaultLocalRepositoryService implements LocalRepositoryServi
 	}
 
 	@Override
-	public File getLocalRepositoryDir() {
-		return localRepositoryDir;
+	public File getLocalRepository() {
+		return localRepository;
 	}
 
 }

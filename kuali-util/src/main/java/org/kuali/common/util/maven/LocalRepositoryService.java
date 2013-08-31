@@ -30,6 +30,6 @@ public interface LocalRepositoryService {
 
 	List<File> getFiles(List<Artifact> artifacts);
 
-	File getLocalRepositoryDir();
+	File getLocalRepository();
 
 }

@@ -19,7 +19,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -31,20 +30,20 @@ import org.kuali.common.util.nullify.NullUtils;
 public class RepositoryUtils {
 
 	private static final String FS = File.separator;
-	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
 	private static final String GAV_DELIMITER = ":";
 
-	public static final void copyArtifact(String repository, Artifact artifact) {
-		File file = getFile(artifact);
-		copyArtifactToFile(repository, artifact, file);
-	}
-
-	public static final void copyArtifactToDirectory(String repository, Artifact artifact, File directory) {
+	/**
+	 * Copy an artifact from <code>repository</code> into a local repository.
+	 */
+	public static final void copyArtifactToDirectory(String repository, Artifact artifact, File localRepositoryDir) {
 		String filename = getFilename(artifact);
-		File file = new File(directory, filename);
+		File file = new File(localRepositoryDir, filename);
 		copyArtifactToFile(repository, artifact, file);
 	}
 
+	/**
+	 * Copy an artifact from <code>repository</code> to a specific file on the local file system.
+	 */
 	public static final void copyArtifactToFile(String repository, Artifact artifact, File file) {
 		String location = repository + getRepositoryPath(artifact);
 		LocationUtils.copyLocationToFile(location, file);
@@ -249,14 +248,6 @@ public class RepositoryUtils {
 		sb.append(".");
 		sb.append(artifact.getType());
 		return sb.toString();
-	}
-
-	public static final File getDefaultLocalRepositoryDir() {
-		return new File(FileUtils.getUserDirectoryPath() + FS + DEFAULT_MAVEN_REPO_PATH);
-	}
-
-	public static final File getFile(Artifact artifact) {
-		return getFile(getDefaultLocalRepositoryDir(), artifact);
 	}
 
 	public static final File getFile(File localRepositoryDir, Artifact artifact) {
