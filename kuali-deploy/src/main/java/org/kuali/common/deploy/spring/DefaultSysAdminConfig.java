@@ -10,18 +10,31 @@ import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ DefaultSecureChannelConfig.class, SpringServiceConfig.class })
-public class BaseDeployConfig {
+public class DefaultSysAdminConfig implements SysAdminConfig {
 
 	@Autowired
 	EnvironmentService env;
 
 	@Autowired
 	SecureChannel channel;
+
+	@Override
+	@Bean
+	public SysAdminExecutable sysAdminExecutable() {
+		boolean skip = env.getBoolean("sysadmin.skip", false);
+		String hostname = env.getString("dns.hostname");
+		UnixCmds cmds = new UnixCmds();
+		List<String> commands = new ArrayList<String>();
+		commands.add(cmds.hostname(hostname));
+		commands.addAll(getCopyToolsJarToJreLibExt());
+		return new SysAdminExecutable(channel, commands, skip);
+	}
 
 	/**
 	 * Copy tools.jar to the jre/lib/ext directory. This enables advanced AppDynamics monitoring of the heap.
@@ -41,20 +54,6 @@ public class BaseDeployConfig {
 
 		return Arrays.asList(jdk6Cmd, jdk7Cmd);
 
-	}
-
-	protected SysAdminExecutable getSysAdminExecutable() {
-		boolean skip = env.getBoolean("sysadmin.skip", false);
-		String hostname = env.getString("dns.hostname");
-		UnixCmds cmds = new UnixCmds();
-		List<String> commands = new ArrayList<String>();
-		commands.add(cmds.hostname(hostname));
-		commands.addAll(getCopyToolsJarToJreLibExt());
-		SysAdminExecutable sysadmin = new SysAdminExecutable();
-		sysadmin.setChannel(channel);
-		sysadmin.setCommands(commands);
-		sysadmin.setSkip(skip);
-		return sysadmin;
 	}
 
 }
