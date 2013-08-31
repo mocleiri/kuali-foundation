@@ -165,9 +165,9 @@ public class DeployUtils {
 				channel.copyLocationToFile(location, destination);
 				logCopy(location, destination.getAbsolutePath(), System.currentTimeMillis() - start);
 			}
-			if (deployable.getPermissions() != null) {
+			if (deployable.getPermissions().isPresent()) {
 				String path = deployable.getRemote();
-				String perms = deployable.getPermissions();
+				String perms = deployable.getPermissions().get();
 				String command = CMDS.chmod(perms, path);
 				executePathCommand(channel, command, path);
 			}
