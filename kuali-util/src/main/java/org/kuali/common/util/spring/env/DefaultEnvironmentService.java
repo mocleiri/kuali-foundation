@@ -1,5 +1,7 @@
 package org.kuali.common.util.spring.env;
 
+import java.io.File;
+
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
@@ -147,6 +149,16 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	@Override
 	public Boolean getBoolean(String key, Boolean defaultValue) {
 		return getProperty(EnvContext.newBoolean(key, defaultValue));
+	}
+
+	@Override
+	public File getFile(String key) {
+		return getFile(key, null);
+	}
+
+	@Override
+	public File getFile(String key, File defaultValue) {
+		return getProperty(EnvContext.newFile(key, defaultValue));
 	}
 
 	@Override

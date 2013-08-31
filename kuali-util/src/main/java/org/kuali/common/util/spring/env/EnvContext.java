@@ -1,5 +1,7 @@
 package org.kuali.common.util.spring.env;
 
+import java.io.File;
+
 import org.kuali.common.util.Assert;
 
 public final class EnvContext<T> {
@@ -46,6 +48,10 @@ public final class EnvContext<T> {
 
 	public static EnvContext<Integer> newInteger(String key, Integer defaultValue) {
 		return newCtx(key, Integer.class, defaultValue);
+	}
+
+	public static EnvContext<File> newFile(String key, File defaultValue) {
+		return newCtx(key, File.class, defaultValue);
 	}
 
 }

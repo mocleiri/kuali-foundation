@@ -1,5 +1,7 @@
 package org.kuali.common.util.spring.env;
 
+import java.io.File;
+
 public interface EnvironmentService {
 
 	boolean containsProperty(String key);
@@ -13,6 +15,10 @@ public interface EnvironmentService {
 	Boolean getBoolean(String key);
 
 	Boolean getBoolean(String key, Boolean defaultValue);
+
+	File getFile(String key);
+
+	File getFile(String key, File defaultValue);
 
 	Integer getInteger(String key);
 
