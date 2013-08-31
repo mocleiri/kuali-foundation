@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultDeployContextConfig.class, MavenServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultDeployContextConfig.class, MavenServiceConfig.class, DefaultSecureChannelConfig.class })
 public class TomcatConfig implements ApplicationServerConfig {
 
 	@Autowired
