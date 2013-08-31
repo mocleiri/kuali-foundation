@@ -17,19 +17,17 @@ package org.kuali.common.util.spring;
 
 import java.io.File;
 
-import org.kuali.common.util.Artifact;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
  * @deprecated
  */
 @Deprecated
-public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<String> {
+public class ArtifactPathFactoryBean extends org.kuali.common.util.Artifact implements FactoryBean<String> {
 
-	File localRepositoryDir = RepositoryUtils.getDefaultLocalRepositoryDir();
+	File localRepositoryDir = org.kuali.common.util.RepositoryUtils.getDefaultLocalRepositoryDir();
 	boolean mustExist;
 
 	@Override
@@ -41,7 +39,7 @@ public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<Str
 		Assert.hasText(getVersion());
 		Assert.hasText(getType());
 
-		File file = RepositoryUtils.getFile(localRepositoryDir, this);
+		File file = org.kuali.common.util.RepositoryUtils.getFile(localRepositoryDir, this);
 		validate(file);
 		return LocationUtils.getCanonicalPath(file);
 	}

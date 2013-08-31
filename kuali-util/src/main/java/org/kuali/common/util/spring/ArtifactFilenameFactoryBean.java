@@ -15,8 +15,6 @@
  */
 package org.kuali.common.util.spring;
 
-import org.kuali.common.util.Artifact;
-import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
@@ -24,7 +22,7 @@ import org.springframework.util.Assert;
  * @deprecated
  */
 @Deprecated
-public class ArtifactFilenameFactoryBean extends Artifact implements FactoryBean<String> {
+public class ArtifactFilenameFactoryBean extends org.kuali.common.util.Artifact implements FactoryBean<String> {
 
 	@Override
 	public String getObject() {
@@ -34,7 +32,7 @@ public class ArtifactFilenameFactoryBean extends Artifact implements FactoryBean
 		Assert.notNull(getVersion());
 		Assert.notNull(getType());
 
-		return RepositoryUtils.getFilename(this);
+		return org.kuali.common.util.RepositoryUtils.getFilename(this);
 	}
 
 	@Override
