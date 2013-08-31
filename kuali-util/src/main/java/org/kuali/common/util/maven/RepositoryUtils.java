@@ -35,9 +35,9 @@ public class RepositoryUtils {
 	/**
 	 * Copy an artifact from <code>repository</code> into a local repository.
 	 */
-	public static final void copyArtifactToDirectory(String repository, Artifact artifact, File localRepositoryDir) {
+	public static final void copyArtifactToDirectory(String repository, Artifact artifact, File localRepository) {
 		String filename = getFilename(artifact);
-		File file = new File(localRepositoryDir, filename);
+		File file = new File(localRepository, filename);
 		copyArtifactToFile(repository, artifact, file);
 	}
 
