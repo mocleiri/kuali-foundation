@@ -28,10 +28,10 @@ public class DeployPropertyLocationsConfig {
 
 	@Bean
 	public List<Location> deployPropertyLocations() {
-		Location kualiDefaults = getDeployDefaults();
-		Location groupDefaults = getGroupDefaults();
-		Location appDefaults = getApplicationDefaults();
-		Location envDefaults = getEnvDefaults();
+		Location kualiDefaults = kualiDeployDefaults();
+		Location groupDefaults = kualiDeployGroupDefaults();
+		Location appDefaults = kualiDeployApplicationDefaults();
+		Location envDefaults = kualiDeployEnvDefaults();
 		return ImmutableList.of(kualiDefaults, groupDefaults, appDefaults, envDefaults);
 	}
 
@@ -41,29 +41,34 @@ public class DeployPropertyLocationsConfig {
 		return ProjectUtils.getEncoding(project);
 	}
 
-	protected Location getEnvDefaults() {
+	@Bean
+	public Location kualiDeployEnvDefaults() {
 		String environmentNumber = env.getString("deploy.env");
-		String path = getGroupPrefix() + "/env" + environmentNumber + ".properties";
+		String path = kualiDeployGroupPrefix() + "/env" + environmentNumber + ".properties";
 		return new Location(path, kualiDeployEncoding(), true);
 	}
 
-	protected Location getApplicationDefaults() {
+	@Bean
+	public Location kualiDeployApplicationDefaults() {
 		String artifactId = env.getString("project.artifactId");
-		String path = getGroupPrefix() + "/" + artifactId + ".properties";
+		String path = kualiDeployGroupPrefix() + "/" + artifactId + ".properties";
 		return new Location(path, kualiDeployEncoding(), true);
 	}
 
-	protected String getGroupPrefix() {
+	@Bean
+	public String kualiDeployGroupPrefix() {
 		String groupId = env.getString("project.groupId");
 		return ProjectUtils.getClasspathPrefix(groupId);
 	}
 
-	protected Location getGroupDefaults() {
-		String path = getGroupPrefix() + "/deploy.properties";
+	@Bean
+	public Location kualiDeployGroupDefaults() {
+		String path = kualiDeployGroupPrefix() + "/deploy.properties";
 		return new Location(path, kualiDeployEncoding(), true);
 	}
 
-	protected Location getDeployDefaults() {
+	@Bean
+	public Location kualiDeployDefaults() {
 		String prefix = ProjectUtils.getClasspathPrefix(DeployProjectConstants.ID.getGroupId());
 		String path = prefix + "/deploy/deploy.properties";
 		return new Location(path, kualiDeployEncoding(), true);
