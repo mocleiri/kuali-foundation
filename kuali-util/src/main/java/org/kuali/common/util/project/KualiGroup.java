@@ -13,13 +13,13 @@ public enum KualiGroup {
 
 	private KualiGroup(String groupId) {
 		Assert.noBlanks(groupId);
-		this.groupId = groupId;
+		this.id = groupId;
 	}
 
-	private final String groupId;
+	private final String id;
 
-	public String getGroupId() {
-		return groupId;
+	public String getId() {
+		return id;
 	}
 
 }
