@@ -19,7 +19,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.model.Artifact;
@@ -28,13 +27,10 @@ import com.google.common.collect.ImmutableList;
 
 public final class DefaultLocalRepositoryService implements LocalRepositoryService {
 
-	private static final String FS = File.separator;
-	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
-
 	private final File localRepository;
 
 	public DefaultLocalRepositoryService() {
-		this(new File(FileUtils.getUserDirectoryPath() + FS + DEFAULT_MAVEN_REPO_PATH));
+		this(RepositoryUtils.getDefaultLocalRepository());
 	}
 
 	public DefaultLocalRepositoryService(File localRepository) {

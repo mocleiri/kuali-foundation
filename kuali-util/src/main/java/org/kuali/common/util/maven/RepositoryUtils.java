@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
@@ -31,6 +32,11 @@ public class RepositoryUtils {
 
 	private static final String FS = File.separator;
 	private static final String GAV_DELIMITER = ":";
+	private static final String DEFAULT_MAVEN_REPO_PATH = ".m2" + FS + "repository";
+
+	public static File getDefaultLocalRepository() {
+		return new File(FileUtils.getUserDirectoryPath() + FS + DEFAULT_MAVEN_REPO_PATH);
+	}
 
 	/**
 	 * Copy an artifact from <code>repository</code> into a local repository.
