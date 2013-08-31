@@ -52,6 +52,8 @@ public class Artifact {
 	}
 
 	public static class Builder {
+		
+		public static final String DEFAULT_TYPE = "jar";
 
 		// Required
 		private final String groupId;
@@ -60,7 +62,7 @@ public class Artifact {
 
 		// Optional
 		private Optional<String> classifier = Optional.absent();
-		private String type = "jar";
+		private String type = DEFAULT_TYPE;
 
 		public Builder(String groupId, String artifactId, String version) {
 			this.groupId = groupId;

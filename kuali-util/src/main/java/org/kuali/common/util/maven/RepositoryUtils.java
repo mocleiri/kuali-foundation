@@ -83,7 +83,7 @@ public class RepositoryUtils {
 		tokens.add(toEmpty(artifact.getGroupId()));
 		tokens.add(toEmpty(artifact.getArtifactId()));
 		tokens.add(toEmpty(artifact.getVersion()));
-		tokens.add(toEmpty(artifact.getClassifier()));
+		tokens.add(toEmpty(artifact.getClassifier().orNull()));
 		tokens.add(toEmpty(artifact.getType()));
 		int delimiterCount = getDelimiterCount(tokens);
 		return getDelimitedString(tokens, delimiterCount, GAV_DELIMITER);
@@ -123,7 +123,7 @@ public class RepositoryUtils {
 		tokens.add(toEmpty(dependency.getGroupId()));
 		tokens.add(toEmpty(dependency.getArtifactId()));
 		tokens.add(toEmpty(dependency.getVersion()));
-		tokens.add(toEmpty(dependency.getClassifier()));
+		tokens.add(toEmpty(dependency.getClassifier().orNull()));
 		tokens.add(toEmpty(dependency.getType()));
 		tokens.add(toEmpty(dependency.getScope()));
 		int delimiterCount = getDelimiterCount(tokens);
@@ -136,31 +136,22 @@ public class RepositoryUtils {
 	 * </p>
 	 */
 	public static final Artifact parseArtifact(String gav) {
-		Assert.hasText(gav, "gav has no text");
+		Assert.noBlanks(gav);
 
 		String[] tokens = StringUtils.splitPreserveAllTokens(gav, GAV_DELIMITER);
 		int len = tokens.length;
+		Assert.isTrue(len >= 2, "groupId, artifactId, and version are required");
 		for (int i = 0; i < len; i++) {
-			tokens[i] = toNull(tokens[i]);
+			tokens[i] = NullUtils.trimToNull(tokens[i]);
 		}
 
-		Artifact a = new Artifact();
-		if (len > 0) {
-			a.setGroupId(tokens[0]);
-		}
-		if (len > 1) {
-			a.setArtifactId(tokens[1]);
-		}
-		if (len > 2) {
-			a.setVersion(tokens[2]);
-		}
-		if (len > 3) {
-			a.setClassifier(tokens[3]);
-		}
-		if (len > 4) {
-			a.setType(tokens[4]);
-		}
-		return a;
+		String groupId = tokens[0];
+		String artifactId = tokens[1];
+		String version = tokens[2];
+		String classifier = (len > 3) ? tokens[3] : NullUtils.NONE;
+		String type = (len > 4) ? tokens[4] : Artifact.Builder.DEFAULT_TYPE;
+
+		return new Artifact.Builder(groupId, artifactId, version).classifier(classifier).type(type).build();
 	}
 
 	/**
@@ -169,34 +160,23 @@ public class RepositoryUtils {
 	 * </p>
 	 */
 	public static final Dependency parseDependency(String gav) {
-		Assert.hasText(gav, "gav has no text");
+		Assert.noBlanks(gav);
 
 		String[] tokens = StringUtils.splitPreserveAllTokens(gav, GAV_DELIMITER);
 		int len = tokens.length;
+		Assert.isTrue(len >= 2, "groupId, artifactId, and version are required");
 		for (int i = 0; i < len; i++) {
-			tokens[i] = toNull(tokens[i]);
+			tokens[i] = NullUtils.trimToNull(tokens[i]);
 		}
 
-		Dependency d = new Dependency();
-		if (len > 0) {
-			d.setGroupId(tokens[0]);
-		}
-		if (len > 1) {
-			d.setArtifactId(tokens[1]);
-		}
-		if (len > 2) {
-			d.setVersion(tokens[2]);
-		}
-		if (len > 3) {
-			d.setClassifier(tokens[3]);
-		}
-		if (len > 4) {
-			d.setType(tokens[4]);
-		}
-		if (len > 5) {
-			d.setScope(tokens[5]);
-		}
-		return d;
+		String groupId = tokens[0];
+		String artifactId = tokens[1];
+		String version = tokens[2];
+		String classifier = (len > 3) ? tokens[3] : NullUtils.NONE;
+		String type = (len > 4) ? tokens[4] : Dependency.Builder.DEFAULT_TYPE;
+		String scope = (len > 5) ? tokens[5] : Dependency.Builder.DEFAULT_SCOPE;
+
+		return new Dependency.Builder(groupId, artifactId, version).classifier(classifier).type(type).scope(scope).build();
 	}
 
 	protected static final String getDelimitedString(List<String> tokens, int delimiterCount, String delimiter) {
@@ -257,19 +237,12 @@ public class RepositoryUtils {
 		return sb.toString();
 	}
 
-	/**
-	 * Return true if classifier should become part of the filename
-	 */
-	protected static boolean addClassifierToFilename(String classifier) {
-		return !StringUtils.isBlank(classifier) && !NullUtils.isNullOrNone(classifier);
-	}
-
 	public static final String getFilename(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(artifact.getArtifactId());
 		sb.append("-");
 		sb.append(artifact.getVersion());
-		if (addClassifierToFilename(artifact.getClassifier())) {
+		if (artifact.getClassifier().isPresent()) {
 			sb.append("-");
 			sb.append(artifact.getClassifier());
 		}

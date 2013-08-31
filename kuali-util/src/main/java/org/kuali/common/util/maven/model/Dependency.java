@@ -61,6 +61,9 @@ public class Dependency {
 
 	public static class Builder {
 
+		public static final String DEFAULT_TYPE = Artifact.Builder.DEFAULT_TYPE;
+		public static final String DEFAULT_SCOPE = "compile";
+
 		// Required
 		private final String groupId;
 		private final String artifactId;
