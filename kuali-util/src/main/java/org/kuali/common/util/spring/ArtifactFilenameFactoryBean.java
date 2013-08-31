@@ -20,6 +20,10 @@ import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ArtifactFilenameFactoryBean extends Artifact implements FactoryBean<String> {
 
 	@Override

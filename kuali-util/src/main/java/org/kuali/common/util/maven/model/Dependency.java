@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.maven.model;
 
 /**
- * Simple pojo uniquely identifying a physical software artifact. Strongly modeled after Maven's Artifact object
- * 
- * @deprecated
+ * Simple pojo representing a Maven dependency.
  */
-@Deprecated
-public class Artifact {
+public class Dependency {
 
 	String groupId;
 	String artifactId;
 	String version;
 	String classifier;
+	// Type is usually the same thing as "packaging" from the Artifact object, but not always.
+	// For example, "test-jar" is physically packaged into a jar file but is labeled in the Maven
+	// dependency list as <type>test-jar</type>
 	String type;
+	String scope;
 
 	public String getGroupId() {
 		return groupId;
@@ -65,8 +66,16 @@ public class Artifact {
 		return type;
 	}
 
-	public void setType(String packaging) {
-		this.type = packaging;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
 	}
 
 }

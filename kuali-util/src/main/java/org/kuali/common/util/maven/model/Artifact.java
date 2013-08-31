@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.maven.model;
 
 /**
  * Simple pojo uniquely identifying a physical software artifact. Strongly modeled after Maven's Artifact object
- * 
- * @deprecated
  */
-@Deprecated
 public class Artifact {
 
 	String groupId;

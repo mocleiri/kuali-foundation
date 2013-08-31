@@ -23,6 +23,10 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.RepositoryUtils;
 import org.springframework.beans.factory.FactoryBean;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ArtifactPathFactoryBean extends Artifact implements FactoryBean<String> {
 
 	File localRepositoryDir = RepositoryUtils.getDefaultLocalRepositoryDir();

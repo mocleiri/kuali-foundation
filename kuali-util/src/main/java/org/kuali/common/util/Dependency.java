@@ -17,7 +17,10 @@ package org.kuali.common.util;
 
 /**
  * Simple pojo representing a Maven dependency.
+ * 
+ * @deprecated
  */
+@Deprecated
 public class Dependency {
 
 	String groupId;

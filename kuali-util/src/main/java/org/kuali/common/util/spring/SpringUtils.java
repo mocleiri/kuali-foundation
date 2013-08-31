@@ -407,6 +407,16 @@ public class SpringUtils {
 	 * 
 	 * @see FormatUtils.getMillis(String time)
 	 */
+	public static long getMillis(EnvironmentService env, String key, String defaultValue) {
+		String value = env.getString(key, defaultValue);
+		return FormatUtils.getMillis(value);
+	}
+
+	/**
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getMillis(String time)
+	 */
 	public static long getMillis(Environment env, String key, String defaultValue) {
 		String value = getProperty(env, key, defaultValue);
 		return FormatUtils.getMillis(value);
