@@ -5,6 +5,8 @@ import java.util.List;
 import org.kuali.common.util.Artifact;
 import org.kuali.common.util.Assert;
 
+import com.google.common.collect.ImmutableList;
+
 public class DeployContext {
 
 	public DeployContext(String environment, String username, String hostname, Artifact application, Artifact jdbcDriver, List<Deployable> configFiles) {
@@ -15,7 +17,7 @@ public class DeployContext {
 		this.hostname = hostname;
 		this.application = application;
 		this.jdbcDriver = jdbcDriver;
-		this.configFiles = configFiles;
+		this.configFiles = ImmutableList.copyOf(configFiles);
 	}
 
 	private final String environment;
