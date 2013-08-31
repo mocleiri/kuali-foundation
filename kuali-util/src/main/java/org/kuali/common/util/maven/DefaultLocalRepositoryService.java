@@ -34,7 +34,7 @@ public final class DefaultLocalRepositoryService implements LocalRepositoryServi
 	private final File localRepository;
 
 	public DefaultLocalRepositoryService() {
-		this(getDefaultLocalRepositoryDir());
+		this(new File(FileUtils.getUserDirectoryPath() + FS + DEFAULT_MAVEN_REPO_PATH));
 	}
 
 	public DefaultLocalRepositoryService(File localRepository) {
@@ -70,10 +70,6 @@ public final class DefaultLocalRepositoryService implements LocalRepositoryServi
 	@Override
 	public File getFile(Artifact artifact) {
 		return RepositoryUtils.getFile(localRepository, artifact);
-	}
-
-	public static File getDefaultLocalRepositoryDir() {
-		return new File(FileUtils.getUserDirectoryPath() + FS + DEFAULT_MAVEN_REPO_PATH);
 	}
 
 	@Override
