@@ -24,5 +24,8 @@ public abstract class KualiProjectConstants {
 	public static final String MOBILITY_GROUP_ID = "org.kuali.mobility";
 	public static final String OLE_GROUP_ID = "org.kuali.ole";
 	public static final String KPME_GROUP_ID = "org.kuali.kpme";
+	public static final String KFS_GROUP_ID = "org.kuali.kfs";
+	public static final String READY_GROUP_ID = "org.kuali.ready";
+	public static final String COEUS_GROUP_ID = "org.kuali.coeus";
 
 }
