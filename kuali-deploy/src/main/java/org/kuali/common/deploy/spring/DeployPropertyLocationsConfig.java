@@ -6,6 +6,7 @@ import org.kuali.common.deploy.project.DeployProjectConstants;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Import;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ ProjectServiceConfig.class })
+@Import({ AutowiredProjectConfig.class, ProjectServiceConfig.class })
 public class DeployPropertyLocationsConfig {
 
 	@Autowired
@@ -25,6 +26,9 @@ public class DeployPropertyLocationsConfig {
 
 	@Autowired
 	ProjectService service;
+
+	@Autowired
+	Project project;
 
 	@Bean
 	public List<Location> deployPropertyLocations() {
@@ -50,15 +54,13 @@ public class DeployPropertyLocationsConfig {
 
 	@Bean
 	public Location kualiDeployApplicationDefaults() {
-		String artifactId = env.getString("project.artifactId");
-		String path = kualiDeployGroupPrefix() + "/" + artifactId + ".properties";
+		String path = kualiDeployGroupPrefix() + "/" + project.getArtifactId() + ".properties";
 		return new Location(path, kualiDeployEncoding(), true);
 	}
 
 	@Bean
 	public String kualiDeployGroupPrefix() {
-		String groupId = env.getString("project.groupId");
-		return ProjectUtils.getClasspathPrefix(groupId);
+		return ProjectUtils.getClasspathPrefix(project.getGroupId());
 	}
 
 	@Bean
