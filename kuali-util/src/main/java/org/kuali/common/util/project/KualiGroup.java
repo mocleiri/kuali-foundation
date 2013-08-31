@@ -2,7 +2,7 @@ package org.kuali.common.util.project;
 
 import org.kuali.common.util.Assert;
 
-public enum Groups {
+public enum KualiGroup {
 
 	COMMON(KualiProjectConstants.COMMON_GROUP_ID), //
 	RICE(KualiProjectConstants.RICE_GROUP_ID), //
@@ -11,7 +11,7 @@ public enum Groups {
 	OLE(KualiProjectConstants.OLE_GROUP_ID), //
 	KPME(KualiProjectConstants.KPME_GROUP_ID);
 
-	private Groups(String groupId) {
+	private KualiGroup(String groupId) {
 		Assert.noBlanks(groupId);
 		this.groupId = groupId;
 	}
