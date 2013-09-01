@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This class provides logic for filtering strings based on regular expressions.
  * 
- * @deprecated
+ * @deprecated Use org.kuali.common.util.filter.StringFilter instead
  */
 @Deprecated
 public class StringFilter {
