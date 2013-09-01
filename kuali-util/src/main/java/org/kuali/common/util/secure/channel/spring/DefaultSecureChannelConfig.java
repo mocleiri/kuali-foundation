@@ -17,8 +17,8 @@ import org.springframework.util.Assert;
 @Import({ SpringServiceConfig.class })
 public class DefaultSecureChannelConfig implements SecureChannelConfig {
 
-	private static final String USERNAME_KEY = "channel.username";
-	private static final String HOSTNAME_KEY = "channel.hostname";
+	public static final String USERNAME_KEY = "channel.username";
+	public static final String HOSTNAME_KEY = "channel.hostname";
 
 	@Autowired
 	EnvironmentService env;
