@@ -3,7 +3,6 @@ package org.kuali.common.deploy;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.channel.SecureChannel;
@@ -31,10 +30,6 @@ public class SysAdminExecutable implements Executable {
 	public void execute() {
 		if (skip) {
 			logger.info("[sysadmin:skipped]");
-			return;
-		}
-		if (CollectionUtils.isEmpty(commands)) {
-			logger.info("[sysadmin:nocmds]");
 			return;
 		}
 		long start = System.currentTimeMillis();
