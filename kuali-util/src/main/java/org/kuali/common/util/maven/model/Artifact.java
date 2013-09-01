@@ -23,7 +23,7 @@ import com.google.common.base.Optional;
 /**
  * Simple pojo uniquely identifying a physical software artifact. Strongly modeled after Maven's Artifact object
  */
-public class Artifact {
+public final class Artifact {
 
 	private final String groupId;
 	private final String artifactId;
@@ -52,7 +52,7 @@ public class Artifact {
 	}
 
 	public static class Builder {
-		
+
 		public static final String DEFAULT_TYPE = "jar";
 
 		// Required
