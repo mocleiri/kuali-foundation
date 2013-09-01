@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 import org.kuali.common.util.secure.SecureChannel;
+import org.kuali.common.util.secure.spring.SecureChannelConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
