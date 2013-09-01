@@ -23,7 +23,7 @@ import com.google.common.base.Optional;
 /**
  * Simple pojo representing a Maven dependency.
  */
-public class Dependency {
+public final class Dependency {
 
 	private final String groupId;
 	private final String artifactId;
