@@ -59,7 +59,10 @@ public class CollectionUtils {
 
 	/**
 	 * Get an unmodifiable list from elements
+	 * 
+	 * @deprecated Use ImmutableList.copyOf(elements) instead
 	 */
+	@Deprecated
 	public static <T> List<T> unmodifiableList(T... elements) {
 		return Collections.unmodifiableList(Arrays.asList(elements));
 	}
