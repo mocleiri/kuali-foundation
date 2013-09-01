@@ -82,6 +82,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public synchronized void open() throws IOException {
 		Assert.isFalse(open, "Already open");
+		this.open = true;
 		logOpen();
 		try {
 			JSch jsch = getJSch();
@@ -98,6 +99,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(username, hostname));
 		closeQuietly(sftp);
 		closeQuietly(session);
+		this.open = false;
 	}
 
 	@Override
@@ -133,7 +135,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			exec.setErrStream(stderrStream);
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
-			connect(exec, null);
+			connect(exec, Optional.<Integer> absent());
 			// Convert stdout and stderr to String's
 			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), encoding);
 			String stderr = Str.getString(stderrStream.toByteArray(), encoding);
@@ -220,9 +222,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected void connect(Channel channel, Optional<Integer> timeout) throws JSchException {
 		if (timeout.isPresent()) {
-			channel.connect();
-		} else {
 			channel.connect(timeout.get());
+		} else {
+			channel.connect();
 		}
 	}
 
@@ -251,9 +253,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 		Session session = jsch.getSession(username, hostname, port);
 		session.setConfig(options);
 		if (connectTimeout.isPresent()) {
-			session.connect();
-		} else {
 			session.connect(connectTimeout.get());
+		} else {
+			session.connect();
 		}
 		return session;
 	}
