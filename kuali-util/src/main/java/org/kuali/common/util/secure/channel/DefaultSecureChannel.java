@@ -94,6 +94,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public synchronized void close() {
+		Assert.isTrue(open, "Not open");
 		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(username, hostname));
 		closeQuietly(sftp);
 		closeQuietly(session);
@@ -248,7 +249,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected Session openSession(JSch jsch) throws JSchException {
 		Session session = jsch.getSession(username, hostname, port);
-		session.setConfig(getSessionProperties(options, strictHostKeyChecking));
+		session.setConfig(options);
 		if (connectTimeout.isPresent()) {
 			session.connect();
 		} else {
