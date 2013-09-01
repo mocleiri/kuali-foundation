@@ -30,7 +30,6 @@ public class RemoteFile {
 	}
 
 	public RemoteFile(String absolutePath) {
-		super();
 		this.absolutePath = absolutePath;
 	}
 
