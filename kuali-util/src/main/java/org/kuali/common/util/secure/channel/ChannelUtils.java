@@ -25,10 +25,4 @@ public class ChannelUtils {
 		return (username == null) ? hostname : username + "@" + hostname;
 	}
 
-	public static void closeQuietly(SecureChannel channel) {
-		if (channel != null) {
-			channel.close();
-		}
-	}
-
 }

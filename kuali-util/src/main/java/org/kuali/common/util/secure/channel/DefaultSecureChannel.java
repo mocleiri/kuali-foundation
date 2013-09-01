@@ -95,7 +95,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public synchronized void close() {
-		Assert.isTrue(open, "Not open");
+		if (!open) {
+			return;
+		}
 		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(username, hostname));
 		closeQuietly(sftp);
 		closeQuietly(session);
