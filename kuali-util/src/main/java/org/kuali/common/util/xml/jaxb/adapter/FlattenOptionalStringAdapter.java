@@ -14,7 +14,7 @@ public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optio
 	}
 
 	public FlattenOptionalStringAdapter(String carriageReturnReplacement, String linefeedReplacement) {
-		// No blanks because this needs to work in both directions (flatten + unflatten)
+		// No blanks because this needs to work in both directions (flatten + inflate)
 		Assert.noBlanks(carriageReturnReplacement, linefeedReplacement);
 		this.carriageReturnReplacement = carriageReturnReplacement;
 		this.linefeedReplacement = linefeedReplacement;
