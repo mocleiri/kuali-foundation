@@ -22,10 +22,6 @@ import org.kuali.common.util.maven.model.Artifact;
 
 public interface LocalRepositoryService {
 
-	void copyArtifact(Artifact artifact, String repository);
-
-	void copyArtifacts(List<Artifact> artifacts, String repository);
-
 	File getFile(Artifact artifact);
 
 	List<File> getFiles(List<Artifact> artifacts);

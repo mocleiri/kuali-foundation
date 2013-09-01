@@ -23,8 +23,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.model.Artifact;
 
-import com.google.common.collect.ImmutableList;
-
 public final class DefaultLocalRepositoryService implements LocalRepositoryService {
 
 	private final File localRepository;
@@ -36,21 +34,6 @@ public final class DefaultLocalRepositoryService implements LocalRepositoryServi
 	public DefaultLocalRepositoryService(File localRepository) {
 		Assert.noNulls(localRepository);
 		this.localRepository = new CanonicalFile(localRepository);
-	}
-
-	@Override
-	public void copyArtifact(Artifact artifact, String repository) {
-		copyArtifacts(ImmutableList.of(artifact), repository);
-	}
-
-	@Override
-	public void copyArtifacts(List<Artifact> artifacts, String repository) {
-		Assert.noNulls(artifacts);
-		Assert.noBlanks(repository);
-		for (Artifact artifact : artifacts) {
-			File file = getFile(artifact);
-			RepositoryUtils.copyArtifactToFile(repository, artifact, file);
-		}
 	}
 
 	@Override
