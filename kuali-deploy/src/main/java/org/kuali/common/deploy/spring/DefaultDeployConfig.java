@@ -7,6 +7,7 @@ import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.appserver.ApplicationServer;
 import org.kuali.common.deploy.appserver.spring.TomcatConfig;
 import org.kuali.common.deploy.monitoring.Monitoring;
+import org.kuali.common.deploy.monitoring.spring.AppDynamicsConfig;
 import org.kuali.common.jdbc.reset.JdbcResetConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
