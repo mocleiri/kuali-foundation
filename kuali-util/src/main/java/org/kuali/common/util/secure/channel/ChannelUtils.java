@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.secure;
+package org.kuali.common.util.secure.channel;
 
-/**
- * @deprecated
- */
-@Deprecated
-public enum Status {
+public class ChannelUtils {
 
-	UNKNOWN, EXISTS, MISSING;
+	public static String getLocation(String username, String hostname, RemoteFile file) {
+		return getLocation(username, hostname) + ":" + file.getAbsolutePath();
+	}
 
-	public static final Status DEFAULT_REMOTE_FILE_STATUS = UNKNOWN;
+	public static String getLocation(String username, String hostname) {
+		return (username == null) ? hostname : username + "@" + hostname;
+	}
+
+	public static void closeQuietly(SecureChannel channel) {
+		if (channel != null) {
+			channel.close();
+		}
+	}
+
 }

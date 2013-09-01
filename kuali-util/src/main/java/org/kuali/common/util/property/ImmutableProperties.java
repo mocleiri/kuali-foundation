@@ -29,6 +29,7 @@ public class ImmutableProperties extends Properties {
 
 	private static final long serialVersionUID = -3964884087103719367L;
 	private static final String UOE_MSG = "Immutable properties cannot be changed";
+	private static final Properties EMPTY = ImmutableProperties.of(new Properties());
 
 	public ImmutableProperties(Properties original) {
 		Assert.noNulls(original);
@@ -49,6 +50,10 @@ public class ImmutableProperties extends Properties {
 				super.put(key, original.getProperty(key));
 			}
 		}
+	}
+
+	public static Properties of() {
+		return EMPTY;
 	}
 
 	public static Properties of(Properties properties) {

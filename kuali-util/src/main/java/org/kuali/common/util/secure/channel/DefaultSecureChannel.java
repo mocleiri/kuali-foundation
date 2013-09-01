@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.secure;
+package org.kuali.common.util.secure.channel;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -37,9 +37,13 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.property.ImmutableProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
@@ -49,41 +53,36 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-/**
- * @deprecated
- */
-@Deprecated
-public class DefaultSecureChannel implements SecureChannel {
+public final class DefaultSecureChannel implements SecureChannel {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
+
 	private static final String SFTP = "sftp";
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
-	private static final int DEFAULT_SLEEP_MILLIS = 10;
-	private static final String DEFAULT_ENCODING = "UTF-8";
+	private final File knownHosts;
+	private final File config;
+	private final boolean useConfigFile;
+	private final boolean includeDefaultPrivateKeyLocations;
+	private final boolean strictHostKeyChecking;
+	private final int port;
+	private final int waitForClosedSleepMillis;
+	private final String encoding;
+	private final String username;
+	private final String hostname;
+	private final Optional<Integer> connectTimeout;
+	private final List<File> privateKeys;
+	private final List<String> privateKeyStrings;
+	private final Properties options;
 
-	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
-	File config = SSHUtils.DEFAULT_CONFIG_FILE;
-	boolean useConfigFile = true;
-	boolean includeDefaultPrivateKeyLocations = true;
-	boolean strictHostKeyChecking = true;
-	int port = SSHUtils.DEFAULT_PORT;
-	int waitForClosedSleepMillis = DEFAULT_SLEEP_MILLIS;
-	String encoding = DEFAULT_ENCODING;
-	String username;
-	String hostname;
-	Integer connectTimeout;
-	List<File> privateKeys;
-	List<String> privateKeyStrings;
-	Properties options;
-
-	protected Session session;
-	protected ChannelSftp sftp;
+	private Session session;
+	private ChannelSftp sftp;
+	private boolean open = false;
 
 	@Override
 	public synchronized void open() throws IOException {
+		Assert.isFalse(open, "Already open");
 		logOpen();
-		validate();
 		try {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
@@ -95,6 +94,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public synchronized void close() {
+		Assert.isTrue(open, "Not open");
 		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(username, hostname));
 		closeQuietly(sftp);
 		closeQuietly(session);
@@ -140,7 +140,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			// Make sure the channel is closed
 			waitForClosed(exec, waitForClosedSleepMillis);
 			// Return the result of executing the command
-			return ChannelUtils.getExecutionResult(exec.getExitStatus(), start, command, stdin, stdout, stderr, encoding);
+			return new Result(command, exec.getExitStatus(), stdin, stdout, stderr, encoding, start, System.currentTimeMillis());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -183,15 +183,7 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected void waitForClosed(ChannelExec exec, long millis) {
 		while (!exec.isClosed()) {
-			sleep(millis);
-		}
-	}
-
-	protected void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
+			ThreadUtils.sleep(millis);
 		}
 	}
 
@@ -205,16 +197,10 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void validate() {
-		Assert.isTrue(SSHUtils.isValidPort(port));
-		Assert.notBlank(hostname);
-		Assert.notBlank(encoding);
-	}
-
 	protected void logOpen() {
 		logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(username, hostname), encoding);
-		logger.debug("Private key files - {}", CollectionUtils.toEmptyList(privateKeys).size());
-		logger.debug("Private key strings - {}", CollectionUtils.toEmptyList(privateKeyStrings).size());
+		logger.debug("Private key files - {}", privateKeys.size());
+		logger.debug("Private key strings - {}", privateKeyStrings.size());
 		logger.debug("Private key config file - {}", config);
 		logger.debug("Private key config file use - {}", useConfigFile);
 		logger.debug("Include default private key locations - {}", includeDefaultPrivateKeyLocations);
@@ -222,23 +208,21 @@ public class DefaultSecureChannel implements SecureChannel {
 		logger.debug("Port - {}", port);
 		logger.debug("Connect timeout - {}", connectTimeout);
 		logger.debug("Strict host key checking - {}", strictHostKeyChecking);
-		logger.debug("Configuring channel with {} custom options", PropertyUtils.toEmpty(options).size());
-		if (options != null) {
-			PropertyUtils.debug(options);
-		}
+		logger.debug("Configuring channel with {} custom options", options.size());
+		PropertyUtils.debug(options);
 	}
 
-	protected ChannelSftp openSftpChannel(Session session, Integer timeout) throws JSchException {
+	protected ChannelSftp openSftpChannel(Session session, Optional<Integer> timeout) throws JSchException {
 		ChannelSftp sftp = (ChannelSftp) session.openChannel(SFTP);
 		connect(sftp, timeout);
 		return sftp;
 	}
 
-	protected void connect(Channel channel, Integer timeout) throws JSchException {
-		if (timeout == null) {
+	protected void connect(Channel channel, Optional<Integer> timeout) throws JSchException {
+		if (timeout.isPresent()) {
 			channel.connect();
 		} else {
-			channel.connect(timeout);
+			channel.connect(timeout.get());
 		}
 	}
 
@@ -254,11 +238,9 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected Properties getSessionProperties(Properties options, boolean strictHostKeyChecking) {
+	private static Properties getSessionProperties(Properties options, boolean strictHostKeyChecking) {
 		Properties properties = new Properties();
-		if (options != null) {
-			properties.putAll(options);
-		}
+		properties.putAll(options);
 		if (!strictHostKeyChecking) {
 			properties.setProperty(SSHUtils.STRICT_HOST_KEY_CHECKING, SSHUtils.NO);
 		}
@@ -267,20 +249,18 @@ public class DefaultSecureChannel implements SecureChannel {
 
 	protected Session openSession(JSch jsch) throws JSchException {
 		Session session = jsch.getSession(username, hostname, port);
-		session.setConfig(getSessionProperties(options, strictHostKeyChecking));
-		if (connectTimeout == null) {
+		session.setConfig(options);
+		if (connectTimeout.isPresent()) {
 			session.connect();
 		} else {
-			session.connect(connectTimeout);
+			session.connect(connectTimeout.get());
 		}
 		return session;
 	}
 
 	protected JSch getJSch() throws JSchException {
-		List<File> uniquePrivateKeyFiles = getUniquePrivateKeyFiles();
-		logger.debug("Located {} private keys on the file system", uniquePrivateKeyFiles.size());
-		JSch jsch = getJSch(uniquePrivateKeyFiles, privateKeyStrings);
-		if (strictHostKeyChecking && knownHosts != null) {
+		JSch jsch = getJSch(privateKeys, privateKeyStrings);
+		if (strictHostKeyChecking && knownHosts.exists()) {
 			String path = LocationUtils.getCanonicalPath(knownHosts);
 			jsch.setKnownHosts(path);
 		}
@@ -294,7 +274,7 @@ public class DefaultSecureChannel implements SecureChannel {
 			jsch.addIdentity(path);
 		}
 		int count = 0;
-		for (String privateKeyString : CollectionUtils.toEmptyList(privateKeyStrings)) {
+		for (String privateKeyString : privateKeyStrings) {
 			String name = "privateKeyString-" + Integer.toString(count++);
 			byte[] bytes = Str.getBytes(privateKeyString, encoding);
 			jsch.addIdentity(name, bytes, null, null);
@@ -302,12 +282,10 @@ public class DefaultSecureChannel implements SecureChannel {
 		return jsch;
 	}
 
-	protected List<File> getUniquePrivateKeyFiles() {
+	protected static List<File> getUniquePrivateKeyFiles(List<File> privateKeys, boolean useConfigFile, File config, boolean includeDefaultPrivateKeyLocations) {
 		List<String> paths = new ArrayList<String>();
-		if (privateKeys != null) {
-			for (File privateKey : privateKeys) {
-				paths.add(LocationUtils.getCanonicalPath(privateKey));
-			}
+		for (File privateKey : privateKeys) {
+			paths.add(LocationUtils.getCanonicalPath(privateKey));
 		}
 		if (useConfigFile) {
 			for (String path : SSHUtils.getFilenames(config)) {
@@ -621,120 +599,198 @@ public class DefaultSecureChannel implements SecureChannel {
 		return exception.id == ChannelSftp.SSH_FX_NO_SUCH_FILE;
 	}
 
-	public File getKnownHosts() {
-		return knownHosts;
+	public static class Builder {
+
+		// Required
+		private final String username;
+		private final String hostname;
+
+		// Optional
+		private File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
+		private File config = SSHUtils.DEFAULT_CONFIG_FILE;
+		private boolean useConfigFile = true;
+		private boolean includeDefaultPrivateKeyLocations = true;
+		private boolean strictHostKeyChecking = true;
+		private int port = SSHUtils.DEFAULT_PORT;
+		private int waitForClosedSleepMillis = 10;
+		private String encoding = "UTF-8";
+		private Optional<Integer> connectTimeout = Optional.absent();
+		private Properties options = ImmutableProperties.of();
+		private List<File> privateKeys = ImmutableList.of();
+		private List<String> privateKeyStrings = ImmutableList.of();
+
+		public DefaultSecureChannel build() {
+			Assert.noBlanks(username, hostname, encoding);
+			Assert.noNulls(knownHosts, config, connectTimeout, options, privateKeys, privateKeyStrings);
+			Assert.isTrue(SSHUtils.isValidPort(port), port + " is invalid");
+			Assert.isTrue(waitForClosedSleepMillis > 0, "waitForClosedSleepMillis must be a positive integer");
+			if (connectTimeout.isPresent()) {
+				Assert.isTrue(connectTimeout.get() > 0, "connectTimeout must be a positive integer");
+			}
+			if (useConfigFile) {
+				Assert.exists(config);
+				Assert.isTrue(config.canRead(), "[" + config + "] exists but is not readable");
+			}
+			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
+			this.privateKeys = ImmutableList.copyOf(getUniquePrivateKeyFiles(privateKeys, useConfigFile, config, includeDefaultPrivateKeyLocations));
+			this.privateKeyStrings = ImmutableList.copyOf(privateKeyStrings);
+			return new DefaultSecureChannel(this);
+		}
+
+		public Builder(String username, String hostname) {
+			this.username = username;
+			this.hostname = hostname;
+		}
+
+		public Builder knownHosts(File knownHosts) {
+			this.knownHosts = knownHosts;
+			return this;
+		}
+
+		public Builder config(File config) {
+			this.config = config;
+			return this;
+		}
+
+		public Builder useConfigFile(boolean useConfigFile) {
+			this.useConfigFile = useConfigFile;
+			return this;
+		}
+
+		public Builder includeDefaultPrivateKeyLocations(boolean includeDefaultPrivateKeyLocations) {
+			this.includeDefaultPrivateKeyLocations = includeDefaultPrivateKeyLocations;
+			return this;
+		}
+
+		public Builder strictHostKeyChecking(boolean strictHostKeyChecking) {
+			this.strictHostKeyChecking = strictHostKeyChecking;
+			return this;
+		}
+
+		public Builder port(int port) {
+			this.port = port;
+			return this;
+		}
+
+		public Builder waitForClosedSleepMillis(int waitForClosedSleepMillis) {
+			this.waitForClosedSleepMillis = waitForClosedSleepMillis;
+			return this;
+		}
+
+		public Builder encoding(String encoding) {
+			this.encoding = encoding;
+			return this;
+		}
+
+		public Builder connectTimeout(int connectTimeout) {
+			this.connectTimeout = Optional.of(connectTimeout);
+			return this;
+		}
+
+		public Builder options(Properties options) {
+			this.options = options;
+			return this;
+		}
+
+		public Builder privateKeys(List<File> privateKeys) {
+			this.privateKeys = privateKeys;
+			return this;
+		}
+
+		public Builder privateKeyStrings(List<String> privateKeyStrings) {
+			this.privateKeyStrings = privateKeyStrings;
+			return this;
+		}
+
 	}
 
-	public void setKnownHosts(File knownHosts) {
-		this.knownHosts = knownHosts;
+	private DefaultSecureChannel(Builder builder) {
+		this.username = builder.username;
+		this.hostname = builder.hostname;
+		this.knownHosts = builder.knownHosts;
+		this.config = builder.config;
+		this.useConfigFile = builder.useConfigFile;
+		this.includeDefaultPrivateKeyLocations = builder.includeDefaultPrivateKeyLocations;
+		this.strictHostKeyChecking = builder.strictHostKeyChecking;
+		this.port = builder.port;
+		this.waitForClosedSleepMillis = builder.waitForClosedSleepMillis;
+		this.encoding = builder.encoding;
+		this.connectTimeout = builder.connectTimeout;
+		this.options = builder.options;
+		this.privateKeys = builder.privateKeys;
+		this.privateKeyStrings = builder.privateKeyStrings;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	public ChannelSftp getSftp() {
+		return sftp;
+	}
+
+	public void setSftp(ChannelSftp sftp) {
+		this.sftp = sftp;
+	}
+
+	public File getKnownHosts() {
+		return knownHosts;
 	}
 
 	public File getConfig() {
 		return config;
 	}
 
-	public void setConfig(File config) {
-		this.config = config;
+	public boolean isUseConfigFile() {
+		return useConfigFile;
 	}
 
 	public boolean isIncludeDefaultPrivateKeyLocations() {
 		return includeDefaultPrivateKeyLocations;
 	}
 
-	public void setIncludeDefaultPrivateKeyLocations(boolean includeDefaultPrivateKeyLocations) {
-		this.includeDefaultPrivateKeyLocations = includeDefaultPrivateKeyLocations;
-	}
-
 	public boolean isStrictHostKeyChecking() {
 		return strictHostKeyChecking;
-	}
-
-	public void setStrictHostKeyChecking(boolean strictHostKeyChecking) {
-		this.strictHostKeyChecking = strictHostKeyChecking;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getHostname() {
-		return hostname;
-	}
-
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
 	}
 
 	public int getPort() {
 		return port;
 	}
 
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public int getConnectTimeout() {
-		return connectTimeout;
-	}
-
-	public void setConnectTimeout(int connectTimeout) {
-		this.connectTimeout = connectTimeout;
-	}
-
-	public List<File> getPrivateKeys() {
-		return privateKeys;
-	}
-
-	public void setPrivateKeys(List<File> privateKeys) {
-		this.privateKeys = privateKeys;
-	}
-
-	public Properties getOptions() {
-		return options;
-	}
-
-	public void setOptions(Properties options) {
-		this.options = options;
-	}
-
-	public void setConnectTimeout(Integer connectTimeout) {
-		this.connectTimeout = connectTimeout;
-	}
-
 	public int getWaitForClosedSleepMillis() {
 		return waitForClosedSleepMillis;
-	}
-
-	public void setWaitForClosedSleepMillis(int waitForClosedSleepMillis) {
-		this.waitForClosedSleepMillis = waitForClosedSleepMillis;
 	}
 
 	public String getEncoding() {
 		return encoding;
 	}
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
+	public String getUsername() {
+		return username;
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	public Optional<Integer> getConnectTimeout() {
+		return connectTimeout;
+	}
+
+	public List<File> getPrivateKeys() {
+		return privateKeys;
 	}
 
 	public List<String> getPrivateKeyStrings() {
 		return privateKeyStrings;
 	}
 
-	public void setPrivateKeyStrings(List<String> privateKeyStrings) {
-		this.privateKeyStrings = privateKeyStrings;
-	}
-
-	public boolean isUseConfigFile() {
-		return useConfigFile;
-	}
-
-	public void setUseConfigFile(boolean useConfigFile) {
-		this.useConfigFile = useConfigFile;
+	public Properties getOptions() {
+		return options;
 	}
 
 }
