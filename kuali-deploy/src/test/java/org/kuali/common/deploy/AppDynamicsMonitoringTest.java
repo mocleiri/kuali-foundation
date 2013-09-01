@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
+import org.kuali.common.deploy.monitoring.AppDynamicsMonitoring;
+import org.kuali.common.deploy.monitoring.MachineAgent;
 import org.kuali.common.util.secure.DefaultSecureChannel;
 
 public class AppDynamicsMonitoringTest {

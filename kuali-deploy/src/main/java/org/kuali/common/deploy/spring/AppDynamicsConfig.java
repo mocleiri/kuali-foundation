@@ -1,11 +1,12 @@
 package org.kuali.common.deploy.spring;
 
-import org.kuali.common.deploy.AppDynamicsMonitoring;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
-import org.kuali.common.deploy.MachineAgent;
-import org.kuali.common.deploy.Monitoring;
-import org.kuali.common.deploy.ServerAgent;
+import org.kuali.common.deploy.monitoring.AppDynamicsMonitoring;
+import org.kuali.common.deploy.monitoring.MachineAgent;
+import org.kuali.common.deploy.monitoring.Monitoring;
+import org.kuali.common.deploy.monitoring.ServerAgent;
+import org.kuali.common.deploy.monitoring.spring.MonitoringConfig;
 import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.SpringUtils;

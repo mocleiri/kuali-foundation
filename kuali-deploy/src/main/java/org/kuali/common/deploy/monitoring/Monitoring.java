@@ -1,4 +1,4 @@
-package org.kuali.common.deploy;
+package org.kuali.common.deploy.monitoring;
 
 public interface Monitoring {
 

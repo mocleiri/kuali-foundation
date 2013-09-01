@@ -1,4 +1,6 @@
-package org.kuali.common.deploy;
+package org.kuali.common.deploy.monitoring;
+
+import org.kuali.common.deploy.Deployable;
 
 
 public class MachineAgent {

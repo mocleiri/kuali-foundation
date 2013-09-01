@@ -1,5 +1,6 @@
-package org.kuali.common.deploy;
+package org.kuali.common.deploy.monitoring;
 
+import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.Assert;
 
 public class ServerAgent {

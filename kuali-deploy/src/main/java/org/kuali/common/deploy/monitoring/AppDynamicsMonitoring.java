@@ -1,10 +1,12 @@
-package org.kuali.common.deploy;
+package org.kuali.common.deploy.monitoring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.deploy.DeployUtils;
+import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.MonitorTextFileResult;
