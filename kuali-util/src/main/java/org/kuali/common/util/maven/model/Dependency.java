@@ -71,8 +71,8 @@ public final class Dependency {
 
 		// Optional
 		private Optional<String> classifier = Optional.absent();
-		private String type = "jar";
-		private String scope = "compile";
+		private String type = DEFAULT_TYPE;
+		private String scope = DEFAULT_SCOPE;
 
 		public Builder(String groupId, String artifactId, String version) {
 			this.groupId = groupId;
