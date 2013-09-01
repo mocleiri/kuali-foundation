@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.deploy;
+package org.kuali.common.deploy.appserver;
 
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.deploy.DeployUtils;
+import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.LoggerLevel;

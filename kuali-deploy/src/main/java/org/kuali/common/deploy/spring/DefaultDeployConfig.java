@@ -1,11 +1,12 @@
 package org.kuali.common.deploy.spring;
 
-import org.kuali.common.deploy.ApplicationServer;
 import org.kuali.common.deploy.DefaultDeployService;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.DeployExecutable;
 import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.Monitoring;
+import org.kuali.common.deploy.appserver.ApplicationServer;
+import org.kuali.common.deploy.appserver.spring.TomcatConfig;
 import org.kuali.common.jdbc.reset.JdbcResetConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;

@@ -1,5 +1,6 @@
 package org.kuali.common.deploy;
 
+import org.kuali.common.deploy.appserver.ApplicationServer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;

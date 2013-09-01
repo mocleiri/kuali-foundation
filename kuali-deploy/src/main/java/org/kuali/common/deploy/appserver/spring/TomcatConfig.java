@@ -1,13 +1,15 @@
-package org.kuali.common.deploy.spring;
+package org.kuali.common.deploy.appserver.spring;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.deploy.ApplicationServer;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
-import org.kuali.common.deploy.TomcatApplicationServer;
+import org.kuali.common.deploy.appserver.ApplicationServer;
+import org.kuali.common.deploy.appserver.TomcatApplicationServer;
+import org.kuali.common.deploy.spring.DefaultDeployContextConfig;
+import org.kuali.common.deploy.spring.DefaultSecureChannelConfig;
 import org.kuali.common.http.HttpContext;
 import org.kuali.common.http.HttpWaitExecutable;
 import org.kuali.common.util.file.CanonicalFile;
