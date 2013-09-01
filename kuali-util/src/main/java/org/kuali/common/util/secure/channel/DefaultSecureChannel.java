@@ -82,12 +82,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public synchronized void open() throws IOException {
 		Assert.isFalse(open, "Already open");
-		this.open = true;
 		logOpen();
 		try {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
 			this.sftp = openSftpChannel(session, connectTimeout);
+			this.open = true;
 		} catch (JSchException e) {
 			throw new IOException("Unexpected error opening secure channel", e);
 		}
