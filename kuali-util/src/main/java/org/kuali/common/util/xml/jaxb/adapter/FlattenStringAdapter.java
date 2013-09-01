@@ -35,7 +35,7 @@ public final class FlattenStringAdapter extends XmlAdapter<String, String> {
 		if (value == null) {
 			return null;
 		} else {
-			return Str.unflatten(value, carriageReturnReplacement, linefeedReplacement);
+			return Str.inflate(value, carriageReturnReplacement, linefeedReplacement);
 		}
 	}
 

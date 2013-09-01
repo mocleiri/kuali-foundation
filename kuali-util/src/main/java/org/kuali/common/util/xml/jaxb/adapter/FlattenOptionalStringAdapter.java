@@ -37,7 +37,7 @@ public final class FlattenOptionalStringAdapter extends XmlAdapter<String, Optio
 		if (value == null) {
 			return Optional.<String> absent();
 		} else {
-			return Optional.<String> of(Str.unflatten(value, carriageReturnReplacement, linefeedReplacement));
+			return Optional.<String> of(Str.inflate(value, carriageReturnReplacement, linefeedReplacement));
 		}
 	}
 
