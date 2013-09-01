@@ -29,7 +29,6 @@ public class MonitorTextFileResult {
 	}
 
 	public MonitorTextFileResult(boolean exists, boolean contains, boolean timeoutExceeded, long elapsed) {
-		super();
 		this.exists = exists;
 		this.contains = contains;
 		this.timeoutExceeded = timeoutExceeded;
