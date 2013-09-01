@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.KeyValue;
-import org.kuali.common.util.StringFilter;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
@@ -66,12 +65,14 @@ public class LoggerUtils {
 		return sb.toString();
 	}
 
-	public static String getLogMsg(StringFilter filter) {
+	@Deprecated
+	public static String getLogMsg(org.kuali.common.util.StringFilter filter) {
 		Assert.notNull(filter, "filter is null");
 		return getLogMsg(filter.getIncludes(), filter.getExcludes());
 	}
 
-	public static Object[] getLogMsgArgs(StringFilter filter) {
+	@Deprecated
+	public static Object[] getLogMsgArgs(org.kuali.common.util.StringFilter filter) {
 		Assert.notNull(filter, "filter is null");
 		String includes = CollectionUtils.getSpaceSeparatedCSV(filter.getIncludes());
 		String excludes = CollectionUtils.getSpaceSeparatedCSV(filter.getExcludes());

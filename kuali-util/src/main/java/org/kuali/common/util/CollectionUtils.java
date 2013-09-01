@@ -82,7 +82,9 @@ public class CollectionUtils {
 	 * Remove any Strings from the list that do not match the filter and then sort the ones that remain
 	 * 
 	 * @return The list of strings that were filtered out.
+	 * @deprecated
 	 */
+	@Deprecated
 	public static List<String> filterAndSort(List<String> strings, StringFilter filter) {
 		List<String> excluded = filter(strings, filter);
 		Collections.sort(strings);
@@ -91,7 +93,10 @@ public class CollectionUtils {
 
 	/**
 	 * Remove any Strings from the collection that do not match the filter
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static List<String> filter(Collection<String> strings, StringFilter filter) {
 		List<String> excluded = new ArrayList<String>();
 		Iterator<String> itr = strings.iterator();
