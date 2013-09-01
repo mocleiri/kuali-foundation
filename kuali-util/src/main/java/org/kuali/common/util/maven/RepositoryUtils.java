@@ -208,7 +208,10 @@ public class RepositoryUtils {
 
 	/**
 	 * Return null if token is blank, "NULL", or "NONE"
+	 * 
+	 * @deprecated Use NullUtils.isNullOrNone() instead
 	 */
+	@Deprecated
 	public static String toNull(String token) {
 		if (StringUtils.isBlank(token)) {
 			return null;
@@ -232,6 +235,11 @@ public class RepositoryUtils {
 		return token;
 	}
 
+	/**
+	 * <pre>
+	 *  org.kuali.common:kuali-util:2.0.1 -> org/kuali/common/kuali-util/2.0.1
+	 * </pre>
+	 */
 	public static final String getRepositoryPath(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(Str.getPath(artifact.getGroupId()));
@@ -242,6 +250,12 @@ public class RepositoryUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * <pre>
+	 *  org.kuali.common:kuali-util:2.0.1::jar    -> kuali-util-2.0.1.jar
+	 *  org.kuali.common:kuali-util:2.0.1:sql:jar -> kuali-util-2.0.1-sql.jar
+	 * </pre>
+	 */
 	public static final String getFilename(Artifact artifact) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(artifact.getArtifactId());
