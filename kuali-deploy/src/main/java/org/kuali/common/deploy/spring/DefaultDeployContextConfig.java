@@ -97,8 +97,8 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 
 	protected DeployContext getDeployContext() {
 		String environment = env.getString("deploy.env");
-		String hostname = env.getString("kdo.channel.hostname");
-		String username = env.getString("kdo.channel.username");
+		String hostname = env.getString("channel.hostname");
+		String username = env.getString("channel.username");
 		Artifact jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
