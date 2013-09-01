@@ -79,7 +79,6 @@ public final class StringFilter {
 		return false;
 	}
 
-
 	public static class Builder {
 
 		private final List<String> includes;
@@ -98,8 +97,8 @@ public final class StringFilter {
 		public Builder(List<String> includes, List<String> excludes) {
 			this.includes = ImmutableList.copyOf(includes);
 			this.excludes = ImmutableList.copyOf(excludes);
-			this.includePatterns = RegexUtils.getPatterns(includes);
-			this.excludePatterns = RegexUtils.getPatterns(excludes);
+			this.includePatterns = ImmutableList.copyOf(RegexUtils.getPatterns(includes));
+			this.excludePatterns = ImmutableList.copyOf(RegexUtils.getPatterns(excludes));
 		}
 
 		public StringFilter build() {

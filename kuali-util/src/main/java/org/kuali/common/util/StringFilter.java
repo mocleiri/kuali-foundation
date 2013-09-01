@@ -26,7 +26,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class provides logic for filtering strings based on regular expressions.
+ * 
+ * @deprecated
  */
+@Deprecated
 public class StringFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(StringFilter.class);
