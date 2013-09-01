@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({ DeploySqlControllerConfig.class, DefaultSysAdminConfig.class, DefaultSecureChannelConfig.class, AppDynamicsConfig.class, TomcatConfig.class,
-		DefaultDeployContextConfig.class, DefaultSysAdminConfig.class })
+		DefaultDeployContextConfig.class, })
 @Deprecated
 public class DeployConfig {
 

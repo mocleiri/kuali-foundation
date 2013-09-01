@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.kuali.common.deploy.SysAdminExecutable;
 import org.kuali.common.util.UnixCmds;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.SecureChannel;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -26,7 +27,7 @@ public class DefaultSysAdminConfig implements SysAdminConfig {
 
 	@Override
 	@Bean
-	public SysAdminExecutable sysAdminExecutable() {
+	public Executable sysAdminExecutable() {
 		boolean skip = env.getBoolean("sysadmin.skip", false);
 		String hostname = env.getString("dns.hostname");
 		UnixCmds cmds = new UnixCmds();

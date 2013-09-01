@@ -17,8 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultSysAdminConfig.class, DefaultSecureChannelConfig.class, AppDynamicsConfig.class, TomcatConfig.class, DefaultDeployContextConfig.class,
-		DefaultSysAdminConfig.class })
+@Import({ SpringServiceConfig.class, DefaultSecureChannelConfig.class, AppDynamicsConfig.class, TomcatConfig.class, DefaultDeployContextConfig.class, DefaultSysAdminConfig.class })
 public class DefaultDeployConfig implements DeploymentConfig {
 
 	private static final String SKIP_KEY = "deploy.skip";
