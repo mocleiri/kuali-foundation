@@ -7,14 +7,17 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.junit.Test;
 import org.kuali.common.deploy.monitoring.AppDynamicsMonitoring;
 import org.kuali.common.deploy.monitoring.MachineAgent;
-import org.kuali.common.util.secure.DefaultSecureChannel;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class AppDynamicsMonitoringTest {
 
 	@Test
 	public void test() {
 		try {
-			DefaultSecureChannel channel = new DefaultSecureChannel();
+			org.kuali.common.util.secure.DefaultSecureChannel channel = new org.kuali.common.util.secure.DefaultSecureChannel();
 			channel.setUsername("root");
 			channel.setHostname("env16.ks.kuali.org");
 			channel.setStrictHostKeyChecking(false);
@@ -25,7 +28,7 @@ public class AppDynamicsMonitoringTest {
 			adm.setUser("tomcat");
 			adm.setGroup("tomcat");
 			adm.setMachineAgent(getMachineAgent());
-			adm.setChannel(channel);
+			// adm.setChannel(channel);
 
 			channel.open();
 			adm.stop();

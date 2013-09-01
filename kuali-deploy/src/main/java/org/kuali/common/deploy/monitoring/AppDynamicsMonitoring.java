@@ -11,7 +11,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.MonitorTextFileResult;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.secure.SecureChannel;
+import org.kuali.common.util.secure.channel.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

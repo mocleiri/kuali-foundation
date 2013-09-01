@@ -23,8 +23,8 @@ import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.LoggerLevel;
-import org.kuali.common.util.secure.Result;
-import org.kuali.common.util.secure.SecureChannel;
+import org.kuali.common.util.secure.channel.Result;
+import org.kuali.common.util.secure.channel.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

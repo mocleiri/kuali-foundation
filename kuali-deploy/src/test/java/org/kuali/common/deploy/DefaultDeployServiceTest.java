@@ -8,6 +8,10 @@ import org.kuali.common.util.service.SpringService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultDeployServiceTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultDeployServiceTest.class);
