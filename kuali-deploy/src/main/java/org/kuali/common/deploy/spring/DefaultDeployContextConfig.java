@@ -10,6 +10,7 @@ import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.secure.channel.spring.DefaultSecureChannelConfig;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -97,8 +98,8 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 
 	protected DeployContext getDeployContext() {
 		String environment = env.getString("deploy.env");
-		String hostname = env.getString("channel.hostname");
-		String username = env.getString("channel.username");
+		String hostname = env.getString(DefaultSecureChannelConfig.HOSTNAME_KEY);
+		String username = env.getString(DefaultSecureChannelConfig.USERNAME_KEY);
 		Artifact jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
