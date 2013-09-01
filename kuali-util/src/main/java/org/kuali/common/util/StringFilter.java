@@ -45,7 +45,6 @@ public class StringFilter {
 	protected List<Pattern> excludePatterns;
 
 	protected StringFilter(List<String> includes, List<String> excludes) {
-		super();
 		this.includes = includes;
 		this.excludes = excludes;
 	}
