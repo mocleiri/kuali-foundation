@@ -4,6 +4,6 @@ import org.kuali.common.deploy.monitoring.Monitoring;
 
 public interface MonitoringConfig {
 
-	Monitoring kdoMonitoring();
+	Monitoring applicationMonitoring();
 
 }

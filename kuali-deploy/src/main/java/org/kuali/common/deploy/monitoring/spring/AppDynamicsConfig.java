@@ -37,7 +37,7 @@ public class AppDynamicsConfig implements MonitoringConfig {
 
 	@Override
 	@Bean
-	public Monitoring kdoMonitoring() {
+	public Monitoring applicationMonitoring() {
 		boolean enabled = env.getBoolean("monitoring.enabled", false);
 		AppDynamicsMonitoring adm = new AppDynamicsMonitoring();
 		adm.setUser(env.getString("tomcat.user"));
