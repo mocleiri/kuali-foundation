@@ -19,17 +19,20 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
-import org.kuali.common.util.secure.SSHUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class SSHUtilsTest {
 	private static final Logger logger = LoggerFactory.getLogger(SSHUtilsTest.class);
 
 	@Test
 	public void test() {
 		try {
-			List<File> files = SSHUtils.getDefaultPrivateKeys();
+			List<File> files = org.kuali.common.util.secure.SSHUtils.getDefaultPrivateKeys();
 			for (File file : files) {
 				logger.info(file.getAbsolutePath());
 			}

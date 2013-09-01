@@ -30,6 +30,10 @@ import org.kuali.common.util.UnixCmds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultSecureChannelTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannelTest.class);
