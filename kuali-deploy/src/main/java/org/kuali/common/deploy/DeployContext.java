@@ -7,7 +7,7 @@ import org.kuali.common.util.maven.model.Artifact;
 
 import com.google.common.collect.ImmutableList;
 
-public class DeployContext {
+public final class DeployContext {
 
 	public DeployContext(String environment, String username, String hostname, Artifact application, Artifact jdbcDriver, List<Deployable> configFiles) {
 		Assert.noBlanks(environment, username, hostname);
