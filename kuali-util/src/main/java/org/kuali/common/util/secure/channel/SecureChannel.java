@@ -34,13 +34,13 @@ public interface SecureChannel {
 
 	void copyStringToFile(String string, RemoteFile destination);
 
-	void copyLocationToDirectory(String location, RemoteFile destination);
+	void copyLocationToDirectory(String location, RemoteFile directory);
 
-	void copyFileToDirectory(File source, RemoteFile destination);
+	void copyFileToDirectory(File source, RemoteFile directory);
 
 	void copyFile(RemoteFile source, File destination);
 
-	void copyFileToDirectory(RemoteFile source, File destination);
+	void copyFileToDirectory(RemoteFile source, File directory);
 
 	RemoteFile getMetaData(String absolutePath);
 
