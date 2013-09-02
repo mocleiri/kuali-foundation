@@ -9,6 +9,9 @@ import org.kuali.common.jdbc.sql.model.SqlContext;
 import org.kuali.common.jdbc.sql.model.SqlKeys;
 import org.kuali.common.jdbc.vendor.model.DatabaseVendor;
 import org.kuali.common.jdbc.vendor.spring.DatabaseVendorConfig;
+import org.kuali.common.util.project.ProjectUtils;
+import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DatabaseVendorConfig.class, JdbcConnectionsConfig.class })
+@Import({ SpringServiceConfig.class, DatabaseVendorConfig.class, JdbcConnectionsConfig.class, AutowiredProjectConfig.class })
 public class SqlContextConfig {
 
 	@Autowired
@@ -29,12 +32,15 @@ public class SqlContextConfig {
 	@Autowired
 	EnvironmentService env;
 
+	@Autowired
+	Project project;
+
 	@Bean
 	public SqlContext sqlContext() {
 		Credentials auth = connections.getNormal().getCredentials();
 
 		int threads = env.getInteger(SqlKeys.THREADS.getValue(), SqlContext.DEFAULT_THREADS);
-		String encoding = env.getString(SqlKeys.ENCODING.getValue()); // No default value. Force them to explicitly supply this.
+		String encoding = env.getString(SqlKeys.ENCODING.getValue(), ProjectUtils.getEncoding(project));
 		String schema = env.getString(SqlKeys.SCHEMA.getValue(), auth.getUsername());
 		String username = env.getString(SqlKeys.USERNAME.getValue(), auth.getUsername());
 		String password = env.getString(SqlKeys.PASSWORD.getValue(), auth.getPassword());
