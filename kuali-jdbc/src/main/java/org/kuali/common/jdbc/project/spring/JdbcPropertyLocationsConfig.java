@@ -1,7 +1,6 @@
 package org.kuali.common.jdbc.project.spring;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.jdbc.project.JdbcProjectConstants;
@@ -13,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ PropertiesLocationServiceConfig.class })
@@ -29,7 +30,7 @@ public class JdbcPropertyLocationsConfig {
 		List<Location> locations = new ArrayList<Location>();
 		locations.addAll(service.getLocations(SQL, getSqlFilenames()));
 		locations.addAll(service.getLocations(JDBC, "config.properties"));
-		return Collections.unmodifiableList(locations);
+		return ImmutableList.copyOf(locations);
 	}
 
 	protected List<String> getSqlFilenames() {
