@@ -111,7 +111,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public Result executeCommand(String command, String stdin) {
-		Assert.notBlank(command);
+		Assert.noBlanks(command);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
