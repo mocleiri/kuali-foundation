@@ -5,23 +5,23 @@ import org.kuali.common.util.Assert;
 
 public final class DeployEnvironment {
 
-	public DeployEnvironment(String groupId, int sequence, String name, DnsContext dns) {
+	public DeployEnvironment(String groupId, int id, String name, DnsContext dns) {
 		Assert.noBlanks(groupId, name);
 		Assert.noNulls(dns);
-		Assert.isTrue(sequence > 0, "sequence must be a positive integer");
-		this.sequence = sequence;
+		Assert.isTrue(id > 0, "id must be a positive integer");
+		this.id = id;
 		this.groupId = groupId;
 		this.name = name;
 		this.dns = dns;
 	}
 
-	private final int sequence;
+	private final int id;
 	private final String groupId;
 	private final String name;
 	private final DnsContext dns;
 
-	public int getSequence() {
-		return sequence;
+	public int getId() {
+		return id;
 	}
 
 	public String getGroupId() {
