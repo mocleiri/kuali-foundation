@@ -81,7 +81,7 @@ public class DeployUtils {
 			}
 
 			// The file exists, check to see if the token we are looking for is present in the file
-			RemoteFile remoteFile = new RemoteFile(path);
+			RemoteFile remoteFile = new RemoteFile.Builder(path).build();
 			content = channel.toString(remoteFile);
 			contains = StringUtils.contains(content, token);
 			if (contains) {
@@ -149,7 +149,7 @@ public class DeployUtils {
 			return;
 		}
 		for (Deployable deployable : deployables) {
-			RemoteFile destination = new RemoteFile(deployable.getRemote());
+			RemoteFile destination = new RemoteFile.Builder(deployable.getRemote()).build();
 			String location = deployable.getLocal();
 			logger.info("  creating -> [{}]", destination.getAbsolutePath());
 			if (deployable.isFilter()) {
