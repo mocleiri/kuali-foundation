@@ -15,27 +15,7 @@
  */
 package org.kuali.common.util.config.service;
 
-import java.util.Properties;
-
-import org.junit.Test;
 
 @Deprecated
 public class SpringConfigServiceTest {
-
-	@Test
-	public void testIt() {
-
-		try {
-			String groupId = "org.kuali.common";
-			String artifactId = "kuali-util";
-			String contextId = "scm";
-			String configId = org.kuali.common.util.config.ConfigUtils.getConfigId(groupId, artifactId, contextId);
-			org.kuali.common.util.Project project = org.kuali.common.util.ProjectUtils.loadProject(groupId, artifactId);
-			ConfigService service = new SpringConfigService();
-			Properties properties = service.getProperties(configId, project.getProperties());
-			System.out.println("scm.service=" + properties.getProperty("scm.service"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
