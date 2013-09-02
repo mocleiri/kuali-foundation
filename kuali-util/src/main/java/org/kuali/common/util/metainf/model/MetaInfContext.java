@@ -20,8 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
 import org.springframework.util.ResourceUtils;
+
+import com.google.common.collect.ImmutableList;
 
 public final class MetaInfContext {
 
@@ -98,8 +99,8 @@ public final class MetaInfContext {
 		private boolean includePropertiesFile = false;
 		private boolean includeFileSizes = true;
 		private boolean includeLineCounts = false; // Make them explicitly set this to true, since it can be quite expensive
-		private List<String> includes = Collections.<String> emptyList();
-		private List<String> excludes = Collections.<String> emptyList();
+		private List<String> includes = Collections.emptyList();
+		private List<String> excludes = Collections.emptyList();
 		private boolean relativePaths = true;
 		private String urlPrefix = ResourceUtils.CLASSPATH_URL_PREFIX;
 
@@ -151,8 +152,8 @@ public final class MetaInfContext {
 		public MetaInfContext build() {
 			Assert.noNulls(outputFile, scanDir, includes, excludes, relativeDir);
 			Assert.noBlanks(encoding, urlPrefix);
-			this.includes = ListUtils.newImmutableArrayList(includes);
-			this.excludes = ListUtils.newImmutableArrayList(excludes);
+			this.includes = ImmutableList.copyOf(includes);
+			this.excludes = ImmutableList.copyOf(excludes);
 			return new MetaInfContext(this);
 		}
 
