@@ -8,24 +8,22 @@ public class DnsmeContext {
 	private final String recordName;
 	private final String domainName;
 	private final RecordType recordType;
-	private final String apiKey;
-	private final String secretKey;
+	private final DnsmeCredentials credentials;
 
 	public static class Builder {
 
 		// Required
-		private final String apiKey;
-		private final String secretKey;
+		private final DnsmeCredentials credentials;
 		private final String recordName;
+		private final String domainName;
 
 		private int ttl = 60;
 		private RecordType recordType = RecordType.CNAME;
-		private String domainName = DnsContext.Builder.KUALI_DOMAIN;
 
-		public Builder(String apiKey, String secretKey, String recordName) {
-			this.apiKey = apiKey;
-			this.secretKey = secretKey;
+		public Builder(DnsmeCredentials credentials, String recordName, String domainName) {
+			this.credentials = credentials;
 			this.recordName = recordName;
+			this.domainName = domainName;
 		}
 
 		public Builder ttl(int ttl) {
@@ -38,22 +36,16 @@ public class DnsmeContext {
 			return this;
 		}
 
-		public Builder domainName(String domainName) {
-			this.domainName = domainName;
-			return this;
-		}
-
 		public DnsmeContext build() {
-			Assert.noBlanks(apiKey, secretKey, recordName, domainName);
-			Assert.noNulls(recordType);
+			Assert.noBlanks(recordName, domainName);
+			Assert.noNulls(credentials, recordType);
 			return new DnsmeContext(this);
 		}
 
 	}
 
 	private DnsmeContext(Builder builder) {
-		this.apiKey = builder.apiKey;
-		this.secretKey = builder.secretKey;
+		this.credentials = builder.credentials;
 		this.recordName = builder.recordName;
 		this.ttl = builder.ttl;
 		this.recordType = builder.recordType;
@@ -76,12 +68,8 @@ public class DnsmeContext {
 		return recordType;
 	}
 
-	public String getApiKey() {
-		return apiKey;
-	}
-
-	public String getSecretKey() {
-		return secretKey;
+	public DnsmeCredentials getCredentials() {
+		return credentials;
 	}
 
 }
