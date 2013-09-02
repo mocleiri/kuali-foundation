@@ -6,7 +6,6 @@ import org.kuali.common.deploy.DeployService;
 import org.kuali.common.deploy.appserver.ApplicationServer;
 import org.kuali.common.deploy.appserver.spring.TomcatConfig;
 import org.kuali.common.deploy.channel.spring.DefaultSecureChannelConfig;
-import org.kuali.common.deploy.dns.spring.DefaultDnsContextConfig;
 import org.kuali.common.deploy.monitoring.Monitoring;
 import org.kuali.common.deploy.monitoring.spring.AppDynamicsConfig;
 import org.kuali.common.util.execute.Executable;
@@ -21,7 +20,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({ DeploySqlControllerConfig.class, DefaultSysAdminConfig.class, DefaultSecureChannelConfig.class, AppDynamicsConfig.class, TomcatConfig.class,
-		DefaultDeployContextConfig.class, DefaultDnsContextConfig.class })
+		DefaultDeployContextConfig.class })
 @Deprecated
 public class DeployConfig {
 
