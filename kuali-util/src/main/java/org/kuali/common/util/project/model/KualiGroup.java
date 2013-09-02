@@ -1,10 +1,11 @@
-package org.kuali.common.util.project;
+package org.kuali.common.util.project.model;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.project.KualiProjectConstants;
 
 public enum KualiGroup {
 
