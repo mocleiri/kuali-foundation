@@ -74,7 +74,7 @@ public class DeployUtils {
 				break;
 			}
 
-			// If the file does not exist, no point in going any further
+			// If the file does not exist yet, there is nothing more we can do
 			exists = channel.exists(path);
 			if (!exists) {
 				continue;
