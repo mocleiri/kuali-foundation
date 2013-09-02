@@ -32,7 +32,7 @@ public class DefaultDeployEnvironmentConfig implements DeployEnvironmentConfig {
 
 	@Override
 	public DeployEnvironment deployEnvironment() {
-		String id = env.getString(ID_KEY);
+		String id = env.getString(ID_KEY); // No default value, they must supply "deploy.env"
 		String defaultName = DEFAULT_ENV_PREFIX + id;
 		String name = env.getString(NAME_KEY, defaultName);
 		String defaultPublicUrl = "http://" + context.getHostname();
