@@ -47,7 +47,7 @@ public class DefaultAwsContextConfig implements AwsContextConfig {
 		SesCredentials credentials = new SesCredentials(username, password);
 		String host = env.getString("ses.host");
 
-		// These next need to come from the environment (even though the pojo has default values for them)
+		// These next four need to come from the environment (even though the pojo has default values for them)
 		// This is because the environment properties used to setup the pojo are also used to filter config files
 		boolean debug = env.getBoolean("ses.debug");
 		boolean sslEnable = env.getBoolean("ses.ssl.enable");
