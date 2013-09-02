@@ -20,8 +20,8 @@ public final class DeployContext {
 		this.configFiles = ImmutableList.copyOf(configFiles);
 	}
 
-	private final DeployEnvironment environment;
 	private final String username;
+	private final DeployEnvironment environment;
 	private final Artifact application;
 	private final Artifact jdbcDriver;
 	private final List<Deployable> configFiles;
