@@ -121,7 +121,7 @@ public class DynamicCall extends TemplateElement {
             }
 
         } else {
-            throw new TemplateException("Variable given by macro expression did not evaluate to a macro", env);
+            throw new TemplateException("Variable given by macro expression did not evaluate to a macro " + macroName, env);
         }
 
         return macro;

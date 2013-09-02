@@ -533,6 +533,8 @@ TOKEN:
     // Begin Rice Mod
 	<DYNCALL : <START_TAG> "dyncall" <BLANK>> {strictSyntaxCheck(matchedToken, FM_EXPRESSION);}
 	|
+	<KRAD_INLINE : <START_TAG> "krad_inline" <BLANK>> {strictSyntaxCheck(matchedToken, FM_EXPRESSION);}
+	|
 	// End Rice Mod
     <SETTING : <START_TAG> "setting" <BLANK>> {strictSyntaxCheck(matchedToken, FM_EXPRESSION);}
     |
@@ -2486,6 +2488,24 @@ TemplateElement DynamicCall() :
 	}
 }
 
+TemplateElement InlineKradElement() :
+{
+	Token start, end, id;
+	Expression adaptorNameExp= null;
+}
+{
+	start=<KRAD_INLINE>
+
+	adaptorNameExp=Expression()
+
+	end=<EMPTY_DIRECTIVE_END>
+	{
+		InlineKradElement result = new InlineKradElement(adaptorNameExp);
+		result.setLocation(template, start, end);
+		return result;
+	}
+}
+
 // End Rice Change
 
 HashMap NamedArgs() :
@@ -2777,6 +2797,8 @@ TemplateElement FreemarkerDirective() :
      |
      // Begin Rice Mod
      tp=DynamicCall()
+     |
+     tp=InlineKradElement()
      |
      // End Rice Mod
      tp=Comment()
