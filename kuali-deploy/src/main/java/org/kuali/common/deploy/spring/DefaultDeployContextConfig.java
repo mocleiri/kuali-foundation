@@ -8,6 +8,8 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.channel.spring.DefaultSecureChannelConfig;
+import org.kuali.common.deploy.env.model.DeployEnvironment;
+import org.kuali.common.deploy.env.spring.DefaultDeployEnvironmentConfig;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.nullify.NullUtils;
@@ -21,7 +23,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ SpringServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultDeployEnvironmentConfig.class })
 public class DefaultDeployContextConfig implements DeployContextConfig {
 
 	@Autowired
@@ -29,6 +31,9 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 
 	@Autowired
 	ConfigurableEnvironment configurableEnvironment;
+
+	@Autowired
+	DeployEnvironment deployEnvironment;
 
 	@Override
 	@Bean
@@ -97,13 +102,11 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 	}
 
 	protected DeployContext getDeployContext() {
-		String environment = env.getString("deploy.env");
-		String hostname = env.getString(DefaultSecureChannelConfig.HOSTNAME_KEY);
 		String username = env.getString(DefaultSecureChannelConfig.USERNAME_KEY);
 		Artifact jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
-		return new DeployContext(environment, username, hostname, application, jdbcDriver, configFiles);
+		return new DeployContext(username, deployEnvironment, application, jdbcDriver, configFiles);
 	}
 
 }

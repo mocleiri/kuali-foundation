@@ -45,7 +45,7 @@ public class DefaultDeployService implements DeployService {
 		logger.info("[deploy:starting]");
 		try {
 			logger.info("---------------- Deploy Application ----------------");
-			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getHostname());
+			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getEnvironment().getDns().getHostname());
 			logger.info("Environment - {}", context.getEnvironment());
 			logger.info("Application - {}", RepositoryUtils.toString(context.getApplication()));
 			if (context.getJdbcDriver() != null) {
