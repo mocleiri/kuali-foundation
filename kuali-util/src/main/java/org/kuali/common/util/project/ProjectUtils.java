@@ -139,6 +139,7 @@ public class ProjectUtils {
 	 * Convenience method for extracting the value of the property <code>project.encoding</code>
 	 */
 	public static String getEncoding(Project project) {
+		Assert.noNulls(project);
 		return project.getProperties().getProperty(MavenConstants.ENCODING_KEY);
 	}
 
