@@ -1,8 +1,8 @@
 package org.kuali.common.deploy.dns.spring;
 
 import org.kuali.common.deploy.dns.model.DnsContext;
-import org.kuali.common.deploy.env.model.DeployEnvironment;
 import org.kuali.common.deploy.env.spring.DefaultDeployEnvironmentConfig;
+import org.kuali.common.deploy.env.spring.DeployEnvironmentConfig;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
@@ -32,11 +32,11 @@ public class DefaultDnsContextConfig implements DnsContextConfig {
 	Project project;
 
 	@Autowired
-	DeployEnvironment deployEnvironment;
+	DeployEnvironmentConfig deployEnvironmentConfig;
 
 	@Override
 	public DnsContext dnsContext() {
-		String prefix = env.getString(PREFIX_KEY, deployEnvironment.getName());
+		String prefix = env.getString(PREFIX_KEY, deployEnvironmentConfig.deployEnvironment().getName());
 		String defaultSubdomain = project.getProperties().getProperty(GROUP_ID_CODE_KEY);
 		Assert.noBlanks(defaultSubdomain);
 		String subdomain = env.getString(SUBDOMAIN_KEY, defaultSubdomain);
