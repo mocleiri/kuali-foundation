@@ -13,6 +13,7 @@ import org.kuali.common.deploy.env.spring.DeployEnvironmentConfig;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.secure.channel.spring.SecureChannelConfig;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -23,7 +24,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultDeployEnvironmentConfig.class })
+@Import({ SpringServiceConfig.class, DefaultDeployEnvironmentConfig.class, DefaultSecureChannelConfig.class })
 public class DefaultDeployContextConfig implements DeployContextConfig {
 
 	@Autowired
@@ -34,6 +35,9 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 
 	@Autowired
 	DeployEnvironmentConfig deployEnvConfig;
+
+	@Autowired
+	SecureChannelConfig channelConfig;
 
 	@Override
 	@Bean
@@ -102,11 +106,10 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 	}
 
 	protected DeployContext getDeployContext() {
-		String username = env.getString(DefaultSecureChannelConfig.USERNAME_KEY);
 		Artifact jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
-		return new DeployContext(username, deployEnvConfig.deployEnvironment(), application, jdbcDriver, configFiles);
+		return new DeployContext(channelConfig.secureChannel(), deployEnvConfig.deployEnvironment(), application, jdbcDriver, configFiles);
 	}
 
 }

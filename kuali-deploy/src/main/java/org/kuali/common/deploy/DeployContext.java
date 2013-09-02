@@ -5,22 +5,22 @@ import java.util.List;
 import org.kuali.common.deploy.env.model.DeployEnvironment;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.maven.model.Artifact;
+import org.kuali.common.util.secure.channel.SecureChannel;
 
 import com.google.common.collect.ImmutableList;
 
 public final class DeployContext {
 
-	public DeployContext(String username, DeployEnvironment environment, Artifact application, Artifact jdbcDriver, List<Deployable> configFiles) {
-		Assert.noBlanks(username);
-		Assert.noNulls(environment, application, jdbcDriver, configFiles);
+	public DeployContext(SecureChannel channel, DeployEnvironment environment, Artifact application, Artifact jdbcDriver, List<Deployable> configFiles) {
+		Assert.noNulls(channel, environment, application, jdbcDriver, configFiles);
 		this.environment = environment;
-		this.username = username;
+		this.channel = channel;
 		this.application = application;
 		this.jdbcDriver = jdbcDriver;
 		this.configFiles = ImmutableList.copyOf(configFiles);
 	}
 
-	private final String username;
+	private final SecureChannel channel;
 	private final DeployEnvironment environment;
 	private final Artifact application;
 	private final Artifact jdbcDriver;
@@ -28,10 +28,6 @@ public final class DeployContext {
 
 	public DeployEnvironment getEnvironment() {
 		return environment;
-	}
-
-	public String getUsername() {
-		return username;
 	}
 
 	public Artifact getApplication() {
@@ -44,6 +40,10 @@ public final class DeployContext {
 
 	public List<Deployable> getConfigFiles() {
 		return configFiles;
+	}
+
+	public SecureChannel getChannel() {
+		return channel;
 	}
 
 }

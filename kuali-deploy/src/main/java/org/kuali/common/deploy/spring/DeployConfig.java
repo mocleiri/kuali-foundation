@@ -46,7 +46,7 @@ public class DeployConfig {
 	public DeployService kdoDeployService() {
 		Executable dbReset = sqlControllerConfig.sqlExecutable();
 		Executable sysAdmin = sysAdminConfig.sysAdminExecutable();
-		return new DefaultDeployService(context, channel, sysAdmin, monitoring, appServer, dbReset);
+		return new DefaultDeployService(context, sysAdmin, monitoring, appServer, dbReset);
 	}
 
 }

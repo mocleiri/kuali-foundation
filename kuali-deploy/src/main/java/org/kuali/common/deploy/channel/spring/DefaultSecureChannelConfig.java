@@ -20,8 +20,8 @@ import org.springframework.util.Assert;
 @Import({ DefaultDeployEnvironmentConfig.class, SpringServiceConfig.class })
 public class DefaultSecureChannelConfig implements SecureChannelConfig {
 
-	public static final String USERNAME_KEY = "channel.username"; // TODO Make this private after refactoring DeployEnvironment + DeployContext
-	public static final String HOSTNAME_KEY = "channel.hostname"; // TODO Make this private after refactoring DeployEnvironment + DeployContext
+	private static final String USERNAME_KEY = "channel.username";
+	private static final String HOSTNAME_KEY = "channel.hostname";
 
 	private static final String ROOT = "root";
 

@@ -7,6 +7,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.NoOpExecutable;
 import org.kuali.common.util.maven.RepositoryUtils;
+import org.kuali.common.util.secure.channel.SSHUtils;
 import org.kuali.common.util.secure.channel.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +19,13 @@ public class DefaultDeployService implements DeployService {
 	private static final Executable DEFAULT_SYS_ADMIN_EXEC = NoOpExecutable.INSTANCE;
 	private static final Executable DEFAULT_DB_RESET_EXEC = NoOpExecutable.INSTANCE;
 
-	public DefaultDeployService(DeployContext context, SecureChannel channel, Monitoring monitoring, ApplicationServer appServer) {
-		this(context, channel, DEFAULT_SYS_ADMIN_EXEC, monitoring, appServer, DEFAULT_DB_RESET_EXEC);
+	public DefaultDeployService(DeployContext context, Monitoring monitoring, ApplicationServer appServer) {
+		this(context, DEFAULT_SYS_ADMIN_EXEC, monitoring, appServer, DEFAULT_DB_RESET_EXEC);
 	}
 
-	public DefaultDeployService(DeployContext context, SecureChannel channel, Executable sysAdmin, Monitoring monitoring, ApplicationServer appServer, Executable dbReset) {
-		Assert.noNulls(context, channel, sysAdmin, monitoring, appServer, dbReset);
+	public DefaultDeployService(DeployContext context, Executable sysAdmin, Monitoring monitoring, ApplicationServer appServer, Executable dbReset) {
+		Assert.noNulls(context, sysAdmin, monitoring, appServer, dbReset);
 		this.context = context;
-		this.channel = channel;
 		this.sysAdminExecutable = sysAdmin;
 		this.monitoring = monitoring;
 		this.appServer = appServer;
@@ -33,7 +33,6 @@ public class DefaultDeployService implements DeployService {
 	}
 
 	private final DeployContext context;
-	private final SecureChannel channel;
 	private final Executable sysAdminExecutable;
 	private final Monitoring monitoring;
 	private final ApplicationServer appServer;
@@ -41,11 +40,17 @@ public class DefaultDeployService implements DeployService {
 
 	@Override
 	public void deploy() {
+		SecureChannel channel = context.getChannel();
 		long start = System.currentTimeMillis();
 		logger.info("[deploy:starting]");
 		try {
 			logger.info("---------------- Deploy Application ----------------");
-			logger.info("Secure Channel - {}@{}", context.getUsername(), context.getEnvironment().getDns().getHostname());
+			if (channel.getPort() == SSHUtils.DEFAULT_PORT) {
+				logger.info("Secure Channel - {}@{}", channel.getUsername(), channel.getHostname());
+			} else {
+				Object[] args = { channel.getUsername(), channel.getHostname(), channel.getPort() };
+				logger.info("Secure Channel - {}@{}:{}", args);
+			}
 			logger.info("Environment - {}", context.getEnvironment().getName());
 			logger.info("Application - {}", RepositoryUtils.toString(context.getApplication()));
 			if (context.getJdbcDriver() != null) {
@@ -78,10 +83,6 @@ public class DefaultDeployService implements DeployService {
 
 	public DeployContext getContext() {
 		return context;
-	}
-
-	public SecureChannel getChannel() {
-		return channel;
 	}
 
 	public Executable getSysAdminExecutable() {
