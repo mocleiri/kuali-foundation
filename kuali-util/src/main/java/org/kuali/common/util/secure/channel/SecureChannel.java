@@ -66,4 +66,10 @@ public interface SecureChannel {
 
 	String toString(RemoteFile source);
 
+	String getUsername();
+
+	String getHostname();
+
+	int getPort();
+
 }
