@@ -7,6 +7,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.NoOpExecutable;
 import org.kuali.common.util.maven.RepositoryUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.secure.channel.SSHUtils;
 import org.kuali.common.util.secure.channel.SecureChannel;
 import org.slf4j.Logger;
@@ -55,6 +56,8 @@ public class DefaultDeployService implements DeployService {
 			logger.info("Application - {}", RepositoryUtils.toString(context.getApplication()));
 			if (context.getJdbcDriver().isPresent()) {
 				logger.info("Jdbc Driver - {}", RepositoryUtils.toString(context.getJdbcDriver().get()));
+			} else {
+				logger.info("Jdbc Driver - {}", NullUtils.NONE);
 			}
 			for (Deployable deployable : context.getConfigFiles()) {
 				logger.info("Config - [{}]", deployable.getLocal());
