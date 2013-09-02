@@ -8,8 +8,8 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.channel.spring.DefaultSecureChannelConfig;
-import org.kuali.common.deploy.env.model.DeployEnvironment;
 import org.kuali.common.deploy.env.spring.DefaultDeployEnvironmentConfig;
+import org.kuali.common.deploy.env.spring.DeployEnvironmentConfig;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.nullify.NullUtils;
@@ -33,7 +33,7 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 	ConfigurableEnvironment configurableEnvironment;
 
 	@Autowired
-	DeployEnvironment deployEnvironment;
+	DeployEnvironmentConfig deployEnvConfig;
 
 	@Override
 	@Bean
@@ -106,7 +106,7 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 		Artifact jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
-		return new DeployContext(username, deployEnvironment, application, jdbcDriver, configFiles);
+		return new DeployContext(username, deployEnvConfig.deployEnvironment(), application, jdbcDriver, configFiles);
 	}
 
 }
