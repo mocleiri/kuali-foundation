@@ -50,6 +50,8 @@ public class DnsContext {
 			Assert.noBlanks(prefix, subdomain, domain);
 			if (hostname == null) {
 				this.hostname = prefix + "." + subdomain + "." + domain;
+			} else {
+				Assert.noBlanks(hostname);
 			}
 			return new DnsContext(this);
 		}
