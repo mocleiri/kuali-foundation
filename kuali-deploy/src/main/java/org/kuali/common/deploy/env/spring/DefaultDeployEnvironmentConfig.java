@@ -1,6 +1,6 @@
-package org.kuali.common.deploy.spring;
+package org.kuali.common.deploy.env.spring;
 
-import org.kuali.common.deploy.model.DeployEnvironment;
+import org.kuali.common.deploy.env.model.DeployEnvironment;
 import org.kuali.common.dns.model.DnsContext;
 import org.kuali.common.dns.spring.DefaultDnsContextConfig;
 import org.kuali.common.util.project.model.Project;

@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.model;
+package org.kuali.common.deploy.env.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.project.model.Project;
