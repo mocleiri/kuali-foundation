@@ -1,28 +1,27 @@
 package org.kuali.common.deploy.env.model;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.project.model.Project;
 
 public final class DeployEnvironment {
 
-	public DeployEnvironment(Project project, String id, String name) {
-		Assert.noBlanks(id, name);
-		Assert.noNulls(project);
-		this.id = id;
-		this.project = project;
+	public DeployEnvironment(String groupId, int sequence, String name) {
+		Assert.noBlanks(groupId, name);
+		Assert.isTrue(sequence > 0, "sequence must be a positive integer");
+		this.sequence = sequence;
+		this.groupId = groupId;
 		this.name = name;
 	}
 
-	private final String id;
-	private final Project project;
+	private final int sequence;
+	private final String groupId;
 	private final String name;
 
-	public String getId() {
-		return id;
+	public int getSequence() {
+		return sequence;
 	}
 
-	public Project getProject() {
-		return project;
+	public String getGroupId() {
+		return groupId;
 	}
 
 	public String getName() {

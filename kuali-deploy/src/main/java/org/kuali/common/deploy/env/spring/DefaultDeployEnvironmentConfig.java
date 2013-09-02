@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
 public class DefaultDeployEnvironmentConfig implements DeployEnvironmentConfig {
 
-	private final String ID_KEY = "deploy.env";
+	private final String SEQUENCE_KEY = "deploy.env";
 	private final String NAME_KEY = "deploy.env.name";
 
 	private final String DEFAULT_ENV_PREFIX = "env";
@@ -26,9 +26,9 @@ public class DefaultDeployEnvironmentConfig implements DeployEnvironmentConfig {
 
 	@Override
 	public DeployEnvironment deployEnvironment() {
-		String id = env.getString(ID_KEY); // No default value, they must supply "deploy.env"
-		String defaultName = DEFAULT_ENV_PREFIX + id;
+		int sequence = env.getInteger(SEQUENCE_KEY); // No default value, they must supply "deploy.env"
+		String defaultName = DEFAULT_ENV_PREFIX + sequence;
 		String name = env.getString(NAME_KEY, defaultName);
-		return new DeployEnvironment(project, id, name);
+		return new DeployEnvironment(project.getGroupId(), sequence, name);
 	}
 }
