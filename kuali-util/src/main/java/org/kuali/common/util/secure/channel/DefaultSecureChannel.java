@@ -307,7 +307,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public RemoteFile getMetaData(String absolutePath) {
-		Assert.hasLength(absolutePath);
+		Assert.noBlanks(absolutePath);
 		RemoteFile file = new RemoteFile();
 		file.setAbsolutePath(absolutePath);
 		fillInAttributes(file, absolutePath);
