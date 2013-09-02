@@ -17,7 +17,10 @@ package org.kuali.common.util.config.spring;
 
 import org.kuali.common.util.config.service.ConfigService;
 import org.kuali.common.util.config.service.DefaultConfigService;
+import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
+import org.kuali.common.util.xml.service.XmlService;
+import org.kuali.common.util.xml.spring.XmlServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,17 +31,18 @@ import org.springframework.context.annotation.Import;
  */
 @Deprecated
 @Configuration
-@Import({ ProjectServiceConfig.class })
+@Import({ ProjectServiceConfig.class, XmlServiceConfig.class })
 public class ConfigServiceConfig {
 
 	@Autowired
-	ProjectServiceConfig projectServiceConfig;
+	ProjectService projectService;
+
+	@Autowired
+	XmlService xmlService;
 
 	@Bean
 	public ConfigService configService() {
-		DefaultConfigService service = new DefaultConfigService();
-		service.setProjectService(projectServiceConfig.projectService());
-		return service;
+		return new DefaultConfigService(projectService, xmlService);
 	}
 
 }

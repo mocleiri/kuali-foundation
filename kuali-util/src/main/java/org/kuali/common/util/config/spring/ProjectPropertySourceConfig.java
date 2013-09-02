@@ -19,6 +19,8 @@ import java.util.Properties;
 
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.maven.MavenUtils;
+import org.kuali.common.util.maven.spring.AutowiredMavenProperties;
+import org.kuali.common.util.maven.spring.NoAutowiredMavenProperties;
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.spring.ProjectServiceConfig;
@@ -65,7 +67,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 	 */
 	@Deprecated
 	@Configuration
-	@org.kuali.common.util.spring.config.annotation.Maven
+	@NoAutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
 	static class RuntimeProjectConfig {
 
@@ -97,7 +99,7 @@ public class ProjectPropertySourceConfig extends BasicPropertySourceConfig {
 	 */
 	@Deprecated
 	@Configuration
-	@org.kuali.common.util.spring.config.annotation.NotMaven
+	@AutowiredMavenProperties
 	@Import({ ProjectServiceConfig.class })
 	static class BuildProjectConfig {
 

@@ -42,6 +42,12 @@ import org.springframework.util.PropertyPlaceholderHelper;
 @Deprecated
 public abstract class AbstractCachingConfigService implements ConfigService {
 
+	public AbstractCachingConfigService(ProjectService projectService, XmlService xmlService) {
+		Assert.noNulls(projectService, xmlService);
+		this.projectService = projectService;
+		this.xmlService = xmlService;
+	}
+
 	private static final String METAINF = "META-INF";
 	private static final String CLASSPATH = "classpath:";
 	private static final String CLASSPATH_PREFIX_KEY = "classpath.prefix";
@@ -50,8 +56,8 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	private static final String DELIMITER = ":";
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
-	ProjectService projectService;
-	XmlService xmlService;
+	private final ProjectService projectService;
+	private final XmlService xmlService;
 
 	@Override
 	public Properties getProperties(String configId) {
@@ -172,7 +178,7 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 	}
 
 	protected String getMetadataConfigFilePath(Project project, String filename) {
-		String resourcePath = ProjectUtils.getResourcePath(project.getArtifactId(), project.getArtifactId());
+		String resourcePath = ProjectUtils.getResourcePath(project.getGroupId(), project.getArtifactId());
 		return CLASSPATH + METAINF + "/" + resourcePath + "/" + CONFIG + "/" + filename;
 	}
 
@@ -214,8 +220,8 @@ public abstract class AbstractCachingConfigService implements ConfigService {
 		return projectService;
 	}
 
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
+	public XmlService getXmlService() {
+		return xmlService;
 	}
 
 }

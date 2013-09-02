@@ -22,9 +22,11 @@ import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
+import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.xml.service.XmlService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -36,6 +38,10 @@ import org.springframework.core.io.Resource;
  */
 @Deprecated
 public class SpringConfigService extends AbstractCachingConfigService {
+
+	public SpringConfigService(ProjectService projectService, XmlService xmlService) {
+		super(projectService, xmlService);
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringConfigService.class);
 
@@ -69,7 +75,7 @@ public class SpringConfigService extends AbstractCachingConfigService {
 	@Override
 	protected Properties getBaseFilterProperties() {
 		ProjectIdentifier identifier = KualiUtilProjectConstants.PROJECT_ID;
-		Project project = projectService.getProject(identifier);
+		Project project = getProjectService().getProject(identifier);
 		String location = getMetadataConfigFilePath(project, PROPS);
 		String encoding = ProjectUtils.getEncoding(project);
 		return PropertyUtils.load(location, encoding);

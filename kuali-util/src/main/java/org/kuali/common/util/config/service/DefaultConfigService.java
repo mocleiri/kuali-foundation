@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.kuali.common.util.project.ProjectService;
+import org.kuali.common.util.xml.service.XmlService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,10 @@ import org.slf4j.LoggerFactory;
  */
 @Deprecated
 public class DefaultConfigService extends AbstractCachingConfigService {
+
+	public DefaultConfigService(ProjectService projectService, XmlService xmlService) {
+		super(projectService, xmlService);
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultConfigService.class);
 
@@ -63,7 +69,7 @@ public class DefaultConfigService extends AbstractCachingConfigService {
 		InputStream in = null;
 		try {
 			in = new ByteArrayInputStream(content.getBytes(encoding));
-			return xmlService.getObject(in, org.kuali.common.util.config.ProjectConfigContainer.class);
+			return getXmlService().getObject(in, org.kuali.common.util.config.ProjectConfigContainer.class);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
