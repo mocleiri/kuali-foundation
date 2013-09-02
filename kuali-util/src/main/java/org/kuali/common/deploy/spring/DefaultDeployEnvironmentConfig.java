@@ -35,7 +35,8 @@ public class DefaultDeployEnvironmentConfig implements DeployEnvironmentConfig {
 		String id = env.getString(ID_KEY);
 		String defaultName = DEFAULT_ENV_PREFIX + id;
 		String name = env.getString(NAME_KEY, defaultName);
-		String publicUrl = env.getString(PUBLIC_URL, context.getHostname());
+		String defaultPublicUrl = "http://" + context.getHostname();
+		String publicUrl = env.getString(PUBLIC_URL, defaultPublicUrl);
 		return new DeployEnvironment(project, id, name, publicUrl);
 	}
 }
