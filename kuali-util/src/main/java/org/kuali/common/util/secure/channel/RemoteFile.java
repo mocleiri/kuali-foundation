@@ -15,78 +15,124 @@
  */
 package org.kuali.common.util.secure.channel;
 
-public class RemoteFile {
+import org.kuali.common.util.Assert;
 
-	String absolutePath;
-	Integer groupId;
-	Integer userId;
-	Integer permissions;
-	Long size;
-	boolean directory;
-	Status status = Status.DEFAULT_REMOTE_FILE_STATUS;
+import com.google.common.base.Optional;
 
-	public RemoteFile() {
-		this(null);
+public final class RemoteFile {
+
+	private final String absolutePath;
+	private final Optional<Integer> groupId;
+	private final Optional<Integer> userId;
+	private final Optional<Integer> permissions;
+	private final Optional<Long> size;
+	private final boolean directory;
+	private final Optional<Status> status;
+
+	public static class Builder {
+
+		// Required
+		private final String absolutePath;
+
+		// Optional
+		private Optional<Integer> groupId = Optional.absent();
+		private Optional<Integer> userId = Optional.absent();
+		private Optional<Integer> permissions = Optional.absent();
+		private Optional<Long> size = Optional.absent();
+		private boolean directory = false;
+		private Optional<Status> status = Optional.absent();
+
+		public Builder(String absolutePath) {
+			this.absolutePath = absolutePath;
+		}
+
+		public Builder clone(RemoteFile other) {
+			this.groupId = other.groupId;
+			this.userId = other.userId;
+			this.permissions = other.permissions;
+			this.size = other.size;
+			this.directory = other.directory;
+			this.status = other.status;
+			return this;
+		}
+
+		public Builder groupId(int groupId) {
+			this.groupId = Optional.of(groupId);
+			return this;
+		}
+
+		public Builder userId(int userId) {
+			this.userId = Optional.of(userId);
+			return this;
+		}
+
+		public Builder permissions(int permissions) {
+			this.permissions = Optional.of(permissions);
+			return this;
+		}
+
+		public Builder size(long size) {
+			this.size = Optional.of(size);
+			return this;
+		}
+
+		public Builder directory(boolean directory) {
+			this.directory = directory;
+			return this;
+		}
+
+		public Builder status(Status status) {
+			this.status = Optional.of(status);
+			return this;
+		}
+
+		public RemoteFile build() {
+			Assert.noBlanks(absolutePath);
+			Assert.noNulls(groupId, userId, permissions, size, directory, status);
+			if (size.isPresent()) {
+				Assert.isTrue(size.get() >= 0, "size is negative");
+			}
+			return new RemoteFile(this);
+		}
+
 	}
 
-	public RemoteFile(String absolutePath) {
-		this.absolutePath = absolutePath;
+	private RemoteFile(Builder builder) {
+		this.absolutePath = builder.absolutePath;
+		this.groupId = builder.groupId;
+		this.userId = builder.userId;
+		this.permissions = builder.permissions;
+		this.size = builder.size;
+		this.directory = builder.directory;
+		this.status = builder.status;
 	}
 
 	public String getAbsolutePath() {
 		return absolutePath;
 	}
 
-	public void setAbsolutePath(String absolutePath) {
-		this.absolutePath = absolutePath;
-	}
-
-	public Integer getGroupId() {
+	public Optional<Integer> getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
-	}
-
-	public Integer getUserId() {
+	public Optional<Integer> getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	public Integer getPermissions() {
+	public Optional<Integer> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(Integer permissions) {
-		this.permissions = permissions;
-	}
-
-	public Long getSize() {
+	public Optional<Long> getSize() {
 		return size;
-	}
-
-	public void setSize(Long size) {
-		this.size = size;
 	}
 
 	public boolean isDirectory() {
 		return directory;
 	}
 
-	public void setDirectory(boolean directory) {
-		this.directory = directory;
-	}
-
-	public Status getStatus() {
+	public Optional<Status> getStatus() {
 		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 
 }
