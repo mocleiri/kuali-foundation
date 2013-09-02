@@ -1,6 +1,6 @@
 package org.kuali.common.deploy.dns.spring;
 
-import org.kuali.common.deploy.dns.model.DnsContext;
+import org.kuali.common.dns.model.DnsContext;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
