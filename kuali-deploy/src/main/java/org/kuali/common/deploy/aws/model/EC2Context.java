@@ -2,9 +2,9 @@ package org.kuali.common.deploy.aws.model;
 
 import org.kuali.common.util.Assert;
 
-public class EC2Server {
+public class EC2Context {
 
-	public EC2Server(String ami, String securityGroup, String type) {
+	public EC2Context(String ami, String securityGroup, String type) {
 		Assert.noBlanks(ami, securityGroup, type);
 		this.ami = ami;
 		this.securityGroup = securityGroup;

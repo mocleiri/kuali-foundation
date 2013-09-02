@@ -2,9 +2,9 @@ package org.kuali.common.deploy.aws.model;
 
 import org.kuali.common.util.Assert;
 
-public final class S3Credentials {
+public final class S3Context {
 
-	public S3Credentials(String accessKey, String secretKey) {
+	public S3Context(String accessKey, String secretKey) {
 		Assert.noBlanks(accessKey, secretKey);
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;
