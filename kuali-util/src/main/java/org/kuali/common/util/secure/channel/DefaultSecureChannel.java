@@ -169,7 +169,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			exec.setCommand(commandBytes);
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
-			connect(exec, null);
+			connect(exec, Optional.<Integer> absent());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
