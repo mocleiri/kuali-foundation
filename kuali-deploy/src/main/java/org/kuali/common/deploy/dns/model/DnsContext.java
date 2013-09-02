@@ -49,7 +49,7 @@ public class DnsContext {
 		public DnsContext build() {
 			Assert.noBlanks(prefix, subdomain, domain);
 			if (hostname == null) {
-				this.hostname = prefix + "." + subdomain + "." + domain;
+				this.hostname = DnsUtils.getHostname(prefix, subdomain, domain);
 			} else {
 				Assert.noBlanks(hostname);
 			}

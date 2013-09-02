@@ -1,6 +1,7 @@
 package org.kuali.common.deploy.dns.spring;
 
 import org.kuali.common.deploy.dns.model.DnsContext;
+import org.kuali.common.deploy.dns.model.DnsUtils;
 import org.kuali.common.deploy.env.spring.DefaultDeployEnvironmentConfig;
 import org.kuali.common.deploy.env.spring.DeployEnvironmentConfig;
 import org.kuali.common.util.Assert;
@@ -41,7 +42,7 @@ public class DefaultDnsContextConfig implements DnsContextConfig {
 		Assert.noBlanks(defaultSubdomain);
 		String subdomain = env.getString(SUBDOMAIN_KEY, defaultSubdomain);
 		String domain = env.getString(DOMAIN_KEY, KUALI_DOMAIN);
-		String defaultHostname = prefix + "." + subdomain + "." + domain;
+		String defaultHostname = DnsUtils.getHostname(prefix, subdomain, domain);
 		String hostname = env.getString(HOSTNAME_KEY, defaultHostname);
 		return new DnsContext.Builder(prefix, subdomain, domain).hostname(hostname).build();
 	}
