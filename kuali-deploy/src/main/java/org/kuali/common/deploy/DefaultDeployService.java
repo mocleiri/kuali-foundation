@@ -53,8 +53,8 @@ public class DefaultDeployService implements DeployService {
 			}
 			logger.info("Environment - {}", context.getEnvironment().getName());
 			logger.info("Application - {}", RepositoryUtils.toString(context.getApplication()));
-			if (context.getJdbcDriver() != null) {
-				logger.info("Jdbc Driver - {}", RepositoryUtils.toString(context.getJdbcDriver()));
+			if (context.getJdbcDriver().isPresent()) {
+				logger.info("Jdbc Driver - {}", RepositoryUtils.toString(context.getJdbcDriver().get()));
 			}
 			for (Deployable deployable : context.getConfigFiles()) {
 				logger.info("Config - [{}]", deployable.getLocal());

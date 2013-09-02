@@ -7,23 +7,15 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.secure.channel.SecureChannel;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class DeployContext {
 
-	public DeployContext(SecureChannel channel, DeployEnvironment environment, Artifact application, Artifact jdbcDriver, List<Deployable> configFiles) {
-		Assert.noNulls(channel, environment, application, jdbcDriver, configFiles);
-		this.environment = environment;
-		this.channel = channel;
-		this.application = application;
-		this.jdbcDriver = jdbcDriver;
-		this.configFiles = ImmutableList.copyOf(configFiles);
-	}
-
 	private final SecureChannel channel;
 	private final DeployEnvironment environment;
 	private final Artifact application;
-	private final Artifact jdbcDriver;
+	private final Optional<Artifact> jdbcDriver;
 	private final List<Deployable> configFiles;
 
 	public DeployEnvironment getEnvironment() {
@@ -34,7 +26,7 @@ public final class DeployContext {
 		return application;
 	}
 
-	public Artifact getJdbcDriver() {
+	public Optional<Artifact> getJdbcDriver() {
 		return jdbcDriver;
 	}
 
@@ -44,6 +36,53 @@ public final class DeployContext {
 
 	public SecureChannel getChannel() {
 		return channel;
+	}
+
+	public static class Builder {
+
+		// Required
+		private final SecureChannel channel;
+		private final DeployEnvironment environment;
+		private final Artifact application;
+
+		// Optional
+		private Optional<Artifact> jdbcDriver = Optional.absent();
+		private List<Deployable> configFiles = ImmutableList.of();
+
+		public Builder(DeployEnvironment environment, SecureChannel channel, Artifact application) {
+			this.channel = channel;
+			this.environment = environment;
+			this.application = application;
+		}
+
+		public Builder jdbcDriver(Optional<Artifact> jdbcDriver) {
+			this.jdbcDriver = jdbcDriver;
+			return this;
+		}
+
+		public Builder jdbcDriver(Artifact jdbcDriver) {
+			return jdbcDriver(Optional.fromNullable(jdbcDriver));
+		}
+
+		public Builder configFiles(List<Deployable> configFiles) {
+			this.configFiles = configFiles;
+			return this;
+		}
+
+		public DeployContext build() {
+			Assert.noNulls(environment, channel, application, jdbcDriver, configFiles);
+			this.configFiles = ImmutableList.copyOf(configFiles);
+			return new DeployContext(this);
+		}
+
+	}
+
+	private DeployContext(Builder builder) {
+		this.environment = builder.environment;
+		this.channel = builder.channel;
+		this.application = builder.application;
+		this.jdbcDriver = builder.jdbcDriver;
+		this.configFiles = builder.configFiles;
 	}
 
 }

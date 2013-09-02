@@ -28,6 +28,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import com.google.common.base.Optional;
+
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultDeployContextConfig.class, MavenServiceConfig.class, DefaultSecureChannelConfig.class })
 public class TomcatConfig implements ApplicationServerConfig {
@@ -115,16 +117,21 @@ public class TomcatConfig implements ApplicationServerConfig {
 		return pathsToChown;
 	}
 
-	protected String getJdbcDriverPath() {
-		File file = localRepositoryService.getFile(context.getJdbcDriver());
+	protected String getJdbcDriverPath(Artifact jdbcDriver) {
+		File file = localRepositoryService.getFile(jdbcDriver);
 		return new CanonicalFile(file).getPath();
 	}
 
-	protected Deployable getJdbcDriver() {
+	protected Optional<Deployable> getJdbcDriver() {
+		Optional<Artifact> jdbcDriver = context.getJdbcDriver();
+		if (!jdbcDriver.isPresent()) {
+			return Optional.absent();
+		}
 		String lib = env.getString("tomcat.lib");
-		String local = getJdbcDriverPath();
-		String remote = lib + "/" + RepositoryUtils.getFilename(context.getJdbcDriver());
-		return new Deployable.Builder(local, remote).build();
+		String local = getJdbcDriverPath(jdbcDriver.get());
+		String remote = lib + "/" + RepositoryUtils.getFilename(jdbcDriver.get());
+		Deployable deployable = new Deployable.Builder(local, remote).build();
+		return Optional.of(deployable);
 	}
 
 	protected List<Deployable> getTomcatDeployables() {
@@ -133,7 +140,10 @@ public class TomcatConfig implements ApplicationServerConfig {
 		deployables.add(getSetEnv());
 		deployables.addAll(getJsps());
 		deployables.addAll(context.getConfigFiles());
-		deployables.add(getJdbcDriver());
+		Optional<Deployable> jdbcDriver = getJdbcDriver();
+		if (jdbcDriver.isPresent()) {
+			deployables.add(jdbcDriver.get());
+		}
 		return deployables;
 	}
 

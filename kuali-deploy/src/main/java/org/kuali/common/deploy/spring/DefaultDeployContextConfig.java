@@ -8,11 +8,13 @@ import org.codehaus.plexus.util.StringUtils;
 import org.kuali.common.deploy.DeployContext;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.deploy.channel.spring.DefaultSecureChannelConfig;
+import org.kuali.common.deploy.env.model.DeployEnvironment;
 import org.kuali.common.deploy.env.spring.DefaultDeployEnvironmentConfig;
 import org.kuali.common.deploy.env.spring.DeployEnvironmentConfig;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.secure.channel.SecureChannel;
 import org.kuali.common.util.secure.channel.spring.SecureChannelConfig;
 import org.kuali.common.util.spring.PropertySourceUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -22,6 +24,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.ConfigurableEnvironment;
+
+import com.google.common.base.Optional;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultDeployEnvironmentConfig.class, DefaultSecureChannelConfig.class })
@@ -86,11 +90,15 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 		return new Deployable.Builder(local, remote).filter(filter).required(required).build();
 	}
 
-	protected Artifact getJdbcDriverArtifact() {
-		String groupId = env.getString("jdbc.driver.groupId");
-		String artifactId = env.getString("jdbc.driver.artifactId");
-		String version = env.getString("jdbc.driver.version");
-		return new Artifact.Builder(groupId, artifactId, version).build();
+	protected Optional<Artifact> getJdbcDriverArtifact() {
+		String groupId = env.getString("jdbc.driver.groupId", NullUtils.NONE);
+		String artifactId = env.getString("jdbc.driver.artifactId", NullUtils.NONE);
+		String version = env.getString("jdbc.driver.version", NullUtils.NONE);
+		if (NullUtils.isNullOrNone(groupId)) {
+			return Optional.absent();
+		}
+		Artifact artifact = new Artifact.Builder(groupId, artifactId, version).build();
+		return Optional.of(artifact);
 	}
 
 	protected Artifact getApplicationArtifact() {
@@ -106,10 +114,12 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 	}
 
 	protected DeployContext getDeployContext() {
-		Artifact jdbcDriver = getJdbcDriverArtifact();
+		Optional<Artifact> jdbcDriver = getJdbcDriverArtifact();
 		Artifact application = getApplicationArtifact();
 		List<Deployable> configFiles = getApplicationConfig();
-		return new DeployContext(channelConfig.secureChannel(), deployEnvConfig.deployEnvironment(), application, jdbcDriver, configFiles);
+		SecureChannel channel = channelConfig.secureChannel();
+		DeployEnvironment environment = deployEnvConfig.deployEnvironment();
+		return new DeployContext.Builder(environment, channel, application).jdbcDriver(jdbcDriver).configFiles(configFiles).build();
 	}
 
 }
