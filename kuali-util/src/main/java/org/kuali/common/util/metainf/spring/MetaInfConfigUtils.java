@@ -6,7 +6,7 @@ import org.kuali.common.util.metainf.service.MetaInfUtils;
 public class MetaInfConfigUtils {
 
 	private static final String INCLUDES = "includes";
-	private static final String EXCLUDES = "includes";
+	private static final String EXCLUDES = "excludes";
 
 	/**
 	 * <code>group</code> is optional
