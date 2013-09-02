@@ -59,7 +59,7 @@ public class TomcatConfig implements ApplicationServerConfig {
 		String permissions = env.getString("tomcat.setenv.perms", "755");
 		String local = env.getString("tomcat.setenv.local");
 		String remote = env.getString("tomcat.setenv");
-		return new Deployable.Builder(local, remote).permissions(permissions).build();
+		return new Deployable.Builder(local, remote).permissions(permissions).filter(true).build();
 	}
 
 	protected List<Deployable> getJsps() {
