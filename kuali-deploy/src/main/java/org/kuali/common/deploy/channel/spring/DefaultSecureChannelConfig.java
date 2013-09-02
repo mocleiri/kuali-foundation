@@ -2,6 +2,8 @@ package org.kuali.common.deploy.channel.spring;
 
 import java.util.List;
 
+import org.kuali.common.deploy.dns.model.DnsContext;
+import org.kuali.common.deploy.dns.spring.DefaultDnsContextConfig;
 import org.kuali.common.util.secure.channel.DefaultSecureChannel;
 import org.kuali.common.util.secure.channel.SecureChannel;
 import org.kuali.common.util.secure.channel.spring.SecureChannelConfig;
@@ -15,24 +17,29 @@ import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
 @Configuration
-@Import({ SpringServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultDnsContextConfig.class })
 public class DefaultSecureChannelConfig implements SecureChannelConfig {
 
-	public static final String USERNAME_KEY = "channel.username";
-	public static final String HOSTNAME_KEY = "channel.hostname";
+	private static final String USERNAME_KEY = "channel.username";
+	private static final String HOSTNAME_KEY = "channel.hostname";
+
+	private static final String ROOT = "root";
 
 	@Autowired
 	EnvironmentService env;
+
+	@Autowired
+	DnsContext dnsContext;
 
 	@Override
 	@Bean
 	public SecureChannel secureChannel() {
 
 		// User to connect as
-		String username = env.getString(USERNAME_KEY);
+		String username = env.getString(USERNAME_KEY, ROOT);
 
 		// Hostname to connect to
-		String hostname = env.getString(HOSTNAME_KEY);
+		String hostname = env.getString(HOSTNAME_KEY, dnsContext.getHostname());
 
 		// Turn off strict host key checking by default
 		boolean strictHostKeyChecking = env.getBoolean("channel.strictHostKeyChecking", false);
