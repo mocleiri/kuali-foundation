@@ -2,8 +2,8 @@ package org.kuali.common.deploy.channel.spring;
 
 import java.util.List;
 
-import org.kuali.common.deploy.dns.spring.DefaultDnsContextConfig;
-import org.kuali.common.deploy.dns.spring.DnsContextConfig;
+import org.kuali.common.deploy.env.spring.DefaultDeployEnvironmentConfig;
+import org.kuali.common.deploy.env.spring.DeployEnvironmentConfig;
 import org.kuali.common.util.secure.channel.DefaultSecureChannel;
 import org.kuali.common.util.secure.channel.SecureChannel;
 import org.kuali.common.util.secure.channel.spring.SecureChannelConfig;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
 @Configuration
-@Import({ DefaultDnsContextConfig.class, SpringServiceConfig.class })
+@Import({ DefaultDeployEnvironmentConfig.class, SpringServiceConfig.class })
 public class DefaultSecureChannelConfig implements SecureChannelConfig {
 
 	public static final String USERNAME_KEY = "channel.username"; // TODO Make this private after refactoring DeployEnvironment + DeployContext
@@ -26,7 +26,7 @@ public class DefaultSecureChannelConfig implements SecureChannelConfig {
 	private static final String ROOT = "root";
 
 	@Autowired
-	DnsContextConfig dnsConfig;
+	DeployEnvironmentConfig envConfig;
 
 	@Autowired
 	EnvironmentService env;
@@ -39,7 +39,7 @@ public class DefaultSecureChannelConfig implements SecureChannelConfig {
 		String username = env.getString(USERNAME_KEY, ROOT);
 
 		// Hostname to connect to
-		String hostname = env.getString(HOSTNAME_KEY, dnsConfig.dnsContext().getHostname());
+		String hostname = env.getString(HOSTNAME_KEY, envConfig.deployEnvironment().getDns().getHostname());
 
 		// Turn off strict host key checking by default
 		boolean strictHostKeyChecking = env.getBoolean("channel.strictHostKeyChecking", false);
