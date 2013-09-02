@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.dns.model;
+package org.kuali.common.dns.model;
 
 import org.kuali.common.util.Assert;
 
