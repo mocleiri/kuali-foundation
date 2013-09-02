@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.common.deploy.SysAdminExecutable;
+import org.kuali.common.deploy.channel.spring.DefaultSecureChannelConfig;
 import org.kuali.common.util.UnixCmds;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.secure.channel.SecureChannel;
-import org.kuali.common.util.secure.channel.spring.DefaultSecureChannelConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
