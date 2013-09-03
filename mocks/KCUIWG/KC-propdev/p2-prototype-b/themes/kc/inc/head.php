@@ -32,3 +32,5 @@
 		<li><a href="#content">Skip to main content</a></li>
 	</ul>
 </div>
+
+<!-- Continues with nav.php -->

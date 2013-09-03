@@ -40,16 +40,9 @@ $(document).ready(function() {
 		Expanding and collapsing handler
 		Chris Rodriguez
 	*/
-	$('.uif-navigation ul li.expanded').find('ul').show();
-	$('.uif-navigation ul li a').on('click', function(e) {
-
-		if ($(this).parent().hasClass('expanded')) {
-			e.preventDefault();
-			return false;
-		} else {
-			$(this).parent().find('ul').slideDown();
-		}		
-	});
+	if ($('.uif-navigation')) {
+		$('.uif-navigation ul li.expanded').find('ul').show();
+	}
 
 
 
@@ -93,16 +86,66 @@ $(document).ready(function() {
 		Initializes the Chosen plugin on classed select/multiselect elements
 		Chris Rodriguez
 	*/
-	$('.chzn').each(function() {
-		if ($(this).hasClass('limit')) {
-			var limit = $(this).data('limit');
-			$(this).chosen({
-				'max_selected_options' : limit
-			});
-		} else {
-			$(this).chosen();
-		}
-	});
+	if ($('.chzn').length) {
+		$('.chzn').each(function() {
+			if ($(this).hasClass('limit')) {
+				var limit = $(this).data('limit');
+				$(this).chosen({
+					'max_selected_options' : limit
+				});
+			} else {
+				$(this).chosen();
+			}
+		});
+	}
+
+
+
+	/*
+		Subnav toggle
+		Collapses and expandes the subnav making the content area full-width if desired
+		Derived from http://www.keenthemes.com/preview/index.php?theme=conquer&page=index.html
+		app.js, lines 146-185
+		Chris Rodriguez
+	*/
+	var handle_sidebar_menu = function() {
+
+		$('#sidebar .has-sub > a').click(function(e) {
+			var last = $('.has-sub.open', $('#sidebar'));
+			last.removeClass('open');
+			$('.sub', last).slideUp(200);
+			
+			var sub = $(this).next();
+			if (sub.is(':visible')) {
+				$(this).parent().removeClass('open');
+				sub.slideUp(200);
+			} else {
+				$(this).parent().addClass('open');
+				sub.slideDown(200);
+			}
+
+			e.preventDefault();
+		});
+	}
+
+	var handle_sidebar_toggler = function() {
+
+		$('#nav-toggle').click(function() {
+			if ($('#sidebar').parent().hasClass('closed') === false) {
+				$('#sidebar').parent().addClass('closed col-md-1').removeClass('col-md-3');
+				$('#sidebar').removeClass('open').addClass('closed');
+				$(this).removeClass('open').addClass('closed');
+			} else {
+				$('#sidebar').parent().removeClass('closed col-md-1').addClass('col-md-3');
+				$('#sidebar').removeClass('closed').addClass('open');
+				$(this).removeClass('closed').addClass('open');
+			}
+		});
+
+	}
+
+	handle_sidebar_menu();
+	handle_sidebar_toggler();
 	
 
 

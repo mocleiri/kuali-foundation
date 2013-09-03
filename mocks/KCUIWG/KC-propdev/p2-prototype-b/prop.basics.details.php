@@ -11,18 +11,17 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-		
-	<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 	<div class="container">
 
-		<div class="row">
+		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
+		<div class="row">
 			<div class="col-md-3">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
-
-			<div class="col-md-9" id="content" tabindex="-1">
+			<div class="" id="content" tabindex="-1">
+			
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -146,25 +145,21 @@ include( '_temp.select.filler.php' );
 						</fieldset>
 					</form>
 				</div>
-
 				<!-- // -->
 
 			</div>
-
 		</div>
 
-	</div>
-
-	<!-- Button row -->
-	<div class="btn-row-page-action">
-		<div class="container">
+		<!-- Button row -->
+		<div class="btn-row-page-action">
 			<div class="row">
 				<button class="btn btn-default">Save</button>
 				<button class="btn btn-primary">Save and continue...</button>
 			</div>
 		</div>
+		<!-- // -->
+
 	</div>
-	<!-- // -->
 
 </section>
 

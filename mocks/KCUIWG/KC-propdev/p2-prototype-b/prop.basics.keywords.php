@@ -12,9 +12,9 @@ include( '_temp.select.filler.php' );
 
 <section id="main">
 		
-	<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
-
 	<div class="container">
+
+		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 		<div class="row">
 
@@ -42,17 +42,6 @@ include( '_temp.select.filler.php' );
 								</select>
 							</div>
 						</div>
-
-						<!-- <dl>
-							<dt>1</dt>
-							<dd>Carbon <a class="link-delete" href="#">- Delete</a></dd>
-
-							<dt>2</dt>
-							<dd>Heat <a class="link-delete" href="#">- Delete</a></dd>
-
-							<dt>3</dt>
-							<dd><a class="link-add" href="#">+ Add</a></dd>
-						</dl> -->
 					</form>
 				</div>
 
@@ -62,18 +51,16 @@ include( '_temp.select.filler.php' );
 
 		</div>
 
-	</div>
-
-	<!-- Button row -->
-	<div class="btn-row-page-action">
-		<div class="container">
+		<!-- Button row -->
+		<div class="btn-row-page-action">
 			<div class="row">
 				<button class="btn btn-default">Save</button>
 				<button class="btn btn-primary">Save and continue...</button>
 			</div>
 		</div>
+		<!-- // -->
+
 	</div>
-	<!-- // -->
 
 </section>
 

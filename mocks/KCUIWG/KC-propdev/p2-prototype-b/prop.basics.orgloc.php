@@ -11,10 +11,10 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-		
-	<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 	<div class="container">
+		
+		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 		<div class="row">
 
@@ -25,7 +25,7 @@ include( '_temp.select.filler.php' );
 			<div class="col-md-9" id="content" tabindex="-1">
         <!-- Main content goes here -->
         
-        <h3>Organization &amp; Location</h3>
+        <h2>Organization &amp; Location</h2>
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li class="active"><a href="#tab1" data-toggle="tab">Applicant Organization</a></li>
           <li><a href="#tab2" data-toggle="tab">Performing Organization</a></li>
@@ -347,18 +347,16 @@ include( '_temp.select.filler.php' );
 
 		</div>
 
-	</div>
-
-	<!-- Button row -->
-	<div class="btn-row-page-action">
-		<div class="container">
+		<!-- Button row -->
+		<div class="btn-row-page-action">
 			<div class="row">
 				<button class="btn btn-default">Save</button>
 				<button class="btn btn-primary">Save and continue...</button>
 			</div>
 		</div>
+		<!-- // -->
+
 	</div>
-	<!-- // -->
 
 </section>
 

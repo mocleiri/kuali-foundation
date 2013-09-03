@@ -11,10 +11,10 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-		
-	<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 	<div class="container">
+		
+		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
 		<div class="row">
 
@@ -157,18 +157,16 @@ include( '_temp.select.filler.php' );
 
 		</div>
 
-	</div>
-
-	<!-- Button row -->
-	<div class="btn-row-page-action">
-		<div class="container">
+		<!-- Button row -->
+		<div class="btn-row-page-action">
 			<div class="row">
 				<button class="btn btn-default">Save</button>
 				<button class="btn btn-primary">Save and continue...</button>
 			</div>
 		</div>
+		<!-- // -->
+
 	</div>
-	<!-- // -->
 
 </section>
 
