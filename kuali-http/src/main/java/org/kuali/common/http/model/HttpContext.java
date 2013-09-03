@@ -15,16 +15,17 @@
  */
 package org.kuali.common.http.model;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+
 public class HttpContext {
 
 	private final String url; // Url to contact
-	private final String logMsgPrefix; // Gets printed as a prefix to any log messages emitted by the HttpService
+	private final Optional<String> logMsgPrefix; // Gets printed as a prefix to any log messages emitted by the HttpService
 	private final List<Integer> successCodes; // HTTP codes signifying success
 	private final int requestTimeoutMillis; // Millis to wait before an individual http request times out (3 seconds)
 	private final int sleepIntervalMillis; // Millis to wait in between http requests (3 seconds)
@@ -40,9 +41,9 @@ public class HttpContext {
 		private final String url;
 
 		// Optional
-		private String logMsgPrefix = "Waiting for";
-		private List<Integer> successCodes = Collections.unmodifiableList(Arrays.asList(200));
-		private List<Integer> continueWaitingCodes = Collections.unmodifiableList(Arrays.asList(503));
+		private Optional<String> logMsgPrefix = Optional.of("Waiting for");
+		private List<Integer> successCodes = ImmutableList.of(200);
+		private List<Integer> continueWaitingCodes = ImmutableList.of(503);
 		private int requestTimeoutMillis = 3000;
 		private int sleepIntervalMillis = 3000;
 		private int overallTimeoutMillis = 1000 * 60 * 3;
@@ -52,7 +53,7 @@ public class HttpContext {
 		}
 
 		public Builder logMsgPrefix(String logMsgPrefix) {
-			this.logMsgPrefix = logMsgPrefix;
+			this.logMsgPrefix = Optional.fromNullable(logMsgPrefix);
 			return this;
 		}
 
@@ -83,7 +84,7 @@ public class HttpContext {
 
 		public HttpContext build() {
 			Assert.noBlanks(url);
-			Assert.noNulls(successCodes, continueWaitingCodes);
+			Assert.noNulls(logMsgPrefix, successCodes, continueWaitingCodes);
 			Assert.isTrue(requestTimeoutMillis > 0, "requestTimeoutMillis must be a positive integer");
 			Assert.isTrue(overallTimeoutMillis > 0, "overallTimeoutMillis must be a positive integer");
 			Assert.isTrue(sleepIntervalMillis >= 0, "sleepIntervalMillis is negative");
@@ -95,22 +96,18 @@ public class HttpContext {
 	private HttpContext(Builder builder) {
 		this.url = builder.url;
 		this.logMsgPrefix = builder.logMsgPrefix;
-		this.successCodes = of(builder.successCodes);
-		this.continueWaitingCodes = of(builder.continueWaitingCodes);
+		this.successCodes = ImmutableList.copyOf(builder.successCodes);
+		this.continueWaitingCodes = ImmutableList.copyOf(builder.continueWaitingCodes);
 		this.requestTimeoutMillis = builder.requestTimeoutMillis;
 		this.sleepIntervalMillis = builder.sleepIntervalMillis;
 		this.overallTimeoutMillis = builder.overallTimeoutMillis;
-	}
-
-	private static List<Integer> of(List<Integer> integers) {
-		return Collections.unmodifiableList(integers);
 	}
 
 	public String getUrl() {
 		return url;
 	}
 
-	public String getLogMsgPrefix() {
+	public Optional<String> getLogMsgPrefix() {
 		return logMsgPrefix;
 	}
 
