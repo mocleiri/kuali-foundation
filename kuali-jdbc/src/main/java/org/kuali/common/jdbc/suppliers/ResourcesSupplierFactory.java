@@ -13,15 +13,15 @@ public final class ResourcesSupplierFactory {
 
 	public static final String DEFAULT_EXTENSION = "resources";
 
-	public ResourcesSupplierFactory(SupplierFactory factory) {
+	public ResourcesSupplierFactory(LocationSupplierFactory factory) {
 		this(CollectionUtils.singletonList(factory));
 	}
 
-	public ResourcesSupplierFactory(List<SupplierFactory> factories) {
+	public ResourcesSupplierFactory(List<LocationSupplierFactory> factories) {
 		this(DEFAULT_EXTENSION, factories);
 	}
 
-	public ResourcesSupplierFactory(String extension, List<SupplierFactory> factories) {
+	public ResourcesSupplierFactory(String extension, List<LocationSupplierFactory> factories) {
 		Assert.noBlanks(extension);
 		Assert.isFalse(CollectionUtils.isEmpty(factories), "Must provide at least one factory");
 		this.factories = ListUtils.newImmutableArrayList(factories);
@@ -31,7 +31,7 @@ public final class ResourcesSupplierFactory {
 
 	private final String extension;
 	private final String suffix;
-	private final List<SupplierFactory> factories;
+	private final List<LocationSupplierFactory> factories;
 
 	public List<SqlSupplier> getSuppliers(List<String> resourceLocations) {
 		List<SqlSupplier> suppliers = new ArrayList<SqlSupplier>();
@@ -55,12 +55,12 @@ public final class ResourcesSupplierFactory {
 
 	public SqlSupplier getSupplier(String location) {
 		Assert.noBlanks(location);
-		SupplierFactory factory = findFactory(location);
+		LocationSupplierFactory factory = findFactory(location);
 		return factory.getSupplier(location);
 	}
 
-	protected SupplierFactory findFactory(String location) {
-		for (SupplierFactory factory : factories) {
+	protected LocationSupplierFactory findFactory(String location) {
+		for (LocationSupplierFactory factory : factories) {
 			if (factory.isMatch(location)) {
 				return factory;
 			}
@@ -80,7 +80,7 @@ public final class ResourcesSupplierFactory {
 		return suffix;
 	}
 
-	public List<SupplierFactory> getFactories() {
+	public List<LocationSupplierFactory> getFactories() {
 		return factories;
 	}
 

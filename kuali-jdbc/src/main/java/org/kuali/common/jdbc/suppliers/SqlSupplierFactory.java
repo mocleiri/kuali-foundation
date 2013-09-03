@@ -3,7 +3,7 @@ package org.kuali.common.jdbc.suppliers;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 
-public class SqlSupplierFactory implements SupplierFactory {
+public class SqlSupplierFactory implements LocationSupplierFactory {
 
 	public static final String DEFAULT_EXTENSION = "sql";
 
