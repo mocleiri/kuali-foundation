@@ -42,7 +42,7 @@ public final class SqlLocationSupplier extends AbstractSupplier implements SqlSu
 	public SqlLocationSupplier(String location, SqlLocationContext context) {
 		Assert.noNulls(context);
 		Assert.noBlanks(location);
-		Assert.isTrue(LocationUtils.exists(location));
+		Assert.exists(location);
 		this.location = location;
 		this.context = context;
 	}
