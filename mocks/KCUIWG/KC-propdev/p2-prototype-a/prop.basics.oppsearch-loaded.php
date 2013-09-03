@@ -6,6 +6,22 @@ $page = 'basics-grantsgov';
 <script>
     $(document).ready(function () {
         $('#opp-title').editable();
+		$('#opp-status').editable({
+            value: 1,
+            source: [
+                {
+                    value: 1,
+                    text: 'VALIDATED'
+                },
+                {
+                    value: 2,
+                    text: 'NOT VALIDATED'
+                }
+           ]
+
+        });
+		$('#opp-comments').editable();
+		$('.date-field').datepicker();
         $('#opp-subtype').editable({
             value: 1,
             source: [
@@ -132,6 +148,38 @@ $page = 'basics-grantsgov';
                 </div>
                 <div class="tab-pane" id="opp-submission">
                   <p>Submission details will be available after the proposal is submitted.</p>
+                  <table  class="table table-condensed">
+                    <tbody>
+                      <tr>
+                        <th style="width:30%"> Recieved Date</th>
+                        <td> 8/13/13 7:28 PM</td>
+                      </tr>
+                      <tr>
+                        <th style="width:30%"> Last Modified Date</th>
+                        <td> 8/13/13 7:29 PM</td>
+                      </tr>
+                      <tr>
+                        <th> Status</th>
+                        <td><a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">VALIDATED</a></td>
+                      </tr>
+                      <tr>
+                        <th> S2S Tracking Id</th>
+                        <td> GRANT00571006</td>
+                      </tr>
+                      <tr>
+                        <th> Agency Tracking Id</th>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <th> Comments</th>
+                        <td> <a href="#" id="opp-comments" data-type="textarea" data-pk="1" data-url="/post" data-title="Submission Details Comments">Trying to submit to S2S</a></td>
+                      </tr>
+                      <tr>
+                        <th> Attachments</th>
+                        <td> N-1_Budget_Justification_Fed_NonFed</td>
+                      </tr>
+                      </tbody>
+                     </table>
                 </div>
                 <div class="tab-pane" id="opp-forms">
                   <table  class="table table-condensed table-striped table-hover">
