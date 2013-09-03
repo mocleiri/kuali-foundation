@@ -90,15 +90,28 @@ public class DefaultDeployContextConfig implements DeployContextConfig {
 		return new Deployable.Builder(local, remote).filter(filter).required(required).build();
 	}
 
+	// This isn't really optional because all supported vendor specific drivers are declared as dependencies in the KDO profile
+	// of the top level kuali pom, and thus must exist and be downloadable.
 	protected Optional<Artifact> getJdbcDriverArtifact() {
-		String groupId = env.getString("jdbc.driver.groupId", NullUtils.NONE);
-		String artifactId = env.getString("jdbc.driver.artifactId", NullUtils.NONE);
-		String version = env.getString("jdbc.driver.version", NullUtils.NONE);
-		if (NullUtils.isNullOrNone(groupId)) {
-			return Optional.absent();
-		}
+		Artifact driver = getVendorJdbcDriver();
+		String groupId = env.getString("jdbc.driver.groupId", driver.getGroupId());
+		String artifactId = env.getString("jdbc.driver.artifactId", driver.getArtifactId());
+		String version = env.getString("jdbc.driver.version", driver.getVersion());
 		Artifact artifact = new Artifact.Builder(groupId, artifactId, version).build();
 		return Optional.of(artifact);
+	}
+
+	// This isn't because all supported vendor specific drivers are declared as dependencies in the KDO profile
+	// of the top level kuali pom, and thus must exist and be downloadable.
+	protected Artifact getVendorJdbcDriver() {
+		String vendor = env.getString("db.vendor");
+		String groupIdKey = vendor + ".groupId";
+		String artifactIdKey = vendor + ".artifactId";
+		String versionKey = vendor + ".version";
+		String groupId = env.getString(groupIdKey);
+		String artifactId = env.getString(artifactIdKey);
+		String version = env.getString(versionKey);
+		return new Artifact.Builder(groupId, artifactId, version).build();
 	}
 
 	protected Artifact getApplicationArtifact() {
