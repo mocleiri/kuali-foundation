@@ -89,8 +89,6 @@ public class TomcatConfig implements ApplicationServerConfig {
 		pathsToDelete.add(lib + "/orai18n*.jar");
 		pathsToDelete.add(lib + "/spring*.jar"); // Rice requires a Spring jar file in Tomcat lib now.
 		pathsToDelete.add(env.getString("tomcat.setenv"));
-		pathsToDelete.add(env.getString("tomcat.home.org")); // Shouldn't really be needed anymore, leftover from some OLE shenanigans
-		pathsToDelete.add(env.getString("tomcat.home.org.alt")); // Shouldn't really be needed anymore, leftover from some OLE shenanigans
 		pathsToDelete.add(env.getString("tomcat.conf.catalina"));
 		pathsToDelete.add(env.getString("tomcat.logs"));
 		pathsToDelete.add(env.getString("tomcat.webapps"));
