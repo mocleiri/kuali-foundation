@@ -27,9 +27,9 @@ public class HttpContext {
 	private final String url; // Url to contact
 	private final Optional<String> logMsgPrefix; // Gets printed as a prefix to any log messages emitted by the HttpService
 	private final List<Integer> successCodes; // HTTP codes signifying success
-	private final int requestTimeoutMillis; // Millis to wait before an individual http request times out (3 seconds)
-	private final int sleepIntervalMillis; // Millis to wait in between http requests (3 seconds)
-	private final int overallTimeoutMillis; // Total number of millis to wait before timing out (3 minutes)
+	private final int requestTimeoutMillis; // Millis to wait before an individual http request times out (15 seconds)
+	private final int sleepIntervalMillis; // Millis to wait in between http requests (15 seconds)
+	private final int overallTimeoutMillis; // Total number of millis to wait before timing out (30 minutes)
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -44,9 +44,9 @@ public class HttpContext {
 		private Optional<String> logMsgPrefix = Optional.of("Waiting for");
 		private List<Integer> successCodes = ImmutableList.of(200);
 		private List<Integer> continueWaitingCodes = ImmutableList.of(503);
-		private int requestTimeoutMillis = 3000;
-		private int sleepIntervalMillis = 3000;
-		private int overallTimeoutMillis = 1000 * 60 * 3;
+		private int requestTimeoutMillis = 15000;
+		private int sleepIntervalMillis = 15000;
+		private int overallTimeoutMillis = 1000 * 60 * 30;
 
 		public Builder(String url) {
 			this.url = url;
