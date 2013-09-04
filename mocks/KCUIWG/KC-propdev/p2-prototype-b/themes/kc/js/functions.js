@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 	/*
 		Subnavigation
-		Expanding and collapsing handler
+		Set default view for navigation on page load
 		Chris Rodriguez
 	*/
 	if ($('.uif-navigation')) {
@@ -172,6 +172,30 @@ $(document).ready(function() {
 		handle_sidebar_toggler();
 	}
 
+
+
+	/*
+		Additional <select> options
+		Shows or hides additional form fields based on chosen <select> value
+		Chris Rodriguez
+	*/
+	$('.onchange').change(function() {
+		var that = $(this).val();
+
+		if ($('#' + that).length) {
+			$('#' + that).show();
+		} else {
+			$('.hidden-fields').hide();
+		}
+	});
+
+
+
+	/*
+		Window resize listener
+		Performes specified functions when the window is resized
+		Chris Rodriguez
+	*/
 	$(window).resize(function() {
 
 		if ($('#sidebar').length) {

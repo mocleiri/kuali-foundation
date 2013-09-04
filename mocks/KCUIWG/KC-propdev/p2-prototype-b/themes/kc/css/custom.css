@@ -628,6 +628,9 @@ section.toolbar .dropdown a .caret {
   clear: both;
   visibility: hidden;
 }
+#content .hidden-fields {
+  display: none;
+}
 #content:focus {
   outline: none;
 }
