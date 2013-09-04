@@ -463,6 +463,10 @@ section.toolbar .dropdown a .caret {
 .uif-navigation.closed ul li.expanded li.active a:after {
   display: none;
 }
+.uif-navigation.closed ul li:hover,
+.uif-navigation.closed ul li:focus {
+  background: #d0d0d0;
+}
 .uif-navigation.closed ul li:hover ul,
 .uif-navigation.closed ul li:focus ul {
   top: -2px;
