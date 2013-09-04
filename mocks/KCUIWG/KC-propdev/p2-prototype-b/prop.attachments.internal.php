@@ -21,7 +21,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-md-9">
+			<div class="col-md-9" id="content" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -33,7 +33,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<fieldset>
 							<legend>Add attachments to this proposal</legend>
 							<div class="form-group clearfix">
-								<label for="file" class="control_label col-md-3">File:</label>
+								<label for="file" class="control-label col-md-3">File:</label>
 								<div class="col-md-5">
 									<input type="file" name="file" id="file" />
 								</div>

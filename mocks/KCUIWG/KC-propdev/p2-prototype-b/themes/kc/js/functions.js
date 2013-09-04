@@ -104,8 +104,6 @@ $(document).ready(function() {
 	/*
 		Subnav toggle
 		Collapses and expandes the subnav making the content area full-width if desired
-		Derived from http://www.keenthemes.com/preview/index.php?theme=conquer&page=index.html
-		app.js, lines 146-185
 		Chris Rodriguez
 	*/
 	var handle_sidebar_menu = function() {
@@ -132,20 +130,55 @@ $(document).ready(function() {
 
 		$('#nav-toggle').click(function() {
 			if ($('#sidebar').parent().hasClass('closed') === false) {
-				$('#sidebar').parent().addClass('closed col-md-1').removeClass('col-md-3');
 				$('#sidebar').removeClass('open').addClass('closed');
 				$(this).removeClass('open').addClass('closed');
+
+				if ($(window).width() > 767) {
+					$('#sidebar').parent().addClass('closed col-md-1').removeClass('col-md-3');
+					$('#sidebar').parent().next().addClass('col-md-11').removeClass('col-md-9');
+				} else {
+					$('#sidebar').parent().addClass('closed');
+				}
 			} else {
-				$('#sidebar').parent().removeClass('closed col-md-1').addClass('col-md-3');
 				$('#sidebar').removeClass('closed').addClass('open');
 				$(this).removeClass('closed').addClass('open');
+
+				if ($(window).width() > 767) {
+					$('#sidebar').parent().removeClass('closed col-md-1').addClass('col-md-3');
+					$('#sidebar').parent().next().addClass('col-md-9').removeClass('col-md-11');
+				} else {
+					$('#sidebar').parent().removeClass('closed');
+				}
 			}
 		});
+	}
+
+	var handle_toggle_icon_col_size = function() {
+
+		if ($(window).width() > 767) {
+			$('#nav-toggle span').addClass('icon-expand').removeClass('icon-collapse');
+			$('#sidebar').parent().addClass('col-md-3').removeClass('col-md-1');
+			$('#sidebar').parent().next().addClass('col-md-9').removeClass('col-md-11');
+		} else {
+			$('#nav-toggle span').addClass('icon-collapse').removeClass('icon-expand');
+			$('#sidebar').parent().addClass('col-md-1').removeClass('col-md-3');
+			$('#sidebar').parent().next().addClass('col-md-11').removeClass('col-md-9');
+		}
 
 	}
 
-	handle_sidebar_menu();
-	handle_sidebar_toggler();
+	if ($('#sidebar').length) {
+		handle_sidebar_menu();
+		handle_sidebar_toggler();
+	}
+
+	$(window).resize(function() {
+
+		if ($('#sidebar').length) {
+			handle_toggle_icon_col_size();
+		}
+
+	});
 	
 
 

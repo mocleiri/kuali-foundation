@@ -20,7 +20,7 @@ include( '_temp.select.filler.php' );
 			<div class="col-md-3">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
-			<div class="" id="content" tabindex="-1">
+			<div class="col-md-9" id="content" tabindex="-1">
 			
 				<!-- Main content goes here -->
 

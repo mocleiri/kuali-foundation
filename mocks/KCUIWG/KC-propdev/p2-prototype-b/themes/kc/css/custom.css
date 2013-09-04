@@ -76,6 +76,10 @@ button {
   top: 0px;
   margin-left: -16px;
 }
+.portal-header .navbar .navbar-toggle {
+  color: white;
+  font-size: 120%;
+}
 .portal-header .navbar .nav li.active a {
   background: #9b0038;
 }
@@ -448,6 +452,7 @@ section.toolbar .dropdown a .caret {
 }
 .uif-navigation.closed {
   width: 40px;
+  height: auto;
 }
 .uif-navigation.closed .nav-label {
   visibility: hidden;
@@ -742,4 +747,34 @@ footer a {
 footer .container {
   margin-top: 30px;
   margin-bottom: 30px;
+}
+/*
+	768px wide, tablets, portrait
+*/
+@media (max-width: 767px) {
+  .uif-navigation ul li {
+    background-image: none;
+  }
+  .uif-navigation ul li.expanded ul li.active a:after {
+    display: none;
+  }
+  .uif-navigation ul li.expanded ul li a {
+    background-image: none;
+  }
+  .uif-navigation ul li.expanded > a:after {
+    display: none;
+  }
+  .uif-navigation.closed {
+    width: 100%;
+    height: 34px;
+    overflow: hidden;
+  }
+  .uif-navigation.closed ul li:hover ul,
+  .uif-navigation.closed ul li:focus ul {
+    left: -9999em;
+  }
+  .uif-navigation.closed ul li:hover ul li a .nav-label,
+  .uif-navigation.closed ul li:focus ul li a .nav-label {
+    visibility: hidden;
+  }
 }

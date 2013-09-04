@@ -4,7 +4,7 @@
 
 		<nav class="navbar" role="navigation">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span> </button>
 				<a class="navbar-brand" href="index.php">
 					<div class="logoBrand">
 						<h1><span class="sr-only">Kuali Rice - KRAD</span></h1>
