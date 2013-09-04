@@ -39,13 +39,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   <td>Grants.gov Questions</td>
                   <td>completed</td>
                   <td>  
-                  <a href="#" class="launch-modal" data-modal-page="modals/questionnaire.html">edit</a></td>
+                  <a href="#" class="launch-modal" data-modal-page="modal/questionnaire.html">edit</a></td>
                 </tr>
                 <tr>
                   <td>Proposal Questions</td>
                   <td>incomplete</td>
                  <td>  
-                  <a href="#" class="launch-modal" data-modal-page="modals/questionnaire.html">edit</a></td>
+                  <a href="#" class="launch-modal" data-modal-page="modal/questionnaire.html">edit</a></td>
                 </tr>
               </table>
 
