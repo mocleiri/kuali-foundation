@@ -17,71 +17,86 @@ package org.kuali.common.http.model;
 
 import java.util.List;
 
+import org.kuali.common.util.Assert;
+
 public class HttpWaitResult {
 
-	long start;
-	long stop;
-	long elapsed;
-	List<HttpRequestResult> requestResults;
-	HttpStatus status;
-	HttpRequestResult finalRequestResult;
-
-	public HttpWaitResult() {
-		this(0);
-
-	}
-
-	public HttpWaitResult(long start) {
-		super();
-		this.start = start;
-	}
+	private final long start;
+	private final long stop;
+	private final long elapsed;
+	private final List<HttpRequestResult> requestResults;
+	private final HttpStatus status;
+	private final HttpRequestResult finalRequestResult;
 
 	public long getStart() {
 		return start;
-	}
-
-	public void setStart(long start) {
-		this.start = start;
 	}
 
 	public long getStop() {
 		return stop;
 	}
 
-	public void setStop(long stop) {
-		this.stop = stop;
-	}
-
 	public long getElapsed() {
 		return elapsed;
-	}
-
-	public void setElapsed(long elapsed) {
-		this.elapsed = elapsed;
 	}
 
 	public List<HttpRequestResult> getRequestResults() {
 		return requestResults;
 	}
 
-	public void setRequestResults(List<HttpRequestResult> requestResults) {
-		this.requestResults = requestResults;
-	}
-
 	public HttpStatus getStatus() {
 		return status;
-	}
-
-	public void setStatus(HttpStatus status) {
-		this.status = status;
 	}
 
 	public HttpRequestResult getFinalRequestResult() {
 		return finalRequestResult;
 	}
 
-	public void setFinalRequestResult(HttpRequestResult finalRequestResult) {
-		this.finalRequestResult = finalRequestResult;
+	public static class Builder {
+
+		private final HttpStatus status;
+		private final HttpRequestResult finalRequestResult;
+
+		private long start;
+		private long stop;
+		private long elapsed;
+		private List<HttpRequestResult> requestResults;
+
+		public HttpWaitResult build() {
+			Assert.noNulls(status, finalRequestResult, requestResults);
+
+			return new HttpWaitResult(this);
+		}
+
+		public Builder(HttpStatus status, HttpRequestResult finalRequestResult) {
+			this.status = status;
+			this.finalRequestResult = finalRequestResult;
+		}
+
+		public Builder start(long start) {
+			this.start = start;
+			return this;
+		}
+
+		public Builder stop(long stop) {
+			this.stop = stop;
+			return this;
+		}
+
+		public Builder requestResults(List<HttpRequestResult> requestResults) {
+			this.requestResults = requestResults;
+			return this;
+		}
+
+	}
+
+	private HttpWaitResult(Builder builder) {
+		this.status = builder.status;
+		this.finalRequestResult = builder.finalRequestResult;
+		this.start = builder.start;
+		this.stop = builder.stop;
+		this.elapsed = builder.elapsed;
+		this.requestResults = builder.requestResults;
 	}
 
 }

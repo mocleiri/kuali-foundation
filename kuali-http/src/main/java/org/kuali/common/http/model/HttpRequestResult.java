@@ -87,8 +87,8 @@ public class HttpRequestResult {
 			Assert.noNulls(statusCode, exception);
 			Assert.noBlanks(statusText);
 			Assert.isTrue(start > 0, "start is negative");
-			Assert.isTrue(stop > 0, "stop is negative");
-			this.elapsed = start - start;
+			Assert.isTrue(stop >= start, "stop is less than start");
+			this.elapsed = stop - start;
 			return new HttpRequestResult(this);
 		}
 
