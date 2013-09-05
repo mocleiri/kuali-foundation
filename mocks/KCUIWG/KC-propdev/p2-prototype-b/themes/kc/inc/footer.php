@@ -24,6 +24,6 @@
 <script src="themes/kc/js/fancybox/jquery.fancybox.js"></script>
 <script src="themes/kc/js/chosen/chosen.jquery.min.js"></script>
 <script src="themes/kc/js/functions.js"></script>
-
+<script src="themes/kc/js/jquery.jeditable.mini.js"></script>
 </body>
 </html>

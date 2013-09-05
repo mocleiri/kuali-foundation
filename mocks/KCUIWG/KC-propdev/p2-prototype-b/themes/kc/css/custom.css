@@ -756,6 +756,9 @@ dl:after {
 .modal-footer {
   background: #f6f6f6;
 }
+.modal {
+  z-index: 9999;
+}
 footer {
   color: #f2f2f2;
 }

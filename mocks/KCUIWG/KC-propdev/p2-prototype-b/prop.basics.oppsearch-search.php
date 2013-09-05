@@ -26,7 +26,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-title">
 					<h2>Opportunity Search</h2>
-                    <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch2.html">Ajax</a>
+                    <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Ajax</a>
                     <a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>
 				</div>
 
@@ -63,6 +63,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 <script>
 $(document).ready(function() {
 	
+	
+
 	$("#btn-oppsearch, #btn-newsearch").live('click', function() {	
 
 		$('.modal-backdrop').remove();
@@ -72,10 +74,27 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$(".fancy-close").live("click", function(){
-		parent.$.fancybox.close();
-		
+	
+	
+	$('body').on('hidden.bs.modal', '.modal', function () {
+		$(this).removeData('bs.modal');
 	});
+	
+	$('#myModal').on('show.bs.modal', function () {
+		console.log('show');
+    	$(this).find('.modal-body').css({width:'auto',
+                               height:'auto', 
+                              'max-height':'100%'});
+		});
+		
+		
+		
+	$(".load-tabs").live("click", function(){
+		$('#myModal').modal('toggle')
+			$('#oppsearch-tabs').load('modal/lookup-oppsearch-tabs.html');
+			
+		});
+		
 	
 	$(".various").fancybox({
 		fitToView	: false,
@@ -85,12 +104,16 @@ $(document).ready(function() {
 		closeClick	: false,
 		openEffect	: 'none',
 		closeEffect	: 'none',
-		//type: 'iframe',
+		type: 'iframe',
 	});
 	
-	$(".load-tabs").live("click", function(){
-			$('#oppsearch-tabs').load('modal/lookup-oppsearch-tabs.html');
-		});
+	
+	$(".fancy-close").live("click", function(){
+		parent.$.fancybox.close();
+		
+	});
+	
+	
 	
    
 });
