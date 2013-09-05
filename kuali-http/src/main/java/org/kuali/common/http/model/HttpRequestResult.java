@@ -60,17 +60,18 @@ public class HttpRequestResult {
 		private final String statusText;
 		private final long start;
 		private final long stop;
+		private long elapsed; // filled in automatically
 
 		// Optional
 		private Optional<Integer> statusCode = Optional.absent();
 		private Optional<IOException> exception = Optional.absent();
-		private long elapsed;
 
 		// Filled in automatically
 		public Builder(String statusText, long start, long stop) {
 			this.statusText = statusText;
 			this.start = start;
 			this.stop = stop;
+			this.elapsed = stop - start;
 		}
 
 		public Builder statusCode(int statusCode) {
@@ -88,7 +89,6 @@ public class HttpRequestResult {
 			Assert.noBlanks(statusText);
 			Assert.isTrue(start > 0, "start is negative");
 			Assert.isTrue(stop >= start, "stop is less than start");
-			this.elapsed = stop - start;
 			return new HttpRequestResult(this);
 		}
 

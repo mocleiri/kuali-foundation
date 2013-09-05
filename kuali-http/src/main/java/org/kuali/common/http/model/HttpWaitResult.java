@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 
+import com.google.common.collect.ImmutableList;
+
 public class HttpWaitResult {
 
 	private final long start;
@@ -56,31 +58,26 @@ public class HttpWaitResult {
 
 		private final HttpStatus status;
 		private final HttpRequestResult finalRequestResult;
+		private final long start;
+		private final long stop;
+		private final long elapsed; // filled in automatically
 
-		private long start;
-		private long stop;
-		private long elapsed;
-		private List<HttpRequestResult> requestResults;
+		private List<HttpRequestResult> requestResults = ImmutableList.of();
 
 		public HttpWaitResult build() {
 			Assert.noNulls(status, finalRequestResult, requestResults);
-
+			Assert.isTrue(start > 0, "start is negative");
+			Assert.isTrue(stop >= start, "stop is less than start");
+			this.requestResults = ImmutableList.copyOf(requestResults);
 			return new HttpWaitResult(this);
 		}
 
-		public Builder(HttpStatus status, HttpRequestResult finalRequestResult) {
+		public Builder(HttpStatus status, HttpRequestResult finalRequestResult, long start, long stop) {
 			this.status = status;
 			this.finalRequestResult = finalRequestResult;
-		}
-
-		public Builder start(long start) {
 			this.start = start;
-			return this;
-		}
-
-		public Builder stop(long stop) {
 			this.stop = stop;
-			return this;
+			this.elapsed = stop - start;
 		}
 
 		public Builder requestResults(List<HttpRequestResult> requestResults) {
