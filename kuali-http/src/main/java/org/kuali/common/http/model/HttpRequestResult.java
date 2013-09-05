@@ -89,6 +89,9 @@ public class HttpRequestResult {
 			Assert.noBlanks(statusText);
 			Assert.isTrue(start > 0, "start is negative");
 			Assert.isTrue(stop >= start, "stop is less than start");
+			if (statusCode.isPresent()) {
+				Assert.isTrue(statusCode.get() > 0, "status code must be a positive integer");
+			}
 			return new HttpRequestResult(this);
 		}
 
