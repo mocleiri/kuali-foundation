@@ -26,9 +26,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-title">
 					<h2>Opportunity Search</h2>
+                    <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch2.html">Ajax</a>
+                    <a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>
 				</div>
 
-				<div class="section-content">
+				<div class="section-content hidden">
 					<form action="#" method="post" class="">
 						<fieldset>
 							<legend>Opportunity actions</legend>
@@ -40,7 +42,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
 
 				<!-- // -->
-
+					<div id="oppsearch-tabs"></div>
 			</div>
 
 		</div>
@@ -57,5 +59,40 @@ require_once( 'themes/kc/inc/toolbar.php' );
 	</div>
 
 </section>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<script>
+$(document).ready(function() {
+	
+	$("#btn-oppsearch, #btn-newsearch").live('click', function() {	
 
+		$('.modal-backdrop').remove();
+		$('#myModal').removeData('bs.modal');
+		$('#myModal').modal ({remote : this.href });
+	
+		return false;
+	});
+	
+	$(".fancy-close").live("click", function(){
+		parent.$.fancybox.close();
+		
+	});
+	
+	$(".various").fancybox({
+		fitToView	: false,
+		width		: 800,
+		height		: '70%',
+		autoSize	: false,
+		closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none',
+		//type: 'iframe',
+	});
+	
+	$(".load-tabs").live("click", function(){
+			$('#oppsearch-tabs').load('modal/lookup-oppsearch-tabs.html');
+		});
+	
+   
+});
+</script>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

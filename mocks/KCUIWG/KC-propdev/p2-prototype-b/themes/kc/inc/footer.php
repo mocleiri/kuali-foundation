@@ -20,6 +20,7 @@
 
 <!-- Scripts -->
 <script src="themes/bootstrap/js/bootstrap.min.js"></script>
+<script src="themes/bootstrap/js/modal.js"></script>
 <script src="themes/kc/js/fancybox/jquery.fancybox.js"></script>
 <script src="themes/kc/js/chosen/chosen.jquery.min.js"></script>
 <script src="themes/kc/js/functions.js"></script>
