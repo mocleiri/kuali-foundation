@@ -17,70 +17,90 @@ package org.kuali.common.http.model;
 
 import java.io.IOException;
 
+import org.kuali.common.util.Assert;
+
+import com.google.common.base.Optional;
+
 public class HttpRequestResult {
 
-	Integer statusCode;
-	String statusText;
-	IOException exception;
-	long start;
-	long stop;
-	long elapsed;
+	private final Optional<Integer> statusCode;
+	private final String statusText;
+	private final Optional<IOException> exception;
+	private final long start;
+	private final long stop;
+	private final long elapsed;
 
-	public HttpRequestResult() {
-		this(0);
-	}
-
-	public HttpRequestResult(long start) {
-		super();
-		this.start = start;
-	}
-
-	public Integer getStatusCode() {
+	public Optional<Integer> getStatusCode() {
 		return statusCode;
-	}
-
-	public void setStatusCode(Integer statusCode) {
-		this.statusCode = statusCode;
 	}
 
 	public String getStatusText() {
 		return statusText;
 	}
 
-	public void setStatusText(String statusText) {
-		this.statusText = statusText;
-	}
-
-	public IOException getException() {
+	public Optional<IOException> getException() {
 		return exception;
-	}
-
-	public void setException(IOException exception) {
-		this.exception = exception;
 	}
 
 	public long getStart() {
 		return start;
 	}
 
-	public void setStart(long start) {
-		this.start = start;
-	}
-
 	public long getStop() {
 		return stop;
-	}
-
-	public void setStop(long stop) {
-		this.stop = stop;
 	}
 
 	public long getElapsed() {
 		return elapsed;
 	}
 
-	public void setElapsed(long elapsed) {
-		this.elapsed = elapsed;
+	public static class Builder {
+
+		// Required
+		private final String statusText;
+		private final long start;
+		private final long stop;
+
+		// Optional
+		private Optional<Integer> statusCode = Optional.absent();
+		private Optional<IOException> exception = Optional.absent();
+		private long elapsed;
+
+		// Filled in automatically
+		public Builder(String statusText, long start, long stop) {
+			this.statusText = statusText;
+			this.start = start;
+			this.stop = stop;
+		}
+
+		public Builder statusCode(int statusCode) {
+			this.statusCode = Optional.of(statusCode);
+			return this;
+		}
+
+		public Builder exception(IOException exception) {
+			this.exception = Optional.of(exception);
+			return this;
+		}
+
+		public HttpRequestResult build() {
+			Assert.noNulls(statusCode, exception);
+			Assert.noBlanks(statusText);
+			Assert.isTrue(start > 0, "start is negative");
+			Assert.isTrue(stop > 0, "stop is negative");
+			this.elapsed = start - start;
+			return new HttpRequestResult(this);
+		}
+
+	}
+
+	private HttpRequestResult(Builder builder) {
+		this.statusText = builder.statusText;
+		this.start = builder.start;
+		this.stop = builder.stop;
+		this.elapsed = builder.elapsed;
+		this.exception = builder.exception;
+		this.statusCode = builder.statusCode;
 	}
 
 }
