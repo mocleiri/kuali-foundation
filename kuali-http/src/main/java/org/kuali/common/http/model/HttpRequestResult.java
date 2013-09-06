@@ -68,7 +68,6 @@ public class HttpRequestResult {
 		private Optional<IOException> exception = Optional.absent();
 
 		public Builder(IOException exception, long start) {
-			Assert.noNulls(exception);
 			this.exception = Optional.of(exception);
 			this.statusText = exception.getMessage();
 			this.start = start;
