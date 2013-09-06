@@ -35,11 +35,11 @@ public class DefaultHttpServiceTest {
 	@Test
 	public void test() {
 		try {
-			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
+			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("3s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
 			service.wait(context);
 			Assert.fail("Contacting a non-existent URL returned 200");
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
