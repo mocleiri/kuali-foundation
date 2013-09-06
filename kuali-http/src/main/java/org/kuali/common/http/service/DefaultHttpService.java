@@ -38,8 +38,6 @@ import org.kuali.common.util.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
-
 public class DefaultHttpService implements HttpService {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);
@@ -92,12 +90,10 @@ public class DefaultHttpService implements HttpService {
 	}
 
 	protected String getStatusText(HttpRequestResult result) {
-		Optional<IOException> exception = result.getException();
-		Optional<Integer> statusCode = result.getStatusCode();
-		if (exception.isPresent()) {
-			return exception.get().getMessage();
+		if (result.getException().isPresent()) {
+			return result.getStatusText();
 		} else {
-			int code = statusCode.get();
+			int code = result.getStatusCode().get();
 			return code + " - " + result.getStatusText();
 		}
 	}
