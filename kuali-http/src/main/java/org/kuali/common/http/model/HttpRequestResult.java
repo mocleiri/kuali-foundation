@@ -59,39 +59,36 @@ public class HttpRequestResult {
 		// Required
 		private final String statusText;
 		private final long start;
-		private final long stop;
+
+		private long stop; // filled in automatically
 		private long elapsed; // filled in automatically
 
 		// Optional
 		private Optional<Integer> statusCode = Optional.absent();
 		private Optional<IOException> exception = Optional.absent();
 
-		// Filled in automatically
-		public Builder(String statusText, long start, long stop) {
-			this.statusText = statusText;
-			this.start = start;
-			this.stop = stop;
-			this.elapsed = stop - start;
-		}
-
-		public Builder statusCode(int statusCode) {
-			this.statusCode = Optional.of(statusCode);
-			return this;
-		}
-
-		public Builder exception(IOException exception) {
+		public Builder(IOException exception, long start) {
+			Assert.noNulls(exception);
 			this.exception = Optional.of(exception);
-			return this;
+			this.statusText = exception.getMessage();
+			this.start = start;
+		}
+
+		public Builder(String statusText, int statusCode, long start) {
+			this.statusText = statusText;
+			this.statusCode = Optional.of(statusCode);
+			this.start = start;
 		}
 
 		public HttpRequestResult build() {
 			Assert.noNulls(statusCode, exception);
 			Assert.noBlanks(statusText);
 			Assert.isTrue(start > 0, "start is negative");
-			Assert.isTrue(stop >= start, "stop is less than start");
 			if (statusCode.isPresent()) {
 				Assert.isTrue(statusCode.get() > 0, "status code must be a positive integer");
 			}
+			this.stop = System.currentTimeMillis();
+			this.elapsed = stop - start;
 			return new HttpRequestResult(this);
 		}
 

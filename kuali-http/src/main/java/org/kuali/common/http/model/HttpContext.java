@@ -18,6 +18,7 @@ package org.kuali.common.http.model;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -37,16 +38,19 @@ public class HttpContext {
 
 	public static class Builder {
 
+		private static final int OK = 200;
+		private static final int SERVICE_UNAVAILABLE = 503;
+
 		// Required
 		private final String url;
 
 		// Optional
 		private Optional<String> logMsgPrefix = Optional.of("Waiting for");
-		private List<Integer> successCodes = ImmutableList.of(200);
-		private List<Integer> continueWaitingCodes = ImmutableList.of(503);
-		private int requestTimeoutMillis = 15000;
-		private int sleepIntervalMillis = 15000;
-		private int overallTimeoutMillis = 1000 * 60 * 30;
+		private List<Integer> successCodes = ImmutableList.of(OK);
+		private List<Integer> continueWaitingCodes = ImmutableList.of(SERVICE_UNAVAILABLE);
+		private int requestTimeoutMillis = getIntMillis("15s"); // 15 seconds
+		private int sleepIntervalMillis = getIntMillis("15s"); // 15 seconds
+		private int overallTimeoutMillis = getIntMillis("30m"); // 30 minutes
 
 		public Builder(String url) {
 			this.url = url;
@@ -89,6 +93,10 @@ public class HttpContext {
 			Assert.isTrue(overallTimeoutMillis > 0, "overallTimeoutMillis must be a positive integer");
 			Assert.isTrue(sleepIntervalMillis >= 0, "sleepIntervalMillis is negative");
 			return new HttpContext(this);
+		}
+
+		private static int getIntMillis(String time) {
+			return new Long(FormatUtils.getMillis(time)).intValue();
 		}
 
 	}
