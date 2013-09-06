@@ -19,12 +19,8 @@ import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class HttpWaitExecutable implements Executable {
-
-	private final Logger logger = LoggerFactory.getLogger(HttpWaitExecutable.class);
 
 	private final HttpContext context;
 	private final HttpService service;
@@ -34,9 +30,7 @@ public class HttpWaitExecutable implements Executable {
 	@Override
 	public void execute() {
 
-		if (skip) {
-			logger.debug("Skip waiting for a valid http status code");
-		} else {
+		if (!skip) {
 			service.wait(context);
 		}
 
