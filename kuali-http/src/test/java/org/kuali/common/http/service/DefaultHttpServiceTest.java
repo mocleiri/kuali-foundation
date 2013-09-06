@@ -33,7 +33,7 @@ public class DefaultHttpServiceTest {
 	HttpService service;
 
 	@Test
-	public void test() {
+	public void testUnknownHost() {
 		try {
 			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("3s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
 			service.wait(context);
