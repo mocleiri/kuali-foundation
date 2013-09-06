@@ -16,7 +16,6 @@
 package org.kuali.common.http.service;
 
 import org.kuali.common.http.model.HttpContext;
-import org.kuali.common.http.model.HttpStatus;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
@@ -24,7 +23,6 @@ public class HttpWaitExecutable implements Executable {
 
 	private final HttpContext context;
 	private final HttpService service;
-	private final HttpStatus expected;
 	private final boolean skip;
 
 	@Override
@@ -44,10 +42,6 @@ public class HttpWaitExecutable implements Executable {
 		return service;
 	}
 
-	public HttpStatus getExpected() {
-		return expected;
-	}
-
 	public boolean isSkip() {
 		return skip;
 	}
@@ -58,18 +52,11 @@ public class HttpWaitExecutable implements Executable {
 		private final HttpService service;
 		private final HttpContext context;
 
-		// Optional
-		private HttpStatus expected = HttpStatus.SUCCESS;
 		private boolean skip = false;
 
 		public Builder(HttpService service, HttpContext context) {
 			this.service = service;
 			this.context = context;
-		}
-
-		public Builder expected(HttpStatus expected) {
-			this.expected = expected;
-			return this;
 		}
 
 		public Builder skip(boolean skip) {
@@ -78,7 +65,7 @@ public class HttpWaitExecutable implements Executable {
 		}
 
 		public HttpWaitExecutable build() {
-			Assert.noNulls(service, context, expected);
+			Assert.noNulls(service, context);
 			return new HttpWaitExecutable(this);
 		}
 
@@ -87,7 +74,6 @@ public class HttpWaitExecutable implements Executable {
 	private HttpWaitExecutable(Builder builder) {
 		this.service = builder.service;
 		this.context = builder.context;
-		this.expected = builder.expected;
 		this.skip = builder.skip;
 	}
 
