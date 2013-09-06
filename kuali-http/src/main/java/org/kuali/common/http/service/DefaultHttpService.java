@@ -46,8 +46,7 @@ public class DefaultHttpService implements HttpService {
 	public HttpWaitResult wait(HttpContext context) {
 		HttpWaitResult result = getWaitResult(context);
 		HttpStatus actual = result.getStatus();
-		HttpStatus expected = HttpStatus.SUCCESS;
-		Assert.isTrue(expected.equals(result.getStatus()), "[" + context.getUrl() + "] returned [" + actual + "].  Expected [" + expected + "]");
+		Assert.isTrue(HttpStatus.SUCCESS.equals(result.getStatus()), "[" + context.getUrl() + "] returned [" + actual + "].");
 		return result;
 	}
 
