@@ -43,4 +43,9 @@ public class DefaultHttpServiceTest {
 		}
 	}
 
+	@Test
+	public void testYahoo() {
+		HttpContext context = new HttpContext.Builder("http://www.yahoo.com/").overallTimeout("1m").requestTimeout("10s").sleepInterval("1s").build();
+		service.wait(context);
+	}
 }
