@@ -16,6 +16,7 @@
 package org.kuali.common.http.model;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import org.kuali.common.util.Assert;
 
@@ -71,8 +72,7 @@ public class HttpRequestResult {
 
 		public Builder(IOException exception, long start) {
 			this.exception = Optional.of(exception);
-			exception.printStackTrace();
-			this.statusText = exception.getMessage();
+			this.statusText = getStatusText(exception);
 			this.start = start;
 		}
 
@@ -93,6 +93,14 @@ public class HttpRequestResult {
 			this.stop = System.currentTimeMillis();
 			this.elapsed = stop - start;
 			return new HttpRequestResult(this);
+		}
+
+		protected static String getStatusText(IOException exception) {
+			if (exception instanceof UnknownHostException) {
+				return "Unknown host: " + exception.getMessage();
+			} else {
+				return exception.getMessage();
+			}
 		}
 
 	}
