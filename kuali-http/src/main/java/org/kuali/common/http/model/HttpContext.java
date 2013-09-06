@@ -44,6 +44,7 @@ public class HttpContext {
 		private final String url;
 
 		// Optional
+		private HttpStatus expected = HttpStatus.SUCCESS;
 		private String logMsgPrefix = "Waiting for";
 		private List<Integer> successCodes = ImmutableList.of(OK);
 		private List<Integer> continueWaitingCodes = ImmutableList.of(SERVICE_UNAVAILABLE);

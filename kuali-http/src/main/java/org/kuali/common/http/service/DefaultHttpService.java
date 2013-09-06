@@ -44,6 +44,14 @@ public class DefaultHttpService implements HttpService {
 
 	@Override
 	public HttpWaitResult wait(HttpContext context) {
+		HttpWaitResult result = getWaitResult(context);
+		HttpStatus actual = result.getStatus();
+		HttpStatus expected = HttpStatus.SUCCESS;
+		Assert.isTrue(expected.equals(result.getStatus()), "Expected status - [" + expected + "]  Actual status - [" + actual + "]");
+		return result;
+	}
+
+	protected HttpWaitResult getWaitResult(HttpContext context) {
 		logger.debug(context.getUrl());
 		HttpClient client = getHttpClient(context);
 		long start = System.currentTimeMillis();

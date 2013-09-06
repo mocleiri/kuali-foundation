@@ -17,7 +17,6 @@ package org.kuali.common.http.service;
 
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpStatus;
-import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
@@ -37,12 +36,10 @@ public class HttpWaitExecutable implements Executable {
 
 		if (skip) {
 			logger.debug("Skip waiting for a valid http status code");
-			return;
+		} else {
+			service.wait(context);
 		}
 
-		HttpWaitResult result = service.wait(context);
-		HttpStatus actual = result.getStatus();
-		Assert.isTrue(expected.equals(actual), "Expected status - [" + expected + "]  Actual status - [" + actual + "]");
 	}
 
 	public HttpContext getContext() {
