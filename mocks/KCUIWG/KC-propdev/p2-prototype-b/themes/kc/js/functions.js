@@ -181,6 +181,7 @@ $(document).ready(function() {
 	*/
 	$('.onchange').change(function() {
 		var that = $(this).val();
+		$('.hidden-fields').hide();
 
 		if ($('#' + that).length) {
 			$('#' + that).show();

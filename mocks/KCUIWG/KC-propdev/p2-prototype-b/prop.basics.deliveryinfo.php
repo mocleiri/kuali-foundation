@@ -79,9 +79,9 @@ include( '_temp.select.filler.php' );
 								<label for="mail_type" class="control-label col-md-3">Type:</label>
 								<div class="col-md-5">
 									<select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 chzn onchange">
-										<option value="delivery_service">Delivery Service</option>
-										<option value="electronic">Electronic</option>
+										<option>- Please select -</option>
 										<option value="regular">Regular</option>
+										<option value="electronic">Electronic</option>
 									</select>
 								</div>
 							</div>
@@ -108,42 +108,47 @@ include( '_temp.select.filler.php' );
 										<input type="text" name="cfda_num" id="cfda_num" class="form-control input-sm col-md-8" />
 									</div>
 								</div>
-								
+
+							</div>
+
+							<div class="hidden-fields" id="regular">
+
 								<div class="form-group clearfix">
-									<label for="submission_type" class="control-label col-md-3">Submission type:</label>
+									<label for="mail_by" class="control-label col-md-3">Mail by:</label>
 									<div class="col-md-5">
-										<select name="submission_type" id="submission_type" class="form-control input-sm col-md-8 chzn">
-											<option>Decrease award</option>
-											<option>Increase award</option>
-											<option>Order pizza</option>
-											<option>I'm kinda hungry</option>
+										<select name="mail_by" id="mail_by" class="form-control input-sm col-md-8 chzn">
+											<option value="">Department</option>
+											<option value="">OSP</option>
 										</select>
 									</div>
 								</div>
 
-							</div>
+								<div class="form-group clearfix">
+									<label for="mail_account_id" class="control-label col-md-3">Mail account ID:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control input-sm" name="mail_account_id" id="mail_account_id" />
+									</div>
+								</div>
 
+								<div class="form-group clearfix">
+									<label for="number_of_copies" class="control-label col-md-3">Number of copies:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control input-sm" name="number_of_copies" id="number_of_copies" />
+									</div>
+								</div>
+
+							</div>
+								
 							<div class="form-group clearfix">
-								<label for="mail_by" class="control-label col-md-3">Mail by:</label>
+								<label for="submission_type" class="control-label col-md-3">Submission type:</label>
 								<div class="col-md-5">
-									<select name="mail_by" id="mail_by" class="form-control input-sm col-md-8 chzn">
-										<option value="">Department</option>
-										<option value="">OSP</option>
+									<select name="submission_type" id="submission_type" class="form-control input-sm col-md-8 chzn">
+										<option>- Please select -</option>
+										<option>Decrease award</option>
+										<option>Increase award</option>
+										<option>Order pizza</option>
+										<option>I'm kinda hungry</option>
 									</select>
-								</div>
-							</div>
-
-							<div class="form-group clearfix">
-								<label for="mail_account_id" class="control-label col-md-3">Mail account ID:</label>
-								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="mail_account_id" id="mail_account_id" />
-								</div>
-							</div>
-
-							<div class="form-group clearfix">
-								<label for="number_of_copies" class="control-label col-md-3">Number of copies:</label>
-								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="number_of_copies" id="number_of_copies" />
 								</div>
 							</div>
 
@@ -153,6 +158,7 @@ include( '_temp.select.filler.php' );
 									<textarea name="mail_description" id="mail_description" class="form-control input-sm"></textarea>
 								</div>
 							</div>
+
 						</fieldset>
 					</form>
 				</div>
