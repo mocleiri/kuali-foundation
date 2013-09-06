@@ -70,13 +70,28 @@ public class HttpContext {
 			return this;
 		}
 
+		public Builder requestTimeoutMillis(String requestTimeoutMillis) {
+			this.requestTimeoutMillis = getIntMillis(requestTimeoutMillis);
+			return this;
+		}
+
 		public Builder requestTimeoutMillis(int requestTimeoutMillis) {
 			this.requestTimeoutMillis = requestTimeoutMillis;
 			return this;
 		}
 
+		public Builder sleepIntervalMillis(String sleepIntervalMillis) {
+			this.sleepIntervalMillis = getIntMillis(sleepIntervalMillis);
+			return this;
+		}
+
 		public Builder sleepIntervalMillis(int sleepIntervalMillis) {
 			this.sleepIntervalMillis = sleepIntervalMillis;
+			return this;
+		}
+
+		public Builder overallTimeoutMillis(String overallTimeoutMillis) {
+			this.overallTimeoutMillis = getIntMillis(overallTimeoutMillis);
 			return this;
 		}
 

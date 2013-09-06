@@ -15,21 +15,24 @@
  */
 package org.kuali.common.http.service;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.spring.DefaultHttpServiceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { DefaultHttpServiceConfig.class })
 public class DefaultHttpServiceTest {
 
+	@Autowired
+	HttpService service;
+
 	@Test
-	@Ignore
 	public void test() {
-		HttpContext context = new HttpContext();
-		context.setUrl("http://env16.ks.kuali.org");
-		HttpService service = new DefaultHttpService();
+		HttpContext context = new HttpContext.Builder("http://env166888888.ks.kuali.org").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
 		service.wait(context);
 	}
 
