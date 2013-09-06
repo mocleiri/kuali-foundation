@@ -59,7 +59,7 @@ public class HttpWaitResult {
 		private final HttpStatus status;
 		private final HttpRequestResult finalRequestResult;
 		private final long start;
-		private final long stop;
+		private final long stop; // filled in automatically
 		private final long elapsed; // filled in automatically
 
 		private List<HttpRequestResult> requestResults = ImmutableList.of();
