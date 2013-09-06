@@ -18,6 +18,10 @@ package org.kuali.common.http;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultHttpServiceTest {
 
 	@Test
