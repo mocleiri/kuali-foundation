@@ -127,6 +127,23 @@ public class FormatUtils {
 		return getMillis(time, TIME_TOKENS, TIME_MULTIPLIERS);
 	}
 
+	/**
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
+	 * 
+	 * <pre>
+	 *   1   == 1 millisecond
+	 *   1ms == 1 millisecond
+	 *   1s  == 1 second ==           1000 milliseconds
+	 *   1m  == 1 minute ==         60,000 milliseconds
+	 *   1h  == 1 hour   ==      3,600,000 milliseconds 
+	 *   1d  == 1 day    ==     86,400,000 milliseconds
+	 *   1y  == 1 year   == 31,536,000,000 milliseconds
+	 * </pre>
+	 */
+	public static int getMillisAsInt(String time) {
+		return new Long(getMillis(time)).intValue();
+	}
+
 	public static long getMillis(String time, List<String> tokens, List<Long> multipliers) {
 		Assert.notBlank(time);
 		Assert.isTrue(tokens.size() == multipliers.size());
