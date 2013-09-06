@@ -21,9 +21,23 @@ import org.kuali.common.util.execute.Executable;
 
 public class HttpWaitExecutable implements Executable {
 
+	public static final boolean DEFAULT_SKIP = false;
+
 	private final HttpContext context;
 	private final HttpService service;
 	private final boolean skip;
+
+	public HttpWaitExecutable(HttpService service, HttpContext context) {
+		this(service, context, DEFAULT_SKIP);
+
+	}
+
+	public HttpWaitExecutable(HttpService service, HttpContext context, boolean skip) {
+		Assert.noNulls(service, context);
+		this.service = service;
+		this.context = context;
+		this.skip = skip;
+	}
 
 	@Override
 	public void execute() {
@@ -44,37 +58,6 @@ public class HttpWaitExecutable implements Executable {
 
 	public boolean isSkip() {
 		return skip;
-	}
-
-	public static class Builder {
-
-		// Required
-		private final HttpService service;
-		private final HttpContext context;
-
-		private boolean skip = false;
-
-		public Builder(HttpService service, HttpContext context) {
-			this.service = service;
-			this.context = context;
-		}
-
-		public Builder skip(boolean skip) {
-			this.skip = skip;
-			return this;
-		}
-
-		public HttpWaitExecutable build() {
-			Assert.noNulls(service, context);
-			return new HttpWaitExecutable(this);
-		}
-
-	}
-
-	private HttpWaitExecutable(Builder builder) {
-		this.service = builder.service;
-		this.context = builder.context;
-		this.skip = builder.skip;
 	}
 
 }
