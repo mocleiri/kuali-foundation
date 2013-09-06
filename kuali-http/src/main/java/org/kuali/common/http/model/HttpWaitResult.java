@@ -64,25 +64,24 @@ public class HttpWaitResult {
 
 		private List<HttpRequestResult> requestResults = ImmutableList.of();
 
-		public HttpWaitResult build() {
-			Assert.noNulls(status, finalRequestResult, requestResults);
-			Assert.isTrue(start > 0, "start is negative");
-			Assert.isTrue(stop >= start, "stop is less than start");
-			this.requestResults = ImmutableList.copyOf(requestResults);
-			return new HttpWaitResult(this);
-		}
-
-		public Builder(HttpStatus status, HttpRequestResult finalRequestResult, long start, long stop) {
+		public Builder(HttpStatus status, HttpRequestResult finalRequestResult, long start) {
 			this.status = status;
 			this.finalRequestResult = finalRequestResult;
 			this.start = start;
-			this.stop = stop;
+			this.stop = System.currentTimeMillis();
 			this.elapsed = stop - start;
 		}
 
 		public Builder requestResults(List<HttpRequestResult> requestResults) {
 			this.requestResults = requestResults;
 			return this;
+		}
+
+		public HttpWaitResult build() {
+			Assert.noNulls(status, finalRequestResult, requestResults);
+			Assert.isTrue(start > 0, "start is negative");
+			this.requestResults = ImmutableList.copyOf(requestResults);
+			return new HttpWaitResult(this);
 		}
 
 	}

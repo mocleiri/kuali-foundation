@@ -20,13 +20,12 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class HttpContext {
 
 	private final String url; // Url to contact
-	private final Optional<String> logMsgPrefix; // Gets printed as a prefix to any log messages emitted by the HttpService
+	private final String logMsgPrefix; // Gets printed as a prefix to any log messages emitted by the HttpService
 	private final List<Integer> successCodes; // HTTP codes signifying success
 	private final int requestTimeoutMillis; // Millis to wait before an individual http request times out (15 seconds)
 	private final int sleepIntervalMillis; // Millis to wait in between http requests (15 seconds)
@@ -45,7 +44,7 @@ public class HttpContext {
 		private final String url;
 
 		// Optional
-		private Optional<String> logMsgPrefix = Optional.of("Waiting for");
+		private String logMsgPrefix = "Waiting for";
 		private List<Integer> successCodes = ImmutableList.of(OK);
 		private List<Integer> continueWaitingCodes = ImmutableList.of(SERVICE_UNAVAILABLE);
 		private int requestTimeoutMillis = getIntMillis("15s"); // 15 seconds
@@ -57,7 +56,7 @@ public class HttpContext {
 		}
 
 		public Builder logMsgPrefix(String logMsgPrefix) {
-			this.logMsgPrefix = Optional.fromNullable(logMsgPrefix);
+			this.logMsgPrefix = logMsgPrefix;
 			return this;
 		}
 
@@ -88,7 +87,7 @@ public class HttpContext {
 
 		public HttpContext build() {
 			Assert.noBlanks(url);
-			Assert.noNulls(logMsgPrefix, successCodes, continueWaitingCodes);
+			Assert.noNulls(successCodes, continueWaitingCodes, logMsgPrefix);
 			Assert.isTrue(requestTimeoutMillis > 0, "requestTimeoutMillis must be a positive integer");
 			Assert.isTrue(overallTimeoutMillis > 0, "overallTimeoutMillis must be a positive integer");
 			Assert.isTrue(sleepIntervalMillis >= 0, "sleepIntervalMillis is negative");
@@ -115,10 +114,6 @@ public class HttpContext {
 		return url;
 	}
 
-	public Optional<String> getLogMsgPrefix() {
-		return logMsgPrefix;
-	}
-
 	public List<Integer> getSuccessCodes() {
 		return successCodes;
 	}
@@ -137,6 +132,10 @@ public class HttpContext {
 
 	public List<Integer> getContinueWaitingCodes() {
 		return continueWaitingCodes;
+	}
+
+	public String getLogMsgPrefix() {
+		return logMsgPrefix;
 	}
 
 }
