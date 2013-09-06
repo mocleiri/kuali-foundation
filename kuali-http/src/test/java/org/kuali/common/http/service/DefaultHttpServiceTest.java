@@ -32,8 +32,12 @@ public class DefaultHttpServiceTest {
 
 	@Test
 	public void test() {
-		HttpContext context = new HttpContext.Builder("http://env166888888.ks.kuali.org").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
-		service.wait(context);
+		try {
+			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
+			service.wait(context);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
