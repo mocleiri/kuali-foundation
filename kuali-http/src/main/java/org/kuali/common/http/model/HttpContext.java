@@ -120,8 +120,8 @@ public class HttpContext {
 	private HttpContext(Builder builder) {
 		this.url = builder.url;
 		this.logMsgPrefix = builder.logMsgPrefix;
-		this.successCodes = ImmutableList.copyOf(builder.successCodes);
-		this.continueWaitingCodes = ImmutableList.copyOf(builder.continueWaitingCodes);
+		this.successCodes = builder.successCodes;
+		this.continueWaitingCodes = builder.continueWaitingCodes;
 		this.requestTimeoutMillis = builder.requestTimeoutMillis;
 		this.sleepIntervalMillis = builder.sleepIntervalMillis;
 		this.overallTimeoutMillis = builder.overallTimeoutMillis;
