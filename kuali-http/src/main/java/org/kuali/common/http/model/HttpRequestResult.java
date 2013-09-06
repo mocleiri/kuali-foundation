@@ -71,7 +71,7 @@ public class HttpRequestResult {
 
 		public Builder(IOException exception, long start) {
 			this.exception = Optional.of(exception);
-			System.out.println("exception.getMessage()=" + exception.getMessage());
+			exception.printStackTrace();
 			this.statusText = exception.getMessage();
 			this.start = start;
 		}
