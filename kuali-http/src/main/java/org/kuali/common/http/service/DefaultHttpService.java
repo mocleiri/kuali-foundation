@@ -49,7 +49,7 @@ public class DefaultHttpService implements HttpService {
 		HttpWaitResult result = getWaitResult(context);
 		HttpStatus actual = result.getStatus();
 		HttpStatus expected = HttpStatus.SUCCESS;
-		Assert.isTrue(expected.equals(result.getStatus()), "Expected status - [" + expected + "]  Actual status - [" + actual + "]");
+		Assert.isTrue(expected.equals(result.getStatus()), "[" + context.getUrl() + "] returned [" + actual + "].  Expected [" + expected + "]");
 		return result;
 	}
 

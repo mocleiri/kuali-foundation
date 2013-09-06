@@ -15,10 +15,11 @@
  */
 package org.kuali.common.http.service;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.http.model.HttpContext;
-import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.spring.DefaultHttpServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,8 +36,8 @@ public class DefaultHttpServiceTest {
 	public void test() {
 		try {
 			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
-			HttpWaitResult result = service.wait(context);
-			System.out.println(result.getFinalRequestResult().getResponseBody().get());
+			service.wait(context);
+			Assert.fail("Contacting a non-existent URL returned 200");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
