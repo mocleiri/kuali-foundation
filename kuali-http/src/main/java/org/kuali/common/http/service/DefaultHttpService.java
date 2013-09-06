@@ -16,6 +16,7 @@
 package org.kuali.common.http.service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import org.apache.commons.httpclient.HttpMethodRetryHandler;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.io.IOUtils;
 import org.kuali.common.http.model.HttpContext;
 import org.kuali.common.http.model.HttpRequestResult;
 import org.kuali.common.http.model.HttpStatus;
@@ -152,12 +154,33 @@ public class DefaultHttpService implements HttpService {
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
 			client.executeMethod(method);
+			String responseBody = getResponseBodyAsString(method);
 			int statusCode = method.getStatusCode();
 			String statusText = method.getStatusText();
-			return new HttpRequestResult.Builder(statusText, statusCode, start).build();
+			return new HttpRequestResult.Builder(statusText, statusCode, responseBody, start).build();
 		} catch (IOException e) {
 			return new HttpRequestResult.Builder(e, start).build();
 		}
+	}
+
+	protected String getResponsBodyAsString(HttpMethod method) {
+		InputStream in = null;
+		try {
+			in = method.getResponseBodyAsStream();
+			if (in == null) {
+				return null;
+			}
+			return IOUtils.toString(in);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			method.releaseConnection();
+			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected String getResponseBodyAsString(HttpMethod method) throws IOException {
+		return IOUtils.toString(method.getResponseBodyAsStream());
 	}
 
 	protected boolean isSuccess(List<Integer> successCodes, int resultCode) {

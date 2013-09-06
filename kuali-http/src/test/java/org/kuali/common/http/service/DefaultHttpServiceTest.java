@@ -33,10 +33,6 @@ public class DefaultHttpServiceTest {
 	@Test
 	public void test() {
 		try {
-			org.kuali.common.http.HttpService oldService = new org.kuali.common.http.DefaultHttpService();
-			org.kuali.common.http.HttpContext oldContext = new org.kuali.common.http.HttpContext();
-			oldContext.setUrl("http://blibbity.foomanchu");
-			oldService.wait(oldContext);
 			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
 			service.wait(context);
 		} catch (Exception e) {

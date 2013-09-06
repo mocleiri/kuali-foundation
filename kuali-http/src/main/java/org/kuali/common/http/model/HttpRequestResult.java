@@ -24,6 +24,7 @@ import com.google.common.base.Optional;
 public class HttpRequestResult {
 
 	private final Optional<Integer> statusCode;
+	private final Optional<String> responseBody;
 	private final String statusText;
 	private final Optional<IOException> exception;
 	private final long start;
@@ -65,6 +66,7 @@ public class HttpRequestResult {
 
 		// Optional
 		private Optional<Integer> statusCode = Optional.absent();
+		private Optional<String> responseBody = Optional.absent();
 		private Optional<IOException> exception = Optional.absent();
 
 		public Builder(IOException exception, long start) {
@@ -73,14 +75,15 @@ public class HttpRequestResult {
 			this.start = start;
 		}
 
-		public Builder(String statusText, int statusCode, long start) {
+		public Builder(String statusText, int statusCode, String responseBody, long start) {
 			this.statusText = statusText;
 			this.statusCode = Optional.of(statusCode);
+			this.responseBody = Optional.fromNullable(responseBody);
 			this.start = start;
 		}
 
 		public HttpRequestResult build() {
-			Assert.noNulls(statusCode, exception);
+			Assert.noNulls(statusCode, exception, responseBody);
 			Assert.noBlanks(statusText);
 			Assert.isTrue(start > 0, "start is negative");
 			if (statusCode.isPresent()) {
@@ -100,6 +103,11 @@ public class HttpRequestResult {
 		this.elapsed = builder.elapsed;
 		this.exception = builder.exception;
 		this.statusCode = builder.statusCode;
+		this.responseBody = builder.responseBody;
+	}
+
+	public Optional<String> getResponseBody() {
+		return responseBody;
 	}
 
 }
