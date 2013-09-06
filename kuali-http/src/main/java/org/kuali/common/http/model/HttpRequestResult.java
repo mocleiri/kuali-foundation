@@ -96,6 +96,7 @@ public class HttpRequestResult {
 		}
 
 		protected static String getStatusText(IOException exception) {
+			System.out.println(exception);
 			if (exception instanceof UnknownHostException) {
 				return "Unknown host: " + exception.getMessage();
 			} else {
