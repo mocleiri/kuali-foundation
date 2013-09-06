@@ -6,8 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DefaultHttpServiceConfig {
+public class DefaultHttpServiceConfig implements HttpServiceConfig {
 
+	@Override
 	@Bean
 	public HttpService httpService() {
 		return new DefaultHttpService();
