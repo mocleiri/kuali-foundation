@@ -163,7 +163,7 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected String getResponsBodyAsString(HttpMethod method) {
+	protected String getResponseBodyAsString(HttpMethod method) {
 		InputStream in = null;
 		try {
 			in = method.getResponseBodyAsStream();
@@ -177,10 +177,6 @@ public class DefaultHttpService implements HttpService {
 			method.releaseConnection();
 			IOUtils.closeQuietly(in);
 		}
-	}
-
-	protected String getResponseBodyAsString(HttpMethod method) throws IOException {
-		return IOUtils.toString(method.getResponseBodyAsStream());
 	}
 
 	protected boolean isSuccess(List<Integer> successCodes, int resultCode) {
