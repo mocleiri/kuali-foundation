@@ -44,7 +44,6 @@ public class DefaultHttpService implements HttpService {
 
 	@Override
 	public HttpWaitResult wait(HttpContext context) {
-		Assert.noBlanks(context.getUrl());
 		logger.debug(context.getUrl());
 		HttpClient client = getHttpClient(context);
 		long start = System.currentTimeMillis();
