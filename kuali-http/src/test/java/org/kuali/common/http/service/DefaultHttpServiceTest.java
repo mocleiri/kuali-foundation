@@ -18,6 +18,7 @@ package org.kuali.common.http.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.http.model.HttpContext;
+import org.kuali.common.http.model.HttpWaitResult;
 import org.kuali.common.http.spring.DefaultHttpServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,7 +35,8 @@ public class DefaultHttpServiceTest {
 	public void test() {
 		try {
 			HttpContext context = new HttpContext.Builder("http://blibbity.foomanchu").overallTimeoutMillis("10s").requestTimeoutMillis("1s").sleepIntervalMillis("1s").build();
-			service.wait(context);
+			HttpWaitResult result = service.wait(context);
+			System.out.println(result.getFinalRequestResult().getResponseBody().get());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
