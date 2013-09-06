@@ -106,6 +106,8 @@ public class HttpContext {
 			Assert.isTrue(requestTimeoutMillis > 0, "requestTimeoutMillis must be a positive integer");
 			Assert.isTrue(overallTimeoutMillis > 0, "overallTimeoutMillis must be a positive integer");
 			Assert.isTrue(sleepIntervalMillis >= 0, "sleepIntervalMillis is negative");
+			this.successCodes = ImmutableList.copyOf(successCodes);
+			this.continueWaitingCodes = ImmutableList.copyOf(continueWaitingCodes);
 			return new HttpContext(this);
 		}
 
