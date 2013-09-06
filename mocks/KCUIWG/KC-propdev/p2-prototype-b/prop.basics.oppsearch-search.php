@@ -25,10 +25,12 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<!-- Main content goes here -->
 
 				<div class="section-title">
-					<h2>Opportunity Search</h2>
+					<h3>Opportunity Search</h3>
+				</div>
+                <div id="oppsearch-tabs">
                     <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Ajax</a>
                     <a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>
-				</div>
+                    </div>
 
 				<div class="section-content hidden">
 					<form action="#" method="post" class="">
@@ -42,7 +44,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
 
 				<!-- // -->
-					<div id="oppsearch-tabs"></div>
+					
 			</div>
 
 		</div>

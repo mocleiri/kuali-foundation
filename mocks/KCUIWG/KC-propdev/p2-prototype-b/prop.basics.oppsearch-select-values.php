@@ -16,6 +16,10 @@
 		$array['Increase Duration'] =  'Increase Duration';
 		 
 	break;
+	case "opp-status":
+		$array['VALIDATED'] =  'VALIDATED'; 
+		 $array['NOT VALIDATED'] =  'NOT VALIDATED'; 
+	break;
 	
  }
 

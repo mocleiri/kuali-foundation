@@ -1,3 +1,4 @@
+<div class="well well-small">
 <h5 style="margin-top:0px;">Opportunity actions</h5>
 <a href="#"id="addopp" class="btn btn-sm btn-default">Load New...</a> <a href="prop.basics.oppsearch-search.php" class="btn btn-sm btn-default">Remove Current</a> </div>
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -15,17 +16,17 @@
                       </tr>
                       <tr>
                         <th> Opportunity Title</th>
-                        <td><div class="edit-text" id="opp-title">testing new SF424 RR form</div></td>
+                        <td><a class="edit-text" id="opp-title">testing new SF424 RR form</a>&nbsp;<label class="fs1" aria-hidden="true" data-icon="&#xf040;"></label></td>
                       </tr>
                       <tr>
                         <th> Submission Type</th>
                         <td>
-                        <div class="edit-select" id="opp-subtype">Application</div></td>
+                        <a class="edit-select" id="opp-subtype">Application</a>&nbsp;<label class="fs1" aria-hidden="true" data-icon="&#xf040;"></label></td>
                       </tr>
                       <tr>
                         <th>Revision Type</th>
                         <td><!--<a href="#" id="opp-revisiontype" data-type="select" data-pk="1" data-url="/post" data-title="Revision Type">Increase Award</a>-->
-                        <div class="edit-select" id="opp-revisiontype">Increase Award</div></td>
+                       <a class="edit-select" id="opp-revisiontype">Increase Award</a>&nbsp;<label class="fs1" aria-hidden="true" data-icon="&#xf040;"></label></td>
                       </tr>
                       <tr>
                         <th> CFDA Number</th>
@@ -72,7 +73,8 @@
                       </tr>
                       <tr>
                         <th> Status</th>
-                        <td><a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">VALIDATED</a></td>
+                        <td><!--<a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">VALIDATED</a>-->
+                        <a class="edit-select" id="opp-status">VALIDATED</a>&nbsp;<label class="fs1" aria-hidden="true" data-icon="&#xf040;"></label></td></td>
                       </tr>
                       <tr>
                         <th> S2S Tracking Id</th>
@@ -85,7 +87,7 @@
                       <tr>
                         <th> Comments</th>
                         <td><!-- <a href="#" id="opp-comments" data-type="textarea" data-pk="1" data-url="/post" data-title="Submission Details Comments">Trying to submit to S2S</a>-->
-                        	<div class="edit-text" id="opp-comments">Trying to submit to S2S</div>
+                        	<a class="edit-text" id="opp-comments">Trying to submit to S2S</a>&nbsp;<label class="fs1" aria-hidden="true" data-icon="&#xf040;"></label>
                         </td>
                       </tr>
                       <tr>
@@ -292,9 +294,9 @@
                   </table>
                 </div>
               </div>
-              <script>
+              
+              <script type="text/javascript">
 	 $(document).ready(function() {
-
 		
 		$('.edit-text').editable('prop.basics.oppsearch-save.php', {
 				
@@ -302,7 +304,9 @@
 				onblur : 'submit',
 				indicator : '<b>Saving...</b>',
          		tooltip   : 'Click to edit...',
-				// width   : '150px',
+				style   : 'inherit',
+				height  : '100%',
+				// type    : 'textarea'
 			
 			});
 	
@@ -314,6 +318,9 @@
 		 onblur : 'submit',
 		 indicator : '<b>Saving...</b>',
          tooltip   : 'Click to edit...',
+		 style   : 'inherit'
  	});
+	
+	
  });
  </script>

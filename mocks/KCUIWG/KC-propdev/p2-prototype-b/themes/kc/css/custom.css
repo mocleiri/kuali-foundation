@@ -759,6 +759,13 @@ dl:after {
 .modal {
   z-index: 9999;
 }
+.edit-select select {
+  width: inherit;
+}
+.edit-select,
+.edit-text {
+  cursor: pointer;
+}
 footer {
   color: #f2f2f2;
 }
