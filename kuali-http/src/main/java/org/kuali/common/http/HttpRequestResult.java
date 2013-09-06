@@ -17,6 +17,10 @@ package org.kuali.common.http;
 
 import java.io.IOException;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class HttpRequestResult {
 
 	Integer statusCode;

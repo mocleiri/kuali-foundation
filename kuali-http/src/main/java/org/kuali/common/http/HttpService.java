@@ -15,6 +15,10 @@
  */
 package org.kuali.common.http;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface HttpService {
 
 	HttpWaitResult wait(HttpContext context);

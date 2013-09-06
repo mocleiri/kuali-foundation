@@ -17,6 +17,10 @@ package org.kuali.common.http;
 
 import java.util.List;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class HttpWaitResult {
 
 	long start;

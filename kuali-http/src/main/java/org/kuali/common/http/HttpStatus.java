@@ -15,6 +15,10 @@
  */
 package org.kuali.common.http;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public enum HttpStatus {
 
 	IO_EXCEPTION, SUCCESS, INVALID_HTTP_STATUS_CODE, TIMEOUT;

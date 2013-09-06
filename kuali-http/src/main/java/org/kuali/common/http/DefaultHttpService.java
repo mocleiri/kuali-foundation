@@ -32,6 +32,10 @@ import org.kuali.common.util.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class DefaultHttpService implements HttpService {
 
 	private final Logger logger = LoggerFactory.getLogger(DefaultHttpService.class);

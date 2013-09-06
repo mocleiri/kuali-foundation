@@ -20,6 +20,10 @@ import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class HttpWaitExecutable implements Executable {
 
 	private final Logger logger = LoggerFactory.getLogger(HttpWaitExecutable.class);

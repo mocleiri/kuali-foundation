@@ -18,6 +18,10 @@ package org.kuali.common.http;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class HttpContext {
 
 	// Gets printed as a prefix to any log messages emitted by the HttpService
