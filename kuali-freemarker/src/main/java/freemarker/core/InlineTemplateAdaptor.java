@@ -20,7 +20,7 @@ import java.io.IOException;
 import freemarker.template.TemplateException;
 
 /**
- * Adaptor interface for use with {@link InlineKradElement}.
+ * Adaptor interface for use with {@link InlineTemplateElement}.
  * 
  * <p>
  * This interface facilitates the implementation of pragmatic FreeMarker
@@ -28,9 +28,9 @@ import freemarker.template.TemplateException;
  * </p>
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
- * @see InlineKradElement#registerAdaptor(String, InlineKradAdaptor)
+ * @see InlineTemplateElement#registerAdaptor(String, InlineKradAdaptor)
  */
-public interface InlineKradAdaptor {
+public interface InlineTemplateAdaptor {
 
     /**
      * Perform inline processing in the current environment.

@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+// KULRICE-10260 - use ProcessLogger for execution analysis
+// import org.kuali.rice.krad.uif.util.ProcessLogger;
+
 import freemarker.template.TemplateException;
 
 /**
@@ -31,7 +34,7 @@ import freemarker.template.TemplateException;
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-public class InlineKradElement extends TemplateElement {
+public class InlineTemplateElement extends TemplateElement {
 
     /**
      * Static adaptor registry.
@@ -53,7 +56,7 @@ public class InlineKradElement extends TemplateElement {
      * @param adaptor
      *            The adaptor instance.
      */
-    public static void registerAdaptor(String name, InlineKradAdaptor adaptor) {
+    public static void registerAdaptor(String name, InlineTemplateAdaptor adaptor) {
         synchronized (ADAPTORS) {
             ADAPTORS.put(name, adaptor);
         }
@@ -65,7 +68,7 @@ public class InlineKradElement extends TemplateElement {
      * For example:
      * 
      * <pre>
-     * &lt;#krad_inline 'adaptorName' /&gt;
+     * &lt;#inline 'adaptorName' /&gt;
      * </pre>
      */
     private final Expression adaptorNameExp;
@@ -81,7 +84,7 @@ public class InlineKradElement extends TemplateElement {
      *            The adaptor name expression.
      * @see FTL.jj
      */
-    public InlineKradElement(Expression adaptorNameExp) {
+    public InlineTemplateElement(Expression adaptorNameExp) {
         this.adaptorNameExp = adaptorNameExp;
     }
 
@@ -93,16 +96,16 @@ public class InlineKradElement extends TemplateElement {
      * @param adaptorName
      *            The name of the adaptor.
      * @return An adaptor, registered using
-     *         {@link #registerAdaptor(String, InlineKradAdaptor)} using the
+     *         {@link #registerAdaptor(String, InlineTemplateAdaptor)} using the
      *         provided adaptor name.
      * @throws TemplateException If the adator was not registered.
-     * @see #registerAdaptor(String, InlineKradAdaptor)
+     * @see #registerAdaptor(String, InlineTemplateAdaptor)
      */
-    private InlineKradAdaptor getAdaptor(Environment env, String adaptorName) throws TemplateException {
-        InlineKradAdaptor adaptor = (InlineKradAdaptor) ADAPTORS.get(adaptorName);
+    private InlineTemplateAdaptor getAdaptor(Environment env, String adaptorName) throws TemplateException {
+        InlineTemplateAdaptor adaptor = (InlineTemplateAdaptor) ADAPTORS.get(adaptorName);
 
         if (adaptor == null) {
-            throw new TemplateException("Inline KRAD adaptor " + adaptorName + " not registered", env);
+            throw new TemplateException("Inline template adaptor " + adaptorName + " not registered", env);
         }
 
         return adaptor;
@@ -110,33 +113,33 @@ public class InlineKradElement extends TemplateElement {
 
     /**
      * Pass template processing control to an inline processing adaptor.
-     * @see InlineKradAdaptor#accept(Environment)
+     * @see InlineTemplateAdaptor#accept(Environment)
      */
     void accept(Environment env) throws TemplateException, IOException {
         String adaptorName = adaptorNameExp.evalAndCoerceToString(env);
 
         // See KULRICE-10260 - use ProcessLogger for execution analysis
-        // ProcessLogger.ntrace("krad-inline:", ":" + adaptorName, 1000);
-        // ProcessLogger.countBegin("krad_inline:" + adaptorName);
-        
+        // ProcessLogger.ntrace("fminline:", ":" + adaptorName, 1000);
+        // ProcessLogger.countBegin("fminline:" + adaptorName);
+
         getAdaptor(env, adaptorName).accept(env);
-        
-        // ProcessLogger.countEnd("krad_inline:" + adaptorName,
-        // Environment.instructionStackItemToString(env.getInstructionStackSnapshot()[1]));
+
+        // ProcessLogger.countEnd("fminline:" + adaptorName,
+        //        Environment.instructionStackItemToString(env.getInstructionStackSnapshot()[1]));
     }
 
     /**
      * {@inheritDoc}
      */
     protected String dump(boolean canonical) {
-        return "<#krad_inline " + adaptorNameExp.getCanonicalForm() + " />";
+        return "#inline " + adaptorNameExp.getCanonicalForm();
     }
 
     /**
      * {@inheritDoc}
      */
     String getNodeTypeSymbol() {
-        return "#krad_inline-" + adaptorNameExp.getCanonicalForm();
+        return "#inline-" + adaptorNameExp.getCanonicalForm();
     }
 
     /**

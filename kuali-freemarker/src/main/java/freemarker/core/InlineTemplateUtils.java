@@ -26,17 +26,17 @@ import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 
 /**
- * Utility class facilitating low-level access to FreeMarker templates for the
- * KRAD framework.
+ * Utility class facilitating low-level access to FreeMarker templates, for use
+ * with the #inline directive.
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-public final class KualiTemplateUtils {
+public final class InlineTemplateUtils {
 
     /**
      * Private constuctor.
      */
-    private KualiTemplateUtils() {
+    private InlineTemplateUtils() {
     }
 
     /**
@@ -68,7 +68,7 @@ public final class KualiTemplateUtils {
                 this.model = ObjectWrapper.DEFAULT_WRAPPER.wrap(wrappedObject);
             }
         }
-        
+
         /**
          * Wrap the object as a FreeMarker model element.
          */
@@ -90,12 +90,12 @@ public final class KualiTemplateUtils {
         }
 
         public String getCanonicalForm() {
-            return "-KUALI-wrapped-object-expression-"
+            return "-inline-wrapped-object-expression-"
                     + (wrappedObject == null ? "null" : wrappedObject.getClass().getName());
         }
 
         String getNodeTypeSymbol() {
-            return "-KUALI-wrapped-object-expression";
+            return "-inline-wrapped-object-expression";
         }
 
         int getParameterCount() {
