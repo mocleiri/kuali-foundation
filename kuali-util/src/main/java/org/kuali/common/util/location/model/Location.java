@@ -1,4 +1,4 @@
-package org.kuali.common.util.properties;
+package org.kuali.common.util.location.model;
 
 import java.nio.charset.Charset;
 
