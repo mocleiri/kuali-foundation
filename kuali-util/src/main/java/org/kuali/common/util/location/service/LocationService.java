@@ -1,9 +1,12 @@
 package org.kuali.common.util.location.service;
 
+
 public interface LocationService {
 
-	String getSHA1Checksum();
+	String getChecksum(String location, String algorithm);
 
-	String getMD5Checksum();
+	String getSHA1Checksum(String location);
+
+	String getMD5Checksum(String location);
 
 }
