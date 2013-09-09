@@ -16,7 +16,6 @@
 package org.kuali.common.http.model;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 import org.kuali.common.util.Assert;
 
@@ -96,13 +95,12 @@ public class HttpRequestResult {
 		}
 
 		protected static String getStatusText(IOException exception) {
-			if (exception instanceof UnknownHostException) {
-				// The message for UnknownHostException just returns the host.
-				// Nothing in the message tells you it is an unknown host.
-				return "Unknown host: " + exception.getMessage();
-			} else {
-				return exception.getMessage();
+			String name = exception.getClass().getName();
+			int pos = name.lastIndexOf(".");
+			if (pos != -1) {
+				name = name.substring(pos + 1);
 			}
+			return name + ": " + exception.getMessage();
 		}
 
 	}
