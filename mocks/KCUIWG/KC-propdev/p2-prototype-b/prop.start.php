@@ -75,21 +75,15 @@ include( '_temp.select.filler.php' );
 
 							<div class="form-group clearfix">
 								<label for="project_start" class="control-label col-md-3">Start date:</label>
-								<div class="col-md-3 input-group">
-									<input type="text" class="form-control input-sm" name="project_start" id="project_start" placeholder="Start date" />
-									<span class="input-group-btn">
-										<button class="btn btn-default input-sm">@</button>
-									</span>
+								<div class="col-md-3">
+									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="project_end" class="control-label col-md-3">End date:</label>
-								<div class="col-md-3 input-group">
-									<input type="text" class="form-control input-sm" name="project_end" id="project_end" placeholder="End date" />
-									<span class="input-group-btn">
-										<button class="btn btn-default input-sm">@</button>
-									</span>
+								<div class="col-md-3">
+									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" />
 								</div>
 							</div>
 

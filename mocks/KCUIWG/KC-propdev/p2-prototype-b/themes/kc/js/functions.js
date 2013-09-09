@@ -102,6 +102,41 @@ $(document).ready(function() {
 
 
 	/*
+		Additional <select> options
+		Shows or hides additional form fields based on chosen <select> value
+		Chris Rodriguez
+	*/
+	$('.onchange').change(function() {
+		var that = $(this).val();
+		$('.hidden-fields').hide();
+
+		if ($('#' + that).length) {
+			$('#' + that).show();
+		} else {
+			$('.hidden-fields').hide();
+		}
+	});
+
+
+
+	/*
+		Datepickers
+		Inits the datepickers on classed elements
+		Chris Rodriguez
+	*/
+	if ($('.uif-dateControl').length) {
+		$('.uif-dateControl').each(function() {
+			$(this).datepicker({
+				showOn: 'both',
+				buttonImage: 'http://env2.ks.kuali.org/themes/kboot/images/cal.gif',
+				buttonImageOnly: true
+			});
+		});
+	}
+
+
+
+	/*
 		Subnav toggle
 		Collapses and expandes the subnav making the content area full-width if desired
 		Chris Rodriguez
@@ -171,24 +206,6 @@ $(document).ready(function() {
 		handle_sidebar_menu();
 		handle_sidebar_toggler();
 	}
-
-
-
-	/*
-		Additional <select> options
-		Shows or hides additional form fields based on chosen <select> value
-		Chris Rodriguez
-	*/
-	$('.onchange').change(function() {
-		var that = $(this).val();
-		$('.hidden-fields').hide();
-
-		if ($('#' + that).length) {
-			$('#' + that).show();
-		} else {
-			$('.hidden-fields').hide();
-		}
-	});
 
 
 

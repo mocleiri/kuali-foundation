@@ -696,6 +696,13 @@ textarea:disabled {
 .chosen-container {
   width: 100% !important;
 }
+.ui-datepicker-trigger {
+  float: right;
+  margin-top: -23px;
+  margin-right: 6px;
+  position: relative;
+  z-index: 100;
+}
 .link-delete {
   color: #ff0000;
   font-weight: 700;
