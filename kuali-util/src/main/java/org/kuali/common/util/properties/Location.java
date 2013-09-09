@@ -6,10 +6,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.property.PropertyFormat;
 
-/**
- * @deprecated
- */
-@Deprecated
 public final class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
