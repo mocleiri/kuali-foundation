@@ -149,7 +149,7 @@ public class DefaultHttpService implements HttpService {
 		try {
 			HttpMethod method = new GetMethod(context.getUrl());
 			client.executeMethod(method);
-			String responseBody = getResponseBodyAsString(method);
+			String responseBody = getResponseBodyAsString(method, context.getEncoding());
 			int statusCode = method.getStatusCode();
 			String statusText = method.getStatusText();
 			return new HttpRequestResult.Builder(statusText, statusCode, responseBody, start).build();
@@ -158,14 +158,14 @@ public class DefaultHttpService implements HttpService {
 		}
 	}
 
-	protected String getResponseBodyAsString(HttpMethod method) {
+	protected String getResponseBodyAsString(HttpMethod method, String encoding) {
 		InputStream in = null;
 		try {
 			in = method.getResponseBodyAsStream();
 			if (in == null) {
 				return null;
 			}
-			return IOUtils.toString(in);
+			return IOUtils.toString(in, encoding);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {

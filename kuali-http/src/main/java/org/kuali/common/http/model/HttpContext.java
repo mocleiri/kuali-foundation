@@ -20,6 +20,7 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 
 public class HttpContext {
@@ -30,6 +31,7 @@ public class HttpContext {
 	private final int requestTimeoutMillis; // Millis to wait before an individual http request times out (15 seconds)
 	private final int sleepIntervalMillis; // Millis to wait in between http requests (15 seconds)
 	private final int overallTimeoutMillis; // Total number of millis to wait before timing out (30 minutes)
+	private final String encoding;
 
 	// If Tomcat is fronted by an Apache web server, and Apache is up and running but Tomcat is still starting, http 503 is returned by Apache
 	// We don't want to fail if we get a 503, just continue waiting
@@ -50,6 +52,7 @@ public class HttpContext {
 		private int requestTimeoutMillis = getIntMillis("15s"); // 15 seconds
 		private int sleepIntervalMillis = getIntMillis("15s"); // 15 seconds
 		private int overallTimeoutMillis = getIntMillis("30m"); // 30 minutes
+		private String encoding = Charsets.UTF_8.name();
 
 		public Builder(String url) {
 			this.url = url;
@@ -57,6 +60,11 @@ public class HttpContext {
 
 		public Builder logMsgPrefix(String logMsgPrefix) {
 			this.logMsgPrefix = logMsgPrefix;
+			return this;
+		}
+
+		public Builder encoding(String encoding) {
+			this.encoding = encoding;
 			return this;
 		}
 
@@ -101,7 +109,7 @@ public class HttpContext {
 		}
 
 		public HttpContext build() {
-			Assert.noBlanks(url);
+			Assert.noBlanks(url, encoding);
 			Assert.noNulls(successCodes, continueWaitingCodes, logMsgPrefix);
 			Assert.isTrue(requestTimeoutMillis > 0, "requestTimeoutMillis must be a positive integer");
 			Assert.isTrue(overallTimeoutMillis > 0, "overallTimeoutMillis must be a positive integer");
@@ -119,6 +127,7 @@ public class HttpContext {
 
 	private HttpContext(Builder builder) {
 		this.url = builder.url;
+		this.encoding = builder.encoding;
 		this.logMsgPrefix = builder.logMsgPrefix;
 		this.successCodes = builder.successCodes;
 		this.continueWaitingCodes = builder.continueWaitingCodes;
@@ -153,6 +162,10 @@ public class HttpContext {
 
 	public String getLogMsgPrefix() {
 		return logMsgPrefix;
+	}
+
+	public String getEncoding() {
+		return encoding;
 	}
 
 }
