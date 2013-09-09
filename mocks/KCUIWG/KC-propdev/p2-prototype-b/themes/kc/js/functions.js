@@ -126,11 +126,12 @@ $(document).ready(function() {
 	*/
 	if ($('.uif-dateControl').length) {
 		$('.uif-dateControl').each(function() {
-			$(this).datepicker({
-				showOn: 'both',
-				buttonImage: 'http://env2.ks.kuali.org/themes/kboot/images/cal.gif',
-				buttonImageOnly: true
-			});
+			// $(this).datepicker({
+			// 	showOn: 'both',
+			// 	buttonImage: 'http://env2.ks.kuali.org/themes/kboot/images/cal.gif',
+			// 	buttonImageOnly: true
+			// });
+			$(this).datepicker();
 		});
 	}
 

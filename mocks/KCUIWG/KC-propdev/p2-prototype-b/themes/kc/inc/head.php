@@ -17,7 +17,8 @@
 <link href="themes/bootstrap/css/bootstrap.css" rel="stylesheet" />
 <link href="themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
 <link href="themes/kc/js/chosen/chosen.css" rel="stylesheet" media="screen" />
-<link href="themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" media="screen" />
+<!-- <link href="themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" media="screen" /> -->
+<link href="themes/kc/css/datepicker.css" rel="stylesheet" media="screen" />
 <link href="themes/kc/css/custom.css" rel="stylesheet" />
 <link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
 
