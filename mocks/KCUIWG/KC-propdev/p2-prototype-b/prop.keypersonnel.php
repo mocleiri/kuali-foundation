@@ -21,7 +21,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-md-9" id="content" tabindex="-1">
+			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<div class="section-title">

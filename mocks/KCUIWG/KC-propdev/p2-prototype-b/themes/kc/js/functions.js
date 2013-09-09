@@ -169,9 +169,9 @@ $(document).ready(function() {
 				$('#sidebar').removeClass('open').addClass('closed');
 				$(this).removeClass('open').addClass('closed');
 
-				if ($(window).width() > 767) {
-					$('#sidebar').parent().addClass('closed col-md-1').removeClass('col-md-3');
-					$('#sidebar').parent().next().addClass('col-md-11').removeClass('col-md-9');
+				if ($(window).width() > 000) {
+					$('#sidebar').parent().addClass('closed').removeClass('open');
+					$('#sidebar').parent().next().addClass('open').removeClass('closed');
 				} else {
 					$('#sidebar').parent().addClass('closed');
 				}
@@ -179,9 +179,9 @@ $(document).ready(function() {
 				$('#sidebar').removeClass('closed').addClass('open');
 				$(this).removeClass('closed').addClass('open');
 
-				if ($(window).width() > 767) {
-					$('#sidebar').parent().removeClass('closed col-md-1').addClass('col-md-3');
-					$('#sidebar').parent().next().addClass('col-md-9').removeClass('col-md-11');
+				if ($(window).width() > 000) {
+					$('#sidebar').parent().removeClass('closed').addClass('open');
+					$('#sidebar').parent().next().addClass('closed').removeClass('open');
 				} else {
 					$('#sidebar').parent().removeClass('closed');
 				}
@@ -191,14 +191,14 @@ $(document).ready(function() {
 
 	var handle_toggle_icon_col_size = function() {
 
-		if ($(window).width() > 767) {
+		if ($(window).width() > 000) {
 			$('#nav-toggle span').addClass('icon-expand').removeClass('icon-collapse');
-			$('#sidebar').parent().addClass('col-md-3').removeClass('col-md-1');
-			$('#sidebar').parent().next().addClass('col-md-9').removeClass('col-md-11');
+			$('#sidebar').parent().addClass('open').removeClass('closed');
+			$('#sidebar').parent().next().addClass('closed').removeClass('open');
 		} else {
 			$('#nav-toggle span').addClass('icon-collapse').removeClass('icon-expand');
-			$('#sidebar').parent().addClass('col-md-1').removeClass('col-md-3');
-			$('#sidebar').parent().next().addClass('col-md-11').removeClass('col-md-9');
+			$('#sidebar').parent().addClass('closed').removeClass('open');
+			$('#sidebar').parent().next().addClass('open').removeClass('closed');
 		}
 
 	}

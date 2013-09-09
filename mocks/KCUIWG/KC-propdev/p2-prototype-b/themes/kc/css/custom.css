@@ -58,6 +58,12 @@ button {
   left: 0;
   top: 0;
 }
+.container-fluid {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .portal-header {
   width: 100%;
   background-color: #aa003e;
@@ -294,10 +300,19 @@ section.toolbar .dropdown a .caret {
   -o-transform: rotate(225deg);
   transform: rotate(225deg);
 }
+.uif-pageContentWrapper.closed {
+  margin-left: 220px;
+}
+.uif-pageContentWrapper {
+  margin-left: 44px;
+}
+.uif-pageContentWrapper .uif-page {
+  min-height: 500px;
+}
 .uif-navigation {
-  margin-bottom: 1em;
-  background: #f6f6f6;
-  position: relative;
+  position: absolute;
+  width: 210px;
+  padding-top: 10px;
 }
 .uif-navigation #nav-toggle {
   border: 0;

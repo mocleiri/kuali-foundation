@@ -10,17 +10,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 <section id="main">
 
-	<div class="container">
+	<div class="container-fluid">
 		
 		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
 
-		<div class="row">
+		<div class="row-temp-disabled">
 
-			<div class="col-md-3">
+			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			<div class="col-md-9" id="content" tabindex="-1">
+			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<!-- <div class="section-title">

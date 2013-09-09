@@ -5,7 +5,7 @@
 		<li <?php if ($section == "basics") { echo 'class="has-sub expanded"'; } else { echo 'class="has-sub"'; } ?>> <a href="#"><span aria-hidden="true" class="icon-file-alt"></span> <span class="nav-label">Basics</span></a>
 			<ul class="sub">
 				<li <?php if ($page == "basics-details") { echo 'class="active"'; } ?>><a href="prop.basics.details.php"><span class="nav-label">Proposal Details</span></a></li>
-				<!-- <li <?php if ($page == "basics-search") { echo 'class="active"'; } ?>><a href="prop.basics.oppsearch-search.php"><span class="nav-label">Opportunity Search</span></a></li> -->
+				<li <?php if ($page == "basics-search") { echo 'class="active"'; } ?>><a href="prop.basics.oppsearch-search.php"><span class="nav-label">Opportunity Search</span></a></li> 
 				<li <?php if ($page == "basics-sponsors") { echo 'class="active"'; } ?>><a href="prop.basics.sponsor.php"><span class="nav-label">Sponsor &amp; Program Information</span></a></li>
 				<li <?php if ($page == "basics-orgloc") { echo 'class="active"'; } ?>><a href="prop.basics.orgloc.php"><span class="nav-label">Organization &amp; Location</span></a></li>
 				<li <?php if ($page == "basics-deliveryinfo") { echo 'class="active"'; } ?>><a href="prop.basics.deliveryinfo.php"><span class="nav-label">Delivery Info</span></a></li>
