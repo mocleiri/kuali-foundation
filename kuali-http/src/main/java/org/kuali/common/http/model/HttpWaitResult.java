@@ -80,6 +80,7 @@ public class HttpWaitResult {
 		public HttpWaitResult build() {
 			Assert.noNulls(status, finalRequestResult, requestResults);
 			Assert.isTrue(start > 0, "start is negative");
+			Assert.isTrue(stop >= start, "stop is less than start");
 			this.requestResults = ImmutableList.copyOf(requestResults);
 			return new HttpWaitResult(this);
 		}
