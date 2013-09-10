@@ -29,15 +29,28 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
 
 				<div class="section-content">
-					<form action="#" method="post" class="">
-						<fieldset>
-							<legend>Search for and add key personnel</legend>
-							<p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, and any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).
-							<div class="form-group clearfix">
-								<button class="btn btn-default launch-modal" data-modal-page="modal/modal-addpersonnel/start.html">+ Add Personnel</button>
+					<div class="tab-title-container clearfix">
+						<h4>You don't have any sponsors yet.</h4>
+
+			            <div class="page-controls">
+			            	<div class="well">
+			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
+			            	</div>
+			            </div>
+			        </div>
+
+						<div class="page-controls clearfix">
+							<div class="page-actions">
+								<div class="well"></div>
 							</div>
-						</fieldset>
-					</form>
+
+							<div class="page-navigation">
+								<div class="well">
+									<button class="btn btn-default">Save</button>
+									<button class="btn btn-primary">Save and continue...</button>
+								</div>
+							</div>
+						</div>
 				</div>
 
 				<!-- // -->
@@ -45,15 +58,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 			</div>
 
 		</div>
-
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
 
 	</div>
 

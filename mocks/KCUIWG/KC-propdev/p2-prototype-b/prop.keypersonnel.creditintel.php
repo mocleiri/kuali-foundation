@@ -29,8 +29,32 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
 
 				<div class="section-content">
-					<div  id="chart1" style="height:300px; width:500px; margin-left:auto; margin-right:auto"></div>
-					<button class="btn btn-default">Edit allocation...</button>
+					<div class="tab-title-container clearfix">
+						<h4>Chart loading...</h4>
+
+			            <div class="page-controls">
+			            	<div class="well">
+			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
+			            	</div>
+			            </div>
+			        </div>
+
+					<div  id="chart1" style="height:300px; width:500px; margin-left:auto; margin-right:auto">
+
+					</div>
+
+					<div class="page-controls clearfix">
+						<div class="page-actions">
+							<div class="well"></div>
+						</div>
+
+						<div class="page-navigation">
+							<div class="well">
+								<button class="btn btn-default">Save</button>
+								<button class="btn btn-primary">Save and continue...</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- // -->
@@ -38,15 +62,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 			</div>
 
 		</div>
-
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
 
 	</div>
 
