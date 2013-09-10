@@ -1,6 +1,6 @@
 <header class="portal-header" data-spy="affix" data-offset-top="0" role="banner">
 
-	<div class="container">
+	<div class="container-fluid">
 
 		<nav class="navbar" role="navigation">
 			<div class="navbar-header">
