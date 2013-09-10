@@ -31,6 +31,15 @@ include( '_temp.select.filler.php' );
 
 				<div class="section-content">
 					<div class="data">
+						<div class="tab-title-container clearfix">
+							<h4>Review the proposal details</h4>
+
+				            <div class="page-controls">
+				            	<div class="well">
+				            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
+				            	</div>
+				            </div>
+				        </div>
 
 						<table  class="table table-condensed">
 							<tbody>
@@ -85,9 +94,7 @@ include( '_temp.select.filler.php' );
 
 						<div class="page-controls clearfix">
 							<div class="page-actions">
-								<div class="well">
-									<button class="btn btn-default">Edit</button>
-								</div>
+								<div class="well"></div>
 							</div>
 
 							<div class="page-navigation">

@@ -30,22 +30,23 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
 
 				<div class="section-content">
+					<div class="tab-title-container clearfix">
+						<h4>You don't have any opportunities.</h4>
+
+			            <div class="page-controls">
+			            	<div class="well">
+			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
+			            	</div>
+			            </div>
+			        </div>
+
 	                <div id="oppsearch-tabs">
-	                    <!-- <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Ajax</a> -->
-	                    <form action="" method="">
-	                    	<fieldset>
-	                    		<legend>Find opportunities</legend>
-	                    		<p>You don't have any opportunities added.</p>
-			                </fieldset>
-		                </form>
 	                </div>
 	            </div>
 
 				<div class="page-controls clearfix">
 					<div class="page-actions">
-						<div class="well">
-							<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add an opportunity</button>
-						</div>
+						<div class="well"></div>
 					</div>
 
 					<div class="page-navigation">

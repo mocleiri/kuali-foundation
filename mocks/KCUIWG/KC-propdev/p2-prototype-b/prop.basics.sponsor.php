@@ -29,9 +29,20 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
 
 				<div class="section-content">
+					<div class="tab-title-container clearfix">
+						<h4>Review sponsor information</h4>
+
+			            <div class="page-controls">
+			            	<div class="well">
+			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
+			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
+			            	</div>
+			            </div>
+			        </div>
+
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
-							<legend>Enter sponsor information</legend>
+							<legend>Sponsor details</legend>
 							<div class="form-group clearfix">
 								<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
 								<div class="col-md-5">
@@ -165,10 +176,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="page-controls clearfix">
 					<div class="page-actions">
-						<div class="well">
-							<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
-							<button class="btn btn-link launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add another sponsor</button>
-						</div>
+						<div class="well"></div>
 					</div>
 
 					<div class="page-navigation">
