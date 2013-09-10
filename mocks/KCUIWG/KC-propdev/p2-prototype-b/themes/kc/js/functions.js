@@ -54,9 +54,17 @@ $(document).ready(function() {
 	$('.launch-modal').on('click', function(e){
 		e.preventDefault();
 
+		var fb_height = 'autoSize',
+			fb_href = 	$(this).data('modal-page');
+
+		if ($(this).data('modal-height').length) {
+			fb_height = $(this).data('modal-height');
+		}
+
 		$.fancybox.open({
-			href: $(this).data('modal-page'),
+			href: fb_href,
 			type: 'iframe',
+			height: fb_height,
 			padding: 0
 		});
 	});
@@ -126,6 +134,7 @@ $(document).ready(function() {
 	*/
 	if ($('.uif-dateControl').length) {
 		$('.uif-dateControl').each(function() {
+			// Uncomment this if you'd prefer to use jQuery UI instead...
 			// $(this).datepicker({
 			// 	showOn: 'both',
 			// 	buttonImage: 'http://env2.ks.kuali.org/themes/kboot/images/cal.gif',

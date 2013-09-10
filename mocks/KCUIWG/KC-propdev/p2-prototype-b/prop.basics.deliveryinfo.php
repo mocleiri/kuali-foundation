@@ -31,7 +31,16 @@ include( '_temp.select.filler.php' );
 
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
-						<h3>Recipient <span><a class="link-edit" href="#">Edit</a></span></h3>
+						<div class="tab-title-container clearfix">
+				            <h4>Recipeint</h4>
+
+				            <div class="page-controls">
+				            	<div class="well">
+				            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
+				            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
+				            	</div>
+				            </div>
+				        </div>
 
 						<table  class="table table-condensed">
 							<tbody>
@@ -163,20 +172,26 @@ include( '_temp.select.filler.php' );
 					</form>
 				</div>
 
+				<div class="page-controls clearfix">
+					<div class="page-actions">
+						<div class="well">
+							
+						</div>
+					</div>
+
+					<div class="page-navigation">
+						<div class="well">
+							<button class="btn btn-default">Save</button>
+							<button class="btn btn-primary">Save and continue...</button>
+						</div>
+					</div>
+				</div>
+
 				<!-- // -->
 
 			</div>
 
 		</div>
-
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
 
 	</div>
 

@@ -94,7 +94,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 							<div class="form-group checkbox clearfix">
 								<div class="blank col-md-3"></div>
-								<label for="subawards control-label col-md-5" class="subawards">
+								<label for="subawards" class="subawards col-md-5">
 									<input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" /> This proposal includes subaward(s)
 								</label>
 							</div>
@@ -163,20 +163,27 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					</form>
 				</div>
 
+				<div class="page-controls clearfix">
+					<div class="page-actions">
+						<div class="well">
+							<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
+							<button class="btn btn-link launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add another sponsor</button>
+						</div>
+					</div>
+
+					<div class="page-navigation">
+						<div class="well">
+							<button class="btn btn-default">Save</button>
+							<button class="btn btn-primary">Save and continue...</button>
+						</div>
+					</div>
+				</div>
+
 				<!-- // -->
 
 			</div>
 
 		</div>
-
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
 
 	</div>
 

@@ -45,20 +45,26 @@ include( '_temp.select.filler.php' );
 					</form>
 				</div>
 
+				<div class="page-controls clearfix">
+					<div class="page-actions">
+						<div class="well">
+							
+						</div>
+					</div>
+
+					<div class="page-navigation">
+						<div class="well">
+							<button class="btn btn-default">Save</button>
+							<button class="btn btn-primary">Save and continue...</button>
+						</div>
+					</div>
+				</div>
+
 				<!-- // -->
 
 			</div>
 
 		</div>
-
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
 
 	</div>
 

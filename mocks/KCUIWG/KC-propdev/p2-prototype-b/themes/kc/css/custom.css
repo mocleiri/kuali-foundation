@@ -660,6 +660,58 @@ section.toolbar .dropdown a .caret {
   padding: 1% 0 1% 0;
   text-align: left;
 }
+.section-content {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.tab-title-container {
+  position: relative;
+}
+.tab-title-container h4 {
+  float: left;
+  padding: 16px 16px 16px 0;
+}
+.tab-title-container .page-controls {
+  float: right;
+  border-top: 0;
+}
+.tab-title-container .page-controls .well {
+  background: transparent;
+  border: 0px;
+  box-shadow: none;
+  margin-bottom: 0;
+  min-height: auto;
+  border-radius: 0;
+}
+.page-controls {
+  position: relative;
+  border-top: 1px solid #cccccc;
+}
+.page-controls .page-actions {
+  width: 50%;
+  float: left;
+  text-align: left;
+}
+.page-controls .page-actions .well {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+.page-controls .page-navigation {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+.page-controls .page-navigation .well {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+.well {
+  min-height: 74px;
+}
 /*
 	Overriding the default Bootstrap input styles to better match the Chosen styles
 	Chris Rodriguez

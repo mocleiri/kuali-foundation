@@ -21,26 +21,39 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
+			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+			  	<div id="content" class="uif-page" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
-					<h3>Opportunity Search</h3>
+					<h2>Opportunity Search</h2>
 				</div>
-                <div id="oppsearch-tabs">
-                    <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Ajax</a>
-                    <a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>
-                    </div>
 
-				<div class="section-content hidden">
-					<form action="#" method="post" class="">
-						<fieldset>
-							<legend>Opportunity actions</legend>
-							<div class="form-group clearfix">
-								<button class="btn btn-default modal" data-page="page-name-here.html">Load new opportunity...</button>
-							</div>
-						</fieldset>
-					</form>
+				<div class="section-content">
+	                <div id="oppsearch-tabs">
+	                    <!-- <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Ajax</a> -->
+	                    <form action="" method="">
+	                    	<fieldset>
+	                    		<legend>Find opportunities</legend>
+	                    		<p>You don't have any opportunities added.</p>
+			                </fieldset>
+		                </form>
+	                </div>
+	            </div>
+
+				<div class="page-controls clearfix">
+					<div class="page-actions">
+						<div class="well">
+							<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add an opportunity</button>
+						</div>
+					</div>
+
+					<div class="page-navigation">
+						<div class="well">
+							<button class="btn btn-default">Save</button>
+							<button class="btn btn-primary">Save and continue...</button>
+						</div>
+					</div>
 				</div>
 
 				<!-- // -->
@@ -48,15 +61,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 			</div>
 
 		</div>
-
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
 
 	</div>
 
