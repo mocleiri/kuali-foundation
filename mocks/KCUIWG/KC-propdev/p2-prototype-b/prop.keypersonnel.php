@@ -9,7 +9,7 @@ require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
-<section id="main">	<?php require_once( 'themes/kc/inc/uif-unifiedPageHeader.php' ); ?>
+<section id="main">	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
         <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
 
 <div class="container-fluid"><div class="row-temp-disabled">
