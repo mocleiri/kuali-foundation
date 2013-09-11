@@ -16,18 +16,13 @@
 package org.kuali.common.aws.cloudfront;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.common.util.Counter;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.html.HtmlUtils;
 
-import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /**
@@ -84,54 +79,37 @@ public class DefaultListingConverterService implements ListingConverterService {
 	 * Convert a commonPrefix into a DisplayRow object for the UI
 	 */
 	protected DisplayRow getDisplayRow(String commonPrefix, IndexDataContext context, Counter indent) {
-
-		// Create some UI friendly strings
-		String image = HtmlUtils.getImage(context.getConverterContext().getDirImage(), indent);
-		String show = getShow(commonPrefix, context.getListing().getPrefix());
-		String dest = context.getBucketContext().getDelimiter() + commonPrefix;
-		String ahref = HtmlUtils.getHref(dest, show, indent);
-		String date = "-";
-		String size = "-";
-
-		// Store them in an object
-		DisplayRow displayRow = new DisplayRow();
-		displayRow.setImage(image);
-		displayRow.setAhref(ahref);
-		displayRow.setLastModified(date);
-		displayRow.setSize(size);
-		displayRow.setShow(show);
-		return displayRow;
+		/**
+		 * // Create some UI friendly strings String image = HtmlUtils.getImage(context.getConverterContext().getDirImage(), indent); String show = getShow(commonPrefix,
+		 * context.getListing().getPrefix()); String dest = context.getBucketContext().getDelimiter() + commonPrefix; String ahref = HtmlUtils.getHref(dest, show, indent); String
+		 * date = "-"; String size = "-";
+		 * 
+		 * // Store them in an object DisplayRow displayRow = new DisplayRow(); displayRow.setImage(image); displayRow.setAhref(ahref); displayRow.setLastModified(date);
+		 * displayRow.setSize(size); displayRow.setShow(show); return displayRow;
+		 **/
+		return null;
 	}
 
 	protected List<DisplayRow> getDirectoryDisplayRows(IndexDataContext context, Counter indent) {
-		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
-		for (String commonPrefix : context.getListing().getCommonPrefixes()) {
-			DisplayRow displayRow = getDisplayRow(commonPrefix, context, indent);
-			if (displayRow == null) {
-				continue;
-			}
-			displayRows.add(displayRow);
-		}
-		return displayRows;
+		/**
+		 * List<DisplayRow> displayRows = new ArrayList<DisplayRow>(); for (String commonPrefix : context.getListing().getCommonPrefixes()) { DisplayRow displayRow =
+		 * getDisplayRow(commonPrefix, context, indent); if (displayRow == null) { continue; } displayRows.add(displayRow); } return displayRows;
+		 **/
+		return null;
 	}
 
 	@Override
 	public List<String[]> getIndexData(IndexDataContext context) {
-		ListingConverterContext lcc = context.getConverterContext();
-		ObjectListing listing = context.getListing();
-
-		SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(lcc.getDateDisplayFormat(), lcc.getDateDisplayTimeZone());
-		Counter indent = new Counter();
-		DisplayRow upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent);
-		List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, indent, formatter);
-		List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, indent);
-		Comparator<DisplayRow> comparator = new DisplayRowComparator();
-		Collections.sort(directoryDisplayRows, comparator);
-		List<String[]> indexData = new ArrayList<String[]>();
-		addDisplayRow(upOneDirectory, indexData);
-		addDisplayRows(directoryDisplayRows, indexData);
-		addDisplayRows(objectDisplayRows, indexData);
-		return indexData;
+		/**
+		 * ListingConverterContext lcc = context.getConverterContext(); ObjectListing listing = context.getListing();
+		 * 
+		 * SimpleDateFormat formatter = CloudFrontUtils.getSimpleDateFormat(lcc.getDateDisplayFormat(), lcc.getDateDisplayTimeZone()); Counter indent = new Counter(); DisplayRow
+		 * upOneDirectory = getUpOneDirectoryDisplayRow(context, listing.getPrefix(), indent); List<DisplayRow> objectDisplayRows = getObjectDisplayRows(context, indent,
+		 * formatter); List<DisplayRow> directoryDisplayRows = getDirectoryDisplayRows(context, indent); Comparator<DisplayRow> comparator = new DisplayRowComparator();
+		 * Collections.sort(directoryDisplayRows, comparator); List<String[]> indexData = new ArrayList<String[]>(); addDisplayRow(upOneDirectory, indexData);
+		 * addDisplayRows(directoryDisplayRows, indexData); addDisplayRows(objectDisplayRows, indexData); return indexData;
+		 **/
+		return null;
 	}
 
 	protected boolean isDirectory(S3ObjectSummary summary, List<String> commonPrefixes, String prefix, String delimiter) {
@@ -155,6 +133,7 @@ public class DefaultListingConverterService implements ListingConverterService {
 	 * Convert an S3ObjectSummary into a DisplayRow object for the UI
 	 */
 	protected DisplayRow getDisplayRow(IndexDataContext context, S3ObjectSummary summary, Counter indent, SimpleDateFormat formatter) {
+		/**
 
 		String delimiter = context.getBucketContext().getDelimiter();
 
@@ -176,9 +155,12 @@ public class DefaultListingConverterService implements ListingConverterService {
 		displayRow.setLastModified(date);
 		displayRow.setSize(size);
 		return displayRow;
+		**/
+		return null;
 	}
 
 	protected List<DisplayRow> getObjectDisplayRows(IndexDataContext context, Counter indent, SimpleDateFormat formatter) {
+		/**
 		String delimiter = context.getBucketContext().getDelimiter();
 		ObjectListing listing = context.getListing();
 		List<DisplayRow> displayRows = new ArrayList<DisplayRow>();
@@ -193,6 +175,8 @@ public class DefaultListingConverterService implements ListingConverterService {
 			displayRows.add(displayRow);
 		}
 		return displayRows;
+		**/
+		return null;
 	}
 
 	/**

@@ -27,12 +27,13 @@ public class ReindexBucketExecutable implements Executable {
 		ListingResult listingResult = bucketService.getObjectListings(objectListingsContext);
 
 		for (ObjectListing listing : listingResult.getListings()) {
-			IndexDataContext idc = new IndexDataContext(bucketContext, converterContext, listing);
+			IndexDataContext idc = null;// new IndexDataContext(bucketContext, converterContext, listing);
 			List<String[]> indexData = converterService.getIndexData(idc);
 			String welcomeFileKey = CloudFrontUtils.getFirstMatchingKey(listing, cloudFrontContext.getWelcomeFiles());
 			IndexContext ic = new IndexContext(listing, indexData, welcomeFileKey);
 			DirectoryListingContext dlc = new DirectoryListingContext(generatorContext, bucketContext, about, ic);
 			String html = generatorService.getDirectoryListing(dlc);
+			System.out.println(html);
 		}
 
 	}
