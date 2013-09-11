@@ -11,14 +11,16 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-
 		
 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-<div class="container-fluid"><div class="row-temp-disabled">
 
+	<div class="container-fluid">
+		<div class="row-temp-disabled">
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper"></div>
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
+			<div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+
+				<div id="content" class="uif-page" tabindex="-1">
 			
 				<!-- Main content goes here -->
 
@@ -30,6 +32,7 @@ include( '_temp.select.filler.php' );
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
 							<legend style="display:none">Enter any relevant details for this proposal</legend>
+							
 							<div class="form-group clearfix">
 								<label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
 								<div class="col-md-5">

@@ -77,19 +77,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 						</div>
 					</div>
-
-					<div class="page-controls clearfix">
-						<div class="page-actions">
-							<div class="well"></div>
-						</div>
-
-						<div class="page-navigation">
-							<div class="well">
-								<button class="btn btn-default">Save</button>
-								<button class="btn btn-primary">Save and continue...</button>
-							</div>
-						</div>
-					</div>
 				</div>
 
 				<!-- // -->
@@ -134,5 +121,18 @@ $('#link_cancel').click(function(e) {
 	$('#compliance_1').show();
 });
 </script>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+			<button class="btn btn-primary">Save and continue...</button>
+		</div>
+	</div>
+</div>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

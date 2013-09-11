@@ -15,7 +15,9 @@ include( '_temp.select.filler.php' );
 		
 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-<div class="container-fluid"><div class="row-temp-disabled">
+
+	<div class="container-fluid">
+		<div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
@@ -40,7 +42,7 @@ include( '_temp.select.filler.php' );
 				        <div id="my-tab-content" class="tab-content">
 
 				          <div class="tab-pane active" id="tab1">
-				          	<div class="tab-title-container clearfix">
+				          	<!-- <div class="tab-title-container clearfix">
 					            <h4>Applicant Organization</h4>
 
 					            <div class="page-controls">
@@ -49,7 +51,7 @@ include( '_temp.select.filler.php' );
 					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
 					            	</div>
 					            </div>
-					        </div>
+					        </div> -->
 
 				            <table  class="table table-condensed">
 				              <tbody>
@@ -78,15 +80,15 @@ include( '_temp.select.filler.php' );
 				                  <td>48109-1273</td>
 				                </tr>
 				                <tr>
-				                  <th>Congressional District</th>
-				                  <td>asdfasdfasf</td>
+				                  <th>Congressional districts</th>
+				                  <td><div class="uif-switchme uif-switchme-select"><span>asdf wasdf 23234 adasdf</span></div></td>
 				                </tr>
 				              </tbody>
 				            </table>
 				          </div>
 
 				          <div class="tab-pane " id="tab2">
-				          	<div class="tab-title-container clearfix">
+				          	<!-- <div class="tab-title-container clearfix">
 					            <h4>Performing Organization</h4>
 
 					            <div class="page-controls">
@@ -95,44 +97,44 @@ include( '_temp.select.filler.php' );
 					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
 					            	</div>
 					            </div>
-					        </div>
+					        </div> -->
 
 				            <table  class="table table-condensed">
 				              <tbody>
 				                <tr>
 				                  <th style="width:30%">Organization</th>
-				                  <td>University of Michigan</td>
+				                  <td><div class="uif-switchme"><span>University of Michigan</span></div></td>
 				                </tr>
 				                <tr>
 				                  <th style="width:30%">Address 1</th>
-				                  <td>2044 Wolverine Tower</td>
+				                  <td><div class="uif-switchme"><span>2044 Wolverine Tower</span></div></td>
 				                </tr>
 				                <tr>
 				                  <th>Address 2</th>
-				                  <td>3003 State Street</td>
+				                  <td><div class="uif-switchme"><span>3003 State Street</span></div></td>
 				                </tr>
 				                <tr>
 				                  <th>City</th>
-				                  <td>ANN ARBOR</td>
+				                  <td><div class="uif-switchme"><span>ANN ARBOR</span></div></td>
 				                </tr>
 				                <tr>
 				                  <th>State</th>
-				                  <td>MI</td>
+				                  <td><div class="uif-switchme"><span>MI</span></div></td>
 				                </tr>
 				                <tr>
 				                  <th>ZIP</th>
-				                  <td>48109-1273</td>
+				                  <td><div class="uif-switchme"><span>48109-1273</span></div></td>
 				                </tr>
 				                <tr>
 				                  <th>Congressional District</th>
-				                  <td>asdfasdf</td>
+				                  <td><div class="uif-switchme uif-switchme-select"><span>asdfasdf</span></div></td>
 				                </tr>
 				              </tbody>
 				            </table>
 				          </div>
 
 				          <div class="tab-pane" id="tab3">
-				            <div class="tab-title-container clearfix">
+				            <!-- <div class="tab-title-container clearfix">
 					            <h4>Performance Site Locations</h4>
 
 					            <div class="page-controls">
@@ -141,31 +143,17 @@ include( '_temp.select.filler.php' );
 					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
 					            	</div>
 					            </div>
+					        </div> -->
+
+					        <div class="well">
+					        	<form action="" method="">
+					        		<input type="text" class="input-sm col-md-3 uif-switchme-input" placeholder="E.g., Research Location" />
+					        		<button id="add" class="btn btn-default btn-sm">Add</button>
+					        	</form>
 					        </div>
 
 				            <div class="panel-group" id="accordion1">
-				              <div class="panel panel-default">
-				                <div class="panel-heading">
-				                  <div class="row">
-				                    <div class="col-md-6">
-				                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-down"></span>  Clinical Trial Location </a> </h4>
-				                    </div>
-				                    <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
-				                  </div>
-				                </div>
-				                <div id="collapse1" class="panel-collapse collapse">
-				                  <div class="panel-body">
-				                    <table  class="table table-condensed">
-				                      <tbody>
-				                        <tr>
-				                          <th style="width:30%">Organization</th>
-				                          <td>select... <a href="#">lookup (icon)</a></td>
-				                        </tr>
-				                      </tbody>
-				                    </table>
-				                  </div>
-				                </div>
-				              </div>
+
 				              <div class="panel panel-default">
 				                <div class="panel-heading">
 				                  <div class="row">
@@ -181,39 +169,40 @@ include( '_temp.select.filler.php' );
 				                      <tbody>
 				                        <tr>
 				                          <th style="width:30%">Organization</th>
-				                          <td>United Technologies/Pratt &amp; Whitney <a href="#">lookup (icon)</a></td>
+				                          <td><div class="uif-switchme"><span>United Technologies/Pratt &amp; Whitney</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th style="width:30%">Address 1</th>
-				                          <td>Mail Stop 169-21 </td>
+				                          <td><div class="uif-switchme"><span>Mail Stop 169-21</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>Address 2</th>
-				                          <td>400 Main Street </td>
+				                          <td><div class="uif-switchme"><span>400 Main Street</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>City</th>
-				                          <td>East Hartford</td>
+				                          <td><div class="uif-switchme"><span>East Hartford</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>State</th>
-				                          <td> CT  </td>
+				                          <td><div class="uif-switchme"><span>CT</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>ZIP</th>
-				                          <td>06108</td>
+				                          <td><div class="uif-switchme"><span>06108</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>Congressional District</th>
-				                          <td><form>
-				                              <input id='tags_3' type='text' class='tags'>
-				                            </form></td>
+				                          <td>
+				                          		<div class="uif-switchme uif-switchme-select"><span>asdfasdf</span></div>
+			                        	  </td>
 				                        </tr>
 				                      </tbody>
 				                    </table>
 				                  </div>
 				                </div>
 				              </div>
+
 				              <div class="panel panel-default">
 				                <div class="panel-heading">
 				                  <div class="row">
@@ -229,44 +218,72 @@ include( '_temp.select.filler.php' );
 				                      <tbody>
 				                        <tr>
 				                          <th style="width:30%">Organization</th>
-				                          <td> Naval Training Systems Center <a href="#">lookup (icon)</a></td>
+				                          <td><div class="uif-switchme"><span>Naval Training Systems Center</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th style="width:30%">Address 1</th>
-				                          <td>Property, Code 773  </td>
+				                          <td><div class="uif-switchme"><span>Property, Code 773</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>Address 2</th>
-				                          <td>12350 Research Parkway </td>
+				                          <td><div class="uif-switchme"><span>12350 Research Parkway</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>City</th>
-				                          <td>Orlando</td>
+				                          <td><div class="uif-switchme"><span>Orlando</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>State</th>
-				                          <td>FL  </td>
+				                          <td><div class="uif-switchme"><span>FL</span></div></td>
 				                        </tr>
 				                        <tr>
 				                          <th>ZIP</th>
-				                          <td>32826</td>
+				                          <td><div class="uif-switchme"><span>32826</td>
 				                        </tr>
 				                        <tr>
 				                          <th>Congressional District</th>
-				                          <td><form>
-				                              <input id='tags_4' type='text' class='tags'>
-				                            </form></td>
+				                          <td>
+				                          	<div class="uif-switchme uif-switchme-select"><span>asdfasdf</span></div>
+				                          </td>
 				                        </tr>
 				                      </tbody>
 				                    </table>
 				                  </div>
 				                </div>
 				              </div>
+				              
+				              <div id="added" class="panel panel-default">
+				                <div class="panel-heading">
+				                  <div class="row">
+				                    <div class="col-md-6">
+				                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-down"></span> Research Location</a> </h4>
+				                    </div>
+				                    <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+				                  </div>
+				                </div>
+				                <div id="collapse1" class="panel-collapse in">
+				                  <div class="panel-body">
+				                    <table  class="table table-condensed">
+				                      <tbody>
+				                        <tr>
+				                          <th style="width:30%">Organization</th>
+				                          <td>Research Location</td>
+				                        </tr>
+				                        <tr>
+				                        	<th>...</th>
+				                        	<td><button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add details</button></td>
+				                        </tr>
+				                      </tbody>
+				                    </table>
+				                  </div>
+				                </div>
+				              </div>
+
 				            </div>
 				          </div>
 
 				          <div class="tab-pane " id="tab4">
-				            <div class="tab-title-container clearfix">
+				            <!-- <div class="tab-title-container clearfix">
 					            <h4>Other Organization</h4>
 
 					            <div class="page-controls">
@@ -275,6 +292,12 @@ include( '_temp.select.filler.php' );
 					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
 					            	</div>
 					            </div>
+					        </div> -->
+
+					        <div class="well">
+					        	<form action="" method="">
+					        		<button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add an organization</button>
+					        	</form>
 					        </div>
 
 				            <div class="panel-group" id="accordion2">
@@ -377,19 +400,6 @@ include( '_temp.select.filler.php' );
 				        </div>
 
 				    </div>
-
-					<div class="page-controls clearfix">
-						<div class="page-actions">
-							<div class="well"></div>
-						</div>
-
-						<div class="page-navigation">
-							<div class="well">
-								<button class="btn btn-default">Save</button>
-								<button class="btn btn-primary">Save and continue...</button>
-							</div>
-						</div>
-					</div>
         
         <!-- // --> 
         
@@ -400,5 +410,26 @@ include( '_temp.select.filler.php' );
 	</div>
 
 </section>
+
+<script>
+$('#added').hide();
+$('#add').click(function() {
+	$('#added').fadeIn();
+	return false;
+});
+</script>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+			<button class="btn btn-primary">Save and continue...</button>
+		</div>
+	</div>
+</div>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

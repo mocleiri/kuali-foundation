@@ -41,19 +41,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<div  id="chart1" style="height:300px; width:500px; margin-left:auto; margin-right:auto">
 
 					</div>
-
-					<div class="page-controls clearfix">
-						<div class="page-actions">
-							<div class="well"></div>
-						</div>
-
-						<div class="page-navigation">
-							<div class="well">
-								<button class="btn btn-default">Save</button>
-								<button class="btn btn-primary">Save and continue...</button>
-							</div>
-						</div>
-					</div>
 				</div>
 
 				<!-- // -->
@@ -83,5 +70,18 @@ require_once( 'themes/kc/inc/toolbar.php' );
 // );
 // });
 </script>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+			<button class="btn btn-primary">Save and continue...</button>
+		</div>
+	</div>
+</div>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

@@ -134,12 +134,6 @@ $(document).ready(function() {
 	*/
 	if ($('.uif-dateControl').length) {
 		$('.uif-dateControl').each(function() {
-			// Uncomment this if you'd prefer to use jQuery UI instead...
-			// $(this).datepicker({
-			// 	showOn: 'both',
-			// 	buttonImage: 'http://env2.ks.kuali.org/themes/kboot/images/cal.gif',
-			// 	buttonImageOnly: true
-			// });
 			$(this).datepicker();
 		});
 	}
@@ -216,6 +210,91 @@ $(document).ready(function() {
 		handle_sidebar_menu();
 		handle_sidebar_toggler();
 	}
+
+
+
+	/*
+		Faux inline editing
+		Inline editing plugins require AJAX and PHP, so we're just faking it for the prototype
+		Appends a little edit icon to the container
+		Wraps the clicked text in a form input box with two buttons
+		Chris Rodriguez
+	*/
+	if ($('.uif-switchme').length) {
+		$('.uif-switchme').each(function() {
+			$(this).append('<button class="uif-switchme-edit icon-pencil"></button>');
+		});
+	}
+
+	$('.uif-switchme').on('click', '.uif-switchme-edit', function() {
+		var current_value = $(this).prev('span').text();
+
+		if ($(this).parent().hasClass('uif-switchme-select')) {
+
+			$(this).prev('span').wrapInner('<select class="form-control input-sm chzn uif-switchme-input" multiple />');
+
+			current_options = '';
+			current_value = current_value.split(" ");
+			
+			for (var i = 0; i < current_value.length; i++) {
+				current_options += '<option>' + current_value[i] + '</option>';
+			};
+
+			$('.uif-switchme').find('select.uif-switchme-input').html(current_options).chosen();
+
+		} else if ($(this).parent().hasClass('uif-switchme-date')) {
+
+			$(this).prev('span').wrapInner('<input type="text" class="form-control input-sm chzn uif-switchme-input uif-switchme-date" value="' + current_value + '" />');
+			$('.uif-switchme').find('.uif-switchme-date').datepicker();
+
+		} else {
+
+			$(this).prev('span').wrapInner('<input type="text" class="form-control input-sm chzn uif-switchme-input" value="' + current_value + '" />');
+
+		}
+
+		$(this).parent().append('<button class="uif-switchme-save icon-save"></button><button class="uif-switchme-cancel" data-default-value="' + current_value + '">Cancel</button>');
+		$(this).remove();
+
+		return false;
+	});
+
+	$('.uif-switchme').on('click', '.uif-switchme-save', function() {
+		var new_value = $(this).prev().find('input').val();
+
+		$(this).prev('span').find('.uif-switchme-input').remove();
+		$(this).prev('span').text(new_value);
+		$(this).parent().append('<button class="uif-switchme-edit icon-pencil"></button>');
+		$(this).next('button').remove();
+		$(this).remove();
+
+		return false;
+	});
+
+	$('.uif-switchme').on('click', '.uif-switchme-cancel', function() {
+		var orig_value = $(this).data('default-value');
+
+		$(this).parent().append('<button class="uif-switchme-edit icon-pencil"></button>');
+		$(this).parent().find('input').remove();
+		$(this).parent().find('span').text(orig_value);
+		$(this).prev().remove();
+		$(this).remove();
+
+		return false;
+	});
+
+
+
+	/*
+		Button hrefs
+		Makes a button act like a link
+		Chris Rodriguez
+	*/
+	$('button').on('click', function() {
+		if ($(this).attr('href')) {
+			window.location = $(this).attr('href');
+		}
+	});
 
 
 

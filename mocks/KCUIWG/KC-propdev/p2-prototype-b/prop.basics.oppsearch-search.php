@@ -14,7 +14,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
 		
 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-<div class="container-fluid"><div class="row-temp-disabled">
+	
+	<div class="container-fluid">
+
+		<div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
@@ -31,30 +34,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<div class="section-content">
 					<div class="tab-title-container clearfix">
 						<h4>You don't have any opportunities.</h4>
-
-			            <div class="page-controls">
-			            	<div class="well">
-			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-			            	</div>
-			            </div>
 			        </div>
+
+			        <div class="well">
+	            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html" data-modal-height="500">Find an opportunity...</button>
+	            	</div>
 
 	                <div id="oppsearch-tabs">
 	                </div>
 	            </div>
-
-				<div class="page-controls clearfix">
-					<div class="page-actions">
-						<div class="well"></div>
-					</div>
-
-					<div class="page-navigation">
-						<div class="well">
-							<button class="btn btn-default">Save</button>
-							<button class="btn btn-primary">Save and continue...</button>
-						</div>
-					</div>
-				</div>
 
 				<!-- // -->
 					
@@ -124,4 +112,18 @@ $(document).ready(function() {
    
 });
 </script>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+			<button class="btn btn-primary">Save and continue...</button>
+		</div>
+	</div>
+</div>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

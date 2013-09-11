@@ -220,17 +220,20 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 		</div>
 
-		<!-- Button row -->
-		<div class="btn-row-page-action">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
-			</div>
-		</div>
-		<!-- // -->
-
 	</div>
 
 </section>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+		</div>
+	</div>
+</div>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

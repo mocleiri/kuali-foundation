@@ -2,8 +2,10 @@
 .uif-pageContentWrapper.closed {
     margin-left: 220px;
 }
+
 .uif-pageContentWrapper {
     margin-left: 44px;
+
     .uif-page {
         min-height: 500px;
     }
@@ -13,7 +15,6 @@
 .uif-navigation {
 	position: absolute;
 	width: 210px;
-	padding-top: 10px;
 
 	#nav-toggle {
 		border: 0;
@@ -80,7 +81,7 @@
                 color: #000;
                 display: block;
 				padding: 6px 12px;
-				height: 28px;
+				min-height: 28px;
             }
 
             a:hover {
@@ -206,6 +207,13 @@
 	}
 
 	ul {
+
+		li {
+
+			a {
+				height: 28px;
+			}
+		}
 
 		ul {
 			display: block;

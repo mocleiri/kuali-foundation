@@ -171,21 +171,6 @@ include( '_temp.select.filler.php' );
 					</form>
 				</div>
 
-				<div class="page-controls clearfix">
-					<div class="page-actions">
-						<div class="well">
-							
-						</div>
-					</div>
-
-					<div class="page-navigation">
-						<div class="well">
-							<button class="btn btn-default">Save</button>
-							<button class="btn btn-primary">Save and continue...</button>
-						</div>
-					</div>
-				</div>
-
 				<!-- // -->
 
 			</div>
@@ -195,5 +180,18 @@ include( '_temp.select.filler.php' );
 	</div>
 
 </section>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+			<button class="btn btn-primary">Save and continue...</button>
+		</div>
+	</div>
+</div>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
