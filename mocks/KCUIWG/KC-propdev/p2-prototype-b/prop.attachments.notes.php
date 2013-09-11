@@ -11,11 +11,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 <section id="main">
 
-	<div class="container-fluid">
 		
-		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
-
-		<div class="row-temp-disabled">
+	<?php require_once( 'themes/kc/inc/uif-unifiedPageHeader.php' ); ?>
+    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
+<div class="container-fluid"><div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>

@@ -12,11 +12,10 @@ include( '_temp.select.filler.php' );
 
 <section id="main">
 
-	<div class="container-fluid">
-
-		<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
-
-		<div class="row-temp-disabled">
+		
+	<?php require_once( 'themes/kc/inc/uif-unifiedPageHeader.php' ); ?>
+    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
+<div class="container-fluid"><div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper"></div>
 			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">

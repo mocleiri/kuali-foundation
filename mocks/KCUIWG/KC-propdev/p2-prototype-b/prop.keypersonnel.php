@@ -9,15 +9,12 @@ require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
-<section id="main">
-		
-	<?php require_once( 'themes/kc/inc/doc-header.php' ); ?>
+<section id="main">	<?php require_once( 'themes/kc/inc/uif-unifiedPageHeader.php' ); ?>
+        <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
 
-	<div class="container">
+<div class="container-fluid"><div class="row-temp-disabled">
 
-		<div class="row">
-
-			<div class="col-md-3">
+			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
