@@ -591,6 +591,36 @@ footer .container {
   color: #666;
   font-weight: normal;
 }
+.viewHeader {
+  margin-top: 20px;
+}
+.viewHeader .metadata {
+  display: block;
+  float: right;
+}
+.viewHeader h1 {
+  margin: 0px;
+}
+.viewHeader h1 .areaTitle {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  font-weight: normal;
+  line-height: 0px;
+}
+.viewHeader h1 .supportTitle {
+  display: block;
+  font-size: 20px;
+}
+.viewHeader h1 a span[class*='icon-'] {
+  font-size: 20px;
+}
+.viewHeader h1 a span[class*='icon-'] .icon-text {
+  display: none;
+}
+.viewHeader h1 .headerText {
+  font-size: 32px;
+}
 .uif-pageContentWrapper.closed {
   margin-left: 220px;
 }
