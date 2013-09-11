@@ -30,7 +30,7 @@ public class PutObjectTest {
 	private static final Logger log = LoggerFactory.getLogger(PutObjectTest.class);
 
 	@Test
-	public void bruteForceListing() {
+	public void filesWithSpaces() {
 	}
 
 	protected AWSCredentials getCredentials() {
