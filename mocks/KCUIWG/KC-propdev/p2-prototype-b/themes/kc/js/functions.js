@@ -234,8 +234,8 @@ $(document).ready(function() {
 			$(this).prev('span').wrapInner('<select class="form-control input-sm chzn uif-switchme-input" multiple />');
 
 			current_options = '';
-			current_value = current_value.split(" ");
-			
+			current_value = current_value.split(",");
+
 			for (var i = 0; i < current_value.length; i++) {
 				current_options += '<option>' + current_value[i] + '</option>';
 			};
@@ -262,8 +262,28 @@ $(document).ready(function() {
 	$('.uif-switchme').on('click', '.uif-switchme-save', function() {
 		var new_value = $(this).prev().find('input').val();
 
-		$(this).prev('span').find('.uif-switchme-input').remove();
-		$(this).prev('span').text(new_value);
+		if ($(this).prev('span').find('.chosen-container')) {
+
+			new_value = '';
+			var chosen_results = $(this).prev().find('.chosen-results li');
+
+			chosen_results.each(function() {
+				if ($(this).hasClass('result-selected')) {
+					new_value += $(this).text() + ",";
+				}
+			});
+
+			$(this).prev('span').find('.uif-switchme-input').remove();
+			new_value = new_value.substr(0, new_value.length - 1);
+			$(this).prev('span').text(new_value);
+
+		} else {
+
+			$(this).prev('span').find('.uif-switchme-input').remove();
+			$(this).prev('span').text(new_value);
+
+		}
+
 		$(this).parent().append('<button class="uif-switchme-edit icon-pencil"></button>');
 		$(this).next('button').remove();
 		$(this).remove();

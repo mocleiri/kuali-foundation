@@ -80,7 +80,7 @@ include( '_temp.select.filler.php' );
 								</tr>
 								<tr>
 									<th>Keywords</th>
-									<td><div class="uif-switchme uif-switchme-select"><span>audfaud9 asdf80iasd j45kjh4 00fjojdf</span></div>
+									<td><div class="uif-switchme uif-switchme-select"><span>hello,there,how,are,you,today</span></div>
 										<!-- <select name="keywords" id="keywords" class="form-control input-sm col-md-8 chzn" multiple>
 											<?php
 											get_options();
