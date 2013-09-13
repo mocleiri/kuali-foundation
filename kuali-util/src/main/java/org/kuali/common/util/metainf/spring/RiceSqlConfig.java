@@ -2,11 +2,15 @@ package org.kuali.common.util.metainf.spring;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.util.metainf.model.MetaInfContext;
+import org.kuali.common.util.metainf.model.MetaInfResource;
+import org.kuali.common.util.metainf.model.MetaInfResourceFilenameComparator;
+import org.kuali.common.util.metainf.model.MetaInfResourceLocationComparator;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -67,6 +71,20 @@ public class RiceSqlConfig implements MetaInfContextsConfig {
 		File scanDir = build.getOutputDir();
 		String encoding = build.getEncoding();
 		return new MetaInfContext.Builder(outputFile, encoding, scanDir).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
+	}
+
+	protected Comparator<MetaInfResource> getComparator(MetaInfGroup group) {
+		if (MetaInfGroup.OTHER.equals(group)) {
+			// The upgrades folder for Rice has a nested directory structure - [server|client]:[bootstrap|demo|test].
+			// At the moment, the sorting of SQL located inside the "upgrades" folder for Rice ignores the directory structure and just sorts by filename.
+			// The idea is that the "initial-db" folder inside Rice will soon have a structure similar to the "upgrades" folder.
+			// This should enable "additive" dataset generation instead of "subtractive".
+			// Once the "initial-db" structure is in place, this specialized comparator should be removed.
+			// All SQL resources would then be sorted by the fully qualified location.
+			return new MetaInfResourceFilenameComparator();
+		} else {
+			return new MetaInfResourceLocationComparator();
+		}
 	}
 
 	protected Map<MetaInfGroup, String> getDefaultIncludes(Project project, String impexArtifactId, String vendor) {
