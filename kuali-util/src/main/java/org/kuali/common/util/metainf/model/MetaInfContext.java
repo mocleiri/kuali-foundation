@@ -17,11 +17,13 @@ package org.kuali.common.util.metainf.model;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.springframework.util.ResourceUtils;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class MetaInfContext {
@@ -31,6 +33,7 @@ public final class MetaInfContext {
 	private final String encoding;
 	private final boolean sort;
 	private final boolean includePropertiesFile;
+	private final Optional<Comparator<MetaInfResource>> comparator;
 	private final boolean includeFileSizes;
 	private final boolean includeLineCounts;
 	private final List<String> includes;
@@ -87,6 +90,10 @@ public final class MetaInfContext {
 		return urlPrefix;
 	}
 
+	public Optional<Comparator<MetaInfResource>> getComparator() {
+		return comparator;
+	}
+
 	public static class Builder {
 
 		// Required
@@ -103,6 +110,7 @@ public final class MetaInfContext {
 		private List<String> excludes = Collections.emptyList();
 		private boolean relativePaths = true;
 		private String urlPrefix = ResourceUtils.CLASSPATH_URL_PREFIX;
+		private Optional<Comparator<MetaInfResource>> comparator = Optional.absent();
 
 		// Defaults to scanDir
 		private File relativeDir;
@@ -112,6 +120,11 @@ public final class MetaInfContext {
 			this.encoding = encoding;
 			this.scanDir = scanDir;
 			this.relativeDir = scanDir; // Paths are generated relative to the scanDir by default
+		}
+
+		public Builder comparator(Comparator<MetaInfResource> comparator) {
+			this.comparator = Optional.of(comparator);
+			return this;
 		}
 
 		public Builder sort(boolean sort) {
@@ -150,7 +163,7 @@ public final class MetaInfContext {
 		}
 
 		public MetaInfContext build() {
-			Assert.noNulls(outputFile, scanDir, includes, excludes, relativeDir);
+			Assert.noNulls(outputFile, scanDir, includes, excludes, relativeDir, comparator);
 			Assert.noBlanks(encoding, urlPrefix);
 			this.includes = ImmutableList.copyOf(includes);
 			this.excludes = ImmutableList.copyOf(excludes);
@@ -172,6 +185,7 @@ public final class MetaInfContext {
 		this.relativeDir = builder.relativeDir;
 		this.outputFile = builder.outputFile;
 		this.relativePaths = builder.relativePaths;
+		this.comparator = builder.comparator;
 	}
 
 }
