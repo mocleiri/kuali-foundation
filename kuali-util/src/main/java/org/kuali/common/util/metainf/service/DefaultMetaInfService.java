@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
@@ -153,7 +154,12 @@ public class DefaultMetaInfService implements MetaInfService {
 			resources.add(resource);
 		}
 		if (context.isSort()) {
-			Collections.sort(resources);
+			if (context.getComparator().isPresent()) {
+				Comparator<MetaInfResource> comparator = context.getComparator().get();
+				Collections.sort(resources, comparator);
+			} else {
+				Collections.sort(resources);
+			}
 		}
 		return resources;
 	}
