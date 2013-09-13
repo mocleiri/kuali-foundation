@@ -1,0 +1,65 @@
+/*
+	Overriding the default Bootstrap input styles to better match the Chosen styles
+	Chris Rodriguez
+*/
+
+input[type="text"], 
+input[type="tel"], 
+input[type="date"], 
+input[type="email"], 
+select, 
+textarea {
+	position: relative;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	width: 100%;
+	height: 30px !important;
+	border: 1px solid #aaa !important;
+	background-color: #fff;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+	background-image: -webkit-linear-gradient(#eeeeee 1%, #ffffff 15%);
+	background-image: -moz-linear-gradient(#eeeeee 1%, #ffffff 15%);
+	background-image: -o-linear-gradient(#eeeeee 1%, #ffffff 15%);
+	background-image: linear-gradient(#eeeeee 1%, #ffffff 15%);
+	cursor: text;
+	font-size: 13px !important;
+	border-radius: 0 !important;
+}
+
+textarea {
+	height: auto !important;
+}
+
+.input-group-btn > .btn {
+	line-height: 100%;
+}
+
+.subawards {
+	display: block !important;
+	margin-bottom: 1.5em !important;
+}
+
+input[type="text"]:disabled, 
+input[type="tel"]:disabled, 
+input[type="date"]:disabled, 
+input[type="email"]:disabled, 
+select:disabled, 
+textarea:disabled {
+	color: #afafaf !important;
+	border: 1px solid #ccc !important;
+}
+
+.chosen-container {
+	width: 100% !important;
+}
+
+.ui-datepicker-trigger {
+	float: right;
+	margin-top: -23px;
+	margin-right: 6px;
+	position: relative;
+	z-index: 100;
+}
