@@ -70,7 +70,8 @@ public class RiceSqlConfig implements MetaInfContextsConfig {
 		List<String> excludes = SpringUtils.getNoneSensitiveListFromCSV(env, excludesKey, defaultExcludes.get(group));
 		File scanDir = build.getOutputDir();
 		String encoding = build.getEncoding();
-		return new MetaInfContext.Builder(outputFile, encoding, scanDir).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
+		Comparator<MetaInfResource> comparator = getComparator(group);
+		return new MetaInfContext.Builder(outputFile, encoding, scanDir).comparator(comparator).includes(includes).excludes(excludes).relativePaths(relativePaths).build();
 	}
 
 	protected Comparator<MetaInfResource> getComparator(MetaInfGroup group) {
