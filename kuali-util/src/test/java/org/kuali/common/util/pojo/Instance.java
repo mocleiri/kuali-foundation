@@ -7,7 +7,7 @@ public class Instance {
 	int startIndex;
 	int stopIndex;
 	String id;
-	String name;
+	String name = "NONE";
 	String size;
 	String state;
 	Map<String, String> tags;
