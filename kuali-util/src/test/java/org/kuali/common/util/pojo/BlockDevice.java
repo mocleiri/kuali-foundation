@@ -2,7 +2,7 @@ package org.kuali.common.util.pojo;
 
 import java.util.Map;
 
-public class Reservation {
+public class BlockDevice {
 
 	Map<String, String> properties;
 
