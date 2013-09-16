@@ -15,9 +15,14 @@
  */
 package org.kuali.common.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.kuali.common.util.pojo.Instance;
 
 public class EC2Instances {
 
@@ -26,10 +31,61 @@ public class EC2Instances {
 		try {
 			String filename = "/tmp/ks-instances.txt";
 			List<String> lines = LocationUtils.readLines(filename);
-			System.out.println(lines.size());
+			List<Instance> instances = new ArrayList<Instance>();
+			for (int i = 0; i < lines.size(); i++) {
+				String line = lines.get(i);
+				if (line.startsWith("RESERVATION")) {
+					Instance instance = getInstance(lines, i);
+					instances.add(instance);
+				}
+			}
+			System.out.println(instances.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static Instance getInstance(List<String> lines, int index) {
+		int endIndex = getEndIndex(lines, index);
+		String res = lines.get(index);
+		String ins = lines.get(index + 1);
+		Assert.isTrue(res.startsWith("RESERVATION"));
+		Assert.isTrue(ins.startsWith("INSTANCE"));
+		String[] tokens = StringUtils.splitPreserveAllTokens(ins, "\t");
+		for (int i = index; i < endIndex; i++) {
+
+		}
+		String id = tokens[1];
+		String state = tokens[5];
+		String size = tokens[9];
+		System.out.println(id + "," + state + "," + size);
+		Instance instance = new Instance();
+		instance.setId(id);
+		instance.setSize(size);
+		instance.setState(state);
+		instance.setStartIndex(index);
+		return instance;
+	}
+
+	protected static Map<String, String> getTags(List<String> lines, int start, int end) {
+		Map<String, String> tags = new HashMap<String, String>();
+		for (int i = start; i < end; i++) {
+			String line = lines.get(i);
+			if (line.startsWith("TAG")) {
+				String[] tokens = StringUtils.splitPreserveAllTokens(line, "\t");
+			}
+		}
+		return tags;
+	}
+
+	protected static int getEndIndex(List<String> lines, int index) {
+		for (int i = index + 1; i < lines.size(); i++) {
+			String line = lines.get(i);
+			if (line.startsWith("RESERVATION")) {
+				return i - 1;
+			}
+		}
+		throw new IllegalStateException("Unable to determine end index");
 	}
 
 }
