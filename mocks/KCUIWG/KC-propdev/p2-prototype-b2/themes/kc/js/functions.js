@@ -8,7 +8,6 @@
 
 	Chris Rodriguez, clrux@bu.edu
 	Tom Clark, thrclark@indiana.edu
-	Tadas Paegle, ...
 */
 
 $(document).ready(function() {
@@ -42,6 +41,26 @@ $(document).ready(function() {
 	*/
 	if ($('.uif-navigation')) {
 		$('.uif-navigation ul li.expanded').find('ul').show();
+	}
+
+
+
+	/*
+		Chosen implementation
+		Initializes the Chosen plugin on classed select/multiselect elements
+		Chris Rodriguez
+	*/
+	if ($('.chzn').length) {
+		$('.chzn').each(function() {
+			if ($(this).hasClass('limit')) {
+				var limit = $(this).data('limit');
+				$(this).chosen({
+					'max_selected_options' : limit
+				});
+			} else {
+				$(this).chosen();
+			}
+		});
 	}
 
 
@@ -86,26 +105,6 @@ $(document).ready(function() {
 			$(this).parent().find('.dropdown-menu').attr('tabindex', '-1').focus();
 		}
 	});
-
-
-
-	/*
-		Chosen implementation
-		Initializes the Chosen plugin on classed select/multiselect elements
-		Chris Rodriguez
-	*/
-	if ($('.chzn').length) {
-		$('.chzn').each(function() {
-			if ($(this).hasClass('limit')) {
-				var limit = $(this).data('limit');
-				$(this).chosen({
-					'max_selected_options' : limit
-				});
-			} else {
-				$(this).chosen();
-			}
-		});
-	}
 
 
 
@@ -314,6 +313,41 @@ $(document).ready(function() {
 		if ($(this).attr('href')) {
 			window.location = $(this).attr('href');
 		}
+	});
+
+
+
+	/*
+		Mailchimp style inline help
+		Shows helper text on focus and hides it on blur
+		Chris Rodriguez
+	*/
+	if ($('.helper-text').length) {
+		$('.helper-text').slideUp();
+	}
+
+	$('input, select, textarea').on('focus', function() {
+		if ($(this).parent().find('.helper-text')) {
+			$(this).parent().find('.helper-text').slideDown();
+		}
+	});
+
+	$('input, select, textarea').on('blur', function() {
+		if ($(this).parent().find('.helper-text')) {
+			$(this).parent().find('.helper-text').slideUp();
+		}
+	});
+
+
+
+	/*
+		New window
+		Opens classed links in a new window
+		Chris Rodriguez
+	*/
+	$('.new-window').on('click', function() {
+		window.open($(this).attr('href'), 'Kuali Help Documentation');
+		return false;
 	});
 
 
