@@ -15,13 +15,22 @@
  */
 package org.kuali.common.aws.s3;
 
+import java.io.File;
+import java.net.URLEncoder;
+import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Test;
+import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class PutObjectTest {
 	private static final String ACCESSKEY = "AKIAJFD5IM7IPVVUEBNA";
@@ -30,7 +39,45 @@ public class PutObjectTest {
 	private static final Logger log = LoggerFactory.getLogger(PutObjectTest.class);
 
 	@Test
-	public void filesWithSpaces() {
+	public void listObjectsTest() {
+		try {
+			AmazonS3Client client = new AmazonS3Client(getCredentials());
+			ObjectListing listing = client.listObjects("site.origin.kuali.org", "common/kuali-spaces/1.0.0-SNAPSHOT/myimages/dir+with+spaces/");
+			System.out.println("truncated=" + listing.isTruncated());
+			List<S3ObjectSummary> summaries = listing.getObjectSummaries();
+			System.out.println("summaries.size()=" + summaries.size());
+			for (S3ObjectSummary summary : summaries) {
+				System.out.println(summary.getKey());
+			}
+			System.out.println(encodeUTF8("+"));
+			String dir = System.getProperty("java.io.tmpdir") + "/dir with spaces";
+			String encoded = encodeUTF8(dir);
+			File file = new CanonicalFile(dir);
+			System.out.println(LocationUtils.getCanonicalURLString(file));
+			System.out.println(encoded);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected static String encodeUTF8(String s) {
+		try {
+			return URLEncoder.encode(s, "UTF-8");
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	@Test
+	@Ignore
+	public void filesWithSpacesTest() {
+		try {
+			String filename = "/Users/jcaddel/Downloads/icon with spaces.png";
+			String encoded = URLEncoder.encode(filename, "UTF-8");
+			System.out.println(encoded);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected AWSCredentials getCredentials() {
