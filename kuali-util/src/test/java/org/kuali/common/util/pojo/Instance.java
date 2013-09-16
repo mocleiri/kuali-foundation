@@ -4,23 +4,32 @@ import java.util.Map;
 
 public class Instance {
 
-	Reservation reservation;
-	Map<String, String> properties;
+	String id;
+	String size;
+	Map<String, String> tags;
 
-	public Reservation getReservation() {
-		return reservation;
+	public String getId() {
+		return id;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public Map<String, String> getProperties() {
-		return properties;
+	public String getSize() {
+		return size;
 	}
 
-	public void setProperties(Map<String, String> properties) {
-		this.properties = properties;
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public Map<String, String> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<String, String> tags) {
+		this.tags = tags;
 	}
 
 }
