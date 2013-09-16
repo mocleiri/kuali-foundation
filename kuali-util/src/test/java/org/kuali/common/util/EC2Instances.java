@@ -39,7 +39,6 @@ public class EC2Instances {
 					instances.add(instance);
 				}
 			}
-			System.out.println(instances.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,19 +50,18 @@ public class EC2Instances {
 		String ins = lines.get(index + 1);
 		Assert.isTrue(res.startsWith("RESERVATION"));
 		Assert.isTrue(ins.startsWith("INSTANCE"));
+		Map<String, String> tags = getTags(lines, index, endIndex);
 		String[] tokens = StringUtils.splitPreserveAllTokens(ins, "\t");
-		for (int i = index; i < endIndex; i++) {
-
-		}
 		String id = tokens[1];
 		String state = tokens[5];
 		String size = tokens[9];
-		System.out.println(id + "," + state + "," + size);
+		System.out.println(id + "," + state + "," + size + "," + tags.size());
 		Instance instance = new Instance();
 		instance.setId(id);
 		instance.setSize(size);
 		instance.setState(state);
 		instance.setStartIndex(index);
+		instance.setTags(tags);
 		return instance;
 	}
 
@@ -73,6 +71,9 @@ public class EC2Instances {
 			String line = lines.get(i);
 			if (line.startsWith("TAG")) {
 				String[] tokens = StringUtils.splitPreserveAllTokens(line, "\t");
+				String key = tokens[3];
+				String val = tokens[4];
+				tags.put(key, val);
 			}
 		}
 		return tags;
@@ -82,7 +83,10 @@ public class EC2Instances {
 		for (int i = index + 1; i < lines.size(); i++) {
 			String line = lines.get(i);
 			if (line.startsWith("RESERVATION")) {
-				return i - 1;
+				return i;
+			}
+			if (i == lines.size() - 1) {
+				return i;
 			}
 		}
 		throw new IllegalStateException("Unable to determine end index");
