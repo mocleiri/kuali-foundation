@@ -19,6 +19,6 @@
     <url>https://svn.kuali.org/repos/foundation/trunk/kuali-spaces</url>
   </scm>
   <properties>
-    <wagon.s3.version>1.1.21-SNAPSHOT</wagon.s3.version>
+    <wagon.s3.version>1.1.23-SNAPSHOT</wagon.s3.version>
   </properties>
 </project>
