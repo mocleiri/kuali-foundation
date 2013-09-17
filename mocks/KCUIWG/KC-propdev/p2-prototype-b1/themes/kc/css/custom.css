@@ -479,6 +479,12 @@ footer .container {
   display: block;
   float: right;
 }
+.viewHeader .metadata .dropdown .dropdown-menu {
+  left: inherit;
+  right: 0px;
+  white-space: nowrap;
+  padding: 12px;
+}
 .viewHeader h1 {
   margin: 0px;
 }
@@ -489,15 +495,15 @@ footer .container {
   font-weight: normal;
   line-height: 0px;
 }
-.viewHeader h1 .supportTitle {
-  display: block;
-  font-size: 20px;
-}
 .viewHeader h1 a span[class*='icon-'] {
   font-size: 20px;
 }
 .viewHeader h1 a span[class*='icon-'] .icon-text {
   display: none;
+}
+.viewHeader h1 .supportTitle {
+  display: block;
+  font-size: 20px;
 }
 .viewHeader h1 .headerText {
   font-size: 32px;
