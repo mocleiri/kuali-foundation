@@ -254,6 +254,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
+	@Deprecated
 	protected Properties getSessionProperties(Properties options, boolean strictHostKeyChecking) {
 		Properties properties = new Properties();
 		if (options != null) {
@@ -302,6 +303,7 @@ public class DefaultSecureChannel implements SecureChannel {
 		return jsch;
 	}
 
+	@Deprecated
 	protected List<File> getUniquePrivateKeyFiles() {
 		List<String> paths = new ArrayList<String>();
 		if (privateKeys != null) {
