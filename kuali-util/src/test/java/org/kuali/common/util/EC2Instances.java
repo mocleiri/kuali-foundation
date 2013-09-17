@@ -16,6 +16,7 @@
 package org.kuali.common.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,17 @@ public class EC2Instances {
 					instances.add(instance);
 				}
 			}
+			for (Instance i : instances) {
+				Map<String, String> tags = i.getTags();
+				String name = tags.get("Name");
+				if (name != null) {
+					i.setName(name);
+				}
+			}
+			Collections.sort(instances);
+			for (Instance i : instances) {
+				System.out.println(i.getName());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,7 +67,6 @@ public class EC2Instances {
 		String id = tokens[1];
 		String state = tokens[5];
 		String size = tokens[9];
-		System.out.println(id + "," + state + "," + size + "," + tags.size());
 		Instance instance = new Instance();
 		instance.setId(id);
 		instance.setSize(size);

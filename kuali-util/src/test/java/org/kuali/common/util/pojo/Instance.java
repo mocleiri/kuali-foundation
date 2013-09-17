@@ -2,15 +2,20 @@ package org.kuali.common.util.pojo;
 
 import java.util.Map;
 
-public class Instance {
+public class Instance implements Comparable<Instance> {
 
 	int startIndex;
 	int stopIndex;
 	String id;
 	String name = "NONE";
-	String size;
+	String size = "UNKNOWN";
 	String state;
 	Map<String, String> tags;
+
+	@Override
+	public int compareTo(Instance other) {
+		return name.compareTo(other.getName());
+	}
 
 	public String getId() {
 		return id;
