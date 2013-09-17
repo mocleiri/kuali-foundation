@@ -1,0 +1,49 @@
+#!/bin/bash
+# /etc/init.d/jenkins
+# debian-compatible jenkins startup script.
+# Jeff Caddel <jcaddel@kuali.org>
+#
+### BEGIN INIT INFO
+# Provides:          jenkins
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start jenkins at boot time
+# Description:       Controls the jenkins continuous integration engine.
+### END INIT INFO
+
+MAXFILES=8192
+
+case "$1" in
+  start)
+    echo "Starting Jenkins - $(date)"
+    ulimit -n $MAXFILES
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
+    ;;
+  stop)
+    echo "Stopping Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
+    ;;
+  restart)
+    echo "Stopping Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
+    ulimit -n $MAXFILES
+    echo "Starting Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
+    ;;
+  restartclean)
+    echo "Stopping Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat stop'
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat cleanup'
+    ulimit -n $MAXFILES
+    echo "Starting Jenkins - $(date)"
+    su - jenkins --command '/usr/local/tomcat/bin/tomcat start'
+    ;;
+  *)
+    echo "Usage: jenkins {start|stop|restart|restartclean}" >&2
+    exit 3
+    ;;
+esac
+
+exit 0
