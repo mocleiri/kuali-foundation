@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import org.junit.Test;
 import org.kuali.common.util.pojo.Instance;
 
 public class EC2Instances {
-	
+
 	// 15 * large = $2628.00
 	// 4 * medium = $350.40
 	// 1 * c1.medium = $105.5
@@ -35,15 +36,26 @@ public class EC2Instances {
 	// Hours per day = 24
 	// Hours per year = 24 * 365 = 8760
 	// Hours per month = 8760 / 12 = 730
-	
+
 	// Small = $43.80
 	// Medium = $87.60
 	// Large = $175.20
 	// X-Large = $350.40
 	// c1.medium = $105.85
+	private static final Map<String, Double> COSTS = getMonthlyServerCosts();
+
+	protected static Map<String, Double> getMonthlyServerCosts() {
+		Map<String, Double> map = new HashMap<String, Double>();
+		map.put("m1.small", 43.8);
+		map.put("m1.medium", 87.6);
+		map.put("m1.large", 175.2);
+		map.put("m1.xlarge", 350.4);
+		map.put("c1.medium", 105.85);
+		return map;
+	}
 
 	@Test
-	public void testRsync() {
+	public void parseTextFile() {
 		try {
 			String filename = "/tmp/ks-instances.txt";
 			List<String> lines = LocationUtils.readLines(filename);
@@ -62,16 +74,38 @@ public class EC2Instances {
 					i.setName(name);
 				}
 			}
+			Iterator<Instance> itr = instances.iterator();
+			while (itr.hasNext()) {
+				Instance i = itr.next();
+				if (i.getName().startsWith("env")) {
+					itr.remove();
+					continue;
+				}
+				if (i.getName().equals("temp-server-for-jc")) {
+					itr.remove();
+					continue;
+				}
+				if (i.getState().equals("stopped")) {
+					itr.remove();
+					continue;
+				}
+			}
 			Collections.sort(instances);
 			List<Object[]> rows = new ArrayList<Object[]>();
 			int sequence = 1;
+			double savings = 0;
 			for (Instance i : instances) {
-				Object[] row = { sequence++, i.getName(), i.getId(), i.getSize(), i.getState() };
+				savings += i.getMonthlyCost();
+				String cost = FormatUtils.getCurrency(i.getMonthlyCost());
+				if (i.getState().equals("stopped")) {
+					cost = "-";
+				}
+				Object[] row = { sequence++, i.getName(), i.getId(), i.getSize(), i.getState(), cost };
 				rows.add(row);
 			}
-			List<String> columns = Arrays.asList("#", "name", "id", "size", "state");
-
+			List<String> columns = Arrays.asList("#", "name", "id", "size", "state", "monthly cost");
 			org.kuali.common.util.log.LoggerUtils.logTable("KS Instances", columns, rows);
+			System.out.println("Total: " + FormatUtils.getCurrency(savings));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,12 +122,14 @@ public class EC2Instances {
 		String id = tokens[1];
 		String state = tokens[5];
 		String size = tokens[9];
+		double monthlyCost = COSTS.get(size);
 		Instance instance = new Instance();
 		instance.setId(id);
 		instance.setSize(size);
 		instance.setState(state);
 		instance.setStartIndex(index);
 		instance.setTags(tags);
+		instance.setMonthlyCost(monthlyCost);
 		return instance;
 	}
 

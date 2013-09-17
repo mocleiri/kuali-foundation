@@ -52,6 +52,7 @@ public class FormatUtils {
 	private static NumberFormat timeFormatter = NumberFormat.getInstance();
 	private static NumberFormat rateFormatter = NumberFormat.getInstance();
 	private static NumberFormat countFormatter = NumberFormat.getInstance();
+	private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 
 	static {
 		sizeFormatter.setGroupingUsed(false);
@@ -69,6 +70,10 @@ public class FormatUtils {
 		countFormatter.setGroupingUsed(true);
 		countFormatter.setMaximumFractionDigits(0);
 		countFormatter.setMinimumFractionDigits(0);
+	}
+
+	public static String getCurrency(double number) {
+		return currencyFormatter.format(number);
 	}
 
 	/**

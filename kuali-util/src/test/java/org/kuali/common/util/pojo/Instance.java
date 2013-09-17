@@ -11,6 +11,7 @@ public class Instance implements Comparable<Instance> {
 	String size = "-";
 	String state;
 	Map<String, String> tags;
+	double monthlyCost;
 
 	@Override
 	public int compareTo(Instance other) {
@@ -73,6 +74,14 @@ public class Instance implements Comparable<Instance> {
 
 	public void setStopIndex(int stopIndex) {
 		this.stopIndex = stopIndex;
+	}
+
+	public double getMonthlyCost() {
+		return monthlyCost;
+	}
+
+	public void setMonthlyCost(double monthlyCost) {
+		this.monthlyCost = monthlyCost;
 	}
 
 }
