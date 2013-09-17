@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Tomcat Instance Manager">
+<project name="JDK Manager">
 	<target name="updatejdk7">
 		<property name="tomcat.major.version" value="7" />
 		<property name="tomcat.minor.version" value="24" />
