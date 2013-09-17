@@ -409,6 +409,18 @@
   background-color: @background;
   border-color: @border;
 
+  // Added by Chris
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, lighten(@background, 5%)), color-stop(50%, @background), color-stop(52%, darken(@background, 5%)), color-stop(100%, darken(@background, 10%)));
+	background: -webkit-linear-gradient(top, lighten(@background, 5%) 20%, @background 50%, darken(@background, 5%) 52%, darken(@background, 10%) 100%);
+	background: -moz-linear-gradient(top, lighten(@background, 5%) 20%, @background 50%, darken(@background, 5%) 52%, darken(@background, 10%) 100%);
+	background: -o-linear-gradient(top, lighten(@background, 5%) 20%, @background 50%, darken(@background, 5%) 52%, darken(@background, 10%) 100%);
+	background: linear-gradient(top, lighten(@background, 5%) 20%, @background 50%, darken(@background, 5%) 52%, darken(@background, 10%) 100%);
+	background-clip: padding-box;
+  //
+
   &:hover,
   &:focus,
   &:active,

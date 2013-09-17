@@ -121,7 +121,7 @@ $(document).ready(function() {
 	<div class="page-navigation">
 		<div class="well">
 			<button class="btn btn-default">Save</button>
-			<button class="btn btn-primary">Save and continue...</button>
+			<button class="btn btn-primary" href="prop.basics.sponsor.php">Save and continue...</button>
 		</div>
 	</div>
 </div>
