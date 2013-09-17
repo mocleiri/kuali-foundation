@@ -64,67 +64,6 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
-.portal-header {
-  width: 100%;
-  background-color: #aa003e;
-  z-index: 9999;
-}
-.portal-header .navbar {
-  background-color: #aa003e;
-  margin-bottom: 0px;
-  border: none;
-}
-.portal-header .navbar div.logoBrand {
-  width: 200px;
-  height: 69px;
-  background-image: url(../img/logo.png);
-  position: absolute;
-  top: 0px;
-  margin-left: -16px;
-}
-.portal-header .navbar .navbar-toggle {
-  color: white;
-  font-size: 120%;
-}
-.portal-header .navbar .nav li.active a {
-  background: #9b0038;
-}
-.portal-header .navbar .nav .dropdown-menu li ul {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-.portal-header .navbar .nav .dropdown-menu li ul li a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  color: #0055cc;
-  white-space: nowrap;
-}
-.portal-header .navbar .nav .dropdown-toggle {
-  text-transform: uppercase;
-}
-.portal-header .navbar .nav li {
-  position: relative;
-  z-index: 10;
-}
-.portal-header .navbar .nav li a {
-  text-transform: ;
-}
-.portal-header .navbar a {
-  color: #FFF;
-}
-.portal-header .navbar a:hover {
-  color: #FFF;
-  background: #9b0038;
-}
-.portal-header .navbar .nav .dropdown-menu li ul li a:hover,
-.portal-header .navbar .nav .dropdown-menu li ul li a:focus {
-  text-decoration: none;
-  color: #FFF;
-  background-color: #aa003e;
-}
 section.toolbar {
   background: #ffffff;
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -380,64 +319,6 @@ section.toolbar .dropdown a .caret {
 .well {
   min-height: 74px;
 }
-/*
-	Overriding the default Bootstrap input styles to better match the Chosen styles
-	Chris Rodriguez
-*/
-input[type="text"],
-input[type="tel"],
-input[type="date"],
-input[type="email"],
-select,
-textarea {
-  position: relative;
-  overflow: hidden;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  width: 100%;
-  height: 30px !important;
-  border: 1px solid #aaa !important;
-  background-color: #fff;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
-  background-image: -webkit-linear-gradient(#eeeeee 1%, #ffffff 15%);
-  background-image: -moz-linear-gradient(#eeeeee 1%, #ffffff 15%);
-  background-image: -o-linear-gradient(#eeeeee 1%, #ffffff 15%);
-  background-image: linear-gradient(#eeeeee 1%, #ffffff 15%);
-  cursor: text;
-  font-size: 13px !important;
-  border-radius: 0 !important;
-}
-textarea {
-  height: auto !important;
-}
-.input-group-btn > .btn {
-  line-height: 100%;
-}
-.subawards {
-  display: block !important;
-  margin-bottom: 1.5em !important;
-}
-input[type="text"]:disabled,
-input[type="tel"]:disabled,
-input[type="date"]:disabled,
-input[type="email"]:disabled,
-select:disabled,
-textarea:disabled {
-  color: #afafaf !important;
-  border: 1px solid #ccc !important;
-}
-.chosen-container {
-  width: 100% !important;
-}
-.ui-datepicker-trigger {
-  float: right;
-  margin-top: -23px;
-  margin-right: 6px;
-  position: relative;
-  z-index: 100;
-}
 .link-delete {
   color: #ff0000;
   font-weight: 700;
@@ -620,6 +501,95 @@ footer .container {
 }
 .viewHeader h1 .headerText {
   font-size: 32px;
+}
+.portal-header {
+  width: 100%;
+  background-color: #aa003e;
+  z-index: 9999;
+}
+.portal-header .navbar {
+  background-color: #aa003e;
+  margin-bottom: 0px;
+  border: none;
+}
+.portal-header .navbar div.logoBrand {
+  width: 200px;
+  height: 69px;
+  background-image: url(../img/logo.png);
+  position: absolute;
+  top: 0px;
+  margin-left: -16px;
+}
+.portal-header .navbar .navbar-toggle {
+  color: white;
+  font-size: 120%;
+}
+.portal-header .navbar .nav li.active a {
+  background: #9b0038;
+}
+.portal-header .navbar .nav .dropdown-menu li ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.portal-header .navbar .nav .dropdown-menu li ul li a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  color: #0055cc;
+  white-space: nowrap;
+}
+.portal-header .navbar .nav .dropdown-toggle {
+  text-transform: uppercase;
+}
+.portal-header .navbar .nav li {
+  position: relative;
+  z-index: 10;
+}
+.portal-header .navbar .nav li a {
+  text-transform: ;
+}
+.portal-header .navbar a {
+  color: #fff;
+}
+.portal-header .navbar a:hover {
+  color: #FFF;
+  background: #9b0038;
+}
+.portal-header .navbar .dropdown .dropdown-menu {
+  white-space: nowrap;
+  min-width: 10px;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu {
+  min-height: 300px;
+  min-width: 600px;
+  white-space: normal;
+  padding-bottom: 20px;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu h3 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  font-size: 1.1em;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul {
+  font-size: 12px;
+  list-style: disc;
+  padding-left: 20px;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a {
+  color: #0055cc;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a:hover {
+  background: #FFF;
+  text-decoration: underline;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu h4 {
+  font-size: 12px;
+  font-weight: normal;
 }
 .uif-pageContentWrapper.closed {
   margin-left: 220px;
