@@ -141,6 +141,11 @@ public class LoggerUtils {
 		logTable(context);
 	}
 
+	public static void logTable(String title, List<String> columns, List<Object[]> rows) {
+		LogTableContext context = new LogTableContext(title, columns, rows);
+		logTable(context);
+	}
+
 	public static void logTable(List<String> columns, List<Object[]> rows) {
 		LogTableContext context = new LogTableContext(columns, rows);
 		logTable(context);

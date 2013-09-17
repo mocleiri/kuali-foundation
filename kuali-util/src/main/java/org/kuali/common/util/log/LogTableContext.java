@@ -41,6 +41,10 @@ public class LogTableContext {
 		this(columns, rows, DEFAULT_LOGGER);
 	}
 
+	public LogTableContext(String title, List<String> columns, List<Object[]> rows) {
+		this(title, columns, rows, DEFAULT_LOGGER_LEVEL, DEFAULT_LOGGER, DEFAULT_LEFT_ALIGN);
+	}
+
 	public LogTableContext(List<String> columns, List<Object[]> rows, Logger logger) {
 		this(DEFAULT_TITLE, columns, rows, logger);
 	}

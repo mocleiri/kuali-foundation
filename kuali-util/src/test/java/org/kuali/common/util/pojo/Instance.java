@@ -7,14 +7,16 @@ public class Instance implements Comparable<Instance> {
 	int startIndex;
 	int stopIndex;
 	String id;
-	String name = "NONE";
-	String size = "UNKNOWN";
+	String name = "-";
+	String size = "-";
 	String state;
 	Map<String, String> tags;
 
 	@Override
 	public int compareTo(Instance other) {
-		return name.compareTo(other.getName());
+		String compare1 = state + ":" + name;
+		String compare2 = other.getState() + ":" + other.getName();
+		return compare1.compareTo(compare2);
 	}
 
 	public String getId() {

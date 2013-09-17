@@ -16,6 +16,7 @@
 package org.kuali.common.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,20 @@ import org.junit.Test;
 import org.kuali.common.util.pojo.Instance;
 
 public class EC2Instances {
+	
+	// 15 * large = $2628.00
+	// 4 * medium = $350.40
+	// 1 * c1.medium = $105.5
+
+	// Hours per day = 24
+	// Hours per year = 24 * 365 = 8760
+	// Hours per month = 8760 / 12 = 730
+	
+	// Small = $43.80
+	// Medium = $87.60
+	// Large = $175.20
+	// X-Large = $350.40
+	// c1.medium = $105.85
 
 	@Test
 	public void testRsync() {
@@ -48,9 +63,15 @@ public class EC2Instances {
 				}
 			}
 			Collections.sort(instances);
+			List<Object[]> rows = new ArrayList<Object[]>();
+			int sequence = 1;
 			for (Instance i : instances) {
-				System.out.println(i.getName());
+				Object[] row = { sequence++, i.getName(), i.getId(), i.getSize(), i.getState() };
+				rows.add(row);
 			}
+			List<String> columns = Arrays.asList("#", "name", "id", "size", "state");
+
+			org.kuali.common.util.log.LoggerUtils.logTable("KS Instances", columns, rows);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,7 +99,7 @@ public class EC2Instances {
 
 	protected static Map<String, String> getTags(List<String> lines, int start, int end) {
 		Map<String, String> tags = new HashMap<String, String>();
-		for (int i = start; i < end; i++) {
+		for (int i = start; i <= end; i++) {
 			String line = lines.get(i);
 			if (line.startsWith("TAG")) {
 				String[] tokens = StringUtils.splitPreserveAllTokens(line, "\t");
