@@ -20,8 +20,8 @@
   <h1>Kuali Coeus UI Working Group</h1>
   <div class="tabbable"> <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs">
-      <li class="active" ><a href="#tab1" data-toggle="tab">Phase 1</a></li>
-      <li ><a href="#tab2" data-toggle="tab">Phase 2</a></li>
+      <li><a href="#tab1" data-toggle="tab">Phase 1</a></li>
+      <li><a href="#tab2" data-toggle="tab">Phase 2</a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active " id="tab1">
@@ -47,19 +47,28 @@
           <li> <a href="https://drive.google.com/a/kuali.org/folderview?id=0B7WlEfP3GYwpTzRKSDgxTEhFTUU&usp=sharing" target="_blank">Google Drive space </a></li>
         </ul>
       </div>
-      <div class="tab-pane " id="tab2">  <h2>Notes</h2>
+      <div class="tab-pane " id="tab2">
+        <h2>Notes</h2>
         <ul>
-          <li>Developed between May 2013 - ?</li>
-          <li>Targeted area: Proposal Development (refinements)          </li>
+          <li>Development between May-October 2013</li>
+          <li>Targeted areas:
+            <ul>
+              <li>Proposal Development (refinements)</li>
+              <li>Budget</li>
+            </ul>
+          </li>
         </ul>
         <h2>Prototypes</h2>
         <ul>
-          <li><a href="p2-prototype-a/index.php" target="_blank">Prototype A</a>          </li>
+          <li><a href="p2-prototype-a/index.php" target="_blank">Prototype A</a> (Bootstrap 2.3) </li>
+          <li><a href="p2-prototype-b1/index.php" target="_blank">Prototype B1</a> (Bootstrap 3.0) </li>
+          <li><a href="p2-prototype-b2/index.php" target="_blank">Prototype B2</a> (Bootstrap 3.0, alternate navigation) </li>
         </ul>
         <h2>Documentation</h2>
         <ul>
           <li>Forthcoming...</li>
-      </ul> </div>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -78,6 +87,11 @@
 <script src="p1-prototype-c/assets/js/bootstrap-carousel.js"></script> 
 <script src="p1-prototype-c/assets/js/bootstrap-typeahead.js"></script> 
 <script src="p1-prototype-c/assets/js/bootstrap-editable.js"></script> 
-<script src="p1-prototype-c/assets/js/application.js"></script>
+<script src="p1-prototype-c/assets/js/application.js"></script> 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.nav-tabs a[href="#tab2"]').tab('show'); // Select tab by name
+    });
+</script>
 </body>
 </html>

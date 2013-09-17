@@ -478,12 +478,28 @@ footer .container {
 .viewHeader .metadata {
   display: block;
   float: right;
+  color: #666;
+  font-size: 11px;
+}
+.viewHeader .metadata .dropdown strong {
+  color: #000;
+}
+.viewHeader .metadata .dropdown .dropdown-toggle {
+  font-style: italic;
 }
 .viewHeader .metadata .dropdown .dropdown-menu {
   left: inherit;
   right: 0px;
   white-space: nowrap;
   padding: 12px;
+  color: #666;
+  font-size: 11px;
+}
+.viewHeader .metadata .dropdown .dropdown-menu h4 {
+  color: #000;
+}
+.viewHeader .metadata .dropdown .dropdown-menu .table {
+  margin-bottom: 0px;
 }
 .viewHeader h1 {
   margin: 0px;
