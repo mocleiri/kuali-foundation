@@ -42,113 +42,171 @@ include( '_temp.select.filler.php' );
 				        <div id="my-tab-content" class="tab-content">
 
 				          <div class="tab-pane active" id="tab1">
-				          	<!-- <div class="tab-title-container clearfix">
-					            <h4>Applicant Organization</h4>
 
-					            <div class="page-controls">
-					            	<div class="well">
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-					            	</div>
-					            </div>
-					        </div> -->
+				          	<div class="form-group clearfix">
+								<label for="app_org_org" class="control-label col-md-3">Organization:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_org" id="app_org_org" value="University of Michigan" disabled />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+									<!-- <span class="input-group-btn">
+										<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									</span> -->
+								</div>
+							</div>
 
-				            <table  class="table table-condensed">
-				              <tbody>
-				                <tr>
-				                  <th style="width:30%">Organization</th>
-				                  <td>University of Michigan</td>
-				                </tr>
-				                <tr>
-				                  <th style="width:30%">Address 1</th>
-				                  <td>2044 Wolverine Tower</td>
-				                </tr>
-				                <tr>
-				                  <th>Address 2</th>
-				                  <td>3003 State Street</td>
-				                </tr>
-				                <tr>
-				                  <th>City</th>
-				                  <td>ANN ARBOR</td>
-				                </tr>
-				                <tr>
-				                  <th>State</th>
-				                  <td>MI</td>
-				                </tr>
-				                <tr>
-				                  <th>ZIP</th>
-				                  <td>48109-1273</td>
-				                </tr>
-				                <tr>
-				                  <th>Congressional districts</th>
-				                  <td><div class="uif-switchme uif-switchme-select"><span>asdf wasdf 23234 adasdf</span></div></td>
-				                </tr>
-				              </tbody>
-				            </table>
+				          	<div class="form-group clearfix">
+								<label for="app_org_add1" class="control-label col-md-3">Address 1:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_add1" id="app_org_add1" value="2044 Wolverine Tower" disabled />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="app_org_add2" class="control-label col-md-3">Address 2:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_add2" id="app_org_add2" value="3003 State Street" disabled />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="app_org_city" class="control-label col-md-3">City:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_city" id="app_org_city" value="Ann Arbor" disabled />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="app_org_state" class="control-label col-md-3">Address 2:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_state" id="app_org_state" value="MI" disabled />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="app_org_zip" class="control-label col-md-3">Zipcode:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_zip" id="app_org_zip" value="3003 State Street" disabled />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="app_org_districts" class="control-label col-md-3">Congressional districts:</label>
+								<div class="col-md-5">
+									<select name="app_org_districts" id="app_org_districts" class="form-control input-sm col-md-8 chzn" multiple>
+										<option selected="selected">One</option>
+										<option selected="selected">Two</option>
+										<option selected="selected">Three</option>
+									</select>
+								</div>
+							</div>
+
 				          </div>
 
 				          <div class="tab-pane " id="tab2">
-				          	<!-- <div class="tab-title-container clearfix">
-					            <h4>Performing Organization</h4>
 
-					            <div class="page-controls">
-					            	<div class="well">
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-					            	</div>
-					            </div>
-					        </div> -->
+				            <div class="form-group clearfix">
+								<label for="app_org_org" class="control-label col-md-3">Organization:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="app_org_org" id="app_org_org" value="University of Michigan" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+									<!-- <span class="input-group-btn">
+										<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									</span> -->
+								</div>
+							</div>
 
-				            <table  class="table table-condensed">
-				              <tbody>
-				                <tr>
-				                  <th style="width:30%">Organization</th>
-				                  <td><div class="uif-switchme"><span>University of Michigan</span></div></td>
-				                </tr>
-				                <tr>
-				                  <th style="width:30%">Address 1</th>
-				                  <td><div class="uif-switchme"><span>2044 Wolverine Tower</span></div></td>
-				                </tr>
-				                <tr>
-				                  <th>Address 2</th>
-				                  <td><div class="uif-switchme"><span>3003 State Street</span></div></td>
-				                </tr>
-				                <tr>
-				                  <th>City</th>
-				                  <td><div class="uif-switchme"><span>ANN ARBOR</span></div></td>
-				                </tr>
-				                <tr>
-				                  <th>State</th>
-				                  <td><div class="uif-switchme"><span>MI</span></div></td>
-				                </tr>
-				                <tr>
-				                  <th>ZIP</th>
-				                  <td><div class="uif-switchme"><span>48109-1273</span></div></td>
-				                </tr>
-				                <tr>
-				                  <th>Congressional District</th>
-				                  <td><div class="uif-switchme uif-switchme-select"><span>asdfasdf</span></div></td>
-				                </tr>
-				              </tbody>
-				            </table>
+				          	<div class="form-group clearfix">
+								<label for="perf_org_add1" class="control-label col-md-3">Address 1:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="perf_org_add1" id="perf_org_add1" value="2044 Wolverine Tower" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="perf_org_add2" class="control-label col-md-3">Address 2:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="perf_org_add2" id="perf_org_add2" value="3003 State Street" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="perf_org_city" class="control-label col-md-3">City:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="perf_org_city" id="perf_org_city" value="Ann Arbor" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="perf_org_state" class="control-label col-md-3">Address 2:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="perf_org_state" id="perf_org_state" value="MI" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+				          	<div class="form-group clearfix">
+								<label for="perf_org_zip" class="control-label col-md-3">Zipcode:</label>
+								<div class="col-md-5 input-group">
+									<input type="text" class="form-control input-sm" name="perf_org_zip" id="perf_org_zip" value="3003 State Street" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
+								<label for="perf_org_districts" class="control-label col-md-3">Congressional districts:</label>
+								<div class="col-md-5">
+									<select name="perf_org_districts" id="perf_org_districts" class="form-control input-sm col-md-8 chzn" multiple>
+										<option selected="selected">One</option>
+										<option selected="selected">Two</option>
+										<option selected="selected">Three</option>
+									</select>
+								</div>
+							</div>
+
 				          </div>
 
 				          <div class="tab-pane" id="tab3">
-				            <!-- <div class="tab-title-container clearfix">
-					            <h4>Performance Site Locations</h4>
-
-					            <div class="page-controls">
-					            	<div class="well">
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-					            	</div>
-					            </div>
-					        </div> -->
 
 					        <div class="well">
 					        	<form action="" method="">
+					        		<button class="btn btn-default btn-sm pull-right" id="add">Add and configure</button>
+
 					        		<input type="text" class="input-sm col-md-3 uif-switchme-input" placeholder="E.g., Research Location" />
-					        		<button id="add" class="btn btn-default btn-sm">Add</button>
+					        		<span class="input-group-btn">
+										<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									</span>
 					        	</form>
 					        </div>
 
@@ -165,40 +223,79 @@ include( '_temp.select.filler.php' );
 				                </div>
 				                <div id="collapse2" class="panel-collapse collapse">
 				                  <div class="panel-body">
-				                    <table  class="table table-condensed">
-				                      <tbody>
-				                        <tr>
-				                          <th style="width:30%">Organization</th>
-				                          <td><div class="uif-switchme"><span>United Technologies/Pratt &amp; Whitney</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th style="width:30%">Address 1</th>
-				                          <td><div class="uif-switchme"><span>Mail Stop 169-21</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>Address 2</th>
-				                          <td><div class="uif-switchme"><span>400 Main Street</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>City</th>
-				                          <td><div class="uif-switchme"><span>East Hartford</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>State</th>
-				                          <td><div class="uif-switchme"><span>CT</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>ZIP</th>
-				                          <td><div class="uif-switchme"><span>06108</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>Congressional District</th>
-				                          <td>
-				                          		<div class="uif-switchme uif-switchme-select"><span>asdfasdf</span></div>
-			                        	  </td>
-				                        </tr>
-				                      </tbody>
-				                    </table>
+				                    <div class="form-group clearfix">
+										<label for="perf_site_1_1_org" class="control-label col-md-3">Organization:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_1_org" id="perf_site_1_1_org" value="University of Michigan" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+											<!-- <span class="input-group-btn">
+												<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+											</span> -->
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_1_add1" class="control-label col-md-3">Address 1:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_1_add1" id="perf_site_1_1_add1" value="2044 Wolverine Tower" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_1_add2" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_1_add2" id="perf_site_1_1_add2" value="3003 State Street" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_1_city" class="control-label col-md-3">City:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_1_city" id="perf_site_1_1_city" value="Ann Arbor" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_1_state" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_1_state" id="perf_site_1_1_state" value="MI" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_1_zip" class="control-label col-md-3">Zipcode:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_1_zip" id="perf_site_1_1_zip" value="3003 State Street" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="perf_site_1_1_districts" class="control-label col-md-3">Congressional districts:</label>
+										<div class="col-md-5">
+											<select name="perf_site_1_1_districts" id="perf_site_1_1_districts" class="form-control input-sm col-md-8 chzn" multiple>
+												<option selected="selected">One</option>
+												<option selected="selected">Two</option>
+												<option selected="selected">Three</option>
+											</select>
+										</div>
+									</div>
 				                  </div>
 				                </div>
 				              </div>
@@ -214,40 +311,79 @@ include( '_temp.select.filler.php' );
 				                </div>
 				                <div id="collapse3" class="panel-collapse collapse">
 				                  <div class="panel-body">
-				                    <table  class="table table-condensed">
-				                      <tbody>
-				                        <tr>
-				                          <th style="width:30%">Organization</th>
-				                          <td><div class="uif-switchme"><span>Naval Training Systems Center</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th style="width:30%">Address 1</th>
-				                          <td><div class="uif-switchme"><span>Property, Code 773</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>Address 2</th>
-				                          <td><div class="uif-switchme"><span>12350 Research Parkway</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>City</th>
-				                          <td><div class="uif-switchme"><span>Orlando</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>State</th>
-				                          <td><div class="uif-switchme"><span>FL</span></div></td>
-				                        </tr>
-				                        <tr>
-				                          <th>ZIP</th>
-				                          <td><div class="uif-switchme"><span>32826</td>
-				                        </tr>
-				                        <tr>
-				                          <th>Congressional District</th>
-				                          <td>
-				                          	<div class="uif-switchme uif-switchme-select"><span>asdfasdf</span></div>
-				                          </td>
-				                        </tr>
-				                      </tbody>
-				                    </table>
+				                    <div class="form-group clearfix">
+										<label for="perf_site_1_2_org" class="control-label col-md-3">Organization:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_2_org" id="perf_site_1_2_org" value="University of Michigan" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+											<!-- <span class="input-group-btn">
+												<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+											</span> -->
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_2_add1" class="control-label col-md-3">Address 1:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_2_add1" id="perf_site_1_2_add1" value="2044 Wolverine Tower" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_2_add2" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_2_add2" id="perf_site_1_2_add2" value="3003 State Street" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_2_city" class="control-label col-md-3">City:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_2_city" id="perf_site_1_2_city" value="Ann Arbor" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_2_state" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_2_state" id="perf_site_1_2_state" value="MI" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_2_zip" class="control-label col-md-3">Zipcode:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_2_zip" id="perf_site_1_2_zip" value="3003 State Street" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="perf_site_1_2_districts" class="control-label col-md-3">Congressional districts:</label>
+										<div class="col-md-5">
+											<select name="perf_site_1_2_districts" id="perf_site_1_2_districts" class="form-control input-sm col-md-8 chzn" multiple>
+												<option selected="selected">One</option>
+												<option selected="selected">Two</option>
+												<option selected="selected">Three</option>
+											</select>
+										</div>
+									</div>
 				                  </div>
 				                </div>
 				              </div>
@@ -263,18 +399,77 @@ include( '_temp.select.filler.php' );
 				                </div>
 				                <div id="collapse1" class="panel-collapse in">
 				                  <div class="panel-body">
-				                    <table  class="table table-condensed">
-				                      <tbody>
-				                        <tr>
-				                          <th style="width:30%">Organization</th>
-				                          <td>Research Location</td>
-				                        </tr>
-				                        <tr>
-				                        	<th>...</th>
-				                        	<td><button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add details</button></td>
-				                        </tr>
-				                      </tbody>
-				                    </table>
+				                    <div class="form-group clearfix">
+										<label for="perf_site_1_3_org" class="control-label col-md-3">Organization:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_3_org" id="perf_site_1_3_org" value="Research Location" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+											<!-- <span class="input-group-btn">
+												<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+											</span> -->
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_3_add1" class="control-label col-md-3">Address 1:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_3_add1" id="perf_site_1_3_add1" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_3_add2" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_3_add2" id="perf_site_1_3_add2" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_3_city" class="control-label col-md-3">City:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_3_city" id="perf_site_1_3_city" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_3_state" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_3_state" id="perf_site_1_3_state" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="perf_site_1_3_zip" class="control-label col-md-3">Zipcode:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="perf_site_1_3_zip" id="perf_site_1_3_zip" />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="perf_site_1_3_districts" class="control-label col-md-3">Congressional districts:</label>
+										<div class="col-md-5">
+											<select name="perf_site_1_3_districts" id="perf_site_1_3_districts" class="form-control input-sm col-md-8 chzn" multiple>
+												<?php get_options() ?>
+											</select>
+										</div>
+									</div>
 				                  </div>
 				                </div>
 				              </div>
@@ -283,20 +478,10 @@ include( '_temp.select.filler.php' );
 				          </div>
 
 				          <div class="tab-pane " id="tab4">
-				            <!-- <div class="tab-title-container clearfix">
-					            <h4>Other Organization</h4>
-
-					            <div class="page-controls">
-					            	<div class="well">
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
-					            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-					            	</div>
-					            </div>
-					        </div> -->
 
 					        <div class="well">
 					        	<form action="" method="">
-					        		<button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add an organization</button>
+					        		<button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Find an organization to add</button>
 					        	</form>
 					        </div>
 
@@ -312,38 +497,79 @@ include( '_temp.select.filler.php' );
 				                </div>
 				                <div id="collapse4" class="panel-collapse collapse">
 				                  <div class="panel-body">
-				                    <table  class="table table-condensed">
-				                      <tbody>
-				                        <tr>
-				                          <th style="width:30%">Organization</th>
-				                          <td>Communications Power</td>
-				                        </tr>
-				                        <tr>
-				                          <th style="width:30%">Address 1</th>
-				                          <td>PO Box 50750 </td>
-				                        </tr>
-				                        <tr>
-				                          <th>Address 2</th>
-				                          <td>811 Hansen</td>
-				                        </tr>
-				                        <tr>
-				                          <th>City</th>
-				                          <td> Palo Alto</td>
-				                        </tr>
-				                        <tr>
-				                          <th>State</th>
-				                          <td>CA  </td>
-				                        </tr>
-				                        <tr>
-				                          <th>ZIP</th>
-				                          <td>&nbsp;</td>
-				                        </tr>
-				                        <tr>
-				                          <th>Congressional District</th>
-				                          <td>sdgdsdfgsdfg</td>
-				                        </tr>
-				                      </tbody>
-				                    </table>
+				                    <div class="form-group clearfix">
+										<label for="other_org_1_1_org" class="control-label col-md-3">Organization:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_1_org" id="other_org_1_1_org" value="University of Michigan" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+											<!-- <span class="input-group-btn">
+												<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+											</span> -->
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_1_add1" class="control-label col-md-3">Address 1:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_1_add1" id="other_org_1_1_add1" value="2044 Wolverine Tower" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_1_add2" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_1_add2" id="other_org_1_1_add2" value="3003 State Street" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_1_city" class="control-label col-md-3">City:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_1_city" id="other_org_1_1_city" value="Ann Arbor" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_1_state" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_1_state" id="other_org_1_1_state" value="MI" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_1_zip" class="control-label col-md-3">Zipcode:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_1_zip" id="other_org_1_1_zip" value="3003 State Street" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="other_org_1_1_districts" class="control-label col-md-3">Congressional districts:</label>
+										<div class="col-md-5">
+											<select name="other_org_1_1_districts" id="other_org_1_1_districts" class="form-control input-sm col-md-8 chzn" multiple>
+												<option selected="selected">One</option>
+												<option selected="selected">Two</option>
+												<option selected="selected">Three</option>
+											</select>
+										</div>
+									</div>
 				                  </div>
 				                </div>
 				              </div>
@@ -358,40 +584,79 @@ include( '_temp.select.filler.php' );
 				                </div>
 				                <div id="collapse5" class="panel-collapse collapse">
 				                  <div class="panel-body">
-				                    <table  class="table table-condensed">
-				                      <tbody>
-				                        <tr>
-				                          <th style="width:30%">Organization</th>
-				                          <td>Cleveland Clinic Organization</td>
-				                        </tr>
-				                        <tr>
-				                          <th style="width:30%">Address 1</th>
-				                          <td>One Clinic Center </td>
-				                        </tr>
-				                        <tr>
-				                          <th>Address 2</th>
-				                          <td>9500 Euclid Ave</td>
-				                        </tr>
-				                        <tr>
-				                          <th>City</th>
-				                          <td>Orlando</td>
-				                        </tr>
-				                        <tr>
-				                          <th>State</th>
-				                          <td>FL  </td>
-				                        </tr>
-				                        <tr>
-				                          <th>ZIP</th>
-				                          <td>32826</td>
-				                        </tr>
-				                        <tr>
-				                          <th>Congressional District</th>
-				                          <td><form>
-				                              <input id='tags_4' type='text' class='tags'>
-				                            </form></td>
-				                        </tr>
-				                      </tbody>
-				                    </table>
+				                    <div class="form-group clearfix">
+										<label for="other_org_1_2_org" class="control-label col-md-3">Organization:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_2_org" id="other_org_1_2_org" value="University of Michigan" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+											<!-- <span class="input-group-btn">
+												<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+											</span> -->
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_2_add1" class="control-label col-md-3">Address 1:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_2_add1" id="other_org_1_2_add1" value="2044 Wolverine Tower" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_2_add2" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_2_add2" id="other_org_1_2_add2" value="3003 State Street" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_2_city" class="control-label col-md-3">City:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_2_city" id="other_org_1_2_city" value="Ann Arbor" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_2_state" class="control-label col-md-3">Address 2:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_2_state" id="other_org_1_2_state" value="MI" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+						          	<div class="form-group clearfix">
+										<label for="other_org_1_2_zip" class="control-label col-md-3">Zipcode:</label>
+										<div class="col-md-5 input-group">
+											<input type="text" class="form-control input-sm" name="other_org_1_2_zip" id="other_org_1_2_zip" value="3003 State Street" disabled />
+											<div class="helper-text">
+												Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="other_org_1_2_districts" class="control-label col-md-3">Congressional districts:</label>
+										<div class="col-md-5">
+											<select name="other_org_1_2_districts" id="other_org_1_2_districts" class="form-control input-sm col-md-8 chzn" multiple>
+												<option selected="selected">One</option>
+												<option selected="selected">Two</option>
+												<option selected="selected">Three</option>
+											</select>
+										</div>
+									</div>
 				                  </div>
 				                </div>
 				              </div>
@@ -427,7 +692,7 @@ $('#add').click(function() {
 	<div class="page-navigation">
 		<div class="well">
 			<button class="btn btn-default">Save</button>
-			<button class="btn btn-primary">Save and continue...</button>
+			<button class="btn btn-primary" href="prop.basics.deliveryinfo.php">Save and continue...</button>
 		</div>
 	</div>
 </div>

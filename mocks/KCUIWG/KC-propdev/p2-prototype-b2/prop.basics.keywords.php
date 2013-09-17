@@ -21,7 +21,8 @@ include( '_temp.select.filler.php' );
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
+			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+			  	<div id="content" class="uif-page" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -62,7 +63,7 @@ include( '_temp.select.filler.php' );
 	<div class="page-navigation">
 		<div class="well">
 			<button class="btn btn-default">Save</button>
-			<button class="btn btn-primary">Save and continue...</button>
+			<button class="btn btn-primary" href="prop.keypersonnel.start.php">Save and continue...</button>
 		</div>
 	</div>
 </div>

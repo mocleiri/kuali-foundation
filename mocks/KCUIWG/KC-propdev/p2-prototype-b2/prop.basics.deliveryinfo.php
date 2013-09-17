@@ -31,54 +31,82 @@ include( '_temp.select.filler.php' );
 				<div class="section-content">
 					<form action="#" method="post" class="form-horizontal">
 						<div class="tab-title-container clearfix">
-				            <h4>Recipeint</h4>
-
-				            <div class="page-controls">
-				            	<div class="well">
-				            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Edit</button>
-				            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-				            	</div>
-				            </div>
+				            <h4>Recipient</h4>
 				        </div>
 
-						<table  class="table table-condensed">
-							<tbody>
-								<tr>
-									<th style="width:30%">Organization</th>
-									<td>United Technologies/Pratt &amp; Whitney <a href="#">lookup (icon)</a></td>
-								</tr>
-								<tr>
-									<th style="width:30%">Address 1</th>
-									<td>Mail Stop 169-21</td>
-								</tr>
-								<tr>
-									<th>Address 2</th>
-									<td>400 Main Street</td>
-								</tr>
-								<tr>
-									<th>City</th>
-									<td>East Hartford</td>
-								</tr>
-								<tr>
-									<th>State</th>
-									<td>CT</td>
-								</tr>
-								<tr>
-									<th>ZIP</th>
-									<td>06108</td>
-								</tr>
-								<tr>
-									<th>Congressional districts</th>
-									<td>
-										<select name="congressional_2" id="congressional_2" class="form-control input-sm col-md-8 chzn" multiple>
-											<?php
-											get_options();
-											?>
-										</select>
-									<td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="form-group clearfix">
+							<label for="app_org_org" class="control-label col-md-3">Organization:</label>
+							<div class="col-md-5 input-group">
+								<input type="text" class="form-control input-sm" name="app_org_org" id="app_org_org" value="University of Michigan" />
+								<div class="helper-text">
+									Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+								</div>
+								<span class="input-group-btn">
+									<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+								</span>
+							</div>
+						</div>
+
+			          	<div class="form-group clearfix">
+							<label for="app_org_add1" class="control-label col-md-3">Address 1:</label>
+							<div class="col-md-5 input-group">
+								<input type="text" class="form-control input-sm" name="app_org_add1" id="app_org_add1" value="2044 Wolverine Tower" disabled />
+								<div class="helper-text">
+									Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+								</div>
+							</div>
+						</div>
+
+			          	<div class="form-group clearfix">
+							<label for="app_org_add2" class="control-label col-md-3">Address 2:</label>
+							<div class="col-md-5 input-group">
+								<input type="text" class="form-control input-sm" name="app_org_add2" id="app_org_add2" value="3003 State Street" disabled />
+								<div class="helper-text">
+									Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+								</div>
+							</div>
+						</div>
+
+			          	<div class="form-group clearfix">
+							<label for="app_org_city" class="control-label col-md-3">City:</label>
+							<div class="col-md-5 input-group">
+								<input type="text" class="form-control input-sm" name="app_org_city" id="app_org_city" value="Ann Arbor" disabled />
+								<div class="helper-text">
+									Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+								</div>
+							</div>
+						</div>
+
+			          	<div class="form-group clearfix">
+							<label for="app_org_state" class="control-label col-md-3">Address 2:</label>
+							<div class="col-md-5 input-group">
+								<input type="text" class="form-control input-sm" name="app_org_state" id="app_org_state" value="MI" disabled />
+								<div class="helper-text">
+									Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+								</div>
+							</div>
+						</div>
+
+			          	<div class="form-group clearfix">
+							<label for="app_org_zip" class="control-label col-md-3">Zipcode:</label>
+							<div class="col-md-5 input-group">
+								<input type="text" class="form-control input-sm" name="app_org_zip" id="app_org_zip" value="3003 State Street" disabled />
+								<div class="helper-text">
+									Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group clearfix">
+							<label for="app_org_districts" class="control-label col-md-3">Congressional districts:</label>
+							<div class="col-md-5">
+								<select name="app_org_districts" id="app_org_districts" class="form-control input-sm col-md-8 chzn" multiple>
+									<option selected="selected">One</option>
+									<option selected="selected">Two</option>
+									<option selected="selected">Three</option>
+								</select>
+							</div>
+						</div>
 
 						<h3>Delivery Details</h3>
 						<fieldset>
@@ -87,10 +115,13 @@ include( '_temp.select.filler.php' );
 								<label for="mail_type" class="control-label col-md-3">Type:</label>
 								<div class="col-md-5">
 									<select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 chzn onchange">
-										<option>- Please select -</option>
+										<option></option>
 										<option value="regular">Regular</option>
 										<option value="electronic">Electronic</option>
 									</select>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
@@ -100,6 +131,9 @@ include( '_temp.select.filler.php' );
 									<label for="opp_id" class="control-label col-md-3">Opportunity ID:</label>
 									<div class="col-md-5">
 										<input type="text" name="opp_id" id="opp_id" class="form-control input-sm col-md-8" />
+										<div class="helper-text">
+											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+										</div>
 									</div>
 								</div>
 								
@@ -107,6 +141,9 @@ include( '_temp.select.filler.php' );
 									<label for="opp_title" class="control-label col-md-3">Opportunity title:</label>
 									<div class="col-md-5">
 										<input type="text" name="opp_title" id="opp_title" class="form-control input-sm col-md-8" />
+										<div class="helper-text">
+											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+										</div>
 									</div>
 								</div>
 								
@@ -114,6 +151,9 @@ include( '_temp.select.filler.php' );
 									<label for="cfda_num" class="control-label col-md-3">CFDA Number:</label>
 									<div class="col-md-5">
 										<input type="text" name="cfda_num" id="cfda_num" class="form-control input-sm col-md-8" />
+										<div class="helper-text">
+											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+										</div>
 									</div>
 								</div>
 
@@ -128,6 +168,9 @@ include( '_temp.select.filler.php' );
 											<option value="">Department</option>
 											<option value="">OSP</option>
 										</select>
+										<div class="helper-text">
+											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+										</div>
 									</div>
 								</div>
 
@@ -135,6 +178,9 @@ include( '_temp.select.filler.php' );
 									<label for="mail_account_id" class="control-label col-md-3">Mail account ID:</label>
 									<div class="col-md-5">
 										<input type="text" class="form-control input-sm" name="mail_account_id" id="mail_account_id" />
+										<div class="helper-text">
+											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+										</div>
 									</div>
 								</div>
 
@@ -142,6 +188,9 @@ include( '_temp.select.filler.php' );
 									<label for="number_of_copies" class="control-label col-md-3">Number of copies:</label>
 									<div class="col-md-5">
 										<input type="text" class="form-control input-sm" name="number_of_copies" id="number_of_copies" />
+										<div class="helper-text">
+											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+										</div>
 									</div>
 								</div>
 
@@ -157,6 +206,9 @@ include( '_temp.select.filler.php' );
 										<option>Order pizza</option>
 										<option>I'm kinda hungry</option>
 									</select>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
@@ -164,6 +216,9 @@ include( '_temp.select.filler.php' );
 								<label for="mail_description" class="control-label col-md-3">Mail description:</label>
 								<div class="col-md-5">
 									<textarea name="mail_description" id="mail_description" class="form-control input-sm"></textarea>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
@@ -189,7 +244,7 @@ include( '_temp.select.filler.php' );
 	<div class="page-navigation">
 		<div class="well">
 			<button class="btn btn-default">Save</button>
-			<button class="btn btn-primary">Save and continue...</button>
+			<button class="btn btn-primary" href="prop.basics.keywords.php">Save and continue...</button>
 		</div>
 	</div>
 </div>

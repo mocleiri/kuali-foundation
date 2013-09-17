@@ -9,78 +9,78 @@ require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
-<section id="main">	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
-        <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
+<section id="main">
+	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
+    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
 
-<div class="container-fluid"><div class="row-temp-disabled">
-
+	<div class="container-fluid">
+		<div class="row-temp-disabled">
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
-				<!-- Main content goes here -->
+			<div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+				<div id="content" class="uif-page" tabindex="-1">
 
-				<div class="section-title">
-					<h2>Key Personnel</h2>
-				</div>
+					<div class="section-title">
+						<h2>Key Personnel</h2>
+					</div>
 
-				<div class="section-content">
-					<form action="#" method="post" class="">
-						<fieldset>
-							<legend>Search for and add key personnel</legend>
-
+					<div class="section-content">
+						<div class="tab-title-container clearfix">
 							<div class="info-message">
 								<div class="alert alert-success">
 									Great, Edward Haskell was successfully added!
 								</div>
 							</div>
+			        	</div>
 
-							<p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, and any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).
-
-							<div class="key-personnel">
-								<div class="panel-group" id="accordion">
-									<div class="panel">
-										<div class="panel-heading">
-											<h6 class="panel-title">
-												<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop1">Edward Haskell (haskelldw)</a>
-											</h6>
-										</div>
-										<div id="prop1" class="panel-collapse collapse">
-											<div class="panel-body">
-												Stuff here...
+						<div id="personnel-tabs">
+							<div class="panel-group" id="accordion1">
+								<div class="panel panel-default">
+									
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-md-6">
+												<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> Edward H Haskell </a></h4>
 											</div>
+											<div class="col-md-6">
+												<a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a>
+											</div>
+										</div>
+									</div>
+
+									<div id="collapse2" class="panel-collapse collapse">
+										<div class="panel-body">
+											Stuff here...
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group clearfix">
-								<button class="btn btn-default launch-modal" data-modal-page="modal/modal-addpersonnel/start.html">+ Add Personnel</button>
-							</div>
-						</fieldset>
-					</form>
+							<br />
+					        <div class="well">
+			            		<button class="btn btn-default launch-modal" data-modal-page="modal/modal-addpersonnel/start.html" data-modal-height="500">Add personnel</button>
+			            	</div>
+			            </div>
+					</div>
 				</div>
-
-				<!-- // -->
-
-			</div>
-
-		</div>
-
-	</div>
-
-	<!-- Button row -->
-	<div class="btn-row-page-action">
-		<div class="container">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
 			</div>
 		</div>
 	</div>
-	<!-- // -->
-
 </section>
+
+<div class="page-controls clearfix">
+	<div class="page-actions">
+		<div class="well"></div>
+	</div>
+
+	<div class="page-navigation">
+		<div class="well">
+			<button class="btn btn-default">Save</button>
+			<button class="btn btn-primary" href="prop.keypersonnel.creditintel.php">Save and continue...</button>
+		</div>
+	</div>
+</div>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

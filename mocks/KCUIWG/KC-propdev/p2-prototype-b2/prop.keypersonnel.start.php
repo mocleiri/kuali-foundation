@@ -14,13 +14,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 		
 	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-<div class="container-fluid"><div class="row-temp-disabled">
+	<div class="container-fluid">
+		<div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
 
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
+			<div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+				<div id="content" class="uif-page" tabindex="-1">
 				<!-- Main content goes here -->
 
 				<div class="section-title">
@@ -29,15 +31,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<div class="section-content">
 					<div class="tab-title-container clearfix">
-						<h4>You don't have any sponsors yet.</h4>
-
-			            <div class="page-controls">
-			            	<div class="well">
-			            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new</button>
-			            	</div>
-			            </div>
+						<h4>You haven't added any key personnel yet.</h4>
 			        </div>
-				</div>
+
+			        <div class="well">
+	            		<button class="btn btn-default launch-modal" data-modal-page="modal/modal-addpersonnel/start.html" data-modal-height="500">Add personnel</button>
+	            	</div>
+
+	                <div id="personnel-tabs">
+	                </div>
+	            </div>
 
 				<!-- // -->
 

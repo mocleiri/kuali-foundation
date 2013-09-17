@@ -13,6 +13,17 @@
 $(document).ready(function() {
 
 	/*
+		Focus on first form field for ease and flow
+		Chris Rodriguez
+	*/
+	function focus_content_area() {
+		$('#content').focus();
+	}
+
+	focus_content_area();
+
+
+	/*
 		Skip links for accessibility
 		When a link receives focus it's position is changed making it visible
 		Chris Rodriguez

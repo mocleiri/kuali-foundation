@@ -47,24 +47,24 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_name" id="sponsor_name" />
+									<input type="text" class="form-control input-sm" name="sponsor_name" id="sponsor_name" placeholder="i.e., National Science Foundation" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="sponsor_deadline_date" class="control-label col-md-3">Sponsor deadline date:</label>
-								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="sponsor_deadline_date" id="sponsor_deadline_date" />
-									<span class="input-group-btn">
-										<button name="sponsor_date_search" id="sponsor_date_search" class="btn btn-default input-sm">Search</button>
-									</span>
-								</div>
-							</div>
-
-							<div class="form-group clearfix">
-								<label for="sponsor_deadline_time" class="control-label col-md-3">Sponsor deadline time:</label>
+								<label class="control-label col-md-3">Sponsor deadline:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_deadline_time" id="sponsor_deadline_time" />
+									<div class="col-md-6 date">
+										<input type="text" size="12" class="form-control input-sm uif-dateControl" name="deadline_date" id="deadline_date" placeholder="mm/dd/yyyy" />
+										<label for="deadline_date" class="helper-text">Date</label>
+									</div>
+									<div class="col-md-6 date">
+										<input type="text" size="12" class="form-control input-sm" name="deadline_time" id="deadline_time" placeholder="17:00" />
+										<label for="deadline_time" class="helper-text">Time</label>
+									</div>
 								</div>
 							</div>
 
@@ -72,6 +72,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<label for="notice_of_opp" class="control-label col-md-3">Notice of Opportunity:</label>
 								<div class="col-md-5">
 									<select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8 chzn">
+										<option></option>
 										<option value="1">Federal Solicitation</option>
 										<option value="2">Unsolicited</option>
 										<option value="3">Verbal Request for Proposal</option>
@@ -80,27 +81,39 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<option value="6">Non-Federal Solicitation</option>
 										<option value="7">Internal</option>
 									</select>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="opportunity_id" class="control-label col-md-3">Opportunity ID:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="opportunity_id" id="opportunity_id" />
+									<input type="text" class="form-control input-sm" name="opportunity_id" id="opportunity_id" placeholder="i.e., 12345" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="cfda_number" class="control-label col-md-3">CFDA number:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" />
+									<input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" placeholder="i.e., ABCD123" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor ID:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="prime_sponsor_id" id="prime_sponsor_id" />
+									<input type="text" class="form-control input-sm" name="prime_sponsor_id" id="prime_sponsor_id" placeholder="i.e., 000NUN" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
@@ -114,21 +127,30 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="sponsor_proposal_id" class="control-label col-md-3">Sponsor proposal ID:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_proposal_id" id="sponsor_proposal_id" />
+									<input type="text" class="form-control input-sm" name="sponsor_proposal_id" id="sponsor_proposal_id" placeholder="i.e., 012" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="sponsor_div_code" class="control-label col-md-3">Sponsor DIV code:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_div_code" id="sponsor_div_code" />
+									<input type="text" class="form-control input-sm" name="sponsor_div_code" id="sponsor_div_code" placeholder="i.e., NSF" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
 								<label for="sponsor_program_code" class="control-label col-md-3">Sponsor program code:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_program_code" id="sponsor_program_code" />
+									<input type="text" class="form-control input-sm" name="sponsor_program_code" id="sponsor_program_code" placeholder="i.e., NSFBU01" />
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
@@ -136,32 +158,29 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<label for="nsf_science_code" class="control-label col-md-3">NSF Science code:</label>
 								<div class="col-md-5">
 									<select name="nsf_science_code" id="nsf_science_code" class="form-control input-sm col-md-8 chzn">
+										<option></option>
 										<option value="P">Postmark</option>
 										<option value="R">Receipt</option>
 										<option value="T">Target</option>
 									</select>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
-
-							<!-- <div class="form-group clearfix">
-								<label for="sponsor_deadline_type" class="control-label col-md-3">Sponsor deadline type:</label>
-								<div class="col-md-5">
-									<select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8 chzn">
-										<option value="P">Postmark</option>
-										<option value="R">Receipt</option>
-										<option value="T">Target</option>
-									</select>
-								</div>
-							</div> -->
 
 							<div class="form-group clearfix">
 								<label for="anticipated_award_type" class="control-label col-md-3">Anticipated award type:</label>
 								<div class="col-md-5">
 									<select name="anticipated_award_type" id="anticipated_award_type" class="form-control input-sm col-md-8 chzn">
+										<option></option>
 										<option value="P">Postmark</option>
 										<option value="R">Receipt</option>
 										<option value="T">Target</option>
 									</select>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 
@@ -169,6 +188,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<label for="opportunity_title" class="control-label col-md-3">Opportunity title:</label>
 								<div class="col-md-5">
 									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled" disabled>Non-editable value</textarea>
+									<div class="helper-text">
+										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+									</div>
 								</div>
 							</div>
 						</fieldset>
@@ -193,7 +215,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 	<div class="page-navigation">
 		<div class="well">
 			<button class="btn btn-default">Save</button>
-			<button class="btn btn-primary">Save and continue...</button>
+			<button class="btn btn-primary" href="prop.basics.orgloc.php">Save and continue...</button>
 		</div>
 	</div>
 </div>
