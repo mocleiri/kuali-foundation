@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
 <project name="Tomcat Instance Manager">
-  <target name="updatejdk7">
-     <property name="tomcat.major.version" value="7" />
-     <property name="tomcat.minor.version" value="24" />
-     <property name="tomcat.version" value="${tomcat.major.version}.0.${tomcat.minor.version}" />
-     <property name="tomcat.version.ora.gz" value="jdk-${tomcat.major.version}u${tomcat.minor.version}-linux-x64.tar.gz" />
-     <property name="tomcat.version.jdk-1.7.zip" value="jdk-${tomcat.major.version}u${tomcat.minor.version}-linux-x64.zip" />
-     <property name="tomcat.version.ora.dir" value="jdk1.${tomcat.major.version}.0_${tomcat.minor.version}" />
-     <property name="tomcat.version.kuali.zip" value="jdk${tomcat.major.version}-1-${tomcat.major.version}.0-u${tomcat.minor.version}-linux-x64.zip" />
-     <property name="tomcat.version.kuali.dir" value="jdk${tomcat.major.version}-1.${tomcat.major.version}.0-u${tomcat.minor.version}" />
-   <echo message ="${tomcat.version}" />
-    <exec executable="rm">
-      <arg value="-rf" />
-      <arg value="${tomcat.version.kuali.zip}" />
-      <arg value="${tomcat.version.ora.dir}" />
-      <arg value="${tomcat.version.jdk-1.7.zip}" />
-      <arg value="${tomcat.version.kuali.dir}" />
-    </exec>
-     <exec executable="tar">
-        <arg value="xvf" />
-        <arg value="${tomcat.version.ora.gz}" />
-    </exec>
-     <exec executable="mv">
-        <arg value="${tomcat.version.ora.dir}" />
-        <arg value="${tomcat.version.kuali.dir}" />
-    </exec>
-     <exec executable="rm">
-        <arg value="${tomcat.version.kuali.dir}/src.zip" />
-    </exec>
-     <exec executable="zip">
-        <arg value="-r" />
-        <arg value="${tomcat.version.kuali.zip}" />
-        <arg value="${tomcat.version.kuali.dir}" />
-    </exec>
-  </target>
+	<target name="updatejdk7">
+		<property name="tomcat.major.version" value="7" />
+		<property name="tomcat.minor.version" value="24" />
+		<property name="tomcat.version" value="${tomcat.major.version}.0.${tomcat.minor.version}" />
+		<property name="tomcat.version.ora.gz" value="jdk-${tomcat.major.version}u${tomcat.minor.version}-linux-x64.tar.gz" />
+		<property name="tomcat.version.jdk-1.7.zip" value="jdk-${tomcat.major.version}u${tomcat.minor.version}-linux-x64.zip" />
+		<property name="tomcat.version.ora.dir" value="jdk1.${tomcat.major.version}.0_${tomcat.minor.version}" />
+		<property name="tomcat.version.kuali.zip" value="jdk${tomcat.major.version}-1-${tomcat.major.version}.0-u${tomcat.minor.version}-linux-x64.zip" />
+		<property name="tomcat.version.kuali.dir" value="jdk${tomcat.major.version}-1.${tomcat.major.version}.0-u${tomcat.minor.version}" />
+		<echo message="${tomcat.version}" />
+		<exec executable="rm">
+			<arg value="-rf" />
+			<arg value="${tomcat.version.kuali.zip}" />
+			<arg value="${tomcat.version.ora.dir}" />
+			<arg value="${tomcat.version.jdk-1.7.zip}" />
+			<arg value="${tomcat.version.kuali.dir}" />
+		</exec>
+		<exec executable="tar">
+			<arg value="xvf" />
+			<arg value="${tomcat.version.ora.gz}" />
+		</exec>
+		<exec executable="mv">
+			<arg value="${tomcat.version.ora.dir}" />
+			<arg value="${tomcat.version.kuali.dir}" />
+		</exec>
+		<exec executable="rm">
+			<arg value="${tomcat.version.kuali.dir}/src.zip" />
+		</exec>
+		<exec executable="zip">
+			<arg value="-r" />
+			<arg value="${tomcat.version.kuali.zip}" />
+			<arg value="${tomcat.version.kuali.dir}" />
+		</exec>
+	</target>
 </project>
