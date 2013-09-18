@@ -191,16 +191,16 @@ public class TomcatConfig implements ApplicationServerConfig {
 	}
 
 	protected HttpWaitExecutable getHttpWaitExecutable() {
-		// Extract properties from the environment
+		// Extract HttpContext properties from the environment
 		String overallTimeout = env.getString("http.overallTimeout", "30m");
 		String requestTimeout = env.getString("http.requestTimeout", "15s");
 		String url = env.getString("http.url");
 		String logMsgPrefix = env.getString("http.logMsgPrefix", "[tomcat:starting]");
 
-		// Setup the context
+		// Setup the HttpContext
 		HttpContext context = new HttpContext.Builder(url).overallTimeout(overallTimeout).requestTimeout(requestTimeout).logMsgPrefix(logMsgPrefix).build();
 
-		//
+		// Get HttpWaitExecutable configuration
 		boolean skip = env.getBoolean("http.wait.skip", false);
 		HttpService service = httpServiceConfig.httpService();
 
