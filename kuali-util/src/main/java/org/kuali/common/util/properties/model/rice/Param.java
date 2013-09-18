@@ -5,8 +5,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
+import org.kuali.common.util.xml.jaxb.adapter.OmitTrueAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "value" })
@@ -16,12 +19,15 @@ public class Param {
 	private final String name;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitTrueAdapter.class)
 	private final boolean override;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final boolean random;
 
 	@XmlAttribute
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
 	private final boolean system;
 
 	@XmlValue
