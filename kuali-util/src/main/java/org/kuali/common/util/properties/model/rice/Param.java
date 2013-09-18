@@ -31,6 +31,22 @@ public class Param {
 		return name;
 	}
 
+	public boolean isOverride() {
+		return override;
+	}
+
+	public boolean isRandom() {
+		return random;
+	}
+
+	public boolean isSystem() {
+		return system;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
 	public static class Builder {
 
 		// Required
