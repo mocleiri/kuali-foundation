@@ -193,7 +193,7 @@ public class TomcatConfig implements ApplicationServerConfig {
 	protected HttpWaitExecutable getHttpWaitExecutable() {
 		// Extract properties from the environment
 		String overallTimeout = env.getString("http.overallTimeout", "30m");
-		String requestTimeout = env.getString("http.overallTimeout", "15s");
+		String requestTimeout = env.getString("http.requestTimeout", "15s");
 		String url = env.getString("http.url");
 		String logMsgPrefix = env.getString("http.logMsgPrefix", "[tomcat:starting]");
 
