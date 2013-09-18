@@ -1,30 +1,39 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
   <target name="updatejdk7">
-    <property name="tomcat.major.version" value="7" />
-    <property name="tomcat.minor.version" value="24" />
-    <property name="tomcat.version" value="${tomcat.major.version}.0.${tomcat.minor.version}" />
-    <property name="tomcat.version.ora.gz" value="jdk-${tomcat.major.version}u${tomcat.minor.version}-linux-x64.tar.gz" />
-    <property name="tomcat.version.jdk-1.7.zip" value="jdk-${tomcat.major.version}u${tomcat.minor.version}-linux-x64.zip" />
-    <property name="tomcat.version.ora.dir" value="jdk1.${tomcat.major.version}.0_${tomcat.minor.version}" />
-    <property name="tomcat.version.kuali.zip" value="jdk${tomcat.major.version}-1-${tomcat.major.version}.0-u${tomcat.minor.version}-linux-x64.zip" />
-    <property name="tomcat.version.kuali.dir" value="jdk${tomcat.major.version}-1.${tomcat.major.version}.0-u${tomcat.minor.version}" />
-    <echo message="${tomcat.version}" />
+<!-- ant -Dminor="40"  -Dtar_dir="." updatejdk7   -->
+    <property name="jdk.major.version" value="7" />
+    <property name="jdk.minor.version" value="${minor}" />
+    <property name="zip_dir" value="${tar_dir}" />
+    <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
+    <property name="jdk.version.ora.gz" value="${zip_dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar.gz" />
+    <property name="jdk.version.jdk-1.7.zip" value="${zip_dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.version.ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
+    <property name="jdk.version.kuali.zip" value="${zip_dir}/jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.version.kuali.dir" value="${zip_dir}/jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+    <echo message="${jdk.version}" />
     <delete includeemptydirs="true" failonerror="false">
-      <fileset dir="${tomcat.version.kuali.dir}" />
-      <fileset dir="${tomcat.version.ora.dir}" />
-      <fileset dir="${tomcat.version.kuali.zip}" />
-      <fileset dir="${tomcat.version.jdk-1.7.zip}" />
+      <fileset dir="${jdk.version.kuali.dir}" />
+      <fileset dir="${jdk.version.ora.dir}" />
+      <fileset dir="${jdk.version.kuali.zip}" />
+      <fileset dir="${jdk.version.jdk-1.7.zip}" />
     </delete>
+    <echo message="${jdk.version.ora.gz}" />
     <exec executable="tar">
       <arg value="xvf" />
-      <arg value="${tomcat.version.ora.gz}" />
+      <arg value="${jdk.version.ora.gz}" />
     </exec>
-    <move todir="${tomcat.version.kuali.dir}">
-      <fileset dir="${tomcat.version.ora.dir}" />
+    <echo message="move ${jdk.version.ora.dir} ${jdk.version.kuali.dir}" />
+     <!--<move todir="${jdk.version.kuali.dir}" includeemptydirs="true"> was getting failures with this
+      <fileset dir="${jdk.version.ora.dir}"/>
     </move>
-    <delete file="${tomcat.version.kuali.dir}/src.zip" />
-    <zip destfile="${tomcat.version.kuali.zip}" basedir="${tomcat.version.kuali.dir}" whenempty="create" />
+     -->
+    <exec executable="mv">
+      <arg value="${jdk.version.ora.dir}" />
+      <arg value="${jdk.version.kuali.dir}" />
+    </exec>
+    <delete file="${jdk.version.kuali.dir}/src.zip" />
+    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}" whenempty="create" />
   </target>
 </project>
 
