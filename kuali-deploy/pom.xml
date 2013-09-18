@@ -51,6 +51,7 @@
     <!-- Remove these before release -->
     <kuali-util.version>4.4.4-SNAPSHOT</kuali-util.version>
     <kuali-jdbc.version>3.1.10-SNAPSHOT</kuali-jdbc.version>
+    <kuali-http.version>1.0.7-SNAPSHOT</kuali-http.version>
   </properties>
   <profiles>
     <profile>
