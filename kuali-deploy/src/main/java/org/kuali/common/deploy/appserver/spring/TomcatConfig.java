@@ -10,8 +10,11 @@ import org.kuali.common.deploy.appserver.ApplicationServer;
 import org.kuali.common.deploy.appserver.TomcatApplicationServer;
 import org.kuali.common.deploy.channel.spring.DefaultSecureChannelConfig;
 import org.kuali.common.deploy.spring.DefaultDeployContextConfig;
-import org.kuali.common.http.HttpContext;
-import org.kuali.common.http.HttpWaitExecutable;
+import org.kuali.common.http.model.HttpContext;
+import org.kuali.common.http.service.HttpService;
+import org.kuali.common.http.service.HttpWaitExecutable;
+import org.kuali.common.http.spring.DefaultHttpServiceConfig;
+import org.kuali.common.http.spring.HttpServiceConfig;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.LocalRepositoryService;
 import org.kuali.common.util.maven.RepositoryUtils;
@@ -19,7 +22,6 @@ import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.maven.spring.MavenServiceConfig;
 import org.kuali.common.util.secure.channel.SecureChannel;
 import org.kuali.common.util.spring.PropertySourceUtils;
-import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import com.google.common.base.Optional;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultDeployContextConfig.class, MavenServiceConfig.class, DefaultSecureChannelConfig.class })
+@Import({ SpringServiceConfig.class, DefaultDeployContextConfig.class, MavenServiceConfig.class, DefaultSecureChannelConfig.class, DefaultHttpServiceConfig.class })
 public class TomcatConfig implements ApplicationServerConfig {
 
 	@Autowired
@@ -48,6 +50,9 @@ public class TomcatConfig implements ApplicationServerConfig {
 
 	@Autowired
 	DeployContext context;
+
+	@Autowired
+	HttpServiceConfig httpServiceConfig;
 
 	@Override
 	@Bean
@@ -187,23 +192,20 @@ public class TomcatConfig implements ApplicationServerConfig {
 
 	protected HttpWaitExecutable getHttpWaitExecutable() {
 		// Extract properties from the environment
-		Long overallTimeoutMillis = SpringUtils.getMillis(env, "http.overallTimeout", "30m");
-		Long requestTimeoutMillis = SpringUtils.getMillis(env, "http.requestTimeout", "15s");
+		String overallTimeout = env.getString("http.overallTimeout", "30m");
+		String requestTimeout = env.getString("http.overallTimeout", "15s");
 		String url = env.getString("http.url");
-		boolean skip = env.getBoolean("http.wait.skip", false);
+		String logMsgPrefix = env.getString("http.logMsgPrefix", "[tomcat:starting]");
 
 		// Setup the context
-		HttpContext context = new HttpContext();
-		context.setUrl(url);
-		context.setOverallTimeoutMillis(overallTimeoutMillis.intValue());
-		context.setRequestTimeoutMillis(requestTimeoutMillis.intValue());
-		context.setLogMsgPrefix(env.getString("http.logMsgPrefix", "[tomcat:starting]"));
+		HttpContext context = new HttpContext.Builder(url).overallTimeout(overallTimeout).requestTimeout(requestTimeout).logMsgPrefix(logMsgPrefix).build();
+
+		//
+		boolean skip = env.getBoolean("http.wait.skip", false);
+		HttpService service = httpServiceConfig.httpService();
 
 		// Setup the executable
-		HttpWaitExecutable executable = new HttpWaitExecutable();
-		executable.setContext(context);
-		executable.setSkip(skip);
-		return executable;
+		return new HttpWaitExecutable(service, context, skip);
 	}
 
 	protected String getApplicationPath() {
