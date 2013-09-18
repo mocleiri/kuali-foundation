@@ -44,7 +44,7 @@ public class TrimmingCSVStringAdapter extends XmlAdapter<String, List<String>> {
 	@Override
 	public final List<String> unmarshal(String string) {
 		if (string == null) {
-			return ImmutableList.<String> of();
+			return ImmutableList.of();
 		} else {
 			return ImmutableList.copyOf(CollectionUtils.getTrimmedListFromCSV(string));
 		}
