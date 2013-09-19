@@ -50,9 +50,8 @@
               </div>
               <div class="metadata-featured" > PI: Ken Graves<br>
                 Initiator: <a href="#">thrclark</a><br>
-                Created:
-                04:27pm 07/09/2013<br>
-                Updated: 12:22pm 07/12/2013<br>
+                Created: 04:27pm 07/09/2013<br>
+             
               </div>
             </div>
       </div>

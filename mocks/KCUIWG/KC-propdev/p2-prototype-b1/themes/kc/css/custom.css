@@ -534,6 +534,43 @@ footer .container {
   margin-bottom: 0px;
   border: none;
 }
+.portal-header .navbar .dropdown .dropdown-menu {
+  white-space: nowrap;
+  min-width: 10px;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu {
+  min-width: 600px;
+  white-space: normal;
+  padding-bottom: 20px;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu h3 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  font-size: 1.1em;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu h4 {
+  font-size: 12px;
+  font-weight: normal;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul {
+  font-size: 12px;
+  list-style: disc;
+  padding-left: 20px;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a {
+  color: #0055cc;
+}
+.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a:hover {
+  background: #FFF;
+  text-decoration: underline;
+}
+.portal-header .navbar a:focus {
+  color: #FFF;
+  background: #9b0038;
+}
 .portal-header .navbar div.logoBrand {
   width: 200px;
   height: 69px;
@@ -542,12 +579,11 @@ footer .container {
   top: 0px;
   margin-left: -16px;
 }
-.portal-header .navbar .navbar-toggle {
-  color: white;
-  font-size: 120%;
-}
 .portal-header .navbar .nav li.active a {
   background: #9b0038;
+}
+.portal-header .navbar .nav .dropdown-toggle {
+  text-transform: uppercase;
 }
 .portal-header .navbar .nav .dropdown-menu li ul {
   list-style: none;
@@ -561,9 +597,6 @@ footer .container {
   font-weight: normal;
   color: #0055cc;
   white-space: nowrap;
-}
-.portal-header .navbar .nav .dropdown-toggle {
-  text-transform: uppercase;
 }
 .portal-header .navbar .nav li {
   position: relative;
@@ -579,39 +612,9 @@ footer .container {
   color: #FFF;
   background: #9b0038;
 }
-.portal-header .navbar .dropdown .dropdown-menu {
-  white-space: nowrap;
-  min-width: 10px;
-}
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu {
-  min-height: 300px;
-  min-width: 600px;
-  white-space: normal;
-  padding-bottom: 20px;
-}
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu h3 {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #ccc;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  font-size: 1.1em;
-}
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul {
-  font-size: 12px;
-  list-style: disc;
-  padding-left: 20px;
-}
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a {
-  color: #0055cc;
-}
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a:hover {
-  background: #FFF;
-  text-decoration: underline;
-}
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu h4 {
-  font-size: 12px;
-  font-weight: normal;
+.portal-header .navbar .navbar-toggle {
+  color: white;
+  font-size: 120%;
 }
 .uif-pageContentWrapper.closed {
   margin-left: 220px;
