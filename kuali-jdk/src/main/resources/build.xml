@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
   <target name="updatejdk7">
-<!-- ant -Dminor="40"  -Dtar_dir="." updatejdk7   -->
+    <!-- ant -Dminor="40" -Dtar_dir="." updatejdk7 -->
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="zip_dir" value="${tar_dir}" />
@@ -24,10 +24,10 @@
       <arg value="${jdk.version.ora.gz}" />
     </exec>
     <echo message="move ${jdk.version.ora.dir} ${jdk.version.kuali.dir}" />
-     <move todir="${jdk.version.kuali.dir}"  verbose="true" includeemptydirs="true"> 
+    <move todir="${jdk.version.kuali.dir}" verbose="true" includeemptydirs="true">
       <fileset dir="${jdk.version.ora.dir}">
-    		<include name="**/*" />
-    	</fileset>
+        <include name="**/*" />
+      </fileset>
     </move>
     <delete file="${jdk.version.kuali.dir}/src.zip" />
     <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}" whenempty="create" />
