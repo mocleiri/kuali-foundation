@@ -24,14 +24,11 @@
       <arg value="${jdk.version.ora.gz}" />
     </exec>
     <echo message="move ${jdk.version.ora.dir} ${jdk.version.kuali.dir}" />
-     <!--<move todir="${jdk.version.kuali.dir}" includeemptydirs="true"> was getting failures with this
-      <fileset dir="${jdk.version.ora.dir}"/>
+     <move todir="${jdk.version.kuali.dir}"  verbose="true" includeemptydirs="true"> 
+      <fileset dir="${jdk.version.ora.dir}">
+    		<include name="**/*" />
+    	</fileset>
     </move>
-     -->
-    <exec executable="mv">
-      <arg value="${jdk.version.ora.dir}" />
-      <arg value="${jdk.version.kuali.dir}" />
-    </exec>
     <delete file="${jdk.version.kuali.dir}/src.zip" />
     <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}" whenempty="create" />
   </target>
