@@ -23,7 +23,7 @@ import org.kuali.common.util.FormatUtils;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 
-public class HttpContext {
+public final class HttpContext {
 
 	private final String url; // Url to contact
 	private final String logMsgPrefix; // Gets printed as a prefix to any log messages emitted by the HttpService

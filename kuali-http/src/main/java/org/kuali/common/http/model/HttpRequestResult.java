@@ -21,7 +21,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
 
-public class HttpRequestResult {
+public final class HttpRequestResult {
 
 	private final Optional<Integer> statusCode;
 	private final Optional<String> responseBody;

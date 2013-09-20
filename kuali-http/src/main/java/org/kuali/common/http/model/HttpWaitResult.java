@@ -21,7 +21,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public class HttpWaitResult {
+public final class HttpWaitResult {
 
 	private final long start;
 	private final long stop;
