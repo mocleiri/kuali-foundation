@@ -21,7 +21,7 @@ include( '_temp.select.filler.php' );
         
         
 
-		<div class="row-temp-disabled">
+		
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
@@ -54,13 +54,12 @@ include( '_temp.select.filler.php' );
 
 			</div></div>
 
-		</div>
+		
 
 		<!-- Button row -->
-		<div class="btn-row-page-action">
-			
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
+		<div class="btn-row-page-action"> <button  onclick="location.href='filenamehereeeeeeeeee'" class="btn btn-default">Back</button>
+<button class="btn btn-default">Save</button>
+      <button  onclick="location.href='filenamehereeeeeeeeee'" class="btn btn-primary">Save and continue</button>
 			
 		</div>
 		<!-- // -->

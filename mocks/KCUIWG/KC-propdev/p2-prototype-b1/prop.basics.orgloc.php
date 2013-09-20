@@ -13,7 +13,7 @@ include( '_temp.select.filler.php' );
 <section id="main">
 
 	<div class="container-fluid"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
-    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?><div class="row-temp-disabled">
+    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
@@ -342,13 +342,12 @@ include( '_temp.select.filler.php' );
         
       </div></div>
 
-		</div>
+		
 
 		<!-- Button row -->
-		<div class="btn-row-page-action">
-			
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
+		<div class="btn-row-page-action"> <button  onclick="location.href='prop.basics.sponsor.php'" class="btn btn-default">Back</button>
+<button class="btn btn-default">Save</button>
+      <button  onclick="location.href='prop.keypersonnel.start.php'" class="btn btn-primary">Save and continue</button>
 			
 		</div>
 		<!-- // -->

@@ -12,7 +12,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 <section id="main"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?><div class="container-fluid">
 
-		<div class="row-temp-disabled">
+		
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
@@ -66,16 +66,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 			</div></div>
 
-		</div>
+		
 
 	</div>
 
 	<!-- Button row -->
 	<div class="btn-row-page-action">
 		<div class="container-fluid">
-			<div class="row">
-				<button class="btn btn-default">Save</button>
-				<button class="btn btn-primary">Save and continue...</button>
+			<div class="row"> <button  onclick="location.href='filenamehereeeeeeeeee'" class="btn btn-default">Back</button>
+<button class="btn btn-default">Save</button>
+      <button  onclick="location.href='filenamehereeeeeeeeee'" class="btn btn-primary">Save and continue</button>
 			</div>
 		</div>
 	</div>
