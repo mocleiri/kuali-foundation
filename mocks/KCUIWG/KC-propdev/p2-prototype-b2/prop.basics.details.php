@@ -15,7 +15,7 @@ include( '_temp.select.filler.php' );
 		
 	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-<div class="container-fluid"><div class="row-temp-disabled">
+<div class="container"><div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
@@ -47,7 +47,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
 									<div class="col-md-5">
-										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8 chzn">
+										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8 chzn has-helper">
 											<option></option>
 											<option value="4">Continuation</option>
 											<option value="1" selected="selected">New</option>
@@ -65,7 +65,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="lead_unit" class="control-label col-md-3">Lead unit:</label>
 									<div class="col-md-5">
-										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8 chzn">
+										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8 chzn has-helper">
 											<option></option>
 											<option value="000001" selected="selected">000001 - University</option>
 											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
@@ -81,7 +81,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="activity_type" class="control-label col-md-3">Activity type:</label>
 									<div class="col-md-5">
-										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8 chzn">
+										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8 chzn has-helper">
 											<option></option>
 											<option value="4">Clinical Trial</option>
 											<option value="9">Construction</option>
@@ -116,7 +116,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="sponsor_code" class="control-label col-md-3">Sponsor code:</label>
 									<div class="col-md-5 input-group">
-										<input type="text" class="form-control input-sm" name="sponsor_code" id="sponsor_code" value="NSF" />
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
 										<div class="helper-text">
 											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 										</div>
@@ -129,7 +129,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="project_title" class="control-label col-md-3">Project title:</label>
 									<div class="col-md-5">
-										<textarea name="project_title" id="project_title" class="form-control input-sm">Test proposal yay</textarea>
+										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
 										<div class="helper-text">
 											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 										</div>
@@ -139,7 +139,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="award_id" class="control-label col-md-3">Award ID:</label>
 									<div class="col-md-5 input-group">
-										<input type="text" class="form-control input-sm" name="award_id" id="award_id" value="3EB" />
+										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" value="3EB" />
 										<div class="helper-text">
 											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 										</div>
@@ -152,7 +152,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="inst_proposal_id" class="control-label col-md-3">Original institutional ID:</label>
 									<div class="col-md-5 input-group">
-										<input type="text" class="form-control input-sm" name="inst_proposal_id" id="inst_proposal_id" value="BU001" />
+										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" value="BU001" />
 										<div class="helper-text">
 											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 										</div>

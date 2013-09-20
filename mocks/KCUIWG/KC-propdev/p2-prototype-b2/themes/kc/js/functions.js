@@ -84,17 +84,14 @@ $(document).ready(function() {
 	$('.launch-modal').on('click', function(e){
 		e.preventDefault();
 
-		var fb_height = 'autoSize',
-			fb_href = 	$(this).data('modal-page');
-
-		if ($(this).data('modal-height').length) {
-			fb_height = $(this).data('modal-height');
-		}
+		var fb_href = 	$(this).data('modal-page');
 
 		$.fancybox.open({
-			href: fb_href,
 			type: 'iframe',
-			height: fb_height,
+			href: fb_href,
+			minHeight: 300,
+			width: 700,
+			maxWidth: 700,
 			padding: 0
 		});
 	});
@@ -224,6 +221,21 @@ $(document).ready(function() {
 
 
 	/*
+		Button hrefs
+		Makes a button act like a link
+		Chris Rodriguez
+	*/
+	$('button').on('click', function() {
+		if ($(this).attr('href')) {
+			document.location = $(this).attr('href');
+		} else {
+			return false;
+		}
+	});
+
+
+
+	/*
 		Faux inline editing
 		Inline editing plugins require AJAX and PHP, so we're just faking it for the prototype
 		Appends a little edit icon to the container
@@ -316,19 +328,6 @@ $(document).ready(function() {
 
 
 	/*
-		Button hrefs
-		Makes a button act like a link
-		Chris Rodriguez
-	*/
-	$('button').on('click', function() {
-		if ($(this).attr('href')) {
-			window.location = $(this).attr('href');
-		}
-	});
-
-
-
-	/*
 		Mailchimp style inline help
 		Shows helper text on focus and hides it on blur
 		Chris Rodriguez
@@ -337,13 +336,13 @@ $(document).ready(function() {
 		$('.helper-text').slideUp();
 	}
 
-	$('input, select, textarea').on('focus', function() {
+	$('.has-helper').on('focus', function() {
 		if ($(this).parent().find('.helper-text')) {
 			$(this).parent().find('.helper-text').slideDown();
 		}
 	});
 
-	$('input, select, textarea').on('blur', function() {
+	$('.has-helper').on('blur', function() {
 		if ($(this).parent().find('.helper-text')) {
 			$(this).parent().find('.helper-text').slideUp();
 		}

@@ -1,53 +1,66 @@
 <!DOCTYPE html>
 <head>
 	<link rel="stylesheet" href="../themes/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../themes/kc/js/chosen/chosen.css" />
+	<link rel="stylesheet" href="../themes/kc/css/datepicker.css" />
+	<link rel="stylesheet" href="../themes/kc/icons/style.css" />
 	<link rel="stylesheet" href="../themes/kc/css/custom.css" />
+
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 </head>
 
 <body>
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h3 style="margin-left:20px;" id="myModalLabel">Opportunity Search</h3>
+			<h3>Opportunity Search</h3>
 		</div>
 
 		<div class="modal-body">
-			<form  class="form-horizontal" method="get" action="">
+			<form class="form-horizontal" method="get" action="">
 				<fieldset>
-					<div class="form-group">
-						<label class="control-label col-lg-3" for="orgdocnum2"> Search Domain</label>
-						<div class="controls col-lg-3">
-							<select name="select" id="activityType" class="form-control" title="Activity Type" required="required">
-								<option value="" selected="selected">Select</option>
-								<option value="4" >Grants.Gov</option>
-								<option value="9">Research.Gov</option>
+
+					<div class="form-group clearfix">
+						<label for="search_domain_m" class="control-label col-md-3">Search doman:</label>
+						<div class="col-md-5 input-group">
+							<select name="search_domain_m" id="search_domain_m" class="form-control input-sm col-md-8 chzn">
+								<option></option>
+								<option value="grants.gov" >Grants.Gov</option>
+								<option value="research.gov">Research.Gov</option>
 							</select>
-						</div>
-						<a href="#" id="" class="btn lookup"><span>lookup</span></a> 
-					</div>
-
-					<div class="form-group">
-						<label class="control-label col-lg-3" for="Description">Opportunity ID</label>
-						<div class="col-lg-3">
-							<input type="text" id="Description" placeholder="" class="">
+							<span class="input-group-btn">
+								<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+							</span>
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="control-label col-lg-3" for="Description">CFDA Number</label>
-						<div class="col-lg-3">
-							<input type="text" id="Description" placeholder="" class="input-sm">
+					<div class="form-group clearfix">
+						<label for="opp_id" class="control-label col-md-3">Opportunity ID</label>
+						<div class="col-md-5">
+							<input type="text" id="opp_id" name="opp_id" class="form-control input-sm col-md-8">
 						</div>
 					</div>
+
+					<div class="form-group">
+						<label class="control-label col-md-3" for="cfda_number">CFDA Number</label>
+						<div class="col-md-5">
+							<input type="text" id="cfda_number" name="cfda_number" class="form-control input-sm col-md-8">
+						</div>
+					</div>
+
 				</fieldset>
 			</div>
 
 			<div class="modal-footer">
-				<a href="lookup-oppsearch-results.html" class="btn btn-primary" id="btn-oppsearch">Search</a>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+				<a href="lookup-oppsearch-results.html" class="btn btn-primary pull-right">Search</a>
 			</div>
 		</form>
 	</div>
 </div>
+
+<!-- <script src="../themes/kc/js/fancybox/jquery.fancybox.js"></script> -->
+<script src="../themes/kc/js/chosen/chosen.jquery.min.js"></script>
+<script src="../themes/kc/js/bootstrap-datepicker.js"></script>
+<script src="../themes/kc/js/functions.js"></script>
 </body>
 </html>

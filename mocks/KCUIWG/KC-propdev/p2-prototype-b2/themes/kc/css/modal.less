@@ -1,13 +1,49 @@
-.modal-header {
-	background: @shaded_background;
+.modal-dialog {
+	border-radius: 3px;
+
+	.modal-content {
+		position: relative;
+
+		.modal-header {
+			background: @shaded_background;
+			padding: 16px @grid-gutter-width;
+			border-bottom: darken(@shaded_background, 10%);
+
+			h1, h2, h3, h4, h5, h6 {
+				font-size: 24px;
+				line-height: 100%;
+				margin-top: 8px;
+			}
+		}
+
+		.modal-body {
+			padding: 24px @grid-gutter-width;
+			background: white;
+
+			label {
+				text-align: left;
+			}
+		}
+
+		.modal-footer {
+			background: @shaded_background;
+			padding: 16px @grid-gutter-width;
+			border-top: darken(@shaded_background, 10%);
+			clear: both;
+			display: block;
+		}
+
+		.modal-footer:after {
+			content: "";
+			display: block;
+			clear: both;
+			height: 1%;
+			visibility: hidden;
+		}
+	}
 }
 
-.modal-body {
-
+.fancybox-close {
+	top: 20px;
+	right: 16px;
 }
-
-.modal-footer {
-	background: @shaded_background;
-}
-
-.modal {z-index: 9999} 

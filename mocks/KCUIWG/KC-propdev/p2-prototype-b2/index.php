@@ -10,7 +10,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 	<section id="main">
 
-	<div class="container-fluid">
+	<div class="container">
 			
 			<div class="row">
 				<div>
