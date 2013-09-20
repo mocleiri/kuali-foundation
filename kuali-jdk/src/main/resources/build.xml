@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
   <target name="updatejdk7">
-<!-- ant -Dminor="40"  updatejdk7   -->
+    <!-- ant -Dminor="40" updatejdk7 -->
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="zip_dir" value="${user.home}/.jdk/7" />
@@ -21,15 +21,15 @@
       <fileset dir="${jdk.version.jdk-1.7.zip}" />
     </delete>
     <untar src="${jdk.version.ora.gz}" dest="${zip_dir}" compression="gzip">
-      </untar>
+    </untar>
     <delete file="${jdk.version.ora.dir}/src.zip" />
-    <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}"/>
-    <move todir="${jdk.version.kuali.dir}/${kuali.dir}"  verbose="true" includeemptydirs="true"> 
+    <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}" />
+    <move todir="${jdk.version.kuali.dir}/${kuali.dir}" verbose="true" includeemptydirs="true">
       <fileset dir="${jdk.version.ora.dir}">
-    		<include name="**/*" />
-    	</fileset>
+        <include name="**/*" />
+      </fileset>
     </move>
-    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create"    />
+    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create" />
   </target>
 </project>
 
