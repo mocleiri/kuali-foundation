@@ -4,15 +4,15 @@
     <!-- ant -Dminor="40" updatejdk7 -->
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
-    <property name="zip_dir" value="${user.home}/.jdk/7" />
+    <property name="jdk.dir" value="${user.home}/.jdk/7" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
-    <property name="jdk.gz" value="${zip_dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar.gz" />
-    <property name="jdk.zip" value="${zip_dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.gz" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar.gz" />
+    <property name="jdk.zip" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
     <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
-    <property name="jdk.version.ora.dir" value="${zip_dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
-    <property name="jdk.version.kuali.zip" value="${zip_dir}/jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
-    <property name="jdk.version.kuali.dir" value="${zip_dir}/jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+    <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
+    <property name="jdk.version.kuali.zip" value="${jdk.dir}/jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.version.kuali.dir" value="${jdk.dir}/jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <echo message="${jdk.version}" />
     <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${jdk.version.kuali.dir}" />
@@ -20,7 +20,7 @@
       <fileset dir="${jdk.version.kuali.zip}" />
       <fileset dir="${jdk.zip}" />
     </delete>
-    <untar src="${jdk.gz}" dest="${zip_dir}" compression="gzip">
+    <untar src="${jdk.gz}" dest="${jdk.dir}" compression="gzip">
     </untar>
     <delete file="${jdk.version.ora.dir}/src.zip" />
     <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}" />
