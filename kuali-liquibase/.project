@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>kuali-jdbc</name>
+  <name>kuali-liquibase</name>
   <comment></comment>
   <projects>
   </projects>
