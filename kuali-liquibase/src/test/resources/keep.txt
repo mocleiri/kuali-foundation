@@ -1,0 +1,59 @@
+====
+    Copyright 2010-2013 The Kuali Foundation
+
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.opensource.org/licenses/ecl2.php
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+====
+
+11 	commons-beanutils-1.8-publish 	SUCCESS 	 
+12 	commons-beanutils-1.8-release 	SUCCESS 	 
+13 	commons-beanutils-1.8-unit 	SUCCESS 	 
+57 	impex-1.0-license 	SUCCESS 	 
+58 	impex-1.0-publish 	SUCCESS 	 
+59 	impex-1.0-release 	SUCCESS 	 
+60 	impex-1.0-unit 	SUCCESS 	 
+61 	impex-clover-ce-1.0-publish 	SUCCESS 	 
+62 	impex-clover-ce-1.0-release 	SUCCESS 	 
+63 	impex-cloveretl-ce-2.8-license 	SUCCESS 	 
+64 	impex-cloveretl-ce-2.8-publish 	SUCCESS 	 
+65 	impex-cloveretl-ce-2.8-release 	SUCCESS 	 
+66 	impex-cloveretl-ce-2.8-unit 	SUCCESS 	 
+91 	kuali-app-deployer-1.0-update-from-svn 	SUCCESS 	 
+92 	kuali-app-deployer 	SUCCESS 	 
+93 	kuali-app-deployer-update-from-svn 	FAILURE 	delete
+94 	kuali-app-installer-appdynamics 	SUCCESS 	delete
+107 	kuali-configure-environment 	SUCCESS 	delete
+134 	kuali-pom-license 	SUCCESS 	delete
+135 	kuali-pom-publish 	SUCCESS 	delete
+136 	kuali-pom-release 	SUCCESS 	delete
+137 	kuali-pom-unit 	SUCCESS 	delete
+138 	kuali-reset-environment 	SUCCESS 	 
+139 	kuali-reset-environment-update-from-svn 	SUCCESS 	delete
+180 	maven-impex-plugin-1.0-license 	SUCCESS 	 
+181 	maven-impex-plugin-1.0-publish 	SUCCESS 	 
+182 	maven-impex-plugin-1.0-release 	SUCCESS 	 
+183 	maven-impex-plugin-1.0-unit 	SUCCESS 	 
+187 	maven-kscontractdoc-plugin-0.0-publish 	SUCCESS 	delete
+188 	maven-kscontractdoc-plugin-0.0-release 	SUCCESS 	delete
+189 	maven-kscontractdoc-plugin-0.0-unit 	SUCCESS 	delete
+198 	maven-kuali-skin-1.1-license 	SUCCESS 	 
+199 	maven-kuali-skin-1.1-publish 	SUCCESS 	 
+200 	maven-kuali-skin-1.1-release 	SUCCESS 	 
+201 	maven-kuali-skin-1.1-unit 	SUCCESS 	 
+213 	maven-s3-wagon-1.1-license 	SUCCESS 	 
+214 	maven-s3-wagon-1.1-publish 	SUCCESS 	 
+215 	maven-s3-wagon-1.1-release 	SUCCESS 	 
+216 	maven-s3-wagon-1.1-unit 	ABORTED 	 
+244 	rice-impex-clover-1.0-publish 	SUCCESS 	 
+245 	rice-impex-clover-1.0-release 	SUCCESS 	 
+246 	rice-impex-clover-1.0-unit 	SUCCESS 	 
+247 	rice-remote-load-test-client 	SUCCESS 	delete

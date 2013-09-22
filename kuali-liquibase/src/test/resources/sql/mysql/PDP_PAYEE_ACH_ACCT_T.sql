@@ -1,0 +1,30 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
+TRUNCATE TABLE PDP_PAYEE_ACH_ACCT_T
+/
+INSERT INTO PDP_PAYEE_ACH_ACCT_T (ACH_ACCT_GNRTD_ID,OBJ_ID,VER_NBR,BNK_RTNG_NBR,BNK_ACCT_NBR,PAYEE_NM,PAYEE_EMAIL_ADDR,PAYEE_ID_TYP_CD,ACH_TRANS_TYP,ROW_ACTV_IND,BNK_ACCT_TYP_CD,PAYEE_ID_NBR)
+  VALUES (10000.0,'3DD0823DD81A9036E043814FD8819036',1.0,'012345678','XBy8HbA0p2kc3lalnjPKpA==','John Doe','xy@xy.com','E','PRAP','Y','22','1')
+/
+INSERT INTO PDP_PAYEE_ACH_ACCT_T (ACH_ACCT_GNRTD_ID,OBJ_ID,VER_NBR,BNK_RTNG_NBR,BNK_ACCT_NBR,PAYEE_NM,PAYEE_EMAIL_ADDR,PAYEE_ID_TYP_CD,ACH_TRANS_TYP,ROW_ACTV_IND,BNK_ACCT_TYP_CD,PAYEE_ID_NBR)
+  VALUES (10001.0,'3DD0823DD81B9036E043814FD8819036',1.0,'876543210','UeteX8/H6dO39UFEd4GMnQ==','Jane Smith','xy@xy.com','E','PRAP','Y','22','1')
+/
+INSERT INTO PDP_PAYEE_ACH_ACCT_T (ACH_ACCT_GNRTD_ID,OBJ_ID,VER_NBR,BNK_RTNG_NBR,BNK_ACCT_NBR,PAYEE_NM,PAYEE_EMAIL_ADDR,PAYEE_ID_TYP_CD,ACH_TRANS_TYP,ROW_ACTV_IND,BNK_ACCT_TYP_CD,PAYEE_ID_NBR)
+  VALUES (10002.0,'3DD0823DD81A9036E043814FD8819036',1.0,'012345678','XBy8HbA0p2kc3lalnjPKpA==','John Doe','xy@xy.com','E','PRAP','Y','22','1')
+/
+INSERT INTO PDP_PAYEE_ACH_ACCT_T (ACH_ACCT_GNRTD_ID,OBJ_ID,VER_NBR,BNK_RTNG_NBR,BNK_ACCT_NBR,PAYEE_NM,PAYEE_EMAIL_ADDR,PAYEE_ID_TYP_CD,ACH_TRANS_TYP,ROW_ACTV_IND,BNK_ACCT_TYP_CD,PAYEE_ID_NBR)
+  VALUES (10003.0,'3DD0823DD81B9036E043814FD8819036',1.0,'876543210','UeteX8/H6dO39UFEd4GMnQ==','Jane Smith','xy@xy.com','E','PRAP','Y','22','1')
+/

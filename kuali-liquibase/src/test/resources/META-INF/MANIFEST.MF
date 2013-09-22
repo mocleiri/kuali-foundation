@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Implementation-Title: OLE Rice SQL
+Built-By: root
+Implementation-Vendor: The Kuali Foundation
+Implementation-Vendor-Id: org.kuali.ole
+Specification-Title: OLE Rice SQL
+Bundle-License: http://maven.kuali.org/external/org/opensource/ecl/2.0
+ /ecl-2.0.txt
+Bundle-SymbolicName: org.kuali.ole.ole-rice-sql
+SVN-Path: tags/builds/ole-0.8/0.8.1-s/20130219-r11074/ole-app/ole-db/o
+ le-sql/ole-rice-sql
+Implementation-Version: 0.8.1-s-r11074
+Maven-Version: 3.0.4
+Specification-Vendor: The Kuali Foundation
+Bundle-Name: OLE Rice SQL
+Created-By: Apache Maven 3.0.4
+SVN-Repository: https://svn.kuali.org/repos/ole
+Bundle-Vendor: The Kuali Foundation
+SVN-Revision: 11080
+Bundle-BuildNumber: 37
+Bundle-Version: 0.8.1-s-r11074
+Build-Jdk: 1.6.0_35
+SVN-URL: https://svn.kuali.org/repos/ole/tags/builds/ole-0.8/0.8.1-s/2
+ 0130219-r11074/ole-app/ole-db/ole-sql/ole-rice-sql
+Specification-Version: 0.8.1-s-r11074
+Bundle-DocURL: http://www.kuali.org/
+Bundle-Timestamp: 2013-02-19 21:27 UTC
+Archiver-Version: Plexus Archiver
+

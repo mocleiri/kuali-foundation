@@ -1,0 +1,3 @@
+echo $(date)
+mysql -u smartload -psmartload -h mysql.rice.kuali.org smartload < mysql-showcount.sql
+echo $(date)

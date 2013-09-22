@@ -1,0 +1,48 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
+TRUNCATE TABLE SEC_SCRTY_ATTR_T
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (1.0,'9D607BF313ECA2E0E040007F01005D95',1.0,'Account','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (2.0,'9D607BF313EDA2E0E040007F01005D95',1.0,'Chart','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (3.0,'9D607BF313EEA2E0E040007F01005D95',1.0,'Chart-Descend Hierarchy','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (4.0,'9D607BF313EFA2E0E040007F01005D95',1.0,'Object','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (5.0,'9D607BF313F0A2E0E040007F01005D95',1.0,'Object Level','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (6.0,'9D607BF313F1A2E0E040007F01005D95',1.0,'Organization','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (7.0,'9D607BF313F2A2E0E040007F01005D95',1.0,'Organization-Descend Hierarchy','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (8.0,'9D607BF313F3A2E0E040007F01005D95',1.0,'Principal Investigator','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (9.0,'9D607BF313F4A2E0E040007F01005D95',1.0,'Project Code','Y')
+/
+INSERT INTO SEC_SCRTY_ATTR_T (ATTR_ID,OBJ_ID,VER_NBR,ATTR_NM,ACTV_IND)
+  VALUES (10.0,'9D607BF313F5A2E0E040007F01005D95',1.0,'Sub Account','Y')
+/

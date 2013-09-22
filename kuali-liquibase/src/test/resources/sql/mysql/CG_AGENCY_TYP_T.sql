@@ -1,0 +1,42 @@
+--
+-- Copyright 2010-2013 The Kuali Foundation
+--
+-- Licensed under the Educational Community License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.opensource.org/licenses/ecl2.php
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
+TRUNCATE TABLE CG_AGENCY_TYP_T
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('D','0292B10044E3BBDEE043814FD881BBDE',1.0,'Foundations','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('F','0292B10044E4BBDEE043814FD881BBDE',1.0,'Federal','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('G','0292B10044E5BBDEE043814FD881BBDE',1.0,'Other Governmental','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('H','0292B10044E6BBDEE043814FD881BBDE',1.0,'Higher Education','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('I','0292B10044E7BBDEE043814FD881BBDE',1.0,'Commercial/For Profit','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('P','0292B10044E8BBDEE043814FD881BBDE',1.0,'Non-Profit','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('S','0292B10044E9BBDEE043814FD881BBDE',1.0,'State of Indiana','Y')
+/
+INSERT INTO CG_AGENCY_TYP_T (CG_AGENCY_TYP_CD,OBJ_ID,VER_NBR,CG_AGENCY_TYP_DESC,ROW_ACTV_IND)
+  VALUES ('U','0292B10044EABBDEE043814FD881BBDE',1.0,'University Internal','Y')
+/

@@ -1,0 +1,3 @@
+echo $(date)
+mysql -u smartload -psmartload -h mysql.rice.kuali.org smartload < KRMS_PROP_PARM_T.sql
+echo $(date)
