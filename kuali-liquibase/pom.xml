@@ -43,6 +43,7 @@
     <mysql.version>5.1.22</mysql.version>
     <oracle.version>11.2.0.2</oracle.version>
     <liquibase.version>3.0.4</liquibase.version>
+
     <!-- These properties modify the release process -->
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
 
