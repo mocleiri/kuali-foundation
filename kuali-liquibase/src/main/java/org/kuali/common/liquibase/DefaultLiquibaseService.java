@@ -4,6 +4,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 
 import org.kuali.common.util.CollectionUtils;
+import org.springframework.core.io.DefaultResourceLoader;
 
 public class DefaultLiquibaseService implements LiquibaseService {
 
@@ -13,6 +14,7 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		springLiquibase.setChangeLog(context.getChangeLog());
 		springLiquibase.setDataSource(context.getDataSource());
 		springLiquibase.setContexts(CollectionUtils.asCSV(context.getContexts()));
+		springLiquibase.setResourceLoader(new DefaultResourceLoader());
 		try {
 			springLiquibase.afterPropertiesSet();
 		} catch (LiquibaseException e) {
