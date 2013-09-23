@@ -57,38 +57,4 @@ require_once( 'themes/kc/inc/toolbar.php' );
 	</div>
 
 </section>
-<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"></div>-->
-<script>
-$(document).ready(function() {
-	
-		
-	$(".load-tabs").live("click", function(){
-			parent.$.fancybox.close();
-			$('#oppsearch-tabs').load('modal/lookup-oppsearch-tabs.html');
-			
-		});
-		
-	
-	$(".various").fancybox({
-		fitToView	: false,
-		//width		: 800,
-		height		: '70%',
-		autoSize	: false,
-		closeClick	: false,
-		openEffect	: 'none',
-		closeEffect	: 'none',
-		//type: 'iframe',
-	});
-	
-	
-	$(".fancy-close").live("click", function(){
-		parent.$.fancybox.close();
-		
-	});
-	
-	
-	
-   
-});
-</script>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
