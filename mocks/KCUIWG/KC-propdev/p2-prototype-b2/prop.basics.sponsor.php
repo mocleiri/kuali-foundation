@@ -47,7 +47,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_name" id="sponsor_name" placeholder="i.e., National Science Foundation" />
+									<input type="text" class="form-control input-sm has-helper" name="sponsor_name" id="sponsor_name" placeholder="i.e., National Science Foundation" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -90,7 +90,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="opportunity_id" class="control-label col-md-3">Opportunity ID:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="opportunity_id" id="opportunity_id" placeholder="i.e., 12345" />
+									<input type="text" class="form-control input-sm has-helper" name="opportunity_id" id="opportunity_id" placeholder="i.e., 12345" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -100,7 +100,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="cfda_number" class="control-label col-md-3">CFDA number:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" placeholder="i.e., ABCD123" />
+									<input type="text" class="form-control input-sm has-helper" name="cfda_number" id="cfda_number" placeholder="i.e., ABCD123" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -110,7 +110,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor ID:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="prime_sponsor_id" id="prime_sponsor_id" placeholder="i.e., 000NUN" />
+									<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" placeholder="i.e., 000NUN" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -127,7 +127,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="sponsor_proposal_id" class="control-label col-md-3">Sponsor proposal ID:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_proposal_id" id="sponsor_proposal_id" placeholder="i.e., 012" />
+									<input type="text" class="form-control input-sm has-helper" name="sponsor_proposal_id" id="sponsor_proposal_id" placeholder="i.e., 012" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -137,7 +137,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="sponsor_div_code" class="control-label col-md-3">Sponsor DIV code:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_div_code" id="sponsor_div_code" placeholder="i.e., NSF" />
+									<input type="text" class="form-control input-sm has-helper" name="sponsor_div_code" id="sponsor_div_code" placeholder="i.e., NSF" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -147,7 +147,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="sponsor_program_code" class="control-label col-md-3">Sponsor program code:</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control input-sm" name="sponsor_program_code" id="sponsor_program_code" placeholder="i.e., NSFBU01" />
+									<input type="text" class="form-control input-sm has-helper" name="sponsor_program_code" id="sponsor_program_code" placeholder="i.e., NSFBU01" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -187,7 +187,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="opportunity_title" class="control-label col-md-3">Opportunity title:</label>
 								<div class="col-md-5">
-									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled" disabled>Non-editable value</textarea>
+									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled has-helper" disabled>Non-editable value</textarea>
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>

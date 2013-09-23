@@ -197,6 +197,11 @@ section.toolbar .dropdown a .caret {
 }
 .uif-viewHeader-contentWrapper .uif-viewHeader .uif-headerText .uif-supportTitle-wrapper .uif-viewHeader-supportTitle {
   display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 800px;
+  overflow: hidden;
+  min-height: 24px;
 }
 .uif-viewHeader-contentWrapper .uif-viewHeader .uif-headerText .uif-viewHeader-areaTitle {
   display: block;
@@ -440,6 +445,9 @@ section.toolbar .dropdown a .caret {
 }
 .doc-functions ul li a.icons-doc-header-access {
   background-position: 0 0;
+}
+.doc-functions ul li a.icons-doc-header-help {
+  background-position: 0 -309px;
 }
 #main {
   background: #ffffff;
@@ -845,6 +853,9 @@ dl:after {
   visibility: hidden;
   clear: both;
 }
+.fancybox-overlay {
+  z-index: 9999;
+}
 .modal-dialog {
   border-radius: 3px;
 }
@@ -890,6 +901,9 @@ dl:after {
 .fancybox-close {
   top: 20px;
   right: 16px;
+}
+.table-smaller-text {
+  font-size: .90em;
 }
 footer {
   color: #f2f2f2;

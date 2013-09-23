@@ -1,52 +1,57 @@
 .uif-viewHeader-contentWrapper {
-  width: 100%;
-  z-index: 3;
-  padding: 0;
-  margin: 0;
+	width: 100%;
+	z-index: 3;
+	padding: 0;
+	margin: 0;
 
-  .uif-viewHeader {
-    margin-top: @grid-gutter-width;
-    position: relative;
-    padding-left: @grid-gutter-width;
-    padding-right: @grid-gutter-width;
+	.uif-viewHeader {
+		margin-top: @grid-gutter-width;
+		position: relative;
+		padding-left: @grid-gutter-width;
+		padding-right: @grid-gutter-width;
 
-    .uif-viewHeader-metadata {
-      padding-right: 20px;
-      position: absolute;
-      right: 0;
-      bottom: 8px;
-    }
+		.uif-viewHeader-metadata {
+			padding-right: 20px;
+			position: absolute;
+			right: 0;
+			bottom: 8px;
+		}
 
-    .uif-headerText {
-      font-size: 20px;
-      margin-top: 0;
-      margin-right: 0;
+		.uif-headerText {
+			font-size: 20px;
+			margin-top: 0;
+			margin-right: 0;
 
-      .uif-headerText-span {
-        float: inherit;
-        width: inherit;
-        clear: both;
-        font-size: 32px;
-        margin: 0;
-        padding: 0;
-        padding-top: 8px;
-      }
+			.uif-headerText-span {
+				float: inherit;
+				width: inherit;
+				clear: both;
+				font-size: 32px;
+				margin: 0;
+				padding: 0;
+				padding-top: 8px;
+			}
 
-      .uif-supportTitle-wrapper {
-        display: block;
+			.uif-supportTitle-wrapper {
+				display: block;
 
-        .uif-viewHeader-supportTitle {
-          display: block;
-        }
-      }
+				.uif-viewHeader-supportTitle {
+					display: block;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					max-width: 800px;
+					overflow: hidden;
+					min-height: 24px;
+				}
+			}
 
-      .uif-viewHeader-areaTitle {
-        display: block;
-        font-size: .6em;
-        color: #666;
-        //line-height: 14px;
-        font-weight: normal;
-      }
-    }
-  }
+			.uif-viewHeader-areaTitle {
+				display: block;
+				font-size: .6em;
+				color: #666;
+				//line-height: 14px;
+				font-weight: normal;
+			}
+		}
+	}
 }

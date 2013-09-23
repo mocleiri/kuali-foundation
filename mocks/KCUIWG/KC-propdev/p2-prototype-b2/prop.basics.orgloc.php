@@ -46,7 +46,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="app_org_org" class="control-label col-md-3">Organization:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_org" id="app_org_org" value="University of Michigan" disabled />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_org" id="app_org_org" value="University of Michigan" disabled />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -59,7 +59,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="app_org_add1" class="control-label col-md-3">Address 1:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_add1" id="app_org_add1" value="2044 Wolverine Tower" disabled />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_add1" id="app_org_add1" value="2044 Wolverine Tower" disabled />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -69,7 +69,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="app_org_add2" class="control-label col-md-3">Address 2:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_add2" id="app_org_add2" value="3003 State Street" disabled />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_add2" id="app_org_add2" value="3003 State Street" disabled />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -79,7 +79,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="app_org_city" class="control-label col-md-3">City:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_city" id="app_org_city" value="Ann Arbor" disabled />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_city" id="app_org_city" value="Ann Arbor" disabled />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -89,7 +89,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="app_org_state" class="control-label col-md-3">Address 2:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_state" id="app_org_state" value="MI" disabled />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_state" id="app_org_state" value="MI" disabled />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -99,7 +99,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="app_org_zip" class="control-label col-md-3">Zipcode:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_zip" id="app_org_zip" value="3003 State Street" disabled />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_zip" id="app_org_zip" value="3003 State Street" disabled />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -109,7 +109,7 @@ include( '_temp.select.filler.php' );
 							<div class="form-group clearfix">
 								<label for="app_org_districts" class="control-label col-md-3">Congressional districts:</label>
 								<div class="col-md-5">
-									<select name="app_org_districts" id="app_org_districts" class="form-control input-sm col-md-8 chzn" multiple>
+									<select name="app_org_districts" id="app_org_districts" class="form-control input-sm col-md-8 chzn has-helper" multiple>
 										<option selected="selected">One</option>
 										<option selected="selected">Two</option>
 										<option selected="selected">Three</option>
@@ -124,7 +124,7 @@ include( '_temp.select.filler.php' );
 				            <div class="form-group clearfix">
 								<label for="app_org_org" class="control-label col-md-3">Organization:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="app_org_org" id="app_org_org" value="University of Michigan" />
+									<input type="text" class="form-control input-sm has-helper" name="app_org_org" id="app_org_org" value="University of Michigan" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -137,7 +137,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="perf_org_add1" class="control-label col-md-3">Address 1:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="perf_org_add1" id="perf_org_add1" value="2044 Wolverine Tower" />
+									<input type="text" class="form-control input-sm has-helper" name="perf_org_add1" id="perf_org_add1" value="2044 Wolverine Tower" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -147,7 +147,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="perf_org_add2" class="control-label col-md-3">Address 2:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="perf_org_add2" id="perf_org_add2" value="3003 State Street" />
+									<input type="text" class="form-control input-sm has-helper" name="perf_org_add2" id="perf_org_add2" value="3003 State Street" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -157,7 +157,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="perf_org_city" class="control-label col-md-3">City:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="perf_org_city" id="perf_org_city" value="Ann Arbor" />
+									<input type="text" class="form-control input-sm has-helper" name="perf_org_city" id="perf_org_city" value="Ann Arbor" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -167,7 +167,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="perf_org_state" class="control-label col-md-3">Address 2:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="perf_org_state" id="perf_org_state" value="MI" />
+									<input type="text" class="form-control input-sm has-helper" name="perf_org_state" id="perf_org_state" value="MI" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
@@ -177,7 +177,7 @@ include( '_temp.select.filler.php' );
 				          	<div class="form-group clearfix">
 								<label for="perf_org_zip" class="control-label col-md-3">Zipcode:</label>
 								<div class="col-md-5 input-group">
-									<input type="text" class="form-control input-sm" name="perf_org_zip" id="perf_org_zip" value="3003 State Street" />
+									<input type="text" class="form-control input-sm has-helper" name="perf_org_zip" id="perf_org_zip" value="3003 State Street" />
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>

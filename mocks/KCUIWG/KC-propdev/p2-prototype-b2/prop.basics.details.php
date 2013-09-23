@@ -11,22 +11,22 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-
-		
+	
 	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
-    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-<div class="container"><div class="row-temp-disabled">
+	<?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
+	
+	<div class="container">
+		<div class="row-temp-disabled">
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
 				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
 			</div>
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
-			
-				<!-- Main content goes here -->
 
-				<div class="section-title">
-					<h2>Proposal Details</h2>
-				</div>
+			<div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+				<div id="content" class="uif-page" tabindex="-1">
+					<div class="section-title">
+						<h2>Proposal Details</h2>
+					</div>
 
 				<div class="section-content">
 					<div class="data">
@@ -57,7 +57,7 @@ include( '_temp.select.filler.php' );
 											<option value="6">Task Order</option>
 										</select>
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											What type of proposal are you preparing?
 										</div>
 									</div>
 								</div>
@@ -73,7 +73,7 @@ include( '_temp.select.filler.php' );
 											<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
 										</select>
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											Select the lead unit for this proposal.
 										</div>
 									</div>
 								</div>
@@ -94,7 +94,7 @@ include( '_temp.select.filler.php' );
 											<option value="5">other</option>
 										</select>
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											The primary activity for this project.
 										</div>
 									</div>
 								</div>
@@ -118,7 +118,7 @@ include( '_temp.select.filler.php' );
 									<div class="col-md-5 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
 										<span class="input-group-btn">
 											<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
@@ -131,7 +131,7 @@ include( '_temp.select.filler.php' );
 									<div class="col-md-5">
 										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											Give this proposal a title. Be detailed but concise.
 										</div>
 									</div>
 								</div>
@@ -141,7 +141,7 @@ include( '_temp.select.filler.php' );
 									<div class="col-md-5 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" value="3EB" />
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											Enter the award ID for this proposal.
 										</div>
 										<span class="input-group-btn">
 											<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
@@ -154,7 +154,7 @@ include( '_temp.select.filler.php' );
 									<div class="col-md-5 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" value="BU001" />
 										<div class="helper-text">
-											Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
+											Enter the original institutional ID for this proposal.
 										</div>
 										<span class="input-group-btn">
 											<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
@@ -177,7 +177,6 @@ include( '_temp.select.filler.php' );
 
 					</div>
 				</div>
-				<!-- // -->
 
 			</div>
 		</div>
