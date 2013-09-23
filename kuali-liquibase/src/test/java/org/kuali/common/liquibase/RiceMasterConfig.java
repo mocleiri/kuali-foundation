@@ -69,7 +69,8 @@ public class RiceMasterConfig {
 	public Executable liquibaseExecutable() {
 		LiquibaseService service = liquibaseServiceConfig.liquibaseService();
 		DataSource dataSource = dataSourceConfig.dataSource();
-		String changeLog = "org/kuali/rice/rice-liquibase/initial-db/change-log.xml";
+		// String changeLog = "org/kuali/rice/rice-liquibase/initial-db/change-log.xml";
+		String changeLog = "classpath:org/kuali/rice/rice-liquibase/initial-db/change-log.xml";
 		List<String> contexts = Arrays.asList("master");
 		LiquibaseContext context = new LiquibaseContext.Builder(dataSource, changeLog).contexts(contexts).build();
 		return new LiquibaseUpdateExecutable.Builder(service, context).build();
