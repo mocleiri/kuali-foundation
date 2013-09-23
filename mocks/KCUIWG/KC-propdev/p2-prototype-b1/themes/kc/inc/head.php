@@ -21,7 +21,9 @@
 <link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<!--<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>-->
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
 
 </head>

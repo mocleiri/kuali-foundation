@@ -25,8 +25,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<h3>Opportunity Search</h3>
 				</div>
                 <div id="oppsearch-tabs">
-                    <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Ajax</a>
-                    <a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>
+                    <a class="various fancybox.ajax btn btn-sm btn-default" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Load New...</a>
+                    <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>-->
                     </div>
 
 				<div class="section-content hidden">
@@ -57,38 +57,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 	</div>
 
 </section>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"></div>-->
 <script>
 $(document).ready(function() {
 	
-	
-
-	$("#btn-oppsearch, #btn-newsearch").live('click', function() {	
-
-		$('.modal-backdrop').remove();
-		$('#myModal').removeData('bs.modal');
-		$('#myModal').modal ({remote : this.href });
-	
-		return false;
-	});
-	
-	
-	
-	$('body').on('hidden.bs.modal', '.modal', function () {
-		$(this).removeData('bs.modal');
-	});
-	
-	$('#myModal').on('show.bs.modal', function () {
-		console.log('show');
-    	$(this).find('.modal-body').css({width:'auto',
-                               height:'auto', 
-                              'max-height':'100%'});
-		});
-		
-		
 		
 	$(".load-tabs").live("click", function(){
-		$('#myModal').modal('toggle')
+			parent.$.fancybox.close();
 			$('#oppsearch-tabs').load('modal/lookup-oppsearch-tabs.html');
 			
 		});
@@ -96,13 +71,13 @@ $(document).ready(function() {
 	
 	$(".various").fancybox({
 		fitToView	: false,
-		width		: 800,
+		//width		: 800,
 		height		: '70%',
 		autoSize	: false,
 		closeClick	: false,
 		openEffect	: 'none',
 		closeEffect	: 'none',
-		type: 'iframe',
+		//type: 'iframe',
 	});
 	
 	
