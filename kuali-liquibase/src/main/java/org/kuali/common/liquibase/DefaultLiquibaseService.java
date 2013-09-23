@@ -18,7 +18,11 @@ public class DefaultLiquibaseService implements LiquibaseService {
 
 	@Override
 	public void update(LiquibaseContext context) {
+
+		// Convert the list of contexts to CSV (if there are any)
 		String csv = StringUtils.trimToNull(CollectionUtils.asCSV(context.getContexts()));
+
+		// Execute liquibase
 		Connection connection = null;
 		Liquibase liquibase = null;
 		try {
