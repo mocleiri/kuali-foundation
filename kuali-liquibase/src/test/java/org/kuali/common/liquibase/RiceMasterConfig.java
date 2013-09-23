@@ -15,32 +15,27 @@
  */
 package org.kuali.common.liquibase;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
-import org.kuali.common.jdbc.sql.spring.JdbcContextsConfig;
-import org.kuali.common.jdbc.sql.spring.JdbcContextsExecutableConfig;
+import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, JdbcContextsExecutableConfig.class })
-public class RiceMasterConfig implements JdbcContextsConfig {
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class })
+public class RiceMasterConfig {
 
 	@Autowired
 	DbaContextConfig config;
 
-	@Override
-	@Bean
-	public List<JdbcContext> jdbcContexts() {
+	@Bean(initMethod = "execute")
+	public Executable executable() {
 		JdbcContext before = config.dbaBeforeContext();
 		JdbcContext after = config.dbaAfterContext();
-		return Collections.unmodifiableList(Arrays.asList(before, after));
+		
+		return null;
 	}
 }
