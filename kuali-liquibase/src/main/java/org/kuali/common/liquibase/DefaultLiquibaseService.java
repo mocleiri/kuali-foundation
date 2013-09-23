@@ -9,6 +9,7 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
+import liquibase.resource.ResourceAccessor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.jdbc.service.JdbcUtils;
@@ -53,6 +54,7 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		JdbcConnection jdbcConnection = new JdbcConnection(conn);
 		Database database = factory.findCorrectDatabaseImplementation(jdbcConnection);
 		String changeLog = context.getChangeLog();
-		return new Liquibase(changeLog, createResourceOpener(), database);
+		ResourceAccessor resourceAccessor = new DefaultResourceAccessor();
+		return new Liquibase(changeLog, resourceAccessor, database);
 	}
 }
