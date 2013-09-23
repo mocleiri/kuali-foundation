@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
   <changeSet id="initial-db" author="rice-liquibase" dbms="oracle" context="master">
     <sqlFile path="org/kuali/rice/rice-sql/initial-db/sql/oracle/rice-impex-master.sql" endDelimiter="\n/" />
+    <ext:sqlResources location="foo" />
     <sqlFile path="org/kuali/rice/rice-sql/initial-db/sql/oracle/rice-impex-master-constraints.sql" endDelimiter="\n/" />
   </changeSet>
 
