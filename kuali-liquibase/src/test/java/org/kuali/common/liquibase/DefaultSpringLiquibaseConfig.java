@@ -22,6 +22,9 @@ public class DefaultSpringLiquibaseConfig implements LiquibaseConfig {
 	public SpringLiquibase springLiquibase() {
 		SpringLiquibase lb = new SpringLiquibase();
 		lb.setDataSource(dataSource);
+		lb.setChangeLog("org/kuali/rice/rice-liquibase/initial-db/change-log.xml");
+		lb.setContexts("master");
+		lb.setDropFirst(true);
 		return lb;
 	}
 
