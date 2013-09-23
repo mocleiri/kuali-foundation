@@ -21,6 +21,7 @@ public class DefaultSpringLiquibaseConfig implements LiquibaseConfig {
 	@Bean
 	public SpringLiquibase springLiquibase() {
 		SpringLiquibase lb = new SpringLiquibase();
+		lb.setDataSource(dataSource);
 		return lb;
 	}
 
