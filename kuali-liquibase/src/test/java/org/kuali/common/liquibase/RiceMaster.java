@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class RiceMaster extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(RiceMaster.class, args);
+		MainUtils.runAndExit(RiceMaster.class, args, true);
 	}
 
 	@Override
