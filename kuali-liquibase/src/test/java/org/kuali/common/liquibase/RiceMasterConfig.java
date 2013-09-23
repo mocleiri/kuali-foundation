@@ -16,6 +16,7 @@
 package org.kuali.common.liquibase;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
+import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.util.execute.Executable;
@@ -29,13 +30,23 @@ import org.springframework.context.annotation.Import;
 public class RiceMasterConfig {
 
 	@Autowired
-	DbaContextConfig config;
+	DbaContextConfig dbaContextConfig;
+
+	@Autowired
+	JdbcServiceConfig jdbcServiceConfig;
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
-		JdbcContext before = config.dbaBeforeContext();
-		JdbcContext after = config.dbaAfterContext();
-		
+		JdbcContext before = dbaContextConfig.dbaBeforeContext();
+		JdbcContext after = dbaContextConfig.dbaAfterContext();
+		JdbcExecutable je1 = new JdbcExecutable(jdbcServiceConfig.jdbcService(), before);
+		JdbcExecutable je2 = new JdbcExecutable(jdbcServiceConfig.jdbcService(), after);
+
+		return null;
+	}
+
+	@Bean
+	public Executable liquibaseExecutable() {
 		return null;
 	}
 }
