@@ -29,14 +29,50 @@ public class SqlFileContext {
 		private Optional<String> sql = Optional.absent();
 		private Optional<Boolean> stripComments = Optional.absent();
 
+		public SqlFileContext build() {
+			Assert.noBlanks(path);
+			Assert.exists(path);
+			Assert.noNulls(dbms, encoding, endDelimiter, relativeToChangelogFile, splitStatements, sql, stripComments);
+			return new SqlFileContext(this);
+		}
+
 		public Builder(String path) {
 			this.path = path;
 		}
 
-		public SqlFileContext build() {
-			Assert.noBlanks(path);
-			Assert.exists(path);
-			return new SqlFileContext(this);
+		public Builder dbms(String dbms) {
+			this.dbms = Optional.fromNullable(dbms);
+			return this;
+		}
+
+		public Builder encoding(String encoding) {
+			this.encoding = Optional.fromNullable(encoding);
+			return this;
+		}
+
+		public Builder endDelimiter(String endDelimiter) {
+			this.endDelimiter = Optional.fromNullable(endDelimiter);
+			return this;
+		}
+
+		public Builder relativeToChangelogFile(Boolean relativeToChangelogFile) {
+			this.relativeToChangelogFile = Optional.fromNullable(relativeToChangelogFile);
+			return this;
+		}
+
+		public Builder splitStatements(Boolean splitStatements) {
+			this.splitStatements = Optional.fromNullable(splitStatements);
+			return this;
+		}
+
+		public Builder sql(String sql) {
+			this.sql = Optional.fromNullable(sql);
+			return this;
+		}
+
+		public Builder stripComments(Boolean stripComments) {
+			this.stripComments = Optional.fromNullable(stripComments);
+			return this;
 		}
 
 	}
