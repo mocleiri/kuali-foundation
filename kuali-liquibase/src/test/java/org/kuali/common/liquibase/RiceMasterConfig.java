@@ -62,7 +62,7 @@ public class RiceMasterConfig {
 		JdbcExecutable beforeExec = new JdbcExecutable(service, before);
 		JdbcExecutable afterExec = new JdbcExecutable(service, after);
 		Executable liquibaseExec = liquibaseExecutable();
-		return new ExecutablesExecutable(beforeExec, liquibaseExec, afterExec);
+		return new ExecutablesExecutable(jdbcShowConfig.showDbaConfigExecutable(), beforeExec, liquibaseExec, afterExec);
 	}
 
 	@Bean
