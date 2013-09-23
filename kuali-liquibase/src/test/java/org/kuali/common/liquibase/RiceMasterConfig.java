@@ -25,6 +25,7 @@ import org.kuali.common.jdbc.service.JdbcExecutable;
 import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
+import org.kuali.common.jdbc.show.spring.JdbcShowConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.liquibase.spring.LiquibaseServiceConfig;
 import org.kuali.common.util.execute.Executable;
@@ -35,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class, DataSourceConfig.class, LiquibaseServiceConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, DataSourceConfig.class, LiquibaseServiceConfig.class, JdbcShowConfig.class })
 public class RiceMasterConfig {
 
 	@Autowired
@@ -49,6 +50,9 @@ public class RiceMasterConfig {
 
 	@Autowired
 	DataSourceConfig dataSourceConfig;
+
+	@Autowired
+	JdbcShowConfig jdbcShowConfig;
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
