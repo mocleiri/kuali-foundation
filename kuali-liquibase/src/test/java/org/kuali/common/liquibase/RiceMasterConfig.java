@@ -15,10 +15,17 @@
  */
 package org.kuali.common.liquibase;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.service.JdbcExecutable;
+import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
+import org.kuali.common.liquibase.spring.LiquibaseServiceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ JdbcServiceConfig.class, DbaContextConfig.class })
+@Import({ JdbcServiceConfig.class, DbaContextConfig.class, DataSourceConfig.class, LiquibaseServiceConfig.class })
 public class RiceMasterConfig {
 
 	@Autowired
@@ -34,6 +41,12 @@ public class RiceMasterConfig {
 
 	@Autowired
 	JdbcServiceConfig jdbcServiceConfig;
+
+	@Autowired
+	LiquibaseServiceConfig liquibaseServiceConfig;
+
+	@Autowired
+	DataSourceConfig dataSourceConfig;
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
@@ -47,6 +60,11 @@ public class RiceMasterConfig {
 
 	@Bean
 	public Executable liquibaseExecutable() {
-		return null;
+		LiquibaseService service = liquibaseServiceConfig.liquibaseService();
+		DataSource dataSource = dataSourceConfig.dataSource();
+		String changeLog = "";
+		List<String> contexts = Arrays.asList("master");
+		LiquibaseContext context = new LiquibaseContext.Builder(dataSource, changeLog).contexts(contexts).build();
+		return new LiquibaseUpdateExecutable.Builder(service, context).build();
 	}
 }
