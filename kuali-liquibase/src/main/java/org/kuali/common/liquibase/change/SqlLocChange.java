@@ -1,5 +1,7 @@
 package org.kuali.common.liquibase.change;
 
+import java.util.List;
+
 import liquibase.change.AbstractSQLChange;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
@@ -48,9 +50,23 @@ public class SqlLocChange extends AbstractSQLChange {
 	public void finishInitialization() throws SetupException {
 		Assert.noBlanks(location, encoding);
 		Assert.exists(location);
-		String content = LocationUtils.toString(location, encoding);
+		String content = getContent(location, encoding);
 		String expandedSql = getExpandedSql(content);
 		super.setSql(expandedSql);
+	}
+
+	protected String getContent(String location, String encoding) {
+		if (location.endsWith(RESOURCES_SUFFIX)) {
+			List<String> locations = LocationUtils.getLocations(location, encoding);
+			StringBuilder sb = new StringBuilder();
+			for (String loc : locations) {
+				String content = LocationUtils.toString(loc);
+				sb.append(content);
+			}
+			return sb.toString();
+		} else {
+			return LocationUtils.toString(location, encoding);
+		}
 	}
 
 	protected String getExpandedSql(String sql) {
