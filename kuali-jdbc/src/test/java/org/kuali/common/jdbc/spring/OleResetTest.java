@@ -31,7 +31,7 @@ public class OleResetTest {
 			// Class<?> annotatedClass = SqlControllerExecutableConfig.class;
 
 			// Prepare a Spring context
-			// SpringExecutable exec = null;// SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
+			// SpringExecutable exec = null; // SpringExecUtils.getSpringExecutable(supplier, annotatedClass);
 			// exec.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
