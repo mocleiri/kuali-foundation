@@ -17,6 +17,8 @@ import liquibase.resource.ResourceAccessor;
 import liquibase.util.StreamUtil;
 import liquibase.util.StringUtils;
 
+import org.kuali.common.util.LocationUtils;
+
 /**
  * Represents a Change for custom SQL stored in a File.
  * <p/>
@@ -106,6 +108,9 @@ public class SqlResourcesChange extends AbstractSQLChange {
 		ValidationErrors validationErrors = new ValidationErrors();
 		if (StringUtils.trimToNull(getPath()) == null) {
 			validationErrors.addError("'path' is required");
+		}
+		if (!LocationUtils.exists(path)) {
+			validationErrors.addError("[" + path + "] does not exist");
 		}
 		return validationErrors;
 	}
