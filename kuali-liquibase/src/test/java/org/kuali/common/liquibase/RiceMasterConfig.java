@@ -27,6 +27,7 @@ import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
 import org.kuali.common.liquibase.spring.LiquibaseServiceConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,15 +55,15 @@ public class RiceMasterConfig {
 		JdbcContext after = dbaContextConfig.dbaAfterContext();
 		JdbcExecutable je1 = new JdbcExecutable(jdbcServiceConfig.jdbcService(), before);
 		JdbcExecutable je2 = new JdbcExecutable(jdbcServiceConfig.jdbcService(), after);
-
-		return null;
+		Executable liquibase = liquibaseExecutable();
+		return new ExecutablesExecutable(je1, liquibase, je2);
 	}
 
 	@Bean
 	public Executable liquibaseExecutable() {
 		LiquibaseService service = liquibaseServiceConfig.liquibaseService();
 		DataSource dataSource = dataSourceConfig.dataSource();
-		String changeLog = "";
+		String changeLog = "org/kuali/rice/rice-liquibase/initial-db/change-log.xml";
 		List<String> contexts = Arrays.asList("master");
 		LiquibaseContext context = new LiquibaseContext.Builder(dataSource, changeLog).contexts(contexts).build();
 		return new LiquibaseUpdateExecutable.Builder(service, context).build();
