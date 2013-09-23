@@ -21,7 +21,7 @@ import org.kuali.common.util.LocationUtils;
  * 
  */
 @DatabaseChange(name = "sqlLoc", description = "Execute SQL from a location", priority = ChangeMetaData.PRIORITY_DEFAULT)
-public class SqlLocChange extends AbstractSQLChange {
+public class SqlResourcesChange extends AbstractSQLChange {
 
 	public static final String RESOURCES_SUFFIX = ".resources";
 
