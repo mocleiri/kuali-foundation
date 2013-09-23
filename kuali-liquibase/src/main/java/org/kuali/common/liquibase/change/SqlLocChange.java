@@ -29,13 +29,13 @@ public class SqlLocChange extends AbstractSQLChange {
 		return location;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	@DatabaseChangeProperty(exampleValue = "UTF-8")
 	public String getEncoding() {
 		return encoding;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public void setEncoding(String encoding) {
