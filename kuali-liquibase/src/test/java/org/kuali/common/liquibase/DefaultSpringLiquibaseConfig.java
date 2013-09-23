@@ -1,7 +1,5 @@
 package org.kuali.common.liquibase;
 
-import javax.sql.DataSource;
-
 import liquibase.integration.spring.SpringLiquibase;
 
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
@@ -15,13 +13,13 @@ import org.springframework.context.annotation.Import;
 public class DefaultSpringLiquibaseConfig implements LiquibaseConfig {
 
 	@Autowired
-	DataSource dataSource;
+	DataSourceConfig dataSourceConfig;
 
 	@Override
 	@Bean
 	public SpringLiquibase springLiquibase() {
 		SpringLiquibase lb = new SpringLiquibase();
-		lb.setDataSource(dataSource);
+		lb.setDataSource(dataSourceConfig.dataSource());
 		lb.setChangeLog("org/kuali/rice/rice-liquibase/initial-db/change-log.xml");
 		lb.setContexts("master");
 		lb.setDropFirst(true);
