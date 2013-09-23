@@ -28,7 +28,7 @@ public class SqlResourcesChange extends AbstractSQLChange {
 	private String location;
 	private String encoding;
 
-	@DatabaseChangeProperty(description = "The location of the SQL file to load", requiredForDatabase = "all", exampleValue = "classpath:sql.resources")
+	@DatabaseChangeProperty(description = "A location containing SQL, or a list of SQL resources", requiredForDatabase = "all", exampleValue = "classpath:sql.resources")
 	public String getLocation() {
 		return location;
 	}
