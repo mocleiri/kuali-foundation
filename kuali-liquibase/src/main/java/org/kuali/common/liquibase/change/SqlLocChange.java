@@ -47,13 +47,11 @@ public class SqlLocChange extends AbstractSQLChange {
 		Assert.noBlanks(location, encoding);
 		Assert.exists(location);
 		String sql = LocationUtils.toString(location, encoding);
-		if (getChangeSet() != null && getChangeSet().getChangeLogParameters() != null) {
-			sql = getChangeSet().getChangeLogParameters().expandExpressions(sql);
-		}
-		super.setSql(sql);
+		String expandedSql = getExpandedSql(sql);
+		super.setSql(expandedSql);
 	}
 
-	protected String expandedSql(String sql) {
+	protected String getExpandedSql(String sql) {
 		ChangeSet changeSet = getChangeSet();
 		if (changeSet == null) {
 			return sql;
@@ -62,7 +60,7 @@ public class SqlLocChange extends AbstractSQLChange {
 		if (params == null) {
 			return sql;
 		}
-		return null;
+		return params.expandExpressions(sql);
 	}
 
 	@Override
