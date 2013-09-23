@@ -4,6 +4,8 @@ import liquibase.change.AbstractSQLChange;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.change.DatabaseChangeProperty;
+import liquibase.changelog.ChangeLogParameters;
+import liquibase.changelog.ChangeSet;
 import liquibase.database.Database;
 import liquibase.exception.SetupException;
 import liquibase.exception.ValidationErrors;
@@ -45,6 +47,22 @@ public class SqlLocationChange extends AbstractSQLChange {
 		Assert.noBlanks(location, encoding);
 		Assert.exists(location);
 		String sql = LocationUtils.toString(location, encoding);
+		if (getChangeSet() != null && getChangeSet().getChangeLogParameters() != null) {
+			sql = getChangeSet().getChangeLogParameters().expandExpressions(sql);
+		}
+		super.setSql(sql);
+	}
+
+	protected String expandedSql(String sql) {
+		ChangeSet changeSet = getChangeSet();
+		if (changeSet == null) {
+			return sql;
+		}
+		ChangeLogParameters params = changeSet.getChangeLogParameters();
+		if (params == null) {
+			return sql;
+		}
+		return null;
 	}
 
 	@Override
@@ -72,11 +90,4 @@ public class SqlLocationChange extends AbstractSQLChange {
 		return "SQL in [" + location + "] executed";
 	}
 
-	@Override
-	public void setSql(String sql) {
-		if (getChangeSet() != null && getChangeSet().getChangeLogParameters() != null) {
-			sql = getChangeSet().getChangeLogParameters().expandExpressions(sql);
-		}
-		super.setSql(sql);
-	}
 }
