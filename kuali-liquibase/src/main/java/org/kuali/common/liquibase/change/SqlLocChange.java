@@ -19,7 +19,7 @@ import org.kuali.common.util.LocationUtils;
  * 
  */
 @DatabaseChange(name = "sqlLoc", description = "Execute SQL from a location", priority = ChangeMetaData.PRIORITY_DEFAULT)
-public class SqlLocationChange extends AbstractSQLChange {
+public class SqlLocChange extends AbstractSQLChange {
 
 	private String location;
 	private String encoding;
