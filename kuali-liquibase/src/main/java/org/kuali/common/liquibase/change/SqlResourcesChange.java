@@ -20,7 +20,7 @@ import org.kuali.common.util.LocationUtils;
 /**
  * 
  */
-@DatabaseChange(name = "sqlLoc", description = "Execute SQL from a location", priority = ChangeMetaData.PRIORITY_DEFAULT)
+@DatabaseChange(name = "sqlResources", description = "Execute SQL from a location", priority = ChangeMetaData.PRIORITY_DEFAULT)
 public class SqlResourcesChange extends AbstractSQLChange {
 
 	public static final String RESOURCES_SUFFIX = ".resources";
@@ -28,7 +28,7 @@ public class SqlResourcesChange extends AbstractSQLChange {
 	private String location;
 	private String encoding;
 
-	@DatabaseChangeProperty(description = "The location of the SQL file to load", requiredForDatabase = "all", exampleValue = "classpath:foo.sql")
+	@DatabaseChangeProperty(description = "The location of the SQL file to load", requiredForDatabase = "all", exampleValue = "classpath:sql.resources")
 	public String getLocation() {
 		return location;
 	}
