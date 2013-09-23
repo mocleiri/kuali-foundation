@@ -1,4 +1,4 @@
-package org.kuali.common.liquibase.change;
+package liquibase.ext.sql;
 
 import java.util.List;
 
