@@ -23,7 +23,7 @@ public class SqlFileContext {
 		// Optional
 		private Optional<String> dbms = Optional.absent();
 		private Optional<String> encoding = Optional.absent();
-		private Optional<String> endDelimiter = Optional.of(";");
+		private Optional<String> endDelimiter = Optional.absent();
 		private Optional<Boolean> relativeToChangelogFile = Optional.absent();
 		private Optional<Boolean> splitStatements = Optional.absent();
 		private Optional<String> sql = Optional.absent();
