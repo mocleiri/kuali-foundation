@@ -21,6 +21,8 @@ import org.kuali.common.util.LocationUtils;
 @DatabaseChange(name = "sqlLoc", description = "Execute SQL from a location", priority = ChangeMetaData.PRIORITY_DEFAULT)
 public class SqlLocChange extends AbstractSQLChange {
 
+	public static final String RESOURCES = ".resources";
+
 	private String location;
 	private String encoding;
 
@@ -46,8 +48,8 @@ public class SqlLocChange extends AbstractSQLChange {
 	public void finishInitialization() throws SetupException {
 		Assert.noBlanks(location, encoding);
 		Assert.exists(location);
-		String sql = LocationUtils.toString(location, encoding);
-		String expandedSql = getExpandedSql(sql);
+		String content = LocationUtils.toString(location, encoding);
+		String expandedSql = getExpandedSql(content);
 		super.setSql(expandedSql);
 	}
 
