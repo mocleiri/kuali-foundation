@@ -141,7 +141,10 @@ $(document).ready(function() {
 	*/
 	if ($('.uif-dateControl').length) {
 		$('.uif-dateControl').each(function() {
-			$(this).datepicker();
+			$(this).datepicker({
+				autoclose: true,
+			    todayHighlight: true
+			});
 		});
 	}
 
