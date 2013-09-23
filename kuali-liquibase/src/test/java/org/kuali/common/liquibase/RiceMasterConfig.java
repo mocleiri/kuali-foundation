@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 
 import org.kuali.common.jdbc.model.context.JdbcContext;
 import org.kuali.common.jdbc.service.JdbcExecutable;
+import org.kuali.common.jdbc.service.JdbcService;
 import org.kuali.common.jdbc.service.spring.DataSourceConfig;
 import org.kuali.common.jdbc.service.spring.JdbcServiceConfig;
 import org.kuali.common.jdbc.sql.spring.DbaContextConfig;
@@ -51,12 +52,13 @@ public class RiceMasterConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable executable() {
+		JdbcService service = jdbcServiceConfig.jdbcService();
 		JdbcContext before = dbaContextConfig.dbaBeforeContext();
 		JdbcContext after = dbaContextConfig.dbaAfterContext();
-		JdbcExecutable je1 = new JdbcExecutable(jdbcServiceConfig.jdbcService(), before);
-		JdbcExecutable je2 = new JdbcExecutable(jdbcServiceConfig.jdbcService(), after);
-		Executable liquibase = liquibaseExecutable();
-		return new ExecutablesExecutable(je1, liquibase, je2);
+		JdbcExecutable beforeExec = new JdbcExecutable(service, before);
+		JdbcExecutable afterExec = new JdbcExecutable(service, after);
+		Executable liquibaseExec = liquibaseExecutable();
+		return new ExecutablesExecutable(beforeExec, liquibaseExec, afterExec);
 	}
 
 	@Bean
