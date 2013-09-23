@@ -2,17 +2,17 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
   <changeSet id="initial-db" author="rice-liquibase" dbms="oracle" context="master">
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/schema.resources" endDelimiter="\n/" encoding="UTF-8" />
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/data.resources" endDelimiter="\n/" encoding="UTF-8" />
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/constraints.resources" endDelimiter="\n/" encoding="UTF-8" />
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/other.resources" endDelimiter="\n/" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/schema.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/data.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/constraints.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/oracle/other.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
   </changeSet>
 
   <changeSet id="initial-db" author="rice-liquibase" dbms="mysql" context="master">
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/schema.resources" endDelimiter="\n/" encoding="UTF-8" />
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/data.resources" endDelimiter="\n/" encoding="UTF-8" />
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/constraints.resources" endDelimiter="\n/" encoding="UTF-8" />
-    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/other.resources" endDelimiter="\n/" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/schema.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/data.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/constraints.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
+    <ext:sqlResources location="classpath:META-INF/org/kuali/rice/rice-sql/mysql/other.resources" endDelimiter="\n/\s*\n|\n/\s*$" encoding="UTF-8" />
   </changeSet>
 
 </databaseChangeLog>
