@@ -23,7 +23,7 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		Liquibase liquibase = null;
 		try {
 			connection = context.getDataSource().getConnection();
-			liquibase = createLiquibase(context, connection);
+			liquibase = getLiquibase(context, connection);
 			liquibase.update(csv);
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
@@ -34,7 +34,7 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		}
 	}
 
-	protected Liquibase createLiquibase(LiquibaseContext context, Connection conn) throws LiquibaseException {
+	protected Liquibase getLiquibase(LiquibaseContext context, Connection conn) throws LiquibaseException {
 		DatabaseFactory factory = DatabaseFactory.getInstance();
 		JdbcConnection jdbcConnection = new JdbcConnection(conn);
 		Database database = factory.findCorrectDatabaseImplementation(jdbcConnection);
