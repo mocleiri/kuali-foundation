@@ -341,10 +341,10 @@ $(document).ready(function() {
 		});	
 	
 	$(".various").fancybox({
-		fitToView	: false,
+		fitToView	: true,
 		//width		: 800,
 		height		: '70%',
-		autoSize	: false,
+		autoSize	: true,
 		closeClick	: false,
 		openEffect	: 'none',
 		closeEffect	: 'none',
