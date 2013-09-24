@@ -2,7 +2,7 @@ package org.kuali.common.util.file;
 
 import org.junit.Test;
 
-public class List {
+public class ListTest {
 
 	@Test
 	public void test() {
