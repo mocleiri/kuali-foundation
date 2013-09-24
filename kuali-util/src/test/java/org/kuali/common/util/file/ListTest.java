@@ -6,7 +6,7 @@ public class ListTest {
 
 	@Test
 	public void test() {
-
+		System.out.println("yo");
 	}
 
 }
