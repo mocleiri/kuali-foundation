@@ -3,6 +3,8 @@ package org.kuali.common.liquibase;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
@@ -25,8 +27,9 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		// Execute liquibase
 		Connection connection = null;
 		Liquibase liquibase = null;
+		DataSource dataSource = context.getDataSource();
 		try {
-			connection = context.getDataSource().getConnection();
+			connection = dataSource.getConnection();
 			liquibase = getLiquibase(context, connection);
 			liquibase.update(csv);
 		} catch (SQLException e) {
@@ -34,7 +37,7 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		} catch (LiquibaseException e) {
 			throw new IllegalStateException(e);
 		} finally {
-			JdbcUtils.closeQuietly(context.getDataSource(), connection);
+			JdbcUtils.closeQuietly(dataSource, connection);
 		}
 	}
 
