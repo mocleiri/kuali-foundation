@@ -423,7 +423,7 @@ public class PropertyUtils {
 	 * Decrypt any encrypted property values. Encrypted values are surrounded by ENC(...), like:
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static void decrypt(Properties properties, TextEncryptor encryptor) {
@@ -434,7 +434,7 @@ public class PropertyUtils {
 	 * Return a new <code>Properties</code> object (never null) containing only those properties whose values are encrypted. Encrypted values are surrounded by ENC(...), like:
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static Properties getEncryptedProperties(Properties properties) {
@@ -451,7 +451,7 @@ public class PropertyUtils {
 	 * Return a list containing only those keys whose values are encrypted. Encrypted values are surrounded by ENC(...), like:
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static List<String> getEncryptedKeys(Properties properties) {
@@ -470,7 +470,7 @@ public class PropertyUtils {
 	 * Decrypt any encrypted property values matching the <code>includes</code>, <code>excludes</code> patterns. Encrypted values are surrounded by ENC(...).
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static void decrypt(Properties properties, TextEncryptor encryptor, List<String> includes, List<String> excludes) {
@@ -495,7 +495,7 @@ public class PropertyUtils {
 	 * Encrypt all of the property values. Encrypted values are surrounded by ENC(...).
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static void encrypt(Properties properties, TextEncryptor encryptor) {
@@ -506,7 +506,7 @@ public class PropertyUtils {
 	 * Encrypt properties as dictated by <code>includes</code> and <code>excludes</code>. Encrypted values are surrounded by ENC(...).
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static void encrypt(Properties properties, TextEncryptor encryptor, List<String> includes, List<String> excludes) {
@@ -522,7 +522,7 @@ public class PropertyUtils {
 	 * Return the decrypted version of the property value. Encrypted values are surrounded by ENC(...).
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static String decryptPropertyValue(TextEncryptor encryptor, String value) {
@@ -533,28 +533,28 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Return the encrypted text enclosed with ENC()
+	 * Remove the leading <code>ENC(</code> prefix and the trailing <code>)</code> from the encrypted value passed in.
 	 * 
 	 * <pre>
-	 * ENC(DGA"$S24FaIO) -> DGA"$S24FaIO
+	 * ENC(DGA$S24FaIO) -> DGA$S24FaIO
 	 * </pre>
 	 */
-	public static String unwrapEncryptedValue(String value) {
+	public static String unwrapEncryptedValue(String encryptedValue) {
 		// Ensure this property value really is encrypted
-		Assert.isTrue(StringUtils.startsWith(value, Constants.ENCRYPTION_PREFIX), "value does not start with " + Constants.ENCRYPTION_PREFIX);
-		Assert.isTrue(StringUtils.endsWith(value, Constants.ENCRYPTION_SUFFIX), "value does not end with " + Constants.ENCRYPTION_SUFFIX);
+		Assert.isTrue(StringUtils.startsWith(encryptedValue, Constants.ENCRYPTION_PREFIX), "value does not start with " + Constants.ENCRYPTION_PREFIX);
+		Assert.isTrue(StringUtils.endsWith(encryptedValue, Constants.ENCRYPTION_SUFFIX), "value does not end with " + Constants.ENCRYPTION_SUFFIX);
 
 		// Extract the value inside the ENC(...) wrapping
 		int start = Constants.ENCRYPTION_PREFIX.length();
-		int end = StringUtils.length(value) - Constants.ENCRYPTION_SUFFIX.length();
-		return StringUtils.substring(value, start, end);
+		int end = StringUtils.length(encryptedValue) - Constants.ENCRYPTION_SUFFIX.length();
+		return StringUtils.substring(encryptedValue, start, end);
 	}
 
 	/**
 	 * Return the encrypted version of the property value. A value is considered "encrypted" when it appears surrounded by ENC(...).
 	 * 
 	 * <pre>
-	 * my.value = ENC(DGA"$S24FaIO)
+	 * my.value = ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static String encryptPropertyValue(TextEncryptor encryptor, String value) {
@@ -566,7 +566,7 @@ public class PropertyUtils {
 	 * Return the value enclosed with ENC()
 	 * 
 	 * <pre>
-	 * DGA"$S24FaIO -> ENC(DGA"$S24FaIO)
+	 * DGA$S24FaIO -> ENC(DGA$S24FaIO)
 	 * </pre>
 	 */
 	public static String wrapEncryptedPropertyValue(String encryptedValue) {
