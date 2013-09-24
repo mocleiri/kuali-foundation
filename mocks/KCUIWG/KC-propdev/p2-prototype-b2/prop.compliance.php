@@ -10,7 +10,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 <section id="main">
 
-		
 	<?php require_once( 'themes/kc/inc/uif-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
 
@@ -34,24 +33,24 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				        </div>
 
 				        <div class="well">
-				        	<button class="btn btn-default launch-modal" data-modal-page="modal/lookup.html" data-modal-height="500">Add new requirement</button>
+				        	<button class="btn btn-default" id="show_compliance_2">Add new requirement</button>
 				        </div>
 
 				        <h4>Existing requirements</h4>
 
-						<div class="entry-row clearfix" id="compliance_1">
-							<div class="panel panel-default">
+						<div class="entry-row clearfix">
+							<div class="panel panel-default" id="compliance_1">
 								<div class="panel-heading">
 									<div class="row">
 										<div class="col-md-6">
-											<h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <span aria-hidden="true" class="icon-caret-down"></span> International Programs...</a></h4>
+											<h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"> <span aria-hidden="true" class="icon-caret-down"></span> International Programs...</a></h4>
 										</div>
 										<div class="col-md-6">
-											<a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a>
+											<a class="pull-right"href="#" id="remove_compliance_1"><span aria-hidden="true" class="icon-remove"></span></a>
 										</div>
 									</div>
 								</div>
-								<div id="collapse3" class="panel-collapse collapse">
+								<div id="collapse1" class="panel-collapse collapse">
 									<div class="panel-body">
 										<div class="form-group clearfix">
 											<label for="req_01_type" class="control-label col-md-3">Type:</label>
@@ -122,7 +121,79 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									</div>
 								</div>
 							</div>
+
+							<div class="panel panel-default" id="compliance_2">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-md-6">
+											<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> New requirement</a></h4>
+										</div>
+										<div class="col-md-6">
+											<a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a>
+										</div>
+									</div>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse in">
+									<div class="panel-body">
+										<div class="form-group clearfix">
+											<label for="req_01_type" class="control-label col-md-3">Type:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm has-helper" name="req_02_type" id="req_02_type" placeholder="New requirement" />
+												<div class="helper-text">
+													Name this requirement. Choose something descriptive, yet brief.
+												</div>
+											</div>
+										</div>
+										<div class="form-group clearfix">
+											<label for="req_02_status" class="control-label col-md-3">Status:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm has-helper" name="req_02_status" id="req_02_status" />
+												<div class="helper-text">
+													What is the status of this requirement?
+												</div>
+											</div>
+										</div>
+										<div class="form-group clearfix">
+											<label for="req_02_protocol" class="control-label col-md-3">Protocol #:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm has-helper" name="req_02_protocol" id="req_02_protocol" />
+												<div class="helper-text">
+													If a protocol number for this requirement has been given, enter it here.
+												</div>
+											</div>
+										</div>
+										<div class="form-group clearfix">
+											<label for="req_02_exemption" class="control-label col-md-3">Exemption #:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm has-helper" name="req_02_exemption" id="req_02_exemption" />
+												<div class="helper-text">
+													Enter any exemption numbers.
+												</div>
+											</div>
+										</div>
+										<div class="form-group clearfix">
+											<label for="req_02_app_date" class="control-label col-md-3">Application date:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm uif-dateControl" name="req_02_app_date" id="req_02_app_date" />
+											</div>
+										</div>
+										<div class="form-group clearfix">
+											<label for="req_02_approval_date" class="control-label col-md-3">Approval date:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm uif-dateControl" name="req_02_approval_date" id="req_02_approval_date" />
+											</div>
+										</div>
+										<div class="form-group clearfix">
+											<label for="req_02_exp_date" class="control-label col-md-3">Expiration date:</label>
+											<div class="col-md-5">
+												<input type="text" class="form-control input-sm uif-dateControl" name="req_02_exp_date" id="req_02_exp_date" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -145,34 +216,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 <script type="text/javascript">
 $('#compliance_2').hide();
-$('#compliance_edit').hide();
 
-$('#compliance_add').click(function(e) {
+$('#show_compliance_2').click(function(e) {
 	e.preventDefault();
-	$('#compliance_2').show();
+	$('#compliance_2').fadeIn();
 });
 
-$('#link_edit').click(function(e) {
-	e.preventDefault();
-	$('#compliance_1').hide();
-	$('#compliance_edit').show();
-});
-
-$('#link_delete').click(function(e) {
+$('#remove_compliance_1').click(function(e) {
 	e.preventDefault();
 	$('#compliance_1').fadeOut();
-});
-
-$('#link_save').click(function(e) {
-	e.preventDefault();
-	$('#compliance_edit').hide();
-	$('#compliance_1').show();
-});
-
-$('#link_cancel').click(function(e) {
-	e.preventDefault();
-	$('#compliance_edit').hide();
-	$('#compliance_1').show();
 });
 </script>
 
