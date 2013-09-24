@@ -187,7 +187,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							<div class="form-group clearfix">
 								<label for="opportunity_title" class="control-label col-md-3">Opportunity title:</label>
 								<div class="col-md-5">
-									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled has-helper" disabled>Non-editable value</textarea>
+									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled has-helper" disabled>Test proposal yay</textarea>
 									<div class="helper-text">
 										Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 									</div>
