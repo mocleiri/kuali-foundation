@@ -21,13 +21,16 @@ public class ListTest {
 	@Test
 	public void test() {
 		try {
-			List<File> repos = getRepos();
+			List<String> repos = ImmutableList.of("atlassian", "ow2");
+			List<File> repoDirs = getRepos();
 			System.out.println("repos=" + repos.size());
-			for (File repo : repos) {
+			for (File repo : repoDirs) {
 				System.out.println(repo.getName());
 			}
-			File ow2 = new File("/usr/local/sonatype-work/nexus/storage/ow2");
-			printRepo(ow2);
+			for (String repo : repos) {
+				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
+				printRepo(dir);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
