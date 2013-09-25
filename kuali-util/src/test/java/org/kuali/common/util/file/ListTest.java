@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.kuali.common.util.SimpleScanner;
 
@@ -39,7 +40,7 @@ public class ListTest {
 		try {
 			out = FileUtils.openOutputStream(outputFile);
 			for (File file : files) {
-				String s = file.getPath() + "\n";
+				String s = StringUtils.replace(file.getPath() + "\n", "/usr/local/sonatype-work/nexus/storage", "");
 				byte[] bytes = s.getBytes("UTF-8");
 				out.write(bytes);
 			}
