@@ -2,6 +2,7 @@ package org.kuali.common.util.file;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,21 +14,32 @@ public class ListTest {
 	@Test
 	public void test() {
 		try {
-			File basedir = new File("/usr/local/sonatype-work/nexus/storage/ow2");
-			String includes = "**/**";
-			SimpleScanner scanner = new SimpleScanner(basedir, includes, null);
-			List<File> files = scanner.getFiles();
-			List<File> canonical = new ArrayList<File>();
-			for (File file : files) {
-				canonical.add(new CanonicalFile(file));
-			}
-			Collections.sort(canonical);
-			for (File file : canonical) {
+			List<File> repos = getRepos();
+			// List<File> ow2 = getRepoFiles("/usr/local/sonatype-work/nexus/storage/ow2");
+			for (File file : repos) {
 				System.out.println(file.getPath());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<File> getRepos() {
+		File dir = new File("/usr/local/sonatype-work/nexus/storage");
+		return Arrays.asList(dir.listFiles());
+	}
+
+	protected List<File> getRepoFiles(String repoDir) {
+		File basedir = new File(repoDir);
+		String includes = "**/**";
+		SimpleScanner scanner = new SimpleScanner(basedir, includes, null);
+		List<File> files = scanner.getFiles();
+		List<File> canonical = new ArrayList<File>();
+		for (File file : files) {
+			canonical.add(new CanonicalFile(file));
+		}
+		Collections.sort(canonical);
+		return canonical;
 	}
 
 }
