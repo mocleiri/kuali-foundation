@@ -86,9 +86,6 @@ public class ListTest {
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 				String count = FormatUtils.getCount(files.size());
 				System.out.println(elapsed + ", " + count);
-				if (i++ > 3) {
-					break;
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
