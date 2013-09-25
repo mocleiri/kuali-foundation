@@ -75,6 +75,7 @@ public class ListTest {
 			for (File repo : repoDirs) {
 				// System.out.println("names.add(\"" + repo.getName() + "\");");
 			}
+			int i = 0;
 			for (String repo : repos) {
 				File dir = new CanonicalFile("/usr/local/sonatype-work/nexus/storage/" + repo);
 				long start = System.currentTimeMillis();
@@ -84,7 +85,9 @@ public class ListTest {
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 				String count = FormatUtils.getCount(files.size());
 				System.out.println(elapsed + ", " + count);
-				break;
+				if (i++ > 3) {
+					break;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
