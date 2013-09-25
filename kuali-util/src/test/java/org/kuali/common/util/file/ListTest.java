@@ -39,7 +39,7 @@ public class ListTest {
 				long start = System.currentTimeMillis();
 				printRepo(dir);
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
-				System.out.println(dir.getName() + " Elapsed:" + elapsed);
+				System.out.println(dir.getName() + " - " + elapsed);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
