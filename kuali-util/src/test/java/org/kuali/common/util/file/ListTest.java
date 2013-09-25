@@ -26,7 +26,13 @@ public class ListTest {
 
 	protected List<File> getRepos() {
 		File dir = new File("/usr/local/sonatype-work/nexus/storage");
-		return Arrays.asList(dir.listFiles());
+		List<File> repos = Arrays.asList(dir.listFiles());
+		List<File> canonical = new ArrayList<File>();
+		for (File file : repos) {
+			canonical.add(new CanonicalFile(file));
+		}
+		Collections.sort(canonical);
+		return canonical;
 	}
 
 	protected List<File> getRepoFiles(String repoDir) {
