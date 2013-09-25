@@ -27,11 +27,11 @@ public class ListTest {
 	@Test
 	public void test() {
 		try {
-			List<String> repos = ImmutableList.of("atlassian", "ow2");
+			List<String> repos = ImmutableList.of("apache-snapshots", "atlassian", "ow2");
 			List<File> repoDirs = getRepos();
 			System.out.println("repos=" + repos.size());
 			for (File repo : repoDirs) {
-				System.out.println(repo.getName());
+				// System.out.println(repo.getName());
 			}
 			for (String repo : repos) {
 				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
