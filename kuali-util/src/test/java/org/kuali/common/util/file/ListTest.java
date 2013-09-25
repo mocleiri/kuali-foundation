@@ -1,11 +1,15 @@
 package org.kuali.common.util.file;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.kuali.common.util.SimpleScanner;
 
@@ -21,12 +25,28 @@ public class ListTest {
 			for (File repo : repos) {
 				System.out.println(repo.getName());
 			}
-			List<File> ow2 = getRepoFiles("/usr/local/sonatype-work/nexus/storage/ow2");
-			for (File file : ow2) {
-				System.out.println(file.getPath());
-			}
+			File ow2 = new File("/usr/local/sonatype-work/nexus/storage/ow2");
+			printRepo(ow2);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void printRepo(File repo) {
+		List<File> files = getRepoFiles(repo.getPath());
+		File outputFile = new File("/tmp/" + repo.getName() + ".txt");
+		OutputStream out = null;
+		try {
+			out = FileUtils.openOutputStream(outputFile);
+			for (File file : files) {
+				String s = file.getPath() + "\n";
+				byte[] bytes = s.getBytes("UTF-8");
+				out.write(bytes);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(out);
 		}
 	}
 
