@@ -76,9 +76,9 @@ public class ListTest {
 				// System.out.println("names.add(\"" + repo.getName() + "\");");
 			}
 			for (String repo : repos) {
-				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
+				File dir = new CanonicalFile("/usr/local/sonatype-work/nexus/storage/" + repo);
 				long start = System.currentTimeMillis();
-				System.out.print(dir.getName() + " - ");
+				System.out.print(dir + " - ");
 				printRepo(dir);
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 				System.out.println(elapsed);
