@@ -18,13 +18,27 @@
 		<div class="modal-body">
 			<fieldset>
 				<legend>Assign a role</legend>
-				<label class="radio" for="pi-contact"><input type="radio" id="pi-contact" value="PI/Contact" name="group"> Principal Investigator/Contact</label>
-				<label class="radio" for="copi-investigator"><input type="radio" id="copi-investigator" value="Co-Principal Investigator" name="group"> Co-Principal Investigator</label>
-				<label class="radio" for="keyperson"><input type="radio" id="keyperson" value="Key Person" name="group"> Key Person</label>
+				<label class="radio" for="pi-contact"><input type="radio" id="pi-contact" value="pi" name="group" class="r"> Principal Investigator/Contact</label>
+				<label class="radio" for="copi-investigator"><input type="radio" id="copi-investigator" value="copi" name="group" class="r"> Co-Principal Investigator</label>
+				<div class="other" id="multi_pi">
+					<div class="form-group clearfix">
+						<label for="multiple_pis" class="control-label col-md-5"><input type="checkbox" id="multiple_pis" value="1" /> Yes, this proposal has multuple PI's.</label>
+					</div>
+				</div>
+
+				<label class="radio" for="keyperson"><input type="radio" id="keyperson" value="kp" name="group" class="r"> Key Person</label>
+				<div class="other" id="kp_role">
+					<div class="form-group clearfix">
+						<label for="keyperson_role" class="control-label col-md-3">Role:</label>
+						<div class="col-md-5">
+							<input type="text" id="keyperson_role" class="form-control input-sm col-md-8" />
+						</div>
+					</div>
+				</div>
 			</fieldset>
 
 			<div class="form-group clearfix">
-				<label for="include-ib" class="control-label col-md-5"><input type="checkbox" id="include-ib" value="1" /> Yes, include <span>Edward Haskell</span> in this proposal's budget</label>
+				<label for="include-ib" class="control-label col-md-5"><input type="checkbox" id="include-ib" value="1" checked="checked" /> Yes, include <span>Edward Haskell</span> in this proposal's budget</label>
 			</div>
 		</div>
 
@@ -39,5 +53,25 @@
 <script src="../../themes/kc/js/chosen/chosen.jquery.min.js"></script>
 <script src="../../themes/kc/js/bootstrap-datepicker.js"></script>
 <script src="../../themes/kc/js/functions.js"></script>
+
+<script>
+$(document).ready(function() {
+	$('.other').hide();
+
+	$('.r').click(function() {
+
+		if ($(this).val() == 'copi') {
+			$('.other').hide();
+			$('#multi_pi').fadeIn();
+		} else if ($(this).val() == 'kp') {
+			$('.other').hide();
+			$('#kp_role').fadeIn();
+		} else {
+			$('.other').hide();
+		}
+	});
+});
+</script>
+
 </body>
 </html>
