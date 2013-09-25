@@ -85,7 +85,7 @@ public class ListTest {
 				printRepo(dir, files);
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 				String count = FormatUtils.getCount(files.size());
-				System.out.println(StringUtils.leftPad(elapsed, 10) + ", " + StringUtils.leftPad(count, 10));
+				System.out.println(StringUtils.leftPad(elapsed, 10) + " - " + StringUtils.leftPad(count, 10));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
