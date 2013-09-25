@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.common.util.SimpleScanner;
 
+import com.google.common.collect.ImmutableList;
+
 public class ListTest {
 
 	@Test
@@ -38,8 +40,9 @@ public class ListTest {
 
 	protected List<File> getRepoFiles(String repoDir) {
 		File basedir = new File(repoDir);
-		String includes = "**/**";
-		SimpleScanner scanner = new SimpleScanner(basedir, includes, null);
+		List<String> includes = ImmutableList.of("**/**");
+		List<String> excludes = ImmutableList.of("**/.index/**", "**/.meta/**", "archetype-catalog.xml", "**/maven-metadata.xml", "**/maven-metadata.xml.*");
+		SimpleScanner scanner = new SimpleScanner(basedir, includes, excludes);
 		List<File> files = scanner.getFiles();
 		List<File> canonical = new ArrayList<File>();
 		for (File file : files) {
@@ -48,5 +51,4 @@ public class ListTest {
 		Collections.sort(canonical);
 		return canonical;
 	}
-
 }
