@@ -24,6 +24,11 @@ public class ListTest {
 	 * java.net-m1 java.net-m1-m2 java.net-m2 jboss jsdoctk kuali-builds kuali-legacy-releases kuali-legacy-snapshots kuali-private kuali-release kuali-s3-external kuali-s3-private
 	 * kuali-snapshot m2eclipse maven-restlet ow2 public releases saucelabs-repository snapshots sonatype-oss-releases spring-milestones thirdparty
 	 */
+	protected List<String> getRepoNames() {
+		List<String> names = new ArrayList<String>();
+		names.add("apache-snapshots");
+		return names;
+	}
 
 	@Test
 	public void test() {
@@ -32,7 +37,7 @@ public class ListTest {
 			List<File> repoDirs = getRepos();
 			System.out.println("repos=" + repos.size());
 			for (File repo : repoDirs) {
-				// System.out.println(repo.getName());
+				System.out.println("names.add(\"" + repo.getName() + "\")");
 			}
 			for (String repo : repos) {
 				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
