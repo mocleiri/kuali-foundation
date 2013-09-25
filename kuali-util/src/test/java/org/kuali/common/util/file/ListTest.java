@@ -95,7 +95,8 @@ public class ListTest {
 		try {
 			out = FileUtils.openOutputStream(outputFile);
 			for (File file : files) {
-				String s = StringUtils.replace(file.getPath() + "\n", "/usr/local/sonatype-work/nexus/storage", "");
+				long length = file.length();
+				String s = StringUtils.replace(file.getPath() + "," + length + "\n", "/usr/local/sonatype-work/nexus/storage", "");
 				byte[] bytes = s.getBytes("UTF-8");
 				out.write(bytes);
 			}
