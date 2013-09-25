@@ -82,6 +82,7 @@ public class ListTest {
 				printRepo(dir);
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
 				System.out.println(elapsed);
+				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,10 +97,12 @@ public class ListTest {
 			out = FileUtils.openOutputStream(outputFile);
 			for (File file : files) {
 				long length = file.length();
-				String s = StringUtils.replace(file.getPath() + "," + length + "\n", "/usr/local/sonatype-work/nexus/storage", "");
+				String path = StringUtils.replace(file.getPath(), "/usr/local/sonatype-work/nexus/storage", "");
+				String s = path + "," + length + "\n";
 				byte[] bytes = s.getBytes("UTF-8");
 				out.write(bytes);
 			}
+			out.flush();
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
