@@ -91,7 +91,7 @@ public class ListTest {
 
 	protected void printRepo(File repo) {
 		List<File> files = getRepoFiles(repo.getPath());
-		File outputFile = new File("/tmp/" + repo.getName() + ".txt");
+		File outputFile = new File("/tmp/repos/" + repo.getName() + ".txt");
 		OutputStream out = null;
 		try {
 			out = FileUtils.openOutputStream(outputFile);
