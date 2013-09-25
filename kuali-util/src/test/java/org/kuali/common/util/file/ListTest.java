@@ -18,6 +18,12 @@ import com.google.common.collect.ImmutableList;
 
 public class ListTest {
 
+	/**
+	 * apache-snapshots atlassian central central-m1 codehaus codehaus-snapshots developer eclipselink glassfish google google-reflections hosted-private jasperreports-sourceforge
+	 * java.net-m1 java.net-m1-m2 java.net-m2 jboss jsdoctk kuali-builds kuali-legacy-releases kuali-legacy-snapshots kuali-private kuali-release kuali-s3-external kuali-s3-private
+	 * kuali-snapshot m2eclipse maven-restlet ow2 public releases saucelabs-repository snapshots sonatype-oss-releases spring-milestones thirdparty
+	 */
+
 	@Test
 	public void test() {
 		try {
@@ -29,8 +35,8 @@ public class ListTest {
 			}
 			for (String repo : repos) {
 				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
-				printRepo(dir);
 				System.out.println(dir);
+				printRepo(dir);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
