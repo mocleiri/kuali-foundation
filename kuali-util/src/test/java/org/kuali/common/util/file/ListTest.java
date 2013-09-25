@@ -80,7 +80,7 @@ public class ListTest {
 			for (String repo : repos) {
 				File dir = new CanonicalFile("/usr/local/sonatype-work/nexus/storage/" + repo);
 				long start = System.currentTimeMillis();
-				System.out.print(StringUtils.rightPad(dir.getName(), 30));
+				System.out.print(StringUtils.rightPad(dir.getPath(), 75));
 				List<File> files = getRepoFiles(dir.getPath());
 				printRepo(dir, files);
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
