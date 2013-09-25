@@ -37,7 +37,7 @@ public class ListTest {
 			List<File> repoDirs = getRepos();
 			System.out.println("repos=" + repos.size());
 			for (File repo : repoDirs) {
-				System.out.println("names.add(\"" + repo.getName() + "\")");
+				System.out.println("names.add(\"" + repo.getName() + "\");");
 			}
 			for (String repo : repos) {
 				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
