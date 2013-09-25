@@ -15,8 +15,9 @@ public class ListTest {
 	public void test() {
 		try {
 			List<File> repos = getRepos();
-			// List<File> ow2 = getRepoFiles("/usr/local/sonatype-work/nexus/storage/ow2");
-			for (File file : repos) {
+			System.out.println("repos=" + repos.size());
+			List<File> ow2 = getRepoFiles("/usr/local/sonatype-work/nexus/storage/ow2");
+			for (File file : ow2) {
 				System.out.println(file.getPath());
 			}
 		} catch (Exception e) {
