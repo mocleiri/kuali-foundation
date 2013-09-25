@@ -99,7 +99,7 @@ public class ListTest {
 			out = FileUtils.openOutputStream(outputFile);
 			for (File file : files) {
 				long length = file.length();
-				String path = StringUtils.replace(file.getPath(), "/usr/local/sonatype-work/nexus/storage", "");
+				String path = StringUtils.replace(file.getPath(), repo.getPath(), "");
 				String s = path + "," + length + "\n";
 				byte[] bytes = s.getBytes("UTF-8");
 				out.write(bytes);
