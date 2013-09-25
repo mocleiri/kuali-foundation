@@ -76,7 +76,7 @@ public class ListTest {
 				// System.out.println("names.add(\"" + repo.getName() + "\");");
 			}
 			int i = 0;
-			FileUtils.forceDelete(new File("/tmp/repos"));
+			// FileUtils.forceDelete(new File("/tmp/repos"));
 			for (String repo : repos) {
 				File dir = new CanonicalFile("/usr/local/sonatype-work/nexus/storage/" + repo);
 				long start = System.currentTimeMillis();
