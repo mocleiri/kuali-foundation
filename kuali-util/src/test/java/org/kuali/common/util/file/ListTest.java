@@ -30,6 +30,7 @@ public class ListTest {
 			for (String repo : repos) {
 				File dir = new File("/usr/local/sonatype-work/nexus/storage/" + repo);
 				printRepo(dir);
+				System.out.println(dir);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
