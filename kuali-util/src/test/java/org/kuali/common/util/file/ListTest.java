@@ -1,6 +1,8 @@
 package org.kuali.common.util.file;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,7 +17,14 @@ public class ListTest {
 			String includes = "**/**";
 			SimpleScanner scanner = new SimpleScanner(basedir, includes, null);
 			List<File> files = scanner.getFiles();
-			System.out.println(files.size());
+			List<File> canonical = new ArrayList<File>();
+			for (File file : files) {
+				canonical.add(new CanonicalFile(file));
+			}
+			Collections.sort(canonical);
+			for (File file : canonical) {
+				System.out.println(file.getPath());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
