@@ -79,9 +79,11 @@ public class ListTest {
 				File dir = new CanonicalFile("/usr/local/sonatype-work/nexus/storage/" + repo);
 				long start = System.currentTimeMillis();
 				System.out.print(dir + " - ");
-				printRepo(dir);
+				List<File> files = getRepoFiles(dir.getPath());
+				printRepo(dir, files);
 				String elapsed = FormatUtils.getTime(System.currentTimeMillis() - start);
-				System.out.println(elapsed);
+				String count = FormatUtils.getCount(files.size());
+				System.out.println(elapsed + ", " + count);
 				break;
 			}
 		} catch (Exception e) {
@@ -89,8 +91,7 @@ public class ListTest {
 		}
 	}
 
-	protected void printRepo(File repo) {
-		List<File> files = getRepoFiles(repo.getPath());
+	protected void printRepo(File repo, List<File> files) {
 		File outputFile = new File("/tmp/repos/" + repo.getName() + ".txt");
 		OutputStream out = null;
 		try {
