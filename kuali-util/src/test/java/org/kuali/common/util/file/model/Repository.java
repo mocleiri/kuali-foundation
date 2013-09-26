@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public class Repository implements Comparable<Repository> {
+public final class Repository implements Comparable<Repository> {
 
 	public Repository(String name, List<RepoFile> files) {
 		Assert.noBlanks(name);

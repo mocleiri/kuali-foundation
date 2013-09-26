@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
@@ -32,10 +35,31 @@ public class ListTest {
 			List<Repository> repos = getRepoList();
 			logRepos(repos);
 			Set<String> paths = getPaths(repos);
-			System.out.println("Unique paths: " + FormatUtils.getCount(paths.size()));
+			Map<String, Integer> extensions = getExtensions(paths);
+			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
+			System.out.println("Unique extensions: " + FormatUtils.getCount(extensions.size()));
+			for (String extension : extensions.keySet()) {
+				String count = FormatUtils.getCount(extensions.get(extension));
+				System.out.println(StringUtils.rightPad(extension, 16) + " - " + count);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected Map<String, Integer> getExtensions(Set<String> paths) {
+		Map<String, Integer> extensions = new TreeMap<String, Integer>();
+		for (String path : paths) {
+			String extension = FilenameUtils.getExtension(path);
+			Integer count = extensions.get(extension);
+			if (count == null) {
+				count = 1;
+			} else {
+				count++;
+			}
+			extensions.put(extension, count);
+		}
+		return extensions;
 	}
 
 	protected Set<String> getPaths(List<Repository> repos) {
