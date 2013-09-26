@@ -24,23 +24,35 @@ public class DefaultLiquibaseService implements LiquibaseService {
 		// Convert the list of contexts to CSV (if there are any)
 		String csv = StringUtils.trimToNull(CollectionUtils.asCSV(context.getContexts()));
 
-		// Execute liquibase
-		Connection connection = null;
-		Liquibase liquibase = null;
+		// Get a handle to the datasource from the context
 		DataSource dataSource = context.getDataSource();
+
+		// Setup our connection object
+		Connection connection = null;
 		try {
+			// Get a connection to the db from the DataSource
 			connection = dataSource.getConnection();
-			liquibase = getLiquibase(context, connection);
+
+			// Get a Liquibase object from the connection and context
+			Liquibase liquibase = getLiquibase(context, connection);
+
+			// Invoke liquibase to update the database
 			liquibase.update(csv);
 		} catch (SQLException e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("Unexpected SQL error", e);
 		} catch (LiquibaseException e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("Unexpected Liquibase error", e);
+		} catch (Exception e) {
+			throw new IllegalStateException("Unexpected error", e);
 		} finally {
+			// Make sure the database connection always gets closed no matter what
 			JdbcUtils.closeQuietly(dataSource, connection);
 		}
 	}
 
+	/**
+	 * Use Liquibase's <code>DatabaseFactory</code> to get a handle to the desired <code>Database</code> implementation and otherwise setup a <code>Liquibase</code> object.
+	 */
 	protected Liquibase getLiquibase(LiquibaseContext context, Connection conn) throws LiquibaseException {
 		DatabaseFactory factory = DatabaseFactory.getInstance();
 		JdbcConnection jdbcConnection = new JdbcConnection(conn);
