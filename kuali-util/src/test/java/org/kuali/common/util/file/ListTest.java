@@ -35,7 +35,7 @@ public class ListTest {
 
 	private static final String SHA1 = "sha1";
 	private static final String MD5 = "md5";
-	private static final String BASEDIR = "/usr/local/sonatype-work/nexus/storage/";
+	private static final String BASEDIR = "/usr/local/sonatype-work/nexus/storage";
 
 	@Test
 	public void getRepoListTest() {
@@ -91,9 +91,19 @@ public class ListTest {
 		Object[] totals = { "Totals:", FormatUtils.getCount(totalPresent), FormatUtils.getCount(totalMissing), FormatUtils.getCount(totalCount), FormatUtils.getSize(totalSize) };
 		rows.add(totals);
 		LoggerUtils.logTable("repo artifacts", columns, rows);
-		System.out.println("Artifacts missing checksums");
+		List<String> missingChecksums = new ArrayList<String>();
 		for (Artifact artifact : issues) {
-			System.out.println(artifact.getRepository().getName() + " " + artifact.getFile().getPath());
+			missingChecksums.add(BASEDIR + "/" + artifact.getRepository().getName() + artifact.getFile().getPath());
+		}
+		String filename = "/Users/jcaddel/ws/kuali-util/src/test/resources/repos/missing-checksums.txt";
+		write(new File(filename), missingChecksums);
+	}
+
+	protected void write(File file, List<String> lines) {
+		try {
+			FileUtils.writeLines(file, lines);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 
@@ -345,7 +355,7 @@ public class ListTest {
 			int i = 0;
 			FileUtils.forceDelete(new File("/tmp/repos"));
 			for (String repo : repos) {
-				File dir = new CanonicalFile("/usr/local/sonatype-work/nexus/storage/" + repo);
+				File dir = new CanonicalFile(BASEDIR + repo);
 				long start = System.currentTimeMillis();
 				System.out.print(StringUtils.rightPad(dir.getPath(), 75));
 				List<File> files = getRepoFiles(dir.getPath());
@@ -380,7 +390,7 @@ public class ListTest {
 	}
 
 	protected List<File> getRepos() {
-		File dir = new File("/usr/local/sonatype-work/nexus/storage");
+		File dir = new File(BASEDIR);
 		List<File> repos = Arrays.asList(dir.listFiles());
 		List<File> canonical = new ArrayList<File>();
 		for (File file : repos) {
