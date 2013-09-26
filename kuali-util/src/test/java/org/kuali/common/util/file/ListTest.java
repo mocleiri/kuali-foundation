@@ -33,7 +33,8 @@ import com.google.common.collect.ImmutableList;
 
 public class ListTest {
 
-	private static final List<String> CHECKSUM_EXTENSIONS = getCheckSumExtensions();
+	private static final String SHA1 = "sha1";
+	private static final String MD5 = "md5";
 
 	@Test
 	public void getRepoListTest() {
@@ -93,16 +94,25 @@ public class ListTest {
 
 	protected Artifact getArtifact(Repository repo, RepoFile artifact, List<RepoFile> checksums) {
 		String path = artifact.getPath();
-		for (String ext : CHECKSUM_EXTENSIONS) {
-			String checksumPath = path + "." + ext;
-			for (RepoFile checksum : checksums) {
-				String checksumPathFromList = checksum.getPath();
-				if (checksumPathFromList.equals(checksumPath)) {
-					return new Artifact(repo, artifact, Optional.of(checksum));
-				}
+		String sha1ChecksumPath = path + "." + SHA1;
+		String md5ChecksumPath = path + "." + MD5;
+		RepoFile md5CheckSum = null;
+		for (RepoFile checksum : checksums) {
+			String checksumPath = checksum.getPath();
+			if (sha1ChecksumPath.equals(checksumPath)) {
+				// If we've got a SHA1 checksum, we are done
+				return new Artifact(repo, artifact, Optional.of(checksum));
+			}
+			if (md5ChecksumPath.equals(checksumPath)) {
+				md5CheckSum = checksum;
 			}
 		}
-		return new Artifact(repo, artifact, Optional.<RepoFile> absent());
+		// Only use MD5 if SHA1 is not available
+		if (md5CheckSum != null) {
+			return new Artifact(repo, artifact, Optional.of(md5CheckSum));
+		} else {
+			return new Artifact(repo, artifact, Optional.<RepoFile> absent());
+		}
 	}
 
 	protected List<Artifact> getArtifacts(Repository repo, List<RepoFile> checksums, List<RepoFile> artifacts) {
@@ -132,8 +142,8 @@ public class ListTest {
 		return checksums;
 	}
 
-	protected static final List<String> getCheckSumExtensions() {
-		return Arrays.asList("sha1", "md5");
+	private static final List<String> getCheckSumExtensions() {
+		return Arrays.asList(SHA1, MD5);
 	}
 
 	protected List<RepoFile> getCheckSums(List<RepoFile> files) {
