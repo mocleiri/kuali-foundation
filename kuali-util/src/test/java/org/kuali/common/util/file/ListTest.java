@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,16 +44,44 @@ public class ListTest {
 		try {
 			List<Repository> repos = getRepoList();
 			// logRepos(repos);
-			Set<String> paths = getPaths(repos);
-			List<FileExtension> extensions = getExtensions(paths);
+			// Set<String> paths = getPaths(repos);
+			// List<FileExtension> extensions = getExtensions(paths);
 			// System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
 			// logFileExtensions(extensions);
 			// logWeird(paths);
 			List<RepoArtifacts> list = analyzeRepos(repos);
 			logRepoArtifacts(list);
+			Map<String, Integer> duplicates = getDuplicates(list);
+			System.out.println(duplicates.size());
+			for (Map.Entry<String, Integer> pair : duplicates.entrySet()) {
+				System.out.println(pair.getValue() + " " + pair.getKey());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected Map<String, Integer> getDuplicates(List<RepoArtifacts> list) {
+		Map<String, Integer> all = new HashMap<String, Integer>();
+		for (RepoArtifacts element : list) {
+			for (Artifact artifact : element.getArtifacts()) {
+				String path = artifact.getFile().getPath();
+				Integer count = all.get(path);
+				if (count == null) {
+					count = 1;
+				} else {
+					count++;
+				}
+				all.put(path, count);
+			}
+		}
+		Map<String, Integer> duplicates = new TreeMap<String, Integer>();
+		for (Map.Entry<String, Integer> pair : all.entrySet()) {
+			if (pair.getValue() > 1) {
+				duplicates.put(pair.getKey(), pair.getValue());
+			}
+		}
+		return duplicates;
 	}
 
 	protected void logRepoArtifacts(List<RepoArtifacts> list) {
