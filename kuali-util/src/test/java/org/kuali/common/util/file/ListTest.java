@@ -39,9 +39,64 @@ public class ListTest {
 			List<FileExtension> extensions = getExtensions(paths);
 			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
 			logFileExtensions(extensions);
+			logWeird(paths);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void logWeird(Set<String> paths) {
+		List<String> weird = new ArrayList<String>();
+		for (String path : paths) {
+			if (isWeird(path)) {
+				weird.add(path);
+			}
+		}
+		Collections.sort(weird);
+		for (String s : weird) {
+			System.out.println(s);
+		}
+	}
+
+	protected boolean ignore(String path) {
+		if (path.endsWith("signature")) {
+			return true;
+		}
+		if (path.endsWith("txt")) {
+			return true;
+		}
+		if (path.contains("texen/1.0/orig/texen")) {
+			return true;
+		}
+		if (path.contains("texen/1.0/try.texen")) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean isWeird(String path) {
+		if (path.endsWith("tld")) {
+			return true;
+		}
+		if (path.endsWith("mar")) {
+			return true;
+		}
+		if (path.contains("texen")) {
+			return true;
+		}
+		if (path.endsWith("signature")) {
+			return true;
+		}
+		if (path.endsWith("txt")) {
+			return true;
+		}
+		if (path.endsWith("asc")) {
+			return true;
+		}
+		if (path.endsWith("gz")) {
+			return true;
+		}
+		return false;
 	}
 
 	protected void logFileExtensions(List<FileExtension> extensions) {
@@ -121,6 +176,9 @@ public class ListTest {
 		for (String line : lines) {
 			String[] tokens = StringUtils.split(line, ",");
 			String path = tokens[0];
+			if (ignore(path)) {
+				continue;
+			}
 			long size = Long.parseLong(tokens[1]);
 			RepoFile file = new RepoFile(path, size);
 			files.add(file);
