@@ -155,25 +155,25 @@ $(document).ready(function() {
 		Collapses and expandes the subnav making the content area full-width if desired
 		Chris Rodriguez
 	*/
-	var handle_sidebar_menu = function() {
+	// var handle_sidebar_menu = function() {
 
-		$('#sidebar .has-sub > a').click(function(e) {
-			var last = $('.has-sub.open', $('#sidebar'));
-			last.removeClass('open');
-			$('.sub', last).slideUp(200);
+	// 	$('#sidebar .has-sub > a').click(function(e) {
+	// 		var last = $('.has-sub.open', $('#sidebar'));
+	// 		last.removeClass('open');
+	// 		$('.sub', last).slideUp(200);
 			
-			var sub = $(this).next();
-			if (sub.is(':visible')) {
-				$(this).parent().removeClass('open');
-				sub.slideUp(200);
-			} else {
-				$(this).parent().addClass('open');
-				sub.slideDown(200);
-			}
+	// 		var sub = $(this).next();
+	// 		if (sub.is(':visible')) {
+	// 			$(this).parent().removeClass('open');
+	// 			sub.slideUp(200);
+	// 		} else {
+	// 			$(this).parent().addClass('open');
+	// 			sub.slideDown(200);
+	// 		}
 
-			e.preventDefault();
-		});
-	}
+	// 		e.preventDefault();
+	// 	});
+	// }
 
 	var handle_sidebar_toggler = function() {
 
@@ -217,7 +217,7 @@ $(document).ready(function() {
 	}
 
 	if ($('#sidebar').length) {
-		handle_sidebar_menu();
+		// handle_sidebar_menu();
 		handle_sidebar_toggler();
 	}
 
