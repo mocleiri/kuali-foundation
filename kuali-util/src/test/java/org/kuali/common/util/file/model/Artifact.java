@@ -1,8 +1,13 @@
 package org.kuali.common.util.file.model;
 
+import org.kuali.common.util.Assert;
+
+import com.google.common.base.Optional;
+
 public class Artifact {
 
-	public Artifact(Repository repository, RepoFile file, RepoFile checksum) {
+	public Artifact(Repository repository, RepoFile file, Optional<RepoFile> checksum) {
+		Assert.noNulls(repository, file, checksum);
 		this.repository = repository;
 		this.file = file;
 		this.checksum = checksum;
@@ -10,7 +15,7 @@ public class Artifact {
 
 	private final Repository repository;
 	private final RepoFile file;
-	private final RepoFile checksum;
+	private final Optional<RepoFile> checksum;
 
 	public Repository getRepository() {
 		return repository;
@@ -20,7 +25,7 @@ public class Artifact {
 		return file;
 	}
 
-	public RepoFile getChecksum() {
+	public Optional<RepoFile> getChecksum() {
 		return checksum;
 	}
 
