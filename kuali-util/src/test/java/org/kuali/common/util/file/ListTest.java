@@ -38,13 +38,17 @@ public class ListTest {
 			Set<String> paths = getPaths(repos);
 			List<FileExtension> extensions = getExtensions(paths);
 			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
-			System.out.println("Unique extensions: " + FormatUtils.getCount(extensions.size()));
-			for (FileExtension extension : extensions) {
-				String count = FormatUtils.getCount(extension.getCount());
-				System.out.println(StringUtils.rightPad(extension.getValue(), 16) + " - " + count);
-			}
+			logFileExtensions(extensions);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void logFileExtensions(List<FileExtension> extensions) {
+		System.out.println("Unique extensions: " + FormatUtils.getCount(extensions.size()));
+		for (FileExtension extension : extensions) {
+			String count = FormatUtils.getCount(extension.getCount());
+			System.out.println(StringUtils.rightPad(extension.getValue(), 16) + " - " + count);
 		}
 	}
 
