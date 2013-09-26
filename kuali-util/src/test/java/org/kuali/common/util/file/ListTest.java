@@ -46,7 +46,6 @@ public class ListTest {
 			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
 			logFileExtensions(extensions);
 			// logWeird(paths);
-			analyzeRepos(repos);
 			List<RepoArtifacts> list = analyzeRepos(repos);
 			logRepoArtifacts(list);
 		} catch (Exception e) {
