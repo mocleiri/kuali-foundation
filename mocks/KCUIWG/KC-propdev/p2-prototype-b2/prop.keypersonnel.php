@@ -52,7 +52,76 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 									<div id="collapse2" class="panel-collapse collapse">
 										<div class="panel-body">
-											Stuff here...
+											<table class="table table-collapsed">
+												<tr>
+													<th width="25%">Person role</th>
+													<td>PI</td>
+												</tr>
+												<tr>
+													<th>Full name</th>
+													<td>Edward R. Haskell</td>
+												</tr>
+												<tr>
+													<th>Username</th>
+													<td>erhaskell</td>
+												</tr>
+												<tr>
+													<th>Email address</th>
+													<td>erhaskell@email.com</td>
+												</tr>
+												<tr>
+													<th>Office phone</th>
+													<td>321-321-1214</td>
+												</tr>
+												<tr>
+													<th>Office fax</th>
+													<td>321-321-1121</td>
+												</tr>
+												<tr>
+													<th>Pager</th>
+													<td>321-333-1656</td>
+												</tr>
+												<tr>
+													<th>Mobile</th>
+													<td>321-321-1221</td>
+												</tr>
+												<tr>
+													<th>Primary title</th>
+													<td>Acme Primary Title</td>
+												</tr>
+												<tr>
+													<th>Directory title</th>
+													<td>Acme Directory Title</td>
+												</tr>
+												<tr>
+													<th>Home unit</th>
+													<td>UA-VPIT</td>
+												</tr>
+												<tr>
+													<th>Division</th>
+													<td>University Administration</td>
+												</tr>
+												<tr>
+													<th>eRA Commons username</th>
+													<td>erhaskell</td>
+												</tr>
+												<tr>
+													<th>Office address</th>
+													<td>Kuali Foundation, 1135 Kuali Drive, Kuali, KU</td>
+												</tr>
+												<tr>
+													<th>Country</th>
+													<td>United States</td>
+												</tr>
+												<tr>
+													<th>Percentage effort</th>
+													<td>50%</td>
+												</tr>
+												<tr>
+													<th>Faculty</th>
+													<td>-</td>
+												</tr>
+											</table>
 										</div>
 									</div>
 								</div>
