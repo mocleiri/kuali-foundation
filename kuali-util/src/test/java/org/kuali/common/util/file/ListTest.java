@@ -70,12 +70,14 @@ public class ListTest {
 					issues.add(artifact);
 				}
 			}
-			String pcount = FormatUtils.getCount(present);
-			String mcount = FormatUtils.getCount(missing);
-			String name = element.getRepository().getName();
-			String total = FormatUtils.getCount(artifacts.size());
-			Object[] row = { name, pcount, mcount, total };
-			rows.add(row);
+			if (missing > 0) {
+				String pcount = FormatUtils.getCount(present);
+				String mcount = FormatUtils.getCount(missing);
+				String name = element.getRepository().getName();
+				String total = FormatUtils.getCount(artifacts.size());
+				Object[] row = { name, pcount, mcount, total };
+				rows.add(row);
+			}
 		}
 		LoggerUtils.logTable("repo artifacts", columns, rows);
 		for (Artifact artifact : issues) {
