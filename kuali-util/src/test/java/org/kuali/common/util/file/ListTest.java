@@ -11,16 +11,35 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.file.model.Repository;
 
 import com.google.common.collect.ImmutableList;
 
 public class ListTest {
 
 	@Test
-	public void test() {
+	public void getRepoListTest() {
+		try {
+			List<String> names = getRepoNames();
+			List<Repository> repos = new ArrayList<Repository>();
+			for (String name : names) {
+				System.out.println(name);
+				String location = "classpath:repos/" + name + ".txt";
+				List<String> lines = LocationUtils.readLines(location);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	@Ignore
+	public void generateFileListingsTest() {
 		try {
 			List<String> repos = getRepoNames();
 			Collections.reverse(repos);
