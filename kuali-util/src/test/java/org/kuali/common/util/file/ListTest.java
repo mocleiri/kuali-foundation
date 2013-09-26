@@ -23,6 +23,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.file.model.FileExtension;
 import org.kuali.common.util.file.model.RepoFile;
+import org.kuali.common.util.file.model.RepoStats;
 import org.kuali.common.util.file.model.Repository;
 import org.kuali.common.util.log.LoggerUtils;
 
@@ -52,9 +53,33 @@ public class ListTest {
 		}
 	}
 
-	protected void analyzeRepo(Repository repo) {
+	protected boolean hasCheckSum(RepoFile artifact, List<RepoFile> checksums) {
+		String path = artifact.getPath();
+		List<String> extensions = getCheckSumExtensions();
+		for (String extension : extensions) {
+			String checksumPath = path + "." + extension;
+			if (checksums.contains(checksumPath)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected RepoStats analyzeRepo(Repository repo) {
 		List<RepoFile> checksums = getCheckSums(repo.getFiles());
 		List<RepoFile> artifacts = getArtifacts(repo.getFiles());
+
+		List<RepoFile> haveChecksums = new ArrayList<RepoFile>();
+		List<RepoFile> missingChecksums = new ArrayList<RepoFile>();
+		for (RepoFile artifact : artifacts) {
+			boolean hasCheckSum = hasCheckSum(artifact, checksums);
+			if (hasCheckSum) {
+				haveChecksums.add(artifact);
+			} else {
+				missingChecksums.add(artifact);
+			}
+		}
+		return new RepoStats(repo, checksums, artifacts, haveChecksums.size());
 	}
 
 	protected List<RepoFile> getArtifacts(List<RepoFile> files) {
@@ -97,6 +122,12 @@ public class ListTest {
 	}
 
 	protected boolean ignore(String path) {
+		if (path.endsWith("archetype-catalog.xml")) {
+			return true;
+		}
+		if (path.endsWith("maven-metadata.xml")) {
+			return true;
+		}
 		if (path.endsWith("asc")) {
 			return true;
 		}
