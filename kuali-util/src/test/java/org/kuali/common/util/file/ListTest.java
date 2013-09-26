@@ -74,6 +74,19 @@ public class ListTest {
 		return false;
 	}
 
+	protected boolean isChecksum(String path) {
+		if (path.endsWith("sha1")) {
+			return true;
+		}
+		if (path.endsWith("md5")) {
+			return true;
+		}
+		if (path.endsWith("asc")) {
+			return true;
+		}
+		return false;
+	}
+
 	protected boolean isWeird(String path) {
 		if (path.endsWith("tld")) {
 			return true;
