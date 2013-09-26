@@ -42,11 +42,11 @@ public class ListTest {
 	public void getRepoListTest() {
 		try {
 			List<Repository> repos = getRepoList();
-			logRepos(repos);
+			// logRepos(repos);
 			Set<String> paths = getPaths(repos);
 			List<FileExtension> extensions = getExtensions(paths);
-			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
-			logFileExtensions(extensions);
+			// System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
+			// logFileExtensions(extensions);
 			// logWeird(paths);
 			List<RepoArtifacts> list = analyzeRepos(repos);
 			logRepoArtifacts(list);
@@ -301,12 +301,12 @@ public class ListTest {
 			Repository repo = new Repository(name, files);
 			repos.add(repo);
 		}
+		Collections.sort(repos);
+		Collections.reverse(repos);
 		return repos;
 	}
 
 	protected void logRepos(List<Repository> repos) {
-		Collections.sort(repos);
-		Collections.reverse(repos);
 		List<String> columns = ImmutableList.of("repo", "files", "size");
 		List<Object[]> rows = new ArrayList<Object[]>();
 		long totalFiles = 0;
