@@ -52,12 +52,7 @@ public class ListTest {
 		Map<String, Integer> extensions = new TreeMap<String, Integer>();
 		for (String path : paths) {
 			String extension = FilenameUtils.getExtension(path);
-			Integer count = extensions.get(extension);
-			if (count == null) {
-				count = 1;
-			} else {
-				count++;
-			}
+			Integer count = extensions.get(extension) == null ? 1 : extensions.get(extension) + 1;
 			extensions.put(extension, count);
 		}
 		List<FileExtension> list = new ArrayList<FileExtension>();
