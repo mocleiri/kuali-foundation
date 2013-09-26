@@ -29,7 +29,6 @@ public class ListTest {
 			List<String> names = getRepoNames();
 			List<Repository> repos = new ArrayList<Repository>();
 			for (String name : names) {
-				System.out.println(name);
 				String location = "classpath:repos/" + name + ".txt";
 				List<String> lines = LocationUtils.readLines(location);
 				List<RepoFile> files = getRepoFiles(lines);
