@@ -58,6 +58,10 @@ public class ListTest {
 		List<String> columns = Arrays.asList("repo", "present", "missing", "total", "size");
 		List<Object[]> rows = new ArrayList<Object[]>();
 		List<Artifact> issues = new ArrayList<Artifact>();
+		long totalSize = 0;
+		long totalCount = 0;
+		long totalMissing = 0;
+		long totalPresent = 0;
 		for (RepoArtifacts element : list) {
 			int present = 0;
 			int missing = 0;
@@ -65,11 +69,15 @@ public class ListTest {
 			for (Artifact artifact : artifacts) {
 				if (artifact.getChecksum().isPresent()) {
 					present++;
+					totalPresent++;
 				} else {
 					missing++;
 					issues.add(artifact);
+					totalMissing++;
 				}
 			}
+			totalSize += element.getSize();
+			totalCount += artifacts.size();
 			String pcount = FormatUtils.getCount(present);
 			String mcount = FormatUtils.getCount(missing);
 			String name = element.getRepository().getName();
@@ -78,6 +86,10 @@ public class ListTest {
 			Object[] row = { name, pcount, mcount, total, size };
 			rows.add(row);
 		}
+		Object[] row = { "", "", "", "", "" };
+		rows.add(row);
+		Object[] totals = { "Totals:", FormatUtils.getCount(totalPresent), FormatUtils.getCount(totalMissing), FormatUtils.getCount(totalCount), FormatUtils.getSize(totalSize) };
+		rows.add(totals);
 		LoggerUtils.logTable("repo artifacts", columns, rows);
 		for (Artifact artifact : issues) {
 			System.out.println(artifact.getRepository().getName() + " " + artifact.getFile().getPath());
