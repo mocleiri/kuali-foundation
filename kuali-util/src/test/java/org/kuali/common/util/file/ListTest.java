@@ -19,52 +19,6 @@ import com.google.common.collect.ImmutableList;
 
 public class ListTest {
 
-	/**
-	 * apache-snapshots atlassian central central-m1 codehaus codehaus-snapshots developer eclipselink glassfish google google-reflections hosted-private jasperreports-sourceforge
-	 * java.net-m1 java.net-m1-m2 java.net-m2 jboss jsdoctk kuali-builds kuali-legacy-releases kuali-legacy-snapshots kuali-private kuali-release kuali-s3-external kuali-s3-private
-	 * kuali-snapshot m2eclipse maven-restlet ow2 public releases saucelabs-repository snapshots sonatype-oss-releases spring-milestones thirdparty
-	 */
-	protected List<String> getRepoNames() {
-		List<String> names = new ArrayList<String>();
-		names.add("apache-snapshots");
-		names.add("atlassian");
-		names.add("central");
-		names.add("central-m1");
-		names.add("codehaus");
-		names.add("codehaus-snapshots");
-		names.add("developer");
-		names.add("eclipselink");
-		names.add("glassfish");
-		names.add("google");
-		names.add("google-reflections");
-		names.add("hosted-private");
-		names.add("jasperreports-sourceforge");
-		names.add("java.net-m1");
-		names.add("java.net-m1-m2");
-		names.add("java.net-m2");
-		names.add("jboss");
-		names.add("jsdoctk");
-		names.add("kuali-builds");
-		names.add("kuali-legacy-releases");
-		names.add("kuali-legacy-snapshots");
-		names.add("kuali-private");
-		names.add("kuali-release");
-		names.add("kuali-s3-external");
-		names.add("kuali-s3-private");
-		names.add("kuali-snapshot");
-		names.add("m2eclipse");
-		names.add("maven-restlet");
-		names.add("ow2");
-		names.add("public");
-		names.add("releases");
-		names.add("saucelabs-repository");
-		names.add("snapshots");
-		names.add("sonatype-oss-releases");
-		names.add("spring-milestones");
-		names.add("thirdparty");
-		return names;
-	}
-
 	@Test
 	public void test() {
 		try {
@@ -138,4 +92,46 @@ public class ListTest {
 		Collections.sort(canonical);
 		return canonical;
 	}
+
+	protected List<String> getRepoNames() {
+		List<String> names = new ArrayList<String>();
+		names.add("apache-snapshots");
+		names.add("atlassian");
+		names.add("central");
+		names.add("central-m1");
+		names.add("codehaus");
+		names.add("codehaus-snapshots");
+		names.add("developer");
+		names.add("eclipselink");
+		names.add("glassfish");
+		names.add("google");
+		names.add("google-reflections");
+		names.add("hosted-private");
+		names.add("jasperreports-sourceforge");
+		names.add("java.net-m1");
+		names.add("java.net-m1-m2");
+		names.add("java.net-m2");
+		names.add("jboss");
+		names.add("jsdoctk");
+		names.add("kuali-builds");
+		names.add("kuali-legacy-releases");
+		names.add("kuali-legacy-snapshots");
+		names.add("kuali-private");
+		names.add("kuali-release");
+		names.add("kuali-s3-external");
+		names.add("kuali-s3-private");
+		names.add("kuali-snapshot");
+		names.add("m2eclipse");
+		names.add("maven-restlet");
+		names.add("ow2");
+		names.add("public");
+		names.add("releases");
+		names.add("saucelabs-repository");
+		names.add("snapshots");
+		names.add("sonatype-oss-releases");
+		names.add("spring-milestones");
+		names.add("thirdparty");
+		return names;
+	}
+
 }
