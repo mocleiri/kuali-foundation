@@ -90,6 +90,7 @@ public class ListTest {
 		Object[] totals = { "Totals:", FormatUtils.getCount(totalPresent), FormatUtils.getCount(totalMissing), FormatUtils.getCount(totalCount), FormatUtils.getSize(totalSize) };
 		rows.add(totals);
 		LoggerUtils.logTable("repo artifacts", columns, rows);
+		System.out.println("Artifacts missing checksums");
 		for (Artifact artifact : issues) {
 			System.out.println(artifact.getRepository().getName() + " " + artifact.getFile().getPath());
 		}
