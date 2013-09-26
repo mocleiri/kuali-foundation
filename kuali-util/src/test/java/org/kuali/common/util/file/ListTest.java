@@ -23,6 +23,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.file.model.Artifact;
+import org.kuali.common.util.file.model.DuplicateArtifact;
 import org.kuali.common.util.file.model.FileExtension;
 import org.kuali.common.util.file.model.RepoArtifacts;
 import org.kuali.common.util.file.model.RepoFile;
@@ -37,7 +38,7 @@ public class ListTest {
 	private static final String SHA1 = "sha1";
 	private static final String MD5 = "md5";
 	private static final String BASEDIR = "/usr/local/sonatype-work/nexus/storage";
-	private static final List<String> CHECKSUM_EXTENSIONS = getCheckSumExtensions();
+	private static final List<String> CHECKSUM_EXTENSIONS = Arrays.asList(SHA1, MD5);
 
 	@Test
 	public void getRepoListTest() {
@@ -51,36 +52,67 @@ public class ListTest {
 			// logWeird(paths);
 			List<RepoArtifacts> list = analyzeRepos(repos);
 			logRepoArtifacts(list);
-			Map<String, Integer> duplicates = getDuplicates(list);
-			System.out.println(duplicates.size());
-			for (Map.Entry<String, Integer> pair : duplicates.entrySet()) {
-				System.out.println(pair.getValue() + " " + pair.getKey());
-			}
+			List<DuplicateArtifact> duplicates = getDuplicates(list);
+			List<DuplicateArtifact> issues = getDuplicateIssues(duplicates);
+			System.out.println(issues.size());
+			logDuplicateArtifact(issues);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected Map<String, Integer> getDuplicates(List<RepoArtifacts> list) {
-		Map<String, Integer> all = new HashMap<String, Integer>();
+	protected void logDuplicateArtifact(List<DuplicateArtifact> duplicates) {
+		System.out.println(duplicates.size());
+		for (DuplicateArtifact duplicate : duplicates) {
+			String filename = FilenameUtils.getName(duplicate.getPath());
+			System.out.print(StringUtils.rightPad(filename, 55) + " [");
+			for (Artifact artifact : duplicate.getArtifacts()) {
+				System.out.print(artifact.getRepository().getName() + " ");
+			}
+			System.out.println("]");
+		}
+	}
+
+	protected List<DuplicateArtifact> getDuplicateIssues(List<DuplicateArtifact> duplicates) {
+		List<DuplicateArtifact> issues = new ArrayList<DuplicateArtifact>();
+		for (DuplicateArtifact duplicate : duplicates) {
+			List<Artifact> artifacts = duplicate.getArtifacts();
+			long size = -1;
+			for (Artifact artifact : artifacts) {
+				if (size == -1) {
+					size = artifact.getFile().getSize();
+				}
+				if (size != artifact.getFile().getSize()) {
+					issues.add(duplicate);
+				}
+			}
+		}
+		return issues;
+
+	}
+
+	protected List<DuplicateArtifact> getDuplicates(List<RepoArtifacts> list) {
+		Map<String, List<Artifact>> all = new HashMap<String, List<Artifact>>();
 		for (RepoArtifacts element : list) {
 			for (Artifact artifact : element.getArtifacts()) {
 				String path = artifact.getFile().getPath();
-				Integer count = all.get(path);
-				if (count == null) {
-					count = 1;
-				} else {
-					count++;
+				List<Artifact> artifacts = all.get(path);
+				if (artifacts == null) {
+					artifacts = new ArrayList<Artifact>();
 				}
-				all.put(path, count);
+				artifacts.add(artifact);
+				all.put(path, artifacts);
 			}
 		}
-		Map<String, Integer> duplicates = new TreeMap<String, Integer>();
-		for (Map.Entry<String, Integer> pair : all.entrySet()) {
-			if (pair.getValue() > 1) {
-				duplicates.put(pair.getKey(), pair.getValue());
+		List<DuplicateArtifact> duplicates = new ArrayList<DuplicateArtifact>();
+		for (Map.Entry<String, List<Artifact>> pair : all.entrySet()) {
+			if (pair.getValue().size() > 1) {
+				DuplicateArtifact duplicate = new DuplicateArtifact(pair.getKey(), pair.getValue());
+				duplicates.add(duplicate);
 			}
 		}
+		Collections.sort(duplicates);
+		Collections.reverse(duplicates);
 		return duplicates;
 	}
 
@@ -194,10 +226,6 @@ public class ListTest {
 			}
 		}
 		return checksums;
-	}
-
-	private static final List<String> getCheckSumExtensions() {
-		return Arrays.asList(SHA1, MD5);
 	}
 
 	protected List<RepoFile> getCheckSums(List<RepoFile> files) {
