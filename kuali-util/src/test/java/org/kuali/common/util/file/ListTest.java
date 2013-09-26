@@ -18,6 +18,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
 import org.kuali.common.util.file.model.RepoFile;
 import org.kuali.common.util.file.model.Repository;
+import org.kuali.common.util.log.LoggerUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -35,6 +36,15 @@ public class ListTest {
 				Repository repo = new Repository(name, files);
 				repos.add(repo);
 			}
+			List<String> columns = ImmutableList.of("repo", "files", "size");
+			List<Object[]> rows = new ArrayList<Object[]>();
+			for (Repository repo : repos) {
+				String count = FormatUtils.getCount(repo.getFiles().size());
+				String size = FormatUtils.getSize(repo.getSize());
+				Object[] row = { repo.getName(), count, size };
+				rows.add(row);
+			}
+			LoggerUtils.logTable("Repo Summary", columns, rows);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

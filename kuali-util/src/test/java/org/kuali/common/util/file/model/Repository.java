@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public class Repository {
+public class Repository implements Comparable<Repository> {
 
 	public Repository(String name, List<RepoFile> files) {
 		Assert.noBlanks(name);
@@ -14,6 +14,11 @@ public class Repository {
 		this.name = name;
 		this.files = ImmutableList.copyOf(files);
 		this.size = getTotalSize(files);
+	}
+
+	@Override
+	public int compareTo(Repository other) {
+		return Double.compare(files.size(), other.getFiles().size());
 	}
 
 	private long getTotalSize(List<RepoFile> files) {
