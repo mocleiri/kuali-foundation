@@ -1,0 +1,13 @@
+/archetype-catalog.xml,25
+/org/reflections/reflections-parent/0.9.5-RC2/reflections-parent-0.9.5-RC2.pom,3263
+/org/reflections/reflections-parent/0.9.5-RC2/reflections-parent-0.9.5-RC2.pom.sha1,40
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2-javadoc.jar,255179
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2-javadoc.jar.sha1,40
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2-sources.jar,37244
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2-sources.jar.sha1,40
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2.jar,81593
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2.jar.sha1,40
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2.pom,2623
+/org/reflections/reflections/0.9.5-RC2/reflections-0.9.5-RC2.pom.sha1,40
+/org/reflections/reflections/maven-metadata.xml,407
+/org/reflections/reflections/maven-metadata.xml.sha1,40
