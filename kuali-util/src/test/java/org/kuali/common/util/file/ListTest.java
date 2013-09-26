@@ -39,16 +39,48 @@ public class ListTest {
 			List<FileExtension> extensions = getExtensions(paths);
 			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
 			logFileExtensions(extensions);
-			logWeird(paths);
+			// logWeird(paths);
+			analyzeRepos(repos);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	protected void analyzeRepos(List<Repository> repos) {
+		for (Repository repo : repos) {
+			analyzeRepo(repo);
+		}
 	}
 
 	protected void analyzeRepo(Repository repo) {
+		List<RepoFile> checksums = getCheckSums(repo.getFiles());
+		List<RepoFile> artifacts = getArtifacts(repo.getFiles());
+	}
+
+	protected List<RepoFile> getArtifacts(List<RepoFile> files) {
+		List<RepoFile> checksums = new ArrayList<RepoFile>();
+		for (RepoFile file : files) {
+			String path = file.getPath();
+			if (!isChecksum(path)) {
+				checksums.add(file);
+			}
+		}
+		return checksums;
+	}
+
+	protected List<String> getCheckSumExtensions() {
+		return Arrays.asList("sha1", "md5");
+	}
+
+	protected List<RepoFile> getCheckSums(List<RepoFile> files) {
+		List<RepoFile> checksums = new ArrayList<RepoFile>();
+		for (RepoFile file : files) {
+			String path = file.getPath();
+			if (isChecksum(path)) {
+				checksums.add(file);
+			}
+		}
+		return checksums;
 	}
 
 	protected void logWeird(Set<String> paths) {
@@ -65,6 +97,9 @@ public class ListTest {
 	}
 
 	protected boolean ignore(String path) {
+		if (path.endsWith("asc")) {
+			return true;
+		}
 		if (path.endsWith("signature")) {
 			return true;
 		}
@@ -81,14 +116,11 @@ public class ListTest {
 	}
 
 	protected boolean isChecksum(String path) {
-		if (path.endsWith("sha1")) {
-			return true;
-		}
-		if (path.endsWith("md5")) {
-			return true;
-		}
-		if (path.endsWith("asc")) {
-			return true;
+		List<String> checksumExtensions = getCheckSumExtensions();
+		for (String ext : checksumExtensions) {
+			if (path.endsWith(ext)) {
+				return true;
+			}
 		}
 		return false;
 	}
