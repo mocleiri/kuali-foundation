@@ -35,6 +35,7 @@ public class ListTest {
 
 	private static final String SHA1 = "sha1";
 	private static final String MD5 = "md5";
+	private static final String BASEDIR = "/usr/local/sonatype-work/nexus/storage/";
 
 	@Test
 	public void getRepoListTest() {
