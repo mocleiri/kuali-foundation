@@ -5,9 +5,9 @@
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.dir" value="${user.home}/.jdk/7" />
+    <property name="jdk.zip" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
     <property name="jdk.gz" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar.gz" />
-    <property name="jdk.zip" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
     <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
     <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
@@ -20,6 +20,7 @@
       <fileset dir="${jdk.version.kuali.zip}" />
       <fileset dir="${jdk.zip}" />
     </delete>
+    <sleep seconds="10"/>
     <untar src="${jdk.gz}" dest="${jdk.dir}" compression="gzip">
     </untar>
     <delete file="${jdk.version.ora.dir}/src.zip" />
@@ -30,6 +31,112 @@
       </fileset>
     </move>
     <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create" />
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="${jdk.version.kuali.dir}" />
+      <fileset dir="${jdk.version.ora.dir}" />
+      <fileset dir="${jdk.zip}" />
+    </delete>
   </target>
+
+ <target name="updatejdk6" depends="-resolveplatform">
+    <!-- ant -Dminor="06" updatejdk6 -->
+    <!--<move todir="${jdk.version.kuali.dir.tmp}" verbose="true" includeemptydirs="true">
+      <fileset dir="${jdk.version.ora.dir}">
+      </fileset>
+    </move>
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="${jdk.version.kuali.dir}" />
+      <fileset dir="${jdk.version.ora.dir}" />
+      <fileset dir="${jdk.zip}" />
+    </delete>
+   -->
+  </target>
+
+
+  <target name="-resolveplatform" depends="-if_windows, -if_mac, -if_unix"/>
+   <!--  CHECK IF GIVEN OS IS CURRENT OS  -->
+   <target name="-checkos">
+      <condition property="isWindows">
+        <os family="windows"/>
+       </condition>
+       <condition property="isMac">
+         <os family="mac"/>
+        </condition>
+        <condition property="isLinux">
+          <os family="unix"/>
+         </condition>
+     </target>
+
+     <!--  IS THE OS WINDOWS?  -->
+     <target name="-if_windows" depends="-checkos" if="isWindows">
+       <property name="platform" value="win"/>
+      </target>
+
+     <!--  IS THE OS LINUX/UNIX?  -->
+     <target name="-if_unix" depends="-checkos" if="isLinux">
+        <property name="platform" value="linux"/>
+    <property name="jdk.major.version" value="6" />
+    <property name="jdk.minor.version" value="${minor}" />
+    <property name="jdk.dir" value="${user.home}/.jdk/6" />
+    <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
+    <property name="jdk.bin.name" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.bin" />
+    <property name="jdk.bin.path" value="${jdk.dir}" />
+    <property name="jdk.bin" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.bin" />
+    <property name="jdk.zip" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
+    <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+    <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
+    <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
+    <property name="jdk.version.ora.dir.tmp" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}.tmp" />
+    <property name="jdk.version.kuali.zip" value="${jdk.dir}/jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.kuali.zip.file"               value="jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.version.kuali.dir" value="${jdk.dir}/jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+    <echo message="${jdk.version}" />
+    <echo message="${jdk.version.kuali.dir}" />
+    <echo message="${jdk.version.ora.dir}" />
+     
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="${jdk.version.kuali.dir}" />
+      <fileset dir="${jdk.version.ora.dir}" />
+      <fileset dir="${jdk.version.kuali.ora}/${kuali.dir}"/>
+      <fileset dir="${jdk.version.kuali.ora}"/>
+      <fileset dir="${jdk.version.kuali.zip}" />
+      <fileset dir="${jdk.zip}" />
+    </delete>
+    <exec dir="${jdk.bin.path}" executable="${jdk.bin.name}">
+    </exec>
+    <delete file="${jdk.version.ora.dir}/src.zip" />
+    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.ora.dir}/" whenempty="create" /> 
+    <mkdir dir="${jdk.version.kuali.dir}"/>
+    <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}"/>
+    <move file="${jdk.version.kuali.zip}" todir="${jdk.version.kuali.dir}/${kuali.dir}"/>
+   <echo message="unzip ${jdk.version.kuali.dir}/${kuali.dir}/${jdk.kuali.zip.file} dest ${jdk.version.kuali.dir}/${kuali.dir}"/> 
+   <unzip src="${jdk.version.kuali.dir}/${kuali.dir}/${jdk.kuali.zip.file}" dest="${jdk.version.kuali.dir}/${kuali.dir}/"/> 
+   <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create" /> 
+    <!--<symlink action="record" linkfilename="linked.record">
+     <fileset dir="${jdk.version.ora.dir}" includes="**/**"/>
+    </symlink> -->
+
+        <!--<exec executable="mv">
+          <arg value="${jdk.version.ora.dir}"/>
+          <arg value="${jdk.version.kuali.dir}"/>
+        </exec>
+       <exec executable="mv">
+          <arg value="${jdk.version.kuali.dir}/${ora.dir}"/>
+          <arg value="${jdk.version.kuali.dir}/${kuali.dir}"/>
+        </exec>
+       <exec executable="cd">
+          <arg value= "${jdk.dir}"/>
+       </exec>
+      -->
+      </target> 
+
+      <!--  IS THE OS MAC?  -->
+      <target name="-if_mac" depends="-checkos" if="isMac">
+         <property name="platform" value="mac"/>
+          <exec executable="mv">
+            <arg value="${ora.dir}"/>
+            <arg value="${kuali.dir}"/>
+          </exec>
+      </target>
 </project>
 
