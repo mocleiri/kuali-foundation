@@ -11,16 +11,11 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-
-	<div class="container-fluid"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
-    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-
-			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-			</div>
-
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
-        <!-- Main content goes here -->
+  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+    <div class="container-fluid" style="">
+      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">     <!-- Main content goes here -->
         
         <h3>Organization &amp; Location</h3>
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -99,13 +94,8 @@ include( '_temp.select.filler.php' );
                 </tr>
               </tbody>
             </table>
-            <div class="btn-row-widget-action"> 
-            
-            
-            <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html">change organization</button>
-            
-            
-            
+            <div class="btn-row-widget-action">
+              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html">change organization</button>
             </div>
           </div>
           <div class="tab-pane" id="tab3">
@@ -115,7 +105,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-down"></span>  Clinical Trial Location </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-down"></span> Clinical Trial Location </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>
@@ -185,7 +175,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <span aria-hidden="true" class="icon-caret-down"></span>  Field Study Location </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <span aria-hidden="true" class="icon-caret-down"></span> Field Study Location </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>
@@ -230,16 +220,16 @@ include( '_temp.select.filler.php' );
                 </div>
               </div>
             </div>
-            <div class=" btn-row-widget-action">   
-            <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html"><span aria-hidden="true" class="icon-plus-sign"></span> add location </button>
-             </div>
+            <div class=" btn-row-widget-action">
+              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html"><span aria-hidden="true" class="icon-plus-sign"></span> add location </button>
+            </div>
           </div>
           <div class="tab-pane " id="tab4">
             <h4> Other Organizations</h4>
             <div class="panel-group" id="accordion2">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                 <div class="row">
+                  <div class="row">
                     <div class="col-md-6">
                       <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse4"> <span aria-hidden="true" class="icon-caret-down"></span> Communications Power </a> </h4>
                     </div>
@@ -285,7 +275,7 @@ include( '_temp.select.filler.php' );
               </div>
               <div class="panel panel-default">
                 <div class="panel-heading">
-                 <div class="row">
+                  <div class="row">
                     <div class="col-md-6">
                       <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse5"> <span aria-hidden="true" class="icon-caret-down"></span> Cleveland Clinic Organization </a> </h4>
                     </div>
@@ -294,7 +284,7 @@ include( '_temp.select.filler.php' );
                 </div>
                 <div id="collapse5" class="panel-collapse collapse">
                   <div class="panel-body">
-                    <table  class="table table-condensed">
+                    <table class="table table-condensed">
                       <tbody>
                         <tr>
                           <th style="width:30%">Organization</th>
@@ -332,28 +322,30 @@ include( '_temp.select.filler.php' );
                 </div>
               </div>
             </div>
-            <div class="btn-row-widget-action">   
-           <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html"><span aria-hidden="true" class="icon-plus-sign"></span> add location </button>
-             </div>
+            <div class="btn-row-widget-action">
+              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html"><span aria-hidden="true" class="icon-plus-sign"></span> add location </button>
+            </div>
           </div>
         </div>
         
         <!-- // --> 
-        
-      </div></div>
-
-		
-
-		<!-- Button row -->
-		<div class="btn-row-page-action"> <button  onclick="location.href='prop.basics.sponsor.php'" class="btn btn-default">Back</button>
-<button class="btn btn-default">Save</button>
+        <div class="uif-stickyFooter uif-stickyButtonFooter" style="position:fixed; left: 0; bottom: 0px; width:100%"> 
+          
+         <!-- Button row -->
+    <div class="btn-row-page-action">
+      <button  onclick="location.href='prop.basics.sponsor.php'" class="btn btn-default">Back</button>
+      <button class="btn btn-default">Save</button>
       <button  onclick="location.href='prop.keypersonnel.start.php'" class="btn btn-primary">Save and continue</button>
-			
-		</div>
-		<!-- // -->
-
-	</div>
-
+    </div>
+    <!-- // --> 
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
+
+
+
+
+

@@ -9,6 +9,35 @@ require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
+<section id="main">
+  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+    <div class="container-fluid" style="">
+      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> contentgoeshere
+        <div class="uif-stickyFooter uif-stickyButtonFooter" style="position:fixed; left: 0; bottom: 0px; width:100%"> 
+          
+          <!-- Button row -->
+          <div class="btn-row-page-action">
+            <button class="btn btn-default">Save</button>
+            <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-primary">Save and continue</button>
+          </div>
+          <!-- // --> 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<?php require_once( 'themes/kc/inc/footer.php' ); ?>
+
+
+
+
+
+
+
+
+
 <section id="main"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?><div class="container-fluid">
 
@@ -25,7 +54,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<h3>Proposal Details</h3>
 				
 
-				<div class="section-content">
+				
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
 							<legend style="display:none">Enter any relevant details for this proposal</legend>
@@ -135,7 +164,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 						</fieldset>
 					</form>
-				</div>
+				
 
 				<!-- // -->
 

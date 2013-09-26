@@ -9,22 +9,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
 <section id="main">
+  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+    <div class="container-fluid" style="">
+      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
 
-	<div class="container-fluid"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
-    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
+			
 
-			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-			</div>
-
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
-				<!-- Main content goes here -->
-
-				<!-- <div class="section-title">
-					<h2>Questionnaire</h2>
-				</div> -->
-
-				<div class="section-content">
+				
 
 					
 						<h3>Budget Summary and Submission</h3>
@@ -214,19 +207,24 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<!-- // -->
 
-			</div>
-
-		</div></div>
-
+        <div class="uif-stickyFooter uif-stickyButtonFooter" style="position:fixed; left: 0; bottom: 0px; width:100%"> 
+          
+         
 		<!-- Button row -->
 		<div class="btn-row-page-action"> <button  onclick="location.href='prop.inst.3.php'" class="btn btn-default">Back</button>
 
 			
 		</div>
 		<!-- // -->
-
-	
-
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
+
+
+
+
+
+

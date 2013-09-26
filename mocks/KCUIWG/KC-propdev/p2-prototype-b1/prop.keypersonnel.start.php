@@ -10,22 +10,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
 <section id="main">
-
-	<div class="container-fluid"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
-    <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
-
-			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-				<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-			</div>
-
-			  <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed"><div id="content" class="uif-page" tabindex="-1">
-				<!-- Main content goes here -->
+  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+    <div class="container-fluid" style="">
+      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> 	<!-- Main content goes here -->
 
 				
 					<h3>Key Personnel</h3>
 				
 
-				<div class="section-content">
+				
 					<form action="#" method="post" class="">
 						<fieldset>
 							<legend>Search for and add key personnel</legend>
@@ -35,14 +30,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 						</fieldset>
 					</form>
-				</div>
+				
 
 				<!-- // -->
 
-			</div></div>
-
-		
-
+        <div class="uif-stickyFooter uif-stickyButtonFooter" style="position:fixed; left: 0; bottom: 0px; width:100%"> 
+          
+       
 		<!-- Button row -->
 		<div class="btn-row-page-action"> <button  onclick="location.href='prop.basics.orgloc.php'" class="btn btn-default">Back</button>
 <button class="btn btn-default">Save</button>
@@ -51,8 +45,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 		</div>
 		<!-- // -->
 
-	</div>
-
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
+
+
+
+
