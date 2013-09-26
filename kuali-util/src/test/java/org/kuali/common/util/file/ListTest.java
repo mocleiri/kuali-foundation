@@ -36,6 +36,7 @@ public class ListTest {
 	private static final String SHA1 = "sha1";
 	private static final String MD5 = "md5";
 	private static final String BASEDIR = "/usr/local/sonatype-work/nexus/storage";
+	private static final List<String> CHECKSUM_EXTENSIONS = getCheckSumExtensions();
 
 	@Test
 	public void getRepoListTest() {
@@ -220,8 +221,7 @@ public class ListTest {
 	}
 
 	protected boolean isChecksum(String path) {
-		List<String> checksumExtensions = getCheckSumExtensions();
-		for (String ext : checksumExtensions) {
+		for (String ext : CHECKSUM_EXTENSIONS) {
 			if (path.endsWith(ext)) {
 				return true;
 			}
