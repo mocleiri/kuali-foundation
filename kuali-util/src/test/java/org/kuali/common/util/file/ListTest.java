@@ -95,8 +95,8 @@ public class ListTest {
 		for (Artifact artifact : issues) {
 			missingChecksums.add(BASEDIR + "/" + artifact.getRepository().getName() + artifact.getFile().getPath());
 		}
-		String filename = "/Users/jcaddel/ws/kuali-util/src/test/resources/repos/missing-checksums.txt";
-		write(new File(filename), missingChecksums);
+		// String filename = "/Users/jcaddel/ws/kuali-util/src/test/resources/repos/missing-checksums.txt";
+		// write(new File(filename), missingChecksums);
 	}
 
 	protected void write(File file, List<String> lines) {
