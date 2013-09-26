@@ -6,7 +6,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -29,10 +31,14 @@ public class ListTest {
 		try {
 			List<String> names = getRepoNames();
 			List<Repository> repos = new ArrayList<Repository>();
+			Set<String> paths = new HashSet<String>();
 			for (String name : names) {
 				String location = "classpath:repos/" + name + ".txt";
 				List<String> lines = LocationUtils.readLines(location);
 				List<RepoFile> files = getRepoFiles(lines);
+				for (RepoFile file : files) {
+					paths.add(file.getPath());
+				}
 				Repository repo = new Repository(name, files);
 				repos.add(repo);
 			}
@@ -40,13 +46,22 @@ public class ListTest {
 			Collections.reverse(repos);
 			List<String> columns = ImmutableList.of("repo", "files", "size");
 			List<Object[]> rows = new ArrayList<Object[]>();
+			long totalFiles = 0;
+			long totalSize = 0;
 			for (Repository repo : repos) {
 				String count = FormatUtils.getCount(repo.getFiles().size());
 				String size = FormatUtils.getSize(repo.getSize());
+				totalSize += repo.getSize();
+				totalFiles += repo.getFiles().size();
 				Object[] row = { repo.getName(), count, size };
 				rows.add(row);
 			}
+			String tc = FormatUtils.getCount(totalFiles);
+			String ts = FormatUtils.getSize(totalSize);
+			rows.add(new Object[] { " ", " ", " " });
+			rows.add(new Object[] { "totals", tc, ts });
 			LoggerUtils.logTable("Repo Summary", columns, rows);
+			System.out.println("Unique Paths: " + FormatUtils.getCount(paths.size()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
