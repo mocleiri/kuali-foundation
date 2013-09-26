@@ -36,6 +36,8 @@ public class ListTest {
 				Repository repo = new Repository(name, files);
 				repos.add(repo);
 			}
+			Collections.sort(repos);
+			Collections.reverse(repos);
 			List<String> columns = ImmutableList.of("repo", "files", "size");
 			List<Object[]> rows = new ArrayList<Object[]>();
 			for (Repository repo : repos) {

@@ -18,7 +18,7 @@ public class Repository implements Comparable<Repository> {
 
 	@Override
 	public int compareTo(Repository other) {
-		return Double.compare(files.size(), other.getFiles().size());
+		return Double.compare(size, other.getSize());
 	}
 
 	private long getTotalSize(List<RepoFile> files) {
