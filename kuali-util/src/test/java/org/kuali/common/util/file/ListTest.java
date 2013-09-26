@@ -45,6 +45,12 @@ public class ListTest {
 		}
 	}
 
+	protected void analyzeRepos(List<Repository> repos) {
+	}
+
+	protected void analyzeRepo(Repository repo) {
+	}
+
 	protected void logWeird(Set<String> paths) {
 		List<String> weird = new ArrayList<String>();
 		for (String path : paths) {
