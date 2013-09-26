@@ -30,27 +30,19 @@ public final class Repository implements Comparable<Repository> {
 	}
 
 	private final String name;
-	private List<RepoFile> files;
-	private long size;
-
-	public List<RepoFile> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<RepoFile> files) {
-		this.files = files;
-	}
+	private final List<RepoFile> files;
+	private final long size;
 
 	public String getName() {
 		return name;
 	}
 
-	public long getSize() {
-		return size;
+	public List<RepoFile> getFiles() {
+		return files;
 	}
 
-	public void setSize(long size) {
-		this.size = size;
+	public long getSize() {
+		return size;
 	}
 
 }
