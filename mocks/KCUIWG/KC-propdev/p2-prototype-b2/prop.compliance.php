@@ -59,9 +59,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 												<div class="helper-text">
 													Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 												</div>
-												<!-- <span class="input-group-btn">
-													<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
-												</span> -->
 											</div>
 										</div>
 										<div class="form-group clearfix">
@@ -80,12 +77,20 @@ require_once( 'themes/kc/inc/toolbar.php' );
 												<div class="helper-text">
 													Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 												</div>
+												<span class="input-group-btn">
+													<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+												</span>
 											</div>
 										</div>
 										<div class="form-group clearfix">
 											<label for="req_01_exemption" class="control-label col-md-3">Exemption #:</label>
 											<div class="col-md-5 input-group">
-												<input type="text" class="form-control input-sm" name="req_01_exemption" id="req_01_exemption" value="888JJKDF" />
+												<select class="form-control input-sm chzn" name="req_01_exemption" id="req_01_exemption">
+													<option></option>
+													<option selected="selected">E1</option>
+													<option>E2</option>
+													<option>E3</option>
+												</select>
 												<div class="helper-text">
 													Pellentesque sodales dolor vel augue egestas, ac ultrices lectus feugiat. Suspendisse potenti. Aliquam ac pretium.
 												</div>
@@ -155,17 +160,25 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										</div>
 										<div class="form-group clearfix">
 											<label for="req_02_protocol" class="control-label col-md-3">Protocol #:</label>
-											<div class="col-md-5">
+											<div class="col-md-5 input-group">
 												<input type="text" class="form-control input-sm has-helper" name="req_02_protocol" id="req_02_protocol" />
 												<div class="helper-text">
 													If a protocol number for this requirement has been given, enter it here.
 												</div>
+												<span class="input-group-btn">
+													<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+												</span>
 											</div>
 										</div>
 										<div class="form-group clearfix">
 											<label for="req_02_exemption" class="control-label col-md-3">Exemption #:</label>
 											<div class="col-md-5">
-												<input type="text" class="form-control input-sm has-helper" name="req_02_exemption" id="req_02_exemption" />
+												<select class="form-control input-sm has-helper chzn" name="req_02_exemption" id="req_02_exemption">
+												<option></option>
+													<option>E1</option>
+													<option>E2</option>
+													<option>E3</option>
+												</select>
 												<div class="helper-text">
 													Enter any exemption numbers.
 												</div>
