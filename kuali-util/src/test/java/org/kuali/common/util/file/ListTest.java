@@ -321,7 +321,7 @@ public class ListTest {
 		}
 		String tc = FormatUtils.getCount(totalFiles);
 		String ts = FormatUtils.getSize(totalSize);
-		rows.add(new Object[] { " ", " ", " " });
+		rows.add(new Object[] { "", "", "" });
 		rows.add(new Object[] { "totals", tc, ts });
 		LoggerUtils.logTable("Repo Summary", columns, rows);
 	}
