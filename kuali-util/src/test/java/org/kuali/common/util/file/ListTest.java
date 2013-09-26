@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.file.model.RepoFile;
 import org.kuali.common.util.file.model.Repository;
 
 import com.google.common.collect.ImmutableList;
@@ -31,10 +32,25 @@ public class ListTest {
 				System.out.println(name);
 				String location = "classpath:repos/" + name + ".txt";
 				List<String> lines = LocationUtils.readLines(location);
+				List<RepoFile> files = getRepoFiles(lines);
+				Repository repo = new Repository(name, files);
+				repos.add(repo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected List<RepoFile> getRepoFiles(List<String> lines) {
+		List<RepoFile> files = new ArrayList<RepoFile>();
+		for (String line : lines) {
+			String[] tokens = StringUtils.split(line, ",");
+			String path = tokens[0];
+			long size = Long.parseLong(tokens[1]);
+			RepoFile file = new RepoFile(path, size);
+			files.add(file);
+		}
+		return files;
 	}
 
 	@Test
