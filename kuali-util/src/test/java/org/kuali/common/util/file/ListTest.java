@@ -55,7 +55,7 @@ public class ListTest {
 	}
 
 	protected void logRepoArtifacts(List<RepoArtifacts> list) {
-		List<String> columns = Arrays.asList("repo", "present", "missing", "total");
+		List<String> columns = Arrays.asList("repo", "present", "missing", "total", "size");
 		List<Object[]> rows = new ArrayList<Object[]>();
 		List<Artifact> issues = new ArrayList<Artifact>();
 		for (RepoArtifacts element : list) {
@@ -70,14 +70,13 @@ public class ListTest {
 					issues.add(artifact);
 				}
 			}
-			if (missing > 0) {
-				String pcount = FormatUtils.getCount(present);
-				String mcount = FormatUtils.getCount(missing);
-				String name = element.getRepository().getName();
-				String total = FormatUtils.getCount(artifacts.size());
-				Object[] row = { name, pcount, mcount, total };
-				rows.add(row);
-			}
+			String pcount = FormatUtils.getCount(present);
+			String mcount = FormatUtils.getCount(missing);
+			String name = element.getRepository().getName();
+			String total = FormatUtils.getCount(artifacts.size());
+			String size = FormatUtils.getSize(element.getSize());
+			Object[] row = { name, pcount, mcount, total, size };
+			rows.add(row);
 		}
 		LoggerUtils.logTable("repo artifacts", columns, rows);
 		for (Artifact artifact : issues) {
