@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.file.model.FileExtension;
 import org.kuali.common.util.file.model.RepoFile;
 import org.kuali.common.util.file.model.Repository;
 import org.kuali.common.util.log.LoggerUtils;
@@ -35,19 +36,19 @@ public class ListTest {
 			List<Repository> repos = getRepoList();
 			logRepos(repos);
 			Set<String> paths = getPaths(repos);
-			Map<String, Integer> extensions = getExtensions(paths);
+			List<FileExtension> extensions = getExtensions(paths);
 			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
 			System.out.println("Unique extensions: " + FormatUtils.getCount(extensions.size()));
-			for (String extension : extensions.keySet()) {
-				String count = FormatUtils.getCount(extensions.get(extension));
-				System.out.println(StringUtils.rightPad(extension, 16) + " - " + count);
+			for (FileExtension extension : extensions) {
+				String count = FormatUtils.getCount(extension.getCount());
+				System.out.println(StringUtils.rightPad(extension.getValue(), 16) + " - " + count);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected Map<String, Integer> getExtensions(Set<String> paths) {
+	protected List<FileExtension> getExtensions(Set<String> paths) {
 		Map<String, Integer> extensions = new TreeMap<String, Integer>();
 		for (String path : paths) {
 			String extension = FilenameUtils.getExtension(path);
@@ -59,7 +60,14 @@ public class ListTest {
 			}
 			extensions.put(extension, count);
 		}
-		return extensions;
+		List<FileExtension> list = new ArrayList<FileExtension>();
+		for (Map.Entry<String, Integer> pair : extensions.entrySet()) {
+			FileExtension fe = new FileExtension(pair.getKey(), pair.getValue());
+			list.add(fe);
+		}
+		Collections.sort(list);
+		Collections.reverse(list);
+		return list;
 	}
 
 	protected Set<String> getPaths(List<Repository> repos) {
