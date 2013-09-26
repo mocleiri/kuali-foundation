@@ -21,15 +21,19 @@ import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
+import org.kuali.common.util.file.model.Artifact;
 import org.kuali.common.util.file.model.FileExtension;
+import org.kuali.common.util.file.model.RepoArtifacts;
 import org.kuali.common.util.file.model.RepoFile;
-import org.kuali.common.util.file.model.RepoStats;
 import org.kuali.common.util.file.model.Repository;
 import org.kuali.common.util.log.LoggerUtils;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class ListTest {
+
+	private static final List<String> CHECKSUM_EXTENSIONS = getCheckSumExtensions();
 
 	@Test
 	public void getRepoListTest() {
@@ -47,39 +51,42 @@ public class ListTest {
 		}
 	}
 
-	protected void analyzeRepos(List<Repository> repos) {
+	protected List<RepoArtifacts> analyzeRepos(List<Repository> repos) {
+		List<RepoArtifacts> list = new ArrayList<RepoArtifacts>();
 		for (Repository repo : repos) {
-			analyzeRepo(repo);
+			RepoArtifacts ra = analyzeRepo(repo);
+			list.add(ra);
 		}
+		return list;
 	}
 
-	protected boolean hasCheckSum(RepoFile artifact, List<RepoFile> checksums) {
+	protected Artifact getArtifact(Repository repo, RepoFile artifact, List<RepoFile> checksums) {
 		String path = artifact.getPath();
-		List<String> extensions = getCheckSumExtensions();
-		for (String extension : extensions) {
-			String checksumPath = path + "." + extension;
-			if (checksums.contains(checksumPath)) {
-				return true;
+		for (String ext : CHECKSUM_EXTENSIONS) {
+			String checksumPath = path + "." + ext;
+			for (RepoFile checksum : checksums) {
+				if (checksumPath.equals(checksum.getPath())) {
+					return new Artifact(repo, artifact, Optional.of(checksum));
+				}
 			}
 		}
-		return false;
+		return new Artifact(repo, artifact, Optional.<RepoFile> absent());
 	}
 
-	protected RepoStats analyzeRepo(Repository repo) {
+	protected List<Artifact> getArtifacts(Repository repo, List<RepoFile> checksums, List<RepoFile> artifacts) {
+		List<Artifact> list = new ArrayList<Artifact>();
+		for (RepoFile artifact : artifacts) {
+			Artifact a = getArtifact(repo, artifact, checksums);
+			list.add(a);
+		}
+		return list;
+	}
+
+	protected RepoArtifacts analyzeRepo(Repository repo) {
 		List<RepoFile> checksums = getCheckSums(repo.getFiles());
 		List<RepoFile> artifacts = getArtifacts(repo.getFiles());
-
-		List<RepoFile> haveChecksums = new ArrayList<RepoFile>();
-		List<RepoFile> missingChecksums = new ArrayList<RepoFile>();
-		for (RepoFile artifact : artifacts) {
-			boolean hasCheckSum = hasCheckSum(artifact, checksums);
-			if (hasCheckSum) {
-				haveChecksums.add(artifact);
-			} else {
-				missingChecksums.add(artifact);
-			}
-		}
-		return new RepoStats(repo, checksums, artifacts, haveChecksums.size());
+		List<Artifact> list = getArtifacts(repo, checksums, artifacts);
+		return new RepoArtifacts(repo, list);
 	}
 
 	protected List<RepoFile> getArtifacts(List<RepoFile> files) {
@@ -93,7 +100,7 @@ public class ListTest {
 		return checksums;
 	}
 
-	protected List<String> getCheckSumExtensions() {
+	protected static final List<String> getCheckSumExtensions() {
 		return Arrays.asList("sha1", "md5");
 	}
 
