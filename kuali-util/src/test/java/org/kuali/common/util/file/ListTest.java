@@ -46,8 +46,39 @@ public class ListTest {
 			logFileExtensions(extensions);
 			// logWeird(paths);
 			analyzeRepos(repos);
+			List<RepoArtifacts> list = analyzeRepos(repos);
+			logRepoArtifacts(list);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void logRepoArtifacts(List<RepoArtifacts> list) {
+		List<String> columns = Arrays.asList("repo", "present", "missing", "total");
+		List<Object[]> rows = new ArrayList<Object[]>();
+		List<Artifact> issues = new ArrayList<Artifact>();
+		for (RepoArtifacts element : list) {
+			int present = 0;
+			int missing = 0;
+			List<Artifact> artifacts = element.getArtifacts();
+			for (Artifact artifact : artifacts) {
+				if (artifact.getChecksum().isPresent()) {
+					present++;
+				} else {
+					missing++;
+					issues.add(artifact);
+				}
+			}
+			String pcount = FormatUtils.getCount(present);
+			String mcount = FormatUtils.getCount(missing);
+			String name = element.getRepository().getName();
+			String total = FormatUtils.getCount(artifacts.size());
+			Object[] row = { name, pcount, mcount, total };
+			rows.add(row);
+		}
+		LoggerUtils.logTable("repo artifacts", columns, rows);
+		for (Artifact artifact : issues) {
+			System.out.println(artifact.getRepository().getName() + " " + artifact.getFile().getPath());
 		}
 	}
 
@@ -65,7 +96,8 @@ public class ListTest {
 		for (String ext : CHECKSUM_EXTENSIONS) {
 			String checksumPath = path + "." + ext;
 			for (RepoFile checksum : checksums) {
-				if (checksumPath.equals(checksum.getPath())) {
+				String checksumPathFromList = checksum.getPath();
+				if (checksumPathFromList.equals(checksumPath)) {
 					return new Artifact(repo, artifact, Optional.of(checksum));
 				}
 			}
@@ -378,7 +410,7 @@ public class ListTest {
 		names.add("kuali-s3-external");
 		names.add("kuali-s3-private");
 		names.add("kuali-snapshot");
-		names.add("m2eclipse");
+		// names.add("m2eclipse");
 		names.add("maven-restlet");
 		names.add("ow2");
 		names.add("public");
