@@ -7,3 +7,16 @@ svn cp -m '$MSG' $SRC $DST --parents
 svn cp -m '$MSG' $DST/torque-generator $DST/torque-parser
 svn rm -m '$MSG' $DST/torque-parser/src/main/java/org $DST/torque-parser/src/main/resources/org $DST/torque-parser/src/test/resources/org $DST/torque-parser/src/test/java/org
  
+ 
+DEVOPS-20
+ - symbolic links appear to get nuked by untar then rezip
+ - should be fine, just a little less compact because you end up with duplicate copies of the items that were symbolically linked
+ - Run new Ant script on jdk7 21, md5 against already published jdk21
+ - Use Ant tar targets if possible
+ - jre/lib/amd64/server/libjsig.so -> ../libjsig.so
+ -  
+ 
+DEVOPS-21
+ - binaries with no checksums
+ - expand to all repos
+ - war, zip
