@@ -1,93 +1,77 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
-<!--[if IE 7]><html class="ie7" lang="en"><![endif]-->
-<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<title>Kuali Prototype A</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
+	<link rel="stylesheet" href="../../themes/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../../themes/kc/js/chosen/chosen.css" />
+	<link rel="stylesheet" href="../../themes/kc/css/datepicker.css" />
+	<link rel="stylesheet" href="../../themes/kc/icons/style.css" />
+	<link rel="stylesheet" href="../../themes/kc/css/custom.css" />
 
-<!-- jQuery (NB: please load in head so we can use inline jQuery docReady calls) -->
-<script src="../../assets/js/jquery.js"></script>
-
-<!-- Le styles -->
-<link href="../../assets/css/bootstrap.css" rel="stylesheet">
-<link href="../../assets/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="../../assets/css/custom.css" rel="stylesheet">
-<link href="../../assets/css/custom-tc.css" rel="stylesheet">
-<link href="../../assets/css/custom-chris.css" rel="stylesheet">
-
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 </head>
+<body>
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h3>Add Personnel</h3> <span>Employee Search</span>
+		</div>
 
-<!-- Begin body here -->
-<body style="background:#FFF; background-image:none">
+		<div class="modal-body">
+			<fieldset>
+				<legend>Assign a role</legend>
+				<label class="radio" for="pi-contact"><input type="radio" id="pi-contact" value="pi" name="group" class="r"> Principal Investigator/Contact</label>
+				<label class="radio" for="copi-investigator"><input type="radio" id="copi-investigator" value="copi" name="group" class="r"> Co-Principal Investigator</label>
+				<div class="other" id="multi_pi">
+					<div class="form-group clearfix">
+						<label for="multiple_pis" class="control-label col-md-5"><input type="checkbox" id="multiple_pis" value="1" /> Yes, this proposal has multuple PI's.</label>
+					</div>
+				</div>
 
-<!-- Modal -->
-<div class="modal-header">
-  <h3 id="myModalLabel">Add Personnel</h3>
-  <span>Employee Search</span>
+				<label class="radio" for="keyperson"><input type="radio" id="keyperson" value="kp" name="group" class="r"> Key Person</label>
+				<div class="other" id="kp_role">
+					<div class="form-group clearfix">
+						<label for="keyperson_role" class="control-label col-md-3">Key Person's role will be:</label>
+						<div class="col-md-5">
+							<input type="text" id="keyperson_role" class="form-control input-sm col-md-8" />
+						</div>
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="form-group clearfix">
+				<label for="include-ib" class="control-label col-md-5"><input type="checkbox" id="include-ib" value="1" checked="checked" /> Yes, include <span>Edward Haskell</span> in this proposal's budget</label>
+			</div>
+		</div>
+
+		<div class="modal-footer" data-spy="">
+			<a href="emp.results.html" class="btn btn-default">Go back</a>
+			<a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-primary pull-right">Add Person</a>
+		</div>
+	</div>
 </div>
-<div class="modal-body">
-  <form class="form">
-  <fieldset>
-    <legend>Assign a role</legend>
-    <label class="radio">
-      <input type="radio" value="PI/Contact" name="group">
-      Principal Investigator/Contact </label>
-    <label class="radio">
-      <input type="radio" value="Co-Principal Investigator" name="group">
-      Co-Principal Investigator </label>
-    <label class="radio">
-      <input type="radio" value="Key Person" name="group">
-      Key Person
-    </label>
-  </fieldset>
 
-  <div class="clearfix"></div>
+<!-- <script src="../../themes/kc/js/fancybox/jquery.fancybox.js"></script> -->
+<script src="../../themes/kc/js/chosen/chosen.jquery.min.js"></script>
+<script src="../../themes/kc/js/bootstrap-datepicker.js"></script>
+<script src="../../themes/kc/js/functions.js"></script>
 
-  <div class="controls">
-    <label class="checkbox">
-      <input type="checkbox" value="1" name="pb" checked="checked"> Include Edward Haskell in the Proposal Budget
-    </label>
-  </div>
-  </form>
-</div>
-
-<div class="modal-footer" data-spy="">
-  <a href="emp.results.html" target="" class="btn"><i class="icon-chevron-left"></i> Previous</a>
-  <a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-inverse">Add Person</a>
-</div>
-
-<!-- Le javascript
-    ================================================== --><!-- Placed at the end of the document so the pages load faster -->
-<script src="../../assets/js/jquery.js"></script>
-<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script src="../../assets/js/bootstrap-transition.js"></script>
-<script src="../../assets/js/bootstrap-fileupload.js"></script>
-<script src="../../assets/js/bootstrap-alert.js"></script>
-<script src="../../assets/js/bootstrap-modal.js"></script>
-<script src="../../assets/js/bootstrap-dropdown.js"></script>
-<script src="../../assets/js/bootstrap-scrollspy.js"></script>
-<script src="../../assets/js/bootstrap-tab.js"></script>
-<script src="../../assets/js/bootstrap-tooltip.js"></script>
-<script src="../../assets/js/bootstrap-popover.js"></script>
-<script src="../../assets/js/bootstrap-button.js"></script>
-<script src="../../assets/js/bootstrap-collapse.js"></script>
-<script src="../../assets/js/bootstrap-carousel.js"></script>
-<script src="../../assets/js/bootstrap-typeahead.js"></script>
-<script src="../../assets/js/bootstrap-editable.js"></script>
-<script src="../../assets/js/application.js"></script>
-<script src="../../assets/js/custom.js?v=0.1"></script>
 <script>
-$(function ()
-{ $("#example").popover();
+$(document).ready(function() {
+	$('.other').hide();
+
+	$('.r').click(function() {
+
+		if ($(this).val() == 'copi') {
+			$('.other').hide();
+			$('#multi_pi').fadeIn();
+		} else if ($(this).val() == 'kp') {
+			$('.other').hide();
+			$('#kp_role').fadeIn();
+		} else {
+			$('.other').hide();
+		}
+	});
 });
 </script>
+
 </body>
 </html>

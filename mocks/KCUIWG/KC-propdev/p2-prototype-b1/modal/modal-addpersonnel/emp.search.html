@@ -1,126 +1,80 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
-<!--[if IE 7]><html class="ie7" lang="en"><![endif]-->
-<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<title>Kuali Prototype A</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
+  <link rel="stylesheet" href="../../themes/bootstrap/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../themes/kc/js/chosen/chosen.css" />
+  <link rel="stylesheet" href="../../themes/kc/css/datepicker.css" />
+  <link rel="stylesheet" href="../../themes/kc/icons/style.css" />
+  <link rel="stylesheet" href="../../themes/kc/css/custom.css" />
 
-<!-- jQuery (NB: please load in head so we can use inline jQuery docReady calls) -->
-<script src="../../assets/js/jquery.js"></script>
-
-<!-- Le styles -->
-<link href="../../assets/css/bootstrap.css" rel="stylesheet">
-<link href="../../assets/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="../../assets/css/custom.css" rel="stylesheet">
-<link href="../../assets/css/custom-tc.css" rel="stylesheet">
-<link href="../../assets/css/custom-chris.css" rel="stylesheet">
-
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 </head>
+<body>
+<div class="modal-dialog">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+      <h3>Add Personnel</h3> <span>Employee Search</span>
+    </div>
 
-<!-- Begin body here -->
-<body style="background:#FFF; background-image:none">
-<div id="wrap">
+    <div class="modal-body">
+      <fieldset>
+        <legend>Search with any known details</legend>
+
+        <div class="form-group clearfix">
+          <label for="last_name" class="control-label col-md-3">Last name</label>
+          <div class="col-md-5">
+            <input type="text" id="last_name" name="last_name" class="form-control input-sm col-md-8">
+          </div>
+        </div>
+
+        <div class="form-group clearfix">
+          <label for="first_name" class="control-label col-md-3">First name</label>
+          <div class="col-md-5">
+            <input type="text" id="first_name" name="first_name" class="form-control input-sm col-md-8">
+          </div>
+        </div>
+
+        <div class="form-group clearfix">
+          <label for="username" class="control-label col-md-3">Username</label>
+          <div class="col-md-5">
+            <input type="text" id="username" name="username" class="form-control input-sm col-md-8">
+          </div>
+        </div>
+
+        <div class="form-group clearfix">
+          <label for="email_address" class="control-label col-md-3">Email address</label>
+          <div class="col-md-5">
+            <input type="text" id="email_address" name="email_address" class="form-control input-sm col-md-8" placeholder="user@domain.com">
+          </div>
+        </div>
+
+        <div class="form-group clearfix">
+          <label for="office_phone" class="control-label col-md-3">Office phone</label>
+          <div class="col-md-5">
+            <input type="tel" id="office_phone" name="office_phone" class="form-control input-sm col-md-8">
+          </div>
+        </div>
+
+        <!-- <fieldset>
+          <legend>Is this person an employee?</legend>
+          <div class="form-group clearfix">
+            <label class="radio" for="keyPersonnelType_Employee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_Employee" value="Employee">Employees</label>
+            <label class="radio" for="keyPersonnelType_NonEmployee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_NonEmployee" value="Non-Employee">Non-Employees</label>
+          </div>
+        </fieldset> -->
+      </fieldset>
+    </div>
   
-  <!-- Modal -->
-  <div class="modal-header">
-    <h3 id="myModalLabel"> Add Personnel</h3> <span>Employee Search</span>
-  </div>
-  <div class="modal-body">
-    <fieldset>
-      <legend>Search with any known details</legend>
-      <form class="form-horizontal">
-        <div class="control-group">
-          
-          <!-- Text input-->
-          <label class="control-label" for="input01">Last Name</label>
-          <div class="controls">
-            <input type="text" placeholder="" class="input-xlarge">
-          </div>
-        </div>
-        <div class="control-group">
-          
-          <!-- Text input-->
-          <label class="control-label" for="input01">First Name</label>
-          <div class="controls">
-            <input type="text" placeholder="" class="input-xlarge">
-          </div>
-        </div>
-        <div class="control-group">
-          <!-- Text input-->
-          <label class="control-label" for="input7">User Name</label>
-          <div class="controls">
-            <input type="text" class="input-xlarge">
-          </div>
-        </div>
-        <div class="control-group">
-          <!-- Text input-->
-          <label class="control-label" for="input8">Email Address</label>
-          <div class="controls">
-            <input type="text" placeholder="someone@somewhere.edu" class="input-xlarge">
-          </div>
-        </div>
-        <div class="control-group">
-          <!-- Text input-->
-          <label class="control-label" for="input2">Office Phone</label>
-          <div class="controls">
-            <input type="text" placeholder="123-456-1234" class="input-xlarge">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Active Employee</label>
-          <div class="controls">
-            <!-- Inline Radios -->
-            <label class="radio inline">
-              <input type="radio" value="1" checked="checked" name="group">
-              Yes </label>
-            <label class="radio inline">
-              <input type="radio" value="2" name="group">
-              No </label>
-            <!-- <label class="radio inline">
-              <input type="radio" value="3">
-              Both </label> -->
-          </div>
-        </div>
-          
-          <!-- Text input-->
-          <label class="control-label" for="input4"></label>
-          <div class="controls">
-          </div>
-        </div>
-      </form>
-    </fieldset>
+    <div class="modal-footer" data-spy="">
+      <a href="start.html" class="btn btn-default">Go back</a>
+      <a href="emp.results.html" class="btn btn-primary pull-right">Continue...</a>
+    </div>
   </div>
 </div>
-<div class="modal-footer" data-spy="">  <a href="start.html" class="btn"><i class="icon icon-chevron-left"></i>Previous</a>
-  <a href="emp.results.html" class="btn btn-inverse">Next <i class="icon-white icon-chevron-right"></i></a>
-</div>
 
-<script src="../../assets/js/jquery.js"></script>
-<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script src="../../assets/js/bootstrap-transition.js"></script>
-<script src="../../assets/js/bootstrap-fileupload.js"></script>
-<script src="../../assets/js/bootstrap-alert.js"></script>
-<script src="../../assets/js/bootstrap-modal.js"></script>
-<script src="../../assets/js/bootstrap-dropdown.js"></script>
-<script src="../../assets/js/bootstrap-scrollspy.js"></script>
-<script src="../../assets/js/bootstrap-tab.js"></script>
-<script src="../../assets/js/bootstrap-tooltip.js"></script>
-<script src="../../assets/js/bootstrap-popover.js"></script>
-<script src="../../assets/js/bootstrap-button.js"></script>
-<script src="../../assets/js/bootstrap-collapse.js"></script>
-<script src="../../assets/js/bootstrap-carousel.js"></script>
-<script src="../../assets/js/bootstrap-typeahead.js"></script>
-<script src="../../assets/js/bootstrap-editable.js"></script>
-<script src="../../assets/js/application.js"></script>
-<script src="../../assets/js/custom.js?v=0.1"></script>
-
+<!-- <script src="../../themes/kc/js/fancybox/jquery.fancybox.js"></script> -->
+<script src="../../themes/kc/js/chosen/chosen.jquery.min.js"></script>
+<script src="../../themes/kc/js/bootstrap-datepicker.js"></script>
+<script src="../../themes/kc/js/functions.js"></script>
 </body>
 </html>

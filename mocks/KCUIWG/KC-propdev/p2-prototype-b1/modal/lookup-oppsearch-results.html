@@ -1,79 +1,110 @@
-<div style="min-width:70%">
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="../themes/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../themes/kc/js/chosen/chosen.css" />
+	<link rel="stylesheet" href="../themes/kc/css/datepicker.css" />
+	<link rel="stylesheet" href="../themes/kc/icons/style.css" />
+	<link rel="stylesheet" href="../themes/kc/css/custom.css" />
 
-    
-      <div class="modal-header">
-        <h3 style="margin-left:20px;" id="myModalLabel">Opportunity Search</h3>
-      </div>
-      <div class="modal-body">
-      <form  class="form-horizontal" method="get" action="">
-        <table class="table table-condensed table-hover" role="form">
-          <thead >
-            <tr >
-              <th height="31"  >&nbsp;</th>
-              <th  >Title</th>
-              <th  >ID</th>
-              <th  >Instructions</th>
-              <th  > Schema</th>
-              <th  >Competition ID</th>
-              <th  >Closing Date </th>
-            </tr>
-          </thead>
-          <tbody >
-            <tr  >
-              <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td >SF424 RR form</td>
-              <td >CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td ><a href="#">view</a></td>
-              <td >NEWRRFORM</td>
-              <td >12/31/2014 12:00 AM</td>
-            </tr>
-            <tr  > <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td>SF424 RR form</td>
-              <td>CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td><a href="#">view</a></td>
-              <td>NEWRRFORM</td>
-              <td  >12/31/2014 12:00 AM</td>
-            </tr>
-            <tr  > <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td>SF424 RR form</td>
-              <td>CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td><a href="#">view</a></td>
-              <td>NEWRRFORM</td>
-              <td  >12/31/2014 12:00 AM</td>
-            </tr>
-            <tr  > <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td>SF424 RR form</td>
-              <td>CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td><a href="#">view</a></td>
-              <td>NEWRRFORM</td>
-              <td  >12/31/2014 12:00 AM</td>
-            </tr>
-            <tr  > <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td>SF424 RR form</td>
-              <td>CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td><a href="#">view</a></td>
-              <td>NEWRRFORM</td>
-              <td  >12/31/2014 12:00 AM</td>
-            </tr>
-            <tr  > <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td>SF424 RR form</td>
-              <td>CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td><a href="#">view</a></td>
-              <td>NEWRRFORM</td>
-              <td  >12/31/2014 12:00 AM</td>
-            </tr>
-            <tr  > <td><a class="load-tabs" href="javascript://" target="_parent">return value</a></td>
-              <td>SF424 RR form</td>
-              <td>CSS-SF424RR-V12</td>       <td><a href="#">download</a></td>
-              <td><a href="#">view</a></td>
-              <td>NEWRRFORM</td>
-              <td  >12/31/2014 12:00 AM</td>
-            </tr>
-          </tbody>
-        </table>
-        </form>
-      </div>
-      <div class="modal-footer"> <a class="various fancybox.ajax btn btn-primary" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html" id="btn-newsearch">New Search</a> <button type="button" class="btn btn-link fancy-close" data-dismiss="modal">Close</button> </div>
-    </div>
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+</head>
 
+<body>
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h3>Opportunity Search</h3>
+		</div>
 
+		<div class="modal-body">
+			<table class="table table-condensed table-hover table-smaller-text">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>Title</th>
+						<th>ID</th>
+						<th>Competition ID</th>
+						<th>Closing Date</th>
+						<th align="right">Instructions</th>
+						<th align="right">Schema</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td >SF424 RR form</td>
+						<td >CSS-SF424RR-V12</td>
+						<td >NEWRRFORM</td>
+						<td >12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td>SF424 RR form</td>
+						<td>CSS-SF424RR-V12</td>
+						<td>NEWRRFORM</td>
+						<td>12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td>SF424 RR form</td>
+						<td>CSS-SF424RR-V12</td>
+						<td>NEWRRFORM</td>
+						<td>12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td>SF424 RR form</td>
+						<td>CSS-SF424RR-V12</td>
+						<td>NEWRRFORM</td>
+						<td>12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td>SF424 RR form</td>
+						<td>CSS-SF424RR-V12</td>
+						<td>NEWRRFORM</td>
+						<td>12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td>SF424 RR form</td>
+						<td>CSS-SF424RR-V12</td>
+						<td>NEWRRFORM</td>
+						<td>12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+					<tr>
+						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td>SF424 RR form</td>
+						<td>CSS-SF424RR-V12</td>
+						<td>NEWRRFORM</td>
+						<td>12/31/2014 12:00 AM</td>
+						<td align="right"><a href="#">Download</a></td>
+						<td align="right"><a href="#">View</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<a href="lookup-oppsearch.html" class="btn btn-primary pull-right" id="btn-newsearch">New Search</a>
+		</div>
+	</div>
+</div>
+
+<!-- <script src="../themes/kc/js/fancybox/jquery.fancybox.js"></script> -->
+<script src="../themes/kc/js/chosen/chosen.jquery.min.js"></script>
+<script src="../themes/kc/js/bootstrap-datepicker.js"></script>
+<script src="../themes/kc/js/functions.js"></script>
+</body>
+</html>
