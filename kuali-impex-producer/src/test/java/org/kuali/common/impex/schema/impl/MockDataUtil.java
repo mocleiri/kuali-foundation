@@ -19,15 +19,17 @@ import java.util.Collections;
 
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.ForeignKey;
 import org.kuali.common.impex.model.ForeignKeyConstraintType;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.View;
 
 public class MockDataUtil {
+
 	public static Table buildSimpleTable() {
+
 		Table result = new Table("FOO_T");
 
 		// id column
