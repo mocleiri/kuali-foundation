@@ -95,13 +95,19 @@ section.toolbar .dropdown a .caret {
   border-bottom-color: #666;
   border-top-color: #666;
 }
+.col-md-3,
+.col-lg-3 {
+  max-width: 200px;
+}
 #main {
   background: #ffffff;
   padding-top: 75px;
+  padding-bottom: 16px;
 }
 #main label {
   line-height: 130%;
-  padding-top: 0;
+  padding-top: 4px;
+  text-align: left;
 }
 #main label.radio,
 #main label.checkbox {
@@ -146,6 +152,9 @@ section.toolbar .dropdown a .caret {
 }
 #main .nav-tabs {
   margin-top: 3%;
+}
+#main .tab-pane {
+  padding-top: 16px;
 }
 #main .boxContent .well {
   padding: 19px 19px 3px 19px !important;
@@ -250,6 +259,9 @@ section.toolbar .dropdown a .caret {
   vertical-align: middle;
   text-align: center;
 }
+#content {
+  padding-left: 16px;
+}
 #content .hidden-fields {
   display: none;
 }
@@ -258,6 +270,7 @@ section.toolbar .dropdown a .caret {
 }
 .btn-row-page-action {
   clear: both;
+  margin-top: 1.5%;
   padding: 1% 0 1% 0;
   text-align: center;
 }
@@ -267,8 +280,8 @@ section.toolbar .dropdown a .caret {
   text-align: left;
 }
 .section-content {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 24px;
+  margin-bottom: 50px;
 }
 .tab-title-container {
   position: relative;
@@ -291,7 +304,7 @@ section.toolbar .dropdown a .caret {
 }
 .page-controls {
   position: relative;
-  border-top: 1px solid #cccccc;
+  margin-top: -20px;
 }
 .page-controls .page-actions {
   width: 50%;
@@ -299,9 +312,7 @@ section.toolbar .dropdown a .caret {
   text-align: left;
 }
 .page-controls .page-actions .well {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 0;
   border-right: 0;
 }
 .page-controls .page-navigation {
@@ -310,13 +321,182 @@ section.toolbar .dropdown a .caret {
   text-align: right;
 }
 .page-controls .page-navigation .well {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
   border-left: 0;
 }
 .well {
   min-height: 74px;
+}
+/*
+	Overriding the default Bootstrap input styles to better match the Chosen styles
+	Chris Rodriguez
+*/
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea,
+.ui-multiselect {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  height: 30px !important;
+  border: 1px solid #ccc !important;
+  background: #fff;
+  background-color: #fff;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1) !important;
+  cursor: text;
+  font-size: 13px !important;
+  border-radius: 0 !important;
+  color: black;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+textarea {
+  height: auto !important;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus,
+.ui-multiselect:focus {
+  border: 1px solid #0055cc !important;
+}
+input[type="text"]:disabled,
+input[type="tel"]:disabled,
+input[type="date"]:disabled,
+input[type="email"]:disabled,
+select:disabled,
+textarea:disabled,
+.ui-multiselect:disabled {
+  color: #afafaf !important;
+  border: 1px solid #ccc !important;
+}
+.ui-multiselect {
+  width: !important;
+}
+.input-group-btn > .btn {
+  line-height: 100%;
+}
+.subawards {
+  display: block !important;
+  margin-bottom: 1.5em !important;
+}
+.chosen-container {
+  width: 100% !important;
+}
+.ui-datepicker-trigger {
+  float: right;
+  margin-top: -23px;
+  margin-right: 6px;
+  position: relative;
+  z-index: 100;
+}
+.uif-switchme-input {
+  width: 75% !important;
+  float: left;
+}
+.helper-text {
+  color: #666;
+  font-size: .85em;
+  margin-top: 12px;
+}
+.input-group-addon,
+.input-group-btn {
+  vertical-align: top;
+}
+.date {
+  padding-right: 0;
+}
+.date:first-child {
+  padding-left: 0;
+  padding-right: 15px;
+}
+.icon-search {
+  display: inline-block;
+  padding: 7px 7px 8px 7px;
+  border-top: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  color: #444;
+  border-color: #cccccc;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #ffffff), color-stop(50%, #ffffff), color-stop(52%, #f2f2f2), color-stop(100%, #e6e6e6));
+  background: -webkit-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+  background: -moz-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+  background: -o-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+  background: linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+  background-clip: padding-box;
+}
+.ui-multiselect-menu {
+  border-radius: 0;
+  border: 1px solid #ccc;
+  color: inherit;
+}
+.ui-multiselect-menu .ui-widget-header {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+.ui-multiselect-menu .ui-multiselect-checkboxes {
+  color: inherit;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+.ui-multiselect-menu .ui-multiselect-checkboxes li {
+  font-size: 13px;
+}
+.ui-multiselect-menu .ui-multiselect-checkboxes li label {
+  font-weight: 100;
+}
+.ui-multiselect-menu .ui-multiselect-checkboxes li label.ui-state-active {
+  border: 1px solid #0055cc;
+  background: #e6f0ff;
+  color: inherit;
+  border-radius: 0;
+  font-weight: 700;
+}
+.ui-multiselect-menu .ui-multiselect-checkboxes li label.ui-state-hover {
+  border: 1px solid #0055cc;
+  background: #e6f0ff;
+  color: inherit;
+  border-radius: 0;
+  font-weight: 100;
+}
+.ui-datepicker {
+  border-radius: 0;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: inherit;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 13px;
+}
+.ui-datepicker .ui-datepicker-header {
+  border: 0;
+  background: transparent;
+}
+.ui-datepicker .ui-datepicker-calendar tr td .ui-state-default {
+  background: #fff;
+  border: 1px solid transparent;
+  color: inherit;
+}
+.ui-datepicker .ui-datepicker-calendar tr td a.ui-state-active,
+.ui-datepicker .ui-datepicker-calendar tr td a.ui-state-hover {
+  background: #e6f0ff;
+  border: 1px solid #0055cc;
+}
+.btn {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border-radius: 0 !important;
+  font-size: 13px;
+  font-weight: bold;
 }
 .link-delete {
   color: #ff0000;
@@ -330,8 +510,11 @@ section.toolbar .dropdown a .caret {
   color: #0055cc;
   font-weight: 700;
 }
-.btn {
-  border-radius: 2px !important;
+.btn-primary {
+  color: white !important;
+}
+.input-group-btn a {
+  display: block;
 }
 .btn.lookup {
   background: none;
@@ -344,6 +527,22 @@ section.toolbar .dropdown a .caret {
 }
 .btn.lookup span {
   display: none;
+}
+.uif-switchme-edit,
+.uif-switchme-save,
+.uif-switchme-cancel {
+  border: 0;
+  background: transparent;
+  margin-left: 4px;
+}
+.uif-switchme-edit {
+  color: orange;
+}
+.uif-switchme-save {
+  color: green;
+}
+.uif-switchme-cancel {
+  color: gray;
 }
 dl dt {
   float: left;
@@ -380,13 +579,6 @@ dl:after {
 }
 .modal {
   z-index: 9999;
-}
-.edit-select select {
-  width: inherit;
-}
-.edit-select,
-.edit-text {
-  cursor: pointer;
 }
 .uif-stickyFooter.uif-stickyButtonFooter {
   position: fixed;

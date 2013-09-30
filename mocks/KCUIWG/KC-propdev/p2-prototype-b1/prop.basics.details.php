@@ -17,106 +17,127 @@ include( '_temp.select.filler.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Proposal Details</h3>
         <form action="#" method="post" class="form-horizontal">
-          <fieldset>
-            <legend style="display:none">Enter any relevant details for this proposal</legend>
-            <div class="form-group clearfix">
-              <label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
-              <div class="col-md-5">
-                <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8 chzn">
-                  <option value="4">Continuation</option>
-                  <option value="1" selected="selected">New</option>
-                  <option value="3">Renewal</option>
-                  <option value="2">Resubmission</option>
-                  <option value="5">Revision</option>
-                  <option value="6">Task Order</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="lead_unit" class="control-label col-md-3">Lead unit:</label>
-              <div class="col-md-5">
-                <select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8 chzn">
-                  <option value="000001" selected="selected">000001 - University</option>
-                  <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
-                  <option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
-                  <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="activity_type" class="control-label col-md-3">Activity type:</label>
-              <div class="col-md-5">
-                <select name="activity_type" id="activity_type" class="form-control input-sm col-md-8 chzn">
-                  <option value="4" selected="selected">Clinical Trial</option>
-                  <option value="9">Construction</option>
-                  <option value="7">Fellowship - Post-Doctoral</option>
-                  <option value="6">Fellowship - Pre-Doctoral</option>
-                  <option value="2">Instruction</option>
-                  <option value="3">Public Service</option>
-                  <option value="1">Research</option>
-                  <option value="8">Student Services</option>
-                  <option value="5">other</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="project_start" class="control-label col-md-3">Start date:</label>
-              <div class="col-md-3 input-group">
-                <input type="text" class="form-control input-sm" name="project_start" id="project_start" placeholder="Start date" />
-                <span class="input-group-btn">
-                <button class="btn btn-default input-sm">@</button>
-                </span> </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="project_end" class="control-label col-md-3">End date:</label>
-              <div class="col-md-3 input-group">
-                <input type="text" class="form-control input-sm" name="project_end" id="project_end" placeholder="End date" />
-                <span class="input-group-btn">
-                <button class="btn btn-default input-sm">@</button>
-                </span> </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="sponsor_code" class="control-label col-md-3">Sponsor code:</label>
-              <div class="col-md-5 input-group">
-                <input type="text" class="form-control input-sm" name="sponsor_code" id="sponsor_code" />
-                <span class="input-group-btn">
-                <button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default input-sm">Search</button>
-                </span> </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="project_title" class="control-label col-md-3">Project title:</label>
-              <div class="col-md-5">
-                <textarea name="project_title" id="project_title" class="form-control input-sm"></textarea>
-              </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="award_id" class="control-label col-md-3">Award ID:</label>
-              <div class="col-md-5 input-group">
-                <input type="text" class="form-control input-sm" name="award_id" id="award_id" />
-                <span class="input-group-btn">
-                <button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default input-sm">Search</button>
-                </span> </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="inst_proposal_id" class="control-label col-md-3">Original institutional ID:</label>
-              <div class="col-md-5 input-group">
-                <input type="text" class="form-control input-sm" name="inst_proposal_id" id="inst_proposal_id" />
-                <span class="input-group-btn">
-                <button name="sponsor_code_search" id="sponsor_code_search" class="btn btn-default input-sm">Search</button>
-                </span> </div>
-            </div>
-            <div class="form-group clearfix">
-              <label for="keywords" class="control-label col-md-3">Keywords:</label>
-              <div class="col-md-5">
-                <select name="keywords" id="keywords" class="form-control input-sm col-md-8 chzn" multiple>
-                  <?php
-										get_options();
-										?>
-                </select>
-              </div>
-            </div>
-          </fieldset>
-        </form>
+							<fieldset>
+								<legend style="display:none">Enter any relevant details for this proposal</legend>
+								
+								<div class="form-group clearfix">
+									<label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
+									<div class="col-md-5">
+										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
+											<option value="4">Continuation</option>
+											<option value="1" selected="selected">New</option>
+											<option value="3">Renewal</option>
+											<option value="2">Resubmission</option>
+											<option value="5">Revision</option>
+											<option value="6">Task Order</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="lead_unit" class="control-label col-md-3">Lead unit:</label>
+									<div class="col-md-5">
+										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
+											<option value="000001" selected="selected">000001 - University</option>
+											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
+											<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
+											<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="activity_type" class="control-label col-md-3">Activity type:</label>
+									<div class="col-md-5">
+										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
+											<option value="4">Clinical Trial</option>
+											<option value="9">Construction</option>
+											<option value="7">Fellowship - Post-Doctoral</option>
+											<option value="6">Fellowship - Pre-Doctoral</option>
+											<option value="2">Instruction</option>
+											<option value="3">Public Service</option>
+											<option value="1" selected="selected">Research</option>
+											<option value="8">Student Services</option>
+											<option value="5">other</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label class="control-label col-md-3">Project dates:</label>
+									<div class="col-md-5">
+										<div class="col-md-6 date">
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="01/03/2014" />
+											<label for="project_start" class="helper-text">Beginning on</label>
+										</div>
+										<div class="col-md-6 date">
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="12/18/2014" />
+											<label for="project_end" class="helper-text">Ending on</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="sponsor_code" class="control-label col-md-3">Sponsor code:</label>
+									<div class="col-md-5 input-group">
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
+										<div class="helper-text">
+											Enter the sponsor code for this proposal or find one using the lookup tool.
+										</div>
+										<span class="input-group-btn">
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.html" data-modal-height="500"></a>
+										</span>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="project_title" class="control-label col-md-3">Project title:</label>
+									<div class="col-md-5">
+										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
+										<div class="helper-text">
+											Give this proposal a title. Be detailed but concise.
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="award_id" class="control-label col-md-3">Award ID:</label>
+									<div class="col-md-5 input-group">
+										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" value="3EB" />
+										<div class="helper-text">
+											Enter the award ID for this proposal.
+										</div>
+										<span class="input-group-btn">
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-award.html" data-modal-height="500"></a>
+										</span>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="inst_proposal_id" class="control-label col-md-3">Original institutional ID:</label>
+									<div class="col-md-5 input-group">
+										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" value="BU001" />
+										<div class="helper-text">
+											Enter the original institutional ID for this proposal.
+										</div>
+										<span class="input-group-btn">
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-institution.html" data-modal-height="500"></a>
+										</span>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="keywords" class="control-label col-md-3">Keywords:</label>
+									<div class="col-md-5">
+										<select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
+											<option selected="selected">One keyword</option>
+											<option selected="selected">Second keyword</option>
+											<option selected="selected">Third</option>
+										</select>
+									</div>
+								</div>
+							</fieldset>
+						</form>
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
     <div class="btn-row-page-action">
       <button class="btn btn-default">Save</button>

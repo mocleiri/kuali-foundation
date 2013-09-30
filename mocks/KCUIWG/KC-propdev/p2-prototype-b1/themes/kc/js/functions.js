@@ -8,10 +8,20 @@
 
 	Chris Rodriguez, clrux@bu.edu
 	Tom Clark, thrclark@indiana.edu
-	Tadas Paegle, ...
 */
 
 $(document).ready(function() {
+
+	/*
+		Focus on first form field for ease and flow
+		Chris Rodriguez
+	*/
+	function focus_content_area() {
+		$('#content').focus();
+	}
+
+	focus_content_area();
+
 
 	/*
 		Skip links for accessibility
@@ -47,6 +57,34 @@ $(document).ready(function() {
 
 
 	/*
+		Select box multiselect widget
+		Initializes the multiselect plugin
+		Chris Rodriguez (plugin by Eric Hynds http://www.erichynds.com/examples/jquery-ui-multiselect-widget/demos/#selectedlist)
+	*/
+	function init_select() {
+		if ($('select').length) {
+			$('select').each(function() {
+				if ($(this).attr('multiple')) {
+					$(this).multiselect({
+						selectedList: 9
+					});
+				} else {
+					$(this).multiselect({
+						multiple: false,
+						header: 'Select an option',
+						noneSelectedText: 'Select an option',
+						selectedList: 1
+					});
+				}
+			});
+		}
+	}
+
+	init_select();
+
+
+
+	/*
 		Modal handler
 		Calls Fancybox modal using the `page` data attribute
 		Chris Rodriguez
@@ -54,9 +92,14 @@ $(document).ready(function() {
 	$('.launch-modal').on('click', function(e){
 		e.preventDefault();
 
+		var fb_href = 	$(this).data('modal-page');
+
 		$.fancybox.open({
-			href: $(this).data('modal-page'),
 			type: 'iframe',
+			href: fb_href,
+			minHeight: 300,
+			width: 700,
+			maxWidth: 700,
 			padding: 0
 		});
 	});
@@ -82,34 +125,36 @@ $(document).ready(function() {
 
 
 	/*
-		Chosen implementation
-		Initializes the Chosen plugin on classed select/multiselect elements
+		Additional <select> options
+		Shows or hides additional form fields based on chosen <select> value
 		Chris Rodriguez
 	*/
-	if ($('.chzn').length) {
-		$('.chzn').each(function() {
-			if ($(this).hasClass('limit')) {
-				var limit = $(this).data('limit');
-				$(this).chosen({
-					'max_selected_options' : limit
-				});
-			} else {
-				$(this).chosen();
-			}
+	$('.onchange').change(function() {
+		var that = $(this).val();
+		$('.hidden-fields').hide();
+
+		if ($('#' + that).length) {
+			$('#' + that).show();
+		} else {
+			$('.hidden-fields').hide();
+		}
+	});
+
+
+
+	/*
+		Datepickers
+		Inits the datepickers on classed elements
+		Chris Rodriguez
+	*/
+	if ($('.uif-dateControl').length) {
+		$('.uif-dateControl').each(function() {
+			$(this).datepicker({
+				autoclose: true,
+			    todayHighlight: true
+			});
 		});
 	}
-
-
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////
-
-
-
 
 
 
@@ -118,25 +163,25 @@ $(document).ready(function() {
 		Collapses and expandes the subnav making the content area full-width if desired
 		Chris Rodriguez
 	*/
-	var handle_sidebar_menu = function() {
+	// var handle_sidebar_menu = function() {
 
-		$('#sidebar .has-sub > a').click(function(e) {
-			var last = $('.has-sub.open', $('#sidebar'));
-			last.removeClass('open');
-			$('.sub', last).slideUp(200);
+	// 	$('#sidebar .has-sub > a').click(function(e) {
+	// 		var last = $('.has-sub.open', $('#sidebar'));
+	// 		last.removeClass('open');
+	// 		$('.sub', last).slideUp(200);
 			
-			var sub = $(this).next();
-			if (sub.is(':visible')) {
-				$(this).parent().removeClass('open');
-				sub.slideUp(200);
-			} else {
-				$(this).parent().addClass('open');
-				sub.slideDown(200);
-			}
+	// 		var sub = $(this).next();
+	// 		if (sub.is(':visible')) {
+	// 			$(this).parent().removeClass('open');
+	// 			sub.slideUp(200);
+	// 		} else {
+	// 			$(this).parent().addClass('open');
+	// 			sub.slideDown(200);
+	// 		}
 
-			e.preventDefault();
-		});
-	}
+	// 		e.preventDefault();
+	// 	});
+	// }
 
 	var handle_sidebar_toggler = function() {
 
@@ -180,38 +225,150 @@ $(document).ready(function() {
 	}
 
 	if ($('#sidebar').length) {
-		handle_sidebar_menu();
+		// handle_sidebar_menu();
 		handle_sidebar_toggler();
 	}
 
 
 
-
-
-
-
-
-/////////////////////////////////////////////////////////////
-
-
-
+	/*
+		Button hrefs
+		Makes a button act like a link
+		Chris Rodriguez
+	*/
+	$('button').on('click', function() {
+		if ($(this).attr('href')) {
+			document.location = $(this).attr('href');
+		} else {
+			return false;
+		}
+	});
 
 
 
 	/*
-		Additional <select> options
-		Shows or hides additional form fields based on chosen <select> value
+		Faux inline editing
+		Inline editing plugins require AJAX and PHP, so we're just faking it for the prototype
+		Appends a little edit icon to the container
+		Wraps the clicked text in a form input box with two buttons
 		Chris Rodriguez
 	*/
-	$('.onchange').change(function() {
-		var that = $(this).val();
-		$('.hidden-fields').hide();
+	if ($('.uif-switchme').length) {
+		$('.uif-switchme').each(function() {
+			$(this).append('<button class="uif-switchme-edit icon-pencil"></button>');
+		});
+	}
 
-		if ($('#' + that).length) {
-			$('#' + that).show();
+	$('.uif-switchme').on('click', '.uif-switchme-edit', function() {
+		var current_value = $(this).prev('span').text();
+
+		if ($(this).parent().hasClass('uif-switchme-select')) {
+
+			$(this).prev('span').wrapInner('<select class="form-control input-sm chzn uif-switchme-input" multiple />');
+
+			current_options = '';
+			current_value = current_value.split(",");
+
+			for (var i = 0; i < current_value.length; i++) {
+				current_options += '<option>' + current_value[i] + '</option>';
+			};
+
+			$('.uif-switchme').find('select.uif-switchme-input').html(current_options).chosen();
+
+		} else if ($(this).parent().hasClass('uif-switchme-date')) {
+
+			$(this).prev('span').wrapInner('<input type="text" class="form-control input-sm chzn uif-switchme-input uif-switchme-date" value="' + current_value + '" />');
+			$('.uif-switchme').find('.uif-switchme-date').datepicker();
+
 		} else {
-			$('.hidden-fields').hide();
+
+			$(this).prev('span').wrapInner('<input type="text" class="form-control input-sm chzn uif-switchme-input" value="' + current_value + '" />');
+
 		}
+
+		$(this).parent().append('<button class="uif-switchme-save icon-save"></button><button class="uif-switchme-cancel" data-default-value="' + current_value + '">Cancel</button>');
+		$(this).remove();
+
+		return false;
+	});
+
+	$('.uif-switchme').on('click', '.uif-switchme-save', function() {
+		var new_value = $(this).prev().find('input').val();
+
+		if ($(this).prev('span').find('.chosen-container')) {
+
+			new_value = '';
+			var chosen_results = $(this).prev().find('.chosen-results li');
+
+			chosen_results.each(function() {
+				if ($(this).hasClass('result-selected')) {
+					new_value += $(this).text() + ",";
+				}
+			});
+
+			$(this).prev('span').find('.uif-switchme-input').remove();
+			new_value = new_value.substr(0, new_value.length - 1);
+			$(this).prev('span').text(new_value);
+
+		} else {
+
+			$(this).prev('span').find('.uif-switchme-input').remove();
+			$(this).prev('span').text(new_value);
+
+		}
+
+		$(this).parent().append('<button class="uif-switchme-edit icon-pencil"></button>');
+		$(this).next('button').remove();
+		$(this).remove();
+
+		return false;
+	});
+
+	$('.uif-switchme').on('click', '.uif-switchme-cancel', function() {
+		var orig_value = $(this).data('default-value');
+
+		$(this).parent().append('<button class="uif-switchme-edit icon-pencil"></button>');
+		$(this).parent().find('input').remove();
+		$(this).parent().find('span').text(orig_value);
+		$(this).prev().remove();
+		$(this).remove();
+
+		return false;
+	});
+
+
+
+	/*
+		Mailchimp style inline help
+		Shows helper text on focus and hides it on blur
+		Chris Rodriguez
+	*/
+	if ($('.helper-text').length) {
+		$('.helper-text').slideUp();
+	}
+
+	$('.has-helper').on('focus', function() {
+		if ($(this).parent().find('.helper-text')) {
+			$(this).parent().find('.helper-text').slideDown();
+		}
+	});
+
+	$('.has-helper').on('blur', function() {
+		if ($(this).parent().find('.helper-text')) {
+			$(this).parent().find('.helper-text').slideUp();
+		}
+	});
+
+
+
+	/*
+		New window
+		Opens classed links in a new window
+		Chris Rodriguez
+	*/
+	$('.new-window').on('click', function() {
+		window.open($(this).attr('href'), 'Kuali Help Documentation');
+		return false;
 	});
 
 

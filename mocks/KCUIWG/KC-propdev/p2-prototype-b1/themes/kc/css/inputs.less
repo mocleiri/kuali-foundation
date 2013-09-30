@@ -4,11 +4,11 @@
 */
 
 input[type="text"], 
-input[type="tel"], 
-input[type="date"], 
 input[type="email"], 
+input[type="tel"], 
 select, 
-textarea {
+textarea, 
+.ui-multiselect {
 	position: relative;
 	overflow: hidden;
 	-webkit-box-sizing: border-box;
@@ -17,20 +17,43 @@ textarea {
 	margin: 0;
 	width: 100%;
 	height: 30px !important;
-	border: 1px solid #aaa !important;
+	border: 1px solid #ccc !important;
+	background: #fff;
 	background-color: #fff;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
-	background-image: -webkit-linear-gradient(#eeeeee 1%, #ffffff 15%);
-	background-image: -moz-linear-gradient(#eeeeee 1%, #ffffff 15%);
-	background-image: -o-linear-gradient(#eeeeee 1%, #ffffff 15%);
-	background-image: linear-gradient(#eeeeee 1%, #ffffff 15%);
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, .10) !important;
 	cursor: text;
 	font-size: 13px !important;
 	border-radius: 0 !important;
+	color: black;
+	font-family: @font_family;
 }
 
 textarea {
 	height: auto !important;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="tel"]:focus, 
+select:focus, 
+textarea:focus, 
+.ui-multiselect:focus {
+	border: 1px solid @link_blue !important;
+}
+
+input[type="text"]:disabled, 
+input[type="tel"]:disabled, 
+input[type="date"]:disabled, 
+input[type="email"]:disabled, 
+select:disabled, 
+textarea:disabled,
+.ui-multiselect:disabled {
+	color: #afafaf !important;
+	border: 1px solid #ccc !important;
+}
+
+.ui-multiselect {
+	width:  !important;
 }
 
 .input-group-btn > .btn {
@@ -40,16 +63,6 @@ textarea {
 .subawards {
 	display: block !important;
 	margin-bottom: 1.5em !important;
-}
-
-input[type="text"]:disabled, 
-input[type="tel"]:disabled, 
-input[type="date"]:disabled, 
-input[type="email"]:disabled, 
-select:disabled, 
-textarea:disabled {
-	color: #afafaf !important;
-	border: 1px solid #ccc !important;
 }
 
 .chosen-container {
@@ -62,4 +75,126 @@ textarea:disabled {
 	margin-right: 6px;
 	position: relative;
 	z-index: 100;
+}
+
+
+.uif-switchme-input {
+	width: 75% !important;
+	float: left;
+}
+
+.helper-text {
+	color: #666;
+	font-size: .85em;
+	margin-top: 12px;
+	// display: none;
+}
+
+.input-group-addon, .input-group-btn {
+	vertical-align: top;
+}
+
+.date {
+	padding-right: 0;
+}
+
+.date:first-child {
+	padding-left: 0;
+	padding-right: 15px;
+}
+
+.icon-search {
+	display: inline-block;
+	padding: 7px 7px 8px 7px;
+	border-top: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	color: #444;
+	border-color: #cccccc;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background-color: #ffffff;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #ffffff), color-stop(50%, #ffffff), color-stop(52%, #f2f2f2), color-stop(100%, #e6e6e6));
+	background: -webkit-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+	background: -moz-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+	background: -o-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+	background: linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
+	background-clip: padding-box;
+}
+
+.ui-multiselect-menu {
+	border-radius: 0;
+	border: 1px solid #ccc;
+	color: inherit;
+
+	.ui-widget-header {
+		background: transparent;
+		border: 0;
+		color: inherit;
+		font-family: @font_family;
+	}
+
+	.ui-multiselect-checkboxes {
+		color: inherit;
+		font-family: @font_family;
+
+		li {
+			font-size: 13px;
+
+			label {
+				font-weight: 100;
+			}
+
+			label.ui-state-active {
+				border: 1px solid @link_blue;
+				background: lighten(@link_blue, 55%);
+				color: inherit;
+				border-radius: 0;
+				font-weight: 700;
+			}
+
+			label.ui-state-hover {
+				border: 1px solid @link_blue;
+				background: lighten(@link_blue, 55%);
+				color: inherit;
+				border-radius: 0;
+				font-weight: 100;
+			}
+		}
+	}
+}
+
+.ui-datepicker {
+	border-radius: 0;
+	border: 1px solid #ccc;
+	background: #fff;
+	color: inherit;
+	font-family: @font_family;
+	font-size: 13px;
+
+	.ui-datepicker-header {
+		border: 0;
+		background: transparent;
+	}
+
+	.ui-datepicker-calendar {
+
+		tr {
+
+			td {
+
+				.ui-state-default {
+					background: #fff;
+					border: 1px solid transparent;
+					color: inherit;
+				}
+
+				a.ui-state-active, a.ui-state-hover {
+					background: lighten(@link_blue, 55%);
+					border: 1px solid @link_blue;
+				}
+			}
+		}
+	}
 }

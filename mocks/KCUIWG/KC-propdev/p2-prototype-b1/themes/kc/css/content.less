@@ -1,11 +1,12 @@
 #main {
 	background: @white_background;
 	padding-top: 75px;
+	padding-bottom: 16px;
 
 	label {
 		line-height: 130%;
-		padding-top: 0;
-		//text-align: left;
+		padding-top: 4px;
+		text-align: left;
 	}
 
 	label.radio, label.checkbox {
@@ -66,6 +67,10 @@
 
 	.nav-tabs {
 		margin-top: 3%;
+	}
+
+	.tab-pane {
+		padding-top: 16px;
 	}
 
 	.boxContent {
@@ -252,6 +257,7 @@
 }
 
 #content {
+	padding-left: 16px;
 	
 	.hidden-fields {
 		display: none;
@@ -264,7 +270,7 @@
 
 .btn-row-page-action {
 	clear: both;
-	//margin-top: 1.5%;
+	margin-top: 1.5%;
 	padding: 1% 0 1% 0;
 	//border-top: 1px solid @border_color;
 	text-align: center;
@@ -276,8 +282,8 @@
 }
 
 .section-content {
-	margin-top: 16px;
-	margin-bottom: 16px
+	margin-top: 24px;
+	margin-bottom: 50px;
 }
 
 .tab-title-container {
@@ -305,7 +311,7 @@
 
 .page-controls {
 	position: relative;
-	border-top: 1px solid @border_color;
+	margin-top: -20px;
 
 	.page-actions {
 		width: 50%;
@@ -313,9 +319,7 @@
 		text-align: left;
 
 		.well {
-			border-top-left-radius: 0;
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
+			border-radius: 0;
 			border-right: 0;
 		}
 	}
@@ -326,9 +330,7 @@
 		text-align: right;
 
 		.well {
-			border-top-left-radius: 0;
-			border-top-right-radius: 0;
-			border-bottom-left-radius: 0;
+			border-radius: 0;
 			border-left: 0;
 		}
 	}
