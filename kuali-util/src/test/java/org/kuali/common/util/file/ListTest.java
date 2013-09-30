@@ -44,12 +44,12 @@ public class ListTest {
 	public void getRepoListTest() {
 		try {
 			List<Repository> repos = getRepoList();
-			// logRepos(repos);
-			// Set<String> paths = getPaths(repos);
-			// List<FileExtension> extensions = getExtensions(paths);
-			// System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
-			// logFileExtensions(extensions);
-			// logWeird(paths);
+			logRepos(repos);
+			Set<String> paths = getPaths(repos);
+			List<FileExtension> extensions = getExtensions(paths);
+			System.out.println("     Unique paths: " + FormatUtils.getCount(paths.size()));
+			logFileExtensions(extensions);
+			logWeird(paths);
 			List<RepoArtifacts> list = analyzeRepos(repos);
 			logRepoArtifacts(list);
 			List<DuplicateArtifact> duplicates = getDuplicates(list);
@@ -58,6 +58,13 @@ public class ListTest {
 			logDuplicateArtifact(issues);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void createChecksumRequestFile(List<RepoArtifacts> list) {
+		for (RepoArtifacts element : list) {
+			Repository repo = element.getRepository();
+			String path = BASEDIR + "/";
 		}
 	}
 
@@ -475,32 +482,35 @@ public class ListTest {
 
 	protected List<String> getRepoNames() {
 		List<String> names = new ArrayList<String>();
-		names.add("apache-snapshots");
-		names.add("atlassian");
+
+		// These 8 are all an order of magnitude bigger than the other repo's
 		names.add("central");
+		names.add("kuali-snapshot");
+		names.add("kuali-builds");
+		names.add("kuali-release");
+		names.add("hosted-private");
+		names.add("atlassian");
+		names.add("eclipselink");
+		names.add("apache-snapshots");
+
 		names.add("central-m1");
 		names.add("codehaus");
 		names.add("codehaus-snapshots");
 		names.add("developer");
-		names.add("eclipselink");
 		names.add("glassfish");
 		names.add("google");
 		names.add("google-reflections");
-		names.add("hosted-private");
 		names.add("jasperreports-sourceforge");
 		names.add("java.net-m1");
 		names.add("java.net-m1-m2");
 		names.add("java.net-m2");
 		names.add("jboss");
 		names.add("jsdoctk");
-		names.add("kuali-builds");
 		names.add("kuali-legacy-releases");
 		names.add("kuali-legacy-snapshots");
 		names.add("kuali-private");
-		names.add("kuali-release");
 		names.add("kuali-s3-external");
 		names.add("kuali-s3-private");
-		names.add("kuali-snapshot");
 		// names.add("m2eclipse");
 		names.add("maven-restlet");
 		names.add("ow2");
