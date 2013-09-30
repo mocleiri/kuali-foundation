@@ -66,14 +66,16 @@ $(document).ready(function() {
 			$('select').each(function() {
 				if ($(this).attr('multiple')) {
 					$(this).multiselect({
-						selectedList: 9
+						selectedList: 9,
+						minWidth: 'auto'
 					});
 				} else {
 					$(this).multiselect({
 						multiple: false,
 						header: 'Select an option',
 						noneSelectedText: 'Select an option',
-						selectedList: 1
+						selectedList: 1,
+						minWidth: 'auto'
 					});
 				}
 			});

@@ -24,7 +24,7 @@ textarea,
 	cursor: text;
 	font-size: 13px !important;
 	border-radius: 0 !important;
-	color: black;
+	color: black !important;
 	font-family: @font_family;
 }
 
@@ -85,10 +85,26 @@ textarea:disabled,
 }
 
 .helper-text {
-	color: #666;
-	font-size: .85em;
+	background: lighten(@link_blue, 50%);
 	margin-top: 12px;
-	// display: none;
+	position: relative;
+	padding: 6px;
+}
+
+.helper-text:before {
+	display: block;
+	content: " ";
+	height: 12px;
+	width: 12px;
+	background: lighten(@link_blue, 50%);
+	position: absolute;
+	top: -6px;
+	left: 12px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 .input-group-addon, .input-group-btn {

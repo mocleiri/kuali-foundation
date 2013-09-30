@@ -5,7 +5,8 @@
     <header class="viewHeader">
       <div class="row">
         <div class="col-md-6">
-          <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1>
+          <!-- <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1> -->
+          <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: Ken Graves</span> </h1>
         </div>
         <div class="col-md-6">
           <div class="metadata"><strong>Document Info</strong>
@@ -64,6 +65,7 @@
           <li><a href="#" class="icons-doc-header-medusa">Medusa</a></li>
           <li><a href="#" class="icons-doc-header-hierarchy">Hierarchy</a></li>
           <li><a href="#" class="icons-doc-header-access">Access</a></li>
+          <li><a href="#" class="icons-doc-header-help">Help</a></li>
         </ul>
       </div>
     </header>
