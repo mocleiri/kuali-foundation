@@ -46,15 +46,7 @@ include( '_temp.select.filler.php' );
                 <th>ZIP</th>
                 <td>06108</td>
               </tr>
-              <tr>
-                <th>Congressional districts</th>
-                <td><select name="congressional_2" id="congressional_2" class="form-control input-sm col-md-8 chzn" multiple>
-                    <?php
-											get_options();
-											?>
-                  </select>
-                <td>
-              </tr>
+              
             </tbody>
           </table>
           <h3>Delivery Details</h3>
@@ -132,8 +124,7 @@ include( '_temp.select.filler.php' );
         </form>
         
         <!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter" style="position:fixed; left: 0; bottom: 0px; width:100%"> 
-          <!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
           <div class="btn-row-page-action">
             <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>

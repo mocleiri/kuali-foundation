@@ -202,10 +202,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				
 
 				<!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter" style="position:fixed; left: 0; bottom: 0px; width:100%"> 
-          
-         
-		<!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
 		<div class="btn-row-page-action"> <button  onclick="location.href='prop.keypersonnel.creditfa.php'" class="btn btn-default">Back</button>
 <button class="btn btn-default">Save</button>
       <button  onclick="location.href='prop.attachments.proposal.php'" class="btn btn-primary">Save and continue</button>
