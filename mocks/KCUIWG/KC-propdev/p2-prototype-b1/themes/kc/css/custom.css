@@ -365,6 +365,7 @@ select:focus,
 textarea:focus,
 .ui-multiselect:focus {
   border: 1px solid #0055cc !important;
+  box-shadow: inset 0 1px 5px #0055cc;
 }
 input[type="text"]:disabled,
 input[type="tel"]:disabled,
@@ -1269,4 +1270,10 @@ nav-list > li > a {
   text-decoration: none;
   background: #aa003e;
   color: #fff;
+}
+.nav.nav-list {
+  -moz-transition: all 500ms ease-out !important;
+  -webkit-transition: all 500ms ease-out !important;
+  -o-transition: all 500ms ease-out !important;
+  transition: all 500ms ease-out !important;
 }
