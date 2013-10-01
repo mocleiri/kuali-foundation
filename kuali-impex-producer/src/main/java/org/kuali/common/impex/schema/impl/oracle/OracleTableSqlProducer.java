@@ -25,9 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.impex.ProducerUtils;
 import org.kuali.common.impex.model.Column;
 import org.kuali.common.impex.model.DataType;
+import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.Index;
 import org.kuali.common.impex.model.Table;
-import org.kuali.common.impex.model.DataTypeSize;
 import org.kuali.common.impex.model.UniqueConstraint;
 import org.kuali.common.impex.model.util.ModelUtils;
 import org.kuali.common.impex.schema.DataTypeMapping;
@@ -102,6 +102,7 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 	}
 
 	protected List<String> generateCreateTableStatements(Table t) {
+
 		List<String> results = new ArrayList<String>();
 
 		results.add(generateDropTableStatement(t));
@@ -154,7 +155,6 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 		StringBuilder sb = new StringBuilder();
 
 		DataTypeMapping mapping = getMappingProvider().getDataTypeMapping(column);
-
 		if (mapping != null) {
 			sb.append(generateColumnDefinition(column, mapping));
 		} else {
@@ -253,8 +253,9 @@ public class OracleTableSqlProducer extends AbstractTableSqlProducer {
 				newDataType = mapping.getDataType();
 			}
 
-			Column newCol = new Column(column.getName(), newDataType);
+			Column newCol = new Column(column);
 
+			newCol.setType(newDataType);
 			newCol.setSize(mapping.getTypeSize());
 
 			sb.append(innerGenerateColumnDefinition(newCol));
