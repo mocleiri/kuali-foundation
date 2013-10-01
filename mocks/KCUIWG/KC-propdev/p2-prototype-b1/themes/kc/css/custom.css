@@ -118,6 +118,7 @@ section.toolbar .dropdown a .caret {
   background: #f6f6f6;
   padding: 7px;
   position: relative;
+  font-weight: normal;
 }
 #main label:after {
   display: block;
@@ -137,6 +138,7 @@ section.toolbar .dropdown a .caret {
 }
 #main label.required {
   background: #f0f6ff;
+  font-weight: bold;
 }
 #main label.required:after {
   background: #f0f6ff;
@@ -666,6 +668,7 @@ dl:after {
 }
 .modal-dialog {
   border-radius: 3px;
+  font-family: inherit !important;
 }
 .modal-dialog .modal-content {
   position: relative;

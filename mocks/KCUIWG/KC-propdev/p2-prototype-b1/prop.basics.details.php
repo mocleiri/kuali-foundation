@@ -22,7 +22,7 @@ include( '_temp.select.filler.php' );
 								<legend style="display:none">Enter any relevant details for this proposal</legend>
 								
 								<div class="form-group clearfix">
-									<label for="proposal_type" class="control-label col-md-3 required">Proposal type:</label>
+									<label for="proposal_type" class="control-label col-md-3 required">Proposal type: *</label>
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
 											<option value="4">Continuation</option>
@@ -36,7 +36,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="lead_unit" class="control-label col-md-3 required">Lead unit:</label>
+									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
 											<option value="000001" selected="selected">000001 - University</option>
@@ -48,7 +48,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="activity_type" class="control-label col-md-3 required">Activity type:</label>
+									<label for="activity_type" class="control-label col-md-3 required">Activity type: *</label>
 									<div class="col-md-9">
 										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
 											<option value="4">Clinical Trial</option>
@@ -65,7 +65,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label class="control-label col-md-3 required">Project dates:</label>
+									<label class="control-label col-md-3 required">Project dates: *</label>
 									<div class="col-md-9">
 										<div class="col-md-6 date">
 											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="01/03/2014" />
@@ -79,7 +79,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="sponsor_code" class="control-label col-md-3 required">Sponsor code:</label>
+									<label for="sponsor_code" class="control-label col-md-3 required">Sponsor code: *</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
 										<div class="helper-text">
@@ -92,7 +92,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="project_title" class="control-label col-md-3 required">Project title:</label>
+									<label for="project_title" class="control-label col-md-3 required">Project title: *</label>
 									<div class="col-md-9">
 										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
 										<div class="helper-text">
