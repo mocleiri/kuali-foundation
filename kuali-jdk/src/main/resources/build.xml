@@ -7,16 +7,17 @@
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
 
-    <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
-    <property name="jdk.version.ora.dir" value="${jdk.dir}/${ora.dir}" />
-
     <property name="jdk.dir" value="${user.home}/.jdk/7" />
-
     <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+
+    <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
+
     <property name="kuali.dir"  value="${jdk.kuali.version}" />
     <property name="jdk.version.kuali.dir" value="${jdk.dir}/${kuali.dir}" />
 
-    <property name="jdk.kuali.zip.file" value= "${jdk.kuali.version}.zip" />
+    <property name="jdk.version.ora.dir" value="${jdk.version.kuali.dir}/${ora.dir}" />
+
+    <property name="jdk.kuali.zip.file" value= "${jdk.kuali.version}-linux-x64.zip" />
     <property name="jdk.version.kuali.zip" value="${jdk.dir}/${jdk.kuali.zip.file}" />
 
     <property name="jdk.tar.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar" />
@@ -24,7 +25,6 @@
     <property name="jdk.gz" value="${jdk.dir}/${jdk.tar.file}.gz" />
 
     <echo message="${jdk.version}" />
-    <echo message="${jdk.version.kuali.zip}" />
 
     <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${jdk.version.kuali.dir}" />
@@ -32,33 +32,29 @@
       <fileset file="${jdk.version.kuali.zip}" />
     </delete>
 
+    <chmod file="${jdk.gz}" perm="755"/>
+
     <mkdir dir="${jdk.version.kuali.dir}" />
-    <gunzip src="${jdk.gz}" dest="${jdk.version.kuali.dir}"/>
-     
 
-    <zip destfile="${jdk.version.kuali.dir}/${jdk.kuali.zip.file}">
-      <tarfileset src="${jdk.version.kuali.dir}/${jdk.tar.file}">
-      <exclude name="*/src.zip"/>
-      </tarfileset>
-     </zip>
+    <untar src="${jdk.gz}" dest="${jdk.version.kuali.dir}" compression="gzip"> 
+     </untar>
 
-   <unzip src="${jdk.version.kuali.dir}/${jdk.kuali.zip.file}" dest="${jdk.version.kuali.dir}"/>
+    <echo message="delete ${jdk.version.ora.dir}/src.zip" />
+
+    <delete file="${jdk.version.ora.dir}/src.zip" />
 
    <move todir="${jdk.version.kuali.dir}/${kuali.dir}">
     <fileset dir="${jdk.version.kuali.dir}/${ora.dir}">
     </fileset>
-  </move>
+   </move>
 
-     <delete includeemptydirs="true" failonerror="false">
-      <fileset file="${jdk.version.kuali.dir}/${jdk.kuali.zip.file}" />
-      <fileset file="${jdk.version.kuali.dir}/${jdk.tar.file}" />
-    </delete>
 
    <zip destfile="${jdk.version.kuali.zip}" 
        basedir="${jdk.version.kuali.dir}" />
 
-     <delete includeemptydirs="true" failonerror="false">
-      <fileset dir="${jdk.version.kuali.dir}" />
+
+     <delete includeemptydirs="true" failonerror="true">
+      <fileset dir="${jdk.version.kuali.dir}" includes="**/**" />
     </delete>
   </target>
 
