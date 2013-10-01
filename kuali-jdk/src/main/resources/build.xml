@@ -26,9 +26,14 @@
 
     <echo message="${jdk.version}" />
 
+    <echo message="jdk.version.kuali.dir: ${jdk.version.kuali.dir}" />
+    <echo message="jdk.version.ora.dir: ${jdk.version.ora.dir}" />
+
     <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${jdk.version.kuali.dir}" />
+      <dirset dir="${jdk.version.kuali.dir}" />
       <fileset dir="${jdk.version.ora.dir}" />
+      <dirset dir="${jdk.version.ora.dir}" />
       <fileset file="${jdk.version.kuali.zip}" />
     </delete>
 
@@ -43,18 +48,19 @@
 
     <delete file="${jdk.version.ora.dir}/src.zip" />
 
-   <move todir="${jdk.version.kuali.dir}/${kuali.dir}">
-    <fileset dir="${jdk.version.kuali.dir}/${ora.dir}">
-    </fileset>
+   <echo message="mv ${jdk.version.kuali.dir}/${ora.dir} to ${jdk.version.kuali.dir}/${kuali.dir}"/>
+
+   <move todir="${jdk.version.kuali.dir}/${kuali.dir}" verbose="true" includeemptydirs="true" >
+    <fileset dir="${jdk.version.kuali.dir}/${ora.dir}"/>
    </move>
 
+     <echo message="zip ${jdk.version.kuali.dir} to ${jdk.version.kuali.zip}" />
 
    <zip destfile="${jdk.version.kuali.zip}" 
        basedir="${jdk.version.kuali.dir}" />
-
-
-     <delete includeemptydirs="true" failonerror="true">
-      <fileset dir="${jdk.version.kuali.dir}" includes="**/**" />
+    <delete includeemptydirs="true" failonerror="true">
+      <fileset dir="${jdk.version.kuali.dir}" />
+      <dirset dir="${jdk.version.kuali.dir}" />
     </delete>
   </target>
 
@@ -88,17 +94,15 @@
     <echo message="${jdk.version}" />
     <echo message="${jdk.version.kuali.dir}" />
     <echo message="${jdk.version.ora.dir}" />
-     
-    <delete includeemptydirs="true" failonerror="false">
-      <fileset dir="${jdk.version.kuali.ora}/${kuali.dir}"/>
-      <fileset dir="${jdk.version.kuali.ora}"/>
-      <fileset dir="${jdk.version.ora.dir}" />
-      <fileset dir="${jdk.version.kuali.dir}" />
-      <fileset dir="${jdk.version.kuali.zip}" />
-      <fileset dir="${jdk.zip}" />
-      <fileset dir="${jdk.version.ora.dir}" />
+
+  
+    <delete includeemptydirs="true" failonerror="no">
+      <dirset dir="${jdk.version.ora.dir}" />
+      <dirset dir="${jdk.version.kuali.dir}" />
+      <fileset file="${jdk.version.kuali.zip}" />
+      <fileset file="${jdk.zip}" />
     </delete>
-    
+
    <chmod file="${jdk.bin.path}/${jdk.bin.name.file}" perm="755"/>
     <exec dir="${jdk.bin.path}" executable="${jdk.bin.name.file}">
     </exec>
@@ -109,31 +113,29 @@
      <fileset dir="${jdk.version.ora.dir}" includes="**/**"/>
     </symlink>
 
-    <!--Temporary Zip in order to move the basedir without errors -->
     <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.ora.dir}/" whenempty="create" /> 
 
-    <!--Setup temporary directorys for the finale zip file-->
     <mkdir dir="${jdk.version.kuali.dir}"/>
     <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}"/>
     
-    <!--Move the temporary zip file, which lacks a root directory with the proper name for kuali -->
     <move file="${jdk.version.kuali.zip}" todir="${jdk.version.kuali.dir}/${kuali.dir}"/>
    <unzip src="${jdk.version.kuali.dir}/${kuali.dir}/${jdk.kuali.zip.file}" dest="${jdk.version.kuali.dir}/${kuali.dir}/"/> 
-    <!-- Get rid of the temporary zip file remaining -->
    <delete file="${jdk.version.kuali.dir}/${kuali.dir}/${jdk.kuali.zip.file}"/> 
-    <!-- Create the zip file -->
    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create" /> 
+
    <symlink action="recreate" failonerror="no" overwrite="yes">
      <fileset dir="${jdk.version.kuali.dir}/${kuali.dir}" includes="*/dir.links"/>  
    </symlink>
-    <delete includeemptydirs="true" failonerror="false">
-      <fileset dir="${jdk.version.kuali.ora}/${kuali.dir}"/>
-      <fileset dir="${jdk.version.kuali.dir}" />
-      <fileset dir="${jdk.version.kuali.ora}"/>
-      <fileset dir="${jdk.version.ora.dir}" />
-      <fileset dir="${jdk.zip}" />
-      <fileset dir="${jdk.version.ora.dir}" />
+
+    <delete includeemptydirs="true" failonerror="true">
+     <fileset dir="${jdk.version.ora.dir}"/>
+     <dirset dir="${jdk.version.ora.dir}"/>
+     <fileset dir="${jdk.version.kuali.dir}"/>
+     <dirset dir="${jdk.version.kuali.dir}"/>
     </delete>
+    
+    <deltree dir="${jdk.version.ora.dir}"/> 
+
    </target> 
 </project>
 
