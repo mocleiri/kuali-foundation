@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.kuali.common</groupId>
     <artifactId>kuali-impex</artifactId>
-    <version>3.0.6-SNAPSHOT</version>
+    <version>3.0.6</version>
   </parent>
   <artifactId>kuali-impex-producer</artifactId>
   <name>Kuali Impex Producer</name>
