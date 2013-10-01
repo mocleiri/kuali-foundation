@@ -17,6 +17,7 @@ package org.kuali.common.impex.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.impex.KualiImpexProducerConfig;
 import org.kuali.common.impex.spring.MpxSupplierConfig;
@@ -24,6 +25,8 @@ import org.kuali.common.impex.spring.SchemaXmlSupplierConfig;
 import org.kuali.common.jdbc.config.JdbcConfigConstants;
 import org.kuali.common.jdbc.spring.SqlControllerExecutableConfig;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.config.service.DefaultConfigService;
 import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
 import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -45,12 +48,14 @@ public class BuildDatabaseUtility {
 
 		try {
 			List<Class<?>> configClasses = getAnnotatedClasses(includeMpxConfig);
-            List<String> configIds = new ArrayList<String>(JdbcConfigConstants.DEFAULT_CONFIG_IDS);
-            configIds.add(KualiImpexProducerConfig.SCHEMA_SQL.getConfigId());
-            if (includeMpxConfig) {
-                configIds.add(KualiImpexProducerConfig.MPX_SQL.getConfigId());
-            }
-            PropertiesSupplier supplier = new ConfigPropertiesSupplier(configIds, propertiesLocation);
+			List<String> configIds = new ArrayList<String>(JdbcConfigConstants.DEFAULT_CONFIG_IDS);
+			configIds.add(KualiImpexProducerConfig.SCHEMA_SQL.getConfigId());
+			if (includeMpxConfig) {
+				configIds.add(KualiImpexProducerConfig.MPX_SQL.getConfigId());
+			}
+
+			Properties overrides = PropertyUtils.load(propertiesLocation);
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(configIds, new DefaultConfigService(), overrides);
 			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, configClasses);
 			executable.execute();
 		} catch (Exception e) {

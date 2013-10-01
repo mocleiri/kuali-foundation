@@ -15,8 +15,12 @@
 
 package org.kuali.common.impex.cli;
 
+import java.util.Properties;
+
 import org.kuali.common.impex.config.DumpConfigConstants;
 import org.kuali.common.impex.spring.DumpDatabaseExecutableConfig;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.config.service.DefaultConfigService;
 import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
 import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.SpringExecutable;
@@ -33,7 +37,8 @@ public class DumpDatabase {
 				printHelpAndExit();
 			}
 
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(DumpConfigConstants.CONFIG_IDS, location);
+			Properties overrides = PropertyUtils.load(location);
+			PropertiesSupplier supplier = new ConfigPropertiesSupplier(DumpConfigConstants.CONFIG_IDS, new DefaultConfigService(), overrides);
 			SpringExecutable executable = SpringUtils.getSpringExecutable(supplier, DumpDatabaseExecutableConfig.class);
 			executable.execute();
 		} catch (Exception e) {
