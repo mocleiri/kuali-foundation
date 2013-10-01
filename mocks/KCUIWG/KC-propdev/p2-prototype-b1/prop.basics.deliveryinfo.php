@@ -99,7 +99,7 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
             <div class="form-group clearfix">
-              <label for="mail_by" class="control-label col-md-3 required">Mail by:</label>
+              <label for="mail_by" class="control-label col-md-3 required">Submit by:</label>
               <div class="col-md-9">
                 <select name="mail_by" id="mail_by" class="form-control input-sm col-md-8">
                   <option value="">Department</option>
