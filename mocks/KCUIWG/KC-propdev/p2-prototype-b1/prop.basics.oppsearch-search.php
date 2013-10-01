@@ -14,12 +14,12 @@ require_once( 'themes/kc/inc/toolbar.php' );
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
 
 				<div class="section-title">
 					<h3>Opportunity Search</h3>
 				</div>
-                <div id="oppsearch-tabs">
+                <div id="oppsearch-tabs" class="well">
                     <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button>
                     <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>-->
                     </div>

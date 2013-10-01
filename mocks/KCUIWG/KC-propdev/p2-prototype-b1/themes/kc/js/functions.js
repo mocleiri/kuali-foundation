@@ -154,7 +154,7 @@ $(document).ready(function() {
 			$(this).datepicker({
 				autoclose: true,
 			    todayHighlight: true
-			});
+			}).mask('99/99/9999');
 		});
 	}
 

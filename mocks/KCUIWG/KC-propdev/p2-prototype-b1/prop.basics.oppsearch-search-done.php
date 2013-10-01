@@ -14,7 +14,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
 
 				<div class="section-title">
 					<h3>Opportunity Search</h3>
@@ -41,7 +41,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<table  class="table table-condensed">
 									<tbody>
 										<tr>
-										<th style="width:30%"> Opportunity ID</th>
+										<th class="col-md-3"> Opportunity ID</th>
 										<td> CSS-120809-SF424RR-V12 </td>
 										</tr>
 										<tr>
@@ -93,11 +93,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<table  class="table table-condensed">
 									<tbody>
 										<tr>
-										<th style="width:30%"> Recieved Date</th>
+										<th class="col-md-3"> Recieved Date</th>
 										<td> 8/13/13 7:28 PM</td>
 										</tr>
 										<tr>
-										<th style="width:30%"> Last Modified Date</th>
+										<th class="col-md-3"> Last Modified Date</th>
 										<td> 8/13/13 7:29 PM</td>
 										</tr>
 										<tr>

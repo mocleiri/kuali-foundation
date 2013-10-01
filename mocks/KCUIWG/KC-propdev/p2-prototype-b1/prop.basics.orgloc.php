@@ -30,11 +30,11 @@ include( '_temp.select.filler.php' );
             <table  class="table table-condensed">
               <tbody>
                 <tr>
-                  <th style="width:30%">Organization</th>
+                  <th class="col-md-3">Organization</th>
                   <td>University of Michigan</td>
                 </tr>
                 <tr>
-                  <th style="width:30%">Address 1</th>
+                  <th class="col-md-3">Address 1</th>
                   <td>2044 Wolverine Tower</td>
                 </tr>
                 <tr>
@@ -65,11 +65,11 @@ include( '_temp.select.filler.php' );
             <table  class="table table-condensed">
               <tbody>
                 <tr>
-                  <th style="width:30%">Organization</th>
+                  <th class="col-md-3">Organization</th>
                   <td>University of Michigan</td>
                 </tr>
                 <tr>
-                  <th style="width:30%">Address 1</th>
+                  <th class="col-md-3">Address 1</th>
                   <td>2044 Wolverine Tower</td>
                 </tr>
                 <tr>
@@ -115,7 +115,7 @@ include( '_temp.select.filler.php' );
                     <table  class="table table-condensed">
                       <tbody>
                         <tr>
-                          <th style="width:30%">Organization</th>
+                          <th class="col-md-3">Organization</th>
                           <td>select... <a href="#">lookup (icon)</a></td>
                         </tr>
                       </tbody>
@@ -137,11 +137,11 @@ include( '_temp.select.filler.php' );
                     <table  class="table table-condensed">
                       <tbody>
                         <tr>
-                          <th style="width:30%">Organization</th>
+                          <th class="col-md-3">Organization</th>
                           <td>United Technologies/Pratt &amp; Whitney <a href="#">lookup (icon)</a></td>
                         </tr>
                         <tr>
-                          <th style="width:30%">Address 1</th>
+                          <th class="col-md-3">Address 1</th>
                           <td>Mail Stop 169-21 </td>
                         </tr>
                         <tr>
@@ -185,11 +185,11 @@ include( '_temp.select.filler.php' );
                     <table  class="table table-condensed">
                       <tbody>
                         <tr>
-                          <th style="width:30%">Organization</th>
+                          <th class="col-md-3">Organization</th>
                           <td> Naval Training Systems Center <a href="#">lookup (icon)</a></td>
                         </tr>
                         <tr>
-                          <th style="width:30%">Address 1</th>
+                          <th class="col-md-3">Address 1</th>
                           <td>Property, Code 773  </td>
                         </tr>
                         <tr>
@@ -241,11 +241,11 @@ include( '_temp.select.filler.php' );
                     <table  class="table table-condensed">
                       <tbody>
                         <tr>
-                          <th style="width:30%">Organization</th>
+                          <th class="col-md-3">Organization</th>
                           <td>Communications Power</td>
                         </tr>
                         <tr>
-                          <th style="width:30%">Address 1</th>
+                          <th class="col-md-3">Address 1</th>
                           <td>PO Box 50750 </td>
                         </tr>
                         <tr>
@@ -287,11 +287,11 @@ include( '_temp.select.filler.php' );
                     <table class="table table-condensed">
                       <tbody>
                         <tr>
-                          <th style="width:30%">Organization</th>
+                          <th class="col-md-3">Organization</th>
                           <td>Cleveland Clinic Organization</td>
                         </tr>
                         <tr>
-                          <th style="width:30%">Address 1</th>
+                          <th class="col-md-3">Address 1</th>
                           <td>One Clinic Center </td>
                         </tr>
                         <tr>

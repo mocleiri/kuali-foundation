@@ -104,10 +104,39 @@ section.toolbar .dropdown a .caret {
   padding-top: 75px;
   padding-bottom: 16px;
 }
+#main .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
 #main label {
   line-height: 130%;
   padding-top: 4px;
   text-align: left;
+  background: #f6f6f6;
+  padding: 7px;
+  position: relative;
+}
+#main label:after {
+  display: block;
+  position: absolute;
+  content: " ";
+  height: 12px;
+  width: 12px;
+  background: #f6f6f6;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 50%;
+  right: -6px;
+  margin-top: -6px;
+}
+#main label.required {
+  background: #f0f6ff;
+}
+#main label.required:after {
+  background: #f0f6ff;
 }
 #main label.radio,
 #main label.checkbox {
@@ -327,6 +356,9 @@ section.toolbar .dropdown a .caret {
 .well {
   min-height: 74px;
 }
+#Uif-PageContentWrapper:focus {
+  outline: none;
+}
 /*
 	Overriding the default Bootstrap input styles to better match the Chosen styles
 	Chris Rodriguez
@@ -386,6 +418,11 @@ textarea:disabled,
 .subawards {
   display: block !important;
   margin-bottom: 1.5em !important;
+  margin-left: -20px;
+  background: transparent !important;
+}
+.subawards:after {
+  display: none !important;
 }
 .chosen-container {
   width: 100% !important;
@@ -402,7 +439,7 @@ textarea:disabled,
   float: left;
 }
 .helper-text {
-  background: #cce1ff;
+  background: #f0f6ff;
   margin-top: 12px;
   position: relative;
   padding: 6px;
@@ -412,7 +449,7 @@ textarea:disabled,
   content: " ";
   height: 12px;
   width: 12px;
-  background: #cce1ff;
+  background: #f0f6ff;
   position: absolute;
   top: -6px;
   left: 12px;
@@ -903,7 +940,7 @@ nav-list > li > a {
   right: 0;
 }
 #sidebar {
-  width: 200px;
+  width: 250px;
   position: absolute;
   background: #f5f5f5;
 }
@@ -918,7 +955,7 @@ nav-list > li > a {
 #sidebar:before {
   content: "";
   display: block;
-  width: 200px;
+  width: 250px;
   position: fixed;
   bottom: 0;
   top: 0;
@@ -929,7 +966,7 @@ nav-list > li > a {
   z-index: 10;
 }
 #sidebar + #Uif-PageContentWrapper {
-  margin-left: 200px;
+  margin-left: 250px;
 }
 .navbar-collapse {
   padding-right: 0;

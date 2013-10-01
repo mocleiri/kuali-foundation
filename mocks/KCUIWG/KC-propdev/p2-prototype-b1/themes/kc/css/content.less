@@ -3,10 +3,44 @@
 	padding-top: 75px;
 	padding-bottom: 16px;
 
+	.form-group {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
 	label {
 		line-height: 130%;
 		padding-top: 4px;
 		text-align: left;
+
+		background: #f6f6f6;
+		padding: 7px;
+		position: relative;
+	}
+
+	label:after {
+		display: block;
+		position: absolute;
+		content: " ";
+		height: 12px;
+		width: 12px;
+		background: #f6f6f6;
+		-webkit-transform: rotate(45deg);
+		-moz-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		-o-transform: rotate(45deg);
+		transform: rotate(45deg);
+		top: 50%;
+		right: -6px;
+		margin-top: -6px;
+	}
+
+	label.required {
+		background: lighten(@link_blue, 57%);
+	}
+
+	label.required:after {
+		background: lighten(@link_blue, 57%);
 	}
 
 	label.radio, label.checkbox {
@@ -338,4 +372,8 @@
 
 .well {
 	min-height: 74px;
+}
+
+#Uif-PageContentWrapper:focus {
+	outline: none;
 }
