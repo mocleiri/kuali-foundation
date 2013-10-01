@@ -1,26 +1,27 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
 
-  <target name="updatejdk7.1">
+  <target name="updatejdk7">
     <!-- ant -Dminor="40" updatejdk7 -->
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
 
-    <property name="jdk.dir" value="${user.home}/.jdk/7" />
-    <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
-    <property name="jdk.version.kuali.dir" value="${jdk.dir}/${kuali.dir}" />
-
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
     <property name="jdk.version.ora.dir" value="${jdk.dir}/${ora.dir}" />
 
+    <property name="jdk.dir" value="${user.home}/.jdk/7" />
 
-    <property name="jdk.kuali.zip.file" value= "jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
+    <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+    <property name="kuali.dir"  value="${jdk.kuali.version}" />
+    <property name="jdk.version.kuali.dir" value="${jdk.dir}/${kuali.dir}" />
+
+    <property name="jdk.kuali.zip.file" value= "${jdk.kuali.version}.zip" />
     <property name="jdk.version.kuali.zip" value="${jdk.dir}/${jdk.kuali.zip.file}" />
 
     <property name="jdk.tar.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar" />
     <property name="jdk.tar" value="${jdk.version.kuali.dir}/${jdk.tar.file}" />
-    <property name="jdk.gz" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar.gz" />
+    <property name="jdk.gz" value="${jdk.dir}/${jdk.tar.file}.gz" />
 
     <echo message="${jdk.version}" />
     <echo message="${jdk.version.kuali.zip}" />
@@ -63,21 +64,31 @@
 
 
  <target name="updatejdk6">
+
+
     <property name="jdk.major.version" value="6" />
     <property name="jdk.minor.version" value="${minor}" />
-    <property name="jdk.dir" value="${user.home}/.jdk/6" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
-    <property name="jdk.bin.name" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.bin" />
-    <property name="jdk.bin.path" value="${jdk.dir}" />
-    <property name="jdk.bin" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.bin" />
-    <property name="jdk.zip" value="${jdk.dir}/jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.zip" />
-    <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+
+    <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}-linux-x64" />
+    <property name="jdk.ora.version" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64" />
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
+
+    <property name="jdk.dir" value="${user.home}/.jdk/6" />
+
+
+    <property name="jdk.bin.path" value="${jdk.dir}" />
+    <property name="jdk.bin.name.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.bin" />
+
+
+    <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
-    <property name="jdk.version.ora.dir.tmp" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}.tmp" />
-    <property name="jdk.version.kuali.zip" value="${jdk.dir}/jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
-    <property name="jdk.kuali.zip.file"               value="jdk${jdk.major.version}-1-${jdk.major.version}.0-u${jdk.minor.version}-linux-x64.zip" />
-    <property name="jdk.version.kuali.dir" value="${jdk.dir}/jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
+
+    <property name="jdk.kuali.zip.file"               value="${jdk.kuali.version}.zip" />
+    <property name="jdk.zip" value="${jdk.kuali.zip.file}" />
+    <property name="jdk.version.kuali.zip" value="${jdk.dir}/${jdk.kuali.zip.file}" />
+    <property name="jdk.version.kuali.dir" value="${jdk.dir}/${jdk.kuali.version}" />
+
     <echo message="${jdk.version}" />
     <echo message="${jdk.version.kuali.dir}" />
     <echo message="${jdk.version.ora.dir}" />
@@ -89,10 +100,11 @@
       <fileset dir="${jdk.version.kuali.dir}" />
       <fileset dir="${jdk.version.kuali.zip}" />
       <fileset dir="${jdk.zip}" />
+      <fileset dir="${jdk.version.ora.dir}" />
     </delete>
-    <deltree dir="${jdk.version.ora.dir}"/>
-
-    <exec dir="${jdk.bin.path}" executable="${jdk.bin.name}">
+    
+   <chmod file="${jdk.bin.path}/${jdk.bin.name.file}" perm="755"/>
+    <exec dir="${jdk.bin.path}" executable="${jdk.bin.name.file}">
     </exec>
 
     <delete file="${jdk.version.ora.dir}/src.zip" />
@@ -124,8 +136,8 @@
       <fileset dir="${jdk.version.kuali.ora}"/>
       <fileset dir="${jdk.version.ora.dir}" />
       <fileset dir="${jdk.zip}" />
+      <fileset dir="${jdk.version.ora.dir}" />
     </delete>
-    <deltree dir="${jdk.version.ora.dir}"/>
    </target> 
 </project>
 
