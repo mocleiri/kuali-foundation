@@ -1,8 +1,0 @@
-#!/bin/sh
-
-ARGS="$ARGS -Ddp.groupId=com.sonatype"
-ARGS="$ARGS -Ddp.artifactId=nexus-professional"
-ARGS="$ARGS -Ddp.version=1.9.2.4"
-ARGS="$ARGS -Ddp.file=~/Downloads/nexus-professional-webapp-1.9.2.4-bundle.zip"
-ARGS="$ARGS -Ddp.type=zip"
-mvn process-resources -Ppublic $ARGS
