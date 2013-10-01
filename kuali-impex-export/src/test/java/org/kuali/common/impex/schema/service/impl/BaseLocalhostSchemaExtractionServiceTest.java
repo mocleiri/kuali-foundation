@@ -31,12 +31,11 @@ import org.kuali.common.impex.schema.SequenceFinder;
 import org.kuali.common.impex.schema.ViewFinder;
 import org.kuali.common.impex.schema.service.ExtractSchemaContext;
 import org.kuali.common.impex.schema.service.ExtractSchemaService;
-import org.kuali.common.jdbc.config.JdbcConfigConstants;
 import org.kuali.common.jdbc.spring.SqlControllerExecutableConfig;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.config.service.DefaultConfigService;
 import org.kuali.common.util.config.supplier.ConfigPropertiesSupplier;
-import org.kuali.common.util.config.supplier.PropertiesSupplier;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.SpringUtils;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -55,7 +54,8 @@ public abstract class BaseLocalhostSchemaExtractionServiceTest {
 			System.setProperty("db.vendor", getDatabaseVendor());
 
 			String propertiesLocation = "classpath:org/kuali/common/kuali-impex-export/localhost.properties";
-			PropertiesSupplier supplier = new ConfigPropertiesSupplier(JdbcConfigConstants.DEFAULT_CONFIG_IDS, propertiesLocation);
+			Properties overrides = PropertyUtils.load(propertiesLocation);
+			ConfigPropertiesSupplier supplier = new ConfigPropertiesSupplier(null, new DefaultConfigService(), overrides);
 			Executable executable = SpringUtils.getSpringExecutable(supplier, SqlControllerExecutableConfig.class);
 			executable.execute();
 

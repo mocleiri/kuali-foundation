@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -20,11 +20,11 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.2.12</version>
+    <version>3.3.17</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-impex</artifactId>
-  <version>3.0.3</version>
+  <version>3.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Kuali Impex</name>
   <description>
@@ -43,6 +43,7 @@
     <commons-collections.version>3.2.1</commons-collections.version>
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
+    <project.scm.url>https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.3</project.scm.url>
   </properties>
   <developers>
     <developer>
@@ -148,8 +149,8 @@
     </dependencies>
   </dependencyManagement>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.3</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.3</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/tags/kuali-impex-3.0.3</url>
+    <connection>scm:${project.scm.vendor}:${project.scm.url}</connection>
+    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}</developerConnection>
+    <url>${project.scm.url}</url>
   </scm>
 </project>
