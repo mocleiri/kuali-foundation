@@ -1,3 +1,0 @@
-echo $(date)
-mysql -u smartload -psmartload -h mysql.rice.kuali.org smartload < mysql-raw-small.sql
-echo $(date)
