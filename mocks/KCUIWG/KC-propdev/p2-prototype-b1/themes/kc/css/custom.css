@@ -104,6 +104,9 @@ section.toolbar .dropdown a .caret {
   padding-top: 75px;
   padding-bottom: 16px;
 }
+#main .well {
+  border-radius: 0px;
+}
 #main .form-group {
   margin-left: 0;
   margin-right: 0;
@@ -299,7 +302,8 @@ section.toolbar .dropdown a .caret {
 }
 .btn-row-page-action {
   clear: both;
-  margin-top: 1.5%;
+  margin-top: 16px;
+  margin-bottom: 16px;
   padding: 1% 0 1% 0;
   text-align: center;
 }
@@ -680,12 +684,17 @@ dl:after {
 .table-smaller-text {
   font-size: .90em;
 }
+.alert-info {
+  background-color: #f0f6ff;
+  border-color: #cce1ff;
+  color: #222222;
+}
 .uif-stickyFooter.uif-stickyButtonFooter {
   position: fixed;
   left: 0;
   bottom: 0px;
   width: 100%;
-  background: #fff;
+  background: #f8f8f8;
   -webkit-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.07);
   border-top: solid;
   border-top-color: #e2e2e2;
@@ -1259,7 +1268,7 @@ nav-list > li > a {
   border-width: 1px;
 }
 #Uif-PageContentWrapper {
-  padding: 10px 20px 20px;
+  padding: 10px 20px 75px;
 }
 @media (min-width: 1200px) {
   

@@ -50,7 +50,12 @@ include( '_temp.select.filler.php' );
             </tbody>
           </table>
           <h3>Delivery Details</h3>
-          <fieldset>
+          <div class="alert alert-info">
+          	<h4>Electronic delivery to Grants.gov</h4>
+          	<p>This proposal is being sent via system-to-system transmission to Grants.gov so no further information from you is needed here.</p>
+          	<p>If you are not submitting this proposal electronically, please edit the Recipient above.</p>
+          </div>
+          <fieldset class="hide">
             <legend>Enter details for this delivery</legend>
             <div class="form-group clearfix">
               <label for="mail_type" class="control-label col-md-3 required">Type:</label>
