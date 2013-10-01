@@ -44,6 +44,7 @@
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
     <project.scm.url>https://svn.kuali.org/repos/foundation/branches/kuali-impex-3.0.x</project.scm.url>
+    <skipTests>true</skipTests>
   </properties>
   <developers>
     <developer>
