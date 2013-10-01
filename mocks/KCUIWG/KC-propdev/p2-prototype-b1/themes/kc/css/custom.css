@@ -591,14 +591,57 @@ dl:after {
   visibility: hidden;
   clear: both;
 }
-.modal-header {
-  background: #f6f6f6;
-}
-.modal-footer {
-  background: #f6f6f6;
-}
-.modal {
+.fancybox-overlay {
   z-index: 9999;
+}
+.modal-dialog {
+  border-radius: 3px;
+}
+.modal-dialog .modal-content {
+  position: relative;
+}
+.modal-dialog .modal-content .modal-header {
+  background: #f6f6f6;
+  padding: 16px 15px;
+  border-bottom: #dddddd;
+}
+.modal-dialog .modal-content .modal-header h1,
+.modal-dialog .modal-content .modal-header h2,
+.modal-dialog .modal-content .modal-header h3,
+.modal-dialog .modal-content .modal-header h4,
+.modal-dialog .modal-content .modal-header h5,
+.modal-dialog .modal-content .modal-header h6 {
+  font-size: 24px;
+  line-height: 100%;
+  margin-top: 8px;
+}
+.modal-dialog .modal-content .modal-body {
+  padding: 24px 15px;
+  background: white;
+}
+.modal-dialog .modal-content .modal-body label {
+  text-align: left;
+}
+.modal-dialog .modal-content .modal-footer {
+  background: #f6f6f6;
+  padding: 16px 15px;
+  border-top: #dddddd;
+  clear: both;
+  display: block;
+}
+.modal-dialog .modal-content .modal-footer:after {
+  content: "";
+  display: block;
+  clear: both;
+  height: 1%;
+  visibility: hidden;
+}
+.fancybox-close {
+  top: 20px;
+  right: 16px;
+}
+.table-smaller-text {
+  font-size: .90em;
 }
 .uif-stickyFooter.uif-stickyButtonFooter {
   position: fixed;

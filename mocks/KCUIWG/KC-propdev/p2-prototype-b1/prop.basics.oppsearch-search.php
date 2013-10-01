@@ -20,7 +20,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<h3>Opportunity Search</h3>
 				</div>
                 <div id="oppsearch-tabs">
-                    <a class="various fancybox.ajax btn btn-sm btn-default" data-fancybox-type="ajax" href="modal/lookup-oppsearch.html">Load New...</a>
+                    <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button>
                     <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>-->
                     </div>
 
@@ -50,8 +50,3 @@ require_once( 'themes/kc/inc/toolbar.php' );
   </div>
 </section>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
-
-
-
-
-
