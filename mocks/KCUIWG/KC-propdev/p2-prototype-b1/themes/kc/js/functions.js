@@ -499,16 +499,18 @@ $(document).ready(function() {
 			
 		});	
 	
-	$(".various").fancybox({
-		fitToView	: true,
-		//width		: 800,
-		height		: '70%',
-		autoSize	: true,
-		closeClick	: false,
-		openEffect	: 'none',
-		closeEffect	: 'none',
-		//type: 'iframe',
-	});
+	if ($('.various').length) {
+		$(".various").fancybox({
+			fitToView	: true,
+			//width		: 800,
+			height		: '70%',
+			autoSize	: true,
+			closeClick	: false,
+			openEffect	: 'none',
+			closeEffect	: 'none',
+			//type: 'iframe',
+		});
+	}
 	
 	
 	$(".fancy-close").live("click", function(){

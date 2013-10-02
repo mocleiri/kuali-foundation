@@ -23,21 +23,14 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<fieldset>
 							<legend>Enter sponsor information</legend>
 							<div class="form-group clearfix">
-								<label for="sponsor_name" class="control-label col-md-3 required">Sponsor name:</label>
-								<div class="col-md-9">
-									<input type="text" class="form-control input-sm" name="sponsor_name" id="sponsor_name" />
-								</div>
-							</div>
-
-							<div class="form-group clearfix">
-								<label for="sponsor_deadline_date" class="control-label col-md-3 required">Sponsor deadline date:</label>
+								<label for="sponsor_deadline_date" class="control-label col-md-3 required">Sponsor deadline date: *</label>
 								<div class="col-md-9 input-group">
 									<input type="text" class="form-control input-sm uif-dateControl" name="sponsor_deadline_date" id="sponsor_deadline_date" placeholder="mm/dd/yyyy" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="sponsor_deadline_time" class="control-label col-md-3 required">Sponsor deadline time:</label>
+								<label for="sponsor_deadline_time" class="control-label col-md-3 required">Sponsor deadline time: *</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control input-sm" name="sponsor_deadline_time" id="sponsor_deadline_time" />
 								</div>
@@ -69,13 +62,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<label for="cfda_number" class="control-label col-md-3">CFDA number:</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" />
-								</div>
-							</div>
-
-							<div class="form-group clearfix">
-								<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor ID:</label>
-								<div class="col-md-9">
-									<input type="text" class="form-control input-sm" name="prime_sponsor_id" id="prime_sponsor_id" />
 								</div>
 							</div>
 

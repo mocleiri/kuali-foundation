@@ -79,6 +79,16 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
+									<label for="project_title" class="control-label col-md-3 required">Project title: *</label>
+									<div class="col-md-9">
+										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
+										<div class="helper-text">
+											Give this proposal a title. Be detailed but concise.
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
 									<label for="sponsor_code" class="control-label col-md-3 required">Sponsor code: *</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
@@ -92,12 +102,25 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="project_title" class="control-label col-md-3 required">Project title: *</label>
-									<div class="col-md-9">
-										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
+									<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
+									<div class="col-md-9 input-group">
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_name" id="sponsor_name" />
 										<div class="helper-text">
-											Give this proposal a title. Be detailed but concise.
+											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
+									</div>
+								</div>
+
+								<div class="form-group clearfix">
+									<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor code:</label>
+									<div class="col-md-9 input-group">
+										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
+										<div class="helper-text">
+											Enter the sponsor code for this proposal or find one using the lookup tool.
+										</div>
+										<span class="input-group-btn">
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.html" data-modal-height="500"></a>
+										</span>
 									</div>
 								</div>
 

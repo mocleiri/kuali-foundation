@@ -95,7 +95,7 @@ include( '_temp.select.filler.php' );
               </tbody>
             </table>
             <div class="btn-row-widget-action">
-              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html">change organization</button>
+              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html">Update organization</button>
             </div>
           </div>
           <div class="tab-pane" id="tab3">
@@ -221,7 +221,7 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
             <div class=" btn-row-widget-action">
-              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html"><span aria-hidden="true" class="icon-plus-sign"></span> add location </button>
+              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html">Add location</button>
             </div>
           </div>
           <div class="tab-pane " id="tab4">
@@ -323,7 +323,7 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
             <div class="btn-row-widget-action">
-              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html"><span aria-hidden="true" class="icon-plus-sign"></span> add location </button>
+              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modals/lookup.html">Add location</button>
             </div>
           </div>
         </div>

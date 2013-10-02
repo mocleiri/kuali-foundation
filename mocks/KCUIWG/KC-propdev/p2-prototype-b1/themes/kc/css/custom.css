@@ -581,11 +581,11 @@ textarea:disabled,
 .btn-primary {
   color: white !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #0099cc), color-stop(50%, #0099cc), color-stop(52%, #0086b3), color-stop(100%, #007ea8));
-  background: -webkit-linear-gradient(top, #0099cc 20%, #0099cc 50%, #0086b3 52%, #007ea8 100%);
-  background: -moz-linear-gradient(top, #0099cc 20%, #0099cc 50%, #0086b3 52%, #007ea8 100%);
-  background: -o-linear-gradient(top, #0099cc 20%, #0099cc 50%, #0086b3 52%, #007ea8 100%);
-  background: linear-gradient(top, #0099cc 20%, #0099cc 50%, #0086b3 52%, #007ea8 100%);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #0055cc), color-stop(50%, #0055cc), color-stop(52%, #004ab3), color-stop(100%, #0046a8));
+  background: -webkit-linear-gradient(top, #0055cc 20%, #0055cc 50%, #004ab3 52%, #0046a8 100%);
+  background: -moz-linear-gradient(top, #0055cc 20%, #0055cc 50%, #004ab3 52%, #0046a8 100%);
+  background: -o-linear-gradient(top, #0055cc 20%, #0055cc 50%, #004ab3 52%, #0046a8 100%);
+  background: linear-gradient(top, #0055cc 20%, #0055cc 50%, #004ab3 52%, #0046a8 100%);
 }
 .btn-success {
   color: white !important;

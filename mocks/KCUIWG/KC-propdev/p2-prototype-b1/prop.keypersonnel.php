@@ -51,7 +51,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 
 							<div class="form-group clearfix">
-								<button class="btn btn-default launch-modal" data-modal-page="modal/modal-addpersonnel/start.html">+ Add Personnel</button>
+								<button class="btn btn-default launch-modal" data-modal-page="modal/modal-addpersonnel/start.html">Add personnel</button>
 							</div>
 						</fieldset>
 					</form>
