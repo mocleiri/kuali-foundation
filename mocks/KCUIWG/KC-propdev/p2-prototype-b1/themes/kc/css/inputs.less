@@ -91,27 +91,32 @@ textarea:disabled,
 }
 
 .helper-text {
-	background: lighten(@link_blue, 57%);
-	margin-top: 12px;
+	// background: lighten(@link_blue, 57%);
+	background: #f6f6f6;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin-top: 0;
 	position: relative;
 	padding: 6px;
+	color: darken(#f6f6f6, 50%);
 }
 
-.helper-text:before {
-	display: block;
-	content: " ";
-	height: 12px;
-	width: 12px;
-	background: lighten(@link_blue, 57%);
-	position: absolute;
-	top: -6px;
-	left: 12px;
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
+// .helper-text:before {
+// 	display: block;
+// 	content: " ";
+// 	height: 12px;
+// 	width: 12px;
+// 	background: lighten(@link_blue, 57%);
+// 	position: absolute;
+// 	top: -6px;
+// 	left: 12px;
+// 	-webkit-transform: rotate(45deg);
+// 	-moz-transform: rotate(45deg);
+// 	-ms-transform: rotate(45deg);
+// 	-o-transform: rotate(45deg);
+// 	transform: rotate(45deg);
+// }
 
 .input-group-addon, .input-group-btn {
 	vertical-align: top;

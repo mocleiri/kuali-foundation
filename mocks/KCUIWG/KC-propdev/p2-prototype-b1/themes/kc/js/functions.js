@@ -67,8 +67,10 @@ $(document).ready(function() {
 				if ($(this).attr('multiple')) {
 					$(this).multiselect({
 						selectedList: 9,
-						minWidth: 'auto'
-					});
+						minWidth: 'auto',
+						header: 'Choose all that apply',
+						noneSelectedText: 'Choose options',
+					}).multiselectfilter();
 				} else {
 					$(this).multiselect({
 						multiple: false,

@@ -454,25 +454,14 @@ textarea:disabled,
   float: left;
 }
 .helper-text {
-  background: #f0f6ff;
-  margin-top: 12px;
+  background: #f6f6f6;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-top: 0;
   position: relative;
   padding: 6px;
-}
-.helper-text:before {
-  display: block;
-  content: " ";
-  height: 12px;
-  width: 12px;
-  background: #f0f6ff;
-  position: absolute;
-  top: -6px;
-  left: 12px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  color: #777777;
 }
 .input-group-addon,
 .input-group-btn {

@@ -14,7 +14,11 @@ include( '_temp.select.filler.php' );
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
-      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+    	<div id="sidebar" class="uif-navigation" style="margin-left: -15px">
+    		<p class="instructions">
+    			Start a proposal by entering details to the right. Once you're finished, click the "Start Proposal" button to continue.
+    		</p>
+    	</div>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
       	<h3>Proposal Details</h3>
         <form action="#" method="post" class="form-horizontal">
@@ -26,7 +30,7 @@ include( '_temp.select.filler.php' );
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
 											<option value="4">Continuation</option>
-											<option value="1" selected="selected">New</option>
+											<option value="1">New</option>
 											<option value="3">Renewal</option>
 											<option value="2">Resubmission</option>
 											<option value="5">Revision</option>
@@ -39,7 +43,7 @@ include( '_temp.select.filler.php' );
 									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-											<option value="000001" selected="selected">000001 - University</option>
+											<option value="000001">000001 - University</option>
 											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
 											<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
 											<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
@@ -57,7 +61,7 @@ include( '_temp.select.filler.php' );
 											<option value="6">Fellowship - Pre-Doctoral</option>
 											<option value="2">Instruction</option>
 											<option value="3">Public Service</option>
-											<option value="1" selected="selected">Research</option>
+											<option value="1">Research</option>
 											<option value="8">Student Services</option>
 											<option value="5">other</option>
 										</select>
@@ -68,12 +72,12 @@ include( '_temp.select.filler.php' );
 									<label class="control-label col-md-3 required">Project dates: *</label>
 									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
-											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="01/03/2014" />
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
 											<label for="project_start" class="helper-text">Beginning on</label>
 										</div>
 										<span class="range">to</span>
 										<div class="col-md-6 date">
-											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="12/18/2014" />
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" />
 											<label for="project_end" class="helper-text">Ending on</label>
 										</div>
 									</div>
@@ -82,7 +86,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="project_title" class="control-label col-md-3 required">Project title: *</label>
 									<div class="col-md-9">
-										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
+										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper"></textarea>
 										<div class="helper-text">
 											Give this proposal a title. Be detailed but concise.
 										</div>
@@ -92,7 +96,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="sponsor_code" class="control-label col-md-3 required">Sponsor code: *</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
@@ -105,7 +109,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="sponsor_name" id="sponsor_name" value="National Science Foundation" />
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_name" id="sponsor_name" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
@@ -115,7 +119,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor code:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" value="NSF" />
+										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
@@ -128,7 +132,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="award_id" class="control-label col-md-3">Award ID:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" value="3EB" />
+										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" />
 										<div class="helper-text">
 											Enter the award ID for this proposal.
 										</div>
@@ -141,7 +145,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="inst_proposal_id" class="control-label col-md-3">Original institutional ID:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" value="BU001" />
+										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" />
 										<div class="helper-text">
 											Enter the original institutional ID for this proposal.
 										</div>
@@ -155,9 +159,18 @@ include( '_temp.select.filler.php' );
 									<label for="keywords" class="control-label col-md-3">Keywords:</label>
 									<div class="col-md-9">
 										<select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
-											<option selected="selected">One keyword</option>
-											<option selected="selected">Second keyword</option>
-											<option selected="selected">Third</option>
+											<option>One keyword</option>
+											<option>Second keyword</option>
+											<option>Third</option>
+											<option>Fourth keyword</option>
+											<option>Fifth keyword</option>
+											<option>Sixth</option>
+											<option>Apples</option>
+											<option>Oranges</option>
+											<option>Bananas</option>
+											<option>Pears</option>
+											<option>Beans</option>
+											<option>Rice</option>
 										</select>
 									</div>
 								</div>
@@ -165,8 +178,7 @@ include( '_temp.select.filler.php' );
 						</form>
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
     <div class="btn-row-page-action">
-      <button class="btn btn-default">Save</button>
-      <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-primary">Save and continue</button>
+      <button  onclick="location.href='prop.basics.details.php'" class="btn btn-primary">Start proposal</button>
     </div>
     <!-- // --> 
         </div>
