@@ -190,6 +190,15 @@ section.toolbar .dropdown a .caret {
 #main .tab-pane {
   padding-top: 16px;
 }
+#main .date-range {
+  position: relative;
+}
+#main .date-range .range {
+  position: absolute;
+  margin-left: -6px;
+  top: 50%;
+  margin-top: -9px;
+}
 #main .boxContent .well {
   padding: 19px 19px 3px 19px !important;
 }

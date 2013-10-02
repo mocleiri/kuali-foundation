@@ -66,11 +66,12 @@ include( '_temp.select.filler.php' );
 
 								<div class="form-group clearfix">
 									<label class="control-label col-md-3 required">Project dates: *</label>
-									<div class="col-md-9">
+									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
 											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="01/03/2014" />
 											<label for="project_start" class="helper-text">Beginning on</label>
 										</div>
+										<span class="range">to</span>
 										<div class="col-md-6 date">
 											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="12/18/2014" />
 											<label for="project_end" class="helper-text">Ending on</label>
