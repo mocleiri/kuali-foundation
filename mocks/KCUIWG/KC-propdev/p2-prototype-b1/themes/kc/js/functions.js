@@ -1,13 +1,24 @@
 /*
 	JavaScript functions for the Kuali Coeus protoype version 2
-	Dependencies:
-	- jQuery (1.7.2 +)
-	- bootstrap.min.js
-	- Fancybox
-	- jquery.sticky.js
 
-	Chris Rodriguez, clrux@bu.edu
-	Tom Clark, thrclark@indiana.edu
+	Dependencies:
+	- jQuery (jQuery 1.7.2 or greater)
+	- bootstrap.min.js (Bootstrap 3)
+	- jquery-ui-1.9.2.custom.min.js (jQuery UI 1.9.2)
+	- jquery.sticky.js (jQuery sticky)
+	- jquery.maskedinput.min.ms (jQuery Masked Input plugin)
+	- jquery.multiselect.filter.min.js (jQuery Multiselect 1 of 2)
+	- jquery.multiselect.min.js (jQuery Multiselect 2 of 2)
+
+	Authors:
+	- Chris Rodriguez, clrux@bu.edu
+	- Tom Clark, thrclark@indiana.edu
+
+	Notes:
+	- If initializing a page element on page load (i.e., $('.element').dosomething()) perform a check to make sure 
+	- that element exists, otherwise we'll get script errors and other things won't work correctly. So for example 
+	- if ($('.element').length) { $('.element').dosomething() });
+	- This way, if the elements don't exist, the function won't try to run.
 */
 
 $(document).ready(function() {
@@ -50,7 +61,7 @@ $(document).ready(function() {
 		Set default view for navigation on page load
 		Chris Rodriguez
 	*/
-	if ($('.uif-navigation')) {
+	if ($('.uif-navigation').length) {
 		$('.uif-navigation ul li.expanded').find('ul').show();
 	}
 
