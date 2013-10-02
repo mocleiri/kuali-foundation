@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
 
-  <target name="updatejdk7">
+  <target name="updatejdk7" depends="DetectOS"> 
     <!-- ant -Dminor="40" updatejdk7 -->
+    <property name="platform.size" value="${platform}-x${register-size}"/>
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
@@ -17,10 +18,10 @@
 
     <property name="jdk.version.ora.dir" value="${jdk.version.kuali.dir}/${ora.dir}" />
 
-    <property name="jdk.kuali.zip.file" value= "${jdk.kuali.version}-linux-x64.zip" />
+    <property name="jdk.kuali.zip.file" value= "${jdk.kuali.version}-${platform.size}.zip" />
     <property name="jdk.version.kuali.zip" value="${jdk.dir}/${jdk.kuali.zip.file}" />
 
-    <property name="jdk.tar.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.tar" />
+    <property name="jdk.tar.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}.tar" />
     <property name="jdk.tar" value="${jdk.version.kuali.dir}/${jdk.tar.file}" />
     <property name="jdk.gz" value="${jdk.dir}/${jdk.tar.file}.gz" />
 
@@ -65,22 +66,23 @@
   </target>
 
 
- <target name="updatejdk6">
+  <target name="updatejdk6" depends="DetectOS"> 
+    <!-- ant -Dminor="43" updatejdk6 -->
 
-
+    <property name="platform.size" value="${platform}-x${register-size}"/>
     <property name="jdk.major.version" value="6" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
 
-    <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}-linux-x64" />
-    <property name="jdk.ora.version" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64" />
+    <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}-${platform.size}" />
+    <property name="jdk.ora.version" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}" />
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
 
     <property name="jdk.dir" value="${user.home}/.jdk/6" />
 
 
     <property name="jdk.bin.path" value="${jdk.dir}" />
-    <property name="jdk.bin.name.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-linux-x64.bin" />
+    <property name="jdk.bin.name.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}.bin" />
 
 
     <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
@@ -135,7 +137,62 @@
     </delete>
     
     <deltree dir="${jdk.version.ora.dir}"/> 
-
    </target> 
+
+   <target name="DetectOS" depends="resolveplatform">
+<!--<echo>${platform}-${register-size}</echo> -->
+
+</target>
+<!--  CHECK THE 3 MAJOR Operating Systems  -->
+<target name="resolveplatform"  depends="-if_windows, -if_mac, -if_unix"/>
+<!--  CHECK IF GIVEN OS IS CURRENT OS  -->
+<target name="-checkosx">
+<condition property="isWindows">
+<os family="windows"/>
+</condition>
+<condition property="isMac">
+<os family="mac"/>
+</condition>
+<condition property="isLinux">
+<os family="unix"/>
+</condition>
+</target>
+<!--  IS THE OS WINDOWS?  -->
+<target name="-if_windows" depends="-checkosx" if="isWindows">
+<property name="platform" value="win"/>
+</target>
+
+<!--  IS THE OS LINUX/UNIX?  -->
+<target name="-if_unix" depends="-checkosx,check-register" if="isLinux">
+<property name="platform" value="linux"/>
+</target>
+
+
+
+<!--  IS THE OS MAC?  -->
+<target name="-if_mac" depends="-checkosx" if="isMac">
+<property name="platform" value="mac"/>
+</target>
+
+
+<target name="check-register" depends="reg-unix">
+    </target>
+
+<!-- Test under GNU/Linux -->
+    <target name="reg-unix" if="isLinux">
+        <exec dir="." executable="uname" outputproperty="result">
+            <arg line="-m"/>
+        </exec>
+
+        <!-- String ends in 64 -->
+        <condition property="x64">
+            <matches string="${result}" pattern="^.*64$"/>
+        </condition>
+
+        <condition property="register-size" value="64" else="32">
+            <isset property="x64"/>
+        </condition>
+    </target>
+
 </project>
 
