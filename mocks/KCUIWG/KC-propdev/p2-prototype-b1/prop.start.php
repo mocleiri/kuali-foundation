@@ -21,6 +21,8 @@ include( '_temp.select.filler.php' );
     	</div>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
       	<h3>Proposal Details</h3>
+      	<p>Items marked with an asterisk (*) are required.</p>
+      	
         <form action="#" method="post" class="form-horizontal">
 							<fieldset>
 								<legend style="display:none">Enter any relevant details for this proposal</legend>

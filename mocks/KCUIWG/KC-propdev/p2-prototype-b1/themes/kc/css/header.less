@@ -70,11 +70,11 @@
         }
 
         a {
-            color:#FFF;
+            color:#fff;
         }
 
-        a:hover {
-            color:#FFF;
+        a:hover, a:focus; {
+            color:#fff;
             background: darken(@header_background,3%);
         }
     }
@@ -94,15 +94,24 @@
 
                         li {
 
-                            a:hover, a:focus {
+                            a:hover, a:focus, a:active {
                                 text-decoration: none;
-                                color: #FFF;
+                                color: #fff;
                                 background-color: @header_background;
                             }
                         }
                     }
                 }
-            }
+            }            
         }
     }
+}
+
+.nav {
+
+    .open > a:hover, .open > a:focus, .open > a:active, .open > a {
+		text-decoration: none !important;
+		color: #fff !important;
+		background-color: darken(@header_background,3%) !important;
+	}
 }
