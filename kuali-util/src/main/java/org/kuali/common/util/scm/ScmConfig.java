@@ -15,24 +15,25 @@
  */
 package org.kuali.common.util.scm;
 
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import(SpringServiceConfig.class)
 public class ScmConfig {
 
 	private static final String VENDOR_KEY = "scm.vendor";
 
 	@Autowired
-	Environment env;
+	EnvironmentService env;
 
 	@Bean
 	public ScmService scmService() {
-		// TODO This isn't right
-		String vendor = SpringUtils.getInstance(env, VENDOR_KEY);
+		String vendor = env.getString(VENDOR_KEY);
 		return ScmUtils.getScmService(vendor);
 	}
 }
