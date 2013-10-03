@@ -8,7 +8,7 @@
           <!-- <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1> -->
           <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: Ken Graves</span> </h1>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 visible-lg visible-md">
           <div class="metadata"><strong>Document Info</strong>
             <div class="metadata-featured" > Doc Nbr: 2743<br>
               Initiator: thrclark<br>
