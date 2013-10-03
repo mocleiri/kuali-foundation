@@ -24,7 +24,7 @@
 <script src="themes/bootstrap/js/modal.js"></script> 
 
 <script src="themes/kc/js/fancybox/jquery.fancybox.js"></script>
-<script src="themes/kc/js/jquery.nicescroll.min.js"></script> 
+<script src="themes/kc/js/jquery.nicescroll.js"></script>
 <script src="themes/kc/js/jquery.cookie.js"></script> 
 <script src="themes/kc/js/leftnav.js"></script>
 
