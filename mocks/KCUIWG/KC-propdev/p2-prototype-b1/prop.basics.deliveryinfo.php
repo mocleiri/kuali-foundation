@@ -16,10 +16,18 @@ include( '_temp.select.filler.php' );
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
+      
+  
+          
         
         <h3>Delivery Info</h3>
+        
+            <div class="alert alert-info">
+          	<strong>Electronic delivery to Grants.gov</strong>
+          	<p>This proposal is being sent via system-to-system transmission to Grants.gov. No further information from you is needed here. If you are not submitting this proposal electronically, please edit the Recipient below.</p>
+          </div>
         <form action="#" method="post" class="form-horizontal">
-          <h3>Recipient <span><a class="link-edit" href="#">Edit</a></span></h3>
+          <h4>Recipient <span style="font-size:11px; font-style:italic"> (<a class="" href="#">edit...</a>)</span></h4>
           <table  class="table table-condensed">
             <tbody>
               <tr>
@@ -49,12 +57,8 @@ include( '_temp.select.filler.php' );
               
             </tbody>
           </table>
-          <h3>Delivery Details</h3>
-          <div class="alert alert-info">
-          	<h4>Electronic delivery to Grants.gov</h4>
-          	<p>This proposal is being sent via system-to-system transmission to Grants.gov so no further information from you is needed here.</p>
-          	<p>If you are not submitting this proposal electronically, please edit the Recipient above.</p>
-          </div>
+        
+          
           <fieldset class="hide">
             <legend>Enter details for this delivery</legend>
             <div class="form-group clearfix">
