@@ -1,6 +1,6 @@
 <footer>
 
-	<div class="container-fluid">
+	<!--<div class="container-fluid">
 
 		<div class="footer">
 			<div class="foundation col_md_6">
@@ -12,7 +12,7 @@
 			</div>
 		</div>
 
-	</div>
+	</div>-->
 	
 </footer>
 

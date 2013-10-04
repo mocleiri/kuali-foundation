@@ -395,12 +395,44 @@ textarea,
   border: 1px solid #ccc !important;
   background: #fff;
   background-color: #fff;
-  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1) !important;
   cursor: text;
   font-size: 13px !important;
   border-radius: 0 !important;
   color: black !important;
   font-family: 'Arial', 'Helvetica', sans-serif;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1) !important;
+}
+.ui-multiselect {
+  background: #ffffff;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+  /* IE6-9 */
+
 }
 textarea {
   height: auto !important;
@@ -411,7 +443,7 @@ input[type="tel"]:focus,
 select:focus,
 textarea:focus,
 .ui-multiselect:focus {
-  border: 1px solid #0055cc !important;
+  border: 1px solid #99c3ff !important;
   box-shadow: inset 0 1px 5px #0055cc;
 }
 input[type="text"]:disabled,
@@ -454,14 +486,9 @@ textarea:disabled,
   float: left;
 }
 .helper-text {
-  background: #f6f6f6;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  margin-top: 0;
-  position: relative;
-  padding: 6px;
-  color: #777777;
+  color: #666;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .input-group-addon,
 .input-group-btn {
@@ -496,7 +523,10 @@ textarea:disabled,
 .ui-multiselect-menu {
   border-radius: 0;
   border: 1px solid #ccc;
+  border-top: none;
   color: inherit;
+  -webkit-box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.15);
 }
 .ui-multiselect-menu .ui-widget-header {
   background: transparent;
@@ -513,16 +543,17 @@ textarea:disabled,
 }
 .ui-multiselect-menu .ui-multiselect-checkboxes li label {
   font-weight: 100;
+  border: none;
 }
 .ui-multiselect-menu .ui-multiselect-checkboxes li label.ui-state-active {
-  border: 1px solid #0055cc;
+  border: none;
   background: #e6f0ff;
   color: inherit;
   border-radius: 0;
   font-weight: 700;
 }
 .ui-multiselect-menu .ui-multiselect-checkboxes li label.ui-state-hover {
-  border: 1px solid #0055cc;
+  border: none;
   background: #e6f0ff;
   color: inherit;
   border-radius: 0;
