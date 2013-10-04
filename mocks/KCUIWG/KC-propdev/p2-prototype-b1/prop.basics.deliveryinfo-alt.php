@@ -58,7 +58,7 @@ include( '_temp.select.filler.php' );
                 <select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 onchange">
                   <option value="delivery_service">Delivery Service</option>
                   <option value="electronic">Electronic</option>
-                  <option value="regular">Regular</option>
+                  <option value="usps">US Postal Service</option>
                 </select>
               </div>
             </div>

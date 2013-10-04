@@ -92,7 +92,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="sponsor_code" class="control-label col-md-3 required">Sponsor code: *</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="NSF" />
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="000340 NIH" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
@@ -155,9 +155,11 @@ include( '_temp.select.filler.php' );
 									<label for="keywords" class="control-label col-md-3">Keywords:</label>
 									<div class="col-md-9">
 										<select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
-											<option selected="selected">One keyword</option>
-											<option selected="selected">Second keyword</option>
-											<option selected="selected">Third</option>
+											<option selected="selected">Biology</option>
+											<option selected="selected">Biochemistry</option>
+											<option selected="selected">Physics</option>
+											<option selected="selected">Marine Biology</option>
+											<option selected="selected">Space Physics</option>
 										</select>
 									</div>
 								</div>

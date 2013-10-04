@@ -118,9 +118,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<label for="anticipated_award_type" class="control-label col-md-3">Anticipated award type:</label>
 								<div class="col-md-9">
 									<select name="anticipated_award_type" id="anticipated_award_type" class="form-control input-sm col-md-8 chzn">
-										<option value="P">Postmark</option>
-										<option value="R">Receipt</option>
-										<option value="T">Target</option>
+										<option value="P">Grant</option>
+										<option value="R">Contract</option>
+										<option value="T">Fellowship</option>
 									</select>
 								</div>
 							</div>

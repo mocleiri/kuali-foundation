@@ -559,6 +559,9 @@ textarea:disabled,
   border-radius: 0;
   font-weight: 100;
 }
+.ui-multiselect:hover {
+  cursor: pointer;
+}
 .ui-datepicker {
   border-radius: 0;
   border: 1px solid #ccc;
@@ -566,6 +569,8 @@ textarea:disabled,
   color: inherit;
   font-family: 'Arial', 'Helvetica', sans-serif;
   font-size: 13px;
+  -webkit-box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.15);
 }
 .ui-datepicker .ui-datepicker-header {
   border: 0;
