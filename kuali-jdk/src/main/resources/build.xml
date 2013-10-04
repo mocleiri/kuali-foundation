@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
 
-  <target name="updatejdk7" depends="DetectOS">
+  <target name="updatejdk7">
     <!-- ant -Dminor="40" updatejdk7 -->
-    <property name="platform.size" value="${platform}-x${register-size}" />
+    <property name="platform.size" value="linux-x64" />
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
@@ -33,11 +33,14 @@
     <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${jdk.version.kuali.dir}" />
       <dirset dir="${jdk.version.kuali.dir}" />
+      <fileset file="${jdk.version.kuali.zip}" />
+    </delete>
+
+    <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${jdk.version.ora.dir}" />
       <dirset dir="${jdk.version.ora.dir}" />
       <fileset file="${jdk.version.kuali.zip}" />
     </delete>
-
     <chmod file="${jdk.gz}" perm="755" />
 
     <mkdir dir="${jdk.version.kuali.dir}" />
@@ -57,6 +60,26 @@
 
     <echo message="zip ${jdk.version.kuali.dir} to ${jdk.version.kuali.zip}" />
 
+    <delete file="${jdk.version.kuali.dir}/${kuali.dir}/man/ja" />
+    <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja" />
+
+    <copy todir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja/" includeemptydirs="true">
+           <dirset dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja_JP.UTF-8" />
+      </copy>
+
+    <copy todir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja/" includeemptydirs="true">
+           <fileset dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja_JP.UTF-8" />
+      </copy>
+
+    <copy  tofile="${jdk.version.kuali.dir}/${kuali.dir}/bin/ControlPanel" overwrite="true" force="true" 
+          file="${jdk.version.kuali.dir}/${kuali.dir}/bin/jcontrol"/>
+
+    <copy  tofile="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/ControlPanel"  overwrite="true" force="true" 
+           file="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/jcontrol"/>
+
+    <copy tofile="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/server/libjsig.so"  overwrite="true" force="true"
+          file="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/libjsig.so" />
+
     <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}" />
     <delete includeemptydirs="true" failonerror="true">
       <fileset dir="${jdk.version.kuali.dir}" />
@@ -65,15 +88,15 @@
   </target>
 
 
-  <target name="updatejdk6" depends="DetectOS">
+  <target name="updatejdk6">
     <!-- ant -Dminor="43" updatejdk6 -->
 
-    <property name="platform.size" value="${platform}-x${register-size}" />
+    <property name="platform.size" value="linux-x64" />
     <property name="jdk.major.version" value="6" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
 
-    <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}-${platform.size}" />
+    <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="jdk.ora.version" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}" />
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
 
@@ -104,6 +127,13 @@
       <fileset file="${jdk.zip}" />
     </delete>
 
+    <delete includeemptydirs="true" failonerror="no">
+      <dirset dir="${jdk.version.ora.dir}" />
+      <dirset dir="${jdk.version.kuali.dir}" />
+      <fileset file="${jdk.version.kuali.zip}" />
+      <fileset file="${jdk.zip}" />
+    </delete>
+
     <chmod file="${jdk.bin.path}/${jdk.bin.name.file}" perm="755" />
     <exec dir="${jdk.bin.path}" executable="${jdk.bin.name.file}">
     </exec>
@@ -122,11 +152,23 @@
     <move file="${jdk.version.kuali.zip}" todir="${jdk.version.kuali.dir}/${kuali.dir}" />
     <unzip src="${jdk.version.kuali.dir}/${kuali.dir}/${jdk.kuali.zip.file}" dest="${jdk.version.kuali.dir}/${kuali.dir}/" />
     <delete file="${jdk.version.kuali.dir}/${kuali.dir}/${jdk.kuali.zip.file}" />
-    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create" />
 
     <symlink action="recreate" failonerror="no" overwrite="yes">
       <fileset dir="${jdk.version.kuali.dir}/${kuali.dir}" includes="*/dir.links" />
     </symlink>
+
+    <delete>
+      <fileset file="${jdk.version.kuali.dir}/${kuali.dir}/man/linked.record" />
+      <fileset file="${jdk.version.kuali.dir}/${kuali.dir}/bin/linked.record" />
+      <fileset file="${jdk.version.kuali.dir}/${kuali.dir}/jre/javaws/linked.record" />
+      <fileset file="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/linked.record" />
+      <fileset file="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/server/linked.record" />
+    </delete>
+
+    <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}/" whenempty="create" />
+
+    <echo message="${jdk.version.ora.dir}" />
+    <echo message="${jdk.version.kuali.dir}" />
 
     <delete includeemptydirs="true" failonerror="true">
       <fileset dir="${jdk.version.ora.dir}" />
@@ -135,63 +177,7 @@
       <dirset dir="${jdk.version.kuali.dir}" />
     </delete>
 
+
     <deltree dir="${jdk.version.ora.dir}" />
   </target>
-
-  <target name="DetectOS" depends="resolveplatform">
-    <!--<echo>${platform}-${register-size}</echo> -->
-
-  </target>
-  <!-- CHECK THE 3 MAJOR Operating Systems -->
-  <target name="resolveplatform" depends="-if_windows, -if_mac, -if_unix" />
-  <!-- CHECK IF GIVEN OS IS CURRENT OS -->
-  <target name="-checkosx">
-    <condition property="isWindows">
-      <os family="windows" />
-    </condition>
-    <condition property="isMac">
-      <os family="mac" />
-    </condition>
-    <condition property="isLinux">
-      <os family="unix" />
-    </condition>
-  </target>
-  <!-- IS THE OS WINDOWS? -->
-  <target name="-if_windows" depends="-checkosx" if="isWindows">
-    <property name="platform" value="win" />
-  </target>
-
-  <!-- IS THE OS LINUX/UNIX? -->
-  <target name="-if_unix" depends="-checkosx,check-register" if="isLinux">
-    <property name="platform" value="linux" />
-  </target>
-
-
-
-  <!-- IS THE OS MAC? -->
-  <target name="-if_mac" depends="-checkosx" if="isMac">
-    <property name="platform" value="mac" />
-  </target>
-
-
-  <target name="check-register" depends="reg-unix">
-  </target>
-
-  <!-- Test under GNU/Linux -->
-  <target name="reg-unix" if="isLinux">
-    <exec dir="." executable="uname" outputproperty="result">
-      <arg line="-m" />
-    </exec>
-
-    <!-- String ends in 64 -->
-    <condition property="x64">
-      <matches string="${result}" pattern="^.*64$" />
-    </condition>
-
-    <condition property="register-size" value="64" else="32">
-      <isset property="x64" />
-    </condition>
-  </target>
-
 </project>
-
