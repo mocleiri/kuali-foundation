@@ -18,7 +18,7 @@
 	
 			</ul>
 		</li>
-		<li <?php if ($section == "keypersonnel") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Pesonnel</span><b class="arrow icon-angle-right"></b> </a>
+		<li <?php if ($section == "keypersonnel") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Personnel</span><b class="arrow icon-angle-right"></b> </a>
 			<ul class="submenu">
 				<li <?php if ($page == "keypersonnel-start") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.start.php">Personnel</a></li>
 				<li <?php if ($page == "keypersonnel-intelcredit") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.creditintel.php">Intellectual Credit</a></li>
