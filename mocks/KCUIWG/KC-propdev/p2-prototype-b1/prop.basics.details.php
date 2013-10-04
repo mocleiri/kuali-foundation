@@ -18,6 +18,10 @@ include( '_temp.select.filler.php' );
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
       	<h3>Proposal Details</h3>
         <form action="#" method="post" class="form-horizontal">
+        	<div class="alert alert-success">
+        		<h4>Great! You've just created a proposal!</h4>
+        		<p>Feel free to make any adjustments and corrections. When you're finished let's proceeed!</p>
+        	</div>
 							<fieldset>
 								<legend style="display:none">Enter any relevant details for this proposal</legend>
 								

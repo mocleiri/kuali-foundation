@@ -80,12 +80,12 @@ $(document).ready(function() {
 						selectedList: 9,
 						minWidth: 'auto',
 						header: 'Choose all that apply',
-						noneSelectedText: 'Choose options',
+						noneSelectedText: 'Select keywords',
 					}).multiselectfilter();
 				} else {
 					$(this).multiselect({
 						multiple: false,
-						header: 'Select an option',
+						header: false,
 						noneSelectedText: 'Select an option',
 						selectedList: 1,
 						minWidth: 'auto'
