@@ -16,12 +16,13 @@ include( '_temp.select.filler.php' );
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
-      	<h3>Proposal Details</h3>
-        <form action="#" method="post" class="form-horizontal">
-        	<div class="alert alert-success">
+      	<div class="alert alert-success">
         		<h4><i class="icon-ok"></i> Great! You've just created a proposal!</h4>
         		<p>Feel free to make any adjustments and corrections. When you're finished let's proceeed!</p>
         	</div>
+      	<h3>Proposal Details</h3>
+        <form action="#" method="post" class="form-horizontal">
+        
 							<fieldset>
 								<legend style="display:none">Enter any relevant details for this proposal</legend>
 								
@@ -143,7 +144,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="inst_proposal_id" class="control-label col-md-3">Original institutional ID:</label>
+									<label for="inst_proposal_id" class="control-label col-md-3">Institutional Proposal ID:</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" />
 										<div class="helper-text">
@@ -159,11 +160,11 @@ include( '_temp.select.filler.php' );
 									<label for="keywords" class="control-label col-md-3">Keywords:</label>
 									<div class="col-md-9">
 										<select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
-											<option selected="selected">Biology</option>
-											<option selected="selected">Biochemistry</option>
-											<option selected="selected">Physics</option>
-											<option selected="selected">Marine Biology</option>
-											<option selected="selected">Space Physics</option>
+											<option >Biology</option>
+											<option >Biochemistry</option>
+											<option >Physics</option>
+											<option >Marine Biology</option>
+											<option >Space Physics</option>
 										</select>
 									</div>
 								</div>
