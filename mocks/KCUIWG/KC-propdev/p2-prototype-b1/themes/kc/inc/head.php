@@ -1,3 +1,10 @@
+<?php
+# Experience configuration settings
+
+// Set to '1' or 'true' if we're using the alternative version of the proposal (i.e., not a Grants.gov proposal)
+$alt = false;
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
 <!--[if IE 7]><html class="ie9 ie8 ie7" lang="en"><![endif]-->

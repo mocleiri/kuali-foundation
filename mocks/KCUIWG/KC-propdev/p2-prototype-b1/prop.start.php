@@ -24,7 +24,7 @@ include( '_temp.select.filler.php' );
 									<label for="proposal_type" class="control-label col-md-3 required">Proposal type: *</label>
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-											<option></option>
+											<option>Please select</option>
 											<option value="4">Continuation</option>
 											<option value="1">New</option>
 											<option value="3">Renewal</option>
@@ -39,7 +39,7 @@ include( '_temp.select.filler.php' );
 									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-											<option></option>
+											<option>Please select</option>
 											<option value="000001">000001 - University</option>
 											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
 											<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
@@ -52,7 +52,7 @@ include( '_temp.select.filler.php' );
 									<label for="activity_type" class="control-label col-md-3 required">Activity type: *</label>
 									<div class="col-md-9">
 										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
-											<option></option>
+											<option>Please select</option>
 											<option value="4">Clinical Trial</option>
 											<option value="9">Construction</option>
 											<option value="7">Fellowship - Post-Doctoral</option>

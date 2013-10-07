@@ -19,7 +19,7 @@ include( '_temp.select.filler.php' );
       	<h3>Proposal Details</h3>
         <form action="#" method="post" class="form-horizontal">
         	<div class="alert alert-success">
-        		<h4>Great! You've just created a proposal!</h4>
+        		<h4><i class="icon-ok"></i> Great! You've just created a proposal!</h4>
         		<p>Feel free to make any adjustments and corrections. When you're finished let's proceeed!</p>
         	</div>
 							<fieldset>
@@ -119,7 +119,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor code:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" value="NSF" />
+										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
@@ -132,7 +132,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="award_id" class="control-label col-md-3">Award ID:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" value="3EB" />
+										<input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" />
 										<div class="helper-text">
 											Enter the award ID for this proposal.
 										</div>
@@ -145,7 +145,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="inst_proposal_id" class="control-label col-md-3">Original institutional ID:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" value="BU001" />
+										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" />
 										<div class="helper-text">
 											Enter the original institutional ID for this proposal.
 										</div>

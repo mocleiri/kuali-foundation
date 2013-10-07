@@ -23,7 +23,7 @@ include( '_temp.select.filler.php' );
         <h3>Delivery Info</h3>
         
             <div class="alert alert-info">
-          	<strong>Electronic delivery to Grants.gov</strong>
+          	<h4><i class="icon-info-sign"></i> Electronic delivery to Grants.gov</h4>
           	<p>This proposal is being sent via system-to-system transmission to Grants.gov. No further information from you is needed here. If you are not submitting this proposal electronically, please edit the Recipient below.</p>
           </div>
         <form action="#" method="post" class="form-horizontal">
