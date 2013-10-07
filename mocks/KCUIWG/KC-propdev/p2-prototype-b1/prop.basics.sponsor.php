@@ -21,16 +21,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				
 					<form action="#" method="post" class="form-horizontal">
 						<fieldset>
-							<legend>Enter sponsor information</legend>
+							<legend style="display:none">Enter sponsor information</legend>
 							<div class="form-group clearfix">
-								<label for="sponsor_deadline_date" class="control-label col-md-3 required">Sponsor deadline date: *</label>
+								<label for="sponsor_deadline_date" class="control-label col-md-3">Sponsor deadline date:</label>
 								<div class="col-md-9 input-group">
 									<input type="text" class="form-control input-sm uif-dateControl" name="sponsor_deadline_date" id="sponsor_deadline_date" placeholder="mm/dd/yyyy" />
 								</div>
 							</div>
 
 							<div class="form-group clearfix">
-								<label for="sponsor_deadline_time" class="control-label col-md-3 required">Sponsor deadline time: *</label>
+								<label for="sponsor_deadline_time" class="control-label col-md-3">Sponsor deadline time:</label>
 								<div class="col-md-9">
 									<input type="text" class="form-control input-sm" name="sponsor_deadline_time" id="sponsor_deadline_time" />
 								</div>
@@ -124,13 +124,26 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									</select>
 								</div>
 							</div>
-
 							<div class="form-group clearfix">
 								<label for="opportunity_title" class="control-label col-md-3">Opportunity title:</label>
 								<div class="col-md-9">
 									<textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled" disabled>Non-editable value</textarea>
 								</div>
 							</div>
+                            <div class="form-group clearfix">
+								<label for="prev_grantsgov_tracking" class="control-label col-md-3">Previous Grants.gov Tracking ID:</label>
+								<div class="col-md-9">
+										<input type="text" class="form-control input-sm" name="prev_grantsgov_tracking" id="prev_grantsgov_tracking" />
+								</div>
+							</div>
+                            <div class="form-group clearfix">
+								<label for="agency_routing_identifier" class="control-label col-md-3">Agency Routing Identifier:</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control input-sm" name="agency_routing_identifier" id="agency_routing_identifier" />
+								</div>
+							</div>
+                            
+                            
 						</fieldset>
 					</form>
 				
