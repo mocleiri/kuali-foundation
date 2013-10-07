@@ -772,6 +772,14 @@ dl:after {
   border-color: #cce1ff;
   color: #222222;
 }
+.alert-success {
+  color: #222222;
+}
+.alert-danger {
+  background-color: #ffcccc;
+  border-color: #ffb3b3;
+  color: #222222;
+}
 .uif-stickyFooter.uif-stickyButtonFooter {
   position: fixed;
   left: 0;
