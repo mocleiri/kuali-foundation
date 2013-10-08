@@ -22,7 +22,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 			
               <div id="oppsearch-tabs" class="well">
-                    <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button>
+                    <button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button>
                 </div>
 
 				<div class="section-content hidden">
