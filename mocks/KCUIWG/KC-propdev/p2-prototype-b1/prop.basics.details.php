@@ -16,9 +16,10 @@ include( '_temp.select.filler.php' );
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
-      	<div class="alert alert-success">
-        		<h4><i class="icon-ok"></i> Great! You've just created a proposal!</h4>
-        		<p>Feel free to make any adjustments and corrections. When you're finished let's proceeed!</p>
+      	<div class="alert alert-success alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('.alert').slideUp(200)" >&times;</button>
+        	
+        		<strong> <i class="icon-ok"></i>  Proposal #23533 has been initiated. </strong>
         	</div>
       	<h3>Proposal Details</h3>
         <form action="#" method="post" class="form-horizontal">
