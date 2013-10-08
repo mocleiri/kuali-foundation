@@ -45,9 +45,9 @@ include( '_temp.select.filler.php' );
 									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-											<option value="000001" selected="selected">000001 - University</option>
+											<option value="000001">000001 - University</option>
 											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
-											<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
+											<option value="IN-CARD" selected="selected">IN-CARD - CARDIOLOGY</option>
 											<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
 										</select>
 									</div>
@@ -74,12 +74,12 @@ include( '_temp.select.filler.php' );
 									<label class="control-label col-md-3 required">Project dates: *</label>
 									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
-											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="01/03/2014" />
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="12/01/2013" />
 											<label for="project_start" class="helper-text">Beginning on</label>
 										</div>
 										<span class="range">to</span>
 										<div class="col-md-6 date">
-											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="12/18/2014" />
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="11/30/2018" />
 											<label for="project_end" class="helper-text">Ending on</label>
 										</div>
 									</div>
@@ -88,7 +88,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="project_title" class="control-label col-md-3 required">Project title: *</label>
 									<div class="col-md-9">
-										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Test proposal yay</textarea>
+										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Analysis of Significant Biological Findings</textarea>
 										<div class="helper-text">
 											Give this proposal a title. Be detailed but concise.
 										</div>
@@ -174,7 +174,13 @@ include( '_temp.select.filler.php' );
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
     <div class="btn-row-page-action">
       <button class="btn btn-default">Save</button>
-      <button  onclick="location.href='prop.basics.sponsor.php'" class="btn btn-primary">Save and continue</button>
+		<?php
+		if ($alt && file_exists('prop.basics.oppsearch-search-alt.php')) {
+			echo '<button href="prop.basics.oppsearch-search-alt.php" class="btn btn-primary">Save and continue</button>';
+		} else {
+			echo '<button href="prop.basics.oppsearch-search.php" class="btn btn-primary">Save and continue</button>';
+		}
+		?>
     </div>
     <!-- // --> 
         </div>

@@ -31,31 +31,31 @@ include( '_temp.select.filler.php' );
               <tbody>
                 <tr>
                   <th class="col-md-3">Organization</th>
-                  <td>University of Michigan</td>
+                  <td>University of Washington</td>
                 </tr>
                 <tr>
                   <th class="col-md-3">Address 1</th>
-                  <td>2044 Wolverine Tower</td>
+                  <td>1410 NE Campus Pkwy</td>
                 </tr>
                 <tr>
                   <th>Address 2</th>
-                  <td>3003 State Street</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <th>City</th>
-                  <td>ANN ARBOR</td>
+                  <td>Seattle</td>
                 </tr>
                 <tr>
                   <th>State</th>
-                  <td>MI</td>
+                  <td>WA</td>
                 </tr>
                 <tr>
                   <th>ZIP</th>
-                  <td>48109-1273</td>
+                  <td>98195</td>
                 </tr>
                 <tr>
                   <th>Congressional District</th>
-                  <td>asdfasdfasf</td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -66,31 +66,31 @@ include( '_temp.select.filler.php' );
               <tbody>
                 <tr>
                   <th class="col-md-3">Organization</th>
-                  <td>University of Michigan</td>
+                  <td>University of Washington</td>
                 </tr>
                 <tr>
                   <th class="col-md-3">Address 1</th>
-                  <td>2044 Wolverine Tower</td>
+                  <td>1410 NE Campus Pkwy</td>
                 </tr>
                 <tr>
                   <th>Address 2</th>
-                  <td>3003 State Street</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <th>City</th>
-                  <td>ANN ARBOR</td>
+                  <td>Seattle</td>
                 </tr>
                 <tr>
                   <th>State</th>
-                  <td>MI</td>
+                  <td>WA</td>
                 </tr>
                 <tr>
                   <th>ZIP</th>
-                  <td>48109-1273</td>
+                  <td>98195</td>
                 </tr>
                 <tr>
                   <th>Congressional District</th>
-                  <td>asdfasdf</td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>

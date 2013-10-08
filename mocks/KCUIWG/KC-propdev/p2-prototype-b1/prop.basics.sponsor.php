@@ -64,14 +64,12 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									<input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" />
 								</div>
 							</div>
-                            
-                            <div class="form-group clearfix">
-								<label for="subawards" class="control-label col-md-3">Subawards:</label>
-								<div class="col-md-9">
-									<input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" /> Yes, this proposal includes subaward(s)
-								</div>
-							</div>
 
+							<div class="form-group checkbox clearfix">
+								<label for="subawards control-label col-md-9" class="subawards">
+									<input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" /> This proposal includes subaward(s)
+								</label>
+							</div>
 
 							<div class="form-group clearfix">
 								<label for="sponsor_proposal_id" class="control-label col-md-3">Sponsor proposal ID:</label>
@@ -98,23 +96,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								<label for="nsf_science_code" class="control-label col-md-3">NSF Science code:</label>
 								<div class="col-md-9">
 									<select name="nsf_science_code" id="nsf_science_code" class="form-control input-sm col-md-8 chzn">
-										<option value="P">Postmark</option>
-										<option value="R">Receipt</option>
-										<option value="T">Target</option>
+										<option>Astronomy</option>
+										<option>Physical Sciences: B.01</option>
+										<option>Phsyical Sciences: B.02</option>
+										<option>Physical Sciences: Biological</option>
+										<option>Life Sciences: F.02</option>
+										<option>Life Sciences: Chemistry</option>
 									</select>
 								</div>
 							</div>
-
-							<!-- <div class="form-group clearfix">
-								<label for="sponsor_deadline_type" class="control-label col-md-3">Sponsor deadline type:</label>
-								<div class="col-md-9">
-									<select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8 chzn">
-										<option value="P">Postmark</option>
-										<option value="R">Receipt</option>
-										<option value="T">Target</option>
-									</select>
-								</div>
-							</div> -->
 
 							<div class="form-group clearfix">
 								<label for="anticipated_award_type" class="control-label col-md-3">Anticipated award type:</label>
@@ -152,9 +142,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
-		<div class="btn-row-page-action"> <button  onclick="location.href='prop.basics.details.php'" class="btn btn-default">Back</button>
-<button class="btn btn-default">Save</button>
-      <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-primary">Save and continue</button>
+			<div class="btn-row-page-action">
+				<?php
+				if ($alt && file_exists('prop.basics.deliveryinfo-alt.php')) {
+					echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-default">Back</button>';
+				} else {
+					echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-default">Back</button>';
+				}
+				?>
+				<button class="btn btn-default">Save</button>
+		      <button  onclick="location.href='prop.basics.orgloc.php'" class="btn btn-primary">Save and continue</button>
 			
 		</div>
 		<!-- // -->

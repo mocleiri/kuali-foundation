@@ -24,7 +24,7 @@ include( '_temp.select.filler.php' );
 									<label for="proposal_type" class="control-label col-md-3 required">Proposal type: *</label>
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-											<option selected="selected"> select</option>
+											<option selected="selected">- Select -</option>
 											<option value="4">Continuation</option>
 											<option value="1">New</option>
 											<option value="3">Renewal</option>
@@ -39,9 +39,9 @@ include( '_temp.select.filler.php' );
 									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-											<option selected="selected"> select</option>
+											<option selected="selected">- Select -</option>
 											<option value="000001">000001 - University</option>
-											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
+											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
 											<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
 											<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
 										</select>
@@ -52,7 +52,7 @@ include( '_temp.select.filler.php' );
 									<label for="activity_type" class="control-label col-md-3 required">Activity type: *</label>
 									<div class="col-md-9">
 										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
-											<option selected="selected"> select</option>
+											<option selected="selected">- Select -</option>
 											<option value="4">Clinical Trial</option>
 											<option value="9">Construction</option>
 											<option value="7">Fellowship - Post-Doctoral</option>
@@ -119,7 +119,13 @@ include( '_temp.select.filler.php' );
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
     <div class="btn-row-page-action">
       <button class="btn btn-default">Cancel</button>
-      <button  onclick="location.href='prop.basics.details.php'" class="btn btn-primary">Save and continue</button>
+		<?php
+		if ($alt && file_exists('prop.basics.details-alt.php')) {
+			echo '<button href="prop.basics.details-alt.php" class="btn btn-primary">Save and continue</button>';
+		} else {
+			echo '<button href="prop.basics.details.php" class="btn btn-primary">Save and continue</button>';
+		}
+		?>
     </div>
     <!-- // --> 
         </div>

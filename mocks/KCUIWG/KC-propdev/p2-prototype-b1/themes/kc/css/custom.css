@@ -195,8 +195,9 @@ section.toolbar .dropdown a .caret {
 }
 #main .date-range .range {
   position: absolute;
-  margin-left: -6px;
+  left: 50%;
   top: 50%;
+  margin-left: -6px;
   margin-top: -9px;
 }
 #main .boxContent .well {
@@ -769,12 +770,14 @@ dl:after {
 .alert-info {
   background-color: #f0f6ff;
   border-color: #cce1ff;
-  color: #222222;
+}
+.alert-success {
+  background-color: #f4faf2;
+  border-color: #dff0d8;
 }
 .alert-danger {
-  background-color: #ffcccc;
-  border-color: #ffb3b3;
-  color: #222222;
+  background-color: #fff5f5;
+  border-color: #ffcccc;
 }
 .uif-stickyFooter.uif-stickyButtonFooter {
   position: fixed;

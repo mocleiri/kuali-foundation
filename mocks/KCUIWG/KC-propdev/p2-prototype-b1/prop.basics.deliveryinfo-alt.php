@@ -126,9 +126,21 @@ include( '_temp.select.filler.php' );
         <!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
           <div class="btn-row-page-action">
-            <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-default">Back</button>
+            <?php
+			if ($alt && file_exists('prop.basics.oppsearch-search-alt.php')) {
+				echo '<button href="prop.basics.oppsearch-search-alt.php" class="btn btn-default">Back</button>';
+			} else {
+				echo '<button href="prop.basics.oppsearch-search.php" class="btn btn-default">Back</button>';
+			}
+			?>
             <button class="btn btn-default">Save</button>
-            <button  onclick="location.href='prop.basics.orgloc.php'" class="btn btn-primary">Save and continue</button>
+			<?php
+			if ($alt && file_exists('prop.basics.sponsor-alt.php')) {
+				echo '<button href="prop.basics.sponsor-alt.php" class="btn btn-primary">Save and continue</button>';
+			} else {
+				echo '<button href="prop.basics.sponsor.php" class="btn btn-primary">Save and continue</button>';
+			}
+			?>
           </div>
           <!-- // --> 
         </div>
