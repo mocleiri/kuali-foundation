@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <project name="JDK Manager">
 
+  <property name="jdk.classifier" value="linux-x64" />
+
   <target name="updatejdk7">
-    <property name="platform.size" value="linux-x64" />
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
@@ -17,10 +18,10 @@
 
     <property name="jdk.version.ora.dir" value="${jdk.version.kuali.dir}/${ora.dir}" />
 
-    <property name="jdk.kuali.zip.file" value="${jdk.kuali.version}-${platform.size}.zip" />
+    <property name="jdk.kuali.zip.file" value="${jdk.kuali.version}-${jdk.classifier}.zip" />
     <property name="jdk.version.kuali.zip" value="${jdk.dir}/${jdk.kuali.zip.file}" />
 
-    <property name="jdk.tar.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}.tar" />
+    <property name="jdk.tar.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${jdk.classifier}.tar" />
     <property name="jdk.tar" value="${jdk.version.kuali.dir}/${jdk.tar.file}" />
     <property name="jdk.gz" value="${jdk.dir}/${jdk.tar.file}.gz" />
 
@@ -84,19 +85,18 @@
 
 
   <target name="updatejdk6">
-    <property name="platform.size" value="linux-x64" />
     <property name="jdk.major.version" value="6" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
 
     <property name="jdk.kuali.version" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
-    <property name="jdk.ora.version" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}" />
+    <property name="jdk.ora.version" value="jdk-${jdk.major.version}u${jdk.minor.version}-${jdk.classifier}" />
     <property name="ora.dir" value="jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
 
     <property name="jdk.dir" value="${user.home}/.jdk/6" />
 
     <property name="jdk.bin.path" value="${jdk.dir}" />
-    <property name="jdk.bin.name.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}.bin" />
+    <property name="jdk.bin.name.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${jdk.classifier}.bin" />
 
     <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
