@@ -20,11 +20,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<h3>Opportunity Search</h3>
 				</div>
 
-				<div class="alert alert-info">
-					<h4><i class="icon-info-sign"></i> Grants.gov opportunity selected</h4>
-					<p>You've chosen to prepare a proposal being sent to Grants.gov so no further information is required on this screen. Click "Save and continue" below to continue working on this proposal.</p>
-				</div>
-                <!-- <div id="oppsearch-tabs" class="well">
+			
+              <div id="oppsearch-tabs" class="well">
                     <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button>
                 </div>
 
@@ -37,7 +34,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 						</fieldset>
 					</form>
-				</div> -->
+				</div> 
 
 				<!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> 
