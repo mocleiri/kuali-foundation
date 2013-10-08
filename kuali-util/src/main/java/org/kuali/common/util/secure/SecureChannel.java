@@ -30,22 +30,58 @@ public interface SecureChannel {
 
 	void close();
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyFile(File source, RemoteFile destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyLocationToFile(String location, RemoteFile destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyInputStreamToFile(InputStream source, RemoteFile destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyStringToFile(String string, RemoteFile destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyLocationToDirectory(String location, RemoteFile destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyFileToDirectory(File source, RemoteFile destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyFile(RemoteFile source, File destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyFileToDirectory(RemoteFile source, File destination);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	RemoteFile getMetaData(String absolutePath);
 
 	boolean exists(String absolutePath);
@@ -54,20 +90,44 @@ public interface SecureChannel {
 
 	void deleteFile(String absolutePath);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void createDirectory(RemoteFile dir);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	RemoteFile getWorkingDirectory();
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	Result executeCommand(String command);
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	Result executeCommand(String command, String stdin);
 
 	void executeNoWait(String command);
 
 	void copyRemoteFile(String absolutePath, OutputStream out) throws IOException;
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	void copyFile(RemoteFile source, OutputStream out) throws IOException;
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	String toString(RemoteFile source);
 
 }

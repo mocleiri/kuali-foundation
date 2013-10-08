@@ -34,7 +34,10 @@ public class EncUtils {
 
 	/**
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static final TextEncryptor getTextEncryptor(EncryptionStrength strength, String password) {
 		switch (strength) {
 		case BASIC:

@@ -27,6 +27,11 @@ public class RemoteFile {
 	Integer permissions;
 	Long size;
 	boolean directory;
+
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	Status status = Status.DEFAULT_REMOTE_FILE_STATUS;
 
 	public RemoteFile() {
@@ -85,10 +90,18 @@ public class RemoteFile {
 		this.directory = directory;
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	public Status getStatus() {
 		return status;
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	public void setStatus(Status status) {
 		this.status = status;
 	}
