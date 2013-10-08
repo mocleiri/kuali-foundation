@@ -17,6 +17,7 @@ public class DnsmeContext {
 		private final String recordName;
 		private final String domainName;
 
+		// Optional, default values are normally all that is needed
 		private int ttl = 60;
 		private RecordType recordType = RecordType.CNAME;
 
