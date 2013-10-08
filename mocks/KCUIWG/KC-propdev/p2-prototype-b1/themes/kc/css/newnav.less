@@ -1,6 +1,7 @@
 nav-list>li>a {
 	background-color: #f5f5f5;
 }
+
 .navbar {
 	padding-left: 0;
 	padding-right: 15px;
@@ -12,17 +13,20 @@ nav-list>li>a {
 	border: 0;
 	border-radius: 0
 }
+
 .navbar.navbar-fixed {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0
 }
+
 #sidebar {
 	width: 250px;
 	position: absolute;
 	background: #f5f5f5;
 }
+
 #sidebar:before {
 	background: #f5f5f5;
 	-webkit-box-shadow: inset -5px 0px 12px 2px rgba(00, 00, 00, .05);
@@ -30,8 +34,6 @@ nav-list>li>a {
 	border-right-width: 1px;
 	border-right-style: solid;
 	border-right-color: #CCC;
-}
-#sidebar:before {
 	content: "";
 	display: block;
 	width: 250px;
@@ -40,22 +42,27 @@ nav-list>li>a {
 	top: 0;
 	z-index: 0
 }
+
 #sidebar.sidebar-fixed {
 	position: fixed;
 	z-index: 10
 }
+
 #sidebar+#Uif-PageContentWrapper {
 	margin-left: 250px
 }
+
 .navbar-collapse {
 	padding-right: 0;
 	padding-left: 0;
 	border-top: 0;
 	max-height: 500%
 }
+
 .navbar-collapse.in {
 	overflow-y: visible
 }
+
 .container>.navbar-header, .container>.navbar-collapse {
 	margin-left: 0;
 	margin-right: 0
@@ -129,7 +136,7 @@ nav-list>li>a {
 .nav-list>li.active>a, .nav-list>li.active>a:hover, .nav-list>li.active>a:focus, .nav-list>li.active>a:active {
 	font-weight: 700!important;
 	font-size: 13px;
-	background:;
+	background: #f2f2f2;
 }
 .nav-list>li.active>a>[class*=icon-] {
 font-weight:400
@@ -167,7 +174,9 @@ font-weight:400
 	margin: 0
 }
 .nav-list>li .submenu>li>a:focus, .nav-list>li .submenu>li>a:hover {
-	text-decoration: none
+	// text-decoration: none;
+	background: #f2f2f2;
+	color: @link_blue;
 }
 .nav-list>li .submenu>li:before {
 	content: "";
@@ -191,7 +200,8 @@ font-weight:400
 #sidebar-collapse {
 	text-align: right;
 	padding: 9px 0;
-	position: relative
+	position: relative;
+	cursor: pointer;
 }
 #sidebar-collapse>[class*=icon-] {
 display:inline-block;

@@ -1054,8 +1054,6 @@ nav-list > li > a {
   border-right-width: 1px;
   border-right-style: solid;
   border-right-color: #CCC;
-}
-#sidebar:before {
   content: "";
   display: block;
   width: 250px;
@@ -1157,7 +1155,7 @@ nav-list > li > a {
 .nav-list > li.active > a:active {
   font-weight: 700!important;
   font-size: 13px;
-  background: ;
+  background: #f2f2f2;
 }
 .nav-list > li.active > a > [class*=icon-] {
   font-weight: 400;
@@ -1197,7 +1195,8 @@ nav-list > li > a {
 }
 .nav-list > li .submenu > li > a:focus,
 .nav-list > li .submenu > li > a:hover {
-  text-decoration: none;
+  background: #f2f2f2;
+  color: #0055cc;
 }
 .nav-list > li .submenu > li:before {
   content: "";
@@ -1222,6 +1221,7 @@ nav-list > li > a {
   text-align: right;
   padding: 9px 0;
   position: relative;
+  cursor: pointer;
 }
 #sidebar-collapse > [class*=icon-] {
   display: inline-block;
