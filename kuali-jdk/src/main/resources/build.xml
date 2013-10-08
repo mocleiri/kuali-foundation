@@ -2,7 +2,6 @@
 <project name="JDK Manager">
 
   <target name="updatejdk7">
-    <!-- ant -Dminor="40" updatejdk7 -->
     <property name="platform.size" value="linux-x64" />
     <property name="jdk.major.version" value="7" />
     <property name="jdk.minor.version" value="${minor}" />
@@ -64,21 +63,18 @@
     <mkdir dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja" />
 
     <copy todir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja/" includeemptydirs="true">
-           <dirset dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja_JP.UTF-8" />
-      </copy>
+      <dirset dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja_JP.UTF-8" />
+    </copy>
 
     <copy todir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja/" includeemptydirs="true">
-           <fileset dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja_JP.UTF-8" />
-      </copy>
+      <fileset dir="${jdk.version.kuali.dir}/${kuali.dir}/man/ja_JP.UTF-8" />
+    </copy>
 
-    <copy  tofile="${jdk.version.kuali.dir}/${kuali.dir}/bin/ControlPanel" overwrite="true" force="true" 
-          file="${jdk.version.kuali.dir}/${kuali.dir}/bin/jcontrol"/>
+    <copy tofile="${jdk.version.kuali.dir}/${kuali.dir}/bin/ControlPanel" overwrite="true" force="true" file="${jdk.version.kuali.dir}/${kuali.dir}/bin/jcontrol" />
 
-    <copy  tofile="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/ControlPanel"  overwrite="true" force="true" 
-           file="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/jcontrol"/>
+    <copy tofile="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/ControlPanel" overwrite="true" force="true" file="${jdk.version.kuali.dir}/${kuali.dir}/jre/bin/jcontrol" />
 
-    <copy tofile="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/server/libjsig.so"  overwrite="true" force="true"
-          file="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/libjsig.so" />
+    <copy tofile="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/server/libjsig.so" overwrite="true" force="true" file="${jdk.version.kuali.dir}/${kuali.dir}/jre/lib/amd64/libjsig.so" />
 
     <zip destfile="${jdk.version.kuali.zip}" basedir="${jdk.version.kuali.dir}" />
     <delete includeemptydirs="true" failonerror="true">
@@ -89,8 +85,6 @@
 
 
   <target name="updatejdk6">
-    <!-- ant -Dminor="43" updatejdk6 -->
-
     <property name="platform.size" value="linux-x64" />
     <property name="jdk.major.version" value="6" />
     <property name="jdk.minor.version" value="${minor}" />
