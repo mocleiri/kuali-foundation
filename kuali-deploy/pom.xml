@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.3.17</version>
+    <version>3.3.19</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-deploy</artifactId>
@@ -39,8 +39,8 @@
     <parent.artifactId>${project.parent.artifactId}</parent.artifactId>
     <parent.version>${project.parent.version}</parent.version>
     <ant.phase>process-resources</ant.phase>
-    <junit.version>4.10</junit.version>
-    <slf4j.version>1.6.4</slf4j.version>
+    <junit.version>4.11</junit.version>
+    <slf4j.version>1.7.5</slf4j.version>
     <oracle.groupId>com.oracle</oracle.groupId>
     <oracle.artifactId>ojdbc6_g</oracle.artifactId>
     <oracle.version>11.2.0.2</oracle.version>
@@ -49,9 +49,9 @@
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
 
     <!-- Remove these before release -->
-    <kuali-util.version>4.4.4-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.4.5-SNAPSHOT</kuali-util.version>
     <kuali-jdbc.version>3.1.10-SNAPSHOT</kuali-jdbc.version>
-    <kuali-http.version>1.0.7-SNAPSHOT</kuali-http.version>
+    <kuali-http.version>1.0.8-SNAPSHOT</kuali-http.version>
   </properties>
   <profiles>
     <profile>
