@@ -44,8 +44,7 @@
 
     <mkdir dir="${jdk.version.kuali.dir}" />
 
-    <untar src="${jdk.gz}" dest="${jdk.version.kuali.dir}" compression="gzip">
-    </untar>
+    <untar src="${jdk.gz}" dest="${jdk.version.kuali.dir}" compression="gzip" />
 
     <echo message="delete ${jdk.version.ora.dir}/src.zip" />
 
@@ -129,8 +128,7 @@
     </delete>
 
     <chmod file="${jdk.bin.path}/${jdk.bin.name.file}" perm="755" />
-    <exec dir="${jdk.bin.path}" executable="${jdk.bin.name.file}">
-    </exec>
+    <exec dir="${jdk.bin.path}" executable="${jdk.bin.name.file}" />
 
     <delete file="${jdk.version.ora.dir}/src.zip" />
 
