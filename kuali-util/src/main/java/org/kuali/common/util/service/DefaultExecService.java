@@ -76,6 +76,9 @@ public class DefaultExecService implements ExecService {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 */
 	@Deprecated
 	protected StreamConsumer getStreamConsumer(StreamConsumer provided, Logger logger, org.kuali.common.util.LoggerLevel level) {
 		if (provided != null) {
