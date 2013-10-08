@@ -64,12 +64,14 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									<input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" />
 								</div>
 							</div>
-
-							<div class="form-group checkbox clearfix">
-								<label for="subawards control-label col-md-9" class="subawards">
-									<input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" /> This proposal includes subaward(s)
-								</label>
+                            
+                            <div class="form-group clearfix">
+								<label for="subawards" class="control-label col-md-3">Subawards:</label>
+								<div class="col-md-9">
+									<input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" /> Yes, this proposal includes subaward(s)
+								</div>
 							</div>
+
 
 							<div class="form-group clearfix">
 								<label for="sponsor_proposal_id" class="control-label col-md-3">Sponsor proposal ID:</label>
