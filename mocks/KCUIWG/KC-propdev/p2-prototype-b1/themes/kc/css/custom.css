@@ -139,6 +139,7 @@ section.toolbar .dropdown a .caret {
 #main label.required {
   background: #f0f6ff;
   font-weight: bold;
+  border-left: 2px solid #0055cc;
 }
 #main label.required:after {
   background: #f0f6ff;
@@ -600,6 +601,9 @@ textarea:disabled,
 }
 .btn:hover {
   border: 1px solid #0055cc;
+}
+.btn.btn-primary:hover {
+  border: 1px solid #00204d;
 }
 .link-delete {
   color: #ff0000;

@@ -175,10 +175,10 @@ include( '_temp.select.filler.php' );
     <div class="btn-row-page-action">
       <button class="btn btn-default">Save</button>
 		<?php
-		if ($alt && file_exists('prop.basics.oppsearch-search-alt.php')) {
-			echo '<button href="prop.basics.oppsearch-search-alt.php" class="btn btn-primary">Save and continue</button>';
+		if ($alt && file_exists('prop.basics.sponsor-alt.php')) {
+			echo '<button href="prop.basics.sponsor-alt.php" class="btn btn-primary">Save and continue</button>';
 		} else {
-			echo '<button href="prop.basics.oppsearch-search.php" class="btn btn-primary">Save and continue</button>';
+			echo '<button href="prop.basics.sponsor.php" class="btn btn-primary">Save and continue</button>';
 		}
 		?>
     </div>
