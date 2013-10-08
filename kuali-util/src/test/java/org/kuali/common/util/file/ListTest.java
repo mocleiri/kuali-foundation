@@ -65,6 +65,7 @@ public class ListTest {
 		for (RepoArtifacts element : list) {
 			Repository repo = element.getRepository();
 			String path = BASEDIR + "/";
+			System.out.println(repo + path);
 		}
 	}
 
@@ -415,6 +416,7 @@ public class ListTest {
 			// System.out.println("repos=" + repos.size());
 			for (File repo : repoDirs) {
 				// System.out.println("names.add(\"" + repo.getName() + "\");");
+				repo.getPath();
 			}
 			int i = 0;
 			FileUtils.forceDelete(new File("/tmp/repos"));
@@ -428,6 +430,7 @@ public class ListTest {
 				String count = FormatUtils.getCount(files.size());
 				System.out.println(StringUtils.leftPad(elapsed, 10) + " - " + StringUtils.leftPad(count, 10));
 			}
+			System.out.println(i);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
