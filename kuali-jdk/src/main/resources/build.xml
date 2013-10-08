@@ -95,10 +95,8 @@
 
     <property name="jdk.dir" value="${user.home}/.jdk/6" />
 
-
     <property name="jdk.bin.path" value="${jdk.dir}" />
     <property name="jdk.bin.name.file" value="jdk-${jdk.major.version}u${jdk.minor.version}-${platform.size}.bin" />
-
 
     <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
@@ -111,7 +109,6 @@
     <echo message="${jdk.version}" />
     <echo message="${jdk.version.kuali.dir}" />
     <echo message="${jdk.version.ora.dir}" />
-
 
     <delete includeemptydirs="true" failonerror="no">
       <dirset dir="${jdk.version.ora.dir}" />
@@ -168,7 +165,6 @@
       <fileset dir="${jdk.version.kuali.dir}" />
       <dirset dir="${jdk.version.kuali.dir}" />
     </delete>
-
 
     <deltree dir="${jdk.version.ora.dir}" />
   </target>
