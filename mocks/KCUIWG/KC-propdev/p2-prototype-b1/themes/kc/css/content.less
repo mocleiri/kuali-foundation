@@ -16,14 +16,15 @@
 		line-height: 130%;
 		padding-top: 4px;
 		text-align: left;
-		background: #f6f6f6;
+		// background: #f6f6f6;
 		padding: 7px;
 		position: relative;
 		font-weight: normal;
 	}
 
 	label:after {
-		display: block;
+		// display: block;
+		display: none;
 		position: absolute;
 		content: " ";
 		height: 12px;
@@ -42,10 +43,11 @@
 	label.required {
 		background: lighten(@link_blue, 57%);
 		font-weight: bold;
-		border-left: 2px solid @link_blue;
+		// border-left: 2px solid @link_blue;
 	}
 
 	label.required:after {
+		display: block;
 		background: lighten(@link_blue, 57%);
 	}
 

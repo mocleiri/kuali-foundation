@@ -115,13 +115,12 @@ section.toolbar .dropdown a .caret {
   line-height: 130%;
   padding-top: 4px;
   text-align: left;
-  background: #f6f6f6;
   padding: 7px;
   position: relative;
   font-weight: normal;
 }
 #main label:after {
-  display: block;
+  display: none;
   position: absolute;
   content: " ";
   height: 12px;
@@ -139,9 +138,9 @@ section.toolbar .dropdown a .caret {
 #main label.required {
   background: #f0f6ff;
   font-weight: bold;
-  border-left: 2px solid #0055cc;
 }
 #main label.required:after {
+  display: block;
   background: #f0f6ff;
 }
 #main label.radio,
