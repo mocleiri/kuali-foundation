@@ -137,7 +137,7 @@ include( '_temp.select.filler.php' );
           <div class="btn-row-page-action">
             <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <button  onclick="location.href='prop.basics.sponsor.php'" class="btn btn-primary">Save and continue</button>
+            <button  onclick="location.href='prop.basics.orgloc.php'" class="btn btn-primary">Save and continue</button>
           </div>
           <!-- // --> 
         </div>
