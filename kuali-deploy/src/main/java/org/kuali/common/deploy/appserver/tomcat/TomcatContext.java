@@ -4,29 +4,29 @@ import org.kuali.common.util.Assert;
 
 public final class TomcatContext {
 
-	private final String basedir;
+	private final TomcatDirs dirs;
 
 	public static class Builder {
 
-		private final String basedir;
+		private final TomcatDirs dirs;
 
-		public Builder(String basedir) {
-			this.basedir = basedir;
+		public Builder(TomcatDirs dirs) {
+			this.dirs = dirs;
 		}
 
 		public TomcatContext build() {
-			Assert.noBlanks(basedir);
+			Assert.noNulls(dirs);
 			return new TomcatContext(this);
 		}
 
 	}
 
 	private TomcatContext(Builder builder) {
-		this.basedir = builder.basedir;
+		this.dirs = builder.dirs;
 	}
 
-	public String getBasedir() {
-		return basedir;
+	public TomcatDirs getDirs() {
+		return dirs;
 	}
 
 }
