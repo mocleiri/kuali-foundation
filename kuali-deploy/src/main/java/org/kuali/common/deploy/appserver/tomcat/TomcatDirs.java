@@ -36,7 +36,7 @@ public final class TomcatDirs {
 			this.work = basedir + "/work";
 			this.temp = basedir + "/temp";
 			this.conf = basedir + "/conf";
-			this.catalina = conf + "/Catalina";
+			this.catalina = conf + "/Catalina"; // This dir under conf has a special meaning to Tomcat
 		}
 
 		public Builder logs(String logs) {
