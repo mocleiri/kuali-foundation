@@ -2,7 +2,7 @@ package org.kuali.common.deploy.dns.model;
 
 import org.kuali.common.util.Assert;
 
-public class DnsContext {
+public final class DnsContext {
 
 	private final String domain;
 	private final String prefix;
