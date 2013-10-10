@@ -37,7 +37,7 @@
         </form>
       </div>
     </div>
-    <div class="modal-footer"> <a href="lookup-oppsearch-results.html" class="btn btn-primary pull-right">Search</a> </div>
+    <div class="modal-footer"> <a href="lookup-oppsearch-results.php" class="btn btn-primary pull-right">Search</a> </div>
   </div>
 </div>
 

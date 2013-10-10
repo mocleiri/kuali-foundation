@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<head>
-<link rel="stylesheet" href="../themes/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" href="../themes/kc/icons/style.css" />
-<link rel="stylesheet" href="../themes/kc/css/custom.css" />
-
-<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-</head>
+<?php include ('head.php') ?>
 
 <body>
 	<div class="modal-dialog">
@@ -53,7 +46,7 @@
 									<option>Terminated</option>
 								</select>
 								<span class="input-group-btn">
-									<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup.php" data-modal-height="500"></a>
 								</span>
 							</div>
 						</div>
@@ -63,7 +56,7 @@
 							<div class="col-md-5 input-group">
 								<input type="text" id="sponsor_id" name="sponsor_id" class="form-control input-sm col-md-8">
 								<span class="input-group-btn">
-									<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup.php" data-modal-height="500"></a>
 								</span>
 							</div>
 						</div>
@@ -87,7 +80,7 @@
 							<div class="col-md-5 input-group">
 								<input type="text" id="lead_unit_id" name="lead_unit_id" class="form-control input-sm col-md-8">
 								<span class="input-group-btn">
-									<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup.php" data-modal-height="500"></a>
 								</span>
 							</div>
 						</div>
@@ -97,7 +90,7 @@
 							<div class="col-md-5 input-group">
 								<input type="text" id="lead_unit" name="lead_unit" class="form-control input-sm col-md-8">
 								<span class="input-group-btn">
-									<a href="#" class="icon-search launch-modal" data-modal-page="modals/lookup.html" data-modal-height="500"></a>
+									<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup.php" data-modal-height="500"></a>
 								</span>
 							</div>
 						</div>
@@ -135,12 +128,9 @@
 			</div>
 
 			<div class="modal-footer">
-				<a href="lookup-oppsearch-results.html" class="btn btn-primary pull-right">Search</a>
+				<a href="lookup-oppsearch-results.php" class="btn btn-primary pull-right">Search</a>
 			</div>
 		</div>
 	</div>
 
-<!-- <script src="../themes/kc/js/fancybox/jquery.fancybox.js"></script> -->
-<script src="../themes/kc/js/functions.js"></script>
-</body>
-</html>
+<?php include ('footer.php') ?>

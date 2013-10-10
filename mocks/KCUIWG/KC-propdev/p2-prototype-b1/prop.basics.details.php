@@ -128,7 +128,7 @@ include( '_temp.select.filler.php' );
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
 										<span class="input-group-btn">
-											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.html" data-modal-height="500"></a>
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.php" data-modal-height="500"></a>
 										</span>
 									</div>
 								</div>
@@ -141,7 +141,7 @@ include( '_temp.select.filler.php' );
 											Enter the award ID for this proposal.
 										</div>
 										<span class="input-group-btn">
-											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-award.html" data-modal-height="500"></a>
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-award.php" data-modal-height="500"></a>
 										</span>
 									</div>
 								</div>
@@ -154,7 +154,7 @@ include( '_temp.select.filler.php' );
 											Enter the original institutional ID for this proposal.
 										</div>
 										<span class="input-group-btn">
-											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-institution.html" data-modal-height="500"></a>
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-institution.php" data-modal-height="500"></a>
 										</span>
 									</div>
 								</div>

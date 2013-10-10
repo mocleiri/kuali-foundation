@@ -142,7 +142,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<a href="lookup-sponsor-results.html" class="btn btn-primary pull-right">Search</a>
+				<a href="lookup-sponsor-results.php" class="btn btn-primary pull-right">Search</a>
 			</div>
 		</div>
 	</div>

@@ -1,9 +1,6 @@
-<?php
+<?php include ('head.php') ?>
 
-# Includes
-require_once( 'inc/head.php' );
-?>
-
+<body>
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -36,31 +33,13 @@ require_once( 'inc/head.php' );
               <label class="control-label col-sm-4 col-xs-4"for="sponsor_type_code">Sponsor type code:</label>
               <div class="col-sm-8 col-xs-8">
                 <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-                  
-                  <option selected>Select</option>
-                  <option value="0">Federal</option>
-                  <option value="1">State</option>
-                  <option value="2">Local Government</option>
-                  <option value="3">Private Profit</option>
-                  <option value="4">Private Non-Profit</option>
-                  <option value="5">Foundation</option>
-                  <option value="6">Institution of Higher Education</option>
-                  <option value="10">Foreign Federal Government</option>
-                  <option value="11">Foreign State Government</option>
-                  <option value="12">Foreign Local Government</option>
-                  <option value="13">Foreign Private Profit</option>
-                  <option value="14">Foreign Private Non-Profit</option>
-                  <option value="15">Foreign Foundation</option>
-                  <option value="16">Foreign Institution of Higher Education</option>
+                  <option value="4">Continuation</option>
+                  <option value="1" selected="selected">New</option>
+                  <option value="3">Renewal</option>
+                  <option value="2">Resubmission</option>
+                  <option value="5">Revision</option>
+                  <option value="6">Task Order</option>
                 </select>
-              </div>
-            </div>
-            
-            
-             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="country">Address Book ID:</label>
-              <div class="col-sm-8 col-xs-8">
-                <input type="text" id="country" name="country" class="form-control input-sm"><span class="help-block"><a href="#">Find an ID</a></span>
               </div>
             </div>
             <div class="form-group clearfix">
@@ -81,16 +60,12 @@ require_once( 'inc/head.php' );
                 <input type="text" id="country" name="country" class="form-control input-sm">
               </div>
             </div>
-            
-            
-            
-            
-            
           </fieldset>
         </form>
       </div>
     </div>
-    <div class="modal-footer"> <a href="lookup-sponsor-results.html" class="btn btn-primary btn-sm pull-right">Search</a> </div>
+    <div class="modal-footer"> <a href="lookup-sponsor-results.php" class="btn btn-primary pull-right">Search</a> </div>
   </div>
 </div>
-<?php require_once( 'inc/footer.php' ); ?>
+
+<?php include ('footer.php') ?>
