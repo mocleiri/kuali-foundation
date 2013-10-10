@@ -1,20 +1,4 @@
-<footer>
 
-	<!--<div class="container-fluid">
-
-		<div class="footer">
-			<div class="foundation col_md_6">
-				&copy; 2013
-				<a href="#" target="_blank">Kuali Foundation</a>
-			</div>
-			<div class="credit col_md_6">
-				<span>site built with KRAD</span>
-			</div>
-		</div>
-
-	</div>-->
-	
-</footer>
 
 <!-- Scripts -->
 <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 

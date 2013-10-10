@@ -1,6 +1,10 @@
-<?php include ('head.php') ?>
+<?php
 
-<body>
+# Includes
+include( 'inc/head.php' );
+?>
+
+
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -61,4 +65,4 @@
 	</div>
 </div>
 
-<?php include ('footer.php') ?>
+<?php include( 'inc/footer.php' ); ?>

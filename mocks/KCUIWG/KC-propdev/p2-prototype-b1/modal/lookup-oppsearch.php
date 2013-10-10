@@ -1,6 +1,10 @@
-<?php include ('head.php') ?>
+<?php
 
-<body>
+# Includes
+include( 'inc/head.php' );
+?>
+
+
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -12,9 +16,9 @@
           <fieldset>
             <legend style="display:none">Enter lookup criteria</legend>
             <div class="form-group clearfix">
-              <label for="s2sprovider" class="control-label col-sm-4 col-xs-4" >S2S Provider</label>
+              <label for="s2sprovider" class="control-label col-sm-4 col-xs-4" >S2S Provider:</label>
               <div class="col-sm-8 col-xs-8">
-                <select name="proposal_type" id="s2sprovider" class="form-control input-sm col-md-8">
+                <select name="proposal_type" id="s2sprovider" class="form-control input-sm">
                   <option></option>
                   <option value="4">grants.gov</option>
                   <option value="1">research.gov</option>
@@ -41,4 +45,16 @@
   </div>
 </div>
 
-<?php include ('footer.php') ?>
+
+
+
+
+
+
+
+
+
+
+
+
+<?php include( 'inc/footer.php' ); ?>

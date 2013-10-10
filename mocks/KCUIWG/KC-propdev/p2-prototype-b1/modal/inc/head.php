@@ -10,7 +10,9 @@ $alt = false;
 <!--[if IE 7]><html class="ie9 ie8 ie7" lang="en"><![endif]-->
 <!--[if IE 8]><html class="ie9 ie8" lang="en"><![endif]-->
 <!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html lang="en-us"><!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en-us">
+<!--<![endif]-->
 <head>
 <title>Kuali Coeus Prototype 2b</title>
 
@@ -28,19 +30,22 @@ $alt = false;
 <link href="../themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
 <link href="../themes/kc/css/custom.css" rel="stylesheet" />
 <link href="../themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../themes/kc/js/datatables/DT_bootstrap.css">
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
-
+<script type="text/javascript" charset="utf-8" language="javascript" src="../themes/kc/js/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="../themes/kc/js/datatables/DT_bootstrap.js"></script>
+<script src="../themes/kc/js/functions.js"></script>
 </head>
 
 <body>
 <div class="skip-links">
-	<ul>
-		<li><a href="#Uif-PageContentWrapper">Skip to main content</a></li>
-	</ul>
+  <ul>
+    <li><a href="#">Skip to main content</a></li>
+  </ul>
 </div>
 
 <!-- Continues with nav.php -->
