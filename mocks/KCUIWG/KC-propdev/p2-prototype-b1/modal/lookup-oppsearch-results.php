@@ -28,7 +28,7 @@
 					  <td>12/31/2013</td>
 						<td >12/31/2014</td>
 						<td >NEWRRFORM</td>
-						<td>CSS-120809-SF424RR-V12</td>
+						<td>PA-13-302</td>
 					  <td>testing new SF424 RR form</td>
 					  <td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
@@ -38,7 +38,7 @@
 						<td>12/31/2013</td>
 						<td >12/31/2014</td>
 						<td >NEWRRFORM</td>
-						<td>CSS-120809-SF424RR-V12</td>
+						<td>PA-13-302</td>
 						<td>testing new SF424 RR form</td>
 						<td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
@@ -48,7 +48,7 @@
 						<td>12/31/2013</td>
 						<td >12/31/2014</td>
 						<td >NEWRRFORM</td>
-						<td>CSS-120809-SF424RR-V12</td>
+						<td>PA-13-302</td>
 						<td>testing new SF424 RR form</td>
 						<td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>

@@ -19,7 +19,23 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<form action="#" method="post" class="form-horizontal">
 					  <fieldset>
 					    <legend style="display:none">Enter sponsor information</legend>
+
 					    <div class="form-group clearfix">
+							<label class="control-label col-md-3" for="project_start">Sponsor deadline: *</label>
+							<div class="col-md-9 date-range">
+								<div class="col-md-6 date">
+									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
+									<label for="project_start" class="helper-text">Deadline date</label>
+								</div>
+								<span class="range">at</span>
+								<div class="col-md-6 date">
+									<input type="text" size="12" class="form-control input-sm" name="project_end" id="project_end" placeholder="5:00PM EST" />
+									<label for="project_end" class="helper-text">Deadline time</label>
+								</div>
+							</div>
+						</div>
+
+					    <!-- <div class="form-group clearfix">
 					      <label for="sponsor_deadline_date" class="control-label col-md-3">Sponsor deadline date:</label>
 					      <div class="col-md-9 input-group">
 					        <input type="text" class="form-control input-sm uif-dateControl" name="sponsor_deadline_date" id="sponsor_deadline_date" placeholder="mm/dd/yyyy" />
@@ -30,11 +46,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm" name="sponsor_deadline_time" id="sponsor_deadline_time" />
 				          </div>
-				        </div>
+				        </div> -->
+
 					    <div class="form-group clearfix">
 					      <label for="notice_of_opp" class="control-label col-md-3">Notice of Opportunity:</label>
 					      <div class="col-md-9">
-					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8 chzn">
+					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
+					        	<option></option>
 					          <option value="1">Federal Solicitation</option>
 					          <option value="2">Unsolicited</option>
 					          <option value="3">Verbal Request for Proposal</option>
@@ -48,13 +66,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					    <div class="form-group clearfix">
 					      <label for="opportunity_id" class="control-label col-md-3">Opportunity ID:</label>
 					      <div class="col-md-9">
-					        <input type="text" class="form-control input-sm" name="opportunity_id" id="opportunity_id" />
+					        <input type="text" class="form-control input-sm" name="opportunity_id" id="opportunity_id" value="<?php if ($alt) { echo 'PD 09-6885'; } else { echo 'PA-13-302'; } ?>" disabled />
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">
 					      <label for="cfda_number" class="control-label col-md-3">CFDA number:</label>
 					      <div class="col-md-9">
-					        <input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" />
+					        <input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" value="10.001" disabled />
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">
@@ -90,27 +108,19 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					    <div class="form-group clearfix">
 					      <label for="nsf_science_code" class="control-label col-md-3">NSF Science code:</label>
 					      <div class="col-md-9">
-					        <select name="nsf_science_code" id="nsf_science_code" class="form-control input-sm col-md-8 chzn">
-					          <option value="P">Postmark</option>
-					          <option value="R">Receipt</option>
-					          <option value="T">Target</option>
+					        <select name="nsf_science_code" id="nsf_science_code" class="form-control input-sm col-md-8">
+					        <option></option>
+					          <option value="P">Biology - Life Sciences: B02</option>
+					          <option value="R">Biology - Physical Sciences: B01</option>
+					          <option value="T">Chemistry - Physical Sciences: B02</option>
 				            </select>
 				          </div>
 				        </div>
-					    <!-- <div class="form-group clearfix">
-								<label for="sponsor_deadline_type" class="control-label col-md-3">Sponsor deadline type:</label>
-								<div class="col-md-9">
-									<select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8 chzn">
-										<option value="P">Postmark</option>
-										<option value="R">Receipt</option>
-										<option value="T">Target</option>
-									</select>
-								</div>
-							</div> -->
 					    <div class="form-group clearfix">
 					      <label for="anticipated_award_type" class="control-label col-md-3">Anticipated award type:</label>
 					      <div class="col-md-9">
-					        <select name="anticipated_award_type" id="anticipated_award_type" class="form-control input-sm col-md-8 chzn">
+					        <select name="anticipated_award_type" id="anticipated_award_type" class="form-control input-sm col-md-8">
+					        	<option></option>
 					          <option value="P">Grant</option>
 					          <option value="R">Contract</option>
 					          <option value="T">Fellowship</option>

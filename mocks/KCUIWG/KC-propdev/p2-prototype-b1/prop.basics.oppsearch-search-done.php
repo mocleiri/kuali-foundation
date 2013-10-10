@@ -42,7 +42,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 									<tbody>
 										<tr>
 										<th class="col-md-3"> Opportunity ID</th>
-										<td> CSS-120809-SF424RR-V12 </td>
+										<td>PA-13-302</td>
 										</tr>
 										<tr>
 										<th> Opportunity Title</th>
@@ -74,15 +74,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										</tr>
 										<tr>
 										<th> Instruction Page</th>
-										<td><a href="http://at07apply.grants.gov/apply/opportunities/instructions/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM-instructions.doc" target="_blank">download</a></td>
+										<td><a href="http://at07apply.grants.gov/apply/opportunities/instructions/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM-instructions.doc" target="_blank">Download instructions</a></td>
 										</tr>
 										<tr>
 										<th> Schema URL</th>
-										<td><a href="http://at07apply.grants.gov/apply/opportunities/schemas/applicant/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM.xsd" target="_blank">view</a></td>
+										<td><a href="http://at07apply.grants.gov/apply/opportunities/schemas/applicant/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM.xsd" target="_blank">View schema</a></td>
 										</tr>
 										<tr>
 										<th>Opportunity Search Domain</th>
-										<td>Grants.Gov&nbsp;</td>
+										<td>Grants.gov</td>
 										</tr>
 									</tbody>
 								</table>
@@ -102,7 +102,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										</tr>
 										<tr>
 										<th> Status</th>
-										<td><a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">VALIDATED</a></td>
+										<td><a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">Validated</a></td>
 										</tr>
 										<tr>
 										<th> S2S Tracking Id</th>
