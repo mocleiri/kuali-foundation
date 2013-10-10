@@ -22,10 +22,11 @@ include( '_temp.select.filler.php' );
         
         <h3>Delivery Info</h3>
         
-            <div class="alert alert-info">
-          	<strong><i class="icon-info-sign"></i> Electronic delivery to Grants.gov</strong>
-          	<p>You've selected a grants.gov submission for this proposal. Additional delivery information is not required.</p>
-          </div>
+		<div class="alert alert-info">
+			<h4><i class="icon-info-sign"></i> Electronic delivery to Grants.gov</h4>
+			<p>You've selected a grants.gov submission for this proposal. Additional delivery information is not required.</p>
+		</div>
+		
         <form action="#" method="post" class="form-horizontal">
 <!--          <h4>Recipient <span style="font-size:11px; font-style:italic"> (<a class="" href="#">edit...</a>)</span></h4>
           <table  class="table table-condensed">
@@ -59,7 +60,7 @@ include( '_temp.select.filler.php' );
           </table>-->
         
           
-          <fieldset class="hide">
+          <!-- <fieldset class="hide">
             <legend>Enter details for this delivery</legend>
             <div class="form-group clearfix">
               <label for="mail_type" class="control-label col-md-3 required">Type:</label>
@@ -130,7 +131,7 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
           </fieldset>
-        </form>
+        </form> -->
         
         <!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->

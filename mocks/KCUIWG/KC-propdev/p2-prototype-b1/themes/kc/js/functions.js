@@ -81,6 +81,7 @@ $(document).ready(function() {
 						minWidth: 'auto',
 						header: 'Choose all that apply',
 						noneSelectedText: 'Select keywords',
+						// autoOpen: true,
 						open: function(event, ui) {
 							$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
 						},
@@ -95,6 +96,7 @@ $(document).ready(function() {
 						noneSelectedText: 'Select an option',
 						selectedList: 1,
 						minWidth: 'auto',
+						// autoOpen: true,
 						open: function(event, ui) {
 							$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
 						},
@@ -259,8 +261,8 @@ $(document).ready(function() {
 
 
 	/*
-		Button hrefs
-		Makes a button act like a link
+		Button hrefs and faux validation
+		Makes a button act like a link, but performs fake validation (checks for empty required fields) before relocating
 		Chris Rodriguez
 	*/
 	$('button.btn').on('click', function(e) {
@@ -272,35 +274,45 @@ $(document).ready(function() {
 
 		if ($(this).hasClass('btn-primary')) {
 			
-			var ctn;
-
-			$('.uif-pageContentWrapper .required').each(function() {
-				var val = $(this).attr('for');
-				if ($('#' + val).val()) {
-					
-					$(this).removeClass('error');
-					ctn = true;
-					console.log(ctn);
-
-				} else {
-
-					ctn = false;
-					$(this).addClass('error');
-					console.log(ctn);
-
-				}
-			});
-
-			if (ctn) {
+			if ($('.uif-pageContentWrapper .required').length) {
 				
+				var ctn = 0;
+
+				$('.uif-pageContentWrapper .required').each(function() {
+					var val = $(this).attr('for');
+					if ($('#' + val).val()) {
+						
+						$(this).removeClass('error');
+						ctn = 1;
+						console.log(ctn);
+
+					} else {
+
+						ctn = 0;
+						$(this).addClass('error');
+						console.log(ctn);
+
+					}
+				});
+
+				if (ctn == 1) {
+				
+					if ($(this).attr('href')) {
+						document.location = $(this).attr('href');
+					}
+				
+				} else {
+						
+					$('.uif-pageContentWrapper').prepend('<div class="alert alert-danger"><h4><i class="icon icon-warning-sign"></i> Missing information!</h4><p>Looks like you forgot to fill in some of the required fields!</p></div>');
+				
+				}
+
+			} else {
+
 				if ($(this).attr('href')) {
 					document.location = $(this).attr('href');
 				}
-			
-			} else {
-					
-				$('.uif-pageContentWrapper').prepend('<div class="alert alert-danger"><h4><i class="icon icon-warning-sign"></i> Missing information!</h4><p>Looks like you forgot to fill in some of the required fields!</p></div>');
-			
+				
 			}
 		
 		} else {
