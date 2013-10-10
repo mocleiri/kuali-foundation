@@ -40,18 +40,22 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	if (document.location.hash) {
-		var anchorUponArrival = document.location.hash;
+		
+		var get_arrival_anchor = document.location.hash;
 		setTimeout(function() {
-			$(anchorUponArrival).focus();
+			$(get_arrival_anchor).focus();
 		}, 100);
+
 	}
 
 	$('a[href^="#"]').click(function(e) {
+		
 		e.preventDefault();
-		var inPageAnchor = "#" + this.href.split('#')[1];
+		var get_in_page_anchor = "#" + this.href.split('#')[1];
 		setTimeout(function() {
-			$(inPageAnchor).focus();
+			$(get_in_page_anchor).focus();
 		}, 100);
+
 	});
 
 	
@@ -62,7 +66,9 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	if ($('.uif-navigation').length) {
+		
 		$('.uif-navigation ul li.expanded').find('ul').show();
+
 	}
 
 
@@ -72,44 +78,44 @@ $(document).ready(function() {
 		Initializes the multiselect plugin
 		Chris Rodriguez (plugin by Eric Hynds http://www.erichynds.com/examples/jquery-ui-multiselect-widget/demos/#selectedlist)
 	*/
-	// function init_select() {
-		if ($('select').length) {
-			$('select').each(function() {
-				if ($(this).attr('multiple')) {
-					$(this).multiselect({
-						selectedList: 9,
-						minWidth: 'auto',
-						header: 'Choose all that apply',
-						noneSelectedText: 'Select keywords',
-						// autoOpen: true,
-						open: function(event, ui) {
-							$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
-						},
-						close: function(event, ui) {
-							$(this).parent().find('button.ui-multiselect').focus();
-						}
-					}).multiselectfilter();
-				} else {
-					$(this).multiselect({
-						multiple: false,
-						header: false,
-						noneSelectedText: 'Select an option',
-						selectedList: 1,
-						minWidth: 'auto',
-						// autoOpen: true,
-						open: function(event, ui) {
-							$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
-						},
-						close: function(event, ui) {
-							$(this).parent().find('button.ui-multiselect').focus();
-						}
-					});
-				}
-			});
-		}
-	// }
+	if ($('select').length) {
+		
+		$('select').each(function() {
+			if ($(this).attr('multiple')) {
+				
+				$(this).multiselect({
+					selectedList: 9,
+					minWidth: 'auto',
+					header: 'Choose all that apply',
+					noneSelectedText: 'Select keywords',
+					open: function(event, ui) {
+						$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
+					},
+					close: function(event, ui) {
+						$(this).parent().find('button.ui-multiselect').focus();
+					}
+				}).multiselectfilter();
 
-	// init_select();
+			} else {
+
+				$(this).multiselect({
+					multiple: false,
+					header: false,
+					noneSelectedText: 'Select an option',
+					selectedList: 1,
+					minWidth: 'auto',
+					open: function(event, ui) {
+						$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
+					},
+					close: function(event, ui) {
+						$(this).parent().find('button.ui-multiselect').focus();
+					}
+				});
+
+			}
+		});
+
+	}
 
 
 
@@ -119,6 +125,7 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	$('.launch-modal').on('click', function(e){
+		
 		e.preventDefault();
 
 		var fb_href = 	$(this).data('modal-page');
@@ -131,6 +138,7 @@ $(document).ready(function() {
 			maxWidth: 700,
 			padding: 0
 		});
+
 	});
 
 
@@ -141,14 +149,20 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	$('.dropdown-toggle').on('click', function(e) {
+		
 		var that = $(this).attr('id');
 		e.preventDefault();
 
 		if ($(this).parent().hasClass('open')) {
+			
 			$(this).focus();
+
 		} else {
+			
 			$(this).parent().find('.dropdown-menu').attr('tabindex', '-1').focus();
+
 		}
+
 	});
 
 
@@ -159,14 +173,20 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	$('.onchange').change(function() {
+		
 		var that = $(this).val();
 		$('.hidden-fields').hide();
 
 		if ($('#' + that).length) {
+			
 			$('#' + that).show();
+
 		} else {
+
 			$('.hidden-fields').hide();
+
 		}
+
 	});
 
 
@@ -177,12 +197,14 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	if ($('.uif-dateControl').length) {
+		
 		$('.uif-dateControl').each(function() {
 			$(this).datepicker({
 				autoclose: true,
 			    todayHighlight: true
 			}).mask('99/99/9999');
 		});
+
 	}
 
 
@@ -216,24 +238,34 @@ $(document).ready(function() {
 
 		$('#nav-toggle').click(function() {
 			if ($('#sidebar').parent().hasClass('closed') === false) {
+				
 				$('#sidebar').removeClass('open').addClass('closed');
 				$(this).removeClass('open').addClass('closed');
 
 				if ($(window).width() > 000) {
+					
 					$('#sidebar').parent().addClass('closed').removeClass('open');
 					$('#sidebar').parent().next().addClass('open').removeClass('closed');
+
 				} else {
+
 					$('#sidebar').parent().addClass('closed');
+
 				}
 			} else {
+
 				$('#sidebar').removeClass('closed').addClass('open');
 				$(this).removeClass('closed').addClass('open');
 
 				if ($(window).width() > 000) {
+
 					$('#sidebar').parent().removeClass('closed').addClass('open');
 					$('#sidebar').parent().next().addClass('closed').removeClass('open');
+
 				} else {
+
 					$('#sidebar').parent().removeClass('closed');
+
 				}
 			}
 		});
@@ -242,13 +274,17 @@ $(document).ready(function() {
 	var handle_toggle_icon_col_size = function() {
 
 		if ($(window).width() > 000) {
+
 			$('#nav-toggle span').addClass('icon-expand').removeClass('icon-collapse');
 			$('#sidebar').parent().addClass('open').removeClass('closed');
 			$('#sidebar').parent().next().addClass('closed').removeClass('open');
+
 		} else {
+
 			$('#nav-toggle span').addClass('icon-collapse').removeClass('icon-expand');
 			$('#sidebar').parent().addClass('closed').removeClass('open');
 			$('#sidebar').parent().next().addClass('open').removeClass('closed');
+
 		}
 
 	}
@@ -312,7 +348,7 @@ $(document).ready(function() {
 				if ($(this).attr('href')) {
 					document.location = $(this).attr('href');
 				}
-				
+
 			}
 		
 		} else {
@@ -335,9 +371,11 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	if ($('.uif-switchme').length) {
+
 		$('.uif-switchme').each(function() {
 			$(this).append('<button class="uif-switchme-edit icon-pencil"></button>');
 		});
+
 	}
 
 	$('.uif-switchme').on('click', '.uif-switchme-edit', function() {
@@ -425,19 +463,25 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	if ($('.helper-text').length) {
+
 		$('.helper-text').slideUp();
+
 	}
 
 	$('.has-helper').on('focus', function() {
+
 		if ($(this).parent().find('.helper-text')) {
 			$(this).parent().find('.helper-text').slideDown();
 		}
+
 	});
 
 	$('.has-helper').on('blur', function() {
+
 		if ($(this).parent().find('.helper-text')) {
 			$(this).parent().find('.helper-text').slideUp();
 		}
+
 	});
 
 
@@ -448,8 +492,10 @@ $(document).ready(function() {
 		Chris Rodriguez
 	*/
 	$('.new-window').on('click', function() {
+
 		window.open($(this).attr('href'), 'Kuali Help Documentation');
 		return false;
+		
 	});
 
 
