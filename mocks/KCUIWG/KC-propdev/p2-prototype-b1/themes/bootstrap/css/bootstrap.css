@@ -1556,6 +1556,9 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   height: auto;
 }
+.form-control {
+  font-style: italic;
+}
 .form-control:-moz-placeholder {
   color: #999999;
 }
@@ -4087,9 +4090,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
   z-index: 2;
-  color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
+  color: #428bca;
+  background-color: #eff7fd;
+  border-color: #cde1f1;
   cursor: default;
 }
 .pagination > .disabled > span,
