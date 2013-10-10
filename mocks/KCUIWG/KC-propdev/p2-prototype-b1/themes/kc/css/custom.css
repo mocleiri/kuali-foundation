@@ -587,6 +587,13 @@ textarea:disabled,
   background: #e6f0ff;
   border: 1px solid #0055cc;
 }
+.error {
+  background: #c80405 !important;
+  color: white;
+}
+.error:after {
+  background: #c80405 !important;
+}
 .btn {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   border-radius: 0 !important;

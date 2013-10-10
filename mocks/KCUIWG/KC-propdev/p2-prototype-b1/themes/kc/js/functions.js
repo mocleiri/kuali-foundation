@@ -72,7 +72,7 @@ $(document).ready(function() {
 		Initializes the multiselect plugin
 		Chris Rodriguez (plugin by Eric Hynds http://www.erichynds.com/examples/jquery-ui-multiselect-widget/demos/#selectedlist)
 	*/
-	function init_select() {
+	// function init_select() {
 		if ($('select').length) {
 			$('select').each(function() {
 				if ($(this).attr('multiple')) {
@@ -81,6 +81,12 @@ $(document).ready(function() {
 						minWidth: 'auto',
 						header: 'Choose all that apply',
 						noneSelectedText: 'Select keywords',
+						open: function(event, ui) {
+							$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
+						},
+						close: function(event, ui) {
+							$(this).parent().find('button.ui-multiselect').focus();
+						}
 					}).multiselectfilter();
 				} else {
 					$(this).multiselect({
@@ -88,14 +94,20 @@ $(document).ready(function() {
 						header: false,
 						noneSelectedText: 'Select an option',
 						selectedList: 1,
-						minWidth: 'auto'
+						minWidth: 'auto',
+						open: function(event, ui) {
+							$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
+						},
+						close: function(event, ui) {
+							$(this).parent().find('button.ui-multiselect').focus();
+						}
 					});
 				}
 			});
 		}
-	}
+	// }
 
-	init_select();
+	// init_select();
 
 
 
@@ -251,12 +263,54 @@ $(document).ready(function() {
 		Makes a button act like a link
 		Chris Rodriguez
 	*/
-	$('button').on('click', function() {
-		if ($(this).attr('href')) {
-			document.location = $(this).attr('href');
+	$('button.btn').on('click', function(e) {
+		e.preventDefault();
+		
+		// Reset errors and messages
+		$('.required').removeClass('error');
+		$('.uif-pageContentWrapper .alert-danger').remove();
+
+		if ($(this).hasClass('btn-primary')) {
+			
+			var ctn;
+
+			$('.uif-pageContentWrapper .required').each(function() {
+				var val = $(this).attr('for');
+				if ($('#' + val).val()) {
+					
+					$(this).removeClass('error');
+					ctn = true;
+					console.log(ctn);
+
+				} else {
+
+					ctn = false;
+					$(this).addClass('error');
+					console.log(ctn);
+
+				}
+			});
+
+			if (ctn) {
+				
+				if ($(this).attr('href')) {
+					document.location = $(this).attr('href');
+				}
+			
+			} else {
+					
+				$('.uif-pageContentWrapper').prepend('<div class="alert alert-danger"><h4><i class="icon icon-warning-sign"></i> Missing information!</h4><p>Looks like you forgot to fill in some of the required fields!</p></div>');
+			
+			}
+		
 		} else {
-			return false;
+
+			if ($(this).attr('href')) {
+				document.location = $(this).attr('href');
+			}
 		}
+
+		return false;
 	});
 
 

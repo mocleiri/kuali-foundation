@@ -24,7 +24,7 @@ include( '_temp.select.filler.php' );
 									<label for="proposal_type" class="control-label col-md-3 required">Proposal type: *</label>
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-											<option selected="selected">- Select -</option>
+											<option></option>
 											<option value="4">Continuation</option>
 											<option value="1">New</option>
 											<option value="3">Renewal</option>
@@ -39,7 +39,7 @@ include( '_temp.select.filler.php' );
 									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-											<option selected="selected">- Select -</option>
+											<option></option>
 											<option value="000001">000001 - University</option>
 											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
 											<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
@@ -52,7 +52,7 @@ include( '_temp.select.filler.php' );
 									<label for="activity_type" class="control-label col-md-3 required">Activity type: *</label>
 									<div class="col-md-9">
 										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
-											<option selected="selected">- Select -</option>
+											<option></option>
 											<option value="4">Clinical Trial</option>
 											<option value="9">Construction</option>
 											<option value="7">Fellowship - Post-Doctoral</option>
@@ -67,7 +67,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label class="control-label col-md-3 required">Project dates: *</label>
+									<label class="control-label col-md-3 required" for="project_start">Project dates: *</label>
 									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
 											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
@@ -134,11 +134,3 @@ include( '_temp.select.filler.php' );
   </div>
 </section>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
-
-
-
-
-
-
-
-

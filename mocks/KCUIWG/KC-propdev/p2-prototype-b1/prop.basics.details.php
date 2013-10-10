@@ -71,7 +71,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label class="control-label col-md-3 required">Project dates: *</label>
+									<label class="control-label col-md-3 required" for="project_start">Project dates: *</label>
 									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
 											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="12/01/2013" />
