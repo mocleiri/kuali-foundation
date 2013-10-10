@@ -10,8 +10,7 @@ require_once( 'inc/head.php' );
       <h3>Sponsor Search</h3>
     </div>
     <div class="modal-body">
-    
-    <table class="table table-condensed table-hover table-smaller-text" id="example">
+      <table class="table table-condensed table-hover table-smaller-text" id="example">
         <thead>
           <tr>
             <th></th>
@@ -26,7 +25,46 @@ require_once( 'inc/head.php' );
         <tbody>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000148 ">000148</a></td>
+            <td>
+              <div class="dropdown"> <a data-toggle="dropdown" href="#">000148</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div></td>
             <td>Navy (NAVAIR)</td>
             <td>Navy</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -35,7 +73,49 @@ require_once( 'inc/head.php' );
           </tr>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000151 ">000151</a></td>
+            <td><div class="dropdown"> <a data-toggle="dropdown" href="#">000151</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              
+              
+              </td>
             <td>Space and Naval Warfare Systems Center</td>
             <td>SNWSC</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -44,7 +124,45 @@ require_once( 'inc/head.php' );
           </tr>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000215 ">000215</a></td>
+            <td><div class="dropdown"> <a data-toggle="dropdown" href="#">000215</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div></td>
             <td>DOE - Oakland</td>
             <td>DOE</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -53,7 +171,45 @@ require_once( 'inc/head.php' );
           </tr>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000401 ">000401</a></td>
+            <td><div class="dropdown"> <a data-toggle="dropdown" href="#">000401</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div></td>
             <td>NASA - Pasadena</td>
             <td>NASA</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -62,7 +218,45 @@ require_once( 'inc/head.php' );
           </tr>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000429 ">000429</a></td>
+            <td><div class="dropdown"> <a data-toggle="dropdown" href="#">000429</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div></td>
             <td>NASA - Ames University Consortium</td>
             <td>NASA</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -71,7 +265,45 @@ require_once( 'inc/head.php' );
           </tr>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000430 ">000430</a></td>
+            <td><div class="dropdown"> <a data-toggle="dropdown" href="#">000430</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div></td>
             <td>NASA - Ames Research Center</td>
             <td>NASA</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -80,7 +312,45 @@ require_once( 'inc/head.php' );
           </tr>
           <tr>
             <td><a class="load-tabs btn btn-default btn-xs" href="#" target="_parent">Select</a></td>
-            <td><a href="#" target="_blank" title="Sponsor Sponsor Code=000434 ">000434</a></td>
+            <td><div class="dropdown"> <a data-toggle="dropdown" href="#">000434</a>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding:5px;">
+                  <table class="table table-condensed" style="width:400px">
+                    
+                   
+                    
+                    <tbody>
+                      <tr>
+                        <th> Acronym: </th>
+                        <td> Air</td>
+                      </tr>
+                      <tr>
+                        <th> Country Code: </th>
+                        <td> United States</td>
+                      </tr>
+                      <tr>
+                        <th> Owned By Unit: </th>
+                        <td><a title="Unit Unit Number=000001 " href="#" target="_blank"> University </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Address Book Id: </th>
+                        <td><a title="Rolodex Address Book Id=12079 " href="#" target="_blank"> 12079 </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Name: </th>
+                        <td> Air Force - ASD</td>
+                      </tr>
+                      <tr>
+                        <th> Sponsor Type: </th>
+                        <td><a title="Sponsor Type Sponsor Type=0 " href="#" target="_blank"> Federal </a> &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <th> State: </th>
+                        <td> MARYLAND</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div></td>
             <td>NASA - Edwards Flight Research Center</td>
             <td>NASA</td>
             <td><a href="#" target="_blank" title="Sponsor Type Sponsor Type=0 ">Federal</a></td>
@@ -926,10 +1196,9 @@ require_once( 'inc/head.php' );
           </tr>
         </tbody>
       </table>
-      
     </div>
     <div class="modal-footer"> <a href="lookup-sponsor.html" class="btn btn-primary btn-sm"><span aria-hidden="true" class="icon-chevron-left"></span> Refine Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a></div>
   </div>
-  </div>
+</div>
 </div>
 <?php require_once( 'inc/footer.php' ); ?>
