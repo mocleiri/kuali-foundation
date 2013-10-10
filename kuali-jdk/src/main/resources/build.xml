@@ -85,6 +85,8 @@
 
 
   <target name="updatejdk6">
+
+    <property name="jdk.classifier" value="linux-x64" />
     <property name="jdk.major.version" value="6" />
     <property name="jdk.minor.version" value="${minor}" />
     <property name="jdk.version" value="${jdk.major.version}.0.${jdk.minor.version}" />
@@ -101,7 +103,7 @@
     <property name="kuali.dir" value="jdk${jdk.major.version}-1.${jdk.major.version}.0-u${jdk.minor.version}" />
     <property name="jdk.version.ora.dir" value="${jdk.dir}/jdk1.${jdk.major.version}.0_${jdk.minor.version}" />
 
-    <property name="jdk.kuali.zip.file" value="${jdk.kuali.version}.zip" />
+    <property name="jdk.kuali.zip.file" value="${jdk.kuali.version}-${jdk.classifier}.zip" />
     <property name="jdk.zip" value="${jdk.kuali.zip.file}" />
     <property name="jdk.version.kuali.zip" value="${jdk.dir}/${jdk.kuali.zip.file}" />
     <property name="jdk.version.kuali.dir" value="${jdk.dir}/${jdk.kuali.version}" />
