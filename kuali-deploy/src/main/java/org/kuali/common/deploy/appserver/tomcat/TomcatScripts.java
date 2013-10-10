@@ -18,8 +18,8 @@ public final class TomcatScripts {
 		private Deployable getSetEnv(TomcatDirs dirs) {
 			String local = "classpath:org/kuali/common/deploy/bin/setenv.sh";
 			String remote = dirs.getBin() + "/setenv.sh";
-			String perms = "755";
-			return new Deployable.Builder(local, remote).permissions(perms).build();
+			String permissions = "755";
+			return new Deployable.Builder(local, remote).permissions(permissions).build();
 		}
 
 		public TomcatScripts build() {
