@@ -15,7 +15,7 @@ include( '_temp.select.filler.php' );
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">     <!-- Main content goes here -->
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">     <!-- Main content goes here -->
         
         <h3>Organization &amp; Location</h3>
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -105,7 +105,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-down"></span> Clinical Trial Location </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-right"></span> Clinical Trial Location </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>
@@ -127,7 +127,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> Research Location </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-right"></span> Research Location </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>
@@ -175,7 +175,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <span aria-hidden="true" class="icon-caret-down"></span> Field Study Location </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <span aria-hidden="true" class="icon-caret-right"></span> Field Study Location </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>
@@ -231,7 +231,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse4"> <span aria-hidden="true" class="icon-caret-down"></span> Communications Power </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse4"> <span aria-hidden="true" class="icon-caret-right"></span> Communications Power </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>
@@ -277,7 +277,7 @@ include( '_temp.select.filler.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse5"> <span aria-hidden="true" class="icon-caret-down"></span> Cleveland Clinic Organization </a> </h4>
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse5"> <span aria-hidden="true" class="icon-caret-right"></span> Cleveland Clinic Organization </a> </h4>
                     </div>
                     <div class="col-md-6"> <a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
                   </div>

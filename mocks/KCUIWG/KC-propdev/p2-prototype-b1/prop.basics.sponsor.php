@@ -14,7 +14,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> 
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> 
 					<h3>Sponsor &amp; Program Information</h3>
 					<form action="#" method="post" class="form-horizontal">
 					  <fieldset>
