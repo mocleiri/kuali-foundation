@@ -65,6 +65,54 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
+.modal-body,
+.uif-pageContentWrapper {
+  animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  /* Firefox */
+
+  -webkit-animation: fadein 1s;
+  /* Safari and Chrome */
+
+  -o-animation: fadein 1s;
+  /* Opera */
+
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 section.toolbar {
   background: #ffffff;
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -748,7 +796,8 @@ dl:after {
 .modal-dialog .modal-content .modal-header h6 {
   font-size: 24px;
   line-height: 100%;
-  margin-top: 8px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .modal-dialog .modal-content .modal-body {
   padding: 24px 15px;
@@ -759,7 +808,8 @@ dl:after {
 }
 .modal-dialog .modal-content .modal-footer {
   background: #f6f6f6;
-  padding: 16px 15px;
+  text-align: right;
+  padding: 8px 15px;
   border-top: #dddddd;
   clear: both;
   display: block;
@@ -772,7 +822,7 @@ dl:after {
   visibility: hidden;
 }
 .fancybox-close {
-  top: 20px;
+  top: 10px;
   right: 16px;
 }
 .table-smaller-text {
