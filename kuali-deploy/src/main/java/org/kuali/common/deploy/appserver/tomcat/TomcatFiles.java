@@ -28,6 +28,9 @@ public final class TomcatFiles {
 			this.logsDirJsps = getLogsDirJsps(dirs);
 		}
 
+		public Builder() {
+		}
+
 		private List<Deployable> getLogsDirJsps(TomcatDirs dirs) {
 			Deployable env = new Deployable.Builder("classpath:org/kuali/common/deploy/jsp/env.jsp", dirs.getLib() + "/env.jsp").build();
 			Deployable tail = new Deployable.Builder("classpath:org/kuali/common/deploy/jsp/tail.jsp", dirs.getLib() + "/tail.jsp").build();
