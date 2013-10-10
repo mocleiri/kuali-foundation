@@ -49,9 +49,15 @@ public final class TomcatFiles {
 			return this;
 		}
 
+		public Builder logsDirJsps(List<Deployable> logsDirJsps) {
+			this.logsDirJsps = logsDirJsps;
+			return this;
+		}
+
 		public TomcatFiles build() {
 			Assert.noBlanks(rootWar, serverXml, webXml);
 			Assert.notNull(logsDirJsps);
+			this.logsDirJsps = ImmutableList.copyOf(logsDirJsps);
 			return new TomcatFiles(this);
 		}
 
