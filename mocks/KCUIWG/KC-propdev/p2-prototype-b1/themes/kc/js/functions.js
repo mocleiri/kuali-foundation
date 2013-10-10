@@ -115,6 +115,12 @@ $(document).ready(function() {
 			}
 		});
 
+		$('button.ui-multiselect').each(function() {
+
+			$(this).attr('tabindex', '0');
+
+		});
+
 	}
 
 
