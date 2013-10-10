@@ -2,7 +2,7 @@
 # Experience configuration settings
 
 // Set to '1' or 'true' if we're using the alternative version of the proposal (i.e., not a Grants.gov proposal)
-$alt = 0;
+$alt = 1;
 ?>
 
 <!DOCTYPE html>

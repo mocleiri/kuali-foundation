@@ -56,6 +56,7 @@ include( '_temp.select.filler.php' );
               <label for="mail_type" class="control-label col-md-3 required">Type:</label>
               <div class="col-md-9">
                 <select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 onchange">
+                	<option></option>
                   <option value="delivery_service">Delivery Service</option>
                   <option value="electronic">Electronic</option>
                   <option value="usps">US Postal Service</option>
@@ -85,10 +86,11 @@ include( '_temp.select.filler.php' );
                 <label for="submission_type" class="control-label col-md-3 required">Submission type:</label>
                 <div class="col-md-9">
                   <select name="submission_type" id="submission_type" class="form-control input-sm col-md-8">
-                    <option>Decrease award</option>
-                    <option>Increase award</option>
-                    <option>Order pizza</option>
-                    <option>I'm kinda hungry</option>
+                  	<option></option>
+                    <option value="1">Decrease award</option>
+                    <option value="1">Increase award</option>
+                    <option value="1">Order pizza</option>
+                    <option value="1">I'm kinda hungry</option>
                   </select>
                 </div>
               </div>
@@ -97,8 +99,9 @@ include( '_temp.select.filler.php' );
               <label for="mail_by" class="control-label col-md-3 required">Submit by:</label>
               <div class="col-md-9">
                 <select name="mail_by" id="mail_by" class="form-control input-sm col-md-8">
-                  <option value="">Department</option>
-                  <option value="">OSP</option>
+                	<option></option>
+                  <option value="1">Department</option>
+                  <option value="1">OSP</option>
                 </select>
               </div>
             </div>
