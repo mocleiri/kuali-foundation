@@ -146,7 +146,7 @@ include( 'inc/head.php' );
 			</div>
 
 			<div class="modal-footer">
-				<a href="lookup-sponsor-results.php" class="btn btn-primary pull-right">Search</a>
+				<a href="lookup-institution-results.php" class="btn btn-primary pull-right">Search</a>
 			</div>
 		</div>
 	</div>
