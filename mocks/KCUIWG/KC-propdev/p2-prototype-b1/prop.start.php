@@ -99,7 +99,7 @@ include( '_temp.select.filler.php' );
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
 										<span class="input-group-btn">
-											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.php" data-modal-height="500"></a>
+											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-startpage.php" data-modal-height="500"></a>
 										</span>
 									</div>
 								</div>
