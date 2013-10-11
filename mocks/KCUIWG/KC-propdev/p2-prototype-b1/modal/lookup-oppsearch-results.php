@@ -1,9 +1,7 @@
 <?php
-
 # Includes
 include( 'inc/head.php' );
 ?>
-
 
 <div class="modal-dialog">
 	<div class="modal-content">
@@ -27,7 +25,7 @@ include( 'inc/head.php' );
 				</thead>
 				<tbody>
 					<tr>
-						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 					  <td>12/31/2013</td>
 						<td >12/31/2014</td>
@@ -37,7 +35,7 @@ include( 'inc/head.php' );
 					  <td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
 					<tr>
-						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 						<td>12/31/2013</td>
 						<td >12/31/2014</td>
@@ -47,7 +45,7 @@ include( 'inc/head.php' );
 						<td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
 					<tr>
-						<td><a class="load-tabs btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 						<td>12/31/2013</td>
 						<td >12/31/2014</td>

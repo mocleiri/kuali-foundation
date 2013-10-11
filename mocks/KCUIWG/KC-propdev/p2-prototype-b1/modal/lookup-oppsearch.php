@@ -1,9 +1,7 @@
 <?php
-
 # Includes
 include( 'inc/head.php' );
 ?>
-
 
 <div class="modal-dialog">
   <div class="modal-content">
@@ -44,17 +42,5 @@ include( 'inc/head.php' );
     <div class="modal-footer"> <a href="lookup-oppsearch-results.php" class="btn btn-primary pull-right">Search</a> </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php include( 'inc/footer.php' ); ?>

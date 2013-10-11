@@ -89,8 +89,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 
 							<div class="tab-pane" id="opp-submission">
-								<p>Submission details will be available after the proposal is submitted.</p>
-								<table  class="table table-condensed">
+								<p class="alert alert-info">Submission details will be available after the proposal is submitted.</p>
+								<!-- <table  class="table table-condensed">
 									<tbody>
 										<tr>
 										<th class="col-md-3"> Recieved Date</th>
@@ -121,7 +121,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<td> N-1_Budget_Justification_Fed_NonFed</td>
 										</tr>
 									</tbody>
-								</table>
+								</table> -->
 							</div>
 
 							<div class="tab-pane" id="opp-forms">
@@ -315,7 +315,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<td >&nbsp;</td>
 										<td ><!--  <input type="checkbox" name="document.developmentProposalList[0].s2sOpportunity.s2sOppForms[17].selectToPrint" value="on">--> 
 
-										<a class="btn btn-small" href="#">Create PDF</a></td>
+										<button class="btn btn-default">Create PDF</button>
 										</tr>
 									</tbody>
 								</table>

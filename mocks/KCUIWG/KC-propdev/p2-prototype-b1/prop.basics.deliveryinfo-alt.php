@@ -20,35 +20,46 @@ include( '_temp.select.filler.php' );
         <h3>Delivery Info</h3>
         <form action="#" method="post" class="form-horizontal">
           <h3>Recipient <span><a class="link-edit" href="#">Edit</a></span></h3>
-          <table  class="table table-condensed">
-            <tbody>
-              <tr>
-                <th class="col-md-3">Organization</th>
-                <td>United Technologies/Pratt &amp; Whitney <a href="#">lookup (icon)</a></td>
-              </tr>
-              <tr>
-                <th class="col-md-3">Address 1</th>
-                <td>Mail Stop 169-21</td>
-              </tr>
-              <tr>
-                <th>Address 2</th>
-                <td>400 Main Street</td>
-              </tr>
-              <tr>
-                <th>City</th>
-                <td>East Hartford</td>
-              </tr>
-              <tr>
-                <th>State</th>
-                <td>CT</td>
-              </tr>
-              <tr>
-                <th>ZIP</th>
-                <td>06108</td>
-              </tr>
-              
-            </tbody>
-          </table>
+			<div class="form-group clearfix">
+				<label for="organization" class="control-label col-md-3 required">Organization:</label>
+				<div class="col-md-9 input-group">
+					<input type="text" class="form-control input-sm" name="organization" id="organization" />
+					<span class="input-group-btn">
+						<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-institution.php" data-modal-height="500"></a>
+					</span>
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<label for="address1" class="control-label col-md-3 required">Address:</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control input-sm" name="address1" id="address1" />
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<label for="address2" class="control-label col-md-3">Address:</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control input-sm" name="address2" id="address2" />
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<label for="city" class="control-label col-md-3 required">City:</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control input-sm" name="city" id="city" />
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<label for="state" class="control-label col-md-3 required">State:</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control input-sm" name="state" id="state" />
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<label for="zip" class="control-label col-md-3 required">ZIP:</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control input-sm" name="zip" id="zip" />
+				</div>
+			</div>
+
           <h3>Delivery Details</h3>
           <fieldset>
             <legend>Enter details for this delivery</legend>
@@ -64,24 +75,6 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
             <div class="hidden-fields" id="electronic">
-              <div class="form-group clearfix">
-                <label for="opp_id" class="control-label col-md-3 required">Opportunity ID:</label>
-                <div class="col-md-9">
-                  <input type="text" name="opp_id" id="opp_id" class="form-control input-sm col-md-8" />
-                </div>
-              </div>
-              <div class="form-group clearfix">
-                <label for="opp_title" class="control-label col-md-3 required">Opportunity title:</label>
-                <div class="col-md-9">
-                  <input type="text" name="opp_title" id="opp_title" class="form-control input-sm col-md-8" />
-                </div>
-              </div>
-              <div class="form-group clearfix">
-                <label for="cfda_num" class="control-label col-md-3 required">CFDA Number:</label>
-                <div class="col-md-9">
-                  <input type="text" name="cfda_num" id="cfda_num" class="form-control input-sm col-md-8" />
-                </div>
-              </div>
               <div class="form-group clearfix">
                 <label for="submission_type" class="control-label col-md-3 required">Submission type:</label>
                 <div class="col-md-9">
