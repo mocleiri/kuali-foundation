@@ -18,18 +18,14 @@
 <!--  Styles -->
 <link href="themes/bootstrap/css/bootstrap.css" rel="stylesheet" />
 <link href="themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
-<link href="themes/kc/js/chosen/chosen.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/jquery.multiselect.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
 <link href="themes/kc/css/custom.css" rel="stylesheet" />
 <link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
-<link href="themes/kc/css/datepicker.css" rel="stylesheet" media="screen" />
-
-
 <link href="themes/kc/js/hopscotch/css/hopscotch-0.1.1.css" rel="stylesheet" type="text/css" media="screen" />
 
-
-
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
-<!--<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>-->
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
@@ -39,7 +35,7 @@
 <body>
 <div class="skip-links">
   <ul>
-    <li><a href="#content">Skip to main content</a></li>
+    <li><a href="#Uif-PageContentWrapper">Skip to main content</a></li>
   </ul>
 </div>
 
@@ -449,10 +445,11 @@
       <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar"> <span class="icon-reorder"></span> </button>
       <header class="viewHeader">
         <div class="row">
-          <div class="col-md-6">
-            <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1>
+          <div class="col-md-6"> 
+            <!-- <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1> -->
+            <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: Ken Graves</span> </h1>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 visible-lg visible-md">
             <div class="metadata"><strong>Document Info</strong>
               <div class="metadata-featured" > Doc Nbr: 2743<br>
                 Initiator: thrclark<br>
@@ -509,6 +506,7 @@
             <li><a href="#" class="icons-doc-header-medusa">Medusa</a></li>
             <li><a href="#" class="icons-doc-header-hierarchy">Hierarchy</a></li>
             <li><a href="#" class="icons-doc-header-access">Access</a></li>
+            <li><a href="#" class="icons-doc-header-help">Help</a></li>
           </ul>
         </div>
       </header>
@@ -529,7 +527,7 @@
               <li ><a href="prop.basics.orgloc.php">Organization &amp; Location</a></li>
             </ul>
           </li>
-          <li class=""> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Pesonnel</span><b class="arrow icon-angle-right"></b> </a>
+          <li class=""> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Personnel</span><b class="arrow icon-angle-right"></b> </a>
             <ul class="submenu">
               <li ><a href="prop.keypersonnel.start.php">Personnel</a></li>
               <li ><a href="prop.keypersonnel.creditintel.php">Intellectual Credit</a></li>
@@ -569,89 +567,139 @@
           <li ><a href="prop.summary.php"><i class="icon-signout"></i><span>Summary/Submit</span></a></li>
         </ul>
       </div>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">
-        <h3>Proposal Details</h3>
-        <form role="form" style="max-width:700px">
-          <div class="form-group"  id="tour1">
-            <label  for="exampleInputEmail1">Proposal Type</label>
-            <select name="proposal_type2" class="form-control input-sm  chzn-off">
-              <option value="4">Continuation</option>
-              <option value="1" selected="selected">New</option>
-              <option value="3">Renewal</option>
-              <option value="2">Resubmission</option>
-              <option value="5">Revision</option>
-              <option value="6">Task Order</option>
-            </select>
-          </div>
-          <div class="form-group"  id="tour2">
-            <label for="exampleInputEmail1">Lead Unit </label>
-            <select name="lead_unit2" id="lead_unit2" class="form-control input-sm chzn-off">
-              <option value="000001" selected="selected">000001 - University</option>
-              <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
-              <option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
-              <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
-            </select>
-          </div>
-          <div class="form-group" id="tour3">
-            <label for="exampleInputEmail1">Activity Type</label>
-            <select name="activity_type2" id="activity_type2" class="form-control input-sm  chzn-off">
-              <option value="4" selected="selected">Clinical Trial</option>
-              <option value="9">Construction</option>
-              <option value="7">Fellowship - Post-Doctoral</option>
-              <option value="6">Fellowship - Pre-Doctoral</option>
-              <option value="2">Instruction</option>
-              <option value="3">Public Service</option>
-              <option value="1">Research</option>
-              <option value="8">Student Services</option>
-              <option value="5">other</option>
-            </select>
-          </div>
-           <div class="form-group" id="tour4">
-            <label class="">Project dates:</label>
-            <div class="row">
-              <div class="col-md-3">
-                <input type="text" class="form-control" placeholder=""><span class="help-block">from</span>
-              </div>
-              <div class="col-md-3"> 
-                <input type="text" class="form-control" placeholder=""><span class="help-block">to</span>
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
+        <div class="alert alert-success alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('.alert').slideUp(200)" >&times;</button>
+          <p><i class="icon-ok"></i> Success! Proposal #23533 has been initiated.</p>
+        </div>
+        
+          
+            <h3 style=" background:">Proposal Details <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-sm"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a></h3>
+          
+          
+        
+        <form action="#" method="post" class="form-horizontal">
+          <fieldset>
+            <legend style="display:none">Enter any relevant details for this proposal</legend>
+            <div class="form-group clearfix" >
+              <label for="proposal_type" class="control-label col-md-3 required">Proposal type: *</label>
+              <div class="col-md-9" id="tour1">
+                <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
+                  <option value="4">Continuation</option>
+                  <option value="1" selected="selected">New</option>
+                  <option value="3">Renewal</option>
+                  <option value="2">Resubmission</option>
+                  <option value="5">Revision</option>
+                  <option value="6">Task Order</option>
+                </select>
               </div>
             </div>
-          </div>
-           <div class="form-group" id="tour5">
-            <label for="exampleInputEmail1">Sponsor Code</label>
-            <div class="input-group">
-              <input type="text" class="form-control">
-              <span class="input-group-addon"><span aria-hidden="true" class="icon-search"></span></span> </div>
-          </div>
-           <div class="form-group" id="tour6">
-            <label for="exampleInputEmail1">Project Title</label>
-            <textarea class="form-control" rows="3"></textarea>
-          </div>
-           <div class="form-group" id="tour7">
-            <label for="exampleInputEmail1">Award ID</label>
-            <div class="input-group">
-              <input type="text" class="form-control">
-              <span class="input-group-addon"><span aria-hidden="true" class="icon-search"></span></span> </div>
-          </div>
-           <div class="form-group" id="tour8">
-            <label for="exampleInputEmail1">Original Institutional ID</label>
-            <div class="input-group">
-              <input type="text" class="form-control">
-              <span class="input-group-addon"><span aria-hidden="true" class="icon-search"></span></span> </div>
-          </div>
-          <div class="form-group" id="tour9">
-            <label for="exampleInputEmail1">Keywords</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
-          </div>
+            <div class="form-group clearfix">
+              <label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
+              <div class="col-md-9" id="tour2">
+                <select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
+                  <option value="000001">000001 - University</option>
+                  <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
+                  <option value="IN-CARD" selected="selected">IN-CARD - CARDIOLOGY</option>
+                  <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group clearfix">
+              <label for="activity_type" class="control-label col-md-3 required">Activity type: *</label>
+              <div class="col-md-9" id="tour3">
+                <select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
+                  <option value="4">Clinical Trial</option>
+                  <option value="9">Construction</option>
+                  <option value="7">Fellowship - Post-Doctoral</option>
+                  <option value="6">Fellowship - Pre-Doctoral</option>
+                  <option value="2">Instruction</option>
+                  <option value="3">Public Service</option>
+                  <option value="1" selected="selected">Research</option>
+                  <option value="8">Student Services</option>
+                  <option value="5">other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group clearfix">
+              <label class="control-label col-md-3 required" for="project_start">Project dates: *</label>
+              <div class="col-md-9 date-range" id="tour4">
+                <div class="col-md-6 date">
+                  <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="12/01/2013" />
+                  <label for="project_start" class="helper-text">Beginning on</label>
+                </div>
+                <span class="range">to</span>
+                <div class="col-md-6 date">
+                  <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="11/30/2018" />
+                  <label for="project_end" class="helper-text">Ending on</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group clearfix">
+              <label for="project_title" class="control-label col-md-3 required">Project title: *</label>
+              <div class="col-md-9" id="tour5">
+                <textarea name="project_title" id="project_title" class="form-control input-sm has-helper">Analysis of Significant Chemical Findings</textarea>
+                <div class="helper-text"> Give this proposal a title. Be detailed but concise. </div>
+              </div>
+            </div>
+            <div class="form-group clearfix">
+              <label for="sponsor_code" class="control-label col-md-3 required">Sponsor code: *</label>
+              <div class="col-md-9 input-group" id="tour6">
+                <input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="000340 NSF" />
+                <div class="helper-text"> Enter the sponsor code for this proposal or find one using the lookup tool. </div>
+                <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-detailspage.php" data-modal-height="500"></a> </span> </div>
+            </div>
+            
+            <!-- <div class="form-group clearfix">
+									<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
+									<div class="col-md-9 input-group">
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_name" id="sponsor_name" value="National Science Foundation" />
+										<div class="helper-text">
+											Enter the sponsor code for this proposal or find one using the lookup tool.
+										</div>
+									</div>
+								</div> -->
+            
+            <div class="form-group clearfix">
+              <label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor code:</label>
+              <div class="col-md-9 input-group" id="tour7">
+                <input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
+                <div class="helper-text"> Enter the sponsor code for this proposal or find one using the lookup tool. </div>
+                <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.php" data-modal-height="500"></a> </span> </div>
+            </div>
+            <div class="form-group clearfix">
+              <label for="award_id" class="control-label col-md-3">Award ID:</label>
+              <div class="col-md-9 input-group" id="tour8">
+                <input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" />
+                <div class="helper-text"> Enter the award ID for this proposal. </div>
+                <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-award.php" data-modal-height="500"></a> </span> </div>
+            </div>
+            <div class="form-group clearfix">
+              <label for="inst_proposal_id" class="control-label col-md-3">Institutional Proposal ID:</label>
+              <div class="col-md-9 input-group" id="tour9">
+                <input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" />
+                <div class="helper-text"> Enter the original institutional ID for this proposal. </div>
+                <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-institution.php" data-modal-height="500"></a> </span> </div>
+            </div>
+            <div class="form-group clearfix">
+              <label for="keywords" class="control-label col-md-3">Keywords:</label>
+              <div class="col-md-9" id="tour10">
+                <select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
+                  <option >Biology</option>
+                  <option >Biochemistry</option>
+                  <option>Chemistry</option>
+                  <option >Physics</option>
+                  <option >Marine Biology</option>
+                  <option >Space Physics</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
         </form>
-    
-        
-        <div class="uif-stickyFooter uif-stickyButtonFooter" > 
-          
-          <!-- Button row -->
-          <div class="btn-row-page-action" style="text-align:center">
-            <button class="btn btn-default">Save</button>
-            <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-primary" id="tour10" >Save and continue</button>
+        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+          <div class="btn-row-page-action" >
+            <button class="btn btn-default" id="tour11">Save</button>
+            <button href="prop.basics.sponsor.php" class="btn btn-primary">Save and continue</button>
           </div>
           <!-- // --> 
         </div>
@@ -659,25 +707,44 @@
     </div>
   </div>
 </section>
+<footer> 
+  
+  <!--<div class="container-fluid">
+
+		<div class="footer">
+			<div class="foundation col_md_6">
+				&copy; 2013
+				<a href="#" target="_blank">Kuali Foundation</a>
+			</div>
+			<div class="credit col_md_6">
+				<span>site built with KRAD</span>
+			</div>
+		</div>
+
+	</div>--> 
+  
+</footer>
 
 <!-- Scripts --> 
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 
+
+<!-- Bootstrap --> 
 <script src="themes/bootstrap/js/bootstrap.min.js"></script> 
 <script src="themes/bootstrap/js/modal.js"></script> 
 <script src="themes/kc/js/fancybox/jquery.fancybox.js"></script> 
-<script src="themes/kc/js/chosen/chosen.jquery.min.js"></script> 
-<script src="themes/kc/js/functions.js"></script> 
-<script src="themes/kc/js/jquery.jeditable.mini.js"></script> 
-<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 
-<script src="themes/kc/js/jquery.nicescroll.min.js"></script> 
+<script src="themes/kc/js/jquery.nicescroll.js"></script> 
 <script src="themes/kc/js/jquery.cookie.js"></script> 
 <script src="themes/kc/js/leftnav.js"></script> 
-<script src="themes/kc/js/bootstrap-datepicker.js"></script>
 
-<script src="themes/kc/js/hopscotch/js/hopscotch-0.1.2.js"></script>
+<!-- jQuery UI 1.9.2 --> 
+<script src="themes/kc/js/jquery-ui-1.9.2.custom.min.js"></script> 
+<script src="themes/kc/js/jquery.multiselect.min.js"></script> 
+<script src="themes/kc/js/jquery.multiselect.filter.min.js"></script> 
+<script src="themes/kc/js/jquery.maskedinput.min.js"></script> 
+<script src="themes/kc/js/hopscotch/js/hopscotch-0.1.2.js"></script> 
+<script src="themes/kc/js/hopscotch/js/prop.basics.details.js"></script> 
 
-<script src="themes/kc/js/hopscotch/js/prop.basics.details.js"></script>
-
-
-
+<!-- Our custom functions, goes at the end --> 
+<script src="themes/kc/js/functions.js"></script>
 </body>
 </html>
