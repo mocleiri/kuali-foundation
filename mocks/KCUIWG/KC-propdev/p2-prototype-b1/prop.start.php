@@ -86,7 +86,7 @@ include( '_temp.select.filler.php' );
 									<div class="col-md-9">
 										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper"></textarea>
 										<div class="helper-text">
-											Give this proposal a title. Be detailed but concise.
+											Enter the project title here.
 										</div>
 									</div>
 								</div>
@@ -103,16 +103,6 @@ include( '_temp.select.filler.php' );
 										</span>
 									</div>
 								</div>
-
-							  <!-- <div class="form-group clearfix">
-									<label for="sponsor_name" class="control-label col-md-3">Sponsor name:</label>
-									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="sponsor_name" id="sponsor_name" />
-										<div class="helper-text">
-											Enter the sponsor code for this proposal or find one using the lookup tool.
-										</div>
-									</div>
-								</div> -->
 						
 							</fieldset>
 						</form>
