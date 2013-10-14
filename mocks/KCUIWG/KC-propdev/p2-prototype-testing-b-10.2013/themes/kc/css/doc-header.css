@@ -1,0 +1,144 @@
+.doc-header {
+  position: relative;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #CCC;
+  padding-bottom: 12px;
+}
+.doc-header header .doc-subtitle {
+  font-size: 1.1em;
+  line-height: 22px;
+}
+.doc-header header h2.doc-title {
+  margin-bottom: 0px;
+  line-height: 30px;
+}
+.doc-header header h2.doc-title span {
+  color: #666;
+  font-weight: normal;
+}
+.doc-header .doc-functions {
+  font-size: .85em;
+}
+.doc-header .doc-functions ul {
+  list-style: none;
+  margin: 0px;
+  margin-top: 20px;
+  padding: 0px;
+}
+.doc-header .doc-functions ul li {
+  display: inline;
+  color: #666;
+}
+.doc-header .doc-functions ul li a.icons-doc-header-hierarchy {
+  background-position: 0 -124px;
+}
+.doc-header .doc-functions ul li a {
+  padding-left: 16px;
+  margin-right: 16px;
+  background-image: url(../img/icons-doceader.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+}
+.doc-header .doc-functions ul li a.icons-doc-header-copy {
+  background-position: 0 -62px;
+}
+.doc-header .doc-functions ul li a.icons-doc-header-medusa {
+  background-position: 0 -186px;
+}
+.doc-header .doc-functions ul li a.icons-doc-header-print {
+  background-position: 0 -248px;
+}
+.doc-header .doc-functions ul li a.icons-doc-header-access {
+  background-position: 0 0;
+}
+.doc-header .doc-status {
+  position: ;
+  right: 0px;
+  bottom: 4px;
+  font-size: 0.85em;
+  color: #666;
+}
+.doc-header .doc-status .dropdown {
+  margin-top: 20px;
+}
+.doc-header .doc-status .dropdown .progress {
+  height: 3px;
+  margin-bottom: 0px;
+}
+.doc-header .doc-status .dropdown .dropdown-menu {
+  margin-left: -60px;
+  padding: 6px;
+  width: 240px;
+  margin-top: 4px;
+  background: #f2f2f2;
+  display: ;
+  font-size: 12px;
+  line-height: 150%;
+  top: 20px;
+}
+.doc-header .doc-status .dropdown .dropdown-menu em {
+  margin-left: 2px;
+}
+.doc-header .doc-status .dropdown table tbody tr th {
+  text-align: right;
+  padding-right: 6px;
+}
+.doc-header .doc-status .dropdown span {
+  color: #000;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+.dropdown-menu.notch-top:before,
+.dropdown-menu.notch-right:before,
+.dropdown-menu.notch-bottom:before,
+.dropdown-menu.notch-left:before {
+  content: " ";
+  display: block;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  background: #f2f2f2;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+.dropdown-menu.notch-top:before {
+  top: -6px;
+  left: 50%;
+  margin-left: -6px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.dropdown-menu.notch-left:before {
+  top: 50%;
+  left: -6px;
+  margin-top: -6px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.dropdown-menu.notch-right:before {
+  top: 50%;
+  right: -6px;
+  margin-top: -6px;
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+.dropdown-menu.notch-bottom:before {
+  bottom: -6px;
+  left: 50%;
+  margin-left: -6px;
+  -webkit-transform: rotate(225deg);
+  -moz-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  transform: rotate(225deg);
+}
