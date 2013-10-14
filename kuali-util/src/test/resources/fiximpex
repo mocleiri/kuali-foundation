@@ -14,7 +14,6 @@ DEVOPS-20
  - Run new Ant script on jdk7 21, md5 against already published jdk21
  - Use Ant tar targets if possible
  - jre/lib/amd64/server/libjsig.so -> ../libjsig.so
- -  
  
 DEVOPS-21
  - binaries with no checksums
