@@ -20,3 +20,10 @@ DEVOPS-21
  - binaries with no checksums
  - expand to all repos
  - war, zip
+ 
+
+
+
+- no checksum verification on the zip file, but diff -r -q on the exploded directory structure showed no differences 
+- upload zip files manually into Kuali Nexus Hosted Private
+- make sure the resulting zip files are formatted the same way as the examples that are already up there
