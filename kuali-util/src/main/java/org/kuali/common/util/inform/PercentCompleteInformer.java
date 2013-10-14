@@ -41,7 +41,7 @@ public final class PercentCompleteInformer {
 
 	public PercentCompleteInformer(long total, int percentageIncrement, Inform inform) {
 		Assert.isTrue(total >= 0, "total is negative");
-		Assert.isTrue(percentageIncrement > 0, "percentage increment must be a positive integer");
+		Assert.isTrue(percentageIncrement > 0, "percentage increment must be greater than zero");
 		Assert.noNulls(inform);
 		this.total = total;
 		this.inform = inform;
