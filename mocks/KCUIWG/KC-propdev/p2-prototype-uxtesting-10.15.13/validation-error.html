@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="ie9 ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en-us"><!--<![endif]-->
+<head>
+<title>Kuali Coeus Prototype 2b</title>
+
+<!-- Meta cluster -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<!--  Styles -->
+<link href="themes/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/js/chosen/chosen.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/custom.css" rel="stylesheet" />
+<link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
+
+<!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
+
+</head>
+
+<body>
+<div class="skip-links">
+	<ul>
+		<li><a href="#content">Skip to main content</a></li>
+	</ul>
+</div>
+
+<!-- Continues with nav.php --><header id="Uif-ApplicationHeader-Wrapper" class="portal-header" data-spy="affix" data-offset-top="0" role="banner" >
+<div class="container-fluid">
+  <nav class="navbar" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span> </button>
+      <a class="navbar-brand" href="index.php">
+      <div class="logoBrand">
+        <h1><span class="sr-only">Kuali Rice - KRAD</span></h1>
+      </div>
+      </a> </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Researcher</a>
+          <div class="dropdown-menu">
+            <div class="container portal-menu">
+              <div class="row">
+                <div class="col-md-3 col-sm-12">
+                  <h3>Proposals</h3>
+                  <ul>
+                    <li> <a href="prop.start.php" title="Create Proposal">Create Proposal</a> </li>
+                    <li> <a href="#" title="Proposals Enroute">Proposals Enroute</a> </li>
+                    <li> <a href="#" title="All My Proposals">All My Proposals</a> </li>
+                    <li> <a href="#" title="Create Proposal For Grants.gov Opportunity">Create Proposal For Grants.gov Opportunity</a> </li>
+                  </ul>
+                  <h4>Lists</h4>
+                  <ul>
+                    <li> <a href="#" title="Search Proposals">Search Proposals</a> </li>
+                    <li> <a href="#" title="Search Proposal Log">Search Proposal Log</a> </li>
+                    <li> <a href="#" title="Search Institutional Proposals">Search Institutional Proposals</a> </li>
+                  </ul>
+                  <h3>Awards</h3>
+                  <ul>
+                    <li>Awards in Progress</li>
+                    <li> <a href="#" title="All my Awards">All my Awards</a> </li>
+                  </ul>
+                  <h3>Negotiations</h3>
+                  <ul>
+                    <li> <a href="#" title="All My Negotiations">All My Negotiations</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <h3>IRB Protocols</h3>
+                  <h4>Actions </h4>
+                  <ul>
+                    <li> <a href="#" title="Create IRB Protocol">Create IRB Protocol</a> </li>
+                    <li> <a href="#" title="Amend or Renew IRB Protocol">Amend or Renew IRB Protocol</a> </li>
+                    <li> <a href="#" title="Notify IRB on a Protocol">Notify IRB on a Protocol</a> </li>
+                    <li> <a href="#" title="Request a Status Change on a IRB Protocol">Request a Status Change on a IRB Protocol</a> </li>
+                  </ul>
+                  <h4>Lists</h4>
+                  <ul>
+                    <li> <a href="#" title="Pending Protocols">Pending Protocols</a> </li>
+                    <li> <a href="#" title="Protocols Pending PI Action">Protocols Pending PI Action</a> </li>
+                    <li> <a href="#" title="Protocols Pending Committee Action">Protocols Pending Committee Action</a> </li>
+                    <li> <a href="#" title="Protocols Under Development">Protocols Under Development</a> </li>
+                    <li> <a href="#" title="All My Protocols">All My Protocols</a> </li>
+                    <li> <a href="#" title="Search Protocols">Search Protocols</a> </li>
+                    <li> <a href="#" title="All My Reviews">All My Reviews</a> </li>
+                    <li> <a href="#" title="All My Schedules">All My Schedules</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <h3>Conflict of Interest </h3>
+                  <h4>My Financial Entities </h4>
+                  <ul>
+                    <li> <a href="#" title="Create New Financial Entity">Financial Entity</a> </li>
+                    <li> <a href="#" title="View/Edit Financial Entities">View/Edit Financial Entities</a> </li>
+                    <li> <a href="#" title="All My Financial Entities">All My Financial Entities</a> </li>
+                  </ul>
+                  <h4>My Disclosures </h4>
+                  <ul>
+                    <li> <a href="#" title="Master Disclosure">Master Disclosure</a> </li>
+                    <li> <a href="#" title="Create Annual Disclosure">Create Annual Disclosure</a> </li>
+                    <li> <a href="#" title="Create Manual Disclosure">Create Manual Disclosure</a> </li>
+                    <li> <a href="#" title="New Project Disclosures">New Project Disclosures To Complete</a> </li>
+                    <li> <a href="#" title="Update Master Disclosure">Update Master Disclosure</a> </li>
+                    <li> <a href="#" title="All My Disclosures">All My Disclosures</a> </li>
+                    <li> <a href="#" title="Search Disclosures">Search Disclosures</a> </li>
+                  </ul>
+                  <h3>IACUC Protocols</h3>
+                  <h4>Actions </h4>
+                  <ul>
+                    <li> <a href="#" title="Create IACUC Protocol">Create IACUC Protocol</a> </li>
+                  </ul>
+                  <h4>Lists</h4>
+                  <ul>
+                    <li> <a href="#" title="All My Protocols">All My Protocols</a> </li>
+                    <li> <a href="#" title="Search Protocols">Search Protocols</a> </li>
+                    <li> <a href="#" title="All My Reviews">All My Reviews</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <h3>Quicklinks</h3>
+                  <ul>
+                    <li> <a href="#" title="Pessimistic Lock">Pessimistic Lock</a> </li>
+                    <li> <a href="#" title="Grants.gov Opportunity Lookup">Grants.gov Opportunity Lookup</a> </li>
+                    <li>Change Password</li>
+                  </ul>
+                  <h3>Personnel</h3>
+                  <ul>
+                    <li>Degree Information</li>
+                    <li> <a href="#" title="Current &amp; Pending Support">Current &amp; Pending Support</a> </li>
+                    <li>Bio-sketches</li>
+                    <li>All my Training</li>
+                  </ul>
+                  <h3>Workflow</h3>
+                  <ul>
+                    <li> <a href="#" title="Workflow Services">Preferences</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unit</a>
+          <div class="dropdown-menu">
+            <div class="container portal-menu">
+              <div class="row">
+                <div class="col-md-3 col-sm-12">
+                  <h3>Pre-Award</h3>
+                  <ul>
+                    <li> <a href="#">Proposal Development</a> </li>
+                    <li> <a href="#">Proposal Log</a> </li>
+                    <li> <a href="#">Institutional Proposal</a> </li>
+                    <li> <a href="#">Negotiations</a> </li>
+                    <li> <a href="#">All My Negotiations </a> </li>
+                  </ul>
+                  <h3>Post-Award</h3>
+                  <ul>
+                    <li> <a href="#"> Awards </a> </li>
+                    <li> <a href="#">Award Report Tracking</a> </li>
+                    <li> <a href="#">Subawards </a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <h3>Pre-Submission Compliance</h3>
+                  <ul>
+                    <li> <a href="#"> Conflict of Interest</a> </li>
+                    <li> <a href="#">Disclosure</a> </li>
+                    <li> <a href="#">Event Disclosures</a> </li>
+                    <li> <a href="#">Non Project Event Disclosures</a> </li>
+                    <li> <a href="#">Submitted Disclosures</a> </li>
+                    <li> <a href="#">Annual Event Disclosures</a> </li>
+                    <li> <a href="#">Undisclosed Events</a> </li>
+                    <li> <a href="#">Protocol</a> </li>
+                    <li> <a href="#">Animals</a> </li>
+                    <li> <a href="#">Human Participants</a> </li>
+                  </ul>
+                  <h3>Post-Submission Compliance</h3>
+                  <ul>
+                    <li> <a href="#"> IRB Committee</a> </li>
+                    <li> <a href="#">IACUC Committee</a> </li>
+                    <li> <a href="#">Protocol Submissions</a> </li>
+                    <li> <a href="#">IACUC Submissions</a> </li>
+                    <li> <a href="#">IRB Schedules</a> </li>
+                    <li> <a href="#">IACUC Schedules </a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <h3>Quicklinks</h3>
+                  <ul>
+                    <li> <a href="#"> Kc Pessimistic Lock</a> </li>
+                    <li> <a href="#">Current &amp; Pending Support</a> </li>
+                    <li> <a href="#">Grants.gov Opportunity Lookup</a> </li>
+                    <li> <a href="#">Address Book</a> </li>
+                    <li> <a href="#">Sponsor Lookup</a> </li>
+                    <li> <a href="#">Change Password</a> </li>
+                    <li> <a href="#">Keyword Lookup</a> </li>
+                    <li> <a href="#">Perform Person Mass Change</a> </li>
+                    <li> <a href="#">ISR/SSR Reporting</a> </li>
+                    <li> <a href="#">Award subcontracting goals and expenditures</a> </li>
+                    <li> <a href="#">Subcontracting expenditures data generator admin </a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <h3>Workflow</h3>
+                  <ul>
+                    <li> <a href="#">People Flow</a> </li>
+                    <li> <a href="#">Preferences</a> </li>
+                    <li> <a href="#">Routing Report</a> </li>
+                    <li> <a href="#">Rules</a> </li>
+                    <li> <a href="#">Rule QuickLinks</a> </li>
+                  </ul>
+                  <h3>Business Rules</h3>
+                  <ul>
+                    <li> <a href="#"> Agenda</a> </li>
+                    <li> <a href="#">Context</a> </li>
+                    <li> <a href="#">Attribute Definition</a> </li>
+                    <li> <a href="#">Term</a> </li>
+                    <li> <a href="#">Term Specification</a> </li>
+                    <li> <a href="#">Category </a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Central Admin</a>
+          <div class="dropdown-menu">
+            <div class="container portal-menu">
+              <div class="row">
+                <div class="col-md-4 col-sm-12">
+                  <h3>Pre-Award</h3>
+                  <ul>
+                    <li> <a href="#">Proposal Development</a> </li>
+                    <li> <a href="#">Proposal Log</a> </li>
+                    <li> <a href="#">Institutional Proposal</a> </li>
+                    <li> <a href="#">Negotiations</a> </li>
+                    <li> <a href="#">All My Negotiations</a> </li>
+                  </ul>
+                  <h3> Post-Award</h3>
+                  <ul>
+                    <li> <a href="#">Awards</a> </li>
+                    <li> <a href="#">Award Report Tracking</a> </li>
+                    <li> <a href="#">Subawards </a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <h3> Pre-Submission Compliance</h3>
+                  <ul>
+                    <li> <a href="#">Conflict of Interest</a> </li>
+                    <li> <a href="#">Disclosure</a> </li>
+                    <li> <a href="#">Event Disclosures</a> </li>
+                    <li> <a href="#">Non Project Event Disclosures</a> </li>
+                    <li> <a href="#">All My Disclosure Reviews</a> </li>
+                    <li> <a href="#">Submitted Disclosures</a> </li>
+                    <li> <a href="#">Annual Event Disclosures</a> </li>
+                    <li> <a href="#">Undisclosed Events</a> </li>
+                    <li> <a href="#">Protocols</a> </li>
+                    <li> <a href="#">Animals</a> </li>
+                    <li> <a href="#">Biosafety</a> </li>
+                    <li> <a href="#">Chemical Safety</a> </li>
+                    <li> <a href="#">Human Participants</a> </li>
+                    <li> <a href="#">Radiation Safety </a> </li>
+                  </ul>
+                  <h3> Post-Submission Compliance</h3>
+                  <ul>
+                    <li> <a href="#">IRB Committee</a> </li>
+                    <li> <a href="#">IACUC Committee</a> </li>
+                    <li> <a href="#">Protocol Submissions</a> </li>
+                    <li> <a href="#">IACUC Submissions</a> </li>
+                    <li> <a href="#">IRB Schedules</a> </li>
+                    <li> <a href="#">IACUC Schedules </a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <h3> Quicklinks</h3>
+                  <ul>
+                    <li> <a href="#">Pessimistic Lock</a> </li>
+                    <li> <a href="#">Current &amp; Pending Support</a> </li>
+                    <li> <a href="#">Grants.gov Opportunity Lookup</a> </li>
+                    <li> <a href="#">Non-Employee Lookup</a> </li>
+                    <li> <a href="#">Sponsor Lookup</a> </li>
+                    <li> <a href="#">Change Password</a> </li>
+                    <li> <a href="#">Keyword Lookup</a> </li>
+                    <li> <a href="#">Perform Person Mass Change</a> </li>
+                  </ul>
+                  <h3> Workflow</h3>
+                  <ul>
+                    <li> <a href="#">People Flow</a> </li>
+                    <li> <a href="#">Preferences</a> </li>
+                    <li> <a href="#">Routing Report</a> </li>
+                    <li> <a href="#">Rules</a> </li>
+                    <li> <a href="#">Rule QuickLinks</a> </li>
+                  </ul>
+                  <h3> Business Rules</h3>
+                  <ul>
+                    <li> <a href="#">Agenda</a> </li>
+                    <li> <a href="#">Context</a> </li>
+                    <li> <a href="#">Attribute Definition</a> </li>
+                    <li> <a href="#">Term</a> </li>
+                    <li> <a href="#">Term Specification</a> </li>
+                    <li> <a href="#">Category </a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance</a>
+          <div class="dropdown-menu">
+            <div class="container portal-menu">
+              <div class="row">
+                <div class="col-md-4 col-sm-12">
+                  <h3>Heading</h3>
+                  <ul>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <h3>Heading</h3>
+                  <ul>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <h3>Heading</h3>
+                  <ul>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">System Admin</a>
+          <div class="dropdown-menu">
+            <div class="container portal-menu">
+              <div class="row">
+                <div class="col-md-4 col-sm-12">
+                  <h3>Heading</h3>
+                  <ul>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <h3>Heading</h3>
+                  <ul>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <h3>Heading</h3>
+                  <ul>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                    <li> <a href="#">Link</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- Continues with toolbar.php -->	<section class="toolbar">
+
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav pull-right">
+						<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">User: thrclark <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><i class="icon icon-cog"></i><span>Preferences</span></a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="icon icon-lock"></i><span>Logout</span></a></li>
+							</ul>
+						</li>
+						<li class="dropdown pull-right"><a href="#" class="">Doc Search</a></li>
+						<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Action list <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li><a href="#"><i class="icon icon-file"></i><span>Approve: Doc #5547</span></a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="icon icon-inbox"></i><span>Full Action List</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+
+</header>
+<section id="main">
+  <div class="container-fluid">
+    
+<div class="container-fluid"> <!--KRAD - needs to be configurable between 'container-fluid' and 'container'-->
+  <header class="viewHeader">
+    <div class="row">
+      <div class="col-md-6">
+        <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">Custom Page Title</span> </h1>
+      </div>
+      <div class="col-md-6">
+        <div class="metadata">
+              <div class="dropdown"><strong>Document Info</strong> (<a href="#" class="dropdown-toggle" data-toggle="dropdown">more...</a>)
+                <div class="dropdown-menu" >
+                  <h4> Document Info</h4>
+                  <table class="table table-condensed">
+                    <tbody>
+                      <tr>
+                        <th scope="row">PI</th>
+                        <td>Ken Graves</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Progress</th>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Created</th>
+                        <td>04:27pm 07/09/2013</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Updated</th>
+                        <td>12:22pm 07/12/2013</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Doc Nbr</th>
+                        <td>2743</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Proposal Nbr</th>
+                        <td>4</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Initiator</th>
+                        <td><a href="#">thrclark</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Sponsor Name</th>
+                        <td>NIH</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="metadata-featured" > PI: Ken Graves<br>
+                Initiator: <a href="#">thrclark</a><br>
+                Created: 04:27pm 07/09/2013<br>
+             
+              </div>
+            </div>
+      </div>
+    </div>
+  </header>
+</div>
+    
+  
+  
+  <div class="doc-functions">
+			<ul style="">
+				<li><a href="#" class="icons-doc-header-print">Print</a></li>
+				<li><a href="#" class="icons-doc-header-copy">Copy</a></li>
+				<li><a href="#" class="icons-doc-header-medusa">Medusa</a></li>
+				<li><a href="#" class="icons-doc-header-hierarchy">Hierarchy</a></li>
+				<li><a href="#" class="icons-doc-header-access">Access</a></li>
+			</ul>
+		</div>
+        
+        
+          <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+      <div class="uif-navigation open" id="sidebar">
+	<button id="nav-toggle" class="open" href="#" aria-hidden="true"><span class="icon-expand"></span></button>
+
+	<ul>
+		<li class="has-sub expanded"> <a href="#"><span aria-hidden="true" class="icon-file-alt"></span> <span class="nav-label">Basics</span></a>
+			<ul class="sub">
+				<li class="active"><a href="prop.basics.details.php"><span class="nav-label">Proposal Details</span></a></li>
+				<li ><a href="prop.basics.oppsearch-search.php"><span class="nav-label">Opportunity Search</span></a></li> 
+                <li ><a href="prop.basics.deliveryinfo.php"><span class="nav-label">Delivery Info</span></a></li>
+				<li ><a href="prop.basics.sponsor.php"><span class="nav-label">Sponsor &amp; Program Information</span></a></li>
+				<li ><a href="prop.basics.orgloc.php"><span class="nav-label">Organization &amp; Location</span></a></li>
+				
+					</ul>
+		</li>
+		<li class="has-sub"><a href="#"><span aria-hidden="true" class="icon-user"></span> <span class="nav-label">Key Pesonnel</span></a>
+			<ul class="sub">
+				<li ><a href="prop.keypersonnel.start.php"><span class="nav-label">Personnel</span></a></li>
+				<li ><a href="prop.keypersonnel.creditintel.php"><span class="nav-label">Intellectual Credit</span></a></li>
+				<li ><a href="prop.keypersonnel.creditfa.php"><span class="nav-label">F&amp:A Credit</span></a></li>
+			</ul>
+		</li>
+		<li ><a href="prop.compliance.php"><span aria-hidden="true" class="icon-ok"></span> <span class="nav-label">Compliance</span></a></li>
+		<li class="has-sub"><a href="#"><span aria-hidden="true" class="icon-paper-clip"></span> <span class="nav-label">Attachments</span></a>
+			<ul class="sub">
+				<li ><a href="prop.attachments.proposal.php"><span class="nav-label">Proposal</span></a></li>
+				<li ><a href="prop.attachments.personnel.php"><span class="nav-label">Personnel</span></a></li>
+				<li ><a href="prop.attachments.internal.php"><span class="nav-label">Internal</span></a></li>
+				<li ><a href="prop.attachments.abstracts.php"><span class="nav-label">Abstracts</span></a></li>
+				<li ><a href="prop.attachments.notes.php"><span class="nav-label">Notes</span></a></li>
+			</ul>
+		</li>
+		<li ><a href="prop.questionnaire.php"><span aria-hidden="true" class="icon-question"></span> <span class="nav-label">Questionnaire</span></a></li>
+		<li class="has-sub"><a href="#"><span aria-hidden="true" class="icon-money"></span> <span class="nav-label">Budget</span></a>
+			<ul class="sub">
+				<li ><a href="prop.budget.summary.php"><span class="nav-label">Summary</span></a></li>
+				<li ><a href="prop.budget.params.php"><span class="nav-label">Parameters</span></a></li>
+				<li ><a href="prop.budget.rates.php"><span class="nav-label">Rates</span></a></li>
+				<li ><a href="prop.budget.personnel.php"><span class="nav-label">Personnel</span></a></li>
+				<li ><a href="prop.budget.nonpersonnel.php"><span class="nav-label">Non-Personnel</span></a></li>
+				<li ><a href="prop.budget.distincome.php"><span class="nav-label">Distribution &amp; Income</span></a></li>
+				<li ><a href="prop.budget.modular.php"><span class="nav-label">Modular</span></a></li>
+				<li ><a href="prop.budget.actions.php"><span class="nav-label">Actions</span></a></li>
+			</ul>
+		</li>
+		<li class="has-sub"><a href="#"><span aria-hidden="true" class="icon-bell"></span> <span class="nav-label">Institution Data</span></a>
+			<ul class="sub">
+				<li ><a href="prop.inst.1.php"><span class="nav-label">Page 1</span></a></li>
+				<li ><a href="prop.inst.2.php"><span class="nav-label">Page 2</span></a></li>
+				<li ><a href="prop.inst.3.php"><span class="nav-label">Page 3</span></a></li>
+			</ul>
+		</li>
+		<li ><a href="prop.summary.php"><span aria-hidden="true" class="icon-signout"></span> <span class="nav-label">Summary/Submit</span></a></li>
+	</ul>
+</div>    </div>
+    <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper closed">
+      <div id="content" class="uif-page" tabindex="-1"> 
+        
+        <!-- Main content goes here -->
+        
+        <h3>Proposal Details</h3>
+        
+   
+        
+        
+        
+        
+        
+          <div class="form-group clearfix">
+               
+            <div class="col-md-10">
+                  <div class="alert alert-danger">
+                    <p><strong>Warning!</strong> Best check yo self, you're not looking too good.
+                  
+                  
+                  </p>
+                    <ul>
+                      <li>This is error one description </li> <li>This is error two description </li>
+                    </ul>
+              </div> </div>
+              </div>
+              
+              
+              
+              
+              
+              
+              
+              
+        
+        <div class="section-content clearfix">
+          <form action="#" method="post" class="form-horizontal">
+            <fieldset>
+              <legend style="display:none">Enter any relevant details for this proposal</legend>
+              <div class="form-group clearfix">
+                <label for="proposal_type" class="control-label col-md-3">Proposal type:</label>
+                <div class="col-md-5">
+                
+                
+                <select class="form-control">
+   <option value="4">Continuation</option>
+                    <option value="1" selected="selected">New</option>
+                    <option value="3">Renewal</option>
+                    <option value="2">Resubmission</option>
+                    <option value="5">Revision</option>
+                    <option value="6">Task Order</option>
+</select>
+
+
+                </div>
+              </div>
+              <div class="form-group clearfix">
+                <label for="lead_unit" class="control-label col-md-3">Lead unit:</label>
+                <div class="col-md-5">
+                
+                  
+                  
+                  
+                  <select class="form-control">
+     <option value="000001" selected="selected">000001 - University</option>
+                    <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY asdf asdf asdfasdf asdf asdf </option>
+                    <option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
+                    <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
+</select>
+
+
+
+                </div>
+              </div>
+              <div class="form-group clearfix has-error">
+                <label for="activity_type" class="control-label col-md-3">Activity type:</label>
+                <div class="col-md-5">
+              
+                  
+                  
+                  <select class="form-control">
+ <option value="4" selected="selected">Clinical Trial</option>
+                    <option value="9">Construction</option>
+                    <option value="7">Fellowship - Post-Doctoral</option>
+                    <option value="6">Fellowship - Pre-Doctoral</option>
+                    <option value="2">Instruction</option>
+                    <option value="3">Public Service</option>
+                    <option value="1">Research</option>
+                    <option value="8">Student Services</option>
+                    <option value="5">other</option>
+</select>
+
+
+                </div>
+              </div>
+              <div class="form-group clearfix">
+                <label for="project_start" class="control-label col-md-3">Start date:</label>
+                <div class="col-md-3 input-group">
+                  <input type="text" class="form-control input-sm" name="project_start" id="project_start" placeholder="Start date" />
+                  <span class="input-group-btn">
+                  <button class="btn btn-default input-sm">@</button>
+                  </span> </div>
+              </div>
+              <div class="form-group clearfix">
+                <label for="project_end" class="control-label col-md-3">End date:</label>
+                <div class="col-md-3 input-group">
+                  <input type="text" class="form-control input-sm" name="project_end" id="project_end" placeholder="End date" />
+                  <span class="input-group-btn">
+                  <button class="btn btn-default input-sm">@</button>
+                  </span> </div>
+              </div>
+           <div class="form-group clearfix">
+                <label for="keywords" class="control-label col-md-3">Sponsor code:</label>
+                <div class="col-md-5">
+                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                </div>
+              </div> <div class="form-group clearfix">
+                <label for="keywords" class="control-label col-md-3">Project title:</label>
+                <div class="col-md-5">
+                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                </div>
+              </div> <div class="form-group clearfix">
+                <label for="keywords" class="control-label col-md-3">Award ID:</label>
+                <div class="col-md-5">
+                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                </div>
+              </div> <div class="form-group clearfix has-error">
+                <label for="keywords" class="control-label col-md-3">Original institutional ID:</label>
+                <div class="col-md-5">
+                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                </div>
+              </div> <div class="form-group clearfix">
+                <label for="keywords" class="control-label col-md-3">Keywords:</label>
+                <div class="col-md-5">
+                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <!-- // --> 
+        
+      </div>
+    </div>
+    
+    <!-- Button row -->
+    <div class="btn-row-page-action">
+<button class="btn btn-default">Save</button>
+      <button  onclick="location.href='prop.basics.oppsearch-search.php'" class="btn btn-primary">Save and continue</button>
+    </div>
+    <!-- // --> 
+    
+  </div>
+</section>
+<footer>
+
+	<div class="container-fluid">
+
+		<div class="footer">
+			<div class="row">
+				<div class="foundation col_md_6">
+					&copy; 2013
+					<a href="#" target="_blank">Kuali Foundation</a>
+				</div>
+				<div class="credit col_md_6">
+					<span>site built with KRAD</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+</footer>
+
+<!-- Scripts -->
+<script src="themes/bootstrap/js/bootstrap.min.js"></script>
+<script src="themes/bootstrap/js/modal.js"></script>
+<script src="themes/kc/js/fancybox/jquery.fancybox.js"></script>
+<script src="themes/kc/js/chosen/chosen.jquery.min.js"></script>
+<script src="themes/kc/js/functions.js"></script>
+<script src="themes/kc/js/jquery.jeditable.mini.js"></script>
+</body>
+</html>
