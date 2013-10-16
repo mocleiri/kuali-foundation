@@ -42,10 +42,4 @@ $alt = false;
 </head>
 
 <body>
-<div class="skip-links">
-  <ul>
-    <li><a href="#">Skip to main content</a></li>
-  </ul>
-</div>
-
 <!-- Continues with nav.php -->

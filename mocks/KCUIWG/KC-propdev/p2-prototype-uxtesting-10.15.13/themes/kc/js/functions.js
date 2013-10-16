@@ -85,7 +85,7 @@ $(document).ready(function() {
 				
 				$(this).multiselect({
 					selectedList: 9,
-					//minWidth: 'auto',
+					minWidth: 'auto',
 					header: 'Choose all that apply',
 					noneSelectedText: 'Select keywords',
 					open: function(event, ui) {
@@ -103,7 +103,7 @@ $(document).ready(function() {
 					header: false,
 					noneSelectedText: 'Select an option',
 					selectedList: 1,
-					//minWidth: 'auto',
+					minWidth: 'auto',
 					open: function(event, ui) {
 						$(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
 					},
@@ -130,11 +130,11 @@ $(document).ready(function() {
 		Calls Fancybox modal using the `page` data attribute
 		Chris Rodriguez
 	*/
-	$('.launch-modal').on('click', function(e){
-		
+	$('.launch-modal').on('click', function(e) {
 		e.preventDefault();
 
-		var fb_href = 	$(this).data('modal-page');
+		var fb_launcher = $(this);
+		var fb_href = fb_launcher.data('modal-page');
 
 		$.fancybox.open({
 			type: 'iframe',
@@ -142,7 +142,16 @@ $(document).ready(function() {
 			minHeight: 300,
 			width: 700,
 			maxWidth: 700,
-			padding: 0
+			padding: 0,
+			afterShow: function() {
+				// Deliver focus to the modal for mouse-less completion
+				$('.fancybox-opened .fancybox-close').parent().find('iframe').attr('tabindex', '-1').focus();
+			}, 
+			afterClose: function() {
+				// Return focus back to the field we were in previously so normal tabbing can continue
+				// fb_launcher.parent().parent().find('.form-control').focus();
+				fb_launcher.focus();
+			}
 		});
 
 	});

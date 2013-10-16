@@ -185,12 +185,12 @@ section.toolbar .dropdown a .caret {
   margin-top: -6px;
 }
 #main label.required {
-  background: #f0f6ff;
+  background: #e6f0ff;
   font-weight: bold;
 }
 #main label.required:after {
   display: block;
-  background: #f0f6ff;
+  background: #e6f0ff;
 }
 #main label.radio,
 #main label.checkbox {
@@ -830,6 +830,9 @@ dl:after {
 }
 .table-smaller-text {
   font-size: .90em;
+}
+.alert {
+  margin-top: 20px;
 }
 .alert-info {
   background-color: #f0f6ff;

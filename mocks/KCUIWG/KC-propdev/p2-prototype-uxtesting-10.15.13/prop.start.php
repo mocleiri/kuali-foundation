@@ -111,9 +111,9 @@ include( '_temp.select.filler.php' );
       <button class="btn btn-default">Cancel</button>
 		<?php
 		if ($alt && file_exists('prop.basics.details-alt.php')) {
-			echo '<button href="prop.basics.details-alt.php" class="btn btn-primary">Save and continue</button>';
+			echo '<button href="prop.basics.details-alt.php?msg=1" class="btn btn-primary">Save and continue</button>';
 		} else {
-			echo '<button href="prop.basics.details.php" class="btn btn-primary">Save and continue</button>';
+			echo '<button href="prop.basics.details.php?msg=1" class="btn btn-primary">Save and continue</button>';
 		}
 		?>
     </div>
