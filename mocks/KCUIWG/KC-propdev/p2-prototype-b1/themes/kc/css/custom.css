@@ -144,10 +144,6 @@ section.toolbar .dropdown a .caret {
   border-bottom-color: #666;
   border-top-color: #666;
 }
-.col-md-3,
-.col-lg-3 {
-  max-width: 200px;
-}
 #main {
   background: #ffffff;
   padding-top: 75px;
@@ -775,6 +771,46 @@ dl:after {
   display: block;
   visibility: hidden;
   clear: both;
+}
+th.sorting,
+th.sorting_asc,
+th.sorting_desc {
+  position: relative;
+  vertical-align: top !important;
+}
+th.sorting_asc,
+th.sorting_desc {
+  background: #ededed !important;
+}
+th.sorting {
+  background: #ddd !important;
+}
+th:before {
+  position: absolute;
+  font-family: 'fontawsome';
+  top: 6px;
+  right: 10px;
+  color: #999;
+}
+th.sorting:before {
+  content: "\f0dc";
+}
+th.sorting_asc:before {
+  content: "\f0de";
+}
+th.sorting_desc:before {
+  content: "\f0dd";
+}
+th a {
+  padding-right: 16px;
+  color: #333 !important;
+  text-decoration: none !important;
+  font-weight: normal !important;
+}
+th a:hover {
+  padding-right: 16px;
+  color: #333;
+  text-decoration: none;
 }
 .fancybox-overlay {
   z-index: 9999;
