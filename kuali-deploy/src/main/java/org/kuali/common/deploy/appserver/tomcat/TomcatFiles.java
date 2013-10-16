@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableList;
 
 public final class TomcatFiles {
 
+	private final TomcatDirs dirs;
 	private final String rootWar;
 	private final String serverXml;
 	private final String webXml;
@@ -16,19 +17,21 @@ public final class TomcatFiles {
 
 	public static class Builder {
 
+		// Required
+		private final TomcatDirs dirs;
+
+		// Optional
 		private String rootWar;
 		private String serverXml;
 		private String webXml;
 		private List<Deployable> logsDirJsps = ImmutableList.of();
 
 		public Builder(TomcatDirs dirs) {
+			this.dirs = dirs;
 			this.rootWar = dirs.getWebapps() + "/ROOT.war";
 			this.serverXml = dirs.getConf() + "/server.xml";
 			this.webXml = dirs.getConf() + "/web.xml";
 			this.logsDirJsps = getLogsDirJsps(dirs);
-		}
-
-		public Builder() {
 		}
 
 		private List<Deployable> getLogsDirJsps(TomcatDirs dirs) {
@@ -67,6 +70,7 @@ public final class TomcatFiles {
 	}
 
 	private TomcatFiles(Builder builder) {
+		this.dirs = builder.dirs;
 		this.rootWar = builder.rootWar;
 		this.serverXml = builder.serverXml;
 		this.webXml = builder.webXml;
@@ -87,6 +91,10 @@ public final class TomcatFiles {
 
 	public List<Deployable> getLogsDirJsps() {
 		return logsDirJsps;
+	}
+
+	public TomcatDirs getDirs() {
+		return dirs;
 	}
 
 }
