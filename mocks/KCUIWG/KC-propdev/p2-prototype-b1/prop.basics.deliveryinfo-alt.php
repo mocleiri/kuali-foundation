@@ -82,8 +82,7 @@ include( '_temp.select.filler.php' );
                   	<option></option>
                     <option value="1">Decrease award</option>
                     <option value="1">Increase award</option>
-                    <option value="1">Order pizza</option>
-                    <option value="1">I'm kinda hungry</option>
+                   
                   </select>
                 </div>
               </div>
