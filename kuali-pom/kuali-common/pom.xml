@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-pom</artifactId>
-    <version>3.3.21-SNAPSHOT</version>
+    <version>3.3.21</version>
   </parent>
   <artifactId>kuali-common</artifactId>
   <packaging>pom</packaging>
