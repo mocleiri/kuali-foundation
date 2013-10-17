@@ -150,8 +150,20 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<h4>Proposal actions</h4>
 
 										<div class="proposal-actions clearfix">
-											<a href="#" class="btn btn-success">Approve</a>
-											<a href="#" class="btn btn-danger">Reject</a>
+											<div class="btn-group">
+												<a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Approve <span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<li><a href="#">Approve entire proposal</a></li>
+													<li><a href="#">Approve and pass to next reviewer</a></li>
+												</ul>
+											</div>
+											<div class="btn-group">
+												<a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Reject <span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<li><a href="#">Reject entire proposal</a></li>
+													<li><a href="#">Line-item rejection</a></li>
+												</ul>
+											</div>
 											<a href="#" class="btn btn-default">Recall</a>
 											<a href="#" class="btn btn-default">Send Notification</a>
 											<a href="#" class="btn btn-primary pull-right">Submit to Sponsor</a>

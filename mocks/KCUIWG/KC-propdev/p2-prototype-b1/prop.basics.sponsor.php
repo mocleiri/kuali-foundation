@@ -21,7 +21,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					    <legend style="display:none">Enter sponsor information</legend>
 
 					    <div class="form-group clearfix">
-							<label class="control-label col-md-3" for="project_start">Sponsor deadline: *</label>
+							<label class="control-label col-md-3 required" for="project_start">Sponsor deadline: *</label>
 							<div class="col-md-9 date-range">
 								<div class="col-md-6 date">
 									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
@@ -35,21 +35,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 						</div>
 
-					    <!-- <div class="form-group clearfix">
-					      <label for="sponsor_deadline_date" class="control-label col-md-3">Sponsor deadline date:</label>
-					      <div class="col-md-9 input-group">
-					        <input type="text" class="form-control input-sm uif-dateControl" name="sponsor_deadline_date" id="sponsor_deadline_date" placeholder="mm/dd/yyyy" />
-				          </div>
-				        </div>
 					    <div class="form-group clearfix">
-					      <label for="sponsor_deadline_time" class="control-label col-md-3">Sponsor deadline time:</label>
-					      <div class="col-md-9">
-					        <input type="text" class="form-control input-sm" name="sponsor_deadline_time" id="sponsor_deadline_time" />
-				          </div>
-				        </div> -->
-
-					    <div class="form-group clearfix">
-					      <label for="notice_of_opp" class="control-label col-md-3">Notice of Opportunity:</label>
+					      <label for="notice_of_opp" class="control-label col-md-3 required">Notice of Opportunity: *</label>
 					      <div class="col-md-9">
 					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
 					        	<option></option>
@@ -64,13 +51,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">
-					      <label for="opportunity_id" class="control-label col-md-3">Opportunity ID:</label>
+					      <label for="opportunity_id" class="control-label col-md-3 required">Opportunity ID: *</label>
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm" name="opportunity_id" id="opportunity_id" value="<?php if ($alt) { echo 'PD 09-6885'; } else { echo 'PA-13-302'; } ?>" disabled />
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">
-					      <label for="cfda_number" class="control-label col-md-3">CFDA number:</label>
+					      <label for="cfda_number" class="control-label col-md-3 required">CFDA number: *</label>
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm" name="cfda_number" id="cfda_number" value="10.001" disabled />
 				          </div>
@@ -130,7 +117,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					    <div class="form-group clearfix">
 					      <label for="opportunity_title" class="control-label col-md-3">Opportunity title:</label>
 					      <div class="col-md-9">
-					        <textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled" disabled="disabled">Non-editable value</textarea>
+					        <textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled" disabled="disabled">Same title from the first page would be here</textarea>
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">

@@ -15,190 +15,189 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
 
-				
-					<h3>Compliance</h3>
-				
+			<h3>Compliance</h3>
+			<form action="#" method="post" class="form-horizontal">
+				<fieldset>
+					<legend>Add compliance requirements for this proposal</legend>
 
-				
-					<form action="#" method="post" class="form-horizontal">
-						<fieldset>
-							<legend>Add compliance requirements for this proposal</legend>
-							<div class="entry-row row" id="compliance_edit">
-								<div class="entry-row-internal">
-									<div class="col-md-3">
-										<label for="compliance_type" class="control-label">Type:</label>
-										<select name="compliance_type" id="compliance_type" class="form-control input-sm chzn">
-											<option value="1">Human Subjects</option>
-											<option value="2">Animal Usage</option>
-											<option value="3">Recombinant DNA</option>
-											<option value="4">Radioactive Isotopes</option>
-											<option value="5">Biohazard Materials</option>
-											<option value="6" selected="selected">International Programs</option>
-											<option value="7">Space Change</option>
-											<option value="8">TLO Review - No conflict (A)</option>
-											<option value="9">TLO review - Reviewed, no conflict (B1)</option>
-											<option value="10">TLO Review - Potential Conflict (B2)</option>
-											<option value="11">TLO PR-Previously Reviewed</option>
-											<option value="12">Foundation Relations</option>
-										</select>
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-6">
+										<h4 class="panel-title">
+											<a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-right"></span> International Programs</a>
+											<span>Approved</span>
+											<span>8/30/2013</span>
+											<span>7236471AC</span>
+											<span>888JJKDF</span>
+										</h4>
 									</div>
-
-									<div class="col-md-3">
-										<label for="approval_status" class="control-label">Approval status:</label>
-										<select name="approval_status" id="approval_status" class="form-control input-sm chzn">
-											<option value="2" selected="selected">Approved</option>
-											<option value="4">Exempt</option>
-											<option value="6">Link to IACUC</option>
-											<option value="5">Link to IRB</option>
-											<option value="3">Not yet applied</option>
-											<option value="1">Pending</option>
-										</select>
-									</div>
-
-									<div class="col-md-2">
-										<label for="protocol_number" class="control-label">Protocol #:</label>
-										<input type="text" class="form-control input-sm" name="protocol_number" id="protocol_number" value="7236471AC" />
-									</div>
-
-									<div class="col-md-2">
-										<label for="excemption" class="control-label">Exemption #:</label>
-										<input type="text" class="form-control input-sm" name="excemption" id="excemption" value="888JJKDF" />
-									</div>
-
-									<div class="col-md-2">
-										<button id="link_save" class="btn btn-success btn-xs">Save</button><br />
-										<a id="link_cancel" class="link-edit" href="#">Cancel</a>
-									</div>
-								</div>
-
-								<div class="entry-row-internal">
-									<div class="col-md-3">
-										<label for="app_date" class="control-label">Application date:</label>
-										<input type="text" class="form-control input-sm" name="app_date" id="app_date" value="8/30/2013" />
-									</div>
-
-									<div class="col-md-3">
-										<label for="approval_date" class="control-label">Approval date:</label>
-										<input type="text" class="form-control input-sm" name="approval_date" id="approval_date" value="8/30/2013" />
-									</div>
-
-									<div class="col-md-3">
-										<label for="exp_date" class="control-label">Expiration date:</label>
-										<input type="text" class="form-control input-sm" name="exp_date" id="exp_date" value="9/1/2014" />
+									<div class="col-md-6">
+										<a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a>
 									</div>
 								</div>
 							</div>
-
-							<div class="entry-row row" id="compliance_1">
-								<div class="entry-row-internal">
-									<div class="col-md-3">
-										<label for="compliance_type" class="control-label">Type:</label><br />
-										International Programs
+							<div id="collapse1" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="form-group clearfix">
+										<label for="type" class="control-label col-md-3">Type:</label>
+										<div class="col-md-9">
+											<select name="type" id="type" class="form-control input-sm col-md-8">
+												<option value="1">Human Subjects</option>
+												<option value="2">Animal Usage</option>
+												<option value="3">Recombinant DNA</option>
+												<option value="4">Radioactive Isotopes</option>
+												<option value="5">Biohazard Materials</option>
+												<option value="6" selected="selected">International Programs</option>
+												<option value="7">Space Change</option>
+												<option value="8">TLO Review - No conflict (A)</option>
+												<option value="9">TLO review - Reviewed, no conflict (B1)</option>
+												<option value="10">TLO Review - Potential Conflict (B2)</option>
+												<option value="11">TLO PR-Previously Reviewed</option>
+												<option value="12">Foundation Relations</option>
+											</select>
+										</div>
 									</div>
 
-									<div class="col-md-3">
-										<label for="approval_status" class="control-label">Approval status:</label>
-										Approved
+									<div class="form-group clearfix">
+										<label for="approval_status" class="control-label col-md-3">Approval status:</label>
+										<div class="col-md-9">
+											<select name="type" id="approval_status" class="form-control input-sm col-md-8">
+												<option value="1" selected="selected">Approved</option>
+												<option value="2">Exempt</option>
+												<option value="3">Link to IACUC</option>
+												<option value="4">Link to IRB</option>
+												<option value="5">Not yet applied</option>
+												<option value="6">Pending</option>
+											</select>
+										</div>
 									</div>
 
-									<div class="col-md-2">
-										<label for="protocol_number" class="control-label">Protocol #:</label>
-										7236471AC
+									<div class="form-group clearfix">
+										<label for="protocol_no" class="control-label col-md-3">Protocol number:</label>
+										<div class="col-md-9">
+											<input type="text" name="protocol_no" id="protocol_no" class="form-control input-sm col-md-8" value="7236471AC" />
+										</div>
 									</div>
 
-									<div class="col-md-2">
-										<label for="excemption" class="control-label">Exemption #:</label>
-										888JJKDF
+									<div class="form-group clearfix">
+										<label for="exemption_no" class="control-label col-md-3">Exemption number:</label>
+										<div class="col-md-9">
+											<input type="text" name="exemption_no" id="exemption_no" class="form-control input-sm col-md-8" value="888JJKDF" />
+										</div>
 									</div>
 
-									<div class="col-md-2">
-										<a id="link_delete" class="link-delete" href="#">Delete</a><br />
-										<a id="link_edit" class="link-edit" href="#">Edit</a>
-									</div>
-								</div>
-
-								<div class="entry-row-internal">
-									<div class="col-md-3">
-										<label for="app_date" class="control-label">Application date:</label>
-										8/30/2013
+									<div class="form-group clearfix">
+										<label for="application_date" class="control-label col-md-3">Application date:</label>
+										<div class="col-md-9">
+											<input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="12/12/2013" />
+										</div>
 									</div>
 
-									<div class="col-md-3">
-										<label for="approval_date" class="control-label">Approval date:</label><br />
-										8/30/2013
-									</div>
-
-									<div class="col-md-3">
-										<label for="exp_date" class="control-label">Expiration date:</label><br />
-										9/1/2014
-									</div>
-								</div>
-							</div>
-
-							<div class="entry-row row" id="compliance_2">
-								<div class="entry-row-internal">
-									<div class="col-md-3">
-										<label for="compliance_type" class="control-label">Type:</label>
-										<select name="compliance_type" id="compliance_type" class="form-control input-sm chzn">
-											<option value="1">Human Subjects</option>
-											<option value="2">Animal Usage</option>
-											<option value="3">Recombinant DNA</option>
-											<option value="4">Radioactive Isotopes</option>
-											<option value="5">Biohazard Materials</option>
-											<option value="6">International Programs</option>
-											<option value="7">Space Change</option>
-											<option value="8">TLO Review - No conflict (A)</option>
-											<option value="9">TLO review - Reviewed, no conflict (B1)</option>
-											<option value="10">TLO Review - Potential Conflict (B2)</option>
-											<option value="11">TLO PR-Previously Reviewed</option>
-											<option value="12">Foundation Relations</option>
-										</select>
-									</div>
-
-									<div class="col-md-3">
-										<label for="approval_status" class="control-label">Approval status:</label>
-										<select name="approval_status" id="approval_status" class="form-control input-sm chzn">
-											<option value="2">Approved</option>
-											<option value="4">Exempt</option>
-											<option value="6">Link to IACUC</option>
-											<option value="5">Link to IRB</option>
-											<option value="3">Not yet applied</option>
-											<option value="1">Pending</option>
-										</select>
-									</div>
-
-									<div class="col-md-2">
-										<label for="protocol_number" class="control-label">Protocol #:</label>
-										<input type="text" class="form-control input-sm" name="protocol_number" id="protocol_number" />
-									</div>
-
-									<div class="col-md-2">
-										<label for="excemption" class="control-label">Exemption #:</label>
-										<input type="text" class="form-control input-sm" name="excemption" id="excemption" />
-									</div>
-								</div>
-
-								<div class="entry-row-internal">
-									<div class="col-md-3">
-										<label for="app_date" class="control-label">Application date:</label>
-										<input type="text" class="form-control input-sm" name="app_date" id="app_date" />
-									</div>
-
-									<div class="col-md-3">
-										<label for="approval_date" class="control-label">Approval date:</label>
-										<input type="text" class="form-control input-sm" name="approval_date" id="approval_date" />
-									</div>
-
-									<div class="col-md-3">
-										<label for="exp_date" class="control-label">Expiration date:</label>
-										<input type="text" class="form-control input-sm" name="exp_date" id="exp_date" />
+									<div class="form-group clearfix">
+										<label for="expiration_date" class="control-label col-md-3">Expiration date:</label>
+										<div class="col-md-9">
+											<input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="05/01/2014" />
+										</div>
 									</div>
 								</div>
 							</div>
-						</fieldset>
+						</div>
 
-						<button class="btn btn-success" id="compliance_add">+ Add entry</button>
-					</form>
+						<div class="panel panel-default" id="add_entry">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-6">
+										<h4 class="panel-title">
+											<a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><span aria-hidden="true" class="icon-caret-right"></span> [New compliance]</a>
+											<!-- <span>-</span>
+											<span>-</span>
+											<span>-</span>
+											<span>-</span> -->
+										</h4>
+									</div>
+									<div class="col-md-6">
+										<a class="pull-right"href="#"><span aria-hidden="true" class="icon-remove"></span></a>
+									</div>
+								</div>
+							</div>
+							<div id="collapse2" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<div class="form-group clearfix">
+										<label for="type2" class="control-label col-md-3">Type:</label>
+										<div class="col-md-9">
+											<select name="type2" id="type2" class="form-control input-sm col-md-8">
+												<option></option>
+												<option value="1">Human Subjects</option>
+												<option value="2">Animal Usage</option>
+												<option value="3">Recombinant DNA</option>
+												<option value="4">Radioactive Isotopes</option>
+												<option value="5">Biohazard Materials</option>
+												<option value="6">International Programs</option>
+												<option value="7">Space Change</option>
+												<option value="8">TLO Review - No conflict (A)</option>
+												<option value="9">TLO review - Reviewed, no conflict (B1)</option>
+												<option value="10">TLO Review - Potential Conflict (B2)</option>
+												<option value="11">TLO PR-Previously Reviewed</option>
+												<option value="12">Foundation Relations</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="approval_status2" class="control-label col-md-3">Approval status:</label>
+										<div class="col-md-9">
+											<select name="approval_status2" id="approval_status2" class="form-control input-sm col-md-8">
+												<option></option>
+												<option value="1">Approved</option>
+												<option value="2">Exempt</option>
+												<option value="3">Link to IACUC</option>
+												<option value="4">Link to IRB</option>
+												<option value="5">Not yet applied</option>
+												<option value="6">Pending</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="protocol_no2" class="control-label col-md-3">Protocol number:</label>
+										<div class="col-md-9">
+											<input type="text" name="protocol_no2" id="protocol_no2" class="form-control input-sm col-md-8" />
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="exemption_no2" class="control-label col-md-3">Exemption number:</label>
+										<div class="col-md-9">
+											<input type="text" name="exemption_no2" id="exemption_no2" class="form-control input-sm col-md-8" />
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="application_date2" class="control-label col-md-3">Application date:</label>
+										<div class="col-md-9">
+											<input type="text" name="application_date2" id="application_date2" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" />
+										</div>
+									</div>
+
+									<div class="form-group clearfix">
+										<label for="expiration_date2" class="control-label col-md-3">Expiration date:</label>
+										<div class="col-md-9">
+											<input type="text" name="expiration_date2" id="expiration_date2" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</fieldset>
+			</form><br />
+
+			<div class="button-row">
+				<button class="btn btn-success" id="compliance_add">+ Add entry</button>
+			</div>
 				
 
 				<!-- // -->
@@ -223,35 +222,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 
 <script type="text/javascript">
-$('#compliance_2').hide();
-$('#compliance_edit').hide();
-
-$('#compliance_add').click(function(e) {
-	e.preventDefault();
-	$('#compliance_2').show();
-});
-
-$('#link_edit').click(function(e) {
-	e.preventDefault();
-	$('#compliance_1').hide();
-	$('#compliance_edit').show();
-});
-
-$('#link_delete').click(function(e) {
-	e.preventDefault();
-	$('#compliance_1').fadeOut();
-});
-
-$('#link_save').click(function(e) {
-	e.preventDefault();
-	$('#compliance_edit').hide();
-	$('#compliance_1').show();
-});
-
-$('#link_cancel').click(function(e) {
-	e.preventDefault();
-	$('#compliance_edit').hide();
-	$('#compliance_1').show();
+$('#add_entry').hide();
+$('#compliance_add').click(function() {
+	$('#add_entry').fadeIn();
 });
 </script>
 
