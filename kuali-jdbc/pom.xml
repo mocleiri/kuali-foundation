@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.3.18</version>
+    <version>3.3.20</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-jdbc</artifactId>
@@ -31,9 +31,9 @@
   <url>http://${kuali.site.hostname}/common/${project.artifactId}/${project.version}</url>
   <inceptionYear>2010</inceptionYear>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</url>
+    <connection>scm:${project.scm.vendor}:${project.scm.url}</connection>
+    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}</developerConnection>
+    <url>${project.scm.url}</url>
   </scm>
   <properties>
     <spring.version>3.2.0.RELEASE</spring.version>
@@ -42,11 +42,10 @@
     <junit.version>4.10</junit.version>
     <slf4j.version>1.6.4</slf4j.version>
     <kuali-threads.version>1.0.10</kuali-threads.version>
+    <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/kuali-jdbc</project.scm.url>
 
     <!-- These properties modify the release process -->
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
-
-    <kuali-util.version>4.4.4-SNAPSHOT</kuali-util.version>
   </properties>
   <developers>
     <developer>
