@@ -22,7 +22,7 @@
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
-  <description>The Kuali Foundation is an umbrella organization that helps manage the Kuali software community..</description>
+  <description>The Kuali Foundation is an umbrella organization that helps manage the Kuali software community</description>
   <modules>
     <module>kuali-common</module>
   </modules>
