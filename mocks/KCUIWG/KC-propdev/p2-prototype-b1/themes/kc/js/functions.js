@@ -222,6 +222,14 @@ $(document).ready(function() {
 
 	}
 
+	if ($('.uif-timeControl').length) {
+
+		$('.uif-timeControl').each(function() {
+			$(this).mask('9:99 PM EST');
+		});
+
+	}
+
 
 
 	/*

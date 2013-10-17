@@ -31,11 +31,11 @@ include( '_temp.select.filler.php' );
               <tbody>
                 <tr>
                   <th class="col-md-3">Organization</th>
-                  <td>University of Washington</td>
+                  <td>Your institution here</td>
                 </tr>
                 <tr>
                   <th class="col-md-3">Address 1</th>
-                  <td>1410 NE Campus Pkwy</td>
+                  <td>100 Some Stree</td>
                 </tr>
                 <tr>
                   <th>Address 2</th>
@@ -43,18 +43,18 @@ include( '_temp.select.filler.php' );
                 </tr>
                 <tr>
                   <th>City</th>
-                  <td>Seattle</td>
+                  <td>Somewhereville</td>
                 </tr>
                 <tr>
                   <th>State</th>
-                  <td>WA</td>
+                  <td>MA</td>
                 </tr>
                 <tr>
                   <th>ZIP</th>
-                  <td>98195</td>
+                  <td>12345</td>
                 </tr>
                 <tr>
-                  <th>Congressional District</th>
+                  <th>Congressional Districts</th>
                   <td></td>
                 </tr>
               </tbody>
@@ -66,11 +66,11 @@ include( '_temp.select.filler.php' );
               <tbody>
                 <tr>
                   <th class="col-md-3">Organization</th>
-                  <td>University of Washington</td>
+                  <td>Your institution here</td>
                 </tr>
                 <tr>
                   <th class="col-md-3">Address 1</th>
-                  <td>1410 NE Campus Pkwy</td>
+                  <td>100 Some Stree</td>
                 </tr>
                 <tr>
                   <th>Address 2</th>
@@ -78,18 +78,18 @@ include( '_temp.select.filler.php' );
                 </tr>
                 <tr>
                   <th>City</th>
-                  <td>Seattle</td>
+                  <td>Somewhereville</td>
                 </tr>
                 <tr>
                   <th>State</th>
-                  <td>WA</td>
+                  <td>MA</td>
                 </tr>
                 <tr>
                   <th>ZIP</th>
-                  <td>98195</td>
+                  <td>12345</td>
                 </tr>
                 <tr>
-                  <th>Congressional District</th>
+                  <th>Congressional Districts</th>
                   <td></td>
                 </tr>
               </tbody>

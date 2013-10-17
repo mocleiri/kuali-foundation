@@ -55,79 +55,100 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										</div>
 									</div>
 
-									<div class="panel-group" id="accordion">
-										<div class="panel">
+									<div class="panel-group" id="accordion2">
+										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h6 class="panel-title">
-													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop1">Proposal Summary</a>
-												</h6>
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-right"></span> Proposal Details</a></h4>
+													</div>
+												</div>
 											</div>
-											<div id="prop1" class="panel-collapse collapse">
+											<div id="collapse1" class="panel-collapse collapse">
 												<div class="panel-body">
 													Stuff here...
 												</div>
 											</div>
 										</div>
-
-										<div class="panel">
+										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h6 class="panel-title">
-													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop2">Key Persons</a>
-												</h6>
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><span aria-hidden="true" class="icon-caret-right"></span> Key Personnel</a></h4>
+													</div>
+												</div>
 											</div>
-											<div id="prop2" class="panel-collapse collapse">
+											<div id="collapse2" class="panel-collapse collapse">
 												<div class="panel-body">
 													Stuff here...
 												</div>
 											</div>
 										</div>
-										
-										<div class="panel">
+										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h6 class="panel-title">
-													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop3">Attachments</a>
-												</h6>
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"><span aria-hidden="true" class="icon-caret-right"></span> Compliance</a></h4>
+													</div>
+												</div>
 											</div>
-											<div id="prop3" class="panel-collapse collapse">
+											<div id="collapse3" class="panel-collapse collapse">
 												<div class="panel-body">
 													Stuff here...
 												</div>
 											</div>
 										</div>
-										
-										<div class="panel">
+										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h6 class="panel-title">
-													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop4">Special Review</a>
-												</h6>
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse4"><span aria-hidden="true" class="icon-caret-right"></span> Attachments</a></h4>
+													</div>
+												</div>
 											</div>
-											<div id="prop4" class="panel-collapse collapse">
+											<div id="collapse4" class="panel-collapse collapse">
 												<div class="panel-body">
 													Stuff here...
 												</div>
 											</div>
 										</div>
-										
-										<div class="panel">
+										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h6 class="panel-title">
-													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop5">Proposal Print</a>
-												</h6>
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse5"><span aria-hidden="true" class="icon-caret-right"></span> Questionnaire</a></h4>
+													</div>
+												</div>
 											</div>
-											<div id="prop5" class="panel-collapse collapse">
+											<div id="collapse5" class="panel-collapse collapse">
 												<div class="panel-body">
 													Stuff here...
 												</div>
 											</div>
 										</div>
-										
-										<div class="panel">
+										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h6 class="panel-title">
-													<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#prop6">Proposal Summary</a>
-												</h6>
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse6"><span aria-hidden="true" class="icon-caret-right"></span> Budget</a></h4>
+													</div>
+												</div>
 											</div>
-											<div id="prop6" class="panel-collapse collapse">
+											<div id="collapse6" class="panel-collapse collapse">
+												<div class="panel-body">
+													Stuff here...
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<div class="row">
+													<div class="col-md-6">
+														<h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse7"><span aria-hidden="true" class="icon-caret-right"></span> Institution Data</a></h4>
+													</div>
+												</div>
+											</div>
+											<div id="collapse7" class="panel-collapse collapse">
 												<div class="panel-body">
 													Stuff here...
 												</div>
