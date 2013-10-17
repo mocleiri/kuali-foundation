@@ -11,23 +11,19 @@ include( '_temp.select.filler.php' );
 ?>
 
 <section id="main">
-  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
-  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid" style="">
-      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
-      
-  
-          
-        
-        <h3>Delivery Info</h3>
-        
-		<div class="alert alert-info">
-			<h4><i class="icon-info-sign"></i> Electronic delivery to Grants.gov</h4>
-			<p>You've selected a grants.gov submission for this proposal. Additional delivery information is not required.</p>
-		</div>
-		
-        <form action="#" method="post" class="form-horizontal">
+<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+<div class="container-fluid" style="">
+<?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+<div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
+<!-- Main content goes here -->
+
+<h3>Delivery Info</h3>
+<div class="alert alert-info">
+  <h4><i class="icon-info-sign"></i> Electronic delivery to Grants.gov</h4>
+  <p>You've selected a grants.gov submission for this proposal. Additional delivery information is not required.</p>
+</div>
+<form action="#" method="post" class="form-horizontal">
 <!--          <h4>Recipient <span style="font-size:11px; font-style:italic"> (<a class="" href="#">edit...</a>)</span></h4>
           <table  class="table table-condensed">
             <tbody>
@@ -57,10 +53,9 @@ include( '_temp.select.filler.php' );
               </tr>
               
             </tbody>
-          </table>-->
-        
-          
-          <!-- <fieldset class="hide">
+          </table>--> 
+
+<!-- <fieldset class="hide">
             <legend>Enter details for this delivery</legend>
             <div class="form-group clearfix">
               <label for="mail_type" class="control-label col-md-3 required">Type:</label>
@@ -131,31 +126,27 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
           </fieldset>
-        </form> -->
-        
-        <!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
-          <div class="btn-row-page-action">
-          	<?php
+        </form> --> 
+
+<!-- // -->
+<div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+  <div class="btn-row-page-action">
+    <?php
 			if ($alt && file_exists('prop.basics.oppsearch-search-alt.php')) {
 				echo '<button href="prop.basics.oppsearch-search-alt.php" class="btn btn-default">Back</button>';
 			} else {
 				echo '<button href="prop.basics.oppsearch-search.php" class="btn btn-default">Back</button>';
 			}
 			?>
-            <button class="btn btn-default">Save</button>
-			<?php
+    <button class="btn btn-default">Save</button>
+    <?php
 			if ($alt && file_exists('prop.basics.sponsor-alt.php')) {
 				echo '<button href="prop.basics.sponsor-alt.php" class="btn btn-primary">Save and continue</button>';
 			} else {
 				echo '<button href="prop.basics.sponsor.php" class="btn btn-primary">Save and continue</button>';
 			}
 			?>
-          </div>
-          <!-- // --> 
-        </div>
-      </div>
-    </div>
   </div>
-</section>
+  <!-- // --> 
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
