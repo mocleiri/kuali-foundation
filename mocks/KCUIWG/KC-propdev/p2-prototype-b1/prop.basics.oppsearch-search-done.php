@@ -45,39 +45,39 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<td>PA-13-302</td>
 										</tr>
 										<tr>
-										<th> Opportunity Title</th>
-										<td><a href="#" id="opp-title" data-type="text" data-pk="1" data-url="/post" data-title="Opportunity Title">testing new SF424 RR form</a></td>
+										<th>Opportunity Title</th>
+										<td>Analysis of Significant Biological Findings</td>
 										</tr>
 										<tr>
-										<th> Submission Type</th>
-										<td><a href="#" id="opp-subtype" data-type="select" data-pk="1" data-url="/post" data-title=" Submission Type">Application</a></td>
+										<th>Submission Type</th>
+										<td>Application</td>
 										</tr>
 										<tr>
 										<th>Revision Type</th>
-										<td><a href="#" id="opp-revisiontype" data-type="select" data-pk="1" data-url="/post" data-title="Revision Type">Increase Award</a></td>
+										<td>Increase award</td>
 										</tr>
 										<tr>
-										<th> CFDA Number</th>
-										<td> 00.000 </td>
+										<th>CFDA Number</th>
+										<td>00.000</td>
 										</tr>
 										<tr>
-										<th> Competition Id</th>
-										<td> NEWRRFORM </td>
+										<th>Competition Id</th>
+										<td>NEWRRFORM </td>
 										</tr>
 										<tr>
-										<th> Opening Date</th>
+										<th>Opening Date</th>
 										<td>&nbsp;</td>
 										</tr>
 										<tr>
-										<th> Closing Date</th>
-										<td> 12/31/2014 12:00 AM </td>
+										<th>Closing Date</th>
+										<td>12/15/2018 5:00 PM</td>
 										</tr>
 										<tr>
-										<th> Instruction Page</th>
+										<th>Instruction Page</th>
 										<td><a href="http://at07apply.grants.gov/apply/opportunities/instructions/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM-instructions.doc" target="_blank">Download instructions</a></td>
 										</tr>
 										<tr>
-										<th> Schema URL</th>
+										<th>Schema URL</th>
 										<td><a href="http://at07apply.grants.gov/apply/opportunities/schemas/applicant/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM.xsd" target="_blank">View schema</a></td>
 										</tr>
 										<tr>
@@ -125,25 +125,29 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 
 							<div class="tab-pane" id="opp-forms">
-								<table  class="table table-condensed table-striped table-hover">
+								<table class="table table-condensed table-striped table-hover">
 									<tbody>
 										<tr>
-										<th> Form Name </th>
-										<th> Mandatory </th>
-										<th> <div class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Include</a>
-										<ul class="dropdown-menu" style="  text-align:left;" >
-										<li><a href="#">Select All</a></li>
-										<li><a href="#">Select None</a></li>
-										</ul>
-										</div>
+										<th><a href="#" class="has-tooltip" title="A collection of forms from your chosen sponsor/provider. Select the forms you want to be included in this proposal.">Form Name</a></th>
+										<th><a href="#" class="has-tooltip" title="Indicates those forms that are required for this proposal based on the sponsor or provider's requirements.">Mandatory</a></th>
+										<th>
+											<div class="dropdown">
+												<a class="dropdown-toggle has-tooltip" data-toggle="dropdown" href="#" title="Check the box next to each additional form you want to be included in this proposal.">Include</a>
+												<ul class="dropdown-menu" style="  text-align:left;" >
+													<li><a href="#">Select All</a></li>
+													<li><a href="#">Select None</a></li>
+												</ul>
+											</div>
 										</th>
-										<th> Desc </th>
-										<th style="width:80px"> <div class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">PDF</a>
-										<ul class="dropdown-menu" style="  text-align:left; left:-80px" >
-										<li><a href="#">Select All</a></li>
-										<li><a href="#">Select None</a></li>
-										</ul>
-										</div>
+										<th><a href="#" class="has-tooltip" title="Indicates whether a description is available for this form.">Description</a></th>
+										<th style="width:80px">
+											<div class="dropdown">
+												<a class="dropdown-toggle has-tooltip" data-toggle="dropdown" href="#" title="Check the box next to each form you want to be included in a single PDF printout.">PDF</a>
+												<ul class="dropdown-menu" style="  text-align:left; left:-80px" >
+													<li><a href="#">Select All</a></li>
+													<li><a href="#">Select None</a></li>
+												</ul>
+											</div>
 										</th>
 										</tr>
 										<tr>

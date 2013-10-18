@@ -510,6 +510,26 @@ $(document).ready(function() {
 
 
 	/*
+		Helper tooltips/popover
+		Creates a Bootstrap tooltip on hover
+		Chris Rodriguez
+	*/
+	$('.has-tooltip').tooltip({
+
+		position: {
+			my: 'center bottom-20',
+			at: 'center top',
+			using: function(position, feedback) {
+				$(this).css(position);
+				$('<div>').addClass('arrow').addClass(feedback.vertical).addClass(feedback.horizontal).appendTo(this);
+			}
+		}
+
+	});
+
+
+
+	/*
 		New window
 		Opens classed links in a new window
 		Chris Rodriguez

@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-md-6">
           <!-- <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1> -->
-          <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: Ken Graves</span> </h1>
+          <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: <em>Not yet assigned</em></span> </h1>
         </div>
         <div class="col-md-6 visible-lg visible-md">
           <div class="metadata"><strong>Document Info</strong>

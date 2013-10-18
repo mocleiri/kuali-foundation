@@ -20,8 +20,8 @@ include( '_temp.select.filler.php' );
 
 <h3>Delivery Info</h3>
 <div class="alert alert-info">
-  <h4><i class="icon-info-sign"></i> Electronic delivery to Grants.gov</h4>
-  <p>You've selected a grants.gov submission for this proposal. Additional delivery information is not required.</p>
+  <h4><i class="icon-info-sign"></i> No action required</h4>
+  <p>You've selected submissionv via electronic delivery to Grants.gov for this proposal. Additional information is not required.</p>
 </div>
 <form action="#" method="post" class="form-horizontal">
 <!--          <h4>Recipient <span style="font-size:11px; font-style:italic"> (<a class="" href="#">edit...</a>)</span></h4>
