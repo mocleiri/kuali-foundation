@@ -25,6 +25,10 @@ include( '_temp.select.filler.php' );
     	<?php } ?>
 
       	<h3>Proposal Details</h3>
+      	<div class="alert alert-required">
+      		<p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
+      	</div>
+      	
         <form action="#" method="post" class="form-horizontal">
         
 							<fieldset>

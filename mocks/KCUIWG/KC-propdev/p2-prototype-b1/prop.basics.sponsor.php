@@ -16,6 +16,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> 
 					<h3>Sponsor &amp; Program Information</h3>
+					<div class="alert alert-required">
+			      		<p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
+			      	</div>
+      	
 					<form action="#" method="post" class="form-horizontal">
 					  <fieldset>
 					    <legend style="display:none">Enter sponsor information</legend>

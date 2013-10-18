@@ -16,6 +16,10 @@ include( '_temp.select.filler.php' );
     <div class="container-fluid" style="">
    
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Create Proposal</h3>
+      	<div class="alert alert-required">
+      		<p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
+      	</div>
+
         <form action="#" method="post" class="form-horizontal">
 							<fieldset>
 								<legend style="display:none">Enter any relevant details for this proposal</legend>

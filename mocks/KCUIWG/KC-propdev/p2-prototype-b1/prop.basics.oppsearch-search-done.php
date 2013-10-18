@@ -317,9 +317,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td >&nbsp;</td>
-										<td ><!--  <input type="checkbox" name="document.developmentProposalList[0].s2sOpportunity.s2sOppForms[17].selectToPrint" value="on">--> 
+										<td align="center" ><!--  <input type="checkbox" name="document.developmentProposalList[0].s2sOpportunity.s2sOppForms[17].selectToPrint" value="on">--> 
 
-										<button class="btn btn-default">Create PDF</button>
+										<button class="btn btn-default btn-sm">Create PDF</button>
 										</tr>
 									</tbody>
 								</table>

@@ -877,6 +877,11 @@ th a:hover {
   background-color: #fff5f5;
   border-color: #ffcccc;
 }
+.alert-required {
+  background-color: #f6f6f6;
+  border-left: 3px solid #ccc;
+  color: #555;
+}
 .ui-tooltip,
 .arrow:after {
   background: #222;
