@@ -58,6 +58,7 @@ public class BaseMojoTestConfig {
 	@Bean
 	public MavenProject mavenProject() {
 		TestableMavenProject project = new TestableMavenProject();
+		project.setProperties(new Properties());
 		project.setGroupId("edu.calpoly.records");
 		project.setArtifactId("power-webapp");
 		project.setProperties(properties());
