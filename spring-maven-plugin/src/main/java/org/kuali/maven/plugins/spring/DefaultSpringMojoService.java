@@ -31,7 +31,7 @@ import org.kuali.common.util.LongCounter;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.StringFilter;
+import org.kuali.common.util.filter.StringFilter;
 import org.kuali.common.util.maven.MavenUtils;
 import org.kuali.common.util.maven.spring.MavenProfileConstants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
@@ -214,10 +214,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> excludes = CollectionUtils.getNoneSensitiveListFromCSV(mojo.getActiveProfileExcludes());
 
 		// Setup a filter
-		StringFilter filter = StringFilter.getInstance(includes, excludes);
+		StringFilter filter = new StringFilter.Builder(includes, excludes).build();
 
 		// Filter out profiles that don't belong
-		CollectionUtils.filterAndSort(profiles, filter);
+		CollectionUtils.filterAndSortStrings(profiles, filter);
 
 		// Return the list
 		return profiles;
@@ -234,10 +234,10 @@ public class DefaultSpringMojoService implements SpringMojoService {
 		List<String> excludes = CollectionUtils.getNoneSensitiveListFromCSV(mojo.getDefaultProfileExcludes());
 
 		// Setup a filter
-		StringFilter filter = StringFilter.getInstance(includes, excludes);
+		StringFilter filter = new StringFilter.Builder(includes, excludes).build();
 
 		// Filter out profiles that don't belong
-		CollectionUtils.filterAndSort(profiles, filter);
+		CollectionUtils.filterAndSortStrings(profiles, filter);
 
 		return profiles;
 	}
