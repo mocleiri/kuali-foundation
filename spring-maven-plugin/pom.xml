@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.3.15</version>
+    <version>3.3.22</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>spring-maven-plugin</artifactId>
