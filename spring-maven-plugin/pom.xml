@@ -52,11 +52,13 @@
   </developers>
   <properties>
     <parent.version>${project.parent.version}</parent.version>
+    <kuali-util.version>4.4.6-SNAPSHOT</kuali-util.version>
+    <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</project.scm.url>
   </properties>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</url>
+    <connection>scm:${project.scm.vendor}:${project.scm.url}</connection>
+    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}</developerConnection>
+    <url>${project.scm.url}</url>
   </scm>
   <build>
     <plugins>
