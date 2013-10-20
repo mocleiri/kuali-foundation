@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import edu.calpoly.records.spring.ThreadsafeTestConfig;
+
 @Configuration
 @Import(BaseMojoTestConfig.class)
 public class LoadMojoTestConfig {
@@ -23,6 +25,7 @@ public class LoadMojoTestConfig {
 		LoadMojo mojo = new LoadMojo();
 		mojo.setProject(project);
 		mojo.setProperties(PropertyUtils.EMPTY);
+		mojo.setAnnotatedClass(ThreadsafeTestConfig.class.getName());
 		return mojo;
 	}
 }
