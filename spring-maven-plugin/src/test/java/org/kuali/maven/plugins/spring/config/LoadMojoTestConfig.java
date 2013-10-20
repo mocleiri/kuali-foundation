@@ -28,7 +28,7 @@ public class LoadMojoTestConfig {
 
 		List<Thread> threads = new ArrayList<Thread>();
 		ThreadGroup group = new ThreadGroup("threads");
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 4; i++) {
 
 			LoadMojo mojo = new LoadMojo();
 			mojo.setProject(project);
