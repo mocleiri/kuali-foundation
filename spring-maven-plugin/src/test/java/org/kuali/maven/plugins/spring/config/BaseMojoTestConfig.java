@@ -60,7 +60,7 @@ public class BaseMojoTestConfig {
 		String groupId = "edu.calpoly.records";
 		String artifactId = "power-webapp";
 		File basedir = basedir();
-		TestableMavenProject project = new TestableMavenProject(new Properties(), basedir, artifactId, groupId);
+		TestableMavenProject project = new TestableMavenProject(groupId, artifactId, basedir, new Properties());
 		project.setGroupId("edu.calpoly.records");
 		project.setArtifactId("power-webapp");
 		project.setPackaging("war");
