@@ -157,10 +157,8 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Get a reference to a SpringService instance (this is DefaultSpringService unless overridden)
 		SpringService service = ReflectionUtils.newInstance(springService);
 
-		System.out.println("before");
 		// Delegate execution to Spring
 		new SpringExecutable(service, context).execute();
-		System.out.println("after");
 	}
 
 	public MavenProject getProject() {
