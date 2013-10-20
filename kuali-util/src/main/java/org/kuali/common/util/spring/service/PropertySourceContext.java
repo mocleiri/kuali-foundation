@@ -52,7 +52,6 @@ public class PropertySourceContext {
 	}
 
 	public PropertySourceContext(List<PropertySource<?>> sources, boolean removeExistingSources) {
-		super();
 		this.sources = sources;
 		this.removeExistingSources = removeExistingSources;
 	}
