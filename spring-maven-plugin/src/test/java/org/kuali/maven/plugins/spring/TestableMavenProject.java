@@ -8,7 +8,7 @@ import org.kuali.common.util.Assert;
 
 public class TestableMavenProject extends MavenProject {
 
-	public TestableMavenProject(Properties properties, File basedir, String artifactId, String groupId) {
+	public TestableMavenProject(String groupId, String artifactId, File basedir, Properties properties) {
 		Assert.noBlanks(groupId, artifactId);
 		Assert.noNulls(properties, basedir);
 		this.properties = properties;

@@ -57,17 +57,17 @@ public class BaseMojoTestConfig {
 
 	@Bean
 	public MavenProject mavenProject() {
-		TestableMavenProject project = new TestableMavenProject();
-		project.setProperties(new Properties());
+		String groupId = "edu.calpoly.records";
+		String artifactId = "power-webapp";
+		File basedir = basedir();
+		TestableMavenProject project = new TestableMavenProject(new Properties(), basedir, artifactId, groupId);
 		project.setGroupId("edu.calpoly.records");
 		project.setArtifactId("power-webapp");
-		project.setProperties(properties());
 		project.setPackaging("war");
 		project.setDescription("description");
 		project.setInceptionYear("2013");
 		project.setCiManagement(ci());
 		project.setIssueManagement(im());
-		project.setBasedir(basedir());
 		project.setBuild(build());
 		return project;
 	}
