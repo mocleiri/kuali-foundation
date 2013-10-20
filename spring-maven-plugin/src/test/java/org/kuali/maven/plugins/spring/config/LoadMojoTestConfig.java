@@ -36,7 +36,7 @@ public class LoadMojoTestConfig {
 			mojo.setAnnotatedClass(ThreadsafeTestConfig.class.getName());
 
 			Runnable target = new MojoRunner(mojo);
-			Thread thread = new Thread(group, target);
+			Thread thread = new Thread(group, target, "mojo-runner-" + i);
 			threads.add(thread);
 		}
 		start(threads);
