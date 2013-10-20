@@ -92,6 +92,33 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Remove any Strings from the list that do not match the filter and then sort the ones that remain
+	 * 
+	 * @return The list of strings that were filtered out.
+	 */
+	public static List<String> filterAndSortStrings(List<String> strings, org.kuali.common.util.filter.StringFilter filter) {
+		List<String> excluded = filterStrings(strings, filter);
+		Collections.sort(strings);
+		return excluded;
+	}
+
+	/**
+	 * Remove any Strings from the collection that do not match the filter
+	 */
+	public static List<String> filterStrings(Collection<String> strings, org.kuali.common.util.filter.StringFilter filter) {
+		List<String> excluded = new ArrayList<String>();
+		Iterator<String> itr = strings.iterator();
+		while (itr.hasNext()) {
+			String string = itr.next();
+			if (!filter.include(string)) {
+				excluded.add(string);
+				itr.remove();
+			}
+		}
+		return excluded;
+	}
+
+	/**
 	 * Remove any Strings from the collection that do not match the filter
 	 * 
 	 * @deprecated
