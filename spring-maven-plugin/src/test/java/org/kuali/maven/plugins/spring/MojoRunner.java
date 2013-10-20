@@ -1,16 +1,15 @@
 package org.kuali.maven.plugins.spring;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.kuali.common.util.Assert;
 
 public class MojoRunner implements Runnable {
 
-	public MojoRunner(AbstractMojo mojo) {
+	public MojoRunner(AbstractSpringMojo mojo) {
 		Assert.noNulls(mojo);
 		this.mojo = mojo;
 	}
 
-	private final AbstractMojo mojo;
+	private final AbstractSpringMojo mojo;
 
 	@Override
 	public void run() {
@@ -21,7 +20,7 @@ public class MojoRunner implements Runnable {
 		}
 	}
 
-	public AbstractMojo getMojo() {
+	public AbstractSpringMojo getMojo() {
 		return mojo;
 	}
 
