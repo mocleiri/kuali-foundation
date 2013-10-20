@@ -145,25 +145,22 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		System.out.println("1");
 		// Create a map containing a reference to the mojo
 		Map<String, Object> beans = Collections.singletonMap(MavenConstants.DEFAULT_MAVEN_MOJO_BEAN_NAME, (Object) this);
 
-		System.out.println("2");
 		// Get a config class
 		Class<?> config = ReflectionUtils.getClass(mojoExecutableConfig);
 
-		System.out.println("3");
 		// Setup a context containing the mojo and config class
 		SpringContext context = new SpringContext(beans, config);
 
-		System.out.println("4");
 		// Get a reference to a SpringService instance (this is DefaultSpringService unless overridden)
 		SpringService service = ReflectionUtils.newInstance(springService);
 
-		System.out.println("5");
+		System.out.println("before");
 		// Delegate execution to Spring
 		new SpringExecutable(service, context).execute();
+		System.out.println("after");
 	}
 
 	public MavenProject getProject() {
