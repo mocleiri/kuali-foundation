@@ -26,6 +26,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.spring.MavenProfileConstants;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringExecutable;
@@ -34,6 +35,9 @@ import org.kuali.common.util.spring.service.SpringService;
 import org.kuali.maven.plugins.spring.config.MojoExecutableConfig;
 
 public abstract class AbstractSpringMojo extends AbstractMojo {
+
+	// TODO See the comments in the execute() method and fix things so this locking object is no longer needed
+	private static final Object MUTEX = new Object();
 
 	@Component
 	MavenProject project;
@@ -157,8 +161,17 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		// Get a reference to a SpringService instance (this is DefaultSpringService unless overridden)
 		SpringService service = ReflectionUtils.newInstance(springService);
 
-		// Delegate execution to Spring
-		new SpringExecutable(service, context).execute();
+		// Create an executable capable of correctly invoking Spring
+		Executable executable = new SpringExecutable(service, context);
+
+		// Guarantee "thread safety". This forces spring-maven-plugin into single threaded mode by locking out all but one thread at a time.
+		// Without this lock, "@Autowired Environment env" annotation's return null when Maven runs in multi-threaded parallel build mode.
+		// A much better solution would be to figure out the root cause of the underlying issue and fix it.
+		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode.
+		synchronized (MUTEX) {
+			// Delegate execution to Spring
+			executable.execute();
+		}
 	}
 
 	public MavenProject getProject() {
