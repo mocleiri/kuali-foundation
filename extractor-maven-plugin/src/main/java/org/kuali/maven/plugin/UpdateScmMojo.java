@@ -81,7 +81,8 @@ public class UpdateScmMojo extends AbstractMojo {
 	protected String getNewContent(MavenProject project, String content, String pomUrl, String newUrl) {
 		String property = "project.scm.url";
 		Properties properties = project.getProperties();
-		if (properties.contains(property)) {
+		String url = properties.getProperty(property);
+		if (!StringUtils.isBlank(url)) {
 			String open = "<" + property + ">";
 			String close = "</" + property + ">";
 			String oldScm = open + StringUtils.substringBetween(content, open, close) + close;
