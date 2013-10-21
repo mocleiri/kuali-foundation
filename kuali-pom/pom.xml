@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kuali.pom</groupId>
-  <version>3.3.25-SNAPSHOT</version>
+  <version>3.3.25</version>
   <artifactId>kuali-pom</artifactId>
   <packaging>pom</packaging>
   <name>Kuali Foundation</name>
@@ -286,9 +286,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/kuali-pom</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/kuali-pom</url>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-pom-3.3.25</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/tags/kuali-pom-3.3.25</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/tags/kuali-pom-3.3.25</url>
   </scm>
   <build>
     <extensions>
