@@ -29,12 +29,27 @@ include( '_temp.select.filler.php' );
               </select>
             </div>
           </div>
+               <div class="form-group clearfix">
+              <label for="mail_type" class="control-label col-md-3">Submission Type:</label>
+              <div class="col-md-9">
+                <select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 onchange">
+                  <option></option>
+                  <option value="delivery_service">Delivery Service</option>
+                  <option value="electronic">Electronic</option>
+                  <option value="usps">US Postal Service</option>
+                </select>
+              </div>
+            </div>
           <div class="form-group clearfix">
             <label for="address2" class="control-label col-md-3">Submission Account ID:</label>
             <div class="col-md-9">
               <input type="text" class="form-control input-sm" name="address1" id="address1" />
             </div>
           </div>
+          
+            
+            
+            
           <div class="form-group clearfix">
             <label for="address2" class="control-label col-md-3">Submission Name &amp; Address:</label>
             <div class="col-md-9">
@@ -52,18 +67,7 @@ include( '_temp.select.filler.php' );
               </p>
             </div>
           </div>
-       <div class="form-group clearfix">
-              <label for="mail_type" class="control-label col-md-3">Type:</label>
-              <div class="col-md-9">
-                <select name="mail_type" id="mail_type" class="form-control input-sm col-md-8 onchange">
-                  <option></option>
-                  <option value="delivery_service">Delivery Service</option>
-                  <option value="electronic">Electronic</option>
-                  <option value="usps">US Postal Service</option>
-                </select>
-              </div>
-            </div>
-            
+  
             <div class="form-group clearfix">
               <label for="number_of_copies" class="control-label col-md-3">Number of copies:</label>
               <div class="col-md-9">
