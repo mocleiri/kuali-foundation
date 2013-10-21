@@ -143,6 +143,9 @@ public class DefaultSpringService implements SpringService {
 	public void load(SpringContext context) {
 		ConfigurableApplicationContext ctx = getApplicationContext(context);
 		try {
+			String id = StringUtils.leftPad(Thread.currentThread().getId() + "", 2);
+			String name = Thread.currentThread().getName();
+			logger.debug("id: " + id + "  name: " + name + " ctx=" + ctx.getClass().getSimpleName() + "@" + Integer.toHexString(ctx.hashCode()));
 			ctx.refresh();
 			SpringUtils.debugQuietly(ctx);
 		} finally {
