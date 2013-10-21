@@ -165,9 +165,12 @@ public abstract class AbstractSpringMojo extends AbstractMojo {
 		Executable executable = new SpringExecutable(service, context);
 
 		// Guarantee "thread safety". This forces spring-maven-plugin into single threaded mode by locking out all but one thread at a time.
-		// Without this lock, "@Autowired Environment env" annotation's return null when Maven runs in multi-threaded parallel build mode.
+		// This is a work around for some kind of issue that appears to be internal to Spring.
+		// The ctx.refresh() call inside DefaultSpringService.load(), locks up and stalls outs if you spin up 8 threads that load the same Config class
+		// Specifically the, "@Autowired Environment env" annotation's return null when Maven runs in multi-threaded parallel build mode.
 		// A much better solution would be to figure out the root cause of the underlying issue and fix it.
-		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode.
+		// This would allow spring-maven-plugin to truly run in multi-threaded mode, instead of merely appearing to run correctly in multi-threaded mode by resorting back to single
+		// threaded mode.
 		synchronized (MUTEX) {
 			// Delegate execution to Spring
 			executable.execute();
