@@ -224,7 +224,7 @@
 
     <plugin.sonar.version>2.0</plugin.sonar.version>
     <plugin.source.version>2.2.1</plugin.source.version>
-    <plugin.spring.version>3.0.2</plugin.spring.version>
+    <plugin.spring.version>3.0.3</plugin.spring.version>
     <plugin.sql.version>1.0.15</plugin.sql.version>
     <plugin.surefire.version>2.14</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.13</plugin.svn-revision-number.version>
