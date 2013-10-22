@@ -4,15 +4,22 @@ use POSIX qw/strftime/;
 use Time::localtime;
 $base="/usr/local/sonatype-work/nexus/storage";
 
-$summary="/home/admin/summary.txt";
-$attached="/home/admin/attached.txt";
-$total ="/home/admin/total.txt";
-$no_checksums ="/home/admin/no_checksums.txt";
+$pwd = `pwd`;
+chomp($pwd);
+$summary="$pwd/summary.txt";
+$attached="$pwd/attached.txt";
+$total ="$pwd/total.txt";
+$no_checksums ="$pwd/no_checksums.txt";
 
 `rm -f $summary`;
 `rm -f $attached`;
 `rm -f $total`;
 `rm -f $no_checksums`;
+
+$jar="$pwd/jar.txt";
+$war="$pwd/war.txt";
+$pom="$pwd/pom.txt";
+$zip="$pwd/zip.txt";
 
 open summary, ">>$summary" or die "Couldn't open '$summary': $!";
 print summary "repository/artifact,total bad check sums, bad md5sum, bad sha1sums\n";
@@ -25,27 +32,19 @@ print no_checksums "repository/artifact,generated for compare ,checksum file con
 open total, ">>$total" or die "Couldn't open '$total': $!";
 print total "Description,Total\n";
 
-#jar
-`cd $base;find  central maven-restlet sonatype-oss-releases saucelabs-repository jsdoctk kuali-s3-private kuali-builds kuali-s3-external kuali-legacy-releases kuali-legacy-snapshots glassfish ow2 spring-milestones atlassian google-reflections hosted-private codehaus eclipselink jboss kuali-private kuali-release kuali-snapshot codehaus-snapshots apache-snapshots java.net-m2 google jasperreports-sourceforge m2eclipse central-m1 java.net-m1-m2 thirdparty releases snapshots java.net-m1 -name "*.jar" > /home/admin/jar.txt`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.jar" > $jar`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.war" > $war`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.pom" > $pom`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.zip" > $zip`;
 
-#war
-`cd $base;find  central maven-restlet sonatype-oss-releases saucelabs-repository jsdoctk kuali-s3-private kuali-builds kuali-s3-external kuali-legacy-releases kuali-legacy-snapshots glassfish ow2 spring-milestones atlassian google-reflections hosted-private codehaus eclipselink jboss kuali-private kuali-release kuali-snapshot codehaus-snapshots apache-snapshots java.net-m2 google jasperreports-sourceforge m2eclipse central-m1 java.net-m1-m2 thirdparty releases snapshots java.net-m1 -name "*.war" > /home/admin/war.txt`;
-
-#pom
-`cd $base;find  central maven-restlet sonatype-oss-releases saucelabs-repository jsdoctk kuali-s3-private kuali-builds kuali-s3-external kuali-legacy-releases kuali-legacy-snapshots glassfish ow2 spring-milestones atlassian google-reflections hosted-private codehaus eclipselink jboss kuali-private kuali-release kuali-snapshot codehaus-snapshots apache-snapshots java.net-m2 google jasperreports-sourceforge m2eclipse central-m1 java.net-m1-m2 thirdparty releases snapshots java.net-m1 -name "*.pom" > /home/admin/pom.txt`;
-
-#zip
-`cd $base;find  central maven-restlet sonatype-oss-releases saucelabs-repository jsdoctk kuali-s3-private kuali-builds kuali-s3-external kuali-legacy-releases kuali-legacy-snapshots glassfish ow2 spring-milestones atlassian google-reflections hosted-private codehaus eclipselink jboss kuali-private kuali-release kuali-snapshot codehaus-snapshots apache-snapshots java.net-m2 google jasperreports-sourceforge m2eclipse central-m1 java.net-m1-m2 thirdparty releases snapshots java.net-m1 -name "*.zip" > /home/admin/zip.txt`;
-
-@REPO= qw(central maven-restlet sonatype-oss-releases saucelabs-repository jsdoctk kuali-s3-private kuali-builds kuali-s3-external kuali-legacy-releases kuali-legacy-snapshots glassfish ow2 spring-milestones atlassian google-reflections hosted-private codehaus eclipselink jboss kuali-private kuali-release kuali-snapshot codehaus-snapshots apache-snapshots java.net-m2 google jasperreports-sourceforge m2eclipse central-m1 java.net-m1-m2 thirdparty releases snapshots java.net-m1);
-
+chdir($base);
+@REPO=`ls -c1`;
 @set = ("sha1:sha1sum" ,"md5:md5sum");
 
-open (J ,"</home/admin/jar.txt"); (@JAR =<J>); close (J); 
-open (W ,"</home/admin/war.txt"); (@WAR =<W>); close (W); 
-open (P ,"</home/admin/pom.txt"); (@POM =<P>); close (P); 
-open (Z ,"</home/admin/zip.txt"); (@ZIP =<Z>); close (Z); 
-#open (X ,"</home/admin/xml.txt"); (@XML =<X>); close (X); 
+open (J ,"<$jar"); (@JAR =<J>); close (J); 
+open (W ,"<$war"); (@WAR =<W>); close (W); 
+open (P ,"<$pom"); (@POM =<P>); close (P); 
+open (Z ,"<$zip"); (@ZIP =<Z>); close (Z); 
 
 @COMBINE = @JAR;
 push(@COMBINE,@POM);
