@@ -16,16 +16,17 @@ include( '_temp.select.filler.php' );
     <div class="container-fluid" style="">
    
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Create Proposal</h3>
-      	<div class="alert alert-required">
-      		<p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
-      	</div>
+      	<!--<div class="alert alert-required">
+      		<p>Required fields are <strong>bold</strong>, marked with asterisks (* ), and have a light blue highlight.</p>
+      	</div>-->
+        <p class="text-muted"> * Indicates required fields</p>
 
         <form action="#" method="post" class="form-horizontal">
 							<fieldset>
 								<legend style="display:none">Enter any relevant details for this proposal</legend>
 								
 								<div class="form-group clearfix">
-									<label for="proposal_type" class="control-label col-md-3 required">Proposal type: *</label>
+									<label for="proposal_type" class="control-label col-md-3 required"> * Proposal type:</label>
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
 											<optgroup label="Most common">
@@ -43,7 +44,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="lead_unit" class="control-label col-md-3 required">Lead unit: *</label>
+									<label for="lead_unit" class="control-label col-md-3 required"> * Lead unit:</label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
 											<optgroup label="Most common">
@@ -59,7 +60,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="activity_type" class="control-label col-md-3 required">Activity type: *</label>
+									<label for="activity_type" class="control-label col-md-3 required">* Activity type:</label>
 									<div class="col-md-9">
 										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
 											<optgroup label="Most common">
@@ -80,7 +81,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label class="control-label col-md-3 required" for="project_start">Project dates: *</label>
+									<label class="control-label col-md-3 required" for="project_start">* Project dates:</label>
 									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
 											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
@@ -95,7 +96,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="project_title" class="control-label col-md-3 required">Project title: *</label>
+									<label for="project_title" class="control-label col-md-3 required">* Project title:</label>
 									<div class="col-md-9">
 										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper"></textarea>
 										<div class="helper-text">
@@ -105,7 +106,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="sponsor_code" class="control-label col-md-3 required">Sponsor code: *</label>
+									<label for="sponsor_code" class="control-label col-md-3 required">* Sponsor code:</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" />
 										<div class="helper-text">
