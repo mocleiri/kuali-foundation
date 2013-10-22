@@ -115,7 +115,7 @@
     <pom.deploy>classpath:org/kuali/common/deploy/mvn/pom.xml</pom.deploy>
 
     <!-- Internal kuali library versions -->
-    <kuali-deploy.version>3.0.1</kuali-deploy.version>
+    <kuali-deploy.version>3.0.2</kuali-deploy.version>
     <kuali-http.version>1.0.8</kuali-http.version>
     <kuali-jdbc.version>3.1.10</kuali-jdbc.version>
     <kuali-maven.version>1.1.3</kuali-maven.version>
