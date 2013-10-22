@@ -19,10 +19,10 @@ include( '_temp.select.filler.php' );
         
         <h3>Organization &amp; Location</h3>
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab" class="" title="The organization or institution applying for this grant.">Applicant Organization</a></li>
-          <li><a href="#tab2" data-toggle="tab" class="" title="The organization or institution where research will be performed at.">Performing Organization</a></li>
-          <li><a href="#tab3" data-toggle="tab" class="" title="Other organizations or institutions that assist with research that are searchable via your organizations directory.">Performance Site Locations</a></li>
-          <li><a href="#tab4" data-toggle="tab" class="" title="Organizations or institutions that assist with research that are outside of your organizations directory. You will need to enter the details manually.">Other Organizations</a></li>
+          <li class="active"><a href="#tab1" data-toggle="tab" class="has-tooltip" title="The organization or institution applying for this grant.">Applicant Organization</a></li>
+          <li><a href="#tab2" data-toggle="tab" class="has-tooltip" title="The organization or institution where research will be performed at.">Performing Organization</a></li>
+          <li><a href="#tab3" data-toggle="tab" class="has-tooltip" title="Other organizations or institutions that assist with research that are searchable via your organizations directory.">Performance Site Locations</a></li>
+          <li><a href="#tab4" data-toggle="tab" class="has-tooltip" title="Organizations or institutions that assist with research that are outside of your organizations directory. You will need to enter the details manually.">Other Organizations</a></li>
         </ul>
         <div id="my-tab-content" class="tab-content">
           <div class="tab-pane active" id="tab1">
