@@ -1,0 +1,6 @@
+<config>
+  <param name="kr.incident.mailing.list"></param>
+  <param name="enable.nonproduction.data.unmasking">true</param>
+  <param name="portal.show.sample.app">true</param>
+  <param name="config.location">/home/tomcat/kuali/main/dev/env${deploy.env}-config.xml</param>
+</config>
