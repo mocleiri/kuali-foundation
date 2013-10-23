@@ -36,6 +36,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 						<div id="my-tab-content" class="tab-content">
 							<div class="tab-pane active" id="opp-details">
+                            
+                            <h4>Opportunity</h4>
+                            
 								<table  class="table table-condensed">
 									<tbody>
 										<tr>
@@ -87,7 +90,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 
 							<div class="tab-pane" id="opp-submission">
-								<p class="alert alert-info">Submission details will be available after the proposal is submitted.</p>
+                            
+                            <h4>Submission Details</h4>
+								<p>Submission details will be available after the proposal is submitted.</p>
 								<!-- <table  class="table table-condensed">
 									<tbody>
 										<tr>
@@ -123,6 +128,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 
 							<div class="tab-pane" id="opp-forms">
+                            
+                            <h4>Forms</h4>
 								<table class="table table-condensed table-striped table-hover">
 									<tbody>
 										<tr>
