@@ -11,10 +11,10 @@ $attached="$pwd/attached.txt";
 $total ="$pwd/total.txt";
 $no_checksums ="$pwd/no_checksums.txt";
 
-`rm -f $summary`;
-`rm -f $attached`;
-`rm -f $total`;
-`rm -f $no_checksums`;
+#`rm -f $summary`;
+#`rm -f $attached`;
+#`rm -f $total`;
+#`rm -f $no_checksums`;
 
 $jar="$pwd/jar.txt";
 $war="$pwd/war.txt";
@@ -32,10 +32,10 @@ print no_checksums "repository/artifact,generated for compare ,checksum file con
 open total, ">>$total" or die "Couldn't open '$total': $!";
 print total "Description,Total\n";
 
-`cd $base;find . -not -path \'*/\.*\' -name "*.jar" > $jar`;
-`cd $base;find . -not -path \'*/\.*\' -name "*.war" > $war`;
-`cd $base;find . -not -path \'*/\.*\' -name "*.pom" > $pom`;
-`cd $base;find . -not -path \'*/\.*\' -name "*.zip" > $zip`;
+#`cd $base;find . -not -path \'*/\.*\' -name "*.jar" > $jar`;
+#`cd $base;find . -not -path \'*/\.*\' -name "*.war" > $war`;
+#`cd $base;find . -not -path \'*/\.*\' -name "*.pom" > $pom`;
+#`cd $base;find . -not -path \'*/\.*\' -name "*.zip" > $zip`;
 
 chdir($base);
 @REPO=`ls -c1`;
@@ -85,15 +85,17 @@ foreach $line (@ALL)
        chomp(@checksumfile);
        #if ($generated[0] eq $checksumfile[0])
        $reconstruct = join " ", @checksumfile;
+         @repository =  split("/", $line);
+         $repository[1] =~ s/\s|\-/_/g;
        if (!($reconstruct =~ $generated[0]))
        {
          $count_with_badchecksums++;
          @repository =  split("/", $line);
-         $repository[0] =~ s/\s|\-/_/g;
-         $checktype = $repository[0]."_".$type;
-         print "\nchecktype: $checktype";
-         if (defined( ${$repository[0]}))  { ${$repository[0]}++; ${$checktype}++; print "\n$checktype: ",${$checktype}; } 
-               else {  ${$repository[0]}=1; ${$checktype}=1; #print attached "\n$repository[0]\n"
+         $repo = $repository[1];
+         $repo =~ s/\s|\-/_/g;
+         $checktype = $repo."_".$type;
+         if (defined( ${$repo}))  { ${$repo}++; ${$checktype}++; print "\n1. $checktype: ",${$checktype}; } 
+               else {  ${$repo}=1; ${$checktype}=1; #print attached "\n$repo\n"
              }
          my $timestamp = ctime(stat($file)->mtime);
          $sumfile_one_row = join " ", @SUMFILE;
