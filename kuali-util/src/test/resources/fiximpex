@@ -28,5 +28,12 @@ DEVOPS-21
 - make sure the resulting zip files are formatted the same way as the examples that are already up there
 
 
+              AMI: ami-65792c0c
+         Key Pair: kuali-key
+Availability Zone: us-east-1d
+
 amzn-ami-minimal-pv-2013.09.0.x86_64-ebs - ami-65792c0c
 Amazon Linux AMI x86_64 MINIMAL EBS
+
+http://aws.amazon.com/amazon-linux-ami/
+ami-35792c5c
