@@ -4,6 +4,7 @@ use POSIX qw/strftime/;
 use Time::localtime;
 $base="/usr/local/sonatype-work/nexus/storage";
 
+chdir("/tmp");
 $pwd = `pwd`;
 chomp($pwd);
 $summary="$pwd/summary.txt";
