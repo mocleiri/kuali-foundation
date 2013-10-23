@@ -26,3 +26,7 @@ DEVOPS-21
 - no checksum verification on the zip file, but diff -r -q on the exploded directory structure showed no differences 
 - upload zip files manually into Kuali Nexus Hosted Private
 - make sure the resulting zip files are formatted the same way as the examples that are already up there
+
+
+amzn-ami-minimal-pv-2013.09.0.x86_64-ebs - ami-65792c0c
+Amazon Linux AMI x86_64 MINIMAL EBS
