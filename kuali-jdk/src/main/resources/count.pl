@@ -11,10 +11,10 @@ $attached="$pwd/attached.txt";
 $total ="$pwd/total.txt";
 $no_checksums ="$pwd/no_checksums.txt";
 
-#`rm -f $summary`;
-#`rm -f $attached`;
-#`rm -f $total`;
-#`rm -f $no_checksums`;
+`rm -f $summary`;
+`rm -f $attached`;
+`rm -f $total`;
+`rm -f $no_checksums`;
 
 $jar="$pwd/jar.txt";
 $war="$pwd/war.txt";
@@ -32,10 +32,10 @@ print no_checksums "repository/artifact,generated for compare ,checksum file con
 open total, ">>$total" or die "Couldn't open '$total': $!";
 print total "Description,Total\n";
 
-#`cd $base;find . -not -path \'*/\.*\' -name "*.jar" > $jar`;
-#`cd $base;find . -not -path \'*/\.*\' -name "*.war" > $war`;
-#`cd $base;find . -not -path \'*/\.*\' -name "*.pom" > $pom`;
-#`cd $base;find . -not -path \'*/\.*\' -name "*.zip" > $zip`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.jar" > $jar`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.war" > $war`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.pom" > $pom`;
+`cd $base;find . -not -path \'*/\.*\' -name "*.zip" > $zip`;
 
 chdir($base);
 @REPO=`ls -c1`;
