@@ -10,7 +10,7 @@ include( 'inc/head.php' );
 		</div>
 
 		<div class="modal-body">
-			<table class="table table-condensed table-hover table-smaller-text">
+			 <table class="table table-condensed table-hover table-smaller-text" id="example">
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
@@ -25,7 +25,7 @@ include( 'inc/head.php' );
 				</thead>
 				<tbody>
 					<tr>
-						<td><a class="btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-primary btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 					  <td>12/31/2013</td>
 						<td >12/31/2014</td>
@@ -35,7 +35,7 @@ include( 'inc/head.php' );
 					  <td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
 					<tr>
-						<td><a class="btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-primary btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 						<td>12/31/2013</td>
 						<td >12/31/2014</td>
@@ -45,7 +45,7 @@ include( 'inc/head.php' );
 						<td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
 					<tr>
-						<td><a class="btn btn-default btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-primary btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 						<td>12/31/2013</td>
 						<td >12/31/2014</td>
@@ -58,7 +58,13 @@ include( 'inc/head.php' );
 			</table>
 		</div>
 		<div class="modal-footer">
-			<a href="lookup-oppsearch.php" class="btn btn-primary pull-right" id="btn-newsearch">New Search</a>
+			
+            
+            
+            <a href="lookup-oppsearch.php" class="btn btn-default btn-sm"><span aria-hidden="true" class="icon-chevron-left"></span> Refine Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a>
+            
+            
+            
 		</div>
 	</div>
 </div>
