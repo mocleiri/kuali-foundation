@@ -21,13 +21,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				</div>
                 <div id="oppsearch-tabs">
                     <!-- <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button> -->
-                    <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-sm btn-default">Load New...</a>-->
+                    <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-xs btn-default">Load New...</a>-->
                 </div>
 
-                    <div class="well">
-	            		<button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html" data-modal-height="500">Change opportunity</button>
-	            		<button class="btn btn-default" href="prop.basics.oppsearch-search.php">Remove opportunity</button>
-	            	</div>
+                    
+	            	
 
 	                <div id="oppsearch-tabs">
 						<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -319,24 +317,33 @@ require_once( 'themes/kc/inc/toolbar.php' );
 										<td >&nbsp;</td>
 										<td align="center" ><!--  <input type="checkbox" name="document.developmentProposalList[0].s2sOpportunity.s2sOppForms[17].selectToPrint" value="on">--> 
 
-										<button class="btn btn-default btn-sm">Create PDF</button>
+										<button class="btn btn-default btn-xs">Create PDF</button>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
 	                </div>
-
-				<!-- <div class="section-content hidden">
-					<form action="#" method="post" class="">
-						<fieldset>
-							<legend>Opportunity actions</legend>
-							<div class="form-group clearfix">
-								<button class="btn btn-default modal" data-page="page-name-here.html">Load new opportunity...</button>
-							</div>
-						</fieldset>
-					</form>
-				</div> -->
+ 
+ 
+ 
+    
+        <div class="btn-row-widget-action">
+          
+            
+            
+            <button class="btn btn-default btn-xs  launch-modal" data-modal-page="modal/lookup-oppsearch.php" data-modal-height="500"><span aria-hidden="true" class="icon-exchange"></span> Change opportunity</button>
+	            		<button class="btn btn-default btn-xs " href="prop.basics.oppsearch-search.php"><span aria-hidden="true" class="icon-remove"></span> Remove opportunity</button>
+                        
+                        
+                        
+        </div>
+        
+        
+        
+        
+		
+	            		
 
 				<!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> 
@@ -352,9 +359,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 			<button class="btn btn-default">Save</button>
 			<?php
 			if ($alt && file_exists('prop.basics.deliveryinfo-alt.php')) {
-				echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-primary">Save and continue</button>';
+				echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-primary">Save and Continue</button>';
 			} else {
-				echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and continue</button>';
+				echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>';
 			}
 			?>
 		</div>

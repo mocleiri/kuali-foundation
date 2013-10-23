@@ -95,7 +95,7 @@ include( '_temp.select.filler.php' );
               </tbody>
             </table>
             <div class="btn-row-widget-action">
-              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup-institution.php">Update organization</button>
+              <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php">Update Organization</button>
             </div>
           </div>
           <div class="tab-pane" id="tab3">
@@ -221,7 +221,7 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
             <div class=" btn-row-widget-action">
-              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup-institution.php">Add location</button>
+              <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php">Add Location</button>
             </div>
           </div>
           <div class="tab-pane " id="tab4">
@@ -323,7 +323,7 @@ include( '_temp.select.filler.php' );
               </div>
             </div>
             <div class="btn-row-widget-action">
-              <button class="btn btn-default btn-sm launch-modal" data-modal-page="modal/lookup-institution.php">Add location</button>
+              <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php">Add Location</button>
             </div>
           </div>
         </div>
@@ -339,7 +339,7 @@ include( '_temp.select.filler.php' );
 		}
 		?>
 		<button class="btn btn-default">Save</button>
-		<button href="prop.keypersonnel.start.php" class="btn btn-primary">Save and continue</button>
+		<button href="prop.keypersonnel.start.php" class="btn btn-primary">Save and Continue</button>
     </div>
     <!-- // --> 
         </div>

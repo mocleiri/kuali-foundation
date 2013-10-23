@@ -20,7 +20,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					<h3>Opportunity Search</h3>
 				</div>
                 <div id="oppsearch-tabs" class="well">
-                    <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.php">Find an opportunity...</button>
+                    <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.php">Find Opportunity</button>
                 </div>
 
 				<div class="section-content hidden">
@@ -28,7 +28,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						<fieldset>
 							<legend>Opportunity actions</legend>
 							<div class="form-group clearfix">
-								<button class="btn btn-default modal" data-page="page-name-here.html">Load new opportunity...</button>
+								<button class="btn btn-default modal" data-page="page-name-here.html">Load New Opportunity...</button>
 							</div>
 						</fieldset>
 					</form>
@@ -47,9 +47,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 			<button class="btn btn-default">Save</button>
 			<?php
 			if ($alt && file_exists('prop.basics.deliveryinfo-alt.php')) {
-				echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-primary">Save and continue</button>';
+				echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-primary">Save and Continue</button>';
 			} else {
-				echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and continue</button>';
+				echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>';
 			}
 			?>		
 		</div>

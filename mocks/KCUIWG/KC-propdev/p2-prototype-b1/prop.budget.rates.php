@@ -34,7 +34,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
 		<div class="btn-row-page-action"> <button  onclick="location.href='prop.budget.params.php'" class="btn btn-default">Back</button>
 <button class="btn btn-default">Save</button>
-      <button  onclick="location.href='prop.budget.personnel.php'" class="btn btn-primary">Save and continue</button>
+      <button  onclick="location.href='prop.budget.personnel.php'" class="btn btn-primary">Save and Continue</button>
 			
 		</div>
 		<!-- // -->

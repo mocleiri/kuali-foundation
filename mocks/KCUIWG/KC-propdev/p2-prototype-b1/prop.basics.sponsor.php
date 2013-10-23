@@ -16,16 +16,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> 
 					<h3>Sponsor &amp; Program Information</h3>
-					<div class="alert alert-required">
+					<!--<div class="alert alert-required">
 			      		<p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
-			      	</div>
-      	
+			      	</div>-->
+        			<p class="text-muted"> * Indicates required fields</p>
 					<form action="#" method="post" class="form-horizontal">
 					  <fieldset>
 					    <legend style="display:none">Enter sponsor information</legend>
 
 					    <div class="form-group clearfix">
-							<label class="control-label col-md-3 required" for="project_start">Sponsor deadline: *</label>
+							<label class="control-label col-md-3 required" for="project_start">* Sponsor deadline: </label>
 							<div class="col-md-9 date-range">
 								<div class="col-md-6 date">
 									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
@@ -40,7 +40,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 						</div>
 
 					    <div class="form-group clearfix">
-					      <label for="notice_of_opp" class="control-label col-md-3 required">Notice of Opportunity: *</label>
+					      <label for="notice_of_opp" class="control-label col-md-3 required">* Notice of Opportunity: </label>
 					      <div class="col-md-9">
 					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
 					        	<optgroup label="Most common">
@@ -58,7 +58,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">
-					      <label for="opportunity_id" class="control-label col-md-3 required">Opportunity ID: *</label>
+					      <label for="opportunity_id" class="control-label col-md-3 required">* Opportunity ID: </label>
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm has-helper" name="opportunity_id" id="opportunity_id" value="<?php if ($alt) { echo 'PD 09-6885'; } else { echo 'PA-13-302'; } ?>" disabled />
 					        <div class="helper-text">
@@ -67,7 +67,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				          </div>
 				        </div>
 					    <div class="form-group clearfix">
-					      <label for="cfda_number" class="control-label col-md-3 required">CFDA number: *</label>
+					      <label for="cfda_number" class="control-label col-md-3 required"> * CFDA number: </label>
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm has-helper" name="cfda_number" id="cfda_number" value="10.001" disabled />
 					        <div class="helper-text">
@@ -175,9 +175,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				<button class="btn btn-default">Save</button>
 		      	<?php
 				if ($alt && file_exists('prop.basics.orgloc-alt.php')) {
-					echo '<button href="prop.basics.orgloc-alt.php" class="btn btn-primary">Save and continue</button>';
+					echo '<button href="prop.basics.orgloc-alt.php" class="btn btn-primary">Save and Continue</button>';
 				} else {
-					echo '<button href="prop.basics.orgloc.php" class="btn btn-primary">Save and continue</button>';
+					echo '<button href="prop.basics.orgloc.php" class="btn btn-primary">Save and Continue</button>';
 				}
 				?>
 			

@@ -169,8 +169,8 @@ include( '_temp.select.filler.php' );
               </fieldset>
             </div>
             <div class=" btn-row-widget-action">
-              <input class="btn btn-default btn-sm" id="back" value="Back" type="reset" />
-              <input class="btn btn-primary btn-sm" id="next" value="Next" type="submit" />
+              <input class="btn btn-default btn-xs" id="back" value="Back" type="reset" />
+              <input class="btn btn-primary btn-xs" id="next" value="Next" type="submit" />
             </div>
           </form>
           
