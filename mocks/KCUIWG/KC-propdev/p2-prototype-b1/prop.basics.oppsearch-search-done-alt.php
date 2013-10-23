@@ -44,11 +44,26 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   </tr>
                   <tr>
                     <th>Submission Type</th>
-                    <td>Application</td>
+                    <td><select name="document.developmentProposalList[0].s2sOpportunity.s2sSubmissionTypeCode" tabindex="0">
+                      <option value="2">Application</option>
+                      <option value="1">Preapplication</option>
+                      <option value="3">Change/Corrected Application</option>
+                    </select></td>
                   </tr>
                   <tr>
                     <th>Revision Type</th>
-                    <td>Increase award</td>
+                    <td><select name="select" style="">
+                      <option value="">select</option>
+                      <option value="B">Decrease Award</option>
+                      <option value="BD">Decrease Award &amp; Decrease Duration</option>
+                      <option value="BC">Decrease Award &amp; Increase Duration</option>
+                      <option value="D">Decrease Duration</option>
+                      <option value="A">Increase Award</option>
+                      <option value="AD">Increase Award &amp; Decrease Duration</option>
+                      <option value="AC">Increase Award &amp; Increase Duration</option>
+                      <option value="C">Increase Duration</option>
+                      <option value="E">Other(Specify)</option>
+                    </select></td>
                   </tr>
                   <tr>
                     <th>CFDA Number</th>
@@ -75,7 +90,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     <td><a href="http://at07apply.grants.gov/apply/opportunities/schemas/applicant/oppCSS-120809-SF424RR-V12-cfda00.000-cidNEWRRFORM.xsd" target="_blank">View schema</a></td>
                   </tr>
                   <tr>
-                    <th>Opportunity Search Domain</th>
+                    <th>S2S Provider</th>
                     <td>Grants.gov</td>
                   </tr>
                 </tbody>
