@@ -10,12 +10,30 @@ require_once( 'themes/kc/inc/toolbar.php' );
 include( '_temp.select.filler.php' );
 
 
+$activity_type = 1;
+$lead_unit = "IN-CARD";
 
 if ($alt) { $sponsorCode=  '000340 NSF'; } else { $sponsorCode = '000340 NIH'; }
-if(isset($_SESSION['sponsor_code']))$sponsorCode =   $_SESSION['sponsor_code'];
+if ($alt) { $project_title = 'Analysis of Significant Chemical Findings'; } else {	$project_title = 'Analysis of Significant Biological Findings'; }
 
+if(isset($_SESSION['sponsor_code'])) $sponsorCode =   $_SESSION['sponsor_code'];
+if(isset($_SESSION['project_title'])) $project_title =   $_SESSION['project_title'];
+if(isset($_SESSION['project_start'])) $project_start =   $_SESSION['project_start'];
+if(isset($_SESSION['project_end'])) $project_end =   $_SESSION['project_end'];
+if(isset($_SESSION['activity_type'])) $activity_type =   $_SESSION['activity_type'];
+if(isset($_SESSION['lead_unit'])) $lead_unit =   $_SESSION['lead_unit'];
+if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_type'];
 ?>
-
+<script>
+/*set stored session value for drop downs
+  Tadas Paegle
+*/
+   $(document).ready(function(){
+        $('#activity_type').val( "<?php echo $activity_type?>" );
+        $('#lead_unit').val( "<?php echo $lead_unit?>" );
+        $('#proposal_type').val( "<?php echo $proposal_type?>" );
+   });
+</script>
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
@@ -104,12 +122,12 @@ if(isset($_SESSION['sponsor_code']))$sponsorCode =   $_SESSION['sponsor_code'];
 									<label class="control-label col-md-3 required" for="project_start">* Project dates: </label>
 									<div class="col-md-9 date-range">
 										<div class="col-md-6 date">
-											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="12/01/2013" />
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="<?php echo $project_start?>" />
 											<label for="project_start" class="helper-text">Beginning on</label>
 										</div>
 										<span class="range">to</span>
 										<div class="col-md-6 date">
-											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="11/30/2018" />
+											<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="<?php echo $project_end?>" />
 											<label for="project_end" class="helper-text">Ending on</label>
 										</div>
 									</div>
@@ -118,7 +136,7 @@ if(isset($_SESSION['sponsor_code']))$sponsorCode =   $_SESSION['sponsor_code'];
 								<div class="form-group clearfix">
 									<label for="project_title" class="control-label col-md-3 required">* Project title: </label>
 									<div class="col-md-9">
-										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper"><?php if ($alt) { echo 'Analysis of Significant Chemical Findings'; } else {	echo 'Analysis of Significant Biological Findings'; } ?></textarea>
+										<textarea name="project_title" id="project_title" class="form-control input-sm has-helper"><?php echo $project_title ?></textarea>
 										<div class="helper-text">
 											Give this proposal a title. Be detailed but concise.
 										</div>
