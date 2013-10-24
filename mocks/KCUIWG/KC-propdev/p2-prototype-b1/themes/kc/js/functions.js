@@ -693,7 +693,8 @@ $(document).ready(function() {
 function storeSession(href){
     var data = '';
     var i = 0;
-    $(".store-as-session").each(function(i,obj){
+    //$(".store-as-session").each(function(i,obj){
+    $(".form-control").each(function(i, obj){
         var value = $(obj).val();
         var fieldName = $(obj).attr('id');
         if(i != 0) data += '&';
