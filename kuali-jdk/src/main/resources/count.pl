@@ -41,6 +41,7 @@ print total "Description,Total\n";
 
 chdir($base);
 @REPO=`ls -c1`;
+chomp(@REPO);
 @set = ("sha1:sha1sum" ,"md5:md5sum");
 
 open (J ,"<$jar"); (@JAR =<J>); close (J); 
