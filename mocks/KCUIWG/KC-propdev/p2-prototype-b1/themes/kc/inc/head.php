@@ -1,4 +1,4 @@
-<?php
+<?php  session_start();
 # Experience configuration settings
 
 // Set to '1' or 'true' if we're using the alternative version of the proposal (i.e., not a Grants.gov proposal)

@@ -7,6 +7,15 @@ $page = 'keypersonnel-start';
 require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
+
+$keyPersonnelMessage = "";
+
+ if(isset($_SESSION['sponsor_code']))  {
+     $pos = strpos($_SESSION['sponsor_code'], "NIH");
+     if($pos !== false) {
+           $keyPersonnelMessage =   "PI/Contact is a required Proposal Role prior to submission. Only one PI/Contact is allowed. For single PI submissions, please designate the lead investigator as PI/Contact & other senior personnel as Key Persons. For multiple PI submissions, please designate one PI/Contact. Add additional lead investigators as co-Investigators and check the Multiple PI box. Add other senior personnel as Key Persons.";
+     }
+ }
 ?>
 
 <section id="main">
@@ -17,7 +26,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
         
         <h3>Key Personnel</h3>
-        <p>Use this page to identify the faculty member or senior researcher who is the Principal Investigator (PI) of the proposal, and any additional Co-Investigators (Co-I), and project Key Persons (other Key Personnel).</p>
+        <p><?php echo $keyPersonnelMessage?></p>
         <div class="btn-row-widget-action">
           <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/start.html"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>

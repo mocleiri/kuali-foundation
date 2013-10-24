@@ -8,6 +8,12 @@ require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 include( '_temp.select.filler.php' );
+
+
+
+if ($alt) { $sponsorCode=  '000340 NSF'; } else { $sponsorCode = '000340 NIH'; }
+if(isset($_SESSION['sponsor_code']))$sponsorCode =   $_SESSION['sponsor_code'];
+
 ?>
 
 <section id="main">
@@ -122,7 +128,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="sponsor_code" class="control-label col-md-3 required">* Sponsor code: </label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="<?php if ($alt) { echo '000340 NSF'; } else { echo '000340 NIH'; } ?>" />
+										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="<?php echo $sponsorCode?>" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>

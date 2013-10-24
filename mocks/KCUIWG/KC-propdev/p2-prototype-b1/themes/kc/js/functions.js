@@ -357,7 +357,8 @@ $(document).ready(function() {
 				if (ctn == 1) {
 				
 					if ($(this).attr('href')) {
-						document.location = $(this).attr('href');
+                        storeSession($(this).attr('href'));
+						//document.location = $(this).attr('href');
 					}
 				
 				} else {
@@ -675,7 +676,7 @@ $(document).ready(function() {
 			autoSize	: true,
 			closeClick	: false,
 			openEffect	: 'none',
-			closeEffect	: 'none',
+			closeEffect	: 'none'
 			//type: 'iframe',
 		});
 	}
@@ -688,6 +689,24 @@ $(document).ready(function() {
 
    
 });
+
+function storeSession(href){
+    var data = '';
+    var i = 0;
+    $(".store-as-session").each(function(i,obj){
+        var value = $(obj).val();
+        var fieldName = $(obj).attr('id');
+        if(i != 0) data += '&';
+        data += fieldName + '=' + value;
+        console.log(fieldName);
+        i++;
+
+    });
+    $.post('save-session.php', data, function(t){
+        console.log(t);
+        document.location = href;
+    });
+}
 
 
 
