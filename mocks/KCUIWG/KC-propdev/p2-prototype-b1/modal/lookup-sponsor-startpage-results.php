@@ -3,7 +3,22 @@
 # Includes
 require_once( 'inc/head.php' );
 ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("a:contains('Select')").live("click", function(){
+             var code = $(this).parent('td').next('td').children("a:first").text();
+             if(code == '')   code = $(this).parent('td').next('td').children('div').children("a:first").text();
+             var name = $(this).parent('td').next('td').next('td').html();
+             console.log(code);
+              $('#sponsor_code',top.document).val(code + ' ' + name);
+              parent.$.fancybox.close();
+              return false;
 
+      });
+
+  });
+
+</script>
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
