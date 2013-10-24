@@ -108,7 +108,7 @@ include( '_temp.select.filler.php' );
 								<div class="form-group clearfix">
 									<label for="sponsor_code" class="control-label col-md-3 required">* Sponsor code:</label>
 									<div class="col-md-9 input-group">
-										<input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" />
+										<input type="text" class="form-control input-sm has-helper store-as-session" name="sponsor_code" id="sponsor_code" />
 										<div class="helper-text">
 											Enter the sponsor code for this proposal or find one using the lookup tool.
 										</div>
