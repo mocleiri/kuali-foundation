@@ -22,19 +22,12 @@
 		<li <?php if ($section == "keypersonnel") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Personnel</span><b class="arrow icon-angle-right"></b> </a>
 			<ul class="submenu">
 				<li <?php if ($page == "keypersonnel-start") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.start.php">Personnel</a></li>
-				<li <?php if ($page == "keypersonnel-intelcredit") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.creditintel.php">Intellectual Credit</a></li>
-				<li <?php if ($page == "keypersonnel-facredit") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.creditfa.php">F&amp:A Credit</a></li>
+				<li <?php if ($page == "keypersonnel-intelcredit") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.credit.php">Credit Allocation</a></li>
 			</ul>
 		</li>
 		<li <?php if ($page == "compliance") { echo 'class="active"'; } ?>><a href="prop.compliance.php"><i class="icon-ok"></i> <span>Compliance</span> </a></li>
-		<li <?php if ($section == "attachments") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="#" class="dropdown-toggle"><i class="icon-paper-clip"></i><span>Attachments</span> <b class="arrow icon-angle-right"></b></a>
-			<ul class="submenu">
-				<li <?php if ($page == "attach-proposal") { echo 'class="active"'; } ?>><a href="prop.attachments.proposal.php">Proposal</a></li>
-				<li <?php if ($page == "attach-personnel") { echo 'class="active"'; } ?>><a href="prop.attachments.personnel.php">Personnel</a></li>
-				<li <?php if ($page == "attach-internal") { echo 'class="active"'; } ?>><a href="prop.attachments.internal.php">Internal</a></li>
-				<li <?php if ($page == "attach-abstracts") { echo 'class="active"'; } ?>><a href="prop.attachments.abstracts.php">Abstracts</a></li>
-				<li <?php if ($page == "attach-notes") { echo 'class="active"'; } ?>><a href="prop.attachments.notes.php">Notes</a></li>
-			</ul>
+		<li <?php if ($page == "attachments") { echo 'class="active"'; } ?>><a href="prop.attachments.php"><i class="icon-paper-clip"></i> <span>Attachments</span> </a></li>
+			
 		</li>
 		<li <?php if ($page == "questions") { echo 'class="active"'; } ?>><a href="prop.questionnaire.php"><i class="icon-question"></i><span> Questionnaire</span></a></li>
 		<li <?php if ($section == "budget") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="#" class="dropdown-toggle"><i class="icon-money"></i> <span>Budget</span> <b class="arrow icon-angle-right"></b></a>
