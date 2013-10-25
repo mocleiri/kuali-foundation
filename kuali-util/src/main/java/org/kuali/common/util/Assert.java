@@ -24,6 +24,20 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_NULLS = "null not allowed";
 	private static final String NO_BLANKS = "blank strings not allowed";
 
+	/**
+	 * Assert that <code>i</code> is greater than or equal to zero
+	 */
+	public static void notNegative(int i) {
+		isTrue(i >= 0, i + " is negative");
+	}
+
+	/**
+	 * Assert that <code>i</code> is greater than zero
+	 */
+	public static void positive(int i) {
+		isTrue(i >= 1, i + " is less than one");
+	}
+
 	public static void exists(String location) {
 		exists(location, "[" + location + "] does not exist");
 	}
