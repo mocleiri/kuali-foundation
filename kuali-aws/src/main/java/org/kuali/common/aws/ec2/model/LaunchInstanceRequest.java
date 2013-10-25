@@ -14,6 +14,7 @@ public final class LaunchInstanceRequest {
 	private final String key;
 	private final InstanceType type;
 	private final List<String> securityGroups;
+	private final List<String> tags;
 
 	public static class Builder {
 
@@ -21,6 +22,7 @@ public final class LaunchInstanceRequest {
 		private final String key;
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
+		private List<String> tags = ImmutableList.of();
 
 		public Builder(String ami, String key) {
 			this.ami = ami;
@@ -42,10 +44,16 @@ public final class LaunchInstanceRequest {
 			return this;
 		}
 
+		public Builder tags(List<String> tags) {
+			this.tags = tags;
+			return this;
+		}
+
 		public LaunchInstanceRequest build() {
 			Assert.noBlanks(ami, key);
-			Assert.noNulls(type, securityGroups);
+			Assert.noNulls(type, securityGroups, tags);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
+			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceRequest(this);
 		}
 
@@ -56,6 +64,7 @@ public final class LaunchInstanceRequest {
 		this.key = builder.key;
 		this.type = builder.type;
 		this.securityGroups = builder.securityGroups;
+		this.tags = builder.tags;
 	}
 
 	public String getAmi() {
