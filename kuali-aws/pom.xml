@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.3.17</version>
+    <version>3.3.26</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-aws</artifactId>
@@ -30,7 +30,7 @@
   <description>Software for interacting with Amazon Web Services</description>
   <properties>
     <slf4j.version>1.7.5</slf4j.version>
-    <aws.version>1.5.6</aws.version>
+    <aws.version>1.6.3</aws.version>
     <junit.version>4.11</junit.version>
   </properties>
   <developers>
