@@ -49,8 +49,8 @@ public final class DefaultEC2Service implements EC2Service {
 		DescribeInstancesResult result = client.describeInstances(request);
 		List<Reservation> reservations = result.getReservations();
 		Assert.isTrue(reservations.size() == 1, "Expected exactly 1 reservation but there were " + reservations.size() + " instead");
-		Reservation r = reservations.get(0);
-		List<Instance> instances = r.getInstances();
+		Reservation reservation = reservations.get(0);
+		List<Instance> instances = reservation.getInstances();
 		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
 		Instance instance = instances.get(0);
 		logger.debug("Retrieved Instance: [{}]", instance.getInstanceId());
