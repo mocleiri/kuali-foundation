@@ -80,7 +80,7 @@ public final class DefaultEC2Service implements EC2Service {
 		client.createTags(ctr);
 	}
 
-	public Instance wait(Instance instance, WaitControl wc) {
+	protected Instance wait(Instance instance, WaitControl wc) {
 		if (wc.isWait()) {
 			StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
 			Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), wc.getState() };
@@ -92,7 +92,7 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 	}
 
-	public void waitForState(StateRetriever retriever, WaitControl wc) {
+	protected void waitForState(StateRetriever retriever, WaitControl wc) {
 		long now = System.currentTimeMillis();
 		long timeout = now + wc.getTimeoutMillis();
 		// Wait a little bit before we query AWS for state information
