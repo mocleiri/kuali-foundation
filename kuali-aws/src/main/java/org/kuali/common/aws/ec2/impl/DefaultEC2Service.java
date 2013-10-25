@@ -59,18 +59,22 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance launchInstance(LaunchInstanceRequest request) {
-		RunInstancesRequest rir = getRunInstancesRequest(request);
-		RunInstancesResult result = client.runInstances(rir);
-		Reservation r = result.getReservation();
-		List<Instance> instances = r.getInstances();
-		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
-		Instance instance = instances.get(0);
+		Instance instance = getInstance(request);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
 		if (request.getWaitControl().isPresent()) {
 			wait(instance, request.getWaitControl().get());
 		}
 		tag(instance.getInstanceId(), request.getTags());
 		return instance;
+	}
+
+	protected Instance getInstance(LaunchInstanceRequest request) {
+		RunInstancesRequest rir = getRunInstancesRequest(request);
+		RunInstancesResult result = client.runInstances(rir);
+		Reservation r = result.getReservation();
+		List<Instance> instances = r.getInstances();
+		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
+		return instances.get(0);
 	}
 
 	@Override
