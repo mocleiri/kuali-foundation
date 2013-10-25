@@ -32,6 +32,7 @@
     <slf4j.version>1.7.5</slf4j.version>
     <aws.version>1.6.3</aws.version>
     <junit.version>4.11</junit.version>
+    <project.scm.url>http://svn.kuali.org/repos/foundation/trunk/kuali-aws</project.scm.url>
   </properties>
   <developers>
     <developer>
@@ -97,8 +98,8 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-aws</connection>
-    <developerConnection>scm:svn:http://svn.kuali.org/repos/foundation/trunk/kuali-aws</developerConnection>
-    <url>http://svn.kuali.org/repos/foundation/trunk/kuali-aws</url>
+    <connection>scm:${project.scm.vendor}:${project.scm.url}</connection>
+    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}</developerConnection>
+    <url>${project.scm.url}</url>
   </scm>
 </project>
