@@ -25,6 +25,24 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_BLANKS = "blank strings not allowed";
 
 	/**
+	 * Assert that all of the numbers in the array are greater than or equal to zero
+	 */
+	public static void noNegatives(int... numbers) {
+		for (int number : numbers) {
+			notNegative(number);
+		}
+	}
+
+	/**
+	 * Assert that all of the numbers in the array are less than or equal to zero
+	 */
+	public static void noPositives(int... numbers) {
+		for (int number : numbers) {
+			notPositive(number);
+		}
+	}
+
+	/**
 	 * Assert that <code>i</code> is greater than or equal to zero
 	 */
 	public static void notNegative(int i) {
