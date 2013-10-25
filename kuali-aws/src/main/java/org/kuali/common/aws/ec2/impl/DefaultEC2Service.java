@@ -66,6 +66,17 @@ public final class DefaultEC2Service implements EC2Service {
 		client.createTags(ctr);
 	}
 
+	public Instance wait(Instance instance, WaitControl wc) {
+		if (wc.isWait()) {
+			StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
+			logger.info("Waiting up to {} for [{}] to start", FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId());
+			waitForState(sr, wc);
+			return getInstance(instance.getInstanceId());
+		} else {
+			return instance;
+		}
+	}
+
 	public void waitForState(StateRetriever retriever, WaitControl wc) {
 		long now = System.currentTimeMillis();
 		long timeout = now + wc.getTimeoutMillis();
@@ -82,17 +93,6 @@ public final class DefaultEC2Service implements EC2Service {
 			String remaining = FormatUtils.getTime(timeout - now);
 			logger.info("[{}] - remaining {}", currentState, remaining);
 			ThreadUtils.sleep(wc.getSleepMillis());
-		}
-	}
-
-	public Instance wait(Instance instance, WaitControl wc) {
-		if (wc.isWait()) {
-			StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
-			logger.info("Waiting up to {} for [{}] to start", FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId());
-			waitForState(sr, wc);
-			return getInstance(instance.getInstanceId());
-		} else {
-			return instance;
 		}
 	}
 
