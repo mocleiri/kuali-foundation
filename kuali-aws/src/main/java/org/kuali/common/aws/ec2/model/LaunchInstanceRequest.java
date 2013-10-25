@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 public final class LaunchInstanceRequest {
 
 	private final String ami;
-	private final String key;
+	private final String keyName;
 	private final InstanceType type;
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
@@ -27,24 +27,24 @@ public final class LaunchInstanceRequest {
 		public static final int DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 
 		private final String ami;
-		private final String key;
+		private final String keyName;
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<WaitCondition> waitCondition = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build());
 		private Optional<String> availabilityZone = Optional.absent();
 
-		public Builder(String ami, String key) {
-			this(ami, key, DEFAULT_TIMEOUT_MILLIS);
+		public Builder(String ami, String keyName) {
+			this(ami, keyName, DEFAULT_TIMEOUT_MILLIS);
 		}
 
-		public Builder(String ami, String key, String timeout) {
-			this(ami, key, FormatUtils.getMillisAsInt(timeout));
+		public Builder(String ami, String keyName, String timeout) {
+			this(ami, keyName, FormatUtils.getMillisAsInt(timeout));
 		}
 
-		public Builder(String ami, String key, int timeoutMillis) {
+		public Builder(String ami, String keyName, int timeoutMillis) {
 			this.ami = ami;
-			this.key = key;
+			this.keyName = keyName;
 			this.waitCondition = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build());
 		}
 
@@ -79,7 +79,7 @@ public final class LaunchInstanceRequest {
 		}
 
 		public LaunchInstanceRequest build() {
-			Assert.noBlanks(ami, key);
+			Assert.noBlanks(ami, keyName);
 			Assert.noNulls(type, securityGroups, tags, waitCondition, availabilityZone);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
@@ -90,7 +90,7 @@ public final class LaunchInstanceRequest {
 
 	private LaunchInstanceRequest(Builder builder) {
 		this.ami = builder.ami;
-		this.key = builder.key;
+		this.keyName = builder.keyName;
 		this.type = builder.type;
 		this.securityGroups = builder.securityGroups;
 		this.tags = builder.tags;
@@ -102,8 +102,8 @@ public final class LaunchInstanceRequest {
 		return ami;
 	}
 
-	public String getKey() {
-		return key;
+	public String getKeyName() {
+		return keyName;
 	}
 
 	public InstanceType getType() {

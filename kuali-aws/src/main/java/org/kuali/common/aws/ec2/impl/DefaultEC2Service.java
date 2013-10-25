@@ -118,7 +118,7 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
 		rir.setImageId(request.getAmi());
-		rir.setKeyName(request.getKey());
+		rir.setKeyName(request.getKeyName());
 		rir.setSecurityGroups(request.getSecurityGroups());
 		if (request.getAvailabilityZone().isPresent()) {
 			String zone = request.getAvailabilityZone().get();
