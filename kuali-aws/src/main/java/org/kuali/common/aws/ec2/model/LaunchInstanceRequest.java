@@ -83,4 +83,8 @@ public final class LaunchInstanceRequest {
 		return securityGroups;
 	}
 
+	public List<String> getTags() {
+		return tags;
+	}
+
 }
