@@ -36,6 +36,8 @@ public final class DefaultEC2Service implements EC2Service {
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
 		Assert.isTrue(instances.size() == 1);
+		Instance instance = instances.get(0);
+		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
 		return instances.get(0);
 	}
 
