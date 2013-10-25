@@ -21,6 +21,7 @@ import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
@@ -117,6 +118,11 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setImageId(request.getAmi());
 		rir.setKeyName(request.getKey());
 		rir.setSecurityGroups(request.getSecurityGroups());
+		if (request.getAvailabilityZone().isPresent()) {
+			String zone = request.getAvailabilityZone().get();
+			Placement placement = new Placement(zone);
+			rir.setPlacement(placement);
+		}
 		return rir;
 	}
 
