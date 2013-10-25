@@ -22,7 +22,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
         
         
         <div class="btn-row-widget-action">
-            <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-oppsearch.php"> <span aria-hidden="true" class="icon-search"></span> Find an opportunity</button>
+            <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-oppsearch.php"> <i class="icon-search" aria-hidden="true"></i> Find an opportunity</button>
         </div>
         
         

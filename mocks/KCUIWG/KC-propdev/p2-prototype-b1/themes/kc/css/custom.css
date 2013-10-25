@@ -411,6 +411,9 @@ section.toolbar .dropdown a .caret {
 	Overriding the default Bootstrap input styles to better match the Chosen styles
 	Chris Rodriguez
 */
+.btn-xs {
+  padding: 3px 6px !important;
+}
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -552,6 +555,13 @@ textarea:disabled,
   background: -o-linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
   background: linear-gradient(top, #ffffff 20%, #ffffff 50%, #f2f2f2 52%, #e6e6e6 100%);
   background-clip: padding-box;
+}
+button .icon-search {
+  border: 0;
+  padding: inherit;
+  color: inherit;
+  background-color: transparent;
+  background: transparent;
 }
 .ui-multiselect-menu {
   border-radius: 0;
