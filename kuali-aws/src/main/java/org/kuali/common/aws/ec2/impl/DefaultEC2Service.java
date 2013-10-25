@@ -50,10 +50,7 @@ public final class DefaultEC2Service implements EC2Service {
 			return;
 		}
 		List<String> resources = Collections.singletonList(instance.getInstanceId());
-
 		CreateTagsRequest ctr = new CreateTagsRequest(resources, request.getTags());
-		ctr.setResources(Collections.singletonList(instance.getInstanceId()));
-		ctr.setTags(request.getTags());
 		client.createTags(ctr);
 	}
 
