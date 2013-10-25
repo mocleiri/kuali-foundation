@@ -26,7 +26,7 @@ public final class WaitControl {
 
 		public WaitControl build() {
 			Assert.noBlanks(state);
-			Assert.isTrue(sleepMillis >=0);
+			Assert.noNegatives(timeoutMillis, sleepMillis, initialPauseMillis);
 			return new WaitControl(this);
 		}
 
