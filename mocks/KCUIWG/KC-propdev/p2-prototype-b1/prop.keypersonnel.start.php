@@ -30,7 +30,7 @@ $keyPersonnelMessage = "";
         <div class="btn-row-widget-action">
           <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/start.html"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>
-        
+         <div id="personnel-container"></div>
         <!-- // -->
         
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
@@ -47,3 +47,15 @@ $keyPersonnelMessage = "";
   </div>
 </section>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
+<script>
+$(document).ready(function(){
+    $(".icon-remove").live("click", function(){
+            var container = $(this).parents('div').eq(4);
+            if(confirm("Are you sure you want to remove this person")) $(container).remove();
+
+             return false;
+          //   alert($(this).parents('div').eq(4).attr('id'));
+        });
+
+});
+</script>
