@@ -19,7 +19,7 @@ public final class LaunchInstanceRequest {
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
-	private final Optional<WaitControl> waitControl;
+	private final Optional<WaitCondition> waitControl;
 
 	public static class Builder {
 
@@ -31,7 +31,7 @@ public final class LaunchInstanceRequest {
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
-		private Optional<WaitControl> waitControl = Optional.of(new WaitControl.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build());
+		private Optional<WaitCondition> waitControl = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build());
 		private Optional<String> availabilityZone = Optional.absent();
 
 		public Builder(String ami, String key) {
@@ -45,7 +45,7 @@ public final class LaunchInstanceRequest {
 		public Builder(String ami, String key, int timeoutMillis) {
 			this.ami = ami;
 			this.key = key;
-			this.waitControl = Optional.of(new WaitControl.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build());
+			this.waitControl = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build());
 		}
 
 		public Builder availabilityZone(String availabilityZone) {
@@ -53,7 +53,7 @@ public final class LaunchInstanceRequest {
 			return this;
 		}
 
-		public Builder waitControl(WaitControl waitControl) {
+		public Builder waitControl(WaitCondition waitControl) {
 			this.waitControl = Optional.of(waitControl);
 			return this;
 		}
@@ -118,7 +118,7 @@ public final class LaunchInstanceRequest {
 		return tags;
 	}
 
-	public Optional<WaitControl> getWaitControl() {
+	public Optional<WaitCondition> getWaitControl() {
 		return waitControl;
 	}
 

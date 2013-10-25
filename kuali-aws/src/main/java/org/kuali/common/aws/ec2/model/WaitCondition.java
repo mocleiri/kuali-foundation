@@ -3,7 +3,7 @@ package org.kuali.common.aws.ec2.model;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 
-public final class WaitControl {
+public final class WaitCondition {
 
 	private final int timeoutMillis;
 	private final int sleepMillis;
@@ -33,15 +33,15 @@ public final class WaitControl {
 			return this;
 		}
 
-		public WaitControl build() {
+		public WaitCondition build() {
 			Assert.noBlanks(state);
 			Assert.noNegatives(timeoutMillis, sleepMillis, initialPauseMillis);
-			return new WaitControl(this);
+			return new WaitCondition(this);
 		}
 
 	}
 
-	private WaitControl(Builder builder) {
+	private WaitCondition(Builder builder) {
 		this.timeoutMillis = builder.timeoutMillis;
 		this.sleepMillis = builder.sleepMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;

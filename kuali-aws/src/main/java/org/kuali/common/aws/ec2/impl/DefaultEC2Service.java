@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.api.StateRetriever;
 import org.kuali.common.aws.ec2.model.LaunchInstanceRequest;
-import org.kuali.common.aws.ec2.model.WaitControl;
+import org.kuali.common.aws.ec2.model.WaitCondition;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -86,7 +86,7 @@ public final class DefaultEC2Service implements EC2Service {
 		client.createTags(ctr);
 	}
 
-	protected Instance wait(Instance instance, WaitControl wc) {
+	protected Instance wait(Instance instance, WaitCondition wc) {
 		StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), wc.getState() };
 		logger.info("Waiting up to {} for [{}] to reach the state [{}]", args);
@@ -94,7 +94,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return getInstance(instance.getInstanceId());
 	}
 
-	protected void waitForState(StateRetriever retriever, WaitControl wc) {
+	protected void waitForState(StateRetriever retriever, WaitCondition wc) {
 		long now = System.currentTimeMillis();
 		long timeout = now + wc.getTimeoutMillis();
 		// Wait a little bit before we query AWS for state information
