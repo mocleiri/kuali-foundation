@@ -49,7 +49,7 @@ public final class LaunchInstanceRequest {
 		}
 
 		public Builder availabilityZone(String availabilityZone) {
-			this.availabilityZone = Optional.fromNullable(availabilityZone);
+			this.availabilityZone = Optional.fromNullable(StringUtils.trimToNull(availabilityZone));
 			return this;
 		}
 
