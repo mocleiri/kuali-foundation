@@ -15,7 +15,7 @@ public interface EC2Service {
 	public Instance launchInstance(LaunchInstanceRequest request);
 
 	/**
-	 * Return an Amazon EC2 instance given an instance id
+	 * Return an Amazon EC2 instance object given an instance id
 	 */
 	public Instance getInstance(String id);
 
