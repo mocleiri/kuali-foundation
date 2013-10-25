@@ -73,7 +73,6 @@ $(document).ready(function() {
 	});
 
     $('#add-person').live("click", function(){
-        alert('t');
         $.get("../../prop.keypersonnel.person.php", function(t){
             $('#personnel-container',top.document).append(t);
             parent.$.fancybox.close();
