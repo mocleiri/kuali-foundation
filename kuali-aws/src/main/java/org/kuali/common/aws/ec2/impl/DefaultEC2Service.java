@@ -40,7 +40,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Instance getInstance(String instanceId) {
+	public Instance getInstance(String id) {
 		return null;
 	}
 
