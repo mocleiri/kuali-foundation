@@ -13,7 +13,6 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -60,9 +59,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected void tag(Instance instance, List<Tag> tags) {
-		if (CollectionUtils.isEmpty(tags)) {
-			return;
-		}
+		Assert.noNulls(tags);
 		List<String> resources = Collections.singletonList(instance.getInstanceId());
 		CreateTagsRequest ctr = new CreateTagsRequest(resources, tags);
 		client.createTags(ctr);
