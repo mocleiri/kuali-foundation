@@ -15,30 +15,27 @@
  */
 package org.kuali.common.aws.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.kuali.common.util.Project;
-import org.kuali.common.util.property.ProjectProperties;
-import org.kuali.common.util.spring.ConfigUtils;
+import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(AwsProjectConfig.class)
-public class KualiFoundationPropertiesConfig {
+@Import(SpringServiceConfig.class)
+public class AwsServiceConfig {
 
 	@Autowired
-	AwsProjectConfig projectConfig;
+	EnvironmentService env;
 
 	@Bean
-	public ProjectProperties kualiFoundationProjectProperties() {
-		Project project = projectConfig.awsProject();
-		List<String> locations = new ArrayList<String>();
-		locations.add("classpath:kuali-foundation.properties");
-		return ConfigUtils.getProjectProperties(project, locations);
+	public EC2Service ec2Service() {
+		String accessKey = env.getString("aws.accessKey");
+		String secretKey = env.getString("aws.secretKey");
+		return new DefaultEC2Service(accessKey, secretKey);
 	}
 
 }
