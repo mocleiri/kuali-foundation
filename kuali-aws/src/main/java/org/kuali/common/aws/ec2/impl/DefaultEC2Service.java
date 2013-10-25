@@ -70,7 +70,8 @@ public final class DefaultEC2Service implements EC2Service {
 	public Instance wait(Instance instance, WaitControl wc) {
 		if (wc.isWait()) {
 			StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
-			logger.info("Waiting up to {} for [{}] to start", FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId());
+			Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId() };
+			logger.info("Waiting up to {} for [{}] to start", args);
 			waitForState(sr, wc);
 			return getInstance(instance.getInstanceId());
 		} else {
