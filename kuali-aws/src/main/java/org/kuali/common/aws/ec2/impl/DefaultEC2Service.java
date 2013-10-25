@@ -53,14 +53,16 @@ public final class DefaultEC2Service implements EC2Service {
 		Assert.isTrue(instances.size() == 1);
 		Instance instance = instances.get(0);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
-		tag(instance, request.getTags());
 		wait(instance, request.getWaitControl());
+		tag(instance.getInstanceId(), request.getTags());
 		return instance;
 	}
 
-	protected void tag(Instance instance, List<Tag> tags) {
+	@Override
+	public void tag(String resourceId, List<Tag> tags) {
 		Assert.noNulls(tags);
-		List<String> resources = Collections.singletonList(instance.getInstanceId());
+		Assert.noBlanks(resourceId);
+		List<String> resources = Collections.singletonList(resourceId);
 		CreateTagsRequest ctr = new CreateTagsRequest(resources, tags);
 		client.createTags(ctr);
 	}
