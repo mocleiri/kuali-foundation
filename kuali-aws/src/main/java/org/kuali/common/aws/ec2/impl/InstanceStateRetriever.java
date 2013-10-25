@@ -1,7 +1,6 @@
 package org.kuali.common.aws.ec2.impl;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.api.StateRetriever;
 import org.kuali.common.util.Assert;
 
 import com.amazonaws.services.ec2.model.Instance;

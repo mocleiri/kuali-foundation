@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.api.StateRetriever;
 import org.kuali.common.aws.ec2.model.LaunchInstanceRequest;
 import org.kuali.common.aws.ec2.model.WaitCondition;
 import org.kuali.common.util.Assert;
