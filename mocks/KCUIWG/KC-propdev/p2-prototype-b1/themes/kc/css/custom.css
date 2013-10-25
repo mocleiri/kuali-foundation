@@ -1611,8 +1611,7 @@ nav-list > li > a {
 }
 #sidebar + #Uif-PageContentWrapper {
   margin-left: 250px;
-  width: 55%;
-  float: left;
+  max-width: 768px;
 }
 .right-sidebar {
   width: 200px;
