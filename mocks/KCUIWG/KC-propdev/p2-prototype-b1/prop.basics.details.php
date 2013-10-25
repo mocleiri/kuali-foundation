@@ -23,6 +23,17 @@ if(isset($_SESSION['project_end'])) $project_end =   $_SESSION['project_end'];
 if(isset($_SESSION['activity_type'])) $activity_type =   $_SESSION['activity_type'];
 if(isset($_SESSION['lead_unit'])) $lead_unit =   $_SESSION['lead_unit'];
 if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_type'];
+
+# Goal: Simplify this so we can store everything in a big array.
+# CR
+
+// if (isset($_SESSION)) {
+// 	$session_variables_array = array();
+
+// 	foreach ($_SESSION as $session_variable) {
+// 		array_push($session_variables_array, $session_variable);
+// 	}
+// }
 ?>
 <script>
 /*set stored session value for drop downs
@@ -209,7 +220,6 @@ if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_typ
 									</div>
 								</div>
 							</fieldset>
-                            
                          
 						</form>
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
@@ -224,8 +234,9 @@ if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_typ
 		?>
     </div>
     <!-- // --> 
-        </div>
-      </div>
+</div>
+</div>
+    
     </div>
   </div>
 </section>

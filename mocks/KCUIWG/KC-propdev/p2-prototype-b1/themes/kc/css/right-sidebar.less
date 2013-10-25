@@ -1,0 +1,42 @@
+#sidebar+#Uif-PageContentWrapper {
+	margin-left: 250px;
+	width: 55%;
+	float: left;
+}
+
+.right-sidebar {
+	width: 200px;
+	background: #f8f8f8;
+	border-left: 1px dotted #dedede;
+	content: "";
+	display: block;
+	position: absolute;
+	right: 5%;
+	margin: 16px;
+	margin-top: -16px;
+	z-index: 10;
+
+	display: none;
+
+	.wrapper {
+		padding: 12px;
+	}
+}
+
+.right-sidebar:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 20px;
+	left: -9px;
+	height: 16px;
+	width: 16px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	border-left: 1px dotted #dedede;
+	border-bottom: 1px dotted #dedede;
+	background: #f8f8f8;
+}

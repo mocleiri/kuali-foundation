@@ -492,21 +492,51 @@ $(document).ready(function() {
 
 	}
 
+	// $('.has-helper').on('focus', function() {
+
+	// 	if ($(this).parent().find('.helper-text')) {
+	// 		$(this).parent().find('.helper-text').slideDown();
+	// 	}
+
+	// });
+
+	// $('.has-helper').on('blur', function() {
+
+	// 	if ($(this).parent().find('.helper-text')) {
+	// 		$(this).parent().find('.helper-text').slideUp();
+	// 	}
+
+	// });
+
+
+
+	/*
+		Right-sidebar help
+		Grabs the help text from the above usage and displays it in the ride sidebar
+		Also positions the help box to the right of the appropriate field
+		Chris Rodriguez
+	*/
 	$('.has-helper').on('focus', function() {
 
+		$('.right-sidebar').css({
+			top: $(this).parent().offset().top
+		});
+
 		if ($(this).parent().find('.helper-text')) {
-			$(this).parent().find('.helper-text').slideDown();
+			$('#help-content p').text($(this).parent().find('.helper-text').text());
+		}
+
+		if ($('.right-sidebar').is(':visible')) {
+			return;
+		} else {
+			$('.right-sidebar').fadeIn();
 		}
 
 	});
 
-	$('.has-helper').on('blur', function() {
-
-		if ($(this).parent().find('.helper-text')) {
-			$(this).parent().find('.helper-text').slideUp();
-		}
-
-	});
+	// $(document).on('click', ':not(".has-helper")', function() {
+	// 	$('.right-sidebar').fadeOut();
+	// });
 
 
 

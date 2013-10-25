@@ -2,6 +2,7 @@
 <div id="navbar" class="navbar" style="background:white">
   <div class="container-fluid">
     <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar"> <span class="icon-reorder"></span> </button>
+    
     <header class="viewHeader">
       <div class="row">
         <div class="col-md-6">
@@ -59,16 +60,17 @@
         </div>
       </div>
       <div class="doc-functions">
-        <ul style="">
-          <li><a href="#" class="icons-doc-header-print">Print</a></li>
-          <li><a class="various fancybox.ajax icons-doc-header-copy" data-fancybox-type="ajax" href="modal/copy-document.html">Copy</a></li>
-          <li><a href="#" class="icons-doc-header-medusa">Medusa</a></li>
-          <li><a href="#" class="icons-doc-header-hierarchy">Hierarchy</a></li>
-          <li><a href="#" class="icons-doc-header-access">Access</a></li>
-          <li><a href="#" class="icons-doc-header-help">Help</a></li>
+        <ul>
+          <li><i class="icon icon-ok"></i> <a href="#">Validate</a></li>
+          <li><i class="icon icon-print"></i> <a href="#">Print</a></li>
+          <li><i class="icon icon-copy"></i> <a class="various fancybox.ajax" data-fancybox-type="ajax" href="modal/copy-document.html">Copy</a></li>
+          <li><i class="icon icon-tasks"></i> <a href="#">Medusa</a></li>
+          <li><i class="icon icon-list-ol"></i> <a href="#">Hierarchy</a></li>
+          <li><i class="icon icon-lock"></i> <a href="#">Access</a></li>
+          <li><i class="icon icon-question-sign"></i> <a href="#">Help</a></li>
         </ul>
       </div>
     </header>
-    <hr style="margin-bottom:0px; margin-top:0px; border-color:#CCC; margin-left:-15px;">
+
   </div>
 </div>

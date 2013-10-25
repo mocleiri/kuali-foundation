@@ -33,7 +33,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 								<span class="range">at</span>
 								<div class="col-md-6 date">
-									<input type="text" size="12" class="form-control input-sm uif-timeControl" name="project_end" id="project_end" placeholder="5:00PM EST" />
+									<input type="text" size="12" class="form-control input-sm uif-timeControl" name="project_end" id="project_end" placeholder="hh:mm" />
 									<label for="project_end" class="helper-text">Deadline time</label>
 								</div>
 							</div>
