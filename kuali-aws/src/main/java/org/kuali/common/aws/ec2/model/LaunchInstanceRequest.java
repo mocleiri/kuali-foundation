@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 
 import com.amazonaws.services.ec2.model.InstanceType;
+import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 public final class LaunchInstanceRequest {
@@ -14,7 +15,7 @@ public final class LaunchInstanceRequest {
 	private final String key;
 	private final InstanceType type;
 	private final List<String> securityGroups;
-	private final List<String> tags;
+	private final List<Tag> tags;
 
 	public static class Builder {
 
@@ -22,7 +23,7 @@ public final class LaunchInstanceRequest {
 		private final String key;
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
-		private List<String> tags = ImmutableList.of();
+		private List<Tag> tags = ImmutableList.of();
 
 		public Builder(String ami, String key) {
 			this.ami = ami;
@@ -44,7 +45,7 @@ public final class LaunchInstanceRequest {
 			return this;
 		}
 
-		public Builder tags(List<String> tags) {
+		public Builder tags(List<Tag> tags) {
 			this.tags = tags;
 			return this;
 		}
@@ -83,7 +84,7 @@ public final class LaunchInstanceRequest {
 		return securityGroups;
 	}
 
-	public List<String> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 

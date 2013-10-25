@@ -1,5 +1,6 @@
 package org.kuali.common.aws.ec2.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
@@ -41,6 +43,18 @@ public final class DefaultEC2Service implements EC2Service {
 		Instance instance = instances.get(0);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
 		return instance;
+	}
+
+	protected void createTags(Instance instance, LaunchInstanceRequest request) {
+		if (request.getTags().size() == 0) {
+			return;
+		}
+		List<String> resources = Collections.singletonList(instance.getInstanceId());
+
+		CreateTagsRequest ctr = new CreateTagsRequest(resources, request.getTags());
+		ctr.setResources(Collections.singletonList(instance.getInstanceId()));
+		ctr.setTags(request.getTags());
+		client.createTags(ctr);
 	}
 
 	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceRequest request) {
