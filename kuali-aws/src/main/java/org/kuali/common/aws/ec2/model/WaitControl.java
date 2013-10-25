@@ -1,10 +1,10 @@
 package org.kuali.common.aws.ec2.model;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 
 public final class WaitControl {
 
-	private final boolean wait;
 	private final int timeoutMillis;
 	private final int sleepMillis;
 	private final int initialPauseMillis;
@@ -15,18 +15,12 @@ public final class WaitControl {
 		private final String state;
 		private final int timeoutMillis;
 
-		private int sleepMillis = 5000;
-		private int initialPauseMillis = 1500;
-		private boolean wait = true;
+		private int sleepMillis = FormatUtils.getMillisAsInt("5s");
+		private int initialPauseMillis = FormatUtils.getMillisAsInt("2s");
 
 		public Builder(String state, int timeoutMillis) {
 			this.state = state;
 			this.timeoutMillis = timeoutMillis;
-		}
-
-		public Builder wait(boolean wait) {
-			this.wait = wait;
-			return this;
 		}
 
 		public Builder initialPauseMillis(int initialPauseMillis) {
@@ -48,15 +42,10 @@ public final class WaitControl {
 	}
 
 	private WaitControl(Builder builder) {
-		this.wait = builder.wait;
 		this.timeoutMillis = builder.timeoutMillis;
 		this.sleepMillis = builder.sleepMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;
 		this.state = builder.state;
-	}
-
-	public boolean isWait() {
-		return wait;
 	}
 
 	public String getState() {

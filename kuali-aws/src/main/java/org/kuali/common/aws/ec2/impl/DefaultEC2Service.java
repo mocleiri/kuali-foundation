@@ -66,7 +66,9 @@ public final class DefaultEC2Service implements EC2Service {
 		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
 		Instance instance = instances.get(0);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
-		wait(instance, request.getWaitControl());
+		if (request.getWaitControl().isPresent()) {
+			wait(instance, request.getWaitControl().get());
+		}
 		tag(instance.getInstanceId(), request.getTags());
 		return instance;
 	}
@@ -81,15 +83,11 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance wait(Instance instance, WaitControl wc) {
-		if (wc.isWait()) {
-			StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
-			Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), wc.getState() };
-			logger.info("Waiting up to {} for [{}] to reach the state [{}]", args);
-			waitForState(sr, wc);
-			return getInstance(instance.getInstanceId());
-		} else {
-			return instance;
-		}
+		StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
+		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), wc.getState() };
+		logger.info("Waiting up to {} for [{}] to reach the state [{}]", args);
+		waitForState(sr, wc);
+		return getInstance(instance.getInstanceId());
 	}
 
 	protected void waitForState(StateRetriever retriever, WaitControl wc) {
