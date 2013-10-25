@@ -2,11 +2,15 @@ package org.kuali.common.aws.ec2.impl;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.api.StateRetriever;
 import org.kuali.common.aws.ec2.model.LaunchInstanceRequest;
+import org.kuali.common.aws.ec2.model.WaitControl;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +39,11 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
+	public Instance getInstance(String instanceId) {
+		return null;
+	}
+
+	@Override
 	public Instance launchInstance(LaunchInstanceRequest request) {
 		RunInstancesRequest rir = getRunInstancesRequest(request);
 		RunInstancesResult result = client.runInstances(rir);
@@ -55,21 +64,33 @@ public final class DefaultEC2Service implements EC2Service {
 		client.createTags(ctr);
 	}
 
-	public Instance wait(Instance i, WaitControl wc, Properties props) {
+	public void waitForState(StateRetriever retriever, WaitControl wc) {
+		long now = System.currentTimeMillis();
+		long timeout = now + wc.getTimeoutMillis();
+		// Wait a little bit before we query AWS for state information
+		// If you query immediately it can sometimes flake out
+		ThreadUtils.sleep(wc.getInitialPauseMillis());
+		while (true) {
+			String currentState = retriever.getState();
+			if (StringUtils.equals(currentState, wc.getState())) {
+				break;
+			}
+			now = System.currentTimeMillis();
+			Assert.isTrue(now <= timeout, "Timed out waiting for state [" + wc.getState() + "]");
+			String remaining = FormatUtils.getTime(timeout - now);
+			logger.info("[{}] - remaining {}", currentState, remaining);
+			ThreadUtils.sleep(wc.getSleepMillis());
+		}
+	}
+
+	public Instance wait(Instance instance, WaitControl wc) {
 		if (wc.isWait()) {
-			StateRetriever sr = new InstanceStateRetriever(this, i.getInstanceId());
-			logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + i.getInstanceId() + " to start");
+			StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
+			logger.info("Waiting up to {} for [{}] to start", FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId());
 			waitForState(sr, wc);
-			Instance running = getEC2Instance(i.getInstanceId());
-			String id = i.getInstanceId();
-			String dns = running.getPublicDnsName();
-			String name = getTagValue(running, "Name");
-			logger.info("EC2 Instance: " + name + " (" + id + ") " + dns);
-			props.setProperty("ec2.instance.dns", running.getPublicDnsName());
-			return running;
+			return getInstance(instance.getInstanceId());
 		} else {
-			logger.info("Launched " + i.getInstanceId());
-			return i;
+			return instance;
 		}
 	}
 

@@ -8,4 +8,6 @@ public interface EC2Service {
 
 	public Instance launchInstance(LaunchInstanceRequest request);
 
+	public Instance getInstance(String instanceId);
+
 }
