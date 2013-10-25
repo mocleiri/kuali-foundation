@@ -38,10 +38,6 @@ public final class LaunchInstanceRequest {
 			this(ami, keyName, DEFAULT_TIMEOUT_MILLIS);
 		}
 
-		public Builder(String ami, String keyName, String timeout) {
-			this(ami, keyName, FormatUtils.getMillisAsInt(timeout));
-		}
-
 		public Builder(String ami, String keyName, int timeoutMillis) {
 			this.ami = ami;
 			this.keyName = keyName;
@@ -60,11 +56,6 @@ public final class LaunchInstanceRequest {
 
 		public Builder type(InstanceType type) {
 			this.type = type;
-			return this;
-		}
-
-		public Builder type(String type) {
-			this.type = InstanceType.valueOf(StringUtils.trimToNull(type));
 			return this;
 		}
 
