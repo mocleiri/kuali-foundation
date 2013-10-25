@@ -45,7 +45,7 @@
 
 		<div class="modal-footer" data-spy="">
 			<a href="emp.results.html" class="btn btn-default">Go back</a>
-			<a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-primary pull-right">Add Person</a>
+			<a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-primary pull-right" id="add-person">Add Person</a>
 		</div>
 	</div>
 </div>
@@ -71,6 +71,15 @@ $(document).ready(function() {
 			$('.other').hide();
 		}
 	});
+
+    $('#add-person').live("click", function(){
+        alert('t');
+        $.get("../../prop.keypersonnel.person.php", function(t){
+            $('#personnel-container',top.document).append(t);
+            parent.$.fancybox.close();
+        })
+        return false;
+    });
 });
 </script>
 </body>
