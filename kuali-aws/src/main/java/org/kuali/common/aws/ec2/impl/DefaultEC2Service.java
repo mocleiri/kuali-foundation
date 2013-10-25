@@ -68,15 +68,6 @@ public final class DefaultEC2Service implements EC2Service {
 		return instance;
 	}
 
-	protected Instance getInstance(LaunchInstanceRequest request) {
-		RunInstancesRequest rir = getRunInstancesRequest(request);
-		RunInstancesResult result = client.runInstances(rir);
-		Reservation r = result.getReservation();
-		List<Instance> instances = r.getInstances();
-		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
-		return instances.get(0);
-	}
-
 	@Override
 	public void tag(String resourceId, List<Tag> tags) {
 		Assert.noBlanks(resourceId);
@@ -84,6 +75,15 @@ public final class DefaultEC2Service implements EC2Service {
 		List<String> resources = Collections.singletonList(resourceId);
 		CreateTagsRequest ctr = new CreateTagsRequest(resources, tags);
 		client.createTags(ctr);
+	}
+
+	protected Instance getInstance(LaunchInstanceRequest request) {
+		RunInstancesRequest rir = getRunInstancesRequest(request);
+		RunInstancesResult result = client.runInstances(rir);
+		Reservation r = result.getReservation();
+		List<Instance> instances = r.getInstances();
+		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
+		return instances.get(0);
 	}
 
 	protected Instance wait(Instance instance, WaitCondition wc) {
