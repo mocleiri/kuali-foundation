@@ -18,6 +18,8 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
@@ -41,7 +43,17 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance getInstance(String id) {
-		return null;
+		DescribeInstancesRequest request = new DescribeInstancesRequest();
+		request.setInstanceIds(Collections.singletonList(id));
+		DescribeInstancesResult result = client.describeInstances(request);
+		List<Reservation> reservations = result.getReservations();
+		Assert.isTrue(reservations.size() == 1, "Expected exactly 1 reservation but there were " + reservations.size() + " instead");
+		Reservation r = reservations.get(0);
+		List<Instance> instances = r.getInstances();
+		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
+		Instance instance = instances.get(0);
+		logger.debug("Retrieved Instance: [{}]", instance.getInstanceId());
+		return instance;
 	}
 
 	@Override
@@ -50,7 +62,7 @@ public final class DefaultEC2Service implements EC2Service {
 		RunInstancesResult result = client.runInstances(rir);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
-		Assert.isTrue(instances.size() == 1);
+		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
 		Instance instance = instances.get(0);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
 		wait(instance, request.getWaitControl());
