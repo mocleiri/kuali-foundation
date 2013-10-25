@@ -15,8 +15,8 @@ public final class WaitControl {
 		private final String state;
 		private final int timeoutMillis;
 
-		private int sleepMillis = FormatUtils.getMillisAsInt("5s");
-		private int initialPauseMillis = FormatUtils.getMillisAsInt("2s");
+		private int sleepMillis = FormatUtils.getMillisAsInt("5s"); // 5 seconds
+		private int initialPauseMillis = FormatUtils.getMillisAsInt("2s"); // 2 seconds
 
 		public Builder(String state, int timeoutMillis) {
 			this.state = state;
