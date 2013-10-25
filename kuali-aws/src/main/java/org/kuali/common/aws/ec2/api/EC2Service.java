@@ -11,7 +11,7 @@ public interface EC2Service {
 
 	public Instance launchInstance(LaunchInstanceRequest request);
 
-	public Instance getInstance(String instanceId);
+	public Instance getInstance(String id);
 
 	public void tag(String resourceId, List<Tag> tags);
 
