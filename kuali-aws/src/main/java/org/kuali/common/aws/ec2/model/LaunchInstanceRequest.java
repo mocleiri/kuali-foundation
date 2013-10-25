@@ -8,6 +8,7 @@ import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class LaunchInstanceRequest {
@@ -17,6 +18,7 @@ public final class LaunchInstanceRequest {
 	private final InstanceType type;
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
+	private final Optional<String> availabilityZone;
 	private final WaitControl waitControl;
 
 	public static class Builder {
@@ -30,6 +32,7 @@ public final class LaunchInstanceRequest {
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private WaitControl waitControl = new WaitControl.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build();
+		private Optional<String> availabilityZone = Optional.absent();
 
 		public Builder(String ami, String key) {
 			this(ami, key, DEFAULT_TIMEOUT_MILLIS);
@@ -43,6 +46,11 @@ public final class LaunchInstanceRequest {
 			this.ami = ami;
 			this.key = key;
 			this.waitControl = new WaitControl.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build();
+		}
+
+		public Builder availabilityZone(String availabilityZone) {
+			this.availabilityZone = Optional.fromNullable(availabilityZone);
+			return this;
 		}
 
 		public Builder waitControl(WaitControl waitControl) {
@@ -72,7 +80,7 @@ public final class LaunchInstanceRequest {
 
 		public LaunchInstanceRequest build() {
 			Assert.noBlanks(ami, key);
-			Assert.noNulls(type, securityGroups, tags, waitControl);
+			Assert.noNulls(type, securityGroups, tags, waitControl, availabilityZone);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceRequest(this);
@@ -87,6 +95,7 @@ public final class LaunchInstanceRequest {
 		this.securityGroups = builder.securityGroups;
 		this.tags = builder.tags;
 		this.waitControl = builder.waitControl;
+		this.availabilityZone = builder.availabilityZone;
 	}
 
 	public String getAmi() {
@@ -111,6 +120,10 @@ public final class LaunchInstanceRequest {
 
 	public WaitControl getWaitControl() {
 		return waitControl;
+	}
+
+	public Optional<String> getAvailabilityZone() {
+		return availabilityZone;
 	}
 
 }
