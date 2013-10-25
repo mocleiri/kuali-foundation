@@ -28,13 +28,16 @@ import org.springframework.context.annotation.Import;
 @Import(SpringServiceConfig.class)
 public class AwsServiceConfig {
 
+	private static final String ACCESS_KEY = "aws.accessKey";
+	private static final String SECRET_KEY = "aws.secretKey";
+
 	@Autowired
 	EnvironmentService env;
 
 	@Bean
 	public EC2Service ec2Service() {
-		String accessKey = env.getString("aws.accessKey");
-		String secretKey = env.getString("aws.secretKey");
+		String accessKey = env.getString(ACCESS_KEY);
+		String secretKey = env.getString(SECRET_KEY);
 		return new DefaultEC2Service(accessKey, secretKey);
 	}
 
