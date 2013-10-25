@@ -15,13 +15,28 @@ public final class WaitControl {
 		private final String state;
 		private final int timeoutMillis;
 
-		private final int sleepMillis = 5000;
-		private final int initialPauseMillis = 1500;
+		private int sleepMillis = 5000;
+		private int initialPauseMillis = 1500;
 		private boolean wait = true;
 
 		public Builder(String state, int timeoutMillis) {
 			this.state = state;
 			this.timeoutMillis = timeoutMillis;
+		}
+
+		public Builder wait(boolean wait) {
+			this.wait = wait;
+			return this;
+		}
+
+		public Builder initialPauseMillis(int initialPauseMillis) {
+			this.initialPauseMillis = initialPauseMillis;
+			return this;
+		}
+
+		public Builder sleepMillis(int sleepMillis) {
+			this.sleepMillis = sleepMillis;
+			return this;
 		}
 
 		public WaitControl build() {
