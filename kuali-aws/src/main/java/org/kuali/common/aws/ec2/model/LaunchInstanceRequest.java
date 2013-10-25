@@ -72,7 +72,7 @@ public final class LaunchInstanceRequest {
 
 		public LaunchInstanceRequest build() {
 			Assert.noBlanks(ami, key);
-			Assert.noNulls(type, securityGroups, tags);
+			Assert.noNulls(type, securityGroups, tags, waitControl);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceRequest(this);
