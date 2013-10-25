@@ -32,10 +32,31 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	/**
+	 * Assert that <code>i</code> is less than or equal to zero
+	 */
+	public static void notPositive(int i) {
+		isTrue(i <= 0, i + " is positive");
+	}
+
+	/**
 	 * Assert that <code>i</code> is greater than zero
 	 */
 	public static void positive(int i) {
-		isTrue(i >= 1, i + " is less than one");
+		isTrue(i > 0, i + " is not a positive integer");
+	}
+
+	/**
+	 * Assert that <code>i</code> is less than zero
+	 */
+	public static void negative(int i) {
+		isTrue(i < 0, i + " is not a negative integer");
+	}
+
+	/**
+	 * Assert that <code>i</code> is zero
+	 */
+	public static void zero(int i) {
+		isTrue(i == 0, i + " is not zero");
 	}
 
 	public static void exists(String location) {
