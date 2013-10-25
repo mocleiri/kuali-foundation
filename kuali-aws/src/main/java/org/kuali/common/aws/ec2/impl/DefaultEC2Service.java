@@ -2,6 +2,7 @@ package org.kuali.common.aws.ec2.impl;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceRequest;
@@ -52,6 +53,24 @@ public final class DefaultEC2Service implements EC2Service {
 		List<String> resources = Collections.singletonList(instance.getInstanceId());
 		CreateTagsRequest ctr = new CreateTagsRequest(resources, request.getTags());
 		client.createTags(ctr);
+	}
+
+	public Instance wait(Instance i, WaitControl wc, Properties props) {
+		if (wc.isWait()) {
+			StateRetriever sr = new InstanceStateRetriever(this, i.getInstanceId());
+			logger.info("Waiting up to " + wc.getTimeout() + " seconds for " + i.getInstanceId() + " to start");
+			waitForState(sr, wc);
+			Instance running = getEC2Instance(i.getInstanceId());
+			String id = i.getInstanceId();
+			String dns = running.getPublicDnsName();
+			String name = getTagValue(running, "Name");
+			logger.info("EC2 Instance: " + name + " (" + id + ") " + dns);
+			props.setProperty("ec2.instance.dns", running.getPublicDnsName());
+			return running;
+		} else {
+			logger.info("Launched " + i.getInstanceId());
+			return i;
+		}
 	}
 
 	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceRequest request) {
