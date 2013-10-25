@@ -61,8 +61,8 @@ public final class DefaultEC2Service implements EC2Service {
 	public Instance launchInstance(LaunchInstanceRequest request) {
 		Instance instance = getInstance(request);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
-		if (request.getWaitControl().isPresent()) {
-			wait(instance, request.getWaitControl().get());
+		if (request.getWaitCondition().isPresent()) {
+			wait(instance, request.getWaitCondition().get());
 		}
 		tag(instance.getInstanceId(), request.getTags());
 		return instance;

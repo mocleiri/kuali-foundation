@@ -19,7 +19,7 @@ public final class LaunchInstanceRequest {
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
-	private final Optional<WaitCondition> waitControl;
+	private final Optional<WaitCondition> waitCondition;
 
 	public static class Builder {
 
@@ -31,7 +31,7 @@ public final class LaunchInstanceRequest {
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
-		private Optional<WaitCondition> waitControl = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build());
+		private Optional<WaitCondition> waitCondition = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build());
 		private Optional<String> availabilityZone = Optional.absent();
 
 		public Builder(String ami, String key) {
@@ -45,7 +45,7 @@ public final class LaunchInstanceRequest {
 		public Builder(String ami, String key, int timeoutMillis) {
 			this.ami = ami;
 			this.key = key;
-			this.waitControl = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build());
+			this.waitCondition = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build());
 		}
 
 		public Builder availabilityZone(String availabilityZone) {
@@ -53,8 +53,8 @@ public final class LaunchInstanceRequest {
 			return this;
 		}
 
-		public Builder waitControl(WaitCondition waitControl) {
-			this.waitControl = Optional.of(waitControl);
+		public Builder waitCondition(WaitCondition waitCondition) {
+			this.waitCondition = Optional.of(waitCondition);
 			return this;
 		}
 
@@ -80,7 +80,7 @@ public final class LaunchInstanceRequest {
 
 		public LaunchInstanceRequest build() {
 			Assert.noBlanks(ami, key);
-			Assert.noNulls(type, securityGroups, tags, waitControl, availabilityZone);
+			Assert.noNulls(type, securityGroups, tags, waitCondition, availabilityZone);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceRequest(this);
@@ -94,7 +94,7 @@ public final class LaunchInstanceRequest {
 		this.type = builder.type;
 		this.securityGroups = builder.securityGroups;
 		this.tags = builder.tags;
-		this.waitControl = builder.waitControl;
+		this.waitCondition = builder.waitCondition;
 		this.availabilityZone = builder.availabilityZone;
 	}
 
@@ -118,8 +118,8 @@ public final class LaunchInstanceRequest {
 		return tags;
 	}
 
-	public Optional<WaitCondition> getWaitControl() {
-		return waitControl;
+	public Optional<WaitCondition> getWaitCondition() {
+		return waitCondition;
 	}
 
 	public Optional<String> getAvailabilityZone() {
