@@ -2,7 +2,7 @@ package org.kuali.common.aws.s3;
 
 import java.util.List;
 
-import org.kuali.common.util.PercentCompleteInformer;
+import org.kuali.common.util.inform.PercentCompleteInformer;
 
 public class ListingRequest {
 
