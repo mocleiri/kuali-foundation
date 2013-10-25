@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2.impl;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.LaunchInstanceRequest;
 import org.kuali.common.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,14 +32,25 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Instance launchSingleInstance(RunInstancesRequest request) {
-		RunInstancesResult result = client.runInstances(request);
+	public Instance launchInstance(LaunchInstanceRequest request) {
+		RunInstancesRequest rir = getRunInstancesRequest(request);
+		RunInstancesResult result = client.runInstances(rir);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
 		Assert.isTrue(instances.size() == 1);
 		Instance instance = instances.get(0);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
-		return instances.get(0);
+		return instance;
+	}
+
+	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceRequest request) {
+		RunInstancesRequest rir = new RunInstancesRequest();
+		rir.setMaxCount(1);
+		rir.setMinCount(1);
+		rir.setImageId(request.getAmi());
+		rir.setKeyName(request.getKey());
+		rir.setSecurityGroups(request.getSecurityGroups());
+		return rir;
 	}
 
 }
