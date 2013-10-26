@@ -124,6 +124,7 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setImageId(context.getAmi());
 		rir.setKeyName(context.getKeyName());
 		rir.setSecurityGroups(context.getSecurityGroups());
+		rir.setInstanceType(context.getType());
 		if (context.getAvailabilityZone().isPresent()) {
 			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);
