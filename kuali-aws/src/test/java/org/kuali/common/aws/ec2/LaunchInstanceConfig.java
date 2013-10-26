@@ -47,7 +47,7 @@ public class LaunchInstanceConfig {
 		String ami = env.getString("ec2.ami");
 		String keyName = env.getString("ec2.key");
 		String availabilityZone = env.getString("ec2.availabilityZone");
-		InstanceType type = InstanceType.valueOf(env.getString("ec2.type"));
+		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
 		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).build();
 		return new LaunchInstanceExecutable(service, context);
