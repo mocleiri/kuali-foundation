@@ -15,12 +15,13 @@
  */
 package org.kuali.common.aws.ec2;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.main.spring.MainConfig;
 import org.kuali.common.util.spring.SpringUtils;
@@ -30,9 +31,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.util.Assert;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
@@ -59,8 +62,16 @@ public class LaunchInstanceConfig implements MainConfig {
 	}
 
 	protected List<Tag> getTags() {
-		String name = env.getString("ec2.tag.name");
-		Tag tag = new Tag("Name", name);
-		return Collections.singletonList(tag);
+		List<String> strings = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.tags");
+		List<Tag> tags = new ArrayList<Tag>();
+		for (String string : strings) {
+			String[] tokens = Str.splitAndTrim(string, "=");
+			Assert.isTrue(tokens.length == 2, "Expected exactly 2 tokens");
+			String key = tokens[0];
+			String value = tokens[1];
+			Tag tag = new Tag(key, value);
+			tags.add(tag);
+		}
+		return ImmutableList.copyOf(tags);
 	}
 }
