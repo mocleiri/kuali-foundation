@@ -15,10 +15,17 @@
  */
 package org.kuali.common.aws.ec2;
 
+import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.spring.AwsServiceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-// @Import({ JdbcServiceConfig.class, DbaContextConfig.class, JdbcContextsExecutableConfig.class })
+@Import({ AwsServiceConfig.class })
 public class LaunchInstanceConfig {
+
+	@Autowired
+	EC2Service service;
 
 }
