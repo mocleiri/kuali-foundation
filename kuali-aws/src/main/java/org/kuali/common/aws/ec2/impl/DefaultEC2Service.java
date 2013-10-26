@@ -11,6 +11,7 @@ import org.kuali.common.aws.ec2.model.WaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -33,14 +34,16 @@ public final class DefaultEC2Service implements EC2Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
 
 	private final AmazonEC2Client client;
+	private final WaitService service;
 
-	public DefaultEC2Service(AWSCredentials credentials) {
-		Assert.noNulls(credentials);
+	public DefaultEC2Service(AWSCredentials credentials, WaitService service) {
+		Assert.noNulls(credentials, service);
 		this.client = new AmazonEC2Client(credentials);
+		this.service = service;
 	}
 
-	public DefaultEC2Service(String accessKey, String secretKey) {
-		this(new BasicAWSCredentials(accessKey, secretKey));
+	public DefaultEC2Service(String accessKey, String secretKey, WaitService service) {
+		this(new BasicAWSCredentials(accessKey, secretKey), service);
 	}
 
 	@Override

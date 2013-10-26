@@ -19,13 +19,15 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.kuali.common.util.wait.WaitService;
+import org.kuali.common.util.wait.spring.WaitServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(SpringServiceConfig.class)
+@Import({ SpringServiceConfig.class, WaitServiceConfig.class })
 public class AwsServiceConfig {
 
 	private static final String ACCESS_KEY = "aws.accessKey";
@@ -34,11 +36,14 @@ public class AwsServiceConfig {
 	@Autowired
 	EnvironmentService env;
 
+	@Autowired
+	WaitService service;
+
 	@Bean
 	public EC2Service ec2Service() {
 		String accessKey = env.getString(ACCESS_KEY);
 		String secretKey = env.getString(SECRET_KEY);
-		return new DefaultEC2Service(accessKey, secretKey);
+		return new DefaultEC2Service(accessKey, secretKey, service);
 	}
 
 }
