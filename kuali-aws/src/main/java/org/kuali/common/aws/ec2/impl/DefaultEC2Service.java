@@ -97,7 +97,7 @@ public final class DefaultEC2Service implements EC2Service {
 		logger.info("Waiting up to {} for [{}] to reach the state [{}]", args);
 		WaitResult result = waitForState(sr, wc);
 		Object[] resultArgs = { instance.getInstanceId(), wc.getState(), FormatUtils.getTime(result.getElapsed()) };
-		logger.info("[{}] reached the state [{}] after {}", resultArgs);
+		logger.info("[{}] reached the state [{}] in {}", resultArgs);
 		return getInstance(instance.getInstanceId());
 	}
 
