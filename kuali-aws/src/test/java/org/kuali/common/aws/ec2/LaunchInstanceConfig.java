@@ -62,10 +62,10 @@ public class LaunchInstanceConfig implements MainConfig {
 	}
 
 	protected List<Tag> getTags() {
-		List<String> strings = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.tags");
+		List<String> list = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.tags");
 		List<Tag> tags = new ArrayList<Tag>();
-		for (String string : strings) {
-			String[] tokens = Str.splitAndTrim(string, "=");
+		for (String element : list) {
+			String[] tokens = Str.splitAndTrim(element, "=");
 			Assert.isTrue(tokens.length == 2, "Expected exactly 2 tokens");
 			String key = tokens[0];
 			String value = tokens[1];
