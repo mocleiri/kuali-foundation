@@ -15,6 +15,9 @@
  */
 package org.kuali.common.aws.ec2;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
@@ -25,6 +28,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import com.amazonaws.services.ec2.model.InstanceType;
+import com.amazonaws.services.ec2.model.Tag;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
@@ -40,7 +46,17 @@ public class LaunchInstanceConfig {
 	public Executable main() {
 		String ami = env.getString("ec2.ami");
 		String keyName = env.getString("ec2.key");
-		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).build();
+		String zone = env.getString("ec2.availabilityZone");
+		InstanceType type = InstanceType.valueOf(env.getString("ec2.type"));
+		List<Tag> tags = getTags();
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(zone).tags(tags).build();
 		return new LaunchInstanceExecutable(service, context);
+	}
+
+	protected List<Tag> getTags() {
+		String name = env.getString("ec2.tag.name");
+		String value = env.getString("ec2.tag.value");
+		Tag tag = new Tag(name, value);
+		return Collections.singletonList(tag);
 	}
 }
