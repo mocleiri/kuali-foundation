@@ -1,6 +1,5 @@
 package org.kuali.common.aws.ec2.impl;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
@@ -112,30 +110,6 @@ public final class DefaultEC2Service implements EC2Service {
 		return null;
 	}
 
-	protected void foo(Instance instance) {
-		List<String> instanceIds = Arrays.asList(instance.getInstanceId());
-		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
-		request.setInstanceIds(instanceIds);
-		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
-		List<InstanceStatus> statuses = result.getInstanceStatuses();
-		for (InstanceStatus instanceStatus : statuses) {
-			foo2(instanceStatus.getInstanceStatus());
-			foo2(instanceStatus.getSystemStatus());
-		}
-
-	}
-
-	protected void foo2(InstanceStatusSummary iss) {
-		String overallStatus = iss.getStatus();
-		logger.info("overallStatus: {}", overallStatus);
-		List<InstanceStatusDetails> details = iss.getDetails();
-		for (InstanceStatusDetails detail : details) {
-			String name = detail.getName();
-			String status = detail.getStatus();
-			logger.info("name: {} status: {}", name, status);
-		}
-	}
-
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
@@ -143,10 +117,6 @@ public final class DefaultEC2Service implements EC2Service {
 			wait(instance, context.getWaitContext().get(), context.getRequiredState());
 		}
 		tag(instance.getInstanceId(), context.getTags());
-		for (int i = 0; i < 15; i++) {
-			foo(instance);
-			ThreadUtils.sleep(5000);
-		}
 		return instance;
 	}
 
