@@ -55,8 +55,7 @@ public class LaunchInstanceConfig {
 
 	protected List<Tag> getTags() {
 		String name = env.getString("ec2.tag.name");
-		String value = env.getString("ec2.tag.value");
-		Tag tag = new Tag(name, value);
+		Tag tag = new Tag("Name", name);
 		return Collections.singletonList(tag);
 	}
 }
