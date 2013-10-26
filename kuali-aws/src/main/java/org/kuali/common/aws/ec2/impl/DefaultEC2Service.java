@@ -53,9 +53,9 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Instance getInstance(String id) {
+	public Instance getInstance(String instanceId) {
 		DescribeInstancesRequest request = new DescribeInstancesRequest();
-		request.setInstanceIds(Collections.singletonList(id));
+		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstancesResult result = client.describeInstances(request);
 		List<Reservation> reservations = result.getReservations();
 		Assert.isTrue(reservations.size() == 1, "Expected exactly 1 reservation but there were " + reservations.size() + " instead");

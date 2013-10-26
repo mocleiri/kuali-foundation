@@ -26,8 +26,8 @@ public interface EC2Service {
 	public void tag(String resourceId, List<Tag> tags);
 
 	/**
-	 * Return an object indicating the "reachability" of an instance
+	 * Return an object indicating the "reachability" of an Amazon EC2 instance
 	 */
-	public Reachability getReachability(String id);
+	public Reachability getReachability(String instanceId);
 
 }
