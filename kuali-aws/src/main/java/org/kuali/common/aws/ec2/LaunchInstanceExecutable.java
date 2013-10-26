@@ -11,14 +11,14 @@ public class LaunchInstanceExecutable implements Executable {
 	private final LaunchInstanceContext context;
 	private final boolean skip;
 
-	public LaunchInstanceExecutable(EC2Service service, LaunchInstanceContext request) {
-		this(service, request, false);
+	public LaunchInstanceExecutable(EC2Service service, LaunchInstanceContext context) {
+		this(service, context, false);
 	}
 
-	public LaunchInstanceExecutable(EC2Service service, LaunchInstanceContext request, boolean skip) {
-		Assert.noNulls(service, request);
+	public LaunchInstanceExecutable(EC2Service service, LaunchInstanceContext context, boolean skip) {
+		Assert.noNulls(service, context);
 		this.service = service;
-		this.context = request;
+		this.context = context;
 		this.skip = skip;
 	}
 
