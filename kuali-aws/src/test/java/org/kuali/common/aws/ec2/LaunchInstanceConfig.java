@@ -22,6 +22,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,8 @@ public class LaunchInstanceConfig {
 		String availabilityZone = env.getString("ec2.availabilityZone");
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
-		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).build();
+		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "env.securityGroups");
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups).build();
 		return new LaunchInstanceExecutable(service, context);
 	}
 
