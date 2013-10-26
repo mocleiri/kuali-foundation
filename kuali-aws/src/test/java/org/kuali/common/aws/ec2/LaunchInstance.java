@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class LaunchInstance extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(LaunchInstance.class, args);
+		MainUtils.runAndExit(LaunchInstance.class, args, true);
 	}
 
 	@Override
