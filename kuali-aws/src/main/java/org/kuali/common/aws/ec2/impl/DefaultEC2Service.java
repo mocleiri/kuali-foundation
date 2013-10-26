@@ -108,7 +108,7 @@ public final class DefaultEC2Service implements EC2Service {
 		while (true) {
 			String currentState = retriever.getState();
 			if (StringUtils.equals(currentState, wc.getState())) {
-				return new WaitResult.Builder(currentState, start, System.currentTimeMillis()-start).build();
+				return new WaitResult.Builder(currentState, start, System.currentTimeMillis() - start).build();
 			}
 			long now = System.currentTimeMillis();
 			Assert.isTrue(now <= timeout, "Timed out waiting for state [" + wc.getState() + "]");
