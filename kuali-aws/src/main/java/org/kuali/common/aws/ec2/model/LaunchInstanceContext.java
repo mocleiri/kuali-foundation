@@ -5,6 +5,7 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.wait.WaitContext;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
@@ -19,12 +20,12 @@ public final class LaunchInstanceContext {
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
-	private final Optional<WaitCondition> waitCondition;
+	private final Optional<WaitContext> waitContext;
+	private final InstanceStateEnum requiredState;
 
 	public static class Builder {
 
-		public static final String DEFAULT_WAIT_FOR_STATE = InstanceStateEnum.RUNNING.getValue(); // "running"
-		public static final int DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillisAsInt("15m"); // 15 minutes
+		public static final long DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillis("15m"); // 15 minutes
 
 		// Required
 		private final String ami;
@@ -34,17 +35,23 @@ public final class LaunchInstanceContext {
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
-		private Optional<WaitCondition> waitCondition = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, DEFAULT_TIMEOUT_MILLIS).build());
+		private Optional<WaitContext> waitContext = Optional.of(new WaitContext.Builder(DEFAULT_TIMEOUT_MILLIS).build());
 		private Optional<String> availabilityZone = Optional.absent();
+		private InstanceStateEnum requiredState = InstanceStateEnum.RUNNING;
 
 		public Builder(String ami, String keyName) {
 			this(ami, keyName, DEFAULT_TIMEOUT_MILLIS);
 		}
 
-		public Builder(String ami, String keyName, int timeoutMillis) {
+		public Builder(String ami, String keyName, long timeoutMillis) {
 			this.ami = ami;
 			this.keyName = keyName;
-			this.waitCondition = Optional.of(new WaitCondition.Builder(DEFAULT_WAIT_FOR_STATE, timeoutMillis).build());
+			this.waitContext = Optional.of(new WaitContext.Builder(timeoutMillis).build());
+		}
+
+		public Builder requiredState(InstanceStateEnum requiredState) {
+			this.requiredState = requiredState;
+			return this;
 		}
 
 		public Builder availabilityZone(String availabilityZone) {
@@ -52,8 +59,8 @@ public final class LaunchInstanceContext {
 			return this;
 		}
 
-		public Builder waitCondition(WaitCondition waitCondition) {
-			this.waitCondition = Optional.of(waitCondition);
+		public Builder waitContext(WaitContext waitContext) {
+			this.waitContext = Optional.of(waitContext);
 			return this;
 		}
 
@@ -74,7 +81,7 @@ public final class LaunchInstanceContext {
 
 		public LaunchInstanceContext build() {
 			Assert.noBlanks(ami, keyName);
-			Assert.noNulls(type, securityGroups, tags, waitCondition, availabilityZone);
+			Assert.noNulls(type, securityGroups, tags, waitContext, availabilityZone);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceContext(this);
@@ -88,8 +95,9 @@ public final class LaunchInstanceContext {
 		this.type = builder.type;
 		this.securityGroups = builder.securityGroups;
 		this.tags = builder.tags;
-		this.waitCondition = builder.waitCondition;
+		this.waitContext = builder.waitContext;
 		this.availabilityZone = builder.availabilityZone;
+		this.requiredState = builder.requiredState;
 	}
 
 	public String getAmi() {
@@ -112,12 +120,16 @@ public final class LaunchInstanceContext {
 		return tags;
 	}
 
-	public Optional<WaitCondition> getWaitCondition() {
-		return waitCondition;
-	}
-
 	public Optional<String> getAvailabilityZone() {
 		return availabilityZone;
+	}
+
+	public Optional<WaitContext> getWaitContext() {
+		return waitContext;
+	}
+
+	public InstanceStateEnum getRequiredState() {
+		return requiredState;
 	}
 
 }
