@@ -64,7 +64,6 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
-		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
 		if (context.getWaitContext().isPresent()) {
 			wait(instance, context.getWaitContext().get(), context.getRequiredState());
 		}
