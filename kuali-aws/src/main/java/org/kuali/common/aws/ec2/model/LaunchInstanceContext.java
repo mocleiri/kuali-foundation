@@ -26,8 +26,11 @@ public final class LaunchInstanceContext {
 		public static final String DEFAULT_WAIT_FOR_STATE = InstanceStates.RUNNING.getValue(); // "running"
 		public static final int DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 
+		// Required
 		private final String ami;
 		private final String keyName;
+
+		// Optional
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
