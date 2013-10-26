@@ -2,9 +2,9 @@ package org.kuali.common.aws.ec2.model;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
@@ -48,7 +48,7 @@ public final class LaunchInstanceContext {
 		}
 
 		public Builder availabilityZone(String availabilityZone) {
-			this.availabilityZone = Optional.fromNullable(StringUtils.trimToNull(availabilityZone));
+			this.availabilityZone = Optional.fromNullable(NullUtils.trimToNull(availabilityZone));
 			return this;
 		}
 
