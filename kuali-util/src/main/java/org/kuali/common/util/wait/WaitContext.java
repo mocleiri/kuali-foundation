@@ -2,27 +2,23 @@ package org.kuali.common.util.wait;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.condition.Condition;
 
 public final class WaitContext {
 
 	private final long timeoutMillis;
 	private final long sleepMillis;
 	private final long initialPauseMillis;
-	private final Condition condition;
 
 	public static class Builder {
 
 		// Required
 		private final long timeoutMillis;
-		private final Condition condition;
 
 		// Optional
 		private long sleepMillis = FormatUtils.getMillis("3s"); // 3 seconds
 		private long initialPauseMillis = FormatUtils.getMillis("1s"); // 1 second
 
-		public Builder(Condition condition, long timeoutMillis) {
-			this.condition = condition;
+		public Builder(long timeoutMillis) {
 			this.timeoutMillis = timeoutMillis;
 		}
 
@@ -37,7 +33,6 @@ public final class WaitContext {
 		}
 
 		public WaitContext build() {
-			Assert.noNulls(condition);
 			Assert.noNegatives(timeoutMillis, sleepMillis, initialPauseMillis);
 			return new WaitContext(this);
 		}
@@ -48,11 +43,6 @@ public final class WaitContext {
 		this.timeoutMillis = builder.timeoutMillis;
 		this.sleepMillis = builder.sleepMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;
-		this.condition = builder.condition;
-	}
-
-	public Condition getCondition() {
-		return condition;
 	}
 
 	public long getTimeoutMillis() {

@@ -12,10 +12,9 @@ public class DefaultWaitService implements WaitService {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultWaitService.class);
 
 	@Override
-	public WaitResult wait(WaitContext context) {
+	public WaitResult wait(WaitContext context, Condition condition) {
 		long start = System.currentTimeMillis();
 		long timeout = start + context.getTimeoutMillis();
-		Condition condition = context.getCondition();
 		ThreadUtils.sleep(context.getInitialPauseMillis());
 		while (!condition.isTrue()) {
 			long now = System.currentTimeMillis();
