@@ -11,7 +11,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class LaunchInstanceRequest {
+public final class LaunchInstanceContext {
 
 	private final String ami;
 	private final String keyName;
@@ -69,17 +69,17 @@ public final class LaunchInstanceRequest {
 			return this;
 		}
 
-		public LaunchInstanceRequest build() {
+		public LaunchInstanceContext build() {
 			Assert.noBlanks(ami, keyName);
 			Assert.noNulls(type, securityGroups, tags, waitCondition, availabilityZone);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
-			return new LaunchInstanceRequest(this);
+			return new LaunchInstanceContext(this);
 		}
 
 	}
 
-	private LaunchInstanceRequest(Builder builder) {
+	private LaunchInstanceContext(Builder builder) {
 		this.ami = builder.ami;
 		this.keyName = builder.keyName;
 		this.type = builder.type;

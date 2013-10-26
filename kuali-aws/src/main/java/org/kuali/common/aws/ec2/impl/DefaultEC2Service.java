@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.LaunchInstanceRequest;
+import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.WaitCondition;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
@@ -58,14 +58,14 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Instance launchInstance(LaunchInstanceRequest request) {
-		Instance instance = getInstance(request);
+	public Instance launchInstance(LaunchInstanceContext context) {
+		Instance instance = getInstance(context);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
-		if (request.getWaitCondition().isPresent()) {
-			WaitCondition condition = request.getWaitCondition().get();
+		if (context.getWaitCondition().isPresent()) {
+			WaitCondition condition = context.getWaitCondition().get();
 			wait(instance, condition);
 		}
-		tag(instance.getInstanceId(), request.getTags());
+		tag(instance.getInstanceId(), context.getTags());
 		return instance;
 	}
 
@@ -81,8 +81,8 @@ public final class DefaultEC2Service implements EC2Service {
 		client.createTags(ctr);
 	}
 
-	protected Instance getInstance(LaunchInstanceRequest request) {
-		RunInstancesRequest rir = getRunInstancesRequest(request);
+	protected Instance getInstance(LaunchInstanceContext context) {
+		RunInstancesRequest rir = getRunInstancesRequest(context);
 		RunInstancesResult result = client.runInstances(rir);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
@@ -117,15 +117,15 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 	}
 
-	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceRequest request) {
+	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceContext context) {
 		RunInstancesRequest rir = new RunInstancesRequest();
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
-		rir.setImageId(request.getAmi());
-		rir.setKeyName(request.getKeyName());
-		rir.setSecurityGroups(request.getSecurityGroups());
-		if (request.getAvailabilityZone().isPresent()) {
-			String zone = request.getAvailabilityZone().get();
+		rir.setImageId(context.getAmi());
+		rir.setKeyName(context.getKeyName());
+		rir.setSecurityGroups(context.getSecurityGroups());
+		if (context.getAvailabilityZone().isPresent()) {
+			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);
 			rir.setPlacement(placement);
 		}
