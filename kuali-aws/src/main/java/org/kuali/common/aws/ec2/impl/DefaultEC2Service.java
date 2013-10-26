@@ -99,8 +99,8 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected void waitForState(StateRetriever retriever, WaitCondition wc) {
-		long now = System.currentTimeMillis();
-		long timeout = now + wc.getTimeoutMillis();
+		long start = System.currentTimeMillis();
+		long timeout = start + wc.getTimeoutMillis();
 		// Wait a little bit before we query AWS for state information
 		// If you query immediately it can sometimes flake out
 		ThreadUtils.sleep(wc.getInitialPauseMillis());
@@ -109,10 +109,12 @@ public final class DefaultEC2Service implements EC2Service {
 			if (StringUtils.equals(currentState, wc.getState())) {
 				break;
 			}
-			now = System.currentTimeMillis();
+			long now = System.currentTimeMillis();
 			Assert.isTrue(now <= timeout, "Timed out waiting for state [" + wc.getState() + "]");
 			String remaining = FormatUtils.getTime(timeout - now);
-			logger.info("[{}] - remaining {}", currentState, remaining);
+			String elapsed = FormatUtils.getTime(now - start);
+			Object[] args = { currentState, elapsed, remaining };
+			logger.info("current state: [{}] - [elapsed: {} timeout in:{}]", args);
 			ThreadUtils.sleep(wc.getSleepMillis());
 		}
 	}
