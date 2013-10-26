@@ -117,6 +117,11 @@ public final class DefaultEC2Service implements EC2Service {
 			wait(instance, context.getWaitContext().get(), context.getRequiredState());
 		}
 		tag(instance.getInstanceId(), context.getTags());
+
+		Reachability r = getReachability("i-7757010f");
+
+		logger.info("system reachability: " + r.getSystem() + " instance reachability: " + r.getInstance());
+
 		return instance;
 	}
 
