@@ -24,6 +24,7 @@ import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.main.spring.MainConfig;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -57,7 +58,7 @@ public class LaunchInstanceConfig implements MainConfig {
 	protected LaunchInstanceContext getLaunchInstanceContext() {
 		String ami = env.getString("ec2.ami");
 		String keyName = env.getString("ec2.keyName");
-		String availabilityZone = env.getString("ec2.availabilityZone");
+		String availabilityZone = NullUtils.trimToNull(env.getString("ec2.availabilityZone", NullUtils.NONE));
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.securityGroups");
