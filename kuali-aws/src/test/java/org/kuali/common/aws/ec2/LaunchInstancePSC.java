@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.aws.project.spring.AwsProjectConfig;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.properties.Location;
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ DefaultPropertiesServiceConfig.class })
+@Import({ AwsProjectConfig.class, DefaultPropertiesServiceConfig.class })
 public class LaunchInstancePSC implements PropertySourceConfig {
 
 	@Autowired
