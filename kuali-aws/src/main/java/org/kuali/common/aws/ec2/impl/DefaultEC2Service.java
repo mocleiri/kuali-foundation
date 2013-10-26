@@ -3,14 +3,14 @@ package org.kuali.common.aws.ec2.impl;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.InstanceStateEnum;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.ec2.model.WaitCondition;
-import org.kuali.common.aws.ec2.model.WaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.wait.WaitContext;
+import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,9 +65,8 @@ public final class DefaultEC2Service implements EC2Service {
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
 		logger.debug("Launched Instance: [{}]", instance.getInstanceId());
-		if (context.getWaitCondition().isPresent()) {
-			WaitCondition condition = context.getWaitCondition().get();
-			wait(instance, condition);
+		if (context.getWaitContext().isPresent()) {
+			wait(instance, context.getWaitContext().get(), context.getRequiredState());
 		}
 		tag(instance.getInstanceId(), context.getTags());
 		return instance;
@@ -94,35 +93,14 @@ public final class DefaultEC2Service implements EC2Service {
 		return instances.get(0);
 	}
 
-	protected Instance wait(Instance instance, WaitCondition wc) {
-		StateRetriever sr = new InstanceStateRetriever(this, instance.getInstanceId());
-		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), wc.getState() };
+	protected Instance wait(Instance instance, WaitContext context, InstanceStateEnum requiredState) {
+		Object[] args = { FormatUtils.getTime(context.getTimeoutMillis()), instance.getInstanceId(), requiredState.getValue() };
 		logger.info("Waiting up to {} for [{}] to reach the state [{}]", args);
-		WaitResult result = waitForState(sr, wc);
-		Object[] resultArgs = { instance.getInstanceId(), wc.getState(), FormatUtils.getTime(result.getElapsed()) };
+		Condition condition = new InstanceStateCondition(this, instance.getInstanceId(), requiredState);
+		WaitResult result = service.wait(context, condition);
+		Object[] resultArgs = { instance.getInstanceId(), requiredState.getValue(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] reached the state [{}] in {}", resultArgs);
 		return getInstance(instance.getInstanceId());
-	}
-
-	protected WaitResult waitForState(StateRetriever retriever, WaitCondition wc) {
-		long start = System.currentTimeMillis();
-		long timeout = start + wc.getTimeoutMillis();
-		// Wait a little bit before we query AWS for state information
-		// If you query immediately it can sometimes flake out
-		ThreadUtils.sleep(wc.getInitialPauseMillis());
-		while (true) {
-			String currentState = retriever.getState();
-			if (StringUtils.equals(currentState, wc.getState())) {
-				return new WaitResult.Builder(currentState, start, System.currentTimeMillis() - start).build();
-			}
-			long now = System.currentTimeMillis();
-			Assert.isTrue(now <= timeout, "Timed out waiting for state [" + wc.getState() + "]");
-			String remaining = FormatUtils.getTime(timeout - now);
-			String elapsed = FormatUtils.getTime(now - start);
-			Object[] args = { currentState, elapsed, remaining };
-			logger.info("[state: {}  elapsed: {}  timeout: {}]", args);
-			ThreadUtils.sleep(wc.getSleepMillis());
-		}
 	}
 
 	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceContext context) {
