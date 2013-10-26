@@ -114,7 +114,7 @@ public final class DefaultEC2Service implements EC2Service {
 			String remaining = FormatUtils.getTime(timeout - now);
 			String elapsed = FormatUtils.getTime(now - start);
 			Object[] args = { currentState, elapsed, remaining };
-			logger.info("current state: [{}] - [elapsed: {} timeout in:{}]", args);
+			logger.info("[state: {}  elapsed: {}  timeout: {}]", args);
 			ThreadUtils.sleep(wc.getSleepMillis());
 		}
 	}
