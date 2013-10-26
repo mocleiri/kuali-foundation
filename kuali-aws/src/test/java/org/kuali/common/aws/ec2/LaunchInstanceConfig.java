@@ -39,7 +39,7 @@ public class LaunchInstanceConfig {
 	@Bean(initMethod = "execute")
 	public Executable main() {
 		String ami = env.getString("ec2.ami");
-		String keyName = env.getString("ec2.keyName");
+		String keyName = env.getString("ec2.key");
 		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).build();
 		return new LaunchInstanceExecutable(service, context);
 	}
