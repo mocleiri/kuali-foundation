@@ -13,9 +13,11 @@ public final class WaitContext {
 
 	public static class Builder {
 
+		// Required
 		private final long timeoutMillis;
 		private final Condition condition;
 
+		// Optional
 		private long sleepMillis = FormatUtils.getMillis("3s"); // 3 seconds
 		private long initialPauseMillis = FormatUtils.getMillis("1s"); // 1 second
 
