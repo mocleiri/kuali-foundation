@@ -48,7 +48,7 @@ public class LaunchInstanceConfig implements MainConfig {
 	@Bean(initMethod = "execute")
 	public Executable main() {
 		String ami = env.getString("ec2.ami");
-		String keyName = env.getString("ec2.key");
+		String keyName = env.getString("ec2.key.name");
 		String availabilityZone = env.getString("ec2.availabilityZone");
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
