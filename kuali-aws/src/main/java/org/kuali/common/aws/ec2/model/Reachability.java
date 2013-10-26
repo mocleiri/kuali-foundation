@@ -20,8 +20,8 @@ public final class Reachability {
 	private final String system;
 
 	/**
-	 * This string indicates the ability of the instance's operating system is accepting traffic. If this check fails, the instance may need to be rebooted or have modifications
-	 * made to the operating system configuration.
+	 * This string indicates the ability of the instance's operating system to accept traffic. If this check fails, the instance may need to be rebooted or have modifications made
+	 * to the operating system configuration.
 	 */
 	private final String instance;
 
