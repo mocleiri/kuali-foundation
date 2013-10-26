@@ -68,6 +68,13 @@ public final class DefaultEC2Service implements EC2Service {
 		return instance;
 	}
 
+	public boolean isReachable(String instanceId) {
+		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
+		request.setInstanceIds(Collections.singletonList(instanceId));
+		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
+		return false;
+	}
+
 	protected void foo(Instance instance) {
 		List<String> instanceIds = Arrays.asList(instance.getInstanceId());
 		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
@@ -75,17 +82,21 @@ public final class DefaultEC2Service implements EC2Service {
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
 		List<InstanceStatus> statuses = result.getInstanceStatuses();
 		for (InstanceStatus instanceStatus : statuses) {
-			InstanceStatusSummary iss = instanceStatus.getInstanceStatus();
-			String overallStatus = iss.getStatus();
-			logger.info("overallStatus: {}", overallStatus);
-			List<InstanceStatusDetails> details = iss.getDetails();
-			for (InstanceStatusDetails detail : details) {
-				String name = detail.getName();
-				String status = detail.getStatus();
-				logger.info("name: {} status: {}", name, status);
-			}
+			foo2(instanceStatus.getInstanceStatus());
+			foo2(instanceStatus.getSystemStatus());
 		}
 
+	}
+
+	protected void foo2(InstanceStatusSummary iss) {
+		String overallStatus = iss.getStatus();
+		logger.info("overallStatus: {}", overallStatus);
+		List<InstanceStatusDetails> details = iss.getDetails();
+		for (InstanceStatusDetails detail : details) {
+			String name = detail.getName();
+			String status = detail.getStatus();
+			logger.info("name: {} status: {}", name, status);
+		}
 	}
 
 	@Override
