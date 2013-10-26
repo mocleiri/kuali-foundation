@@ -8,18 +8,18 @@ public final class AfterDateCondition implements Condition {
 
 	public AfterDateCondition(Date date) {
 		Assert.noNulls(date);
-		this.date = date;
+		this.targetDate = date;
 	}
 
-	private final Date date;
+	private final Date targetDate;
 
 	@Override
 	public boolean isTrue() {
-		return System.currentTimeMillis() > date.getTime();
+		return System.currentTimeMillis() > targetDate.getTime();
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getTargetDate() {
+		return targetDate;
 	}
 
 }
