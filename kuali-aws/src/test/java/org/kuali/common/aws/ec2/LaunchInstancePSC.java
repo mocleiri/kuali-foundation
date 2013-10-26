@@ -30,9 +30,10 @@ public class LaunchInstancePSC implements PropertySourceConfig {
 	@Override
 	@Bean
 	public PropertySource<?> propertySource() {
+		String encoding = ProjectUtils.getEncoding(project);
 		List<Location> locations = new ArrayList<Location>();
-		locations.add(new Location("classpath:org/kuali/common/kuali-aws/foundation.properties", ProjectUtils.getEncoding(project)));
-		locations.add(new Location("classpath:org/kuali/common/kuali-aws/ci.properties", ProjectUtils.getEncoding(project)));
+		locations.add(new Location("classpath:org/kuali/common/kuali-aws/foundation.properties", encoding));
+		locations.add(new Location("classpath:org/kuali/common/kuali-aws/ci.properties", encoding));
 		return PropertySourceUtils.getPropertySource(service, locations);
 	}
 }
