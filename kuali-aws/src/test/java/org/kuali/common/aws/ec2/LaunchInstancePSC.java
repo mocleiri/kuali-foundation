@@ -18,7 +18,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ DefaultPropertiesServiceConfig.class })
-public class DropCreatePSC implements PropertySourceConfig {
+public class LaunchInstancePSC implements PropertySourceConfig {
 
 	@Autowired
 	Project project;

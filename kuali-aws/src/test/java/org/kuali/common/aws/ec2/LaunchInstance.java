@@ -21,20 +21,20 @@ import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DropCreate extends AbstractMainRunner {
+public class LaunchInstance extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(DropCreate.class, args);
+		MainUtils.runAndExit(LaunchInstance.class, args);
 	}
 
 	@Override
 	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
-		return DropCreatePSC.class;
+		return LaunchInstancePSC.class;
 	}
 
 	@Override
 	protected Class<?> getConfig() {
-		return DropCreateConfig.class;
+		return LaunchInstanceConfig.class;
 	}
 
 }

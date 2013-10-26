@@ -19,6 +19,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 // @Import({ JdbcServiceConfig.class, DbaContextConfig.class, JdbcContextsExecutableConfig.class })
-public class DropCreateConfig {
+public class LaunchInstanceConfig {
 
 }
