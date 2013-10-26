@@ -21,7 +21,7 @@ public interface EC2Service {
 	public Instance getInstance(String id);
 
 	/**
-	 * Create tags on the indicated Amazon resource
+	 * Create tags on the indicated Amazon EC2 resource (instances, volumes, snapshots, etc)
 	 */
 	public void tag(String resourceId, List<Tag> tags);
 
