@@ -34,6 +34,15 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	/**
+	 * Assert that all of the numbers in the array are greater than or equal to zero
+	 */
+	public static void noNegatives(long... numbers) {
+		for (long number : numbers) {
+			notNegative(number);
+		}
+	}
+
+	/**
 	 * Assert that all of the numbers in the array are less than or equal to zero
 	 */
 	public static void noPositives(int... numbers) {
@@ -46,6 +55,13 @@ public abstract class Assert extends org.springframework.util.Assert {
 	 * Assert that <code>i</code> is greater than or equal to zero
 	 */
 	public static void notNegative(int i) {
+		isTrue(i >= 0, i + " is negative");
+	}
+
+	/**
+	 * Assert that <code>i</code> is greater than or equal to zero
+	 */
+	public static void notNegative(long i) {
 		isTrue(i >= 0, i + " is negative");
 	}
 
