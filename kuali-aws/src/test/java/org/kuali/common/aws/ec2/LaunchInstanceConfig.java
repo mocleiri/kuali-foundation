@@ -22,6 +22,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.main.spring.MainConfig;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -35,7 +36,7 @@ import com.amazonaws.services.ec2.model.Tag;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
-public class LaunchInstanceConfig {
+public class LaunchInstanceConfig implements MainConfig {
 
 	@Autowired
 	EC2Service service;
@@ -43,6 +44,7 @@ public class LaunchInstanceConfig {
 	@Autowired
 	EnvironmentService env;
 
+	@Override
 	@Bean(initMethod = "execute")
 	public Executable main() {
 		String ami = env.getString("ec2.ami");
