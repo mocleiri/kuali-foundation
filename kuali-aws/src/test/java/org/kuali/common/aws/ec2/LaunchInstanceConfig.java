@@ -16,16 +16,31 @@
 package org.kuali.common.aws.ec2;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ AwsServiceConfig.class })
+@Import({ AwsServiceConfig.class, SpringServiceConfig.class })
 public class LaunchInstanceConfig {
 
 	@Autowired
 	EC2Service service;
 
+	@Autowired
+	EnvironmentService env;
+
+	@Bean(initMethod = "execute")
+	public Executable main() {
+		String ami = env.getString("ec2.ami");
+		String keyName = env.getString("ec2.keyName");
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).build();
+		return new LaunchInstanceExecutable(service, context);
+	}
 }
