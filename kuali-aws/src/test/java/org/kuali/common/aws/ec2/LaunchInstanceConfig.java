@@ -56,7 +56,7 @@ public class LaunchInstanceConfig implements MainConfig {
 
 	protected LaunchInstanceContext getLaunchInstanceContext() {
 		String ami = env.getString("ec2.ami");
-		String keyName = env.getString("ec2.key.name");
+		String keyName = env.getString("ec2.keyName");
 		String availabilityZone = env.getString("ec2.availabilityZone");
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
