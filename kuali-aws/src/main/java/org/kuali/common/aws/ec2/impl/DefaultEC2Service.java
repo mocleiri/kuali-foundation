@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.WaitCondition;
+import org.kuali.common.aws.ec2.model.WaitResult;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -98,7 +99,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return getInstance(instance.getInstanceId());
 	}
 
-	protected void waitForState(StateRetriever retriever, WaitCondition wc) {
+	protected WaitResult waitForState(StateRetriever retriever, WaitCondition wc) {
 		long start = System.currentTimeMillis();
 		long timeout = start + wc.getTimeoutMillis();
 		// Wait a little bit before we query AWS for state information
@@ -107,7 +108,7 @@ public final class DefaultEC2Service implements EC2Service {
 		while (true) {
 			String currentState = retriever.getState();
 			if (StringUtils.equals(currentState, wc.getState())) {
-				break;
+				return new WaitResult.Builder(currentState, start, System.currentTimeMillis()-start).build();
 			}
 			long now = System.currentTimeMillis();
 			Assert.isTrue(now <= timeout, "Timed out waiting for state [" + wc.getState() + "]");

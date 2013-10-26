@@ -5,16 +5,16 @@ import org.kuali.common.util.Assert;
 public final class WaitResult {
 
 	private final String state;
-	private final int start;
-	private final int elapsed;
+	private final long start;
+	private final long elapsed;
 
 	public static class Builder {
 
 		private final String state;
-		private final int start;
-		private final int elapsed;
+		private final long start;
+		private final long elapsed;
 
-		public Builder(String state, int start, int elapsed) {
+		public Builder(String state, long start, long elapsed) {
 			this.state = state;
 			this.start = start;
 			this.elapsed = elapsed;
@@ -38,11 +38,11 @@ public final class WaitResult {
 		return state;
 	}
 
-	public int getStart() {
+	public long getStart() {
 		return start;
 	}
 
-	public int getElapsed() {
+	public long getElapsed() {
 		return elapsed;
 	}
 
