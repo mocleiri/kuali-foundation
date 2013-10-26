@@ -23,7 +23,7 @@ public final class LaunchInstanceContext {
 
 	public static class Builder {
 
-		public static final String DEFAULT_WAIT_FOR_STATE = InstanceStates.RUNNING.getValue(); // "running"
+		public static final String DEFAULT_WAIT_FOR_STATE = InstanceStateEnum.RUNNING.getValue(); // "running"
 		public static final int DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 
 		// Required
