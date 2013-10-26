@@ -4,6 +4,8 @@ import org.kuali.common.util.Assert;
 
 public final class Reachability {
 
+	public static final String REACHABILITY = "reachability";
+
 	public Reachability(String system, String instance) {
 		Assert.noBlanks(system, instance);
 		this.system = system;

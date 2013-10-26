@@ -7,6 +7,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.InstanceStateEnum;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -68,11 +69,11 @@ public final class DefaultEC2Service implements EC2Service {
 		return instance;
 	}
 
-	public boolean isReachable(String instanceId) {
+	public Reachability getReachability(String instanceId) {
 		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
-		return false;
+		return null;
 	}
 
 	protected void foo(Instance instance) {
