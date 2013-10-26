@@ -73,6 +73,42 @@ public final class DefaultEC2Service implements EC2Service {
 		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
+		List<InstanceStatus> list = result.getInstanceStatuses();
+		String name = Reachability.REACHABILITY;
+		String system = getRequiredSystemStatus(list, name);
+		String instance = getRequiredInstanceStatus(list, name);
+		return new Reachability(system, instance);
+	}
+
+	protected String getRequiredSystemStatus(List<InstanceStatus> list, String name) {
+		for (InstanceStatus element : list) {
+			InstanceStatusSummary summary = element.getSystemStatus();
+			String detail = getStatusDetail(summary, name);
+			if (detail != null) {
+				return detail;
+			}
+		}
+		throw new IllegalStateException("Unable to locate status for [" + name + "]");
+	}
+
+	protected String getRequiredInstanceStatus(List<InstanceStatus> list, String name) {
+		for (InstanceStatus element : list) {
+			InstanceStatusSummary summary = element.getInstanceStatus();
+			String detail = getStatusDetail(summary, name);
+			if (detail != null) {
+				return detail;
+			}
+		}
+		throw new IllegalStateException("Unable to locate status for [" + name + "]");
+	}
+
+	protected String getStatusDetail(InstanceStatusSummary summary, String name) {
+		List<InstanceStatusDetails> details = summary.getDetails();
+		for (InstanceStatusDetails detail : details) {
+			if (name.equals(detail.getName())) {
+				return detail.getStatus();
+			}
+		}
 		return null;
 	}
 
