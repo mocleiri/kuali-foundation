@@ -76,9 +76,9 @@ public final class DefaultEC2Service implements EC2Service {
 		List<InstanceStatus> statuses = result.getInstanceStatuses();
 		for (InstanceStatus instanceStatus : statuses) {
 			InstanceStatusSummary iss = instanceStatus.getInstanceStatus();
-			List<InstanceStatusDetails> details = iss.getDetails();
 			String overallStatus = iss.getStatus();
 			logger.info("overallStatus: {}", overallStatus);
+			List<InstanceStatusDetails> details = iss.getDetails();
 			for (InstanceStatusDetails detail : details) {
 				String name = detail.getName();
 				String status = detail.getStatus();
