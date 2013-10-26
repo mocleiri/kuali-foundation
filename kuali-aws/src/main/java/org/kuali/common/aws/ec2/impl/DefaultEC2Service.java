@@ -69,14 +69,14 @@ public final class DefaultEC2Service implements EC2Service {
 		return instance;
 	}
 
+	@Override
 	public Reachability getReachability(String instanceId) {
 		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
 		List<InstanceStatus> list = result.getInstanceStatuses();
-		String name = Reachability.STATUS_NAME;
-		String system = getRequiredSystemStatus(list, name);
-		String instance = getRequiredInstanceStatus(list, name);
+		String system = getRequiredSystemStatus(list, Reachability.STATUS_NAME);
+		String instance = getRequiredInstanceStatus(list, Reachability.STATUS_NAME);
 		return new Reachability(system, instance);
 	}
 
