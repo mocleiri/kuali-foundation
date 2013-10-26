@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AutowiredProjectConfig.class })
-public class KualiAwsProjectConfig implements ProjectIdentifierConfig {
+public class AwsProjectConfig implements ProjectIdentifierConfig {
 
 	@Override
 	@Bean
