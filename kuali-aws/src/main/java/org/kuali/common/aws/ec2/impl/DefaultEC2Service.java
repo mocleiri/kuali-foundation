@@ -74,7 +74,7 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
 		List<InstanceStatus> list = result.getInstanceStatuses();
-		String name = Reachability.REACHABILITY;
+		String name = Reachability.STATUS_NAME;
 		String system = getRequiredSystemStatus(list, name);
 		String instance = getRequiredInstanceStatus(list, name);
 		return new Reachability(system, instance);
