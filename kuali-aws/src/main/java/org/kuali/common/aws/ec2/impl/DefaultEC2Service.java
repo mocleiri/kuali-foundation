@@ -95,7 +95,7 @@ public final class DefaultEC2Service implements EC2Service {
 			wait(instance, context.getWaitContext().get(), context.getRequiredState());
 		}
 		tag(instance.getInstanceId(), context.getTags());
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 15; i++) {
 			foo(instance);
 			ThreadUtils.sleep(5000);
 		}
