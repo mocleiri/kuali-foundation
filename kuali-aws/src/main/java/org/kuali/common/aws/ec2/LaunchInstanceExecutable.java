@@ -1,5 +1,6 @@
-package org.kuali.common.aws.ec2.api;
+package org.kuali.common.aws.ec2;
 
+import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
