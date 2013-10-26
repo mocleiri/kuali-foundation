@@ -128,8 +128,8 @@ public final class DefaultEC2Service implements EC2Service {
 			return;
 		}
 		List<String> resources = Collections.singletonList(resourceId);
-		CreateTagsRequest ctr = new CreateTagsRequest(resources, tags);
-		client.createTags(ctr);
+		CreateTagsRequest request = new CreateTagsRequest(resources, tags);
+		client.createTags(request);
 	}
 
 	protected Instance getInstance(LaunchInstanceContext context) {
