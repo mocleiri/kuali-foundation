@@ -42,13 +42,17 @@ public class MainUtils {
 			// Exit with zero if there is no exception
 			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
-			if (stacktrace) {
-				e.printStackTrace();
-			} else {
-				System.err.print(e.getMessage());
-			}
-			System.exit(Status.FAILURE.getValue());
+			handleException(e, stacktrace);
 		}
+	}
+
+	protected static void handleException(Exception e, boolean stacktrace) {
+		if (stacktrace) {
+			e.printStackTrace();
+		} else {
+			System.err.print(e.getMessage());
+		}
+		System.exit(Status.FAILURE.getValue());
 	}
 
 }
