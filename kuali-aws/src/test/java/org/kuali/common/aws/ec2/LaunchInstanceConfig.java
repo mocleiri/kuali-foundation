@@ -50,8 +50,9 @@ public class LaunchInstanceConfig {
 		String availabilityZone = env.getString("ec2.availabilityZone");
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
-		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "env.securityGroups");
-		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups).build();
+		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.securityGroups");
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups)
+				.build();
 		return new LaunchInstanceExecutable(service, context);
 	}
 
