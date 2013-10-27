@@ -190,10 +190,10 @@ public final class DefaultEC2Service implements EC2Service {
 		Instance instance = getInstance(context);
 		ThreadUtils.sleep(initialPauseMillis);
 		tag(instance.getInstanceId(), context.getTags());
-		wait(instance, context);
 		if (context.isEnableTerminationProtection()) {
 			enableTerminationProtection(instance.getInstanceId());
 		}
+		wait(instance, context);
 		return getInstance(instance.getInstanceId());
 	}
 
