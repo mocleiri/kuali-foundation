@@ -106,14 +106,14 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
 		List<InstanceStatus> list = result.getInstanceStatuses();
-		String system = getSystemStatus(list, Reachability.STATUS_NAME);
-		String instance = getInstanceStatus(list, Reachability.STATUS_NAME);
+		String system = getStatus(list, Reachability.STATUS_NAME, StatusType.SYSTEM);
+		String instance = getStatus(list, Reachability.STATUS_NAME, StatusType.INSTANCE);
 		return new Reachability(system, instance);
 	}
 
-	protected String getSystemStatus(List<InstanceStatus> statuses, String name) {
+	protected String getStatus(List<InstanceStatus> statuses, String name, StatusType type) {
 		for (InstanceStatus status : statuses) {
-			InstanceStatusSummary summary = status.getSystemStatus();
+			InstanceStatusSummary summary = getSummary(status, type);
 			Optional<String> detail = getStatusDetail(summary, name);
 			if (detail.isPresent()) {
 				return detail.get();
@@ -122,15 +122,15 @@ public final class DefaultEC2Service implements EC2Service {
 		return Reachability.STATUS_UNKNOWN;
 	}
 
-	protected String getInstanceStatus(List<InstanceStatus> statuses, String name) {
-		for (InstanceStatus status : statuses) {
-			InstanceStatusSummary summary = status.getInstanceStatus();
-			Optional<String> detail = getStatusDetail(summary, name);
-			if (detail.isPresent()) {
-				return detail.get();
-			}
+	protected InstanceStatusSummary getSummary(InstanceStatus status, StatusType type) {
+		switch (type) {
+		case INSTANCE:
+			return status.getInstanceStatus();
+		case SYSTEM:
+			return status.getSystemStatus();
+		default:
+			throw new IllegalArgumentException("[" + type + "] is unknown");
 		}
-		return Reachability.STATUS_UNKNOWN;
 	}
 
 	protected Optional<String> getStatusDetail(InstanceStatusSummary summary, String name) {
