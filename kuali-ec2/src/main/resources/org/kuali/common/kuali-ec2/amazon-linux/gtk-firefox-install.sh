@@ -40,7 +40,7 @@ function finish()
 {
 cd $workpath
 wget -r --no-parent --reject "index.html*" -nH --cut-dirs=7 http://releases.mozilla.org/pub/mozilla.org/firefox/releases/latest/linux-x86_64/en-US/
-tar xvf firefox*
+tar xf firefox*
 cd bin
 ln -s ../firefox/firefox
 ldconfig
