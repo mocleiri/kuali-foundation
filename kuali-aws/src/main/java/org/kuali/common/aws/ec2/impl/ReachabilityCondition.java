@@ -7,23 +7,21 @@ import org.kuali.common.util.condition.Condition;
 
 public final class ReachabilityCondition implements Condition {
 
-	public ReachabilityCondition(EC2Service service, String instanceId, Reachability targetReachability) {
-		Assert.noNulls(service, targetReachability);
+	public ReachabilityCondition(EC2Service service, String instanceId) {
 		Assert.noBlanks(instanceId);
+		Assert.noNulls(service);
 		this.instanceId = instanceId;
 		this.service = service;
-		this.targetReachability = targetReachability;
 	}
 
 	private final EC2Service service;
 	private final String instanceId;
-	private final Reachability targetReachability;
 
 	@Override
 	public boolean isTrue() {
 		Reachability reachability = service.getReachability(instanceId);
-		boolean system = targetReachability.getSystem().equals(reachability.getSystem());
-		boolean instance = targetReachability.getInstance().equals(reachability.getInstance());
+		boolean system = Reachability.OK.getSystem().equals(reachability.getSystem());
+		boolean instance = Reachability.OK.getInstance().equals(reachability.getInstance());
 		return system && instance;
 	}
 
@@ -33,10 +31,6 @@ public final class ReachabilityCondition implements Condition {
 
 	public String getInstanceId() {
 		return instanceId;
-	}
-
-	public Reachability getTargetReachability() {
-		return targetReachability;
 	}
 
 }

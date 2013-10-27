@@ -10,6 +10,7 @@ import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.condition.ConditionsCondition;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
@@ -34,6 +35,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.collect.ImmutableList;
 
 public final class DefaultEC2Service implements EC2Service {
 
@@ -140,15 +142,16 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance wait(Instance instance, LaunchInstanceContext context) {
+		InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
 		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).build();
-		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), InstanceStateEnum.RUNNING.getValue() };
-		logger.info("Waiting up to {} for [{}] to become reachable", args);
-		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), InstanceStateEnum.RUNNING);
-		ReachabilityCondition status = new ReachabilityCondition(this, instance.getInstanceId(), Reachability.OK);
-		Condition condition = new HealthyInstanceCondition(state, status);
+		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), targetState.getValue() };
+		logger.info("Waiting up to {} for [{}] to start running and become reachable", args);
+		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), targetState);
+		ReachabilityCondition status = new ReachabilityCondition(this, instance.getInstanceId());
+		Condition condition = new ConditionsCondition(ImmutableList.of(state, status));
 		WaitResult result = service.wait(wc, condition);
-		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
-		logger.info("[{}] became reachable in {}", resultArgs);
+		Object[] resultArgs = { instance.getInstanceId(), targetState.getValue(), FormatUtils.getTime(result.getElapsed()) };
+		logger.info("[{}] is now '{}' and reachable. - {}", resultArgs);
 		return getInstance(instance.getInstanceId());
 	}
 
