@@ -22,8 +22,6 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.main.spring.MainConfig;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -41,7 +39,7 @@ import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
-public class LaunchInstanceConfig implements MainConfig {
+public class LaunchInstanceConfig {
 
 	@Autowired
 	EC2Service service;
@@ -49,9 +47,8 @@ public class LaunchInstanceConfig implements MainConfig {
 	@Autowired
 	EnvironmentService env;
 
-	@Override
 	@Bean
-	public Executable main() {
+	public Object launchAndThenTerminate() {
 		LaunchInstanceContext context = getLaunchInstanceContext();
 		Instance instance = service.launchInstance(context);
 		service.terminateInstance(instance.getInstanceId());
