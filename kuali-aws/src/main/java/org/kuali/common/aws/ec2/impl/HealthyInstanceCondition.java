@@ -22,7 +22,7 @@ public final class HealthyInstanceCondition implements Condition {
 	private boolean logStateChange = true;
 
 	@Override
-	public boolean isTrue() {
+	public synchronized boolean isTrue() {
 
 		if (!correctState) {
 			this.correctState = state.isTrue();
