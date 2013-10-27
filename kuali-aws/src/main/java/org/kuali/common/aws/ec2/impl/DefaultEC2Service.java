@@ -74,12 +74,12 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
 		List<InstanceStatus> list = result.getInstanceStatuses();
-		String system = getRequiredSystemStatus(list, Reachability.STATUS_NAME);
-		String instance = getRequiredInstanceStatus(list, Reachability.STATUS_NAME);
+		String system = getSystemStatus(list, Reachability.STATUS_NAME);
+		String instance = getInstanceStatus(list, Reachability.STATUS_NAME);
 		return new Reachability(system, instance);
 	}
 
-	protected String getRequiredSystemStatus(List<InstanceStatus> list, String name) {
+	protected String getSystemStatus(List<InstanceStatus> list, String name) {
 		for (InstanceStatus element : list) {
 			InstanceStatusSummary summary = element.getSystemStatus();
 			String detail = getStatusDetail(summary, name);
@@ -87,10 +87,10 @@ public final class DefaultEC2Service implements EC2Service {
 				return detail;
 			}
 		}
-		throw new IllegalStateException("Unable to locate status for [" + name + "]");
+		return Reachability.STATUS_UNKNOWN;
 	}
 
-	protected String getRequiredInstanceStatus(List<InstanceStatus> list, String name) {
+	protected String getInstanceStatus(List<InstanceStatus> list, String name) {
 		for (InstanceStatus element : list) {
 			InstanceStatusSummary summary = element.getInstanceStatus();
 			String detail = getStatusDetail(summary, name);
@@ -98,7 +98,7 @@ public final class DefaultEC2Service implements EC2Service {
 				return detail;
 			}
 		}
-		throw new IllegalStateException("Unable to locate status for [" + name + "]");
+		return Reachability.STATUS_UNKNOWN;
 	}
 
 	protected String getStatusDetail(InstanceStatusSummary summary, String name) {
