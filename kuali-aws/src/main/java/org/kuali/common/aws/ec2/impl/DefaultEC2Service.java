@@ -43,15 +43,45 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private final AmazonEC2Client client;
 	private final WaitService service;
+	private final long launchSleepIntervalMillis;
 
-	public DefaultEC2Service(AWSCredentials credentials, WaitService service) {
-		Assert.noNulls(credentials, service);
-		this.client = new AmazonEC2Client(credentials);
-		this.service = service;
+	public static class Builder {
+
+		// Required
+		private final AWSCredentials credentials;
+		private final WaitService service;
+		private final AmazonEC2Client client;
+
+		// Optional
+		private long launchSleepIntervalMillis = FormatUtils.getMillis("10s"); // 10 seconds
+
+		public Builder(String accessKey, String secretKey, WaitService service) {
+			this(new BasicAWSCredentials(accessKey, secretKey), service);
+		}
+
+		public Builder(AWSCredentials credentials, WaitService service) {
+			this.credentials = credentials;
+			this.client = new AmazonEC2Client(credentials);
+			this.service = service;
+		}
+
+		public Builder launchSleepIntervalMillis(long launchSleepIntervalMillis) {
+			this.launchSleepIntervalMillis = launchSleepIntervalMillis;
+			return this;
+		}
+
+		public DefaultEC2Service build() {
+			Assert.noNulls(client, service, credentials);
+			Assert.notNegative(launchSleepIntervalMillis);
+			return new DefaultEC2Service(this);
+		}
+
 	}
 
-	public DefaultEC2Service(String accessKey, String secretKey, WaitService service) {
-		this(new BasicAWSCredentials(accessKey, secretKey), service);
+	private DefaultEC2Service(Builder builder) {
+		this.client = builder.client;
+		this.service = builder.service;
+		this.launchSleepIntervalMillis = builder.launchSleepIntervalMillis;
 	}
 
 	@Override
@@ -143,7 +173,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected Instance wait(Instance instance, LaunchInstanceContext context) {
 		InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
-		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).build();
+		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepIntervalMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), targetState.getValue() };
 		logger.info("Waiting up to {} for [{}] to start running and become reachable", args);
 		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), targetState);
@@ -169,6 +199,18 @@ public final class DefaultEC2Service implements EC2Service {
 			rir.setPlacement(placement);
 		}
 		return rir;
+	}
+
+	public AmazonEC2Client getClient() {
+		return client;
+	}
+
+	public WaitService getService() {
+		return service;
+	}
+
+	public long getLaunchSleepIntervalMillis() {
+		return launchSleepIntervalMillis;
 	}
 
 }

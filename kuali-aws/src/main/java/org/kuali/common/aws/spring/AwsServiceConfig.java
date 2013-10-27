@@ -43,7 +43,7 @@ public class AwsServiceConfig {
 	public EC2Service ec2Service() {
 		String accessKey = env.getString(ACCESS_KEY);
 		String secretKey = env.getString(SECRET_KEY);
-		return new DefaultEC2Service(accessKey, secretKey, service);
+		return new DefaultEC2Service.Builder(accessKey, secretKey, service).build();
 	}
 
 }
