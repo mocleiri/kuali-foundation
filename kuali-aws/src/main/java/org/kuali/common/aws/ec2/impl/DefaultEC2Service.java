@@ -41,8 +41,13 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 /**
- * This service provides a layer of abstraction above the EC2 API calls provided by Amazon intended to be useful for common tasks. For example the launch instance method allows the
- * launching of a single instance that blocks until the launched instance comes online and is ready for service.
+ * <p>
+ * This service provides a layer of abstraction above the EC2 API calls provided by Amazon intended to be useful for common tasks.
+ * </p>
+ * 
+ * <p>
+ * For example, the launch instance method creates a single EC2 instance and blocks until the launched instance comes online and is ready for service.
+ * </p>
  */
 public final class DefaultEC2Service implements EC2Service {
 
