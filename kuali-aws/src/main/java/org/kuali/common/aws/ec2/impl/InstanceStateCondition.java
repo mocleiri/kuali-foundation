@@ -25,9 +25,9 @@ public final class InstanceStateCondition implements Condition {
 	@Override
 	public boolean isTrue() {
 		Instance instance = service.getInstance(instanceId);
-		InstanceState currentInstanceState = instance.getState();
-		String currentState = currentInstanceState.getName();
-		return targetState.getValue().equals(currentState);
+		InstanceState instanceState = instance.getState();
+		String stateName = instanceState.getName();
+		return targetState.getValue().equals(stateName);
 	}
 
 	public EC2Service getService() {
