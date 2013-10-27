@@ -83,17 +83,17 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 
 		public Builder region(Region region) {
-			this.region = Optional.of(region);
+			this.region = Optional.fromNullable(region);
 			return this;
 		}
 
 		public Builder endpoint(String endpoint) {
-			this.endpoint = Optional.of(endpoint);
+			this.endpoint = Optional.fromNullable(endpoint);
 			return this;
 		}
 
 		public Builder configuration(ClientConfiguration configuration) {
-			this.configuration = Optional.of(configuration);
+			this.configuration = Optional.fromNullable(configuration);
 			return this;
 		}
 

@@ -29,8 +29,6 @@ import org.springframework.context.annotation.Import;
 
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
-import com.amazonaws.regions.Regions;
-import com.google.common.base.Optional;
 
 @Configuration
 @Import({ SpringServiceConfig.class, WaitServiceConfig.class })
@@ -50,22 +48,16 @@ public class AwsServiceConfig {
 	public EC2Service ec2Service() {
 		String accessKey = env.getString(ACCESS_KEY);
 		String secretKey = env.getString(SECRET_KEY);
-		Optional<Region> region = getRegion();
-		if (region.isPresent()) {
-			return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region.get()).build();
-		} else {
-			return new DefaultEC2Service.Builder(accessKey, secretKey, service).build();
-		}
+		Region region = getRegion();
+		return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region).build();
 	}
 
-	protected Optional<Region> getRegion() {
+	protected Region getRegion() {
 		String regionName = env.getString(REGION_KEY, NullUtils.NONE);
 		if (NullUtils.isNullOrNone(regionName)) {
-			return Optional.<Region> absent();
+			return null;
 		} else {
-			Regions regions = Regions.fromName(regionName);
-			Region region = RegionUtils.getRegion(regions.getName());
-			return Optional.of(region);
+			return RegionUtils.getRegion(regionName);
 		}
 	}
 
