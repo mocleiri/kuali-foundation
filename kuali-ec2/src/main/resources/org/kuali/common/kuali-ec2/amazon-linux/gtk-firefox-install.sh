@@ -51,8 +51,8 @@ function install()
 wget $1
 FILE=`basename $1`
 if [ ${FILE: -3} == ".xz" ]
-then tar xvfJ $FILE
-else tar xvf $FILE
+then tar xfJ $FILE
+else tar xf $FILE
 fi
 SHORT=${FILE:0:4}*
 cd $SHORT
