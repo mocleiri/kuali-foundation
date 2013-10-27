@@ -48,7 +48,7 @@ ldconfig
  
 function install()
 {
-echo Install Begin - $(date) - $1
+echo Install Begin    - $(date) - $1
 wget $1
 FILE=`basename $1`
 if [ ${FILE: -3} == ".xz" ]
