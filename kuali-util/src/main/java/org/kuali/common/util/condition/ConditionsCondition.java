@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 
+import com.google.common.collect.ImmutableList;
+
 public final class ConditionsCondition implements Condition {
 
 	public ConditionsCondition(List<Condition> conditions) {
 		Assert.noNulls(conditions);
-		this.conditions = conditions;
+		this.conditions = ImmutableList.copyOf(conditions);
 	}
 
 	private final List<Condition> conditions;
