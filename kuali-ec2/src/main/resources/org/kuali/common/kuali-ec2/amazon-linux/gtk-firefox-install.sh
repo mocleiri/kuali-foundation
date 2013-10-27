@@ -70,7 +70,7 @@ echo $(date)
 init
 install ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
 install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
-#install http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.9.0.tar.gz
+install http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.9.0.tar.gz
 #install http://ftp.gnome.org/pub/gnome/sources/glib/2.32/glib-2.32.3.tar.xz
 #install http://cairographics.org/releases/pixman-0.26.0.tar.gz
 #install http://cairographics.org/releases/cairo-1.12.2.tar.xz
