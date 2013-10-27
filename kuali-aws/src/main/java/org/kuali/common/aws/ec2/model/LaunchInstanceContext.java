@@ -22,6 +22,7 @@ public final class LaunchInstanceContext {
 	private final Optional<String> availabilityZone;
 	private final Optional<WaitContext> waitContext;
 	private final InstanceStateEnum targetState;
+	private final Reachability targetReachability;
 
 	public static class Builder {
 
@@ -38,6 +39,7 @@ public final class LaunchInstanceContext {
 		private Optional<WaitContext> waitContext = Optional.of(new WaitContext.Builder(DEFAULT_TIMEOUT_MILLIS).build());
 		private Optional<String> availabilityZone = Optional.absent();
 		private InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
+		private Reachability targetReachability = Reachability.OK;
 
 		public Builder(String ami, String keyName) {
 			this(ami, keyName, DEFAULT_TIMEOUT_MILLIS);
@@ -47,6 +49,11 @@ public final class LaunchInstanceContext {
 			this.ami = ami;
 			this.keyName = keyName;
 			this.waitContext = Optional.of(new WaitContext.Builder(timeoutMillis).build());
+		}
+
+		public Builder targetReachability(Reachability targetReachability) {
+			this.targetReachability = targetReachability;
+			return this;
 		}
 
 		public Builder targetState(InstanceStateEnum targetState) {
@@ -81,7 +88,7 @@ public final class LaunchInstanceContext {
 
 		public LaunchInstanceContext build() {
 			Assert.noBlanks(ami, keyName);
-			Assert.noNulls(type, securityGroups, tags, waitContext, availabilityZone);
+			Assert.noNulls(type, securityGroups, tags, waitContext, availabilityZone, targetState, targetReachability);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceContext(this);
@@ -98,6 +105,7 @@ public final class LaunchInstanceContext {
 		this.waitContext = builder.waitContext;
 		this.availabilityZone = builder.availabilityZone;
 		this.targetState = builder.targetState;
+		this.targetReachability = builder.targetReachability;
 	}
 
 	public String getAmi() {
@@ -130,6 +138,10 @@ public final class LaunchInstanceContext {
 
 	public InstanceStateEnum getTargetState() {
 		return targetState;
+	}
+
+	public Reachability getTargetReachability() {
+		return targetReachability;
 	}
 
 }
