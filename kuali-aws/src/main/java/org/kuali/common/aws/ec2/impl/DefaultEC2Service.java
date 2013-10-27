@@ -202,10 +202,6 @@ public final class DefaultEC2Service implements EC2Service {
 		return rir;
 	}
 
-	public AmazonEC2Client getClient() {
-		return client;
-	}
-
 	public WaitService getService() {
 		return service;
 	}
