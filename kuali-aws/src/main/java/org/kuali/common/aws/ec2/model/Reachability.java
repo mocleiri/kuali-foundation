@@ -5,6 +5,7 @@ import org.kuali.common.util.Assert;
 public final class Reachability {
 
 	public static final String STATUS_NAME = "reachability";
+	public static final String PASSED = "passed";
 
 	public Reachability(String system, String instance) {
 		Assert.noBlanks(system, instance);
