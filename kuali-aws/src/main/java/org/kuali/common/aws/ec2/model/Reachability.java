@@ -6,7 +6,7 @@ public final class Reachability {
 
 	public static final String STATUS_NAME = "reachability";
 	public static final String STATUS_PASSED = "passed";
-	public static final Reachability HEALTHY = new Reachability(STATUS_PASSED, STATUS_PASSED);
+	public static final Reachability OK = new Reachability(STATUS_PASSED, STATUS_PASSED);
 
 	public Reachability(String system, String instance) {
 		Assert.noBlanks(system, instance);
