@@ -43,7 +43,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private final AmazonEC2Client client;
 	private final WaitService service;
-	private final long launchSleepIntervalMillis;
+	private final int launchSleepIntervalMillis;
 
 	public static class Builder {
 
@@ -53,7 +53,7 @@ public final class DefaultEC2Service implements EC2Service {
 		private final AmazonEC2Client client;
 
 		// Optional
-		private long launchSleepIntervalMillis = FormatUtils.getMillis("10s"); // 10 seconds
+		private int launchSleepIntervalMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
 
 		public Builder(String accessKey, String secretKey, WaitService service) {
 			this(new BasicAWSCredentials(accessKey, secretKey), service);
@@ -65,7 +65,7 @@ public final class DefaultEC2Service implements EC2Service {
 			this.service = service;
 		}
 
-		public Builder launchSleepIntervalMillis(long launchSleepIntervalMillis) {
+		public Builder launchSleepIntervalMillis(int launchSleepIntervalMillis) {
 			this.launchSleepIntervalMillis = launchSleepIntervalMillis;
 			return this;
 		}
@@ -209,7 +209,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return service;
 	}
 
-	public long getLaunchSleepIntervalMillis() {
+	public int getLaunchSleepIntervalMillis() {
 		return launchSleepIntervalMillis;
 	}
 
