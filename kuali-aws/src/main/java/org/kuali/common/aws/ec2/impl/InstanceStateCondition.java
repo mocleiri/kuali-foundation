@@ -10,24 +10,24 @@ import com.amazonaws.services.ec2.model.InstanceState;
 
 public final class InstanceStateCondition implements Condition {
 
-	public InstanceStateCondition(EC2Service service, String instanceId, InstanceStateEnum state) {
-		Assert.noNulls(service, state);
+	public InstanceStateCondition(EC2Service service, String instanceId, InstanceStateEnum targetState) {
+		Assert.noNulls(service, targetState);
 		Assert.noBlanks(instanceId);
 		this.instanceId = instanceId;
 		this.service = service;
-		this.state = state;
+		this.targetState = targetState;
 	}
 
 	private final EC2Service service;
 	private final String instanceId;
-	private final InstanceStateEnum state;
+	private final InstanceStateEnum targetState;
 
 	@Override
 	public boolean isTrue() {
 		Instance instance = service.getInstance(instanceId);
 		InstanceState currentInstanceState = instance.getState();
 		String currentState = currentInstanceState.getName();
-		return state.getValue().equals(currentState);
+		return targetState.getValue().equals(currentState);
 	}
 
 	public EC2Service getService() {
@@ -38,8 +38,8 @@ public final class InstanceStateCondition implements Condition {
 		return instanceId;
 	}
 
-	public InstanceStateEnum getState() {
-		return state;
+	public InstanceStateEnum getTargetState() {
+		return targetState;
 	}
 
 }
