@@ -20,8 +20,8 @@ public final class IsReachableCondition implements Condition {
 	@Override
 	public boolean isTrue() {
 		Reachability reachability = service.getReachability(instanceId);
-		boolean system = Reachability.OK.getSystem().equals(reachability.getSystem());
-		boolean instance = Reachability.OK.getInstance().equals(reachability.getInstance());
+		boolean system = Reachability.STATUS_PASSED.equals(reachability.getSystem());
+		boolean instance = Reachability.STATUS_PASSED.equals(reachability.getInstance());
 		return system && instance;
 	}
 
