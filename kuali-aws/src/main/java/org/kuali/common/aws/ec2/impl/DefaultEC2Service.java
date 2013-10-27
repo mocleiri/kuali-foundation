@@ -172,15 +172,15 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance wait(Instance instance, LaunchInstanceContext context) {
-		InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
+		InstanceStateEnum running = InstanceStateEnum.RUNNING;
 		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepIntervalMillis).build();
-		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), targetState.getValue() };
+		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to startup and become reachable", args);
-		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), targetState);
+		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), running);
 		IsReachableCondition status = new IsReachableCondition(this, instance.getInstanceId());
 		Condition condition = new ConditionsCondition(ImmutableList.of(state, status));
 		WaitResult result = service.wait(wc, condition);
-		Object[] resultArgs = { instance.getInstanceId(), targetState.getValue(), FormatUtils.getTime(result.getElapsed()) };
+		Object[] resultArgs = { instance.getInstanceId(), running.getValue(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] is now '{}' and reachable - {}", resultArgs);
 		return getInstance(instance.getInstanceId());
 	}
