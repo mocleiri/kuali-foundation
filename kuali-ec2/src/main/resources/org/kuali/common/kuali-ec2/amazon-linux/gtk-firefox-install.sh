@@ -9,6 +9,7 @@
  
  
 TARGET=/usr/local
+LATEST_MOZILLA_URL=http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/latest/linux-x86_64/en-US/
  
 function init()
 {
@@ -39,7 +40,7 @@ ldconfig
 function finish()
 {
 cd $workpath
-wget -r --no-parent --reject "index.html*" -nH --cut-dirs=7 http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/latest/linux-x86_64/en-US/
+wget -r --no-parent --reject "index.html*" -nH --cut-dirs=7 $LATEST_MOZILLA_URL
 tar xf firefox*
 cd bin
 ln -s ../firefox/firefox
