@@ -6,7 +6,12 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
 /**
- * This condition being met means that AWS has successfully booted up the corresponding EC2 instance, verified that it is connected to the network, and the OS is accepting traffic.
+ * This condition being met means that AWS has:
+ * <ol>
+ * <li>Successfully booted up the corresponding EC2 instance</li>
+ * <li>Verified that it is connected to the network</li>
+ * <li>Verified that the operating system is up and running and is accepting traffic</li>
+ * <ol>
  */
 public final class IsReachableCondition implements Condition {
 
