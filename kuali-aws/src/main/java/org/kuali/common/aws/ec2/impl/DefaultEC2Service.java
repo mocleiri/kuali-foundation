@@ -58,6 +58,7 @@ public final class DefaultEC2Service implements EC2Service {
 	private final WaitService service;
 	private final int sleepMillis;
 	private final int initialPauseMillis;
+	private final int terminationTimeoutMillis;
 
 	public static class Builder {
 
@@ -68,6 +69,7 @@ public final class DefaultEC2Service implements EC2Service {
 		// Optional
 		private int sleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
 		private int initialPauseMillis = FormatUtils.getMillisAsInt("3s"); // 3 seconds
+		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent();
 		private Optional<Region> region = Optional.absent();
 		private Optional<String> endpoint = Optional.absent();
@@ -115,6 +117,11 @@ public final class DefaultEC2Service implements EC2Service {
 			return this;
 		}
 
+		public Builder terminationTimeoutMillis(int terminationTimeoutMillis) {
+			this.terminationTimeoutMillis = terminationTimeoutMillis;
+			return this;
+		}
+
 		protected AmazonEC2Client getClient(AWSCredentials credentials) {
 			AmazonEC2Client client = new AmazonEC2Client(credentials);
 			if (timeOffsetInSeconds.isPresent()) {
@@ -134,7 +141,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		public DefaultEC2Service build() {
 			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
-			Assert.noNegatives(sleepMillis, initialPauseMillis);
+			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
 			this.client = getClient(credentials);
 			Assert.noNulls(client);
 			return new DefaultEC2Service(this);
@@ -147,6 +154,7 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = builder.service;
 		this.sleepMillis = builder.sleepMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;
+		this.terminationTimeoutMillis = builder.terminationTimeoutMillis;
 	}
 
 	@Override
@@ -183,10 +191,18 @@ public final class DefaultEC2Service implements EC2Service {
 		return getInstance(instance.getInstanceId());
 	}
 
+	@Override
 	public void terminateInstance(String instanceId) {
 		TerminateInstancesRequest request = new TerminateInstancesRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		client.terminateInstances(request);
+		WaitContext wc = new WaitContext.Builder(terminationTimeoutMillis).sleepMillis(sleepMillis).initialPauseMillis(initialPauseMillis).build();
+		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instanceId, InstanceStateEnum.TERMINATED.getValue() };
+		logger.info("Waiting up to {} for [{}] to terminate", args);
+		Condition condition = new InstanceStateCondition(this, instanceId, InstanceStateEnum.TERMINATED);
+		WaitResult result = service.wait(wc, condition);
+		Object[] resultArgs = { instanceId, FormatUtils.getTime(result.getElapsed()) };
+		logger.info("[{}] has been terminated - {}", resultArgs);
 	}
 
 	@Override
@@ -282,6 +298,10 @@ public final class DefaultEC2Service implements EC2Service {
 
 	public int getInitialPauseMillis() {
 		return initialPauseMillis;
+	}
+
+	public int getTerminationTimeoutMillis() {
+		return terminationTimeoutMillis;
 	}
 
 }

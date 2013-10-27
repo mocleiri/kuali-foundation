@@ -11,6 +11,11 @@ import com.amazonaws.services.ec2.model.Tag;
 public interface EC2Service {
 
 	/**
+	 * Terminate a single Amazon EC2 instance
+	 */
+	public void terminateInstance(String instanceId);
+
+	/**
 	 * Launch a single Amazon EC2 instance
 	 */
 	public Instance launchInstance(LaunchInstanceContext context);
