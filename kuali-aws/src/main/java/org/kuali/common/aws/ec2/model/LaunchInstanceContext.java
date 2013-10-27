@@ -5,7 +5,6 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.wait.WaitContext;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
@@ -20,14 +19,9 @@ public final class LaunchInstanceContext {
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
-	private final Optional<WaitContext> waitContext;
-	private final InstanceStateEnum targetState;
-	private final Reachability targetReachability;
+	private final long timeoutMillis;
 
 	public static class Builder {
-
-		public static final long DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillis("15m"); // 15 minutes
-		public static final long DEFAULT_SLEEP_MILLIS = FormatUtils.getMillis("15s"); // 10 seconds
 
 		// Required
 		private final String ami;
@@ -37,42 +31,21 @@ public final class LaunchInstanceContext {
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
-		private Optional<WaitContext> waitContext = Optional.of(getWaitContext(DEFAULT_TIMEOUT_MILLIS));
 		private Optional<String> availabilityZone = Optional.absent();
-		private InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
-		private Reachability targetReachability = Reachability.OK;
+		private long timeoutMillis = FormatUtils.getMillis("15m"); // 15 minutes
 
 		public Builder(String ami, String keyName) {
-			this(ami, keyName, DEFAULT_TIMEOUT_MILLIS);
+			this.ami = ami;
+			this.keyName = keyName;
 		}
 
 		public Builder(String ami, String keyName, long timeoutMillis) {
 			this.ami = ami;
 			this.keyName = keyName;
-			this.waitContext = Optional.of(getWaitContext(timeoutMillis));
-		}
-
-		private WaitContext getWaitContext(long timeoutMillis) {
-			return new WaitContext.Builder(timeoutMillis).sleepMillis(DEFAULT_SLEEP_MILLIS).build();
-		}
-
-		public Builder targetReachability(Reachability targetReachability) {
-			this.targetReachability = targetReachability;
-			return this;
-		}
-
-		public Builder targetState(InstanceStateEnum targetState) {
-			this.targetState = targetState;
-			return this;
 		}
 
 		public Builder availabilityZone(String availabilityZone) {
 			this.availabilityZone = Optional.fromNullable(NullUtils.trimToNull(availabilityZone));
-			return this;
-		}
-
-		public Builder waitContext(WaitContext waitContext) {
-			this.waitContext = Optional.of(waitContext);
 			return this;
 		}
 
@@ -93,7 +66,8 @@ public final class LaunchInstanceContext {
 
 		public LaunchInstanceContext build() {
 			Assert.noBlanks(ami, keyName);
-			Assert.noNulls(type, securityGroups, tags, waitContext, availabilityZone, targetState, targetReachability);
+			Assert.noNulls(type, securityGroups, tags, availabilityZone);
+			Assert.notNegative(timeoutMillis);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
 			return new LaunchInstanceContext(this);
@@ -107,10 +81,8 @@ public final class LaunchInstanceContext {
 		this.type = builder.type;
 		this.securityGroups = builder.securityGroups;
 		this.tags = builder.tags;
-		this.waitContext = builder.waitContext;
 		this.availabilityZone = builder.availabilityZone;
-		this.targetState = builder.targetState;
-		this.targetReachability = builder.targetReachability;
+		this.timeoutMillis = builder.timeoutMillis;
 	}
 
 	public String getAmi() {
@@ -137,16 +109,8 @@ public final class LaunchInstanceContext {
 		return availabilityZone;
 	}
 
-	public Optional<WaitContext> getWaitContext() {
-		return waitContext;
-	}
-
-	public InstanceStateEnum getTargetState() {
-		return targetState;
-	}
-
-	public Reachability getTargetReachability() {
-		return targetReachability;
+	public long getTimeoutMillis() {
+		return timeoutMillis;
 	}
 
 }
