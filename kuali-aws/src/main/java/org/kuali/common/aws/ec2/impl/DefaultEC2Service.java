@@ -60,7 +60,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		// Optional
 		private int launchSleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
-		private Optional<Integer> timeOffset = Optional.absent();
+		private Optional<Integer> timeOffsetInSeconds = Optional.absent();
 		private Optional<Region> region = Optional.absent();
 		private Optional<String> endpoint = Optional.absent();
 		private Optional<ClientConfiguration> configuration = Optional.absent();
@@ -77,8 +77,8 @@ public final class DefaultEC2Service implements EC2Service {
 			this.service = service;
 		}
 
-		public Builder timeOffset(int timeOffset) {
-			this.timeOffset = Optional.of(timeOffset);
+		public Builder timeOffsetInSeconds(Integer timeOffsetInSeconds) {
+			this.timeOffsetInSeconds = Optional.fromNullable(timeOffsetInSeconds);
 			return this;
 		}
 
@@ -104,8 +104,8 @@ public final class DefaultEC2Service implements EC2Service {
 
 		protected AmazonEC2Client getClient(AWSCredentials credentials) {
 			AmazonEC2Client client = new AmazonEC2Client(credentials);
-			if (timeOffset.isPresent()) {
-				client.setTimeOffset(timeOffset.get());
+			if (timeOffsetInSeconds.isPresent()) {
+				client.setTimeOffset(timeOffsetInSeconds.get());
 			}
 			if (region.isPresent()) {
 				client.setRegion(region.get());
@@ -120,7 +120,7 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 
 		public DefaultEC2Service build() {
-			Assert.noNulls(service, credentials, timeOffset, region, endpoint, configuration);
+			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
 			Assert.notNegative(launchSleepMillis);
 			this.client = getClient(credentials);
 			Assert.noNulls(client);

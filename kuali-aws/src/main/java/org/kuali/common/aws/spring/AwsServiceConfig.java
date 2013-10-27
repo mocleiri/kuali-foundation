@@ -17,6 +17,7 @@ package org.kuali.common.aws.spring;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -37,6 +38,8 @@ public class AwsServiceConfig {
 	private static final String ACCESS_KEY = "aws.accessKeyId";
 	private static final String SECRET_KEY = "aws.secretKey";
 	private static final String REGION_KEY = "aws.region";
+	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
+	private static final String ENDPOINT_KEY = "aws.endpoint";
 
 	@Autowired
 	EnvironmentService env;
@@ -49,7 +52,23 @@ public class AwsServiceConfig {
 		String accessKey = env.getString(ACCESS_KEY);
 		String secretKey = env.getString(SECRET_KEY);
 		Region region = getRegion();
-		return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region).build();
+		String endpoint = NullUtils.trimToNull(env.getString(ENDPOINT_KEY, NullUtils.NONE));
+		Integer timeOffsetInSeconds = getTimeOffsetInSeconds();
+		return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region).endpoint(endpoint).timeOffsetInSeconds(timeOffsetInSeconds).build();
+	}
+
+	protected Integer getTimeOffsetInSeconds() {
+		String offset = env.getString(TIMEOFFSET_KEY, NullUtils.NONE);
+		if (NullUtils.isNullOrNone(offset)) {
+			return null;
+		} else {
+			// Convert the text from the property into a millisecond value
+			long millis = FormatUtils.getMillis(offset);
+			// The unit of measure the Amazon EC2 client needs is seconds not milliseconds
+			Long seconds = millis / 1000;
+			// Return the seconds value as an integer
+			return seconds.intValue();
+		}
 	}
 
 	protected Region getRegion() {
