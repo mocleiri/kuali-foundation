@@ -21,7 +21,7 @@ public final class LaunchInstanceContext {
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
 	private final Optional<WaitContext> waitContext;
-	private final InstanceStateEnum requiredState;
+	private final InstanceStateEnum targetState;
 
 	public static class Builder {
 
@@ -37,7 +37,7 @@ public final class LaunchInstanceContext {
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<WaitContext> waitContext = Optional.of(new WaitContext.Builder(DEFAULT_TIMEOUT_MILLIS).build());
 		private Optional<String> availabilityZone = Optional.absent();
-		private InstanceStateEnum requiredState = InstanceStateEnum.RUNNING;
+		private InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
 
 		public Builder(String ami, String keyName) {
 			this(ami, keyName, DEFAULT_TIMEOUT_MILLIS);
@@ -49,8 +49,8 @@ public final class LaunchInstanceContext {
 			this.waitContext = Optional.of(new WaitContext.Builder(timeoutMillis).build());
 		}
 
-		public Builder requiredState(InstanceStateEnum requiredState) {
-			this.requiredState = requiredState;
+		public Builder targetState(InstanceStateEnum targetState) {
+			this.targetState = targetState;
 			return this;
 		}
 
@@ -97,7 +97,7 @@ public final class LaunchInstanceContext {
 		this.tags = builder.tags;
 		this.waitContext = builder.waitContext;
 		this.availabilityZone = builder.availabilityZone;
-		this.requiredState = builder.requiredState;
+		this.targetState = builder.targetState;
 	}
 
 	public String getAmi() {
@@ -128,8 +128,8 @@ public final class LaunchInstanceContext {
 		return waitContext;
 	}
 
-	public InstanceStateEnum getRequiredState() {
-		return requiredState;
+	public InstanceStateEnum getTargetState() {
+		return targetState;
 	}
 
 }
