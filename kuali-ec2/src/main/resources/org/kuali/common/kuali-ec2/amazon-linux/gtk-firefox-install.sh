@@ -48,7 +48,7 @@ ldconfig
  
 function install()
 {
-echo $(date) Installing - $1
+echo Install Begin - $(date) - $1
 wget $1
 FILE=`basename $1`
 if [ ${FILE: -3} == ".xz" ]
@@ -57,13 +57,12 @@ else tar xf $FILE
 fi
 SHORT=${FILE:0:4}*
 cd $SHORT
-pwd
 ./configure --prefix=$workpath
 make --jobs=3 --silent
 make install --jobs=3 --silent
 ldconfig
 cd ..
-echo $(date) Done Installing - $1
+echo Install Complete - $(date) - $1
 }
  
 
