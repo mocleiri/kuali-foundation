@@ -78,5 +78,6 @@ install http://ftp.gnome.org/pub/gnome/sources/pango/1.30/pango-1.30.0.tar.xz
 install http://ftp.gnome.org/pub/gnome/sources/atk/2.4/atk-2.4.0.tar.xz
 install http://ftp.gnome.org/pub/GNOME/sources/gdk-pixbuf/2.26/gdk-pixbuf-2.26.1.tar.xz
 install http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.10.tar.xz
+finish
 echo Firefox Install Complete - $(date)
 
