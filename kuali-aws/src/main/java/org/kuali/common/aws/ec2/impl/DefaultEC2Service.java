@@ -42,7 +42,7 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * <p>
- * This service provides a layer of abstraction above the EC2 API calls provided by Amazon intended to be useful for common tasks.
+ * This service provides a layer of abstraction around the EC2 API calls provided by Amazon intended to be useful for common tasks.
  * </p>
  * 
  * <p>
