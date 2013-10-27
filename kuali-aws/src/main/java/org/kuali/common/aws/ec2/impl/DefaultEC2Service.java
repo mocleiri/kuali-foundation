@@ -175,7 +175,7 @@ public final class DefaultEC2Service implements EC2Service {
 		InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
 		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepIntervalMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), targetState.getValue() };
-		logger.info("Waiting up to {} for [{}] to start running and become reachable", args);
+		logger.info("Waiting up to {} for [{}] to startup and become reachable", args);
 		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), targetState);
 		IsReachableCondition status = new IsReachableCondition(this, instance.getInstanceId());
 		Condition condition = new ConditionsCondition(ImmutableList.of(state, status));
