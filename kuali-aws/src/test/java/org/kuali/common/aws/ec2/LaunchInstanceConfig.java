@@ -62,7 +62,9 @@ public class LaunchInstanceConfig {
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.securityGroups");
-		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups).build();
+		boolean enableTerminationProtection = env.getBoolean("ec2.enableTerminationProtection", false);
+		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups)
+				.enableTerminationProtection(enableTerminationProtection).build();
 	}
 
 	protected List<Tag> getTags() {
