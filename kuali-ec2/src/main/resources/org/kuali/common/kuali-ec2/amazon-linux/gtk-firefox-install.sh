@@ -71,7 +71,7 @@ init
 echo $(date)
 install ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
 echo $(date)
-#install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
+install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
 echo $(date)
 #install http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.9.0.tar.gz
 echo $(date)
