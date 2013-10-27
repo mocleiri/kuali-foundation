@@ -10,7 +10,7 @@ import org.kuali.common.util.condition.Condition;
  * <ol>
  * <li>Successfully booted up the corresponding EC2 instance</li>
  * <li>Verified that it is connected to the network</li>
- * <li>Verified that the operating system is up and running and is accepting traffic</li>
+ * <li>Verified that the EC2 instance's operating system is running and is accepting traffic</li>
  * <ol>
  */
 public final class IsReachableCondition implements Condition {
