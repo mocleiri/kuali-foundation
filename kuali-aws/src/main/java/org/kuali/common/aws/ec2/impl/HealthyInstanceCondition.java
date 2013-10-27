@@ -30,7 +30,7 @@ public final class HealthyInstanceCondition implements Condition {
 		}
 
 		if (logState) {
-			logger.info("[{}] is now '{}'", state.getInstanceId(), state.getTargetState().getValue());
+			logger.info("[{}] is now '{}'.  Now just waiting for it to become reachable.", state.getInstanceId(), state.getTargetState().getValue());
 			logState = false;
 		}
 
