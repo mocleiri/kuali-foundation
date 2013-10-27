@@ -18,8 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
@@ -38,6 +40,10 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * This service provides a layer of abstraction above the EC2 API calls provided by Amazon intended to be useful for common tasks. For example the launch instance method allows the
+ * launching of a single instance that blocks until the launched instance comes online and is ready for service.
+ */
 public final class DefaultEC2Service implements EC2Service {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
@@ -51,10 +57,16 @@ public final class DefaultEC2Service implements EC2Service {
 		// Required
 		private final AWSCredentials credentials;
 		private final WaitService service;
-		private final AmazonEC2Client client;
 
 		// Optional
 		private int launchSleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
+		private Optional<Integer> timeOffset = Optional.absent();
+		private Optional<Region> region = Optional.absent();
+		private Optional<String> endpoint = Optional.absent();
+		private Optional<ClientConfiguration> configuration = Optional.absent();
+
+		// Filled in by the build() method
+		private AmazonEC2Client client;
 
 		public Builder(String accessKey, String secretKey, WaitService service) {
 			this(new BasicAWSCredentials(accessKey, secretKey), service);
@@ -62,8 +74,27 @@ public final class DefaultEC2Service implements EC2Service {
 
 		public Builder(AWSCredentials credentials, WaitService service) {
 			this.credentials = credentials;
-			this.client = new AmazonEC2Client(credentials);
 			this.service = service;
+		}
+
+		public Builder timeOffset(int timeOffset) {
+			this.timeOffset = Optional.of(timeOffset);
+			return this;
+		}
+
+		public Builder region(Region region) {
+			this.region = Optional.of(region);
+			return this;
+		}
+
+		public Builder endpoint(String endpoint) {
+			this.endpoint = Optional.of(endpoint);
+			return this;
+		}
+
+		public Builder configuration(ClientConfiguration configuration) {
+			this.configuration = Optional.of(configuration);
+			return this;
 		}
 
 		public Builder launchSleepMillis(int launchSleepMillis) {
@@ -71,9 +102,28 @@ public final class DefaultEC2Service implements EC2Service {
 			return this;
 		}
 
+		protected AmazonEC2Client getClient(AWSCredentials credentials) {
+			AmazonEC2Client client = new AmazonEC2Client(credentials);
+			if (timeOffset.isPresent()) {
+				client.setTimeOffset(timeOffset.get());
+			}
+			if (region.isPresent()) {
+				client.setRegion(region.get());
+			}
+			if (endpoint.isPresent()) {
+				client.setEndpoint(endpoint.get());
+			}
+			if (configuration.isPresent()) {
+				client.setConfiguration(configuration.get());
+			}
+			return client;
+		}
+
 		public DefaultEC2Service build() {
-			Assert.noNulls(client, service, credentials);
+			Assert.noNulls(service, credentials, timeOffset, region, endpoint, configuration);
 			Assert.notNegative(launchSleepMillis);
+			this.client = getClient(credentials);
+			Assert.noNulls(client);
 			return new DefaultEC2Service(this);
 		}
 
