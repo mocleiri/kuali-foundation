@@ -11,16 +11,20 @@
 TARGET=/usr/local
 LATEST_MOZILLA_URL=http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/latest/linux-x86_64/en-US/
  
-function init()
+function install_amazon_managed_packages()
 {
-export installroot=$TARGET/src
-export workpath=$TARGET
- 
 yum --assumeyes install make libjpeg-devel libpng-devel \
 libtiff-devel gcc libffi-devel gettext-devel libmpc-devel \
 libstdc++46-devel xauth gcc-c++ libtool libX11-devel \
 libXext-devel libXinerama-devel libXi-devel libxml2-devel \
 libXrender-devel libXrandr-devel libXt dbus-glib alsa-lib-devel
+}
+
+function init()
+{
+export installroot=$TARGET/src
+export workpath=$TARGET
+
 mkdir -p $workpath
 mkdir -p $installroot
 cd $installroot
@@ -68,6 +72,7 @@ echo Install Complete - $(date) - $1
  
 
 echo Starting Firefox Install - $(date)
+install_amazon_managed_packages
 init
 install ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
 install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
