@@ -66,7 +66,7 @@ public class LaunchInstanceConfig {
 	}
 
 	protected List<Tag> getTags() {
-		List<String> list = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.tags");
+		List<String> list = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.tags", NullUtils.NONE);
 		List<Tag> tags = new ArrayList<Tag>();
 		for (String element : list) {
 			String[] tokens = Str.splitAndTrim(element, "=");
