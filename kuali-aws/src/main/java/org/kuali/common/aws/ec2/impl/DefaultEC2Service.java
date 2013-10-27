@@ -111,6 +111,26 @@ public final class DefaultEC2Service implements EC2Service {
 		return new Reachability(system, instance);
 	}
 
+	@Override
+	public Instance launchInstance(LaunchInstanceContext context) {
+		Instance instance = getInstance(context);
+		wait(instance, context);
+		tag(instance.getInstanceId(), context.getTags());
+		return getInstance(instance.getInstanceId());
+	}
+
+	@Override
+	public void tag(String resourceId, List<Tag> tags) {
+		Assert.noBlanks(resourceId);
+		Assert.noNulls(tags);
+		if (CollectionUtils.isEmpty(tags)) {
+			return;
+		}
+		List<String> resources = Collections.singletonList(resourceId);
+		CreateTagsRequest request = new CreateTagsRequest(resources, tags);
+		client.createTags(request);
+	}
+
 	protected String getStatus(List<InstanceStatus> statuses, String name, StatusType type) {
 		for (InstanceStatus status : statuses) {
 			InstanceStatusSummary summary = getSummary(status, type);
@@ -141,26 +161,6 @@ public final class DefaultEC2Service implements EC2Service {
 			}
 		}
 		return Optional.absent();
-	}
-
-	@Override
-	public Instance launchInstance(LaunchInstanceContext context) {
-		Instance instance = getInstance(context);
-		wait(instance, context);
-		tag(instance.getInstanceId(), context.getTags());
-		return getInstance(instance.getInstanceId());
-	}
-
-	@Override
-	public void tag(String resourceId, List<Tag> tags) {
-		Assert.noBlanks(resourceId);
-		Assert.noNulls(tags);
-		if (CollectionUtils.isEmpty(tags)) {
-			return;
-		}
-		List<String> resources = Collections.singletonList(resourceId);
-		CreateTagsRequest request = new CreateTagsRequest(resources, tags);
-		client.createTags(request);
 	}
 
 	protected Instance getInstance(LaunchInstanceContext context) {
