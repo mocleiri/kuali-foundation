@@ -47,7 +47,7 @@ import com.google.common.collect.ImmutableList;
  * </p>
  * 
  * <p>
- * For example, the launch instance method creates a single EC2 instance and blocks until the launched instance comes online and is ready for service.
+ * For example, launchInstance() creates a single EC2 instance and blocks until the launched instance comes online and is ready for service.
  * </p>
  */
 public final class DefaultEC2Service implements EC2Service {
