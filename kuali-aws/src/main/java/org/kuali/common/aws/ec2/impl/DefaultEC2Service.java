@@ -147,7 +147,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Instance instance = getInstance(context);
 		wait(instance, context);
 		tag(instance.getInstanceId(), context.getTags());
-		return instance;
+		return getInstance(instance.getInstanceId());
 	}
 
 	@Override
