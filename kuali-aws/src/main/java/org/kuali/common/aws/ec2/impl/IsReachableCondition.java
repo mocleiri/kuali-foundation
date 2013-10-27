@@ -5,9 +5,9 @@ import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
-public final class ReachabilityCondition implements Condition {
+public final class IsReachableCondition implements Condition {
 
-	public ReachabilityCondition(EC2Service service, String instanceId) {
+	public IsReachableCondition(EC2Service service, String instanceId) {
 		Assert.noBlanks(instanceId);
 		Assert.noNulls(service);
 		this.instanceId = instanceId;
