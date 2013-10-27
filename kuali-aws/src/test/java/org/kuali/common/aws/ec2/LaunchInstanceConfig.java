@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
@@ -49,10 +50,12 @@ public class LaunchInstanceConfig implements MainConfig {
 	EnvironmentService env;
 
 	@Override
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable main() {
 		LaunchInstanceContext context = getLaunchInstanceContext();
-		return new LaunchInstanceExecutable(service, context);
+		Instance instance = service.launchInstance(context);
+		service.terminateInstance(instance.getInstanceId());
+		return null;
 	}
 
 	protected LaunchInstanceContext getLaunchInstanceContext() {
