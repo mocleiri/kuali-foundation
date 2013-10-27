@@ -22,7 +22,7 @@ public final class HealthyInstanceCondition implements Condition {
 
 	@Override
 	public boolean isTrue() {
-		
+
 		if (!state.isTrue()) {
 			return false;
 		}
@@ -33,6 +33,14 @@ public final class HealthyInstanceCondition implements Condition {
 		}
 
 		return status.isTrue();
+	}
+
+	public InstanceStateCondition getState() {
+		return state;
+	}
+
+	public ReachabilityCondition getStatus() {
+		return status;
 	}
 
 }
