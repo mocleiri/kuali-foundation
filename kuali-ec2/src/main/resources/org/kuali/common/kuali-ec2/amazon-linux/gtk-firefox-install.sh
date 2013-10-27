@@ -56,6 +56,7 @@ else tar xf $FILE
 fi
 SHORT=${FILE:0:4}*
 cd $SHORT
+pwd
 ./configure --prefix=$workpath
 make --jobs=3 --silent
 make install --jobs=3 --silent
