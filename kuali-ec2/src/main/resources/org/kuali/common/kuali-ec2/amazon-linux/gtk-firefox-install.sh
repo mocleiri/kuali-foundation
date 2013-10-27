@@ -50,13 +50,11 @@ function install()
 {
 wget $1
 FILE=`basename $1`
-echo FILE=$FILE
 if [ ${FILE: -3} == ".xz" ]
 then tar xvfJ $FILE
 else tar xvf $FILE
 fi
 SHORT=${FILE:0:4}*
-echo SHORT=$SHORT
 cd $SHORT
 ./configure --prefix=$workpath
 make --jobs=3 --silent
