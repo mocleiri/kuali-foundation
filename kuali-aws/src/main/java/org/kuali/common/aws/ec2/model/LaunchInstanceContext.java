@@ -19,7 +19,7 @@ public final class LaunchInstanceContext {
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
-	private final long timeoutMillis;
+	private final int timeoutMillis;
 
 	public static class Builder {
 
@@ -32,7 +32,7 @@ public final class LaunchInstanceContext {
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent();
-		private long timeoutMillis = FormatUtils.getMillis("15m"); // 15 minutes
+		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 
 		public Builder(String ami, String keyName) {
 			this.ami = ami;
@@ -44,7 +44,7 @@ public final class LaunchInstanceContext {
 			return this;
 		}
 
-		public Builder timeoutMillis(long timeoutMillis) {
+		public Builder timeoutMillis(int timeoutMillis) {
 			this.timeoutMillis = timeoutMillis;
 			return this;
 		}
@@ -109,7 +109,7 @@ public final class LaunchInstanceContext {
 		return availabilityZone;
 	}
 
-	public long getTimeoutMillis() {
+	public int getTimeoutMillis() {
 		return timeoutMillis;
 	}
 
