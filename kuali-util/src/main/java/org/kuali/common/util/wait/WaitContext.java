@@ -15,8 +15,8 @@ public final class WaitContext {
 		private final long timeoutMillis;
 
 		// Optional
-		private long sleepMillis = FormatUtils.getMillis("3s"); // 3 seconds
-		private long initialPauseMillis = FormatUtils.getMillis("1s"); // 1 second
+		private long sleepMillis = FormatUtils.getMillis("1s"); // 1 second
+		private long initialPauseMillis = 0;
 
 		public Builder(long timeoutMillis) {
 			this.timeoutMillis = timeoutMillis;
