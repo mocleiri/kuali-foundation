@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class, WaitServiceConfig.class })
 public class AwsServiceConfig {
 
-	private static final String ACCESS_KEY = "aws.accessKey";
+	private static final String ACCESS_KEY = "aws.accessKeyId";
 	private static final String SECRET_KEY = "aws.secretKey";
 
 	@Autowired
