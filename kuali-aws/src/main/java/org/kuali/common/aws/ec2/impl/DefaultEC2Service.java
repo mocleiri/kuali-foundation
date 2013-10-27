@@ -237,7 +237,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected Instance wait(Instance instance, LaunchInstanceContext context) {
 		InstanceStateEnum running = InstanceStateEnum.RUNNING;
-		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepMillis).build();
+		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepMillis).initialPauseMillis(launchInitialPauseMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
 		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), running);
@@ -271,6 +271,10 @@ public final class DefaultEC2Service implements EC2Service {
 
 	public int getLaunchSleepMillis() {
 		return launchSleepMillis;
+	}
+
+	public int getLaunchInitialPauseMillis() {
+		return launchInitialPauseMillis;
 	}
 
 }
