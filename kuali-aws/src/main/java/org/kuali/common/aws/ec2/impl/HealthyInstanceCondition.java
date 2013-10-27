@@ -12,11 +12,11 @@ public final class HealthyInstanceCondition implements Condition {
 	public HealthyInstanceCondition(InstanceStateCondition state, ReachabilityCondition status) {
 		Assert.noNulls(state, status);
 		this.state = state;
-		this.status = status;
+		this.reachable = status;
 	}
 
 	private final InstanceStateCondition state;
-	private final ReachabilityCondition status;
+	private final ReachabilityCondition reachable;
 
 	private boolean stateOk = false;
 	private boolean logState = true;
@@ -34,15 +34,15 @@ public final class HealthyInstanceCondition implements Condition {
 			logState = false;
 		}
 
-		return status.isTrue();
+		return reachable.isTrue();
 	}
 
 	public InstanceStateCondition getState() {
 		return state;
 	}
 
-	public ReachabilityCondition getStatus() {
-		return status;
+	public ReachabilityCondition getReachable() {
+		return reachable;
 	}
 
 }
