@@ -35,6 +35,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class DefaultEC2Service implements EC2Service {
@@ -43,7 +44,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private final AmazonEC2Client client;
 	private final WaitService service;
-	private final int launchSleepIntervalMillis;
+	private final int launchSleepMillis;
 
 	public static class Builder {
 
@@ -53,7 +54,7 @@ public final class DefaultEC2Service implements EC2Service {
 		private final AmazonEC2Client client;
 
 		// Optional
-		private int launchSleepIntervalMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
+		private int launchSleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
 
 		public Builder(String accessKey, String secretKey, WaitService service) {
 			this(new BasicAWSCredentials(accessKey, secretKey), service);
@@ -65,14 +66,14 @@ public final class DefaultEC2Service implements EC2Service {
 			this.service = service;
 		}
 
-		public Builder launchSleepIntervalMillis(int launchSleepIntervalMillis) {
-			this.launchSleepIntervalMillis = launchSleepIntervalMillis;
+		public Builder launchSleepMillis(int launchSleepMillis) {
+			this.launchSleepMillis = launchSleepMillis;
 			return this;
 		}
 
 		public DefaultEC2Service build() {
 			Assert.noNulls(client, service, credentials);
-			Assert.notNegative(launchSleepIntervalMillis);
+			Assert.notNegative(launchSleepMillis);
 			return new DefaultEC2Service(this);
 		}
 
@@ -81,7 +82,7 @@ public final class DefaultEC2Service implements EC2Service {
 	private DefaultEC2Service(Builder builder) {
 		this.client = builder.client;
 		this.service = builder.service;
-		this.launchSleepIntervalMillis = builder.launchSleepIntervalMillis;
+		this.launchSleepMillis = builder.launchSleepMillis;
 	}
 
 	@Override
@@ -110,36 +111,36 @@ public final class DefaultEC2Service implements EC2Service {
 		return new Reachability(system, instance);
 	}
 
-	protected String getSystemStatus(List<InstanceStatus> list, String name) {
-		for (InstanceStatus element : list) {
-			InstanceStatusSummary summary = element.getSystemStatus();
-			String detail = getStatusDetail(summary, name);
-			if (detail != null) {
-				return detail;
+	protected String getSystemStatus(List<InstanceStatus> statuses, String name) {
+		for (InstanceStatus status : statuses) {
+			InstanceStatusSummary summary = status.getSystemStatus();
+			Optional<String> detail = getStatusDetail(summary, name);
+			if (detail.isPresent()) {
+				return detail.get();
 			}
 		}
 		return Reachability.STATUS_UNKNOWN;
 	}
 
-	protected String getInstanceStatus(List<InstanceStatus> list, String name) {
-		for (InstanceStatus element : list) {
-			InstanceStatusSummary summary = element.getInstanceStatus();
-			String detail = getStatusDetail(summary, name);
-			if (detail != null) {
-				return detail;
+	protected String getInstanceStatus(List<InstanceStatus> statuses, String name) {
+		for (InstanceStatus status : statuses) {
+			InstanceStatusSummary summary = status.getInstanceStatus();
+			Optional<String> detail = getStatusDetail(summary, name);
+			if (detail.isPresent()) {
+				return detail.get();
 			}
 		}
 		return Reachability.STATUS_UNKNOWN;
 	}
 
-	protected String getStatusDetail(InstanceStatusSummary summary, String name) {
+	protected Optional<String> getStatusDetail(InstanceStatusSummary summary, String name) {
 		List<InstanceStatusDetails> details = summary.getDetails();
 		for (InstanceStatusDetails detail : details) {
 			if (name.equals(detail.getName())) {
-				return detail.getStatus();
+				return Optional.of(detail.getStatus());
 			}
 		}
-		return null;
+		return Optional.absent();
 	}
 
 	@Override
@@ -173,7 +174,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected Instance wait(Instance instance, LaunchInstanceContext context) {
 		InstanceStateEnum running = InstanceStateEnum.RUNNING;
-		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepIntervalMillis).build();
+		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
 		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), running);
@@ -209,8 +210,8 @@ public final class DefaultEC2Service implements EC2Service {
 		return service;
 	}
 
-	public int getLaunchSleepIntervalMillis() {
-		return launchSleepIntervalMillis;
+	public int getLaunchSleepMillis() {
+		return launchSleepMillis;
 	}
 
 }
