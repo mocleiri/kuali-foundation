@@ -58,7 +58,7 @@ public class LaunchInstanceConfig {
 	protected LaunchInstanceContext getLaunchInstanceContext() {
 		String ami = env.getString("ec2.ami");
 		String keyName = env.getString("ec2.keyName");
-		String availabilityZone = NullUtils.trimToNull(env.getString("ec2.availabilityZone", NullUtils.NONE));
+		String availabilityZone = env.getString("ec2.availabilityZone", NullUtils.NONE);
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.securityGroups");
