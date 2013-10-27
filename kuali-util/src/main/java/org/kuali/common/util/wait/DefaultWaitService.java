@@ -22,7 +22,7 @@ public class DefaultWaitService implements WaitService {
 			logger.info("[elapsed: {}  timeout: {}]", FormatUtils.getTime(now - start), FormatUtils.getTime(timeout - now));
 			ThreadUtils.sleep(context.getSleepMillis());
 		}
-		return new WaitResult.Builder(start, System.currentTimeMillis() - start).build();
+		return new WaitResult.Builder(start, System.currentTimeMillis()).build();
 	}
 
 }
