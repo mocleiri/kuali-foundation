@@ -57,8 +57,8 @@ fi
 SHORT=${FILE:0:4}*
 cd $SHORT
 ./configure --prefix=$workpath
-make
-make install
+make --jobs=3
+make install --jobs=3
 ldconfig
 cd ..
 }
