@@ -59,8 +59,8 @@ SHORT=${FILE:0:4}*
 echo SHORT=$SHORT
 cd $SHORT
 ./configure --prefix=$workpath
-make --jobs=3
-make install --jobs=3
+make --jobs=3 --silent
+make install --jobs=3 --silent
 ldconfig
 cd ..
 }
