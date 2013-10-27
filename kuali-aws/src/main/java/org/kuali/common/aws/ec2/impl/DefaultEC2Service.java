@@ -33,6 +33,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceStatus;
 import com.amazonaws.services.ec2.model.InstanceStatusDetails;
 import com.amazonaws.services.ec2.model.InstanceStatusSummary;
+import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
 import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
@@ -190,7 +191,17 @@ public final class DefaultEC2Service implements EC2Service {
 		ThreadUtils.sleep(initialPauseMillis);
 		tag(instance.getInstanceId(), context.getTags());
 		wait(instance, context);
+		if (context.isEnableTerminationProtection()) {
+			enableTerminationProtection(instance.getInstanceId());
+		}
 		return getInstance(instance.getInstanceId());
+	}
+
+	public void enableTerminationProtection(String instanceId) {
+		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
+		request.withInstanceId(instanceId);
+		request.withDisableApiTermination(true);
+		client.modifyInstanceAttribute(request);
 	}
 
 	@Override
