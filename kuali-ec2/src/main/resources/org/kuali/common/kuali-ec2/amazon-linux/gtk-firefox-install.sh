@@ -48,6 +48,7 @@ ldconfig
  
 function install()
 {
+echo $(date) Installing - $1
 wget $1
 FILE=`basename $1`
 if [ ${FILE: -3} == ".xz" ]
@@ -62,29 +63,19 @@ make --jobs=3 --silent
 make install --jobs=3 --silent
 ldconfig
 cd ..
+echo $(date) Done Installing - $1
 }
  
 
 echo $(date)
 init
-echo $(date)
 install ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
-echo $(date)
-install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
-echo $(date)
+#install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
 #install http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.9.0.tar.gz
-echo $(date)
 #install http://ftp.gnome.org/pub/gnome/sources/glib/2.32/glib-2.32.3.tar.xz
-echo $(date)
 #install http://cairographics.org/releases/pixman-0.26.0.tar.gz
-echo $(date)
 #install http://cairographics.org/releases/cairo-1.12.2.tar.xz
-echo $(date)
 #install http://ftp.gnome.org/pub/gnome/sources/pango/1.30/pango-1.30.0.tar.xz
-echo $(date)
 #install http://ftp.gnome.org/pub/gnome/sources/atk/2.4/atk-2.4.0.tar.xz
-echo $(date)
 #install http://ftp.gnome.org/pub/GNOME/sources/gdk-pixbuf/2.26/gdk-pixbuf-2.26.1.tar.xz
-echo $(date)
 #install http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.10.tar.xz
-echo $(date)
