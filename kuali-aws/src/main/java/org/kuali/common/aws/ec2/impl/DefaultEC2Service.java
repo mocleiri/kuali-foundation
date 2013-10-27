@@ -37,6 +37,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
@@ -55,8 +56,8 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private final AmazonEC2Client client;
 	private final WaitService service;
-	private final int launchSleepMillis;
-	private final int launchInitialPauseMillis;
+	private final int sleepMillis;
+	private final int initialPauseMillis;
 
 	public static class Builder {
 
@@ -65,8 +66,8 @@ public final class DefaultEC2Service implements EC2Service {
 		private final WaitService service;
 
 		// Optional
-		private int launchSleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
-		private int launchInitialPauseMillis = FormatUtils.getMillisAsInt("3s"); // 3 seconds
+		private int sleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
+		private int initialPauseMillis = FormatUtils.getMillisAsInt("3s"); // 3 seconds
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent();
 		private Optional<Region> region = Optional.absent();
 		private Optional<String> endpoint = Optional.absent();
@@ -104,13 +105,13 @@ public final class DefaultEC2Service implements EC2Service {
 			return this;
 		}
 
-		public Builder launchSleepMillis(int launchSleepMillis) {
-			this.launchSleepMillis = launchSleepMillis;
+		public Builder sleepMillis(int sleepMillis) {
+			this.sleepMillis = sleepMillis;
 			return this;
 		}
 
-		public Builder launchInitialPauseMillis(int launchInitialPauseMillis) {
-			this.launchInitialPauseMillis = launchInitialPauseMillis;
+		public Builder initialPauseMillis(int initialPauseMillis) {
+			this.initialPauseMillis = initialPauseMillis;
 			return this;
 		}
 
@@ -133,7 +134,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		public DefaultEC2Service build() {
 			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
-			Assert.noNegatives(launchSleepMillis, launchInitialPauseMillis);
+			Assert.noNegatives(sleepMillis, initialPauseMillis);
 			this.client = getClient(credentials);
 			Assert.noNulls(client);
 			return new DefaultEC2Service(this);
@@ -144,8 +145,8 @@ public final class DefaultEC2Service implements EC2Service {
 	private DefaultEC2Service(Builder builder) {
 		this.client = builder.client;
 		this.service = builder.service;
-		this.launchSleepMillis = builder.launchSleepMillis;
-		this.launchInitialPauseMillis = builder.launchInitialPauseMillis;
+		this.sleepMillis = builder.sleepMillis;
+		this.initialPauseMillis = builder.initialPauseMillis;
 	}
 
 	@Override
@@ -180,6 +181,12 @@ public final class DefaultEC2Service implements EC2Service {
 		wait(instance, context);
 		tag(instance.getInstanceId(), context.getTags());
 		return getInstance(instance.getInstanceId());
+	}
+
+	public void terminateInstance(String instanceId) {
+		TerminateInstancesRequest request = new TerminateInstancesRequest();
+		request.setInstanceIds(Collections.singletonList(instanceId));
+		client.terminateInstances(request);
 	}
 
 	@Override
@@ -237,7 +244,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected Instance wait(Instance instance, LaunchInstanceContext context) {
 		InstanceStateEnum running = InstanceStateEnum.RUNNING;
-		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(launchSleepMillis).initialPauseMillis(launchInitialPauseMillis).build();
+		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(sleepMillis).initialPauseMillis(initialPauseMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
 		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), running);
@@ -269,12 +276,12 @@ public final class DefaultEC2Service implements EC2Service {
 		return service;
 	}
 
-	public int getLaunchSleepMillis() {
-		return launchSleepMillis;
+	public int getSleepMillis() {
+		return sleepMillis;
 	}
 
-	public int getLaunchInitialPauseMillis() {
-		return launchInitialPauseMillis;
+	public int getInitialPauseMillis() {
+		return initialPauseMillis;
 	}
 
 }
