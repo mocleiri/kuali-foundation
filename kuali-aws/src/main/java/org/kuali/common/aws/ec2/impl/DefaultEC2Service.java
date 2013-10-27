@@ -9,6 +9,7 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.condition.ConditionsCondition;
 import org.kuali.common.util.wait.WaitContext;
@@ -186,8 +187,9 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
-		wait(instance, context);
+		ThreadUtils.sleep(initialPauseMillis);
 		tag(instance.getInstanceId(), context.getTags());
+		wait(instance, context);
 		return getInstance(instance.getInstanceId());
 	}
 
