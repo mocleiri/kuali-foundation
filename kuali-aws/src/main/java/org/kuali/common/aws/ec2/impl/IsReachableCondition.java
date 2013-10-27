@@ -5,6 +5,9 @@ import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
+/**
+ * This condition being met means that AWS has successfully booted up the corresponding EC2 instance, verified that it is connected to the network, and the OS is accepting traffic.
+ */
 public final class IsReachableCondition implements Condition {
 
 	public IsReachableCondition(EC2Service service, String instanceId) {
