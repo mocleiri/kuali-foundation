@@ -39,13 +39,13 @@ public final class LaunchInstanceContext {
 			this.keyName = keyName;
 		}
 
-		public Builder(String ami, String keyName, long timeoutMillis) {
-			this.ami = ami;
-			this.keyName = keyName;
-		}
-
 		public Builder availabilityZone(String availabilityZone) {
 			this.availabilityZone = Optional.fromNullable(NullUtils.trimToNull(availabilityZone));
+			return this;
+		}
+
+		public Builder timeoutMillis(long timeoutMillis) {
+			this.timeoutMillis = timeoutMillis;
 			return this;
 		}
 
