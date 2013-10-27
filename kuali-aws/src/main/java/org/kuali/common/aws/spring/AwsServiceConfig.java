@@ -17,6 +17,7 @@ package org.kuali.common.aws.spring;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.kuali.common.util.wait.WaitService;
@@ -26,12 +27,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.RegionUtils;
+import com.amazonaws.regions.Regions;
+import com.google.common.base.Optional;
+
 @Configuration
 @Import({ SpringServiceConfig.class, WaitServiceConfig.class })
 public class AwsServiceConfig {
 
 	private static final String ACCESS_KEY = "aws.accessKeyId";
 	private static final String SECRET_KEY = "aws.secretKey";
+	private static final String REGION_KEY = "aws.region";
 
 	@Autowired
 	EnvironmentService env;
@@ -43,7 +50,23 @@ public class AwsServiceConfig {
 	public EC2Service ec2Service() {
 		String accessKey = env.getString(ACCESS_KEY);
 		String secretKey = env.getString(SECRET_KEY);
-		return new DefaultEC2Service.Builder(accessKey, secretKey, service).build();
+		Optional<Region> region = getRegion();
+		if (region.isPresent()) {
+			return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region.get()).build();
+		} else {
+			return new DefaultEC2Service.Builder(accessKey, secretKey, service).build();
+		}
+	}
+
+	protected Optional<Region> getRegion() {
+		String regionName = env.getString(REGION_KEY, NullUtils.NONE);
+		if (NullUtils.isNullOrNone(regionName)) {
+			return Optional.<Region> absent();
+		} else {
+			Regions regions = Regions.fromName(regionName);
+			Region region = RegionUtils.getRegion(regions.getName());
+			return Optional.of(region);
+		}
 	}
 
 }
