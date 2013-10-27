@@ -18,17 +18,19 @@ public final class HealthyInstanceCondition implements Condition {
 	private final InstanceStateCondition state;
 	private final ReachabilityCondition status;
 
+	private boolean stateOk = false;
 	private boolean logState = true;
 
 	@Override
 	public boolean isTrue() {
 
-		if (!state.isTrue()) {
-			return false;
+		if (!stateOk) {
+			stateOk = state.isTrue();
+			return stateOk;
 		}
 
 		if (logState) {
-			logger.info("[{}] reached state [{}]", state.getInstanceId(), state.getTargetState().getValue());
+			logger.info("[{}] is now '{}'", state.getInstanceId(), state.getTargetState().getValue());
 			logState = false;
 		}
 
