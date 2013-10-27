@@ -27,6 +27,7 @@ public final class LaunchInstanceContext {
 	public static class Builder {
 
 		public static final long DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillis("15m"); // 15 minutes
+		public static final long DEFAULT_SLEEP_MILLIS = FormatUtils.getMillis("15s"); // 10 seconds
 
 		// Required
 		private final String ami;

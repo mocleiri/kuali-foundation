@@ -9,7 +9,6 @@ import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.condition.Condition;
-import org.kuali.common.util.condition.ConditionsCondition;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
@@ -34,7 +33,6 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
-import com.google.common.collect.ImmutableList;
 
 public final class DefaultEC2Service implements EC2Service {
 
@@ -146,10 +144,9 @@ public final class DefaultEC2Service implements EC2Service {
 		WaitContext wc = context.getWaitContext().get();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), context.getTargetState().getValue() };
 		logger.info("Waiting up to {} for [{}] to become reachable", args);
-		Condition condition1 = new InstanceStateCondition(this, instance.getInstanceId(), context.getTargetState());
-		Condition condition2 = new ReachabilityCondition(this, instance.getInstanceId(), context.getTargetReachability());
-		List<Condition> conditions = ImmutableList.of(condition1, condition2);
-		Condition condition = new ConditionsCondition(conditions);
+		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), context.getTargetState());
+		ReachabilityCondition status = new ReachabilityCondition(this, instance.getInstanceId(), context.getTargetReachability());
+		Condition condition = new HealthyInstanceCondition(state, status);
 		WaitResult result = service.wait(wc, condition);
 		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] became reachable in {}", resultArgs);
