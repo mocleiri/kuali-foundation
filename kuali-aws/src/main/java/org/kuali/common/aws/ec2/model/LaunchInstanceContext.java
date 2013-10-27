@@ -37,7 +37,7 @@ public final class LaunchInstanceContext {
 		private InstanceType type = InstanceType.C1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
-		private Optional<WaitContext> waitContext = Optional.of(new WaitContext.Builder(DEFAULT_TIMEOUT_MILLIS).build());
+		private Optional<WaitContext> waitContext = Optional.of(getWaitContext(DEFAULT_TIMEOUT_MILLIS));
 		private Optional<String> availabilityZone = Optional.absent();
 		private InstanceStateEnum targetState = InstanceStateEnum.RUNNING;
 		private Reachability targetReachability = Reachability.OK;
@@ -49,7 +49,11 @@ public final class LaunchInstanceContext {
 		public Builder(String ami, String keyName, long timeoutMillis) {
 			this.ami = ami;
 			this.keyName = keyName;
-			this.waitContext = Optional.of(new WaitContext.Builder(timeoutMillis).build());
+			this.waitContext = Optional.of(getWaitContext(timeoutMillis));
+		}
+
+		private WaitContext getWaitContext(long timeoutMillis) {
+			return new WaitContext.Builder(timeoutMillis).sleepMillis(DEFAULT_SLEEP_MILLIS).build();
 		}
 
 		public Builder targetReachability(Reachability targetReachability) {
