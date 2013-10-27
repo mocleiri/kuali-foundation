@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.InstanceStateEnum;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.condition.ConditionsCondition;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
@@ -34,6 +34,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.collect.ImmutableList;
 
 public final class DefaultEC2Service implements EC2Service {
 
@@ -114,14 +115,9 @@ public final class DefaultEC2Service implements EC2Service {
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
 		if (context.getWaitContext().isPresent()) {
-			wait(instance, context.getWaitContext().get(), context.getTargetState());
+			wait(instance, context);
 		}
 		tag(instance.getInstanceId(), context.getTags());
-
-		Reachability r = getReachability("i-7757010f");
-
-		logger.info("system reachability: " + r.getSystem() + " instance reachability: " + r.getInstance());
-
 		return instance;
 	}
 
@@ -146,13 +142,17 @@ public final class DefaultEC2Service implements EC2Service {
 		return instances.get(0);
 	}
 
-	protected Instance wait(Instance instance, WaitContext context, InstanceStateEnum requiredState) {
-		Object[] args = { FormatUtils.getTime(context.getTimeoutMillis()), instance.getInstanceId(), requiredState.getValue() };
-		logger.info("Waiting up to {} for [{}] to reach the state [{}]", args);
-		Condition condition = new InstanceStateCondition(this, instance.getInstanceId(), requiredState);
-		WaitResult result = service.wait(context, condition);
-		Object[] resultArgs = { instance.getInstanceId(), requiredState.getValue(), FormatUtils.getTime(result.getElapsed()) };
-		logger.info("[{}] reached the state [{}] in {}", resultArgs);
+	protected Instance wait(Instance instance, LaunchInstanceContext context) {
+		WaitContext wc = context.getWaitContext().get();
+		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), context.getTargetState().getValue() };
+		logger.info("Waiting up to {} for [{}] to become reachable", args);
+		Condition condition1 = new InstanceStateCondition(this, instance.getInstanceId(), context.getTargetState());
+		Condition condition2 = new ReachabilityCondition(this, instance.getInstanceId(), context.getTargetReachability());
+		List<Condition> conditions = ImmutableList.of(condition1, condition2);
+		Condition condition = new ConditionsCondition(conditions);
+		WaitResult result = service.wait(wc, condition);
+		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
+		logger.info("[{}] became reachable in {}", resultArgs);
 		return getInstance(instance.getInstanceId());
 	}
 
