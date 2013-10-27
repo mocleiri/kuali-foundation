@@ -17,7 +17,7 @@ public final class WaitResult {
 		public Builder(long start, long stop) {
 			this.start = start;
 			this.stop = stop;
-			this.elapsed = start - stop;
+			this.elapsed = stop - start;
 		}
 
 		public WaitResult build() {
