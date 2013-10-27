@@ -56,6 +56,7 @@ public final class DefaultEC2Service implements EC2Service {
 	private final AmazonEC2Client client;
 	private final WaitService service;
 	private final int launchSleepMillis;
+	private final int launchInitialPauseMillis;
 
 	public static class Builder {
 
@@ -65,6 +66,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		// Optional
 		private int launchSleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
+		private int launchInitialPauseMillis = FormatUtils.getMillisAsInt("3s"); // 3 seconds
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent();
 		private Optional<Region> region = Optional.absent();
 		private Optional<String> endpoint = Optional.absent();
@@ -107,6 +109,11 @@ public final class DefaultEC2Service implements EC2Service {
 			return this;
 		}
 
+		public Builder launchInitialPauseMillis(int launchInitialPauseMillis) {
+			this.launchInitialPauseMillis = launchInitialPauseMillis;
+			return this;
+		}
+
 		protected AmazonEC2Client getClient(AWSCredentials credentials) {
 			AmazonEC2Client client = new AmazonEC2Client(credentials);
 			if (timeOffsetInSeconds.isPresent()) {
@@ -126,7 +133,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		public DefaultEC2Service build() {
 			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
-			Assert.notNegative(launchSleepMillis);
+			Assert.noNegatives(launchSleepMillis, launchInitialPauseMillis);
 			this.client = getClient(credentials);
 			Assert.noNulls(client);
 			return new DefaultEC2Service(this);
@@ -138,6 +145,7 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = builder.client;
 		this.service = builder.service;
 		this.launchSleepMillis = builder.launchSleepMillis;
+		this.launchInitialPauseMillis = builder.launchInitialPauseMillis;
 	}
 
 	@Override
