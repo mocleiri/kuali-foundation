@@ -66,7 +66,7 @@ echo Install Complete - $(date) - $1
 }
  
 
-echo $(date)
+echo Starting Firefox Install - $(date)
 init
 install ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
 install http://download.savannah.gnu.org/releases/freetype/freetype-2.4.9.tar.gz
@@ -78,3 +78,5 @@ install http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.9.0.
 #install http://ftp.gnome.org/pub/gnome/sources/atk/2.4/atk-2.4.0.tar.xz
 #install http://ftp.gnome.org/pub/GNOME/sources/gdk-pixbuf/2.26/gdk-pixbuf-2.26.1.tar.xz
 #install http://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.10.tar.xz
+echo Firefox Install Complete - $(date)
+
