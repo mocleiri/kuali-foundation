@@ -181,7 +181,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Condition condition = new ConditionsCondition(ImmutableList.of(state, status));
 		WaitResult result = service.wait(wc, condition);
 		Object[] resultArgs = { instance.getInstanceId(), targetState.getValue(), FormatUtils.getTime(result.getElapsed()) };
-		logger.info("[{}] is now '{}' and reachable. - {}", resultArgs);
+		logger.info("[{}] is now '{}' and reachable - {}", resultArgs);
 		return getInstance(instance.getInstanceId());
 	}
 
