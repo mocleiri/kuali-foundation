@@ -8,6 +8,9 @@ import org.kuali.common.util.condition.Condition;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceState;
 
+/**
+ * This condition being met means that the corresponding EC2 instances has reached <code>targetState</code>
+ */
 public final class InstanceStateCondition implements Condition {
 
 	public InstanceStateCondition(EC2Service service, String instanceId, InstanceStateEnum targetState) {
