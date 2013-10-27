@@ -164,8 +164,8 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance getInstance(LaunchInstanceContext context) {
-		RunInstancesRequest rir = getRunInstancesRequest(context);
-		RunInstancesResult result = client.runInstances(rir);
+		RunInstancesRequest request = getRunInstancesRequest(context);
+		RunInstancesResult result = client.runInstances(request);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
 		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
