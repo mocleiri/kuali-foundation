@@ -2,6 +2,7 @@ package org.kuali.common.aws.ec2.api;
 
 import java.util.List;
 
+import org.kuali.common.aws.ec2.model.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.Reachability;
 
@@ -62,5 +63,10 @@ public interface EC2Service {
 	 * Create tags on the indicated Amazon EC2 resource (instance, volume, snapshot, ami, etc).
 	 */
 	public void tag(String resourceId, List<Tag> tags);
+
+	/**
+	 * Each Amazon EC2 instance has a list of statuses associated with it. Every status has a name. Every status is also associated either with the
+	 */
+	public String getStatus(String instanceId, InstanceStatusType type, String statusName);
 
 }

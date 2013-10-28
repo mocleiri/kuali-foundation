@@ -1,7 +1,7 @@
 package org.kuali.common.aws.ec2.impl;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.InstanceStateEnum;
+import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
@@ -13,7 +13,7 @@ import com.amazonaws.services.ec2.model.InstanceState;
  */
 public final class InstanceStateCondition implements Condition {
 
-	public InstanceStateCondition(EC2Service service, String instanceId, InstanceStateEnum targetState) {
+	public InstanceStateCondition(EC2Service service, String instanceId, InstanceStateName targetState) {
 		Assert.noNulls(service, targetState);
 		Assert.noBlanks(instanceId);
 		this.instanceId = instanceId;
@@ -23,7 +23,7 @@ public final class InstanceStateCondition implements Condition {
 
 	private final EC2Service service;
 	private final String instanceId;
-	private final InstanceStateEnum targetState;
+	private final InstanceStateName targetState;
 
 	@Override
 	public boolean isTrue() {
@@ -41,7 +41,7 @@ public final class InstanceStateCondition implements Condition {
 		return instanceId;
 	}
 
-	public InstanceStateEnum getTargetState() {
+	public InstanceStateName getTargetState() {
 		return targetState;
 	}
 

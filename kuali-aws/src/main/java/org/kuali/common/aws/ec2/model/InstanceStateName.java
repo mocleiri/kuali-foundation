@@ -1,6 +1,6 @@
 package org.kuali.common.aws.ec2.model;
 
-public enum InstanceStateEnum {
+public enum InstanceStateName {
 
 	PENDING("pending"), //
 	RUNNING("running"), //
@@ -11,7 +11,7 @@ public enum InstanceStateEnum {
 
 	private final String value;
 
-	private InstanceStateEnum(String value) {
+	private InstanceStateName(String value) {
 		this.value = value;
 	}
 
