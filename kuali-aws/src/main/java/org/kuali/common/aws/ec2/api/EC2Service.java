@@ -21,11 +21,15 @@ public interface EC2Service {
 
 	/**
 	 * Launch a single Amazon EC2 instance and wait until Amazon has confirmed that the instance is online and functioning.
+	 * 
+	 * @see terminateInstance
 	 */
 	public Instance launchInstance(LaunchInstanceContext context);
 
 	/**
-	 * Terminate a single Amazon EC2 instance and wait until Amazon has verified that the instance has been terminated.
+	 * Terminate a single Amazon EC2 instance and wait until Amazon has confirmed that the instance has been terminated.
+	 * 
+	 * @see launchInstance
 	 */
 	public void terminateInstance(String instanceId);
 
