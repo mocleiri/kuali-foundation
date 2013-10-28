@@ -11,8 +11,8 @@ import org.kuali.common.util.condition.Condition;
 public final class IsOnlineCondition implements Condition {
 
 	public IsOnlineCondition(EC2Service service, String instanceId) {
-		Assert.noBlanks(instanceId);
 		Assert.noNulls(service);
+		Assert.noBlanks(instanceId);
 		this.running = new InstanceStateCondition(service, instanceId, InstanceStateName.RUNNING);
 		this.reachable = new IsReachableCondition(service, instanceId);
 	}
