@@ -172,6 +172,7 @@ public final class DefaultEC2Service implements EC2Service {
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Assert.noNulls(context);
 		Instance instance = getInstance(context);
+
 		// Was getting some flaky behavior from AWS without a small delay after the RunInstancesRequest returned
 		// Granted, this was in early 2011 and it may no longer be an issue
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second shouldn't pose much of an issue
@@ -179,6 +180,7 @@ public final class DefaultEC2Service implements EC2Service {
 		if (context.isPreventTermination()) {
 			preventTermination(instance.getInstanceId());
 		}
+
 		tag(instance.getInstanceId(), context.getTags());
 		waitForOnlineConfirmation(instance, context);
 		Assert.isTrue(isOnline(instance.getInstanceId()), "Instance is not online");
