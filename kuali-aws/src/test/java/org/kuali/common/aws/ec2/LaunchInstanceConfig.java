@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
@@ -38,6 +39,7 @@ import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
@@ -81,9 +83,24 @@ public class LaunchInstanceConfig {
 		InstanceType type = InstanceType.fromValue(env.getString("ec2.type"));
 		List<Tag> tags = getTags();
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, "ec2.securityGroups");
+		RootVolume rootVolume = getRootVolume();
 		boolean preventTermination = env.getBoolean("ec2.preventTermination", false);
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups)
-				.preventTermination(preventTermination).build();
+				.preventTermination(preventTermination).rootVolume(rootVolume).build();
+	}
+
+	protected RootVolume getRootVolume() {
+		Optional<Integer> sizeInGigabytes = getOptionalInteger("ec2.rootVolume.sizeInGigabytes");
+		boolean deleteOnTermination = env.getBoolean("ec2.rootVolume.deleteOnTermination", RootVolume.DEFAULT_DELETE_ON_TERMINATION);
+		return new RootVolume(sizeInGigabytes, deleteOnTermination);
+	}
+
+	protected Optional<Integer> getOptionalInteger(String key) {
+		if (!env.containsProperty(key)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(env.getInteger(key));
+		}
 	}
 
 	protected List<Tag> getTags() {

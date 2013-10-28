@@ -347,7 +347,10 @@ public final class DefaultEC2Service implements EC2Service {
 			Image ami = getAmi(context.getAmi());
 			BlockDeviceMapping mapping = getRootBlockDeviceMapping(ami);
 			EbsBlockDevice device = mapping.getEbs();
-			device.setVolumeSize(rootVolume.getSizeInGigabytes());
+			if (rootVolume.getSizeInGigabytes().isPresent()) {
+				int sizeInGigabytes = rootVolume.getSizeInGigabytes().get();
+				device.setVolumeSize(sizeInGigabytes);
+			}
 			device.setDeleteOnTermination(rootVolume.isDeleteOnTermination());
 			List<BlockDeviceMapping> mappings = Collections.singletonList(mapping);
 			rir.setBlockDeviceMappings(mappings);

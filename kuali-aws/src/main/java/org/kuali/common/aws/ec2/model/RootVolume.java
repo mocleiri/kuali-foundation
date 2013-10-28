@@ -2,24 +2,32 @@ package org.kuali.common.aws.ec2.model;
 
 import org.kuali.common.util.Assert;
 
+import com.google.common.base.Optional;
+
 public final class RootVolume {
 
 	public static final boolean DEFAULT_DELETE_ON_TERMINATION = true;
 
-	public RootVolume(int sizeInGigabytes) {
-		this(sizeInGigabytes, DEFAULT_DELETE_ON_TERMINATION);
+	public RootVolume(boolean deleteOnTermination) {
+		this(Optional.<Integer> absent(), DEFAULT_DELETE_ON_TERMINATION);
 	}
 
-	public RootVolume(int sizeInGigabytes, boolean deleteOnTermination) {
-		Assert.positive(sizeInGigabytes);
+	public RootVolume(int sizeInGigabytes) {
+		this(Optional.of(sizeInGigabytes), DEFAULT_DELETE_ON_TERMINATION);
+	}
+
+	public RootVolume(Optional<Integer> sizeInGigabytes, boolean deleteOnTermination) {
+		if (sizeInGigabytes.isPresent()) {
+			Assert.positive(sizeInGigabytes.get());
+		}
 		this.sizeInGigabytes = sizeInGigabytes;
 		this.deleteOnTermination = deleteOnTermination;
 	}
 
-	private final int sizeInGigabytes;
+	private final Optional<Integer> sizeInGigabytes;
 	private final boolean deleteOnTermination;
 
-	public int getSizeInGigabytes() {
+	public Optional<Integer> getSizeInGigabytes() {
 		return sizeInGigabytes;
 	}
 
