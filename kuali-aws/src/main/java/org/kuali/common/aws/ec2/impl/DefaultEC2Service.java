@@ -179,9 +179,9 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
-		// Was getting some flaky behavior from AWS without a small delay before attempting to do anything to an instance after the RunInstancesRequest returned
-		// Granted, this was in early 2011 and this may no longer be an issue
-		// Since it generally takes 1-2 minutes for the instance to spin up, pausing for 1 second here shouldn't pose much of an issue
+		// Was getting some flaky behavior from AWS without a small delay after the RunInstancesRequest returned
+		// Granted, this was in early 2011 and it may no longer be an issue
+		// Since it generally takes a few minutes for the instance to spin up, pausing for 1 second here shouldn't pose much of an issue
 		ThreadUtils.sleep(initialPauseMillis);
 		tag(instance.getInstanceId(), context.getTags());
 		if (context.isPreventTermination()) {
