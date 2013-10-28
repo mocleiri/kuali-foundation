@@ -330,6 +330,7 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setKeyName(context.getKeyName());
 		rir.setSecurityGroups(context.getSecurityGroups());
 		rir.setInstanceType(context.getType());
+		rir.setDisableApiTermination(context.isPreventTermination());
 		if (context.getAvailabilityZone().isPresent()) {
 			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);
