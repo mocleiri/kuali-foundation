@@ -40,7 +40,7 @@ public final class LaunchInstanceContext {
 		private boolean preventTermination = false;
 		private boolean ebsOptimized = false;
 		private boolean enableMonitoring = false;
-		private Optional<RootVolume> rootVolume = Optional.absent();
+		private Optional<RootVolume> rootVolume = Optional.absent(); // Default root volume definition is provided by the AMI
 
 		public Builder(String ami, String keyName) {
 			this.ami = ami;
