@@ -25,10 +25,13 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceStatus;
 import com.amazonaws.services.ec2.model.InstanceStatusDetails;
@@ -243,6 +246,16 @@ public final class DefaultEC2Service implements EC2Service {
 	public String getStatus(String instanceId, InstanceStatusType type, String statusName) {
 		List<InstanceStatus> statuses = getStatusList(instanceId);
 		return getStatus(statuses, type, statusName);
+	}
+
+	protected Image getAmi(String ami) {
+		Assert.noBlanks(ami);
+		DescribeImagesRequest request = new DescribeImagesRequest();
+		request.setImageIds(Collections.singletonList(ami));
+		DescribeImagesResult result = client.describeImages(request);
+		List<Image> images = result.getImages();
+		Assert.isTrue(images.size() == 0, "Expected exactly 1 image but there were " + images.size() + " instead");
+		return images.get(0);
 	}
 
 	protected void preventTermination(String instanceId, boolean preventTermination) {
