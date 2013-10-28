@@ -234,6 +234,17 @@ public final class DefaultEC2Service implements EC2Service {
 		client.createTags(request);
 	}
 
+	@Override
+	public boolean isOnline(String instanceId) {
+		return new IsOnlineCondition(this, instanceId).isTrue();
+	}
+
+	@Override
+	public String getStatus(String instanceId, InstanceStatusType type, String statusName) {
+		List<InstanceStatus> statuses = getStatusList(instanceId);
+		return getStatus(statuses, type, statusName);
+	}
+
 	protected void preventTermination(String instanceId, boolean preventTermination) {
 		Assert.noBlanks(instanceId);
 		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
@@ -244,12 +255,6 @@ public final class DefaultEC2Service implements EC2Service {
 		request.withDisableApiTermination(preventTermination);
 
 		client.modifyInstanceAttribute(request);
-	}
-
-	@Override
-	public String getStatus(String instanceId, InstanceStatusType type, String statusName) {
-		List<InstanceStatus> statuses = getStatusList(instanceId);
-		return getStatus(statuses, type, statusName);
 	}
 
 	protected List<InstanceStatus> getStatusList(String instanceId) {
@@ -310,11 +315,6 @@ public final class DefaultEC2Service implements EC2Service {
 		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] is now online - {}", resultArgs);
 		return getInstance(instance.getInstanceId());
-	}
-
-	@Override
-	public boolean isOnline(String instanceId) {
-		return new IsOnlineCondition(this, instanceId).isTrue();
 	}
 
 	/**
