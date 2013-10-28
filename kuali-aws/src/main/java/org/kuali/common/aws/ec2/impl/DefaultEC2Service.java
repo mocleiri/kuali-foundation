@@ -65,6 +65,8 @@ public final class DefaultEC2Service implements EC2Service {
 		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 15 seconds
 		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 1 second
 		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
+
+		// These are all optional ways to customize the configuration of the AmazonEC2Client object
 		private Optional<Region> region = Optional.absent(); // Every AWS account has a default region
 		private Optional<String> endpoint = Optional.absent(); // Every AWS account has a default endpoint
 		private Optional<ClientConfiguration> configuration = Optional.absent();
