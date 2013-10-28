@@ -3,7 +3,6 @@ package org.kuali.common.aws.ec2.api;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -35,9 +34,21 @@ public interface EC2Service {
 	public void terminateInstance(String instanceId);
 
 	/**
-	 * Return an object indicating the "reachability" of an Amazon EC2 instance.
+	 * <p>
+	 * This method returns true if the Amazon EC2 instance meets three conditions:
+	 * </p>
+	 * 
+	 * <ol>
+	 * <li>The instance is in the <code>running</code> state.</li>
+	 * <li>Amazon has verified that the instance is reachable. Amazon has verified that they are able to get network packets to the instance.</li>
+	 * <li>Amazon has verified that the instance's operating system is accepting traffic.</li>
+	 * </ol>
+	 * 
+	 * <p>
+	 * Until this method returns true, the instance cannot be used in any meaningful way.
+	 * </p>
 	 */
-	public Reachability getReachability(String instanceId);
+	public boolean isOnline(String instanceId);
 
 	/**
 	 * Set a flag that prevent's an Amazon EC2 instance from being terminated.
