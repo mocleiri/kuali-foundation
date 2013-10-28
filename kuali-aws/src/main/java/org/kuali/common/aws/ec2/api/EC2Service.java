@@ -16,6 +16,21 @@ public interface EC2Service {
 	public void terminateInstance(String instanceId);
 
 	/**
+	 * Set a flag that prevent's an Amazon EC2 instance from being terminated
+	 * 
+	 * @see allowTermination
+	 */
+	public void preventTermination(String instanceId);
+
+	/**
+	 * Set a flag that allows an Amazon EC2 instance to be terminated. This does not terminate the instance. It just makes it possible for the instance to be terminated at some
+	 * later point in time.
+	 * 
+	 * @see preventTermination
+	 */
+	public void allowTermination(String instanceId);
+
+	/**
 	 * Launch a single Amazon EC2 instance
 	 */
 	public Instance launchInstance(LaunchInstanceContext context);

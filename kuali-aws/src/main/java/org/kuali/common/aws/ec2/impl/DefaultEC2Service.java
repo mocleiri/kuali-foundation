@@ -49,7 +49,7 @@ import com.google.common.collect.ImmutableList;
  * </p>
  * 
  * <p>
- * For example, launchInstance() creates a single EC2 instance and blocks until the launched instance comes online and is ready for service.
+ * For example, launchInstance() creates a single EC2 instance but waits until the launched instance comes online and is ready for service.
  * </p>
  */
 public final class DefaultEC2Service implements EC2Service {
@@ -69,8 +69,8 @@ public final class DefaultEC2Service implements EC2Service {
 		private final WaitService service;
 
 		// Optional
-		private int sleepMillis = FormatUtils.getMillisAsInt("10s"); // 10 seconds
-		private int initialPauseMillis = FormatUtils.getMillisAsInt("3s"); // 3 seconds
+		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 10 seconds
+		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 3 seconds
 		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent();
 		private Optional<Region> region = Optional.absent();
@@ -124,6 +124,14 @@ public final class DefaultEC2Service implements EC2Service {
 			return this;
 		}
 
+		public DefaultEC2Service build() {
+			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
+			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
+			this.client = getClient(credentials);
+			Assert.noNulls(client);
+			return new DefaultEC2Service(this);
+		}
+
 		protected AmazonEC2Client getClient(AWSCredentials credentials) {
 			AmazonEC2Client client = new AmazonEC2Client(credentials);
 			if (timeOffsetInSeconds.isPresent()) {
@@ -139,14 +147,6 @@ public final class DefaultEC2Service implements EC2Service {
 				client.setConfiguration(configuration.get());
 			}
 			return client;
-		}
-
-		public DefaultEC2Service build() {
-			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
-			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
-			this.client = getClient(credentials);
-			Assert.noNulls(client);
-			return new DefaultEC2Service(this);
 		}
 
 	}
@@ -188,20 +188,26 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Instance instance = getInstance(context);
+		// Was getting some flaky behavior from AWS without a small delay here
+		// This was in early 2011 and may no longer be the case
+		// Since it generally takes 1-2 minutes for the instance to spin up, pausing for 1 second here shouldn't be that big of a deal
 		ThreadUtils.sleep(initialPauseMillis);
 		tag(instance.getInstanceId(), context.getTags());
 		if (context.isEnableTerminationProtection()) {
-			enableTerminationProtection(instance.getInstanceId());
+			preventTermination(instance.getInstanceId());
 		}
 		wait(instance, context);
 		return getInstance(instance.getInstanceId());
 	}
 
-	public void enableTerminationProtection(String instanceId) {
-		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
-		request.withInstanceId(instanceId);
-		request.withDisableApiTermination(true);
-		client.modifyInstanceAttribute(request);
+	@Override
+	public void allowTermination(String instanceId) {
+		preventTermination(instanceId, false);
+	}
+
+	@Override
+	public void preventTermination(String instanceId) {
+		preventTermination(instanceId, true);
 	}
 
 	@Override
@@ -228,6 +234,13 @@ public final class DefaultEC2Service implements EC2Service {
 		List<String> resources = Collections.singletonList(resourceId);
 		CreateTagsRequest request = new CreateTagsRequest(resources, tags);
 		client.createTags(request);
+	}
+
+	protected void preventTermination(String instanceId, boolean preventTermination) {
+		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
+		request.withInstanceId(instanceId);
+		request.withDisableApiTermination(preventTermination);
+		client.modifyInstanceAttribute(request);
 	}
 
 	protected String getStatus(List<InstanceStatus> statuses, String name, StatusType type) {
