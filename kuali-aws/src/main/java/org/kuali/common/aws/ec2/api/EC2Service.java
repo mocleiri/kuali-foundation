@@ -65,7 +65,13 @@ public interface EC2Service {
 	public void tag(String resourceId, List<Tag> tags);
 
 	/**
-	 * Each Amazon EC2 instance has a list of statuses associated with it. Every status has a name. Every status is also associated either with the
+	 * <p>
+	 * Each Amazon EC2 instance has a list of statuses associated with it.
+	 * </p>
+	 * 
+	 * <p>
+	 * Each status has a name and value and is associated with either Amazon systems or with the instance itself.
+	 * </p>
 	 */
 	public String getStatus(String instanceId, InstanceStatusType type, String statusName);
 
