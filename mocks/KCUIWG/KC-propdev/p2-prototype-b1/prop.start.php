@@ -106,7 +106,7 @@ include( '_temp.select.filler.php' );
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="sponsor_code" class="control-label col-md-3 required">* Sponsor code:</label>
+									<label for="sponsor_code" class="control-label col-md-3 required">* Sponsor:</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper store-as-session" name="sponsor_code" id="sponsor_code" />
 										<div class="helper-text">

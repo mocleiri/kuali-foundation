@@ -122,7 +122,7 @@ include( '_temp.select.filler.php' );
 								</div> -->
 
 								<div class="form-group clearfix">
-									<label for="prime_sponsor_id" class="control-label col-md-3">Prime sponsor code:</label>
+									<label for="prime_sponsor_id" class="control-label col-md-3">Prime Sponsor:</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
 										<div class="helper-text">
