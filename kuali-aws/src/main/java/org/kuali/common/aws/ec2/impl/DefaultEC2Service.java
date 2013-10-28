@@ -182,11 +182,6 @@ public final class DefaultEC2Service implements EC2Service {
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second shouldn't pose much of an issue
 		ThreadUtils.sleep(initialPauseMillis);
 
-		// Optionally, prevent the new instance from being terminated
-		if (context.isPreventTermination()) {
-			preventTermination(instance.getInstanceId());
-		}
-
 		// Tag the instance
 		tag(instance.getInstanceId(), context.getTags());
 
