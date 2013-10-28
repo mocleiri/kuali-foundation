@@ -1,12 +1,14 @@
 package org.kuali.common.aws.ec2.impl;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.Reachability;
+import org.kuali.common.aws.ec2.model.status.InstanceStatusName;
+import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
+import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
 /**
- * This condition being met means that AWS has:
+ * This condition being met means that Amazon has:
  * 
  * <ol>
  * <li>Verified that the EC2 instance is connected to the network</li>
@@ -27,10 +29,14 @@ public final class IsReachableCondition implements Condition {
 
 	@Override
 	public boolean isTrue() {
-		Reachability reachability = service.getReachability(instanceId);
-		boolean system = Reachability.STATUS_PASSED.equals(reachability.getSystem());
-		boolean instance = Reachability.STATUS_PASSED.equals(reachability.getInstance());
+		boolean system = getReachabilityStatus(InstanceStatusType.SYSTEM);
+		boolean instance = getReachabilityStatus(InstanceStatusType.INSTANCE);
 		return system && instance;
+	}
+
+	protected boolean getReachabilityStatus(InstanceStatusType type) {
+		String value = service.getStatus(instanceId, type, InstanceStatusName.REACHABILITY.getValue());
+		return InstanceStatusValue.PASSED.getValue().equals(value);
 	}
 
 	public EC2Service getService() {
