@@ -42,7 +42,7 @@
 				<li <?php if ($page == "budget-actions") { echo 'class="active"'; } ?>><a href="prop.budget.actions.php">Actions</a></li>
 			</ul>
 		</li>
-		<li <?php if ($section == "instdata") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="#" class="dropdown-toggle"><i class="icon-bell"></i><span>Institution Data</span> <b class="arrow icon-angle-right"></b></a>
+		<li <?php if ($section == "instdata") { echo 'class="active"'; } else { echo 'class=""'; } ?>> <a href="#" class="dropdown-toggle"><i class="icon-bell"></i><span>Supplemental Information</span> <b class="arrow icon-angle-right"></b></a>
 			<ul class="submenu">
 				<li <?php if ($page == "institution-page1") { echo 'class="active"'; } ?>><a href="prop.inst.1.php">Page 1</a></li>
 				<li <?php if ($page == "institution-page2") { echo 'class="active"'; } ?>><a href="prop.inst.2.php">Page 2</a></li>
