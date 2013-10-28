@@ -6,7 +6,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
@@ -14,7 +13,6 @@ import com.google.common.collect.ImmutableList;
 
 public final class LaunchInstanceContext {
 
-	private final Regions region;
 	private final String ami;
 	private final String keyName;
 	private final InstanceType type;
@@ -36,7 +34,6 @@ public final class LaunchInstanceContext {
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent();
 		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
-		private Regions region = Regions.US_EAST_1;
 		private boolean preventTermination = false;
 
 		public Builder(String ami, String keyName) {
@@ -46,11 +43,6 @@ public final class LaunchInstanceContext {
 
 		public Builder preventTermination(boolean preventTermination) {
 			this.preventTermination = preventTermination;
-			return this;
-		}
-
-		public Builder region(Regions region) {
-			this.region = region;
 			return this;
 		}
 
@@ -98,7 +90,6 @@ public final class LaunchInstanceContext {
 		this.tags = builder.tags;
 		this.availabilityZone = builder.availabilityZone;
 		this.timeoutMillis = builder.timeoutMillis;
-		this.region = builder.region;
 		this.preventTermination = builder.preventTermination;
 	}
 
@@ -128,10 +119,6 @@ public final class LaunchInstanceContext {
 
 	public int getTimeoutMillis() {
 		return timeoutMillis;
-	}
-
-	public Regions getRegion() {
-		return region;
 	}
 
 	public boolean isPreventTermination() {
