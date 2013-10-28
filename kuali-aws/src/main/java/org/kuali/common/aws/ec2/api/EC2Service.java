@@ -20,14 +20,14 @@ import com.amazonaws.services.ec2.model.Tag;
 public interface EC2Service {
 
 	/**
-	 * Launch a single Amazon EC2 instance and wait until Amazon has confirmed that the instance is online and functioning.
+	 * Launch a single Amazon EC2 instance and wait until Amazon confirms that the instance is online and functioning.
 	 * 
 	 * @see terminateInstance
 	 */
 	public Instance launchInstance(LaunchInstanceContext context);
 
 	/**
-	 * Terminate a single Amazon EC2 instance and wait until Amazon has confirmed that the instance has been terminated.
+	 * Terminate a single Amazon EC2 instance and wait until Amazon confirms that the instance has been terminated.
 	 * 
 	 * @see launchInstance
 	 */
@@ -45,7 +45,7 @@ public interface EC2Service {
 	 * </ol>
 	 * 
 	 * <p>
-	 * Until this method returns true, the instance cannot be used in any meaningful way.
+	 * If this method returns false, the instance cannot be used in any meaningful way.
 	 * </p>
 	 */
 	public boolean isOnline(String instanceId);
@@ -81,7 +81,8 @@ public interface EC2Service {
 	 * </p>
 	 * 
 	 * <p>
-	 * Each status has a name and value and is associated with either Amazon systems or with the instance itself.
+	 * Each status has a name and value and is associated with either the ability of Amazon's internal systems to determine that status (external to the instance itself) or with
+	 * the status of something going on internally to the instance.
 	 * </p>
 	 */
 	public String getStatus(String instanceId, InstanceStatusType type, String statusName);
