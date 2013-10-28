@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2.model.status;
 public enum InstanceStatusValue {
 
 	INITIALIZING("initializing"), //
+	UNKNOWN("unknown"), //
 	PASSED("passed");
 
 	private final String value;

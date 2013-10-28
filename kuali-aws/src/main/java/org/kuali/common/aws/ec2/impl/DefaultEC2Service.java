@@ -6,8 +6,8 @@ import java.util.List;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.ec2.model.Reachability;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
+import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -259,7 +259,7 @@ public final class DefaultEC2Service implements EC2Service {
 				return detail.get();
 			}
 		}
-		return Reachability.STATUS_UNKNOWN;
+		return InstanceStatusValue.UNKNOWN.getValue();
 	}
 
 	protected InstanceStatusSummary getSummary(InstanceStatus status, InstanceStatusType type) {
