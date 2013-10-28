@@ -43,6 +43,9 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Instances of this service implementation perform operations using a single set of AWS credentials on a single EC2 region.
+ */
 public final class DefaultEC2Service implements EC2Service {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
