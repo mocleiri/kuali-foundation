@@ -6,6 +6,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.util.Assert;
@@ -24,6 +25,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
@@ -31,6 +33,7 @@ import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceStatus;
@@ -334,13 +337,34 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setDisableApiTermination(context.isPreventTermination());
 		rir.setEbsOptimized(context.isEbsOptimized());
 		rir.setMonitoring(context.isEnableMonitoring());
-		rir.setBlockDeviceMappings(null);
 		if (context.getAvailabilityZone().isPresent()) {
 			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);
 			rir.setPlacement(placement);
 		}
+		if (context.getRootVolume().isPresent()) {
+			RootVolume rootVolume = context.getRootVolume().get();
+			Image ami = getAmi(context.getAmi());
+			BlockDeviceMapping mapping = getRootBlockDeviceMapping(ami);
+			EbsBlockDevice device = mapping.getEbs();
+			device.setVolumeSize(rootVolume.getSizeInGigabytes());
+			device.setDeleteOnTermination(rootVolume.isDeleteOnTermination());
+			List<BlockDeviceMapping> mappings = Collections.singletonList(mapping);
+			rir.setBlockDeviceMappings(mappings);
+		}
 		return rir;
+	}
+
+	protected BlockDeviceMapping getRootBlockDeviceMapping(Image image) {
+		String rootDeviceName = image.getRootDeviceName();
+		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
+		for (BlockDeviceMapping mapping : mappings) {
+			String deviceName = mapping.getDeviceName();
+			if (rootDeviceName.equals(deviceName)) {
+				return mapping;
+			}
+		}
+		throw new IllegalStateException("Could not locate the root block device mapping for AMI [" + image.getImageId() + "]");
 	}
 
 	public Image getAmi(String ami) {
