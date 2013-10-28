@@ -10,7 +10,7 @@ import com.amazonaws.services.ec2.model.Tag;
 
 /**
  * <p>
- * This service provides a layer of abstraction around the EC2 API calls provided by Amazon intended to be useful for common tasks.
+ * This service provides a layer of abstraction around the EC2 API calls provided by Amazon that are useful for common tasks.
  * </p>
  * 
  * <p>
