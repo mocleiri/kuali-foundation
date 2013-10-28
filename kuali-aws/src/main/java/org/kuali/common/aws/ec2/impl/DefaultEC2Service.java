@@ -292,7 +292,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance issueRunInstanceRequest(LaunchInstanceContext context) {
-		RunInstancesRequest request = getRunInstancesRequest(context);
+		RunInstancesRequest request = getRunInstanceRequest(context);
 		RunInstancesResult result = client.runInstances(request);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
@@ -317,7 +317,10 @@ public final class DefaultEC2Service implements EC2Service {
 		return new IsOnlineCondition(this, instanceId).isTrue();
 	}
 
-	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceContext context) {
+	/**
+	 * Return a request that spins up exactly one instance.
+	 */
+	protected RunInstancesRequest getRunInstanceRequest(LaunchInstanceContext context) {
 		RunInstancesRequest rir = new RunInstancesRequest();
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
@@ -326,6 +329,8 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setSecurityGroups(context.getSecurityGroups());
 		rir.setInstanceType(context.getType());
 		rir.setDisableApiTermination(context.isPreventTermination());
+		rir.setEbsOptimized(context.isEbsOptimized());
+		rir.setMonitoring(context.isEnableMonitoring());
 		if (context.getAvailabilityZone().isPresent()) {
 			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);

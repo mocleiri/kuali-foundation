@@ -21,6 +21,8 @@ public final class LaunchInstanceContext {
 	private final Optional<String> availabilityZone;
 	private final int timeoutMillis;
 	private final boolean preventTermination;
+	private final boolean ebsOptimized;
+	private final boolean enableMonitoring;
 
 	public static class Builder {
 
@@ -35,10 +37,22 @@ public final class LaunchInstanceContext {
 		private Optional<String> availabilityZone = Optional.absent();
 		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 		private boolean preventTermination = false;
+		private boolean ebsOptimized = false;
+		private boolean enableMonitoring = false;
 
 		public Builder(String ami, String keyName) {
 			this.ami = ami;
 			this.keyName = keyName;
+		}
+
+		public Builder enableMonitoring(boolean enableMonitoring) {
+			this.enableMonitoring = enableMonitoring;
+			return this;
+		}
+
+		public Builder ebsOptimized(boolean ebsOptimized) {
+			this.ebsOptimized = ebsOptimized;
+			return this;
 		}
 
 		public Builder preventTermination(boolean preventTermination) {
@@ -91,6 +105,8 @@ public final class LaunchInstanceContext {
 		this.availabilityZone = builder.availabilityZone;
 		this.timeoutMillis = builder.timeoutMillis;
 		this.preventTermination = builder.preventTermination;
+		this.ebsOptimized = builder.ebsOptimized;
+		this.enableMonitoring = builder.enableMonitoring;
 	}
 
 	public String getAmi() {
@@ -123,6 +139,14 @@ public final class LaunchInstanceContext {
 
 	public boolean isPreventTermination() {
 		return preventTermination;
+	}
+
+	public boolean isEbsOptimized() {
+		return ebsOptimized;
+	}
+
+	public boolean isEnableMonitoring() {
+		return enableMonitoring;
 	}
 
 }
