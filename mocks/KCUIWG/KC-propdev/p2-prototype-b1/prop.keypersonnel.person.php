@@ -1,11 +1,24 @@
+<?php  session_start();
+
+$persons[1]['name'] = "Edward H Haskell";
+$persons[2]['name'] = "Ward Cleaver";
+$persons[3]['name'] = "June Cleaver";
+
+$group['pi'] = "(PI)";
+$group['copi'] = "(COPI)";
+$group['kp'] = "(KP)";
+
+
+?>
+
 <div class="panel-group" id="accordion1" style="margin-bottom:;">
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="row">
                 <div class="col-md-6">
-                  <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> Edward H Haskell </a> <span class="text-muted"> (PI)</span></h4>
+                  <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$_SESSION['personnelId']]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['personnelRole']]?></span></h4>
                 </div>
-                <div class="col-md-6"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+                <div class="col-md-6"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person"></span></a> </div>
               </div>
             </div>
             <div id="collapse2" class="panel-collapse collapse" style="height: auto;">

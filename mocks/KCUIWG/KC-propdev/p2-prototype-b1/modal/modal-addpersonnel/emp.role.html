@@ -23,8 +23,8 @@
 				<label class="radio" for="copi-investigator"><input type="radio" id="copi-investigator" value="copi" name="group" class="r"> Co-Principal Investigator</label>
 				<div class="other" id="multi_pi">
 					<div class="form-group clearfix">
-						<label for="multiple_pis" class="control-label col-md-5"><input type="checkbox" id="multiple_pis" value="1" /> Yes, this proposal has multuple PI's.</label>
-					</div>
+                    <label for="multiple_pis" class="control-label col-md-5"><input type="checkbox" id="multiple_pis" value="1" /> Yes, this proposal has multuple PI's.</label>
+                </div>
 				</div>
 
 				<label class="radio" for="keyperson"><input type="radio" id="keyperson" value="kp" name="group" class="r"> Key Person</label>
@@ -56,30 +56,51 @@
 <script src="../../themes/kc/js/jquery.multiselect.filter.min.js"></script>
 <script src="../../themes/kc/js/functions.js"></script>
 <script>
-$(document).ready(function() {
-	$('.other').hide();
+    $(document).ready(function() {
+        $('.other').hide();
 
-	$('.r').click(function() {
+        $('.r').click(function() {
 
-		if ($(this).val() == 'copi') {
-			$('.other').hide();
-			$('#multi_pi').fadeIn();
-		} else if ($(this).val() == 'kp') {
-			$('.other').hide();
-			$('#kp_role').fadeIn();
-		} else {
-			$('.other').hide();
-		}
-	});
+            if ($(this).val() == 'copi') {
+                $('.other').hide();
+                $('#multi_pi').fadeIn();
+            } else if ($(this).val() == 'kp') {
+                $('.other').hide();
+                $('#kp_role').fadeIn();
+            } else {
+                $('.other').hide();
+            }
+        });
 
-    $('#add-person').live("click", function(){
-        $.get("../../prop.keypersonnel.person.php", function(t){
-            $('#personnel-container',top.document).append(t);
-            parent.$.fancybox.close();
-        })
-        return false;
+        $('#add-person').live("click", function(){
+
+            var role =   $('input[name="group"]:checked').val();
+            var multiple_pis = 0;
+            var keyperson_role = 0;
+
+            if(role == "copi") { if($("#multiple_pis").is(":checked")) multiple_pis = 1; }
+            if(role == "kp"){   keyperson_role = $("#keyperson_role").val();      }
+
+            $.post('../../save-session.php', {'personnelRole': role, "multiple_pis":multiple_pis, "keyperson_role":keyperson_role}, function(t){
+                console.log(t);
+                console.log(multiple_pis);
+                $('#personnel-role',top.document).val(role);
+
+                $.get("../../prop.keypersonnel.person.php", function(t){
+                    $('#personnel-container',top.document).append(t);
+                    $('.alert',top.document).show();
+                    parent.$.fancybox.close();
+
+                });
+
+
+            });
+
+
+            return false;
+        });
+
     });
-});
 </script>
 </body>
 </html>

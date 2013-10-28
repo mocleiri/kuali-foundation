@@ -2,9 +2,10 @@
 
       //session_destroy();
 
-      foreach($_REQUEST as $index=>$field){
-           if($field) $_SESSION[$index] = trim($field);
-      }
 
-       print_r($_SESSION);
+    foreach($_REQUEST as $index=>$field){
+      $_SESSION[$index] = trim($field);
+    }
+
+    print_r($_SESSION);
 ?>

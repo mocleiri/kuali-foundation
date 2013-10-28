@@ -28,17 +28,27 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input type="radio" name="proto-1" checked="checked"></td>
+						<td><input type="radio" value="1" name="personnelId" checked="checked"/></td>
 						<td>Edward Haskell</td>
 						<td>haskelledw</td>
 					</tr>
+                    <tr>
+                        <td><input type="radio" value="2" name="personnelId" /></td>
+                        <td>Ward Cleaver</td>
+                        <td>wcleaver</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" value="3" name="personnelId" /></td>
+                        <td>June Cleaver</td>
+                        <td>jcleaver</td>
+                    </tr>
 				</tbody>
 			</table>
 		</div>
 
 		<div class="modal-footer">
 			<a href="emp.search.html" class="btn btn-default">Go back</a>
-			<a href="emp.role.html" class="btn btn-primary pull-right">Next</a>
+			<a id="choose-personnel" href="emp.role.html" class="btn btn-primary pull-right">Next</a>
 		</div>
 	</div>
 </div>
@@ -50,17 +60,33 @@
 <script src="../../themes/kc/js/functions.js"></script>
 
 <script type='text/javascript'>
-//<![CDATA[ 
-$(window).load(function(){
-	$('table.table.table-condensed tr td').click(
+//<![CDATA[
 
-	function(e) {
-		e.preventDefault(); // prevent the default action
-		e.stopPropagation; // stop the click from bubbling
-		$(this).closest('tbody').find('.selected').removeClass('selected');
-		$(this).parent('tr').addClass('selected');
-	});
+$(document).ready(function(){
+    $('#choose-personnel').click(function(){
+
+        var id =   $('input[name="personnelId"]:checked').val();
+        console.log(id);
+        $.post('../../save-session.php', {'personnelId': id}, function(t){
+            console.log(t);
+            $('#personnel-id',top.document).val(id);
+            return true;
+        });
+
+        //return false;
+    });
+
 });
+//$(window).load(function(){
+//	$('table.table.table-condensed tr td').click(
+//
+//	function(e) {
+//		e.preventDefault(); // prevent the default action
+//		e.stopPropagation; // stop the click from bubbling
+//		$(this).closest('tbody').find('.selected').removeClass('selected');
+//		$(this).parent('tr').addClass('selected');
+//	});
+//});
 //]]>  
 </script>
 </body>

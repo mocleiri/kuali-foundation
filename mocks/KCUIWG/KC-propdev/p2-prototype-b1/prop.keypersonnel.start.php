@@ -24,13 +24,17 @@ $keyPersonnelMessage = "";
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
-        
+         <div class="alert alert-success fade in " style="display:none">
+                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><span aria-hidden="true" class="icon-remove" style="font-size:14px"></span></button>
+                   Edward Haskell was successfully added. </div>
         <h3>Key Personnel</h3>
         <p><?php echo $keyPersonnelMessage?></p>
         <div class="btn-row-widget-action">
           <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/start.html"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>
+
          <div id="personnel-container"></div>
+
         <!-- // -->
         
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
@@ -46,11 +50,21 @@ $keyPersonnelMessage = "";
     </div>
   </div>
 </section>
+<form>
+<input type="hidden" id="personnel-id" />
+<input type="hidden" id="personnel-role" />
+
+</form>
+
+
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
+
 <script>
 $(document).ready(function(){
-    $(".icon-remove").live("click", function(){
+    $(".remove-person").live("click", function(){
             var container = $(this).parents('div').eq(4);
+
             if(confirm("Are you sure you want to remove this person")) $(container).remove();
 
              return false;

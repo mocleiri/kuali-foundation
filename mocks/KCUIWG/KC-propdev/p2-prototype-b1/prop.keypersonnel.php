@@ -56,9 +56,20 @@ require_once( 'themes/kc/inc/toolbar.php' );
   </div>
 </section>
 <script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+$(document).ready(function(){
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+
+    $(".icon-remove").live("click", function(){
+        var container = $(this).parents('div').eq(4);
+        if(confirm("Are you sure you want to remove this person")) $(container).remove();
+
+         return false;
+      //   alert($(this).parents('div').eq(4).attr('id'));
+    });
+});
 </script>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
