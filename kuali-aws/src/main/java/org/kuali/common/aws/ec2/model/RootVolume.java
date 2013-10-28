@@ -2,16 +2,16 @@ package org.kuali.common.aws.ec2.model;
 
 public final class RootVolume {
 
-	public RootVolume(int size, boolean deleteOnTermination) {
-		this.size = size;
+	public RootVolume(int sizeInGigabytes, boolean deleteOnTermination) {
+		this.sizeInGigabytes = sizeInGigabytes;
 		this.deleteOnTermination = deleteOnTermination;
 	}
 
-	private final int size;
+	private final int sizeInGigabytes;
 	private final boolean deleteOnTermination;
 
-	public int getSize() {
-		return size;
+	public int getSizeInGigabytes() {
+		return sizeInGigabytes;
 	}
 
 	public boolean isDeleteOnTermination() {
