@@ -32,7 +32,7 @@ public final class LaunchInstanceContext {
 		private final String keyName;
 
 		// Optional
-		private InstanceType type = InstanceType.C1Medium;
+		private InstanceType type = InstanceType.M1Medium;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent(); // If not provided, Amazon picks one for you
