@@ -14,13 +14,13 @@ import com.amazonaws.services.ec2.model.Tag;
  * </p>
  * 
  * <p>
- * For example, launchInstance() creates a single EC2 instance but waits until the launched instance comes online and is ready for service.
+ * For example, launchInstance() creates a single EC2 instance but waits until Amazon has confirmed that the instance is online and functioning.
  * </p>
  */
 public interface EC2Service {
 
 	/**
-	 * Launch a single Amazon EC2 instance and wait until Amazon has verified that the instance is online and functioning.
+	 * Launch a single Amazon EC2 instance and wait until Amazon has confirmed that the instance is online and functioning.
 	 */
 	public Instance launchInstance(LaunchInstanceContext context);
 
