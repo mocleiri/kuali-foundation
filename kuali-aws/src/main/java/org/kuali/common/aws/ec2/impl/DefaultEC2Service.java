@@ -44,7 +44,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Instances of this service implementation perform operations using a single set of AWS credentials on a single EC2 region.
+ * This service implementation performs operations using a single set of AWS credentials on a single EC2 region.
  */
 public final class DefaultEC2Service implements EC2Service {
 
