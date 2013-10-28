@@ -180,7 +180,7 @@ public final class DefaultEC2Service implements EC2Service {
 			preventTermination(instance.getInstanceId());
 		}
 		tag(instance.getInstanceId(), context.getTags());
-		wait(instance, context);
+		waitForOnlineConfirmation(instance, context);
 		return getInstance(instance.getInstanceId());
 	}
 
@@ -289,7 +289,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return instances.get(0);
 	}
 
-	protected Instance wait(Instance instance, LaunchInstanceContext context) {
+	protected Instance waitForOnlineConfirmation(Instance instance, LaunchInstanceContext context) {
 		InstanceStateName running = InstanceStateName.RUNNING;
 		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(sleepMillis).initialPauseMillis(initialPauseMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
