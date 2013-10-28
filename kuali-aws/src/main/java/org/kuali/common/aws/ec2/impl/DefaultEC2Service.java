@@ -155,6 +155,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance getInstance(String instanceId) {
+		Assert.noBlanks(instanceId);
 		DescribeInstancesRequest request = new DescribeInstancesRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstancesResult result = client.describeInstances(request);
@@ -170,6 +171,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Reachability getReachability(String instanceId) {
+		Assert.noBlanks(instanceId);
 		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
@@ -181,6 +183,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
+		Assert.noNulls(context);
 		Instance instance = getInstance(context);
 		// Was getting some flaky behavior from AWS without a small delay after the RunInstancesRequest returned
 		// Granted, this was in early 2011 and it may no longer be an issue
@@ -196,16 +199,19 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void allowTermination(String instanceId) {
+		Assert.noBlanks(instanceId);
 		preventTermination(instanceId, false);
 	}
 
 	@Override
 	public void preventTermination(String instanceId) {
+		Assert.noBlanks(instanceId);
 		preventTermination(instanceId, true);
 	}
 
 	@Override
 	public void terminateInstance(String instanceId) {
+		Assert.noBlanks(instanceId);
 		TerminateInstancesRequest request = new TerminateInstancesRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		client.terminateInstances(request);
@@ -231,6 +237,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected void preventTermination(String instanceId, boolean preventTermination) {
+		Assert.noBlanks(instanceId);
 		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
 		request.withInstanceId(instanceId);
 		request.withDisableApiTermination(preventTermination);
