@@ -6,7 +6,7 @@
     switch($_REQUEST['action']){
      case "saveKeyPerson":
 
-        $_SESSION['person'][$_SESSION['personnelId']]['personnelRole'] = $_REQUEST['personnelRole'];
+        $_SESSION['person'][$_SESSION['personnelId']]['personnel_role'] = $_REQUEST['personnel_role'];
         $_SESSION['person'][$_SESSION['personnelId']]['multiple_pis'] = $_REQUEST['multiple_pis'];
         $_SESSION['person'][$_SESSION['personnelId']]['keyperson_role'] = $_REQUEST['keyperson_role'];
 

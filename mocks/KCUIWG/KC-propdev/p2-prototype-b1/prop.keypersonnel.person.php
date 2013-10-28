@@ -10,7 +10,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
             <div class="panel-heading">
               <div class="row">
                 <div class="col-md-6">
-                  <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$_SESSION['personnelId']]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['personnelRole']]?></span></h4>
+                  <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$_SESSION['personnelId']]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['person'][$_SESSION['personnelId']]['personnel_role']]?></span></h4>
                 </div>
                 <div class="col-md-6"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person" personnel-id="<?php echo $_SESSION['personnelId']?>"></span></a> </div>
               </div>

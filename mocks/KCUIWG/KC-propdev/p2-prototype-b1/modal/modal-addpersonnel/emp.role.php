@@ -3,6 +3,14 @@
 include "keypersonnel.data.php";
 
 $personName = $persons[$_SESSION['personnelId']]['name'];
+
+$disabled = 'disabled="disabled"';
+$pi_disabled = "";
+echo $pi_disabled  = array_search('pi', $_SESSION['person']);
+foreach($_SESSION['person'] as $person){
+  if(array_search('pi', $person)) $pi_disabled = $disabled;
+}
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -25,7 +33,7 @@ $personName = $persons[$_SESSION['personnelId']]['name'];
 		<div class="modal-body">
 			<fieldset>
 				<legend>Assign a role</legend>
-				<label class="radio" for="pi-contact"><input type="radio" id="pi-contact" value="pi" name="group" class="r"> Principal Investigator/Contact</label>
+				<label class="radio" for="pi-contact"><input type="radio" id="pi-contact" value="pi" name="group" class="r" <?php echo $pi_disabled?>> Principal Investigator/Contact</label>
 				<label class="radio" for="copi-investigator"><input type="radio" id="copi-investigator" value="copi" name="group" class="r"> Co-Principal Investigator</label>
 				<div class="other" id="multi_pi">
 					<div class="form-group clearfix">
@@ -92,7 +100,7 @@ $personName = $persons[$_SESSION['personnelId']]['name'];
 
             var data = {
                 'action':'saveKeyPerson',
-                'personnelRole': role,
+                'personnel_role': role,
                 'multiple_pis':multiple_pis,
                 'keyperson_role':keyperson_role
             };
