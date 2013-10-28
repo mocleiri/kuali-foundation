@@ -173,19 +173,30 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Assert.noNulls(context);
-		Instance instance = getInstance(context);
+
+		// Connect to AWS and ask them to run an instance
+		Instance instance = issueRunInstanceRequest(context);
 
 		// Was getting some flaky behavior from AWS without a small delay after issuing the RunInstancesRequest
 		// Granted, this was in early 2011 and it may no longer be an issue
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second shouldn't pose much of an issue
 		ThreadUtils.sleep(initialPauseMillis);
+
+		// Optionally, prevent the new instance from being terminated
 		if (context.isPreventTermination()) {
 			preventTermination(instance.getInstanceId());
 		}
 
+		// Tag the instance
 		tag(instance.getInstanceId(), context.getTags());
+
+		// Wait for the instance to come online
 		waitForOnlineConfirmation(instance, context);
-		Assert.isTrue(isOnline(instance.getInstanceId()), "Instance is not online");
+
+		// Double check that the instance is online
+		Assert.isTrue(isOnline(instance.getInstanceId()), "Instance [" + instance.getInstanceId() + "] is not online");
+
+		// Return the fully populated instance object
 		return getInstance(instance.getInstanceId());
 	}
 
@@ -285,7 +296,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return Optional.absent();
 	}
 
-	protected Instance getInstance(LaunchInstanceContext context) {
+	protected Instance issueRunInstanceRequest(LaunchInstanceContext context) {
 		RunInstancesRequest request = getRunInstancesRequest(context);
 		RunInstancesResult result = client.runInstances(request);
 		Reservation r = result.getReservation();
