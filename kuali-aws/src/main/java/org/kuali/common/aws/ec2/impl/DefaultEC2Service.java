@@ -181,6 +181,7 @@ public final class DefaultEC2Service implements EC2Service {
 		}
 		tag(instance.getInstanceId(), context.getTags());
 		waitForOnlineConfirmation(instance, context);
+		Assert.isTrue(isOnline(instance.getInstanceId()), "Instance is not online");
 		return getInstance(instance.getInstanceId());
 	}
 
