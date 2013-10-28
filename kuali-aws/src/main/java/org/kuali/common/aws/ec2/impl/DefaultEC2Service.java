@@ -43,15 +43,6 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-/**
- * <p>
- * This service provides a layer of abstraction around the EC2 API calls provided by Amazon intended to be useful for common tasks.
- * </p>
- * 
- * <p>
- * For example, launchInstance() creates a single EC2 instance but waits until the launched instance comes online and is ready for service.
- * </p>
- */
 public final class DefaultEC2Service implements EC2Service {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);

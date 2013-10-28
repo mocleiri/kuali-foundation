@@ -8,10 +8,24 @@ import org.kuali.common.aws.ec2.model.Reachability;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Tag;
 
+/**
+ * <p>
+ * This service provides a layer of abstraction around the EC2 API calls provided by Amazon intended to be useful for common tasks.
+ * </p>
+ * 
+ * <p>
+ * For example, launchInstance() creates a single EC2 instance but waits until the launched instance comes online and is ready for service.
+ * </p>
+ */
 public interface EC2Service {
 
 	/**
-	 * Terminate a single Amazon EC2 instance
+	 * Launch a single Amazon EC2 instance and wait until Amazon has verified that the instance is online and functioning.
+	 */
+	public Instance launchInstance(LaunchInstanceContext context);
+
+	/**
+	 * Terminate a single Amazon EC2 instance and wait until Amazon has verified that the instance has been terminated.
 	 */
 	public void terminateInstance(String instanceId);
 
@@ -29,11 +43,6 @@ public interface EC2Service {
 	 * @see preventTermination
 	 */
 	public void allowTermination(String instanceId);
-
-	/**
-	 * Launch a single Amazon EC2 instance and wait until Amazon has verified that the instance is online and functioning.
-	 */
-	public Instance launchInstance(LaunchInstanceContext context);
 
 	/**
 	 * Return an Amazon EC2 instance object given an instance id
