@@ -3,9 +3,40 @@
       //session_destroy();
 
 
-    foreach($_REQUEST as $index=>$field){
-      $_SESSION[$index] = trim($field);
+    switch($_REQUEST['action']){
+     case "saveKeyPerson":
+
+        $_SESSION['person'][$_SESSION['personnelId']]['personnelRole'] = $_REQUEST['personnelRole'];
+        $_SESSION['person'][$_SESSION['personnelId']]['multiple_pis'] = $_REQUEST['multiple_pis'];
+        $_SESSION['person'][$_SESSION['personnelId']]['keyperson_role'] = $_REQUEST['keyperson_role'];
+
+     break;
+     default:
+          foreach($_REQUEST as $index=>$field){
+                  if(is_array($field)){
+                      foreach($field as $key=>$val){
+
+                        if(is_array($val)){
+                          foreach($val as $key2=>$val2){
+                              $_SESSION[$index][$key][$key2] = $val2;
+                          }
+                        }else{
+                          $_SESSION[$index][$key] = $val;
+                        }
+                      }
+                  }else{
+                      $_SESSION[$index] = trim($field);
+                  }
+              }
+
+
+     break;
+
     }
 
+
+
+    echo "<pre>";
     print_r($_SESSION);
+    echo "</pre>";
 ?>
