@@ -6,12 +6,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
 /**
- * This condition being met means that AWS has:
- * 
- * <ol>
- * <li>Verified that the EC2 instance is connected to the network</li>
- * <li>Verified that the EC2 instance's operating system is accepting traffic</li>
- * <ol>
+ * This condition being met means that Amazon has verified that the instance is connected to the network and the operating system is accepting traffic.
  */
 public final class IsOnlineCondition implements Condition {
 
