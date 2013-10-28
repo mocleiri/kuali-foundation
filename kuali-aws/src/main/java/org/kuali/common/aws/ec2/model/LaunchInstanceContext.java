@@ -22,7 +22,7 @@ public final class LaunchInstanceContext {
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
 	private final int timeoutMillis;
-	private final boolean enableTerminationProtection;
+	private final boolean preventTermination;
 
 	public static class Builder {
 
@@ -37,15 +37,15 @@ public final class LaunchInstanceContext {
 		private Optional<String> availabilityZone = Optional.absent();
 		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 		private Regions region = Regions.US_EAST_1;
-		private boolean enableTerminationProtection = false;
+		private boolean preventTermination = false;
 
 		public Builder(String ami, String keyName) {
 			this.ami = ami;
 			this.keyName = keyName;
 		}
 
-		public Builder enableTerminationProtection(boolean enableTerminationProtection) {
-			this.enableTerminationProtection = enableTerminationProtection;
+		public Builder preventTermination(boolean preventTermination) {
+			this.preventTermination = preventTermination;
 			return this;
 		}
 
@@ -99,7 +99,7 @@ public final class LaunchInstanceContext {
 		this.availabilityZone = builder.availabilityZone;
 		this.timeoutMillis = builder.timeoutMillis;
 		this.region = builder.region;
-		this.enableTerminationProtection = builder.enableTerminationProtection;
+		this.preventTermination = builder.preventTermination;
 	}
 
 	public String getAmi() {
@@ -134,8 +134,8 @@ public final class LaunchInstanceContext {
 		return region;
 	}
 
-	public boolean isEnableTerminationProtection() {
-		return enableTerminationProtection;
+	public boolean isPreventTermination() {
+		return preventTermination;
 	}
 
 }
