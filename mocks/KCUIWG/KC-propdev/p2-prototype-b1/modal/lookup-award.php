@@ -18,7 +18,7 @@ include( 'inc/head.php' );
 							<legend>Enter lookup criteria</legend>
 
 							<!-- <div class="form-group clearfix">
-								<label for="sponsor_code" class="control-label col-sm-4 col-xs-4">Sponsor code:</label>
+								<label for="sponsor_code" class="control-label col-sm-4 col-xs-4">Sponsor:</label>
 								<div class="col-sm-8 col-xs-8">
 									<input type="text" id="sponsor_code" name="sponsor_code" class="form-control input-sm">
 								</div>
