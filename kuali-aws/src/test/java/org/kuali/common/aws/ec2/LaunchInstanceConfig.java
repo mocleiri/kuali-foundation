@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.Str;
@@ -32,7 +33,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.util.Assert;
 
-import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.BlockDeviceMapping;
+import com.amazonaws.services.ec2.model.EbsBlockDevice;
+import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
@@ -49,10 +52,26 @@ public class LaunchInstanceConfig {
 
 	@Bean
 	public Object launchAndThenTerminate() {
-		LaunchInstanceContext context = getLaunchInstanceContext();
-		Instance instance = service.launchInstance(context);
+		DefaultEC2Service des = (DefaultEC2Service) service;
+		Image image = des.getAmi("ami-65792c0c");
+		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
+		System.out.println(image.getImageId());
+		System.out.println(image.getArchitecture());
+		System.out.println(image.getRootDeviceName());
+		System.out.println(mappings.size());
+		showBlockDeviceMapping(mappings.get(0));
+		// LaunchInstanceContext context = getLaunchInstanceContext();
+		// Instance instance = service.launchInstance(context);
 		// service.terminateInstance(instance.getInstanceId());
 		return null;
+	}
+
+	protected void showBlockDeviceMapping(BlockDeviceMapping mapping) {
+		EbsBlockDevice device = mapping.getEbs();
+		System.out.println(mapping.getDeviceName());
+		System.out.println(device.getSnapshotId());
+		System.out.println(device.getDeleteOnTermination());
+		System.out.println(device.getVolumeSize());
 	}
 
 	protected LaunchInstanceContext getLaunchInstanceContext() {
