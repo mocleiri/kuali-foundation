@@ -30,12 +30,12 @@ public interface EC2Service {
 	public void terminateInstance(String instanceId);
 
 	/**
-	 * Return an object indicating the "reachability" of an Amazon EC2 instance
+	 * Return an object indicating the "reachability" of an Amazon EC2 instance.
 	 */
 	public Reachability getReachability(String instanceId);
 
 	/**
-	 * Set a flag that prevent's an Amazon EC2 instance from being terminated
+	 * Set a flag that prevent's an Amazon EC2 instance from being terminated.
 	 * 
 	 * @see allowTermination
 	 */
@@ -50,12 +50,12 @@ public interface EC2Service {
 	public void allowTermination(String instanceId);
 
 	/**
-	 * Return an Amazon EC2 instance object given an instance id
+	 * Return an Amazon EC2 instance object given an instance id.
 	 */
 	public Instance getInstance(String instanceId);
 
 	/**
-	 * Create tags on the indicated Amazon EC2 resource (instance, volume, snapshot, ami, etc)
+	 * Create tags on the indicated Amazon EC2 resource (instance, volume, snapshot, ami, etc).
 	 */
 	public void tag(String resourceId, List<Tag> tags);
 
