@@ -23,6 +23,7 @@ public final class LaunchInstanceContext {
 	private final boolean preventTermination;
 	private final boolean ebsOptimized;
 	private final boolean enableMonitoring;
+	private final Optional<RootVolume> rootVolume;
 
 	public static class Builder {
 
@@ -39,10 +40,16 @@ public final class LaunchInstanceContext {
 		private boolean preventTermination = false;
 		private boolean ebsOptimized = false;
 		private boolean enableMonitoring = false;
+		private Optional<RootVolume> rootVolume = Optional.absent();
 
 		public Builder(String ami, String keyName) {
 			this.ami = ami;
 			this.keyName = keyName;
+		}
+
+		public Builder rootVolume(RootVolume rootVolume) {
+			this.rootVolume = Optional.of(rootVolume);
+			return this;
 		}
 
 		public Builder enableMonitoring(boolean enableMonitoring) {
@@ -107,6 +114,7 @@ public final class LaunchInstanceContext {
 		this.preventTermination = builder.preventTermination;
 		this.ebsOptimized = builder.ebsOptimized;
 		this.enableMonitoring = builder.enableMonitoring;
+		this.rootVolume = builder.rootVolume;
 	}
 
 	public String getAmi() {
@@ -147,6 +155,10 @@ public final class LaunchInstanceContext {
 
 	public boolean isEnableMonitoring() {
 		return enableMonitoring;
+	}
+
+	public Optional<RootVolume> getRootVolume() {
+		return rootVolume;
 	}
 
 }
