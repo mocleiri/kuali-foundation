@@ -254,7 +254,7 @@ public final class DefaultEC2Service implements EC2Service {
 		request.withInstanceId(instanceId);
 
 		// EC2 instances can normally be terminated by a single API call
-		// Disabling API termination forces 2 API calls. (1 to enable termination, and a 2nd one to actually terminate the instance)
+		// Disabling API termination forces 2 API calls. (1 to re-enable termination, and a 2nd one to actually terminate the instance)
 		request.withDisableApiTermination(preventTermination);
 
 		client.modifyInstanceAttribute(request);
