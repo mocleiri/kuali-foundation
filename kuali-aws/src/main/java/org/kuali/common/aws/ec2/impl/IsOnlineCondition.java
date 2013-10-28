@@ -13,9 +13,9 @@ import org.kuali.common.util.condition.Condition;
  * <li>Verified that the EC2 instance's operating system is accepting traffic</li>
  * <ol>
  */
-public final class IsReachableCondition implements Condition {
+public final class IsOnlineCondition implements Condition {
 
-	public IsReachableCondition(EC2Service service, String instanceId) {
+	public IsOnlineCondition(EC2Service service, String instanceId) {
 		Assert.noBlanks(instanceId);
 		Assert.noNulls(service);
 		this.instanceId = instanceId;
