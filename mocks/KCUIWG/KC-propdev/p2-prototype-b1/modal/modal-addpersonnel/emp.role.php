@@ -1,3 +1,9 @@
+<?php  session_start();
+
+include "keypersonnel.data.php";
+
+$personName = $persons[$_SESSION['personnelId']]['name'];
+?>
 <!DOCTYPE html>
 <head>
 <link rel="stylesheet" href="../../themes/bootstrap/css/bootstrap.css" />
@@ -39,7 +45,7 @@
 			</fieldset>
 
 			<div class="form-group clearfix">
-				<label for="include-ib" class="control-label col-md-5"><input type="checkbox" id="include-ib" value="1" checked="checked" /> Yes, include <span>Edward Haskell</span> in this proposal's budget</label>
+				<label for="include-ib" class="control-label col-md-5"><input type="checkbox" id="include-ib" value="1" checked="checked" /> Yes, include <span><?php echo $personName?></span> in this proposal's budget</label>
 			</div>
 		</div>
 
@@ -72,7 +78,9 @@
             }
         });
 
-        $('#add-person').live("click", function(){
+        $('#add-person').live("click", function(e){
+
+             e.preventDefault();
 
             var role =   $('input[name="group"]:checked').val();
             var multiple_pis = 0;
@@ -91,15 +99,15 @@
 
             console.log("myId= " + id);
 
-            var myData = decodeURIComponent($.param(data));
-             console.log(myData);
-            $.post('../../save-session.php', myData, function(t){
+             console.log(data);
+            $.post('../../save-session.php', data, function(t){
                 console.log(t);
-                console.log(multiple_pis);
                 $('#personnel-role',top.document).val(role);
 
                 $.get("../../prop.keypersonnel.person.php", function(t){
                     $('#personnel-container',top.document).append(t);
+
+                    $('#keypersonnel-message-name',top.document).html('<?php echo $personName?>');
                     $('.alert',top.document).show();
                     parent.$.fancybox.close();
 

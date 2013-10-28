@@ -1,3 +1,8 @@
+<?php session_start();
+
+ include "keypersonnel.data.php";
+
+?>
 <!DOCTYPE html>
 <head>
 <link rel="stylesheet" href="../../themes/bootstrap/css/bootstrap.css" />
@@ -15,7 +20,7 @@
 		<div class="modal-header">
 			<h3>Add Personnel</h3> <span>Employee Search</span>
 		</div>
-	
+
 		<div class="modal-body">
   			<h4>Search Results</h4>
   			<table class="table table-condensed">
@@ -27,21 +32,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><input type="radio" value="1" name="personnelId" checked="checked"/></td>
-						<td>Edward Haskell</td>
-						<td>haskelledw</td>
-					</tr>
-                    <tr>
-                        <td><input type="radio" value="2" name="personnelId" /></td>
-                        <td>Ward Cleaver</td>
-                        <td>wcleaver</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" value="3" name="personnelId" /></td>
-                        <td>June Cleaver</td>
-                        <td>jcleaver</td>
-                    </tr>
+				    <?php
+                          foreach($persons as $id=>$person) {
+                               if(!isset($_SESSION['person'][$id])) {   ?>
+
+                           <tr>
+                                <td><input type="radio" value="<?php echo $id?>" name="personnelId"/></td>
+                                <td><?php echo $person['name']?></td>
+                                <td><?php echo $person['user']?></td>
+                            </tr>
+
+
+
+                           <?php    }
+                          }
+
+				    ?>
 				</tbody>
 			</table>
 		</div>
@@ -90,7 +96,7 @@ $(document).ready(function(){
 //		$(this).parent('tr').addClass('selected');
 //	});
 //});
-//]]>  
+//]]>
 </script>
 </body>
 </html>

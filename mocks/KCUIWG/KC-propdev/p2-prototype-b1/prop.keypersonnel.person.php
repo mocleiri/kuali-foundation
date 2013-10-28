@@ -1,12 +1,6 @@
 <?php  session_start();
 
-$persons[1]['name'] = "Edward H Haskell";
-$persons[2]['name'] = "Ward Cleaver";
-$persons[3]['name'] = "June Cleaver";
-
-$group['pi'] = "(PI)";
-$group['copi'] = "(COPI)";
-$group['kp'] = "(KP)";
+include "modal/modal-addpersonnel/keypersonnel.data.php";
 
 
 ?>
@@ -18,7 +12,7 @@ $group['kp'] = "(KP)";
                 <div class="col-md-6">
                   <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$_SESSION['personnelId']]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['personnelRole']]?></span></h4>
                 </div>
-                <div class="col-md-6"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person"></span></a> </div>
+                <div class="col-md-6"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person" personnel-id="<?php echo $_SESSION['personnelId']?>"></span></a> </div>
               </div>
             </div>
             <div id="collapse2" class="panel-collapse collapse" style="height: auto;">
