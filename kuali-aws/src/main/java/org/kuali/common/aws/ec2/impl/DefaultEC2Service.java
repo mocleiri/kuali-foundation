@@ -69,8 +69,8 @@ public final class DefaultEC2Service implements EC2Service {
 		private final WaitService service;
 
 		// Optional
-		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 10 seconds
-		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 3 seconds
+		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 15 seconds
+		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 1 second
 		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent();
 		private Optional<Region> region = Optional.absent();
