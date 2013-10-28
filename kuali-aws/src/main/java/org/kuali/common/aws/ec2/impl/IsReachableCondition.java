@@ -29,12 +29,12 @@ public final class IsReachableCondition implements Condition {
 
 	@Override
 	public boolean isTrue() {
-		boolean system = getReachabilityStatus(InstanceStatusType.SYSTEM);
-		boolean instance = getReachabilityStatus(InstanceStatusType.INSTANCE);
+		boolean system = isReachable(InstanceStatusType.SYSTEM);
+		boolean instance = isReachable(InstanceStatusType.INSTANCE);
 		return system && instance;
 	}
 
-	protected boolean getReachabilityStatus(InstanceStatusType type) {
+	protected boolean isReachable(InstanceStatusType type) {
 		String value = service.getStatus(instanceId, type, InstanceStatusName.REACHABILITY.getValue());
 		return InstanceStatusValue.PASSED.getValue().equals(value);
 	}

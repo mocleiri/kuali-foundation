@@ -7,11 +7,11 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.Reachability;
+import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
-import org.kuali.common.util.condition.ConditionsCondition;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
@@ -41,7 +41,6 @@ import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 
 /**
  * This service implementation performs operations using a single set of AWS credentials on a single EC2 region.
@@ -170,18 +169,6 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public Reachability getReachability(String instanceId) {
-		Assert.noBlanks(instanceId);
-		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
-		request.setInstanceIds(Collections.singletonList(instanceId));
-		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
-		List<InstanceStatus> list = result.getInstanceStatuses();
-		String system = getStatus(list, Reachability.STATUS_NAME, StatusType.SYSTEM);
-		String instance = getStatus(list, Reachability.STATUS_NAME, StatusType.INSTANCE);
-		return new Reachability(system, instance);
-	}
-
-	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Assert.noNulls(context);
 		Instance instance = getInstance(context);
@@ -241,14 +228,27 @@ public final class DefaultEC2Service implements EC2Service {
 		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
 		request.withInstanceId(instanceId);
 
-		// By default EC2 instances can be terminated by a a single API call
-		// Disabling API termination forces 2 API calls. (1 to enable API termination, and a 2nd one to actually terminate the instance)
+		// EC2 instances can normally be terminated by a a single API call
+		// Disabling API termination forces 2 API calls. (1 to enable termination, and a 2nd one to actually terminate the instance)
 		request.withDisableApiTermination(preventTermination);
 
 		client.modifyInstanceAttribute(request);
 	}
 
-	protected String getStatus(List<InstanceStatus> statuses, String name, StatusType type) {
+	@Override
+	public String getStatus(String instanceId, InstanceStatusType type, String statusName) {
+		List<InstanceStatus> statuses = getStatusList(instanceId);
+		return getStatus(statuses, type, statusName);
+	}
+
+	protected List<InstanceStatus> getStatusList(String instanceId) {
+		DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
+		request.setInstanceIds(Collections.singletonList(instanceId));
+		DescribeInstanceStatusResult result = client.describeInstanceStatus(request);
+		return result.getInstanceStatuses();
+	}
+
+	protected String getStatus(List<InstanceStatus> statuses, InstanceStatusType type, String name) {
 		for (InstanceStatus status : statuses) {
 			InstanceStatusSummary summary = getSummary(status, type);
 			Optional<String> detail = getStatusDetail(summary, name);
@@ -259,7 +259,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return Reachability.STATUS_UNKNOWN;
 	}
 
-	protected InstanceStatusSummary getSummary(InstanceStatus status, StatusType type) {
+	protected InstanceStatusSummary getSummary(InstanceStatus status, InstanceStatusType type) {
 		switch (type) {
 		case INSTANCE:
 			return status.getInstanceStatus();
@@ -294,13 +294,16 @@ public final class DefaultEC2Service implements EC2Service {
 		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(sleepMillis).initialPauseMillis(initialPauseMillis).build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
-		InstanceStateCondition state = new InstanceStateCondition(this, instance.getInstanceId(), running);
-		IsReachableCondition status = new IsReachableCondition(this, instance.getInstanceId());
-		Condition condition = new ConditionsCondition(ImmutableList.of(state, status));
-		WaitResult result = service.wait(wc, condition);
+		Condition online = new IsOnlineCondition(this, instance.getInstanceId());
+		WaitResult result = service.wait(wc, online);
 		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] is now online - {}", resultArgs);
 		return getInstance(instance.getInstanceId());
+	}
+
+	@Override
+	public boolean isOnline(String instanceId) {
+		return new IsOnlineCondition(this, instanceId).isTrue();
 	}
 
 	protected RunInstancesRequest getRunInstancesRequest(LaunchInstanceContext context) {
