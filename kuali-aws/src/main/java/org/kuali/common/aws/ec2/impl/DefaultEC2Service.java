@@ -248,16 +248,6 @@ public final class DefaultEC2Service implements EC2Service {
 		return getStatus(statuses, type, statusName);
 	}
 
-	protected Image getAmi(String ami) {
-		Assert.noBlanks(ami);
-		DescribeImagesRequest request = new DescribeImagesRequest();
-		request.setImageIds(Collections.singletonList(ami));
-		DescribeImagesResult result = client.describeImages(request);
-		List<Image> images = result.getImages();
-		Assert.isTrue(images.size() == 0, "Expected exactly 1 image but there were " + images.size() + " instead");
-		return images.get(0);
-	}
-
 	protected void preventTermination(String instanceId, boolean preventTermination) {
 		Assert.noBlanks(instanceId);
 		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
@@ -344,12 +334,23 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setDisableApiTermination(context.isPreventTermination());
 		rir.setEbsOptimized(context.isEbsOptimized());
 		rir.setMonitoring(context.isEnableMonitoring());
+		rir.setBlockDeviceMappings(null);
 		if (context.getAvailabilityZone().isPresent()) {
 			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);
 			rir.setPlacement(placement);
 		}
 		return rir;
+	}
+
+	public Image getAmi(String ami) {
+		Assert.noBlanks(ami);
+		DescribeImagesRequest request = new DescribeImagesRequest();
+		request.setImageIds(Collections.singletonList(ami));
+		DescribeImagesResult result = client.describeImages(request);
+		List<Image> images = result.getImages();
+		Assert.isTrue(images.size() == 0, "Expected exactly 1 image but there were " + images.size() + " instead");
+		return images.get(0);
 	}
 
 	public WaitService getService() {
