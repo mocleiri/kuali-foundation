@@ -31,7 +31,7 @@ public interface EC2Service {
 	public void allowTermination(String instanceId);
 
 	/**
-	 * Launch a single Amazon EC2 instance
+	 * Launch a single Amazon EC2 instance and wait until Amazon has verified that the instance is online and functioning.
 	 */
 	public Instance launchInstance(LaunchInstanceContext context);
 
