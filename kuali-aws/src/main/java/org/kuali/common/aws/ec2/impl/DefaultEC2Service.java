@@ -240,7 +240,11 @@ public final class DefaultEC2Service implements EC2Service {
 		Assert.noBlanks(instanceId);
 		ModifyInstanceAttributeRequest request = new ModifyInstanceAttributeRequest();
 		request.withInstanceId(instanceId);
+
+		// By default EC2 instances can be terminated by a a single API call
+		// Disabling API termination forces 2 API calls. (1 to enable API termination, and a 2nd one to actually terminate the instance)
 		request.withDisableApiTermination(preventTermination);
+
 		client.modifyInstanceAttribute(request);
 	}
 
