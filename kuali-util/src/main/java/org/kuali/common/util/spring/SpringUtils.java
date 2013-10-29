@@ -56,11 +56,29 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
+import com.google.common.base.Optional;
+
 public class SpringUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringUtils.class);
 
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
+
+	public static Optional<Integer> getOptionalInteger(EnvironmentService env, String key) {
+		if (!env.containsProperty(key)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(env.getInteger(key));
+		}
+	}
+
+	public static Optional<String> getOptionalString(EnvironmentService env, String key) {
+		if (!env.containsProperty(key)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(env.getString(key));
+		}
+	}
 
 	@Deprecated
 	public static org.kuali.common.util.service.SpringContext getSpringContext(List<Class<?>> annotatedClasses, org.kuali.common.util.ProjectContext project,
@@ -417,6 +435,15 @@ public class SpringUtils {
 	public static long getMillis(EnvironmentService env, String key, String defaultValue) {
 		String value = env.getString(key, defaultValue);
 		return FormatUtils.getMillis(value);
+	}
+
+	/**
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getMillis(String time)
+	 */
+	public static int getMillisAsInt(EnvironmentService env, String key, String defaultValue) {
+		return new Long(getMillis(env, key, defaultValue)).intValue();
 	}
 
 	/**

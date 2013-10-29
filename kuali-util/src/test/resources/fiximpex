@@ -38,7 +38,9 @@ Amazon Linux AMI x86_64 MINIMAL EBS
 http://aws.amazon.com/amazon-linux-ami/
 ami-35792c5c
 
-
+echo $(date)
+df -h
 fdisk -l
 resize2fs /dev/xvda1
 df -h
+echo $(date)
