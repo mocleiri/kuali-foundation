@@ -18,27 +18,33 @@ import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
 
-	public static final String AMI_KEY = "ec2.ami";
-	public static final String KEY_NAME_KEY = "ec2.keyName";
-	public static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
-	public static final String TYPE_KEY = "ec2.type";
-	public static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
-	public static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
-	public static final String TAGS_KEY = "ec2.tags";
-	public static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
-	public static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
+	private static final String AMI_KEY = "ec2.ami";
+	private static final String KEY_NAME_KEY = "ec2.keyName";
+	private static final String TYPE_KEY = "ec2.type";
+	private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
+	private static final String TAGS_KEY = "ec2.tags";
+	private static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
+	private static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
+	private static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
+	private static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
+	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
+	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
+	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
 		String ami = env.getString(AMI_KEY);
 		String keyName = env.getString(KEY_NAME_KEY);
-		String availabilityZone = env.getString(AVAILABILITY_ZONE_KEY, NullUtils.NONE);
+		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
 		InstanceType type = InstanceType.fromValue(env.getString(TYPE_KEY));
+		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, LaunchInstanceContext.DEFAULT_TIMEOUT_MILLIS_STRING);
+		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, LaunchInstanceContext.DEFAULT_EBS_OPTIMIZED);
+		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, LaunchInstanceContext.DEFAULT_ENABLE_MONITORING);
 		List<Tag> tags = getTags(env);
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
 		RootVolume rootVolume = getRootVolume(env);
 		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, false);
-		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone).tags(tags).securityGroups(securityGroups)
-				.preventTermination(preventTermination).rootVolume(rootVolume).build();
+		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
+				.preventTermination(preventTermination).rootVolume(rootVolume).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring).build();
 	}
 
 	public static RootVolume getRootVolume(EnvironmentService env) {

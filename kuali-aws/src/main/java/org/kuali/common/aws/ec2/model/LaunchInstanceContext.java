@@ -13,6 +13,13 @@ import com.google.common.collect.ImmutableList;
 
 public final class LaunchInstanceContext {
 
+	public static final InstanceType DEFAULT_INSTANCE_TYPE = InstanceType.M1Medium;
+	public static final String DEFAULT_TIMEOUT_MILLIS_STRING = "15m"; // 15 minutes
+	public static final int DEFAULT_TIMEOUT_MILLIS = FormatUtils.getMillisAsInt(DEFAULT_TIMEOUT_MILLIS_STRING);
+	public static final boolean DEFAULT_PREVENT_TERMINATION = false;
+	public static final boolean DEFAULT_EBS_OPTIMIZED = false;
+	public static final boolean DEFAULT_ENABLE_MONITORING = false;
+
 	private final String ami;
 	private final String keyName;
 	private final InstanceType type;
@@ -32,14 +39,14 @@ public final class LaunchInstanceContext {
 		private final String keyName;
 
 		// Optional
-		private InstanceType type = InstanceType.M1Medium;
+		private InstanceType type = DEFAULT_INSTANCE_TYPE;
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent(); // If not provided, Amazon picks one for you
-		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
-		private boolean preventTermination = false;
-		private boolean ebsOptimized = false;
-		private boolean enableMonitoring = false;
+		private int timeoutMillis = DEFAULT_TIMEOUT_MILLIS;
+		private boolean preventTermination = DEFAULT_PREVENT_TERMINATION;
+		private boolean ebsOptimized = DEFAULT_EBS_OPTIMIZED;
+		private boolean enableMonitoring = DEFAULT_ENABLE_MONITORING;
 		private Optional<RootVolume> rootVolume = Optional.absent(); // Default root volume definition is provided by the AMI
 
 		public Builder(String ami, String keyName) {
