@@ -35,14 +35,14 @@ public class LaunchUtils {
 		String ami = env.getString(AMI_KEY);
 		String keyName = env.getString(KEY_NAME_KEY);
 		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
-		InstanceType type = InstanceType.fromValue(env.getString(TYPE_KEY));
+		InstanceType type = InstanceType.fromValue(env.getString(TYPE_KEY, LaunchInstanceContext.DEFAULT_INSTANCE_TYPE.toString()));
 		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, LaunchInstanceContext.DEFAULT_TIMEOUT_MILLIS_STRING);
 		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, LaunchInstanceContext.DEFAULT_EBS_OPTIMIZED);
 		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, LaunchInstanceContext.DEFAULT_ENABLE_MONITORING);
 		List<Tag> tags = getTags(env);
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
 		RootVolume rootVolume = getRootVolume(env);
-		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, false);
+		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, LaunchInstanceContext.DEFAULT_PREVENT_TERMINATION);
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring).build();
 	}
