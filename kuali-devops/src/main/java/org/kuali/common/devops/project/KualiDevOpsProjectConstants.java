@@ -22,7 +22,7 @@ public abstract class KualiDevOpsProjectConstants {
 
 	// These 2 must exactly match what is in the Maven pom
 	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
-	private static final String ARTIFACT_ID = "kuali-aws";
+	private static final String ARTIFACT_ID = "kuali-devops";
 
 	public static final ProjectIdentifier PROJECT_ID = new ProjectIdentifier(GROUP_ID, ARTIFACT_ID);
 
