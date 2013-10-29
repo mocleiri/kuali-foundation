@@ -1,5 +1,10 @@
 package org.kuali.common.devops.aws;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
 public enum SecurityGroupName {
 
 	SSH("ssh"), //
@@ -17,4 +22,15 @@ public enum SecurityGroupName {
 		return value;
 	}
 
+	public static final List<String> getSecurityGroups() {
+		return getSecurityGroups(values());
+	}
+
+	public static final List<String> getSecurityGroups(SecurityGroupName... groupNames) {
+		List<String> names = new ArrayList<String>();
+		for (SecurityGroupName groupName : groupNames) {
+			names.add(groupName.getValue());
+		}
+		return ImmutableList.copyOf(names);
+	}
 }
