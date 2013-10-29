@@ -561,6 +561,23 @@ $(document).ready(function() {
 
 
 	/*
+		Questionnaire progressive disclosure
+		Displays or removes more questions depending on choices of parent questions
+		Chris Rodriguez
+	*/
+	$('fieldset .radio-choice').on('change', function() {
+		var choice_id = $(this).attr('id');
+		var dependent = $(this).parent().parent().parent().parent().parent().find('.dependent');
+
+		dependent.hide();
+
+		$('#dependent_' + choice_id).show();
+
+	});
+
+
+
+	/*
 		New window
 		Opens classed links in a new window
 		Chris Rodriguez

@@ -639,6 +639,29 @@ button .icon-search {
 .form-control {
   font-style: normal;
 }
+fieldset.question {
+  margin: 8px 0 16px 0;
+}
+fieldset.question .question-title legend {
+  margin-bottom: 0px;
+  border-bottom: 0px;
+  font-size: 15px;
+  font-weight: 700;
+}
+fieldset.question .question-helper p {
+  color: #666;
+}
+fieldset.question .question-response .question-reponse-choices .choice {
+  clear: left;
+}
+fieldset.question .question-response .question-reponse-choices .choice label {
+  padding: 1px !important;
+}
+fieldset.dependent {
+  display: none;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
+}
 .btn {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   border-radius: 0 !important;
@@ -1611,7 +1634,7 @@ nav-list > li > a {
 }
 #sidebar + #Uif-PageContentWrapper {
   margin-left: 250px;
-  max-width: 768px;
+  max-width: 768pxd;
 }
 .right-sidebar {
   width: 200px;
