@@ -36,46 +36,63 @@ public class LaunchUtils {
 		return InstanceType.fromValue(env.getString(TYPE_KEY, type.toString()));
 	}
 
-	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext context) {
-		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, context.getAmi()));
-		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, context.getKeyName()));
-		InstanceType type = getType(env, context.getType());
-		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, context.getTimeoutMillis());
-		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, context.isEbsOptimized());
-		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, context.isEnableMonitoring());
-		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, context.isPreventTermination());
+	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext provided) {
+		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
+		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyName()));
+		InstanceType type = getType(env, provided.getType());
+		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis());
+		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, provided.isEbsOptimized());
+		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, provided.isEnableMonitoring());
+		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, provided.isPreventTermination());
 
 		// TODO
-		RootVolume rootVolume = getRootVolume(env);
+		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
 		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
 		List<Tag> tags = getTags(env);
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
 
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
-				.preventTermination(preventTermination).rootVolume(rootVolume).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring).build();
+				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
+				.build();
 	}
 
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
 		return getLaunchInstanceContext(env, DEFAULT_CONTEXT);
 	}
 
-	public static RootVolume getRootVolume(EnvironmentService env, RootVolume rootVolume) {
-		Optional<Integer> sizeInGigabytes = SpringUtils.getOptionalInteger(env, ROOT_VOLUME_SIZE_KEY);
-		boolean deleteOnTermination = env.getBoolean(ROOT_VOLUME_DELETE_KEY, RootVolume.DEFAULT_DELETE_ON_TERMINATION);
-		return new RootVolume(sizeInGigabytes, deleteOnTermination);
+	public static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
+		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
+		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
+		if (deleteOnTermination.isPresent()) {
+			return Optional.of(new RootVolume(sizeInGigabytes, deleteOnTermination.get()));
+		} else if (sizeInGigabytes.isPresent()) {
+			return Optional.of(new RootVolume(sizeInGigabytes.get()));
+		} else {
+			return Optional.absent();
+		}
 	}
 
-	public static RootVolume getRootVolume(EnvironmentService env) {
-		Optional<Integer> sizeInGigabytes = SpringUtils.getOptionalInteger(env, ROOT_VOLUME_SIZE_KEY);
-		boolean deleteOnTermination = env.getBoolean(ROOT_VOLUME_DELETE_KEY, RootVolume.DEFAULT_DELETE_ON_TERMINATION);
-		return new RootVolume(sizeInGigabytes, deleteOnTermination);
+	protected static Optional<Boolean> getDeleteOnTermination(EnvironmentService env, Optional<RootVolume> provided) {
+		if (env.containsProperty(ROOT_VOLUME_DELETE_KEY)) {
+			return SpringUtils.getOptionalBoolean(env, ROOT_VOLUME_SIZE_KEY);
+		} else {
+			return provided.isPresent() ? Optional.of(provided.get().isDeleteOnTermination()) : Optional.<Boolean> absent();
+		}
 	}
 
-	public static List<Tag> getTags(EnvironmentService env, List<Tag> defaults) {
+	protected static Optional<Integer> getSizeInGigaBytes(EnvironmentService env, Optional<RootVolume> provided) {
+		if (env.containsProperty(ROOT_VOLUME_SIZE_KEY)) {
+			return SpringUtils.getOptionalInteger(env, ROOT_VOLUME_SIZE_KEY);
+		} else {
+			return provided.isPresent() ? provided.get().getSizeInGigabytes() : Optional.<Integer> absent();
+		}
+	}
+
+	public static List<Tag> getTags(EnvironmentService env, List<Tag> provided) {
 		if (env.containsProperty(TAGS_KEY)) {
 			return getTags(env);
 		} else {
-			return defaults;
+			return provided;
 		}
 	}
 

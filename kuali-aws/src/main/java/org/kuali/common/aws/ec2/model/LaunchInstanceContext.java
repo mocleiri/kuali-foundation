@@ -48,7 +48,7 @@ public final class LaunchInstanceContext {
 		}
 
 		public Builder rootVolume(RootVolume rootVolume) {
-			this.rootVolume = Optional.of(rootVolume);
+			this.rootVolume = Optional.fromNullable(rootVolume);
 			return this;
 		}
 
