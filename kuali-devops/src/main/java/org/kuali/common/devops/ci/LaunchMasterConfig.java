@@ -30,7 +30,7 @@ import com.amazonaws.services.ec2.model.Instance;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
-public class LaunchInstanceConfig {
+public class LaunchMasterConfig {
 
 	@Autowired
 	EC2Service service;
