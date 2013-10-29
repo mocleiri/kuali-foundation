@@ -49,13 +49,14 @@ public class CreateMasterConfig {
 
 	@Bean
 	public Object launchAndThenTerminate() {
-		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env, getDefaultMasterLaunchContext());
+		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env, defaultMasterLaunchContext());
 		Instance instance = service.launchInstance(context);
 		// service.terminateInstance(instance.getInstanceId());
 		return null;
 	}
 
-	private LaunchInstanceContext getDefaultMasterLaunchContext() {
+	@Bean
+	public LaunchInstanceContext defaultMasterLaunchContext() {
 		String ami = DevOpsAwsConstants.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09;
 		String keyName = DevOpsAwsConstants.FOUNDATION.getKeyName();
 		InstanceType type = InstanceType.M1Large;
@@ -68,7 +69,7 @@ public class CreateMasterConfig {
 				.rootVolume(rootVolume).build();
 	}
 
-	private final List<Tag> getTags() {
+	protected List<Tag> getTags() {
 		List<Tag> tags = new ArrayList<Tag>();
 		tags.add(new Tag("Name", "ci-test-server-ok-to-delete"));
 		tags.add(new Tag("Vendor", "jenkins"));
