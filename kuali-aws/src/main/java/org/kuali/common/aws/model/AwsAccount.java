@@ -10,27 +10,38 @@ public final class AwsAccount {
 
 	private final String accountNumber;
 	private final String accessKeyId;
-	private final String username;
+	private final String keyName;
 	private final List<String> securityGroups;
 
 	public static class Builder {
 
 		// Required
 		private final String accountNumber;
-		private final String accessKeyId;
-		private final String username;
-
-		// Optional
+		private String accessKeyId;
 		private List<String> securityGroups = ImmutableList.of();
+		private String keyName;
 
-		public Builder(String accountNumber, String accessKeyId, String username) {
+		public Builder(String accountNumber) {
 			this.accountNumber = accountNumber;
+		}
+
+		public Builder accessKeyId(String accessKeyId) {
 			this.accessKeyId = accessKeyId;
-			this.username = username;
+			return this;
+		}
+
+		public Builder keyName(String keyName) {
+			this.keyName = keyName;
+			return this;
+		}
+
+		public Builder securityGroups(List<String> securityGroups) {
+			this.securityGroups = securityGroups;
+			return this;
 		}
 
 		public AwsAccount build() {
-			Assert.noBlanks(accountNumber, accessKeyId, username);
+			Assert.noBlanks(accountNumber, accessKeyId, keyName);
 			Assert.noNulls(securityGroups);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			return new AwsAccount(this);
@@ -41,7 +52,7 @@ public final class AwsAccount {
 	private AwsAccount(Builder builder) {
 		this.accountNumber = builder.accessKeyId;
 		this.accessKeyId = builder.accessKeyId;
-		this.username = builder.username;
+		this.keyName = builder.keyName;
 		this.securityGroups = builder.securityGroups;
 	}
 
@@ -53,12 +64,12 @@ public final class AwsAccount {
 		return accessKeyId;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
 	public List<String> getSecurityGroups() {
 		return securityGroups;
+	}
+
+	public String getKeyName() {
+		return keyName;
 	}
 
 }
