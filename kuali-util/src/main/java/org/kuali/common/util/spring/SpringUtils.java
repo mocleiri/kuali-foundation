@@ -287,6 +287,14 @@ public class SpringUtils {
 		return getNoneSensitiveListFromCSV(env, key, null);
 	}
 
+	public static List<String> getStrings(EnvironmentService env, String key, List<String> defaults) {
+		if (env.containsProperty(key)) {
+			return getNoneSensitiveListFromCSV(env, key);
+		} else {
+			return defaults;
+		}
+	}
+
 	/**
 	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
 	 */
