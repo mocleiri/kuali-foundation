@@ -21,20 +21,20 @@ import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LaunchMaster extends AbstractMainRunner {
+public class CreateMaster extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(LaunchMaster.class, args, true);
+		MainUtils.runAndExit(CreateMaster.class, args, true);
 	}
 
 	@Override
 	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
-		return LaunchMasterPSC.class;
+		return CreateMasterPSC.class;
 	}
 
 	@Override
 	protected Class<?> getConfig() {
-		return LaunchMasterConfig.class;
+		return CreateMasterConfig.class;
 	}
 
 }

@@ -20,7 +20,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ AwsProjectConfig.class, DefaultPropertiesServiceConfig.class })
-public class LaunchMasterPSC implements PropertySourceConfig {
+public class CreateMasterPSC implements PropertySourceConfig {
 
 	@Autowired
 	Project project;

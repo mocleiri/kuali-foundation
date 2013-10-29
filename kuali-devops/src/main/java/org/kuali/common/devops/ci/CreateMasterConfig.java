@@ -41,7 +41,7 @@ import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
-public class LaunchMasterConfig {
+public class CreateMasterConfig {
 
 	private static final int DEFAULT_ROOT_VOLUME_SIZE_IN_GIGABYTES = 25;
 	private static final boolean DEFAULT_PREVENT_TERMINATION = true;
