@@ -80,6 +80,14 @@ public class SpringUtils {
 		}
 	}
 
+	public static Optional<Boolean> getOptionalBoolean(EnvironmentService env, String key) {
+		if (!env.containsProperty(key)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(env.getBoolean(key));
+		}
+	}
+
 	@Deprecated
 	public static org.kuali.common.util.service.SpringContext getSpringContext(List<Class<?>> annotatedClasses, org.kuali.common.util.ProjectContext project,
 			List<org.kuali.common.util.ProjectContext> others) {
@@ -452,6 +460,15 @@ public class SpringUtils {
 	 */
 	public static int getMillisAsInt(EnvironmentService env, String key, String defaultValue) {
 		return new Long(getMillis(env, key, defaultValue)).intValue();
+	}
+
+	/**
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getMillis(String time)
+	 */
+	public static int getMillisAsInt(EnvironmentService env, String key, int defaultValue) {
+		return getMillisAsInt(env, key, FormatUtils.getTime(defaultValue));
 	}
 
 	/**

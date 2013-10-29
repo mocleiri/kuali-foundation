@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.kuali.common.util.Assert;
 
-public class Build {
+public final class Build {
 
 	public Build(Project project, String encoding, File projectDir, File directory, File outputDir, File sourceDir, File scriptSourceDir, File testOutputDir, File testSourceDir) {
 		Assert.noNulls(project, encoding, projectDir, directory, outputDir, sourceDir, scriptSourceDir, testOutputDir, testSourceDir);
