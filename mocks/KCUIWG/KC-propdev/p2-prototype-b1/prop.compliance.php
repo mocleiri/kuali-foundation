@@ -261,7 +261,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     </div>
                   </div>
                   <div class="btn-row-widget-action pull-right">
-                    <button class="btn btn-primary btn-xs" id=""> Save</button>
+                    <button class="btn btn-primary btn-xs" id=""> Add</button>
                     <button class="btn btn-link btn-xs" id=""> Cancel</button>
                   </div>
                 </form>
