@@ -21,14 +21,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
           	<div class="panel panel-default">
           		<div class="panel-heading">
           			<div class="row">
-          				<div class="col-md-6">
+          				<div class="col-md-12">
           					<h4 class="panel-title">
           						<a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#question_set_1" href="#question_set_1_content"><span aria-hidden="true" class="icon-caret-down"></span></a>&nbsp;
           						<span class="text-muted">Question set 1</span>
           					</h4>
-          				</div>
-          				<div class="col-md-6">
-          					<a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-question"></span></a>
           				</div>
           			</div>
           		</div>
