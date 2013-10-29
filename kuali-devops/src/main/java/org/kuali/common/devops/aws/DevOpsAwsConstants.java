@@ -12,5 +12,5 @@ public abstract class DevOpsAwsConstants {
 	public static final String US_EAST_1D = "us-east-1d";
 
 	// amzn-ami-minimal-pv-2013.09 - this changes every 6 months or so
-	public static final String AMAZON_LINUX_64_BIT_MINIMAL_AMI = "ami-65792c0c";
+	public static final String AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09 = "ami-65792c0c";
 }
