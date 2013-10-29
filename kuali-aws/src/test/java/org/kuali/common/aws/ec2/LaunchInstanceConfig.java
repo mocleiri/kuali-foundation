@@ -98,17 +98,9 @@ public class LaunchInstanceConfig {
 	}
 
 	protected RootVolume getRootVolume() {
-		Optional<Integer> sizeInGigabytes = getOptionalInteger("ec2.rootVolume.sizeInGigabytes");
+		Optional<Integer> sizeInGigabytes = SpringUtils.getOptionalInteger(env, "ec2.rootVolume.sizeInGigabytes");
 		boolean deleteOnTermination = env.getBoolean("ec2.rootVolume.deleteOnTermination", RootVolume.DEFAULT_DELETE_ON_TERMINATION);
 		return new RootVolume(sizeInGigabytes, deleteOnTermination);
-	}
-
-	protected Optional<Integer> getOptionalInteger(String key) {
-		if (!env.containsProperty(key)) {
-			return Optional.absent();
-		} else {
-			return Optional.of(env.getInteger(key));
-		}
 	}
 
 	protected List<Tag> getTags() {
