@@ -42,6 +42,7 @@ public class LaunchInstanceConfig {
 	public Object launchAndThenTerminate() {
 		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env);
 		Instance instance = service.launchInstance(context);
+		System.out.println(instance);
 		// service.terminateInstance(instance.getInstanceId());
 		return null;
 	}
