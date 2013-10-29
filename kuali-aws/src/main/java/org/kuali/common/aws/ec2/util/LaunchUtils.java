@@ -18,11 +18,8 @@ import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
 
-	// Required
-	public static final String AMI_KEY = "ec2.ami";
-	public static final String KEY_NAME_KEY = "ec2.keyName";
-
-	// Optional
+	private static final String AMI_KEY = "ec2.ami";
+	private static final String KEY_NAME_KEY = "ec2.keyName";
 	private static final String TYPE_KEY = "ec2.type";
 	private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
 	private static final String TAGS_KEY = "ec2.tags";
@@ -33,19 +30,20 @@ public class LaunchUtils {
 	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
 	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
+	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NullUtils.NONE).build();
 
-	public static InstanceType getType(EnvironmentService env, InstanceType defaultValue) {
-		return InstanceType.fromValue(env.getString(TYPE_KEY, defaultValue.toString()));
+	public static InstanceType getType(EnvironmentService env, InstanceType type) {
+		return InstanceType.fromValue(env.getString(TYPE_KEY, type.toString()));
 	}
 
-	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext defaultContext) {
-		String ami = env.getString(AMI_KEY, defaultContext.getAmi());
-		String keyName = env.getString(KEY_NAME_KEY, defaultContext.getKeyName());
-		InstanceType type = getType(env, defaultContext.getType());
-		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, defaultContext.getTimeoutMillis());
-		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, defaultContext.isEbsOptimized());
-		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, defaultContext.isEnableMonitoring());
-		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, defaultContext.isPreventTermination());
+	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext context) {
+		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, context.getAmi()));
+		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, context.getKeyName()));
+		InstanceType type = getType(env, context.getType());
+		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, context.getTimeoutMillis());
+		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, context.isEbsOptimized());
+		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, context.isEnableMonitoring());
+		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, context.isPreventTermination());
 
 		// TODO
 		RootVolume rootVolume = getRootVolume(env);
@@ -58,23 +56,10 @@ public class LaunchUtils {
 	}
 
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
-		String ami = env.getString(AMI_KEY);
-		String keyName = env.getString(KEY_NAME_KEY);
-		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
-		InstanceType type = InstanceType.fromValue(env.getString(TYPE_KEY, LaunchInstanceContext.DEFAULT_INSTANCE_TYPE.toString()));
-		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, LaunchInstanceContext.DEFAULT_TIMEOUT_MILLIS_STRING);
-		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, LaunchInstanceContext.DEFAULT_EBS_OPTIMIZED);
-		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, LaunchInstanceContext.DEFAULT_ENABLE_MONITORING);
-		List<Tag> tags = getTags(env);
-		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
-		RootVolume rootVolume = getRootVolume(env);
-		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, LaunchInstanceContext.DEFAULT_PREVENT_TERMINATION);
-		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
-				.preventTermination(preventTermination).rootVolume(rootVolume).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring).build();
+		return getLaunchInstanceContext(env, DEFAULT_CONTEXT);
 	}
 
-	public static RootVolume getRootVolume(EnvironmentService env, RootVolume defaultRootVolume) {
-
+	public static RootVolume getRootVolume(EnvironmentService env, RootVolume rootVolume) {
 		Optional<Integer> sizeInGigabytes = SpringUtils.getOptionalInteger(env, ROOT_VOLUME_SIZE_KEY);
 		boolean deleteOnTermination = env.getBoolean(ROOT_VOLUME_DELETE_KEY, RootVolume.DEFAULT_DELETE_ON_TERMINATION);
 		return new RootVolume(sizeInGigabytes, deleteOnTermination);
