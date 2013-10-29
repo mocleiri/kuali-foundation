@@ -31,6 +31,10 @@ public class LaunchUtils {
 	public static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	public static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 
+	public static InstanceType getType(EnvironmentService env, InstanceType defaultValue) {
+		return InstanceType.fromValue(env.getString(TYPE_KEY, defaultValue.toString()));
+	}
+
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
 		String ami = env.getString(AMI_KEY);
 		String keyName = env.getString(KEY_NAME_KEY);
@@ -51,6 +55,14 @@ public class LaunchUtils {
 		Optional<Integer> sizeInGigabytes = SpringUtils.getOptionalInteger(env, ROOT_VOLUME_SIZE_KEY);
 		boolean deleteOnTermination = env.getBoolean(ROOT_VOLUME_DELETE_KEY, RootVolume.DEFAULT_DELETE_ON_TERMINATION);
 		return new RootVolume(sizeInGigabytes, deleteOnTermination);
+	}
+
+	public static List<Tag> getTags(EnvironmentService env, List<Tag> defaults) {
+		if (env.containsProperty(TAGS_KEY)) {
+			return getTags(env);
+		} else {
+			return defaults;
+		}
 	}
 
 	public static List<Tag> getTags(EnvironmentService env) {
