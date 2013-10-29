@@ -1,24 +1,18 @@
 package org.kuali.common.aws.model;
 
-import java.util.List;
-
 import org.kuali.common.util.Assert;
-
-import com.google.common.collect.ImmutableList;
 
 public final class AwsAccount {
 
 	private final String accountNumber;
 	private final String accessKeyId;
 	private final String keyName;
-	private final List<String> securityGroups;
 
 	public static class Builder {
 
 		// Required
 		private final String accountNumber;
 		private String accessKeyId;
-		private List<String> securityGroups = ImmutableList.of();
 		private String keyName;
 
 		public Builder(String accountNumber) {
@@ -35,15 +29,8 @@ public final class AwsAccount {
 			return this;
 		}
 
-		public Builder securityGroups(List<String> securityGroups) {
-			this.securityGroups = securityGroups;
-			return this;
-		}
-
 		public AwsAccount build() {
 			Assert.noBlanks(accountNumber, accessKeyId, keyName);
-			Assert.noNulls(securityGroups);
-			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			return new AwsAccount(this);
 		}
 
@@ -53,7 +40,6 @@ public final class AwsAccount {
 		this.accountNumber = builder.accessKeyId;
 		this.accessKeyId = builder.accessKeyId;
 		this.keyName = builder.keyName;
-		this.securityGroups = builder.securityGroups;
 	}
 
 	public String getAccountNumber() {
@@ -62,10 +48,6 @@ public final class AwsAccount {
 
 	public String getAccessKeyId() {
 		return accessKeyId;
-	}
-
-	public List<String> getSecurityGroups() {
-		return securityGroups;
 	}
 
 	public String getKeyName() {
