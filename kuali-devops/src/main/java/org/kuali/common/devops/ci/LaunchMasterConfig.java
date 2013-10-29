@@ -39,8 +39,6 @@ import com.amazonaws.services.ec2.model.Tag;
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
 public class LaunchMasterConfig {
 
-	// amzn-ami-minimal-pv-2013.09
-	private static final String LATEST_AMAZON_LINUX_64_BIT_MINIMAL_AMI = "ami-65792c0c";
 	private static final String KEY_NAME = "kuali-key";
 	private static final String US_EAST_1D = "us-east-1d";
 
