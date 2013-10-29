@@ -49,14 +49,14 @@ public class CreateMasterConfig {
 
 	@Bean
 	public Object launchAndThenTerminate() {
-		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env, defaultMasterLaunchContext());
+		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env, jenkinsMaster());
 		Instance instance = service.launchInstance(context);
 		// service.terminateInstance(instance.getInstanceId());
 		return null;
 	}
 
 	@Bean
-	public LaunchInstanceContext defaultMasterLaunchContext() {
+	public LaunchInstanceContext jenkinsMaster() {
 		String ami = DevOpsAwsConstants.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09;
 		String keyName = DevOpsAwsConstants.FOUNDATION.getKeyName();
 		InstanceType type = InstanceType.M1Large;
