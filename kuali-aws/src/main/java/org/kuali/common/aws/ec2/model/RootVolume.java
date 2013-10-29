@@ -10,7 +10,7 @@ public final class RootVolume {
 	public static final boolean DEFAULT_DELETE_ON_TERMINATION = true;
 
 	public RootVolume(int sizeInGigabytes) {
-		this(Optional.of(sizeInGigabytes), DEFAULT_DELETE_ON_TERMINATION);
+		this(sizeInGigabytes, DEFAULT_DELETE_ON_TERMINATION);
 	}
 
 	public RootVolume(int sizeInGigabytes, boolean deleteOnTermination) {
