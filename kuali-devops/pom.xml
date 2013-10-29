@@ -24,7 +24,7 @@
     <version>3.3.26</version>
   </parent>
   <groupId>org.kuali.common</groupId>
-  <artifactId>kuali-devops]</artifactId>
+  <artifactId>kuali-devops</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>DevOps Tooling</name>
   <description>Various DevOps related tooling</description>
