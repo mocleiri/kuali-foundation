@@ -9,8 +9,7 @@ public enum SecurityGroupName {
 
 	SSH("ssh"), //
 	HTTP("http"), //
-	HTTPS("https"), //
-	DEPLOY("deploy"); //
+	HTTPS("https"); //
 
 	private final String value;
 
