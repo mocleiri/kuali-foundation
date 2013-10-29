@@ -1,4 +1,4 @@
-package org.kuali.common.aws.ec2;
+package org.kuali.common.aws.ec2.util;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
