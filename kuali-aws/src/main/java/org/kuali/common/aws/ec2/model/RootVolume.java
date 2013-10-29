@@ -9,6 +9,10 @@ public final class RootVolume {
 	// Default is to delete the root volume when its associated instance is terminated
 	public static final boolean DEFAULT_DELETE_ON_TERMINATION = true;
 
+	public RootVolume(Optional<Integer> sizeInGigabytes) {
+		this(sizeInGigabytes, DEFAULT_DELETE_ON_TERMINATION);
+	}
+
 	public RootVolume(Optional<Integer> sizeInGigabytes, boolean deleteOnTermination) {
 		if (sizeInGigabytes.isPresent()) {
 			Assert.positive(sizeInGigabytes.get());

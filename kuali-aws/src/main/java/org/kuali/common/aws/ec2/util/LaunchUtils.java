@@ -18,18 +18,18 @@ import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
 
-	private static final String AMI_KEY = "ec2.ami";
-	private static final String KEY_NAME_KEY = "ec2.keyName";
-	private static final String TYPE_KEY = "ec2.type";
-	private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
-	private static final String TAGS_KEY = "ec2.tags";
-	private static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
-	private static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
-	private static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
-	private static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
-	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
-	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
-	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
+	public static final String AMI_KEY = "ec2.ami";
+	public static final String KEY_NAME_KEY = "ec2.keyName";
+	public static final String TYPE_KEY = "ec2.type";
+	public static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
+	public static final String TAGS_KEY = "ec2.tags";
+	public static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
+	public static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
+	public static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
+	public static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
+	public static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
+	public static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
+	public static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
 		String ami = env.getString(AMI_KEY);
