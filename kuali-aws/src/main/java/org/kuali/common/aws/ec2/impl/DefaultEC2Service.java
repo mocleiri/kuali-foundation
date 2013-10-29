@@ -184,7 +184,6 @@ public final class DefaultEC2Service implements EC2Service {
 		Instance instance = issueRunInstanceRequest(context);
 
 		// Was getting some flaky behavior from AWS without a small delay after issuing the RunInstancesRequest
-		// Granted, this was in early 2011 and it may no longer be an issue
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second should be ok
 		ThreadUtils.sleep(initialPauseMillis);
 
