@@ -207,6 +207,28 @@ $(document).ready(function() {
 
 
 	/*
+		Select 'other' options
+		If 'other' is selected, let's insert a free form text input beneathe the select menu
+		Chris Rodriguez
+	*/
+	$('.has-other').change(function() {
+
+		var that = $(this).val();
+		if (that == "OTHER") {
+
+			$(this).parent().append('<div class="input-other"><label for="other_' + $(this).attr('name') + '">Please specify:</label><input type="text" name="other_' + $(this).attr('name') + '" id="other_' + $(this).attr('name') + '" class="form-control input-sm" /></div>');
+
+		} else {
+
+			$(this).parent().find('.input-other').remove();
+
+		}
+
+	});
+
+
+
+	/*
 		Datepickers
 		Inits the datepickers on classed elements
 		Chris Rodriguez

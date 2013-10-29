@@ -52,8 +52,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   </tr>
                   <tr>
                     <th>Revision Type</th>
-                    <td><select name="" style="">
-                        <option value="">select</option>
+                    <td><select class="has-other" name="revision-type" id="revision-type">
+                        <option value="">Select</option>
                         <option value="B">Decrease Award</option>
                         <option value="BD">Decrease Award &amp; Decrease Duration</option>
                         <option value="BC">Decrease Award &amp; Increase Duration</option>
@@ -62,8 +62,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         <option value="AD">Increase Award &amp; Decrease Duration</option>
                         <option value="AC">Increase Award &amp; Increase Duration</option>
                         <option value="C">Increase Duration</option>
-                        <option value="E">Other(Specify)</option>
-                      </select></td>
+                        <option value="OTHER">Other...</option>
+                      </select>
+
+                    </td>
                   </tr>
                   <tr>
                     <th>CFDA Number</th>
