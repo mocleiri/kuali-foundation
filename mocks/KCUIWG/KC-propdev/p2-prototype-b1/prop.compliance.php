@@ -34,62 +34,53 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   <div class="form-group clearfix">
                     <label for="type" class="control-label col-md-3">Type:</label>
                     <div class="col-md-9">
-                     <p class="form-control-static">Space Change</p>
-                     
-                    
+                      <p class="form-control-static">Space Change</p>
                     </div>
                   </div>
                   <div class="form-group clearfix">
                     <label for="approval_status" class="control-label col-md-3">Approval status:</label>
                     <div class="col-md-9">
-                        <p class="form-control-static">Approved</p>
+                      <p class="form-control-static">Approved</p>
                     </div>
                   </div>
                   <div class="form-group clearfix">
                     <label for="protocol_no" class="control-label col-md-3">Protocol number:</label>
                     <div class="col-md-9">
-                     <p class="form-control-static">#7039486VC</p>
-                      
+                      <p class="form-control-static">#7039486VC</p>
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="exemption_no" class="control-label col-md-3">Exemption number:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Application Date:</label>
                     <div class="col-md-9">
-                     <p class="form-control-static">#888JJKDF</p>
-                      
+                      <p class="form-control-static">12/12/2013</p>
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="application_date" class="control-label col-md-3">Application date:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Approval Date:</label>
                     <div class="col-md-9">
-                    
-                     <p class="form-control-static">12/12/2013</p>
-                      
+                      <p class="form-control-static">12/12/2013</p>
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="expiration_date" class="control-label col-md-3">Expiration date:</label>
-                    <div class="col-md-9"> <p class="form-control-static">05/01/2014</p>
-                     
+                    <label for="exemption_no" class="control-label col-md-3">Expiration Date:</label>
+                    <div class="col-md-9">
+                      <p class="form-control-static">05/01/2014</p>
+                    </div>
+                  </div>
+                  <div class="form-group clearfix">
+                    <label for="exemption_no" class="control-label col-md-3">Exemption:</label>
+                    <div class="col-md-9">
+                      <p class="form-control-static">E2, E6</p>
                     </div>
                   </div>
                   <div class="btn-row-widget-action pull-right">
-                    <button class="btn btn-primary btn-xs" id=""> Edit</button>  <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                    <button class="btn btn-primary btn-xs" id=""> Edit</button>
+                    <button class="btn btn-link btn-xs" id=""> Cancel</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="row">
@@ -138,45 +129,54 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   </div>
                   <div class="form-group clearfix">
                     <label for="protocol_no" class="control-label col-md-3">Protocol number:</label>
-                    <div class="col-md-9">
-                      <input type="text" name="protocol_no" id="protocol_no" class="form-control input-sm col-md-8" value="7236471AC">
-                    </div>
+                    <div class="col-md-9 input-group">
+                      <input type="text" class="form-control input-sm has-helper store-as-session" name="" id="" value="7236471AC" />
+                      <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/#" data-modal-height="500"></a> </span> </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="exemption_no" class="control-label col-md-3">Exemption number:</label>
-                    <div class="col-md-9">
-                      <input type="text" name="exemption_no" id="exemption_no" class="form-control input-sm col-md-8" value="888JJKDF">
-                    </div>
-                  </div>
-                  <div class="form-group clearfix">
-                    <label for="application_date" class="control-label col-md-3">Application date:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Application Date:</label>
                     <div class="col-md-9">
                       <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl hasDatepicker" placeholder="mm/dd/yyyy" value="12/12/2013">
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="expiration_date" class="control-label col-md-3">Expiration date:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Approval Date:</label>
+                    <div class="col-md-9">
+                      <input type="text" name="exemption_no" id="exemption_no" class="form-control input-sm col-md-8" value="888JJKDF">
+                    </div>
+                  </div>
+                  <div class="form-group clearfix">
+                    <label for="exemption_no" class="control-label col-md-3">Expiration Date:</label>
                     <div class="col-md-9">
                       <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 uif-dateControl hasDatepicker" placeholder="mm/dd/yyyy" value="05/01/2014">
                     </div>
                   </div>
+                  <div class="form-group clearfix">
+                    <label for="exemption_no" class="control-label col-md-3">Exemption:</label>
+                    <div class="col-md-9">
+                      <select name="exemptions" id="exemptions" class="form-control input-sm col-md-8" multiple>
+                        <option >E1</option>
+                        <option >E2</option>
+                        <option >E3</option>
+                        <option >E4</option>
+                        <option >E5</option>
+                        <option >E6</option>
+                      </select>
+                    </div>
+                  </div>
                   <div class="btn-row-widget-action pull-right">
-                    <button class="btn btn-primary btn-xs" id=""> Save</button>  <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                    <button class="btn btn-primary btn-xs" id=""> Save</button>
+                    <button class="btn btn-link btn-xs" id=""> Cancel</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          
-          
-          
-          
-          
           <div class="panel panel-default" id="add_entry">
             <div class="panel-heading">
               <div class="row">
                 <div class="col-md-6">
-                  <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"><span aria-hidden="true" class="icon-caret-right"></span> Add New Protocol</a> 
+                  <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> Add New Protocol</a> 
                     <!-- <span>-</span>
 											<span>-</span>
 											<span>-</span>
@@ -192,7 +192,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   <div class="form-group clearfix">
                     <label for="type" class="control-label col-md-3">Type:</label>
                     <div class="col-md-9">
-                      <select name="type" id="type" class="form-control input-sm col-md-8">
+                      <select name="type2" id="type2" class="form-control input-sm col-md-8">
                         <option value="0">select</option>
                         <option value="1">Human Subjects</option>
                         <option value="2">Animal Usage</option>
@@ -212,7 +212,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   <div class="form-group clearfix">
                     <label for="approval_status" class="control-label col-md-3">Approval status:</label>
                     <div class="col-md-9">
-                      <select name="type" id="approval_status" class="form-control input-sm col-md-8">
+                      <select name="type3" id="type3" class="form-control input-sm col-md-8">
                         <option value="0">select</option>
                         <option value="1">Approved</option>
                         <option value="2">Exempt</option>
@@ -225,37 +225,51 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   </div>
                   <div class="form-group clearfix">
                     <label for="protocol_no" class="control-label col-md-3">Protocol number:</label>
+                    <div class="col-md-9 input-group">
+                      <input type="text" class="form-control input-sm has-helper store-as-session" name="" id="" />
+                      <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/#" data-modal-height="500"></a> </span> </div>
+                  </div>
+                  <div class="form-group clearfix">
+                    <label for="exemption_no" class="control-label col-md-3">Application Date:</label>
                     <div class="col-md-9">
-                      <input type="text" name="protocol_no" id="protocol_no" class="form-control input-sm col-md-8" value="">
+                      <input type="text" name="protocol_no3" id="protocol_no3" class="form-control input-sm col-md-8" value="" />
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="exemption_no" class="control-label col-md-3">Exemption number:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Approval Date:</label>
                     <div class="col-md-9">
-                      <input type="text" name="exemption_no" id="exemption_no" class="form-control input-sm col-md-8" value="">
+                      <input type="text" name="protocol_no4" id="protocol_no4" class="form-control input-sm col-md-8" value="" />
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="application_date" class="control-label col-md-3">Application date:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Expiration Date:</label>
                     <div class="col-md-9">
-                      <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl hasDatepicker" placeholder="mm/dd/yyyy" value="">
+                      <input type="text" name="protocol_no5" id="protocol_no5" class="form-control input-sm col-md-8" value="" />
                     </div>
                   </div>
                   <div class="form-group clearfix">
-                    <label for="expiration_date" class="control-label col-md-3">Expiration date:</label>
+                    <label for="exemption_no" class="control-label col-md-3">Exemption:</label>
                     <div class="col-md-9">
-                      <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 uif-dateControl hasDatepicker" placeholder="mm/dd/yyyy" value="">
+                      <select name="exemptions" id="exemptions" class="form-control input-sm col-md-8" multiple>
+                           <option >E1</option>
+                        <option >E2</option>
+                        <option >E3</option>
+                        <option >E4</option>
+                        <option >E5</option>
+                        <option >E6</option>
+                      </select>
                     </div>
                   </div>
                   <div class="btn-row-widget-action pull-right">
-                        <button class="btn btn-primary btn-xs" id=""> Save</button>  <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                    <button class="btn btn-primary btn-xs" id=""> Save</button>
+                    <button class="btn btn-link btn-xs" id=""> Cancel</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-          <div class="btn-row-widget-action">
+        <div class="btn-row-widget-action">
           <button class="btn btn-default btn-xs" id="compliance_add"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
         </div>
         
