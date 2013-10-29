@@ -18,21 +18,43 @@ import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
 
+	// Required
 	public static final String AMI_KEY = "ec2.ami";
 	public static final String KEY_NAME_KEY = "ec2.keyName";
-	public static final String TYPE_KEY = "ec2.type";
-	public static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
-	public static final String TAGS_KEY = "ec2.tags";
-	public static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
-	public static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
-	public static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
-	public static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
-	public static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
-	public static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
-	public static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
+
+	// Optional
+	private static final String TYPE_KEY = "ec2.type";
+	private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
+	private static final String TAGS_KEY = "ec2.tags";
+	private static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
+	private static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
+	private static final String PREVENT_TERMINATION_KEY = "ec2.preventTermination";
+	private static final String EBS_OPTIMIZED_KEY = "ec2.ebsOptimized";
+	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
+	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
+	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 
 	public static InstanceType getType(EnvironmentService env, InstanceType defaultValue) {
 		return InstanceType.fromValue(env.getString(TYPE_KEY, defaultValue.toString()));
+	}
+
+	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext defaultContext) {
+		String ami = env.getString(AMI_KEY, defaultContext.getAmi());
+		String keyName = env.getString(KEY_NAME_KEY, defaultContext.getKeyName());
+		InstanceType type = getType(env, defaultContext.getType());
+		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, defaultContext.getTimeoutMillis());
+		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, defaultContext.isEbsOptimized());
+		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, defaultContext.isEnableMonitoring());
+		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, defaultContext.isPreventTermination());
+
+		// TODO
+		RootVolume rootVolume = getRootVolume(env);
+		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
+		List<Tag> tags = getTags(env);
+		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
+
+		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
+				.preventTermination(preventTermination).rootVolume(rootVolume).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring).build();
 	}
 
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
@@ -49,6 +71,13 @@ public class LaunchUtils {
 		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, LaunchInstanceContext.DEFAULT_PREVENT_TERMINATION);
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring).build();
+	}
+
+	public static RootVolume getRootVolume(EnvironmentService env, RootVolume defaultRootVolume) {
+
+		Optional<Integer> sizeInGigabytes = SpringUtils.getOptionalInteger(env, ROOT_VOLUME_SIZE_KEY);
+		boolean deleteOnTermination = env.getBoolean(ROOT_VOLUME_DELETE_KEY, RootVolume.DEFAULT_DELETE_ON_TERMINATION);
+		return new RootVolume(sizeInGigabytes, deleteOnTermination);
 	}
 
 	public static RootVolume getRootVolume(EnvironmentService env) {
