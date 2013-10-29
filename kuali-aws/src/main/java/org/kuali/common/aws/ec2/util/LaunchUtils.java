@@ -32,10 +32,6 @@ public class LaunchUtils {
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NullUtils.NONE).build();
 
-	public static InstanceType getType(EnvironmentService env, InstanceType type) {
-		return InstanceType.fromValue(env.getString(TYPE_KEY, type.toString()));
-	}
-
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext provided) {
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
 		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyName()));
@@ -109,4 +105,9 @@ public class LaunchUtils {
 		}
 		return ImmutableList.copyOf(tags);
 	}
+
+	public static InstanceType getType(EnvironmentService env, InstanceType type) {
+		return InstanceType.fromValue(env.getString(TYPE_KEY, type.toString()));
+	}
+
 }
