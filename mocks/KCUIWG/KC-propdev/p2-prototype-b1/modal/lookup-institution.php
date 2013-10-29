@@ -93,6 +93,13 @@ include( 'inc/head.php' );
 							</div> -->
 
 							<div class="form-group clearfix">
+								<label class="control-label col-sm-4 col-xs-4" for="inst_name">Institution name:</label>
+								<div class="col-sm-8 col-xs-8">
+									<input type="text" id="inst_name" name="inst_name" class="form-control input-sm">
+								</div>
+							</div>
+
+							<div class="form-group clearfix">
 								<label class="control-label col-sm-4 col-xs-4" for="postal_code">Postal code:</label>
 								<div class="col-sm-8 col-xs-8">
 									<input type="text" id="postal_code" name="postal_code" class="form-control input-sm">
