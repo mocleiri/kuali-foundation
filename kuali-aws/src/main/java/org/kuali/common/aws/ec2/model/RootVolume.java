@@ -13,6 +13,14 @@ public final class RootVolume {
 		this(Optional.of(sizeInGigabytes), DEFAULT_DELETE_ON_TERMINATION);
 	}
 
+	public RootVolume(int sizeInGigabytes, boolean deleteOnTermination) {
+		this(Optional.of(sizeInGigabytes), deleteOnTermination);
+	}
+
+	public RootVolume(boolean deleteOnTermination) {
+		this(Optional.<Integer> absent(), deleteOnTermination);
+	}
+
 	public RootVolume(Optional<Integer> sizeInGigabytes, boolean deleteOnTermination) {
 		if (sizeInGigabytes.isPresent()) {
 			Assert.positive(sizeInGigabytes.get());
