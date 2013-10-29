@@ -39,7 +39,6 @@ import com.amazonaws.services.ec2.model.Tag;
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
 public class LaunchMasterConfig {
 
-	private static final String KEY_NAME = "kuali-key";
 	private static final String US_EAST_1D = "us-east-1d";
 
 	@Autowired
