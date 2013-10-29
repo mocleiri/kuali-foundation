@@ -42,14 +42,23 @@ public class LaunchUtils {
 		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, provided.isPreventTermination());
 		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
 		List<Tag> tags = getTags(env, provided.getTags());
+		Optional<String> availabilityZone = getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
 
 		// TODO
-		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
 
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
 				.build();
+	}
+
+	public static Optional<String> getString(EnvironmentService env, String key, Optional<String> provided) {
+		Optional<String> value = SpringUtils.getOptionalString(env, key);
+		if (value.isPresent()) {
+			return value;
+		} else {
+			return provided;
+		}
 	}
 
 	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
