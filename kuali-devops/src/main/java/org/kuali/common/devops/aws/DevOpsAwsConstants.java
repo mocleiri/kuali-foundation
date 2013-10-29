@@ -9,6 +9,6 @@ public abstract class DevOpsAwsConstants {
 	public static final AwsAccount RICE = new AwsAccount.Builder("7898-1396-8323").accessKeyId("AKIAIZFPMJVCNOYYAZ2Q").keyName("kr-key").build();
 	public static final AwsAccount OLE = new AwsAccount.Builder("7867-4615-1229").accessKeyId("AKIAI453FI76LUZ7T7CA").keyName("ole").build();
 
-	// amzn-ami-minimal-pv-2013.09
-	public static final String LATEST_AMAZON_LINUX_64_BIT_MINIMAL_AMI = "ami-65792c0c";
+	// amzn-ami-minimal-pv-2013.09 - this changes every 6 months or so
+	public static final String AMAZON_LINUX_64_BIT_MINIMAL_AMI = "ami-65792c0c";
 }
