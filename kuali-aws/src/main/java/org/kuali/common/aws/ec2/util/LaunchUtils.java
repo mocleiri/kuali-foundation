@@ -44,11 +44,11 @@ public class LaunchUtils {
 		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, provided.isEbsOptimized());
 		boolean enableMonitoring = env.getBoolean(ENABLE_MONITORING_KEY, provided.isEnableMonitoring());
 		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, provided.isPreventTermination());
+		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
+		List<Tag> tags = getTags(env, provided.getTags());
 
 		// TODO
-		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
 		Optional<String> availabilityZone = SpringUtils.getOptionalString(env, AVAILABILITY_ZONE_KEY);
-		List<Tag> tags = getTags(env);
 		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
 
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
