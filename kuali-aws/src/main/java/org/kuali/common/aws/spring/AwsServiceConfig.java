@@ -18,7 +18,7 @@ package org.kuali.common.aws.spring;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.kuali.common.util.wait.WaitService;
@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Import;
 
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
+import com.google.common.base.Optional;
 
 @Configuration
 @Import({ SpringServiceConfig.class, WaitServiceConfig.class })
@@ -51,32 +52,33 @@ public class AwsServiceConfig {
 	public EC2Service ec2Service() {
 		String accessKey = env.getString(ACCESS_KEY);
 		String secretKey = env.getString(SECRET_KEY);
-		Region region = getRegion();
-		String endpoint = NullUtils.trimToNull(env.getString(ENDPOINT_KEY, NullUtils.NONE));
-		Integer timeOffsetInSeconds = getTimeOffsetInSeconds();
-		return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region).endpoint(endpoint).timeOffsetInSeconds(timeOffsetInSeconds).build();
+		Optional<Region> region = getRegion();
+		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
+		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds();
+		return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull())
+				.build();
 	}
 
-	protected Integer getTimeOffsetInSeconds() {
-		String offset = env.getString(TIMEOFFSET_KEY, NullUtils.NONE);
-		if (NullUtils.isNullOrNone(offset)) {
-			return null;
-		} else {
+	protected Optional<Integer> getTimeOffsetInSeconds() {
+		Optional<String> offset = SpringUtils.getOptionalString(env, TIMEOFFSET_KEY);
+		if (offset.isPresent()) {
 			// Convert the text from the property into a millisecond value
-			long millis = FormatUtils.getMillis(offset);
+			long millis = FormatUtils.getMillis(offset.get());
 			// The unit of measure the Amazon EC2 client needs is seconds not milliseconds
 			Long seconds = millis / 1000;
 			// Return the seconds value as an integer
-			return seconds.intValue();
+			return Optional.of(seconds.intValue());
+		} else {
+			return Optional.absent();
 		}
 	}
 
-	protected Region getRegion() {
-		String regionName = env.getString(REGION_KEY, NullUtils.NONE);
-		if (NullUtils.isNullOrNone(regionName)) {
-			return null;
+	protected Optional<Region> getRegion() {
+		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
+		if (regionName.isPresent()) {
+			return Optional.of(RegionUtils.getRegion(regionName.get()));
 		} else {
-			return RegionUtils.getRegion(regionName);
+			return Optional.absent();
 		}
 	}
 
