@@ -3,8 +3,8 @@ package org.kuali.common.devops.ci;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.aws.project.KualiAwsProjectConstants;
 import org.kuali.common.aws.project.spring.AwsProjectConfig;
+import org.kuali.common.devops.project.KualiDevOpsProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.properties.Location;
@@ -32,10 +32,9 @@ public class LaunchMasterPSC implements PropertySourceConfig {
 	@Bean
 	public PropertySource<?> propertySource() {
 		String encoding = ProjectUtils.getEncoding(project);
-		String prefix = ProjectUtils.getClasspathPrefix(KualiAwsProjectConstants.PROJECT_ID);
+		String prefix = ProjectUtils.getClasspathPrefix(KualiDevOpsProjectConstants.PROJECT_ID);
 		List<Location> locations = new ArrayList<Location>();
 		locations.add(new Location(prefix + "/foundation.properties", encoding));
-		locations.add(new Location(prefix + "/ci.properties", encoding));
 		return PropertySourceUtils.getPropertySource(service, locations);
 	}
 }
