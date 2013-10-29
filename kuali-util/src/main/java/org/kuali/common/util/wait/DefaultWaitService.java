@@ -1,5 +1,6 @@
 package org.kuali.common.util.wait;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -19,7 +20,9 @@ public class DefaultWaitService implements WaitService {
 		while (!condition.isTrue()) {
 			long now = System.currentTimeMillis();
 			Assert.isTrue(now <= timeout, "Timed out waiting");
-			logger.info("[elapsed: {}  timeout: {}]", FormatUtils.getTime(now - start), FormatUtils.getTime(timeout - now));
+			String elapsed = StringUtils.leftPad(FormatUtils.getTime(now - start), 7, " ");
+			String timeoutString = StringUtils.leftPad(FormatUtils.getTime(timeout - now), 7, " ");
+			logger.info("[elapsed: {}  timeout: {}]", elapsed, timeoutString);
 			ThreadUtils.sleep(context.getSleepMillis());
 		}
 		return new WaitResult.Builder(start, System.currentTimeMillis()).build();
