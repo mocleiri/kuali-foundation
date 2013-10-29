@@ -37,6 +37,7 @@ import org.springframework.util.Assert;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
@@ -54,6 +55,13 @@ public class LaunchInstanceConfig {
 
 	@Bean
 	public Object launchAndThenTerminate() {
+		LaunchInstanceContext context = getLaunchInstanceContext();
+		Instance instance = service.launchInstance(context);
+		// service.terminateInstance(instance.getInstanceId());
+		return null;
+	}
+
+	public Object launchAndThenTerminate2() {
 		DefaultEC2Service des = (DefaultEC2Service) service;
 		Image image = des.getAmi("ami-65792c0c");
 		List<BlockDeviceMapping> mappings = image.getBlockDeviceMappings();
