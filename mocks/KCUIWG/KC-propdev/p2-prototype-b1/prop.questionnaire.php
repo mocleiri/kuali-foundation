@@ -181,8 +181,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
           	</div>
           </div>
 
-          <br />
-          <button class="btn btn-default btn-xs">Add a question set</button>
+          <!-- <br />
+          <button class="btn btn-default btn-xs">Add a question set</button> -->
         
         
         
