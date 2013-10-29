@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# shutdown script for slave instances
+
+echo $(date)
+set -xe
+
+/root/kuali-ec2/src/main/resources/jenkins/slave/copy-repo-to-master ci.rice.kuali.org
+
+set +x
+echo $(date)
