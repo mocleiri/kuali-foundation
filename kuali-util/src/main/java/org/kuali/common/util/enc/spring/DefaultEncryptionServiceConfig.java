@@ -42,9 +42,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	@Bean
 	public EncryptionContext encryptionContext() {
-		EncryptionContext defaultContext = EncryptionContext.DEFAULT;
-		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, defaultContext.getPassword());
-		EncStrength strength = getStrength(defaultContext.getStrength());
+		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		EncStrength strength = getStrength(EncryptionContext.DEFAULT.getStrength());
 		return new EncryptionContext(password, strength);
 	}
 
