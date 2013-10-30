@@ -43,17 +43,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					      <label for="notice_of_opp" class="control-label col-md-3 required">* Notice of Opportunity: </label>
 					      <div class="col-md-9">
 					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
-					        	<optgroup label="Most common">
+					        	
 									<option value="1">Federal Solicitation</option>
 									<option value="6">Non-Federal Solicitation</option>
 									<option value="2">Unsolicited</option>
-				        		</optgroup>
-				        		<optgroup label="Other">
+				        		
+				        		
 									<option value="3">Verbal Request for Proposal</option>
 									<option value="4">SBIR Solicitation</option>
 									<option value="5">STTR Solicitation</option>
 									<option value="7">Internal</option>
-								</optgroup>
+								
 				            </select>
 				          </div>
 				        </div>
