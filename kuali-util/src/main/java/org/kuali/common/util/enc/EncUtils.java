@@ -18,6 +18,7 @@ package org.kuali.common.util.enc;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Assert;
 
 public class EncUtils {
 
@@ -32,6 +33,7 @@ public class EncUtils {
 	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
 	 */
 	public static TextEncryptor getTextEncryptor(String password, EncStrength strength) {
+		Assert.noBlanks(password);
 		switch (strength) {
 		case BASIC:
 			BasicTextEncryptor basic = new BasicTextEncryptor();
