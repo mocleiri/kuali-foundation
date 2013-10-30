@@ -22,15 +22,13 @@ public final class DefaultEncryptionService implements EncryptionService {
 	@Override
 	public String encrypt(String plainText) {
 		String encryptedText = encryptor.encrypt(plainText);
-		String wrapped = EncUtils.wrap(encryptedText);
-		return wrapped;
+		return EncUtils.wrap(encryptedText);
 	}
 
 	@Override
 	public String decrypt(String encryptedText) {
 		String unwrapped = EncUtils.unwrap(encryptedText);
-		String plainText = encryptor.decrypt(unwrapped);
-		return plainText;
+		return encryptor.decrypt(unwrapped);
 	}
 
 	/**
@@ -41,7 +39,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 		List<String> keys = PropertyUtils.getEncryptedKeys(properties);
 		for (String key : keys) {
 			String encrypted = properties.getProperty(key);
-			String unwrapped = PropertyUtils.unwrapEncryptedValue(encrypted);
+			String unwrapped = EncUtils.unwrap(encrypted);
 			String decrypted = decrypt(unwrapped);
 			properties.setProperty(key, decrypted);
 		}
@@ -58,7 +56,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 		for (String key : keys) {
 			String plaintext = properties.getProperty(key);
 			String encrypted = encrypt(plaintext);
-			String wrapped = PropertyUtils.wrapEncryptedPropertyValue(encrypted);
+			String wrapped = EncUtils.wrap(encrypted);
 			properties.setProperty(key, wrapped);
 		}
 	}
