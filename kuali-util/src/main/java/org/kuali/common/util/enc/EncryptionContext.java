@@ -15,7 +15,7 @@ public final class EncryptionContext {
 	public EncryptionContext(boolean enabled, Optional<String> password, EncStrength strength) {
 		Assert.noNulls(password, strength);
 		if (enabled) {
-			Assert.isTrue(password.isPresent(), "Password is required");
+			Assert.isTrue(password.isPresent(), "Encryption password is required");
 			Assert.noBlanks(password.get());
 		}
 		this.enabled = enabled;
