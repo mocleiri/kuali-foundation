@@ -15,14 +15,13 @@
  */
 package org.kuali.common.util.property.processor;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.PropertyUtils;
+
+import com.google.common.collect.ImmutableList;
 
 public final class TrimmingProcessor implements PropertyProcessor {
 
@@ -30,17 +29,17 @@ public final class TrimmingProcessor implements PropertyProcessor {
 	private final List<String> excludes;
 
 	public TrimmingProcessor(String exclude) {
-		this(CollectionUtils.singletonList(exclude));
+		this(ImmutableList.of(exclude));
 	}
 
 	public TrimmingProcessor(List<String> excludes) {
-		this(Collections.<String> emptyList(), excludes);
+		this(ImmutableList.<String> of(), excludes);
 	}
 
 	public TrimmingProcessor(List<String> includes, List<String> excludes) {
 		Assert.noNulls(includes, excludes);
-		this.includes = ListUtils.newImmutableArrayList(includes);
-		this.excludes = ListUtils.newImmutableArrayList(excludes);
+		this.includes = ImmutableList.copyOf(includes);
+		this.excludes = ImmutableList.copyOf(excludes);
 	}
 
 	@Override
