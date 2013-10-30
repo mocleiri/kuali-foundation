@@ -16,34 +16,23 @@ $lead_unit = "IN-CARD";
 if ($alt) { $sponsorCode=  '000340 NSF'; } else { $sponsorCode = '000340 NIH'; }
 if ($alt) { $project_title = 'Analysis of Significant Chemical Findings'; } else {	$project_title = 'Analysis of Significant Biological Findings'; }
 
-if(isset($_SESSION['sponsor_code'])) $sponsorCode =   $_SESSION['sponsor_code'];
-if(isset($_SESSION['project_title'])) $project_title =   $_SESSION['project_title'];
-if(isset($_SESSION['project_start'])) $project_start =   $_SESSION['project_start'];
-if(isset($_SESSION['project_end'])) $project_end =   $_SESSION['project_end'];
-if(isset($_SESSION['activity_type'])) $activity_type =   $_SESSION['activity_type'];
-if(isset($_SESSION['lead_unit'])) $lead_unit =   $_SESSION['lead_unit'];
-if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_type'];
-
-# Goal: Simplify this so we can store everything in a big array.
-# CR
-
-// if (isset($_SESSION)) {
-// 	$session_variables_array = array();
-
-// 	foreach ($_SESSION as $session_variable) {
-// 		array_push($session_variables_array, $session_variable);
-// 	}
-// }
+if (isset($_SESSION['sponsor_code'])) $sponsorCode =   $_SESSION['sponsor_code'];
+if (isset($_SESSION['project_title'])) $project_title =   $_SESSION['project_title'];
+if (isset($_SESSION['project_start'])) $project_start =   $_SESSION['project_start'];
+if (isset($_SESSION['project_end'])) $project_end =   $_SESSION['project_end'];
+if (isset($_SESSION['activity_type'])) $activity_type =   $_SESSION['activity_type'];
+if (isset($_SESSION['lead_unit'])) $lead_unit =   $_SESSION['lead_unit'];
+if (isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_type'];
 ?>
 <script>
 /*set stored session value for drop downs
   Tadas Paegle
 */
-   $(document).ready(function(){
-        $('#activity_type').val( "<?php echo $activity_type?>" );
-        $('#lead_unit').val( "<?php echo $lead_unit?>" );
-        $('#proposal_type').val( "<?php echo $proposal_type?>" );
-   });
+$(document).ready(function(){
+    $('#activity_type').val( "<?php echo $activity_type?>" );
+    $('#lead_unit').val( "<?php echo $lead_unit?>" );
+    $('#proposal_type').val( "<?php echo $proposal_type?>" );
+});
 </script>
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>

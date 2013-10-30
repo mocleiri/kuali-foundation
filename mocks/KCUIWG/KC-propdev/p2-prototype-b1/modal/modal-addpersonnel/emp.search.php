@@ -1,6 +1,7 @@
-<?php session_start();
+<?php
 
- include "keypersonnel.data.php";
+session_start();
+include ("keypersonnel.data.php");
 
 ?>
 <!DOCTYPE html>
@@ -18,67 +19,76 @@
 <div class="modal-dialog">
   <div class="modal-content">
     
-    <div class="modal-header">
-      <h3>Add Personnel</h3>
-    </div>
+    <!-- <form action="../../session-control-save.php" method="post"> -->
 
-    <div class="modal-body">
-      <fieldset>
-        <legend class="off-screen">Find persons</legend>
+	    <div class="modal-header">
+	      <h3>Add Personnel</h3>
+	    </div>
 
-        <fieldset>
-	  		<legend>Search for:</legend>
-	  		<div class="form-group clearfix">
-		  		<label class="radio" for="keyPersonnelType_Employee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_Employee" value="Employee" checked="checked"> Employees</label>
-		  		<label class="radio" for="keyPersonnelType_NonEmployee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_NonEmployee" value="Non-Employee">Non-Employees</label>
-		  	</div>
-	  	</fieldset>
+	    <div class="modal-body">
+	      <fieldset>
+	        <legend class="off-screen">Find persons</legend>
 
-	  	<fieldset>
-	  		<legend>Enter any known details</legend>
-	        <div class="form-group clearfix">
-	          <label for="last_name" class="control-label col-md-3">Last name</label>
-	          <div class="col-md-5">
-	            <input type="text" id="last_name" name="last_name" class="form-control input-sm col-md-8">
-	          </div>
-	        </div>
+	        <fieldset>
+		  		<legend>Search for:</legend>
+		  		<div class="form-group clearfix">
+			  		<label class="radio" for="keyPersonnelType_Employee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_Employee" value="Employee" checked="checked"> Employees</label>
+			  		<label class="radio" for="keyPersonnelType_NonEmployee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_NonEmployee" value="Non-Employee"> Non-Employees</label>
+			  	</div>
+		  	</fieldset>
 
-	        <div class="form-group clearfix">
-	          <label for="first_name" class="control-label col-md-3">First name</label>
-	          <div class="col-md-5">
-	            <input type="text" id="first_name" name="first_name" class="form-control input-sm col-md-8">
-	          </div>
-	        </div>
+		  	<fieldset>
+		  		<legend>Enter any known details</legend>
+		        <div class="form-group clearfix">
+		          <label for="last_name" class="control-label col-md-3">Last name</label>
+		          <div class="col-md-5">
+		            <input type="text" id="last_name" name="last_name" class="form-control input-sm col-md-8">
+		          </div>
+		        </div>
 
-	        <div class="form-group clearfix">
-	          <label for="username" class="control-label col-md-3">Username</label>
-	          <div class="col-md-5">
-	            <input type="text" id="username" name="username" class="form-control input-sm col-md-8">
-	          </div>
-	        </div>
+		        <div class="form-group clearfix">
+		          <label for="first_name" class="control-label col-md-3">First name</label>
+		          <div class="col-md-5">
+		            <input type="text" id="first_name" name="first_name" class="form-control input-sm col-md-8">
+		          </div>
+		        </div>
 
-	        <div class="form-group clearfix">
-	          <label for="email_address" class="control-label col-md-3">Email address</label>
-	          <div class="col-md-5">
-	            <input type="text" id="email_address" name="email_address" class="form-control input-sm col-md-8" placeholder="user@domain.com">
-	          </div>
-	        </div>
+		        <div class="form-group clearfix">
+		          <label for="username" class="control-label col-md-3">Username</label>
+		          <div class="col-md-5">
+		            <input type="text" id="username" name="username" class="form-control input-sm col-md-8">
+		          </div>
+		        </div>
 
-	        <div class="form-group clearfix">
-	          <label for="office_phone" class="control-label col-md-3">Office phone</label>
-	          <div class="col-md-5">
-	            <input type="tel" id="office_phone" name="office_phone" class="form-control input-sm col-md-8">
-	          </div>
-	        </div>
-	    </fieldset>
+		        <div class="form-group clearfix">
+		          <label for="email_address" class="control-label col-md-3">Email address</label>
+		          <div class="col-md-5">
+		            <input type="text" id="email_address" name="email_address" class="form-control input-sm col-md-8" placeholder="user@domain.com">
+		          </div>
+		        </div>
 
-      </fieldset>
-    </div>
-  
-    <div class="modal-footer" data-spy="">
-      <!-- <button href="emp.search.html" class="btn btn-default">Go back</button> -->
-      <button href="emp.results.php" class="btn btn-primary pull-right">Continue...</button>
-    </div>
+		        <div class="form-group clearfix">
+		          <label for="office_phone" class="control-label col-md-3">Office phone</label>
+		          <div class="col-md-5">
+		            <input type="tel" id="office_phone" name="office_phone" class="form-control input-sm col-md-8">
+		          </div>
+		        </div>
+		    </fieldset>
+
+	      </fieldset>
+	    </div>
+	  
+	    <div class="modal-footer" data-spy="">
+	      <button href="emp.results.php" class="btn btn-primary">Continue...</button>
+
+	      <!--
+	      New method of saving session variables. We'll $POST variables to 
+	      session-control-save.php then redirect using $next to the next page in the proces. -->
+	      <!-- <input type="hidden" name="next" value="modal/modal-addpersonnel/emp.results.php" /> -->
+	      <!-- <input type="submit" class="btn btn-primary" value="Continue..." /> -->
+	    </div>
+
+	<!-- </form> -->
   </div>
 </div>
 

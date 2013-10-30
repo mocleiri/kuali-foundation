@@ -1,6 +1,7 @@
-<?php session_start();
+<?php
 
- include "keypersonnel.data.php";
+session_start();
+include ("keypersonnel.data.php");
 
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,9 @@
 <body>
 <div class="modal-dialog">
 	<div class="modal-content">
+
+		<!-- <form action="../../session-control-save.php" method="post"> -->
+
 		<div class="modal-header">
 			<h3>Add Personnel</h3>
 		</div>
@@ -53,9 +57,15 @@
 		</div>
 
 		<div class="modal-footer">
-			<button href="emp.search.php" class="btn btn-default">Go back</button>
+			<input type="hidden" name="prev" value="modal/modal-addpersonnel/emp.search.php" />
+			<input type="hidden" name="next" value="modal/modal-addpersonnel/emp.role.php" />
+			<!-- <input type="submit" href="emp.search.php" class="btn btn-default" value="Back" />
+			<input type="submit" id="choose-personnel" href="emp.role.php" class="btn btn-primary" value="Next" /> -->
+			<button href="emp.search.php" class="btn btn-default">Back</button>
 			<button id="choose-personnel" href="emp.role.php" class="btn btn-primary">Next</button>
 		</div>
+
+		<!-- </form> -->
 	</div>
 </div>
 
