@@ -1,5 +1,7 @@
 package org.kuali.common.devops.aws.tag;
 
+import com.amazonaws.services.ec2.model.Tag;
+
 public class Tags {
 
 	public enum Name {
@@ -14,8 +16,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public String getValue() {
-			return value;
+		public Tag getTag() {
+			return new Tag(NAME, value);
 		}
 	}
 
@@ -31,8 +33,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public String getValue() {
-			return value;
+		public Tag getTag() {
+			return new Tag(NAME, value);
 		}
 	}
 
@@ -48,8 +50,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public String getValue() {
-			return value;
+		public Tag getTag() {
+			return new Tag(NAME, value);
 		}
 	}
 
@@ -65,8 +67,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public String getValue() {
-			return value;
+		public Tag getTag() {
+			return new Tag(NAME, value);
 		}
 	}
 
@@ -82,8 +84,8 @@ public class Tags {
 			this.value = value;
 		}
 
-		public String getValue() {
-			return value;
+		public Tag getTag() {
+			return new Tag(NAME, value);
 		}
 
 	}

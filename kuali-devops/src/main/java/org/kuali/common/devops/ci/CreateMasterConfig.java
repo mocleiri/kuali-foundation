@@ -74,11 +74,11 @@ public class CreateMasterConfig {
 
 	protected List<Tag> getTags() {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag(Tags.Name.NAME, Tags.Name.MASTER.getValue()));
-		tags.add(new Tag(Tags.Vendor.NAME, Tags.Vendor.JENKINS.getValue()));
-		tags.add(new Tag(Tags.Stack.NAME, Tags.Stack.PRODUCTION.getValue()));
-		tags.add(new Tag(Tags.Team.NAME, Tags.Team.DEVOPS.getValue()));
-		tags.add(new Tag(Tags.Project.NAME, Tags.Project.SHARED.getValue()));
+		tags.add(Tags.Name.MASTER.getTag());
+		tags.add(Tags.Vendor.JENKINS.getTag());
+		tags.add(Tags.Stack.PRODUCTION.getTag());
+		tags.add(Tags.Team.DEVOPS.getTag());
+		tags.add(Tags.Project.SHARED.getTag());
 		return ImmutableList.copyOf(tags);
 	}
 
