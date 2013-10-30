@@ -83,8 +83,10 @@ public final class DecryptingProcessor implements PropertyProcessor {
 		String globalPassword = getRequiredNoneSensitiveValue(properties, GLOBAL_PASSWORD_KEY);
 
 		if (!StringUtils.isBlank(globalPassword)) {
+			// Use global password, if present
 			return globalPassword;
 		} else {
+			// Otherwise fall through to the password they specified
 			return password;
 		}
 	}
@@ -94,10 +96,13 @@ public final class DecryptingProcessor implements PropertyProcessor {
 		String globalStrength = getRequiredNoneSensitiveValue(properties, GLOBAL_STRENGTH_KEY);
 
 		if (!StringUtils.isBlank(globalStrength)) {
+			// Use enc.strength if present
 			return EncStrength.valueOf(globalStrength.toUpperCase());
 		} else if (!StringUtils.isBlank(strength)) {
+			// Otherwise use properties.enc.strength if present
 			return EncStrength.valueOf(strength.toUpperCase());
 		} else {
+			// Otherwise use the default value
 			return EncStrength.DEFAULT_VALUE;
 		}
 	}
