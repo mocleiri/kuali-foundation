@@ -22,6 +22,26 @@ import org.kuali.common.util.Assert;
 
 public class EncUtils {
 
+	public static final String ENCRYPTION_PREFIX = "ENC(";
+	public static final String ENCRYPTION_SUFFIX = ")";
+
+	public static boolean isEncrypted(String text) {
+		Assert.noBlanks(text);
+		return text.startsWith(ENCRYPTION_PREFIX) && text.endsWith(ENCRYPTION_SUFFIX);
+	}
+
+	public static String unwrap(String encryptedText) {
+		Assert.noBlanks(encryptedText);
+		Assert.isTrue(isEncrypted(encryptedText), "Text is not wrapped");
+		return ENCRYPTION_PREFIX + encryptedText + ENCRYPTION_SUFFIX;
+	}
+
+	public static String wrap(String encryptedText) {
+		Assert.noBlanks(encryptedText);
+		Assert.isFalse(isEncrypted(encryptedText), "Text is already wrapped");
+		return ENCRYPTION_PREFIX + encryptedText + ENCRYPTION_SUFFIX;
+	}
+
 	/**
 	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
 	 */
