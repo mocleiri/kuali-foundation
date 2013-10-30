@@ -99,11 +99,14 @@ public class SpringUtils {
 		}
 	}
 
+	/**
+	 * If there is no value for <code>key</code> or the value is NULL or NONE, return Optional.absent(), otherwise return Optional.of(value)
+	 */
 	public static Optional<String> getOptionalString(EnvironmentService env, String key) {
 		if (!env.containsProperty(key)) {
 			return Optional.absent();
 		} else {
-			return Optional.of(env.getString(key));
+			return Optional.fromNullable(NullUtils.trimToNull(env.getString(key)));
 		}
 	}
 

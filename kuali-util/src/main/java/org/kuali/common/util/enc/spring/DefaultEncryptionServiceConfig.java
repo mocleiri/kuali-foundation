@@ -22,6 +22,7 @@ import com.google.common.base.Optional;
 public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	private static final String PASSWORD_KEY = "enc.password";
+	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
 
 	@Autowired
@@ -42,7 +43,11 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	@Bean
 	public EncryptionContext encryptionContext() {
+		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		if (!password.isPresent() && legacyPassword.isPresent()) {
+			password = legacyPassword;
+		}
 		EncStrength strength = getStrength(EncryptionContext.DEFAULT.getStrength());
 		return new EncryptionContext(password, strength);
 	}
