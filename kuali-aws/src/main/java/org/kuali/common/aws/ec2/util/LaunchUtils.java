@@ -55,7 +55,7 @@ public class LaunchUtils {
 		Optional<String> availabilityZone = SpringUtils.getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
 		List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
 
-		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
+		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
 				.build();
 	}
