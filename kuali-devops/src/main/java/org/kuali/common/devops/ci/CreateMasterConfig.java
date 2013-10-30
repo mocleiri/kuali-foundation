@@ -53,6 +53,7 @@ public class CreateMasterConfig {
 	public Object launchAndThenTerminate() {
 		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
 		Instance instance = service.launchInstance(context);
+		System.out.println(instance);
 		// service.terminateInstance(instance.getInstanceId());
 		return null;
 	}
@@ -73,7 +74,7 @@ public class CreateMasterConfig {
 
 	protected List<Tag> getTags() {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag("Name", "ci-test-server-ok-to-delete"));
+		tags.add(new Tag("Name", "ci.master"));
 		tags.add(new Tag("Vendor", "jenkins"));
 		tags.add(new Tag("Stack", "production"));
 		tags.add(new Tag("Team", "devops"));
