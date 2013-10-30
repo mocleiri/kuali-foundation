@@ -51,7 +51,7 @@ public class CreateMasterConfig {
 
 	@Bean
 	public Object launchAndThenTerminate() {
-		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env, jenkinsMaster());
+		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
 		Instance instance = service.launchInstance(context);
 		// service.terminateInstance(instance.getInstanceId());
 		return null;
