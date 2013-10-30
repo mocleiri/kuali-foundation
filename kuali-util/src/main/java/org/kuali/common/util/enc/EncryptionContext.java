@@ -6,6 +6,8 @@ import com.google.common.base.Optional;
 
 public final class EncryptionContext {
 
+	public static final EncryptionContext DEFAULT = new EncryptionContext();
+
 	public EncryptionContext() {
 		this(false, Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
 	}
