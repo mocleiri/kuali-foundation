@@ -32,7 +32,17 @@ public class LaunchUtils {
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NullUtils.NONE).build();
 
-	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env, LaunchInstanceContext provided) {
+	/**
+	 * Generate a <code>LaunchInstanceContext</code> from the configuration present in the environment
+	 */
+	public static LaunchInstanceContext getContext(EnvironmentService env) {
+		return getContext(env, DEFAULT_CONTEXT);
+	}
+
+	/**
+	 * Use the values from <code>provided</code> except where they are overidden by values from the environment.
+	 */
+	public static LaunchInstanceContext getContext(EnvironmentService env, LaunchInstanceContext provided) {
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
 		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyName()));
 		InstanceType type = getType(env, provided.getType());
@@ -42,30 +52,15 @@ public class LaunchUtils {
 		boolean preventTermination = env.getBoolean(PREVENT_TERMINATION_KEY, provided.isPreventTermination());
 		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
 		List<Tag> tags = getTags(env, provided.getTags());
-		Optional<String> availabilityZone = getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
-
-		// TODO
-		List<String> securityGroups = SpringUtils.getNoneSensitiveListFromCSV(env, SECURITY_GROUPS_KEY);
+		Optional<String> availabilityZone = SpringUtils.getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
+		List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
 
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.get()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
 				.build();
 	}
 
-	public static Optional<String> getString(EnvironmentService env, String key, Optional<String> provided) {
-		Optional<String> value = SpringUtils.getOptionalString(env, key);
-		if (value.isPresent()) {
-			return value;
-		} else {
-			return provided;
-		}
-	}
-
-	public static LaunchInstanceContext getLaunchInstanceContext(EnvironmentService env) {
-		return getLaunchInstanceContext(env, DEFAULT_CONTEXT);
-	}
-
-	public static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
+	protected static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
 		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
 		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
 		if (deleteOnTermination.isPresent()) {
@@ -93,7 +88,7 @@ public class LaunchUtils {
 		}
 	}
 
-	public static List<Tag> getTags(EnvironmentService env, List<Tag> provided) {
+	protected static List<Tag> getTags(EnvironmentService env, List<Tag> provided) {
 		if (env.containsProperty(TAGS_KEY)) {
 			return getTags(env);
 		} else {
@@ -101,7 +96,7 @@ public class LaunchUtils {
 		}
 	}
 
-	public static List<Tag> getTags(EnvironmentService env) {
+	protected static List<Tag> getTags(EnvironmentService env) {
 		List<String> list = SpringUtils.getNoneSensitiveListFromCSV(env, TAGS_KEY, NullUtils.NONE);
 		List<Tag> tags = new ArrayList<Tag>();
 		for (String element : list) {
@@ -115,7 +110,7 @@ public class LaunchUtils {
 		return ImmutableList.copyOf(tags);
 	}
 
-	public static InstanceType getType(EnvironmentService env, InstanceType type) {
+	protected static InstanceType getType(EnvironmentService env, InstanceType type) {
 		return InstanceType.fromValue(env.getString(TYPE_KEY, type.toString()));
 	}
 

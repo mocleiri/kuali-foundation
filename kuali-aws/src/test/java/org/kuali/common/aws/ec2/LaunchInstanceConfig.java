@@ -40,7 +40,7 @@ public class LaunchInstanceConfig {
 
 	@Bean
 	public Object launchAndThenTerminate() {
-		LaunchInstanceContext context = LaunchUtils.getLaunchInstanceContext(env);
+		LaunchInstanceContext context = LaunchUtils.getContext(env);
 		Instance instance = service.launchInstance(context);
 		System.out.println(instance);
 		// service.terminateInstance(instance.getInstanceId());
