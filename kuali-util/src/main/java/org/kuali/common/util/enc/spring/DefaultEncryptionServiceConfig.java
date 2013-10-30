@@ -22,8 +22,9 @@ import com.google.common.base.Optional;
 public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	private static final String PASSWORD_KEY = "enc.password";
-	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
+	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
+	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 
 	@Autowired
 	EnvironmentService env;
@@ -43,9 +44,9 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	@Bean
 	public EncryptionContext encryptionContext() {
-		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
-		if (!password.isPresent() && legacyPassword.isPresent()) {
+		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		if (!env.containsProperty(PASSWORD_KEY) && env.containsProperty(LEGACY_PASSWORD_KEY)) {
 			password = legacyPassword;
 		}
 		EncStrength strength = getStrength(EncryptionContext.DEFAULT.getStrength());
@@ -54,6 +55,10 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	protected EncStrength getStrength(EncStrength provided) {
 		String strength = env.getString(STRENGTH_KEY, provided.name());
+		String legacyStrength = env.getString(LEGACY_STRENGTH_KEY, provided.name());
+		if (!env.containsProperty(STRENGTH_KEY) && env.containsProperty(LEGACY_STRENGTH_KEY)) {
+			strength = legacyStrength;
+		}
 		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
