@@ -24,7 +24,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                if(isset($_SESSION['compliance']) && is_array($_SESSION['compliance'])){
                     foreach($_SESSION['compliance'] as $key=>$entry){
                       //  print_r($entry);
-                      include "modal/modal-compliance/compliance.entry.preview.php";
+                      include "inc/compliance.entry.php";
 
                     }
                 }
