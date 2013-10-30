@@ -1,21 +1,21 @@
 package org.kuali.common.util.property.processor;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
+
+import com.google.common.collect.ImmutableList;
 
 public class ProcessorsProcessor implements PropertyProcessor {
 
 	public ProcessorsProcessor(PropertyProcessor... processors) {
-		this(Arrays.asList(processors));
+		this(ImmutableList.copyOf(processors));
 	}
 
 	public ProcessorsProcessor(List<PropertyProcessor> processors) {
 		Assert.noNulls(processors);
-		this.processors = ListUtils.newImmutableArrayList(processors);
+		this.processors = ImmutableList.copyOf(processors);
 	}
 
 	private final List<PropertyProcessor> processors;
