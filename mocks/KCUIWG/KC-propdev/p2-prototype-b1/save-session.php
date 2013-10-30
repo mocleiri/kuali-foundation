@@ -1,6 +1,9 @@
 <?php session_start();
 
-      //session_destroy();
+    /*
+     *	Saves request variables to $SESSION array to use throughout the application.
+     * 	-- Tadas Paegle
+    */
 
 
     switch($_REQUEST['action']){
@@ -19,10 +22,14 @@
 
      break;
      case "removePersonnelSession":
-          if(isset($_REQUEST["id"])){
-              $id = $_REQUEST["id"];
-               if(isset($_SESSION['person'][$id])) unset($_SESSION['person'][$_REQUEST["id"]]);
-              }
+
+        removeSessionModuleEntry('person');
+
+     break;
+     case "removeComplianceEntry":
+
+        removeSessionModuleEntry('compliance');
+
      break;
      default:
           foreach($_REQUEST as $index=>$field){
@@ -47,7 +54,12 @@
 
     }
 
-
+     function removeSessionModuleEntry($module){
+        if(isset($_REQUEST["id"])){
+            $id = $_REQUEST["id"];
+         if(isset($_SESSION[$module][$id])) unset($_SESSION[$module][$id]);
+        }
+     }
 
     echo "<pre>";
     print_r($_SESSION);

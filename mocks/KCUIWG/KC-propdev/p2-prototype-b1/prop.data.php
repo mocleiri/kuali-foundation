@@ -19,5 +19,3 @@ $group['copi'] = "(COPI)";
 $group['kp'] = "(KP)";
 
 
-
-?>

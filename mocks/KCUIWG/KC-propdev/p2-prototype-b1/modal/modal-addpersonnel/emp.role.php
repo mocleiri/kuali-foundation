@@ -22,7 +22,7 @@ foreach($_SESSION['person'] as $person){
 <link rel="stylesheet" href="../../themes/kc/css/custom.css" />
 
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-</head>
+       </head>
 <body>
 <div class="modal-dialog">
 	<div class="modal-content">

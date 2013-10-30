@@ -18,7 +18,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <h3>Compliance</h3>
         <div class="panel-group" id="accordion">
 
-                <?php include "modal/modal-compliance/compliance.entry.preview.php";?>
+                <?php //include "modal/modal-compliance/compliance.entry.preview.php";?>
+
+          <?php
+                foreach($_SESSION['compliance'] as $key=>$entry){
+                  //  print_r($entry);
+                  include "modal/modal-compliance/compliance.entry.preview.php";
+
+                }
+
+          ?>
 
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -231,6 +240,24 @@ require_once( 'themes/kc/inc/toolbar.php' );
 $('#add_entry').hide();
 $('#compliance_add').click(function() {
 	$('#add_entry').fadeIn();
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $(".remove-compliance-entry").live("click", function(){
+            var container = $(this).parents('div').eq(4);
+
+            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
+             console.log($(this).attr('personnel-id'));
+             var id = $(this).attr('personnel-id');
+             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
+
+             });
+             return false;
+          //   alert($(this).parents('div').eq(4).attr('id'));
+        });
+
 });
 </script>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

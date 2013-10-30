@@ -7,7 +7,6 @@
 ?>
 
 
-
                 <form method="post" class="form-horizontal" id="compliance-form">
                     <input type="hidden" name="action" value="<?php echo $action?>">
                       <div class="form-group clearfix">
@@ -15,18 +14,18 @@
                         <div class="col-md-9">
                           <select name="type" id="type" class="form-control input-sm col-md-8">
                             <option value="0">select</option>
-                            <option value="1">Human Subjects</option>
-                            <option value="2">Animal Usage</option>
-                            <option value="3">Recombinant DNA</option>
-                            <option value="4">Radioactive Isotopes</option>
-                            <option value="5">Biohazard Materials</option>
-                            <option value="6">International Programs</option>
-                            <option value="7">Space Change</option>
-                            <option value="8">TLO Review - No conflict (A)</option>
-                            <option value="9">TLO review - Reviewed, no conflict (B1)</option>
-                            <option value="10">TLO Review - Potential Conflict (B2)</option>
-                            <option value="11">TLO PR-Previously Reviewed</option>
-                            <option value="12">Foundation Relations</option>
+                            <option value="Human Subjects">Human Subjects</option>
+                            <option value="Animal Usage">Animal Usage</option>
+                            <option value="Recombinant DNA">Recombinant DNA</option>
+                            <option value="Radioactive Isotopes">Radioactive Isotopes</option>
+                            <option value="Biohazard Materials">Biohazard Materials</option>
+                            <option value="International Programs">International Programs</option>
+                            <option value="Space Change">Space Change</option>
+                            <option value="TLO Review - No conflict (A)">TLO Review - No conflict (A)</option>
+                            <option value="TLO review - Reviewed, no conflict (B1)">TLO review - Reviewed, no conflict (B1)</option>
+                            <option value="TLO Review - Potential Conflict (B2)">TLO Review - Potential Conflict (B2)</option>
+                            <option value="TLO PR-Previously Reviewed">TLO PR-Previously Reviewed</option>
+                            <option value="Foundation Relations">Foundation Relations</option>
                           </select>
                         </div>
                       </div>
@@ -35,12 +34,12 @@
                         <div class="col-md-9">
                           <select name="approval_status" id="approval_status" class="form-control input-sm col-md-8">
                             <option value="0">select</option>
-                            <option value="1">Approved</option>
-                            <option value="2">Exempt</option>
-                            <option value="3">Link to IACUC</option>
-                            <option value="4">Link to IRB</option>
-                            <option value="5">Not yet applied</option>
-                            <option value="6">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Exempt">Exempt</option>
+                            <option value="Link to IACUC">Link to IACUC</option>
+                            <option value="Link to IRB">Link to IRB</option>
+                            <option value="Not yet applied">Not yet applied</option>
+                            <option value="Pending">Pending</option>
                           </select>
                         </div>
                       </div>

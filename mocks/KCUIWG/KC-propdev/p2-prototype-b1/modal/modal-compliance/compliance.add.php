@@ -20,26 +20,12 @@ $(document).ready(function(){
 
     $('#update-compliance-entry').click(function(e){
 
-        $( "#compliance-form select").each(function(){
-              $(this +  " option").each(function(i,v){
-              if($(this).is(':selected')){
-                                console.log('selected');
-                              }
-
-              });
-
-
-               console.log('hi');
-            });
-            return false;
-
         var data = $('#compliance-form').serialize();
 
         console.log(data);
 
         $.post('../../save-session.php', data, function(t){
             console.log(t);
-            //window.location = $('#choose-personnel').attr('href');
         });
 
         return false;
