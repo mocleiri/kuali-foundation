@@ -65,6 +65,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 		if (!env.containsProperty(STRENGTH_KEY) && env.containsProperty(LEGACY_STRENGTH_KEY)) {
 			strength = legacyStrength;
 		}
+
+		// Convert the string value to an enum
 		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
