@@ -41,6 +41,8 @@ import com.google.common.collect.ImmutableList;
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class })
 public class CreateMasterConfig {
 
+	private static final int TWENTY_FIVE_GIGABYTES = 25;
+
 	@Autowired
 	EC2Service service;
 
@@ -63,7 +65,7 @@ public class CreateMasterConfig {
 		String zone = DevOpsAwsConstants.US_EAST_1D;
 		List<String> securityGroups = SecurityGroupName.getValues(SecurityGroupName.SSH, SecurityGroupName.HTTP, SecurityGroupName.HTTPS);
 		List<Tag> tags = getTags();
-		RootVolume rootVolume = new RootVolume(25);
+		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = true;
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
 				.rootVolume(rootVolume).build();
