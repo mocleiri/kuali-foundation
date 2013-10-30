@@ -21,12 +21,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 <?php //include "modal/modal-compliance/compliance.entry.preview.php";?>
 
           <?php
-                foreach($_SESSION['compliance'] as $key=>$entry){
-                  //  print_r($entry);
-                  include "modal/modal-compliance/compliance.entry.preview.php";
+               if(isset($_SESSION['compliance']) && is_array($_SESSION['compliance'])){
+                    foreach($_SESSION['compliance'] as $key=>$entry){
+                      //  print_r($entry);
+                      include "modal/modal-compliance/compliance.entry.preview.php";
 
+                    }
                 }
-
           ?>
 
           <div class="panel panel-default">
