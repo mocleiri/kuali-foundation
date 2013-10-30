@@ -21,6 +21,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.google.common.collect.ImmutableList;
+
 @Configuration
 @Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
 public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
@@ -65,7 +67,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new DecryptingProcessor(passwordKey);
 		PropertyProcessor resolve = new ResolvingProcessor();
-		PropertyProcessor trim = new TrimmingProcessor(passwordKey);
+		PropertyProcessor trim = new TrimmingProcessor(ImmutableList.of(passwordKey), ImmutableList.<String> of());
 		return new ProcessorsProcessor(override, decrypt, resolve, trim);
 	}
 
