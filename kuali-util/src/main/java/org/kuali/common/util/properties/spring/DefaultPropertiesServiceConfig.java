@@ -13,15 +13,12 @@ import org.kuali.common.util.property.processor.OverridingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
-import org.kuali.common.util.property.processor.TrimmingProcessor;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
@@ -67,8 +64,8 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new DecryptingProcessor(passwordKey);
 		PropertyProcessor resolve = new ResolvingProcessor();
-		PropertyProcessor trim = new TrimmingProcessor(ImmutableList.of(passwordKey), ImmutableList.<String> of());
-		return new ProcessorsProcessor(override, decrypt, resolve, trim);
+		// PropertyProcessor trim = new TrimmingProcessor(ImmutableList.of(passwordKey), ImmutableList.<String> of());
+		return new ProcessorsProcessor(override, decrypt, resolve);
 	}
 
 }
