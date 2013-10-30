@@ -6,6 +6,10 @@ import com.google.common.base.Optional;
 
 public final class EncryptionContext {
 
+	public EncryptionContext() {
+		this(false, Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
+	}
+
 	public EncryptionContext(boolean enabled, Optional<String> password, EncStrength strength) {
 		Assert.noNulls(password, strength);
 		if (enabled) {
