@@ -4,14 +4,18 @@ import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionContext;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.NoOpEncryptionService;
+import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import com.google.common.base.Optional;
 
 @Configuration
 @Import({ SpringServiceConfig.class })
@@ -27,18 +31,27 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	@Override
 	@Bean
 	public EncryptionService encryptionService() {
-		boolean enabled = env.getBoolean(ENABLED_KEY, false);
-		if (!enabled) {
+		EncryptionContext context = encryptionContext();
+		if (!context.isEnabled()) {
 			return NoOpEncryptionService.INSTANCE;
 		}
-		String password = env.getString(PASSWORD_KEY);
-		EncStrength strength = getStrength();
+		String password = context.getPassword().get();
+		EncStrength strength = context.getStrength();
 		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, strength);
 		return new DefaultEncryptionService(encryptor);
 	}
 
-	protected EncStrength getStrength() {
-		String strength = env.getString(STRENGTH_KEY, EncStrength.BASIC.name());
+	@Bean
+	public EncryptionContext encryptionContext() {
+		EncryptionContext defaultContext = new EncryptionContext();
+		boolean enabled = env.getBoolean(ENABLED_KEY, defaultContext.isEnabled());
+		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, defaultContext.getPassword());
+		EncStrength strength = getStrength(defaultContext.getStrength());
+		return new EncryptionContext(enabled, password, strength);
+	}
+
+	protected EncStrength getStrength(EncStrength provided) {
+		String strength = env.getString(STRENGTH_KEY, provided.name());
 		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
