@@ -20,13 +20,17 @@ public final class DefaultEncryptionService implements EncryptionService {
 	}
 
 	@Override
-	public String encrypt(String string) {
-		return encryptor.encrypt(string);
+	public String encrypt(String plainText) {
+		String encryptedText = encryptor.encrypt(plainText);
+		String wrapped = EncUtils.wrap(encryptedText);
+		return wrapped;
 	}
 
 	@Override
-	public String decrypt(String string) {
-		return encryptor.decrypt(string);
+	public String decrypt(String encryptedText) {
+		String unwrapped = EncUtils.unwrap(encryptedText);
+		String plainText = encryptor.decrypt(unwrapped);
+		return plainText;
 	}
 
 	/**
