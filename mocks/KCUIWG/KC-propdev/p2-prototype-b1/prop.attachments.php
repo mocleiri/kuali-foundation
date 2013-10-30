@@ -329,6 +329,58 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-3">
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse8"><span aria-hidden="true" class="icon-caret-right"></span> Biosketch</a> </h4>
+                    </div>
+                    <div class="col-md-3"> KGbiosketch.pdf </div>
+                    <div class="col-md-3"> Ken Graves </div>
+                    <div class="col-md-3"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+                  </div>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form method="post" class="form-horizontal">
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">Added by:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="type" class="control-label col-md-3">Person:</label>
+                        <div class="col-md-9">
+                          <p class="form-control-static">Ken Graves</p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="approval_status" class="control-label col-md-3">Attachment Type:</label>
+                        <div class="col-md-9">
+                          <p class="form-control-static">Biosketch</p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">File:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static"> <span class="pull-left"> <span aria-hidden="true" class="icon-file-2"></span> <a href="#"> KGbiosketch.pdf</a></span> </p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">Description:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</p>
+                        </div>
+                      </div>
+                      <div class="btn-row-widget-action pull-right">
+                        <button class="btn btn-primary btn-xs" id=""> Edit</button>
+                        <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-md-3">
                       <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse4"><span aria-hidden="true" class="icon-caret-right"></span> Biosketch</a> </h4>
                     </div>
                     <div class="col-md-3"> KGbiosketch.pdf </div>
@@ -399,16 +451,58 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 </div>
               </div>
             </div>
-            
             <div class="btn-row-widget-action">
               <button class="btn btn-default btn-xs" id=""><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
             </div>
-            
-            
           </div>
           <div class="tab-pane" id="internal">
             <h4>Internal</h4>
             <div class="panel-group" id="accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse9"><span aria-hidden="true" class="icon-caret-right"></span> MIT Cost-Sharing Distribution</a> </h4>
+                    </div>
+                    <div class="col-md-3"> MIT-costsharingdoc.pdf </div>
+                    <div class="col-md-3"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+                  </div>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form method="post" class="form-horizontal">
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">Added by:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="approval_status" class="control-label col-md-3">Attachment Type:</label>
+                        <div class="col-md-9">
+                          <p class="form-control-static">MIT Cost-Sharing Distribution</p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">File:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static"> <span class="pull-left"> <span aria-hidden="true" class="icon-file-2"></span> <a href="#"> MIT-costsharingdoc.pdf</a></span> </p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">Description:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</p>
+                        </div>
+                      </div>
+                      <div class="btn-row-widget-action pull-right">
+                        <button class="btn btn-primary btn-xs" id=""> Edit</button>
+                        <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="row">
@@ -472,13 +566,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 </div>
               </div>
             </div>
-            
-             
             <div class="btn-row-widget-action">
               <button class="btn btn-default btn-xs" id=""><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
             </div>
-            
-            
           </div>
           <div class="tab-pane" id="abstracts">
             <h4>Abstracts</h4>
@@ -513,32 +603,85 @@ require_once( 'themes/kc/inc/toolbar.php' );
                           <p class="form-control-static">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</p>
                         </div>
                       </div>
+                      
+                      
+                      <div class="btn-row-widget-action pull-right">
+                        <button class="btn btn-primary btn-xs" id=""> Edit</button>
+                        <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                      </div>
+                      
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse10"><span aria-hidden="true" class="icon-caret-right"></span> Project Summary</a> </h4>
+                    </div>
+                    <div class="col-md-3"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+                  </div>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form method="post" class="form-horizontal">
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">Added by:</label>
+                        <div class="col-md-9 input-group">
+                          <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="approval_status" class="control-label col-md-3">Abstract Type:</label>
+                        <div class="col-md-9">
+                          <select name="type3" id="type3" class="form-control input-sm col-md-8">
+                            <option value="">select</option>
+                            <option value="1" selected="selected">Project Summary</option>
+                            <option value="2">Technical Abstract</option>
+                            <option value="4">Labs</option>
+                            <option value="5">Clinical</option>
+                            <option value="6">Animal</option>
+                            <option value="7">Computer</option>
+                            <option value="8">Office</option>
+                            <option value="9">Other Facilities</option>
+                            <option value="10">Equipment</option>
+                            <option value="11">Other Resources</option>
+                            <option value="12">Suggested Reviewers</option>
+                            <option value="13">Publications</option>
+                            <option value="14">Reviewers Not to Include</option>
+                            <option value="15">Deviation Authorization</option>
+                            <option value="16">Areas Affected</option>
+                            <option value="17">Relevance</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group clearfix">
+                        <label for="" class="control-label col-md-3">Abstract Details:</label>
+                        <div class="col-md-9 input-group">
+                          <textarea class="form-control" rows="5">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</textarea>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="btn-row-widget-action pull-right">
+                        <button class="btn btn-primary btn-xs" id=""> Save</button>
+                        <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                      </div>
+                      
+                      
                     </form>
                   </div>
                 </div>
               </div>
             </div>
-             
             <div class="btn-row-widget-action">
               <button class="btn btn-default btn-xs" id=""><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
             </div>
-            
-            
-            
           </div>
           <div class="tab-pane" id="notes">
             <h4>Notes</h4>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             <div class="panel-group" id="accordion">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -546,16 +689,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     <div class="col-md-6">
                       <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse7"><span aria-hidden="true" class="icon-caret-right"></span>My Note Title</a> </h4>
                     </div>
-                    
-                     <div class="col-md-3"> McGregor, Geoff </div>
-                    
+                    <div class="col-md-3"> McGregor, Geoff </div>
                     <div class="col-md-3"> 10/29/2013 09:58 AM </div>
-                    
-                    
-                   
-                    
-                    
-                    
                   </div>
                 </div>
                 <div id="collapse7" class="panel-collapse collapse">
@@ -584,20 +719,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 </div>
               </div>
             </div>
-            
-            
-             
             <div class="btn-row-widget-action">
               <button class="btn btn-default btn-xs" id=""><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
             </div>
-            
-            
-            
-            
-            
-            
-            
-            
           </div>
         </div>
         
