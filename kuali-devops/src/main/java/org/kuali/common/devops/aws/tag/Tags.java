@@ -19,6 +19,23 @@ public class Tags {
 		}
 	}
 
+	public enum Vendor {
+
+		JENKINS("jenkins"), TOMCAT("tomcat"), ORACLE("oracle");
+
+		public static final String NAME = "Vendor";
+
+		private final String value;
+
+		private Vendor(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+	}
+
 	public enum Stack {
 
 		DEVELOPMENT("development"), TESTING("testing"), STAGING("staging"), PRODUCTION("production");

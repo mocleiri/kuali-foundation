@@ -25,6 +25,7 @@ import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.DevOpsAwsConstants;
 import org.kuali.common.devops.aws.SecurityGroupName;
+import org.kuali.common.devops.aws.tag.Tags;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,11 +74,11 @@ public class CreateMasterConfig {
 
 	protected List<Tag> getTags() {
 		List<Tag> tags = new ArrayList<Tag>();
-		tags.add(new Tag("Name", "ci.master"));
-		tags.add(new Tag("Vendor", "jenkins"));
-		tags.add(new Tag("Stack", "production"));
-		tags.add(new Tag("Team", "devops"));
-		tags.add(new Tag("Project", "shared"));
+		tags.add(new Tag(Tags.Name.NAME, Tags.Name.MASTER.getValue()));
+		tags.add(new Tag(Tags.Vendor.NAME, Tags.Vendor.JENKINS.getValue()));
+		tags.add(new Tag(Tags.Stack.NAME, Tags.Stack.PRODUCTION.getValue()));
+		tags.add(new Tag(Tags.Team.NAME, Tags.Team.DEVOPS.getValue()));
+		tags.add(new Tag(Tags.Project.NAME, Tags.Project.SHARED.getValue()));
 		return ImmutableList.copyOf(tags);
 	}
 
