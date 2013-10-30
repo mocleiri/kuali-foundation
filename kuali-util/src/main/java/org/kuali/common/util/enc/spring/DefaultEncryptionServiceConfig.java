@@ -23,6 +23,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	private static final String PASSWORD_KEY = "enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
+
+	// Old property names
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 
@@ -46,6 +48,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	public EncryptionContext encryptionContext() {
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
 		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+
+		// Always use the new property if it exists, but support using the old property as well
 		if (!env.containsProperty(PASSWORD_KEY) && env.containsProperty(LEGACY_PASSWORD_KEY)) {
 			password = legacyPassword;
 		}
@@ -56,6 +60,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	protected EncStrength getStrength(EncStrength provided) {
 		String strength = env.getString(STRENGTH_KEY, provided.name());
 		String legacyStrength = env.getString(LEGACY_STRENGTH_KEY, provided.name());
+
+		// Always use the new property if it exists, but support using the old property as well
 		if (!env.containsProperty(STRENGTH_KEY) && env.containsProperty(LEGACY_STRENGTH_KEY)) {
 			strength = legacyStrength;
 		}
