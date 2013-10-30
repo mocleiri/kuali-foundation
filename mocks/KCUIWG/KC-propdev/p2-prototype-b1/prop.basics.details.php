@@ -182,7 +182,7 @@ $(document).ready(function(){
 								</div>
 
 								<div class="form-group clearfix">
-									<label for="inst_proposal_id" class="control-label col-md-3">Institutional Proposal ID:</label>
+									<label for="inst_proposal_id" class="control-label col-md-3">Original Institutional Proposal ID:</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="inst_proposal_id" id="inst_proposal_id" />
 										<div class="helper-text">
