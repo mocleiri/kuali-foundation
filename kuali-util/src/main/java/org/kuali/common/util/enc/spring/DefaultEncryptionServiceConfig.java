@@ -24,7 +24,7 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	private static final String PASSWORD_KEY = "enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
 
-	// Old property names
+	// Old key's
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 
