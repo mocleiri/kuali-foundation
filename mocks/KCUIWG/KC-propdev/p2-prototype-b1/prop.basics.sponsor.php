@@ -38,12 +38,33 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 						</div>
+                        
+                        
+                        
+                      <div class="form-group clearfix">
+					      <label for="sponsor_deadline_type" class="control-label col-md-3 required">* Sponsor Deadline Type: </label>
+					      <div class="col-md-9">
+					        <select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8">
+					        	    <option value="" selected="selected">select</option>
+									<option value="Postmark">Postmark</option>
+									<option value="Receipt">Receipt</option>
+									<option value="Target Date">Target Date</option>
+				        		
+				        		
+									
+								
+				            </select>
+				          </div>
+				        </div>
+                        
+                        
+                        
 
 					    <div class="form-group clearfix">
 					      <label for="notice_of_opp" class="control-label col-md-3 required">* Notice of Opportunity: </label>
 					      <div class="col-md-9">
 					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
-					        	
+					        	        <option value="" selected="selected">select</option>
 									<option value="1">Federal Solicitation</option>
 									<option value="6">Non-Federal Solicitation</option>
 									<option value="2">Unsolicited</option>
