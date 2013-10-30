@@ -25,7 +25,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					    <legend style="display:none">Enter sponsor information</legend>
 
 					    <div class="form-group clearfix">
-							<label class="control-label col-md-3 required" for="project_start">* Sponsor deadline: </label>
+							<label class="control-label col-md-3 required" for="project_start"> Sponsor deadline: </label>
 							<div class="col-md-9 date-range">
 								<div class="col-md-6 date">
 									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
@@ -42,7 +42,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         
                         
                       <div class="form-group clearfix">
-					      <label for="sponsor_deadline_type" class="control-label col-md-3 required">* Sponsor Deadline Type: </label>
+					      <label for="sponsor_deadline_type" class="control-label col-md-3 required"> Sponsor Deadline Type: </label>
 					      <div class="col-md-9">
 					        <select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8">
 					        	    <option value="" selected="selected">select</option>
