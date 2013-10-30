@@ -21,7 +21,6 @@ import com.google.common.base.Optional;
 @Import({ SpringServiceConfig.class })
 public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
-	private static final String ENABLED_KEY = "enc.enabled";
 	private static final String PASSWORD_KEY = "enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
 
@@ -44,10 +43,9 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	@Bean
 	public EncryptionContext encryptionContext() {
 		EncryptionContext defaultContext = EncryptionContext.DEFAULT;
-		boolean enabled = env.getBoolean(ENABLED_KEY, defaultContext.isEnabled());
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, defaultContext.getPassword());
 		EncStrength strength = getStrength(defaultContext.getStrength());
-		return new EncryptionContext(enabled, password, strength);
+		return new EncryptionContext(password, strength);
 	}
 
 	protected EncStrength getStrength(EncStrength provided) {
