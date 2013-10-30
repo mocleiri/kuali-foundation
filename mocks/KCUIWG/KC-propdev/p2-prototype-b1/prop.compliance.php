@@ -23,9 +23,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 <div class="col-md-3">
                   <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span aria-hidden="true" class="icon-caret-right"></span> Space Change</a> </h4>
                 </div>
-                <div class="col-md-3"> #7039486VC </div>
-                <div class="col-md-3"> Approved </div>
-                <div class="col-md-3"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+                <div class="col-md-2"> Approved </div>
+                <div class="col-md-3">#7039486VC</div>
+                <div class="col-md-3"> Exp: 05/01/2014 </div>
+                <div class="col-md-1"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
               </div>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
@@ -87,9 +88,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 <div class="col-md-3">
                   <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><span aria-hidden="true" class="icon-caret-right"></span> International Programs</a> </h4>
                 </div>
-                <div class="col-md-3"> #7236471AC </div>
-                <div class="col-md-3"> Approved </div>
-                <div class="col-md-3"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
+                <div class="col-md-2"> Approved </div>
+                <div class="col-md-3">#7236471AC</div>
+                <div class="col-md-3"> Exp: 05/01/2014 </div>
+                <div class="col-md-1"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove"></span></a> </div>
               </div>
             </div>
             <div id="collapse2" class="panel-collapse collapse">
@@ -142,7 +144,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   <div class="form-group clearfix">
                     <label for="exemption_no" class="control-label col-md-3">Approval Date:</label>
                     <div class="col-md-9">
-                      <input type="text" name="exemption_no" id="exemption_no" class="form-control input-sm col-md-8" value="888JJKDF">
+                      <input type="text" name="exemption_no" id="exemption_no" class="form-control input-sm col-md-8" value="12/12/2013">
                     </div>
                   </div>
                   <div class="form-group clearfix">
@@ -251,7 +253,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     <label for="exemption_no" class="control-label col-md-3">Exemption:</label>
                     <div class="col-md-9">
                       <select name="exemptions" id="exemptions" class="form-control input-sm col-md-8" multiple>
-                           <option >E1</option>
+                        <option >E1</option>
                         <option >E2</option>
                         <option >E3</option>
                         <option >E4</option>
