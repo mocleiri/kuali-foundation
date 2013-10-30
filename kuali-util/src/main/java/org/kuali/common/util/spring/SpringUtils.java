@@ -64,6 +64,33 @@ public class SpringUtils {
 
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
+	public static Optional<String> getString(EnvironmentService env, String key, Optional<String> provided) {
+		Optional<String> value = getOptionalString(env, key);
+		if (value.isPresent()) {
+			return value;
+		} else {
+			return provided;
+		}
+	}
+
+	public static Optional<Boolean> getBoolean(EnvironmentService env, String key, Optional<Boolean> provided) {
+		Optional<Boolean> value = getOptionalBoolean(env, key);
+		if (value.isPresent()) {
+			return value;
+		} else {
+			return provided;
+		}
+	}
+
+	public static Optional<Integer> getInteger(EnvironmentService env, String key, Optional<Integer> provided) {
+		Optional<Integer> value = getOptionalInteger(env, key);
+		if (value.isPresent()) {
+			return value;
+		} else {
+			return provided;
+		}
+	}
+
 	public static Optional<Integer> getOptionalInteger(EnvironmentService env, String key) {
 		if (!env.containsProperty(key)) {
 			return Optional.absent();
