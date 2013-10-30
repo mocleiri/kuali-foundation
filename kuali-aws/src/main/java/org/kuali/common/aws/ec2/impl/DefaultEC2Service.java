@@ -76,7 +76,7 @@ public final class DefaultEC2Service implements EC2Service {
 		private Optional<Region> region = Optional.absent(); // Every AWS account has a default region
 		private Optional<String> endpoint = Optional.absent(); // Every AWS account has a default endpoint
 		private Optional<ClientConfiguration> configuration = Optional.absent(); // This allows advanced customization (eg connecting to AWS through a proxy)
-		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) the real time
+		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) correct time
 
 		// Filled in by the build() method
 		private AmazonEC2Client client;
