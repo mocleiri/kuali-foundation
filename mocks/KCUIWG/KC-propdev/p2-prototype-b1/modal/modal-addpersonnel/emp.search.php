@@ -1,3 +1,8 @@
+<?php session_start();
+
+ include "keypersonnel.data.php";
+
+?>
 <!DOCTYPE html>
 <head>
 <link rel="stylesheet" href="../../themes/bootstrap/css/bootstrap.css" />
@@ -24,7 +29,7 @@
         <fieldset>
 	  		<legend>Search for:</legend>
 	  		<div class="form-group clearfix">
-		  		<label class="radio" for="keyPersonnelType_Employee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_Employee" value="Employee"> Employees</label>
+		  		<label class="radio" for="keyPersonnelType_Employee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_Employee" value="Employee" checked="checked"> Employees</label>
 		  		<label class="radio" for="keyPersonnelType_NonEmployee"><input type="radio" name="keyPersonnelType" id="keyPersonnelType_NonEmployee" value="Non-Employee">Non-Employees</label>
 		  	</div>
 	  	</fieldset>

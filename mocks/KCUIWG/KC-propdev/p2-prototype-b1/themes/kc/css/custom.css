@@ -407,6 +407,11 @@ section.toolbar .dropdown a .caret {
 #Uif-PageContentWrapper:focus {
   outline: none;
 }
+fieldset fieldset legend {
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: 0px;
+}
 /*
 	Overriding the default Bootstrap input styles to better match the Chosen styles
 	Chris Rodriguez

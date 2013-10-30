@@ -27,7 +27,7 @@ foreach($_SESSION['person'] as $person){
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h3>Add Personnel</h3> <span>Employee Search</span>
+			<h3>Add Personnel</h3>
 		</div>
 
 		<div class="modal-body">
@@ -58,8 +58,8 @@ foreach($_SESSION['person'] as $person){
 		</div>
 
 		<div class="modal-footer" data-spy="">
-			<a href="emp.results.html" class="btn btn-default">Go back</a>
-			<a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-primary pull-right" id="add-person">Add Person</a>
+			<button href="emp.results.php" class="btn btn-default">Go back</button>
+			<a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-primary" id="add-person">Add Person</a>
 		</div>
 	</div>
 </div>

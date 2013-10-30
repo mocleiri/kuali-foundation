@@ -30,7 +30,7 @@ $keyPersonnelMessage = "";
         <h3>Key Personnel</h3>
         <p><?php echo $keyPersonnelMessage?></p>
         <div class="btn-row-widget-action">
-          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/start.html"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
+          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>
 
          <div id="personnel-container">

@@ -18,7 +18,7 @@
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h3>Add Personnel</h3> <span>Employee Search</span>
+			<h3>Add Personnel</h3>
 		</div>
 
 		<div class="modal-body">
@@ -37,8 +37,8 @@
                                if(!isset($_SESSION['person'][$id])) {   ?>
 
                            <tr>
-                                <td><input type="radio" value="<?php echo $id?>" name="personnelId"/></td>
-                                <td><?php echo $person['name']?></td>
+                                <td><input type="radio" value="<?php echo $id?>" name="personnelId" id="personnelId_<?php echo $id ?>" /></td>
+                                <td><label for="personnelId_<?php echo $id ?>"><?php echo $person['name']?></label></td>
                                 <td><?php echo $person['user']?></td>
                             </tr>
 
@@ -53,8 +53,8 @@
 		</div>
 
 		<div class="modal-footer">
-			<a href="emp.search.html" class="btn btn-default">Go back</a>
-			<a id="choose-personnel" href="emp.role.php" class="btn btn-primary pull-right">Next</a>
+			<button href="emp.search.php" class="btn btn-default">Go back</button>
+			<button id="choose-personnel" href="emp.role.php" class="btn btn-primary">Next</button>
 		</div>
 	</div>
 </div>
