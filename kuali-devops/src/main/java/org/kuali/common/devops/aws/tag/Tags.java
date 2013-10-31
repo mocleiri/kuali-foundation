@@ -23,7 +23,7 @@ public class Tags {
 
 	public enum Vendor {
 
-		JENKINS("jenkins"), TOMCAT("tomcat"), ORACLE("oracle");
+		JENKINS("jenkins"), TOMCAT("tomcat"), ORACLE("oracle"), MYSQL("mysql");
 
 		public static final String NAME = "Vendor";
 
