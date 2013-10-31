@@ -16,19 +16,19 @@ require_once( 'inc/head.php' );
 				<legend class="off-screen">Copy document</legend>
 				<table class="table table-condensed table-borderless">
 					<tr>
-						<td><label class="control-label col-lg-5" for="proposal">Proposal</label></td>
+						<td><label class="control-label col-lg-2" for="proposal">Proposal</label></td>
 						<td><input type="text" id="attachments" placeholder="" class="form-control input-sm disabled" value="Yes" disabled="disabled" /></td>
 					</tr>
 					<tr>
-						<td><label class="control-label col-lg-5" for="budget"> Budget?</label></td>
+						<td><label class="control-label col-lg-2" for="budget"> Budget?</label></td>
 						<td>
-							<select name="select" id="budget" class="form-control  input-sm" title="Budget" required="required">
+							<select name="select" id="budget" class="form-control input-sm" title="Budget" required="required">
 								<option value="" selected="selected">all versions</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
-						<td><label class="control-label col-lg-5" for="lead-unit"> * Lead Unit</label></td>
+						<td><label class="control-label col-lg-2" for="lead-unit"> * Lead Unit</label></td>
 						<td>
 							<select name="lead-unit" id="lead-unit" style="" class="form-control input-sm" title="* Lead Unit" required="required">
 								<option value="">Select</option>
@@ -40,12 +40,12 @@ require_once( 'inc/head.php' );
 						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td><input type="checkbox" id="attachments1" name="attachments" placeholder="" class="input-sm" /> <label class="control-label col-lg-5" for="attachments1">Attachments?</label></td>
+						<td><label class="control-label col-lg-2" for="attachments1">Attachments</label></td>
+						<td><input type="checkbox" id="attachments1" class="checkbox pull-left" /> Yes, include attachments</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td><input type="checkbox" id="questionaires" name="questionaires" placeholder="" class="input-sm" /> <label class="control-label col-lg-5" for="questionaires">Questionaires?</label></td>
+						<td><label class="control-label col-lg-2" for="questionaires">Questionaires</label></td>
+						<td><input type="checkbox" id="questionaires" class="checkbox pull-left" /> Yes, include questionnaires</td>
 					</tr>
 				</table>
 			</fieldset>
