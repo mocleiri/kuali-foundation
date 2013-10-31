@@ -44,8 +44,35 @@
                     </div>
                   </div>
                   <div class="btn-row-widget-action pull-right">
-                    <button class="btn btn-primary btn-xs edit-entry" complianceId="<?php echo $id?>"> Edit</button>
-                    <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                    <button class="btn btn-primary btn-xs edit-entry" complianceEntryId="<?php echo $id?>" id="edit_entry<?php echo $id?>"> Edit</button>
+                    <button class="btn btn-link btn-xs" complianceEntryId="<?php echo $id?>" id="cancel_preview<?php echo $id?>"> Cancel</button>
                   </div>
                 </form>
+  <script>
+  $(document).ready(function(){
 
+
+   $('#edit_entry<?php echo $id?>').click(function(){
+         //alert('test');
+         var container = $(this).parent('div').parent('form').parent('div');
+         $.post('process.php', {"action": "editComplianceEntry", "id" : $(this).attr('complianceEntryId') }, function(t){
+             $(container).html(t);
+
+         });
+
+         console.log(container);
+
+         return false;
+   });
+
+    $('#cancel_preview<?php echo $id?>').click(function(){
+
+        $("#collapse<?php echo $id?>").collapse('hide');
+        return false;
+    });
+
+
+
+
+  });
+  </script>

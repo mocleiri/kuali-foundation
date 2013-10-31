@@ -1,11 +1,4 @@
-<?php
-
-
-    $actionLabel = "Add";
-    $action = "addComplianceEntry";
-
-?>
-    <script>
+<script>
 
       $(document).ready(function(){
           $('#compliance-form<?php echo $id?> #type').val("<?php echo $entry['type']?>");
@@ -15,7 +8,6 @@
     </script>
 
                 <form method="post" class="form-horizontal" id="compliance-form<?php echo $id?>">
-                    <input type="hidden" name="action" value="<?php echo $action?>">
                       <div class="form-group clearfix">
                         <label for="type" class="control-label col-md-3">Type:</label>
                         <div class="col-md-9">
@@ -88,7 +80,7 @@
                         </div>
                       </div>
                       <div class="btn-row-widget-action pull-right">
-                        <button class="btn btn-primary btn-xs" id="update-compliance-entry"> <?php echo $actionLabel?></button>
-                        <button class="btn btn-link btn-xs" id=""> Cancel</button>
+                        <button class="btn btn-primary btn-xs update-compliance-entry" complianceEntryId="<?php echo $id?>"> <?php echo $actionLabel?></button>
+                        <button class="btn btn-link btn-xs cancel-update-compliance-entry" complianceEntryId="<?php echo $id?>"> Cancel</button>
                       </div>
                     </form>

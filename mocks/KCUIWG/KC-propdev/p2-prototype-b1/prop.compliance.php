@@ -7,6 +7,37 @@ require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 ?>
+<script>
+$(document).ready(function(){
+    $(".remove-compliance-entry").live("click", function(){
+            var container = $(this).parents('div').eq(3);
+
+            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
+             console.log($(this).attr('entryId'));
+             var id = $(this).attr('entryId');
+             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
+
+             });
+             return false;
+
+    });
+
+     $('#update-compliance-entry').click(function(e){
+
+     });
+
+     $('.cancel-update-compliance-entry').live('click', function(e){
+
+         var container = $(this).parent('div').parent('form').parent('div');
+         $.post('process.php', {"action": "previewComplianceEntry", "id" : $(this).attr('complianceEntryId') }, function(t){
+              $(container).html(t);
+
+         });
+         return false;
+     });
+
+});
+</script>
 
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
@@ -17,8 +48,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
         
         <h3>Compliance</h3>
         <div class="panel-group compliance-entries" id="accordion">
-
-                <?php //include "modal/modal-compliance/compliance.entry.preview.php";?>
 
           <?php
                if(isset($_SESSION['compliance']) && is_array($_SESSION['compliance'])){
@@ -50,43 +79,4 @@ require_once( 'themes/kc/inc/toolbar.php' );
     </div>
   </div>
 </section>
-<script type="text/javascript">
-$('#add_entry').hide();
-$('#compliance_add').click(function() {
-	$('#add_entry').fadeIn();
-});
-</script>
-
-<script>
-$(document).ready(function(){
-    $(".remove-compliance-entry").live("click", function(){
-            var container = $(this).parents('div').eq(3);
-
-            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
-             console.log($(this).attr('entryId'));
-             var id = $(this).attr('entryId');
-             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
-
-             });
-             return false;
-
-    });
-
-        $('.edit-entry').click(function(){
-
-               var container = $(this).parent('div').parent('form').parent('div');
-               $.post('process.php', {"action": "editComplianceEntry", "id" : $(this).attr('complianceId') }, function(t){
-                   $(container).html(t);
-
-               });
-
-               console.log(container);
-
-
-         });
-
-
-});
-</script>
-
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

@@ -18,7 +18,7 @@ $(document).ready(function(){
     });*/
 
 
-    $('#update-compliance-entry').click(function(e){
+    $('#update-compliance-entry0').click(function(e){
 
         var data = $('#compliance-form0').serialize();
 
@@ -30,7 +30,7 @@ $(document).ready(function(){
             parent.$.fancybox.close();
 
 
-            $.post('../../process.php', {'action' : 'appendNewEntry'}, function(t){
+            $.post('../../process.php', {'action' : 'appendNewComplianceEntry'}, function(t){
                 parent.$('.compliance-entries').append(t);
                 console.log(t);
             });
@@ -40,6 +40,9 @@ $(document).ready(function(){
 
         return false;
     });
+    $('#cancel-update-compliance-entry0').click(function(e){
+       parent.$.fancybox.close();
+    }
 
 });
 </script>
@@ -62,6 +65,7 @@ $(document).ready(function(){
        $entry['approval_date'] = '';
        $entry['expiration_date'] = '';
         $actionLabel = "Add Entry";
+
         include "compliance.form.php";?>
 
             </div>
