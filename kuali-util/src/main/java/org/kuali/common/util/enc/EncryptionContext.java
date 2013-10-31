@@ -22,7 +22,7 @@ public final class EncryptionContext {
 		private Optional<String> passwordKey = Optional.absent();
 		private EncStrength strength = EncStrength.BASIC;
 
-		// Filled in by the build() method
+		// For convenience only. enabled == password.isPresent()
 		private boolean enabled = false;
 
 		public Builder passwordRequired(boolean passwordRequired) {
