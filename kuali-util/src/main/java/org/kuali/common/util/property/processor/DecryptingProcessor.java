@@ -22,6 +22,10 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class DecryptingProcessor implements PropertyProcessor {
 
 	public static final String DEFAULT_DECRYPT_KEY = "properties.decrypt";

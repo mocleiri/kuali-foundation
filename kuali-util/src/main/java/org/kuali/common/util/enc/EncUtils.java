@@ -20,7 +20,6 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.property.processor.DecryptingProcessor;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
@@ -36,9 +35,9 @@ public class EncUtils {
 	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
 
 	// Old key's
-	private static final String LEGACY_PASSWORD_KEY = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
-	private static final String LEGACY_STRENGTH_KEY = DecryptingProcessor.DEFAULT_STRENGTH_KEY;
-	private static final String LEGACY_PASSWORD_REQUIRED_KEY = DecryptingProcessor.DEFAULT_DECRYPT_KEY;
+	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
+	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
+	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
 	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
