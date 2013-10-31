@@ -42,7 +42,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		// Setup a properties object where system properties "win" over project properties
 		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
 
-		// This property contains the password for decrypting any encrypted property values
+		// Setup an encryption context from the overrides properties
 		EncryptionContext context = EncUtils.getEncryptionContext(overrides);
 
 		// Setup a processor that gets invoked on the properties *after* they have all been loaded
