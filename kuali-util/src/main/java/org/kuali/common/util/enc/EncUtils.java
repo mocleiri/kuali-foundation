@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.enc;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
@@ -22,18 +23,18 @@ import org.kuali.common.util.Assert;
 
 public class EncUtils {
 
-	public static final String ENCRYPTION_PREFIX = "ENC(";
-	public static final String ENCRYPTION_SUFFIX = ")";
+	private static final String ENCRYPTION_PREFIX = "ENC(";
+	private static final String ENCRYPTION_SUFFIX = ")";
 
 	public static boolean isEncrypted(String text) {
 		Assert.noBlanks(text);
 		return text.startsWith(ENCRYPTION_PREFIX) && text.endsWith(ENCRYPTION_SUFFIX);
 	}
 
-	public static String unwrap(String encryptedText) {
-		Assert.noBlanks(encryptedText);
-		Assert.isTrue(isEncrypted(encryptedText), "Text is not wrapped");
-		return ENCRYPTION_PREFIX + encryptedText + ENCRYPTION_SUFFIX;
+	public static String unwrap(String wrappedText) {
+		Assert.noBlanks(wrappedText);
+		Assert.isTrue(isEncrypted(wrappedText), "Text is not wrapped");
+		return StringUtils.substring(wrappedText, ENCRYPTION_PREFIX.length(), ENCRYPTION_SUFFIX.length());
 	}
 
 	public static String wrap(String encryptedText) {
