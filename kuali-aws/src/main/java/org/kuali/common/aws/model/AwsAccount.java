@@ -23,8 +23,8 @@ public final class AwsAccount {
 		private Optional<AwsKey> key = Optional.absent();
 
 		public Builder(String name, String accountNumber) {
-			this.accountNumber = accountNumber;
 			this.name = name;
+			this.accountNumber = accountNumber;
 		}
 
 		public Builder credentials(AWSCredentials credentials) {
