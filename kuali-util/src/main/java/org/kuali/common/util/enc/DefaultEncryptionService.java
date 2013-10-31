@@ -39,8 +39,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 		List<String> keys = PropertyUtils.getEncryptedKeys(properties);
 		for (String key : keys) {
 			String encrypted = properties.getProperty(key);
-			String unwrapped = EncUtils.unwrap(encrypted);
-			String decrypted = decrypt(unwrapped);
+			String decrypted = decrypt(encrypted);
 			properties.setProperty(key, decrypted);
 		}
 	}
@@ -56,8 +55,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 		for (String key : keys) {
 			String plaintext = properties.getProperty(key);
 			String encrypted = encrypt(plaintext);
-			String wrapped = EncUtils.wrap(encrypted);
-			properties.setProperty(key, wrapped);
+			properties.setProperty(key, encrypted);
 		}
 	}
 

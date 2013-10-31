@@ -488,7 +488,7 @@ public class PropertyUtils {
 		List<String> encrypted = new ArrayList<String>();
 		for (String key : all) {
 			String value = properties.getProperty(key);
-			if (isEncryptedPropertyValue(value)) {
+			if (EncUtils.isEncrypted(value)) {
 				encrypted.add(key);
 			}
 		}
@@ -515,7 +515,10 @@ public class PropertyUtils {
 
 	/**
 	 * Return true if the value starts with <code>ENC(</code> and ends with <code>)</code>, false otherwise.
+	 * 
+	 * @deprecated Use EncUtils.isEncrypted(value) instead
 	 */
+	@Deprecated
 	public static boolean isEncryptedPropertyValue(String value) {
 		return EncUtils.isEncrypted(value);
 	}
@@ -567,7 +570,10 @@ public class PropertyUtils {
 	 * <pre>
 	 * ENC(DGA$S24FaIO) -> DGA$S24FaIO
 	 * </pre>
+	 * 
+	 * @deprecated Use EncUtils.unwrap(value) instead
 	 */
+	@Deprecated
 	public static String unwrapEncryptedValue(String encryptedValue) {
 		return org.kuali.common.util.enc.EncUtils.unwrap(encryptedValue);
 	}
@@ -590,7 +596,10 @@ public class PropertyUtils {
 	 * <pre>
 	 * DGA$S24FaIO -> ENC(DGA$S24FaIO)
 	 * </pre>
+	 * 
+	 * @deprecated Use EncUtils.wrap(value) instead
 	 */
+	@Deprecated
 	public static String wrapEncryptedPropertyValue(String encryptedValue) {
 		return org.kuali.common.util.enc.EncUtils.wrap(encryptedValue);
 	}
