@@ -19,6 +19,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
@@ -110,6 +111,9 @@ public final class DecryptingProcessor implements PropertyProcessor {
 	protected TextEncryptor getTextEncryptor(Properties properties) {
 		// If they asked to decrypt, a password is required
 		String password = getEncryptionPassword(properties);
+
+		// Must have a password at this point
+		Assert.isFalse(StringUtils.isBlank(password), "Encryption password is required");
 
 		// Strength is optional (defaults to BASIC)
 		EncStrength strength = getEncryptionStrength(properties);
