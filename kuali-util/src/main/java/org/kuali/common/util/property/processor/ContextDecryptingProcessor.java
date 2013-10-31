@@ -24,13 +24,13 @@ import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionContext;
 
-public final class DecryptContextProcessor implements PropertyProcessor {
+public final class ContextDecryptingProcessor implements PropertyProcessor {
 
-	public DecryptContextProcessor() {
+	public ContextDecryptingProcessor() {
 		this(EncryptionContext.DEFAULT);
 	}
 
-	public DecryptContextProcessor(EncryptionContext context) {
+	public ContextDecryptingProcessor(EncryptionContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 	}
