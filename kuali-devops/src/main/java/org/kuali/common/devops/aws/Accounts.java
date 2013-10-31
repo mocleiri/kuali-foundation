@@ -1,5 +1,8 @@
 package org.kuali.common.devops.aws;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.AwsKey;
 import org.kuali.common.util.Assert;
@@ -23,5 +26,14 @@ public enum Accounts {
 
 	public AwsAccount getAccount() {
 		return account;
+	}
+
+	public static Map<String, AwsAccount> getAccounts() {
+		Map<String, AwsAccount> map = new HashMap<String, AwsAccount>();
+		for (Accounts accounts : values()) {
+			AwsAccount account = accounts.getAccount();
+			map.put(account.getName(), account);
+		}
+		return map;
 	}
 }
