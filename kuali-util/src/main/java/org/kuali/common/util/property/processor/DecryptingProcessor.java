@@ -32,8 +32,8 @@ public final class DecryptingProcessor implements PropertyProcessor {
 	public static final String DEFAULT_STRENGTH_KEY = "properties.enc.strength";
 
 	private static final String GLOBAL_PASSWORD_KEY = "enc.password";
+	private static final String GLOBAL_PASSWORD_REQUIRED_KEY = "enc.password.required";
 	private static final String GLOBAL_STRENGTH_KEY = "enc.strength";
-	private static final String GLOBAL_REQUIRED_KEY = "enc.required";
 
 	public DecryptingProcessor() {
 		this(DEFAULT_DECRYPT_KEY, DEFAULT_PASSWORD_KEY, DEFAULT_STRENGTH_KEY);
@@ -64,7 +64,7 @@ public final class DecryptingProcessor implements PropertyProcessor {
 
 	protected boolean isDecrypt(Properties properties) {
 		boolean explicitPropertiesDecryptRequest = PropertyUtils.getBoolean(decryptKey, properties, false);
-		boolean encryptionRequired = PropertyUtils.getBoolean(GLOBAL_REQUIRED_KEY, properties, false);
+		boolean encryptionRequired = PropertyUtils.getBoolean(GLOBAL_PASSWORD_REQUIRED_KEY, properties, false);
 		if (explicitPropertiesDecryptRequest || encryptionRequired) {
 			return true;
 		} else {
