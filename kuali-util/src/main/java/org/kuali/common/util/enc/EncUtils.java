@@ -37,10 +37,10 @@ public class EncUtils {
 		return StringUtils.substring(wrappedText, ENCRYPTED_PREFIX.length(), ENCRYPTED_SUFFIX.length());
 	}
 
-	public static String wrap(String encryptedText) {
-		Assert.noBlanks(encryptedText);
-		Assert.isFalse(isEncrypted(encryptedText), "Text is already wrapped");
-		return ENCRYPTED_PREFIX + encryptedText + ENCRYPTED_SUFFIX;
+	public static String wrap(String unwrappedText) {
+		Assert.noBlanks(unwrappedText);
+		Assert.isFalse(isEncrypted(unwrappedText), "Text is already wrapped");
+		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
 	}
 
 	/**
