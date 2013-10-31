@@ -30,7 +30,7 @@ require_once( 'inc/head.php' );
 					</div>
 					<div id="acc_sponsor_content" class="panel-collapse collapse in">
 						<div class="panel-body">
-							<table class="table table-condensed table-hover table-borderless">
+							<table class="table table-condensed table-hover">
 								<tr>
 									<th><input type="checkbox" id="select_all" name="select_all" class="checkbox-check-all" data-parent="table" /></th>
 									<th>Attachment</th>
