@@ -66,8 +66,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	}
 
 	protected boolean isPasswordRequired() {
-		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, false);
-		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, false);
+		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, EncryptionContext.DEFAULT.isPasswordRequired());
+		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, EncryptionContext.DEFAULT.isPasswordRequired());
 		return required || legacyRequired;
 	}
 
