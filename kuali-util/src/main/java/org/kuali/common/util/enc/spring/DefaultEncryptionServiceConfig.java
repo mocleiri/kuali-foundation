@@ -7,6 +7,7 @@ import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionContext;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.NoOpEncryptionService;
+import org.kuali.common.util.property.processor.DecryptingProcessor;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -23,12 +24,12 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	private static final String PASSWORD_KEY = "enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
-	private static final String REQUIRED_KEY = "enc.required";
+	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
 
 	// Old key's
-	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
-	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
-	private static final String LEGACY_REQUIRED_KEY = "properties.enc.required";
+	private static final String LEGACY_PASSWORD_KEY = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
+	private static final String LEGACY_STRENGTH_KEY = DecryptingProcessor.DEFAULT_STRENGTH_KEY;
+	private static final String LEGACY_PASSWORD_REQUIRED_KEY = DecryptingProcessor.DEFAULT_DECRYPT_KEY;
 
 	@Autowired
 	EnvironmentService env;
@@ -63,8 +64,8 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	}
 
 	protected boolean isRequired() {
-		boolean required = env.getBoolean(REQUIRED_KEY, false);
-		boolean legacyRequired = env.getBoolean(LEGACY_REQUIRED_KEY, false);
+		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, false);
+		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, false);
 		return required || legacyRequired;
 	}
 
