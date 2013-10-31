@@ -1,6 +1,0 @@
-classpath:org/kuali/ole/sql/oracle/01-bootstrap-krns.sql
-classpath:org/kuali/ole/sql/oracle/02-bootstrap-krim-entity.sql
-classpath:org/kuali/ole/sql/oracle/03-bootstrap-krim-role-perm.sql
-classpath:org/kuali/ole/sql/oracle/04-demo-krns.sql
-classpath:org/kuali/ole/sql/oracle/05-demo-krim-entity.sql
-classpath:org/kuali/ole/sql/oracle/06-demo-krim-role-perm.sql

@@ -1,6 +1,0 @@
-classpath:org/kuali/rice/rice-sql/upgrades/2.4.x/mysql/server/bootstrap/2013-08-26-001-create-foo.sql
-classpath:org/kuali/rice/rice-sql/upgrades/2.4.x/mysql/server/test/2013-08-26-002-insert-foo.sql
-classpath:org/kuali/rice/rice-sql/upgrades/2.4.x/mysql/server/demo/2013-08-26-003-insert-foo.sql
-classpath:org/kuali/rice/rice-sql/upgrades/2.4.x/mysql/client/bootstrap/2013-09-13-001-create-bar.sql
-classpath:org/kuali/rice/rice-sql/upgrades/2.4.x/mysql/client/test/2013-09-13-002-insert-bar.sql
-classpath:org/kuali/rice/rice-sql/upgrades/2.4.x/mysql/client/demo/2013-09-13-003-insert-bar.sql
