@@ -3,38 +3,42 @@ package org.kuali.common.aws.model;
 import org.kuali.common.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.google.common.base.Optional;
 
 public final class AwsAccount {
 
+	private final String name;
 	private final String accountNumber;
-	private final AWSCredentials credentials;
-	private final AwsKey key;
+	private final Optional<AWSCredentials> credentials;
+	private final Optional<AwsKey> key;
 
 	public static class Builder {
 
 		// Required
+		private final String name;
 		private final String accountNumber;
 
 		// Optional
-		private AWSCredentials credentials;
-		private AwsKey key;
+		private Optional<AWSCredentials> credentials = Optional.absent();
+		private Optional<AwsKey> key = Optional.absent();
 
-		public Builder(String accountNumber) {
+		public Builder(String name, String accountNumber) {
 			this.accountNumber = accountNumber;
+			this.name = name;
 		}
 
 		public Builder credentials(AWSCredentials credentials) {
-			this.credentials = credentials;
+			this.credentials = Optional.fromNullable(credentials);
 			return this;
 		}
 
 		public Builder AwsKey(AwsKey key) {
-			this.key = key;
+			this.key = Optional.fromNullable(key);
 			return this;
 		}
 
 		public AwsAccount build() {
-			Assert.noBlanks(accountNumber);
+			Assert.noBlanks(name, accountNumber);
 			Assert.noNulls(credentials, key);
 			return new AwsAccount(this);
 		}
@@ -42,6 +46,7 @@ public final class AwsAccount {
 	}
 
 	private AwsAccount(Builder builder) {
+		this.name = builder.name;
 		this.accountNumber = builder.accountNumber;
 		this.credentials = builder.credentials;
 		this.key = builder.key;
@@ -51,12 +56,16 @@ public final class AwsAccount {
 		return accountNumber;
 	}
 
-	public AWSCredentials getCredentials() {
+	public Optional<AWSCredentials> getCredentials() {
 		return credentials;
 	}
 
-	public AwsKey getKey() {
+	public Optional<AwsKey> getKey() {
 		return key;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }
