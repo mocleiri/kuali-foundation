@@ -60,7 +60,7 @@
       </div>
       <div class="doc-functions">
         <ul>
-          <li><i class="icon icon-ok"></i> <a href="#">Validate</a></li>
+          <li><i class="icon icon-ok"></i>    <a href="#" class="launch-modal" data-modal-page="modal/audtimode-on.php" data-modal-height="500">Audit Mode <span style="color:#090">(on)</span></a></li>
           <li><i class="icon icon-print"></i> <a class="launch-modal" data-modal-page="modal/print.php" href="#">Print</a></li>
           <li><i class="icon icon-copy"></i> <a class="launch-modal" data-modal-page="modal/copy.php" href="#">Copy</a></li>
           <li><i class="icon icon-tasks"></i> <a href="#">Medusa</a></li>
