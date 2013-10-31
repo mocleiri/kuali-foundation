@@ -55,7 +55,7 @@
     <kuali.javadoc.quiet>true</kuali.javadoc.quiet>
     <kuali.javadoc.show>protected</kuali.javadoc.show>
     <kuali.javadoc.linksource>true</kuali.javadoc.linksource>
-    <kuali.javadoc.maxmemory>512m</kuali.javadoc.maxmemory>
+    <kuali.javadoc.maxmemory>2g</kuali.javadoc.maxmemory>
     <kuali.javadoc.debug>false</kuali.javadoc.debug>
     <!-- These 2 should be "aggregate" and "test-aggregate", but they have a memory leak that results in a heap error for
       large projects -->
