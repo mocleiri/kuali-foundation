@@ -44,7 +44,8 @@
                     </div>
                   </div>
                   <div class="btn-row-widget-action pull-right">
-                    <button class="btn btn-primary btn-xs" id=""> Edit</button>
+                    <button class="btn btn-primary btn-xs edit-entry" complianceId="<?php echo $id?>"> Edit</button>
                     <button class="btn btn-link btn-xs" id=""> Cancel</button>
                   </div>
                 </form>
+

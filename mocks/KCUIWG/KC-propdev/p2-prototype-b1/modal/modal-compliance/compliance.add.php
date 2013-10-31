@@ -20,13 +20,23 @@ $(document).ready(function(){
 
     $('#update-compliance-entry').click(function(e){
 
-        var data = $('#compliance-form').serialize();
+        var data = $('#compliance-form0').serialize();
 
         console.log(data);
 
         $.post('../../save-session.php', data, function(t){
             console.log(t);
+
+            parent.$.fancybox.close();
+
+
+            $.post('../../process.php', {'action' : 'appendNewEntry'}, function(t){
+                parent.$('.compliance-entries').append(t);
+                console.log(t);
+            });
         });
+
+
 
         return false;
     });
@@ -43,7 +53,16 @@ $(document).ready(function(){
 
             <div class="modal-body">
 
-<?php include "compliance.form.php";?>
+<?php
+       $id = 0;
+       $entry['type'] = 0;
+       $entry['approval_status'] = 0;
+       $entry['protocol_no'] = '';
+       $entry['application_date'] = '';
+       $entry['approval_date'] = '';
+       $entry['expiration_date'] = '';
+        $actionLabel = "Add Entry";
+        include "compliance.form.php";?>
 
             </div>
     </div>
