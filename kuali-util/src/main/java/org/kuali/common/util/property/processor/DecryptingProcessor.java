@@ -17,23 +17,16 @@ package org.kuali.common.util.property.processor;
 
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.nullify.NullUtils;
 
 public final class DecryptingProcessor implements PropertyProcessor {
 
 	public static final String DEFAULT_DECRYPT_KEY = "properties.decrypt";
 	public static final String DEFAULT_PASSWORD_KEY = "properties.enc.password";
 	public static final String DEFAULT_STRENGTH_KEY = "properties.enc.strength";
-
-	private static final String GLOBAL_PASSWORD_KEY = "enc.password";
-	private static final String GLOBAL_PASSWORD_REQUIRED_KEY = "enc.password.required";
-	private static final String GLOBAL_STRENGTH_KEY = "enc.strength";
 
 	public DecryptingProcessor() {
 		this(DEFAULT_DECRYPT_KEY, DEFAULT_PASSWORD_KEY, DEFAULT_STRENGTH_KEY);
@@ -55,70 +48,20 @@ public final class DecryptingProcessor implements PropertyProcessor {
 
 	@Override
 	public void process(Properties properties) {
-		boolean decrypt = isDecrypt(properties);
+		boolean decrypt = PropertyUtils.getBoolean(decryptKey, properties, false);
 		if (decrypt) {
 			TextEncryptor encryptor = getTextEncryptor(properties);
 			PropertyUtils.decrypt(properties, encryptor);
 		}
 	}
 
-	protected boolean isDecrypt(Properties properties) {
-		boolean explicitPropertiesDecryptRequest = PropertyUtils.getBoolean(decryptKey, properties, false);
-		boolean encryptionRequired = PropertyUtils.getBoolean(GLOBAL_PASSWORD_REQUIRED_KEY, properties, false);
-		if (explicitPropertiesDecryptRequest || encryptionRequired) {
-			return true;
-		} else {
-			return hasEncryptionPassword(properties);
-		}
-	}
-
-	protected String getRequiredNoneSensitiveValue(Properties properties, String key) {
-		String value = PropertyUtils.getRequiredResolvedProperty(properties, key, NullUtils.NONE);
-		return NullUtils.trimToNull(value);
-	}
-
-	protected boolean hasEncryptionPassword(Properties properties) {
-		return !StringUtils.isBlank(getEncryptionPassword(properties));
-	}
-
-	protected String getEncryptionPassword(Properties properties) {
-		String password = getRequiredNoneSensitiveValue(properties, passwordKey);
-		String globalPassword = getRequiredNoneSensitiveValue(properties, GLOBAL_PASSWORD_KEY);
-
-		if (!StringUtils.isBlank(globalPassword)) {
-			// Use global password, if present
-			return globalPassword;
-		} else {
-			// Otherwise fall through to the password they specified
-			return password;
-		}
-	}
-
-	protected EncStrength getEncryptionStrength(Properties properties) {
-		String strength = getRequiredNoneSensitiveValue(properties, strengthKey);
-		String globalStrength = getRequiredNoneSensitiveValue(properties, GLOBAL_STRENGTH_KEY);
-
-		if (!StringUtils.isBlank(globalStrength)) {
-			// Use enc.strength if present
-			return EncStrength.valueOf(globalStrength.toUpperCase());
-		} else if (!StringUtils.isBlank(strength)) {
-			// Otherwise use properties.enc.strength if present
-			return EncStrength.valueOf(strength.toUpperCase());
-		} else {
-			// Otherwise use the default value
-			return EncStrength.DEFAULT_VALUE;
-		}
-	}
-
 	protected TextEncryptor getTextEncryptor(Properties properties) {
 		// If they asked to decrypt, a password is required
-		String password = getEncryptionPassword(properties);
-
-		// Must have a password at this point
-		Assert.isFalse(StringUtils.isBlank(password), "Encryption password is required");
+		String password = PropertyUtils.getRequiredResolvedProperty(properties, passwordKey);
 
 		// Strength is optional (defaults to BASIC)
-		EncStrength strength = getEncryptionStrength(properties);
+		String strengthString = PropertyUtils.getRequiredResolvedProperty(properties, strengthKey, EncStrength.DEFAULT_VALUE.name());
+		EncStrength strength = EncStrength.valueOf(strengthString.toUpperCase());
 
 		// Setup a TextEncryptor with the appropriate password and strength
 		return EncUtils.getTextEncryptor(password, strength);
