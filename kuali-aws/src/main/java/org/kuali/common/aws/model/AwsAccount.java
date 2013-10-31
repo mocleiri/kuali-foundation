@@ -32,7 +32,7 @@ public final class AwsAccount {
 			return this;
 		}
 
-		public Builder AwsKey(AwsKey key) {
+		public Builder key(AwsKey key) {
 			this.key = Optional.fromNullable(key);
 			return this;
 		}
