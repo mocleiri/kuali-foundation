@@ -57,13 +57,13 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 			password = legacyPassword;
 		}
 
-		boolean required = isRequired();
+		boolean passwordRequired = isPasswordRequired();
 
 		EncStrength strength = getStrength(EncryptionContext.DEFAULT.getStrength());
-		return new EncryptionContext(required, password, strength);
+		return new EncryptionContext(passwordRequired, password, strength);
 	}
 
-	protected boolean isRequired() {
+	protected boolean isPasswordRequired() {
 		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, false);
 		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, false);
 		return required || legacyRequired;
