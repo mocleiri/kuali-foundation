@@ -52,6 +52,10 @@ public final class AwsAccount {
 		this.key = builder.key;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -62,10 +66,6 @@ public final class AwsAccount {
 
 	public Optional<AwsKey> getKey() {
 		return key;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 }
