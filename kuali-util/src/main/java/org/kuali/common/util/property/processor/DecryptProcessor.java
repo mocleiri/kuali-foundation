@@ -23,7 +23,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.Assert;
 
 /**
- * @deprecated Use DecryptContextProcessor instead
+ * @deprecated Use ContextDecryptingProcessor instead
  */
 @Deprecated
 public class DecryptProcessor implements PropertyProcessor {
