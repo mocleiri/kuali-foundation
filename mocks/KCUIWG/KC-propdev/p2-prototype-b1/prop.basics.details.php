@@ -42,7 +42,7 @@ $(document).ready(function(){
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
       	
       	<?php if ($_GET['msg']) { ?>
-      	<div class="alert alert-info alert-dismissable">
+      	<div class="alert alert-success alert-dismissable">
   			<button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$('.alert').slideUp(200)" >&times;</button>
         	<p><i class="icon-ok"></i> Success! Proposal #23533 has been initiated.</p>
     	</div>

@@ -159,6 +159,33 @@ $(document).ready(function() {
 
 
 	/*
+		Check all checkboxes
+		Checks all checkboxes in $this.data-parent
+		Chris Rodriguez
+	*/
+	$('.checkbox-check-all').on('click', function(e) {
+
+		var that = $(this);
+		var parent_container = that.closest(that.data('parent'));
+
+		if (that.is(':checked')) {
+			
+			parent_container.find('td').each(function() {
+				$(this).find('[type=checkbox]').prop('checked', true);
+			});
+
+		} else {
+
+			parent_container.find('td').each(function() {
+				$(this).find('[type=checkbox]').prop('checked', false);
+			});
+		}
+
+	});
+
+
+
+	/*
 		Dropdown focus for accessibility
 		Brings focus to the popup/dropdown menu when the toggle is clicked
 		Chris Rodriguez

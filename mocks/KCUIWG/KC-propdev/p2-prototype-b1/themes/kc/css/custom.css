@@ -150,12 +150,6 @@ section.toolbar .dropdown a .caret {
   margin-left: 0;
   margin-right: 0;
 }
-#main label {
-  line-height: 130%;
-  padding: 7px;
-  position: relative;
-  font-weight: normal;
-}
 #main label:after {
   display: none;
   position: absolute;
@@ -173,12 +167,7 @@ section.toolbar .dropdown a .caret {
   margin-top: -6px;
 }
 #main label.required {
-  background: #e6f0ff;
   font-weight: bold;
-}
-#main label.required:after {
-  display: block;
-  background: #e6f0ff;
 }
 #main label.radio,
 #main label.checkbox {
@@ -798,6 +787,12 @@ dl:after {
   display: block;
   visibility: hidden;
   clear: both;
+}
+.table-borderless {
+  border: 0 !important;
+}
+.table-borderless tr td {
+  border: 0 !important;
 }
 th.sorting,
 th.sorting_asc,
