@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 import com.google.common.base.Optional;
@@ -48,6 +49,9 @@ public class AwsServiceConfig {
 	@Autowired
 	WaitService service;
 
+	@Autowired
+	AWSCredentials credentials;
+
 	@Bean
 	public EC2Service ec2Service() {
 		String accessKey = env.getString(ACCESS_KEY);
@@ -55,8 +59,7 @@ public class AwsServiceConfig {
 		Optional<Region> region = getRegion();
 		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
 		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds();
-		return new DefaultEC2Service.Builder(accessKey, secretKey, service).region(region.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull())
-				.build();
+		return new DefaultEC2Service.Builder(credentials, service).region(region.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull()).build();
 	}
 
 	protected Optional<Integer> getTimeOffsetInSeconds() {
