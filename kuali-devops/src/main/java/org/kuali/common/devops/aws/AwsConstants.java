@@ -1,7 +1,7 @@
 package org.kuali.common.devops.aws;
 
 
-public abstract class DevOpsAwsConstants {
+public abstract class AwsConstants {
 
 	// This is the availability zone where the CI master and build slaves run
 	public static final String US_EAST_1D = "us-east-1d";

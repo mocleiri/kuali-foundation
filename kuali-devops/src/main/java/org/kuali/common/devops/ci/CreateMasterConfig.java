@@ -25,7 +25,7 @@ import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.Accounts;
-import org.kuali.common.devops.aws.DevOpsAwsConstants;
+import org.kuali.common.devops.aws.AwsConstants;
 import org.kuali.common.devops.aws.SecurityGroupName;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -63,10 +63,10 @@ public class CreateMasterConfig {
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
 		AwsAccount account = Accounts.FOUNDATION.getAccount();
-		String ami = DevOpsAwsConstants.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09;
+		String ami = AwsConstants.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09;
 		String keyName = account.getKey().get().getName();
 		InstanceType type = InstanceType.M1Large;
-		String zone = DevOpsAwsConstants.US_EAST_1D;
+		String zone = AwsConstants.US_EAST_1D;
 		List<String> securityGroups = SecurityGroupName.getValues(SecurityGroupName.SSH, SecurityGroupName.HTTP, SecurityGroupName.HTTPS);
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
