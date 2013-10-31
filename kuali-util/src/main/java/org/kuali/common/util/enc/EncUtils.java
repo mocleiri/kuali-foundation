@@ -15,11 +15,15 @@
  */
 package org.kuali.common.util.enc;
 
+import java.util.Properties;
+
 import org.codehaus.plexus.util.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
@@ -39,6 +43,25 @@ public class EncUtils {
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
+	public static EncryptionContext getEncryptionContext(Properties properties) {
+		Optional<String> password = PropertyUtils.getString(properties, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		Optional<String> legacyPassword = PropertyUtils.getString(properties, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		String passwordKey = PASSWORD_KEY;
+
+		// Only use the legacy property if "enc.password" is not set
+		if (properties.getProperty(PASSWORD_KEY) == null && properties.getProperty(LEGACY_PASSWORD_KEY) != null) {
+			password = legacyPassword;
+			passwordKey = LEGACY_PASSWORD_KEY;
+		}
+
+		boolean passwordRequired = isPasswordRequired(properties, EncryptionContext.DEFAULT);
+
+		EncStrength strength = getStrength(properties, EncryptionContext.DEFAULT);
+
+		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength).passwordKey(passwordKey)
+				.build();
+	}
+
 	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
 		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
@@ -57,10 +80,29 @@ public class EncUtils {
 		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(password.orNull()).strength(strength).passwordKey(passwordKey).build();
 	}
 
+	protected static boolean isPasswordRequired(Properties properties, EncryptionContext provided) {
+		boolean required = PropertyUtils.getBoolean(PASSWORD_REQUIRED_KEY, properties, provided.isPasswordRequired());
+		boolean legacyRequired = PropertyUtils.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, properties, provided.isPasswordRequired());
+		return required || legacyRequired;
+	}
+
 	protected static boolean isPasswordRequired(EnvironmentService env, EncryptionContext provided) {
 		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, provided.isPasswordRequired());
 		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, provided.isPasswordRequired());
 		return required || legacyRequired;
+	}
+
+	protected static EncStrength getStrength(Properties properties, EncryptionContext provided) {
+		String strength = properties.getProperty(STRENGTH_KEY, provided.getStrength().name());
+		String legacyStrength = properties.getProperty(LEGACY_STRENGTH_KEY, provided.getStrength().name());
+
+		// Only use the legacy property if "enc.strength" is not set
+		if (properties.getProperty(STRENGTH_KEY) == null && properties.getProperty(LEGACY_STRENGTH_KEY) != null) {
+			strength = legacyStrength;
+		}
+
+		// Convert the string value to an enum
+		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
 	protected static EncStrength getStrength(EnvironmentService env, EncryptionContext provided) {

@@ -49,6 +49,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+import com.google.common.base.Optional;
+
 /**
  * Simplify handling of <code>Properties</code> especially as it relates to storing and loading. <code>Properties</code> can be loaded from any url Spring resource loading can
  * understand. When storing and loading, locations ending in <code>.xml</code> are automatically handled using <code>storeToXML()</code> and <code>loadFromXML()</code>,
@@ -67,6 +69,26 @@ public class PropertyUtils {
 	public static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
 	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+
+	/**
+	 * If there is no value for <code>key</code> or the value is NULL or NONE, return Optional.absent(), otherwise return Optional.of(value)
+	 */
+	public static Optional<String> getOptionalString(Properties properties, String key) {
+		if (properties.getProperty(key) == null) {
+			return Optional.absent();
+		} else {
+			return Optional.of(properties.getProperty(key));
+		}
+	}
+
+	public static Optional<String> getString(Properties properties, String key, Optional<String> provided) {
+		Optional<String> value = getOptionalString(properties, key);
+		if (value.isPresent()) {
+			return value;
+		} else {
+			return provided;
+		}
+	}
 
 	/**
 	 * If the properties passed in are already immutable, just return them, otherwise, return a new ImmutableProperties object
