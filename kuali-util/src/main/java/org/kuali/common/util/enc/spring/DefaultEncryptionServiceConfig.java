@@ -23,10 +23,12 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 
 	private static final String PASSWORD_KEY = "enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
+	private static final String REQUIRED_KEY = "enc.required";
 
 	// Old key's
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
+	private static final String LEGACY_REQUIRED_KEY = "properties.enc.required";
 
 	@Autowired
 	EnvironmentService env;
@@ -53,8 +55,17 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 		if (!env.containsProperty(PASSWORD_KEY) && env.containsProperty(LEGACY_PASSWORD_KEY)) {
 			password = legacyPassword;
 		}
+
+		boolean required = isRequired();
+
 		EncStrength strength = getStrength(EncryptionContext.DEFAULT.getStrength());
-		return new EncryptionContext(password, strength);
+		return new EncryptionContext(required, password, strength);
+	}
+
+	protected boolean isRequired() {
+		boolean required = env.getBoolean(REQUIRED_KEY, false);
+		boolean legacyRequired = env.getBoolean(LEGACY_REQUIRED_KEY, false);
+		return required || legacyRequired;
 	}
 
 	protected EncStrength getStrength(EncStrength provided) {

@@ -9,20 +9,23 @@ public final class EncryptionContext {
 	public static final EncryptionContext DEFAULT = new EncryptionContext();
 
 	public EncryptionContext() {
-		this(Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
+		this(false,Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
 	}
 
-	public EncryptionContext(Optional<String> password, EncStrength strength) {
+	public EncryptionContext(boolean required, Optional<String> password, EncStrength strength) {
 		Assert.noNulls(password, strength);
-		if (password.isPresent()) {
+		if (required) {
+			Assert.isTrue(password.isPresent(),"Encryption password is required");
 			Assert.noBlanks(password.get());
 		}
+		this.required = required;
 		this.enabled = password.isPresent();
 		this.password = password;
 		this.strength = strength;
 	}
 
 	private final boolean enabled;
+	private final boolean required;
 	private final Optional<String> password;
 	private final EncStrength strength;
 
