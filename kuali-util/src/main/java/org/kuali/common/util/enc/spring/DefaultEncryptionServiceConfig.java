@@ -24,7 +24,7 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	@Override
 	@Bean
 	public EncryptionService encryptionService() {
-		EncryptionContext context = encryptionContext();
+		EncryptionContext context = EncUtils.getEncryptionContext(env);
 		if (!context.isEnabled()) {
 			return NoOpEncryptionService.INSTANCE;
 		}
@@ -34,8 +34,4 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 		return new DefaultEncryptionService(encryptor);
 	}
 
-	@Bean
-	public EncryptionContext encryptionContext() {
-		return EncUtils.getEncryptionContext(env);
-	}
 }
