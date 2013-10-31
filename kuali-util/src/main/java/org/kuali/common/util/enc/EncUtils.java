@@ -56,12 +56,12 @@ public class EncUtils {
 		}
 
 		boolean passwordRequired = isPasswordRequired(properties, EncryptionContext.DEFAULT);
-		boolean passwordRemove = PropertyUtils.getBoolean(PASSWORD_REMOVE_KEY, properties, defaultValue)
+		boolean removePassword = PropertyUtils.getBoolean(PASSWORD_REMOVE_KEY, properties, EncryptionContext.DEFAULT.isRemovePassword());
 
 		EncStrength strength = getStrength(properties, EncryptionContext.DEFAULT);
 
 		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength).passwordKey(passwordKey)
-				.build();
+				.removePassword(removePassword).build();
 	}
 
 	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
@@ -76,10 +76,12 @@ public class EncUtils {
 		}
 
 		boolean passwordRequired = isPasswordRequired(env, EncryptionContext.DEFAULT);
+		boolean removePassword = env.getBoolean(PASSWORD_REMOVE_KEY, EncryptionContext.DEFAULT.isRemovePassword());
 
 		EncStrength strength = getStrength(env, EncryptionContext.DEFAULT);
 
-		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(password.orNull()).strength(strength).passwordKey(passwordKey).build();
+		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength).passwordKey(passwordKey)
+				.removePassword(removePassword).build();
 	}
 
 	protected static boolean isPasswordRequired(Properties properties, EncryptionContext provided) {
