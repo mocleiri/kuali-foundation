@@ -1,35 +1,71 @@
 package org.kuali.common.util.enc;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 
 public final class EncryptionContext {
 
-	public static final EncryptionContext DEFAULT = new EncryptionContext();
-
-	public EncryptionContext() {
-		this(false, Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
-	}
-
-	public EncryptionContext(boolean passwordRequired, Optional<String> password, EncStrength strength) {
-		Assert.noNulls(password, strength);
-		if (passwordRequired) {
-			Assert.isTrue(password.isPresent(), "Encryption password is required");
-		}
-		if (password.isPresent()) {
-			Assert.noBlanks(password.get());
-		}
-		this.passwordRequired = passwordRequired;
-		this.enabled = password.isPresent();
-		this.password = password;
-		this.strength = strength;
-	}
+	public static final EncryptionContext DEFAULT = new EncryptionContext.Builder().build();
 
 	private final boolean enabled;
 	private final boolean passwordRequired;
 	private final Optional<String> password;
+	private final Optional<String> passwordKey;
 	private final EncStrength strength;
+
+	public static class Builder {
+
+		private boolean passwordRequired = false;
+		private Optional<String> password = Optional.absent();
+		private Optional<String> passwordKey = Optional.absent();
+		private EncStrength strength = EncStrength.BASIC;
+
+		// Filled in by the build() method
+		private boolean enabled = false;
+
+		public Builder passwordRequired(boolean passwordRequired) {
+			this.passwordRequired = passwordRequired;
+			return this;
+		}
+
+		public Builder password(String password) {
+			this.password = Optional.fromNullable(NullUtils.trimToNull(password));
+			return this;
+		}
+
+		public Builder passwordKey(String passwordKey) {
+			this.password = Optional.fromNullable(NullUtils.trimToNull(passwordKey));
+			return this;
+		}
+
+		public Builder strength(EncStrength strength) {
+			this.strength = strength;
+			return this;
+		}
+
+		public EncryptionContext build() {
+			Assert.noNulls(password, passwordKey, strength, enabled);
+			this.enabled = password.isPresent();
+			if (passwordRequired) {
+				Assert.isTrue(password.isPresent(), "Encryption password is required");
+			}
+			if (password.isPresent()) {
+				Assert.noBlanks(password.get());
+			}
+			return new EncryptionContext(this);
+		}
+
+	}
+
+	private EncryptionContext(Builder builder) {
+		this.enabled = builder.enabled;
+		this.password = builder.password;
+		this.passwordKey = builder.passwordKey;
+		this.passwordRequired = builder.passwordRequired;
+		this.strength = builder.strength;
+	}
 
 	public boolean isEnabled() {
 		return enabled;
@@ -45,6 +81,10 @@ public final class EncryptionContext {
 
 	public boolean isPasswordRequired() {
 		return passwordRequired;
+	}
+
+	public Optional<String> getPasswordKey() {
+		return passwordKey;
 	}
 
 }
