@@ -20,11 +20,62 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.property.processor.DecryptingProcessor;
+import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.EnvironmentService;
+
+import com.google.common.base.Optional;
 
 public class EncUtils {
 
 	private static final String ENCRYPTED_PREFIX = "ENC(";
 	private static final String ENCRYPTED_SUFFIX = ")";
+
+	private static final String PASSWORD_KEY = "enc.password";
+	private static final String STRENGTH_KEY = "enc.strength";
+	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
+
+	// Old key's
+	private static final String LEGACY_PASSWORD_KEY = DecryptingProcessor.DEFAULT_PASSWORD_KEY;
+	private static final String LEGACY_STRENGTH_KEY = DecryptingProcessor.DEFAULT_STRENGTH_KEY;
+	private static final String LEGACY_PASSWORD_REQUIRED_KEY = DecryptingProcessor.DEFAULT_DECRYPT_KEY;
+
+	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
+		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		String passwordKey = PASSWORD_KEY;
+
+		// Always use the new property if it exists, but support using the old property as well
+		if (!env.containsProperty(PASSWORD_KEY) && env.containsProperty(LEGACY_PASSWORD_KEY)) {
+			password = legacyPassword;
+			passwordKey = LEGACY_PASSWORD_KEY;
+		}
+
+		boolean passwordRequired = isPasswordRequired(env, EncryptionContext.DEFAULT);
+
+		EncStrength strength = getStrength(env, EncryptionContext.DEFAULT);
+
+		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(password.orNull()).strength(strength).passwordKey(passwordKey).build();
+	}
+
+	protected static boolean isPasswordRequired(EnvironmentService env, EncryptionContext provided) {
+		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, provided.isPasswordRequired());
+		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, provided.isPasswordRequired());
+		return required || legacyRequired;
+	}
+
+	protected static EncStrength getStrength(EnvironmentService env, EncryptionContext provided) {
+		String strength = env.getString(STRENGTH_KEY, provided.getStrength().name());
+		String legacyStrength = env.getString(LEGACY_STRENGTH_KEY, provided.getStrength().name());
+
+		// Always use the new property if it exists, but support using the old property as well
+		if (!env.containsProperty(STRENGTH_KEY) && env.containsProperty(LEGACY_STRENGTH_KEY)) {
+			strength = legacyStrength;
+		}
+
+		// Convert the string value to an enum
+		return EncStrength.valueOf(strength.toUpperCase());
+	}
 
 	public static boolean isEncrypted(String text) {
 		Assert.noBlanks(text);
