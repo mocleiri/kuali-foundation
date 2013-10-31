@@ -15,47 +15,42 @@
  */
 package org.kuali.common.util.property.processor;
 
-import java.util.List;
 import java.util.Properties;
 
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
-import org.springframework.util.Assert;
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionContext;
 
-/**
- * @deprecated Use DecryptContextProcessor instead
- */
-@Deprecated
-public class DecryptProcessor implements PropertyProcessor {
+public final class DecryptContextProcessor implements PropertyProcessor {
 
-	TextEncryptor encryptor;
-
-	public DecryptProcessor() {
-		this(null);
+	public DecryptContextProcessor() {
+		this(EncryptionContext.DEFAULT);
 	}
 
-	public DecryptProcessor(TextEncryptor encryptor) {
-		super();
-		this.encryptor = encryptor;
+	public DecryptContextProcessor(EncryptionContext context) {
+		Assert.noNulls(context);
+		this.context = context;
 	}
+
+	private final EncryptionContext context;
 
 	@Override
 	public void process(Properties properties) {
-		Assert.notNull(encryptor, "encryptor is null");
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
-		for (String key : keys) {
-			String encryptedValue = properties.getProperty(key);
-			String decryptedValue = encryptor.decrypt(encryptedValue);
-			properties.setProperty(key, decryptedValue);
+		Assert.noNulls(properties);
+		if (!context.isEnabled()) {
+			return;
 		}
+		String password = context.getPassword().get();
+		EncStrength strength = context.getStrength();
+		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, strength);
+		PropertyUtils.decrypt(properties, encryptor);
 	}
 
-	public TextEncryptor getEncryptor() {
-		return encryptor;
-	}
-
-	public void setEncryptor(TextEncryptor encryptor) {
-		this.encryptor = encryptor;
+	public EncryptionContext getContext() {
+		return context;
 	}
 
 }

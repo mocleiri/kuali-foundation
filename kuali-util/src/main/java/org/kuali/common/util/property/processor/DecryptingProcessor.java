@@ -23,7 +23,7 @@ import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
 
 /**
- * @deprecated
+ * @deprecated Use DecryptContextProcessor instead
  */
 @Deprecated
 public final class DecryptingProcessor implements PropertyProcessor {
