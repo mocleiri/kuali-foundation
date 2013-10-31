@@ -52,7 +52,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		PropertiesService service = new DefaultPropertiesService(overrides, processor);
 
 		// Now that the service is setup, we can remove the password as a system property (if it has been set there)
-		if (context.isEnabled() && context.isRemovePasswordSystemProperty()) {
+		if (context.getPasswordKey().isPresent() && context.isRemovePasswordSystemProperty()) {
 			PropertyUtils.removeSystemProperty(context.getPasswordKey().get());
 		}
 
