@@ -25,7 +25,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.DefaultEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.env.PropertiesEnvironment;
+import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;
 
@@ -45,23 +48,9 @@ public class EncUtils {
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
 	public static EncryptionContext getEncryptionContext(Properties properties) {
-		Optional<String> password = PropertyUtils.getString(properties, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
-		Optional<String> legacyPassword = PropertyUtils.getString(properties, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
-		String passwordKey = PASSWORD_KEY;
-
-		// Only use the legacy property if "enc.password" is not set
-		if (properties.getProperty(PASSWORD_KEY) == null && properties.getProperty(LEGACY_PASSWORD_KEY) != null) {
-			password = legacyPassword;
-			passwordKey = LEGACY_PASSWORD_KEY;
-		}
-
-		boolean passwordRequired = isPasswordRequired(properties, EncryptionContext.DEFAULT);
-		boolean removePassword = PropertyUtils.getBoolean(PASSWORD_REMOVE_KEY, properties, EncryptionContext.DEFAULT.isRemovePassword());
-
-		EncStrength strength = getStrength(properties, EncryptionContext.DEFAULT);
-
-		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength).passwordKey(passwordKey)
-				.removePassword(removePassword).build();
+		Environment environment = new PropertiesEnvironment(properties);
+		EnvironmentService env = new DefaultEnvironmentService(environment);
+		return getEncryptionContext(env);
 	}
 
 	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
