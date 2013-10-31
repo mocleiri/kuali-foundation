@@ -9,13 +9,13 @@ public final class EncryptionContext {
 	public static final EncryptionContext DEFAULT = new EncryptionContext();
 
 	public EncryptionContext() {
-		this(false,Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
+		this(false, Optional.<String> absent(), EncStrength.DEFAULT_VALUE);
 	}
 
 	public EncryptionContext(boolean required, Optional<String> password, EncStrength strength) {
 		Assert.noNulls(password, strength);
 		if (required) {
-			Assert.isTrue(password.isPresent(),"Encryption password is required");
+			Assert.isTrue(password.isPresent(), "Encryption password is required");
 			Assert.noBlanks(password.get());
 		}
 		this.required = required;
@@ -39,6 +39,10 @@ public final class EncryptionContext {
 
 	public EncStrength getStrength() {
 		return strength;
+	}
+
+	public boolean isRequired() {
+		return required;
 	}
 
 }
