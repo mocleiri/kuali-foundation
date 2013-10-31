@@ -51,16 +51,18 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	public EncryptionContext encryptionContext() {
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
 		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		String passwordKey = PASSWORD_KEY;
 
 		// Always use the new property if it exists, but support using the old property as well
 		if (!env.containsProperty(PASSWORD_KEY) && env.containsProperty(LEGACY_PASSWORD_KEY)) {
 			password = legacyPassword;
+			passwordKey = LEGACY_PASSWORD_KEY;
 		}
 
 		boolean passwordRequired = isPasswordRequired();
 
 		EncStrength strength = getStrength(EncryptionContext.DEFAULT.getStrength());
-		return new EncryptionContext(passwordRequired, password, strength);
+		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(password.orNull()).strength(strength).passwordKey(passwordKey).build();
 	}
 
 	protected boolean isPasswordRequired() {
