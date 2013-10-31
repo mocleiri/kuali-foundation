@@ -41,9 +41,7 @@ public class ImmutableProperties extends Properties {
 			Set<String> keys = original.stringPropertyNames();
 
 			// If the sizes are different, original contains at least one key or value that is not a string
-			if (keys.size() != original.size()) {
-				throw new IllegalArgumentException("Immutable properties only support strings");
-			}
+			Assert.isTrue(keys.size() == original.size(), "Immutable properties only support strings");
 
 			// Copy every key/value pair from original - can't use putAll() since it calls put() which is now disabled
 			for (String key : keys) {
@@ -56,6 +54,13 @@ public class ImmutableProperties extends Properties {
 		return EMPTY;
 	}
 
+	/**
+	 * Create and return a new immutable properties object identical to the one passed in. If <code>properties</code> is already immutable, no new object is created, the
+	 * <code>properties</code> object passed in as a method argument is what is returned.
+	 * 
+	 * @throws NullPointerException
+	 *             if {@code properties} is null
+	 */
 	public static Properties of(Properties properties) {
 		if (properties instanceof ImmutableProperties) {
 			return properties;
