@@ -1,4 +1,4 @@
-package org.kuali.common.devops.aws.tag;
+package org.kuali.common.devops.aws;
 
 import com.amazonaws.services.ec2.model.Tag;
 

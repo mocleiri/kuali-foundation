@@ -25,7 +25,7 @@ import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.DevOpsAwsConstants;
 import org.kuali.common.devops.aws.SecurityGroupName;
-import org.kuali.common.devops.aws.tag.Tags;
+import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
