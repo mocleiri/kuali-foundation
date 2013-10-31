@@ -302,7 +302,7 @@ public class PropertyUtils {
 			String defaultStrength = EncStrength.BASIC.name();
 			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
 			EncStrength es = EncStrength.valueOf(strength);
-			TextEncryptor decryptor = org.kuali.common.util.enc.EncUtils.getTextEncryptor(password, es);
+			TextEncryptor decryptor = EncUtils.getTextEncryptor(password, es);
 			decrypt(properties, decryptor);
 		}
 	}
