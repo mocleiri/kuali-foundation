@@ -6,6 +6,7 @@
          $entry = $_SESSION['compliance'][$id];
          //print_r($entry);
          $actionLabel = "Update entry";
+         $action = "updateComplianceEntry";
         include('modal/modal-compliance/compliance.form.php');
 
     break;
@@ -20,6 +21,11 @@
      $id = max(array_keys($_SESSION['compliance']));
        $entry = $_SESSION['compliance'][$id];
       include "inc/compliance.entry.php";
+    break;
+    case "updateComplianceEntry":
+    $id = $_REQUEST['id'];
+        $entry = $_SESSION['compliance'][$id];
+        include "inc/compliance.entry.php";
     break;
     default:
 

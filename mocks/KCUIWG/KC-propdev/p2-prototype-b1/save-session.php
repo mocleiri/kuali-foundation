@@ -21,6 +21,12 @@
          $_SESSION['compliance'][] = $list;
 
      break;
+     case "updateComplianceEntry":
+         foreach($_REQUEST as $index=>$field){
+             $list[$index] = trim($field);
+          }
+          $_SESSION['compliance'][$_REQUEST['id']] = $list;
+     break;
      case "removePersonnelSession":
 
         removeSessionModuleEntry('person');

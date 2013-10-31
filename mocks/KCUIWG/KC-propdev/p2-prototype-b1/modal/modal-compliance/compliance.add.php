@@ -23,7 +23,7 @@ $(document).ready(function(){
         var data = $('#compliance-form0').serialize();
 
         console.log(data);
-         data += '&action=addComplianceEntry';
+
         $.post('../../save-session.php', data, function(t){
             console.log(t);
 
@@ -65,7 +65,7 @@ $(document).ready(function(){
        $entry['approval_date'] = '';
        $entry['expiration_date'] = '';
         $actionLabel = "Add Entry";
-
+        $action = "addComplianceEntry";
         include "compliance.form.php";?>
 
             </div>

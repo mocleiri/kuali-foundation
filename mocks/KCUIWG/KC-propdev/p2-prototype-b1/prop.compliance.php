@@ -7,38 +7,6 @@ require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
 ?>
-<script>
-$(document).ready(function(){
-    $(".remove-compliance-entry").live("click", function(){
-            var container = $(this).parents('div').eq(3);
-
-            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
-             console.log($(this).attr('entryId'));
-             var id = $(this).attr('entryId');
-             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
-
-             });
-             return false;
-
-    });
-
-     $('#update-compliance-entry').click(function(e){
-
-     });
-
-     $('.cancel-update-compliance-entry').live('click', function(e){
-
-         var container = $(this).parent('div').parent('form').parent('div');
-         $.post('process.php', {"action": "previewComplianceEntry", "id" : $(this).attr('complianceEntryId') }, function(t){
-              $(container).html(t);
-
-         });
-         return false;
-     });
-
-});
-</script>
-
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
@@ -79,4 +47,49 @@ $(document).ready(function(){
     </div>
   </div>
 </section>
+<script>
+$(document).ready(function(){
+    $(".remove-compliance-entry").live("click", function(){
+            var container = $(this).parents('div').eq(3);
+
+            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
+             console.log($(this).attr('entryId'));
+             var id = $(this).attr('entryId');
+             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
+
+             });
+             return false;
+
+    });
+
+     $('.update-compliance-entry').live('click' , function(e){
+        var form = $(this).closest('form');
+        var data = $(form).serialize();
+        var form_id =  $(this).closest('form').attr('id');
+        var entryId= $("#" + form_id + " #id").val();
+        console.log(data);
+        console.log(entryId);
+
+        $.post('save-session.php', data, function(){
+             $.post('process.php', {"action": "updateComplianceEntry", "id" : entryId }, function(t){
+                  $('#complianceEntry' + entryId).replaceWith(t);
+
+              });
+         });
+
+        return false;
+     });
+
+     $('.cancel-update-compliance-entry').live('click', function(e){
+
+         var container = $(this).parent('div').parent('form').parent('div');
+         $.post('process.php', {"action": "previewComplianceEntry", "id" : $(this).attr('complianceEntryId') }, function(t){
+              $(container).html(t);
+
+         });
+         return false;
+     });
+
+});
+</script>
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

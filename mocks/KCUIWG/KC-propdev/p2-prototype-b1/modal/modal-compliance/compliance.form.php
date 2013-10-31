@@ -8,6 +8,8 @@
     </script>
 
                 <form method="post" class="form-horizontal" id="compliance-form<?php echo $id?>">
+                    <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
+                    <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
                       <div class="form-group clearfix">
                         <label for="type" class="control-label col-md-3">Type:</label>
                         <div class="col-md-9">
