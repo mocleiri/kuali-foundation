@@ -40,7 +40,7 @@ public class EncUtils {
 	private static final String PASSWORD_KEY = "enc.password";
 	private static final String STRENGTH_KEY = "enc.strength";
 	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
-	private static final String PASSWORD_REMOVE_KEY = "enc.password.remove";
+	private static final String PASSWORD_REMOVE_KEY = "enc.password.removeSystemProperty";
 
 	// Old key's
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
@@ -65,12 +65,12 @@ public class EncUtils {
 		}
 
 		boolean passwordRequired = isPasswordRequired(env, EncryptionContext.DEFAULT);
-		boolean removePassword = env.getBoolean(PASSWORD_REMOVE_KEY, EncryptionContext.DEFAULT.isRemovePassword());
+		boolean removePasswordSystemProperty = env.getBoolean(PASSWORD_REMOVE_KEY, EncryptionContext.DEFAULT.isRemovePasswordSystemProperty());
 
 		EncStrength strength = getStrength(env, EncryptionContext.DEFAULT);
 
 		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength).passwordKey(passwordKey)
-				.removePassword(removePassword).build();
+				.removePasswordSystemProperty(removePasswordSystemProperty).build();
 	}
 
 	protected static boolean isPasswordRequired(Properties properties, EncryptionContext provided) {

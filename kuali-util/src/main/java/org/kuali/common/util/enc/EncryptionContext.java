@@ -11,7 +11,7 @@ public final class EncryptionContext {
 
 	private final boolean enabled;
 	private final boolean passwordRequired;
-	private final boolean removePassword;
+	private final boolean removePasswordSystemProperty;
 	private final Optional<String> password;
 	private final Optional<String> passwordKey;
 	private final EncStrength strength;
@@ -19,7 +19,7 @@ public final class EncryptionContext {
 	public static class Builder {
 
 		private boolean passwordRequired = false;
-		private boolean removePassword = true;
+		private boolean removePasswordSystemProperty = true;
 		private Optional<String> password = Optional.absent();
 		private Optional<String> passwordKey = Optional.absent();
 		private EncStrength strength = EncStrength.BASIC;
@@ -27,8 +27,8 @@ public final class EncryptionContext {
 		// For convenience only. enabled == password.isPresent()
 		private boolean enabled = false;
 
-		public Builder removePassword(boolean removePassword) {
-			this.removePassword = removePassword;
+		public Builder removePasswordSystemProperty(boolean removePasswordSystemProperty) {
+			this.removePasswordSystemProperty = removePasswordSystemProperty;
 			return this;
 		}
 
@@ -72,7 +72,7 @@ public final class EncryptionContext {
 		this.passwordKey = builder.passwordKey;
 		this.passwordRequired = builder.passwordRequired;
 		this.strength = builder.strength;
-		this.removePassword = builder.removePassword;
+		this.removePasswordSystemProperty = builder.removePasswordSystemProperty;
 	}
 
 	public boolean isEnabled() {
@@ -95,8 +95,8 @@ public final class EncryptionContext {
 		return passwordKey;
 	}
 
-	public boolean isRemovePassword() {
-		return removePassword;
+	public boolean isRemovePasswordSystemProperty() {
+		return removePasswordSystemProperty;
 	}
 
 }
