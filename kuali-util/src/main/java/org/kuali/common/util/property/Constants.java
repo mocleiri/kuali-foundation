@@ -61,7 +61,10 @@ public final class Constants {
 	@Deprecated
 	public static final String NULL = "NULL";
 	public static final String WILDCARD = "*";
+
+	@Deprecated
 	public static final String ENCRYPTION_PREFIX = "ENC(";
+	@Deprecated
 	public static final String ENCRYPTION_SUFFIX = ")";
 
 	// KS uses a bunch of groupId's. This was used to shorten everything thing to "org.kuali.student"

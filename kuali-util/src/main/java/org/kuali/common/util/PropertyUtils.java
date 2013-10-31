@@ -36,6 +36,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.property.Constants;
 import org.kuali.common.util.property.GlobalPropertiesMode;
 import org.kuali.common.util.property.ImmutableProperties;
@@ -107,6 +109,11 @@ public class PropertyUtils {
 	 * Return true if both contain an identical set of string keys and values, or both are <code>null</code>, false otherwise.
 	 */
 	public static boolean equals(Properties one, Properties two) {
+
+		// Return true if they are the same object
+		if (one == two) {
+			return true;
+		}
 
 		// Return true if they are both null
 		if (one == null && two == null) {
@@ -261,7 +268,7 @@ public class PropertyUtils {
 
 	public static void removeSystemProperty(String key) {
 		if (System.getProperty(key) != null) {
-			logger.debug("Removing system property [{}]", key);
+			logger.info("Removing system property [{}]", key);
 			System.getProperties().remove(key);
 		}
 	}
@@ -292,10 +299,10 @@ public class PropertyUtils {
 			String password = getRequiredResolvedProperty(properties, "properties.enc.password");
 
 			// Strength is optional (defaults to BASIC)
-			String defaultStrength = EncryptionStrength.BASIC.name();
+			String defaultStrength = EncStrength.BASIC.name();
 			String strength = getRequiredResolvedProperty(properties, "properties.enc.strength", defaultStrength);
-			EncryptionStrength es = EncryptionStrength.valueOf(strength);
-			TextEncryptor decryptor = EncUtils.getTextEncryptor(es, password);
+			EncStrength es = EncStrength.valueOf(strength);
+			TextEncryptor decryptor = org.kuali.common.util.enc.EncUtils.getTextEncryptor(password, es);
 			decrypt(properties, decryptor);
 		}
 	}
@@ -488,7 +495,7 @@ public class PropertyUtils {
 	 * Return true if the value starts with <code>ENC(</code> and ends with <code>)</code>, false otherwise.
 	 */
 	public static boolean isEncryptedPropertyValue(String value) {
-		return StringUtils.startsWith(value, Constants.ENCRYPTION_PREFIX) && StringUtils.endsWith(value, Constants.ENCRYPTION_SUFFIX);
+		return EncUtils.isEncrypted(value);
 	}
 
 	/**
@@ -540,14 +547,7 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static String unwrapEncryptedValue(String encryptedValue) {
-		// Ensure this property value really is encrypted
-		Assert.isTrue(StringUtils.startsWith(encryptedValue, Constants.ENCRYPTION_PREFIX), "value does not start with " + Constants.ENCRYPTION_PREFIX);
-		Assert.isTrue(StringUtils.endsWith(encryptedValue, Constants.ENCRYPTION_SUFFIX), "value does not end with " + Constants.ENCRYPTION_SUFFIX);
-
-		// Extract the value inside the ENC(...) wrapping
-		int start = Constants.ENCRYPTION_PREFIX.length();
-		int end = StringUtils.length(encryptedValue) - Constants.ENCRYPTION_SUFFIX.length();
-		return StringUtils.substring(encryptedValue, start, end);
+		return org.kuali.common.util.enc.EncUtils.unwrap(encryptedValue);
 	}
 
 	/**
@@ -570,11 +570,7 @@ public class PropertyUtils {
 	 * </pre>
 	 */
 	public static String wrapEncryptedPropertyValue(String encryptedValue) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(Constants.ENCRYPTION_PREFIX);
-		sb.append(encryptedValue);
-		sb.append(Constants.ENCRYPTION_SUFFIX);
-		return sb.toString();
+		return org.kuali.common.util.enc.EncUtils.wrap(encryptedValue);
 	}
 
 	public static void overrideWithGlobalValues(Properties properties, GlobalPropertiesMode mode) {
