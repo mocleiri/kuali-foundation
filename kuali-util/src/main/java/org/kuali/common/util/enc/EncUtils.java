@@ -23,24 +23,24 @@ import org.kuali.common.util.Assert;
 
 public class EncUtils {
 
-	private static final String ENCRYPTION_PREFIX = "ENC(";
-	private static final String ENCRYPTION_SUFFIX = ")";
+	private static final String ENCRYPTED_PREFIX = "ENC(";
+	private static final String ENCRYPTED_SUFFIX = ")";
 
 	public static boolean isEncrypted(String text) {
 		Assert.noBlanks(text);
-		return text.startsWith(ENCRYPTION_PREFIX) && text.endsWith(ENCRYPTION_SUFFIX);
+		return text.startsWith(ENCRYPTED_PREFIX) && text.endsWith(ENCRYPTED_SUFFIX);
 	}
 
 	public static String unwrap(String wrappedText) {
 		Assert.noBlanks(wrappedText);
 		Assert.isTrue(isEncrypted(wrappedText), "Text is not wrapped");
-		return StringUtils.substring(wrappedText, ENCRYPTION_PREFIX.length(), ENCRYPTION_SUFFIX.length());
+		return StringUtils.substring(wrappedText, ENCRYPTED_PREFIX.length(), ENCRYPTED_SUFFIX.length());
 	}
 
 	public static String wrap(String encryptedText) {
 		Assert.noBlanks(encryptedText);
 		Assert.isFalse(isEncrypted(encryptedText), "Text is already wrapped");
-		return ENCRYPTION_PREFIX + encryptedText + ENCRYPTION_SUFFIX;
+		return ENCRYPTED_PREFIX + encryptedText + ENCRYPTED_SUFFIX;
 	}
 
 	/**
