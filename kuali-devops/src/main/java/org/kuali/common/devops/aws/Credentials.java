@@ -1,5 +1,7 @@
 package org.kuali.common.devops.aws;
 
+import org.kuali.common.util.Assert;
+
 import com.amazonaws.auth.AWSCredentials;
 
 public enum Credentials implements AWSCredentials {
@@ -13,6 +15,7 @@ public enum Credentials implements AWSCredentials {
 	private final String secretKey;
 
 	private Credentials(String accessKey, String secretKey) {
+		Assert.noBlanks(accessKey, secretKey);
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;
 	}
