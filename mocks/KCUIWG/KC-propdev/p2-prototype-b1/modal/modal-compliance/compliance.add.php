@@ -23,7 +23,7 @@ $(document).ready(function(){
         var data = $('#compliance-form0').serialize();
 
         console.log(data);
-
+         data += '&action=addComplianceEntry';
         $.post('../../save-session.php', data, function(t){
             console.log(t);
 
@@ -42,7 +42,7 @@ $(document).ready(function(){
     });
     $('#cancel-update-compliance-entry0').click(function(e){
        parent.$.fancybox.close();
-    }
+    });
 
 });
 </script>

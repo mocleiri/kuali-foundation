@@ -80,7 +80,7 @@
                         </div>
                       </div>
                       <div class="btn-row-widget-action pull-right">
-                        <button class="btn btn-primary btn-xs update-compliance-entry" complianceEntryId="<?php echo $id?>"> <?php echo $actionLabel?></button>
+                        <button class="btn btn-primary btn-xs update-compliance-entry" complianceEntryId="<?php echo $id?>" id="update-compliance-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
                         <button class="btn btn-link btn-xs cancel-update-compliance-entry" complianceEntryId="<?php echo $id?>"> Cancel</button>
                       </div>
                     </form>
