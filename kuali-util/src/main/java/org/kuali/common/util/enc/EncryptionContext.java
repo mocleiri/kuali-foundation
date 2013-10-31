@@ -16,16 +16,18 @@ public final class EncryptionContext {
 		Assert.noNulls(password, strength);
 		if (required) {
 			Assert.isTrue(password.isPresent(), "Encryption password is required");
+		}
+		if (password.isPresent()) {
 			Assert.noBlanks(password.get());
 		}
-		this.required = required;
+		this.passwordRequired = required;
 		this.enabled = password.isPresent();
 		this.password = password;
 		this.strength = strength;
 	}
 
 	private final boolean enabled;
-	private final boolean required;
+	private final boolean passwordRequired;
 	private final Optional<String> password;
 	private final EncStrength strength;
 
@@ -41,8 +43,8 @@ public final class EncryptionContext {
 		return strength;
 	}
 
-	public boolean isRequired() {
-		return required;
+	public boolean isPasswordRequired() {
+		return passwordRequired;
 	}
 
 }
