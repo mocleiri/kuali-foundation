@@ -37,8 +37,6 @@ import com.google.common.base.Optional;
 @Import({ SpringServiceConfig.class, WaitServiceConfig.class })
 public class AwsServiceConfig {
 
-	private static final String ACCESS_KEY = "aws.accessKeyId";
-	private static final String SECRET_KEY = "aws.secretKey";
 	private static final String REGION_KEY = "aws.region";
 	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
 	private static final String ENDPOINT_KEY = "aws.endpoint";
@@ -54,8 +52,6 @@ public class AwsServiceConfig {
 
 	@Bean
 	public EC2Service ec2Service() {
-		String accessKey = env.getString(ACCESS_KEY);
-		String secretKey = env.getString(SECRET_KEY);
 		Optional<Region> region = getRegion();
 		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
 		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds();
