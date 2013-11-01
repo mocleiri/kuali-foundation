@@ -84,7 +84,7 @@ public final class DefaultEC2Service implements EC2Service {
 	public Instance launchInstance(LaunchInstanceContext context) {
 		Assert.noNulls(context);
 
-		// Connect to AWS and ask them to run an instance
+		// Connect to AWS and ask them to create an instance
 		Instance instance = issueRunInstanceRequest(context);
 
 		// Was getting some flaky behavior from AWS without a small delay after issuing the RunInstancesRequest
