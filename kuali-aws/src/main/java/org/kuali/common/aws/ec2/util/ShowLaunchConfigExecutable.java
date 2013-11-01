@@ -45,8 +45,8 @@ public class ShowLaunchConfigExecutable implements Executable {
 			logger.info("Region: [{} {}]", regionName, regionLocation);
 			logger.info("Availabilty Zone: {}", availabilityZone);
 			logger.info("AMI: {}", instanceContext.getAmi());
-			logger.info("Key: {}", instanceContext.getKeyName());
 			logger.info("Type: {}", instanceContext.getType().toString());
+			logger.info("Key: {}", instanceContext.getKeyName());
 			logger.info("--------------------------------------------");
 		}
 	}
