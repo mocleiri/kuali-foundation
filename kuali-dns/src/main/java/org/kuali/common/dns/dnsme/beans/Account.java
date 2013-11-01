@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 
-public class Account {
+public final class Account {
 
 	public Account(String apiKey, String secretKey, List<Domain> domains) {
 		Assert.noBlanks(apiKey, secretKey);
