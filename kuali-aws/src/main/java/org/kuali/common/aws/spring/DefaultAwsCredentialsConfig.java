@@ -35,12 +35,12 @@ public class DefaultAwsCredentialsConfig implements AwsCredentialsConfig {
 	EnvironmentService env;
 
 	@Autowired
-	EncryptionService service;
+	EncryptionService enc;
 
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
-		AWSCredentials credentials = CredentialUtils.getCredentials(env, service);
+		AWSCredentials credentials = CredentialUtils.getCredentials(env, enc);
 		return new ImmutableAwsCredentials(credentials);
 	}
 
