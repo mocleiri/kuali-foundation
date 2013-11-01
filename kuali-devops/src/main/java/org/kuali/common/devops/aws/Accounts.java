@@ -21,7 +21,7 @@ public enum Accounts {
 	private Accounts(String name, String accountNumber, AWSCredentials credentials, AwsKey key) {
 		Assert.noBlanks(name, accountNumber);
 		Assert.noNulls(credentials, key);
-		this.account = new AwsAccount.Builder(name, accountNumber).credentials(credentials).key(key).build();
+		this.account = new AwsAccount.Builder(name).accountNumber(accountNumber).credentials(credentials).key(key).build();
 	}
 
 	public AwsAccount getAccount() {
