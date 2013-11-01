@@ -35,7 +35,7 @@ import com.amazonaws.auth.AWSCredentials;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class MappedCredentialsConfig implements AwsCredentialsConfig {
+public class KualiCredentialsConfig implements AwsCredentialsConfig {
 
 	private static final String ACCOUNT_KEY = "aws.account";
 
