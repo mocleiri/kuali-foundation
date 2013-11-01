@@ -112,8 +112,11 @@ public class EncUtils {
 	}
 
 	public static boolean isEncrypted(String text) {
-		Assert.noBlanks(text);
-		return text.startsWith(ENCRYPTED_PREFIX) && text.endsWith(ENCRYPTED_SUFFIX);
+		if (StringUtils.isBlank(text)) {
+			return false;
+		} else {
+			return text.startsWith(ENCRYPTED_PREFIX) && text.endsWith(ENCRYPTED_SUFFIX);
+		}
 	}
 
 	public static String unwrap(String wrappedText) {

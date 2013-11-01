@@ -506,7 +506,7 @@ public class PropertyUtils {
 		List<String> keys = getSortedKeys(properties, includes, excludes);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			if (isEncryptedPropertyValue(value)) {
+			if (EncUtils.isEncrypted(value)) {
 				String decryptedValue = decryptPropertyValue(encryptor, value);
 				properties.setProperty(key, decryptedValue);
 			}
