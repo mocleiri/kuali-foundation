@@ -12,7 +12,7 @@ import com.amazonaws.auth.AWSCredentials;
 public enum Accounts {
 
 	FOUNDATION("foundation", "3627-3510-8948", Credentials.FOUNDATION, Keys.FOUNDATION.getKey()), //
-	KS("ks", "0523-3819-3506", Credentials.KS, Keys.KS.getKey()), //
+	STUDENT("student", "0523-3819-3506", Credentials.STUDENT, Keys.STUDENT.getKey()), //
 	RICE("rice", "7898-1396-8323", Credentials.RICE, Keys.RICE.getKey()), //
 	OLE("ole", "7867-4615-1229", Credentials.OLE, Keys.OLE.getKey()); //
 
