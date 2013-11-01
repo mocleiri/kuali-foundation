@@ -31,7 +31,7 @@ import com.amazonaws.auth.AWSCredentials;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class FoundationCredentialsConfig implements AwsCredentialsConfig {
+public class FoundationAwsConfig implements AwsCredentialsConfig {
 
 	@Autowired
 	EnvironmentService env;
