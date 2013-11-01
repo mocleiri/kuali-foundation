@@ -1,5 +1,8 @@
 package org.kuali.common.aws.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Regions {
 
 	AP_NORTHEAST_1("ap-northeast-1", "Asia Pacific (Tokyo)"), //
@@ -25,6 +28,14 @@ public enum Regions {
 
 	public String getLocation() {
 		return location;
+	}
+
+	public Map<String, Regions> asMap() {
+		Map<String, Regions> map = new HashMap<String, Regions>();
+		for (Regions region : values()) {
+			map.put(region.getName(), region);
+		}
+		return map;
 	}
 
 	/**
