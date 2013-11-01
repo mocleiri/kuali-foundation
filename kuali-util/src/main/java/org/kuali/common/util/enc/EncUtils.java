@@ -112,6 +112,9 @@ public class EncUtils {
 		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
+	/**
+	 * Return true if the text is enclosed with <code>ENC()</code>
+	 */
 	public static boolean isEncrypted(String text) {
 		return StringUtils.startsWith(text, ENCRYPTED_PREFIX) && StringUtils.endsWith(text, ENCRYPTED_SUFFIX);
 	}
