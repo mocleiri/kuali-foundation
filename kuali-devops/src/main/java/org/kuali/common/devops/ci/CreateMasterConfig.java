@@ -23,12 +23,15 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.model.AwsAccount;
+import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.Accounts;
 import org.kuali.common.devops.aws.AwsConstants;
 import org.kuali.common.devops.aws.SecurityGroupName;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ AwsServiceConfig.class, SpringServiceConfig.class })
+@Import({ AwsServiceConfig.class, SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class CreateMasterConfig implements AwsCredentialsConfig {
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
@@ -54,10 +57,14 @@ public class CreateMasterConfig implements AwsCredentialsConfig {
 	@Autowired
 	EnvironmentService env;
 
+	@Autowired
+	EncryptionService enc;
+
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
-		return Accounts.FOUNDATION.getAccount().getCredentials().get();
+		AWSCredentials foundation = Accounts.FOUNDATION.getAccount().getCredentials().get();
+		return CredentialUtils.getCredentials(env, enc, foundation);
 	}
 
 	@Bean
