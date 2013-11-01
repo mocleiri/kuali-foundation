@@ -29,6 +29,8 @@ import org.kuali.common.devops.aws.SecurityGroupName;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +45,7 @@ import com.google.common.collect.ImmutableList;
 @Import({ SpringServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class })
 public class CreateMasterConfig {
 
+	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
 
 	@Autowired
@@ -58,7 +61,7 @@ public class CreateMasterConfig {
 	public Object launchAndThenTerminate() {
 		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
 		Instance instance = service.launchInstance(context);
-		System.out.println(instance.getPublicDnsName());
+		logger.info("public dns: {}", instance.getPublicDnsName());
 		return null;
 	}
 
