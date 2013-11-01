@@ -24,7 +24,6 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.util.CredentialUtils;
-import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.Accounts;
 import org.kuali.common.devops.aws.AwsConstants;
@@ -47,7 +46,7 @@ import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class CreateMasterConfig implements AwsCredentialsConfig {
+public class CreateMasterConfig {
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
 
@@ -60,7 +59,6 @@ public class CreateMasterConfig implements AwsCredentialsConfig {
 	@Autowired
 	EncryptionService enc;
 
-	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
 		AWSCredentials foundation = Accounts.FOUNDATION.getAccount().getCredentials().get();
