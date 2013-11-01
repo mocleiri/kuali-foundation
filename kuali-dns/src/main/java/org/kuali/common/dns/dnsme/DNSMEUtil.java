@@ -37,6 +37,7 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.kuali.common.dns.dnsme.beans.Account;
 
 public class DNSMEUtil {
+
 	// Sat, 12 Feb 2011 20:59:04 GMT
 	public static final String DEFAULT_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
 	public static final String DEFAULT_TIME_ZONE = "GMT";
@@ -52,7 +53,6 @@ public class DNSMEUtil {
 	TimeZone timeZone;
 
 	public DNSMEUtil() {
-		super();
 		setFormat(DEFAULT_DATE_FORMAT);
 		setTimeZone(TimeZone.getTimeZone(DEFAULT_TIME_ZONE));
 		setAlgorithm(DEFAULT_ALGORITHM);
