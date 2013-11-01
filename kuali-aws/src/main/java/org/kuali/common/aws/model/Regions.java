@@ -11,16 +11,16 @@ public enum Regions {
 	US_WEST_1("us-west-2", "US West (Northern California)"), //
 	US_WEST_2("us-west-2", "US West (Oregon)"); //
 
-	private final String id;
+	private final String name;
 	private final String location;
 
-	private Regions(String id, String location) {
-		this.id = id;
+	private Regions(String name, String location) {
+		this.name = name;
 		this.location = location;
 	}
 
-	public String getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
 	public String getLocation() {
