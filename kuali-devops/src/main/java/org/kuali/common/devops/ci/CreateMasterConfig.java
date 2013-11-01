@@ -24,7 +24,6 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.spring.AwsServiceConfig;
-import org.kuali.common.devops.aws.Accounts;
 import org.kuali.common.devops.aws.AwsConstants;
 import org.kuali.common.devops.aws.SecurityGroupName;
 import org.kuali.common.devops.aws.Tags;
@@ -52,6 +51,9 @@ public class CreateMasterConfig {
 	@Autowired
 	EnvironmentService env;
 
+	@Autowired
+	AwsAccount account;
+
 	@Bean
 	public Object launchAndThenTerminate() {
 		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
@@ -62,7 +64,6 @@ public class CreateMasterConfig {
 
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
-		AwsAccount account = Accounts.FOUNDATION.getAccount();
 		String ami = AwsConstants.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09;
 		String keyName = account.getKey().get().getName();
 		InstanceType type = InstanceType.M1Large;
