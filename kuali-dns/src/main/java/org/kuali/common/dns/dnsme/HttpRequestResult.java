@@ -18,58 +18,59 @@ package org.kuali.common.dns.dnsme;
 import org.apache.commons.httpclient.Header;
 
 public class HttpRequestResult {
-    int statusCode;
-    String statusText;
-    HttpRequestResultType type;
-    Exception exception;
-    Header[] responseHeaders;
-    String responseBody;
 
-    public String getStatusText() {
-        return statusText;
-    }
+	int statusCode;
+	String statusText;
+	HttpRequestResultType type;
+	Exception exception;
+	Header[] responseHeaders;
+	String responseBody;
 
-    public void setStatusText(String statusText) {
-        this.statusText = statusText;
-    }
+	public String getStatusText() {
+		return statusText;
+	}
 
-    public String getResponseBody() {
-        return responseBody;
-    }
+	public void setStatusText(String statusText) {
+		this.statusText = statusText;
+	}
 
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
-    }
+	public String getResponseBody() {
+		return responseBody;
+	}
 
-    public HttpRequestResultType getType() {
-        return type;
-    }
+	public void setResponseBody(String responseBody) {
+		this.responseBody = responseBody;
+	}
 
-    public void setType(HttpRequestResultType type) {
-        this.type = type;
-    }
+	public HttpRequestResultType getType() {
+		return type;
+	}
 
-    public Exception getException() {
-        return exception;
-    }
+	public void setType(HttpRequestResultType type) {
+		this.type = type;
+	}
 
-    public void setException(Exception exception) {
-        this.exception = exception;
-    }
+	public Exception getException() {
+		return exception;
+	}
 
-    public int getStatusCode() {
-        return statusCode;
-    }
+	public void setException(Exception exception) {
+		this.exception = exception;
+	}
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
+	public int getStatusCode() {
+		return statusCode;
+	}
 
-    public Header[] getResponseHeaders() {
-        return responseHeaders;
-    }
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
 
-    public void setResponseHeaders(Header[] responseHeaders) {
-        this.responseHeaders = responseHeaders;
-    }
+	public Header[] getResponseHeaders() {
+		return responseHeaders;
+	}
+
+	public void setResponseHeaders(Header[] responseHeaders) {
+		this.responseHeaders = responseHeaders;
+	}
 }

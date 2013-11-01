@@ -16,5 +16,7 @@
 package org.kuali.common.dns.dnsme;
 
 public enum HttpRequestResultType {
-    EXCEPTION, COMPLETED, TIMEOUT;
+
+	EXCEPTION, COMPLETED, TIMEOUT;
+
 }
