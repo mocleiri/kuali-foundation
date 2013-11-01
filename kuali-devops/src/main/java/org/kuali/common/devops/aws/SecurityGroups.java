@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 
 public enum SecurityGroups {
 
-	SSH("ssh"), // Allow ssh from anywhere
+	SSH("ssh"), // Allow ssh (port 22) from anywhere
 	HTTP("http"), // Allow http (port 80) from anywhere
 	HTTPS("https"); // Allow https (port 443) from anywhere
 
