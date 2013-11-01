@@ -27,6 +27,7 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.beans.Account;
 import org.kuali.common.dns.dnsme.beans.Domain;
 import org.kuali.common.dns.dnsme.beans.DomainNames;
@@ -39,7 +40,7 @@ import org.springframework.util.Assert;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class DNSMEClient {
+public class DNSMadeEasyService implements DnsService {
 
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_CREATED = 201;
@@ -50,11 +51,11 @@ public class DNSMEClient {
 	HttpUtil http = new HttpUtil();
 	DNSMEUtil dnsme = new DNSMEUtil();
 
-	public static DNSMEClient getInstance(Account account, String restApiUrl) {
-		return new DNSMEClient(account, restApiUrl);
+	public static DNSMadeEasyService getInstance(Account account, String restApiUrl) {
+		return new DNSMadeEasyService(account, restApiUrl);
 	}
 
-	private DNSMEClient(Account account, String restApiUrl) {
+	private DNSMadeEasyService(Account account, String restApiUrl) {
 		this.account = account;
 		this.restApiUrl = restApiUrl;
 	}
