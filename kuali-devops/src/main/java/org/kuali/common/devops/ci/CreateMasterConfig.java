@@ -41,7 +41,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ SpringServiceConfig.class, KualiCredentialsConfig.class, AwsServiceConfig.class })
+@Import({ SpringServiceConfig.class, KualiAwsConfig.class, AwsServiceConfig.class })
 public class CreateMasterConfig {
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;

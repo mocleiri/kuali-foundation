@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.util.CredentialUtils;
+import org.kuali.common.aws.spring.AwsAccountConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.devops.aws.Accounts;
 import org.kuali.common.util.enc.EncryptionService;
@@ -35,7 +36,7 @@ import com.amazonaws.auth.AWSCredentials;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class KualiCredentialsConfig implements AwsCredentialsConfig {
+public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
 
 	private static final String ACCOUNT_KEY = "aws.account";
 
@@ -47,11 +48,18 @@ public class KualiCredentialsConfig implements AwsCredentialsConfig {
 
 	@Override
 	@Bean
-	public AWSCredentials awsCredentials() {
+	public AwsAccount awsAccount() {
 		String name = env.getString(ACCOUNT_KEY);
 		Map<String, AwsAccount> accounts = Accounts.getAccounts();
 		AwsAccount account = accounts.get(name);
 		Assert.notNull(account);
+		return account;
+	}
+
+	@Override
+	@Bean
+	public AWSCredentials awsCredentials() {
+		AwsAccount account = awsAccount();
 		AWSCredentials credentials = account.getCredentials().get();
 		return CredentialUtils.getCredentials(env, enc, credentials);
 	}
