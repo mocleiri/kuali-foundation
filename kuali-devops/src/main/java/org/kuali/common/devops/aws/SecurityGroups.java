@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-public enum SecurityGroupName {
+public enum SecurityGroups {
 
 	SSH("ssh"), // Allow ssh from anywhere
 	HTTP("http"), // Allow http (port 80) from anywhere
@@ -13,7 +13,7 @@ public enum SecurityGroupName {
 
 	private final String value;
 
-	private SecurityGroupName(String value) {
+	private SecurityGroups(String value) {
 		this.value = value;
 	}
 
@@ -25,9 +25,9 @@ public enum SecurityGroupName {
 		return getValues(values());
 	}
 
-	public static final List<String> getValues(SecurityGroupName... groupNames) {
+	public static final List<String> getValues(SecurityGroups... groupNames) {
 		List<String> names = new ArrayList<String>();
-		for (SecurityGroupName groupName : groupNames) {
+		for (SecurityGroups groupName : groupNames) {
 			names.add(groupName.getValue());
 		}
 		return ImmutableList.copyOf(names);

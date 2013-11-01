@@ -26,7 +26,7 @@ import org.kuali.common.aws.model.AMIs;
 import org.kuali.common.aws.model.AvailabilityZones;
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.spring.AwsServiceConfig;
-import org.kuali.common.devops.aws.SecurityGroupName;
+import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -72,7 +72,7 @@ public class CreateMasterConfig {
 		String keyName = account.getKey().get().getName();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getValue();
-		List<String> securityGroups = SecurityGroupName.getValues(SecurityGroupName.SSH, SecurityGroupName.HTTP, SecurityGroupName.HTTPS);
+		List<String> securityGroups = SecurityGroups.getValues(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = true;
