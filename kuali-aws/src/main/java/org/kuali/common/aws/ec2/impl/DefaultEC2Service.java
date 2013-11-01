@@ -10,6 +10,7 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
+import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -21,8 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
@@ -62,25 +61,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Assert.noNulls(context, service);
 		this.service = service;
 		this.context = context;
-		this.client = getClient(context);
-	}
-
-	protected AmazonEC2Client getClient(EC2ServiceContext context) {
-		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
-		if (context.getTimeOffsetInSeconds().isPresent()) {
-			client.setTimeOffset(context.getTimeOffsetInSeconds().get());
-		}
-		if (context.getRegionName().isPresent()) {
-			Region region = RegionUtils.getRegion(context.getRegionName().get());
-			client.setRegion(region);
-		}
-		if (context.getEndpoint().isPresent()) {
-			client.setEndpoint(context.getEndpoint().get());
-		}
-		if (context.getConfiguration().isPresent()) {
-			client.setConfiguration(context.getConfiguration().get());
-		}
-		return client;
+		this.client = LaunchUtils.getClient(context);
 	}
 
 	@Override

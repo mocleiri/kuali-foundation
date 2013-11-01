@@ -14,6 +14,9 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 import org.springframework.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.RegionUtils;
+import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.base.Optional;
@@ -38,6 +41,24 @@ public class LaunchUtils {
 	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NullUtils.NONE).build();
+
+	public static AmazonEC2Client getClient(EC2ServiceContext context) {
+		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
+		if (context.getTimeOffsetInSeconds().isPresent()) {
+			client.setTimeOffset(context.getTimeOffsetInSeconds().get());
+		}
+		if (context.getRegionName().isPresent()) {
+			Region region = RegionUtils.getRegion(context.getRegionName().get());
+			client.setRegion(region);
+		}
+		if (context.getEndpoint().isPresent()) {
+			client.setEndpoint(context.getEndpoint().get());
+		}
+		if (context.getConfiguration().isPresent()) {
+			client.setConfiguration(context.getConfiguration().get());
+		}
+		return client;
+	}
 
 	public static EC2ServiceContext getEC2ServiceContext(EnvironmentService env, AWSCredentials credentials) {
 		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
