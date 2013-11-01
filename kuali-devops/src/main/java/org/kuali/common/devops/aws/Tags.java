@@ -74,7 +74,7 @@ public class Tags {
 
 	public enum Project {
 
-		SHARED("shared"), KS("ks"), OLE("ole"), RICE("rice"), MOBILITY("mobility"), KPME("kpme"), KFS("kfs"), READY("ready");
+		SHARED("shared"), STUDENT("student"), OLE("ole"), RICE("rice"), MOBILITY("mobility"), KPME("kpme"), KFS("kfs"), READY("ready");
 
 		public static final String NAME = "Project";
 
