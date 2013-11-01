@@ -17,51 +17,32 @@ package org.kuali.common.dns.dnsme.beans;
 
 import java.util.List;
 
+import org.kuali.common.util.Assert;
+
 public class Account {
 
-	String username;
-	String password;
-	String apiKey;
-	String secretKey;
-	List<Domain> domains;
-
-	public List<Domain> getDomains() {
-		return domains;
-	}
-
-	public void setDomains(List<Domain> domains) {
+	public Account(String apiKey, String secretKey, List<Domain> domains) {
+		Assert.noBlanks(apiKey, secretKey);
+		Assert.noNulls(domains);
+		this.apiKey = apiKey;
+		this.secretKey = secretKey;
 		this.domains = domains;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	private final String apiKey;
+	private final String secretKey;
+	private final List<Domain> domains;
 
 	public String getApiKey() {
 		return apiKey;
-	}
-
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
 	}
 
 	public String getSecretKey() {
 		return secretKey;
 	}
 
-	public void setSecretKey(String secretKey) {
-		this.secretKey = secretKey;
+	public List<Domain> getDomains() {
+		return domains;
 	}
+
 }
