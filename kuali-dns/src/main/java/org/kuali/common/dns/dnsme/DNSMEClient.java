@@ -54,7 +54,6 @@ public class DNSMEClient {
 	}
 
 	private DNSMEClient(Account account, String restApiUrl) {
-		super();
 		this.account = account;
 		this.restApiUrl = restApiUrl;
 	}
