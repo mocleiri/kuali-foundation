@@ -21,6 +21,10 @@ import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
 
+	private static final String REGION_KEY = "aws.region";
+	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
+	private static final String ENDPOINT_KEY = "aws.endpoint";
+
 	private static final String AMI_KEY = "ec2.ami";
 	private static final String KEY_NAME_KEY = "ec2.keyName";
 	private static final String TYPE_KEY = "ec2.type";
@@ -34,10 +38,6 @@ public class LaunchUtils {
 	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NullUtils.NONE).build();
-
-	private static final String REGION_KEY = "aws.region";
-	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
-	private static final String ENDPOINT_KEY = "aws.endpoint";
 
 	public static EC2ServiceContext getEC2ServiceContext(EnvironmentService env, AWSCredentials credentials) {
 		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
