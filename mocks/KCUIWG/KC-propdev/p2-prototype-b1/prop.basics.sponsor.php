@@ -25,7 +25,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					    <legend style="display:none">Enter sponsor information</legend>
 
 					    <div class="form-group clearfix">
-							<label class="control-label col-md-3 required" for="project_start"> Sponsor Deadline: </label>
+							<label class="control-label col-md-3" for="project_start"> Sponsor deadline: </label>
 							<div class="col-md-9 date-range">
 								<div class="col-md-6 date">
 									<input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
@@ -38,46 +38,35 @@ require_once( 'themes/kc/inc/toolbar.php' );
 								</div>
 							</div>
 						</div>
-                        
-                        
-                        
+
                       <div class="form-group clearfix">
-					      <label for="sponsor_deadline_type" class="control-label col-md-3 required"> Sponsor Deadline Type: </label>
+					      <label for="sponsor_deadline_type" class="control-label col-md-3"> Sponsor Deadline Type: </label>
 					      <div class="col-md-9">
 					        <select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8">
-					        	    <option value="" selected="selected">select</option>
-									<option value="Postmark">Postmark</option>
-									<option value="Receipt">Receipt</option>
-									<option value="Target Date">Target Date</option>
-				        		
-				        		
-									
-								
+				        	    <option value="" selected="selected">select</option>
+								<option value="Postmark">Postmark</option>
+								<option value="Receipt">Receipt</option>
+								<option value="Target Date">Target Date</option>
 				            </select>
 				          </div>
 				        </div>
-                        
-                        
-                        
 
 					    <div class="form-group clearfix">
 					      <label for="notice_of_opp" class="control-label col-md-3 required">* Notice of Opportunity: </label>
 					      <div class="col-md-9">
 					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
-					        	        <option value="" selected="selected">select</option>
-									<option value="1">Federal Solicitation</option>
-									<option value="6">Non-Federal Solicitation</option>
-									<option value="2">Unsolicited</option>
-				        		
-				        		
-									<option value="3">Verbal Request for Proposal</option>
-									<option value="4">SBIR Solicitation</option>
-									<option value="5">STTR Solicitation</option>
-									<option value="7">Internal</option>
-								
+				        	    <option value="" selected="selected">select</option>
+								<option value="1">Federal Solicitation</option>
+								<option value="6">Non-Federal Solicitation</option>
+								<option value="2">Unsolicited</option>
+								<option value="3">Verbal Request for Proposal</option>
+								<option value="4">SBIR Solicitation</option>
+								<option value="5">STTR Solicitation</option>
+								<option value="7">Internal</option>
 				            </select>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="opportunity_id" class="control-label col-md-3 required">* Opportunity ID: </label>
 					      <div class="col-md-9">
@@ -87,6 +76,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="cfda_number" class="control-label col-md-3 required"> * CFDA number: </label>
 					      <div class="col-md-9">
@@ -96,18 +86,15 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="subawards" class="control-label col-md-3">Subawards:</label>
 					      <div class="col-md-9">
-                          
-                          
                             <p class="form-control-static"> <input type="checkbox" value="" name="subawards" id="subawards" class="checkbox-radio-reset-margin" />
 					        Yes, this proposal includes subaward(s)</p>
-                            
-                            
-                            
 					        </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="sponsor_proposal_id" class="control-label col-md-3">Sponsor proposal ID:</label>
 					      <div class="col-md-9">
@@ -117,6 +104,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 				          </div>
 				        </div>
+					    
 					    <div class="form-group clearfix">
 					      <label for="sponsor_div_code" class="control-label col-md-3">Sponsor DIV code:</label>
 					      <div class="col-md-9">
@@ -126,6 +114,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="sponsor_program_code" class="control-label col-md-3">Sponsor program code:</label>
 					      <div class="col-md-9">
@@ -135,6 +124,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="nsf_science_code" class="control-label col-md-3">NSF Science code:</label>
 					      <div class="col-md-9">
@@ -146,6 +136,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				            </select>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="anticipated_award_type" class="control-label col-md-3">Anticipated award type:</label>
 					      <div class="col-md-9">
@@ -157,12 +148,14 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				            </select>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="opportunity_title" class="control-label col-md-3">Opportunity title:</label>
 					      <div class="col-md-9">
 					        <textarea name="opportunity_title" id="opportunity_title" class="form-control input-sm disabled" disabled="disabled">Same title from the first page would be here</textarea>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="prev_grantsgov_tracking" class="control-label col-md-3">Previous Grants.gov Tracking ID:</label>
 					      <div class="col-md-9">
@@ -172,6 +165,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 							</div>
 				          </div>
 				        </div>
+
 					    <div class="form-group clearfix">
 					      <label for="agency_routing_identifier" class="control-label col-md-3">Agency Routing Identifier:</label>
 					      <div class="col-md-9">
@@ -182,43 +176,18 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				          </div>
 				        </div>
 				      </fieldset>
-	    </form>
+	    			</form>
 					<!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
 			<div class="btn-row-page-action">
-				<?php
-				if ($alt && file_exists('prop.basics.deliveryinfo-alt.php')) {
-					echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-default">Back</button>';
-				} else {
-					echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-default">Back</button>';
-				}
-				?>
+				<button href="prop.basics.deliveryinfo.php" class="btn btn-default">Back</button>
 				<button class="btn btn-default">Save</button>
-		      	<?php
-				if ($alt && file_exists('prop.basics.orgloc-alt.php')) {
-					echo '<button href="prop.basics.orgloc-alt.php" class="btn btn-primary">Save and Continue</button>';
-				} else {
-					echo '<button href="prop.basics.orgloc.php" class="btn btn-primary">Save and Continue</button>';
-				}
-				?>
-			
-		</div>
+				<button href="prop.basics.orgloc.php" class="btn btn-primary">Save and Continue</button>
+			</div>
 		<!-- // -->
         </div>
       </div>
     </div>
   </div>
 </section>
-<?php require_once( 'themes/kc/inc/footer.php' ); ?>
-
-
-
-
-
-
-
-	</div>
-
-</section>
-
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
