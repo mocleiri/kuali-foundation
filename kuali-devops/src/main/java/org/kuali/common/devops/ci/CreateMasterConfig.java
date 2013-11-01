@@ -84,7 +84,7 @@ public class CreateMasterConfig {
 		List<String> securityGroups = SecurityGroups.of(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
-		boolean preventTermination = true;
+		boolean preventTermination = false; // Switch this back to true before release
 		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
 				.rootVolume(rootVolume).build();
 	}
