@@ -4,20 +4,21 @@ import org.kuali.common.aws.model.ImmutableAwsCredentials;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.wait.WaitService;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.services.ec2.model.Region;
 import com.google.common.base.Optional;
 
 public final class DefaultEC2ServiceContext {
 
+	private final AWSCredentials credentials;
 	private final WaitService service;
 	private final int sleepMillis;
 	private final int initialPauseMillis;
 	private final int terminationTimeoutMillis;
-	private final Optional<String> regionName;
+	private final Optional<Region> region;
 	private final Optional<String> endpoint;
 	private final Optional<ClientConfiguration> configuration;
 	private final Optional<Integer> timeOffsetInSeconds;
@@ -32,7 +33,7 @@ public final class DefaultEC2ServiceContext {
 		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 15 seconds
 		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 1 second
 		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
-		private Optional<String> regionName = Optional.absent(); // Every AWS account has a default region
+		private Optional<Region> region = Optional.absent(); // Every AWS account has a default region
 		private Optional<String> endpoint = Optional.absent(); // Every AWS account has a default endpoint
 		private Optional<ClientConfiguration> configuration = Optional.absent(); // This allows advanced customization (eg connecting to AWS through a proxy)
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) correct time
@@ -51,8 +52,8 @@ public final class DefaultEC2ServiceContext {
 			return this;
 		}
 
-		public Builder regionName(String regionName) {
-			this.regionName = Optional.fromNullable(NullUtils.trimToNull(regionName));
+		public Builder region(Region region) {
+			this.region = Optional.fromNullable(region);
 			return this;
 		}
 
@@ -82,7 +83,7 @@ public final class DefaultEC2ServiceContext {
 		}
 
 		public DefaultEC2ServiceContext build() {
-			Assert.noNulls(service, credentials, timeOffsetInSeconds, regionName, endpoint, configuration);
+			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
 			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
 			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSAccessKeyId()), "AWS Access Key ID is encrypted");
 			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSSecretKey()), "AWS Secret Key is encrypted");
@@ -92,11 +93,12 @@ public final class DefaultEC2ServiceContext {
 	}
 
 	private DefaultEC2ServiceContext(Builder builder) {
+		this.credentials = builder.credentials;
 		this.service = builder.service;
 		this.sleepMillis = builder.sleepMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;
 		this.terminationTimeoutMillis = builder.terminationTimeoutMillis;
-		this.regionName = builder.regionName;
+		this.region = builder.region;
 		this.endpoint = builder.endpoint;
 		this.configuration = builder.configuration;
 		this.timeOffsetInSeconds = builder.timeOffsetInSeconds;
@@ -118,8 +120,8 @@ public final class DefaultEC2ServiceContext {
 		return terminationTimeoutMillis;
 	}
 
-	public Optional<String> getRegionName() {
-		return regionName;
+	public Optional<Region> getRegion() {
+		return region;
 	}
 
 	public Optional<String> getEndpoint() {
@@ -132,6 +134,10 @@ public final class DefaultEC2ServiceContext {
 
 	public Optional<Integer> getTimeOffsetInSeconds() {
 		return timeOffsetInSeconds;
+	}
+
+	public AWSCredentials getCredentials() {
+		return credentials;
 	}
 
 }
