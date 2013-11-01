@@ -17,6 +17,7 @@ package org.kuali.common.aws.spring;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
+import org.kuali.common.aws.ec2.impl.DefaultEC2ServiceContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -28,8 +29,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.RegionUtils;
 import com.google.common.base.Optional;
 
 @Configuration
@@ -50,12 +49,18 @@ public class AwsServiceConfig {
 	AwsCredentialsConfig auth;
 
 	@Bean
-	public EC2Service ec2Service() {
-		Optional<Region> region = getRegion();
+	public DefaultEC2ServiceContext ec2ServiceContext() {
+		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
 		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
 		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds();
-		return new DefaultEC2Service.Builder(auth.awsCredentials(), service).region(region.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull())
-				.build();
+		return new DefaultEC2ServiceContext.Builder(auth.awsCredentials(), service).regionName(regionName.orNull()).endpoint(endpoint.orNull())
+				.timeOffsetInSeconds(timeOffsetInSeconds.orNull()).build();
+	}
+
+	@Bean
+	public EC2Service ec2Service() {
+		DefaultEC2ServiceContext context = ec2ServiceContext();
+		return new DefaultEC2Service(context);
 	}
 
 	protected Optional<Integer> getTimeOffsetInSeconds() {
@@ -67,15 +72,6 @@ public class AwsServiceConfig {
 			Long seconds = millis / 1000;
 			// Return the seconds value as an integer
 			return Optional.of(seconds.intValue());
-		} else {
-			return Optional.absent();
-		}
-	}
-
-	protected Optional<Region> getRegion() {
-		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
-		if (regionName.isPresent()) {
-			return Optional.of(RegionUtils.getRegion(regionName.get()));
 		} else {
 			return Optional.absent();
 		}

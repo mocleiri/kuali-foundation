@@ -13,18 +13,14 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
-import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
-import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
-import com.amazonaws.ClientConfiguration;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Region;
+import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
@@ -57,110 +53,30 @@ public final class DefaultEC2Service implements EC2Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
 
 	private final AmazonEC2Client client;
-	private final WaitService service;
-	private final int sleepMillis;
-	private final int initialPauseMillis;
-	private final int terminationTimeoutMillis;
+	private final DefaultEC2ServiceContext context;
 
-	public static class Builder {
-
-		// Required
-		private final AWSCredentials credentials;
-		private final WaitService service;
-
-		// Optional
-		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 15 seconds
-		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 1 second
-		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
-
-		// These are all optional ways to customize the configuration of the AmazonEC2Client object
-		private Optional<Region> region = Optional.absent(); // Every AWS account has a default region
-		private Optional<String> endpoint = Optional.absent(); // Every AWS account has a default endpoint
-		private Optional<ClientConfiguration> configuration = Optional.absent(); // This allows advanced customization (eg connecting to AWS through a proxy)
-		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) correct time
-
-		// Filled in by the build() method
-		private AmazonEC2Client client;
-
-		public Builder(String accessKey, String secretKey, WaitService service) {
-			this(new BasicAWSCredentials(accessKey, secretKey), service);
-		}
-
-		public Builder(AWSCredentials credentials, WaitService service) {
-			this.credentials = credentials;
-			this.service = service;
-		}
-
-		public Builder timeOffsetInSeconds(Integer timeOffsetInSeconds) {
-			this.timeOffsetInSeconds = Optional.fromNullable(timeOffsetInSeconds);
-			return this;
-		}
-
-		public Builder region(Region region) {
-			this.region = Optional.fromNullable(region);
-			return this;
-		}
-
-		public Builder endpoint(String endpoint) {
-			this.endpoint = Optional.fromNullable(endpoint);
-			return this;
-		}
-
-		public Builder configuration(ClientConfiguration configuration) {
-			this.configuration = Optional.fromNullable(configuration);
-			return this;
-		}
-
-		public Builder sleepMillis(int sleepMillis) {
-			this.sleepMillis = sleepMillis;
-			return this;
-		}
-
-		public Builder initialPauseMillis(int initialPauseMillis) {
-			this.initialPauseMillis = initialPauseMillis;
-			return this;
-		}
-
-		public Builder terminationTimeoutMillis(int terminationTimeoutMillis) {
-			this.terminationTimeoutMillis = terminationTimeoutMillis;
-			return this;
-		}
-
-		public DefaultEC2Service build() {
-			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
-			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
-			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSAccessKeyId()), "AWS Access Key ID is encrypted");
-			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSSecretKey()), "AWS Secret Key is encrypted");
-			this.client = getClient(credentials);
-			Assert.noNulls(client);
-			return new DefaultEC2Service(this);
-		}
-
-		protected AmazonEC2Client getClient(AWSCredentials credentials) {
-			AmazonEC2Client client = new AmazonEC2Client(credentials);
-			if (timeOffsetInSeconds.isPresent()) {
-				client.setTimeOffset(timeOffsetInSeconds.get());
-			}
-			if (region.isPresent()) {
-				client.setRegion(region.get());
-			}
-			if (endpoint.isPresent()) {
-				client.setEndpoint(endpoint.get());
-			}
-			if (configuration.isPresent()) {
-				client.setConfiguration(configuration.get());
-			}
-			return client;
-		}
-
+	public DefaultEC2Service(DefaultEC2ServiceContext context) {
+		Assert.noNulls(context);
+		this.context = context;
+		this.client = getClient(context);
 	}
 
-	private DefaultEC2Service(Builder builder) {
-		this.client = builder.client;
-		this.service = builder.service;
-		this.sleepMillis = builder.sleepMillis;
-		this.initialPauseMillis = builder.initialPauseMillis;
-		this.terminationTimeoutMillis = builder.terminationTimeoutMillis;
+	protected AmazonEC2Client getClient(DefaultEC2ServiceContext context) {
+		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
+		if (context.getTimeOffsetInSeconds().isPresent()) {
+			client.setTimeOffset(context.getTimeOffsetInSeconds().get());
+		}
+		if (context.getRegionName().isPresent()) {
+			Region region = RegionUtils.getRegion(context.getRegionName().get());
+			client.setRegion(region);
+		}
+		if (context.getEndpoint().isPresent()) {
+			client.setEndpoint(context.getEndpoint().get());
+		}
+		if (context.getConfiguration().isPresent()) {
+			client.setConfiguration(context.getConfiguration().get());
+		}
+		return client;
 	}
 
 	@Override
@@ -188,7 +104,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 		// Was getting some flaky behavior from AWS without a small delay after issuing the RunInstancesRequest
 		// Since it generally takes a few minutes for the instance to spin up, pausing here for 1 second should be ok
-		ThreadUtils.sleep(initialPauseMillis);
+		ThreadUtils.sleep(this.context.getInitialPauseMillis());
 
 		// Tag the instance
 		tag(instance.getInstanceId(), context.getTags());
@@ -218,11 +134,12 @@ public final class DefaultEC2Service implements EC2Service {
 		TerminateInstancesRequest request = new TerminateInstancesRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		client.terminateInstances(request);
-		WaitContext wc = new WaitContext.Builder(terminationTimeoutMillis).sleepMillis(sleepMillis).initialPauseMillis(initialPauseMillis).build();
+		WaitContext wc = new WaitContext.Builder(context.getTerminationTimeoutMillis()).sleepMillis(context.getSleepMillis()).initialPauseMillis(context.getInitialPauseMillis())
+				.build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instanceId, InstanceStateName.TERMINATED.getValue() };
 		logger.info("Waiting up to {} for [{}] to terminate", args);
 		Condition condition = new InstanceStateCondition(this, instanceId, InstanceStateName.TERMINATED);
-		WaitResult result = service.wait(wc, condition);
+		WaitResult result = context.getService().wait(wc, condition);
 		Object[] resultArgs = { instanceId, FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] has been terminated - {}", resultArgs);
 	}
@@ -312,11 +229,12 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected void waitForOnlineConfirmation(Instance instance, LaunchInstanceContext context) {
 		InstanceStateName running = InstanceStateName.RUNNING;
-		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(sleepMillis).initialPauseMillis(initialPauseMillis).build();
+		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(this.context.getSleepMillis()).initialPauseMillis(this.context.getInitialPauseMillis())
+				.build();
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
 		Condition online = new IsOnlineCondition(this, instance.getInstanceId());
-		WaitResult result = service.wait(wc, online);
+		WaitResult result = this.context.getService().wait(wc, online);
 		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] is now online - {}", resultArgs);
 	}
@@ -378,20 +296,8 @@ public final class DefaultEC2Service implements EC2Service {
 		return images.get(0);
 	}
 
-	public WaitService getService() {
-		return service;
-	}
-
-	public int getSleepMillis() {
-		return sleepMillis;
-	}
-
-	public int getInitialPauseMillis() {
-		return initialPauseMillis;
-	}
-
-	public int getTerminationTimeoutMillis() {
-		return terminationTimeoutMillis;
+	public DefaultEC2ServiceContext getContext() {
+		return context;
 	}
 
 }
