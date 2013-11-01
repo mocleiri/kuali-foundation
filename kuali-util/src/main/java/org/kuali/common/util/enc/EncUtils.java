@@ -124,7 +124,7 @@ public class EncUtils {
 		Assert.isTrue(isEncrypted(wrappedText), "Text is not wrapped");
 		int start = ENCRYPTED_PREFIX.length();
 		int end = wrappedText.length() - ENCRYPTED_SUFFIX.length();
-		return StringUtils.substring(wrappedText, start, end);
+		return wrappedText.substring(start, end);
 	}
 
 	public static String wrap(String unwrappedText) {
