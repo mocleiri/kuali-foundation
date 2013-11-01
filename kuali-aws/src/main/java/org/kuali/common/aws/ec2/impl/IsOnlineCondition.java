@@ -6,7 +6,8 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.condition.Condition;
 
 /**
- * If this condition returns true, Amazon has verified the instance is running, connected to the network, and the operating system is accepting traffic.
+ * Until this condition returns true, there is no point in attempting to do anything with the EC2 instance. If it returns true, Amazon has verified that the instance is online and
+ * functioning.
  */
 public final class IsOnlineCondition implements Condition {
 
