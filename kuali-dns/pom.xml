@@ -9,8 +9,8 @@
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-dns</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>DNS Plugin</name>
-  <description>This project provides Kuali specific configuration for the maven-dnsme-plugin</description>
+  <name>DNS Tooling</name>
+  <description>DNS Tooling</description>
   <developers>
     <developer>
       <id>jcaddel</id>
