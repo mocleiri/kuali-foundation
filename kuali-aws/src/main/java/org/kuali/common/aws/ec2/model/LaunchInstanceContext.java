@@ -36,7 +36,7 @@ public final class LaunchInstanceContext {
 		private List<String> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent(); // If not provided, Amazon picks one for you
-		private int timeoutMillis = FormatUtils.getMillisAsInt("15m");
+		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // Timeout after 15 minutes
 		private boolean preventTermination = false;
 		private boolean ebsOptimized = false;
 		private boolean enableMonitoring = false;
