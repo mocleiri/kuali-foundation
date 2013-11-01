@@ -37,6 +37,17 @@
         removeSessionModuleEntry('compliance');
 
      break;
+     case "addAttachmentsProposalEntry":
+
+         foreach($_REQUEST as $index=>$field){
+            $list[$index] = trim($field);
+          }
+
+          $list["file"] = $_FILES["file"]["name"];
+
+          $_SESSION['attachments']['proposal'][] = $list;
+
+     break;
      default:
           foreach($_REQUEST as $index=>$field){
               if(is_array($field)){

@@ -5,6 +5,8 @@
 
 unset($_SESSION['field']);
 unset($_SESSION['compliance']);*/
+unset($_SESSION['compliance']);
+if(isset($_GET['unset']) && $_GET['unset'])  unset($_SESSION[$_GET['unset']]);
 echo "<pre>";
 print_r($_SESSION);
 //var_dump($_SESSION);
