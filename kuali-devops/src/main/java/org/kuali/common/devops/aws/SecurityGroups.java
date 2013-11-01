@@ -11,24 +11,24 @@ public enum SecurityGroups {
 	HTTP("http"), // Allow http (port 80) from anywhere
 	HTTPS("https"); // Allow https (port 443) from anywhere
 
-	private final String value;
+	private final String name;
 
-	private SecurityGroups(String value) {
-		this.value = value;
+	private SecurityGroups(String name) {
+		this.name = name;
 	}
 
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 
 	public static final List<String> getValues() {
 		return getValues(values());
 	}
 
-	public static final List<String> getValues(SecurityGroups... groupNames) {
+	public static final List<String> getValues(SecurityGroups... groups) {
 		List<String> names = new ArrayList<String>();
-		for (SecurityGroups groupName : groupNames) {
-			names.add(groupName.getValue());
+		for (SecurityGroups group : groups) {
+			names.add(group.getName());
 		}
 		return ImmutableList.copyOf(names);
 	}
