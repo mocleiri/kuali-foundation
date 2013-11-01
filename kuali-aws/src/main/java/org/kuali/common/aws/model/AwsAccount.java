@@ -1,6 +1,7 @@
 package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.google.common.base.Optional;
@@ -8,7 +9,7 @@ import com.google.common.base.Optional;
 public final class AwsAccount {
 
 	private final String name;
-	private final String accountNumber;
+	private final Optional<String> accountNumber;
 	private final Optional<AWSCredentials> credentials;
 	private final Optional<AwsKey> key;
 
@@ -16,15 +17,19 @@ public final class AwsAccount {
 
 		// Required
 		private final String name;
-		private final String accountNumber;
 
 		// Optional
+		private Optional<String> accountNumber = Optional.absent();
 		private Optional<AWSCredentials> credentials = Optional.absent();
 		private Optional<AwsKey> key = Optional.absent();
 
-		public Builder(String name, String accountNumber) {
+		public Builder(String name) {
 			this.name = name;
-			this.accountNumber = accountNumber;
+		}
+
+		public Builder accountNumber(String accountNumber) {
+			this.accountNumber = Optional.fromNullable(NullUtils.trimToNull(accountNumber));
+			return this;
 		}
 
 		public Builder credentials(AWSCredentials credentials) {
@@ -38,8 +43,8 @@ public final class AwsAccount {
 		}
 
 		public AwsAccount build() {
-			Assert.noBlanks(name, accountNumber);
-			Assert.noNulls(credentials, key);
+			Assert.noBlanks(name);
+			Assert.noNulls(credentials, key, accountNumber);
 			return new AwsAccount(this);
 		}
 
@@ -56,7 +61,7 @@ public final class AwsAccount {
 		return name;
 	}
 
-	public String getAccountNumber() {
+	public Optional<String> getAccountNumber() {
 		return accountNumber;
 	}
 
