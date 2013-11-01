@@ -34,6 +34,9 @@ public final class IsReachableCondition implements Condition {
 		return system && instance;
 	}
 
+	/**
+	 * Return true only if the "reachability" status equals "passed"
+	 */
 	protected boolean isReachable(InstanceStatusType type) {
 		String value = service.getStatus(instanceId, type, InstanceStatusName.REACHABILITY.getValue());
 		return InstanceStatusValue.PASSED.getValue().equals(value);
