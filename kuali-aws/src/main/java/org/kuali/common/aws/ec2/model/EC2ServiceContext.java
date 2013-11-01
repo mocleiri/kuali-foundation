@@ -1,4 +1,4 @@
-package org.kuali.common.aws.ec2.impl;
+package org.kuali.common.aws.ec2.model;
 
 import org.kuali.common.aws.model.ImmutableAwsCredentials;
 import org.kuali.common.util.Assert;
@@ -11,7 +11,7 @@ import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.google.common.base.Optional;
 
-public final class DefaultEC2ServiceContext {
+public final class EC2ServiceContext {
 
 	private final AWSCredentials credentials;
 	private final WaitService service;
@@ -82,17 +82,17 @@ public final class DefaultEC2ServiceContext {
 			return this;
 		}
 
-		public DefaultEC2ServiceContext build() {
+		public EC2ServiceContext build() {
 			Assert.noNulls(service, credentials, timeOffsetInSeconds, regionName, endpoint, configuration);
 			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
 			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSAccessKeyId()), "AWS Access Key ID is encrypted");
 			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSSecretKey()), "AWS Secret Key is encrypted");
-			return new DefaultEC2ServiceContext(this);
+			return new EC2ServiceContext(this);
 		}
 
 	}
 
-	private DefaultEC2ServiceContext(Builder builder) {
+	private EC2ServiceContext(Builder builder) {
 		this.credentials = builder.credentials;
 		this.service = builder.service;
 		this.sleepMillis = builder.sleepMillis;

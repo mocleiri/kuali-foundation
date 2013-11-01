@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
@@ -53,15 +54,15 @@ public final class DefaultEC2Service implements EC2Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
 
 	private final AmazonEC2Client client;
-	private final DefaultEC2ServiceContext context;
+	private final EC2ServiceContext context;
 
-	public DefaultEC2Service(DefaultEC2ServiceContext context) {
+	public DefaultEC2Service(EC2ServiceContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 		this.client = getClient(context);
 	}
 
-	protected AmazonEC2Client getClient(DefaultEC2ServiceContext context) {
+	protected AmazonEC2Client getClient(EC2ServiceContext context) {
 		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
 		if (context.getTimeOffsetInSeconds().isPresent()) {
 			client.setTimeOffset(context.getTimeOffsetInSeconds().get());
@@ -296,7 +297,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return images.get(0);
 	}
 
-	public DefaultEC2ServiceContext getContext() {
+	public EC2ServiceContext getContext() {
 		return context;
 	}
 

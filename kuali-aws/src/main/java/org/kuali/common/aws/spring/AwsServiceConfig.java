@@ -17,7 +17,7 @@ package org.kuali.common.aws.spring;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
-import org.kuali.common.aws.ec2.impl.DefaultEC2ServiceContext;
+import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -49,17 +49,17 @@ public class AwsServiceConfig {
 	AwsCredentialsConfig auth;
 
 	@Bean
-	public DefaultEC2ServiceContext ec2ServiceContext() {
+	public EC2ServiceContext ec2ServiceContext() {
 		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
 		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
 		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds();
-		return new DefaultEC2ServiceContext.Builder(auth.awsCredentials(), service).regionName(regionName.orNull()).endpoint(endpoint.orNull())
+		return new EC2ServiceContext.Builder(auth.awsCredentials(), service).regionName(regionName.orNull()).endpoint(endpoint.orNull())
 				.timeOffsetInSeconds(timeOffsetInSeconds.orNull()).build();
 	}
 
 	@Bean
 	public EC2Service ec2Service() {
-		DefaultEC2ServiceContext context = ec2ServiceContext();
+		EC2ServiceContext context = ec2ServiceContext();
 		return new DefaultEC2Service(context);
 	}
 
