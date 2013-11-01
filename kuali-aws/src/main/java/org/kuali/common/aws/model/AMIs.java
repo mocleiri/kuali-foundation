@@ -5,14 +5,14 @@ public enum AMIs {
 	// This is a bare bones Amazon Linux box with virtually nothing except yum installed on it
 	AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09("ami-65792c0c");
 
-	private final String value;
+	private final String id;
 
-	private AMIs(String value) {
-		this.value = value;
+	private AMIs(String id) {
+		this.id = id;
 	}
 
-	public String getValue() {
-		return value;
+	public String getId() {
+		return id;
 	}
 
 }
