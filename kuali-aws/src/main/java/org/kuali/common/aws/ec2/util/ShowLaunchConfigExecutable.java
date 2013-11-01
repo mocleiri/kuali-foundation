@@ -41,7 +41,7 @@ public class ShowLaunchConfigExecutable implements Executable {
 			String availabilityZone = getAvailabilityZone(instanceContext);
 
 			logger.info("---------- Launching EC2 Instance ----------");
-			logger.info("Access Key: {}", accessKey);
+			logger.info("AWS Access Key: {}", accessKey);
 			logger.info("Location: {}", regionLocation);
 			logger.info("Region: {}", regionName);
 			logger.info("Zone: {}", availabilityZone);
