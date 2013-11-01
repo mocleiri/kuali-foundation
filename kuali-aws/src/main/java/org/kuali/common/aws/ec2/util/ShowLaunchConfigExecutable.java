@@ -4,10 +4,10 @@ import java.util.Map;
 
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.model.AvailabilityZones;
 import org.kuali.common.aws.model.Regions;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,13 +38,23 @@ public class ShowLaunchConfigExecutable implements Executable {
 			String accessKey = serviceContext.getCredentials().getAWSAccessKeyId();
 			String regionName = getRegionName(serviceContext);
 			String regionLocation = getRegionLocation(serviceContext);
-			String availabilityZone = AvailabilityZones.NO_PREFERENCE.getName();
-			if (instanceContext.getAvailabilityZone().isPresent()) {
-				availabilityZone = instanceContext.getAvailabilityZone().get();
-			}
+			String availabilityZone = getAvailabilityZone(instanceContext);
+
 			logger.info("AWS Access Key ID: {}", accessKey);
 			logger.info("Region: [{} {}]", regionName, regionLocation);
 			logger.info("Availabilty Zone: {}", availabilityZone);
+			logger.info("AMI: {}", instanceContext.getAmi());
+			logger.info("Key: {}", instanceContext.getKeyName());
+			logger.info("Type: {}", instanceContext.getType().toString());
+		}
+	}
+
+	protected String getAvailabilityZone(LaunchInstanceContext context) {
+		Optional<String> zone = context.getAvailabilityZone();
+		if (!zone.isPresent() || NullUtils.trimToNull(zone.get()) == null) {
+			return "no preference";
+		} else {
+			return zone.get();
 		}
 	}
 
