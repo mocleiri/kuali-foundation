@@ -30,9 +30,8 @@ import org.kuali.common.devops.aws.Accounts;
 import org.kuali.common.devops.aws.AwsConstants;
 import org.kuali.common.devops.aws.SecurityGroupName;
 import org.kuali.common.devops.aws.Tags;
-import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
-import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.enc.spring.EncryptionServiceConfig;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -55,21 +54,21 @@ public class CreateMasterConfig implements AwsCredentialsConfig {
 	EC2Service service;
 
 	@Autowired
-	EnvironmentService env;
+	SpringServiceConfig envConfig;
 
 	@Autowired
-	EncryptionService enc;
+	EncryptionServiceConfig encConfig;
 
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
 		AWSCredentials foundation = Accounts.FOUNDATION.getAccount().getCredentials().get();
-		return CredentialUtils.getCredentials(env, enc, foundation);
+		return CredentialUtils.getCredentials(envConfig.environmentService(), encConfig.encryptionService(), foundation);
 	}
 
 	@Bean
 	public Object launchAndThenTerminate() {
-		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
+		LaunchInstanceContext context = LaunchUtils.getContext(envConfig.environmentService(), jenkinsMaster());
 		Instance instance = service.launchInstance(context);
 		System.out.println(instance.getPublicDnsName());
 		return null;
