@@ -27,4 +27,12 @@ public enum Regions {
 		return location;
 	}
 
+	/**
+	 * http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-region-selection.html
+	 * 
+	 * The AWS SDK for Java uses the US East (Northern Virginia) Region as the default region if you do not specify a region in your code. However, the AWS Management Console uses
+	 * US West (Oregon) Region as its default. Therefore, when using the AWS Management Console in conjunction with your development, be sure to specify the same region in both
+	 * your code and the console.
+	 */
+	public static final Regions DEFAULT_REGION = US_EAST_1;
 }
