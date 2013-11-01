@@ -133,14 +133,14 @@ public class DNSMEClient {
 		try {
 			return URLEncoder.encode(value, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new DNSMEException(e);
+			throw new IllegalStateException(e);
 		}
 	}
 
 	public Record getRecord(Domain domain, Search search) {
 		List<Record> records = getRecords(domain, search);
 		if (records.size() != 1) {
-			throw new DNSMEException("Search criteria must match exactly 1 record but it matched " + records.size() + " records");
+			throw new IllegalStateException("Search criteria must match exactly 1 record but it matched " + records.size() + " records");
 		} else {
 			return records.get(0);
 		}
@@ -178,7 +178,7 @@ public class DNSMEClient {
 
 	protected void validateForUpdate(Record record) {
 		if (record.getId() == null && record.getName() == null) {
-			throw new DNSMEException("Either or id or name must have a value when updating");
+			throw new IllegalStateException("Either or id or name must have a value when updating");
 		}
 	}
 
@@ -197,7 +197,7 @@ public class DNSMEClient {
 	public Record addRecord(Domain domain, Record record) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (record.getId() != null) {
-			throw new DNSMEException("id must be null when adding");
+			throw new IllegalStateException("id must be null when adding");
 		}
 		validateRecord(record);
 		PostMethod method = new PostMethod(url);
@@ -243,7 +243,7 @@ public class DNSMEClient {
 			sb.append("Type must not be null\n");
 		}
 		if (sb.length() > 0) {
-			throw new DNSMEException(sb.toString());
+			throw new IllegalStateException(sb.toString());
 		}
 	}
 
@@ -287,19 +287,19 @@ public class DNSMEClient {
 	protected void validateResult(HttpRequestResult result, int statusCode) {
 		switch (result.getType()) {
 		case EXCEPTION:
-			throw new DNSMEException(result.getException());
+			throw new IllegalStateException(result.getException());
 		case TIMEOUT:
-			throw new DNSMEException("Operation timed out");
+			throw new IllegalStateException("Operation timed out");
 		case COMPLETED:
 			int code = result.getStatusCode();
 			if (statusCode == result.getStatusCode()) {
 				return;
 			} else {
 				String errorText = result.getResponseBody();
-				throw new DNSMEException("Invalid http status '" + code + ":" + result.getStatusText() + "' Expected: '" + statusCode + "'  Error:" + errorText);
+				throw new IllegalStateException("Invalid http status '" + code + ":" + result.getStatusText() + "' Expected: '" + statusCode + "'  Error:" + errorText);
 			}
 		default:
-			throw new DNSMEException("Unknown result type: " + result.getType());
+			throw new IllegalStateException("Unknown result type: " + result.getType());
 		}
 	}
 
