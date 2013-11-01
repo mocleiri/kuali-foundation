@@ -15,68 +15,26 @@
  */
 package org.kuali.common.dns.dnsme.beans;
 
-import java.util.List;
+import org.kuali.common.util.Assert;
 
 public class Domain {
 
-	Account account;
-	String name;
-	List<String> nameServer;
-	Boolean gtdEnabled;
-	List<Record> records;
-
-	public Domain() {
-		this(null);
-	}
-
-	public Domain(String name) {
-		this(name, null, null);
-	}
-
-	public Domain(String name, List<String> nameServers, Boolean gtdEnabled) {
-		this.name = name;
-		this.nameServer = nameServers;
-		this.gtdEnabled = gtdEnabled;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
+	public Domain(Account account, String name) {
+		Assert.noNulls(account);
+		Assert.noBlanks(name);
+		this.account = account;
 		this.name = name;
 	}
 
-	public List<String> getNameServer() {
-		return nameServer;
-	}
-
-	public void setNameServer(List<String> nameServers) {
-		this.nameServer = nameServers;
-	}
-
-	public Boolean getGtdEnabled() {
-		return gtdEnabled;
-	}
-
-	public void setGtdEnabled(Boolean gtdEnabled) {
-		this.gtdEnabled = gtdEnabled;
-	}
-
-	public List<Record> getRecords() {
-		return records;
-	}
-
-	public void setRecords(List<Record> records) {
-		this.records = records;
-	}
+	private final Account account;
+	private final String name;
 
 	public Account getAccount() {
 		return account;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public String getName() {
+		return name;
 	}
 
 }

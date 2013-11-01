@@ -309,9 +309,7 @@ public class DNSMEClient {
 		List<String> names = domainNames.getList();
 		List<Domain> domains = new ArrayList<Domain>();
 		for (String name : names) {
-			Domain domain = new Domain();
-			domain.setAccount(account);
-			domain.setName(name);
+			Domain domain = new Domain(account, name);
 			domains.add(domain);
 		}
 		return domains;
