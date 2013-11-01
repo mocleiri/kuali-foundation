@@ -11,7 +11,6 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
-import org.kuali.common.util.wait.WaitService;
 import org.springframework.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -40,15 +39,14 @@ public class LaunchUtils {
 	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
 	private static final String ENDPOINT_KEY = "aws.endpoint";
 
-	public static EC2ServiceContext getEC2ServiceContext(EnvironmentService env, WaitService service, AWSCredentials credentials) {
+	public static EC2ServiceContext getEC2ServiceContext(EnvironmentService env, AWSCredentials credentials) {
 		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
 		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
 		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds(env);
-		return new EC2ServiceContext.Builder(credentials, service).regionName(regionName.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull())
-				.build();
+		return new EC2ServiceContext.Builder(credentials).regionName(regionName.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull()).build();
 	}
 
-	public static Optional<Integer> getTimeOffsetInSeconds(EnvironmentService env) {
+	protected static Optional<Integer> getTimeOffsetInSeconds(EnvironmentService env) {
 		Optional<String> offset = SpringUtils.getOptionalString(env, TIMEOFFSET_KEY);
 		if (offset.isPresent()) {
 			// Convert the text from the property into a millisecond value

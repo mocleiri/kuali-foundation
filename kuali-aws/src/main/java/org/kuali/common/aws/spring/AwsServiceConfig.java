@@ -45,13 +45,13 @@ public class AwsServiceConfig {
 
 	@Bean
 	public EC2ServiceContext ec2ServiceContext() {
-		return LaunchUtils.getEC2ServiceContext(env, service, credentials);
+		return LaunchUtils.getEC2ServiceContext(env, credentials);
 	}
 
 	@Bean
 	public EC2Service ec2Service() {
 		EC2ServiceContext context = ec2ServiceContext();
-		return new DefaultEC2Service(context);
+		return new DefaultEC2Service(context, service);
 	}
 
 }

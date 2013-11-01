@@ -5,7 +5,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.wait.WaitService;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
@@ -14,7 +13,6 @@ import com.google.common.base.Optional;
 public final class EC2ServiceContext {
 
 	private final AWSCredentials credentials;
-	private final WaitService service;
 	private final int sleepMillis;
 	private final int initialPauseMillis;
 	private final int terminationTimeoutMillis;
@@ -27,7 +25,6 @@ public final class EC2ServiceContext {
 
 		// Required
 		private final AWSCredentials credentials;
-		private final WaitService service;
 
 		// Optional
 		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 15 seconds
@@ -38,13 +35,12 @@ public final class EC2ServiceContext {
 		private Optional<ClientConfiguration> configuration = Optional.absent(); // This allows advanced customization (eg connecting to AWS through a proxy)
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) correct time
 
-		public Builder(String accessKey, String secretKey, WaitService service) {
-			this(new ImmutableAwsCredentials(accessKey, secretKey), service);
+		public Builder(String accessKey, String secretKey) {
+			this(new ImmutableAwsCredentials(accessKey, secretKey));
 		}
 
-		public Builder(AWSCredentials credentials, WaitService service) {
+		public Builder(AWSCredentials credentials) {
 			this.credentials = credentials;
-			this.service = service;
 		}
 
 		public Builder timeOffsetInSeconds(Integer timeOffsetInSeconds) {
@@ -83,7 +79,7 @@ public final class EC2ServiceContext {
 		}
 
 		public EC2ServiceContext build() {
-			Assert.noNulls(service, credentials, timeOffsetInSeconds, regionName, endpoint, configuration);
+			Assert.noNulls(credentials, timeOffsetInSeconds, regionName, endpoint, configuration);
 			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
 			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSAccessKeyId()), "AWS Access Key ID is encrypted");
 			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSSecretKey()), "AWS Secret Key is encrypted");
@@ -94,7 +90,6 @@ public final class EC2ServiceContext {
 
 	private EC2ServiceContext(Builder builder) {
 		this.credentials = builder.credentials;
-		this.service = builder.service;
 		this.sleepMillis = builder.sleepMillis;
 		this.initialPauseMillis = builder.initialPauseMillis;
 		this.terminationTimeoutMillis = builder.terminationTimeoutMillis;
@@ -102,10 +97,6 @@ public final class EC2ServiceContext {
 		this.endpoint = builder.endpoint;
 		this.configuration = builder.configuration;
 		this.timeOffsetInSeconds = builder.timeOffsetInSeconds;
-	}
-
-	public WaitService getService() {
-		return service;
 	}
 
 	public int getSleepMillis() {

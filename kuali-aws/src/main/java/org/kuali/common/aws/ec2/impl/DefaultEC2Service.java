@@ -16,6 +16,7 @@ import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
+import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -55,9 +56,11 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private final AmazonEC2Client client;
 	private final EC2ServiceContext context;
+	private final WaitService service;
 
-	public DefaultEC2Service(EC2ServiceContext context) {
-		Assert.noNulls(context);
+	public DefaultEC2Service(EC2ServiceContext context, WaitService service) {
+		Assert.noNulls(context, service);
+		this.service = service;
 		this.context = context;
 		this.client = getClient(context);
 	}
@@ -140,7 +143,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instanceId, InstanceStateName.TERMINATED.getValue() };
 		logger.info("Waiting up to {} for [{}] to terminate", args);
 		Condition condition = new InstanceStateCondition(this, instanceId, InstanceStateName.TERMINATED);
-		WaitResult result = context.getService().wait(wc, condition);
+		WaitResult result = service.wait(wc, condition);
 		Object[] resultArgs = { instanceId, FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] has been terminated - {}", resultArgs);
 	}
@@ -235,7 +238,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
 		Condition online = new IsOnlineCondition(this, instance.getInstanceId());
-		WaitResult result = this.context.getService().wait(wc, online);
+		WaitResult result = service.wait(wc, online);
 		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] is now online - {}", resultArgs);
 	}
