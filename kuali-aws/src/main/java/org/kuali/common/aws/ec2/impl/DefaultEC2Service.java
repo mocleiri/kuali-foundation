@@ -53,7 +53,10 @@ public final class DefaultEC2Service implements EC2Service {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
 
+	// Don't expose the AmazonEC2Client object via a getter
+	// It is mutable and not threadsafe
 	private final AmazonEC2Client client;
+
 	private final EC2ServiceContext context;
 	private final WaitService service;
 
