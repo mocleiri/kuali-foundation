@@ -18,8 +18,7 @@ package org.kuali.common.aws.spring;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.impl.DefaultEC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
-import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.kuali.common.util.wait.WaitService;
@@ -29,15 +28,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.google.common.base.Optional;
+import com.amazonaws.auth.AWSCredentials;
 
 @Configuration
 @Import({ SpringServiceConfig.class, WaitServiceConfig.class })
 public class AwsServiceConfig {
-
-	private static final String REGION_KEY = "aws.region";
-	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
-	private static final String ENDPOINT_KEY = "aws.endpoint";
 
 	@Autowired
 	EnvironmentService env;
@@ -46,35 +41,17 @@ public class AwsServiceConfig {
 	WaitService service;
 
 	@Autowired
-	AwsCredentialsConfig auth;
+	AWSCredentials credentials;
 
 	@Bean
 	public EC2ServiceContext ec2ServiceContext() {
-		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
-		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
-		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds();
-		return new EC2ServiceContext.Builder(auth.awsCredentials(), service).regionName(regionName.orNull()).endpoint(endpoint.orNull())
-				.timeOffsetInSeconds(timeOffsetInSeconds.orNull()).build();
+		return LaunchUtils.getEC2ServiceContext(env, service, credentials);
 	}
 
 	@Bean
 	public EC2Service ec2Service() {
 		EC2ServiceContext context = ec2ServiceContext();
 		return new DefaultEC2Service(context);
-	}
-
-	protected Optional<Integer> getTimeOffsetInSeconds() {
-		Optional<String> offset = SpringUtils.getOptionalString(env, TIMEOFFSET_KEY);
-		if (offset.isPresent()) {
-			// Convert the text from the property into a millisecond value
-			long millis = FormatUtils.getMillis(offset.get());
-			// The unit of measure the Amazon EC2 client needs is seconds not milliseconds
-			Long seconds = millis / 1000;
-			// Return the seconds value as an integer
-			return Optional.of(seconds.intValue());
-		} else {
-			return Optional.absent();
-		}
 	}
 
 }
