@@ -29,7 +29,7 @@ public final class EC2ServiceContext {
 		// Optional
 		private int sleepMillis = FormatUtils.getMillisAsInt("15s"); // 15 seconds
 		private int initialPauseMillis = FormatUtils.getMillisAsInt("1s"); // 1 second
-		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // 15 minutes
+		private int terminationTimeoutMillis = FormatUtils.getMillisAsInt("15m"); // Throw an exception if it takes longer than 15 minutes to terminate an instance
 		private Optional<String> regionName = Optional.absent(); // Every AWS account has a default region
 		private Optional<String> endpoint = Optional.absent(); // Every AWS account has a default endpoint
 		private Optional<ClientConfiguration> configuration = Optional.absent(); // This allows advanced customization (eg connecting to AWS through a proxy)
