@@ -28,7 +28,7 @@ public enum Accounts {
 		return account;
 	}
 
-	public static Map<String, AwsAccount> getAccountsMap() {
+	public static Map<String, AwsAccount> asMap() {
 		Map<String, AwsAccount> map = new HashMap<String, AwsAccount>();
 		for (Accounts accounts : values()) {
 			AwsAccount account = accounts.getAccount();
