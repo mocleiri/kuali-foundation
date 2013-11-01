@@ -69,8 +69,9 @@ public class EncUtils {
 
 		EncStrength strength = getStrength(env, EncryptionContext.DEFAULT);
 
-		return new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength).passwordKey(passwordKey)
-				.removePasswordSystemProperty(removePasswordSystemProperty).build();
+		EncryptionContext context = new EncryptionContext.Builder().passwordRequired(passwordRequired).password(NullUtils.trimToNull(password.orNull())).strength(strength)
+				.passwordKey(passwordKey).removePasswordSystemProperty(removePasswordSystemProperty).build();
+		return context;
 	}
 
 	protected static boolean isPasswordRequired(Properties properties, EncryptionContext provided) {

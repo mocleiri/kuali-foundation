@@ -38,7 +38,9 @@ public final class EncryptionContext {
 		}
 
 		public Builder password(String password) {
-			this.password = Optional.fromNullable(NullUtils.trimToNull(password));
+			String nulled = NullUtils.trimToNull(password);
+			Optional<String> fromNullable = Optional.fromNullable(nulled);
+			this.password = fromNullable;
 			return this;
 		}
 
@@ -68,11 +70,11 @@ public final class EncryptionContext {
 
 	private EncryptionContext(Builder builder) {
 		this.enabled = builder.enabled;
-		this.password = builder.password;
 		this.passwordKey = builder.passwordKey;
 		this.passwordRequired = builder.passwordRequired;
 		this.strength = builder.strength;
 		this.removePasswordSystemProperty = builder.removePasswordSystemProperty;
+		this.password = builder.password;
 	}
 
 	public boolean isEnabled() {
