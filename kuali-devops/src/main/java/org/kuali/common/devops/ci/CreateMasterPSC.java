@@ -34,7 +34,7 @@ public class CreateMasterPSC implements PropertySourceConfig {
 		String encoding = ProjectUtils.getEncoding(project);
 		String prefix = ProjectUtils.getClasspathPrefix(KualiDevOpsProjectConstants.PROJECT_ID);
 		List<Location> locations = new ArrayList<Location>();
-		locations.add(new Location(prefix + "/aws/foundation.properties", encoding));
+		locations.add(new Location(prefix + "/aws.properties", encoding));
 		return PropertySourceUtils.getPropertySource(service, locations);
 	}
 }
