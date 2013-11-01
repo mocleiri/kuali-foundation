@@ -42,7 +42,8 @@ public class ShowLaunchConfigExecutable implements Executable {
 
 			logger.info("---------- Launching EC2 Instance ----------");
 			logger.info("Access Key: {}", accessKey);
-			logger.info("Region: {} - [{}]", regionLocation, regionName);
+			logger.info("Location: {}", regionLocation);
+			logger.info("Region: {}", regionName);
 			logger.info("Zone: {}", availabilityZone);
 			logger.info("AMI: {}", instanceContext.getAmi());
 			logger.info("Type: {}", instanceContext.getType().toString());
@@ -68,7 +69,8 @@ public class ShowLaunchConfigExecutable implements Executable {
 		Map<String, Regions> map = Regions.asMap();
 		Regions region = map.get(regionName.get());
 		if (region == null) {
-			return Regions.DEFAULT_REGION.getLocation();
+			// They've supplied a region we don't know about
+			return "unknown";
 		} else {
 			return region.getLocation();
 		}
