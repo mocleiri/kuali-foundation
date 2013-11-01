@@ -17,7 +17,7 @@ package org.kuali.common.util.enc;
 
 import java.util.Properties;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
@@ -112,11 +112,7 @@ public class EncUtils {
 	}
 
 	public static boolean isEncrypted(String text) {
-		if (StringUtils.isBlank(text)) {
-			return false;
-		} else {
-			return text.startsWith(ENCRYPTED_PREFIX) && text.endsWith(ENCRYPTED_SUFFIX);
-		}
+		return StringUtils.startsWith(text, ENCRYPTED_PREFIX) && StringUtils.endsWith(text, ENCRYPTED_SUFFIX);
 	}
 
 	public static String unwrap(String wrappedText) {
