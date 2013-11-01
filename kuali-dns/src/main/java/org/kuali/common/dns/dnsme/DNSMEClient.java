@@ -34,6 +34,7 @@ import org.kuali.common.dns.dnsme.beans.Record;
 import org.kuali.common.dns.dnsme.beans.RecordComparator;
 import org.kuali.common.dns.dnsme.beans.RecordType;
 import org.kuali.common.dns.dnsme.beans.Search;
+import org.springframework.util.Assert;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -177,7 +178,7 @@ public class DNSMEClient {
 
 	protected void validateForUpdate(Record record) {
 		if (record.getId() == null && record.getName() == null) {
-			throw new IllegalStateException("Either or id or name must have a value when updating");
+			throw new IllegalStateException("Either id or name must have a value when updating");
 		}
 	}
 
@@ -210,6 +211,7 @@ public class DNSMEClient {
 
 	public void deleteRecord(Domain domain, String name) {
 		Record record = getRecord(domain, name);
+		Assert.isTrue(record.getId() != null, "id is required");
 		deleteRecord(domain, record.getId());
 	}
 

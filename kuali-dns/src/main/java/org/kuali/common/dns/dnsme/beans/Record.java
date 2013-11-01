@@ -16,7 +16,6 @@
 package org.kuali.common.dns.dnsme.beans;
 
 public class Record {
-
 	Domain domain;
 	Integer id;
 	String name;
