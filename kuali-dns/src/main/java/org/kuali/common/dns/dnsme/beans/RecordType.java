@@ -16,5 +16,7 @@
 package org.kuali.common.dns.dnsme.beans;
 
 public enum RecordType {
-    A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
+
+	A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
+
 }

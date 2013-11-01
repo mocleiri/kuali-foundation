@@ -18,16 +18,17 @@ package org.kuali.common.dns.dnsme.beans;
 import org.kuali.common.dns.dnsme.URLS;
 
 public enum Environment {
-    PRODUCTION(URLS.PRODUCTION), SANDBOX(URLS.SANDBOX);
 
-    private String url;
+	PRODUCTION(URLS.PRODUCTION), SANDBOX(URLS.SANDBOX);
 
-    private Environment(String url) {
-        this.url = url;
-    }
+	private String url;
 
-    public String getUrl() {
-        return url;
-    }
+	private Environment(String url) {
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
+	}
 
 }

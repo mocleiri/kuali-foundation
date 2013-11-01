@@ -16,5 +16,7 @@
 package org.kuali.common.dns.dnsme.beans;
 
 public enum GTDLocation {
-    DEFAULT, US_EAST, US_WEST, ASIA;
+
+	DEFAULT, US_EAST, US_WEST, ASIA;
+
 }

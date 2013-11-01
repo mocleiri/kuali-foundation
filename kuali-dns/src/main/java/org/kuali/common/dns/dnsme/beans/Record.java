@@ -15,123 +15,123 @@
  */
 package org.kuali.common.dns.dnsme.beans;
 
-
 public class Record {
-    Domain domain;
-    Integer id;
-    String name;
-    RecordType type;
-    String data;
-    Integer ttl;
-    GTDLocation gtdLocation;
-    String password;
-    String description;
-    String keywords;
-    String title;
-    String redirectType;
-    Boolean hardLink;
 
-    public Integer getId() {
-        return id;
-    }
+	Domain domain;
+	Integer id;
+	String name;
+	RecordType type;
+	String data;
+	Integer ttl;
+	GTDLocation gtdLocation;
+	String password;
+	String description;
+	String keywords;
+	String title;
+	String redirectType;
+	Boolean hardLink;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public RecordType getType() {
-        return type;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setType(RecordType type) {
-        this.type = type;
-    }
+	public RecordType getType() {
+		return type;
+	}
 
-    public String getData() {
-        return data;
-    }
+	public void setType(RecordType type) {
+		this.type = type;
+	}
 
-    public void setData(String data) {
-        this.data = data;
-    }
+	public String getData() {
+		return data;
+	}
 
-    public Integer getTtl() {
-        return ttl;
-    }
+	public void setData(String data) {
+		this.data = data;
+	}
 
-    public void setTtl(Integer ttl) {
-        this.ttl = ttl;
-    }
+	public Integer getTtl() {
+		return ttl;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setTtl(Integer ttl) {
+		this.ttl = ttl;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getKeywords() {
-        return keywords;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
+	public String getKeywords() {
+		return keywords;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getRedirectType() {
-        return redirectType;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setRedirectType(String redirectType) {
-        this.redirectType = redirectType;
-    }
+	public String getRedirectType() {
+		return redirectType;
+	}
 
-    public Boolean getHardLink() {
-        return hardLink;
-    }
+	public void setRedirectType(String redirectType) {
+		this.redirectType = redirectType;
+	}
 
-    public void setHardLink(Boolean hardLink) {
-        this.hardLink = hardLink;
-    }
+	public Boolean getHardLink() {
+		return hardLink;
+	}
 
-    public Domain getDomain() {
-        return domain;
-    }
+	public void setHardLink(Boolean hardLink) {
+		this.hardLink = hardLink;
+	}
 
-    public void setDomain(Domain domain) {
-        this.domain = domain;
-    }
+	public Domain getDomain() {
+		return domain;
+	}
 
-    public GTDLocation getGtdLocation() {
-        return gtdLocation;
-    }
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
 
-    public void setGtdLocation(GTDLocation gtdLocation) {
-        this.gtdLocation = gtdLocation;
-    }
+	public GTDLocation getGtdLocation() {
+		return gtdLocation;
+	}
+
+	public void setGtdLocation(GTDLocation gtdLocation) {
+		this.gtdLocation = gtdLocation;
+	}
 }
