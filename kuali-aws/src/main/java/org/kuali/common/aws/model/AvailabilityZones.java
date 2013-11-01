@@ -8,14 +8,14 @@ public enum AvailabilityZones {
 	US_EAST_1D("us-east-1d"), //
 	NO_PREFERENCE(NullUtils.NONE);
 
-	private final String value;
+	private final String name;
 
-	private AvailabilityZones(String value) {
-		this.value = value;
+	private AvailabilityZones(String name) {
+		this.name = name;
 	}
 
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 
 }

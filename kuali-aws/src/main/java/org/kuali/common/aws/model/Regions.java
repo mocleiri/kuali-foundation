@@ -30,7 +30,7 @@ public enum Regions {
 		return location;
 	}
 
-	public Map<String, Regions> asMap() {
+	public static Map<String, Regions> asMap() {
 		Map<String, Regions> map = new HashMap<String, Regions>();
 		for (Regions region : values()) {
 			map.put(region.getName(), region);
