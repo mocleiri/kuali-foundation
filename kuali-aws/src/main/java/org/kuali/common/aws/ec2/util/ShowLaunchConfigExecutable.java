@@ -42,7 +42,7 @@ public class ShowLaunchConfigExecutable implements Executable {
 
 			logger.info("---------- Launching EC2 Instance ----------");
 			logger.info("Access Key: {}", accessKey);
-			logger.info("Region: {}, {}", regionName, regionLocation);
+			logger.info("Region: {} - [{}]", regionLocation, regionName);
 			logger.info("Zone: {}", availabilityZone);
 			logger.info("AMI: {}", instanceContext.getAmi());
 			logger.info("Type: {}", instanceContext.getType().toString());
