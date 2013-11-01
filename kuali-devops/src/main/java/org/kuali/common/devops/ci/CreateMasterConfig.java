@@ -16,20 +16,18 @@
 package org.kuali.common.devops.ci;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.model.AMIs;
 import org.kuali.common.aws.model.AvailabilityZones;
 import org.kuali.common.aws.model.AwsAccount;
-import org.kuali.common.aws.model.ImmutableAwsCredentials;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
-import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.slf4j.Logger;
@@ -39,11 +37,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.services.ec2.AmazonEC2Client;
-import com.amazonaws.services.ec2.model.DescribeRegionsResult;
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
-import com.amazonaws.services.ec2.model.Region;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
@@ -63,27 +58,11 @@ public class CreateMasterConfig {
 	@Autowired
 	AwsAccount account;
 
-	@Autowired
-	EncryptionService enc;
-
 	@Bean
 	public Object launchAndThenTerminate() {
-		AWSCredentials encrypted = account.getCredentials().get();
-		AWSCredentials creds = new ImmutableAwsCredentials(encrypted.getAWSAccessKeyId(), enc.decrypt(encrypted.getAWSSecretKey()));
-		AmazonEC2Client client = new AmazonEC2Client(creds);
-		DescribeRegionsResult result = client.describeRegions();
-		List<Region> regions = result.getRegions();
-		List<String> names = new ArrayList<String>();
-		for (Region region : regions) {
-			names.add(region.getRegionName());
-		}
-		Collections.sort(names);
-		for (String name : names) {
-			logger.info("Region: {}", name);
-		}
-		// LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
-		// Instance instance = service.launchInstance(context);
-		// logger.info("dns: {}", instance.getPublicDnsName());
+		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
+		Instance instance = service.launchInstance(context);
+		logger.info("dns: {}", instance.getPublicDnsName());
 		return null;
 	}
 
