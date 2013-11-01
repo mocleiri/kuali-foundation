@@ -35,7 +35,7 @@ import org.kuali.common.dns.dnsme.beans.Record;
 import org.kuali.common.dns.dnsme.beans.RecordComparator;
 import org.kuali.common.dns.dnsme.beans.RecordType;
 import org.kuali.common.dns.dnsme.beans.Search;
-import org.springframework.util.Assert;
+import org.kuali.common.util.Assert;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,17 +45,17 @@ public class DNSMadeEasyService implements DnsService {
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_CREATED = 201;
 
-	String restApiUrl;
-	Account account;
-	Gson gson = new Gson();
-	HttpUtil http = new HttpUtil();
-	DNSMEUtil dnsme = new DNSMEUtil();
+	private final String restApiUrl;
+	private final Account account;
 
-	public static DNSMadeEasyService getInstance(Account account, String restApiUrl) {
-		return new DNSMadeEasyService(account, restApiUrl);
-	}
+	//
+	private final Gson gson = new Gson();
+	private final HttpUtil http = new HttpUtil();
+	private final DNSMEUtil dnsme = new DNSMEUtil();
 
-	private DNSMadeEasyService(Account account, String restApiUrl) {
+	public DNSMadeEasyService(Account account, String restApiUrl) {
+		Assert.noNulls(account);
+		Assert.noBlanks(restApiUrl);
 		this.account = account;
 		this.restApiUrl = restApiUrl;
 	}
@@ -195,6 +195,7 @@ public class DNSMadeEasyService implements DnsService {
 		addOrUpdateObject(url, HTTP_OK, record, method);
 	}
 
+	@Override
 	public Record addRecord(Domain domain, Record record) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (record.getId() != null) {
