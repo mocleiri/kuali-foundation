@@ -35,8 +35,8 @@
     <dnsme.apiKey>454f2836-81c0-4379-b8dd-2cc6495131b5</dnsme.apiKey>
     <dnsme.restApiUrl>http://api.dnsmadeeasy.com/V1.2</dnsme.restApiUrl>
     <gson.version>1.7.2</gson.version>
-    <commons-beanutils.version>1.8.3</commons-beanutils.version>
-    <commons-httpclient.version>3.1</commons-httpclient.version>
+    <beanutils.version>1.8.3-kuali-4</beanutils.version>
+    <httpclient.version>3.1</httpclient.version>
   </properties>
   <dependencies>
     <dependency>
@@ -45,9 +45,9 @@
       <version>${gson.version}</version>
     </dependency>
     <dependency>
-      <groupId>commons-beanutils</groupId>
+      <groupId>org.kuali.commons</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <version>${commons-beanutils.version}</version>
+      <version>${beanutils.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -66,7 +66,7 @@
     <dependency>
       <groupId>commons-httpclient</groupId>
       <artifactId>commons-httpclient</artifactId>
-      <version>${commons-httpclient.version}</version>
+      <version>${httpclient.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
