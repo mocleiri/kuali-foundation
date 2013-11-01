@@ -62,7 +62,7 @@ public class CreateMasterConfig {
 	public Object launchAndThenTerminate() {
 		LaunchInstanceContext context = LaunchUtils.getContext(env, jenkinsMaster());
 		Instance instance = service.launchInstance(context);
-		logger.info("public dns: {}", instance.getPublicDnsName());
+		logger.info("dns: {}", instance.getPublicDnsName());
 		return null;
 	}
 
