@@ -13,6 +13,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
@@ -128,6 +129,8 @@ public final class DefaultEC2Service implements EC2Service {
 		public DefaultEC2Service build() {
 			Assert.noNulls(service, credentials, timeOffsetInSeconds, region, endpoint, configuration);
 			Assert.noNegatives(sleepMillis, initialPauseMillis, terminationTimeoutMillis);
+			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSAccessKeyId()), "AWS Access Key ID is encrypted");
+			Assert.isFalse(EncUtils.isEncrypted(credentials.getAWSSecretKey()), "AWS Secret Key is encrypted");
 			this.client = getClient(credentials);
 			Assert.noNulls(client);
 			return new DefaultEC2Service(this);
