@@ -50,7 +50,7 @@ public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
 	@Bean
 	public AwsAccount awsAccount() {
 		String name = env.getString(ACCOUNT_KEY);
-		Map<String, AwsAccount> accounts = Accounts.getAccounts();
+		Map<String, AwsAccount> accounts = Accounts.getAccountsMap();
 		AwsAccount account = accounts.get(name);
 		Assert.notNull(account);
 		return account;
