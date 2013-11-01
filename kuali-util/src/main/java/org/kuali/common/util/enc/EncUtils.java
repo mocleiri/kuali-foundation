@@ -54,8 +54,10 @@ public class EncUtils {
 	}
 
 	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
-		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
-		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
+		EncryptionContext defaultContext = EncryptionContext.DEFAULT;
+		Optional<String> defaultPassword = defaultContext.getPassword();
+		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, defaultPassword);
+		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, defaultPassword);
 		String passwordKey = PASSWORD_KEY;
 
 		// Always use the new property if it exists, but support using the old property as well

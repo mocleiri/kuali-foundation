@@ -38,14 +38,12 @@ public final class EncryptionContext {
 		}
 
 		public Builder password(String password) {
-			String nulled = NullUtils.trimToNull(password);
-			Optional<String> fromNullable = Optional.fromNullable(nulled);
-			this.password = fromNullable;
+			this.password = Optional.fromNullable(NullUtils.trimToNull(password));
 			return this;
 		}
 
 		public Builder passwordKey(String passwordKey) {
-			this.password = Optional.fromNullable(NullUtils.trimToNull(passwordKey));
+			this.passwordKey = Optional.fromNullable(NullUtils.trimToNull(passwordKey));
 			return this;
 		}
 
