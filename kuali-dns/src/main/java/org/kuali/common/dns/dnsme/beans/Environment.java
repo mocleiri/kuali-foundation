@@ -15,10 +15,10 @@
  */
 package org.kuali.common.dns.dnsme.beans;
 
-import org.kuali.common.dns.dnsme.Constants;
+import org.kuali.common.dns.dnsme.URLS;
 
 public enum Environment {
-    PRODUCTION(Constants.PRODUCTION_URL), SANDBOX(Constants.SANDBOX_URL);
+    PRODUCTION(URLS.PRODUCTION), SANDBOX(URLS.SANDBOX);
 
     private String url;
 

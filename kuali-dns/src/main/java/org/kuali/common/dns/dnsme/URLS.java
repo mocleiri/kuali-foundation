@@ -15,7 +15,9 @@
  */
 package org.kuali.common.dns.dnsme;
 
-public class Constants {
-    public static final String PRODUCTION_URL = "http://api.dnsmadeeasy.com/V1.2";
-    public static final String SANDBOX_URL = "http://api.sandbox.dnsmadeeasy.com/V1.2";
+public class URLS {
+
+	public static final String PRODUCTION = "http://api.dnsmadeeasy.com/V1.2";
+	public static final String SANDBOX = "http://api.sandbox.dnsmadeeasy.com/V1.2";
+
 }
