@@ -40,8 +40,6 @@ public class SpringServiceConfig {
 
 	@Bean
 	public EnvironmentService environmentService() {
-		EnvironmentService service = new DefaultEnvironmentService(env);
-		System.out.println(service);
-		return service;
+		return new DefaultEnvironmentService(env);
 	}
 }
