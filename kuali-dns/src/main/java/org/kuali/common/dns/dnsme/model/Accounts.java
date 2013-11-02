@@ -2,8 +2,6 @@ package org.kuali.common.dns.dnsme.model;
 
 import org.kuali.common.util.Assert;
 
-import com.google.common.collect.ImmutableList;
-
 public enum Accounts {
 
 	SANDBOX("549de3da-8eae-4350-b20e-3d5c31f7117e", "ENC(tOH/wJCMfs8WrgL2TR+6zIDqvvmXvQpaN7td5WohonWW1mp5XoN+1LmZowNIn7X9)"), //
@@ -13,7 +11,7 @@ public enum Accounts {
 
 	private Accounts(String apiKey, String secretKey) {
 		Assert.noBlanks(apiKey, secretKey);
-		this.account = new Account(apiKey, secretKey, ImmutableList.<Domain> of());
+		this.account = new Account(apiKey, secretKey);
 	}
 
 	public Account getAccount() {
