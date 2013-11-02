@@ -18,7 +18,7 @@ package org.kuali.common.dns;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.NoOpExecutable;
+import org.kuali.common.util.execute.HelloWorldExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class TestDnsConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable main() {
-		return NoOpExecutable.INSTANCE;
+		return new HelloWorldExecutable();
 	}
 
 }
