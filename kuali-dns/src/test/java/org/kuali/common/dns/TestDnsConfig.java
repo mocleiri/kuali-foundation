@@ -15,6 +15,9 @@
  */
 package org.kuali.common.dns;
 
+import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.dnsme.DNSMadeEasyService;
+import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.Account;
 import org.kuali.common.dns.dnsme.model.Accounts;
 import org.kuali.common.util.enc.EncryptionService;
@@ -44,6 +47,8 @@ public class TestDnsConfig {
 		String apiKey = encryptedAccount.getApiKey();
 		String secretKey = enc.decrypt(encryptedAccount.getSecretKey());
 		Account account = new Account(apiKey, secretKey);
+		DnsService service = new DNSMadeEasyService(account, URLS.SANDBOX);
+		service.addRecord(null, null);
 		return new HelloWorldExecutable();
 	}
 
