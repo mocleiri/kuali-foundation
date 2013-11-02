@@ -43,7 +43,7 @@ public class TestDnsConfig {
 
 	@Bean
 	public Executable main() {
-		Account encryptedAccount = Accounts.SANDBOX.getAccount();
+		Account encryptedAccount = Accounts.PRODUCTION.getAccount();
 		String apiKey = encryptedAccount.getApiKey();
 		String encryptedSecretKey = encryptedAccount.getSecretKey();
 		String secretKey = enc.decrypt(encryptedSecretKey);
