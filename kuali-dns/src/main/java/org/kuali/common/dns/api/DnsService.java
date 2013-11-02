@@ -7,4 +7,6 @@ public interface DnsService {
 
 	Record addRecord(Domain domain, Record record);
 
+	Domain getDomain(String domainName);
+
 }
