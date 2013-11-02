@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme.model;
+package org.kuali.common.dns.model;
 
 import org.kuali.common.util.Assert;
 

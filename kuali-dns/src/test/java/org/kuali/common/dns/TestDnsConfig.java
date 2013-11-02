@@ -15,10 +15,18 @@
  */
 package org.kuali.common.dns;
 
+import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.dnsme.DNSMadeEasyService;
+import org.kuali.common.dns.dnsme.URLS;
+import org.kuali.common.dns.model.Account;
+import org.kuali.common.dns.model.Accounts;
+import org.kuali.common.dns.model.Domain;
+import org.kuali.common.dns.model.GTDLocation;
+import org.kuali.common.dns.model.Record;
+import org.kuali.common.dns.model.RecordType;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.NoOpExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +44,40 @@ public class TestDnsConfig {
 	@Autowired
 	EncryptionService enc;
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable main() {
-		return NoOpExecutable.INSTANCE;
+		Account encryptedAccount = Accounts.PRODUCTION.getAccount();
+		String apiKey = encryptedAccount.getApiKey();
+		String encryptedSecretKey = encryptedAccount.getSecretKey();
+		String secretKey = enc.decrypt(encryptedSecretKey);
+		Account account = new Account(apiKey, secretKey);
+		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
+		try {
+			Record record = new Record();
+			record.setData("nothing.nowhere.com");
+			record.setType(RecordType.CNAME);
+			record.setGtdLocation(GTDLocation.DEFAULT);
+			record.setName("delete-me-now.devops");
+			record.setTtl(60);
+			Domain domain = service.getDomain("kuali.org");
+			Record added = service.addRecord(domain, record);
+			String log = getLog(added);
+			System.out.println(log);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	protected String getLog(Record record) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Id:" + record.getId());
+		sb.append(" Name:" + record.getName());
+		sb.append(" Value:" + record.getData());
+		sb.append(" Type:" + record.getType());
+		sb.append(" TTL:" + record.getTtl());
+		sb.append(" GTD:" + record.getGtdLocation());
+		return sb.toString();
 	}
 
 }

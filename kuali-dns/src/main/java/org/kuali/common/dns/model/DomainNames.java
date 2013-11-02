@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme.model;
+package org.kuali.common.dns.model;
 
-public enum GTDLocation {
+import java.util.List;
 
-	DEFAULT, US_EAST, US_WEST, ASIA;
+public class DomainNames {
+
+	List<String> list;
+
+	public List<String> getList() {
+		return list;
+	}
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 
 }

@@ -34,7 +34,7 @@ import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.kuali.common.dns.dnsme.model.Account;
+import org.kuali.common.dns.model.Account;
 
 public class DNSMEUtil {
 
