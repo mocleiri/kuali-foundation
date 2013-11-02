@@ -21,6 +21,7 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.Account;
 import org.kuali.common.dns.dnsme.model.Accounts;
 import org.kuali.common.dns.dnsme.model.Domain;
+import org.kuali.common.dns.dnsme.model.Record;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
@@ -50,7 +51,9 @@ public class TestDnsConfig {
 		Account account = new Account(apiKey, secretKey);
 		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
 		try {
+			Record record = new Record();
 			Domain domain = service.getDomain("kuali.org");
+			service.addRecord(domain, record);
 			System.out.println(domain.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
