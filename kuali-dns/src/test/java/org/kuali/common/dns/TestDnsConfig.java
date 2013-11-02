@@ -43,7 +43,7 @@ public class TestDnsConfig {
 		Account encryptedAccount = Accounts.SANDBOX.getAccount();
 		String apiKey = encryptedAccount.getApiKey();
 		String secretKey = enc.decrypt(encryptedAccount.getSecretKey());
-		Account account = new Account(apiKey,secretKey);
+		Account account = new Account(apiKey, secretKey);
 		return new HelloWorldExecutable();
 	}
 
