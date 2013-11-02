@@ -63,6 +63,7 @@ public class TestDnsConfig {
 			Record added = service.addRecord(domain, record);
 			String log = getLog(added);
 			System.out.println(log);
+			service.deleteRecord(domain, added.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
