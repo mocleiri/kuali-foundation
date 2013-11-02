@@ -60,6 +60,7 @@ public class TestDnsConfig {
 			record.setName("delete-me-now.devops");
 			record.setTtl(60);
 			Domain domain = service.getDomain("kuali.org");
+			service.deleteRecord(domain, record.getName());
 			Record added = service.addRecord(domain, record);
 			String log = getLog(added);
 			System.out.println(log);
