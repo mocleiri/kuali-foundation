@@ -21,7 +21,9 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.Account;
 import org.kuali.common.dns.dnsme.model.Accounts;
 import org.kuali.common.dns.dnsme.model.Domain;
+import org.kuali.common.dns.dnsme.model.GTDLocation;
 import org.kuali.common.dns.dnsme.model.Record;
+import org.kuali.common.dns.dnsme.model.RecordType;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
@@ -52,13 +54,30 @@ public class TestDnsConfig {
 		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
 		try {
 			Record record = new Record();
+			record.setData("nothing.nowhere.com");
+			record.setType(RecordType.CNAME);
+			record.setGtdLocation(GTDLocation.DEFAULT);
+			record.setName("delete-me-now.devops");
+			record.setTtl(60);
 			Domain domain = service.getDomain("kuali.org");
-			service.addRecord(domain, record);
-			System.out.println(domain.getName());
+			Record added = service.addRecord(domain, record);
+			String log = getLog(added);
+			System.out.println(log);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	protected String getLog(Record record) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Id:" + record.getId());
+		sb.append(" Name:" + record.getName());
+		sb.append(" Value:" + record.getData());
+		sb.append(" Type:" + record.getType());
+		sb.append(" TTL:" + record.getTtl());
+		sb.append(" GTD:" + record.getGtdLocation());
+		return sb.toString();
 	}
 
 }
