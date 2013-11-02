@@ -54,7 +54,7 @@ public class TestDnsConfig {
 		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
 		try {
 			Record record = new Record();
-			record.setData("nothing.nowhere.com");
+			record.setData("www.yahoo.com.");
 			record.setType(RecordType.CNAME);
 			record.setGtdLocation(GTDLocation.DEFAULT);
 			record.setName("delete-me-now.devops");
@@ -67,6 +67,7 @@ public class TestDnsConfig {
 			} else {
 				System.out.println("no existing record");
 			}
+			System.out.println("adding a record");
 			Record added = service.addRecord(domain, record);
 			String log = getLog(added);
 			System.out.println(log);
