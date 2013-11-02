@@ -16,17 +16,12 @@
 package org.kuali.common.dns;
 
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.DNSMadeEasyService;
-import org.kuali.common.dns.dnsme.URLS;
-import org.kuali.common.dns.model.Account;
-import org.kuali.common.dns.model.Accounts;
 import org.kuali.common.dns.model.Domain;
 import org.kuali.common.dns.model.Record;
 import org.kuali.common.dns.model.RecordType;
-import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
+import org.kuali.common.dns.spring.DNSMadeEasyConfig;
+import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,24 +29,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
+@Import({ SpringServiceConfig.class, DNSMadeEasyConfig.class })
 public class TestDnsConfig {
 
 	@Autowired
-	EnvironmentService env;
-
-	@Autowired
-	EncryptionService enc;
+	DnsConfig config;
 
 	@Bean
 	public Executable main() {
-		Account encryptedAccount = Accounts.PRODUCTION.getAccount();
-		String apiKey = encryptedAccount.getApiKey();
-		String encryptedSecretKey = encryptedAccount.getSecretKey();
-		String secretKey = enc.decrypt(encryptedSecretKey);
-		Account account = new Account(apiKey, secretKey);
-		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
 		try {
+			DnsService service = config.dnsService();
 			Record record = new Record();
 			record.setData("www.yahoo.com."); // Note the trailing dot. Without it, dnsme appends kuali.org
 			record.setType(RecordType.CNAME);
