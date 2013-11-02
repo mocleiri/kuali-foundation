@@ -3,6 +3,7 @@ package org.kuali.common.dns;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.dns.project.DnsProjectConfig;
 import org.kuali.common.dns.project.DnsProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
@@ -18,7 +19,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ DefaultPropertiesServiceConfig.class })
+@Import({ DefaultPropertiesServiceConfig.class, DnsProjectConfig.class })
 public class TestDnsPSC implements PropertySourceConfig {
 
 	@Autowired

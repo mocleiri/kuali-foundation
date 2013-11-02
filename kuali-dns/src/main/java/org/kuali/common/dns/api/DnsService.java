@@ -1,7 +1,7 @@
 package org.kuali.common.dns.api;
 
-import org.kuali.common.dns.dnsme.beans.Domain;
-import org.kuali.common.dns.dnsme.beans.Record;
+import org.kuali.common.dns.dnsme.model.Domain;
+import org.kuali.common.dns.dnsme.model.Record;
 
 public interface DnsService {
 

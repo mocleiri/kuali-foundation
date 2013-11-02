@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns;
 
+import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.NoOpExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -25,11 +27,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class TestDnsConfig {
 
 	@Autowired
 	EnvironmentService env;
+
+	@Autowired
+	EncryptionService enc;
 
 	@Bean(initMethod = "execute")
 	public Executable main() {

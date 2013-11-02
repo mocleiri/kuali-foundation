@@ -13,22 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme.beans;
+package org.kuali.common.dns.dnsme.model;
 
-import org.kuali.common.dns.dnsme.URLS;
+public enum GTDLocation {
 
-public enum Environment {
-
-	PRODUCTION(URLS.PRODUCTION), SANDBOX(URLS.SANDBOX);
-
-	private String url;
-
-	private Environment(String url) {
-		this.url = url;
-	}
-
-	public String getUrl() {
-		return url;
-	}
+	DEFAULT, US_EAST, US_WEST, ASIA;
 
 }

@@ -13,28 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme.beans;
+package org.kuali.common.dns.dnsme.model;
+
+import java.util.List;
 
 import org.kuali.common.util.Assert;
 
-public class Domain {
+public final class Account {
 
-	public Domain(Account account, String name) {
-		Assert.noNulls(account);
-		Assert.noBlanks(name);
-		this.account = account;
-		this.name = name;
+	public Account(String apiKey, String secretKey, List<Domain> domains) {
+		Assert.noBlanks(apiKey, secretKey);
+		Assert.noNulls(domains);
+		this.apiKey = apiKey;
+		this.secretKey = secretKey;
+		this.domains = domains;
 	}
 
-	private final Account account;
-	private final String name;
+	private final String apiKey;
+	private final String secretKey;
+	private final List<Domain> domains;
 
-	public Account getAccount() {
-		return account;
+	public String getApiKey() {
+		return apiKey;
 	}
 
-	public String getName() {
-		return name;
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	public List<Domain> getDomains() {
+		return domains;
 	}
 
 }

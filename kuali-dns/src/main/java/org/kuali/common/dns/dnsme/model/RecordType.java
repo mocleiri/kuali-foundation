@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme.beans;
+package org.kuali.common.dns.dnsme.model;
 
-public enum GTDLocation {
+public enum RecordType {
 
-	DEFAULT, US_EAST, US_WEST, ASIA;
+	A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
 
 }

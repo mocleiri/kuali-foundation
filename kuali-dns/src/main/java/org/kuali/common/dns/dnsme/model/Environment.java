@@ -13,10 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme.beans;
+package org.kuali.common.dns.dnsme.model;
 
-public enum RecordType {
+import org.kuali.common.dns.dnsme.URLS;
 
-	A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
+public enum Environment {
+
+	PRODUCTION(URLS.PRODUCTION), SANDBOX(URLS.SANDBOX);
+
+	private String url;
+
+	private Environment(String url) {
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
+	}
 
 }
