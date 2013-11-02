@@ -20,10 +20,10 @@ import org.kuali.common.dns.dnsme.DNSMadeEasyService;
 import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.Account;
 import org.kuali.common.dns.dnsme.model.Accounts;
+import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.HelloWorldExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +41,21 @@ public class TestDnsConfig {
 	@Autowired
 	EncryptionService enc;
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable main() {
 		Account encryptedAccount = Accounts.SANDBOX.getAccount();
 		String apiKey = encryptedAccount.getApiKey();
-		String secretKey = enc.decrypt(encryptedAccount.getSecretKey());
+		String encryptedSecretKey = encryptedAccount.getSecretKey();
+		String secretKey = enc.decrypt(encryptedSecretKey);
 		Account account = new Account(apiKey, secretKey);
-		DnsService service = new DNSMadeEasyService(account, URLS.SANDBOX);
-		service.addRecord(null, null);
-		return new HelloWorldExecutable();
+		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
+		try {
+			Domain domain = service.getDomain("kuali.org");
+			System.out.println(domain.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
