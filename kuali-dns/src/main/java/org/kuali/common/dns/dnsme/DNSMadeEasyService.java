@@ -28,6 +28,8 @@ import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.http.HttpRequestResult;
+import org.kuali.common.dns.http.HttpUtil;
 import org.kuali.common.dns.model.Account;
 import org.kuali.common.dns.model.Domain;
 import org.kuali.common.dns.model.DomainNames;
