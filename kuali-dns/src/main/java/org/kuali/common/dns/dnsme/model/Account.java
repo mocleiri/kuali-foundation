@@ -19,7 +19,13 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 
+import com.google.common.collect.ImmutableList;
+
 public final class Account {
+
+	public Account(String apiKey, String secretKey) {
+		this(apiKey, secretKey, ImmutableList.<Domain> of());
+	}
 
 	public Account(String apiKey, String secretKey, List<Domain> domains) {
 		Assert.noBlanks(apiKey, secretKey);

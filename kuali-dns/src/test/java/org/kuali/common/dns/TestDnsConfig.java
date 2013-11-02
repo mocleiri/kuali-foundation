@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns;
 
+import org.kuali.common.dns.dnsme.model.Account;
+import org.kuali.common.dns.dnsme.model.Accounts;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
@@ -38,6 +40,10 @@ public class TestDnsConfig {
 
 	@Bean(initMethod = "execute")
 	public Executable main() {
+		Account encryptedAccount = Accounts.SANDBOX.getAccount();
+		String apiKey = encryptedAccount.getApiKey();
+		String secretKey = enc.decrypt(encryptedAccount.getSecretKey());
+		Account account = new Account(apiKey,secretKey);
 		return new HelloWorldExecutable();
 	}
 
