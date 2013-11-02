@@ -21,20 +21,20 @@ import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CreateMaster extends AbstractMainRunner {
+public class TestDns extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(CreateMaster.class, args, true);
+		MainUtils.runAndExit(TestDns.class, args, true);
 	}
 
 	@Override
 	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
-		return CreateMasterPSC.class;
+		return TestDnsPSC.class;
 	}
 
 	@Override
 	protected Class<?> getConfig() {
-		return CreateMasterConfig.class;
+		return TestDnsConfig.class;
 	}
 
 }

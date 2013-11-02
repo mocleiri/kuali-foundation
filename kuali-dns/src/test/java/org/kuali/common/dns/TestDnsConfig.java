@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class })
-public class CreateMasterConfig {
+public class TestDnsConfig {
 
 	@Autowired
 	EnvironmentService env;

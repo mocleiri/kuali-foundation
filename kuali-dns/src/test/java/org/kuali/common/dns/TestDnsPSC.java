@@ -19,7 +19,7 @@ import org.springframework.core.env.PropertySource;
 
 @Configuration
 @Import({ DefaultPropertiesServiceConfig.class })
-public class CreateMasterPSC implements PropertySourceConfig {
+public class TestDnsPSC implements PropertySourceConfig {
 
 	@Autowired
 	Project project;
