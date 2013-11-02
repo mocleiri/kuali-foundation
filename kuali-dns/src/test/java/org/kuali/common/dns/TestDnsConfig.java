@@ -43,12 +43,12 @@ public class TestDnsConfig {
 
 	@Bean
 	public Executable main() {
-		Account encryptedAccount = Accounts.PRODUCTION.getAccount();
+		Account encryptedAccount = Accounts.SANDBOX.getAccount();
 		String apiKey = encryptedAccount.getApiKey();
 		String encryptedSecretKey = encryptedAccount.getSecretKey();
 		String secretKey = enc.decrypt(encryptedSecretKey);
 		Account account = new Account(apiKey, secretKey);
-		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
+		DnsService service = new DNSMadeEasyService(account, URLS.SANDBOX);
 		try {
 			Domain domain = service.getDomain("kuali.org");
 			System.out.println(domain.getName());
