@@ -20,6 +20,8 @@ public interface DnsService {
 
 	Record getRecord(Domain domain, String name);
 
+	boolean exists(Domain domain, String name);
+
 	Record getRecord(Domain domain, Search search);
 
 	List<Record> getRecords(Domain domain);
