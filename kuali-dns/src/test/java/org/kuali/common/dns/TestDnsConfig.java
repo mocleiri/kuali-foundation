@@ -60,7 +60,13 @@ public class TestDnsConfig {
 			record.setName("delete-me-now.devops");
 			record.setTtl(60);
 			Domain domain = service.getDomain("kuali.org");
-			service.deleteRecord(domain, record.getName());
+			boolean exists = service.exists(domain, record.getName());
+			if (exists) {
+				System.out.println("deleting existing record");
+				service.deleteRecord(domain, record.getName());
+			} else {
+				System.out.println("no existing record");
+			}
 			Record added = service.addRecord(domain, record);
 			String log = getLog(added);
 			System.out.println(log);
