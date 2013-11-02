@@ -21,7 +21,6 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.model.Account;
 import org.kuali.common.dns.model.Accounts;
 import org.kuali.common.dns.model.Domain;
-import org.kuali.common.dns.model.GTDLocation;
 import org.kuali.common.dns.model.Record;
 import org.kuali.common.dns.model.RecordType;
 import org.kuali.common.util.enc.EncryptionService;
@@ -56,7 +55,7 @@ public class TestDnsConfig {
 			Record record = new Record();
 			record.setData("www.yahoo.com.");
 			record.setType(RecordType.CNAME);
-			record.setGtdLocation(GTDLocation.DEFAULT);
+			// record.setGtdLocation(GTDLocation.DEFAULT);
 			record.setName("delete-me-now.devops");
 			record.setTtl(60);
 			Domain domain = service.getDomain("kuali.org");
