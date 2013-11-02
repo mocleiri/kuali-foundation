@@ -10,6 +10,10 @@ public interface DnsService {
 
 	Record addRecord(Domain domain, Record record);
 
+	void deleteRecord(Domain domain, String name);
+
+	void deleteRecord(Domain domain, int recordId);
+
 	Domain getDomain(String domainName);
 
 	Record getRecord(Domain domain, int recordId);
