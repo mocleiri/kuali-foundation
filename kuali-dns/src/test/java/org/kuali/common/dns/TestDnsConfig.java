@@ -53,7 +53,7 @@ public class TestDnsConfig {
 		DnsService service = new DNSMadeEasyService(account, URLS.PRODUCTION);
 		try {
 			Record record = new Record();
-			record.setData("www.yahoo.com.");
+			record.setData("www.yahoo.com."); // Note the trailing dot. Without it, dnsme appends kuali.org
 			record.setType(RecordType.CNAME);
 			// record.setGtdLocation(GTDLocation.DEFAULT);
 			record.setName("delete-me-now.devops");
