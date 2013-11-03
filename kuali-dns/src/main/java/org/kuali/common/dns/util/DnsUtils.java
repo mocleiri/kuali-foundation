@@ -28,7 +28,7 @@ public class DnsUtils {
 		Assert.noBlanks(fqdn);
 
 		// Max length is 253 characters
-		Assert.isTrue(fqdn.length() <= MAX_FQDN_LENGTH, "[" + fqdn + "] is " + fqdn.length() + " characters long.  Max is " + MAX_LABEL_LENGTH);
+		Assert.isTrue(fqdn.length() <= MAX_FQDN_LENGTH, "[" + fqdn + "] is " + fqdn.length() + " characters long.  Max is " + MAX_FQDN_LENGTH);
 
 		// Split up the string using dot as a separator
 		String[] labels = StringUtils.splitPreserveAllTokens(fqdn, DOT);
@@ -41,7 +41,7 @@ public class DnsUtils {
 
 			// Max length for an individual label is 63 characters
 			int len = label.length();
-			Assert.isTrue(len <= MAX_LABEL_LENGTH, "[" + label + "] is " + len + " characters long.  Max is " + MAX_FQDN_LENGTH);
+			Assert.isTrue(len <= MAX_LABEL_LENGTH, "[" + label + "] is " + len + " characters long.  Max is " + MAX_LABEL_LENGTH);
 
 			// Can't begin or end with a hyphen
 			Assert.isFalse(label.charAt(0) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
