@@ -16,7 +16,7 @@ public interface DnsService {
 	 * Create a CNAME record from <code>aliasFQDN</code> to <code>fqdn</code>.
 	 * 
 	 * @param aliasFQDN
-	 *            The fully qualified domain name being aliased to <code>fqdn</code>
+	 *            The fully qualified domain name being pointed to <code>fqdn</code>
 	 * @param fqdn
 	 *            The fully qualified domain name <code>aliasFQDN</code> points to after this method returns.
 	 * @param timeToLiveInSeconds
