@@ -22,7 +22,6 @@ import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
-import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsServiceConfig;
 import org.kuali.common.util.execute.Executable;
@@ -46,10 +45,10 @@ public class TestDnsConfig {
 	@Autowired
 	DnsServiceConfig config;
 
-	// @Bean
+	@Bean
 	public Executable main() {
 		try {
-			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria("rice", DnsRecordType.CNAME);
+			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria();
 			DnsService service = config.dnsService();
 			List<DnsRecord> records = service.getRecords(criteria);
 			List<String> columns = ImmutableList.of("Name", "Type", "Value");
@@ -65,7 +64,7 @@ public class TestDnsConfig {
 		return null;
 	}
 
-	@Bean
+	// @Bean
 	public Executable main2() {
 		try {
 			DnsService service = config.dnsService();

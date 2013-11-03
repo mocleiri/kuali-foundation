@@ -9,6 +9,10 @@ public final class DnsRecordSearchCriteria {
 
 	private static final Optional<String> ABSENT = Optional.<String> absent();
 
+	public DnsRecordSearchCriteria() {
+		this(ABSENT, Optional.<DnsRecordType> absent(), ABSENT);
+	}
+
 	public DnsRecordSearchCriteria(DnsRecordType type) {
 		this(ABSENT, Optional.of(type), ABSENT);
 	}
