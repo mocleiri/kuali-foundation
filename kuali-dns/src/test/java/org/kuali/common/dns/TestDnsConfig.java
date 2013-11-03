@@ -46,7 +46,7 @@ public class TestDnsConfig {
 	@Autowired
 	DnsConfig config;
 
-	@Bean
+	// @Bean
 	public Executable main() {
 		try {
 			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria("rice", DnsRecordType.CNAME);
@@ -65,6 +65,7 @@ public class TestDnsConfig {
 		return null;
 	}
 
+	@Bean
 	public Executable main2() {
 		try {
 			DnsService service = config.dnsService();
@@ -73,18 +74,18 @@ public class TestDnsConfig {
 			int ttl = 60;
 			boolean exists = service.exists(aliasFQDN);
 			if (exists) {
-				System.out.println("deleting existing record");
+				logger.info("deleting existing record");
 				service.delete(aliasFQDN);
 			} else {
-				System.out.println("no existing record");
+				logger.info("no existing record");
 			}
-			System.out.println("adding a record");
+			logger.info("adding a record");
 			DnsRecord added = service.createCNAMERecord(aliasFQDN, fqdn, ttl);
 			String log = getLog(added);
-			System.out.println(log);
-			System.out.println("removing record we just created");
+			logger.info(log);
+			logger.info("removing record we just created");
 			service.delete(aliasFQDN);
-			System.out.println("record removed");
+			logger.info("record removed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
