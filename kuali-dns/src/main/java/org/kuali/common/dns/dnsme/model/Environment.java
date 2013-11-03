@@ -13,10 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.dnsme;
+package org.kuali.common.dns.dnsme.model;
 
-public enum HttpRequestResultType {
+import org.kuali.common.dns.dnsme.URLS;
 
-	EXCEPTION, COMPLETED, TIMEOUT;
+public enum Environment {
+
+	PRODUCTION(URLS.PRODUCTION), SANDBOX(URLS.SANDBOX);
+
+	private String url;
+
+	private Environment(String url) {
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
+	}
 
 }

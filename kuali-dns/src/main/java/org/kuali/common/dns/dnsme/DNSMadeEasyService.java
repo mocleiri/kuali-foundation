@@ -28,13 +28,15 @@ import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.model.Account;
-import org.kuali.common.dns.model.Domain;
-import org.kuali.common.dns.model.DomainNames;
-import org.kuali.common.dns.model.Record;
-import org.kuali.common.dns.model.RecordComparator;
-import org.kuali.common.dns.model.RecordType;
-import org.kuali.common.dns.model.Search;
+import org.kuali.common.dns.dnsme.model.Account;
+import org.kuali.common.dns.dnsme.model.Domain;
+import org.kuali.common.dns.dnsme.model.DomainNames;
+import org.kuali.common.dns.dnsme.model.Record;
+import org.kuali.common.dns.dnsme.model.RecordComparator;
+import org.kuali.common.dns.dnsme.model.RecordType;
+import org.kuali.common.dns.dnsme.model.Search;
+import org.kuali.common.dns.http.HttpRequestResult;
+import org.kuali.common.dns.http.HttpUtil;
 import org.kuali.common.util.Assert;
 
 import com.google.gson.Gson;
@@ -67,6 +69,7 @@ public class DNSMadeEasyService implements DnsService {
 		return getDomains(domainNames);
 	}
 
+	@Override
 	public Domain getDomain(String name) {
 		List<Domain> domains = getDomains();
 		for (Domain domain : domains) {
@@ -138,6 +141,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
+	@Override
 	public Record getRecord(Domain domain, Search search) {
 		List<Record> records = getRecords(domain, search);
 		if (records.size() != 1) {
@@ -147,6 +151,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
+	@Override
 	public List<Record> getRecords(Domain domain, Search search) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (search != null) {
@@ -166,10 +171,22 @@ public class DNSMadeEasyService implements DnsService {
 		return search;
 	}
 
+	@Override
 	public Record getRecord(Domain domain, String name) {
 		return getRecord(domain, getSearch(name));
 	}
 
+	public boolean exists(Domain domain, String name) {
+		Search search = getSearch(name);
+		List<Record> records = getRecords(domain, search);
+		if (records.size() > 1) {
+			throw new IllegalArgumentException("Found " + records.size() + " records when expecting a max of 1");
+		} else {
+			return records.size() == 1;
+		}
+	}
+
+	@Override
 	public Record getRecord(Domain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		String resultJson = getJson(url, HTTP_OK);
@@ -206,11 +223,13 @@ public class DNSMadeEasyService implements DnsService {
 		return addOrUpdateObject(url, HTTP_CREATED, record, method);
 	}
 
+	@Override
 	public void deleteRecord(Domain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		deleteObject(url);
 	}
 
+	@Override
 	public void deleteRecord(Domain domain, String name) {
 		Record record = getRecord(domain, name);
 		Assert.isTrue(record.getId() != null, "id is required");
@@ -259,6 +278,7 @@ public class DNSMadeEasyService implements DnsService {
 		return resultObject;
 	}
 
+	@Override
 	public List<Record> getRecords(Domain domain) {
 		return getRecords(domain, null);
 	}

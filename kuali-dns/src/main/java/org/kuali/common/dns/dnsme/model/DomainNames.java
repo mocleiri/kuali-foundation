@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.model;
+package org.kuali.common.dns.dnsme.model;
 
-public enum RecordType {
+import java.util.List;
 
-	A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
+public class DomainNames {
+
+	List<String> list;
+
+	public List<String> getList() {
+		return list;
+	}
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 
 }

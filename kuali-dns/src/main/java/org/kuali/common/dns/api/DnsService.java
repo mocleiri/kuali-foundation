@@ -2,9 +2,9 @@ package org.kuali.common.dns.api;
 
 import java.util.List;
 
-import org.kuali.common.dns.model.Domain;
-import org.kuali.common.dns.model.Record;
-import org.kuali.common.dns.model.Search;
+import org.kuali.common.dns.dnsme.model.Domain;
+import org.kuali.common.dns.dnsme.model.Record;
+import org.kuali.common.dns.dnsme.model.Search;
 
 public interface DnsService {
 
@@ -19,6 +19,8 @@ public interface DnsService {
 	Record getRecord(Domain domain, int recordId);
 
 	Record getRecord(Domain domain, String name);
+
+	boolean exists(Domain domain, String name);
 
 	Record getRecord(Domain domain, Search search);
 

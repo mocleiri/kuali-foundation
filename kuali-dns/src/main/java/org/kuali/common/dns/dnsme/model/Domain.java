@@ -13,20 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.model;
+package org.kuali.common.dns.dnsme.model;
 
-import java.util.List;
+import org.kuali.common.util.Assert;
 
-public class DomainNames {
+public class Domain {
 
-	List<String> list;
-
-	public List<String> getList() {
-		return list;
+	public Domain(Account account, String name) {
+		Assert.noNulls(account);
+		Assert.noBlanks(name);
+		this.account = account;
+		this.name = name;
 	}
 
-	public void setList(List<String> list) {
-		this.list = list;
+	private final Account account;
+	private final String name;
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }
