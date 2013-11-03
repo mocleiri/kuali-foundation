@@ -33,10 +33,10 @@ import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.Record;
 import org.kuali.common.dns.dnsme.model.RecordComparator;
-import org.kuali.common.dns.dnsme.model.Search;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
 import org.kuali.common.dns.model.DnsRecordType;
+import org.kuali.common.dns.model.Search;
 import org.kuali.common.util.Assert;
 
 import com.google.gson.Gson;
@@ -69,7 +69,6 @@ public class DNSMadeEasyService implements DnsService {
 		return getDomains(domainNames);
 	}
 
-	@Override
 	public Domain getDomain(String name) {
 		List<Domain> domains = getDomains();
 		for (Domain domain : domains) {
@@ -141,7 +140,6 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	@Override
 	public Record getRecord(Domain domain, Search search) {
 		List<Record> records = getRecords(domain, search);
 		if (records.size() != 1) {
@@ -151,7 +149,6 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	@Override
 	public List<Record> getRecords(Domain domain, Search search) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (search != null) {
@@ -171,7 +168,6 @@ public class DNSMadeEasyService implements DnsService {
 		return search;
 	}
 
-	@Override
 	public Record getRecord(Domain domain, String name) {
 		return getRecord(domain, getSearch(name));
 	}
@@ -186,7 +182,6 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	@Override
 	public Record getRecord(Domain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		String resultJson = getJson(url, HTTP_OK);
@@ -212,7 +207,6 @@ public class DNSMadeEasyService implements DnsService {
 		addOrUpdateObject(url, HTTP_OK, record, method);
 	}
 
-	@Override
 	public Record addRecord(Domain domain, Record record) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (record.getId() != null) {
@@ -223,13 +217,11 @@ public class DNSMadeEasyService implements DnsService {
 		return addOrUpdateObject(url, HTTP_CREATED, record, method);
 	}
 
-	@Override
 	public void deleteRecord(Domain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		deleteObject(url);
 	}
 
-	@Override
 	public void deleteRecord(Domain domain, String name) {
 		Record record = getRecord(domain, name);
 		Assert.isTrue(record.getId() != null, "id is required");
@@ -278,7 +270,6 @@ public class DNSMadeEasyService implements DnsService {
 		return resultObject;
 	}
 
-	@Override
 	public List<Record> getRecords(Domain domain) {
 		return getRecords(domain, null);
 	}

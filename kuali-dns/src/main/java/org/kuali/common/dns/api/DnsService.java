@@ -2,14 +2,14 @@ package org.kuali.common.dns.api;
 
 import java.util.List;
 
-import org.kuali.common.dns.dnsme.model.Search;
 import org.kuali.common.dns.model.DnsRecord;
+import org.kuali.common.dns.model.Search;
 
 public interface DnsService {
 
-	boolean exists(String fqdn);
+	DnsRecord createCNAMERecord(String alias, String canonical, int timeToLiveInSeconds);
 
-	void createCNAME(String alias, String canonical, int timeToLiveInSeconds);
+	boolean exists(String fqdn);
 
 	void delete(String fqdn);
 
