@@ -26,7 +26,6 @@ import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.log.LogTableContext;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.slf4j.Logger;
@@ -59,7 +58,7 @@ public class TestDnsConfig {
 				Object[] row = { record.getName(), record.getType(), record.getValue() };
 				rows.add(row);
 			}
-			LoggerUtils.logTable(new LogTableContext(columns, rows, logger));
+			LoggerUtils.logTable(columns, rows, logger);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
