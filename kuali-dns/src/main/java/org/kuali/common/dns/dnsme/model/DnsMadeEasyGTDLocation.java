@@ -15,7 +15,7 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-public enum GTDLocation {
+public enum DnsMadeEasyGTDLocation {
 
 	DEFAULT, US_EAST, US_WEST, ASIA;
 

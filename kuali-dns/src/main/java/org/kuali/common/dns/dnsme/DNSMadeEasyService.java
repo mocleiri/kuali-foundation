@@ -34,7 +34,7 @@ import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.dnsme.model.RecordComparator;
-import org.kuali.common.dns.dnsme.model.Search;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasySearchCriteria;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
 import org.kuali.common.dns.model.DnsRecord;
@@ -98,7 +98,7 @@ public class DNSMadeEasyService implements DnsService {
 		deleteObject(url);
 	}
 
-	protected String getQueryString(Search search) {
+	protected String getQueryString(DnsMadeEasySearchCriteria search) {
 		List<NameValuePair> pairs = getPairs(search);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < pairs.size(); i++) {
@@ -113,7 +113,7 @@ public class DNSMadeEasyService implements DnsService {
 		return sb.toString();
 	}
 
-	protected List<NameValuePair> getPairs(Search search) {
+	protected List<NameValuePair> getPairs(DnsMadeEasySearchCriteria search) {
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		addIfNotNull(pairs, getPair("name", search.getName()));
 		addIfNotNull(pairs, getPair("nameContains", search.getNameContains()));
@@ -148,7 +148,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected DnsMadeEasyDnsRecord getRecord(DnsMadeEasyDomain domain, Search search) {
+	protected DnsMadeEasyDnsRecord getRecord(DnsMadeEasyDomain domain, DnsMadeEasySearchCriteria search) {
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
 		if (records.size() != 1) {
 			throw new IllegalStateException("Search criteria must match exactly 1 record but it matched " + records.size() + " records");
@@ -157,7 +157,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected List<DnsMadeEasyDnsRecord> getRecords(DnsMadeEasyDomain domain, Search search) {
+	protected List<DnsMadeEasyDnsRecord> getRecords(DnsMadeEasyDomain domain, DnsMadeEasySearchCriteria search) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (search != null) {
 			url += getQueryString(search);
@@ -170,8 +170,8 @@ public class DNSMadeEasyService implements DnsService {
 		return records;
 	}
 
-	protected Search getSearch(String name) {
-		Search search = new Search();
+	protected DnsMadeEasySearchCriteria getSearch(String name) {
+		DnsMadeEasySearchCriteria search = new DnsMadeEasySearchCriteria();
 		search.setName(name);
 		return search;
 	}
@@ -233,7 +233,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	protected List<DnsMadeEasyDnsRecord> getCNAMERecords(DnsMadeEasyDomain domain) {
-		Search search = new Search();
+		DnsMadeEasySearchCriteria search = new DnsMadeEasySearchCriteria();
 		search.setType(DnsRecordType.CNAME);
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
 		Collections.sort(records, new RecordComparator());
@@ -401,7 +401,7 @@ public class DNSMadeEasyService implements DnsService {
 		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
-		Search search = getSearch(recordName);
+		DnsMadeEasySearchCriteria search = getSearch(recordName);
 
 		// Get a list of matching records from DNSME
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
@@ -438,7 +438,7 @@ public class DNSMadeEasyService implements DnsService {
 		validateDomain(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
-		Search search = getSearch(fqdn);
+		DnsMadeEasySearchCriteria search = getSearch(fqdn);
 
 		// Get a list of matching records from DNSME
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
@@ -462,7 +462,7 @@ public class DNSMadeEasyService implements DnsService {
 	@Override
 	public List<DnsRecord> getRecords(DnsRecordSearchCriteria searchCriteria) {
 		Assert.noNulls(searchCriteria);
-		Search search = new Search();
+		DnsMadeEasySearchCriteria search = new DnsMadeEasySearchCriteria();
 		if (searchCriteria.getNameContains().isPresent()) {
 			search.setNameContains(searchCriteria.getNameContains().get());
 		}

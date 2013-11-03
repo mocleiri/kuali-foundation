@@ -17,20 +17,20 @@ package org.kuali.common.dns.dnsme.model;
 
 import org.kuali.common.dns.model.DnsRecordType;
 
-public class Search {
+public class DnsMadeEasySearchCriteria {
 
-	GTDLocation gtdLocation; // {DEFAULT, US_EAST, US_WEST, ASIA}
+	DnsMadeEasyGTDLocation gtdLocation; // {DEFAULT, US_EAST, US_WEST, ASIA}
 	DnsRecordType type; // {A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT}
 	String name; // - this is an exact match
 	String nameContains; // - looks for any record containing your input in the name
 	String value; // - this is an exact match on the value of the record
 	String valueContains; // - looks for any record containing your input in the value
 
-	public GTDLocation getGtdLocation() {
+	public DnsMadeEasyGTDLocation getGtdLocation() {
 		return gtdLocation;
 	}
 
-	public void setGtdLocation(GTDLocation gtdLocation) {
+	public void setGtdLocation(DnsMadeEasyGTDLocation gtdLocation) {
 		this.gtdLocation = gtdLocation;
 	}
 

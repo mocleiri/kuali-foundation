@@ -25,7 +25,7 @@ public class DnsMadeEasyDnsRecord {
 	DnsRecordType type;
 	String data;
 	Integer ttl;
-	GTDLocation gtdLocation;
+	DnsMadeEasyGTDLocation gtdLocation;
 	String password;
 	String description;
 	String keywords;
@@ -129,11 +129,11 @@ public class DnsMadeEasyDnsRecord {
 		this.domain = domain;
 	}
 
-	public GTDLocation getGtdLocation() {
+	public DnsMadeEasyGTDLocation getGtdLocation() {
 		return gtdLocation;
 	}
 
-	public void setGtdLocation(GTDLocation gtdLocation) {
+	public void setGtdLocation(DnsMadeEasyGTDLocation gtdLocation) {
 		this.gtdLocation = gtdLocation;
 	}
 }
