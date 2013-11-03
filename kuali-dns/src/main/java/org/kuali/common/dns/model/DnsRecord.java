@@ -2,7 +2,7 @@ package org.kuali.common.dns.model;
 
 import org.kuali.common.util.Assert;
 
-public final class DnsRecord {
+public final class DnsRecord implements Comparable<DnsRecord> {
 
 	public DnsRecord(String name, DnsRecordType type, String value) {
 		Assert.noBlanks(name, value);
@@ -26,6 +26,11 @@ public final class DnsRecord {
 
 	public String getValue() {
 		return value;
+	}
+
+	@Override
+	public int compareTo(DnsRecord other) {
+		return name.compareTo(other.getName());
 	}
 
 }
