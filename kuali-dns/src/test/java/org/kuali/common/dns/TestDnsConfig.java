@@ -16,9 +16,8 @@
 package org.kuali.common.dns;
 
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.Record;
-import org.kuali.common.dns.model.DnsRecordType;
+import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
@@ -29,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DNSMadeEasyConfig.class })
+@Import({ SpringServiceConfig.class, KualiDomainNameConfig.class, DNSMadeEasyConfig.class })
 public class TestDnsConfig {
 
 	@Autowired
@@ -39,31 +38,35 @@ public class TestDnsConfig {
 	public Executable main() {
 		try {
 			DnsService service = config.dnsService();
-			Record record = new Record();
-			record.setData("www.yahoo.com."); // Note the trailing dot. Without it, dnsme appends kuali.org
-			record.setType(DnsRecordType.CNAME);
-			// record.setGtdLocation(GTDLocation.DEFAULT);
-			record.setName("delete-me-now.devops");
-			record.setTtl(60);
-			Domain domain = service.getDomain("kuali.org");
-			boolean exists = service.exists(domain, record.getName());
+			String aliasFQDN = "delete-me-now.devops.kuali.org";
+			String fqdn = "www.yahoo.com";
+			int ttl = 60;
+			boolean exists = service.exists(aliasFQDN);
 			if (exists) {
 				System.out.println("deleting existing record");
-				service.deleteRecord(domain, record.getName());
+				service.delete(aliasFQDN);
 			} else {
 				System.out.println("no existing record");
 			}
 			System.out.println("adding a record");
-			Record added = service.addRecord(domain, record);
+			DnsRecord added = service.createCNAMERecord(aliasFQDN, fqdn, ttl);
 			String log = getLog(added);
 			System.out.println(log);
 			System.out.println("removing record we just created");
-			service.deleteRecord(domain, added.getId());
+			service.delete(aliasFQDN);
 			System.out.println("record removed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	protected String getLog(DnsRecord record) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" Name:" + record.getName());
+		sb.append(" Type:" + record.getType());
+		sb.append(" Value:" + record.getValue());
+		return sb.toString();
 	}
 
 	protected String getLog(Record record) {
