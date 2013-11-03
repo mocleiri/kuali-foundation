@@ -29,6 +29,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.Record;
@@ -47,19 +48,22 @@ public class DNSMadeEasyService implements DnsService {
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_CREATED = 201;
 
+	private final DNSMadeEasyServiceContext context;
+	private final Domain domain;
 	private final String restApiUrl;
-	private final DNSMadeEasyCredentials account;
+	private final DNSMadeEasyCredentials credentials;
 
 	//
 	private final Gson gson = new Gson();
 	private final HttpUtil http = new HttpUtil();
 	private final DNSMEUtil dnsme = new DNSMEUtil();
 
-	public DNSMadeEasyService(DNSMadeEasyCredentials account, String restApiUrl) {
-		Assert.noNulls(account);
-		Assert.noBlanks(restApiUrl);
-		this.account = account;
-		this.restApiUrl = restApiUrl;
+	public DNSMadeEasyService(DNSMadeEasyServiceContext context) {
+		Assert.noNulls(context);
+		this.context = context;
+		this.domain = getDomain(context.getDomain());
+		this.restApiUrl = context.getRestApiUrl();
+		this.credentials = context.getCredentials();
 	}
 
 	public List<Domain> getDomains() {
@@ -229,7 +233,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	protected void deleteObject(String url) {
-		HttpMethod method = dnsme.getDeleteMethod(account, url);
+		HttpMethod method = dnsme.getDeleteMethod(credentials, url);
 		HttpRequestResult result = http.executeMethod(method);
 		validateResult(result, HTTP_OK);
 	}
@@ -263,7 +267,7 @@ public class DNSMadeEasyService implements DnsService {
 
 	protected <T> T addOrUpdateObject(String url, int statusCode, T object, EntityEnclosingMethod method) {
 		String json = gson.toJson(object);
-		dnsme.updateMethod(account, json, method);
+		dnsme.updateMethod(credentials, json, method);
 		String resultJson = getJson(url, method, statusCode);
 		@SuppressWarnings("unchecked")
 		T resultObject = (T) gson.fromJson(resultJson, object.getClass());
@@ -281,7 +285,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	protected String getJson(String url, int successCode) {
-		HttpMethod method = dnsme.getGetMethod(account, url);
+		HttpMethod method = dnsme.getGetMethod(credentials, url);
 		return getJson(url, method, successCode);
 	}
 
@@ -324,7 +328,7 @@ public class DNSMadeEasyService implements DnsService {
 		List<String> names = domainNames.getList();
 		List<Domain> domains = new ArrayList<Domain>();
 		for (String name : names) {
-			Domain domain = new Domain(account, name);
+			Domain domain = new Domain(credentials, name);
 			domains.add(domain);
 		}
 		return domains;
