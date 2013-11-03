@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns;
 
+import java.util.List;
+
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.model.DnsRecord;
@@ -22,6 +24,8 @@ import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,11 +35,26 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class, KualiDomainNameConfig.class, DNSMadeEasyConfig.class })
 public class TestDnsConfig {
 
+	private final Logger logger = LoggerFactory.getLogger(TestDnsConfig.class);
+
 	@Autowired
 	DnsConfig config;
 
 	@Bean
 	public Executable main() {
+		try {
+			DnsService service = config.dnsService();
+			List<DnsRecord> records = service.getRecords();
+			for (DnsRecord record : records) {
+				logger.info(getLog(record));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Executable main2() {
 		try {
 			DnsService service = config.dnsService();
 			String aliasFQDN = "delete-me-now.devops.kuali.org";

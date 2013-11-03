@@ -32,7 +32,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HttpUtil {
+
 	private final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+
 	int requestTimeout = 8000;
 	int sleepInterval = 3000;
 	int timeout = 300;
