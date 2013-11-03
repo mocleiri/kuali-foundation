@@ -8,7 +8,18 @@ import org.kuali.common.dns.dnsme.model.Search;
 
 public interface DnsService {
 
-	Record addRecord(Domain domain, Record record);
+	boolean exists(String fqdn);
+
+	void createCNAME(String aliasDnsName, String canonicalDnsName, int timeToLiveInSeconds);
+	
+	void delete(String fqdn);
+	
+	DnsRecord getRecord(String fqdn);
+	
+	List<DnsRecord> getRecords();
+	
+	List<DnsRecord> getRecords(String)
+	
 
 	void deleteRecord(Domain domain, String name);
 
@@ -19,8 +30,6 @@ public interface DnsService {
 	Record getRecord(Domain domain, int recordId);
 
 	Record getRecord(Domain domain, String name);
-
-	boolean exists(Domain domain, String name);
 
 	Record getRecord(Domain domain, Search search);
 

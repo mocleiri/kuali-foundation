@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
+import org.kuali.common.dns.model.RecordType;
+
 public class Record {
 
 	Domain domain;

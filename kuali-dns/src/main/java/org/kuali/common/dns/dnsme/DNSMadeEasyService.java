@@ -33,10 +33,10 @@ import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.Record;
 import org.kuali.common.dns.dnsme.model.RecordComparator;
-import org.kuali.common.dns.dnsme.model.RecordType;
 import org.kuali.common.dns.dnsme.model.Search;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
+import org.kuali.common.dns.model.RecordType;
 import org.kuali.common.util.Assert;
 
 import com.google.gson.Gson;

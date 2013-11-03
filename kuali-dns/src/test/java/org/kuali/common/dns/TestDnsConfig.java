@@ -18,7 +18,7 @@ package org.kuali.common.dns;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.Record;
-import org.kuali.common.dns.dnsme.model.RecordType;
+import org.kuali.common.dns.model.RecordType;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;

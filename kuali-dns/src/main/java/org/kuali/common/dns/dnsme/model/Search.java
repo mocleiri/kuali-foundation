@@ -15,6 +15,8 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
+import org.kuali.common.dns.model.RecordType;
+
 public class Search {
 
 	GTDLocation gtdLocation; // {DEFAULT, US_EAST, US_WEST, ASIA}
