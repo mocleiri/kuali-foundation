@@ -41,7 +41,7 @@ public interface DnsService {
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
 	 */
-	boolean exists(String fqdn);
+	boolean isExistingCNAMERecord(String fqdn);
 
 	/**
 	 * Delete the DNS record for <code>fqdn</code>, if one exists.
@@ -49,7 +49,7 @@ public interface DnsService {
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
 	 */
-	void delete(String fqdn);
+	void deleteCNAMERecord(String fqdn);
 
 	/**
 	 * Return the DNS record for <code>fqdn</code>.
@@ -60,7 +60,7 @@ public interface DnsService {
 	 *             <li>If there is no corresponding DNS record for <code>fqdn</code></li>
 	 *             </ul>
 	 */
-	DnsRecord getRecord(String fqdn);
+	DnsRecord getCNAMERecord(String fqdn);
 
 	/**
 	 * Return a list of all of the DNS records for this domain.

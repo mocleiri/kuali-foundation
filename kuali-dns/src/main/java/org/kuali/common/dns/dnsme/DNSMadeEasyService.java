@@ -403,7 +403,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	@Override
-	public boolean exists(String fqdn) {
+	public boolean isExistingCNAMERecord(String fqdn) {
 
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
@@ -430,7 +430,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	@Override
-	public void delete(String fqdn) {
+	public void deleteCNAMERecord(String fqdn) {
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
 
@@ -438,7 +438,7 @@ public class DNSMadeEasyService implements DnsService {
 		validateDomain(fqdn, getDomainName());
 
 		// If it exists, delete it
-		if (exists(fqdn)) {
+		if (isExistingCNAMERecord(fqdn)) {
 
 			// Trim the domain name off the fqdn
 			String recordName = getRecordNameFromFQDN(fqdn, domainName);
@@ -449,7 +449,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	@Override
-	public DnsRecord getRecord(String fqdn) {
+	public DnsRecord getCNAMERecord(String fqdn) {
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
 
