@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class })
 public class KualiDomainNameConfig implements DomainNameConfig {
 
-	private static final String DOMAIN_NAME_KEY = "dns.domainName";
+	private static final String DOMAIN_NAME_KEY = "dns.domain";
 	private static final String DEFAULT_DOMAIN_NAME = "kuali.org";
 
 	@Autowired
