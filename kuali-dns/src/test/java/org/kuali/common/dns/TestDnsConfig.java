@@ -18,7 +18,7 @@ package org.kuali.common.dns;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.Record;
-import org.kuali.common.dns.model.RecordType;
+import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
@@ -41,7 +41,7 @@ public class TestDnsConfig {
 			DnsService service = config.dnsService();
 			Record record = new Record();
 			record.setData("www.yahoo.com."); // Note the trailing dot. Without it, dnsme appends kuali.org
-			record.setType(RecordType.CNAME);
+			record.setType(DnsRecordType.CNAME);
 			// record.setGtdLocation(GTDLocation.DEFAULT);
 			record.setName("delete-me-now.devops");
 			record.setTtl(60);

@@ -15,7 +15,7 @@
  */
 package org.kuali.common.dns.model;
 
-public enum RecordType {
+public enum DnsRecordType {
 
 	A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT;
 

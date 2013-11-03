@@ -4,7 +4,7 @@ import org.kuali.common.util.Assert;
 
 public final class DnsRecord {
 
-	public DnsRecord(String name, RecordType type, String value) {
+	public DnsRecord(String name, DnsRecordType type, String value) {
 		Assert.noBlanks(name, value);
 		Assert.noNulls(type);
 		this.name = name;
@@ -13,14 +13,14 @@ public final class DnsRecord {
 	}
 
 	private final String name;
-	private final RecordType type;
+	private final DnsRecordType type;
 	private final String value;
 
 	public String getName() {
 		return name;
 	}
 
-	public RecordType getType() {
+	public DnsRecordType getType() {
 		return type;
 	}
 

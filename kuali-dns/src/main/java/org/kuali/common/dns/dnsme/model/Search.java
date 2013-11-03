@@ -15,12 +15,12 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-import org.kuali.common.dns.model.RecordType;
+import org.kuali.common.dns.model.DnsRecordType;
 
 public class Search {
 
 	GTDLocation gtdLocation; // {DEFAULT, US_EAST, US_WEST, ASIA}
-	RecordType type; // {A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT}
+	DnsRecordType type; // {A, CNAME, MX, NS, PTR, SRV, AAAA, HTTPRED, TXT}
 	String name; // - this is an exact match
 	String nameContains; // - looks for any record containing your input in the name
 	String value; // - this is an exact match on the value of the record
@@ -34,11 +34,11 @@ public class Search {
 		this.gtdLocation = gtdLocation;
 	}
 
-	public RecordType getType() {
+	public DnsRecordType getType() {
 		return type;
 	}
 
-	public void setType(RecordType type) {
+	public void setType(DnsRecordType type) {
 		this.type = type;
 	}
 

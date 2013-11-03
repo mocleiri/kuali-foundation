@@ -36,7 +36,7 @@ import org.kuali.common.dns.dnsme.model.RecordComparator;
 import org.kuali.common.dns.dnsme.model.Search;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
-import org.kuali.common.dns.model.RecordType;
+import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.util.Assert;
 
 import com.google.gson.Gson;
@@ -244,7 +244,7 @@ public class DNSMadeEasyService implements DnsService {
 
 	public List<Record> getCNAMERecords(Domain domain) {
 		Search search = new Search();
-		search.setType(RecordType.CNAME);
+		search.setType(DnsRecordType.CNAME);
 		List<Record> records = getRecords(domain, search);
 		Collections.sort(records, new RecordComparator());
 		return records;

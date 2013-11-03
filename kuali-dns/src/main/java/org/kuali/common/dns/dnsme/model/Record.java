@@ -15,14 +15,14 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-import org.kuali.common.dns.model.RecordType;
+import org.kuali.common.dns.model.DnsRecordType;
 
 public class Record {
 
 	Domain domain;
 	Integer id;
 	String name;
-	RecordType type;
+	DnsRecordType type;
 	String data;
 	Integer ttl;
 	GTDLocation gtdLocation;
@@ -49,11 +49,11 @@ public class Record {
 		this.name = name;
 	}
 
-	public RecordType getType() {
+	public DnsRecordType getType() {
 		return type;
 	}
 
-	public void setType(RecordType type) {
+	public void setType(DnsRecordType type) {
 		this.type = type;
 	}
 
