@@ -33,7 +33,7 @@ import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
-import org.kuali.common.dns.dnsme.model.RecordComparator;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecordComparator;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasySearchCriteria;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
@@ -236,7 +236,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsMadeEasySearchCriteria search = new DnsMadeEasySearchCriteria();
 		search.setType(DnsRecordType.CNAME);
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
-		Collections.sort(records, new RecordComparator());
+		Collections.sort(records, new DnsMadeEasyDnsRecordComparator());
 		return records;
 	}
 
