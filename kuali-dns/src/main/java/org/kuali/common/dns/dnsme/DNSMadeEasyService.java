@@ -359,6 +359,8 @@ public class DNSMadeEasyService implements DnsService {
 		int start = 0;
 		int end = fqdn.length() - domain.length();
 		String fragment = fqdn.substring(start, end);
+
+		// Account for the root record by only trimming off a dot at the end if it is present
 		if (fragment.endsWith(".")) {
 			return fragment.substring(0, fragment.length() - 1);
 		} else {
