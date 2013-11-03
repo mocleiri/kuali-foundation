@@ -31,7 +31,7 @@ import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomain;
-import org.kuali.common.dns.dnsme.model.DomainNames;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomainNames;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecordComparator;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasySearchCriteria;
@@ -73,7 +73,7 @@ public class DNSMadeEasyService implements DnsService {
 	protected List<DnsMadeEasyDomain> getDomains() {
 		String url = this.restApiUrl + "/domains";
 		String json = getJson(url, HTTP_OK);
-		DomainNames domainNames = gson.fromJson(json, DomainNames.class);
+		DnsMadeEasyDomainNames domainNames = gson.fromJson(json, DnsMadeEasyDomainNames.class);
 		return getDomains(domainNames);
 	}
 
@@ -315,7 +315,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected List<DnsMadeEasyDomain> getDomains(DomainNames domainNames) {
+	protected List<DnsMadeEasyDomain> getDomains(DnsMadeEasyDomainNames domainNames) {
 		if (domainNames.getList() == null) {
 			return new ArrayList<DnsMadeEasyDomain>();
 		}

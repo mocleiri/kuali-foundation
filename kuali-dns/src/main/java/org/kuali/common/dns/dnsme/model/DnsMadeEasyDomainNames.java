@@ -17,7 +17,7 @@ package org.kuali.common.dns.dnsme.model;
 
 import java.util.List;
 
-public class DomainNames {
+public class DnsMadeEasyDomainNames {
 
 	List<String> list;
 
