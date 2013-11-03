@@ -358,7 +358,12 @@ public class DNSMadeEasyService implements DnsService {
 		// Trim the domain off the end of the fqdn
 		int start = 0;
 		int end = fqdn.length() - domain.length();
-		return fqdn.substring(start, end);
+		String fragment = fqdn.substring(start, end);
+		if (fragment.endsWith(".")) {
+			return fragment.substring(0, fragment.length() - 1);
+		} else {
+			return fragment;
+		}
 	}
 
 	@Override
@@ -405,6 +410,7 @@ public class DNSMadeEasyService implements DnsService {
 		// Can only check for the existence of fqdn's in our domain
 		validateDomain(fqdn, getDomainName());
 
+		// Extract the DNS record name from the fqdn
 		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
