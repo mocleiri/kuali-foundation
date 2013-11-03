@@ -42,6 +42,7 @@ import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
@@ -485,7 +486,9 @@ public class DNSMadeEasyService implements DnsService {
 	protected List<DnsRecord> getRecords(List<DnsMadeEasyDnsRecord> records) {
 		List<DnsRecord> list = new ArrayList<DnsRecord>();
 		for (DnsMadeEasyDnsRecord record : records) {
-			DnsRecord element = new DnsRecord(record.getName(), record.getType(), record.getData());
+			String name = NullUtils.trimToNone(record.getName());
+			String value = NullUtils.trimToNone(record.getData());
+			DnsRecord element = new DnsRecord(name, record.getType(), value);
 			list.add(element);
 		}
 		Collections.sort(list);
