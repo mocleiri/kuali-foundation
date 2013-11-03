@@ -51,7 +51,7 @@ public class DNSMadeEasyConfig implements DnsConfig {
 			secretKey = enc.decrypt(secretKey);
 		}
 		DNSMadeEasyCredentials credentials = new DNSMadeEasyCredentials(apiKey, secretKey);
-		String domainName = env.getString(DOMAIN_KEY, config.dnsDomainName());
+		String domainName = env.getString(DOMAIN_KEY, config.domainName());
 		return new DNSMadeEasyServiceContext(credentials, url, domainName);
 	}
 }

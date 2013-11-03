@@ -18,7 +18,7 @@ public class KualiDomainNameConfig implements DomainNameConfig {
 	EnvironmentService env;
 
 	@Override
-	public String dnsDomainName() {
+	public String domainName() {
 		return env.getString(DOMAIN_NAME_KEY, DEFAULT_DOMAIN_NAME);
 	}
 
