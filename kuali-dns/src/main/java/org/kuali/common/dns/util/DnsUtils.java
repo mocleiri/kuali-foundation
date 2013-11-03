@@ -39,8 +39,7 @@ public class DnsUtils {
 			Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
 
 			// Only characters allowed are a..z, A..Z, 0..9, and the hyphen
-			boolean ldh = containsOnlyLettersDigitsOrHyphen(label);
-			Assert.isTrue(ldh, "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
+			Assert.isTrue(containsOnlyLettersDigitsOrHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
 		}
 	}
 
