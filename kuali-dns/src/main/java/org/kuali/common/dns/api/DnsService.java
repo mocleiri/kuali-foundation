@@ -63,6 +63,7 @@ public interface DnsService {
 	DnsRecord getRecord(String fqdn);
 
 	/**
+	 * Return a list of all of the DNS records for this domain.
 	 */
 	List<DnsRecord> getRecords();
 
