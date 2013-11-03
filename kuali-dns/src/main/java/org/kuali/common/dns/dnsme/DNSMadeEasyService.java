@@ -30,7 +30,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
-import org.kuali.common.dns.dnsme.model.Domain;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.Record;
 import org.kuali.common.dns.dnsme.model.RecordComparator;
@@ -53,7 +53,7 @@ public class DNSMadeEasyService implements DnsService {
 	public static final int HTTP_CREATED = 201;
 
 	private final DNSMadeEasyServiceContext context;
-	private final Domain domain;
+	private final DnsMadeEasyDomain domain;
 	private final String restApiUrl;
 	private final DNSMadeEasyCredentials credentials;
 
@@ -70,16 +70,16 @@ public class DNSMadeEasyService implements DnsService {
 		this.credentials = context.getCredentials();
 	}
 
-	protected List<Domain> getDomains() {
+	protected List<DnsMadeEasyDomain> getDomains() {
 		String url = this.restApiUrl + "/domains";
 		String json = getJson(url, HTTP_OK);
 		DomainNames domainNames = gson.fromJson(json, DomainNames.class);
 		return getDomains(domainNames);
 	}
 
-	protected Domain getDomain(String name) {
-		List<Domain> domains = getDomains();
-		for (Domain domain : domains) {
+	protected DnsMadeEasyDomain getDomain(String name) {
+		List<DnsMadeEasyDomain> domains = getDomains();
+		for (DnsMadeEasyDomain domain : domains) {
 			if (domain.getName().equalsIgnoreCase(name)) {
 				return domain;
 			}
@@ -87,13 +87,13 @@ public class DNSMadeEasyService implements DnsService {
 		return null;
 	}
 
-	protected Domain addDomain(Domain domain) {
+	protected DnsMadeEasyDomain addDomain(DnsMadeEasyDomain domain) {
 		String url = this.restApiUrl + "/domains/" + domain.getName();
 		PutMethod method = new PutMethod(url);
 		return addOrUpdateObject(url, HTTP_CREATED, domain, method);
 	}
 
-	protected void deleteDomain(Domain domain) {
+	protected void deleteDomain(DnsMadeEasyDomain domain) {
 		String url = this.restApiUrl + "/domains/" + domain.getName();
 		deleteObject(url);
 	}
@@ -148,7 +148,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected Record getRecord(Domain domain, Search search) {
+	protected Record getRecord(DnsMadeEasyDomain domain, Search search) {
 		List<Record> records = getRecords(domain, search);
 		if (records.size() != 1) {
 			throw new IllegalStateException("Search criteria must match exactly 1 record but it matched " + records.size() + " records");
@@ -157,7 +157,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected List<Record> getRecords(Domain domain, Search search) {
+	protected List<Record> getRecords(DnsMadeEasyDomain domain, Search search) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (search != null) {
 			url += getQueryString(search);
@@ -176,11 +176,11 @@ public class DNSMadeEasyService implements DnsService {
 		return search;
 	}
 
-	protected Record getRecord(Domain domain, String name) {
+	protected Record getRecord(DnsMadeEasyDomain domain, String name) {
 		return getRecord(domain, getSearch(name));
 	}
 
-	protected Record getRecord(Domain domain, int recordId) {
+	protected Record getRecord(DnsMadeEasyDomain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		String resultJson = getJson(url, HTTP_OK);
 		Record resultRecord = gson.fromJson(resultJson, Record.class);
@@ -193,7 +193,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected void updateRecord(Domain domain, Record record) {
+	protected void updateRecord(DnsMadeEasyDomain domain, Record record) {
 		validateForUpdate(record);
 		if (record.getId() == null) {
 			Record existingRecord = getRecord(domain, record.getName());
@@ -205,7 +205,7 @@ public class DNSMadeEasyService implements DnsService {
 		addOrUpdateObject(url, HTTP_OK, record, method);
 	}
 
-	protected Record addRecord(Domain domain, Record record) {
+	protected Record addRecord(DnsMadeEasyDomain domain, Record record) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (record.getId() != null) {
 			throw new IllegalStateException("id must be null when adding");
@@ -215,12 +215,12 @@ public class DNSMadeEasyService implements DnsService {
 		return addOrUpdateObject(url, HTTP_CREATED, record, method);
 	}
 
-	protected void deleteRecord(Domain domain, int recordId) {
+	protected void deleteRecord(DnsMadeEasyDomain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		deleteObject(url);
 	}
 
-	protected void deleteRecord(Domain domain, String name) {
+	protected void deleteRecord(DnsMadeEasyDomain domain, String name) {
 		Record record = getRecord(domain, name);
 		Assert.isTrue(record.getId() != null, "id is required");
 		deleteRecord(domain, record.getId());
@@ -232,7 +232,7 @@ public class DNSMadeEasyService implements DnsService {
 		validateResult(result, HTTP_OK);
 	}
 
-	protected List<Record> getCNAMERecords(Domain domain) {
+	protected List<Record> getCNAMERecords(DnsMadeEasyDomain domain) {
 		Search search = new Search();
 		search.setType(DnsRecordType.CNAME);
 		List<Record> records = getRecords(domain, search);
@@ -268,7 +268,7 @@ public class DNSMadeEasyService implements DnsService {
 		return resultObject;
 	}
 
-	protected List<Record> getRecords(Domain domain) {
+	protected List<Record> getRecords(DnsMadeEasyDomain domain) {
 		return getRecords(domain, null);
 	}
 
@@ -315,14 +315,14 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	protected List<Domain> getDomains(DomainNames domainNames) {
+	protected List<DnsMadeEasyDomain> getDomains(DomainNames domainNames) {
 		if (domainNames.getList() == null) {
-			return new ArrayList<Domain>();
+			return new ArrayList<DnsMadeEasyDomain>();
 		}
 		List<String> names = domainNames.getList();
-		List<Domain> domains = new ArrayList<Domain>();
+		List<DnsMadeEasyDomain> domains = new ArrayList<DnsMadeEasyDomain>();
 		for (String name : names) {
-			Domain domain = new Domain(credentials, name);
+			DnsMadeEasyDomain domain = new DnsMadeEasyDomain(credentials, name);
 			domains.add(domain);
 		}
 		return domains;

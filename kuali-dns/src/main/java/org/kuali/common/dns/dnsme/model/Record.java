@@ -19,7 +19,7 @@ import org.kuali.common.dns.model.DnsRecordType;
 
 public class Record {
 
-	Domain domain;
+	DnsMadeEasyDomain domain;
 	Integer id;
 	String name;
 	DnsRecordType type;
@@ -121,11 +121,11 @@ public class Record {
 		this.hardLink = hardLink;
 	}
 
-	public Domain getDomain() {
+	public DnsMadeEasyDomain getDomain() {
 		return domain;
 	}
 
-	public void setDomain(Domain domain) {
+	public void setDomain(DnsMadeEasyDomain domain) {
 		this.domain = domain;
 	}
 

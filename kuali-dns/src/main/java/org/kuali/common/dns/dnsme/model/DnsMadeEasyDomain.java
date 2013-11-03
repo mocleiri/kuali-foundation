@@ -17,9 +17,9 @@ package org.kuali.common.dns.dnsme.model;
 
 import org.kuali.common.util.Assert;
 
-public class Domain {
+public class DnsMadeEasyDomain {
 
-	public Domain(DNSMadeEasyCredentials credentials, String name) {
+	public DnsMadeEasyDomain(DNSMadeEasyCredentials credentials, String name) {
 		Assert.noNulls(credentials);
 		Assert.noBlanks(name);
 		this.credentials = credentials;
