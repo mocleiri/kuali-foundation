@@ -439,7 +439,12 @@ public class DNSMadeEasyService implements DnsService {
 
 		// If it exists, delete it
 		if (exists(fqdn)) {
-			deleteRecord(domain, fqdn);
+
+			// Trim the domain name off the fqdn
+			String recordName = getRecordNameFromFQDN(fqdn, domainName);
+
+			// Delete the DNS record
+			deleteRecord(domain, recordName);
 		}
 	}
 
