@@ -30,7 +30,9 @@ public final class DnsRecord implements Comparable<DnsRecord> {
 
 	@Override
 	public int compareTo(DnsRecord other) {
-		return name.compareTo(other.getName());
+		String s1 = type.name() + name;
+		String s2 = other.getType().name() + other.getName();
+		return s1.compareTo(s2);
 	}
 
 }
