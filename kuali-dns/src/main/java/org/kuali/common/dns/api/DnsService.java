@@ -2,8 +2,8 @@ package org.kuali.common.dns.api;
 
 import java.util.List;
 
-import org.kuali.common.dns.dnsme.model.Search;
 import org.kuali.common.dns.model.DnsRecord;
+import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 
 public interface DnsService {
 
@@ -85,6 +85,6 @@ public interface DnsService {
 	 * @throws IllegalArgumentException
 	 *             If <code>searchCritera</code> is null.
 	 */
-	List<DnsRecord> getRecords(Search search);
+	List<DnsRecord> getRecords(DnsRecordSearchCriteria searchCriteria);
 
 }
