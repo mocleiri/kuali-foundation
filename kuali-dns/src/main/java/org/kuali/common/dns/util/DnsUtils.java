@@ -11,7 +11,13 @@ public class DnsUtils {
 	private static final int MAX_LABEL_LENGTH = 63;
 
 	/**
-	 * Verify that <code>fqdn</code> is a syntactically valid DNS name. See http://en.wikipedia.org/wiki/Domain_Name_System#Domain_name_syntax
+	 * <p>
+	 * Verify that <code>fqdn</code> is a syntactically valid DNS name.
+	 * </p>
+	 * 
+	 * <p>
+	 * See http://en.wikipedia.org/wiki/Domain_Name_System#Domain_name_syntax
+	 * </p>
 	 * 
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is not a a syntactically valid DNS name.
