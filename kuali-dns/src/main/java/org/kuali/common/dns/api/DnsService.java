@@ -9,7 +9,7 @@ public interface DnsService {
 
 	boolean exists(String fqdn);
 
-	void createCNAME(String aliasDnsName, String canonicalDnsName, int timeToLiveInSeconds);
+	void createCNAME(String alias, String canonical, int timeToLiveInSeconds);
 
 	void delete(String fqdn);
 
