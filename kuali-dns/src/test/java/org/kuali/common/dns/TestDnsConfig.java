@@ -15,6 +15,7 @@
  */
 package org.kuali.common.dns;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.dns.api.DnsService;
@@ -23,6 +24,7 @@ import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ SpringServiceConfig.class, KualiDomainNameConfig.class, DNSMadeEasyConfig.class })
@@ -43,11 +47,16 @@ public class TestDnsConfig {
 	@Bean
 	public Executable main() {
 		try {
+			logger.info("DNS");
 			DnsService service = config.dnsService();
 			List<DnsRecord> records = service.getRecords();
+			List<String> columns = ImmutableList.of("Name", "Type", "Value");
+			List<Object[]> rows = new ArrayList<Object[]>();
 			for (DnsRecord record : records) {
-				logger.info(getLog(record));
+				Object[] row = { record.getName(), record.getType(), record.getValue() };
+				rows.add(row);
 			}
+			LoggerUtils.logTable(columns, rows);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
