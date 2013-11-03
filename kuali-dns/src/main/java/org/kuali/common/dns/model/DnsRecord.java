@@ -5,7 +5,6 @@ import org.kuali.common.util.Assert;
 public final class DnsRecord implements Comparable<DnsRecord> {
 
 	public DnsRecord(String name, DnsRecordType type, String value) {
-		System.out.println("name=" + name + " type=" + type + " value=" + value);
 		Assert.noBlanks(name, value);
 		Assert.noNulls(type);
 		this.name = name;
