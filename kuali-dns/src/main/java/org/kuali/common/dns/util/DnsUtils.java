@@ -24,7 +24,7 @@ public class DnsUtils {
 	 */
 	public static void validateFQDN(String fqdn) {
 
-		// Null, the empty string, and pure whitespace are invalid
+		// Null, the empty string, and pure whitespace are not allowed
 		Assert.noBlanks(fqdn);
 
 		// Max length is 253 characters
