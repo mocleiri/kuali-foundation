@@ -5,6 +5,9 @@ import java.util.List;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 
+/**
+ * This service provides DNS operations on a given domain, eg <code>kuali.org</code>
+ */
 public interface DnsService {
 
 	/**
