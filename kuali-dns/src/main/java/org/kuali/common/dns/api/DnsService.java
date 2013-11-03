@@ -42,7 +42,7 @@ public interface DnsService {
 	DnsRecord cnameCreate(String aliasFQDN, String fqdn, int timeToLiveInSeconds);
 
 	/**
-	 * Return true if a DNS record for <code>fqdn</code> exists, false otherwise.
+	 * Return true if a DNS CNAME record for <code>fqdn</code> exists, false otherwise.
 	 * 
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
@@ -50,7 +50,7 @@ public interface DnsService {
 	boolean cnameExists(String fqdn);
 
 	/**
-	 * Delete the DNS record for <code>fqdn</code>, if one exists.
+	 * Delete the DNS CNAME record for <code>fqdn</code>, if one exists.
 	 * 
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
@@ -58,7 +58,7 @@ public interface DnsService {
 	void cnameDelete(String fqdn);
 
 	/**
-	 * Return the DNS record for <code>fqdn</code>.
+	 * Return the DNS CNAME record for <code>fqdn</code>.
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
