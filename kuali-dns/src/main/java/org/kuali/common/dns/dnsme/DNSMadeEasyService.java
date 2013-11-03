@@ -43,6 +43,7 @@ import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -177,16 +178,6 @@ public class DNSMadeEasyService implements DnsService {
 
 	public Record getRecord(Domain domain, String name) {
 		return getRecord(domain, getSearch(name));
-	}
-
-	public boolean exists(Domain domain, String name) {
-		Search search = getSearch(name);
-		List<Record> records = getRecords(domain, search);
-		if (records.size() > 1) {
-			throw new IllegalArgumentException("Found " + records.size() + " records when expecting a max of 1");
-		} else {
-			return records.size() == 1;
-		}
 	}
 
 	public Record getRecord(Domain domain, int recordId) {
@@ -342,6 +333,10 @@ public class DNSMadeEasyService implements DnsService {
 		return context.getDomain();
 	}
 
+	protected void validateDomain(String fqdn) {
+		Assert.isTrue(fqdn.endsWith(getDomain()), "[" + fqdn + "] doesn't end with [" + getDomain() + "]");
+	}
+
 	@Override
 	public DnsRecord createCNAMERecord(String aliasFQDN, String fqdn, int timeToLiveInSeconds) {
 
@@ -350,13 +345,13 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// The alias must be in our domain
-		Assert.isTrue(aliasFQDN.endsWith(getDomain()), "[" + aliasFQDN + "] doesn't end with [" + getDomain() + "]");
+		validateDomain(aliasFQDN);
 
 		// TTL can't be negative
 		Assert.noNegatives(timeToLiveInSeconds);
 
 		// The dot at the end is a magic value telling DNSME that this is a fully qualified domain name
-		// Without it, DNSME auto-appends the domain name
+		// Without it, DNSME auto-appends our domain name
 		fqdn = fqdn + ".";
 
 		// Create a Record object
@@ -366,40 +361,105 @@ public class DNSMadeEasyService implements DnsService {
 		record.setData(fqdn);
 		record.setName(aliasFQDN);
 		record.setDomain(domain);
-		
-		// Validate it for 
-		validateForUpdate(record);
+
+		// Actually add the record
 		Record added = addRecord(domain, record);
+
+		// Convert to a DnsRecord and return
 		return new DnsRecord(added.getName(), added.getType(), record.getData());
 	}
 
 	@Override
 	public boolean exists(String fqdn) {
-		// TODO Auto-generated method stub
-		return false;
+		// Make sure it's a valid fully qualified domain name
+		DnsUtils.validateFQDN(fqdn);
+
+		// Can only check for the existence of fqdn's in our domain
+		validateDomain(fqdn);
+
+		// Setup a search object based on the fqdn
+		Search search = getSearch(fqdn);
+
+		// Get a list of matching records from DNSME
+		List<Record> records = getRecords(domain, search);
+
+		// If there is more than 1 record, something has gone wrong
+		Assert.isTrue(records.size() <= 1, "Found " + records.size() + " records when expecting a max of 1");
+
+		// Size can only be zero or one here
+		// Return true if size is one
+		// We found a record matching the fqdn they gave us
+		return records.size() == 1;
 	}
 
 	@Override
 	public void delete(String fqdn) {
-		// TODO Auto-generated method stub
+		// Make sure it's a valid fully qualified domain name
+		DnsUtils.validateFQDN(fqdn);
 
+		// Can only delete fqdn's in our domain
+		validateDomain(fqdn);
+
+		// If it exists, delete it
+		if (exists(fqdn)) {
+			deleteRecord(domain, fqdn);
+		}
 	}
 
 	@Override
 	public DnsRecord getRecord(String fqdn) {
-		// TODO Auto-generated method stub
-		return null;
+		// Make sure it's a valid fully qualified domain name
+		DnsUtils.validateFQDN(fqdn);
+
+		// Can only get DNS records for fqdn's in our domain
+		validateDomain(fqdn);
+
+		// Setup a search object based on the fqdn
+		Search search = getSearch(fqdn);
+
+		// Get a list of matching records from DNSME
+		List<Record> records = getRecords(domain, search);
+
+		// If there is more than 1 record, something has gone wrong
+		Assert.isTrue(records.size() == 1, "Found " + records.size() + " records when expecting exactly 1");
+
+		// Extract the first (and only) item in the list
+		Record record = records.get(0);
+
+		// Create a new DnsRecord from the DNSME record
+		return new DnsRecord(record.getName(), record.getType(), record.getData());
 	}
 
 	@Override
 	public List<DnsRecord> getRecords() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Record> records = getRecords(domain);
+		return getRecords(records);
 	}
 
 	@Override
 	public List<DnsRecord> getRecords(DnsRecordSearchCriteria searchCriteria) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.noNulls(searchCriteria);
+		Search search = new Search();
+		if (searchCriteria.getNameContains().isPresent()) {
+			search.setNameContains(searchCriteria.getNameContains().get());
+		}
+		if (searchCriteria.getValueContains().isPresent()) {
+			search.setValueContains(searchCriteria.getValueContains().get());
+		}
+		if (searchCriteria.getType().isPresent()) {
+			search.setType(searchCriteria.getType().get());
+		}
+		List<Record> records = getRecords(domain, search);
+		return getRecords(records);
 	}
+
+	protected List<DnsRecord> getRecords(List<Record> records) {
+		List<DnsRecord> list = new ArrayList<DnsRecord>();
+		for (Record record : records) {
+			DnsRecord element = new DnsRecord(record.getName(), record.getType(), record.getData());
+			list.add(element);
+		}
+		return ImmutableList.copyOf(list);
+	}
+
 }

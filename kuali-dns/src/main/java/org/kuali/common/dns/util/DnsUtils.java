@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 public class DnsUtils {
 
 	private static final String DOT = ".";
-	private static final char HYPHEN = '.';
+	private static final char HYPHEN = '-';
 	private static final int MAX_FQDN_LENGTH = 253;
 	private static final int MAX_LABEL_LENGTH = 63;
 
@@ -17,7 +17,8 @@ public class DnsUtils {
 	 *             If <code>fqdn</code> is not a a syntactically valid DNS name.
 	 */
 	public static void validateFQDN(String fqdn) {
-		// Null, the empty string, or all whitespace are not valid DNS names
+
+		// Null, the empty string, and pure whitespace are invalid
 		Assert.noBlanks(fqdn);
 
 		// Max length is 253 characters
@@ -25,6 +26,8 @@ public class DnsUtils {
 
 		// Split up the string using dot as a separator
 		String[] labels = StringUtils.splitPreserveAllTokens(fqdn, DOT);
+
+		// Examine each portion of the dns name
 		for (String label : labels) {
 
 			// Can't have a dot followed immediately by another dot
@@ -39,11 +42,11 @@ public class DnsUtils {
 			Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] ends with " + HYPHEN);
 
 			// Only characters allowed are a..z, A..Z, 0..9, and the hyphen
-			Assert.isTrue(containsOnlyLettersDigitsOrHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
+			Assert.isTrue(isLettersDigitsHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
 		}
 	}
 
-	protected static boolean containsOnlyLettersDigitsOrHyphen(String label) {
+	protected static boolean isLettersDigitsHyphen(String label) {
 		char[] chars = label.toCharArray();
 		for (char c : chars) {
 			if (!isLetterDigitHyphen(c)) {
