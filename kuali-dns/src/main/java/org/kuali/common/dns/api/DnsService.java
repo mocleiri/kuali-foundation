@@ -11,7 +11,7 @@ import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 public interface DnsService {
 
 	/**
-	 * The domain this service performs operations on eg <code>kuali.org</code>
+	 * The name of the domain this service performs operations on eg <code>kuali.org</code>
 	 */
 	String getDomainName();
 
@@ -26,8 +26,6 @@ public interface DnsService {
 	 *            The amount of time (in seconds) DNS servers are allowed to cache the new CNAME record. A TTL value of 300 means if the CNAME record is changed, DNS servers around
 	 *            the world may still be showing the old value for up to 5 minutes.
 	 * 
-	 * @see getDomain
-	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
 	 *             <li>If either <code>aliasFQDN</code> or <code>fqdn</code> are blank or are not correctly formatted fully qualified domain names.
@@ -40,8 +38,6 @@ public interface DnsService {
 	/**
 	 * Return true if a DNS record for <code>fqdn</code> exists, false otherwise.
 	 * 
-	 * @see getDomain
-	 * 
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
 	 */
@@ -50,8 +46,6 @@ public interface DnsService {
 	/**
 	 * Delete the DNS record for <code>fqdn</code>, if one exists.
 	 * 
-	 * @see getDomain
-	 * 
 	 * @throws IllegalArgumentException
 	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
 	 */
@@ -59,8 +53,6 @@ public interface DnsService {
 
 	/**
 	 * Return the DNS record for <code>fqdn</code>.
-	 * 
-	 * @see getDomain
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
@@ -71,22 +63,11 @@ public interface DnsService {
 	DnsRecord getRecord(String fqdn);
 
 	/**
-	 * Return a list of all the DNS records for the domain this service is performing operations on.
-	 * 
-	 * @see getDomain
-	 * 
-	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
 	 */
 	List<DnsRecord> getRecords();
 
 	/**
 	 * Return a list of any DNS records matching the search criteria for the domain this service is performing operations on.
-	 * 
-	 * @see getDomain
-	 * 
-	 * @throws IllegalArgumentException
-	 *             If <code>searchCritera</code> is null.
 	 */
 	List<DnsRecord> getRecords(DnsRecordSearchCriteria searchCriteria);
 
