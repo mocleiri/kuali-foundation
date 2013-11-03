@@ -7,6 +7,16 @@ import com.google.common.base.Optional;
 
 public final class DnsRecordSearchCriteria {
 
+	private static final Optional<String> ABSENT = Optional.<String> absent();
+
+	public DnsRecordSearchCriteria(DnsRecordType type) {
+		this(ABSENT, Optional.of(type), ABSENT);
+	}
+
+	public DnsRecordSearchCriteria(String nameContains) {
+		this(Optional.of(nameContains), Optional.<DnsRecordType> absent(), ABSENT);
+	}
+
 	public DnsRecordSearchCriteria(Optional<String> nameContains, Optional<DnsRecordType> type, Optional<String> valueContains) {
 		Assert.noNulls(nameContains, type, valueContains);
 		if (nameContains.isPresent()) {

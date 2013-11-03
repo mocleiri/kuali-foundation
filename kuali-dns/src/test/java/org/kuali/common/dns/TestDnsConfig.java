@@ -21,6 +21,8 @@ import java.util.List;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.model.DnsRecord;
+import org.kuali.common.dns.model.DnsRecordSearchCriteria;
+import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
 import org.kuali.common.util.execute.Executable;
@@ -34,6 +36,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
@@ -48,6 +51,9 @@ public class TestDnsConfig {
 	@Bean
 	public Executable main() {
 		try {
+			Optional<String> absent = Optional.<String> absent();
+			Optional
+			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(absent, DnsRecordType.CNAME, absent);
 			DnsService service = config.dnsService();
 			List<DnsRecord> records = service.getRecords();
 			List<String> columns = ImmutableList.of("Name", "Type", "Value");
