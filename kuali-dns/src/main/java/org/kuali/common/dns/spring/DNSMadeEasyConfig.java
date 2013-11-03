@@ -31,6 +31,9 @@ public class DNSMadeEasyConfig implements DnsConfig {
 	@Autowired
 	EncryptionService enc;
 
+	@Autowired
+	DomainNameConfig config;
+
 	@Override
 	@Bean
 	public DnsService dnsService() {
@@ -48,7 +51,7 @@ public class DNSMadeEasyConfig implements DnsConfig {
 			secretKey = enc.decrypt(secretKey);
 		}
 		DNSMadeEasyCredentials credentials = new DNSMadeEasyCredentials(apiKey, secretKey);
-		String domainName = env.getString(DOMAIN_KEY);
+		String domainName = env.getString(DOMAIN_KEY, config.dnsDomainName());
 		return new DNSMadeEasyServiceContext(credentials, url, domainName);
 	}
 }
