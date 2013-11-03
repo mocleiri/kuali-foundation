@@ -10,7 +10,7 @@ import org.kuali.common.dns.model.DnsRecordSearchCriteria;
  * This service provides DNS operations on a given domain name, eg <code>kuali.org</code>.
  * </p>
  * <p>
- * Note that this is not intended to be a full fledged DNS service. The API provided here is for convenience as a simple way to automate tasks related to spinning up and shutting
+ * Note that this is not intended to be a full fledged DNS API. The methods provided here are for convenience as a simple way to automate tasks related to spinning up and shutting
  * down Kuali environments.
  * </p>
  */
