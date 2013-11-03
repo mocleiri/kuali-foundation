@@ -66,4 +66,15 @@ public class NullUtils {
 		return isNullOrNone(trimmed) ? null : trimmed;
 	}
 
+	/**
+	 * Returns <code>NONE</code> if s is null, the empty string, pure whitespace, NONE, or NULL
+	 */
+	public static final String trimToNone(String s) {
+		if (trimToNull(s) == null) {
+			return NONE;
+		} else {
+			return trimToNull(s);
+		}
+	}
+
 }
