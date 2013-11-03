@@ -4,7 +4,7 @@ import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyService;
 import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
-import org.kuali.common.dns.dnsme.model.Accounts;
+import org.kuali.common.dns.dnsme.model.Credentials;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -30,7 +30,7 @@ public class DNSMadeEasyConfig implements DnsConfig {
 
 	@Override
 	public DnsService dnsService() {
-		DNSMadeEasyCredentials encrypted = Accounts.PRODUCTION.getAccount();
+		DNSMadeEasyCredentials encrypted = Credentials.PRODUCTION.getAccount();
 		String url = env.getString(URL_KEY, URLS.PRODUCTION);
 		String apiKey = env.getString(API_KEY, encrypted.getApiKey());
 		String secretKey = env.getString(SECRET_KEY, encrypted.getSecretKey());
