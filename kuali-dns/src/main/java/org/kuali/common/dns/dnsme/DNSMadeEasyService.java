@@ -329,7 +329,7 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	@Override
-	public String getDomain() {
+	public String getDomainName() {
 		return context.getDomain();
 	}
 
@@ -362,7 +362,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// The alias must be in our domain
-		validateDomain(aliasFQDN, getDomain());
+		validateDomain(aliasFQDN, getDomainName());
 
 		// TTL can't be negative
 		Assert.noNegatives(timeToLiveInSeconds);
@@ -372,7 +372,7 @@ public class DNSMadeEasyService implements DnsService {
 		fqdn = fqdn + ".";
 
 		// Trim the domain name off the end of the aliasFQDN
-		String recordName = getRecordNameFromFQDN(aliasFQDN, getDomain());
+		String recordName = getRecordNameFromFQDN(aliasFQDN, getDomainName());
 
 		// Create a Record object
 		Record record = new Record();
@@ -396,9 +396,9 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// Can only check for the existence of fqdn's in our domain
-		validateDomain(fqdn, getDomain());
+		validateDomain(fqdn, getDomainName());
 
-		String recordName = getRecordNameFromFQDN(fqdn, getDomain());
+		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
 		Search search = getSearch(recordName);
@@ -421,7 +421,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// Can only delete fqdn's in our domain
-		validateDomain(fqdn, getDomain());
+		validateDomain(fqdn, getDomainName());
 
 		// If it exists, delete it
 		if (exists(fqdn)) {
@@ -435,7 +435,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// Can only get DNS records for fqdn's in our domain
-		validateDomain(fqdn, getDomain());
+		validateDomain(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
 		Search search = getSearch(fqdn);

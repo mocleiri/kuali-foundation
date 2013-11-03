@@ -13,7 +13,7 @@ public interface DnsService {
 	/**
 	 * The domain this service performs operations on eg <code>kuali.org</code>
 	 */
-	String getDomain();
+	String getDomainName();
 
 	/**
 	 * Create a CNAME record from <code>aliasFQDN</code> to <code>fqdn</code>.
