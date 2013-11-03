@@ -16,7 +16,7 @@
 package org.kuali.common.dns;
 
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.model.Record;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsConfig;
@@ -69,7 +69,7 @@ public class TestDnsConfig {
 		return sb.toString();
 	}
 
-	protected String getLog(Record record) {
+	protected String getLog(DnsMadeEasyDnsRecord record) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Id:" + record.getId());
 		sb.append(" Name:" + record.getName());

@@ -19,10 +19,10 @@ import java.util.Comparator;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class RecordComparator implements Comparator<Record> {
+public class RecordComparator implements Comparator<DnsMadeEasyDnsRecord> {
 
 	@Override
-	public int compare(Record record1, Record record2) {
+	public int compare(DnsMadeEasyDnsRecord record1, DnsMadeEasyDnsRecord record2) {
 		String name1 = record1.getName();
 		String name2 = record2.getName();
 

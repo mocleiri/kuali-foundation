@@ -17,7 +17,7 @@ package org.kuali.common.dns.dnsme.model;
 
 import org.kuali.common.dns.model.DnsRecordType;
 
-public class Record {
+public class DnsMadeEasyDnsRecord {
 
 	DnsMadeEasyDomain domain;
 	Integer id;
