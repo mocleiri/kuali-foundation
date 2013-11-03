@@ -58,7 +58,7 @@ public class TestDnsConfig {
 				Object[] row = { record.getName(), record.getType(), record.getValue() };
 				rows.add(row);
 			}
-			LoggerUtils.logTable(columns, rows, logger);
+			LoggerUtils.logTable(columns, rows);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
