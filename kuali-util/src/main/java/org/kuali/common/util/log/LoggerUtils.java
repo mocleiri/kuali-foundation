@@ -132,6 +132,10 @@ public class LoggerUtils {
 		}
 	}
 
+	public static void logTable(List<String> columns, List<Object[]> rows, Logger logger) {
+		logTable(columns, rows, LogTableContext.DEFAULT_LOGGER_LEVEL, logger, false);
+	}
+
 	public static void logTable(List<String> columns, List<Object[]> rows, LoggerLevel level, Logger logger) {
 		logTable(columns, rows, level, logger, false);
 	}
