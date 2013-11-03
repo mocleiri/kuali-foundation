@@ -30,10 +30,10 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
-import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomain;
-import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomainNames;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecordComparator;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomain;
+import org.kuali.common.dns.dnsme.model.DnsMadeEasyDomainNames;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasySearchCriteria;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
@@ -52,12 +52,14 @@ public class DNSMadeEasyService implements DnsService {
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_CREATED = 201;
 
+	// These are immutable and thus ok to expose via getters
 	private final DNSMadeEasyServiceContext context;
-	private final DnsMadeEasyDomain domain;
 	private final String restApiUrl;
+	private final String domainName;
 	private final DNSMadeEasyCredentials credentials;
 
 	//
+	private final DnsMadeEasyDomain domain;
 	private final Gson gson = new Gson();
 	private final HttpUtil http = new HttpUtil();
 	private final DNSMEUtil dnsme = new DNSMEUtil();
@@ -65,7 +67,8 @@ public class DNSMadeEasyService implements DnsService {
 	public DNSMadeEasyService(DNSMadeEasyServiceContext context) {
 		Assert.noNulls(context);
 		this.context = context;
-		this.domain = getDomain(context.getDomain());
+		this.domainName = context.getDomainName();
+		this.domain = getDomain(domainName);
 		this.restApiUrl = context.getRestApiUrl();
 		this.credentials = context.getCredentials();
 	}
@@ -330,7 +333,7 @@ public class DNSMadeEasyService implements DnsService {
 
 	@Override
 	public String getDomainName() {
-		return context.getDomain();
+		return domainName;
 	}
 
 	/**
@@ -483,6 +486,18 @@ public class DNSMadeEasyService implements DnsService {
 			list.add(element);
 		}
 		return ImmutableList.copyOf(list);
+	}
+
+	public DNSMadeEasyServiceContext getContext() {
+		return context;
+	}
+
+	public String getRestApiUrl() {
+		return restApiUrl;
+	}
+
+	public DNSMadeEasyCredentials getCredentials() {
+		return credentials;
 	}
 
 }

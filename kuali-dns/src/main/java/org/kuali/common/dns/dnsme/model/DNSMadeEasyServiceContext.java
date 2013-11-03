@@ -4,17 +4,17 @@ import org.kuali.common.util.Assert;
 
 public final class DNSMadeEasyServiceContext {
 
-	public DNSMadeEasyServiceContext(DNSMadeEasyCredentials credentials, String restApiUrl, String domain) {
+	public DNSMadeEasyServiceContext(DNSMadeEasyCredentials credentials, String restApiUrl, String domainName) {
 		Assert.noNulls(credentials);
-		Assert.noBlanks(restApiUrl, domain);
+		Assert.noBlanks(restApiUrl, domainName);
 		this.credentials = credentials;
 		this.restApiUrl = restApiUrl;
-		this.domain = domain;
+		this.domainName = domainName;
 	}
 
 	private final DNSMadeEasyCredentials credentials;
 	private final String restApiUrl;
-	private final String domain;
+	private final String domainName;
 
 	public DNSMadeEasyCredentials getCredentials() {
 		return credentials;
@@ -24,7 +24,7 @@ public final class DNSMadeEasyServiceContext {
 		return restApiUrl;
 	}
 
-	public String getDomain() {
-		return domain;
+	public String getDomainName() {
+		return domainName;
 	}
 }
