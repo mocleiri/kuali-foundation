@@ -177,6 +177,13 @@ public class DNSMadeEasyService implements DnsService {
 		return records;
 	}
 
+	protected DnsMadeEasySearchCriteria getSearch(String name, DnsRecordType type) {
+		DnsMadeEasySearchCriteria search = new DnsMadeEasySearchCriteria();
+		search.setName(name);
+		search.setType(type);
+		return search;
+	}
+
 	protected DnsMadeEasySearchCriteria getSearch(String name) {
 		DnsMadeEasySearchCriteria search = new DnsMadeEasySearchCriteria();
 		search.setName(name);
@@ -228,6 +235,12 @@ public class DNSMadeEasyService implements DnsService {
 	}
 
 	protected void deleteRecord(DnsMadeEasyDomain domain, String name) {
+		DnsMadeEasyDnsRecord record = getRecord(domain, name);
+		Assert.isTrue(record.getId() != null, "id is required");
+		deleteRecord(domain, record.getId());
+	}
+
+	protected void deleteCNAMERecord(DnsMadeEasyDomain domain, String name) {
 		DnsMadeEasyDnsRecord record = getRecord(domain, name);
 		Assert.isTrue(record.getId() != null, "id is required");
 		deleteRecord(domain, record.getId());
@@ -415,7 +428,7 @@ public class DNSMadeEasyService implements DnsService {
 		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
-		DnsMadeEasySearchCriteria search = getSearch(recordName);
+		DnsMadeEasySearchCriteria search = getSearch(recordName, DnsRecordType.CNAME);
 
 		// Get a list of matching records from DNSME
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
@@ -457,7 +470,7 @@ public class DNSMadeEasyService implements DnsService {
 		validateDomain(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
-		DnsMadeEasySearchCriteria search = getSearch(fqdn);
+		DnsMadeEasySearchCriteria search = getSearch(fqdn, DnsRecordType.CNAME);
 
 		// Get a list of matching records from DNSME
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
