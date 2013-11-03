@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.dns.model;
+package org.kuali.common.dns.dnsme.model;
 
-import org.kuali.common.dns.dnsme.model.GTDLocation;
+import org.kuali.common.dns.model.DnsRecordType;
 
 public class Search {
 
