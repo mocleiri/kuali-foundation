@@ -485,6 +485,7 @@ public class DNSMadeEasyService implements DnsService {
 			DnsRecord element = new DnsRecord(record.getName(), record.getType(), record.getData());
 			list.add(element);
 		}
+		Collections.sort(list);
 		return ImmutableList.copyOf(list);
 	}
 
