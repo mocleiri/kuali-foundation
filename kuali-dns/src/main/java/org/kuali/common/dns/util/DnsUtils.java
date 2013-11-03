@@ -36,7 +36,7 @@ public class DnsUtils {
 
 			// Can't begin or end with a hyphen
 			Assert.isFalse(label.charAt(0) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
-			Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
+			Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] ends with " + HYPHEN);
 
 			// Only characters allowed are a..z, A..Z, 0..9, and the hyphen
 			Assert.isTrue(containsOnlyLettersDigitsOrHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
