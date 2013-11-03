@@ -50,7 +50,7 @@ public class TestDnsConfig {
 	@Bean
 	public Executable main() {
 		try {
-			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
+			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria("rice", DnsRecordType.CNAME);
 			DnsService service = config.dnsService();
 			List<DnsRecord> records = service.getRecords(criteria);
 			List<String> columns = ImmutableList.of("Name", "Type", "Value");
