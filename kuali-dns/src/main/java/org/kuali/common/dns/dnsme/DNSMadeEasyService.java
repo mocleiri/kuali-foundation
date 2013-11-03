@@ -37,6 +37,8 @@ import org.kuali.common.dns.dnsme.model.RecordComparator;
 import org.kuali.common.dns.dnsme.model.Search;
 import org.kuali.common.dns.http.HttpRequestResult;
 import org.kuali.common.dns.http.HttpUtil;
+import org.kuali.common.dns.model.DnsRecord;
+import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.util.Assert;
 
@@ -332,5 +334,50 @@ public class DNSMadeEasyService implements DnsService {
 			domains.add(domain);
 		}
 		return domains;
+	}
+
+	@Override
+	public String getDomain() {
+		return context.getDomain();
+	}
+
+	@Override
+	public DnsRecord createCNAMERecord(String aliasFQDN, String fqdn, int timeToLiveInSeconds) {
+		Assert.noBlanks(aliasFQDN, fqdn);
+		Assert.isTrue(aliasFQDN.endsWith(getDomain()), "[" + aliasFQDN + "] doesn't end with [" + getDomain() + "]");
+		Assert.noNegatives(timeToLiveInSeconds);
+		// This is a magic value telling DNSME not to append "kuali.org" to the end of the record
+		fqdn = fqdn + ".";
+		return null;
+	}
+
+	@Override
+	public boolean exists(String fqdn) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void delete(String fqdn) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public DnsRecord getRecord(String fqdn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DnsRecord> getRecords() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DnsRecord> getRecords(DnsRecordSearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
