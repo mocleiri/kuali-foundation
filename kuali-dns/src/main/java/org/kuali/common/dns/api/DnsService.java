@@ -6,7 +6,7 @@ import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 
 /**
- * This service provides DNS operations on a given domain, eg <code>kuali.org</code>
+ * This service provides DNS operations on a given domain name, eg <code>kuali.org</code>
  */
 public interface DnsService {
 
@@ -23,13 +23,13 @@ public interface DnsService {
 	 * @param fqdn
 	 *            The fully qualified domain name <code>aliasFQDN</code> points to after this method returns.
 	 * @param timeToLiveInSeconds
-	 *            The amount of time (in seconds) DNS servers are allowed to cache the new CNAME record. A TTL value of 300 means if the CNAME record is changed, DNS servers around
-	 *            the world may still be showing the old value for up to 5 minutes.
+	 *            The amount of time DNS servers are allowed to cache the new CNAME record. A TTL value of 300 means if the CNAME record is changed, DNS servers around the world
+	 *            may still be showing the old value for up to 5 minutes.
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
 	 *             <li>If either <code>aliasFQDN</code> or <code>fqdn</code> are blank or are not syntactically valid DNS names
-	 *             <li>If <code>aliasFQDN</code> does not end with the domain this service is performing operations on.</li>
+	 *             <li>If <code>aliasFQDN</code> does not end with this domain.</li>
 	 *             <li>If <code>timeToLiveInSeconds</code> is negative.</li>
 	 *             </ul>
 	 */
@@ -39,7 +39,7 @@ public interface DnsService {
 	 * Return true if a DNS record for <code>fqdn</code> exists, false otherwise.
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
+	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
 	 */
 	boolean exists(String fqdn);
 
@@ -47,7 +47,7 @@ public interface DnsService {
 	 * Delete the DNS record for <code>fqdn</code>, if one exists.
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
+	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
 	 */
 	void delete(String fqdn);
 
@@ -56,7 +56,7 @@ public interface DnsService {
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
-	 *             <li>If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.</li>
+	 *             <li>If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.</li>
 	 *             <li>If there is no corresponding DNS record for <code>fqdn</code></li>
 	 *             </ul>
 	 */
@@ -68,7 +68,7 @@ public interface DnsService {
 	List<DnsRecord> getRecords();
 
 	/**
-	 * Return a list of any DNS records matching the search criteria for the domain this service is performing operations on.
+	 * Return a list of any DNS records matching the search criteria for this domain.
 	 */
 	List<DnsRecord> getRecords(DnsRecordSearchCriteria searchCriteria);
 
