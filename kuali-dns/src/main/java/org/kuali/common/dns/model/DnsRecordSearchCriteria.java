@@ -17,6 +17,10 @@ public final class DnsRecordSearchCriteria {
 		this(Optional.of(nameContains), Optional.<DnsRecordType> absent(), ABSENT);
 	}
 
+	public DnsRecordSearchCriteria(String nameContains, DnsRecordType type) {
+		this(Optional.of(nameContains), Optional.of(type), ABSENT);
+	}
+
 	public DnsRecordSearchCriteria(Optional<String> nameContains, Optional<DnsRecordType> type, Optional<String> valueContains) {
 		Assert.noNulls(nameContains, type, valueContains);
 		if (nameContains.isPresent()) {

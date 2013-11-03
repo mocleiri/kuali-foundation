@@ -36,7 +36,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
@@ -51,11 +50,9 @@ public class TestDnsConfig {
 	@Bean
 	public Executable main() {
 		try {
-			Optional<String> absent = Optional.<String> absent();
-			Optional
-			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(absent, DnsRecordType.CNAME, absent);
+			DnsRecordSearchCriteria criteria = new DnsRecordSearchCriteria(DnsRecordType.CNAME);
 			DnsService service = config.dnsService();
-			List<DnsRecord> records = service.getRecords();
+			List<DnsRecord> records = service.getRecords(criteria);
 			List<String> columns = ImmutableList.of("Name", "Type", "Value");
 			List<Object[]> rows = new ArrayList<Object[]>();
 			for (DnsRecord record : records) {
