@@ -39,10 +39,10 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 		if (skip) {
 			return;
 		}
-		if (service.isExistingCNAMERecord(aliasFQDN)) {
-			service.deleteCNAMERecord(aliasFQDN);
+		if (service.cnameExists(aliasFQDN)) {
+			service.cnameDelete(aliasFQDN);
 		}
-		service.createCNAMERecord(aliasFQDN, fqdn, timeToLiveInSeconds);
+		service.cnameCreate(aliasFQDN, fqdn, timeToLiveInSeconds);
 	}
 
 	public DnsService getService() {
