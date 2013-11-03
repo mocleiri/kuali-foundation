@@ -64,7 +64,7 @@ public class TestDnsConfig {
 		return null;
 	}
 
-	// @Bean
+	@Bean
 	public Executable main2() {
 		try {
 			DnsService service = config.dnsService();
