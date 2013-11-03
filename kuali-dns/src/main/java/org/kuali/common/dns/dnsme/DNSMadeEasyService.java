@@ -28,7 +28,7 @@ import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.model.Account;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.Domain;
 import org.kuali.common.dns.dnsme.model.DomainNames;
 import org.kuali.common.dns.dnsme.model.Record;
@@ -48,14 +48,14 @@ public class DNSMadeEasyService implements DnsService {
 	public static final int HTTP_CREATED = 201;
 
 	private final String restApiUrl;
-	private final Account account;
+	private final DNSMadeEasyCredentials account;
 
 	//
 	private final Gson gson = new Gson();
 	private final HttpUtil http = new HttpUtil();
 	private final DNSMEUtil dnsme = new DNSMEUtil();
 
-	public DNSMadeEasyService(Account account, String restApiUrl) {
+	public DNSMadeEasyService(DNSMadeEasyCredentials account, String restApiUrl) {
 		Assert.noNulls(account);
 		Assert.noBlanks(restApiUrl);
 		this.account = account;

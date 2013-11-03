@@ -34,7 +34,7 @@ import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.kuali.common.dns.dnsme.model.Account;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 
 public class DNSMEUtil {
 
@@ -88,7 +88,7 @@ public class DNSMEUtil {
 		}
 	}
 
-	public List<Header> getAuthenticationHeaders(Account account) {
+	public List<Header> getAuthenticationHeaders(DNSMadeEasyCredentials account) {
 		/**
 		 * The geniuses at DNS Made Easy did not account for computer clocks that have drifted forward.
 		 * 
@@ -114,13 +114,13 @@ public class DNSMEUtil {
 		return headers;
 	}
 
-	public HttpMethod getDeleteMethod(Account account, String url) {
+	public HttpMethod getDeleteMethod(DNSMadeEasyCredentials account, String url) {
 		HttpMethod method = new DeleteMethod(url);
 		addAuthenticationHeaders(account, method);
 		return method;
 	}
 
-	public void updateMethod(Account account, String json, EntityEnclosingMethod method) {
+	public void updateMethod(DNSMadeEasyCredentials account, String json, EntityEnclosingMethod method) {
 		try {
 			RequestEntity requestEntity = new StringRequestEntity(json, "application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
@@ -134,13 +134,13 @@ public class DNSMEUtil {
 		}
 	}
 
-	public GetMethod getGetMethod(Account account, String url) {
+	public GetMethod getGetMethod(DNSMadeEasyCredentials account, String url) {
 		GetMethod method = new GetMethod(url);
 		addAuthenticationHeaders(account, method);
 		return method;
 	}
 
-	protected void addAuthenticationHeaders(Account account, HttpMethod method) {
+	protected void addAuthenticationHeaders(DNSMadeEasyCredentials account, HttpMethod method) {
 		List<Header> headers = getAuthenticationHeaders(account);
 		for (Header header : headers) {
 			method.addRequestHeader(header);

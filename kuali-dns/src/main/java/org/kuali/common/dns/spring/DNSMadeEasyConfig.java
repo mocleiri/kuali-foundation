@@ -3,7 +3,7 @@ package org.kuali.common.dns.spring;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyService;
 import org.kuali.common.dns.dnsme.URLS;
-import org.kuali.common.dns.dnsme.model.Account;
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.Accounts;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -30,14 +30,14 @@ public class DNSMadeEasyConfig implements DnsConfig {
 
 	@Override
 	public DnsService dnsService() {
-		Account encrypted = Accounts.PRODUCTION.getAccount();
+		DNSMadeEasyCredentials encrypted = Accounts.PRODUCTION.getAccount();
 		String url = env.getString(URL_KEY, URLS.PRODUCTION);
 		String apiKey = env.getString(API_KEY, encrypted.getApiKey());
 		String secretKey = env.getString(SECRET_KEY, encrypted.getSecretKey());
 		if (EncUtils.isEncrypted(secretKey)) {
 			secretKey = enc.decrypt(secretKey);
 		}
-		Account account = new Account(apiKey, secretKey);
+		DNSMadeEasyCredentials account = new DNSMadeEasyCredentials(apiKey, secretKey);
 		return new DNSMadeEasyService(account, url);
 	}
 

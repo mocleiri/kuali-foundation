@@ -19,17 +19,17 @@ import org.kuali.common.util.Assert;
 
 public class Domain {
 
-	public Domain(Account account, String name) {
+	public Domain(DNSMadeEasyCredentials account, String name) {
 		Assert.noNulls(account);
 		Assert.noBlanks(name);
 		this.account = account;
 		this.name = name;
 	}
 
-	private final Account account;
+	private final DNSMadeEasyCredentials account;
 	private final String name;
 
-	public Account getAccount() {
+	public DNSMadeEasyCredentials getAccount() {
 		return account;
 	}
 

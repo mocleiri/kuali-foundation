@@ -15,29 +15,18 @@
  */
 package org.kuali.common.dns.dnsme.model;
 
-import java.util.List;
-
 import org.kuali.common.util.Assert;
 
-import com.google.common.collect.ImmutableList;
+public final class DNSMadeEasyCredentials {
 
-public final class Account {
-
-	public Account(String apiKey, String secretKey) {
-		this(apiKey, secretKey, ImmutableList.<Domain> of());
-	}
-
-	public Account(String apiKey, String secretKey, List<Domain> domains) {
+	public DNSMadeEasyCredentials(String apiKey, String secretKey) {
 		Assert.noBlanks(apiKey, secretKey);
-		Assert.noNulls(domains);
 		this.apiKey = apiKey;
 		this.secretKey = secretKey;
-		this.domains = domains;
 	}
 
 	private final String apiKey;
 	private final String secretKey;
-	private final List<Domain> domains;
 
 	public String getApiKey() {
 		return apiKey;
@@ -45,10 +34,6 @@ public final class Account {
 
 	public String getSecretKey() {
 		return secretKey;
-	}
-
-	public List<Domain> getDomains() {
-		return domains;
 	}
 
 }
