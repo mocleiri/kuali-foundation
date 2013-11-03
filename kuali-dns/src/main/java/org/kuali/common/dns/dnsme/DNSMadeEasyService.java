@@ -390,10 +390,10 @@ public class DNSMadeEasyService implements DnsService {
 
 		// Create a Record object
 		DnsMadeEasyDnsRecord record = new DnsMadeEasyDnsRecord();
-		record.setType(DnsRecordType.CNAME);
-		record.setTtl(timeToLiveInSeconds);
-		record.setData(fqdn);
 		record.setName(recordName);
+		record.setType(DnsRecordType.CNAME);
+		record.setData(fqdn);
+		record.setTtl(timeToLiveInSeconds);
 
 		// Actually add the record
 		DnsMadeEasyDnsRecord added = addRecord(domain, record);
