@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class DNSMadeEasyConfig implements DnsConfig {
+public class DNSMadeEasyConfig implements DnsServiceConfig {
 
 	private static final String API_KEY = "dnsme.apiKey";
 	private static final String SECRET_KEY = "dnsme.secretKey";

@@ -24,7 +24,7 @@ import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.spring.DNSMadeEasyConfig;
-import org.kuali.common.dns.spring.DnsConfig;
+import org.kuali.common.dns.spring.DnsServiceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -44,7 +44,7 @@ public class TestDnsConfig {
 	private final Logger logger = LoggerFactory.getLogger(TestDnsConfig.class);
 
 	@Autowired
-	DnsConfig config;
+	DnsServiceConfig config;
 
 	// @Bean
 	public Executable main() {
