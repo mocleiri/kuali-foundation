@@ -40,7 +40,7 @@ public interface DnsService {
 	 * @see getDomain
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is blank, is not a property formatted DNS name, or does not end with the domain this service is performing operations on.
+	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
 	 */
 	boolean exists(String fqdn);
 
@@ -50,7 +50,7 @@ public interface DnsService {
 	 * @see getDomain
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is blank, is not a property formatted DNS name, or does not end with the domain this service is performing operations on.
+	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
 	 */
 	void delete(String fqdn);
 
@@ -61,7 +61,7 @@ public interface DnsService {
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
-	 *             <li>If <code>fqdn</code> is blank, is not a property formatted DNS name, or does not end with the domain this service is performing operations on.</li>
+	 *             <li>If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.</li>
 	 *             <li>If there is no corresponding DNS record for <code>fqdn</code></li>
 	 *             </ul>
 	 */
@@ -73,7 +73,7 @@ public interface DnsService {
 	 * @see getDomain
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is blank, is not a property formatted DNS name, or does not end with the domain this service is performing operations on.
+	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with the domain this service is performing operations on.
 	 */
 	List<DnsRecord> getRecords();
 
