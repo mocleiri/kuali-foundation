@@ -40,6 +40,7 @@ import org.kuali.common.dns.http.HttpUtil;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
+import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
 
 import com.google.gson.Gson;
@@ -343,12 +344,33 @@ public class DNSMadeEasyService implements DnsService {
 
 	@Override
 	public DnsRecord createCNAMERecord(String aliasFQDN, String fqdn, int timeToLiveInSeconds) {
-		Assert.noBlanks(aliasFQDN, fqdn);
+
+		// Make sure both are syntactically valid fully qualified domain names
+		DnsUtils.validateFQDN(aliasFQDN);
+		DnsUtils.validateFQDN(fqdn);
+
+		// The alias must be in our domain
 		Assert.isTrue(aliasFQDN.endsWith(getDomain()), "[" + aliasFQDN + "] doesn't end with [" + getDomain() + "]");
+
+		// TTL can't be negative
 		Assert.noNegatives(timeToLiveInSeconds);
-		// This is a magic value telling DNSME not to append "kuali.org" to the end of the record
+
+		// The dot at the end is a magic value telling DNSME that this is a fully qualified domain name
+		// Without it, DNSME auto-appends the domain name
 		fqdn = fqdn + ".";
-		return null;
+
+		// Create a Record object
+		Record record = new Record();
+		record.setType(DnsRecordType.CNAME);
+		record.setTtl(timeToLiveInSeconds);
+		record.setData(fqdn);
+		record.setName(aliasFQDN);
+		record.setDomain(domain);
+		
+		// Validate it for 
+		validateForUpdate(record);
+		Record added = addRecord(domain, record);
+		return new DnsRecord(added.getName(), added.getType(), record.getData());
 	}
 
 	@Override
