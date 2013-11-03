@@ -1,3 +1,7 @@
 BAD:
 
 {"domain":{"credentials":{"apiKey":"454f2836-81c0-4379-b8dd-2cc6495131b5","secretKey":""},"name":"kuali.org"},"name":"delete-me-now.devops","type":"CNAME","data":"www.yahoo.com.","ttl":60}
+
+GOOD:
+
+{"domain":{"credentials":{"apiKey":"454f2836-81c0-4379-b8dd-2cc6495131b5","secretKey":""},"name":"kuali.org"},"name":"delete-me-now.devops","type":"CNAME","data":"www.yahoo.com.","ttl":60}
