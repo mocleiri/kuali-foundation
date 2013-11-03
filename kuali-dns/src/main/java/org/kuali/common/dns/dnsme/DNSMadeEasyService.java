@@ -70,14 +70,14 @@ public class DNSMadeEasyService implements DnsService {
 		this.credentials = context.getCredentials();
 	}
 
-	public List<Domain> getDomains() {
+	protected List<Domain> getDomains() {
 		String url = this.restApiUrl + "/domains";
 		String json = getJson(url, HTTP_OK);
 		DomainNames domainNames = gson.fromJson(json, DomainNames.class);
 		return getDomains(domainNames);
 	}
 
-	public Domain getDomain(String name) {
+	protected Domain getDomain(String name) {
 		List<Domain> domains = getDomains();
 		for (Domain domain : domains) {
 			if (domain.getName().equalsIgnoreCase(name)) {
@@ -87,13 +87,13 @@ public class DNSMadeEasyService implements DnsService {
 		return null;
 	}
 
-	public Domain addDomain(Domain domain) {
+	protected Domain addDomain(Domain domain) {
 		String url = this.restApiUrl + "/domains/" + domain.getName();
 		PutMethod method = new PutMethod(url);
 		return addOrUpdateObject(url, HTTP_CREATED, domain, method);
 	}
 
-	public void deleteDomain(Domain domain) {
+	protected void deleteDomain(Domain domain) {
 		String url = this.restApiUrl + "/domains/" + domain.getName();
 		deleteObject(url);
 	}
@@ -148,7 +148,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	public Record getRecord(Domain domain, Search search) {
+	protected Record getRecord(Domain domain, Search search) {
 		List<Record> records = getRecords(domain, search);
 		if (records.size() != 1) {
 			throw new IllegalStateException("Search criteria must match exactly 1 record but it matched " + records.size() + " records");
@@ -157,7 +157,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	public List<Record> getRecords(Domain domain, Search search) {
+	protected List<Record> getRecords(Domain domain, Search search) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (search != null) {
 			url += getQueryString(search);
@@ -170,17 +170,17 @@ public class DNSMadeEasyService implements DnsService {
 		return records;
 	}
 
-	public Search getSearch(String name) {
+	protected Search getSearch(String name) {
 		Search search = new Search();
 		search.setName(name);
 		return search;
 	}
 
-	public Record getRecord(Domain domain, String name) {
+	protected Record getRecord(Domain domain, String name) {
 		return getRecord(domain, getSearch(name));
 	}
 
-	public Record getRecord(Domain domain, int recordId) {
+	protected Record getRecord(Domain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		String resultJson = getJson(url, HTTP_OK);
 		Record resultRecord = gson.fromJson(resultJson, Record.class);
@@ -193,7 +193,7 @@ public class DNSMadeEasyService implements DnsService {
 		}
 	}
 
-	public void updateRecord(Domain domain, Record record) {
+	protected void updateRecord(Domain domain, Record record) {
 		validateForUpdate(record);
 		if (record.getId() == null) {
 			Record existingRecord = getRecord(domain, record.getName());
@@ -205,7 +205,7 @@ public class DNSMadeEasyService implements DnsService {
 		addOrUpdateObject(url, HTTP_OK, record, method);
 	}
 
-	public Record addRecord(Domain domain, Record record) {
+	protected Record addRecord(Domain domain, Record record) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records";
 		if (record.getId() != null) {
 			throw new IllegalStateException("id must be null when adding");
@@ -215,12 +215,12 @@ public class DNSMadeEasyService implements DnsService {
 		return addOrUpdateObject(url, HTTP_CREATED, record, method);
 	}
 
-	public void deleteRecord(Domain domain, int recordId) {
+	protected void deleteRecord(Domain domain, int recordId) {
 		String url = this.restApiUrl + "/domains/" + domain.getName() + "/records/" + recordId;
 		deleteObject(url);
 	}
 
-	public void deleteRecord(Domain domain, String name) {
+	protected void deleteRecord(Domain domain, String name) {
 		Record record = getRecord(domain, name);
 		Assert.isTrue(record.getId() != null, "id is required");
 		deleteRecord(domain, record.getId());
@@ -232,7 +232,7 @@ public class DNSMadeEasyService implements DnsService {
 		validateResult(result, HTTP_OK);
 	}
 
-	public List<Record> getCNAMERecords(Domain domain) {
+	protected List<Record> getCNAMERecords(Domain domain) {
 		Search search = new Search();
 		search.setType(DnsRecordType.CNAME);
 		List<Record> records = getRecords(domain, search);
@@ -268,7 +268,7 @@ public class DNSMadeEasyService implements DnsService {
 		return resultObject;
 	}
 
-	public List<Record> getRecords(Domain domain) {
+	protected List<Record> getRecords(Domain domain) {
 		return getRecords(domain, null);
 	}
 
@@ -333,8 +333,25 @@ public class DNSMadeEasyService implements DnsService {
 		return context.getDomain();
 	}
 
-	protected void validateDomain(String fqdn) {
-		Assert.isTrue(fqdn.endsWith(getDomain()), "[" + fqdn + "] doesn't end with [" + getDomain() + "]");
+	/**
+	 * Validate that <code>fqdn</code> ends with <code>domain</code>
+	 */
+	protected void validateDomain(String fqdn, String domain) {
+		Assert.noBlanks(domain, fqdn);
+		Assert.isTrue(fqdn.endsWith(domain), "[" + fqdn + "] doesn't end with [" + domain + "]");
+	}
+
+	protected String getRecordNameFromFQDN(String fqdn, String domain) {
+		// Blanks not allowed
+		Assert.noBlanks(domain, fqdn);
+
+		// Make sure fqdn is in the domain
+		validateDomain(fqdn, domain);
+
+		// Trim the domain off the end of the fqdn
+		int start = 0;
+		int end = fqdn.length() - domain.length();
+		return fqdn.substring(start, end);
 	}
 
 	@Override
@@ -345,7 +362,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// The alias must be in our domain
-		validateDomain(aliasFQDN);
+		validateDomain(aliasFQDN, getDomain());
 
 		// TTL can't be negative
 		Assert.noNegatives(timeToLiveInSeconds);
@@ -354,12 +371,15 @@ public class DNSMadeEasyService implements DnsService {
 		// Without it, DNSME auto-appends our domain name
 		fqdn = fqdn + ".";
 
+		// Trim the domain name off the end of the aliasFQDN
+		String recordName = getRecordNameFromFQDN(aliasFQDN, getDomain());
+
 		// Create a Record object
 		Record record = new Record();
 		record.setType(DnsRecordType.CNAME);
 		record.setTtl(timeToLiveInSeconds);
 		record.setData(fqdn);
-		record.setName(aliasFQDN);
+		record.setName(recordName);
 		record.setDomain(domain);
 
 		// Actually add the record
@@ -371,14 +391,17 @@ public class DNSMadeEasyService implements DnsService {
 
 	@Override
 	public boolean exists(String fqdn) {
+
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
 
 		// Can only check for the existence of fqdn's in our domain
-		validateDomain(fqdn);
+		validateDomain(fqdn, getDomain());
+
+		String recordName = getRecordNameFromFQDN(fqdn, getDomain());
 
 		// Setup a search object based on the fqdn
-		Search search = getSearch(fqdn);
+		Search search = getSearch(recordName);
 
 		// Get a list of matching records from DNSME
 		List<Record> records = getRecords(domain, search);
@@ -398,7 +421,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// Can only delete fqdn's in our domain
-		validateDomain(fqdn);
+		validateDomain(fqdn, getDomain());
 
 		// If it exists, delete it
 		if (exists(fqdn)) {
@@ -412,7 +435,7 @@ public class DNSMadeEasyService implements DnsService {
 		DnsUtils.validateFQDN(fqdn);
 
 		// Can only get DNS records for fqdn's in our domain
-		validateDomain(fqdn);
+		validateDomain(fqdn, getDomain());
 
 		// Setup a search object based on the fqdn
 		Search search = getSearch(fqdn);
