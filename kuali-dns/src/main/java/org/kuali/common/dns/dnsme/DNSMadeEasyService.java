@@ -394,7 +394,6 @@ public class DNSMadeEasyService implements DnsService {
 		record.setTtl(timeToLiveInSeconds);
 		record.setData(fqdn);
 		record.setName(recordName);
-		record.setDomain(domain);
 
 		// Actually add the record
 		DnsMadeEasyDnsRecord added = addRecord(domain, record);
