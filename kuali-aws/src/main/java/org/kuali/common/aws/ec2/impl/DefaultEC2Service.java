@@ -28,7 +28,6 @@ import org.springframework.util.CollectionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
-import com.amazonaws.services.ec2.model.CreateSecurityGroupResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
@@ -93,7 +92,7 @@ public final class DefaultEC2Service implements EC2Service {
 		if (group.getDescription().isPresent()) {
 			request.setDescription(group.getDescription().get());
 		}
-		CreateSecurityGroupResult result = client.createSecurityGroup(request);
+		client.createSecurityGroup(request);
 	}
 
 	@Override
