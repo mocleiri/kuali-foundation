@@ -427,8 +427,7 @@ public class DNSMadeEasyDnsService implements DnsService {
 
 	@Override
 	public boolean isExistingCNAMERecord(String fqdn) {
-		Optional<DnsRecord> record = getCNAMERecord(fqdn);
-		return record.isPresent();
+		return getCNAMERecord(fqdn).isPresent();
 	}
 
 	protected Optional<DnsMadeEasyDnsRecord> getSingleCNAMERecord(String fqdn) {
