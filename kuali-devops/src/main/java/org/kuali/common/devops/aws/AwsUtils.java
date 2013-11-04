@@ -24,6 +24,7 @@ public class AwsUtils {
 
 	public static AwsAccount getAwsAccount(EnvironmentService env, AwsAccount provided) {
 		String accountName = NullUtils.trimToNull(env.getString(ACCOUNT_KEY, provided.getName()));
+		Assert.noNulls(accountName);
 		AwsAccount account = ACCOUNTS.get(accountName);
 		Assert.noNulls(account);
 		return account;
