@@ -15,13 +15,11 @@
  */
 package org.kuali.common.devops.ci;
 
-import java.util.Map;
-
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.aws.spring.AwsAccountConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
-import org.kuali.common.devops.aws.Accounts;
+import org.kuali.common.devops.aws.AwsUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -30,15 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
-
-	private static final String ACCOUNT_KEY = "aws.account";
 
 	@Autowired
 	EnvironmentService env;
@@ -49,11 +44,7 @@ public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
 	@Override
 	@Bean
 	public AwsAccount awsAccount() {
-		String name = env.getString(ACCOUNT_KEY);
-		Map<String, AwsAccount> accounts = Accounts.asMap();
-		AwsAccount account = accounts.get(name);
-		Assert.notNull(account);
-		return account;
+		return AwsUtils.getAwsAccount(env);
 	}
 
 	@Override
