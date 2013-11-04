@@ -85,6 +85,7 @@ public final class DefaultEC2Service implements EC2Service {
 		for (SecurityGroup group : result.getSecurityGroups()) {
 			names.add(group.getGroupName());
 		}
+		Collections.sort(names);
 		return ImmutableList.copyOf(names);
 	}
 

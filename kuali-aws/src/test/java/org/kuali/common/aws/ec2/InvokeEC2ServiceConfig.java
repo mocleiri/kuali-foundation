@@ -52,6 +52,14 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
+		List<String> groups = service.getSecurityGroupNames();
+		for (String group : groups) {
+			logger.info(group);
+		}
+		return null;
+	}
+
+	public Object invokeEC2ServiceOld() {
 		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
 		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
 		List<SecurityGroup> groups = result.getSecurityGroups();
@@ -86,5 +94,4 @@ public class InvokeEC2ServiceConfig {
 		}
 		return null;
 	}
-
 }
