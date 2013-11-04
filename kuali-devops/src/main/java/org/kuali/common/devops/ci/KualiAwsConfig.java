@@ -19,6 +19,7 @@ import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.spring.AwsAccountConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.devops.aws.AwsUtils;
+import org.kuali.common.dns.spring.DomainNameConfig;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -32,7 +33,7 @@ import com.amazonaws.auth.AWSCredentials;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
+public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig, DomainNameConfig {
 
 	@Autowired
 	EnvironmentService env;
@@ -44,6 +45,12 @@ public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
 	@Bean
 	public AwsAccount awsAccount() {
 		return AwsUtils.getAwsAccount(env);
+	}
+
+	@Override
+	@Bean
+	public String domainName() {
+		return "kuali.org";
 	}
 
 	@Override

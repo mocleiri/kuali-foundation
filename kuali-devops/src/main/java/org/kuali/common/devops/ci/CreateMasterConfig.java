@@ -22,7 +22,6 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.util.LaunchInstanceExecutable;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
 import org.kuali.common.aws.model.AMIs;
@@ -31,8 +30,9 @@ import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +40,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ SpringServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class })
+@Import({ SpringServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, DNSMadeEasyConfig.class })
 public class CreateMasterConfig {
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
@@ -60,14 +61,21 @@ public class CreateMasterConfig {
 	EnvironmentService env;
 
 	@Autowired
+	DnsService dns;
+
+	@Autowired
 	AwsAccount account;
 
-	@Bean(initMethod = "execute")
+	@Bean
 	public Executable main() {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
-		Executable launch = new LaunchInstanceExecutable(service, instanceContext);
-		return new ExecutablesExecutable(show, launch);
+		show.execute();
+		Instance instance = service.launchInstance(instanceContext);
+		String aliasFQDN = "test.ci.kuali.org";
+		String fqdn = instance.getPublicDnsName();
+		dns.createCNAMERecord(aliasFQDN, fqdn, 60);
+		return null; // new ExecutablesExecutable(show);
 	}
 
 	@Bean
