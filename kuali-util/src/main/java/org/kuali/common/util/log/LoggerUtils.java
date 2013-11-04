@@ -175,7 +175,7 @@ public class LoggerUtils {
 		String table = getTable(context);
 		int cols = context.getColumns().size();
 		int rows = context.getRows().size();
-		String defaultTitle = "Displaying table with " + cols + " columns and " + rows + " rows\n\n";
+		String defaultTitle = "Displaying a table with " + cols + " columns and " + rows + " rows\n\n";
 		String title = StringUtils.equals(LogTableContext.NO_TITLE, context.getTitle()) ? defaultTitle : context.getTitle() + "\n\n";
 		String msg = title + table;
 		logMsg(msg, context.getLogger(), context.getLevel());
