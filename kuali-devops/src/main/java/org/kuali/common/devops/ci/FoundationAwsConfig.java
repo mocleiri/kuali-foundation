@@ -16,10 +16,10 @@
 package org.kuali.common.devops.ci;
 
 import org.kuali.common.aws.model.AwsAccount;
-import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.aws.spring.AwsAccountConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.devops.aws.Accounts;
+import org.kuali.common.devops.aws.AwsUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -44,15 +44,13 @@ public class FoundationAwsConfig implements AwsAccountConfig, AwsCredentialsConf
 	@Override
 	@Bean
 	public AwsAccount awsAccount() {
-		return Accounts.FOUNDATION.getAccount();
+		return AwsUtils.getAwsAccount(env, Accounts.FOUNDATION.getAccount());
 	}
 
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
-		AwsAccount account = awsAccount();
-		AWSCredentials credentials = account.getCredentials().get();
-		return CredentialUtils.getCredentials(env, enc, credentials);
+		return AwsUtils.getAwsCredentials(env, enc, awsAccount());
 	}
 
 }
