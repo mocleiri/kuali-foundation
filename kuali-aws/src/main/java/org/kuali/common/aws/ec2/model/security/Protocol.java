@@ -2,7 +2,7 @@ package org.kuali.common.aws.ec2.model.security;
 
 public enum Protocol {
 
-	TCP("tcp"), UDP("udp"), ICMP("icmp");
+	TCP("tcp"), UDP("udp");
 
 	private final String value;
 
