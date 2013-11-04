@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DNSMadeEasyServiceConfig implements DnsServiceConfig {
+public class DNSMEServiceConfig implements DnsServiceConfig {
 
 	@Autowired
-	DNSMadeEasyContextConfig config;
+	DNSMEServiceContextConfig config;
 
 	@Override
 	@Bean
