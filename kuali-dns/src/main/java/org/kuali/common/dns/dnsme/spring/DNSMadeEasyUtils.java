@@ -1,7 +1,7 @@
 package org.kuali.common.dns.dnsme.spring;
 
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.DNSMadeEasyService;
+import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
 import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
@@ -21,7 +21,7 @@ public class DNSMadeEasyUtils {
 
 	public static DnsService getService(EnvironmentService env, EncryptionService enc) {
 		DNSMadeEasyServiceContext context = getServiceContext(env, enc, NONE);
-		return new DNSMadeEasyService(context);
+		return new DNSMadeEasyDnsService(context);
 	}
 
 	public static DNSMadeEasyServiceContext getServiceContext(EnvironmentService env, EncryptionService enc, DNSMadeEasyServiceContext provided) {

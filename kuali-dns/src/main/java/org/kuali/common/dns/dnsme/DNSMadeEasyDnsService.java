@@ -49,7 +49,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class DNSMadeEasyService implements DnsService {
+public class DNSMadeEasyDnsService implements DnsService {
 
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_CREATED = 201;
@@ -66,7 +66,7 @@ public class DNSMadeEasyService implements DnsService {
 	private final HttpUtil http = new HttpUtil();
 	private final DNSMEUtil dnsme = new DNSMEUtil();
 
-	public DNSMadeEasyService(DNSMadeEasyServiceContext context) {
+	public DNSMadeEasyDnsService(DNSMadeEasyServiceContext context) {
 		Assert.noNulls(context);
 		Assert.isFalse(EncUtils.isEncrypted(context.getCredentials().getSecretKey()), "Secret key is encrypted");
 		this.context = context;

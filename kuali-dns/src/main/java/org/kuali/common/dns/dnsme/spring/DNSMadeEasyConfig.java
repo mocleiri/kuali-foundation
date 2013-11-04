@@ -1,7 +1,7 @@
 package org.kuali.common.dns.dnsme.spring;
 
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.dnsme.DNSMadeEasyService;
+import org.kuali.common.dns.dnsme.DNSMadeEasyDnsService;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
 import org.kuali.common.dns.spring.DnsServiceConfig;
 import org.kuali.common.util.enc.EncryptionService;
@@ -29,7 +29,7 @@ public class DNSMadeEasyConfig implements DnsServiceConfig {
 	@Override
 	@Bean
 	public DnsService dnsService() {
-		return new DNSMadeEasyService(context);
+		return new DNSMadeEasyDnsService(context);
 	}
 
 }
