@@ -34,22 +34,23 @@ public class ShowLaunchConfigExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		if (!skip) {
-			String accessKey = serviceContext.getCredentials().getAWSAccessKeyId();
-			String regionName = getRegionName(serviceContext);
-			String regionLocation = getRegionLocation(serviceContext);
-			String availabilityZone = getAvailabilityZone(instanceContext);
-
-			logger.info("---------- Launching EC2 Instance ----------");
-			logger.info("AWS Access Key: {}", accessKey);
-			logger.info("Location: {}", regionLocation);
-			logger.info("Region: {}", regionName);
-			logger.info("Zone: {}", availabilityZone);
-			logger.info("AMI: {}", instanceContext.getAmi());
-			logger.info("Type: {}", instanceContext.getType().toString());
-			logger.info("Key: {}", instanceContext.getKeyName());
-			logger.info("--------------------------------------------");
+		if (skip) {
+			return;
 		}
+		String accessKey = serviceContext.getCredentials().getAWSAccessKeyId();
+		String regionName = getRegionName(serviceContext);
+		String regionLocation = getRegionLocation(serviceContext);
+		String availabilityZone = getAvailabilityZone(instanceContext);
+
+		logger.info("---------- Launching EC2 Instance ----------");
+		logger.info("AWS Access Key: {}", accessKey);
+		logger.info("Location: {}", regionLocation);
+		logger.info("Region: {}", regionName);
+		logger.info("Zone: {}", availabilityZone);
+		logger.info("AMI: {}", instanceContext.getAmi());
+		logger.info("Type: {}", instanceContext.getType().toString());
+		logger.info("Key: {}", instanceContext.getKeyName());
+		logger.info("--------------------------------------------");
 	}
 
 	protected String getAvailabilityZone(LaunchInstanceContext context) {
