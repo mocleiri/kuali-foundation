@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.ImmutableProperties;
@@ -43,6 +44,13 @@ public class PropertySourceUtils {
 	private static final String PROPERTIES_PROPERTY_SOURCE = "propertiesPropertySource";
 
 	// private static final Logger logger = LoggerFactory.getLogger(PropertySourceUtils.class);
+
+	/**
+	 * Return a property source from system properties plus the environment
+	 */
+	public static PropertySource<?> getDefaultPropertySource() {
+		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, PropertyUtils.getGlobalProperties());
+	}
 
 	public static PropertySource<?> getPropertySource(PropertiesService service, List<Location> locations) {
 		Properties properties = service.getProperties(locations);
