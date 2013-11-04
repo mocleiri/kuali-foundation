@@ -8,7 +8,7 @@ import org.kuali.common.util.nullify.NullUtils;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class ImmutableSecurityGroup {
+public final class KualiSecurityGroup {
 
 	private final String name;
 	private final Optional<String> description;
@@ -37,15 +37,15 @@ public final class ImmutableSecurityGroup {
 			return this;
 		}
 
-		public ImmutableSecurityGroup build() {
+		public KualiSecurityGroup build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(description, permissions);
 			this.permissions = ImmutableList.copyOf(permissions);
-			return new ImmutableSecurityGroup(this);
+			return new KualiSecurityGroup(this);
 		}
 	}
 
-	private ImmutableSecurityGroup(Builder builder) {
+	private KualiSecurityGroup(Builder builder) {
 		this.name = builder.name;
 		this.description = builder.description;
 		this.permissions = builder.permissions;

@@ -9,7 +9,7 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.model.security.ImmutableSecurityGroup;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
@@ -88,7 +88,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return ImmutableList.copyOf(names);
 	}
 
-	public void createSecurityGroup(ImmutableSecurityGroup group) {
+	public void createSecurityGroup(KualiSecurityGroup group) {
 		CreateSecurityGroupRequest request = new CreateSecurityGroupRequest();
 		request.setGroupName(group.getName());
 		if (group.getDescription().isPresent()) {
