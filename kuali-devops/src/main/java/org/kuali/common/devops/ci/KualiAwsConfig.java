@@ -16,7 +16,6 @@
 package org.kuali.common.devops.ci;
 
 import org.kuali.common.aws.model.AwsAccount;
-import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.aws.spring.AwsAccountConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.devops.aws.AwsUtils;
@@ -50,9 +49,7 @@ public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig {
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
-		AwsAccount account = awsAccount();
-		AWSCredentials credentials = account.getCredentials().get();
-		return CredentialUtils.getCredentials(env, enc, credentials);
+		return AwsUtils.getAwsCredentials(env, enc, awsAccount());
 	}
 
 }
