@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
@@ -95,6 +96,19 @@ public final class DefaultEC2Service implements EC2Service {
 			request.setDescription(group.getDescription().get());
 		}
 		client.createSecurityGroup(request);
+		List<IpPermission> perms = getIpPermissions(group);
+		AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
+		authorizeSecurityGroupIngressRequest.withGroupName(group.getName()).withIpPermissions(perms);
+		client.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+	}
+
+	protected List<IpPermission> getIpPermissions(ImmutableSecurityGroup group) {
+		List<IpPermission> newPerms = new ArrayList<IpPermission>();
+		for (ImmutableIpPermission perm : group.getPermissions()) {
+			IpPermission newPerm = getIpPermission(perm);
+			newPerms.add(newPerm);
+		}
+		return ImmutableList.copyOf(newPerms);
 	}
 
 	protected IpPermission getIpPermission(ImmutableIpPermission perm) {
