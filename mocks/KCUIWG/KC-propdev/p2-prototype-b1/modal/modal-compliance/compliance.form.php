@@ -53,19 +53,19 @@
                       <div class="form-group clearfix">
                         <label for="application_date" class="control-label col-md-3">Application Date:</label>
                         <div class="col-md-9">
-                          <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8" value="<?php echo $entry['application_date'];?>" />
+                          <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="<?php echo $entry['application_date'];?>" />
                         </div>
                       </div>
                       <div class="form-group clearfix">
                         <label for="approval_date" class="control-label col-md-3">Approval Date:</label>
                         <div class="col-md-9">
-                          <input type="text" name="approval_date" id="approval_date" class="form-control input-sm col-md-8" value="<?php echo $entry['approval_date'];?>" />
+                          <input type="text" name="approval_date" id="approval_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="<?php echo $entry['approval_date'];?>" />
                         </div>
                       </div>
                       <div class="form-group clearfix">
                         <label for="expiration_date" class="control-label col-md-3">Expiration Date:</label>
                         <div class="col-md-9">
-                          <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8" value="<?php echo $entry['expiration_date'];?>" />
+                          <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="<?php echo $entry['expiration_date'];?>" />
                         </div>
                       </div>
                       <div class="form-group clearfix">

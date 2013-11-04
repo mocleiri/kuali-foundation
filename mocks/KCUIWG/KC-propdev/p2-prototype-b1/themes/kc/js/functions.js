@@ -466,7 +466,7 @@ $(document).ready(function() {
 
         if ($(this).hasClass('fancybox-close')) {
 
-            parent.fancyBoxClose();
+            parent.$.fancybox.close();
 
         } else {
 

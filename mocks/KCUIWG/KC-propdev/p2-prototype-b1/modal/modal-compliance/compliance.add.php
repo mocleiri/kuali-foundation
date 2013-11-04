@@ -64,12 +64,12 @@ $(document).ready(function(){
        $entry['application_date'] = '';
        $entry['approval_date'] = '';
        $entry['expiration_date'] = '';
-        $actionLabel = "Add Entry";
-        $action = "addComplianceEntry";
-        include "compliance.form.php";?>
+       $actionLabel = "Add Entry";
+       $action = "addComplianceEntry";
+       include "compliance.form.php";?>
 
             </div>
     </div>
 </div>
-</body>
-</html>
+
+<?php include('../inc/footer.php'); ?>
