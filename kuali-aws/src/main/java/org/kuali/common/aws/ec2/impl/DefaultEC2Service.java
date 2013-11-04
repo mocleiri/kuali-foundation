@@ -141,6 +141,8 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Instance launchInstance(LaunchInstanceContext context) {
+
+		// Null is forbidden
 		Assert.noNulls(context);
 
 		// Connect to AWS and ask them to create an instance
