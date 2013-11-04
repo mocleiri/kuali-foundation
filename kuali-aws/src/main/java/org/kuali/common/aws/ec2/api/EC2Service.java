@@ -84,6 +84,14 @@ public interface EC2Service {
 	 * Each status has a name and value and is associated with either the ability of Amazon's internal systems to determine that status (external to the instance itself) or with
 	 * the status of something going on internally to the instance.
 	 * </p>
+	 * 
+	 * <p>
+	 * A SYSTEM status is analogous to saying "is powered on", or "is connected to the network", but says nothing about the state of any software running on the instance.
+	 * </p>
+	 * 
+	 * <p>
+	 * An INSTANCE status indicates things like "is operating system running"
+	 * </p>
 	 */
 	public String getStatus(String instanceId, InstanceStatusType type, String statusName);
 
