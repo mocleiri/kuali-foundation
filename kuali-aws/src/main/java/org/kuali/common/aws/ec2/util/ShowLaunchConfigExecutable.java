@@ -82,6 +82,7 @@ public class ShowLaunchConfigExecutable implements Executable {
 		if (regionName.isPresent()) {
 			return regionName.get();
 		} else {
+			// Java SDK defaults to us-east-1 if no region is supplied
 			return Regions.DEFAULT_REGION.getName();
 		}
 	}
