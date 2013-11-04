@@ -9,28 +9,28 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 	public static final int DEFAULT_TTL = 60;
 	public static final boolean DEFAULT_SKIP = false;
 
-	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String fqdn) {
-		this(service, aliasFQDN, fqdn, DEFAULT_TTL, DEFAULT_SKIP);
+	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String canonicalFQDN) {
+		this(service, aliasFQDN, canonicalFQDN, DEFAULT_TTL, DEFAULT_SKIP);
 	}
 
-	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String fqdn, int timeToLiveInSeconds) {
-		this(service, aliasFQDN, fqdn, timeToLiveInSeconds, DEFAULT_SKIP);
+	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds) {
+		this(service, aliasFQDN, canonicalFQDN, timeToLiveInSeconds, DEFAULT_SKIP);
 	}
 
-	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String fqdn, int timeToLiveInSeconds, boolean skip) {
+	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds, boolean skip) {
 		Assert.noNulls(service);
-		Assert.noBlanks(aliasFQDN, fqdn);
+		Assert.noBlanks(aliasFQDN, canonicalFQDN);
 		Assert.noNegatives(timeToLiveInSeconds);
 		this.service = service;
 		this.aliasFQDN = aliasFQDN;
-		this.fqdn = fqdn;
+		this.canonicalFQDN = canonicalFQDN;
 		this.timeToLiveInSeconds = timeToLiveInSeconds;
 		this.skip = skip;
 	}
 
 	private final DnsService service;
 	private final String aliasFQDN;
-	private final String fqdn;
+	private final String canonicalFQDN;
 	private final int timeToLiveInSeconds;
 	private final boolean skip;
 
@@ -42,7 +42,7 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 		if (service.isExistingCNAMERecord(aliasFQDN)) {
 			service.deleteCNAMERecord(aliasFQDN);
 		}
-		service.createCNAMERecord(aliasFQDN, fqdn, timeToLiveInSeconds);
+		service.createCNAMERecord(aliasFQDN, canonicalFQDN, timeToLiveInSeconds);
 	}
 
 	public DnsService getService() {
@@ -53,8 +53,8 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 		return aliasFQDN;
 	}
 
-	public String getFqdn() {
-		return fqdn;
+	public String getCanonicalFQDN() {
+		return canonicalFQDN;
 	}
 
 	public int getTimeToLiveInSeconds() {
