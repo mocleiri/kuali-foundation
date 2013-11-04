@@ -31,7 +31,7 @@ import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.dns.api.DnsService;
-import org.kuali.common.dns.spring.DNSMadeEasyConfig;
+import org.kuali.common.dns.dnsme.spring.DNSMadeEasyConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
