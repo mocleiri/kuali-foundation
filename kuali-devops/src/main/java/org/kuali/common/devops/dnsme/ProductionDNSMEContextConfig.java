@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class DefaultDNSMadeEasyContextConfig implements DNSMadeEasyContextConfig {
+public class ProductionDNSMEContextConfig implements DNSMadeEasyContextConfig {
 
 	@Autowired
 	EnvironmentService env;
