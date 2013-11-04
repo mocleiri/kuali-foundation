@@ -42,6 +42,7 @@ import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.model.DnsRecordType;
 import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -67,6 +68,7 @@ public class DNSMadeEasyService implements DnsService {
 
 	public DNSMadeEasyService(DNSMadeEasyServiceContext context) {
 		Assert.noNulls(context);
+		Assert.isFalse(EncUtils.isEncrypted(context.getCredentials().getSecretKey()), "Secret key is encrypted");
 		this.context = context;
 		this.restApiUrl = context.getRestApiUrl();
 		this.credentials = context.getCredentials();
