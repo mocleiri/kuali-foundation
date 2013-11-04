@@ -36,7 +36,8 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		System.out.println(service);
+		boolean online = service.isOnline("i-7757010f");
+		System.out.println("i-7757010f: " + online);
 		return null;
 	}
 
