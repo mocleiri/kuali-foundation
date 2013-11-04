@@ -75,7 +75,7 @@ public class DNSMadeEasyDnsService implements DnsService {
 		this.domainName = context.getDomainName();
 
 		// Now that the rest of the instance variables have been initialized it is safe to invoke the getDomain() method
-		// This establishes an http connection to DNSME and creates an DnsMadeEasyDomain object from the domain name string
+		// This establishes an http connection to DNSME and creates a DnsMadeEasyDomain object from the domain name string
 		this.domain = getDomain(domainName);
 	}
 
