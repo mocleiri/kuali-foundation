@@ -9,6 +9,7 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.security.ImmutableSecurityGroup;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
@@ -26,6 +27,8 @@ import org.springframework.util.CollectionUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
+import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
+import com.amazonaws.services.ec2.model.CreateSecurityGroupResult;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesResult;
@@ -82,6 +85,16 @@ public final class DefaultEC2Service implements EC2Service {
 			names.add(group.getGroupName());
 		}
 		return ImmutableList.copyOf(names);
+	}
+
+	public void createSecurityGroup(ImmutableSecurityGroup group) {
+		CreateSecurityGroupRequest request = new CreateSecurityGroupRequest();
+		request.setGroupName(group.getName());
+		if (group.getDescription().isPresent()) {
+			request.setDescription(group.getDescription().get());
+		}
+		request.s
+		CreateSecurityGroupResult result = client.createSecurityGroup(request);
 	}
 
 	@Override
