@@ -33,12 +33,12 @@ public final class DnsRecord implements Comparable<DnsRecord> {
 	 */
 	@Override
 	public int compareTo(DnsRecord other) {
-		if (type == other.getType()) {
-			// Same type, compare the names
-			return name.compareTo(other.getName());
-		} else {
-			// Different types, compare the type names
+		if (type != other.getType()) {
+			// Sort by type first
 			return type.name().compareTo(other.getType().name());
+		} else {
+			// Sort by name if they are the same type
+			return name.compareTo(other.getName());
 		}
 	}
 
