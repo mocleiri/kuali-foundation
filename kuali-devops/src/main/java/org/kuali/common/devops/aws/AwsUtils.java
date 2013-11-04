@@ -3,9 +3,9 @@ package org.kuali.common.devops.aws;
 import java.util.Map;
 
 import org.kuali.common.aws.model.AwsAccount;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
-import org.springframework.util.Assert;
 
 public class AwsUtils {
 
@@ -18,9 +18,9 @@ public class AwsUtils {
 	}
 
 	public static AwsAccount getAwsAccount(EnvironmentService env, AwsAccount provided) {
-		String accountName = NullUtils.trimToNull(env.getString(ACCOUNT_KEY, provided.getName()));
+		String accountName = env.getString(ACCOUNT_KEY, provided.getName());
 		AwsAccount account = ACCOUNTS.get(accountName);
-		Assert.notNull(account);
+		Assert.noNulls(account);
 		return account;
 	}
 
