@@ -12,7 +12,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Researcher</a>
           <div class="dropdown-menu">
-            <div class="container portal-menu">
+            <div class="container uif-appMenu">
               <div class="row">
                 <div class="col-md-3 col-sm-12">
                   <h3>Proposals</h3>
@@ -114,7 +114,7 @@
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unit</a>
           <div class="dropdown-menu">
-            <div class="container portal-menu">
+            <div class="container uif-appMenu">
               <div class="row">
                 <div class="col-md-3 col-sm-12">
                   <h3>Pre-Award</h3>
@@ -197,7 +197,7 @@
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Central Admin</a>
           <div class="dropdown-menu">
-            <div class="container portal-menu">
+            <div class="container uif-appMenu">
               <div class="row">
                 <div class="col-md-4 col-sm-12">
                   <h3>Pre-Award</h3>
@@ -279,7 +279,7 @@
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance</a>
           <div class="dropdown-menu">
-            <div class="container portal-menu">
+            <div class="container uif-appMenu">
               <div class="row">
                 <div class="col-md-4 col-sm-12">
                   <h3>Heading</h3>
@@ -317,7 +317,7 @@
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">System Admin</a>
           <div class="dropdown-menu">
-            <div class="container portal-menu">
+            <div class="container uif-appMenu">
               <div class="row">
                 <div class="col-md-4 col-sm-12">
                   <h3>Heading</h3>

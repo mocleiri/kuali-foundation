@@ -1109,12 +1109,12 @@ th a:hover {
   white-space: nowrap;
   min-width: 10px;
 }
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu {
+.portal-header .navbar .dropdown .dropdown-menu .uif-appMenu {
   min-width: 600px;
   white-space: normal;
   padding-bottom: 20px;
 }
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu h3 {
+.portal-header .navbar .dropdown .dropdown-menu .uif-appMenu h3 {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #ccc;
@@ -1122,19 +1122,19 @@ th a:hover {
   padding-bottom: 12px;
   font-size: 1.1em;
 }
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu h4 {
+.portal-header .navbar .dropdown .dropdown-menu .uif-appMenu h4 {
   font-size: 12px;
   font-weight: normal;
 }
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul {
+.portal-header .navbar .dropdown .dropdown-menu .uif-appMenu ul {
   font-size: 12px;
   list-style: disc;
   padding-left: 20px;
 }
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a {
+.portal-header .navbar .dropdown .dropdown-menu .uif-appMenu ul li a {
   color: #0055cc;
 }
-.portal-header .navbar .dropdown .dropdown-menu .portal-menu ul li a:hover {
+.portal-header .navbar .dropdown .dropdown-menu .uif-appMenu ul li a:hover {
   background: #FFF;
   text-decoration: underline;
 }
