@@ -21,9 +21,18 @@ public final class ImmutableIpPermission {
 		private List<String> cidrNotations = ImmutableList.of(CIDR.ANY.getValue());
 		private Protocol protocol = Protocol.TCP;
 
-		public Builder(int port, List<String> cidrNotations) {
+		public Builder(int port) {
 			this.port = port;
+		}
+
+		public Builder cidrNotations(List<String> cidrNotations) {
 			this.cidrNotations = cidrNotations;
+			return this;
+		}
+
+		public Builder protocol(Protocol protocol) {
+			this.protocol = protocol;
+			return this;
 		}
 
 		public ImmutableIpPermission build() {
