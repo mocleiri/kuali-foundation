@@ -9,6 +9,7 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.security.ImmutableIpPermission;
 import org.kuali.common.aws.ec2.model.security.ImmutableSecurityGroup;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
@@ -42,6 +43,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceStatus;
 import com.amazonaws.services.ec2.model.InstanceStatusDetails;
 import com.amazonaws.services.ec2.model.InstanceStatusSummary;
+import com.amazonaws.services.ec2.model.IpPermission;
 import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
 import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.Reservation;
@@ -93,6 +95,15 @@ public final class DefaultEC2Service implements EC2Service {
 			request.setDescription(group.getDescription().get());
 		}
 		client.createSecurityGroup(request);
+	}
+
+	protected IpPermission getIpPermission(ImmutableIpPermission perm) {
+		IpPermission newPerm = new IpPermission();
+		newPerm.withIpRanges(perm.getCidrNotations());
+		newPerm.withIpProtocol(perm.getProtocol().getValue());
+		newPerm.withFromPort(perm.getPort());
+		newPerm.withToPort(perm.getPort());
+		return newPerm;
 	}
 
 	@Override
