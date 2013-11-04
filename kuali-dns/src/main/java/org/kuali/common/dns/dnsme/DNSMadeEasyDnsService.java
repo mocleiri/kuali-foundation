@@ -427,6 +427,11 @@ public class DNSMadeEasyDnsService implements DnsService {
 
 	@Override
 	public boolean isExistingCNAMERecord(String fqdn) {
+		Optional<DnsRecord> record = getCNAMERecord(fqdn);
+		return record.isPresent();
+	}
+
+	protected Optional<DnsMadeEasyDnsRecord> getSingleCNAMERecord(String fqdn) {
 
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
@@ -444,16 +449,19 @@ public class DNSMadeEasyDnsService implements DnsService {
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
 
 		// If there is more than 1 record, something has gone wrong
-		Assert.isTrue(records.size() <= 1, "Found " + records.size() + " records when expecting a max of 1");
+		Assert.isFalse(records.size() > 1, "Found " + records.size() + " records when expecting a max of 1");
 
-		// Size can only be zero or one here
-		// Return true if size is one
-		// We found a record matching the fqdn they gave us
-		return records.size() == 1;
+		if (records.size() == 0) {
+			return Optional.<DnsMadeEasyDnsRecord> absent();
+		} else {
+			DnsMadeEasyDnsRecord record = records.get(0);
+			return Optional.of(record);
+		}
 	}
 
 	@Override
 	public void deleteCNAMERecord(String fqdn) {
+
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
 
@@ -473,13 +481,14 @@ public class DNSMadeEasyDnsService implements DnsService {
 
 	@Override
 	public Optional<DnsRecord> getCNAMERecord(String fqdn) {
+
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
 
-		// Can only get DNS records for fqdn's in our domain
+		// Can only check for the existence of fqdn's in our domain
 		validateDomain(fqdn, getDomainName());
 
-		// Trim the domain name off the end of the aliasFQDN
+		// Extract the DNS record name from the fqdn
 		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
 
 		// Setup a search object based on the fqdn
@@ -489,7 +498,7 @@ public class DNSMadeEasyDnsService implements DnsService {
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
 
 		// If there is more than 1 record, something has gone wrong
-		Assert.isTrue(records.size() == 1 || records.size() == 0, "Found " + records.size() + " records when expecting either 1 or 0");
+		Assert.isFalse(records.size() > 1, "Found " + records.size() + " records when expecting a max of 1");
 
 		if (records.size() == 0) {
 			// No matching CNAME record
