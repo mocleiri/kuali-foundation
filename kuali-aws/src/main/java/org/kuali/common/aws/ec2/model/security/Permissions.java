@@ -6,9 +6,9 @@ import com.google.common.collect.ImmutableList;
 
 public enum Permissions {
 
-	SSH(Port.SSH.getValue(), Protocol.TCP, CIDR.ANY.getValue()), // Allow SSH (port 22) from anywhere
-	HTTP(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getValue()), // Allow HTTP (port 80) from anywhere
-	HTTPS(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getValue()); // Allow HTTPS (port 443) from anywhere
+	SSH(Port.SSH.getValue(), Protocol.TCP, CIDR.ANY.getNotation()), // Allow SSH (port 22) from anywhere
+	HTTP(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getNotation()), // Allow HTTP (port 80) from anywhere
+	HTTPS(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getNotation()); // Allow HTTPS (port 443) from anywhere
 
 	private final ImmutableIpPermission permission;
 

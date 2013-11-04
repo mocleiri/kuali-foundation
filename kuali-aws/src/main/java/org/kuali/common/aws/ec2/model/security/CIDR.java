@@ -4,14 +4,14 @@ public enum CIDR {
 
 	ANY("0.0.0.0/0");
 
-	private final String value;
+	private final String notation;
 
-	private CIDR(String value) {
-		this.value = value;
+	private CIDR(String notation) {
+		this.notation = notation;
 	}
 
-	public String getValue() {
-		return value;
+	public String getNotation() {
+		return notation;
 	}
 
 }
