@@ -5,7 +5,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
 
 ?>
 
-<div class="panel-group" id="accordion1" style="margin-bottom:;">
+
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="row">
@@ -15,19 +15,19 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                 <div class="col-md-6"> <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person" personnel-id="<?php echo $_SESSION['personnelId']?>"></span></a> </div>
               </div>
             </div>
-            <div id="collapse2" class="panel-collapse collapse" style="height: auto;">
+            <div id="collapse<?php echo $_SESSION['personnelId']?>" class="panel-collapse collapse" style="height: auto;">
               <div class="panel-body">
                 <ul class="nav nav-tabs" id="myTab">
                   <li class="active"><a href="#p1_details" data-toggle="tab">Details</a></li>
-                  <li><a href="#p1_organization" data-toggle="tab">Organization</a></li>
-                  <li><a href="#p1_education" data-toggle="tab">Education</a></li>
-                  <li><a href="#p1_extendedDetails" data-toggle="tab">Extended Details</a></li>
-                  <li><a href="#p1_degrees" data-toggle="tab">Degrees</a></li>
-                  <li><a href="#p1_unitDetails" data-toggle="tab">Unit Details</a></li>
-                  <li><a href="#p1_proposalPersonCertification" data-toggle="tab">Proposal Certification</a></li>
+                  <li><a href="#p1_organization<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Organization</a></li>
+                  <li><a href="#p1_education<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Education</a></li>
+                  <li><a href="#p1_extendedDetails<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Extended Details</a></li>
+                  <li><a href="#p1_degrees<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Degrees</a></li>
+                  <li><a href="#p1_unitDetails<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Unit Details</a></li>
+                  <li><a href="#p1_proposalPersonCertification<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Proposal Certification</a></li>
                 </ul>
                 <div class="tab-content">
-                  <div class="tab-pane active" id="p1_details">
+                  <div class="tab-pane active" id="p1_details<?php echo $_SESSION['personnelId']?>">
                     <h4>Details</h4>
                     <form class="form-horizontal" role="form">
                       <div class="row">
@@ -78,7 +78,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                       </div>
                     </form>
                   </div>
-                  <div class="tab-pane" id="p1_organization">
+                  <div class="tab-pane" id="p1_organization<?php echo $_SESSION['personnelId']?>">
                     <h4>Organization</h4>
                     <form class="form-horizontal" role="form">
                       <div class="row">
@@ -536,7 +536,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                       </div>
                     </form>
                   </div>
-                  <div class="tab-pane" id="p1_education">
+                  <div class="tab-pane" id="p1_education<?php echo $_SESSION['personnelId']?>">
                     <h4>Education</h4>
                     <form class="form-horizontal" role="form">
                       <div class="row">
@@ -577,7 +577,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                       </div>
                     </form>
                   </div>
-                  <div class="tab-pane" id="p1_extendedDetails">
+                  <div class="tab-pane" id="p1_extendedDetails<?php echo $_SESSION['personnelId']?>">
                     <h4>Extended Details</h4>
                     <form class="form-horizontal" role="form">
                       <div class="row">
@@ -756,7 +756,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                       </div>
                     </form>
                   </div>
-                  <div class="tab-pane" id="p1_degrees">
+                  <div class="tab-pane" id="p1_degrees<?php echo $_SESSION['personnelId']?>">
                     <h4>Degrees</h4>
                     <form class="form-horizontal" role="form">
                       <table class="table table-condensed table-smaller-text" id="table">
@@ -788,7 +788,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                       <a class="btn btn-default btn-xs" id="" href="#"><span aria-hidden="true" class="icon-plus"></span> Add Degree</a>
                     </form>
                   </div>
-                  <div class="tab-pane" id="p1_unitDetails">
+                  <div class="tab-pane" id="p1_unitDetails<?php echo $_SESSION['personnelId']?>">
                     <h4>Unit Details</h4>
                     <form class="form-horizontal" role="form">
                       <table class="table table-condensed table-smaller-text" id="table">
@@ -815,7 +815,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                       <a class="btn btn-default btn-xs" id="" href="#"><span aria-hidden="true" class="icon-plus"></span> Add Unit</a>
                     </form>
                   </div>
-                  <div class="tab-pane" id="p1_proposalPersonCertification">
+                  <div class="tab-pane" id="p1_proposalPersonCertification<?php echo $_SESSION['personnelId']?>">
                     <h4>Proposal Certification</h4>
                     <form class="form" role="form">
                       <hr>
@@ -981,4 +981,3 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
               </div>
             </div>
           </div>
-        </div>

@@ -33,18 +33,22 @@ $keyPersonnelMessage = "";
           <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>
 
+
+         <div class="panel-group" id="accordion1" style="margin-bottom:;">
          <div id="personnel-container">
              <?php
 
-                         if(isset($_SESSION['person'])){
-                             foreach($_SESSION['person'] as $key=>$person) {
-                                $_SESSION['personnelId'] = $key;
-                                include "prop.keypersonnel.person.php";
-                             }
-                         }
-                        ?>
+                 if(isset($_SESSION['person'])){
+
+                     foreach($_SESSION['person'] as $key=>$person) {
+                        $_SESSION['personnelId'] = $key;
+                        include "prop.keypersonnel.person.php";
+                     }
+                 }
+                ?>
 
 
+         </div>
          </div>
 
         <!-- // -->
@@ -71,7 +75,7 @@ $keyPersonnelMessage = "";
 <script>
 $(document).ready(function(){
     $(".remove-person").live("click", function(){
-            var container = $(this).parents('div').eq(4);
+            var container = $(this).parents('div').eq(3);
 
             if(confirm("Are you sure you want to remove this person")) $(container).remove();
              console.log($(this).attr('personnel-id'));
