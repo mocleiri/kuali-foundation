@@ -60,13 +60,23 @@ public class InvokeEC2ServiceConfig {
 			String name = group.getGroupName();
 			if (name.equals("ssh")) {
 				String desc = group.getDescription();
-				list.add("name: " + name + " - [" + desc + "]");
+				list.add(name + " - [" + desc + "]");
 				List<IpPermission> perms = group.getIpPermissions();
 				for (IpPermission perm : perms) {
 					Integer fromPort = perm.getFromPort();
-					String ipProtocol = perm.getIpProtocol();
 					Integer toPort = perm.getToPort();
-					list.add("  from port: " + fromPort + " ip protocol: " + ipProtocol + " to port: " + toPort);
+					boolean identical = fromPort != null && fromPort.equals(toPort);
+					if (identical) {
+						list.add("  ports: " + fromPort);
+					} else {
+						list.add("  ports: " + fromPort + "-" + toPort);
+					}
+					List<String> ipRanges = perm.getIpRanges();
+					for (String ipRange : ipRanges) {
+						list.add("  ip range: " + ipRange);
+					}
+					String ipProtocol = perm.getIpProtocol();
+					list.add("  ip protocol: " + ipProtocol);
 				}
 			}
 		}
