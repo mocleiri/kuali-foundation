@@ -9,7 +9,7 @@ import org.kuali.common.util.Assert;
 
 public enum SecurityGroups {
 
-	CI("ci", "Jenkins CI Server", Permissions.WEB_SERVER);
+	CI("ContinuousIntegrationSG", "Jenkins CI Server", Permissions.WEB_SERVER);
 
 	private final KualiSecurityGroup group;
 
