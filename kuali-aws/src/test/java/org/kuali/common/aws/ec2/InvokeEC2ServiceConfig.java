@@ -39,7 +39,7 @@ public class InvokeEC2ServiceConfig {
 	EnvironmentService env;
 
 	@Bean
-	public Object launchAndThenTerminate() {
+	public Object invokeEC2Service() {
 		LaunchInstanceContext context = LaunchUtils.getContext(env);
 		Instance instance = service.launchInstance(context);
 		System.out.println(instance);
