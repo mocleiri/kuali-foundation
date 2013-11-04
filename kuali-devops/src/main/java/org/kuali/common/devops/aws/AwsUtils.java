@@ -23,7 +23,7 @@ public class AwsUtils {
 	}
 
 	public static AwsAccount getAwsAccount(EnvironmentService env, AwsAccount provided) {
-		String accountName = env.getString(ACCOUNT_KEY, provided.getName());
+		String accountName = NullUtils.trimToNull(env.getString(ACCOUNT_KEY, provided.getName()));
 		AwsAccount account = ACCOUNTS.get(accountName);
 		Assert.noNulls(account);
 		return account;
