@@ -71,19 +71,19 @@ public class TestDnsConfig {
 			String aliasFQDN = "delete-me-now.devops.kuali.org";
 			String fqdn = "www.yahoo.com";
 			int ttl = 60;
-			boolean exists = service.cnameExists(aliasFQDN);
+			boolean exists = service.isExistingCNAMERecord(aliasFQDN);
 			if (exists) {
 				logger.info("deleting existing record");
-				service.cnameDelete(aliasFQDN);
+				service.deleteCNAMERecord(aliasFQDN);
 			} else {
 				logger.info("no existing record");
 			}
 			logger.info("adding a record");
-			DnsRecord added = service.cnameCreate(aliasFQDN, fqdn, ttl);
+			DnsRecord added = service.createCNAMERecord(aliasFQDN, fqdn, ttl);
 			String log = getLog(added);
 			logger.info(log);
 			logger.info("removing record we just created");
-			service.cnameDelete(aliasFQDN);
+			service.deleteCNAMERecord(aliasFQDN);
 			logger.info("record removed");
 		} catch (Exception e) {
 			e.printStackTrace();
