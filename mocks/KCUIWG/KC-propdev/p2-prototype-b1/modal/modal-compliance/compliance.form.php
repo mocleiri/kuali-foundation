@@ -3,6 +3,8 @@
       $(document).ready(function(){
           $('#compliance-form<?php echo $id?> #type').val("<?php echo $entry['type']?>");
           $('#compliance-form<?php echo $id?> #approval_status').val("<?php echo $entry['approval_status']?>");
+            $('#compliance-form<?php echo $id?> #exemptions').val([<?php echo $entry['exemptions']?>]);
+
       });
 
     </script>
@@ -73,7 +75,7 @@
                       <div class="form-group clearfix">
                         <label for="exemptions" class="control-label col-md-3">Exemption:</label>
                         <div class="col-md-9">
-                          <select name="exemptions" id="exemptions" class="form-control input-sm col-md-8" multiple>
+                          <select name="exemptions[]" id="exemptions" class="form-control input-sm col-md-8" multiple>
                             <option >E1</option>
                             <option >E2</option>
                             <option >E3</option>

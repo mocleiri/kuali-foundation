@@ -40,7 +40,7 @@
                   <div class="form-group clearfix">
                     <label for="exemption_no" class="control-label col-md-3">Exemption:</label>
                     <div class="col-md-9">
-                      <p class="form-control-static">E2, E6</p>
+                      <p class="form-control-static"><?php echo $entry['exemptions']?></p>
                     </div>
                   </div>
                   <div class="btn-row-widget-action pull-right">

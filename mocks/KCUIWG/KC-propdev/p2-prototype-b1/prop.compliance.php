@@ -67,10 +67,10 @@ $(document).ready(function(){
         var data = $(form).serialize();
         var form_id =  $(this).closest('form').attr('id');
         var entryId= $("#" + form_id + " #id").val();
-        console.log(data);
-        console.log(entryId);
 
-        $.post('save-session.php', data, function(){
+
+        $.post('save-session.php', data, function(v){
+        console.log(v);
              $.post('process.php', {"action": "updateComplianceEntry", "id" : entryId }, function(t){
                   $('#complianceEntry' + entryId).replaceWith(t);
 

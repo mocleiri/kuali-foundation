@@ -22,8 +22,14 @@
 
      break;
      case "updateComplianceEntry":
+          //print_r($_REQUEST);
          foreach($_REQUEST as $index=>$field){
-             $list[$index] = trim($field);
+            if(is_array($field)){
+            //get the exceptions array into a string
+               $list[$index] = implode(', ', $field);
+            }else{
+                $list[$index] = trim($field);
+             }
           }
           $_SESSION['compliance'][$_REQUEST['id']] = $list;
      break;

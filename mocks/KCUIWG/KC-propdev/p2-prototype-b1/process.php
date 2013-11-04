@@ -5,6 +5,10 @@
          $id = $_REQUEST['id'];
          $entry = $_SESSION['compliance'][$id];
          //print_r($entry);
+
+         $exemptions = explode(',', $entry['exemptions']);
+
+         $entry['exemptions'] = str_replace(' ', '', '"'.implode('","',$exemptions).'"');
          $actionLabel = "Update entry";
          $action = "updateComplianceEntry";
          include('modal/inc/header.php');
@@ -26,6 +30,7 @@
       include "inc/compliance.entry.php";
     break;
     case "updateComplianceEntry":
+
     $id = $_REQUEST['id'];
         $entry = $_SESSION['compliance'][$id];
         include "inc/compliance.entry.php";
