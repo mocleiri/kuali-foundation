@@ -255,7 +255,10 @@ public final class DefaultEC2Service implements EC2Service {
 				int sizeInGigabytes = rootVolume.getSizeInGigabytes().get();
 				device.setVolumeSize(sizeInGigabytes);
 			}
-			device.setDeleteOnTermination(rootVolume.isDeleteOnTermination());
+			if (rootVolume.getDeleteOnTermination().isPresent()) {
+				boolean deleteOnTermination = rootVolume.getDeleteOnTermination().get();
+				device.setDeleteOnTermination(deleteOnTermination);
+			}
 			List<BlockDeviceMapping> mappings = Collections.singletonList(mapping);
 			rir.setBlockDeviceMappings(mappings);
 		}

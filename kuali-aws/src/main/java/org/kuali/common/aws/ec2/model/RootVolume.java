@@ -6,26 +6,23 @@ import com.google.common.base.Optional;
 
 public final class RootVolume {
 
-	// Default is to delete the root volume when its associated instance is terminated
-	private static final boolean DEFAULT_DELETE_ON_TERMINATION = true;
-
 	public RootVolume() {
-		this(DEFAULT_DELETE_ON_TERMINATION);
+		this(Optional.<Integer> absent(), Optional.<Boolean> absent());
 	}
 
 	public RootVolume(int sizeInGigabytes) {
-		this(sizeInGigabytes, DEFAULT_DELETE_ON_TERMINATION);
+		this(Optional.of(sizeInGigabytes), Optional.<Boolean> absent());
 	}
 
 	public RootVolume(boolean deleteOnTermination) {
-		this(Optional.<Integer> absent(), deleteOnTermination);
+		this(Optional.<Integer> absent(), Optional.of(deleteOnTermination));
 	}
 
 	public RootVolume(int sizeInGigabytes, boolean deleteOnTermination) {
-		this(Optional.of(sizeInGigabytes), deleteOnTermination);
+		this(Optional.of(sizeInGigabytes), Optional.of(deleteOnTermination));
 	}
 
-	public RootVolume(Optional<Integer> sizeInGigabytes, boolean deleteOnTermination) {
+	public RootVolume(Optional<Integer> sizeInGigabytes, Optional<Boolean> deleteOnTermination) {
 		Assert.noNulls(sizeInGigabytes);
 		if (sizeInGigabytes.isPresent()) {
 			Assert.positive(sizeInGigabytes.get());
@@ -35,13 +32,13 @@ public final class RootVolume {
 	}
 
 	private final Optional<Integer> sizeInGigabytes;
-	private final boolean deleteOnTermination;
+	private final Optional<Boolean> deleteOnTermination;
 
 	public Optional<Integer> getSizeInGigabytes() {
 		return sizeInGigabytes;
 	}
 
-	public boolean isDeleteOnTermination() {
+	public Optional<Boolean> getDeleteOnTermination() {
 		return deleteOnTermination;
 	}
 

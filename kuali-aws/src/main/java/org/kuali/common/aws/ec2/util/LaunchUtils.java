@@ -113,7 +113,7 @@ public class LaunchUtils {
 		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
 		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
 		if (deleteOnTermination.isPresent()) {
-			return Optional.of(new RootVolume(sizeInGigabytes, deleteOnTermination.get()));
+			return Optional.of(new RootVolume(sizeInGigabytes, deleteOnTermination));
 		} else if (sizeInGigabytes.isPresent()) {
 			return Optional.of(new RootVolume(sizeInGigabytes.get()));
 		} else {
@@ -125,7 +125,7 @@ public class LaunchUtils {
 		if (env.containsProperty(ROOT_VOLUME_DELETE_KEY)) {
 			return SpringUtils.getOptionalBoolean(env, ROOT_VOLUME_SIZE_KEY);
 		} else {
-			return provided.isPresent() ? Optional.of(provided.get().isDeleteOnTermination()) : Optional.<Boolean> absent();
+			return provided.isPresent() ? provided.get().getDeleteOnTermination() : Optional.<Boolean> absent();
 		}
 	}
 
