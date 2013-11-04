@@ -40,7 +40,8 @@ public class DnsUtils {
 	}
 
 	protected static void validateLabel(String label) {
-		// Can't have a dot followed immediately by another dot
+
+		// Null, the empty string, and pure whitespace are not allowed
 		Assert.noBlanks(label);
 
 		// Max length for an individual label is 63 characters
