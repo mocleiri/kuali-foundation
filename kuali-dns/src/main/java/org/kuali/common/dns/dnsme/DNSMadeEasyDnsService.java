@@ -439,14 +439,17 @@ public final class DNSMadeEasyDnsService implements DnsService {
 		// Can only delete fqdn's in our domain
 		validateDomain(fqdn, getDomainName());
 
-		// If it exists, delete it
-		if (isExistingCNAMERecord(fqdn)) {
+		// Pull out the existing record (if there is one)
+		Optional<DnsRecord> optional = getCNAMERecord(fqdn);
 
-			// Trim the domain name off the fqdn
-			String recordName = getRecordNameFromFQDN(fqdn, domainName);
+		// If there is a record we need to delete it
+		if (optional.isPresent()) {
+
+			// Extract the DnsRecord from the optional
+			DnsRecord record = optional.get();
 
 			// Delete the DNS record
-			deleteRecord(domain, recordName, DnsRecordType.CNAME);
+			deleteRecord(domain, record.getName(), record.getType());
 		}
 	}
 
