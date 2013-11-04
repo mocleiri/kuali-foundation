@@ -479,8 +479,11 @@ public class DNSMadeEasyDnsService implements DnsService {
 		// Can only get DNS records for fqdn's in our domain
 		validateDomain(fqdn, getDomainName());
 
+		// Trim the domain name off the end of the aliasFQDN
+		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
+
 		// Setup a search object based on the fqdn
-		DnsMadeEasySearchCriteria search = getSearch(fqdn, DnsRecordType.CNAME);
+		DnsMadeEasySearchCriteria search = getSearch(recordName, DnsRecordType.CNAME);
 
 		// Get a list of matching records from DNSME
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
@@ -498,7 +501,7 @@ public class DNSMadeEasyDnsService implements DnsService {
 			// Create a new DnsRecord from the DNSME record
 			DnsRecord record = new DnsRecord(dnsme.getName(), dnsme.getType(), dnsme.getData());
 
-			// Return an Optional from the record
+			// Return an Optional containing the DnsRecord
 			return Optional.of(record);
 		}
 	}
