@@ -67,16 +67,12 @@ $(document).ready(function(){
 									<label for="proposal_type" class="control-label col-md-3 required">* Proposal type: </label>
 									<div class="col-md-9">
 										<select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-											<optgroup label="Most frequent">
-												<option value="1" selected="selected">New</option>
-												<option value="4">Continuation</option>
-											</optgroup>
-											<optgroup label="">
-												<option value="3">Renewal</option>
-												<option value="2">Resubmission</option>
-												<option value="5">Revision</option>
-												<option value="6">Task Order</option>
-											</optgroup>
+											<option value="1" selected="selected">New</option>
+											<option value="4">Continuation</option>
+											<option value="3">Renewal</option>
+											<option value="2">Resubmission</option>
+											<option value="5">Revision</option>
+											<option value="6">Task Order</option>
 										</select>
 									</div>
 								</div>
@@ -85,12 +81,10 @@ $(document).ready(function(){
 									<label for="lead_unit" class="control-label col-md-3 required">* Lead unit: </label>
 									<div class="col-md-9">
 										<select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-											
-												<option value="000001">000001 - University</option>
-												<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
-												<option value="IN-CARD" selected="selected">IN-CARD - CARDIOLOGY</option>
-												<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
-											
+											<option value="000001">000001 - University</option>
+											<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
+											<option value="IN-CARD" selected="selected">IN-CARD - CARDIOLOGY</option>
+											<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
 										</select>
 									</div>
 								</div>
@@ -99,20 +93,15 @@ $(document).ready(function(){
 									<label for="activity_type" class="control-label col-md-3 required">* Activity type: </label>
 									<div class="col-md-9">
 										<select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
-												<optgroup label="Most frequent">
-													<option value="1" selected="selected">Research</option>
-													<option value="4">Clinical Trial</option>
-												</optgroup>
-										
-												<optgroup label="">
-													<option value="9">Construction</option>
-													<option value="7">Fellowship - Post-Doctoral</option>
-													<option value="6">Fellowship - Pre-Doctoral</option>
-													<option value="2">Instruction</option>
-													<option value="3">Public Service</option>
-													<option value="8">Student Services</option>
-													<option value="5">Other</option>
-												</optgroup>
+											<option value="1" selected="selected">Research</option>
+											<option value="4">Clinical Trial</option>
+											<option value="9">Construction</option>
+											<option value="7">Fellowship - Post-Doctoral</option>
+											<option value="6">Fellowship - Pre-Doctoral</option>
+											<option value="2">Instruction</option>
+											<option value="3">Public Service</option>
+											<option value="8">Student Services</option>
+											<option value="5">Other</option>
 										</select>
 									</div>
 								</div>
