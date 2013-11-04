@@ -88,6 +88,7 @@ public final class DefaultEC2Service implements EC2Service {
 		return ImmutableList.copyOf(names);
 	}
 
+	@Override
 	public void createSecurityGroup(KualiSecurityGroup group) {
 		CreateSecurityGroupRequest request = new CreateSecurityGroupRequest();
 		request.setGroupName(group.getName());
