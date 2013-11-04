@@ -95,7 +95,7 @@ public interface EC2Service {
 	 * </p>
 	 * 
 	 * <p>
-	 * An INSTANCE status indicates things like "is operating system running"
+	 * An INSTANCE status indicates something about the state of software running on the instance, aka "is operating system running"
 	 * </p>
 	 */
 	public String getStatus(String instanceId, InstanceStatusType type, String statusName);
