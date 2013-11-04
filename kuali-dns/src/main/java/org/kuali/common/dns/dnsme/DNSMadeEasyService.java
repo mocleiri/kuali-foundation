@@ -234,6 +234,13 @@ public class DNSMadeEasyService implements DnsService {
 		deleteObject(url);
 	}
 
+	protected void deleteRecord(DnsMadeEasyDomain domain, String name, DnsRecordType type) {
+		DnsMadeEasySearchCriteria search = getSearch(name, type);
+		DnsMadeEasyDnsRecord record = getRecord(domain, search);
+		Assert.isTrue(record.getId() != null, "id is required");
+		deleteRecord(domain, record.getId());
+	}
+
 	protected void deleteRecord(DnsMadeEasyDomain domain, String name) {
 		DnsMadeEasyDnsRecord record = getRecord(domain, name);
 		Assert.isTrue(record.getId() != null, "id is required");
@@ -457,7 +464,7 @@ public class DNSMadeEasyService implements DnsService {
 			String recordName = getRecordNameFromFQDN(fqdn, domainName);
 
 			// Delete the DNS record
-			deleteRecord(domain, recordName);
+			deleteRecord(domain, recordName, DnsRecordType.CNAME);
 		}
 	}
 
