@@ -1,5 +1,6 @@
-package org.kuali.common.dns.dnsme.model;
+package org.kuali.common.dns.dnsme.spring;
 
+import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.util.Assert;
 
 public enum Credentials {
