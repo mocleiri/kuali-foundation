@@ -3,6 +3,8 @@ package org.kuali.common.aws.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.kuali.common.util.Assert;
+
 public enum Regions {
 
 	AP_NORTHEAST_1("ap-northeast-1", "Asia Pacific (Tokyo)"), //
@@ -18,6 +20,7 @@ public enum Regions {
 	private final String location;
 
 	private Regions(String name, String location) {
+		Assert.noBlanks(name, location);
 		this.name = name;
 		this.location = location;
 	}
