@@ -30,6 +30,7 @@ import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
+import org.kuali.common.devops.dnsme.DefaultDNSMadeEasyContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMadeEasyConfig;
 import org.kuali.common.util.execute.Executable;
@@ -46,7 +47,7 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ SpringServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, DNSMadeEasyConfig.class })
+@Import({ SpringServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, DefaultDNSMadeEasyContextConfig.class, DNSMadeEasyConfig.class })
 public class CreateMasterConfig {
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
