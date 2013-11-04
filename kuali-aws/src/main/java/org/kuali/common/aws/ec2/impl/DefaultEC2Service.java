@@ -102,9 +102,11 @@ public final class DefaultEC2Service implements EC2Service {
 
 	public void setPermissions(String securityGroupName, List<Permission> permissions) {
 		List<IpPermission> perms = getIpPermissions(permissions);
-		AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
-		authorizeSecurityGroupIngressRequest.withGroupName(securityGroupName).withIpPermissions(perms);
-		client.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+		for (IpPermission perm : perms) {
+			AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
+			authorizeSecurityGroupIngressRequest.withGroupName(securityGroupName).withIpPermissions(perm);
+			client.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+		}
 	}
 
 	protected List<IpPermission> getIpPermissions(List<Permission> permissions) {

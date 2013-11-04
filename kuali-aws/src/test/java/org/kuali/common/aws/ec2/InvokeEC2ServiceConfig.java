@@ -18,6 +18,7 @@ package org.kuali.common.aws.ec2;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
@@ -56,6 +57,7 @@ public class InvokeEC2ServiceConfig {
 		for (String group : groups) {
 			logger.info(group);
 		}
+		service.createSecurityGroup(SecurityGroups.CI.getGroup());
 		return null;
 	}
 
