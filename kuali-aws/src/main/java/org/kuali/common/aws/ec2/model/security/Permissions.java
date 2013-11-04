@@ -24,4 +24,6 @@ public enum Permissions {
 		return permission;
 	}
 
+	public static final List<ImmutableIpPermission> WEB_SERVER = ImmutableList.of(SSH.getPermission(), HTTP.getPermission(), HTTPS.getPermission());
+
 }
