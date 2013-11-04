@@ -76,6 +76,11 @@ public interface EC2Service {
 	public void tag(String resourceId, List<Tag> tags);
 
 	/**
+	 * Return a list containing the names of all the security groups.
+	 */
+	public List<String> getSecurityGroupNames();
+
+	/**
 	 * <p>
 	 * Each Amazon EC2 instance has a list of statuses associated with it.
 	 * </p>
