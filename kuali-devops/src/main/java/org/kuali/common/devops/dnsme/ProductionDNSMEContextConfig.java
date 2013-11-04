@@ -3,7 +3,7 @@ package org.kuali.common.devops.dnsme;
 import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
-import org.kuali.common.dns.dnsme.spring.DNSMadeEasyContextConfig;
+import org.kuali.common.dns.dnsme.spring.DNSMEServiceContextConfig;
 import org.kuali.common.dns.dnsme.spring.DNSMadeEasyUtils;
 import org.kuali.common.dns.spring.DomainNameConfig;
 import org.kuali.common.util.enc.EncryptionService;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class ProductionDNSMEContextConfig implements DNSMadeEasyContextConfig {
+public class ProductionDNSMEContextConfig implements DNSMEServiceContextConfig {
 
 	@Autowired
 	EnvironmentService env;
