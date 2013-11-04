@@ -9,7 +9,7 @@ public class DnsUtils {
 	private static final char HYPHEN = '-';
 	private static final int MAX_FQDN_LENGTH = 253;
 	private static final int MAX_LABEL_LENGTH = 63;
-	
+
 	/**
 	 * <p>
 	 * Verify that <code>fqdn</code> is a syntactically valid DNS name.
@@ -33,7 +33,7 @@ public class DnsUtils {
 		// Split up the string using dot as a separator
 		String[] labels = StringUtils.splitPreserveAllTokens(fqdn, DOT);
 
-		// Examine each portion of the dns name
+		// Validate each portion of the dns name
 		for (String label : labels) {
 			validateLabel(label);
 		}
