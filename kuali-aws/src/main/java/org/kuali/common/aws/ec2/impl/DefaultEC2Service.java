@@ -124,12 +124,11 @@ public final class DefaultEC2Service implements EC2Service {
 		TerminateInstancesRequest request = new TerminateInstancesRequest();
 		request.setInstanceIds(Collections.singletonList(instanceId));
 		client.terminateInstances(request);
-		WaitContext wc = new WaitContext.Builder(context.getTerminationTimeoutMillis()).sleepMillis(context.getSleepMillis()).initialPauseMillis(context.getInitialPauseMillis())
-				.build();
-		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instanceId, InstanceStateName.TERMINATED.getValue() };
+		WaitContext waitContext = getWaitContext(context.getTerminationTimeoutMillis());
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instanceId, InstanceStateName.TERMINATED.getValue() };
 		logger.info("Waiting up to {} for [{}] to terminate", args);
 		Condition condition = new InstanceStateCondition(this, instanceId, InstanceStateName.TERMINATED);
-		WaitResult result = service.wait(wc, condition);
+		WaitResult result = service.wait(waitContext, condition);
 		Object[] resultArgs = { instanceId, FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] has been terminated - {}", resultArgs);
 	}
@@ -217,14 +216,19 @@ public final class DefaultEC2Service implements EC2Service {
 		return instances.get(0);
 	}
 
+	protected WaitContext getWaitContext(int timeout) {
+		int sleep = context.getSleepMillis();
+		int pause = context.getInitialPauseMillis();
+		return new WaitContext.Builder(timeout).sleepMillis(sleep).initialPauseMillis(pause).build();
+	}
+
 	protected void waitForOnlineConfirmation(Instance instance, LaunchInstanceContext context) {
 		InstanceStateName running = InstanceStateName.RUNNING;
-		WaitContext wc = new WaitContext.Builder(context.getTimeoutMillis()).sleepMillis(this.context.getSleepMillis()).initialPauseMillis(this.context.getInitialPauseMillis())
-				.build();
-		Object[] args = { FormatUtils.getTime(wc.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
+		WaitContext waitContext = getWaitContext(context.getTimeoutMillis());
+		Object[] args = { FormatUtils.getTime(waitContext.getTimeoutMillis()), instance.getInstanceId(), running.getValue() };
 		logger.info("Waiting up to {} for [{}] to come online", args);
 		Condition online = new IsOnlineCondition(this, instance.getInstanceId());
-		WaitResult result = service.wait(wc, online);
+		WaitResult result = service.wait(waitContext, online);
 		Object[] resultArgs = { instance.getInstanceId(), FormatUtils.getTime(result.getElapsed()) };
 		logger.info("[{}] is now online - {}", resultArgs);
 	}
