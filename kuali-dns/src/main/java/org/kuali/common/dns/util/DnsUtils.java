@@ -35,24 +35,27 @@ public class DnsUtils {
 
 		// Examine each portion of the dns name
 		for (String label : labels) {
-
-			// Can't have a dot followed immediately by another dot
-			Assert.noBlanks(label);
-
-			// Max length for an individual label is 63 characters
-			int len = label.length();
-			Assert.isTrue(len <= MAX_LABEL_LENGTH, "[" + label + "] is " + len + " characters long.  Max is " + MAX_LABEL_LENGTH);
-
-			// Can't begin or end with a hyphen
-			Assert.isFalse(label.charAt(0) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
-			Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] ends with " + HYPHEN);
-
-			// Only characters allowed are a..z, A..Z, 0..9, and the hyphen
-			Assert.isTrue(isLettersDigitsHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
+			validateLabel(label);
 		}
 	}
 
-	protected static boolean isLettersDigitsHyphen(String label) {
+	protected static void validateLabel(String label) {
+		// Can't have a dot followed immediately by another dot
+		Assert.noBlanks(label);
+
+		// Max length for an individual label is 63 characters
+		int len = label.length();
+		Assert.isTrue(len <= MAX_LABEL_LENGTH, "[" + label + "] is " + len + " characters long.  Max is " + MAX_LABEL_LENGTH);
+
+		// Can't begin or end with a hyphen
+		Assert.isFalse(label.charAt(0) == HYPHEN, "[" + label + "] begins with " + HYPHEN);
+		Assert.isFalse(label.charAt(len - 1) == HYPHEN, "[" + label + "] ends with " + HYPHEN);
+
+		// Only characters allowed are a..z, A..Z, 0..9, and the hyphen
+		Assert.isTrue(isLetterDigitHyphen(label), "Only a..z, A..Z, 0..9, and the hyphen character are allowed");
+	}
+
+	protected static boolean isLetterDigitHyphen(String label) {
 		char[] chars = label.toCharArray();
 		for (char c : chars) {
 			if (!isLetterDigitHyphen(c)) {
