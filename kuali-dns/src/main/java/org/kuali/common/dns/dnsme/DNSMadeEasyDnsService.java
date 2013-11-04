@@ -45,6 +45,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -471,7 +472,7 @@ public class DNSMadeEasyDnsService implements DnsService {
 	}
 
 	@Override
-	public DnsRecord getCNAMERecord(String fqdn) {
+	public Optional<DnsRecord> getCNAMERecord(String fqdn) {
 		// Make sure it's a valid fully qualified domain name
 		DnsUtils.validateFQDN(fqdn);
 
@@ -485,13 +486,21 @@ public class DNSMadeEasyDnsService implements DnsService {
 		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
 
 		// If there is more than 1 record, something has gone wrong
-		Assert.isTrue(records.size() == 1, "Found " + records.size() + " records when expecting exactly 1");
+		Assert.isTrue(records.size() == 1 || records.size() == 0, "Found " + records.size() + " records when expecting either 1 or 0");
 
-		// Extract the first (and only) item in the list
-		DnsMadeEasyDnsRecord record = records.get(0);
+		if (records.size() == 0) {
+			// No matching CNAME record
+			return Optional.<DnsRecord> absent();
+		} else {
+			// Extract the first (and only) item in the list
+			DnsMadeEasyDnsRecord dnsme = records.get(0);
 
-		// Create a new DnsRecord from the DNSME record
-		return new DnsRecord(record.getName(), record.getType(), record.getData());
+			// Create a new DnsRecord from the DNSME record
+			DnsRecord record = new DnsRecord(dnsme.getName(), dnsme.getType(), dnsme.getData());
+
+			// Return an Optional from the record
+			return Optional.of(record);
+		}
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import java.util.List;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 
+import com.google.common.base.Optional;
+
 /**
  * <p>
  * This service provides DNS operations on a given domain name, eg <code>kuali.org</code>.
@@ -58,15 +60,12 @@ public interface DnsService {
 	void deleteCNAMERecord(String fqdn);
 
 	/**
-	 * Return the DNS CNAME record for <code>fqdn</code>.
+	 * Return the DNS CNAME record for <code>fqdn</code>, if one exists.
 	 * 
 	 * @throws IllegalArgumentException
-	 *             <ul>
-	 *             <li>If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.</li>
-	 *             <li>If there is no corresponding DNS record for <code>fqdn</code></li>
-	 *             </ul>
+	 *             If <code>fqdn</code> is blank, is not a syntactically valid DNS name, or does not end with this domain name.
 	 */
-	DnsRecord getCNAMERecord(String fqdn);
+	Optional<DnsRecord> getCNAMERecord(String fqdn);
 
 	/**
 	 * Return a list of all of the DNS records for this domain.
