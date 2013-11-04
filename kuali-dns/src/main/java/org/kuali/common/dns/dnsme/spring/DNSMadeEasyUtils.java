@@ -1,4 +1,4 @@
-package org.kuali.common.dns.spring;
+package org.kuali.common.dns.dnsme.spring;
 
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyService;

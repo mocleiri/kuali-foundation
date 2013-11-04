@@ -1,4 +1,4 @@
-package org.kuali.common.dns.spring;
+package org.kuali.common.dns.dnsme.spring;
 
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.DNSMadeEasyService;
@@ -6,6 +6,8 @@ import org.kuali.common.dns.dnsme.URLS;
 import org.kuali.common.dns.dnsme.model.Credentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyCredentials;
 import org.kuali.common.dns.dnsme.model.DNSMadeEasyServiceContext;
+import org.kuali.common.dns.spring.DnsServiceConfig;
+import org.kuali.common.dns.spring.DomainNameConfig;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;

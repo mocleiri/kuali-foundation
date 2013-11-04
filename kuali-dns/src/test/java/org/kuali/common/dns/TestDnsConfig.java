@@ -20,9 +20,9 @@ import java.util.List;
 
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
+import org.kuali.common.dns.dnsme.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
-import org.kuali.common.dns.spring.DNSMadeEasyConfig;
 import org.kuali.common.dns.spring.DnsServiceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.LoggerUtils;
