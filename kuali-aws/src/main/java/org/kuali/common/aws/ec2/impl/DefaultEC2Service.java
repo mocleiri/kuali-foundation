@@ -64,7 +64,7 @@ public final class DefaultEC2Service implements EC2Service {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultEC2Service.class);
 
 	// Don't expose the AmazonEC2Client object via a getter
-	// It is mutable and not threadsafe
+	// It is mutable and therefore not inherently thread safe
 	private final AmazonEC2Client client;
 
 	private final EC2ServiceContext context;
