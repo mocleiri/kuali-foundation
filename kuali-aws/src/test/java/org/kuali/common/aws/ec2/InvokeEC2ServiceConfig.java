@@ -15,29 +15,65 @@
  */
 package org.kuali.common.aws.ec2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.kuali.common.aws.ec2.api.EC2Service;
+import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
+import com.amazonaws.services.ec2.model.IpPermission;
+import com.amazonaws.services.ec2.model.SecurityGroup;
+
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
 public class InvokeEC2ServiceConfig {
 
+	private static final Logger logger = LoggerFactory.getLogger(InvokeEC2ServiceConfig.class);
+
 	@Autowired
 	EC2Service service;
+
+	@Autowired
+	EC2ServiceContext context;
 
 	@Autowired
 	EnvironmentService env;
 
 	@Bean
 	public Object invokeEC2Service() {
-		boolean online = service.isOnline("i-7757010f");
-		System.out.println("i-7757010f: " + online);
+		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
+		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
+		List<SecurityGroup> groups = result.getSecurityGroups();
+		List<String> list = new ArrayList<String>();
+		for (SecurityGroup group : groups) {
+			String name = group.getGroupName();
+			if (name.equals("ssh")) {
+				String desc = group.getDescription();
+				list.add("name: " + name + " - [" + desc + "]");
+				List<IpPermission> perms = group.getIpPermissions();
+				for (IpPermission perm : perms) {
+					Integer fromPort = perm.getFromPort();
+					String ipProtocol = perm.getIpProtocol();
+					Integer toPort = perm.getToPort();
+					list.add("  from port: " + fromPort + " ip protocol: " + ipProtocol + " to port: " + toPort);
+				}
+			}
+		}
+		// Collections.sort(list);
+		for (String element : list) {
+			logger.info(element);
+		}
 		return null;
 	}
 
