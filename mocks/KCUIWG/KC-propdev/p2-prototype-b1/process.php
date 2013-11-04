@@ -7,7 +7,9 @@
          //print_r($entry);
          $actionLabel = "Update entry";
          $action = "updateComplianceEntry";
-        include('modal/modal-compliance/compliance.form.php');
+         include('modal/inc/header.php');
+         include('modal/modal-compliance/compliance.form.php');
+           include('modal/inc/footer.php');
 
     break;
     case "previewComplianceEntry":
@@ -36,7 +38,7 @@
         break;
     case "editAttachmentProposalEntry":
         $id = $_REQUEST['id'];
-          // $entry = $_SESSION['attachments']['proposal'][$id];
+          $entry = $_SESSION['attachments']['proposal'][$id];
           //print_r($entry);
           $actionLabel = "Update entry";
           $action = "updateAttachmentProposalEntry";
@@ -45,7 +47,7 @@
     break;
     case "previewAttachmentProposalEntry":
           $id = $_REQUEST['id'];
-           //$entry = $_SESSION['attachments']['proposal'][$id];
+          $entry = $_SESSION['attachments']['proposal'][$id];
          //  print_r($entry);
           include('inc/attachments.proposal.preview.php');
     break;

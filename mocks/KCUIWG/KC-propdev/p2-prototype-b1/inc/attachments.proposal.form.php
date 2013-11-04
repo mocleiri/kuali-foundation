@@ -14,7 +14,7 @@
                           <div class="form-group clearfix">
                             <label for="" class="control-label col-md-3">Added by:</label>
                             <div class="col-md-9 input-group">
-                              <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
+                              <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(<?php echo $entry['uploadTime'];?>)</span></p>
                             </div>
                           </div>
                           <div class="form-group clearfix">
@@ -51,19 +51,19 @@
                           <div class="form-group clearfix">
                             <label for="contact" class="control-label col-md-3">Contact:</label>
                             <div class="col-md-9 input-group">
-                              <input type="text" name="" id="contact" class="form-control input-sm col-md-8 " placeholder="" value="Bill Evans">
+                              <input type="text" name="" id="contact" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['contact']?>">
                             </div>
                           </div>
                           <div class="form-group clearfix">
                             <label for="email" class="control-label col-md-3">Email:</label>
                             <div class="col-md-9 input-group">
-                              <input type="text" name="" id="email" class="form-control input-sm col-md-8 " placeholder="" value="bill@evans.com">
+                              <input type="text" name="" id="email" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['email']?>">
                             </div>
                           </div>
                           <div class="form-group clearfix">
                             <label for="" class="control-label col-md-3">Phone:</label>
                             <div class="col-md-9 input-group">
-                              <input type="text" name="" id="" class="form-control input-sm col-md-8 " placeholder="" value="734-234-3735">
+                              <input type="text" name="" id="" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['phone']?>">
                             </div>
                           </div>
                         </div>
@@ -71,7 +71,7 @@
                           <div class="form-group clearfix">
                             <label for="file" class="control-label col-md-3">File:</label>
                             <div class="col-md-9 input-group">
-                              <p class="form-control-static"> <span class="pull-left"> <span aria-hidden="true" class="icon-file-2"></span> <a href="#"> my_narritive2.pdf</a></span>
+                              <p class="form-control-static"> <span class="pull-left"> <span aria-hidden="true" class="icon-file-2"></span> <a href="#"> <?php echo $entry['uploadFile']?></a></span>
                               <span class="">
                               <div class="dropdown pull-right"><span class="caret"></span> <a data-toggle="dropdown" href="#">Actions</a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -86,13 +86,13 @@
                           <div class="form-group clearfix">
                             <label for="description" class="control-label col-md-3">Description:</label>
                             <div class="col-md-9 input-group">
-                              <textarea class="form-control" rows="5" id="description" name="description">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</textarea>
+                              <textarea class="form-control" rows="5" id="description" name="description"><?php echo $entry['description']?></textarea>
                             </div>
                           </div>
                           <div class="form-group clearfix">
                             <label for="comments" class="control-label col-md-3">Comments:</label>
                             <div class="col-md-9 input-group">
-                              <textarea class="form-control" rows="5" id="comments" name="comments">Because regarding effusively haltered pulled so hence morally manta far flamingo much angelfish less close opaque wherever gloated pouted below so amongst wow mundane horse favorably dear.</textarea>
+                              <textarea class="form-control" rows="5" id="comments" name="comments"><?php echo $entry['comments']?></textarea>
                             </div>
                           </div>
                         </div>

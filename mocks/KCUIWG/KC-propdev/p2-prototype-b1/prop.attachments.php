@@ -472,13 +472,13 @@ $('#proposal_add').click(function() {
 </script>
 <script>
 $(document).ready(function(){
-    $(".remove-compliance-entry").live("click", function(){
-            var container = $(this).parents('div').eq(2);
+    $(".remove-attachments-proposal-entry").live("click", function(){
+            var container = $(this).parents('div').eq(3);
 
             if(confirm("Are you sure you want to remove this entry")) $(container).remove();
              console.log($(this).attr('entryId'));
              var id = $(this).attr('entryId');
-             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
+             $.post('save-session.php', {'id': id, 'action' : 'removeAttachmentsProposalEntry'}, function(){
 
              });
              return false;

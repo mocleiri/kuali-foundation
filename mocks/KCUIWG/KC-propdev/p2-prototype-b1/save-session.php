@@ -43,9 +43,19 @@
             $list[$index] = trim($field);
           }
 
-          $list["file"] = $_FILES["file"]["name"];
+          $list["uploadFile"] = str_replace("C:\\fakepath\\", "", $list["uploadFile"]);
+          $list['uploadTime'] = date("n/j/Y g:i A");
 
           $_SESSION['attachments']['proposal'][] = $list;
+
+     break;
+     case "removeAttachmentsProposalEntry":
+
+        if(isset($_REQUEST["id"])){
+
+            $id = $_REQUEST["id"];
+            if(isset($_SESSION['attachments']['proposal'][$id])) unset($_SESSION['attachments']['proposal'][$id]);
+        }
 
      break;
      default:

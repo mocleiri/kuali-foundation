@@ -5,13 +5,13 @@
                           <div class="form-group clearfix">
                             <label for="" class="control-label col-md-3">Added by:</label>
                             <div class="col-md-9 input-group">
-                              <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
+                              <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(<?php echo $entry['uploadTime'];?>)</span></p>
                             </div>
                           </div>
                           <div class="form-group clearfix">
                             <label for="type" class="control-label col-md-3">Type:</label>
                             <div class="col-md-9">
-                              <p class="form-control-static">Narrative</p>
+                              <p class="form-control-static"><?php echo $entry['type']?></p>
                             </div>
                           </div>
                           <div class="form-group clearfix">

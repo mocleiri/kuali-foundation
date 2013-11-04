@@ -52,13 +52,14 @@
   $(document).ready(function(){
 
 
-   $('#edit_entry<?php echo $id?>').click(function(){
+   $('#edit_entry<?php echo $id?>').bind('click', function(){
          //alert('test');
          var container = $(this).parent('div').parent('form').parent('div');
-         $.post('process.php', {"action": "editComplianceEntry", "id" : $(this).attr('complianceEntryId') }, function(t){
-             $(container).html(t);
-
-         });
+         $(container).load('process.php', {"action": "editComplianceEntry", "id" : $(this).attr('complianceEntryId') });
+//         $.post('process.php', {"action": "editComplianceEntry", "id" : $(this).attr('complianceEntryId') }, function(t){
+//             $(container).empty().append(t);
+//
+//         });
 
          console.log(container);
 
