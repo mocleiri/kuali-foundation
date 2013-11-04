@@ -8,7 +8,7 @@ public enum Permissions {
 
 	SSH(Port.SSH.getValue(), Protocol.TCP, CIDR.ANY.getNotation()), // Allow SSH (port 22) from anywhere
 	HTTP(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getNotation()), // Allow HTTP (port 80) from anywhere
-	HTTPS(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getNotation()); // Allow HTTPS (port 443) from anywhere
+	HTTPS(Port.HTTPS.getValue(), Protocol.TCP, CIDR.ANY.getNotation()); // Allow HTTPS (port 443) from anywhere
 
 	private final Permission permission;
 
