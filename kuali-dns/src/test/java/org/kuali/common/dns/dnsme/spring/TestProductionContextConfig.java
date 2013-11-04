@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class DefaultDNSMadeEasyContextConfig implements DNSMadeEasyContextConfig, DomainNameConfig {
+public class TestProductionContextConfig implements DNSMadeEasyContextConfig, DomainNameConfig {
 
 	private static final String DOMAIN_NAME_KEY = "dns.domain";
 	private static final String DEFAULT_DOMAIN_NAME = "kuali.org";

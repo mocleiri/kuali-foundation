@@ -21,7 +21,7 @@ import java.util.List;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.model.DnsMadeEasyDnsRecord;
 import org.kuali.common.dns.dnsme.spring.DNSMadeEasyConfig;
-import org.kuali.common.dns.dnsme.spring.DefaultDNSMadeEasyContextConfig;
+import org.kuali.common.dns.dnsme.spring.TestProductionContextConfig;
 import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.dns.model.DnsRecordSearchCriteria;
 import org.kuali.common.dns.spring.DnsServiceConfig;
@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Import;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultDNSMadeEasyContextConfig.class, DNSMadeEasyConfig.class })
+@Import({ SpringServiceConfig.class, TestProductionContextConfig.class, DNSMadeEasyConfig.class })
 public class TestDnsConfig {
 
 	private final Logger logger = LoggerFactory.getLogger(TestDnsConfig.class);
