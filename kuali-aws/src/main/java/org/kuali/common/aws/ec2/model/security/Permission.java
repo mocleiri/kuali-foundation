@@ -8,8 +8,8 @@ import com.google.common.collect.ImmutableList;
 
 public final class Permission {
 
-	private final Protocol protocol;
 	private final int port;
+	private final Protocol protocol;
 	private final List<String> cidrNotations;
 
 	public static class Builder {
