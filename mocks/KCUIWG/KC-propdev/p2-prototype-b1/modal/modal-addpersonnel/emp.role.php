@@ -59,7 +59,7 @@ foreach($_SESSION['person'] as $person){
 
 		<div class="modal-footer" data-spy="">
 			<button href="emp.results.php" class="btn btn-default">Go back</button>
-			<a href="../../prop.keypersonnel.php" target="_parent" class="btn btn-primary" id="add-person">Add Person</a>
+			<button href="../../prop.keypersonnel.php" class="btn btn-primary fancybox-close" id="add-person">Add Person</button>
 		</div>
 	</div>
 </div>

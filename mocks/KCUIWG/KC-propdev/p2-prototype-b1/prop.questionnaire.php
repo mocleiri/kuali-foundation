@@ -133,7 +133,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 	          					</div>
 	          					<div class="question-helper">
 	          						<p>129: s the proposal subject to review by state executive order 12372 process?</p>
-                                    <p>Explanation: Information that will help you answer the question will go here.</p>
+                                    <p>Explanation: For NIH and other PHS agencies submissions using the SF424 (R&amp;R), applicants should check "No, not subject to E.O. 12372.</p>
                                     <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
                                     <p>Regulation: Any regulatory information regarding this question will go here.</p>
 	      						</div>

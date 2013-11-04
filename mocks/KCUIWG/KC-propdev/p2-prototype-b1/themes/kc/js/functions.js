@@ -403,7 +403,7 @@ $(document).ready(function() {
             if (btnUrl) {
 
                 storeSession(btnUrl);
-                document.location = btnUrl;
+                window.location = btnUrl;
 
             }
 
@@ -464,8 +464,16 @@ $(document).ready(function() {
 
     $('.btn').click(function(e) {
 
-        var btn = $(this), btnUrl = btn.attr('href');
-        fauxValidation.buttonClickAction(e, btn, btnUrl);
+        if ($(this).hasClass('fancybox-close')) {
+
+            parent.fancyBoxClose();
+
+        } else {
+
+            var btn = $(this), btnUrl = btn.attr('href');
+            fauxValidation.buttonClickAction(e, btn, btnUrl);
+            
+        }
 
     });
 
