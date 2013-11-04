@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Import;
 import com.amazonaws.services.ec2.model.Instance;
 
 @Configuration
-@Import({ AwsServiceConfig.class, SpringServiceConfig.class })
+@Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
 public class InvokeEC2ServiceConfig {
 
 	@Autowired
