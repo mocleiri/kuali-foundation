@@ -1,5 +1,6 @@
 package org.kuali.common.aws.ec2.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +33,7 @@ import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
 import com.amazonaws.services.ec2.model.Instance;
@@ -43,9 +45,11 @@ import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
+import com.amazonaws.services.ec2.model.SecurityGroup;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 /**
  * This service implementation performs operations using a single set of AWS credentials on a single EC2 region.
@@ -83,6 +87,16 @@ public final class DefaultEC2Service implements EC2Service {
 		Instance instance = instances.get(0);
 		logger.debug("Retrieved Instance: [{}]", instance.getInstanceId());
 		return instance;
+	}
+
+	public List<String> getSecurityGroupNames() {
+		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
+		List<SecurityGroup> groups = result.getSecurityGroups();
+		List<String> names = new ArrayList<String>();
+		for (SecurityGroup group : groups) {
+			names.add(group.getGroupName());
+		}
+		return ImmutableList.copyOf(names);
 	}
 
 	@Override
