@@ -50,7 +50,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class DNSMadeEasyDnsService implements DnsService {
+public final class DNSMadeEasyDnsService implements DnsService {
 
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_CREATED = 201;
@@ -428,34 +428,6 @@ public class DNSMadeEasyDnsService implements DnsService {
 	@Override
 	public boolean isExistingCNAMERecord(String fqdn) {
 		return getCNAMERecord(fqdn).isPresent();
-	}
-
-	protected Optional<DnsMadeEasyDnsRecord> getSingleCNAMERecord(String fqdn) {
-
-		// Make sure it's a valid fully qualified domain name
-		DnsUtils.validateFQDN(fqdn);
-
-		// Can only check for the existence of fqdn's in our domain
-		validateDomain(fqdn, getDomainName());
-
-		// Extract the DNS record name from the fqdn
-		String recordName = getRecordNameFromFQDN(fqdn, getDomainName());
-
-		// Setup a search object based on the fqdn
-		DnsMadeEasySearchCriteria search = getSearch(recordName, DnsRecordType.CNAME);
-
-		// Get a list of matching records from DNSME
-		List<DnsMadeEasyDnsRecord> records = getRecords(domain, search);
-
-		// If there is more than 1 record, something has gone wrong
-		Assert.isFalse(records.size() > 1, "Found " + records.size() + " records when expecting a max of 1");
-
-		if (records.size() == 0) {
-			return Optional.<DnsMadeEasyDnsRecord> absent();
-		} else {
-			DnsMadeEasyDnsRecord record = records.get(0);
-			return Optional.of(record);
-		}
 	}
 
 	@Override
