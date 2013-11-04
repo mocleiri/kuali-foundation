@@ -33,6 +33,7 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.dnsme.DefaultDNSMadeEasyContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMadeEasyConfig;
+import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -74,12 +75,9 @@ public class CreateMasterConfig {
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
 		String aliasFQDN = "test.ci.kuali.org";
-		String fqdn = instance.getPublicDnsName();
-		if (dns.isExistingCNAMERecord(aliasFQDN)) {
-			dns.deleteCNAMERecord(aliasFQDN);
-		}
-		dns.createCNAMERecord(aliasFQDN, fqdn, 60);
-		System.out.println(aliasFQDN + " -> " + fqdn);
+		Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, instance.getPublicDnsName());
+		cname.execute();
+		System.out.println(aliasFQDN + " -> " + instance.getPublicDnsName());
 		return null; // new ExecutablesExecutable(show);
 	}
 
