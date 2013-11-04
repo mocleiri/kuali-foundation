@@ -16,8 +16,6 @@
 package org.kuali.common.aws.ec2;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
-import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -25,8 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import com.amazonaws.services.ec2.model.Instance;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
@@ -40,10 +36,7 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		LaunchInstanceContext context = LaunchUtils.getContext(env);
-		Instance instance = service.launchInstance(context);
-		System.out.println(instance);
-		// service.terminateInstance(instance.getInstanceId());
+		System.out.println(service);
 		return null;
 	}
 
