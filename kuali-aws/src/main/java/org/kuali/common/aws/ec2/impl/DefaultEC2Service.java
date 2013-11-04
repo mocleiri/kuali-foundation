@@ -74,6 +74,17 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
+	public List<String> getSecurityGroupNames() {
+		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
+		List<SecurityGroup> groups = result.getSecurityGroups();
+		List<String> names = new ArrayList<String>();
+		for (SecurityGroup group : groups) {
+			names.add(group.getGroupName());
+		}
+		return ImmutableList.copyOf(names);
+	}
+
+	@Override
 	public Instance getInstance(String instanceId) {
 		Assert.noBlanks(instanceId);
 		DescribeInstancesRequest request = new DescribeInstancesRequest();
@@ -87,16 +98,6 @@ public final class DefaultEC2Service implements EC2Service {
 		Instance instance = instances.get(0);
 		logger.debug("Retrieved Instance: [{}]", instance.getInstanceId());
 		return instance;
-	}
-
-	public List<String> getSecurityGroupNames() {
-		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
-		List<SecurityGroup> groups = result.getSecurityGroups();
-		List<String> names = new ArrayList<String>();
-		for (SecurityGroup group : groups) {
-			names.add(group.getGroupName());
-		}
-		return ImmutableList.copyOf(names);
 	}
 
 	@Override
