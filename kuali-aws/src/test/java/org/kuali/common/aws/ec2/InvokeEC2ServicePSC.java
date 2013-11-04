@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-public class LaunchInstancePSC implements PropertySourceConfig {
+public class InvokeEC2ServicePSC implements PropertySourceConfig {
 
 	@Override
 	@Bean

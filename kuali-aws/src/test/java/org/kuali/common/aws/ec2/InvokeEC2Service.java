@@ -21,20 +21,20 @@ import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LaunchInstance extends AbstractMainRunner {
+public class InvokeEC2Service extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(LaunchInstance.class, args, true);
+		MainUtils.runAndExit(InvokeEC2Service.class, args, true);
 	}
 
 	@Override
 	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
-		return LaunchInstancePSC.class;
+		return InvokeEC2ServicePSC.class;
 	}
 
 	@Override
 	protected Class<?> getConfig() {
-		return LaunchInstanceConfig.class;
+		return InvokeEC2ServiceConfig.class;
 	}
 
 }
