@@ -50,22 +50,24 @@
                           <input type="text" class="form-control input-sm has-helper" name="protocol_no" id="protocol_no" value="<?php echo $entry['protocol_no'];?>"/>
                           <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/#" data-modal-height="500"></a> </span> </div>
                       </div>
+
+
                       <div class="form-group clearfix">
                         <label for="application_date" class="control-label col-md-3">Application Date:</label>
-                        <div class="col-md-9">
-                          <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="<?php echo $entry['application_date'];?>" />
+                        <div class="col-md-9 date">
+                          <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl" value="<?php echo $entry['application_date'];?>" placeholder="mm/dd/yyyy"/>
                         </div>
                       </div>
                       <div class="form-group clearfix">
                         <label for="approval_date" class="control-label col-md-3">Approval Date:</label>
-                        <div class="col-md-9">
-                          <input type="text" name="approval_date" id="approval_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="<?php echo $entry['approval_date'];?>" />
+                        <div class="col-md-9 date">
+                          <input type="text" name="approval_date" id="approval_date" class="form-control input-sm col-md-8 uif-dateControl" value="<?php echo $entry['approval_date'];?>" placeholder="mm/dd/yyyy" />
                         </div>
                       </div>
                       <div class="form-group clearfix">
                         <label for="expiration_date" class="control-label col-md-3">Expiration Date:</label>
-                        <div class="col-md-9">
-                          <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 uif-dateControl" placeholder="mm/dd/yyyy" value="<?php echo $entry['expiration_date'];?>" />
+                        <div class="col-md-9 date">
+                          <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 col-md-8 uif-dateControl" value="<?php echo $entry['expiration_date'];?>" placeholder="mm/dd/yyyy" />
                         </div>
                       </div>
                       <div class="form-group clearfix">

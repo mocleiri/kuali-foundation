@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<head>
-<link rel="stylesheet" href="../../themes/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" href="../../themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" />
-<link rel="stylesheet" href="../../themes/kc/css/jquery.multiselect.css" />
-<link rel="stylesheet" href="../../themes/kc/css/jquery.multiselect.filter.css" />
-<link rel="stylesheet" href="../../themes/kc/icons/style.css" />
-<link rel="stylesheet" href="../../themes/kc/css/custom.css" />
+<?php session_start();
 
-<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    include "../inc/header.modal.php";
+?>
+
+
 <script type='text/javascript'>
 //<![CDATA[
 
@@ -46,8 +42,6 @@ $(document).ready(function(){
 
 });
 </script>
-</head>
-<body>
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -72,4 +66,6 @@ $(document).ready(function(){
     </div>
 </div>
 
-<?php include('../inc/footer.php'); ?>
+
+
+<?php include('../inc/footer.modal.php'); ?>
