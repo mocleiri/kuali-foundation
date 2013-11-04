@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public final class ImmutableIpPermission {
+public final class Permission {
 
 	private final Protocol protocol;
 	private final int port;
@@ -35,17 +35,17 @@ public final class ImmutableIpPermission {
 			return this;
 		}
 
-		public ImmutableIpPermission build() {
+		public Permission build() {
 			Assert.noNulls(cidrNotations, protocol);
 			Assert.noBlanks(cidrNotations);
 			Assert.isTrue(cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
 			Assert.isTrue(port >= 0 && port <= 65535, "Port must be a number between 0 and 65535");
 			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
-			return new ImmutableIpPermission(this);
+			return new Permission(this);
 		}
 	}
 
-	private ImmutableIpPermission(Builder builder) {
+	private Permission(Builder builder) {
 		this.protocol = builder.protocol;
 		this.port = builder.port;
 		this.cidrNotations = builder.cidrNotations;

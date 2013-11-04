@@ -9,7 +9,7 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.model.security.ImmutableIpPermission;
+import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.ImmutableSecurityGroup;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
@@ -99,23 +99,23 @@ public final class DefaultEC2Service implements EC2Service {
 		setPermissions(group.getName(), group.getPermissions());
 	}
 
-	public void setPermissions(String securityGroupName, List<ImmutableIpPermission> permissions) {
+	public void setPermissions(String securityGroupName, List<Permission> permissions) {
 		List<IpPermission> perms = getIpPermissions(permissions);
 		AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
 		authorizeSecurityGroupIngressRequest.withGroupName(securityGroupName).withIpPermissions(perms);
 		client.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
 	}
 
-	protected List<IpPermission> getIpPermissions(List<ImmutableIpPermission> permissions) {
+	protected List<IpPermission> getIpPermissions(List<Permission> permissions) {
 		List<IpPermission> newPerms = new ArrayList<IpPermission>();
-		for (ImmutableIpPermission perm : permissions) {
+		for (Permission perm : permissions) {
 			IpPermission newPerm = getIpPermission(perm);
 			newPerms.add(newPerm);
 		}
 		return ImmutableList.copyOf(newPerms);
 	}
 
-	protected IpPermission getIpPermission(ImmutableIpPermission perm) {
+	protected IpPermission getIpPermission(Permission perm) {
 		IpPermission newPerm = new IpPermission();
 		newPerm.withIpRanges(perm.getCidrNotations());
 		newPerm.withIpProtocol(perm.getProtocol().getValue());

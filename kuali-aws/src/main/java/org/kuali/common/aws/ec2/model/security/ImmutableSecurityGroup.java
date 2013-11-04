@@ -12,7 +12,7 @@ public final class ImmutableSecurityGroup {
 
 	private final String name;
 	private final Optional<String> description;
-	private final List<ImmutableIpPermission> permissions;
+	private final List<Permission> permissions;
 
 	public static class Builder {
 
@@ -21,7 +21,7 @@ public final class ImmutableSecurityGroup {
 
 		// Optional
 		private Optional<String> description = Optional.absent();
-		private List<ImmutableIpPermission> permissions = ImmutableList.of();
+		private List<Permission> permissions = ImmutableList.of();
 
 		public Builder(String name) {
 			this.name = name;
@@ -32,7 +32,7 @@ public final class ImmutableSecurityGroup {
 			return this;
 		}
 
-		public Builder permissions(List<ImmutableIpPermission> permissions) {
+		public Builder permissions(List<Permission> permissions) {
 			this.permissions = permissions;
 			return this;
 		}
@@ -59,7 +59,7 @@ public final class ImmutableSecurityGroup {
 		return description;
 	}
 
-	public List<ImmutableIpPermission> getPermissions() {
+	public List<Permission> getPermissions() {
 		return permissions;
 	}
 

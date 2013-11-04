@@ -10,20 +10,20 @@ public enum Permissions {
 	HTTP(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getNotation()), // Allow HTTP (port 80) from anywhere
 	HTTPS(Port.HTTP.getValue(), Protocol.TCP, CIDR.ANY.getNotation()); // Allow HTTPS (port 443) from anywhere
 
-	private final ImmutableIpPermission permission;
+	private final Permission permission;
 
 	private Permissions(int port, Protocol protocol, String cidrNotation) {
 		this(port, protocol, ImmutableList.of(cidrNotation));
 	}
 
 	private Permissions(int port, Protocol protocol, List<String> cidrNotations) {
-		this.permission = new ImmutableIpPermission.Builder(port).protocol(protocol).cidrNotations(cidrNotations).build();
+		this.permission = new Permission.Builder(port).protocol(protocol).cidrNotations(cidrNotations).build();
 	}
 
-	public ImmutableIpPermission getPermission() {
+	public Permission getPermission() {
 		return permission;
 	}
 
-	public static final List<ImmutableIpPermission> WEB_SERVER = ImmutableList.of(SSH.getPermission(), HTTP.getPermission(), HTTPS.getPermission());
+	public static final List<Permission> WEB_SERVER = ImmutableList.of(SSH.getPermission(), HTTP.getPermission(), HTTPS.getPermission());
 
 }
