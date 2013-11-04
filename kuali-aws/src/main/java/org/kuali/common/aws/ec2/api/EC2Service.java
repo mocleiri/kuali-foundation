@@ -3,6 +3,7 @@ package org.kuali.common.aws.ec2.api;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -79,6 +80,11 @@ public interface EC2Service {
 	 * Return a list containing the names of all the security groups.
 	 */
 	public List<String> getSecurityGroupNames();
+
+	/**
+	 * Create a new security group (it must not exist yet)
+	 */
+	public void createSecurityGroup(KualiSecurityGroup group);
 
 	/**
 	 * <p>
