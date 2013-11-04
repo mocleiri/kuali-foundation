@@ -18,7 +18,7 @@ package org.kuali.common.devops.project;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
-public abstract class KualiDevOpsProjectConstants {
+public abstract class DevOpsProjectConstants {
 
 	// These 2 must exactly match what is in the Maven pom
 	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;
