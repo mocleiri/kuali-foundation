@@ -10,7 +10,7 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
-public class DNSMadeEasyConfigUtils {
+public class DNSMadeEasyUtils {
 
 	private static final String API_KEY = "dnsme.apiKey";
 	private static final String SECRET_KEY = "dnsme.secretKey";
