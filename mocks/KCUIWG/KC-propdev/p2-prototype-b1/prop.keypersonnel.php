@@ -58,18 +58,18 @@ require_once( 'themes/kc/inc/toolbar.php' );
 <script>
 $(document).ready(function(){
 
-    $('#myTab a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
+    // $('#myTab a').click(function (e) {
+    //   e.preventDefault()
+    //   $(this).tab('show')
+    // })
 
-    $(".icon-remove").live("click", function(){
-        var container = $(this).parents('div').eq(4);
-        if(confirm("Are you sure you want to remove this person")) $(container).remove();
+    // $(".icon-remove").live("click", function(){
+    //     var container = $(this).parents('div').eq(4);
+    //     if(confirm("Are you sure you want to remove this person")) $(container).remove();
 
-         return false;
-      //   alert($(this).parents('div').eq(4).attr('id'));
-    });
+    //      return false;
+    // });
 });
 </script>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

@@ -101,7 +101,7 @@ include( '_temp.select.filler.php' );
           <div class="tab-pane" id="tab3">
             <h4> Performance Site Locations</h4>
             <div class="panel-group" id="accordion1">
-              <div class="panel panel-default">
+              <!-- <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
@@ -218,7 +218,7 @@ include( '_temp.select.filler.php' );
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class=" btn-row-widget-action">
               <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php"><span aria-hidden="true" class="icon-plus"></span> Add location</button>
@@ -227,7 +227,7 @@ include( '_temp.select.filler.php' );
           <div class="tab-pane " id="tab4">
             <h4> Other Organizations</h4>
             <div class="panel-group" id="accordion2">
-              <div class="panel panel-default">
+              <!-- <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="row">
                     <div class="col-md-6">
@@ -320,7 +320,7 @@ include( '_temp.select.filler.php' );
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="btn-row-widget-action">
               <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php"><span aria-hidden="true" class="icon-plus"></span> Add location</button>

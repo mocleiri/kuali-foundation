@@ -17,7 +17,7 @@ require_once( 'inc/head.php' );
   <div class="modal-content">
      <div class="modal-header clearfix">
       <h3 class="pull-left"> Audit Mode </h3>
-      <a  href="audtimode-off.php"class="btn btn-default btn-xs pull-right btn-success" style="margin-right:40px">Turn Off</a>
+      <a  href="audtimode-off.php"class="btn btn-default btn-xs pull-right btn-danger" style="margin-right:40px">Turn Off</a>
     </div>
     <div class="modal-body">
       <table class="table table-condensed table-hover table-smaller-text" id="example">

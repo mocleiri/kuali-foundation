@@ -68,10 +68,6 @@ $keyPersonnelMessage = "";
 
 </form>
 
-
-
-<?php require_once( 'themes/kc/inc/footer.php' ); ?>
-
 <script>
 $(document).ready(function(){
     $(".remove-person").live("click", function(){
@@ -89,3 +85,5 @@ $(document).ready(function(){
 
 });
 </script>
+
+<?php require_once( 'themes/kc/inc/footer.php' ); ?>

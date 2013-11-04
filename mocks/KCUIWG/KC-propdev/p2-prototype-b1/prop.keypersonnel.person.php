@@ -18,13 +18,13 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
             <div id="collapse2" class="panel-collapse collapse" style="height: auto;">
               <div class="panel-body">
                 <ul class="nav nav-tabs" id="myTab">
-                  <li class="active"><a href="#p1_details">Details</a></li>
-                  <li><a href="#p1_organization">Organization</a></li>
-                  <li><a href="#p1_education">Education</a></li>
-                  <li><a href="#p1_extendedDetails">Extended Details</a></li>
-                  <li><a href="#p1_degrees">Degrees</a></li>
-                  <li><a href="#p1_unitDetails">Unit Details</a></li>
-                  <li><a href="#p1_proposalPersonCertification">Proposal Certification</a></li>
+                  <li class="active"><a href="#p1_details" data-toggle="tab">Details</a></li>
+                  <li><a href="#p1_organization" data-toggle="tab">Organization</a></li>
+                  <li><a href="#p1_education" data-toggle="tab">Education</a></li>
+                  <li><a href="#p1_extendedDetails" data-toggle="tab">Extended Details</a></li>
+                  <li><a href="#p1_degrees" data-toggle="tab">Degrees</a></li>
+                  <li><a href="#p1_unitDetails" data-toggle="tab">Unit Details</a></li>
+                  <li><a href="#p1_proposalPersonCertification" data-toggle="tab">Proposal Certification</a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="p1_details">
