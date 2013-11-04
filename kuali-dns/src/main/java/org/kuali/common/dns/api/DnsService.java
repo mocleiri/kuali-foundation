@@ -22,11 +22,11 @@ public interface DnsService {
 	String getDomainName();
 
 	/**
-	 * Create a CNAME record for <code>aliasFQDN</code> that points to <code>fqdn</code>.
+	 * Create a CNAME record for <code>aliasFQDN</code> that points to <code>canonicalFQDN</code>.
 	 * 
 	 * @param aliasFQDN
-	 *            The fully qualified domain name that is being being pointed to <code>fqdn</code>
-	 * @param fqdn
+	 *            The fully qualified domain name that is being being pointed to <code>canonicalFQDN</code>
+	 * @param canonicalFQDN
 	 *            The fully qualified domain name that <code>aliasFQDN</code> points to after this method returns.
 	 * @param timeToLiveInSeconds
 	 *            The amount of time DNS servers are allowed to cache the new CNAME record. A TTL value of 300 means if the CNAME record is changed, DNS servers around the world
@@ -34,12 +34,12 @@ public interface DnsService {
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
-	 *             <li>If either <code>aliasFQDN</code> or <code>fqdn</code> are blank or are not syntactically valid DNS names
+	 *             <li>If either <code>aliasFQDN</code> or <code>canonicalFQDN</code> are blank or are not syntactically valid DNS names
 	 *             <li>If <code>aliasFQDN</code> does not end with this domain.</li>
 	 *             <li>If <code>timeToLiveInSeconds</code> is negative.</li>
 	 *             </ul>
 	 */
-	DnsRecord createCNAMERecord(String aliasFQDN, String fqdn, int timeToLiveInSeconds);
+	DnsRecord createCNAMERecord(String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds);
 
 	/**
 	 * Return true if a DNS CNAME record for <code>fqdn</code> exists, false otherwise.
