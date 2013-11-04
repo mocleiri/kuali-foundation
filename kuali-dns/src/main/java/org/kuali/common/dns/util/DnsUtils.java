@@ -9,7 +9,7 @@ public class DnsUtils {
 	private static final char HYPHEN = '-';
 	private static final int MAX_FQDN_LENGTH = 253;
 	private static final int MAX_LABEL_LENGTH = 63;
-
+	
 	/**
 	 * <p>
 	 * Verify that <code>fqdn</code> is a syntactically valid DNS name.
