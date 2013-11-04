@@ -16,6 +16,7 @@
 package org.kuali.common.util;
 
 import java.io.File;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -148,6 +149,16 @@ public abstract class Assert extends org.springframework.util.Assert {
 
 	public static void noBlanks(String... strings) {
 		noBlanksWithMsg(NO_BLANKS, strings);
+	}
+
+	/**
+	 * Assert that <code>strings</code> is not null and that none of the elements are blank
+	 */
+	public static void noBlanks(List<String> strings) {
+		Assert.noNulls(strings);
+		for (String string : strings) {
+			noBlanksWithMsg(NO_BLANKS, string);
+		}
 	}
 
 	public static void noNullStrings(String... strings) {
