@@ -76,6 +76,7 @@ public class CreateMasterConfig {
 		String aliasFQDN = "test.ci.kuali.org";
 		String fqdn = instance.getPublicDnsName();
 		dns.createCNAMERecord(aliasFQDN, fqdn, 60);
+		System.out.println(aliasFQDN + " -> " + fqdn);
 		return null; // new ExecutablesExecutable(show);
 	}
 
