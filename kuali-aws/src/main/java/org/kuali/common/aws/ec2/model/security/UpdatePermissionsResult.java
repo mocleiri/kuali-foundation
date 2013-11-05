@@ -7,9 +7,9 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public final class SetPermissionsResult {
+public final class UpdatePermissionsResult {
 
-	public SetPermissionsResult(Collection<Permission> adds, Collection<Permission> deletes, Collection<Permission> existing) {
+	public UpdatePermissionsResult(Collection<Permission> adds, Collection<Permission> deletes, Collection<Permission> existing) {
 		Assert.noNulls(adds, deletes, existing);
 		this.adds = ImmutableList.copyOf(adds);
 		this.deletes = ImmutableList.copyOf(deletes);

@@ -15,7 +15,7 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.Protocol;
-import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
+import org.kuali.common.aws.ec2.model.security.UpdatePermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
@@ -108,7 +108,8 @@ public final class DefaultEC2Service implements EC2Service {
 		updatePermissions(group.getName(), group.getPermissions());
 	}
 
-	public SetPermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
+	@Override
+	public UpdatePermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
 		Optional<SecurityGroup> optional = getSecurityGroup(securityGroupName);
 		Assert.isTrue(optional.isPresent(), "Security group " + securityGroupName + " does not exist");
 		SecurityGroup group = optional.get();
@@ -133,9 +134,10 @@ public final class DefaultEC2Service implements EC2Service {
 			client.authorizeSecurityGroupIngress(authorizer);
 		}
 
-		return new SetPermissionsResult(adds, deletes, existing);
+		return new UpdatePermissionsResult(adds, deletes, existing);
 	}
 
+	@Override
 	public Optional<SecurityGroup> getSecurityGroup(String name) {
 		List<String> names = getSecurityGroupNames();
 		if (names.contains(name)) {

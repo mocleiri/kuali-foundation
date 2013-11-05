@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
+import org.kuali.common.aws.ec2.model.security.Permission;
+import org.kuali.common.aws.ec2.model.security.UpdatePermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.SecurityGroup;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 
 /**
  * <p>
@@ -80,6 +84,17 @@ public interface EC2Service {
 	 * Return a list containing the names of all the security groups.
 	 */
 	public List<String> getSecurityGroupNames();
+
+	/**
+	 * Return the security group object associated with <code>name</code>
+	 */
+	public Optional<SecurityGroup> getSecurityGroup(String name);
+
+	/**
+	 * Update a security group such that its permissions match the list provided. Any extra permissions are removed. Any new permissions are added. Any existing permissions that
+	 * exactly match one of the permissions from the list are left intact.
+	 */
+	public UpdatePermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions);
 
 	/**
 	 * Create a new security group (it must not exist yet)
