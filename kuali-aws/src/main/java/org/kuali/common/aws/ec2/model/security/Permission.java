@@ -42,7 +42,7 @@ public final class Permission implements Comparable<Permission> {
 			Assert.noNulls(cidrNotations, protocol);
 			Assert.noBlanks(cidrNotations);
 			Assert.isTrue(cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
-			Assert.isTrue(port >= 0 && port <= 65535, "Port must be a number between 0 and 65535");
+			Assert.port(port);
 			this.cidrNotations = new ArrayList<String>(cidrNotations);
 			Collections.sort(cidrNotations);
 			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
