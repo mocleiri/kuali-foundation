@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -72,6 +73,34 @@ public final class Permission implements Comparable<Permission> {
 		} else {
 			return Double.compare(port, other.getPort());
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object == null) {
+			return false;
+		}
+
+		if (this.getClass() != object.getClass()) {
+			return false;
+		}
+
+		Permission other = (Permission) object;
+
+		if (port != other.getPort()) {
+			return false;
+		}
+
+		if (protocol != other.getProtocol()) {
+			return false;
+		}
+
+		return ListUtils.equals(cidrNotations, other.getCidrNotations());
 	}
 
 }
