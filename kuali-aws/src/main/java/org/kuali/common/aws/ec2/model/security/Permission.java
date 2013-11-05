@@ -1,5 +1,6 @@
 package org.kuali.common.aws.ec2.model.security;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public final class Permission implements Comparable<Permission> {
 			Assert.noBlanks(cidrNotations);
 			Assert.isTrue(cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
 			Assert.isTrue(port >= 0 && port <= 65535, "Port must be a number between 0 and 65535");
+			this.cidrNotations = new ArrayList<String>(cidrNotations);
 			Collections.sort(cidrNotations);
 			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
 			return new Permission(this);
