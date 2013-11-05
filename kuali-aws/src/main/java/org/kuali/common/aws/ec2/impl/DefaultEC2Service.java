@@ -181,7 +181,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Permission getPermission(IpPermission perm) {
-		Assert.isTrue(perm.getUserIdGroupPairs() == null, "User id / group pairs are not supported");
+		Assert.isTrue(CollectionUtils.isEmpty(perm.getUserIdGroupPairs()), "User id / group pairs are not supported");
 		String protocolName = perm.getIpProtocol();
 		Integer fromPort = perm.getFromPort();
 		Integer toPort = perm.getToPort();
