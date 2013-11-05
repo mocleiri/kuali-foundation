@@ -36,7 +36,7 @@ public interface DnsService {
 	 * 
 	 * @throws IllegalArgumentException
 	 *             <ul>
-	 *             <li>If either <code>aliasFQDN</code> or <code>canonicalFQDN</code> are blank, are not syntactically valid DNS names
+	 *             <li>If either <code>aliasFQDN</code> or <code>canonicalFQDN</code> are blank or are not syntactically valid DNS names
 	 *             <li>If <code>aliasFQDN</code> does not end with this domain.</li>
 	 *             <li>If <code>timeToLiveInSeconds</code> is negative.</li>
 	 *             </ul>
