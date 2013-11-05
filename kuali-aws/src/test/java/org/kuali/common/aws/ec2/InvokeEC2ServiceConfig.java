@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -53,11 +54,11 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		List<String> groups = service.getSecurityGroupNames();
-		for (String group : groups) {
-			logger.info(group);
+		KualiSecurityGroup group = SecurityGroups.CI.getGroup();
+		if (!service.isExistingSecurityGroup(group.getName())) {
+			service.createSecurityGroup(group);
 		}
-		service.createSecurityGroup(SecurityGroups.CI.getGroup());
+		service.updatePermissions(group.getName(), group.getPermissions());
 		return null;
 	}
 
