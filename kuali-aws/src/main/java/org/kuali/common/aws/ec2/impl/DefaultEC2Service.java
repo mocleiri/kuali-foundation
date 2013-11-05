@@ -15,7 +15,7 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.Protocol;
-import org.kuali.common.aws.ec2.model.security.UpdatePermissionsResult;
+import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
@@ -106,7 +106,7 @@ public final class DefaultEC2Service implements EC2Service {
 			request.setDescription(group.getDescription().get());
 		}
 		client.createSecurityGroup(request);
-		updatePermissions(group.getName(), group.getPermissions());
+		setPermissions(group.getName(), group.getPermissions());
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public UpdatePermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
+	public SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions) {
 		Assert.noBlanks(securityGroupName);
 		Assert.noNulls(permissions);
 		Optional<SecurityGroup> optional = getSecurityGroup(securityGroupName);
@@ -143,7 +143,7 @@ public final class DefaultEC2Service implements EC2Service {
 			client.authorizeSecurityGroupIngress(authorizer);
 		}
 
-		return new UpdatePermissionsResult(adds, deletes, existing);
+		return new SetPermissionsResult(adds, deletes, existing);
 	}
 
 	@Override

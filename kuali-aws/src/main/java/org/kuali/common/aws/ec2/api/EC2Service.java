@@ -5,7 +5,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
-import org.kuali.common.aws.ec2.model.security.UpdatePermissionsResult;
+import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -96,10 +96,10 @@ public interface EC2Service {
 	public boolean isExistingSecurityGroup(String name);
 
 	/**
-	 * Update a security group such that its permissions match the list provided. Any extra permissions are removed. Any new permissions are added. Any existing permissions that
-	 * exactly match one of the permissions from the list are left intact.
+	 * Make the permissions for the indicated security group match the list provided. Any existing permissions that are not in the list are removed. Any missing permissions are
+	 * added. Any existing permissions that match a permission from the list are left intact.
 	 */
-	public UpdatePermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions);
+	public SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions);
 
 	/**
 	 * Create a new security group (it must not exist yet)

@@ -19,7 +19,7 @@ import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
-import org.kuali.common.aws.ec2.model.security.UpdatePermissionsResult;
+import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -52,7 +52,7 @@ public class InvokeEC2ServiceConfig {
 		if (!exists) {
 			service.createSecurityGroup(group);
 		}
-		UpdatePermissionsResult result = service.updatePermissions(group.getName(), group.getPermissions());
+		SetPermissionsResult result = service.setPermissions(group.getName(), group.getPermissions());
 		Object[] args = { result.getAdds().size(), result.getDeletes().size(), result.getExisting().size() };
 		logger.info("adds: {}  deletes: {}  existing: {}", args);
 
