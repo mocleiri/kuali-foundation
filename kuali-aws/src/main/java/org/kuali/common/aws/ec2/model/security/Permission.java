@@ -79,6 +79,8 @@ public final class Permission implements Comparable<Permission> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + port;
+		result = prime * result + protocol.hashCode();
 		for (String notation : cidrNotations) {
 			result = result * prime + notation.hashCode();
 		}
