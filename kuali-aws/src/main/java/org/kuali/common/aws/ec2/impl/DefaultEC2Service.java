@@ -186,9 +186,10 @@ public final class DefaultEC2Service implements EC2Service {
 		Integer fromPort = perm.getFromPort();
 		Integer toPort = perm.getToPort();
 		List<String> ipRanges = perm.getIpRanges();
-		Assert.noNulls(fromPort, toPort, ipRanges, protocolName);
+		Assert.noNulls(fromPort, toPort, ipRanges);
+		Assert.noBlanks(protocolName);
 		Assert.isTrue(fromPort.equals(toPort), "port ranges are not supported");
-		Protocol protocol = Protocol.valueOf(protocolName);
+		Protocol protocol = Protocol.valueOf(protocolName.toUpperCase());
 		return new Permission.Builder(fromPort).cidrNotations(ipRanges).protocol(protocol).build();
 	}
 
