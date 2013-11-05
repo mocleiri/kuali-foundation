@@ -15,6 +15,7 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.Protocol;
+import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
@@ -54,6 +55,7 @@ import com.amazonaws.services.ec2.model.IpPermission;
 import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
 import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.RevokeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.SecurityGroup;
@@ -105,7 +107,7 @@ public final class DefaultEC2Service implements EC2Service {
 		setPermissions(group.getName(), group.getPermissions());
 	}
 
-	protected void setPermissions(String securityGroupName, List<Permission> permissions) {
+	public SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions) {
 		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
 		request.setGroupNames(Collections.singletonList(securityGroupName));
 		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
@@ -122,10 +124,14 @@ public final class DefaultEC2Service implements EC2Service {
 		Set<Permission> deletes = SetUtils.difference(oldSet, newSet);
 		Set<Permission> existing = SetUtils.intersection(newSet, oldSet);
 
-		List<IpPermission> perms = getIpPermissions(adds);
-		AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
-		authorizeSecurityGroupIngressRequest.withGroupName(securityGroupName).withIpPermissions(perms);
-		client.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+		RevokeSecurityGroupIngressRequest revoker = new RevokeSecurityGroupIngressRequest(securityGroupName, getIpPermissions(deletes));
+		client.revokeSecurityGroupIngress(revoker);
+
+		AuthorizeSecurityGroupIngressRequest authorizer = new AuthorizeSecurityGroupIngressRequest();
+		authorizer.withGroupName(securityGroupName).withIpPermissions(getIpPermissions(adds));
+		client.authorizeSecurityGroupIngress(authorizer);
+
+		return new SetPermissionsResult(adds, deletes, existing);
 	}
 
 	protected List<IpPermission> getIpPermissions(Collection<Permission> permissions) {
