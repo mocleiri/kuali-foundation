@@ -104,6 +104,7 @@ public final class DefaultEC2Service implements EC2Service {
 		if (group.getDescription().isPresent()) {
 			request.setDescription(group.getDescription().get());
 		}
+		client.createSecurityGroup(request);
 		updatePermissions(group.getName(), group.getPermissions());
 	}
 
