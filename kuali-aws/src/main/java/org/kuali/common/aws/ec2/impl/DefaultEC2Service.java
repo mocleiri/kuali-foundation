@@ -1,8 +1,11 @@
 package org.kuali.common.aws.ec2.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -17,6 +20,7 @@ import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.SetUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.enc.EncUtils;
@@ -38,6 +42,7 @@ import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.DescribeSecurityGroupsRequest;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
@@ -97,21 +102,45 @@ public final class DefaultEC2Service implements EC2Service {
 		if (group.getDescription().isPresent()) {
 			request.setDescription(group.getDescription().get());
 		}
-		client.createSecurityGroup(request);
 		setPermissions(group.getName(), group.getPermissions());
 	}
 
-	public void setPermissions(String securityGroupName, List<Permission> permissions) {
-		List<IpPermission> perms = getIpPermissions(permissions);
+	protected void setPermissions(String securityGroupName, List<Permission> permissions) {
+		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
+		request.setGroupNames(Collections.singletonList(securityGroupName));
+		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
+		List<SecurityGroup> groups = result.getSecurityGroups();
+		Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
+		SecurityGroup group = groups.get(0);
+		List<IpPermission> oldPerms = group.getIpPermissions();
+		List<Permission> oldPermissions = getPermissions(oldPerms);
+
+		Set<Permission> newSet = new HashSet<Permission>(permissions);
+		Set<Permission> oldSet = new HashSet<Permission>(oldPermissions);
+
+		Set<Permission> adds = SetUtils.difference(newSet, oldSet);
+		Set<Permission> deletes = SetUtils.difference(oldSet, newSet);
+		Set<Permission> existing = SetUtils.intersection(newSet, oldSet);
+
+		List<IpPermission> perms = getIpPermissions(adds);
 		AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
 		authorizeSecurityGroupIngressRequest.withGroupName(securityGroupName).withIpPermissions(perms);
 		client.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
 	}
 
-	protected List<IpPermission> getIpPermissions(List<Permission> permissions) {
+	protected List<IpPermission> getIpPermissions(Collection<Permission> permissions) {
 		List<IpPermission> newPerms = new ArrayList<IpPermission>();
 		for (Permission perm : permissions) {
 			IpPermission newPerm = getIpPermission(perm);
+			newPerms.add(newPerm);
+		}
+		return ImmutableList.copyOf(newPerms);
+	}
+
+	protected List<Permission> getPermissions(Collection<IpPermission> permissions) {
+		List<Permission> newPerms = new ArrayList<Permission>();
+		for (IpPermission perm : permissions) {
+			Permission newPerm = getPermission(perm);
 			newPerms.add(newPerm);
 		}
 		return ImmutableList.copyOf(newPerms);
