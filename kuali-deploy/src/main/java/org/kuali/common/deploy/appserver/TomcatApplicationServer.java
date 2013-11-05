@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.kuali.common.deploy.DeployUtils;
 import org.kuali.common.deploy.Deployable;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.log.LoggerLevel;
 import org.kuali.common.util.secure.channel.Result;
@@ -75,7 +76,9 @@ public class TomcatApplicationServer implements ApplicationServer {
 		// Copy files to the remote server
 		if (!skipFiles) {
 			// Copy files from local to remote
-			DeployUtils.copyFiles(channel, deployables, filterProperties);
+			// TODO Get this hack out of here. The AppDynamics config sets a system property holding values for setenv.sh
+			Properties properties = PropertyUtils.getGlobalProperties(filterProperties);
+			DeployUtils.copyFiles(channel, deployables, properties);
 		}
 		// Make sure everything is owned by tomcat:tomcat
 		DeployUtils.chown(channel, username, group, pathsToChown);
