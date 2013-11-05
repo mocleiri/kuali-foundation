@@ -873,9 +873,6 @@ th a:hover {
   padding: 24px 15px;
   background: white;
 }
-.modal-dialog .modal-content .modal-body label {
-  text-align: left;
-}
 .modal-dialog .modal-content .modal-footer {
   background: #f6f6f6;
   text-align: right;
