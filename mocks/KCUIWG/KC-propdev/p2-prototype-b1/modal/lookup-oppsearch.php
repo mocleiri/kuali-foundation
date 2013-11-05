@@ -35,6 +35,21 @@ include( 'inc/head.php' );
                 <input type="text" id="cfda" name="sponsor_code" class="form-control input-sm">
               </div>
             </div>
+
+            <div class="form-group clearfix">
+              <label for="prev_grantsgov_tracking" class="control-label col-sm-4 col-xs-4" >Prev Grants.gov Tracking ID</label>
+              <div class="col-sm-8 col-xs-8">
+                <input type="text" id="prev_grantsgov_tracking" name="prev_grantsgov_tracking" class="form-control input-sm">
+              </div>
+            </div>
+
+            <div class="form-group clearfix">
+              <label for="agency_routing_identifier" class="control-label col-sm-4 col-xs-4" >Agency Routing Identifier</label>
+              <div class="col-sm-8 col-xs-8">
+                <input type="text" id="agency_routing_identifier" name="agency_routing_identifier" class="form-control input-sm">
+              </div>
+            </div>
+
           </fieldset>
         </form>
       </div>

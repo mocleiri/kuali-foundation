@@ -53,7 +53,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   <tr>
                     <th>Revision Type</th>
                     <td><select class="has-other" name="revision-type" id="revision-type">
-                        <option value="">Select</option>
+                        <option></option>
                         <option value="B">Decrease Award</option>
                         <option value="BD">Decrease Award &amp; Decrease Duration</option>
                         <option value="BC">Decrease Award &amp; Increase Duration</option>

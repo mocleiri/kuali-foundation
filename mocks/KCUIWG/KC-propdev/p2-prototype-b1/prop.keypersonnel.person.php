@@ -1,7 +1,5 @@
 <?php  session_start();
-
 include "modal/modal-addpersonnel/keypersonnel.data.php";
-
 ?>
 
 <script>
