@@ -11,6 +11,7 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
+import org.kuali.common.aws.ec2.model.security.Protocol;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
@@ -114,6 +115,18 @@ public final class DefaultEC2Service implements EC2Service {
 			newPerms.add(newPerm);
 		}
 		return ImmutableList.copyOf(newPerms);
+	}
+
+	protected Permission getPermission(IpPermission perm) {
+		Assert.isTrue(perm.getUserIdGroupPairs() == null, "User id / group pairs are not supported");
+		String protocolName = perm.getIpProtocol();
+		Integer fromPort = perm.getFromPort();
+		Integer toPort = perm.getToPort();
+		List<String> ipRanges = perm.getIpRanges();
+		Assert.noNulls(fromPort, toPort, ipRanges, protocolName);
+		Assert.isTrue(fromPort.equals(toPort), "port ranges are not supported");
+		Protocol protocol = Protocol.valueOf(protocolName);
+		return new Permission.Builder(fromPort).cidrNotations(ipRanges).protocol(protocol).build();
 	}
 
 	protected IpPermission getIpPermission(Permission perm) {
