@@ -89,6 +89,7 @@ public final class Permission implements Comparable<Permission> {
 
 	@Override
 	public boolean equals(Object object) {
+
 		if (object == null) {
 			return false;
 		}
