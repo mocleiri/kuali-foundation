@@ -265,7 +265,10 @@ $(document).ready(function() {
         $('.uif-dateControl').each(function() {
             $(this).datepicker({
                 autoclose: true,
-                todayHighlight: true
+                todayHighlight: true,
+                // numberOfMonths: 2,
+                changeMonth: true,
+                changeYear: true
             }).mask('99/99/9999');
         });
 

@@ -20,17 +20,17 @@ require_once( 'inc/head.php' );
 						<td><input type="text" id="attachments" placeholder="" class="form-control input-sm disabled" value="Yes" disabled="disabled" /></td>
 					</tr>
 					<tr>
-						<td><label class="control-label col-lg-2" for="budget"> Budget?</label></td>
+						<td><label class="control-label col-lg-2 required" for="budget"> Budget?</label></td>
 						<td>
-							<select name="select" id="budget" class="form-control input-sm" title="Budget" required="required">
+							<select name="select" id="budget" class="form-control input-sm" title="Budget" required>
 								<option value="" selected="selected">all versions</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
-						<td><label class="control-label col-lg-2" for="lead-unit"> * Lead Unit</label></td>
+						<td><label class="control-label col-lg-2 required" for="lead-unit"> * Lead Unit</label></td>
 						<td>
-							<select name="lead-unit" id="lead-unit" style="" class="form-control input-sm" title="* Lead Unit" required="required">
+							<select name="lead-unit" id="lead-unit" style="" class="form-control input-sm" title="* Lead Unit" required>
 								<option value="">Select</option>
 								<option value="000001">000001 - University</option>
 								<option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
@@ -53,7 +53,7 @@ require_once( 'inc/head.php' );
 
 		<div class="modal-footer">
 			<a class="various fancybox.ajax btn btn-primary" data-fancybox-type="ajax" href="modal/copied-document.html">Copy</a>
-			<button type="button" class="btn btn-link">Close</button>
+			<button type="button" class="btn btn-link fancy-close">Close</button>
 		</div>
 		</form>
 	</div>

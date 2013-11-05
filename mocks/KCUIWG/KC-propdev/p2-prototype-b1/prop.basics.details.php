@@ -144,7 +144,7 @@ $(document).ready(function(){
 									</div>
 								</div>
 
-								<div class="form-group clearfix">
+								<!-- <div class="form-group clearfix">
 									<label for="prime_sponsor_id" class="control-label col-md-3">Prime Sponsor:</label>
 									<div class="col-md-9 input-group">
 										<input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
@@ -181,7 +181,7 @@ $(document).ready(function(){
 											<a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-institution.php" data-modal-height="500"></a>
 										</span>
 									</div>
-								</div>
+								</div> -->
 
 								<div class="form-group clearfix">
 									<label for="keywords" class="control-label col-md-3">Keywords:</label>

@@ -164,7 +164,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     <td > Available </td>
                     <td ><!--  <input type="checkbox" name="document.developmentProposalList[0].s2sOpportunity.s2sOppForms[0].selectToPrint" value="on">-->
                       
-                      <input type="checkbox" tabindex="15"  title="selectToPrint"></td>
+                      <input type="checkbox" tabindex="15"  title="selectToPrint" checked="checked" disabled></td>
                   </tr>
                   <tr>
                     <td > Attachments-V1.1 </td>

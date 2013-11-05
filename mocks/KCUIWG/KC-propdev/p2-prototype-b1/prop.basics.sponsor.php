@@ -43,7 +43,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 					      <label for="sponsor_deadline_type" class="control-label col-md-3"> Sponsor Deadline Type: </label>
 					      <div class="col-md-9">
 					        <select name="sponsor_deadline_type" id="sponsor_deadline_type" class="form-control input-sm col-md-8">
-				        	    <option value="" selected="selected">select</option>
+				        	    <option></option>
 								<option value="Postmark">Postmark</option>
 								<option value="Receipt">Receipt</option>
 								<option value="Target Date">Target Date</option>
@@ -52,10 +52,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				        </div>
 
 					    <div class="form-group clearfix">
-					      <label for="notice_of_opp" class="control-label col-md-3 required">* Notice of Opportunity: </label>
+					      <label for="notice_of_opp" class="control-label col-md-3">Notice of Opportunity: </label>
 					      <div class="col-md-9">
 					        <select name="notice_of_opp" id="notice_of_opp" class="form-control input-sm col-md-8">
-				        	    <option value="" selected="selected">select</option>
+				        	    <option></option>
 								<option value="1">Federal Solicitation</option>
 								<option value="6">Non-Federal Solicitation</option>
 								<option value="2">Unsolicited</option>
@@ -68,7 +68,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				        </div>
 
 					    <div class="form-group clearfix">
-					      <label for="opportunity_id" class="control-label col-md-3 required">* Opportunity ID: </label>
+					      <label for="opportunity_id" class="control-label col-md-3">Opportunity ID: </label>
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm has-helper" name="opportunity_id" id="opportunity_id" value="<?php if ($alt) { echo 'PD 09-6885'; } else { echo 'PA-13-302'; } ?>" disabled />
 					        <div class="helper-text">
@@ -78,7 +78,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				        </div>
 
 					    <div class="form-group clearfix">
-					      <label for="cfda_number" class="control-label col-md-3 required"> * CFDA number: </label>
+					      <label for="cfda_number" class="control-label col-md-3">CFDA number: </label>
 					      <div class="col-md-9">
 					        <input type="text" class="form-control input-sm has-helper" name="cfda_number" id="cfda_number" value="10.001" disabled />
 					        <div class="helper-text">

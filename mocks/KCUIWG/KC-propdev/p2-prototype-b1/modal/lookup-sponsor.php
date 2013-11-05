@@ -91,4 +91,5 @@ require_once( 'inc/head.php' );
     <div class="modal-footer"> <a href="lookup-sponsor-results.php" class="btn btn-primary btn-sm">Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a></div>
   </div>
 </div>
+
 <?php require_once( 'inc/footer.php' ); ?>

@@ -141,7 +141,7 @@ require_once( 'inc/head.php' );
 
 		<div class="modal-footer">
 			<button type="button" class="btn btn-primary">Print selected</button>
-			<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+			<button type="button" class="btn btn-link fancy-close">Cancel</button>
 		</div>
 		</form>
 	</div>
