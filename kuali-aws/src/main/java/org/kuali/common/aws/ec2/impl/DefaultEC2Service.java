@@ -99,6 +99,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public void createSecurityGroup(KualiSecurityGroup group) {
+		Assert.noNulls(group);
 		CreateSecurityGroupRequest request = new CreateSecurityGroupRequest();
 		request.setGroupName(group.getName());
 		if (group.getDescription().isPresent()) {
@@ -109,7 +110,15 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
+	public boolean isExistingSecurityGroup(String name) {
+		Assert.noBlanks(name);
+		return getSecurityGroup(name).isPresent();
+	}
+
+	@Override
 	public UpdatePermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
+		Assert.noBlanks(securityGroupName);
+		Assert.noNulls(permissions);
 		Optional<SecurityGroup> optional = getSecurityGroup(securityGroupName);
 		Assert.isTrue(optional.isPresent(), "Security group " + securityGroupName + " does not exist");
 		SecurityGroup group = optional.get();

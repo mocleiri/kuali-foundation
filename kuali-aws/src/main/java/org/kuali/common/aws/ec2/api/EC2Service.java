@@ -91,6 +91,11 @@ public interface EC2Service {
 	public Optional<SecurityGroup> getSecurityGroup(String name);
 
 	/**
+	 * Return true if there is already a security group with the given name.
+	 */
+	public boolean isExistingSecurityGroup(String name);
+
+	/**
 	 * Update a security group such that its permissions match the list provided. Any extra permissions are removed. Any new permissions are added. Any existing permissions that
 	 * exactly match one of the permissions from the list are left intact.
 	 */
