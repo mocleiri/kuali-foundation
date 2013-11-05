@@ -41,21 +41,9 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
           <div class="btn-row-page-action">
-            <?php
-			if ($alt && file_exists('prop.basics.details-alt.php')) {
-				echo '<button href="prop.basics.details-alt.php" class="btn btn-default">Back</button>';
-			} else {
-				echo '<button href="prop.basics.details.php" class="btn btn-default">Back</button>';
-			}
-			?>
+            <button href="prop.basics.details.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <?php
-			if ($alt && file_exists('prop.basics.deliveryinfo-alt.php')) {
-				echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-primary">Save and Continue</button>';
-			} else {
-				echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>';
-			}
-			?>
+            <button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>
           </div>
           <!-- // --> 
           

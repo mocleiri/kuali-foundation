@@ -820,91 +820,154 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                   </div>
                   <div class="tab-pane" id="p1_proposalPersonCertification<?php echo $_SESSION['personnelId']?>">
                     <h4>Proposal Certification</h4>
-                    <form class="form" role="form">
-                      <hr>
-                      Can you certify that the information submitted within this application is true, complete and accurate to the best of your knowledge? That any false, fictitious, or fraudulent statements or claims may subject you, as the PI/Co-PI/Co-I to criminal, civil or administrative penalties? That you agree to accept responsibility for the scientific conduct of the project and to provide the required progress reports if an award is made as a result of this application.
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                          no </label>
-                      </div>
-                      <hr>
-                      Is there any potential for a perceived or real conflict of interest as defined in MIT's Policies and Procedures with regard to this proposal?
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios1" id="optionsRadios3" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios1" id="optionsRadios4" value="option2">
-                          no </label>
-                      </div>
-                      <hr>
-                      If this is a NIH/NSF proposal have you submitted the required financial disclosures in the web based Coeus Conflict of Interest module?
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios2" id="optionsRadios5" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios2" id="optionsRadios6" value="option2">
-                          no </label>
-                      </div>
-                      <hr>
-                      Have lobbying activities been conducted on behalf of this proposal?
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios3" id="optionsRadios7" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios3" id="optionsRadios8" value="option2">
-                          no </label>
-                      </div>
-                      <hr>
-                      Are you currently debarred, suspended, proposed for debarment, declared ineligible or voluntarily excluded from current transactions by a federal department or agency?
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios4" id="optionsRadios9" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios4" id="optionsRadios10" value="option2">
-                          no </label>
-                      </div>
-                      <hr>
-                      Are you familiar with the requirements of the Procurement Liabilities Act?
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios5" id="optionsRadios11" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios5" id="optionsRadios12" value="option2">
-                          no </label>
-                      </div>
-                      <hr>
-                      Is this a new full application related to a submission of a preliminary application?
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios6" id="optionsRadios13" value="option1">
-                          yes </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios6" id="optionsRadios14" value="option2">
-                          no </label>
-                      </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">Can you certify that the information here is all true, complete, and accurate to the best of your knowlege?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>Can you certify that the information submitted within this application is true, complete and accurate to the best of your knowledge? That any false, fictitious, or fraudulent statements or claims may subject you, as the PI/Co-PI/Co-I to criminal, civil or administrative penalties? That you agree to accept responsibility for the scientific conduct of the project and to provide the required progress reports if an award is made as a result of this application.</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_1a" name="q_1_a" value="1" class="radio-choice" /> <label for="q_1_1a">Yes, all of the information here is correct, accurate, and true to the best of my knowledge.</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_1b" name="q_1_a" value="0" class="radio-choice" /> <label for="q_1_1b">No</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">Is there any potential for a perceived or real conflict of interest as defined in MIT's Policies and Procedures with regard to this proposal?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>Is there any potential for a perceived or real conflict of interest as defined in MIT's Policies and Procedures with regard to this proposal?</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_2a" name="q_2_a" value="1" class="radio-choice" /> <label for="q_1_2a">Yes</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_2b" name="q_2_a" value="0" class="radio-choice" /> <label for="q_1_2b">No, there is not potential for perceived or real conflict of interest.</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">If this is a NIH/NSF proposal, have you submitted the required financial disclosures in the web based Coeus Conflict of Interest module?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>If this is a NIH/NSF proposal, have you submitted the required financial disclosures in the web based Coeus Conflict of Interest module?</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_3a" name="q_3_a" value="1" class="radio-choice" /> <label for="q_1_3a">Yes, I have submitted the required financial disclosures.</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_3b" name="q_3_a" value="0" class="radio-choice" /> <label for="q_1_3b">No</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">Have lobbying activities been conducted on behalf of this proposal?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>Have lobbying activities been conducted on behalf of this proposal?</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_4a" name="q_4_a" value="1" class="radio-choice" /> <label for="q_1_4a">Yes</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_4b" name="q_4_a" value="0" class="radio-choice" /> <label for="q_1_4b">No, lobbying activities have not been conducted.</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">Are you currently debarred, suspended, proposed for debarment, declared ineligible or voluntarily excluded from current transactions by a federal department or agency?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>Are you currently debarred, suspended, proposed for debarment, declared ineligible or voluntarily excluded from current transactions by a federal department or agency?</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_5a" name="q_5_a" value="1" class="radio-choice" /> <label for="q_1_5a">Yes</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_5b" name="q_5_a" value="0" class="radio-choice" /> <label for="q_1_5b">No, I am eligible for all transactions.</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">Are you familiar with the requirements of the Procurement Liabilities Act?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>Are you familiar with the requirements of the Procurement Liabilities Act?</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_6a" name="q_6_a" value="1" class="radio-choice" /> <label for="q_1_6a">Yes, I am familiar with all requirements.</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_6b" name="q_6_a" value="0" class="radio-choice" /> <label for="q_1_6b">No</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="question-set">
+                      <fieldset class="question">
+                        <div class="question-title">
+                          <legend class="off-screen">Is this a new full application related to a submission of a preliminary application?</legend>
+                        </div>
+                        <div class="question-text">
+                          <p>Is this a new full application related to a submission of a preliminary application?</p>
+                        </div>
+                        <div class="question-response">
+                          <div class="question-reponse-choices">
+                            <div class="choice">
+                              <input type="radio" id="q_1_7a" name="q_7_a" value="1" class="radio-choice" /> <label for="q_1_7a">Yes.</label>
+                            </div>
+                            <div class="choice">
+                              <input type="radio" id="q_1_7b" name="q_7_a" value="0" class="radio-choice" /> <label for="q_1_7b">No, this new application is not related to another preliminary application.</label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
                     </form>
                   </div>
                 </div>

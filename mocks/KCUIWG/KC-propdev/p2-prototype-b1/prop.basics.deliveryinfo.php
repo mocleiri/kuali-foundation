@@ -23,8 +23,8 @@ include( '_temp.select.filler.php' );
   <h4><i class="icon-info-sign"></i> No action required</h4>
   <p>You've selected submissionv via electronic delivery to Grants.gov for this proposal. Additional information is not required.</p>
 </div>
-<form action="#" method="post" class="form-horizontal">
-<!--          <h4>Recipient <span style="font-size:11px; font-style:italic"> (<a class="" href="#">edit...</a>)</span></h4>
+<!--<form action="#" method="post" class="form-horizontal">
+          <h4>Recipient <span style="font-size:11px; font-style:italic"> (<a class="" href="#">edit...</a>)</span></h4>
           <table  class="table table-condensed">
             <tbody>
               <tr>
@@ -129,12 +129,11 @@ include( '_temp.select.filler.php' );
         </form> --> 
 
 <!-- // -->
-<div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+<div class="uif-stickyFooter uif-stickyButtonFooter">
   <div class="btn-row-page-action">
     <button href="prop.basics.oppsearch-search.php" class="btn btn-default">Back</button>
     <button class="btn btn-default">Save</button>
     <button href="prop.basics.sponsor.php" class="btn btn-primary">Save and Continue</button>
   </div>
-  <!-- // --> 
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

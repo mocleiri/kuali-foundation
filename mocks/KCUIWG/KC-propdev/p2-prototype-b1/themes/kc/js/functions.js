@@ -406,7 +406,7 @@ $(document).ready(function() {
             if (btnUrl) {
 
                 storeSession(btnUrl);
-                window.location = btnUrl;
+                document.location = btnUrl;
 
             }
 
@@ -434,7 +434,7 @@ $(document).ready(function() {
             });
 
             if (hasErrors) {
-                
+
                 that.contentWrapper.prepend('<div class="alert alert-danger"><h4><i class="icon icon-warning"></i> Errors found below</h4><p>Please review the highlighted fields below and make corrections before proceeding.</p></div>');
 
             } else {
