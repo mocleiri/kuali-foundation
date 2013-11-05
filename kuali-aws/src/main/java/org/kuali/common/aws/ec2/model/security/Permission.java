@@ -1,12 +1,13 @@
 package org.kuali.common.aws.ec2.model.security;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public final class Permission {
+public final class Permission implements Comparable<Permission> {
 
 	private final int port;
 	private final Protocol protocol;
@@ -40,6 +41,7 @@ public final class Permission {
 			Assert.noBlanks(cidrNotations);
 			Assert.isTrue(cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
 			Assert.isTrue(port >= 0 && port <= 65535, "Port must be a number between 0 and 65535");
+			Collections.sort(cidrNotations);
 			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
 			return new Permission(this);
 		}
@@ -61,6 +63,15 @@ public final class Permission {
 
 	public List<String> getCidrNotations() {
 		return cidrNotations;
+	}
+
+	@Override
+	public int compareTo(Permission other) {
+		if (port == other.getPort()) {
+			return protocol.compareTo(other.getProtocol());
+		} else {
+			return Double.compare(port, other.getPort());
+		}
 	}
 
 }
