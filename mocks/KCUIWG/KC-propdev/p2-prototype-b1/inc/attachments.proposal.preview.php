@@ -60,8 +60,8 @@
                           </div>
                         </div>
                         <div class="btn-row-widget-action pull-right">
-                          <button class="btn btn-primary btn-xs" entryId="<?php echo $id?>" id="edit_entry<?php echo $id?>"> Edit</button>
-                          <button class="btn btn-link btn-xs" id="cancel_preview<?php echo $id?>"> Cancel</button>
+                          <button class="btn btn-primary btn-xs" entryId="<?php echo $id?>" id="edit_attachments_proposal_entry<?php echo $id?>"> Edit</button>
+                          <button class="btn btn-link btn-xs" id="cancel_attachments_proposal_preview<?php echo $id?>"> Cancel</button>
                         </div>
                       </div>
                     </form>
@@ -69,7 +69,7 @@
   $(document).ready(function(){
 
 
-   $('#edit_entry<?php echo $id?>').click(function(){
+   $('#edit_attachments_proposal_entry<?php echo $id?>').click(function(){
 
          var container = $(this).parents('div').eq(2);
          console.log($(container).html());
@@ -84,7 +84,7 @@
          return false;
    });
 
-    $('#cancel_preview<?php echo $id?>').click(function(){
+    $('#cancel_attachments_proposal_preview<?php echo $id?>').click(function(){
 
         $("#collapse<?php echo $id?>").collapse('hide');
         return false;

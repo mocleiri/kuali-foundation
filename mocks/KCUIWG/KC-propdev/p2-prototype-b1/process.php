@@ -11,15 +11,17 @@
          $entry['exemptions'] = str_replace(' ', '', '"'.implode('","',$exemptions).'"');
          $actionLabel = "Update entry";
          $action = "updateComplianceEntry";
-         include('modal/inc/header.php');
+
+         include('themes/kc/inc/header.php');
          include('modal/modal-compliance/compliance.form.php');
-           include('modal/inc/footer.php');
+         include('themes/kc/inc/footer.php');
 
     break;
     case "previewComplianceEntry":
              $id = $_REQUEST['id'];
              $entry = $_SESSION['compliance'][$id];
            //  print_r($entry);
+
             include('inc/compliance.entry.preview.php');
 
         break;
@@ -35,6 +37,7 @@
         $entry = $_SESSION['compliance'][$id];
         include "inc/compliance.entry.php";
     break;
+
     case "appendAttachmentProposalEntry":
 
            $id = max(array_keys($_SESSION['attachments']['proposal']));
@@ -47,7 +50,9 @@
           //print_r($entry);
           $actionLabel = "Update entry";
           $action = "updateAttachmentProposalEntry";
+          include('modal/inc/header.php');
          include('inc/attachments.proposal.form.php');
+         include('modal/inc/footer.php');
 
     break;
     case "previewAttachmentProposalEntry":
@@ -56,6 +61,29 @@
          //  print_r($entry);
           include('inc/attachments.proposal.preview.php');
     break;
+    case "updateAttachmentProposalEntry":
+
+        $id = $_REQUEST['id'];
+            $entry = $_SESSION['compliance'][$id];
+            include "inc/attachments.proposal.entry.php";
+    break;
+    case "editAttachmentPersonnelEntry":
+        $id = $_REQUEST['id'];
+          $entry = $_SESSION['attachments']['personnel'][$id];
+         // print_r($entry);
+          $actionLabel = "Update entry";
+          $action = "updateAttachmentPersonnelEntry";
+        include('themes/kc/inc/header.php');
+         include('inc/attachments.personnel.form.php');
+         include('themes/kc/inc/footer.php');
+
+    break;
+    case "previewAttachmentPersonnelEntry":
+              $id = $_REQUEST['id'];
+              $entry = $_SESSION['attachments']['personnel'][$id];
+             //  print_r($entry);
+              include('inc/attachments.personnel.preview.php');
+        break;
     default:
 
 

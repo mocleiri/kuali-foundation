@@ -6,7 +6,7 @@
        });
 
      </script>
-                    <form method="post" class="form-horizontal" id="attachment-proposal-form<?php echo $id?>">
+                    <form method="post" class="form-horizontal" id="attachment-proposal-form<?php echo $id?>" enctype="multipart/form-data">
                     <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
                     <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
                       <div class="row">
@@ -51,19 +51,19 @@
                           <div class="form-group clearfix">
                             <label for="contact" class="control-label col-md-3">Contact:</label>
                             <div class="col-md-9 input-group">
-                              <input type="text" name="" id="contact" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['contact']?>">
+                              <input type="text" name="contact" id="contact" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['contact']?>">
                             </div>
                           </div>
                           <div class="form-group clearfix">
                             <label for="email" class="control-label col-md-3">Email:</label>
                             <div class="col-md-9 input-group">
-                              <input type="text" name="" id="email" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['email']?>">
+                              <input type="text" name="email" id="email" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['email']?>">
                             </div>
                           </div>
                           <div class="form-group clearfix">
                             <label for="" class="control-label col-md-3">Phone:</label>
                             <div class="col-md-9 input-group">
-                              <input type="text" name="" id="" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['phone']?>">
+                              <input type="text" name="phone" id="phone" class="form-control input-sm col-md-8 " placeholder="" value="<?php echo $entry['phone']?>">
                             </div>
                           </div>
                         </div>
@@ -97,8 +97,8 @@
                           </div>
                         </div>
                         <div class="btn-row-widget-action pull-right">
-                          <button class="btn btn-primary btn-xs update-compliance-entry" entryId="<?php echo $id?>" id="update-attachment-proposal-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
-                          <button class="btn btn-link btn-xs cancel-update-attachment-proposal-entry" entryId="<?php echo $id?>"> Cancel</button>
+                          <button class="btn btn-primary btn-xs update-attachment-proposal-entry" entryId="<?php echo $id?>" id="update-attachment-proposal-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
+                          <button class="btn btn-link btn-xs cancel-update-attachment-proposal-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-proposal-entry<?php echo $id?>"> Cancel</button>
                         </div>
                       </div>
                     </form>

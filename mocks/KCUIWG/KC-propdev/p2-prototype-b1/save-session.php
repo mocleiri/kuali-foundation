@@ -64,6 +64,50 @@
         }
 
      break;
+     case "updateAttachmentProposalEntry":
+               //print_r($_REQUEST);
+              foreach($_REQUEST as $index=>$field){
+                     $list[$index] = trim($field);
+               }
+
+               $list["uploadFile"] = $_SESSION['attachments']['proposal'][$_REQUEST['id']]["uploadFile"];
+               $list['uploadTime'] = $_SESSION['attachments']['proposal'][$_REQUEST['id']]['uploadTime'];
+
+               $_SESSION['attachments']['proposal'][$_REQUEST['id']] = $list;
+
+          break;
+     case "addAttachmentsPersonnelEntry":
+            print_r($_REQUEST);
+         foreach($_REQUEST as $index=>$field){
+             $list[$index] = trim($field);
+           }
+
+           $list["uploadFile"] = str_replace("C:\\fakepath\\", "", $list["uploadFile"]);
+           $list['uploadTime'] = date("n/j/Y g:i A");
+
+           $_SESSION['attachments']['personnel'][] = $list;
+
+     break;
+     case "removeAttachmentsPersonnelEntry":
+
+             if(isset($_REQUEST["id"])){
+
+                 $id = $_REQUEST["id"];
+                 if(isset($_SESSION['attachments']['personnel'][$id])) unset($_SESSION['attachments']['personnel'][$id]);
+             }
+
+          break;
+     case "updateAttachmentPersonnelEntry":
+          foreach($_REQUEST as $index=>$field){
+            $list[$index] = trim($field);
+         }
+
+         $list["uploadFile"] = $_SESSION['attachments']['personnel'][$_REQUEST['id']]["uploadFile"];
+         $list['uploadTime'] = $_SESSION['attachments']['personnel'][$_REQUEST['id']]['uploadTime'];
+
+         $_SESSION['attachments']['personnel'][$_REQUEST['id']] = $list;
+
+     break;
      default:
           foreach($_REQUEST as $index=>$field){
               if(is_array($field)){
@@ -97,4 +141,5 @@
     echo "<pre>";
     print_r($_SESSION);
     echo "</pre>";
+    echo date("n/j/Y g:i A");
 ?>

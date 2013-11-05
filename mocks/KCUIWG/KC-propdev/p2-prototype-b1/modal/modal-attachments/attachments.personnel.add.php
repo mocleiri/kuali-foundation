@@ -12,9 +12,10 @@ $(document).ready(function(){
     });*/
 
 
-    $('#add-attachments-proposal-entry').click(function(e){
+    $('#add-attachments-personnel-entry').click(function(e){
 
-        var data = $('#add-attachments-proposal-form').serialize();
+
+        var data = $('#add-attachments-personnel-form').serialize();
 
         console.log(data);
          console.log($('#file').val());
@@ -28,8 +29,8 @@ $(document).ready(function(){
             parent.$.fancybox.close();
 
 
-            $.post('../../process.php', {'action' : 'appendAttachmentProposalEntry'}, function(t){
-                parent.$('.attachments-proposal-entries').append(t);
+            $.post('../../process.php', {'action' : 'appendAttachmentPersonnelEntry'}, function(t){
+                parent.$('.attachments-personnel-entries').append(t);
                // console.log(t);
             });
         });
@@ -38,7 +39,7 @@ $(document).ready(function(){
 
         return false;
     });
-    $('#cancel-update-attachments-proposal-entry0').click(function(e){
+    $('#cancel-update-attachments-personnel-entry0').click(function(e){
        parent.$.fancybox.close();
     });
 
@@ -47,7 +48,7 @@ $(document).ready(function(){
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h3>Add Proposal Attachment</h3>
+			<h3>Add Personnel Attachment</h3>
 		</div>
 
             <div class="modal-body">
@@ -61,8 +62,8 @@ $(document).ready(function(){
        $entry['approval_date'] = '';
        $entry['expiration_date'] = '';
         $actionLabel = "Add Entry";
-        $action = "addAttachmentsProposalEntry";
-        include "attachments.proposal.form.php";?>
+        $action = "addAttachmentsPersonnelEntry";
+        include "attachments.personnel.form.php";?>
 
             </div>
     </div>
