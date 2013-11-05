@@ -104,10 +104,10 @@ public final class DefaultEC2Service implements EC2Service {
 		if (group.getDescription().isPresent()) {
 			request.setDescription(group.getDescription().get());
 		}
-		setPermissions(group.getName(), group.getPermissions());
+		updatePermissions(group.getName(), group.getPermissions());
 	}
 
-	public SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions) {
+	public SetPermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
 		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
 		request.setGroupNames(Collections.singletonList(securityGroupName));
 		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
