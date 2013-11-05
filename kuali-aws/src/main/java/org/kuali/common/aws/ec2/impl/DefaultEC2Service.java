@@ -108,15 +108,6 @@ public final class DefaultEC2Service implements EC2Service {
 		updatePermissions(group.getName(), group.getPermissions());
 	}
 
-	protected SecurityGroup getSecurityGroup(String name) {
-		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
-		request.setGroupNames(Collections.singletonList(name));
-		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
-		List<SecurityGroup> groups = result.getSecurityGroups();
-		Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
-		return groups.get(0);
-	}
-
 	public SetPermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
 		SecurityGroup group = getSecurityGroup(securityGroupName);
 		List<IpPermission> oldPerms = group.getIpPermissions();
@@ -137,6 +128,15 @@ public final class DefaultEC2Service implements EC2Service {
 		client.authorizeSecurityGroupIngress(authorizer);
 
 		return new SetPermissionsResult(adds, deletes, existing);
+	}
+
+	protected SecurityGroup getSecurityGroup(String name) {
+		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
+		request.setGroupNames(Collections.singletonList(name));
+		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
+		List<SecurityGroup> groups = result.getSecurityGroups();
+		Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
+		return groups.get(0);
 	}
 
 	protected List<IpPermission> getIpPermissions(Collection<Permission> permissions) {
