@@ -26,6 +26,13 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_BLANKS = "blank strings not allowed";
 
 	/**
+	 * Assert that <code>port</code> is >= 0 and <= 65535
+	 */
+	public static void port(int port) {
+		isTrue(port >= 0 && port <= 65535, "Port must be a number between 0 and 65535");
+	}
+
+	/**
 	 * Assert that all of the numbers in the array are greater than or equal to zero
 	 */
 	public static void noNegatives(int... numbers) {
