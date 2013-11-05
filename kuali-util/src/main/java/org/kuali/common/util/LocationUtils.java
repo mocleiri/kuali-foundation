@@ -774,13 +774,19 @@ public class LocationUtils {
 	}
 
 	public static byte[] createChecksum(String location, String algorithm) {
-
 		InputStream in = null;
 		try {
-
-			// Open an input stream
 			in = LocationUtils.getInputStream(location);
+			return createChecksum(in, algorithm);
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+	}
 
+	public static byte[] createChecksum(InputStream in, String algorithm) throws IOException {
+		try {
 			byte[] buffer = new byte[1024];
 			MessageDigest complete = MessageDigest.getInstance(algorithm);
 			int numRead;
@@ -795,10 +801,7 @@ public class LocationUtils {
 		} catch (NoSuchAlgorithmException e) {
 			throw new IllegalStateException("Unexpected message digest error", e);
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			IOUtils.closeQuietly(in);
+			throw e;
 		}
 	}
-
 }
