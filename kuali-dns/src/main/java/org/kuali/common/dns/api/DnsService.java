@@ -27,9 +27,9 @@ public interface DnsService {
 	 * Create a CNAME record for <code>aliasFQDN</code> that points to <code>canonicalFQDN</code>.
 	 * 
 	 * @param aliasFQDN
-	 *            The fully qualified domain name that is being being pointed to <code>canonicalFQDN</code>
+	 *            The fully qualified domain name that is being pointed to <code>canonicalFQDN</code>
 	 * @param canonicalFQDN
-	 *            The fully qualified domain name that <code>aliasFQDN</code> points to after this method returns.
+	 *            The fully qualified domain name that <code>aliasFQDN</code> points to when this method returns.
 	 * @param timeToLiveInSeconds
 	 *            The amount of time DNS servers are allowed to cache the new CNAME record. A TTL value of 300 means if the CNAME record is changed, DNS servers around the world
 	 *            may still be showing the old value for up to 5 minutes.
