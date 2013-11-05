@@ -28,7 +28,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	/**
 	 * Assert that <code>port</code> is >= 0 and <= 65535
 	 */
-	public static void port(int port) {
+	public static void isPort(int port) {
 		isTrue(port >= 0 && port <= 65535, "Port must be a number between 0 and 65535");
 	}
 
