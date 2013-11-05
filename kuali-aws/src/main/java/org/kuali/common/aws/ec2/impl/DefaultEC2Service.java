@@ -108,13 +108,17 @@ public final class DefaultEC2Service implements EC2Service {
 		updatePermissions(group.getName(), group.getPermissions());
 	}
 
-	public SetPermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
+	protected SecurityGroup getSecurityGroup(String name) {
 		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
-		request.setGroupNames(Collections.singletonList(securityGroupName));
+		request.setGroupNames(Collections.singletonList(name));
 		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
 		List<SecurityGroup> groups = result.getSecurityGroups();
 		Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
-		SecurityGroup group = groups.get(0);
+		return groups.get(0);
+	}
+
+	public SetPermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
+		SecurityGroup group = getSecurityGroup(securityGroupName);
 		List<IpPermission> oldPerms = group.getIpPermissions();
 		List<Permission> oldPermissions = getPermissions(oldPerms);
 
