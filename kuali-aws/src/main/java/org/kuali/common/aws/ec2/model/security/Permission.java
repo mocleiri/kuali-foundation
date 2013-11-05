@@ -77,7 +77,12 @@ public final class Permission implements Comparable<Permission> {
 
 	@Override
 	public int hashCode() {
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		for (String notation : cidrNotations) {
+			result = result * prime + notation.hashCode();
+		}
+		return result;
 	}
 
 	@Override
