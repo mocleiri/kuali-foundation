@@ -11,9 +11,9 @@ import com.google.common.collect.ImmutableList;
 
 public enum SecurityGroups {
 
-	CI("ci", "Continuous Integration Server"), //
-	CI_MASTER("ci.master", "Master Jenkins CI Server", Permissions.WEB_SERVER), //
-	CI_BUILD_SLAVE("ci.slave", "Build Slave for Jenkins CI Server", Permissions.SSH.getPermission());
+	CI("ci", "Continuous Integration"), //
+	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.WEB_SERVER), //
+	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", Permissions.SSH.getPermission());
 
 	private final KualiSecurityGroup group;
 
