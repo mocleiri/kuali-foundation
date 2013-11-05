@@ -15,6 +15,8 @@
  */
 package org.kuali.common.aws.ec2;
 
+import java.util.List;
+
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -29,6 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
@@ -47,16 +51,24 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		KualiSecurityGroup group = SecurityGroups.CI_MASTER.getGroup();
-		boolean exists = service.isExistingSecurityGroup(group.getName());
-		if (!exists) {
-			service.createSecurityGroup(group);
-		}
-		SetPermissionsResult result = service.setPermissions(group.getName(), group.getPermissions());
-		Object[] args = { result.getAdds().size(), result.getDeletes().size(), result.getExisting().size() };
-		logger.info("adds: {}  deletes: {}  existing: {}", args);
-
+		List<String> names = service.getSecurityGroupNames();
+		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
+		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
+		KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
+		handleGroups(names, ci, master, slave);
 		return null;
+	}
+
+	protected void handleGroups(List<String> names, KualiSecurityGroup... groups) {
+		List<KualiSecurityGroup> list = ImmutableList.copyOf(groups);
+		for (KualiSecurityGroup element : list) {
+			if (!names.contains(element.getName())) {
+				service.createSecurityGroup(element);
+			}
+			SetPermissionsResult result = service.setPermissions(element.getName(), element.getPermissions());
+			Object[] args = { result.getAdds().size(), result.getDeletes().size(), result.getExisting().size() };
+			logger.info("adds: {}  deletes: {}  existing: {}", args);
+		}
 	}
 
 }
