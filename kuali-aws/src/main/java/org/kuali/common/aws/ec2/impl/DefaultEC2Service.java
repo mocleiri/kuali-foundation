@@ -109,7 +109,9 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	public SetPermissionsResult updatePermissions(String securityGroupName, List<Permission> permissions) {
-		SecurityGroup group = getSecurityGroup(securityGroupName);
+		Optional<SecurityGroup> optional = getSecurityGroup(securityGroupName);
+		Assert.isTrue(optional.isPresent(), "Security group " + securityGroupName + " does not exist");
+		SecurityGroup group = optional.get();
 		List<IpPermission> oldPerms = group.getIpPermissions();
 		List<Permission> oldPermissions = getPermissions(oldPerms);
 
@@ -134,13 +136,19 @@ public final class DefaultEC2Service implements EC2Service {
 		return new SetPermissionsResult(adds, deletes, existing);
 	}
 
-	protected SecurityGroup getSecurityGroup(String name) {
-		DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
-		request.setGroupNames(Collections.singletonList(name));
-		DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
-		List<SecurityGroup> groups = result.getSecurityGroups();
-		Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
-		return groups.get(0);
+	public Optional<SecurityGroup> getSecurityGroup(String name) {
+		List<String> names = getSecurityGroupNames();
+		if (names.contains(name)) {
+			DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
+			request.setGroupNames(Collections.singletonList(name));
+			DescribeSecurityGroupsResult result = client.describeSecurityGroups(request);
+			List<SecurityGroup> groups = result.getSecurityGroups();
+			Assert.isTrue(groups.size() == 1, "Expected exactly 1 security group but there were " + groups.size() + " instead");
+			SecurityGroup group = groups.get(0);
+			return Optional.of(group);
+		} else {
+			return Optional.<SecurityGroup> absent();
+		}
 	}
 
 	protected List<IpPermission> getIpPermissions(Collection<Permission> permissions) {
