@@ -47,7 +47,7 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		KualiSecurityGroup group = SecurityGroups.CI.getGroup();
+		KualiSecurityGroup group = SecurityGroups.CI_MASTER.getGroup();
 		boolean exists = service.isExistingSecurityGroup(group.getName());
 		if (!exists) {
 			service.createSecurityGroup(group);
