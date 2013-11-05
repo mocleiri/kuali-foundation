@@ -120,12 +120,16 @@ public final class DefaultEC2Service implements EC2Service {
 		Set<Permission> deletes = SetUtils.difference(oldSet, newSet);
 		Set<Permission> existing = SetUtils.intersection(newSet, oldSet);
 
-		RevokeSecurityGroupIngressRequest revoker = new RevokeSecurityGroupIngressRequest(securityGroupName, getIpPermissions(deletes));
-		client.revokeSecurityGroupIngress(revoker);
+		if (deletes.size() > 0) {
+			RevokeSecurityGroupIngressRequest revoker = new RevokeSecurityGroupIngressRequest(securityGroupName, getIpPermissions(deletes));
+			client.revokeSecurityGroupIngress(revoker);
+		}
 
-		AuthorizeSecurityGroupIngressRequest authorizer = new AuthorizeSecurityGroupIngressRequest();
-		authorizer.withGroupName(securityGroupName).withIpPermissions(getIpPermissions(adds));
-		client.authorizeSecurityGroupIngress(authorizer);
+		if (adds.size() > 0) {
+			AuthorizeSecurityGroupIngressRequest authorizer = new AuthorizeSecurityGroupIngressRequest();
+			authorizer.withGroupName(securityGroupName).withIpPermissions(getIpPermissions(adds));
+			client.authorizeSecurityGroupIngress(authorizer);
+		}
 
 		return new SetPermissionsResult(adds, deletes, existing);
 	}
