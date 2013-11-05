@@ -765,10 +765,14 @@ public class LocationUtils {
 	}
 
 	public static String getChecksum(String location, String algorithm) {
-		byte[] b = createChecksum(location, algorithm);
+		byte[] bytes = createChecksum(location, algorithm);
+		return getChecksum(bytes, algorithm);
+	}
+
+	public static String getChecksum(byte[] bytes, String algorithm) {
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < b.length; i++) {
-			sb.append(Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1));
+		for (int i = 0; i < bytes.length; i++) {
+			sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 		}
 		return sb.toString();
 	}
