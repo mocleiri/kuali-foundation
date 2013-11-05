@@ -23,7 +23,7 @@ public final class RootVolume {
 	}
 
 	public RootVolume(Optional<Integer> sizeInGigabytes, Optional<Boolean> deleteOnTermination) {
-		Assert.noNulls(sizeInGigabytes);
+		Assert.noNulls(sizeInGigabytes, deleteOnTermination);
 		if (sizeInGigabytes.isPresent()) {
 			Assert.positive(sizeInGigabytes.get());
 		}
