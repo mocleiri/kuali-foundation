@@ -69,7 +69,7 @@ public final class Permission implements Comparable<Permission> {
 	@Override
 	public int compareTo(Permission other) {
 		if (port == other.getPort()) {
-			return protocol.compareTo(other.getProtocol());
+			return protocol.name().compareTo(other.getProtocol().name());
 		} else {
 			return Double.compare(port, other.getPort());
 		}
