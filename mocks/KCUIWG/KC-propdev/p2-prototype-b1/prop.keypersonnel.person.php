@@ -2,9 +2,14 @@
 
 include "modal/modal-addpersonnel/keypersonnel.data.php";
 
-
 ?>
 
+<script>
+         $(document).ready(function(){
+              //
+              $("#role<?php echo $_SESSION['personnelId']?>").val("<?php echo $_SESSION['person'][$_SESSION['personnelId']]['personnel_role'];?>");
+         });
+</script>
 
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -35,23 +40,23 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                           <div class="form-group">
                             <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">Proposal Role:</label>
                             <div class="col-md-8 col-sm-8 col-xs-8 ">
-                              <select name="document.developmentProposalList[0].proposalPersons[0].proposalPersonRoleId" tabindex="0" style="">
+                              <select name="role" id="role<?php echo $_SESSION['personnelId']?>" tabindex="0" style="">
                                 <option value="">select</option>
-                                <option value="COI">Co-Investigator</option>
-                                <option value="PI" selected="">Principal Investigator</option>
+                                <option value="copi">Co-Investigator</option>
+                                <option value="pi" selected="">Principal Investigator</option>
                               </select>
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">Full Name:</label>
+                            <label for="full_name" class="col-md-4 col-sm-4 col-xs-4 control-label">Full Name:</label>
                             <div class="col-md-8 col-sm-8 col-xs-8 ">
-                              <input type="email" class="form-control" id="asdf">
+                              <input type="text" class="form-control" id="full_name" value="<?php echo $persons[$_SESSION['personnelId']]['name'];?>">
                             </div>
                           </div>
                           <div class="form-group">
                             <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">User Name:</label>
                             <div class="col-md-8 col-sm-8 col-xs-8 ">
-                              <input type="email" class="form-control" id="asdf">
+                              <input type="email" class="form-control" id="asdf" value="<?php echo $persons[$_SESSION['personnelId']]['user'];?>">
                             </div>
                           </div>
                         </div>
@@ -59,13 +64,13 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                           <div class="form-group">
                             <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">First Name:</label>
                             <div class="col-md-8 col-sm-8 col-xs-8 ">
-                              <input type="email" class="form-control" id="asdf">
+                              <input type="email" class="form-control" id="asdf" value="<?php echo $persons[$_SESSION['personnelId']]['first'];?>">
                             </div>
                           </div>
                           <div class="form-group">
                             <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">Last Name:</label>
                             <div class="col-md-8 col-sm-8 col-xs-8 ">
-                              <input type="email" class="form-control" id="asdf">
+                              <input type="email" class="form-control" id="asdf" value="<?php echo $persons[$_SESSION['personnelId']]['last'];?>">
                             </div>
                           </div>
                           <div class="form-group">
@@ -905,79 +910,7 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                     </form>
                   </div>
                 </div>
-
-                <!--<table class="table table-collapsed">
-                      <tbody>
-                        <tr>
-                          <th width="25%">Person role</th>
-                          <td>PI</td>
-                        </tr>
-                        <tr>
-                          <th>Full name</th>
-                          <td>Edward R. Haskell</td>
-                        </tr>
-                        <tr>
-                          <th>Username</th>
-                          <td>erhaskell</td>
-                        </tr>
-                        <tr>
-                          <th>Email address</th>
-                          <td>erhaskell@email.com</td>
-                        </tr>
-                        <tr>
-                          <th>Office phone</th>
-                          <td>321-321-1214</td>
-                        </tr>
-                        <tr>
-                          <th>Office fax</th>
-                          <td>321-321-1121</td>
-                        </tr>
-                        <tr>
-                          <th>Pager</th>
-                          <td>321-333-1656</td>
-                        </tr>
-                        <tr>
-                          <th>Mobile</th>
-                          <td>321-321-1221</td>
-                        </tr>
-                        <tr>
-                          <th>Primary title</th>
-                          <td>Acme Primary Title</td>
-                        </tr>
-                        <tr>
-                          <th>Directory title</th>
-                          <td>Acme Directory Title</td>
-                        </tr>
-                        <tr>
-                          <th>Home unit</th>
-                          <td>UA-VPIT</td>
-                        </tr>
-                        <tr>
-                          <th>Division</th>
-                          <td>University Administration</td>
-                        </tr>
-                        <tr>
-                          <th>eRA Commons username</th>
-                          <td>erhaskell</td>
-                        </tr>
-                        <tr>
-                          <th>Office address</th>
-                          <td>Kuali Foundation, 1135 Kuali Drive, Kuali, KU</td>
-                        </tr>
-                        <tr>
-                          <th>Country</th>
-                          <td>United States</td>
-                        </tr>
-                        <tr>
-                          <th>Percentage effort</th>
-                          <td>50%</td>
-                        </tr>
-                        <tr>
-                          <th>Faculty</th>
-                          <td>-</td>
-                        </tr>
-                      </tbody>
-                    </table>-->
               </div>
             </div>
           </div>
+

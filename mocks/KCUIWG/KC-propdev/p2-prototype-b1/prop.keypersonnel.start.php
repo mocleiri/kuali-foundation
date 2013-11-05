@@ -34,8 +34,8 @@ $keyPersonnelMessage = "";
         </div>
 
 
-         <div class="panel-group" id="accordion1" style="margin-bottom:;">
-         <div id="personnel-container">
+         <div class="panel-group" id="accordion1" style="margin-bottom:0px;">
+            <div id="personnel-container">
              <?php
 
                  if(isset($_SESSION['person'])){
@@ -48,7 +48,7 @@ $keyPersonnelMessage = "";
                 ?>
 
 
-         </div>
+            </div>
          </div>
 
         <!-- // -->
