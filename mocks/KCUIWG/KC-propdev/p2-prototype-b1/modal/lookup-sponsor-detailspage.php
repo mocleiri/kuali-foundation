@@ -15,32 +15,32 @@ require_once( 'inc/head.php' );
           <fieldset>
             <legend style="display:none">Enter lookup criteria</legend>
             <div class="form-group clearfix">
-              <label for="sponsor_code" class="control-label col-sm-4 col-xs-4" >Sponsor:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label for="sponsor_code" class="control-label col-sm-3 col-xs-3" >Sponsor:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="sponsor_code" name="sponsor_code" class="form-control input-sm">
               </div>
             </div>
             <div class="form-group clearfix">
-              <label for="sponsor_name" class="control-label col-sm-4 col-xs-4">Sponsor Name:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label for="sponsor_name" class="control-label col-sm-3 col-xs-3">Sponsor Name:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="sponsor_name" name="sponsor_name" class="form-control input-sm">
               </div>
             </div>
            <!-- <div class="form-group clearfix">
-              <label for="sponsor_name" class="control-label col-sm-4 col-xs-4 col-md-offset-4 col-sm-offset-4">Sponsor Name:</label>
-              <div class="col-sm-8 col-xs-8 col-md-offset-4 col-sm-offset-4">
+              <label for="sponsor_name" class="control-label col-sm-3 col-xs-3 col-md-offset-4 col-sm-offset-4">Sponsor Name:</label>
+              <div class="col-sm-9 col-xs-9 col-md-offset-4 col-sm-offset-4">
                 <input type="text" id="sponsor_name" name="sponsor_name" class="form-control input-sm ">
               </div>
             </div>-->
             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="accronym">Acronym:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label class="control-label col-sm-3 col-xs-3"for="accronym">Acronym:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="accronym" name="accronym" class="form-control input-sm">
               </div>
             </div>
             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="sponsor_type_code">Sponsor Type:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label class="control-label col-sm-3 col-xs-3"for="sponsor_type_code">Sponsor Type:</label>
+              <div class="col-sm-9 col-xs-9">
                 <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
                   <option selected>Select</option>
                   <option value="0">Federal</option>
@@ -61,26 +61,26 @@ require_once( 'inc/head.php' );
               </div>
             </div>
             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="country">Address Book ID:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label class="control-label col-sm-3 col-xs-3"for="country">Address Book ID:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="country" name="country" class="form-control input-sm">
                 <span class="help-block"><a href="#">Find an ID</a></span> </div>
             </div>
             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="postal_code">Postal Code:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label class="control-label col-sm-3 col-xs-3"for="postal_code">Postal Code:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="postal_code" name="postal_code" class="form-control input-sm">
               </div>
             </div>
             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="state">State:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label class="control-label col-sm-3 col-xs-3"for="state">State:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="state" name="state" class="form-control input-sm">
               </div>
             </div>
             <div class="form-group clearfix">
-              <label class="control-label col-sm-4 col-xs-4"for="country">Country Code:</label>
-              <div class="col-sm-8 col-xs-8">
+              <label class="control-label col-sm-3 col-xs-3"for="country">Country Code:</label>
+              <div class="col-sm-9 col-xs-9">
                 <input type="text" id="country" name="country" class="form-control input-sm">
               </div>
             </div>
