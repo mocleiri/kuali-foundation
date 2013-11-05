@@ -47,7 +47,6 @@ public class AppDynamicsMonitoring implements Monitoring {
 		DeployUtils.chown(channel, user, group, chownDirs);
 		List<Deployable> deployables = Arrays.asList(machineAgent.getController(), serverAgent.getController());
 		DeployUtils.copyFiles(channel, deployables, filterProperties);
-		logger.info("enabled={}", enabled);
 		if (enabled) {
 			String value = "\n" + serverAgent.getAppServerStartupOptions();
 			PropertyUtils.appendToOrSetProperty(filterProperties, setEnvPropertyKey, value);
