@@ -15,9 +15,6 @@
  */
 package org.kuali.common.aws.ec2;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
@@ -32,11 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import com.amazonaws.services.ec2.AmazonEC2Client;
-import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
-import com.amazonaws.services.ec2.model.IpPermission;
-import com.amazonaws.services.ec2.model.SecurityGroup;
 
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
@@ -67,39 +59,4 @@ public class InvokeEC2ServiceConfig {
 		return null;
 	}
 
-	public Object invokeEC2ServiceOld() {
-		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
-		DescribeSecurityGroupsResult result = client.describeSecurityGroups();
-		List<SecurityGroup> groups = result.getSecurityGroups();
-		List<String> list = new ArrayList<String>();
-		for (SecurityGroup group : groups) {
-			String name = group.getGroupName();
-			if (name.equals("ssh")) {
-				String desc = group.getDescription();
-				list.add(name + " - [" + desc + "]");
-				List<IpPermission> perms = group.getIpPermissions();
-				for (IpPermission perm : perms) {
-					Integer fromPort = perm.getFromPort();
-					Integer toPort = perm.getToPort();
-					boolean identical = fromPort != null && fromPort.equals(toPort);
-					if (identical) {
-						list.add("  ports: " + fromPort);
-					} else {
-						list.add("  ports: " + fromPort + "-" + toPort);
-					}
-					List<String> ipRanges = perm.getIpRanges();
-					for (String ipRange : ipRanges) {
-						list.add("  ip range: " + ipRange);
-					}
-					String ipProtocol = perm.getIpProtocol();
-					list.add("  ip protocol: " + ipProtocol);
-				}
-			}
-		}
-		// Collections.sort(list);
-		for (String element : list) {
-			logger.info(element);
-		}
-		return null;
-	}
 }
