@@ -1,5 +1,6 @@
 package org.kuali.common.aws.ec2.model.security;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
@@ -40,6 +41,7 @@ public final class KualiSecurityGroup {
 		public KualiSecurityGroup build() {
 			Assert.noBlanks(name);
 			Assert.noNulls(description, permissions);
+			Collections.sort(permissions);
 			this.permissions = ImmutableList.copyOf(permissions);
 			return new KualiSecurityGroup(this);
 		}
