@@ -50,6 +50,8 @@ public class AppDynamicsMonitoring implements Monitoring {
 		if (enabled) {
 			String value = "\n" + serverAgent.getAppServerStartupOptions();
 			PropertyUtils.appendToOrSetProperty(filterProperties, setEnvPropertyKey, value);
+			// TODO Get this hack out of here. The Tomcat config needs visibility of this property so it can filter setenv.sh
+			System.setProperty(setEnvPropertyKey, filterProperties.getProperty(setEnvPropertyKey));
 		}
 		logger.info("[appdynamics:prepared] - {}", FormatUtils.getTime(System.currentTimeMillis() - start));
 	}
