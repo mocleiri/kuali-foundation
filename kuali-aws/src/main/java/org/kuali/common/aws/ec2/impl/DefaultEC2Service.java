@@ -378,8 +378,11 @@ public final class DefaultEC2Service implements EC2Service {
 	protected Instance issueRunInstanceRequest(LaunchInstanceContext context) {
 		KeyPair keyPair = context.getKeyPair();
 		if (!isExistingKey(keyPair.getName())) {
+			Optional<String> publicKey = keyPair.getPublicKey();
+			String name = keyPair.getName();
+			Assert.isTrue(publicKey.isPresent(), "Unable to setup server authentication.  Key [" + name + "] does not exist and no public key was supplied for import.");
 			logger.info("Importing key [{}]", keyPair.getName());
-			importKey(keyPair.getName(), keyPair.getPublicKey());
+			importKey(keyPair.getName(), keyPair.getPublicKey().get());
 		}
 
 		List<String> securityGroupNames = getSecurityGroupNames();

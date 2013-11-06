@@ -44,8 +44,8 @@ public class LaunchUtils {
 	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
 	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
-	private static final KeyPair DEFAULT_KEYPAIR = new KeyPair(NullUtils.NONE, NullUtils.NONE);
-	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, DEFAULT_KEYPAIR).build();
+	private static final KeyPair NOKEYPAIR = new KeyPair(NullUtils.NONE, NullUtils.NONE);
+	private static final LaunchInstanceContext NOCONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NOKEYPAIR).build();
 
 	public static AmazonEC2Client getClient(EC2ServiceContext context) {
 		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
@@ -90,7 +90,7 @@ public class LaunchUtils {
 	 * Generate a <code>LaunchInstanceContext</code> from the configuration present in the environment
 	 */
 	public static LaunchInstanceContext getContext(EnvironmentService env) {
-		return getContext(env, DEFAULT_CONTEXT);
+		return getContext(env, NOCONTEXT);
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class LaunchUtils {
 	public static LaunchInstanceContext getContext(EnvironmentService env, LaunchInstanceContext provided) {
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
 		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyPair().getName()));
-		String publicKey = NullUtils.trimToNull(env.getString(PUBLIC_KEY_KEY, provided.getKeyPair().getPublicKey()));
+		Optional<String> publicKey = SpringUtils.getString(env, PUBLIC_KEY_KEY, provided.getKeyPair().getPublicKey());
 		KeyPair keyPair = new KeyPair(keyName, publicKey);
 		InstanceType type = getType(env, provided.getType());
 		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis());
