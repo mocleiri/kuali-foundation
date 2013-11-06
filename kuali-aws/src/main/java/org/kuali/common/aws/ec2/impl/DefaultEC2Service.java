@@ -430,62 +430,74 @@ public final class DefaultEC2Service implements EC2Service {
 		logger.info("[{}] is now online - {}", resultArgs);
 	}
 
+	protected List<String> getNames(List<KualiSecurityGroup> groups) {
+		// Extract the names of any security groups into a list of strings
+		List<String> names = new ArrayList<String>();
+		for (KualiSecurityGroup group : groups) {
+			names.add(group.getName());
+		}
+		Collections.sort(names);
+		return ImmutableList.copyOf(names);
+	}
+
 	/**
 	 * Return a request that spins up exactly one instance.
 	 */
 	protected RunInstancesRequest getRunInstanceRequest(LaunchInstanceContext context) {
-		List<String> securityGroupNames = new ArrayList<String>();
-		for (KualiSecurityGroup group : context.getSecurityGroups()) {
-			securityGroupNames.add(group.getName());
-		}
 		RunInstancesRequest rir = new RunInstancesRequest();
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
 		rir.setImageId(context.getAmi());
 		rir.setKeyName(context.getKeyPair().getName());
-		rir.setSecurityGroups(securityGroupNames);
+		rir.setSecurityGroups(getNames(context.getSecurityGroups()));
 		rir.setInstanceType(context.getType());
 		rir.setDisableApiTermination(context.isPreventTermination());
 		rir.setEbsOptimized(context.isEbsOptimized());
 		rir.setMonitoring(context.isEnableMonitoring());
+
+		// Update the request with an availability zone (if one has been supplied)
 		if (context.getAvailabilityZone().isPresent()) {
 			String zone = context.getAvailabilityZone().get();
 			Placement placement = new Placement(zone);
 			rir.setPlacement(placement);
 		}
+
+		// Update the request with custom root volume settings (if any have been supplied)
 		if (context.getRootVolume().isPresent()) {
 
-			// Extract the root volume object
-			RootVolume rootVolume = context.getRootVolume().get();
+			// Get the list of block device mappings associated with this AMI after updating the BlockDeviceMapping for the root volume
+			List<BlockDeviceMapping> mappings = getUpdatedBlockDeviceMappings(context, context.getRootVolume().get());
 
-			// Get an Image object from Amazon for the AMI we are working with
-			Image ami = getAmi(context.getAmi());
-
-			// Extract the default root block device mapping specific to this AMI
-			BlockDeviceMapping mapping = getRootBlockDeviceMapping(ami);
-
-			// Extract the block device
-			EbsBlockDevice device = mapping.getEbs();
-
-			// If a size in gigabytes has been provided, set that on the device
-			if (rootVolume.getSizeInGigabytes().isPresent()) {
-				int sizeInGigabytes = rootVolume.getSizeInGigabytes().get();
-				device.setVolumeSize(sizeInGigabytes);
-			}
-
-			// If the delete on termination setting has been provided, set that on the device
-			if (rootVolume.getDeleteOnTermination().isPresent()) {
-				boolean deleteOnTermination = rootVolume.getDeleteOnTermination().get();
-				device.setDeleteOnTermination(deleteOnTermination);
-			}
-
-			// Create a list with one element in it containing the new root block device mapping
-			List<BlockDeviceMapping> mappings = Collections.singletonList(mapping);
-
-			// Store that on the request
+			// Store the block device mappings on the request
 			rir.setBlockDeviceMappings(mappings);
 		}
 		return rir;
+	}
+
+	protected List<BlockDeviceMapping> getUpdatedBlockDeviceMappings(LaunchInstanceContext context, RootVolume rootVolume) {
+		// Get an Image object from Amazon for the AMI we are working with
+		Image ami = getAmi(context.getAmi());
+
+		// Extract the default root block device mapping specific to this AMI
+		BlockDeviceMapping mapping = getRootBlockDeviceMapping(ami);
+
+		// Extract the block device
+		EbsBlockDevice device = mapping.getEbs();
+
+		// If a size in gigabytes has been provided, update the device with the new size
+		if (rootVolume.getSizeInGigabytes().isPresent()) {
+			int sizeInGigabytes = rootVolume.getSizeInGigabytes().get();
+			device.setVolumeSize(sizeInGigabytes);
+		}
+
+		// If the delete on termination setting has been provided, update the device with the new setting
+		if (rootVolume.getDeleteOnTermination().isPresent()) {
+			boolean deleteOnTermination = rootVolume.getDeleteOnTermination().get();
+			device.setDeleteOnTermination(deleteOnTermination);
+		}
+
+		// Return the list now that the root volume settings have been applied
+		return ami.getBlockDeviceMappings();
 	}
 
 	protected BlockDeviceMapping getRootBlockDeviceMapping(Image image) {
