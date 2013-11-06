@@ -406,7 +406,7 @@ public final class DefaultEC2Service implements EC2Service {
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
 		rir.setImageId(context.getAmi());
-		rir.setKeyName(context.getKeyName());
+		rir.setKeyName(context.getKeyPair().getName());
 		rir.setSecurityGroups(context.getSecurityGroups());
 		rir.setInstanceType(context.getType());
 		rir.setDisableApiTermination(context.isPreventTermination());
