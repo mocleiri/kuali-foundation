@@ -77,11 +77,14 @@ public class CreateMasterConfig {
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
+		return null; // new ExecutablesExecutable(show);
+	}
+
+	protected void doDNS(Instance instance) {
 		String aliasFQDN = "test.ci.kuali.org";
 		Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, instance.getPublicDnsName());
 		cname.execute();
 		System.out.println(aliasFQDN + " -> " + instance.getPublicDnsName());
-		return null; // new ExecutablesExecutable(show);
 	}
 
 	@Bean
