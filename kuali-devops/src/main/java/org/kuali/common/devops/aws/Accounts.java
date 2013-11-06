@@ -11,10 +11,10 @@ import com.amazonaws.auth.AWSCredentials;
 
 public enum Accounts {
 
-	FOUNDATION("foundation", "3627-3510-8948", Credentials.FOUNDATION, KeyPairs.FOUNDATION.getKeyPair()), //
-	STUDENT("student", "0523-3819-3506", Credentials.STUDENT, KeyPairs.STUDENT.getKeyPair()), //
-	RICE("rice", "7898-1396-8323", Credentials.RICE, KeyPairs.RICE.getKeyPair()), //
-	OLE("ole", "7867-4615-1229", Credentials.OLE, KeyPairs.OLE.getKeyPair()); //
+	FOUNDATION("foundation", "3627-3510-8948", Credentials.FOUNDATION, KeyPairs.DEVOPS.getKeyPair()), //
+	STUDENT("student", "0523-3819-3506", Credentials.STUDENT, KeyPairs.DEVOPS.getKeyPair()), //
+	RICE("rice", "7898-1396-8323", Credentials.RICE, KeyPairs.DEVOPS.getKeyPair()), //
+	OLE("ole", "7867-4615-1229", Credentials.OLE, KeyPairs.DEVOPS.getKeyPair()); //
 
 	private final AwsAccount account;
 
