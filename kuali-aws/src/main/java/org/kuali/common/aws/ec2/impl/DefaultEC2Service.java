@@ -43,6 +43,7 @@ import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
 import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.DescribeKeyPairsResult;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsRequest;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
@@ -52,6 +53,7 @@ import com.amazonaws.services.ec2.model.InstanceStatus;
 import com.amazonaws.services.ec2.model.InstanceStatusDetails;
 import com.amazonaws.services.ec2.model.InstanceStatusSummary;
 import com.amazonaws.services.ec2.model.IpPermission;
+import com.amazonaws.services.ec2.model.KeyPairInfo;
 import com.amazonaws.services.ec2.model.ModifyInstanceAttributeRequest;
 import com.amazonaws.services.ec2.model.Placement;
 import com.amazonaws.services.ec2.model.Reservation;
@@ -84,6 +86,12 @@ public final class DefaultEC2Service implements EC2Service {
 		this.service = service;
 		this.context = context;
 		this.client = LaunchUtils.getClient(context);
+	}
+
+	public List<KeyPairInfo> getKeys() {
+		DescribeKeyPairsResult result = client.describeKeyPairs();
+		List<KeyPairInfo> list = result.getKeyPairs();
+		return null;
 	}
 
 	@Override
