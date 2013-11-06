@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.kuali.common.aws.model.AwsAccount;
-import org.kuali.common.aws.model.AwsKey;
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -18,7 +18,7 @@ public enum Accounts {
 
 	private final AwsAccount account;
 
-	private Accounts(String name, String accountNumber, AWSCredentials credentials, AwsKey key) {
+	private Accounts(String name, String accountNumber, AWSCredentials credentials, KeyPair key) {
 		Assert.noBlanks(name, accountNumber);
 		Assert.noNulls(credentials, key);
 		this.account = new AwsAccount.Builder(name).accountNumber(accountNumber).credentials(credentials).key(key).build();
