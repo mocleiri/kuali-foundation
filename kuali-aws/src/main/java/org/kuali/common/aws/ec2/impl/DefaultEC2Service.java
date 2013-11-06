@@ -404,7 +404,7 @@ public final class DefaultEC2Service implements EC2Service {
 		for (Permission perm : perms) {
 			String permDescription = "port:" + perm.getPort() + " protocol:" + perm.getProtocol() + " CIDR:" + CollectionUtils.asCSV(perm.getCidrNotations());
 			Object[] args = { group.getName(), changeDescription, permDescription };
-			logger.info("{} - permission added [{}]", args);
+			logger.info("Security Group: [{}] - permission {} [{}]", args);
 		}
 	}
 
