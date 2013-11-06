@@ -5,79 +5,78 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
 <script>
  $(document).ready(function(){
       //
-      $("#role<?php echo $_SESSION['personnelId']?>").val("<?php echo $_SESSION['person'][$_SESSION['personnelId']]['personnel_role'];?>");
+      $("#role<?php echo $id?>").val("<?php echo $_SESSION['keyPersonnel'][$id]['personnel_role'];?>");
  });
 </script>
 
-  
-<div class="panel panel-default" style="margin-bottom: 6px;">
+<div class="panel panel-default" style="margin-bottom: 6px;" id="keyPersonnelEntry<?php echo $id?>">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-6">
-                <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $_SESSION['personnelId']?>"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$_SESSION['personnelId']]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['person'][$_SESSION['personnelId']]['personnel_role']]?></span></h4>
+                <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $id?>"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$id]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['keyPersonnel'][$id]['personnel_role']]?></span></h4>
             </div>
             <div class="col-md-6">
-                <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person" personnel-id="<?php echo $_SESSION['personnelId']?>"></span></a>
+                <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person" entryId="<?php echo $id?>"></span></a>
             </div>
         </div>
     </div>
-    <div id="collapse<?php echo $_SESSION['personnelId']?>" class="panel-collapse collapse" style="height: auto;">
+    <div id="collapse<?php echo $id?>" class="panel-collapse collapse" style="height: auto;">
         <div class="panel-body">
             <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a href="#p1_details<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Details</a></li>
-                <li><a href="#p1_organization<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Organization</a></li>
-                <li><a href="#p1_education<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Education</a></li>
-                <li><a href="#p1_extendedDetails<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Extended Details</a></li>
-                <li><a href="#p1_degrees<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Degrees</a></li>
-                <li><a href="#p1_unitDetails<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Unit Details</a></li>
-                <li><a href="#p1_proposalPersonCertification<?php echo $_SESSION['personnelId']?>" data-toggle="tab">Proposal Certification</a></li>
+                <li class="active"><a href="#p1_details<?php echo $id?>" data-toggle="tab">Details</a></li>
+                <li><a href="#p1_organization<?php echo $id?>" data-toggle="tab">Organization</a></li>
+                <li><a href="#p1_education<?php echo $id?>" data-toggle="tab">Education</a></li>
+                <li><a href="#p1_extendedDetails<?php echo $id?>" data-toggle="tab">Extended Details</a></li>
+                <li><a href="#p1_degrees<?php echo $id?>" data-toggle="tab">Degrees</a></li>
+                <li><a href="#p1_unitDetails<?php echo $id?>" data-toggle="tab">Unit Details</a></li>
+                <li><a href="#p1_proposalPersonCertification<?php echo $id?>" data-toggle="tab">Proposal Certification</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="p1_details<?php echo $_SESSION['personnelId']?>">
+                <div class="tab-pane active" id="p1_details<?php echo $id?>">
                     <h4>Details</h4>
                     <form class="form-horizontal" role="form">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6" >
                             <div class="form-group">
-                                <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">Proposal Role:</label>
+                                <label for="role<?php echo $id?>" class="col-md-4 col-sm-4 col-xs-4 control-label">Proposal Role:</label>
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <select name="role" id="role<?php echo $_SESSION['personnelId']?>" tabindex="0" style="">
+                                    <select name="role" id="role<?php echo $id?>" tabindex="0" style="">
                                         <option value="">select</option>
                                         <option value="copi">Co-Investigator</option>
-                                        <option value="pi" selected="">Principal Investigator</option>
+                                        <option value="pi">Principal Investigator</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="full_name" class="col-md-4 col-sm-4 col-xs-4 control-label">Full Name:</label>
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <input type="text" class="form-control" id="full_name" value="<?php echo $persons[$_SESSION['personnelId']]['name'];?>">
+                                    <input type="text" class="form-control" id="full_name" value="<?php echo $persons[$id]['name'];?>">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">User Name:</label>
+                                <label for="user" class="col-md-4 col-sm-4 col-xs-4 control-label">User Name:</label>
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <input type="email" class="form-control" id="asdf" value="<?php echo $persons[$_SESSION['personnelId']]['user'];?>">
+                                    <input type="text" class="form-control" id="user" value="<?php echo $persons[$id]['user'];?>">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6" >
                             <div class="form-group">
-                                <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">First Name:</label>
+                                <label for="first" class="col-md-4 col-sm-4 col-xs-4 control-label">First Name:</label>
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <input type="email" class="form-control" id="asdf" value="<?php echo $persons[$_SESSION['personnelId']]['first'];?>">
+                                    <input type="text" class="form-control" id="first" value="<?php echo $persons[$id]['first'];?>">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">Last Name:</label>
+                                <label for="last" class="col-md-4 col-sm-4 col-xs-4 control-label">Last Name:</label>
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <input type="email" class="form-control" id="asdf" value="<?php echo $persons[$_SESSION['personnelId']]['last'];?>">
+                                    <input type="text" class="form-control" id="last" value="<?php echo $persons[$id]['last'];?>">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="asdf" class="col-md-4 col-sm-4 col-xs-4 control-label">Middle Name:</label>
+                                <label for="middle" class="col-md-4 col-sm-4 col-xs-4 control-label">Middle Name:</label>
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <input type="email" class="form-control" id="asdf">
+                                    <input type="text" class="form-control" id="middle" value="<?php echo $persons[$id]['middle'];?>">
                                 </div>
                             </div>
                         </div>

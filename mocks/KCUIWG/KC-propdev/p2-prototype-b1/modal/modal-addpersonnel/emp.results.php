@@ -27,8 +27,10 @@ include "../inc/header.modal.php";
 				</thead>
 				<tbody>
 				    <?php
+
                           foreach($persons as $id=>$person) {
-                               if(!isset($_SESSION['person'][$id])) {   ?>
+                              if(!isset($_SESSION['keyPersonnel'][$id])) {
+                               ?>
 
                            <tr>
                                 <td><input type="radio" value="<?php echo $id?>" name="personnelId" id="personnelId_<?php echo $id ?>" /></td>
@@ -38,7 +40,7 @@ include "../inc/header.modal.php";
 
 
 
-                           <?php    }
+                           <?php  }
                           }
 
 				    ?>
@@ -71,14 +73,14 @@ include "../inc/header.modal.php";
 $(document).ready(function(){
     $('#choose-personnel').click(function(e){
 
-        var radio =  $('input[name="personnelId"]:checked');
+        //var radio =  $('input[name="personnelId"]:checked');
         var id =   $('input[name="personnelId"]:checked').val();
-        var data = { 'personnelId':  id };
+        var data = { 'personnelId':  id, 'action': 'storeSessions' };
 
         $('#personnel-id',top.document).val(id);
-        console.log(id);
-        $.post('../../save-session.php', data, function(t){
-            console.log(t);
+        //console.log(id);
+        $.post('../../process.php', data, function(t){
+            //console.log(t);
             window.location = $('#choose-personnel').attr('href');
         });
 
@@ -86,16 +88,7 @@ $(document).ready(function(){
     });
 
 });
-//$(window).load(function(){
-//	$('table.table.table-condensed tr td').click(
-//
-//	function(e) {
-//		e.preventDefault(); // prevent the default action
-//		e.stopPropagation; // stop the click from bubbling
-//		$(this).closest('tbody').find('.selected').removeClass('selected');
-//		$(this).parent('tr').addClass('selected');
-//	});
-//});
+
 //]]>
 </script>
 <?php include "../inc/footer.modal.php";       ?>

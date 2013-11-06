@@ -6,8 +6,8 @@ $personName = $persons[$_SESSION['personnelId']]['name'];
 
 $disabled = 'disabled="disabled"';
 $pi_disabled = "";
-echo $pi_disabled  = array_search('pi', $_SESSION['person']);
-foreach($_SESSION['person'] as $person){
+echo $pi_disabled  = array_search('pi', $_SESSION['keyPersonnel']);
+foreach($_SESSION['keyPersonnel'] as $person){
   if(array_search('pi', $person)) $pi_disabled = $disabled;
 }
 
@@ -99,29 +99,21 @@ foreach($_SESSION['person'] as $person){
             if(role == "kp"){   keyperson_role = $("#keyperson_role").val();      }
 
             var data = {
-                'action':'saveKeyPerson',
+                'action':'addKeyPersonnel',
                 'personnel_role': role,
                 'multiple_pis':multiple_pis,
                 'keyperson_role':keyperson_role
             };
 
-            console.log("myId= " + id);
 
-             console.log(data);
-            $.post('../../save-session.php', data, function(t){
-                console.log(t);
+            $.post('../../process.php', data, function(t){
+                //console.log(t);
                 $('#personnel-role',top.document).val(role);
 
-                $.get("../../prop.keypersonnel.person.php", function(t){
-                    $('#personnel-container',top.document).append(t);
-
+                    $('.personnel-entries',top.document).append(t);
                     $('#keypersonnel-message-name',top.document).html('<?php echo $personName?>');
                     $('.alert',top.document).show();
                     parent.$.fancybox.close();
-
-                });
-
-
             });
 
 

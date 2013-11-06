@@ -36,21 +36,19 @@ $keyPersonnelMessage = "";
           <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>
 
-         <div class="panel-group" id="accordion1">
-            <!-- <div id="personnel-container"> -->
+         <div class="panel-group personnel-entries" id="accordion1">
+
              <?php
 
-                 if(isset($_SESSION['person'])){
+                 if(isset($_SESSION['keyPersonnel'])){
 
-                     foreach($_SESSION['person'] as $key=>$person) {
-                        $_SESSION['personnelId'] = $key;
-                        include "prop.keypersonnel.person.php";
+                     foreach($_SESSION['keyPersonnel'] as $id=>$person) {
+                        //$_SESSION['personnelId'] = $id;
+                      include "prop.keypersonnel.person.php";
                      }
                  }
                 ?>
 
-
-            <!-- </div> -->
          </div>
         
         <div class="uif-stickyFooter uif-stickyButtonFooter">
@@ -74,11 +72,10 @@ $keyPersonnelMessage = "";
 <script>
 $(document).ready(function(){
     $(".remove-person").live("click", function(){
-            var container = $(this).parents('div').eq(3);
 
-            if(confirm("Are you sure you want to remove this person")) $(container).remove();
-             console.log($(this).attr('personnel-id'));
-             var id = $(this).attr('personnel-id');
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this person")) $("#keyPersonnelEntry" + id).remove();
+
              $.post('process.php', {'id': id, 'action' : 'removePersonnelSession'}, function(){
 
              });

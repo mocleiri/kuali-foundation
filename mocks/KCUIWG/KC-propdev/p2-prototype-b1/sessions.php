@@ -11,7 +11,8 @@ unset($_SESSION['person']);*/
 //$_SESSION['compliance'][0]['exemptions'] = "E2, E3, E5"  ;
 
 ///$_SESSION['attachments']['personnel'][0]['type'] = "Current Pending";
-unset($_SESSION['attachments']['personnel'][]);
+//$_SESSION['keyPersonnel'] = $_SESSION['person'];
+//unset($_SESSION['person']);
 echo "<pre>";
 print_r($_SESSION);
 //var_dump($_SESSION);
