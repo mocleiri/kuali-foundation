@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.codec.binary.Base64;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
@@ -24,7 +23,6 @@ import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.enc.EncUtils;
@@ -96,13 +94,7 @@ public final class DefaultEC2Service implements EC2Service {
 	@Override
 	public String importPublicKey(String keyName, String publicKey) {
 		Assert.noBlanks(keyName, publicKey);
-		byte[] binaryData = Str.getUTF8Bytes(publicKey);
-		byte[] base64Encoded = Base64.encodeBase64(binaryData);
-		String publicKeyMaterial = new String(base64Encoded);
-
-		ImportKeyPairRequest request = new ImportKeyPairRequest();
-		request.setKeyName(keyName);
-		request.setPublicKeyMaterial(publicKeyMaterial);
+		ImportKeyPairRequest request = new ImportKeyPairRequest(keyName, publicKey);
 		ImportKeyPairResult result = client.importKeyPair(request);
 		return result.getKeyFingerprint();
 	}

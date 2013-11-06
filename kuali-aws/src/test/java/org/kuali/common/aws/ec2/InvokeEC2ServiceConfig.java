@@ -56,6 +56,8 @@ public class InvokeEC2ServiceConfig {
 		KeyPair keyPair = KeyPairs.FOUNDATION.getKeyPair();
 		boolean exists = service.isExistingKeyPair(keyPair.getName());
 		boolean valid = service.isValidKeyPair(keyPair);
+		String fingerprint = service.importPublicKey("kuali-devops-test-key", keyPair.getPublicKey());
+		logger.info("fingerprint: {}", fingerprint);
 		logger.info("exists: {}  valid: {}", exists, valid);
 		List<String> names = service.getSecurityGroupNames();
 		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
