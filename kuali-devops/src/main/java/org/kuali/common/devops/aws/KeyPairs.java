@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws;
 import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 
-public enum Keys {
+public enum KeyPairs {
 
 	FOUNDATION(
 			"kuali-key",
@@ -25,7 +25,7 @@ public enum Keys {
 
 	private final KeyPair key;
 
-	private Keys(String name, String publicKey, String privateKey) {
+	private KeyPairs(String name, String publicKey, String privateKey) {
 		Assert.noBlanks(name, publicKey, privateKey);
 		this.key = new KeyPair(name, publicKey, privateKey);
 	}
