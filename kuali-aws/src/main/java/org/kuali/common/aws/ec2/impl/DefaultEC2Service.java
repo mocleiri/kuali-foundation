@@ -181,6 +181,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	@Override
 	public Optional<SecurityGroup> getSecurityGroup(String name) {
+		Assert.noBlanks(name);
 		List<String> names = getSecurityGroupNames();
 		if (names.contains(name)) {
 			DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest();
