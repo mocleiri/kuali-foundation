@@ -95,13 +95,13 @@ public class CreateMasterConfig {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
-		Instance instance = service.launchInstance(instanceContext);
+		// Instance instance = service.launchInstance(instanceContext);
 		KeyPair keyPair = instanceContext.getKeyPair();
 		String privateKey = keyPair.getPrivateKey().get();
 		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
 		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
 		String username = Users.EC2USER.getLogin();
-		String hostname = instance.getPublicDnsName();
+		String hostname = "ec2-50-17-35-37.compute-1.amazonaws.com"; // instance.getPublicDnsName();
 		ConnectionContext conn = new ConnectionContext.Builder(username, hostname).build();
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
@@ -109,19 +109,24 @@ public class CreateMasterConfig {
 			String command1 = "sudo su - root --command 'cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys'";
 			String command2 = "sudo su - root --command 'cp /home/ec2-user/sshd_config /etc/ssh/sshd_config'";
 			String command3 = "sudo su - root --command 'service sshd restart'";
-			channel.executeCommand(command1);
+			doCommand(channel, command1);
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			RemoteFile dst = new RemoteFile.Builder("/home/ec2-user/sshd_config").build();
 			channel.copyLocationToFile(src, dst);
-			channel.executeCommand(command2);
-			Result result = channel.executeCommand(command3);
-			logger.info(result.getStdout());
+			doCommand(channel, command2);
+			doCommand(channel, command3);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			channel.close();
 		}
 		return null; // new ExecutablesExecutable(show);
+	}
+
+	protected void doCommand(SecureChannel channel, String command) {
+		logger.info(command);
+		Result result = channel.executeCommand(command);
+		logger.info(result.getExitValue() + " " + result.getStdout());
 	}
 
 	protected void doDNS(Instance instance) {
