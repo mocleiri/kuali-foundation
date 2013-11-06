@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.devops.aws;
+package org.kuali.common.devops.aws.spring;
 
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.aws.spring.AwsAccountConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
+import org.kuali.common.devops.aws.AwsUtils;
 import org.kuali.common.dns.spring.DomainNameConfig;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
