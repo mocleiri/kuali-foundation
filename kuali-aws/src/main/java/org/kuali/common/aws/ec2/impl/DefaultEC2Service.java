@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.codec.binary.Base64;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
@@ -23,6 +24,7 @@ import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.enc.EncUtils;
@@ -36,8 +38,6 @@ import org.springframework.util.CollectionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import com.amazonaws.services.ec2.model.BlockDeviceMapping;
-import com.amazonaws.services.ec2.model.CreateKeyPairRequest;
-import com.amazonaws.services.ec2.model.CreateKeyPairResult;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
@@ -51,6 +51,8 @@ import com.amazonaws.services.ec2.model.DescribeSecurityGroupsRequest;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.EbsBlockDevice;
 import com.amazonaws.services.ec2.model.Image;
+import com.amazonaws.services.ec2.model.ImportKeyPairRequest;
+import com.amazonaws.services.ec2.model.ImportKeyPairResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceStatus;
 import com.amazonaws.services.ec2.model.InstanceStatusDetails;
@@ -91,13 +93,18 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
-	public KeyPair createKeyPair(String keyName) {
-		Assert.noBlanks(keyName);
-		CreateKeyPairRequest request = new CreateKeyPairRequest();
+	public String importKeyPair(KeyPair pair) {
+		Assert.noNulls(pair);
+		byte[] binaryData = Str.getUTF8Bytes(pair.getPublicKey());
+		byte[] base64Encoded = Base64.encodeBase64(binaryData);
+		String publicKeyMaterial = new String(base64Encoded);
+		String keyName = pair.getName();
+
+		ImportKeyPairRequest request = new ImportKeyPairRequest();
 		request.setKeyName(keyName);
-		CreateKeyPairResult result = client.createKeyPair(request);
-		com.amazonaws.services.ec2.model.KeyPair keyPair = result.getKeyPair();
-		return new KeyPair(keyName, "unknown", keyPair.getKeyMaterial(), keyPair.getKeyFingerprint());
+		request.setPublicKeyMaterial(publicKeyMaterial);
+		ImportKeyPairResult result = client.importKeyPair(request);
+		return result.getKeyFingerprint();
 	}
 
 	@Override
