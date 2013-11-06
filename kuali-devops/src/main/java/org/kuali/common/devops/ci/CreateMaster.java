@@ -17,7 +17,6 @@ package org.kuali.common.devops.ci;
 
 import org.kuali.common.util.main.MainUtils;
 import org.kuali.common.util.main.spring.AbstractMainRunner;
-import org.kuali.common.util.spring.service.PropertySourceConfig;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -25,11 +24,6 @@ public class CreateMaster extends AbstractMainRunner {
 
 	public static void main(String[] args) {
 		MainUtils.runAndExit(CreateMaster.class, args, true);
-	}
-
-	@Override
-	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
-		return CreateMasterPSC.class;
 	}
 
 	@Override
