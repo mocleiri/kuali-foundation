@@ -94,7 +94,9 @@ public class CreateMasterConfig {
 		String rawPrivateKey = keyPair.getPrivateKey().get();
 		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
 		ChannelContext cc = new ChannelContext.Builder().privateKeyString(privateKey).useConfigFile(false).useKnownHosts(false).includeDefaultPrivateKeyLocations(false).build();
-		ConnectionContext conn = new ConnectionContext.Builder(instance.getPublicDnsName()).username(Users.EC2USER.getLogin()).build();
+		String username = Users.EC2USER.getLogin();
+		String hostname = instance.getPublicDnsName();
+		ConnectionContext conn = new ConnectionContext.Builder(hostname).username(username).build();
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
