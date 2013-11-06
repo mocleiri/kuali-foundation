@@ -40,38 +40,38 @@ require_once( 'themes/kc/inc/toolbar.php' );
                                 <div class="question-title">
                                     <legend>Is this application being submitted to other agencies?</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>128: Is this application being submitted to other agencies?</p>
                                     <p>Explanation: Information that will help you answer the question will go here.</p>
                                     <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
                                     <p>Regulation: Any regulatory information regarding this question will go here.</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <input type="radio" id="q_1_1a" name="q_1_a" value="1" class="radio-choice" /> <label for="q_1_1a">Yes</label>
+                                            <input type="radio" id="q1" name="q1" value="1" class="radio-choice" /> <label for="q1">Yes</label>
                                         </div>
                                         <div class="choice">
-                                            <input type="radio" id="q_1_1b" name="q_1_a" value="0" class="radio-choice" /> <label for="q_1_1b">No</label>
+                                            <input type="radio" id="q2" name="q1" value="0" class="radio-choice" /> <label for="q2">No</label>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="question dependent" id="dependent_q_1_1a">
+                            <fieldset class="question dependent" id="dependent_q1">
                                 <div class="question-title">
                                     <legend>Select a US Government Agency:</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>111: Select a US Government Agency</p>
                                     <p>Explanation: Information that will help you answer the question will go here.</p>
                                     <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
                                     <p>Regulation: Any regulatory information regarding this question will go here.</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <label class="off-screen" for="q_1_1_1a">Select a US government agency:</label>
-                                            <select name="q_1_1_1a" id="q_1_1_1a">
+                                            <label class="off-screen" for="q3">Select a US government agency:</label>
+                                            <select name="q3" id="q3">
                                                 <option value="101">101: Agency for International Development</option>
                                                 <option value="102">102: Air Force Research Laboratory</option>
                                                 <option value="103">103: Army Research Laboratory</option>
@@ -134,56 +134,56 @@ require_once( 'themes/kc/inc/toolbar.php' );
                                     <legend>Is the proposal subject to review by state executive order 12372 process?</legend>
                                 </div>
                                 <div class="question-helper">
-                                    <p>129: s the proposal subject to review by state executive order 12372 process?</p>
-                                    <p>Explanation: For NIH and other PHS agencies submissions using the SF424 (R&amp;R), applicants should check "No, not subject to E.O. 12372.</p>
-                                    <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
-                                    <p>Regulation: Any regulatory information regarding this question will go here.</p>
+                                    <!-- <p>129: s the proposal subject to review by state executive order 12372 process?</p> -->
+                                    <p>For NIH and other PHS agencies submissions using the SF424 (R&amp;R), applicants should check "No, not subject to E.O. 12372.</p>
+                                    <!-- <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
+                                    <p>Regulation: Any regulatory information regarding this question will go here.</p> -->
                                 </div>
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <input type="radio" id="q_1_2a" name="q_1_b" value="1" class="radio-choice" /> <label for="q_1_2a">Yes</label>
+                                            <input type="radio" id="q4" name="q4" value="1" class="radio-choice" /> <label for="q4">Yes</label>
                                         </div>
                                         <div class="choice">
-                                            <input type="radio" id="q_1_2b" name="q_1_b" value="0" class="radio-choice" /> <label for="q_1_2b">No</label>
+                                            <input type="radio" id="q5" name="q4" value="0" class="radio-choice" /> <label for="q5">No</label>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="question dependent" id="dependent_q_1_2a">
+                            <fieldset class="question dependent" id="dependent_q4">
                                 <div class="question-title">
                                     <legend>If Yes, please provide the date the application was made available for review (submitted to the state):</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>130: When was this application made available for review?</p>
                                     <p>Explanation: Information that will help you answer the question will go here.</p>
                                     <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
                                     <p>Regulation: Any regulatory information regarding this question will go here.</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <label class="off-screen" for="q_1_2_1a">Date this application was made available for review:</label>
-                                            <input type="text" name="q_1_2_1a" id="q_1_2_1a" class="form-control uif-dateControl" placeholder="mm/dd/yyyy" />
+                                            <label class="off-screen" for="q6">Date this application was made available for review:</label>
+                                            <input type="text" name="q6" id="q6" class="form-control uif-dateControl" placeholder="mm/dd/yyyy" />
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="question dependent" id="dependent_q_1_2b">
+                            <fieldset class="question dependent" id="dependent_q5">
                                 <div class="question-title">
                                     <legend>If No, is the program not selected for review or not covered by E.O. 12372?:</legend>
                                 </div>
                                 <div class="question-helper">
-                                    <p>131: Is this program not selected for review, or not covered by E.O. 12372?</p>
-                                    <p>Explanation: Information that will help you answer the question will go here.</p>
-                                    <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
-                                    <p>Regulation: Any regulatory information regarding this question will go here.</p>
+                                    <!-- <p>131: Is this program not selected for review, or not covered by E.O. 12372?</p> -->
+                                    <p>Information that will help you answer the question will go here.</p>
+                                    <!-- <p>Policy: Use this if there is sponsor-specific information that needs to be shared.</p>
+                                    <p>Regulation: Any regulatory information regarding this question will go here.</p> -->
                                 </div>
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <label class="off-screen" for="q_1_2_1b">Not selected for review or not covered:</label>
-                                            <select name="q_1_2_1b" id="q_1_2_1b">
+                                            <label class="off-screen" for="q7">Not selected for review or not covered:</label>
+                                            <select name="q7" id="q7">
                                                 <option value="1">Program is not covered by E.O. 12372</option>
                                                 <option value="2">Program not selected for 12372 review</option>
                                             </select>
@@ -216,32 +216,32 @@ require_once( 'themes/kc/inc/toolbar.php' );
                                 <div class="question-title">
                                     <legend>Is this application being submitted to other agencies?</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>128: Is this application being submitted to other agencies?</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <input type="radio" id="q_1_1a" name="q_1_a" value="1" class="radio-choice" /> <label for="q_1_1a">Yes</label>
+                                            <input type="radio" id="q8" name="q8" value="1" class="radio-choice" /> <label for="q8">Yes</label>
                                         </div>
                                         <div class="choice">
-                                            <input type="radio" id="q_1_1b" name="q_1_a" value="0" class="radio-choice" /> <label for="q_1_1b">No</label>
+                                            <input type="radio" id="q9" name="q8" value="0" class="radio-choice" /> <label for="q9">No</label>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="question dependent" id="dependent_q_1_1a">
+                            <fieldset class="question dependent" id="dependent_q8">
                                 <div class="question-title">
                                     <legend>Select a US Government Agency:</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>111: Select a US Government Agency</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <label class="off-screen" for="q_1_1_1a">Select a US government agency:</label>
-                                            <select name="q_1_1_1a" id="q_1_1_1a">
+                                            <label class="off-screen" for="q10">Select a US government agency:</label>
+                                            <select name="q10" id="q10">
                                                 <option value="101">101: Agency for International Development</option>
                                                 <option value="102">102: Air Force Research Laboratory</option>
                                                 <option value="103">103: Army Research Laboratory</option>
@@ -303,48 +303,48 @@ require_once( 'themes/kc/inc/toolbar.php' );
                                 <div class="question-title">
                                     <legend>Is the proposal subject to review by state executive order 12372 process?</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>129: s the proposal subject to review by state executive order 12372 process?</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <input type="radio" id="q_1_2a" name="q_1_b" value="1" class="radio-choice" /> <label for="q_1_2a">Yes</label>
+                                            <input type="radio" id="q11" name="q11" value="1" class="radio-choice" /> <label for="q11">Yes</label>
                                         </div>
                                         <div class="choice">
-                                            <input type="radio" id="q_1_2b" name="q_1_b" value="0" class="radio-choice" /> <label for="q_1_2b">No</label>
+                                            <input type="radio" id="q12" name="q11" value="0" class="radio-choice" /> <label for="q12">No</label>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="question dependent" id="dependent_q_1_2a">
+                            <fieldset class="question dependent" id="dependent_q11">
                                 <div class="question-title">
                                     <legend>If Yes, please provide the date the application was made available for review (submitted to the state):</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>130: When was this application made available for review?</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <label class="off-screen" for="q_1_2_1a">Date this application was made available for review:</label>
-                                            <input type="text" name="q_1_2_1a" id="q_1_2_1a" class="form-control uif-dateControl" placeholder="mm/dd/yyyy" />
+                                            <label class="off-screen" for="q13">Date this application was made available for review:</label>
+                                            <input type="text" name="q13" id="q13" class="form-control uif-dateControl" placeholder="mm/dd/yyyy" />
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="question dependent" id="dependent_q_1_2b">
+                            <fieldset class="question dependent" id="dependent_q12">
                                 <div class="question-title">
                                     <legend>If No, is the program not selected for review or not covered by E.O. 12372?:</legend>
                                 </div>
-                                <div class="question-helper">
+                                <!-- <div class="question-helper">
                                     <p>131: Is this program not selected for review, or not covered by E.O. 12372?</p>
-                                </div>
+                                </div> -->
                                 <div class="question-response">
                                     <div class="question-reponse-choices">
                                         <div class="choice">
-                                            <label class="off-screen" for="q_1_2_1b">Not selected for review or not covered:</label>
-                                            <select name="q_1_2_1b" id="q_1_2_1b">
+                                            <label class="off-screen" for="q14">Not selected for review or not covered:</label>
+                                            <select name="q14" id="q14">
                                                 <option value="1">Program is not covered by E.O. 12372</option>
                                                 <option value="2">Program not selected for 12372 review</option>
                                             </select>
