@@ -41,6 +41,7 @@ import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
 import org.kuali.common.util.channel.ChannelContext;
 import org.kuali.common.util.channel.ConnectionContext;
 import org.kuali.common.util.channel.DefaultSecureChannel;
+import org.kuali.common.util.channel.RemoteFile;
 import org.kuali.common.util.channel.Result;
 import org.kuali.common.util.channel.SecureChannel;
 import org.kuali.common.util.enc.EncUtils;
@@ -105,8 +106,13 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			String command = "sudo su - root --command 'cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys'";
-			Result result = channel.executeCommand(command);
+			String command1 = "sudo su - root --command 'cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys'";
+			channel.executeCommand(command1);
+			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
+			RemoteFile dst = new RemoteFile.Builder("/home/ec2-user/sshd_config").build();
+			channel.copyLocationToFile(src, dst);
+			String command2 = "sudo su - root --command 'service sshd restart'";
+			Result result = channel.executeCommand(command2);
 			logger.info(result.getStdout());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
