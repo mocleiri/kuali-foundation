@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.aws.project.spring.AwsProjectConfig;
+import org.kuali.common.devops.project.DevOpsProjectConfig;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
 import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.Project;
@@ -19,7 +20,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.PropertySource;
 
 @Configuration
-@Import({ AwsProjectConfig.class, DefaultPropertiesServiceConfig.class })
+@Import({ AwsProjectConfig.class, DefaultPropertiesServiceConfig.class, DevOpsProjectConfig.class })
 public class CreateMasterPSC implements PropertySourceConfig {
 
 	@Autowired
