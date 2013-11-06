@@ -96,11 +96,11 @@ public class CreateMasterConfig {
 		show.execute();
 		// Instance instance = service.launchInstance(instanceContext);
 		KeyPair keyPair = instanceContext.getKeyPair();
-		String rawPrivateKey = keyPair.getPrivateKey().get();
-		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
-		ChannelContext cc = new ChannelContext.Builder().privateKeyString(privateKey).useConfigFile(false).useKnownHosts(false).includeDefaultPrivateKeyLocations(false).build();
+		String privateKey = keyPair.getPrivateKey().get();
+		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
+		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
 		String username = Users.EC2USER.getLogin();
-		String hostname = "ec2-54-227-54-106.compute-1.amazonaws.com";// instance.getPublicDnsName();
+		String hostname = "ec2-54-227-54-106.compute-1.amazonaws.com"; // instance.getPublicDnsName();
 		ConnectionContext conn = new ConnectionContext.Builder(hostname).username(username).build();
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
