@@ -80,7 +80,7 @@ $(document).ready(function(){
             if(confirm("Are you sure you want to remove this person")) $(container).remove();
              console.log($(this).attr('personnel-id'));
              var id = $(this).attr('personnel-id');
-             $.post('save-session.php', {'id': id, 'action' : 'removePersonnelSession'}, function(){
+             $.post('process.php', {'id': id, 'action' : 'removePersonnelSession'}, function(){
 
              });
              return false;

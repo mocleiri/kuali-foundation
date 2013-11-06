@@ -55,7 +55,7 @@ $(document).ready(function(){
             if(confirm("Are you sure you want to remove this entry")) $(container).remove();
              console.log($(this).attr('entryId'));
              var id = $(this).attr('entryId');
-             $.post('save-session.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
+             $.post('process.php', {'id': id, 'action' : 'removeComplianceEntry'}, function(){
 
              });
              return false;
@@ -63,19 +63,17 @@ $(document).ready(function(){
     });
 
      $('.update-compliance-entry').live('click' , function(e){
-        var form = $(this).closest('form');
-        var data = $(form).serialize();
-        var form_id =  $(this).closest('form').attr('id');
-        var entryId= $("#" + form_id + " #id").val();
 
+        var entryId= $(this).attr('complianceEntryId');
+        var data = $(this).closest('form').serialize();
 
-        $.post('save-session.php', data, function(v){
-        console.log(v);
-             $.post('process.php', {"action": "updateComplianceEntry", "id" : entryId }, function(t){
+     //   $.post('save-session.php', data, function(v){
+      //  console.log(v);
+             $.post('process.php', data, function(t){
                   $('#complianceEntry' + entryId).replaceWith(t);
 
               });
-         });
+      //   });
 
         return false;
      });

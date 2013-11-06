@@ -365,26 +365,25 @@ $(document).ready(function(){
             if(confirm("Are you sure you want to remove this entry")) $(container).remove();
              console.log($(this).attr('entryId'));
              var id = $(this).attr('entryId');
-             $.post('save-session.php', {'id': id, 'action' : 'removeAttachmentsProposalEntry'}, function(){
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsProposalEntry'}, function(){
 
              });
              return false;
     });
 
      $('.update-attachment-proposal-entry').live('click' , function(e){
-        var form = $(this).closest('form');
-        var data = $(form).serialize();
-        var form_id =  $(this).closest('form').attr('id');
-        var entryId= $("#" + form_id + " #id").val();
+
+        var data = $(this).closest('form').serialize();
+        var entryId= $(this).attr("entryId");
         console.log(data);
         console.log(entryId);
 
-        $.post('save-session.php', data, function(){
-             $.post('process.php', {"action": "updateAttachmentProposalEntry", "id" : entryId }, function(t){
-                  $('#attachmentProposalEntry' + entryId).replaceWith(t);
+       // $.post('save-session.php', data, function(){
+         $.post('process.php', data, function(t){
+              $('#attachmentProposalEntry' + entryId).replaceWith(t);
 
-              });
-         });
+          });
+       //  });
 
         return false;
      });
@@ -406,46 +405,37 @@ $(document).ready(function(){
 $(document).ready(function(){
 
     $(".remove-attachments-personnel-entry").live("click", function(){
-            var container = $(this).parents('div').eq(3);
 
-            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
-             console.log($(this).attr('entryId'));
-             var id = $(this).attr('entryId');
-             $.post('save-session.php', {'id': id, 'action' : 'removeAttachmentsPersonnelEntry'}, function(){
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentPersonnelEntry"+ id).remove();
+
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsPersonnelEntry'}, function(){
 
              });
              return false;
     });
 
      $('.update-attachment-personnel-entry').live('click' , function(e){
-     var entryId= $(this).attr("entryId");
+        var id= $(this).attr("entryId");
         var form = $(this).closest('form');
         var data = $(form).serialize();
-
-        console.log(data);
-        console.log('test ' + entryId);
-
-        $.post('save-session.php', data, function(){
-             $.post('process.php', {"action": "updateAttachmentPersonnelEntry", "id" : entryId }, function(t){
-                  $('#attachmentPersonnelEntry' + entryId).replaceWith(t);
-                  console.log(t);
+        // console.log(id);
+             $.post('process.php', data, function(t){
+                  $('#attachmentPersonnelEntry' + id).replaceWith(t);
 
               });
-         });
+
 
         return false;
      });
 
      $('.cancel-update-attachment-personnel-entry').live('click', function(e){
-
-         var container = $(this).parents('div').eq(1);
-
-         $.post('process.php', {"action": "previewAttachmentPersonnelEntry", "id" : $(this).attr('entryId') }, function(t){
-              $(container).html(t);
-
-         });
+         $.post('process.php', {"action": "previewAttachmentPersonnelEntry", "id" : id }, function(t){
+            $("#attachmentPersonnelInfo" + id).html(t);
+       });
          return false;
      });
+
 
 });
 </script>

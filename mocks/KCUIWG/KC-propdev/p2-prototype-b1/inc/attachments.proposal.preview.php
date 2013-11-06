@@ -66,27 +66,22 @@
                       </div>
                     </form>
 <script>
+
   $(document).ready(function(){
 
 
    $('#edit_attachments_proposal_entry<?php echo $id?>').click(function(){
 
-         var container = $(this).parents('div').eq(2);
-         console.log($(container).html());
          $.post('process.php', {"action": "editAttachmentProposalEntry", "id" : $(this).attr('entryId') }, function(t){
-            $(container).html(t);
-            // console.log(t);
-
+            $("#attachmentProposalInfo<?php echo $id?>").html(t);
          });
-
-
 
          return false;
    });
 
     $('#cancel_attachments_proposal_preview<?php echo $id?>').click(function(){
 
-        $("#collapse<?php echo $id?>").collapse('hide');
+        $("#attachmentProposalCollapse<?php echo $id?>").collapse('hide');
         return false;
     });
 

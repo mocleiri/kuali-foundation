@@ -16,25 +16,15 @@ $(document).ready(function(){
 
         var data = $('#add-attachments-proposal-form').serialize();
 
-        console.log(data);
-         console.log($('#file').val());
          var fileName = $('#file').val();
 
          data += "&uploadFile=" + fileName;
 
-        $.post('../../save-session.php', data, function(t){
-            console.log(t);
-
-            parent.$.fancybox.close();
-
-
-            $.post('../../process.php', {'action' : 'appendAttachmentProposalEntry'}, function(t){
+            $.post('../../process.php', data, function(t){
                 parent.$('.attachments-proposal-entries').append(t);
                // console.log(t);
+               parent.$.fancybox.close();
             });
-        });
-
-
 
         return false;
     });

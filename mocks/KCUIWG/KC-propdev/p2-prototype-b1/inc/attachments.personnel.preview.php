@@ -41,22 +41,13 @@
 
    $('#edit_attachment_personnel_entry<?php echo $id?>').click(function(){
 
-
-         var container = $(this).parents('div').eq(1);
-         console.log($(container).html());
          $.post('process.php', {"action": "editAttachmentPersonnelEntry", "id" : $(this).attr('entryId') }, function(t){
-            $(container).html(t);
-            // console.log(t);
-
+            $("#attachmentPersonnelInfo<?php echo $id?>").html(t);
          });
-
-
-
          return false;
    });
 
     $('#cancel_attachments_personnel_preview<?php echo $id?>').click(function(){
-
         $("#collapseAttachmentsPersonnel<?php echo $id?>").collapse('hide');
         return false;
     });

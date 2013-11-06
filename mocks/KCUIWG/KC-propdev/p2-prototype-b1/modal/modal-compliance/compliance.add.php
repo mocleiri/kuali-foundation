@@ -5,34 +5,23 @@
 
 
 <script type='text/javascript'>
-//<![CDATA[
+
 
 $(document).ready(function(){
 
- /*$( "#compliance-form select" ).on('change', function() {
-         console.log($(this).text());
-    });*/
 
 
     $('#update-compliance-entry0').click(function(e){
 
         var data = $('#compliance-form0').serialize();
 
-        console.log(data);
+        //console.log(data);
 
-        $.post('../../save-session.php', data, function(t){
-            console.log(t);
-
+        $.post('../../process.php', data, function(t){
+            parent.$('.compliance-entries').append(t);
             parent.$.fancybox.close();
-
-
-            $.post('../../process.php', {'action' : 'appendNewComplianceEntry'}, function(t){
-                parent.$('.compliance-entries').append(t);
-                console.log(t);
-            });
+            //console.log(t);
         });
-
-
 
         return false;
     });
