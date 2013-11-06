@@ -17,7 +17,6 @@ package org.kuali.common.devops.ci;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
@@ -39,20 +38,21 @@ import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
+import org.kuali.common.util.channel.ChannelContext;
+import org.kuali.common.util.channel.ConnectionContext;
+import org.kuali.common.util.channel.DefaultSecureChannel;
+import org.kuali.common.util.channel.SecureChannel;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.secure.channel.DefaultSecureChannel;
-import org.kuali.common.util.secure.channel.SecureChannel;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.util.Assert;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -90,25 +90,20 @@ public class CreateMasterConfig {
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
-		SecureChannel channel = getSecureChannel(instance.getPublicDnsName(), instanceContext.getKeyPair());
+		KeyPair keyPair = instanceContext.getKeyPair();
+		String rawPrivateKey = keyPair.getPrivateKey().get();
+		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
+		ChannelContext cc = new ChannelContext.Builder().privateKeyString(privateKey).useConfigFile(false).useKnownHosts(false).includeDefaultPrivateKeyLocations(false).build();
+		ConnectionContext conn = new ConnectionContext.Builder(instance.getPublicDnsName()).username(Users.EC2USER.getLogin()).build();
+		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
-			channel.open();
+			channel.open(conn);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO eroro", e);
 		} finally {
 			channel.close();
 		}
 		return null; // new ExecutablesExecutable(show);
-	}
-
-	protected SecureChannel getSecureChannel(String hostname, KeyPair keyPair) {
-		Assert.isTrue(keyPair.getPrivateKey().isPresent(), "Private key is required");
-		String username = Users.EC2USER.getLogin();
-		String rawPrivateKey = keyPair.getPrivateKey().get();
-		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
-		List<String> privateKeyStrings = Collections.singletonList(privateKey);
-		return new DefaultSecureChannel.Builder(username, hostname).privateKeyStrings(privateKeyStrings).strictHostKeyChecking(false).useConfigFile(false)
-				.includeDefaultPrivateKeyLocations(false).build();
 	}
 
 	protected void doDNS(Instance instance) {
