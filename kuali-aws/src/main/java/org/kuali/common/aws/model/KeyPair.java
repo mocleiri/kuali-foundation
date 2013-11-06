@@ -16,6 +16,10 @@ public final class KeyPair {
 	private final String name;
 	private final String publicKey;
 	private final String privateKey;
+
+	/**
+	 * The SHA-1 digest of the DER encoded private key.
+	 */
 	private final String fingerprint;
 
 	public String getName() {

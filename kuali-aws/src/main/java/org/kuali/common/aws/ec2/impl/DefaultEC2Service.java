@@ -19,6 +19,7 @@ import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
@@ -88,9 +89,35 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
-	public List<KeyPairInfo> getKeys() {
+	public boolean isExistingKeyPair(KeyPair pair) {
+		Assert.noNulls(pair);
 		DescribeKeyPairsResult result = client.describeKeyPairs();
-		return ImmutableList.copyOf(result.getKeyPairs());
+		List<KeyPairInfo> keys = result.getKeyPairs();
+		Optional<KeyPairInfo> optional = getKeyPairInfo(pair.getName(), keys);
+		return optional.isPresent();
+	}
+
+	public boolean isValidKeyPair(KeyPair pair) {
+		Assert.noNulls(pair);
+		DescribeKeyPairsResult result = client.describeKeyPairs();
+		List<KeyPairInfo> keys = result.getKeyPairs();
+		Optional<KeyPairInfo> optional = getKeyPairInfo(pair.getName(), keys);
+		if (!optional.isPresent()) {
+			return false;
+		}
+		KeyPairInfo info = optional.get();
+		String awsFingerprint = info.getKeyFingerprint();
+		String ourFingerprint = pair.getFingerprint();
+		return awsFingerprint.equals(ourFingerprint);
+	}
+
+	protected Optional<KeyPairInfo> getKeyPairInfo(String name, List<KeyPairInfo> list) {
+		for (KeyPairInfo element : list) {
+			if (name.equals(element.getKeyName())) {
+				return Optional.of(element);
+			}
+		}
+		return Optional.<KeyPairInfo> absent();
 	}
 
 	@Override
