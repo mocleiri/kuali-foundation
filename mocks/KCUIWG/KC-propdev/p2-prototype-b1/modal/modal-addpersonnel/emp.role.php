@@ -111,6 +111,7 @@ foreach($_SESSION['keyPersonnel'] as $person){
                 $('#personnel-role',top.document).val(role);
 
                     $('.personnel-entries',top.document).append(t);
+                    $("#role" + id).val(role);
                     $('#keypersonnel-message-name',top.document).html('<?php echo $personName?>');
                     $('.alert',top.document).show();
                     parent.$.fancybox.close();

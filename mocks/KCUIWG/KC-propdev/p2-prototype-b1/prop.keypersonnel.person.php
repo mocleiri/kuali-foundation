@@ -1,14 +1,13 @@
 <?php  session_start();
 include "modal/modal-addpersonnel/keypersonnel.data.php";
+
+$role = $_SESSION['keyPersonnel'][$id]['personnel_role'];
+$piSelected = '';
+$copiSelected = '';
+if($role == "pi") $piSelected = 'selected="selected"';
+if($role == "copi") $copiSelected = 'selected="selected"';
+
 ?>
-
-<script>
- $(document).ready(function(){
-      //
-      $("#role<?php echo $id?>").val("<?php echo $_SESSION['keyPersonnel'][$id]['personnel_role'];?>");
- });
-</script>
-
 <div class="panel panel-default" style="margin-bottom: 6px;" id="keyPersonnelEntry<?php echo $id?>">
     <div class="panel-heading">
         <div class="row">
@@ -42,8 +41,8 @@ include "modal/modal-addpersonnel/keypersonnel.data.php";
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
                                     <select name="role" id="role<?php echo $id?>" tabindex="0" style="">
                                         <option value="">select</option>
-                                        <option value="copi">Co-Investigator</option>
-                                        <option value="pi">Principal Investigator</option>
+                                        <option value="copi" <?php echo $copiSelected;?>>Co-Investigator</option>
+                                        <option value="pi" <?php echo $piSelected?>>Principal Investigator</option>
                                     </select>
                                 </div>
                             </div>
