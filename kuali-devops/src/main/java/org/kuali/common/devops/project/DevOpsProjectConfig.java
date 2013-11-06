@@ -15,7 +15,6 @@
  */
 package org.kuali.common.devops.project;
 
-import org.kuali.common.aws.project.KualiAwsProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.project.spring.ProjectIdentifierConfig;
@@ -30,6 +29,6 @@ public class DevOpsProjectConfig implements ProjectIdentifierConfig {
 	@Override
 	@Bean
 	public ProjectIdentifier projectIdentifier() {
-		return KualiAwsProjectConstants.PROJECT_ID;
+		return DevOpsProjectConstants.PROJECT_ID;
 	}
 }
