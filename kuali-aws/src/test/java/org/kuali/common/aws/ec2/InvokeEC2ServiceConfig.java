@@ -17,11 +17,13 @@ package org.kuali.common.aws.ec2;
 
 import java.util.List;
 
+import org.kuali.common.aws.KeyPairs;
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -51,6 +53,10 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
+		KeyPair keyPair = KeyPairs.FOUNDATION.getKeyPair();
+		boolean exists = service.isExistingKeyPair(keyPair.getName());
+		boolean valid = service.isValidKeyPair(keyPair);
+		logger.info("exists: {}  valid: {}", exists, valid);
 		List<String> names = service.getSecurityGroupNames();
 		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
 		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
