@@ -101,7 +101,7 @@ public class CreateMasterConfig {
 		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
 		String username = Users.EC2USER.getLogin();
 		String hostname = "ec2-54-227-54-106.compute-1.amazonaws.com"; // instance.getPublicDnsName();
-		ConnectionContext conn = new ConnectionContext.Builder(hostname).username(username).build();
+		ConnectionContext conn = new ConnectionContext.Builder(username, hostname).build();
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
