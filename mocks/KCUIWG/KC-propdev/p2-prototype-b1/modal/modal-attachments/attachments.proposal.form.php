@@ -6,13 +6,13 @@
         <label for="type" class="control-label col-md-3">Type:</label>
         <div class="col-md-9">
           <select name="type" id="type" class="form-control input-sm col-md-8">
-            <option value="0">select</option>
+            <option> </option>
+            <option value="Research Plan">Research Plan</option>
             <option value="Narrative">Narrative</option>
             <option value="Equipment">Equipment</option>
             <option value="Bibliography">Bibliography</option>
             <option value="Project Summary">Project Summary</option>
             <option value="Budget Justification">Budget Justification</option>
-            <option value="Other">Other</option>
             <option value="Additional Keypersons">Additional Keypersons</option>
             <option value="Additional Equipment">Additional Equipment</option>
             <option value="Personal Data">Personal Data</option>
@@ -20,6 +20,7 @@
             <option value="Subaward Budget">Subaward Budget</option>
             <option value="Table of Contents">Table of Contents</option>
             <option value="Supplementary Documentation">Supplementary Documentation</option>
+            <option value="Other">Other</option>
           </select>
         </div>
       </div>
@@ -27,7 +28,7 @@
         <label for="approval_status" class="control-label col-md-3">Status:</label>
         <div class="col-md-9">
           <select name="approval_status" id="approval_status" class="form-control input-sm col-md-8">
-            <option value="">select</option>
+            <option> </option>
             <option value="Complete">Complete</option>
             <option value="Incomplete">Incomplete</option>
           </select>

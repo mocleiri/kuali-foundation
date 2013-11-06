@@ -96,7 +96,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <td><strong>0.00</strong></td>
             <td><strong>0.00</strong></td>
           </tr>
-          <tr class="active" >
+          <!-- <tr class="active" >
             <td ><strong>June Cleaver </strong></td>
             <td><strong>
               <input type="text" tabindex="323" value="0.00" title="Credit">
@@ -117,16 +117,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <td><input type="text" tabindex="328" value="0.00" title="Credit"></td>
             <td><input type="text" tabindex="329" value="0.00" title="Credit"></td>
             <td><input type="text" tabindex="330" value="0.00" title="Credit"></td>
-          </tr>
+          </tr> -->
           <tr> <td >Unit Total:</td>
             <td><strong>0.00</strong></td>
             <td><strong>0.00</strong></td>
             <td><strong>0.00</strong></td>
             <td><strong>0.00</strong></td>
           </tr>
-          <tr>
+          <<!-- tr>
             <td colspan="5" >Totals</td>
-          </tr>
+          </tr> -->
           <tr class="active">
             <td ><strong>Investigator Total: </strong></td>
             <td><strong>0.00</strong></td>

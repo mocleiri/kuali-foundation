@@ -16,7 +16,7 @@
                         <label for="type" class="control-label col-md-3">Type:</label>
                         <div class="col-md-9">
                           <select name="type" id="type" class="form-control input-sm col-md-8">
-                            <option value="0">select</option>
+                            <option> </option>
                             <option value="Human Subjects">Human Subjects</option>
                             <option value="Animal Usage">Animal Usage</option>
                             <option value="Recombinant DNA">Recombinant DNA</option>
@@ -36,7 +36,7 @@
                         <label for="approval_status" class="control-label col-md-3">Approval status:</label>
                         <div class="col-md-9">
                           <select name="approval_status" id="approval_status" class="form-control input-sm col-md-8">
-                            <option value="0">select</option>
+                            <option> </option>
                             <option value="Approved">Approved</option>
                             <option value="Exempt">Exempt</option>
                             <option value="Link to IACUC">Link to IACUC</option>

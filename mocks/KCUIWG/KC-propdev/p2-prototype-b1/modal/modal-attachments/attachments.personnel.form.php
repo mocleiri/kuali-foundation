@@ -5,7 +5,7 @@
     <label for="person" class="control-label col-md-3">Person:</label>
     <div class="col-md-9">
       <select name="person" id="person" class="form-control input-sm col-md-8">
-        <option value="">select</option>
+        <option> </option>
         <option value="Ken Graves">Ken Graves</option>
         <option value="Bill Evans">Bill Evans</option>
         <option value="Sarah Vaughn">Sarah Vaughn</option>
@@ -16,7 +16,7 @@
     <label for="type" class="control-label col-md-3">Attachment Type:</label>
     <div class="col-md-9">
       <select name="type" id="type" class="form-control input-sm col-md-8">
-        <option value="">select</option>
+        <option> </option>
         <option value="Biosketch">Biosketch</option>
         <option value="Budget Details">Budget Details</option>
         <option value="Current Pending">Current Pending</option>

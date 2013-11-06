@@ -13,6 +13,7 @@
     Authors:
     - Chris Rodriguez, clrux@bu.edu
     - Tom Clark, thrclark@indiana.edu
+    - Tadas Paegle, ...
 
     Notes:
     - If initializing a page element on page load (i.e., $('.element').dosomething()) perform a check to make sure 

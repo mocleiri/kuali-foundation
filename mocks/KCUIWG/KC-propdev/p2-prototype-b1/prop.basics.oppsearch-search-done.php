@@ -37,7 +37,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                   </tr>
                   <tr>
                     <th>Opportunity Title</th>
-                    <td>Analysis of Significant Biological Findings</td>
+                    <td>Parent R01</td>
                   </tr>
                   <tr>
                     <th>Submission Type</th>
