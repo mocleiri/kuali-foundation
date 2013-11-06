@@ -49,6 +49,13 @@ public final class ChannelContext {
 		private List<File> privateKeys = ImmutableList.of();
 		private List<String> privateKeyStrings = ImmutableList.of();
 
+		public Builder() {
+		}
+
+		public Builder(String privateKeyMaterial) {
+			privateKeyString(privateKeyMaterial);
+		}
+
 		public ChannelContext build() {
 			Assert.noNulls(knownHosts, config, privateKeys, privateKeyStrings);
 			Assert.positive(waitForClosedSleepMillis);
