@@ -90,8 +90,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	public List<KeyPairInfo> getKeys() {
 		DescribeKeyPairsResult result = client.describeKeyPairs();
-		List<KeyPairInfo> list = result.getKeyPairs();
-		return null;
+		return ImmutableList.copyOf(result.getKeyPairs());
 	}
 
 	@Override
