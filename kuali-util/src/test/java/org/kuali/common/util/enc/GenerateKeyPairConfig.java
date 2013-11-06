@@ -42,7 +42,7 @@ public class GenerateKeyPairConfig {
 	@Autowired
 	EncryptionService enc;
 
-	// The keys that Amazon EC2 uses are 1024-bit SSH-2 RSA keys. You can have up to five thousand key pairs per region.
+	// This method generates a public key / private key pair that you can use with AWS
 	@Bean
 	public Object execute() {
 		try {
