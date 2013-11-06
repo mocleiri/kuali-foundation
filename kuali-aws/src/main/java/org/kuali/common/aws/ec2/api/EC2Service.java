@@ -7,6 +7,7 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
+import org.kuali.common.aws.model.KeyPair;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.SecurityGroup;
@@ -29,14 +30,14 @@ public interface EC2Service {
 	 * 
 	 * @see terminateInstance
 	 */
-	public Instance launchInstance(LaunchInstanceContext context);
+	Instance launchInstance(LaunchInstanceContext context);
 
 	/**
 	 * Terminate a single Amazon EC2 instance and wait until Amazon confirms that the instance has been terminated.
 	 * 
 	 * @see launchInstance
 	 */
-	public void terminateInstance(String instanceId);
+	void terminateInstance(String instanceId);
 
 	/**
 	 * <p>
@@ -53,14 +54,14 @@ public interface EC2Service {
 	 * If this method returns false, the instance cannot be used in any meaningful way.
 	 * </p>
 	 */
-	public boolean isOnline(String instanceId);
+	boolean isOnline(String instanceId);
 
 	/**
 	 * Set a flag that prevent's an Amazon EC2 instance from being terminated.
 	 * 
 	 * @see allowTermination
 	 */
-	public void preventTermination(String instanceId);
+	void preventTermination(String instanceId);
 
 	/**
 	 * Set a flag that allows an Amazon EC2 instance to be terminated. This does not terminate the instance. It just makes it possible for the instance to be terminated at some
@@ -68,43 +69,47 @@ public interface EC2Service {
 	 * 
 	 * @see preventTermination
 	 */
-	public void allowTermination(String instanceId);
+	void allowTermination(String instanceId);
 
 	/**
 	 * Return an Amazon EC2 instance object given an instance id.
 	 */
-	public Instance getInstance(String instanceId);
+	Instance getInstance(String instanceId);
 
 	/**
 	 * Create tags on the indicated Amazon EC2 resource (instance, volume, snapshot, ami, etc).
 	 */
-	public void tag(String resourceId, List<Tag> tags);
+	void tag(String resourceId, List<Tag> tags);
 
 	/**
 	 * Return a list containing the names of all the security groups.
 	 */
-	public List<String> getSecurityGroupNames();
+	List<String> getSecurityGroupNames();
 
 	/**
 	 * Return the security group object associated with <code>name</code>
 	 */
-	public Optional<SecurityGroup> getSecurityGroup(String name);
+	Optional<SecurityGroup> getSecurityGroup(String name);
 
 	/**
 	 * Return true if there is already a security group with the given name.
 	 */
-	public boolean isExistingSecurityGroup(String name);
+	boolean isExistingSecurityGroup(String name);
 
 	/**
 	 * Make the permissions for the indicated security group match the list provided. Any existing permissions that are not in the list are removed. Any missing permissions are
 	 * added. Any existing permissions that match a permission from the list are left intact.
 	 */
-	public SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions);
+	SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions);
 
 	/**
 	 * Create a new security group (it must not exist yet)
 	 */
-	public void createSecurityGroup(KualiSecurityGroup group);
+	void createSecurityGroup(KualiSecurityGroup group);
+
+	boolean isExistingKeyPair(KeyPair pair);
+
+	boolean isValidKeyPair(KeyPair pair);
 
 	/**
 	 * <p>
@@ -124,6 +129,6 @@ public interface EC2Service {
 	 * An INSTANCE status indicates something about the state of software running on the instance, aka "is operating system running"
 	 * </p>
 	 */
-	public String getStatus(String instanceId, InstanceStatusType type, String statusName);
+	String getStatus(String instanceId, InstanceStatusType type, String statusName);
 
 }
