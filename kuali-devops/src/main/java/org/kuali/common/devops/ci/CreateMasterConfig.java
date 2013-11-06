@@ -41,6 +41,7 @@ import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
 import org.kuali.common.util.channel.ChannelContext;
 import org.kuali.common.util.channel.ConnectionContext;
 import org.kuali.common.util.channel.DefaultSecureChannel;
+import org.kuali.common.util.channel.Result;
 import org.kuali.common.util.channel.SecureChannel;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -49,6 +50,8 @@ import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,6 +66,8 @@ import com.google.common.collect.ImmutableList;
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class,
 		DNSMEServiceConfig.class })
 public class CreateMasterConfig {
+
+	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
 
@@ -89,19 +94,22 @@ public class CreateMasterConfig {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
-		Instance instance = service.launchInstance(instanceContext);
+		// Instance instance = service.launchInstance(instanceContext);
 		KeyPair keyPair = instanceContext.getKeyPair();
 		String rawPrivateKey = keyPair.getPrivateKey().get();
 		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
 		ChannelContext cc = new ChannelContext.Builder().privateKeyString(privateKey).useConfigFile(false).useKnownHosts(false).includeDefaultPrivateKeyLocations(false).build();
 		String username = Users.EC2USER.getLogin();
-		String hostname = instance.getPublicDnsName();
+		String hostname = "ec2-54-227-54-106.compute-1.amazonaws.com";// instance.getPublicDnsName();
 		ConnectionContext conn = new ConnectionContext.Builder(hostname).username(username).build();
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
+			String command = "pwd; ls -la;";
+			Result result = channel.executeCommand(command);
+			logger.info(result.getStdout());
 		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO eroro", e);
+			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			channel.close();
 		}
