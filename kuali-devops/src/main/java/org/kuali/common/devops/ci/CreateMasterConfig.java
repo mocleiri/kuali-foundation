@@ -107,12 +107,14 @@ public class CreateMasterConfig {
 		try {
 			channel.open(conn);
 			String command1 = "sudo su - root --command 'cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys'";
+			String command2 = "sudo su - root --command 'cp /home/ec2-user/sshd_config /etc/ssh/sshd_config'";
+			String command3 = "sudo su - root --command 'service sshd restart'";
 			channel.executeCommand(command1);
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			RemoteFile dst = new RemoteFile.Builder("/home/ec2-user/sshd_config").build();
 			channel.copyLocationToFile(src, dst);
-			String command2 = "sudo su - root --command 'service sshd restart'";
-			Result result = channel.executeCommand(command2);
+			channel.executeCommand(command2);
+			Result result = channel.executeCommand(command3);
 			logger.info(result.getStdout());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
