@@ -42,7 +42,7 @@ public class GenerateKeyPairConfig {
 	@Autowired
 	EncryptionService enc;
 
-	// This method generates a public key / private key pair that you can use with AWS
+	// This method generates a public key / private key pair suitable for use with AWS
 	@Bean
 	public Object execute() {
 		try {
