@@ -27,6 +27,7 @@ import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
 import org.kuali.common.aws.model.AMIs;
 import org.kuali.common.aws.model.AvailabilityZones;
 import org.kuali.common.aws.model.AwsAccount;
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.FoundationAwsConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
@@ -90,14 +91,14 @@ public class CreateMasterConfig {
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
 		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		String keyName = account.getKey().get().getName();
+		KeyPair keyPair = account.getKey().get();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
 		List<String> securityGroups = SecurityGroups.of(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = false; // Switch this back to true before release
-		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
+		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
 				.rootVolume(rootVolume).build();
 	}
 
