@@ -33,6 +33,9 @@ import com.jcraft.jsch.KeyPair;
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class GenerateKeyPairConfig {
 
+	private static final String DEFAULT_NAME = "my.keypair";
+	private static final int DEFAULT_SIZE = 1024;
+
 	@Autowired
 	EnvironmentService env;
 
@@ -43,10 +46,11 @@ public class GenerateKeyPairConfig {
 	@Bean
 	public Object execute() {
 		try {
+			String name = env.getString("key.name", DEFAULT_NAME);
+			int size = env.getInteger("key.size", DEFAULT_SIZE);
 			int type = KeyPair.RSA;
 			JSch jsch = new JSch();
-			KeyPair keyPair = KeyPair.genKeyPair(jsch, type);
-			String name = env.getString("key.name");
+			KeyPair keyPair = KeyPair.genKeyPair(jsch, type, size);
 			String publicKey = getPublicKey(keyPair, name);
 			String privateKey = getPrivateKey(keyPair);
 			String privateKeyEncrypted = enc.encrypt(privateKey);
