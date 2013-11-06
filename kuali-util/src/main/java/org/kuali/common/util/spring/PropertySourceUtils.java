@@ -52,6 +52,13 @@ public class PropertySourceUtils {
 		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, PropertyUtils.getGlobalProperties());
 	}
 
+	/**
+	 * Return a property source based on the properties object passed in, but where system properties plus environment properties "win"
+	 */
+	public static PropertySource<?> getPropertySource(Properties properties) {
+		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, PropertyUtils.getGlobalProperties(properties));
+	}
+
 	public static PropertySource<?> getPropertySource(PropertiesService service, List<Location> locations) {
 		Properties properties = service.getProperties(locations);
 		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, properties);
