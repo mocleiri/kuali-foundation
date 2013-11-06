@@ -18,6 +18,7 @@ package org.kuali.common.util.enc;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,14 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.KeyPair;
 
 @Configuration
-@Import({ SpringServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class GenerateKeyPairConfig {
 
 	@Autowired
 	EnvironmentService env;
+
+	@Autowired
+	EncryptionService enc;
 
 	// The keys that Amazon EC2 uses are 1024-bit SSH-2 RSA keys. You can have up to five thousand key pairs per region.
 	@Bean
@@ -42,11 +46,11 @@ public class GenerateKeyPairConfig {
 			int type = KeyPair.RSA;
 			JSch jsch = new JSch();
 			KeyPair keyPair = KeyPair.genKeyPair(jsch, type);
-			String name = "winnie-the-pooh";
+			String name = env.getString("key.name");
 			String publicKey = getPublicKey(keyPair, name);
 			String privateKey = getPrivateKey(keyPair);
 			System.out.println(publicKey);
-			System.out.println(privateKey);
+			System.out.println(enc.encrypt(privateKey));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
