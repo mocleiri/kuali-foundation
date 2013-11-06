@@ -2,6 +2,7 @@ package org.kuali.common.aws.ec2.model;
 
 import java.util.List;
 
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.nullify.NullUtils;
@@ -14,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 public final class LaunchInstanceContext {
 
 	private final String ami;
-	private final String keyName;
+	private final KeyPair keyPair;
 	private final InstanceType type;
 	private final List<String> securityGroups;
 	private final List<Tag> tags;
@@ -29,7 +30,7 @@ public final class LaunchInstanceContext {
 
 		// Required
 		private final String ami;
-		private final String keyName;
+		private final KeyPair keyPair;
 
 		// Optional
 		private InstanceType type = InstanceType.M1Medium;
@@ -42,9 +43,9 @@ public final class LaunchInstanceContext {
 		private boolean enableMonitoring = false;
 		private Optional<RootVolume> rootVolume = Optional.absent(); // Default root volume definition is provided by the AMI
 
-		public Builder(String ami, String keyName) {
+		public Builder(String ami, KeyPair keyPair) {
 			this.ami = ami;
-			this.keyName = keyName;
+			this.keyPair = keyPair;
 		}
 
 		public Builder rootVolume(RootVolume rootVolume) {
@@ -93,8 +94,8 @@ public final class LaunchInstanceContext {
 		}
 
 		public LaunchInstanceContext build() {
-			Assert.noBlanks(ami, keyName);
-			Assert.noNulls(type, securityGroups, tags, availabilityZone);
+			Assert.noBlanks(ami);
+			Assert.noNulls(type, securityGroups, tags, availabilityZone, keyPair);
 			Assert.notNegative(timeoutMillis);
 			this.securityGroups = ImmutableList.copyOf(securityGroups);
 			this.tags = ImmutableList.copyOf(tags);
@@ -105,7 +106,7 @@ public final class LaunchInstanceContext {
 
 	private LaunchInstanceContext(Builder builder) {
 		this.ami = builder.ami;
-		this.keyName = builder.keyName;
+		this.keyPair = builder.keyPair;
 		this.type = builder.type;
 		this.securityGroups = builder.securityGroups;
 		this.tags = builder.tags;
@@ -121,8 +122,8 @@ public final class LaunchInstanceContext {
 		return ami;
 	}
 
-	public String getKeyName() {
-		return keyName;
+	public KeyPair getKeyPair() {
+		return keyPair;
 	}
 
 	public InstanceType getType() {

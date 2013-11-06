@@ -6,6 +6,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
@@ -30,6 +31,7 @@ public class LaunchUtils {
 
 	private static final String AMI_KEY = "ec2.ami";
 	private static final String KEY_NAME_KEY = "ec2.keyName";
+	private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
 	private static final String TYPE_KEY = "ec2.type";
 	private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
 	private static final String TAGS_KEY = "ec2.tags";
@@ -40,7 +42,8 @@ public class LaunchUtils {
 	private static final String ENABLE_MONITORING_KEY = "ec2.enableMonitoring";
 	private static final String ROOT_VOLUME_SIZE_KEY = "ec2.rootVolume.sizeInGigabytes";
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
-	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NullUtils.NONE).build();
+	private static final KeyPair DEFAULT_KEYPAIR = new KeyPair(NullUtils.NONE, NullUtils.NONE);
+	private static final LaunchInstanceContext DEFAULT_CONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, DEFAULT_KEYPAIR).build();
 
 	public static AmazonEC2Client getClient(EC2ServiceContext context) {
 		AmazonEC2Client client = new AmazonEC2Client(context.getCredentials());
@@ -93,7 +96,9 @@ public class LaunchUtils {
 	 */
 	public static LaunchInstanceContext getContext(EnvironmentService env, LaunchInstanceContext provided) {
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
-		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyName()));
+		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyPair().getName()));
+		String publicKey = NullUtils.trimToNull(env.getString(PUBLIC_KEY_KEY, provided.getKeyPair().getPublicKey()));
+		KeyPair keyPair = new KeyPair(keyName, publicKey);
 		InstanceType type = getType(env, provided.getType());
 		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis());
 		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, provided.isEbsOptimized());
@@ -104,7 +109,7 @@ public class LaunchUtils {
 		Optional<String> availabilityZone = SpringUtils.getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
 		List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
 
-		return new LaunchInstanceContext.Builder(ami, keyName).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
+		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
 				.build();
 	}
