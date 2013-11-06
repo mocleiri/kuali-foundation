@@ -2,7 +2,7 @@ package org.kuali.common.aws.ec2.model.security;
 
 public enum CIDR {
 
-	ANY("0.0.0.0/0");
+	ANY("0.0.0.0/0"); // Allow anyone to connect from anywhere
 
 	private final String notation;
 
