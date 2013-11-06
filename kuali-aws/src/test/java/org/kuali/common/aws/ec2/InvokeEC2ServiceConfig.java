@@ -26,7 +26,6 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.model.AMIs;
 import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.aws.spring.AwsServiceConfig;
-import org.kuali.common.util.CheckSumUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.slf4j.Logger;
@@ -55,16 +54,11 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		KeyPair keyPair = new KeyPair("kuali-devops-test-key9", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
+		KeyPair keyPair = new KeyPair("kuali-devops-test-key22", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
 		List<KualiSecurityGroup> groups = getSecurityGroups();
 		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
 		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).securityGroups(groups).build();
-		if (!service.isExistingKey(keyPair.getName())) {
-			String awsFingerprint = service.importKey(keyPair.getName(), keyPair.getPublicKey());
-			String ourFingerprint = CheckSumUtils.getMD5Checksum(keyPair.getPublicKey());
-			logger.info("aws fingerprint: {}", awsFingerprint);
-			logger.info("our fingerprint: {}", ourFingerprint);
-		}
+		service.launchInstance(context);
 		return null;
 	}
 
