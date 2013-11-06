@@ -25,6 +25,7 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.aws.spring.AwsServiceConfig;
+import org.kuali.common.util.CheckSumUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.slf4j.Logger;
@@ -53,17 +54,22 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		KeyPair keyPair = new KeyPair("kuali-devops-test-key", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
+		KeyPair keyPair = new KeyPair("kuali-devops-test-key3", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
 		if (!service.isExistingKey(keyPair.getName())) {
-			String fingerprint = service.importKey(keyPair.getName(), keyPair.getPublicKey());
-			logger.info("fingerprint: {}", fingerprint);
+			String awsFingerprint = service.importKey(keyPair.getName(), keyPair.getPublicKey());
+			String ourFingerprint = CheckSumUtils.getMD5Checksum(keyPair.getPublicKey());
+			logger.info("aws fingerprint: {}", awsFingerprint);
+			logger.info("our fingerprint: {}", ourFingerprint);
 		}
+		return null;
+	}
+
+	protected void doSecurityGroups() {
 		List<String> names = service.getSecurityGroupNames();
 		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
 		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
 		KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
 		handleGroups(names, ci, master, slave);
-		return null;
 	}
 
 	protected void handleGroups(List<String> names, KualiSecurityGroup... groups) {
