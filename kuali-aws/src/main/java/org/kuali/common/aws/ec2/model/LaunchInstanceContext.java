@@ -19,6 +19,8 @@ public final class LaunchInstanceContext {
 	private final KeyPair keyPair;
 	private final InstanceType type;
 	private final List<KualiSecurityGroup> securityGroups;
+	// If true, any permissions on an existing security group are overridden by the permissions from the security group provided here, prior to the instance being launched
+	private final boolean overrideExistingSecurityGroupPermissions;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
 	private final int timeoutMillis;
@@ -42,6 +44,7 @@ public final class LaunchInstanceContext {
 		private boolean preventTermination = false;
 		private boolean ebsOptimized = false;
 		private boolean enableMonitoring = false;
+		private boolean overrideExistingSecurityGroupPermissions = false;
 		private Optional<RootVolume> rootVolume = Optional.absent(); // Default root volume definition is provided by the AMI
 
 		public Builder(String ami, KeyPair keyPair) {
@@ -56,6 +59,11 @@ public final class LaunchInstanceContext {
 
 		public Builder enableMonitoring(boolean enableMonitoring) {
 			this.enableMonitoring = enableMonitoring;
+			return this;
+		}
+
+		public Builder overrideExistingSecurityGroupPermissions(boolean overrideExistingSecurityGroupPermissions) {
+			this.overrideExistingSecurityGroupPermissions = overrideExistingSecurityGroupPermissions;
 			return this;
 		}
 
@@ -117,6 +125,7 @@ public final class LaunchInstanceContext {
 		this.ebsOptimized = builder.ebsOptimized;
 		this.enableMonitoring = builder.enableMonitoring;
 		this.rootVolume = builder.rootVolume;
+		this.overrideExistingSecurityGroupPermissions = builder.overrideExistingSecurityGroupPermissions;
 	}
 
 	public String getAmi() {
@@ -161,6 +170,10 @@ public final class LaunchInstanceContext {
 
 	public Optional<RootVolume> getRootVolume() {
 		return rootVolume;
+	}
+
+	public boolean isOverrideExistingSecurityGroupPermissions() {
+		return overrideExistingSecurityGroupPermissions;
 	}
 
 }
