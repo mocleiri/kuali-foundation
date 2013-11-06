@@ -19,6 +19,10 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class RemoteFile {
 
 	private final String absolutePath;

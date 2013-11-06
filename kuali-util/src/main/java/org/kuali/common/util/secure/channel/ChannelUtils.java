@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util.secure.channel;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ChannelUtils {
 
 	public static String getLocation(String username, String hostname, RemoteFile file) {

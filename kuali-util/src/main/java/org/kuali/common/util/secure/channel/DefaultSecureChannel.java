@@ -51,6 +51,10 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class DefaultSecureChannel implements SecureChannel {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
@@ -727,6 +731,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		return strictHostKeyChecking;
 	}
 
+	@Override
 	public int getPort() {
 		return port;
 	}
@@ -739,10 +744,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 		return encoding;
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
 
+	@Override
 	public String getHostname() {
 		return hostname;
 	}

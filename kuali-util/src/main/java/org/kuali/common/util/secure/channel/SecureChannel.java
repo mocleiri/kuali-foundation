@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface SecureChannel {
 
 	void open() throws IOException;

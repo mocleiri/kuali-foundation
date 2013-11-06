@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util.secure.channel;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class Result {
 
 	public Result(String command, int exitValue, String stdin, String stdout, String stderr, String encoding, long start, long stop) {
