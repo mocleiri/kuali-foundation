@@ -377,7 +377,7 @@ public final class DefaultEC2Service implements EC2Service {
 	protected Instance issueRunInstanceRequest(LaunchInstanceContext context) {
 		KeyPair keyPair = context.getKeyPair();
 		if (!isExistingKey(keyPair.getName())) {
-			logger.info("Importing key {}", keyPair.getName());
+			logger.info("Importing key [{}]", keyPair.getName());
 			importKey(keyPair.getName(), keyPair.getPublicKey());
 		}
 

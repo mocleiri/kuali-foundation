@@ -35,6 +35,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
@@ -57,7 +58,8 @@ public class InvokeEC2ServiceConfig {
 		KeyPair keyPair = new KeyPair("kuali-devops-test-key22", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
 		List<KualiSecurityGroup> groups = getSecurityGroups();
 		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).securityGroups(groups).build();
+		List<Tag> tags = ImmutableList.of(new Tag("Name", "ci.testing"));
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).securityGroups(groups).tags(tags).build();
 		service.launchInstance(context);
 		return null;
 	}
