@@ -53,11 +53,11 @@ public class InvokeEC2ServiceConfig {
 
 	@Bean
 	public Object invokeEC2Service() {
-		KeyPair keyPair = KeyPairs.FOUNDATION.getKeyPair();
-		boolean exists = service.isExistingKey(keyPair.getName());
-		String fingerprint = service.importKey("kuali-devops-test-key", keyPair.getPublicKey());
-		logger.info("fingerprint: {}", fingerprint);
-		logger.info("exists: {} ", exists);
+		KeyPair keyPair = new KeyPair("kuali-devops-test-key", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
+		if (!service.isExistingKey(keyPair.getName())) {
+			String fingerprint = service.importKey(keyPair.getName(), keyPair.getPublicKey());
+			logger.info("fingerprint: {}", fingerprint);
+		}
 		List<String> names = service.getSecurityGroupNames();
 		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
 		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
