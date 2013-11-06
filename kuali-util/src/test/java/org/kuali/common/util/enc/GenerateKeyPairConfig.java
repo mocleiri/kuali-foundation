@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.enc;
 
+import java.security.KeyPairGenerator;
+
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,15 @@ public class GenerateKeyPairConfig {
 	@Autowired
 	EnvironmentService env;
 
+	// The keys that Amazon EC2 uses are 1024-bit SSH-2 RSA keys. You can have up to five thousand key pairs per region.
 	@Bean
-	public Object invokeEC2Service() {
-		System.out.println("hello world");
+	public Object execute() {
+		try {
+			KeyPairGenerator kpg = KeyPairGenerator.getInstance("SSH-2", "RSA");
+			System.out.println(kpg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
