@@ -36,6 +36,8 @@ import com.amazonaws.auth.AWSCredentials;
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig, DomainNameConfig {
 
+	private static final String DOMAIN_NAME = "kuali.org";
+
 	@Autowired
 	EnvironmentService env;
 
@@ -51,7 +53,7 @@ public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig, D
 	@Override
 	@Bean
 	public String domainName() {
-		return "kuali.org";
+		return DOMAIN_NAME;
 	}
 
 	@Override
