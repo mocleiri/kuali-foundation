@@ -404,9 +404,9 @@ public final class DefaultEC2Service implements EC2Service {
 	protected void logPermissionChanges(KualiSecurityGroup group, List<Permission> perms, String changeDescription) {
 		for (Permission perm : perms) {
 			String port = StringUtils.leftPad(perm.getPort() + "", 5);
-			String permDescription = "port:" + port + " protocol:" + perm.getProtocol() + " CIDR:" + CollectionUtils.asCSV(perm.getCidrNotations());
+			String permDescription = "port:" + port + ", protocol:" + perm.getProtocol() + ", CIDR:" + CollectionUtils.asCSV(perm.getCidrNotations());
 			Object[] args = { group.getName(), StringUtils.rightPad(changeDescription, 7, " "), permDescription };
-			logger.info("Security Group: [{}] - permission {} [{}]", args);
+			logger.info("Security Group:[{}] - permission {} [{}]", args);
 		}
 	}
 
