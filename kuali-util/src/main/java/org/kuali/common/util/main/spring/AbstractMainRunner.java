@@ -18,6 +18,7 @@ package org.kuali.common.util.main.spring;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.main.MainContext;
 import org.kuali.common.util.main.MainService;
+import org.kuali.common.util.properties.spring.DefaultPropertySourceConfig;
 import org.kuali.common.util.spring.SpringExecUtils;
 import org.kuali.common.util.spring.config.annotation.Execute;
 import org.kuali.common.util.spring.service.PropertySourceConfig;
@@ -32,7 +33,9 @@ import org.springframework.core.env.PropertySource;
 @Import({ SpringServiceConfig.class, MainServiceConfig.class })
 public abstract class AbstractMainRunner implements MainConfig {
 
-	protected abstract Class<? extends PropertySourceConfig> getPropertySourceConfig();
+	protected Class<? extends PropertySourceConfig> getPropertySourceConfig() {
+		return DefaultPropertySourceConfig.class;
+	}
 
 	protected abstract Class<?> getConfig();
 
