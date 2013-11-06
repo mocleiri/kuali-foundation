@@ -94,7 +94,7 @@ public class CreateMasterConfig {
 		KeyPair keyPair = account.getKeyPair();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
-		List<String> securityGroups = SecurityGroups.of(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
+		List<String> securityGroups = SecurityGroups.asList(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = false; // TODO Switch this back to true before release

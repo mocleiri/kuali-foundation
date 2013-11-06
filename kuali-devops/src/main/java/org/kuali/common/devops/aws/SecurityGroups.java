@@ -21,11 +21,11 @@ public enum SecurityGroups {
 		return name;
 	}
 
-	public static final List<String> of() {
-		return of(values());
+	public static final List<String> asList() {
+		return asList(values());
 	}
 
-	public static final List<String> of(SecurityGroups... groups) {
+	public static final List<String> asList(SecurityGroups... groups) {
 		List<String> names = new ArrayList<String>();
 		for (SecurityGroups group : groups) {
 			names.add(group.getName());
