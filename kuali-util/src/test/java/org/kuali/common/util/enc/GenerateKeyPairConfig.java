@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.KeyPair;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
@@ -46,20 +45,12 @@ public class GenerateKeyPairConfig {
 	@Bean
 	public Object execute() {
 		try {
-			String name = env.getString("key.name", DEFAULT_NAME);
-			int size = env.getInteger("key.size", DEFAULT_SIZE);
-			int type = KeyPair.RSA;
-			JSch jsch = new JSch();
-			KeyPair keyPair = KeyPair.genKeyPair(jsch, type, size);
-			String publicKey = getPublicKey(keyPair, name);
-			String privateKey = getPrivateKey(keyPair);
-			String privateKeyEncrypted = enc.encrypt(privateKey);
-			String fingerprint = keyPair.getFingerPrint();
+			KeyPair keyPair = getKeyPair();
 			System.out.println();
-			System.out.println("       name: [" + name + "]");
-			System.out.println(" public key: [" + publicKey.trim() + "]");
-			System.out.println("private key: [" + privateKeyEncrypted + "]");
-			System.out.println("fingerprint: [" + fingerprint + "]");
+			System.out.println("       name: [" + keyPair.getName() + "]");
+			System.out.println(" public key: [" + keyPair.getPublicKey().get() + "]");
+			System.out.println("private key: [" + keyPair.getPrivateKey().get() + "]");
+			System.out.println("fingerprint: [" + keyPair.getFingerprint().get() + "]");
 			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,13 +58,26 @@ public class GenerateKeyPairConfig {
 		return null;
 	}
 
-	protected String getPrivateKey(KeyPair keyPair) throws IOException {
+	protected KeyPair getKeyPair() throws Exception {
+		String name = env.getString("key.name", DEFAULT_NAME);
+		int size = env.getInteger("key.size", DEFAULT_SIZE);
+		int type = com.jcraft.jsch.KeyPair.RSA;
+		JSch jsch = new JSch();
+		com.jcraft.jsch.KeyPair keyPair = com.jcraft.jsch.KeyPair.genKeyPair(jsch, type, size);
+		String publicKey = getPublicKey(keyPair, name).trim();
+		String privateKey = getPrivateKey(keyPair);
+		String privateKeyEncrypted = enc.encrypt(privateKey);
+		String fingerprint = keyPair.getFingerPrint();
+		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKeyEncrypted).fingerprint(fingerprint).build();
+	}
+
+	protected String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePrivateKey(out);
 		return out.toString("UTF-8");
 	}
 
-	protected String getPublicKey(KeyPair keyPair, String name) throws IOException {
+	protected String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePublicKey(out, name);
 		return out.toString("UTF-8");
