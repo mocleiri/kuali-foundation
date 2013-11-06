@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.devops.project.spring;
+package org.kuali.common.devops.project;
 
 import org.kuali.common.aws.project.KualiAwsProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
