@@ -108,6 +108,13 @@ public interface EC2Service {
 	void createSecurityGroup(KualiSecurityGroup group);
 
 	/**
+	 * Import the public key under the given name.
+	 * 
+	 * @return The MD5 fingerprint of the public key
+	 */
+	String importPublicKey(String keyName, String publicKey);
+
+	/**
 	 * Return true if a key pair with this name exists
 	 */
 	boolean isExistingKeyPair(String keyName);

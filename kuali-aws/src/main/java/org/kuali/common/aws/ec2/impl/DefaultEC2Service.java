@@ -93,12 +93,12 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
-	public String importKeyPair(KeyPair pair) {
-		Assert.noNulls(pair);
-		byte[] binaryData = Str.getUTF8Bytes(pair.getPublicKey());
+	@Override
+	public String importPublicKey(String keyName, String publicKey) {
+		Assert.noBlanks(keyName, publicKey);
+		byte[] binaryData = Str.getUTF8Bytes(publicKey);
 		byte[] base64Encoded = Base64.encodeBase64(binaryData);
 		String publicKeyMaterial = new String(base64Encoded);
-		String keyName = pair.getName();
 
 		ImportKeyPairRequest request = new ImportKeyPairRequest();
 		request.setKeyName(keyName);
