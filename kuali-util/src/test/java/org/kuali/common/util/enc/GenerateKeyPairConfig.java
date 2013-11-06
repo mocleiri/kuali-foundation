@@ -49,8 +49,13 @@ public class GenerateKeyPairConfig {
 			String name = env.getString("key.name");
 			String publicKey = getPublicKey(keyPair, name);
 			String privateKey = getPrivateKey(keyPair);
-			System.out.println(publicKey);
-			System.out.println(enc.encrypt(privateKey));
+			String privateKeyEncrypted = enc.encrypt(privateKey);
+			System.out.println();
+			System.out.println("       name: [" + name + "]");
+			System.out.println(" public key: [" + publicKey.trim() + "]");
+			System.out.println("private key: [" + privateKeyEncrypted + "]");
+			System.out.println("fingerprint: [" + keyPair.getFingerPrint() + "]");
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
