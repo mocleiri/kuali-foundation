@@ -7,7 +7,6 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.model.Regions;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +54,7 @@ public class ShowLaunchConfigExecutable implements Executable {
 
 	protected String getAvailabilityZone(LaunchInstanceContext context) {
 		Optional<String> zone = context.getAvailabilityZone();
-		if (!zone.isPresent() || NullUtils.trimToNull(zone.get()) == null) {
+		if (!zone.isPresent()) {
 			return "no preference";
 		} else {
 			return zone.get();
