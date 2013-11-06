@@ -1,6 +1,7 @@
 package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CheckSumUtils;
 
 public final class KeyPair {
 
@@ -9,11 +10,13 @@ public final class KeyPair {
 		this.name = name;
 		this.publicKey = publicKey;
 		this.privateKey = privateKey;
+		this.fingerprint = CheckSumUtils.getSHA1Checksum(privateKey);
 	}
 
 	private final String name;
 	private final String publicKey;
 	private final String privateKey;
+	private final String fingerprint;
 
 	public String getName() {
 		return name;
@@ -25,6 +28,10 @@ public final class KeyPair {
 
 	public String getPrivateKey() {
 		return privateKey;
+	}
+
+	public String getFingerprint() {
+		return fingerprint;
 	}
 
 }
