@@ -15,7 +15,7 @@ public class AwsUtils {
 
 	private static final String ACCOUNT_KEY = "aws.account";
 	private static final Map<String, AwsAccount> ACCOUNTS = Accounts.asMap();
-	private static final KeyPair NOKEYPAIR = new KeyPair(NullUtils.NONE, NullUtils.NONE);
+	private static final KeyPair NOKEYPAIR = new KeyPair.Builder(NullUtils.NONE).build();
 	private static final AWSCredentials NOCREDS = new ImmutableAwsCredentials(NullUtils.NONE, NullUtils.NONE);
 	private static final AwsAccount NOACCOUNT = new AwsAccount.Builder(NullUtils.NONE, NOCREDS, NOKEYPAIR).build();
 
