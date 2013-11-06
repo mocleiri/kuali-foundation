@@ -97,7 +97,7 @@ public final class DefaultEC2Service implements EC2Service {
 		request.setKeyName(keyName);
 		CreateKeyPairResult result = client.createKeyPair(request);
 		com.amazonaws.services.ec2.model.KeyPair keyPair = result.getKeyPair();
-		return new KeyPair(keyName, "uknown", keyPair.getKeyMaterial());
+		return new KeyPair(keyName, "unknown", keyPair.getKeyMaterial(), keyPair.getKeyFingerprint());
 	}
 
 	@Override
