@@ -11,7 +11,7 @@ public final class AwsAccount {
 	private final String name;
 	private final Optional<String> accountNumber;
 	private final Optional<AWSCredentials> credentials;
-	private final Optional<AwsKey> key;
+	private final Optional<KeyPair> key;
 
 	public static class Builder {
 
@@ -21,7 +21,7 @@ public final class AwsAccount {
 		// Optional
 		private Optional<String> accountNumber = Optional.absent();
 		private Optional<AWSCredentials> credentials = Optional.absent();
-		private Optional<AwsKey> key = Optional.absent();
+		private Optional<KeyPair> key = Optional.absent();
 
 		public Builder(String name) {
 			this.name = name;
@@ -37,7 +37,7 @@ public final class AwsAccount {
 			return this;
 		}
 
-		public Builder key(AwsKey key) {
+		public Builder key(KeyPair key) {
 			this.key = Optional.fromNullable(key);
 			return this;
 		}
@@ -69,7 +69,7 @@ public final class AwsAccount {
 		return credentials;
 	}
 
-	public Optional<AwsKey> getKey() {
+	public Optional<KeyPair> getKey() {
 		return key;
 	}
 

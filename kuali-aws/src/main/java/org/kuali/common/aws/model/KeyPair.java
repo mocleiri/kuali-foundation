@@ -2,9 +2,9 @@ package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
 
-public final class AwsKey {
+public final class KeyPair {
 
-	public AwsKey(String name, String publicKey, String privateKey) {
+	public KeyPair(String name, String publicKey, String privateKey) {
 		Assert.noBlanks(name, publicKey, privateKey);
 		this.name = name;
 		this.publicKey = publicKey;
