@@ -95,7 +95,7 @@ public class CreateMasterConfig {
 		KeyPair keyPair = account.getKeyPair();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
-		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup());
+		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup(), SecurityGroups.CI.getGroup());
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = false; // TODO Switch this back to true before release
