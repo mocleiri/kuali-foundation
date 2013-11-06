@@ -380,7 +380,7 @@ public final class DefaultEC2Service implements EC2Service {
 		if (!isExistingKey(keyPair.getName())) {
 			Optional<String> publicKey = keyPair.getPublicKey();
 			String name = keyPair.getName();
-			Assert.isTrue(publicKey.isPresent(), "Unable to setup server authentication.  Key [" + name + "] does not exist and no public key was supplied for import.");
+			Assert.isTrue(publicKey.isPresent(), "Unable to setup server authentication.  Key [" + name + "] does not exist and no public key was supplied.");
 			logger.info("Importing key [{}]", keyPair.getName());
 			importKey(keyPair.getName(), keyPair.getPublicKey().get());
 		}
@@ -391,9 +391,11 @@ public final class DefaultEC2Service implements EC2Service {
 				logger.info("Creating security group {}", securityGroup.getName());
 				createSecurityGroup(securityGroup);
 			}
-			SetPermissionsResult result = setPermissions(securityGroup.getName(), securityGroup.getPermissions());
-			logPermissionChanges(securityGroup, result.getDeletes(), "deleted");
-			logPermissionChanges(securityGroup, result.getAdds(), "added");
+			if (context.isOverrideExistingSecurityGroupPermissions()) {
+				SetPermissionsResult result = setPermissions(securityGroup.getName(), securityGroup.getPermissions());
+				logPermissionChanges(securityGroup, result.getDeletes(), "deleted");
+				logPermissionChanges(securityGroup, result.getAdds(), "added");
+			}
 		}
 
 		RunInstancesRequest request = getRunInstanceRequest(context);
