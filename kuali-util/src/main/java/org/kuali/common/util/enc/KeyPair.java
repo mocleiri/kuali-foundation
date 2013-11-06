@@ -31,13 +31,13 @@ public final class KeyPair {
 			return this;
 		}
 
-		public Builder fingerprint(String fingerprint) {
-			this.fingerprint = Optional.fromNullable(NullUtils.trimToNull(fingerprint));
+		public Builder privateKey(String privateKey) {
+			this.privateKey = Optional.fromNullable(NullUtils.trimToNull(privateKey));
 			return this;
 		}
 
-		public Builder privateKey(String privateKey) {
-			this.privateKey = Optional.fromNullable(NullUtils.trimToNull(privateKey));
+		public Builder fingerprint(String fingerprint) {
+			this.fingerprint = Optional.fromNullable(NullUtils.trimToNull(fingerprint));
 			return this;
 		}
 
