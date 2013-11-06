@@ -153,7 +153,7 @@ public final class DefaultEC2Service implements EC2Service {
 		Assert.noBlanks(securityGroupName);
 		Assert.noNulls(permissions);
 		Optional<SecurityGroup> optional = getSecurityGroup(securityGroupName);
-		Assert.isTrue(optional.isPresent(), "Security group " + securityGroupName + " does not exist");
+		Assert.isTrue(optional.isPresent(), "Security group [" + securityGroupName + "] does not exist");
 		SecurityGroup group = optional.get();
 		List<IpPermission> oldPerms = group.getIpPermissions();
 		List<Permission> oldPermissions = getPermissions(oldPerms);
