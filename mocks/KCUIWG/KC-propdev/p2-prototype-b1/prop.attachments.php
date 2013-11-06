@@ -436,5 +436,45 @@ $(document).ready(function(){
 
 });
 </script>
+<script>
+$(document).ready(function(){
+
+    $(".remove-attachments-internal-entry").live("click", function(){
+
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentInternalEntry"+ id).remove();
+
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsInternalEntry'}, function(){
+
+             });
+             return false;
+    });
+
+     $('.update-attachment-internal-entry').live('click' , function(e){
+        var id= $(this).attr("entryId");
+        var form = $(this).closest('form');
+        var data = $(form).serialize();
+        // console.log(id);
+             $.post('process.php', data, function(t){
+                  $('#attachmentInternalEntry' + id).replaceWith(t);
+
+              });
+
+
+        return false;
+     });
+
+     $('.cancel-update-attachments-internal-entry').live('click', function(e){
+         var id = $(this).attr('entryId');
+         $.post('process.php', {"action": "previewAttachmentInternalEntry", "id" : id }, function(t){
+
+            $("#attachmentInternalInfo" + id).html(t);
+       });
+         return false;
+     });
+
+
+});
+</script>
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
