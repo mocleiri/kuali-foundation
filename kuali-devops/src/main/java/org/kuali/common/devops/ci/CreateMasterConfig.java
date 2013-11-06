@@ -16,12 +16,14 @@
 package org.kuali.common.devops.ci;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.Users;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
@@ -36,14 +38,20 @@ import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
+import org.kuali.common.util.enc.DefaultEncryptionService;
+import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.secure.channel.DefaultSecureChannel;
+import org.kuali.common.util.secure.channel.SecureChannel;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.util.Assert;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -51,7 +59,8 @@ import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
-@Import({ SpringServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class, DNSMEServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultEncryptionService.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class,
+		DNSMEServiceConfig.class })
 public class CreateMasterConfig {
 
 	private static final int TWENTY_FIVE_GIGABYTES = 25;
@@ -66,6 +75,9 @@ public class CreateMasterConfig {
 	EnvironmentService env;
 
 	@Autowired
+	EncryptionService enc;
+
+	@Autowired
 	DnsService dns;
 
 	@Autowired
@@ -77,7 +89,18 @@ public class CreateMasterConfig {
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
+		SecureChannel channel = getSecureChannel(instance.getPublicDnsName(), instanceContext.getKeyPair());
 		return null; // new ExecutablesExecutable(show);
+	}
+
+	protected SecureChannel getSecureChannel(String hostname, KeyPair keyPair) {
+		Assert.isTrue(keyPair.getPrivateKey().isPresent(), "Private key is required");
+		String username = Users.EC2USER.getLogin();
+		String rawPrivateKey = keyPair.getPrivateKey().get();
+		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
+		List<String> privateKeyStrings = Collections.singletonList(privateKey);
+		return new DefaultSecureChannel.Builder(username, hostname).privateKeyStrings(privateKeyStrings).strictHostKeyChecking(false).useConfigFile(false)
+				.includeDefaultPrivateKeyLocations(false).build();
 	}
 
 	protected void doDNS(Instance instance) {
