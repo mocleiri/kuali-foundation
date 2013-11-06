@@ -466,15 +466,15 @@ public final class DefaultEC2Service implements EC2Service {
 
 			// Extract the block device
 			EbsBlockDevice device = mapping.getEbs();
-			if (rootVolume.getSizeInGigabytes().isPresent()) {
 
-				// If a size in gigabytes has been provided, set that on the device
+			// If a size in gigabytes has been provided, set that on the device
+			if (rootVolume.getSizeInGigabytes().isPresent()) {
 				int sizeInGigabytes = rootVolume.getSizeInGigabytes().get();
 				device.setVolumeSize(sizeInGigabytes);
 			}
-			if (rootVolume.getDeleteOnTermination().isPresent()) {
 
-				// If the delete on termination settings has been provided, set that on the device
+			// If the delete on termination setting has been provided, set that on the device
+			if (rootVolume.getDeleteOnTermination().isPresent()) {
 				boolean deleteOnTermination = rootVolume.getDeleteOnTermination().get();
 				device.setDeleteOnTermination(deleteOnTermination);
 			}
