@@ -3,9 +3,9 @@ package org.kuali.common.aws.ec2.model;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
-import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.amazonaws.services.ec2.model.InstanceType;

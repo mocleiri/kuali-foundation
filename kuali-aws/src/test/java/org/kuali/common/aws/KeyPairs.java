@@ -1,7 +1,7 @@
 package org.kuali.common.aws;
 
-import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.KeyPair;
 
 public enum KeyPairs {
 

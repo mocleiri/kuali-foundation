@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.ImmutableAwsCredentials;
-import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
