@@ -454,19 +454,35 @@ public final class DefaultEC2Service implements EC2Service {
 			rir.setPlacement(placement);
 		}
 		if (context.getRootVolume().isPresent()) {
+
+			// Extract the root volume object
 			RootVolume rootVolume = context.getRootVolume().get();
+
+			// Get an Image object from Amazon for the AMI we are working with
 			Image ami = getAmi(context.getAmi());
+
+			// Extract the default root block device mapping specific to this AMI
 			BlockDeviceMapping mapping = getRootBlockDeviceMapping(ami);
+
+			// Extract the block device
 			EbsBlockDevice device = mapping.getEbs();
 			if (rootVolume.getSizeInGigabytes().isPresent()) {
+
+				// If a size in gigabytes has been provided, set that on the device
 				int sizeInGigabytes = rootVolume.getSizeInGigabytes().get();
 				device.setVolumeSize(sizeInGigabytes);
 			}
 			if (rootVolume.getDeleteOnTermination().isPresent()) {
+
+				// If the delete on termination settings has been provided, set that on the device
 				boolean deleteOnTermination = rootVolume.getDeleteOnTermination().get();
 				device.setDeleteOnTermination(deleteOnTermination);
 			}
+
+			// Create a list with one element in it containing the new root block device mapping
 			List<BlockDeviceMapping> mappings = Collections.singletonList(mapping);
+
+			// Store that on the request
 			rir.setBlockDeviceMappings(mappings);
 		}
 		return rir;
