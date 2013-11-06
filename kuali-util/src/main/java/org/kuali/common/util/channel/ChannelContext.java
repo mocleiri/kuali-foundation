@@ -44,7 +44,7 @@ public final class ChannelContext {
 		private boolean useKnownHosts = false;
 		private File config = SSHUtils.DEFAULT_CONFIG_FILE;
 		private boolean useConfigFile = false;
-		private boolean includeDefaultPrivateKeyLocations = true;
+		private boolean includeDefaultPrivateKeyLocations = false;
 		private int waitForClosedSleepMillis = 10;
 		private List<File> privateKeys = ImmutableList.of();
 		private List<String> privateKeyStrings = ImmutableList.of();
