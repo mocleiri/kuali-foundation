@@ -34,7 +34,7 @@ import com.jcraft.jsch.KeyPair;
 public class GenerateKeyPairConfig {
 
 	private static final String DEFAULT_NAME = "my.keypair";
-	private static final int DEFAULT_SIZE = 1024;
+	private static final int DEFAULT_SIZE = 2048;
 
 	@Autowired
 	EnvironmentService env;
@@ -54,11 +54,12 @@ public class GenerateKeyPairConfig {
 			String publicKey = getPublicKey(keyPair, name);
 			String privateKey = getPrivateKey(keyPair);
 			String privateKeyEncrypted = enc.encrypt(privateKey);
+			String fingerprint = keyPair.getFingerPrint();
 			System.out.println();
 			System.out.println("       name: [" + name + "]");
 			System.out.println(" public key: [" + publicKey.trim() + "]");
 			System.out.println("private key: [" + privateKeyEncrypted + "]");
-			System.out.println("fingerprint: [" + keyPair.getFingerPrint() + "]");
+			System.out.println("fingerprint: [" + fingerprint + "]");
 			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
