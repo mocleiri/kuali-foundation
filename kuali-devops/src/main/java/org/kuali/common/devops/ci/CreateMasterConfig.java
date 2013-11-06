@@ -133,8 +133,9 @@ public class CreateMasterConfig {
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = false; // TODO Switch this back to true before release
+		boolean overrideExistingSecurityGroupPermissions = true;
 		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
-				.rootVolume(rootVolume).build();
+				.rootVolume(rootVolume).overrideExistingSecurityGroupPermissions(overrideExistingSecurityGroupPermissions).build();
 	}
 
 	protected List<Tag> getTags() {
