@@ -92,24 +92,36 @@ public final class Permission implements Comparable<Permission> {
 	@Override
 	public boolean equals(Object object) {
 
+		// They are the same object
+		if (this == object) {
+			return true;
+		}
+
+		// Non-null object is by definition not equal to null
 		if (object == null) {
 			return false;
 		}
 
+		// They are different runtime types
 		if (this.getClass() != object.getClass()) {
 			return false;
 		}
 
+		// Cast to a Permission object
 		Permission other = (Permission) object;
 
+		// If the ports are different they are not equal
 		if (port != other.getPort()) {
 			return false;
 		}
 
+		// If the protocols are different they are not equal
 		if (protocol != other.getProtocol()) {
 			return false;
 		}
 
+		// If they both have the exact same list of CIDR notations, they are equal
+		// This only works because Builder.build() sorts the CIDR notation list
 		return ListUtils.equals(cidrNotations, other.getCidrNotations());
 	}
 
