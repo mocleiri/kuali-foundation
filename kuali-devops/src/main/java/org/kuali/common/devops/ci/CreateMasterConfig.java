@@ -22,6 +22,7 @@ import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
 import org.kuali.common.aws.model.AMIs;
@@ -94,7 +95,7 @@ public class CreateMasterConfig {
 		KeyPair keyPair = account.getKeyPair();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
-		List<String> securityGroups = SecurityGroups.asList(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
+		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup());
 		List<Tag> tags = getTags();
 		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
 		boolean preventTermination = false; // TODO Switch this back to true before release
