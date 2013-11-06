@@ -15,6 +15,7 @@
  */
 package org.kuali.common.devops.ci;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -90,6 +91,13 @@ public class CreateMasterConfig {
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
 		SecureChannel channel = getSecureChannel(instance.getPublicDnsName(), instanceContext.getKeyPair());
+		try {
+			channel.open();
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO eroro", e);
+		} finally {
+			channel.close();
+		}
 		return null; // new ExecutablesExecutable(show);
 	}
 
