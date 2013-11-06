@@ -6,6 +6,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
@@ -33,7 +34,8 @@ public class LaunchUtils {
 	private static final String KEY_NAME_KEY = "ec2.keyName";
 	private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
 	private static final String TYPE_KEY = "ec2.type";
-	private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
+	// TODO Be smarter about allowing overrides for security groups / permissions
+	// private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
 	private static final String TAGS_KEY = "ec2.tags";
 	private static final String AVAILABILITY_ZONE_KEY = "ec2.availabilityZone";
 	private static final String LAUNCH_TIMEOUT_KEY = "ec2.launchTimeout";
@@ -107,7 +109,12 @@ public class LaunchUtils {
 		Optional<RootVolume> rootVolume = getRootVolume(env, provided.getRootVolume());
 		List<Tag> tags = getTags(env, provided.getTags());
 		Optional<String> availabilityZone = SpringUtils.getString(env, AVAILABILITY_ZONE_KEY, provided.getAvailabilityZone());
-		List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
+
+		// TODO Provide a way to parse security groups and permissions from a specially formatted string?
+		// ec2.securityGroups=ci:Continuous Integration:,ci.master:Jenkins CI Server - Master:[22|tcp|{0.0.0.0/0}{192.0.0.0/0}][80|tcp|{0.0.0.0/0}]
+		// TODO OR possibly just parse a simple comma delimited string of security group names and then look up the actual security groups on Amazon?
+		// List<String> securityGroups = SpringUtils.getStrings(env, SECURITY_GROUPS_KEY, provided.getSecurityGroups());
+		List<KualiSecurityGroup> securityGroups = provided.getSecurityGroups();
 
 		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
@@ -117,10 +124,8 @@ public class LaunchUtils {
 	protected static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
 		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
 		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
-		if (deleteOnTermination.isPresent()) {
+		if (deleteOnTermination.isPresent() || sizeInGigabytes.isPresent()) {
 			return Optional.of(new RootVolume(sizeInGigabytes, deleteOnTermination));
-		} else if (sizeInGigabytes.isPresent()) {
-			return Optional.of(new RootVolume(sizeInGigabytes.get()));
 		} else {
 			return Optional.absent();
 		}

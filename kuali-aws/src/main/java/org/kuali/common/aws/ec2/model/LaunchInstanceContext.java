@@ -2,6 +2,7 @@ package org.kuali.common.aws.ec2.model;
 
 import java.util.List;
 
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
@@ -17,7 +18,7 @@ public final class LaunchInstanceContext {
 	private final String ami;
 	private final KeyPair keyPair;
 	private final InstanceType type;
-	private final List<String> securityGroups;
+	private final List<KualiSecurityGroup> securityGroups;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
 	private final int timeoutMillis;
@@ -34,7 +35,7 @@ public final class LaunchInstanceContext {
 
 		// Optional
 		private InstanceType type = InstanceType.M1Medium;
-		private List<String> securityGroups = ImmutableList.of();
+		private List<KualiSecurityGroup> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent(); // If not provided, Amazon picks one for you
 		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // Timeout after 15 minutes
@@ -83,7 +84,7 @@ public final class LaunchInstanceContext {
 			return this;
 		}
 
-		public Builder securityGroups(List<String> securityGroups) {
+		public Builder securityGroups(List<KualiSecurityGroup> securityGroups) {
 			this.securityGroups = securityGroups;
 			return this;
 		}
@@ -130,7 +131,7 @@ public final class LaunchInstanceContext {
 		return type;
 	}
 
-	public List<String> getSecurityGroups() {
+	public List<KualiSecurityGroup> getSecurityGroups() {
 		return securityGroups;
 	}
 

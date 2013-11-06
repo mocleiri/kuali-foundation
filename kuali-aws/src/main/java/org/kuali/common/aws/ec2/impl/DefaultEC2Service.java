@@ -402,12 +402,16 @@ public final class DefaultEC2Service implements EC2Service {
 	 * Return a request that spins up exactly one instance.
 	 */
 	protected RunInstancesRequest getRunInstanceRequest(LaunchInstanceContext context) {
+		List<String> securityGroupNames = new ArrayList<String>();
+		for (KualiSecurityGroup group : context.getSecurityGroups()) {
+			securityGroupNames.add(group.getName());
+		}
 		RunInstancesRequest rir = new RunInstancesRequest();
 		rir.setMaxCount(1);
 		rir.setMinCount(1);
 		rir.setImageId(context.getAmi());
 		rir.setKeyName(context.getKeyPair().getName());
-		rir.setSecurityGroups(context.getSecurityGroups());
+		rir.setSecurityGroups(securityGroupNames);
 		rir.setInstanceType(context.getType());
 		rir.setDisableApiTermination(context.isPreventTermination());
 		rir.setEbsOptimized(context.isEbsOptimized());
