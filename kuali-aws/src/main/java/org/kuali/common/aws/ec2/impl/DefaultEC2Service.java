@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.InstanceStateName;
@@ -402,8 +403,9 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected void logPermissionChanges(KualiSecurityGroup group, List<Permission> perms, String changeDescription) {
 		for (Permission perm : perms) {
-			String permDescription = "port:" + perm.getPort() + " protocol:" + perm.getProtocol() + " CIDR:" + CollectionUtils.asCSV(perm.getCidrNotations());
-			Object[] args = { group.getName(), changeDescription, permDescription };
+			String port = StringUtils.leftPad(perm.getPort() + "", 5);
+			String permDescription = "port:" + port + " protocol:" + perm.getProtocol() + " CIDR:" + CollectionUtils.asCSV(perm.getCidrNotations());
+			Object[] args = { group.getName(), StringUtils.rightPad(changeDescription, 7, " "), permDescription };
 			logger.info("Security Group: [{}] - permission {} [{}]", args);
 		}
 	}
