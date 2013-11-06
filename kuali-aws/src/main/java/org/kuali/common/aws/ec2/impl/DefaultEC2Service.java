@@ -109,6 +109,7 @@ public final class DefaultEC2Service implements EC2Service {
 
 	protected Optional<KeyPairInfo> getKeyPairInfo(String name, List<KeyPairInfo> list) {
 		for (KeyPairInfo element : list) {
+			logger.debug("fingerprint - {}, name - {}", element.getKeyFingerprint(), element.getKeyName());
 			if (name.equals(element.getKeyName())) {
 				return Optional.of(element);
 			}
