@@ -105,7 +105,7 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			String command = "pwd; ls -la;";
+			String command = "sudo su - root --command 'cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys'";
 			Result result = channel.executeCommand(command);
 			logger.info(result.getStdout());
 		} catch (IOException e) {
