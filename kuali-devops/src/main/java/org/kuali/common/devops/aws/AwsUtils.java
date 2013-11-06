@@ -17,10 +17,10 @@ public class AwsUtils {
 	private static final Map<String, AwsAccount> ACCOUNTS = Accounts.asMap();
 	private static final KeyPair NOKEYPAIR = new KeyPair(NullUtils.NONE, NullUtils.NONE);
 	private static final AWSCredentials NOCREDS = new ImmutableAwsCredentials(NullUtils.NONE, NullUtils.NONE);
-	private static final AwsAccount NONE = new AwsAccount.Builder(NullUtils.NONE, NOCREDS, NOKEYPAIR).build();
+	private static final AwsAccount NOACCOUNT = new AwsAccount.Builder(NullUtils.NONE, NOCREDS, NOKEYPAIR).build();
 
 	public static AwsAccount getAwsAccount(EnvironmentService env) {
-		return getAwsAccount(env, NONE);
+		return getAwsAccount(env, NOACCOUNT);
 	}
 
 	public static AwsAccount getAwsAccount(EnvironmentService env, AwsAccount provided) {
