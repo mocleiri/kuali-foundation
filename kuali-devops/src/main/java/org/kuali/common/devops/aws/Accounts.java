@@ -18,10 +18,10 @@ public enum Accounts {
 
 	private final AwsAccount account;
 
-	private Accounts(String name, String accountNumber, AWSCredentials credentials, KeyPair key) {
+	private Accounts(String name, String accountNumber, AWSCredentials credentials, KeyPair keyPair) {
 		Assert.noBlanks(name, accountNumber);
-		Assert.noNulls(credentials, key);
-		this.account = new AwsAccount.Builder(name).accountNumber(accountNumber).credentials(credentials).key(key).build();
+		Assert.noNulls(credentials, keyPair);
+		this.account = new AwsAccount.Builder(name, credentials, keyPair).accountNumber(accountNumber).build();
 	}
 
 	public AwsAccount getAccount() {

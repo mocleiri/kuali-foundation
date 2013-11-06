@@ -91,7 +91,7 @@ public class CreateMasterConfig {
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
 		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		KeyPair keyPair = account.getKey().get();
+		KeyPair keyPair = account.getKeyPair();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
 		List<String> securityGroups = SecurityGroups.of(SecurityGroups.SSH, SecurityGroups.HTTP, SecurityGroups.HTTPS);
