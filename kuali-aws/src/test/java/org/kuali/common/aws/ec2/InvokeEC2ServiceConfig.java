@@ -21,8 +21,9 @@ import org.kuali.common.aws.KeyPairs;
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
+import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
-import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
+import org.kuali.common.aws.model.AMIs;
 import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.CheckSumUtils;
@@ -55,6 +56,9 @@ public class InvokeEC2ServiceConfig {
 	@Bean
 	public Object invokeEC2Service() {
 		KeyPair keyPair = new KeyPair("kuali-devops-test-key9", KeyPairs.FOUNDATION.getKeyPair().getPublicKey());
+		List<KualiSecurityGroup> groups = getSecurityGroups();
+		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
+		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).securityGroups(groups).build();
 		if (!service.isExistingKey(keyPair.getName())) {
 			String awsFingerprint = service.importKey(keyPair.getName(), keyPair.getPublicKey());
 			String ourFingerprint = CheckSumUtils.getMD5Checksum(keyPair.getPublicKey());
@@ -64,24 +68,11 @@ public class InvokeEC2ServiceConfig {
 		return null;
 	}
 
-	protected void doSecurityGroups() {
-		List<String> names = service.getSecurityGroupNames();
+	protected List<KualiSecurityGroup> getSecurityGroups() {
 		KualiSecurityGroup ci = SecurityGroups.CI.getGroup();
 		KualiSecurityGroup master = SecurityGroups.CI_MASTER.getGroup();
-		KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
-		handleGroups(names, ci, master, slave);
-	}
-
-	protected void handleGroups(List<String> names, KualiSecurityGroup... groups) {
-		List<KualiSecurityGroup> list = ImmutableList.copyOf(groups);
-		for (KualiSecurityGroup element : list) {
-			if (!names.contains(element.getName())) {
-				service.createSecurityGroup(element);
-			}
-			SetPermissionsResult result = service.setPermissions(element.getName(), element.getPermissions());
-			Object[] args = { result.getAdds().size(), result.getDeletes().size(), result.getExisting().size() };
-			logger.info("adds: {}  deletes: {}  existing: {}", args);
-		}
+		// KualiSecurityGroup slave = SecurityGroups.CI_BUILD_SLAVE.getGroup();
+		return ImmutableList.of(ci, master);
 	}
 
 }

@@ -19,7 +19,9 @@ import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
+import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
 import org.kuali.common.util.ThreadUtils;
@@ -30,7 +32,6 @@ import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
@@ -374,12 +375,37 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	protected Instance issueRunInstanceRequest(LaunchInstanceContext context) {
+		KeyPair keyPair = context.getKeyPair();
+		if (!isExistingKey(keyPair.getName())) {
+			logger.info("Importing key {}", keyPair.getName());
+			importKey(keyPair.getName(), keyPair.getPublicKey());
+		}
+
+		List<String> securityGroupNames = getSecurityGroupNames();
+		for (KualiSecurityGroup securityGroup : context.getSecurityGroups()) {
+			if (!securityGroupNames.contains(securityGroup.getName())) {
+				logger.info("Creating security group {}", securityGroup.getName());
+				createSecurityGroup(securityGroup);
+			}
+			SetPermissionsResult result = setPermissions(securityGroup.getName(), securityGroup.getPermissions());
+			logPermissionChanges(securityGroup, result.getDeletes(), "deleted");
+			logPermissionChanges(securityGroup, result.getAdds(), "added");
+		}
+
 		RunInstancesRequest request = getRunInstanceRequest(context);
 		RunInstancesResult result = client.runInstances(request);
 		Reservation r = result.getReservation();
 		List<Instance> instances = r.getInstances();
 		Assert.isTrue(instances.size() == 1, "Expected exactly 1 instance but there were " + instances.size() + " instead");
 		return instances.get(0);
+	}
+
+	protected void logPermissionChanges(KualiSecurityGroup group, List<Permission> perms, String changeDescription) {
+		for (Permission perm : perms) {
+			String permDescription = "port:" + perm.getPort() + " protocol:" + perm.getProtocol() + " CIDR:" + CollectionUtils.asCSV(perm.getCidrNotations());
+			Object[] args = { group.getName(), changeDescription, permDescription };
+			logger.info("{} - permission added [{}]", args);
+		}
 	}
 
 	protected WaitContext getWaitContext(int timeout) {
