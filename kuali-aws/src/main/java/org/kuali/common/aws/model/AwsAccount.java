@@ -10,21 +10,23 @@ public final class AwsAccount {
 
 	private final String name;
 	private final Optional<String> accountNumber;
-	private final Optional<AWSCredentials> credentials;
-	private final Optional<KeyPair> key;
+	private final AWSCredentials credentials;
+	private final KeyPair keyPair;
 
 	public static class Builder {
 
 		// Required
 		private final String name;
+		private final AWSCredentials credentials;
+		private final KeyPair keyPair;
 
 		// Optional
 		private Optional<String> accountNumber = Optional.absent();
-		private Optional<AWSCredentials> credentials = Optional.absent();
-		private Optional<KeyPair> key = Optional.absent();
 
-		public Builder(String name) {
+		public Builder(String name, AWSCredentials credentials, KeyPair keyPair) {
 			this.name = name;
+			this.credentials = credentials;
+			this.keyPair = keyPair;
 		}
 
 		public Builder accountNumber(String accountNumber) {
@@ -32,19 +34,9 @@ public final class AwsAccount {
 			return this;
 		}
 
-		public Builder credentials(AWSCredentials credentials) {
-			this.credentials = Optional.fromNullable(credentials);
-			return this;
-		}
-
-		public Builder key(KeyPair key) {
-			this.key = Optional.fromNullable(key);
-			return this;
-		}
-
 		public AwsAccount build() {
 			Assert.noBlanks(name);
-			Assert.noNulls(credentials, key, accountNumber);
+			Assert.noNulls(credentials, keyPair, accountNumber);
 			return new AwsAccount(this);
 		}
 
@@ -54,23 +46,23 @@ public final class AwsAccount {
 		this.name = builder.name;
 		this.accountNumber = builder.accountNumber;
 		this.credentials = builder.credentials;
-		this.key = builder.key;
+		this.keyPair = builder.keyPair;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public Optional<String> getAccountNumber() {
-		return accountNumber;
-	}
-
-	public Optional<AWSCredentials> getCredentials() {
+	public AWSCredentials getCredentials() {
 		return credentials;
 	}
 
-	public Optional<KeyPair> getKey() {
-		return key;
+	public KeyPair getKeyPair() {
+		return keyPair;
+	}
+
+	public Optional<String> getAccountNumber() {
+		return accountNumber;
 	}
 
 }
