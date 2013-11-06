@@ -7,7 +7,6 @@ import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.model.security.Permission;
 import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
-import org.kuali.common.aws.model.KeyPair;
 
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.SecurityGroup;
@@ -113,21 +112,14 @@ public interface EC2Service {
 	void createSecurityGroup(KualiSecurityGroup group);
 
 	/**
-	 * Import the public key under the given name.
-	 * 
-	 * @return The MD5 fingerprint of the public key
+	 * Import the public key using the given name into Amazon.
 	 */
-	String importPublicKey(String keyName, String publicKey);
+	String importKey(String keyName, String publicKey);
 
 	/**
-	 * Return true if a key pair with this name exists
+	 * Return true if Amazon has a public key stored under this name.
 	 */
-	boolean isExistingKeyPair(String keyName);
-
-	/**
-	 * Return true if the key pair exists and Amazon's fingerprint matches our fingerprint
-	 */
-	boolean isValidKeyPair(KeyPair keyPair);
+	boolean isExistingKey(String keyName);
 
 	/**
 	 * <p>

@@ -19,7 +19,6 @@ import org.kuali.common.aws.ec2.model.security.SetPermissionsResult;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusType;
 import org.kuali.common.aws.ec2.model.status.InstanceStatusValue;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
-import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.SetUtils;
@@ -92,7 +91,7 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public String importPublicKey(String keyName, String publicKey) {
+	public String importKey(String keyName, String publicKey) {
 		Assert.noBlanks(keyName, publicKey);
 		ImportKeyPairRequest request = new ImportKeyPairRequest(keyName, publicKey);
 		ImportKeyPairResult result = client.importKeyPair(request);
@@ -100,27 +99,12 @@ public final class DefaultEC2Service implements EC2Service {
 	}
 
 	@Override
-	public boolean isExistingKeyPair(String keyName) {
+	public boolean isExistingKey(String keyName) {
 		Assert.noBlanks(keyName);
 		DescribeKeyPairsResult result = client.describeKeyPairs();
 		List<KeyPairInfo> keys = result.getKeyPairs();
 		Optional<KeyPairInfo> optional = getKeyPairInfo(keyName, keys);
 		return optional.isPresent();
-	}
-
-	@Override
-	public boolean isValidKeyPair(KeyPair pair) {
-		Assert.noNulls(pair);
-		DescribeKeyPairsResult result = client.describeKeyPairs();
-		List<KeyPairInfo> keys = result.getKeyPairs();
-		Optional<KeyPairInfo> optional = getKeyPairInfo(pair.getName(), keys);
-		if (!optional.isPresent()) {
-			return false;
-		}
-		KeyPairInfo info = optional.get();
-		String awsFingerprint = info.getKeyFingerprint();
-		String ourFingerprint = pair.getFingerprint();
-		return ourFingerprint.equals(awsFingerprint);
 	}
 
 	protected Optional<KeyPairInfo> getKeyPairInfo(String name, List<KeyPairInfo> list) {
