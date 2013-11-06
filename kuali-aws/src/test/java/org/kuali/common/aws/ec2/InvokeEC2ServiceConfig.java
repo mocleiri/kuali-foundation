@@ -28,8 +28,6 @@ import org.kuali.common.aws.model.KeyPair;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,8 +39,6 @@ import com.google.common.collect.ImmutableList;
 @Configuration
 @Import({ AwsServiceConfig.class, SpringServiceConfig.class, FoundationCredentialsConfig.class })
 public class InvokeEC2ServiceConfig {
-
-	private static final Logger logger = LoggerFactory.getLogger(InvokeEC2ServiceConfig.class);
 
 	@Autowired
 	EC2Service service;
