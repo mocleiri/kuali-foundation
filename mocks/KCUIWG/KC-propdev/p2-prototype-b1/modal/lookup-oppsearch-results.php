@@ -34,7 +34,7 @@ include( 'inc/head.php' );
 					  <td>testing new SF424 RR form</td>
 					  <td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td><a class="btn btn-primary btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 						<td>12/31/2013</td>
@@ -53,7 +53,7 @@ include( 'inc/head.php' );
 						<td>PA-13-302</td>
 						<td>testing new SF424 RR form</td>
 						<td><a href="#">Schema URL</a> | <a href="#">Instructions</a></td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 		</div>

@@ -1,7 +1,7 @@
 <?php
 # Variables
 $section = 'attachments';
-$page = 'attach-proposal';
+$page = 'attachments';
 
 # Includes
 require_once( 'themes/kc/inc/head.php' );
@@ -274,10 +274,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 				<!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
-		<div class="btn-row-page-action"> <button  onclick="location.href='prop.compliance.php'" class="btn btn-default">Back</button>
-<button class="btn btn-default">Save</button>
-      <button  onclick="location.href='prop.attachments.personnel.php'" class="btn btn-primary">Save and Continue</button>
-			
+		<div class="btn-row-page-action">
+			<button href="prop.compliance.php" class="btn btn-default">Back</button>
+			<button class="btn btn-default">Save</button>
+			<button href="prop.questionnaire.php" class="btn btn-primary">Save and Continue</button>
 		</div>
 		<!-- // -->
         </div>

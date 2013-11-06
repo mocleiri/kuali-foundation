@@ -35,9 +35,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         }
                     }
                 ?>
-
-
-
+                
             </div>
             <div class="btn-row-widget-action">
               <button id="attachments_proposal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
@@ -331,14 +329,13 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </div>
         </div>
         
-        <!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
           <div class="btn-row-page-action">
-            <button  onclick="location.href='prop.attachments.internal.php'" class="btn btn-default">Back</button>
+            <button href="prop.compliance.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <button  onclick="location.href='prop.attachments.notes.php'" class="btn btn-primary">Save and Continue</button>
+            <button href="prop.questionnaire.php" class="btn btn-primary">Save and Continue</button>
           </div>
-          <!-- // --> 
+          
         </div>
       </div>
     </div>
@@ -352,7 +349,7 @@ $('#myTab a').click(function (e) {
 
 $('#add_proposal').hide();
 $('#proposal_add').click(function() {
-	$('#add_proposal').fadeIn();
+  $('#add_proposal').fadeIn();
 });
 </script>
 <script>
@@ -439,4 +436,5 @@ $(document).ready(function(){
 
 });
 </script>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

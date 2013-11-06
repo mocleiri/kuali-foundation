@@ -18,14 +18,11 @@ require_once( 'themes/kc/inc/toolbar.php' );
         
         <div class="section-title">
           <h3>Opportunity Search</h3>
-        </div>
-        
+        </div>        
         
         <div class="btn-row-widget-action">
             <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-oppsearch.php"> <i class="icon-search" aria-hidden="true"></i> Find an opportunity</button>
         </div>
-        
-        
       
         <div class="section-content hidden">
           <form action="#" method="post" class="">
@@ -38,18 +35,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </form>
         </div>
         
-        <!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
           <div class="btn-row-page-action">
             <button href="prop.basics.details.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
             <button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>
           </div>
-          <!-- // --> 
           
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

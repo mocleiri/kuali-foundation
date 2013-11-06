@@ -19,10 +19,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <div class="section-title">
           <h3>Opportunity Search</h3>
         </div>
-        <div id="oppsearch-tabs"> 
-          <!-- <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button> --> 
-          <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-xs btn-default">Load New...</a>--> 
-        </div>
+        <div id="oppsearch-tabs"></div>
         <div id="oppsearch-tabs">
           <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="#opp-details" data-toggle="tab">Opportunity</a></li>
@@ -102,37 +99,37 @@ require_once( 'themes/kc/inc/toolbar.php' );
               <h4>Submission Details</h4>
               <p>Submission details will be available after the proposal is submitted.</p>
               <!-- <table  class="table table-condensed">
-									<tbody>
-										<tr>
-										<th class="col-md-3"> Recieved Date</th>
-										<td> 8/13/13 7:28 PM</td>
-										</tr>
-										<tr>
-										<th class="col-md-3"> Last Modified Date</th>
-										<td> 8/13/13 7:29 PM</td>
-										</tr>
-										<tr>
-										<th> Status</th>
-										<td><a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">Validated</a></td>
-										</tr>
-										<tr>
-										<th> S2S Tracking Id</th>
-										<td> GRANT00571006</td>
-										</tr>
-										<tr>
-										<th> Agency Tracking Id</th>
-										<td> </td>
-										</tr>
-										<tr>
-										<th> Comments</th>
-										<td> <a href="#" id="opp-comments" data-type="textarea" data-pk="1" data-url="/post" data-title="Submission Details Comments">Trying to submit to S2S</a></td>
-										</tr>
-										<tr>
-										<th> Attachments</th>
-										<td> N-1_Budget_Justification_Fed_NonFed</td>
-										</tr>
-									</tbody>
-								</table> --> 
+                  <tbody>
+                    <tr>
+                    <th class="col-md-3"> Recieved Date</th>
+                    <td> 8/13/13 7:28 PM</td>
+                    </tr>
+                    <tr>
+                    <th class="col-md-3"> Last Modified Date</th>
+                    <td> 8/13/13 7:29 PM</td>
+                    </tr>
+                    <tr>
+                    <th> Status</th>
+                    <td><a href="#" id="opp-status" data-type="select" data-pk="1" data-url="/post" data-title="Submission Details Status">Validated</a></td>
+                    </tr>
+                    <tr>
+                    <th> S2S Tracking Id</th>
+                    <td> GRANT00571006</td>
+                    </tr>
+                    <tr>
+                    <th> Agency Tracking Id</th>
+                    <td> </td>
+                    </tr>
+                    <tr>
+                    <th> Comments</th>
+                    <td> <a href="#" id="opp-comments" data-type="textarea" data-pk="1" data-url="/post" data-title="Submission Details Comments">Trying to submit to S2S</a></td>
+                    </tr>
+                    <tr>
+                    <th> Attachments</th>
+                    <td> N-1_Budget_Justification_Fed_NonFed</td>
+                    </tr>
+                  </tbody>
+                </table> --> 
             </div>
             <div class="tab-pane" id="opp-forms">
               <h4>Forms</h4>
@@ -338,31 +335,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
           <button class="btn btn-default btn-xs " href="prop.basics.oppsearch-search.php"><span aria-hidden="true" class="icon-remove"></span> Remove opportunity</button>
         </div>
         
-        <!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> 
-          <!-- Button row -->
           <div class="btn-row-page-action">
-            <?php
-			if ($alt && file_exists('prop.basics.details-alt.php')) {
-				echo '<button href="prop.basics.details-alt.php" class="btn btn-default">Back</button>';
-			} else {
-				echo '<button href="prop.basics.details.php" class="btn btn-default">Back</button>';
-			}
-			?>
+            <button href="prop.basics.details.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <?php
-			if ($alt && file_exists('prop.basics.deliveryinfo-alt.php')) {
-				echo '<button href="prop.basics.deliveryinfo-alt.php" class="btn btn-primary">Save and Continue</button>';
-			} else {
-				echo '<button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>';
-			}
-			?>
+            <button href="prop.basics.deliveryinfo.php" class="btn btn-primary">Save and Continue</button>
           </div>
-          <!-- // --> 
           
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

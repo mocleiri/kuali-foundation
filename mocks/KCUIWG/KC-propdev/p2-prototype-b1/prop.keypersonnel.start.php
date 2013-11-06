@@ -24,15 +24,17 @@ $keyPersonnelMessage = "";
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
+         
          <div class="alert alert-success fade in " style="display:none">
-                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><span aria-hidden="true" class="icon-remove" style="font-size:14px"></span></button>
-                   <span id="keypersonnel-message-name"></span> was successfully added. </div>
+             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><span aria-hidden="true" class="icon-remove" style="font-size:14px"></span></button>
+             <span id="keypersonnel-message-name"></span> was successfully added.
+          </div>
+
         <h3>Key Personnel</h3>
         <p><?php echo $keyPersonnelMessage?></p>
         <div class="btn-row-widget-action">
           <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
         </div>
-
 
          <div class="panel-group" id="accordion1" style="margin-bottom:0px;">
             <div id="personnel-container">
@@ -50,16 +52,13 @@ $keyPersonnelMessage = "";
 
             </div>
          </div>
-
-        <!-- // -->
         
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
           <div class="btn-row-page-action">
-            <button  onclick="location.href='prop.basics.orgloc.php'" class="btn btn-default">Back</button>
+            <button href="prop.basics.orgloc.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <button  onclick="location.href='prop.keypersonnel.creditintel.php'" class="btn btn-primary">Save and Continue</button>
+            <button href="prop.keypersonnel.creditintel.php" class="btn btn-primary">Save and Continue</button>
           </div>
-          <!-- // --> 
           
         </div>
       </div>

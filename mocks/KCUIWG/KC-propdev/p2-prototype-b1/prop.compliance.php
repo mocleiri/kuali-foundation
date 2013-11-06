@@ -34,14 +34,12 @@ require_once( 'themes/kc/inc/toolbar.php' );
            <button id="compliance_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-compliance/compliance.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
         </div>
         
-        <!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
           <div class="btn-row-page-action">
-            <button  onclick="location.href='prop.keypersonnel.creditfa.php'" class="btn btn-default">Back</button>
+            <button href="prop.keypersonnel.creditfa.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <button  onclick="location.href='prop.attachments.proposal.php'" class="btn btn-primary">Save and Continue</button>
+            <button href="prop.attachments.php" class="btn btn-primary">Save and Continue</button>
           </div>
-          <!-- // --> 
         </div>
       </div>
     </div>

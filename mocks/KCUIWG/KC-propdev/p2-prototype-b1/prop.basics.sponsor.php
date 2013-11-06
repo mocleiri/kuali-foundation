@@ -16,9 +16,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> 
                     <h3>Sponsor &amp; Program Information</h3>
-                    <!--<div class="alert alert-required">
-                        <p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
-                    </div>-->
                     <p class="text-muted"> * Indicates required fields</p>
                     <form action="#" method="post" class="form-horizontal">
                       <fieldset>
@@ -158,17 +155,18 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         
                       </fieldset>
                     </form>
-                    <!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
             <div class="btn-row-page-action">
                 <button href="prop.basics.deliveryinfo.php" class="btn btn-default">Back</button>
                 <button class="btn btn-default">Save</button>
                 <button href="prop.basics.orgloc.php" class="btn btn-primary">Save and Continue</button>
             </div>
-        <!-- // -->
+
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

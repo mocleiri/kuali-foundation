@@ -313,7 +313,7 @@ include( '_temp.select.filler.php' );
                         <tr>
                           <th>Congressional District</th>
                           <td>
-							
+              
                           </td>
                         </tr>
                       </tbody>
@@ -328,28 +328,16 @@ include( '_temp.select.filler.php' );
           </div>
         </div>
         
-        <!-- // --> 
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
     <div class="btn-row-page-action">
-		<?php
-		if ($alt && file_exists('prop.basics.sponsor-alt.php')) {
-			echo '<button href="prop.basics.sponsor-alt.php" class="btn btn-default">Back</button>';
-		} else {
-			echo '<button href="prop.basics.sponsor.php" class="btn btn-default">Back</button>';
-		}
-		?>
-		<button class="btn btn-default">Save</button>
-		<button href="prop.keypersonnel.start.php" class="btn btn-primary">Save and Continue</button>
+      <button href="prop.basics.sponsor.php" class="btn btn-default">Back</button>
+      <button class="btn btn-default">Save</button>
+      <button href="prop.keypersonnel.start.php" class="btn btn-primary">Save and Continue</button>
     </div>
-    <!-- // --> 
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>
-
-
-
-
-
