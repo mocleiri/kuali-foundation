@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 
 public enum SecurityGroups {
 
-	CI("ci", "Continuous Integration", Permissions.WEB_SERVER), //
+	CI("ci", "Continuous Integration"), //
 	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.WEB_SERVER), //
 	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", Permissions.SSH.getPermission());
 
