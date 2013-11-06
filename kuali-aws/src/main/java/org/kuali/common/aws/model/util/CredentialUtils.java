@@ -1,6 +1,7 @@
 package org.kuali.common.aws.model.util;
 
 import org.kuali.common.aws.model.ImmutableAwsCredentials;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
@@ -27,6 +28,7 @@ public class CredentialUtils {
 	public static AWSCredentials getCredentials(EnvironmentService env, EncryptionService enc, AWSCredentials provided) {
 		String accessKey = NullUtils.trimToNull(getValue(env, ACCESS_KEY, ACCESS_ENV_KEY, provided.getAWSAccessKeyId()));
 		String rawSecretKey = NullUtils.trimToNull(getValue(env, SECRET_KEY, SECRET_ENV_KEY, provided.getAWSSecretKey()));
+		Assert.noBlanks(accessKey, rawSecretKey);
 		String secretKey = EncUtils.isEncrypted(rawSecretKey) ? enc.decrypt(rawSecretKey) : rawSecretKey;
 		return new ImmutableAwsCredentials(accessKey, secretKey);
 	}
