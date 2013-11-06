@@ -124,7 +124,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <td><strong>0.00</strong></td>
             <td><strong>0.00</strong></td>
           </tr>
-          <<!-- tr>
+          <!-- tr>
             <td colspan="5" >Totals</td>
           </tr> -->
           <tr class="active">
