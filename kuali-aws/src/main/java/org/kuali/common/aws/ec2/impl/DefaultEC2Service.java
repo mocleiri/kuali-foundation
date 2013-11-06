@@ -108,7 +108,7 @@ public final class DefaultEC2Service implements EC2Service {
 		KeyPairInfo info = optional.get();
 		String awsFingerprint = info.getKeyFingerprint();
 		String ourFingerprint = pair.getFingerprint();
-		return awsFingerprint.equals(ourFingerprint);
+		return ourFingerprint.equals(awsFingerprint);
 	}
 
 	protected Optional<KeyPairInfo> getKeyPairInfo(String name, List<KeyPairInfo> list) {
