@@ -33,6 +33,7 @@ public class LaunchUtils {
 	private static final String AMI_KEY = "ec2.ami";
 	private static final String KEY_NAME_KEY = "ec2.keyName";
 	private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
+	private static final String PRIVATE_KEY_KEY = "ec2.privateKey";
 	private static final String TYPE_KEY = "ec2.type";
 	// TODO Be smarter about allowing overrides for security groups / permissions
 	// private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
@@ -100,7 +101,8 @@ public class LaunchUtils {
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
 		String keyName = NullUtils.trimToNull(env.getString(KEY_NAME_KEY, provided.getKeyPair().getName()));
 		Optional<String> publicKey = SpringUtils.getString(env, PUBLIC_KEY_KEY, provided.getKeyPair().getPublicKey());
-		KeyPair keyPair = new KeyPair.Builder(keyName).publicKey(publicKey.orNull()).build();
+		Optional<String> privateKey = SpringUtils.getString(env, PRIVATE_KEY_KEY, provided.getKeyPair().getPrivateKey());
+		KeyPair keyPair = new KeyPair.Builder(keyName).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).build();
 		InstanceType type = getType(env, provided.getType());
 		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis());
 		boolean ebsOptimized = env.getBoolean(EBS_OPTIMIZED_KEY, provided.isEbsOptimized());
