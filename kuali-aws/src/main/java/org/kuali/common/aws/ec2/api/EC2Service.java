@@ -97,8 +97,13 @@ public interface EC2Service {
 	boolean isExistingSecurityGroup(String name);
 
 	/**
-	 * Make the permissions for the indicated security group match the list provided. Any existing permissions that are not in the list are removed. Any missing permissions are
-	 * added. Any existing permissions that match a permission from the list are left intact.
+	 * <p>
+	 * Make the permissions for the indicated security group match the list provided.
+	 * <ul>
+	 * <li>Any extra permissions are removed.</li>
+	 * <li>Any missing permissions are created.</li>
+	 * </ul>
+	 * </p>
 	 */
 	SetPermissionsResult setPermissions(String securityGroupName, List<Permission> permissions);
 
