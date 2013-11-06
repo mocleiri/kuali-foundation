@@ -10,7 +10,10 @@ import com.google.common.collect.ImmutableList;
 
 public enum SecurityGroups {
 
-	CI("ci", "Continuous Integration"), //
+	// TODO Remove the Permissions.WEB_SERVER from CI.
+	// That is just a group with no perm's so that the slaves and master belong to the same group and thus
+	// have unrestricted network access to each other from Amazon's perspective
+	CI("ci", "Continuous Integration", Permissions.WEB_SERVER), //
 	CI_MASTER("ci.master", "Jenkins CI Server - Master", Permissions.WEB_SERVER), //
 	CI_BUILD_SLAVE("ci.slave", "Jenkins CI Server - Slave", Permissions.SSH.getPermission());
 
