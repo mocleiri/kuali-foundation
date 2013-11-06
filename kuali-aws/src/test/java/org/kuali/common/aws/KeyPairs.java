@@ -27,7 +27,7 @@ public enum KeyPairs {
 
 	private KeyPairs(String name, String publicKey, String privateKey) {
 		Assert.noBlanks(name, publicKey, privateKey);
-		this.keyPair = new KeyPair(name, publicKey, privateKey);
+		this.keyPair = new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).build();
 	}
 
 	public KeyPair getKeyPair() {
