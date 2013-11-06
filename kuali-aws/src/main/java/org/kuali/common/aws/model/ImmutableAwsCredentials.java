@@ -6,14 +6,14 @@ import com.amazonaws.auth.AWSCredentials;
 
 public class ImmutableAwsCredentials implements AWSCredentials {
 
+	public ImmutableAwsCredentials(AWSCredentials credentials) {
+		this(credentials.getAWSAccessKeyId(), credentials.getAWSSecretKey());
+	}
+
 	public ImmutableAwsCredentials(String accessKey, String secretKey) {
 		Assert.noBlanks(accessKey, secretKey);
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;
-	}
-
-	public ImmutableAwsCredentials(AWSCredentials credentials) {
-		this(credentials.getAWSAccessKeyId(), credentials.getAWSSecretKey());
 	}
 
 	private final String accessKey;
