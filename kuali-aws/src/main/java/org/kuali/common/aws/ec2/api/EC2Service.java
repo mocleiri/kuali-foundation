@@ -107,9 +107,15 @@ public interface EC2Service {
 	 */
 	void createSecurityGroup(KualiSecurityGroup group);
 
-	boolean isExistingKeyPair(KeyPair pair);
+	/**
+	 * Return true if a key pair with this name exists
+	 */
+	boolean isExistingKeyPair(String keyName);
 
-	boolean isValidKeyPair(KeyPair pair);
+	/**
+	 * Return true if the key pair exists and Amazon's fingerprint matches our fingerprint
+	 */
+	boolean isValidKeyPair(KeyPair keyPair);
 
 	/**
 	 * <p>

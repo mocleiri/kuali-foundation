@@ -89,14 +89,16 @@ public final class DefaultEC2Service implements EC2Service {
 		this.client = LaunchUtils.getClient(context);
 	}
 
-	public boolean isExistingKeyPair(KeyPair pair) {
-		Assert.noNulls(pair);
+	@Override
+	public boolean isExistingKeyPair(String keyName) {
+		Assert.noBlanks(keyName);
 		DescribeKeyPairsResult result = client.describeKeyPairs();
 		List<KeyPairInfo> keys = result.getKeyPairs();
-		Optional<KeyPairInfo> optional = getKeyPairInfo(pair.getName(), keys);
+		Optional<KeyPairInfo> optional = getKeyPairInfo(keyName, keys);
 		return optional.isPresent();
 	}
 
+	@Override
 	public boolean isValidKeyPair(KeyPair pair) {
 		Assert.noNulls(pair);
 		DescribeKeyPairsResult result = client.describeKeyPairs();
