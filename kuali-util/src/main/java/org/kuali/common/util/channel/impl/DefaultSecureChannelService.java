@@ -1,7 +1,8 @@
-package org.kuali.common.util.channel;
+package org.kuali.common.util.channel.impl;
 
 import java.io.IOException;
 
+import org.kuali.common.util.channel.ChannelContext;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.api.SecureChannelService;
 

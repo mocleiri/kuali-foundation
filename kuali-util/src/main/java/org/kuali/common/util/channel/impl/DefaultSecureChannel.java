@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.channel;
+package org.kuali.common.util.channel.impl;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -35,6 +35,13 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.channel.ChannelContext;
+import org.kuali.common.util.channel.ChannelUtils;
+import org.kuali.common.util.channel.RemoteFile;
+import org.kuali.common.util.channel.Result;
+import org.kuali.common.util.channel.SSHUtils;
+import org.kuali.common.util.channel.Status;
+import org.kuali.common.util.channel.RemoteFile.Builder;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
