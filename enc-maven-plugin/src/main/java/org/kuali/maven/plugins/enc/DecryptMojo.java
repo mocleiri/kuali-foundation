@@ -54,13 +54,13 @@ public class DecryptMojo extends AbstractMojo {
 	 * @parameter expression="${enc.strength}" default-value="BASIC"
 	 * @required
 	 */
-	private String strength;
+	private EncStrength strength;
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		Assert.noBlanks(password, text, strength);
-		EncStrength encStrength = EncStrength.valueOf(strength.toUpperCase());
-		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, encStrength);
+		Assert.noBlanks(password, text);
+		Assert.noNulls(strength);
+		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, strength);
 		String unwrapped = EncUtils.isEncrypted(text) ? EncUtils.unwrap(text) : text;
 		String decrypted = encryptor.decrypt(unwrapped);
 		getLog().info(text + " -> " + decrypted);
