@@ -33,7 +33,13 @@ public class ChannelUtils {
 		}
 	}
 
-	public static void executeAndValidate(SecureChannel channel, String command) {
+	/**
+	 * Execute <code>command</code> on the channel and validate the exit value.
+	 * 
+	 * @throws IllegalStateException
+	 *             If the command returns with a non-zero exit value
+	 */
+	public static void exec(SecureChannel channel, String command) {
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
 			StringBuilder sb = new StringBuilder();
