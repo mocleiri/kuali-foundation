@@ -90,7 +90,7 @@ public final class RemoteFile {
 			Assert.noBlanks(absolutePath);
 			Assert.noNulls(groupId, userId, permissions, size, directory, status);
 			if (size.isPresent()) {
-				Assert.isTrue(size.get() >= 0, "size is negative");
+				Assert.notNegative(size.get());
 			}
 			return new RemoteFile(this);
 		}
