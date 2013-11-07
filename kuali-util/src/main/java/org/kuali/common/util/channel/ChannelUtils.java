@@ -17,6 +17,8 @@ package org.kuali.common.util.channel;
 
 import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.channel.model.RemoteFile;
+import org.kuali.common.util.channel.model.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

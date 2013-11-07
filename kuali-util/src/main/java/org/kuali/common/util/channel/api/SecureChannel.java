@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.kuali.common.util.channel.RemoteFile;
-import org.kuali.common.util.channel.Result;
+import org.kuali.common.util.channel.model.RemoteFile;
+import org.kuali.common.util.channel.model.Result;
 
 public interface SecureChannel {
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.channel;
+package org.kuali.common.util.channel.model;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ import java.util.Properties;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.channel.SSHUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 

@@ -17,7 +17,7 @@ package org.kuali.common.util.channel.api;
 
 import java.io.IOException;
 
-import org.kuali.common.util.channel.ChannelContext;
+import org.kuali.common.util.channel.model.ChannelContext;
 
 public interface SecureChannelService {
 
