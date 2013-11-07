@@ -99,8 +99,8 @@ public class CreateMasterConfig {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
-		Instance instance = service.launchInstance(instanceContext);
-		// Instance instance = service.getInstance("i-c96445ae");
+		// Instance instance = service.launchInstance(instanceContext);
+		Instance instance = service.getInstance("i-cc204ba8");
 		enableRootSSH(instance, instanceContext);
 		doRoot(instance, instanceContext);
 		doDNS(instance);
@@ -109,7 +109,7 @@ public class CreateMasterConfig {
 
 	protected void doRoot(Instance instance, LaunchInstanceContext context) {
 		String rootDeviceName = instance.getRootDeviceName();
-		ChannelContext cc = getRootContext(instance, context);
+		ChannelContext cc = getRootContext(instance, context.getKeyPair().getPrivateKey().get());
 		SecureChannel channel = null;
 		try {
 			channel = channelService.getChannel(cc);
@@ -123,19 +123,18 @@ public class CreateMasterConfig {
 		}
 	}
 
-	protected ChannelContext getContext(Instance instance, LaunchInstanceContext context, String username, boolean requestPseudoTerminal) {
+	protected ChannelContext getContext(Instance instance, String privateKey, String username, boolean requestPseudoTerminal) {
 		String hostname = instance.getPublicDnsName();
-		String privateKey = context.getKeyPair().getPrivateKey().get();
 		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).requestPseudoTerminal(true).build();
 		return ChannelUtils.getContext(env, enc, provided);
 	}
 
-	protected ChannelContext getRootContext(Instance instance, LaunchInstanceContext context) {
-		return getContext(instance, context, Users.ROOT.getLogin(), false);
+	protected ChannelContext getRootContext(Instance instance, String privateKey) {
+		return getContext(instance, privateKey, Users.ROOT.getLogin(), false);
 	}
 
-	protected ChannelContext getEC2UserContext(Instance instance, LaunchInstanceContext context) {
-		return getContext(instance, context, Users.EC2USER.getLogin(), true);
+	protected ChannelContext getEC2UserContext(Instance instance, String privateKey) {
+		return getContext(instance, privateKey, Users.EC2USER.getLogin(), true);
 	}
 
 	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
@@ -147,7 +146,7 @@ public class CreateMasterConfig {
 			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
 
-			ChannelContext cc = getEC2UserContext(instance, context);
+			ChannelContext cc = getEC2UserContext(instance, context.getKeyPair().getPrivateKey().get());
 			channel = channelService.getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
 			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
