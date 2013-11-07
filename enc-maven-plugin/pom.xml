@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>3.3.30</version>
+    <version>3.3.31</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>enc-maven-plugin</artifactId>
@@ -39,7 +39,6 @@
   <properties>
     <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
     <jasypt.version>1.9.1</jasypt.version>
-    <kuali-util.version>4.4.7-SNAPSHOT</kuali-util.version>
     <jsch.version>0.1.50</jsch.version>
   </properties>
   <developers>
