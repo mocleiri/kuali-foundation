@@ -17,7 +17,7 @@ package org.kuali.common.util.channel;
 
 import java.io.IOException;
 
-public interface ChannelManager {
+public interface SecureConnectionService {
 
 	SecureConnection getConnection(ConnectionContext context) throws IOException;
 
