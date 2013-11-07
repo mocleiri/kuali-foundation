@@ -10,6 +10,7 @@ public final class AmazonLinuxContext {
 	private final User ec2User;
 	private final User root;
 	private final String dnsName;
+	private final String rootVolumeDeviceName;
 
 	public static class Builder {
 
@@ -20,6 +21,7 @@ public final class AmazonLinuxContext {
 		// Optional
 		private User ec2User = new User("ec2-user", "/home/ec2-user");
 		private User root = new User("root", "/root");
+		private String rootVolumeDeviceName = "/dev/xvda1";
 
 		public Builder(SecureChannelService service, String dnsName) {
 			this.service = service;
@@ -37,6 +39,7 @@ public final class AmazonLinuxContext {
 		this.ec2User = builder.ec2User;
 		this.root = builder.root;
 		this.dnsName = builder.dnsName;
+		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
 	}
 
 	public SecureChannelService getService() {
@@ -53,6 +56,10 @@ public final class AmazonLinuxContext {
 
 	public String getDnsName() {
 		return dnsName;
+	}
+
+	public String getRootVolumeDeviceName() {
+		return rootVolumeDeviceName;
 	}
 
 }
