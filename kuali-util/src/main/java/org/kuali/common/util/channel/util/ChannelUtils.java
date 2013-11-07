@@ -35,8 +35,8 @@ public class ChannelUtils {
 
 	private static final ChannelContext NONE = new ChannelContext.Builder(NullUtils.NONE).build();
 
-	private static final String HOSTNAME_KEY = "ssh.hostname";
 	private static final String USERNAME_KEY = "ssh.username";
+	private static final String HOSTNAME_KEY = "ssh.hostname";
 	private static final String PRIVATE_KEY_KEY = "ssh.privateKey";
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
 
