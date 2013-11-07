@@ -1,0 +1,9 @@
+package org.kuali.common.devops.sysadmin;
+
+public interface RemoteServerAdministrationService {
+
+	void enableRootSSH(String privateKey);
+
+	void resizeRootVolume();
+
+}
