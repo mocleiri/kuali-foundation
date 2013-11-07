@@ -20,11 +20,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public interface SecureChannel {
-
-	void open(ConnectionContext context) throws IOException;
+public interface SecureConnection {
 
 	void close();
+
+	Result executeCommand(String command);
+
+	Result executeCommand(String command, String stdin);
+
+	void executeNoWait(String command);
 
 	void copyFile(File source, RemoteFile destination);
 
@@ -53,12 +57,6 @@ public interface SecureChannel {
 	void createDirectory(RemoteFile dir);
 
 	RemoteFile getWorkingDirectory();
-
-	Result executeCommand(String command);
-
-	Result executeCommand(String command, String stdin);
-
-	void executeNoWait(String command);
 
 	void copyRemoteFile(String absolutePath, OutputStream out) throws IOException;
 

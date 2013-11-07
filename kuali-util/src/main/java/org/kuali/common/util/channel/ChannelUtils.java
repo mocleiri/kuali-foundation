@@ -43,7 +43,7 @@ public class ChannelUtils {
 	 * @throws IllegalStateException
 	 *             If the command returns with a non-zero exit value
 	 */
-	public static Result exec(SecureChannel channel, String command) {
+	public static Result exec(SecureConnection channel, String command) {
 		return exec(channel, command, false);
 	}
 
@@ -53,17 +53,17 @@ public class ChannelUtils {
 	 * @throws IllegalStateException
 	 *             If the command returns a non-zero exit value
 	 */
-	public static Result exec(SecureChannel channel, String command, boolean echo) {
+	public static Result exec(SecureConnection channel, String command, boolean echo) {
 		if (echo) {
 			logger.info(command);
 		}
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
 			StringBuilder sb = new StringBuilder();
+			sb.append("Non-zero exit value: [" + result.getExitValue() + "]\n");
 			sb.append("\n");
-			sb.append(command);
+			sb.append("[" + command + "]");
 			sb.append("\n");
-			sb.append("Non-zero exit value: " + result.getExitValue() + "\n");
 			sb.append("stdout:[" + Str.flatten(result.getStdout()) + "]\n");
 			sb.append("stderr:[" + Str.flatten(result.getStderr()) + "]\n");
 			sb.append("\n");

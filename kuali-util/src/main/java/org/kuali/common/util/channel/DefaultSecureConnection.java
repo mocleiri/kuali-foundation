@@ -48,65 +48,45 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public final class DefaultSecureChannel implements SecureChannel {
+public final class DefaultSecureConnection implements SecureConnection {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureConnection.class);
 
 	private static final String SFTP = "sftp";
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
 
-	private final ChannelContext context;
+	private final Session session;
+	private final ChannelSftp sftp;
+	private final ConnectionContext context;
 
-	public DefaultSecureChannel(ChannelContext context) {
+	public DefaultSecureConnection(ConnectionContext context) throws IOException {
 		Assert.noNulls(context);
 		this.context = context;
-	}
-
-	private Session session;
-	private ChannelSftp sftp;
-	private boolean open = false;
-	private ConnectionContext connectionContext;
-
-	@Override
-	public synchronized void open(ConnectionContext context) throws IOException {
-		Assert.isFalse(open, "Already open");
-		Assert.noNulls(context);
-		this.connectionContext = context;
 		logOpen();
 		try {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
-			this.sftp = openSftpChannel(session, connectionContext.getConnectTimeout());
-			this.open = true;
+			this.sftp = openSftpChannel(session, context.getConnectTimeout());
 		} catch (JSchException e) {
 			throw new IOException("Unexpected error opening secure channel", e);
 		}
 	}
 
 	@Override
-	public synchronized void close() {
-		if (!open) {
-			return;
-		}
-		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(connectionContext.getUsername(), connectionContext.getHostname()));
+	public void close() {
+		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(context.getUsername(), context.getHostname()));
 		closeQuietly(sftp);
 		closeQuietly(session);
-		this.connectionContext = null;
-		this.sftp = null;
-		this.session = null;
-		this.open = false;
 	}
 
 	@Override
 	public Result executeCommand(String command) {
-		Assert.isTrue(open, "Not open");
 		return executeCommand(command, null);
 	}
 
 	@Override
 	public Result executeCommand(String command, String stdin) {
-		Assert.isTrue(open, "Not open");
 		Assert.noBlanks(command);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
@@ -118,11 +98,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Open an exec channel
 			exec = getChannelExec();
 			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, connectionContext.getEncoding());
+			byte[] commandBytes = Str.getBytes(command, context.getEncoding());
 			// Store the command on the exec channel
 			exec.setCommand(commandBytes);
 			// Prepare the stdin stream
-			stdinStream = getInputStream(stdin, connectionContext.getEncoding());
+			stdinStream = getInputStream(stdin, context.getEncoding());
 			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
 			// Get the stdout stream from the ChannelExec object
@@ -135,12 +115,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, Optional.<Integer> absent());
 			// Convert stdout and stderr to String's
-			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), connectionContext.getEncoding());
-			String stderr = Str.getString(stderrStream.toByteArray(), connectionContext.getEncoding());
+			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), context.getEncoding());
+			String stderr = Str.getString(stderrStream.toByteArray(), context.getEncoding());
 			// Make sure the channel is closed
 			waitForClosed(exec, context.getWaitForClosedSleepMillis());
 			// Return the result of executing the command
-			return new Result(command, exec.getExitStatus(), stdin, stdout, stderr, connectionContext.getEncoding(), start, System.currentTimeMillis());
+			return new Result(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start, System.currentTimeMillis());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -154,7 +134,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected ChannelExec getChannelExec() throws JSchException {
 		ChannelExec exec = (ChannelExec) session.openChannel(EXEC);
-		if (connectionContext.isRequestPseudoTerminal()) {
+		if (context.isRequestPseudoTerminal()) {
 			exec.setPty(true);
 		}
 		return exec;
@@ -162,14 +142,13 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void executeNoWait(String command) {
-		Assert.isTrue(open, "Not open");
 		Assert.notBlank(command);
 		ChannelExec exec = null;
 		try {
 			// Open an exec channel
 			exec = getChannelExec();
 			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, connectionContext.getEncoding());
+			byte[] commandBytes = Str.getBytes(command, context.getEncoding());
 			// Store the command on the exec channel
 			exec.setCommand(commandBytes);
 			// Execute the command.
@@ -198,7 +177,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public RemoteFile getWorkingDirectory() {
-		Assert.isTrue(open, "Not open");
 		try {
 			String workingDirectory = sftp.pwd();
 			return getMetaData(workingDirectory);
@@ -208,21 +186,20 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(connectionContext.getUsername(), connectionContext.getHostname()),
-				connectionContext.getEncoding());
-		logger.debug("Private key files - {}", context.getPrivateKeys().size());
-		logger.debug("Private key strings - {}", context.getPrivateKeyStrings().size());
+		logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(context.getUsername(), context.getHostname()), context.getEncoding());
+		logger.debug("Private key files - {}", context.getPrivateKeyFiles().size());
+		logger.debug("Private key strings - {}", context.getPrivateKeys().size());
 		logger.debug("Private key config file - {}", context.getConfig());
 		logger.debug("Private key config file use - {}", context.isUseConfigFile());
 		logger.debug("Include default private key locations - {}", context.isIncludeDefaultPrivateKeyLocations());
 		logger.debug("Known hosts file - {}", context.getKnownHosts());
-		logger.debug("Port - {}", connectionContext.getPort());
-		if (connectionContext.getConnectTimeout().isPresent()) {
-			logger.debug("Connect timeout - {}", connectionContext.getConnectTimeout().get());
+		logger.debug("Port - {}", context.getPort());
+		if (context.getConnectTimeout().isPresent()) {
+			logger.debug("Connect timeout - {}", context.getConnectTimeout().get());
 		}
-		logger.debug("Strict host key checking - {}", connectionContext.isStrictHostKeyChecking());
-		logger.debug("Configuring channel with {} custom options", connectionContext.getOptions().size());
-		PropertyUtils.debug(connectionContext.getOptions());
+		logger.debug("Strict host key checking - {}", context.isStrictHostKeyChecking());
+		logger.debug("Configuring channel with {} custom options", context.getOptions().size());
+		PropertyUtils.debug(context.getOptions());
 	}
 
 	protected ChannelSftp openSftpChannel(Session session, Optional<Integer> timeout) throws JSchException {
@@ -252,11 +229,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected Session openSession(JSch jsch) throws JSchException {
-		Session session = jsch.getSession(connectionContext.getUsername().orNull(), connectionContext.getHostname(), connectionContext.getPort());
+		Session session = jsch.getSession(context.getUsername().orNull(), context.getHostname(), context.getPort());
 
-		session.setConfig(connectionContext.getOptions());
-		if (connectionContext.getConnectTimeout().isPresent()) {
-			session.connect(connectionContext.getConnectTimeout().get());
+		session.setConfig(context.getOptions());
+		if (context.getConnectTimeout().isPresent()) {
+			session.connect(context.getConnectTimeout().get());
 		} else {
 			session.connect();
 		}
@@ -265,7 +242,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected JSch getJSch() {
 		try {
-			JSch jsch = getJSch(context.getPrivateKeys(), context.getPrivateKeyStrings());
+			JSch jsch = getJSch(context.getPrivateKeyFiles(), context.getPrivateKeys());
 			File knownHosts = context.getKnownHosts();
 			if (context.isUseKnownHosts() && knownHosts.exists()) {
 				String path = LocationUtils.getCanonicalPath(knownHosts);
@@ -286,7 +263,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		int count = 0;
 		for (String privateKeyString : privateKeyStrings) {
 			String name = "privateKeyString-" + Integer.toString(count++);
-			byte[] bytes = Str.getBytes(privateKeyString, connectionContext.getEncoding());
+			byte[] bytes = Str.getBytes(privateKeyString, context.getEncoding());
 			jsch.addIdentity(name, bytes, null, null);
 		}
 		return jsch;
@@ -313,20 +290,18 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public RemoteFile getMetaData(String absolutePath) {
-		Assert.isTrue(open, "Not open");
 		Assert.noBlanks(absolutePath);
 		return fillInAttributes(absolutePath);
 	}
 
 	@Override
 	public void deleteFile(String absolutePath) {
-		Assert.isTrue(open, "Not open");
 		RemoteFile file = getMetaData(absolutePath);
 		if (isStatus(file, Status.MISSING)) {
 			return;
 		}
 		if (file.isDirectory()) {
-			throw new IllegalArgumentException("[" + ChannelUtils.getLocation(connectionContext.getUsername(), connectionContext.getHostname(), file) + "] is a directory.");
+			throw new IllegalArgumentException("[" + ChannelUtils.getLocation(context.getUsername(), context.getHostname(), file) + "] is a directory.");
 		}
 		try {
 			sftp.rm(absolutePath);
@@ -337,14 +312,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public boolean exists(String absolutePath) {
-		Assert.isTrue(open, "Not open");
 		RemoteFile file = getMetaData(absolutePath);
 		return isStatus(file, Status.EXISTS);
 	}
 
 	@Override
 	public boolean isDirectory(String absolutePath) {
-		Assert.isTrue(open, "Not open");
 		RemoteFile file = getMetaData(absolutePath);
 		return isStatus(file, Status.EXISTS) && file.isDirectory();
 	}
@@ -370,7 +343,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFile(File source, RemoteFile destination) {
-		Assert.isTrue(open, "Not open");
 		Assert.notNull(source);
 		Assert.isTrue(source.exists());
 		Assert.isTrue(!source.isDirectory());
@@ -380,7 +352,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFileToDirectory(File source, RemoteFile directory) {
-		Assert.isTrue(open, "Not open");
 		String filename = source.getName();
 		String absolutePath = getAbsolutePath(directory.getAbsolutePath(), filename);
 		RemoteFile file = new RemoteFile.Builder(absolutePath).clone(directory).build();
@@ -389,7 +360,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyLocationToFile(String location, RemoteFile destination) {
-		Assert.isTrue(open, "Not open");
 		Assert.notNull(location);
 		Assert.isTrue(LocationUtils.exists(location), location + " does not exist");
 		InputStream in = null;
@@ -405,22 +375,20 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyStringToFile(String string, RemoteFile destination) {
-		Assert.isTrue(open, "Not open");
 		Assert.notNull(string);
-		InputStream in = new ByteArrayInputStream(Str.getBytes(string, connectionContext.getEncoding()));
+		InputStream in = new ByteArrayInputStream(Str.getBytes(string, context.getEncoding()));
 		copyInputStreamToFile(in, destination);
 		IOUtils.closeQuietly(in);
 	}
 
 	@Override
 	public String toString(RemoteFile source) {
-		Assert.isTrue(open, "Not open");
 		Assert.notNull(source);
 		Assert.hasText(source.getAbsolutePath());
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
 			copyFile(source, out);
-			return out.toString(connectionContext.getEncoding());
+			return out.toString(context.getEncoding());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -430,7 +398,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyInputStreamToFile(InputStream source, RemoteFile destination) {
-		Assert.isTrue(open, "Not open");
 		Assert.notNull(source);
 		try {
 			createDirectories(destination);
@@ -450,7 +417,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyLocationToDirectory(String location, RemoteFile directory) {
-		Assert.isTrue(open, "Not open");
 		String filename = LocationUtils.getFilename(location);
 		String absolutePath = getAbsolutePath(directory.getAbsolutePath(), filename);
 		RemoteFile file = new RemoteFile.Builder(absolutePath).clone(directory).build();
@@ -459,7 +425,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFile(RemoteFile source, File destination) {
-		Assert.isTrue(open, "Not open");
 		OutputStream out = null;
 		try {
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
@@ -473,7 +438,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyRemoteFile(String absolutePath, OutputStream out) throws IOException {
-		Assert.isTrue(open, "Not open");
 		try {
 			sftp.get(absolutePath, out);
 		} catch (SftpException e) {
@@ -483,13 +447,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void copyFile(RemoteFile source, OutputStream out) throws IOException {
-		Assert.isTrue(open, "Not open");
 		copyRemoteFile(source.getAbsolutePath(), out);
 	}
 
 	@Override
 	public void copyFileToDirectory(RemoteFile source, File destination) {
-		Assert.isTrue(open, "Not open");
 		String filename = FilenameUtils.getName(source.getAbsolutePath());
 		File newDestination = new File(destination, filename);
 		copyFile(source, newDestination);
@@ -497,7 +459,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void createDirectory(RemoteFile dir) {
-		Assert.isTrue(open, "Not open");
 		Assert.isTrue(dir.isDirectory());
 		try {
 			createDirectories(dir);
@@ -549,11 +510,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	protected String getInvalidExistingFileMessage(RemoteFile existing) {
 		if (existing.isDirectory()) {
-			return "[" + ChannelUtils.getLocation(connectionContext.getUsername(), connectionContext.getHostname(), existing)
-					+ "] is an existing directory. Unable to create file.";
+			return "[" + ChannelUtils.getLocation(context.getUsername(), context.getHostname(), existing) + "] is an existing directory. Unable to create file.";
 		} else {
-			return "[" + ChannelUtils.getLocation(connectionContext.getUsername(), connectionContext.getHostname(), existing)
-					+ "] is an existing file. Unable to create directory.";
+			return "[" + ChannelUtils.getLocation(context.getUsername(), context.getHostname(), existing) + "] is an existing file. Unable to create directory.";
 		}
 	}
 
