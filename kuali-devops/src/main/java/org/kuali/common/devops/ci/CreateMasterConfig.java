@@ -103,7 +103,7 @@ public class CreateMasterConfig {
 		Instance instance = service.getInstance("i-c96445ae");
 		enableRootSSH(instance, instanceContext);
 		doRoot(instance, instanceContext);
-		doDNS(instance);
+		// doDNS(instance);
 		return null; // new ExecutablesExecutable(show);
 	}
 
