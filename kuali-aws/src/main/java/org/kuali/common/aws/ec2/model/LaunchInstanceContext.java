@@ -28,6 +28,7 @@ public final class LaunchInstanceContext {
 	private final boolean ebsOptimized;
 	private final boolean enableMonitoring;
 	private final Optional<RootVolume> rootVolume;
+	private final Optional<String> dnsName;
 
 	public static class Builder {
 
@@ -39,6 +40,7 @@ public final class LaunchInstanceContext {
 		private InstanceType type = InstanceType.M1Medium;
 		private List<KualiSecurityGroup> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
+		private Optional<String> dnsName = Optional.absent();
 		private Optional<String> availabilityZone = Optional.absent(); // If not provided, Amazon picks one for you
 		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // Timeout after 15 minutes
 		private boolean preventTermination = false;
@@ -79,6 +81,11 @@ public final class LaunchInstanceContext {
 
 		public Builder availabilityZone(String availabilityZone) {
 			this.availabilityZone = Optional.fromNullable(NullUtils.trimToNull(availabilityZone));
+			return this;
+		}
+
+		public Builder dnsName(String dnsName) {
+			this.dnsName = Optional.fromNullable(NullUtils.trimToNull(dnsName));
 			return this;
 		}
 
@@ -126,6 +133,7 @@ public final class LaunchInstanceContext {
 		this.enableMonitoring = builder.enableMonitoring;
 		this.rootVolume = builder.rootVolume;
 		this.overrideExistingSecurityGroupPermissions = builder.overrideExistingSecurityGroupPermissions;
+		this.dnsName = builder.dnsName;
 	}
 
 	public String getAmi() {
@@ -174,6 +182,10 @@ public final class LaunchInstanceContext {
 
 	public boolean isOverrideExistingSecurityGroupPermissions() {
 		return overrideExistingSecurityGroupPermissions;
+	}
+
+	public Optional<String> getDnsName() {
+		return dnsName;
 	}
 
 }
