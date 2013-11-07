@@ -117,6 +117,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			long start = System.currentTimeMillis();
 			// Open an exec channel
 			exec = (ChannelExec) session.openChannel(EXEC);
+			exec.setPty(true);
 			// Convert the command string to bytes
 			byte[] commandBytes = Str.getBytes(command, connectionContext.getEncoding());
 			// Store the command on the exec channel
@@ -214,7 +215,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 		logger.debug("Strict host key checking - {}", connectionContext.isStrictHostKeyChecking());
 		logger.debug("Configuring channel with {} custom options", connectionContext.getOptions().size());
-		PropertyUtils.debug(connectionContext.getOptions());
+		PropertyUtils.info(connectionContext.getOptions());
 	}
 
 	protected ChannelSftp openSftpChannel(Session session, Optional<Integer> timeout) throws JSchException {

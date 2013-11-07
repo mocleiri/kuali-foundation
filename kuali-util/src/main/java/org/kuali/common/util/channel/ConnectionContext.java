@@ -32,6 +32,7 @@ public final class ConnectionContext {
 	private final String encoding;
 	private final Properties options;
 	private final boolean strictHostKeyChecking;
+	private final boolean requestPseudoTerminal;
 
 	public static class Builder {
 
@@ -45,6 +46,7 @@ public final class ConnectionContext {
 		private String encoding = "UTF-8";
 		private Properties options = ImmutableProperties.of();
 		private boolean strictHostKeyChecking = false;
+		private boolean requestPseudoTerminal = false;
 
 		public ConnectionContext build() {
 			Assert.noBlanks(hostname, encoding);
@@ -58,7 +60,7 @@ public final class ConnectionContext {
 		}
 
 		public Builder(String hostname) {
-			this(Optional.<String> absent(), hostname);
+			this((String) null, hostname);
 		}
 
 		public Builder(String username, String hostname) {
@@ -68,6 +70,11 @@ public final class ConnectionContext {
 		public Builder(Optional<String> username, String hostname) {
 			this.username = username;
 			this.hostname = hostname;
+		}
+
+		public Builder requestPseudoTerminal(boolean requestPseudoTerminal) {
+			this.requestPseudoTerminal = requestPseudoTerminal;
+			return this;
 		}
 
 		public Builder username(String username) {
@@ -113,6 +120,7 @@ public final class ConnectionContext {
 		this.connectTimeout = builder.connectTimeout;
 		this.options = builder.options;
 		this.strictHostKeyChecking = builder.strictHostKeyChecking;
+		this.requestPseudoTerminal = builder.requestPseudoTerminal;
 	}
 
 	public Optional<String> getUsername() {
@@ -141,6 +149,10 @@ public final class ConnectionContext {
 
 	public boolean isStrictHostKeyChecking() {
 		return strictHostKeyChecking;
+	}
+
+	public boolean isRequestPseudoTerminal() {
+		return requestPseudoTerminal;
 	}
 
 }
