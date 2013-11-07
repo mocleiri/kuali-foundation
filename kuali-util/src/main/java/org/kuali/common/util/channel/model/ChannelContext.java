@@ -149,8 +149,13 @@ public final class ChannelContext {
 			return this;
 		}
 
-		public Builder privateKeyString(String privateKeyString) {
-			return privateKeys(ImmutableList.of(NullUtils.trimToNull(privateKeyString)));
+		public Builder privateKey(String privateKey) {
+			String trimmed = NullUtils.trimToNull(privateKey);
+			if (trimmed == null) {
+				return privateKeys(ImmutableList.<String> of());
+			} else {
+				return privateKeys(ImmutableList.of(trimmed));
+			}
 		}
 
 		public Builder privateKeys(List<String> privateKeys) {
@@ -160,9 +165,9 @@ public final class ChannelContext {
 
 		public ChannelContext build() {
 			Assert.noBlanks(hostname, encoding);
-			Assert.noNulls(username, connectTimeout, options);
+			Assert.noNulls(username, connectTimeout, options, knownHosts, config, privateKeyFiles, privateKeys);
 			Assert.isPort(port);
-			Assert.noNulls(knownHosts, config, privateKeyFiles, privateKeys);
+			Assert.noNulls();
 			Assert.positive(waitForClosedSleepMillis);
 			if (useConfigFile) {
 				Assert.exists(config);
