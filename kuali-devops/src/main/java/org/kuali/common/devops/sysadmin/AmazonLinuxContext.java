@@ -9,18 +9,21 @@ public final class AmazonLinuxContext {
 	private final SecureChannelService service;
 	private final User ec2User;
 	private final User root;
+	private final String dnsName;
 
 	public static class Builder {
 
 		// Required
 		private final SecureChannelService service;
+		private final String dnsName;
 
 		// Optional
 		private User ec2User = new User("ec2-user", "/home/ec2-user");
 		private User root = new User("root", "/root");
 
-		public Builder(SecureChannelService service) {
+		public Builder(SecureChannelService service, String dnsName) {
 			this.service = service;
+			this.dnsName = dnsName;
 		}
 
 		public AmazonLinuxContext build() {
@@ -33,10 +36,23 @@ public final class AmazonLinuxContext {
 		this.service = builder.service;
 		this.ec2User = builder.ec2User;
 		this.root = builder.root;
+		this.dnsName = builder.dnsName;
 	}
 
 	public SecureChannelService getService() {
 		return service;
+	}
+
+	public User getEc2User() {
+		return ec2User;
+	}
+
+	public User getRoot() {
+		return root;
+	}
+
+	public String getDnsName() {
+		return dnsName;
 	}
 
 }
