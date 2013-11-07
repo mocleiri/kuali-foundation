@@ -59,7 +59,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
@@ -109,7 +108,6 @@ public class CreateMasterConfig {
 
 	protected void doRoot(Instance instance, LaunchInstanceContext context) {
 		String rootDeviceName = instance.getRootDeviceName();
-		List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
 		ChannelContext cc = getRootContext(instance, context);
 		SecureChannel channel = null;
 		try {
