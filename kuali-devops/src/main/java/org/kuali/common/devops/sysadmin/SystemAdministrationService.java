@@ -2,7 +2,7 @@ package org.kuali.common.devops.sysadmin;
 
 import java.util.List;
 
-public interface RemoteServerService {
+public interface SystemAdministrationService {
 
 	void enableRootSSH(String publicKey);
 
