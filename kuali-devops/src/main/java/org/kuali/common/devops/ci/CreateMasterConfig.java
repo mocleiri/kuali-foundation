@@ -122,21 +122,19 @@ public class CreateMasterConfig {
 		}
 	}
 
-	protected ChannelContext getRootContext(Instance instance, LaunchInstanceContext context) {
-		String username = Users.ROOT.getLogin();
+	protected ChannelContext getContext(Instance instance, LaunchInstanceContext context, String username, boolean requestPseudoTerminal) {
 		String hostname = instance.getPublicDnsName();
 		String privateKey = context.getKeyPair().getPrivateKey().get();
-		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).build();
+		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).requestPseudoTerminal(true).build();
 		return ChannelUtils.getContext(env, enc, provided);
 	}
 
+	protected ChannelContext getRootContext(Instance instance, LaunchInstanceContext context) {
+		return getContext(instance, context, Users.ROOT.getLogin(), false);
+	}
+
 	protected ChannelContext getEC2UserContext(Instance instance, LaunchInstanceContext context) {
-		KeyPair keyPair = context.getKeyPair();
-		String privateKey = keyPair.getPrivateKey().get();
-		String username = Users.EC2USER.getLogin();
-		String hostname = instance.getPublicDnsName();
-		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).requestPseudoTerminal(true).build();
-		return ChannelUtils.getContext(env, enc, provided);
+		return getContext(instance, context, Users.EC2USER.getLogin(), true);
 	}
 
 	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
