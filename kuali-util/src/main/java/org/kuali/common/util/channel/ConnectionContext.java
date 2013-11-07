@@ -15,24 +15,38 @@
  */
 package org.kuali.common.util.channel;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public final class ConnectionContext {
 
 	private final Optional<String> username;
 	private final String hostname;
+	private final List<String> privateKeys;
 	private final int port;
-	private final Optional<Integer> connectTimeout;
 	private final String encoding;
-	private final Properties options;
 	private final boolean strictHostKeyChecking;
 	private final boolean requestPseudoTerminal;
+	private final Optional<Integer> connectTimeout;
+	private final Properties options;
+	private final File knownHosts;
+	private final File config;
+	private final boolean useConfigFile;
+	private final boolean useKnownHosts;
+	private final boolean includeDefaultPrivateKeyLocations;
+	private final int waitForClosedSleepMillis;
+	private final List<File> privateKeyFiles;
 
 	public static class Builder {
 
@@ -47,20 +61,17 @@ public final class ConnectionContext {
 		private Properties options = ImmutableProperties.of();
 		private boolean strictHostKeyChecking = false;
 		private boolean requestPseudoTerminal = false;
-
-		public ConnectionContext build() {
-			Assert.noBlanks(hostname, encoding);
-			Assert.noNulls(username, connectTimeout, options);
-			Assert.isPort(port);
-			if (connectTimeout.isPresent()) {
-				Assert.positive(connectTimeout.get());
-			}
-			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
-			return new ConnectionContext(this);
-		}
+		private File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
+		private boolean useKnownHosts = false;
+		private File config = SSHUtils.DEFAULT_CONFIG_FILE;
+		private boolean useConfigFile = false;
+		private boolean includeDefaultPrivateKeyLocations = false;
+		private int waitForClosedSleepMillis = 10;
+		private List<File> privateKeyFiles = ImmutableList.of();
+		private List<String> privateKeys = ImmutableList.of();
 
 		public Builder(String hostname) {
-			this((String) null, hostname);
+			this(Optional.<String> absent(), hostname);
 		}
 
 		public Builder(String username, String hostname) {
@@ -102,6 +113,88 @@ public final class ConnectionContext {
 			return this;
 		}
 
+		public Builder knownHosts(File knownHosts) {
+			this.knownHosts = knownHosts;
+			return this;
+		}
+
+		public Builder useKnownHosts(boolean useKnownHosts) {
+			this.useKnownHosts = useKnownHosts;
+			return this;
+		}
+
+		public Builder config(File config) {
+			this.config = config;
+			return this;
+		}
+
+		public Builder useConfigFile(boolean useConfigFile) {
+			this.useConfigFile = useConfigFile;
+			return this;
+		}
+
+		public Builder includeDefaultPrivateKeyLocations(boolean includeDefaultPrivateKeyLocations) {
+			this.includeDefaultPrivateKeyLocations = includeDefaultPrivateKeyLocations;
+			return this;
+		}
+
+		public Builder waitForClosedSleepMillis(int waitForClosedSleepMillis) {
+			this.waitForClosedSleepMillis = waitForClosedSleepMillis;
+			return this;
+		}
+
+		public Builder privateKeyFiles(List<File> privateKeyFiles) {
+			this.privateKeyFiles = privateKeyFiles;
+			return this;
+		}
+
+		public Builder privateKeyString(String privateKeyString) {
+			return privateKeys(ImmutableList.of(NullUtils.trimToNull(privateKeyString)));
+		}
+
+		public Builder privateKeys(List<String> privateKeys) {
+			this.privateKeys = privateKeys;
+			return this;
+		}
+
+		public ConnectionContext build() {
+			Assert.noBlanks(hostname, encoding);
+			Assert.noNulls(username, connectTimeout, options);
+			Assert.isPort(port);
+			Assert.noNulls(knownHosts, config, privateKeyFiles, privateKeys);
+			Assert.positive(waitForClosedSleepMillis);
+			if (useConfigFile) {
+				Assert.exists(config);
+				Assert.isTrue(config.canRead(), "[" + config + "] exists but is not readable");
+			}
+			this.privateKeyFiles = ImmutableList.copyOf(getUniquePrivateKeyFiles(privateKeyFiles, useConfigFile, config, includeDefaultPrivateKeyLocations));
+			this.privateKeys = ImmutableList.copyOf(privateKeys);
+			if (connectTimeout.isPresent()) {
+				Assert.positive(connectTimeout.get());
+			}
+			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
+			return new ConnectionContext(this);
+		}
+
+		private List<File> getUniquePrivateKeyFiles(List<File> privateKeyFiles, boolean useConfigFile, File config, boolean includeDefaultPrivateKeyLocations) {
+			List<String> paths = new ArrayList<String>();
+			for (File privateKeyFile : privateKeyFiles) {
+				paths.add(LocationUtils.getCanonicalPath(privateKeyFile));
+			}
+			if (useConfigFile) {
+				for (String path : SSHUtils.getFilenames(config)) {
+					paths.add(path);
+				}
+			}
+			if (includeDefaultPrivateKeyLocations) {
+				for (String path : SSHUtils.PRIVATE_KEY_DEFAULTS) {
+					paths.add(path);
+				}
+			}
+			List<String> uniquePaths = CollectionUtils.getUniqueStrings(paths);
+			return SSHUtils.getExistingAndReadable(uniquePaths);
+		}
+
 		private Properties getSessionProperties(Properties options, boolean strictHostKeyChecking) {
 			Properties properties = new Properties();
 			properties.putAll(options);
@@ -121,6 +214,14 @@ public final class ConnectionContext {
 		this.options = builder.options;
 		this.strictHostKeyChecking = builder.strictHostKeyChecking;
 		this.requestPseudoTerminal = builder.requestPseudoTerminal;
+		this.knownHosts = builder.knownHosts;
+		this.config = builder.config;
+		this.useConfigFile = builder.useConfigFile;
+		this.includeDefaultPrivateKeyLocations = builder.includeDefaultPrivateKeyLocations;
+		this.waitForClosedSleepMillis = builder.waitForClosedSleepMillis;
+		this.privateKeyFiles = builder.privateKeyFiles;
+		this.privateKeys = builder.privateKeys;
+		this.useKnownHosts = builder.useKnownHosts;
 	}
 
 	public Optional<String> getUsername() {
@@ -153,6 +254,38 @@ public final class ConnectionContext {
 
 	public boolean isRequestPseudoTerminal() {
 		return requestPseudoTerminal;
+	}
+
+	public File getKnownHosts() {
+		return knownHosts;
+	}
+
+	public File getConfig() {
+		return config;
+	}
+
+	public boolean isUseConfigFile() {
+		return useConfigFile;
+	}
+
+	public boolean isUseKnownHosts() {
+		return useKnownHosts;
+	}
+
+	public boolean isIncludeDefaultPrivateKeyLocations() {
+		return includeDefaultPrivateKeyLocations;
+	}
+
+	public int getWaitForClosedSleepMillis() {
+		return waitForClosedSleepMillis;
+	}
+
+	public List<File> getPrivateKeyFiles() {
+		return privateKeyFiles;
+	}
+
+	public List<String> getPrivateKeys() {
+		return privateKeys;
 	}
 
 }
