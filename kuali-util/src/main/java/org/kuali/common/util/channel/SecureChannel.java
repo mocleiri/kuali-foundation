@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public interface SecureConnection {
+public interface SecureChannel {
 
 	Result executeCommand(String command);
 

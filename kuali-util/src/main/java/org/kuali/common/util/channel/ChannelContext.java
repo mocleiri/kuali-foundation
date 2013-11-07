@@ -29,7 +29,7 @@ import org.kuali.common.util.property.ImmutableProperties;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public final class ConnectionContext {
+public final class ChannelContext {
 
 	private final Optional<String> username;
 	private final String hostname;
@@ -157,7 +157,7 @@ public final class ConnectionContext {
 			return this;
 		}
 
-		public ConnectionContext build() {
+		public ChannelContext build() {
 			Assert.noBlanks(hostname, encoding);
 			Assert.noNulls(username, connectTimeout, options);
 			Assert.isPort(port);
@@ -173,7 +173,7 @@ public final class ConnectionContext {
 				Assert.positive(connectTimeout.get());
 			}
 			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
-			return new ConnectionContext(this);
+			return new ChannelContext(this);
 		}
 
 		private List<File> getUniquePrivateKeyFiles(List<File> privateKeyFiles, boolean useConfigFile, File config, boolean includeDefaultPrivateKeyLocations) {
@@ -205,7 +205,7 @@ public final class ConnectionContext {
 		}
 	}
 
-	private ConnectionContext(Builder builder) {
+	private ChannelContext(Builder builder) {
 		this.username = builder.username;
 		this.hostname = builder.hostname;
 		this.port = builder.port;

@@ -48,9 +48,9 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public final class DefaultSecureConnection implements SecureConnection {
+public final class DefaultSecureChannel implements SecureChannel {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureConnection.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
 
 	private static final String SFTP = "sftp";
 	private static final String EXEC = "exec";
@@ -58,9 +58,9 @@ public final class DefaultSecureConnection implements SecureConnection {
 
 	private final Session session;
 	private final ChannelSftp sftp;
-	private final ConnectionContext context;
+	private final ChannelContext context;
 
-	public DefaultSecureConnection(ConnectionContext context) throws IOException {
+	public DefaultSecureChannel(ChannelContext context) throws IOException {
 		Assert.noNulls(context);
 		this.context = context;
 		logOpen();
