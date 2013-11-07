@@ -106,7 +106,8 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
+			// String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
+			String command1 = "sudo ls -la";
 			String command2 = "sudo cp /home/ec2-user/sshd_config /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
 			doCommand(channel, command1);
@@ -126,7 +127,9 @@ public class CreateMasterConfig {
 	protected void doCommand(SecureChannel channel, String command) {
 		logger.info(command);
 		Result result = channel.executeCommand(command);
-		logger.info(result.getExitValue() + " " + result.getStdout());
+		logger.info("   exit: {}", result.getExitValue());
+		logger.info("std out: {}", result.getStdout());
+		logger.info("std err: {}", result.getStderr());
 	}
 
 	protected void doDNS(Instance instance) {
