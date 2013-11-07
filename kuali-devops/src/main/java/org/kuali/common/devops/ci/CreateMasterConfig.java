@@ -111,7 +111,7 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			ChannelUtils.exec(channel, "pwd");
+			ChannelUtils.exec(channel, "pwd; ls -la");
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
