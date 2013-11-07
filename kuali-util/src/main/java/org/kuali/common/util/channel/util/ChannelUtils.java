@@ -20,6 +20,7 @@ import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Result;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
@@ -47,7 +48,8 @@ public class ChannelUtils {
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
 		String hostname = NullUtils.trimToNull(env.getString(HOSTNAME_KEY, provided.getHostname()));
 		Optional<String> username = SpringUtils.getString(env, USERNAME_KEY, provided.getUsername());
-		String privateKey = NullUtils.trimToNull(env.getString(PRIVATEKEY_KEY, NullUtils.NONE));
+		String rawPrivateKey = NullUtils.trimToNull(env.getString(PRIVATEKEY_KEY, NullUtils.NONE));
+		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
 		boolean requestPseudoTerminal = env.getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, provided.isRequestPseudoTerminal());
 		return new ChannelContext.Builder(hostname, provided).username(username.orNull()).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 	}
