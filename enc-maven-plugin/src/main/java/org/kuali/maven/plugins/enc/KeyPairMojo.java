@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.enc;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -71,10 +72,19 @@ public class KeyPairMojo extends AbstractMojo {
 	 */
 	private String name;
 
+	/**
+	 * 
+	 * The working directory where the key pair is generated
+	 * 
+	 * @parameter expression="${enc.workingDir}" default-value=${project.build.directory}/enc
+	 * @required
+	 */
+	private File workingDir;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		Assert.noBlanks(name);
-		Assert.noNulls(algorithm, project);
+		Assert.noNulls(algorithm, project, workingDir);
 		Assert.positive(size);
 	}
 
