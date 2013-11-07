@@ -44,20 +44,7 @@ public class ChannelUtils {
 	 *             If the command returns with a non-zero exit value
 	 */
 	public static Result exec(SecureChannel channel, String command) {
-		Result result = channel.executeCommand(command);
-		if (result.getExitValue() != 0) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("\n");
-			sb.append(command);
-			sb.append("\n");
-			sb.append("Non-zero exit value: " + result.getExitValue() + "\n");
-			sb.append("stdout:[" + Str.flatten(result.getStdout()) + "]\n");
-			sb.append("stderr:[" + Str.flatten(result.getStderr()) + "]\n");
-			sb.append("\n");
-			throw new IllegalStateException(sb.toString());
-		} else {
-			return result;
-		}
+		return exec(channel, command, false);
 	}
 
 	/**
