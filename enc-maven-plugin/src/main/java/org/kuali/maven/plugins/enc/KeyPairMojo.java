@@ -101,9 +101,9 @@ public class KeyPairMojo extends AbstractMojo {
 		Assert.positive(size);
 		KeyPair keyPair = getKeyPair(name, size, algorithm);
 		try {
-			getLog().info("Public Key: [" + getRelativePath(publicKey) + "]");
+			getLog().info("Public  Key generated to -> " + getRelativePath(publicKey));
 			FileUtils.write(publicKey, keyPair.getPublicKey().get());
-			getLog().info("Private Key: [" + getRelativePath(privateKey) + "]");
+			getLog().info("Private Key generated to -> " + getRelativePath(privateKey));
 			FileUtils.write(privateKey, keyPair.getPrivateKey().get());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -111,8 +111,8 @@ public class KeyPairMojo extends AbstractMojo {
 	}
 
 	protected String getRelativePath(File file) {
-		File parentDir = new CanonicalFile(project.getBuild().getDirectory());
-		return FileSystemUtils.getRelativePathQuietly(parentDir, file);
+		File parentDir = new CanonicalFile(project.getBasedir());
+		return FileSystemUtils.getRelativePathQuietly(parentDir, file).substring(1);
 	}
 
 	protected KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
