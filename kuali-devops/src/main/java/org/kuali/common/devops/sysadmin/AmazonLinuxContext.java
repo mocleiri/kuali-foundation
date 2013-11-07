@@ -31,6 +31,8 @@ public final class AmazonLinuxContext {
 
 	private AmazonLinuxContext(Builder builder) {
 		this.service = builder.service;
+		this.ec2User = builder.ec2User;
+		this.root = builder.root;
 	}
 
 	public SecureChannelService getService() {
