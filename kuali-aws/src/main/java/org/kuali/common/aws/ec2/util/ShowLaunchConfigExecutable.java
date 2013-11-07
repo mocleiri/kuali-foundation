@@ -1,16 +1,22 @@
 package org.kuali.common.aws.ec2.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.model.Regions;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public class ShowLaunchConfigExecutable implements Executable {
 
@@ -49,7 +55,17 @@ public class ShowLaunchConfigExecutable implements Executable {
 		logger.info("AMI: {}", instanceContext.getAmi());
 		logger.info("Type: {}", instanceContext.getType().toString());
 		logger.info("Key: {}", instanceContext.getKeyPair().getName());
+		logger.info("Security Groups: {}", CollectionUtils.asCSV(getSecurityGroups(instanceContext)));
 		logger.info("--------------------------------------------");
+	}
+
+	protected List<String> getSecurityGroups(LaunchInstanceContext context) {
+		List<String> names = new ArrayList<String>();
+		for (KualiSecurityGroup group : context.getSecurityGroups()) {
+			names.add(group.getName());
+		}
+		Collections.sort(names);
+		return ImmutableList.copyOf(names);
 	}
 
 	protected String getAvailabilityZone(LaunchInstanceContext context) {
