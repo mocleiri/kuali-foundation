@@ -41,7 +41,6 @@ import org.kuali.common.util.channel.RemoteFile;
 import org.kuali.common.util.channel.Result;
 import org.kuali.common.util.channel.SSHUtils;
 import org.kuali.common.util.channel.Status;
-import org.kuali.common.util.channel.RemoteFile.Builder;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
