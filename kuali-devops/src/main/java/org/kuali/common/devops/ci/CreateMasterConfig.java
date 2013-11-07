@@ -106,13 +106,14 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
-			String command2 = "sudo cp /home/ec2-user/sshd_config /etc/ssh/sshd_config";
-			String command3 = "sudo service sshd restart";
-			doCommand(channel, command1);
 			String path = "/home/ec2-user/sshd_config";
+			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
+			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
+			String command3 = "sudo service sshd restart";
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			RemoteFile dst = new RemoteFile.Builder(path).build();
+
+			doCommand(channel, command1);
 			channel.copyLocationToFile(src, dst);
 			doCommand(channel, command2);
 			doCommand(channel, command3);
