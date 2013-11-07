@@ -123,10 +123,9 @@ public class CreateMasterConfig {
 	}
 
 	protected ChannelContext getRootContext(Instance instance, LaunchInstanceContext context) {
-		KeyPair keyPair = context.getKeyPair();
-		String privateKey = keyPair.getPrivateKey().get();
 		String username = Users.ROOT.getLogin();
 		String hostname = instance.getPublicDnsName();
+		String privateKey = context.getKeyPair().getPrivateKey().get();
 		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).build();
 		return ChannelUtils.getContext(env, enc, provided);
 	}
