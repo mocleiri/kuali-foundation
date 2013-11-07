@@ -20,7 +20,6 @@ import java.io.File;
 public class MD5Result {
 
 	public MD5Result(File source, String sourceChecksum, File target, String targetChecksum) {
-		super();
 		this.source = source;
 		this.sourceChecksum = sourceChecksum;
 		this.target = target;
