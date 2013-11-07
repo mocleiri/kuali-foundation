@@ -23,7 +23,7 @@ import java.util.Properties;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
-import org.kuali.common.util.channel.SSHUtils;
+import org.kuali.common.util.channel.util.SSHUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 

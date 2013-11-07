@@ -35,13 +35,13 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
-import org.kuali.common.util.channel.ChannelUtils;
-import org.kuali.common.util.channel.SSHUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Result;
 import org.kuali.common.util.channel.model.Status;
+import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.channel.util.SSHUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
