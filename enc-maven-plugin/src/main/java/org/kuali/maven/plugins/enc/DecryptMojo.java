@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.crypto;
+package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
- * Encrypt the specified text using the specified password
+ * Decrypt the specified text using the specified password
  *
- * @goal encrypt
+ * @goal decrypt
  */
-public class EncryptMojo extends AbstractMojo {
+public class DecryptMojo extends AbstractMojo {
 
     /**
      *
-     * The password for encrypting text. This same password can be used to to decrypt the encrypted text
+     * The password for decrypting the specified text. This must be the same password that was used to encrypt it.
      *
      * @parameter expression="${crypto.password}"
      * @required
@@ -37,7 +37,7 @@ public class EncryptMojo extends AbstractMojo {
 
     /**
      *
-     * The text to encrypt.
+     * The encrypted text to decrypt.
      *
      * @parameter expression="${crypto.text}"
      * @required
@@ -48,8 +48,8 @@ public class EncryptMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         BasicTextEncryptor encryptor = new BasicTextEncryptor();
         encryptor.setPassword(password);
-        String encrypted = encryptor.encrypt(text);
-        getLog().info(text + " -> " + encrypted);
+        String decrypted = encryptor.decrypt(text);
+        getLog().info(text + " -> " + decrypted);
     }
 
 }
