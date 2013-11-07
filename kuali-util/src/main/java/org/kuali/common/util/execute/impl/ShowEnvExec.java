@@ -15,8 +15,8 @@ public class ShowEnvExec implements Executable {
 		this(false);
 	}
 
-	public ShowEnvExec(boolean automatic) {
-		this.skip = automatic;
+	public ShowEnvExec(boolean skip) {
+		this.skip = skip;
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(ShowEnvExec.class);
