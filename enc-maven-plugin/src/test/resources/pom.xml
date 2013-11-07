@@ -21,12 +21,12 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>1.2.12</version>
+    <version>3.3.30</version>
   </parent>
   <groupId>${project.groupId}</groupId>
   <artifactId>${project.artifactId}</artifactId>
   <version>1.1.0-test-SNAPSHOT</version>
-  <name>Maven EC2 Plugin Test POM</name>
+  <name>Encryption Plugin Test POM</name>
   <build>
     <pluginManagement>
       <plugins>
@@ -34,9 +34,6 @@
           <groupId>${project.groupId}</groupId>
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
-          <configuration>
-            <password>${kuali.enc.password}</password>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
