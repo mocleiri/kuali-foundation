@@ -43,6 +43,7 @@ import org.kuali.common.util.channel.ChannelUtils;
 import org.kuali.common.util.channel.ConnectionContext;
 import org.kuali.common.util.channel.DefaultSecureChannel;
 import org.kuali.common.util.channel.RemoteFile;
+import org.kuali.common.util.channel.Result;
 import org.kuali.common.util.channel.SecureChannel;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -112,7 +113,9 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			ChannelUtils.exec(channel, "pwd; ls -la");
+			String cmd = "pwd; ls -la";
+			Result result = ChannelUtils.exec(channel, cmd);
+			logger.info("\n{}\n{}\n", cmd, result.getStdout());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -138,10 +141,15 @@ public class CreateMasterConfig {
 			String command3 = "sudo service sshd restart";
 			RemoteFile dst = new RemoteFile.Builder(path).build();
 
+			logger.info(command1);
 			ChannelUtils.exec(channel, command1); // copy the authorized_keys file minus the header commands preventing ssh as root
+			logger.info("cp {} {}", src, dst.getAbsolutePath());
 			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
+			logger.info(command2);
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
+			logger.info(command3);
 			ChannelUtils.exec(channel, command3); // restart the sshd service
+			logger.info("rm {}", path);
 			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
