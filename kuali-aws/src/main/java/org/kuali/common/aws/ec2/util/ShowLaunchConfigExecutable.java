@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
+import org.kuali.common.aws.ec2.model.Regions;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
-import org.kuali.common.aws.model.Regions;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.execute.Executable;

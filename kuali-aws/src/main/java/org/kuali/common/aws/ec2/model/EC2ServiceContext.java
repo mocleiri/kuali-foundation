@@ -1,7 +1,6 @@
 package org.kuali.common.aws.ec2.model;
 
 import org.kuali.common.aws.model.ImmutableAwsCredentials;
-import org.kuali.common.aws.model.Regions;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.enc.EncUtils;

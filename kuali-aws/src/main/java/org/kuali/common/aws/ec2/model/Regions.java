@@ -1,4 +1,4 @@
-package org.kuali.common.aws.model;
+package org.kuali.common.aws.ec2.model;
 
 import java.util.HashMap;
 import java.util.Map;
