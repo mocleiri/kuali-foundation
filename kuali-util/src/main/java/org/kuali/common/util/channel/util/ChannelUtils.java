@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util.channel.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
@@ -27,8 +30,10 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public class ChannelUtils {
 
@@ -54,10 +59,33 @@ public class ChannelUtils {
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
 		String hostname = NullUtils.trimToNull(env.getString(HOSTNAME_KEY, provided.getHostname()));
 		Optional<String> username = SpringUtils.getString(env, USERNAME_KEY, provided.getUsername());
-		String rawPrivateKey = NullUtils.trimToNull(env.getString(PRIVATEKEY_KEY, NullUtils.NONE));
-		String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
 		boolean requestPseudoTerminal = env.getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, provided.isRequestPseudoTerminal());
-		return new ChannelContext.Builder(hostname, provided).username(username.orNull()).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
+		List<String> privateKeys = getPrivateKeys(env, enc, provided);
+		return new ChannelContext.Builder(hostname, provided).username(username.orNull()).privateKeys(privateKeys).requestPseudoTerminal(requestPseudoTerminal).build();
+	}
+
+	protected static List<String> getPrivateKeys(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
+		Optional<String> optional = SpringUtils.getString(env, PRIVATEKEY_KEY, Optional.<String> absent());
+		if (optional.isPresent()) {
+			String rawPrivateKey = optional.get();
+			String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
+			return getDecrypted(enc, ImmutableList.of(privateKey));
+		} else {
+			return getDecrypted(enc, provided.getPrivateKeys());
+		}
+	}
+
+	protected static List<String> getDecrypted(EncryptionService enc, List<String> strings) {
+		Assert.notNull(strings);
+		List<String> list = new ArrayList<String>();
+		for (String string : strings) {
+			if (EncUtils.isEncrypted(string)) {
+				list.add(enc.decrypt(string));
+			} else {
+				list.add(string);
+			}
+		}
+		return ImmutableList.copyOf(list);
 	}
 
 	public static String getLocation(Optional<String> username, String hostname, RemoteFile file) {
