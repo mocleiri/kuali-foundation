@@ -192,8 +192,9 @@ public class CreateMasterConfig {
 		RootVolume rootVolume = new RootVolume(MASTER_ROOT_VOLUME_SIZE_IN_GIGABYTES);
 		boolean preventTermination = false; // TODO Switch this back to true before release
 		boolean overrideExistingSecurityGroupPermissions = true;
+		String dnsName = MASTER_DNS_NAME;
 		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
-				.rootVolume(rootVolume).overrideExistingSecurityGroupPermissions(overrideExistingSecurityGroupPermissions).build();
+				.rootVolume(rootVolume).overrideExistingSecurityGroupPermissions(overrideExistingSecurityGroupPermissions).dnsName(dnsName).build();
 	}
 
 	protected List<Tag> getTags() {
