@@ -46,12 +46,6 @@ public class ChannelUtils {
 	private static final String PRIVATEKEY_KEY = "ssh.privateKey";
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
 
-	public static void closeQuietly(SecureChannel channel) {
-		if (channel != null) {
-			channel.close();
-		}
-	}
-
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc) {
 		return getContext(env, enc, DEFAULT);
 	}
@@ -134,4 +128,11 @@ public class ChannelUtils {
 			return result;
 		}
 	}
+
+	public static void closeQuietly(SecureChannel channel) {
+		if (channel != null) {
+			channel.close();
+		}
+	}
+
 }
