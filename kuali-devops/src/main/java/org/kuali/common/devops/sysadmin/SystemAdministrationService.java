@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SystemAdministrationService {
 
-	void enableRootSSH(String publicKey);
+	void enableRootSSH();
 
 	void resizeRootVolume();
 
