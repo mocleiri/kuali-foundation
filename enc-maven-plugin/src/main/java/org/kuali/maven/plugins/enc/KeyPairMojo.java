@@ -15,22 +15,18 @@
  */
 package org.kuali.maven.plugins.enc;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
+import org.kuali.common.util.enc.Algorithm;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.file.CanonicalFile;
-
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 
 /**
  * Generate a public key / private key pair
@@ -38,8 +34,6 @@ import com.jcraft.jsch.JSchException;
  * @goal keypair
  */
 public class KeyPairMojo extends AbstractMojo {
-
-	private static final String UTF8 = "UTF-8";
 
 	/**
 	 * The Maven project object
@@ -95,11 +89,15 @@ public class KeyPairMojo extends AbstractMojo {
 	private File privateKey;
 
 	@Override
-	public void execute() throws MojoExecutionException {
+	public void execute() {
 		Assert.noBlanks(name);
 		Assert.noNulls(algorithm, project, publicKey, privateKey);
 		Assert.positive(size);
-		KeyPair keyPair = getKeyPair(name, size, algorithm);
+		KeyPair keyPair = EncUtils.getKeyPair(name, size, algorithm);
+		write(keyPair);
+	}
+
+	protected void write(KeyPair keyPair) {
 		try {
 			getLog().info("Public  Key generated to -> " + getRelativePath(publicKey));
 			FileUtils.write(publicKey, keyPair.getPublicKey().get());
@@ -114,42 +112,4 @@ public class KeyPairMojo extends AbstractMojo {
 		File parentDir = new CanonicalFile(project.getBasedir());
 		return FileSystemUtils.getRelativePathQuietly(parentDir, file).substring(1);
 	}
-
-	protected KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
-		int type = (Algorithm.RSA == algorithm) ? com.jcraft.jsch.KeyPair.RSA : com.jcraft.jsch.KeyPair.DSA;
-		JSch jsch = new JSch();
-		com.jcraft.jsch.KeyPair keyPair = getKeyPair(jsch, type, size);
-		String publicKey = getPublicKey(keyPair, name).trim();
-		String privateKey = getPrivateKey(keyPair);
-		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).build();
-	}
-
-	protected com.jcraft.jsch.KeyPair getKeyPair(JSch jsch, int type, int size) {
-		try {
-			return com.jcraft.jsch.KeyPair.genKeyPair(jsch, type, size);
-		} catch (JSchException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	protected String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		keyPair.writePrivateKey(out);
-		return toUTF8String(out);
-	}
-
-	protected String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		keyPair.writePublicKey(out, name);
-		return toUTF8String(out);
-	}
-
-	protected String toUTF8String(ByteArrayOutputStream out) {
-		try {
-			return out.toString(UTF8);
-		} catch (UnsupportedEncodingException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
 }
