@@ -72,8 +72,8 @@
 
    $('#edit_attachments_proposal_entry<?php echo $id?>').click(function(){
 
-         $.post('process.php', {"action": "editAttachmentProposalEntry", "id" : $(this).attr('entryId') }, function(t){
-            $("#attachmentProposalInfo<?php echo $id?>").html(t);
+         $.post('process.php', {"section": "proposal", "action": "editAttachmentsEntry", "id" : $(this).attr('entryId') }, function(t){
+            $("#attachmentsProposalInfo<?php echo $id?>").html(t);
          });
 
          return false;
@@ -81,7 +81,7 @@
 
     $('#cancel_attachments_proposal_preview<?php echo $id?>').click(function(){
 
-        $("#attachmentProposalCollapse<?php echo $id?>").collapse('hide');
+        $("#attachmentsProposalCollapse<?php echo $id?>").collapse('hide');
         return false;
     });
 

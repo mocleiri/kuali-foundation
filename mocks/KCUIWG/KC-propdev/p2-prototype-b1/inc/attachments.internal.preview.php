@@ -36,8 +36,8 @@
 
    $('#edit_attachments_internal_entry<?php echo $id?>').click(function(){
 
-         $.post('process.php', {"action": "editAttachmentInternalEntry", "id" : $(this).attr('entryId') }, function(t){
-            $("#attachmentInternalInfo<?php echo $id?>").html(t);
+         $.post('process.php', {"section": "internal", "action": "editAttachmentsEntry", "id" : $(this).attr('entryId') }, function(t){
+            $("#attachmentsInternalInfo<?php echo $id?>").html(t);
          });
 
          return false;

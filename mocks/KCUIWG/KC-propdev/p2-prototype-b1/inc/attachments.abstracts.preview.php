@@ -34,7 +34,7 @@
 
    $('#edit_attachments_abstracts_entry<?php echo $id?>').click(function(){
 
-         $.post('process.php', {"action": "editAttachmentAbstractsEntry", "id" : $(this).attr('entryId') }, function(t){
+         $.post('process.php', {"section": "abstracts", "action": "editAttachmentsEntry", "id" : $(this).attr('entryId') }, function(t){
             $("#attachmentAbstractsInfo<?php echo $id?>").html(t);
          });
 

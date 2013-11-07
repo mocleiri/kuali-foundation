@@ -1,6 +1,7 @@
 <form method="post" class="form-horizontal" id="add-attachments-personnel-form" enctype="multipart/form-data">
 <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
+<input type="hidden" id="section" name="section" value="personnel"/>
   <div class="form-group clearfix">
     <label for="person" class="control-label col-md-3">Person:</label>
     <div class="col-md-9">

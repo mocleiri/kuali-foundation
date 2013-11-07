@@ -1,5 +1,6 @@
 <form method="post" class="form-horizontal" id="add-attachments-proposal-form" enctype="multipart/form-data">
   <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
+  <input type="hidden" id="section" name="section" value="proposal"/>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group clearfix">

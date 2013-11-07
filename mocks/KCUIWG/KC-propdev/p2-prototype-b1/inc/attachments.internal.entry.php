@@ -1,4 +1,4 @@
-<div class="panel panel-default" id="attachmentInternalEntry<?php echo $id?>">
+<div class="panel panel-default" id="attachmentsInternalEntry<?php echo $id?>">
     <div class="panel-heading">
       <div class="row">
         <div class="col-md-6">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div id="attachmentsInternalCollapse<?php echo $id?>" class="panel-collapse collapse">
-          <div class="panel-body" id="attachmentInternalInfo<?php echo $id?>">
+          <div class="panel-body" id="attachmentsInternalInfo<?php echo $id?>">
         <?php include "attachments.internal.preview.php";?>
       </div>
     </div>

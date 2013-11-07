@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="btn-row-widget-action pull-right">
-    <button class="btn btn-primary btn-xs" id="edit_attachment_personnel_entry<?php echo $id?>" entryId="<?php echo $id?>"> Edit</button>
+    <button class="btn btn-primary btn-xs" id="edit_attachments_personnel_entry<?php echo $id?>" entryId="<?php echo $id?>"> Edit</button>
     <button class="btn btn-link btn-xs" id="cancel_attachments_personnel_preview<?php echo $id?>"> Cancel</button>
   </div>
 </form>
@@ -39,10 +39,10 @@
   $(document).ready(function(){
 
 
-   $('#edit_attachment_personnel_entry<?php echo $id?>').click(function(){
+   $('#edit_attachments_personnel_entry<?php echo $id?>').click(function(){
 
-         $.post('process.php', {"action": "editAttachmentPersonnelEntry", "id" : $(this).attr('entryId') }, function(t){
-            $("#attachmentPersonnelInfo<?php echo $id?>").html(t);
+         $.post('process.php', {"section": "personnel", "action": "editAttachmentsEntry", "id" : $(this).attr('entryId') }, function(t){
+            $("#attachmentsPersonnelInfo<?php echo $id?>").html(t);
          });
          return false;
    });

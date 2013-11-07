@@ -1,14 +1,15 @@
  <script>
 
        $(document).ready(function(){
-          $('#attachment-internal-form<?php echo $id?> #type').val("<?php echo $entry['type']?>");
+          $('#attachments-internal-form<?php echo $id?> #type').val("<?php echo $entry['type']?>");
 
        });
 
      </script>
-<form method="post" class="form-horizontal" enctype="multipart/form-data" id="attachment-internal-form<?php echo $id?>" >
+<form method="post" class="form-horizontal" enctype="multipart/form-data" id="attachments-internal-form<?php echo $id?>" >
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
 <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
+<input type="hidden" id="section" name="section" value="internal"/>
   <div class="form-group clearfix">
     <label for="" class="control-label col-md-3">Added by:</label>
     <div class="col-md-9 input-group">
@@ -51,7 +52,7 @@
     </div>
   </div>
   <div class="btn-row-widget-action pull-right">
-    <button class="btn btn-primary btn-xs update-attachment-internal-entry" entryId="<?php echo $id?>" id="update-attachment-internal-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
+    <button class="btn btn-primary btn-xs update-attachments-internal-entry" entryId="<?php echo $id?>" id="update-attachments-internal-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
         <button class="btn btn-link btn-xs cancel-update-attachments-internal-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-internal-entry<?php echo $id?>"> Cancel</button>
   </div>
 </form>

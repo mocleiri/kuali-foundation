@@ -9,6 +9,7 @@
 <form method="post" class="form-horizontal" enctype="multipart/form-data" id="attachment-personnel-form<?php echo $id?>" >
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
 <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
+<input type="hidden" id="section" name="section" value="personnel"/>
   <div class="form-group clearfix">
     <label for="" class="control-label col-md-3">Added by:</label>
     <div class="col-md-9 input-group">
@@ -61,7 +62,7 @@
     </div>
   </div>
   <div class="btn-row-widget-action pull-right">
-    <button class="btn btn-primary btn-xs update-attachment-personnel-entry" entryId="<?php echo $id?>" id="update-attachment-personnel-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
-    <button class="btn btn-link btn-xs cancel-update-attachment-personnel-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-personnel-entry<?php echo $id?>"> Cancel</button>
+    <button class="btn btn-primary btn-xs update-attachments-personnel-entry" entryId="<?php echo $id?>" id="update-attachments-personnel-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
+    <button class="btn btn-link btn-xs cancel-update-attachments-personnel-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-personnel-entry<?php echo $id?>"> Cancel</button>
   </div>
 </form>

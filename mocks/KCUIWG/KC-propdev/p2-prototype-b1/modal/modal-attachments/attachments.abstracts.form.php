@@ -1,5 +1,6 @@
 <form method="post" class="form-horizontal" enctype="multipart/form-data" id="add-attachments-abstracts-form">
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
+<input type="hidden" id="section" name="section" value="abstracts"/>
   <div class="form-group clearfix">
     <label for="approval_status" class="control-label col-md-3">Abstract Type:</label>
     <div class="col-md-9">

@@ -48,7 +48,7 @@ $(document).ready(function(){
 //       $entry['approval_date'] = '';
 //       $entry['expiration_date'] = '';
         $actionLabel = "Add Entry";
-        $action = "addAttachmentsPersonnelEntry";
+        $action = "addAttachmentsEntry";
         include "attachments.personnel.form.php";?>
 
             </div>

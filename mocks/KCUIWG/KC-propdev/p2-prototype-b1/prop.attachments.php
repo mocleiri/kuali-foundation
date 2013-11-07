@@ -77,7 +77,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </div>
           <div class="tab-pane" id="abstracts">
             <h4>Abstracts</h4>
-            <div class="panel-group" id="accordion4">
+            <div class="panel-group attachments-abstracts-entries" id="accordion4">
 
                 <?php
                       if(isset($_SESSION['attachments']['abstracts']) && is_array($_SESSION['attachments']['abstracts'])){
@@ -94,45 +94,20 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </div>
           <div class="tab-pane" id="notes">
             <h4>Notes</h4>
-            <div class="panel-group" id="accordion">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4 class="panel-title"> <a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse7"><span aria-hidden="true" class="icon-caret-right"></span>My Note Title</a> </h4>
-                    </div>
-                    <div class="col-md-3"> McGregor, Geoff </div>
-                    <div class="col-md-3"> 10/29/2013 09:58 AM </div>
-                  </div>
-                </div>
-                <div id="collapse7" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <form method="post" class="form-horizontal">
-                      <div class="form-group clearfix">
-                        <label for="" class="control-label col-md-3">Added by:</label>
-                        <div class="col-md-9 input-group">
-                          <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
-                        </div>
-                      </div>
-                      <div class="form-group clearfix">
-                        <label for="approval_status" class="control-label col-md-3">Note Topic:</label>
-                        <div class="col-md-9">
-                          <p class="form-control-static">My Note Title</p>
-                        </div>
-                      </div>
-                      <div class="form-group clearfix">
-                        <label for="" class="control-label col-md-3">Note Text:</label>
-                        <div class="col-md-9 input-group">
-                          <p class="form-control-static">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</p>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+            <div class="panel-group attachments-notes-entries" id="accordion5">
+
+
+              <?php
+                    if(isset($_SESSION['attachments']['notes']) && is_array($_SESSION['attachments']['notes'])){
+                       foreach($_SESSION['attachments']['notes'] as $id=>$entry){
+                           include "inc/attachments.notes.entry.php";
+                       }
+                   }
+               ?>
+
             </div>
             <div class="btn-row-widget-action">
-              <button class="btn btn-default btn-xs" id=""><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+              <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.notes.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
             </div>
           </div>
         </div>
@@ -166,17 +141,16 @@ $(document).ready(function(){
 
     $(".remove-attachments-proposal-entry").live("click", function(){
             var container = $(this).parents('div').eq(3);
-
-            if(confirm("Are you sure you want to remove this entry")) $(container).remove();
-             console.log($(this).attr('entryId'));
-             var id = $(this).attr('entryId');
-             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsProposalEntry'}, function(){
+            var id = $(this).attr('entryId');
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentsProposalEntry" + id).remove();
+             //console.log($(this).attr('entryId'));
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsEntry', "section": "proposal"}, function(){
 
              });
              return false;
     });
 
-     $('.update-attachment-proposal-entry').live('click' , function(e){
+     $('.update-attachments-proposal-entry').live('click' , function(e){
 
         var data = $(this).closest('form').serialize();
         var entryId= $(this).attr("entryId");
@@ -185,7 +159,7 @@ $(document).ready(function(){
 
        // $.post('save-session.php', data, function(){
          $.post('process.php', data, function(t){
-              $('#attachmentProposalEntry' + entryId).replaceWith(t);
+              $('#attachmentsProposalEntry' + entryId).replaceWith(t);
 
           });
        //  });
@@ -193,12 +167,10 @@ $(document).ready(function(){
         return false;
      });
 
-     $('.cancel-update-attachment-proposal-entry').live('click', function(e){
-
-         var container = $(this).parents('div').eq(2);
-
-         $.post('process.php', {"action": "previewAttachmentProposalEntry", "id" : $(this).attr('entryId') }, function(t){
-              $(container).html(t);
+     $('.cancel-update-attachments-proposal-entry').live('click', function(e){
+         var id = $(this).attr('entryId');
+         $.post('process.php', {"section": "proposal", "action": "previewAttachmentEntry", "id" : id }, function(t){
+              $("#attachmentsProposalInfo" + id).html(t);
 
          });
          return false;
@@ -212,21 +184,21 @@ $(document).ready(function(){
     $(".remove-attachments-personnel-entry").live("click", function(){
 
             var id = $(this).attr('entryId');
-            if(confirm("Are you sure you want to remove this entry")) $("#attachmentPersonnelEntry"+ id).remove();
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentsPersonnelEntry"+ id).remove();
 
-             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsPersonnelEntry'}, function(){
+             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsEntry', "section": "personnel"}, function(){
 
              });
              return false;
     });
 
-     $('.update-attachment-personnel-entry').live('click' , function(e){
+     $('.update-attachments-personnel-entry').live('click' , function(e){
         var id= $(this).attr("entryId");
         var form = $(this).closest('form');
         var data = $(form).serialize();
         // console.log(id);
              $.post('process.php', data, function(t){
-                  $('#attachmentPersonnelEntry' + id).replaceWith(t);
+                  $('#attachmentsPersonnelEntry' + id).replaceWith(t);
 
               });
 
@@ -234,9 +206,10 @@ $(document).ready(function(){
         return false;
      });
 
-     $('.cancel-update-attachment-personnel-entry').live('click', function(e){
-         $.post('process.php', {"action": "previewAttachmentPersonnelEntry", "id" : id }, function(t){
-            $("#attachmentPersonnelInfo" + id).html(t);
+     $('.cancel-update-attachments-personnel-entry').live('click', function(e){
+        var id= $(this).attr("entryId");
+         $.post('process.php', {"action": "previewAttachmentsEntry", "id" : id, "section": "personnel" }, function(t){
+            $("#attachmentsPersonnelInfo" + id).html(t);
        });
          return false;
      });
@@ -250,21 +223,21 @@ $(document).ready(function(){
     $(".remove-attachments-internal-entry").live("click", function(){
 
             var id = $(this).attr('entryId');
-            if(confirm("Are you sure you want to remove this entry")) $("#attachmentInternalEntry"+ id).remove();
+            if(confirm("Are you sure you want to remove this entry")) $("#attachmentsInternalEntry"+ id).remove();
 
-             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsInternalEntry'}, function(){
+             $.post('process.php', {"section": "personnel", 'id': id, 'action' : 'removeAttachmentsEntry'}, function(){
 
              });
              return false;
     });
 
-     $('.update-attachment-internal-entry').live('click' , function(e){
+     $('.update-attachments-internal-entry').live('click' , function(e){
         var id= $(this).attr("entryId");
         var form = $(this).closest('form');
         var data = $(form).serialize();
         // console.log(id);
              $.post('process.php', data, function(t){
-                  $('#attachmentInternalEntry' + id).replaceWith(t);
+                  $('#attachmentsInternalEntry' + id).replaceWith(t);
 
               });
 
@@ -274,9 +247,9 @@ $(document).ready(function(){
 
      $('.cancel-update-attachments-internal-entry').live('click', function(e){
          var id = $(this).attr('entryId');
-         $.post('process.php', {"action": "previewAttachmentInternalEntry", "id" : id }, function(t){
+         $.post('process.php', {"section": "personnel", "action": "previewAttachmentsEntry", "id" : id }, function(t){
 
-            $("#attachmentInternalInfo" + id).html(t);
+            $("#attachmentsInternalInfo" + id).html(t);
        });
          return false;
      });
@@ -289,22 +262,22 @@ $(document).ready(function(){
 
     $(".remove-attachments-abstracts-entry").live("click", function(){
 
-            var id = $(this).attr('entryId');
-            if(confirm("Are you sure you want to remove this entry")) $("#attachmentAbstractsEntry"+ id).remove();
+                var id = $(this).attr('entryId');
+                if(confirm("Are you sure you want to remove this entry")) $("#attachmentsAbstractsEntry"+ id).remove();
 
-             $.post('process.php', {'id': id, 'action' : 'removeAttachmentsAbstractsEntry'}, function(){
+                 $.post('process.php', {"section": "personnel", 'id': id, 'action' : 'removeAttachmentsEntry'}, function(){
 
-             });
-             return false;
-    });
+                 });
+                 return false;
+        });
 
-     $('.update-attachment-abstracts-entry').live('click' , function(e){
+     $('.update-attachments-abstracts-entry').live('click' , function(e){
         var id= $(this).attr("entryId");
         var form = $(this).closest('form');
         var data = $(form).serialize();
         // console.log(id);
              $.post('process.php', data, function(t){
-                  $('#attachmentAbstractsEntry' + id).replaceWith(t);
+                  $('#attachmentsAbstractsEntry' + id).replaceWith(t);
 
               });
 
@@ -314,7 +287,7 @@ $(document).ready(function(){
 
      $('.cancel-update-attachments-abstracts-entry').live('click', function(e){
          var id = $(this).attr('entryId');
-         $.post('process.php', {"action": "previewAttachmentAbstractsEntry", "id" : id }, function(t){
+         $.post('process.php', {"section": "abstracts", "action": "previewAttachmentsEntry", "id" : id }, function(t){
 
             $("#attachmentAbstractsInfo" + id).html(t);
        });
@@ -324,5 +297,6 @@ $(document).ready(function(){
 
 });
 </script>
+
 
 <?php require_once( 'themes/kc/inc/footer.php' ); ?>

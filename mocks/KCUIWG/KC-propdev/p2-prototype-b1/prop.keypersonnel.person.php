@@ -82,7 +82,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                     </div>
                     </form>
                 </div>
-                <div class="tab-pane" id="p1_organization<?php echo $_SESSION['personnelId']?>">
+                <div class="tab-pane" id="p1_organization<?php echo $id?>">
                     <h4>Organization</h4>
                     <form class="form-horizontal" role="form">
                     <div class="row">
@@ -540,7 +540,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                     </div>
                     </form>
                 </div>
-                <div class="tab-pane" id="p1_education<?php echo $_SESSION['personnelId']?>">
+                <div class="tab-pane" id="p1_education<?php echo $id?>">
                     <h4>Education</h4>
                     <form class="form-horizontal" role="form">
                     <div class="row">
@@ -581,7 +581,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                     </div>
                 </form>
             </div>
-            <div class="tab-pane" id="p1_extendedDetails<?php echo $_SESSION['personnelId']?>">
+            <div class="tab-pane" id="p1_extendedDetails<?php echo $id?>">
                 <h4>Extended Details</h4>
                 <form class="form-horizontal" role="form">
                 <div class="row">
@@ -760,7 +760,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                 </div>
                 </form>
             </div>
-            <div class="tab-pane" id="p1_degrees<?php echo $_SESSION['personnelId']?>">
+            <div class="tab-pane" id="p1_degrees<?php echo $id?>">
                 <h4>Degrees</h4>
                 <form class="form-horizontal" role="form">
                 <table class="table table-condensed table-smaller-text" id="table">
@@ -792,7 +792,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                 <a class="btn btn-default btn-xs" id="" href="#"><span aria-hidden="true" class="icon-plus"></span> Add Degree</a>
                 </form>
             </div>
-            <div class="tab-pane" id="p1_unitDetails<?php echo $_SESSION['personnelId']?>">
+            <div class="tab-pane" id="p1_unitDetails<?php echo $id?>">
                 <h4>Unit Details</h4>
                 <form class="form-horizontal" role="form">
                 <table class="table table-condensed table-smaller-text" id="table">
@@ -819,7 +819,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                 <a class="btn btn-default btn-xs" id="" href="#"><span aria-hidden="true" class="icon-plus"></span> Add Unit</a>
                 </form>
             </div>
-            <div class="tab-pane" id="p1_proposalPersonCertification<?php echo $_SESSION['personnelId']?>">
+            <div class="tab-pane" id="p1_proposalPersonCertification<?php echo $id?>">
                 <h4>Proposal Certification</h4>
                 <div class="question-set">
                     <fieldset class="question">

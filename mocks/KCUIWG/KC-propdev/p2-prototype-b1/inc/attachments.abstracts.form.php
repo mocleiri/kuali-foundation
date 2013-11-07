@@ -9,10 +9,11 @@
 <form method="post" class="form-horizontal" enctype="multipart/form-data" id="attachment-abstracts-form<?php echo $id?>" >
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
 <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
+<input type="hidden" id="section" name="section" value="abstracts"/>
   <div class="form-group clearfix">
     <label for="" class="control-label col-md-3">Added by:</label>
     <div class="col-md-9 input-group">
-      <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(10/29/2013 09:58 AM)</span></p>
+      <p class="form-control-static"> McGregor, Geoff <span class="text-muted">(<?php echo $entry['uploadTime']?>)</span></p>
     </div>
   </div>
   <div class="form-group clearfix">
@@ -42,13 +43,13 @@
   <div class="form-group clearfix">
     <label for="description" class="control-label col-md-3">Abstract Details:</label>
     <div class="col-md-9 input-group">
-      <textarea class="form-control" rows="5" name="description" id="description">Following invidious one hurried less formidable that this mindful and crud inescapable sobbed irrespective together exaggerated ambidextrous walking this absentminded hello iguanodon and well much understood jeez.</textarea>
+      <textarea class="form-control" rows="5" name="description" id="description"><?php echo $entry['description']?></textarea>
     </div>
   </div>
 
 
   <div class="btn-row-widget-action pull-right">
-   <button class="btn btn-primary btn-xs update-attachment-abstracts-entry" entryId="<?php echo $id?>" id="update-attachment-abstracts-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
+   <button class="btn btn-primary btn-xs update-attachments-abstracts-entry" entryId="<?php echo $id?>" id="update-attachments-abstracts-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
    <button class="btn btn-link btn-xs cancel-update-attachments-abstracts-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-abstracts-entry<?php echo $id?>"> Cancel</button>
   </div>
 

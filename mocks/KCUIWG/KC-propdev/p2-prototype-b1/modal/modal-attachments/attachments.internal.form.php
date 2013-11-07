@@ -1,7 +1,7 @@
 <form method="post" class="form-horizontal" enctype="multipart/form-data" id="add-attachments-internal-form" >
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
 <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
-
+<input type="hidden" id="section" name="section" value="internal"/>
   <div class="form-group clearfix">
     <label for="type" class="control-label col-md-3">Attachment Type:</label>
     <div class="col-md-9">

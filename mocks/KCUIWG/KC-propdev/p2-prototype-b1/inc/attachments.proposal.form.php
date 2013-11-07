@@ -1,14 +1,15 @@
  <script>
 
        $(document).ready(function(){
-           $('#attachment-proposal-form<?php echo $id?> #type').val("<?php echo $entry['type']?>");
-           $('#attachment-proposal-form<?php echo $id?> #approval_status').val("<?php echo $entry['approval_status']?>");
+           $('#attachments-proposal-form<?php echo $id?> #type').val("<?php echo $entry['type']?>");
+           $('#attachments-proposal-form<?php echo $id?> #approval_status').val("<?php echo $entry['approval_status']?>");
        });
 
      </script>
-                    <form method="post" class="form-horizontal" id="attachment-proposal-form<?php echo $id?>" enctype="multipart/form-data">
+                    <form method="post" class="form-horizontal" id="attachments-proposal-form<?php echo $id?>" enctype="multipart/form-data">
                     <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
                     <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
+                    <input type="hidden" id="section" name="section" value="proposal"/>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group clearfix">
@@ -97,8 +98,8 @@
                           </div>
                         </div>
                         <div class="btn-row-widget-action pull-right">
-                          <button class="btn btn-primary btn-xs update-attachment-proposal-entry" entryId="<?php echo $id?>" id="update-attachment-proposal-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
-                          <button class="btn btn-link btn-xs cancel-update-attachment-proposal-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-proposal-entry<?php echo $id?>"> Cancel</button>
+                          <button class="btn btn-primary btn-xs update-attachments-proposal-entry" entryId="<?php echo $id?>" id="update-attachments-proposal-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
+                          <button class="btn btn-link btn-xs cancel-update-attachments-proposal-entry" entryId="<?php echo $id?>" id="cancel-update-attachments-proposal-entry<?php echo $id?>"> Cancel</button>
                         </div>
                       </div>
                     </form>

@@ -51,7 +51,7 @@ $(document).ready(function(){
        $entry['approval_date'] = '';
        $entry['expiration_date'] = '';
         $actionLabel = "Add Entry";
-        $action = "addAttachmentsProposalEntry";
+        $action = "addAttachmentsEntry";
         include "attachments.proposal.form.php";?>
 
             </div>
