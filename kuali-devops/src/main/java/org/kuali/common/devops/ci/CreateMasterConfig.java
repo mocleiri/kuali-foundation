@@ -99,6 +99,7 @@ public class CreateMasterConfig {
 		Instance instance = service.launchInstance(instanceContext);
 		enableRootSSH(instance, instanceContext);
 		doRoot(instance, instanceContext);
+		doDNS(instance);
 		return null; // new ExecutablesExecutable(show);
 	}
 
@@ -160,9 +161,10 @@ public class CreateMasterConfig {
 
 	protected void doDNS(Instance instance) {
 		String aliasFQDN = "test.ci.kuali.org";
-		Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, instance.getPublicDnsName());
+		String canonicalFQDN = instance.getPublicDnsName();
+		Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
 		cname.execute();
-		System.out.println(aliasFQDN + " -> " + instance.getPublicDnsName());
+		logger.info(aliasFQDN + " -> " + instance.getPublicDnsName());
 	}
 
 	@Bean
