@@ -84,6 +84,25 @@ public final class ChannelContext {
 			this.hostname = hostname;
 		}
 
+		public Builder(ChannelContext provided) {
+			this.username = provided.username;
+			this.hostname = provided.hostname;
+			this.port = provided.port;
+			this.encoding = provided.encoding;
+			this.connectTimeout = provided.connectTimeout;
+			this.options = provided.options;
+			this.strictHostKeyChecking = provided.strictHostKeyChecking;
+			this.requestPseudoTerminal = provided.requestPseudoTerminal;
+			this.knownHosts = provided.knownHosts;
+			this.config = provided.config;
+			this.useConfigFile = provided.useConfigFile;
+			this.includeDefaultPrivateKeyLocations = provided.includeDefaultPrivateKeyLocations;
+			this.waitForClosedSleepMillis = provided.waitForClosedSleepMillis;
+			this.privateKeyFiles = provided.privateKeyFiles;
+			this.privateKeys = provided.privateKeys;
+			this.useKnownHosts = provided.useKnownHosts;
+		}
+
 		public Builder requestPseudoTerminal(boolean requestPseudoTerminal) {
 			this.requestPseudoTerminal = requestPseudoTerminal;
 			return this;
@@ -211,6 +230,9 @@ public final class ChannelContext {
 		}
 	}
 
+	/**
+	 * Any changes to this constructor must also be applied to the Builder(ChannelContext) constructor
+	 */
 	private ChannelContext(Builder builder) {
 		this.username = builder.username;
 		this.hostname = builder.hostname;
