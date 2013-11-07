@@ -2,7 +2,7 @@ package org.kuali.common.devops.sysadmin;
 
 import java.util.List;
 
-public interface SystemAdministrationService {
+public interface SysAdminService {
 
 	void enableRootSSH();
 
