@@ -19,6 +19,6 @@ import java.io.IOException;
 
 public interface ChannelManager {
 
-	SecureConnection getConnection(ConnectionContext connection) throws IOException;
+	SecureConnection getConnection(ConnectionContext context) throws IOException;
 
 }
