@@ -16,10 +16,14 @@
 package org.kuali.common.util.channel;
 
 import org.kuali.common.util.Str;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
 public class ChannelUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(ChannelUtils.class);
 
 	public static String getLocation(Optional<String> username, String hostname, RemoteFile file) {
 		return getLocation(username, hostname) + ":" + file.getAbsolutePath();
@@ -56,4 +60,29 @@ public class ChannelUtils {
 		}
 	}
 
+	/**
+	 * Execute <code>command</code> on the channel and validate the exit value.
+	 * 
+	 * @throws IllegalStateException
+	 *             If the command returns with a non-zero exit value
+	 */
+	public static Result exec(SecureChannel channel, String command, boolean echo) {
+		if (echo) {
+			logger.info(command);
+		}
+		Result result = channel.executeCommand(command);
+		if (result.getExitValue() != 0) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("\n");
+			sb.append(command);
+			sb.append("\n");
+			sb.append("Non-zero exit value: " + result.getExitValue() + "\n");
+			sb.append("stdout:[" + Str.flatten(result.getStdout()) + "]\n");
+			sb.append("stderr:[" + Str.flatten(result.getStderr()) + "]\n");
+			sb.append("\n");
+			throw new IllegalStateException(sb.toString());
+		} else {
+			return result;
+		}
+	}
 }
