@@ -22,8 +22,6 @@ import java.io.OutputStream;
 
 public interface SecureConnection {
 
-	void close();
-
 	Result executeCommand(String command);
 
 	Result executeCommand(String command, String stdin);
@@ -63,5 +61,7 @@ public interface SecureConnection {
 	void copyFile(RemoteFile source, OutputStream out) throws IOException;
 
 	String toString(RemoteFile source);
+
+	void close();
 
 }
