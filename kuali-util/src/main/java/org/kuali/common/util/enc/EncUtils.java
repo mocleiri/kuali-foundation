@@ -58,7 +58,8 @@ public class EncUtils {
 		com.jcraft.jsch.KeyPair keyPair = getKeyPair(jsch, type, size);
 		String publicKey = getPublicKey(keyPair, name).trim();
 		String privateKey = getPrivateKey(keyPair);
-		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).build();
+		String fingerprint = keyPair.getFingerPrint();
+		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).fingerprint(fingerprint).build();
 	}
 
 	protected static com.jcraft.jsch.KeyPair getKeyPair(JSch jsch, int type, int size) {
