@@ -29,7 +29,7 @@ import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.file.CanonicalFile;
 
 /**
- * Generate a public key / private key pair
+ * Generate a public key / private key pair suitable for use with AWS (Amazon Web Services)
  * 
  * @goal keypair
  */
