@@ -34,6 +34,9 @@
           <groupId>${project.groupId}</groupId>
           <artifactId>${project.artifactId}</artifactId>
           <version>${project.version}</version>
+          <configuration>
+            <password>${enc.password}</password>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
