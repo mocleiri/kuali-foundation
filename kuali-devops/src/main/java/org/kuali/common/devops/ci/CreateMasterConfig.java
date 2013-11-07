@@ -70,7 +70,7 @@ public class CreateMasterConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
 
-	private static final int TWENTY_FIVE_GIGABYTES = 25;
+	private static final int MASTER_ROOT_VOLUME_SIZE_IN_GIGABYTES = 250;
 
 	@Autowired
 	EC2Service service;
@@ -188,7 +188,7 @@ public class CreateMasterConfig {
 		String zone = AvailabilityZones.US_EAST_1D.getName();
 		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup(), SecurityGroups.CI.getGroup());
 		List<Tag> tags = getTags();
-		RootVolume rootVolume = new RootVolume(TWENTY_FIVE_GIGABYTES);
+		RootVolume rootVolume = new RootVolume(MASTER_ROOT_VOLUME_SIZE_IN_GIGABYTES);
 		boolean preventTermination = false; // TODO Switch this back to true before release
 		boolean overrideExistingSecurityGroupPermissions = true;
 		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
