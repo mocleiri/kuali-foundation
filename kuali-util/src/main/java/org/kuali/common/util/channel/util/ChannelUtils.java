@@ -67,9 +67,7 @@ public class ChannelUtils {
 	protected static List<String> getPrivateKeys(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
 		Optional<String> optional = SpringUtils.getString(env, PRIVATEKEY_KEY, Optional.<String> absent());
 		if (optional.isPresent()) {
-			String rawPrivateKey = optional.get();
-			String privateKey = EncUtils.isEncrypted(rawPrivateKey) ? enc.decrypt(rawPrivateKey) : rawPrivateKey;
-			return getDecrypted(enc, ImmutableList.of(privateKey));
+			return getDecrypted(enc, ImmutableList.of(optional.get()));
 		} else {
 			return getDecrypted(enc, provided.getPrivateKeys());
 		}
