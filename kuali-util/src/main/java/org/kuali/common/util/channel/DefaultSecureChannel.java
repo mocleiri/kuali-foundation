@@ -222,7 +222,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 		logger.debug("Strict host key checking - {}", connectionContext.isStrictHostKeyChecking());
 		logger.debug("Configuring channel with {} custom options", connectionContext.getOptions().size());
-		PropertyUtils.info(connectionContext.getOptions());
+		PropertyUtils.debug(connectionContext.getOptions());
 	}
 
 	protected ChannelSftp openSftpChannel(Session session, Optional<Integer> timeout) throws JSchException {
