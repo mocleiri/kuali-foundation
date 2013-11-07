@@ -21,21 +21,24 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-maven</artifactId>
-    <version>2.1.63</version>
+    <version>3.3.30</version>
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
-  <artifactId>crypto-maven-plugin</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <artifactId>enc-maven-plugin</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
-  <name>Crytpo Maven Plugin</name>
-  <inceptionYear>2009</inceptionYear>
-  <description>Encrypt / decrypt text</description>
+  <name>Enc Maven Plugin</name>
+  <inceptionYear>2013</inceptionYear>
+  <description>Encryption / Decryption / Security</description>
   <scm>
-    <connection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/crypto-maven-plugin</connection>
-    <developerConnection>scm:svn:https://svn.kuali.org/repos/foundation/trunk/crypto-maven-plugin</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/trunk/crypto-maven-plugin</url>
+    <connection>scm:${project.scm.vendor}:${project.scm.url}</connection>
+    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}</developerConnection>
+    <url>${project.scm.url}</url>
   </scm>
+  <properties>
+  <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
+  </properties>
   <developers>
     <developer>
       <id>jcaddel</id>
@@ -47,7 +50,7 @@
     <dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt</artifactId>
-      <version>1.9.0</version>
+      <version>1.9.1</version>
     </dependency>
   </dependencies>
   <build>
