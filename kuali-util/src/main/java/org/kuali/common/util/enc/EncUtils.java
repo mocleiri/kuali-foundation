@@ -73,16 +73,16 @@ public class EncUtils {
 	protected static String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePrivateKey(out);
-		return toUTF8String(out);
+		return toStringUTF8(out);
 	}
 
 	protected static String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePublicKey(out, name);
-		return toUTF8String(out);
+		return toStringUTF8(out);
 	}
 
-	protected static String toUTF8String(ByteArrayOutputStream out) {
+	protected static String toStringUTF8(ByteArrayOutputStream out) {
 		try {
 			return out.toString(UTF8);
 		} catch (UnsupportedEncodingException e) {
