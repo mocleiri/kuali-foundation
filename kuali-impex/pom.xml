@@ -44,7 +44,7 @@
     <liquibase-core.version>3.0.0-rc1</liquibase-core.version>
     <guava.version>14.0.1</guava.version>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
-    <kuali-util.version>4.4.7-SNAPSHOT</kuali-util.version>
+    <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
     <kuali-jdbc.version>3.1.11-SNAPSHOT</kuali-jdbc.version>
     <eclipse-moxy.version>2.5.0</eclipse-moxy.version>
   </properties>
