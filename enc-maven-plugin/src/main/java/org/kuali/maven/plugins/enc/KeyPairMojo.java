@@ -61,7 +61,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The key size
 	 * 
-	 * @parameter expression="${enc.size}" default-value=2048
+	 * @parameter expression="${enc.size}" default-value="2048"
 	 * @required
 	 */
 	private int size;
@@ -70,7 +70,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The key name
 	 * 
-	 * @parameter expression="${enc.name}" default-value=${user.name}
+	 * @parameter expression="${enc.name}" default-value="${user.name}"
 	 * @required
 	 */
 	private String name;
@@ -79,7 +79,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The file where the public key is generated
 	 * 
-	 * @parameter expression="${enc.publicKey}" default-value=${project.build.directory}/enc/id_rsa.pub
+	 * @parameter expression="${enc.publicKey}" default-value="${project.build.directory}/enc/id_rsa.pub"
 	 * @required
 	 */
 	private File publicKey;
@@ -88,7 +88,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The file where the private key is generated
 	 * 
-	 * @parameter expression="${enc.publicKey}" default-value=${project.build.directory}/enc/id_rsa
+	 * @parameter expression="${enc.publicKey}" default-value="${project.build.directory}/enc/id_rsa"
 	 * @required
 	 */
 	private File privateKey;
