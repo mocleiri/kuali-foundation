@@ -17,13 +17,16 @@ package org.kuali.maven.plugins.enc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.KeyPair;
+import org.kuali.common.util.file.CanonicalFile;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -74,18 +77,36 @@ public class KeyPairMojo extends AbstractMojo {
 
 	/**
 	 * 
-	 * The working directory where the key pair is generated
+	 * The file where the public key is generated
 	 * 
-	 * @parameter expression="${enc.workingDir}" default-value=${project.build.directory}/enc
+	 * @parameter expression="${enc.publicKey}" default-value=${project.build.directory}/enc/id_rsa.pub
 	 * @required
 	 */
-	private File workingDir;
+	private File publicKey;
+
+	/**
+	 * 
+	 * The file where the private key is generated
+	 * 
+	 * @parameter expression="${enc.publicKey}" default-value=${project.build.directory}/enc/id_rsa
+	 * @required
+	 */
+	private File privateKey;
 
 	@Override
 	public void execute() throws MojoExecutionException {
 		Assert.noBlanks(name);
-		Assert.noNulls(algorithm, project, workingDir);
+		Assert.noNulls(algorithm, project, publicKey, privateKey);
 		Assert.positive(size);
+		KeyPair keyPair = getKeyPair(name, size, algorithm);
+		try {
+			getLog().info(new CanonicalFile(publicKey).getPath());
+			FileUtils.write(publicKey, keyPair.getPublicKey().get());
+			getLog().info(new CanonicalFile(privateKey).getPath());
+			FileUtils.write(privateKey, keyPair.getPrivateKey().get());
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		}
 	}
 
 	protected KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
