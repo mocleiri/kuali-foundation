@@ -25,16 +25,16 @@
   </parent>
   <groupId>org.kuali.maven.plugins</groupId>
   <artifactId>enc-maven-plugin</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>maven-plugin</packaging>
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <name>Enc Maven Plugin</name>
   <inceptionYear>2013</inceptionYear>
   <description>Encryption / Decryption / Security</description>
   <scm>
-    <connection>scm:${project.scm.vendor}:${project.scm.url}</connection>
-    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}</developerConnection>
-    <url>${project.scm.url}</url>
+    <connection>scm:${project.scm.vendor}:${project.scm.url}/tags/enc-maven-plugin-1.0.0</connection>
+    <developerConnection>scm:${project.scm.vendor}:${project.scm.url}/tags/enc-maven-plugin-1.0.0</developerConnection>
+    <url>${project.scm.url}/tags/enc-maven-plugin-1.0.0</url>
   </scm>
   <properties>
     <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
