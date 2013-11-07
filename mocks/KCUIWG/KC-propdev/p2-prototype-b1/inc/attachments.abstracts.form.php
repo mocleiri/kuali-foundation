@@ -20,7 +20,7 @@
     <label for="approval_status" class="control-label col-md-3">Abstract Type:</label>
     <div class="col-md-9">
       <select name="type" id="type" class="form-control input-sm col-md-8">
-        <option value="">select</option>
+        <option value=""></option>
         <option value="Project Summary" selected="selected">Project Summary</option>
         <option value="Technical Abstract">Technical Abstract</option>
         <option value="Labs">Labs</option>

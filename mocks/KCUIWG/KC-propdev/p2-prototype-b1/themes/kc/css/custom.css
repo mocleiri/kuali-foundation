@@ -138,6 +138,11 @@ section.toolbar .dropdown a .caret {
   border-bottom-color: #666;
   border-top-color: #666;
 }
+.flexible {
+  min-width: 100px;
+  width: auto !important;
+  padding-right: 16px !important;
+}
 #main {
   background: #ffffff;
   padding-top: 75px;
@@ -1186,15 +1191,15 @@ th a:hover {
 }
 @font-face {
   font-family: 'ralewayregular';
-  src: url('../fonts/raleway/raleway-regular-webfont.eot');
-  src: url('../fonts/raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/raleway-regular-webfont.woff') format('woff'), url('../fonts/raleway/raleway-regular-webfont.ttf') format('truetype'), url('../fonts/raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
+  src: url('fonts/raleway/raleway-regular-webfont.eot');
+  src: url('fonts/raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/raleway/raleway-regular-webfont.woff') format('woff'), url('fonts/raleway/raleway-regular-webfont.ttf') format('truetype'), url('fonts/raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'ralewaysemibold';
-  src: url('../fonts/raleway/raleway-semibold-webfont.eot');
-  src: url('../fonts/raleway/raleway-semibold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/raleway-semibold-webfont.woff') format('woff'), url('../fonts/raleway/raleway-semibold-webfont.ttf') format('truetype'), url('../fonts/raleway/raleway-semibold-webfont.svg#ralewaysemibold') format('svg');
+  src: url('fonts/raleway/raleway-semibold-webfont.eot');
+  src: url('fonts/raleway/raleway-semibold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/raleway/raleway-semibold-webfont.woff') format('woff'), url('fonts/raleway/raleway-semibold-webfont.ttf') format('truetype'), url('fonts/raleway/raleway-semibold-webfont.svg#ralewaysemibold') format('svg');
   font-weight: normal;
   font-style: normal;
 }

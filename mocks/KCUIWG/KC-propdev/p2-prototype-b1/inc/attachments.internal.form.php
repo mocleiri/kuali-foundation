@@ -20,7 +20,7 @@
     <label for="type" class="control-label col-md-3">Attachment Type:</label>
     <div class="col-md-9">
       <select name="type" id="type" class="form-control input-sm col-md-8">
-        <option value="">select:</option>
+        <option value=""></option>
         <option value="MIT Cost-Sharing Distribution" selected="selected">MIT Cost-Sharing Distribution</option>
         <option value="MIT F&amp;A Under-recovery Distribution">MIT F&amp;A Under-recovery Distribution</option>
         <option value="Other Institutional Attachment">Other Institutional Attachment</option>
