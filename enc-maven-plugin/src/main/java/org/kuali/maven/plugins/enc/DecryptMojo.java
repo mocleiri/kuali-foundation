@@ -30,7 +30,7 @@ public class DecryptMojo extends AbstractMojo {
      *
      * The password for decrypting the specified text. This must be the same password that was used to encrypt it.
      *
-     * @parameter expression="${crypto.password}"
+     * @parameter expression="${enc.password}"
      * @required
      */
     private String password;
@@ -39,7 +39,7 @@ public class DecryptMojo extends AbstractMojo {
      *
      * The encrypted text to decrypt.
      *
-     * @parameter expression="${crypto.text}"
+     * @parameter expression="${enc.text}"
      * @required
      */
     private String text;
