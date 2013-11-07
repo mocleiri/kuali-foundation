@@ -40,6 +40,7 @@
     <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
     <jasypt.version>1.9.1</jasypt.version>
     <kuali-util.version>4.4.7-SNAPSHOT</kuali-util.version>
+    <jsch.version>0.1.50</jsch.version>
   </properties>
   <developers>
     <developer>
@@ -49,6 +50,11 @@
     </developer>
   </developers>
   <dependencies>
+    <dependency>
+      <groupId>com.jcraft</groupId>
+      <artifactId>jsch</artifactId>
+      <version>${jsch.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt</artifactId>
