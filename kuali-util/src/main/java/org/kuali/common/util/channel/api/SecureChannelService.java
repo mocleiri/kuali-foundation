@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.channel;
+package org.kuali.common.util.channel.api;
 
 import java.io.IOException;
+
+import org.kuali.common.util.channel.ChannelContext;
 
 public interface SecureChannelService {
 

@@ -35,6 +35,7 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
+import org.kuali.common.util.channel.api.SecureChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

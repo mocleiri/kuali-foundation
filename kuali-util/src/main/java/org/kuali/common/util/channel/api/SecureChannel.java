@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.channel;
+package org.kuali.common.util.channel.api;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.kuali.common.util.channel.RemoteFile;
+import org.kuali.common.util.channel.Result;
 
 public interface SecureChannel {
 
