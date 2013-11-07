@@ -2,7 +2,16 @@ package org.kuali.common.devops.sysadmin;
 
 import java.util.List;
 
-public class AmazonLinuxService implements SysAdminService {
+import org.kuali.common.util.Assert;
+
+public final class AmazonLinuxService implements SysAdminService {
+
+	public AmazonLinuxService(AmazonLinuxContext context) {
+		Assert.noNulls(context);
+		this.context = context;
+	}
+
+	private final AmazonLinuxContext context;
 
 	@Override
 	public void enableRootSSH() {
@@ -18,6 +27,10 @@ public class AmazonLinuxService implements SysAdminService {
 
 	@Override
 	public void installPackages(List<String> packages) {
+	}
+
+	public AmazonLinuxContext getContext() {
+		return context;
 	}
 
 }
