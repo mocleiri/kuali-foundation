@@ -97,6 +97,7 @@ public class CreateMasterConfig {
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
 		enableRootSSH(instance, instanceContext);
+		doRoot(instance, instanceContext);
 		return null; // new ExecutablesExecutable(show);
 	}
 
