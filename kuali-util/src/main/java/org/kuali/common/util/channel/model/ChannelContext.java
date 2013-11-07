@@ -84,9 +84,9 @@ public final class ChannelContext {
 			this.hostname = hostname;
 		}
 
-		public Builder(ChannelContext provided) {
+		public Builder(String hostname, ChannelContext provided) {
+			this(hostname);
 			this.username = provided.username;
-			this.hostname = provided.hostname;
 			this.port = provided.port;
 			this.encoding = provided.encoding;
 			this.connectTimeout = provided.connectTimeout;

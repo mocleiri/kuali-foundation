@@ -49,7 +49,7 @@ public class ChannelUtils {
 		Optional<String> username = SpringUtils.getString(env, USERNAME_KEY, provided.getUsername());
 		String privateKey = NullUtils.trimToNull(env.getString(PRIVATE_KEY_KEY, NullUtils.NONE));
 		boolean requestPseudoTerminal = env.getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, provided.isRequestPseudoTerminal());
-		return null;
+		return new ChannelContext.Builder(hostname, provided).username(username.orNull()).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 	}
 
 	public static String getLocation(Optional<String> username, String hostname, RemoteFile file) {
