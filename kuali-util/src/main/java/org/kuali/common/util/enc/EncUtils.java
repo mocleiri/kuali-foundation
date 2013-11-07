@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.enc;
 
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,9 +33,12 @@ import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 
 public class EncUtils {
 
+	private static final String UTF8 = "UTF8";
 	private static final String ENCRYPTED_PREFIX = "ENC(";
 	private static final String ENCRYPTED_SUFFIX = ")";
 
@@ -46,6 +51,43 @@ public class EncUtils {
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
+
+	public static KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
+		int type = (Algorithm.RSA == algorithm) ? com.jcraft.jsch.KeyPair.RSA : com.jcraft.jsch.KeyPair.DSA;
+		JSch jsch = new JSch();
+		com.jcraft.jsch.KeyPair keyPair = getKeyPair(jsch, type, size);
+		String publicKey = getPublicKey(keyPair, name).trim();
+		String privateKey = getPrivateKey(keyPair);
+		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).build();
+	}
+
+	protected static com.jcraft.jsch.KeyPair getKeyPair(JSch jsch, int type, int size) {
+		try {
+			return com.jcraft.jsch.KeyPair.genKeyPair(jsch, type, size);
+		} catch (JSchException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	protected static String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		keyPair.writePrivateKey(out);
+		return toUTF8String(out);
+	}
+
+	protected static String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		keyPair.writePublicKey(out, name);
+		return toUTF8String(out);
+	}
+
+	protected static String toUTF8String(ByteArrayOutputStream out) {
+		try {
+			return out.toString(UTF8);
+		} catch (UnsupportedEncodingException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	public static EncryptionContext getEncryptionContext(Properties properties) {
 		Environment environment = new PropertiesEnvironment(properties);
