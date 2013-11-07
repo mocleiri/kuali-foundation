@@ -71,6 +71,7 @@ public class CreateMasterConfig {
 	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
 
 	private static final int MASTER_ROOT_VOLUME_SIZE_IN_GIGABYTES = 250;
+	private static final String MASTER_DNS_NAME = "test.ci.kuali.org";
 
 	@Autowired
 	EC2Service service;
