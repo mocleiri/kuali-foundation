@@ -34,7 +34,7 @@ public class ChannelUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(ChannelUtils.class);
 
-	private static final ChannelContext NONE = new ChannelContext.Builder(NullUtils.NONE).build();
+	private static final ChannelContext DEFAULT = new ChannelContext.Builder(NullUtils.NONE).build();
 
 	private static final String USERNAME_KEY = "ssh.username";
 	private static final String HOSTNAME_KEY = "ssh.hostname";
@@ -42,7 +42,7 @@ public class ChannelUtils {
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
 
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc) {
-		return getContext(env, enc, NONE);
+		return getContext(env, enc, DEFAULT);
 	}
 
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
