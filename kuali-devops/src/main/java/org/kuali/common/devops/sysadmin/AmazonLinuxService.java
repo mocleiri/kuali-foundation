@@ -27,8 +27,8 @@ public final class AmazonLinuxService implements SysAdminService {
 		SecureChannel channel = null;
 		try {
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
-			String path = "/home/ec2-user/sshd_config";
-			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
+			String path = context.getEc2User().getHome() + "/sshd_config";
+			String command1 = "sudo cp " + context.getEc2User().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
 			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
 
