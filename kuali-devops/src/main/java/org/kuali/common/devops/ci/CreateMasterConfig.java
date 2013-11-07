@@ -39,6 +39,7 @@ import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
 import org.kuali.common.util.channel.ChannelContext;
+import org.kuali.common.util.channel.ChannelUtils;
 import org.kuali.common.util.channel.ConnectionContext;
 import org.kuali.common.util.channel.DefaultSecureChannel;
 import org.kuali.common.util.channel.RemoteFile;
@@ -106,18 +107,18 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
+			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			String path = "/home/ec2-user/sshd_config";
 			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
 			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
-			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			RemoteFile dst = new RemoteFile.Builder(path).build();
 
-			doCommand(channel, command1);
-			channel.copyLocationToFile(src, dst);
-			doCommand(channel, command2);
-			doCommand(channel, command3);
-			channel.deleteFile(path);
+			ChannelUtils.exec(channel, command1); // copy the authorized_keys file minus the header commands preventing ssh as root
+			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
+			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
+			ChannelUtils.exec(channel, command3); // restart the sshd service
+			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
