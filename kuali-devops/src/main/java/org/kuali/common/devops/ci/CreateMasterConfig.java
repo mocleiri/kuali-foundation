@@ -38,14 +38,13 @@ import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
-import org.kuali.common.util.channel.ChannelContext;
-import org.kuali.common.util.channel.ChannelUtils;
-import org.kuali.common.util.channel.ConnectionContext;
-import org.kuali.common.util.channel.DefaultSecureChannel;
-import org.kuali.common.util.channel.RemoteFile;
-import org.kuali.common.util.channel.Result;
-import org.kuali.common.util.channel.SecureChannel;
-import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.channel.api.SecureChannelService;
+import org.kuali.common.util.channel.model.ChannelContext;
+import org.kuali.common.util.channel.model.RemoteFile;
+import org.kuali.common.util.channel.model.Result;
+import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
+import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -67,7 +66,7 @@ import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class,
-		DNSMEServiceConfig.class })
+		DNSMEServiceConfig.class, DefaultSecureChannelServiceConfig.class })
 public class CreateMasterConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
@@ -92,6 +91,9 @@ public class CreateMasterConfig {
 	@Autowired
 	AwsAccount account;
 
+	@Autowired
+	SecureChannelService channelService;
+
 	@Bean
 	public Executable main() {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
@@ -108,44 +110,50 @@ public class CreateMasterConfig {
 	protected void doRoot(Instance instance, LaunchInstanceContext context) {
 		String rootDeviceName = instance.getRootDeviceName();
 		List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
-
-		KeyPair keyPair = context.getKeyPair();
-		String privateKey = keyPair.getPrivateKey().get();
-		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
-		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
-		String username = Users.ROOT.getLogin();
-		String hostname = instance.getPublicDnsName();
-		ConnectionContext conn = new ConnectionContext.Builder(username, hostname).build();
-		SecureChannel channel = new DefaultSecureChannel(cc);
+		ChannelContext cc = getRootContext(instance, context);
+		SecureChannel channel = null;
 		try {
-			channel.open(conn);
+			channel = channelService.getChannel(cc);
 			String cmd = "resize2fs " + rootDeviceName;
 			Result result = ChannelUtils.exec(channel, cmd);
 			logger.info("\n{}\n{}\n", cmd, result.getStdout());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
-			channel.close();
+			ChannelUtils.closeQuietly(channel);
 		}
 	}
 
-	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
+	protected ChannelContext getRootContext(Instance instance, LaunchInstanceContext context) {
 		KeyPair keyPair = context.getKeyPair();
 		String privateKey = keyPair.getPrivateKey().get();
-		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
-		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
+		String username = Users.ROOT.getLogin();
+		String hostname = instance.getPublicDnsName();
+		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).build();
+		return ChannelUtils.getContext(env, enc, provided);
+	}
+
+	protected ChannelContext getEC2UserContext(Instance instance, LaunchInstanceContext context) {
+		KeyPair keyPair = context.getKeyPair();
+		String privateKey = keyPair.getPrivateKey().get();
 		String username = Users.EC2USER.getLogin();
 		String hostname = instance.getPublicDnsName();
-		ConnectionContext conn = new ConnectionContext.Builder(username, hostname).requestPseudoTerminal(true).build();
-		SecureChannel channel = new DefaultSecureChannel(cc);
+		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).requestPseudoTerminal(true).build();
+		return ChannelUtils.getContext(env, enc, provided);
+	}
+
+	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
+		SecureChannel channel = null;
 		try {
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			String path = "/home/ec2-user/sshd_config";
 			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
 			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
+
+			ChannelContext cc = getEC2UserContext(instance, context);
+			channel = channelService.getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
-			channel.open(conn);
 			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
 			logger.info("cp {} {}", src, dst.getAbsolutePath());
 			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
@@ -156,7 +164,7 @@ public class CreateMasterConfig {
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
-			channel.close();
+			ChannelUtils.closeQuietly(channel);
 		}
 	}
 
