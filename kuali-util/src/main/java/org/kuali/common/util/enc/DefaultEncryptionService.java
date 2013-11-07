@@ -21,6 +21,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 
 	@Override
 	public String encrypt(String plainText) {
+		Assert.isFalse(EncUtils.isEncrypted(plainText), "Already encrypted");
 		String encryptedText = encryptor.encrypt(plainText);
 		return EncUtils.wrap(encryptedText);
 	}
