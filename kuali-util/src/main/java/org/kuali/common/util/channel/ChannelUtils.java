@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util.channel;
 
+import org.kuali.common.util.Str;
+
 import com.google.common.base.Optional;
 
 public class ChannelUtils {
@@ -38,8 +40,8 @@ public class ChannelUtils {
 			sb.append("\n");
 			sb.append(command + "\n");
 			sb.append("Non-zero exit value: " + result.getExitValue() + "\n");
-			sb.append("stdout:" + result.getStdout() + "\n");
-			sb.append("stderr:" + result.getStderr() + "\n");
+			sb.append("stdout:[" + Str.flatten(result.getStdout()) + "]\n");
+			sb.append("stderr:[" + Str.flatten(result.getStderr()) + "]\n");
 			sb.append("\n");
 			throw new IllegalStateException(sb.toString());
 		}
