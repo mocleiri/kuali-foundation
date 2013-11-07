@@ -17,39 +17,52 @@ package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.enc.EncUtils;
 
 /**
  * Decrypt the specified text using the specified password
- *
+ * 
  * @goal decrypt
  */
 public class DecryptMojo extends AbstractMojo {
 
-    /**
-     *
-     * The password for decrypting the specified text. This must be the same password that was used to encrypt it.
-     *
-     * @parameter expression="${enc.password}"
-     * @required
-     */
-    private String password;
+	/**
+	 * 
+	 * The password for decrypting the specified text. This must be the same password that was used to encrypt it.
+	 * 
+	 * @parameter expression="${enc.password}"
+	 * @required
+	 */
+	private String password;
 
-    /**
-     *
-     * The encrypted text to decrypt.
-     *
-     * @parameter expression="${enc.text}"
-     * @required
-     */
-    private String text;
+	/**
+	 * 
+	 * The encrypted text to decrypt. eg ENC(y9G0trn) -> FOO
+	 * 
+	 * @parameter expression="${enc.text}"
+	 * @required
+	 */
+	private String text;
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
-        encryptor.setPassword(password);
-        String decrypted = encryptor.decrypt(text);
-        getLog().info(text + " -> " + decrypted);
-    }
+	/**
+	 * 
+	 * The encryption strength, BASIC or STRONG
+	 * 
+	 * @parameter expression="${enc.strength}" default-value="BASIC"
+	 * @required
+	 */
+	private String strength;
 
+	@Override
+	public void execute() throws MojoExecutionException {
+		Assert.noBlanks(password, text, strength);
+		EncStrength encStrength = EncStrength.valueOf(strength.toUpperCase());
+		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, encStrength);
+		String unwrapped = EncUtils.isEncrypted(text) ? EncUtils.unwrap(text) : text;
+		String decrypted = encryptor.decrypt(unwrapped);
+		getLog().info(text + " -> " + decrypted);
+	}
 }

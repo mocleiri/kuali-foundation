@@ -17,39 +17,54 @@ package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.text.TextEncryptor;
+import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.EncStrength;
+import org.kuali.common.util.enc.EncUtils;
 
 /**
  * Encrypt the specified text using the specified password
- *
+ * 
  * @goal encrypt
  */
 public class EncryptMojo extends AbstractMojo {
 
-    /**
-     *
-     * The password for encrypting text. This same password can be used to to decrypt the encrypted text
-     *
-     * @parameter expression="${enc.password}"
-     * @required
-     */
-    private String password;
+	/**
+	 * 
+	 * The password for encrypting text. This same password must be used to decrypt the encrypted text
+	 * 
+	 * @parameter expression="${enc.password}"
+	 * @required
+	 */
+	private String password;
 
-    /**
-     *
-     * The text to encrypt.
-     *
-     * @parameter expression="${enc.text}"
-     * @required
-     */
-    private String text;
+	/**
+	 * 
+	 * The text to encrypt. eg FOO -> ENC(y9G0trn)
+	 * 
+	 * @parameter expression="${enc.text}"
+	 * @required
+	 */
+	private String text;
 
-    @Override
-    public void execute() throws MojoExecutionException {
-        BasicTextEncryptor encryptor = new BasicTextEncryptor();
-        encryptor.setPassword(password);
-        String encrypted = encryptor.encrypt(text);
-        getLog().info(text + " -> " + encrypted);
-    }
+	/**
+	 * 
+	 * The encryption strength, BASIC or STRONG
+	 * 
+	 * @parameter expression="${enc.strength}" default-value="BASIC"
+	 * @required
+	 */
+	private String strength;
+
+	@Override
+	public void execute() throws MojoExecutionException {
+		Assert.noBlanks(password, text, strength);
+		Assert.isFalse(EncUtils.isEncrypted(text), "Already encrypted");
+		EncStrength encStrength = EncStrength.valueOf(strength.toUpperCase());
+		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, encStrength);
+		String encrypted = encryptor.encrypt(text);
+		String wrapped = EncUtils.wrap(encrypted);
+		getLog().info(text + " -> " + wrapped);
+	}
 
 }
