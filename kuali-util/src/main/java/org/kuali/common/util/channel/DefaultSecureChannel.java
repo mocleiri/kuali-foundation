@@ -116,8 +116,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Preserve start time
 			long start = System.currentTimeMillis();
 			// Open an exec channel
-			exec = (ChannelExec) session.openChannel(EXEC);
-			exec.setPty(true);
+			exec = getChannelExec();
 			// Convert the command string to bytes
 			byte[] commandBytes = Str.getBytes(command, connectionContext.getEncoding());
 			// Store the command on the exec channel
@@ -153,6 +152,14 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
+	protected ChannelExec getChannelExec() throws JSchException {
+		ChannelExec exec = (ChannelExec) session.openChannel(EXEC);
+		if (connectionContext.isRequestPseudoTerminal()) {
+			exec.setPty(true);
+		}
+		return exec;
+	}
+
 	@Override
 	public void executeNoWait(String command) {
 		Assert.isTrue(open, "Not open");
@@ -160,7 +167,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		ChannelExec exec = null;
 		try {
 			// Open an exec channel
-			exec = (ChannelExec) session.openChannel(EXEC);
+			exec = getChannelExec();
 			// Convert the command string to bytes
 			byte[] commandBytes = Str.getBytes(command, connectionContext.getEncoding());
 			// Store the command on the exec channel
