@@ -37,7 +37,7 @@ public class ChannelUtils {
 
 	private static final String USERNAME_KEY = "ssh.username";
 	private static final String HOSTNAME_KEY = "ssh.hostname";
-	private static final String PRIVATE_KEY_KEY = "ssh.privateKey";
+	private static final String PRIVATEKEY_KEY = "ssh.privateKey";
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
 
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc) {
@@ -47,7 +47,7 @@ public class ChannelUtils {
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
 		String hostname = NullUtils.trimToNull(env.getString(HOSTNAME_KEY, provided.getHostname()));
 		Optional<String> username = SpringUtils.getString(env, USERNAME_KEY, provided.getUsername());
-		String privateKey = NullUtils.trimToNull(env.getString(PRIVATE_KEY_KEY, NullUtils.NONE));
+		String privateKey = NullUtils.trimToNull(env.getString(PRIVATEKEY_KEY, NullUtils.NONE));
 		boolean requestPseudoTerminal = env.getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, provided.isRequestPseudoTerminal());
 		return new ChannelContext.Builder(hostname, provided).username(username.orNull()).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 	}
