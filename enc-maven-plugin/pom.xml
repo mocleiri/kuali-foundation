@@ -37,7 +37,8 @@
     <url>${project.scm.url}</url>
   </scm>
   <properties>
-  <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
+    <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
+    <jasypt.version>1.9.1</jasypt.version>
   </properties>
   <developers>
     <developer>
@@ -50,7 +51,11 @@
     <dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt</artifactId>
-      <version>1.9.1</version>
+      <version>${jasypt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kuali.common</groupId>
+      <artifactId>kuali-util</artifactId>
     </dependency>
   </dependencies>
   <build>
