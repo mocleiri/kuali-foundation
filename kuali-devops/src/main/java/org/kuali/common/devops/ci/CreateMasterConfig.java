@@ -133,22 +133,18 @@ public class CreateMasterConfig {
 		ConnectionContext conn = new ConnectionContext.Builder(username, hostname).requestPseudoTerminal(true).build();
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
-			channel.open(conn);
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
 			String path = "/home/ec2-user/sshd_config";
 			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
 			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
 			RemoteFile dst = new RemoteFile.Builder(path).build();
-
-			logger.info(command1);
-			ChannelUtils.exec(channel, command1); // copy the authorized_keys file minus the header commands preventing ssh as root
+			channel.open(conn);
+			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
 			logger.info("cp {} {}", src, dst.getAbsolutePath());
 			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
-			logger.info(command2);
-			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
-			logger.info(command3);
-			ChannelUtils.exec(channel, command3); // restart the sshd service
+			exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
+			exec(channel, command3); // restart the sshd service
 			logger.info("rm {}", path);
 			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
 		} catch (IOException e) {
@@ -156,6 +152,10 @@ public class CreateMasterConfig {
 		} finally {
 			channel.close();
 		}
+	}
+
+	protected void exec(SecureChannel channel, String command) {
+		ChannelUtils.exec(channel, command, true);
 	}
 
 	protected void doDNS(Instance instance) {
