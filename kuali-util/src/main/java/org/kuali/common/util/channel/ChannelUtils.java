@@ -64,7 +64,7 @@ public class ChannelUtils {
 	 * Execute <code>command</code> on the channel and validate the exit value.
 	 * 
 	 * @throws IllegalStateException
-	 *             If the command returns with a non-zero exit value
+	 *             If the command returns a non-zero exit value
 	 */
 	public static Result exec(SecureChannel channel, String command, boolean echo) {
 		if (echo) {
