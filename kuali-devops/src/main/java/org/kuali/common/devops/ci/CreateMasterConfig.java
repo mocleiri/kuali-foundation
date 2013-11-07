@@ -43,7 +43,6 @@ import org.kuali.common.util.channel.ChannelUtils;
 import org.kuali.common.util.channel.ConnectionContext;
 import org.kuali.common.util.channel.DefaultSecureChannel;
 import org.kuali.common.util.channel.RemoteFile;
-import org.kuali.common.util.channel.Result;
 import org.kuali.common.util.channel.SecureChannel;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -97,7 +96,31 @@ public class CreateMasterConfig {
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
 		Instance instance = service.launchInstance(instanceContext);
-		KeyPair keyPair = instanceContext.getKeyPair();
+		enableRootSSH(instance, instanceContext);
+		return null; // new ExecutablesExecutable(show);
+	}
+
+	protected void doRoot(Instance instance, LaunchInstanceContext context) {
+		KeyPair keyPair = context.getKeyPair();
+		String privateKey = keyPair.getPrivateKey().get();
+		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
+		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
+		String username = Users.ROOT.getLogin();
+		String hostname = instance.getPublicDnsName();
+		ConnectionContext conn = new ConnectionContext.Builder(username, hostname).build();
+		SecureChannel channel = new DefaultSecureChannel(cc);
+		try {
+			channel.open(conn);
+			ChannelUtils.exec(channel, "pwd");
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			channel.close();
+		}
+	}
+
+	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
+		KeyPair keyPair = context.getKeyPair();
 		String privateKey = keyPair.getPrivateKey().get();
 		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
 		ChannelContext cc = new ChannelContext.Builder(privateKeyMaterial).build();
@@ -124,15 +147,6 @@ public class CreateMasterConfig {
 		} finally {
 			channel.close();
 		}
-		return null; // new ExecutablesExecutable(show);
-	}
-
-	protected void doCommand(SecureChannel channel, String command) {
-		logger.info(command);
-		Result result = channel.executeCommand(command);
-		logger.info("   exit: {}", result.getExitValue());
-		logger.info("std out: {}", result.getStdout());
-		logger.info("std err: {}", result.getStderr());
 	}
 
 	protected void doDNS(Instance instance) {
