@@ -25,6 +25,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.file.CanonicalFile;
 
@@ -100,13 +101,18 @@ public class KeyPairMojo extends AbstractMojo {
 		Assert.positive(size);
 		KeyPair keyPair = getKeyPair(name, size, algorithm);
 		try {
-			getLog().info(new CanonicalFile(publicKey).getPath());
+			getLog().info("Public Key: [" + getRelativePath(publicKey) + "]");
 			FileUtils.write(publicKey, keyPair.getPublicKey().get());
-			getLog().info(new CanonicalFile(privateKey).getPath());
+			getLog().info("Private Key: [" + getRelativePath(privateKey) + "]");
 			FileUtils.write(privateKey, keyPair.getPrivateKey().get());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		}
+	}
+
+	protected String getRelativePath(File file) {
+		File parentDir = new CanonicalFile(project.getBuild().getDirectory());
+		return FileSystemUtils.getRelativePathQuietly(parentDir, file);
 	}
 
 	protected KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
