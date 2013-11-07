@@ -60,6 +60,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
 import com.google.common.collect.ImmutableList;
@@ -105,6 +106,9 @@ public class CreateMasterConfig {
 	}
 
 	protected void doRoot(Instance instance, LaunchInstanceContext context) {
+		String rootDeviceName = instance.getRootDeviceName();
+		List<InstanceBlockDeviceMapping> mappings = instance.getBlockDeviceMappings();
+
 		KeyPair keyPair = context.getKeyPair();
 		String privateKey = keyPair.getPrivateKey().get();
 		String privateKeyMaterial = EncUtils.isEncrypted(privateKey) ? enc.decrypt(privateKey) : privateKey;
@@ -115,7 +119,7 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			String cmd = "pwd; ls -la";
+			String cmd = "resize2fs " + rootDeviceName;
 			Result result = ChannelUtils.exec(channel, cmd);
 			logger.info("\n{}\n{}\n", cmd, result.getStdout());
 		} catch (IOException e) {
