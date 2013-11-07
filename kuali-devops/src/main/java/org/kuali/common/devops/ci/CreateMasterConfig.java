@@ -106,8 +106,7 @@ public class CreateMasterConfig {
 		SecureChannel channel = new DefaultSecureChannel(cc);
 		try {
 			channel.open(conn);
-			// String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
-			String command1 = "sudo ls -la";
+			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
 			String command2 = "sudo cp /home/ec2-user/sshd_config /etc/ssh/sshd_config";
 			String command3 = "sudo service sshd restart";
 			doCommand(channel, command1);
