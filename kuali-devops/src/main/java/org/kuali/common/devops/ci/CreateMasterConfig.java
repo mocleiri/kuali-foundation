@@ -99,8 +99,8 @@ public class CreateMasterConfig {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
-		Instance instance = service.launchInstance(instanceContext);
-		// Instance instance = service.getInstance("i-61100618");
+		// Instance instance = service.launchInstance(instanceContext);
+		Instance instance = service.getInstance("i-c96445ae");
 		enableRootSSH(instance, instanceContext);
 		doRoot(instance, instanceContext);
 		doDNS(instance);
