@@ -26,26 +26,22 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 	public void enableRootSSH() {
 		SecureChannel channel = null;
 		try {
+			channel = getChannel(context.getSshEnabledUser().getLogin(), true);
+
 			String src = context.getSshd().getLocalConfigLocation();
-			String path = context.getSshEnabledUser().getHome() + "/" + context.getSshd().getConfigFilename();
+			String dst = context.getSshEnabledUser().getHome() + "/" + context.getSshd().getConfigFilename();
 			String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
-			String command2 = "sudo cp " + path + " " + context.getSshd().getRemoteConfigLocation();
+			String command2 = "sudo cp " + dst + " " + context.getSshd().getRemoteConfigLocation();
 			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
 
-			String login = context.getSshEnabledUser().getLogin();
-			String dnsName = context.getDnsName();
-			String privateKey = context.getKeyPair().getPrivateKey().get();
-			ChannelContext cc = new ChannelContext.Builder(login, dnsName).privateKey(privateKey).requestPseudoTerminal(true).build();
-
-			channel = context.getService().getChannel(cc);
-			RemoteFile dst = new RemoteFile.Builder(path).build();
+			RemoteFile file = new RemoteFile.Builder(dst).build();
 			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since ec2-user's doesn't prevent ssh
-			logger.info("cp {} {}", src, dst.getAbsolutePath());
-			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
+			logger.info("cp {} {}", src, file.getAbsolutePath());
+			channel.copyLocationToFile(src, file); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 			ChannelUtils.exec(channel, command3); // restart the sshd service
-			logger.info("rm {}", path);
-			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
+			logger.info("rm {}", dst);
+			channel.deleteFile(dst); // delete the sshd_config file we left in the ec2-users home directory
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
@@ -57,8 +53,7 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 	public void bootstrap() {
 		SecureChannel channel = null;
 		try {
-			ChannelContext cc = new ChannelContext.Builder(context.getRoot().getLogin(), context.getDnsName()).privateKey(context.getKeyPair().getPrivateKey().get()).build();
-			channel = context.getService().getChannel(cc);
+			channel = getChannel(context.getRoot().getLogin(), false);
 			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
 			String command2 = "yum update -y";
 			String command3 = "yum install -y " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
@@ -72,6 +67,13 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 		} finally {
 			ChannelUtils.closeQuietly(channel);
 		}
+	}
+
+	protected SecureChannel getChannel(String login, boolean requestPseudoTerminal) throws IOException {
+		String dnsName = context.getDnsName();
+		String privateKey = context.getKeyPair().getPrivateKey().get();
+		ChannelContext cc = new ChannelContext.Builder(login, dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
+		return context.getService().getChannel(cc);
 	}
 
 	public SysAdminContext getContext() {
