@@ -25,7 +25,6 @@ import org.kuali.common.aws.ec2.model.AvailabilityZones;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.model.Users;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
@@ -39,6 +38,7 @@ import org.kuali.common.devops.sysadmin.SysAdmin;
 import org.kuali.common.devops.sysadmin.SysAdminConfig;
 import org.kuali.common.devops.sysadmin.SysAdminContext;
 import org.kuali.common.devops.sysadmin.SysAdminService;
+import org.kuali.common.devops.sysadmin.model.Users;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
@@ -128,11 +128,11 @@ public class CreateMasterConfig {
 	}
 
 	protected ChannelContext getRootContext(Instance instance, String privateKey) {
-		return getContext(instance, privateKey, Users.ROOT.getLogin(), false);
+		return getContext(instance, privateKey, Users.ROOT.getUser().getLogin(), false);
 	}
 
 	protected ChannelContext getEC2UserContext(Instance instance, String privateKey) {
-		return getContext(instance, privateKey, Users.EC2USER.getLogin(), true);
+		return getContext(instance, privateKey, Users.EC2USER.getUser().getLogin(), true);
 	}
 
 	protected void exec(SecureChannel channel, String command) {
