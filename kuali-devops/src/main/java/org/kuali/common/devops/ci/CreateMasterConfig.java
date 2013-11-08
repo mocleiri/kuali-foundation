@@ -42,6 +42,7 @@ import org.kuali.common.devops.sysadmin.SysAdminService;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
@@ -105,11 +106,12 @@ public class CreateMasterConfig {
 
 	@Bean
 	public Executable main() {
+		long start = System.currentTimeMillis();
 		LaunchInstanceContext context = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, context);
 		show.execute();
-		// Instance instance = ec2.launchInstance(context);
-		Instance instance = ec2.getInstance("i-14d4546f");
+		Instance instance = ec2.launchInstance(context);
+		// Instance instance = ec2.getInstance("i-14d4546f");
 		KeyPair keyPair = decrypt(context.getKeyPair());
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
 		SysAdmin sa = sas.getSysAdmin(sac);
@@ -117,6 +119,8 @@ public class CreateMasterConfig {
 		sa.bootstrap();
 		// doRoot(instance, context);
 		doDNS(instance);
+		long elapsed = System.currentTimeMillis() - start;
+		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
 	}
 
