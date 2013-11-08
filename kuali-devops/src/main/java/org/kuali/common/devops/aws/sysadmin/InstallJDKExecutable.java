@@ -45,6 +45,7 @@ public final class InstallJDKExecutable implements Executable {
 		try {
 			channel = context.getService().getChannel(context.getContext());
 			ChannelUtils.scp(channel, localFile, remoteFile);
+			ChannelUtils.exec(channel, "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemoteJavaDir());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
