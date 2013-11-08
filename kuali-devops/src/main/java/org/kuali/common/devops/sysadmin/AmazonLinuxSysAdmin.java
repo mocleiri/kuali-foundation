@@ -15,24 +15,24 @@ public final class AmazonLinuxSysAdmin implements SystemAdministrator {
 
 	private static final Logger logger = LoggerFactory.getLogger(AmazonLinuxSysAdmin.class);
 
-	public AmazonLinuxSysAdmin(AmazonLinuxContext context) {
+	public AmazonLinuxSysAdmin(SysAdminContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 	}
 
-	private final AmazonLinuxContext context;
+	private final SysAdminContext context;
 
 	@Override
 	public void enableRootSSH() {
 		SecureChannel channel = null;
 		try {
 			String src = context.getSshd().getLocalConfigLocation();
-			String path = context.getEc2User().getHome() + "/" + context.getSshd().getConfigFilename();
-			String command1 = "sudo cp " + context.getEc2User().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
+			String path = context.getSshEnabledUser().getHome() + "/" + context.getSshd().getConfigFilename();
+			String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
 			String command2 = "sudo cp " + path + " " + context.getSshd().getRemoteConfigLocation();
 			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
 
-			ChannelContext cc = new ChannelContext.Builder(context.getEc2User().getLogin(), context.getDnsName()).privateKey(context.getKeyPair().getPrivateKey().get())
+			ChannelContext cc = new ChannelContext.Builder(context.getSshEnabledUser().getLogin(), context.getDnsName()).privateKey(context.getKeyPair().getPrivateKey().get())
 					.requestPseudoTerminal(true).build();
 			channel = context.getService().getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
@@ -62,7 +62,7 @@ public final class AmazonLinuxSysAdmin implements SystemAdministrator {
 	public void installPackages(List<String> packages) {
 	}
 
-	public AmazonLinuxContext getContext() {
+	public SysAdminContext getContext() {
 		return context;
 	}
 

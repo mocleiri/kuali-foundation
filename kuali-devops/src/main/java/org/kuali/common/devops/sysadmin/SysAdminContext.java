@@ -6,10 +6,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.enc.KeyPair;
 
-public final class AmazonLinuxContext {
+public final class SysAdminContext {
 
 	private final SecureChannelService service;
-	private final User ec2User;
+	private final User sshEnabledUser;
 	private final User root;
 	private final String dnsName;
 	private final String rootVolumeDeviceName;
@@ -35,17 +35,17 @@ public final class AmazonLinuxContext {
 			this.keyPair = keyPair;
 		}
 
-		public AmazonLinuxContext build() {
+		public SysAdminContext build() {
 			Assert.noNulls(service, keyPair);
 			Assert.isTrue(keyPair.getPublicKey().isPresent(), "Public key is required");
 			Assert.isTrue(keyPair.getPrivateKey().isPresent(), "Private key is required");
-			return new AmazonLinuxContext(this);
+			return new SysAdminContext(this);
 		}
 	}
 
-	private AmazonLinuxContext(Builder builder) {
+	private SysAdminContext(Builder builder) {
 		this.service = builder.service;
-		this.ec2User = builder.ec2User;
+		this.sshEnabledUser = builder.ec2User;
 		this.root = builder.root;
 		this.dnsName = builder.dnsName;
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
@@ -57,8 +57,8 @@ public final class AmazonLinuxContext {
 		return service;
 	}
 
-	public User getEc2User() {
-		return ec2User;
+	public User getSshEnabledUser() {
+		return sshEnabledUser;
 	}
 
 	public User getRoot() {
