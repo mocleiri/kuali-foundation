@@ -11,7 +11,7 @@ import org.kuali.common.util.channel.util.ChannelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class AmazonLinuxService implements SysAdminService {
+public final class AmazonLinuxService implements SystemAdministrator {
 
 	private static final Logger logger = LoggerFactory.getLogger(AmazonLinuxService.class);
 
