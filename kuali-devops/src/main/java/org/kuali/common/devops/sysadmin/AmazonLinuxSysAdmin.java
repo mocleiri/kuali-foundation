@@ -36,7 +36,7 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 					.requestPseudoTerminal(true).build();
 			channel = context.getService().getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
-			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
+			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since ec2-user's doesn't block out ssh
 			logger.info("cp {} {}", src, dst.getAbsolutePath());
 			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
