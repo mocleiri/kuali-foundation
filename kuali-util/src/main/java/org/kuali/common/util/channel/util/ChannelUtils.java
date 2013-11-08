@@ -102,7 +102,7 @@ public class ChannelUtils {
 		Assert.noNulls(channel, source, destination);
 		Assert.exists(source);
 		if (echo) {
-			System.out.print(INFO + " scp " + destination.getAbsolutePath() + " ");
+			System.out.print(INFO + " creating -> " + destination.getAbsolutePath() + " ");
 		}
 		long start = System.currentTimeMillis();
 		channel.copyFile(source, destination);
