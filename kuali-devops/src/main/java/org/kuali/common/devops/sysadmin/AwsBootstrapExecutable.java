@@ -12,6 +12,17 @@ import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Bootstrap a freshly launched AWS instance
+ * 
+ * <ul>
+ * <li>Enable root ssh</li>
+ * <li>Resize the root volume to so it uses all of the allocated space</li>
+ * <li>Update the operating system to the latest and greatest <code>yum update -y</code></li>
+ * <li>yum update -y</li>
+ * </ul>
+ * 
+ */
 public final class AwsBootstrapExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(AwsBootstrapExecutable.class);
