@@ -18,6 +18,7 @@ package org.kuali.common.util.channel.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.api.SecureChannel;
@@ -100,7 +101,7 @@ public class ChannelUtils {
 	 *             If the command returns with a non-zero exit value
 	 */
 	public static Result exec(SecureChannel channel, String command) {
-		return exec(channel, command, false);
+		return exec(channel, command, true);
 	}
 
 	/**
@@ -125,7 +126,20 @@ public class ChannelUtils {
 			sb.append("\n");
 			throw new IllegalStateException(sb.toString());
 		} else {
+			log(result);
 			return result;
+		}
+	}
+
+	public static void log(Result result) {
+		Assert.noNulls(result);
+		String stdout = NullUtils.trimToNull(result.getStdout());
+		String stderr = NullUtils.trimToNull(result.getStderr());
+		if (!StringUtils.isBlank(stdout)) {
+			logger.info("{}", stdout);
+		}
+		if (!StringUtils.isBlank(stderr)) {
+			logger.warn("{}", stderr);
 		}
 	}
 
