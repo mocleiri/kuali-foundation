@@ -46,6 +46,10 @@ public final class BootstrapExecutable implements Executable {
 		if (skip) {
 			return;
 		}
+		bootstrap();
+	}
+
+	protected void bootstrap() {
 		enableRootSSH();
 		SecureChannel channel = null;
 		try {
