@@ -19,7 +19,7 @@ public final class ZipPackageContext {
 
 	public static class Builder {
 
-		private static final String PACKAGE_DIR = "/usr/local";
+		private static final String USR_LOCAL = "/usr/local";
 
 		// Required
 		private final SecureChannelService service;
@@ -36,7 +36,7 @@ public final class ZipPackageContext {
 			this.service = service;
 			this.context = context;
 			this.packageName = packageName;
-			this.remotePackageDir = PACKAGE_DIR + "/" + packageName;
+			this.remotePackageDir = USR_LOCAL + "/" + packageName;
 		}
 
 		public ZipPackageContext build() {
