@@ -1,7 +1,6 @@
 package org.kuali.common.devops.sysadmin;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
@@ -51,15 +50,7 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 	}
 
 	@Override
-	public void resizeRootVolume() {
-	}
-
-	@Override
-	public void update() {
-	}
-
-	@Override
-	public void installPackages(List<String> packages) {
+	public void bootstrap() {
 	}
 
 	public SysAdminContext getContext() {
