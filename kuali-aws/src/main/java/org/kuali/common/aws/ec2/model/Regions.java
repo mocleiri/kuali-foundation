@@ -49,7 +49,7 @@ public enum Regions {
 	 * </p>
 	 * 
 	 * <p>
-	 * The AWS Management Console uses US West (Oregon) Region as its default. Therefore, when using both be sure to explicitly specify the same region.
+	 * The AWS Management Console uses US West (Oregon) Region as its default. Therefore, when using both be sure to explicitly specify the region you want.
 	 * </p>
 	 */
 	public static final Regions DEFAULT_REGION = US_EAST_1;
