@@ -118,7 +118,7 @@ public class ProvisionCIMasterConfig {
 		String hostname = instance.getPublicDnsName();
 		ChannelContext cc = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
 		Artifact jdk7zip = ArtifactUtils.getJDK7("1.7.0-u40");
-		Artifact jdk6zip = ArtifactUtils.getJDK7("1.6.0-u45");
+		Artifact jdk6zip = ArtifactUtils.getJDK6("1.6.0-u45");
 		Artifact tomcatZip = ArtifactUtils.getTomcat("7.0.26");
 		InstallZipPackageContext jdk7 = new InstallZipPackageContext.Builder(scs, cc, jdk7zip, "java").build();
 		InstallZipPackageContext jdk6 = new InstallZipPackageContext.Builder(scs, cc, jdk6zip, "java").build();
