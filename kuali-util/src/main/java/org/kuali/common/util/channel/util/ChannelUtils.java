@@ -109,7 +109,7 @@ public class ChannelUtils {
 		TransferResult result = new TransferResult(start, source.length(), TransferDirection.LOCAL_TO_REMOTE);
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
-			String rate = FormatUtils.getRate(result.getStartMillis(), result.getTransferAmountInBytes());
+			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
 			System.out.println(" - [" + elapsed + ", " + rate + "]");
 		}
 		return result;
