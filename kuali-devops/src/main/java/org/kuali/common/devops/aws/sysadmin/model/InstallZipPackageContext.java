@@ -39,6 +39,16 @@ public final class InstallZipPackageContext {
 			this.remotePackageDir = USR_LOCAL + "/" + packageName;
 		}
 
+		public Builder localRepositoryDir(File localRepositoryDir) {
+			this.localRepositoryDir = localRepositoryDir;
+			return this;
+		}
+
+		public Builder remotePackageDir(String remotePackageDir) {
+			this.remotePackageDir = remotePackageDir;
+			return this;
+		}
+
 		public InstallZipPackageContext build() {
 			Assert.noNulls(service, context, artifact, localRepositoryDir);
 			Assert.noBlanks(packageName, remotePackageDir);
