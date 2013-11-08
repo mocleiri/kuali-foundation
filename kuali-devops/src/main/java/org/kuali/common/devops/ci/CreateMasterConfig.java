@@ -108,8 +108,8 @@ public class CreateMasterConfig {
 		LaunchInstanceContext context = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, context);
 		show.execute();
-		// Instance instance = service.launchInstance(instanceContext);
-		Instance instance = ec2.getInstance("i-cc204ba8");
+		Instance instance = ec2.launchInstance(context);
+		// Instance instance = ec2.getInstance("i-cc204ba8");
 		KeyPair keyPair = decrypt(context.getKeyPair());
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
 		SysAdmin sa = sas.getSysAdmin(sac);
