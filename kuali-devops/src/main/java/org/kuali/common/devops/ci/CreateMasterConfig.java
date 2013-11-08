@@ -46,7 +46,6 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Result;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
 import org.kuali.common.util.channel.util.ChannelUtils;
@@ -67,7 +66,6 @@ import org.springframework.context.annotation.Import;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
@@ -110,12 +108,11 @@ public class CreateMasterConfig {
 		LaunchInstanceContext context = launchInstanceContext();
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, context);
 		show.execute();
-		Instance instance = ec2.launchInstance(context);
-		// Instance instance = ec2.getInstance("i-14d4546f");
-		KeyPair keyPair = decrypt(context.getKeyPair());
+		// Instance instance = ec2.launchInstance(context);
+		Instance instance = ec2.getInstance("i-072be77e");
+		KeyPair keyPair = EncUtils.decrypt(enc, context.getKeyPair());
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
 		SysAdmin sa = sas.getSysAdmin(sac);
-		sa.enableRootSSH();
 		sa.bootstrap();
 		// doRoot(instance, context);
 		doDNS(instance);
@@ -136,57 +133,6 @@ public class CreateMasterConfig {
 
 	protected ChannelContext getEC2UserContext(Instance instance, String privateKey) {
 		return getContext(instance, privateKey, Users.EC2USER.getLogin(), true);
-	}
-
-	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
-		KeyPair keyPair = decrypt(context.getKeyPair());
-		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
-		SysAdmin sa = sas.getSysAdmin(sac);
-		sa.enableRootSSH();
-	}
-
-	protected KeyPair decrypt(KeyPair provided) {
-		String name = provided.getName();
-		Optional<String> publicKey = decrypt(provided.getPublicKey());
-		Optional<String> privateKey = decrypt(provided.getPrivateKey());
-		Optional<String> fingerprint = decrypt(provided.getFingerprint());
-		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
-	}
-
-	protected Optional<String> decrypt(Optional<String> optional) {
-		if (optional.isPresent()) {
-			String string = optional.get();
-			String decrypted = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
-			return Optional.of(decrypted);
-		} else {
-			return Optional.absent();
-		}
-	}
-
-	protected void enableRootSSH2(Instance instance, LaunchInstanceContext context) {
-		SecureChannel channel = null;
-		try {
-			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
-			String path = "/home/ec2-user/sshd_config";
-			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
-			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
-			String command3 = "sudo service sshd restart";
-
-			ChannelContext cc = getEC2UserContext(instance, context.getKeyPair().getPrivateKey().get());
-			channel = scs.getChannel(cc);
-			RemoteFile dst = new RemoteFile.Builder(path).build();
-			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
-			logger.info("cp {} {}", src, dst.getAbsolutePath());
-			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
-			exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
-			exec(channel, command3); // restart the sshd service
-			logger.info("rm {}", path);
-			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
 	}
 
 	protected void exec(SecureChannel channel, String command) {

@@ -11,19 +11,18 @@ import org.kuali.common.util.channel.util.ChannelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class AmazonLinuxSysAdmin implements SysAdmin {
+public final class AwsSysAdmin implements SysAdmin {
 
-	private static final Logger logger = LoggerFactory.getLogger(AmazonLinuxSysAdmin.class);
+	private static final Logger logger = LoggerFactory.getLogger(AwsSysAdmin.class);
 
-	public AmazonLinuxSysAdmin(SysAdminContext context) {
+	public AwsSysAdmin(SysAdminContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 	}
 
 	private final SysAdminContext context;
 
-	@Override
-	public void enableRootSSH() {
+	protected void enableRootSSH() {
 		SecureChannel channel = null;
 		try {
 			channel = getChannel(context.getSshEnabledUser().getLogin(), true);
@@ -51,6 +50,7 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 
 	@Override
 	public void bootstrap() {
+		enableRootSSH();
 		SecureChannel channel = null;
 		try {
 			channel = getChannel(context.getRoot().getLogin(), false);
@@ -67,6 +67,10 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 		} finally {
 			ChannelUtils.closeQuietly(channel);
 		}
+	}
+
+	@Override
+	public void configure() {
 	}
 
 	protected SecureChannel getChannel(String login, boolean requestPseudoTerminal) throws IOException {
