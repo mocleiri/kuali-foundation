@@ -8,7 +8,7 @@ import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 
-public final class ZipPackageContext {
+public final class InstallZipPackageContext {
 
 	private final SecureChannelService service;
 	private final ChannelContext context;
@@ -39,14 +39,14 @@ public final class ZipPackageContext {
 			this.remotePackageDir = USR_LOCAL + "/" + packageName;
 		}
 
-		public ZipPackageContext build() {
+		public InstallZipPackageContext build() {
 			Assert.noNulls(service, context, artifact, localRepositoryDir);
 			Assert.noBlanks(packageName, remotePackageDir);
-			return new ZipPackageContext(this);
+			return new InstallZipPackageContext(this);
 		}
 	}
 
-	private ZipPackageContext(Builder builder) {
+	private InstallZipPackageContext(Builder builder) {
 		this.artifact = builder.artifact;
 		this.service = builder.service;
 		this.context = builder.context;
