@@ -79,6 +79,11 @@ public final class ChannelContext {
 			this(Optional.fromNullable(NullUtils.trimToNull(username)), hostname);
 		}
 
+		public Builder(String username, String hostname, String privateKey) {
+			this(username, hostname);
+			privateKey(privateKey);
+		}
+
 		public Builder(Optional<String> username, String hostname) {
 			this.username = username;
 			this.hostname = hostname;
