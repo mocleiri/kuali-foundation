@@ -35,6 +35,10 @@ import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
+import org.kuali.common.devops.sysadmin.SysAdminConfig;
+import org.kuali.common.devops.sysadmin.SysAdminContext;
+import org.kuali.common.devops.sysadmin.SysAdminService;
+import org.kuali.common.devops.sysadmin.SystemAdministrator;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
@@ -65,7 +69,7 @@ import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class,
-		DNSMEServiceConfig.class, DefaultSecureChannelServiceConfig.class })
+		DNSMEServiceConfig.class, DefaultSecureChannelServiceConfig.class, SysAdminConfig.class })
 public class CreateMasterConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
@@ -94,6 +98,9 @@ public class CreateMasterConfig {
 	@Autowired
 	SecureChannelService scs;
 
+	@Autowired
+	SysAdminService sas;
+
 	@Bean
 	public Executable main() {
 		LaunchInstanceContext instanceContext = launchInstanceContext();
@@ -105,22 +112,6 @@ public class CreateMasterConfig {
 		doRoot(instance, instanceContext);
 		doDNS(instance);
 		return null; // new ExecutablesExecutable(show);
-	}
-
-	protected void doRoot(Instance instance, LaunchInstanceContext context) {
-		String rootDeviceName = instance.getRootDeviceName();
-		ChannelContext cc = getRootContext(instance, context.getKeyPair().getPrivateKey().get());
-		SecureChannel channel = null;
-		try {
-			channel = scs.getChannel(cc);
-			String cmd = "resize2fs " + rootDeviceName;
-			Result result = ChannelUtils.exec(channel, cmd);
-			logger.info("\n{}\n{}\n", cmd, result.getStdout());
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
 	}
 
 	protected ChannelContext getContext(Instance instance, String privateKey, String username, boolean requestPseudoTerminal) {
@@ -138,6 +129,12 @@ public class CreateMasterConfig {
 	}
 
 	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
+		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), context.getKeyPair()).build();
+		SystemAdministrator sa = sas.getSystemAdministrator(sac);
+		sa.enableRootSSH();
+	}
+
+	protected void enableRootSSH2(Instance instance, LaunchInstanceContext context) {
 		SecureChannel channel = null;
 		try {
 			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
@@ -194,6 +191,22 @@ public class CreateMasterConfig {
 		String dnsName = MASTER_DNS_NAME;
 		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
 				.rootVolume(rootVolume).overrideExistingSecurityGroupPermissions(overrideExistingSecurityGroupPermissions).dnsName(dnsName).build();
+	}
+
+	protected void doRoot(Instance instance, LaunchInstanceContext context) {
+		String rootDeviceName = instance.getRootDeviceName();
+		ChannelContext cc = getRootContext(instance, context.getKeyPair().getPrivateKey().get());
+		SecureChannel channel = null;
+		try {
+			channel = scs.getChannel(cc);
+			String cmd = "resize2fs " + rootDeviceName;
+			Result result = ChannelUtils.exec(channel, cmd);
+			logger.info("\n{}\n{}\n", cmd, result.getStdout());
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			ChannelUtils.closeQuietly(channel);
+		}
 	}
 
 	protected List<Tag> getTags() {
