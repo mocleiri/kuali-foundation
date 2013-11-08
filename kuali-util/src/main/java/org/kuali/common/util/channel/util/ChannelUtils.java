@@ -102,7 +102,7 @@ public class ChannelUtils {
 		Assert.noNulls(channel, source, destination);
 		Assert.exists(source);
 		if (echo) {
-			System.out.print(INFO + " creating -> " + destination.getAbsolutePath());
+			System.out.print(INFO + " creating -> " + destination.getAbsolutePath() + " ");
 		}
 		long start = System.currentTimeMillis();
 		channel.copyFile(source, destination);
@@ -110,7 +110,7 @@ public class ChannelUtils {
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
-			System.out.println(" - [" + elapsed + ", " + rate + "]");
+			System.out.println("- [" + elapsed + ", " + rate + "]");
 		}
 		return result;
 	}
@@ -137,7 +137,7 @@ public class ChannelUtils {
 	 */
 	public static Result exec(SecureChannel channel, String command, boolean echo) {
 		if (echo) {
-			System.out.print(INFO + " " + command);
+			System.out.print(INFO + " " + command + " ");
 		}
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
@@ -153,7 +153,7 @@ public class ChannelUtils {
 		}
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsed());
-			System.out.println(" - [" + elapsed + "]");
+			System.out.println("- [" + elapsed + "]");
 		}
 		debug(result);
 		return result;
