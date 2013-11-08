@@ -19,8 +19,6 @@ public final class InstallZipPackageContext {
 
 	public static class Builder {
 
-		private static final String USR_LOCAL = "/usr/local";
-
 		// Required
 		private final SecureChannelService service;
 		private final ChannelContext context;
@@ -29,14 +27,13 @@ public final class InstallZipPackageContext {
 
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
-		private String remotePackageDir;
+		private String remotePackageDir = "/usr/local";
 
 		public Builder(SecureChannelService service, ChannelContext context, Artifact artifact, String packageName) {
 			this.artifact = artifact;
 			this.service = service;
 			this.context = context;
 			this.packageName = packageName;
-			this.remotePackageDir = USR_LOCAL + "/" + packageName;
 		}
 
 		public Builder localRepositoryDir(File localRepositoryDir) {

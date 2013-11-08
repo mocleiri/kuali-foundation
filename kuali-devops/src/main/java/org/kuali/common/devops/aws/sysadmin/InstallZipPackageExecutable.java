@@ -37,7 +37,7 @@ public final class InstallZipPackageExecutable implements Executable {
 		install(context);
 	}
 
-	public void install(InstallZipPackageContext context) {
+	protected void install(InstallZipPackageContext context) {
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), context.getArtifact());
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
