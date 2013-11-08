@@ -44,6 +44,12 @@
     <jdk7.version>1.7.0-u40</jdk7.version>
     <jdk7.classifier>linux-x64</jdk7.classifier>
     <jdk7.type>zip</jdk7.type>
+
+    <jdk6.groupId>com.oracle</jdk6.groupId>
+    <jdk6.artifactId>jdk6</jdk6.artifactId>
+    <jdk6.version>1.6.0-u45</jdk6.version>
+    <jdk6.classifier>linux-x64</jdk6.classifier>
+    <jdk6.type>zip</jdk6.type>
   </properties>
   <dependencies>
     <dependency>
@@ -72,6 +78,14 @@
       <version>${jdk7.version}</version>
       <classifier>${jdk7.classifier}</classifier>
       <type>${jdk7.type}</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>${jdk6.groupId}</groupId>
+      <artifactId>${jdk6.artifactId}</artifactId>
+      <version>${jdk6.version}</version>
+      <classifier>${jdk6.classifier}</classifier>
+      <type>${jdk6.type}</type>
       <scope>test</scope>
     </dependency>
   </dependencies>
