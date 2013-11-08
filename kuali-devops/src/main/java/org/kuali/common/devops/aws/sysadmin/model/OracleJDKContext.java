@@ -30,4 +30,8 @@ public final class OracleJDKContext {
 		this.artifact = builder.artifact;
 	}
 
+	public Artifact getArtifact() {
+		return artifact;
+	}
+
 }
