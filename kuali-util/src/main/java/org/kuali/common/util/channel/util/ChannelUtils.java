@@ -98,11 +98,11 @@ public class ChannelUtils {
 		}
 	}
 
-	public static TransferResult cp(SecureChannel channel, File source, RemoteFile destination, boolean echo) {
+	public static TransferResult scp(SecureChannel channel, File source, RemoteFile destination, boolean echo) {
 		Assert.noNulls(channel, source, destination);
 		Assert.exists(source);
 		if (echo) {
-			System.out.print(INFO + " cp " + source.getAbsolutePath() + " " + destination.getAbsolutePath());
+			System.out.print(INFO + " creating -> " + destination.getAbsolutePath());
 		}
 		long start = System.currentTimeMillis();
 		channel.copyFile(source, destination);
@@ -115,8 +115,8 @@ public class ChannelUtils {
 		return result;
 	}
 
-	public static TransferResult cp(SecureChannel channel, File source, RemoteFile destination) {
-		return cp(channel, source, destination, true);
+	public static TransferResult scp(SecureChannel channel, File source, RemoteFile destination) {
+		return scp(channel, source, destination, true);
 	}
 
 	/**
