@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * <li>Enable root ssh</li>
  * <li>Resize the root volume to so it uses all of the allocated space</li>
  * <li>Update the operating system to the latest and greatest <code>yum update -y</code></li>
- * <li>yum update -y</li>
+ * <li>Install a list of essential packages</li>
  * </ul>
  * 
  */
