@@ -92,7 +92,7 @@ public final class BootstrapExecutable implements Executable {
 	}
 
 	protected SecureChannel getChannel(String login, boolean requestPseudoTerminal) throws IOException {
-		String dnsName = context.getDnsName();
+		String dnsName = context.getHostname();
 		String privateKey = context.getPrivateKey();
 		ChannelContext cc = new ChannelContext.Builder(login, dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 		return context.getService().getChannel(cc);

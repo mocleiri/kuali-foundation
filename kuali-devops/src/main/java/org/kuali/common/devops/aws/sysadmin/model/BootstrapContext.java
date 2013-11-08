@@ -13,7 +13,7 @@ public final class BootstrapContext {
 	private final SecureChannelService service;
 	private final User sshEnabledUser;
 	private final User root;
-	private final String dnsName;
+	private final String hostname;
 	private final String rootVolumeDeviceName;
 	private final String privateKey;
 	private final SSHD sshd;
@@ -23,7 +23,7 @@ public final class BootstrapContext {
 
 		// Required
 		private final SecureChannelService service;
-		private final String dnsName;
+		private final String hostname;
 		private final String privateKey;
 
 		// Optional
@@ -35,7 +35,7 @@ public final class BootstrapContext {
 
 		public Builder(SecureChannelService service, String dnsName, String privateKey) {
 			this.service = service;
-			this.dnsName = dnsName;
+			this.hostname = dnsName;
 			this.privateKey = privateKey;
 		}
 
@@ -56,7 +56,7 @@ public final class BootstrapContext {
 		this.service = builder.service;
 		this.sshEnabledUser = builder.sshEnabledUser;
 		this.root = builder.root;
-		this.dnsName = builder.dnsName;
+		this.hostname = builder.hostname;
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
 		this.privateKey = builder.privateKey;
 		this.sshd = builder.sshd;
@@ -75,8 +75,8 @@ public final class BootstrapContext {
 		return root;
 	}
 
-	public String getDnsName() {
-		return dnsName;
+	public String getHostname() {
+		return hostname;
 	}
 
 	public String getRootVolumeDeviceName() {
