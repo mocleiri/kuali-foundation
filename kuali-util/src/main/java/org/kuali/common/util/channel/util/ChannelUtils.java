@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.channel.util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Result;
+import org.kuali.common.util.channel.model.TransferDirection;
+import org.kuali.common.util.channel.model.TransferResult;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
@@ -46,6 +49,7 @@ public class ChannelUtils {
 	private static final String HOSTNAME_KEY = "ssh.hostname";
 	private static final String PRIVATEKEY_KEY = "ssh.privateKey";
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
+	private static final String INFO = "[INFO]";
 
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc) {
 		return getContext(env, enc, DEFAULT);
@@ -94,6 +98,27 @@ public class ChannelUtils {
 		}
 	}
 
+	public static TransferResult cp(SecureChannel channel, File source, RemoteFile destination, boolean echo) {
+		Assert.noNulls(channel, source, destination);
+		Assert.exists(source);
+		if (echo) {
+			System.out.print(INFO + " cp " + source.getAbsolutePath() + " " + destination.getAbsolutePath());
+		}
+		long start = System.currentTimeMillis();
+		channel.copyFile(source, destination);
+		TransferResult result = new TransferResult(start, source.length(), TransferDirection.LOCAL_TO_REMOTE);
+		if (echo) {
+			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
+			String rate = FormatUtils.getRate(result.getStartMillis(), result.getTransferAmountInBytes());
+			System.out.println(" - [" + elapsed + ", " + rate + "]");
+		}
+		return result;
+	}
+
+	public static TransferResult cp(SecureChannel channel, File source, RemoteFile destination) {
+		return cp(channel, source, destination, true);
+	}
+
 	/**
 	 * Execute <code>command</code> on the channel and validate the exit value.
 	 * 
@@ -112,7 +137,7 @@ public class ChannelUtils {
 	 */
 	public static Result exec(SecureChannel channel, String command, boolean echo) {
 		if (echo) {
-			System.out.print("[INFO] " + command);
+			System.out.print(INFO + " " + command);
 		}
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {

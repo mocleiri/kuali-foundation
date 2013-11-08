@@ -276,4 +276,9 @@ public class RepositoryUtils {
 		return new File(localRepositoryDir.getAbsolutePath() + FS + path, filename);
 	}
 
+	public static final boolean exists(File localRepositoryDir, Artifact artifact) {
+		File file = getFile(localRepositoryDir, artifact);
+		return LocationUtils.exists(file);
+	}
+
 }

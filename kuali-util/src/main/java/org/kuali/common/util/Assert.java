@@ -88,6 +88,13 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	/**
+	 * Assert that <code>i</code> is greater than zero
+	 */
+	public static void positive(long i) {
+		isTrue(i > 0, i + " is not a positive long");
+	}
+
+	/**
 	 * Assert that <code>i</code> is less than zero
 	 */
 	public static void negative(int i) {
