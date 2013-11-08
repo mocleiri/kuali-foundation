@@ -75,7 +75,7 @@ public final class AwsSysAdmin implements SysAdmin {
 
 	protected SecureChannel getChannel(String login, boolean requestPseudoTerminal) throws IOException {
 		String dnsName = context.getDnsName();
-		String privateKey = context.getKeyPair().getPrivateKey().get();
+		String privateKey = context.getPrivateKey();
 		ChannelContext cc = new ChannelContext.Builder(login, dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 		return context.getService().getChannel(cc);
 	}

@@ -8,7 +8,6 @@ import org.kuali.common.devops.sysadmin.model.Users;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.KeyPair;
 
 import com.google.common.collect.ImmutableList;
 
@@ -19,7 +18,7 @@ public final class BootstrapContext {
 	private final User root;
 	private final String dnsName;
 	private final String rootVolumeDeviceName;
-	private final KeyPair keyPair;
+	private final String privateKey;
 	private final SSHD sshd;
 	private final List<String> packages;
 
@@ -28,7 +27,7 @@ public final class BootstrapContext {
 		// Required
 		private final SecureChannelService service;
 		private final String dnsName;
-		private final KeyPair keyPair;
+		private final String privateKey;
 
 		// Optional
 		private User sshEnabledUser = Users.EC2USER.getUser();
@@ -37,10 +36,10 @@ public final class BootstrapContext {
 		private SSHD sshd = new SSHD.Builder("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config").build();
 		private List<String> packages = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 
-		public Builder(SecureChannelService service, String dnsName, KeyPair keyPair) {
+		public Builder(SecureChannelService service, String dnsName, String privateKey) {
 			this.service = service;
 			this.dnsName = dnsName;
-			this.keyPair = keyPair;
+			this.privateKey = privateKey;
 		}
 
 		public Builder packages(List<String> packages) {
@@ -49,10 +48,9 @@ public final class BootstrapContext {
 		}
 
 		public BootstrapContext build() {
-			Assert.noNulls(service, keyPair);
-			Assert.isTrue(keyPair.getPublicKey().isPresent(), "Public key is required");
-			Assert.isTrue(keyPair.getPrivateKey().isPresent(), "Private key is required");
-			Assert.isFalse(EncUtils.isEncrypted(keyPair.getPrivateKey().get()), "Private key is encrypted");
+			Assert.noNulls(service);
+			Assert.noBlanks(privateKey);
+			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
 			return new BootstrapContext(this);
 		}
 	}
@@ -63,7 +61,7 @@ public final class BootstrapContext {
 		this.root = builder.root;
 		this.dnsName = builder.dnsName;
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
-		this.keyPair = builder.keyPair;
+		this.privateKey = builder.privateKey;
 		this.sshd = builder.sshd;
 		this.packages = builder.packages;
 	}
@@ -88,8 +86,8 @@ public final class BootstrapContext {
 		return rootVolumeDeviceName;
 	}
 
-	public KeyPair getKeyPair() {
-		return keyPair;
+	public String getPrivateKey() {
+		return privateKey;
 	}
 
 	public SSHD getSshd() {

@@ -33,9 +33,9 @@ import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
+import org.kuali.common.devops.sysadmin.BootstrapContext;
 import org.kuali.common.devops.sysadmin.SysAdmin;
 import org.kuali.common.devops.sysadmin.SysAdminConfig;
-import org.kuali.common.devops.sysadmin.BootstrapContext;
 import org.kuali.common.devops.sysadmin.SysAdminService;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
@@ -105,7 +105,7 @@ public class CreateMasterConfig {
 		// Instance instance = ec2.launchInstance(context);
 		Instance instance = ec2.getInstance("i-072be77e");
 		KeyPair keyPair = EncUtils.decrypt(enc, context.getKeyPair());
-		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
+		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), keyPair.getPrivateKey().get()).build();
 		SysAdmin sa = sas.getSysAdmin(sac);
 		sa.bootstrap();
 		// doRoot(instance, context);
@@ -131,7 +131,7 @@ public class CreateMasterConfig {
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
 		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		KeyPair keyPair = account.getKeyPair();
+		KeyPair keyPair = EncUtils.decrypt(enc, account.getKeyPair());
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
 		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup(), SecurityGroups.CI.getGroup());
