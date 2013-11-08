@@ -1,6 +1,6 @@
 package org.kuali.common.devops.sysadmin;
 
-public class AmazonLinuxSysAdminService implements SysAdminService {
+public class AwsSysAdminService implements SysAdminService {
 
 	@Override
 	public SysAdmin getSysAdmin(SysAdminContext context) {

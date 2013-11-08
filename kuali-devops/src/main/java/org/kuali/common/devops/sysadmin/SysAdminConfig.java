@@ -23,6 +23,6 @@ public class SysAdminConfig {
 
 	@Bean
 	public SysAdminService sysAdminService() {
-		return new AmazonLinuxSysAdminService();
+		return new AwsSysAdminService();
 	}
 }
