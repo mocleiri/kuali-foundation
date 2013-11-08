@@ -6,10 +6,10 @@ $section = 'basics';
 $page = 'basics-details';
 
 # Includes
-require_once( 'themes/kc/inc/head.php' );
-require_once( 'themes/kc/inc/nav.php' );
-require_once( 'themes/kc/inc/toolbar.php' );
-include( '_temp.select.filler.php' );
+require_once( $ROOT . 'themes/kc/inc/head.php' );
+require_once( $ROOT . 'themes/kc/inc/nav.php' );
+require_once( $ROOT . 'themes/kc/inc/toolbar.php' );
+include( $ROOT . '_temp.select.filler.php' );
 ?>
 
 <section id="main">
@@ -115,14 +115,8 @@ include( '_temp.select.filler.php' );
                         </form>
         <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
     <div class="btn-row-page-action">
-      <button class="btn btn-default">Cancel</button>
-        <?php
-        if ($alt && file_exists('prop.basics.details-alt.php')) {
-            echo '<button href="prop.basics.details-alt.php?msg=1" class="btn btn-primary">Save and Continue</button>';
-        } else {
-            echo '<button href="prop.basics.details.php?msg=1" class="btn btn-primary">Save and Continue</button>';
-        }
-        ?>
+        <button class="btn btn-default">Cancel</button>
+        <button href="prop.basics.details.php?msg=1" class="btn btn-primary">Save and Continue</button>
     </div>
     <!-- // --> 
         </div>
@@ -130,4 +124,4 @@ include( '_temp.select.filler.php' );
     </div>
   </div>
 </section>
-<?php require_once( 'themes/kc/inc/footer.php' ); ?>
+<?php require_once( $ROOT . 'themes/kc/inc/footer.php' ); ?>

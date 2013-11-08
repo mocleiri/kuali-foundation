@@ -1,7 +1,8 @@
 <?php
-
 # Includes
-require_once( 'inc/head.php' );
+require ('../config.php');
+include ($ROOT . 'themes/kc/inc/head.php');
+// require_once( 'inc/head.php' );
 ?>
 
 <div class="modal-dialog">
@@ -92,4 +93,4 @@ require_once( 'inc/head.php' );
   </div>
 </div>
 
-<?php require_once( 'inc/footer.php' ); ?>
+<?php include ($ROOT . 'themes/kc/inc/footer.php' ); ?>

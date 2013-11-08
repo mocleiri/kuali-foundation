@@ -1,22 +1,19 @@
 <?php
-require('config.php');
+require ('config.php');
 
 # Variables
 $section = 'basics';
 $page = 'basics-details';
 
 # Includes
-require_once( 'themes/kc/inc/head.php' );
-require_once( 'themes/kc/inc/nav.php' );
-require_once( 'themes/kc/inc/toolbar.php' );
-include( '_temp.select.filler.php' );
+require_once( $ROOT . 'themes/kc/inc/head.php' );
+require_once( $ROOT . 'themes/kc/inc/nav.php' );
+require_once( $ROOT . 'themes/kc/inc/toolbar.php' );
+include( $ROOT . '_temp.select.filler.php' );
 
 
 $activity_type = 1;
 $lead_unit = "IN-CARD";
-
-if ($alt) { $sponsorCode=  '000340 NSF'; } else { $sponsorCode = '000340 NIH'; }
-if ($alt) { $project_title = 'Analysis of Significant Chemical Findings'; } else {  $project_title = 'Analysis of Significant Biological Findings'; }
 
 if (isset($_SESSION['sponsor_code'])) $sponsorCode =   $_SESSION['sponsor_code'];
 if (isset($_SESSION['project_title'])) $project_title =   $_SESSION['project_title'];
@@ -37,10 +34,10 @@ $(document).ready(function(){
 });
 </script>
 <section id="main">
-  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+  <?php require_once( $ROOT . 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
-      <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
+      <?php require_once( $ROOT . 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
         
         <?php if ($_GET['msg']) { ?>
@@ -213,4 +210,4 @@ $(document).ready(function(){
   </div>
 </section>
 
-<?php require_once( 'themes/kc/inc/footer.php' ); ?>
+<?php require_once( $ROOT . 'themes/kc/inc/footer.php' ); ?>
