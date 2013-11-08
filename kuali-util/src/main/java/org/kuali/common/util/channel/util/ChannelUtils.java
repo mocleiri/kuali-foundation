@@ -112,6 +112,9 @@ public class ChannelUtils {
 	 *             If the command returns a non-zero exit value
 	 */
 	public static Result exec(SecureChannel channel, String command, boolean echo) {
+		if (echo) {
+			System.out.print("[INFO] " + command + " ");
+		}
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
 			StringBuilder sb = new StringBuilder();
@@ -126,7 +129,7 @@ public class ChannelUtils {
 		}
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsed());
-			logger.info("{} - [{}]", command, elapsed);
+			System.out.println(elapsed);
 		}
 		log(result);
 		return result;
