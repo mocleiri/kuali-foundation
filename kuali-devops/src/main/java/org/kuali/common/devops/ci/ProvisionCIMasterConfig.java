@@ -51,6 +51,7 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -106,13 +107,13 @@ public class ProvisionCIMasterConfig {
 		Instance instance = ec2.getInstance("i-072be77e");
 		String privateKey = context.getKeyPair().getPrivateKey().get();
 		BootstrapContext bc = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
-		Executable bootstrap = new BootstrapExecutable(bc);
-		bootstrap.execute();
+		new BootstrapExecutable(bc).execute();
+		List<Executable> executables = new ArrayList<Executable>();
 		if (context.getDnsName().isPresent()) {
 			String aliasFQDN = context.getDnsName().get();
 			String canonicalFQDN = instance.getPublicDnsName();
 			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
-			cname.execute();
+			executables.add(cname);
 		}
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
@@ -123,9 +124,10 @@ public class ProvisionCIMasterConfig {
 		InstallZipPackageContext jdk7 = new InstallZipPackageContext.Builder(scs, cc, jdk7zip, "jdk7").build();
 		InstallZipPackageContext jdk6 = new InstallZipPackageContext.Builder(scs, cc, jdk6zip, "jdk6").build();
 		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcatZip, "tomcat").build();
-		new InstallZipPackageExecutable(jdk6).execute();
-		new InstallZipPackageExecutable(jdk7).execute();
-		new InstallZipPackageExecutable(tomcat).execute();
+		executables.add(new InstallZipPackageExecutable(jdk6));
+		executables.add(new InstallZipPackageExecutable(jdk7));
+		executables.add(new InstallZipPackageExecutable(tomcat));
+		new ConcurrentExecutables(executables).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
