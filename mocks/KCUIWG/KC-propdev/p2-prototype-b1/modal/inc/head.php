@@ -28,7 +28,7 @@ $alt = false;
 <link href="<?php echo $ROOT ?>../themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
 <link href="<?php echo $ROOT ?>../themes/kc/css/custom.css" rel="stylesheet" />
 <link href="<?php echo $ROOT ?>../themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="<?php echo $ROOT ?>/themes/kc/js/datatables/DT_bootstrap.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $ROOT ?>../themes/kc/js/datatables/DT_bootstrap.css">
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
