@@ -18,8 +18,9 @@ package org.kuali.common.util.channel.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.Str;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
@@ -100,7 +101,7 @@ public class ChannelUtils {
 	 *             If the command returns with a non-zero exit value
 	 */
 	public static Result exec(SecureChannel channel, String command) {
-		return exec(channel, command, false);
+		return exec(channel, command, true);
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class ChannelUtils {
 	 */
 	public static Result exec(SecureChannel channel, String command, boolean echo) {
 		if (echo) {
-			logger.info(command);
+			System.out.print("[INFO] " + command);
 		}
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
@@ -120,12 +121,28 @@ public class ChannelUtils {
 			sb.append("\n");
 			sb.append("[" + command + "]");
 			sb.append("\n");
-			sb.append("stdout:[" + Str.flatten(result.getStdout()) + "]\n");
-			sb.append("stderr:[" + Str.flatten(result.getStderr()) + "]\n");
+			sb.append("stdout:\n" + result.getStdout() + "\n");
+			sb.append("stderr:\n" + result.getStderr() + "\n");
 			sb.append("\n");
 			throw new IllegalStateException(sb.toString());
-		} else {
-			return result;
+		}
+		if (echo) {
+			String elapsed = FormatUtils.getTime(result.getElapsed());
+			System.out.println(" - [" + elapsed + "]");
+		}
+		debug(result);
+		return result;
+	}
+
+	public static void debug(Result result) {
+		Assert.noNulls(result);
+		String stdout = NullUtils.trimToNull(result.getStdout());
+		String stderr = NullUtils.trimToNull(result.getStderr());
+		if (!StringUtils.isBlank(stdout)) {
+			logger.debug("\n-- Standard Out --\n{}\n-- Standard Out --", stdout);
+		}
+		if (!StringUtils.isBlank(stderr)) {
+			logger.debug("\n-- Standard Err --\n{}\n-- Standard Err --", stderr);
 		}
 	}
 

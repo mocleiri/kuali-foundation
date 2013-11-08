@@ -15,7 +15,6 @@
  */
 package org.kuali.common.devops.ci;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,6 @@ import org.kuali.common.aws.ec2.model.AvailabilityZones;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
-import org.kuali.common.aws.ec2.model.Users;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
@@ -34,17 +32,16 @@ import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
+import org.kuali.common.devops.aws.sysadmin.AwsBootstrapExecutable;
+import org.kuali.common.devops.aws.sysadmin.BootstrapContext;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
-import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannelService;
-import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.RemoteFile;
-import org.kuali.common.util.channel.model.Result;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
-import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -74,7 +71,7 @@ public class CreateMasterConfig {
 	private static final String MASTER_DNS_NAME = "test.ci.kuali.org";
 
 	@Autowired
-	EC2Service service;
+	EC2Service ec2;
 
 	@Autowired
 	EC2ServiceContext serviceContext;
@@ -92,87 +89,28 @@ public class CreateMasterConfig {
 	AwsAccount account;
 
 	@Autowired
-	SecureChannelService channelService;
+	SecureChannelService scs;
 
 	@Bean
 	public Executable main() {
-		LaunchInstanceContext instanceContext = launchInstanceContext();
-		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
-		show.execute();
-		// Instance instance = service.launchInstance(instanceContext);
-		Instance instance = service.getInstance("i-cc204ba8");
-		enableRootSSH(instance, instanceContext);
-		doRoot(instance, instanceContext);
-		doDNS(instance);
+		long start = System.currentTimeMillis();
+		LaunchInstanceContext context = launchInstanceContext();
+		new ShowLaunchConfigExecutable(serviceContext, context).execute();
+		// Instance instance = ec2.launchInstance(context);
+		Instance instance = ec2.getInstance("i-072be77e");
+		String privateKey = context.getKeyPair().getPrivateKey().get();
+		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
+		Executable bootstrap = new AwsBootstrapExecutable(sac);
+		bootstrap.execute();
+		if (context.getDnsName().isPresent()) {
+			String aliasFQDN = context.getDnsName().get();
+			String canonicalFQDN = instance.getPublicDnsName();
+			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
+			cname.execute();
+		}
+		long elapsed = System.currentTimeMillis() - start;
+		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
-	}
-
-	protected void doRoot(Instance instance, LaunchInstanceContext context) {
-		String rootDeviceName = instance.getRootDeviceName();
-		ChannelContext cc = getRootContext(instance, context.getKeyPair().getPrivateKey().get());
-		SecureChannel channel = null;
-		try {
-			channel = channelService.getChannel(cc);
-			String cmd = "resize2fs " + rootDeviceName;
-			Result result = ChannelUtils.exec(channel, cmd);
-			logger.info("\n{}\n{}\n", cmd, result.getStdout());
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
-	}
-
-	protected ChannelContext getContext(Instance instance, String privateKey, String username, boolean requestPseudoTerminal) {
-		String hostname = instance.getPublicDnsName();
-		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).requestPseudoTerminal(true).build();
-		return ChannelUtils.getContext(env, enc, provided);
-	}
-
-	protected ChannelContext getRootContext(Instance instance, String privateKey) {
-		return getContext(instance, privateKey, Users.ROOT.getLogin(), false);
-	}
-
-	protected ChannelContext getEC2UserContext(Instance instance, String privateKey) {
-		return getContext(instance, privateKey, Users.EC2USER.getLogin(), true);
-	}
-
-	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
-		SecureChannel channel = null;
-		try {
-			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
-			String path = "/home/ec2-user/sshd_config";
-			String command1 = "sudo cp /home/ec2-user/.ssh/authorized_keys /root/.ssh/authorized_keys";
-			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
-			String command3 = "sudo service sshd restart";
-
-			ChannelContext cc = getEC2UserContext(instance, context.getKeyPair().getPrivateKey().get());
-			channel = channelService.getChannel(cc);
-			RemoteFile dst = new RemoteFile.Builder(path).build();
-			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
-			logger.info("cp {} {}", src, dst.getAbsolutePath());
-			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
-			exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
-			exec(channel, command3); // restart the sshd service
-			logger.info("rm {}", path);
-			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
-	}
-
-	protected void exec(SecureChannel channel, String command) {
-		ChannelUtils.exec(channel, command, true);
-	}
-
-	protected void doDNS(Instance instance) {
-		String aliasFQDN = "test.ci.kuali.org";
-		String canonicalFQDN = instance.getPublicDnsName();
-		Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
-		cname.execute();
-		logger.info(aliasFQDN + " -> " + instance.getPublicDnsName());
 	}
 
 	@Bean
@@ -183,7 +121,7 @@ public class CreateMasterConfig {
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
 		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		KeyPair keyPair = account.getKeyPair();
+		KeyPair keyPair = EncUtils.decrypt(enc, account.getKeyPair());
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
 		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup(), SecurityGroups.CI.getGroup());

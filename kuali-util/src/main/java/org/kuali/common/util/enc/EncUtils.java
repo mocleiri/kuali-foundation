@@ -52,6 +52,24 @@ public class EncUtils {
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
+	public static KeyPair decrypt(EncryptionService enc, KeyPair provided) {
+		String name = provided.getName();
+		Optional<String> publicKey = decrypt(enc, provided.getPublicKey());
+		Optional<String> privateKey = decrypt(enc, provided.getPrivateKey());
+		Optional<String> fingerprint = decrypt(enc, provided.getFingerprint());
+		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
+	}
+
+	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
+		if (optional.isPresent()) {
+			String string = optional.get();
+			String decrypted = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
+			return Optional.of(decrypted);
+		} else {
+			return Optional.absent();
+		}
+	}
+
 	public static KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
 		int type = (Algorithm.RSA == algorithm) ? com.jcraft.jsch.KeyPair.RSA : com.jcraft.jsch.KeyPair.DSA;
 		JSch jsch = new JSch();
