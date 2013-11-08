@@ -112,7 +112,7 @@ public class CreateMasterConfig {
 		Instance instance = ec2.getInstance("i-cc204ba8");
 		KeyPair keyPair = decrypt(context.getKeyPair());
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
-		SysAdmin sa = sas.getSystemAdministrator(sac);
+		SysAdmin sa = sas.getSysAdmin(sac);
 		sa.enableRootSSH();
 		doRoot(instance, context);
 		doDNS(instance);
@@ -136,7 +136,7 @@ public class CreateMasterConfig {
 	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
 		KeyPair keyPair = decrypt(context.getKeyPair());
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
-		SysAdmin sa = sas.getSystemAdministrator(sac);
+		SysAdmin sa = sas.getSysAdmin(sac);
 		sa.enableRootSSH();
 	}
 
