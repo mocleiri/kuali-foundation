@@ -49,6 +49,7 @@ public final class InstallZipPackageExecutable implements Executable {
 			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemotePackageDir();
 			String command3 = "ln -s " + target + " " + linkName;
 			String command4 = "chmod -R 755 " + linkName + "/bin";
+			String command5 = "rm " + remoteFile.getAbsolutePath();
 
 			channel = context.getService().getChannel(context.getContext());
 			ChannelUtils.scp(channel, localFile, remoteFile);
@@ -56,6 +57,7 @@ public final class InstallZipPackageExecutable implements Executable {
 			ChannelUtils.exec(channel, command2);
 			ChannelUtils.exec(channel, command3);
 			ChannelUtils.exec(channel, command4);
+			ChannelUtils.exec(channel, command5);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
