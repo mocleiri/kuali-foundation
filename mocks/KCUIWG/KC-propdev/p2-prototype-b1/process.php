@@ -8,7 +8,7 @@
 
            $_SESSION[$index] = trim($field);
         }
-
+        print_r($_SESSION);
    break;
    case "addKeyPersonnel":
 

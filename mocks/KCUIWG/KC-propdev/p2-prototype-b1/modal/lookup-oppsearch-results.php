@@ -25,7 +25,7 @@ include( 'inc/head.php' );
 				</thead>
 				<tbody>
 					<tr>
-						<td><a class="btn btn-primary btn-xs" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
+						<td><a class="btn btn-primary btn-xs select-opportunity" href="../prop.basics.oppsearch-search-done.php" target="_parent">Select</a></td>
 						<td >00.000</td>
 					  <td>12/31/2013</td>
 						<td >12/31/2014</td>
@@ -68,5 +68,18 @@ include( 'inc/head.php' );
 		</div>
 	</div>
 </div>
+<script>
+     $(document).ready(function(){
 
+         $('.select-opportunity').live('click', function(){
+             var href = $(this).attr('href');
+             $.post("../process.php", {'action' : "storeSessions", "select-opportunity": 1}, function(t){
+             console.log('process');
+                  parent.document.location = href;
+             });
+
+             return false;
+         })
+     });
+</script>
 <?php include( 'inc/footer.php' ); ?>

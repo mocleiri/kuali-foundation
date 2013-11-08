@@ -1,4 +1,9 @@
-<?php
+<?php   session_start();
+
+if(!isset($_SESSION['select-opportunity']) || $_SESSION['select-opportunity'] != 1){
+    header('Location: prop.basics.oppsearch-search-done.php');
+}
+
 # Variables
 $section = 'basics';
 $page = 'basics-search';
