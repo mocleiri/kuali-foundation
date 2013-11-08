@@ -40,7 +40,7 @@ public final class ZipPackageContext {
 		}
 
 		public ZipPackageContext build() {
-			Assert.noNulls(artifact, localRepositoryDir);
+			Assert.noNulls(service, context, artifact, localRepositoryDir);
 			Assert.noBlanks(packageName, remotePackageDir);
 			return new ZipPackageContext(this);
 		}
