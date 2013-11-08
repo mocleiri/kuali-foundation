@@ -35,7 +35,7 @@ import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.devops.sysadmin.SysAdmin;
 import org.kuali.common.devops.sysadmin.SysAdminConfig;
-import org.kuali.common.devops.sysadmin.SysAdminContext;
+import org.kuali.common.devops.sysadmin.BootstrapContext;
 import org.kuali.common.devops.sysadmin.SysAdminService;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
@@ -105,7 +105,7 @@ public class CreateMasterConfig {
 		// Instance instance = ec2.launchInstance(context);
 		Instance instance = ec2.getInstance("i-072be77e");
 		KeyPair keyPair = EncUtils.decrypt(enc, context.getKeyPair());
-		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
+		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
 		SysAdmin sa = sas.getSysAdmin(sac);
 		sa.bootstrap();
 		// doRoot(instance, context);
