@@ -44,7 +44,7 @@ public final class InstallZipPackageExecutable implements Executable {
 		SecureChannel channel = null;
 		try {
 			String target = context.getRemotePackageDir() + "/" + context.getArtifact().getArtifactId() + "-" + context.getArtifact().getVersion();
-			String linkName = context.getRemotePackageDir() + "/" + context.getArtifact().getArtifactId();
+			String linkName = getLinkName();
 			String command1 = "rm -rf " + linkName + " " + target;
 			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemotePackageDir();
 			String command3 = "ln -s " + target + " " + linkName;
@@ -60,6 +60,14 @@ public final class InstallZipPackageExecutable implements Executable {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
 			ChannelUtils.closeQuietly(channel);
+		}
+	}
+
+	protected String getLinkName() {
+		if (context.isCreateSymbolicLinkByPackageName()) {
+			return context.getRemotePackageDir() + "/" + context.getPackageName();
+		} else {
+			return context.getRemotePackageDir() + "/" + context.getArtifact().getArtifactId();
 		}
 	}
 
