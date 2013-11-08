@@ -138,10 +138,10 @@ public class ChannelUtils {
 		String stdout = NullUtils.trimToNull(result.getStdout());
 		String stderr = NullUtils.trimToNull(result.getStderr());
 		if (!StringUtils.isBlank(stdout)) {
-			logger.info("{}", stdout);
+			logger.info(" -- Standard Out --\n\n{}\n--Standard Out--\n", stdout);
 		}
 		if (!StringUtils.isBlank(stderr)) {
-			logger.warn("{}", stderr);
+			logger.warn(" -- Standard Err --\n\n{}\n--Standard Err--\n", stderr);
 		}
 	}
 
