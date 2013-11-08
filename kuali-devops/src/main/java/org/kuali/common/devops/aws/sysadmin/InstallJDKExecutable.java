@@ -43,10 +43,10 @@ public final class InstallJDKExecutable implements Executable {
 		Assert.exists(localFile);
 		SecureChannel channel = null;
 		try {
-			String command1 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemoteJavaDir();
 			String target = context.getRemoteJavaDir() + "/" + context.getArtifact().getArtifactId() + "-" + context.getArtifact().getVersion();
 			String linkName = context.getRemoteJavaDir() + "/" + context.getArtifact().getArtifactId();
-			String command2 = "rm -rf " + linkName + " " + target;
+			String command1 = "rm -rf " + linkName + " " + target;
+			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemoteJavaDir();
 			String command3 = "ln -s " + target + " " + linkName;
 
 			channel = context.getService().getChannel(context.getContext());
