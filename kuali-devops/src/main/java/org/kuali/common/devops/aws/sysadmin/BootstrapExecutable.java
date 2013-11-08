@@ -81,7 +81,7 @@ public final class BootstrapExecutable implements Executable {
 			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
 
 			RemoteFile file = new RemoteFile.Builder(dst).build();
-			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since ec2-user's doesn't prevent ssh
+			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since that one doesn't prevent ssh
 			logger.info("cp {} {}", src, file.getAbsolutePath());
 			channel.copyLocationToFile(src, file); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
