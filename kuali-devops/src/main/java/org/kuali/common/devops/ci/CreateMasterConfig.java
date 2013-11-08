@@ -35,10 +35,10 @@ import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
+import org.kuali.common.devops.sysadmin.SysAdmin;
 import org.kuali.common.devops.sysadmin.SysAdminConfig;
 import org.kuali.common.devops.sysadmin.SysAdminContext;
 import org.kuali.common.devops.sysadmin.SysAdminService;
-import org.kuali.common.devops.sysadmin.SysAdmin;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
@@ -114,7 +114,8 @@ public class CreateMasterConfig {
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
 		SysAdmin sa = sas.getSysAdmin(sac);
 		sa.enableRootSSH();
-		doRoot(instance, context);
+		sa.bootstrap();
+		// doRoot(instance, context);
 		doDNS(instance);
 		return null; // new ExecutablesExecutable(show);
 	}
