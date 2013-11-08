@@ -49,6 +49,7 @@ import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Result;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
 import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -65,6 +66,7 @@ import org.springframework.context.annotation.Import;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @Configuration
@@ -129,10 +131,28 @@ public class CreateMasterConfig {
 	}
 
 	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
-		KeyPair keyPair = context.getKeyPair();
-		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), context.getKeyPair()).build();
+		KeyPair keyPair = decrypt(context.getKeyPair());
+		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
 		SystemAdministrator sa = sas.getSystemAdministrator(sac);
 		sa.enableRootSSH();
+	}
+
+	protected KeyPair decrypt(KeyPair provided) {
+		String name = provided.getName();
+		Optional<String> publicKey = decrypt(provided.getPublicKey());
+		Optional<String> privateKey = decrypt(provided.getPrivateKey());
+		Optional<String> fingerprint = provided.getFingerprint();
+		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
+	}
+
+	protected Optional<String> decrypt(Optional<String> optional) {
+		if (optional.isPresent()) {
+			String string = optional.get();
+			String s = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
+			return Optional.of(s);
+		} else {
+			return Optional.absent();
+		}
 	}
 
 	protected void enableRootSSH2(Instance instance, LaunchInstanceContext context) {
