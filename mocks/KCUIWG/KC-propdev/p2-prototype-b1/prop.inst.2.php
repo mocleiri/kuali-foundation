@@ -16,7 +16,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">
 
-        <h3>Institution Data</h3>
+        <h3>Supplemental Information</h3>
 
         <form action="#" method="post" class="form-horizontal">
             <fieldset>

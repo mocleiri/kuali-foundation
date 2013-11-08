@@ -138,7 +138,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                                 <div class="panel-heading">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse7"><span aria-hidden="true" class="icon-caret-right"></span> Institution Data</a></h4>
+                                            <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse7"><span aria-hidden="true" class="icon-caret-right"></span> Supplemental Information</a></h4>
                                         </div>
                                     </div>
                                 </div>
