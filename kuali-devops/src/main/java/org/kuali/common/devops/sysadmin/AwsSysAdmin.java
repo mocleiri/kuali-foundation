@@ -22,6 +22,27 @@ public final class AwsSysAdmin implements SysAdmin {
 
 	private final SysAdminContext context;
 
+	@Override
+	public void bootstrap() {
+		enableRootSSH();
+		SecureChannel channel = null;
+		try {
+			channel = getChannel(context.getRoot().getLogin(), false);
+			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
+			String command2 = "yum --assumeyes update";
+			String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
+			ChannelUtils.exec(channel, command1); // Re-size the root volume so it uses all of the allocated space
+			ChannelUtils.exec(channel, command2); // Update the general operating system to the latest and greatest
+			if (context.getPackages().size() > 0) {
+				ChannelUtils.exec(channel, command3); // Install custom packages
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			ChannelUtils.closeQuietly(channel);
+		}
+	}
+
 	protected void enableRootSSH() {
 		SecureChannel channel = null;
 		try {
@@ -41,27 +62,6 @@ public final class AwsSysAdmin implements SysAdmin {
 			ChannelUtils.exec(channel, command3); // restart the sshd service
 			logger.info("rm {}", dst);
 			channel.deleteFile(dst); // delete the sshd_config file we left in the ec2-users home directory
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
-	}
-
-	@Override
-	public void bootstrap() {
-		enableRootSSH();
-		SecureChannel channel = null;
-		try {
-			channel = getChannel(context.getRoot().getLogin(), false);
-			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
-			String command2 = "yum --assumeyes update";
-			String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
-			ChannelUtils.exec(channel, command1); // Re-size the root volume so it uses all of the allocated space
-			ChannelUtils.exec(channel, command2); // Update the general operating system to the latest and greatest
-			if (context.getPackages().size() > 0) {
-				ChannelUtils.exec(channel, command3); // Install custom packages
-			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
