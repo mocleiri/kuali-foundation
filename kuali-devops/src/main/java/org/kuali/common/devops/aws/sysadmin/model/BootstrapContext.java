@@ -33,9 +33,9 @@ public final class BootstrapContext {
 		private SSHD sshd = new SSHD.Builder("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config").build();
 		private List<String> packages = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 
-		public Builder(SecureChannelService service, String dnsName, String privateKey) {
+		public Builder(SecureChannelService service, String hostname, String privateKey) {
 			this.service = service;
-			this.hostname = dnsName;
+			this.hostname = hostname;
 			this.privateKey = privateKey;
 		}
 
