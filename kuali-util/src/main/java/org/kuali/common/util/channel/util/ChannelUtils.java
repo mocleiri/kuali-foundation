@@ -21,7 +21,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
@@ -122,8 +121,8 @@ public class ChannelUtils {
 			sb.append("\n");
 			sb.append("[" + command + "]");
 			sb.append("\n");
-			sb.append("stdout:[" + Str.flatten(result.getStdout()) + "]\n");
-			sb.append("stderr:[" + Str.flatten(result.getStderr()) + "]\n");
+			sb.append("stdout:\n" + result.getStdout() + "\n");
+			sb.append("stderr:\n" + result.getStderr() + "\n");
 			sb.append("\n");
 			throw new IllegalStateException(sb.toString());
 		}
@@ -131,11 +130,11 @@ public class ChannelUtils {
 			String elapsed = FormatUtils.getTime(result.getElapsed());
 			System.out.println("[" + elapsed + "]");
 		}
-		log(result);
+		debug(result);
 		return result;
 	}
 
-	public static void log(Result result) {
+	public static void debug(Result result) {
 		Assert.noNulls(result);
 		String stdout = NullUtils.trimToNull(result.getStdout());
 		String stderr = NullUtils.trimToNull(result.getStderr());
@@ -143,7 +142,7 @@ public class ChannelUtils {
 			logger.debug("\n-- Standard Out --\n{}\n-- Standard Out --", stdout);
 		}
 		if (!StringUtils.isBlank(stderr)) {
-			logger.warn("\n-- Standard Err --\n{}\n-- Standard Err --", stderr);
+			logger.debug("\n-- Standard Err --\n{}\n-- Standard Err --", stderr);
 		}
 	}
 
