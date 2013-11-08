@@ -1,17 +1,14 @@
-package org.kuali.common.devops.aws.sysadmin;
+package org.kuali.common.devops.aws.sysadmin.model;
 
 import java.util.List;
 
-import org.kuali.common.devops.aws.sysadmin.model.SSHD;
-import org.kuali.common.devops.aws.sysadmin.model.User;
-import org.kuali.common.devops.aws.sysadmin.model.Users;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.enc.EncUtils;
 
 import com.google.common.collect.ImmutableList;
 
-public final class BootstrapContext {
+public final class JDKContext {
 
 	private final SecureChannelService service;
 	private final User sshEnabledUser;
@@ -47,15 +44,15 @@ public final class BootstrapContext {
 			return this;
 		}
 
-		public BootstrapContext build() {
+		public JDKContext build() {
 			Assert.noNulls(service);
 			Assert.noBlanks(privateKey);
 			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
-			return new BootstrapContext(this);
+			return new JDKContext(this);
 		}
 	}
 
-	private BootstrapContext(Builder builder) {
+	private JDKContext(Builder builder) {
 		this.service = builder.service;
 		this.sshEnabledUser = builder.sshEnabledUser;
 		this.root = builder.root;

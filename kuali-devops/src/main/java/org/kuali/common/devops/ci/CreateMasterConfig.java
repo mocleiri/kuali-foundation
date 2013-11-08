@@ -33,7 +33,7 @@ import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.BootstrapExecutable;
-import org.kuali.common.devops.aws.sysadmin.BootstrapContext;
+import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;

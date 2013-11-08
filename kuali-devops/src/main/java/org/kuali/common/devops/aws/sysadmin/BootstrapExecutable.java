@@ -2,6 +2,7 @@ package org.kuali.common.devops.aws.sysadmin;
 
 import java.io.IOException;
 
+import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
