@@ -21,6 +21,7 @@ public class TransferResult {
 
 	public TransferResult(long startMillis, long transferAmountInBytes, TransferDirection direction) {
 		this.stopMillis = System.currentTimeMillis();
+		Assert.isTrue(stopMillis >= startMillis);
 		Assert.positive(startMillis);
 		Assert.notNegative(transferAmountInBytes);
 		Assert.noNulls(direction);
