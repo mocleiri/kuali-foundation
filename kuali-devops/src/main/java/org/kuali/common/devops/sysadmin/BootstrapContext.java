@@ -12,7 +12,7 @@ import org.kuali.common.util.enc.KeyPair;
 
 import com.google.common.collect.ImmutableList;
 
-public final class SysAdminContext {
+public final class BootstrapContext {
 
 	private final SecureChannelService service;
 	private final User sshEnabledUser;
@@ -48,16 +48,16 @@ public final class SysAdminContext {
 			return this;
 		}
 
-		public SysAdminContext build() {
+		public BootstrapContext build() {
 			Assert.noNulls(service, keyPair);
 			Assert.isTrue(keyPair.getPublicKey().isPresent(), "Public key is required");
 			Assert.isTrue(keyPair.getPrivateKey().isPresent(), "Private key is required");
 			Assert.isFalse(EncUtils.isEncrypted(keyPair.getPrivateKey().get()), "Private key is encrypted");
-			return new SysAdminContext(this);
+			return new BootstrapContext(this);
 		}
 	}
 
-	private SysAdminContext(Builder builder) {
+	private BootstrapContext(Builder builder) {
 		this.service = builder.service;
 		this.sshEnabledUser = builder.sshEnabledUser;
 		this.root = builder.root;

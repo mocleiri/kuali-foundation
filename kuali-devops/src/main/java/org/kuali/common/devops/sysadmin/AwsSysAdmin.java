@@ -15,12 +15,12 @@ public final class AwsSysAdmin implements SysAdmin {
 
 	private static final Logger logger = LoggerFactory.getLogger(AwsSysAdmin.class);
 
-	public AwsSysAdmin(SysAdminContext context) {
+	public AwsSysAdmin(BootstrapContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 	}
 
-	private final SysAdminContext context;
+	private final BootstrapContext context;
 
 	@Override
 	public void bootstrap() {
@@ -80,7 +80,7 @@ public final class AwsSysAdmin implements SysAdmin {
 		return context.getService().getChannel(cc);
 	}
 
-	public SysAdminContext getContext() {
+	public BootstrapContext getContext() {
 		return context;
 	}
 
