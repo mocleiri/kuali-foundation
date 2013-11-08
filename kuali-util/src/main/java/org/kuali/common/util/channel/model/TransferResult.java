@@ -20,13 +20,13 @@ import org.kuali.common.util.Assert;
 public class TransferResult {
 
 	public TransferResult(long startMillis, long transferAmountInBytes, TransferDirection direction) {
+		this.stopMillis = System.currentTimeMillis();
 		Assert.positive(startMillis);
 		Assert.notNegative(transferAmountInBytes);
 		Assert.noNulls(direction);
 		this.startMillis = startMillis;
 		this.transferAmountInBytes = transferAmountInBytes;
-		this.stopMillis = System.currentTimeMillis() - startMillis;
-		this.elapsedMillis = startMillis - stopMillis;
+		this.elapsedMillis = stopMillis - startMillis;
 		this.direction = direction;
 	}
 
