@@ -99,8 +99,8 @@ public class CreateMasterConfig {
 		// Instance instance = ec2.launchInstance(context);
 		Instance instance = ec2.getInstance("i-072be77e");
 		String privateKey = context.getKeyPair().getPrivateKey().get();
-		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
-		Executable bootstrap = new BootstrapExecutable(sac);
+		BootstrapContext bc = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
+		Executable bootstrap = new BootstrapExecutable(bc);
 		bootstrap.execute();
 		if (context.getDnsName().isPresent()) {
 			String aliasFQDN = context.getDnsName().get();
