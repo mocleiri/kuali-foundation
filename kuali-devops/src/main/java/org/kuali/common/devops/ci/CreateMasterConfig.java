@@ -74,7 +74,7 @@ public class CreateMasterConfig {
 	private static final String MASTER_DNS_NAME = "test.ci.kuali.org";
 
 	@Autowired
-	EC2Service service;
+	EC2Service ec2;
 
 	@Autowired
 	EC2ServiceContext serviceContext;
@@ -92,7 +92,7 @@ public class CreateMasterConfig {
 	AwsAccount account;
 
 	@Autowired
-	SecureChannelService channelService;
+	SecureChannelService scs;
 
 	@Bean
 	public Executable main() {
@@ -100,7 +100,7 @@ public class CreateMasterConfig {
 		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
 		show.execute();
 		// Instance instance = service.launchInstance(instanceContext);
-		Instance instance = service.getInstance("i-cc204ba8");
+		Instance instance = ec2.getInstance("i-cc204ba8");
 		enableRootSSH(instance, instanceContext);
 		doRoot(instance, instanceContext);
 		doDNS(instance);
@@ -112,7 +112,7 @@ public class CreateMasterConfig {
 		ChannelContext cc = getRootContext(instance, context.getKeyPair().getPrivateKey().get());
 		SecureChannel channel = null;
 		try {
-			channel = channelService.getChannel(cc);
+			channel = scs.getChannel(cc);
 			String cmd = "resize2fs " + rootDeviceName;
 			Result result = ChannelUtils.exec(channel, cmd);
 			logger.info("\n{}\n{}\n", cmd, result.getStdout());
@@ -147,7 +147,7 @@ public class CreateMasterConfig {
 			String command3 = "sudo service sshd restart";
 
 			ChannelContext cc = getEC2UserContext(instance, context.getKeyPair().getPrivateKey().get());
-			channel = channelService.getChannel(cc);
+			channel = scs.getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
 			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
 			logger.info("cp {} {}", src, dst.getAbsolutePath());
