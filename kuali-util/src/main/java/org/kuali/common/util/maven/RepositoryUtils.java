@@ -263,7 +263,7 @@ public class RepositoryUtils {
 		sb.append(artifact.getVersion());
 		if (artifact.getClassifier().isPresent()) {
 			sb.append("-");
-			sb.append(artifact.getClassifier());
+			sb.append(artifact.getClassifier().get());
 		}
 		sb.append(".");
 		sb.append(artifact.getType());
