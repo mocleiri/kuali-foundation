@@ -26,7 +26,7 @@ public class TransferResult {
 		this.startMillis = startMillis;
 		this.transferAmountInBytes = transferAmountInBytes;
 		this.stopMillis = System.currentTimeMillis() - startMillis;
-		this.elapsedMillis = stopMillis - startMillis;
+		this.elapsedMillis = startMillis - stopMillis;
 		this.direction = direction;
 	}
 
