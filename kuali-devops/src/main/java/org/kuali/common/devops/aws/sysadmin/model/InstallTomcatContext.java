@@ -14,13 +14,12 @@ public final class InstallTomcatContext {
 	private final ChannelContext context;
 	private final Artifact artifact;
 	private final File localRepositoryDir;
-	private final String remoteJavaDir;
+	private final String remoteTomcatDir;
 
 	public static class Builder {
 
-		private static final String GROUP_ID = "com.oracle";
-		private static final String ARTIFACT_ID_PREFIX = "jdk";
-		private static final String CLASSIFIER = "linux-x64";
+		private static final String GROUP_ID = "org.apache";
+		private static final String ARTIFACT_ID = "apache-tomcat";
 		private static final String TYPE = "zip";
 
 		// Required
@@ -30,10 +29,10 @@ public final class InstallTomcatContext {
 
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
-		private String remoteJavaDir = "/usr/local/java";
+		private String remoteTomcatDir = "/usr/local/tomcat";
 
-		public Builder(SecureChannelService service, ChannelContext context, JDKLevel level, String version) {
-			this(service, context, getDefaultArtifact(level, version));
+		public Builder(SecureChannelService service, ChannelContext context, String version) {
+			this(service, context, getDefaultArtifact(version));
 		}
 
 		public Builder(SecureChannelService service, ChannelContext context, Artifact artifact) {
@@ -42,15 +41,14 @@ public final class InstallTomcatContext {
 			this.context = context;
 		}
 
-		private static Artifact getDefaultArtifact(JDKLevel level, String version) {
-			Assert.noNulls(level);
+		private static Artifact getDefaultArtifact(String version) {
 			Assert.noBlanks(version);
-			return new Artifact.Builder(GROUP_ID, ARTIFACT_ID_PREFIX + level.getVersion(), version).classifier(CLASSIFIER).type(TYPE).build();
+			return new Artifact.Builder(GROUP_ID, ARTIFACT_ID, version).type(TYPE).build();
 		}
 
 		public InstallTomcatContext build() {
 			Assert.noNulls(artifact, localRepositoryDir);
-			Assert.noBlanks(remoteJavaDir);
+			Assert.noBlanks(remoteTomcatDir);
 			return new InstallTomcatContext(this);
 		}
 	}
@@ -60,7 +58,7 @@ public final class InstallTomcatContext {
 		this.service = builder.service;
 		this.context = builder.context;
 		this.localRepositoryDir = builder.localRepositoryDir;
-		this.remoteJavaDir = builder.remoteJavaDir;
+		this.remoteTomcatDir = builder.remoteTomcatDir;
 	}
 
 	public Artifact getArtifact() {
@@ -79,8 +77,8 @@ public final class InstallTomcatContext {
 		return localRepositoryDir;
 	}
 
-	public String getRemoteJavaDir() {
-		return remoteJavaDir;
+	public String getRemoteTomcatDir() {
+		return remoteTomcatDir;
 	}
 
 }
