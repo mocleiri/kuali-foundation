@@ -32,11 +32,14 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 			String command2 = "sudo cp " + path + " " + context.getSshd().getRemoteConfigLocation();
 			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
 
-			ChannelContext cc = new ChannelContext.Builder(context.getSshEnabledUser().getLogin(), context.getDnsName()).privateKey(context.getKeyPair().getPrivateKey().get())
-					.requestPseudoTerminal(true).build();
+			String login = context.getSshEnabledUser().getLogin();
+			String dnsName = context.getDnsName();
+			String privateKey = context.getKeyPair().getPrivateKey().get();
+			ChannelContext cc = new ChannelContext.Builder(login, dnsName).privateKey(privateKey).requestPseudoTerminal(true).build();
+
 			channel = context.getService().getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
-			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since ec2-user's doesn't block out ssh
+			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since ec2-user's doesn't prevent ssh
 			logger.info("cp {} {}", src, dst.getAbsolutePath());
 			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
