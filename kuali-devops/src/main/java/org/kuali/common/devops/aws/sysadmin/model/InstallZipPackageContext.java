@@ -16,7 +16,6 @@ public final class InstallZipPackageContext {
 	private final File localRepositoryDir;
 	private final String packageName;
 	private final String remotePackageDir;
-	private final boolean createSymbolicLinkByPackageName;
 
 	public static class Builder {
 
@@ -29,18 +28,12 @@ public final class InstallZipPackageContext {
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
-		private boolean createSymbolicLinkByPackageName = false;
 
 		public Builder(SecureChannelService service, ChannelContext context, Artifact artifact, String packageName) {
 			this.artifact = artifact;
 			this.service = service;
 			this.context = context;
 			this.packageName = packageName;
-		}
-
-		public Builder createSymbolicLinkByPackageName(boolean createSymbolicLinkByPackageName) {
-			this.createSymbolicLinkByPackageName = createSymbolicLinkByPackageName;
-			return this;
 		}
 
 		public Builder localRepositoryDir(File localRepositoryDir) {
@@ -68,7 +61,6 @@ public final class InstallZipPackageContext {
 		this.localRepositoryDir = builder.localRepositoryDir;
 		this.remotePackageDir = builder.remotePackageDir;
 		this.packageName = builder.packageName;
-		this.createSymbolicLinkByPackageName = builder.createSymbolicLinkByPackageName;
 	}
 
 	public Artifact getArtifact() {
@@ -93,10 +85,6 @@ public final class InstallZipPackageContext {
 
 	public String getRemotePackageDir() {
 		return remotePackageDir;
-	}
-
-	public boolean isCreateSymbolicLinkByPackageName() {
-		return createSymbolicLinkByPackageName;
 	}
 
 }
