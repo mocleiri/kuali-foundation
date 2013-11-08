@@ -8,22 +8,32 @@ import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class AwsSysAdmin implements SysAdmin {
+public final class AwsBootstrapExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(AwsSysAdmin.class);
+	private static final Logger logger = LoggerFactory.getLogger(AwsBootstrapExecutable.class);
 
-	public AwsSysAdmin(BootstrapContext context) {
+	public AwsBootstrapExecutable(BootstrapContext context) {
+		this(context, false);
+	}
+
+	public AwsBootstrapExecutable(BootstrapContext context, boolean skip) {
 		Assert.noNulls(context);
 		this.context = context;
+		this.skip = skip;
 	}
 
 	private final BootstrapContext context;
+	private final boolean skip;
 
 	@Override
-	public void bootstrap() {
+	public void execute() {
+		if (skip) {
+			return;
+		}
 		enableRootSSH();
 		SecureChannel channel = null;
 		try {
@@ -69,10 +79,6 @@ public final class AwsSysAdmin implements SysAdmin {
 		}
 	}
 
-	@Override
-	public void configure() {
-	}
-
 	protected SecureChannel getChannel(String login, boolean requestPseudoTerminal) throws IOException {
 		String dnsName = context.getDnsName();
 		String privateKey = context.getPrivateKey();
@@ -82,6 +88,10 @@ public final class AwsSysAdmin implements SysAdmin {
 
 	public BootstrapContext getContext() {
 		return context;
+	}
+
+	public boolean isSkip() {
+		return skip;
 	}
 
 }

@@ -33,10 +33,8 @@ import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
+import org.kuali.common.devops.sysadmin.AwsBootstrapExecutable;
 import org.kuali.common.devops.sysadmin.BootstrapContext;
-import org.kuali.common.devops.sysadmin.SysAdmin;
-import org.kuali.common.devops.sysadmin.SysAdminConfig;
-import org.kuali.common.devops.sysadmin.SysAdminService;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
@@ -64,7 +62,7 @@ import com.google.common.collect.ImmutableList;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class,
-		DNSMEServiceConfig.class, DefaultSecureChannelServiceConfig.class, SysAdminConfig.class })
+		DNSMEServiceConfig.class, DefaultSecureChannelServiceConfig.class })
 public class CreateMasterConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
@@ -93,34 +91,26 @@ public class CreateMasterConfig {
 	@Autowired
 	SecureChannelService scs;
 
-	@Autowired
-	SysAdminService sas;
-
 	@Bean
 	public Executable main() {
 		long start = System.currentTimeMillis();
 		LaunchInstanceContext context = launchInstanceContext();
-		Executable show = new ShowLaunchConfigExecutable(serviceContext, context);
-		show.execute();
+		new ShowLaunchConfigExecutable(serviceContext, context).execute();
 		// Instance instance = ec2.launchInstance(context);
 		Instance instance = ec2.getInstance("i-072be77e");
-		KeyPair keyPair = EncUtils.decrypt(enc, context.getKeyPair());
-		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), keyPair.getPrivateKey().get()).build();
-		SysAdmin sa = sas.getSysAdmin(sac);
-		sa.bootstrap();
-		// doRoot(instance, context);
-		doDNS(instance);
+		String privateKey = context.getKeyPair().getPrivateKey().get();
+		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
+		Executable bootstrap = new AwsBootstrapExecutable(sac);
+		bootstrap.execute();
+		if (context.getDnsName().isPresent()) {
+			String aliasFQDN = context.getDnsName().get();
+			String canonicalFQDN = instance.getPublicDnsName();
+			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
+			cname.execute();
+		}
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
-	}
-
-	protected void doDNS(Instance instance) {
-		String aliasFQDN = "test.ci.kuali.org";
-		String canonicalFQDN = instance.getPublicDnsName();
-		Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
-		cname.execute();
-		logger.info(aliasFQDN + " -> " + instance.getPublicDnsName());
 	}
 
 	@Bean
