@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.File;
 import java.io.IOException;
 
-import org.kuali.common.devops.aws.sysadmin.model.InstallJDKContext;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.RemoteFile;
@@ -16,17 +16,17 @@ import org.kuali.common.util.maven.RepositoryUtils;
  */
 public final class InstallTomcatExecutable implements Executable {
 
-	public InstallTomcatExecutable(InstallJDKContext context) {
+	public InstallTomcatExecutable(InstallTomcatContext context) {
 		this(context, false);
 	}
 
-	public InstallTomcatExecutable(InstallJDKContext context, boolean skip) {
+	public InstallTomcatExecutable(InstallTomcatContext context, boolean skip) {
 		Assert.noNulls(context);
 		this.context = context;
 		this.skip = skip;
 	}
 
-	private final InstallJDKContext context;
+	private final InstallTomcatContext context;
 	private final boolean skip;
 
 	@Override
@@ -39,14 +39,14 @@ public final class InstallTomcatExecutable implements Executable {
 
 	protected void install() {
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), context.getArtifact());
-		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemoteJavaDir() + "/" + localFile.getName()).build();
+		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemoteTomcatDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
 		SecureChannel channel = null;
 		try {
-			String target = context.getRemoteJavaDir() + "/" + context.getArtifact().getArtifactId() + "-" + context.getArtifact().getVersion();
-			String linkName = context.getRemoteJavaDir() + "/" + context.getArtifact().getArtifactId();
+			String target = context.getRemoteTomcatDir() + "/" + context.getArtifact().getArtifactId() + "-" + context.getArtifact().getVersion();
+			String linkName = context.getRemoteTomcatDir() + "/" + context.getArtifact().getArtifactId();
 			String command1 = "rm -rf " + linkName + " " + target;
-			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemoteJavaDir();
+			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemoteTomcatDir();
 			String command3 = "ln -s " + target + " " + linkName;
 			String command4 = "chmod -R 755 " + linkName + "/bin";
 
@@ -67,7 +67,7 @@ public final class InstallTomcatExecutable implements Executable {
 		return skip;
 	}
 
-	public InstallJDKContext getContext() {
+	public InstallTomcatContext getContext() {
 		return context;
 	}
 
