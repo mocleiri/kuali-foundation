@@ -129,6 +129,7 @@ public class CreateMasterConfig {
 	}
 
 	protected void enableRootSSH(Instance instance, LaunchInstanceContext context) {
+		KeyPair keyPair = context.getKeyPair();
 		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), context.getKeyPair()).build();
 		SystemAdministrator sa = sas.getSystemAdministrator(sac);
 		sa.enableRootSSH();

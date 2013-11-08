@@ -4,6 +4,7 @@ import org.kuali.common.devops.sysadmin.model.SSHD;
 import org.kuali.common.devops.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
+import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.KeyPair;
 
 public final class SysAdminContext {
@@ -39,6 +40,7 @@ public final class SysAdminContext {
 			Assert.noNulls(service, keyPair);
 			Assert.isTrue(keyPair.getPublicKey().isPresent(), "Public key is required");
 			Assert.isTrue(keyPair.getPrivateKey().isPresent(), "Private key is required");
+			Assert.isFalse(EncUtils.isEncrypted(keyPair.getPrivateKey().get()), "Private key is encrypted");
 			return new SysAdminContext(this);
 		}
 	}
