@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kuali.common.devops.sysadmin.model.SSHD;
 import org.kuali.common.devops.sysadmin.model.User;
+import org.kuali.common.devops.sysadmin.model.Users;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.enc.EncUtils;
@@ -30,10 +31,10 @@ public final class SysAdminContext {
 		private final KeyPair keyPair;
 
 		// Optional
-		private User ec2User = new User("ec2-user", "/home/ec2-user");
-		private User root = new User("root", "/root");
+		private User ec2User = Users.EC2USER.getUser();
+		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = "/dev/xvda1";
-		private SSHD sshd = new SSHD("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config");
+		private SSHD sshd = new SSHD.Builder("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config").build();
 		private List<String> packages = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 
 		public Builder(SecureChannelService service, String dnsName, KeyPair keyPair) {

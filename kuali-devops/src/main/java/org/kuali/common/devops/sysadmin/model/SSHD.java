@@ -1,27 +1,54 @@
 package org.kuali.common.devops.sysadmin.model;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.LocationUtils;
 
 public final class SSHD {
 
-	public SSHD(String localConfigLocation) {
-		this("sshd", localConfigLocation, "/etc/ssh/sshd_config");
-	}
-
-	public SSHD(String serviceName, String localConfigLocation, String remoteConfigLocation) {
-		Assert.noBlanks(serviceName, localConfigLocation, remoteConfigLocation);
-		Assert.exists(localConfigLocation);
-		this.serviceName = serviceName;
-		this.localConfigLocation = localConfigLocation;
-		this.remoteConfigLocation = remoteConfigLocation;
-		this.configFilename = LocationUtils.getResource(localConfigLocation).getFilename();
-	}
-
-	private final String serviceName;
 	private final String localConfigLocation;
+	private final String serviceName;
 	private final String remoteConfigLocation;
 	private final String configFilename;
+
+	public static class Builder {
+
+		private final String localConfigLocation;
+		private String serviceName = "sshd";
+		private String remoteConfigLocation = "/etc/ssh/sshd_config";
+		private String configFilename = "sshd_config";
+
+		public Builder(String localConfigLocation) {
+			this.localConfigLocation = localConfigLocation;
+		}
+
+		public Builder serviceName(String serviceName) {
+			this.serviceName = serviceName;
+			return this;
+		}
+
+		public Builder remoteConfigLocation(String remoteConfigLocation) {
+			this.remoteConfigLocation = remoteConfigLocation;
+			return this;
+		}
+
+		public Builder configFilename(String configFilename) {
+			this.configFilename = configFilename;
+			return this;
+		}
+
+		public SSHD build() {
+			Assert.noBlanks(localConfigLocation, serviceName, remoteConfigLocation, configFilename);
+			Assert.exists(localConfigLocation);
+			return new SSHD(this);
+		}
+
+	}
+
+	private SSHD(Builder builder) {
+		this.localConfigLocation = builder.localConfigLocation;
+		this.serviceName = builder.serviceName;
+		this.remoteConfigLocation = builder.remoteConfigLocation;
+		this.configFilename = builder.configFilename;
+	}
 
 	public String getServiceName() {
 		return serviceName;
