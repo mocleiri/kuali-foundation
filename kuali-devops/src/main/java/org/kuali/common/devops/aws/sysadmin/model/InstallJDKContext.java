@@ -1,45 +1,31 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
-import java.io.File;
-
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 
 public final class InstallJDKContext {
 
-	private final SecureChannelService service;
-	private final ChannelContext context;
-	private final Artifact artifact;
-	private final File localRepositoryDir;
-	private final String remoteJavaDir;
+	private final InstallZipPackageContext zipPackage;
 
 	public static class Builder {
 
+		private static final String PACKAGE_NAME = "java";
 		private static final String GROUP_ID = "com.oracle";
 		private static final String ARTIFACT_ID_PREFIX = "jdk";
 		private static final String CLASSIFIER = "linux-x64";
 		private static final String TYPE = "zip";
 
 		// Required
-		private final SecureChannelService service;
-		private final ChannelContext context;
-		private final Artifact artifact;
-
-		// Optional
-		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
-		private String remoteJavaDir = "/usr/local/java";
+		private final InstallZipPackageContext zipPackage;
 
 		public Builder(SecureChannelService service, ChannelContext context, JDKLevel level, String version) {
 			this(service, context, getDefaultArtifact(level, version));
 		}
 
 		public Builder(SecureChannelService service, ChannelContext context, Artifact artifact) {
-			this.artifact = artifact;
-			this.service = service;
-			this.context = context;
+			this.zipPackage = new InstallZipPackageContext.Builder(service, context, artifact, PACKAGE_NAME).build();
 		}
 
 		private static Artifact getDefaultArtifact(JDKLevel level, String version) {
@@ -49,38 +35,17 @@ public final class InstallJDKContext {
 		}
 
 		public InstallJDKContext build() {
-			Assert.noNulls(artifact, localRepositoryDir);
-			Assert.noBlanks(remoteJavaDir);
+			Assert.noNulls(zipPackage);
 			return new InstallJDKContext(this);
 		}
 	}
 
 	private InstallJDKContext(Builder builder) {
-		this.artifact = builder.artifact;
-		this.service = builder.service;
-		this.context = builder.context;
-		this.localRepositoryDir = builder.localRepositoryDir;
-		this.remoteJavaDir = builder.remoteJavaDir;
+		this.zipPackage = builder.zipPackage;
 	}
 
-	public Artifact getArtifact() {
-		return artifact;
-	}
-
-	public SecureChannelService getService() {
-		return service;
-	}
-
-	public ChannelContext getContext() {
-		return context;
-	}
-
-	public File getLocalRepositoryDir() {
-		return localRepositoryDir;
-	}
-
-	public String getRemoteJavaDir() {
-		return remoteJavaDir;
+	public InstallZipPackageContext getZipPackage() {
+		return zipPackage;
 	}
 
 }

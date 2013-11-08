@@ -8,11 +8,36 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.RepositoryUtils;
 
-public class InstallUtils {
+/**
+ * 
+ */
+public final class InstallZipPackageExecutable implements Executable {
 
-	public static void installZipPackage(InstallZipPackageContext context) {
+	public InstallZipPackageExecutable(InstallZipPackageContext context) {
+		this(context, false);
+	}
+
+	public InstallZipPackageExecutable(InstallZipPackageContext context, boolean skip) {
+		Assert.noNulls(context);
+		this.context = context;
+		this.skip = skip;
+	}
+
+	private final InstallZipPackageContext context;
+	private final boolean skip;
+
+	@Override
+	public void execute() {
+		if (skip) {
+			return;
+		}
+		install(context);
+	}
+
+	public void install(InstallZipPackageContext context) {
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), context.getArtifact());
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
@@ -37,4 +62,9 @@ public class InstallUtils {
 			ChannelUtils.closeQuietly(channel);
 		}
 	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
 }
