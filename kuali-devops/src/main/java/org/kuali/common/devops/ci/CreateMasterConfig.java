@@ -141,7 +141,7 @@ public class CreateMasterConfig {
 		String name = provided.getName();
 		Optional<String> publicKey = decrypt(provided.getPublicKey());
 		Optional<String> privateKey = decrypt(provided.getPrivateKey());
-		Optional<String> fingerprint = provided.getFingerprint();
+		Optional<String> fingerprint = decrypt(provided.getFingerprint());
 		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
 	}
 
