@@ -15,6 +15,8 @@
  */
 package org.kuali.common.util;
 
+import java.util.List;
+
 public class ThreadUtils {
 
 	/**
@@ -23,6 +25,22 @@ public class ThreadUtils {
 	public static void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public static void start(List<Thread> threads) {
+		for (Thread thread : threads) {
+			thread.start();
+		}
+	}
+
+	public static void join(List<Thread> threads) {
+		try {
+			for (Thread thread : threads) {
+				thread.join();
+			}
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}

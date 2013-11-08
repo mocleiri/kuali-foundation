@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.execute.impl;
 
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
 import java.util.List;
 
@@ -29,13 +30,15 @@ import com.google.common.collect.ImmutableList;
 /**
  * Execute the list of <code>executables</code> supplied to this bean
  */
-public class ConcurrentExecutables implements Executable {
+public class ConcurrentExecutables implements Executable, UncaughtExceptionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(ConcurrentExecutables.class);
 
 	private final List<Executable> executables;
 	private final boolean skip;
 	private final boolean timed;
+
+	private IllegalStateException exception;
 
 	public ConcurrentExecutables(Executable... executables) {
 		this(ImmutableList.copyOf(executables));
@@ -73,6 +76,13 @@ public class ConcurrentExecutables implements Executable {
 			logger.info("Finished at: {}", new Date(stop));
 			logger.info("------------------------------------------------------------------------");
 		}
+	}
+
+	@Override
+	public synchronized void uncaughtException(Thread thread, Throwable exception) {
+		long id = thread.getId();
+		String name = thread.getName();
+		this.exception = new IllegalStateException("Exception in thread [" + id + ":" + name + "]", exception);
 	}
 
 	public List<Executable> getExecutables() {
