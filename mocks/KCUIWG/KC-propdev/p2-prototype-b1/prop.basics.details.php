@@ -1,4 +1,6 @@
 <?php
+require('config.php');
+
 # Variables
 $section = 'basics';
 $page = 'basics-details';
