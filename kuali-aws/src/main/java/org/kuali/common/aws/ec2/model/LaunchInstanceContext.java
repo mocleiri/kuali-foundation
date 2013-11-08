@@ -17,8 +17,8 @@ public final class LaunchInstanceContext {
 
 	private final String ami;
 	// To launch an instance the only part of the KeyPair object that is *required* is the key name
-	// If you supply the name only (ie no public key), you must have already registered the a key pair with Amazon under that name
-	// If you supply both the name and the public key, the launch routine automatically registers the public key with Amazon
+	// If you supply the name only (ie no public key), you must have already registered a key pair with Amazon under that name
+	// If you supply both the name and the public key, the launch routine automatically registers a key pair with Amazon
 	private final KeyPair keyPair;
 	private final InstanceType type;
 	private final List<KualiSecurityGroup> securityGroups;
