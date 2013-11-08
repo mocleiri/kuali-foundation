@@ -46,12 +46,14 @@ public final class InstallJDKExecutable implements Executable {
 			String command1 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemoteJavaDir();
 			String target = context.getRemoteJavaDir() + "/" + context.getArtifact().getArtifactId() + "-" + context.getArtifact().getVersion();
 			String linkName = context.getRemoteJavaDir() + "/" + context.getArtifact().getArtifactId();
-			String command2 = "ln -s " + target + " " + linkName;
+			String command2 = "rm -rf " + linkName + " " + target;
+			String command3 = "ln -s " + target + " " + linkName;
 
 			channel = context.getService().getChannel(context.getContext());
 			ChannelUtils.scp(channel, localFile, remoteFile);
 			ChannelUtils.exec(channel, command1);
 			ChannelUtils.exec(channel, command2);
+			ChannelUtils.exec(channel, command3);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
