@@ -82,13 +82,12 @@ $(document).ready(function() {
     if ($('select').length) {
         
         $('select').each(function() {
+            // $(this).multiselect().multiselectfilter();
             if ($(this).attr('multiple')) {
                 
                 $(this).multiselect({
-                    selectedList: 9,
                     minWidth: 'auto',
-                    header: 'Choose all that apply',
-                    noneSelectedText: 'Select keywords',
+                    selectedList: 9,
                     open: function(event, ui) {
                         $(this).parent().find('button.ui-multiselect').attr('tabindex', '-1');
                     },
@@ -102,7 +101,6 @@ $(document).ready(function() {
                 $(this).multiselect({
                     multiple: false,
                     header: false,
-                    noneSelectedText: 'Select an option',
                     selectedList: 1,
                     minWidth: 'auto',
                     open: function(event, ui) {

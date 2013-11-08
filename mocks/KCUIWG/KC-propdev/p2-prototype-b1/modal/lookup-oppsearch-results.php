@@ -58,13 +58,7 @@ include( 'inc/head.php' );
 			</table>
 		</div>
 		<div class="modal-footer">
-			
-            
-            
             <a href="lookup-oppsearch.php" class="btn btn-default btn-sm"><span aria-hidden="true" class="icon-chevron-left"></span> Refine Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a>
-            
-            
-            
 		</div>
 	</div>
 </div>
