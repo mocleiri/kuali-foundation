@@ -34,7 +34,7 @@ public final class SysAdminContext {
 		private User root = new User("root", "/root");
 		private String rootVolumeDeviceName = "/dev/xvda1";
 		private SSHD sshd = new SSHD("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config");
-		private List<String> packages = ImmutableList.of();
+		private List<String> packages = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 
 		public Builder(SecureChannelService service, String dnsName, KeyPair keyPair) {
 			this.service = service;

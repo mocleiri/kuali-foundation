@@ -58,7 +58,7 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 			channel = context.getService().getChannel(cc);
 			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
 			String command2 = "yum update -y";
-			String command3 = "yum install -y " + CollectionUtils.asCSV(context.getPackages());
+			String command3 = "yum install -y " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
 			ChannelUtils.exec(channel, command1); // Re-size the root volume so it uses all of the allocated space
 			ChannelUtils.exec(channel, command2); // Update the general operating system to the latest and greatest
 			if (context.getPackages().size() > 0) {
