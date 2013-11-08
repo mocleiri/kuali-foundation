@@ -68,9 +68,9 @@ import com.google.common.collect.ImmutableList;
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class, FoundationAwsConfig.class, AwsServiceConfig.class, ProductionDNSMEContextConfig.class,
 		DNSMEServiceConfig.class, DefaultSecureChannelServiceConfig.class })
-public class CreateMasterConfig {
+public class ProvisionCIMasterConfig {
 
-	private static final Logger logger = LoggerFactory.getLogger(CreateMasterConfig.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProvisionCIMasterConfig.class);
 
 	private static final int MASTER_ROOT_VOLUME_SIZE_IN_GIGABYTES = 250;
 	private static final String MASTER_DNS_NAME = "test.ci.kuali.org";
