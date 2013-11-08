@@ -52,6 +52,7 @@ public final class InstallZipPackageContext {
 		public InstallZipPackageContext build() {
 			Assert.noNulls(service, context, artifact, localRepositoryDir);
 			Assert.noBlanks(packageName, remotePackageDir);
+			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, artifact));
 			return new InstallZipPackageContext(this);
 		}
 	}
