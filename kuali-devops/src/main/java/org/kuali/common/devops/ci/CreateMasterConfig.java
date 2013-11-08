@@ -15,7 +15,6 @@
  */
 package org.kuali.common.devops.ci;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,17 +37,12 @@ import org.kuali.common.devops.sysadmin.SysAdmin;
 import org.kuali.common.devops.sysadmin.SysAdminConfig;
 import org.kuali.common.devops.sysadmin.SysAdminContext;
 import org.kuali.common.devops.sysadmin.SysAdminService;
-import org.kuali.common.devops.sysadmin.model.Users;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.api.SecureChannelService;
-import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.Result;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
-import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
@@ -121,24 +115,6 @@ public class CreateMasterConfig {
 		return null; // new ExecutablesExecutable(show);
 	}
 
-	protected ChannelContext getContext(Instance instance, String privateKey, String username, boolean requestPseudoTerminal) {
-		String hostname = instance.getPublicDnsName();
-		ChannelContext provided = new ChannelContext.Builder(username, hostname).privateKey(privateKey).requestPseudoTerminal(true).build();
-		return ChannelUtils.getContext(env, enc, provided);
-	}
-
-	protected ChannelContext getRootContext(Instance instance, String privateKey) {
-		return getContext(instance, privateKey, Users.ROOT.getUser().getLogin(), false);
-	}
-
-	protected ChannelContext getEC2UserContext(Instance instance, String privateKey) {
-		return getContext(instance, privateKey, Users.EC2USER.getUser().getLogin(), true);
-	}
-
-	protected void exec(SecureChannel channel, String command) {
-		ChannelUtils.exec(channel, command, true);
-	}
-
 	protected void doDNS(Instance instance) {
 		String aliasFQDN = "test.ci.kuali.org";
 		String canonicalFQDN = instance.getPublicDnsName();
@@ -166,22 +142,6 @@ public class CreateMasterConfig {
 		String dnsName = MASTER_DNS_NAME;
 		return new LaunchInstanceContext.Builder(ami, keyPair).type(type).availabilityZone(zone).tags(tags).securityGroups(securityGroups).preventTermination(preventTermination)
 				.rootVolume(rootVolume).overrideExistingSecurityGroupPermissions(overrideExistingSecurityGroupPermissions).dnsName(dnsName).build();
-	}
-
-	protected void doRoot(Instance instance, LaunchInstanceContext context) {
-		String rootDeviceName = instance.getRootDeviceName();
-		ChannelContext cc = getRootContext(instance, context.getKeyPair().getPrivateKey().get());
-		SecureChannel channel = null;
-		try {
-			channel = scs.getChannel(cc);
-			String cmd = "resize2fs " + rootDeviceName;
-			Result result = ChannelUtils.exec(channel, cmd);
-			logger.info("\n{}\n{}\n", cmd, result.getStdout());
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
 	}
 
 	protected List<Tag> getTags() {
