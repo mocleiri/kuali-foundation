@@ -49,7 +49,6 @@ public class ChannelUtils {
 	private static final String HOSTNAME_KEY = "ssh.hostname";
 	private static final String PRIVATEKEY_KEY = "ssh.privateKey";
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
-	private static final String INFO = "[INFO]";
 
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc) {
 		return getContext(env, enc, DEFAULT);
@@ -101,16 +100,14 @@ public class ChannelUtils {
 	public static TransferResult scp(SecureChannel channel, File source, RemoteFile destination, boolean echo) {
 		Assert.noNulls(channel, source, destination);
 		Assert.exists(source);
-		if (echo) {
-			System.out.print(INFO + " creating -> " + destination.getAbsolutePath() + " ");
-		}
 		long start = System.currentTimeMillis();
 		channel.copyFile(source, destination);
 		TransferResult result = new TransferResult(start, source.length(), TransferDirection.LOCAL_TO_REMOTE);
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
-			System.out.println("- [" + elapsed + ", " + rate + "]");
+			Object[] args = { destination.getAbsolutePath(), elapsed, rate };
+			logger.info("creating -> {} - [{}, {}]", args);
 		}
 		return result;
 	}
