@@ -59,6 +59,11 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
 			String command2 = "yum update -y";
 			String command3 = "yum install -y " + CollectionUtils.asCSV(context.getPackages());
+			ChannelUtils.exec(channel, command1); // Re-size the root volume so it uses all of the allocated space
+			ChannelUtils.exec(channel, command2); // Update the general operating system to the latest and greatest
+			if (context.getPackages().size() > 0) {
+				ChannelUtils.exec(channel, command3); // Install out custom packages
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
