@@ -10,15 +10,11 @@ import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.RepositoryUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 
  */
 public final class InstallJDKExecutable implements Executable {
-
-	private static final Logger logger = LoggerFactory.getLogger(InstallJDKExecutable.class);
 
 	public InstallJDKExecutable(InstallJDKContext context) {
 		this(context, false);
@@ -45,12 +41,10 @@ public final class InstallJDKExecutable implements Executable {
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), context.getArtifact());
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemoteJavaDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
-
 		SecureChannel channel = null;
 		try {
 			channel = context.getService().getChannel(context.getContext());
-			logger.info("Creating {}", remoteFile.getAbsolutePath());
-			channel.copyFile(localFile, remoteFile);
+			ChannelUtils.scp(channel, localFile, remoteFile);
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
