@@ -3,6 +3,7 @@ package org.kuali.common.devops.sysadmin;
 import java.io.IOException;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
@@ -51,6 +52,18 @@ public final class AmazonLinuxSysAdmin implements SysAdmin {
 
 	@Override
 	public void bootstrap() {
+		SecureChannel channel = null;
+		try {
+			ChannelContext cc = new ChannelContext.Builder(context.getRoot().getLogin(), context.getDnsName()).privateKey(context.getKeyPair().getPrivateKey().get()).build();
+			channel = context.getService().getChannel(cc);
+			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
+			String command2 = "yum update -y";
+			String command3 = "yum install -y " + CollectionUtils.asCSV(context.getPackages());
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			ChannelUtils.closeQuietly(channel);
+		}
 	}
 
 	public SysAdminContext getContext() {

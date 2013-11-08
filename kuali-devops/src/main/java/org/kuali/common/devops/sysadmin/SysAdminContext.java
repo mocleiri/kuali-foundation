@@ -1,11 +1,15 @@
 package org.kuali.common.devops.sysadmin;
 
+import java.util.List;
+
 import org.kuali.common.devops.sysadmin.model.SSHD;
 import org.kuali.common.devops.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.KeyPair;
+
+import com.google.common.collect.ImmutableList;
 
 public final class SysAdminContext {
 
@@ -16,6 +20,7 @@ public final class SysAdminContext {
 	private final String rootVolumeDeviceName;
 	private final KeyPair keyPair;
 	private final SSHD sshd;
+	private final List<String> packages;
 
 	public static class Builder {
 
@@ -29,11 +34,17 @@ public final class SysAdminContext {
 		private User root = new User("root", "/root");
 		private String rootVolumeDeviceName = "/dev/xvda1";
 		private SSHD sshd = new SSHD("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config");
+		private List<String> packages = ImmutableList.of();
 
 		public Builder(SecureChannelService service, String dnsName, KeyPair keyPair) {
 			this.service = service;
 			this.dnsName = dnsName;
 			this.keyPair = keyPair;
+		}
+
+		public Builder packages(List<String> packages) {
+			this.packages = packages;
+			return this;
 		}
 
 		public SysAdminContext build() {
@@ -53,6 +64,7 @@ public final class SysAdminContext {
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
 		this.keyPair = builder.keyPair;
 		this.sshd = builder.sshd;
+		this.packages = builder.packages;
 	}
 
 	public SecureChannelService getService() {
@@ -81,6 +93,10 @@ public final class SysAdminContext {
 
 	public SSHD getSshd() {
 		return sshd;
+	}
+
+	public List<String> getPackages() {
+		return packages;
 	}
 
 }
