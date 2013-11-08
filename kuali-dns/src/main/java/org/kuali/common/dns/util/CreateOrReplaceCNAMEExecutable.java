@@ -3,8 +3,12 @@ package org.kuali.common.dns.util;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CreateOrReplaceCNAMEExecutable implements Executable {
+
+	private static final Logger logger = LoggerFactory.getLogger(CreateOrReplaceCNAMEExecutable.class);
 
 	public static final int DEFAULT_TTL = 60;
 	public static final boolean DEFAULT_SKIP = false;
@@ -39,7 +43,11 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 		if (skip) {
 			return;
 		}
-		service.deleteCNAMERecord(aliasFQDN);
+		if (service.isExistingCNAMERecord(aliasFQDN)) {
+			logger.info("deleting DNS CNAME record for [{}]", aliasFQDN);
+			service.deleteCNAMERecord(aliasFQDN);
+		}
+		logger.info("creating DNS CNAME record: [{}] -> [{}]", aliasFQDN, canonicalFQDN);
 		service.createCNAMERecord(aliasFQDN, canonicalFQDN, timeToLiveInSeconds);
 	}
 
