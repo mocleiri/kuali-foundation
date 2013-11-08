@@ -16,11 +16,13 @@
 package org.kuali.common.util.execute.impl;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Execute the list of <code>executables</code> supplied to this bean
+ * Create a new thread for each executable in the list and run them all concurrently.
  */
 public class ConcurrentExecutables implements Executable, UncaughtExceptionHandler {
 
@@ -66,8 +68,17 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 			return;
 		}
 		long start = System.currentTimeMillis();
+		List<Thread> threads = new ArrayList<Thread>();
 		for (Executable executable : executables) {
-			executable.execute();
+			Runnable runnable = new ExecutableRunner(executable);
+			Thread thread = new Thread(runnable, "Executable");
+			thread.setUncaughtExceptionHandler(this);
+			threads.add(thread);
+		}
+		ThreadUtils.start(threads);
+		ThreadUtils.join(threads);
+		if (exception != null) {
+			throw new IllegalStateException(exception);
 		}
 		if (timed) {
 			long stop = System.currentTimeMillis();
