@@ -71,4 +71,12 @@ public final class ZipPackageContext {
 		return localRepositoryDir;
 	}
 
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public String getRemotePackageDir() {
+		return remotePackageDir;
+	}
+
 }
