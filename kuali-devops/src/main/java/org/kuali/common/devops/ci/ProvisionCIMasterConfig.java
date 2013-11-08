@@ -116,9 +116,10 @@ public class ProvisionCIMasterConfig {
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
 		ChannelContext cc = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
-		InstallJDKContext ijc = new InstallJDKContext.Builder(scs, cc, JDKLevel.SEVEN, "1.7.0-u40").build();
-		InstallJDKExecutable ije = new InstallJDKExecutable(ijc);
-		ije.execute();
+		InstallJDKContext jdk7 = new InstallJDKContext.Builder(scs, cc, JDKLevel.SEVEN, "1.7.0-u40").build();
+		InstallJDKContext jdk6 = new InstallJDKContext.Builder(scs, cc, JDKLevel.SIX, "1.6.0-u45").build();
+		new InstallJDKExecutable(jdk7).execute();
+		new InstallJDKExecutable(jdk6).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
