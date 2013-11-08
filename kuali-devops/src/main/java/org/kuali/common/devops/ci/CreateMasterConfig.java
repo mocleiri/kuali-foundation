@@ -105,13 +105,16 @@ public class CreateMasterConfig {
 
 	@Bean
 	public Executable main() {
-		LaunchInstanceContext instanceContext = launchInstanceContext();
-		Executable show = new ShowLaunchConfigExecutable(serviceContext, instanceContext);
+		LaunchInstanceContext context = launchInstanceContext();
+		Executable show = new ShowLaunchConfigExecutable(serviceContext, context);
 		show.execute();
 		// Instance instance = service.launchInstance(instanceContext);
 		Instance instance = ec2.getInstance("i-cc204ba8");
-		enableRootSSH(instance, instanceContext);
-		doRoot(instance, instanceContext);
+		KeyPair keyPair = decrypt(context.getKeyPair());
+		SysAdminContext sac = new SysAdminContext.Builder(scs, instance.getPublicDnsName(), keyPair).build();
+		SystemAdministrator sa = sas.getSystemAdministrator(sac);
+		sa.enableRootSSH();
+		doRoot(instance, context);
 		doDNS(instance);
 		return null; // new ExecutablesExecutable(show);
 	}
