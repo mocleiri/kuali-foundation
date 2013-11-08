@@ -34,7 +34,7 @@ public final class AwsSysAdmin implements SysAdmin {
 			ChannelUtils.exec(channel, command1); // Re-size the root volume so it uses all of the allocated space
 			ChannelUtils.exec(channel, command2); // Update the general operating system to the latest and greatest
 			if (context.getPackages().size() > 0) {
-				ChannelUtils.exec(channel, command3); // Install custom packages
+				ChannelUtils.exec(channel, command3); // Install custom packages (if any)
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);

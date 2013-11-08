@@ -31,7 +31,7 @@ public final class SysAdminContext {
 		private final KeyPair keyPair;
 
 		// Optional
-		private User ec2User = Users.EC2USER.getUser();
+		private User sshEnabledUser = Users.EC2USER.getUser();
 		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = "/dev/xvda1";
 		private SSHD sshd = new SSHD.Builder("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config").build();
@@ -59,7 +59,7 @@ public final class SysAdminContext {
 
 	private SysAdminContext(Builder builder) {
 		this.service = builder.service;
-		this.sshEnabledUser = builder.ec2User;
+		this.sshEnabledUser = builder.sshEnabledUser;
 		this.root = builder.root;
 		this.dnsName = builder.dnsName;
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
