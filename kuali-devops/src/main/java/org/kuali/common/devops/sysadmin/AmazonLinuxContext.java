@@ -1,5 +1,6 @@
 package org.kuali.common.devops.sysadmin;
 
+import org.kuali.common.devops.sysadmin.model.SSHD;
 import org.kuali.common.devops.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
@@ -13,6 +14,7 @@ public final class AmazonLinuxContext {
 	private final String dnsName;
 	private final String rootVolumeDeviceName;
 	private final KeyPair keyPair;
+	private final SSHD sshd;
 
 	public static class Builder {
 
@@ -25,6 +27,7 @@ public final class AmazonLinuxContext {
 		private User ec2User = new User("ec2-user", "/home/ec2-user");
 		private User root = new User("root", "/root");
 		private String rootVolumeDeviceName = "/dev/xvda1";
+		private SSHD sshd = new SSHD("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config");
 
 		public Builder(SecureChannelService service, String dnsName, KeyPair keyPair) {
 			this.service = service;
@@ -47,6 +50,7 @@ public final class AmazonLinuxContext {
 		this.dnsName = builder.dnsName;
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
 		this.keyPair = builder.keyPair;
+		this.sshd = builder.sshd;
 	}
 
 	public SecureChannelService getService() {
@@ -71,6 +75,10 @@ public final class AmazonLinuxContext {
 
 	public KeyPair getKeyPair() {
 		return keyPair;
+	}
+
+	public SSHD getSshd() {
+		return sshd;
 	}
 
 }

@@ -26,20 +26,21 @@ public final class AmazonLinuxService implements SysAdminService {
 	public void enableRootSSH() {
 		SecureChannel channel = null;
 		try {
-			String src = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
-			String path = context.getEc2User().getHome() + "/sshd_config";
+			String src = context.getSshd().getLocalConfigLocation();
+			String path = context.getEc2User().getHome() + "/" + context.getSshd().getConfigFilename();
 			String command1 = "sudo cp " + context.getEc2User().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
-			String command2 = "sudo cp " + path + " /etc/ssh/sshd_config";
-			String command3 = "sudo service sshd restart";
+			String command2 = "sudo cp " + path + " " + context.getSshd().getRemoteConfigLocation();
+			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
 
-			ChannelContext cc = getEC2UserContext(instance, context.getKeyPair().getPrivateKey().get());
+			ChannelContext cc = new ChannelContext.Builder(context.getEc2User().getLogin(), context.getDnsName()).privateKey(context.getKeyPair().getPrivateKey().get())
+					.requestPseudoTerminal(true).build();
 			channel = context.getService().getChannel(cc);
 			RemoteFile dst = new RemoteFile.Builder(path).build();
-			exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
+			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root as that version does not have the header commands blocking ssh
 			logger.info("cp {} {}", src, dst.getAbsolutePath());
 			channel.copyLocationToFile(src, dst); // copy the updated sshd_config file into the ec2-users home directory
-			exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
-			exec(channel, command3); // restart the sshd service
+			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
+			ChannelUtils.exec(channel, command3); // restart the sshd service
 			logger.info("rm {}", path);
 			channel.deleteFile(path); // delete the sshd_config file we left in the ec2-users home directory
 		} catch (IOException e) {
