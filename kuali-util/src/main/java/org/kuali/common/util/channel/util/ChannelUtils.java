@@ -126,7 +126,9 @@ public class ChannelUtils {
 			sb.append("\n");
 			throw new IllegalStateException(sb.toString());
 		} else {
-			log(result);
+			if (echo) {
+				log(result);
+			}
 			return result;
 		}
 	}
