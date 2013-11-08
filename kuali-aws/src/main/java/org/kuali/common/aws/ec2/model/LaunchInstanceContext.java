@@ -22,7 +22,8 @@ public final class LaunchInstanceContext {
 	private final KeyPair keyPair;
 	private final InstanceType type;
 	private final List<KualiSecurityGroup> securityGroups;
-	// If true, any permissions on an existing security group are overridden by the permissions from the security groups provided here, prior to the instance being launched
+	// If true, any permissions on any existing security groups are overridden by the permissions from the security groups provided here.
+	// This happens prior to the instance being launched
 	private final boolean overrideExistingSecurityGroupPermissions;
 	private final List<Tag> tags;
 	private final Optional<String> availabilityZone;
@@ -41,7 +42,8 @@ public final class LaunchInstanceContext {
 
 		// Optional
 		private InstanceType type = InstanceType.M1Medium;
-		private List<KualiSecurityGroup> securityGroups = ImmutableList.of(); // Instance gets placed in the default security group if nothing is provided
+		// Instance gets placed in a security group named "default" if no security groups are provided
+		private List<KualiSecurityGroup> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent();
 		private int timeoutMillis = FormatUtils.getMillisAsInt("15m"); // Timeout after 15 minutes
