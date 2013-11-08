@@ -39,6 +39,12 @@
     <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <junit.version>4.11</junit.version>
+
+    <tomcat.groupId>org.apache.tomcat</tomcat.groupId>
+    <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
+    <tomcat.version>7.0.26</tomcat.version>
+    <tomcat.type>zip</tomcat.type>
+
     <jdk7.groupId>com.oracle</jdk7.groupId>
     <jdk7.artifactId>jdk7</jdk7.artifactId>
     <jdk7.version>1.7.0-u40</jdk7.version>
@@ -50,6 +56,7 @@
     <jdk6.version>1.6.0-u45</jdk6.version>
     <jdk6.classifier>linux-x64</jdk6.classifier>
     <jdk6.type>zip</jdk6.type>
+
   </properties>
   <dependencies>
     <dependency>
@@ -85,6 +92,13 @@
       <artifactId>${jdk6.artifactId}</artifactId>
       <version>${jdk6.version}</version>
       <classifier>${jdk6.classifier}</classifier>
+      <type>${jdk6.type}</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>${tomcat.groupId}</groupId>
+      <artifactId>${tomcat.artifactId}</artifactId>
+      <version>${tomcat.version}</version>
       <type>${jdk6.type}</type>
       <scope>test</scope>
     </dependency>

@@ -25,7 +25,7 @@ public class ArtifactUtils {
 	private static final Artifact JDK7NOVERSION = new Artifact.Builder(JDK_GROUP_ID, JDK7_ARTIFACT_ID, NullUtils.NONE).classifier(JDK_CLASSIFIER).type(ZIP).build();
 
 	public static Artifact getTomcat(String version) {
-		return new Artifact.Builder("org.apache", "apache-tomcat", version).type(ZIP).build();
+		return new Artifact.Builder("org.apache.tomcat", "apache-tomcat", version).type(ZIP).build();
 	}
 
 	public static Artifact getJDK7(String version) {
