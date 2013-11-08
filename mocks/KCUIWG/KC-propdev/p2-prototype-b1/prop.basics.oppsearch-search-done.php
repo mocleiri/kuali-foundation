@@ -136,17 +136,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
               <table class="table table-condensed table-striped table-hover">
                 <tbody>
                   <tr>
-                    <th><a href="#" class="has-tooltip" title="A collection of forms from your chosen sponsor/provider. Select the forms you want to be included in this proposal.">Form Name</a></th>
-                    <th><a href="#" class="has-tooltip" title="Indicates those forms that are required for this proposal based on the sponsor or provider's requirements.">Mandatory</a></th>
-                    <th> <div class="dropdown"> <a class="dropdown-toggle has-tooltip" data-toggle="dropdown" href="#" title="Check the box next to each additional form you want to be included in this proposal.">Include</a>
+                    <th><a href="#" class="" title="A collection of forms from your chosen sponsor/provider. Select the forms you want to be included in this proposal.">Form Name</a></th>
+                    <th><a href="#" class="" title="Indicates those forms that are required for this proposal based on the sponsor or provider's requirements.">Mandatory</a></th>
+                    <th> <div class="dropdown"> <a class="dropdown-toggle " data-toggle="dropdown" href="#" title="Check the box next to each additional form you want to be included in this proposal.">Include</a>
                         <ul class="dropdown-menu" style="  text-align:left;" >
                           <li><a href="#">Select All</a></li>
                           <li><a href="#">Select None</a></li>
                         </ul>
                       </div>
                     </th>
-                    <th><a href="#" class="has-tooltip" title="Indicates whether a description is available for this form.">Description</a></th>
-                    <th style="width:80px"> <div class="dropdown"> <a class="dropdown-toggle has-tooltip" data-toggle="dropdown" href="#" title="Check the box next to each form you want to be included in a single PDF printout.">PDF</a>
+                    <th><a href="#" class="" title="Indicates whether a description is available for this form.">Description</a></th>
+                    <th style="width:80px"> <div class="dropdown"> <a class="dropdown-toggle " data-toggle="dropdown" href="#" title="Check the box next to each form you want to be included in a single PDF printout.">Select</a>
                         <ul class="dropdown-menu" style="  text-align:left; left:-80px" >
                           <li><a href="#">Select All</a></li>
                           <li><a href="#">Select None</a></li>
