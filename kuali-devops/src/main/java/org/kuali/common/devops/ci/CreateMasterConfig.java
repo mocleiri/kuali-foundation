@@ -148,8 +148,8 @@ public class CreateMasterConfig {
 	protected Optional<String> decrypt(Optional<String> optional) {
 		if (optional.isPresent()) {
 			String string = optional.get();
-			String s = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
-			return Optional.of(s);
+			String decrypted = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
+			return Optional.of(decrypted);
 		} else {
 			return Optional.absent();
 		}
