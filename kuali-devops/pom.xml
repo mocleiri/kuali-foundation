@@ -38,6 +38,7 @@
     <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
     <kuali-aws.version>1.0.0-SNAPSHOT</kuali-aws.version>
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
+    <junit.version>4.11</junit.version>
     <jdk7.groupId>com.oracle</jdk7.groupId>
     <jdk7.artifactId>jdk7</jdk7.artifactId>
     <jdk7.version>1.7.0-u40</jdk7.version>
@@ -45,6 +46,12 @@
     <jdk7.type>zip</jdk7.type>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.kuali.common</groupId>
       <artifactId>kuali-aws</artifactId>
