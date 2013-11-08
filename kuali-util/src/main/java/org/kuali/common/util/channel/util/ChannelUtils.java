@@ -113,7 +113,7 @@ public class ChannelUtils {
 	 */
 	public static Result exec(SecureChannel channel, String command, boolean echo) {
 		if (echo) {
-			System.out.print("[INFO] " + command + " ");
+			System.out.print("[INFO] " + command + " - ");
 		}
 		Result result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
@@ -129,7 +129,7 @@ public class ChannelUtils {
 		}
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsed());
-			System.out.println(elapsed);
+			System.out.println("[" + elapsed + "]");
 		}
 		log(result);
 		return result;
