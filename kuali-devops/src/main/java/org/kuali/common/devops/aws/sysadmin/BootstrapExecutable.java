@@ -23,15 +23,15 @@ import org.slf4j.LoggerFactory;
  * </ul>
  * 
  */
-public final class AwsBootstrapExecutable implements Executable {
+public final class BootstrapExecutable implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(AwsBootstrapExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(BootstrapExecutable.class);
 
-	public AwsBootstrapExecutable(BootstrapContext context) {
+	public BootstrapExecutable(BootstrapContext context) {
 		this(context, false);
 	}
 
-	public AwsBootstrapExecutable(BootstrapContext context, boolean skip) {
+	public BootstrapExecutable(BootstrapContext context, boolean skip) {
 		Assert.noNulls(context);
 		this.context = context;
 		this.skip = skip;

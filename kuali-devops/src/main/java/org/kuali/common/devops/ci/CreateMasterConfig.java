@@ -32,7 +32,7 @@ import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
-import org.kuali.common.devops.aws.sysadmin.AwsBootstrapExecutable;
+import org.kuali.common.devops.aws.sysadmin.BootstrapExecutable;
 import org.kuali.common.devops.aws.sysadmin.BootstrapContext;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
@@ -100,7 +100,7 @@ public class CreateMasterConfig {
 		Instance instance = ec2.getInstance("i-072be77e");
 		String privateKey = context.getKeyPair().getPrivateKey().get();
 		BootstrapContext sac = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
-		Executable bootstrap = new AwsBootstrapExecutable(sac);
+		Executable bootstrap = new BootstrapExecutable(sac);
 		bootstrap.execute();
 		if (context.getDnsName().isPresent()) {
 			String aliasFQDN = context.getDnsName().get();
