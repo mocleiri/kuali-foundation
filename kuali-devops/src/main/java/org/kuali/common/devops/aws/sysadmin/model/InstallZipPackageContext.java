@@ -30,8 +30,8 @@ public final class InstallZipPackageContext {
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
-		private Optional<ChannelExecutable> after = Optional.absent();
 		private Optional<ChannelExecutable> before = Optional.absent();
+		private Optional<ChannelExecutable> after = Optional.absent();
 
 		public Builder(SecureChannelService service, ChannelContext context, ZipPackage zipPackage) {
 			this.zipPackage = zipPackage;
