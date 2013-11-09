@@ -101,4 +101,8 @@ public final class InstallZipPackageContext {
 		return after;
 	}
 
+	public Optional<SecureChannelExecutable> getBefore() {
+		return before;
+	}
+
 }
