@@ -6,7 +6,7 @@ import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
 
 /**
- * AppDynamics needs to find tools.jar in the JRE directory in order for advanced metrics to work right.
+ * AppDynamics needs tools.jar to be in the JRE's lib/ext directory
  */
 public final class EnableAppDynamicsExecutable implements ChannelExecutable {
 
