@@ -14,6 +14,10 @@ public final class ZipPackage {
 		private final String packageName;
 		private final Artifact artifact;
 
+		public Builder(Artifact artifact) {
+			this(artifact.getArtifactId(), artifact);
+		}
+
 		public Builder(String packageName, Artifact artifact) {
 			this.packageName = packageName;
 			this.artifact = artifact;

@@ -6,15 +6,13 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.maven.RepositoryUtils;
-import org.kuali.common.util.maven.model.Artifact;
 
 public final class InstallZipPackageContext {
 
 	private final SecureChannelService service;
 	private final ChannelContext context;
-	private final Artifact artifact;
+	private final ZipPackage zipPackage;
 	private final File localRepositoryDir;
-	private final String packageName;
 	private final String remotePackageDir;
 
 	public static class Builder {
@@ -22,18 +20,16 @@ public final class InstallZipPackageContext {
 		// Required
 		private final SecureChannelService service;
 		private final ChannelContext context;
-		private final Artifact artifact;
-		private final String packageName;
+		private final ZipPackage zipPackage;
 
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
 
-		public Builder(SecureChannelService service, ChannelContext context, Artifact artifact, String packageName) {
-			this.artifact = artifact;
+		public Builder(SecureChannelService service, ChannelContext context, ZipPackage zipPackage) {
+			this.zipPackage = zipPackage;
 			this.service = service;
 			this.context = context;
-			this.packageName = packageName;
 		}
 
 		public Builder localRepositoryDir(File localRepositoryDir) {
@@ -47,24 +43,19 @@ public final class InstallZipPackageContext {
 		}
 
 		public InstallZipPackageContext build() {
-			Assert.noNulls(service, context, artifact, localRepositoryDir);
-			Assert.noBlanks(packageName, remotePackageDir);
-			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, artifact));
+			Assert.noNulls(service, context, zipPackage, localRepositoryDir);
+			Assert.noBlanks(remotePackageDir);
+			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zipPackage.getArtifact()));
 			return new InstallZipPackageContext(this);
 		}
 	}
 
 	private InstallZipPackageContext(Builder builder) {
-		this.artifact = builder.artifact;
+		this.zipPackage = builder.zipPackage;
 		this.service = builder.service;
 		this.context = builder.context;
 		this.localRepositoryDir = builder.localRepositoryDir;
 		this.remotePackageDir = builder.remotePackageDir;
-		this.packageName = builder.packageName;
-	}
-
-	public Artifact getArtifact() {
-		return artifact;
 	}
 
 	public SecureChannelService getService() {
@@ -75,12 +66,12 @@ public final class InstallZipPackageContext {
 		return context;
 	}
 
-	public File getLocalRepositoryDir() {
-		return localRepositoryDir;
+	public ZipPackage getZipPackage() {
+		return zipPackage;
 	}
 
-	public String getPackageName() {
-		return packageName;
+	public File getLocalRepositoryDir() {
+		return localRepositoryDir;
 	}
 
 	public String getRemotePackageDir() {
