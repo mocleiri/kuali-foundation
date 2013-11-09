@@ -93,7 +93,8 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 	@Override
 	public synchronized void uncaughtException(Thread thread, Throwable throwable) {
 		if (!exception.isPresent()) {
-			this.exception = Optional.of(new IllegalStateException("Exception in thread [" + thread.getId() + ":" + thread.getName() + "]", throwable));
+			String context = "Exception in thread [" + thread.getId() + ":" + thread.getName() + "]";
+			this.exception = Optional.of(new IllegalStateException(context, throwable));
 		}
 	}
 
