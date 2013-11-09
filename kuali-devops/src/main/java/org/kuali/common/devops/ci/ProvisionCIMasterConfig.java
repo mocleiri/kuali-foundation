@@ -44,7 +44,7 @@ import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
 import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.channel.api.SecureChannelService;
+import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
 import org.kuali.common.util.enc.EncUtils;
@@ -96,7 +96,7 @@ public class ProvisionCIMasterConfig {
 	AwsAccount account;
 
 	@Autowired
-	SecureChannelService scs;
+	ChannelService scs;
 
 	@Bean
 	public Executable main() {

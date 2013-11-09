@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import java.io.File;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.channel.api.SecureChannelService;
+import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.maven.RepositoryUtils;
@@ -12,7 +12,7 @@ import com.google.common.base.Optional;
 
 public final class InstallZipPackageContext {
 
-	private final SecureChannelService service;
+	private final ChannelService service;
 	private final ChannelContext context;
 	private final ZipPackage zipPackage;
 	private final File localRepositoryDir;
@@ -23,7 +23,7 @@ public final class InstallZipPackageContext {
 	public static class Builder {
 
 		// Required
-		private final SecureChannelService service;
+		private final ChannelService service;
 		private final ChannelContext context;
 		private final ZipPackage zipPackage;
 
@@ -33,7 +33,7 @@ public final class InstallZipPackageContext {
 		private Optional<ChannelExecutable> before = Optional.absent();
 		private Optional<ChannelExecutable> after = Optional.absent();
 
-		public Builder(SecureChannelService service, ChannelContext context, ZipPackage zipPackage) {
+		public Builder(ChannelService service, ChannelContext context, ZipPackage zipPackage) {
 			this.zipPackage = zipPackage;
 			this.service = service;
 			this.context = context;
@@ -77,7 +77,7 @@ public final class InstallZipPackageContext {
 		this.before = builder.before;
 	}
 
-	public SecureChannelService getService() {
+	public ChannelService getService() {
 		return service;
 	}
 

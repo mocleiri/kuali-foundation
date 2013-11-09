@@ -3,14 +3,14 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.channel.api.SecureChannelService;
+import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.enc.EncUtils;
 
 import com.google.common.collect.ImmutableList;
 
 public final class BootstrapContext {
 
-	private final SecureChannelService service;
+	private final ChannelService service;
 	private final User sshEnabledUser;
 	private final User root;
 	private final String hostname;
@@ -26,7 +26,7 @@ public final class BootstrapContext {
 		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
 		// Required
-		private final SecureChannelService service;
+		private final ChannelService service;
 		private final String hostname;
 		private final String privateKey;
 
@@ -37,7 +37,7 @@ public final class BootstrapContext {
 		private ServiceOverride sshdOverride = new ServiceOverride.Builder(Services.SSHD.getService(), SSHD_OVERRIDE_CONFIG).build();
 		private List<String> packages = PACKAGES;
 
-		public Builder(SecureChannelService service, String hostname, String privateKey) {
+		public Builder(ChannelService service, String hostname, String privateKey) {
 			this.service = service;
 			this.hostname = hostname;
 			this.privateKey = privateKey;
@@ -88,7 +88,7 @@ public final class BootstrapContext {
 		this.packages = builder.packages;
 	}
 
-	public SecureChannelService getService() {
+	public ChannelService getService() {
 		return service;
 	}
 
