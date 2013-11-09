@@ -13,6 +13,9 @@ public final class BashrcUtils {
 
 	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID);
 
+	private static final String PS1 = "export PS1=\"\\[\\e[36;1m\\]\\u@\\h\\w\\[\\e[32;1m\\]$ \\[\\e[0m\\]\"";
+	private static final String CLICOLOR = "export CLICOLOR=1";
+
 	public static String getContent(Bashrc bashrc, List<String> additionalLines) {
 		Assert.noNulls(bashrc, additionalLines);
 		String location = CLASSPATH_PREFIX + bashrc.getLocation() + ".original";
