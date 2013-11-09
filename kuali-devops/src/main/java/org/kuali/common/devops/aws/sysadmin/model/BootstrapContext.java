@@ -16,7 +16,7 @@ public final class BootstrapContext {
 	private final String hostname;
 	private final String rootVolumeDeviceName;
 	private final String privateKey;
-	private final ServiceOverride sshd;
+	private final ServiceOverride sshdOverride;
 	private final List<String> packages;
 
 	public static class Builder {
@@ -34,7 +34,7 @@ public final class BootstrapContext {
 		private User sshEnabledUser = Users.EC2USER.getUser();
 		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
-		private ServiceOverride sshd = new ServiceOverride.Builder(Services.SSHD.getService(), SSHD_OVERRIDE_CONFIG).build();
+		private ServiceOverride sshdOverride = new ServiceOverride.Builder(Services.SSHD.getService(), SSHD_OVERRIDE_CONFIG).build();
 		private List<String> packages = PACKAGES;
 
 		public Builder(SecureChannelService service, String hostname, String privateKey) {
@@ -43,15 +43,36 @@ public final class BootstrapContext {
 			this.privateKey = privateKey;
 		}
 
+		public Builder sshdOverride(ServiceOverride sshdOverride) {
+			this.sshdOverride = sshdOverride;
+			return this;
+		}
+
+		public Builder rootVolumeDeviceName(String rootVolumeDeviceName) {
+			this.rootVolumeDeviceName = rootVolumeDeviceName;
+			return this;
+		}
+
+		public Builder root(User root) {
+			this.root = root;
+			return this;
+		}
+
+		public Builder sshEnabledUser(User sshEnabledUser) {
+			this.sshEnabledUser = sshEnabledUser;
+			return this;
+		}
+
 		public Builder packages(List<String> packages) {
 			this.packages = packages;
 			return this;
 		}
 
 		public BootstrapContext build() {
-			Assert.noNulls(service);
-			Assert.noBlanks(privateKey);
+			Assert.noNulls(service, root, sshEnabledUser, sshdOverride);
+			Assert.noBlanks(hostname, privateKey, rootVolumeDeviceName);
 			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
+			this.packages = ImmutableList.copyOf(packages);
 			return new BootstrapContext(this);
 		}
 	}
@@ -63,7 +84,7 @@ public final class BootstrapContext {
 		this.hostname = builder.hostname;
 		this.rootVolumeDeviceName = builder.rootVolumeDeviceName;
 		this.privateKey = builder.privateKey;
-		this.sshd = builder.sshd;
+		this.sshdOverride = builder.sshdOverride;
 		this.packages = builder.packages;
 	}
 
@@ -95,8 +116,8 @@ public final class BootstrapContext {
 		return packages;
 	}
 
-	public ServiceOverride getSshd() {
-		return sshd;
+	public ServiceOverride getSshdOverride() {
+		return sshdOverride;
 	}
 
 }

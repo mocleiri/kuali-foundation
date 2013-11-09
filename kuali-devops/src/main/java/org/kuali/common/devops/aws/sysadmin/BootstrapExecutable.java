@@ -76,9 +76,9 @@ public final class BootstrapExecutable implements Executable {
 		try {
 			channel = getChannel(context.getSshEnabledUser(), true);
 
-			Service sshd = context.getSshd().getService();
+			Service sshd = context.getSshdOverride().getService();
 
-			String src = sshd.getConfigFileLocation();
+			String src = context.getSshdOverride().getConfigFileOverrideLocation();
 			String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
 
 			String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
