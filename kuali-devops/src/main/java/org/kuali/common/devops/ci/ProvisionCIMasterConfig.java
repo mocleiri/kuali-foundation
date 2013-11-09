@@ -52,7 +52,6 @@ import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.ConcurrentExecutables;
-import org.kuali.common.util.execute.impl.ExceptionExecutable;
 import org.kuali.common.util.maven.model.Artifact;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -128,7 +127,6 @@ public class ProvisionCIMasterConfig {
 		executables.add(new InstallZipPackageExecutable(jdk6));
 		executables.add(new InstallZipPackageExecutable(jdk7));
 		executables.add(new InstallZipPackageExecutable(tomcat));
-		executables.add(new ExceptionExecutable());
 		new ConcurrentExecutables(executables).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
