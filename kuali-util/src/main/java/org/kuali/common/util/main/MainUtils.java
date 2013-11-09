@@ -54,7 +54,9 @@ public class MainUtils {
 			new SpringExecutable(service, context).execute();
 
 			// Exit with zero if there is no exception
-			System.exit(Status.SUCCESS.getValue());
+			if (exit) {
+				System.exit(Status.SUCCESS.getValue());
+			}
 		} catch (Exception e) {
 			handleException(e, stacktrace, exit);
 		}
