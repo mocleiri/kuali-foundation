@@ -107,7 +107,7 @@ public class ChannelUtils {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
 			Object[] args = { destination.getAbsolutePath(), elapsed, rate };
-			logger.info("creating -> {} - [{}, {}]", args);
+			logger.info("created -> {} - [{}, {}]", args);
 		}
 		return result;
 	}
