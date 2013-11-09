@@ -4,26 +4,55 @@ import org.kuali.common.util.Assert;
 
 public final class User {
 
-	public User(String login) {
-		this(login, "/home/" + login);
-	}
-
-	public User(String login, String home) {
-		this(login, home, home + "/.ssh/authorized_keys", login);
-	}
-
-	public User(String login, String home, String authorizedKeys, String group) {
-		Assert.noBlanks(login, home, authorizedKeys, group);
-		this.login = login;
-		this.home = home;
-		this.authorizedKeys = authorizedKeys;
-		this.group = group;
-	}
-
 	private final String login;
 	private final String home;
 	private final String group;
 	private final String authorizedKeys;
+
+	public static class Builder {
+
+		// Required
+		private final String login;
+
+		// Optional
+		private String home;
+		private String group;
+		private String authorizedKeys;
+
+		public Builder(String login) {
+			this.login = login;
+			this.group = login;
+			this.home = "/home/" + login;
+			this.authorizedKeys = home + "/.ssh/authorized_keys";
+		}
+		
+		public Builder home(String home) {
+			this.home = home;
+			return this;
+		}
+
+		public Builder group(String group) {
+			this.group = group;
+			return this;
+		}
+
+		public Builder authorizedKeys(String authorizedKeys) {
+			this.authorizedKeys = authorizedKeys;
+			return this;
+		}
+
+		public User build() {
+			Assert.noBlanks(login, group, home, authorizedKeys);
+			return new User(this);
+		}
+	}
+
+	private User(Builder builder) {
+		this.login = builder.login;
+		this.group = builder.group;
+		this.authorizedKeys = builder.authorizedKeys;
+		this.home = builder.home;
+	}
 
 	public String getLogin() {
 		return login;
@@ -35,6 +64,10 @@ public final class User {
 
 	public String getAuthorizedKeys() {
 		return authorizedKeys;
+	}
+
+	public String getGroup() {
+		return group;
 	}
 
 }
