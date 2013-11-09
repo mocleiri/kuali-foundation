@@ -113,7 +113,7 @@ public class ProvisionCIMasterConfig {
 			String aliasFQDN = context.getDnsName().get();
 			String canonicalFQDN = instance.getPublicDnsName();
 			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
-			executables.add(cname);
+			// executables.add(cname);
 		}
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
