@@ -124,7 +124,7 @@ public class ProvisionCIMasterConfig {
 		ZipPackage tomcat6Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("6.0.37")).build();
 		InstallZipPackageContext jdk7 = new InstallZipPackageContext.Builder(scs, cc, jdk7zip).build();
 		InstallZipPackageContext jdk6 = new InstallZipPackageContext.Builder(scs, cc, jdk6zip).build();
-		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcat7Zip).build();
+		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcat6Zip).build();
 		executables.add(new InstallZipPackageExecutable(jdk6));
 		executables.add(new InstallZipPackageExecutable(jdk7));
 		executables.add(new InstallZipPackageExecutable(tomcat));
