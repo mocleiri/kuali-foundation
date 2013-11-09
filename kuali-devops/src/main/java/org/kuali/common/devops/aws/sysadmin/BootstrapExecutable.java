@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Bootstrap a freshly launched AWS instance
+ * Bootstrap a freshly launched Amazon Linux AWS instance
  * 
  * <ul>
  * <li>Enable root ssh</li>
