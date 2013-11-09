@@ -32,18 +32,22 @@ cp $TAIL1 $TAIL2
 LOGS1=$CATALINA_BASE/logs 
 LOGS2=/home/tomcat/logs
 WORK=$CATALINA_BASE/work
+TEMP=$CATALINA_BASE/temp
 CONF=$CATALINA_BASE/conf/Catalina/localhost
 
 echo Removing $LOGS1
 echo Removing $LOGS2
 echo Removing $WORK
 echo Removing $CONF
+echo Removing $TEMP
 
 rm -rf $LOGS1
 rm -rf $LOGS2
 rm -rf $WORK
 rm -rf $CONF
+rm -rf $TEMP
 
 mkdir -p $LOGS1
+mkdir -p $TEMP
 cp $ENV2 $ENV1
 cp $TAIL2 $TAIL1
