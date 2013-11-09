@@ -51,7 +51,7 @@ public final class InstallZipPackageExecutable implements Executable {
 			String zipFile = remoteFile.getAbsolutePath();
 			String unzipDir = context.getRemotePackageDir();
 
-			String command1 = "rm -rf " + linkName + " " + target; // Remove the existing symbolic link and unzipped package directory (if they exist)
+			String command1 = "rm -rf " + target + " " + linkName; // Remove the existing symbolic link and unzipped package directory (if they exist)
 			String command2 = "unzip " + zipFile + " -d " + unzipDir; // Unzip the package into a directory containing the version number
 			String command3 = "ln -s " + target + " " + linkName; // Create a symbolic link via the user friendly package name (sans version number)
 			String command4 = "chmod -R 755 " + linkName + "/bin"; // Make sure everything in the "bin" directory is executable
