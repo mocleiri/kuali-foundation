@@ -59,11 +59,11 @@ public final class InstallZipPackageExecutable implements Executable {
 			String command4 = "chmod -R 755 " + linkName + "/bin"; // Make sure everything in the "bin" directory is executable
 			String command5 = "rm " + zipFile; // Remove the zip file
 
-			channel = context.getService().openChannel(context.getContext());
-			exec(channel, context.getBefore());
-			ChannelUtils.scp(channel, localFile, remoteFile);
-			ChannelUtils.exec(channel, command1, command2, command3, command4, command5);
-			exec(channel, context.getAfter());
+			channel = context.getService().openChannel(context.getContext()); // Open a secure channel to the server
+			exec(channel, context.getBefore()); // Do any pre-processing as needed
+			ChannelUtils.scp(channel, localFile, remoteFile); // Copy the zip file
+			ChannelUtils.exec(channel, command1, command2, command3, command4, command5); // Install the package from the zip
+			exec(channel, context.getAfter()); // Do any post-processing as needed
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
