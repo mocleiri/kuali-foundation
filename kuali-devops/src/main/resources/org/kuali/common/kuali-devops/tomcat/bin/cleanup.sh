@@ -18,36 +18,24 @@
 
 CATALINA_BASE=/usr/local/tomcat
 
-# JSP's in the logs dir
-ENV1=$CATALINA_BASE/logs/env.jsp
-TAIL1=$CATALINA_BASE/logs/tail.jsp
+cp $CATALINA_BASE/logs/*.jsp $CATALINA_BASE/conf
 
-# JSP's in the conf dir
-ENV2=$CATALINA_BASE/conf/env.jsp
-TAIL2=$CATALINA_BASE/conf/tail.jsp
-
-cp $ENV1 $ENV2
-cp $TAIL1 $TAIL2
-
-LOGS1=$CATALINA_BASE/logs 
-LOGS2=/home/tomcat/logs
+LOGS=$CATALINA_BASE/logs 
 WORK=$CATALINA_BASE/work
 TEMP=$CATALINA_BASE/temp
 CONF=$CATALINA_BASE/conf/Catalina/localhost
 
-echo Removing $LOGS1
-echo Removing $LOGS2
+echo Removing $LOGS
 echo Removing $WORK
 echo Removing $CONF
 echo Removing $TEMP
 
-rm -rf $LOGS1
-rm -rf $LOGS2
+rm -rf $LOGS
 rm -rf $WORK
 rm -rf $CONF
 rm -rf $TEMP
 
-mkdir -p $LOGS1
+mkdir -p $LOGS
 mkdir -p $TEMP
-cp $ENV2 $ENV1
-cp $TAIL2 $TAIL1
+
+cp $CATALINA_BASE/conf/*.jsp $CATALINA_BASE/logs
