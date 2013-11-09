@@ -17,7 +17,7 @@ package org.kuali.common.util.channel.model;
 
 import org.kuali.common.util.Assert;
 
-public class TransferResult {
+public final class TransferResult {
 
 	public TransferResult(long startMillis, long transferAmountInBytes, TransferDirection direction) {
 		this.stopMillis = System.currentTimeMillis();
