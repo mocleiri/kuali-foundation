@@ -23,6 +23,20 @@ public class MainUtils {
 	 * Load the @Configuration <code>mainClass</code> using Spring and then terminate the JVM.
 	 */
 	public static void runAndExit(Class<?> mainClass, String[] args, boolean stacktrace) {
+		run(mainClass, args, stacktrace, true);
+	}
+
+	/**
+	 * Load the @Configuration <code>mainClass</code> using Spring
+	 */
+	public static void run(Class<?> mainClass, String[] args, boolean stacktrace) {
+		run(mainClass, args, stacktrace, false);
+	}
+
+	/**
+	 * 
+	 */
+	public static void run(Class<?> mainClass, String[] args, boolean stacktrace, boolean exit) {
 		try {
 			// Preserve the context info from the class where main(String[] args) was invoked
 			MainContext mainContext = new MainContext(mainClass, args);
@@ -42,17 +56,19 @@ public class MainUtils {
 			// Exit with zero if there is no exception
 			System.exit(Status.SUCCESS.getValue());
 		} catch (Exception e) {
-			handleException(e, stacktrace);
+			handleException(e, stacktrace, exit);
 		}
 	}
 
-	protected static void handleException(Exception e, boolean stacktrace) {
+	protected static void handleException(Exception e, boolean stacktrace, boolean exit) {
 		if (stacktrace) {
 			e.printStackTrace();
 		} else {
 			System.err.print(e.getMessage());
 		}
-		System.exit(Status.FAILURE.getValue());
+		if (exit) {
+			System.exit(Status.FAILURE.getValue());
+		}
 	}
 
 }
