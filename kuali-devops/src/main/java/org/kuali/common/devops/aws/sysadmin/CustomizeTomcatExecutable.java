@@ -62,12 +62,12 @@ public final class CustomizeTomcatExecutable implements ChannelExecutable {
 		if (skip) {
 			return;
 		}
-		String webappsDir = context.getInstallDir() + "/webapps";
 
 		// Remove, then recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
+		String webappsDir = context.getInstallDir() + "/webapps";
 		ChannelUtils.exec(channel, "rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
 
-		// Add, update, replace configuration files as needed
+		// Add, update, replace configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<Deployable> deployables = TomcatUtils.getDeployables(context.getInstallDir(), majorVersion);
 		for (Deployable deployable : deployables) {
 			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
