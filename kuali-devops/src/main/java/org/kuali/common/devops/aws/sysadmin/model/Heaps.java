@@ -26,4 +26,12 @@ public enum Heaps {
 		this.heap = new Heap.Builder().maxSizeInBytes(getBytes(max)).minSizeInBytes(getBytes(min)).maxPermSizeInBytes(getBytes(maxPerm)).build();
 	}
 
+	public Heap getHeap() {
+		return heap;
+	}
+
+	public InstanceType getType() {
+		return type;
+	}
+
 }
