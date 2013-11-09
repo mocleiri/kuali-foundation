@@ -127,8 +127,8 @@ public class ProvisionCIMasterConfig {
 		executables.add(new InstallZipPackageExecutable(jdk6));
 		executables.add(new InstallZipPackageExecutable(jdk7));
 		executables.add(new InstallZipPackageExecutable(tomcat));
-		// new ConcurrentExecutables(executables).execute();
-		new ExecutablesExecutable(executables).execute();
+		// new ConcurrentExecutables(executables,true).execute();
+		new ExecutablesExecutable(executables, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
