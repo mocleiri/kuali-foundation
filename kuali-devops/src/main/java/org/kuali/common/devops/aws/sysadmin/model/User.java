@@ -22,22 +22,25 @@ public final class User {
 		public Builder(String login) {
 			this.login = login;
 			this.group = login;
-			this.home = "/home/" + login;
-			this.authorizedKeys = home + "/.ssh/authorized_keys";
-		}
-		
-		public Builder home(String home) {
-			this.home = home;
-			return this;
+			home("/home/" + login);
 		}
 
-		public Builder group(String group) {
-			this.group = group;
+		/**
+		 * Set the users home directory. This also sets authorized keys to <code>[home]/.ssh/authorized_keys</code>
+		 */
+		public Builder home(String home) {
+			this.home = home;
+			this.authorizedKeys = home + "/.ssh/authorized_keys";
 			return this;
 		}
 
 		public Builder authorizedKeys(String authorizedKeys) {
 			this.authorizedKeys = authorizedKeys;
+			return this;
+		}
+
+		public Builder group(String group) {
+			this.group = group;
 			return this;
 		}
 
