@@ -30,12 +30,7 @@ echo Removing $WORK
 echo Removing $CONF
 echo Removing $TEMP
 
-rm -rf $LOGS
-rm -rf $WORK
-rm -rf $CONF
-rm -rf $TEMP
-
-mkdir -p $LOGS
-mkdir -p $TEMP
+rm -rf $LOGS $WORK $CONF $TEMP
+mkdir -p $LOGS $TEMP
 
 cp $CATALINA_BASE/conf/*.jsp $CATALINA_BASE/logs
