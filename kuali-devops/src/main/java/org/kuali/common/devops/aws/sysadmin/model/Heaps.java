@@ -1,11 +1,10 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
-import static org.kuali.common.util.FormatUtils.getBytes;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 
@@ -21,8 +20,15 @@ public enum Heaps {
 	private Heaps(InstanceType type, String maxPerm, String max) {
 		Assert.noBlanks(maxPerm, max);
 		Assert.noNulls(type);
+
+		// Convert the strings to numbers
+		long maxPermBytes = FormatUtils.getBytes(maxPerm);
+		long maxBytes = FormatUtils.getBytes(max); // Make max/min the same value
+		long minBytes = maxBytes; // Make max/min the same value
+
+		// initialize member variables
 		this.type = type;
-		this.heap = new Heap.Builder().maxSizeInBytes(getBytes(max)).minSizeInBytes(getBytes(max)).maxPermSizeInBytes(getBytes(maxPerm)).build();
+		this.heap = new Heap.Builder().maxPermSizeInBytes(maxPermBytes).minSizeInBytes(minBytes).maxSizeInBytes(maxBytes).build();
 	}
 
 	public Heap getHeap() {
