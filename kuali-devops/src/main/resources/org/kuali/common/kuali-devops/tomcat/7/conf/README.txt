@@ -4,9 +4,10 @@
 
 The only modification to web.xml is to set listings=true (enables directory listings)
 
-server.xml is modified in the following ways
+server.xml is modified as follows:
 
 1 - Remove the <GlobalNamingResources> and <Realm> snippets related to conf/tomcat-users.xml based authentication
 2 - Remove the AJP connector
 3 - Set URI encoding to UTF-8
 4 - Turn on compression 
+5 - Add two <Context> elements that provide public links to ${catalina.home} and ${user.home} as /tomcat and /home
