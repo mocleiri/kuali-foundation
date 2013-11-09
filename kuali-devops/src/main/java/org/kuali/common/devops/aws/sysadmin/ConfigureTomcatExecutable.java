@@ -56,8 +56,8 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 		}
 		String installDir = context.getInstallDir();
 		String webappsDir = installDir + "/webapps";
-		String serverXml = installDir + "/conf/server.xml";
-		String webXml = installDir + "/conf/web.xml";
+		// String serverXml = installDir + "/conf/server.xml";
+		// String webXml = installDir + "/conf/web.xml";
 		String command1 = "rm -rf " + webappsDir + "; mkdir -p " + webappsDir;
 
 		ChannelUtils.exec(channel, command1);
