@@ -84,7 +84,7 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 		if (timed) {
 			long stop = System.currentTimeMillis();
 			logger.info("------------------------------------------------------------------------");
-			logger.info("Total Time: {}", FormatUtils.getTime(stop - start));
+			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(stop - start));
 			logger.info("Finished at: {}", new Date(stop));
 			logger.info("------------------------------------------------------------------------");
 		}
