@@ -17,7 +17,6 @@ package org.kuali.common.util.execute.impl;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
@@ -41,7 +40,7 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 	private final boolean skip;
 	private final boolean timed;
 
-	private Optional<IllegalStateException> exception;
+	private Optional<IllegalStateException> uncaughtException;
 
 	public ConcurrentExecutables(Executable... executables) {
 		this(ImmutableList.copyOf(executables));
@@ -78,23 +77,23 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 		}
 		ThreadUtils.start(threads);
 		ThreadUtils.join(threads);
-		if (exception.isPresent()) {
-			throw exception.get();
+		if (uncaughtException.isPresent()) {
+			throw uncaughtException.get();
 		}
 		if (timed) {
-			long stop = System.currentTimeMillis();
 			logger.info("------------------------------------------------------------------------");
-			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(stop - start));
-			logger.info("Finished at: {}", new Date(stop));
+			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(System.currentTimeMillis() - start));
 			logger.info("------------------------------------------------------------------------");
 		}
 	}
 
 	@Override
-	public synchronized void uncaughtException(Thread thread, Throwable throwable) {
-		if (!exception.isPresent()) {
+	public synchronized void uncaughtException(Thread thread, Throwable uncaughtException) {
+		// Report the first exception we encounter
+		// Only matters if there is more than one thread that errors out
+		if (!this.uncaughtException.isPresent()) {
 			String context = "Exception in thread [" + thread.getId() + ":" + thread.getName() + "]";
-			this.exception = Optional.of(new IllegalStateException(context, throwable));
+			this.uncaughtException = Optional.of(new IllegalStateException(context, uncaughtException));
 		}
 	}
 
