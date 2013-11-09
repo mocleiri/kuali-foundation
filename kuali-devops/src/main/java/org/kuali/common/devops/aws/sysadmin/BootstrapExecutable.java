@@ -80,9 +80,11 @@ public final class BootstrapExecutable implements Executable {
 
 			String src = sshd.getConfigFileLocation();
 			String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
+			
 			String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
 			String command2 = "sudo cp " + dst + " " + sshd.getConfigFileLocation();
 			String command3 = "sudo service " + sshd.getName() + " restart";
+			String command4 = "rm " + dst; 
 
 			RemoteFile file = new RemoteFile.Builder(dst).build();
 			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user root. This allows root to ssh
@@ -90,8 +92,7 @@ public final class BootstrapExecutable implements Executable {
 			channel.copyLocationToFile(src, file); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 			ChannelUtils.exec(channel, command3); // restart the sshd service
-			logger.info("rm {}", dst);
-			channel.deleteFile(dst); // delete the sshd_config file we left in the ec2-users home directory
+			ChannelUtils.exec(channel, command4); // delete the sshd_config file we left in the ec2-users home directory
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
