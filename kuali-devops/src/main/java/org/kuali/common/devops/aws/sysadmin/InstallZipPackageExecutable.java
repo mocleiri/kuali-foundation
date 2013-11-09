@@ -59,8 +59,8 @@ public final class InstallZipPackageExecutable implements Executable {
 			String command5 = "rm " + zipFile; // Remove the zip file
 
 			channel = context.getService().openChannel(context.getContext());
-			if (context.getAfter().isPresent()) {
-				SecureChannelExecutable exec = context.getAfter().get();
+			if (context.getBefore().isPresent()) {
+				SecureChannelExecutable exec = context.getBefore().get();
 				exec.execute(channel);
 			}
 			ChannelUtils.scp(channel, localFile, remoteFile);
