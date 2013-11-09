@@ -8,7 +8,7 @@ import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
 
 /**
- * AppDynamics needs to find tools.jar in the JRE directory in order for advanced metrics to work right.
+ * Configure the freshly installed tomcat to our liking
  */
 public final class ConfigureTomcatExecutable implements ChannelExecutable {
 
