@@ -120,10 +120,11 @@ public class ProvisionCIMasterConfig {
 		ChannelContext cc = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
 		ZipPackage jdk7zip = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
 		ZipPackage jdk6zip = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
-		ZipPackage tomcatZip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("7.0.26")).build();
+		ZipPackage tomcat7Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("7.0.47")).build();
+		ZipPackage tomcat6Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("6.0.37")).build();
 		InstallZipPackageContext jdk7 = new InstallZipPackageContext.Builder(scs, cc, jdk7zip).build();
 		InstallZipPackageContext jdk6 = new InstallZipPackageContext.Builder(scs, cc, jdk6zip).build();
-		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcatZip).build();
+		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcat7Zip).build();
 		executables.add(new InstallZipPackageExecutable(jdk6));
 		executables.add(new InstallZipPackageExecutable(jdk7));
 		executables.add(new InstallZipPackageExecutable(tomcat));
