@@ -1,7 +1,7 @@
 package org.kuali.common.util.channel.spring;
 
-import org.kuali.common.util.channel.api.SecureChannelService;
-import org.kuali.common.util.channel.impl.DefaultSecureChannelService;
+import org.kuali.common.util.channel.api.ChannelService;
+import org.kuali.common.util.channel.impl.DefaultChannelService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +10,7 @@ public class DefaultSecureChannelServiceConfig implements SecureChannelConfig {
 
 	@Override
 	@Bean
-	public SecureChannelService secureChannelService() {
-		return new DefaultSecureChannelService();
+	public ChannelService secureChannelService() {
+		return new DefaultChannelService();
 	}
 }
