@@ -11,7 +11,10 @@ public final class SSHD {
 
 	public static class Builder {
 
+		// Required
 		private final String localConfigLocation;
+
+		// Optional
 		private String serviceName = "sshd";
 		private String remoteConfigLocation = "/etc/ssh/sshd_config";
 		private String configFilename = "sshd_config";
