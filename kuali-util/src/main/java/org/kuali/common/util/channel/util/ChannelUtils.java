@@ -127,6 +127,22 @@ public class ChannelUtils {
 	}
 
 	/**
+	 * Execute <code>commands</code> on the channel and validate each exit value.
+	 * 
+	 * @throws IllegalStateException
+	 *             If the command returns with a non-zero exit value
+	 */
+	public static List<Result> exec(SecureChannel channel, String... commands) {
+		List<String> list = ImmutableList.copyOf(commands);
+		List<Result> results = new ArrayList<Result>();
+		for (String command : list) {
+			Result result = exec(channel, command, true);
+			results.add(result);
+		}
+		return results;
+	}
+
+	/**
 	 * Execute <code>command</code> on the channel and validate the exit value.
 	 * 
 	 * @throws IllegalStateException
