@@ -79,7 +79,7 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 		ThreadUtils.start(threads);
 		ThreadUtils.join(threads);
 		if (exception.isPresent()) {
-			throw new IllegalStateException(exception.get());
+			throw exception.get();
 		}
 		if (timed) {
 			long stop = System.currentTimeMillis();
