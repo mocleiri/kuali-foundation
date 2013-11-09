@@ -8,6 +8,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.channel.util.SecureChannelExecutable;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
@@ -58,8 +59,16 @@ public final class InstallZipPackageExecutable implements Executable {
 			String command5 = "rm " + zipFile; // Remove the zip file
 
 			channel = context.getService().openChannel(context.getContext());
+			if (context.getAfter().isPresent()) {
+				SecureChannelExecutable exec = context.getAfter().get();
+				exec.execute(channel);
+			}
 			ChannelUtils.scp(channel, localFile, remoteFile);
 			ChannelUtils.exec(channel, command1, command2, command3, command4, command5);
+			if (context.getAfter().isPresent()) {
+				SecureChannelExecutable exec = context.getAfter().get();
+				exec.execute(channel);
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {

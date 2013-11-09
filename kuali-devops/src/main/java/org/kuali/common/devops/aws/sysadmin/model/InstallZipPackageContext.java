@@ -17,6 +17,7 @@ public final class InstallZipPackageContext {
 	private final ZipPackage zipPackage;
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
+	private final Optional<SecureChannelExecutable> before;
 	private final Optional<SecureChannelExecutable> after;
 
 	public static class Builder {
@@ -30,6 +31,7 @@ public final class InstallZipPackageContext {
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
 		private Optional<SecureChannelExecutable> after = Optional.absent();
+		private Optional<SecureChannelExecutable> before = Optional.absent();
 
 		public Builder(SecureChannelService service, ChannelContext context, ZipPackage zipPackage) {
 			this.zipPackage = zipPackage;
@@ -52,6 +54,11 @@ public final class InstallZipPackageContext {
 			return this;
 		}
 
+		public Builder before(SecureChannelExecutable before) {
+			this.before = Optional.of(before);
+			return this;
+		}
+
 		public InstallZipPackageContext build() {
 			Assert.noNulls(service, context, zipPackage, localRepositoryDir, after);
 			Assert.noBlanks(remotePackageDir);
@@ -67,6 +74,7 @@ public final class InstallZipPackageContext {
 		this.localRepositoryDir = builder.localRepositoryDir;
 		this.remotePackageDir = builder.remotePackageDir;
 		this.after = builder.after;
+		this.before = builder.before;
 	}
 
 	public SecureChannelService getService() {
