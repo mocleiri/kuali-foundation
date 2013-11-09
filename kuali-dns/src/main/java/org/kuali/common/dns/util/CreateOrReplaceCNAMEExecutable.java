@@ -47,7 +47,7 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 			logger.info("deleting DNS CNAME record for [{}]", aliasFQDN);
 			service.deleteCNAMERecord(aliasFQDN);
 		}
-		logger.info("creating DNS CNAME record: [{}] -> [{}]", aliasFQDN, canonicalFQDN);
+		logger.info("creating DNS CNAME record for [{}] -> [{}]", aliasFQDN, canonicalFQDN);
 		service.createCNAMERecord(aliasFQDN, canonicalFQDN, timeToLiveInSeconds);
 	}
 
