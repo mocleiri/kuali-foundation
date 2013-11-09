@@ -30,6 +30,7 @@ import org.kuali.common.util.channel.model.TransferDirection;
 import org.kuali.common.util.channel.model.TransferResult;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -97,12 +98,15 @@ public class ChannelUtils {
 		}
 	}
 
-	public static TransferResult scp(SecureChannel channel, File source, RemoteFile destination, boolean echo) {
-		Assert.noNulls(channel, source, destination);
-		Assert.exists(source);
+	public static TransferResult scp(SecureChannel channel, String location, RemoteFile destination, boolean echo) {
+		Assert.noNulls(channel, destination);
+		Assert.noBlanks(location);
+		Assert.exists(location);
 		long start = System.currentTimeMillis();
-		channel.copyFile(source, destination);
-		TransferResult result = new TransferResult(start, source.length(), TransferDirection.LOCAL_TO_REMOTE);
+		channel.copyLocationToFile(location, destination);
+		RemoteFile meta = channel.getMetaData(destination.getAbsolutePath());
+		Assert.isTrue(meta.getSize().isPresent(), "Unable to determine remote file size");
+		TransferResult result = new TransferResult(start, meta.getSize().get(), TransferDirection.LOCAL_TO_REMOTE);
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
@@ -113,7 +117,11 @@ public class ChannelUtils {
 	}
 
 	public static TransferResult scp(SecureChannel channel, File source, RemoteFile destination) {
-		return scp(channel, source, destination, true);
+		return scp(channel, new CanonicalFile(source).getPath(), destination);
+	}
+
+	public static TransferResult scp(SecureChannel channel, String location, RemoteFile destination) {
+		return scp(channel, location, destination, true);
 	}
 
 	/**
