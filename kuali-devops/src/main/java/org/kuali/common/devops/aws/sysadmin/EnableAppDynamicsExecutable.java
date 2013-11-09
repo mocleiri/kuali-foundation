@@ -28,7 +28,6 @@ public final class EnableAppDynamicsExecutable implements ChannelExecutable {
 		if (skip) {
 			return;
 		}
-		// /usr/local/jdk[6,7]
 		String src = jdkDir + "/lib/tools.jar";
 		String dst = jdkDir + "/jre/lib/ext/tools.jar";
 		String command = "cp " + src + " " + dst;
