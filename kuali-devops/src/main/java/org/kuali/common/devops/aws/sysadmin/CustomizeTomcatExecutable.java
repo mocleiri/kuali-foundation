@@ -15,7 +15,7 @@ import org.kuali.common.util.channel.util.ChannelUtils;
 /**
  * Configure Tomcat
  */
-public final class ConfigureTomcatExecutable implements ChannelExecutable {
+public final class CustomizeTomcatExecutable implements ChannelExecutable {
 
 	private final InstallZipPackageContext context;
 	private final boolean skip;
@@ -42,15 +42,15 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 			return this;
 		}
 
-		public ConfigureTomcatExecutable build() {
+		public CustomizeTomcatExecutable build() {
 			Assert.noNulls(context, tomcat);
 			Assert.noBlanks(majorVersion);
-			return new ConfigureTomcatExecutable(this);
+			return new CustomizeTomcatExecutable(this);
 		}
 
 	}
 
-	private ConfigureTomcatExecutable(Builder builder) {
+	private CustomizeTomcatExecutable(Builder builder) {
 		this.context = builder.context;
 		this.skip = builder.skip;
 		this.majorVersion = builder.majorVersion;
@@ -65,7 +65,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 		String webappsDir = context.getInstallDir() + "/webapps";
 
 		String command1 = "rm -rf " + webappsDir + "; mkdir -p " + webappsDir;
-		ChannelUtils.exec(channel, command1);
+		ChannelUtils.exec(channel, command1); // Remove then, recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
 		List<Deployable> deployables = TomcatUtils.getDeployables(context.getInstallDir(), majorVersion);
 		for (Deployable deployable : deployables) {
 			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());

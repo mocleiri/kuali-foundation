@@ -8,13 +8,13 @@ import org.kuali.common.util.channel.util.ChannelUtils;
 /**
  * AppDynamics needs tools.jar to be in the JRE's lib/ext directory
  */
-public final class EnableAppDynamicsExecutable implements ChannelExecutable {
+public final class CustomizeJDKExecutable implements ChannelExecutable {
 
-	public EnableAppDynamicsExecutable(String jdkDir) {
+	public CustomizeJDKExecutable(String jdkDir) {
 		this(jdkDir, false);
 	}
 
-	public EnableAppDynamicsExecutable(String jdkDir, boolean skip) {
+	public CustomizeJDKExecutable(String jdkDir, boolean skip) {
 		Assert.noBlanks(jdkDir);
 		this.jdkDir = jdkDir;
 		this.skip = skip;
@@ -30,8 +30,9 @@ public final class EnableAppDynamicsExecutable implements ChannelExecutable {
 		}
 		String src = jdkDir + "/lib/tools.jar";
 		String dst = jdkDir + "/jre/lib/ext/tools.jar";
-		String command = "cp " + src + " " + dst;
-		ChannelUtils.exec(channel, command);
+		String command1 = "cp " + src + " " + dst;
+		String command2 = "chmod -R 755 " + jdkDir + "/jre/bin";
+		ChannelUtils.exec(channel, command1, command2);
 	}
 
 	public boolean isSkip() {
