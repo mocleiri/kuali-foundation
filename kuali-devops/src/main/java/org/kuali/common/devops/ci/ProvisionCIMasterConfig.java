@@ -48,6 +48,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
+import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
@@ -119,21 +120,25 @@ public class ProvisionCIMasterConfig {
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
 		ChannelContext cc = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
-		ZipPackage jdk7zip = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
-		ZipPackage jdk6zip = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
 		ZipPackage tomcat7Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("7.0.47")).build();
 		ZipPackage tomcat6Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("6.0.37")).build();
-		InstallZipPackageContext jdk7 = new InstallZipPackageContext.Builder(scs, cc, jdk7zip).build();
-		InstallZipPackageContext jdk6 = new InstallZipPackageContext.Builder(scs, cc, jdk6zip).build();
+		ZipPackage jdk7 = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
+		ZipPackage jdk6 = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
 		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcat6Zip).build();
-		executables.add(new InstallZipPackageExecutable.Builder(jdk6).after(new EnableAppDynamicsExecutable(jdk6.getInstallDir())).build());
-		executables.add(new InstallZipPackageExecutable.Builder(jdk7).after(new EnableAppDynamicsExecutable(jdk7.getInstallDir())).build());
+		executables.add(getJDKInstaller(cc, jdk6));
+		executables.add(getJDKInstaller(cc, jdk7));
 		executables.add(new InstallZipPackageExecutable.Builder(tomcat).build());
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
+	}
+
+	protected InstallZipPackageExecutable getJDKInstaller(ChannelContext channel, ZipPackage zip) {
+		InstallZipPackageContext context = new InstallZipPackageContext.Builder(scs, channel, zip).build();
+		ChannelExecutable after = new EnableAppDynamicsExecutable(context.getInstallDir());
+		return new InstallZipPackageExecutable.Builder(context).after(after).build();
 	}
 
 	@Bean
