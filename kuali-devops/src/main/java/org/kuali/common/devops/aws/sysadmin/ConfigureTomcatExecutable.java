@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
+import org.kuali.common.devops.aws.sysadmin.model.User;
+import org.kuali.common.devops.aws.sysadmin.model.Users;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.VersionUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
@@ -18,12 +20,14 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 	private final InstallZipPackageContext context;
 	private final boolean skip;
 	private final String majorVersion;
+	private final User tomcat;
 
 	public static class Builder {
 
 		// Required
 		private final InstallZipPackageContext context;
 		private final String majorVersion;
+		private final User tomcat = Users.TOMCAT.getUser();
 
 		// Optional
 		private boolean skip = false;
@@ -39,7 +43,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 		}
 
 		public ConfigureTomcatExecutable build() {
-			Assert.noNulls(context);
+			Assert.noNulls(context, tomcat);
 			Assert.noBlanks(majorVersion);
 			return new ConfigureTomcatExecutable(this);
 		}
@@ -50,6 +54,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 		this.context = builder.context;
 		this.skip = builder.skip;
 		this.majorVersion = builder.majorVersion;
+		this.tomcat = builder.tomcat;
 	}
 
 	@Override
@@ -57,16 +62,19 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 		if (skip) {
 			return;
 		}
-		String installDir = context.getInstallDir();
-		String webappsDir = installDir + "/webapps";
+		String webappsDir = context.getInstallDir() + "/webapps";
 
-		List<Deployable> deployables = TomcatUtils.getDeployables(installDir, majorVersion);
 		String command1 = "rm -rf " + webappsDir + "; mkdir -p " + webappsDir;
-
 		ChannelUtils.exec(channel, command1);
+		List<Deployable> deployables = TomcatUtils.getDeployables(context.getInstallDir(), majorVersion);
 		for (Deployable deployable : deployables) {
 			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
 		}
+
+		String command2 = "userdel -rf " + tomcat.getLogin();
+		String command3 = "groupadd -f " + tomcat.getGroup();
+		String command4 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
+		ChannelUtils.exec(channel, command2, command3, command4);
 	}
 
 	public boolean isSkip() {
