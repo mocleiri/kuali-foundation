@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 public class ProvisionCIMaster extends AbstractMainRunner {
 
 	public static void main(String[] args) {
-		MainUtils.run(ProvisionCIMaster.class, args, true);
+		MainUtils.run(ProvisionCIMaster.class, args);
 	}
 
 	@Override
