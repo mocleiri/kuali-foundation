@@ -18,7 +18,7 @@ package org.kuali.common.aws.project;
 import org.kuali.common.util.project.KualiProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
-public abstract class KualiAwsProjectConstants {
+public abstract class AwsProjectConstants {
 
 	// These 2 must exactly match what is in the Maven pom
 	private static final String GROUP_ID = KualiProjectConstants.COMMON_GROUP_ID;

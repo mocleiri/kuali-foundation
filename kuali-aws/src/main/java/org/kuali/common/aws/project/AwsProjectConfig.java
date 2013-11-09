@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.aws.project.spring;
+package org.kuali.common.aws.project;
 
-import org.kuali.common.aws.project.KualiAwsProjectConstants;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.project.spring.ProjectIdentifierConfig;
@@ -30,6 +29,6 @@ public class AwsProjectConfig implements ProjectIdentifierConfig {
 	@Override
 	@Bean
 	public ProjectIdentifier projectIdentifier() {
-		return KualiAwsProjectConstants.PROJECT_ID;
+		return AwsProjectConstants.PROJECT_ID;
 	}
 }
