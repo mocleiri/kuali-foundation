@@ -5,7 +5,7 @@ import java.io.File;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.util.SecureChannelExecutable;
+import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.maven.RepositoryUtils;
 
 import com.google.common.base.Optional;
@@ -17,8 +17,8 @@ public final class InstallZipPackageContext {
 	private final ZipPackage zipPackage;
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
-	private final Optional<SecureChannelExecutable> before;
-	private final Optional<SecureChannelExecutable> after;
+	private final Optional<ChannelExecutable> before;
+	private final Optional<ChannelExecutable> after;
 
 	public static class Builder {
 
@@ -30,8 +30,8 @@ public final class InstallZipPackageContext {
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
-		private Optional<SecureChannelExecutable> after = Optional.absent();
-		private Optional<SecureChannelExecutable> before = Optional.absent();
+		private Optional<ChannelExecutable> after = Optional.absent();
+		private Optional<ChannelExecutable> before = Optional.absent();
 
 		public Builder(SecureChannelService service, ChannelContext context, ZipPackage zipPackage) {
 			this.zipPackage = zipPackage;
@@ -49,12 +49,12 @@ public final class InstallZipPackageContext {
 			return this;
 		}
 
-		public Builder after(SecureChannelExecutable after) {
+		public Builder after(ChannelExecutable after) {
 			this.after = Optional.of(after);
 			return this;
 		}
 
-		public Builder before(SecureChannelExecutable before) {
+		public Builder before(ChannelExecutable before) {
 			this.before = Optional.of(before);
 			return this;
 		}
@@ -97,11 +97,11 @@ public final class InstallZipPackageContext {
 		return remotePackageDir;
 	}
 
-	public Optional<SecureChannelExecutable> getAfter() {
+	public Optional<ChannelExecutable> getAfter() {
 		return after;
 	}
 
-	public Optional<SecureChannelExecutable> getBefore() {
+	public Optional<ChannelExecutable> getBefore() {
 		return before;
 	}
 
