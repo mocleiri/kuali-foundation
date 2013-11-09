@@ -119,14 +119,14 @@ public class ProvisionCIMasterConfig {
 		}
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
-		ChannelContext cc = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
+		ChannelContext channel = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
 		ZipPackage tomcat7Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("7.0.47")).build();
 		ZipPackage tomcat6Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("6.0.37")).build();
 		ZipPackage jdk7 = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
 		ZipPackage jdk6 = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
-		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, cc, tomcat6Zip).build();
-		executables.add(getJDKInstaller(cc, jdk6));
-		executables.add(getJDKInstaller(cc, jdk7));
+		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, channel, tomcat6Zip).build();
+		executables.add(getJDKInstaller(channel, jdk6));
+		executables.add(getJDKInstaller(channel, jdk7));
 		executables.add(new InstallZipPackageExecutable.Builder(tomcat).build());
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
