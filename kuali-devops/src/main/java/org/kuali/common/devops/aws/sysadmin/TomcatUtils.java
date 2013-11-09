@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableList;
 
 public final class TomcatUtils {
 
-	private static final String PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/tomcat";
+	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/tomcat";
 
 	private static final List<String> CONF = ImmutableList.of("server.xml", "web.xml");
 	private static final List<String> BIN = ImmutableList.of("forced-shutdown.sh", "cleanup.sh");
@@ -29,7 +29,7 @@ public final class TomcatUtils {
 	protected static List<Deployable> getJsp(String installDir) {
 		List<Deployable> list = new ArrayList<Deployable>();
 		for (String resource : JSPS) {
-			String src = PREFIX + "/jsps/" + resource;
+			String src = CLASSPATH_PREFIX + "/jsps/" + resource;
 			String absolutePath = installDir + "/logs/" + resource;
 			RemoteFile dst = new RemoteFile.Builder(absolutePath).build();
 			list.add(new Deployable(src, dst));
@@ -40,7 +40,7 @@ public final class TomcatUtils {
 	protected static List<Deployable> getBin(String installDir) {
 		List<Deployable> list = new ArrayList<Deployable>();
 		for (String resource : BIN) {
-			String src = PREFIX + "/bin/" + resource;
+			String src = CLASSPATH_PREFIX + "/bin/" + resource;
 			String absolutePath = installDir + "/bin/" + resource;
 			RemoteFile dst = new RemoteFile.Builder(absolutePath).build();
 			list.add(new Deployable(src, dst));
@@ -51,7 +51,7 @@ public final class TomcatUtils {
 	protected static List<Deployable> getConf(String installDir, String majorVersion) {
 		List<Deployable> list = new ArrayList<Deployable>();
 		for (String resource : CONF) {
-			String src = PREFIX + "/" + majorVersion + "/conf/" + resource;
+			String src = CLASSPATH_PREFIX + "/" + majorVersion + "/conf/" + resource;
 			String absolutePath = installDir + "/conf/" + resource;
 			RemoteFile dst = new RemoteFile.Builder(absolutePath).build();
 			list.add(new Deployable(src, dst));
