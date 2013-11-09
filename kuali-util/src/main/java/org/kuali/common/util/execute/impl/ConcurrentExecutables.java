@@ -40,7 +40,8 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 	private final boolean skip;
 	private final boolean timed;
 
-	private Optional<IllegalStateException> uncaughtException;
+	// If any thread throws an exception, this will get filled in with that exception
+	private Optional<IllegalStateException> uncaughtException = Optional.absent();
 
 	public static class Builder {
 
@@ -109,7 +110,7 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 
 	@Override
 	public synchronized void uncaughtException(Thread thread, Throwable uncaughtException) {
-		// Only report back on the first exception we encounter
+		// Only report back on the first uncaught exception reported by any thread
 		// Any exceptions after the first one get ignored
 		if (!this.uncaughtException.isPresent()) {
 			String context = "Exception in thread [" + thread.getId() + ":" + thread.getName() + "]";
@@ -127,6 +128,10 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 
 	public boolean isTimed() {
 		return timed;
+	}
+
+	public Optional<IllegalStateException> getUncaughtException() {
+		return uncaughtException;
 	}
 
 }
