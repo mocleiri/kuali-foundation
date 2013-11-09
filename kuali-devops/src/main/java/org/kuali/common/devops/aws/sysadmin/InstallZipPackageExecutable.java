@@ -10,6 +10,7 @@ import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.RepositoryUtils;
+import org.kuali.common.util.maven.model.Artifact;
 
 /**
  * 
@@ -38,13 +39,15 @@ public final class InstallZipPackageExecutable implements Executable {
 	}
 
 	protected void install(InstallZipPackageContext context) {
-		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), context.getArtifact());
+		Artifact artifact = context.getZipPackage().getArtifact();
+		String packageName = context.getZipPackage().getPackageName();
+		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
 		SecureChannel channel = null;
 		try {
-			String target = context.getRemotePackageDir() + "/" + context.getArtifact().getArtifactId() + "-" + context.getArtifact().getVersion();
-			String linkName = context.getRemotePackageDir() + "/" + context.getPackageName();
+			String target = context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
+			String linkName = context.getRemotePackageDir() + "/" + packageName;
 			String command1 = "rm -rf " + linkName + " " + target;
 			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemotePackageDir();
 			String command3 = "ln -s " + target + " " + linkName;
