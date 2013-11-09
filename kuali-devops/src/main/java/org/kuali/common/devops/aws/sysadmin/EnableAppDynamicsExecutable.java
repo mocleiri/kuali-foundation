@@ -38,4 +38,8 @@ public final class EnableAppDynamicsExecutable implements ChannelExecutable {
 		return skip;
 	}
 
+	public String getJdkDir() {
+		return jdkDir;
+	}
+
 }
