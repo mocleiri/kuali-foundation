@@ -5,7 +5,10 @@ import java.io.File;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
+import org.kuali.common.util.channel.util.SecureChannelExecutable;
 import org.kuali.common.util.maven.RepositoryUtils;
+
+import com.google.common.base.Optional;
 
 public final class InstallZipPackageContext {
 
@@ -14,6 +17,7 @@ public final class InstallZipPackageContext {
 	private final ZipPackage zipPackage;
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
+	private final Optional<SecureChannelExecutable> after;
 
 	public static class Builder {
 
@@ -25,6 +29,7 @@ public final class InstallZipPackageContext {
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
+		private Optional<SecureChannelExecutable> after = Optional.absent();
 
 		public Builder(SecureChannelService service, ChannelContext context, ZipPackage zipPackage) {
 			this.zipPackage = zipPackage;
@@ -42,8 +47,13 @@ public final class InstallZipPackageContext {
 			return this;
 		}
 
+		public Builder after(SecureChannelExecutable after) {
+			this.after = Optional.of(after);
+			return this;
+		}
+
 		public InstallZipPackageContext build() {
-			Assert.noNulls(service, context, zipPackage, localRepositoryDir);
+			Assert.noNulls(service, context, zipPackage, localRepositoryDir, after);
 			Assert.noBlanks(remotePackageDir);
 			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zipPackage.getArtifact()));
 			return new InstallZipPackageContext(this);
@@ -56,6 +66,7 @@ public final class InstallZipPackageContext {
 		this.context = builder.context;
 		this.localRepositoryDir = builder.localRepositoryDir;
 		this.remotePackageDir = builder.remotePackageDir;
+		this.after = builder.after;
 	}
 
 	public SecureChannelService getService() {
@@ -76,6 +87,10 @@ public final class InstallZipPackageContext {
 
 	public String getRemotePackageDir() {
 		return remotePackageDir;
+	}
+
+	public Optional<SecureChannelExecutable> getAfter() {
+		return after;
 	}
 
 }
