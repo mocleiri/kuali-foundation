@@ -42,23 +42,43 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 
 	private Optional<IllegalStateException> uncaughtException;
 
-	public ConcurrentExecutables(Executable... executables) {
-		this(ImmutableList.copyOf(executables));
+	public static class Builder {
+
+		// Required
+		private final List<Executable> executables;
+
+		// Optional
+		private boolean skip = false;
+		private boolean timed = false;
+
+		public Builder(Executable... executables) {
+			this(ImmutableList.copyOf(executables));
+		}
+
+		public Builder(List<Executable> executables) {
+			this.executables = ImmutableList.copyOf(executables);
+		}
+
+		public Builder timed(boolean timed) {
+			this.timed = timed;
+			return this;
+		}
+
+		public Builder skip(boolean skip) {
+			this.skip = skip;
+			return this;
+		}
+
+		public ConcurrentExecutables build() {
+			Assert.noNulls(executables);
+			return new ConcurrentExecutables(this);
+		}
 	}
 
-	public ConcurrentExecutables(List<Executable> executables) {
-		this(executables, false);
-	}
-
-	public ConcurrentExecutables(List<Executable> executables, boolean skip) {
-		this(executables, skip, false);
-	}
-
-	public ConcurrentExecutables(List<Executable> executables, boolean skip, boolean timed) {
-		Assert.noNulls(executables);
-		this.executables = ImmutableList.copyOf(executables);
-		this.skip = skip;
-		this.timed = timed;
+	private ConcurrentExecutables(Builder builder) {
+		this.executables = builder.executables;
+		this.skip = builder.skip;
+		this.timed = builder.timed;
 	}
 
 	@Override
@@ -89,8 +109,8 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 
 	@Override
 	public synchronized void uncaughtException(Thread thread, Throwable uncaughtException) {
-		// Report the first exception we encounter
-		// Only matters if there is more than one thread that errors out
+		// Only report back on the first exception we encounter
+		// Any exceptions after the first one get ignored
 		if (!this.uncaughtException.isPresent()) {
 			String context = "Exception in thread [" + thread.getId() + ":" + thread.getName() + "]";
 			this.uncaughtException = Optional.of(new IllegalStateException(context, uncaughtException));
