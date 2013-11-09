@@ -16,8 +16,8 @@ public final class SSHD {
 
 		// Optional
 		private String serviceName = "sshd";
-		private String remoteConfigLocation = "/etc/ssh/sshd_config";
 		private String configFilename = "sshd_config";
+		private String remoteConfigLocation = "/etc/ssh/" + configFilename;
 
 		public Builder(String localConfigLocation) {
 			this.localConfigLocation = localConfigLocation;
