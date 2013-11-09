@@ -23,7 +23,7 @@
   <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Service name="Catalina">
-    <Connector URIEncoding="UTF-8" port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" compression="force" />
+    <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="UTF-8" compression="force" />
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="${catalina.base}/logs" prefix="access_log" fileDateFormat="yyyy-MM-dd.HH" suffix=".log" pattern="%t %H cookie:%{SESSIONID}c request:%{SESSIONID}r %m %U %s %q %r %a %T" />
