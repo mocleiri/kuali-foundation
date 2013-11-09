@@ -9,7 +9,7 @@ import org.kuali.common.util.channel.model.ChannelContext;
 public class DefaultSecureChannelService implements SecureChannelService {
 
 	@Override
-	public SecureChannel getChannel(ChannelContext context) throws IOException {
+	public SecureChannel openChannel(ChannelContext context) throws IOException {
 		return new DefaultSecureChannel(context);
 	}
 

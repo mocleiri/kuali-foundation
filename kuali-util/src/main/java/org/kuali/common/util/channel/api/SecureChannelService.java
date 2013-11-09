@@ -21,6 +21,6 @@ import org.kuali.common.util.channel.model.ChannelContext;
 
 public interface SecureChannelService {
 
-	SecureChannel getChannel(ChannelContext context) throws IOException;
+	SecureChannel openChannel(ChannelContext context) throws IOException;
 
 }
