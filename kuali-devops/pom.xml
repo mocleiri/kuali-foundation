@@ -40,9 +40,12 @@
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <junit.version>4.11</junit.version>
 
+    <tomcat7.version>7.0.26</tomcat7.version>
+    <tomcat6.version>6.0.37</tomcat6.version>
+
     <tomcat.groupId>org.apache.tomcat</tomcat.groupId>
     <tomcat.artifactId>apache-tomcat</tomcat.artifactId>
-    <tomcat.version>7.0.26</tomcat.version>
+    <tomcat.version>${tomcat7.version}</tomcat.version>
     <tomcat.type>zip</tomcat.type>
 
     <jdk7.groupId>com.oracle</jdk7.groupId>
@@ -99,7 +102,7 @@
       <groupId>${tomcat.groupId}</groupId>
       <artifactId>${tomcat.artifactId}</artifactId>
       <version>${tomcat.version}</version>
-      <type>${jdk6.type}</type>
+      <type>${tomcat.type}</type>
       <scope>test</scope>
     </dependency>
   </dependencies>
