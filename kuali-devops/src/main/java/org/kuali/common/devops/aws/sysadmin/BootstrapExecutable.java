@@ -12,8 +12,6 @@ import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.execute.Executable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Bootstrap a freshly launched Amazon Linux AWS instance
@@ -27,8 +25,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public final class BootstrapExecutable implements Executable {
-
-	private static final Logger logger = LoggerFactory.getLogger(BootstrapExecutable.class);
 
 	public BootstrapExecutable(BootstrapContext context) {
 		this(context, false);
@@ -72,24 +68,23 @@ public final class BootstrapExecutable implements Executable {
 	}
 
 	protected void enableRootSSH() {
+		Service sshd = context.getSshdOverride().getService();
+
+		String src = context.getSshdOverride().getConfigFileOverrideLocation();
+		String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
+
+		String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
+		String command2 = "sudo cp " + dst + " " + sshd.getConfigFileLocation();
+		String command3 = "sudo service " + sshd.getName() + " restart";
+		String command4 = "rm " + dst;
+
+		RemoteFile file = new RemoteFile.Builder(dst).build();
+
 		SecureChannel channel = null;
 		try {
 			channel = getChannel(context.getSshEnabledUser(), true);
-
-			Service sshd = context.getSshdOverride().getService();
-
-			String src = context.getSshdOverride().getConfigFileOverrideLocation();
-			String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
-
-			String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
-			String command2 = "sudo cp " + dst + " " + sshd.getConfigFileLocation();
-			String command3 = "sudo service " + sshd.getName() + " restart";
-			String command4 = "rm " + dst;
-
-			RemoteFile file = new RemoteFile.Builder(dst).build();
 			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
-			logger.info("cp {} {}", src, file.getAbsolutePath());
-			channel.copyLocationToFile(src, file); // copy the updated sshd_config file into the ec2-users home directory
+			ChannelUtils.scp(channel, src, file); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 			ChannelUtils.exec(channel, command3); // restart the sshd service
 			ChannelUtils.exec(channel, command4); // delete the sshd_config file we left in the ec2-users home directory
