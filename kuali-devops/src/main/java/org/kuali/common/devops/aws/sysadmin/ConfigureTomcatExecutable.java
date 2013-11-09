@@ -8,7 +8,7 @@ import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
 
 /**
- * Configure the freshly installed tomcat to our liking
+ * Configure Tomcat
  */
 public final class ConfigureTomcatExecutable implements ChannelExecutable {
 
