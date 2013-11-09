@@ -27,6 +27,7 @@ import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -40,7 +41,7 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 	private final boolean skip;
 	private final boolean timed;
 
-	private IllegalStateException exception;
+	private Optional<IllegalStateException> exception;
 
 	public ConcurrentExecutables(Executable... executables) {
 		this(ImmutableList.copyOf(executables));
@@ -77,8 +78,8 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 		}
 		ThreadUtils.start(threads);
 		ThreadUtils.join(threads);
-		if (exception != null) {
-			throw new IllegalStateException(exception);
+		if (exception.isPresent()) {
+			throw new IllegalStateException(exception.get());
 		}
 		if (timed) {
 			long stop = System.currentTimeMillis();
@@ -90,10 +91,10 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 	}
 
 	@Override
-	public synchronized void uncaughtException(Thread thread, Throwable exception) {
-		long id = thread.getId();
-		String name = thread.getName();
-		this.exception = new IllegalStateException("Exception in thread [" + id + ":" + name + "]", exception);
+	public synchronized void uncaughtException(Thread thread, Throwable throwable) {
+		if (!exception.isPresent()) {
+			this.exception = Optional.of(new IllegalStateException("Exception in thread [" + thread.getId() + ":" + thread.getName() + "]", throwable));
+		}
 	}
 
 	public List<Executable> getExecutables() {
