@@ -25,10 +25,7 @@ WORK=$CATALINA_BASE/work
 TEMP=$CATALINA_BASE/temp
 CONF=$CATALINA_BASE/conf/Catalina/localhost
 
-echo Removing $LOGS
-echo Removing $WORK
-echo Removing $CONF
-echo Removing $TEMP
+echo Removing $LOGS $WORK $CONF $TEMP
 
 rm -rf $LOGS $WORK $CONF $TEMP
 mkdir -p $LOGS $TEMP
