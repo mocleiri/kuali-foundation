@@ -71,10 +71,13 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
 		}
 
-		String command2 = "userdel -rf " + tomcat.getLogin();
-		String command3 = "groupadd -f " + tomcat.getGroup();
-		String command4 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
-		ChannelUtils.exec(channel, command2, command3, command4);
+		boolean tomcatUserExists = channel.exists(tomcat.getHome());
+		if (tomcatUserExists) {
+			ChannelUtils.exec(channel, "userdel -rf " + tomcat.getLogin());
+		}
+		String command2 = "groupadd -f " + tomcat.getGroup();
+		String command3 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
+		ChannelUtils.exec(channel, command2, command3);
 	}
 
 	public boolean isSkip() {
