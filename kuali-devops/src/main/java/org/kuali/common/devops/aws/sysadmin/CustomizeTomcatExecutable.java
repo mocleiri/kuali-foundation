@@ -83,11 +83,18 @@ public final class CustomizeTomcatExecutable implements ChannelExecutable {
 		String command1 = "groupadd -f " + tomcat.getGroup();
 		String command2 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
 
+		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
 		String dir1 = context.getInstallDir();
 		String dir2 = tomcat.getHome();
 		String command3 = "chown -RL " + tomcat.getGroup() + ":" + tomcat.getLogin() + " " + dir1 + " " + dir2;
-		String command4 = "chmod -R 755 " + context.getInstallDir() + "/bin";
-		String command5 = "rm " + context.getInstallDir() + "/bin/*.bat";
+
+		// Remove the annoying windows .bat files
+		String command4 = "rm " + context.getInstallDir() + "/bin/*.bat";
+
+		// Make everything in the bin directory executable
+		String command5 = "chmod -R 755 " + context.getInstallDir() + "/bin";
+
+		// Invoke the commands
 		ChannelUtils.exec(channel, command1, command2, command3, command4, command5);
 	}
 
