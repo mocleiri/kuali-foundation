@@ -34,6 +34,13 @@ public class MainUtils {
 	}
 
 	/**
+	 * Load the @Configuration <code>mainClass</code> using Spring
+	 */
+	public static void run(Class<?> mainClass, String[] args) {
+		run(mainClass, args, true, false);
+	}
+
+	/**
 	 * 
 	 */
 	public static void run(Class<?> mainClass, String[] args, boolean stacktrace, boolean exit) {
