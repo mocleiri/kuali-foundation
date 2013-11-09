@@ -16,10 +16,14 @@ public final class BootstrapContext {
 	private final String hostname;
 	private final String rootVolumeDeviceName;
 	private final String privateKey;
-	private final SSHD sshd;
+	private final ServiceOverride sshd;
 	private final List<String> packages;
 
 	public static class Builder {
+
+		private static final String SSHD_OVERRIDE_CONFIG = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
+		private static final List<String> PACKAGES = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
+		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
 		// Required
 		private final SecureChannelService service;
@@ -29,9 +33,9 @@ public final class BootstrapContext {
 		// Optional
 		private User sshEnabledUser = Users.EC2USER.getUser();
 		private User root = Users.ROOT.getUser();
-		private String rootVolumeDeviceName = "/dev/xvda1";
-		private SSHD sshd = new SSHD.Builder("classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config").build();
-		private List<String> packages = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
+		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
+		private ServiceOverride sshd = new ServiceOverride.Builder(Services.SSHD.getService(), SSHD_OVERRIDE_CONFIG).build();
+		private List<String> packages = PACKAGES;
 
 		public Builder(SecureChannelService service, String hostname, String privateKey) {
 			this.service = service;
@@ -87,12 +91,12 @@ public final class BootstrapContext {
 		return privateKey;
 	}
 
-	public SSHD getSshd() {
-		return sshd;
-	}
-
 	public List<String> getPackages() {
 		return packages;
+	}
+
+	public ServiceOverride getSshd() {
+		return sshd;
 	}
 
 }

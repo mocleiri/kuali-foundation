@@ -3,6 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.IOException;
 
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
+import org.kuali.common.devops.aws.sysadmin.model.Service;
 import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -75,11 +76,13 @@ public final class BootstrapExecutable implements Executable {
 		try {
 			channel = getChannel(context.getSshEnabledUser(), true);
 
-			String src = context.getSshd().getLocalConfigLocation();
-			String dst = context.getSshEnabledUser().getHome() + "/" + context.getSshd().getConfigFilename();
+			Service sshd = context.getSshd().getService();
+
+			String src = sshd.getConfigFileLocation();
+			String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
 			String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
-			String command2 = "sudo cp " + dst + " " + context.getSshd().getRemoteConfigLocation();
-			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
+			String command2 = "sudo cp " + dst + " " + sshd.getConfigFileLocation();
+			String command3 = "sudo service " + sshd.getName() + " restart";
 
 			RemoteFile file = new RemoteFile.Builder(dst).build();
 			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user root. This allows root to ssh
