@@ -54,6 +54,7 @@ public final class BashrcUtils {
 		lines.add(PATH + "=$" + JAVA_HOME + "/bin:$" + CATALINA_HOME + "/bin:$" + PATH);
 		lines.add("");
 		lines.add("export " + CollectionUtils.getSpaceSeparatedString(EXPORTS));
+		lines.add("");
 		StringBuilder sb = new StringBuilder();
 		for (String line : lines) {
 			sb.append(line + "\n");
