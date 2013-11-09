@@ -61,6 +61,14 @@
     <jdk6.type>zip</jdk6.type>
 
   </properties>
+  <profiles>
+    <profile>
+      <id>tomcat6</id>
+      <properties>
+        <tomcat.version>${tomcat6.version}</tomcat.version>
+      </properties>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
