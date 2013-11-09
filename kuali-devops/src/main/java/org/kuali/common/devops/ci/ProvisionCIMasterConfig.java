@@ -34,6 +34,7 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.BootstrapExecutable;
+import org.kuali.common.devops.aws.sysadmin.ConfigureTomcatExecutable;
 import org.kuali.common.devops.aws.sysadmin.EnableAppDynamicsExecutable;
 import org.kuali.common.devops.aws.sysadmin.InstallZipPackageExecutable;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
@@ -127,7 +128,7 @@ public class ProvisionCIMasterConfig {
 		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, channel, tomcat6Zip).build();
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(getJDKInstaller(channel, jdk7));
-		executables.add(new InstallZipPackageExecutable.Builder(tomcat).build());
+		executables.add(new InstallZipPackageExecutable.Builder(tomcat).after(new ConfigureTomcatExecutable.Builder(tomcat).build()).build());
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
