@@ -2,6 +2,9 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 import static org.kuali.common.util.FormatUtils.getBytes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.kuali.common.util.Assert;
 
 import com.amazonaws.services.ec2.model.InstanceType;
@@ -16,14 +19,10 @@ public enum Heaps {
 	private final InstanceType type;
 
 	private Heaps(InstanceType type, String maxPerm, String max) {
-		this(type, max, max, maxPerm);
-	}
-
-	private Heaps(InstanceType type, String maxPerm, String min, String max) {
-		Assert.noBlanks(min, max, maxPerm);
+		Assert.noBlanks(maxPerm, max);
 		Assert.noNulls(type);
 		this.type = type;
-		this.heap = new Heap.Builder().maxSizeInBytes(getBytes(max)).minSizeInBytes(getBytes(min)).maxPermSizeInBytes(getBytes(maxPerm)).build();
+		this.heap = new Heap.Builder().maxSizeInBytes(getBytes(max)).minSizeInBytes(getBytes(max)).maxPermSizeInBytes(getBytes(maxPerm)).build();
 	}
 
 	public Heap getHeap() {
@@ -32,6 +31,22 @@ public enum Heaps {
 
 	public InstanceType getType() {
 		return type;
+	}
+
+	public static final Map<String, Heap> asMap() {
+		Map<String, Heap> map = new HashMap<String, Heap>();
+		for (Heaps value : values()) {
+			map.put(value.getType().toString(), value.getHeap());
+		}
+		return map;
+	}
+
+	public static final Map<InstanceType, Heap> asTypeMap() {
+		Map<InstanceType, Heap> map = new HashMap<InstanceType, Heap>();
+		for (Heaps value : values()) {
+			map.put(value.getType(), value.getHeap());
+		}
+		return map;
 	}
 
 }
