@@ -48,11 +48,12 @@ public final class InstallZipPackageExecutable implements Executable {
 		try {
 			String target = context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
 			String linkName = context.getRemotePackageDir() + "/" + packageName;
-			String command1 = "rm -rf " + linkName + " " + target;
-			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemotePackageDir();
-			String command3 = "ln -s " + target + " " + linkName;
-			String command4 = "chmod -R 755 " + linkName + "/bin";
-			String command5 = "rm " + remoteFile.getAbsolutePath();
+
+			String command1 = "rm -rf " + linkName + " " + target; // Remove the existing symbolic link and unzipped package directory (if they exist)
+			String command2 = "unzip " + remoteFile.getAbsolutePath() + " -d " + context.getRemotePackageDir(); // Unzip the package into a directory containing the version number
+			String command3 = "ln -s " + target + " " + linkName; // Create a symbolic link via the user friendly package name (sans version number)
+			String command4 = "chmod -R 755 " + linkName + "/bin"; // Make sure everything in the "bin" directory is executable
+			String command5 = "rm " + remoteFile.getAbsolutePath(); // Remove the zip file
 
 			channel = context.getService().getChannel(context.getContext());
 			ChannelUtils.scp(channel, localFile, remoteFile);
