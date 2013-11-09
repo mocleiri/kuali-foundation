@@ -40,7 +40,7 @@
     <kuali-dns.version>1.0.0-SNAPSHOT</kuali-dns.version>
     <junit.version>4.11</junit.version>
 
-    <tomcat7.version>7.0.26</tomcat7.version>
+    <tomcat7.version>7.0.47</tomcat7.version>
     <tomcat6.version>6.0.37</tomcat6.version>
 
     <tomcat.groupId>org.apache.tomcat</tomcat.groupId>
