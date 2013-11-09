@@ -86,7 +86,8 @@ public final class CustomizeTomcatExecutable implements ChannelExecutable {
 		String dir1 = context.getInstallDir();
 		String dir2 = tomcat.getHome();
 		String command3 = "chown -RL " + tomcat.getGroup() + ":" + tomcat.getLogin() + " " + dir1 + " " + dir2;
-		ChannelUtils.exec(channel, command1, command2, command3);
+		String command4 = "chmod -R 755 " + context.getInstallDir() + "/bin";
+		ChannelUtils.exec(channel, command1, command2, command3, command4);
 	}
 
 	public boolean isSkip() {
