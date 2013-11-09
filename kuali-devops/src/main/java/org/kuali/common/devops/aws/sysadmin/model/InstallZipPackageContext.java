@@ -5,10 +5,7 @@ import java.io.File;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.maven.RepositoryUtils;
-
-import com.google.common.base.Optional;
 
 public final class InstallZipPackageContext {
 
@@ -18,8 +15,6 @@ public final class InstallZipPackageContext {
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
 	private final String installDir;
-	private final Optional<ChannelExecutable> before;
-	private final Optional<ChannelExecutable> after;
 
 	public static class Builder {
 
@@ -31,8 +26,6 @@ public final class InstallZipPackageContext {
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
-		private Optional<ChannelExecutable> before = Optional.absent();
-		private Optional<ChannelExecutable> after = Optional.absent();
 
 		// Filled in automatically, based off of remotePackageDir + package name
 		private String installDir;
@@ -53,18 +46,8 @@ public final class InstallZipPackageContext {
 			return this;
 		}
 
-		public Builder after(ChannelExecutable after) {
-			this.after = Optional.of(after);
-			return this;
-		}
-
-		public Builder before(ChannelExecutable before) {
-			this.before = Optional.of(before);
-			return this;
-		}
-
 		public InstallZipPackageContext build() {
-			Assert.noNulls(service, context, zipPackage, localRepositoryDir, after);
+			Assert.noNulls(service, context, zipPackage, localRepositoryDir);
 			Assert.noBlanks(remotePackageDir);
 			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zipPackage.getArtifact()));
 			this.installDir = remotePackageDir + "/" + zipPackage.getPackageName();
@@ -78,8 +61,6 @@ public final class InstallZipPackageContext {
 		this.context = builder.context;
 		this.localRepositoryDir = builder.localRepositoryDir;
 		this.remotePackageDir = builder.remotePackageDir;
-		this.after = builder.after;
-		this.before = builder.before;
 		this.installDir = builder.installDir;
 	}
 
@@ -101,14 +82,6 @@ public final class InstallZipPackageContext {
 
 	public String getRemotePackageDir() {
 		return remotePackageDir;
-	}
-
-	public Optional<ChannelExecutable> getAfter() {
-		return after;
-	}
-
-	public Optional<ChannelExecutable> getBefore() {
-		return before;
 	}
 
 	public String getInstallDir() {
