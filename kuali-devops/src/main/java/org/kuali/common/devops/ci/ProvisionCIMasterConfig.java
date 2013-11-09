@@ -52,7 +52,7 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.ConcurrentExecutables;
+import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.slf4j.Logger;
@@ -119,7 +119,7 @@ public class ProvisionCIMasterConfig {
 		String hostname = instance.getPublicDnsName();
 		ChannelContext cc = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
 		ZipPackage jdk7zip = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
-		ZipPackage jdk6zip = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.6.0-u45")).build();
+		ZipPackage jdk6zip = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
 		ZipPackage tomcatZip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("7.0.26")).build();
 		InstallZipPackageContext jdk7 = new InstallZipPackageContext.Builder(scs, cc, jdk7zip).build();
 		InstallZipPackageContext jdk6 = new InstallZipPackageContext.Builder(scs, cc, jdk6zip).build();
@@ -127,7 +127,8 @@ public class ProvisionCIMasterConfig {
 		executables.add(new InstallZipPackageExecutable(jdk6));
 		executables.add(new InstallZipPackageExecutable(jdk7));
 		executables.add(new InstallZipPackageExecutable(tomcat));
-		new ConcurrentExecutables(executables).execute();
+		// new ConcurrentExecutables(executables).execute();
+		new ExecutablesExecutable(executables).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
