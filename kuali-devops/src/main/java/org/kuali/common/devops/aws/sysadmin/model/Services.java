@@ -2,7 +2,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 public enum Services {
 
-	SSHD("sshd", "/etc/sshd/sshd_config");
+	SSHD("sshd", "/etc/ssh/sshd_config");
 
 	private final Service service;
 
