@@ -64,20 +64,29 @@ public final class CustomizeTomcatExecutable implements ChannelExecutable {
 		}
 		String webappsDir = context.getInstallDir() + "/webapps";
 
-		String command1 = "rm -rf " + webappsDir + "; mkdir -p " + webappsDir;
-		ChannelUtils.exec(channel, command1); // Remove then, recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
+		// Remove then, recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
+		ChannelUtils.exec(channel, "rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
+
+		// Add, update, replace configuration files as needed
 		List<Deployable> deployables = TomcatUtils.getDeployables(context.getInstallDir(), majorVersion);
 		for (Deployable deployable : deployables) {
 			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
 		}
 
+		// Delete the tomcat user (if it exists)
 		boolean tomcatUserExists = channel.exists(tomcat.getHome());
 		if (tomcatUserExists) {
 			ChannelUtils.exec(channel, "userdel -rf " + tomcat.getLogin());
 		}
-		String command2 = "groupadd -f " + tomcat.getGroup();
-		String command3 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
-		ChannelUtils.exec(channel, command2, command3);
+
+		// Create the tomcat group and user
+		String command1 = "groupadd -f " + tomcat.getGroup();
+		String command2 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
+
+		String dir1 = context.getInstallDir();
+		String dir2 = tomcat.getHome();
+		String command3 = "chown -R " + tomcat.getGroup() + ":" + tomcat.getLogin() + " " + dir1 + " " + dir2;
+		ChannelUtils.exec(channel, command1, command2, command3);
 	}
 
 	public boolean isSkip() {
