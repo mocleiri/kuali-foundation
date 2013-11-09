@@ -125,15 +125,20 @@ public class ProvisionCIMasterConfig {
 		ZipPackage tomcat6Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("6.0.37")).build();
 		ZipPackage jdk7 = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
 		ZipPackage jdk6 = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
-		InstallZipPackageContext tomcat = new InstallZipPackageContext.Builder(scs, channel, tomcat6Zip).build();
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(getJDKInstaller(channel, jdk7));
-		executables.add(new InstallZipPackageExecutable.Builder(tomcat).after(new ConfigureTomcatExecutable.Builder(tomcat).build()).build());
+		executables.add(getTomcatInstaller(channel, tomcat7Zip));
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
+	}
+
+	protected InstallZipPackageExecutable getTomcatInstaller(ChannelContext channel, ZipPackage zip) {
+		InstallZipPackageContext context = new InstallZipPackageContext.Builder(scs, channel, zip).build();
+		ChannelExecutable after = new ConfigureTomcatExecutable.Builder(context).build();
+		return new InstallZipPackageExecutable.Builder(context).after(after).build();
 	}
 
 	protected InstallZipPackageExecutable getJDKInstaller(ChannelContext channel, ZipPackage zip) {
