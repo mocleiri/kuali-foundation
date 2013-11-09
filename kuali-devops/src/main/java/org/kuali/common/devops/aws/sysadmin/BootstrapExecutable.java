@@ -3,6 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.IOException;
 
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
+import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
@@ -53,7 +54,7 @@ public final class BootstrapExecutable implements Executable {
 		enableRootSSH();
 		SecureChannel channel = null;
 		try {
-			channel = getChannel(context.getRoot().getLogin(), false);
+			channel = getChannel(context.getRoot(), false);
 			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
 			String command2 = "yum --assumeyes update";
 			String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
@@ -72,7 +73,7 @@ public final class BootstrapExecutable implements Executable {
 	protected void enableRootSSH() {
 		SecureChannel channel = null;
 		try {
-			channel = getChannel(context.getSshEnabledUser().getLogin(), true);
+			channel = getChannel(context.getSshEnabledUser(), true);
 
 			String src = context.getSshd().getLocalConfigLocation();
 			String dst = context.getSshEnabledUser().getHome() + "/" + context.getSshd().getConfigFilename();
@@ -81,7 +82,7 @@ public final class BootstrapExecutable implements Executable {
 			String command3 = "sudo service " + context.getSshd().getServiceName() + " restart";
 
 			RemoteFile file = new RemoteFile.Builder(dst).build();
-			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root since that one doesn't prevent ssh
+			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user root. This allows root to ssh
 			logger.info("cp {} {}", src, file.getAbsolutePath());
 			channel.copyLocationToFile(src, file); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
@@ -95,10 +96,10 @@ public final class BootstrapExecutable implements Executable {
 		}
 	}
 
-	protected SecureChannel getChannel(String login, boolean requestPseudoTerminal) throws IOException {
+	protected SecureChannel getChannel(User user, boolean requestPseudoTerminal) throws IOException {
 		String dnsName = context.getHostname();
 		String privateKey = context.getPrivateKey();
-		ChannelContext cc = new ChannelContext.Builder(login, dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
+		ChannelContext cc = new ChannelContext.Builder(user.getLogin(), dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
 		return context.getService().getChannel(cc);
 	}
 
