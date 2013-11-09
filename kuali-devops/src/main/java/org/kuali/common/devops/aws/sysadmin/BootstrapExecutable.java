@@ -99,7 +99,7 @@ public final class BootstrapExecutable implements Executable {
 		String dnsName = context.getHostname();
 		String privateKey = context.getPrivateKey();
 		ChannelContext cc = new ChannelContext.Builder(user.getLogin(), dnsName).privateKey(privateKey).requestPseudoTerminal(requestPseudoTerminal).build();
-		return context.getService().getChannel(cc);
+		return context.getService().openChannel(cc);
 	}
 
 	public BootstrapContext getContext() {

@@ -57,7 +57,7 @@ public final class InstallZipPackageExecutable implements Executable {
 			String command4 = "chmod -R 755 " + linkName + "/bin"; // Make sure everything in the "bin" directory is executable
 			String command5 = "rm " + zipFile; // Remove the zip file
 
-			channel = context.getService().getChannel(context.getContext());
+			channel = context.getService().openChannel(context.getContext());
 			ChannelUtils.scp(channel, localFile, remoteFile);
 			ChannelUtils.exec(channel, command1, command2, command3, command4, command5);
 		} catch (IOException e) {
