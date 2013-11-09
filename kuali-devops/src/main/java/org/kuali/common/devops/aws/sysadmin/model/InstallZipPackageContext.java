@@ -17,6 +17,7 @@ public final class InstallZipPackageContext {
 	private final ZipPackage zipPackage;
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
+	private final String installDir;
 	private final Optional<ChannelExecutable> before;
 	private final Optional<ChannelExecutable> after;
 
@@ -32,6 +33,9 @@ public final class InstallZipPackageContext {
 		private String remotePackageDir = "/usr/local";
 		private Optional<ChannelExecutable> before = Optional.absent();
 		private Optional<ChannelExecutable> after = Optional.absent();
+
+		// Filled in automatically, based off of remotePackageDir + package name
+		private String installDir;
 
 		public Builder(ChannelService service, ChannelContext context, ZipPackage zipPackage) {
 			this.zipPackage = zipPackage;
@@ -63,6 +67,7 @@ public final class InstallZipPackageContext {
 			Assert.noNulls(service, context, zipPackage, localRepositoryDir, after);
 			Assert.noBlanks(remotePackageDir);
 			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zipPackage.getArtifact()));
+			this.installDir = remotePackageDir + "/" + zipPackage.getPackageName();
 			return new InstallZipPackageContext(this);
 		}
 	}
@@ -75,6 +80,7 @@ public final class InstallZipPackageContext {
 		this.remotePackageDir = builder.remotePackageDir;
 		this.after = builder.after;
 		this.before = builder.before;
+		this.installDir = builder.installDir;
 	}
 
 	public ChannelService getService() {
@@ -103,6 +109,10 @@ public final class InstallZipPackageContext {
 
 	public Optional<ChannelExecutable> getBefore() {
 		return before;
+	}
+
+	public String getInstallDir() {
+		return installDir;
 	}
 
 }
