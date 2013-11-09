@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-public final class TomcatConfig {
+public final class CustomTomcatConfig {
 
 	private final List<String> conf = ImmutableList.of("server.xml", "web.xml");
 	private final List<String> bin = ImmutableList.of("forced-shutdown.sh", "cleanup.sh");
