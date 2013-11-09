@@ -14,10 +14,16 @@ public final class ZipPackage {
 		private final String packageName;
 		private final Artifact artifact;
 
+		/**
+		 * Use this constructor only if the package name exactly matches the artifact id
+		 */
 		public Builder(Artifact artifact) {
 			this(artifact.getArtifactId(), artifact);
 		}
 
+		/**
+		 * Use this constructor if the package name is different than the artifact id
+		 */
 		public Builder(String packageName, Artifact artifact) {
 			this.packageName = packageName;
 			this.artifact = artifact;
