@@ -1,11 +1,18 @@
 package org.kuali.common.devops.aws.sysadmin;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.kuali.common.devops.aws.sysadmin.model.Deployable;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.VersionUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * Configure Tomcat
@@ -56,12 +63,58 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 		}
 		String installDir = context.getInstallDir();
 		String webappsDir = installDir + "/webapps";
-		// String serverXml = installDir + "/conf/server.xml";
-		// String webXml = installDir + "/conf/web.xml";
+
+		List<Deployable> deployables = getDeployables();
 		String command1 = "rm -rf " + webappsDir + "; mkdir -p " + webappsDir;
 
 		ChannelUtils.exec(channel, command1);
+		for (Deployable deployable : deployables) {
+			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
+		}
+	}
 
+	protected List<Deployable> getDeployables() {
+		List<Deployable> list = new ArrayList<Deployable>();
+		list.addAll(getJsp());
+		list.addAll(getBin());
+		list.addAll(getConf());
+		return ImmutableList.copyOf(list);
+	}
+
+	protected List<Deployable> getJsp() {
+		String[] resources = { "env.jsp", "tail.jsp" };
+		List<Deployable> list = new ArrayList<Deployable>();
+		for (String resource : resources) {
+			String src = "classpath:org/kuali/common/kuali-deploy/tomcat/jsps/" + resource;
+			String absolutePath = context.getInstallDir() + "/logs/" + resource;
+			RemoteFile dst = new RemoteFile.Builder(absolutePath).build();
+			list.add(new Deployable(src, dst));
+		}
+		return list;
+	}
+
+	protected List<Deployable> getBin() {
+		String[] resources = { "cleanup.sh", "forced-shutdown.sh" };
+		List<Deployable> list = new ArrayList<Deployable>();
+		for (String resource : resources) {
+			String src = "classpath:org/kuali/common/kuali-deploy/tomcat/bin/" + resource;
+			String absolutePath = context.getInstallDir() + "/bin/" + resource;
+			RemoteFile dst = new RemoteFile.Builder(absolutePath).build();
+			list.add(new Deployable(src, dst));
+		}
+		return list;
+	}
+
+	protected List<Deployable> getConf() {
+		String[] resources = { "server.xml", "web.xml" };
+		List<Deployable> list = new ArrayList<Deployable>();
+		for (String resource : resources) {
+			String src = "classpath:org/kuali/common/kuali-deploy/tomcat/" + majorVersion + "/conf/" + resource;
+			String absolutePath = context.getInstallDir() + "/conf/" + resource;
+			RemoteFile dst = new RemoteFile.Builder(absolutePath).build();
+			list.add(new Deployable(src, dst));
+		}
+		return list;
 	}
 
 	public boolean isSkip() {
