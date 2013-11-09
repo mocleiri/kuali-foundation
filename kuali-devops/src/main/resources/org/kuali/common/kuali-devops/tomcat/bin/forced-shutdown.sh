@@ -15,9 +15,4 @@
 # limitations under the License.
 #
 
-if [ "$CATALINA_HOME" = "" ]; then
-  echo "CATALINA_HOME is not set"
-  exit
-fi
-
-$CATALINA_HOME/bin/catalina.sh stop 5 -force
+/usr/local/tomcat/bin/catalina.sh stop 5 -force

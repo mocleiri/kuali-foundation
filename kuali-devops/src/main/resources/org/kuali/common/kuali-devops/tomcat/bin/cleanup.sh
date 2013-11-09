@@ -16,10 +16,7 @@
 #
 
 
-if [ "$CATALINA_BASE" = "" ]; then
-  echo "CATALINA_BASE is not set"
-  exit
-fi
+CATALINA_BASE=/usr/local/tomcat
 
 # JSP's in the logs dir
 ENV1=$CATALINA_BASE/logs/env.jsp
