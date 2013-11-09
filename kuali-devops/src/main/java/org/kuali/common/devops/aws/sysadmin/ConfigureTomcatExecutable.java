@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
+import org.kuali.common.devops.aws.sysadmin.model.TomcatConfig;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.VersionUtils;
@@ -25,6 +26,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 	private final boolean skip;
 	private final String majorVersion;
 	private final String classpathPrefix;
+	private final TomcatConfig customizedTomcatConfig = new TomcatConfig();
 
 	public static class Builder {
 
@@ -88,7 +90,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 	}
 
 	protected List<Deployable> getJsp() {
-		String[] resources = { "env.jsp", "tail.jsp" };
+		List<String> resources = customizedTomcatConfig.getJsps();
 		List<Deployable> list = new ArrayList<Deployable>();
 		for (String resource : resources) {
 			String src = classpathPrefix + "/jsps/" + resource;
@@ -100,7 +102,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 	}
 
 	protected List<Deployable> getBin() {
-		String[] resources = { "cleanup.sh", "forced-shutdown.sh" };
+		List<String> resources = customizedTomcatConfig.getBin();
 		List<Deployable> list = new ArrayList<Deployable>();
 		for (String resource : resources) {
 			String src = classpathPrefix + "/bin/" + resource;
@@ -112,7 +114,7 @@ public final class ConfigureTomcatExecutable implements ChannelExecutable {
 	}
 
 	protected List<Deployable> getConf() {
-		String[] resources = { "server.xml", "web.xml" };
+		List<String> resources = customizedTomcatConfig.getConf();
 		List<Deployable> list = new ArrayList<Deployable>();
 		for (String resource : resources) {
 			String src = classpathPrefix + "/" + majorVersion + "/conf/" + resource;
