@@ -90,13 +90,12 @@ public final class InstallZipPackageExecutable implements Executable {
 			String command1 = "rm -rf " + target + " " + linkName; // Remove the existing symbolic link and unzipped package directory (if they exist)
 			String command2 = "unzip " + zipFile + " -d " + unzipDir; // Unzip the package into a directory containing the version number
 			String command3 = "ln -s " + target + " " + linkName; // Create a symbolic link via the user friendly package name (sans version number)
-			String command4 = "chmod -R 755 " + linkName + "/bin"; // Make sure everything in the "bin" directory is executable
-			String command5 = "rm " + zipFile; // Remove the zip file
+			String command4 = "rm " + zipFile; // Remove the zip file
 
 			channel = context.getService().openChannel(context.getContext()); // Open a secure channel to the server
 			exec(channel, before); // Do any pre-processing as needed
 			ChannelUtils.scp(channel, localFile, remoteFile); // Copy the zip file
-			ChannelUtils.exec(channel, command1, command2, command3, command4, command5); // Install the package from the zip
+			ChannelUtils.exec(channel, command1, command2, command3, command4); // Install the package from the zip
 			exec(channel, after); // Do any post-processing as needed
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
