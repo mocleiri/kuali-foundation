@@ -20,6 +20,7 @@ public final class ServiceOverride {
 		public ServiceOverride build() {
 			Assert.noBlanks(configFileOverrideLocation);
 			Assert.noNulls(service);
+			Assert.exists(configFileOverrideLocation);
 			return new ServiceOverride(this);
 		}
 

@@ -2,9 +2,12 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 import java.util.List;
 
+import org.kuali.common.aws.ec2.model.Distro;
+import org.kuali.common.devops.project.DevOpsProjectConstants;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.project.ProjectUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -18,9 +21,11 @@ public final class BootstrapContext {
 	private final String privateKey;
 	private final ServiceOverride sshdOverride;
 	private final List<String> packages;
+	private final Distro distro;
 
 	public static class Builder {
 
+		private static final String PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID);
 		private static final String SSHD_OVERRIDE_CONFIG = "classpath:org/kuali/common/kuali-devops/amazon-linux/etc/ssh/sshd_config";
 		private static final List<String> PACKAGES = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
@@ -34,8 +39,11 @@ public final class BootstrapContext {
 		private User sshEnabledUser = Users.EC2USER.getUser();
 		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
-		private ServiceOverride sshdOverride = new ServiceOverride.Builder(Services.SSHD.getService(), SSHD_OVERRIDE_CONFIG).build();
+		private Distro distro = Distro.AMAZON_LINUX;
 		private List<String> packages = PACKAGES;
+
+		// Filled in automatically by build();
+		private ServiceOverride sshdOverride;
 
 		public Builder(ChannelService service, String hostname, String privateKey) {
 			this.service = service;
@@ -73,6 +81,11 @@ public final class BootstrapContext {
 			Assert.noBlanks(hostname, privateKey, rootVolumeDeviceName);
 			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
 			this.packages = ImmutableList.copyOf(packages);
+
+			Service sshd = Services.SSHD.getService();
+			String configFileOverrideLocation = PREFIX + "/" + distro.getName() + "/" + sshd.getConfigFileLocation();
+			this.sshdOverride = new ServiceOverride.Builder(sshd, configFileOverrideLocation).build();
+
 			return new BootstrapContext(this);
 		}
 	}
@@ -86,6 +99,7 @@ public final class BootstrapContext {
 		this.privateKey = builder.privateKey;
 		this.sshdOverride = builder.sshdOverride;
 		this.packages = builder.packages;
+		this.distro = builder.distro;
 	}
 
 	public ChannelService getService() {
@@ -118,6 +132,10 @@ public final class BootstrapContext {
 
 	public ServiceOverride getSshdOverride() {
 		return sshdOverride;
+	}
+
+	public Distro getDistro() {
+		return distro;
 	}
 
 }
