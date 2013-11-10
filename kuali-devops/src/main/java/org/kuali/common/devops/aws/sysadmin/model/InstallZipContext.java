@@ -30,8 +30,8 @@ public final class InstallZipContext {
 		// Filled in automatically, based off of remotePackageDir + package name
 		private String installDir;
 
-		public Builder(ChannelService service, ChannelContext context, Zip zipPackage) {
-			this.zip = zipPackage;
+		public Builder(ChannelService service, ChannelContext context, Zip zip) {
+			this.zip = zip;
 			this.service = service;
 			this.context = context;
 		}
