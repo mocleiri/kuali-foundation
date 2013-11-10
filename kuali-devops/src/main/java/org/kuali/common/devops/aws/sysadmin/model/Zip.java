@@ -3,6 +3,15 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.maven.model.Artifact;
 
+/**
+ * <p>
+ * A named software package compressed into a zip file containing the version number as part of the filename. eg <code>apache-tomcat-7.0.47.zip</code>
+ * </p>
+ * 
+ * <p>
+ * When unzipped it must create a new directory that exactly matches the artifactId + version number. eg <code>apache-tomcat-7.0.47</code>
+ * </p>
+ */
 public final class Zip {
 
 	private final String packageName;
