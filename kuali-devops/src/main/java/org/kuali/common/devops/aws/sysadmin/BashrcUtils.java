@@ -71,11 +71,13 @@ public final class BashrcUtils {
 		opts.add("-Xms" + FormatUtils.getIntegerSize(heap.getMinSizeInBytes()));
 		opts.add("-Xmx" + FormatUtils.getIntegerSize(heap.getMaxSizeInBytes()));
 		opts.add("-XX:MaxPermSize=" + FormatUtils.getIntegerSize(heap.getMaxPermSizeInBytes()));
-		opts.add("-verbose:gc");
-		opts.add("-XX:+PrintGCDetails");
-		opts.add("-XX:+PrintGCDateStamps");
-		opts.add("-XX:+PrintHeapAtGC");
-		opts.add("-XX:+PrintTenuringDistribution");
+		if (heap.isEnableLogging()) {
+			opts.add("-verbose:gc");
+			opts.add("-XX:+PrintGCDetails");
+			opts.add("-XX:+PrintGCDateStamps");
+			opts.add("-XX:+PrintHeapAtGC");
+			opts.add("-XX:+PrintTenuringDistribution");
+		}
 		opts.add("-Xloggc:$" + CATALINA_BASE + "/logs/heap.log");
 		if (heap.isDumpOnOutOfMemoryError()) {
 			opts.add("-XX:HeapDumpPath=$" + CATALINA_BASE + "/logs");
