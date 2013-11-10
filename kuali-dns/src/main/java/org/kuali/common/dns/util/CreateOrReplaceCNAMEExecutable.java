@@ -1,10 +1,13 @@
 package org.kuali.common.dns.util;
 
 import org.kuali.common.dns.api.DnsService;
+import org.kuali.common.dns.model.DnsRecord;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 public class CreateOrReplaceCNAMEExecutable implements Executable {
 
@@ -43,12 +46,35 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 		if (skip) {
 			return;
 		}
-		if (service.isExistingCNAMERecord(aliasFQDN)) {
+
+		// Extract the DNS record corresponding to the alias FQDN
+		Optional<DnsRecord> record = service.getCNAMERecord(aliasFQDN);
+
+		// If this is true, we are good to go, DNS is already setup
+		if (existsAndMatches(record)) {
+			return;
+		}
+
+		// Check to see if there is an existing record
+		if (record.isPresent()) {
+
+			// There is an existing record but it doesn't match, must delete it
 			logger.info("deleting DNS CNAME record for [{}]", aliasFQDN);
 			service.deleteCNAMERecord(aliasFQDN);
 		}
+
+		// There may have never been a DNS record OR we just deleted one
+		// Either way, need to create a new one
 		logger.info("creating DNS CNAME record for [{}] -> [{}]", aliasFQDN, canonicalFQDN);
 		service.createCNAMERecord(aliasFQDN, canonicalFQDN, timeToLiveInSeconds);
+	}
+
+	protected boolean existsAndMatches(Optional<DnsRecord> record) {
+		if (!record.isPresent()) {
+			return false;
+		}
+		String existingValue = record.get().getValue();
+		return canonicalFQDN.equals(existingValue);
 	}
 
 	public DnsService getService() {
