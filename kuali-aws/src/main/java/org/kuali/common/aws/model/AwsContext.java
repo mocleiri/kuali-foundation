@@ -2,25 +2,23 @@ package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
 
-import com.google.common.base.Optional;
-
 public final class AwsContext {
 
-	public AwsContext(AwsAuth auth, Optional<AwsAccount> account) {
-		Assert.noNulls(auth, account);
-		this.auth = auth;
+	public AwsContext(AwsAccount account, AwsAuth auth) {
+		Assert.noNulls(account, auth);
 		this.account = account;
+		this.auth = auth;
 	}
 
+	private final AwsAccount account;
 	private final AwsAuth auth;
-	private final Optional<AwsAccount> account;
+
+	public AwsAccount getAccount() {
+		return account;
+	}
 
 	public AwsAuth getAuth() {
 		return auth;
-	}
-
-	public Optional<AwsAccount> getAccount() {
-		return account;
 	}
 
 }
