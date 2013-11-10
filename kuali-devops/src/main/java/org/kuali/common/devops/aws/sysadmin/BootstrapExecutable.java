@@ -52,13 +52,19 @@ public final class BootstrapExecutable implements Executable {
 		SecureChannel channel = null;
 		try {
 			channel = getChannel(context.getRoot(), false);
+
+			// Re-size the root volume so it uses all of the allocated space
 			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
+
+			// Update the general operating system to the latest and greatest
 			String command2 = "yum --assumeyes update";
-			String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
-			ChannelUtils.exec(channel, command1); // Re-size the root volume so it uses all of the allocated space
-			ChannelUtils.exec(channel, command2); // Update the general operating system to the latest and greatest
+
+			ChannelUtils.exec(channel, command1, command2);
+
+			// Install custom packages (if any)
 			if (context.getPackages().size() > 0) {
-				ChannelUtils.exec(channel, command3); // Install custom packages (if any)
+				String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
+				ChannelUtils.exec(channel, command3);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
