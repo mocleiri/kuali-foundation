@@ -38,7 +38,7 @@ import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
-import org.kuali.common.util.channel.model.Result;
+import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.Status;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.channel.util.SSHUtils;
@@ -88,12 +88,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public Result executeCommand(String command) {
+	public CommandResult executeCommand(String command) {
 		return executeCommand(command, null);
 	}
 
 	@Override
-	public Result executeCommand(String command, String stdin) {
+	public CommandResult executeCommand(String command, String stdin) {
 		Assert.noBlanks(command);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
@@ -127,7 +127,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Make sure the channel is closed
 			waitForClosed(exec, context.getWaitForClosedSleepMillis());
 			// Return the result of executing the command
-			return new Result(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start, System.currentTimeMillis());
+			return new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start, System.currentTimeMillis());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {

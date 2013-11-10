@@ -15,9 +15,9 @@
  */
 package org.kuali.common.util.channel.model;
 
-public class Result {
+public class CommandResult {
 
-	public Result(String command, int exitValue, String stdin, String stdout, String stderr, String encoding, long start, long stop) {
+	public CommandResult(String command, int exitValue, String stdin, String stdout, String stderr, String encoding, long start, long stop) {
 		this.command = command;
 		this.exitValue = exitValue;
 		this.stdin = stdin;

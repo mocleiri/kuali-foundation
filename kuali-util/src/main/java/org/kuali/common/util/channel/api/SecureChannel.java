@@ -21,13 +21,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.kuali.common.util.channel.model.RemoteFile;
-import org.kuali.common.util.channel.model.Result;
+import org.kuali.common.util.channel.model.CommandResult;
 
 public interface SecureChannel {
 
-	Result executeCommand(String command);
+	CommandResult executeCommand(String command);
 
-	Result executeCommand(String command, String stdin);
+	CommandResult executeCommand(String command, String stdin);
 
 	void executeNoWait(String command);
 

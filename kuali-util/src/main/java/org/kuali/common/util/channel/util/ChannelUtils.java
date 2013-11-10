@@ -25,7 +25,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
-import org.kuali.common.util.channel.model.Result;
+import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.TransferDirection;
 import org.kuali.common.util.channel.model.TransferResult;
 import org.kuali.common.util.enc.EncUtils;
@@ -130,7 +130,7 @@ public class ChannelUtils {
 	 * @throws IllegalStateException
 	 *             If the command returns with a non-zero exit value
 	 */
-	public static Result exec(SecureChannel channel, String command) {
+	public static CommandResult exec(SecureChannel channel, String command) {
 		return exec(channel, command, true);
 	}
 
@@ -140,11 +140,11 @@ public class ChannelUtils {
 	 * @throws IllegalStateException
 	 *             If the command returns with a non-zero exit value
 	 */
-	public static List<Result> exec(SecureChannel channel, String... commands) {
+	public static List<CommandResult> exec(SecureChannel channel, String... commands) {
 		List<String> list = ImmutableList.copyOf(commands);
-		List<Result> results = new ArrayList<Result>();
+		List<CommandResult> results = new ArrayList<CommandResult>();
 		for (String command : list) {
-			Result result = exec(channel, command, true);
+			CommandResult result = exec(channel, command, true);
 			results.add(result);
 		}
 		return results;
@@ -156,8 +156,8 @@ public class ChannelUtils {
 	 * @throws IllegalStateException
 	 *             If the command returns a non-zero exit value
 	 */
-	public static Result exec(SecureChannel channel, String command, boolean echo) {
-		Result result = channel.executeCommand(command);
+	public static CommandResult exec(SecureChannel channel, String command, boolean echo) {
+		CommandResult result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Non-zero exit value: [" + result.getExitValue() + "]\n");
@@ -177,7 +177,7 @@ public class ChannelUtils {
 		return result;
 	}
 
-	public static void debug(Result result) {
+	public static void debug(CommandResult result) {
 		Assert.noNulls(result);
 		String stdout = NullUtils.trimToNull(result.getStdout());
 		String stderr = NullUtils.trimToNull(result.getStderr());
