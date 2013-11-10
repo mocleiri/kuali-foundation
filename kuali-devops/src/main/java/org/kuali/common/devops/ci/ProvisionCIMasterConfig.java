@@ -33,7 +33,7 @@ import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
-import org.kuali.common.devops.aws.sysadmin.BootstrapExecutable;
+import org.kuali.common.devops.aws.sysadmin.Bootstrap;
 import org.kuali.common.devops.aws.sysadmin.CustomizeJDK;
 import org.kuali.common.devops.aws.sysadmin.CustomizeTomcat;
 import org.kuali.common.devops.aws.sysadmin.InstallZipPackage;
@@ -115,7 +115,7 @@ public class ProvisionCIMasterConfig {
 		Instance instance = ec2.getInstance("i-9c9e38e1");
 		String privateKey = context.getKeyPair().getPrivateKey().get();
 		BootstrapContext bc = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
-		new BootstrapExecutable(bc).execute();
+		new Bootstrap(bc).execute();
 		List<Executable> executables = new ArrayList<Executable>();
 		if (context.getDnsName().isPresent()) {
 			String aliasFQDN = context.getDnsName().get();

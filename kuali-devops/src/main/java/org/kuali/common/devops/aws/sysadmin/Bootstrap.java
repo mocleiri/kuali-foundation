@@ -24,13 +24,13 @@ import org.kuali.common.util.execute.Executable;
  * </ul>
  * 
  */
-public final class BootstrapExecutable implements Executable {
+public final class Bootstrap implements Executable {
 
-	public BootstrapExecutable(BootstrapContext context) {
+	public Bootstrap(BootstrapContext context) {
 		this(context, false);
 	}
 
-	public BootstrapExecutable(BootstrapContext context, boolean skip) {
+	public Bootstrap(BootstrapContext context, boolean skip) {
 		Assert.noNulls(context);
 		this.context = context;
 		this.skip = skip;
