@@ -410,11 +410,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 	@Override
 	public String toString(RemoteFile source) {
 		Assert.notNull(source);
-		Assert.hasText(source.getAbsolutePath());
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
-			CopyResult result = scp(source, out);
-			from(source.getAbsolutePath(), result);
+			scp(source, out);
 			return out.toString(context.getEncoding());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -502,7 +500,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
 			Object[] args = { absolutePath, elapsed, rate };
-			logger.info("<- copied [{}] - [{}, {}]", args);
+			logger.info("copied <- [{}] - [{}, {}]", args);
 		}
 	}
 
