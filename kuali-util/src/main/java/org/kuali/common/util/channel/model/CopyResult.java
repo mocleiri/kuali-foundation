@@ -26,7 +26,7 @@ public final class CopyResult {
 		Assert.notNegative(transferAmountInBytes);
 		Assert.noNulls(direction);
 		this.startMillis = startMillis;
-		this.transferAmountInBytes = transferAmountInBytes;
+		this.amountInBytes = transferAmountInBytes;
 		this.elapsedMillis = stopMillis - startMillis;
 		this.direction = direction;
 	}
@@ -34,7 +34,7 @@ public final class CopyResult {
 	private final long startMillis;
 	private final long stopMillis;
 	private final long elapsedMillis;
-	private final long transferAmountInBytes;
+	private final long amountInBytes;
 	private final CopyDirection direction;
 
 	public long getStartMillis() {
@@ -49,8 +49,8 @@ public final class CopyResult {
 		return elapsedMillis;
 	}
 
-	public long getTransferAmountInBytes() {
-		return transferAmountInBytes;
+	public long getAmountInBytes() {
+		return amountInBytes;
 	}
 
 	public CopyDirection getDirection() {

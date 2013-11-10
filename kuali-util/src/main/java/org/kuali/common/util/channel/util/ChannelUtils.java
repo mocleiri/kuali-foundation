@@ -109,7 +109,7 @@ public class ChannelUtils {
 		CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
-			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
+			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
 			Object[] args = { destination.getAbsolutePath(), elapsed, rate };
 			logger.info("created -> {} - [{}, {}]", args);
 		}
