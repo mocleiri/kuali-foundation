@@ -92,12 +92,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CommandResult executeCommand(String command) {
-		return executeCommand(command, Optional.<String> absent());
+	public CommandResult exec(String command) {
+		return exec(command, Optional.<String> absent());
 	}
 
 	@Override
-	public CommandResult executeCommand(String command, Optional<String> stdin) {
+	public CommandResult exec(String command, Optional<String> stdin) {
 		Assert.noBlanks(command);
 		Assert.noNulls(stdin);
 		ChannelExec exec = null;
@@ -162,7 +162,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void executeNoWait(String command) {
+	public void execNoWait(String command) {
 		Assert.notBlank(command);
 		ChannelExec exec = null;
 		try {
@@ -367,30 +367,30 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CopyResult copyFile(File source, RemoteFile destination) {
+	public CopyResult scp(File source, RemoteFile destination) {
 		Assert.notNull(source);
 		Assert.exists(source);
 		Assert.isFalse(source.isDirectory(), "[" + source + "] is a directory");
 		Assert.isTrue(source.canRead(), "[" + source + "] not readable");
-		return copyLocationToFile(LocationUtils.getCanonicalURLString(source), destination);
+		return scp(LocationUtils.getCanonicalURLString(source), destination);
 	}
 
 	@Override
-	public CopyResult copyFileToDirectory(File source, RemoteFile directory) {
+	public CopyResult scpToDir(File source, RemoteFile directory) {
 		String filename = source.getName();
 		String absolutePath = getAbsolutePath(directory.getAbsolutePath(), filename);
 		RemoteFile file = new RemoteFile.Builder(absolutePath).clone(directory).build();
-		return copyFile(source, file);
+		return scp(source, file);
 	}
 
 	@Override
-	public CopyResult copyLocationToFile(String location, RemoteFile destination) {
+	public CopyResult scp(String location, RemoteFile destination) {
 		Assert.notNull(location);
 		Assert.isTrue(LocationUtils.exists(location), location + " does not exist");
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			return copyInputStreamToFile(in, destination);
+			return scp(in, destination);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -399,10 +399,10 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CopyResult copyStringToFile(String string, RemoteFile destination) {
+	public CopyResult scpString(String string, RemoteFile destination) {
 		Assert.notNull(string);
 		InputStream in = new ByteArrayInputStream(Str.getBytes(string, context.getEncoding()));
-		CopyResult result = copyInputStreamToFile(in, destination);
+		CopyResult result = scp(in, destination);
 		IOUtils.closeQuietly(in);
 		return result;
 	}
@@ -413,7 +413,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		Assert.hasText(source.getAbsolutePath());
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
-			CopyResult result = copyFile(source, out);
+			CopyResult result = scp(source, out);
 			from(source.getAbsolutePath(), result);
 			return out.toString(context.getEncoding());
 		} catch (IOException e) {
@@ -424,7 +424,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CopyResult copyInputStreamToFile(InputStream source, RemoteFile destination) {
+	public CopyResult scp(InputStream source, RemoteFile destination) {
 		Assert.notNull(source);
 		try {
 			long start = System.currentTimeMillis();
@@ -448,19 +448,19 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CopyResult copyLocationToDirectory(String location, RemoteFile directory) {
+	public CopyResult scpToDir(String location, RemoteFile directory) {
 		String filename = LocationUtils.getFilename(location);
 		String absolutePath = getAbsolutePath(directory.getAbsolutePath(), filename);
 		RemoteFile file = new RemoteFile.Builder(absolutePath).clone(directory).build();
-		return copyLocationToFile(location, file);
+		return scp(location, file);
 	}
 
 	@Override
-	public CopyResult copyFile(RemoteFile source, File destination) {
+	public CopyResult scp(RemoteFile source, File destination) {
 		OutputStream out = null;
 		try {
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
-			return copyFile(source, out);
+			return scp(source, out);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -469,7 +469,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CopyResult copyRemoteFile(String absolutePath, OutputStream out) throws IOException {
+	public CopyResult scp(String absolutePath, OutputStream out) throws IOException {
 		try {
 			long start = System.currentTimeMillis();
 			sftp.get(absolutePath, out);
@@ -507,15 +507,15 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CopyResult copyFile(RemoteFile source, OutputStream out) throws IOException {
-		return copyRemoteFile(source.getAbsolutePath(), out);
+	public CopyResult scp(RemoteFile source, OutputStream out) throws IOException {
+		return scp(source.getAbsolutePath(), out);
 	}
 
 	@Override
-	public CopyResult copyFileToDirectory(RemoteFile source, File destination) {
+	public CopyResult scpToDir(RemoteFile source, File destination) {
 		String filename = FilenameUtils.getName(source.getAbsolutePath());
 		File newDestination = new File(destination, filename);
-		return copyFile(source, newDestination);
+		return scp(source, newDestination);
 	}
 
 	@Override

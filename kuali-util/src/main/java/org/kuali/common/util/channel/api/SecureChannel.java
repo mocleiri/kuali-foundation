@@ -28,27 +28,27 @@ import com.google.common.base.Optional;
 
 public interface SecureChannel {
 
-	CommandResult executeCommand(String command);
+	CommandResult exec(String command);
 
-	CommandResult executeCommand(String command, Optional<String> stdin);
+	CommandResult exec(String command, Optional<String> stdin);
 
-	void executeNoWait(String command);
+	void execNoWait(String command);
 
-	CopyResult copyFile(File source, RemoteFile destination);
+	CopyResult scp(File source, RemoteFile destination);
 
-	CopyResult copyLocationToFile(String location, RemoteFile destination);
+	CopyResult scp(String location, RemoteFile destination);
 
-	CopyResult copyInputStreamToFile(InputStream source, RemoteFile destination);
+	CopyResult scp(InputStream source, RemoteFile destination);
 
-	CopyResult copyStringToFile(String string, RemoteFile destination);
+	CopyResult scpString(String string, RemoteFile destination);
 
-	CopyResult copyLocationToDirectory(String location, RemoteFile directory);
+	CopyResult scpToDir(String location, RemoteFile directory);
 
-	CopyResult copyFileToDirectory(File source, RemoteFile directory);
+	CopyResult scpToDir(File source, RemoteFile directory);
 
-	CopyResult copyFile(RemoteFile source, File destination);
+	CopyResult scp(RemoteFile source, File destination);
 
-	CopyResult copyFileToDirectory(RemoteFile source, File directory);
+	CopyResult scpToDir(RemoteFile source, File directory);
 
 	RemoteFile getMetaData(String absolutePath);
 
@@ -62,9 +62,9 @@ public interface SecureChannel {
 
 	RemoteFile getWorkingDirectory();
 
-	CopyResult copyRemoteFile(String absolutePath, OutputStream out) throws IOException;
+	CopyResult scp(String absolutePath, OutputStream out) throws IOException;
 
-	CopyResult copyFile(RemoteFile source, OutputStream out) throws IOException;
+	CopyResult scp(RemoteFile source, OutputStream out) throws IOException;
 
 	String toString(RemoteFile source);
 

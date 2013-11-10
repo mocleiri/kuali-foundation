@@ -116,7 +116,7 @@ public class ChannelUtils {
 	 *             If the command returns a non-zero exit value
 	 */
 	public static CommandResult exec(SecureChannel channel, String command) {
-		CommandResult result = channel.executeCommand(command);
+		CommandResult result = channel.exec(command);
 		if (result.getExitValue() != 0) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Non-zero exit value: [" + result.getExitValue() + "]\n");
