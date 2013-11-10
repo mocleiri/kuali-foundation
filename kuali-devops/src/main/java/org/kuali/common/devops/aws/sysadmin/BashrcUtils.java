@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
+import org.kuali.common.devops.aws.sysadmin.model.Heap;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.project.ProjectUtils;
@@ -60,5 +62,24 @@ public final class BashrcUtils {
 			sb.append(line + "\n");
 		}
 		return sb.toString();
+	}
+
+	public static List<String> getDefaultCatalinaOpts(Heap heap) {
+		List<String> opts = new ArrayList<String>();
+		opts.add("-Xms" + FormatUtils.getSize(heap.getMinSizeInBytes()));
+		opts.add("-Xmx" + FormatUtils.getSize(heap.getMaxSizeInBytes()));
+		opts.add("-XX:MaxPermSize=" + FormatUtils.getSize(heap.getMaxPermSizeInBytes()));
+		opts.add("-verbose:gc");
+		opts.add("-XX:+PrintGCDetails");
+		opts.add("-XX:+PrintGCDateStamps");
+		opts.add("-XX:+PrintHeapAtGC");
+		opts.add("-XX:+PrintTenuringDistribution");
+		opts.add("-Xloggc:$" + CATALINA_BASE + "/logs/heap.log");
+		if (heap.isDumpOnOutOfMemoryError()) {
+			opts.add("-XX:HeapDumpPath=$" + CATALINA_BASE + "/logs");
+			opts.add("-XX:+HeapDumpOnOutOfMemoryError");
+			opts.add("-agentlib:hprof=file=$" + CATALINA_BASE + "/logs/snapshot.hprof,format=b");
+		}
+		return ImmutableList.copyOf(opts);
 	}
 }

@@ -8,6 +8,7 @@ public final class Heap {
 	private final long maxSizeInBytes;
 	private final long minSizeInBytes;
 	private final long maxPermSizeInBytes;
+	private final boolean dumpOnOutOfMemoryError;
 
 	public static class Builder {
 
@@ -15,6 +16,12 @@ public final class Heap {
 		private long minSizeInBytes = FormatUtils.getBytes("2g"); // 2 gigabytes
 		private long maxSizeInBytes = FormatUtils.getBytes("5g"); // 5 gigabytes
 		private long maxPermSizeInBytes = FormatUtils.getBytes("512m"); // 512 megabytes
+		private boolean dumpOnOutOfMemoryError = false;
+
+		public Builder dumpOnOutOfMemoryError(boolean dumpOnOutOfMemoryError) {
+			this.dumpOnOutOfMemoryError = dumpOnOutOfMemoryError;
+			return this;
+		}
 
 		public Builder minSizeInBytes(long minSizeInBytes) {
 			this.minSizeInBytes = minSizeInBytes;
@@ -40,6 +47,7 @@ public final class Heap {
 	}
 
 	private Heap(Builder builder) {
+		this.dumpOnOutOfMemoryError = builder.dumpOnOutOfMemoryError;
 		this.minSizeInBytes = builder.minSizeInBytes;
 		this.maxSizeInBytes = builder.maxSizeInBytes;
 		this.maxPermSizeInBytes = builder.maxPermSizeInBytes;
@@ -55,6 +63,10 @@ public final class Heap {
 
 	public long getMaxPermSizeInBytes() {
 		return maxPermSizeInBytes;
+	}
+
+	public boolean isDumpOnOutOfMemoryError() {
+		return dumpOnOutOfMemoryError;
 	}
 
 }
