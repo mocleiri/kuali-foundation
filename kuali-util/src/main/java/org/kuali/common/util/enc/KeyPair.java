@@ -41,15 +41,11 @@ public final class KeyPair {
 			return this;
 		}
 
+		@SuppressWarnings("unchecked")
 		public KeyPair build() {
 			Assert.noBlanks(name);
-			Assert.noNulls(publicKey, privateKey);
-			if (publicKey.isPresent()) {
-				Assert.noBlanks(publicKey.get());
-			}
-			if (privateKey.isPresent()) {
-				Assert.noBlanks(privateKey.get());
-			}
+			Assert.noNulls(publicKey, privateKey, fingerprint);
+			Assert.noBlanksIfPresent(publicKey, privateKey, fingerprint);
 			return new KeyPair(this);
 		}
 

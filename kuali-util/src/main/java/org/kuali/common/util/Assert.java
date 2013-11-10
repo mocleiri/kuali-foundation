@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.Optional;
+
 public abstract class Assert extends org.springframework.util.Assert {
 
 	private static final String NO_NULLS = "null not allowed";
@@ -163,6 +165,20 @@ public abstract class Assert extends org.springframework.util.Assert {
 
 	public static void noBlanks(String... strings) {
 		noBlanksWithMsg(NO_BLANKS, strings);
+	}
+
+	public static void present(Optional<?>... optionals) {
+		for (Optional<?> optional : optionals) {
+			Assert.isTrue(optional.isPresent(), "Optional is required");
+		}
+	}
+
+	public static void noBlanksIfPresent(Optional<String>... optionals) {
+		for (Optional<String> optional : optionals) {
+			if (optional.isPresent()) {
+				noBlanks(optional.get());
+			}
+		}
 	}
 
 	/**
