@@ -15,22 +15,17 @@
  */
 package org.kuali.common.util.channel.util;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandResult;
-import org.kuali.common.util.channel.model.CopyDirection;
-import org.kuali.common.util.channel.model.CopyResult;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -98,42 +93,6 @@ public class ChannelUtils {
 		}
 	}
 
-	public static CopyResult scp(SecureChannel channel, String location, RemoteFile destination, boolean echo) {
-		Assert.noNulls(channel, destination);
-		Assert.noBlanks(location);
-		Assert.exists(location);
-		long start = System.currentTimeMillis();
-		channel.copyLocationToFile(location, destination);
-		RemoteFile meta = channel.getMetaData(destination.getAbsolutePath());
-		Assert.isTrue(meta.getSize().isPresent(), "Unable to determine remote file size");
-		CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
-		if (echo) {
-			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
-			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
-			Object[] args = { destination.getAbsolutePath(), elapsed, rate };
-			logger.info("created -> {} - [{}, {}]", args);
-		}
-		return result;
-	}
-
-	public static CopyResult scp(SecureChannel channel, File source, RemoteFile destination) {
-		return scp(channel, new CanonicalFile(source).getPath(), destination);
-	}
-
-	public static CopyResult scp(SecureChannel channel, String location, RemoteFile destination) {
-		return scp(channel, location, destination, true);
-	}
-
-	/**
-	 * Execute <code>command</code> on the channel and validate the exit value.
-	 * 
-	 * @throws IllegalStateException
-	 *             If the command returns with a non-zero exit value
-	 */
-	public static CommandResult exec(SecureChannel channel, String command) {
-		return exec(channel, command, true);
-	}
-
 	/**
 	 * Execute <code>commands</code> on the channel and validate each exit value.
 	 * 
@@ -144,7 +103,7 @@ public class ChannelUtils {
 		List<String> list = ImmutableList.copyOf(commands);
 		List<CommandResult> results = new ArrayList<CommandResult>();
 		for (String command : list) {
-			CommandResult result = exec(channel, command, true);
+			CommandResult result = exec(channel, command);
 			results.add(result);
 		}
 		return results;
@@ -156,7 +115,7 @@ public class ChannelUtils {
 	 * @throws IllegalStateException
 	 *             If the command returns a non-zero exit value
 	 */
-	public static CommandResult exec(SecureChannel channel, String command, boolean echo) {
+	public static CommandResult exec(SecureChannel channel, String command) {
 		CommandResult result = channel.executeCommand(command);
 		if (result.getExitValue() != 0) {
 			StringBuilder sb = new StringBuilder();
@@ -168,10 +127,6 @@ public class ChannelUtils {
 			sb.append("stderr:\n" + result.getStderr() + "\n");
 			sb.append("\n");
 			throw new IllegalStateException(sb.toString());
-		}
-		if (echo) {
-			String elapsed = FormatUtils.getTime(result.getElapsed());
-			logger.info("{} - [{}]", command, elapsed);
 		}
 		debug(result);
 		return result;
