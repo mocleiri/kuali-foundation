@@ -68,9 +68,9 @@ public final class BashrcUtils {
 	public static List<String> getDefaultCatalinaOpts(Heap heap) {
 		List<String> opts = new ArrayList<String>();
 		opts.add("-Djava.security.egd=file:/dev/./urandom");
-		opts.add("-Xms" + FormatUtils.getSize(heap.getMinSizeInBytes()));
-		opts.add("-Xmx" + FormatUtils.getSize(heap.getMaxSizeInBytes()));
-		opts.add("-XX:MaxPermSize=" + FormatUtils.getSize(heap.getMaxPermSizeInBytes()));
+		opts.add("-Xms" + FormatUtils.getIntegerSize(heap.getMinSizeInBytes()));
+		opts.add("-Xmx" + FormatUtils.getIntegerSize(heap.getMaxSizeInBytes()));
+		opts.add("-XX:MaxPermSize=" + FormatUtils.getIntegerSize(heap.getMaxPermSizeInBytes()));
 		opts.add("-verbose:gc");
 		opts.add("-XX:+PrintGCDetails");
 		opts.add("-XX:+PrintGCDateStamps");
