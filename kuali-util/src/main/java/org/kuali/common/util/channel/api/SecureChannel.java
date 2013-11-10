@@ -20,8 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.CommandResult;
+import org.kuali.common.util.channel.model.CopyResult;
+import org.kuali.common.util.channel.model.RemoteFile;
 
 public interface SecureChannel {
 
@@ -31,21 +32,21 @@ public interface SecureChannel {
 
 	void executeNoWait(String command);
 
-	void copyFile(File source, RemoteFile destination);
+	CopyResult copyFile(File source, RemoteFile destination);
 
-	void copyLocationToFile(String location, RemoteFile destination);
+	CopyResult copyLocationToFile(String location, RemoteFile destination);
 
-	void copyInputStreamToFile(InputStream source, RemoteFile destination);
+	CopyResult copyInputStreamToFile(InputStream source, RemoteFile destination);
 
-	void copyStringToFile(String string, RemoteFile destination);
+	CopyResult copyStringToFile(String string, RemoteFile destination);
 
-	void copyLocationToDirectory(String location, RemoteFile directory);
+	CopyResult copyLocationToDirectory(String location, RemoteFile directory);
 
-	void copyFileToDirectory(File source, RemoteFile directory);
+	CopyResult copyFileToDirectory(File source, RemoteFile directory);
 
-	void copyFile(RemoteFile source, File destination);
+	CopyResult copyFile(RemoteFile source, File destination);
 
-	void copyFileToDirectory(RemoteFile source, File directory);
+	CopyResult copyFileToDirectory(RemoteFile source, File directory);
 
 	RemoteFile getMetaData(String absolutePath);
 
@@ -59,9 +60,9 @@ public interface SecureChannel {
 
 	RemoteFile getWorkingDirectory();
 
-	void copyRemoteFile(String absolutePath, OutputStream out) throws IOException;
+	CopyResult copyRemoteFile(String absolutePath, OutputStream out) throws IOException;
 
-	void copyFile(RemoteFile source, OutputStream out) throws IOException;
+	CopyResult copyFile(RemoteFile source, OutputStream out) throws IOException;
 
 	String toString(RemoteFile source);
 
