@@ -40,6 +40,8 @@ import org.kuali.common.devops.aws.sysadmin.InstallZipPackage;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.aws.sysadmin.model.CustomizeTomcatContext;
+import org.kuali.common.devops.aws.sysadmin.model.Heap;
+import org.kuali.common.devops.aws.sysadmin.model.Heaps;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
 import org.kuali.common.devops.aws.sysadmin.model.Users;
 import org.kuali.common.devops.aws.sysadmin.model.ZipPackage;
@@ -128,10 +130,12 @@ public class ProvisionCIMasterConfig {
 		ZipPackage tomcat6Zip = new ZipPackage.Builder("tomcat", ArtifactUtils.getTomcat("6.0.37")).build();
 		ZipPackage jdk7 = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
 		ZipPackage jdk6 = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
-		InstallZipPackage jdk = getJDKInstaller(channel,jdk7);
+		Heap heap = Heaps.asMap().get(instance.getInstanceType());
+		InstallZipPackage jdk = getJDKInstaller(channel, jdk7);
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(jdk);
-		executables.add(getTomcatInstaller(channel, tomcat7Zip,jdk));
+		String javaHome = jdk.getContext().getInstallDir();
+		executables.add(getTomcatInstaller(channel, tomcat7Zip, javaHome, heap));
 		new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true);
 		long elapsed = System.currentTimeMillis() - start;
@@ -139,11 +143,9 @@ public class ProvisionCIMasterConfig {
 		return null; // new ExecutablesExecutable(show);
 	}
 
-	protected InstallZipPackage getTomcatInstaller(ChannelContext channel, ZipPackage tomcat, InstallZipPackage jdk) {
+	protected InstallZipPackage getTomcatInstaller(ChannelContext channel, ZipPackage tomcat, String javaHome, Heap heap) {
 		InstallZipPackageContext zip = new InstallZipPackageContext.Builder(scs, channel, tomcat).build();
-		jdk.g
-		BashrcContext bashrc = new BashrcContext.Builder(jdk., zip.getInstallDir(), null).build();
-
+		BashrcContext bashrc = new BashrcContext.Builder(javaHome, zip.getInstallDir(), heap).build();
 		CustomizeTomcatContext context = new CustomizeTomcatContext.Builder(zip, bashrc).build();
 		ChannelExecutable after = new CustomizeTomcat.Builder(context).build();
 		return new InstallZipPackage.Builder(zip).after(after).build();
