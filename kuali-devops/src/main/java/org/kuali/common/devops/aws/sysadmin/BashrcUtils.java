@@ -77,8 +77,8 @@ public final class BashrcUtils {
 			opts.add("-XX:+PrintGCDateStamps");
 			opts.add("-XX:+PrintHeapAtGC");
 			opts.add("-XX:+PrintTenuringDistribution");
+			opts.add("-Xloggc:$" + CATALINA_BASE + "/logs/heap.log");
 		}
-		opts.add("-Xloggc:$" + CATALINA_BASE + "/logs/heap.log");
 		if (heap.isDumpOnOutOfMemoryError()) {
 			opts.add("-XX:HeapDumpPath=$" + CATALINA_BASE + "/logs");
 			opts.add("-XX:+HeapDumpOnOutOfMemoryError");
