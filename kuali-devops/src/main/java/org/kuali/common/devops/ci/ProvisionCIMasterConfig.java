@@ -59,7 +59,6 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -121,7 +120,7 @@ public class ProvisionCIMasterConfig {
 			String aliasFQDN = context.getDnsName().get();
 			String canonicalFQDN = instance.getPublicDnsName();
 			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
-			executables.add(cname);
+			// executables.add(cname);
 		}
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
@@ -132,12 +131,12 @@ public class ProvisionCIMasterConfig {
 		ZipPackage jdk6 = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
 		Heap heap = Heaps.asMap().get(instance.getInstanceType());
 		InstallZipPackage jdk = getJDKInstaller(channel, jdk7);
-		executables.add(getJDKInstaller(channel, jdk6));
-		executables.add(jdk);
+		// executables.add(getJDKInstaller(channel, jdk6));
+		// executables.add(jdk);
 		String javaHome = jdk.getContext().getInstallDir();
 		executables.add(getTomcatInstaller(channel, tomcat7Zip, javaHome, heap));
-		new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
-		new ExecutablesExecutable(executables, false, true);
+		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
+		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);

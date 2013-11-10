@@ -2,6 +2,7 @@ package org.kuali.common.devops.aws.sysadmin;
 
 import java.util.List;
 
+import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
 import org.kuali.common.devops.aws.sysadmin.model.CustomizeTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
@@ -117,7 +118,7 @@ public final class CustomizeTomcat implements ChannelExecutable {
 	protected Bashrc getBashrc() {
 		User user = context.getTomcat();
 		Bashrc dummy = new Bashrc.Builder(user, NullUtils.NONE).build();
-		String content = BashrcUtils.getContent(dummy, context.getBashrc());
+		String content = BashrcUtils.getContent(Distro.AMAZON_LINUX, dummy.getLocation(), context.getBashrc());
 		return new Bashrc.Builder(user, content).build();
 	}
 

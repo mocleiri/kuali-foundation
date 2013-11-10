@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
+import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.Heap;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
@@ -31,9 +31,10 @@ public final class BashrcUtils {
 	private static final String PATH = "PATH";
 	private static final List<String> EXPORTS = ImmutableList.of(JAVA_HOME, CATALINA_HOME, CATALINA_BASE, CATALINA_PID, CATALINA_OPTS, PATH);
 
-	public static String getContent(Bashrc bashrc, BashrcContext context) {
-		Assert.noNulls(bashrc, context);
-		String location = CLASSPATH_PREFIX + bashrc.getLocation() + ".original";
+	public static String getContent(Distro distro, String absolutePath, BashrcContext context) {
+		Assert.noNulls(distro, context);
+		Assert.noBlanks(absolutePath);
+		String location = CLASSPATH_PREFIX + "/" + distro + absolutePath + ".original";
 		Assert.exists(location);
 		List<String> lines = new ArrayList<String>();
 		lines.addAll(LocationUtils.readLines(location));
