@@ -21,7 +21,7 @@ public final class BootstrapContext {
 
 	public static class Builder {
 
-		private static final String SSHD_OVERRIDE_CONFIG = "classpath:org/kuali/common/kuali-devops/amazon-linux/2013.09/etc/ssh/sshd_config";
+		private static final String SSHD_OVERRIDE_CONFIG = "classpath:org/kuali/common/kuali-devops/amazon-linux/etc/ssh/sshd_config";
 		private static final List<String> PACKAGES = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
