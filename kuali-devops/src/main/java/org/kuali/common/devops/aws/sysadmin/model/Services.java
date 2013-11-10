@@ -6,8 +6,8 @@ public enum Services {
 
 	private final Service service;
 
-	private Services(String name, String configFileLocation) {
-		this.service = new Service.Builder(name, configFileLocation).build();
+	private Services(String name, String configFileAbsolutePath) {
+		this.service = new Service.Builder(name, configFileAbsolutePath).build();
 	}
 
 	public Service getService() {
