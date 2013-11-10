@@ -5,23 +5,21 @@ import java.util.Map;
 
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.enc.KeyPair;
 
-import com.amazonaws.auth.AWSCredentials;
+import com.google.common.base.Optional;
 
 public enum Accounts {
 
-	FOUNDATION("foundation", "3627-3510-8948", Credentials.FOUNDATION, KeyPairs.DEVOPS.getKeyPair()), //
-	STUDENT("student", "0523-3819-3506", Credentials.STUDENT, KeyPairs.DEVOPS.getKeyPair()), //
-	RICE("rice", "7898-1396-8323", Credentials.RICE, KeyPairs.DEVOPS.getKeyPair()), //
-	OLE("ole", "7867-4615-1229", Credentials.OLE, KeyPairs.DEVOPS.getKeyPair()); //
+	FOUNDATION("foundation", "3627-3510-8948", "The Kuali Foundation Inc."), //
+	STUDENT("student", "0523-3819-3506", "Kuali Student"), //
+	RICE("rice", "7898-1396-8323", "Kuali Rice"), //
+	OLE("ole", "7867-4615-1229", "Kuali OLE"); //
 
 	private final AwsAccount account;
 
-	private Accounts(String name, String accountNumber, AWSCredentials credentials, KeyPair keyPair) {
-		Assert.noBlanks(name, accountNumber);
-		Assert.noNulls(credentials, keyPair);
-		this.account = new AwsAccount.Builder(name, credentials, keyPair).accountNumber(accountNumber).build();
+	private Accounts(String name, String accountNumber, String description) {
+		Assert.noBlanks(name, accountNumber, description);
+		this.account = new AwsAccount(name, accountNumber, Optional.of(description));
 	}
 
 	public AwsAccount getAccount() {

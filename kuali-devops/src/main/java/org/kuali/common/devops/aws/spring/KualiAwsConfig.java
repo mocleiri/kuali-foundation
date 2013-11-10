@@ -17,7 +17,7 @@ package org.kuali.common.devops.aws.spring;
 
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.util.CredentialUtils;
-import org.kuali.common.aws.spring.AwsAccountConfig;
+import org.kuali.common.aws.spring.AwsContextConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.devops.aws.AwsUtils;
 import org.kuali.common.dns.spring.DomainNameConfig;
@@ -31,10 +31,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.google.common.base.Optional;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
-public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig, DomainNameConfig {
+public class KualiAwsConfig implements AwsContextConfig, AwsCredentialsConfig, DomainNameConfig {
 
 	private static final String DOMAIN_NAME = "kuali.org";
 
@@ -46,7 +47,7 @@ public class KualiAwsConfig implements AwsAccountConfig, AwsCredentialsConfig, D
 
 	@Override
 	@Bean
-	public AwsAccount awsAccount() {
+	public Optional<AwsAccount> awsAccount() {
 		return AwsUtils.getAwsAccount(env);
 	}
 
