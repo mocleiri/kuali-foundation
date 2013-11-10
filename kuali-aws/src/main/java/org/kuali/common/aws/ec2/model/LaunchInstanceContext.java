@@ -42,7 +42,7 @@ public final class LaunchInstanceContext {
 
 		// Optional
 		private InstanceType type = InstanceType.M1Medium;
-		// Instance gets placed in a security group named "default" if no security groups are provided
+		// Instances get placed in a security group named "default" if no security groups are provided
 		private List<KualiSecurityGroup> securityGroups = ImmutableList.of();
 		private List<Tag> tags = ImmutableList.of();
 		private Optional<String> availabilityZone = Optional.absent();
