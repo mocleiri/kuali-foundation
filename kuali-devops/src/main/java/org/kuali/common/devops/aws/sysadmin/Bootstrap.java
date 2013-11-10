@@ -73,7 +73,25 @@ public final class Bootstrap implements Executable {
 		}
 	}
 
+	/**
+	 * Connect as ec2-user to determine if root ssh has been enabled already. If not, enable it.
+	 */
 	protected void enableRootSSH() {
+		SecureChannel channel = null;
+		try {
+			channel = getChannel(context.getSshEnabledUser(), true);
+			boolean enabled = isRootSSHEnabled(channel);
+			if (!enabled) {
+				enableRootSSH(channel);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			ChannelUtils.closeQuietly(channel);
+		}
+	}
+
+	protected void enableRootSSH(SecureChannel channel) throws IOException {
 		Service sshd = context.getSshdOverride().getService();
 
 		String src = context.getSshdOverride().getConfigFileOverrideLocation();
@@ -86,19 +104,24 @@ public final class Bootstrap implements Executable {
 
 		RemoteFile file = new RemoteFile.Builder(dst).build();
 
-		SecureChannel channel = null;
-		try {
-			channel = getChannel(context.getSshEnabledUser(), true);
-			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
-			channel.scp(src, file); // copy the updated sshd_config file into the ec2-users home directory
-			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
-			ChannelUtils.exec(channel, command3); // restart the sshd service
-			ChannelUtils.exec(channel, command4); // delete the sshd_config file we left in the ec2-users home directory
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
+		ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
+		channel.scp(src, file); // copy the updated sshd_config file into the ec2-users home directory
+		ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
+		ChannelUtils.exec(channel, command3); // restart the sshd service
+		ChannelUtils.exec(channel, command4); // delete the sshd_config file we left in the ec2-users home directory
+	}
+
+	protected boolean isRootSSHEnabled(SecureChannel channel) {
+		User ec2 = context.getSshEnabledUser();
+		User root = context.getRoot();
+		RemoteFile temp = new RemoteFile.Builder(ec2.getHome() + "/root_auth_keys").build();
+		String command = "sudo cp " + root.getAuthorizedKeys() + " " + temp.getAbsolutePath();
+		channel.exec(command);
+		String auth = channel.toString(temp);
+		Assert.noBlanks(auth);
+		boolean enabled = auth.trim().startsWith("command=");
+		channel.deleteFile(temp.getAbsolutePath());
+		return enabled;
 	}
 
 	protected SecureChannel getChannel(User user, boolean requestPseudoTerminal) throws IOException {
