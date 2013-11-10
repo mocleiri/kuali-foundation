@@ -86,7 +86,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void close() {
-		logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(context.getUsername(), context.getHostname()));
+		if (context.isEcho()) {
+			logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(context.getUsername(), context.getHostname()));
+		} else {
+			logger.debug("Closing secure channel [{}]", ChannelUtils.getLocation(context.getUsername(), context.getHostname()));
+		}
 		closeQuietly(sftp);
 		closeQuietly(session);
 	}
@@ -211,7 +215,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	protected void logOpen() {
-		logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(context.getUsername(), context.getHostname()), context.getEncoding());
+		if (context.isEcho()) {
+			logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(context.getUsername(), context.getHostname()), context.getEncoding());
+		} else {
+			logger.debug("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(context.getUsername(), context.getHostname()), context.getEncoding());
+		}
 		logger.debug("Private key files - {}", context.getPrivateKeyFiles().size());
 		logger.debug("Private key strings - {}", context.getPrivateKeys().size());
 		logger.debug("Private key config file - {}", context.getConfig());
