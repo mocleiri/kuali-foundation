@@ -34,7 +34,7 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.Bootstrap;
-import org.kuali.common.devops.aws.sysadmin.CustomizeJDK;
+import org.kuali.common.devops.aws.sysadmin.InstallJDK;
 import org.kuali.common.devops.aws.sysadmin.CustomizeTomcat;
 import org.kuali.common.devops.aws.sysadmin.InstallZip;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
@@ -152,7 +152,7 @@ public class ProvisionCIMasterConfig {
 
 	protected InstallZip getJDKInstaller(ChannelContext channel, Zip zip) {
 		InstallZipContext context = new InstallZipContext.Builder(scs, channel, zip).build();
-		ChannelExecutable after = new CustomizeJDK(context.getInstallDir());
+		ChannelExecutable after = new InstallJDK(context.getInstallDir());
 		return new InstallZip.Builder(context).after(after).build();
 	}
 
