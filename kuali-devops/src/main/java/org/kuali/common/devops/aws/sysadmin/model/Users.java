@@ -2,7 +2,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 public enum Users {
 
-	EC2USER("ec2-user"), // Default ssh enabled user Amazon creates on Amazon Linux based images
+	EC2USER("ec2-user"), // Default ssh enabled user created by default on Amazon Linux based images
 	TOMCAT("tomcat"), // The user tomcat runs as
 	ROOT("root", "/root"); // The root user
 
