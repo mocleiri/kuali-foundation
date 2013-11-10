@@ -88,7 +88,7 @@ public final class CustomizeTomcat implements ChannelExecutable {
 		String dir2 = tomcat.getHome();
 		String command3 = "chown -RL " + tomcat.getGroup() + ":" + tomcat.getLogin() + " " + dir1 + " " + dir2;
 
-		// Remove the annoying windows .bat files
+		// Remove annoying windows .bat files
 		String command4 = "rm " + context.getInstallDir() + "/bin/*.bat";
 
 		// Make everything in the bin directory executable
