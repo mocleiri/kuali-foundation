@@ -428,7 +428,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 				String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 				String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
 				Object[] args = { destination.getAbsolutePath(), elapsed, rate };
-				logger.info("created -> {} - [{}, {}]", args);
+				logger.info("created -> [{}] - [{}, {}]", args);
 			}
 			return result;
 		} catch (SftpException e) {
