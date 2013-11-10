@@ -55,10 +55,10 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 			return;
 		}
 
-		// Check to see if there is an existing record
+		// Otherwise, check to see if there is an existing record
 		if (record.isPresent()) {
 
-			// There is an existing record but it doesn't match, must delete it
+			// There is an existing record but it doesn't match, we must delete it
 			logger.info("deleting DNS CNAME record for [{}]", aliasFQDN);
 			service.deleteCNAMERecord(aliasFQDN);
 		}
