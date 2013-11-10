@@ -11,7 +11,7 @@ public final class InstallZipContext {
 
 	private final ChannelService service;
 	private final ChannelContext context;
-	private final Zip zipPackage;
+	private final Zip zip;
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
 	private final String installDir;
@@ -21,7 +21,7 @@ public final class InstallZipContext {
 		// Required
 		private final ChannelService service;
 		private final ChannelContext context;
-		private final Zip zipPackage;
+		private final Zip zip;
 
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
@@ -31,7 +31,7 @@ public final class InstallZipContext {
 		private String installDir;
 
 		public Builder(ChannelService service, ChannelContext context, Zip zipPackage) {
-			this.zipPackage = zipPackage;
+			this.zip = zipPackage;
 			this.service = service;
 			this.context = context;
 		}
@@ -47,16 +47,16 @@ public final class InstallZipContext {
 		}
 
 		public InstallZipContext build() {
-			Assert.noNulls(service, context, zipPackage, localRepositoryDir);
+			Assert.noNulls(service, context, zip, localRepositoryDir);
 			Assert.noBlanks(remotePackageDir);
-			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zipPackage.getArtifact()));
-			this.installDir = remotePackageDir + "/" + zipPackage.getPackageName();
+			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zip.getArtifact()));
+			this.installDir = remotePackageDir + "/" + zip.getPackageName();
 			return new InstallZipContext(this);
 		}
 	}
 
 	private InstallZipContext(Builder builder) {
-		this.zipPackage = builder.zipPackage;
+		this.zip = builder.zip;
 		this.service = builder.service;
 		this.context = builder.context;
 		this.localRepositoryDir = builder.localRepositoryDir;
@@ -72,8 +72,8 @@ public final class InstallZipContext {
 		return context;
 	}
 
-	public Zip getZipPackage() {
-		return zipPackage;
+	public Zip getZip() {
+		return zip;
 	}
 
 	public File getLocalRepositoryDir() {

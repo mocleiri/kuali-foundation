@@ -76,7 +76,7 @@ public final class InstallZip implements Executable {
 	}
 
 	protected void install(InstallZipContext context) {
-		Artifact artifact = context.getZipPackage().getArtifact();
+		Artifact artifact = context.getZip().getArtifact();
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);

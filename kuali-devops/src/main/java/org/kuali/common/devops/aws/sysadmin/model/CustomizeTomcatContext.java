@@ -28,7 +28,7 @@ public final class CustomizeTomcatContext {
 		public Builder(InstallZipContext context, BashrcContext bashrc) {
 			this.zip = context;
 			this.bashrc = bashrc;
-			this.majorVersion = VersionUtils.getVersion(context.getZipPackage().getArtifact().getVersion()).getMajor();
+			this.majorVersion = VersionUtils.getVersion(context.getZip().getArtifact().getVersion()).getMajor();
 		}
 
 		public CustomizeTomcatContext build() {
