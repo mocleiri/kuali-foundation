@@ -9,8 +9,6 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
@@ -51,14 +49,6 @@ public class LaunchUtils {
 	private static final String ROOT_VOLUME_DELETE_KEY = "ec2.rootVolume.deleteOnTermination";
 	private static final KeyPair NOKEYPAIR = new KeyPair.Builder(NullUtils.NONE).build();
 	private static final LaunchInstanceContext NOCONTEXT = new LaunchInstanceContext.Builder(NullUtils.NONE, NOKEYPAIR).build();
-
-	/**
-	 * Get a decrypted key pair based on the values from <code>provided</code> unless overridden by values from the environment.
-	 */
-	public static KeyPair getKeyPair(EnvironmentService env, EncryptionService enc, KeyPair provided) {
-		KeyPair keyPair = getKeyPair(env, provided);
-		return EncUtils.decrypt(enc, keyPair);
-	}
 
 	/**
 	 * Get a key pair based on the values from <code>provided</code> unless overridden by values from the environment.
