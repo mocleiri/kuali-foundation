@@ -22,6 +22,7 @@ public final class BootstrapContext {
 	private final ServiceOverride sshdOverride;
 	private final List<String> packages;
 	private final Distro distro;
+	private final String bootstrapCompletedAbsolutePath;
 
 	public static class Builder {
 
@@ -38,6 +39,7 @@ public final class BootstrapContext {
 		private User sshEnabledUser = Users.EC2USER.getUser();
 		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
+		private String bootstrapCompletedAbsolutePath = "/usr/local/bootstrap/bootstrap.completed";
 		private Distro distro = Distro.AMAZON;
 		private List<String> packages = PACKAGES;
 
@@ -52,6 +54,11 @@ public final class BootstrapContext {
 
 		public Builder sshdOverride(ServiceOverride sshdOverride) {
 			this.sshdOverride = sshdOverride;
+			return this;
+		}
+
+		public Builder bootstrapCompletedAbsolutePath(String bootstrapCompletedAbsolutePath) {
+			this.bootstrapCompletedAbsolutePath = bootstrapCompletedAbsolutePath;
 			return this;
 		}
 
@@ -99,6 +106,7 @@ public final class BootstrapContext {
 		this.sshdOverride = builder.sshdOverride;
 		this.packages = builder.packages;
 		this.distro = builder.distro;
+		this.bootstrapCompletedAbsolutePath = builder.bootstrapCompletedAbsolutePath;
 	}
 
 	public ChannelService getService() {
@@ -135,6 +143,10 @@ public final class BootstrapContext {
 
 	public Distro getDistro() {
 		return distro;
+	}
+
+	public String getBootstrapCompletedAbsolutePath() {
+		return bootstrapCompletedAbsolutePath;
 	}
 
 }
