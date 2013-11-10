@@ -115,4 +115,16 @@ public final class InstallZipPackage implements Executable {
 		return skip;
 	}
 
+	public InstallZipPackageContext getContext() {
+		return context;
+	}
+
+	public Optional<ChannelExecutable> getBefore() {
+		return before;
+	}
+
+	public Optional<ChannelExecutable> getAfter() {
+		return after;
+	}
+
 }
