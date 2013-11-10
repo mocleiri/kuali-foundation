@@ -11,13 +11,13 @@ public final class CustomizeTomcatContext {
 	private final InstallZipPackageContext zip;
 	private final String majorVersion;
 	private final User tomcat;
-	private final Bashrc bashrc;
+	private final BashrcContext bashrc;
 
 	public static class Builder {
 
 		// Required
 		private final InstallZipPackageContext zip;
-		private final Bashrc bashrc;
+		private final BashrcContext bashrc;
 
 		// Optional
 		private final User tomcat = Users.TOMCAT.getUser();
@@ -25,7 +25,7 @@ public final class CustomizeTomcatContext {
 		// Filled in automatically
 		private final String majorVersion;
 
-		public Builder(InstallZipPackageContext context, Bashrc bashrc) {
+		public Builder(InstallZipPackageContext context, BashrcContext bashrc) {
 			this.zip = context;
 			this.bashrc = bashrc;
 			this.majorVersion = VersionUtils.getVersion(context.getZipPackage().getArtifact().getVersion()).getMajor();
@@ -58,7 +58,7 @@ public final class CustomizeTomcatContext {
 		return tomcat;
 	}
 
-	public Bashrc getBashrc() {
+	public BashrcContext getBashrc() {
 		return bashrc;
 	}
 
