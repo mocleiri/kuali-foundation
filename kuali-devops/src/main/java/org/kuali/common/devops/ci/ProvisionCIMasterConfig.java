@@ -36,6 +36,7 @@ import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.BootstrapExecutable;
 import org.kuali.common.devops.aws.sysadmin.CustomizeJDK;
 import org.kuali.common.devops.aws.sysadmin.CustomizeTomcat;
+import org.kuali.common.devops.aws.sysadmin.CustomizeTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.InstallZipPackage;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
@@ -137,9 +138,10 @@ public class ProvisionCIMasterConfig {
 	}
 
 	protected InstallZipPackage getTomcatInstaller(ChannelContext channel, ZipPackage zip) {
-		InstallZipPackageContext context = new InstallZipPackageContext.Builder(scs, channel, zip).build();
+		InstallZipPackageContext zipPackage = new InstallZipPackageContext.Builder(scs, channel, zip).build();
+		CustomizeTomcatContext context = new CustomizeTomcatContext.Builder(zipPackage).build();
 		ChannelExecutable after = new CustomizeTomcat.Builder(context).build();
-		return new InstallZipPackage.Builder(context).after(after).build();
+		return new InstallZipPackage.Builder(zipPackage).after(after).build();
 	}
 
 	protected InstallZipPackage getJDKInstaller(ChannelContext channel, ZipPackage zip) {
