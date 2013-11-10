@@ -114,13 +114,16 @@ public final class Bootstrap implements Executable {
 	protected boolean isRootSSHEnabled(SecureChannel channel) {
 		User ec2 = context.getSshEnabledUser();
 		User root = context.getRoot();
-		RemoteFile temp = new RemoteFile.Builder(ec2.getHome() + "/root_auth_keys").build();
-		String command = "sudo cp " + root.getAuthorizedKeys() + " " + temp.getAbsolutePath();
-		channel.exec(command);
+		RemoteFile temp = new RemoteFile.Builder(ec2.getHome() + "/temp_file").build();
+		String path = temp.getAbsolutePath();
+		String command1 = "sudo cp " + root.getAuthorizedKeys() + " " + path;
+		String command2 = "sudo chown " + ec2.getGroup() + ":" + ec2.getLogin() + " " + path;
+		channel.exec(command1);
+		channel.exec(command2);
 		String auth = channel.toString(temp);
 		Assert.noBlanks(auth);
 		boolean enabled = !auth.contains("command=\"");
-		channel.deleteFile(temp.getAbsolutePath());
+		channel.deleteFile(path);
 		return enabled;
 	}
 
