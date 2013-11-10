@@ -31,13 +31,13 @@ public final class BashrcUtils {
 	private static final String PATH = "PATH";
 	private static final List<String> EXPORTS = ImmutableList.of(JAVA_HOME, CATALINA_HOME, CATALINA_BASE, CATALINA_PID, CATALINA_OPTS, PATH);
 
-	public static String getContent(Distro distro, String absolutePath, BashrcContext context) {
+	public static String getContent(Distro distro, String bashrcPath, BashrcContext context) {
 		Assert.noNulls(distro, context);
-		Assert.noBlanks(absolutePath);
-		String location = CLASSPATH_PREFIX + "/" + distro.getName() + absolutePath + ".original";
-		Assert.exists(location);
+		Assert.noBlanks(bashrcPath);
+		String bashrcOriginalLocation = CLASSPATH_PREFIX + "/" + distro.getName() + bashrcPath + ".original";
+		Assert.exists(bashrcOriginalLocation);
 		List<String> lines = new ArrayList<String>();
-		lines.addAll(LocationUtils.readLines(location));
+		lines.addAll(LocationUtils.readLines(bashrcOriginalLocation));
 		lines.add("");
 		lines.add(PS1);
 		lines.add(CLICOLOR);
@@ -56,8 +56,8 @@ public final class BashrcUtils {
 		if (context.getAdditionalLines().size() > 0) {
 			lines.add("");
 			lines.addAll(context.getAdditionalLines());
-			lines.add("");
 		}
+		lines.add("");
 		lines.add(PATH + "=$" + JAVA_HOME + "/bin:$" + CATALINA_HOME + "/bin:$" + PATH);
 		lines.add("");
 		lines.add("export " + CollectionUtils.getSpaceSeparatedString(EXPORTS));
