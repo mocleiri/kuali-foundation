@@ -18,7 +18,7 @@ import com.google.common.base.Optional;
 /**
  * 
  */
-public final class InstallZipPackageExecutable implements Executable {
+public final class InstallZipPackage implements Executable {
 
 	private final InstallZipPackageContext context;
 	private final boolean skip;
@@ -54,13 +54,13 @@ public final class InstallZipPackageExecutable implements Executable {
 			return this;
 		}
 
-		public InstallZipPackageExecutable build() {
+		public InstallZipPackage build() {
 			Assert.noNulls(context, before, after);
-			return new InstallZipPackageExecutable(this);
+			return new InstallZipPackage(this);
 		}
 	}
 
-	private InstallZipPackageExecutable(Builder builder) {
+	private InstallZipPackage(Builder builder) {
 		this.context = builder.context;
 		this.skip = builder.skip;
 		this.before = builder.before;
