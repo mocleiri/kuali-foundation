@@ -118,7 +118,7 @@ public final class CustomizeTomcat implements ChannelExecutable {
 	protected Bashrc getBashrc() {
 		User user = context.getTomcat();
 		Bashrc dummy = new Bashrc.Builder(user, NullUtils.NONE).build();
-		String content = BashrcUtils.getContent(Distro.AMAZON_LINUX, dummy.getLocation(), context.getBashrc());
+		String content = BashrcUtils.getContent(Distro.AMAZON, dummy.getLocation(), context.getBashrc());
 		return new Bashrc.Builder(user, content).build();
 	}
 

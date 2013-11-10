@@ -38,7 +38,7 @@ public final class BootstrapContext {
 		private User sshEnabledUser = Users.EC2USER.getUser();
 		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
-		private Distro distro = Distro.AMAZON_LINUX;
+		private Distro distro = Distro.AMAZON;
 		private List<String> packages = PACKAGES;
 
 		// Filled in automatically by build();
