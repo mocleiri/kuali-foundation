@@ -10,6 +10,8 @@ public final class ZipPackage {
 
 	public static class Builder {
 
+		private static final String ZIP = "zip";
+
 		// Required
 		private final String packageName;
 		private final Artifact artifact;
@@ -32,6 +34,7 @@ public final class ZipPackage {
 		public ZipPackage build() {
 			Assert.noNulls(artifact);
 			Assert.noBlanks(packageName);
+			Assert.isTrue(artifact.getType().equalsIgnoreCase(ZIP));
 			return new ZipPackage(this);
 		}
 	}
