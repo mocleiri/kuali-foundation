@@ -7,7 +7,7 @@ import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.maven.RepositoryUtils;
 
-public final class InstallZipPackageContext {
+public final class InstallZipContext {
 
 	private final ChannelService service;
 	private final ChannelContext context;
@@ -46,16 +46,16 @@ public final class InstallZipPackageContext {
 			return this;
 		}
 
-		public InstallZipPackageContext build() {
+		public InstallZipContext build() {
 			Assert.noNulls(service, context, zipPackage, localRepositoryDir);
 			Assert.noBlanks(remotePackageDir);
 			Assert.exists(RepositoryUtils.getFile(localRepositoryDir, zipPackage.getArtifact()));
 			this.installDir = remotePackageDir + "/" + zipPackage.getPackageName();
-			return new InstallZipPackageContext(this);
+			return new InstallZipContext(this);
 		}
 	}
 
-	private InstallZipPackageContext(Builder builder) {
+	private InstallZipContext(Builder builder) {
 		this.zipPackage = builder.zipPackage;
 		this.service = builder.service;
 		this.context = builder.context;

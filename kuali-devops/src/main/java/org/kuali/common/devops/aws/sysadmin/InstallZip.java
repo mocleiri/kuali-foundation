@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.File;
 import java.io.IOException;
 
-import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
+import org.kuali.common.devops.aws.sysadmin.model.InstallZipContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.RemoteFile;
@@ -18,9 +18,9 @@ import com.google.common.base.Optional;
 /**
  * 
  */
-public final class InstallZipPackage implements Executable {
+public final class InstallZip implements Executable {
 
-	private final InstallZipPackageContext context;
+	private final InstallZipContext context;
 	private final boolean skip;
 	private final Optional<ChannelExecutable> before;
 	private final Optional<ChannelExecutable> after;
@@ -28,14 +28,14 @@ public final class InstallZipPackage implements Executable {
 	public static class Builder {
 
 		// Required
-		private final InstallZipPackageContext context;
+		private final InstallZipContext context;
 
 		// Optional
 		private boolean skip = false;
 		private Optional<ChannelExecutable> before = Optional.absent();
 		private Optional<ChannelExecutable> after = Optional.absent();
 
-		public Builder(InstallZipPackageContext context) {
+		public Builder(InstallZipContext context) {
 			this.context = context;
 		}
 
@@ -54,13 +54,13 @@ public final class InstallZipPackage implements Executable {
 			return this;
 		}
 
-		public InstallZipPackage build() {
+		public InstallZip build() {
 			Assert.noNulls(context, before, after);
-			return new InstallZipPackage(this);
+			return new InstallZip(this);
 		}
 	}
 
-	private InstallZipPackage(Builder builder) {
+	private InstallZip(Builder builder) {
 		this.context = builder.context;
 		this.skip = builder.skip;
 		this.before = builder.before;
@@ -75,7 +75,7 @@ public final class InstallZipPackage implements Executable {
 		install(context);
 	}
 
-	protected void install(InstallZipPackageContext context) {
+	protected void install(InstallZipContext context) {
 		Artifact artifact = context.getZipPackage().getArtifact();
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
@@ -115,7 +115,7 @@ public final class InstallZipPackage implements Executable {
 		return skip;
 	}
 
-	public InstallZipPackageContext getContext() {
+	public InstallZipContext getContext() {
 		return context;
 	}
 

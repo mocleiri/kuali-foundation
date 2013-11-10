@@ -8,7 +8,7 @@ import org.kuali.common.util.VersionUtils;
  */
 public final class CustomizeTomcatContext {
 
-	private final InstallZipPackageContext zip;
+	private final InstallZipContext zip;
 	private final String majorVersion;
 	private final User tomcat;
 	private final BashrcContext bashrc;
@@ -16,7 +16,7 @@ public final class CustomizeTomcatContext {
 	public static class Builder {
 
 		// Required
-		private final InstallZipPackageContext zip;
+		private final InstallZipContext zip;
 		private final BashrcContext bashrc;
 
 		// Optional
@@ -25,7 +25,7 @@ public final class CustomizeTomcatContext {
 		// Filled in automatically
 		private final String majorVersion;
 
-		public Builder(InstallZipPackageContext context, BashrcContext bashrc) {
+		public Builder(InstallZipContext context, BashrcContext bashrc) {
 			this.zip = context;
 			this.bashrc = bashrc;
 			this.majorVersion = VersionUtils.getVersion(context.getZipPackage().getArtifact().getVersion()).getMajor();
@@ -46,7 +46,7 @@ public final class CustomizeTomcatContext {
 		this.bashrc = builder.bashrc;
 	}
 
-	public InstallZipPackageContext getZip() {
+	public InstallZipContext getZip() {
 		return zip;
 	}
 
