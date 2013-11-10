@@ -377,7 +377,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			in = LocationUtils.getInputStream(location);
 			copyInputStreamToFile(in, destination);
 			RemoteFile meta = getMetaData(destination.getAbsolutePath());
-			return new CopyResult(start, meta.getSize().get(), CopyDirection.LOCAL_TO_REMOTE);
+			return new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -417,7 +417,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			createDirectories(destination);
 			sftp.put(source, destination.getAbsolutePath());
 			RemoteFile meta = getMetaData(destination.getAbsolutePath());
-			return new CopyResult(start, meta.getSize().get(), CopyDirection.LOCAL_TO_REMOTE);
+			return new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
 		}
@@ -446,7 +446,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			long start = System.currentTimeMillis();
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
 			copyFile(source, out);
-			return new CopyResult(start, destination.length(), CopyDirection.REMOTE_TO_LOCAL);
+			return new CopyResult(start, destination.length(), CopyDirection.FROM_REMOTE);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -460,7 +460,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			long start = System.currentTimeMillis();
 			sftp.get(absolutePath, out);
 			RemoteFile meta = getMetaData(absolutePath);
-			return new CopyResult(start, meta.getSize().get(), CopyDirection.REMOTE_TO_LOCAL);
+			return new CopyResult(start, meta.getSize().get(), CopyDirection.FROM_REMOTE);
 		} catch (SftpException e) {
 			throw new IOException("Unexpected IO error", e);
 		}

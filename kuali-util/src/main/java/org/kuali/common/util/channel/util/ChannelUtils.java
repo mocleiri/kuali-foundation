@@ -106,7 +106,7 @@ public class ChannelUtils {
 		channel.copyLocationToFile(location, destination);
 		RemoteFile meta = channel.getMetaData(destination.getAbsolutePath());
 		Assert.isTrue(meta.getSize().isPresent(), "Unable to determine remote file size");
-		CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.LOCAL_TO_REMOTE);
+		CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
