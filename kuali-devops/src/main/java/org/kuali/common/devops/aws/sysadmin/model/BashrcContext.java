@@ -2,6 +2,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 import java.util.List;
 
+import org.kuali.common.devops.aws.sysadmin.BashrcUtils;
 import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
@@ -29,6 +30,7 @@ public final class BashrcContext {
 			this.javaHome = javaHome;
 			this.catalinaHome = catalinaHome;
 			this.heap = heap;
+			this.catalinaOpts = BashrcUtils.getDefaultCatalinaOpts(heap);
 		}
 
 		public Builder additionalLines(List<String> additionalLines) {
