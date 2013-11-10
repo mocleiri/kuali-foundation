@@ -17,9 +17,9 @@ package org.kuali.common.util.channel.model;
 
 import org.kuali.common.util.Assert;
 
-public final class TransferResult {
+public final class CopyResult {
 
-	public TransferResult(long startMillis, long transferAmountInBytes, TransferDirection direction) {
+	public CopyResult(long startMillis, long transferAmountInBytes, TransferDirection direction) {
 		this.stopMillis = System.currentTimeMillis();
 		Assert.isTrue(stopMillis >= startMillis);
 		Assert.positive(startMillis);

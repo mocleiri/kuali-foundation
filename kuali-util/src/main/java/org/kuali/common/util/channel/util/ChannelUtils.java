@@ -27,7 +27,7 @@ import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.TransferDirection;
-import org.kuali.common.util.channel.model.TransferResult;
+import org.kuali.common.util.channel.model.CopyResult;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.file.CanonicalFile;
@@ -98,7 +98,7 @@ public class ChannelUtils {
 		}
 	}
 
-	public static TransferResult scp(SecureChannel channel, String location, RemoteFile destination, boolean echo) {
+	public static CopyResult scp(SecureChannel channel, String location, RemoteFile destination, boolean echo) {
 		Assert.noNulls(channel, destination);
 		Assert.noBlanks(location);
 		Assert.exists(location);
@@ -106,7 +106,7 @@ public class ChannelUtils {
 		channel.copyLocationToFile(location, destination);
 		RemoteFile meta = channel.getMetaData(destination.getAbsolutePath());
 		Assert.isTrue(meta.getSize().isPresent(), "Unable to determine remote file size");
-		TransferResult result = new TransferResult(start, meta.getSize().get(), TransferDirection.LOCAL_TO_REMOTE);
+		CopyResult result = new CopyResult(start, meta.getSize().get(), TransferDirection.LOCAL_TO_REMOTE);
 		if (echo) {
 			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
 			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getTransferAmountInBytes());
@@ -116,11 +116,11 @@ public class ChannelUtils {
 		return result;
 	}
 
-	public static TransferResult scp(SecureChannel channel, File source, RemoteFile destination) {
+	public static CopyResult scp(SecureChannel channel, File source, RemoteFile destination) {
 		return scp(channel, new CanonicalFile(source).getPath(), destination);
 	}
 
-	public static TransferResult scp(SecureChannel channel, String location, RemoteFile destination) {
+	public static CopyResult scp(SecureChannel channel, String location, RemoteFile destination) {
 		return scp(channel, location, destination, true);
 	}
 
