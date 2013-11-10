@@ -8,6 +8,7 @@ public final class Deployable {
 	public Deployable(String source, RemoteFile destination) {
 		Assert.noBlanks(source);
 		Assert.noNulls(destination);
+		Assert.exists(source);
 		this.source = source;
 		this.destination = destination;
 	}
