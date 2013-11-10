@@ -13,7 +13,7 @@ import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
 
 /**
- * Configure Tomcat
+ * Customize Tomcat
  */
 public final class CustomizeTomcatExecutable implements ChannelExecutable {
 
