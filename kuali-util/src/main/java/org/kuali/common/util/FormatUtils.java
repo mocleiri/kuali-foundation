@@ -53,8 +53,12 @@ public class FormatUtils {
 	private static NumberFormat rateFormatter = NumberFormat.getInstance();
 	private static NumberFormat countFormatter = NumberFormat.getInstance();
 	private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+	private static NumberFormat integerFormatter = NumberFormat.getInstance();
 
 	static {
+		integerFormatter.setGroupingUsed(false);
+		integerFormatter.setMaximumFractionDigits(0);
+		integerFormatter.setMinimumFractionDigits(0);
 		sizeFormatter.setGroupingUsed(false);
 		sizeFormatter.setMaximumFractionDigits(1);
 		sizeFormatter.setMinimumFractionDigits(1);
@@ -253,6 +257,24 @@ public class FormatUtils {
 	 */
 	public static String getSize(long bytes) {
 		return getSize(bytes, null);
+	}
+
+	/**
+	 * Given a number of bytes return bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, or exabytes as appropriate.
+	 */
+	public static String getIntegerSize(long bytes) {
+		return getIntegerSize(bytes, null);
+	}
+
+	/**
+	 * Given a number of bytes return a string formatted into the unit of measure indicated
+	 */
+	public static String getIntegerSize(long bytes, Size unitOfMeasure) {
+		unitOfMeasure = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
+		StringBuilder sb = new StringBuilder();
+		sb.append(integerFormatter.format(bytes / (double) unitOfMeasure.getValue()));
+		sb.append(unitOfMeasure.getSizeLabel());
+		return sb.toString();
 	}
 
 	/**
