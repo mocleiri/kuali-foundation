@@ -76,7 +76,7 @@ public final class BootstrapContext {
 		}
 
 		public BootstrapContext build() {
-			Assert.noNulls(service, root, sshEnabledUser, sshdOverride);
+			Assert.noNulls(service, sshEnabledUser, root, distro, packages);
 			Assert.noBlanks(hostname, privateKey, rootVolumeDeviceName);
 			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
 			this.packages = ImmutableList.copyOf(packages);
