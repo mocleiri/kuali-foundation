@@ -8,13 +8,13 @@ import org.kuali.common.util.channel.util.ChannelUtils;
 /**
  * Customize the JDK install as needed.
  */
-public final class CustomizeJDKInstallation implements ChannelExecutable {
+public final class CustomizeJDK implements ChannelExecutable {
 
-	public CustomizeJDKInstallation(String javaHome) {
+	public CustomizeJDK(String javaHome) {
 		this(javaHome, false);
 	}
 
-	public CustomizeJDKInstallation(String javaHome, boolean skip) {
+	public CustomizeJDK(String javaHome, boolean skip) {
 		Assert.noBlanks(javaHome);
 		this.javaHome = javaHome;
 		this.skip = skip;
