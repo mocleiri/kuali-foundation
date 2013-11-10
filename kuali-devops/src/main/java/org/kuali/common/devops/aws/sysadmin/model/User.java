@@ -21,7 +21,7 @@ public final class User {
 
 		public Builder(String login) {
 			this.login = login;
-			this.group = login;
+			group(login);
 			home("/home/" + login);
 		}
 
