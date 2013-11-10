@@ -25,6 +25,7 @@ public final class CustomizeJDKInstallation implements ChannelExecutable {
 
 	@Override
 	public void execute(SecureChannel channel) {
+
 		if (skip) {
 			return;
 		}
