@@ -13,10 +13,10 @@ import com.amazonaws.auth.AWSCredentials;
 
 public enum Contexts {
 
-	FOUNDATION(Accounts.FOUNDATION.getAccount(), Credentials.FOUNDATION, KeyPairs.FOUNDATION.getKeyPair()), //
-	STUDENT(Accounts.STUDENT.getAccount(), Credentials.STUDENT, KeyPairs.STUDENT.getKeyPair()), //
-	RICE(Accounts.RICE.getAccount(), Credentials.RICE, KeyPairs.RICE.getKeyPair()), //
-	OLE(Accounts.OLE.getAccount(), Credentials.OLE, KeyPairs.OLE.getKeyPair());
+	FOUNDATION(Accounts.FOUNDATION.getAccount(), Credentials.FOUNDATION, KeyPairs.DEVOPS.getKeyPair()), //
+	STUDENT(Accounts.STUDENT.getAccount(), Credentials.STUDENT, KeyPairs.DEVOPS.getKeyPair()), //
+	RICE(Accounts.RICE.getAccount(), Credentials.RICE, KeyPairs.DEVOPS.getKeyPair()), //
+	OLE(Accounts.OLE.getAccount(), Credentials.OLE, KeyPairs.DEVOPS.getKeyPair());
 
 	private final AwsContext context;
 
