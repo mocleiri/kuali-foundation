@@ -456,10 +456,8 @@ public final class DefaultSecureChannel implements SecureChannel {
 	public CopyResult copyFile(RemoteFile source, File destination) {
 		OutputStream out = null;
 		try {
-			long start = System.currentTimeMillis();
 			out = new BufferedOutputStream(FileUtils.openOutputStream(destination));
-			copyFile(source, out);
-			return new CopyResult(start, destination.length(), CopyDirection.FROM_REMOTE);
+			return copyFile(source, out);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
