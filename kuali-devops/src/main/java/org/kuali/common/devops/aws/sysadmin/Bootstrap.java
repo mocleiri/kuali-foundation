@@ -90,7 +90,7 @@ public final class Bootstrap implements Executable {
 		try {
 			channel = getChannel(context.getSshEnabledUser(), true);
 			ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
-			ChannelUtils.scp(channel, src, file); // copy the updated sshd_config file into the ec2-users home directory
+			channel.scp(src, file); // copy the updated sshd_config file into the ec2-users home directory
 			ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 			ChannelUtils.exec(channel, command3); // restart the sshd service
 			ChannelUtils.exec(channel, command4); // delete the sshd_config file we left in the ec2-users home directory

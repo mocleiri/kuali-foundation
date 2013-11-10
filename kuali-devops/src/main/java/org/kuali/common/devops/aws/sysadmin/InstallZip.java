@@ -94,7 +94,7 @@ public final class InstallZip implements Executable {
 
 			channel = context.getService().openChannel(context.getContext()); // Open a secure channel to the server
 			exec(channel, before); // Do any pre-processing as needed
-			ChannelUtils.scp(channel, localFile, remoteFile); // Copy the zip file
+			channel.scp(localFile, remoteFile); // Copy the zip file
 			ChannelUtils.exec(channel, command1, command2, command3, command4); // Install the package from the zip
 			exec(channel, after); // Do any post-processing as needed
 		} catch (IOException e) {

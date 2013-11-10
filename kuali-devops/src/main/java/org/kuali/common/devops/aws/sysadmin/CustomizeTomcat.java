@@ -77,7 +77,7 @@ public final class CustomizeTomcat implements ChannelExecutable {
 		// Add, update, replace, configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<Deployable> deployables = TomcatUtils.getDeployables(context.getZip().getInstallDir(), context.getMajorVersion());
 		for (Deployable deployable : deployables) {
-			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
+			channel.scp(deployable.getSource(), deployable.getDestination());
 		}
 
 		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
@@ -111,7 +111,7 @@ public final class CustomizeTomcat implements ChannelExecutable {
 
 		Bashrc bashrc = getBashrc();
 		RemoteFile file = new RemoteFile.Builder(bashrc.getLocation()).build();
-		channel.copyStringToFile(bashrc.getContent(), file);
+		channel.scpString(bashrc.getContent(), file);
 		logger.info("created -> " + file.getAbsolutePath());
 	}
 
