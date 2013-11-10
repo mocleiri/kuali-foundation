@@ -93,12 +93,13 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public CommandResult executeCommand(String command) {
-		return executeCommand(command, null);
+		return executeCommand(command, Optional.<String> absent());
 	}
 
 	@Override
 	public CommandResult executeCommand(String command, Optional<String> stdin) {
 		Assert.noBlanks(command);
+		Assert.noNulls(stdin);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
@@ -136,6 +137,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 			if (context.isEcho()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
 				logger.info("{} - [{}]", command, elapsed);
+				if (stdin.isPresent()) {
+					logger.info("stdin - [{}]", stdin.get());
+				}
 			}
 			return result;
 		} catch (Exception e) {
@@ -162,6 +166,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 		Assert.notBlank(command);
 		ChannelExec exec = null;
 		try {
+			if (context.isEcho()) {
+				logger.info("{}", command);
+			}
 			// Open an exec channel
 			exec = getChannelExec();
 			// Convert the command string to bytes
