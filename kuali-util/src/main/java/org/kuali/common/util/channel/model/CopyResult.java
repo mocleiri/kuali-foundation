@@ -19,7 +19,7 @@ import org.kuali.common.util.Assert;
 
 public final class CopyResult {
 
-	public CopyResult(long startMillis, long transferAmountInBytes, TransferDirection direction) {
+	public CopyResult(long startMillis, long transferAmountInBytes, CopyDirection direction) {
 		this.stopMillis = System.currentTimeMillis();
 		Assert.isTrue(stopMillis >= startMillis);
 		Assert.positive(startMillis);
@@ -35,7 +35,7 @@ public final class CopyResult {
 	private final long stopMillis;
 	private final long elapsedMillis;
 	private final long transferAmountInBytes;
-	private final TransferDirection direction;
+	private final CopyDirection direction;
 
 	public long getStartMillis() {
 		return startMillis;
@@ -53,7 +53,7 @@ public final class CopyResult {
 		return transferAmountInBytes;
 	}
 
-	public TransferDirection getDirection() {
+	public CopyDirection getDirection() {
 		return direction;
 	}
 
