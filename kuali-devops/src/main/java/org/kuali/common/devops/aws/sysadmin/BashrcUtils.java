@@ -47,13 +47,17 @@ public final class BashrcUtils {
 		lines.add(CATALINA_HOME + "=" + context.getCatalinaHome());
 		lines.add(CATALINA_BASE + "=$" + CATALINA_HOME);
 		lines.add(CATALINA_PID + "=$" + CATALINA_BASE + "/logs/catalina.pid");
-		lines.add("");
-		for (String catalinaOpt : context.getCatalinaOpts()) {
-			lines.add(CATALINA_OPTS + "=" + Str.quote("$" + CATALINA_OPTS + " " + catalinaOpt));
+		if (context.getCatalinaOpts().size() > 0) {
+			lines.add("");
+			for (String catalinaOpt : context.getCatalinaOpts()) {
+				lines.add(CATALINA_OPTS + "=" + Str.quote("$" + CATALINA_OPTS + " " + catalinaOpt));
+			}
 		}
-		lines.add("");
-		lines.addAll(context.getAdditionalLines());
-		lines.add("");
+		if (context.getAdditionalLines().size() > 0) {
+			lines.add("");
+			lines.addAll(context.getAdditionalLines());
+			lines.add("");
+		}
 		lines.add(PATH + "=$" + JAVA_HOME + "/bin:$" + CATALINA_HOME + "/bin:$" + PATH);
 		lines.add("");
 		lines.add("export " + CollectionUtils.getSpaceSeparatedString(EXPORTS));
