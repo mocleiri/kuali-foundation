@@ -406,7 +406,8 @@ public final class DefaultSecureChannel implements SecureChannel {
 		Assert.hasText(source.getAbsolutePath());
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
-			copyFile(source, out);
+			CopyResult result = copyFile(source, out);
+			from(source.getAbsolutePath(), result);
 			return out.toString(context.getEncoding());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -424,12 +425,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			sftp.put(source, destination.getAbsolutePath());
 			RemoteFile meta = getMetaData(destination.getAbsolutePath());
 			CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
-			if (context.isEcho()) {
-				String elapsed = FormatUtils.getTime(result.getElapsedMillis());
-				String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
-				Object[] args = { destination.getAbsolutePath(), elapsed, rate };
-				logger.info("created -> [{}] - [{}, {}]", args);
-			}
+			to(destination, result);
 			return result;
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
@@ -471,9 +467,35 @@ public final class DefaultSecureChannel implements SecureChannel {
 			long start = System.currentTimeMillis();
 			sftp.get(absolutePath, out);
 			RemoteFile meta = getMetaData(absolutePath);
-			return new CopyResult(start, meta.getSize().get(), CopyDirection.FROM_REMOTE);
+			CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.FROM_REMOTE);
+			from(absolutePath, result);
+			return result;
 		} catch (SftpException e) {
 			throw new IOException("Unexpected IO error", e);
+		}
+	}
+
+	/**
+	 * Show information about the transfer of data to a remote server
+	 */
+	protected void to(RemoteFile destination, CopyResult result) {
+		if (context.isEcho()) {
+			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
+			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
+			Object[] args = { destination.getAbsolutePath(), elapsed, rate };
+			logger.info("created -> [{}] - [{}, {}]", args);
+		}
+	}
+
+	/**
+	 * Show information about the transfer of data from a remote server
+	 */
+	protected void from(String absolutePath, CopyResult result) {
+		if (context.isEcho()) {
+			String elapsed = FormatUtils.getTime(result.getElapsedMillis());
+			String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
+			Object[] args = { absolutePath, elapsed, rate };
+			logger.info("<- copied [{}] - [{}, {}]", args);
 		}
 	}
 
