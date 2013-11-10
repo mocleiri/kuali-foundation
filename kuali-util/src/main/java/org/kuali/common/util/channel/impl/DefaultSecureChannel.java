@@ -382,11 +382,8 @@ public final class DefaultSecureChannel implements SecureChannel {
 		Assert.isTrue(LocationUtils.exists(location), location + " does not exist");
 		InputStream in = null;
 		try {
-			long start = System.currentTimeMillis();
 			in = LocationUtils.getInputStream(location);
-			copyInputStreamToFile(in, destination);
-			RemoteFile meta = getMetaData(destination.getAbsolutePath());
-			return new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
+			return copyInputStreamToFile(in, destination);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -426,7 +423,14 @@ public final class DefaultSecureChannel implements SecureChannel {
 			createDirectories(destination);
 			sftp.put(source, destination.getAbsolutePath());
 			RemoteFile meta = getMetaData(destination.getAbsolutePath());
-			return new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
+			CopyResult result = new CopyResult(start, meta.getSize().get(), CopyDirection.TO_REMOTE);
+			if (context.isEcho()) {
+				String elapsed = FormatUtils.getTime(result.getElapsedMillis());
+				String rate = FormatUtils.getRate(result.getElapsedMillis(), result.getAmountInBytes());
+				Object[] args = { destination.getAbsolutePath(), elapsed, rate };
+				logger.info("created -> {} - [{}, {}]", args);
+			}
+			return result;
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
 		}
