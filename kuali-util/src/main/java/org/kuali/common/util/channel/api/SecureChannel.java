@@ -24,11 +24,13 @@ import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.CopyResult;
 import org.kuali.common.util.channel.model.RemoteFile;
 
+import com.google.common.base.Optional;
+
 public interface SecureChannel {
 
 	CommandResult executeCommand(String command);
 
-	CommandResult executeCommand(String command, String stdin);
+	CommandResult executeCommand(String command, Optional<String> stdin);
 
 	void executeNoWait(String command);
 

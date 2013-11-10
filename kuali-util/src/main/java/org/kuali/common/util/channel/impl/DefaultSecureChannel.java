@@ -31,6 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -38,12 +39,13 @@ import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandResult;
+import org.kuali.common.util.channel.model.CopyDirection;
 import org.kuali.common.util.channel.model.CopyResult;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Status;
-import org.kuali.common.util.channel.model.CopyDirection;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.channel.util.SSHUtils;
+import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,12 +97,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public CommandResult executeCommand(String command, String stdin) {
+	public CommandResult executeCommand(String command, Optional<String> stdin) {
 		Assert.noBlanks(command);
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
-		InputStream stdinStream = null;
+		Optional<InputStream> stdinStream = null;
 		try {
 			// Preserve start time
 			long start = System.currentTimeMillis();
@@ -117,24 +119,30 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Get the stdout stream from the ChannelExec object
 			stdoutStream = exec.getInputStream();
 			// Update the ChannelExec object with the stdin stream
-			exec.setInputStream(stdinStream);
+			exec.setInputStream(stdinStream.orNull());
 			// Update the ChannelExec object with the stderr stream
 			exec.setErrStream(stderrStream);
+			logger.debug("Executing [{}], stdin [{}]", command, NullUtils.trimToNone(stdin.orNull()));
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, Optional.<Integer> absent());
 			// Convert stdout and stderr to String's
-			String stdout = Str.getString(IOUtils.toByteArray(stdoutStream), context.getEncoding());
-			String stderr = Str.getString(stderrStream.toByteArray(), context.getEncoding());
+			Optional<String> stdout = Optional.fromNullable(Str.getString(IOUtils.toByteArray(stdoutStream), context.getEncoding()));
+			Optional<String> stderr = Optional.fromNullable(Str.getString(stderrStream.toByteArray(), context.getEncoding()));
 			// Make sure the channel is closed
 			waitForClosed(exec, context.getWaitForClosedSleepMillis());
 			// Return the result of executing the command
-			return new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start, System.currentTimeMillis());
+			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start, System.currentTimeMillis());
+			if (context.isEcho()) {
+				String elapsed = FormatUtils.getTime(result.getElapsed());
+				logger.info("{} - [{}]", command, elapsed);
+			}
+			return result;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
 			// Cleanup
-			IOUtils.closeQuietly(stdinStream);
+			IOUtils.closeQuietly(stdinStream.orNull());
 			IOUtils.closeQuietly(stdoutStream);
 			IOUtils.closeQuietly(stderrStream);
 			closeQuietly(exec);
@@ -170,11 +178,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected InputStream getInputStream(String s, String encoding) {
-		if (s == null) {
-			return null;
+	protected Optional<InputStream> getInputStream(Optional<String> string, String encoding) {
+		if (!string.isPresent()) {
+			return Optional.<InputStream> absent();
 		} else {
-			return new ByteArrayInputStream(Str.getBytes(s, encoding));
+			InputStream in = new ByteArrayInputStream(Str.getBytes(string.get(), encoding));
+			return Optional.of(in);
 		}
 	}
 

@@ -24,10 +24,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.CopyDirection;
 import org.kuali.common.util.channel.model.CopyResult;
+import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.file.CanonicalFile;
@@ -179,8 +179,8 @@ public class ChannelUtils {
 
 	public static void debug(CommandResult result) {
 		Assert.noNulls(result);
-		String stdout = NullUtils.trimToNull(result.getStdout());
-		String stderr = NullUtils.trimToNull(result.getStderr());
+		String stdout = NullUtils.trimToNull(result.getStdout().orNull());
+		String stderr = NullUtils.trimToNull(result.getStderr().orNull());
 		if (!StringUtils.isBlank(stdout)) {
 			logger.debug("\n-- Standard Out --\n{}\n-- Standard Out --", stdout);
 		}

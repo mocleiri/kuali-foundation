@@ -333,4 +333,8 @@ public final class ChannelContext {
 		return privateKeys;
 	}
 
+	public boolean isEcho() {
+		return echo;
+	}
+
 }
