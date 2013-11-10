@@ -123,8 +123,29 @@ public final class LaunchInstanceContext {
 			return new LaunchInstanceContext(this);
 		}
 
+		/**
+		 * This copy method must initialize the same instance variables as the private constructor
+		 */
+		public Builder copy(LaunchInstanceContext provided) {
+			this.type = provided.type;
+			this.securityGroups = provided.securityGroups;
+			this.tags = provided.tags;
+			this.availabilityZone = provided.availabilityZone;
+			this.timeoutMillis = provided.timeoutMillis;
+			this.preventTermination = provided.preventTermination;
+			this.ebsOptimized = provided.ebsOptimized;
+			this.enableMonitoring = provided.enableMonitoring;
+			this.rootVolume = provided.rootVolume;
+			this.overrideExistingSecurityGroupPermissions = provided.overrideExistingSecurityGroupPermissions;
+			this.dnsName = provided.dnsName;
+			return this;
+		}
+
 	}
 
+	/**
+	 * Any updates to this constructor most also be made to the copy() method above
+	 */
 	private LaunchInstanceContext(Builder builder) {
 		this.ami = builder.ami;
 		this.keyPair = builder.keyPair;
