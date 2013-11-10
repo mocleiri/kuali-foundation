@@ -34,8 +34,8 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.BootstrapExecutable;
-import org.kuali.common.devops.aws.sysadmin.CustomizeJDKExecutable;
-import org.kuali.common.devops.aws.sysadmin.CustomizeTomcatExecutable;
+import org.kuali.common.devops.aws.sysadmin.CustomizeJDKInstallation;
+import org.kuali.common.devops.aws.sysadmin.CustomizeTomcatInstallation;
 import org.kuali.common.devops.aws.sysadmin.InstallZipPackageExecutable;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
@@ -137,13 +137,13 @@ public class ProvisionCIMasterConfig {
 
 	protected InstallZipPackageExecutable getTomcatInstaller(ChannelContext channel, ZipPackage zip) {
 		InstallZipPackageContext context = new InstallZipPackageContext.Builder(scs, channel, zip).build();
-		ChannelExecutable after = new CustomizeTomcatExecutable.Builder(context).build();
+		ChannelExecutable after = new CustomizeTomcatInstallation.Builder(context).build();
 		return new InstallZipPackageExecutable.Builder(context).after(after).build();
 	}
 
 	protected InstallZipPackageExecutable getJDKInstaller(ChannelContext channel, ZipPackage zip) {
 		InstallZipPackageContext context = new InstallZipPackageContext.Builder(scs, channel, zip).build();
-		ChannelExecutable after = new CustomizeJDKExecutable(context.getInstallDir());
+		ChannelExecutable after = new CustomizeJDKInstallation(context.getInstallDir());
 		return new InstallZipPackageExecutable.Builder(context).after(after).build();
 	}
 

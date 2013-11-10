@@ -15,7 +15,7 @@ import org.kuali.common.util.channel.util.ChannelUtils;
 /**
  * Customize Tomcat
  */
-public final class CustomizeTomcatExecutable implements ChannelExecutable {
+public final class CustomizeTomcatInstallation implements ChannelExecutable {
 
 	private final InstallZipPackageContext context;
 	private final boolean skip;
@@ -42,15 +42,15 @@ public final class CustomizeTomcatExecutable implements ChannelExecutable {
 			return this;
 		}
 
-		public CustomizeTomcatExecutable build() {
+		public CustomizeTomcatInstallation build() {
 			Assert.noNulls(context, tomcat);
 			Assert.noBlanks(majorVersion);
-			return new CustomizeTomcatExecutable(this);
+			return new CustomizeTomcatInstallation(this);
 		}
 
 	}
 
-	private CustomizeTomcatExecutable(Builder builder) {
+	private CustomizeTomcatInstallation(Builder builder) {
 		this.context = builder.context;
 		this.skip = builder.skip;
 		this.majorVersion = builder.majorVersion;
