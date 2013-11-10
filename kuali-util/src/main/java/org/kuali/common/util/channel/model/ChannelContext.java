@@ -48,6 +48,7 @@ public final class ChannelContext {
 	private final boolean includeDefaultPrivateKeyLocations;
 	private final int waitForClosedSleepMillis;
 	private final List<File> privateKeyFiles;
+	private final boolean echo;
 
 	public static class Builder {
 
@@ -70,6 +71,7 @@ public final class ChannelContext {
 		private int waitForClosedSleepMillis = 10;
 		private List<File> privateKeyFiles = ImmutableList.of();
 		private List<String> privateKeys = ImmutableList.of();
+		private boolean echo = true;
 
 		public Builder(String hostname) {
 			this(Optional.<String> absent(), hostname);
@@ -81,12 +83,16 @@ public final class ChannelContext {
 
 		public Builder(String username, String hostname, String privateKey) {
 			this(username, hostname);
-			privateKey(privateKey);
 		}
 
 		public Builder(Optional<String> username, String hostname) {
+			this(username, hostname, Optional.<String> absent());
+		}
+
+		public Builder(Optional<String> username, String hostname, Optional<String> privateKey) {
 			this.username = username;
 			this.hostname = hostname;
+			privateKey(privateKey.orNull());
 		}
 
 		public Builder(String hostname, ChannelContext provided) {
@@ -106,10 +112,16 @@ public final class ChannelContext {
 			this.privateKeyFiles = provided.privateKeyFiles;
 			this.privateKeys = provided.privateKeys;
 			this.useKnownHosts = provided.useKnownHosts;
+			this.echo = provided.echo;
 		}
 
 		public Builder requestPseudoTerminal(boolean requestPseudoTerminal) {
 			this.requestPseudoTerminal = requestPseudoTerminal;
+			return this;
+		}
+
+		public Builder echo(boolean echo) {
+			this.echo = echo;
 			return this;
 		}
 
@@ -191,7 +203,6 @@ public final class ChannelContext {
 			Assert.noBlanks(hostname, encoding);
 			Assert.noNulls(username, connectTimeout, options, knownHosts, config, privateKeyFiles, privateKeys);
 			Assert.isPort(port);
-			Assert.noNulls();
 			Assert.positive(waitForClosedSleepMillis);
 			if (useConfigFile) {
 				Assert.exists(config);
@@ -255,6 +266,7 @@ public final class ChannelContext {
 		this.privateKeyFiles = builder.privateKeyFiles;
 		this.privateKeys = builder.privateKeys;
 		this.useKnownHosts = builder.useKnownHosts;
+		this.echo = builder.echo;
 	}
 
 	public Optional<String> getUsername() {
