@@ -34,7 +34,7 @@ public final class BashrcUtils {
 	public static String getContent(Distro distro, String absolutePath, BashrcContext context) {
 		Assert.noNulls(distro, context);
 		Assert.noBlanks(absolutePath);
-		String location = CLASSPATH_PREFIX + "/" + distro + absolutePath + ".original";
+		String location = CLASSPATH_PREFIX + "/" + distro.getName() + absolutePath + ".original";
 		Assert.exists(location);
 		List<String> lines = new ArrayList<String>();
 		lines.addAll(LocationUtils.readLines(location));
@@ -46,7 +46,7 @@ public final class BashrcUtils {
 		lines.add("");
 		lines.add(CATALINA_HOME + "=" + context.getCatalinaHome());
 		lines.add(CATALINA_BASE + "=$" + CATALINA_HOME);
-		lines.add(CATALINA_PID + "=$" + CATALINA_BASE);
+		lines.add(CATALINA_PID + "=$" + CATALINA_BASE + "/logs/catalina.pid");
 		lines.add("");
 		for (String catalinaOpt : context.getCatalinaOpts()) {
 			lines.add(CATALINA_OPTS + "=" + Str.quote("$" + CATALINA_OPTS + " " + catalinaOpt));
