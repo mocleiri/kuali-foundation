@@ -27,15 +27,15 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
-import org.kuali.common.aws.model.AwsAccount;
+import org.kuali.common.aws.model.AwsContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
 import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.Bootstrap;
-import org.kuali.common.devops.aws.sysadmin.InstallJDK;
 import org.kuali.common.devops.aws.sysadmin.CustomizeTomcat;
+import org.kuali.common.devops.aws.sysadmin.InstallJDK;
 import org.kuali.common.devops.aws.sysadmin.InstallZip;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
@@ -54,7 +54,6 @@ import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
 import org.kuali.common.util.channel.util.ChannelExecutable;
-import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -100,7 +99,7 @@ public class ProvisionCIMasterConfig {
 	DnsService dns;
 
 	@Autowired
-	AwsAccount account;
+	AwsContext awsContext;
 
 	@Autowired
 	ChannelService scs;
@@ -164,7 +163,7 @@ public class ProvisionCIMasterConfig {
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
 		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
-		KeyPair keyPair = EncUtils.decrypt(enc, account.getKeyPair());
+		KeyPair keyPair = awsContext.getAuth().getKeyPair();
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
 		List<KualiSecurityGroup> securityGroups = ImmutableList.of(SecurityGroups.CI_MASTER.getGroup(), SecurityGroups.CI.getGroup());
