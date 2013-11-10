@@ -119,7 +119,7 @@ public final class Bootstrap implements Executable {
 		channel.exec(command);
 		String auth = channel.toString(temp);
 		Assert.noBlanks(auth);
-		boolean enabled = auth.trim().startsWith("command=");
+		boolean enabled = !auth.contains("command=\"");
 		channel.deleteFile(temp.getAbsolutePath());
 		return enabled;
 	}
