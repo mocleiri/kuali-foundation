@@ -24,8 +24,8 @@ public final class Bashrc {
 		}
 
 		public Bashrc build() {
-			Assert.noBlanks(content, location);
 			Assert.noNulls(user);
+			Assert.noBlanks(content, location);
 			return new Bashrc(this);
 		}
 	}
