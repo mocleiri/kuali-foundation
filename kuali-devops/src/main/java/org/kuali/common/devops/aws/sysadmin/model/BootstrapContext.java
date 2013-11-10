@@ -25,7 +25,7 @@ public final class BootstrapContext {
 
 	public static class Builder {
 
-		private static final String PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID);
+		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/distros";
 		private static final List<String> PACKAGES = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git");
 		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
@@ -82,7 +82,7 @@ public final class BootstrapContext {
 			this.packages = ImmutableList.copyOf(packages);
 
 			Service sshd = Services.SSHD.getService();
-			String configFileOverrideLocation = PREFIX + "/" + distro.getName() + "/" + sshd.getConfigFileLocation();
+			String configFileOverrideLocation = DISTROS + "/" + distro.getName() + sshd.getConfigFileAbsolutePath();
 			this.sshdOverride = new ServiceOverride.Builder(sshd, configFileOverrideLocation).build();
 
 			return new BootstrapContext(this);

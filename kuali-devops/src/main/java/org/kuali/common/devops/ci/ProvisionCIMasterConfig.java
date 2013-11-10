@@ -111,7 +111,7 @@ public class ProvisionCIMasterConfig {
 		new ShowLaunchConfigExecutable(serviceContext, context).execute();
 		Instance instance = ec2.launchInstance(context);
 		// Instance instance = ec2.getInstance("i-9c9e38e1");
-		String privateKey = context.getKeyPair().getPrivateKey().get();
+		String privateKey = awsContext.getAuth().getKeyPair().getPrivateKey().get();
 		BootstrapContext bc = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
 		new Bootstrap(bc).execute();
 		List<Executable> executables = new ArrayList<Executable>();

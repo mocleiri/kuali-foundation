@@ -7,27 +7,27 @@ import org.kuali.common.util.Assert;
 public final class Service {
 
 	private final String name;
-	private final String configFileLocation;
+	private final String configFileAbsolutePath;
 	private final String configFileName;
 
 	public static class Builder {
 
 		private final String name;
-		private final String configFileLocation;
+		private final String configFileAbsolutePath;
 		private final String configFileName;
 
-		public Builder(String name, String configFileLocation) {
-			this(name, configFileLocation, new File(configFileLocation).getName());
+		public Builder(String name, String configFileAbsolutePath) {
+			this(name, configFileAbsolutePath, new File(configFileAbsolutePath).getName());
 		}
 
-		public Builder(String name, String configFileLocation, String configFileName) {
+		public Builder(String name, String configFileAbsolutePath, String configFileName) {
 			this.name = name;
-			this.configFileLocation = configFileLocation;
+			this.configFileAbsolutePath = configFileAbsolutePath;
 			this.configFileName = configFileName;
 		}
 
 		public Service build() {
-			Assert.noBlanks(name, configFileLocation, configFileName);
+			Assert.noBlanks(name, configFileAbsolutePath, configFileName);
 			return new Service(this);
 		}
 
@@ -35,7 +35,7 @@ public final class Service {
 
 	private Service(Builder builder) {
 		this.name = builder.name;
-		this.configFileLocation = builder.configFileLocation;
+		this.configFileAbsolutePath = builder.configFileAbsolutePath;
 		this.configFileName = builder.configFileName;
 	}
 
@@ -43,8 +43,8 @@ public final class Service {
 		return name;
 	}
 
-	public String getConfigFileLocation() {
-		return configFileLocation;
+	public String getConfigFileAbsolutePath() {
+		return configFileAbsolutePath;
 	}
 
 	public String getConfigFileName() {

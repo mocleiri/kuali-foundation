@@ -80,7 +80,7 @@ public final class Bootstrap implements Executable {
 		String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
 
 		String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
-		String command2 = "sudo cp " + dst + " " + sshd.getConfigFileLocation();
+		String command2 = "sudo cp " + dst + " " + sshd.getConfigFileAbsolutePath();
 		String command3 = "sudo service " + sshd.getName() + " restart";
 		String command4 = "rm " + dst;
 
