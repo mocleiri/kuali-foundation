@@ -63,6 +63,12 @@ public final class CustomizeTomcat implements ChannelExecutable {
 			return;
 		}
 
+		createUser(channel);
+		configureTomcat(channel);
+
+	}
+
+	protected void configureTomcat(SecureChannel channel) {
 		// Remove, then recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
 		String webappsDir = context.getInstallDir() + "/webapps";
 		ChannelUtils.exec(channel, "rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
@@ -73,6 +79,22 @@ public final class CustomizeTomcat implements ChannelExecutable {
 			ChannelUtils.scp(channel, deployable.getSource(), deployable.getDestination());
 		}
 
+		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
+		String dir1 = context.getInstallDir();
+		String dir2 = tomcat.getHome();
+		String command1 = "chown -RL " + tomcat.getGroup() + ":" + tomcat.getLogin() + " " + dir1 + " " + dir2;
+
+		// Remove annoying windows .bat files
+		String command2 = "rm -f " + context.getInstallDir() + "/bin/*.bat";
+
+		// Make everything in the bin directory executable
+		String command3 = "chmod -R 755 " + context.getInstallDir() + "/bin";
+
+		// Invoke the commands
+		ChannelUtils.exec(channel, command1, command2, command3);
+	}
+
+	protected void createUser(SecureChannel channel) {
 		// Delete the tomcat user (if it exists)
 		boolean tomcatUserExists = channel.exists(tomcat.getHome());
 		if (tomcatUserExists) {
@@ -83,19 +105,8 @@ public final class CustomizeTomcat implements ChannelExecutable {
 		String command1 = "groupadd -f " + tomcat.getGroup();
 		String command2 = "useradd -g " + tomcat.getGroup() + " " + tomcat.getLogin();
 
-		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
-		String dir1 = context.getInstallDir();
-		String dir2 = tomcat.getHome();
-		String command3 = "chown -RL " + tomcat.getGroup() + ":" + tomcat.getLogin() + " " + dir1 + " " + dir2;
-
-		// Remove annoying windows .bat files
-		String command4 = "rm -f " + context.getInstallDir() + "/bin/*.bat";
-
-		// Make everything in the bin directory executable
-		String command5 = "chmod -R 755 " + context.getInstallDir() + "/bin";
-
 		// Invoke the commands
-		ChannelUtils.exec(channel, command1, command2, command3, command4, command5);
+		ChannelUtils.exec(channel, command1, command2);
 	}
 
 	public boolean isSkip() {
