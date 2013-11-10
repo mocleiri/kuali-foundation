@@ -330,6 +330,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 		try {
 			sftp.rm(absolutePath);
+			if (context.isEcho()) {
+				logger.info("deleted -> [{}]", absolutePath);
+			}
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
 		}
@@ -521,6 +524,9 @@ public final class DefaultSecureChannel implements SecureChannel {
 		Assert.isTrue(dir.isDirectory());
 		try {
 			createDirectories(dir);
+			if (context.isEcho()) {
+				logger.info("mkdir -> [{}]", dir.getAbsolutePath());
+			}
 		} catch (SftpException e) {
 			throw new IllegalStateException(e);
 		}
