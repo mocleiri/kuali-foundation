@@ -52,12 +52,15 @@ public final class CustomizeTomcat implements ChannelExecutable {
 			return;
 		}
 
+		// This has to happen first so tomcat dir's can be chown'd to tomcat
 		createUser(channel);
-		configureTomcat(channel);
+
+		// Customize things as needed, chown everything to tomcat:tomcat
+		customizeTomcat(channel);
 
 	}
 
-	protected void configureTomcat(SecureChannel channel) {
+	protected void customizeTomcat(SecureChannel channel) {
 		// Remove, then recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
 		String webappsDir = context.getZip().getInstallDir() + "/webapps";
 		ChannelUtils.exec(channel, "rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
