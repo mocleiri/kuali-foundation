@@ -2,17 +2,25 @@ package org.kuali.common.devops.aws.sysadmin;
 
 import java.util.List;
 
+import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
 import org.kuali.common.devops.aws.sysadmin.model.CustomizeTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
+import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.nullify.NullUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Customize Tomcat
  */
 public final class CustomizeTomcat implements ChannelExecutable {
+
+	private static final Logger logger = LoggerFactory.getLogger(CustomizeTomcat.class);
 
 	private final CustomizeTomcatContext context;
 	private final boolean skip;
@@ -99,6 +107,18 @@ public final class CustomizeTomcat implements ChannelExecutable {
 
 		// Invoke the commands
 		ChannelUtils.exec(channel, command1, command2);
+
+		Bashrc bashrc = getBashrc();
+		RemoteFile file = new RemoteFile.Builder(bashrc.getLocation()).build();
+		channel.copyStringToFile(bashrc.getContent(), file);
+		logger.info("created -> " + file.getAbsolutePath());
+	}
+
+	protected Bashrc getBashrc() {
+		User user = context.getTomcat();
+		Bashrc dummy = new Bashrc.Builder(user, NullUtils.NONE).build();
+		String content = BashrcUtils.getContent(dummy, context.getBashrc());
+		return new Bashrc.Builder(user, content).build();
 	}
 
 	public boolean isSkip() {
