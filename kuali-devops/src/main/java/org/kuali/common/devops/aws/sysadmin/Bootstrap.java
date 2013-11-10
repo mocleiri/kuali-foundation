@@ -7,6 +7,7 @@ import org.kuali.common.devops.aws.sysadmin.model.Service;
 import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
@@ -52,19 +53,8 @@ public final class Bootstrap implements Executable {
 		SecureChannel channel = null;
 		try {
 			channel = getChannel(context.getRoot(), false);
-
-			// Re-size the root volume so it uses all of the allocated space
-			String command1 = "resize2fs " + context.getRootVolumeDeviceName();
-
-			// Update the general operating system to the latest and greatest
-			String command2 = "yum --assumeyes update";
-
-			ChannelUtils.exec(channel, command1, command2);
-
-			// Install custom packages (if any)
-			if (context.getPackages().size() > 0) {
-				String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
-				ChannelUtils.exec(channel, command3);
+			if (!bootstrapCompleted(channel)) {
+				bootstrap(channel);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -73,8 +63,37 @@ public final class Bootstrap implements Executable {
 		}
 	}
 
+	protected boolean bootstrapCompleted(SecureChannel channel) {
+		RemoteFile completed = getBootStrapCompletedFile();
+		return channel.exists(completed.getAbsolutePath());
+	}
+
+	protected void bootstrap(SecureChannel channel) {
+		// Re-size the root volume so it uses all of the allocated space
+		String command1 = "resize2fs " + context.getRootVolumeDeviceName();
+
+		// Update the general operating system to the latest and greatest
+		String command2 = "yum --assumeyes update";
+
+		ChannelUtils.exec(channel, command1, command2);
+
+		// Install custom packages (if any)
+		if (context.getPackages().size() > 0) {
+			String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
+			ChannelUtils.exec(channel, command3);
+		}
+
+		RemoteFile completed = getBootStrapCompletedFile();
+		String content = "bootstrap completed: " + FormatUtils.getDate(System.currentTimeMillis());
+		channel.scpString(content, completed);
+	}
+
+	protected RemoteFile getBootStrapCompletedFile() {
+		return new RemoteFile.Builder(context.getBootstrapCompletedAbsolutePath()).build();
+	}
+
 	/**
-	 * Connect as ec2-user to determine if root ssh has been enabled already. If not, enable it.
+	 * Connect as ec2-user to see if root ssh is enabled. If it isn't, enable it.
 	 */
 	protected void enableRootSSH() {
 		SecureChannel channel = null;
@@ -91,7 +110,7 @@ public final class Bootstrap implements Executable {
 		}
 	}
 
-	protected void enableRootSSH(SecureChannel channel) throws IOException {
+	protected void enableRootSSH(SecureChannel channel) {
 		Service sshd = context.getSshdOverride().getService();
 
 		String src = context.getSshdOverride().getConfigFileOverrideLocation();
