@@ -20,7 +20,7 @@ import java.util.List;
 import org.kuali.common.aws.KeyPairs;
 import org.kuali.common.aws.SecurityGroups;
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.AMIs;
+import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
@@ -54,7 +54,7 @@ public class InvokeEC2ServiceConfig {
 		String publicKey = KeyPairs.DEVOPS.getKeyPair().getPublicKey().get();
 		KeyPair keyPair = new KeyPair.Builder("kuali-devops").publicKey(publicKey).build();
 		List<KualiSecurityGroup> groups = getSecurityGroups();
-		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
+		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
 		List<Tag> tags = ImmutableList.of(new Tag("Name", "ci.testing"));
 		LaunchInstanceContext context = new LaunchInstanceContext.Builder(ami, keyPair).securityGroups(groups).tags(tags).build();
 		service.launchInstance(context);
