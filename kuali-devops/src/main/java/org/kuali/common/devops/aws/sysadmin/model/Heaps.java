@@ -23,7 +23,7 @@ public enum Heaps {
 
 		// Convert the strings to numbers
 		long maxPermBytes = FormatUtils.getBytes(maxPerm);
-		long maxBytes = FormatUtils.getBytes(max); // Make max/min the same value
+		long maxBytes = FormatUtils.getBytes(max);
 		long minBytes = maxBytes; // Make max/min the same value
 
 		// initialize member variables
@@ -39,6 +39,9 @@ public enum Heaps {
 		return type;
 	}
 
+	/**
+	 * Map of default heap sizes by AWS instance types eg <code>m1.large</code>
+	 */
 	public static final Map<String, Heap> asMap() {
 		Map<String, Heap> map = new HashMap<String, Heap>();
 		for (Heaps value : values()) {
@@ -47,6 +50,9 @@ public enum Heaps {
 		return map;
 	}
 
+	/**
+	 * Map of default heap sizes by AWS instance types eg <code>InstanceType.M1Large</code>
+	 */
 	public static final Map<InstanceType, Heap> asTypeMap() {
 		Map<InstanceType, Heap> map = new HashMap<InstanceType, Heap>();
 		for (Heaps value : values()) {
