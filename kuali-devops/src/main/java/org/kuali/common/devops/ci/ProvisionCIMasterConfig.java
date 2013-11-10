@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.api.EC2Service;
-import org.kuali.common.aws.ec2.model.AMIs;
+import org.kuali.common.aws.ec2.model.AMI;
 import org.kuali.common.aws.ec2.model.AvailabilityZones;
 import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
@@ -154,7 +154,7 @@ public class ProvisionCIMasterConfig {
 
 	@Bean
 	public LaunchInstanceContext jenkinsMaster() {
-		String ami = AMIs.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
+		String ami = AMI.AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09.getId();
 		KeyPair keyPair = EncUtils.decrypt(enc, account.getKeyPair());
 		InstanceType type = InstanceType.M1Large;
 		String zone = AvailabilityZones.US_EAST_1D.getName();
