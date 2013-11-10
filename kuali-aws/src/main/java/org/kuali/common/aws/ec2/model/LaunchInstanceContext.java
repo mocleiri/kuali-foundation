@@ -22,7 +22,7 @@ public final class LaunchInstanceContext {
 	private final KeyPair keyPair;
 	private final InstanceType type;
 	private final List<KualiSecurityGroup> securityGroups;
-	// If true, any permissions on any existing security groups are overridden by the permissions from the security groups provided here.
+	// If true, permissions on any existing security groups are overridden by the permissions from the security groups provided here.
 	// This happens prior to the instance being launched
 	private final boolean overrideExistingSecurityGroupPermissions;
 	private final List<Tag> tags;
