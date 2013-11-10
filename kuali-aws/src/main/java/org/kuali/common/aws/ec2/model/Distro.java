@@ -4,11 +4,11 @@ import org.kuali.common.util.Assert;
 
 public enum Distro {
 
-	AMAZON_LINUX("amazon-linux"), //
+	AMAZON("amazon"), //
 	CENTOS("centos"), //
 	UBUNTU("ubuntu"), //
 	DEBIAN("debian"), //
-	RED_HAT("redhat");
+	REDHAT("redhat"); //
 
 	private final String name;
 
