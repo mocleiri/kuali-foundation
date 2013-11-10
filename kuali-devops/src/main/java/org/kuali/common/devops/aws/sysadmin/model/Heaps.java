@@ -40,7 +40,7 @@ public enum Heaps {
 	}
 
 	/**
-	 * Map of default heap sizes by AWS instance types eg <code>m1.large</code>
+	 * Map of default heap sizes by AWS instance type strings eg <code>m1.large</code>
 	 */
 	public static final Map<String, Heap> asMap() {
 		Map<String, Heap> map = new HashMap<String, Heap>();
@@ -51,7 +51,7 @@ public enum Heaps {
 	}
 
 	/**
-	 * Map of default heap sizes by AWS instance types eg <code>InstanceType.M1Large</code>
+	 * Map of default heap sizes by AWS instance type objects eg <code>InstanceType.M1Large</code>
 	 */
 	public static final Map<InstanceType, Heap> asTypeMap() {
 		Map<InstanceType, Heap> map = new HashMap<InstanceType, Heap>();
