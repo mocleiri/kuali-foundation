@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.maven.model.Artifact;
 
-public final class ZipPackage {
+public final class Zip {
 
 	private final String packageName;
 	private final Artifact artifact;
@@ -31,15 +31,15 @@ public final class ZipPackage {
 			this.artifact = artifact;
 		}
 
-		public ZipPackage build() {
+		public Zip build() {
 			Assert.noNulls(artifact);
 			Assert.noBlanks(packageName);
 			Assert.isTrue(artifact.getType().equalsIgnoreCase(ZIP));
-			return new ZipPackage(this);
+			return new Zip(this);
 		}
 	}
 
-	private ZipPackage(Builder builder) {
+	private Zip(Builder builder) {
 		this.packageName = builder.packageName;
 		this.artifact = builder.artifact;
 	}
