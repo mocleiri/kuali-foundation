@@ -1,7 +1,6 @@
 package org.kuali.common.aws.model.util;
 
 import org.kuali.common.aws.model.ImmutableAwsCredentials;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
@@ -26,11 +25,14 @@ public class CredentialUtils {
 	}
 
 	public static AWSCredentials getCredentials(EnvironmentService env, EncryptionService enc, AWSCredentials provided) {
-		String accessKey = NullUtils.trimToNull(getValue(env, ACCESS_KEY, ACCESS_ENV_KEY, provided.getAWSAccessKeyId()));
-		String rawSecretKey = NullUtils.trimToNull(getValue(env, SECRET_KEY, SECRET_ENV_KEY, provided.getAWSSecretKey()));
-		Assert.noBlanks(accessKey, rawSecretKey);
-		String secretKey = EncUtils.isEncrypted(rawSecretKey) ? enc.decrypt(rawSecretKey) : rawSecretKey;
+		String accessKey = NullUtils.trimToNull(getDecryptedValue(env, enc, ACCESS_KEY, ACCESS_ENV_KEY, provided.getAWSAccessKeyId()));
+		String secretKey = NullUtils.trimToNull(getDecryptedValue(env, enc, SECRET_KEY, SECRET_ENV_KEY, provided.getAWSSecretKey()));
 		return new ImmutableAwsCredentials(accessKey, secretKey);
+	}
+
+	protected static String getDecryptedValue(EnvironmentService env, EncryptionService enc, String key, String envKey, String provided) {
+		String value = getValue(env, key, envKey, provided);
+		return EncUtils.isEncrypted(value) ? enc.decrypt(value) : value;
 	}
 
 	protected static String getValue(EnvironmentService env, String key, String envKey, String provided) {
