@@ -7,25 +7,25 @@ public enum AMI {
 	AMAZON_LINUX_64_BIT_MINIMAL_AMI_2013_09("amazon-linux", "2013.09", "ami-65792c0c");
 
 	private final String id;
-	private final String name;
+	private final String operatingSystem;
 	private final String version;
 
-	private AMI(String name, String version, String id) {
-		this.name = name;
+	private AMI(String operatingSystem, String version, String id) {
+		this.operatingSystem = operatingSystem;
 		this.version = version;
 		this.id = id;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
+	public String getOperatingSystem() {
+		return operatingSystem;
 	}
 
 	public String getVersion() {
 		return version;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 }
