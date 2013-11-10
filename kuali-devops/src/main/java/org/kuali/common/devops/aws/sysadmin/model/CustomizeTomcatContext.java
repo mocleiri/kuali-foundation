@@ -1,8 +1,5 @@
-package org.kuali.common.devops.aws.sysadmin;
+package org.kuali.common.devops.aws.sysadmin.model;
 
-import org.kuali.common.devops.aws.sysadmin.model.InstallZipPackageContext;
-import org.kuali.common.devops.aws.sysadmin.model.User;
-import org.kuali.common.devops.aws.sysadmin.model.Users;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.VersionUtils;
 
