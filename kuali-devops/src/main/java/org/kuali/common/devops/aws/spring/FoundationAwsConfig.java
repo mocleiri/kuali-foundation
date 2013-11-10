@@ -15,23 +15,19 @@
  */
 package org.kuali.common.devops.aws.spring;
 
-import org.kuali.common.aws.model.AwsAccount;
-import org.kuali.common.devops.aws.Accounts;
+import org.kuali.common.aws.model.AwsContext;
 import org.kuali.common.devops.aws.AwsUtils;
-import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
-import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.kuali.common.devops.aws.Contexts;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class FoundationAwsConfig extends KualiAwsConfig {
 
 	@Override
 	@Bean
-	public AwsAccount awsAccount() {
-		return AwsUtils.getAwsAccount(env, Accounts.FOUNDATION.getAccount());
+	public AwsContext awsContext() {
+		return AwsUtils.getAwsContext(env, enc, Contexts.FOUNDATION.getContext());
 	}
 
 }

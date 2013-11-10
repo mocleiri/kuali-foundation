@@ -15,8 +15,7 @@
  */
 package org.kuali.common.devops.aws.spring;
 
-import org.kuali.common.aws.model.AwsAccount;
-import org.kuali.common.aws.model.util.CredentialUtils;
+import org.kuali.common.aws.model.AwsContext;
 import org.kuali.common.aws.spring.AwsContextConfig;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.devops.aws.AwsUtils;
@@ -31,7 +30,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.amazonaws.auth.AWSCredentials;
-import com.google.common.base.Optional;
 
 @Configuration
 @Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
@@ -47,8 +45,8 @@ public class KualiAwsConfig implements AwsContextConfig, AwsCredentialsConfig, D
 
 	@Override
 	@Bean
-	public Optional<AwsAccount> awsAccount() {
-		return AwsUtils.getAwsAccount(env);
+	public AwsContext awsContext() {
+		return AwsUtils.getAwsContext(env, enc);
 	}
 
 	@Override
@@ -60,7 +58,7 @@ public class KualiAwsConfig implements AwsContextConfig, AwsCredentialsConfig, D
 	@Override
 	@Bean
 	public AWSCredentials awsCredentials() {
-		return CredentialUtils.getCredentials(env, enc, awsAccount().getCredentials());
+		return awsContext().getAuth().getCredentials();
 	}
 
 }
