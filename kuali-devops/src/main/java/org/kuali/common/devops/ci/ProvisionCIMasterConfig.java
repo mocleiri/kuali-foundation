@@ -55,6 +55,7 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.impl.ConcurrentExecutables;
 import org.kuali.common.util.execute.impl.ExecutablesExecutable;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -106,8 +107,8 @@ public class ProvisionCIMasterConfig {
 		long start = System.currentTimeMillis();
 		LaunchInstanceContext context = launchInstanceContext();
 		new ShowLaunchConfigExecutable(serviceContext, context).execute();
-		// Instance instance = ec2.launchInstance(context);
-		Instance instance = ec2.getInstance("i-072be77e");
+		Instance instance = ec2.launchInstance(context);
+		// Instance instance = ec2.getInstance("i-072be77e");
 		String privateKey = context.getKeyPair().getPrivateKey().get();
 		BootstrapContext bc = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
 		new BootstrapExecutable(bc).execute();
@@ -116,7 +117,7 @@ public class ProvisionCIMasterConfig {
 			String aliasFQDN = context.getDnsName().get();
 			String canonicalFQDN = instance.getPublicDnsName();
 			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
-			// executables.add(cname);
+			executables.add(cname);
 		}
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
@@ -128,8 +129,8 @@ public class ProvisionCIMasterConfig {
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(getJDKInstaller(channel, jdk7));
 		executables.add(getTomcatInstaller(channel, tomcat7Zip));
-		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
-		new ExecutablesExecutable(executables, false, true).execute();
+		new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
+		new ExecutablesExecutable(executables, false, true);
 		long elapsed = System.currentTimeMillis() - start;
 		logger.info("Elapsed: {}", FormatUtils.getTime(elapsed));
 		return null; // new ExecutablesExecutable(show);
