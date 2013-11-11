@@ -10,7 +10,7 @@ import org.kuali.common.util.project.ProjectUtils;
 
 import com.google.common.collect.ImmutableList;
 
-public class TomcatConfig {
+public final class TomcatConfig {
 
 	private static final String CLASSPATH_PREFIX = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/tomcat";
 
