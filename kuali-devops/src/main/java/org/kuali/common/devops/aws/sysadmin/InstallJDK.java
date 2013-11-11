@@ -23,8 +23,8 @@ public final class InstallJDK implements Executable {
 		private final InstallZipContext context;
 
 		// Optional (default values are usually ok)
-		private boolean skip = false;
 		private boolean forceExecution = false;
+		private boolean skip = false;
 		private boolean skipIfInstalled = true;
 
 		public Builder(InstallZipContext context) {
