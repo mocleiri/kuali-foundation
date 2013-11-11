@@ -55,9 +55,10 @@ public final class Bootstrap implements Executable {
 		SecureChannel channel = null;
 		try {
 			channel = getChannel(context.getRoot(), false);
-			if (!bootstrapCompleted(channel)) {
+			if (!isBootstrapped(channel)) {
 				bootstrap(channel);
 				markAsBootstrapped(channel);
+				Assert.isTrue(isBootstrapped(channel), "Unable to verify that this instance has been bootstrapped");
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -66,7 +67,7 @@ public final class Bootstrap implements Executable {
 		}
 	}
 
-	protected boolean bootstrapCompleted(SecureChannel channel) {
+	protected boolean isBootstrapped(SecureChannel channel) {
 		RemoteFile completed = getBootStrapCompletedFile();
 		return channel.exists(completed.getAbsolutePath());
 	}
