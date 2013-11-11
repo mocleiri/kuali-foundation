@@ -88,14 +88,8 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 			logger.info("Skipping execution of {} executables", executables.size());
 			return;
 		}
+		List<Thread> threads = getThreads(executables);
 		long start = System.currentTimeMillis();
-		List<Thread> threads = new ArrayList<Thread>();
-		for (Executable executable : executables) {
-			Runnable runnable = new ExecutableRunner(executable);
-			Thread thread = new Thread(runnable, "Executable");
-			thread.setUncaughtExceptionHandler(this);
-			threads.add(thread);
-		}
 		ThreadUtils.start(threads);
 		ThreadUtils.join(threads);
 		if (uncaughtException.isPresent()) {
@@ -106,6 +100,17 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 			logger.info("Total Time: {} (Wall Clock)", FormatUtils.getTime(System.currentTimeMillis() - start));
 			logger.info("------------------------------------------------------------------------");
 		}
+	}
+
+	protected List<Thread> getThreads(List<Executable> executables) {
+		List<Thread> threads = new ArrayList<Thread>();
+		for (Executable executable : executables) {
+			Runnable runnable = new ExecutableRunner(executable);
+			Thread thread = new Thread(runnable, "Executable");
+			thread.setUncaughtExceptionHandler(this);
+			threads.add(thread);
+		}
+		return threads;
 	}
 
 	@Override
