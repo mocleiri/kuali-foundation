@@ -9,22 +9,22 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
-public class CreateOrReplaceCNAMEExecutable implements Executable {
+public class CreateOrReplaceCNAME implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(CreateOrReplaceCNAMEExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(CreateOrReplaceCNAME.class);
 
 	public static final int DEFAULT_TTL = 60;
 	public static final boolean DEFAULT_SKIP = false;
 
-	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String canonicalFQDN) {
+	public CreateOrReplaceCNAME(DnsService service, String aliasFQDN, String canonicalFQDN) {
 		this(service, aliasFQDN, canonicalFQDN, DEFAULT_TTL, DEFAULT_SKIP);
 	}
 
-	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds) {
+	public CreateOrReplaceCNAME(DnsService service, String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds) {
 		this(service, aliasFQDN, canonicalFQDN, timeToLiveInSeconds, DEFAULT_SKIP);
 	}
 
-	public CreateOrReplaceCNAMEExecutable(DnsService service, String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds, boolean skip) {
+	public CreateOrReplaceCNAME(DnsService service, String aliasFQDN, String canonicalFQDN, int timeToLiveInSeconds, boolean skip) {
 		Assert.noNulls(service);
 		Assert.noBlanks(aliasFQDN, canonicalFQDN);
 		Assert.noNegatives(timeToLiveInSeconds);
