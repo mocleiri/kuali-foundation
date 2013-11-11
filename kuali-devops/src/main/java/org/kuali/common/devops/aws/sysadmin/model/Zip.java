@@ -9,8 +9,8 @@ import org.kuali.common.util.maven.model.Artifact;
  * </p>
  * 
  * <p>
- * When unzipped it must create a new directory that exactly matches the artifactId + version number. For example, unzipping <code>apache-tomcat-7.0.47.zip</code> into the
- * <code>/usr/local</code> directory will produce <code>/usr/local/apache-tomcat-7.0.47</code>
+ * When unzipped it must create a new directory that exactly matches the artifactId + version number. For example, unzipping <code>apache-tomcat-7.0.47.zip</code> into
+ * <code>/usr/local</code> will produce <code>/usr/local/apache-tomcat-7.0.47</code>
  * </p>
  */
 public final class Zip {
