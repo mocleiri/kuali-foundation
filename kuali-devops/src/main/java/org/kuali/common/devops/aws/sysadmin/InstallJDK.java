@@ -66,9 +66,13 @@ public final class InstallJDK implements Executable {
 		String dst = jdkHome + "/jre/lib/ext/tools.jar";
 		String command2 = "cp " + src + " " + dst;
 
+		// install the vanilla zip package
 		new InstallZip.Builder(context).runAlways(true).build().execute(channel);
-		channel.exec(command1);
-		channel.exec(command2);
+
+		// customize the jdk installation as needed
+		channel.exec(command1, command2);
+
+		// leave a marker file indicating the installation/customization has been completed correctly
 		String content = "jdk customized: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		RemoteFile file = getJdkCustomizationCompleteFile(jdkHome);
 		channel.scpString(content, file);
