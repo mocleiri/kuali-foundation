@@ -77,12 +77,13 @@ public final class Bootstrap implements Executable {
 		// Update the general operating system to the latest and greatest
 		String command2 = "yum --assumeyes update";
 
-		ChannelUtils.exec(channel, command1, command2);
+		// Invoke the commands
+		channel.exec(command1, command2);
 
 		// Install custom packages (if any)
 		if (context.getPackages().size() > 0) {
-			String command3 = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
-			ChannelUtils.exec(channel, command3);
+			String command = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
+			channel.exec(command);
 		}
 
 		RemoteFile completed = getBootStrapCompletedFile();
