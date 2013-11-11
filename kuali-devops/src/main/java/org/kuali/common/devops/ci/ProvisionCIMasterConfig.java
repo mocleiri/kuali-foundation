@@ -26,7 +26,7 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.aws.ec2.util.LaunchUtils;
-import org.kuali.common.aws.ec2.util.ShowLaunchConfigExecutable;
+import org.kuali.common.aws.ec2.util.ShowLaunchConfig;
 import org.kuali.common.aws.model.AwsContext;
 import org.kuali.common.aws.spring.AwsServiceConfig;
 import org.kuali.common.devops.aws.SecurityGroups;
@@ -108,7 +108,7 @@ public class ProvisionCIMasterConfig {
 	public Executable main() {
 		long start = System.currentTimeMillis();
 		LaunchInstanceContext context = launchInstanceContext();
-		new ShowLaunchConfigExecutable(serviceContext, context).execute();
+		new ShowLaunchConfig(serviceContext, context).execute();
 		// Instance instance = ec2.launchInstance(context);
 		Instance instance = ec2.getInstance("i-cdf008b5");
 		String privateKey = awsContext.getAuth().getKeyPair().getPrivateKey().get();
