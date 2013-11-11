@@ -110,7 +110,7 @@ public final class Bootstrap implements Executable {
 			if (!enabled) {
 				enableRootSSH(channel);
 				markAsRootSSHEnabled(channel);
-				Assert.isTrue(isRootSSHEnabled(channel), "Unable to verify that root SSH is enabled");
+				Assert.isTrue(isRootSSHEnabled(channel), "Unable to verify that root ssh is enabled");
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
