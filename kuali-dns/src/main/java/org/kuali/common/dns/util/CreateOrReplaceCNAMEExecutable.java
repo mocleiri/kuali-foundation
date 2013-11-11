@@ -74,7 +74,8 @@ public class CreateOrReplaceCNAMEExecutable implements Executable {
 			return false;
 		}
 		String existingValue = record.get().getValue();
-		return canonicalFQDN.equals(existingValue);
+		String cnameRecordValue = service.getCNAMERecordValueFromFQDN(canonicalFQDN);
+		return cnameRecordValue.equals(existingValue);
 	}
 
 	public DnsService getService() {
