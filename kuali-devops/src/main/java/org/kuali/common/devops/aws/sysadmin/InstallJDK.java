@@ -73,13 +73,13 @@ public final class InstallJDK implements Executable {
 		channel.exec(command1, command2);
 
 		// leave a marker file indicating the installation/customization has been completed correctly
-		String content = "jdk customized: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
+		String content = "jdk installed and customized: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		RemoteFile file = getJdkCustomizationCompleteFile(jdkHome);
 		channel.scpString(content, file);
 	}
 
 	protected RemoteFile getJdkCustomizationCompleteFile(String jdkHome) {
-		String absolutePath = jdkHome + "/jdk.customized";
+		String absolutePath = jdkHome + "/jdk.installed";
 		return new RemoteFile.Builder(absolutePath).build();
 	}
 
