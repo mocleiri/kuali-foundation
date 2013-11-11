@@ -5,12 +5,16 @@ import org.junit.Test;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.nullify.NullUtils;
+
+import com.google.common.base.Optional;
 
 public class DefaultSecureChannelTest {
 
@@ -24,20 +28,22 @@ public class DefaultSecureChannelTest {
 			StreamingSecureChannel channel = new StreamingSecureChannel(context);
 			CommandContext cc = new CommandContext.Builder("man ls").stdin("q").build();
 			CommandResult result = channel.exec(cc);
-			if (result.getStdout().isPresent()) {
-				String stdout = result.getStdout().get();
-				String size = FormatUtils.getSize(stdout.length());
-				System.out.println("\n-- stdout -- " + size + "\n" + result.getStdout().get() + "\n-- stdout --\n");
-			}
-			if (result.getStderr().isPresent()) {
-				String stderr = result.getStderr().get();
-				String size = FormatUtils.getSize(stderr.length());
-				System.out.println("\n-- stderr -- " + size + "\n" + result.getStderr().get() + "\n-- stderr --\n");
-			}
+			show("stdout", result.getStdout());
+			show("stderr", result.getStderr());
 			channel.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void show(String label, Optional<String> string) {
+		String display = NullUtils.NONE;
+		if (string.isPresent()) {
+			display = string.get();
+			String size = FormatUtils.getSize(display.length());
+			display = size + " " + Str.flatten(display);
+		}
+		System.out.println(label + " " + display);
 	}
 
 	protected String getPrivateKey() {

@@ -160,8 +160,8 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, timeout);
 			// Convert stdout and stderr to String's
-			Optional<String> stdout = Optional.fromNullable(Str.getString(IOUtils.toByteArray(stdoutStream), encoding));
-			Optional<String> stderr = Optional.fromNullable(Str.getString(stderrStream.toByteArray(), encoding));
+			Optional<String> stdout = Optional.fromNullable(StringUtils.trimToNull(Str.getString(IOUtils.toByteArray(stdoutStream), encoding)));
+			Optional<String> stderr = Optional.fromNullable(StringUtils.trimToNull(Str.getString(stderrStream.toByteArray(), encoding)));
 			// Make sure the channel is closed
 			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
 			// Return the result of executing the command
