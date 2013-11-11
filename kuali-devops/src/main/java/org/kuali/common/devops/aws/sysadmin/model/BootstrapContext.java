@@ -34,13 +34,13 @@ public final class BootstrapContext {
 		private final ChannelService service;
 		private final String hostname;
 		private final String privateKey;
+		private final User sshEnabledUser = Users.EC2USER.getUser();
+		private final User root = Users.ROOT.getUser();
+		private final String bootstrapCompletedAbsolutePath = root.getHome() + "/.bootstrap/bootstrap.completed";
+		private final Distro distro = Distro.AMAZON;
 
 		// Optional
-		private User sshEnabledUser = Users.EC2USER.getUser();
-		private User root = Users.ROOT.getUser();
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
-		private String bootstrapCompletedAbsolutePath = "/usr/local/bootstrap/bootstrap.completed";
-		private Distro distro = Distro.AMAZON;
 		private List<String> packages = PACKAGES;
 
 		// Filled in automatically by build();
@@ -57,23 +57,8 @@ public final class BootstrapContext {
 			return this;
 		}
 
-		public Builder bootstrapCompletedAbsolutePath(String bootstrapCompletedAbsolutePath) {
-			this.bootstrapCompletedAbsolutePath = bootstrapCompletedAbsolutePath;
-			return this;
-		}
-
 		public Builder rootVolumeDeviceName(String rootVolumeDeviceName) {
 			this.rootVolumeDeviceName = rootVolumeDeviceName;
-			return this;
-		}
-
-		public Builder root(User root) {
-			this.root = root;
-			return this;
-		}
-
-		public Builder sshEnabledUser(User sshEnabledUser) {
-			this.sshEnabledUser = sshEnabledUser;
 			return this;
 		}
 
