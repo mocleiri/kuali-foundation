@@ -1,7 +1,6 @@
 package org.kuali.common.devops.aws.sysadmin;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipContext;
 import org.kuali.common.util.Assert;
@@ -9,7 +8,6 @@ import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
-import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 
@@ -18,10 +16,11 @@ import com.google.common.base.Optional;
 /**
  * 
  */
-public final class InstallZip implements Executable {
+public final class InstallZip implements ChannelExecutable {
 
 	private final InstallZipContext context;
 	private final boolean skip;
+	private final boolean runAlways;
 	private final Optional<ChannelExecutable> before;
 	private final Optional<ChannelExecutable> after;
 
@@ -32,11 +31,17 @@ public final class InstallZip implements Executable {
 
 		// Optional
 		private boolean skip = false;
+		private boolean runAlways = false;
 		private Optional<ChannelExecutable> before = Optional.absent();
 		private Optional<ChannelExecutable> after = Optional.absent();
 
 		public Builder(InstallZipContext context) {
 			this.context = context;
+		}
+
+		public Builder runAlways(boolean runAlways) {
+			this.runAlways = runAlways;
+			return this;
 		}
 
 		public Builder skip(boolean skip) {
@@ -65,14 +70,21 @@ public final class InstallZip implements Executable {
 		this.skip = builder.skip;
 		this.before = builder.before;
 		this.after = builder.after;
+		this.runAlways = builder.runAlways;
 	}
 
 	@Override
-	public void execute() {
-		if (skip) {
-			return;
+	public void execute(SecureChannel channel) {
+		if (!skip) {
+			install(context, channel);
 		}
-		install(context);
+	}
+
+	protected void install(InstallZipContext context, SecureChannel channel) {
+		boolean installed = isZipInstalled(channel);
+		if (!installed || runAlways) {
+			install(channel);
+		}
 	}
 
 	protected boolean isZipInstalled(SecureChannel channel) {
@@ -109,21 +121,6 @@ public final class InstallZip implements Executable {
 		return context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
 	}
 
-	protected void install(InstallZipContext context) {
-		SecureChannel channel = null;
-		try {
-			channel = context.getService().openChannel(context.getContext()); // Open a secure channel to the server
-			boolean installed = isZipInstalled(channel);
-			if (!installed) {
-				install(channel);
-			}
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
-	}
-
 	protected void exec(SecureChannel channel, Optional<ChannelExecutable> optional) {
 		if (optional.isPresent()) {
 			ChannelExecutable exec = optional.get();
@@ -145,6 +142,10 @@ public final class InstallZip implements Executable {
 
 	public Optional<ChannelExecutable> getAfter() {
 		return after;
+	}
+
+	public boolean isRunAlways() {
+		return runAlways;
 	}
 
 }

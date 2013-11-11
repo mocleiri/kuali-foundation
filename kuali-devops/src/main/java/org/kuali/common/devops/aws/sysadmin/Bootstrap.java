@@ -27,6 +27,8 @@ import org.kuali.common.util.execute.Executable;
  */
 public final class Bootstrap implements Executable {
 
+	private static final String WARNING = "WARNING: Do not delete or edit this file unless you know exactly what you are doing";
+
 	public Bootstrap(BootstrapContext context) {
 		this(context, false);
 	}
@@ -84,7 +86,7 @@ public final class Bootstrap implements Executable {
 		}
 
 		RemoteFile completed = getBootStrapCompletedFile();
-		String content = "bootstrap completed: " + FormatUtils.getDate(System.currentTimeMillis());
+		String content = "bootstrap completed: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		channel.scpString(content, completed);
 	}
 
