@@ -41,7 +41,6 @@ public class StreamFeeder extends AbstractStreamHandler {
 	 */
 	public StreamFeeder(InputStream input, OutputStream output) {
 		this.input = input;
-
 		this.output = output;
 	}
 
