@@ -27,25 +27,7 @@ import java.util.Vector;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.StringUtils;
 
-/**
- * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l </a>
- * @version $Id$
- */
 public abstract class CommandLineUtils {
-	public static class StringStreamConsumer implements StreamConsumer {
-		private StringBuffer string = new StringBuffer();
-
-		private String ls = System.getProperty("line.separator");
-
-		@Override
-		public void consumeLine(String line) {
-			string.append(line).append(ls);
-		}
-
-		public String getOutput() {
-			return string.toString();
-		}
-	}
 
 	public static int executeCommandLine(Commandline cl, StreamConsumer systemOut, StreamConsumer systemErr) throws CommandLineException {
 		return executeCommandLine(cl, null, systemOut, systemErr, 0);
@@ -126,62 +108,11 @@ public abstract class CommandLineUtils {
 
 		ShutdownHookUtils.addShutDownHook(processHook);
 
-		return new CommandLineCallable() {
-			@Override
-			public Integer call() throws CommandLineException {
-				try {
-					int returnValue;
-					if (timeoutInSeconds <= 0) {
-						returnValue = p.waitFor();
-					} else {
-						long now = System.currentTimeMillis();
-						long timeoutInMillis = 1000L * timeoutInSeconds;
-						long finish = now + timeoutInMillis;
-						while (isAlive(p) && (System.currentTimeMillis() < finish)) {
-							Thread.sleep(10);
-						}
-						if (isAlive(p)) {
-							throw new InterruptedException("Process timeout out after " + timeoutInSeconds + " seconds");
-						}
-						returnValue = p.exitValue();
-					}
+		return new CLICallable(timeoutInSeconds, inputFeeder, outputPumper, errorPumper, p, processHook);
 
-					waitForAllPumpers(inputFeeder, outputPumper, errorPumper);
-
-					if (outputPumper.getException() != null) {
-						throw new CommandLineException("Error inside systemOut parser", outputPumper.getException());
-					}
-
-					if (errorPumper.getException() != null) {
-						throw new CommandLineException("Error inside systemErr parser", errorPumper.getException());
-					}
-
-					return returnValue;
-				} catch (InterruptedException ex) {
-					if (inputFeeder != null) {
-						inputFeeder.disable();
-					}
-					outputPumper.disable();
-					errorPumper.disable();
-					throw new CommandLineTimeOutException("Error while executing external command, process killed.", ex);
-				} finally {
-					ShutdownHookUtils.removeShutdownHook(processHook);
-
-					processHook.run();
-
-					if (inputFeeder != null) {
-						inputFeeder.close();
-					}
-
-					outputPumper.close();
-
-					errorPumper.close();
-				}
-			}
-		};
 	}
 
-	private static void waitForAllPumpers(StreamFeeder inputFeeder, StreamPumper outputPumper, StreamPumper errorPumper) throws InterruptedException {
+	public static void waitForAllPumpers(StreamFeeder inputFeeder, StreamPumper outputPumper, StreamPumper errorPumper) throws InterruptedException {
 		if (inputFeeder != null) {
 			inputFeeder.waitUntilDone();
 		}
