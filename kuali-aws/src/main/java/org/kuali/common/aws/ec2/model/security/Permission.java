@@ -9,6 +9,9 @@ import org.kuali.common.util.ListUtils;
 
 import com.google.common.collect.ImmutableList;
 
+/**
+ * This is an immutable, slimmed down, version of the comparable AWS permissions object. Only supports a single port (no port ranges) and CIDR notations.
+ */
 public final class Permission implements Comparable<Permission> {
 
 	private final int port;
