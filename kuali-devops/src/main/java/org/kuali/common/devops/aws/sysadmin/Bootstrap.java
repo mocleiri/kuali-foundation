@@ -116,12 +116,11 @@ public final class Bootstrap implements Executable {
 		Service sshd = context.getSshdOverride().getService();
 
 		String src = context.getSshdOverride().getConfigFileOverrideLocation();
-		String dst = context.getSshEnabledUser().getHome() + "/" + sshd.getConfigFileName();
+		String dst = context.getSshEnabledUser().getHome() + "/.bootstrap/" + sshd.getConfigFileName();
 
 		String command1 = "sudo cp " + context.getSshEnabledUser().getAuthorizedKeys() + " " + context.getRoot().getAuthorizedKeys();
 		String command2 = "sudo cp " + dst + " " + sshd.getConfigFileAbsolutePath();
 		String command3 = "sudo service " + sshd.getName() + " restart";
-		String command4 = "rm " + dst;
 
 		RemoteFile file = new RemoteFile.Builder(dst).build();
 
@@ -129,7 +128,6 @@ public final class Bootstrap implements Executable {
 		channel.scp(src, file); // create an sshd_config file in the ec2-users home directory from our internally modified copy
 		channel.exec(command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 		channel.exec(command3); // restart the sshd service
-		channel.exec(command4); // delete the sshd_config file we left in the ec2-users home directory
 
 		// Leave a marker file on the file system indicating that root ssh is now enabled
 		RemoteFile enabled = getRootSSHEnabledFile(context.getSshEnabledUser());
