@@ -21,19 +21,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.CopyResult;
 import org.kuali.common.util.channel.model.RemoteFile;
-
-import com.google.common.base.Optional;
 
 public interface SecureChannel {
 
 	CommandResult exec(String command);
 
-	List<CommandResult> exec(String... commands);
+	CommandResult exec(CommandContext context);
 
-	CommandResult exec(String command, Optional<String> stdin);
+	List<CommandResult> exec(CommandContext... contexts);
+
+	List<CommandResult> exec(String... commands);
 
 	void execNoWait(String command);
 

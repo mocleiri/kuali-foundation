@@ -38,6 +38,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
+import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.CopyDirection;
 import org.kuali.common.util.channel.model.CopyResult;
@@ -101,7 +102,18 @@ public final class DefaultSecureChannel implements SecureChannel {
 		List<CommandResult> results = new ArrayList<CommandResult>();
 		List<String> copy = ImmutableList.copyOf(commands);
 		for (String command : copy) {
-			CommandResult result = exec(command, Optional.<String> absent());
+			CommandResult result = exec(command);
+			results.add(result);
+		}
+		return results;
+	}
+
+	@Override
+	public List<CommandResult> exec(CommandContext... contexts) {
+		List<CommandResult> results = new ArrayList<CommandResult>();
+		List<CommandContext> copy = ImmutableList.copyOf(contexts);
+		for (CommandContext context : copy) {
+			CommandResult result = exec(context);
 			results.add(result);
 		}
 		return results;
@@ -109,13 +121,17 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public CommandResult exec(String command) {
-		return exec(command, Optional.<String> absent());
+		return exec(new CommandContext.Builder(command).build());
 	}
 
 	@Override
-	public CommandResult exec(String command, Optional<String> stdin) {
-		Assert.noBlanks(command);
-		Assert.noNulls(stdin);
+	public CommandResult exec(CommandContext context) {
+
+		String command = context.getCommand();
+		Optional<String> stdin = context.getStdin();
+		Optional<Integer> timeout = context.getTimeout();
+		String encoding = this.context.getEncoding();
+
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
@@ -126,11 +142,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Open an exec channel
 			exec = getChannelExec();
 			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, context.getEncoding());
+			byte[] commandBytes = Str.getBytes(command, encoding);
 			// Store the command on the exec channel
 			exec.setCommand(commandBytes);
 			// Prepare the stdin stream
-			stdinStream = getInputStream(stdin, context.getEncoding());
+			stdinStream = getInputStream(stdin, encoding);
 			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
 			// Get the stdout stream from the ChannelExec object
@@ -142,15 +158,15 @@ public final class DefaultSecureChannel implements SecureChannel {
 			logger.debug("Executing [{}], stdin [{}]", command, NullUtils.trimToNone(stdin.orNull()));
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
-			connect(exec, Optional.<Integer> absent());
+			connect(exec, timeout);
 			// Convert stdout and stderr to String's
-			Optional<String> stdout = Optional.fromNullable(Str.getString(IOUtils.toByteArray(stdoutStream), context.getEncoding()));
-			Optional<String> stderr = Optional.fromNullable(Str.getString(stderrStream.toByteArray(), context.getEncoding()));
+			Optional<String> stdout = Optional.fromNullable(Str.getString(IOUtils.toByteArray(stdoutStream), encoding));
+			Optional<String> stderr = Optional.fromNullable(Str.getString(stderrStream.toByteArray(), encoding));
 			// Make sure the channel is closed
-			waitForClosed(exec, context.getWaitForClosedSleepMillis());
+			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
 			// Return the result of executing the command
-			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start);
-			if (context.isEcho()) {
+			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, encoding, start);
+			if (this.context.isEcho()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
 				logger.info("{} - [{}]", command, elapsed);
 				if (stdin.isPresent()) {
