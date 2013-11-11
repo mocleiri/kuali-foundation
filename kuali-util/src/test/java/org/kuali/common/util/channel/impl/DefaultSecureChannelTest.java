@@ -20,7 +20,7 @@ public class DefaultSecureChannelTest {
 		try {
 			String privateKey = getPrivateKey();
 			ChannelContext context = new ChannelContext.Builder("ec2-54-242-254-25.compute-1.amazonaws.com").username("root").privateKey(privateKey).build();
-			SecureChannel channel = new DefaultSecureChannel(context);
+			SecureChannel channel = new StreamingSecureChannel(context);
 			CommandResult result = channel.exec("ls -la");
 			if (result.getStdout().isPresent()) {
 				System.out.println(result.getStdout().get());
