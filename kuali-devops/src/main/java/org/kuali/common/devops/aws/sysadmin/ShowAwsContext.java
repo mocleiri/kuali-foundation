@@ -35,7 +35,7 @@ public class ShowAwsContext implements Executable {
 		logger.info("---------- AWS Context ----------");
 		logger.info("Account Name: {}", account.getName());
 		if (account.getDescription().isPresent()) {
-			logger.info("Description: {}", account.getDescription());
+			logger.info("Description: {}", account.getDescription().get());
 		}
 		logger.info("---------------------------------");
 	}
