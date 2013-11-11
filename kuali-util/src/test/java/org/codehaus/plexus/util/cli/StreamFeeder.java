@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
+
 /**
  * Read from an InputStream and write the output to an OutputStream.
  * 
@@ -27,8 +29,8 @@ import java.io.OutputStream;
  * @version $Id$
  */
 public class StreamFeeder extends AbstractStreamHandler {
-	private InputStream input;
 
+	private InputStream input;
 	private OutputStream output;
 
 	/**
@@ -56,10 +58,8 @@ public class StreamFeeder extends AbstractStreamHandler {
 			// Catch everything so the streams will be closed and flagged as done.
 		} finally {
 			close();
-
 			synchronized (this) {
 				setDone();
-
 				this.notifyAll();
 			}
 		}
@@ -72,24 +72,14 @@ public class StreamFeeder extends AbstractStreamHandler {
 	public void close() {
 		if (input != null) {
 			synchronized (input) {
-				try {
-					input.close();
-				} catch (IOException ex) {
-					// ignore
-				}
-
+				IOUtils.closeQuietly(input);
 				input = null;
 			}
 		}
 
 		if (output != null) {
 			synchronized (output) {
-				try {
-					output.close();
-				} catch (IOException ex) {
-					// ignore
-				}
-
+				IOUtils.closeQuietly(output);
 				output = null;
 			}
 		}
