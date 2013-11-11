@@ -123,17 +123,21 @@ public final class Bootstrap implements Executable {
 
 		RemoteFile file = new RemoteFile.Builder(dst).build();
 
-		ChannelUtils.exec(channel, command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
+		channel.exec(command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
 		channel.scp(src, file); // copy the updated sshd_config file into the ec2-users home directory
-		ChannelUtils.exec(channel, command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
-		ChannelUtils.exec(channel, command3); // restart the sshd service
-		ChannelUtils.exec(channel, command4); // delete the sshd_config file we left in the ec2-users home directory
+		channel.exec(command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
+		channel.exec(command3); // restart the sshd service
+		channel.exec(command4); // delete the sshd_config file we left in the ec2-users home directory
 	}
 
+	/**
+	 * Check to see if the root users authorized_keys file begins with the text <code>command="</code>. Amazon puts that there by default on new instances to prevent root from
+	 * being able to ssh in directly.
+	 */
 	protected boolean isRootSSHEnabled(SecureChannel channel) {
 		User ec2 = context.getSshEnabledUser();
 		User root = context.getRoot();
-		RemoteFile temp = new RemoteFile.Builder(ec2.getHome() + "/ssh.bootstrap.check.tmp").build();
+		RemoteFile temp = new RemoteFile.Builder(ec2.getHome() + "/ssh.root.bootstrap.check").build();
 		String command1 = "sudo cp " + root.getAuthorizedKeys() + " " + temp.getAbsolutePath();
 		String command2 = "sudo chown " + ec2.getGroup() + ":" + ec2.getLogin() + " " + temp.getAbsolutePath();
 		channel.exec(command1); // Copy the authorized_keys file from root to a temp file
