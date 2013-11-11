@@ -47,21 +47,6 @@ public abstract class CommandLineUtils {
 		}
 	}
 
-	private static class ProcessHook extends Thread {
-		private final Process process;
-
-		private ProcessHook(Process process) {
-			super("CommandlineUtils process shutdown hook");
-			this.process = process;
-			this.setContextClassLoader(null);
-		}
-
-		@Override
-		public void run() {
-			process.destroy();
-		}
-	}
-
 	public static int executeCommandLine(Commandline cl, StreamConsumer systemOut, StreamConsumer systemErr) throws CommandLineException {
 		return executeCommandLine(cl, null, systemOut, systemErr, 0);
 	}
