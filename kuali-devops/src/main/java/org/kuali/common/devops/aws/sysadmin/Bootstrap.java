@@ -57,6 +57,7 @@ public final class Bootstrap implements Executable {
 			channel = getChannel(context.getRoot(), false);
 			if (!bootstrapCompleted(channel)) {
 				bootstrap(channel);
+				markAsBootstrapped(channel);
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -85,13 +86,11 @@ public final class Bootstrap implements Executable {
 			String command = "yum --assumeyes install " + CollectionUtils.getSpaceSeparatedString(context.getPackages());
 			channel.exec(command);
 		}
-
-		markAsBootstrapped(channel);
 	}
 
 	protected void markAsBootstrapped(SecureChannel channel) {
 		RemoteFile completed = getBootStrapCompletedFile();
-		String content = "bootstrap completed: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
+		String content = "bootstrapping completed: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		channel.scpString(content, completed);
 	}
 

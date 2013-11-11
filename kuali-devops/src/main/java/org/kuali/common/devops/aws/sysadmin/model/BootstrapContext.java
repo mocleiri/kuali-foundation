@@ -36,7 +36,7 @@ public final class BootstrapContext {
 		private final String privateKey;
 		private final User sshEnabledUser = Users.EC2USER.getUser();
 		private final User root = Users.ROOT.getUser();
-		private final String bootstrapCompletedAbsolutePath = root.getHome() + "/.bootstrap/bootstrap.completed";
+		private final String bootstrapCompletedAbsolutePath = root.getHome() + "/.bootstrap/bootstrapping.completed";
 		private final Distro distro = Distro.AMAZON;
 
 		// Optional
