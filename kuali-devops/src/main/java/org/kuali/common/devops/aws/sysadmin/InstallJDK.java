@@ -72,7 +72,7 @@ public final class InstallJDK implements Executable {
 			// Always install, no matter what (overrides the skip flags)
 			install(false);
 		} else if (skip) {
-			// Always skip the install (even it it's not installed)
+			// Skip the install (even it it's not installed)
 			return;
 		} else {
 			// Complete the install with the option to skip, if it's already installed
