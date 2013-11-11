@@ -23,9 +23,9 @@ public final class CommandResult {
 
 	public CommandResult(String command, int exitValue, Optional<String> stdin, Optional<String> stdout, Optional<String> stderr, String encoding, long start) {
 		this.stop = System.currentTimeMillis();
+		Assert.isTrue(stop >= start);
 		Assert.noBlanks(command, encoding);
 		Assert.noNegatives(start);
-		Assert.isTrue(stop >= start);
 		Assert.noNulls(stdin, stdout, stderr);
 		this.command = command;
 		this.exitValue = exitValue;
