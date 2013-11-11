@@ -29,6 +29,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.cli.StreamFeeder;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -37,7 +38,6 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.CopyDirection;
 import org.kuali.common.util.channel.model.CopyResult;
@@ -45,12 +45,10 @@ import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Status;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.channel.util.SSHUtils;
-import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
@@ -95,41 +93,24 @@ public final class StreamingSecureChannel {
 		closeQuietly(session);
 	}
 
-	public List<CommandResult> exec(String... commands) {
-		List<CommandResult> results = new ArrayList<CommandResult>();
-		List<String> copy = ImmutableList.copyOf(commands);
-		for (String command : copy) {
-			CommandResult result = exec(command);
-			results.add(result);
+	protected Optional<StreamFeeder> getInputFeeder(Optional<InputStream> stdinStream, OutputStream out) {
+		if (!stdinStream.isPresent()) {
+			return Optional.<StreamFeeder> absent();
+		} else {
+			return Optional.of(new StreamFeeder(stdinStream.get(), out));
 		}
-		return results;
 	}
 
-	public List<CommandResult> exec(CommandContext... contexts) {
-		List<CommandResult> results = new ArrayList<CommandResult>();
-		List<CommandContext> copy = ImmutableList.copyOf(contexts);
-		for (CommandContext context : copy) {
-			CommandResult result = exec(context);
-			results.add(result);
-		}
-		return results;
-	}
-
-	public CommandResult exec(String command) {
-		return exec(new CommandContext.Builder(command).build());
-	}
-
-	public CommandResult exec(CommandContext context) {
+	public CommandResult exec(StreamingCommandContext context) {
 
 		String command = context.getCommand();
-		Optional<String> stdin = context.getStdin();
+		Optional<InputStream> stdin = context.getStdin();
 		Optional<Integer> timeout = context.getTimeout();
 		String encoding = this.context.getEncoding();
 
 		ChannelExec exec = null;
 		InputStream stdoutStream = null;
 		ByteArrayOutputStream stderrStream = null;
-		Optional<InputStream> stdinStream = null;
 		try {
 			// Preserve start time
 			long start = System.currentTimeMillis();
@@ -139,40 +120,28 @@ public final class StreamingSecureChannel {
 			byte[] commandBytes = Str.getBytes(command, encoding);
 			// Store the command on the exec channel
 			exec.setCommand(commandBytes);
-			// Prepare the stdin stream
-			stdinStream = getInputStream(stdin, encoding);
 			// Prepare the stderr stream
 			stderrStream = new ByteArrayOutputStream();
 			// Get the stdout stream from the ChannelExec object
 			stdoutStream = exec.getInputStream();
 			// Update the ChannelExec object with the stdin stream
-			exec.setInputStream(stdinStream.orNull());
+			exec.setInputStream(stdin.orNull());
 			// Update the ChannelExec object with the stderr stream
 			exec.setErrStream(stderrStream);
-			logger.debug("Executing [{}], stdin [{}]", command, NullUtils.trimToNone(stdin.orNull()));
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, timeout);
-			// Convert stdout and stderr to String's
-			Optional<String> stdout = Optional.fromNullable(StringUtils.trimToNull(Str.getString(IOUtils.toByteArray(stdoutStream), encoding)));
-			Optional<String> stderr = Optional.fromNullable(StringUtils.trimToNull(Str.getString(stderrStream.toByteArray(), encoding)));
-			// Make sure the channel is closed
-			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
-			// Return the result of executing the command
-			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, encoding, start);
-			if (this.context.isEcho()) {
-				String elapsed = FormatUtils.getTime(result.getElapsed());
-				logger.info("{} - [{}]", command, elapsed);
-				if (stdin.isPresent()) {
-					logger.info("stdin - [{}]", stdin.get());
-				}
+			final Optional<StreamFeeder> inputFeeder = getInputFeeder(stdin, exec.getOutputStream());
+			if (inputFeeder.isPresent()) {
+				inputFeeder.get().start();
 			}
-			return result;
+			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
+			return null;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
 			// Cleanup
-			IOUtils.closeQuietly(stdinStream.orNull());
+			IOUtils.closeQuietly(stdin.orNull());
 			IOUtils.closeQuietly(stdoutStream);
 			IOUtils.closeQuietly(stderrStream);
 			closeQuietly(exec);
