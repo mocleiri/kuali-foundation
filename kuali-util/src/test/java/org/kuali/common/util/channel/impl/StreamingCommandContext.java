@@ -18,6 +18,7 @@ package org.kuali.common.util.channel.impl;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
@@ -29,8 +30,8 @@ public final class StreamingCommandContext {
 	private final String command;
 	private final Optional<InputStream> stdin;
 	private final Optional<Integer> timeout;
-	private final Optional<StreamConsumer> stdout;
-	private final Optional<StreamConsumer> stderr;
+	private final StreamConsumer stdout;
+	private final StreamConsumer stderr;
 
 	public static class Builder {
 
@@ -40,16 +41,16 @@ public final class StreamingCommandContext {
 		// Optional
 		private Optional<InputStream> stdin = Optional.absent();
 		private Optional<Integer> timeout = Optional.absent();
-		private Optional<StreamConsumer> stdout = Optional.absent();
-		private Optional<StreamConsumer> stderr = Optional.absent();
+		private StreamConsumer stdout = new DefaultConsumer();
+		private StreamConsumer stderr = new DefaultConsumer();
 
 		public Builder(String command) {
 			this.command = command;
 		}
 
-		public Builder stdin(String stdin, String encoding) {
-			Assert.noBlanks(stdin, encoding);
-			byte[] bytes = Str.getBytes(stdin, encoding);
+		public Builder stdin(String stdin) {
+			Assert.noBlanks(stdin);
+			byte[] bytes = Str.getBytes(stdin, "UTF-8");
 			return stdin(new ByteArrayInputStream(bytes));
 		}
 
@@ -89,14 +90,6 @@ public final class StreamingCommandContext {
 
 	public Optional<Integer> getTimeout() {
 		return timeout;
-	}
-
-	public Optional<StreamConsumer> getStdout() {
-		return stdout;
-	}
-
-	public Optional<StreamConsumer> getStderr() {
-		return stderr;
 	}
 
 }

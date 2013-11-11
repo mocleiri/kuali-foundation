@@ -24,7 +24,7 @@ public class DefaultSecureChannelTest {
 			String privateKey = getPrivateKey();
 			ChannelContext context = new ChannelContext.Builder("ec2-54-242-254-25.compute-1.amazonaws.com").username("root").privateKey(privateKey).build();
 			StreamingSecureChannel channel = new StreamingSecureChannel(context);
-			StreamingCommandContext cc = new StreamingCommandContext.Builder("man ls").stdin("q", "UTF-8").build();
+			StreamingCommandContext cc = new StreamingCommandContext.Builder("man ls").stdin("q").build();
 			channel.exec(cc);
 			// show("stdout", result.getStdout());
 			// show("stderr", result.getStderr());
