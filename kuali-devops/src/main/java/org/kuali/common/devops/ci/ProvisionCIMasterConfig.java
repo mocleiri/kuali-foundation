@@ -37,6 +37,7 @@ import org.kuali.common.devops.aws.sysadmin.Bootstrap;
 import org.kuali.common.devops.aws.sysadmin.CustomizeTomcat;
 import org.kuali.common.devops.aws.sysadmin.InstallJDK;
 import org.kuali.common.devops.aws.sysadmin.InstallZip;
+import org.kuali.common.devops.aws.sysadmin.ShowAwsContext;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.aws.sysadmin.model.CustomizeTomcatContext;
@@ -108,6 +109,7 @@ public class ProvisionCIMasterConfig {
 	public Executable main() {
 		long start = System.currentTimeMillis();
 		LaunchInstanceContext context = launchInstanceContext();
+		new ShowAwsContext(awsContext).execute();
 		new ShowLaunchConfig(serviceContext, context).execute();
 		// Instance instance = ec2.launchInstance(context);
 		Instance instance = ec2.getInstance("i-cdf008b5");
