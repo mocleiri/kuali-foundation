@@ -85,8 +85,11 @@ public final class InstallZip implements ChannelExecutable {
 			// Figure out if this zip is already installed
 			boolean installed = isZipInstalled(channel, context);
 
-			// Do the install if it's not installed OR the skip-if-installed flag is false
-			if (!installed || !context.isSkipIfInstalledAlready()) {
+			// Only skip if it's already installed and the skip-if-installed flag is set
+			boolean skip = installed && context.isSkipIfInstalledAlready();
+
+			// If we aren't skipping the install, install it
+			if (!skip) {
 				install(channel, context);
 			}
 		}
