@@ -95,7 +95,10 @@ public final class InstallJDK implements Executable {
 
 			// If we aren't skipping the install, install it!
 			if (!skip) {
-				install(channel);
+				String jdkHome = context.getInstallDir();
+				install(channel, jdkHome);
+				markAsInstalled(channel, jdkHome);
+				Assert.isTrue(isInstalled(channel, context.getInstallDir()), "Unable to verify the JDK installation");
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -104,9 +107,7 @@ public final class InstallJDK implements Executable {
 		}
 	}
 
-	protected void install(SecureChannel channel) {
-
-		String jdkHome = context.getInstallDir();
+	protected void install(SecureChannel channel, String jdkHome) {
 
 		// Make sure everything in bin and jre/bin is executable
 		String bin = jdkHome + "/bin";
@@ -124,6 +125,9 @@ public final class InstallJDK implements Executable {
 		// customize the jdk installation as needed
 		channel.exec(command1, command2);
 
+	}
+
+	protected void markAsInstalled(SecureChannel channel, String jdkHome) {
 		// leave a marker file indicating the installation/customization has been completed correctly
 		String content = "jdk installed and customized: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		RemoteFile file = getJdkCustomizationCompleteFile(jdkHome);
