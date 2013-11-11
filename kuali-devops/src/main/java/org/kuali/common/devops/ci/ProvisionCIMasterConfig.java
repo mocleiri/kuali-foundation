@@ -111,8 +111,8 @@ public class ProvisionCIMasterConfig {
 		LaunchInstanceContext context = launchInstanceContext();
 		new ShowAwsContext(awsContext).execute();
 		new ShowLaunchConfig(serviceContext, context).execute();
-		// Instance instance = ec2.launchInstance(context);
-		Instance instance = ec2.getInstance("i-cdf008b5");
+		Instance instance = ec2.launchInstance(context);
+		// Instance instance = ec2.getInstance("i-cdf008b5");
 		String privateKey = awsContext.getAuth().getKeyPair().getPrivateKey().get();
 		BootstrapContext bc = new BootstrapContext.Builder(scs, instance.getPublicDnsName(), privateKey).build();
 		new Bootstrap(bc).execute();
