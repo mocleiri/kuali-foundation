@@ -36,7 +36,6 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.ThreadUtils;
-import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.channel.model.CommandResult;
@@ -61,7 +60,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-public final class StreamingSecureChannel implements SecureChannel {
+public final class StreamingSecureChannel {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultSecureChannel.class);
 
@@ -86,7 +85,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public void close() {
 		if (context.isEcho()) {
 			logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(context.getUsername(), context.getHostname()));
@@ -97,7 +95,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		closeQuietly(session);
 	}
 
-	@Override
 	public List<CommandResult> exec(String... commands) {
 		List<CommandResult> results = new ArrayList<CommandResult>();
 		List<String> copy = ImmutableList.copyOf(commands);
@@ -108,7 +105,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return results;
 	}
 
-	@Override
 	public List<CommandResult> exec(CommandContext... contexts) {
 		List<CommandResult> results = new ArrayList<CommandResult>();
 		List<CommandContext> copy = ImmutableList.copyOf(contexts);
@@ -119,12 +115,10 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return results;
 	}
 
-	@Override
 	public CommandResult exec(String command) {
 		return exec(new CommandContext.Builder(command).build());
 	}
 
-	@Override
 	public CommandResult exec(CommandContext context) {
 
 		String command = context.getCommand();
@@ -193,7 +187,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return exec;
 	}
 
-	@Override
 	public void execNoWait(String command) {
 		Assert.noBlanks(command);
 		ChannelExec exec = null;
@@ -233,7 +226,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public RemoteFile getWorkingDirectory() {
 		try {
 			String workingDirectory = sftp.pwd();
@@ -350,13 +342,11 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return SSHUtils.getExistingAndReadable(uniquePaths);
 	}
 
-	@Override
 	public RemoteFile getMetaData(String absolutePath) {
 		Assert.noBlanks(absolutePath);
 		return fillInAttributes(absolutePath);
 	}
 
-	@Override
 	public void deleteFile(String absolutePath) {
 		RemoteFile file = getMetaData(absolutePath);
 		if (isStatus(file, Status.MISSING)) {
@@ -375,13 +365,11 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public boolean exists(String absolutePath) {
 		RemoteFile file = getMetaData(absolutePath);
 		return isStatus(file, Status.EXISTS);
 	}
 
-	@Override
 	public boolean isDirectory(String absolutePath) {
 		RemoteFile file = getMetaData(absolutePath);
 		return isStatus(file, Status.EXISTS) && file.isDirectory();
@@ -406,7 +394,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return new RemoteFile.Builder(path).directory(directory).permissions(permissions).userId(userId).groupId(groupId).size(size).status(status).build();
 	}
 
-	@Override
 	public CopyResult scp(File source, RemoteFile destination) {
 		Assert.notNull(source);
 		Assert.exists(source);
@@ -415,7 +402,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return scp(LocationUtils.getCanonicalURLString(source), destination);
 	}
 
-	@Override
 	public CopyResult scpToDir(File source, RemoteFile directory) {
 		String filename = source.getName();
 		String absolutePath = getAbsolutePath(directory.getAbsolutePath(), filename);
@@ -423,7 +409,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return scp(source, file);
 	}
 
-	@Override
 	public CopyResult scp(String location, RemoteFile destination) {
 		Assert.notNull(location);
 		Assert.isTrue(LocationUtils.exists(location), location + " does not exist");
@@ -438,7 +423,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public CopyResult scpString(String string, RemoteFile destination) {
 		Assert.notNull(string);
 		InputStream in = new ByteArrayInputStream(Str.getBytes(string, context.getEncoding()));
@@ -447,7 +431,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return result;
 	}
 
-	@Override
 	public String toString(RemoteFile source) {
 		Assert.notNull(source);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -461,7 +444,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public CopyResult scp(InputStream source, RemoteFile destination) {
 		Assert.notNull(source);
 		try {
@@ -485,7 +467,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public CopyResult scpToDir(String location, RemoteFile directory) {
 		String filename = LocationUtils.getFilename(location);
 		String absolutePath = getAbsolutePath(directory.getAbsolutePath(), filename);
@@ -493,7 +474,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		return scp(location, file);
 	}
 
-	@Override
 	public CopyResult scp(RemoteFile source, File destination) {
 		OutputStream out = null;
 		try {
@@ -506,7 +486,6 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public CopyResult scp(String absolutePath, OutputStream out) throws IOException {
 		try {
 			long start = System.currentTimeMillis();
@@ -544,19 +523,16 @@ public final class StreamingSecureChannel implements SecureChannel {
 		}
 	}
 
-	@Override
 	public CopyResult scp(RemoteFile source, OutputStream out) throws IOException {
 		return scp(source.getAbsolutePath(), out);
 	}
 
-	@Override
 	public CopyResult scpToDir(RemoteFile source, File destination) {
 		String filename = FilenameUtils.getName(source.getAbsolutePath());
 		File newDestination = new File(destination, filename);
 		return scp(source, newDestination);
 	}
 
-	@Override
 	public void createDirectory(RemoteFile dir) {
 		Assert.isTrue(dir.isDirectory());
 		try {
