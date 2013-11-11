@@ -65,7 +65,7 @@ public final class StreamingCommandContext {
 
 		public StreamingCommandContext build() {
 			Assert.noBlanks(command);
-			Assert.noNulls(stdout, timeout, stdout, stderr);
+			Assert.noNulls(stdin, timeout, stdout, stderr);
 			return new StreamingCommandContext(this);
 		}
 
