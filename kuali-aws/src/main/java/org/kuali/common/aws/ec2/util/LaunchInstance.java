@@ -5,17 +5,17 @@ import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
-public class LaunchInstanceExecutable implements Executable {
+public class LaunchInstance implements Executable {
 
 	private final EC2Service service;
 	private final LaunchInstanceContext context;
 	private final boolean skip;
 
-	public LaunchInstanceExecutable(EC2Service service, LaunchInstanceContext context) {
+	public LaunchInstance(EC2Service service, LaunchInstanceContext context) {
 		this(service, context, false);
 	}
 
-	public LaunchInstanceExecutable(EC2Service service, LaunchInstanceContext context, boolean skip) {
+	public LaunchInstance(EC2Service service, LaunchInstanceContext context, boolean skip) {
 		Assert.noNulls(service, context);
 		this.service = service;
 		this.context = context;

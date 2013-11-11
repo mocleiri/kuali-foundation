@@ -18,19 +18,19 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class ShowLaunchConfigExecutable implements Executable {
+public class ShowLaunchConfig implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(ShowLaunchConfigExecutable.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShowLaunchConfig.class);
 
 	private final EC2ServiceContext serviceContext;
 	private final LaunchInstanceContext instanceContext;
 	private final boolean skip;
 
-	public ShowLaunchConfigExecutable(EC2ServiceContext serviceContext, LaunchInstanceContext instanceContext) {
+	public ShowLaunchConfig(EC2ServiceContext serviceContext, LaunchInstanceContext instanceContext) {
 		this(serviceContext, instanceContext, false);
 	}
 
-	public ShowLaunchConfigExecutable(EC2ServiceContext serviceContext, LaunchInstanceContext instanceContext, boolean skip) {
+	public ShowLaunchConfig(EC2ServiceContext serviceContext, LaunchInstanceContext instanceContext, boolean skip) {
 		Assert.noNulls(serviceContext, instanceContext);
 		this.serviceContext = serviceContext;
 		this.instanceContext = instanceContext;
