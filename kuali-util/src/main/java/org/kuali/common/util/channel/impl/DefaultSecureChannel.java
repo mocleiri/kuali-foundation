@@ -179,7 +179,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void execNoWait(String command) {
-		Assert.notBlank(command);
+		Assert.noBlanks(command);
 		ChannelExec exec = null;
 		try {
 			if (context.isEcho()) {
