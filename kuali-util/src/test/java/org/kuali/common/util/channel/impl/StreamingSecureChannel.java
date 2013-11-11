@@ -29,7 +29,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.StreamFeeder;
+import org.codehaus.plexus.util.cli.StreamPumper;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -109,8 +111,6 @@ public final class StreamingSecureChannel {
 		String encoding = this.context.getEncoding();
 
 		ChannelExec exec = null;
-		InputStream stdoutStream = null;
-		ByteArrayOutputStream stderrStream = null;
 		try {
 			// Preserve start time
 			long start = System.currentTimeMillis();
@@ -120,30 +120,27 @@ public final class StreamingSecureChannel {
 			byte[] commandBytes = Str.getBytes(command, encoding);
 			// Store the command on the exec channel
 			exec.setCommand(commandBytes);
-			// Prepare the stderr stream
-			stderrStream = new ByteArrayOutputStream();
-			// Get the stdout stream from the ChannelExec object
-			stdoutStream = exec.getInputStream();
 			// Update the ChannelExec object with the stdin stream
 			exec.setInputStream(stdin.orNull());
-			// Update the ChannelExec object with the stderr stream
-			exec.setErrStream(stderrStream);
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, timeout);
 			final Optional<StreamFeeder> inputFeeder = getInputFeeder(stdin, exec.getOutputStream());
+			final StreamPumper outputPumper = new StreamPumper(exec.getInputStream(), context.getStdout());
+			final StreamPumper errorPumper = new StreamPumper(exec.getErrStream(), context.getStderr());
 			if (inputFeeder.isPresent()) {
 				inputFeeder.get().start();
 			}
+			outputPumper.start();
+			errorPumper.start();
+
 			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
+			CommandLineUtils.waitForAllPumpers(inputFeeder.orNull(), outputPumper, errorPumper);
 			return null;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
-			// Cleanup
 			IOUtils.closeQuietly(stdin.orNull());
-			IOUtils.closeQuietly(stdoutStream);
-			IOUtils.closeQuietly(stderrStream);
 			closeQuietly(exec);
 		}
 	}

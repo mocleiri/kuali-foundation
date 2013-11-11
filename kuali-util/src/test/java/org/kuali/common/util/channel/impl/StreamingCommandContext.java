@@ -92,4 +92,12 @@ public final class StreamingCommandContext {
 		return timeout;
 	}
 
+	public StreamConsumer getStdout() {
+		return stdout;
+	}
+
+	public StreamConsumer getStderr() {
+		return stderr;
+	}
+
 }
