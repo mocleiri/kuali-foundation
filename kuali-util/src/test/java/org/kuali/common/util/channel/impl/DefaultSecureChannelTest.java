@@ -3,6 +3,7 @@ package org.kuali.common.util.channel.impl;
 import org.jasypt.util.text.TextEncryptor;
 import org.junit.Test;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
@@ -25,11 +26,13 @@ public class DefaultSecureChannelTest {
 			CommandResult result = channel.exec(cc);
 			if (result.getStdout().isPresent()) {
 				String stdout = result.getStdout().get();
-				System.out.println("\n-- stdin -- " + stdout.length() + "\n" + result.getStdout().get() + "\n-- stdin --\n");
+				String size = FormatUtils.getSize(stdout.length());
+				System.out.println("\n-- stdout -- " + size + "\n" + result.getStdout().get() + "\n-- stdout --\n");
 			}
 			if (result.getStderr().isPresent()) {
 				String stderr = result.getStderr().get();
-				System.out.println("\n-- stderr -- " + stderr.length() + "\n" + result.getStderr().get() + "\n-- stderr --\n");
+				String size = FormatUtils.getSize(stderr.length());
+				System.out.println("\n-- stderr -- " + size + "\n" + result.getStderr().get() + "\n-- stderr --\n");
 			}
 			channel.close();
 		} catch (Exception e) {
