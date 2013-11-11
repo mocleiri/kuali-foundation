@@ -126,11 +126,12 @@ public final class Bootstrap implements Executable {
 		RemoteFile file = new RemoteFile.Builder(dst).build();
 
 		channel.exec(command1); // copy authorized_keys from ec2-user to root. This allows root to ssh
-		channel.scp(src, file); // copy the updated sshd_config file into the ec2-users home directory
+		channel.scp(src, file); // create an sshd_config file in the ec2-users home directory from our internally modified copy
 		channel.exec(command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 		channel.exec(command3); // restart the sshd service
 		channel.exec(command4); // delete the sshd_config file we left in the ec2-users home directory
 
+		// Leave a marker file on the file system indicating that root ssh is now enabled
 		RemoteFile enabled = getRootSSHEnabledFile(context.getSshEnabledUser());
 		String content = "root ssh enabled: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		channel.scpString(content, enabled); // Create /home/ec2-user/.bootstrap/root-ssh.enabled
