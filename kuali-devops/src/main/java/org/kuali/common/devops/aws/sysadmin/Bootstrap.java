@@ -131,7 +131,7 @@ public final class Bootstrap implements Executable {
 	}
 
 	/**
-	 * Check to see if the root users authorized_keys file begins with the text <code>command="</code>. Amazon puts that there by default on new instances to prevent root from
+	 * Check to see if the root users authorized_keys file starts with the text <code>command="</code>. Amazon puts that there by default on new instances to prevent root from
 	 * being able to ssh in directly.
 	 */
 	protected boolean isRootSSHEnabled(SecureChannel channel) {
@@ -145,7 +145,7 @@ public final class Bootstrap implements Executable {
 		String auth = channel.toString(temp); // Convert the contents of the file to a string
 		channel.deleteFile(temp.getAbsolutePath()); // Delete the temp file
 		Assert.noBlanks(auth);
-		boolean enabled = !auth.contains("command=\"");
+		boolean enabled = !auth.trim().startsWith("command=\"");
 		return enabled;
 	}
 
