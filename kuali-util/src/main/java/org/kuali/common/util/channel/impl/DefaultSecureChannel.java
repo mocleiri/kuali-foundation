@@ -149,7 +149,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Make sure the channel is closed
 			waitForClosed(exec, context.getWaitForClosedSleepMillis());
 			// Return the result of executing the command
-			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start, System.currentTimeMillis());
+			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, context.getEncoding(), start);
 			if (context.isEcho()) {
 				String elapsed = FormatUtils.getTime(result.getElapsed());
 				logger.info("{} - [{}]", command, elapsed);

@@ -21,9 +21,10 @@ import com.google.common.base.Optional;
 
 public final class CommandResult {
 
-	public CommandResult(String command, int exitValue, Optional<String> stdin, Optional<String> stdout, Optional<String> stderr, String encoding, long start, long stop) {
+	public CommandResult(String command, int exitValue, Optional<String> stdin, Optional<String> stdout, Optional<String> stderr, String encoding, long start) {
+		this.stop = System.currentTimeMillis();
 		Assert.noBlanks(command, encoding);
-		Assert.noNegatives(start, stop);
+		Assert.noNegatives(start);
 		Assert.isTrue(stop >= start);
 		Assert.noNulls(stdin, stdout, stderr);
 		this.command = command;
@@ -33,7 +34,6 @@ public final class CommandResult {
 		this.stderr = stderr;
 		this.encoding = encoding;
 		this.start = start;
-		this.stop = stop;
 		this.elapsed = stop - start;
 	}
 
