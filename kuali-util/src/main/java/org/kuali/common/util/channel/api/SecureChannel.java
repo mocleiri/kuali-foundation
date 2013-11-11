@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.CopyResult;
@@ -30,6 +31,8 @@ public interface SecureChannel {
 
 	CommandResult exec(String command);
 
+	List<CommandResult> exec(String... commands);
+
 	CommandResult exec(String command, Optional<String> stdin);
 
 	void execNoWait(String command);
@@ -40,6 +43,9 @@ public interface SecureChannel {
 
 	CopyResult scp(InputStream source, RemoteFile destination);
 
+	/**
+	 * Copy the contents of <code>string</code> to <code>destination</code>
+	 */
 	CopyResult scpString(String string, RemoteFile destination);
 
 	CopyResult scpToDir(String location, RemoteFile directory);

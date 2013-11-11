@@ -50,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
@@ -93,6 +94,17 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 		closeQuietly(sftp);
 		closeQuietly(session);
+	}
+
+	@Override
+	public List<CommandResult> exec(String... commands) {
+		List<CommandResult> results = new ArrayList<CommandResult>();
+		List<String> copy = ImmutableList.copyOf(commands);
+		for (String command : copy) {
+			CommandResult result = exec(command, Optional.<String> absent());
+			results.add(result);
+		}
+		return results;
 	}
 
 	@Override
