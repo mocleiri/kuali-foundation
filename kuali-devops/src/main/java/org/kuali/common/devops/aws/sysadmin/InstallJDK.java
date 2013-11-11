@@ -79,7 +79,7 @@ public final class InstallJDK implements Executable {
 	}
 
 	protected RemoteFile getJdkCustomizationCompleteFile(String jdkHome) {
-		String absolutePath = jdkHome + "/jdk.installed";
+		String absolutePath = jdkHome + "/jdk.customized";
 		return new RemoteFile.Builder(absolutePath).build();
 	}
 
