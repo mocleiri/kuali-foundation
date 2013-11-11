@@ -87,14 +87,11 @@ import org.codehaus.plexus.util.IOUtil;
  * @since June 11, 2001
  */
 public class StreamPumper extends AbstractStreamHandler {
+
 	private final BufferedReader in;
-
 	private final StreamConsumer consumer;
-
 	private final PrintWriter out;
-
 	private volatile Exception exception = null;
-
 	private static final int SIZE = 1024;
 
 	public StreamPumper(InputStream in) {
@@ -129,7 +126,6 @@ public class StreamPumper extends AbstractStreamHandler {
 
 				if (out != null) {
 					out.println(line);
-
 					out.flush();
 				}
 			}
@@ -137,10 +133,8 @@ public class StreamPumper extends AbstractStreamHandler {
 			exception = e;
 		} finally {
 			IOUtil.close(in);
-
 			synchronized (this) {
 				setDone();
-
 				this.notifyAll();
 			}
 		}
