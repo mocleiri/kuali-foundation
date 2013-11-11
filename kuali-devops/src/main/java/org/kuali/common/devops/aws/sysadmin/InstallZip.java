@@ -75,28 +75,39 @@ public final class InstallZip implements Executable {
 		install(context);
 	}
 
-	protected void install(InstallZipContext context) {
+	protected boolean isZipInstalled(SecureChannel channel) {
+		return false;
+	}
+
+	protected void install(SecureChannel channel) {
 		Artifact artifact = context.getZip().getArtifact();
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
+		String target = context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
+		String linkName = context.getInstallDir();
+		String zipFile = remoteFile.getAbsolutePath();
+		String unzipDir = context.getRemotePackageDir();
+
+		String command1 = "rm -rf " + target + " " + linkName; // Remove the existing symbolic link and unzipped package directory (if they exist)
+		String command2 = "unzip " + zipFile + " -d " + unzipDir; // Unzip the package into a directory containing the version number
+		String command3 = "ln -s " + target + " " + linkName; // Create a symbolic link via the user friendly package name (sans version number)
+		String command4 = "rm " + zipFile; // Remove the zip file
+
+		exec(channel, before); // Do any pre-processing as needed
+		channel.scp(localFile, remoteFile); // Copy the zip file
+		ChannelUtils.exec(channel, command1, command2, command3, command4); // Install the package from the zip
+		exec(channel, after); // Do any post-processing as needed
+	}
+
+	protected void install(InstallZipContext context) {
 		SecureChannel channel = null;
 		try {
-			String target = context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
-			String linkName = context.getInstallDir();
-			String zipFile = remoteFile.getAbsolutePath();
-			String unzipDir = context.getRemotePackageDir();
-
-			String command1 = "rm -rf " + target + " " + linkName; // Remove the existing symbolic link and unzipped package directory (if they exist)
-			String command2 = "unzip " + zipFile + " -d " + unzipDir; // Unzip the package into a directory containing the version number
-			String command3 = "ln -s " + target + " " + linkName; // Create a symbolic link via the user friendly package name (sans version number)
-			String command4 = "rm " + zipFile; // Remove the zip file
-
 			channel = context.getService().openChannel(context.getContext()); // Open a secure channel to the server
-			exec(channel, before); // Do any pre-processing as needed
-			channel.scp(localFile, remoteFile); // Copy the zip file
-			ChannelUtils.exec(channel, command1, command2, command3, command4); // Install the package from the zip
-			exec(channel, after); // Do any post-processing as needed
+			boolean installed = isZipInstalled(channel);
+			if (!installed) {
+				install(channel);
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
 		} finally {
