@@ -15,6 +15,7 @@ public final class InstallZipContext {
 	private final File localRepositoryDir;
 	private final String remotePackageDir;
 	private final String installDir;
+	private final boolean skipIfInstalledAlready;
 
 	public static class Builder {
 
@@ -26,6 +27,7 @@ public final class InstallZipContext {
 		// Optional
 		private File localRepositoryDir = RepositoryUtils.getDefaultLocalRepository();
 		private String remotePackageDir = "/usr/local";
+		private boolean skipIfInstalledAlready = true;
 
 		// Filled in automatically, based off of remotePackageDir + package name
 		private String installDir;
@@ -46,6 +48,11 @@ public final class InstallZipContext {
 			return this;
 		}
 
+		public Builder skipIfInstalledAlready(boolean skipIfInstalledAlready) {
+			this.skipIfInstalledAlready = skipIfInstalledAlready;
+			return this;
+		}
+
 		public InstallZipContext build() {
 			Assert.noNulls(service, context, zip, localRepositoryDir);
 			Assert.noBlanks(remotePackageDir);
@@ -62,6 +69,7 @@ public final class InstallZipContext {
 		this.localRepositoryDir = builder.localRepositoryDir;
 		this.remotePackageDir = builder.remotePackageDir;
 		this.installDir = builder.installDir;
+		this.skipIfInstalledAlready = builder.skipIfInstalledAlready;
 	}
 
 	public ChannelService getService() {
@@ -86,6 +94,10 @@ public final class InstallZipContext {
 
 	public String getInstallDir() {
 		return installDir;
+	}
+
+	public boolean isSkipIfInstalledAlready() {
+		return skipIfInstalledAlready;
 	}
 
 }
