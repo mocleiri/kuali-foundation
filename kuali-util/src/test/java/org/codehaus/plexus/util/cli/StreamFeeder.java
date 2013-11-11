@@ -54,7 +54,7 @@ public class StreamFeeder extends AbstractStreamHandler {
 		try {
 			feed();
 		} catch (Throwable ex) {
-			// Catched everything so the streams will be closed and flagged as done.
+			// Catch everything so the streams will be closed and flagged as done.
 		} finally {
 			close();
 
