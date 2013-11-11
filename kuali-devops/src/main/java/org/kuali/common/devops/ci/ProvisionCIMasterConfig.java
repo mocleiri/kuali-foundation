@@ -131,11 +131,11 @@ public class ProvisionCIMasterConfig {
 		Zip jdk7 = new Zip.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
 		Zip jdk6 = new Zip.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
 		Heap heap = Heaps.asMap().get(instance.getInstanceType());
-		InstallZip jdk = getJDKInstaller(channel, jdk7);
+		InstallJDK jdk = getJDKInstaller(channel, jdk7);
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(jdk);
 		String javaHome = jdk.getContext().getInstallDir();
-		executables.add(getTomcatInstaller(channel, tomcat7Zip, javaHome, heap));
+		// executables.add(getTomcatInstaller(channel, tomcat7Zip, javaHome, heap));
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
@@ -151,10 +151,9 @@ public class ProvisionCIMasterConfig {
 		return new InstallZip.Builder(zip).after(after).build();
 	}
 
-	protected InstallZip getJDKInstaller(ChannelContext channel, Zip zip) {
+	protected InstallJDK getJDKInstaller(ChannelContext channel, Zip zip) {
 		InstallZipContext context = new InstallZipContext.Builder(scs, channel, zip).build();
-		ChannelExecutable after = new InstallJDK(context.getInstallDir());
-		return new InstallZip.Builder(context).after(after).build();
+		return new InstallJDK(context);
 	}
 
 	@Bean
