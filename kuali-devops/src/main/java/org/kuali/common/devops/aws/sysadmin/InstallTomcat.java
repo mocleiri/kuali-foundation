@@ -91,7 +91,7 @@ public final class InstallTomcat implements Executable {
 		ChannelUtils.exec(channel, "rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
 
 		// Add, update, replace, configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
-		List<Deployable> deployables = TomcatUtils.getDeployables(context.getZip().getInstallDir(), context.getMajorVersion());
+		List<Deployable> deployables = TomcatConfig.getDeployables(context.getZip().getInstallDir(), context.getMajorVersion());
 		for (Deployable deployable : deployables) {
 			channel.scp(deployable.getSource(), deployable.getDestination());
 		}
