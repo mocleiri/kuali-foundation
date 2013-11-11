@@ -43,6 +43,8 @@ public final class Permission implements Comparable<Permission> {
 			Assert.noBlanks(cidrNotations);
 			Assert.isTrue(cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
 			Assert.isPort(port);
+
+			// Changing this has implications for equals(), be careful
 			this.cidrNotations = new ArrayList<String>(cidrNotations);
 			Collections.sort(cidrNotations);
 			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
@@ -97,12 +99,12 @@ public final class Permission implements Comparable<Permission> {
 			return true;
 		}
 
-		// Non-null object is by definition not equal to null
+		// A non-null object reference is by definition not equal to null
 		if (object == null) {
 			return false;
 		}
 
-		// They are different runtime types
+		// They are different runtime types and therefore cannot be considered equal
 		if (this.getClass() != object.getClass()) {
 			return false;
 		}
