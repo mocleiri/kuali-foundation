@@ -7,7 +7,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.util.ChannelExecutable;
-import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.maven.RepositoryUtils;
 import org.kuali.common.util.maven.model.Artifact;
 
@@ -99,9 +98,12 @@ public final class InstallZip implements ChannelExecutable {
 
 	protected void install(SecureChannel channel, InstallZipContext context) {
 		Artifact artifact = context.getZip().getArtifact();
+		
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
-		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
+		
+		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
+
 		String target = getTargetDir(context);
 		String linkName = context.getInstallDir();
 		String zipFile = remoteFile.getAbsolutePath();
@@ -114,7 +116,7 @@ public final class InstallZip implements ChannelExecutable {
 
 		exec(channel, before); // Do any pre-processing as needed
 		channel.scp(localFile, remoteFile); // Copy the zip file
-		ChannelUtils.exec(channel, command1, command2, command3, command4); // Install the package from the zip
+		channel.exec(command1, command2, command3, command4); // Install the package from the zip
 		exec(channel, after); // Do any post-processing as needed
 	}
 
