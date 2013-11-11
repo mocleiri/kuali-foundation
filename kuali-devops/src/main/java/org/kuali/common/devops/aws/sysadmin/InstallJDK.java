@@ -37,6 +37,23 @@ public final class InstallJDK implements Executable {
 			return;
 		}
 
+		SecureChannel channel = null;
+		try {
+			channel = context.getService().openChannel(context.getContext());
+			boolean installed = isInstalled(channel, context.getInstallDir());
+			if (!installed) {
+				install(channel);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Unexpected IO error", e);
+		} finally {
+			ChannelUtils.closeQuietly(channel);
+		}
+
+	}
+
+	protected void install(SecureChannel channel) {
+
 		String jdkHome = context.getInstallDir();
 
 		// Make sure everything in bin and jre/bin is executable
@@ -49,23 +66,12 @@ public final class InstallJDK implements Executable {
 		String dst = jdkHome + "/jre/lib/ext/tools.jar";
 		String command2 = "cp " + src + " " + dst;
 
-		SecureChannel channel = null;
-		try {
-			channel = context.getService().openChannel(context.getContext());
-			boolean installed = isInstalled(channel, jdkHome);
-			if (!installed) {
-				new InstallZip.Builder(context).runAlways(true).build().execute(channel);
-				channel.exec(command1);
-				channel.exec(command2);
-				String content = "jdk customized: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
-				channel.scpString(content, getJdkCustomizationCompleteFile(jdkHome));
-			}
-		} catch (IOException e) {
-			throw new IllegalStateException("Unexpected IO error", e);
-		} finally {
-			ChannelUtils.closeQuietly(channel);
-		}
-
+		new InstallZip.Builder(context).runAlways(true).build().execute(channel);
+		channel.exec(command1);
+		channel.exec(command2);
+		String content = "jdk customized: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
+		RemoteFile file = getJdkCustomizationCompleteFile(jdkHome);
+		channel.scpString(content, file);
 	}
 
 	protected RemoteFile getJdkCustomizationCompleteFile(String jdkHome) {
