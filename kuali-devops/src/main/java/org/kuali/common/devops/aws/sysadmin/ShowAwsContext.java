@@ -1,5 +1,6 @@
 package org.kuali.common.devops.aws.sysadmin;
 
+import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.AwsContext;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
@@ -30,9 +31,12 @@ public class ShowAwsContext implements Executable {
 			return;
 		}
 
+		AwsAccount account = context.getAccount();
 		logger.info("---------- AWS Context ----------");
-		logger.info("Account Name: {}", context.getAccount().getName());
-		logger.info("Description: {}", context.getAccount().getDescription());
+		logger.info("Account Name: {}", account.getName());
+		if (account.getDescription().isPresent()) {
+			logger.info("Description: {}", account.getDescription());
+		}
 		logger.info("---------------------------------");
 	}
 
