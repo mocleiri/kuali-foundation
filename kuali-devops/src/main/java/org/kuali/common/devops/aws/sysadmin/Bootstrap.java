@@ -109,6 +109,8 @@ public final class Bootstrap implements Executable {
 			boolean enabled = isRootSSHEnabled(channel);
 			if (!enabled) {
 				enableRootSSH(channel);
+				markAsRootSSHEnabled(channel);
+				Assert.isTrue(isRootSSHEnabled(channel), "Unable to verify that root SSH is enabled");
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
@@ -134,6 +136,9 @@ public final class Bootstrap implements Executable {
 		channel.exec(command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 		channel.exec(command3); // restart the sshd service
 
+	}
+
+	protected void markAsRootSSHEnabled(SecureChannel channel) {
 		// Leave a marker file on the file system indicating that root ssh is now enabled
 		RemoteFile enabled = getRootSSHEnabledFile(context.getSshEnabledUser());
 		String content = "root ssh enabled: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
