@@ -84,7 +84,7 @@ public final class InstallZip implements Executable {
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
-		String target = context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
+		String target = getTargetDir();
 		String linkName = context.getInstallDir();
 		String zipFile = remoteFile.getAbsolutePath();
 		String unzipDir = context.getRemotePackageDir();
@@ -98,6 +98,11 @@ public final class InstallZip implements Executable {
 		channel.scp(localFile, remoteFile); // Copy the zip file
 		ChannelUtils.exec(channel, command1, command2, command3, command4); // Install the package from the zip
 		exec(channel, after); // Do any post-processing as needed
+	}
+
+	protected String getTargetDir() {
+		Artifact artifact = context.getZip().getArtifact();
+		return context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
 	}
 
 	protected void install(InstallZipContext context) {
