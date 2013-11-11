@@ -61,6 +61,24 @@
     <ci.host>ci.fn.kuali.org</ci.host>
     <jenkins.hostname>${ci.host}</jenkins.hostname>
 
+    <jmeter.phase>verify</jmeter.phase>
+    <jmeter.goal>jmeter</jmeter.goal>
+    <jmeter.testFilesDirectory>${basedir}/src/test/resources/jmeter</jmeter.testFilesDirectory>
+    <jmeter.jMeterTestFile>**/*.jmx</jmeter.jMeterTestFile>
+    <jmeter.excludeJmeterTestFile>NOT_NULL</jmeter.excludeJmeterTestFile>
+    <!-- JMeter properties here will override JMeter User Defined Variable defaults. JMeter User Defined Variable defaults
+         for these properties are only defaulted to if run from the JMeter UI or command line script. -->
+    <jmeter.testResultsTimestamp>false</jmeter.testResultsTimestamp>
+    <jmeter.server>localhost</jmeter.server>
+    <jmeter.port>8080</jmeter.port>
+    <jmeter.threads>1</jmeter.threads>
+    <jmeter.loops>1</jmeter.loops>
+    <jmeter.rampseconds>1</jmeter.rampseconds>
+    <jmeter.userprefix>testuser</jmeter.userprefix>
+    <jmeter.counterconfigstart>1</jmeter.counterconfigstart>
+    <jmeter.counterconfigend>6</jmeter.counterconfigend>
+    <jmeter.counterconfigincr>1</jmeter.counterconfigincr>
+
     <maven.resources.escapeString>\</maven.resources.escapeString>
     <maven.min.version>3.0.4</maven.min.version>
 
@@ -209,6 +227,7 @@
     <plugin.jar.version>2.4</plugin.jar.version>
     <plugin.javadoc.version>2.9</plugin.javadoc.version>
     <plugin.jenkins.version>1.2.6</plugin.jenkins.version>
+    <plugin.jmeter.version>1.8.1</plugin.jmeter.version>
     <plugin.klicense.version>1.6.4</plugin.klicense.version>
     <plugin.ksite.version>1.1.3</plugin.ksite.version>
     <plugin.license.version>1.9.0</plugin.license.version>
@@ -688,6 +707,59 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>jmeter</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.lazerycode.jmeter</groupId>
+              <artifactId>jmeter-maven-plugin</artifactId>
+              <version>${plugin.jmeter.version}</version>
+              <executions>
+                <execution>
+                  <id>jmeter-tests</id>
+                  <phase>${jmeter.phase}</phase>
+                  <goals>
+                    <goal>${jmeter.goal}</goal>
+                  </goals>
+                  <configuration>
+                    <testFilesDirectory>${jmeter.testFilesDirectory}</testFilesDirectory>
+                    <testFilesIncluded>
+                      <jMeterTestFile>${jmeter.jMeterTestFile}</jMeterTestFile>
+                    </testFilesIncluded>
+                    <testFilesExcluded>
+                      <excludeJmeterTestFile>${jmeter.excludeJmeterTestFile}</excludeJmeterTestFile>
+                    </testFilesExcluded>
+                    <testResultsTimestamp>${jmeter.testResultsTimestamp}</testResultsTimestamp>
+                    <propertiesUser>
+                      <!-- server and port must be defined (and used) in the JMeter jmx file as User Defined Variables
+                        ${__P(server,localhost)}
+                        ${__P(port,80)}
+                        See http://jmeter.apache.org/usermanual/component_reference.html#User_Defined_Variables
+                        http://jmeter.apache.org/usermanual/test_plan.html#using_variables
+                        http://jmeter.apache.org/usermanual/functions.html#__P
+                        http://jmeter.apache.org/usermanual/best-practices.html#parameterising_tests
+						https://wiki.kuali.org/display/KULRICE/How+to+run+Rice+JMeter+Tests
+                      -->
+                      <server>${jmeter.server}</server>
+                      <port>${jmeter.port}</port>
+                      <threads>${jmeter.threads}</threads>
+                      <loops>${jmeter.loops}</loops>
+                      <rampseconds>${jmeter.rampseconds}</rampseconds>
+                      <userprefix>${jmeter.userprefix}</userprefix>
+                      <counterconfigstart>${jmeter.counterconfigstart}</counterconfigstart>
+                      <counterconfigend>${jmeter.counterconfigend}</counterconfigend>
+                      <counterconfigincr>${jmeter.counterconfigincr}</counterconfigincr>
+                    </propertiesUser>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
     <!-- Step 1: mvn clean install -DskipTests -->
     <!-- Step 2: mvn initialize sonar:sonar -Psonar -->
     <profile>
