@@ -48,7 +48,7 @@ import org.kuali.common.devops.aws.sysadmin.model.Zip;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
-import org.kuali.common.dns.util.CreateOrReplaceCNAMEExecutable;
+import org.kuali.common.dns.util.CreateOrReplaceCNAME;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
@@ -118,7 +118,7 @@ public class ProvisionCIMasterConfig {
 		if (context.getDnsName().isPresent()) {
 			String aliasFQDN = context.getDnsName().get();
 			String canonicalFQDN = instance.getPublicDnsName();
-			Executable cname = new CreateOrReplaceCNAMEExecutable(dns, aliasFQDN, canonicalFQDN);
+			Executable cname = new CreateOrReplaceCNAME(dns, aliasFQDN, canonicalFQDN);
 			executables.add(cname);
 		}
 		String username = Users.ROOT.getUser().getLogin();
