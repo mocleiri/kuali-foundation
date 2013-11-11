@@ -86,6 +86,10 @@ public final class Bootstrap implements Executable {
 			channel.exec(command);
 		}
 
+		markAsCompleted(channel);
+	}
+
+	protected void markAsCompleted(SecureChannel channel) {
 		RemoteFile completed = getBootStrapCompletedFile();
 		String content = "bootstrap completed: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
 		channel.scpString(content, completed);
