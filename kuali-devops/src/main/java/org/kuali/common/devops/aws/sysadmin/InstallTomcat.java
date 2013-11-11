@@ -118,12 +118,14 @@ public final class InstallTomcat implements Executable {
 			ChannelUtils.exec(channel, "userdel -rf " + context.getTomcat().getLogin());
 		}
 
-		// Create the tomcat group and user
+		// Create the tomcat group (does nothing if the group already exists)
 		String command1 = "groupadd -f " + context.getTomcat().getGroup();
+
+		// Create the tomcat user
 		String command2 = "useradd -g " + context.getTomcat().getGroup() + " " + context.getTomcat().getLogin();
 
 		// Invoke the commands
-		ChannelUtils.exec(channel, command1, command2);
+		channel.exec(command1, command2);
 
 		Bashrc bashrc = getBashrc();
 		RemoteFile file = new RemoteFile.Builder(bashrc.getLocation()).build();
