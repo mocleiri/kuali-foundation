@@ -1,17 +1,20 @@
 package org.kuali.common.devops.aws.sysadmin;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
-import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.api.SecureChannel;
+import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.RemoteFile;
-import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.channel.util.ChannelUtils;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Customize Tomcat
  */
-public final class InstallTomcat implements ChannelExecutable {
+public final class InstallTomcat implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(InstallTomcat.class);
 
@@ -56,16 +59,29 @@ public final class InstallTomcat implements ChannelExecutable {
 	}
 
 	@Override
-	public void execute(SecureChannel channel) {
+	public void execute() {
 		if (skip) {
 			return;
 		}
 
-		// This has to happen first so tomcat dir's can be chown'd to tomcat
-		createUser(channel);
+		SecureChannel channel = null;
+		try {
 
-		// Customize things as needed, chown everything to tomcat:tomcat
-		customizeTomcat(channel);
+			ChannelService service = context.getZip().getService();
+			ChannelContext cc = context.getZip().getContext();
+			channel = service.openChannel(cc);
+
+			// This has to happen first so tomcat dir's can be chown'd to tomcat
+			createUser(channel);
+
+			// Customize things as needed, chown everything to tomcat:tomcat
+			customizeTomcat(channel);
+
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			ChannelUtils.closeQuietly(channel);
+		}
 
 	}
 

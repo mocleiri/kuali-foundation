@@ -130,25 +130,23 @@ public final class Bootstrap implements Executable {
 		channel.exec(command2); // copy the updated sshd_config file to /etc/ssh/sshd_config
 		channel.exec(command3); // restart the sshd service
 		channel.exec(command4); // delete the sshd_config file we left in the ec2-users home directory
+
+		RemoteFile enabled = getRootSSHEnabledFile(context.getSshEnabledUser());
+		String content = "root ssh enabled: " + FormatUtils.getDate(System.currentTimeMillis()) + "\n" + WARNING;
+		channel.scpString(content, enabled); // Create /home/ec2-user/.bootstrap/root-ssh.enabled
+	}
+
+	protected RemoteFile getRootSSHEnabledFile(User ec2User) {
+		String absolutePath = ec2User.getHome() + "/.bootstrap/root-ssh.enabled";
+		return new RemoteFile.Builder(absolutePath).build();
 	}
 
 	/**
-	 * Check to see if the root users authorized_keys file starts with the text <code>command="</code>. Amazon puts that there by default on new instances to prevent root from
-	 * being able to ssh in directly.
+	 * Return true only if the file /home/ec2-user/.bootstrap/root-ssh.enabled exists
 	 */
 	protected boolean isRootSSHEnabled(SecureChannel channel) {
-		User ec2 = context.getSshEnabledUser();
-		User root = context.getRoot();
-		RemoteFile temp = new RemoteFile.Builder(ec2.getHome() + "/ssh.root.bootstrap.check").build();
-		String command1 = "sudo cp " + root.getAuthorizedKeys() + " " + temp.getAbsolutePath();
-		String command2 = "sudo chown " + ec2.getGroup() + ":" + ec2.getLogin() + " " + temp.getAbsolutePath();
-		channel.exec(command1); // Copy the authorized_keys file from root to a temp file
-		channel.exec(command2); // Chown it to ec2-user
-		String auth = channel.toString(temp); // Convert the contents of the file to a string
-		channel.deleteFile(temp.getAbsolutePath()); // Delete the temp file
-		Assert.noBlanks(auth);
-		boolean enabled = !auth.trim().startsWith("command=\"");
-		return enabled;
+		RemoteFile enabled = getRootSSHEnabledFile(context.getSshEnabledUser());
+		return channel.exists(enabled.getAbsolutePath());
 	}
 
 	protected SecureChannel getChannel(User user, boolean requestPseudoTerminal) throws IOException {

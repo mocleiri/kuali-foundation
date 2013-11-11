@@ -34,15 +34,14 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.Bootstrap;
-import org.kuali.common.devops.aws.sysadmin.InstallTomcat;
 import org.kuali.common.devops.aws.sysadmin.InstallJDK;
-import org.kuali.common.devops.aws.sysadmin.InstallZip;
+import org.kuali.common.devops.aws.sysadmin.InstallTomcat;
 import org.kuali.common.devops.aws.sysadmin.ShowAwsContext;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
-import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.Heap;
 import org.kuali.common.devops.aws.sysadmin.model.Heaps;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipContext;
 import org.kuali.common.devops.aws.sysadmin.model.Users;
 import org.kuali.common.devops.aws.sysadmin.model.Zip;
@@ -54,7 +53,6 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.spring.DefaultSecureChannelServiceConfig;
-import org.kuali.common.util.channel.util.ChannelExecutable;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -135,7 +133,7 @@ public class ProvisionCIMasterConfig {
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(jdk);
 		String javaHome = jdk.getContext().getInstallDir();
-		// executables.add(getTomcatInstaller(channel, tomcat7Zip, javaHome, heap));
+		executables.add(getTomcatInstaller(channel, tomcat7Zip, javaHome, heap));
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
@@ -143,12 +141,11 @@ public class ProvisionCIMasterConfig {
 		return null; // new ExecutablesExecutable(show);
 	}
 
-	protected InstallZip getTomcatInstaller(ChannelContext channel, Zip tomcat, String javaHome, Heap heap) {
+	protected Executable getTomcatInstaller(ChannelContext channel, Zip tomcat, String javaHome, Heap heap) {
 		InstallZipContext zip = new InstallZipContext.Builder(scs, channel, tomcat).build();
 		BashrcContext bashrc = new BashrcContext.Builder(javaHome, zip.getInstallDir(), heap).build();
 		InstallTomcatContext context = new InstallTomcatContext.Builder(zip, bashrc).build();
-		ChannelExecutable after = new InstallTomcat.Builder(context).build();
-		return new InstallZip.Builder(zip).after(after).build();
+		return new InstallTomcat.Builder(context).build();
 	}
 
 	protected InstallJDK getJDKInstaller(ChannelContext channel, Zip zip) {
