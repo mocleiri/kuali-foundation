@@ -75,7 +75,7 @@ public final class InstallZip implements ChannelExecutable {
 	@Override
 	public void execute(SecureChannel channel) {
 		if (forceExecution) {
-			// Always install no matter what (ignore's the skip setting)
+			// Always install no matter what (ignore the skip setting)
 			install(channel, context);
 		} else if (skip) {
 			// Don't install
@@ -98,10 +98,10 @@ public final class InstallZip implements ChannelExecutable {
 
 	protected void install(SecureChannel channel, InstallZipContext context) {
 		Artifact artifact = context.getZip().getArtifact();
-		
+
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		Assert.exists(localFile);
-		
+
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 
 		String target = getTargetDir(context);
