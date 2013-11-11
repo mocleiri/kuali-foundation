@@ -26,6 +26,7 @@ import java.util.Vector;
 
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.StringUtils;
+import org.kuali.common.util.Assert;
 
 public abstract class CommandLineUtils {
 
@@ -82,18 +83,14 @@ public abstract class CommandLineUtils {
 	 *             or CommandLineTimeOutException if time out occurs
 	 * @noinspection ThrowableResultOfMethodCallIgnored
 	 */
-	public static CommandLineCallable executeCommandLineAsCallable(final Commandline cl, final InputStream systemIn, final StreamConsumer systemOut,
-			final StreamConsumer systemErr, final int timeoutInSeconds) throws CommandLineException {
-		if (cl == null) {
-			throw new IllegalArgumentException("cl cannot be null.");
-		}
+	public static CommandLineCallable executeCommandLineAsCallable(Commandline cl, InputStream systemIn, StreamConsumer systemOut, StreamConsumer systemErr, int timeoutInSeconds)
+			throws CommandLineException {
+
+		Assert.noNulls(cl);
 
 		final Process p = cl.execute();
-
 		final StreamFeeder inputFeeder = systemIn != null ? new StreamFeeder(systemIn, p.getOutputStream()) : null;
-
 		final StreamPumper outputPumper = new StreamPumper(p.getInputStream(), systemOut);
-
 		final StreamPumper errorPumper = new StreamPumper(p.getErrorStream(), systemErr);
 
 		if (inputFeeder != null) {
@@ -101,7 +98,6 @@ public abstract class CommandLineUtils {
 		}
 
 		outputPumper.start();
-
 		errorPumper.start();
 
 		final ProcessHook processHook = new ProcessHook(p);
