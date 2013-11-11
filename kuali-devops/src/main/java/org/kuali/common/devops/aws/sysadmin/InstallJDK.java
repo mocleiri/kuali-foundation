@@ -67,7 +67,7 @@ public final class InstallJDK implements Executable {
 		String command2 = "cp " + src + " " + dst;
 
 		// install the vanilla zip package
-		new InstallZip.Builder(context).runAlways(true).build().execute(channel);
+		new InstallZip.Builder(context).forceExecution(true).build().execute(channel);
 
 		// customize the jdk installation as needed
 		channel.exec(command1, command2);

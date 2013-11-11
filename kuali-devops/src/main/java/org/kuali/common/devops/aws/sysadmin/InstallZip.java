@@ -20,7 +20,7 @@ public final class InstallZip implements ChannelExecutable {
 
 	private final InstallZipContext context;
 	private final boolean skip;
-	private final boolean runAlways;
+	private final boolean forceExecution;
 	private final Optional<ChannelExecutable> before;
 	private final Optional<ChannelExecutable> after;
 
@@ -31,7 +31,7 @@ public final class InstallZip implements ChannelExecutable {
 
 		// Optional
 		private boolean skip = false;
-		private boolean runAlways = false;
+		private boolean forceExecution = false;
 		private Optional<ChannelExecutable> before = Optional.absent();
 		private Optional<ChannelExecutable> after = Optional.absent();
 
@@ -39,8 +39,8 @@ public final class InstallZip implements ChannelExecutable {
 			this.context = context;
 		}
 
-		public Builder runAlways(boolean runAlways) {
-			this.runAlways = runAlways;
+		public Builder forceExecution(boolean forceExecution) {
+			this.forceExecution = forceExecution;
 			return this;
 		}
 
@@ -70,37 +70,39 @@ public final class InstallZip implements ChannelExecutable {
 		this.skip = builder.skip;
 		this.before = builder.before;
 		this.after = builder.after;
-		this.runAlways = builder.runAlways;
+		this.forceExecution = builder.forceExecution;
 	}
 
 	@Override
 	public void execute(SecureChannel channel) {
-		if (!skip) {
-			install(context, channel);
+		if (forceExecution) {
+			// Always install no matter what (ignore's the skip setting)
+			install(channel, context);
+		} else if (skip) {
+			// Don't install
+			return;
+		} else {
+			// Only install if not already installed
+			if (!isZipInstalled(channel, context)) {
+				install(channel, context);
+			}
 		}
 	}
 
-	protected void install(InstallZipContext context, SecureChannel channel) {
-		boolean installed = isZipInstalled(channel);
-		if (!installed || runAlways) {
-			install(channel);
-		}
-	}
-
-	protected boolean isZipInstalled(SecureChannel channel) {
-		String targetDir = getTargetDir();
+	protected boolean isZipInstalled(SecureChannel channel, InstallZipContext context) {
+		String targetDir = getTargetDir(context);
 		String installDir = context.getInstallDir();
 		boolean check1 = channel.exists(targetDir) && channel.isDirectory(targetDir);
 		boolean check2 = channel.exists(installDir) && channel.isDirectory(installDir);
 		return check1 && check2;
 	}
 
-	protected void install(SecureChannel channel) {
+	protected void install(SecureChannel channel, InstallZipContext context) {
 		Artifact artifact = context.getZip().getArtifact();
 		File localFile = RepositoryUtils.getFile(context.getLocalRepositoryDir(), artifact);
 		RemoteFile remoteFile = new RemoteFile.Builder(context.getRemotePackageDir() + "/" + localFile.getName()).build();
 		Assert.exists(localFile);
-		String target = getTargetDir();
+		String target = getTargetDir(context);
 		String linkName = context.getInstallDir();
 		String zipFile = remoteFile.getAbsolutePath();
 		String unzipDir = context.getRemotePackageDir();
@@ -116,7 +118,7 @@ public final class InstallZip implements ChannelExecutable {
 		exec(channel, after); // Do any post-processing as needed
 	}
 
-	protected String getTargetDir() {
+	protected String getTargetDir(InstallZipContext context) {
 		Artifact artifact = context.getZip().getArtifact();
 		return context.getRemotePackageDir() + "/" + artifact.getArtifactId() + "-" + artifact.getVersion();
 	}
@@ -144,8 +146,8 @@ public final class InstallZip implements ChannelExecutable {
 		return after;
 	}
 
-	public boolean isRunAlways() {
-		return runAlways;
+	public boolean isForceExecution() {
+		return forceExecution;
 	}
 
 }
