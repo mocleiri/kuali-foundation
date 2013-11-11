@@ -150,7 +150,7 @@ public class ProvisionCIMasterConfig {
 
 	protected InstallJDK getJDKInstaller(ChannelContext channel, Zip zip) {
 		InstallZipContext context = new InstallZipContext.Builder(scs, channel, zip).build();
-		return new InstallJDK(context);
+		return new InstallJDK.Builder(context).build();
 	}
 
 	@Bean

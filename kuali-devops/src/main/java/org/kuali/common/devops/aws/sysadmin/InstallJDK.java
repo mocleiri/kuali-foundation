@@ -17,31 +17,84 @@ public final class InstallJDK implements Executable {
 
 	private static final String WARNING = "WARNING: Do not delete or edit this file unless you know exactly what you are doing";
 
-	public InstallJDK(InstallZipContext context) {
-		this(context, false);
+	public static class Builder {
+
+		// Required (no default value)
+		private final InstallZipContext context;
+
+		// Optional (default values are usually ok)
+		private boolean skip = false;
+		private boolean forceExecution = false;
+		private boolean skipIfInstalled = true;
+
+		public Builder(InstallZipContext context) {
+			this.context = context;
+		}
+
+		public Builder forceExecution(boolean forceExecution) {
+			this.forceExecution = forceExecution;
+			return this;
+		}
+
+		public Builder skipIfInstalled(boolean skipIfInstalled) {
+			this.skipIfInstalled = skipIfInstalled;
+			return this;
+		}
+
+		public Builder skip(boolean skip) {
+			this.skip = skip;
+			return this;
+		}
+
+		public InstallJDK build() {
+			Assert.noNulls(context);
+			return new InstallJDK(this);
+		}
+
 	}
 
-	public InstallJDK(InstallZipContext context, boolean skip) {
-		Assert.noNulls(context);
-		this.context = context;
-		this.skip = skip;
+	private InstallJDK(Builder builder) {
+		this.context = builder.context;
+		this.forceExecution = builder.forceExecution;
+		this.skip = builder.skip;
+		this.skipIfInstalled = builder.skipIfInstalled;
 	}
 
 	private final InstallZipContext context;
 	private final boolean skip;
+	private final boolean forceExecution;
+	private final boolean skipIfInstalled;
 
 	@Override
 	public void execute() {
 
-		if (skip) {
+		if (forceExecution) {
+			// Always install, no matter what (overrides the skip flags)
+			install(false);
+		} else if (skip) {
+			// Always skip the install (even it it's not installed)
 			return;
+		} else {
+			// Complete the install with the option to skip it, if it's already installed
+			install(skipIfInstalled);
 		}
 
+	}
+
+	protected void install(boolean skipIfInstalled) {
 		SecureChannel channel = null;
 		try {
+			// Open a secure channel to the server
 			channel = context.getService().openChannel(context.getContext());
+
+			// Determine if it is installed already
 			boolean installed = isInstalled(channel, context.getInstallDir());
-			if (!installed) {
+
+			// Only skip if it's already installed AND the skip-if-installed flag is set
+			boolean skip = installed && skipIfInstalled;
+
+			// If we aren't skipping the install, install it!
+			if (!skip) {
 				install(channel);
 			}
 		} catch (IOException e) {
@@ -49,7 +102,6 @@ public final class InstallJDK implements Executable {
 		} finally {
 			ChannelUtils.closeQuietly(channel);
 		}
-
 	}
 
 	protected void install(SecureChannel channel) {
@@ -94,6 +146,14 @@ public final class InstallJDK implements Executable {
 
 	public InstallZipContext getContext() {
 		return context;
+	}
+
+	public boolean isForceExecution() {
+		return forceExecution;
+	}
+
+	public boolean isSkipIfInstalled() {
+		return skipIfInstalled;
 	}
 
 }
