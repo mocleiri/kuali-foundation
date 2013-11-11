@@ -8,6 +8,9 @@ import org.kuali.common.util.FormatUtils;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 
+/**
+ * A mapping of recommended heap sizes to Amazon EC2 instance types.
+ */
 public enum Heaps {
 
 	M1_MEDIUM(InstanceType.M1Medium, "512m", "2g"), //
