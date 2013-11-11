@@ -392,6 +392,13 @@ public final class DNSMadeEasyDnsService implements DnsService {
 	}
 
 	@Override
+	public String getCNAMERecordValueFromFQDN(String fqdn) {
+		// Make sure it's a valid fully qualified domain name
+		DnsUtils.validateFQDN(fqdn);
+		return fqdn + ".";
+	}
+
+	@Override
 	public DnsRecord createCNAMERecord(String aliasFQDN, String fqdn, int timeToLiveInSeconds) {
 
 		// Make sure both are syntactically valid fully qualified domain names
@@ -406,7 +413,7 @@ public final class DNSMadeEasyDnsService implements DnsService {
 
 		// The dot at the end is a magic value telling DNSME that this is a fully qualified domain name
 		// Without it, DNSME auto-appends our domain name
-		fqdn = fqdn + ".";
+		String recordValue = getCNAMERecordValueFromFQDN(fqdn);
 
 		// Trim the domain name off the end of the aliasFQDN
 		String recordName = getRecordNameFromFQDN(aliasFQDN, getDomainName());
@@ -415,7 +422,7 @@ public final class DNSMadeEasyDnsService implements DnsService {
 		DnsMadeEasyDnsRecord record = new DnsMadeEasyDnsRecord();
 		record.setName(recordName);
 		record.setType(DnsRecordType.CNAME);
-		record.setData(fqdn);
+		record.setData(recordValue);
 		record.setTtl(timeToLiveInSeconds);
 
 		// Actually add the record

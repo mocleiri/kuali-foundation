@@ -68,6 +68,15 @@ public interface DnsService {
 	Optional<DnsRecord> getCNAMERecord(String fqdn);
 
 	/**
+	 * Given a <code>fqdn</code> return the exact string stored by the DNS service provider in the VALUE portion of the corresponding DNS record. This typically just means
+	 * appending a single dot to the end of the <code>fqdn</code>
+	 * 
+	 * @throws IllegalArgumentException
+	 *             If <code>fqdn</code> is blank, or is not a syntactically valid DNS name.
+	 */
+	String getCNAMERecordValueFromFQDN(String fqdn);
+
+	/**
 	 * Return a list of all of the DNS records for this domain.
 	 */
 	List<DnsRecord> getRecords();
