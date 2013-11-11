@@ -76,7 +76,11 @@ public final class InstallZip implements Executable {
 	}
 
 	protected boolean isZipInstalled(SecureChannel channel) {
-		return false;
+		String targetDir = getTargetDir();
+		String installDir = context.getInstallDir();
+		boolean check1 = channel.exists(targetDir) && channel.isDirectory(targetDir);
+		boolean check2 = channel.exists(installDir) && channel.isDirectory(installDir);
+		return check1 && check2;
 	}
 
 	protected void install(SecureChannel channel) {
