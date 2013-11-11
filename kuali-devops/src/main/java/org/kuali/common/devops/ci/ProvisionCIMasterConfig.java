@@ -34,13 +34,13 @@ import org.kuali.common.devops.aws.Tags;
 import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.Bootstrap;
-import org.kuali.common.devops.aws.sysadmin.CustomizeTomcat;
+import org.kuali.common.devops.aws.sysadmin.InstallTomcat;
 import org.kuali.common.devops.aws.sysadmin.InstallJDK;
 import org.kuali.common.devops.aws.sysadmin.InstallZip;
 import org.kuali.common.devops.aws.sysadmin.ShowAwsContext;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
-import org.kuali.common.devops.aws.sysadmin.model.CustomizeTomcatContext;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.Heap;
 import org.kuali.common.devops.aws.sysadmin.model.Heaps;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipContext;
@@ -146,8 +146,8 @@ public class ProvisionCIMasterConfig {
 	protected InstallZip getTomcatInstaller(ChannelContext channel, Zip tomcat, String javaHome, Heap heap) {
 		InstallZipContext zip = new InstallZipContext.Builder(scs, channel, tomcat).build();
 		BashrcContext bashrc = new BashrcContext.Builder(javaHome, zip.getInstallDir(), heap).build();
-		CustomizeTomcatContext context = new CustomizeTomcatContext.Builder(zip, bashrc).build();
-		ChannelExecutable after = new CustomizeTomcat.Builder(context).build();
+		InstallTomcatContext context = new InstallTomcatContext.Builder(zip, bashrc).build();
+		ChannelExecutable after = new InstallTomcat.Builder(context).build();
 		return new InstallZip.Builder(zip).after(after).build();
 	}
 

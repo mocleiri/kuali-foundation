@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
-import org.kuali.common.devops.aws.sysadmin.model.CustomizeTomcatContext;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
 import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
@@ -19,22 +19,22 @@ import org.slf4j.LoggerFactory;
 /**
  * Customize Tomcat
  */
-public final class CustomizeTomcat implements ChannelExecutable {
+public final class InstallTomcat implements ChannelExecutable {
 
-	private static final Logger logger = LoggerFactory.getLogger(CustomizeTomcat.class);
+	private static final Logger logger = LoggerFactory.getLogger(InstallTomcat.class);
 
-	private final CustomizeTomcatContext context;
+	private final InstallTomcatContext context;
 	private final boolean skip;
 
 	public static class Builder {
 
 		// Required
-		private final CustomizeTomcatContext context;
+		private final InstallTomcatContext context;
 
 		// Optional
 		private boolean skip = false;
 
-		public Builder(CustomizeTomcatContext context) {
+		public Builder(InstallTomcatContext context) {
 			this.context = context;
 		}
 
@@ -43,14 +43,14 @@ public final class CustomizeTomcat implements ChannelExecutable {
 			return this;
 		}
 
-		public CustomizeTomcat build() {
+		public InstallTomcat build() {
 			Assert.noNulls(context);
-			return new CustomizeTomcat(this);
+			return new InstallTomcat(this);
 		}
 
 	}
 
-	private CustomizeTomcat(Builder builder) {
+	private InstallTomcat(Builder builder) {
 		this.context = builder.context;
 		this.skip = builder.skip;
 	}
@@ -126,7 +126,7 @@ public final class CustomizeTomcat implements ChannelExecutable {
 		return skip;
 	}
 
-	public CustomizeTomcatContext getContext() {
+	public InstallTomcatContext getContext() {
 		return context;
 	}
 
