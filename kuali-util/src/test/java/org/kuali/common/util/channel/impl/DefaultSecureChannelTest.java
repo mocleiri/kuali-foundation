@@ -24,10 +24,12 @@ public class DefaultSecureChannelTest {
 			CommandContext cc = new CommandContext.Builder("man ls").stdin("q").build();
 			CommandResult result = channel.exec(cc);
 			if (result.getStdout().isPresent()) {
-				System.out.println(result.getStdout().get());
+				String stdout = result.getStdout().get();
+				System.out.println("\n-- stdin -- " + stdout.length() + "\n" + result.getStdout().get() + "\n-- stdin --\n");
 			}
 			if (result.getStderr().isPresent()) {
-				System.out.println(result.getStderr().get());
+				String stderr = result.getStderr().get();
+				System.out.println("\n-- stderr -- " + stderr.length() + "\n" + result.getStderr().get() + "\n-- stderr --\n");
 			}
 			channel.close();
 		} catch (Exception e) {
