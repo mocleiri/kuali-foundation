@@ -18,7 +18,6 @@ package org.kuali.common.util.channel.impl;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.codehaus.plexus.util.cli.DefaultConsumer;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
@@ -41,8 +40,8 @@ public final class StreamingCommandContext {
 		// Optional
 		private Optional<InputStream> stdin = Optional.absent();
 		private Optional<Integer> timeout = Optional.absent();
-		private StreamConsumer stdout = new DefaultConsumer();
-		private StreamConsumer stderr = new DefaultConsumer();
+		private StreamConsumer stdout = new FlattenStreamConsumer();
+		private StreamConsumer stderr = new FlattenStreamConsumer();
 
 		public Builder(String command) {
 			this.command = command;
