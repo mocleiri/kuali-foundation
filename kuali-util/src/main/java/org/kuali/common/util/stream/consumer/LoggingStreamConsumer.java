@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.log;
+package org.kuali.common.util.stream.consumer;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.log.LoggerLevel;
 import org.slf4j.Logger;
 
-/**
- * @deprecated
- */
-@Deprecated
 public final class LoggingStreamConsumer implements StreamConsumer {
 
 	private final Logger logger;
