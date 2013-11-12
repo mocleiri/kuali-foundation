@@ -38,6 +38,8 @@ public interface SecureChannel {
 
 	void execNoWait(String command);
 
+	void execNoWait(byte[] command);
+
 	CopyResult scp(File source, RemoteFile destination);
 
 	CopyResult scp(String location, RemoteFile destination);

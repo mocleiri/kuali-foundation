@@ -204,18 +204,21 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public void execNoWait(String command) {
-		Assert.noBlanks(command);
+		execNoWait(Str.getBytes(command, context.getEncoding()));
+	}
+
+	@Override
+	public void execNoWait(byte[] command) {
+		Assert.noNulls(command);
 		ChannelExec exec = null;
 		try {
 			if (context.isEcho()) {
-				logger.info("{}", command);
+				logger.info("{}", Str.getString(command, context.getEncoding()));
 			}
 			// Open an exec channel
 			exec = getChannelExec();
-			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, context.getEncoding());
 			// Store the command on the exec channel
-			exec.setCommand(commandBytes);
+			exec.setCommand(command);
 			// Execute the command.
 			// This consumes anything from stdin and stores output in stdout/stderr
 			connect(exec, Optional.<Integer> absent());
