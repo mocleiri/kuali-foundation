@@ -89,7 +89,7 @@ public final class InstallTomcat implements Executable {
 	protected void customizeTomcat(SecureChannel channel) {
 		// Remove, then recreate the webapps dir to get rid of all the junk that's in there by default (docs, manager app, etc)
 		String webappsDir = context.getZip().getInstallDir() + "/webapps";
-		ChannelUtils.exec(channel, "rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
+		channel.exec("rm -rf " + webappsDir + "; mkdir -p " + webappsDir);
 
 		// Add, update, replace, configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<Deployable> deployables = TomcatConfig.getDeployables(context.getZip().getInstallDir(), context.getMajorVersion());
@@ -109,14 +109,14 @@ public final class InstallTomcat implements Executable {
 		String command3 = "chmod -R 755 " + context.getZip().getInstallDir() + "/bin";
 
 		// Invoke the commands
-		ChannelUtils.exec(channel, command1, command2, command3);
+		channel.exec(command1, command2, command3);
 	}
 
 	protected void createUser(SecureChannel channel) {
 		// Delete the tomcat user (if it exists)
 		boolean tomcatUserExists = channel.exists(context.getTomcat().getHome());
 		if (tomcatUserExists) {
-			ChannelUtils.exec(channel, "userdel -rf " + context.getTomcat().getLogin());
+			channel.exec("userdel -rf " + context.getTomcat().getLogin());
 		}
 
 		// Create the tomcat group (does nothing if the group already exists)
