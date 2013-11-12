@@ -143,7 +143,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Update the ChannelExec object with the stdin stream
 			exec.setInputStream(context.getStdin().orNull());
 			// Setup handling of stdin, stdout, and stderr
-			handler.openStreams(exec);
+			handler.openStreams(exec, this.context.getEncoding());
 			// Get ready to consume anything on stdin, and pump stdout/stderr back out to the consumers
 			handler.startPumping();
 			// This invokes the command on the remote system, consumes whatever is on stdin, and produces output to stdout/stderr

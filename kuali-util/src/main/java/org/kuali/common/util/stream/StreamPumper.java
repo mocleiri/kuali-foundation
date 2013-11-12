@@ -10,6 +10,9 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.cli.AbstractStreamHandler;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
+/**
+ * Copied from Plexus in order to add constructors that allow you to provide a BufferedReader directly, or to provide an explicit character encoding.
+ */
 public class StreamPumper extends AbstractStreamHandler {
 
 	private final BufferedReader in;

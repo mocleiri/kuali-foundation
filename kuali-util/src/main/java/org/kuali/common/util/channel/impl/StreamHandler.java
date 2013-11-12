@@ -3,9 +3,9 @@ package org.kuali.common.util.channel.impl;
 import java.io.IOException;
 
 import org.codehaus.plexus.util.cli.StreamFeeder;
-import org.codehaus.plexus.util.cli.StreamPumper;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.model.CommandContext;
+import org.kuali.common.util.stream.StreamPumper;
 
 import com.google.common.base.Optional;
 import com.jcraft.jsch.ChannelExec;
@@ -27,12 +27,12 @@ public final class StreamHandler {
 	private boolean pumping = false;
 	private boolean done = false;
 
-	public void openStreams(ChannelExec exec) throws IOException {
+	public void openStreams(ChannelExec exec, String encoding) throws IOException {
 		Assert.isFalse(open, "Already open");
 		Assert.noNulls(exec);
 		this.inputFeeder = getInputFeeder(context, exec);
-		this.outputPumper = new StreamPumper(exec.getInputStream(), context.getStdout());
-		this.errorPumper = new StreamPumper(exec.getErrStream(), context.getStderr());
+		this.outputPumper = new StreamPumper(exec.getInputStream(), encoding, context.getStdout());
+		this.errorPumper = new StreamPumper(exec.getErrStream(), encoding, context.getStderr());
 		this.open = true;
 	}
 
