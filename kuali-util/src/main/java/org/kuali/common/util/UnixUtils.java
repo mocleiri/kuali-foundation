@@ -628,8 +628,8 @@ public class UnixUtils {
 
 	public static final int execute(Commandline cl) {
 		try {
-			StreamConsumer stdout = new org.kuali.common.util.log.LoggingStreamConsumer(logger, org.kuali.common.util.log.LoggerLevel.INFO);
-			StreamConsumer stderr = new org.kuali.common.util.log.LoggingStreamConsumer(logger, org.kuali.common.util.log.LoggerLevel.WARN);
+			StreamConsumer stdout = new org.kuali.common.util.stream.LoggingStreamConsumer(logger, org.kuali.common.util.log.LoggerLevel.INFO);
+			StreamConsumer stderr = new org.kuali.common.util.stream.LoggingStreamConsumer(logger, org.kuali.common.util.log.LoggerLevel.WARN);
 			logger.info(cl.toString());
 			return CommandLineUtils.executeCommandLine(cl, stdout, stderr);
 		} catch (CommandLineException e) {

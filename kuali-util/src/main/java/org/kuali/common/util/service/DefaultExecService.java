@@ -23,7 +23,7 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.log.LoggerLevel;
-import org.kuali.common.util.log.LoggingStreamConsumer;
+import org.kuali.common.util.stream.LoggingStreamConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
