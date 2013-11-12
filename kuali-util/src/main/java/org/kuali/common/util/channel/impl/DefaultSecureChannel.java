@@ -72,10 +72,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 	private final ChannelSftp sftp;
 	private final ChannelContext context;
 
+	private boolean closed = false;
+
 	public DefaultSecureChannel(ChannelContext context) throws IOException {
 		Assert.noNulls(context);
 		this.context = context;
-		open();
+		log();
 		try {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
@@ -86,7 +88,10 @@ public final class DefaultSecureChannel implements SecureChannel {
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
+		if (closed) {
+			return;
+		}
 		if (context.isEcho()) {
 			logger.info("Closing secure channel [{}]", ChannelUtils.getLocation(context.getUsername(), context.getHostname()));
 		} else {
@@ -94,6 +99,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 		closeQuietly(sftp);
 		closeQuietly(session);
+		this.closed = true;
 	}
 
 	@Override
@@ -246,7 +252,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void open() {
+	protected void log() {
 		if (context.isEcho()) {
 			logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(context.getUsername(), context.getHostname()), context.getEncoding());
 		} else {
