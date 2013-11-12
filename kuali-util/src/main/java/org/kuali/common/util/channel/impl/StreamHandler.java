@@ -23,28 +23,41 @@ public final class StreamHandler {
 	private StreamPumper outputPumper;
 	private StreamPumper errorPumper;
 
+	private boolean open = false;
+	private boolean pumping = false;
+	private boolean done = false;
+
 	public void openStreams(ChannelExec exec) throws IOException {
+		Assert.isFalse(open, "Already open");
 		Assert.noNulls(exec);
 		this.inputFeeder = getInputFeeder(context, exec);
 		this.outputPumper = new StreamPumper(exec.getInputStream(), context.getStdout());
 		this.errorPumper = new StreamPumper(exec.getErrStream(), context.getStderr());
+		this.open = true;
 	}
 
 	public void startPumping() {
+		Assert.isTrue(open, "Not open");
+		Assert.isFalse(pumping, "Already pumping");
 		Assert.noNulls(inputFeeder, outputPumper, errorPumper);
 		if (inputFeeder.isPresent()) {
 			inputFeeder.get().start();
 		}
 		errorPumper.start();
 		outputPumper.start();
+		this.pumping = true;
 	}
 
 	public void waitUntilDone() throws InterruptedException {
+		Assert.isTrue(open, "Not open");
+		Assert.isTrue(pumping, "Not pumping");
+		Assert.isFalse(done, "Already done");
 		if (inputFeeder.isPresent()) {
 			inputFeeder.get().waitUntilDone();
 		}
 		outputPumper.waitUntilDone();
 		errorPumper.waitUntilDone();
+		this.done = true;
 	}
 
 	public void validate() throws InterruptedException {
