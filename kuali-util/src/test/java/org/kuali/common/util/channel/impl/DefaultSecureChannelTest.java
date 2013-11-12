@@ -37,7 +37,7 @@ public class DefaultSecureChannelTest {
 
 	protected void show(String label, StringStreamConsumer consumer) {
 		String s = consumer.getOutput();
-		String size = FormatUtils.getSize(s.length());
+		String size = FormatUtils.getCount(s.length());
 		System.out.println(label + " " + size + " " + Str.flatten(s));
 	}
 
