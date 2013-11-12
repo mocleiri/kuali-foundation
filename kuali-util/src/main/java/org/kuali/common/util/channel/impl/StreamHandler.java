@@ -61,6 +61,7 @@ public final class StreamHandler {
 	}
 
 	public void validate() throws InterruptedException {
+		Assert.isTrue(done, "Not done");
 		if (outputPumper.getException() != null) {
 			throw new IllegalStateException("Error inside systemOut parser", outputPumper.getException());
 		}
