@@ -152,6 +152,11 @@ public final class DefaultSecureChannel implements SecureChannel {
 			CommandResult result = new CommandResult(context.getCommand(), exec.getExitStatus(), start);
 			// Validate that things turned out ok (or that we don't care)
 			validate(context, result);
+			// Echo the command, if requested
+			if (this.context.isEcho()) {
+				String elapsed = FormatUtils.getTime(result.getElapsed());
+				logger.info("{} - [{}]", new String(context.getCommand(), this.context.getEncoding()), elapsed);
+			}
 			// Return the result
 			return result;
 		} catch (Exception e) {
