@@ -1,4 +1,4 @@
-package org.kuali.common.util.channel.impl;
+package org.kuali.common.util.channel.util;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 

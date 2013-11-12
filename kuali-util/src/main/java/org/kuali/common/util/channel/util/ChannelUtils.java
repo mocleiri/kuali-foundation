@@ -18,7 +18,6 @@ package org.kuali.common.util.channel.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
@@ -118,29 +117,9 @@ public class ChannelUtils {
 	public static CommandResult exec(SecureChannel channel, String command) {
 		CommandResult result = channel.exec(command);
 		if (result.getExitValue() != 0) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Non-zero exit value: [" + result.getExitValue() + "]\n");
-			sb.append("\n");
-			sb.append("[" + command + "]");
-			sb.append("\n");
-			sb.append("stdout:\n" + result.getStdout() + "\n");
-			sb.append("stderr:\n" + result.getStderr() + "\n");
-			sb.append("\n");
-			throw new IllegalStateException(sb.toString());
-		}
-		debug(result);
-		return result;
-	}
-
-	public static void debug(CommandResult result) {
-		Assert.noNulls(result);
-		String stdout = NullUtils.trimToNull(result.getStdout().orNull());
-		String stderr = NullUtils.trimToNull(result.getStderr().orNull());
-		if (!StringUtils.isBlank(stdout)) {
-			logger.debug("\n-- Standard Out --\n{}\n-- Standard Out --", stdout);
-		}
-		if (!StringUtils.isBlank(stderr)) {
-			logger.debug("\n-- Standard Err --\n{}\n-- Standard Err --", stderr);
+			throw new IllegalStateException("Non-zero exit value");
+		} else {
+			return result;
 		}
 	}
 

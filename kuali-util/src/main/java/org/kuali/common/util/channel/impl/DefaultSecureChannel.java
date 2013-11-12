@@ -46,7 +46,6 @@ import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.channel.model.Status;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.channel.util.SSHUtils;
-import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,62 +125,39 @@ public final class DefaultSecureChannel implements SecureChannel {
 
 	@Override
 	public CommandResult exec(CommandContext context) {
-
-		String command = context.getCommand();
-		Optional<String> stdin = context.getStdin();
-		Optional<Integer> timeout = context.getTimeout();
-		String encoding = this.context.getEncoding();
-
+		StreamHandler handler = new StreamHandler(context);
 		ChannelExec exec = null;
-		InputStream stdoutStream = null;
-		ByteArrayOutputStream stderrStream = null;
-		Optional<InputStream> stdinStream = null;
 		try {
 			// Preserve start time
 			long start = System.currentTimeMillis();
 			// Open an exec channel
 			exec = getChannelExec();
-			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, encoding);
-			// Store the command on the exec channel
-			exec.setCommand(commandBytes);
-			// Prepare the stdin stream
-			stdinStream = getInputStream(stdin, encoding);
-			// Prepare the stderr stream
-			stderrStream = new ByteArrayOutputStream();
-			// Get the stdout stream from the ChannelExec object
-			stdoutStream = exec.getInputStream();
+			// Convert the command string to a byte array and store it on the exec channel
+			exec.setCommand(context.getCommand());
 			// Update the ChannelExec object with the stdin stream
-			exec.setInputStream(stdinStream.orNull());
-			// Update the ChannelExec object with the stderr stream
-			exec.setErrStream(stderrStream);
-			logger.debug("Executing [{}], stdin [{}]", command, NullUtils.trimToNone(stdin.orNull()));
-			// Execute the command.
-			// This consumes anything from stdin and stores output in stdout/stderr
-			connect(exec, timeout);
-			// Convert stdout and stderr to String's
-			Optional<String> stdout = Optional.fromNullable(StringUtils.trimToNull(Str.getString(IOUtils.toByteArray(stdoutStream), encoding)));
-			Optional<String> stderr = Optional.fromNullable(StringUtils.trimToNull(Str.getString(stderrStream.toByteArray(), encoding)));
-			// Make sure the channel is closed
+			exec.setInputStream(context.getStdin().orNull());
+			// Setup handling of stdin, stdout, and stderr
+			handler.openStreams(exec);
+			// Get ready to consume anything on stdin, and pump stdout/stderr back out to the consumers
+			handler.startFeedingAndPumping();
+			// This invokes the command on the remote system which consumes whatever is on stdin and produces output to stdout/stderr
+			connect(exec, context.getTimeout());
+			// Wait until the channel is done executing the command and becomes closed
 			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
-			// Return the result of executing the command
-			CommandResult result = new CommandResult(command, exec.getExitStatus(), stdin, stdout, stderr, encoding, start);
-			if (this.context.isEcho()) {
-				String elapsed = FormatUtils.getTime(result.getElapsed());
-				logger.info("{} - [{}]", command, elapsed);
-				if (stdin.isPresent()) {
-					logger.info("stdin - [{}]", stdin.get());
-				}
-			}
-			return result;
+			// Wait for the streams to finish up
+			handler.waitUntilDone();
+			// Make sure there were no exceptions
+			handler.validate();
+			return new CommandResult(context.getCommand(), exec.getExitStatus(), start);
 		} catch (Exception e) {
+			// Make sure the streams are disabled
+			handler.disableQuietly();
 			throw new IllegalStateException(e);
 		} finally {
-			// Cleanup
-			IOUtils.closeQuietly(stdinStream.orNull());
-			IOUtils.closeQuietly(stdoutStream);
-			IOUtils.closeQuietly(stderrStream);
+			// Clean everything up
+			IOUtils.closeQuietly(context.getStdin().orNull());
 			closeQuietly(exec);
+			handler.closeQuietly();
 		}
 	}
 

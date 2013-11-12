@@ -15,32 +15,66 @@
  */
 package org.kuali.common.util.channel.model;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.Str;
+import org.kuali.common.util.channel.util.NoOpStreamConsumer;
 
 import com.google.common.base.Optional;
 
 public final class CommandContext {
 
-	private final String command;
-	private final Optional<String> stdin;
+	private final byte[] command;
+	private final Optional<InputStream> stdin;
 	private final Optional<Integer> timeout;
+	private final StreamConsumer stdout;
+	private final StreamConsumer stderr;
+	private final boolean ignoreExitValue;
+	private final Optional<Integer> successCodes;
 
 	public static class Builder {
 
+		private static final int SUCCESS = 0;
+		private static final String UTF8 = "UTF-8";
+
 		// Required
-		private final String command;
+		private final byte[] command;
 
 		// Optional
-		private Optional<String> stdin = Optional.absent();
+		private Optional<InputStream> stdin = Optional.absent();
 		private Optional<Integer> timeout = Optional.absent();
+		private StreamConsumer stdout = NoOpStreamConsumer.INSTANCE;
+		private StreamConsumer stderr = NoOpStreamConsumer.INSTANCE;
+		private boolean ignoreExitValue = false;
+		private Optional<Integer> successCodes = Optional.of(SUCCESS);
 
 		public Builder(String command) {
+			this(command, UTF8);
+		}
+
+		public Builder(String command, String encoding) {
+			this(Str.getBytes(command, encoding));
+		}
+
+		public Builder(byte[] command) {
 			this.command = command;
 		}
 
 		public Builder stdin(String stdin) {
-			this.stdin = Optional.fromNullable(NullUtils.trimToNull(stdin));
+			return stdin(stdin, UTF8);
+		}
+
+		public Builder stdin(String stdin, String encoding) {
+			Assert.noBlanks(stdin, encoding);
+			byte[] bytes = Str.getBytes(stdin, encoding);
+			return stdin(new ByteArrayInputStream(bytes));
+		}
+
+		public Builder stdin(InputStream stdin) {
+			this.stdin = Optional.of(stdin);
 			return this;
 		}
 
@@ -50,13 +84,7 @@ public final class CommandContext {
 		}
 
 		public CommandContext build() {
-			Assert.noBlanks(command);
-			if (stdin.isPresent()) {
-				Assert.noBlanks(stdin.get());
-			}
-			if (timeout.isPresent()) {
-				Assert.noNegatives(timeout.get());
-			}
+			Assert.noNulls(command, stdin, timeout, stdout, stderr);
 			return new CommandContext(this);
 		}
 
@@ -66,13 +94,17 @@ public final class CommandContext {
 		this.command = builder.command;
 		this.stdin = builder.stdin;
 		this.timeout = builder.timeout;
+		this.stderr = builder.stderr;
+		this.stdout = builder.stdout;
+		this.ignoreExitValue = builder.ignoreExitValue;
+		this.successCodes = builder.successCodes;
 	}
 
-	public String getCommand() {
+	public byte[] getCommand() {
 		return command;
 	}
 
-	public Optional<String> getStdin() {
+	public Optional<InputStream> getStdin() {
 		return stdin;
 	}
 
@@ -80,4 +112,19 @@ public final class CommandContext {
 		return timeout;
 	}
 
+	public StreamConsumer getStdout() {
+		return stdout;
+	}
+
+	public StreamConsumer getStderr() {
+		return stderr;
+	}
+
+	public boolean isIgnoreExitValue() {
+		return ignoreExitValue;
+	}
+
+	public Optional<Integer> getSuccessCodes() {
+		return successCodes;
+	}
 }

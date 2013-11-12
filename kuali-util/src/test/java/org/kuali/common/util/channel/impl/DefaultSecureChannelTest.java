@@ -7,6 +7,7 @@ import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.model.ChannelContext;
+import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -23,8 +24,8 @@ public class DefaultSecureChannelTest {
 		try {
 			String privateKey = getPrivateKey();
 			ChannelContext context = new ChannelContext.Builder("ec2-54-242-254-25.compute-1.amazonaws.com").username("root").privateKey(privateKey).build();
-			StreamingSecureChannel channel = new StreamingSecureChannel(context);
-			StreamingCommandContext cc = new StreamingCommandContext.Builder("man ls").stdin("q").build();
+			DefaultSecureChannel channel = new DefaultSecureChannel(context);
+			CommandContext cc = new CommandContext.Builder("man ls").stdin("q").build();
 			channel.exec(cc);
 			// show("stdout", result.getStdout());
 			// show("stderr", result.getStderr());

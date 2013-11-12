@@ -17,58 +17,31 @@ package org.kuali.common.util.channel.model;
 
 import org.kuali.common.util.Assert;
 
-import com.google.common.base.Optional;
-
 public final class CommandResult {
 
-	public CommandResult(String command, int exitValue, Optional<String> stdin, Optional<String> stdout, Optional<String> stderr, String encoding, long start) {
+	public CommandResult(byte[] command, int exitValue, long start) {
 		this.stop = System.currentTimeMillis();
 		Assert.isTrue(stop >= start);
-		Assert.noBlanks(command, encoding);
+		Assert.noNulls(command);
 		Assert.noNegatives(start);
-		Assert.noNulls(stdin, stdout, stderr);
 		this.command = command;
 		this.exitValue = exitValue;
-		this.stdin = stdin;
-		this.stdout = stdout;
-		this.stderr = stderr;
-		this.encoding = encoding;
 		this.start = start;
 		this.elapsed = stop - start;
 	}
 
-	private final String command;
+	private final byte[] command;
 	private final int exitValue;
-	private final Optional<String> stdin;
-	private final Optional<String> stdout;
-	private final Optional<String> stderr;
-	private final String encoding;
 	private final long start;
 	private final long stop;
 	private final long elapsed;
 
-	public String getCommand() {
+	public byte[] getCommand() {
 		return command;
 	}
 
 	public int getExitValue() {
 		return exitValue;
-	}
-
-	public Optional<String> getStdin() {
-		return stdin;
-	}
-
-	public Optional<String> getStdout() {
-		return stdout;
-	}
-
-	public Optional<String> getStderr() {
-		return stderr;
-	}
-
-	public String getEncoding() {
-		return encoding;
 	}
 
 	public long getStart() {
