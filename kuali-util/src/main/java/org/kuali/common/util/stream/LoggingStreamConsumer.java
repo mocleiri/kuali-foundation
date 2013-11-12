@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.stream.consumer;
+package org.kuali.common.util.stream;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;

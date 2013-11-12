@@ -12,7 +12,7 @@ import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
-import org.kuali.common.util.stream.consumer.StringStreamConsumer;
+import org.kuali.common.util.stream.StringStreamConsumer;
 
 import com.google.common.base.Optional;
 

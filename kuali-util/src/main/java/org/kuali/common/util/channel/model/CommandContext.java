@@ -22,7 +22,7 @@ import java.util.List;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.stream.consumer.NoOpStreamConsumer;
+import org.kuali.common.util.stream.NoOpStreamConsumer;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
