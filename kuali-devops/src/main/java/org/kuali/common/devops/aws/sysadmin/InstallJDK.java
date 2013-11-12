@@ -87,18 +87,20 @@ public final class InstallJDK implements Executable {
 			// Open a secure channel to the server
 			channel = context.getService().openChannel(context.getContext());
 
+			// JDK home directory is the zip install directory (eg /usr/local/jdk6, /usr/local/jdk7)
+			String jdkHome = context.getInstallDir();
+
 			// Determine if it is installed already
-			boolean installed = isInstalled(channel, context.getInstallDir());
+			boolean installed = isInstalled(channel, jdkHome);
 
 			// Only skip if it's already installed AND the skip-if-installed flag is set
 			boolean skip = installed && skipIfInstalled;
 
 			// If we aren't skipping the install, install it!
 			if (!skip) {
-				String jdkHome = context.getInstallDir();
 				install(channel, jdkHome);
 				markAsInstalled(channel, jdkHome);
-				Assert.isTrue(isInstalled(channel, context.getInstallDir()), "Unable to verify the JDK installation");
+				Assert.isTrue(isInstalled(channel, jdkHome), "Unable to verify the JDK installation");
 			}
 		} catch (IOException e) {
 			throw new IllegalStateException("Unexpected IO error", e);
