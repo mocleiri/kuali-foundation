@@ -11,7 +11,10 @@ import org.kuali.common.util.channel.model.CommandContext;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.stream.consumer.StringStreamConsumer;
+
+import com.google.common.base.Optional;
 
 public class DefaultSecureChannelTest {
 
@@ -36,9 +39,16 @@ public class DefaultSecureChannelTest {
 	}
 
 	protected void show(String label, StringStreamConsumer consumer) {
-		String s = consumer.getOutput();
-		String size = FormatUtils.getCount(s.length());
-		System.out.println(label + " " + size + " " + Str.flatten(s));
+		Optional<String> optional = consumer.getOutput();
+		StringBuilder sb = new StringBuilder();
+		if (optional.isPresent()) {
+			String output = optional.get();
+			String size = FormatUtils.getCount(output.length());
+			sb.append(size + " " + Str.flatten(output));
+		} else {
+			sb.append(NullUtils.NONE);
+		}
+		System.out.println(label + " " + sb);
 	}
 
 	protected String getPrivateKey() {

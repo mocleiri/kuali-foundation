@@ -2,6 +2,8 @@ package org.kuali.common.util.stream.consumer;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
+import com.google.common.base.Optional;
+
 public class StringStreamConsumer implements StreamConsumer {
 
 	private final StringBuilder builder = new StringBuilder();
@@ -13,8 +15,12 @@ public class StringStreamConsumer implements StreamConsumer {
 		builder.append(line).append(LS);
 	}
 
-	public String getOutput() {
-		return builder.toString();
+	public Optional<String> getOutput() {
+		if (builder.length() == 0) {
+			return Optional.<String> absent();
+		} else {
+			return Optional.of(builder.toString());
+		}
 	}
 
 }
