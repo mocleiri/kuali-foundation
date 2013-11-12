@@ -68,7 +68,7 @@ public final class ChannelContext {
 		private File config = SSHUtils.DEFAULT_CONFIG_FILE;
 		private boolean useConfigFile = false;
 		private boolean includeDefaultPrivateKeyLocations = false;
-		private int waitForClosedSleepMillis = 10; // # of ms to wait when checking to see if an exec'd command has finished
+		private int waitForClosedSleepMillis = 10; // number of milliseconds to sleep when looping to see if an exec'd command has finished
 		private List<File> privateKeyFiles = ImmutableList.of();
 		private List<String> privateKeys = ImmutableList.of();
 		private boolean echo = true;
