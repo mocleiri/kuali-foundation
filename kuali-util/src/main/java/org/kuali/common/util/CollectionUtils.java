@@ -499,6 +499,18 @@ public class CollectionUtils {
 		return sb.toString();
 	}
 
+	public static final String toCSV(List<Integer> integers) {
+		Assert.noNulls(integers);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < integers.size(); i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			sb.append(integers.get(i));
+		}
+		return sb.toString();
+	}
+
 	public static final String asCSV(List<String> strings) {
 		return getCSV(strings);
 	}

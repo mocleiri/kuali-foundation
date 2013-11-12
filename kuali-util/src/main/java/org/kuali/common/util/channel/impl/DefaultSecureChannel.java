@@ -148,7 +148,12 @@ public final class DefaultSecureChannel implements SecureChannel {
 			handler.waitUntilDone();
 			// Make sure there were no exceptions
 			handler.validate();
-			return new CommandResult(context.getCommand(), exec.getExitStatus(), start);
+			// Construct a result object
+			CommandResult result = new CommandResult(context.getCommand(), exec.getExitStatus(), start);
+			// Validate that things turned out ok (or that we don't care)
+			validate(context, result);
+			// Return the result
+			return result;
 		} catch (Exception e) {
 			// Make sure the streams are disabled
 			handler.disableQuietly();
@@ -159,6 +164,23 @@ public final class DefaultSecureChannel implements SecureChannel {
 			closeQuietly(exec);
 			handler.closeQuietly();
 		}
+	}
+
+	protected void validate(CommandContext context, CommandResult result) {
+		if (context.isIgnoreExitValue()) {
+			return;
+		}
+		if (context.getSuccessCodes().size() == 0) {
+			return;
+		}
+		List<Integer> codes = context.getSuccessCodes();
+		int exitValue = result.getExitValue();
+		for (int successCode : codes) {
+			if (exitValue == successCode) {
+				return;
+			}
+		}
+		throw new IllegalStateException("Command exited with [" + exitValue + "].  Valid values are [" + CollectionUtils.toCSV(codes) + "]");
 	}
 
 	protected ChannelExec getChannelExec() throws JSchException {

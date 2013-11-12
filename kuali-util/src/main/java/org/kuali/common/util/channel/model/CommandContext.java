@@ -17,6 +17,7 @@ package org.kuali.common.util.channel.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
@@ -24,6 +25,7 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.util.NoOpStreamConsumer;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public final class CommandContext {
 
@@ -32,8 +34,8 @@ public final class CommandContext {
 	private final Optional<Integer> timeout;
 	private final StreamConsumer stdout;
 	private final StreamConsumer stderr;
+	private final List<Integer> successCodes;
 	private final boolean ignoreExitValue;
-	private final Optional<Integer> successCodes;
 
 	public static class Builder {
 
@@ -48,8 +50,8 @@ public final class CommandContext {
 		private Optional<Integer> timeout = Optional.absent();
 		private StreamConsumer stdout = NoOpStreamConsumer.INSTANCE;
 		private StreamConsumer stderr = NoOpStreamConsumer.INSTANCE;
+		private List<Integer> successCodes = ImmutableList.of(SUCCESS);
 		private boolean ignoreExitValue = false;
-		private Optional<Integer> successCodes = Optional.of(SUCCESS);
 
 		public Builder(String command) {
 			this(command, UTF8);
@@ -84,7 +86,8 @@ public final class CommandContext {
 		}
 
 		public CommandContext build() {
-			Assert.noNulls(command, stdin, timeout, stdout, stderr);
+			Assert.noNulls(command, stdin, timeout, stdout, stderr, successCodes);
+			this.successCodes = ImmutableList.copyOf(successCodes);
 			return new CommandContext(this);
 		}
 
@@ -96,8 +99,9 @@ public final class CommandContext {
 		this.timeout = builder.timeout;
 		this.stderr = builder.stderr;
 		this.stdout = builder.stdout;
-		this.ignoreExitValue = builder.ignoreExitValue;
 		this.successCodes = builder.successCodes;
+		this.ignoreExitValue = builder.ignoreExitValue;
+
 	}
 
 	public byte[] getCommand() {
@@ -120,11 +124,12 @@ public final class CommandContext {
 		return stderr;
 	}
 
+	public List<Integer> getSuccessCodes() {
+		return successCodes;
+	}
+
 	public boolean isIgnoreExitValue() {
 		return ignoreExitValue;
 	}
 
-	public Optional<Integer> getSuccessCodes() {
-		return successCodes;
-	}
 }
