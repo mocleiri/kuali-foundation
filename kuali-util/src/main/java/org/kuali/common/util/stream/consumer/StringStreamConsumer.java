@@ -6,7 +6,7 @@ public class StringStreamConsumer implements StreamConsumer {
 
 	private final StringBuilder builder = new StringBuilder();
 
-	private String LS = System.getProperty("line.separator");
+	private static final String LS = System.getProperty("line.separator");
 
 	@Override
 	public void consumeLine(String line) {
