@@ -75,7 +75,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 	public DefaultSecureChannel(ChannelContext context) throws IOException {
 		Assert.noNulls(context);
 		this.context = context;
-		logOpen();
+		open();
 		try {
 			JSch jsch = getJSch();
 			this.session = openSession(jsch);
@@ -246,7 +246,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected void logOpen() {
+	protected void open() {
 		if (context.isEcho()) {
 			logger.info("Opening secure channel [{}] encoding={}", ChannelUtils.getLocation(context.getUsername(), context.getHostname()), context.getEncoding());
 		} else {
