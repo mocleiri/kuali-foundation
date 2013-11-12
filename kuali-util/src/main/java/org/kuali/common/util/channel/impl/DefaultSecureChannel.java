@@ -229,16 +229,6 @@ public final class DefaultSecureChannel implements SecureChannel {
 		}
 	}
 
-	protected Optional<InputStream> getInputStream(Optional<String> string, String encoding) {
-		if (!string.isPresent()) {
-			return Optional.<InputStream> absent();
-		} else {
-			byte[] bytes = Str.getBytes(string.get(), encoding);
-			InputStream in = new ByteArrayInputStream(bytes);
-			return Optional.of(in);
-		}
-	}
-
 	protected void waitForClosed(ChannelExec exec, long millis) {
 		while (!exec.isClosed()) {
 			ThreadUtils.sleep(millis);
