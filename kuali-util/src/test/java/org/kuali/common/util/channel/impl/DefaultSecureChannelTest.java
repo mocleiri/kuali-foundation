@@ -8,10 +8,10 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
-import org.kuali.common.util.channel.util.StringStreamConsumer;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.stream.consumer.StringStreamConsumer;
 
 public class DefaultSecureChannelTest {
 
