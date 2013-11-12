@@ -53,10 +53,16 @@ public final class CommandContext {
 		private List<Integer> successCodes = ImmutableList.of(SUCCESS); // Expect zero as an exit value
 		private boolean ignoreExitValue = false; // Set this to true if you want to ignore the exit value of the process
 
+		/**
+		 * Pass this command to a remote server as a sequence of bytes encoded using UTF-8
+		 */
 		public Builder(String command) {
 			this(command, UTF8);
 		}
 
+		/**
+		 * Pass this command to a remote server as a sequence of bytes encoded using the indicated encoding
+		 */
 		public Builder(String command, String encoding) {
 			this(Str.getBytes(command, encoding));
 		}

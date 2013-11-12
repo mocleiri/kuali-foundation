@@ -28,14 +28,23 @@ import org.kuali.common.util.channel.model.RemoteFile;
 
 public interface SecureChannel {
 
-	CommandResult exec(String command);
-
 	CommandResult exec(CommandContext context);
 
 	List<CommandResult> exec(CommandContext... contexts);
 
+	/**
+	 * Pass this command to a remote server as a sequence of bytes encoded using UTF-8
+	 */
+	CommandResult exec(String command);
+
+	/**
+	 * Pass each command to a remote server as a sequence of bytes encoded using UTF-8
+	 */
 	List<CommandResult> exec(String... commands);
 
+	/**
+	 * Pass this command to a remote server as a sequence of bytes encoded using UTF-8
+	 */
 	void execNoWait(String command);
 
 	void execNoWait(byte[] command);
