@@ -28,15 +28,11 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class ChannelUtils {
-
-	private static final Logger logger = LoggerFactory.getLogger(ChannelUtils.class);
 
 	private static final ChannelContext DEFAULT = new ChannelContext.Builder(NullUtils.NONE).build();
 
