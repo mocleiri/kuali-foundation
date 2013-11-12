@@ -7,7 +7,6 @@ public class NoOpStreamConsumer implements StreamConsumer {
 	public static final NoOpStreamConsumer INSTANCE = new NoOpStreamConsumer();
 
 	private NoOpStreamConsumer() {
-
 	}
 
 	@Override
