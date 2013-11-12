@@ -139,7 +139,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 			// Setup handling of stdin, stdout, and stderr
 			handler.openStreams(exec);
 			// Get ready to consume anything on stdin, and pump stdout/stderr back out to the consumers
-			handler.startFeedingAndPumping();
+			handler.startPumping();
 			// This invokes the command on the remote system which consumes whatever is on stdin and produces output to stdout/stderr
 			connect(exec, context.getTimeout());
 			// Wait until the channel is done executing the command and becomes closed

@@ -30,7 +30,7 @@ public final class StreamHandler {
 		this.errorPumper = new StreamPumper(exec.getErrStream(), context.getStderr());
 	}
 
-	public void startFeedingAndPumping() {
+	public void startPumping() {
 		Assert.noNulls(inputFeeder, outputPumper, errorPumper);
 		if (inputFeeder.isPresent()) {
 			inputFeeder.get().start();
