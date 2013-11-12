@@ -143,6 +143,7 @@ public final class StreamingSecureChannel {
 		} finally {
 			IOUtils.closeQuietly(stdin.orNull());
 			closeQuietly(exec);
+			close(inputFeeder, outputPumper, errorPumper);
 		}
 	}
 
@@ -153,6 +154,14 @@ public final class StreamingSecureChannel {
 		if (errorPumper.getException() != null) {
 			throw new IllegalStateException("Error inside systemErr parser", errorPumper.getException());
 		}
+	}
+
+	protected void close(Optional<StreamFeeder> inputFeeder, StreamPumper outputPumper, StreamPumper errorPumper) {
+		if (inputFeeder.isPresent()) {
+			inputFeeder.get().close();
+		}
+		outputPumper.close();
+		errorPumper.close();
 	}
 
 	protected void disable(Optional<StreamFeeder> inputFeeder, StreamPumper outputPumper, StreamPumper errorPumper) {
