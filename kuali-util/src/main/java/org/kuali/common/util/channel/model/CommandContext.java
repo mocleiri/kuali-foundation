@@ -85,8 +85,31 @@ public final class CommandContext {
 			return this;
 		}
 
+		public Builder stdout(StreamConsumer stdout) {
+			this.stdout = stdout;
+			return this;
+		}
+
+		public Builder stderr(StreamConsumer stderr) {
+			this.stderr = stderr;
+			return this;
+		}
+
+		public Builder ignoreExitValue(boolean ignoreExitValue) {
+			this.ignoreExitValue = ignoreExitValue;
+			return this;
+		}
+
+		public Builder successCodes(List<Integer> successCodes) {
+			this.successCodes = successCodes;
+			return this;
+		}
+
 		public CommandContext build() {
 			Assert.noNulls(command, stdin, timeout, stdout, stderr, successCodes);
+			if (timeout.isPresent()) {
+				Assert.notNegative(timeout.get());
+			}
 			this.successCodes = ImmutableList.copyOf(successCodes);
 			return new CommandContext(this);
 		}
