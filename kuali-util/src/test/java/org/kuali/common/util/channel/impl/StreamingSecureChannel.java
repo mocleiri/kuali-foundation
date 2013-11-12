@@ -29,7 +29,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.StreamFeeder;
 import org.codehaus.plexus.util.cli.StreamPumper;
 import org.kuali.common.util.Assert;
@@ -110,39 +109,66 @@ public final class StreamingSecureChannel {
 		Optional<Integer> timeout = context.getTimeout();
 		String encoding = this.context.getEncoding();
 
+		Optional<StreamFeeder> inputFeeder = null;
+		StreamPumper outputPumper = null;
+		StreamPumper errorPumper = null;
 		ChannelExec exec = null;
 		try {
 			// Preserve start time
 			long start = System.currentTimeMillis();
 			// Open an exec channel
 			exec = getChannelExec();
-			// Convert the command string to bytes
-			byte[] commandBytes = Str.getBytes(command, encoding);
-			// Store the command on the exec channel
-			exec.setCommand(commandBytes);
+			// Convert the command string to a byte array and store it on the exec channel
+			exec.setCommand(Str.getBytes(command, encoding));
 			// Update the ChannelExec object with the stdin stream
 			exec.setInputStream(stdin.orNull());
-			// Execute the command.
-			// This consumes anything from stdin and stores output in stdout/stderr
-			connect(exec, timeout);
-			final Optional<StreamFeeder> inputFeeder = getInputFeeder(stdin, exec.getOutputStream());
-			final StreamPumper outputPumper = new StreamPumper(exec.getInputStream(), context.getStdout());
-			final StreamPumper errorPumper = new StreamPumper(exec.getErrStream(), context.getStderr());
+			// Setup handling of stdin, stdout, and stderr
+			inputFeeder = getInputFeeder(stdin, exec.getOutputStream());
+			outputPumper = new StreamPumper(exec.getInputStream(), context.getStdout());
+			errorPumper = new StreamPumper(exec.getErrStream(), context.getStderr());
+			outputPumper.start();
+			errorPumper.start();
 			if (inputFeeder.isPresent()) {
 				inputFeeder.get().start();
 			}
-			outputPumper.start();
-			errorPumper.start();
-
+			// This consumes anything from stdin and stores output in stdout/stderr
+			connect(exec, timeout);
 			waitForClosed(exec, this.context.getWaitForClosedSleepMillis());
-			CommandLineUtils.waitForAllPumpers(inputFeeder.orNull(), outputPumper, errorPumper);
+			waitForDone(inputFeeder, outputPumper, errorPumper);
+			handleExceptions(outputPumper, errorPumper);
 			return null;
 		} catch (Exception e) {
+			disable(inputFeeder, outputPumper, errorPumper);
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(stdin.orNull());
 			closeQuietly(exec);
 		}
+	}
+
+	protected void handleExceptions(StreamPumper outputPumper, StreamPumper errorPumper) {
+		if (outputPumper.getException() != null) {
+			throw new IllegalStateException("Error inside systemOut parser", outputPumper.getException());
+		}
+		if (errorPumper.getException() != null) {
+			throw new IllegalStateException("Error inside systemErr parser", errorPumper.getException());
+		}
+	}
+
+	protected void disable(Optional<StreamFeeder> inputFeeder, StreamPumper outputPumper, StreamPumper errorPumper) {
+		if (inputFeeder.isPresent()) {
+			inputFeeder.get().disable();
+		}
+		outputPumper.disable();
+		errorPumper.disable();
+	}
+
+	protected void waitForDone(Optional<StreamFeeder> inputFeeder, StreamPumper outputPumper, StreamPumper errorPumper) throws InterruptedException {
+		if (inputFeeder.isPresent()) {
+			inputFeeder.get().waitUntilDone();
+		}
+		outputPumper.waitUntilDone();
+		errorPumper.waitUntilDone();
 	}
 
 	protected ChannelExec getChannelExec() throws JSchException {
