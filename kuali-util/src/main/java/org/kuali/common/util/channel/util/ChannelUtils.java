@@ -21,7 +21,6 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.channel.model.CommandResult;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -85,37 +84,6 @@ public class ChannelUtils {
 			return username.get() + "@" + hostname;
 		} else {
 			return hostname;
-		}
-	}
-
-	/**
-	 * Execute <code>commands</code> on the channel and validate each exit value.
-	 * 
-	 * @throws IllegalStateException
-	 *             If the command returns with a non-zero exit value
-	 */
-	public static List<CommandResult> exec(SecureChannel channel, String... commands) {
-		List<String> list = ImmutableList.copyOf(commands);
-		List<CommandResult> results = new ArrayList<CommandResult>();
-		for (String command : list) {
-			CommandResult result = exec(channel, command);
-			results.add(result);
-		}
-		return results;
-	}
-
-	/**
-	 * Execute <code>command</code> on the channel and validate the exit value.
-	 * 
-	 * @throws IllegalStateException
-	 *             If the command returns a non-zero exit value
-	 */
-	public static CommandResult exec(SecureChannel channel, String command) {
-		CommandResult result = channel.exec(command);
-		if (result.getExitValue() != 0) {
-			throw new IllegalStateException("Non-zero exit value");
-		} else {
-			return result;
 		}
 	}
 
