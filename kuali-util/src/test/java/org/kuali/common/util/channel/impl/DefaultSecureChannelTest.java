@@ -3,9 +3,12 @@ package org.kuali.common.util.channel.impl;
 import org.jasypt.util.text.TextEncryptor;
 import org.junit.Test;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.model.CommandContext;
+import org.kuali.common.util.channel.util.StringStreamConsumer;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -20,12 +23,22 @@ public class DefaultSecureChannelTest {
 			String privateKey = getPrivateKey();
 			ChannelContext context = new ChannelContext.Builder("ec2-54-242-254-25.compute-1.amazonaws.com").username("root").privateKey(privateKey).build();
 			DefaultSecureChannel channel = new DefaultSecureChannel(context);
-			CommandContext cc = new CommandContext.Builder("man ls").stdin("q").build();
+			StringStreamConsumer stdout = new StringStreamConsumer();
+			StringStreamConsumer stderr = new StringStreamConsumer();
+			CommandContext cc = new CommandContext.Builder("man ls").stdin("q").stdout(stdout).stderr(stderr).build();
 			channel.exec(cc);
 			channel.close();
+			show("stdout", stdout);
+			show("stderr", stderr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void show(String label, StringStreamConsumer consumer) {
+		String s = consumer.getOutput();
+		String size = FormatUtils.getSize(s.length());
+		System.out.println(label + " " + size + " " + Str.flatten(s));
 	}
 
 	protected String getPrivateKey() {
