@@ -12,6 +12,8 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
  * Copied from Plexus in order to add constructors that allow you to provide a BufferedReader directly, or to provide an explicit character encoding.
+ * 
+ * This class would be entirely unnecessary if the Plexus version had a constructor that allowed you to provide a BufferedReader
  */
 public class StreamPumper extends AbstractStreamHandler {
 
