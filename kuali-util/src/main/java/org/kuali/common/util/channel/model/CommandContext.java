@@ -46,12 +46,12 @@ public final class CommandContext {
 		private final byte[] command;
 
 		// Optional
-		private Optional<InputStream> stdin = Optional.absent();
-		private Optional<Integer> timeout = Optional.absent();
-		private StreamConsumer stdout = NoOpStreamConsumer.INSTANCE;
-		private StreamConsumer stderr = NoOpStreamConsumer.INSTANCE;
-		private List<Integer> successCodes = ImmutableList.of(SUCCESS);
-		private boolean ignoreExitValue = false;
+		private Optional<InputStream> stdin = Optional.absent(); // Don't supply anything to stdin by default
+		private Optional<Integer> timeout = Optional.absent(); // Default is to wait forever
+		private StreamConsumer stdout = NoOpStreamConsumer.INSTANCE; // Ignore anything produced on stdout, by default
+		private StreamConsumer stderr = NoOpStreamConsumer.INSTANCE; // Ignore anything produced on stderr, by default
+		private List<Integer> successCodes = ImmutableList.of(SUCCESS); // Expect zero as an exit value
+		private boolean ignoreExitValue = false; // Set this to true if you want to ignore the exit value of the process
 
 		public Builder(String command) {
 			this(command, UTF8);
@@ -65,10 +65,16 @@ public final class CommandContext {
 			this.command = command;
 		}
 
+		/**
+		 * Convert the string into a <code>byte[]</code> using UTF-8 encoding
+		 */
 		public Builder stdin(String stdin) {
 			return stdin(stdin, UTF8);
 		}
 
+		/**
+		 * Convert the string into a <code>byte[]</code> using the indicated encoding
+		 */
 		public Builder stdin(String stdin, String encoding) {
 			Assert.noBlanks(stdin, encoding);
 			byte[] bytes = Str.getBytes(stdin, encoding);
