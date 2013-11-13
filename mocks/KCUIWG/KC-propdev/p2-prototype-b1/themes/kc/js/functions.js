@@ -672,6 +672,24 @@ $(document).ready(function() {
 
 
     /*
+        Slider controls
+        Relies on jQuery UI to create slider controls for credit allocation page
+        Chris Rodriguez
+    */
+    $('.credit-allocation-slider-control').slider({
+        value: 50,
+        min: 0,
+        max: 100,
+        step: 5,
+        slide: function(event, ui) {
+            // $(this).parent().parent().find('.credit-allocation-text').val(ui.value + "%");
+            $(this).parent().parent().find('.credit-allocation-text').val(ui.value);
+        }
+    });
+
+
+
+    /*
         New window
         Opens classed links in a new window
         Chris Rodriguez
@@ -815,6 +833,3 @@ function storeSession(href){
         document.location = href;
     });
 }
-
-
-

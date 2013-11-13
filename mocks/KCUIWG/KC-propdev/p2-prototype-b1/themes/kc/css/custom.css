@@ -1707,3 +1707,164 @@ nav-list > li > a {
   border-bottom: 1px dotted #dedede;
   background: #f8f8f8;
 }
+/*
+ * Stylesheets for credit allocation page and the data tables therein.
+ * Chris Rodriguez, clrux
+*/
+.credit-allocation {
+  clear: both;
+  float: none;
+  position: relative;
+  min-height: 640px;
+}
+.credit-allocation .ca-error {
+  color: red;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table {
+  width: 65%;
+  float: left;
+  padding: 20px;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row {
+  border-top: 1px dotted #ccc;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-person,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-person,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-person {
+  width: 30%;
+  padding: 0 2%;
+  float: left;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-person h3,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-person h3,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-person h3 {
+  font-size: 13px;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-recognition,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-recognition,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-recognition,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-responsibility,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-responsibility,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-responsibility,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-space,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-space,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-space,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-financial,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-financial,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-financial {
+  width: 17.5%;
+  padding: 1%;
+  float: left;
+  text-align: center;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-recognition .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-recognition .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-recognition .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-responsibility .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-responsibility .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-responsibility .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-space .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-space .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-space .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-financial .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-financial .credit-allocation-cell .credit-allocation-text,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-financial .credit-allocation-cell .credit-allocation-text {
+  width: 38px;
+  text-align: center;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-recognition .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-recognition .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-recognition .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-responsibility .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-responsibility .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-responsibility .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-space .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-space .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-space .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-financial .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-financial .credit-allocation-cell .credit-allocation-text.ca-trans,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-financial .credit-allocation-cell .credit-allocation-text.ca-trans {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-recognition .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-recognition .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-recognition .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-responsibility .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-responsibility .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-responsibility .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-space .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-space .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-space .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row .credit-financial .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row .credit-financial .credit-allocation-cell span,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-financial .credit-allocation-cell span {
+  display: block;
+  margin-top: 13px;
+  padding-left: 7px;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-data-row {
+  height: 60px;
+  clear: both;
+  border-top: 1px dotted #ccc;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-header-row,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #666;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-person,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-recognition,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-responsibility,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-space,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row .credit-financial {
+  padding: 16px 2%;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row.closed {
+  background: #f6f6f6;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row .credit-subcat,
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row.closed .credit-subcat {
+  width: 30%;
+  padding: 16px 2%;
+  float: left;
+  font-size: 11px;
+  color: #666;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row.closed {
+  height: 60px;
+  overflow: hidden;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row.opened {
+  background: white;
+  position: relative;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row.opened:after {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 50%;
+  margin-top: -12px;
+  right: -33px;
+  background: white;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  z-index: 10;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts {
+  width: 35%;
+  float: left;
+  min-height: 340px;
+}
+.credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts .credit-allocation-pie-chart-wrapper {
+  border-left: 1px solid #ccc;
+}

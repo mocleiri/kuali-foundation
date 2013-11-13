@@ -31,6 +31,9 @@ session_start();
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
 
+<!-- Google Charts -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 </head>
 
 <body>
