@@ -1721,8 +1721,7 @@ nav-list > li > a {
   color: red;
 }
 .credit-allocation .credit-allocation-wrapper .credit-allocation-data-table {
-  width: 65%;
-  float: left;
+  width: 100%;
   padding: 20px;
 }
 .credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-footer-row {
@@ -1843,28 +1842,11 @@ nav-list > li > a {
   background: white;
   position: relative;
 }
-.credit-allocation .credit-allocation-wrapper .credit-allocation-data-table .credit-allocation-collapsible-row.opened:after {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 50%;
-  margin-top: -12px;
-  right: -33px;
-  background: white;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  z-index: 10;
-}
 .credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts {
-  width: 35%;
-  float: left;
+  width: 100%;
   min-height: 340px;
 }
-.credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts .credit-allocation-pie-chart-wrapper {
-  border-left: 1px solid #ccc;
+.credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts .credit-allocation-pie-chart-wrapper .ca-chart-large {
+  float: left;
+  width: 22.5%;
 }
