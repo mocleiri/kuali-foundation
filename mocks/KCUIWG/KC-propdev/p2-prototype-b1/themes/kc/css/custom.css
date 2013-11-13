@@ -1844,7 +1844,7 @@ nav-list > li > a {
 }
 .credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts {
   width: 100%;
-  min-height: 340px;
+  min-height: 190px;
 }
 .credit-allocation .credit-allocation-wrapper .credit-allocation-pie-charts .credit-allocation-pie-chart-wrapper .ca-chart-large {
   float: left;

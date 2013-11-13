@@ -93,6 +93,23 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
         <div class="credit-allocation">
             <div class="credit-allocation-wrapper clearfix">
+                <div class="credit-allocation-pie-charts">
+                    <div class="credit-allocation-pie-chart-wrapper">
+                        <div class="ca-chart-large">
+                            <div id="credit-allocation-chart-recognition"></div>
+                        </div>
+                        <div class="ca-chart-large">
+                            <div id="credit-allocation-chart-responsibility"></div>
+                        </div>
+                        <div class="ca-chart-large">
+                            <div id="credit-allocation-chart-space"></div>
+                        </div>
+                        <div class="ca-chart-large">
+                            <div id="credit-allocation-chart-financial"></div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="credit-allocation-data-table">
                     
                     <div class="credit-allocation-header-row clearfix">
@@ -307,22 +324,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         </div>
                     </div>
 
-                </div>
-                <div class="credit-allocation-pie-charts">
-                    <div class="credit-allocation-pie-chart-wrapper">
-                        <div class="ca-chart-large">
-                            <div id="credit-allocation-chart-recognition"></div>
-                        </div>
-                        <div class="ca-chart-large">
-                            <div id="credit-allocation-chart-responsibility"></div>
-                        </div>
-                        <div class="ca-chart-large">
-                            <div id="credit-allocation-chart-space"></div>
-                        </div>
-                        <div class="ca-chart-large">
-                            <div id="credit-allocation-chart-financial"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
