@@ -109,7 +109,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="credit-allocation-data-table">
                     
                     <div class="credit-allocation-header-row clearfix">
@@ -133,7 +133,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                         <!-- Main person row -->
                         <div class="credit-allocation-data-row clearfix">
                             <div class="credit-person">
-                                <h3><a href="#"><i class="icon icon-arrow-down"></i> Edward H Haskell</a></h3>
+                                <h3><a href="#"><i class="icon icon-angle-down"></i> Edward H Haskell</a></h3>
                             </div>
                             <div class="credit-recognition">
                                 <div class="credit-allocation-cell">
@@ -261,7 +261,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
                         <div class="credit-allocation-data-row clearfix">
                             <div class="credit-person">
-                                <h3><a href="#"><i class="icon icon-arrow-right"></i> Ward Cleaver</a></h3>
+                                <h3><a href="#"><i class="icon icon-angle-right"></i> Ward Cleaver</a></h3>
                             </div>
                             <div class="credit-recognition">
                                 <div class="credit-allocation-cell">
@@ -368,7 +368,7 @@ $(document).ready(function() {
         } else {
 
             $('.credit-allocation-collapsible-row').removeClass('opened').addClass('closed');
-            $('.credit-allocation-collapsible-row h3 a .icon').removeClass('icon-arrow-down').addClass('icon-arrow-right');
+            $('.credit-allocation-collapsible-row h3 a .icon').removeClass('icon-angle-down').addClass('icon-angle-right');
             $('.credit-allocation-collapsible-row.closed .credit-allocation-cell input').each(function() {
                 // $(this).replaceWith('<span id="' + $(this).attr('id') + '">' + $(this).val() + '</span>');
                 $(this).addClass('ca-trans');
@@ -376,7 +376,7 @@ $(document).ready(function() {
             $('.credit-allocation-collapsible-row.closed .credit-allocation-slider-control').hide();
 
             $(this).parent().parent().parent().parent().removeClass('closed').addClass('opened');
-            $(this).find('.icon').removeClass('icon-arrow-right').addClass('icon-arrow-down');
+            $(this).find('.icon').removeClass('icon-angle-right').addClass('icon-angle-down');
             $('.credit-allocation-collapsible-row.opened .credit-allocation-cell input').each(function() {
                 // $(this).replaceWith('<input type="text" class="credit-allocation-text" id="' + $(this).attr('id') + '" value="' + $(this).text() + '" />');
                 $(this).removeClass('ca-trans');
