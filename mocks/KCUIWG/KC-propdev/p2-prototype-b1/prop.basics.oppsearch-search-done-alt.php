@@ -71,6 +71,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     </select></td>
                   </tr>
                   <tr>
+                    <th>Prev Grants.gov tracking ID</th>
+                    <td>
+                      <input type="text" id="prev_grantsgov_tracking" name="prev_grantsgov_tracking" class="form-control input-sm" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Agency Routing Identifier</th>
+                    <td><input type="text" id="agency_routing_identifier" name="agency_routing_identifier" class="form-control input-sm"></td>
+                  </tr>
+                  <tr>
                     <th>CFDA Number</th>
                     <td>00.000</td>
                   </tr>

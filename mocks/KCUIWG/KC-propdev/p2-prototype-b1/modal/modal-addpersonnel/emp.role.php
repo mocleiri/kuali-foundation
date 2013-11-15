@@ -52,9 +52,9 @@ foreach($_SESSION['keyPersonnel'] as $person){
 				</div>
 			</fieldset>
 
-			<div class="form-group clearfix">
+			<!-- <div class="form-group clearfix">
 				<label for="include-ib" class="control-label col-md-5"><input type="checkbox" id="include-ib" value="1" checked="checked" /> Yes, include <span><?php echo $personName?></span> in this proposal's budget</label>
-			</div>
+			</div> -->
 		</div>
 
 		<div class="modal-footer" data-spy="">
