@@ -3,7 +3,7 @@ package org.kuali.common.liquibase;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
-public class LiquibaseUpdateExecutable implements Executable {
+public final class LiquibaseUpdateExecutable implements Executable {
 
 	private final boolean skip;
 	private final LiquibaseService service;
