@@ -8,7 +8,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.collect.ImmutableList;
 
-public class LiquibaseContext {
+public final class LiquibaseContext {
 
 	private final String changeLog;
 	private final DataSource dataSource;
