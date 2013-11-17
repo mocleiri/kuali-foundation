@@ -11,13 +11,10 @@ public final class LiquibaseUpdateExecutable implements Executable {
 
 	@Override
 	public void execute() {
-
-		if (skip) {
+		if (!skip) {
+			service.update(context);
 			return;
 		}
-
-		service.update(context);
-
 	}
 
 	public static class Builder {
