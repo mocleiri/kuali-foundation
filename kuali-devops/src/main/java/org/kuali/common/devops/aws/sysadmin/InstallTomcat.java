@@ -6,7 +6,7 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.aws.sysadmin.model.Bashrc;
 import org.kuali.common.devops.aws.sysadmin.model.Deployable;
-import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcat7Context;
 import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
@@ -26,18 +26,18 @@ public final class InstallTomcat implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(InstallTomcat.class);
 
-	private final InstallTomcatContext context;
+	private final InstallTomcat7Context context;
 	private final boolean skip;
 
 	public static class Builder {
 
 		// Required
-		private final InstallTomcatContext context;
+		private final InstallTomcat7Context context;
 
 		// Optional
 		private boolean skip = false;
 
-		public Builder(InstallTomcatContext context) {
+		public Builder(InstallTomcat7Context context) {
 			this.context = context;
 		}
 
@@ -145,7 +145,7 @@ public final class InstallTomcat implements Executable {
 		return skip;
 	}
 
-	public InstallTomcatContext getContext() {
+	public InstallTomcat7Context getContext() {
 		return context;
 	}
 

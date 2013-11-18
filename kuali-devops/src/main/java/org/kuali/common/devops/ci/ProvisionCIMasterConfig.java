@@ -41,7 +41,7 @@ import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.aws.sysadmin.model.Heap;
 import org.kuali.common.devops.aws.sysadmin.model.Heaps;
-import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
+import org.kuali.common.devops.aws.sysadmin.model.InstallTomcat7Context;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipContext;
 import org.kuali.common.devops.aws.sysadmin.model.Users;
 import org.kuali.common.devops.aws.sysadmin.model.Zip;
@@ -144,7 +144,7 @@ public class ProvisionCIMasterConfig {
 	protected Executable getTomcatInstaller(ChannelContext channel, Zip tomcat, String javaHome, Heap heap) {
 		InstallZipContext zip = new InstallZipContext.Builder(scs, channel, tomcat).build();
 		BashrcContext bashrc = new BashrcContext.Builder(javaHome, zip.getInstallDir(), heap).build();
-		InstallTomcatContext context = new InstallTomcatContext.Builder(zip, bashrc).build();
+		InstallTomcat7Context context = new InstallTomcat7Context.Builder(zip, bashrc).build();
 		return new InstallTomcat.Builder(context).build();
 	}
 
