@@ -6,7 +6,7 @@ import org.kuali.common.util.VersionUtils;
 /**
  * Customize Tomcat
  */
-public final class InstallTomcat7Context {
+public final class InstallTomcatContext {
 
 	private final InstallZipContext zip;
 	private final String majorVersion;
@@ -31,15 +31,15 @@ public final class InstallTomcat7Context {
 			this.majorVersion = VersionUtils.getVersion(context.getZip().getArtifact().getVersion()).getMajor();
 		}
 
-		public InstallTomcat7Context build() {
+		public InstallTomcatContext build() {
 			Assert.noNulls(zip, tomcat, bashrc);
 			Assert.noBlanks(majorVersion);
-			return new InstallTomcat7Context(this);
+			return new InstallTomcatContext(this);
 		}
 
 	}
 
-	private InstallTomcat7Context(Builder builder) {
+	private InstallTomcatContext(Builder builder) {
 		this.zip = builder.zip;
 		this.majorVersion = builder.majorVersion;
 		this.tomcat = builder.tomcat;
