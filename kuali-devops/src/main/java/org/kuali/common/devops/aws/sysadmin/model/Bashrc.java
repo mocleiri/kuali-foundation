@@ -10,6 +10,7 @@ public final class Bashrc {
 
 	public static class Builder {
 
+		
 		// Required
 		private final User user;
 		private final String content;
