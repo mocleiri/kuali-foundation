@@ -50,7 +50,7 @@ var tour = {
 	
 	
 	    {
-      title: "Prime Sponsor Code",
+      title: "Prime Sponsor",
       content: "Content coming soon...",
       target: "#tour7",
       placement: "top"
