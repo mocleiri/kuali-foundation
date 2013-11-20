@@ -25,11 +25,15 @@ session_start();
 <link href="<?php echo $ROOT ?>themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
 <link href="<?php echo $ROOT ?>themes/kc/css/custom.css" rel="stylesheet" />
 <link href="<?php echo $ROOT ?>themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $ROOT ?>themes/kc/js/datatables/DT_bootstrap.css">
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
+
+<script type="text/javascript" charset="utf-8" language="javascript" src="<?php echo $ROOT ?>themes/kc/js/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="<?php echo $ROOT ?>themes/kc/js/datatables/DT_bootstrap.js"></script>
 
 <!-- Google Charts -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
