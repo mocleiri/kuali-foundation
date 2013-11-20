@@ -27,7 +27,7 @@ public final class BootstrapContext {
 	public static class Builder {
 
 		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/distros";
-		private static final List<String> PACKAGES = ImmutableList.of("man", "zip", "unzip", "wget", "rsync", "openssh-clients", "subversion", "git", "ant", "graphviz");
+		private static final List<String> PACKAGES = Packages.BASIC.getNames();
 		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
 		// Required

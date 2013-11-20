@@ -40,7 +40,7 @@ public enum Packages {
 		for (Packages p : packages) {
 			strings.addAll(p.getNames());
 		}
-		return strings;
+		return ImmutableList.copyOf(strings);
 	}
 
 }
