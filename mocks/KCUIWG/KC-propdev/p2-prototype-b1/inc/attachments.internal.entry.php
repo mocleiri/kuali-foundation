@@ -4,7 +4,7 @@
         <div class="col-md-6">
           <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion3" href="#attachmentsInternalCollapse<?php echo $id?>"><span aria-hidden="true" class="icon-caret-right"></span> <?php echo $entry['type']?></a></h4>
         </div>
-        <div class="col-md-3 flexible"> <?php echo $entry['uploadFile']?> </div>
+        <div class="col-md-3"> <?php echo $entry['uploadFile']?> </div>
         <div class="col-md-3"><a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-attachments-internal-entry" entryId="<?php echo $id?>"></span></a></div>
       </div>
     </div>

@@ -13,8 +13,8 @@
                     <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
                     <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
                       <div class="form-group clearfix">
-                        <label for="type" class="control-label col-md-3">Type:</label>
-                        <div class="col-md-9">
+                        <label for="type" class="control-label col-sm-3 col-xs-3">Type:</label>
+                        <div class="col-sm-9 col-xs-9">
                           <select name="type" id="type" class="form-control input-sm col-md-8">
                             <option> </option>
                             <option value="Human Subjects">Human Subjects</option>
@@ -33,8 +33,8 @@
                         </div>
                       </div>
                       <div class="form-group clearfix">
-                        <label for="approval_status" class="control-label col-md-3">Approval status:</label>
-                        <div class="col-md-9">
+                        <label for="approval_status" class="control-label col-sm-3 col-xs-3">Approval status:</label>
+                        <div class="col-sm-9 col-xs-9">
                           <select name="approval_status" id="approval_status" class="form-control input-sm col-md-8">
                             <option> </option>
                             <option value="Approved">Approved</option>
@@ -47,34 +47,34 @@
                         </div>
                       </div>
                       <div class="form-group clearfix">
-                        <label for="protocol_no" class="control-label col-md-3">Protocol number:</label>
-                        <div class="col-md-9 input-group">
+                        <label for="protocol_no" class="control-label col-sm-3 col-xs-3">Protocol number:</label>
+                        <div class="col-sm-9 col-xs-9 input-group">
                           <input type="text" class="form-control input-sm has-helper" name="protocol_no" id="protocol_no" value="<?php echo $entry['protocol_no'];?>"/>
                           <span class="input-group-btn"> <a href="#" class="icon-search launch-modal" data-modal-page="modal/#" data-modal-height="500"></a> </span> </div>
                       </div>
 
 
                       <div class="form-group clearfix">
-                        <label for="application_date" class="control-label col-md-3">Application Date:</label>
-                        <div class="col-md-9 date">
-                          <input type="text" name="application_date" id="application_date" class="form-control input-sm col-md-8 uif-dateControl" value="<?php echo $entry['application_date'];?>" placeholder="mm/dd/yyyy"/>
+                        <label for="application_date" class="control-label col-sm-3 col-xs-3">Application Date:</label>
+                        <div class="col-sm-9 col-xs-9 col-md-9">
+                          <input type="text" name="application_date" id="application_date" class="form-control input-sm uif-dateControl" value="<?php echo $entry['application_date'];?>" placeholder="mm/dd/yyyy"/>
                         </div>
                       </div>
                       <div class="form-group clearfix">
-                        <label for="approval_date" class="control-label col-md-3">Approval Date:</label>
-                        <div class="col-md-9 date">
+                        <label for="approval_date" class="control-label col-sm-3 col-xs-3">Approval Date:</label>
+                        <div class="col-sm-9 col-xs-9">
                           <input type="text" name="approval_date" id="approval_date" class="form-control input-sm col-md-8 uif-dateControl" value="<?php echo $entry['approval_date'];?>" placeholder="mm/dd/yyyy" />
                         </div>
                       </div>
                       <div class="form-group clearfix">
-                        <label for="expiration_date" class="control-label col-md-3">Expiration Date:</label>
-                        <div class="col-md-9 date">
+                        <label for="expiration_date" class="control-label col-sm-3 col-xs-3">Expiration Date:</label>
+                        <div class="col-sm-9 col-xs-9">
                           <input type="text" name="expiration_date" id="expiration_date" class="form-control input-sm col-md-8 col-md-8 uif-dateControl" value="<?php echo $entry['expiration_date'];?>" placeholder="mm/dd/yyyy" />
                         </div>
                       </div>
                       <div class="form-group clearfix">
-                        <label for="exemptions" class="control-label col-md-3">Exemption:</label>
-                        <div class="col-md-9">
+                        <label for="exemptions" class="control-label col-sm-3 col-xs-3">Exemption:</label>
+                        <div class="col-sm-9 col-xs-9">
                           <select name="exemptions[]" id="exemptions" class="form-control input-sm col-md-8" multiple>
                             <option >E1</option>
                             <option >E2</option>
@@ -85,8 +85,12 @@
                           </select>
                         </div>
                       </div>
-                      <div class="btn-row-widget-action pull-right">
+                      
+                      
+                    <div class="btn-row-widget-action pull-right">
                         <button class="btn btn-primary btn-xs update-compliance-entry" complianceEntryId="<?php echo $id?>" id="update-compliance-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
                         <button class="btn btn-link btn-xs cancel-update-compliance-entry" complianceEntryId="<?php echo $id?>"> Cancel</button>
                       </div>
+                      
+                      
                     </form>

@@ -3,8 +3,8 @@
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
 <input type="hidden" id="section" name="section" value="personnel"/>
   <div class="form-group clearfix">
-    <label for="person" class="control-label col-md-3">Person:</label>
-    <div class="col-md-9">
+    <label for="person" class="control-label col-sm-3 col-xs-3">Person:</label>
+    <div class="col-sm-9 col-xs-9">
       <select name="person" id="person" class="form-control input-sm col-md-8">
         <option> </option>
         <option value="Ken Graves">Ken Graves</option>
@@ -14,8 +14,8 @@
     </div>
   </div>
   <div class="form-group clearfix">
-    <label for="type" class="control-label col-md-3">Attachment Type:</label>
-    <div class="col-md-9">
+    <label for="type" class="control-label col-sm-3 col-xs-3">Attachment Type:</label>
+    <div class="col-sm-9 col-xs-9">
       <select name="type" id="type" class="form-control input-sm col-md-8">
         <option> </option>
         <option value="Biosketch">Biosketch</option>
@@ -27,14 +27,14 @@
     </div>
   </div>
   <div class="form-group clearfix">
-    <label for="file" class="control-label col-md-3">File:</label>
-    <div class="col-md-9 input-group">
+    <label for="file" class="control-label col-sm-3 col-xs-3">File:</label>
+    <div class="col-sm-9 col-xs-9 input-group">
       <input type="file" id="file" name="file">
     </div>
   </div>
   <div class="form-group clearfix">
-    <label for="description" class="control-label col-md-3">Description:</label>
-    <div class="col-md-9 input-group">
+    <label for="description" class="control-label col-sm-3 col-xs-3">Description:</label>
+    <div class="col-sm-9 col-xs-9 input-group">
       <textarea class="form-control" rows="5" id="description" name="description"></textarea>
     </div>
   </div>

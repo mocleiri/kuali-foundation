@@ -2,8 +2,8 @@
 <input type="hidden" id="action" name="action" value="<?php echo $action?>"/>
 <input type="hidden" id="section" name="section" value="abstracts"/>
   <div class="form-group clearfix">
-    <label for="approval_status" class="control-label col-md-3">Abstract Type:</label>
-    <div class="col-md-9">
+    <label for="approval_status" class="control-label col-sm-3 col-xs-3">Abstract Type:</label>
+    <div class="col-sm-9 col-xs-9">
       <select name="type" id="type" class="form-control input-sm col-md-8">
         <option value="">select</option>
         <option value="Project Summary">Project Summary</option>
@@ -26,8 +26,8 @@
     </div>
   </div>
   <div class="form-group clearfix">
-    <label for="description" class="control-label col-md-3">Abstract Details:</label>
-    <div class="col-md-9 input-group">
+    <label for="description" class="control-label col-sm-3 col-xs-3">Abstract Details:</label>
+    <div class="col-sm-9 col-xs-9 input-group">
       <textarea class="form-control" rows="5" name="description" id="description"></textarea>
     </div>
   </div>

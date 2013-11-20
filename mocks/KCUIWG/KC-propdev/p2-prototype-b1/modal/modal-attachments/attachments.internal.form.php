@@ -3,8 +3,8 @@
 <input type="hidden" id="id" name="id" value="<?php echo $id?>"/>
 <input type="hidden" id="section" name="section" value="internal"/>
   <div class="form-group clearfix">
-    <label for="type" class="control-label col-md-3">Attachment Type:</label>
-    <div class="col-md-9">
+    <label for="type" class="control-label col-sm-3 col-xs-3">Attachment Type:</label>
+    <div class="col-sm-9 col-xs-9">
       <select name="type" id="type" class="form-control input-sm col-md-8">
         <option value="">select:</option>
         <option value="MIT Cost-Sharing Distribution">MIT Cost-Sharing Distribution</option>
@@ -17,14 +17,14 @@
     </div>
   </div>
   <div class="form-group clearfix">
-      <label for="file" class="control-label col-md-3">File:</label>
-      <div class="col-md-9 input-group">
+      <label for="file" class="control-label col-sm-3 col-xs-3">File:</label>
+      <div class="col-sm-9 col-xs-9 input-group">
         <input type="file" id="file" name="file">
       </div>
     </div>
   <div class="form-group clearfix">
-    <label for="" class="control-label col-md-3">Description:</label>
-    <div class="col-md-9 input-group">
+    <label for="" class="control-label col-sm-3 col-xs-3">Description:</label>
+    <div class="col-sm-9 col-xs-9 input-group">
       <textarea class="form-control" rows="5" name="description" id="description"></textarea>
     </div>
   </div>

@@ -4,8 +4,8 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group clearfix">
-        <label for="type" class="control-label col-md-3">Type:</label>
-        <div class="col-md-9">
+        <label for="type" class="control-label col-sm-3 col-xs-3">Type:</label>
+        <div class="col-sm-9 col-xs-9">
           <select name="type" id="type" class="form-control input-sm col-md-8">
             <option> </option>
             <option value="Research Plan">Research Plan</option>
@@ -26,8 +26,8 @@
         </div>
       </div>
       <div class="form-group clearfix">
-        <label for="approval_status" class="control-label col-md-3">Status:</label>
-        <div class="col-md-9">
+        <label for="approval_status" class="control-label col-sm-3 col-xs-3">Status:</label>
+        <div class="col-sm-9 col-xs-9">
           <select name="approval_status" id="approval_status" class="form-control input-sm col-md-8">
             <option> </option>
             <option value="Complete">Complete</option>
@@ -36,40 +36,40 @@
         </div>
       </div>
       <div class="form-group clearfix">
-        <label for="contact" class="control-label col-md-3">Contact:</label>
-        <div class="col-md-9 input-group">
+        <label for="contact" class="control-label col-sm-3 col-xs-3">Contact:</label>
+        <div class="col-sm-9 col-xs-9 input-group">
           <input type="text" name="contact" id="contact" class="form-control input-sm col-md-8 " placeholder="" value="">
         </div>
       </div>
       <div class="form-group clearfix">
-        <label for="email" class="control-label col-md-3">Email:</label>
-        <div class="col-md-9 input-group">
+        <label for="email" class="control-label col-sm-3 col-xs-3">Email:</label>
+        <div class="col-sm-9 col-xs-9 input-group">
           <input type="text" name="email" id="email" class="form-control input-sm col-md-8 " placeholder="" value="">
         </div>
       </div>
       <div class="form-group clearfix">
-        <label for="phone" class="control-label col-md-3">Phone:</label>
-        <div class="col-md-9 input-group">
+        <label for="phone" class="control-label col-sm-3 col-xs-3">Phone:</label>
+        <div class="col-sm-9 col-xs-9 input-group">
           <input type="text" name="phone" id="phone" class="form-control input-sm col-md-8 " placeholder="" value="">
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group clearfix">
-        <label for="file" class="control-label col-md-3">File:</label>
-        <div class="col-md-9 input-group">
+        <label for="file" class="control-label col-sm-3 col-xs-3">File:</label>
+        <div class="col-sm-9 col-xs-9 input-group">
           <input type="file" id="file" name="file">
         </div>
       </div>
       <div class="form-group clearfix">
-        <label for="description" class="control-label col-md-3">Description:</label>
-        <div class="col-md-9 input-group">
+        <label for="description" class="control-label col-sm-3 col-xs-3">Description:</label>
+        <div class="col-sm-9 col-xs-9 input-group">
           <textarea class="form-control" rows="3" id="description" name="description"></textarea>
         </div>
       </div>
       <div class="form-group clearfix">
-        <label for="comments" class="control-label col-md-3">Comments:</label>
-        <div class="col-md-9 input-group">
+        <label for="comments" class="control-label col-sm-3 col-xs-3">Comments:</label>
+        <div class="col-sm-9 col-xs-9 input-group">
           <textarea class="form-control" rows="3" id="comments" name="comments"></textarea>
         </div>
       </div>
