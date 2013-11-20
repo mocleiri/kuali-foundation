@@ -1,29 +1,27 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
+import java.util.List;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.VersionUtils;
 
 /**
  * Customize Tomcat
  */
-public final class InstallTomcatContext {
+public final class InstallTomcat7Context {
 
-	private final InstallZipContext zip;
-	private final String majorVersion;
-	private final User tomcat;
-	private final BashrcContext bashrc;
+	private final String install;
+	private final List<String> erase;
+	private final Heap heap;
+	private final List<String> javaOpts;
 
 	public static class Builder {
 
 		// Required
-		private final InstallZipContext zip;
-		private final BashrcContext bashrc;
-
-		// Optional
-		private final User tomcat = Users.TOMCAT.getUser();
-
-		// Filled in automatically
-		private final String majorVersion;
+		private final String install = Packages.TOMCAT7
+		private final List<String> erase;
+		private final Heap heap;
+		private final List<String> javaOpts;
 
 		public Builder(InstallZipContext context, BashrcContext bashrc) {
 			this.zip = context;
@@ -31,15 +29,15 @@ public final class InstallTomcatContext {
 			this.majorVersion = VersionUtils.getVersion(context.getZip().getArtifact().getVersion()).getMajor();
 		}
 
-		public InstallTomcatContext build() {
+		public InstallTomcat7Context build() {
 			Assert.noNulls(zip, tomcat, bashrc);
 			Assert.noBlanks(majorVersion);
-			return new InstallTomcatContext(this);
+			return new InstallTomcat7Context(this);
 		}
 
 	}
 
-	private InstallTomcatContext(Builder builder) {
+	private InstallTomcat7Context(Builder builder) {
 		this.zip = builder.zip;
 		this.majorVersion = builder.majorVersion;
 		this.tomcat = builder.tomcat;
