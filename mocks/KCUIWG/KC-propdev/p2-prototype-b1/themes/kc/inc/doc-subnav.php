@@ -12,7 +12,7 @@
 				<li <?php if ($page == "basics-details") { echo 'class="active"'; } ?>><a href="prop.basics.details.php">Proposal Details</a></li>
                 
 				<li <?php if ($page == "basics-search") { echo 'class="active"'; } ?>><a href="prop.basics.oppsearch-search.php">S2S Opportunity Search</a></li> 
-                <li <?php if ($page == "basics-deliveryinfo") { echo 'class="active"'; } ?>><a href="prop.basics.deliveryinfo.php">Delivery Info</a></li>
+                <li <?php if ($page == "basics-deliveryinfo") { echo 'class="active"'; } ?>><a href="prop.basics.deliveryinfo-alt.php">Delivery Info</a></li>
                 
                 <li <?php if ($page == "basics-sponsors") { echo 'class="active"'; } ?>><a href="prop.basics.sponsor.php">Sponsor &amp; Program Information</a></li>
                 
