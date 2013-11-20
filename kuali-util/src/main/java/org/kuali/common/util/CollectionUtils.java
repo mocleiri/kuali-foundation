@@ -34,6 +34,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.nullify.NullUtils;
 
+import com.google.common.collect.ImmutableList;
+
 public class CollectionUtils {
 
 	/**
@@ -587,6 +589,17 @@ public class CollectionUtils {
 	 */
 	public static final List<String> combineStrings(List<String> list1, List<String> list2) {
 		return combineStrings(list1, (String) null, list2);
+	}
+
+	/**
+	 * Return a new list containing all of the strings from both lists
+	 */
+	public static final List<String> combineStrings(List<String>... lists) {
+		List<String> combined = new ArrayList<String>();
+		for (List<String> list : lists) {
+			combined.addAll(ImmutableList.copyOf(list));
+		}
+		return combined;
 	}
 
 	/**
