@@ -10,7 +10,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 ?>
 
 <section id="main">
-  <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>

@@ -30,12 +30,24 @@ $keyPersonnelMessage = "";
              <span id="keypersonnel-message-name"></span> was successfully added.
           </div>
 
-        <h3>Key Personnel</h3>
+      
+        
+        
+        
         <p><?php echo $keyPersonnelMessage?></p>
-        <div class="btn-row-widget-action">
-          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
+        
+        
+        <div class="row has-tools">
+          <div class="col-md-6">
+           <h3>Key Personnel</h3>
+          </div>
+          <div class="col-md-6 ">
+             <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><span aria-hidden="true" class="icon-plus"></span> Add Personnel</button>
+          </div>
         </div>
-
+        
+        
+        
          <div class="panel-group personnel-entries" id="accordion1">
 
              <?php

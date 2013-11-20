@@ -61,7 +61,25 @@ include( '_temp.select.filler.php' );
             </table>
           </div>
           <div class="tab-pane " id="tab2">
-            <h4> Performing Organization</h4>
+      
+            
+            
+            
+              
+            
+            <div class="row has-tools">
+          <div class="col-md-6">
+                  <h4> Performing Organization</h4>
+          </div>
+          <div class="col-md-6"> 
+            <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php"><span aria-hidden="true" class="icon-search"></span> Select different organization</button>
+          </div>
+        </div>
+        
+        
+        
+        
+        
             <table  class="table table-condensed">
               <tbody>
                 <tr>
@@ -94,9 +112,7 @@ include( '_temp.select.filler.php' );
                 </tr>
               </tbody>
             </table>
-            <div class="btn-row-widget-action">
-              <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php"><span aria-hidden="true" class="icon-search"></span> Select different organization</button>
-            </div>
+          
           </div>
           <div class="tab-pane" id="tab3">
             <h4> Performance Site Locations</h4>

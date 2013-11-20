@@ -16,14 +16,22 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
         
-        <div class="section-title">
-          <h3>Opportunity Search</h3>
-        </div>        
+       
         
-        <div class="btn-row-widget-action">
+        
+        
+        
+        <div class="row has-tools">
+          <div class="col-md-6">
+            <h3>Opportunity Search</h3>
+          </div>
+          <div class="col-md-6 ">
             <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-oppsearch.php"> <i class="icon-search" aria-hidden="true"></i> Find an opportunity</button>
+          </div>
         </div>
-      
+        
+        
+              
         <div class="section-content hidden">
           <form action="#" method="post" class="">
             <fieldset>

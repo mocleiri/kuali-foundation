@@ -25,7 +25,27 @@ require_once( 'themes/kc/inc/toolbar.php' );
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="proposal">
-            <h4>Proposal</h4>
+          
+          
+          
+            
+            
+            <div class="row has-tools">
+          <div class="col-md-6">
+             <h4>Proposal</h4>
+          </div>
+          <div class="col-md-6"> 
+            <button id="attachments_proposal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          </div>
+        </div>
+        
+        
+       
+          
+          
+          
+          
+           
             <div class="panel-group attachments-proposal-entries" id="accordion">
 
                 <?php
@@ -37,12 +57,27 @@ require_once( 'themes/kc/inc/toolbar.php' );
                 ?>
                 
             </div>
-            <div class="btn-row-widget-action">
-              <button id="attachments_proposal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
-            </div>
+           
           </div>
           <div class="tab-pane" id="personnel">
-            <h4>Personnel</h4>
+          
+          
+          
+          
+           
+            <div class="row has-tools">
+          <div class="col-md-6">
+             <h4>Personnel</h4>
+          </div>
+          <div class="col-md-6"> 
+             <button id="attachments_personnel_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.personnel.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          </div>
+        </div>
+        
+        
+        
+        
+         
             <div class="panel-group attachments-personnel-entries" id="accordion2">
                    <?php
                         if(isset($_SESSION['attachments']['personnel']) && is_array($_SESSION['attachments']['personnel'])){
@@ -55,12 +90,25 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 
             </div>
-            <div class="btn-row-widget-action">
-              <button id="attachments_personnel_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.personnel.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
-            </div>
+          
           </div>
           <div class="tab-pane" id="internal">
-            <h4>Internal</h4>
+          
+            
+            
+            
+             
+            <div class="row has-tools">
+          <div class="col-md-6">
+              <h4>Internal</h4>
+          </div>
+          <div class="col-md-6"> 
+             <button id="attachments_internal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.internal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          </div>
+        </div>
+        
+        
+        
             <div class="panel-group attachments-internal-entries" id="accordion3">
             <?php
                       if(isset($_SESSION['attachments']['internal']) && is_array($_SESSION['attachments']['internal'])){
@@ -71,12 +119,27 @@ require_once( 'themes/kc/inc/toolbar.php' );
                  ?>
 
             </div>
-            <div class="btn-row-widget-action">
-              <button id="attachments_internal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.internal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
-            </div>
+           
           </div>
           <div class="tab-pane" id="abstracts">
-            <h4>Abstracts</h4>
+          
+          
+          
+           
+             
+            <div class="row has-tools">
+          <div class="col-md-6">
+              <h4>Abstracts</h4>
+          </div>
+          <div class="col-md-6"> 
+            <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.abstracts.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          </div>
+        </div>
+        
+        
+        
+        
+           
             <div class="panel-group attachments-abstracts-entries" id="accordion4">
 
                 <?php
@@ -88,12 +151,22 @@ require_once( 'themes/kc/inc/toolbar.php' );
                  ?>
 
             </div>
-            <div class="btn-row-widget-action">
-              <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.abstracts.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
-            </div>
+            
           </div>
           <div class="tab-pane" id="notes">
-            <h4>Notes</h4>
+          
+          
+          
+             
+            <div class="row has-tools">
+          <div class="col-md-6">
+              <h4>Notes</h4>
+          </div>
+          <div class="col-md-6"> 
+            <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.notes.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          </div>
+        </div>
+        
             <div class="panel-group attachments-notes-entries" id="accordion5">
 
 
@@ -107,7 +180,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
             </div>
             <div class="btn-row-widget-action">
-              <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.notes.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+              
             </div>
           </div>
         </div>

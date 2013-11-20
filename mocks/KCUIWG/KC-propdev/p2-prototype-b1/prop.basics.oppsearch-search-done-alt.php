@@ -21,9 +21,27 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
         
-        <div class="section-title">
-          <h3>Opportunity Search</h3>
+      
+        
+        
+        
+        
+        
+        <div class="row has-tools">
+          <div class="col-md-6">
+            <h3>Opportunity Search</h3>
+          </div>
+          <div class="col-md-6 ">
+            <button class="btn btn-default btn-xs  launch-modal" data-modal-page="modal/lookup-oppsearch.php" data-modal-height="500"><span aria-hidden="true" class="icon-exchange"></span> Change</button>
+          <button class="btn btn-default btn-xs " href="prop.basics.oppsearch-search.php"><span aria-hidden="true" class="icon-remove"></span> Remove</button>
+          </div>
         </div>
+        
+        
+        
+        
+        
+        
         <div id="oppsearch-tabs"> 
           <!-- <button class="btn btn-default launch-modal" data-modal-page="modal/lookup-oppsearch.html">Find an opportunity...</button> --> 
           <!--<a data-toggle="modal" data-target="#myModal" href="modal/lookup-oppsearch.html" class="btn btn-xs btn-default">Load New...</a>--> 
@@ -348,10 +366,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             </div>
           </div>
         </div>
-        <div class="btn-row-widget-action">
-          <button class="btn btn-default btn-xs  launch-modal" data-modal-page="modal/lookup-oppsearch.php" data-modal-height="500"><span aria-hidden="true" class="icon-exchange"></span> Change opportunity</button>
-          <button class="btn btn-default btn-xs " href="prop.basics.oppsearch-search.php"><span aria-hidden="true" class="icon-remove"></span> Remove opportunity</button>
-        </div>
+    
         
         <!-- // -->
         <div class="uif-stickyFooter uif-stickyButtonFooter"> 

@@ -14,7 +14,19 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
         
-        <h3>Compliance</h3>
+       
+        
+        
+        <div class="row has-tools">
+          <div class="col-md-6">
+            <h3>Compliance</h3>
+          </div>
+          <div class="col-md-6 ">
+            <button id="compliance_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-compliance/compliance.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          </div>
+        </div>
+        
+        
         <div class="panel-group compliance-entries" id="accordion">
 
           <?php
@@ -29,10 +41,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 
         </div>
-        <div class="btn-row-widget-action">
-
-           <button id="compliance_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-compliance/compliance.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
-        </div>
+        
         
         <div class="uif-stickyFooter uif-stickyButtonFooter">
           <div class="btn-row-page-action">
