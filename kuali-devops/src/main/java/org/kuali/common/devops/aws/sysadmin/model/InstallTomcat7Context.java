@@ -3,61 +3,50 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.VersionUtils;
+
+import com.google.common.collect.ImmutableList;
 
 /**
- * Customize Tomcat
+ * 
  */
 public final class InstallTomcat7Context {
 
-	private final String install;
-	private final List<String> erase;
-	private final Heap heap;
+	private final String packageName;
 	private final List<String> javaOpts;
+	private final String installDir;
 
 	public static class Builder {
 
 		// Required
-		private final String install = Packages.TOMCAT7
-		private final List<String> erase;
-		private final Heap heap;
-		private final List<String> javaOpts;
-
-		public Builder(InstallZipContext context, BashrcContext bashrc) {
-			this.zip = context;
-			this.bashrc = bashrc;
-			this.majorVersion = VersionUtils.getVersion(context.getZip().getArtifact().getVersion()).getMajor();
-		}
+		private final String packageName = Packages.TOMCAT7.getName();
+		private final String installDir = "/usr/share/tomcat7";
+		private final List<String> javaOpts = ImmutableList.of();
 
 		public InstallTomcat7Context build() {
-			Assert.noNulls(zip, tomcat, bashrc);
-			Assert.noBlanks(majorVersion);
+			Assert.noBlanks(packageName, installDir);
+			Assert.noNulls(javaOpts);
 			return new InstallTomcat7Context(this);
 		}
 
 	}
 
 	private InstallTomcat7Context(Builder builder) {
-		this.zip = builder.zip;
-		this.majorVersion = builder.majorVersion;
-		this.tomcat = builder.tomcat;
-		this.bashrc = builder.bashrc;
+		this.packageName = builder.packageName;
+		this.javaOpts = builder.javaOpts;
+		this.installDir = builder.installDir;
+
 	}
 
-	public InstallZipContext getZip() {
-		return zip;
+	public String getPackageName() {
+		return packageName;
 	}
 
-	public String getMajorVersion() {
-		return majorVersion;
+	public List<String> getJavaOpts() {
+		return javaOpts;
 	}
 
-	public User getTomcat() {
-		return tomcat;
-	}
-
-	public BashrcContext getBashrc() {
-		return bashrc;
+	public String getInstallDir() {
+		return installDir;
 	}
 
 }

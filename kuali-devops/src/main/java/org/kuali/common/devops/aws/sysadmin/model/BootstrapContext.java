@@ -40,7 +40,7 @@ public final class BootstrapContext {
 
 		// Optional
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
-		private List<String> packages = Packages.asList(Packages.BASIC);
+		private List<String> packages = Packages.of(Packages.BASIC);
 
 		// Filled in automatically by build();
 		private ServiceOverride sshdOverride;

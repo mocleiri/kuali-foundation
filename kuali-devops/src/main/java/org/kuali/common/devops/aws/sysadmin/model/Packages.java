@@ -39,7 +39,7 @@ public enum Packages {
 	// Installed on the CI master and build slaves
 	public static final EnumSet<Packages> SCM = EnumSet.of(SVN, GIT);
 
-	public static final List<String> asList(Collection<Packages> packages) {
+	public static final List<String> of(Collection<Packages> packages) {
 		List<String> names = new ArrayList<String>();
 		for (Packages pkgs : packages) {
 			names.add(pkgs.getName());
