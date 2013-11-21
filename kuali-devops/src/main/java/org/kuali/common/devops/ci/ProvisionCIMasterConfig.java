@@ -130,7 +130,7 @@ public class ProvisionCIMasterConfig {
 		executables.add(getJDKInstaller(channel, jdk6));
 		executables.add(jdk);
 		String javaHome = jdk.getContext().getInstallDir();
-		executables.add(getTomcatInstaller(channel));
+		executables.add(getTomcatInstaller(channel, javaHome));
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
 		new ExecutablesExecutable(executables, false, true).execute();
 		long elapsed = System.currentTimeMillis() - start;
@@ -138,7 +138,7 @@ public class ProvisionCIMasterConfig {
 		return null; // new ExecutablesExecutable(show);
 	}
 
-	protected Executable getTomcatInstaller(ChannelContext channel) {
+	protected Executable getTomcatInstaller(ChannelContext channel, String javaHome) {
 		InstallTomcatContext context = new InstallTomcatContext.Builder(scs, channel).build();
 		return new InstallTomcat.Builder(context).build();
 	}

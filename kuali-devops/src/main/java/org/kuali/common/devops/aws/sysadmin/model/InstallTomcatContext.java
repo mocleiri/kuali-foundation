@@ -5,6 +5,7 @@ import java.util.List;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -42,9 +43,14 @@ public final class InstallTomcatContext {
 			this.context = context;
 		}
 
+		public Builder javaHome(String javaHome) {
+			this.javaHome = Optional.fromNullable(NullUtils.trimToNull(javaHome));
+			return this;
+		}
+
 		public InstallTomcatContext build() {
 			Assert.noBlanks(packageName, sharedDir);
-			Assert.noNulls(javaOpts, service, context, version);
+			Assert.noNulls(javaOpts, service, context, version, javaHome);
 			return new InstallTomcatContext(this);
 		}
 
