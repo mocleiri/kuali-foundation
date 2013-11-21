@@ -18,6 +18,7 @@ public final class InstallTomcatContext {
 	private final String packageName;
 	private final List<String> javaOpts;
 	private final String usrShareDir;
+	private final TomcatMajorVersion version;
 
 	public static class Builder {
 
@@ -27,6 +28,7 @@ public final class InstallTomcatContext {
 
 		// Optional
 		private String packageName = Packages.TOMCAT7.getName();
+		private final TomcatMajorVersion version = TomcatMajorVersion.SEVEN;
 		private List<String> javaOpts = ImmutableList.of();
 		private String usrShareDir = "/usr/share";
 
@@ -37,7 +39,7 @@ public final class InstallTomcatContext {
 
 		public InstallTomcatContext build() {
 			Assert.noBlanks(packageName, usrShareDir);
-			Assert.noNulls(javaOpts, service, context);
+			Assert.noNulls(javaOpts, service, context, version);
 			return new InstallTomcatContext(this);
 		}
 
@@ -49,6 +51,7 @@ public final class InstallTomcatContext {
 		this.packageName = builder.packageName;
 		this.javaOpts = builder.javaOpts;
 		this.usrShareDir = builder.usrShareDir;
+		this.version = builder.version;
 	}
 
 	public String getPackageName() {
@@ -69,6 +72,10 @@ public final class InstallTomcatContext {
 
 	public String getUsrShareDir() {
 		return usrShareDir;
+	}
+
+	public TomcatMajorVersion getVersion() {
+		return version;
 	}
 
 }
