@@ -139,7 +139,7 @@ public class ProvisionCIMasterConfig {
 	}
 
 	protected Executable getTomcatInstaller(ChannelContext channel, String javaHome) {
-		InstallTomcatContext context = new InstallTomcatContext.Builder(scs, channel).build();
+		InstallTomcatContext context = new InstallTomcatContext.Builder(scs, channel).javaHome(javaHome).build();
 		return new InstallTomcat.Builder(context).build();
 	}
 
