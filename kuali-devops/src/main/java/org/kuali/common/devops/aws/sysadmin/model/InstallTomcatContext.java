@@ -6,6 +6,7 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -20,7 +21,7 @@ public final class InstallTomcatContext {
 	private final String sharedDir;
 	private final TomcatMajorVersion version;
 	private final User user;
-	private final String javaHome;
+	private final Optional<String> javaHome;
 
 	public static class Builder {
 
@@ -34,7 +35,7 @@ public final class InstallTomcatContext {
 		private List<String> javaOpts = ImmutableList.of();
 		private String sharedDir = "/usr/share";
 		private User user = Users.TOMCAT.getUser();
-		private String javaHome = 
+		private Optional<String> javaHome = Optional.absent();
 
 		public Builder(ChannelService service, ChannelContext context) {
 			this.service = service;
@@ -57,6 +58,7 @@ public final class InstallTomcatContext {
 		this.sharedDir = builder.sharedDir;
 		this.version = builder.version;
 		this.user = builder.user;
+		this.javaHome = builder.javaHome;
 	}
 
 	public String getPackageName() {
@@ -85,6 +87,10 @@ public final class InstallTomcatContext {
 
 	public User getUser() {
 		return user;
+	}
+
+	public Optional<String> getJavaHome() {
+		return javaHome;
 	}
 
 }
