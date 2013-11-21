@@ -32,10 +32,10 @@ public final class InstallTomcatContext {
 		// Optional
 		private String packageName = Packages.TOMCAT7.getName();
 		private final TomcatMajorVersion version = TomcatMajorVersion.SEVEN;
-		private List<String> javaOpts = ImmutableList.of();
 		private String sharedDir = "/usr/share";
 		private User user = Users.TOMCAT.getUser();
 		private Optional<String> javaHome = Optional.absent();
+		private List<String> javaOpts = ImmutableList.of();
 
 		public Builder(ChannelService service, ChannelContext context) {
 			this.service = service;
