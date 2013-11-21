@@ -2,8 +2,10 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableList;
 
@@ -34,10 +36,10 @@ public enum Packages {
 	}
 
 	// Basic packages installed on pretty much every server
-	public static final EnumSet<Packages> BASIC = EnumSet.of(MAN, ZIP, UNZIP, WGET, RSYNC, OPENSSH_CLIENTS);
+	public static final Set<Packages> BASIC = Collections.unmodifiableSet(EnumSet.of(MAN, ZIP, UNZIP, WGET, RSYNC, OPENSSH_CLIENTS));
 
 	// Installed on servers that need to interact with an SCM system
-	public static final EnumSet<Packages> SCM = EnumSet.of(SVN, GIT);
+	public static final Set<Packages> SCM = Collections.unmodifiableSet(EnumSet.of(SVN, GIT));
 
 	public static final List<String> of(Collection<Packages> packages) {
 		List<String> names = new ArrayList<String>();
