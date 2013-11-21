@@ -11,15 +11,11 @@ import org.kuali.common.util.channel.api.SecureChannel;
 import org.kuali.common.util.channel.model.ChannelContext;
 import org.kuali.common.util.channel.util.ChannelUtils;
 import org.kuali.common.util.execute.Executable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Customize Tomcat
  */
 public final class InstallTomcat implements Executable {
-
-	private static final Logger logger = LoggerFactory.getLogger(InstallTomcat.class);
 
 	private final InstallTomcatContext context;
 	private final boolean skip;
@@ -82,19 +78,21 @@ public final class InstallTomcat implements Executable {
 		String installDir = context.getSharedDir() + "/" + context.getPackageName();
 
 		// Add, update, and delete configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
-		List<Deployable> deployables = TomcatConfig.getDeployables(installDir,"7");
+		List<Deployable> deployables = TomcatConfig.getDeployables(installDir, context.getVersion().getValue());
 		for (Deployable deployable : deployables) {
 			channel.scp(deployable.getSource(), deployable.getDestination());
 		}
 
 		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
-		String command = "chown -RL " + context.getTomcat().getGroup() + ":" + context.getTomcat().getLogin() + " " + dir1 + " " + dir2;
+		String dir1 = installDir;
+		String dir2 = context.getUser().getHome();
+		String command1 = "chown -RL " + context.getUser().getGroup() + ":" + context.getUser().getLogin() + " " + dir1 + " " + dir2;
 
 		// Remove annoying windows .bat files
-		String command2 = "rm -f " + context.getZip().getInstallDir() + "/bin/*.bat";
+		String command2 = "rm -f " + installDir + "/bin/*.bat";
 
 		// Make everything in the bin directory executable
-		String command3 = "chmod -R 755 " + context.getZip().getInstallDir() + "/bin";
+		String command3 = "chmod -R 755 " + installDir + "/bin";
 
 		// Invoke the commands
 		channel.exec(command1, command2, command3);
