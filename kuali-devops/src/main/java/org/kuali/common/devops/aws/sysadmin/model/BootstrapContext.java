@@ -27,7 +27,6 @@ public final class BootstrapContext {
 	public static class Builder {
 
 		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/distros";
-		private static final List<String> PACKAGES = FooManChu.BASIC.getNames();
 		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
 		// Required
@@ -41,7 +40,7 @@ public final class BootstrapContext {
 
 		// Optional
 		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
-		private List<String> packages = PACKAGES;
+		private List<String> packages = Packages.asList(Packages.BASIC);
 
 		// Filled in automatically by build();
 		private ServiceOverride sshdOverride;

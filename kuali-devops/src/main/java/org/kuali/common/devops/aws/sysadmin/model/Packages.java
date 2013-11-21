@@ -1,6 +1,11 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 
 public enum Packages {
 
@@ -33,5 +38,13 @@ public enum Packages {
 
 	// Installed on the CI master and build slaves
 	public static final EnumSet<Packages> SCM = EnumSet.of(SVN, GIT);
+
+	public static final List<String> asList(Collection<Packages> packages) {
+		List<String> names = new ArrayList<String>();
+		for (Packages pkgs : packages) {
+			names.add(pkgs.getName());
+		}
+		return ImmutableList.copyOf(names);
+	}
 
 }
