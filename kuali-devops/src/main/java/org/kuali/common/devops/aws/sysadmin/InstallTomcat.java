@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Customize Tomcat
  */
-public final class InstallTomcat7 implements Executable {
+public final class InstallTomcat implements Executable {
 
-	private static final Logger logger = LoggerFactory.getLogger(InstallTomcat7.class);
+	private static final Logger logger = LoggerFactory.getLogger(InstallTomcat.class);
 
 	private final InstallTomcatContext context;
 	private final boolean skip;
@@ -41,14 +41,14 @@ public final class InstallTomcat7 implements Executable {
 			return this;
 		}
 
-		public InstallTomcat7 build() {
+		public InstallTomcat build() {
 			Assert.noNulls(context);
-			return new InstallTomcat7(this);
+			return new InstallTomcat(this);
 		}
 
 	}
 
-	private InstallTomcat7(Builder builder) {
+	private InstallTomcat(Builder builder) {
 		this.context = builder.context;
 		this.skip = builder.skip;
 	}
@@ -80,16 +80,16 @@ public final class InstallTomcat7 implements Executable {
 
 	protected void customizeTomcat(SecureChannel channel) {
 		String installDir = context.getInstallDir();
-		// Add, update, replace, configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
+
+		// Add, update, and delete configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<Deployable> deployables = TomcatConfig.getDeployables(installDir,"7");
 		for (Deployable deployable : deployables) {
 			channel.scp(deployable.getSource(), deployable.getDestination());
 		}
 
 		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
-		String dir1 = context.getZip().getInstallDir();
-		String dir2 = context.getTomcat().getHome();
-		String command1 = "chown -RL " + context.getTomcat().getGroup() + ":" + context.getTomcat().getLogin() + " " + dir1 + " " + dir2;
+		String dir = context.getInstallDir();
+		String command = "chown -RL " + context.getTomcat().getGroup() + ":" + context.getTomcat().getLogin() + " " + dir1 + " " + dir2;
 
 		// Remove annoying windows .bat files
 		String command2 = "rm -f " + context.getZip().getInstallDir() + "/bin/*.bat";

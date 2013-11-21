@@ -35,7 +35,7 @@ import org.kuali.common.devops.aws.spring.FoundationAwsConfig;
 import org.kuali.common.devops.aws.sysadmin.ArtifactUtils;
 import org.kuali.common.devops.aws.sysadmin.Bootstrap;
 import org.kuali.common.devops.aws.sysadmin.InstallJDK;
-import org.kuali.common.devops.aws.sysadmin.InstallTomcat7;
+import org.kuali.common.devops.aws.sysadmin.InstallTomcat;
 import org.kuali.common.devops.aws.sysadmin.ShowAwsContext;
 import org.kuali.common.devops.aws.sysadmin.model.BashrcContext;
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
@@ -145,7 +145,7 @@ public class ProvisionCIMasterConfig {
 		InstallZipContext zip = new InstallZipContext.Builder(scs, channel, tomcat).build();
 		BashrcContext bashrc = new BashrcContext.Builder(javaHome, zip.getInstallDir(), heap).build();
 		InstallTomcatContext context = new InstallTomcatContext.Builder(zip, bashrc).build();
-		return new InstallTomcat7.Builder(context).build();
+		return new InstallTomcat.Builder(context).build();
 	}
 
 	protected InstallJDK getJDKInstaller(ChannelContext channel, Zip zip) {

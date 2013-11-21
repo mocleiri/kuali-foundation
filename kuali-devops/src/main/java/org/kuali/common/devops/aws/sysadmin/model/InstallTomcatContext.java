@@ -17,7 +17,7 @@ public final class InstallTomcatContext {
 	private final ChannelContext context;
 	private final String packageName;
 	private final List<String> javaOpts;
-	private final String installDir;
+	private final String usrShareDir;
 
 	public static class Builder {
 
@@ -27,8 +27,8 @@ public final class InstallTomcatContext {
 
 		// Optional
 		private String packageName = Packages.TOMCAT7.getName();
-		private String installDir = "/usr/share/tomcat7";
 		private List<String> javaOpts = ImmutableList.of();
+		private String usrShareDir = "/usr/share";
 
 		public Builder(ChannelService service, ChannelContext context) {
 			this.service = service;
@@ -36,7 +36,7 @@ public final class InstallTomcatContext {
 		}
 
 		public InstallTomcatContext build() {
-			Assert.noBlanks(packageName, installDir);
+			Assert.noBlanks(packageName, usrShareDir);
 			Assert.noNulls(javaOpts, service, context);
 			return new InstallTomcatContext(this);
 		}
@@ -48,7 +48,7 @@ public final class InstallTomcatContext {
 		this.context = builder.context;
 		this.packageName = builder.packageName;
 		this.javaOpts = builder.javaOpts;
-		this.installDir = builder.installDir;
+		this.usrShareDir = builder.usrShareDir;
 	}
 
 	public String getPackageName() {
@@ -59,16 +59,16 @@ public final class InstallTomcatContext {
 		return javaOpts;
 	}
 
-	public String getInstallDir() {
-		return installDir;
-	}
-
 	public ChannelService getService() {
 		return service;
 	}
 
 	public ChannelContext getContext() {
 		return context;
+	}
+
+	public String getUsrShareDir() {
+		return usrShareDir;
 	}
 
 }
