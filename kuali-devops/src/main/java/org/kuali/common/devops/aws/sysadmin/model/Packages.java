@@ -36,7 +36,7 @@ public enum Packages {
 	// Basic packages installed on pretty much every server
 	public static final EnumSet<Packages> BASIC = EnumSet.of(MAN, ZIP, UNZIP, WGET, RSYNC, OPENSSH_CLIENTS);
 
-	// Installed on the CI master and build slaves
+	// Installed on servers that need to interact with an SCM system
 	public static final EnumSet<Packages> SCM = EnumSet.of(SVN, GIT);
 
 	public static final List<String> of(Collection<Packages> packages) {

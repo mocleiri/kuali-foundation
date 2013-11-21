@@ -20,6 +20,7 @@ public final class InstallTomcatContext {
 	private final String sharedDir;
 	private final TomcatMajorVersion version;
 	private final User user;
+	private final String javaHome;
 
 	public static class Builder {
 
@@ -33,6 +34,7 @@ public final class InstallTomcatContext {
 		private List<String> javaOpts = ImmutableList.of();
 		private String sharedDir = "/usr/share";
 		private User user = Users.TOMCAT.getUser();
+		private String javaHome = 
 
 		public Builder(ChannelService service, ChannelContext context) {
 			this.service = service;
