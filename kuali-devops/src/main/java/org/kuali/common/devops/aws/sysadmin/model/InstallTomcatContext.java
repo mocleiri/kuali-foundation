@@ -17,8 +17,9 @@ public final class InstallTomcatContext {
 	private final ChannelContext context;
 	private final String packageName;
 	private final List<String> javaOpts;
-	private final String usrShareDir;
+	private final String sharedDir;
 	private final TomcatMajorVersion version;
+	private final User user;
 
 	public static class Builder {
 
@@ -30,7 +31,8 @@ public final class InstallTomcatContext {
 		private String packageName = Packages.TOMCAT7.getName();
 		private final TomcatMajorVersion version = TomcatMajorVersion.SEVEN;
 		private List<String> javaOpts = ImmutableList.of();
-		private String usrShareDir = "/usr/share";
+		private String sharedDir = "/usr/share";
+		private User user = Users.TOMCAT.getUser();
 
 		public Builder(ChannelService service, ChannelContext context) {
 			this.service = service;
@@ -38,7 +40,7 @@ public final class InstallTomcatContext {
 		}
 
 		public InstallTomcatContext build() {
-			Assert.noBlanks(packageName, usrShareDir);
+			Assert.noBlanks(packageName, sharedDir);
 			Assert.noNulls(javaOpts, service, context, version);
 			return new InstallTomcatContext(this);
 		}
@@ -50,8 +52,9 @@ public final class InstallTomcatContext {
 		this.context = builder.context;
 		this.packageName = builder.packageName;
 		this.javaOpts = builder.javaOpts;
-		this.usrShareDir = builder.usrShareDir;
+		this.sharedDir = builder.sharedDir;
 		this.version = builder.version;
+		this.user = builder.user;
 	}
 
 	public String getPackageName() {
@@ -70,12 +73,16 @@ public final class InstallTomcatContext {
 		return context;
 	}
 
-	public String getUsrShareDir() {
-		return usrShareDir;
+	public String getSharedDir() {
+		return sharedDir;
 	}
 
 	public TomcatMajorVersion getVersion() {
 		return version;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 }

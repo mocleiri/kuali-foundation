@@ -79,7 +79,7 @@ public final class InstallTomcat implements Executable {
 	}
 
 	protected void customizeTomcat(SecureChannel channel) {
-		String installDir = context.getInstallDir();
+		String installDir = context.getSharedDir() + "/" + context.getPackageName();
 
 		// Add, update, and delete configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<Deployable> deployables = TomcatConfig.getDeployables(installDir,"7");
@@ -88,7 +88,6 @@ public final class InstallTomcat implements Executable {
 		}
 
 		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
-		String dir = context.getInstallDir();
 		String command = "chown -RL " + context.getTomcat().getGroup() + ":" + context.getTomcat().getLogin() + " " + dir1 + " " + dir2;
 
 		// Remove annoying windows .bat files
