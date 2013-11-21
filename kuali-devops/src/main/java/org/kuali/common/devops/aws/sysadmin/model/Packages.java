@@ -1,67 +1,37 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.common.collect.ImmutableList;
+import java.util.EnumSet;
 
 public enum Packages {
 
-	BASIC(of("man", "zip", "unzip", "wget", "rsync", "openssh-clients")), //
-	SCM(of("subversion", "git")), //
-	TOMCAT6(of(BASIC, Tomcat.SIX.getName())), //
-	TOMCAT7(of(BASIC, Tomcat.SEVEN.getName())), //
-	CI(of(of(BASIC, SCM), "graphviz", "ant", Tomcat.SEVEN.getName()));
+	MAN("man"), //
+	ZIP("zip"), //
+	UNZIP("unzip"), //
+	WGET("wget"), //
+	RSYNC("rsync"), //
+	OPENSSH_CLIENTS("openssh-clients"), //
+	SVN("subversion"), //
+	GIT("git"), //
+	GRAPHVIZ("graphviz"), //
+	MYSQL("mysql"), //
+	ANT("ant"), //
+	TOMCAT6("tomcat6"), //
+	TOMCAT7("tomcat7"); //
 
-	public enum Tomcat implements Named {
+	private final String name;
 
-		SIX("tomcat6"), SEVEN("tomcat7");
-
-		private String name;
-
-		private Tomcat(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public String getName() {
-			return this.name;
-		}
+	private Packages(String name) {
+		this.name = name;
 	}
 
-	private interface Named {
-		String getName();
+	public String getName() {
+		return name;
 	}
 
-	private final List<String> names;
+	// Basic packages installed on pretty much every server
+	public static final EnumSet<Packages> BASIC = EnumSet.of(MAN, ZIP, UNZIP, WGET, RSYNC, OPENSSH_CLIENTS);
 
-	private Packages(List<String> names) {
-		this.names = names;
-	}
-
-	public List<String> getNames() {
-		return names;
-	}
-
-	private static List<String> of(Packages packages, String... names) {
-		return of(ImmutableList.of(packages), names);
-	}
-
-	private static List<String> of(List<Packages> packages, String... names) {
-		List<String> newList = new ArrayList<String>();
-		for (Packages pkg : packages) {
-			newList.addAll(pkg.getNames());
-		}
-		newList.addAll(ImmutableList.copyOf(names));
-		return newList;
-	}
-
-	private static List<Packages> of(Packages... packages) {
-		return ImmutableList.copyOf(packages);
-	}
-
-	private static List<String> of(String... names) {
-		return ImmutableList.copyOf(names);
-	}
+	// Installed on the CI master and build slaves
+	public static final EnumSet<Packages> SCM = EnumSet.of(SVN, GIT);
 
 }
