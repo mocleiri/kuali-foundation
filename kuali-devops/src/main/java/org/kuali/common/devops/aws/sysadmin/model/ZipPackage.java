@@ -13,9 +13,9 @@ import org.kuali.common.util.maven.model.Artifact;
  * <code>/usr/local</code> will produce <code>/usr/local/apache-tomcat-7.0.47</code>
  * </p>
  */
-public final class Zip {
+public final class ZipPackage {
 
-	private final String packageName;
+	private final String name;
 	private final Artifact artifact;
 
 	public static class Builder {
@@ -23,7 +23,7 @@ public final class Zip {
 		private static final String ZIP = "zip";
 
 		// Required
-		private final String packageName;
+		private final String name;
 		private final Artifact artifact;
 
 		/**
@@ -36,26 +36,26 @@ public final class Zip {
 		/**
 		 * Use this constructor if the package name is different than the artifact id
 		 */
-		public Builder(String packageName, Artifact artifact) {
-			this.packageName = packageName;
+		public Builder(String name, Artifact artifact) {
+			this.name = name;
 			this.artifact = artifact;
 		}
 
-		public Zip build() {
+		public ZipPackage build() {
 			Assert.noNulls(artifact);
-			Assert.noBlanks(packageName);
+			Assert.noBlanks(name);
 			Assert.isTrue(artifact.getType().equalsIgnoreCase(ZIP));
-			return new Zip(this);
+			return new ZipPackage(this);
 		}
 	}
 
-	private Zip(Builder builder) {
-		this.packageName = builder.packageName;
+	private ZipPackage(Builder builder) {
+		this.name = builder.name;
 		this.artifact = builder.artifact;
 	}
 
-	public String getPackageName() {
-		return packageName;
+	public String getName() {
+		return name;
 	}
 
 	public Artifact getArtifact() {

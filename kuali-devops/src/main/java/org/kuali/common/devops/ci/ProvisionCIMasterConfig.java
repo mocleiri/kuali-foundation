@@ -43,7 +43,7 @@ import org.kuali.common.devops.aws.sysadmin.model.Heaps;
 import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
 import org.kuali.common.devops.aws.sysadmin.model.InstallZipContext;
 import org.kuali.common.devops.aws.sysadmin.model.Users;
-import org.kuali.common.devops.aws.sysadmin.model.Zip;
+import org.kuali.common.devops.aws.sysadmin.model.ZipPackage;
 import org.kuali.common.devops.dnsme.ProductionDNSMEContextConfig;
 import org.kuali.common.dns.api.DnsService;
 import org.kuali.common.dns.dnsme.spring.DNSMEServiceConfig;
@@ -123,12 +123,12 @@ public class ProvisionCIMasterConfig {
 		String username = Users.ROOT.getUser().getLogin();
 		String hostname = instance.getPublicDnsName();
 		ChannelContext channel = new ChannelContext.Builder(hostname).username(username).privateKey(privateKey).build();
-		Zip jdk7 = new Zip.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
-		Zip jdk6 = new Zip.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
+		ZipPackage jdk7 = new ZipPackage.Builder(ArtifactUtils.getJDK7("1.7.0-u40")).build();
+		ZipPackage jdk6 = new ZipPackage.Builder(ArtifactUtils.getJDK6("1.6.0-u45")).build();
 		Heap heap = Heaps.asMap().get(instance.getInstanceType());
 		InstallJDK jdk = getJDKInstaller(channel, jdk7);
-		executables.add(getJDKInstaller(channel, jdk6));
-		executables.add(jdk);
+		// executables.add(getJDKInstaller(channel, jdk6));
+		// executables.add(jdk);
 		String javaHome = jdk.getContext().getInstallDir();
 		executables.add(getTomcatInstaller(channel, javaHome));
 		// new ConcurrentExecutables.Builder(executables).timed(true).build().execute();
@@ -143,7 +143,7 @@ public class ProvisionCIMasterConfig {
 		return new InstallTomcat.Builder(context).build();
 	}
 
-	protected InstallJDK getJDKInstaller(ChannelContext channel, Zip zip) {
+	protected InstallJDK getJDKInstaller(ChannelContext channel, ZipPackage zip) {
 		InstallZipContext context = new InstallZipContext.Builder(scs, channel, zip).build();
 		return new InstallJDK.Builder(context).build();
 	}
