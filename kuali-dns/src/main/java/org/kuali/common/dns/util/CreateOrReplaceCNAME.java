@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
-public class CreateOrReplaceCNAME implements Executable {
+public final class CreateOrReplaceCNAME implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CreateOrReplaceCNAME.class);
 
