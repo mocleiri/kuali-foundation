@@ -3,6 +3,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import java.util.List;
 
 import org.kuali.common.aws.ec2.model.Distro;
+import org.kuali.common.devops.model.DevOpsService;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;

@@ -1,5 +1,7 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
+import org.kuali.common.devops.model.DevOpsService;
+
 public enum Services {
 
 	SSHD("sshd", "/etc/ssh/sshd_config");

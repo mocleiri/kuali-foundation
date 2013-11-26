@@ -1,5 +1,6 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
+import org.kuali.common.devops.model.DevOpsService;
 import org.kuali.common.util.Assert;
 
 public final class ServiceOverride {
