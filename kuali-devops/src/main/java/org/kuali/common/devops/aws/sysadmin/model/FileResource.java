@@ -3,9 +3,9 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.model.RemoteFile;
 
-public final class Deployable {
+public final class FileResource {
 
-	public Deployable(String source, RemoteFile destination) {
+	public FileResource(String source, RemoteFile destination) {
 		Assert.noBlanks(source);
 		Assert.noNulls(destination);
 		Assert.exists(source);
