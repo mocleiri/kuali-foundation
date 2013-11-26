@@ -12,7 +12,7 @@ public final class Node {
 
 		// Required
 		private final String name;
-		private String fqdn;
+		private final String fqdn;
 		private final String instanceId;
 
 		public Builder(String name, String fqdn, String instanceId) {
