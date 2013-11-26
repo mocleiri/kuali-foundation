@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.IOException;
 
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
-import org.kuali.common.devops.aws.sysadmin.model.Service;
+import org.kuali.common.devops.aws.sysadmin.model.DevOpsService;
 import org.kuali.common.devops.aws.sysadmin.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
@@ -120,7 +120,7 @@ public final class Bootstrap implements Executable {
 	}
 
 	protected void enableRootSSH(SecureChannel channel) {
-		Service sshd = context.getSshdOverride().getService();
+		DevOpsService sshd = context.getSshdOverride().getService();
 
 		String src = context.getSshdOverride().getConfigFileOverrideLocation();
 		String dst = context.getSshEnabledUser().getHome() + "/.bootstrap/" + sshd.getConfigFileName();

@@ -4,15 +4,15 @@ import org.kuali.common.util.Assert;
 
 public final class ServiceOverride {
 
-	private final Service service;
+	private final DevOpsService service;
 	private final String configFileOverrideLocation;
 
 	public static class Builder {
 
-		private final Service service;
+		private final DevOpsService service;
 		private final String configFileOverrideLocation;
 
-		public Builder(Service service, String configFileOverrideLocation) {
+		public Builder(DevOpsService service, String configFileOverrideLocation) {
 			this.service = service;
 			this.configFileOverrideLocation = configFileOverrideLocation;
 		}
@@ -31,7 +31,7 @@ public final class ServiceOverride {
 		this.configFileOverrideLocation = builder.configFileOverrideLocation;
 	}
 
-	public Service getService() {
+	public DevOpsService getService() {
 		return service;
 	}
 

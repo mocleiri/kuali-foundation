@@ -4,7 +4,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
 
-public final class Service {
+public final class DevOpsService {
 
 	private final String name;
 	private final String instanceId;
@@ -24,15 +24,15 @@ public final class Service {
 			this.name = name;
 		}
 
-		public Service build() {
+		public DevOpsService build() {
 			Assert.noBlanks(instanceId, name);
 			Assert.noNulls(fqdn);
-			return new Service(this);
+			return new DevOpsService(this);
 		}
 
 	}
 
-	private Service(Builder builder) {
+	private DevOpsService(Builder builder) {
 		this.instanceId = builder.instanceId;
 		this.name = builder.name;
 		this.fqdn = builder.fqdn;

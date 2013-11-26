@@ -4,13 +4,13 @@ public enum Services {
 
 	SSHD("sshd", "/etc/ssh/sshd_config");
 
-	private final Service service;
+	private final DevOpsService service;
 
 	private Services(String name, String configFileAbsolutePath) {
-		this.service = new Service.Builder(name, configFileAbsolutePath).build();
+		this.service = new DevOpsService.Builder(name, configFileAbsolutePath).build();
 	}
 
-	public Service getService() {
+	public DevOpsService getService() {
 		return service;
 	}
 

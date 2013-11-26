@@ -71,7 +71,7 @@ public final class BootstrapContext {
 			Assert.isFalse(EncUtils.isEncrypted(privateKey), "Private key is encrypted");
 			this.packages = ImmutableList.copyOf(packages);
 
-			Service sshd = Services.SSHD.getService();
+			DevOpsService sshd = Services.SSHD.getService();
 			String configFileOverrideLocation = DISTROS + "/" + distro.getName() + sshd.getConfigFileAbsolutePath();
 			this.sshdOverride = new ServiceOverride.Builder(sshd, configFileOverrideLocation).build();
 
