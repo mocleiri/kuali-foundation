@@ -88,7 +88,7 @@ public class UpdateScmMojo extends AbstractMojo {
 			String oldScm = open + StringUtils.substringBetween(content, open, close) + close;
 			int pos = oldScm.indexOf(pomUrl);
 			if (pos == -1) {
-				throw new IllegalStateException("Existing SCM information doesn't contain " + pomUrl);
+				throw new IllegalStateException("Existing SCM information [" + oldScm + "] doesn't contain [" + pomUrl + "]");
 			}
 			String newScm = oldScm.replace(pomUrl, newUrl);
 			return content.replace(oldScm, newScm);
