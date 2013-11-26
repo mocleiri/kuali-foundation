@@ -28,6 +28,15 @@ public abstract class AbstractCopyLocationsExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractCopyLocationsExecutable.class);
 
+    public AbstractCopyLocationsExecutable() {
+        this(null, null);
+    }
+
+    public AbstractCopyLocationsExecutable(String locationListing, File directory) {
+        this.locationListing = locationListing;
+        this.directory = directory;
+    }
+
 	String locationListing;
 	File directory;
 

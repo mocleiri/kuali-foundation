@@ -34,6 +34,13 @@ public class MetaInfUtils {
 		return new File(build.getOutputDir(), outputPath);
 	}
 
+    /**
+     * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
+     */
+    public static String getClasspathResource(Project project, MetaInfGroup group) {
+        return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
+    }
+
 	/**
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[vendor]/[group].resources</code>
 	 */
