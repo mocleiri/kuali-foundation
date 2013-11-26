@@ -17,7 +17,6 @@ package org.kuali.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -78,11 +77,20 @@ public class UpdateScmMojo extends AbstractMojo {
 		}
 	}
 
+	/**
+	 * Return true if the if the pom contains text inside an xml tag corresponding to the property key passed in
+	 */
+	protected boolean hasProperty(String pom, String property) {
+		String open = "<" + property + ">";
+		String close = "</" + property + ">";
+		String value = StringUtils.substringBetween(pom, open, close);
+		boolean blank = StringUtils.isBlank(value);
+		return !blank;
+	}
+
 	protected String getNewContent(MavenProject project, String content, String pomUrl, String newUrl) {
 		String property = "project.scm.url";
-		Properties properties = project.getProperties();
-		String url = properties.getProperty(property);
-		if (!StringUtils.isBlank(url)) {
+		if (hasProperty(content, property)) {
 			String open = "<" + property + ">";
 			String close = "</" + property + ">";
 			String oldScm = open + StringUtils.substringBetween(content, open, close) + close;
