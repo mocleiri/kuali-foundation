@@ -218,7 +218,7 @@
     <plugin.enc.version>1.0.0</plugin.enc.version>
     <plugin.enforcer.version>1.2</plugin.enforcer.version>
     <plugin.externals.version>1.0.10</plugin.externals.version>
-    <plugin.extractor.version>1.1.11</plugin.extractor.version>
+    <plugin.extractor.version>1.1.12</plugin.extractor.version>
     <plugin.failsafe.version>${plugin.surefire.version}</plugin.failsafe.version>
     <plugin.gpg.version>1.4</plugin.gpg.version>
     <plugin.http.version>1.0.5</plugin.http.version>
