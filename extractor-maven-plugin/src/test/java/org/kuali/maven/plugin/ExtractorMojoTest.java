@@ -15,9 +15,8 @@
  */
 package org.kuali.maven.plugin;
 
-import junit.framework.Assert;
-
 import org.apache.maven.model.Scm;
+import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.maven.common.Extractor;
 
