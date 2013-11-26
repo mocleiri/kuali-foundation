@@ -1,36 +1,30 @@
 package org.kuali.common.devops.model;
 
-import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
-
-import com.google.common.base.Optional;
 
 public final class Node {
 
 	private final String name;
+	private final String fqdn;
 	private final String instanceId;
-	private final Optional<String> fqdn;
 
 	public static class Builder {
 
 		// Required
 		private final String name;
+		private String fqdn;
 		private final String instanceId;
 
 		// Optional
-		private Optional<String> fqdn = Optional.absent(); // Defaults to the public DNS name supplied by Amazon if no custom FQDN is supplied
 
-		public Builder(String name, String instanceId) {
-			this.instanceId = instanceId;
+		public Builder(String name, String fqdn, String instanceId) {
 			this.name = name;
+			this.fqdn = fqdn;
+			this.instanceId = instanceId;
 		}
 
 		public Node build() {
-			Assert.noBlanks(instanceId, name);
-			Assert.noNulls(fqdn);
-			if (fqdn.isPresent()) {
-				DnsUtils.validateFQDN(fqdn.get());
-			}
+			Assert.noBlanks(name, fqdn, instanceId);
 			return new Node(this);
 		}
 
@@ -42,16 +36,16 @@ public final class Node {
 		this.fqdn = builder.fqdn;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public String getInstanceId() {
 		return instanceId;
 	}
 
-	public Optional<String> getFqdn() {
+	public String getFqdn() {
 		return fqdn;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 }
