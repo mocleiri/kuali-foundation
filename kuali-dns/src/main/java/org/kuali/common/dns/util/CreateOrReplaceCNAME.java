@@ -43,6 +43,8 @@ public class CreateOrReplaceCNAME implements Executable {
 
 	@Override
 	public void execute() {
+
+		// Might be skipping execution all together
 		if (skip) {
 			return;
 		}
