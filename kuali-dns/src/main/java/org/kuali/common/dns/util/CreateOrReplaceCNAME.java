@@ -42,7 +42,7 @@ public class CreateOrReplaceCNAME implements Executable {
 		// Extract the DNS record corresponding to the alias FQDN
 		Optional<DnsRecord> record = service.getCNAMERecord(context.getAliasFQDN());
 
-		// If this is true, we are good to go, DNS is already setup
+		// If this is true, we are good to go, DNS is already setup correctly
 		if (existsAndMatches(record)) {
 			return;
 		}
