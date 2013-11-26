@@ -12,7 +12,7 @@ public class HeapUtils {
 
 	// opts.add("-Djava.security.egd=file:/dev/./urandom");
 
-	public static List<String> getJavaOpts(String logsDir, Heap heap) {
+	public static List<String> getJavaOpts(String logDir, Heap heap) {
 		List<String> opts = new ArrayList<String>();
 		opts.add("-Xms" + FormatUtils.getIntegerSize(heap.getMinSizeInBytes()));
 		opts.add("-Xmx" + FormatUtils.getIntegerSize(heap.getMaxSizeInBytes()));
@@ -23,12 +23,12 @@ public class HeapUtils {
 			opts.add("-XX:+PrintGCDateStamps");
 			opts.add("-XX:+PrintHeapAtGC");
 			opts.add("-XX:+PrintTenuringDistribution");
-			opts.add("-Xloggc:$" + logsDir + "/heap.log");
+			opts.add("-Xloggc:$" + logDir + "/heap.log");
 		}
 		if (heap.isDumpOnOutOfMemoryError()) {
-			opts.add("-XX:HeapDumpPath=$" + logsDir);
+			opts.add("-XX:HeapDumpPath=$" + logDir);
 			opts.add("-XX:+HeapDumpOnOutOfMemoryError");
-			opts.add("-agentlib:hprof=file=$" + logsDir + "/snapshot.hprof,format=b");
+			opts.add("-agentlib:hprof=file=$" + logDir + "/snapshot.hprof,format=b");
 		}
 		return ImmutableList.copyOf(opts);
 	}

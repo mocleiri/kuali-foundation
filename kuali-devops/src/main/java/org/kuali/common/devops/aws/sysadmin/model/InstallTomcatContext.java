@@ -18,11 +18,11 @@ public final class InstallTomcatContext {
 	private final ChannelService service;
 	private final ChannelContext context;
 	private final String packageName;
-	private final List<String> javaOpts;
 	private final String sharedDir;
 	private final TomcatMajorVersion version;
 	private final User user;
 	private final Optional<String> javaHome;
+	private final List<String> javaOpts;
 
 	public static class Builder {
 

@@ -27,7 +27,6 @@ public final class BootstrapContext {
 	public static class Builder {
 
 		private static final String DISTROS = ProjectUtils.getClasspathPrefix(DevOpsProjectConstants.PROJECT_ID) + "/distros";
-		private static final String ROOT_VOLUME_DEVICE_NAME = "/dev/xvda1";
 
 		// Required
 		private final ChannelService service;
@@ -38,8 +37,8 @@ public final class BootstrapContext {
 		private final String bootstrapCompletedAbsolutePath = root.getHome() + "/.bootstrap/bootstrap.completed";
 		private final Distro distro = Distro.AMAZON;
 
-		// Optional
-		private String rootVolumeDeviceName = ROOT_VOLUME_DEVICE_NAME;
+		// Optional (default values are usually ok)
+		private String rootVolumeDeviceName = "/dev/xvda1";
 		private List<String> packages = Packages.of(Packages.BASIC);
 
 		// Filled in automatically by build();

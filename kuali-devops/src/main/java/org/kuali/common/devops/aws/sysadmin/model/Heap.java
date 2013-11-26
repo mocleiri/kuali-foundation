@@ -14,8 +14,8 @@ public final class Heap {
 	public static class Builder {
 
 		// Optional
-		private long minSizeInBytes = FormatUtils.getBytes("2g"); // 2 gigabytes
 		private long maxSizeInBytes = FormatUtils.getBytes("5g"); // 5 gigabytes
+		private long minSizeInBytes = maxSizeInBytes; // Default them to be the same size
 		private long maxPermSizeInBytes = FormatUtils.getBytes("512m"); // 512 megabytes
 		private boolean dumpOnOutOfMemoryError = false;
 		private boolean enableLogging = true;

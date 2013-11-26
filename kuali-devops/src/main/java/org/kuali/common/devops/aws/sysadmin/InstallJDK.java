@@ -87,7 +87,7 @@ public final class InstallJDK implements Executable {
 			// Open a secure channel to the server
 			channel = context.getService().openChannel(context.getContext());
 
-			// JDK home directory is the zip install directory (eg /usr/local/jdk6, /usr/local/jdk7)
+			// JDK home directory is the zip install directory (eg /usr/java/jdk6, /usr/java/jdk7)
 			String jdkHome = context.getInstallDir();
 
 			// Determine if it is installed already

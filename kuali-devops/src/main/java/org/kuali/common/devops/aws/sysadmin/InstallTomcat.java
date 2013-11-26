@@ -83,7 +83,7 @@ public final class InstallTomcat implements Executable {
 			channel.scp(deployable.getSource(), deployable.getDestination());
 		}
 
-		// Recursively chown everything in /usr/local/tomcat and /home/tomcat to tomcat:tomcat
+		// Recursively chown everything in /usr/share/tomcat[6,7] and /home/tomcat to tomcat:tomcat
 		String dir1 = installDir;
 		String dir2 = context.getUser().getHome();
 		String command1 = "chown -RL " + context.getUser().getGroup() + ":" + context.getUser().getLogin() + " " + dir1 + " " + dir2;
