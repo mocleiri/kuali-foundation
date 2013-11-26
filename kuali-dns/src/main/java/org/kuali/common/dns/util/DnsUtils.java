@@ -17,12 +17,12 @@ public class DnsUtils {
 	 */
 	public static String getHostname(String prefix, String subdomain, String domain) {
 		Assert.noBlanks(prefix, subdomain, domain);
-		return prefix + "." + subdomain + "." + domain;
+		return prefix + DOT + subdomain + DOT + domain;
 	}
 
 	/**
 	 * <p>
-	 * Verify that <code>fqdn</code> is a syntactically valid DNS name.
+	 * Verify <code>fqdn</code> is a syntactically valid DNS name.
 	 * </p>
 	 * 
 	 * <p>
