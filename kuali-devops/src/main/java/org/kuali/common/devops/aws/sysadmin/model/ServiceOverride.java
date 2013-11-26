@@ -1,19 +1,19 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
-import org.kuali.common.devops.model.DevOpsService;
+import org.kuali.common.devops.model.Node;
 import org.kuali.common.util.Assert;
 
 public final class ServiceOverride {
 
-	private final DevOpsService service;
+	private final Node service;
 	private final String configFileOverrideLocation;
 
 	public static class Builder {
 
-		private final DevOpsService service;
+		private final Node service;
 		private final String configFileOverrideLocation;
 
-		public Builder(DevOpsService service, String configFileOverrideLocation) {
+		public Builder(Node service, String configFileOverrideLocation) {
 			this.service = service;
 			this.configFileOverrideLocation = configFileOverrideLocation;
 		}
@@ -32,7 +32,7 @@ public final class ServiceOverride {
 		this.configFileOverrideLocation = builder.configFileOverrideLocation;
 	}
 
-	public DevOpsService getService() {
+	public Node getService() {
 		return service;
 	}
 

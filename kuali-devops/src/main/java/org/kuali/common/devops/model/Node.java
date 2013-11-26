@@ -5,7 +5,7 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
 
-public final class DevOpsService {
+public final class Node {
 
 	private final String name;
 	private final String instanceId;
@@ -25,18 +25,18 @@ public final class DevOpsService {
 			this.name = name;
 		}
 
-		public DevOpsService build() {
+		public Node build() {
 			Assert.noBlanks(instanceId, name);
 			Assert.noNulls(fqdn);
 			if (fqdn.isPresent()) {
 				DnsUtils.validateFQDN(fqdn.get());
 			}
-			return new DevOpsService(this);
+			return new Node(this);
 		}
 
 	}
 
-	private DevOpsService(Builder builder) {
+	private Node(Builder builder) {
 		this.instanceId = builder.instanceId;
 		this.name = builder.name;
 		this.fqdn = builder.fqdn;
