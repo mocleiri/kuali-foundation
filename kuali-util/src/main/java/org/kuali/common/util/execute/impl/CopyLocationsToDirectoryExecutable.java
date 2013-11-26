@@ -13,23 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
-
-import java.io.File;
-import java.util.List;
+package org.kuali.common.util.execute.impl;
 
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Deprecated
+import java.io.File;
+import java.util.List;
+
 public class CopyLocationsToDirectoryExecutable extends AbstractCopyLocationsExecutable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CopyLocationsToDirectoryExecutable.class);
 
-	boolean addSequenceToFilenames = true;
-	int initialSequenceNumber = 1;
+	private final boolean addSequenceToFilenames;
+	private final int initialSequenceNumber;
+
+    public CopyLocationsToDirectoryExecutable(String locationListing, File directory) {
+        this(locationListing, directory, true);
+    }
+
+    public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames) {
+        this(locationListing, directory, addSequenceToFilenames, 1);
+    }
+
+    public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames, int initialSequenceNumber) {
+        this(locationListing, directory, addSequenceToFilenames, initialSequenceNumber, false);
+    }
+
+    public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames, int initialSequenceNumber, boolean skip) {
+        super(locationListing, directory, skip);
+
+        this.addSequenceToFilenames = addSequenceToFilenames;
+        this.initialSequenceNumber = initialSequenceNumber;
+    }
 
 	@Override
 	protected List<File> getFiles(List<String> locations) {
@@ -38,23 +56,14 @@ public class CopyLocationsToDirectoryExecutable extends AbstractCopyLocationsExe
 			logger.debug("Adding sequences");
 			filenames = CollectionUtils.getSequencedStrings(filenames, initialSequenceNumber);
 		}
-		return LocationUtils.getFiles(directory, filenames);
+		return LocationUtils.getFiles(getDirectory(), filenames);
 	}
 
 	public boolean isAddSequenceToFilenames() {
 		return addSequenceToFilenames;
 	}
 
-	public void setAddSequenceToFilenames(boolean addSequenceToFilenames) {
-		this.addSequenceToFilenames = addSequenceToFilenames;
-	}
-
 	public int getInitialSequenceNumber() {
 		return initialSequenceNumber;
 	}
-
-	public void setInitialSequenceNumber(int initialSequenceNumber) {
-		this.initialSequenceNumber = initialSequenceNumber;
-	}
-
 }

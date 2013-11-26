@@ -13,45 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
-
-import java.io.File;
-import java.util.List;
+package org.kuali.common.util.execute.impl;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Deprecated
+import java.io.File;
+import java.util.List;
+
 public abstract class AbstractCopyLocationsExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractCopyLocationsExecutable.class);
 
-    public AbstractCopyLocationsExecutable() {
-        this(null, null);
-    }
+    private final String locationListing;
+    private final File directory;
+    private final boolean skip;
 
     public AbstractCopyLocationsExecutable(String locationListing, File directory) {
-        this.locationListing = locationListing;
-        this.directory = directory;
+        this(locationListing, directory, false);
     }
 
-	String locationListing;
-	File directory;
+    public AbstractCopyLocationsExecutable(String locationListing, File directory, boolean skip) {
+        Assert.noBlanks(locationListing);
+        Assert.notNull(directory);
+        Assert.isTrue(LocationUtils.exists(locationListing));
+
+        this.locationListing = locationListing;
+        this.directory = directory;
+        this.skip = skip;
+    }
 
 	protected abstract List<File> getFiles(List<String> locations);
 
 	@Override
 	public void execute() {
-		if (NullUtils.isNullOrNone(locationListing)) {
-			logger.info("Skipping execution.  Location listing [{}]", locationListing);
-			return;
-		}
-		Assert.notNull(locationListing);
-		Assert.notNull(directory);
-		Assert.isTrue(LocationUtils.exists(locationListing));
 		logger.info("Copying [{}] -> [{}]", locationListing, LocationUtils.getCanonicalPath(directory));
 		List<String> locations = LocationUtils.getLocations(locationListing);
 		List<File> files = getFiles(locations);
@@ -63,15 +62,11 @@ public abstract class AbstractCopyLocationsExecutable implements Executable {
 		return locationListing;
 	}
 
-	public void setLocationListing(String locationListing) {
-		this.locationListing = locationListing;
-	}
-
 	public File getDirectory() {
 		return directory;
 	}
 
-	public void setDirectory(File directory) {
-		this.directory = directory;
-	}
+    public boolean isSkip() {
+        return skip;
+    }
 }

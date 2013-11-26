@@ -13,32 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.execute;
-
-import java.io.File;
-import java.util.List;
+package org.kuali.common.util.execute.impl;
 
 import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Deprecated
+import java.io.File;
+import java.util.List;
+
 public class CopyClasspathLocationsToDirectoryExecutable extends AbstractCopyLocationsExecutable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CopyClasspathLocationsToDirectoryExecutable.class);
 
-    public CopyClasspathLocationsToDirectoryExecutable() {
-        super(null, null);
+    public CopyClasspathLocationsToDirectoryExecutable(String locationListing, File directory) {
+        this(locationListing, directory, false);
     }
 
-    public CopyClasspathLocationsToDirectoryExecutable(String locationListing, File directory) {
-        super(locationListing, directory);
+    public CopyClasspathLocationsToDirectoryExecutable(String locationListing, File directory, boolean skip) {
+        super(locationListing, directory, skip);
     }
 
 	@Override
 	protected List<File> getFiles(List<String> locations) {
 		List<String> filenames = LocationUtils.getClasspathFilenames(locations);
 		logger.debug("Located {} files", filenames.size());
-		return LocationUtils.getFiles(directory, filenames);
+		return LocationUtils.getFiles(getDirectory(), filenames);
     }
 }
