@@ -1,5 +1,6 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
+import org.kuali.common.dns.util.DnsUtils;
 import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
@@ -27,6 +28,9 @@ public final class DevOpsService {
 		public DevOpsService build() {
 			Assert.noBlanks(instanceId, name);
 			Assert.noNulls(fqdn);
+			if (fqdn.isPresent()) {
+				DnsUtils.validateFQDN(fqdn.get());
+			}
 			return new DevOpsService(this);
 		}
 
