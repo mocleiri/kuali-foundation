@@ -30,7 +30,7 @@ public class DnsUtils {
 	 * </p>
 	 * 
 	 * @throws IllegalArgumentException
-	 *             If <code>fqdn</code> is not a a syntactically valid DNS name.
+	 *             If <code>fqdn</code> is not a syntactically valid DNS name.
 	 */
 	public static void validateFQDN(String fqdn) {
 
