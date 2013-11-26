@@ -11,6 +11,16 @@ public class DnsUtils {
 	private static final int MAX_LABEL_LENGTH = 63;
 
 	/**
+	 * <pre>
+	 *  env1, ks, kuali.org -> env1.ks.kuali.org
+	 * </pre>
+	 */
+	public static String getHostname(String prefix, String subdomain, String domain) {
+		Assert.noBlanks(prefix, subdomain, domain);
+		return prefix + "." + subdomain + "." + domain;
+	}
+
+	/**
 	 * <p>
 	 * Verify that <code>fqdn</code> is a syntactically valid DNS name.
 	 * </p>
