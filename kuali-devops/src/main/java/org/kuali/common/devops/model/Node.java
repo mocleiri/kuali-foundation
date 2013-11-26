@@ -15,8 +15,6 @@ public final class Node {
 		private String fqdn;
 		private final String instanceId;
 
-		// Optional
-
 		public Builder(String name, String fqdn, String instanceId) {
 			this.name = name;
 			this.fqdn = fqdn;
