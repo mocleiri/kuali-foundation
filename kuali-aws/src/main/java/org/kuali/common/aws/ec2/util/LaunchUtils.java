@@ -36,7 +36,6 @@ public class LaunchUtils {
 	private static final String PUBLIC_KEY_KEY = "ec2.publicKey";
 	private static final String PRIVATE_KEY_KEY = "ec2.privateKey";
 	private static final String TYPE_KEY = "ec2.type";
-	private static final String DNS_NAME_KEY = "ec2.dnsName";
 	// TODO Be smarter about allowing overrides for security groups / permissions
 	// private static final String SECURITY_GROUPS_KEY = "ec2.securityGroups";
 	private static final String TAGS_KEY = "ec2.tags";
@@ -112,7 +111,6 @@ public class LaunchUtils {
 	 */
 	public static LaunchInstanceContext getContext(EnvironmentService env, LaunchInstanceContext provided) {
 		String ami = NullUtils.trimToNull(env.getString(AMI_KEY, provided.getAmi()));
-		Optional<String> dnsName = SpringUtils.getString(env, DNS_NAME_KEY, provided.getDnsName());
 		KeyPair keyPair = getKeyPair(env, provided.getKeyPair());
 		InstanceType type = getType(env, provided.getType());
 		int timeoutMillis = SpringUtils.getMillisAsInt(env, LAUNCH_TIMEOUT_KEY, provided.getTimeoutMillis());
@@ -131,7 +129,7 @@ public class LaunchUtils {
 
 		return new LaunchInstanceContext.Builder(ami, keyPair).copy(provided).type(type).availabilityZone(availabilityZone.orNull()).tags(tags).securityGroups(securityGroups)
 				.preventTermination(preventTermination).rootVolume(rootVolume.orNull()).timeoutMillis(timeoutMillis).ebsOptimized(ebsOptimized).enableMonitoring(enableMonitoring)
-				.dnsName(dnsName.orNull()).build();
+				.build();
 	}
 
 	protected static Optional<RootVolume> getRootVolume(EnvironmentService env, Optional<RootVolume> provided) {
