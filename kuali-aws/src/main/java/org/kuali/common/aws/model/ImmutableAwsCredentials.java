@@ -40,7 +40,7 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 		}
 
 		/**
-		 * Use the provided set of AWS credentials unless they are being overridden by system properties / environment variables.
+		 * Use the provided set of AWS credentials unless they are overridden by system properties / environment variables.
 		 */
 		public Builder(BuilderContext ctx, String accessKey, String secretKey) {
 			this(Optional.of(ctx), Optional.of(accessKey), Optional.of(secretKey));
