@@ -1,9 +1,9 @@
 package org.kuali.common.devops.aws.sysadmin.model;
 
-
 public enum Services {
 
 	SSHD("sshd"), //
+	MYSQLD("mysqld"), //
 	TOMCAT6("tomcat6"), //
 	TOMCAT7("tomcat7"); //
 
