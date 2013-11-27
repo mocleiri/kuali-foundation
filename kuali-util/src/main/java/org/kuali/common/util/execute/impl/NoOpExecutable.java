@@ -26,7 +26,7 @@ public class NoOpExecutable implements Executable {
 
 	@Override
 	public void execute() {
-		// nothing do to
+		// nothing to do
 	}
 
 }
