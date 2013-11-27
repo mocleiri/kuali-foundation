@@ -24,8 +24,11 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.channel.util.SSHUtils;
+import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -73,26 +76,70 @@ public final class ChannelContext {
 		private List<String> privateKeys = ImmutableList.of();
 		private boolean echo = true;
 
+		/**
+		 * 
+		 */
 		public Builder(String hostname) {
-			this(Optional.<String> absent(), hostname);
+			this(hostname, Optional.<EnvironmentService> absent());
 		}
 
+		/**
+		 * Override with the hostname from the environment (if one is present)
+		 */
+		public Builder(EnvironmentService env, String hostname) {
+			this(hostname, Optional.of(env));
+		}
+
+		/**
+		 * Override with the hostname from the environment (if one is present)
+		 */
+		private Builder(String hostname, Optional<EnvironmentService> env) {
+			if (env.isPresent()) {
+				this.hostname = env.get().getString("ssh.hostname", hostname);
+			} else {
+				this.hostname = hostname;
+			}
+		}
+
+		@Deprecated
 		public Builder(String username, String hostname) {
 			this(Optional.fromNullable(NullUtils.trimToNull(username)), hostname);
 		}
 
+		@Deprecated
 		public Builder(String username, String hostname, String privateKey) {
 			this(Optional.of(username), hostname, Optional.of(privateKey));
 		}
 
+		@Deprecated
 		public Builder(Optional<String> username, String hostname) {
 			this(username, hostname, Optional.<String> absent());
 		}
 
+		@Deprecated
 		public Builder(Optional<String> username, String hostname, Optional<String> privateKey) {
 			this.username = username;
 			this.hostname = hostname;
 			privateKey(privateKey.orNull());
+		}
+
+		public Builder override(EnvironmentService env) {
+			username(env.getString("ssh.username", username.orNull()));
+			requestPseudoTerminal(env.getBoolean("ssh.requestPseudoTerminal", requestPseudoTerminal));
+			return this;
+		}
+
+		public Builder decrypt(EncryptionService enc) {
+			List<String> list = new ArrayList<String>();
+			for (String privateKey : privateKeys) {
+				if (EncUtils.isEncrypted(privateKey)) {
+					list.add(enc.decrypt(privateKey));
+				} else {
+					list.add(privateKey);
+				}
+			}
+			privateKeys(list);
+			return this;
 		}
 
 		/**
