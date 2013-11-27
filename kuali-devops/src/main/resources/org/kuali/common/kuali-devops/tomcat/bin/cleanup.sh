@@ -16,7 +16,7 @@
 #
 
 
-CATALINA_BASE=/usr/local/tomcat
+CATALINA_BASE=${catalina.base}
 
 cp $CATALINA_BASE/logs/*.jsp $CATALINA_BASE/conf
 
@@ -25,9 +25,8 @@ WORK=$CATALINA_BASE/work
 TEMP=$CATALINA_BASE/temp
 CONF=$CATALINA_BASE/conf/Catalina/localhost
 
-echo Removing $LOGS $WORK $CONF $TEMP
+echo Cleaning $LOGS $WORK $CONF $TEMP
 
-rm -rf $LOGS $WORK $CONF $TEMP
-mkdir -p $LOGS $TEMP
+rm -rf $LOGS/* $WORK/* $TEMP/* $CONF/*
 
 cp $CATALINA_BASE/conf/*.jsp $CATALINA_BASE/logs

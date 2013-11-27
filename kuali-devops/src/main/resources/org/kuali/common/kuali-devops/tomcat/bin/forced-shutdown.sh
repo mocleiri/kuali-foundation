@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-/usr/local/tomcat/bin/catalina.sh stop 5 -force
+${catalina.base}/bin/catalina.sh stop 5 -force
