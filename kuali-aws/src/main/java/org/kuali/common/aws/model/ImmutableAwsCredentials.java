@@ -2,9 +2,8 @@ package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.builder.BuilderContext;
-import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.builder.BuilderUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.google.common.base.Optional;
@@ -19,6 +18,12 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 		// Required
 		private final String accessKey;
 		private final String secretKey;
+
+		// Provide a way to override values via system properties / environment variables
+		private static final String ACCESS_KEY = "aws.accessKeyId";
+		private static final String ACCESS_ENV_KEY = "AWS_ACCESS_KEY_ID";
+		private static final String SECRET_KEY = "aws.secretKey";
+		private static final String SECRET_ENV_KEY = "AWS_SECRET_KEY";
 
 		public Builder(AWSCredentials credentials) {
 			this(BuilderContext.ABSENT, credentials.getAWSAccessKeyId(), credentials.getAWSSecretKey());
@@ -36,12 +41,14 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 			this(Optional.of(ctx), accessKey, secretKey);
 		}
 
+		public Builder(BuilderContext ctx) {
+			this(Optional.of(ctx), NullUtils.NONE, NullUtils.NONE);
+		}
+
 		private Builder(Optional<BuilderContext> ctx, String accessKey, String secretKey) {
 			if (ctx.isPresent()) {
-				EnvironmentService env = ctx.get().getEnv();
-				EncryptionService enc = ctx.get().getEnc();
-				this.accessKey = env.getString("aws.accessKey", accessKey);
-				this.secretKey = EncUtils.decrypt(enc, env.getString("aws.secretKey", secretKey));
+				this.accessKey = BuilderUtils.getValue(ctx.get(), ACCESS_KEY, ACCESS_ENV_KEY, accessKey);
+				this.secretKey = BuilderUtils.getValue(ctx.get(), SECRET_KEY, SECRET_ENV_KEY, secretKey);
 			} else {
 				this.accessKey = accessKey;
 				this.secretKey = secretKey;
