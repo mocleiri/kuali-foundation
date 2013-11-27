@@ -17,6 +17,8 @@ package org.kuali.common.util.enc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +35,7 @@ import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 
@@ -51,6 +54,21 @@ public class EncUtils {
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
+
+	/**
+	 * Return a new list containing the same elements in the same order only with any encrypted strings having been decrypted.
+	 */
+	public static List<String> decrypt(EncryptionService enc, List<String> strings) {
+		List<String> list = new ArrayList<String>();
+		for (String string : strings) {
+			if (EncUtils.isEncrypted(string)) {
+				list.add(enc.decrypt(string));
+			} else {
+				list.add(string);
+			}
+		}
+		return ImmutableList.copyOf(list);
+	}
 
 	public static KeyPair decrypt(EncryptionService enc, KeyPair provided) {
 		String name = provided.getName();

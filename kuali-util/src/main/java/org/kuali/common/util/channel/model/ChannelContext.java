@@ -84,14 +84,14 @@ public final class ChannelContext {
 		}
 
 		/**
-		 * Override with the hostname from the environment (if one is present)
+		 * Override using <code>ssh.hostname</code> from the environment (if it is present)
 		 */
 		public Builder(EnvironmentService env, String hostname) {
 			this(hostname, Optional.of(env));
 		}
 
 		/**
-		 * Override with the hostname from the environment (if one is present)
+		 * Override using <code>ssh.hostname</code> from the environment (if it is present)
 		 */
 		private Builder(String hostname, Optional<EnvironmentService> env) {
 			if (env.isPresent()) {
@@ -130,15 +130,7 @@ public final class ChannelContext {
 		}
 
 		public Builder decrypt(EncryptionService enc) {
-			List<String> list = new ArrayList<String>();
-			for (String privateKey : privateKeys) {
-				if (EncUtils.isEncrypted(privateKey)) {
-					list.add(enc.decrypt(privateKey));
-				} else {
-					list.add(privateKey);
-				}
-			}
-			privateKeys(list);
+			privateKeys(EncUtils.decrypt(enc, privateKeys));
 			return this;
 		}
 
