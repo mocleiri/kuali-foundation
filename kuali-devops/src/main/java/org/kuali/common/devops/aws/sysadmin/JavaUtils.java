@@ -4,13 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.common.devops.aws.sysadmin.model.Heap;
+import org.kuali.common.devops.aws.sysadmin.model.Java;
 import org.kuali.common.util.FormatUtils;
 
 import com.google.common.collect.ImmutableList;
 
 public class JavaUtils {
 
-	// opts.add("-Djava.security.egd=file:/dev/./urandom");
+	public static List<String> getJavaOpts(Java java, String logDir, Heap heap) {
+		List<String> opts = new ArrayList<String>();
+		opts.addAll(getJavaOpts(java));
+		opts.addAll(getJavaOpts(logDir, heap));
+		return ImmutableList.copyOf(opts);
+	}
+
+	public static List<String> getJavaOpts(Java java) {
+		List<String> opts = new ArrayList<String>();
+		opts.addAll(java.getOptions());
+		if (java.isUseNonBlockingEntropyGatheringDevice()) {
+			opts.add("-Djava.security.egd=file:/dev/./urandom");
+		}
+		return ImmutableList.copyOf(opts);
+	}
 
 	public static List<String> getJavaOpts(String logDir, Heap heap) {
 		List<String> opts = new ArrayList<String>();
