@@ -5,29 +5,47 @@ import org.kuali.common.util.channel.model.RemoteFile;
 
 public final class FileResource {
 
-	public FileResource(String title, String source, RemoteFile destination) {
-		Assert.noBlanks(title, source);
-		Assert.noNulls(destination);
-		Assert.exists(source);
-		this.title = title;
-		this.source = source;
-		this.destination = destination;
-	}
-
 	private final String title;
+	private final RemoteFile file;
 	private final String source;
-	private final RemoteFile destination;
 
-	public String getSource() {
-		return source;
+	public static class Builder {
+
+		// Required
+		private final String title;
+		private final RemoteFile file;
+		private final String source;
+
+		public Builder(String title, RemoteFile file, String source) {
+			this.title = title;
+			this.file = file;
+			this.source = source;
+		}
+
+		public FileResource build() {
+			Assert.noBlanks(title, source);
+			Assert.noNulls(file);
+			Assert.exists(source);
+			return new FileResource(this);
+		}
 	}
 
-	public RemoteFile getDestination() {
-		return destination;
+	private FileResource(Builder builder) {
+		this.title = builder.title;
+		this.file = builder.file;
+		this.source = builder.source;
 	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public RemoteFile getFile() {
+		return file;
+	}
+
+	public String getSource() {
+		return source;
 	}
 
 }
