@@ -23,7 +23,6 @@ import org.kuali.common.util.execute.Executable;
  * <li>Update the operating system to the latest and greatest <code>yum update -y</code></li>
  * <li>Install a list of essential packages</li>
  * </ul>
- * 
  */
 public final class Bootstrap implements Executable {
 
