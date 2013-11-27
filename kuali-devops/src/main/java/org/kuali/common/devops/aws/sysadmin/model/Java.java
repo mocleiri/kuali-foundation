@@ -10,6 +10,7 @@ public final class Java {
 
 	private final String home;
 	private final List<String> options;
+	private final boolean useNonBlockingEntropyGatheringDevice;
 
 	public static class Builder {
 
@@ -18,6 +19,7 @@ public final class Java {
 
 		// Optional
 		private List<String> options = ImmutableList.of();
+		private boolean useNonBlockingEntropyGatheringDevice = true;
 
 		public Builder(String home) {
 			this.home = home;
@@ -25,6 +27,11 @@ public final class Java {
 
 		public Builder options(List<String> options) {
 			this.options = options;
+			return this;
+		}
+
+		public Builder useNonBlockingEntropyGatheringDevice(boolean useNonBlockingEntropyGatheringDevice) {
+			this.useNonBlockingEntropyGatheringDevice = useNonBlockingEntropyGatheringDevice;
 			return this;
 		}
 
@@ -39,6 +46,7 @@ public final class Java {
 	private Java(Builder builder) {
 		this.home = builder.home;
 		this.options = builder.options;
+		this.useNonBlockingEntropyGatheringDevice = builder.useNonBlockingEntropyGatheringDevice;
 	}
 
 	public List<String> getOptions() {
@@ -47,6 +55,10 @@ public final class Java {
 
 	public String getHome() {
 		return home;
+	}
+
+	public boolean isUseNonBlockingEntropyGatheringDevice() {
+		return useNonBlockingEntropyGatheringDevice;
 	}
 
 }
