@@ -85,14 +85,14 @@ public final class ChannelContext {
 		}
 
 		/**
-		 * Override using <code>ssh.hostname</code> from the environment (if it is present)
+		 * Override using <code>ssh.hostname</code> (if present)
 		 */
 		public Builder(EnvironmentService env, String hostname) {
 			this(hostname, Optional.of(env));
 		}
 
 		/**
-		 * Override using <code>ssh.hostname</code> from the environment (if it is present)
+		 * Override using <code>ssh.hostname</code> (if present)
 		 */
 		private Builder(String hostname, Optional<EnvironmentService> env) {
 			if (env.isPresent()) {
@@ -124,8 +124,11 @@ public final class ChannelContext {
 			privateKey(privateKey.orNull());
 		}
 
+		/**
+		 * Overrides available are <code>ssh.username</code>, <code>ssh.requestPseudoTerminal</code>, and <code>ssh.privateKeys</code>
+		 */
 		public Builder override(EnvironmentService env) {
-			username(env.getString("ssh.username", username.orNull()));
+			username(SpringUtils.getString(env, "ssh.username", username).orNull());
 			requestPseudoTerminal(env.getBoolean("ssh.requestPseudoTerminal", requestPseudoTerminal));
 			privateKeys(SpringUtils.getStrings(env, "ssh.privateKeys", privateKeys));
 			return this;
@@ -249,6 +252,7 @@ public final class ChannelContext {
 			Assert.noNulls(username, connectTimeout, options, knownHosts, config, privateKeyFiles, privateKeys);
 			Assert.isPort(port);
 			Assert.positive(waitForClosedSleepMillis);
+			Assert.decrypted(privateKeys);
 			if (useConfigFile) {
 				Assert.exists(config);
 				Assert.isTrue(config.canRead(), "[" + config + "] exists but is not readable");

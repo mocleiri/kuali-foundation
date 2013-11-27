@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.enc.EncUtils;
 
 import com.google.common.base.Optional;
 
@@ -26,6 +27,22 @@ public abstract class Assert extends org.springframework.util.Assert {
 
 	private static final String NO_NULLS = "null not allowed";
 	private static final String NO_BLANKS = "blank strings not allowed";
+
+	/**
+	 * Assert that the text passed in is not wrapped inside of <code>ENC()</code>
+	 */
+	public static void decrypted(String text) {
+		isFalse(EncUtils.isEncrypted(text), "Text is encrypted");
+	}
+
+	/**
+	 * Assert that no strings in the list are encrypted
+	 */
+	public static void decrypted(List<String> strings) {
+		for (String string : strings) {
+			isFalse(EncUtils.isEncrypted(string), "List contains at least one encrypted value");
+		}
+	}
 
 	/**
 	 * Assert that <code>port</code> is >= 0 and <= 65535
