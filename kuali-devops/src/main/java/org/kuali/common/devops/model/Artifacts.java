@@ -2,19 +2,25 @@ package org.kuali.common.devops.model;
 
 import org.kuali.common.util.maven.model.Artifact;
 
+import com.google.common.base.Optional;
+
 public enum Artifacts {
 
-	JDK6(HotSpot.GID, HotSpot.JDK6, HotSpot.JDK6_LATEST, HotSpot.LINUX_X64), //
-	JDK7(HotSpot.GID, HotSpot.JDK7, HotSpot.JDK7_LATEST, HotSpot.LINUX_X64); //
+	HOTSPOT_LINUX_64BIT_JDK6(HotSpot.GID, HotSpot.JDK6, HotSpot.JDK6_LATEST, HotSpot.LINUX_X64), //
+	HOTSPOT_LINUX_64BIT_JDK7(HotSpot.GID, HotSpot.JDK7, HotSpot.JDK7_LATEST, HotSpot.LINUX_X64); //
 
 	private final Artifact artifact;
 
 	private Artifacts(String groupId, String artifactId, String version) {
-		this.artifact = new Artifact.Builder(groupId, artifactId, version).build();
+		this(groupId, artifactId, version, Optional.<String> absent());
 	}
 
 	private Artifacts(String groupId, String artifactId, String version, String classifier) {
-		this.artifact = new Artifact.Builder(groupId, artifactId, version).classifier(classifier).build();
+		this(groupId, artifactId, version, Optional.of(classifier));
+	}
+
+	private Artifacts(String groupId, String artifactId, String version, Optional<String> classifier) {
+		this.artifact = new Artifact.Builder(groupId, artifactId, version).classifier(classifier.orNull()).build();
 	}
 
 	public Artifact getArtifact() {
