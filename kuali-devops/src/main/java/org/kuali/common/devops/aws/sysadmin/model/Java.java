@@ -3,27 +3,26 @@ package org.kuali.common.devops.aws.sysadmin.model;
 import java.util.List;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.nullify.NullUtils;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class Java {
 
-	private final Optional<String> home;
 	private final List<String> options;
 	private final List<String> args;
+	private final String javaClass;
 
 	public static class Builder {
 
+		// Required
+		private final String javaClass;
+
 		// Optional
-		private Optional<String> home = Optional.absent();
 		private List<String> options = ImmutableList.of();
 		private List<String> args = ImmutableList.of();
 
-		public Builder home(String home) {
-			this.home = Optional.fromNullable(NullUtils.trimToNull(home));
-			return this;
+		public Builder(String javaClass) {
+			this.javaClass = javaClass;
 		}
 
 		public Builder options(List<String> options) {
@@ -37,7 +36,8 @@ public final class Java {
 		}
 
 		public Java build() {
-			Assert.noNulls(home, options, args);
+			Assert.noBlanks(javaClass);
+			Assert.noNulls(options, args);
 			this.options = ImmutableList.copyOf(options);
 			this.args = ImmutableList.copyOf(args);
 			return new Java(this);
@@ -45,13 +45,9 @@ public final class Java {
 	}
 
 	private Java(Builder builder) {
-		this.home = builder.home;
+		this.javaClass = builder.javaClass;
 		this.options = builder.options;
 		this.args = builder.args;
-	}
-
-	public Optional<String> getHome() {
-		return home;
 	}
 
 	public List<String> getOptions() {
@@ -60,6 +56,10 @@ public final class Java {
 
 	public List<String> getArgs() {
 		return args;
+	}
+
+	public String getJavaClass() {
+		return javaClass;
 	}
 
 }
