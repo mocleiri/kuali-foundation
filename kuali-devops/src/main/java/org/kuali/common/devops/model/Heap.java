@@ -2,6 +2,8 @@ package org.kuali.common.devops.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.builder.BuilderUtils;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 public final class Heap {
 
@@ -45,8 +47,17 @@ public final class Heap {
 			return this;
 		}
 
-		public Heap build() {
+		/**
+		 * Override provided values with values from the environment
+		 */
+		public Builder override(EnvironmentService env) {
+			this.maxPermSizeInBytes = BuilderUtils.getBytes(env, "heap.max", maxPermSizeInBytes);
+			this.minSizeInBytes = BuilderUtils.getBytes(env, "heap.min", minSizeInBytes);
+			this.maxPermSizeInBytes = BuilderUtils.getBytes(env, "heap.maxPermSize", maxPermSizeInBytes);
+			return this;
+		}
 
+		public Heap build() {
 			// None of them can be negative
 			Assert.noNegatives(maxPermSizeInBytes, minSizeInBytes, maxSizeInBytes);
 
@@ -56,6 +67,7 @@ public final class Heap {
 			// Max must be greater than or equal to the perm size
 			Assert.isTrue(maxSizeInBytes >= maxPermSizeInBytes);
 
+			// Return the fully constructed object
 			return new Heap(this);
 		}
 	}
