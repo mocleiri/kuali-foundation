@@ -51,9 +51,9 @@ public final class Heap {
 		 * Override provided values with values from the environment
 		 */
 		public Builder override(EnvironmentService env) {
-			this.maxPermSizeInBytes = BuilderUtils.getBytes(env, "heap.max", maxPermSizeInBytes);
-			this.minSizeInBytes = BuilderUtils.getBytes(env, "heap.min", minSizeInBytes);
-			this.maxPermSizeInBytes = BuilderUtils.getBytes(env, "heap.maxPerm", maxPermSizeInBytes);
+			maxPermSizeInBytes(BuilderUtils.getBytes(env, "heap.max", maxPermSizeInBytes));
+			minSizeInBytes(BuilderUtils.getBytes(env, "heap.min", minSizeInBytes));
+			maxPermSizeInBytes(BuilderUtils.getBytes(env, "heap.maxPerm", maxPermSizeInBytes));
 			return this;
 		}
 
