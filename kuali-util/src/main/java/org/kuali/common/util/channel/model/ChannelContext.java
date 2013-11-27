@@ -95,6 +95,10 @@ public final class ChannelContext {
 			privateKey(privateKey.orNull());
 		}
 
+		/**
+		 * @deprecated
+		 */
+		@Deprecated
 		public Builder(String hostname, ChannelContext provided) {
 			this(hostname);
 			this.username = provided.username;
