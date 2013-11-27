@@ -56,6 +56,18 @@ public class EncUtils {
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
 	/**
+	 * Decrypt the string if it's encrypted, otherwise do nothing
+	 */
+	public static String decrypt(EncryptionService enc, String string) {
+		Assert.noBlanks(string);
+		if (isEncrypted(string)) {
+			return enc.decrypt(string);
+		} else {
+			return string;
+		}
+	}
+
+	/**
 	 * Return a new list containing the same elements in the same order only with any encrypted strings having been decrypted.
 	 */
 	public static List<String> decrypt(EncryptionService enc, List<String> strings) {
