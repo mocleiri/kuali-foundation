@@ -25,14 +25,14 @@ public enum Packages {
 	TOMCAT6("tomcat6"), //
 	TOMCAT7("tomcat7"); //
 
-	private final String name;
+	private final Package pkg;
 
 	private Packages(String name) {
-		this.name = name;
+		this.pkg = new Package.Builder(name).build();
 	}
 
-	public String getName() {
-		return name;
+	public Package getPackage() {
+		return pkg;
 	}
 
 	// Basic packages installed on pretty much every server
@@ -41,12 +41,12 @@ public enum Packages {
 	// Installed on servers that need to interact with an SCM system
 	public static final Set<Packages> SCM = Collections.unmodifiableSet(EnumSet.of(SVN, GIT));
 
-	public static final List<String> of(Collection<Packages> packages) {
-		List<String> names = new ArrayList<String>();
+	public static final List<Package> of(Collection<Packages> packages) {
+		List<Package> list = new ArrayList<Package>();
 		for (Packages pkgs : packages) {
-			names.add(pkgs.getName());
+			list.add(pkgs.getPackage());
 		}
-		return ImmutableList.copyOf(names);
+		return ImmutableList.copyOf(list);
 	}
 
 }
