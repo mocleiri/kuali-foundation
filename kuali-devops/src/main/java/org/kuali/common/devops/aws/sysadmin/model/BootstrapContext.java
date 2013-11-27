@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.aws.ec2.model.Distro;
 import org.kuali.common.devops.model.Node;
-import org.kuali.common.devops.model.Packages;
+import org.kuali.common.devops.model.Pkgs;
 import org.kuali.common.devops.model.Services;
 import org.kuali.common.devops.model.User;
 import org.kuali.common.devops.model.Users;
@@ -44,7 +44,7 @@ public final class BootstrapContext {
 
 		// Optional (default values are usually ok)
 		private String rootVolumeDeviceName = "/dev/xvda1";
-		private List<String> packages = Packages.of(Packages.BASIC);
+		private List<String> packages = Pkgs.of(Pkgs.BASIC);
 
 		// Filled in automatically by build();
 		private ServiceOverride sshdOverride;

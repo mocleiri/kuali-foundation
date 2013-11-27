@@ -2,16 +2,17 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 import java.util.List;
 
-import org.kuali.common.devops.model.Packages;
+import org.kuali.common.devops.model.Heap;
+import org.kuali.common.devops.model.Java;
+import org.kuali.common.devops.model.Pkg;
+import org.kuali.common.devops.model.Pkgs;
 import org.kuali.common.devops.model.User;
 import org.kuali.common.devops.model.Users;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;
-import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 
 /**
  * 
@@ -20,12 +21,12 @@ public final class InstallTomcatContext {
 
 	private final ChannelService service;
 	private final ChannelContext context;
-	private final String packageName;
+	private final Pkg pkg;
 	private final String sharedDir;
 	private final TomcatMajorVersion version;
 	private final User user;
-	private final Optional<String> javaHome;
-	private final List<String> javaOpts;
+	private final Optional<Java> java;
+	private final Optional<Heap> heap;
 
 	public static class Builder {
 
@@ -34,26 +35,21 @@ public final class InstallTomcatContext {
 		private final ChannelContext context;
 
 		// Optional
-		private String packageName = Packages.TOMCAT7.getName();
-		private final TomcatMajorVersion version = TomcatMajorVersion.SEVEN;
+		private Pkg pkg = Pkgs.TOMCAT7.getPackage();
+		private TomcatMajorVersion version = TomcatMajorVersion.SEVEN;
 		private String sharedDir = "/usr/share";
 		private User user = Users.TOMCAT.getUser();
-		private Optional<String> javaHome = Optional.absent();
-		private List<String> javaOpts = ImmutableList.of();
+		private Optional<Java> java = Optional.absent();
+		private Optional<Heap> heap = Optional.absent();
 
 		public Builder(ChannelService service, ChannelContext context) {
 			this.service = service;
 			this.context = context;
 		}
 
-		public Builder javaHome(String javaHome) {
-			this.javaHome = Optional.fromNullable(NullUtils.trimToNull(javaHome));
-			return this;
-		}
-
 		public InstallTomcatContext build() {
-			Assert.noBlanks(packageName, sharedDir);
-			Assert.noNulls(javaOpts, service, context, version, javaHome);
+			Assert.noBlanks(sharedDir);
+			Assert.noNulls(pkg, javaOpts, service, context, version, javaHome);
 			return new InstallTomcatContext(this);
 		}
 
@@ -62,16 +58,12 @@ public final class InstallTomcatContext {
 	private InstallTomcatContext(Builder builder) {
 		this.service = builder.service;
 		this.context = builder.context;
-		this.packageName = builder.packageName;
+		this.pkg = builder.pkg;
 		this.javaOpts = builder.javaOpts;
 		this.sharedDir = builder.sharedDir;
 		this.version = builder.version;
 		this.user = builder.user;
 		this.javaHome = builder.javaHome;
-	}
-
-	public String getPackageName() {
-		return packageName;
 	}
 
 	public List<String> getJavaOpts() {
@@ -100,6 +92,10 @@ public final class InstallTomcatContext {
 
 	public Optional<String> getJavaHome() {
 		return javaHome;
+	}
+
+	public Pkg getPkg() {
+		return pkg;
 	}
 
 }

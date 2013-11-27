@@ -80,7 +80,7 @@ public final class InstallTomcat implements Executable {
 		// Add, update, and delete configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
 		List<FileResource> deployables = TomcatConfig.getDeployables(installDir, context.getVersion().getValue());
 		for (FileResource deployable : deployables) {
-			channel.scp(deployable.getSource(), deployable.getDestination());
+			channel.scp(deployable.getSource(), deployable.getFile());
 		}
 
 		// Recursively chown everything in /usr/share/tomcat[6,7] and /home/tomcat to tomcat:tomcat
