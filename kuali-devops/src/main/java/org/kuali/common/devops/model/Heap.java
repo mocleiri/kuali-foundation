@@ -58,6 +58,7 @@ public final class Heap {
 		}
 
 		public Heap build() {
+
 			// None of them can be negative
 			Assert.noNegatives(maxPermSizeInBytes, minSizeInBytes, maxSizeInBytes);
 
