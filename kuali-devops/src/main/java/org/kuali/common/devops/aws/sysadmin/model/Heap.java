@@ -15,7 +15,7 @@ public final class Heap {
 
 		// Optional
 		private long maxSizeInBytes = FormatUtils.getBytes("5g"); // 5 gigabytes
-		private long minSizeInBytes = maxSizeInBytes; // Default them to be the same size
+		private long minSizeInBytes = maxSizeInBytes; // Default min to be the same as max
 		private long maxPermSizeInBytes = FormatUtils.getBytes("512m"); // 512 megabytes
 		private boolean dumpOnOutOfMemoryError = false;
 		private boolean enableLogging = true;
@@ -46,9 +46,16 @@ public final class Heap {
 		}
 
 		public Heap build() {
+
+			// None of them can be negative
 			Assert.noNegatives(maxPermSizeInBytes, minSizeInBytes, maxSizeInBytes);
+			// Max must be greater than or equal to min
+
 			Assert.isTrue(maxSizeInBytes >= minSizeInBytes);
+
+			// Max must be greater than or equal to the perm size
 			Assert.isTrue(maxSizeInBytes >= maxPermSizeInBytes);
+
 			return new Heap(this);
 		}
 	}
