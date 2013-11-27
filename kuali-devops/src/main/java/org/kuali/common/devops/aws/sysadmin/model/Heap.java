@@ -49,8 +49,8 @@ public final class Heap {
 
 			// None of them can be negative
 			Assert.noNegatives(maxPermSizeInBytes, minSizeInBytes, maxSizeInBytes);
-			// Max must be greater than or equal to min
 
+			// Max must be greater than or equal to min
 			Assert.isTrue(maxSizeInBytes >= minSizeInBytes);
 
 			// Max must be greater than or equal to the perm size
