@@ -8,21 +8,19 @@ import com.google.common.collect.ImmutableList;
 
 public final class Java {
 
+	private final String home;
 	private final List<String> options;
-	private final String javaClass;
-	private final List<String> args;
 
 	public static class Builder {
 
 		// Required
-		private final String javaClass;
+		private final String home;
 
 		// Optional
 		private List<String> options = ImmutableList.of();
-		private List<String> args = ImmutableList.of();
 
-		public Builder(String javaClass) {
-			this.javaClass = javaClass;
+		public Builder(String home) {
+			this.home = home;
 		}
 
 		public Builder options(List<String> options) {
@@ -30,36 +28,25 @@ public final class Java {
 			return this;
 		}
 
-		public Builder args(List<String> args) {
-			this.args = args;
-			return this;
-		}
-
 		public Java build() {
-			Assert.noBlanks(javaClass);
-			Assert.noNulls(options, args);
+			Assert.noBlanks(home);
+			Assert.noNulls(options);
 			this.options = ImmutableList.copyOf(options);
-			this.args = ImmutableList.copyOf(args);
 			return new Java(this);
 		}
 	}
 
 	private Java(Builder builder) {
-		this.javaClass = builder.javaClass;
+		this.home = builder.home;
 		this.options = builder.options;
-		this.args = builder.args;
 	}
 
 	public List<String> getOptions() {
 		return options;
 	}
 
-	public List<String> getArgs() {
-		return args;
-	}
-
-	public String getJavaClass() {
-		return javaClass;
+	public String getHome() {
+		return home;
 	}
 
 }
