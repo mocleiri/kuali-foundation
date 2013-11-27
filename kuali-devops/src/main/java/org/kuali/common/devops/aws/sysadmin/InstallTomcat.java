@@ -3,8 +3,8 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.devops.aws.sysadmin.model.FileResource;
 import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
+import org.kuali.common.devops.model.FileResource;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.api.SecureChannel;

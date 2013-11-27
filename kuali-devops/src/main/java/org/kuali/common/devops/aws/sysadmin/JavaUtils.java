@@ -3,8 +3,8 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.devops.aws.sysadmin.model.Heap;
-import org.kuali.common.devops.aws.sysadmin.model.Java;
+import org.kuali.common.devops.model.Heap;
+import org.kuali.common.devops.model.Java;
 import org.kuali.common.util.FormatUtils;
 
 import com.google.common.collect.ImmutableList;

@@ -2,6 +2,7 @@ package org.kuali.common.devops.aws.sysadmin.model;
 
 import java.io.File;
 
+import org.kuali.common.devops.model.ZipPackage;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.model.ChannelContext;

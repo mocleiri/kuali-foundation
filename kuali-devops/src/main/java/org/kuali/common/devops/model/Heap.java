@@ -1,4 +1,4 @@
-package org.kuali.common.devops.aws.sysadmin.model;
+package org.kuali.common.devops.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;

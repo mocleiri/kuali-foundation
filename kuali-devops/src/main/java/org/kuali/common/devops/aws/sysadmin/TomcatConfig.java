@@ -3,7 +3,7 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.devops.aws.sysadmin.model.FileResource;
+import org.kuali.common.devops.model.FileResource;
 import org.kuali.common.devops.project.DevOpsProjectConstants;
 import org.kuali.common.util.channel.model.RemoteFile;
 import org.kuali.common.util.project.ProjectUtils;
