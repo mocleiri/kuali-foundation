@@ -20,7 +20,7 @@ public enum Packages {
 	SVN("subversion"), //
 	GIT("git"), //
 	GRAPHVIZ("graphviz"), //
-	MYSQL("mysql"), //
+	MYSQL_SERVER("mysql-server"), //
 	ANT("ant"), //
 	TOMCAT6("tomcat6"), //
 	TOMCAT7("tomcat7"); //
