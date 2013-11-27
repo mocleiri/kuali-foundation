@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.kuali.common.devops.model.Heap;
 import org.kuali.common.devops.model.Java;
-import org.kuali.common.devops.model.Pkg;
-import org.kuali.common.devops.model.Pkgs;
+import org.kuali.common.devops.model.Package;
+import org.kuali.common.devops.model.Packages;
 import org.kuali.common.devops.model.User;
 import org.kuali.common.devops.model.Users;
 import org.kuali.common.util.Assert;
@@ -21,7 +21,7 @@ public final class InstallTomcatContext {
 
 	private final ChannelService service;
 	private final ChannelContext context;
-	private final Pkg pkg;
+	private final Package pkg;
 	private final String sharedDir;
 	private final TomcatMajorVersion version;
 	private final User user;
@@ -35,7 +35,7 @@ public final class InstallTomcatContext {
 		private final ChannelContext context;
 
 		// Optional
-		private Pkg pkg = Pkgs.TOMCAT7.getPackage();
+		private Package pkg = Packages.TOMCAT7.getPackage();
 		private TomcatMajorVersion version = TomcatMajorVersion.SEVEN;
 		private String sharedDir = "/usr/share";
 		private User user = Users.TOMCAT.getUser();
@@ -94,7 +94,7 @@ public final class InstallTomcatContext {
 		return javaHome;
 	}
 
-	public Pkg getPkg() {
+	public Package getPkg() {
 		return pkg;
 	}
 

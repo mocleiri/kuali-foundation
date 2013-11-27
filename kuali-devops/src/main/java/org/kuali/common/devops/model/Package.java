@@ -5,7 +5,7 @@ import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 
-public final class Pkg {
+public final class Package {
 
 	private final String title;
 	private final String name;
@@ -34,13 +34,13 @@ public final class Pkg {
 			return this;
 		}
 
-		public Pkg build() {
+		public Package build() {
 			Assert.noBlanks(title, name);
-			return new Pkg(this);
+			return new Package(this);
 		}
 	}
 
-	private Pkg(Builder builder) {
+	private Package(Builder builder) {
 		this.title = builder.title;
 		this.name = builder.name;
 		this.description = builder.description;
