@@ -20,8 +20,6 @@ public final class Java {
 		// Optional
 		private List<String> options = ImmutableList.of();
 		private boolean useNonBlockingEntropyGatheringDevice = true; // -Djava.security.egd=file:/dev/./urandom
-		
-
 
 		public Builder(String home) {
 			this.home = home;
