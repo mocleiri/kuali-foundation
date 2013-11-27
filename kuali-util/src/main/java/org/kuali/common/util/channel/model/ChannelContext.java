@@ -28,6 +28,7 @@ import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
@@ -126,6 +127,7 @@ public final class ChannelContext {
 		public Builder override(EnvironmentService env) {
 			username(env.getString("ssh.username", username.orNull()));
 			requestPseudoTerminal(env.getBoolean("ssh.requestPseudoTerminal", requestPseudoTerminal));
+			privateKeys(SpringUtils.getStrings(env, "ssh.privateKeys", privateKeys));
 			return this;
 		}
 

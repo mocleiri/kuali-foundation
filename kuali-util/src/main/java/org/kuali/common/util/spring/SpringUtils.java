@@ -325,6 +325,9 @@ public class SpringUtils {
 		return getNoneSensitiveListFromCSV(env, key, null);
 	}
 
+	/**
+	 * If the environment contains a value for <code>key</code> (NONE sensitive) use the environment value, otherwise use the defaults.
+	 */
 	public static List<String> getStrings(EnvironmentService env, String key, List<String> defaults) {
 		if (env.containsProperty(key)) {
 			return getNoneSensitiveListFromCSV(env, key);
