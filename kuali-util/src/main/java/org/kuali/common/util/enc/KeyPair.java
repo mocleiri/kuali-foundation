@@ -51,8 +51,8 @@ public final class KeyPair {
 		}
 
 		public Builder decrypt(EncryptionService enc) {
-			if (privateKey.isPresent() && EncUtils.isEncrypted(privateKey.get())) {
-				privateKey(enc.decrypt(privateKey.get()));
+			if (privateKey.isPresent()) {
+				privateKey(EncUtils.decrypt(enc, privateKey.get()));
 			}
 			return this;
 		}
