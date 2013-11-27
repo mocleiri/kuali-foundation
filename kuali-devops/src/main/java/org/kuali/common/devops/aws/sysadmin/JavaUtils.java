@@ -8,7 +8,7 @@ import org.kuali.common.util.FormatUtils;
 
 import com.google.common.collect.ImmutableList;
 
-public class HeapUtils {
+public class JavaUtils {
 
 	// opts.add("-Djava.security.egd=file:/dev/./urandom");
 
