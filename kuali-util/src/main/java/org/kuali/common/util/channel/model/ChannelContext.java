@@ -304,9 +304,6 @@ public final class ChannelContext {
 		}
 	}
 
-	/**
-	 * Any changes to this constructor must also be applied to the Builder([hostname],[provided]) constructor
-	 */
 	private ChannelContext(Builder builder) {
 		this.username = builder.username;
 		this.hostname = builder.hostname;
