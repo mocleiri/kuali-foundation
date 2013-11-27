@@ -83,6 +83,9 @@ public final class Artifact {
 		public Artifact build() {
 			Assert.noBlanks(groupId, artifactId, version, type);
 			Assert.noNulls(classifier);
+			if (classifier.isPresent()) {
+				Assert.noBlanks(classifier.get());
+			}
 			return new Artifact(this);
 		}
 
