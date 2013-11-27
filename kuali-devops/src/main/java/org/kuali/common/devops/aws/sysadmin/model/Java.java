@@ -9,8 +9,8 @@ import com.google.common.collect.ImmutableList;
 public final class Java {
 
 	private final List<String> options;
-	private final List<String> args;
 	private final String javaClass;
+	private final List<String> args;
 
 	public static class Builder {
 
