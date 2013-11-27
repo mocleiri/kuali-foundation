@@ -18,15 +18,14 @@
 
 CATALINA_BASE=${catalina.base}
 
-cp $CATALINA_BASE/logs/*.jsp $CATALINA_BASE/conf
-
 LOGS=$CATALINA_BASE/logs 
 WORK=$CATALINA_BASE/work
 TEMP=$CATALINA_BASE/temp
-CONF=$CATALINA_BASE/conf/Catalina/localhost
+CONF=$CATALINA_BASE/conf
 
-echo Cleaning $LOGS $WORK $CONF $TEMP
+cp $LOGS/*.jsp $CONF
 
-rm -rf $LOGS/* $WORK/* $TEMP/* $CONF/*
+echo Cleaning $LOGS/* $WORK/* $TEMP/* $CONF/Catalina/localhost/*
+rm -rf $LOGS/* $WORK/* $TEMP/* $CONF/Catalina/localhost/*
 
-cp $CATALINA_BASE/conf/*.jsp $CATALINA_BASE/logs
+cp $CONF/*.jsp $LOGS
