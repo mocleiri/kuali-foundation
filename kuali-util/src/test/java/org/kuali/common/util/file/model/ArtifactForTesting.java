@@ -4,9 +4,9 @@ import org.kuali.common.util.Assert;
 
 import com.google.common.base.Optional;
 
-public class Artifact {
+public class ArtifactForTesting {
 
-	public Artifact(Repository repository, RepoFile file, Optional<RepoFile> checksum) {
+	public ArtifactForTesting(Repository repository, RepoFile file, Optional<RepoFile> checksum) {
 		Assert.noNulls(repository, file, checksum);
 		this.repository = repository;
 		this.file = file;

@@ -6,7 +6,7 @@ import org.kuali.common.util.Assert;
 
 public class DuplicateArtifact implements Comparable<DuplicateArtifact> {
 
-	public DuplicateArtifact(String path, List<Artifact> artifacts) {
+	public DuplicateArtifact(String path, List<ArtifactForTesting> artifacts) {
 		Assert.noBlanks(path);
 		Assert.noNulls(artifacts);
 		this.path = path;
@@ -14,7 +14,7 @@ public class DuplicateArtifact implements Comparable<DuplicateArtifact> {
 	}
 
 	private final String path;
-	private final List<Artifact> artifacts;
+	private final List<ArtifactForTesting> artifacts;
 
 	@Override
 	public int compareTo(DuplicateArtifact other) {
@@ -30,7 +30,7 @@ public class DuplicateArtifact implements Comparable<DuplicateArtifact> {
 		return path;
 	}
 
-	public List<Artifact> getArtifacts() {
+	public List<ArtifactForTesting> getArtifacts() {
 		return artifacts;
 	}
 

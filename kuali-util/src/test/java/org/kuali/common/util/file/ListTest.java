@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.SimpleScanner;
-import org.kuali.common.util.file.model.Artifact;
+import org.kuali.common.util.file.model.ArtifactForTesting;
 import org.kuali.common.util.file.model.DuplicateArtifact;
 import org.kuali.common.util.file.model.FileExtension;
 import org.kuali.common.util.file.model.RepoArtifacts;
@@ -74,7 +74,7 @@ public class ListTest {
 		for (DuplicateArtifact duplicate : duplicates) {
 			String filename = FilenameUtils.getName(duplicate.getPath());
 			System.out.print(StringUtils.rightPad(filename, 55) + " [");
-			for (Artifact artifact : duplicate.getArtifacts()) {
+			for (ArtifactForTesting artifact : duplicate.getArtifacts()) {
 				System.out.print(artifact.getRepository().getName() + " ");
 			}
 			System.out.println("]");
@@ -84,9 +84,9 @@ public class ListTest {
 	protected List<DuplicateArtifact> getDuplicateIssues(List<DuplicateArtifact> duplicates) {
 		List<DuplicateArtifact> issues = new ArrayList<DuplicateArtifact>();
 		for (DuplicateArtifact duplicate : duplicates) {
-			List<Artifact> artifacts = duplicate.getArtifacts();
+			List<ArtifactForTesting> artifacts = duplicate.getArtifacts();
 			long size = -1;
-			for (Artifact artifact : artifacts) {
+			for (ArtifactForTesting artifact : artifacts) {
 				if (size == -1) {
 					size = artifact.getFile().getSize();
 				}
@@ -100,20 +100,20 @@ public class ListTest {
 	}
 
 	protected List<DuplicateArtifact> getDuplicates(List<RepoArtifacts> list) {
-		Map<String, List<Artifact>> all = new HashMap<String, List<Artifact>>();
+		Map<String, List<ArtifactForTesting>> all = new HashMap<String, List<ArtifactForTesting>>();
 		for (RepoArtifacts element : list) {
-			for (Artifact artifact : element.getArtifacts()) {
+			for (ArtifactForTesting artifact : element.getArtifacts()) {
 				String path = artifact.getFile().getPath();
-				List<Artifact> artifacts = all.get(path);
+				List<ArtifactForTesting> artifacts = all.get(path);
 				if (artifacts == null) {
-					artifacts = new ArrayList<Artifact>();
+					artifacts = new ArrayList<ArtifactForTesting>();
 				}
 				artifacts.add(artifact);
 				all.put(path, artifacts);
 			}
 		}
 		List<DuplicateArtifact> duplicates = new ArrayList<DuplicateArtifact>();
-		for (Map.Entry<String, List<Artifact>> pair : all.entrySet()) {
+		for (Map.Entry<String, List<ArtifactForTesting>> pair : all.entrySet()) {
 			if (pair.getValue().size() > 1) {
 				DuplicateArtifact duplicate = new DuplicateArtifact(pair.getKey(), pair.getValue());
 				duplicates.add(duplicate);
@@ -127,7 +127,7 @@ public class ListTest {
 	protected void logRepoArtifacts(List<RepoArtifacts> list) {
 		List<String> columns = Arrays.asList("repo", "present", "missing", "total", "size");
 		List<Object[]> rows = new ArrayList<Object[]>();
-		List<Artifact> issues = new ArrayList<Artifact>();
+		List<ArtifactForTesting> issues = new ArrayList<ArtifactForTesting>();
 		long totalSize = 0;
 		long totalCount = 0;
 		long totalMissing = 0;
@@ -135,8 +135,8 @@ public class ListTest {
 		for (RepoArtifacts element : list) {
 			int present = 0;
 			int missing = 0;
-			List<Artifact> artifacts = element.getArtifacts();
-			for (Artifact artifact : artifacts) {
+			List<ArtifactForTesting> artifacts = element.getArtifacts();
+			for (ArtifactForTesting artifact : artifacts) {
 				if (artifact.getChecksum().isPresent()) {
 					present++;
 					totalPresent++;
@@ -162,7 +162,7 @@ public class ListTest {
 		rows.add(totals);
 		LoggerUtils.logTable("repo artifacts", columns, rows);
 		List<String> missingChecksums = new ArrayList<String>();
-		for (Artifact artifact : issues) {
+		for (ArtifactForTesting artifact : issues) {
 			missingChecksums.add(BASEDIR + "/" + artifact.getRepository().getName() + artifact.getFile().getPath());
 		}
 		// String filename = "/Users/jcaddel/ws/kuali-util/src/test/resources/repos/missing-checksums.txt";
@@ -186,7 +186,7 @@ public class ListTest {
 		return list;
 	}
 
-	protected Artifact getArtifact(Repository repo, RepoFile artifact, List<RepoFile> checksums) {
+	protected ArtifactForTesting getArtifact(Repository repo, RepoFile artifact, List<RepoFile> checksums) {
 		String path = artifact.getPath();
 		String sha1ChecksumPath = path + "." + SHA1;
 		String md5ChecksumPath = path + "." + MD5;
@@ -195,7 +195,7 @@ public class ListTest {
 			String checksumPath = checksum.getPath();
 			if (sha1ChecksumPath.equals(checksumPath)) {
 				// If we've got a SHA1 checksum, we are done
-				return new Artifact(repo, artifact, Optional.of(checksum));
+				return new ArtifactForTesting(repo, artifact, Optional.of(checksum));
 			}
 			if (md5ChecksumPath.equals(checksumPath)) {
 				md5CheckSum = checksum;
@@ -203,16 +203,16 @@ public class ListTest {
 		}
 		// Only use MD5 if SHA1 is not available
 		if (md5CheckSum != null) {
-			return new Artifact(repo, artifact, Optional.of(md5CheckSum));
+			return new ArtifactForTesting(repo, artifact, Optional.of(md5CheckSum));
 		} else {
-			return new Artifact(repo, artifact, Optional.<RepoFile> absent());
+			return new ArtifactForTesting(repo, artifact, Optional.<RepoFile> absent());
 		}
 	}
 
-	protected List<Artifact> getArtifacts(Repository repo, List<RepoFile> checksums, List<RepoFile> artifacts) {
-		List<Artifact> list = new ArrayList<Artifact>();
+	protected List<ArtifactForTesting> getArtifacts(Repository repo, List<RepoFile> checksums, List<RepoFile> artifacts) {
+		List<ArtifactForTesting> list = new ArrayList<ArtifactForTesting>();
 		for (RepoFile artifact : artifacts) {
-			Artifact a = getArtifact(repo, artifact, checksums);
+			ArtifactForTesting a = getArtifact(repo, artifact, checksums);
 			list.add(a);
 		}
 		return list;
@@ -221,7 +221,7 @@ public class ListTest {
 	protected RepoArtifacts analyzeRepo(Repository repo) {
 		List<RepoFile> checksums = getCheckSums(repo.getFiles());
 		List<RepoFile> artifacts = getArtifacts(repo.getFiles());
-		List<Artifact> list = getArtifacts(repo, checksums, artifacts);
+		List<ArtifactForTesting> list = getArtifacts(repo, checksums, artifacts);
 		return new RepoArtifacts(repo, list);
 	}
 
