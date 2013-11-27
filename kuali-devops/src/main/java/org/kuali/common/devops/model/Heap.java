@@ -48,7 +48,7 @@ public final class Heap {
 		}
 
 		/**
-		 * Override provided values with values from the environment
+		 * Override any provided values with values from the environment
 		 */
 		public Builder override(EnvironmentService env) {
 			maxPermSizeInBytes(BuilderUtils.getBytes(env, "heap.max", maxPermSizeInBytes));
