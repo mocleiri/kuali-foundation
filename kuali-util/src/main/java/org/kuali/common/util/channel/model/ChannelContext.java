@@ -77,6 +77,12 @@ public final class ChannelContext {
 		private List<String> privateKeys = ImmutableList.of();
 		private boolean echo = true;
 
+		// These only come into play when using builder methods/constructors that take EnvironmentService as a parameter
+		private static final String HOSTNAME_KEY = "ssh.hostname";
+		private static final String USERNAME_KEY = "ssh.username";
+		private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
+		private static final String PRIVATE_KEYS_KEY = "ssh.privateKeys";
+
 		/**
 		 * 
 		 */
@@ -96,7 +102,7 @@ public final class ChannelContext {
 		 */
 		private Builder(String hostname, Optional<EnvironmentService> env) {
 			if (env.isPresent()) {
-				this.hostname = env.get().getString("ssh.hostname", hostname);
+				this.hostname = env.get().getString(HOSTNAME_KEY, hostname);
 			} else {
 				this.hostname = hostname;
 			}
@@ -128,12 +134,15 @@ public final class ChannelContext {
 		 * Overrides available are <code>ssh.username</code>, <code>ssh.requestPseudoTerminal</code>, and <code>ssh.privateKeys</code>
 		 */
 		public Builder override(EnvironmentService env) {
-			username(SpringUtils.getString(env, "ssh.username", username).orNull());
-			requestPseudoTerminal(env.getBoolean("ssh.requestPseudoTerminal", requestPseudoTerminal));
-			privateKeys(SpringUtils.getStrings(env, "ssh.privateKeys", privateKeys));
+			username(SpringUtils.getString(env, USERNAME_KEY, username).orNull());
+			requestPseudoTerminal(env.getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
+			privateKeys(SpringUtils.getStrings(env, PRIVATE_KEYS_KEY, privateKeys));
 			return this;
 		}
 
+		/**
+		 * Decrypt any encrypted private keys
+		 */
 		public Builder decrypt(EncryptionService enc) {
 			privateKeys(EncUtils.decrypt(enc, privateKeys));
 			return this;
