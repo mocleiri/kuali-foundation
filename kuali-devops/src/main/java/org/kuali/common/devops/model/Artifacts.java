@@ -6,8 +6,8 @@ import com.google.common.base.Optional;
 
 public enum Artifacts {
 
-	HOTSPOT_LINUX_64BIT_JDK6(HotSpot.GID, HotSpot.JDK6, HotSpot.JDK6_LATEST, HotSpot.LINUX_X64), //
-	HOTSPOT_LINUX_64BIT_JDK7(HotSpot.GID, HotSpot.JDK7, HotSpot.JDK7_LATEST, HotSpot.LINUX_X64); //
+	JDK6(HotSpot.GID, HotSpot.JDK6, HotSpot.JDK6_LATEST, HotSpot.LINUX_X64), //
+	JDK7(HotSpot.GID, HotSpot.JDK7, HotSpot.JDK7_LATEST, HotSpot.LINUX_X64); //
 
 	private final Artifact artifact;
 
