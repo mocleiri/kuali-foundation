@@ -82,7 +82,7 @@ public final class ChannelContext {
 		}
 
 		public Builder(String username, String hostname, String privateKey) {
-			this(username, hostname);
+			this(Optional.of(username), hostname, Optional.of(privateKey));
 		}
 
 		public Builder(Optional<String> username, String hostname) {
