@@ -29,17 +29,17 @@ public final class KeyPair {
 		}
 
 		public Builder publicKey(String publicKey) {
-			this.publicKey = Optional.fromNullable(NullUtils.trimToNull(publicKey));
+			this.publicKey = NullUtils.toNull(publicKey);
 			return this;
 		}
 
 		public Builder privateKey(String privateKey) {
-			this.privateKey = Optional.fromNullable(NullUtils.trimToNull(privateKey));
+			this.privateKey = NullUtils.toNull(privateKey);
 			return this;
 		}
 
 		public Builder fingerprint(String fingerprint) {
-			this.fingerprint = Optional.fromNullable(NullUtils.trimToNull(fingerprint));
+			this.fingerprint = NullUtils.toNull(fingerprint);
 			return this;
 		}
 

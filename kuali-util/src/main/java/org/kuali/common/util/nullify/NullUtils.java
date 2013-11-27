@@ -17,6 +17,8 @@ package org.kuali.common.util.nullify;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.Optional;
+
 public class NullUtils {
 
 	public static final String NONE = "NONE";
@@ -56,6 +58,13 @@ public class NullUtils {
 	 */
 	public static final boolean isNullOrNone(String s) {
 		return isNull(s) || isNone(s);
+	}
+
+	/**
+	 * Returns <code>null</code> if s is null, the empty string, pure whitespace, NONE, or NULL
+	 */
+	public static final Optional<String> toNull(String s) {
+		return Optional.fromNullable(trimToNull(s));
 	}
 
 	/**
