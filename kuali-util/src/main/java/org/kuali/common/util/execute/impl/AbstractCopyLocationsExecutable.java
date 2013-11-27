@@ -15,37 +15,36 @@
  */
 package org.kuali.common.util.execute.impl;
 
+import java.io.File;
+import java.util.List;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.execute.Executable;
-import org.kuali.common.util.nullify.NullUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.util.List;
 
 public abstract class AbstractCopyLocationsExecutable implements Executable {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractCopyLocationsExecutable.class);
 
-    private final String locationListing;
-    private final File directory;
-    private final boolean skip;
+	private final String locationListing;
+	private final File directory;
+	private final boolean skip;
 
-    public AbstractCopyLocationsExecutable(String locationListing, File directory) {
-        this(locationListing, directory, false);
-    }
+	public AbstractCopyLocationsExecutable(String locationListing, File directory) {
+		this(locationListing, directory, false);
+	}
 
-    public AbstractCopyLocationsExecutable(String locationListing, File directory, boolean skip) {
-        Assert.noBlanks(locationListing);
-        Assert.notNull(directory);
-        Assert.isTrue(LocationUtils.exists(locationListing));
+	public AbstractCopyLocationsExecutable(String locationListing, File directory, boolean skip) {
+		Assert.noBlanks(locationListing);
+		Assert.notNull(directory);
+		Assert.exists(locationListing);
 
-        this.locationListing = locationListing;
-        this.directory = directory;
-        this.skip = skip;
-    }
+		this.locationListing = locationListing;
+		this.directory = directory;
+		this.skip = skip;
+	}
 
 	protected abstract List<File> getFiles(List<String> locations);
 
@@ -66,7 +65,7 @@ public abstract class AbstractCopyLocationsExecutable implements Executable {
 		return directory;
 	}
 
-    public boolean isSkip() {
-        return skip;
-    }
+	public boolean isSkip() {
+		return skip;
+	}
 }
