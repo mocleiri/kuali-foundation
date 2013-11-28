@@ -28,7 +28,7 @@ public class BuilderUtils {
 	}
 
 	protected static String getValue(EnvironmentService env, String key1, String key2, Optional<String> provided) {
-		Optional<String> value1 = SpringUtils.getString(env, key1, provided);
+		Optional<String> value1 = SpringUtils.getOptionalString(env, key1);
 		Optional<String> value2 = SpringUtils.getOptionalString(env, key2);
 		if (value1.isPresent()) {
 			return value1.get();
