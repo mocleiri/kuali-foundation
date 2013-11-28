@@ -1,10 +1,10 @@
 package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.builder.BuilderContext;
-import org.kuali.common.util.builder.BuilderUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSSessionCredentials;
 import com.google.common.base.Optional;
 
@@ -19,40 +19,37 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 		private final String accessKey;
 		private final String secretKey;
 
-		// Provide a way to override values via system properties / environment variables
-		private static final String ACCESS_KEY = "aws.accessKeyId";
-		private static final String ACCESS_ENV_KEY = "AWS_ACCESS_KEY_ID";
-		private static final String SECRET_KEY = "aws.secretKey";
-		private static final String SECRET_ENV_KEY = "AWS_SECRET_KEY";
-		private static final Optional<String> ABSENT = Optional.absent();
+		// Optional
+		private Optional<String> sessionToken = Optional.absent();
 
 		/**
-		 * Get a set of AWS credentials from system properties / environment variables.
+		 * Get a set of AWS credentials from the provider
 		 */
-		public Builder(BuilderContext ctx) {
-			this(Optional.of(ctx), ABSENT, ABSENT);
+		public Builder(AWSCredentialsProvider provider) {
+			this(Optional.of(provider), Optional.<String> absent(), Optional.<String> absent());
 		}
 
 		/**
 		 * Create a set of AWS credentials from the string values.
 		 */
 		public Builder(String accessKey, String secretKey) {
-			this(BuilderContext.ABSENT, Optional.of(accessKey), Optional.of(secretKey));
+			this(Optional.<AWSCredentialsProvider> absent(), Optional.of(accessKey), Optional.of(secretKey));
 		}
 
-		/**
-		 * Use the provided set of AWS credentials unless they are overridden by system properties / environment variables.
-		 */
-		public Builder(BuilderContext ctx, String accessKey, String secretKey) {
-			this(Optional.of(ctx), Optional.of(accessKey), Optional.of(secretKey));
+		public Builder sessionToken(String sessionToken) {
+			this.sessionToken = NullUtils.toAbsent(sessionToken);
+			return this;
 		}
 
-		private Builder(Optional<BuilderContext> ctx, Optional<String> accessKey, Optional<String> secretKey) {
-			if (ctx.isPresent()) {
-				// Extract and decrypt values from the environment (if they are present)
-				// If they are not present, just use the provided values
-				this.accessKey = BuilderUtils.getValue(ctx.get(), ACCESS_KEY, ACCESS_ENV_KEY, accessKey);
-				this.secretKey = BuilderUtils.getValue(ctx.get(), SECRET_KEY, SECRET_ENV_KEY, secretKey);
+		private Builder(Optional<AWSCredentialsProvider> provider, Optional<String> accessKey, Optional<String> secretKey) {
+			if (provider.isPresent()) {
+				AWSCredentials provided = provider.get().getCredentials();
+				this.accessKey = provided.getAWSAccessKeyId();
+				this.secretKey = provided.getAWSSecretKey();
+				if (provided instanceof AWSSessionCredentials) {
+					AWSSessionCredentials sessionCreds = (AWSSessionCredentials) provided;
+					sessionToken(sessionCreds.getSessionToken());
+				}
 			} else {
 				this.accessKey = accessKey.get();
 				this.secretKey = secretKey.get();
@@ -68,8 +65,19 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 			}
 		}
 
+		private AWSCredentials getCredentials(Builder builder) {
+			if (builder.sessionToken.isPresent()) {
+				String accessKey = builder.accessKey;
+				String secretKey = builder.secretKey;
+				String sessionToken = builder.sessionToken.get();
+				return new ImmutableAwsSessionCredentials(accessKey, secretKey, sessionToken);
+			} else {
+				return new ImmutableAwsCredentials(builder);
+			}
+		}
+
 		public AWSCredentials build() {
-			AWSCredentials creds = new ImmutableAwsCredentials(this);
+			AWSCredentials creds = getCredentials(this);
 			validate(creds);
 			return creds;
 		}
