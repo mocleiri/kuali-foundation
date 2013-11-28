@@ -30,13 +30,15 @@ public final class KeyPair {
 		private static final String PUBLIC_KEY = "ssh.publicKey";
 		private static final String PRIVATE_KEY = "ssh.privateKey";
 		private static final String FINGERPRINT_KEY = "ssh.fingerprint";
+		private static final Optional<EnvironmentService> ABSENT_ENV = Optional.absent();
+		private static final Optional<EncryptionService> ABSENT_ENC = Optional.absent();
 
 		public Builder(String name) {
-			this(Optional.<EnvironmentService> absent(), Optional.<EncryptionService> absent(), name);
+			this(ABSENT_ENV, ABSENT_ENC, name);
 		}
 
 		public Builder(EnvironmentService env, String name) {
-			this(Optional.of(env), Optional.<EncryptionService> absent(), name);
+			this(Optional.of(env), ABSENT_ENC, name);
 		}
 
 		public Builder(EnvironmentService env, EncryptionService enc, String name) {
@@ -54,17 +56,17 @@ public final class KeyPair {
 		}
 
 		public Builder publicKey(String publicKey) {
-			this.publicKey = NullUtils.toNull(publicKey);
+			this.publicKey = NullUtils.toAbsent(publicKey);
 			return this;
 		}
 
 		public Builder privateKey(String privateKey) {
-			this.privateKey = NullUtils.toNull(privateKey);
+			this.privateKey = NullUtils.toAbsent(privateKey);
 			return this;
 		}
 
 		public Builder fingerprint(String fingerprint) {
-			this.fingerprint = NullUtils.toNull(fingerprint);
+			this.fingerprint = NullUtils.toAbsent(fingerprint);
 			return this;
 		}
 

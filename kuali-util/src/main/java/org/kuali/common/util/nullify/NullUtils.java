@@ -61,9 +61,9 @@ public class NullUtils {
 	}
 
 	/**
-	 * Returns <code>null</code> if s is null, the empty string, pure whitespace, NONE, or NULL
+	 * Returns <code>Optional.absent()</code> if s is null, the empty string, pure whitespace, NONE, or NULL
 	 */
-	public static final Optional<String> toNull(String s) {
+	public static final Optional<String> toAbsent(String s) {
 		return Optional.fromNullable(trimToNull(s));
 	}
 
