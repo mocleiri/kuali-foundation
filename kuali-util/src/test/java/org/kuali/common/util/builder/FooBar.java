@@ -24,11 +24,11 @@ public class FooBar {
 		return bar;
 	}
 
-	public static DefaultBuilder builder() {
+	public static Builder builder() {
 		return new DefaultBuilder();
 	}
 
-	public static NullBarBuilder nullBarBuilder() {
+	public static Builder nullBarBuilder() {
 		return new NullBarBuilder();
 	}
 
@@ -73,7 +73,7 @@ public class FooBar {
 
 	public static class DefaultBuilder extends Builder {
 		public static final int FOO_DEFAULT = 0;
-		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList(new String[] { "Hello, world!" }));
+		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList("Hello, world!"));
 
 		private DefaultBuilder() {
 		}
