@@ -2,7 +2,6 @@ package org.kuali.common.util.spring.env;
 
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
@@ -173,11 +172,29 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 	/**
 	 * <pre>
-	 *  foo.bar -> env.FOO_BAR
+	 *  foo.bar    -> env.FOO_BAR
+	 *  foo.barBaz -> env.FOO_BAR_BAZ
 	 * </pre>
 	 */
 	protected String getEnvironmentVariableKey(String key) {
-		return ENV_PREFIX + "." + StringUtils.upperCase(StringUtils.replace(key, ".", "_"));
+		Assert.noBlanks(key);
+		char[] chars = key.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		for (char c : chars) {
+			if (c == '.') {
+				sb.append('_');
+			} else if (isUpperCase(c)) {
+				sb.append('_');
+				sb.append(c);
+			} else {
+				sb.append(c);
+			}
+		}
+		return ENV_PREFIX + "." + sb.toString();
+	}
+
+	protected boolean isUpperCase(char c) {
+		return c >= 'A' && c <= 'Z';
 	}
 
 	public boolean isCheckEnvironmentVariables() {
