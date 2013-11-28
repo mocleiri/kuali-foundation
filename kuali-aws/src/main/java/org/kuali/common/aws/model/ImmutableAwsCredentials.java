@@ -5,6 +5,7 @@ import org.kuali.common.util.builder.BuilderContext;
 import org.kuali.common.util.builder.BuilderUtils;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSSessionCredentials;
 import com.google.common.base.Optional;
 
 public class ImmutableAwsCredentials implements AWSCredentials {
@@ -61,10 +62,14 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 		private void validate(AWSCredentials creds) {
 			Assert.noBlanks(creds.getAWSAccessKeyId(), creds.getAWSSecretKey());
 			Assert.decrypted(creds.getAWSSecretKey());
+			if (creds instanceof AWSSessionCredentials) {
+				AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
+				Assert.noBlanks(sessionCreds.getSessionToken());
+			}
 		}
 
-		public ImmutableAwsCredentials build() {
-			ImmutableAwsCredentials creds = new ImmutableAwsCredentials(this);
+		public AWSCredentials build() {
+			AWSCredentials creds = new ImmutableAwsCredentials(this);
 			validate(creds);
 			return creds;
 		}
