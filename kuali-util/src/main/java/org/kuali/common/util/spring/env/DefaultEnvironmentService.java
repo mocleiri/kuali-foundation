@@ -180,21 +180,27 @@ public class DefaultEnvironmentService implements EnvironmentService {
 		Assert.noBlanks(key);
 		char[] chars = key.toCharArray();
 		StringBuilder sb = new StringBuilder();
+		char prevChar = 0;
 		for (char c : chars) {
 			if (c == '.') {
 				sb.append('_');
-			} else if (isUpperCase(c)) {
+			} else if (isUpperCase(c) && isLowerCase(prevChar)) {
 				sb.append('_');
 				sb.append(c);
 			} else {
 				sb.append(c);
 			}
+			prevChar = c;
 		}
-		return ENV_PREFIX + "." + sb.toString();
+		return ENV_PREFIX + "." + sb.toString().toUpperCase();
 	}
 
 	protected boolean isUpperCase(char c) {
 		return c >= 'A' && c <= 'Z';
+	}
+
+	protected boolean isLowerCase(char c) {
+		return c >= 'a' && c <= 'z';
 	}
 
 	public boolean isCheckEnvironmentVariables() {
