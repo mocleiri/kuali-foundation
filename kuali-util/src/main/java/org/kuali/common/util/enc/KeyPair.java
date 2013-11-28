@@ -12,7 +12,6 @@ public final class KeyPair {
 	private final String name;
 	private final Optional<String> publicKey;
 	private final Optional<String> privateKey;
-	private final Optional<String> encryptedPrivateKey;
 	private final Optional<String> fingerprint;
 
 	public static class Builder {
@@ -23,11 +22,35 @@ public final class KeyPair {
 		// Optional
 		private Optional<String> publicKey = Optional.absent();
 		private Optional<String> privateKey = Optional.absent();
-		private Optional<String> encryptedPrivateKey = Optional.absent();
 		private Optional<String> fingerprint = Optional.absent();
 
+		private Optional<EnvironmentService> env = Optional.absent();
+		private Optional<EncryptionService> enc = Optional.absent();
+		private static final String NAME_KEY = "ssh.keyName";
+		private static final String PUBLIC_KEY = "ssh.publicKey";
+		private static final String PRIVATE_KEY = "ssh.privateKey";
+		private static final String FINGERPRINT_KEY = "ssh.fingerprint";
+
 		public Builder(String name) {
-			this.name = name;
+			this(Optional.<EnvironmentService> absent(), Optional.<EncryptionService> absent(), name);
+		}
+
+		public Builder(EnvironmentService env, String name) {
+			this(Optional.of(env), Optional.<EncryptionService> absent(), name);
+		}
+
+		public Builder(EnvironmentService env, EncryptionService enc, String name) {
+			this(Optional.of(env), Optional.of(enc), name);
+		}
+
+		private Builder(Optional<EnvironmentService> env, Optional<EncryptionService> enc, String name) {
+			if (env.isPresent()) {
+				this.name = env.get().getString(NAME_KEY, name);
+			} else {
+				this.name = name;
+			}
+			this.env = env;
+			this.enc = enc;
 		}
 
 		public Builder publicKey(String publicKey) {
@@ -40,39 +63,45 @@ public final class KeyPair {
 			return this;
 		}
 
-		public Builder encryptedPrivateKey(String encryptedPrivateKey) {
-			this.encryptedPrivateKey = NullUtils.toNull(encryptedPrivateKey);
-			return this;
-		}
-
 		public Builder fingerprint(String fingerprint) {
 			this.fingerprint = NullUtils.toNull(fingerprint);
 			return this;
 		}
 
-		public Builder override(EnvironmentService env) {
-			publicKey(SpringUtils.getString(env, "ssh.publicKey", publicKey).orNull());
-			privateKey(SpringUtils.getString(env, "ssh.privateKey", privateKey).orNull());
-			fingerprint(SpringUtils.getString(env, "ssh.fingerprint", fingerprint).orNull());
-			return this;
+		private void override() {
+			if (env.isPresent()) {
+				publicKey(SpringUtils.getString(env.get(), PUBLIC_KEY, publicKey).orNull());
+				privateKey(SpringUtils.getString(env.get(), PRIVATE_KEY, privateKey).orNull());
+				fingerprint(SpringUtils.getString(env.get(), FINGERPRINT_KEY, fingerprint).orNull());
+			}
 		}
 
-		public Builder decrypt(EncryptionService enc) {
-			if (privateKey.isPresent()) {
-				privateKey(EncUtils.decrypt(enc, privateKey.get()));
+		private void decrypt() {
+			if (enc.isPresent()) {
+				privateKey(EncUtils.decrypt(enc.get(), privateKey).orNull());
 			}
-			return this;
+		}
+
+		private void finish() {
+			override();
+			decrypt();
 		}
 
 		@SuppressWarnings("unchecked")
-		public KeyPair build() {
-			Assert.noBlanks(name);
-			Assert.noNulls(publicKey, privateKey, fingerprint);
-			Assert.noBlanksIfPresent(publicKey, privateKey, fingerprint);
-			if (privateKey.isPresent()) {
-				Assert.decrypted(privateKey.get());
+		private void validate(KeyPair pair) {
+			Assert.noBlanks(pair.getName());
+			Assert.noNulls(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
+			Assert.noBlanksIfPresent(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
+			if (pair.getPrivateKey().isPresent()) {
+				Assert.decrypted(pair.getPrivateKey().get());
 			}
-			return new KeyPair(this);
+		}
+
+		public KeyPair build() {
+			finish();
+			KeyPair pair = new KeyPair(this);
+			validate(pair);
+			return pair;
 		}
 
 	}
@@ -81,7 +110,6 @@ public final class KeyPair {
 		this.name = builder.name;
 		this.publicKey = builder.publicKey;
 		this.privateKey = builder.privateKey;
-		this.encryptedPrivateKey = builder.encryptedPrivateKey;
 		this.fingerprint = builder.fingerprint;
 	}
 
@@ -99,10 +127,6 @@ public final class KeyPair {
 
 	public Optional<String> getFingerprint() {
 		return fingerprint;
-	}
-
-	public Optional<String> getEncryptedPrivateKey() {
-		return encryptedPrivateKey;
 	}
 
 }

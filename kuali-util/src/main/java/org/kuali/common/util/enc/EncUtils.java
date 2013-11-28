@@ -92,8 +92,7 @@ public class EncUtils {
 
 	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
 		if (optional.isPresent()) {
-			String string = optional.get();
-			String decrypted = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
+			String decrypted = decrypt(enc, optional.get());
 			return Optional.of(decrypted);
 		} else {
 			return Optional.absent();
