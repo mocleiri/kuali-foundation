@@ -48,7 +48,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
 		private Optional<EncryptionService> enc = Optional.absent();
 		private Optional<AWSCredentials> optionalCredentials = Optional.absent();
-		private boolean instanceCredentialsOverride = false;
+		private boolean instanceCredentialsOverride = false; // If true, EC2 instance credentials take precedence over optionalCredentials
 
 		private List<AWSCredentialsProvider> providers;
 
