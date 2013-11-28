@@ -29,17 +29,17 @@ import com.google.common.base.Optional;
 /**
  * This chain searches for AWS credentials in system properties -> environment variables -> Amazon's EC2 Instance Metadata Service
  */
-public final class DefaultAwsCredentialsProviderChain extends AWSCredentialsProviderChain {
+public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
-	public DefaultAwsCredentialsProviderChain() {
+	public DefaultProviderChain() {
 		super(getProviders(Optional.<AWSCredentials> absent()));
 	}
 
-	public DefaultAwsCredentialsProviderChain(AWSCredentials credentials) {
+	public DefaultProviderChain(AWSCredentials credentials) {
 		super(getProviders(Optional.of(credentials)));
 	}
 
-	private DefaultAwsCredentialsProviderChain(Optional<AWSCredentials> credentials) {
+	private DefaultProviderChain(Optional<AWSCredentials> credentials) {
 		super(getProviders(credentials));
 	}
 
