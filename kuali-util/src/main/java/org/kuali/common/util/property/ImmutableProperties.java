@@ -25,7 +25,7 @@ import java.util.Set;
 
 import org.kuali.common.util.Assert;
 
-public class ImmutableProperties extends Properties {
+public final class ImmutableProperties extends Properties {
 
 	private static final long serialVersionUID = -3964884087103719367L;
 	private static final String UOE_MSG = "Immutable properties cannot be changed";
