@@ -22,7 +22,7 @@ public final class AwsAccount {
 		// Optional
 		private Optional<String> description = Optional.absent();
 
-		// This provides a simple way for system properties / environment variables to override configuration
+		// Allow system properties / environment variables to override explicitly supplied values
 		private Optional<EnvironmentService> env = Optional.absent();
 		private static final String NAME_KEY = "aws.account";
 		private static final String ACCOUNT_NUMBER_KEY = "aws.accountNumber";
@@ -37,29 +37,41 @@ public final class AwsAccount {
 		}
 
 		private Builder(Optional<EnvironmentService> env, String name, String accountNumber) {
-			this.env = env;
 			if (env.isPresent()) {
-				EnvironmentService service = env.get();
-				this.name = service.getString(NAME_KEY, name);
-				this.accountNumber = service.getString(ACCOUNT_NUMBER_KEY, accountNumber);
+				this.name = env.get().getString(NAME_KEY, name);
+				this.accountNumber = env.get().getString(ACCOUNT_NUMBER_KEY, accountNumber);
 			} else {
 				this.name = name;
 				this.accountNumber = accountNumber;
 			}
+			this.env = env;
 		}
 
 		public Builder description(String description) {
-			this.description = Optional.fromNullable(NullUtils.trimToNull(description));
+			this.description = NullUtils.toAbsent(description);
 			return this;
 		}
 
-		public AwsAccount build() {
-			Assert.noBlanks(name, accountNumber);
+		private void override() {
 			if (env.isPresent()) {
-				this.description = SpringUtils.getString(env.get(), ACCOUNT_DESCRIPTION_KEY, description);
+				description(SpringUtils.getString(env.get(), ACCOUNT_DESCRIPTION_KEY, description).orNull());
 			}
-			Assert.noNulls(description);
-			return new AwsAccount(this);
+		}
+
+		private void finish() {
+			override();
+		}
+
+		private void validate(AwsAccount account) {
+			Assert.noBlanks(account.getName(), account.getAccountNumber());
+			Assert.noNulls(account.getDescription());
+		}
+
+		public AwsAccount build() {
+			finish();
+			AwsAccount account = new AwsAccount(this);
+			validate(account);
+			return account;
 		}
 
 	}
