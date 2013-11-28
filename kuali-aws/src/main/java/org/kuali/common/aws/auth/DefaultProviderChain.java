@@ -18,6 +18,8 @@ package org.kuali.common.aws.auth;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kuali.common.util.Assert;
+
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
@@ -44,6 +46,11 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 	}
 
 	private static AWSCredentialsProvider[] getProviders(Optional<AWSCredentials> credentials) {
+
+		// Null not allowed
+		Assert.noNulls(credentials);
+
+		// Set up some storage
 		List<AWSCredentialsProvider> providers = new ArrayList<AWSCredentialsProvider>();
 
 		// System properties always win
@@ -52,7 +59,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 		// Then fall through to environment variables
 		providers.add(new EnvironmentVariableCredentialsProvider());
 
-		// Use the provided credentials if they are present
+		// Then fall through to the provided credentials if they are present
 		if (credentials.isPresent()) {
 			providers.add(new SimpleAWSCredentialsProvider(credentials.get()));
 		}
@@ -60,7 +67,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 		// Finally fall through to Amazon's EC2 Instance Metadata Service
 		// http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-roles.html
 		// This allows you setup an IAM role, attach that role to an EC2 Instance at launch time,
-		// and thus automatically provide the wagon with the credentials it needs
+		// and thus automatically authorize java code running on an EC2 instance
 		providers.add(new InstanceProfileCredentialsProvider());
 
 		// Convert the list into an array
