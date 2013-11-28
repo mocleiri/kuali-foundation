@@ -1,6 +1,7 @@
 package org.kuali.common.util.builder;
 
 public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implements Builder<T> {
+
 	protected AbstractBuilder() {
 		reset();
 	}
