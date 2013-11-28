@@ -12,6 +12,7 @@ public final class KeyPair {
 	private final String name;
 	private final Optional<String> publicKey;
 	private final Optional<String> privateKey;
+	private final Optional<String> encryptedPrivateKey;
 	private final Optional<String> fingerprint;
 
 	public static class Builder {
@@ -22,6 +23,7 @@ public final class KeyPair {
 		// Optional
 		private Optional<String> publicKey = Optional.absent();
 		private Optional<String> privateKey = Optional.absent();
+		private Optional<String> encryptedPrivateKey = Optional.absent();
 		private Optional<String> fingerprint = Optional.absent();
 
 		public Builder(String name) {
@@ -35,6 +37,11 @@ public final class KeyPair {
 
 		public Builder privateKey(String privateKey) {
 			this.privateKey = NullUtils.toNull(privateKey);
+			return this;
+		}
+
+		public Builder encryptedPrivateKey(String encryptedPrivateKey) {
+			this.encryptedPrivateKey = NullUtils.toNull(encryptedPrivateKey);
 			return this;
 		}
 
@@ -74,6 +81,7 @@ public final class KeyPair {
 		this.name = builder.name;
 		this.publicKey = builder.publicKey;
 		this.privateKey = builder.privateKey;
+		this.encryptedPrivateKey = builder.encryptedPrivateKey;
 		this.fingerprint = builder.fingerprint;
 	}
 
@@ -91,6 +99,10 @@ public final class KeyPair {
 
 	public Optional<String> getFingerprint() {
 		return fingerprint;
+	}
+
+	public Optional<String> getEncryptedPrivateKey() {
+		return encryptedPrivateKey;
 	}
 
 }
