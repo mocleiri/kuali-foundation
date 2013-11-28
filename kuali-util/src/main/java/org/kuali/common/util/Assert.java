@@ -29,14 +29,21 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_BLANKS = "blank strings not allowed";
 
 	/**
-	 * Assert that the text passed in is not wrapped inside of <code>ENC()</code>
+	 * Assert that <code>text</code> is wrapped inside of <code>ENC()</code>
+	 */
+	public static void ecnrypted(String text) {
+		isTrue(EncUtils.isEncrypted(text), "text must be encrypted");
+	}
+
+	/**
+	 * Assert that <code>text</code> is not wrapped inside of <code>ENC()</code>
 	 */
 	public static void decrypted(String text) {
 		isFalse(EncUtils.isEncrypted(text), "encrypted text not allowed");
 	}
 
 	/**
-	 * Assert that no strings in the list are encrypted
+	 * Assert that none of the strings in the list are wrapped inside of <code>ENC()</code>
 	 */
 	public static void decrypted(List<String> strings) {
 		for (String string : strings) {
