@@ -28,6 +28,10 @@ public class FooBar {
 		return new Builder();
 	}
 
+	public static Builder nullBarBuilder() {
+		return new Builder().withFoo(30).withBar(null);
+	}
+
 	public static class Builder extends AbstractBuilder<FooBar> {
 		public static final int FOO_DEFAULT = 0;
 		public static final String[] BAR_DEFAULT = new String[] { "Hello, world!" };
