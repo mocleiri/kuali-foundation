@@ -48,6 +48,8 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 
 		private Builder(Optional<BuilderContext> ctx, Optional<String> accessKey, Optional<String> secretKey) {
 			if (ctx.isPresent()) {
+				// Extract and decrypt values from the environment (if they are present)
+				// If they are not present, just use the provided values
 				this.accessKey = BuilderUtils.getValue(ctx.get(), ACCESS_KEY, ACCESS_ENV_KEY, accessKey);
 				this.secretKey = BuilderUtils.getValue(ctx.get(), SECRET_KEY, SECRET_ENV_KEY, secretKey);
 			} else {
@@ -56,10 +58,15 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 			}
 		}
 
+		private void validate(AWSCredentials creds) {
+			Assert.noBlanks(creds.getAWSAccessKeyId(), creds.getAWSSecretKey());
+			Assert.decrypted(creds.getAWSSecretKey());
+		}
+
 		public ImmutableAwsCredentials build() {
-			Assert.noBlanks(accessKey, secretKey);
-			Assert.decrypted(secretKey);
-			return new ImmutableAwsCredentials(this);
+			ImmutableAwsCredentials creds = new ImmutableAwsCredentials(this);
+			validate(creds);
+			return creds;
 		}
 
 	}
