@@ -5,30 +5,35 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/** Now with more builders! */
+/** Conditionally settable {@code baz}, with one small problem. */
 public class FooBar {
 	private final int foo;
 	private final List<String> bar;
+	private final Boolean baz;
 
-	private FooBar(Builder builder) {
+	private FooBar(Builder builder, Boolean baz) {
 		this.foo = builder.foo;
 		this.bar = Collections.unmodifiableList(new ArrayList<String>(builder.bar));
+		this.baz = baz;
 	}
 
 	public int getFoo() {
 		return foo;
 	}
 
-	/** @return {@code bar} as an unmodifiable list */
 	public List<String> getBar() {
 		return bar;
 	}
 
-	public static Builder builder() {
+	public Boolean getBaz() {
+		return baz;
+	}
+
+	public static DefaultBuilder builder() {
 		return new DefaultBuilder();
 	}
 
-	public static Builder nullBarBuilder() {
+	public static NullBarBuilder nullBarBuilder() {
 		return new NullBarBuilder();
 	}
 
@@ -49,61 +54,50 @@ public class FooBar {
 			return this;
 		}
 
-		protected abstract int defaultFoo();
-
-		protected abstract List<String> defaultBar();
-
-		@Override
 		public final boolean isValid() {
 			int fooMin = bar != null ? 0 : 30;
 			int fooMax = bar != null ? 45 : 60;
 			return fooMin <= foo && foo <= fooMax;
 		}
-
-		@Override
-		protected final void defaults() {
-			withFoo(defaultFoo()).withBar(defaultBar());
-		}
-
-		@Override
-		protected final FooBar construct() {
-			return new FooBar(this);
-		}
 	}
 
 	public static class DefaultBuilder extends Builder {
 		public static final int FOO_DEFAULT = 0;
-		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList("Hello, world!"));
+		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList(new String[] { "Hello, world!" }));
 
 		private DefaultBuilder() {
 		}
 
-		@Override
-		protected int defaultFoo() {
-			return FOO_DEFAULT;
+		protected void defaults() {
+			withFoo(FOO_DEFAULT).withBar(BAR_DEFAULT);
 		}
 
-		@Override
-		protected List<String> defaultBar() {
-			return BAR_DEFAULT;
+		protected FooBar construct() {
+			return new FooBar(this, null);
 		}
 	}
 
 	public static class NullBarBuilder extends Builder {
 		public static final int FOO_DEFAULT = 30;
 		public static final List<String> BAR_DEFAULT = null;
+		public static final Boolean BAZ_DEFAULT = Boolean.TRUE;
+
+		private Boolean baz;
 
 		private NullBarBuilder() {
 		}
 
-		@Override
-		protected int defaultFoo() {
-			return FOO_DEFAULT;
+		public NullBarBuilder withBaz(Boolean baz) {
+			this.baz = baz;
+			return this;
 		}
 
-		@Override
-		protected List<String> defaultBar() {
-			return BAR_DEFAULT;
+		protected void defaults() {
+			withFoo(FOO_DEFAULT).withBar(BAR_DEFAULT).withBaz(BAZ_DEFAULT); // OOPS!
+		}
+
+		protected FooBar construct() {
+			return new FooBar(this, baz);
 		}
 	}
 }
