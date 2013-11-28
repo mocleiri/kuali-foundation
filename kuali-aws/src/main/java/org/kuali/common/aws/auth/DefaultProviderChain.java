@@ -66,7 +66,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
 		// Finally fall through to Amazon's EC2 Instance Metadata Service
 		// http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-roles.html
-		// This allows you setup an IAM role, attach that role to an EC2 Instance at launch time,
+		// This allows you to setup an IAM role, attach that role to an EC2 Instance at launch time,
 		// and thus automatically authorize java code running on an EC2 instance
 		providers.add(new InstanceProfileCredentialsProvider());
 
