@@ -32,7 +32,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	 * Assert that the text passed in is not wrapped inside of <code>ENC()</code>
 	 */
 	public static void decrypted(String text) {
-		isFalse(EncUtils.isEncrypted(text), "Text is encrypted");
+		isFalse(EncUtils.isEncrypted(text), "Encrypted text not allowed");
 	}
 
 	/**
@@ -40,7 +40,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	 */
 	public static void decrypted(List<String> strings) {
 		for (String string : strings) {
-			isFalse(EncUtils.isEncrypted(string), "List contains at least one encrypted value");
+			decrypted(string);
 		}
 	}
 
