@@ -1,8 +1,6 @@
 package org.kuali.common.util.builder;
 
-/** An abstract {@link Builder} implementation for easy subclassing. */
-public abstract class AbstractBuilder<T> implements Builder<T> {
-	/** Construct a new builder with valid defaults. */
+public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implements Builder<T> {
 	protected AbstractBuilder() {
 		reset();
 	}
@@ -21,18 +19,18 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 		validate();
 	}
 
-	/**
-	 * @throws IllegalArgumentException
-	 *             if <code>{@link #isValid()}==false</code>
-	 */
 	private final void validate() {
 		if (!isValid())
 			throw new IllegalArgumentException();
 	}
 
-	/** Set properties to default values. */
 	protected abstract void defaults();
 
-	/** Create a {@code T} instance based on current properties. */
 	protected abstract T construct();
+
+	/** @return {@code this} cast to a specific subtype */
+	@SuppressWarnings("unchecked")
+	protected B getThis() {
+		return (B) this;
+	}
 }
