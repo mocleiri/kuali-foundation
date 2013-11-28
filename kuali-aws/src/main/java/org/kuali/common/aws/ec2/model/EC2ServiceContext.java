@@ -1,6 +1,6 @@
 package org.kuali.common.aws.ec2.model;
 
-import org.kuali.common.aws.model.ImmutableAwsCredentials;
+import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.enc.EncUtils;
@@ -36,7 +36,7 @@ public final class EC2ServiceContext {
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) correct time
 
 		public Builder(String accessKey, String secretKey) {
-			this(new ImmutableAwsCredentials(accessKey, secretKey));
+			this(new ImmutableCredentials(accessKey, secretKey));
 		}
 
 		public Builder(AWSCredentials credentials) {

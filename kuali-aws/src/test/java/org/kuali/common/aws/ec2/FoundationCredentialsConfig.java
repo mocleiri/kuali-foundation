@@ -16,7 +16,7 @@
 package org.kuali.common.aws.ec2;
 
 import org.kuali.common.aws.Credentials;
-import org.kuali.common.aws.model.ImmutableAwsCredentials;
+import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.util.enc.EncryptionService;
@@ -43,7 +43,7 @@ public class FoundationCredentialsConfig implements AwsCredentialsConfig {
 	@Bean
 	public AWSCredentials awsCredentials() {
 		AWSCredentials credentials = CredentialUtils.getCredentials(env, enc, Credentials.FOUNDATION);
-		return new ImmutableAwsCredentials(credentials);
+		return new ImmutableCredentials(credentials);
 	}
 
 }

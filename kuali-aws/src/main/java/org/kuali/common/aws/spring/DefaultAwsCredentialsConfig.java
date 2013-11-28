@@ -15,7 +15,7 @@
  */
 package org.kuali.common.aws.spring;
 
-import org.kuali.common.aws.model.ImmutableAwsCredentials;
+import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.util.builder.BuilderContext;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
@@ -41,7 +41,7 @@ public class DefaultAwsCredentialsConfig implements AwsCredentialsConfig {
 	@Bean
 	public AWSCredentials awsCredentials() {
 		BuilderContext ctx = new BuilderContext(env, enc);
-		return new ImmutableAwsCredentials.Builder(ctx).build();
+		return new ImmutableCredentials.Builder(ctx).build();
 	}
 
 }

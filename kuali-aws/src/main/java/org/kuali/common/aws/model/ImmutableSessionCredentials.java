@@ -4,9 +4,9 @@ import org.kuali.common.util.Assert;
 
 import com.amazonaws.auth.AWSSessionCredentials;
 
-public class ImmutableAwsSessionCredentials implements AWSSessionCredentials {
+public class ImmutableSessionCredentials implements AWSSessionCredentials {
 
-	public ImmutableAwsSessionCredentials(String accessKey, String secretKey, String sessionToken) {
+	public ImmutableSessionCredentials(String accessKey, String secretKey, String sessionToken) {
 		Assert.noBlanks(accessKey, secretKey, sessionToken);
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;

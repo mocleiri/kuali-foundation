@@ -8,7 +8,7 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSSessionCredentials;
 import com.google.common.base.Optional;
 
-public class ImmutableAwsCredentials implements AWSCredentials {
+public class ImmutableCredentials implements AWSCredentials {
 
 	private final String accessKey;
 	private final String secretKey;
@@ -70,9 +70,9 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 				String accessKey = builder.accessKey;
 				String secretKey = builder.secretKey;
 				String sessionToken = builder.sessionToken.get();
-				return new ImmutableAwsSessionCredentials(accessKey, secretKey, sessionToken);
+				return new ImmutableSessionCredentials(accessKey, secretKey, sessionToken);
 			} else {
-				return new ImmutableAwsCredentials(builder);
+				return new ImmutableCredentials(builder);
 			}
 		}
 
@@ -84,7 +84,7 @@ public class ImmutableAwsCredentials implements AWSCredentials {
 
 	}
 
-	private ImmutableAwsCredentials(Builder builder) {
+	private ImmutableCredentials(Builder builder) {
 		this.accessKey = builder.accessKey;
 		this.secretKey = builder.secretKey;
 	}
