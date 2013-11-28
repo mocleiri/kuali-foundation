@@ -98,17 +98,15 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 				providers.add(new SimpleAWSCredentialsProvider(optionalCredentials.get()));
 			}
 
+			// Add to the end unless instanceCredentialsOverride is set, in which case we add it
+			// one spot before the end so it takes precedence over SimpleAWSCredentialsProvider()
+			int index = (instanceCredentialsOverride) ? providers.size() - 1 : providers.size();
+
 			// Amazon's EC2 Instance Metadata Service
 			// http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-roles.html
 			// This allows you to setup an IAM role, attach that role to an EC2 Instance at launch time,
 			// and thus automatically authorize java code running on an EC2 instance
-			if (instanceCredentialsOverride) {
-				// Add them as the first element in the list if the override flag is set
-				providers.add(0, new InstanceProfileCredentialsProvider());
-			} else {
-				// Otherwise add them at the end
-				providers.add(new InstanceProfileCredentialsProvider());
-			}
+			providers.add(index, new InstanceProfileCredentialsProvider());
 
 			// Convert the list into an array
 			return ImmutableList.copyOf(providers);
@@ -116,10 +114,15 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 	}
 
 	public DefaultProviderChain(Builder builder) {
+		super(toArray(builder.providers));
 		this.optionalCredentials = builder.optionalCredentials;
 		this.enc = builder.enc;
 		this.instanceCredentialsOverride = builder.instanceCredentialsOverride;
 		this.providers = builder.providers;
+	}
+
+	private static AWSCredentialsProvider[] toArray(List<AWSCredentialsProvider> providers) {
+		return providers.toArray(new AWSCredentialsProvider[providers.size()]);
 	}
 
 	public Optional<AWSCredentials> getOptionalCredentials() {
