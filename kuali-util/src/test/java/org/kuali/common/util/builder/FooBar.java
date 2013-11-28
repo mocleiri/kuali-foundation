@@ -64,7 +64,7 @@ public class FooBar {
 
 	public static class DefaultBuilder extends Builder<DefaultBuilder> {
 		public static final int FOO_DEFAULT = 0;
-		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList(new String[] { "Hello, world!" }));
+		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList("Hello, world!"));
 
 		private DefaultBuilder() {
 		}
