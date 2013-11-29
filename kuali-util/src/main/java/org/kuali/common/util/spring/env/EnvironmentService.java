@@ -10,22 +10,22 @@ public interface EnvironmentService {
 
 	String getString(String key);
 
-	String getString(String key, String defaultValue);
+	String getString(String key, String provided);
 
 	Boolean getBoolean(String key);
 
-	Boolean getBoolean(String key, Boolean defaultValue);
+	Boolean getBoolean(String key, Boolean provided);
 
 	File getFile(String key);
 
-	File getFile(String key, File defaultValue);
+	File getFile(String key, File provided);
 
 	Integer getInteger(String key);
 
-	Integer getInteger(String key, Integer defaultValue);
+	Integer getInteger(String key, Integer provided);
 
 	<T> Class<T> getClass(String key, Class<T> type);
 
-	<T> Class<T> getClass(String key, Class<T> type, Class<T> defaultValue);
+	<T> Class<T> getClass(String key, Class<T> type, Class<T> provided);
 
 }
