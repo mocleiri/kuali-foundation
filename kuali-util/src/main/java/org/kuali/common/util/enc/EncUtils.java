@@ -35,6 +35,7 @@ import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.kuali.common.util.spring.env.model.EnvironmentServiceContext;
 import org.springframework.core.env.Environment;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.jcraft.jsch.JSch;
@@ -42,18 +43,24 @@ import com.jcraft.jsch.JSchException;
 
 public class EncUtils {
 
-	private static final String UTF8 = "UTF8";
+	private static final String UTF8 = Charsets.UTF_8.name();
 	private static final String ENCRYPTED_PREFIX = "ENC(";
 	private static final String ENCRYPTED_SUFFIX = ")";
 
+	@Deprecated
 	private static final String PASSWORD_KEY = "enc.password";
+	@Deprecated
 	private static final String STRENGTH_KEY = "enc.strength";
+	@Deprecated
 	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
+	@Deprecated
 	private static final String PASSWORD_REMOVE_KEY = "enc.password.removeSystemProperty";
 
-	// Old key's
+	@Deprecated
 	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
+	@Deprecated
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
+	@Deprecated
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
 	public static final Optional<EncryptionService> ABSENT = Optional.absent();
@@ -186,6 +193,7 @@ public class EncUtils {
 		}
 	}
 
+	@Deprecated
 	public static EncryptionContext getEncryptionContext(Properties properties) {
 		Environment environment = new PropertiesEnvironment(properties);
 		EnvironmentServiceContext context = new EnvironmentServiceContext.Builder().env(environment).build();
@@ -193,6 +201,7 @@ public class EncUtils {
 		return getEncryptionContext(env);
 	}
 
+	@Deprecated
 	public static EncryptionContext getEncryptionContext(EnvironmentService env) {
 		Optional<String> password = SpringUtils.getString(env, PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
 		Optional<String> legacyPassword = SpringUtils.getString(env, LEGACY_PASSWORD_KEY, EncryptionContext.DEFAULT.getPassword());
@@ -214,18 +223,21 @@ public class EncUtils {
 		return context;
 	}
 
+	@Deprecated
 	protected static boolean isPasswordRequired(Properties properties, EncryptionContext provided) {
 		boolean required = PropertyUtils.getBoolean(PASSWORD_REQUIRED_KEY, properties, provided.isPasswordRequired());
 		boolean legacyRequired = PropertyUtils.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, properties, provided.isPasswordRequired());
 		return required || legacyRequired;
 	}
 
+	@Deprecated
 	protected static boolean isPasswordRequired(EnvironmentService env, EncryptionContext provided) {
 		boolean required = env.getBoolean(PASSWORD_REQUIRED_KEY, provided.isPasswordRequired());
 		boolean legacyRequired = env.getBoolean(LEGACY_PASSWORD_REQUIRED_KEY, provided.isPasswordRequired());
 		return required || legacyRequired;
 	}
 
+	@Deprecated
 	protected static EncStrength getStrength(Properties properties, EncryptionContext provided) {
 		String strength = properties.getProperty(STRENGTH_KEY, provided.getStrength().name());
 		String legacyStrength = properties.getProperty(LEGACY_STRENGTH_KEY, provided.getStrength().name());
@@ -239,6 +251,7 @@ public class EncUtils {
 		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
+	@Deprecated
 	protected static EncStrength getStrength(EnvironmentService env, EncryptionContext provided) {
 		String strength = env.getString(STRENGTH_KEY, provided.getStrength().name());
 		String legacyStrength = env.getString(LEGACY_STRENGTH_KEY, provided.getStrength().name());
