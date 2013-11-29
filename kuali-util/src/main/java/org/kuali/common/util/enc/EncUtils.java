@@ -56,6 +56,28 @@ public class EncUtils {
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
 	/**
+	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 */
+	public static Optional<String> decrypt(Optional<EncryptionService> enc, Optional<String> string) {
+		if (string.isPresent()) {
+			return Optional.fromNullable(decrypt(enc, string.get()));
+		} else {
+			return string;
+		}
+	}
+
+	/**
+	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 */
+	public static String decrypt(Optional<EncryptionService> enc, String string) {
+		if (!enc.isPresent()) {
+			return string;
+		} else {
+			return decrypt(enc.get(), string);
+		}
+	}
+
+	/**
 	 * Decrypt the string if it's encrypted, otherwise do nothing
 	 */
 	public static String decrypt(EncryptionService enc, String string) {
