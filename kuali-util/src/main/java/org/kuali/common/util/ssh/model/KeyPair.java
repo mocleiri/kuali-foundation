@@ -20,16 +20,14 @@ public final class KeyPair {
 	public static class Builder {
 
 		// Required
-		private final String name;
+		private final String name; // No default
+		private final Optional<EnvironmentService> env; // Defaults to Optional.absent() if not supplied
+		private final Optional<EncryptionService> enc; // Defaults to Optional.absent() if not supplied
 
 		// Optional
 		private Optional<String> publicKey = Optional.absent();
 		private Optional<String> privateKey = Optional.absent();
 		private Optional<String> fingerprint = Optional.absent();
-
-		// Used by the builder logic
-		private Optional<EnvironmentService> env = Optional.absent();
-		private Optional<EncryptionService> enc = Optional.absent();
 
 		private static final String NAME_KEY = "ssh.keyName";
 		private static final String PUBLIC_KEY = "ssh.publicKey";
@@ -110,9 +108,6 @@ public final class KeyPair {
 
 		public KeyPair build() {
 			finish();
-			// Since multiple threads could have a reference to the builder (which is mutable)
-			// we have to create a local copy of enc before constructing the key pair, so the validate method remains thread safe
-			Optional<EncryptionService> enc = Optional.fromNullable(this.enc.orNull());
 			KeyPair pair = new KeyPair(this);
 			validate(pair, enc);
 			return pair;
