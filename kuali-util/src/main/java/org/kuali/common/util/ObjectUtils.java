@@ -48,7 +48,7 @@ public class ObjectUtils {
 	}
 
 	/**
-	 * Return true iff other is null OR they are different runtime types
+	 * Return true iff <code>other</code> is null OR is a different runtime type than <code>main</code>
 	 * 
 	 * @throws NullPointerException
 	 *             If <code>main</cod> is <code>null</code>
