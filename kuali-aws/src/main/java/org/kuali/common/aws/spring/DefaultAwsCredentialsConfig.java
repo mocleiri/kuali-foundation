@@ -15,8 +15,8 @@
  */
 package org.kuali.common.aws.spring;
 
+import org.kuali.common.aws.auth.DefaultProviderChain;
 import org.kuali.common.aws.model.ImmutableCredentials;
-import org.kuali.common.util.builder.BuilderContext;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
 
 @Configuration
 @Import({ DefaultEncryptionServiceConfig.class })
@@ -39,9 +40,15 @@ public class DefaultAwsCredentialsConfig implements AwsCredentialsConfig {
 
 	@Override
 	@Bean
+	public AWSCredentialsProvider awsCredentialsProvider() {
+		return new DefaultProviderChain.Builder().enc(enc).env(env).build();
+	}
+
+	@Override
+	@Bean
 	public AWSCredentials awsCredentials() {
-		BuilderContext ctx = new BuilderContext(env, enc);
-		return new ImmutableCredentials.Builder(ctx).build();
+		AWSCredentialsProvider provider = awsCredentialsProvider();
+		return new ImmutableCredentials.Builder(provider).build();
 	}
 
 }
