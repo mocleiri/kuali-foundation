@@ -46,11 +46,14 @@ public final class KeyPair {
 			this(Optional.of(env), Optional.of(enc), name);
 		}
 
+		public Builder(EnvironmentService env, KeyPair provided) {
+			this(Optional.of(env), EncUtils.ABSENT, provided.getName());
+			initialize(provided);
+		}
+
 		public Builder(EnvironmentService env, EncryptionService enc, KeyPair provided) {
 			this(Optional.of(env), Optional.of(enc), provided.getName());
-			publicKey(provided.getPublicKey().orNull());
-			privateKey(provided.getPrivateKey().orNull());
-			fingerprint(provided.getFingerprint().orNull());
+			initialize(provided);
 		}
 
 		private Builder(Optional<EnvironmentService> env, Optional<EncryptionService> enc, String name) {
@@ -78,6 +81,12 @@ public final class KeyPair {
 			return this;
 		}
 
+		private void initialize(KeyPair provided) {
+			publicKey(provided.getPublicKey().orNull());
+			privateKey(provided.getPrivateKey().orNull());
+			fingerprint(provided.getFingerprint().orNull());
+		}
+
 		private void override() {
 			if (env.isPresent()) {
 				publicKey(SpringUtils.getString(env.get(), PUBLIC_KEY, publicKey).orNull());
@@ -86,13 +95,9 @@ public final class KeyPair {
 			}
 		}
 
-		private void decrypt() {
-			privateKey(EncUtils.decrypt(enc, privateKey).orNull());
-		}
-
 		private void finish() {
 			override();
-			decrypt();
+			privateKey(EncUtils.decrypt(enc, privateKey).orNull());
 		}
 
 		@SuppressWarnings("unchecked")
