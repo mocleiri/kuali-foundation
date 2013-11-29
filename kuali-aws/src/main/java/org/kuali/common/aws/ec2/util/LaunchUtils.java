@@ -9,10 +9,10 @@ import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.ssh.model.KeyPair;
 import org.springframework.util.Assert;
 
 import com.amazonaws.auth.AWSCredentials;
