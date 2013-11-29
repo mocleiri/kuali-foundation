@@ -21,7 +21,10 @@ import org.springframework.core.env.Environment;
  * 
  * For example, given the key <code>db.vendor</code> the service will also automatically check <code>env.DB_VENDOR</code>
  * </p>
+ * 
+ * @deprecated Use BasicEnvironmentService instead
  */
+@Deprecated
 public class DefaultEnvironmentService implements EnvironmentService {
 
 	public static final boolean DEFAULT_CHECK_ENVIRONMENT_VARIABLES = true;
