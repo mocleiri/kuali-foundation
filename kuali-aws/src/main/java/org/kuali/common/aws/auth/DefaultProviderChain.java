@@ -112,20 +112,22 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 			// Then fall through to environment variables
 			providers.add(new EnvironmentVariableCredentialsProvider());
 
-			// Then fall through to the provided credentials if they are present
-			if (optionalCredentials.isPresent()) {
-				providers.add(new SimpleAWSCredentialsProvider(optionalCredentials.get()));
-			}
-
-			// Add to the end unless instanceCredentialsOverride is set, in which case we add it
-			// one spot before the end so it takes precedence over SimpleAWSCredentialsProvider()
-			int index = (instanceCredentialsOverride) ? providers.size() - 1 : providers.size();
-
+			// Then fall through to "other" providers
 			// Amazon's EC2 Instance Metadata Service
 			// http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-roles.html
-			// This allows you to setup an IAM role, attach that role to an EC2 Instance at launch time,
-			// and thus automatically authorize java code running on an EC2 instance
-			providers.add(index, new InstanceProfileCredentialsProvider());
+			// AWS allows you to setup an IAM role and attach that role to an EC2 Instance at launch time
+			// This allows you to automatically authorize java code running on an EC2 instance
+			if (optionalCredentials.isPresent()) {
+				if (instanceCredentialsOverride) {
+					// The EC2 instance credentials (if present) take precedence over the provided credentials
+					providers.add(new InstanceProfileCredentialsProvider());
+				}
+				// Fall through to the credentials they provided
+				providers.add(new SimpleAWSCredentialsProvider(optionalCredentials.get()));
+			} else {
+				// Use EC2 instance credentials as a last resort if no credentials were provided
+				providers.add(new InstanceProfileCredentialsProvider());
+			}
 
 			// Make the list immutable
 			return ImmutableList.copyOf(providers);
