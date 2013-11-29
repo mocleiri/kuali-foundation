@@ -107,8 +107,8 @@ public final class KeyPair {
 		}
 
 		public KeyPair build() {
-			Optional<EncryptionService> enc = this.enc;
 			finish();
+			Optional<EncryptionService> enc = Optional.fromNullable(this.enc.orNull());
 			KeyPair pair = new KeyPair(this);
 			validate(pair, enc);
 			return pair;
