@@ -127,7 +127,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 			// and thus automatically authorize java code running on an EC2 instance
 			providers.add(index, new InstanceProfileCredentialsProvider());
 
-			// Convert the list into an array
+			// Make the list immutable
 			return ImmutableList.copyOf(providers);
 		}
 	}

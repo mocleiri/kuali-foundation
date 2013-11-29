@@ -20,6 +20,7 @@ import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 
 @Configuration
-@Import({ DefaultEncryptionServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class DefaultAwsCredentialsConfig implements AwsCredentialsConfig {
 
 	@Autowired
