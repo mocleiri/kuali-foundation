@@ -23,6 +23,7 @@ import org.kuali.common.aws.model.ImmutableSessionCredentials;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -48,14 +49,22 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
 		// Optional
 		private Optional<EncryptionService> enc = Optional.absent();
+		private Optional<EnvironmentService> env = Optional.absent();
 		private Optional<AWSCredentials> optionalCredentials = Optional.absent();
 		private boolean instanceCredentialsOverride = false; // If true, EC2 instance credentials take precedence over optionalCredentials
 
 		// Filled in by the build() method
 		private List<AWSCredentialsProvider> providers;
 
+		private static final String INSTANCE_CREDENTIALS_OVERRIDE_KEY = "aws.instanceCredentialsOverride";
+
 		public Builder enc(EncryptionService enc) {
 			this.enc = Optional.of(enc);
+			return this;
+		}
+
+		public Builder env(EnvironmentService env) {
+			this.env = Optional.of(env);
 			return this;
 		}
 
@@ -69,12 +78,19 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 			return this;
 		}
 
+		private void override() {
+			if (env.isPresent()) {
+				instanceCredentialsOverride(env.get().getBoolean(INSTANCE_CREDENTIALS_OVERRIDE_KEY, instanceCredentialsOverride));
+			}
+		}
+
 		private void validate(DefaultProviderChain provider) {
 			Assert.noNulls(provider.getCredentials(), provider.getEnc(), provider.getProviders());
 			Assert.isTrue(provider.getProviders().size() > 0, "Must supply at least one provider");
 		}
 
 		public AWSCredentialsProvider build() {
+			override();
 			this.providers = getProviders();
 			DefaultProviderChain provider = new DefaultProviderChain(this);
 			validate(provider);
