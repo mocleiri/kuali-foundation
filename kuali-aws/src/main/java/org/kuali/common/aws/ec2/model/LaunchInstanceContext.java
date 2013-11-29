@@ -5,8 +5,8 @@ import java.util.List;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.ssh.model.KeyPair;
 
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.Tag;
