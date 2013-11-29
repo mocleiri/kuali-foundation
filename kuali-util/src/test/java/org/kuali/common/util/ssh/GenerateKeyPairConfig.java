@@ -19,10 +19,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.kuali.common.util.enc.EncryptionService;
-import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
+import org.kuali.common.util.ssh.model.KeyPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
