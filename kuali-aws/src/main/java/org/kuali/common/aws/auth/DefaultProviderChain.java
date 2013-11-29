@@ -123,7 +123,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 					providers.add(new InstanceProfileCredentialsProvider());
 				}
 				// Fall through to the credentials they provided
-				providers.add(new SimpleAWSCredentialsProvider(optionalCredentials.get()));
+				providers.add(new SimpleCredentialsProvider(optionalCredentials.get()));
 			} else {
 				// Use EC2 instance credentials as a last resort if no credentials were provided
 				providers.add(new InstanceProfileCredentialsProvider());

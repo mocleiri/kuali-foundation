@@ -5,9 +5,9 @@ import org.kuali.common.util.Assert;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 
-public final class SimpleAWSCredentialsProvider implements AWSCredentialsProvider {
+public final class SimpleCredentialsProvider implements AWSCredentialsProvider {
 
-	public SimpleAWSCredentialsProvider(AWSCredentials credentials) {
+	public SimpleCredentialsProvider(AWSCredentials credentials) {
 		Assert.noNulls(credentials);
 		this.credentials = credentials;
 	}
