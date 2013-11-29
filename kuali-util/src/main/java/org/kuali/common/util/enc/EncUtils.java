@@ -47,30 +47,62 @@ public class EncUtils {
 	private static final String ENCRYPTED_PREFIX = "ENC(";
 	private static final String ENCRYPTED_SUFFIX = ")";
 
-	@Deprecated
-	private static final String PASSWORD_KEY = "enc.password";
-	@Deprecated
-	private static final String STRENGTH_KEY = "enc.strength";
-	@Deprecated
-	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
-	@Deprecated
-	private static final String PASSWORD_REMOVE_KEY = "enc.password.removeSystemProperty";
-
-	@Deprecated
-	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
-	@Deprecated
-	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
-	@Deprecated
-	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
-
 	public static final Optional<EncryptionService> ABSENT = Optional.absent();
 
 	/**
-	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 * Return true if the text is enclosed with <code>ENC()</code>
+	 */
+	public static boolean isEncrypted(String text) {
+		return StringUtils.startsWith(text, ENCRYPTED_PREFIX) && StringUtils.endsWith(text, ENCRYPTED_SUFFIX);
+	}
+
+	public static String unwrap(String wrappedText) {
+		Assert.noBlanks(wrappedText);
+		Assert.encrypted(wrappedText);
+		int start = ENCRYPTED_PREFIX.length();
+		int end = wrappedText.length() - ENCRYPTED_SUFFIX.length();
+		return wrappedText.substring(start, end);
+	}
+
+	public static String wrap(String unwrappedText) {
+		Assert.noBlanks(unwrappedText);
+		Assert.decrypted(unwrappedText);
+		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
+	}
+
+	/**
+	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
+	 */
+	public static TextEncryptor getTextEncryptor(String password) {
+		return getTextEncryptor(password, EncStrength.DEFAULT_VALUE);
+	}
+
+	/**
+	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
+	 */
+	public static TextEncryptor getTextEncryptor(String password, EncStrength strength) {
+		Assert.noBlanks(password);
+		Assert.noNulls(strength);
+		switch (strength) {
+		case BASIC:
+			BasicTextEncryptor basic = new BasicTextEncryptor();
+			basic.setPassword(password);
+			return basic;
+		case STRONG:
+			StrongTextEncryptor strong = new StrongTextEncryptor();
+			strong.setPassword(password);
+			return strong;
+		default:
+			throw new IllegalArgumentException("Encryption strength [" + strength + "] is unknown");
+		}
+	}
+
+	/**
+	 * If enc and string are both present and the string is encrypted, return the decrypted string. Otherwise do nothing.
 	 */
 	public static Optional<String> decrypt(Optional<EncryptionService> enc, Optional<String> string) {
 		if (string.isPresent()) {
-			return Optional.fromNullable(decrypt(enc, string.get()));
+			return Optional.of(decrypt(enc, string.get()));
 		} else {
 			return string;
 		}
@@ -265,50 +297,20 @@ public class EncUtils {
 		return EncStrength.valueOf(strength.toUpperCase());
 	}
 
-	/**
-	 * Return true if the text is enclosed with <code>ENC()</code>
-	 */
-	public static boolean isEncrypted(String text) {
-		return StringUtils.startsWith(text, ENCRYPTED_PREFIX) && StringUtils.endsWith(text, ENCRYPTED_SUFFIX);
-	}
+	@Deprecated
+	private static final String PASSWORD_KEY = "enc.password";
+	@Deprecated
+	private static final String STRENGTH_KEY = "enc.strength";
+	@Deprecated
+	private static final String PASSWORD_REQUIRED_KEY = "enc.password.required";
+	@Deprecated
+	private static final String PASSWORD_REMOVE_KEY = "enc.password.removeSystemProperty";
 
-	public static String unwrap(String wrappedText) {
-		Assert.noBlanks(wrappedText);
-		Assert.encrypted(wrappedText);
-		int start = ENCRYPTED_PREFIX.length();
-		int end = wrappedText.length() - ENCRYPTED_SUFFIX.length();
-		return wrappedText.substring(start, end);
-	}
+	@Deprecated
+	private static final String LEGACY_PASSWORD_KEY = "properties.enc.password";
+	@Deprecated
+	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
+	@Deprecated
+	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
-	public static String wrap(String unwrappedText) {
-		Assert.noBlanks(unwrappedText);
-		Assert.decrypted(unwrappedText);
-		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
-	}
-
-	/**
-	 * Returns a <code>BasicTextEncryptor</code> that uses <code>password</code> to encrypt/decrypt.
-	 */
-	public static TextEncryptor getTextEncryptor(String password) {
-		return getTextEncryptor(password, EncStrength.DEFAULT_VALUE);
-	}
-
-	/**
-	 * Return a <code>BasicTextEncryptor</code> or <code>StrongTextEncryptor</code> depending on what <code>strength</code> is set to
-	 */
-	public static TextEncryptor getTextEncryptor(String password, EncStrength strength) {
-		Assert.noBlanks(password);
-		switch (strength) {
-		case BASIC:
-			BasicTextEncryptor basic = new BasicTextEncryptor();
-			basic.setPassword(password);
-			return basic;
-		case STRONG:
-			StrongTextEncryptor strong = new StrongTextEncryptor();
-			strong.setPassword(password);
-			return strong;
-		default:
-			throw new IllegalArgumentException("Encryption strength [" + strength + "] is unknown");
-		}
-	}
 }
