@@ -5,10 +5,10 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.io.Charsets;
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.ssh.api.SshService;
 import org.kuali.common.util.ssh.model.Algorithm;
 import org.kuali.common.util.ssh.model.GenerateKeyPairContext;
+import org.kuali.common.util.ssh.model.KeyPair;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
