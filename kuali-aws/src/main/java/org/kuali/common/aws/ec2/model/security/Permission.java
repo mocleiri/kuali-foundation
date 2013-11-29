@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ListUtils;
+import org.kuali.common.util.ObjectUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -113,13 +114,8 @@ public final class Permission implements Comparable<Permission> {
 			return true;
 		}
 
-		// A non-null object reference is by definition not equal to null
-		if (object == null) {
-			return false;
-		}
-
-		// They are different runtime types and therefore cannot be considered equal
-		if (this.getClass() != object.getClass()) {
+		// Make sure object isn't null and is a Permission object
+		if (ObjectUtils.notEqual(this, object)) {
 			return false;
 		}
 
