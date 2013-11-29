@@ -55,6 +55,8 @@ public class EncUtils {
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
+	public static final Optional<EncryptionService> ABSENT = Optional.absent();
+
 	/**
 	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
 	 */
@@ -104,14 +106,6 @@ public class EncUtils {
 		return ImmutableList.copyOf(list);
 	}
 
-	public static KeyPair decrypt(EncryptionService enc, KeyPair provided) {
-		String name = provided.getName();
-		Optional<String> publicKey = decrypt(enc, provided.getPublicKey());
-		Optional<String> privateKey = decrypt(enc, provided.getPrivateKey());
-		Optional<String> fingerprint = decrypt(enc, provided.getFingerprint());
-		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
-	}
-
 	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
 		if (optional.isPresent()) {
 			String decrypted = decrypt(enc, optional.get());
@@ -121,6 +115,22 @@ public class EncUtils {
 		}
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.model.KeyPair instead
+	 */
+	@Deprecated
+	public static KeyPair decrypt(EncryptionService enc, KeyPair provided) {
+		String name = provided.getName();
+		Optional<String> publicKey = decrypt(enc, provided.getPublicKey());
+		Optional<String> privateKey = decrypt(enc, provided.getPrivateKey());
+		Optional<String> fingerprint = decrypt(enc, provided.getFingerprint());
+		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
+	}
+
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	public static KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
 		int type = (Algorithm.RSA == algorithm) ? com.jcraft.jsch.KeyPair.RSA : com.jcraft.jsch.KeyPair.DSA;
 		JSch jsch = new JSch();
@@ -131,6 +141,10 @@ public class EncUtils {
 		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).fingerprint(fingerprint).build();
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	protected static com.jcraft.jsch.KeyPair getKeyPair(JSch jsch, int type, int size) {
 		try {
 			return com.jcraft.jsch.KeyPair.genKeyPair(jsch, type, size);
@@ -139,18 +153,30 @@ public class EncUtils {
 		}
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	protected static String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePrivateKey(out);
 		return toStringUTF8(out);
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	protected static String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePublicKey(out, name);
 		return toStringUTF8(out);
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.model.KeyPair instead
+	 */
+	@Deprecated
 	protected static String toStringUTF8(ByteArrayOutputStream out) {
 		try {
 			return out.toString(UTF8);

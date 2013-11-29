@@ -6,7 +6,11 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.core.env.Environment;
 
+import com.google.common.base.Optional;
+
 public class EnvUtils {
+
+	public static final Optional<EnvironmentService> ABSENT = Optional.absent();
 
 	private static final String ENV_PREFIX = "env";
 

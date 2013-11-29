@@ -1,16 +1,15 @@
-package org.kuali.common.util.enc;
+package org.kuali.common.util.ssh.model;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 
-/**
- * @deprecated Use org.kuali.common.util.ssh.model.KeyPair instead
- */
-@Deprecated
 public final class KeyPair {
 
 	private final String name;
@@ -36,14 +35,13 @@ public final class KeyPair {
 		private static final String PUBLIC_KEY = "ssh.publicKey";
 		private static final String PRIVATE_KEY = "ssh.privateKey";
 		private static final String FINGERPRINT_KEY = "ssh.fingerprint";
-		private static final Optional<EncryptionService> ABSENT = Optional.absent();
 
 		public Builder(String name) {
-			this(Optional.<EnvironmentService> absent(), ABSENT, name);
+			this(EnvUtils.ABSENT, EncUtils.ABSENT, name);
 		}
 
 		public Builder(EnvironmentService env, String name) {
-			this(Optional.of(env), ABSENT, name);
+			this(Optional.of(env), EncUtils.ABSENT, name);
 		}
 
 		public Builder(EnvironmentService env, EncryptionService enc, String name) {
@@ -112,6 +110,8 @@ public final class KeyPair {
 
 		public KeyPair build() {
 			finish();
+			// Since multiple threads could have a reference to the builder (which is mutable)
+			// we have to create a local copy of enc before constructing the key pair, so the validate method remains thread safe
 			Optional<EncryptionService> enc = Optional.fromNullable(this.enc.orNull());
 			KeyPair pair = new KeyPair(this);
 			validate(pair, enc);
