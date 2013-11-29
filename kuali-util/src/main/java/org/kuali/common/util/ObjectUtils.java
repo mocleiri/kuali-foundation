@@ -46,4 +46,21 @@ public class ObjectUtils {
 			return false;
 		}
 	}
+
+	/**
+	 * Return true iff other is null OR they are different runtime types
+	 * 
+	 * @throws NullPointerException
+	 *             If <code>main</cod> is <code>null</code>
+	 */
+	public static boolean notEqual(Object main, Object other) {
+		// Main can't be null
+		if (main == null) {
+			throw new NullPointerException("main is null");
+		} else if (other == null) {
+			return false;
+		} else {
+			return main.getClass() == other.getClass();
+		}
+	}
 }
