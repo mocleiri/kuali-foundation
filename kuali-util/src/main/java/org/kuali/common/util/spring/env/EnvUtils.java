@@ -14,6 +14,9 @@ public class EnvUtils {
 
 	private static final String ENV_PREFIX = "env";
 
+	/**
+	 * Return an environment that uses system properties / environment variables
+	 */
 	public static Environment getDefaultEnvironment() {
 		Properties global = PropertyUtils.getGlobalProperties();
 		return new PropertiesEnvironment(global);

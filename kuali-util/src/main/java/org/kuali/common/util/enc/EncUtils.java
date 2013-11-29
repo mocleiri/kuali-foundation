@@ -29,9 +29,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
-import org.kuali.common.util.spring.env.DefaultEnvironmentService;
+import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.env.PropertiesEnvironment;
+import org.kuali.common.util.spring.env.model.EnvironmentServiceContext;
 import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;
@@ -187,7 +188,8 @@ public class EncUtils {
 
 	public static EncryptionContext getEncryptionContext(Properties properties) {
 		Environment environment = new PropertiesEnvironment(properties);
-		EnvironmentService env = new DefaultEnvironmentService(environment);
+		EnvironmentServiceContext context = new EnvironmentServiceContext.Builder().env(environment).build();
+		EnvironmentService env = new BasicEnvironmentService(context);
 		return getEncryptionContext(env);
 	}
 

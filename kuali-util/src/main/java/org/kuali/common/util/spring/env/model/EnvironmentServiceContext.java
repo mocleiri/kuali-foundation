@@ -19,6 +19,10 @@ public final class EnvironmentServiceContext {
 		private boolean resolveStrings = true;
 		private Mode missingPropertyMode = Mode.ERROR;
 
+		private static final String CHECK_ENVIRONMENT_VARIABLES_KEY = "env.checkEnvironmentVariables";
+		private static final String RESOLVE_STRINGS_KEY = "env.resolveStrings";
+		private static final String MISSING_PROPERTY_MODE_KEY = "env.missingPropertyMode";
+
 		public Builder env(Environment env) {
 			this.env = env;
 			return this;
@@ -44,7 +48,10 @@ public final class EnvironmentServiceContext {
 		}
 
 		private void override() {
-
+			Assert.noNulls(env);
+			checkEnvironmentVariables(env.getProperty(CHECK_ENVIRONMENT_VARIABLES_KEY, Boolean.class, checkEnvironmentVariables));
+			resolveStrings(env.getProperty(RESOLVE_STRINGS_KEY, Boolean.class, resolveStrings));
+			missingPropertyMode(env.getProperty(MISSING_PROPERTY_MODE_KEY, Mode.class, missingPropertyMode));
 		}
 
 		public EnvironmentServiceContext build() {

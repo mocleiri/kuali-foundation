@@ -25,6 +25,10 @@ public final class BasicEnvironmentService implements EnvironmentService {
 
 	private final EnvironmentServiceContext context;
 
+	public BasicEnvironmentService() {
+		this(new EnvironmentServiceContext.Builder().build());
+	}
+
 	public BasicEnvironmentService(EnvironmentServiceContext context) {
 		Assert.noNulls(context);
 		this.context = context;
