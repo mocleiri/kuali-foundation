@@ -27,6 +27,7 @@ public final class KeyPair {
 		// Used by the builder logic
 		private Optional<EnvironmentService> env = Optional.absent();
 		private Optional<EncryptionService> enc = Optional.absent();
+
 		private static final String NAME_KEY = "ssh.keyName";
 		private static final String PUBLIC_KEY = "ssh.publicKey";
 		private static final String PRIVATE_KEY = "ssh.privateKey";
@@ -43,6 +44,13 @@ public final class KeyPair {
 
 		public Builder(EnvironmentService env, EncryptionService enc, String name) {
 			this(Optional.of(env), Optional.of(enc), name);
+		}
+
+		public Builder(EnvironmentService env, EncryptionService enc, KeyPair provided) {
+			this(Optional.of(env), Optional.of(enc), provided.getName());
+			publicKey(provided.getPublicKey().orNull());
+			privateKey(provided.getPrivateKey().orNull());
+			fingerprint(provided.getFingerprint().orNull());
 		}
 
 		private Builder(Optional<EnvironmentService> env, Optional<EncryptionService> enc, String name) {
