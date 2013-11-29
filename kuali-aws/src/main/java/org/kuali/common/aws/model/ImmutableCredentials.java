@@ -1,6 +1,8 @@
 package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -21,6 +23,7 @@ public class ImmutableCredentials implements AWSCredentials {
 
 		// Optional
 		private Optional<String> sessionToken = Optional.absent();
+		private Optional<EncryptionService> enc = Optional.absent();
 
 		/**
 		 * Get a set of AWS credentials from the provider
@@ -41,18 +44,18 @@ public class ImmutableCredentials implements AWSCredentials {
 			return this;
 		}
 
-		private Builder(Optional<AWSCredentialsProvider> provider, Optional<String> accessKey, Optional<String> secretKey) {
+		private Builder(Optional<AWSCredentialsProvider> provider, Optional<EncryptionService> enc, Optional<String> accessKey, Optional<String> secretKey) {
 			if (provider.isPresent()) {
 				AWSCredentials provided = provider.get().getCredentials();
 				this.accessKey = provided.getAWSAccessKeyId();
-				this.secretKey = provided.getAWSSecretKey();
+				this.secretKey = EncUtils.decrypt(enc, provided.getAWSSecretKey());
 				if (provided instanceof AWSSessionCredentials) {
 					AWSSessionCredentials sessionCreds = (AWSSessionCredentials) provided;
 					sessionToken(sessionCreds.getSessionToken());
 				}
 			} else {
 				this.accessKey = accessKey.get();
-				this.secretKey = secretKey.get();
+				this.secretKey = EncUtils.decrypt(enc, secretKey.get());
 			}
 		}
 

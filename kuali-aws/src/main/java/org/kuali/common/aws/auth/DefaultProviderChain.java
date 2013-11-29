@@ -46,10 +46,12 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
 	public static class Builder {
 
+		// Optional
 		private Optional<EncryptionService> enc = Optional.absent();
 		private Optional<AWSCredentials> optionalCredentials = Optional.absent();
 		private boolean instanceCredentialsOverride = false; // If true, EC2 instance credentials take precedence over optionalCredentials
 
+		// Filled in by the build() method
 		private List<AWSCredentialsProvider> providers;
 
 		public Builder enc(EncryptionService enc) {
@@ -136,11 +138,8 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 	@Override
 	public AWSCredentials getCredentials() {
 		AWSCredentials creds = super.getCredentials();
-		if (!enc.isPresent()) {
-			return creds;
-		}
 		String accessKey = creds.getAWSAccessKeyId();
-		String secretKey = EncUtils.decrypt(enc.get(), creds.getAWSSecretKey());
+		String secretKey = EncUtils.decrypt(enc, creds.getAWSSecretKey());
 		if (creds instanceof AWSSessionCredentials) {
 			AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
 			return new ImmutableSessionCredentials(accessKey, secretKey, sessionCreds.getSessionToken());
