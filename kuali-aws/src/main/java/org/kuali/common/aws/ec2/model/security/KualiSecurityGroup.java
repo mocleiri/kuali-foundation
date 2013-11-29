@@ -39,13 +39,22 @@ public final class KualiSecurityGroup {
 			return this;
 		}
 
-		public KualiSecurityGroup build() {
-			Assert.noBlanks(name);
-			Assert.noNulls(description, permissions);
+		private void finish() {
 			this.permissions = new ArrayList<Permission>(permissions);
 			Collections.sort(permissions);
 			this.permissions = ImmutableList.copyOf(permissions);
-			return new KualiSecurityGroup(this);
+		}
+
+		private void validate(KualiSecurityGroup group) {
+			Assert.noBlanks(group.getName());
+			Assert.noNulls(group.getDescription(), group.getPermissions());
+		}
+
+		public KualiSecurityGroup build() {
+			finish();
+			KualiSecurityGroup ksg = new KualiSecurityGroup(this);
+			validate(ksg);
+			return ksg;
 		}
 	}
 
