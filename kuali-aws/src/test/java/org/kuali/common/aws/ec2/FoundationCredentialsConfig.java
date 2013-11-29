@@ -16,21 +16,23 @@
 package org.kuali.common.aws.ec2;
 
 import org.kuali.common.aws.Credentials;
-import org.kuali.common.aws.model.ImmutableAwsCredentials;
-import org.kuali.common.aws.model.util.CredentialUtils;
+import org.kuali.common.aws.auth.DefaultProviderChain;
+import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.aws.spring.AwsCredentialsConfig;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.service.SpringServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
 
 @Configuration
-@Import({ DefaultEncryptionServiceConfig.class })
+@Import({ SpringServiceConfig.class, DefaultEncryptionServiceConfig.class })
 public class FoundationCredentialsConfig implements AwsCredentialsConfig {
 
 	@Autowired
@@ -41,9 +43,14 @@ public class FoundationCredentialsConfig implements AwsCredentialsConfig {
 
 	@Override
 	@Bean
+	public AWSCredentialsProvider awsCredentialsProvider() {
+		return new DefaultProviderChain.Builder().enc(enc).env(env).credentials(Credentials.FOUNDATION).build();
+	}
+
+	@Override
+	@Bean
 	public AWSCredentials awsCredentials() {
-		AWSCredentials credentials = CredentialUtils.getCredentials(env, enc, Credentials.FOUNDATION);
-		return new ImmutableAwsCredentials(credentials);
+		return new ImmutableCredentials.Builder(awsCredentialsProvider()).build();
 	}
 
 }

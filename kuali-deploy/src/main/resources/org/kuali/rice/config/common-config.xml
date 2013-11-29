@@ -43,4 +43,8 @@
   <param name="mail.smtp.auth">${ses.auth}</param>
   <param name="mail.smtp.username">${ses.username}</param>
   <param name="mail.smtp.password">${ses.password}</param>
+
+  <!-- XML Poller Settings -->
+  <param name="data.xml.pollIntervalSecs">300</param>
+  <param name="initialDelaySecs">200</param>
 </config>

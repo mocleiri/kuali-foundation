@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.kuali.common.devops.aws.sysadmin.model.BootstrapContext;
 import org.kuali.common.devops.aws.sysadmin.model.ServiceOverride;
-import org.kuali.common.devops.aws.sysadmin.model.User;
+import org.kuali.common.devops.model.User;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.FormatUtils;
@@ -23,7 +23,6 @@ import org.kuali.common.util.execute.Executable;
  * <li>Update the operating system to the latest and greatest <code>yum update -y</code></li>
  * <li>Install a list of essential packages</li>
  * </ul>
- * 
  */
 public final class Bootstrap implements Executable {
 

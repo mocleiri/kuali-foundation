@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package org.kuali.common.util.enc;
+package org.kuali.common.util.ssh;
 
 import org.kuali.common.util.main.MainUtils;
 import org.kuali.common.util.main.spring.AbstractMainRunner;

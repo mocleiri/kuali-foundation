@@ -1,7 +1,9 @@
-package org.kuali.common.devops.aws.sysadmin.model;
+package org.kuali.common.devops.model;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.builder.BuilderUtils;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 public final class Heap {
 
@@ -15,7 +17,7 @@ public final class Heap {
 
 		// Optional
 		private long maxSizeInBytes = FormatUtils.getBytes("5g"); // 5 gigabytes
-		private long minSizeInBytes = maxSizeInBytes; // Default them to be the same size
+		private long minSizeInBytes = maxSizeInBytes; // Default min to be the same as max
 		private long maxPermSizeInBytes = FormatUtils.getBytes("512m"); // 512 megabytes
 		private boolean dumpOnOutOfMemoryError = false;
 		private boolean enableLogging = true;
@@ -45,10 +47,28 @@ public final class Heap {
 			return this;
 		}
 
+		/**
+		 * Override any provided values with values from the environment
+		 */
+		public Builder override(EnvironmentService env) {
+			maxPermSizeInBytes(BuilderUtils.getBytes(env, "heap.max", maxPermSizeInBytes));
+			minSizeInBytes(BuilderUtils.getBytes(env, "heap.min", minSizeInBytes));
+			maxPermSizeInBytes(BuilderUtils.getBytes(env, "heap.maxPerm", maxPermSizeInBytes));
+			return this;
+		}
+
 		public Heap build() {
+
+			// None of them can be negative
 			Assert.noNegatives(maxPermSizeInBytes, minSizeInBytes, maxSizeInBytes);
+
+			// Max must be greater than or equal to min
 			Assert.isTrue(maxSizeInBytes >= minSizeInBytes);
+
+			// Max must be greater than or equal to the perm size
 			Assert.isTrue(maxSizeInBytes >= maxPermSizeInBytes);
+
+			// Return the fully constructed object
 			return new Heap(this);
 		}
 	}

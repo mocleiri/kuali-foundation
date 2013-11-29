@@ -17,6 +17,8 @@ package org.kuali.common.util.enc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +35,7 @@ import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 
@@ -52,6 +55,70 @@ public class EncUtils {
 	private static final String LEGACY_STRENGTH_KEY = "properties.enc.strength";
 	private static final String LEGACY_PASSWORD_REQUIRED_KEY = "properties.decrypt";
 
+	public static final Optional<EncryptionService> ABSENT = Optional.absent();
+
+	/**
+	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 */
+	public static Optional<String> decrypt(Optional<EncryptionService> enc, Optional<String> string) {
+		if (string.isPresent()) {
+			return Optional.fromNullable(decrypt(enc, string.get()));
+		} else {
+			return string;
+		}
+	}
+
+	/**
+	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 */
+	public static String decrypt(Optional<EncryptionService> enc, String string) {
+		if (!enc.isPresent()) {
+			return string;
+		} else {
+			return decrypt(enc.get(), string);
+		}
+	}
+
+	/**
+	 * Decrypt the string if it's encrypted, otherwise do nothing
+	 */
+	public static String decrypt(EncryptionService enc, String string) {
+		Assert.noBlanks(string);
+		if (isEncrypted(string)) {
+			return enc.decrypt(string);
+		} else {
+			return string;
+		}
+	}
+
+	/**
+	 * Return a new list containing the same elements in the same order only with any encrypted strings having been decrypted.
+	 */
+	public static List<String> decrypt(EncryptionService enc, List<String> strings) {
+		List<String> list = new ArrayList<String>();
+		for (String string : strings) {
+			if (EncUtils.isEncrypted(string)) {
+				list.add(enc.decrypt(string));
+			} else {
+				list.add(string);
+			}
+		}
+		return ImmutableList.copyOf(list);
+	}
+
+	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
+		if (optional.isPresent()) {
+			String decrypted = decrypt(enc, optional.get());
+			return Optional.of(decrypted);
+		} else {
+			return Optional.absent();
+		}
+	}
+
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.model.KeyPair instead
+	 */
+	@Deprecated
 	public static KeyPair decrypt(EncryptionService enc, KeyPair provided) {
 		String name = provided.getName();
 		Optional<String> publicKey = decrypt(enc, provided.getPublicKey());
@@ -60,16 +127,10 @@ public class EncUtils {
 		return new KeyPair.Builder(name).publicKey(publicKey.orNull()).privateKey(privateKey.orNull()).fingerprint(fingerprint.orNull()).build();
 	}
 
-	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
-		if (optional.isPresent()) {
-			String string = optional.get();
-			String decrypted = EncUtils.isEncrypted(string) ? enc.decrypt(string) : string;
-			return Optional.of(decrypted);
-		} else {
-			return Optional.absent();
-		}
-	}
-
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	public static KeyPair getKeyPair(String name, int size, Algorithm algorithm) {
 		int type = (Algorithm.RSA == algorithm) ? com.jcraft.jsch.KeyPair.RSA : com.jcraft.jsch.KeyPair.DSA;
 		JSch jsch = new JSch();
@@ -80,6 +141,10 @@ public class EncUtils {
 		return new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).fingerprint(fingerprint).build();
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	protected static com.jcraft.jsch.KeyPair getKeyPair(JSch jsch, int type, int size) {
 		try {
 			return com.jcraft.jsch.KeyPair.genKeyPair(jsch, type, size);
@@ -88,18 +153,30 @@ public class EncUtils {
 		}
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	protected static String getPrivateKey(com.jcraft.jsch.KeyPair keyPair) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePrivateKey(out);
 		return toStringUTF8(out);
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.api.SshService instead
+	 */
+	@Deprecated
 	protected static String getPublicKey(com.jcraft.jsch.KeyPair keyPair, String name) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		keyPair.writePublicKey(out, name);
 		return toStringUTF8(out);
 	}
 
+	/**
+	 * @deprecated Use org.kuali.common.util.ssh.model.KeyPair instead
+	 */
+	@Deprecated
 	protected static String toStringUTF8(ByteArrayOutputStream out) {
 		try {
 			return out.toString(UTF8);
@@ -182,7 +259,7 @@ public class EncUtils {
 
 	public static String unwrap(String wrappedText) {
 		Assert.noBlanks(wrappedText);
-		Assert.isTrue(isEncrypted(wrappedText), "Text is not wrapped");
+		Assert.encrypted(wrappedText);
 		int start = ENCRYPTED_PREFIX.length();
 		int end = wrappedText.length() - ENCRYPTED_SUFFIX.length();
 		return wrappedText.substring(start, end);
@@ -190,7 +267,7 @@ public class EncUtils {
 
 	public static String wrap(String unwrappedText) {
 		Assert.noBlanks(unwrappedText);
-		Assert.isFalse(isEncrypted(unwrappedText), "Text is already wrapped");
+		Assert.decrypted(unwrappedText);
 		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
 	}
 

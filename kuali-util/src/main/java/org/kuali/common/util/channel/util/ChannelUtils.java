@@ -35,15 +35,21 @@ public class ChannelUtils {
 
 	private static final ChannelContext DEFAULT = new ChannelContext.Builder(NullUtils.NONE).build();
 
+	@Deprecated
 	private static final String USERNAME_KEY = "ssh.username";
+	@Deprecated
 	private static final String HOSTNAME_KEY = "ssh.hostname";
+	@Deprecated
 	private static final String PRIVATEKEY_KEY = "ssh.privateKey";
+	@Deprecated
 	private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
 
+	@Deprecated
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc) {
 		return getContext(env, enc, DEFAULT);
 	}
 
+	@Deprecated
 	public static ChannelContext getContext(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
 		String hostname = NullUtils.trimToNull(env.getString(HOSTNAME_KEY, provided.getHostname()));
 		Optional<String> username = SpringUtils.getString(env, USERNAME_KEY, provided.getUsername());
@@ -52,6 +58,7 @@ public class ChannelUtils {
 		return new ChannelContext.Builder(hostname, provided).username(username.orNull()).privateKeys(privateKeys).requestPseudoTerminal(requestPseudoTerminal).build();
 	}
 
+	@Deprecated
 	protected static List<String> getPrivateKeys(EnvironmentService env, EncryptionService enc, ChannelContext provided) {
 		Optional<String> optional = SpringUtils.getString(env, PRIVATEKEY_KEY, Optional.<String> absent());
 		if (optional.isPresent()) {

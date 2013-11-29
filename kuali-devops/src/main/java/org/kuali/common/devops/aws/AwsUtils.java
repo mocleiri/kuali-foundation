@@ -6,7 +6,7 @@ import org.kuali.common.aws.ec2.util.LaunchUtils;
 import org.kuali.common.aws.model.AwsAccount;
 import org.kuali.common.aws.model.AwsAuth;
 import org.kuali.common.aws.model.AwsContext;
-import org.kuali.common.aws.model.ImmutableAwsCredentials;
+import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.aws.model.util.CredentialUtils;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
@@ -28,7 +28,7 @@ public class AwsUtils {
 
 	private static final Map<String, AwsContext> CONTEXTS = Contexts.asMap();
 	private static final KeyPair NOKEYPAIR = new KeyPair.Builder(NONE).build();
-	private static final AWSCredentials NOCREDS = new ImmutableAwsCredentials(NONE, NONE);
+	private static final AWSCredentials NOCREDS = new ImmutableCredentials(NONE, NONE);
 	private static final AwsAuth NOAUTH = new AwsAuth(NOCREDS, NOKEYPAIR);
 	private static final AwsAccount UNKNOWN_ACCOUNT = new AwsAccount(NONE, NONE, Optional.<String> absent());
 	private static final AwsContext UNKNOWN_CONTEXT = new AwsContext(UNKNOWN_ACCOUNT, NOAUTH);

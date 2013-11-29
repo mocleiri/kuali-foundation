@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.enc;
+package org.kuali.common.util.ssh;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import org.kuali.common.util.enc.EncryptionService;
+import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.enc.spring.DefaultEncryptionServiceConfig;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;

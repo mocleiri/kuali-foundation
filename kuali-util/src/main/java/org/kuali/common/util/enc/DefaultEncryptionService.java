@@ -21,13 +21,14 @@ public final class DefaultEncryptionService implements EncryptionService {
 
 	@Override
 	public String encrypt(String plainText) {
-		Assert.isFalse(EncUtils.isEncrypted(plainText), "Already encrypted");
+		Assert.decrypted(plainText);
 		String encryptedText = encryptor.encrypt(plainText);
 		return EncUtils.wrap(encryptedText);
 	}
 
 	@Override
 	public String decrypt(String encryptedText) {
+		Assert.encrypted(encryptedText);
 		String unwrapped = EncUtils.unwrap(encryptedText);
 		return encryptor.decrypt(unwrapped);
 	}

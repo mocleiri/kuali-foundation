@@ -2,7 +2,6 @@ package org.kuali.common.util.spring.env;
 
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
@@ -80,7 +79,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 	protected String getMissingPropertyMessage(String key) {
 		if (checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(key);
+			String envKey = EnvUtils.getEnvironmentVariableKey(key);
 			return "No value for [" + key + "] or [" + envKey + "]";
 		} else {
 			return "No value for [" + key + "]";
@@ -90,7 +89,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	protected <T> T getSpringValue(String key, Class<T> type) {
 		T value = env.getProperty(key, type);
 		if (value == null && checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(key);
+			String envKey = EnvUtils.getEnvironmentVariableKey(key);
 			return env.getProperty(envKey, type);
 		} else {
 			return value;
@@ -100,7 +99,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	protected <T> Class<T> getSpringValueAsClass(String key, Class<T> type) {
 		Class<T> value = env.getPropertyAsClass(key, type);
 		if (value == null && checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(key);
+			String envKey = EnvUtils.getEnvironmentVariableKey(key);
 			return env.getPropertyAsClass(envKey, type);
 		} else {
 			return value;
@@ -169,15 +168,6 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	@Override
 	public Integer getInteger(String key) {
 		return getInteger(key, null);
-	}
-
-	/**
-	 * <pre>
-	 *  foo.bar -> env.FOO_BAR
-	 * </pre>
-	 */
-	protected String getEnvironmentVariableKey(String key) {
-		return ENV_PREFIX + "." + StringUtils.upperCase(StringUtils.replace(key, ".", "_"));
 	}
 
 	public boolean isCheckEnvironmentVariables() {

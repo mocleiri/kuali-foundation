@@ -3,8 +3,8 @@ package org.kuali.common.devops.aws.sysadmin;
 import java.io.IOException;
 import java.util.List;
 
-import org.kuali.common.devops.aws.sysadmin.model.Deployable;
 import org.kuali.common.devops.aws.sysadmin.model.InstallTomcatContext;
+import org.kuali.common.devops.model.FileResource;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.channel.api.ChannelService;
 import org.kuali.common.util.channel.api.SecureChannel;
@@ -78,9 +78,9 @@ public final class InstallTomcat implements Executable {
 		String installDir = context.getSharedDir() + "/" + context.getPackageName();
 
 		// Add, update, and delete configuration files as needed (server.xml, web.xml, cleanup.sh, forced-shutdown.sh, custom JSP's, etc)
-		List<Deployable> deployables = TomcatConfig.getDeployables(installDir, context.getVersion().getValue());
-		for (Deployable deployable : deployables) {
-			channel.scp(deployable.getSource(), deployable.getDestination());
+		List<FileResource> deployables = TomcatConfig.getDeployables(installDir, context.getVersion().getValue());
+		for (FileResource deployable : deployables) {
+			channel.scp(deployable.getSource(), deployable.getFile());
 		}
 
 		// Recursively chown everything in /usr/share/tomcat[6,7] and /home/tomcat to tomcat:tomcat

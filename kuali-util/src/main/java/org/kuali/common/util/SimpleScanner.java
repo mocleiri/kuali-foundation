@@ -25,6 +25,7 @@ import org.codehaus.plexus.util.DirectoryScanner;
  * This class provides a simple method for scanning a directory for files that match include/exclude patterns
  */
 public class SimpleScanner extends DirectoryScanner {
+
 	private static final String FS = File.separator;
 
 	public SimpleScanner() {
@@ -36,7 +37,6 @@ public class SimpleScanner extends DirectoryScanner {
 	}
 
 	public SimpleScanner(File baseDir, List<String> includes, List<String> excludes) {
-		super();
 		if (baseDir != null) {
 			setBasedir(baseDir);
 		}

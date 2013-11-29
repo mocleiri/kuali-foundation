@@ -78,6 +78,10 @@ public class LaunchUtils {
 		return client;
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	public static EC2ServiceContext getEC2ServiceContext(EnvironmentService env, AWSCredentials credentials) {
 		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
 		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
