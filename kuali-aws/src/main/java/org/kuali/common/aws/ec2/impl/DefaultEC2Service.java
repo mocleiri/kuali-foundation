@@ -27,7 +27,7 @@ import org.kuali.common.util.SetUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.condition.Condition;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.KeyPair;
+import org.kuali.common.util.ssh.model.KeyPair;
 import org.kuali.common.util.wait.WaitContext;
 import org.kuali.common.util.wait.WaitResult;
 import org.kuali.common.util.wait.WaitService;
