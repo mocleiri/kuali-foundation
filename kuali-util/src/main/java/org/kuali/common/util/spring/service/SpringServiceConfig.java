@@ -15,8 +15,9 @@
  */
 package org.kuali.common.util.spring.service;
 
-import org.kuali.common.util.spring.env.DefaultEnvironmentService;
+import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.kuali.common.util.spring.env.model.EnvironmentServiceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +41,7 @@ public class SpringServiceConfig {
 
 	@Bean
 	public EnvironmentService environmentService() {
-		return new DefaultEnvironmentService(env);
+		EnvironmentServiceContext context = new EnvironmentServiceContext.Builder().env(env).build();
+		return new BasicEnvironmentService(context);
 	}
 }
