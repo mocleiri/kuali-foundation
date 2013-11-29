@@ -16,6 +16,10 @@ import org.kuali.common.util.spring.env.model.EnvironmentServiceContext;
  * </p>
  * 
  * <p>
+ * By default, string values are resolved before being returned
+ * </p>
+ * 
+ * <p>
  * By default, environment variables are automatically checked if a normal property value cannot be found.
  * 
  * For example, given the key <code>db.vendor</code> the service will also automatically check <code>env.DB_VENDOR</code>
