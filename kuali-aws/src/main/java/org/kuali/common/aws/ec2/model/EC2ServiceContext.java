@@ -36,7 +36,7 @@ public final class EC2ServiceContext {
 		private Optional<Integer> timeOffsetInSeconds = Optional.absent(); // Number of seconds the system clock where this client is running is ahead of (or behind) correct time
 
 		public Builder(String accessKey, String secretKey) {
-			this(new ImmutableCredentials(accessKey, secretKey));
+			this(new ImmutableCredentials.Builder(accessKey, secretKey).build());
 		}
 
 		public Builder(AWSCredentials credentials) {
