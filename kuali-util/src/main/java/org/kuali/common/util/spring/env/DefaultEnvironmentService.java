@@ -79,7 +79,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 
 	protected String getMissingPropertyMessage(String key) {
 		if (checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(key);
+			String envKey = EnvUtils.getEnvironmentVariableKey(key);
 			return "No value for [" + key + "] or [" + envKey + "]";
 		} else {
 			return "No value for [" + key + "]";
@@ -89,7 +89,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	protected <T> T getSpringValue(String key, Class<T> type) {
 		T value = env.getProperty(key, type);
 		if (value == null && checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(key);
+			String envKey = EnvUtils.getEnvironmentVariableKey(key);
 			return env.getProperty(envKey, type);
 		} else {
 			return value;
@@ -99,7 +99,7 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	protected <T> Class<T> getSpringValueAsClass(String key, Class<T> type) {
 		Class<T> value = env.getPropertyAsClass(key, type);
 		if (value == null && checkEnvironmentVariables) {
-			String envKey = getEnvironmentVariableKey(key);
+			String envKey = EnvUtils.getEnvironmentVariableKey(key);
 			return env.getPropertyAsClass(envKey, type);
 		} else {
 			return value;
@@ -168,39 +168,6 @@ public class DefaultEnvironmentService implements EnvironmentService {
 	@Override
 	public Integer getInteger(String key) {
 		return getInteger(key, null);
-	}
-
-	/**
-	 * <pre>
-	 *  foo.bar    -> env.FOO_BAR
-	 *  foo.barBaz -> env.FOO_BAR_BAZ
-	 * </pre>
-	 */
-	protected String getEnvironmentVariableKey(String key) {
-		Assert.noBlanks(key);
-		char[] chars = key.toCharArray();
-		StringBuilder sb = new StringBuilder();
-		char prevChar = 0;
-		for (char c : chars) {
-			if (c == '.') {
-				sb.append('_');
-			} else if (isUpperCase(c) && isLowerCase(prevChar)) {
-				sb.append('_');
-				sb.append(c);
-			} else {
-				sb.append(c);
-			}
-			prevChar = c;
-		}
-		return ENV_PREFIX + "." + sb.toString().toUpperCase();
-	}
-
-	protected boolean isUpperCase(char c) {
-		return c >= 'A' && c <= 'Z';
-	}
-
-	protected boolean isLowerCase(char c) {
-		return c >= 'a' && c <= 'z';
 	}
 
 	public boolean isCheckEnvironmentVariables() {
