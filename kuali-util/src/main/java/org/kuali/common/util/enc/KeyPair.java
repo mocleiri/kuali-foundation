@@ -23,8 +23,8 @@ public final class KeyPair {
 		private Optional<String> publicKey = Optional.absent();
 		private Optional<String> privateKey = Optional.absent();
 		private Optional<String> fingerprint = Optional.absent();
-		private boolean assertDecryptedPrivateKey = true;
 
+		// Used by the builder logic
 		private Optional<EnvironmentService> env = Optional.absent();
 		private Optional<EncryptionService> enc = Optional.absent();
 		private static final String NAME_KEY = "ssh.keyName";
@@ -70,11 +70,6 @@ public final class KeyPair {
 			return this;
 		}
 
-		public Builder assertDecryptedPrivateKey(boolean assertDecryptedPrivateKey) {
-			this.assertDecryptedPrivateKey = assertDecryptedPrivateKey;
-			return this;
-		}
-
 		private void override() {
 			if (env.isPresent()) {
 				publicKey(SpringUtils.getString(env.get(), PUBLIC_KEY, publicKey).orNull());
@@ -93,20 +88,21 @@ public final class KeyPair {
 		}
 
 		@SuppressWarnings("unchecked")
-		private void validate(KeyPair pair, boolean assertDecryptedPrivateKey) {
+		private void validate(KeyPair pair, Optional<EncryptionService> enc) {
 			Assert.noBlanks(pair.getName());
 			Assert.noNulls(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
 			Assert.noBlanksIfPresent(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
-			if (pair.getPrivateKey().isPresent() && assertDecryptedPrivateKey) {
+			boolean assertDecryptedPrivateKey = pair.getPrivateKey().isPresent() && enc.isPresent();
+			if (assertDecryptedPrivateKey) {
 				Assert.decrypted(pair.getPrivateKey().get());
 			}
 		}
 
 		public KeyPair build() {
-			boolean assertDecryptedPrivateKey = this.assertDecryptedPrivateKey;
+			Optional<EncryptionService> enc = this.enc;
 			finish();
 			KeyPair pair = new KeyPair(this);
-			validate(pair, assertDecryptedPrivateKey);
+			validate(pair, enc);
 			return pair;
 		}
 
