@@ -41,17 +41,25 @@ public final class Permission implements Comparable<Permission> {
 			return this;
 		}
 
-		public Permission build() {
-			Assert.noNulls(cidrNotations, protocol);
-			Assert.noBlanks(cidrNotations);
-			Assert.isTrue(cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
-			Assert.isPort(port);
-
+		private void finish() {
 			// Changing this has implications for equals(), be careful
 			this.cidrNotations = new ArrayList<String>(cidrNotations);
 			Collections.sort(cidrNotations);
 			this.cidrNotations = ImmutableList.copyOf(cidrNotations);
-			return new Permission(this);
+		}
+
+		private void validate(Permission perm) {
+			Assert.noNulls(perm.cidrNotations, perm.protocol);
+			Assert.noBlanks(perm.cidrNotations);
+			Assert.isTrue(perm.cidrNotations.size() >= 1, "Must supply at least one CIDR notation");
+			Assert.isPort(perm.port);
+		}
+
+		public Permission build() {
+			finish();
+			Permission perm = new Permission(this);
+			validate(perm);
+			return perm;
 		}
 	}
 
@@ -73,6 +81,9 @@ public final class Permission implements Comparable<Permission> {
 		return cidrNotations;
 	}
 
+	/**
+	 * Sorts by <code>port</code> then <code>protocol</code>
+	 */
 	@Override
 	public int compareTo(Permission other) {
 		if (port == other.getPort()) {
