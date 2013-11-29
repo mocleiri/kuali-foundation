@@ -16,6 +16,7 @@ public enum Credentials implements AWSCredentials {
 
 	private Credentials(String accessKey, String secretKey) {
 		Assert.noBlanks(accessKey, secretKey);
+		Assert.encrypted(secretKey);
 		this.accessKey = accessKey;
 		this.secretKey = secretKey;
 	}
