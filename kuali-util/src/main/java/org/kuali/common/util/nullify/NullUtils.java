@@ -48,7 +48,7 @@ public class NullUtils {
 	}
 
 	/**
-	 * Return true if:
+	 * Return true iff:
 	 * 
 	 * <pre>
 	 *  s == null
