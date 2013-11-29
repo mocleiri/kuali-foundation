@@ -189,4 +189,14 @@ public class DefaultEnvironmentService implements EnvironmentService {
 		return missingPropertyMode;
 	}
 
+	@Override
+	public <T> T getProperty(String key, Class<T> type, T provided) {
+		return getProperty(EnvContext.newCtx(key, type, provided));
+	}
+
+	@Override
+	public <T> T getProperty(String key, Class<T> type) {
+		return getProperty(EnvContext.newCtx(key, type, null));
+	}
+
 }

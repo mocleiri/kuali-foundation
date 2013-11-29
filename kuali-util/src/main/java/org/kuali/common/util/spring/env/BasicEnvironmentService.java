@@ -65,6 +65,16 @@ public final class BasicEnvironmentService implements EnvironmentService {
 		return returnValue;
 	}
 
+	@Override
+	public <T> T getProperty(String key, Class<T> type, T provided) {
+		return getProperty(EnvContext.newCtx(key, type, provided));
+	}
+
+	@Override
+	public <T> T getProperty(String key, Class<T> type) {
+		return getProperty(EnvContext.newCtx(key, type, null));
+	}
+
 	protected String getMissingPropertyMessage(String key) {
 		if (context.isCheckEnvironmentVariables()) {
 			String envKey = EnvUtils.getEnvironmentVariableKey(key);

@@ -58,14 +58,9 @@ public final class GenerateKeyPairContext {
 			Assert.positive(context.getSize());
 		}
 
-		private Algorithm getAlgorithm(EnvironmentService env) {
-			String algorithm = env.getString(ALGORITHM_KEY, this.algorithm.name());
-			return Algorithm.valueOf(algorithm.toUpperCase());
-		}
-
 		private void override() {
 			if (env.isPresent()) {
-				algorithm(getAlgorithm(env.get()));
+				algorithm(env.get().getProperty(ALGORITHM_KEY, Algorithm.class, algorithm));
 				size(env.get().getInteger(SIZE_KEY, size));
 			}
 		}

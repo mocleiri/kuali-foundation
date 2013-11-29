@@ -8,6 +8,10 @@ public interface EnvironmentService {
 
 	<T> T getProperty(EnvContext<T> context);
 
+	<T> T getProperty(String key, Class<T> type, T provided);
+
+	<T> T getProperty(String key, Class<T> type);
+
 	String getString(String key);
 
 	String getString(String key, String provided);
