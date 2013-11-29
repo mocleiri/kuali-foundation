@@ -58,17 +58,13 @@ public final class AwsAccount {
 			}
 		}
 
-		private void finish() {
-			override();
-		}
-
 		private void validate(AwsAccount account) {
 			Assert.noBlanks(account.getName(), account.getAccountNumber());
 			Assert.noNulls(account.getDescription());
 		}
 
 		public AwsAccount build() {
-			finish();
+			override();
 			AwsAccount account = new AwsAccount(this);
 			validate(account);
 			return account;
