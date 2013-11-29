@@ -39,11 +39,11 @@ public class ObjectUtils {
 			return true;
 		}
 
-		// Only bother comparing the toString() methods if they are the exact same runtime type
-		if (other != null && main.getClass() == other.getClass()) {
-			return main.toString().equals(other.toString());
-		} else {
+		// Only bother comparing the toString() methods if they are both not null and are the exact same runtime type
+		if (notEqual(main, other)) {
 			return false;
+		} else {
+			return main.toString().equals(other.toString());
 		}
 	}
 
