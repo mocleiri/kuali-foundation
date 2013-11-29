@@ -82,7 +82,6 @@ public class EncUtils {
 	 */
 	public static TextEncryptor getTextEncryptor(String password, EncStrength strength) {
 		Assert.noBlanks(password);
-		Assert.noNulls(strength);
 		switch (strength) {
 		case BASIC:
 			BasicTextEncryptor basic = new BasicTextEncryptor();
@@ -112,10 +111,10 @@ public class EncUtils {
 	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
 	 */
 	public static String decrypt(Optional<EncryptionService> enc, String string) {
-		if (!enc.isPresent()) {
-			return string;
-		} else {
+		if (enc.isPresent()) {
 			return decrypt(enc.get(), string);
+		} else {
+			return string;
 		}
 	}
 
