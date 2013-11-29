@@ -233,7 +233,7 @@ public class EncUtils {
 
 	public static String unwrap(String wrappedText) {
 		Assert.noBlanks(wrappedText);
-		Assert.isTrue(isEncrypted(wrappedText), "Text is not wrapped");
+		Assert.encrypted(wrappedText);
 		int start = ENCRYPTED_PREFIX.length();
 		int end = wrappedText.length() - ENCRYPTED_SUFFIX.length();
 		return wrappedText.substring(start, end);
@@ -241,7 +241,7 @@ public class EncUtils {
 
 	public static String wrap(String unwrappedText) {
 		Assert.noBlanks(unwrappedText);
-		Assert.isFalse(isEncrypted(unwrappedText), "Text is already wrapped");
+		Assert.decrypted(unwrappedText);
 		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
 	}
 
