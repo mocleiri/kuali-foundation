@@ -101,9 +101,14 @@ public final class StringFilter {
 			this.excludePatterns = ImmutableList.copyOf(RegexUtils.getPatterns(excludes));
 		}
 
+		private void validate(StringFilter filter) {
+			Assert.noNulls(filter.includes, filter.excludes, filter.excludePatterns, filter.includePatterns);
+		}
+
 		public StringFilter build() {
-			Assert.noNulls(includes, excludes, includePatterns, excludePatterns);
-			return new StringFilter(this);
+			StringFilter filter = new StringFilter(this);
+			validate(filter);
+			return filter;
 		}
 
 	}
