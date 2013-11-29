@@ -42,6 +42,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
 	private final Optional<AWSCredentials> optionalCredentials;
 	private final Optional<EncryptionService> enc;
+	private final Optional<EnvironmentService> env;
 	private final boolean instanceCredentialsOverride;
 	private final List<AWSCredentialsProvider> providers;
 
@@ -85,7 +86,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 		}
 
 		private void validate(DefaultProviderChain provider) {
-			Assert.noNulls(provider.getCredentials(), provider.getEnc(), provider.getProviders());
+			Assert.noNulls(provider.getCredentials(), provider.getEnc(), provider.getEnv(), provider.getProviders());
 			Assert.isTrue(provider.getProviders().size() > 0, "Must supply at least one provider");
 		}
 
@@ -135,6 +136,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 		super(toArray(builder.providers));
 		this.optionalCredentials = builder.optionalCredentials;
 		this.enc = builder.enc;
+		this.env = builder.env;
 		this.instanceCredentialsOverride = builder.instanceCredentialsOverride;
 		this.providers = builder.providers;
 	}
@@ -170,6 +172,10 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 
 	public Optional<EncryptionService> getEnc() {
 		return enc;
+	}
+
+	public Optional<EnvironmentService> getEnv() {
+		return env;
 	}
 
 }
