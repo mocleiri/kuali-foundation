@@ -21,7 +21,6 @@ public class ImmutableCredentials implements AWSCredentials {
 
 		// Optional
 		private Optional<String> sessionToken = Optional.absent();
-		private boolean assertDecryptedSecretKey = true;
 
 		/**
 		 * Get a set of AWS credentials from the provider
@@ -42,11 +41,6 @@ public class ImmutableCredentials implements AWSCredentials {
 			return this;
 		}
 
-		public Builder assertDecryptedSecretKey(boolean assertDecryptedSecretKey) {
-			this.assertDecryptedSecretKey = assertDecryptedSecretKey;
-			return this;
-		}
-
 		private Builder(Optional<AWSCredentialsProvider> provider, Optional<String> accessKey, Optional<String> secretKey) {
 			if (provider.isPresent()) {
 				AWSCredentials provided = provider.get().getCredentials();
@@ -62,11 +56,9 @@ public class ImmutableCredentials implements AWSCredentials {
 			}
 		}
 
-		private void validate(AWSCredentials creds, boolean assertDecryptedSecretKey) {
+		private void validate(AWSCredentials creds) {
 			Assert.noBlanks(creds.getAWSAccessKeyId(), creds.getAWSSecretKey());
-			if (assertDecryptedSecretKey) {
-				Assert.decrypted(creds.getAWSSecretKey());
-			}
+			Assert.decrypted(creds.getAWSSecretKey());
 			if (creds instanceof AWSSessionCredentials) {
 				AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
 				Assert.noBlanks(sessionCreds.getSessionToken());
@@ -85,10 +77,8 @@ public class ImmutableCredentials implements AWSCredentials {
 		}
 
 		public AWSCredentials build() {
-			// Duplicate local variable for thread safety when validating the freshly constructed credentials object
-			boolean assertDecryptedSecretKey = this.assertDecryptedSecretKey;
 			AWSCredentials creds = getCredentials(this);
-			validate(creds, assertDecryptedSecretKey);
+			validate(creds);
 			return creds;
 		}
 
