@@ -109,7 +109,10 @@ public class EncUtils {
 
 	/**
 	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static String decrypt(Optional<EncryptionService> enc, String string) {
 		if (enc.isPresent()) {
 			return decrypt(enc.get(), string);
@@ -120,7 +123,10 @@ public class EncUtils {
 
 	/**
 	 * Decrypt the string if it's encrypted, otherwise do nothing
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public static String decrypt(EncryptionService enc, String string) {
 		Assert.noBlanks(string);
 		if (isEncrypted(string)) {
@@ -136,18 +142,14 @@ public class EncUtils {
 	public static List<String> decrypt(EncryptionService enc, List<String> strings) {
 		List<String> list = new ArrayList<String>();
 		for (String string : strings) {
-			if (EncUtils.isEncrypted(string)) {
-				list.add(enc.decrypt(string));
-			} else {
-				list.add(string);
-			}
+			list.add(enc.decrypt(string));
 		}
 		return ImmutableList.copyOf(list);
 	}
 
 	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
 		if (optional.isPresent()) {
-			String decrypted = decrypt(enc, optional.get());
+			String decrypted = enc.decrypt(optional.get());
 			return Optional.of(decrypted);
 		} else {
 			return Optional.absent();
