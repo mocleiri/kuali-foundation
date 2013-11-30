@@ -109,13 +109,10 @@ public class EncUtils {
 
 	/**
 	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
-	 * 
-	 * @deprecated
 	 */
-	@Deprecated
 	public static String decrypt(Optional<EncryptionService> enc, String string) {
 		if (enc.isPresent()) {
-			return decrypt(enc.get(), string);
+			return enc.get().decrypt(string);
 		} else {
 			return string;
 		}
