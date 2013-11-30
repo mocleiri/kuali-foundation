@@ -18,7 +18,6 @@ package org.kuali.common.util.enc;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
@@ -40,27 +39,24 @@ public class EncUtils {
 	 * Return true if the text is enclosed with <code>ENC()</code> or starts with <code>enc--</code>
 	 */
 	public static boolean isEncrypted(String text) {
-		if (StringUtils.isBlank(text)) {
-			return false;
+		Assert.noBlanks(text);
+		return Str.matches(text, PREFIX, SUFFIX) || text.startsWith(MAGIC_PREFIX);
+	}
+
+	public static String unwrap(String text) {
+		Assert.noBlanks(text);
+		Assert.encrypted(text);
+		if (text.startsWith(MAGIC_PREFIX)) {
+			return Str.removePrefix(text, MAGIC_PREFIX);
 		} else {
-			return (text.startsWith(PREFIX) && text.endsWith(SUFFIX)) || text.startsWith(MAGIC_PREFIX);
+			return Str.remove(text, PREFIX, SUFFIX);
 		}
 	}
 
-	public static String unwrap(String wrappedText) {
-		Assert.noBlanks(wrappedText);
-		Assert.encrypted(wrappedText);
-		if (wrappedText.startsWith(MAGIC_PREFIX)) {
-			return Str.removePrefix(wrappedText, MAGIC_PREFIX);
-		} else {
-			return Str.remove(wrappedText, PREFIX, SUFFIX);
-		}
-	}
-
-	public static String wrap(String unwrappedText) {
-		Assert.noBlanks(unwrappedText);
-		Assert.notEncrypted(unwrappedText);
-		return PREFIX + unwrappedText + SUFFIX;
+	public static String wrap(String text) {
+		Assert.noBlanks(text);
+		Assert.notEncrypted(text);
+		return PREFIX + text + SUFFIX;
 	}
 
 	/**
