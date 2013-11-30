@@ -21,10 +21,10 @@ public final class EncContext {
 
 	public static class Builder {
 
-		private Optional<EnvironmentService> env;
-		private Optional<String> password;
-		private Optional<TextEncryptor> textEncryptor;
+		private final Optional<EnvironmentService> env;
+		private final Optional<String> password;
 
+		private Optional<TextEncryptor> textEncryptor;
 		private EncStrength strength = EncStrength.BASIC;
 		private boolean required = false;
 		private boolean removeSystemProperties = false;
@@ -38,14 +38,14 @@ public final class EncContext {
 		 * Setup encryption using <code>password</code>
 		 */
 		public Builder(String password) {
-			this(EnvUtils.ABSENT, Optional.<TextEncryptor> absent(), Optional.of(password));
+			this(EnvUtils.ABSENT, Optional.of(password));
 		}
 
 		/**
 		 * Use the password they gave us, unless it is overridden by a password in the environment
 		 */
 		public Builder(EnvironmentService env, String password) {
-			this(Optional.of(env), Optional.<TextEncryptor> absent(), Optional.of(password));
+			this(Optional.of(env), Optional.of(password));
 		}
 
 		/**
@@ -59,33 +59,16 @@ public final class EncContext {
 		 * Locate the encryption password in the environment
 		 */
 		public Builder(EnvironmentService env) {
-			this(Optional.of(env), Optional.<TextEncryptor> absent(), Optional.<String> absent());
+			this(Optional.of(env), Optional.<String> absent());
 		}
 
-		/**
-		 * Use the text encryptor they gave us
-		 */
-		public Builder(TextEncryptor textEncryptor) {
-			this(EnvUtils.ABSENT, Optional.of(textEncryptor), Optional.<String> absent());
-		}
-
-		/**
-		 * Use the text encryptor they gave us, unless it is overridden by information in the environment
-		 */
-		public Builder(EnvironmentService env, TextEncryptor textEncryptor) {
-			this(Optional.of(env), Optional.of(textEncryptor), Optional.<String> absent());
-		}
-
-		private Builder(Optional<EnvironmentService> env, Optional<TextEncryptor> textEncryptor, Optional<String> password) {
-			if (textEncryptor.isPresent()) {
-				Assert.isFalse(password.isPresent());
-			}
-			if (password.isPresent()) {
-				Assert.isFalse(textEncryptor.isPresent());
+		private Builder(Optional<EnvironmentService> env, Optional<String> password) {
+			if (env.isPresent()) {
+				this.password = SpringUtils.getString(env, PASSWORD_KEYS, password);
+			} else {
+				this.password = password;
 			}
 			this.env = env;
-			this.textEncryptor = textEncryptor;
-			this.password = password;
 		}
 
 		public Builder removeSystemProperties(boolean removeSystemProperties) {
@@ -108,7 +91,6 @@ public final class EncContext {
 				strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, this.strength));
 				required(SpringUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, required));
 				removeSystemProperties(env.get().getBoolean(PASSWORD_REMOVE_KEY, removeSystemProperties));
-				this.password = SpringUtils.getString(env, PASSWORD_KEYS, this.password);
 			}
 		}
 

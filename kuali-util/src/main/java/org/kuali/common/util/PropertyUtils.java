@@ -290,7 +290,7 @@ public class PropertyUtils {
 
 	public static void removeSystemProperty(String key) {
 		if (System.getProperty(key) != null) {
-			logger.debug("Removing system property [{}]", key);
+			logger.info("Removing system property [{}]", key);
 			System.getProperties().remove(key);
 		}
 	}
