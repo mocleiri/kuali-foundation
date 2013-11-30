@@ -101,20 +101,20 @@ public final class KeyPair {
 		}
 
 		@SuppressWarnings("unchecked")
-		private void validate(KeyPair pair, Optional<EncryptionService> enc) {
+		private void validate(KeyPair pair, boolean assertDecryptedPrivateKey) {
 			Assert.noBlanks(pair.getName());
 			Assert.noNulls(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
 			Assert.noBlanksIfPresent(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
-			boolean assertDecryptedPrivateKey = pair.getPrivateKey().isPresent() && enc.isPresent();
-			if (assertDecryptedPrivateKey) {
+			if (assertDecryptedPrivateKey && pair.getPrivateKey().isPresent()) {
 				Assert.notEncrypted(pair.getPrivateKey().get());
 			}
 		}
 
 		public KeyPair build() {
 			finish();
+			boolean assertDecryptedPrivateKey = enc.isPresent();
 			KeyPair pair = new KeyPair(this);
-			validate(pair, enc);
+			validate(pair, assertDecryptedPrivateKey);
 			return pair;
 		}
 
