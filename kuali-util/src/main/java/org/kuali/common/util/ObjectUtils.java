@@ -39,8 +39,8 @@ public class ObjectUtils {
 			return true;
 		}
 
-		// Only bother comparing the toString() methods if they are both not null and are the exact same runtime type
 		if (notEqual(main, other)) {
+			// Don't bother comparing the toString() methods
 			return false;
 		} else {
 			return main.toString().equals(other.toString());
@@ -48,7 +48,13 @@ public class ObjectUtils {
 	}
 
 	/**
-	 * Return true iff <code>other</code> is null OR is a different runtime type than <code>main</code>
+	 * Return true if <code>main</code> is definitely not equal to <code>other</code>. More precisely, if <code>other</code> is null <b>OR</b> a different runtime type than
+	 * <code>main</code>, return true
+	 * 
+	 * @param main
+	 *            The object <code>other</code> is being compared to.
+	 * @param other
+	 *            The object being examined for equality with <code>main</code>.
 	 * 
 	 * @throws NullPointerException
 	 *             If <code>main</cod> is <code>null</code>
