@@ -106,27 +106,34 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 			}
 
 			// Then fall through to "other" providers
+			providers.addAll(getOther());
 
+			// Make the list immutable
+			return ImmutableList.copyOf(providers);
+		}
+
+		protected List<AWSCredentialsProvider> getOther() {
 			// Amazon's EC2 Instance Metadata Service
 			// http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-roles.html
 			// AWS allows you to setup an IAM role and attach that role to an EC2 Instance at launch time
 			// This allows you to automatically authorize java code running on an EC2 instance
-			
-			
-			if (optionalCredentials.isPresent()) {
-				if (instanceCredentialsOverride) {
-					// The EC2 instance credentials (if present) take precedence over the provided credentials
-					providers.add(new InstanceProfileCredentialsProvider());
-				}
-				// Fall through to the credentials they provided
-				providers.add(new SimpleCredentialsProvider(optionalCredentials.get()));
-			} else {
-				// Use EC2 instance credentials as a last resort if no credentials were provided
-				providers.add(new InstanceProfileCredentialsProvider());
+			AWSCredentialsProvider ipcp = new InstanceProfileCredentialsProvider();
+
+			// No optional credentials
+			if (!optionalCredentials.isPresent()) {
+				return ImmutableList.of(ipcp);
 			}
 
-			// Make the list immutable
-			return ImmutableList.copyOf(providers);
+			// Setup a provider that returns the optional credentials they supplied
+			AWSCredentialsProvider simple = new SimpleCredentialsProvider(optionalCredentials.get());
+
+			if (instanceCredentialsOverride) {
+				// EC2 instance credentials first, then the credentials they supplied
+				return ImmutableList.of(ipcp, simple);
+			} else {
+				// Credentials they supplied first, then the EC2 instance credentials
+				return ImmutableList.of(simple, ipcp);
+			}
 		}
 	}
 
