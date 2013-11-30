@@ -42,7 +42,7 @@ public final class EncContext {
 		}
 
 		/**
-		 * Override the supplied password with a password from the environment (if present)
+		 * Use the password they gave us, unless it is overridden by a password in the environment
 		 */
 		public Builder(EnvironmentService env, String password) {
 			this(Optional.of(env), Optional.<TextEncryptor> absent(), Optional.of(password));
@@ -56,7 +56,7 @@ public final class EncContext {
 		}
 
 		/**
-		 * Locate the encryption password in the supplied environment
+		 * Locate the encryption password in the environment
 		 */
 		public Builder(EnvironmentService env) {
 			this(Optional.of(env), Optional.<TextEncryptor> absent(), Optional.<String> absent());
@@ -108,11 +108,7 @@ public final class EncContext {
 				strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, this.strength));
 				required(SpringUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, required));
 				removeSystemProperties(env.get().getBoolean(PASSWORD_REMOVE_KEY, removeSystemProperties));
-				Optional<String> password = SpringUtils.getString(env, PASSWORD_KEYS, this.password);
-				if (password.isPresent()) {
-					TextEncryptor enc = EncUtils.getTextEncryptor(password.get(), this.strength);
-					this.textEncryptor = Optional.of(enc);
-				}
+				this.password = SpringUtils.getString(env, PASSWORD_KEYS, this.password);
 			}
 		}
 
@@ -131,7 +127,8 @@ public final class EncContext {
 		private void finish() {
 			override();
 			if (password.isPresent()) {
-				this.password = Optional.of(Str.reveal(password.get()));
+				TextEncryptor enc = EncUtils.getTextEncryptor(Str.reveal(password.get()), this.strength);
+				this.textEncryptor = Optional.of(enc);
 			}
 		}
 
