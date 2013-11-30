@@ -9,11 +9,11 @@ import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.properties.DefaultPropertiesService;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.ImmutableProperties;
-import org.kuali.common.util.property.processor.EncContextDecryptingProcessor;
 import org.kuali.common.util.property.processor.OverridingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
+import org.kuali.common.util.property.processor.TextEncryptorDecryptingProcessor;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -41,7 +41,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
 		// Setup an encryption context from the overrides properties
 		EnvironmentService basic = new BasicEnvironmentService(overrides);
-		EncContext context = new EncContext.Builder().env(basic).build();
+		EncContext context = new EncContext.Builder(basic).build();
 
 		// Setup a processor that gets invoked on the properties *after* they have all been loaded
 		PropertyProcessor processor = getPostProcessor(overrides, context);
@@ -49,20 +49,13 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		// Setup a service with the overrides and post processor we've configured
 		PropertiesService service = new DefaultPropertiesService(overrides, processor);
 
-		// Now that the service is setup, we can remove any system properties that may contain the encryption password
-		if (context.isRemovePasswordSystemProperty()) {
-			for (String key : context.getPasswordKeys()) {
-				PropertyUtils.removeSystemProperty(key);
-			}
-		}
-
 		// Return the configured service
 		return service;
 	}
 
 	protected PropertyProcessor getPostProcessor(Properties overrides, EncContext context) {
 		PropertyProcessor override = new OverridingProcessor(overrides);
-		PropertyProcessor decrypt = new EncContextDecryptingProcessor(context);
+		PropertyProcessor decrypt = new TextEncryptorDecryptingProcessor(context.getTextEncryptor());
 		PropertyProcessor resolve = new ResolvingProcessor();
 		return new ProcessorsProcessor(override, decrypt, resolve);
 	}

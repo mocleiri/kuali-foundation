@@ -20,37 +20,28 @@ import java.util.Properties;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.enc.EncContext;
-import org.kuali.common.util.enc.EncStrength;
-import org.kuali.common.util.enc.EncUtils;
 
-public final class EncContextDecryptingProcessor implements PropertyProcessor {
+import com.google.common.base.Optional;
 
-	public EncContextDecryptingProcessor() {
-		this(new EncContext.Builder().build());
+public final class TextEncryptorDecryptingProcessor implements PropertyProcessor {
+
+	public TextEncryptorDecryptingProcessor(Optional<TextEncryptor> encryptor) {
+		Assert.noNulls(encryptor);
+		this.encryptor = encryptor;
 	}
 
-	public EncContextDecryptingProcessor(EncContext context) {
-		Assert.noNulls(context);
-		this.context = context;
-	}
-
-	private final EncContext context;
+	private final Optional<TextEncryptor> encryptor;
 
 	@Override
 	public void process(Properties properties) {
 		Assert.noNulls(properties);
-		if (!context.isEnabled()) {
-			return;
+		if (encryptor.isPresent()) {
+			PropertyUtils.decrypt(properties, encryptor.get());
 		}
-		String password = context.getPassword().get();
-		EncStrength strength = context.getStrength();
-		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, strength);
-		PropertyUtils.decrypt(properties, encryptor);
 	}
 
-	public EncContext getContext() {
-		return context;
+	public Optional<TextEncryptor> getTextEncryptor() {
+		return encryptor;
 	}
 
 }
