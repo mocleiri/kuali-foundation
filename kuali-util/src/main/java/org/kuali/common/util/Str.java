@@ -54,7 +54,7 @@ public class Str {
 	 * secret knowledge.
 	 * </p>
 	 * <p>
-	 * Don't use this method for anything more serious than concealing the combination to the cookie jar in the pantry from your 12 year old child. You have been warned :).
+	 * Don't use this method for anything more serious than concealing the combination to the cookie jar in the pantry from your 7 year old child. You have been warned :).
 	 * </p>
 	 * 
 	 * @see reveal
