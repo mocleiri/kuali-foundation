@@ -7,7 +7,7 @@ import java.net.URI;
 /**
  * A <code>CanonicalFile</code> is always both absolute and unique.
  */
-public class CanonicalFile extends File {
+public final class CanonicalFile extends File {
 
 	private static final long serialVersionUID = -8366640724070158688L;
 
@@ -44,6 +44,10 @@ public class CanonicalFile extends File {
 	 */
 	public CanonicalFile(File file) {
 		super(getCanonicalPath(file));
+	}
+
+	public static final CanonicalFile cwd() {
+		return new CanonicalFile(".");
 	}
 
 	protected static String getCanonicalPath(File file) {
