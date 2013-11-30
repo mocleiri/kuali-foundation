@@ -100,8 +100,8 @@ public class EncUtils {
 	 * If enc and string are both present and the string is encrypted, return the decrypted string. Otherwise do nothing.
 	 */
 	public static Optional<String> decrypt(Optional<EncryptionService> enc, Optional<String> string) {
-		if (string.isPresent()) {
-			return Optional.of(decrypt(enc, string.get()));
+		if (enc.isPresent() && string.isPresent()) {
+			return Optional.of(enc.get().decrypt(string.get()));
 		} else {
 			return string;
 		}
@@ -111,28 +111,38 @@ public class EncUtils {
 	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
 	 */
 	public static String decrypt(Optional<EncryptionService> enc, String string) {
-		if (enc.isPresent()) {
-			return enc.get().decrypt(string);
-		} else {
-			return string;
-		}
+		return decrypt(enc, Optional.of(string)).get();
 	}
 
 	/**
-	 * If enc is present and the string is encrypted, return the decrypted string. Otherwise do nothing.
+	 * If enc is present, return a new list containing the same elements in the same order only with any encrypted strings having been decrypted.
 	 */
 	public static List<String> decrypt(Optional<EncryptionService> enc, List<String> strings) {
-		if (enc.isPresent()) {
-			return decrypt(enc, strings);
-		} else {
+		if (!enc.isPresent()) {
 			return strings;
 		}
+		List<String> decrypted = new ArrayList<String>();
+		for (String string : strings) {
+			decrypted.add(enc.get().decrypt(string));
+		}
+		return ImmutableList.copyOf(decrypted);
+	}
+
+	/**
+	 * Return a new list containing the same elements in the same order only with any encrypted strings having been decrypted.
+	 */
+	public static List<String> decrypt(EncryptionService enc, List<String> strings) {
+		return decrypt(Optional.of(enc), strings);
+	}
+
+	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
+		return decrypt(Optional.of(enc), optional);
 	}
 
 	/**
 	 * Decrypt the string if it's encrypted, otherwise do nothing
 	 * 
-	 * @deprecated
+	 * @deprecated Just use EncryptionService.decrypt(string) instead. It no longer throws an exception if you call decrypt on an unencrypted string
 	 */
 	@Deprecated
 	public static String decrypt(EncryptionService enc, String string) {
@@ -141,26 +151,6 @@ public class EncUtils {
 			return enc.decrypt(string);
 		} else {
 			return string;
-		}
-	}
-
-	/**
-	 * Return a new list containing the same elements in the same order only with any encrypted strings having been decrypted.
-	 */
-	public static List<String> decrypt(EncryptionService enc, List<String> strings) {
-		List<String> list = new ArrayList<String>();
-		for (String string : strings) {
-			list.add(enc.decrypt(string));
-		}
-		return ImmutableList.copyOf(list);
-	}
-
-	public static Optional<String> decrypt(EncryptionService enc, Optional<String> optional) {
-		if (optional.isPresent()) {
-			String decrypted = enc.decrypt(optional.get());
-			return Optional.of(decrypted);
-		} else {
-			return Optional.absent();
 		}
 	}
 
