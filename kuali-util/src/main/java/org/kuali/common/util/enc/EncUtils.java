@@ -56,7 +56,7 @@ public class EncUtils {
 	public static String wrap(String text) {
 		Assert.noBlanks(text);
 		Assert.notEncrypted(text);
-		return PREFIX + text + SUFFIX;
+		return MAGIC_PREFIX + text;
 	}
 
 	/**
