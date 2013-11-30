@@ -85,7 +85,7 @@ public class ImmutableCredentials implements AWSCredentials {
 		}
 
 		public AWSCredentials build() {
-			boolean assertNotEncrypted = this.assertNotEncrypted;
+			boolean assertNotEncrypted = this.assertNotEncrypted; // Do this for thread safety
 			AWSCredentials creds = getCredentials(this);
 			validate(creds, assertNotEncrypted);
 			return creds;
