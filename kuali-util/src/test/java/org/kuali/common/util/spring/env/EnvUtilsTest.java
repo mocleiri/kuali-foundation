@@ -1,7 +1,6 @@
 package org.kuali.common.util.spring.env;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 public class EnvUtilsTest {

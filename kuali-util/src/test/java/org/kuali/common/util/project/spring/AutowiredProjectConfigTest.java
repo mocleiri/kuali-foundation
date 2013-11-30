@@ -1,7 +1,6 @@
 package org.kuali.common.util.project.spring;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kuali.common.util.project.KualiUtilProjectConstants;

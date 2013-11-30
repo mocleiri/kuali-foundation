@@ -1,7 +1,6 @@
 package org.kuali.common.util.project;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 
