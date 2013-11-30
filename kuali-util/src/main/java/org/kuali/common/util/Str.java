@@ -41,11 +41,6 @@ public class Str {
 
 	private static final String CONCEALED_PREFIX = "CNC(";
 	private static final String CONCEALED_SUFFIX = ")";
-	private static final int LETTER_OFFSET = 13;
-	private static final int NUMBER_OFFSET = 5;
-	private static final char NUMBER_MIDPOINT = '4';
-	private static final char LCASE_MIDPOINT = 'm';
-	private static final char UCASE_MIDPOINT = 'M';
 
 	/**
 	 * <p>
@@ -66,7 +61,7 @@ public class Str {
 		StringBuilder sb = new StringBuilder();
 		sb.append(CONCEALED_PREFIX);
 		for (char c : chars) {
-			sb.append(flip(c));
+			sb.append(Ascii.flip(c));
 		}
 		sb.append(CONCEALED_SUFFIX);
 		return sb.toString();
@@ -86,7 +81,7 @@ public class Str {
 		char[] chars = substring.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		for (char c : chars) {
-			sb.append(flip(c));
+			sb.append(Ascii.flip(c));
 		}
 		return sb.toString();
 	}
@@ -94,30 +89,6 @@ public class Str {
 	public static final boolean isConcealed(String s) {
 		Assert.noBlanks(s);
 		return StringUtils.startsWith(s, CONCEALED_PREFIX) && StringUtils.endsWith(s, CONCEALED_SUFFIX);
-	}
-
-	private static char flip(char c) {
-		if (Ascii.isLowerCase(c)) {
-			if (c > LCASE_MIDPOINT) {
-				return (char) ((int) c - LETTER_OFFSET);
-			} else {
-				return (char) ((int) c + LETTER_OFFSET);
-			}
-		} else if (Ascii.isUpperCase(c)) {
-			if (c > UCASE_MIDPOINT) {
-				return (char) ((int) c - LETTER_OFFSET);
-			} else {
-				return (char) ((int) c + LETTER_OFFSET);
-			}
-		} else if (Ascii.isNumber(c)) {
-			if (c > NUMBER_MIDPOINT) {
-				return (char) ((int) c - NUMBER_OFFSET);
-			} else {
-				return (char) ((int) c + NUMBER_OFFSET);
-			}
-		} else {
-			return c;
-		}
 	}
 
 	/**
