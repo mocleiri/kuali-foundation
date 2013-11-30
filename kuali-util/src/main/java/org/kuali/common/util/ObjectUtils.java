@@ -58,7 +58,7 @@ public class ObjectUtils {
 		if (main == null) {
 			throw new NullPointerException("main is null");
 		} else if (other == null) {
-			return false;
+			return true;
 		} else {
 			return main.getClass() != other.getClass();
 		}
