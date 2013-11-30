@@ -45,6 +45,8 @@ public final class EnvCredentialsProvider implements AWSCredentialsProvider {
 
 		private void validate(EnvCredentialsProvider provider) {
 			Assert.noNulls(provider.getEnv(), provider.getAccessKeyProperties(), provider.getSecretKeyProperties());
+			Assert.isTrue(provider.getAccessKeyProperties().size() > 0, "Must provide at least one property to examine for AWS Access Key ID");
+			Assert.isTrue(provider.getSecretKeyProperties().size() > 0, "Must provide at least one property to examine for AWS Secret Key");
 		}
 
 		private void override() {
@@ -75,6 +77,8 @@ public final class EnvCredentialsProvider implements AWSCredentialsProvider {
 
 	@Override
 	public AWSCredentials getCredentials() {
+		String accessKey = SpringUtils.getString(env, accessKeyProperties);
+		String secretKey = SpringUtils.getString(env, accessKeyProperties);
 		return null;
 	}
 

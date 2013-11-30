@@ -30,11 +30,7 @@ public enum KeyPairs {
 	private final KeyPair keyPair;
 
 	private KeyPairs(String name, String publicKey, String privateKey) {
-		this(name, publicKey, privateKey, null);
-	}
-
-	private KeyPairs(String name, String publicKey, String privateKey, String fingerprint) {
-		this.keyPair = new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).fingerprint(fingerprint).build();
+		this.keyPair = new KeyPair.Builder(name).publicKey(publicKey).privateKey(privateKey).build();
 	}
 
 	public KeyPair getKeyPair() {
