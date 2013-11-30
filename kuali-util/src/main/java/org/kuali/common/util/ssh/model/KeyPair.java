@@ -107,7 +107,7 @@ public final class KeyPair {
 			Assert.noBlanksIfPresent(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
 			boolean assertDecryptedPrivateKey = pair.getPrivateKey().isPresent() && enc.isPresent();
 			if (assertDecryptedPrivateKey) {
-				Assert.decrypted(pair.getPrivateKey().get());
+				Assert.notEncrypted(pair.getPrivateKey().get());
 			}
 		}
 
