@@ -102,7 +102,6 @@ public class KeyPairMojo extends AbstractMojo {
 	}
 
 	protected String getRelativePath(File file) {
-		File cwd = new CanonicalFile(".");
-		return FileSystemUtils.getRelativePathQuietly(cwd, file).substring(1);
+		return FileSystemUtils.getRelativePathQuietly(CanonicalFile.cwd(), file).substring(1);
 	}
 }
