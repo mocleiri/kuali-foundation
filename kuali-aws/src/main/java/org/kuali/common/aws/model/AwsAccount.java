@@ -23,7 +23,7 @@ public final class AwsAccount {
 		private Optional<String> description = Optional.absent();
 
 		// Allow system properties / environment variables to override explicitly supplied values
-		private Optional<EnvironmentService> env = Optional.absent();
+		private final Optional<EnvironmentService> env;
 		private static final String NAME_KEY = "aws.account";
 		private static final String ACCOUNT_NUMBER_KEY = "aws.accountNumber";
 		private static final String ACCOUNT_DESCRIPTION_KEY = "aws.accountDescription";
