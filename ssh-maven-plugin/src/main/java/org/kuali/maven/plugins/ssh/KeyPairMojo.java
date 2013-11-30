@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.file.CanonicalFile;
@@ -36,14 +35,6 @@ import org.kuali.common.util.ssh.model.KeyPair;
  * @goal keypair
  */
 public class KeyPairMojo extends AbstractMojo {
-
-	/**
-	 * The Maven project object
-	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
-	 */
-	private MavenProject project;
 
 	/**
 	 * 
@@ -76,7 +67,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The file where the public key is generated
 	 * 
-	 * @parameter expression="${ssh.publicKey}" default-value="${project.build.directory}/ssh/id_rsa.pub"
+	 * @parameter expression="${ssh.publicKey}" default-value="./target/ssh/id_rsa.pub"
 	 * @required
 	 */
 	private File publicKey;
@@ -85,14 +76,14 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The file where the private key is generated
 	 * 
-	 * @parameter expression="${ssh.privateKey}" default-value="${project.build.directory}/ssh/id_rsa"
+	 * @parameter expression="${ssh.privateKey}" default-value="./target/ssh/id_rsa"
 	 * @required
 	 */
 	private File privateKey;
 
 	@Override
 	public void execute() {
-		Assert.noNulls(project, publicKey, privateKey);
+		Assert.noNulls(publicKey, privateKey);
 		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(name).algorithm(algorithm).size(size).build();
 		SshService service = new DefaultSshService();
 		KeyPair keyPair = service.generateKeyPair(context);
@@ -111,7 +102,8 @@ public class KeyPairMojo extends AbstractMojo {
 	}
 
 	protected String getRelativePath(File file) {
-		File parentDir = new CanonicalFile(project.getBasedir());
+		File baseDir = new File(".");
+		File parentDir = new CanonicalFile(baseDir);
 		return FileSystemUtils.getRelativePathQuietly(parentDir, file).substring(1);
 	}
 }
