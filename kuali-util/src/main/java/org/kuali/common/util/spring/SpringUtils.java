@@ -69,6 +69,10 @@ public class SpringUtils {
 		return getProperty(env, keys, type, Optional.fromNullable(provided)).orNull();
 	}
 
+	public static <T> Optional<T> getProperty(Optional<EnvironmentService> env, String key, Class<T> type, Optional<T> provided) {
+		return getProperty(env, ImmutableList.of(key), type, provided);
+	}
+
 	public static <T> Optional<T> getProperty(Optional<EnvironmentService> env, List<String> keys, Class<T> type, Optional<T> provided) {
 		if (!env.isPresent()) {
 			return provided;
