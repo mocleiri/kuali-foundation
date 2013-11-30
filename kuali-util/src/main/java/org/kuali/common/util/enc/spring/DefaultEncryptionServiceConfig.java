@@ -2,9 +2,9 @@ package org.kuali.common.util.enc.spring;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.enc.DefaultEncryptionService;
+import org.kuali.common.util.enc.EncContext;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.EncryptionContext;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.enc.NoOpEncryptionService;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -24,7 +24,7 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 	@Override
 	@Bean
 	public EncryptionService encryptionService() {
-		EncryptionContext context = EncUtils.getEncryptionContext(env);
+		EncContext context = new EncContext.Builder().build();
 		if (!context.isEnabled()) {
 			return NoOpEncryptionService.INSTANCE;
 		}
@@ -33,5 +33,4 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, strength);
 		return new DefaultEncryptionService(encryptor);
 	}
-
 }
