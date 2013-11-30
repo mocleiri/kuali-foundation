@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util.property;
 
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.property.processor.NoOpProcessor;
@@ -23,7 +24,9 @@ import org.springframework.util.PropertyPlaceholderHelper;
 
 public final class Constants {
 
-	public static final String UTF8 = "UTF-8";
+	@Deprecated
+	public static final String UTF8 = Encodings.UTF8;
+	@Deprecated
 	public static final String DEFAULT_ENCODING = UTF8;
 	@Deprecated
 	public static final String DEFAULT_MAVEN_PROPERTIES_BEAN_NAME = MavenConstants.PROPERTIES_BEAN_NAME;

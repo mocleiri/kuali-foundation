@@ -34,6 +34,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -60,7 +61,7 @@ public class DefaultSecureChannel implements SecureChannel {
 	private static final String EXEC = "exec";
 	private static final String FORWARDSLASH = "/";
 	private static final int DEFAULT_SLEEP_MILLIS = 10;
-	private static final String DEFAULT_ENCODING = "UTF-8";
+	private static final String DEFAULT_ENCODING = Encodings.UTF8;
 
 	File knownHosts = SSHUtils.DEFAULT_KNOWN_HOSTS;
 	File config = SSHUtils.DEFAULT_CONFIG_FILE;

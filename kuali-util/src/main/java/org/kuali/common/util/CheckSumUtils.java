@@ -26,7 +26,7 @@ public class CheckSumUtils {
 
 	private static final String MD5 = "MD5";
 	private static final String SHA1 = "SHA1";
-	private static final String UTF8 = "UTF-8";
+	private static final String UTF8 = Encodings.UTF8;
 
 	public static String getSHA1Checksum(String message) {
 		return getChecksum(message, SHA1);

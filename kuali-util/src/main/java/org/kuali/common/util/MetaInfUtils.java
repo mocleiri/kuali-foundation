@@ -93,7 +93,7 @@ public class MetaInfUtils {
 		logger.debug("doProperties()");
 		Properties properties = getProperties(context, resources);
 		File propertiesFile = new File(LocationUtils.getCanonicalPath(context.getOutputFile()) + ".properties");
-		PropertyUtils.store(properties, propertiesFile, "UTF-8");
+		PropertyUtils.store(properties, propertiesFile, Encodings.UTF8);
 	}
 
 	public static Properties getProperties(org.kuali.common.util.metainf.MetaInfContext context, List<MetaInfResource> resources) {

@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Str {
 
 	public static final String EMPTY_STRING = "";
-	public static final String UTF8 = "UTF-8";
+	public static final String UTF8 = Encodings.UTF8;
 	public static final String COMMA = ",";
 	public static final String SPACE = " ";
 	public static final String CR = "\r";

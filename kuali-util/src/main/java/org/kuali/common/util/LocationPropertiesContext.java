@@ -20,7 +20,7 @@ import java.util.Properties;
 public class LocationPropertiesContext {
 
 	Properties properties;
-	String encoding = "UTF-8";
+	String encoding = Encodings.UTF8;
 	String keySuffix = ".list";
 	String locationPropertiesSuffix = ".properties";
 

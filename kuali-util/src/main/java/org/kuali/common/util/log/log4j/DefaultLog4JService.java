@@ -18,6 +18,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.log.log4j.model.Log4JConfiguration;
@@ -29,7 +30,7 @@ import org.xml.sax.SAXException;
 public final class DefaultLog4JService implements Log4JService {
 
 	// ASCII should actually be good enough, log4j config files shouldn't contain special characters
-	private static final String ENCODING = "UTF-8";
+	private static final String ENCODING = Encodings.UTF8;
 	private static final String PROPERTIES_SUFFIX = ".properties";
 	private static final String XML_SUFFIX = ".xml";
 	private static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";

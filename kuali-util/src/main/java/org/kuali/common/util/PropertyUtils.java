@@ -68,7 +68,7 @@ public class PropertyUtils {
 	private static final PropertyPlaceholderHelper HELPER = new PropertyPlaceholderHelper("${", "}", ":", false);
 	public static final String ENV_PREFIX = "env";
 	private static final String DEFAULT_ENCODING = Charset.defaultCharset().name();
-	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+	private static final String DEFAULT_XML_ENCODING = Encodings.UTF8;
 
 	/**
 	 * If there is no value for <code>key</code> or the value is NULL or NONE, return Optional.absent(), otherwise return Optional.of(value)

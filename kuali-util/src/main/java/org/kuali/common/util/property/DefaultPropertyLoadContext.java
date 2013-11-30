@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.ModeUtils;
@@ -44,7 +45,7 @@ public class DefaultPropertyLoadContext extends DefaultPropertyContext implement
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertyLoadContext.class);
 
 	List<String> locations;
-	String encoding = "UTF-8";
+	String encoding = Encodings.UTF8;
 	String missingLocationsMode = Mode.INFORM.name();
 	Properties locationHelperProperties;
 	String locationHelperInclude;

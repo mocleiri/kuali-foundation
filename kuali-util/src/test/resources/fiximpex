@@ -44,3 +44,19 @@ fdisk -l
 resize2fs /dev/xvda1
 df -h
 echo $(date)
+
+
+
+src/main/java/org/kuali/common/util/CheckSumUtils.java:	private static final String UTF8 = "UTF-8";
+src/main/java/org/kuali/common/util/config/Location.java:	public static final String DEFAULT_ENCODING = "UTF-8";
+src/main/java/org/kuali/common/util/execute/StorePropertiesExecutable.java:	String encoding = "UTF-8";
+src/main/java/org/kuali/common/util/LocationPropertiesContext.java:	String encoding = "UTF-8";
+src/main/java/org/kuali/common/util/log/log4j/DefaultLog4JService.java:	private static final String ENCODING = "UTF-8";
+src/main/java/org/kuali/common/util/log4j/DefaultLog4JService.java:	protected static final String ENCODING = "UTF-8";
+src/main/java/org/kuali/common/util/MetaInfUtils.java:		PropertyUtils.store(properties, propertiesFile, "UTF-8");
+src/main/java/org/kuali/common/util/property/Constants.java:	public static final String UTF8 = "UTF-8";
+src/main/java/org/kuali/common/util/property/DefaultPropertyLoadContext.java:	String encoding = "UTF-8";
+src/main/java/org/kuali/common/util/PropertyUtils.java:	private static final String DEFAULT_XML_ENCODING = "UTF-8";
+src/main/java/org/kuali/common/util/secure/channel/DefaultSecureChannel.java:		private String encoding = "UTF-8";
+src/main/java/org/kuali/common/util/secure/DefaultSecureChannel.java:	private static final String DEFAULT_ENCODING = "UTF-8";
+src/main/java/org/kuali/common/util/Str.java:	public static final String UTF8 = "UTF-8";

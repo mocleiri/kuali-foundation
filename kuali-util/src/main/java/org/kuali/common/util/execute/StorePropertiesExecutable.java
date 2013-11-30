@@ -19,13 +19,14 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.util.Assert;
 
 public class StorePropertiesExecutable implements Executable {
 
-	String encoding = "UTF-8";
+	String encoding = Encodings.UTF8;
 	boolean skip;
 	boolean skipIfExists = true;
 	boolean skipIfEqual = true;

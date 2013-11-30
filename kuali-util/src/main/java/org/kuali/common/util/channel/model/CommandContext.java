@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.stream.NoOpStreamConsumer;
 
@@ -40,7 +41,7 @@ public final class CommandContext {
 	public static class Builder {
 
 		private static final int SUCCESS = 0;
-		private static final String UTF8 = "UTF-8";
+		private static final String UTF8 = Encodings.UTF8;
 
 		// Required
 		private final byte[] command;

@@ -18,6 +18,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.xml.service.XmlService;
@@ -31,7 +32,7 @@ import org.xml.sax.SAXException;
 @Deprecated
 public final class DefaultLog4JService implements Log4JService {
 
-	protected static final String ENCODING = "UTF-8";
+	protected static final String ENCODING = Encodings.UTF8;
 	protected static final String PROPERTIES_SUFFIX = ".properties";
 	protected static final String XML_SUFFIX = ".xml";
 	protected static final String UNSUPPORTED_LOCATION_TYPE = "Only " + PROPERTIES_SUFFIX + " and " + XML_SUFFIX + " locations are supported";

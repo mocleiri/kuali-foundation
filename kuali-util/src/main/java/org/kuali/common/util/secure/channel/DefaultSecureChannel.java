@@ -32,6 +32,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
@@ -587,7 +588,7 @@ public final class DefaultSecureChannel implements SecureChannel {
 		private boolean strictHostKeyChecking = true;
 		private int port = SSHUtils.DEFAULT_PORT;
 		private int waitForClosedSleepMillis = 10;
-		private String encoding = "UTF-8";
+		private String encoding = Encodings.UTF8;
 		private Optional<Integer> connectTimeout = Optional.absent();
 		private Properties options = ImmutableProperties.of();
 		private List<File> privateKeys = ImmutableList.of();

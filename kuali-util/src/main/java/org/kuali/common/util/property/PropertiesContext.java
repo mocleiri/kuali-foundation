@@ -18,13 +18,14 @@ package org.kuali.common.util.property;
 import java.util.List;
 import java.util.Properties;
 
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Mode;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class PropertiesContext {
 
 	protected PropertyPlaceholderHelper helper = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
-	protected String encoding = Constants.DEFAULT_ENCODING;
+	protected String encoding = Encodings.UTF8;
 	protected Mode missingLocationsMode = Mode.ERROR;
 	protected Properties properties;
 	protected List<String> locations;
@@ -39,7 +40,7 @@ public class PropertiesContext {
 	}
 
 	public PropertiesContext(List<String> locations) {
-		this(locations, Constants.DEFAULT_ENCODING);
+		this(locations, Encodings.UTF8);
 	}
 
 	public PropertiesContext(List<String> locations, String encoding) {

@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.Mode;
 
 /**
@@ -31,7 +32,7 @@ import org.kuali.common.util.Mode;
 public class Location {
 
 	public static final Mode DEFAULT_MISSING_MODE = Mode.ERROR;
-	public static final String DEFAULT_ENCODING = "UTF-8";
+	public static final String DEFAULT_ENCODING = Encodings.UTF8;
 
 	Mode missingMode = DEFAULT_MISSING_MODE;
 	String encoding = DEFAULT_ENCODING;
