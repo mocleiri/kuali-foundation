@@ -49,7 +49,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The algorithm to use, RSA or DSA
 	 * 
-	 * @parameter expression="${enc.algorithm}" default-value="RSA"
+	 * @parameter expression="${ssh.algorithm}" default-value="RSA"
 	 * @required
 	 */
 	private Algorithm algorithm;
@@ -58,7 +58,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The key size
 	 * 
-	 * @parameter expression="${enc.size}" default-value="2048"
+	 * @parameter expression="${ssh.size}" default-value="2048"
 	 * @required
 	 */
 	private int size;
@@ -67,7 +67,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The key name
 	 * 
-	 * @parameter expression="${enc.name}" default-value="${user.name}"
+	 * @parameter expression="${ssh.name}" default-value="${user.name}"
 	 * @required
 	 */
 	private String name;
@@ -76,7 +76,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The file where the public key is generated
 	 * 
-	 * @parameter expression="${enc.publicKey}" default-value="${project.build.directory}/enc/id_rsa.pub"
+	 * @parameter expression="${ssh.publicKey}" default-value="${project.build.directory}/ssh/id_rsa.pub"
 	 * @required
 	 */
 	private File publicKey;
@@ -85,7 +85,7 @@ public class KeyPairMojo extends AbstractMojo {
 	 * 
 	 * The file where the private key is generated
 	 * 
-	 * @parameter expression="${enc.publicKey}" default-value="${project.build.directory}/enc/id_rsa"
+	 * @parameter expression="${ssh.privateKey}" default-value="${project.build.directory}/ssh/id_rsa"
 	 * @required
 	 */
 	private File privateKey;
