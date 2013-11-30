@@ -31,6 +31,7 @@ public class EncUtils {
 
 	private static final String ENCRYPTED_PREFIX = "ENC(";
 	private static final String ENCRYPTED_SUFFIX = ")";
+	private static final List<Pair> PAIRS = ImmutableList.of(new Pair(ENCRYPTED_PREFIX, ENCRYPTED_SUFFIX), new Pair("ENC-", "-"));
 
 	public static final Optional<EncryptionService> ABSENT = Optional.absent();
 
@@ -38,14 +39,19 @@ public class EncUtils {
 	 * Return true if the text is enclosed with <code>ENC()</code>
 	 */
 	public static boolean isEncrypted(String text) {
-		return StringUtils.startsWith(text, ENCRYPTED_PREFIX) && StringUtils.endsWith(text, ENCRYPTED_SUFFIX);
+		if (StringUtils.isBlank(text)) {
+			return false;
+		} else {
+			return isMatch(text, PAIRS);
+		}
 	}
 
 	public static String unwrap(String wrappedText) {
 		Assert.noBlanks(wrappedText);
 		Assert.encrypted(wrappedText);
-		int start = ENCRYPTED_PREFIX.length();
-		int end = wrappedText.length() - ENCRYPTED_SUFFIX.length();
+		Pair pair = getMatch(wrappedText, PAIRS);
+		int start = pair.getPrefix().length();
+		int end = wrappedText.length() - pair.getSuffix().length();
 		return wrappedText.substring(start, end);
 	}
 
@@ -124,4 +130,44 @@ public class EncUtils {
 		return decrypt(Optional.of(enc), optional);
 	}
 
+	protected static Pair getMatch(String text, List<Pair> pairs) {
+		for (Pair pair : pairs) {
+			if (isMatch(text, pair)) {
+				return pair;
+			}
+		}
+		throw new IllegalStateException("No matching prefix/suffix pair for [" + text + "]");
+	}
+
+	protected static boolean isMatch(String text, List<Pair> pairs) {
+		for (Pair pair : pairs) {
+			if (isMatch(text, pair)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected static boolean isMatch(String text, Pair pair) {
+		return text.startsWith(pair.getPrefix()) && text.endsWith(pair.getSuffix());
+	}
+
+	private static final class Pair {
+		public Pair(String prefix, String suffix) {
+			Assert.noBlanks(prefix, suffix);
+			this.prefix = prefix;
+			this.suffix = suffix;
+		}
+
+		private final String prefix;
+		private final String suffix;
+
+		public String getPrefix() {
+			return prefix;
+		}
+
+		public String getSuffix() {
+			return suffix;
+		}
+	}
 }
