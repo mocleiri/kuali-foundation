@@ -23,6 +23,9 @@ import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class CopyLocationsToDirectoryExecutable extends AbstractCopyLocationsExecutable {
 

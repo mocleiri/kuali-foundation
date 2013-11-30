@@ -22,7 +22,6 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.EncryptionContext;
 
 /**
  * @deprecated
@@ -31,15 +30,15 @@ import org.kuali.common.util.enc.EncryptionContext;
 public final class ContextDecryptingProcessor implements PropertyProcessor {
 
 	public ContextDecryptingProcessor() {
-		this(EncryptionContext.DEFAULT);
+		this(org.kuali.common.util.enc.EncryptionContext.DEFAULT);
 	}
 
-	public ContextDecryptingProcessor(EncryptionContext context) {
+	public ContextDecryptingProcessor(org.kuali.common.util.enc.EncryptionContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 	}
 
-	private final EncryptionContext context;
+	private final org.kuali.common.util.enc.EncryptionContext context;
 
 	@Override
 	public void process(Properties properties) {
@@ -53,7 +52,7 @@ public final class ContextDecryptingProcessor implements PropertyProcessor {
 		PropertyUtils.decrypt(properties, encryptor);
 	}
 
-	public EncryptionContext getContext() {
+	public org.kuali.common.util.enc.EncryptionContext getContext() {
 		return context;
 	}
 

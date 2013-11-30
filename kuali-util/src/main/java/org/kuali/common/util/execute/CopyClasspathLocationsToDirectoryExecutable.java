@@ -22,23 +22,26 @@ import org.kuali.common.util.LocationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class CopyClasspathLocationsToDirectoryExecutable extends AbstractCopyLocationsExecutable {
 
 	private static final Logger logger = LoggerFactory.getLogger(CopyClasspathLocationsToDirectoryExecutable.class);
 
-    public CopyClasspathLocationsToDirectoryExecutable() {
-        super(null, null);
-    }
+	public CopyClasspathLocationsToDirectoryExecutable() {
+		super(null, null);
+	}
 
-    public CopyClasspathLocationsToDirectoryExecutable(String locationListing, File directory) {
-        super(locationListing, directory);
-    }
+	public CopyClasspathLocationsToDirectoryExecutable(String locationListing, File directory) {
+		super(locationListing, directory);
+	}
 
 	@Override
 	protected List<File> getFiles(List<String> locations) {
 		List<String> filenames = LocationUtils.getClasspathFilenames(locations);
 		logger.debug("Located {} files", filenames.size());
 		return LocationUtils.getFiles(directory, filenames);
-    }
+	}
 }
