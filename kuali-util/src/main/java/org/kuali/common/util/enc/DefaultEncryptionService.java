@@ -24,7 +24,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 		if (EncUtils.isEncrypted(text)) {
 			return text; // It's already encrypted, just return it
 		}
-		Assert.decrypted(text);
+		Assert.notEncrypted(text);
 		String encryptedText = encryptor.encrypt(text);
 		return EncUtils.wrap(encryptedText);
 	}

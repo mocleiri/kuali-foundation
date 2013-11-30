@@ -76,7 +76,7 @@ public final class EncContext {
 			// If the password is present, it can't be blank, encrypted, or concealed
 			if (ctx.getPassword().isPresent()) {
 				Assert.noBlanks(ctx.getPassword().get());
-				Assert.decrypted(ctx.getPassword().get());
+				Assert.notEncrypted(ctx.getPassword().get());
 				Assert.notConcealed(ctx.getPassword().get());
 			}
 		}

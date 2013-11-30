@@ -52,8 +52,19 @@ public abstract class Assert extends org.springframework.util.Assert {
 	/**
 	 * Assert that <code>text</code> is not wrapped inside of <code>ENC()</code>
 	 */
-	public static void decrypted(String text) {
+	public static void notEncrypted(String text) {
 		isFalse(EncUtils.isEncrypted(text), "text is already encrypted");
+	}
+
+	/**
+	 * Assert that <code>text</code> is not wrapped inside of <code>ENC()</code>
+	 * 
+	 * @deprecated use notEncrypted instead
+	 * @see notEncrypted
+	 */
+	@Deprecated
+	public static void decrypted(String text) {
+		notEncrypted(text);
 	}
 
 	/**
