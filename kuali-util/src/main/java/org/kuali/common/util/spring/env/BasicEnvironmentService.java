@@ -41,7 +41,7 @@ public final class BasicEnvironmentService implements EnvironmentService {
 	 * Uses <code>properties</code> to resolve values
 	 */
 	public BasicEnvironmentService(Properties properties) {
-		this(new EnvironmentServiceContext.Builder(properties).build());
+		this(new EnvironmentServiceContext.Builder().env(properties).build());
 	}
 
 	/**

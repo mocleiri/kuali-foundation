@@ -26,11 +26,8 @@ public final class EnvironmentServiceContext {
 		private static final String RESOLVE_STRINGS_KEY = "env.resolveStrings";
 		private static final String MISSING_PROPERTY_MODE_KEY = "env.missingPropertyMode";
 
-		public Builder() {
-		}
-
-		public Builder(Properties properties) {
-			env(new PropertiesEnvironment(properties));
+		public Builder env(Properties properties) {
+			return env(new PropertiesEnvironment(properties));
 		}
 
 		public Builder env(Environment env) {
