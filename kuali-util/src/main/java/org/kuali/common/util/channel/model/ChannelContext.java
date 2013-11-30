@@ -243,11 +243,11 @@ public final class ChannelContext {
 		}
 
 		public Builder privateKey(String privateKey) {
-			String trimmed = NullUtils.trimToNull(privateKey);
-			if (trimmed == null) {
-				return privateKeys(ImmutableList.<String> of());
+			Optional<String> trimmed = NullUtils.toAbsent(privateKey);
+			if (trimmed.isPresent()) {
+				return privateKeys(ImmutableList.of(trimmed.get()));
 			} else {
-				return privateKeys(ImmutableList.of(trimmed));
+				return privateKeys(ImmutableList.<String> of());
 			}
 		}
 
