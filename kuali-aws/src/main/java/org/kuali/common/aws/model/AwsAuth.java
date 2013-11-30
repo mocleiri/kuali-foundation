@@ -1,7 +1,7 @@
 package org.kuali.common.aws.model;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.enc.KeyPair;
+import org.kuali.common.util.ssh.model.KeyPair;
 
 import com.amazonaws.auth.AWSCredentials;
 

@@ -58,7 +58,7 @@ public class ImmutableCredentials implements AWSCredentials {
 
 		private void validate(AWSCredentials creds) {
 			Assert.noBlanks(creds.getAWSAccessKeyId(), creds.getAWSSecretKey());
-			Assert.decrypted(creds.getAWSSecretKey());
+			Assert.notEncrypted(creds.getAWSSecretKey());
 			if (creds instanceof AWSSessionCredentials) {
 				AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
 				Assert.noBlanks(sessionCreds.getSessionToken());
