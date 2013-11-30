@@ -30,14 +30,14 @@ import com.google.common.collect.ImmutableList;
 
 public class EncUtils {
 
-	private static final String MAGIC_PREFIX = "ENC--"; // Handy for cli. Parenthesis tend to confuse shells
+	private static final String MAGIC_PREFIX = "enc--"; // Handy for cli. Parenthesis tend to confuse shells
 	private static final String PREFIX = "ENC(";
 	private static final String SUFFIX = ")";
 
 	public static final Optional<EncryptionService> ABSENT = Optional.absent();
 
 	/**
-	 * Return true if the text is enclosed with <code>ENC()</code> or starts with <code>ENC--</code>
+	 * Return true if the text is enclosed with <code>ENC()</code> or starts with <code>enc--</code>
 	 */
 	public static boolean isEncrypted(String text) {
 		if (StringUtils.isBlank(text)) {

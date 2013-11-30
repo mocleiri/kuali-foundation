@@ -39,12 +39,11 @@ public class Str {
 	public static final String CDATA_SUFFIX = "]]>";
 	public static final String[] EMPTY_ARRAY = new String[0];
 
-	private static final String CONCEALED_PREFIX = "cnc-";
-	private static final String CONCEALED_SUFFIX = "-cnc";
+	private static final String CONCEALED_PREFIX = "cnc--";
 
 	/**
 	 * <p>
-	 * A trivial way to conceal property values. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The algorithm
+	 * A trivial way to conceal <code>text</code>. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The algorithm
 	 * is completely trivial and exceedingly simple to reverse engineer. Not to mention, the <code>reveal()</code> method can reproduce the original string without requiring any
 	 * secret knowledge.
 	 * </p>
@@ -55,13 +54,13 @@ public class Str {
 	 * </p>
 	 * 
 	 * <p>
-	 * Think a hungry sales or marketing rep who stumbles across a config file with the entry <code>vending.machine.refill.day=WED</code> in it and tries to change that to
-	 * <code>MON</code> in order to beat a case of the munchies. :)
+	 * Think a hungry sales or marketing rep who stumbles across a config file with the entry <code>vending.machine.refill.day=wed</code> in it and tries to change that to
+	 * <code>mon</code> in order to beat a case of the munchies. :)
 	 * </p>
 	 * 
 	 * <p>
-	 * If the entry says <code>vending.machine.refill.day=cnc-JRQ-cnc</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before
-	 * they change it <b>OR</b> just give up and head out to lunch instead.
+	 * If the entry says <code>vending.machine.refill.day=cnc--jrq</code> instead of <code>vending.machine.refill.day=wed</code> they are far more likely to ask around before they
+	 * change it <b>OR</b> just give up and head out to lunch instead.
 	 * </p>
 	 * 
 	 * @see reveal
@@ -81,7 +80,6 @@ public class Str {
 		for (char c : chars) {
 			sb.append(Ascii.flip(c));
 		}
-		sb.append(CONCEALED_SUFFIX);
 		return sb.toString();
 	}
 
@@ -99,7 +97,7 @@ public class Str {
 			return text;
 		}
 		Assert.concealed(text);
-		String substring = remove(text, CONCEALED_PREFIX, CONCEALED_SUFFIX);
+		String substring = removePrefix(text, CONCEALED_PREFIX);
 		char[] chars = substring.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		for (char c : chars) {
@@ -112,7 +110,7 @@ public class Str {
 	 * Return true if <code>text</code> is concealed
 	 */
 	public static final boolean isConcealed(String text) {
-		return matches(text, CONCEALED_PREFIX, CONCEALED_SUFFIX);
+		return StringUtils.startsWith(text, CONCEALED_PREFIX);
 	}
 
 	/**
