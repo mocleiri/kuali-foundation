@@ -13,8 +13,6 @@ import com.google.common.collect.ImmutableList;
 
 public final class EncContext {
 
-	public static final EncContext DEFAULT = new EncContext.Builder().build();
-
 	private final boolean enabled;
 	private final boolean passwordRequired;
 	private final boolean removePasswordSystemProperty;
