@@ -524,6 +524,48 @@ public class PropertyUtils {
 	}
 
 	/**
+	 * <p>
+	 * Conceal property values using a trivial algorithm. Concealed values are surrounded by CNC(...). Do <b>NOT</b> use this method in an attempt to obscure truly sensitive
+	 * property values (eg database passwords). The algorithm is trivial, exceedingly simple to reverse engineer, and the original property values can be reproduced by the
+	 * <code>reveal()</code> method without requiring any secret knowledge.
+	 * </p>
+	 * 
+	 * <p>
+	 * Don't use this method for anything more serious than concealing property values that would reveal the location where you hid the cookie jar from your 7 year old. :)
+	 * </p>
+	 * 
+	 * Example property:
+	 * 
+	 * <pre>
+	 * foo=bar.baz -> foo=CNC(one.onm)
+	 * </pre>
+	 */
+	public static void conceal(Properties properties) {
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String concealed = Str.conceal(value);
+			properties.setProperty(key, concealed);
+		}
+	}
+
+	/**
+	 * Reveal property values that were concealed by the <code>conceal</code> method
+	 * 
+	 * <pre>
+	 * foo=CNC(one.onm) -> foo=bar.baz
+	 * </pre>
+	 */
+	public static void reveal(Properties properties) {
+		List<String> keys = getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			String revealed = Str.reveal(value);
+			properties.setProperty(key, revealed);
+		}
+	}
+
+	/**
 	 * Encrypt all of the property values. Encrypted values are surrounded by ENC(...).
 	 * 
 	 * <pre>

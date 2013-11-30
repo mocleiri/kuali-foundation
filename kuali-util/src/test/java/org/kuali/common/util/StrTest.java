@@ -16,4 +16,9 @@ public class StrTest {
 		Assert.assertEquals(revealed, Str.reveal(revealed)); // Attempting to reveal an already revealed string is a NOOP
 	}
 
+	@Test
+	public void test2() {
+		String original = "bar.baz";
+		System.out.println(Str.conceal(original));
+	}
 }
