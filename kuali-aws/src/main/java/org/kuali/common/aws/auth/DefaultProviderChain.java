@@ -21,6 +21,7 @@ import java.util.List;
 import org.kuali.common.aws.model.ImmutableCredentials;
 import org.kuali.common.aws.model.ImmutableSessionCredentials;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.enc.EncUtils;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.spring.env.EnvironmentService;
@@ -158,11 +159,17 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 		return instanceCredentialsOverride;
 	}
 
+	protected String getSecretKey(String privateKey) {
+		String r1 = Str.reveal(privateKey);
+		String enc = EncUtils.decrypt(this.enc, r1);
+		return Str.reveal(enc);
+	}
+
 	@Override
 	public AWSCredentials getCredentials() {
 		AWSCredentials creds = super.getCredentials();
 		String accessKey = creds.getAWSAccessKeyId();
-		String secretKey = EncUtils.decrypt(enc, creds.getAWSSecretKey());
+		String secretKey = getSecretKey(creds.getAWSSecretKey());
 		if (creds instanceof AWSSessionCredentials) {
 			AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
 			return new ImmutableSessionCredentials(accessKey, secretKey, sessionCreds.getSessionToken());
