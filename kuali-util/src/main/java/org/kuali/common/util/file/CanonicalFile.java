@@ -46,6 +46,9 @@ public final class CanonicalFile extends File {
 		super(getCanonicalPath(file));
 	}
 
+	/**
+	 * Return the current working directory.
+	 */
 	public static final CanonicalFile cwd() {
 		return new CanonicalFile(".");
 	}
