@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.pom</groupId>
     <artifactId>kuali-common</artifactId>
-    <version>3.3.33</version>
+    <version>3.3.36</version>
   </parent>
   <groupId>org.kuali.common</groupId>
   <artifactId>kuali-util</artifactId>
@@ -46,17 +46,17 @@
   </developers>
   <properties>
     <kuali.release.arguments>-DskipTests -Pkuali-release</kuali.release.arguments>
-    <spring.version>3.2.1.RELEASE</spring.version>
-    <junit.version>4.10</junit.version>
+    <spring.version>3.2.5.RELEASE</spring.version>
+    <junit.version>4.11</junit.version>
     <slf4j.version>1.7.5</slf4j.version>
     <io.version>2.4</io.version>
     <lang.version>3.1</lang.version>
-    <jasypt.version>1.9.0</jasypt.version>
+    <jasypt.version>1.9.1</jasypt.version>
     <beanutils.version>1.8.3-kuali-4</beanutils.version>
     <jsch.version>0.1.50</jsch.version>
-    <plexus-utils.version>3.0.10</plexus-utils.version>
-    <guava.version>14.0.1</guava.version>
-    <eclipse-moxy.version>2.5.0</eclipse-moxy.version>
+    <plexus-utils.version>3.0.15</plexus-utils.version>
+    <guava.version>15.0</guava.version>
+    <eclipse-moxy.version>2.5.1</eclipse-moxy.version>
   </properties>
   <profiles>
     <profile>
