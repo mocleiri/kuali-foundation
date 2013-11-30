@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>enc-maven-plugin</name>
+  <name>ssh-maven-plugin</name>
   <projects>
   </projects>
   <buildSpec>
