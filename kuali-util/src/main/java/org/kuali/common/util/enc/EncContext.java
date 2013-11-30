@@ -27,12 +27,11 @@ public final class EncContext {
 		private boolean removePasswordSystemProperty = true;
 		private Optional<String> password = Optional.absent();
 		private EncStrength strength = EncStrength.BASIC;
-		
+
 		private Optional<Environment> env = Optional.absent();
 		private static final List<String> PASSWORD_KEYS = ImmutableList.of("enc.password", "properties.enc.password");
 		private static final List<String> STRENGTH_KEYS = ImmutableList.of("enc.strength", "properties.enc.strength");
 		private static final List<String> PASSWORD_REQUIRED_KEYS = ImmutableList.of("enc.password.required", "properties.decrypt");
-
 
 		// For convenience only. enabled == password.isPresent()
 		private boolean enabled = false;
@@ -73,6 +72,7 @@ public final class EncContext {
 			if (ctx.isPasswordRequired()) {
 				Assert.isTrue(ctx.getPassword().isPresent(), "Encryption password is required");
 			}
+			// If the password is present, it cannot be blank
 			if (ctx.getPassword().isPresent()) {
 				Assert.noBlanks(ctx.getPassword().get());
 			}

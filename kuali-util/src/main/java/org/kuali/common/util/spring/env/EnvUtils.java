@@ -15,14 +15,6 @@ public class EnvUtils {
 
 	private static final String ENV_PREFIX = "env";
 
-	public static <T> T getProperty(Optional<Environment> env, List<String> keys, Class<T> type, T provided) {
-		if (!env.isPresent()) {
-			return provided;
-		} else {
-			return getProperty(env, keys, type, Optional.fromNullable(provided)).orNull();
-		}
-	}
-
 	public static <T> Optional<T> getProperty(Optional<Environment> env, List<String> keys, Class<T> type, Optional<T> provided) {
 		if (!env.isPresent()) {
 			return provided;
@@ -36,22 +28,16 @@ public class EnvUtils {
 		return provided;
 	}
 
+	public static <T> T getProperty(Optional<Environment> env, List<String> keys, Class<T> type, T provided) {
+		return getProperty(env, keys, type, Optional.fromNullable(provided)).orNull();
+	}
+
 	public static Optional<String> getString(Optional<Environment> env, List<String> keys, Optional<String> provided) {
-		if (!env.isPresent()) {
-			return provided;
-		} else {
-			return getString(env.get(), keys, provided);
-		}
+		return getProperty(env, keys, String.class, provided);
 	}
 
 	public static Optional<String> getString(Environment env, List<String> keys, Optional<String> provided) {
-		for (String key : keys) {
-			String value = env.getProperty(key);
-			if (value != null) {
-				return Optional.of(value);
-			}
-		}
-		return provided;
+		return getString(Optional.of(env), keys, provided);
 	}
 
 	public static String getString(Environment env, List<String> keys, String provided) {
