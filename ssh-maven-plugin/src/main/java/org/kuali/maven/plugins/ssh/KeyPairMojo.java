@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.maven.plugins.enc;
+package org.kuali.maven.plugins.ssh;
 
 import java.io.File;
 import java.io.IOException;
