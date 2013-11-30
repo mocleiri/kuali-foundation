@@ -121,18 +121,6 @@ public final class ChannelContext {
 			this.enc = enc;
 		}
 
-		/**
-		 * Override provided values with values from the environment
-		 */
-		private void override() {
-			if (env.isPresent()) {
-				username(SpringUtils.getString(env.get(), USERNAME_KEY, username).orNull());
-				requestPseudoTerminal(env.get().getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
-				privateKeys(SpringUtils.getStrings(env.get(), PRIVATE_KEYS_KEY, privateKeys));
-				echo(env.get().getBoolean(ECHO_KEY, echo));
-			}
-		}
-
 		public Builder requestPseudoTerminal(boolean requestPseudoTerminal) {
 			this.requestPseudoTerminal = requestPseudoTerminal;
 			return this;
@@ -215,6 +203,18 @@ public final class ChannelContext {
 		public Builder privateKeys(List<String> privateKeys) {
 			this.privateKeys = privateKeys;
 			return this;
+		}
+
+		/**
+		 * Override provided values with values from the environment
+		 */
+		private void override() {
+			if (env.isPresent()) {
+				username(SpringUtils.getString(env.get(), USERNAME_KEY, username).orNull());
+				requestPseudoTerminal(env.get().getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
+				privateKeys(SpringUtils.getStrings(env.get(), PRIVATE_KEYS_KEY, privateKeys));
+				echo(env.get().getBoolean(ECHO_KEY, echo));
+			}
 		}
 
 		private void finish() {
