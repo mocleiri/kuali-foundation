@@ -2,10 +2,13 @@ package org.kuali.common.util.enc;
 
 import java.util.List;
 
+import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
-import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.BasicEnvironmentService;
+import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
@@ -13,45 +16,85 @@ import com.google.common.collect.ImmutableList;
 
 public final class EncContext {
 
-	private final boolean enabled;
-	private final boolean passwordRequired;
-	private final boolean removePasswordSystemProperty;
-	private final Optional<String> password;
+	private final Optional<TextEncryptor> textEncryptor;
 	private final EncStrength strength;
-	private final List<String> passwordKeys = Builder.PASSWORD_KEYS;
 
 	public static class Builder {
 
-		private boolean passwordRequired = false;
-		private boolean removePasswordSystemProperty = true;
-		private Optional<String> password = Optional.absent();
-		private EncStrength strength = EncStrength.BASIC;
+		private Optional<EnvironmentService> env;
+		private Optional<String> password;
+		private Optional<TextEncryptor> textEncryptor;
 
-		private Optional<EnvironmentService> env = Optional.absent();
+		private EncStrength strength = EncStrength.BASIC;
+		private boolean required = false;
+		private boolean removeSystemProperties = false;
+
 		private static final List<String> PASSWORD_KEYS = ImmutableList.of("enc.password", "properties.enc.password");
 		private static final List<String> STRENGTH_KEYS = ImmutableList.of("enc.strength", "properties.enc.strength");
 		private static final List<String> PASSWORD_REQUIRED_KEYS = ImmutableList.of("enc.password.required", "properties.decrypt");
+		private static final String PASSWORD_REMOVE_KEY = "enc.password.removeSystemProperty";
 
-		// For convenience only. enabled is always equal to -> password.isPresent()
-		private boolean enabled = password.isPresent();
+		/**
+		 * Setup encryption using <code>password</code>
+		 */
+		public Builder(String password) {
+			this(EnvUtils.ABSENT, Optional.<TextEncryptor> absent(), Optional.of(password));
+		}
 
-		public Builder env(EnvironmentService env) {
-			this.env = Optional.of(env);
+		/**
+		 * Override the supplied password with a password from the environment (if present)
+		 */
+		public Builder(EnvironmentService env, String password) {
+			this(Optional.of(env), Optional.<TextEncryptor> absent(), Optional.of(password));
+		}
+
+		/**
+		 * Use system properties / environment variables to locate the encryption password
+		 */
+		public Builder() {
+			this(new BasicEnvironmentService());
+		}
+
+		/**
+		 * Locate the encryption password in the supplied environment
+		 */
+		public Builder(EnvironmentService env) {
+			this(Optional.of(env), Optional.<TextEncryptor> absent(), Optional.<String> absent());
+		}
+
+		/**
+		 * Use the text encryptor they gave us
+		 */
+		public Builder(TextEncryptor textEncryptor) {
+			this(EnvUtils.ABSENT, Optional.of(textEncryptor), Optional.<String> absent());
+		}
+
+		/**
+		 * Use the text encryptor they gave us, unless it is overridden by information in the environment
+		 */
+		public Builder(EnvironmentService env, TextEncryptor textEncryptor) {
+			this(Optional.of(env), Optional.of(textEncryptor), Optional.<String> absent());
+		}
+
+		private Builder(Optional<EnvironmentService> env, Optional<TextEncryptor> textEncryptor, Optional<String> password) {
+			if (textEncryptor.isPresent()) {
+				Assert.isFalse(password.isPresent());
+			}
+			if (password.isPresent()) {
+				Assert.isFalse(textEncryptor.isPresent());
+			}
+			this.env = env;
+			this.textEncryptor = textEncryptor;
+			this.password = password;
+		}
+
+		public Builder removeSystemProperties(boolean removeSystemProperties) {
+			this.removeSystemProperties = removeSystemProperties;
 			return this;
 		}
 
-		public Builder removePasswordSystemProperty(boolean removePasswordSystemProperty) {
-			this.removePasswordSystemProperty = removePasswordSystemProperty;
-			return this;
-		}
-
-		public Builder passwordRequired(boolean passwordRequired) {
-			this.passwordRequired = passwordRequired;
-			return this;
-		}
-
-		public Builder password(String password) {
-			this.password = NullUtils.toAbsent(password);
+		public Builder required(boolean required) {
+			this.required = required;
 			return this;
 		}
 
@@ -61,71 +104,73 @@ public final class EncContext {
 		}
 
 		private void override() {
-			password(SpringUtils.getString(env, PASSWORD_KEYS, password).orNull());
-			strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, strength));
-			passwordRequired(SpringUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, passwordRequired));
+			if (env.isPresent()) {
+				strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, this.strength));
+				required(SpringUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, required));
+				removeSystemProperties(env.get().getBoolean(PASSWORD_REMOVE_KEY, removeSystemProperties));
+				Optional<String> password = SpringUtils.getString(env, PASSWORD_KEYS, this.password);
+				if (password.isPresent()) {
+					TextEncryptor enc = EncUtils.getTextEncryptor(password.get(), this.strength);
+					this.textEncryptor = Optional.of(enc);
+				}
+			}
 		}
 
-		private void validate(EncContext ctx) {
-			Assert.noNulls(ctx.getPassword(), ctx.getStrength(), ctx.getPasswordKeys());
-			if (ctx.isPasswordRequired()) {
-				Assert.isTrue(ctx.getPassword().isPresent(), "Encryption password is required");
+		private void validate(EncContext ctx, boolean required, Optional<String> password) {
+			Assert.noNulls(ctx.getTextEncryptor(), ctx.getStrength());
+			if (required) {
+				Assert.isTrue(ctx.getTextEncryptor().isPresent());
 			}
-			// If the password is present, it can't be blank, encrypted, or concealed
-			if (ctx.getPassword().isPresent()) {
-				Assert.noBlanks(ctx.getPassword().get());
-				Assert.notEncrypted(ctx.getPassword().get());
-				Assert.notConcealed(ctx.getPassword().get());
+			if (password.isPresent()) {
+				Assert.noBlanks(password.get());
+				Assert.notEncrypted(password.get());
+				Assert.notConcealed(password.get());
 			}
 		}
 
 		private void finish() {
 			override();
-			this.enabled = password.isPresent();
 			if (password.isPresent()) {
-				password(Str.reveal(password.get()));
+				this.password = Optional.of(Str.reveal(password.get()));
 			}
 		}
 
 		public EncContext build() {
+			// Finish setting up the builder
 			finish();
+
+			// Get local references to builder instance variables
+			boolean required = this.required;
+			boolean removeSystemProperties = this.removeSystemProperties;
+			Optional<String> password = Optional.fromNullable(this.password.orNull());
+
+			// Construct the encryption context
 			EncContext ctx = new EncContext(this);
-			validate(ctx);
+
+			// Validate that it's in good shape
+			validate(ctx, required, password);
+
+			// Now that we've successfully created the context, it's safe to remove the system properties
+			if (removeSystemProperties) {
+				PropertyUtils.removeSystemProperties(PASSWORD_KEYS);
+			}
+
+			// Return the context
 			return ctx;
 		}
 
 	}
 
 	private EncContext(Builder builder) {
-		this.enabled = builder.enabled;
-		this.passwordRequired = builder.passwordRequired;
 		this.strength = builder.strength;
-		this.removePasswordSystemProperty = builder.removePasswordSystemProperty;
-		this.password = builder.password;
+		this.textEncryptor = builder.textEncryptor;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
+	public Optional<TextEncryptor> getTextEncryptor() {
+		return textEncryptor;
 	}
 
 	public EncStrength getStrength() {
 		return strength;
 	}
-
-	public boolean isPasswordRequired() {
-		return passwordRequired;
-	}
-
-	public boolean isRemovePasswordSystemProperty() {
-		return removePasswordSystemProperty;
-	}
-
-	public List<String> getPasswordKeys() {
-		return passwordKeys;
-	}
-
-	public Optional<String> getPassword() {
-		return password;
-	}
-
 }
