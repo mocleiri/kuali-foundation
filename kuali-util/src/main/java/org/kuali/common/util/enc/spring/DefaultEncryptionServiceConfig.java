@@ -27,9 +27,9 @@ public class DefaultEncryptionServiceConfig implements EncryptionServiceConfig {
 		EncContext context = new EncContext.Builder(env).build();
 		Optional<TextEncryptor> optional = context.getTextEncryptor();
 		if (optional.isPresent()) {
-			return NoOpEncryptionService.INSTANCE;
-		} else {
 			return new DefaultEncryptionService(optional.get());
+		} else {
+			return NoOpEncryptionService.INSTANCE;
 		}
 	}
 }
