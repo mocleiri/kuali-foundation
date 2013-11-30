@@ -60,7 +60,7 @@ public class ObjectUtils {
 		} else if (other == null) {
 			return false;
 		} else {
-			return main.getClass() == other.getClass();
+			return main.getClass() != other.getClass();
 		}
 	}
 }

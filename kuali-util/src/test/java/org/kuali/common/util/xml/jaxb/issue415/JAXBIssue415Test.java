@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 /**
@@ -33,7 +35,7 @@ public class JAXBIssue415Test {
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			m.marshal(new JAXBIssue415Test(), System.out);
 		} catch (NullPointerException e) {
-			throw new IllegalStateException("JAXB issue 415 is still occurring on [" + os + "] [" + jdk + "]", e);
+			Assert.fail("JAXB issue 415 is still occurring on [" + os + "] [" + jdk + "]");
 		}
 	}
 
