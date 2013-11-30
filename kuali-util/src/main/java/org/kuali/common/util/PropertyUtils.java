@@ -525,20 +525,27 @@ public class PropertyUtils {
 
 	/**
 	 * <p>
-	 * Conceal property values using a trivial algorithm. Concealed values are surrounded by CNC(...). Do <b>NOT</b> use this method in an attempt to obscure truly sensitive
-	 * property values (eg database passwords). The algorithm is trivial, exceedingly simple to reverse engineer, and the original property values can be reproduced by the
-	 * <code>reveal()</code> method without requiring any secret knowledge.
+	 * A trivial algorithm to conceal property values. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The
+	 * algorithm is completely trivial and exceedingly simple to reverse engineer. Not to mention, the <code>reveal()</code> method can reproduce the original string without
+	 * requiring any secret knowledge.
 	 * </p>
 	 * 
 	 * <p>
-	 * Don't use this method for anything more serious than concealing property values that would reveal the location where you hid the cookie jar from your 7 year old. :)
+	 * The use case here is to help prevent someone with otherwise mostly good intentions from altering a piece of information in a way they should not. This is <b>NOT</b> intended
+	 * to defeat any serious attempt at discovering the original text.
 	 * </p>
 	 * 
-	 * Example property:
+	 * <p>
+	 * Think a hungry sales or marketing rep who stumbles across a config file with the entry <code>vending.machine.refill.day=WED</code> in it and tries to change that to
+	 * <code>MON</code> in order to beat a case of the munchies. :)
+	 * </p>
 	 * 
-	 * <pre>
-	 * foo=bar.baz -> foo=CNC(one.onm)
-	 * </pre>
+	 * <p>
+	 * If the entry says <code>vending.machine.refill.day=CNC--JRQ</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before they
+	 * change it <b>OR</b> just give up and head out to lunch instead.
+	 * </p>
+	 * 
+	 * @see reveal
 	 */
 	public static void conceal(Properties properties) {
 		List<String> keys = getSortedKeys(properties);

@@ -29,36 +29,39 @@ import com.google.common.collect.ImmutableList;
 
 public class EncUtils {
 
-	private static final String ENCRYPTED_PREFIX = "ENC(";
-	private static final String ENCRYPTED_SUFFIX = ")";
-	private static final List<Pair> PAIRS = ImmutableList.of(new Pair(ENCRYPTED_PREFIX, ENCRYPTED_SUFFIX), new Pair("ENC-", "-"));
+	private static final String MAGIC_PREFIX = "ENC--"; // Handy for cli. Parenthesis tend to confuse shells
+	private static final String PREFIX = "ENC(";
+	private static final String SUFFIX = ")";
 
 	public static final Optional<EncryptionService> ABSENT = Optional.absent();
 
 	/**
-	 * Return true if the text is enclosed with <code>ENC()</code>
+	 * Return true if the text is enclosed with <code>ENC()</code> or starts with <code>ENC--</code>
 	 */
 	public static boolean isEncrypted(String text) {
 		if (StringUtils.isBlank(text)) {
 			return false;
 		} else {
-			return isMatch(text, PAIRS);
+			return (text.startsWith(PREFIX) && text.endsWith(SUFFIX)) || text.startsWith(MAGIC_PREFIX);
 		}
 	}
 
 	public static String unwrap(String wrappedText) {
 		Assert.noBlanks(wrappedText);
 		Assert.encrypted(wrappedText);
-		Pair pair = getMatch(wrappedText, PAIRS);
-		int start = pair.getPrefix().length();
-		int end = wrappedText.length() - pair.getSuffix().length();
-		return wrappedText.substring(start, end);
+		if (wrappedText.startsWith(MAGIC_PREFIX)) {
+			return wrappedText.substring(MAGIC_PREFIX.length());
+		} else {
+			int beg = PREFIX.length();
+			int end = wrappedText.length() - SUFFIX.length();
+			return wrappedText.substring(beg, end);
+		}
 	}
 
 	public static String wrap(String unwrappedText) {
 		Assert.noBlanks(unwrappedText);
 		Assert.notEncrypted(unwrappedText);
-		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
+		return PREFIX + unwrappedText + SUFFIX;
 	}
 
 	/**
@@ -130,44 +133,4 @@ public class EncUtils {
 		return decrypt(Optional.of(enc), optional);
 	}
 
-	protected static Pair getMatch(String text, List<Pair> pairs) {
-		for (Pair pair : pairs) {
-			if (isMatch(text, pair)) {
-				return pair;
-			}
-		}
-		throw new IllegalStateException("No matching prefix/suffix pair for [" + text + "]");
-	}
-
-	protected static boolean isMatch(String text, List<Pair> pairs) {
-		for (Pair pair : pairs) {
-			if (isMatch(text, pair)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	protected static boolean isMatch(String text, Pair pair) {
-		return text.startsWith(pair.getPrefix()) && text.endsWith(pair.getSuffix());
-	}
-
-	private static final class Pair {
-		public Pair(String prefix, String suffix) {
-			Assert.noBlanks(prefix, suffix);
-			this.prefix = prefix;
-			this.suffix = suffix;
-		}
-
-		private final String prefix;
-		private final String suffix;
-
-		public String getPrefix() {
-			return prefix;
-		}
-
-		public String getSuffix() {
-			return suffix;
-		}
-	}
 }

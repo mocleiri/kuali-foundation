@@ -29,35 +29,35 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_BLANKS = "blank strings not allowed";
 
 	/**
-	 * Assert that <code>text</code> is wrapped inside of <code>CNC()</code>
+	 * Assert that <code>text</code> is concealed
 	 */
 	public static void concealed(String text) {
 		isTrue(Str.isConcealed(text), "text must be concealed");
 	}
 
 	/**
-	 * Assert that <code>text</code> is not wrapped inside of <code>CNC()</code>
+	 * Assert that <code>text</code> is not concealed
 	 */
 	public static void notConcealed(String text) {
 		isFalse(Str.isConcealed(text), "text is already concealed");
 	}
 
 	/**
-	 * Assert that <code>text</code> is wrapped inside of <code>ENC()</code>
+	 * Assert that <code>text</code> is encrypted
 	 */
 	public static void encrypted(String text) {
 		isTrue(EncUtils.isEncrypted(text), "text must be encrypted");
 	}
 
 	/**
-	 * Assert that <code>text</code> is not wrapped inside of <code>ENC()</code>
+	 * Assert that <code>text</code> is not encrypted
 	 */
 	public static void notEncrypted(String text) {
 		isFalse(EncUtils.isEncrypted(text), "text is already encrypted");
 	}
 
 	/**
-	 * Assert that <code>text</code> is not wrapped inside of <code>ENC()</code>
+	 * Assert that <code>text</code> is not encrypted
 	 * 
 	 * @deprecated use notEncrypted instead
 	 * @see notEncrypted
@@ -68,7 +68,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	/**
-	 * Assert that none of the strings in the list are wrapped inside of <code>ENC()</code>
+	 * Assert that none of the strings are encrypted
 	 * 
 	 * @deprecated use notEncrypted instead
 	 * @see notEncrypted
@@ -79,7 +79,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	}
 
 	/**
-	 * Assert that none of the strings in the list are wrapped inside of <code>ENC()</code>
+	 * Assert that none of the strings in the list are encrypted
 	 */
 	public static void notEncrypted(List<String> strings) {
 		for (String string : strings) {

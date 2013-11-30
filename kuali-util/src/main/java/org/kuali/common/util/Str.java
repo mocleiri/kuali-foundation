@@ -39,8 +39,7 @@ public class Str {
 	public static final String CDATA_SUFFIX = "]]>";
 	public static final String[] EMPTY_ARRAY = new String[0];
 
-	private static final String CONCEALED_PREFIX = "CNC(";
-	private static final String CONCEALED_SUFFIX = ")";
+	private static final String CONCEALED_PREFIX = "CNC--";
 
 	/**
 	 * <p>
@@ -60,13 +59,16 @@ public class Str {
 	 * </p>
 	 * 
 	 * <p>
-	 * If the entry says <code>vending.machine.refill.day=CNC(JRQ)</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before they
+	 * If the entry says <code>vending.machine.refill.day=CNC--JRQ</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before they
 	 * change it <b>OR</b> just give up and head out to lunch instead.
 	 * </p>
 	 * 
 	 * @see reveal
 	 */
 	public static final String conceal(String text) {
+		if (text == null) {
+			return null;
+		}
 		Assert.noBlanks(text);
 		if (isConcealed(text)) {
 			return text;
@@ -78,7 +80,6 @@ public class Str {
 		for (char c : chars) {
 			sb.append(Ascii.flip(c));
 		}
-		sb.append(CONCEALED_SUFFIX);
 		return sb.toString();
 	}
 
@@ -88,14 +89,15 @@ public class Str {
 	 * @see conceal
 	 */
 	public static final String reveal(String text) {
+		if (text == null) {
+			return null;
+		}
 		Assert.noBlanks(text);
 		if (!isConcealed(text)) {
 			return text;
 		}
 		Assert.concealed(text);
-		int start = CONCEALED_PREFIX.length();
-		int end = text.length() - CONCEALED_SUFFIX.length();
-		String substring = text.substring(start, end);
+		String substring = text.substring(CONCEALED_PREFIX.length());
 		char[] chars = substring.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		for (char c : chars) {
@@ -105,11 +107,10 @@ public class Str {
 	}
 
 	/**
-	 * Return true if <code>text</code> is enclosed with <code>CNC()</code>
+	 * Return true if <code>text</code> starts with <code>CNC--</code>
 	 */
 	public static final boolean isConcealed(String text) {
-		Assert.noBlanks(text);
-		return StringUtils.startsWith(text, CONCEALED_PREFIX) && StringUtils.endsWith(text, CONCEALED_SUFFIX);
+		return StringUtils.startsWith(text, CONCEALED_PREFIX);
 	}
 
 	/**
