@@ -32,6 +32,7 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
@@ -64,7 +65,7 @@ public final class ChannelContext {
 		private Optional<String> username = Optional.absent();
 		private int port = 22;
 		private Optional<Integer> connectTimeout = Optional.absent();
-		private String encoding = "UTF-8";
+		private String encoding = Charsets.UTF_8.name();
 		private Properties options = ImmutableProperties.of();
 		private boolean strictHostKeyChecking = false;
 		private boolean requestPseudoTerminal = false;
