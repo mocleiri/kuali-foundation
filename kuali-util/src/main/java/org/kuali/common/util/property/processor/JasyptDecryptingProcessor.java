@@ -23,9 +23,9 @@ import org.kuali.common.util.PropertyUtils;
 
 import com.google.common.base.Optional;
 
-public final class TextEncryptorDecryptingProcessor implements PropertyProcessor {
+public final class JasyptDecryptingProcessor implements PropertyProcessor {
 
-	public TextEncryptorDecryptingProcessor(Optional<TextEncryptor> encryptor) {
+	public JasyptDecryptingProcessor(Optional<TextEncryptor> encryptor) {
 		Assert.noNulls(encryptor);
 		this.encryptor = encryptor;
 	}

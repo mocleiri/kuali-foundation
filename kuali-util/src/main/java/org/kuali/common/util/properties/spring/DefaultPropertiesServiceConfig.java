@@ -13,7 +13,7 @@ import org.kuali.common.util.property.processor.OverridingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
-import org.kuali.common.util.property.processor.TextEncryptorDecryptingProcessor;
+import org.kuali.common.util.property.processor.JasyptDecryptingProcessor;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -40,8 +40,8 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
 
 		// Setup an encryption context from the overrides properties
-		EnvironmentService basic = new BasicEnvironmentService(overrides);
-		EncContext context = new EncContext.Builder(basic).build();
+		EnvironmentService env = new BasicEnvironmentService(overrides);
+		EncContext context = new EncContext.Builder(env).removeSystemProperties(true).build();
 
 		// Setup a processor that gets invoked on the properties *after* they have all been loaded
 		PropertyProcessor processor = getPostProcessor(overrides, context);
@@ -55,7 +55,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
 	protected PropertyProcessor getPostProcessor(Properties overrides, EncContext context) {
 		PropertyProcessor override = new OverridingProcessor(overrides);
-		PropertyProcessor decrypt = new TextEncryptorDecryptingProcessor(context.getTextEncryptor());
+		PropertyProcessor decrypt = new JasyptDecryptingProcessor(context.getTextEncryptor());
 		PropertyProcessor resolve = new ResolvingProcessor();
 		return new ProcessorsProcessor(override, decrypt, resolve);
 	}
