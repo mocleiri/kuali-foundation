@@ -23,10 +23,12 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
-import org.kuali.common.util.enc.Algorithm;
-import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.KeyPair;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.ssh.api.SshService;
+import org.kuali.common.util.ssh.api.impl.DefaultSshService;
+import org.kuali.common.util.ssh.model.Algorithm;
+import org.kuali.common.util.ssh.model.GenerateKeyPairContext;
+import org.kuali.common.util.ssh.model.KeyPair;
 
 /**
  * Generate a public key / private key pair suitable for use with AWS (Amazon Web Services)
@@ -90,10 +92,10 @@ public class KeyPairMojo extends AbstractMojo {
 
 	@Override
 	public void execute() {
-		Assert.noBlanks(name);
-		Assert.noNulls(algorithm, project, publicKey, privateKey);
-		Assert.positive(size);
-		KeyPair keyPair = EncUtils.getKeyPair(name, size, algorithm);
+		Assert.noNulls(project, publicKey, privateKey);
+		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(name).algorithm(algorithm).size(size).build();
+		SshService service = new DefaultSshService();
+		KeyPair keyPair = service.generateKeyPair(context);
 		write(keyPair);
 	}
 
