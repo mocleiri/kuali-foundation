@@ -109,7 +109,8 @@ public final class EncContext {
 		private void finish() {
 			override();
 			if (password.isPresent()) {
-				TextEncryptor enc = EncUtils.getTextEncryptor(Str.reveal(password.get()), this.strength);
+				String revealed = Str.reveal(password.get());
+				TextEncryptor enc = EncUtils.getTextEncryptor(revealed, this.strength);
 				this.textEncryptor = Optional.of(enc);
 			}
 		}
