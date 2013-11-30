@@ -29,6 +29,20 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_BLANKS = "blank strings not allowed";
 
 	/**
+	 * Assert that <code>text</code> is wrapped inside of <code>CNC()</code>
+	 */
+	public static void concealed(String text) {
+		isTrue(Str.isConcealed(text), "text must be concealed");
+	}
+
+	/**
+	 * Assert that <code>text</code> is not wrapped inside of <code>CNC()</code>
+	 */
+	public static void notConcealed(String text) {
+		isFalse(Str.isConcealed(text), "text is already concealed");
+	}
+
+	/**
 	 * Assert that <code>text</code> is wrapped inside of <code>ENC()</code>
 	 */
 	public static void encrypted(String text) {
@@ -39,7 +53,7 @@ public abstract class Assert extends org.springframework.util.Assert {
 	 * Assert that <code>text</code> is not wrapped inside of <code>ENC()</code>
 	 */
 	public static void decrypted(String text) {
-		isFalse(EncUtils.isEncrypted(text), "encrypted text not allowed");
+		isFalse(EncUtils.isEncrypted(text), "text is already encrypted");
 	}
 
 	/**

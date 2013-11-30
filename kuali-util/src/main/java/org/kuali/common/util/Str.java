@@ -45,8 +45,8 @@ public class Str {
 	/**
 	 * <p>
 	 * A trivial algorithm to conceal <code>text</code>. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The
-	 * algorithm is completely trivial and simple to reverse engineer. Not to mention the <code>reveal()</code> method can reproduce the original string without requiring any
-	 * secret knowledge.
+	 * algorithm is completely trivial and exceedingly simple to reverse engineer. Not to mention the <code>reveal()</code> method can reproduce the original string without
+	 * requiring any secret knowledge.
 	 * </p>
 	 * <p>
 	 * Don't use this method for anything more serious than concealing the combination to the cookie jar in the pantry from your 7 year old child. You have been warned :).
@@ -56,7 +56,7 @@ public class Str {
 	 */
 	public static final String conceal(String text) {
 		Assert.noBlanks(text);
-		Assert.isFalse(isConcealed(text));
+		Assert.notConcealed(text);
 		char[] chars = text.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		sb.append(CONCEALED_PREFIX);
@@ -74,7 +74,7 @@ public class Str {
 	 */
 	public static final String reveal(String text) {
 		Assert.noBlanks(text);
-		Assert.isTrue(isConcealed(text));
+		Assert.concealed(text);
 		int start = CONCEALED_PREFIX.length();
 		int end = text.length() - CONCEALED_SUFFIX.length();
 		String substring = text.substring(start, end);
