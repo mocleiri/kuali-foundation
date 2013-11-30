@@ -18,7 +18,7 @@ public class Ascii {
 	/**
 	 * Return true if the character is in the range 0-9
 	 */
-	public static boolean isNumber(char c) {
+	public static boolean isDigit(char c) {
 		return c >= '0' && c <= '9';
 	}
 
@@ -61,7 +61,7 @@ public class Ascii {
 			} else {
 				return (char) ((int) c + LETTER_OFFSET);
 			}
-		} else if (isNumber(c)) {
+		} else if (isDigit(c)) {
 			if (c > NUMBER_MIDPOINT) {
 				return (char) ((int) c - NUMBER_OFFSET);
 			} else {
