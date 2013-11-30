@@ -60,8 +60,8 @@ public class Str {
 	 * </p>
 	 * 
 	 * <p>
-	 * If they entry says <code>vending.machine.refill.day=CNC(JRQ)</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask someone who knows
-	 * what they are doing how to change it <b>OR</b> just give up and head out to lunch instead.
+	 * If the entry says <code>vending.machine.refill.day=CNC(JRQ)</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before they
+	 * change it <b>OR</b> just give up and head out to lunch instead.
 	 * </p>
 	 * 
 	 * @see reveal
