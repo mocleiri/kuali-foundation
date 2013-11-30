@@ -2,11 +2,10 @@ package org.kuali.common.util.enc;
 
 import java.util.List;
 
-import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
-import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
@@ -29,7 +28,6 @@ public final class EncContext {
 		private boolean removePasswordSystemProperty = true;
 		private Optional<String> password = Optional.absent();
 		private EncStrength strength = EncStrength.BASIC;
-		private Optional<TextEncryptor> textEncryptor = Optional.absent();
 
 		private Optional<EnvironmentService> env = Optional.absent();
 		private static final List<String> PASSWORD_KEYS = ImmutableList.of("enc.password", "properties.enc.password");
@@ -66,8 +64,8 @@ public final class EncContext {
 
 		private void override() {
 			password(SpringUtils.getString(env, PASSWORD_KEYS, password).orNull());
-			strength(EnvUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, strength));
-			passwordRequired(EnvUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, passwordRequired));
+			strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, strength));
+			passwordRequired(SpringUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, passwordRequired));
 		}
 
 		private void validate(EncContext ctx) {
@@ -75,15 +73,20 @@ public final class EncContext {
 			if (ctx.isPasswordRequired()) {
 				Assert.isTrue(ctx.getPassword().isPresent(), "Encryption password is required");
 			}
-			// If the password is present, it can't be blank
+			// If the password is present, it can't be blank, encrypted, or concealed
 			if (ctx.getPassword().isPresent()) {
 				Assert.noBlanks(ctx.getPassword().get());
+				Assert.decrypted(ctx.getPassword().get());
+				Assert.notConcealed(ctx.getPassword().get());
 			}
 		}
 
 		private void finish() {
 			override();
 			this.enabled = password.isPresent();
+			if (password.isPresent()) {
+				password(Str.reveal(password.get()));
+			}
 		}
 
 		public EncContext build() {

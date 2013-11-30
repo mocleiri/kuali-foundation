@@ -65,6 +65,23 @@ public class SpringUtils {
 
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
+	public static <T> T getProperty(Optional<EnvironmentService> env, List<String> keys, Class<T> type, T provided) {
+		return getProperty(env, keys, type, Optional.fromNullable(provided)).orNull();
+	}
+
+	public static <T> Optional<T> getProperty(Optional<EnvironmentService> env, List<String> keys, Class<T> type, Optional<T> provided) {
+		if (!env.isPresent()) {
+			return provided;
+		}
+		for (String key : keys) {
+			Optional<T> value = getOptionalProperty(env.get(), key, type);
+			if (value.isPresent()) {
+				return value;
+			}
+		}
+		return provided;
+	}
+
 	public static Optional<String> getString(Optional<EnvironmentService> env, List<String> keys, Optional<String> provided) {
 		if (!env.isPresent()) {
 			return provided;
@@ -109,6 +126,17 @@ public class SpringUtils {
 			return Optional.absent();
 		} else {
 			return Optional.of(env.getInteger(key));
+		}
+	}
+
+	/**
+	 * If there is no value for <code>key</code> return Optional.absent(), otherwise return Optional.of(value)
+	 */
+	public static <T> Optional<T> getOptionalProperty(EnvironmentService env, String key, Class<T> type) {
+		if (!env.containsProperty(key)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(env.getProperty(key, type));
 		}
 	}
 
