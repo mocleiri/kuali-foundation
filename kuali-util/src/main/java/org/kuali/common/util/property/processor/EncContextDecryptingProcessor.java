@@ -20,26 +20,22 @@ import java.util.Properties;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.enc.EncContext;
 import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncUtils;
-import org.kuali.common.util.enc.EncryptionContext;
 
-/**
- * @deprecated
- */
-@Deprecated
-public final class ContextDecryptingProcessor implements PropertyProcessor {
+public final class EncContextDecryptingProcessor implements PropertyProcessor {
 
-	public ContextDecryptingProcessor() {
-		this(EncryptionContext.DEFAULT);
+	public EncContextDecryptingProcessor() {
+		this(new EncContext.Builder().build());
 	}
 
-	public ContextDecryptingProcessor(EncryptionContext context) {
+	public EncContextDecryptingProcessor(EncContext context) {
 		Assert.noNulls(context);
 		this.context = context;
 	}
 
-	private final EncryptionContext context;
+	private final EncContext context;
 
 	@Override
 	public void process(Properties properties) {
@@ -53,7 +49,7 @@ public final class ContextDecryptingProcessor implements PropertyProcessor {
 		PropertyUtils.decrypt(properties, encryptor);
 	}
 
-	public EncryptionContext getContext() {
+	public EncContext getContext() {
 		return context;
 	}
 
