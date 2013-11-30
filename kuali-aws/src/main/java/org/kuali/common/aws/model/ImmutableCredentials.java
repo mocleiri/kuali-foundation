@@ -20,6 +20,7 @@ public class ImmutableCredentials implements AWSCredentials {
 		private final String secretKey;
 
 		// Optional
+		private boolean assertNotEncrypted = true;
 		private Optional<String> sessionToken = Optional.absent();
 
 		/**
@@ -56,9 +57,16 @@ public class ImmutableCredentials implements AWSCredentials {
 			}
 		}
 
-		private void validate(AWSCredentials creds) {
+		public Builder assertNotEncrypted(boolean assertNotEncrypted) {
+			this.assertNotEncrypted = assertNotEncrypted;
+			return this;
+		}
+
+		private void validate(AWSCredentials creds, boolean assertNotEncrypted) {
 			Assert.noBlanks(creds.getAWSAccessKeyId(), creds.getAWSSecretKey());
-			Assert.notEncrypted(creds.getAWSSecretKey());
+			if (assertNotEncrypted) {
+				Assert.notEncrypted(creds.getAWSSecretKey());
+			}
 			if (creds instanceof AWSSessionCredentials) {
 				AWSSessionCredentials sessionCreds = (AWSSessionCredentials) creds;
 				Assert.noBlanks(sessionCreds.getSessionToken());
@@ -77,8 +85,9 @@ public class ImmutableCredentials implements AWSCredentials {
 		}
 
 		public AWSCredentials build() {
+			boolean assertNotEncrypted = this.assertNotEncrypted;
 			AWSCredentials creds = getCredentials(this);
-			validate(creds);
+			validate(creds, assertNotEncrypted);
 			return creds;
 		}
 
