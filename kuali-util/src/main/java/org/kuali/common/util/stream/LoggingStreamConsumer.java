@@ -18,6 +18,7 @@ package org.kuali.common.util.stream;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.log.LoggerLevel;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
 public final class LoggingStreamConsumer implements StreamConsumer {
@@ -37,25 +38,7 @@ public final class LoggingStreamConsumer implements StreamConsumer {
 
 	@Override
 	public void consumeLine(String line) {
-		switch (level) {
-		case TRACE:
-			logger.trace(line);
-			return;
-		case DEBUG:
-			logger.debug(line);
-			return;
-		case INFO:
-			logger.info(line);
-			return;
-		case WARN:
-			logger.warn(line);
-			return;
-		case ERROR:
-			logger.error(line);
-			return;
-		default:
-			throw new IllegalStateException("Logger level " + level + " is unknown");
-		}
+		LoggerUtils.logMsg(line, logger, level);
 	}
 
 	public Logger getLogger() {
