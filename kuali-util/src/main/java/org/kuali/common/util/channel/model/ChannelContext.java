@@ -79,6 +79,7 @@ public final class ChannelContext {
 		private List<String> privateKeys = ImmutableList.of();
 		private boolean echo = true;
 
+		// Used only by the builder
 		private final Optional<EnvironmentService> env;
 		private final Optional<EncryptionService> enc;
 		private static final String HOSTNAME_KEY = "ssh.hostname";
