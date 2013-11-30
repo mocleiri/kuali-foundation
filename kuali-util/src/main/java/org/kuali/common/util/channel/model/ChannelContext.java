@@ -85,6 +85,7 @@ public final class ChannelContext {
 		private static final String USERNAME_KEY = "ssh.username";
 		private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
 		private static final String PRIVATE_KEYS_KEY = "ssh.privateKeys";
+		private static final String ECHO_KEY = "ssh.echo";
 
 		/**
 		 * 
@@ -121,13 +122,14 @@ public final class ChannelContext {
 		}
 
 		/**
-		 * Overrides available are <code>ssh.username</code>, <code>ssh.requestPseudoTerminal</code>, and <code>ssh.privateKeys</code>
+		 * Override provided values with values from the environment
 		 */
 		private void override() {
 			if (env.isPresent()) {
 				username(SpringUtils.getString(env.get(), USERNAME_KEY, username).orNull());
 				requestPseudoTerminal(env.get().getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
 				privateKeys(SpringUtils.getStrings(env.get(), PRIVATE_KEYS_KEY, privateKeys));
+				echo(env.get().getBoolean(ECHO_KEY, echo));
 			}
 		}
 
