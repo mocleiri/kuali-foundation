@@ -2,6 +2,7 @@ package org.kuali.common.util.spring.env;
 
 import java.util.Properties;
 
+import org.kuali.common.util.Ascii;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
 import org.springframework.core.env.Environment;
@@ -37,8 +38,8 @@ public class EnvUtils {
 			if (c == '.') {
 				// Convert dots into dashes
 				sb.append('_');
-			} else if (isUpperCase(c) && isLowerCase(prevChar)) {
-				// Insert an underscore wherever there is a transition from a lower case char to an upper case char
+			} else if (Ascii.isUpperCase(c) && Ascii.isLowerCase(prevChar)) {
+				// Insert an underscore every time there is a transition from a lower case char to an upper case char
 				sb.append('_');
 				sb.append(c);
 			} else {
@@ -50,14 +51,6 @@ public class EnvUtils {
 		}
 		// Add a prefix, change to upper case and return
 		return ENV_PREFIX + "." + sb.toString().toUpperCase();
-	}
-
-	protected static boolean isUpperCase(char c) {
-		return c >= 'A' && c <= 'Z';
-	}
-
-	protected static boolean isLowerCase(char c) {
-		return c >= 'a' && c <= 'z';
 	}
 
 }
