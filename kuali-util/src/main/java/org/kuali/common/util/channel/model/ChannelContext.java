@@ -92,24 +92,6 @@ public final class ChannelContext {
 		private static final String CONNECT_TIMEOUT_KEY = "ssh.connectTimeout";
 
 		/**
-		 * Override provided values with values from the environment
-		 */
-		private void override() {
-			if (env.isPresent()) {
-				username(SpringUtils.getString(env.get(), USERNAME_KEY, username).orNull());
-				requestPseudoTerminal(env.get().getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
-				privateKeys(SpringUtils.getStrings(env.get(), PRIVATE_KEYS_KEY, privateKeys));
-				echo(env.get().getBoolean(ECHO_KEY, echo));
-				port(env.get().getInteger(PORT_KEY, port));
-				encoding(env.get().getString(ENCODING_KEY, encoding));
-				Optional<Integer> connectTimeout = SpringUtils.getProperty(env, CONNECT_TIMEOUT_KEY, Integer.class, this.connectTimeout);
-				if (connectTimeout.isPresent()) {
-					connectTimeout(connectTimeout.get());
-				}
-			}
-		}
-
-		/**
 		 * 
 		 */
 		public Builder(String hostname) {
@@ -154,7 +136,7 @@ public final class ChannelContext {
 		}
 
 		public Builder username(String username) {
-			this.username = Optional.fromNullable(NullUtils.trimToNull(username));
+			this.username = NullUtils.toAbsent(username);
 			return this;
 		}
 
@@ -225,6 +207,24 @@ public final class ChannelContext {
 		public Builder privateKeys(List<String> privateKeys) {
 			this.privateKeys = privateKeys;
 			return this;
+		}
+
+		/**
+		 * Override provided values with values from the environment
+		 */
+		private void override() {
+			if (env.isPresent()) {
+				username(SpringUtils.getString(env.get(), USERNAME_KEY, username).orNull());
+				requestPseudoTerminal(env.get().getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
+				privateKeys(SpringUtils.getStrings(env.get(), PRIVATE_KEYS_KEY, privateKeys));
+				echo(env.get().getBoolean(ECHO_KEY, echo));
+				port(env.get().getInteger(PORT_KEY, port));
+				encoding(env.get().getString(ENCODING_KEY, encoding));
+				Optional<Integer> connectTimeout = SpringUtils.getProperty(env, CONNECT_TIMEOUT_KEY, Integer.class, this.connectTimeout);
+				if (connectTimeout.isPresent()) {
+					connectTimeout(connectTimeout.get());
+				}
+			}
 		}
 
 		private void finish() {
