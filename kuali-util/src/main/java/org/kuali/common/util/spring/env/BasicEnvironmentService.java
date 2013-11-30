@@ -1,6 +1,7 @@
 package org.kuali.common.util.spring.env;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.ModeUtils;
@@ -29,10 +30,23 @@ public final class BasicEnvironmentService implements EnvironmentService {
 
 	private final EnvironmentServiceContext context;
 
+	/**
+	 * Uses system properties / environment variables to resolve values
+	 */
 	public BasicEnvironmentService() {
 		this(new EnvironmentServiceContext.Builder().build());
 	}
 
+	/**
+	 * Uses <code>properties</code> to resolve values
+	 */
+	public BasicEnvironmentService(Properties properties) {
+		this(new EnvironmentServiceContext.Builder(properties).build());
+	}
+
+	/**
+	 * Uses <code>context</code> to resolve values
+	 */
 	public BasicEnvironmentService(EnvironmentServiceContext context) {
 		Assert.noNulls(context);
 		this.context = context;

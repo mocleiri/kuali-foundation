@@ -39,6 +39,87 @@ public class Str {
 	public static final String CDATA_SUFFIX = "]]>";
 	public static final String[] EMPTY_ARRAY = new String[0];
 
+	private static final String CONCEALED_PREFIX = "CNC(";
+	private static final String CONCEALED_SUFFIX = ")";
+	private static final int LETTER_OFFSET = 13;
+	private static final int NUMBER_OFFSET = 5;
+	private static final char NUMBER_MIDPOINT = '4';
+	private static final char LCASE_MIDPOINT = 'm';
+	private static final char UCASE_MIDPOINT = 'M';
+
+	/**
+	 * <p>
+	 * A trivial algorithm to conceal <code>text</code>. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The
+	 * algorithm is completely trivial and simple to reverse engineer. Not to mention the <code>reveal()</code> method can reproduce the original string without requiring any
+	 * secret knowledge.
+	 * </p>
+	 * <p>
+	 * Don't use this method for anything more serious than concealing the combination to the cookie jar in the pantry from your 12 year old child. You have been warned :).
+	 * </p>
+	 * 
+	 * @see reveal
+	 */
+	public static final String conceal(String text) {
+		Assert.noBlanks(text);
+		Assert.isFalse(isConcealed(text));
+		char[] chars = text.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		sb.append(CONCEALED_PREFIX);
+		for (char c : chars) {
+			sb.append(flip(c));
+		}
+		sb.append(CONCEALED_SUFFIX);
+		return sb.toString();
+	}
+
+	/**
+	 * Reveal the original contents of a string concealed by the <code>conceal</code> method.
+	 * 
+	 * @see conceal
+	 */
+	public static final String reveal(String text) {
+		Assert.noBlanks(text);
+		Assert.isTrue(isConcealed(text));
+		int start = CONCEALED_PREFIX.length();
+		int end = text.length() - CONCEALED_SUFFIX.length();
+		String substring = text.substring(start, end);
+		char[] chars = substring.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		for (char c : chars) {
+			sb.append(flip(c));
+		}
+		return sb.toString();
+	}
+
+	public static final boolean isConcealed(String s) {
+		Assert.noBlanks(s);
+		return StringUtils.startsWith(s, CONCEALED_PREFIX) && StringUtils.endsWith(s, CONCEALED_SUFFIX);
+	}
+
+	private static char flip(char c) {
+		if (Ascii.isLowerCase(c)) {
+			if (c > LCASE_MIDPOINT) {
+				return (char) ((int) c - LETTER_OFFSET);
+			} else {
+				return (char) ((int) c + LETTER_OFFSET);
+			}
+		} else if (Ascii.isUpperCase(c)) {
+			if (c > UCASE_MIDPOINT) {
+				return (char) ((int) c - LETTER_OFFSET);
+			} else {
+				return (char) ((int) c + LETTER_OFFSET);
+			}
+		} else if (Ascii.isNumber(c)) {
+			if (c > NUMBER_MIDPOINT) {
+				return (char) ((int) c - NUMBER_OFFSET);
+			} else {
+				return (char) ((int) c + NUMBER_OFFSET);
+			}
+		} else {
+			return c;
+		}
+	}
+
 	/**
 	 * If <code>strings</code> are <code>null</code> return <code>EMPTY_ARRAY</code>, otherwise return <code>strings</code>.
 	 */

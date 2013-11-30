@@ -2,10 +2,12 @@ package org.kuali.common.util.enc;
 
 import java.util.List;
 
+import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.nullify.NullUtils;
+import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.EnvUtils;
-import org.springframework.core.env.Environment;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -27,8 +29,9 @@ public final class EncContext {
 		private boolean removePasswordSystemProperty = true;
 		private Optional<String> password = Optional.absent();
 		private EncStrength strength = EncStrength.BASIC;
+		private Optional<TextEncryptor> textEncryptor = Optional.absent();
 
-		private Optional<Environment> env = Optional.absent();
+		private Optional<EnvironmentService> env = Optional.absent();
 		private static final List<String> PASSWORD_KEYS = ImmutableList.of("enc.password", "properties.enc.password");
 		private static final List<String> STRENGTH_KEYS = ImmutableList.of("enc.strength", "properties.enc.strength");
 		private static final List<String> PASSWORD_REQUIRED_KEYS = ImmutableList.of("enc.password.required", "properties.decrypt");
@@ -36,7 +39,7 @@ public final class EncContext {
 		// For convenience only. enabled is always equal to -> password.isPresent()
 		private boolean enabled = password.isPresent();
 
-		public Builder env(Environment env) {
+		public Builder env(EnvironmentService env) {
 			this.env = Optional.of(env);
 			return this;
 		}
@@ -62,7 +65,7 @@ public final class EncContext {
 		}
 
 		private void override() {
-			password(EnvUtils.getString(env, PASSWORD_KEYS, password).orNull());
+			password(SpringUtils.getString(env, PASSWORD_KEYS, password).orNull());
 			strength(EnvUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, strength));
 			passwordRequired(EnvUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, passwordRequired));
 		}
@@ -104,10 +107,6 @@ public final class EncContext {
 		return enabled;
 	}
 
-	public Optional<String> getPassword() {
-		return password;
-	}
-
 	public EncStrength getStrength() {
 		return strength;
 	}
@@ -122,6 +121,10 @@ public final class EncContext {
 
 	public List<String> getPasswordKeys() {
 		return passwordKeys;
+	}
+
+	public Optional<String> getPassword() {
+		return password;
 	}
 
 }

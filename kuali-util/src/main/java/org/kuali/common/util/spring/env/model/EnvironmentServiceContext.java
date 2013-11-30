@@ -1,8 +1,11 @@
 package org.kuali.common.util.spring.env.model;
 
+import java.util.Properties;
+
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.spring.env.EnvUtils;
+import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
 
 public final class EnvironmentServiceContext {
@@ -22,6 +25,13 @@ public final class EnvironmentServiceContext {
 		private static final String CHECK_ENVIRONMENT_VARIABLES_KEY = "env.checkEnvironmentVariables";
 		private static final String RESOLVE_STRINGS_KEY = "env.resolveStrings";
 		private static final String MISSING_PROPERTY_MODE_KEY = "env.missingPropertyMode";
+
+		public Builder() {
+		}
+
+		public Builder(Properties properties) {
+			env(new PropertiesEnvironment(properties));
+		}
 
 		public Builder env(Environment env) {
 			this.env = env;

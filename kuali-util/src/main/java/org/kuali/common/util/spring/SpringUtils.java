@@ -57,6 +57,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public class SpringUtils {
 
@@ -64,13 +65,25 @@ public class SpringUtils {
 
 	private static final String GLOBAL_SPRING_PROPERTY_SOURCE_NAME = "springPropertySource";
 
-	public static Optional<String> getString(EnvironmentService env, String key, Optional<String> provided) {
-		Optional<String> value = getOptionalString(env, key);
-		if (value.isPresent()) {
-			return value;
-		} else {
+	public static Optional<String> getString(Optional<EnvironmentService> env, List<String> keys, Optional<String> provided) {
+		if (!env.isPresent()) {
 			return provided;
 		}
+		for (String key : keys) {
+			Optional<String> value = getOptionalString(env.get(), key);
+			if (value.isPresent()) {
+				return value;
+			}
+		}
+		return provided;
+	}
+
+	public static Optional<String> getString(EnvironmentService env, List<String> keys, Optional<String> provided) {
+		return getString(Optional.of(env), keys, provided);
+	}
+
+	public static Optional<String> getString(EnvironmentService env, String key, Optional<String> provided) {
+		return getString(env, ImmutableList.of(key), provided);
 	}
 
 	public static Optional<Boolean> getBoolean(EnvironmentService env, String key, Optional<Boolean> provided) {
@@ -106,7 +119,7 @@ public class SpringUtils {
 		if (!env.containsProperty(key)) {
 			return Optional.absent();
 		} else {
-			return Optional.fromNullable(NullUtils.trimToNull(env.getString(key)));
+			return NullUtils.toAbsent(env.getString(key));
 		}
 	}
 
