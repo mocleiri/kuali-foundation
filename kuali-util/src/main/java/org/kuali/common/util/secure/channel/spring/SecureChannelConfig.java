@@ -1,6 +1,5 @@
 package org.kuali.common.util.secure.channel.spring;
 
-import org.kuali.common.util.secure.channel.SecureChannel;
 
 /**
  * @deprecated
@@ -8,6 +7,6 @@ import org.kuali.common.util.secure.channel.SecureChannel;
 @Deprecated
 public interface SecureChannelConfig {
 
-	SecureChannel secureChannel();
+	org.kuali.common.util.secure.channel.SecureChannel secureChannel();
 
 }
