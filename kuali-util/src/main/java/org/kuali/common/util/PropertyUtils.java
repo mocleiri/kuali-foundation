@@ -560,7 +560,7 @@ public class PropertyUtils {
 	 * Reveal property values that were concealed by the <code>conceal</code> method
 	 * 
 	 * <pre>
-	 * foo=CNC--one.onm -> foo=bar.baz
+	 * foo=cnc-one.onm-cnc -> foo=bar.baz
 	 * </pre>
 	 */
 	public static void reveal(Properties properties) {

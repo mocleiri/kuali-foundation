@@ -23,6 +23,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Str;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -50,11 +51,9 @@ public class EncUtils {
 		Assert.noBlanks(wrappedText);
 		Assert.encrypted(wrappedText);
 		if (wrappedText.startsWith(MAGIC_PREFIX)) {
-			return wrappedText.substring(MAGIC_PREFIX.length());
+			return Str.removePrefix(wrappedText, MAGIC_PREFIX);
 		} else {
-			int beg = PREFIX.length();
-			int end = wrappedText.length() - SUFFIX.length();
-			return wrappedText.substring(beg, end);
+			return Str.remove(wrappedText, PREFIX, SUFFIX);
 		}
 	}
 
