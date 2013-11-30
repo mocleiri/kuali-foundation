@@ -29,9 +29,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.auth.AWSSessionCredentials;
-import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
-import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
@@ -99,24 +97,22 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 		}
 
 		private List<AWSCredentialsProvider> getProviders() {
-
-			// Null not allowed
-			Assert.noNulls(optionalCredentials);
-
 			// Set up some storage
 			List<AWSCredentialsProvider> providers = new ArrayList<AWSCredentialsProvider>();
 
-			// System properties always win
-			providers.add(new SystemPropertiesCredentialsProvider());
-
-			// Then fall through to environment variables
-			providers.add(new EnvironmentVariableCredentialsProvider());
+			// If we are examining the environment, system properties / environment variables always win
+			if (env.isPresent()) {
+				providers.add(new EnvCredentialsProvider.Builder(env.get()).build());
+			}
 
 			// Then fall through to "other" providers
+
 			// Amazon's EC2 Instance Metadata Service
 			// http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/java-dg-roles.html
 			// AWS allows you to setup an IAM role and attach that role to an EC2 Instance at launch time
 			// This allows you to automatically authorize java code running on an EC2 instance
+			
+			
 			if (optionalCredentials.isPresent()) {
 				if (instanceCredentialsOverride) {
 					// The EC2 instance credentials (if present) take precedence over the provided credentials
