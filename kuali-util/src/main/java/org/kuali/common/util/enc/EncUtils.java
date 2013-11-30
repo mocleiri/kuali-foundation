@@ -66,7 +66,7 @@ public class EncUtils {
 
 	public static String wrap(String unwrappedText) {
 		Assert.noBlanks(unwrappedText);
-		Assert.decrypted(unwrappedText);
+		Assert.notEncrypted(unwrappedText);
 		return ENCRYPTED_PREFIX + unwrappedText + ENCRYPTED_SUFFIX;
 	}
 
