@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class SimpleMain {
 
 	public static void main(String[] args) {
-		MainUtils.runAndExit(SimpleMain.class, args);
+		MainUtils.run(SimpleMain.class, args);
 	}
 
 	@Autowired
