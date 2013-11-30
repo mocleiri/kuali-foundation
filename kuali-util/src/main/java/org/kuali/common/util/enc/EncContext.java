@@ -72,7 +72,7 @@ public final class EncContext {
 			if (ctx.isPasswordRequired()) {
 				Assert.isTrue(ctx.getPassword().isPresent(), "Encryption password is required");
 			}
-			// If the password is present, it cannot be blank
+			// If the password is present, it can't be blank
 			if (ctx.getPassword().isPresent()) {
 				Assert.noBlanks(ctx.getPassword().get());
 			}
