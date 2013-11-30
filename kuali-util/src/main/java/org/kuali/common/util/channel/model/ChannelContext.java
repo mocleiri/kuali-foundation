@@ -261,7 +261,7 @@ public final class ChannelContext {
 			Assert.noNulls(username, connectTimeout, options, knownHosts, config, privateKeyFiles, privateKeys);
 			Assert.isPort(port);
 			Assert.positive(waitForClosedSleepMillis);
-			Assert.decrypted(privateKeys);
+			Assert.notEncrypted(privateKeys);
 			if (useConfigFile) {
 				Assert.exists(config);
 				Assert.isTrue(config.canRead(), "[" + config + "] exists but is not readable");
