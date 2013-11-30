@@ -92,9 +92,12 @@ public class Str {
 		return sb.toString();
 	}
 
-	public static final boolean isConcealed(String s) {
-		Assert.noBlanks(s);
-		return StringUtils.startsWith(s, CONCEALED_PREFIX) && StringUtils.endsWith(s, CONCEALED_SUFFIX);
+	/**
+	 * Return true if <code>text</code> is enclosed with <code>CNC()</code>
+	 */
+	public static final boolean isConcealed(String text) {
+		Assert.noBlanks(text);
+		return StringUtils.startsWith(text, CONCEALED_PREFIX) && StringUtils.endsWith(text, CONCEALED_SUFFIX);
 	}
 
 	/**
