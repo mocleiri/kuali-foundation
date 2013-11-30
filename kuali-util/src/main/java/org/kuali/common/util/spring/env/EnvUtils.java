@@ -1,5 +1,6 @@
 package org.kuali.common.util.spring.env;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.kuali.common.util.Assert;
@@ -13,6 +14,49 @@ public class EnvUtils {
 	public static final Optional<EnvironmentService> ABSENT = Optional.absent();
 
 	private static final String ENV_PREFIX = "env";
+
+	public static <T> T getProperty(Optional<Environment> env, List<String> keys, Class<T> type, T provided) {
+		if (!env.isPresent()) {
+			return provided;
+		} else {
+			return getProperty(env, keys, type, Optional.fromNullable(provided)).orNull();
+		}
+	}
+
+	public static <T> Optional<T> getProperty(Optional<Environment> env, List<String> keys, Class<T> type, Optional<T> provided) {
+		if (!env.isPresent()) {
+			return provided;
+		}
+		for (String key : keys) {
+			T value = env.get().getProperty(key, type);
+			if (value != null) {
+				return Optional.of(value);
+			}
+		}
+		return provided;
+	}
+
+	public static Optional<String> getString(Optional<Environment> env, List<String> keys, Optional<String> provided) {
+		if (!env.isPresent()) {
+			return provided;
+		} else {
+			return getString(env.get(), keys, provided);
+		}
+	}
+
+	public static Optional<String> getString(Environment env, List<String> keys, Optional<String> provided) {
+		for (String key : keys) {
+			String value = env.getProperty(key);
+			if (value != null) {
+				return Optional.of(value);
+			}
+		}
+		return provided;
+	}
+
+	public static String getString(Environment env, List<String> keys, String provided) {
+		return getString(env, keys, Optional.fromNullable(provided)).orNull();
+	}
 
 	/**
 	 * Return an environment that uses system properties / environment variables

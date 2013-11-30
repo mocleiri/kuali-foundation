@@ -5,6 +5,10 @@ import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 
+/**
+ * @deprecated Use EncContext instead
+ */
+@Deprecated
 public final class EncryptionContext {
 
 	public static final EncryptionContext DEFAULT = new EncryptionContext.Builder().build();
