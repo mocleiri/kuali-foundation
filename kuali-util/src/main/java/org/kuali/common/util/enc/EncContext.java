@@ -33,7 +33,7 @@ public final class EncContext {
 		private static final List<String> STRENGTH_KEYS = ImmutableList.of("enc.strength", "properties.enc.strength");
 		private static final List<String> PASSWORD_REQUIRED_KEYS = ImmutableList.of("enc.password.required", "properties.decrypt");
 
-		// For convenience only. enabled == password.isPresent()
+		// For convenience only. enabled is always equal to -> password.isPresent()
 		private boolean enabled = password.isPresent();
 
 		public Builder env(Environment env) {
