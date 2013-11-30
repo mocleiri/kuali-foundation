@@ -38,7 +38,7 @@ public class Ascii {
 
 	/**
 	 * <p>
-	 * If the character is a letter or number apply the flip algorithm to it, otherwise leave it alone.
+	 * If the character is a letter or digit apply the flip algorithm to it, otherwise leave it alone.
 	 * </p>
 	 * 
 	 * The flip algorithm makes the character in the top row become the character in the bottom row, and vice versa.
