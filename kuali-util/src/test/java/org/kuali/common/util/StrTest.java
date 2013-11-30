@@ -1,19 +1,17 @@
 package org.kuali.common.util;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 public class StrTest {
 
 	@Test
 	public void testConceal() {
-		try {
-			String s = "foo.bar.baz";
-			String concealed = Str.conceal(s);
-			String revealed = Str.reveal(concealed);
-			System.out.println(concealed + "=" + revealed);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String s = "foo.bar.baz";
+		String concealed = Str.conceal(s);
+		String revealed = Str.reveal(concealed);
+		Assert.assertEquals(s, revealed);
 	}
 
 }
