@@ -17,10 +17,11 @@ package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.enc.DefaultEncryptionService;
+import org.kuali.common.util.enc.EncContext;
 import org.kuali.common.util.enc.EncStrength;
-import org.kuali.common.util.enc.EncUtils;
+import org.kuali.common.util.enc.EncryptionService;
 
 /**
  * Decrypt the specified text using the specified password
@@ -58,11 +59,10 @@ public class DecryptMojo extends AbstractMojo {
 
 	@Override
 	public void execute() throws MojoExecutionException {
-		Assert.noBlanks(password, text);
-		Assert.noNulls(strength);
-		TextEncryptor encryptor = EncUtils.getTextEncryptor(password, strength);
-		String unwrapped = EncUtils.isEncrypted(text) ? EncUtils.unwrap(text) : text;
-		String decrypted = encryptor.decrypt(unwrapped);
+		Assert.noBlanks(text);
+		EncContext context = new EncContext.Builder(password).strength(strength).required(true).build();
+		EncryptionService service = new DefaultEncryptionService(context.getTextEncryptor().get());
+		String decrypted = service.decrypt(text);
 		getLog().info(text + " -> " + decrypted);
 	}
 }
