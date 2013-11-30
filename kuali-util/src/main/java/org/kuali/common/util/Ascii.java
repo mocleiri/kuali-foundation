@@ -1,6 +1,9 @@
 package org.kuali.common.util;
 
-public class Ascii {
+public final class Ascii {
+
+	private Ascii() {
+	}
 
 	private static final int LETTER_OFFSET = 13;
 	private static final int NUMBER_OFFSET = 5;
