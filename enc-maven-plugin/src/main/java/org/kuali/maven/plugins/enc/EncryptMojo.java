@@ -15,12 +15,6 @@
  */
 package org.kuali.maven.plugins.enc;
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.enc.DefaultEncryptionService;
-import org.kuali.common.util.enc.EncContext;
-import org.kuali.common.util.enc.EncStrength;
 import org.kuali.common.util.enc.EncryptionService;
 
 /**
@@ -28,41 +22,11 @@ import org.kuali.common.util.enc.EncryptionService;
  * 
  * @goal encrypt
  */
-public class EncryptMojo extends AbstractMojo {
-
-	/**
-	 * 
-	 * The password for encrypting text. This same password must be used to decrypt the encrypted text
-	 * 
-	 * @parameter expression="${enc.password}"
-	 * @required
-	 */
-	private String password;
-
-	/**
-	 * 
-	 * The text to encrypt. eg FOO -> ENC(y9G0trn)
-	 * 
-	 * @parameter expression="${enc.text}"
-	 * @required
-	 */
-	private String text;
-
-	/**
-	 * 
-	 * The encryption strength, BASIC or STRONG
-	 * 
-	 * @parameter expression="${enc.strength}" default-value="BASIC"
-	 * @required
-	 */
-	private EncStrength strength;
+public class EncryptMojo extends AbstractEncMojo {
 
 	@Override
-	public void execute() throws MojoExecutionException {
-		Assert.noBlanks(text);
-		EncContext context = new EncContext.Builder(password).strength(strength).required(true).build();
-		EncryptionService service = new DefaultEncryptionService(context.getTextEncryptor().get());
-		String encrypted = service.encrypt(text);
+	public void execute(EncryptionService enc, String text) {
+		String encrypted = enc.encrypt(text);
 		getLog().info(text + " -> " + encrypted);
 	}
 
