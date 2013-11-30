@@ -45,12 +45,23 @@ public class Str {
 	/**
 	 * <p>
 	 * A trivial algorithm to conceal <code>text</code>. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The
-	 * algorithm is completely trivial and exceedingly simple to reverse engineer. The <code>reveal()</code> method can reproduce the original string without requiring any secret
-	 * knowledge.
+	 * algorithm is completely trivial and exceedingly simple to reverse engineer. Not to mention, the <code>reveal()</code> method can reproduce the original string without
+	 * requiring any secret knowledge.
 	 * </p>
 	 * 
 	 * <p>
-	 * Don't use it for anything more serious than hiding the combination to the cookie jar in the pantry from your 7 year old child. :)
+	 * The use case here is to help prevent someone with otherwise mostly good intentions from altering a piece of information in a way they should not. This is <b>NOT</b> intended
+	 * to defeat any serious attempt at discovering the original text.
+	 * </p>
+	 * 
+	 * <p>
+	 * Think a hungry sales or marketing rep who stumbles across a config file with the entry <code>vending.machine.refill.day=WED</code> in it and tries to change that to
+	 * <code>MON</code> in order to beat a case of the munchies. :)
+	 * </p>
+	 * 
+	 * <p>
+	 * If they entry says <code>vending.machine.refill.day=CNC(JRQ)</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask someone who knows
+	 * what they are doing how to change it <b>OR</b> just give up and head out to lunch instead.
 	 * </p>
 	 * 
 	 * @see reveal
