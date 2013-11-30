@@ -39,13 +39,14 @@ public class Str {
 	public static final String CDATA_SUFFIX = "]]>";
 	public static final String[] EMPTY_ARRAY = new String[0];
 
-	private static final String CONCEALED_PREFIX = "CNC--";
+	private static final String CONCEALED_PREFIX = "cnc-";
+	private static final String CONCEALED_SUFFIX = "-cnc";
 
 	/**
 	 * <p>
-	 * A trivial algorithm to conceal <code>text</code>. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The
-	 * algorithm is completely trivial and exceedingly simple to reverse engineer. Not to mention, the <code>reveal()</code> method can reproduce the original string without
-	 * requiring any secret knowledge.
+	 * A trivial way to conceal property values. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The algorithm
+	 * is completely trivial and exceedingly simple to reverse engineer. Not to mention, the <code>reveal()</code> method can reproduce the original string without requiring any
+	 * secret knowledge.
 	 * </p>
 	 * 
 	 * <p>
@@ -59,8 +60,8 @@ public class Str {
 	 * </p>
 	 * 
 	 * <p>
-	 * If the entry says <code>vending.machine.refill.day=CNC--JRQ</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before they
-	 * change it <b>OR</b> just give up and head out to lunch instead.
+	 * If the entry says <code>vending.machine.refill.day=cnc-JRQ-cnc</code> instead of <code>vending.machine.refill.day=WED</code> they are far more likely to ask around before
+	 * they change it <b>OR</b> just give up and head out to lunch instead.
 	 * </p>
 	 * 
 	 * @see reveal
@@ -80,6 +81,7 @@ public class Str {
 		for (char c : chars) {
 			sb.append(Ascii.flip(c));
 		}
+		sb.append(CONCEALED_SUFFIX);
 		return sb.toString();
 	}
 
@@ -97,7 +99,7 @@ public class Str {
 			return text;
 		}
 		Assert.concealed(text);
-		String substring = text.substring(CONCEALED_PREFIX.length());
+		String substring = remove(text, CONCEALED_PREFIX, CONCEALED_SUFFIX);
 		char[] chars = substring.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		for (char c : chars) {
@@ -107,10 +109,10 @@ public class Str {
 	}
 
 	/**
-	 * Return true if <code>text</code> starts with <code>CNC--</code>
+	 * Return true if <code>text</code> is concealed
 	 */
 	public static final boolean isConcealed(String text) {
-		return StringUtils.startsWith(text, CONCEALED_PREFIX);
+		return matches(text, CONCEALED_PREFIX, CONCEALED_SUFFIX);
 	}
 
 	/**
@@ -170,6 +172,29 @@ public class Str {
 		} else {
 			return s;
 		}
+	}
+
+	/**
+	 * If <code>s</code> starts with <code>prefix</code>, remove it
+	 */
+	public static final String removePrefix(String s, String prefix) {
+		if (StringUtils.startsWith(s, prefix)) {
+			int beginIndex = StringUtils.length(prefix);
+			return StringUtils.substring(s, beginIndex);
+		} else {
+			return s;
+		}
+	}
+
+	public static final boolean matches(String s, String prefix, String suffix) {
+		return StringUtils.startsWith(s, prefix) && StringUtils.endsWith(s, suffix);
+	}
+
+	public static final String remove(String s, String prefix, String suffix) {
+		String returnValue = s;
+		returnValue = removePrefix(returnValue, prefix);
+		returnValue = removeSuffix(returnValue, suffix);
+		return returnValue;
 	}
 
 	/**
