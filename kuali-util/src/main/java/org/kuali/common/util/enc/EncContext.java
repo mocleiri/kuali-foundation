@@ -21,9 +21,11 @@ public final class EncContext {
 
 	public static class Builder {
 
-		private final Optional<EnvironmentService> env;
+		// Required (but optional)
 		private final Optional<String> password;
+		private final Optional<EnvironmentService> env;
 
+		// Optional
 		private Optional<TextEncryptor> textEncryptor;
 		private EncStrength strength = EncStrength.BASIC;
 		private boolean required = false;
@@ -130,7 +132,7 @@ public final class EncContext {
 			// Validate that it's in good shape
 			validate(ctx, required, password);
 
-			// Now that we've successfully created the context, it's safe to remove the system properties
+			// Now that we've successfully created and validated the context, it's safe to remove the system properties
 			if (removeSystemProperties) {
 				PropertyUtils.removeSystemProperties(PASSWORD_KEYS);
 			}
