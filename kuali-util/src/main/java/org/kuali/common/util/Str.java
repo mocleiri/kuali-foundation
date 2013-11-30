@@ -45,12 +45,12 @@ public class Str {
 	/**
 	 * <p>
 	 * A trivial algorithm to conceal <code>text</code>. Can be reversed using <code>reveal()</code>. Do <b>NOT</b> use this method in an attempt to obscure sensitive data. The
-	 * algorithm is completely trivial and exceedingly simple to reverse engineer. Not to mention the <code>reveal()</code> method can reproduce the original string without
-	 * requiring any secret knowledge.
+	 * algorithm is completely trivial and exceedingly simple to reverse engineer. The <code>reveal()</code> method can reproduce the original string without requiring any secret
+	 * knowledge.
 	 * </p>
+	 * 
 	 * <p>
-	 * Don't use this method for anything serious. It's ok to use it for concealing the combination to the cookie jar in the pantry so your 7 year old child doesn't get a case of
-	 * the munchies. You have been warned :).
+	 * Don't use it for anything more serious than hiding the combination to the cookie jar in the pantry from your 7 year old child. :)
 	 * </p>
 	 * 
 	 * @see reveal
