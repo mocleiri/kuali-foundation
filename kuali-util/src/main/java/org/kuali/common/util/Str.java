@@ -56,6 +56,9 @@ public class Str {
 	 */
 	public static final String conceal(String text) {
 		Assert.noBlanks(text);
+		if (isConcealed(text)) {
+			return text;
+		}
 		Assert.notConcealed(text);
 		char[] chars = text.toCharArray();
 		StringBuilder sb = new StringBuilder();
@@ -74,6 +77,9 @@ public class Str {
 	 */
 	public static final String reveal(String text) {
 		Assert.noBlanks(text);
+		if (!isConcealed(text)) {
+			return text;
+		}
 		Assert.concealed(text);
 		int start = CONCEALED_PREFIX.length();
 		int end = text.length() - CONCEALED_SUFFIX.length();
