@@ -38,7 +38,13 @@ public abstract class AbstractEncMojo extends AbstractMojo {
 
 	/**
 	 * 
-	 * The encrypted text to decrypt. eg ENC(y9G0trn) -> FOO
+	 * The text to encrypt/decrypt.
+	 * 
+	 * <pre>
+	 * FOO -> ENC(y9G0trn)
+	 * 
+	 * ENC(y9G0trn) -> FOO
+	 * </pre>
 	 * 
 	 * @parameter expression="${enc.text}"
 	 * @required
@@ -60,8 +66,8 @@ public abstract class AbstractEncMojo extends AbstractMojo {
 	public void execute() {
 		Assert.noBlanks(text);
 		EncContext context = new EncContext.Builder(password).strength(strength).required(true).build();
-		EncryptionService service = new DefaultEncryptionService(context.getTextEncryptor().get());
-		execute(service, text);
+		EncryptionService enc = new DefaultEncryptionService(context.getTextEncryptor().get());
+		execute(enc, text);
 	}
 
 	public String getPassword() {
