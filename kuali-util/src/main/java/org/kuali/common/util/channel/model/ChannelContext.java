@@ -29,6 +29,7 @@ import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
@@ -77,7 +78,8 @@ public final class ChannelContext {
 		private List<String> privateKeys = ImmutableList.of();
 		private boolean echo = true;
 
-		// These only come into play when using builder methods/constructors that take EnvironmentService as a parameter
+		private final Optional<EnvironmentService> env;
+		private final Optional<EncryptionService> enc;
 		private static final String HOSTNAME_KEY = "ssh.hostname";
 		private static final String USERNAME_KEY = "ssh.username";
 		private static final String REQUEST_PSEUDO_TERMINAL_KEY = "ssh.requestPseudoTerminal";
@@ -87,89 +89,45 @@ public final class ChannelContext {
 		 * 
 		 */
 		public Builder(String hostname) {
-			this(hostname, Optional.<EnvironmentService> absent());
+			this(EnvUtils.ABSENT, EncUtils.ABSENT, hostname);
 		}
 
 		/**
 		 * Override using <code>ssh.hostname</code> (if present)
 		 */
 		public Builder(EnvironmentService env, String hostname) {
-			this(hostname, Optional.of(env));
+			this(Optional.of(env), EncUtils.ABSENT, hostname);
 		}
 
 		/**
 		 * Override using <code>ssh.hostname</code> (if present)
 		 */
-		private Builder(String hostname, Optional<EnvironmentService> env) {
+		public Builder(EnvironmentService env, EncryptionService enc, String hostname) {
+			this(Optional.of(env), Optional.of(enc), hostname);
+		}
+
+		/**
+		 * Override using <code>ssh.hostname</code> (if present)
+		 */
+		private Builder(Optional<EnvironmentService> env, Optional<EncryptionService> enc, String hostname) {
 			if (env.isPresent()) {
 				this.hostname = env.get().getString(HOSTNAME_KEY, hostname);
 			} else {
 				this.hostname = hostname;
 			}
-		}
-
-		@Deprecated
-		public Builder(String username, String hostname) {
-			this(Optional.fromNullable(NullUtils.trimToNull(username)), hostname);
-		}
-
-		@Deprecated
-		public Builder(String username, String hostname, String privateKey) {
-			this(Optional.of(username), hostname, Optional.of(privateKey));
-		}
-
-		@Deprecated
-		public Builder(Optional<String> username, String hostname) {
-			this(username, hostname, Optional.<String> absent());
-		}
-
-		@Deprecated
-		public Builder(Optional<String> username, String hostname, Optional<String> privateKey) {
-			this.username = username;
-			this.hostname = hostname;
-			privateKey(privateKey.orNull());
+			this.env = env;
+			this.enc = enc;
 		}
 
 		/**
 		 * Overrides available are <code>ssh.username</code>, <code>ssh.requestPseudoTerminal</code>, and <code>ssh.privateKeys</code>
 		 */
-		public Builder override(EnvironmentService env) {
-			username(SpringUtils.getString(env, USERNAME_KEY, username).orNull());
-			requestPseudoTerminal(env.getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
-			privateKeys(SpringUtils.getStrings(env, PRIVATE_KEYS_KEY, privateKeys));
-			return this;
-		}
-
-		/**
-		 * Decrypt any encrypted private keys
-		 */
-		public Builder decrypt(EncryptionService enc) {
-			privateKeys(EncUtils.decrypt(enc, privateKeys));
-			return this;
-		}
-
-		/**
-		 * @deprecated
-		 */
-		@Deprecated
-		public Builder(String hostname, ChannelContext provided) {
-			this(hostname);
-			this.username = provided.username;
-			this.port = provided.port;
-			this.encoding = provided.encoding;
-			this.connectTimeout = provided.connectTimeout;
-			this.options = provided.options;
-			this.strictHostKeyChecking = provided.strictHostKeyChecking;
-			this.requestPseudoTerminal = provided.requestPseudoTerminal;
-			this.knownHosts = provided.knownHosts;
-			this.config = provided.config;
-			this.useConfigFile = provided.useConfigFile;
-			this.includeDefaultPrivateKeyLocations = provided.includeDefaultPrivateKeyLocations;
-			this.waitForClosedSleepMillis = provided.waitForClosedSleepMillis;
-			this.privateKeyFiles = provided.privateKeyFiles;
-			this.privateKeys = provided.privateKeys;
-			this.useKnownHosts = provided.useKnownHosts;
-			this.echo = provided.echo;
+		private void override() {
+			if (env.isPresent()) {
+				username(SpringUtils.getString(env.get(), USERNAME_KEY, username).orNull());
+				requestPseudoTerminal(env.get().getBoolean(REQUEST_PSEUDO_TERMINAL_KEY, requestPseudoTerminal));
+				privateKeys(SpringUtils.getStrings(env.get(), PRIVATE_KEYS_KEY, privateKeys));
+			}
 		}
 
 		public Builder requestPseudoTerminal(boolean requestPseudoTerminal) {
@@ -257,6 +215,8 @@ public final class ChannelContext {
 		}
 
 		private void finish() {
+			override();
+			privateKeys(EncUtils.decrypt(enc, privateKeys));
 			this.privateKeyFiles = ImmutableList.copyOf(getUniquePrivateKeyFiles(privateKeyFiles, useConfigFile, config, includeDefaultPrivateKeyLocations));
 			this.privateKeys = ImmutableList.copyOf(privateKeys);
 			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
