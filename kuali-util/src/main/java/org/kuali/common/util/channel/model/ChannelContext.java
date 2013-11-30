@@ -256,23 +256,32 @@ public final class ChannelContext {
 			return this;
 		}
 
-		public ChannelContext build() {
-			Assert.noBlanks(hostname, encoding);
-			Assert.noNulls(username, connectTimeout, options, knownHosts, config, privateKeyFiles, privateKeys);
-			Assert.isPort(port);
-			Assert.positive(waitForClosedSleepMillis);
-			Assert.notEncrypted(privateKeys);
-			if (useConfigFile) {
-				Assert.exists(config);
-				Assert.isTrue(config.canRead(), "[" + config + "] exists but is not readable");
-			}
+		private void finish() {
 			this.privateKeyFiles = ImmutableList.copyOf(getUniquePrivateKeyFiles(privateKeyFiles, useConfigFile, config, includeDefaultPrivateKeyLocations));
 			this.privateKeys = ImmutableList.copyOf(privateKeys);
-			if (connectTimeout.isPresent()) {
-				Assert.positive(connectTimeout.get());
-			}
 			this.options = ImmutableProperties.of(getSessionProperties(options, strictHostKeyChecking));
-			return new ChannelContext(this);
+		}
+
+		private void validate(ChannelContext ctx) {
+			Assert.noBlanks(ctx.getHostname(), ctx.getEncoding());
+			Assert.noNulls(ctx.getUsername(), ctx.getConnectTimeout(), ctx.getOptions(), ctx.getKnownHosts(), ctx.getConfig(), ctx.getPrivateKeyFiles(), ctx.getPrivateKeys());
+			Assert.isPort(ctx.getPort());
+			Assert.positive(ctx.getWaitForClosedSleepMillis());
+			Assert.notEncrypted(ctx.getPrivateKeys());
+			if (ctx.isUseConfigFile()) {
+				Assert.exists(ctx.getConfig());
+				Assert.isTrue(ctx.getConfig().canRead(), "[" + ctx.getConfig() + "] exists but is not readable");
+			}
+			if (ctx.getConnectTimeout().isPresent()) {
+				Assert.positive(ctx.getConnectTimeout().get());
+			}
+		}
+
+		public ChannelContext build() {
+			finish();
+			ChannelContext ctx = new ChannelContext(this);
+			validate(ctx);
+			return ctx;
 		}
 
 		private List<File> getUniquePrivateKeyFiles(List<File> privateKeyFiles, boolean useConfigFile, File config, boolean includeDefaultPrivateKeyLocations) {
