@@ -97,14 +97,14 @@ public class FooBar {
 		private NullBarBuilder() {
 		}
 
-		public NullBarBuilder withBaz(boolean baz) {
+		public NullBarBuilder baz(boolean baz) {
 			this.baz = Optional.of(baz);
 			return getThis();
 		}
 
 		@Override
 		protected void defaults() {
-			foo(FOO_DEFAULT).bar(BAR_DEFAULT).withBaz(BAZ_DEFAULT);
+			foo(FOO_DEFAULT).bar(BAR_DEFAULT).baz(BAZ_DEFAULT);
 		}
 
 		@Override
