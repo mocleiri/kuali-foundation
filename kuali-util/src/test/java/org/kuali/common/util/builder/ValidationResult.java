@@ -17,27 +17,13 @@ public final class ValidationResult {
 	private final Optional<String> message;
 	private final boolean valid;
 
-	private ValidationResult(Builder builder) {
-		this.message = builder.message;
-		this.valid = message.isPresent();
+	public ValidationResult(Optional<String> message) {
+		Assert.noNulls(message);
+		if (message.isPresent()) {
+			Assert.noBlanks(message.get());
+		}
+		this.message = message;
+		this.valid = !message.isPresent();
 	}
 
-	public static class Builder {
-
-		private final Optional<String> message;
-
-		public Builder(Optional<String> message) {
-			this.message = message;
-		}
-
-		private void validate(ValidationResult instance) {
-			Assert.noNulls(instance);
-		}
-
-		public ValidationResult build() {
-			ValidationResult instance = new ValidationResult(this);
-			validate(instance);
-			return instance;
-		}
-	}
 }
