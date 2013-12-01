@@ -57,10 +57,9 @@ public class FooBar {
 		}
 
 		@Override
-		public final boolean isValid() {
+		public final ValidationResult validate() {
 			FooBar instance = construct();
-			Optional<String> message = validateInstance(instance);
-			return !message.isPresent();
+			return validateInstance(instance);
 		}
 
 		protected void and(StringBuilder sb, String message) {
@@ -71,7 +70,7 @@ public class FooBar {
 		}
 
 		@Override
-		protected Optional<String> validateInstance(FooBar instance) {
+		protected ValidationResult validateInstance(FooBar instance) {
 			StringBuilder sb = new StringBuilder();
 			if (bar == null) {
 				and(sb, "bar is null");
@@ -84,11 +83,8 @@ public class FooBar {
 			if (foo > fooMax) {
 				and(sb, "foo is too large");
 			}
-			if (sb.length() == 0) {
-				return Optional.<String> absent();
-			} else {
-				return Optional.of(sb.toString());
-			}
+			Optional<String> message = sb.length() == 0 ? Optional.<String> absent() : Optional.of(sb.toString());
+			return new ValidationResult(message);
 		}
 
 	}
