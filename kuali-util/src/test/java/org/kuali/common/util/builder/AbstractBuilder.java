@@ -2,8 +2,6 @@ package org.kuali.common.util.builder;
 
 import org.kuali.common.util.Assert;
 
-import com.google.common.base.Optional;
-
 public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implements Builder<T> {
 
 	protected AbstractBuilder() {
@@ -21,17 +19,17 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implem
 	@Override
 	public final void reset() {
 		defaults();
-		Assert.isTrue(isValid(), "invalid defaults");
+		Assert.isTrue(validate().isValid(), "invalid defaults");
 	}
 
 	private final void validate(T instance) {
-		Optional<String> message = validateInstance(instance);
-		if (message.isPresent()) {
-			throw new IllegalArgumentException(message.get());
+		ValidationResult result = validateInstance(instance);
+		if (!result.isValid()) {
+			throw new IllegalArgumentException(result.getMessage().get());
 		}
 	}
 
-	protected abstract Optional<String> validateInstance(T instance);
+	protected abstract ValidationResult validateInstance(T instance);
 
 	protected abstract void defaults();
 

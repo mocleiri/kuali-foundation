@@ -18,10 +18,8 @@ public final class ValidationResult {
 	private final boolean valid;
 
 	public ValidationResult(Optional<String> message) {
-		Assert.notNull(message, "message is null");
-		if (message.isPresent()) {
-			Assert.noBlanksWithMsg("message content is blank", message.get());
-		}
+		Assert.notNull(message);
+		Assert.noBlanks(message);
 		this.message = message;
 		this.valid = !message.isPresent();
 	}

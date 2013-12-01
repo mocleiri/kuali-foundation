@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.enc.EncUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public abstract class Assert extends org.springframework.util.Assert {
 
@@ -233,6 +234,35 @@ public abstract class Assert extends org.springframework.util.Assert {
 		}
 	}
 
+	public static void noBlanks(Optional<String> string) {
+		noBlankOptionals(ImmutableList.of(string));
+	}
+
+	public static void noBlanks(Optional<String> s1, Optional<String> s2) {
+		noBlankOptionals(ImmutableList.of(s1, s2));
+	}
+
+	public static void noBlanks(Optional<String> s1, Optional<String> s2, Optional<String> s3) {
+		noBlankOptionals(ImmutableList.of(s1, s2, s3));
+	}
+
+	public static void noBlanks(Optional<String> s1, Optional<String> s2, Optional<String> s3, Optional<String> s4) {
+		noBlankOptionals(ImmutableList.of(s1, s2, s3, s4));
+	}
+
+	public static void noBlankOptionals(List<Optional<String>> optionals) {
+		for (Optional<String> optional : optionals) {
+			if (optional.isPresent()) {
+				noBlanks(optional.get());
+			}
+		}
+	}
+
+	/**
+	 * @deprecated Use noBlankOptionals instead
+	 * @see noBlankOptionals
+	 */
+	@Deprecated
 	public static void noBlanksIfPresent(Optional<String>... optionals) {
 		for (Optional<String> optional : optionals) {
 			if (optional.isPresent()) {

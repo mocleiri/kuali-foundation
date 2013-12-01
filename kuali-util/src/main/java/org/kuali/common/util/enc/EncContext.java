@@ -19,6 +19,19 @@ public final class EncContext {
 	private final Optional<TextEncryptor> textEncryptor;
 	private final EncStrength strength;
 
+	private EncContext(Builder builder) {
+		this.strength = builder.strength;
+		this.textEncryptor = builder.textEncryptor;
+	}
+
+	public Optional<TextEncryptor> getTextEncryptor() {
+		return textEncryptor;
+	}
+
+	public EncStrength getStrength() {
+		return strength;
+	}
+
 	public static class Builder {
 
 		// Required (but optional)
@@ -132,7 +145,7 @@ public final class EncContext {
 			// Validate that it's in good shape
 			validate(ctx, required, password);
 
-			// Now that we've successfully created and validated the context, it's safe to remove the system properties
+			// Now that we've successfully created and validated the instance, it's safe to remove the system properties
 			if (removeSystemProperties) {
 				PropertyUtils.removeSystemProperties(PASSWORD_KEYS);
 			}
@@ -143,16 +156,4 @@ public final class EncContext {
 
 	}
 
-	private EncContext(Builder builder) {
-		this.strength = builder.strength;
-		this.textEncryptor = builder.textEncryptor;
-	}
-
-	public Optional<TextEncryptor> getTextEncryptor() {
-		return textEncryptor;
-	}
-
-	public EncStrength getStrength() {
-		return strength;
-	}
 }

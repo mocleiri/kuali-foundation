@@ -6,9 +6,9 @@ package org.kuali.common.util.builder;
 public interface Builder<T> {
 
 	/**
-	 * @return {@code true} iff current builder properties specify a valid {@code T} instance
+	 * @return Inspect the current builder properties and to create a validation result object
 	 */
-	boolean isValid();
+	ValidationResult validate();
 
 	/**
 	 * @return a {@code T} instance based on current properties
