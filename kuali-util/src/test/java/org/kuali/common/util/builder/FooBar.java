@@ -89,7 +89,7 @@ public class FooBar {
 	public static class NullBarBuilder extends Builder<NullBarBuilder> {
 
 		public static final int FOO_DEFAULT = 30;
-		public static final List<String> BAR_DEFAULT = null;
+		public static final List<String> BAR_DEFAULT = ImmutableList.of();
 		public static final boolean BAZ_DEFAULT = true;
 
 		private Optional<Boolean> baz = Optional.of(BAZ_DEFAULT);
