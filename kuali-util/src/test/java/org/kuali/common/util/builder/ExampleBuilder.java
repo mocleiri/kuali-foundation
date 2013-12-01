@@ -3,7 +3,7 @@ package org.kuali.common.util.builder;
 /**
  * {@code Builder} API visible to callers.
  */
-public interface Builder<T> {
+public interface ExampleBuilder<T> {
 
 	/**
 	 * @return Inspect the current builder properties and to create a validation result object

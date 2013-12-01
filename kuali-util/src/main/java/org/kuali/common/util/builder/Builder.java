@@ -1,6 +1,7 @@
 package org.kuali.common.util.builder;
 
+public interface Builder<T> {
 
-public class BuilderUtils {
+	T build();
 
 }
