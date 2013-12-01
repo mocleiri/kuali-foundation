@@ -12,10 +12,33 @@ import com.google.common.base.Optional;
 
 public final class KeyPair {
 
+	public String getName() {
+		return name;
+	}
+
+	public Optional<String> getPublicKey() {
+		return publicKey;
+	}
+
+	public Optional<String> getPrivateKey() {
+		return privateKey;
+	}
+
+	public Optional<String> getFingerprint() {
+		return fingerprint;
+	}
+
 	private final String name;
 	private final Optional<String> publicKey;
 	private final Optional<String> privateKey;
 	private final Optional<String> fingerprint;
+
+	private KeyPair(Builder builder) {
+		this.name = builder.name;
+		this.publicKey = builder.publicKey;
+		this.privateKey = builder.privateKey;
+		this.fingerprint = builder.fingerprint;
+	}
 
 	public static class Builder {
 
@@ -117,29 +140,6 @@ public final class KeyPair {
 			return pair;
 		}
 
-	}
-
-	private KeyPair(Builder builder) {
-		this.name = builder.name;
-		this.publicKey = builder.publicKey;
-		this.privateKey = builder.privateKey;
-		this.fingerprint = builder.fingerprint;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Optional<String> getPublicKey() {
-		return publicKey;
-	}
-
-	public Optional<String> getPrivateKey() {
-		return privateKey;
-	}
-
-	public Optional<String> getFingerprint() {
-		return fingerprint;
 	}
 
 }
