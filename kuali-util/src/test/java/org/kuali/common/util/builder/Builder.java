@@ -6,7 +6,7 @@ package org.kuali.common.util.builder;
 public interface Builder<T> {
 
 	/**
-	 * @return {@code true} iff current properties specify a valid {@code T} instance
+	 * @return {@code true} iff current builder properties specify a valid {@code T} instance
 	 */
 	boolean isValid();
 
