@@ -34,8 +34,8 @@ public class FooBar {
 		return new DefaultBuilder();
 	}
 
-	public static NullBarBuilder nullBarBuilder() {
-		return new NullBarBuilder();
+	public static EmptyBarBuilder nullBarBuilder() {
+		return new EmptyBarBuilder();
 	}
 
 	public static abstract class Builder<B extends Builder<B>> extends AbstractBuilder<B, FooBar> {
@@ -86,7 +86,7 @@ public class FooBar {
 		}
 	}
 
-	public static class NullBarBuilder extends Builder<NullBarBuilder> {
+	public static class EmptyBarBuilder extends Builder<EmptyBarBuilder> {
 
 		public static final int FOO_DEFAULT = 30;
 		public static final List<String> BAR_DEFAULT = ImmutableList.of();
@@ -94,10 +94,10 @@ public class FooBar {
 
 		private Optional<Boolean> baz = Optional.of(BAZ_DEFAULT);
 
-		private NullBarBuilder() {
+		private EmptyBarBuilder() {
 		}
 
-		public NullBarBuilder baz(boolean baz) {
+		public EmptyBarBuilder baz(boolean baz) {
 			this.baz = Optional.of(baz);
 			return getThis();
 		}
