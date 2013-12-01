@@ -59,8 +59,8 @@ public class FooBar {
 		@Override
 		public final boolean isValid() {
 			FooBar instance = construct();
-			Optional<String> invalidMessage = invalidMessage(instance);
-			return !invalidMessage.isPresent();
+			Optional<String> message = validateInstance(instance);
+			return !message.isPresent();
 		}
 
 		protected void and(StringBuilder sb, String message) {
@@ -71,7 +71,7 @@ public class FooBar {
 		}
 
 		@Override
-		protected Optional<String> invalidMessage(FooBar instance) {
+		protected Optional<String> validateInstance(FooBar instance) {
 			StringBuilder sb = new StringBuilder();
 			if (bar == null) {
 				and(sb, "bar is null");

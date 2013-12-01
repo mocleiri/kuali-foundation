@@ -25,13 +25,13 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implem
 	}
 
 	private final void validate(T instance) {
-		Optional<String> invalidMessage = invalidMessage(instance);
-		if (invalidMessage.isPresent()) {
-			throw new IllegalArgumentException(invalidMessage.get());
+		Optional<String> message = validateInstance(instance);
+		if (message.isPresent()) {
+			throw new IllegalArgumentException(message.get());
 		}
 	}
 
-	protected abstract Optional<String> invalidMessage(T instance);
+	protected abstract Optional<String> validateInstance(T instance);
 
 	protected abstract void defaults();
 
