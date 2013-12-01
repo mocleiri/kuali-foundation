@@ -27,7 +27,7 @@ public class BuilderTest {
 	private void assertIsValid_foo(boolean valid, int... foos) {
 		FooBar.Builder<?> builder = FooBar.builder();
 		for (int foo : foos) {
-			assertEquals(valid, builder.withFoo(foo).isValid());
+			assertEquals(valid, builder.foo(foo).isValid());
 		}
 	}
 }

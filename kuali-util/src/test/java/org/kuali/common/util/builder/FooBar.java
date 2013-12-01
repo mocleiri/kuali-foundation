@@ -46,12 +46,12 @@ public class FooBar {
 		private Builder() {
 		}
 
-		public final B withFoo(int foo) {
+		public final B foo(int foo) {
 			this.foo = foo;
 			return getThis();
 		}
 
-		public final B withBar(List<String> bar) {
+		public final B bar(List<String> bar) {
 			this.bar = bar;
 			return getThis();
 		}
@@ -77,7 +77,7 @@ public class FooBar {
 
 		@Override
 		protected void defaults() {
-			withFoo(FOO_DEFAULT).withBar(BAR_DEFAULT);
+			foo(FOO_DEFAULT).bar(BAR_DEFAULT);
 		}
 
 		@Override
@@ -104,7 +104,7 @@ public class FooBar {
 
 		@Override
 		protected void defaults() {
-			withFoo(FOO_DEFAULT).withBar(BAR_DEFAULT).withBaz(BAZ_DEFAULT);
+			foo(FOO_DEFAULT).bar(BAR_DEFAULT).withBaz(BAZ_DEFAULT);
 		}
 
 		@Override
