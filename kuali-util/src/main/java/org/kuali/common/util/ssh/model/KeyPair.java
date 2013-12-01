@@ -100,11 +100,10 @@ public final class KeyPair {
 			privateKey(EncUtils.decrypt(enc, privateKey).orNull());
 		}
 
-		@SuppressWarnings("unchecked")
 		private void validate(KeyPair pair, boolean assertDecryptedPrivateKey) {
 			Assert.noBlanks(pair.getName());
 			Assert.noNulls(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
-			Assert.noBlanksIfPresent(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
+			Assert.noBlanks(pair.getPublicKey(), pair.getPrivateKey(), pair.getFingerprint());
 			if (assertDecryptedPrivateKey && pair.getPrivateKey().isPresent()) {
 				Assert.notEncrypted(pair.getPrivateKey().get());
 			}
