@@ -53,7 +53,7 @@ public enum Regions {
 	 * </p>
 	 * 
 	 * <p>
-	 * If you use both, be sure to always explicitly specify the region you want.
+	 * If you use both, be sure to always explicit about the region you want.
 	 * </p>
 	 */
 	public static final Regions DEFAULT_REGION = US_EAST_1;

@@ -88,7 +88,7 @@ public final class DefaultProviderChain extends AWSCredentialsProviderChain {
 			Assert.isTrue(provider.getProviders().size() > 0, "Must supply at least one provider");
 		}
 
-		public AWSCredentialsProvider build() {
+		public DefaultProviderChain build() {
 			override();
 			this.providers = getProviders();
 			DefaultProviderChain provider = new DefaultProviderChain(this);
