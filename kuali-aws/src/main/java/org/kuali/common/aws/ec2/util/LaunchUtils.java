@@ -102,7 +102,7 @@ public class LaunchUtils {
 		Optional<Integer> sizeInGigabytes = getSizeInGigaBytes(env, provided);
 		Optional<Boolean> deleteOnTermination = getDeleteOnTermination(env, provided);
 		if (deleteOnTermination.isPresent() || sizeInGigabytes.isPresent()) {
-			return Optional.of(new RootVolume(sizeInGigabytes, deleteOnTermination));
+			return Optional.of(new RootVolume.Builder(sizeInGigabytes, deleteOnTermination).build());
 		} else {
 			return Optional.absent();
 		}

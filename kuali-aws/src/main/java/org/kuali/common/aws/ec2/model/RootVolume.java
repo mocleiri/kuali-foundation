@@ -6,31 +6,6 @@ import com.google.common.base.Optional;
 
 public final class RootVolume {
 
-	public RootVolume() {
-		this(Optional.<Integer> absent(), Optional.<Boolean> absent());
-	}
-
-	public RootVolume(int sizeInGigabytes) {
-		this(Optional.of(sizeInGigabytes), Optional.<Boolean> absent());
-	}
-
-	public RootVolume(boolean deleteOnTermination) {
-		this(Optional.<Integer> absent(), Optional.of(deleteOnTermination));
-	}
-
-	public RootVolume(int sizeInGigabytes, boolean deleteOnTermination) {
-		this(Optional.of(sizeInGigabytes), Optional.of(deleteOnTermination));
-	}
-
-	public RootVolume(Optional<Integer> sizeInGigabytes, Optional<Boolean> deleteOnTermination) {
-		Assert.noNulls(sizeInGigabytes, deleteOnTermination);
-		if (sizeInGigabytes.isPresent()) {
-			Assert.positive(sizeInGigabytes.get());
-		}
-		this.sizeInGigabytes = sizeInGigabytes;
-		this.deleteOnTermination = deleteOnTermination;
-	}
-
 	private final Optional<Integer> sizeInGigabytes;
 	private final Optional<Boolean> deleteOnTermination;
 
@@ -40,6 +15,43 @@ public final class RootVolume {
 
 	public Optional<Boolean> getDeleteOnTermination() {
 		return deleteOnTermination;
+	}
+
+	private RootVolume(Builder builder) {
+		this.sizeInGigabytes = builder.sizeInGigabytes;
+		this.deleteOnTermination = builder.deleteOnTermination;
+	}
+
+	public static class Builder {
+
+		// Optional
+		private Optional<Integer> sizeInGigabytes = Optional.absent();
+		private Optional<Boolean> deleteOnTermination = Optional.absent();
+
+		public Builder(Optional<Integer> sizeInGigabytes, Optional<Boolean> deleteOnTermination) {
+			this.sizeInGigabytes = sizeInGigabytes;
+			this.deleteOnTermination = deleteOnTermination;
+		}
+
+		public Builder sizeInGigabytes(int sizeInGigabytes) {
+			this.sizeInGigabytes = Optional.of(sizeInGigabytes);
+			return this;
+		}
+
+		public Builder deleteOnTermination(boolean deleteOnTermination) {
+			this.deleteOnTermination = Optional.of(deleteOnTermination);
+			return this;
+		}
+
+		private void validate(RootVolume instance) {
+			Assert.noNulls(instance.getDeleteOnTermination(), instance.getSizeInGigabytes());
+		}
+
+		public RootVolume build() {
+			RootVolume instance = new RootVolume(this);
+			validate(instance);
+			return instance;
+		}
 	}
 
 }
