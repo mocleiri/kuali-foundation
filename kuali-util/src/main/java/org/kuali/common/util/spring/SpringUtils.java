@@ -99,6 +99,10 @@ public class SpringUtils {
 		return provided;
 	}
 
+	public static String getString(EnvironmentService env, List<String> keys) {
+		return getString(Optional.of(env), keys, Optional.<String> absent()).get();
+	}
+
 	public static Optional<String> getString(EnvironmentService env, List<String> keys, Optional<String> provided) {
 		return getString(Optional.of(env), keys, provided);
 	}
@@ -529,6 +533,21 @@ public class SpringUtils {
 	public static long getMillis(EnvironmentService env, String key, String defaultValue) {
 		String value = env.getString(key, defaultValue);
 		return FormatUtils.getMillis(value);
+	}
+
+	/**
+	 * Parse milliseconds from a time string that ends with a unit of measure. If no unit of measure is provided, milliseconds is assumed. Unit of measure is case insensitive.
+	 * 
+	 * @see FormatUtils.getMillis(String time)
+	 */
+	public static Optional<Integer> getMillisAsInt(EnvironmentService env, String key, Optional<Integer> provided) {
+		if (env.containsProperty(key)) {
+			String defaultValue = FormatUtils.getTime(provided.get());
+			Long millis = getMillis(env, key, defaultValue);
+			return Optional.of(millis.intValue());
+		} else {
+			return provided;
+		}
 	}
 
 	/**

@@ -21,8 +21,9 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implem
 	}
 
 	private final void validate() {
-		if (!isValid())
+		if (!isValid()) {
 			throw new IllegalArgumentException();
+		}
 	}
 
 	protected abstract void defaults();
