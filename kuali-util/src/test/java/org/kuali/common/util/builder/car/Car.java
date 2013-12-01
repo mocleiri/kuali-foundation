@@ -1,57 +1,77 @@
 package org.kuali.common.util.builder.car;
 
-import org.kuali.common.util.Assert;
+import org.springframework.core.env.Environment;
+
+import com.google.common.base.Optional;
 
 public final class Car {
-
-	public String getColor() {
-		return color;
-	}
 
 	public String getMake() {
 		return make;
 	}
 
-	public String getModel() {
-		return model;
+	public Optional<String> getDescription() {
+		return description;
 	}
 
-	private final String color;
 	private final String make;
-	private final String model;
+	private final Optional<String> description;
 
 	private Car(Builder builder) {
-		this.color = builder.color;
 		this.make = builder.make;
-		this.model = builder.model;
+		this.description = builder.description;
 	}
 
 	public static class Builder {
 
-		private String color;
-		private String make;
-		private String model;
+		private final String make; // Required
+		private Optional<String> description = Optional.absent(); // Optional
 
-		public Builder color(String color) {
-			this.color = color;
+		// Spring's environment abstraction
+		private final Optional<Environment> environment;
+
+		public Builder(String make) {
+			this(Optional.<Environment> absent(), make);
+		}
+
+		public Builder(Environment environment, String make) {
+			this(Optional.of(environment), make);
+		}
+
+		private Builder(Optional<Environment> environment, String make) {
+			if (environment.isPresent()) {
+				Environment env = environment.get();
+				this.make = env.getProperty("car.make", make);
+			} else {
+				this.make = make;
+			}
+			this.environment = environment;
+		}
+
+		public Builder description(String description) {
+			this.description = Optional.of(description);
 			return this;
 		}
 
-		public Builder make(String make) {
-			this.make = make;
-			return this;
-		}
-
-		public Builder model(String model) {
-			this.model = model;
-			return this;
+		private void override() {
+			if (environment.isPresent()) {
+				Environment env = environment.get();
+				String description = env.getProperty("car.description");
+				this.description = Optional.fromNullable(description);
+			}
 		}
 
 		private void validate(Car instance) {
-			Assert.noBlanks(instance.getColor(), instance.getMake(), instance.getModel());
+			if (instance.getMake() == null) {
+				throw new IllegalArgumentException("make is null");
+			}
+			if (instance.getDescription() == null) {
+				throw new IllegalArgumentException("description is null");
+			}
 		}
 
 		public Car build() {
+			override();
 			Car instance = new Car(this);
 			validate(instance);
 			return instance;
