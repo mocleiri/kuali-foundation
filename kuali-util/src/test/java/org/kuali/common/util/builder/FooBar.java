@@ -58,13 +58,39 @@ public class FooBar {
 
 		@Override
 		public final boolean isValid() {
+			FooBar instance = construct();
+			Optional<String> invalidMessage = invalidMessage(instance);
+			return !invalidMessage.isPresent();
+		}
+
+		protected void and(StringBuilder sb, String message) {
+			if (sb.length() != 0) {
+				sb.append(" AND ");
+			}
+			sb.append(message);
+		}
+
+		@Override
+		protected Optional<String> invalidMessage(FooBar instance) {
+			StringBuilder sb = new StringBuilder();
 			if (bar == null) {
-				return false;
+				and(sb, "bar is null");
 			}
 			int fooMin = bar.size() != 0 ? 0 : 30;
 			int fooMax = bar.size() != 0 ? 45 : 60;
-			return foo >= fooMin && foo <= fooMax;
+			if (foo < fooMin) {
+				and(sb, "foo is too small");
+			}
+			if (foo > fooMax) {
+				and(sb, "foo is too large");
+			}
+			if (sb.length() == 0) {
+				return Optional.<String> absent();
+			} else {
+				return Optional.of(sb.toString());
+			}
 		}
+
 	}
 
 	public static class DefaultBuilder extends Builder<DefaultBuilder> {

@@ -2,6 +2,8 @@ package org.kuali.common.util.builder;
 
 import org.kuali.common.util.Assert;
 
+import com.google.common.base.Optional;
+
 public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implements Builder<T> {
 
 	protected AbstractBuilder() {
@@ -10,7 +12,7 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implem
 
 	@Override
 	public final T build() {
-		T instance = construct(); // Create a new instance
+		T instance = construct(); // Create a new instance from the builder properties
 		validate(instance); // Ensure that the newly created instance is valid
 		reset(); // Reset builder properties to their defaults
 		return instance; // Return the newly created instance
@@ -23,12 +25,13 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implem
 	}
 
 	private final void validate(T instance) {
-		if (!isValid(instance)) {
-			throw new IllegalArgumentException();
+		Optional<String> invalidMessage = invalidMessage(instance);
+		if (invalidMessage.isPresent()) {
+			throw new IllegalArgumentException(invalidMessage.get());
 		}
 	}
 
-	protected abstract boolean isValid(T instance);
+	protected abstract Optional<String> invalidMessage(T instance);
 
 	protected abstract void defaults();
 
