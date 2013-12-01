@@ -38,7 +38,7 @@ public class FooBar {
 		return new EmptyBarBuilder();
 	}
 
-	public static abstract class Builder<B extends Builder<B>> extends AbstractBuilder<B, FooBar> {
+	public static abstract class Builder<B extends Builder<B>> extends ExampleAbstractBuilder<B, FooBar> {
 
 		private int foo;
 		private List<String> bar;

@@ -2,9 +2,9 @@ package org.kuali.common.util.builder;
 
 import org.kuali.common.util.Assert;
 
-public abstract class AbstractBuilder<B extends AbstractBuilder<B, T>, T> implements ExampleBuilder<T> {
+public abstract class ExampleAbstractBuilder<B extends ExampleAbstractBuilder<B, T>, T> implements ExampleBuilder<T> {
 
-	protected AbstractBuilder() {
+	protected ExampleAbstractBuilder() {
 		reset();
 	}
 
