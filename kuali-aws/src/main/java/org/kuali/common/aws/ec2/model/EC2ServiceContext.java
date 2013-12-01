@@ -48,10 +48,24 @@ public final class EC2ServiceContext {
 			if (env.isPresent()) {
 				regionName(SpringUtils.getString(env.get(), REGION_KEY, regionName).orNull());
 				endpoint(SpringUtils.getString(env.get(), ENDPOINT_KEY, endpoint).orNull());
-				timeOffsetInSeconds(SpringUtils.getMillisAsInt(env.get(), TIMEOFFSET_KEY, timeOffsetInSeconds).orNull());
+				timeOffsetInSeconds(getTimeOffsetInSeconds(env.get()).orNull());
 				sleepIntervalMillis(env.get().getInteger(SLEEP_INTERVAL_MILLIS_KEY, sleepIntervalMillis));
 				initialPauseMillis(env.get().getInteger(INITIAL_PAUSE_KEY, initialPauseMillis));
 				terminationTimeoutMillis(env.get().getInteger(TERMINATION_TIMEOUT_KEY, terminationTimeoutMillis));
+			}
+		}
+
+		protected Optional<Integer> getTimeOffsetInSeconds(EnvironmentService env) {
+			Optional<String> offset = SpringUtils.getOptionalString(env, TIMEOFFSET_KEY);
+			if (offset.isPresent()) {
+				// Convert the text from the property into a millisecond value
+				long millis = FormatUtils.getMillis(offset.get());
+				// The unit of measure the Amazon EC2 client needs is seconds not milliseconds
+				Long seconds = millis / 1000;
+				// Return the seconds value as an integer
+				return Optional.of(seconds.intValue());
+			} else {
+				return Optional.absent();
 			}
 		}
 

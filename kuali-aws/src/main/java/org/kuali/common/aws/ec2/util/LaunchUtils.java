@@ -7,7 +7,6 @@ import org.kuali.common.aws.ec2.model.EC2ServiceContext;
 import org.kuali.common.aws.ec2.model.LaunchInstanceContext;
 import org.kuali.common.aws.ec2.model.RootVolume;
 import org.kuali.common.aws.ec2.model.security.KualiSecurityGroup;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.spring.SpringUtils;
@@ -15,7 +14,6 @@ import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.ssh.model.KeyPair;
 import org.springframework.util.Assert;
 
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
@@ -25,10 +23,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class LaunchUtils {
-
-	private static final String REGION_KEY = "aws.region";
-	private static final String TIMEOFFSET_KEY = "aws.timeOffset";
-	private static final String ENDPOINT_KEY = "aws.endpoint";
 
 	private static final String AMI_KEY = "ec2.ami";
 	private static final String KEY_NAME_KEY = "ec2.keyName";
@@ -76,38 +70,6 @@ public class LaunchUtils {
 			client.setConfiguration(context.getConfiguration().get());
 		}
 		return client;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	@Deprecated
-	public static EC2ServiceContext getEC2ServiceContext(EnvironmentService env, AWSCredentials credentials) {
-		Optional<String> regionName = SpringUtils.getOptionalString(env, REGION_KEY);
-		Optional<String> endpoint = SpringUtils.getOptionalString(env, ENDPOINT_KEY);
-		Optional<Integer> timeOffsetInSeconds = getTimeOffsetInSeconds(env);
-		return new EC2ServiceContext.Builder(credentials).regionName(regionName.orNull()).endpoint(endpoint.orNull()).timeOffsetInSeconds(timeOffsetInSeconds.orNull()).build();
-	}
-
-	protected static Optional<Integer> getTimeOffsetInSeconds(EnvironmentService env) {
-		Optional<String> offset = SpringUtils.getOptionalString(env, TIMEOFFSET_KEY);
-		if (offset.isPresent()) {
-			// Convert the text from the property into a millisecond value
-			long millis = FormatUtils.getMillis(offset.get());
-			// The unit of measure the Amazon EC2 client needs is seconds not milliseconds
-			Long seconds = millis / 1000;
-			// Return the seconds value as an integer
-			return Optional.of(seconds.intValue());
-		} else {
-			return Optional.absent();
-		}
-	}
-
-	/**
-	 * Generate a <code>LaunchInstanceContext</code> from the configuration present in the environment
-	 */
-	public static LaunchInstanceContext getContext(EnvironmentService env) {
-		return getContext(env, NOCONTEXT);
 	}
 
 	/**
