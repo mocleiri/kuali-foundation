@@ -4,18 +4,42 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
+import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
 
 public final class EnvironmentServiceContext {
 
+	public Environment getEnv() {
+		return env;
+	}
+
+	public boolean isCheckEnvironmentVariables() {
+		return checkEnvironmentVariables;
+	}
+
+	public boolean isResolveStrings() {
+		return resolveStrings;
+	}
+
+	public Mode getMissingPropertyMode() {
+		return missingPropertyMode;
+	}
+
 	private final Environment env;
 	private final boolean checkEnvironmentVariables;
 	private final boolean resolveStrings;
 	private final Mode missingPropertyMode;
 
-	public static class Builder {
+	private EnvironmentServiceContext(Builder builder) {
+		this.env = builder.env;
+		this.checkEnvironmentVariables = builder.checkEnvironmentVariables;
+		this.resolveStrings = builder.resolveStrings;
+		this.missingPropertyMode = builder.missingPropertyMode;
+	}
+
+	public static class Builder extends AbstractBuilder<EnvironmentServiceContext> {
 
 		private Environment env = EnvUtils.getDefaultEnvironment();
 		private boolean checkEnvironmentVariables = true;
@@ -31,6 +55,7 @@ public final class EnvironmentServiceContext {
 		}
 
 		public Builder env(Environment env) {
+			Assert.noNulls(env);
 			this.env = env;
 			return this;
 		}
@@ -50,47 +75,23 @@ public final class EnvironmentServiceContext {
 			return this;
 		}
 
-		private void validate(EnvironmentServiceContext ctx) {
-			Assert.noNulls(ctx.getEnv(), ctx.getMissingPropertyMode());
-		}
-
 		private void override() {
-			Assert.noNulls(env);
 			checkEnvironmentVariables(env.getProperty(CHECK_ENVIRONMENT_VARIABLES_KEY, Boolean.class, checkEnvironmentVariables));
 			resolveStrings(env.getProperty(RESOLVE_STRINGS_KEY, Boolean.class, resolveStrings));
 			missingPropertyMode(env.getProperty(MISSING_PROPERTY_MODE_KEY, Mode.class, missingPropertyMode));
 		}
 
-		public EnvironmentServiceContext build() {
-			override();
-			EnvironmentServiceContext ctx = new EnvironmentServiceContext(this);
-			validate(ctx);
-			return ctx;
+		@Override
+		protected void validate(EnvironmentServiceContext ctx) {
+			Assert.noNulls(ctx.getEnv(), ctx.getMissingPropertyMode());
 		}
 
-	}
+		@Override
+		protected EnvironmentServiceContext getInstance() {
+			override();
+			return new EnvironmentServiceContext(this);
+		}
 
-	private EnvironmentServiceContext(Builder builder) {
-		this.env = builder.env;
-		this.checkEnvironmentVariables = builder.checkEnvironmentVariables;
-		this.resolveStrings = builder.resolveStrings;
-		this.missingPropertyMode = builder.missingPropertyMode;
-	}
-
-	public Environment getEnv() {
-		return env;
-	}
-
-	public boolean isCheckEnvironmentVariables() {
-		return checkEnvironmentVariables;
-	}
-
-	public boolean isResolveStrings() {
-		return resolveStrings;
-	}
-
-	public Mode getMissingPropertyMode() {
-		return missingPropertyMode;
 	}
 
 }
