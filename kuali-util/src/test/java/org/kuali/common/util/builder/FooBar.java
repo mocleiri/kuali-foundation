@@ -1,19 +1,20 @@
 package org.kuali.common.util.builder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 /** Conditionally settable {@code baz}, corrected! */
 public class FooBar {
+
 	private final int foo;
 	private final List<String> bar;
-	private final Boolean baz;
+	private final Optional<Boolean> baz;
 
-	private FooBar(Builder<?> builder, Boolean baz) {
+	private FooBar(Builder<?> builder, Optional<Boolean> baz) {
 		this.foo = builder.foo;
-		this.bar = Collections.unmodifiableList(new ArrayList<String>(builder.bar));
+		this.bar = builder.bar;
 		this.baz = baz;
 	}
 
@@ -25,7 +26,7 @@ public class FooBar {
 		return bar;
 	}
 
-	public Boolean getBaz() {
+	public Optional<Boolean> getBaz() {
 		return baz;
 	}
 
@@ -38,6 +39,7 @@ public class FooBar {
 	}
 
 	public static abstract class Builder<B extends Builder<B>> extends AbstractBuilder<B, FooBar> {
+
 		private int foo;
 		private List<String> bar;
 
@@ -56,15 +58,19 @@ public class FooBar {
 
 		@Override
 		public final boolean isValid() {
-			int fooMin = bar != null ? 0 : 30;
-			int fooMax = bar != null ? 45 : 60;
-			return fooMin <= foo && foo <= fooMax;
+			if (bar == null) {
+				return false;
+			}
+			int fooMin = bar.size() != 0 ? 0 : 30;
+			int fooMax = bar.size() != 0 ? 45 : 60;
+			return foo >= fooMin && foo <= fooMax;
 		}
 	}
 
 	public static class DefaultBuilder extends Builder<DefaultBuilder> {
+
 		public static final int FOO_DEFAULT = 0;
-		public static final List<String> BAR_DEFAULT = Collections.unmodifiableList(Arrays.asList("Hello, world!"));
+		public static final List<String> BAR_DEFAULT = ImmutableList.of("Hello World");
 
 		private DefaultBuilder() {
 		}
@@ -76,22 +82,23 @@ public class FooBar {
 
 		@Override
 		protected FooBar construct() {
-			return new FooBar(getThis(), null);
+			return new FooBar(getThis(), Optional.<Boolean> absent());
 		}
 	}
 
 	public static class NullBarBuilder extends Builder<NullBarBuilder> {
+
 		public static final int FOO_DEFAULT = 30;
 		public static final List<String> BAR_DEFAULT = null;
-		public static final Boolean BAZ_DEFAULT = Boolean.TRUE;
+		public static final boolean BAZ_DEFAULT = true;
 
-		private Boolean baz;
+		private Optional<Boolean> baz = Optional.of(BAZ_DEFAULT);
 
 		private NullBarBuilder() {
 		}
 
-		public NullBarBuilder withBaz(Boolean baz) {
-			this.baz = baz;
+		public NullBarBuilder withBaz(boolean baz) {
+			this.baz = Optional.of(baz);
 			return getThis();
 		}
 
