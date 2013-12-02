@@ -17,13 +17,16 @@ require_once( 'themes/kc/inc/toolbar.php' );
        
         
         
-        <div class="row has-tools">
-          <div class="col-md-6">
+        <div class="has-tools">
             <h3>Compliance</h3>
-          </div>
-          <div class="col-md-6 ">
-            <button id="compliance_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-compliance/compliance.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
-          </div>
+            <div class="uif-toolbar">
+              <?php
+              if (!isset($_SESSION['compliance'])) { ?>
+              <button id="compliance_add" class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-compliance/compliance.add.php"><i class="icon icon-plus"></i> Add compliance entry</button>
+              <?php } else { ?>
+              <button id="compliance_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-compliance/compliance.add.php"><i class="icon icon-plus"></i> Add compliance entry</button>
+              <?php } ?>
+            </div>
         </div>
         
         

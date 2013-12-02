@@ -8,14 +8,16 @@ if($role == "pi") $piSelected = 'selected="selected"';
 if($role == "copi") $copiSelected = 'selected="selected"';
 
 ?>
+
 <div class="panel panel-default" style="margin-bottom: 6px;" id="keyPersonnelEntry<?php echo $id?>">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-6">
-                <h4 class="panel-title"><a class="accordion-toggle pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $id?>"> <span aria-hidden="true" class="icon-caret-down"></span> <?php echo $persons[$id]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['keyPersonnel'][$id]['personnel_role']]?></span></h4>
+            <a class="accordion-toggle icon icon-caret-right" style="display: block; float: left; text-align: center; margin: -10px 0 -10px 0; padding: 25px 10px; border-right: 1px solid #ccc; background: #f9f9f9;" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $id?>" entryId="<?php echo $id?>" style=""></a>
+            <div class="col panel-title-container" style="float: left; display: inline; padding: 10px;">
+              <?php echo $persons[$id]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['keyPersonnel'][$id]['personnel_role']]?></span>
             </div>
-            <div class="col-md-6">
-                <a class="pull-right" href="#"><span aria-hidden="true" class="icon-remove remove-person" entryId="<?php echo $id?>"></span></a>
+            <div class="col panel-remove pull-right" style="padding: 10px 10px 10px 0;">
+              <a href="#"><span aria-hidden="true" section="compliance" class="icon-remove remove-person" entryId="<?php echo $id?>"></span></a>
             </div>
         </div>
     </div>

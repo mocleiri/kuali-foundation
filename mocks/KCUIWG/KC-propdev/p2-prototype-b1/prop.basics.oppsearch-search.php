@@ -14,19 +14,17 @@ require_once( 'themes/kc/inc/toolbar.php' );
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
-        
-       
-        
-        
-        
-        
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
+
         <div class="row has-tools">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <h3>Opportunity Search</h3>
           </div>
-          <div class="col-md-6 ">
-            <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-oppsearch.php"> <i class="icon-search" aria-hidden="true"></i> Find an opportunity</button>
+
+          <div class="col-md-12">
+            <div class="uif-toolbar">
+              <button class="btn btn-default btn-starter launch-modal" data-modal-page="modal/lookup-oppsearch.php"><i class="icon icon-search"></i> Find an opportunity</button>
+            </div>
           </div>
         </div>
         

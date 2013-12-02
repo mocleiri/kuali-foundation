@@ -67,11 +67,10 @@ include( '_temp.select.filler.php' );
             
               
             
-            <div class="row has-tools">
-          <div class="col-md-6">
-                  <h4> Performing Organization</h4>
-          </div>
-          <div class="col-md-6"> 
+            <div class="has-tools">
+              <h4> Performing Organization</h4>
+
+          <div class="uif-toolbar">
             <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php"><span aria-hidden="true" class="icon-search"></span> Select different organization</button>
           </div>
         </div>
@@ -119,7 +118,8 @@ include( '_temp.select.filler.php' );
             <div class="panel-group" id="accordion1">
               
             </div>
-            <div class=" btn-row-widget-action">
+
+            <div class="uif-toolbar">
               <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution-other.php"><span aria-hidden="true" class="icon-plus"></span> Add location</button>
             </div>
           </div>

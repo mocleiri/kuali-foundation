@@ -25,7 +25,12 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <div class="section-title">
           <h3>Opportunity Search</h3>
         </div>
-        <div id="oppsearch-tabs"></div>
+
+        <div class="uif-toolbar">
+          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-oppsearch.php" data-modal-height="500"><span aria-hidden="true" class="icon-exchange"></span> Change opportunity</button>
+          <button class="btn btn-default btn-xs" href="prop.basics.oppsearch-search.php"><span aria-hidden="true" class="icon-remove"></span> Remove opportunity</button>
+        </div>
+
         <div id="oppsearch-tabs">
           <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="#opp-details" data-toggle="tab">Opportunity</a></li>
@@ -345,10 +350,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
               </table>
             </div>
           </div>
-        </div>
-        <div class="btn-row-widget-action">
-          <button class="btn btn-default btn-xs  launch-modal" data-modal-page="modal/lookup-oppsearch.php" data-modal-height="500"><span aria-hidden="true" class="icon-exchange"></span> Change opportunity</button>
-          <button class="btn btn-default btn-xs " href="prop.basics.oppsearch-search.php"><span aria-hidden="true" class="icon-remove"></span> Remove opportunity</button>
         </div>
         
         <div class="uif-stickyFooter uif-stickyButtonFooter"> 

@@ -13,7 +13,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
     <div class="container-fluid" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
-      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
+      <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">
         
         <h3>Attachments</h3>
         <ul class="nav nav-tabs" id="myTab">
@@ -25,27 +25,23 @@ require_once( 'themes/kc/inc/toolbar.php' );
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="proposal">
-          
-          
-          
-            
-            
+
             <div class="row has-tools">
-          <div class="col-md-6">
+          <div class="col-md-12">
              <h4>Proposal</h4>
           </div>
-          <div class="col-md-6"> 
-            <button id="attachments_proposal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          <div class="col-md-12">
+            <div class="uif-toolbar">
+              <?php if (!isset($_SESSION['attachments']['proposal'])) { ?>
+              <button id="attachments_proposal_add" class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } else { ?>
+              <button id="attachments_proposal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.proposal.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <button class="btn btn-default btn-xs"><i class="icon icon-check"></i> Select all</button>
+              <button class="btn btn-default btn-xs" disabled><i class="icon icon-trash"></i> Remove</button>
+              <?php } ?>
+            </div>
           </div>
-        </div>
-        
-        
-       
-          
-          
-          
-          
-           
+        </div>           
             <div class="panel-group attachments-proposal-entries" id="accordion">
 
                 <?php
@@ -59,25 +55,22 @@ require_once( 'themes/kc/inc/toolbar.php' );
             </div>
            
           </div>
+
           <div class="tab-pane" id="personnel">
-          
-          
-          
-          
-           
             <div class="row has-tools">
-          <div class="col-md-6">
+          <div class="col-md-12">
              <h4>Personnel</h4>
           </div>
-          <div class="col-md-6"> 
-             <button id="attachments_personnel_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.personnel.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          <div class="col-md-12">
+            <div class="uif-toolbar">
+              <?php if (!isset($_SESSION['attachments']['personnel'])) { ?>
+              <button id="attachments_personnel_add" class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.personnel.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } else { ?>
+              <button id="attachments_personnel_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.personnel.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } ?>
+            </div>             
           </div>
         </div>
-        
-        
-        
-        
-         
             <div class="panel-group attachments-personnel-entries" id="accordion2">
                    <?php
                         if(isset($_SESSION['attachments']['personnel']) && is_array($_SESSION['attachments']['personnel'])){
@@ -86,29 +79,26 @@ require_once( 'themes/kc/inc/toolbar.php' );
                            }
                        }
                    ?>
-                   <?php // include "inc/attachments.personnel.entry.php";?>
-
 
             </div>
           
           </div>
+
           <div class="tab-pane" id="internal">
-          
-            
-            
-            
-             
             <div class="row has-tools">
-          <div class="col-md-6">
+          <div class="col-md-12">
               <h4>Internal</h4>
           </div>
-          <div class="col-md-6"> 
-             <button id="attachments_internal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.internal.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          <div class="col-md-12">
+            <div class="uif-toolbar">
+              <?php if (!isset($_SESSION['attachments']['internal'])) { ?>
+              <button id="attachments_internal_add" class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.internal.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } else { ?>
+              <button id="attachments_internal_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.internal.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } ?>
+           </div>
           </div>
-        </div>
-        
-        
-        
+        </div>        
             <div class="panel-group attachments-internal-entries" id="accordion3">
             <?php
                       if(isset($_SESSION['attachments']['internal']) && is_array($_SESSION['attachments']['internal'])){
@@ -121,25 +111,23 @@ require_once( 'themes/kc/inc/toolbar.php' );
             </div>
            
           </div>
+
           <div class="tab-pane" id="abstracts">
-          
-          
-          
-           
              
             <div class="row has-tools">
-          <div class="col-md-6">
+          <div class="col-md-12">
               <h4>Abstracts</h4>
           </div>
-          <div class="col-md-6"> 
-            <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.abstracts.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          <div class="col-md-12">
+            <div class="uif-toolbar">
+              <?php if (!isset($_SESSION['attachments']['abstracts'])) { ?>
+              <button id="attachments_abstracts_add" class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.abstracts.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } else { ?>
+              <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.abstracts.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } ?>
+            </div>
           </div>
         </div>
-        
-        
-        
-        
-           
             <div class="panel-group attachments-abstracts-entries" id="accordion4">
 
                 <?php
@@ -153,17 +141,21 @@ require_once( 'themes/kc/inc/toolbar.php' );
             </div>
             
           </div>
+
           <div class="tab-pane" id="notes">
-          
-          
-          
              
             <div class="row has-tools">
-          <div class="col-md-6">
+          <div class="col-md-12">
               <h4>Notes</h4>
           </div>
-          <div class="col-md-6"> 
-            <button id="attachments_abstracts_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.notes.add.php"><span aria-hidden="true" class="icon-plus"></span> Add Entry</button>
+          <div class="col-md-12"> 
+            <div class="uif-toolbar">
+              <?php if (!isset($_SESSION['attachments']['notes'])) { ?>
+              <button id="attachments_notes_add" class="btn btn-default btn-starter launch-modal" data-modal-page="modal/modal-attachments/attachments.notes.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } else { ?>
+              <button id="attachments_notes_add" class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-attachments/attachments.notes.add.php"><i class="icon icon-plus"></i> Add Entry</button>
+              <?php } ?>
+            </div>
           </div>
         </div>
         
