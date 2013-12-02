@@ -3,7 +3,7 @@ package org.kuali.common.util.builder;
 public abstract class AbstractBuilder<T> implements Builder<T> {
 
 	@Override
-	public T build() {
+	public final T build() {
 		T instance = getInstance();
 		validate(instance);
 		return instance;
