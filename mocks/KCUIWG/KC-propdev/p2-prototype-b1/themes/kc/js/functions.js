@@ -576,6 +576,23 @@ $(document).ready(function() {
 
 
     /*
+        Container expand/collapse additional functionality
+        Extends Bootstraps functionality by checking to see if the container is open or closed
+        Chris Rodriguez
+    */
+    $('.accordion-toggle').click(function() {
+
+        if ($(this).parent().parent().next().hasClass('in')) {
+            $(this).removeClass('opened');
+        } else {
+            $(this).addClass('opened');
+        }
+
+    });
+
+
+
+    /*
         Mailchimp style inline help
         Shows helper text on focus and hides it on blur
         Chris Rodriguez
@@ -588,17 +605,17 @@ $(document).ready(function() {
 
     $('.has-helper').on('focus', function() {
 
-     if ($(this).parent().find('.helper-text')) {
-         $(this).parent().find('.helper-text').slideDown();
-     }
+    if ($(this).parent().find('.helper-text')) {
+        $(this).parent().find('.helper-text').slideDown();
+    }
 
     });
 
     $('.has-helper').on('blur', function() {
 
-     if ($(this).parent().find('.helper-text')) {
-         $(this).parent().find('.helper-text').slideUp();
-     }
+        if ($(this).parent().find('.helper-text')) {
+            $(this).parent().find('.helper-text').slideUp();
+        }
 
     });
 

@@ -260,12 +260,46 @@ section.toolbar .dropdown a .caret {
   margin-right: 10px;
   margin-top: 1px;
 }
+#main .panel-group .panel {
+  position: relative;
+}
+#main .panel-group .panel .panel-heading {
+  min-height: 63px;
+}
 #main .panel-group .panel .panel-heading .panel-title {
   color: inherit;
   font-size: 1em;
 }
-#main .panel-group .panel .panel-heading .panel-title .accordion-toggle.collapsed span.icon-caret-down:before {
+#main .panel-group .panel .panel-heading .accordion-toggle {
+  position: absolute;
+  display: block;
+  text-align: center;
+  margin: -10px 0 -10px 0;
+  padding: 25px 10px;
+  border-right: 1px solid #ccc;
+  background: #f9f9f9;
+}
+#main .panel-group .panel .panel-heading .accordion-toggle + div {
+  margin: 0 0 0 30px;
+}
+#main .panel-group .panel .panel-heading .accordion-toggle.opened {
+  background: white !important;
+  padding-bottom: 26px !important;
+}
+#main .panel-group .panel .panel-heading .accordion-toggle.collapsed span.icon-caret-down:before {
   content: "\f0da";
+}
+#main .panel-group .panel .panel-heading .col {
+  float: left;
+  display: inline;
+  padding: 10px;
+}
+#main .panel-group .panel .panel-heading .col.checkbox input {
+  margin-left: 0;
+  float: none;
+}
+#main .panel-group .panel .panel-heading .col.panel-remove {
+  padding: 10px 10px 10px 0;
 }
 #main .entry-row {
   margin-bottom: 20px;

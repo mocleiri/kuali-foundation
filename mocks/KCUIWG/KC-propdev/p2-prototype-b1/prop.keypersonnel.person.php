@@ -12,11 +12,11 @@ if($role == "copi") $copiSelected = 'selected="selected"';
 <div class="panel panel-default" style="margin-bottom: 6px;" id="keyPersonnelEntry<?php echo $id?>">
     <div class="panel-heading">
         <div class="row">
-            <a class="accordion-toggle icon icon-caret-right" style="display: block; float: left; text-align: center; margin: -10px 0 -10px 0; padding: 25px 10px; border-right: 1px solid #ccc; background: #f9f9f9;" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $id?>" entryId="<?php echo $id?>" style=""></a>
-            <div class="col panel-title-container" style="float: left; display: inline; padding: 10px;">
+            <a class="accordion-toggle icon icon-caret-right" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $id?>" entryId="<?php echo $id?>" style=""></a>
+            <div class="col panel-title-container">
               <?php echo $persons[$id]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['keyPersonnel'][$id]['personnel_role']]?></span>
             </div>
-            <div class="col panel-remove pull-right" style="padding: 10px 10px 10px 0;">
+            <div class="col panel-remove pull-right">
               <a href="#"><span aria-hidden="true" section="compliance" class="icon-remove remove-person" entryId="<?php echo $id?>"></span></a>
             </div>
         </div>

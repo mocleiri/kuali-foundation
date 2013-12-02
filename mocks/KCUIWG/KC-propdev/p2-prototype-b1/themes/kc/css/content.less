@@ -191,22 +191,67 @@
 	.panel-group {
 
 		.panel {
+			position: relative;
 
 			.panel-heading {
+				min-height: 63px;
 
 				.panel-title {
 					color: inherit;
 					font-size: 1em;
+				}
 
-					.accordion-toggle span {
-					}
+				.accordion-toggle {
+					position: absolute;
+					display: block;
+					text-align: center;
+					margin: -10px 0 -10px 0;
+					padding: 25px 10px;
+					border-right: 1px solid #ccc;
+					background: #f9f9f9;
+				}
 
-				
+				.accordion-toggle + div {
+					margin: 0 0 0 30px;
+				}
 
-					.accordion-toggle.collapsed span.icon-caret-down:before {
+				.accordion-toggle.opened {
+					background: white !important;
+					padding-bottom: 26px !important;
+				}				
+
+				.accordion-toggle.collapsed span.icon-caret-down:before {
 					content: "\f0da";
-						
+				}
+
+				.col {
+					float: left;
+					display: inline;
+					padding: 10px;
+				}
+
+				.col.checkbox {
+
+					input {
+						margin-left: 0;
+						float: none;
 					}
+				}
+
+				.col.panel-title-container {
+
+				}
+
+				.col.panel-file-preview {
+
+				}
+
+				.col.panel-status-preview {
+
+				}
+
+				.col.panel-remove {
+					padding: 10px 10px 10px 0;
 				}
 			}
 
