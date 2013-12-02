@@ -1,6 +1,6 @@
 package org.kuali.common.util.builder;
 
-public abstract class AbstractBuilder<T> implements Builder<T> {
+public abstract class ValidatingBuilder<T> implements Builder<T> {
 
 	@Override
 	public final T build() {
