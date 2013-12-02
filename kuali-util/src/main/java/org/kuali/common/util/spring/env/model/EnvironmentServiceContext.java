@@ -55,7 +55,6 @@ public final class EnvironmentServiceContext {
 		}
 
 		public Builder env(Environment env) {
-			Assert.noNulls(env);
 			this.env = env;
 			return this;
 		}
@@ -76,6 +75,7 @@ public final class EnvironmentServiceContext {
 		}
 
 		private void override() {
+			Assert.noNulls(env);
 			checkEnvironmentVariables(env.getProperty(CHECK_ENVIRONMENT_VARIABLES_KEY, Boolean.class, checkEnvironmentVariables));
 			resolveStrings(env.getProperty(RESOLVE_STRINGS_KEY, Boolean.class, resolveStrings));
 			missingPropertyMode(env.getProperty(MISSING_PROPERTY_MODE_KEY, Mode.class, missingPropertyMode));
