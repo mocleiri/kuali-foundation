@@ -48,6 +48,8 @@ $(document).ready(function(){
         <?php } ?>
 
         <h3>Proposal Details</h3>
+        
+        <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-xs"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a>
         <!--<div class="alert alert-required">
             <p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
         </div>-->
@@ -56,91 +58,94 @@ $(document).ready(function(){
             <span class="req">*</span> Indicates required fields
         </p>
         
-        <form action="#" method="post" class="form-horizontal">          
+        <form action="#" method="post" class="form-horizontal">  
         
-            <fieldset>
-                <legend style="display:none">Enter any relevant details for this proposal</legend>
-                
-                <div class="form-group clearfix">
+        
+        
+        
+                            <fieldset>
+                                <legend style="display:none">Enter any relevant details for this proposal</legend>
+                                
+                                <div class="form-group clearfix">
                     <label for="proposal_type" class="control-label col-md-3 required">Proposal type: <span class="req">*</span></label>
-                    <div class="col-md-9">
-                        <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
-                            <option value="1" selected="selected">New</option>
-                            <option value="4">Continuation</option>
-                            <option value="3">Renewal</option>
-                            <option value="2">Resubmission</option>
-                            <option value="5">Revision</option>
-                            <option value="6">Task Order</option>
-                        </select>
-                    </div>
-                </div>
+                                    <div class="col-md-9 "  id="tour1">
+                                        <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
+                                            <option value="1" selected="selected">New</option>
+                                            <option value="4">Continuation</option>
+                                            <option value="3">Renewal</option>
+                                            <option value="2">Resubmission</option>
+                                            <option value="5">Revision</option>
+                                            <option value="6">Task Order</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                <div class="form-group clearfix">
+                                <div class="form-group clearfix">
                     <label for="lead_unit" class="control-label col-md-3 required">Lead unit: <span class="req">*</span></label>
-                    <div class="col-md-9">
-                        <select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
-                            <option value="000001">000001 - University</option>
-                            <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
-                            <option value="IN-CARD" selected="selected">IN-CARD - CARDIOLOGY</option>
-                            <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
-                        </select>
-                    </div>
-                </div>
+                                    <div class="col-md-9"  id="tour2">
+                                        <select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
+                                            <option value="000001">000001 - University</option>
+                                            <option value="BL-IIDC">BL-IIDC - IND INST ON DISABILITY/COMMNTY</option>
+                                            <option value="IN-CARD" selected="selected">IN-CARD - CARDIOLOGY</option>
+                                            <option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                <div class="form-group clearfix">
+                                <div class="form-group clearfix">
                     <label for="activity_type" class="control-label col-md-3 required">Activity type: <span class="req">*</span></label>
-                    <div class="col-md-9">
-                        <select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
-                            <option value="1" selected="selected">Research</option>
-                            <option value="4">Clinical Trial</option>
-                            <option value="9">Construction</option>
-                            <option value="7">Fellowship - Post-Doctoral</option>
-                            <option value="6">Fellowship - Pre-Doctoral</option>
-                            <option value="2">Instruction</option>
-                            <option value="3">Public Service</option>
-                            <option value="8">Student Services</option>
-                            <option value="5">Other</option>
-                        </select>
-                    </div>
-                </div>
+                                    <div class="col-md-9"  id="tour3">
+                                        <select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
+                                            <option value="1" selected="selected">Research</option>
+                                            <option value="4">Clinical Trial</option>
+                                            <option value="9">Construction</option>
+                                            <option value="7">Fellowship - Post-Doctoral</option>
+                                            <option value="6">Fellowship - Pre-Doctoral</option>
+                                            <option value="2">Instruction</option>
+                                            <option value="3">Public Service</option>
+                                            <option value="8">Student Services</option>
+                                            <option value="5">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                <div class="form-group clearfix">
+                                <div class="form-group clearfix">
                     <label class="control-label col-md-3 required" for="project_start">Project dates: <span class="req">*</span></label>
-                    <div class="col-md-9 date-range">
-                        <div class="col-md-6 date">
-                            <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="<?php echo $project_start?>" />
-                            <label for="project_start" class="helper-text">Beginning on</label>
-                        </div>
-                        <span class="range">to</span>
-                        <div class="col-md-6 date">
-                            <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="<?php echo $project_end?>" />
-                            <label for="project_end" class="helper-text">Ending on</label>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="col-md-9 date-range"  id="tour4">
+                                        <div class="col-md-6 date">
+                                            <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" value="<?php echo $project_start?>" />
+                                            <label for="project_start" class="helper-text">Beginning on</label>
+                                        </div>
+                                        <span class="range">to</span>
+                                        <div class="col-md-6 date">
+                                            <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_end" id="project_end" placeholder="mm/dd/yyyy" value="<?php echo $project_end?>" />
+                                            <label for="project_end" class="helper-text">Ending on</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="form-group clearfix">
+                                <div class="form-group clearfix">
                     <label for="project_title" class="control-label col-md-3 required">Project title: <span class="req">*</span></label>
-                    <div class="col-md-9">
-                        <textarea name="project_title" id="project_title" class="form-control input-sm has-helper"><?php echo $project_title ?></textarea>
-                        <div class="helper-text">
-                            Give this proposal a title. Be detailed but concise.
-                        </div>
-                    </div>
-                </div>
+                                    <div class="col-md-9"  id="tour5">
+                                        <textarea name="project_title" id="project_title" class="form-control input-sm has-helper"><?php echo $project_title ?></textarea>
+                                        <div class="helper-text">
+                                            Give this proposal a title. Be detailed but concise.
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="form-group clearfix">
+                                <div class="form-group clearfix">
                     <label for="sponsor_code" class="control-label col-md-3 required">Sponsor: <span class="req">*</span></label>
-                    <div class="col-md-9 input-group">
-                        <input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="<?php echo $sponsorCode?>" />
-                        <div class="helper-text">
-                            Enter the sponsor code for this proposal or find one using the lookup tool.
-                        </div>
-                        <span class="input-group-btn">
-                            <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-detailspage.php" data-modal-height="500"></a>
-                        </span>
-                    </div>
-                </div>
+                                    <div class="col-md-9 input-group"  id="tour6">
+                                        <input type="text" class="form-control input-sm has-helper" name="sponsor_code" id="sponsor_code" value="<?php echo $sponsorCode?>" />
+                                        <div class="helper-text">
+                                            Enter the sponsor code for this proposal or find one using the lookup tool.
+                                        </div>
+                                        <span class="input-group-btn">
+                                            <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor-detailspage.php" data-modal-height="500"></a>
+                                        </span>
+                                    </div>
+                                </div>
 
                 <!-- <div class="form-group clearfix">
                     <label for="prime_sponsor_id" class="control-label col-md-3">Prime Sponsor:</label>
@@ -181,23 +186,22 @@ $(document).ready(function(){
                     </div>
                 </div> -->
 
-                <div class="form-group clearfix">
-                    <label for="keywords" class="control-label col-md-3">Keywords:</label>
-                    <div class="col-md-9">
-                        <select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
-                            <option >Biology</option>
-                            <option >Biochemistry</option>
-                            <option>Chemistry</option>
-                            <option >Physics</option>
-                            <option >Marine Biology</option>
-                            <option >Space Physics</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-         
-        </form>
-
+                                <div class="form-group clearfix">
+                                    <label for="keywords" class="control-label col-md-3">Keywords:</label>
+                                    <div class="col-md-9"  id="tour7">
+                                        <select name="keywords" id="keywords" class="form-control input-sm col-md-8" multiple>
+                                            <option >Biology</option>
+                                            <option >Biochemistry</option>
+                                            <option>Chemistry</option>
+                                            <option >Physics</option>
+                                            <option >Marine Biology</option>
+                                            <option >Space Physics</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                         
+                        </form>
         <div class="uif-stickyFooter uif-stickyButtonFooter">
             <div class="btn-row-page-action">
                 <button class="btn btn-default">Save</button>
