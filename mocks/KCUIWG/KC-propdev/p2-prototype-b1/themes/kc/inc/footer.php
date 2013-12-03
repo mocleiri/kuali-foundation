@@ -34,6 +34,9 @@
 <script src="themes/kc/js/jquery.multiselect.filter.min.js"></script>
 <script src="themes/kc/js/jquery.maskedinput.min.js"></script>
 
+<script src="themes/kc/js/hopscotch/js/hopscotch-0.1.2.js"></script> 
+<script src="themes/kc/js/hopscotch/js/prop.basics.details.js"></script> 
+
 <!-- Our custom functions, goes at the end -->
 <script src="themes/kc/js/functions.js"></script>
 </body>
