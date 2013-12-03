@@ -51,6 +51,10 @@
                       <th scope="row">Sponsor Name</th>
                       <td>NIH</td>
                     </tr>
+                    <tr>
+                      <th scope="row">S2S:</th>
+                      <td>Grants.gov</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -60,13 +64,13 @@
       </div>
       <div class="doc-functions">
         <ul>
-          <li><i class="icon icon-ok"></i>    <a href="#" class="launch-modal" data-modal-page="modal/audtimode-on.php" data-modal-height="500">Audit Mode <span style="color:#090">(on)</span></a></li>
+          <li><i class="icon icon-ok"></i> <a href="#" class="launch-modal" data-modal-page="modal/audtimode-on.php" data-modal-height="500">Data validation <span style="color:#090">(on)</span></a></li>
           <li><i class="icon icon-print"></i> <a class="launch-modal" data-modal-page="modal/print.php" href="#">Print</a></li>
           <li><i class="icon icon-copy"></i> <a class="launch-modal" data-modal-page="modal/copy.php" href="#">Copy</a></li>
           <li><i class="icon icon-tasks"></i> <a href="#">Medusa</a></li>
           <li><i class="icon icon-list-ol"></i> <a href="#">Hierarchy</a></li>
-       <li><i class="icon icon-lock"></i> <a href="#">Access</a></li>
-          <!-- <li><i class="icon icon-question-sign"></i> <a href="#">Help</a></li>-->
+          <li><i class="icon icon-lock"></i> <a href="#">Access</a></li>
+          <li><i class="icon icon-question-sign"></i> <a href="#">Help</a></li>
         </ul>
       </div>
     </header>
