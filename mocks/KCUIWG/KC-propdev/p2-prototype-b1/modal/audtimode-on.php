@@ -16,7 +16,7 @@ require_once( 'inc/head.php' );
 <div class="modal-dialog">
   <div class="modal-content">
      <div class="modal-header clearfix">
-      <h3 class="pull-left"> Audit Mode </h3>
+      <h3 class="pull-left">Data Validation </h3>
       <a  href="audtimode-off.php"class="btn btn-default btn-xs pull-right btn-danger" style="margin-right:40px">Turn Off</a>
     </div>
     <div class="modal-body">
