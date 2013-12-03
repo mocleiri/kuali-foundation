@@ -49,7 +49,7 @@
 				<li <?php if ($page == "institution-page3") { echo 'class="active"'; } ?>><a href="prop.inst.3.php">Page 3</a></li>
 			</ul>
 		</li>
-		<li <?php if ($page == "prop-summary") { echo 'class="active"'; } ?>><a href="prop.summary.php"><i class="icon-signout"></i><span>Summary/Submit</span></a></li>
+		<li <?php if ($page == "prop-summary") { echo 'class="active"'; } ?>><a href="prop.summary.php"><i class="icon-signout"></i><span>Submit</span></a></li>
 	</ul>
 </div>
 
