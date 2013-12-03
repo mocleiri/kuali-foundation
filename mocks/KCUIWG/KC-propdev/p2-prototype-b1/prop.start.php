@@ -18,6 +18,9 @@ include( $ROOT . '_temp.select.filler.php' );
     <div class="container-fluid" style="">
    
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Create Proposal</h3>
+      
+       
+        <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-xs"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a>
         <!--<div class="alert alert-required">
             <p>Required fields are <strong>bold</strong>, marked with asterisks (* ), and have a light blue highlight.</p>
         </div>-->
@@ -29,7 +32,7 @@ include( $ROOT . '_temp.select.filler.php' );
                                 
                                 <div class="form-group clearfix">
                                     <label for="proposal_type" class="control-label col-md-3 required">Proposal type: <span class="req">*</span></label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9" id="tour1">
                                         <select name="proposal_type" id="proposal_type" class="form-control input-sm col-md-8">
                                             <option></option>
                                             <option value="1">New</option>
@@ -44,7 +47,7 @@ include( $ROOT . '_temp.select.filler.php' );
 
                                 <div class="form-group clearfix">
                                     <label for="lead_unit" class="control-label col-md-3 required">Lead unit: <span class="req">*</span></label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9" id="tour2">
                                         <select name="lead_unit" id="lead_unit" class="form-control input-sm col-md-8">
                                             <option></option>
                                             <option value="000001">000001 - University</option>
@@ -57,7 +60,7 @@ include( $ROOT . '_temp.select.filler.php' );
 
                                 <div class="form-group clearfix">
                                     <label for="activity_type" class="control-label col-md-3 required">Activity type: <span class="req">*</span></label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9" id="tour3">
                                         <select name="activity_type" id="activity_type" class="form-control input-sm col-md-8">
                                             <option></option>
                                             <option value="1">Research</option>
@@ -75,7 +78,7 @@ include( $ROOT . '_temp.select.filler.php' );
 
                                 <div class="form-group clearfix">
                                     <label class="control-label col-md-3 required" for="project_start">Project dates: <span class="req">*</span></label>
-                                    <div class="col-md-9 date-range">
+                                    <div class="col-md-9 date-range" id="tour4">
                                         <div class="col-md-6 date">
                                             <input type="text" size="12" class="form-control input-sm uif-dateControl" name="project_start" id="project_start" placeholder="mm/dd/yyyy" />
                                             <label for="project_start" class="helper-text">Beginning on</label>
@@ -90,7 +93,7 @@ include( $ROOT . '_temp.select.filler.php' );
 
                                 <div class="form-group clearfix">
                                     <label for="project_title" class="control-label col-md-3 required">Project title: <span class="req">*</span></label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9" id="tour5">
                                         <textarea name="project_title" id="project_title" class="form-control input-sm has-helper"></textarea>
                                         <div class="helper-text">
                                             Enter the project title here.
@@ -100,7 +103,7 @@ include( $ROOT . '_temp.select.filler.php' );
 
                                 <div class="form-group clearfix">
                                     <label for="sponsor_code" class="control-label col-md-3 required">Sponsor: <span class="req">*</span></label>
-                                    <div class="col-md-9 input-group">
+                                    <div class="col-md-9 input-group" id="tour6">
                                         <input type="text" class="form-control input-sm has-helper store-as-session" name="sponsor_code" id="sponsor_code" />
                                         <div class="helper-text">
                                             Enter the sponsor code for this proposal or find one using the lookup tool.
