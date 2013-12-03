@@ -23,7 +23,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1"> <!-- Main content goes here -->
         
         <div class="section-title">
-          <h3>Opportunity Search</h3>
+          <h3>S2S Opportunity Search</h3>
         </div>
 
         <div class="uif-toolbar">

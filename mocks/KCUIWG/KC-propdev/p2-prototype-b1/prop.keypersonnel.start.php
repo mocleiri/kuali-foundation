@@ -29,16 +29,11 @@ $keyPersonnelMessage = "";
              <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><span aria-hidden="true" class="icon-remove" style="font-size:14px"></span></button>
              <span id="keypersonnel-message-name"></span> was successfully added.
           </div>
-
-      
         
-        
-        
-        <p><?php echo $keyPersonnelMessage?></p>
-        
+        <p class="alert alert-info"><?php echo $keyPersonnelMessage?></p>
         
         <div class="has-tools">
-           <h3>Key Personnel</h3>
+           <h3>Personnel</h3>
         </div>
 
         <?php

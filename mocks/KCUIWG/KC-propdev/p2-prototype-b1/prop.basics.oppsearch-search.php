@@ -18,7 +18,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
         <div class="row has-tools">
           <div class="col-md-12">
-            <h3>Opportunity Search</h3>
+            <h3>S2S Opportunity Search</h3>
           </div>
 
           <div class="col-md-12">
@@ -28,8 +28,6 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </div>
         </div>
         
-        
-              
         <div class="section-content hidden">
           <form action="#" method="post" class="">
             <fieldset>
