@@ -26,6 +26,7 @@ session_start();
 <link href="<?php echo $ROOT ?>themes/kc/css/custom.css" rel="stylesheet" />
 <link href="<?php echo $ROOT ?>themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $ROOT ?>themes/kc/js/datatables/DT_bootstrap.css">
+<link href="<?php echo $ROOT ?>themes/kc/js/hopscotch/css/hopscotch-0.1.1.css" rel="stylesheet" type="text/css" media="screen" />
 
 <!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
