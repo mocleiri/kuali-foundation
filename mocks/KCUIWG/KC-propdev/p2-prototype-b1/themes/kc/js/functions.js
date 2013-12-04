@@ -793,7 +793,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     
         
-    $(".load-tabs").live("click", function(){
+    $(".load-tabs").on("click", function(){
             parent.$.fancybox.close();
             $('#oppsearch-tabs').load('modal/lookup-oppsearch-tabs.html');
             
@@ -813,9 +813,8 @@ $(document).ready(function() {
     }
     
     
-    $(".fancy-close").live("click", function(){
+    $(".fancy-close").on("click", function(){
         parent.$.fancybox.close();
-        
     });
 
    

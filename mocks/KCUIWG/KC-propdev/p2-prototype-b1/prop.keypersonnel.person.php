@@ -45,6 +45,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                                         <option value="">select</option>
                                         <option value="copi" <?php echo $copiSelected;?>>Co-Investigator</option>
                                         <option value="pi" <?php echo $piSelected?>>Principal Investigator</option>
+                                        <option value="other" <?php echo $kpSelected?>>Key Person</option>
                                     </select>
                                 </div>
                             </div>

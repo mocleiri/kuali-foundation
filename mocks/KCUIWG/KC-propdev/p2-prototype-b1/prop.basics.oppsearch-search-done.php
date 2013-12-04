@@ -1,7 +1,7 @@
 <?php   session_start();
 
 if(isset($_SESSION['select-opportunity']) && $_SESSION['select-opportunity'] == 1){
-    header('Location: prop.basics.oppsearch-search-done-alt.php');
+    // header('Location: prop.basics.oppsearch-search-done.php');
 }
 
 # Variables
@@ -12,7 +12,6 @@ $page = 'basics-search';
 require_once( 'themes/kc/inc/head.php' );
 require_once( 'themes/kc/inc/nav.php' );
 require_once( 'themes/kc/inc/toolbar.php' );
-
 ?>
 
 <section id="main">
