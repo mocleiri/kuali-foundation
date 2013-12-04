@@ -1406,14 +1406,6 @@ nav-list > li > a {
 .nav-list > li.open > a {
   font-weight: 700 !important;
 }
-.nav-list > li.active > a,
-.nav-list > li.active > a:hover,
-.nav-list > li.active > a:focus,
-.nav-list > li.active > a:active {
-  font-weight: 700!important;
-  font-size: 13px;
-  background: #f2f2f2;
-}
 .nav-list > li.active > a > [class*=icon-] {
   font-weight: 400;
 }
@@ -1449,11 +1441,6 @@ nav-list > li > a {
   position: relative;
   padding: 7px 0 8px 42px;
   margin: 0;
-}
-.nav-list > li .submenu > li > a:focus,
-.nav-list > li .submenu > li > a:hover {
-  background: #f2f2f2;
-  color: #0055cc;
 }
 .nav-list > li .submenu > li:before {
   content: "";
