@@ -190,19 +190,8 @@ $(document).ready(function() {
         Chris Rodriguez
     */
     $('.dropdown-toggle').on('click', function(e) {
-        
-        var that = $(this).attr('id');
+
         e.preventDefault();
-
-        if ($(this).parent().hasClass('open')) {
-            
-            $(this).focus();
-
-        } else {
-            
-            $(this).parent().find('.dropdown-menu').attr('tabindex', '-1').focus();
-
-        }
 
     });
 

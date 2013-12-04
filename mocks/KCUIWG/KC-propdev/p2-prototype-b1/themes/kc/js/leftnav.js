@@ -24,7 +24,7 @@ $(function () {
         }
     }
     e();
-    $("a[href^=#]").click(function (e) {
+    $("a[href^=#]").click(function(e) {
         e.preventDefault()
     });
     var t = $(".dropdown-toggle > .icon-bell-alt + .badge");
@@ -84,9 +84,15 @@ $(function () {
         e.slideToggle(400, function () {
             if ($(this).is(":hidden")) {
                 t.attr("class", "arrow icon-angle-right");
+                $(this).parent().attr('aria-expanded', 'false');
+                $(this).attr('aria-expanded', 'false');
+                $(this).prev('a').focus();
                 $("#sidebar.sidebar-fixed .nav").getNiceScroll().resize()
             } else {
                 t.attr("class", "arrow icon-angle-down");
+                $(this).parent().attr('aria-expanded', 'true');
+                $(this).attr('aria-expanded', 'true');
+                $(this).find('a:first').focus();
                 n()
             }
             t.removeClass("anim-turn90").removeClass("anim-turn-90")
