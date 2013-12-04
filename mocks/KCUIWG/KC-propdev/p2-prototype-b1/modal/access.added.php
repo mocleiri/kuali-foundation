@@ -16,7 +16,9 @@ require_once( 'inc/head.php' );
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
   <strong>Wai Whitis</strong> has been added. You may now add roles to Wai Whitis.
 </div>
-      
+      <div class="uif-toolbar" style="padding-top:0px">
+          <a href="access.adduser.php" class="btn btn-default btn-xs"><i class="icon icon-user"></i> Add User</a>
+        </div>
       
         <table class="table table-condensed">
           <tr>
@@ -81,7 +83,7 @@ require_once( 'inc/head.php' );
                     <td><a href="access.php" class="btn btn-xs btn-default  pull-right">Remove</a></td>
           </tr>
         </table>
-        <a href="access.adduser.php" class="btn btn-link">Add User...</a> </div>
+        </div>
      
     </form>
   </div>
