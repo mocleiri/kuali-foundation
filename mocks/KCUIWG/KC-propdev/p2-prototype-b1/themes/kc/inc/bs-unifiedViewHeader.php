@@ -58,10 +58,6 @@
                       <th scope="row">Sponsor Name</th>
                       <td>NIH</td>
                     </tr>
-                    <tr>
-                      <th scope="row">S2S:</th>
-                      <td>Grants.gov</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
