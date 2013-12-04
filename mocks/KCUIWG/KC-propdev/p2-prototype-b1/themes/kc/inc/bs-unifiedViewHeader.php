@@ -10,11 +10,12 @@
           <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <span class="supportTitle">PI: <em>Not yet assigned</em></span> </h1>
         </div>
         <div class="col-md-6 visible-lg visible-md">
-          <div class="metadata"><strong>Document Info</strong> <br>
+          <div class="metadata">
             Doc Nbr: 2743<br>
             Initiator: thrclark<br>
             Status: In Progress<br>
-            <div class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">more...</a>
+             S2S: grants.gov<br>
+            <div class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">more info...</a>
               <div class="dropdown-menu" >
                 <h4> Document Info</h4>
                 <table class="table table-condensed">
@@ -31,6 +32,12 @@
                       <th scope="row">Status</th>
                       <td>In Progress</td>
                     </tr>
+                    
+                     <tr>
+                      <th scope="row">S2S</th>
+                      <td>grants.gov</td>
+                    </tr>
+                    <tr>
                     <tr>
                       <th scope="row">PI</th>
                       <td>Ken Graves</td>
