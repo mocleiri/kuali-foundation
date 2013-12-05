@@ -1,0 +1,134 @@
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="ie9 ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en-us"><!--<![endif]-->
+<head>
+<title>Kuali Coeus Prototype 2b</title>
+
+<!-- Meta cluster -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<!--  Styles -->
+<link href="../themes/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="../themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
+<link href="../themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" media="screen" />
+<link href="../themes/kc/css/jquery.multiselect.css" rel="stylesheet" media="screen" />
+<link href="../themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
+<link href="../themes/kc/css/custom.css" rel="stylesheet" />
+<link href="../themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../themes/kc/js/datatables/DT_bootstrap.css">
+
+<!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
+
+
+<script type="text/javascript" charset="utf-8" language="javascript" src="../themes/kc/js/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="../themes/kc/js/datatables/DT_bootstrap.js"></script>
+
+
+</head>
+
+<body>
+<!-- Continues with nav.php -->
+<div class="modal-dialog">
+	<div class="modal-content">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Access</h3>
+    </div>
+    <form  class="form-horizontal" method="get" action="">
+      <div class="modal-body" style="min-height:300px">
+        <table class="table table-condensed">
+          <tr>
+            <th scope="col" style="width:25%">User</th>
+            <th scope="col" style="width:70%">Roles</th>
+            <th scope="col" style="width:5%">Actions</th>
+          </tr>
+          <tr>
+            <td>Edward H Haskell</td>
+            <td><select name="keywords" id="roles1" class="form-control input-sm col-md-8" multiple>
+                <option >Reviewer</option>
+                <option >Budget Creator</option>
+                <option>Narritive Writer</option>
+                <option >Aggregator</option>
+                <option >Delete Proposal</option>
+                <option >View Institutional Salaries</option>
+                <option >View Proposal Salaries</option>
+                <option >Approver</option>
+              </select></td>
+            <td><a href="" class="btn btn-xs btn-default pull-right">Remove</a></td>
+          </tr>
+          <tr>
+            <td>Ward Cleaver</td>
+            <td><select name="keywords" id="roles2" class="form-control input-sm col-md-8" multiple>
+                <option >Reviewer</option>
+                <option >Budget Creator</option>
+                <option>Narritive Writer</option>
+                <option >Aggregator</option>
+                <option >Delete Proposal</option>
+                <option >View Institutional Salaries</option>
+                <option >View Proposal Salaries</option>
+                <option >Approver</option>
+              </select></td>
+           <td><a href="" class="btn btn-xs btn-default pull-right">Remove</a></td>
+          </tr>
+          <tr>
+            <td>Jane Smith</td>
+             <td><select name="keywords" id="roles3" class="form-control input-sm col-md-8" multiple>
+                <option >Reviewer</option>
+                <option >Budget Creator</option>
+                <option>Narritive Writer</option>
+                <option >Aggregator</option>
+                <option >Delete Proposal</option>
+                <option >View Institutional Salaries</option>
+                <option >View Proposal Salaries</option>
+                <option >Approver</option>
+              </select></td>
+              <td><a href="" class="btn btn-xs btn-default pull-right">Remove</a></td>
+          </tr>
+        </table><a href="access.adduser.php" class="btn btn-link">Add User...</a>
+      </div>
+      
+      <div class="modal-footer"> <a class="btn btn-primary" href="access.adduser.php">Save</a> <a href="access.php" class="btn btn-link">Cancel</a> </div>
+     
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<!-- Scripts -->
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 
+
+<!-- Bootstrap -->
+<script src="../themes/bootstrap/js/bootstrap.min.js"></script>
+ <script src="../themes/bootstrap/js/modal.js"></script>
+
+ <script src="../themes/kc/js/fancybox/jquery.fancybox.js"></script>
+<script src="../themes/kc/js/jquery.nicescroll.js"></script>
+<script src="../themes/kc/js/jquery.cookie.js"></script>
+<scr ipt src="../themes/kc/js/leftnav.js"></script>
+
+<!-- jQuery UI 1.9.2 -->
+<script src="../themes/kc/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="../themes/kc/js/jquery.multiselect.min.js"></script>
+<script src="../themes/kc/js/jquery.multiselect.filter.min.js"></script>
+<script src="../themes/kc/js/jquery.maskedinput.min.js"></script>
+
+<!-- Our custom functions, goes at the end -->
+<script src="../themes/kc/js/functions.js"></script>
+
+
+
+</body>
+</html>

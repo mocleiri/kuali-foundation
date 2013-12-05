@@ -1,0 +1,45 @@
+dl {
+
+	dt {
+		float: left;
+		margin: 0;
+		padding: 4px;
+		width: 25%;
+		background: @shaded_background;
+		border-top: 1px dotted @border_color;
+	}
+
+	dd {
+		float: left;
+		margin: 0;
+		padding: 4px;
+		width: 75%;
+		border-top: 1px dotted @border_color;
+	}
+
+	dt:first-child {
+		border-top: 0px;
+	}
+
+	dd:first-child {
+		border-top: 0px;
+	}
+}
+
+dl:after {
+	content: " ";
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+.table-borderless {
+	border: 0 !important;
+
+	tr {
+
+		th, td {
+			border: 0 !important;
+		}
+	}
+}
