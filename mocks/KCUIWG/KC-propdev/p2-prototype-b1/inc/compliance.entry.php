@@ -15,7 +15,7 @@
         <?php echo $entry['protocol_no']?>
       </div>
       <div class="col panel-remove pull-right">
-        <a href="#"><span aria-hidden="true" section="compliance" class="icon-remove remove-compliance-entry" entryId="<?php echo $id?>"></span></a>
+        <a href="#"><span aria-hidden="true" section="compliance" class="icon-remove remove-compliance-entry btn btn-default btn-xs" entryId="<?php echo $id?>"></span></a>
       </div>
     </div>
   </div>

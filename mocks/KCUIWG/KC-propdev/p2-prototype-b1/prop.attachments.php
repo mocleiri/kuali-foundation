@@ -26,7 +26,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <div class="tab-content">
           <div class="tab-pane active" id="proposal">
 
-            <div class="row has-tools">
+            <div class="row">
           <div class="col-md-12">
              <h4>Proposal</h4>
           </div>
@@ -57,7 +57,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </div>
 
           <div class="tab-pane" id="personnel">
-            <div class="row has-tools">
+            <div class="row">
           <div class="col-md-12">
              <h4>Personnel</h4>
           </div>
@@ -85,7 +85,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
           </div>
 
           <div class="tab-pane" id="internal">
-            <div class="row has-tools">
+            <div class="row">
           <div class="col-md-12">
               <h4>Internal</h4>
           </div>
@@ -114,7 +114,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
           <div class="tab-pane" id="abstracts">
              
-            <div class="row has-tools">
+            <div class="row">
           <div class="col-md-12">
               <h4>Abstracts</h4>
           </div>
@@ -144,7 +144,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
           <div class="tab-pane" id="notes">
              
-            <div class="row has-tools">
+            <div class="row">
           <div class="col-md-12">
               <h4>Notes</h4>
           </div>

@@ -15,7 +15,7 @@
           <?php echo $entry['approval_status']?>
         </div>
         <div class="col panel-remove pull-right">
-          <a href="#"><span aria-hidden="true" section="proposal" class="icon-remove remove-attachments-proposal-entry" entryId="<?php echo $id?>"></span></a>
+          <a href="#"><span aria-hidden="true" section="proposal" class="icon-remove remove-attachments-proposal-entry btn btn-default btn-xs" entryId="<?php echo $id?>"></span></a>
         </div>
       </div>
     </div>
