@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Researcher</a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" style="margin-right: -200px">
             <div class="container uif-appMenu">
               <div class="row">
                 <div class="col-md-3 col-sm-12">
