@@ -20,7 +20,9 @@ require_once( 'inc/head.php' );
       <a  href="audtimode-off.php"class="btn btn-default btn-xs pull-right btn-danger" style="margin-right:40px">Turn Off</a>
     </div>
     <div class="modal-body">
-      <table class="table table-condensed table-hover table-smaller-text" id="example">
+      There are no validation issues at this time!
+
+      <!-- <table class="table table-condensed table-hover table-smaller-text" id="example">
         <thead>
           <tr>
             <th> <a href="#"> Area</a></th>
@@ -29,8 +31,8 @@ require_once( 'inc/head.php' );
             <th> <a href="#"> Severity</a></th>
             <th> <a href="#">Action</a></th>
           </tr>
-        </thead>
-        <tbody>
+        </thead> -->
+        <!-- <tbody>
           <tr>
             <td>Basics</td>
             <td>Proposal Details</td>
@@ -130,9 +132,9 @@ require_once( 'inc/head.php' );
             <td><a href="#">Fix It</a></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
-    <div class="modal-footer"> </div>
+    <!-- <div class="modal-footer"> </div> -->
   </div>
 </div>
 </div>

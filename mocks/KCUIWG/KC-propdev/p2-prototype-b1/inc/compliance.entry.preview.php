@@ -43,6 +43,12 @@
                       <p class="form-control-static"><?php echo $entry['exemptions']?></p>
                     </div>
                   </div>
+                  <div class="form-group clearfix">
+                    <label for="comments" class="control-label col-md-3">Comments:</label>
+                    <div class="col-md-9">
+                      <p class="form-control-static"><?php echo $entry['comments']?></p>
+                    </div>
+                  </div>
                   <div class="btn-row-widget-action pull-right">
                     <button class="btn btn-primary btn-xs edit-entry" complianceEntryId="<?php echo $id?>" id="edit_entry<?php echo $id?>"> Edit</button>
                     <button class="btn btn-link btn-xs" complianceEntryId="<?php echo $id?>" id="cancel_preview<?php echo $id?>"> Cancel</button>

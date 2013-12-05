@@ -66,7 +66,7 @@ $keyPersonnelMessage = "";
           <div class="btn-row-page-action">
             <button href="prop.basics.orgloc.php" class="btn btn-default">Back</button>
             <button class="btn btn-default">Save</button>
-            <button href="prop.keypersonnel.creditintel.php" class="btn btn-primary">Save and Continue</button>
+            <button href="prop.keypersonnel.credit.php" class="btn btn-primary">Save and Continue</button>
           </div>
           
         </div>

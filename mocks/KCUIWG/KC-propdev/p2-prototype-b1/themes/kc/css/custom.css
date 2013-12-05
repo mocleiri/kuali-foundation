@@ -270,6 +270,7 @@ section.toolbar .dropdown a .caret {
 }
 #main .panel-group .panel .panel-heading {
   min-height: 24px;
+  padding: 6px 15px;
 }
 #main .panel-group .panel .panel-heading .panel-title {
   color: inherit;
@@ -289,7 +290,7 @@ section.toolbar .dropdown a .caret {
 }
 #main .panel-group .panel .panel-heading .accordion-toggle.opened {
   background: white !important;
-  padding-bottom: 18px !important;
+  padding-bottom: 12px !important;
 }
 #main .panel-group .panel .panel-heading .accordion-toggle.collapsed span.icon-caret-down:before {
   content: "\f0da";
@@ -298,6 +299,9 @@ section.toolbar .dropdown a .caret {
   float: left;
   display: inline;
   padding: 2px 10px;
+}
+#main .panel-group .panel .panel-heading .col label {
+  margin-bottom: 0;
 }
 #main .panel-group .panel .panel-heading .col.checkbox input {
   margin-left: 0;

@@ -47,20 +47,6 @@ require_once( 'inc/head.php' );
               </select></td>
                      <td style=""> <a href="" class="btn btn-xs btn-default">Remove</a></td>
           </tr>
-          <tr>
-            <td>Jane Smith</td>
-             <td><select name="keywords" id="roles3" class="form-control input-sm col-md-8" multiple>
-                <option >Reviewer</option>
-                <option >Budget Creator</option>
-                <option>Narritive Writer</option>
-                <option >Aggregator</option>
-                <option >Delete Proposal</option>
-                <option >View Institutional Salaries</option>
-                <option >View Proposal Salaries</option>
-                <option >Approver</option>
-              </select></td>
-                        <td style=""> <a href="" class="btn btn-xs btn-default">Remove</a></td>
-          </tr>
         </table>
       </div>
       

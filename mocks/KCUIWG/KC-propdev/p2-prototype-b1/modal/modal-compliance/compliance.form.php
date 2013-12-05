@@ -85,6 +85,12 @@
                           </select>
                         </div>
                       </div>
+                      <div class="form-group clearfix">
+                        <label for="comments" class="control-label col-sm-3 col-xs-3">Comments:</label>
+                        <div class="col-sm-9 col-xs-9">
+                          <textarea name="comments" id="comments" class="form-control col-md-8 col-md-8"><?php echo $entry['comments'];?></textarea>
+                        </div>
+                      </div>
                       
                       
                     <div class="btn-row-widget-action pull-right">

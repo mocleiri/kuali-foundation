@@ -166,7 +166,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                                     <div class="question-reponse-choices">
                                         <div class="choice">
                                             <label class="off-screen" for="q6">Date this application was made available for review:</label>
-                                            <input type="text" name="q6" id="q6" class="form-control uif-dateControl" placeholder="mm/dd/yyyy" />
+                                            <input type="text" name="q6" id="q6" class="form-control uif-dateControl col-md-3" placeholder="mm/dd/yyyy" />
                                         </div>
                                     </div>
                                 </div>

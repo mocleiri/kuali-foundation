@@ -20,7 +20,7 @@ require_once( 'inc/head.php' );
       <a href="audtimode-on.php"class="btn btn-default btn-xs pull-right btn-success" style="margin-right:40px">Turn On</a>
     </div>
     <div class="modal-body">Data Validation is currently off.</div>
-    <div class="modal-footer"> </div>
+    <!-- <div class="modal-footer"> </div> -->
   </div>
 </div>
 </div>
