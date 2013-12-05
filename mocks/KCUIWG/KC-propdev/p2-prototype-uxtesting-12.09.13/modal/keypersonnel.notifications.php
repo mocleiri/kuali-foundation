@@ -47,7 +47,7 @@ function toggle(source) {
         </table>
       </div>
       
-    <div class="modal-footer"> <a class="btn btn-primary" href="access.adduser.php">Send Notifications</a> <a class="btn btn-link" href="access.adduser.php">Cancel</a> </div>
+    <div class="modal-footer"> <a class="btn btn-primary" href="">Send Notifications</a> <a class="btn btn-link" href="">Cancel</a> </div>
       
     </form>
   </div>
