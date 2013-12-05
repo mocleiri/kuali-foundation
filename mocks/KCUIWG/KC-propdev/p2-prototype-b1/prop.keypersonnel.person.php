@@ -17,7 +17,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
               <?php echo $persons[$id]['name']?> </a>&nbsp;<span class="text-muted"><?php echo $group[$_SESSION['keyPersonnel'][$id]['personnel_role']]?></span>
             </div>
             <div class="col panel-remove pull-right">
-              <a href="#"><span aria-hidden="true" section="compliance" class="icon-remove remove-person" entryId="<?php echo $id?>"></span></a>
+              <a href="#"><span aria-hidden="true" section="compliance" class="icon-remove remove-person btn btn-default btn-xs" entryId="<?php echo $id?>"></span></a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                 <li><a href="#p1_extendedDetails<?php echo $id?>" data-toggle="tab">Extended Details</a></li>
                 <li><a href="#p1_degrees<?php echo $id?>" data-toggle="tab">Degrees</a></li>
                 <li><a href="#p1_unitDetails<?php echo $id?>" data-toggle="tab">Unit Details</a></li>
-                <li><a href="#p1_proposalPersonCertification<?php echo $id?>" data-toggle="tab">Proposal Certification</a></li>
+                <li><a href="#p1_proposalPersonCertification<?php echo $id?>" data-toggle="tab">Proposal Certification<small class="text-muted"> (complete)</small></a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="p1_details<?php echo $id?>">
@@ -823,7 +823,7 @@ if($role == "copi") $copiSelected = 'selected="selected"';
                 </form>
             </div>
             <div class="tab-pane" id="p1_proposalPersonCertification<?php echo $id?>">
-                <h4>Proposal Certification</h4>
+                <h4>Proposal Certification</h4> <a href="" class="btn btn-default btn-xs">Print</a>
                 <div class="question-set">
                     <fieldset class="question">
                         <div class="question-title">
