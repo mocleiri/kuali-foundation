@@ -13,10 +13,18 @@ $keyPersonnelMessage = "";
  if(isset($_SESSION['sponsor_code']))  {
      $pos = strpos($_SESSION['sponsor_code'], "NIH");
      if($pos !== false) {
-           $keyPersonnelMessage =   "PI/Contact is a required Proposal Role prior to submission. Only one PI/Contact is allowed. For single PI submissions, please designate the lead investigator as PI/Contact & other senior personnel as Key Persons. For multiple PI submissions, please designate one PI/Contact. Add additional lead investigators as co-Investigators and check the Multiple PI box. Add other senior personnel as Key Persons.";
+           $keyPersonnelMessage =   "<div class='alert alert-info alert-dismissable'>
+  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+  <strong>NIH Sponsor Notice:</strong> PI/Contact is a required Proposal Role prior to submission. Only one PI/Contact is allowed. For single PI submissions, please designate the lead investigator as PI/Contact & other senior personnel as Key Persons. For multiple PI submissions, please designate one PI/Contact. Add additional lead investigators as co-Investigators and check the Multiple PI box. Add other senior personnel as Key Persons.
+</div>
+
+";
      }
  }
 ?>
+
+
+
 
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
@@ -25,7 +33,7 @@ $keyPersonnelMessage = "";
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
         
-        <p class="alert alert-info"><?php echo $keyPersonnelMessage?></p>
+       <?php echo $keyPersonnelMessage?>
          
          <div class="alert alert-success fade in " style="display:none">
              <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><span aria-hidden="true" class="icon-remove" style="font-size:14px"></span></button>
@@ -43,7 +51,7 @@ $keyPersonnelMessage = "";
         </div>
         <?php } else { ?>
         <div class="uif-toolbar">
-          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><i class="icon icon-user"></i> Add Personnel</button>
+          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><i class="icon icon-user"></i> Add Personnel</button>  <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/keypersonnel.notifications.php"><i class="icon icon-envelope"></i> Send Certification Requests</button>
         </div>
         <?php } ?>
         
