@@ -700,6 +700,8 @@ button .icon-search {
 }
 fieldset.question {
   margin: 8px 0 16px 0;
+  padding-top: 12px;
+  border-top: 1px solid #cccccc;
 }
 fieldset.question .question-title legend {
   margin-bottom: 0px;
