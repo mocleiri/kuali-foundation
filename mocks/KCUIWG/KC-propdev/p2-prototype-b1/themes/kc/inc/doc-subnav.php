@@ -15,7 +15,7 @@
 		<li id="menu-personnel" aria-owns="submenu-personnel" aria-controls="submenu-personnel" <?php if ($section == "keypersonnel") { echo 'class="active" aria-expanded="true"'; } else { echo 'class="" aria-expanded="false"'; } ?>> <a href="prop.keypersonnel.start.php" class="dropdown-toggle"><i class="icon-user"></i> <span>Key Personnel</span><b class="arrow icon-angle-right"></b> </a>
 			<ul id="submenu-personnel" role="group" aria-labeledby="menu-personnel" class="submenu">
 				<li <?php if ($page == "keypersonnel-start") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.start.php">Personnel</a></li>
-				<li <?php if ($page == "keypersonnel-intelcredit") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.credit.php">Credit Allocation</a></li>
+				<li <?php if ($page == "keypersonnel-intelcredit") { echo 'class="active"'; } ?>><a href="prop.keypersonnel.credit.original.php">Credit Allocation</a></li>
 			</ul>
 		</li>
 		<li <?php if ($page == "compliance") { echo 'class="active"'; } ?>><a href="prop.compliance.php"><i class="icon-ok"></i> <span>Compliance</span> </a></li>
