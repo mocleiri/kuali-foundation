@@ -23,6 +23,9 @@ $keyPersonnelMessage = "";
  }
 ?>
 
+
+
+
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
@@ -48,7 +51,7 @@ $keyPersonnelMessage = "";
         </div>
         <?php } else { ?>
         <div class="uif-toolbar">
-          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><i class="icon icon-user"></i> Add Personnel</button>
+          <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/modal-addpersonnel/emp.search.php"><i class="icon icon-user"></i> Add Personnel</button>  <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/keypersonnel.notifications.php"><i class="icon icon-envelope"></i> Send Certification Requests</button>
         </div>
         <?php } ?>
         
