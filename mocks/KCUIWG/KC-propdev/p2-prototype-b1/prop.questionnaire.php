@@ -25,10 +25,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     <div class="row">
                         <a class="accordion-toggle icon icon-caret-right" data-toggle="collapse" data-parent="#question_set_1" href="#question_set_1_content"></a>
                         <div class="col panel-title-container">
-                          <span class="text-muted">Grants.gov S2S </span>
+                         <strong> Grants.gov S2S </strong>
                         </div>
                         <div class="col panel-file-preview">
-                          <span class="questionnaire-status text-danger">(Incomplete)</span>
+                          <small class="text-muted">(Incomplete)</small>
                         </div>
                         <div class="col panel-remove pull-right">
                           <span class="pull-right questionnaire-actions"><a href="#"><i class="icon icon-print"></i> Print</a></span>
@@ -203,10 +203,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     <div class="row">
                         <a class="accordion-toggle icon icon-caret-right" data-toggle="collapse" data-parent="#question_set_2" href="#question_set_2_content"></a>
                         <div class="col panel-title-container">
-                          <span class="text-muted">PHS Fellowship Form </span>
+                         <strong>PHS Fellowship Form</strong>
                         </div>
                         <div class="col panel-file-preview">
-                          <span class="questionnaire-status text-danger">(Incomplete)</span>
+                          <small class="text-muted">(Incomplete)</small>
                         </div>
                         <div class="col panel-remove pull-right">
                           <span class="pull-right questionnaire-actions"><a href="#"><i class="icon icon-print"></i> Print</a></span>
