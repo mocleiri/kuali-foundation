@@ -15,19 +15,29 @@
  */
 package org.kuali.maven.plugins.enc;
 
-import org.apache.maven.plugins.annotations.Execute;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.kuali.common.util.Str;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.kuali.common.util.Assert;
 
-/**
- * Reveal the original text concealed by the conceal mojo.
- */
-@Mojo(name = "reveal", threadSafe = true)
-@Execute(goal = "reveal")
-public class RevealMojo extends AbstractCncMojo {
+public abstract class AbstractCncMojo extends AbstractMojo {
+
+	/**
+	 * The text to conceal / reveal
+	 * 
+	 * <pre>
+	 * FOO -> cnc--SBB
+	 * cnc--SBB -> FOO
+	 * </pre>
+	 */
+	@Parameter(property = "enc.text", required = true)
+	private String text;
+
+	protected abstract void execute(String text);
 
 	@Override
-	public void execute(String text) {
-		getLog().info(text + " -> " + Str.reveal(text));
+	public void execute() {
+		Assert.noBlanks(text);
+		execute(text);
 	}
+
 }
