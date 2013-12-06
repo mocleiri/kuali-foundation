@@ -16,6 +16,7 @@
 package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.enc.DefaultEncryptionService;
 import org.kuali.common.util.enc.EncContext;
@@ -28,12 +29,9 @@ import org.kuali.common.util.enc.EncryptionService;
 public abstract class AbstractEncMojo extends AbstractMojo {
 
 	/**
-	 * 
-	 * The password for decrypting the specified text. This must be the same password that was used to encrypt it.
-	 * 
-	 * @parameter expression="${enc.password}"
-	 * @required
+	 * The password used to encrypt/decrypt text values.
 	 */
+	@Parameter(property = "enc.password", required = true)
 	private String password;
 
 	/**
@@ -45,19 +43,14 @@ public abstract class AbstractEncMojo extends AbstractMojo {
 	 * 
 	 * enc--y9G0trn -> FOO
 	 * </pre>
-	 * 
-	 * @parameter expression="${enc.text}"
-	 * @required
 	 */
+	@Parameter(property = "enc.text", required = true)
 	private String text;
 
 	/**
-	 * 
 	 * The encryption strength, BASIC or STRONG
-	 * 
-	 * @parameter expression="${enc.strength}" default-value="BASIC"
-	 * @required
 	 */
+	@Parameter(property = "enc.strength", required = true, defaultValue = "BASIC")
 	private EncStrength strength;
 
 	protected abstract void execute(EncryptionService enc, String text);
@@ -70,27 +63,4 @@ public abstract class AbstractEncMojo extends AbstractMojo {
 		execute(enc, text);
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public EncStrength getStrength() {
-		return strength;
-	}
-
-	public void setStrength(EncStrength strength) {
-		this.strength = strength;
-	}
 }

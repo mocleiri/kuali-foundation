@@ -15,13 +15,15 @@
  */
 package org.kuali.maven.plugins.enc;
 
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.kuali.common.util.enc.EncryptionService;
 
 /**
  * Decrypt the specified text using the specified password
- * 
- * @goal decrypt
  */
+@Mojo(name = "decrypt", threadSafe = true)
+@Execute(goal = "decrypt")
 public class DecryptMojo extends AbstractEncMojo {
 
 	@Override

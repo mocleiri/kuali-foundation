@@ -16,24 +16,24 @@
 package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 
 /**
  * Conceal the specified text. Do <b>NOT</b> use this in an attempt to obscure sensitive data. (eg passwords). The algorithm is trivial and highly insecure. It will only defeat
  * people in sales and marketing :)
- * 
- * @goal conceal
  */
+@Mojo(name = "conceal", threadSafe = true)
+@Execute(goal = "conceal")
 public class ConcealMojo extends AbstractMojo {
 
 	/**
-	 * 
 	 * The text to conceal
-	 * 
-	 * @parameter expression="${enc.text}"
-	 * @required
 	 */
+	@Parameter(property = "enc.text", required = true)
 	private String text;
 
 	@Override

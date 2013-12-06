@@ -30,14 +30,13 @@
   <url>http://${kuali.site.hostname}/maven/plugins/${project.artifactId}/${project.version}</url>
   <name>Enc Maven Plugin</name>
   <inceptionYear>2013</inceptionYear>
-  <description>Encryption / Decryption / Security</description>
+  <description>Encrypt / Decrypt text values</description>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</connection>
     <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</url>
   </scm>
   <properties>
-    <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/enc-maven-plugin</project.scm.url>
     <jasypt.version>1.9.1</jasypt.version>
     <kuali-util.version>4.4.8-SNAPSHOT</kuali-util.version>
   </properties>
@@ -49,6 +48,11 @@
     </developer>
   </developers>
   <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt</artifactId>
