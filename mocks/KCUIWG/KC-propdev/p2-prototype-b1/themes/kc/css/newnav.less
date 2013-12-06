@@ -435,22 +435,46 @@ label {
 }
 
 .nav.nav-list .active .submenu .active a {
-	border-right: none;
+	//border-right: none;
+    //font-weight: bold;
+    color: #000;
+    background: lighten(@theme_primary, 62%);
+
+
+
 }
 
+.nav.nav-list .active .submenu .active a:after {
+
+}
+
+
+
 .nav.nav-list > .active > a {
-	background: #aa003e;
+	background: @theme_primary;
 	color: #fff;
+}
+
+.nav > li > a:focus{
+  background: transparent;
+
 }
 
 .nav.nav-list a {
 	color: #333;
 }
 
+.nav.nav-list a:focus {
+  outline: none;
+  outline-offset: 0px;
+  text-decoration: none;
 
-.nav.nav-list > li > a:hover, .nav > li > a:focus {
+}
+
+
+.nav.nav-list > li > a:hover {
 text-decoration: none;
-	background: #aa003e;
+	background: @theme_primary;
 	color: #fff;
 
 }
@@ -460,4 +484,19 @@ text-decoration: none;
 	-webkit-transition: all 500ms ease-out !important;
 	-o-transition: all 500ms ease-out !important;
 	transition: all 500ms ease-out !important;
+}
+
+
+
+.nav.nav-list li[aria-expanded="true"]   {
+  background: @theme_primary;
+}
+
+.nav.nav-list li[aria-expanded="true"] > a  {
+  color: #fff;
+}
+
+.nav.nav-list li[aria-expanded="false"]   {
+
+  background: inherit;
 }
