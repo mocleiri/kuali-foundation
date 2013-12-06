@@ -1,66 +1,9 @@
-COUNTER=1
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-trunk-test-deploy-mysql
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/UT-krad-1.1.0-mysql
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/UT-1.0-oracle
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/UT-1.0-mysql
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/UT-1.0.2.1-oracle
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/UT-1.0.2.1-mysql
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/SVN-DB-1.1.0-Core-nightly-tag
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/Server-1.0.3-REG
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/impex-1.1-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/impex-1.0-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/impex-1.0-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DEPLOY-krad-1.1.0-mysql-ant
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-krad-1.1.0-UNT-MySQL
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-krad-1.1.0-TEST-MySQL
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-1.0.3.2-UNT-Oracle
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-1.0.3.2-UNT-MySQL
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-1.0.3.2-REG-Oracle
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-1.0.2-oracle
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/DB-Refresh-1.0.2-mysql-5.1.37
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-trunk-DB-Export-clover-RICEDBA-to-svn
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-trunk-scm
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0-db-refresh
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/cm-show-diagnostics
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/master-slave-env
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/Coverage-1.0.2-oracle
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.2-myplan-nightly.KULRICE-7016
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/ks-1.2-db-change-detector
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/cm-tools-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0.4-sitedeploy
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-trunk-unit-test-old
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/ks-1.2-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rsync-master-to-slave
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-skin-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rsync-slave-to-master
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0-release-sitedeploy
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/strip-bom-maven-plugin-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0-release-oss
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-sql-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/strip-bom-maven-plugin-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/cm-tools-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/test-slave-copy-2
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-threads-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-skin-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-pom-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/test-slave-copy-3
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/sql-maven-plugin-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/sql-maven-plugin-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-common-pom-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/test-slave-copy-1
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0-milestone
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0.3.2-m1
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-threads-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-sql-release
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/kuali-common-pom-publish
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-1.0-release-create-distribution-binaries
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/ks-enr-1.0-services-db-change-detector
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.1-kc-build-revision
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/ks-enr-1.0-start-tomcat-env6
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/ks-enr-1.0-stop-tomcat-env6
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.1-kc-integration-test-mysql
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.1-kc-unit-test
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.1-kc-nightly
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.1-kc-unit-test-jdk7
-COUNTER=$((COUNTER+1)); echo $COUNTER; rm -rf /var/lib/jenkins/workspace/rice-2.1-smoke-test
+Spain              - 1    Chile              - 15  USA                - 14   Portugal           - 5       
+Germany            - 2    Côte d'Ivoire      - 17  Mexico             - 20   Italy              - 7
+Argentina          - 3    Ecuador            - 23  Costa Rica         - 31   Netherlands        - 9
+Colombia           - 4    Ghana              - 24  Honduras           - 41   Greece             - 12
+Uruguay            - 6    Algeria            - 26  Iran               - 45   England            - 13
+Switzerland        - 8    Nigeria            - 36  Japan              - 48   Croatia            - 16
+Brazil             - 10   Cameroon           - 51  Korea Republic     - 54   France             - 19
+Belgium            - 11                            Australia          - 59   Bosnia-Herzegovina - 21
+                                                                             Russia             - 22
