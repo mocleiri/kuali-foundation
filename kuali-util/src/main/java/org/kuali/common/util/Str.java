@@ -184,6 +184,9 @@ public class Str {
 		}
 	}
 
+	/**
+	 * Return true if <code>s</code> starts with <code>prefix</code> and ends with <code>suffix</code>
+	 */
 	public static final boolean matches(String s, String prefix, String suffix) {
 		return StringUtils.startsWith(s, prefix) && StringUtils.endsWith(s, suffix);
 	}
