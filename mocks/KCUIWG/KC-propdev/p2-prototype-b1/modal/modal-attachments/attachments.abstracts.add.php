@@ -41,8 +41,6 @@ $(document).ready(function(){
         $actionLabel = "Add Entry";
         $action = "addAttachmentsEntry";
         include "attachments.abstracts.form.php";?>
-
-            </div>
     </div>
 </div>
 <?php include('../inc/footer.modal.php'); ?>

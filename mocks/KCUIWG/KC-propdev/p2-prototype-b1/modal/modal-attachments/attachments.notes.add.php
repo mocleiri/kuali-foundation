@@ -45,8 +45,6 @@ $(document).ready(function(){
         $actionLabel = "Add Entry";
         $action = "addAttachmentsEntry";
         include "attachments.notes.form.php";?>
-
-            </div>
     </div>
 </div>
 <?php include('../inc/footer.modal.php'); ?>

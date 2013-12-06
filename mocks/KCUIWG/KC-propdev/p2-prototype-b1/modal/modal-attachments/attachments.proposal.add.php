@@ -39,22 +39,18 @@ $(document).ready(function(){
 		<div class="modal-header">
 			<h3>Add Proposal Attachment</h3>
 		</div>
-
-            <div class="modal-body">
-
-<?php
-       $id = 0;
-       $entry['type'] = 0;
-       $entry['approval_status'] = 0;
-       $entry['protocol_no'] = '';
-       $entry['application_date'] = '';
-       $entry['approval_date'] = '';
-       $entry['expiration_date'] = '';
-        $actionLabel = "Add Entry";
-        $action = "addAttachmentsEntry";
-        include "attachments.proposal.form.php";?>
-
-            </div>
-    </div>
+    <div class="modal-body">
+      <?php
+      $id = 0;
+      $entry['type'] = 0;
+      $entry['approval_status'] = 0;
+      $entry['protocol_no'] = '';
+      $entry['application_date'] = '';
+      $entry['approval_date'] = '';
+      $entry['expiration_date'] = '';
+      $actionLabel = "Add Entry";
+      $action = "addAttachmentsEntry";
+      include "attachments.proposal.form.php";
+      ?>
 </div>
 <?php include('../inc/footer.modal.php'); ?>

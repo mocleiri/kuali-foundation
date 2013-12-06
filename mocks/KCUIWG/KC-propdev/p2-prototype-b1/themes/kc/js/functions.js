@@ -804,7 +804,7 @@ $(document).ready(function() {
             fitToView   : true,
             //width     : 800,
             height      : '70%',
-            autoSize    : true,
+            autoSize    : false,
             closeClick  : false,
             openEffect  : 'none',
             closeEffect : 'none'

@@ -91,12 +91,9 @@
                           <textarea name="comments" id="comments" class="form-control col-md-8 col-md-8"><?php echo $entry['comments'];?></textarea>
                         </div>
                       </div>
-                      
-                      
-                    <div class="btn-row-widget-action pull-right">
-                        <button class="btn btn-primary btn-xs update-compliance-entry" complianceEntryId="<?php echo $id?>" id="update-compliance-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
-                        <button class="btn btn-link btn-xs cancel-update-compliance-entry" complianceEntryId="<?php echo $id?>"> Cancel</button>
-                      </div>
-                      
-                      
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary update-compliance-entry" complianceEntryId="<?php echo $id?>" id="update-compliance-entry<?php echo $id?>"> <?php echo $actionLabel?></button>
+                        <button class="btn btn-link cancel-update-compliance-entry" complianceEntryId="<?php echo $id?>"> Cancel</button>
+                    </div>                      
+                  </form>
