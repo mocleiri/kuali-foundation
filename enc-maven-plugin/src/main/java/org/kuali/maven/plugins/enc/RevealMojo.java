@@ -16,23 +16,23 @@
 package org.kuali.maven.plugins.enc;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 
 /**
  * Reveal the original text concealed by the conceal mojo.
- * 
- * @goal reveal
  */
+@Mojo(name = "reveal", threadSafe = true)
+@Execute(goal = "reveal")
 public class RevealMojo extends AbstractMojo {
 
 	/**
-	 * 
 	 * The text to reveal
-	 * 
-	 * @parameter expression="${enc.text}"
-	 * @required
 	 */
+	@Parameter(property = "enc.text", required = true)
 	private String text;
 
 	@Override
