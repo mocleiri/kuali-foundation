@@ -41,9 +41,9 @@ public abstract class AbstractEncMojo extends AbstractMojo {
 	 * The text to encrypt/decrypt.
 	 * 
 	 * <pre>
-	 * FOO -> ENC(y9G0trn)
+	 * FOO -> enc--y9G0trn
 	 * 
-	 * ENC(y9G0trn) -> FOO
+	 * enc--y9G0trn -> FOO
 	 * </pre>
 	 * 
 	 * @parameter expression="${enc.text}"
