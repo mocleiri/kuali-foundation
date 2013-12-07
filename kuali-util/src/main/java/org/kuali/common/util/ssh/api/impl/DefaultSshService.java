@@ -3,8 +3,8 @@ package org.kuali.common.util.ssh.api.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.commons.io.Charsets;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.Encodings;
 import org.kuali.common.util.ssh.api.SshService;
 import org.kuali.common.util.ssh.model.Algorithm;
 import org.kuali.common.util.ssh.model.GenerateKeyPairContext;
@@ -15,7 +15,7 @@ import com.jcraft.jsch.JSchException;
 
 public class DefaultSshService implements SshService {
 
-	private static final String UTF8 = Charsets.UTF_8.name();
+	private static final String UTF8 = Encodings.UTF8;
 
 	@Override
 	public KeyPair generateKeyPair(GenerateKeyPairContext context) {
