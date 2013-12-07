@@ -12,9 +12,9 @@ public interface EnvironmentService {
 
 	<T> T getProperty(String key, Class<T> type);
 
-	<T> Optional<T> getOptional(String key, Class<T> type, Optional<T> provided);
+	<T> Optional<T> getOptionalProperty(String key, Class<T> type);
 
-	<T> Optional<T> getOptional(String key, Class<T> type);
+	<T> Optional<T> getOptionalProperty(String key, Class<T> type, Optional<T> provided);
 
 	String getString(String key);
 
