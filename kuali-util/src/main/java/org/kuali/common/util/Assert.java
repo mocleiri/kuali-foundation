@@ -30,6 +30,20 @@ public abstract class Assert extends org.springframework.util.Assert {
 	private static final String NO_BLANKS = "blank strings not allowed";
 
 	/**
+	 * Assert that the optional contains a non-null value
+	 */
+	public static void present(Optional<?> optional) {
+		present(optional, "optional value is required");
+	}
+
+	/**
+	 * Assert that the optional contains a non-null value
+	 */
+	public static void present(Optional<?> optional, String msg) {
+		isTrue(optional.isPresent());
+	}
+
+	/**
 	 * Assert that <code>text</code> is concealed
 	 */
 	public static void concealed(String text) {
