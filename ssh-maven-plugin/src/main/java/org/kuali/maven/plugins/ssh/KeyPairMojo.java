@@ -33,7 +33,7 @@ import org.kuali.common.util.ssh.model.GenerateKeyPairContext;
 import org.kuali.common.util.ssh.model.KeyPair;
 
 /**
- * Generate a public key / private key pair suitable for use with AWS (Amazon Web Services)
+ * Generate a public key / private key pair in the format desired by AWS (Amazon Web Services)
  */
 @Mojo(name = "keypair", threadSafe = true)
 @Execute(goal = "keypair")
@@ -75,6 +75,8 @@ public class KeyPairMojo extends AbstractMojo {
 		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(name).algorithm(algorithm).size(size).build();
 		SshService service = new DefaultSshService();
 		KeyPair keyPair = service.generateKeyPair(context);
+		Assert.present(keyPair.getPrivateKey());
+		Assert.present(keyPair.getPublicKey());
 		write(keyPair);
 	}
 
