@@ -8,9 +8,9 @@ public interface EnvironmentService {
 
 	boolean containsProperty(String key);
 
-	<T> T getProperty(String key, Class<T> type, T provided);
-
 	<T> T getProperty(String key, Class<T> type);
+
+	<T> T getProperty(String key, Class<T> type, T provided);
 
 	<T> Optional<T> getOptionalProperty(String key, Class<T> type);
 
@@ -20,9 +20,9 @@ public interface EnvironmentService {
 
 	String getString(String key, String provided);
 
-	Optional<String> getOptionalString(String key, Optional<String> provided);
-
 	Optional<String> getOptionalString(String key);
+
+	Optional<String> getOptionalString(String key, Optional<String> provided);
 
 	boolean getBoolean(String key);
 
