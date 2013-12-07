@@ -37,9 +37,9 @@
     <div class="col-sm-9 col-xs-9 input-group">
       <textarea class="form-control" rows="5" id="description" name="description"></textarea>
     </div>
-  </div>
-  <div class="btn-row-widget-action pull-right">
-    <button class="btn btn-primary btn-xs" id="add-attachments-personnel-entry"><?php echo $actionLabel?></button>
-    <button class="btn btn-link btn-xs fancy-close"> Cancel</button>
-  </div>
+  </div></div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" id="add-attachments-personnel-entry"><?php echo $actionLabel?></button>
+    <button class="btn btn-link fancy-close"> Cancel</button>
+    </div>
 </form>

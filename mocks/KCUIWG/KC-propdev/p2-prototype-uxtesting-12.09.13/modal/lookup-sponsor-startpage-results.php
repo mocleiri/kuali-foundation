@@ -1300,7 +1300,9 @@ require_once( 'inc/head.php' );
         </tbody>
       </table>
     </div>
-    <div class="modal-footer"> <a href="lookup-sponsor-startpage.php" class="btn btn-default btn-sm"><span aria-hidden="true" class="icon-chevron-left"></span> Refine Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a></div>
+    <div class="modal-footer">
+      <a href="lookup-sponsor-startpage.php" class="btn btn-default"><span aria-hidden="true" class="icon-chevron-left"></span> Refine Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a>
+    </div>
   </div>
 </div>
 </div>

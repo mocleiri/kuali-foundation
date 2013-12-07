@@ -30,12 +30,12 @@
     <div class="col-sm-9 col-xs-9 input-group">
       <textarea class="form-control" rows="5" name="description" id="description"></textarea>
     </div>
-  </div>
+  </div></div>
 
 
-  <div class="btn-row-widget-action pull-right">
-   <button class="btn btn-primary btn-xs add-attachments-abstracts-entry" entryId="<?php echo $id?>" id="add-attachments-abstracts-entry"> <?php echo $actionLabel?></button>
-   <button class="btn btn-link btn-xs fancy-close"> Cancel</button>
+  <div class="modal-footer">
+   <button class="btn btn-primary add-attachments-abstracts-entry" entryId="<?php echo $id?>" id="add-attachments-abstracts-entry"> <?php echo $actionLabel?></button>
+   <button class="btn btn-link fancy-close"> Cancel</button>
   </div>
 
 

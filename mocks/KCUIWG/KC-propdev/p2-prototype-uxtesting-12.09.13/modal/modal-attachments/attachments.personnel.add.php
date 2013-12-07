@@ -51,7 +51,6 @@ $(document).ready(function(){
         $action = "addAttachmentsEntry";
         include "attachments.personnel.form.php";?>
 
-            </div>
     </div>
 </div>
 <?php include('../inc/footer.modal.php'); ?>

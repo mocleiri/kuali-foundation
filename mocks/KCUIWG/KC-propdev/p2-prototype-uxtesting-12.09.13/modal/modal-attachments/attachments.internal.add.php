@@ -42,7 +42,5 @@ $(document).ready(function(){
         $action = "addAttachmentsInternalEntry";
         include "attachments.internal.form.php";?>
 
-            </div>
-    </div>
 </div>
 <?php include('../inc/footer.modal.php'); ?>

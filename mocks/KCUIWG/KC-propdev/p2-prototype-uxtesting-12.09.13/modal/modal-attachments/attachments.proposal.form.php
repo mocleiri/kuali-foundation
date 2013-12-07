@@ -73,10 +73,12 @@
           <textarea class="form-control" rows="3" id="comments" name="comments"></textarea>
         </div>
       </div>
-      <div class="btn-row-widget-action pull-right">
-        <button class="btn btn-primary btn-xs" id="add-attachments-proposal-entry"><?php echo $actionLabel?></button>
-        <button class="btn btn-link btn-xs" id=""> Cancel</button>
-      </div>
+    </div>
+  </div></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" id="add-attachments-proposal-entry"><?php echo $actionLabel?></button>
+      <button class="btn btn-link" id=""> Cancel</button>
     </div>
   </div>
+</div>
 </form>

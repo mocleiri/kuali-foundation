@@ -88,7 +88,9 @@ require_once( 'inc/header.modal2.php' );
         </form>
       </div>
     </div>
-    <div class="modal-footer"> <a href="lookup-sponsor-startpage-results.php" class="btn btn-primary btn-sm">Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a></div>
+    <div class="modal-footer">
+      <a href="lookup-sponsor-startpage-results.php" class="btn btn-primary">Search</a> <a href="#" class="btn btn-link btn-sm">Cancel</a>
+    </div>
   </div>
 </div>
 <?php require_once( 'inc/footer.modal2.php' ); ?>
