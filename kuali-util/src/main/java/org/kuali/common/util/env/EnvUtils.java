@@ -25,6 +25,20 @@ public class EnvUtils {
 	 *   disk.size=100g  (disk that is 100 gigabytes)
 	 * </pre>
 	 */
+	public static long getBytes(EnvironmentService env, String key, String provided) {
+		Assert.noBlanks(key, provided);
+		long bytes = FormatUtils.getBytes(provided);
+		return getBytes(env, key, bytes);
+	}
+
+	/**
+	 * If the environment contains a string under this key, convert it into a long signifying bytes
+	 * 
+	 * <pre>
+	 *   file.size=10m   (file that is 10 megabytes)
+	 *   disk.size=100g  (disk that is 100 gigabytes)
+	 * </pre>
+	 */
 	public static long getBytes(EnvironmentService env, String key, long provided) {
 		if (env.containsProperty(key)) {
 			String size = env.getString(key);
