@@ -20,6 +20,9 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FileSystemUtils;
 import org.kuali.common.util.file.CanonicalFile;
@@ -31,54 +34,39 @@ import org.kuali.common.util.ssh.model.KeyPair;
 
 /**
  * Generate a public key / private key pair suitable for use with AWS (Amazon Web Services)
- * 
- * @goal keypair
  */
+@Mojo(name = "keypair", threadSafe = true)
+@Execute(goal = "keypair")
 public class KeyPairMojo extends AbstractMojo {
 
 	/**
-	 * 
 	 * The algorithm to use, RSA or DSA
-	 * 
-	 * @parameter expression="${ssh.algorithm}" default-value="RSA"
-	 * @required
 	 */
+	@Parameter(property = "ssh.algorithm", required = true, defaultValue = "RSA")
 	private Algorithm algorithm;
 
 	/**
-	 * 
 	 * The key size
-	 * 
-	 * @parameter expression="${ssh.size}" default-value="2048"
-	 * @required
 	 */
+	@Parameter(property = "ssh.keySize", required = true, defaultValue = "2048")
 	private int size;
 
 	/**
-	 * 
 	 * The key name
-	 * 
-	 * @parameter expression="${ssh.name}" default-value="${user.name}"
-	 * @required
 	 */
+	@Parameter(property = "ssh.name", required = true, defaultValue = "${user.name}")
 	private String name;
 
 	/**
-	 * 
 	 * The file where the public key is generated
-	 * 
-	 * @parameter expression="${ssh.publicKey}" default-value="./target/ssh/id_rsa.pub"
-	 * @required
 	 */
+	@Parameter(property = "ssh.publicKey", required = true, defaultValue = "./target/ssh/id_rsa.pub")
 	private File publicKey;
 
 	/**
-	 * 
 	 * The file where the private key is generated
-	 * 
-	 * @parameter expression="${ssh.privateKey}" default-value="./target/ssh/id_rsa"
-	 * @required
 	 */
+	@Parameter(property = "ssh.privateKey", required = true, defaultValue = "./target/ssh/id_rsa")
 	private File privateKey;
 
 	@Override
