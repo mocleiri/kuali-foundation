@@ -67,6 +67,8 @@ public class EnvUtils {
 		Assert.noBlanks(key);
 		char[] chars = key.toCharArray();
 		StringBuilder sb = new StringBuilder();
+		sb.append(ENV_PREFIX); // Append the prefix indicating an environment property
+		sb.append("."); // Append the dot separator
 		char prevChar = 0;
 		for (char c : chars) {
 			if (c == '.') {
@@ -83,8 +85,8 @@ public class EnvUtils {
 			// Keep track of the previous char
 			prevChar = c;
 		}
-		// Add a prefix, change to upper case and return
-		return ENV_PREFIX + "." + sb.toString().toUpperCase();
+		// Change to upper case and return
+		return sb.toString().toUpperCase();
 	}
 
 }
