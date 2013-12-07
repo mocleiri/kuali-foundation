@@ -60,3 +60,82 @@ src/main/java/org/kuali/common/util/PropertyUtils.java:	private static final Str
 src/main/java/org/kuali/common/util/secure/channel/DefaultSecureChannel.java:		private String encoding = "UTF-8";
 src/main/java/org/kuali/common/util/secure/DefaultSecureChannel.java:	private static final String DEFAULT_ENCODING = "UTF-8";
 src/main/java/org/kuali/common/util/Str.java:	public static final String UTF8 = "UTF-8";
+
+
+Spain              - 1    Chile              - 15  USA                - 14   Portugal           - 5       
+Germany            - 2    Côte d'Ivoire      - 17  Mexico             - 20   Italy              - 7
+Argentina          - 3    Ecuador            - 23  Costa Rica         - 31   Netherlands        - 9
+Colombia           - 4    Ghana              - 24  Honduras           - 41   Greece             - 12
+Uruguay            - 6    Algeria            - 26  Iran               - 45   England            - 13
+Switzerland        - 8    Nigeria            - 36  Japan              - 48   Croatia            - 16
+Brazil             - 10   Cameroon           - 51  Korea Republic     - 54   France             - 19
+Belgium            - 11                            Australia          - 59   Bosnia-Herzegovina - 21
+                                                                             Russia             - 22
+
+
+
+
+
+
+
+
+
+
+
+
+[INFO]  - ----------------Loading Rice Configuration----------------
+[INFO]  - + Parsing config: [classpath:org/kuali/ole/BootStrapConfig.xml]
+[INFO]  -   + Parsing config: [classpath:META-INF/org/kuali/ole/olefs-webapp/project-rice-properties.xml]
+[INFO]  -   - Parsed config: classpath:META-INF/org/kuali/ole/olefs-webapp/project-rice-properties.xml
+[INFO]  -   + Parsing config: [classpath:org/kuali/ole/olefs-config-defaults.xml]
+[INFO]  - Raw Config Override: environment=[dev]->[local]
+[INFO]  -     + Parsing config: [classpath:org/kuali/ole/url-rice-properties.xml]
+[INFO]  -     - Parsed config: classpath:org/kuali/ole/url-rice-properties.xml
+[INFO]  -     + Parsing config: [classpath:org/kuali/ole/jdbc-rice-properties.xml]
+[INFO]  -     - Parsed config: classpath:org/kuali/ole/jdbc-rice-properties.xml
+[INFO]  - Raw Config Override: mail.smtp.host=[${ole.fs.mail.server}]->[email-smtp.us-east-1.amazonaws.com]
+[INFO]  -   - Parsed config: classpath:org/kuali/ole/olefs-config-defaults.xml
+[INFO]  - Raw Config Override: data.xml.root.location=[${work.directory}/staging/workflow]->[/root/.kuali/ole/workflow]
+[INFO]  -   + Parsing config: [classpath:META-INF/common-config-defaults.xml]
+[INFO]  -     + Parsing config: [classpath:META-INF/framework-config-defaults.xml]
+[INFO]  -     - Parsed config: classpath:META-INF/framework-config-defaults.xml
+[INFO]  -   - Parsed config: classpath:META-INF/common-config-defaults.xml
+[INFO]  -   + Parsing config: [classpath:META-INF/common-config-locations.xml]
+[INFO]  -     + Parsing config: [/home/tomcat/kuali/main/dev/common-config.xml]
+[INFO]  - Raw Config Override: appserver.url=[${application.url}]->[http://dev.ole.kuali.org]
+[INFO]  - Raw Config Override: application.url=[${ole.fs.url.base}]->[${appserver.url}]
+[INFO]  - Raw Config Override: app.context.name=[olefs]->[]
+[INFO]  - Raw Config Override: app.code=[ole]->[]
+[INFO]  - Raw Config Override: keystore.file=[${project.home}/rice.keystore]->[/home/tomcat/.ssh/rice.keystore]
+[INFO]  - Raw Config Override: ole.docstore.url.base=[${ole.url.base}/oledocstore]->[${${kdo.environment}.ole.docstore.url.base}]
+[INFO]  - Raw Config Override: ole.fs.url.base=[${ole.url.base}/olefs]->[${${kdo.environment}.ole.fs.url.base}]
+[INFO]  - Raw Config Override: ole.rice2.url.base=[${ole.url.base}/olefs]->[${${kdo.environment}.ole.rice2.url.base}]
+[INFO]  - Raw Config Override: db.vendor=[mysql]->[oracle]
+[INFO]  - Raw Config Override: jdbc.username=[OLE]->[OLEENV1]
+[INFO]  - Raw Config Override: oracle.dba.url=[jdbc:oracle:thin:@localhost:1521:XE]->[jdbc:oracle:thin:@oracle.ole.kuali.org:1521:OLE]
+[INFO]  - Raw Config Override: oracle.dba.username=[system]->[oleadmin]
+[INFO]  - Raw Config Override: oracle.dba.password=[Top Secret Password]->[Top Secret Password]
+[INFO]  - Raw Config Override: mysql.dba.url=[jdbc:mysql://localhost]->[jdbc:mysql://mysql.rice.kuali.org]
+[INFO]  - Raw Config Override: mysql.dba.username=[root]->[master]
+[INFO]  - Raw Config Override: mysql.dba.password=[Top Secret Password]->[Top Secret Password]
+[INFO]  -     - Parsed config: /home/tomcat/kuali/main/dev/common-config.xml
+[INFO]  -     + Parsing config: [/home/tomcat/kuali/main/dev/olefs-config.xml]
+[INFO]  -     - Parsed config: /home/tomcat/kuali/main/dev/olefs-config.xml
+[INFO]  -   - Parsed config: classpath:META-INF/common-config-locations.xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+binding-wclv1_0-1.2.jar
+
