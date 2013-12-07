@@ -15,11 +15,8 @@
  */
 package org.kuali.maven.plugins.enc;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.Str;
 
 /**
@@ -28,17 +25,10 @@ import org.kuali.common.util.Str;
  */
 @Mojo(name = "conceal", threadSafe = true)
 @Execute(goal = "conceal")
-public class ConcealMojo extends AbstractMojo {
-
-	/**
-	 * The text to conceal
-	 */
-	@Parameter(property = "enc.text", required = true)
-	private String text;
+public class ConcealMojo extends AbstractCncMojo {
 
 	@Override
-	public void execute() {
-		Assert.noBlanks(text);
+	public void execute(String text) {
 		getLog().info(text + " -> " + Str.conceal(text));
 	}
 }
