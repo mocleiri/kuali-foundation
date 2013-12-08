@@ -54,8 +54,8 @@ public class KeyPairMojo extends AbstractMojo {
 	/**
 	 * The key name
 	 */
-	@Parameter(property = "ssh.name", required = true, defaultValue = "${user.name}")
-	private String name;
+	@Parameter(property = "ssh.keyName", required = true, defaultValue = "${user.name}")
+	private String keyName;
 
 	/**
 	 * The file where the public key is generated
@@ -72,7 +72,7 @@ public class KeyPairMojo extends AbstractMojo {
 	@Override
 	public void execute() {
 		Assert.noNulls(publicKey, privateKey);
-		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(name).algorithm(algorithm).size(size).build();
+		GenerateKeyPairContext context = new GenerateKeyPairContext.Builder(keyName).algorithm(algorithm).size(size).build();
 		SshService service = new DefaultSshService();
 		KeyPair keyPair = service.generateKeyPair(context);
 		Assert.present(keyPair.getPrivateKey());
