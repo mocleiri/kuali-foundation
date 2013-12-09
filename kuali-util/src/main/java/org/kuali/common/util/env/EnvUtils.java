@@ -104,7 +104,7 @@ public class EnvUtils {
 		return sb.toString().toUpperCase();
 	}
 
-	public static void clearEnvKeysCache() {
+	public static void clearCache() {
 		ENV_KEYS.clear();
 	}
 
