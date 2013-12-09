@@ -6,6 +6,8 @@ import org.kuali.common.util.Ascii;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.cache.Cache;
+import org.kuali.common.util.cache.SimpleCache;
 import org.kuali.common.util.env.spring.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
 
@@ -16,6 +18,7 @@ public class EnvUtils {
 	public static final Optional<EnvironmentService> ABSENT = Optional.absent();
 
 	private static final String ENV_PREFIX = "env";
+	private static final Cache<String, String> ENV_KEYS = new SimpleCache<String, String>();
 
 	/**
 	 * If the environment contains a string under this key, convert it into a long signifying bytes
@@ -64,7 +67,17 @@ public class EnvUtils {
 	 * </pre>
 	 */
 	public static String getEnvironmentVariableKey(String key) {
-		Assert.noBlanks(key);
+		Assert.notBlank(key);
+		String envKey = ENV_KEYS.get(key);
+		if (envKey == null) {
+			envKey = reformatAsEnvironmentVariable(key);
+			ENV_KEYS.put(key, envKey);
+		}
+		return envKey;
+	}
+
+	public static String reformatAsEnvironmentVariable(String key) {
+		Assert.notBlank(key);
 		char[] chars = key.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		sb.append(ENV_PREFIX); // Append the prefix indicating an environment property
@@ -87,6 +100,10 @@ public class EnvUtils {
 		}
 		// Change to upper case and return
 		return sb.toString().toUpperCase();
+	}
+
+	public static void clearEnvKeysCache() {
+		ENV_KEYS.clear();
 	}
 
 }
