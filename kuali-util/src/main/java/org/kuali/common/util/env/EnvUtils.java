@@ -70,20 +70,22 @@ public class EnvUtils {
 		Assert.notBlank(key);
 		String envKey = ENV_KEYS.get(key);
 		if (envKey == null) {
-			envKey = reformatAsEnvironmentVariable(key);
+			envKey = toEnvironmentVariableKey(key);
 			ENV_KEYS.put(key, envKey);
 		}
 		return envKey;
 	}
 
-	public static String reformatAsEnvironmentVariable(String key) {
+	public static String toEnvironmentVariableKey(String key) {
 		Assert.notBlank(key);
-		char[] chars = key.toCharArray();
+		int length = key.length();
 		StringBuilder sb = new StringBuilder();
 		sb.append(ENV_PREFIX); // Append the prefix indicating an environment property
 		sb.append("."); // Append the dot separator
 		char prevChar = 0;
-		for (char c : chars) {
+		char c;
+		for (int index = 0; index < length; index++) {
+			c = key.charAt(index);
 			if (c == '.') {
 				// Convert dots into dashes
 				sb.append('_');
