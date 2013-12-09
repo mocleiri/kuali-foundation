@@ -89,7 +89,7 @@ public class EnvUtils {
 			if (c == '.') {
 				// Convert dots into dashes
 				sb.append('_');
-			} else if (Ascii.isUpperCase(c) && Ascii.isLowerCase(prevChar)) {
+			} else if (Ascii.isLowerCase(prevChar) && Ascii.isUpperCase(c)) {
 				// Insert an underscore every time there is a transition from a lower case char to an upper case char
 				sb.append('_');
 				sb.append(c);
