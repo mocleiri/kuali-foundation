@@ -99,6 +99,8 @@ public class TomcatConfig implements ApplicationServerConfig {
 		pathsToDelete.add(env.getString("tomcat.webapps"));
 		pathsToDelete.add(env.getString("tomcat.work"));
 		pathsToDelete.add(env.getString("tomcat.temp"));
+		pathsToDelete.add(env.getString("tomcat.home") + "/kuali"); // /home/tomcat/kuali
+		pathsToDelete.add(env.getString("tomcat.home") + "/.kuali"); // /home/tomcat/.kuali
 		return pathsToDelete;
 	}
 
