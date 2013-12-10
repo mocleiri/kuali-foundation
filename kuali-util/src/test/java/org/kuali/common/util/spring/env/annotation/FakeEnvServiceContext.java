@@ -96,6 +96,7 @@ public final class FakeEnvServiceContext {
 		private void override() {
 			Assert.noNulls(env);
 			Optional<String> prefix = getPrefix();
+			System.out.println(prefix);
 			for (Field field : this.getClass().getDeclaredFields()) {
 				EnvOverride override = field.getAnnotation(EnvOverride.class);
 				if (override == null) {
@@ -103,13 +104,14 @@ public final class FakeEnvServiceContext {
 				}
 				Class<?> type = field.getType();
 				String name = field.getName();
+				System.out.println(type + name);
 			}
 			checkEnvironmentVariables(env.getProperty(CHECK_ENVIRONMENT_VARIABLES_KEY, Boolean.class, checkEnvironmentVariables));
 			resolveStrings(env.getProperty(RESOLVE_STRINGS_KEY, Boolean.class, resolveStrings));
 			missingPropertyMode(env.getProperty(MISSING_PROPERTY_MODE_KEY, Mode.class, missingPropertyMode));
 		}
 
-		private List<String> getKeys(Optional<String> prefix, Field field, EnvOverride override) {
+		protected List<String> getKeys(Optional<String> prefix, Field field, EnvOverride override) {
 			String[] values = override.value();
 
 			List<String> keys = new ArrayList<String>();

@@ -16,6 +16,14 @@ public interface EnvironmentService {
 
 	<T> Optional<T> getOptionalProperty(String key, Class<T> type, Optional<T> provided);
 
+	<T> Class<T> getPropertyAsClass(String key, Class<T> type);
+
+	<T> Class<T> getPropertyAsClass(String key, Class<T> type, Class<T> provided);
+
+	<T> Optional<Class<T>> getOptionalPropertyAsClass(String key);
+
+	<T> Optional<Class<T>> getOptionalPropertyAsClass(String key, Optional<Class<T>> provided);
+
 	String getString(String key);
 
 	String getString(String key, String provided);
@@ -48,6 +56,14 @@ public interface EnvironmentService {
 
 	Optional<Integer> getOptionalInteger(String key, Optional<Integer> provided);
 
+	double getDouble(String key);
+
+	double getDouble(String key, double provided);
+
+	Optional<Double> getOptionalDouble(String key);
+
+	Optional<Double> getOptionalDouble(String key, Optional<Double> provided);
+
 	long getLong(String key);
 
 	long getLong(String key, long provided);
@@ -55,13 +71,5 @@ public interface EnvironmentService {
 	Optional<Long> getOptionalLong(String key);
 
 	Optional<Long> getOptionalLong(String key, Optional<Long> provided);
-
-	<T> Class<T> getClass(String key, Class<T> type);
-
-	<T> Class<T> getClass(String key, Class<T> type, Class<T> provided);
-
-	<T> Optional<Class<T>> getOptionalClass(String key);
-
-	<T> Optional<Class<T>> getOptionalClass(String key, Optional<Class<T>> provided);
 
 }
