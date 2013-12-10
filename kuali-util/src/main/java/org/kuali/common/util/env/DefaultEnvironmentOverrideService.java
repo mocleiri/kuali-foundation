@@ -24,7 +24,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 	private final org.kuali.common.util.spring.env.EnvironmentService env;
 
 	@Override
-	public void override(Object instance) {
+	public void override(Overridable<?> instance) {
 		Optional<String> prefix = getPrefix(instance);
 		for (Field field : instance.getClass().getDeclaredFields()) {
 			EnvOverride annotation = field.getAnnotation(EnvOverride.class);
