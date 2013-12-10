@@ -8,7 +8,7 @@ public interface EncryptionService {
 	 * Encrypt the text and wrap it inside <code>ENC()</code>. If the text is already encrypted, do nothing.
 	 * 
 	 * <pre>
-	 *   foo -> x7UiXya -> ENC(x7UiXya)
+	 *   foo -> x7UiXya -> enc--x7UiXya
 	 * </pre>
 	 */
 	String encrypt(String plainText);
@@ -17,7 +17,7 @@ public interface EncryptionService {
 	 * Unwrap the encrypted text and then decrypt it. If the text is not encrypted, do nothing.
 	 * 
 	 * <pre>
-	 *   ENC(x7UiXya) -> x7UiXya -> foo
+	 *   enc--x7UiXya -> x7UiXya -> foo
 	 * </pre>
 	 */
 	String decrypt(String encryptedText);

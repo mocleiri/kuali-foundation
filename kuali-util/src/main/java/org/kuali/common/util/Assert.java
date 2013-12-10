@@ -248,6 +248,9 @@ public abstract class Assert extends org.springframework.util.Assert {
 		}
 	}
 
+	/**
+	 * Assert that if the optional string is present it is not blank
+	 */
 	public static void noBlanks(Optional<String> string) {
 		noBlankOptionals(ImmutableList.of(string));
 	}

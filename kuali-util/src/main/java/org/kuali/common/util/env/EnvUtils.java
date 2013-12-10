@@ -17,8 +17,8 @@ public class EnvUtils {
 
 	public static final Optional<EnvironmentService> ABSENT = Optional.absent();
 
-	private static final String ENV_PREFIX = "env";
-	private static final Cache<String, String> ENV_KEYS = new SimpleCache<String, String>();
+	private static final String ENVIRONMENT_VARIABLE_PREFIX = "env";
+	private static final Cache<String, String> ENVIRONMENT_VARIABLE_KEYS = new SimpleCache<String, String>();
 
 	/**
 	 * If the environment contains a string under this key, convert it into a long signifying bytes
@@ -68,22 +68,22 @@ public class EnvUtils {
 	 */
 	public static String getEnvironmentVariableKey(String key) {
 		Assert.notBlank(key);
-		String envKey = ENV_KEYS.get(key);
+		String envKey = ENVIRONMENT_VARIABLE_KEYS.get(key);
 		if (envKey == null) {
 			envKey = toEnvironmentVariableKey(key);
-			ENV_KEYS.put(key, envKey);
+			ENVIRONMENT_VARIABLE_KEYS.put(key, envKey);
 		}
 		return envKey;
 	}
 
 	public static String toEnvironmentVariableKey(String key) {
 		Assert.notBlank(key);
-		int length = key.length();
 		StringBuilder sb = new StringBuilder();
-		sb.append(ENV_PREFIX); // Append the prefix indicating an environment property
+		sb.append(ENVIRONMENT_VARIABLE_PREFIX); // Append the prefix indicating an environment property
 		sb.append("."); // Append the dot separator
 		char prevChar = 0;
 		char c;
+		int length = key.length();
 		for (int index = 0; index < length; index++) {
 			c = key.charAt(index);
 			if (c == '.') {
@@ -105,7 +105,7 @@ public class EnvUtils {
 	}
 
 	public static void clearCache() {
-		ENV_KEYS.clear();
+		ENVIRONMENT_VARIABLE_KEYS.clear();
 	}
 
 }

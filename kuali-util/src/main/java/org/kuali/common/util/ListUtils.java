@@ -6,7 +6,31 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+
 public class ListUtils {
+
+	public static List<String> prefix(String prefix, List<String> list) {
+		return prefix(prefix, Optional.<String> absent(), list);
+	}
+
+	public static List<String> prefix(String prefix, String separator, List<String> list) {
+		return prefix(prefix, Optional.of(separator), list);
+	}
+
+	private static List<String> prefix(String prefix, Optional<String> separator, List<String> list) {
+		Assert.noBlanks(prefix);
+		Assert.noNulls(list, separator);
+		Assert.noBlanks(separator);
+		List<String> newList = newArrayList();
+		String separatorValue = separator.isPresent() ? separator.get() : "";
+		for (String element : list) {
+			String value = prefix + separatorValue + element;
+			newList.add(value);
+		}
+		return ImmutableList.copyOf(newList);
+	}
 
 	public static <T> List<T> newArrayList() {
 		return newArrayList(new ArrayList<T>());

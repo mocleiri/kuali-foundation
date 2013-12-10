@@ -144,7 +144,8 @@ public class SpringUtils {
 		if (!env.containsProperty(key)) {
 			return Optional.absent();
 		} else {
-			return Optional.of(env.getProperty(key, type));
+			T value = env.getProperty(key, type);
+			return Optional.of(value);
 		}
 	}
 
