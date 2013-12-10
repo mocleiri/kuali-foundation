@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
@@ -15,6 +14,7 @@ import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 public final class FakeEnvServiceContext {
@@ -139,15 +139,17 @@ public final class FakeEnvServiceContext {
 		}
 
 		@Override
-		protected void validate(FakeEnvServiceContext ctx) {
-			Assert.noNulls(ctx.getEnv(), ctx.getMissingPropertyMode());
-		}
-
-		@Override
 		protected FakeEnvServiceContext getInstance() {
 			override();
 			return new FakeEnvServiceContext(this);
 		}
+
+		@Override
+		protected void validate(FakeEnvServiceContext ctx) {
+			Preconditions.checkNotNull(ctx.getEnv(), "'env' cannot be null");
+			Preconditions.checkNotNull(ctx.getMissingPropertyMode(), "'mode' cannot be null");
+		}
+
 	}
 
 }
