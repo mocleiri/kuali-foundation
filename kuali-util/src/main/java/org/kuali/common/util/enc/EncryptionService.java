@@ -5,7 +5,7 @@ import java.util.Properties;
 public interface EncryptionService {
 
 	/**
-	 * Encrypt the text and wrap it inside <code>ENC()</code>. If the text is already encrypted, do nothing.
+	 * Encrypt the text and prefix it with <code>enc--</code>. If the text is already encrypted, do nothing.
 	 * 
 	 * <pre>
 	 *   foo -> x7UiXya -> enc--x7UiXya
@@ -14,7 +14,7 @@ public interface EncryptionService {
 	String encrypt(String plainText);
 
 	/**
-	 * Unwrap the encrypted text and then decrypt it. If the text is not encrypted, do nothing.
+	 * Remove the <code>enc--</code> prefix and then decrypt it. If the text is not encrypted, do nothing.
 	 * 
 	 * <pre>
 	 *   enc--x7UiXya -> x7UiXya -> foo
