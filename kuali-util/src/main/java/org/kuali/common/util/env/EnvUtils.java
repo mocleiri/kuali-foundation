@@ -76,6 +76,14 @@ public class EnvUtils {
 		return envKey;
 	}
 
+	/**
+	 * Change a regular property key into an environment variable property key
+	 * 
+	 * <pre>
+	 *  foo.bar    -> env.FOO_BAR
+	 *  foo.barBaz -> env.FOO_BAR_BAZ
+	 * </pre>
+	 */
 	public static String toEnvironmentVariableKey(String key) {
 		Assert.notBlank(key);
 		StringBuilder sb = new StringBuilder();
