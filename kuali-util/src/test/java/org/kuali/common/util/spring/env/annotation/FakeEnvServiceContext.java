@@ -5,9 +5,14 @@ import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.env.DefaultEnvironmentOverrideService;
 import org.kuali.common.util.env.EnvironmentOverrideService;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 public final class FakeEnvServiceContext {
+
+	public Optional<String> getFoo() {
+		return foo;
+	}
 
 	public boolean isCheckEnvironmentVariables() {
 		return checkEnvironmentVariables;
@@ -24,11 +29,13 @@ public final class FakeEnvServiceContext {
 	private final boolean checkEnvironmentVariables;
 	private final boolean resolveStrings;
 	private final Mode missingPropertyMode;
+	private final Optional<String> foo;
 
 	private FakeEnvServiceContext(Builder builder) {
 		this.checkEnvironmentVariables = builder.checkEnvironmentVariables;
 		this.resolveStrings = builder.resolveStrings;
 		this.missingPropertyMode = builder.missingPropertyMode;
+		this.foo = builder.foo;
 	}
 
 	@EnvPrefix("env")
@@ -44,6 +51,9 @@ public final class FakeEnvServiceContext {
 
 		@EnvOverride
 		private Mode missingPropertyMode = Mode.ERROR;
+
+		@EnvOverride
+		private Optional<String> foo = Optional.absent();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {
 			this.checkEnvironmentVariables = checkEnvironmentVariables;
