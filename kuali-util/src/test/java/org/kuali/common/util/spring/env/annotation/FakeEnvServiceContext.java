@@ -7,18 +7,19 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.Assert;
+import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.builder.ValidatingBuilder;
-import org.kuali.common.util.spring.env.EnvUtils;
-import org.kuali.common.util.spring.env.PropertiesEnvironment;
-import org.springframework.core.env.Environment;
+import org.kuali.common.util.builder.AbstractBuilder;
+import org.kuali.common.util.spring.SpringUtils;
+import org.kuali.common.util.spring.env.BasicEnvironmentService;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public final class FakeEnvServiceContext {
 
-	public Environment getEnv() {
+	public EnvironmentService getEnv() {
 		return env;
 	}
 
@@ -34,7 +35,7 @@ public final class FakeEnvServiceContext {
 		return missingPropertyMode;
 	}
 
-	private final Environment env;
+	private final EnvironmentService env;
 	private final boolean checkEnvironmentVariables;
 	private final boolean resolveStrings;
 	private final Mode missingPropertyMode;
@@ -46,25 +47,25 @@ public final class FakeEnvServiceContext {
 		this.missingPropertyMode = builder.missingPropertyMode;
 	}
 
-	@EnvOverridePrefix("env")
-	public static class Builder extends ValidatingBuilder<FakeEnvServiceContext> {
+	@EnvPrefix("env")
+	public static class Builder extends AbstractBuilder<FakeEnvServiceContext> {
 
-		private Environment env = EnvUtils.getDefaultEnvironment();
+		private EnvironmentService env = new BasicEnvironmentService();
 
 		@EnvOverride
 		private boolean checkEnvironmentVariables = true;
+
+		@EnvOverride
 		private boolean resolveStrings = true;
+
+		@EnvOverride
 		private Mode missingPropertyMode = Mode.ERROR;
 
-		private static final String CHECK_ENVIRONMENT_VARIABLES_KEY = "env.checkEnvironmentVariables";
-		private static final String RESOLVE_STRINGS_KEY = "env.resolveStrings";
-		private static final String MISSING_PROPERTY_MODE_KEY = "env.missingPropertyMode";
-
 		public Builder env(Properties properties) {
-			return env(new PropertiesEnvironment(properties));
+			return env(new BasicEnvironmentService(properties));
 		}
 
-		public Builder env(Environment env) {
+		public Builder env(EnvironmentService env) {
 			this.env = env;
 			return this;
 		}
@@ -85,43 +86,56 @@ public final class FakeEnvServiceContext {
 		}
 
 		private Optional<String> getPrefix() {
-			EnvOverridePrefix eop = this.getClass().getAnnotation(EnvOverridePrefix.class);
-			if (eop == null || StringUtils.isBlank(eop.value())) {
+			EnvPrefix prefix = this.getClass().getAnnotation(EnvPrefix.class);
+			if (prefix == null || StringUtils.isBlank(prefix.value())) {
 				return Optional.<String> absent();
 			} else {
-				return Optional.of(eop.value());
+				return Optional.of(prefix.value());
 			}
 		}
 
 		private void override() {
-			Assert.noNulls(env);
 			Optional<String> prefix = getPrefix();
-			System.out.println(prefix);
 			for (Field field : this.getClass().getDeclaredFields()) {
-				EnvOverride override = field.getAnnotation(EnvOverride.class);
-				if (override == null) {
-					continue;
+				EnvOverride annotation = field.getAnnotation(EnvOverride.class);
+				if (annotation != null) {
+					List<String> keys = getKeys(prefix, field, annotation);
+					override(field, keys);
 				}
-				Class<?> type = field.getType();
-				String name = field.getName();
-				System.out.println(type + name);
 			}
-			checkEnvironmentVariables(env.getProperty(CHECK_ENVIRONMENT_VARIABLES_KEY, Boolean.class, checkEnvironmentVariables));
-			resolveStrings(env.getProperty(RESOLVE_STRINGS_KEY, Boolean.class, resolveStrings));
-			missingPropertyMode(env.getProperty(MISSING_PROPERTY_MODE_KEY, Mode.class, missingPropertyMode));
+		}
+
+		protected void set(Object instance, Field field, Object value) {
+			try {
+				field.set(instance, value);
+			} catch (IllegalAccessException e) {
+				throw new IllegalStateException(e);
+			}
+		}
+
+		protected void override(Field field, List<String> keys) {
+			Class<?> type = field.getType();
+			for (String key : keys) {
+				Optional<?> optional = SpringUtils.getOptionalProperty(env, key, type);
+				if (optional.isPresent()) {
+					set(this, field, optional.get());
+					return;
+				}
+			}
 		}
 
 		protected List<String> getKeys(Optional<String> prefix, Field field, EnvOverride override) {
-			String[] values = override.value();
-
 			List<String> keys = new ArrayList<String>();
-			if (values != null && values.length == 0) {
-				keys.addAll(ImmutableList.copyOf(values));
+			if (override.keys().length > 0) {
+				keys.addAll(ImmutableList.copyOf(override.keys()));
 			} else {
 				keys.add(field.getName());
 			}
-			Assert.noBlanks(keys);
-			return null;
+			if (prefix.isPresent()) {
+				return ListUtils.prefix(prefix.get(), ".", keys);
+			} else {
+				return keys;
+			}
 		}
 
 		@Override
@@ -134,7 +148,6 @@ public final class FakeEnvServiceContext {
 			override();
 			return new FakeEnvServiceContext(this);
 		}
-
 	}
 
 }
