@@ -23,7 +23,7 @@ public interface EncryptionService {
 	String decrypt(String encryptedText);
 
 	/**
-	 * Detect any property values that are wrapped inside <code>ENC()</code>, unwrap the value, decrypt it, and update the properties object with the unencrypted value.
+	 * Detect any encrypted property values and decrypt them
 	 */
 	void decrypt(Properties properties);
 
