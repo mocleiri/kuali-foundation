@@ -40,7 +40,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		EnvOverrideStringList annotation = field.getAnnotation(EnvOverrideStringList.class);
 		if (annotation != null) {
 			List<String> keys = getKeys(prefix, field, annotation.keys());
-			Optional<?> value = SpringUtils.getOptionalStrings(env, keys);
+			Optional<List<String>> value = SpringUtils.getOptionalStrings(env, keys);
 			if (value.isPresent()) {
 				set(instance, field, value.get());
 			}
