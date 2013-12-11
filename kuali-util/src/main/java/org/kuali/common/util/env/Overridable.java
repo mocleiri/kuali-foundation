@@ -2,8 +2,8 @@ package org.kuali.common.util.env;
 
 import java.lang.reflect.Field;
 
-public interface Overridable<T> {
+public interface Overridable {
 
-	void set(T instance, Field field, Object value);
+	void override(Field field, Object value);
 
 }
