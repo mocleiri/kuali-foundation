@@ -58,7 +58,11 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		for (String key : keys) {
 			Optional<?> optional = SpringUtils.getOptionalProperty(env, key, type);
 			if (optional.isPresent()) {
-				instance.set(field, optional.get());
+				if (field.getType() == Optional.class) {
+					instance.set(field, optional);
+				} else {
+					instance.set(field, optional.get());
+				}
 				return;
 			}
 		}
