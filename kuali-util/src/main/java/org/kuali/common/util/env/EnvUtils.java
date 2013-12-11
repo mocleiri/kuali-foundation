@@ -1,15 +1,8 @@
 package org.kuali.common.util.env;
 
-import java.util.Properties;
-
 import org.kuali.common.util.Ascii;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
-import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.cache.Cache;
-import org.kuali.common.util.cache.SimpleCache;
-import org.kuali.common.util.env.spring.PropertiesEnvironment;
-import org.springframework.core.env.Environment;
 
 import com.google.common.base.Optional;
 
@@ -18,7 +11,6 @@ public class EnvUtils {
 	public static final Optional<EnvironmentService> ABSENT = Optional.absent();
 
 	private static final String ENVIRONMENT_VARIABLE_PREFIX = "env";
-	private static final Cache<String, String> ENVIRONMENT_VARIABLE_KEYS = new SimpleCache<String, String>();
 
 	/**
 	 * If the environment contains a string under this key, convert it into a long signifying bytes
@@ -53,38 +45,12 @@ public class EnvUtils {
 	}
 
 	/**
-	 * Return an environment that uses system properties / environment variables
-	 */
-	public static Environment getDefaultEnvironment() {
-		Properties global = PropertyUtils.getGlobalProperties();
-		return new PropertiesEnvironment(global);
-	}
-
-	/**
 	 * <pre>
 	 *  foo.bar    -> env.FOO_BAR
 	 *  foo.barBaz -> env.FOO_BAR_BAZ
 	 * </pre>
 	 */
 	public static String getEnvironmentVariableKey(String key) {
-		Assert.notBlank(key);
-		String envKey = ENVIRONMENT_VARIABLE_KEYS.get(key);
-		if (envKey == null) {
-			envKey = toEnvironmentVariableKey(key);
-			ENVIRONMENT_VARIABLE_KEYS.put(key, envKey);
-		}
-		return envKey;
-	}
-
-	/**
-	 * Change a regular property key into an environment variable property key
-	 * 
-	 * <pre>
-	 *  foo.bar    -> env.FOO_BAR
-	 *  foo.barBaz -> env.FOO_BAR_BAZ
-	 * </pre>
-	 */
-	public static String toEnvironmentVariableKey(String key) {
 		Assert.notBlank(key);
 		StringBuilder sb = new StringBuilder();
 		sb.append(ENVIRONMENT_VARIABLE_PREFIX); // Append the prefix indicating an environment property
@@ -110,10 +76,6 @@ public class EnvUtils {
 		}
 		// Change to upper case and return
 		return sb.toString().toUpperCase();
-	}
-
-	public static void clearCache() {
-		ENVIRONMENT_VARIABLE_KEYS.clear();
 	}
 
 }
