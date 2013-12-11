@@ -16,6 +16,7 @@
 package org.kuali.common.util.spring.env.annotation;
 
 import org.junit.Test;
+import org.kuali.common.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +28,7 @@ public class EnvTest {
 	public void test() {
 		try {
 			System.setProperty("env.foo", "bar");
+			System.setProperty("env.bar", "blibbity,blabbity,pac-man");
 			FakeEnvServiceContext fesc = new FakeEnvServiceContext.Builder().build();
 			show(fesc);
 		} catch (Exception e) {
@@ -41,6 +43,7 @@ public class EnvTest {
 		} else {
 			logger.info(" Foo: {}", "ABSENT");
 		}
+		logger.info(" Bar: {}", CollectionUtils.getSpaceSeparatedString(ctx.getBar()));
 	}
 
 }

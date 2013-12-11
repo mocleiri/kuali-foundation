@@ -552,8 +552,8 @@ public class CollectionUtils {
 		if (StringUtils.isBlank(csv)) {
 			return Collections.<String> emptyList();
 		}
-		List<String> list = new ArrayList<String>();
 		String[] tokens = Str.splitAndTrimCSV(csv);
+		List<String> list = new ArrayList<String>();
 		list.addAll(Arrays.asList(tokens));
 		return list;
 	}
