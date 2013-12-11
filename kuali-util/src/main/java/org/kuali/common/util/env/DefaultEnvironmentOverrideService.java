@@ -27,6 +27,10 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 
 	@Override
 	public void override(Object instance) {
+		EnvOverrides annotation = instance.getClass().getAnnotation(EnvOverrides.class);
+		if (annotation != null && annotation.skip()) {
+			return;
+		}
 		Optional<String> prefix = getPrefix(instance);
 		Field[] fields = instance.getClass().getDeclaredFields();
 		for (Field field : fields) {
