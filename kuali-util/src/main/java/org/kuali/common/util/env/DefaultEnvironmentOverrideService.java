@@ -10,8 +10,8 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.annotation.EnvOverride;
 import org.kuali.common.util.spring.env.annotation.EnvOverrideOptional;
-import org.kuali.common.util.spring.env.annotation.EnvOverrideStringList;
-import org.kuali.common.util.spring.env.annotation.EnvPrefix;
+import org.kuali.common.util.spring.env.annotation.EnvOverrideStrings;
+import org.kuali.common.util.spring.env.annotation.EnvOverrides;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -37,7 +37,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 	}
 
 	private void overrideStringLists(Optional<String> prefix, Object instance, Field field) {
-		EnvOverrideStringList annotation = field.getAnnotation(EnvOverrideStringList.class);
+		EnvOverrideStrings annotation = field.getAnnotation(EnvOverrideStrings.class);
 		if (annotation != null) {
 			List<String> keys = getKeys(prefix, field, annotation.keys());
 			Optional<List<String>> value = SpringUtils.getOptionalStrings(env, keys);
@@ -50,7 +50,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 	private void override(Optional<String> prefix, Object instance, Field field) {
 		EnvOverride annotation = field.getAnnotation(EnvOverride.class);
 		if (annotation != null) {
-			List<String> keys = getKeys(prefix, field, annotation.keys());
+			List<String> keys = getKeys(prefix, field, annotation.value());
 			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, field.getType());
 			if (value.isPresent()) {
 				set(instance, field, value.get());
@@ -70,11 +70,11 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 	}
 
 	private Optional<String> getPrefix(Object instance) {
-		EnvPrefix prefix = instance.getClass().getAnnotation(EnvPrefix.class);
-		if (prefix == null || StringUtils.isBlank(prefix.value())) {
+		EnvOverrides annotation = instance.getClass().getAnnotation(EnvOverrides.class);
+		if (annotation == null || StringUtils.isBlank(annotation.prefix())) {
 			return Optional.<String> absent();
 		} else {
-			return Optional.of(prefix.value());
+			return Optional.of(annotation.prefix());
 		}
 	}
 
