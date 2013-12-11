@@ -9,10 +9,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnvOverrideList {
+public @interface EnvOverrideStringList {
 
 	String[] keys() default {};
-
-	Class<?> type();
 
 }
