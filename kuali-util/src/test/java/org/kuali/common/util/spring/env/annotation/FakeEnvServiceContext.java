@@ -48,7 +48,7 @@ public final class FakeEnvServiceContext {
 		this.bar = builder.bar;
 	}
 
-	@EnvOverrides("env")
+	@EnvOverrides(prefix = "env")
 	public static class Builder extends AbstractBuilder<FakeEnvServiceContext> {
 
 		@EnvOverride(NullUtils.NONE)
