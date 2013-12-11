@@ -80,13 +80,15 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 
 	private void set(Object instance, Field field, Object value) {
 		try {
-			boolean accessible = field.isAccessible();
-			if (!accessible) {
-				field.setAccessible(true);
-			}
-			field.set(instance, value);
-			if (!accessible) {
-				field.setAccessible(false);
+			synchronized (field) {
+				boolean accessible = field.isAccessible();
+				if (!accessible) {
+					field.setAccessible(true);
+				}
+				field.set(instance, value);
+				if (!accessible) {
+					field.setAccessible(false);
+				}
 			}
 		} catch (IllegalAccessException e) {
 			throw new IllegalStateException(e);
