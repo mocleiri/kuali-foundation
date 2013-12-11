@@ -34,17 +34,6 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	private void overrideOptionals(Optional<String> prefix, Object instance, Field field) {
-		EnvOverrideOptional annotation = field.getAnnotation(EnvOverrideOptional.class);
-		if (annotation != null) {
-			List<String> keys = getKeys(prefix, field, annotation.keys());
-			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, annotation.type());
-			if (value.isPresent()) {
-				set(instance, field, value);
-			}
-		}
-	}
-
 	private void override(Optional<String> prefix, Object instance, Field field) {
 		EnvOverride annotation = field.getAnnotation(EnvOverride.class);
 		if (annotation != null) {
@@ -52,6 +41,17 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, field.getType());
 			if (value.isPresent()) {
 				set(instance, field, value.get());
+			}
+		}
+	}
+
+	private void overrideOptionals(Optional<String> prefix, Object instance, Field field) {
+		EnvOverrideOptional annotation = field.getAnnotation(EnvOverrideOptional.class);
+		if (annotation != null) {
+			List<String> keys = getKeys(prefix, field, annotation.keys());
+			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, annotation.type());
+			if (value.isPresent()) {
+				set(instance, field, value);
 			}
 		}
 	}
