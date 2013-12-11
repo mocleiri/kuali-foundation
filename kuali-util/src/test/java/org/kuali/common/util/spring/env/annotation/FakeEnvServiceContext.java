@@ -6,6 +6,7 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.env.DefaultEnvironmentOverrideService;
 import org.kuali.common.util.env.EnvironmentOverrideService;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -47,18 +48,14 @@ public final class FakeEnvServiceContext {
 		this.bar = builder.bar;
 	}
 
-	@EnvPrefix("env")
+	@Env("env")
 	public static class Builder extends AbstractBuilder<FakeEnvServiceContext> {
 
+		@EnvOverride(NullUtils.NONE)
 		private EnvironmentOverrideService service = new DefaultEnvironmentOverrideService.Builder().build();
 
-		@EnvOverride
 		private boolean checkEnvironmentVariables = true;
-
-		@EnvOverride
 		private boolean resolveStrings = true;
-
-		@EnvOverride
 		private Mode missingPropertyMode = Mode.ERROR;
 
 		@EnvOverrideOptional(type = String.class)
