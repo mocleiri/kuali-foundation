@@ -4,6 +4,6 @@ import java.lang.reflect.Field;
 
 public interface Mutable<T> {
 
-	void set(T instance, Field field, Object value);
+	void set(Mutable<T> instance, Field field, Object value);
 
 }
