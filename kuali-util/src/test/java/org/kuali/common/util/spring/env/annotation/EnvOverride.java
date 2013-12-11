@@ -17,4 +17,6 @@ public @interface EnvOverride {
 
 	Class<?> optionalType() default Optional.class;
 
+	String withMethod() default "";
+
 }
