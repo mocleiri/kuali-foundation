@@ -1,10 +1,7 @@
 package org.kuali.common.util.builder;
 
-import java.lang.reflect.Field;
 
-import org.kuali.common.util.env.Settable;
-
-public abstract class AbstractBuilder<T> implements Builder<T>, Settable<T> {
+public abstract class AbstractBuilder<T> implements Builder<T> {
 
 	@Override
 	public final T build() {
@@ -16,14 +13,5 @@ public abstract class AbstractBuilder<T> implements Builder<T>, Settable<T> {
 	protected abstract T getInstance();
 
 	protected abstract void validate(T instance);
-
-	@Override
-	public void set(Field field, Object value) {
-		try {
-			field.set(this, value);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		}
-	}
 
 }

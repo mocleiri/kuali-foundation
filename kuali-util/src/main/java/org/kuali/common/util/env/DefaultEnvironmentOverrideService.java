@@ -9,6 +9,7 @@ import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.annotation.EnvOverride;
+import org.kuali.common.util.spring.env.annotation.EnvOverrideOptional;
 import org.kuali.common.util.spring.env.annotation.EnvPrefix;
 
 import com.google.common.base.Optional;
@@ -24,14 +25,28 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 	private final org.kuali.common.util.spring.env.EnvironmentService env;
 
 	@Override
-	public void override(Settable<?> instance) {
+	public void override(Object instance) {
 		Optional<String> prefix = getPrefix(instance);
-		for (Field field : instance.getClass().getDeclaredFields()) {
-			EnvOverride annotation = field.getAnnotation(EnvOverride.class);
-			if (annotation != null) {
-				List<String> keys = getKeys(prefix, field, annotation);
-				override(instance, field, keys, annotation);
-			}
+		Field[] fields = instance.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			override(prefix, instance, field);
+			overrideOptionals(prefix, instance, field);
+		}
+	}
+
+	private void overrideOptionals(Optional<String> prefix, Object instance, Field field) {
+		EnvOverrideOptional override = field.getAnnotation(EnvOverrideOptional.class);
+		if (override != null) {
+			List<String> keys = getKeys(prefix, field, override.keys());
+			override(instance, field, keys, override.type());
+		}
+	}
+
+	private void override(Optional<String> prefix, Object instance, Field field) {
+		EnvOverride override = field.getAnnotation(EnvOverride.class);
+		if (override != null) {
+			List<String> keys = getKeys(prefix, field, override.keys());
+			override(instance, field, keys, field.getType());
 		}
 	}
 
@@ -44,41 +59,42 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	protected Class<?> getType(Field field, EnvOverride annotation) {
-		Class<?> type = field.getType();
-		if (type == Optional.class) {
-			return annotation.optionalType();
-		} else {
-			return type;
-		}
-	}
-
-	protected void override(Settable<?> instance, Field field, List<String> keys, EnvOverride annotation) {
-		Class<?> type = getType(field, annotation);
+	protected void override(Object instance, Field field, List<String> keys, Class<?> type) {
 		for (String key : keys) {
 			Optional<?> optional = SpringUtils.getOptionalProperty(env, key, type);
 			if (optional.isPresent()) {
-				if (field.getType() == Optional.class) {
-					instance.set(field, optional);
-				} else {
-					instance.set(field, optional.get());
-				}
-				return;
+				Object value = optional.get();
+				set(instance, field, value);
 			}
 		}
 	}
 
-	protected List<String> getKeys(Optional<String> prefix, Field field, EnvOverride override) {
-		List<String> keys = new ArrayList<String>();
-		if (override.keys().length > 0) {
-			keys.addAll(ImmutableList.copyOf(override.keys()));
+	protected void set(Object instance, Field field, Object value) {
+		try {
+			boolean accessible = field.isAccessible();
+			if (!accessible) {
+				field.setAccessible(true);
+			}
+			field.set(instance, value);
+			if (!accessible) {
+				field.setAccessible(false);
+			}
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	protected List<String> getKeys(Optional<String> prefix, Field field, String[] keys) {
+		List<String> list = new ArrayList<String>();
+		if (keys.length > 0) {
+			list.addAll(ImmutableList.copyOf(keys));
 		} else {
-			keys.add(field.getName());
+			list.add(field.getName());
 		}
 		if (prefix.isPresent()) {
-			return ListUtils.prefix(prefix.get(), ".", keys);
+			return ListUtils.prefix(prefix.get(), ".", list);
 		} else {
-			return keys;
+			return list;
 		}
 	}
 
