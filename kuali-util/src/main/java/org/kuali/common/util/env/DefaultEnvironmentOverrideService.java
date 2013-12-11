@@ -9,9 +9,6 @@ import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.annotation.EnvOverride;
-import org.kuali.common.util.spring.env.annotation.EnvOverrideOptional;
-import org.kuali.common.util.spring.env.annotation.EnvOverrideStrings;
-import org.kuali.common.util.spring.env.annotation.EnvOverrides;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -27,7 +24,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 
 	@Override
 	public void override(Object instance) {
-		EnvOverrides annotation = instance.getClass().getAnnotation(EnvOverrides.class);
+		EnvOverride annotation = instance.getClass().getAnnotation(EnvOverride.class);
 		if (annotation != null && annotation.skip()) {
 			return;
 		}
@@ -35,46 +32,23 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		Field[] fields = instance.getClass().getDeclaredFields();
 		for (Field field : fields) {
 			override(prefix, instance, field);
-			overrideOptionals(prefix, instance, field);
-			overrideStringLists(prefix, instance, field);
-		}
-	}
-
-	private void overrideStringLists(Optional<String> prefix, Object instance, Field field) {
-		EnvOverrideStrings annotation = field.getAnnotation(EnvOverrideStrings.class);
-		if (annotation != null) {
-			List<String> keys = getKeys(prefix, field, annotation.keys());
-			Optional<List<String>> value = SpringUtils.getOptionalStrings(env, keys);
-			if (value.isPresent()) {
-				set(instance, field, value.get());
-			}
 		}
 	}
 
 	private void override(Optional<String> prefix, Object instance, Field field) {
 		EnvOverride annotation = field.getAnnotation(EnvOverride.class);
-		if (annotation != null) {
-			List<String> keys = getKeys(prefix, field, annotation.value());
-			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, field.getType());
-			if (value.isPresent()) {
-				set(instance, field, value.get());
-			}
+		if (annotation != null && annotation.skip()) {
+			return;
 		}
-	}
-
-	private void overrideOptionals(Optional<String> prefix, Object instance, Field field) {
-		EnvOverrideOptional annotation = field.getAnnotation(EnvOverrideOptional.class);
-		if (annotation != null) {
-			List<String> keys = getKeys(prefix, field, annotation.keys());
-			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, annotation.type());
-			if (value.isPresent()) {
-				set(instance, field, value);
-			}
+		List<String> keys = getKeys(prefix, field, annotation);
+		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, field.getType());
+		if (value.isPresent()) {
+			set(instance, field, value.get());
 		}
 	}
 
 	private Optional<String> getPrefix(Object instance) {
-		EnvOverrides annotation = instance.getClass().getAnnotation(EnvOverrides.class);
+		EnvOverride annotation = instance.getClass().getAnnotation(EnvOverride.class);
 		if (annotation == null || StringUtils.isBlank(annotation.prefix())) {
 			return Optional.<String> absent();
 		} else {
@@ -99,17 +73,28 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	private List<String> getKeys(Optional<String> prefix, Field field, String[] keys) {
+	private List<String> getKeys(Optional<String> globalPrefix, Field field, EnvOverride annotation) {
 		List<String> list = new ArrayList<String>();
-		if (keys.length > 0) {
-			list.addAll(ImmutableList.copyOf(keys));
+		if (annotation.keys().length > 0) {
+			list.addAll(ImmutableList.copyOf(annotation.keys()));
 		} else {
 			list.add(field.getName());
 		}
+		Optional<String> prefix = getPrefix(globalPrefix, annotation.prefix());
 		if (prefix.isPresent()) {
 			return ListUtils.prefix(prefix.get(), ".", list);
 		} else {
 			return list;
+		}
+	}
+
+	private Optional<String> getPrefix(Optional<String> globalPrefix, String fieldPrefix) {
+		if (!StringUtils.isBlank(fieldPrefix)) {
+			return Optional.of(fieldPrefix);
+		} else if (globalPrefix.isPresent()) {
+			return Optional.of(globalPrefix.get());
+		} else {
+			return Optional.absent();
 		}
 	}
 
