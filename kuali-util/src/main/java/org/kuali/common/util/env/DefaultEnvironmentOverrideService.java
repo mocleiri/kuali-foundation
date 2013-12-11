@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
@@ -24,36 +23,34 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 
 	@Override
 	public void override(Object instance) {
-		EnvOverride annotation = instance.getClass().getAnnotation(EnvOverride.class);
-		if (annotation != null && annotation.skip()) {
+		Optional<EnvOverride> classAnnotation = Optional.fromNullable(instance.getClass().getAnnotation(EnvOverride.class));
+		if (classAnnotation.isPresent() && classAnnotation.get().skip()) {
 			return;
 		}
-		Optional<String> prefix = getPrefix(instance);
+		Optional<String> prefix = getPrefix(classAnnotation);
 		Field[] fields = instance.getClass().getDeclaredFields();
 		for (Field field : fields) {
-			override(prefix, instance, field);
+			override(classAnnotation, prefix, instance, field);
 		}
 	}
 
-	private void override(Optional<String> prefix, Object instance, Field field) {
-		EnvOverride annotation = field.getAnnotation(EnvOverride.class);
-		if (annotation != null && annotation.skip()) {
+	private void override(Optional<EnvOverride> classAnnotation, Optional<String> prefix, Object instance, Field field) {
+		Optional<EnvOverride> fieldAnnotation = Optional.fromNullable(field.getAnnotation(EnvOverride.class));
+
+		// No class or field annotation, nothing to do
+		if (!classAnnotation.isPresent() && !fieldAnnotation.isPresent()) {
 			return;
 		}
-		List<String> keys = getKeys(prefix, field, annotation);
+
+		// The field level annotation is present but we are skipping this field
+		if (fieldAnnotation.isPresent() && fieldAnnotation.get().skip()) {
+			return;
+		}
+		List<String> keys = getKeys(prefix, field, fieldAnnotation);
 		Class<?> type = field.getType();
 		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);
 		if (value.isPresent()) {
 			set(instance, field, value.get());
-		}
-	}
-
-	private Optional<String> getPrefix(Object instance) {
-		EnvOverride annotation = instance.getClass().getAnnotation(EnvOverride.class);
-		if (annotation == null || StringUtils.isBlank(annotation.prefix())) {
-			return Optional.<String> absent();
-		} else {
-			return Optional.of(annotation.prefix());
 		}
 	}
 
@@ -74,14 +71,14 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	private List<String> getKeys(Optional<String> globalPrefix, Field field, EnvOverride annotation) {
+	private List<String> getKeys(Optional<String> globalPrefix, Field field, Optional<EnvOverride> fieldAnnotation) {
 		List<String> list = new ArrayList<String>();
-		if (annotation.keys().length > 0) {
-			list.addAll(ImmutableList.copyOf(annotation.keys()));
+		if (fieldAnnotation.isPresent() && fieldAnnotation.get().keys().length > 0) {
+			list.addAll(ImmutableList.copyOf(fieldAnnotation.get().keys()));
 		} else {
 			list.add(field.getName());
 		}
-		Optional<String> prefix = getPrefix(globalPrefix, annotation.prefix());
+		Optional<String> prefix = getPrefix(globalPrefix, fieldAnnotation);
 		if (prefix.isPresent()) {
 			return ListUtils.prefix(prefix.get(), ".", list);
 		} else {
@@ -89,13 +86,24 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	private Optional<String> getPrefix(Optional<String> globalPrefix, String fieldPrefix) {
-		if (!StringUtils.isBlank(fieldPrefix)) {
-			return Optional.of(fieldPrefix);
-		} else if (globalPrefix.isPresent()) {
-			return Optional.of(globalPrefix.get());
+	private Optional<String> getPrefix(Optional<String> globalPrefix, Optional<EnvOverride> fieldAnnotation) {
+		Optional<String> fieldPrefix = getPrefix(fieldAnnotation);
+		if (fieldPrefix.isPresent()) {
+			return fieldPrefix;
 		} else {
+			return globalPrefix;
+		}
+	}
+
+	private Optional<String> getPrefix(Optional<EnvOverride> annotation) {
+		if (!annotation.isPresent()) {
 			return Optional.absent();
+		}
+		String prefix = annotation.get().prefix();
+		if (EnvOverride.NONE.equals(prefix)) {
+			return Optional.absent();
+		} else {
+			return Optional.of(prefix);
 		}
 	}
 
