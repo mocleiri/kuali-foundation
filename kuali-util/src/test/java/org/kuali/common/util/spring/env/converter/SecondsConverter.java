@@ -2,7 +2,7 @@ package org.kuali.common.util.spring.env.converter;
 
 import org.kuali.common.util.FormatUtils;
 
-public class SecondsConverter implements Converter<String, Integer> {
+public final class SecondsConverter implements Converter<String, Integer> {
 
 	@Override
 	public Integer convert(String time) {

@@ -2,7 +2,7 @@ package org.kuali.common.util.spring.env.converter;
 
 import org.kuali.common.util.FormatUtils;
 
-public class BytesConverter implements Converter<String, Long> {
+public final class BytesConverter implements Converter<String, Long> {
 
 	@Override
 	public Long convert(String size) {
