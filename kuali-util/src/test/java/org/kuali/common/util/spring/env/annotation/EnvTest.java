@@ -26,7 +26,7 @@ public class EnvTest {
 	@Test
 	public void test() {
 		try {
-			// System.setProperty("env.foo", "bar");
+			System.setProperty("env.foo", "bar");
 			FakeEnvServiceContext fesc = new FakeEnvServiceContext.Builder().build();
 			show(fesc);
 		} catch (Exception e) {

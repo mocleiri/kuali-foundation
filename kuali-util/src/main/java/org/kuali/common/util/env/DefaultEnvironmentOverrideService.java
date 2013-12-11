@@ -35,18 +35,24 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 	}
 
 	private void overrideOptionals(Optional<String> prefix, Object instance, Field field) {
-		EnvOverrideOptional override = field.getAnnotation(EnvOverrideOptional.class);
-		if (override != null) {
-			List<String> keys = getKeys(prefix, field, override.keys());
-			override(instance, field, keys, override.type());
+		EnvOverrideOptional annotation = field.getAnnotation(EnvOverrideOptional.class);
+		if (annotation != null) {
+			List<String> keys = getKeys(prefix, field, annotation.keys());
+			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, annotation.type());
+			if (value.isPresent()) {
+				set(instance, field, value);
+			}
 		}
 	}
 
 	private void override(Optional<String> prefix, Object instance, Field field) {
-		EnvOverride override = field.getAnnotation(EnvOverride.class);
-		if (override != null) {
-			List<String> keys = getKeys(prefix, field, override.keys());
-			override(instance, field, keys, field.getType());
+		EnvOverride annotation = field.getAnnotation(EnvOverride.class);
+		if (annotation != null) {
+			List<String> keys = getKeys(prefix, field, annotation.keys());
+			Optional<?> value = SpringUtils.getOptionalProperty(env, keys, field.getType());
+			if (value.isPresent()) {
+				set(instance, field, value.get());
+			}
 		}
 	}
 
@@ -59,17 +65,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	protected void override(Object instance, Field field, List<String> keys, Class<?> type) {
-		for (String key : keys) {
-			Optional<?> optional = SpringUtils.getOptionalProperty(env, key, type);
-			if (optional.isPresent()) {
-				Object value = optional.get();
-				set(instance, field, value);
-			}
-		}
-	}
-
-	protected void set(Object instance, Field field, Object value) {
+	private void set(Object instance, Field field, Object value) {
 		try {
 			boolean accessible = field.isAccessible();
 			if (!accessible) {
@@ -84,7 +80,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	protected List<String> getKeys(Optional<String> prefix, Field field, String[] keys) {
+	private List<String> getKeys(Optional<String> prefix, Field field, String[] keys) {
 		List<String> list = new ArrayList<String>();
 		if (keys.length > 0) {
 			list.addAll(ImmutableList.copyOf(keys));
@@ -118,7 +114,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 
 		private void validate(DefaultEnvironmentOverrideService instance) {
-			Preconditions.checkNotNull(instance.env, "env may not be null");
+			Preconditions.checkNotNull(instance.env, "'env' cannot be null");
 		}
 	}
 

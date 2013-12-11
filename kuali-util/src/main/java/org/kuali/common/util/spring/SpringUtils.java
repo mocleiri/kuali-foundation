@@ -140,6 +140,19 @@ public class SpringUtils {
 	/**
 	 * If there is no value for <code>key</code> return Optional.absent(), otherwise return Optional.of(value)
 	 */
+	public static <T> Optional<T> getOptionalProperty(EnvironmentService env, List<String> keys, Class<T> type) {
+		for (String key : keys) {
+			Optional<T> value = getOptionalProperty(env, key, type);
+			if (value.isPresent()) {
+				return value;
+			}
+		}
+		return Optional.absent();
+	}
+
+	/**
+	 * If there is no value for <code>key</code> return Optional.absent(), otherwise return Optional.of(value)
+	 */
 	public static <T> Optional<T> getOptionalProperty(EnvironmentService env, String key, Class<T> type) {
 		if (!env.containsProperty(key)) {
 			return Optional.absent();
