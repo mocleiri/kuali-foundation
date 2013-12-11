@@ -13,6 +13,6 @@ import org.kuali.common.util.spring.env.converter.Converter;
 @Documented
 public @interface Conversion {
 
-	Class<? extends Converter<?, ?>> type();
+	Class<? extends Converter<?, ?>> value();
 
 }
