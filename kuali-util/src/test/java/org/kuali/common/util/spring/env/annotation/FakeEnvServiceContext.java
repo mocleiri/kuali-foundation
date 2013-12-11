@@ -52,7 +52,7 @@ public final class FakeEnvServiceContext {
 		@EnvOverride
 		private Mode missingPropertyMode = Mode.ERROR;
 
-		@EnvOverride
+		@EnvOverride(optionalType = String.class)
 		private Optional<String> foo = Optional.absent();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {

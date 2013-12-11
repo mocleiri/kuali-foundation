@@ -6,11 +6,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.google.common.base.Optional;
+
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface EnvOverride {
 
 	String[] keys() default {};
+
+	Class<?> optionalType() default Optional.class;
 
 }

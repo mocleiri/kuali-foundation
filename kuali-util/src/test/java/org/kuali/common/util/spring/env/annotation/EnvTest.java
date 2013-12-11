@@ -26,7 +26,7 @@ public class EnvTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("env.missingPropertyMode", "IGNORE");
+			System.setProperty("env.foo", "bar");
 			FakeEnvServiceContext fesc = new FakeEnvServiceContext.Builder().build();
 			show(fesc);
 		} catch (Exception e) {
