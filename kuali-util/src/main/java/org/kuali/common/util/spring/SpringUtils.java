@@ -400,6 +400,18 @@ public class SpringUtils {
 	}
 
 	/**
+	 * If the environment contains a value for any of the elements in <code>keys</code> (NONE sensitive) use the environment value, otherwise return <code>Optional.absent()</code>
+	 */
+	public static Optional<List<String>> getOptionalStrings(EnvironmentService env, List<String> keys) {
+		for (String key : keys) {
+			if (env.containsProperty(key)) {
+				return Optional.of(getNoneSensitiveListFromCSV(env, key));
+			}
+		}
+		return Optional.absent();
+	}
+
+	/**
 	 * If the CSV value evaluates to <code>null</code>, <code>"null"</code>, <code>"none"</code> or the empty string, return an empty list.
 	 */
 	public static List<String> getNoneSensitiveListFromCSV(Environment env, String key, String defaultValue) {

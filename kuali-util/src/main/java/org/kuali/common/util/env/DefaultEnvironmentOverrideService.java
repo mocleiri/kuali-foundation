@@ -10,6 +10,7 @@ import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.annotation.EnvOverride;
 import org.kuali.common.util.spring.env.annotation.EnvOverrideOptional;
+import org.kuali.common.util.spring.env.annotation.EnvOverrideStringList;
 import org.kuali.common.util.spring.env.annotation.EnvPrefix;
 
 import com.google.common.base.Optional;
@@ -31,6 +32,18 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		for (Field field : fields) {
 			override(prefix, instance, field);
 			overrideOptionals(prefix, instance, field);
+			overrideStringLists(prefix, instance, field);
+		}
+	}
+
+	private void overrideStringLists(Optional<String> prefix, Object instance, Field field) {
+		EnvOverrideStringList annotation = field.getAnnotation(EnvOverrideStringList.class);
+		if (annotation != null) {
+			List<String> keys = getKeys(prefix, field, annotation.keys());
+			Optional<?> value = SpringUtils.getOptionalStrings(env, keys);
+			if (value.isPresent()) {
+				set(instance, field, value.get());
+			}
 		}
 	}
 
