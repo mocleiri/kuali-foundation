@@ -1,6 +1,5 @@
 package org.kuali.common.util.spring.env.annotation;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import org.kuali.common.util.Mode;
@@ -92,14 +91,6 @@ public final class FakeEnvServiceContext {
 		@Override
 		protected void validate(FakeEnvServiceContext ctx) {
 			Preconditions.checkNotNull(ctx.getMissingPropertyMode(), "'mode' cannot be null");
-		}
-
-		public void set(Field field, Object value) {
-			try {
-				field.set(this, value);
-			} catch (IllegalAccessException e) {
-				throw new IllegalStateException(e);
-			}
 		}
 
 	}
