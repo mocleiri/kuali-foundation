@@ -54,7 +54,7 @@ public final class FakeEnvServiceContext {
 		@EnvOverride
 		private Mode missingPropertyMode = Mode.ERROR;
 
-		@EnvOverride(optionalType = String.class)
+		@EnvOverride
 		private Optional<String> foo = Optional.absent();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {
@@ -83,7 +83,6 @@ public final class FakeEnvServiceContext {
 			Preconditions.checkNotNull(ctx.getMissingPropertyMode(), "'mode' cannot be null");
 		}
 
-		@Override
 		public void set(Field field, Object value) {
 			try {
 				field.set(this, value);
