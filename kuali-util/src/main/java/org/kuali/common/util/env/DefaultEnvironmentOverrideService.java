@@ -41,7 +41,8 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 			return;
 		}
 		List<String> keys = getKeys(prefix, field, annotation);
-		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, field.getType());
+		Class<?> type = field.getType();
+		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);
 		if (value.isPresent()) {
 			set(instance, field, value.get());
 		}
