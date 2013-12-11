@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kuali.common.util.CollectionUtils;
 
-public final class ListStringConverter implements Converter<String, List<String>> {
+public final class CSVToListConverter implements Converter<String, List<String>> {
 
 	@Override
 	public List<String> convert(String s) {
