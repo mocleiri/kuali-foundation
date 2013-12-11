@@ -6,17 +6,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.util.spring.env.converter.Converter;
-
-@Target({ ElementType.FIELD })
+@Target({ ElementType.FIELD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface EnvOverride {
 
-	String[] value();
+	String prefix() default "";
+
+	String[] keys() default {};
 
 	boolean skip() default false;
-
-	Class<? extends Converter<?, ?>> converterClass();
 
 }
