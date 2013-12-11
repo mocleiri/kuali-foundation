@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.env.annotation;
+package org.kuali.common.util.spring.env.adapter;
 
 import org.kuali.common.util.FormatUtils;
 
