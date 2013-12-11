@@ -64,7 +64,7 @@ public final class FakeEnvServiceContext {
 		@EnvOverrideOptional(type = String.class)
 		private Optional<String> foo = Optional.absent();
 
-		@EnvOverrideStringList
+		@EnvOverrideStrings
 		private List<String> bar = ImmutableList.of();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {
