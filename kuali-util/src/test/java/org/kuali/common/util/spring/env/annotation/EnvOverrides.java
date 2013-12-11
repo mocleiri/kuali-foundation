@@ -16,6 +16,6 @@ public @interface EnvOverrides {
 
 	String prefix() default "";
 
-	boolean override() default true;
+	boolean skip() default false;
 
 }
