@@ -5,12 +5,14 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 
 import com.google.common.collect.ImmutableList;
 
 @ValidPassengerCount
 @NoNulls
+@NoBlanks
 public class Car {
 
 	private final String manufacturer;

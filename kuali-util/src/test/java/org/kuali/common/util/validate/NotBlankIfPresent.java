@@ -15,7 +15,7 @@ import javax.validation.Payload;
 
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlanksValidator.class)
+@Constraint(validatedBy = NotBlankIfPresentValidator.class)
 @Documented
 public @interface NotBlankIfPresent {
 
