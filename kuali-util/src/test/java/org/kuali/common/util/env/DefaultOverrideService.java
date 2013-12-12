@@ -51,20 +51,35 @@ public final class DefaultOverrideService implements OverrideService {
 			return;
 		}
 
-		// Either the class annotation or the field annotation was present
+		// The class annotation OR the field annotation was present
+		// Examine them + the field info to get a list of keys
 		List<String> keys = getKeys(classPrefix, field, fieldAnnotation);
+
+		// Extract the adapter annotation (if there is one)
 		Optional<EnvAdapterClass> adapterAnnotation = Optional.fromNullable(field.getAnnotation(EnvAdapterClass.class));
-		Optional<? extends EnvAdapter<?, ?>> converter = getConverter(adapterAnnotation);
-		Class<?> type = converter.isPresent() ? converter.get().getSourceType() : field.getType();
+
+		// Extract the adapter itself (if there is one)
+		Optional<? extends EnvAdapter<?, ?>> adapter = getConverter(adapterAnnotation);
+
+		// Figure out what the source type is in the environment abstraction
+		Class<?> type = adapter.isPresent() ? adapter.get().getSourceType() : field.getType();
+
+		// Extract a value from the environment
 		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);
+
+		// nothing to do if there is no value
 		if (!value.isPresent()) {
-			return; // nothing to do if there is no value
+			return;
 		}
-		if (converter.isPresent()) {
-			Object result = ReflectionUtils.invokeMethod(converter.get(), "convert", value.get());
-			value = Optional.of(result);
+
+		// If there is an adapter, use it to convert the value stored in the environment
+		if (adapter.isPresent()) {
+			Object result = ReflectionUtils.invokeMethod(adapter.get(), "convert", value.get());
+			value = Optional.fromNullable(result);
 		}
-		set(instance, field, value.get());
+
+		// Store the value we have on the object
+		set(instance, field, value.orNull());
 	}
 
 	private Optional<? extends EnvAdapter<?, ?>> getConverter(Optional<EnvAdapterClass> conversionAnnotation) {
