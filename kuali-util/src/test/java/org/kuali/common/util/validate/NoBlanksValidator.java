@@ -73,15 +73,10 @@ public class NoBlanksValidator implements ConstraintValidator<NoBlanks, Object> 
 		Optional<?> value = get(field, instance);
 		CharSequence cs = (CharSequence) value.orNull();
 		if (StringUtils.isBlank(cs)) {
-			
-		} else {
-			return Optional.absent();
-		}
-		if (value.isPresent()) {
-			return Optional.absent();
-		} else {
 			String className = instance.getClass().getSimpleName();
-			return Optional.of("[" + className + "." + field.getName() + "] cannot be null");
+			return Optional.of("[" + className + "." + field.getName() + "] cannot be blank");
+		} else {
+			return Optional.absent();
 		}
 	}
 
