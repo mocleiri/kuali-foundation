@@ -23,6 +23,22 @@ public class CarTest {
 	}
 
 	@Test
+	public void licensePlateCase() {
+		// invalid license plate
+		Car car = new Car("Morris", "dd-ab-123", 4);
+		Set<ConstraintViolation<Car>> constraintViolations = validator.validate(car);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Case mode must be UPPER.", constraintViolations.iterator().next().getMessage());
+
+		// valid license plate
+		car = new Car("Morris", "DD-AB-123", 4);
+
+		constraintViolations = validator.validate(car);
+
+		assertEquals(0, constraintViolations.size());
+	}
+
+	@Test
 	public void manufacturerIsNull() {
 		Car car = new Car(null, "DD-AB-123", 4);
 
