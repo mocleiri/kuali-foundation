@@ -6,7 +6,7 @@ import org.kuali.common.util.validate.NotBlankIfPresent;
 import com.google.common.base.Optional;
 
 @NoNulls
-public final class MyCar {
+public final class Car {
 
 	public String getMake() {
 		return make;
@@ -21,12 +21,12 @@ public final class MyCar {
 	@NotBlankIfPresent(message = "Description cannot be blank if present")
 	private final Optional<String> description;
 
-	private MyCar(Builder builder) {
+	private Car(Builder builder) {
 		this.make = builder.make;
 		this.description = builder.description;
 	}
 
-	public static class Builder {
+	public static class Builder extends AbstractBuilder<Car> {
 
 		private final String make; // Required
 		private Optional<String> description = Optional.absent(); // Optional
@@ -40,13 +40,9 @@ public final class MyCar {
 			return this;
 		}
 
-		protected MyCar getInstance() {
-			MyCar car = new MyCar(this);
-			return car;
-		}
-
-		public MyCar build() {
-			return getInstance();
+		@Override
+		protected Car getInstance() {
+			return new Car(this);
 		}
 
 	}

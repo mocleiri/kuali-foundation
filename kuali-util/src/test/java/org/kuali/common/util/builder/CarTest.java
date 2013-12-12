@@ -6,12 +6,12 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.Test;
 
-public class FooBarBazTest {
+public class CarTest {
 
 	@Test
 	public void test() {
 		try {
-			MyCar car = new MyCar.Builder("Ford").description("Awesome and new").build();
+			Car car = new Car.Builder("Ford").description("Awesome and new").build();
 			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 			Validator validator = factory.getValidator();
 			validator.validate(car);
