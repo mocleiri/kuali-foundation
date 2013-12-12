@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = NoNullsValidator.class)
@@ -22,6 +21,8 @@ public @interface NoNulls {
 	Class<?>[] groups() default {};
 
 	boolean skip() default false;
+
+	boolean recurse() default true;
 
 	Class<? extends Payload>[] payload() default {};
 

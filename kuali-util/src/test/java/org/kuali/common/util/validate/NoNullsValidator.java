@@ -11,6 +11,7 @@ public class NoNullsValidator extends AbstractFieldsValidator implements Constra
 	@Override
 	public void initialize(NoNulls constraintAnnotation) {
 		this.skip = constraintAnnotation.skip();
+		this.recurse = constraintAnnotation.recurse();
 	}
 
 	@Override

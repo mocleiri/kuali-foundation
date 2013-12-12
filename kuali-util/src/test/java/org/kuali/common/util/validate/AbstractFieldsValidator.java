@@ -2,6 +2,7 @@ package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.ConstraintValidatorContext;
@@ -24,6 +25,7 @@ import com.google.common.base.Optional;
 public abstract class AbstractFieldsValidator {
 
 	boolean skip;
+	boolean recurse = true;
 
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
 		if (skip) {
@@ -32,7 +34,7 @@ public abstract class AbstractFieldsValidator {
 		if (instance == null) {
 			throw new IllegalStateException("instance cannot be null");
 		}
-		List<Field> fields = ReflectionUtils.getAllFields(instance.getClass());
+		List<Field> fields = (recurse) ? ReflectionUtils.getAllFields(instance.getClass()) : Arrays.asList(instance.getClass().getDeclaredFields());
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
 			Optional<String> error = validate(field, instance);
