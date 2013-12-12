@@ -12,11 +12,11 @@ import com.google.common.base.Optional;
 public abstract class ClassValidator implements Validator {
 
 	@Override
-	public Optional<Errors> validate(Object instance) {
+	public ValidationResult validate(Object instance) {
 		Assert.notNull(instance, "'instance' cannot be null");
 		Optional<NoNulls> annotation = Optional.fromNullable(instance.getClass().getAnnotation(NoNulls.class));
 		if (!annotation.isPresent()) {
-			return Optional.absent();
+			return new ValidationResult();
 		}
 		Field[] fields = instance.getClass().getDeclaredFields();
 		List<String> errors = new ArrayList<String>();
@@ -26,11 +26,7 @@ public abstract class ClassValidator implements Validator {
 				errors.add(error.get());
 			}
 		}
-		if (errors.size() > 0) {
-			return Optional.of(new Errors(errors));
-		} else {
-			return Optional.absent();
-		}
+		return new ValidationResult(errors);
 	}
 
 	protected abstract Optional<String> validate(Field field, Object instance);

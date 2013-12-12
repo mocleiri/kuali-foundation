@@ -3,7 +3,6 @@ package org.kuali.common.util.validate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
@@ -12,19 +11,13 @@ public final class DefaultValidationService implements ValidationService {
 	private final List<Validator> validators;
 
 	@Override
-	public Optional<Errors> validate(Object instance) {
+	public ValidationResult validate(Object instance) {
 		List<String> messages = new ArrayList<String>();
 		for (Validator validator : validators) {
-			Optional<Errors> errors = validator.validate(instance);
-			if (errors.isPresent()) {
-				messages.addAll(errors.get().getMessages());
-			}
+			ValidationResult result = validator.validate(instance);
+			messages.addAll(result.getErrorMessages());
 		}
-		if (messages.size() > 0) {
-			return Optional.of(new Errors(messages));
-		} else {
-			return Optional.absent();
-		}
+		return new ValidationResult(messages);
 	}
 
 	private DefaultValidationService(Builder builder) {
