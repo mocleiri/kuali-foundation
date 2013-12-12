@@ -13,24 +13,29 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 	}
 
 	@Override
-	public boolean isValid(String object, ConstraintValidatorContext constraintContext) {
-		if (object == null) {
+	public boolean isValid(String string, ConstraintValidatorContext constraintContext) {
+		if (string == null) {
 			return true;
 		}
 
-		boolean isValid;
-		if (caseMode == CaseMode.UPPER) {
-			isValid = object.equals(object.toUpperCase());
-		} else {
-			isValid = object.equals(object.toLowerCase());
-		}
-
+		boolean isValid = getValidity(string);
 		if (!isValid) {
 			constraintContext.disableDefaultConstraintViolation();
-			constraintContext.buildConstraintViolationWithTemplate("{org.hibernate.validator.referenceguide.chapter03.constraintvalidatorcontext.CheckCase.message}")
-					.addConstraintViolation();
+			String messageTemplate = "{org.hibernate.validator.referenceguide.chapter03.constraintvalidatorcontext.CheckCase.message}";
+			constraintContext.buildConstraintViolationWithTemplate(messageTemplate).addConstraintViolation();
 		}
 
 		return isValid;
+	}
+
+	protected boolean getValidity(String string) {
+		switch (caseMode) {
+		case UPPER:
+			return string.equals(string.toUpperCase());
+		case LOWER:
+			return string.equals(string.toLowerCase());
+		default:
+			throw new IllegalStateException("[" + caseMode + "] is unknown");
+		}
 	}
 }
