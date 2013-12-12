@@ -4,7 +4,6 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.Mode;
-import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.spring.env.EnvUtils;
 import org.kuali.common.util.spring.env.PropertiesEnvironment;
 import org.springframework.core.env.Environment;
@@ -39,7 +38,7 @@ public final class EnvironmentServiceContext {
 		this.missingPropertyMode = builder.missingPropertyMode;
 	}
 
-	public static class Builder extends AbstractBuilder<EnvironmentServiceContext> {
+	public static class Builder {
 
 		private Environment env = EnvUtils.getDefaultEnvironment();
 		private boolean checkEnvironmentVariables = true;
@@ -81,15 +80,19 @@ public final class EnvironmentServiceContext {
 			missingPropertyMode(env.getProperty(MISSING_PROPERTY_MODE_KEY, Mode.class, missingPropertyMode));
 		}
 
-		@Override
 		protected void validate(EnvironmentServiceContext ctx) {
 			Assert.noNulls(ctx.getEnv(), ctx.getMissingPropertyMode());
 		}
 
-		@Override
 		protected EnvironmentServiceContext getInstance() {
-			override();
 			return new EnvironmentServiceContext(this);
+		}
+
+		public EnvironmentServiceContext build() {
+			override();
+			EnvironmentServiceContext ctx = new EnvironmentServiceContext(this);
+			validate(ctx);
+			return ctx;
 		}
 
 	}
