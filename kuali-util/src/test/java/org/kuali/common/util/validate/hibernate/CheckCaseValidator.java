@@ -21,7 +21,7 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 		boolean isValid = isValid(string);
 		if (!isValid) {
 			constraintContext.disableDefaultConstraintViolation();
-			String messageTemplate = "{org.hibernate.validator.referenceguide.chapter03.constraintvalidatorcontext.CheckCase.message}";
+			String messageTemplate = "Invalid case";
 			constraintContext.buildConstraintViolationWithTemplate(messageTemplate).addConstraintViolation();
 		}
 
