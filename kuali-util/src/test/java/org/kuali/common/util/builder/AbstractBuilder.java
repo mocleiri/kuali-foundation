@@ -15,7 +15,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 	public AbstractBuilder() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		this.validator = factory.getValidator();
-		this.overrideService = new DefaultOverrideService.Builder().build();
+		this.overrider = new DefaultOverrideService.Builder().build();
 	}
 
 	public Validator getValidator() {
@@ -23,11 +23,11 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 	}
 
 	private final Validator validator;
-	private final OverrideService overrideService;
+	private final OverrideService overrider;
 
 	@Override
 	public final T build() {
-		overrideService.override(this);
+		overrider.override(this);
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
 		validate(violations);
