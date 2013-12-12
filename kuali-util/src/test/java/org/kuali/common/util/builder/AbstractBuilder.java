@@ -19,10 +19,6 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 		this.overrider = new DefaultOverrideService();
 	}
 
-	public Validator getValidator() {
-		return validator;
-	}
-
 	@EnvIgnore
 	private final Validator validator;
 
