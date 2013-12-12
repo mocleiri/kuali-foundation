@@ -1,6 +1,6 @@
 package org.kuali.common.util.env;
 
-public interface EnvOverrideService {
+public interface OverrideService {
 
 	void override(Object instance);
 

@@ -17,7 +17,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-public final class DefaultEnvOverrideService implements EnvOverrideService {
+public final class DefaultOverrideService implements OverrideService {
 
 	public EnvironmentService getEnv() {
 		return env;
@@ -130,7 +130,7 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 		}
 	}
 
-	private DefaultEnvOverrideService(Builder builder) {
+	private DefaultOverrideService(Builder builder) {
 		this.env = builder.env;
 	}
 
@@ -143,13 +143,13 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 			return this;
 		}
 
-		public DefaultEnvOverrideService build() {
-			DefaultEnvOverrideService instance = new DefaultEnvOverrideService(this);
+		public DefaultOverrideService build() {
+			DefaultOverrideService instance = new DefaultOverrideService(this);
 			validate(instance);
 			return instance;
 		}
 
-		private void validate(DefaultEnvOverrideService instance) {
+		private void validate(DefaultOverrideService instance) {
 			Preconditions.checkNotNull(instance.getEnv(), "'env' cannot be null");
 		}
 	}
