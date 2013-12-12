@@ -8,10 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 public final class ValidationResult {
 
-	public boolean isHasErrors() {
-		return hasErrors;
-	}
-
 	public ValidationResult() {
 		this(ImmutableList.<String> of());
 	}
@@ -22,11 +18,15 @@ public final class ValidationResult {
 		this.hasErrors = errorMessages.size() > 0;
 	}
 
+	private final List<String> errorMessages;
+	private final boolean hasErrors;
+
 	public List<String> getErrorMessages() {
 		return errorMessages;
 	}
 
-	private final List<String> errorMessages;
-	private final boolean hasErrors;
+	public boolean hasErrors() {
+		return hasErrors;
+	}
 
 }
