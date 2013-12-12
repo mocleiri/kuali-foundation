@@ -18,7 +18,7 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 			return true;
 		}
 
-		boolean isValid = getValidity(string);
+		boolean isValid = isValid(string);
 		if (!isValid) {
 			constraintContext.disableDefaultConstraintViolation();
 			String messageTemplate = "{org.hibernate.validator.referenceguide.chapter03.constraintvalidatorcontext.CheckCase.message}";
@@ -28,7 +28,7 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 		return isValid;
 	}
 
-	protected boolean getValidity(String string) {
+	protected boolean isValid(String string) {
 		switch (caseMode) {
 		case UPPER:
 			return string.equals(string.toUpperCase());
