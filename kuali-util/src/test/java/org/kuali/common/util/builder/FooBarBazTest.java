@@ -1,9 +1,11 @@
 package org.kuali.common.util.builder;
 
+import org.junit.Test;
 
 public class FooBarBazTest {
 
-	public static void main(String[] args) {
+	@Test
+	public void test() {
 		try {
 			new MyCar.Builder("Ford").description("Awesome and new").build();
 		} catch (Exception e) {
