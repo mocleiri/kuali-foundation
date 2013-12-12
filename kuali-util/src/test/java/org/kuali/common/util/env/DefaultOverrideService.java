@@ -59,8 +59,8 @@ public final class DefaultOverrideService implements OverrideService {
 		// Extract the adapter itself (if there is one)
 		Optional<? extends EnvAdapter<?, ?>> adapter = getAdapter(adapterAnnotation);
 
-		// Target type in this context is the type we want the default conversion service to convert the environment value into.
-		// The value that comes out of the environment is the "source" value for the convertion to the specific value on our
+		// Target type in this context is the type we want the conversion service to convert the environment value into.
+		// The value that comes out of the environment is the "source" value for the conversion to the specific value on our
 		// domain model object
 		Class<?> targetType = adapter.isPresent() ? adapter.get().getSourceType() : field.getType();
 
