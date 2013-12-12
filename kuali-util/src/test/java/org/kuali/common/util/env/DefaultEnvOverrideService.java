@@ -16,7 +16,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-public final class DefaultEnvironmentOverrideService implements EnvironmentOverrideService {
+public final class DefaultEnvOverrideService implements EnvOverrideService {
 
 	public org.kuali.common.util.spring.env.EnvironmentService getEnv() {
 		return env;
@@ -129,7 +129,7 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		}
 	}
 
-	private DefaultEnvironmentOverrideService(Builder builder) {
+	private DefaultEnvOverrideService(Builder builder) {
 		this.env = builder.env;
 	}
 
@@ -142,13 +142,13 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 			return this;
 		}
 
-		public DefaultEnvironmentOverrideService build() {
-			DefaultEnvironmentOverrideService instance = new DefaultEnvironmentOverrideService(this);
+		public DefaultEnvOverrideService build() {
+			DefaultEnvOverrideService instance = new DefaultEnvOverrideService(this);
 			validate(instance);
 			return instance;
 		}
 
-		private void validate(DefaultEnvironmentOverrideService instance) {
+		private void validate(DefaultEnvOverrideService instance) {
 			Preconditions.checkNotNull(instance.env, "'env' cannot be null");
 		}
 	}

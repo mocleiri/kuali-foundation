@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
-import org.kuali.common.util.env.DefaultEnvironmentOverrideService;
-import org.kuali.common.util.env.EnvironmentOverrideService;
+import org.kuali.common.util.env.DefaultEnvOverrideService;
+import org.kuali.common.util.env.EnvOverrideService;
 import org.kuali.common.util.env.adapter.CSVToListAdapter;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 
@@ -53,7 +53,7 @@ public final class FakeEnvServiceContext {
 	public static class Builder extends AbstractBuilder<FakeEnvServiceContext> {
 
 		@EnvOverride(skip = true)
-		private EnvironmentOverrideService service = new DefaultEnvironmentOverrideService.Builder().build();
+		private EnvOverrideService service = new DefaultEnvOverrideService.Builder().build();
 
 		private boolean checkEnvironmentVariables = true;
 		private boolean resolveStrings = true;
