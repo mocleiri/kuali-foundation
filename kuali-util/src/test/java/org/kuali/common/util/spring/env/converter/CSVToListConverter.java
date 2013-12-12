@@ -7,6 +7,11 @@ import org.kuali.common.util.CollectionUtils;
 public final class CSVToListConverter implements Converter<String, List<String>> {
 
 	@Override
+	public Class<String> getSourceType() {
+		return String.class;
+	}
+
+	@Override
 	public List<String> convert(String s) {
 		return CollectionUtils.getNoneSensitiveListFromCSV(s);
 	}

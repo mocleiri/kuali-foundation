@@ -12,7 +12,7 @@ import org.kuali.common.util.spring.env.converter.Converter;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Conversion {
-
+	
 	Class<? extends Converter<?, ?>> value();
 
 }

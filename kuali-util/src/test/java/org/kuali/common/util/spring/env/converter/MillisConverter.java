@@ -5,6 +5,11 @@ import org.kuali.common.util.FormatUtils;
 public final class MillisConverter implements Converter<String, Long> {
 
 	@Override
+	public Class<String> getSourceType() {
+		return String.class;
+	}
+
+	@Override
 	public Long convert(String time) {
 		return FormatUtils.getMillis(time);
 	}

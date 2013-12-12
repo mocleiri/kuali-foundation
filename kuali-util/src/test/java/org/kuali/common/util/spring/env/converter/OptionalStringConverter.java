@@ -7,6 +7,11 @@ import com.google.common.base.Optional;
 public final class OptionalStringConverter implements Converter<String, Optional<String>> {
 
 	@Override
+	public Class<String> getSourceType() {
+		return String.class;
+	}
+
+	@Override
 	public Optional<String> convert(String s) {
 		String trimmed = NullUtils.trimToNull(s);
 		if (trimmed == null) {
