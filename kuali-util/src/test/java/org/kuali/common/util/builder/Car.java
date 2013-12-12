@@ -1,6 +1,5 @@
-package org.kuali.common.util.builder.car;
+package org.kuali.common.util.builder;
 
-import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 import org.kuali.common.util.validate.NotBlankIfPresent;
