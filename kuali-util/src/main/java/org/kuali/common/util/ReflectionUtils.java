@@ -54,6 +54,14 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return invoke(invoker);
 	}
 
+	public static Object invokeMethod(Object targetObject, String targetMethod, Object... arguments) {
+		MethodInvoker invoker = new MethodInvoker();
+		invoker.setTargetObject(targetObject);
+		invoker.setTargetMethod(targetMethod);
+		invoker.setArguments(arguments);
+		return invoke(invoker);
+	}
+
 	public static Object invoke(MethodInvoker invoker) {
 		try {
 			invoker.prepare();
