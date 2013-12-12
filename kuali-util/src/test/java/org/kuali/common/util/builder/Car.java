@@ -1,11 +1,13 @@
 package org.kuali.common.util.builder;
 
+import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 import org.kuali.common.util.validate.NotBlankIfPresent;
 
 import com.google.common.base.Optional;
 
 @NoNulls
+@NoBlanks
 public final class Car {
 
 	public String getMake() {
