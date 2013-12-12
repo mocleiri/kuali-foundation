@@ -11,6 +11,7 @@ import org.kuali.common.util.env.annotation.EnvAdapter;
 import org.kuali.common.util.env.annotation.EnvOverride;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -18,11 +19,11 @@ import com.google.common.collect.ImmutableList;
 
 public final class DefaultEnvOverrideService implements EnvOverrideService {
 
-	public org.kuali.common.util.spring.env.EnvironmentService getEnv() {
+	public EnvironmentService getEnv() {
 		return env;
 	}
 
-	private final org.kuali.common.util.spring.env.EnvironmentService env;
+	private final EnvironmentService env;
 
 	@Override
 	public void override(Object instance) {
