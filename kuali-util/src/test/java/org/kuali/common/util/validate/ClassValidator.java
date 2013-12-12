@@ -33,17 +33,16 @@ public abstract class ClassValidator implements Validator {
 
 	protected Optional<?> get(Field field, Object instance) {
 		try {
-			Object value = null;
 			synchronized (field) {
 				boolean accessible = field.isAccessible();
 				if (!accessible) {
 					field.setAccessible(true);
 				}
-				value = field.get(instance);
+				Object value = field.get(instance);
 				if (!accessible) {
 					field.setAccessible(false);
 				}
-				return Optional.of(value);
+				return Optional.fromNullable(value);
 			}
 		} catch (IllegalAccessException e) {
 			throw new IllegalStateException(e);
