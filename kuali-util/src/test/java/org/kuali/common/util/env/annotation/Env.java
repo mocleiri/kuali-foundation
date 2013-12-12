@@ -19,4 +19,6 @@ public @interface Env {
 
 	boolean skip() default false;
 
+	boolean includeInheritedFields() default true;
+
 }
