@@ -32,7 +32,7 @@ public final class DefaultEncryptionService implements EncryptionService {
 	@Override
 	public String decrypt(String text) {
 		if (!EncUtils.isEncrypted(text)) {
-			return text; // It not encrypted, just return it
+			return text; // It's not encrypted, just return it
 		}
 		Assert.encrypted(text);
 		String unwrapped = EncUtils.unwrap(text);
