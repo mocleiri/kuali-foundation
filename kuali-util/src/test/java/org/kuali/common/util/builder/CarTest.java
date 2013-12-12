@@ -6,6 +6,10 @@ public class CarTest {
 
 	@Test
 	public void licensePlateCase() {
-		Car car = new Car.Builder("Ford").description("Awesome and new").build();
+		try {
+			Car car = new Car.Builder("Ford").description("Awesome and new").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
