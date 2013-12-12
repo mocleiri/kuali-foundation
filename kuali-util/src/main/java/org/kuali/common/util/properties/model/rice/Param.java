@@ -93,8 +93,9 @@ public class Param {
 		}
 
 		public Param build() {
-			Assert.noBlanks(name);
-			return new Param(this);
+			Param param = new Param(this);
+			Assert.noBlanks(param.name);
+			return param;
 		}
 
 	}
