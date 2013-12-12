@@ -7,7 +7,7 @@ public class CarTest {
 	@Test
 	public void test() {
 		try {
-			new Car.Builder("Ford").description("Awesome and new").build();
+			new Car.Builder(null).description("   ").build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
