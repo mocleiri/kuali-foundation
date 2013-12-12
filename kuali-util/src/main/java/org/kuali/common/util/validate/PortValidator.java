@@ -3,7 +3,6 @@ package org.kuali.common.util.validate;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.kuali.common.util.validate.annotation.Port;
 
 public class PortValidator implements ConstraintValidator<Port, Integer> {
 

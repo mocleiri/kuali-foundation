@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import org.kuali.common.util.validate.annotation.NoNulls;
+import org.kuali.common.util.validate.NoNulls;
 
 import com.google.common.collect.ImmutableList;
 

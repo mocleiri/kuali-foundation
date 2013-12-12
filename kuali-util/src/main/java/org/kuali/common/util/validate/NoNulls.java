@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.util.validate;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,15 +10,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.kuali.common.util.validate.PortValidator;
 
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = PortValidator.class)
+@Constraint(validatedBy = NoNullsValidator.class)
 @Documented
-public @interface Port {
+public @interface NoNulls {
 
-	String message() default "Port must be an integer between 0 and 65535 (inclusive)";
+	String message() default "null not allowed";
 
 	Class<?>[] groups() default {};
 

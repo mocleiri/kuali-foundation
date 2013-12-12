@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import javax.validation.ConstraintValidator;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kuali.common.util.validate.annotation.NoBlanks;
 
 import com.google.common.base.Optional;
 

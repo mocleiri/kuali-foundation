@@ -1,4 +1,4 @@
-package org.kuali.common.util.validate.annotation;
+package org.kuali.common.util.validate;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,15 +10,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.kuali.common.util.validate.NoBlanksValidator;
 
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlanksValidator.class)
+@Constraint(validatedBy = PortValidator.class)
 @Documented
-public @interface NoBlanks {
+public @interface Port {
 
-	String message() default "blank strings not allowed";
+	String message() default "Port must be an integer between 0 and 65535 (inclusive)";
 
 	Class<?>[] groups() default {};
 
