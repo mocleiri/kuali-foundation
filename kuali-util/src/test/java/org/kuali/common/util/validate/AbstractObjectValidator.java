@@ -29,7 +29,6 @@ public abstract class AbstractObjectValidator {
 				errors.add(error.get());
 			}
 		}
-
 		if (errors.size() == 0) {
 			return true;
 		} else {
