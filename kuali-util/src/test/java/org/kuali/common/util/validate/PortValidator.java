@@ -6,8 +6,8 @@ import javax.validation.ConstraintValidatorContext;
 
 public class PortValidator implements ConstraintValidator<Port, Integer> {
 
-	private static final int MIN = 0;
-	private static final int MAX = 65535;
+	public static final int MIN = 0;
+	public static final int MAX = 65535;
 
 	@Override
 	public void initialize(Port constraintAnnotation) {
