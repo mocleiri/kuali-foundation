@@ -1,5 +1,9 @@
 package org.kuali.common.util.builder;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.kuali.common.util.validate.NoNulls;
 import org.kuali.common.util.validate.NotBlankIfPresent;
 
@@ -26,7 +30,7 @@ public final class MyCar {
 		this.description = builder.description;
 	}
 
-	public static class Builder extends AbstractBuilder<MyCar> {
+	public static class Builder {
 
 		private final String make; // Required
 		private Optional<String> description = Optional.absent(); // Optional
@@ -40,9 +44,16 @@ public final class MyCar {
 			return this;
 		}
 
-		@Override
 		protected MyCar getInstance() {
-			return new MyCar(this);
+			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+			Validator validator = factory.getValidator();
+			MyCar car = new MyCar(this);
+			validator.validate(car);
+			return car;
+		}
+
+		public MyCar build() {
+			return getInstance();
 		}
 
 	}
