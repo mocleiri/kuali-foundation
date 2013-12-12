@@ -33,7 +33,13 @@ public final class DefaultValidationService implements ValidationService {
 
 	public static class Builder {
 
-		private List<Validator> validators = ImmutableList.of();
+		private List<Validator> validators;
+
+		public Builder() {
+			this.validators = new ArrayList<Validator>();
+			validators.add(new NoNullsValidator());
+			validators.add(new NoBlanksValidator());
+		}
 
 		public Builder withValidators(List<Validator> validators) {
 			this.validators = validators;
@@ -48,7 +54,7 @@ public final class DefaultValidationService implements ValidationService {
 		}
 
 		private void validate(DefaultValidationService instance) {
-			Preconditions.checkNotNull(instance.validators, "validators may not be null");
+			Preconditions.checkNotNull(instance.validators, "'validators' cannot be null");
 		}
 	}
 
