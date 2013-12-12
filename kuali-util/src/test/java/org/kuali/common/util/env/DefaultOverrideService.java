@@ -21,6 +21,15 @@ import com.google.common.collect.ImmutableList;
 
 public final class DefaultOverrideService implements OverrideService {
 
+	public DefaultOverrideService() {
+		this(new BasicEnvironmentService());
+	}
+
+	public DefaultOverrideService(EnvironmentService env) {
+		Assert.notNull(env, "'env' cannot be null");
+		this.env = env;
+	}
+
 	public EnvironmentService getEnv() {
 		return env;
 	}
@@ -132,15 +141,6 @@ public final class DefaultOverrideService implements OverrideService {
 		} else {
 			return Optional.of(prefix);
 		}
-	}
-
-	public DefaultOverrideService() {
-		this(new BasicEnvironmentService());
-	}
-
-	public DefaultOverrideService(EnvironmentService env) {
-		Assert.notNull(env, "'env' cannot be null");
-		this.env = env;
 	}
 
 }
