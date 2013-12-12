@@ -20,7 +20,7 @@ public final class Car {
 
 	private final String make;
 
-	@NotBlankIfPresent(message = "Description cannot be blank if present")
+	@NotBlankIfPresent(message = "Car description cannot be blank if present")
 	private final Optional<String> description;
 
 	private Car(Builder builder) {
