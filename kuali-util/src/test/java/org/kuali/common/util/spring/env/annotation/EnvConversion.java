@@ -11,8 +11,8 @@ import org.kuali.common.util.spring.env.converter.Converter;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Conversion {
-	
+public @interface EnvConversion {
+
 	Class<? extends Converter<?, ?>> value();
 
 }

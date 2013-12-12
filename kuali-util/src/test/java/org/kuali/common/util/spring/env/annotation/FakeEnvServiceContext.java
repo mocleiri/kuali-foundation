@@ -59,10 +59,10 @@ public final class FakeEnvServiceContext {
 		private boolean resolveStrings = true;
 		private Mode missingPropertyMode = Mode.ERROR;
 
-		@Conversion(OptionalStringConverter.class)
+		@EnvConversion(OptionalStringConverter.class)
 		private Optional<String> foo = Optional.absent();
 
-		@Conversion(CSVToListConverter.class)
+		@EnvConversion(CSVToListConverter.class)
 		private List<String> bar = ImmutableList.of();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {
