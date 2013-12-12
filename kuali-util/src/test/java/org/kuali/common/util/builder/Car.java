@@ -33,7 +33,7 @@ public final class Car {
 		private final String make; // Required
 		private Optional<String> description = Optional.absent(); // Optional
 
-		private Builder(String make) {
+		public Builder(String make) {
 			this.make = make;
 		}
 
