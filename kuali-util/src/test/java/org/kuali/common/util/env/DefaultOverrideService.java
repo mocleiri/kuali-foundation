@@ -59,18 +59,20 @@ public final class DefaultOverrideService implements OverrideService {
 		// Extract the adapter itself (if there is one)
 		Optional<? extends EnvAdapter<?, ?>> adapter = getAdapter(adapterAnnotation);
 
-		// Figure out what the source type is in the environment abstraction
-		Class<?> type = adapter.isPresent() ? adapter.get().getSourceType() : field.getType();
+		// Target type in this context is the type we want the default conversion service to convert the environment value into.
+		// The value that comes out of the environment is the "source" value for the convertion to the specific value on our
+		// domain model object
+		Class<?> targetType = adapter.isPresent() ? adapter.get().getSourceType() : field.getType();
 
 		// Extract a value from the environment
-		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);
+		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, targetType);
 
 		// nothing to do if there is no value
 		if (!value.isPresent()) {
 			return;
 		}
 
-		// If there is an adapter, use it to convert the value stored in the environment
+		// If there is an adapter, use it to convert the value we extracted from the environment into the value we need
 		if (adapter.isPresent()) {
 			Object result = ReflectionUtils.invokeMethod(adapter.get(), "convert", value.get());
 			value = Optional.fromNullable(result);
@@ -80,11 +82,11 @@ public final class DefaultOverrideService implements OverrideService {
 		set(instance, field, value.orNull());
 	}
 
-	private Optional<? extends EnvAdapter<?, ?>> getAdapter(Optional<EnvAdapterClass> conversionAnnotation) {
-		if (conversionAnnotation.isPresent()) {
-			Class<? extends EnvAdapter<?, ?>> converterClass = conversionAnnotation.get().value();
-			EnvAdapter<?, ?> converter = ReflectionUtils.newInstance(converterClass);
-			return Optional.of(converter);
+	private Optional<? extends EnvAdapter<?, ?>> getAdapter(Optional<EnvAdapterClass> annotation) {
+		if (annotation.isPresent()) {
+			Class<? extends EnvAdapter<?, ?>> adapterClass = annotation.get().value();
+			EnvAdapter<?, ?> adapter = ReflectionUtils.newInstance(adapterClass);
+			return Optional.of(adapter);
 		} else {
 			return Optional.absent();
 		}
