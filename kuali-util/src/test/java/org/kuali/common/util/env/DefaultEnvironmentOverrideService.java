@@ -11,7 +11,6 @@ import org.kuali.common.util.env.annotation.EnvAdapter;
 import org.kuali.common.util.env.annotation.EnvOverride;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
-import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
