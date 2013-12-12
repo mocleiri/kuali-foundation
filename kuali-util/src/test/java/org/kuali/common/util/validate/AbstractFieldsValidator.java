@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.ConstraintValidatorContext;
 
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 
@@ -29,9 +30,7 @@ public abstract class AbstractFieldsValidator {
 		if (skip) {
 			return true;
 		}
-		if (instance == null) {
-			throw new IllegalStateException("instance cannot be null");
-		}
+		Assert.notNull(instance, "'instance' cannot be null");
 		List<Field> fields = ReflectionUtils.getDeclaredFields(instance.getClass(), includeInheritedFields);
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
