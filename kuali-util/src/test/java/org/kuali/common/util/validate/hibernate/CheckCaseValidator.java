@@ -13,15 +13,15 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 	}
 
 	@Override
-	public boolean isValid(String object, ConstraintValidatorContext constraintContext) {
-		if (object == null) {
+	public boolean isValid(String string, ConstraintValidatorContext constraintContext) {
+		if (string == null) {
 			return true;
 		}
 
 		if (caseMode == CaseMode.UPPER) {
-			return object.equals(object.toUpperCase());
+			return string.equals(string.toUpperCase());
 		} else {
-			return object.equals(object.toLowerCase());
+			return string.equals(string.toLowerCase());
 		}
 	}
 }
