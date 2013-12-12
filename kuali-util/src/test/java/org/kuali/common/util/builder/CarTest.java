@@ -5,9 +5,9 @@ import org.junit.Test;
 public class CarTest {
 
 	@Test
-	public void licensePlateCase() {
+	public void test1() {
 		try {
-			Car car = new Car.Builder("Ford").description("Awesome and new").build();
+			new Car.Builder("Ford").description("Awesome and new").build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
