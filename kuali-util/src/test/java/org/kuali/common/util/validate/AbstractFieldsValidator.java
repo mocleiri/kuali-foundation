@@ -7,10 +7,11 @@ import java.util.List;
 import javax.validation.ConstraintValidatorContext;
 
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
-public abstract class AbstractObjectValidator {
+public abstract class AbstractFieldsValidator {
 
 	boolean skip;
 
@@ -21,7 +22,7 @@ public abstract class AbstractObjectValidator {
 		if (instance == null) {
 			throw new IllegalStateException("instance cannot be null");
 		}
-		Field[] fields = instance.getClass().getDeclaredFields();
+		List<Field> fields = ReflectionUtils.getAllFields(instance.getClass());
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
 			Optional<String> error = validate(field, instance);

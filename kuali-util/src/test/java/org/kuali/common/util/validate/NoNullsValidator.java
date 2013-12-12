@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 
 import com.google.common.base.Optional;
 
-public class NoNullsValidator extends AbstractObjectValidator implements ConstraintValidator<NoNulls, Object> {
+public class NoNullsValidator extends AbstractFieldsValidator implements ConstraintValidator<NoNulls, Object> {
 
 	@Override
 	public void initialize(NoNulls constraintAnnotation) {
