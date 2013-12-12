@@ -12,8 +12,14 @@ import org.kuali.common.util.ReflectionUtils;
 import com.google.common.base.Optional;
 
 /**
- * This class contains boilerplate code for examining every declared field given an object instance. It recursively acquires every declared field for instance's class hierarchy and
- * provides a hook for validating each field in turn
+ * <p>
+ * This class contains boilerplate code for examining every declared field for a given object's class hierarchy.
+ * </p>
+ * 
+ * <p>
+ * It recursively traverses the instance's class hierarchy to acquire an exhaustive list of every declared field in the hierarchy and provides a hook for validating each field in
+ * turn.
+ * </p>
  */
 public abstract class AbstractFieldsValidator {
 
