@@ -12,9 +12,9 @@ import org.kuali.common.util.env.annotation.EnvAdapterClass;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
+import org.springframework.util.Assert;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 public final class DefaultOverrideService implements OverrideService {
@@ -145,28 +145,13 @@ public final class DefaultOverrideService implements OverrideService {
 		}
 	}
 
-	private DefaultOverrideService(Builder builder) {
-		this.env = builder.env;
+	public DefaultOverrideService() {
+		this(new BasicEnvironmentService());
 	}
 
-	public static class Builder {
-
-		private EnvironmentService env = new BasicEnvironmentService();
-
-		public Builder env(EnvironmentService env) {
-			this.env = env;
-			return this;
-		}
-
-		public DefaultOverrideService build() {
-			DefaultOverrideService instance = new DefaultOverrideService(this);
-			validate(instance);
-			return instance;
-		}
-
-		private void validate(DefaultOverrideService instance) {
-			Preconditions.checkNotNull(instance.getEnv(), "'env' cannot be null");
-		}
+	public DefaultOverrideService(EnvironmentService env) {
+		Assert.notNull(env, "'env' cannot be null");
+		this.env = env;
 	}
 
 }

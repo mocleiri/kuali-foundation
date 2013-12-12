@@ -16,7 +16,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 	public AbstractBuilder() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		this.validator = factory.getValidator();
-		this.overrider = new DefaultOverrideService.Builder().build();
+		this.overrider = new DefaultOverrideService();
 	}
 
 	public Validator getValidator() {
