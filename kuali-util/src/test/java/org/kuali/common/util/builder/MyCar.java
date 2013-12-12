@@ -1,9 +1,5 @@
 package org.kuali.common.util.builder;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.kuali.common.util.validate.NoNulls;
 import org.kuali.common.util.validate.NotBlankIfPresent;
 
@@ -45,10 +41,7 @@ public final class MyCar {
 		}
 
 		protected MyCar getInstance() {
-			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-			Validator validator = factory.getValidator();
 			MyCar car = new MyCar(this);
-			validator.validate(car);
 			return car;
 		}
 
