@@ -28,14 +28,18 @@ import org.springframework.util.MethodInvoker;
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	/**
-	 * Recurse the type hierarchy to get all fields (including inherited fields).
+	 * Get declared fields with the option to include inherited fields
 	 */
-	public static List<Field> getAllFields(Class<?> type) {
-		List<Field> fields = new ArrayList<Field>();
-		for (Class<?> c = type; c != null; c = c.getSuperclass()) {
-			fields.addAll(Arrays.asList(c.getDeclaredFields()));
+	public static List<Field> getDeclaredFields(Class<?> type, boolean includeInherited) {
+		if (includeInherited) {
+			List<Field> fields = new ArrayList<Field>();
+			for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+				fields.addAll(Arrays.asList(c.getDeclaredFields()));
+			}
+			return fields;
+		} else {
+			return Arrays.asList(type.getDeclaredFields());
 		}
-		return fields;
 	}
 
 	@SuppressWarnings("unchecked")
