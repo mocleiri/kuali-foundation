@@ -103,7 +103,7 @@ public final class EncContext {
 
 		private void override() {
 			if (env.isPresent()) {
-				strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, this.strength));
+				strength(SpringUtils.getProperty(env, STRENGTH_KEYS, EncStrength.class, strength));
 				required(SpringUtils.getProperty(env, PASSWORD_REQUIRED_KEYS, Boolean.class, required));
 				removeSystemProperties(env.get().getBoolean(PASSWORD_REMOVE_KEY, removeSystemProperties));
 			}
