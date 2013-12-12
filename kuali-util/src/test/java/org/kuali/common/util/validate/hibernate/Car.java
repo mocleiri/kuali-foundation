@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import com.google.common.collect.ImmutableList;
 
+@ValidPassengerCount
 public class Car {
 
 	public List<String> getPassengers() {
