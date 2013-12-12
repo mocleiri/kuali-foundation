@@ -1,5 +1,8 @@
 package org.kuali.common.util.builder;
 
+import org.kuali.common.util.env.adapter.OptionalStringAdapter;
+import org.kuali.common.util.env.annotation.Env;
+import org.kuali.common.util.env.annotation.EnvAdapterClass;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 import org.kuali.common.util.validate.NotBlankIfPresent;
@@ -8,6 +11,7 @@ import com.google.common.base.Optional;
 
 @NoNulls
 @NoBlanks
+@Env(prefix = "car")
 public final class Car {
 
 	public String getMake() {
@@ -21,6 +25,7 @@ public final class Car {
 	private final String make;
 
 	@NotBlankIfPresent(message = "Car description cannot be blank if present")
+	@EnvAdapterClass(OptionalStringAdapter.class)
 	private final Optional<String> description;
 
 	private Car(Builder builder) {
