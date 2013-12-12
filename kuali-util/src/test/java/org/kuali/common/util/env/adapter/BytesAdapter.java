@@ -5,7 +5,7 @@ import org.kuali.common.util.FormatUtils;
 public final class BytesAdapter implements EnvAdapter<String, Long> {
 
 	@Override
-	public Class<String> getEnvType() {
+	public Class<String> getSourceType() {
 		return String.class;
 	}
 

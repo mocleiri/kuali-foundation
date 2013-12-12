@@ -7,7 +7,7 @@ import org.kuali.common.util.CollectionUtils;
 public final class CSVToListAdapter implements EnvAdapter<String, List<String>> {
 
 	@Override
-	public Class<String> getEnvType() {
+	public Class<String> getSourceType() {
 		return String.class;
 	}
 
