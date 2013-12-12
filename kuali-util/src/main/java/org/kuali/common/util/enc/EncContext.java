@@ -39,7 +39,7 @@ public final class EncContext {
 		private final Optional<EnvironmentService> env;
 
 		// Optional
-		private Optional<TextEncryptor> textEncryptor;
+		private Optional<TextEncryptor> textEncryptor = Optional.absent();
 		private EncStrength strength = EncStrength.BASIC;
 		private boolean required = false;
 		private boolean removeSystemProperties = false;
@@ -110,7 +110,8 @@ public final class EncContext {
 		}
 
 		private void validate(EncContext ctx, boolean required, Optional<String> password) {
-			Assert.noNulls(ctx.getTextEncryptor(), ctx.getStrength());
+			Assert.notNull(ctx.getTextEncryptor(), "'textEncryptor' cannot be null");
+			Assert.notNull(ctx.getStrength(), "'strength' cannot be null");
 			if (required) {
 				Assert.isTrue(ctx.getTextEncryptor().isPresent());
 			}
