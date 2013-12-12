@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @Documented
 public @interface CheckCase {
 
-	String message() default "{org.hibernate.validator.referenceguide.chapter06.CheckCase.message}";
+	String message() default "Invalid case";
 
 	Class<?>[] groups() default {};
 
