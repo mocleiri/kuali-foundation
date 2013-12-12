@@ -1,30 +1,55 @@
 package org.kuali.common.util.validate;
 
-import java.lang.reflect.Field;
-
-import org.kuali.common.util.validate.annotation.NoNulls;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 public final class DefaultValidationService implements ValidationService {
 
+	private final List<Validator> validators;
+
 	@Override
 	public Optional<Errors> validate(Object instance) {
-		Optional<NoNulls> annotation = Optional.fromNullable(instance.getClass().getAnnotation(NoNulls.class));
-		Field[] fields = instance.getClass().getDeclaredFields();
-		for (Field field : fields) {
-			validate(instance, field);
+		List<String> messages = new ArrayList<String>();
+		for (Validator validator : validators) {
+			Optional<Errors> errors = validator.validate(instance);
+			if (errors.isPresent()) {
+				messages.addAll(errors.get().getMessages());
+			}
 		}
-
-		return null;
+		if (messages.size() > 0) {
+			return Optional.of(new Errors(messages));
+		} else {
+			return Optional.absent();
+		}
 	}
 
-	protected Optional<Errors> validate(Object instance, Field field) {
-		Optional<NoNulls> annotation = Optional.fromNullable(field.getAnnotation(NoNulls.class));
-		if (annotation.isPresent()) {
+	private DefaultValidationService(Builder builder) {
+		this.validators = builder.validators;
+	}
 
+	public static class Builder {
+
+		private List<Validator> validators = ImmutableList.of();
+
+		public Builder withValidators(List<Validator> validators) {
+			this.validators = validators;
+			return this;
 		}
-		return null;
+
+		public DefaultValidationService build() {
+			this.validators = ImmutableList.copyOf(validators);
+			DefaultValidationService instance = new DefaultValidationService(this);
+			validate(instance);
+			return new DefaultValidationService(this);
+		}
+
+		private void validate(DefaultValidationService instance) {
+			Preconditions.checkNotNull(instance.validators, "validators may not be null");
+		}
 	}
 
 }
