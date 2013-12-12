@@ -14,6 +14,7 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 
 	@Override
 	public boolean isValid(String string, ConstraintValidatorContext constraintContext) {
+
 		if (string == null) {
 			return true;
 		}
