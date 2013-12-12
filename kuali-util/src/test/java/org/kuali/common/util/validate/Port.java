@@ -13,13 +13,15 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.kuali.common.util.Ports;
+
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = PortValidator.class)
 @Documented
 public @interface Port {
 
-	String message() default "Port must be an integer between " + PortValidator.MIN + " and " + PortValidator.MAX + " (inclusive)";
+	String message() default "Port must be an integer between " + Ports.MIN + " and " + Ports.MAX + " (inclusive)";
 
 	Class<?>[] groups() default {};
 

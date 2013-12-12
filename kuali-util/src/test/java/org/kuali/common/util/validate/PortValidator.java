@@ -3,11 +3,9 @@ package org.kuali.common.util.validate;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.kuali.common.util.Ports;
 
 public class PortValidator implements ConstraintValidator<Port, Integer> {
-
-	public static final int MIN = 0;
-	public static final int MAX = 65535;
 
 	@Override
 	public void initialize(Port constraintAnnotation) {
@@ -18,7 +16,7 @@ public class PortValidator implements ConstraintValidator<Port, Integer> {
 		if (number == null) {
 			return false;
 		} else {
-			return number >= MIN && number <= MAX;
+			return number >= Ports.MIN && number <= Ports.MAX;
 		}
 	}
 
