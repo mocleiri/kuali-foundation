@@ -1,13 +1,13 @@
-package org.kuali.common.util.spring.env.annotation;
+package org.kuali.common.util.env.annotation;
 
 import java.util.List;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
-import org.kuali.common.util.spring.env.DefaultEnvironmentOverrideService;
-import org.kuali.common.util.spring.env.EnvironmentOverrideService;
-import org.kuali.common.util.spring.env.converter.CSVToListAdapter;
-import org.kuali.common.util.spring.env.converter.OptionalStringAdapter;
+import org.kuali.common.util.env.DefaultEnvironmentOverrideService;
+import org.kuali.common.util.env.EnvironmentOverrideService;
+import org.kuali.common.util.env.adapter.CSVToListAdapter;
+import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;

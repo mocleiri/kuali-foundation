@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.env.annotation;
+package org.kuali.common.util.env.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

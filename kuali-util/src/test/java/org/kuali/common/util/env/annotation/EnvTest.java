@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.spring.env.annotation;
+package org.kuali.common.util.env.annotation;
 
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;

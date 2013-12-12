@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.env;
+package org.kuali.common.util.env;
 
 public interface EnvironmentOverrideService {
 

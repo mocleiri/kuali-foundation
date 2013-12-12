@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.env.converter;
+package org.kuali.common.util.env.adapter;
 
 import org.kuali.common.util.nullify.NullUtils;
 

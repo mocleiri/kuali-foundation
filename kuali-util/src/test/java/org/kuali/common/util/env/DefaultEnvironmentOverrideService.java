@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.env;
+package org.kuali.common.util.env;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -6,11 +6,12 @@ import java.util.List;
 
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.env.adapter.EnvironmentAdapter;
+import org.kuali.common.util.env.annotation.EnvAdapter;
+import org.kuali.common.util.env.annotation.EnvOverride;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
-import org.kuali.common.util.spring.env.annotation.EnvAdapter;
-import org.kuali.common.util.spring.env.annotation.EnvOverride;
-import org.kuali.common.util.spring.env.converter.EnvironmentAdapter;
+import org.kuali.common.util.spring.env.EnvironmentService;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;

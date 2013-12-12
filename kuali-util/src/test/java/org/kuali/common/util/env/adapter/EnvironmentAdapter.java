@@ -1,4 +1,4 @@
-package org.kuali.common.util.spring.env.converter;
+package org.kuali.common.util.env.adapter;
 
 public interface EnvironmentAdapter<S, T> {
 
