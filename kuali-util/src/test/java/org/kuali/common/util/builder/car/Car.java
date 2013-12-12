@@ -3,6 +3,7 @@ package org.kuali.common.util.builder.car;
 import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NotBlankIfPresent;
 
 import com.google.common.base.Optional;
 
@@ -19,6 +20,8 @@ public final class Car {
 	}
 
 	private final String make;
+
+	@NotBlankIfPresent(message = "Description cannot be blank if present")
 	private final Optional<String> description;
 
 	private Car(Builder builder) {
