@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
-import org.kuali.common.util.env.DefaultEnvironmentOverrideService;
-import org.kuali.common.util.env.EnvironmentOverrideService;
-import org.kuali.common.util.spring.env.converter.CSVToListConverter;
-import org.kuali.common.util.spring.env.converter.OptionalStringConverter;
+import org.kuali.common.util.spring.env.DefaultEnvironmentOverrideService;
+import org.kuali.common.util.spring.env.EnvironmentOverrideService;
+import org.kuali.common.util.spring.env.converter.CSVToListAdapter;
+import org.kuali.common.util.spring.env.converter.OptionalStringAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -59,10 +59,10 @@ public final class FakeEnvServiceContext {
 		private boolean resolveStrings = true;
 		private Mode missingPropertyMode = Mode.ERROR;
 
-		@EnvConversion(OptionalStringConverter.class)
+		@EnvAdapter(OptionalStringAdapter.class)
 		private Optional<String> foo = Optional.absent();
 
-		@EnvConversion(CSVToListConverter.class)
+		@EnvAdapter(CSVToListAdapter.class)
 		private List<String> bar = ImmutableList.of();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {

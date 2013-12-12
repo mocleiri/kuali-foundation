@@ -2,7 +2,7 @@ package org.kuali.common.util.spring.env.converter;
 
 import org.kuali.common.util.FormatUtils;
 
-public final class SecondsConverter implements EnvironmentAdapter<String, Integer> {
+public final class SecondsAdapter implements EnvironmentAdapter<String, Integer> {
 
 	@Override
 	public Class<String> getSourceType() {

@@ -4,7 +4,7 @@ import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Optional;
 
-public final class OptionalStringConverter implements EnvironmentAdapter<String, Optional<String>> {
+public final class OptionalStringAdapter implements EnvironmentAdapter<String, Optional<String>> {
 
 	@Override
 	public Class<String> getSourceType() {

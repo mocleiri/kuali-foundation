@@ -6,13 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.util.spring.env.converter.Converter;
+import org.kuali.common.util.spring.env.converter.EnvironmentAdapter;
 
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnvConversion {
+public @interface EnvAdapter {
 
-	Class<? extends Converter<?, ?>> value();
+	Class<? extends EnvironmentAdapter<?, ?>> value();
 
 }

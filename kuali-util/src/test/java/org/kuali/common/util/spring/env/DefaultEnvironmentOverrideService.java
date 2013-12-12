@@ -8,9 +8,9 @@ import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
-import org.kuali.common.util.spring.env.annotation.EnvConversion;
+import org.kuali.common.util.spring.env.annotation.EnvAdapter;
 import org.kuali.common.util.spring.env.annotation.EnvOverride;
-import org.kuali.common.util.spring.env.converter.Converter;
+import org.kuali.common.util.spring.env.converter.EnvironmentAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -52,8 +52,8 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 
 		// Either the class annotation or the field annotation was present
 		List<String> keys = getKeys(classPrefix, field, fieldAnnotation);
-		Optional<EnvConversion> conversionAnnotation = Optional.fromNullable(field.getAnnotation(EnvConversion.class));
-		Optional<? extends Converter<?, ?>> converter = getConverter(conversionAnnotation);
+		Optional<EnvAdapter> conversionAnnotation = Optional.fromNullable(field.getAnnotation(EnvAdapter.class));
+		Optional<? extends EnvironmentAdapter<?, ?>> converter = getConverter(conversionAnnotation);
 		Class<?> type = converter.isPresent() ? converter.get().getSourceType() : field.getType();
 		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);
 		if (!value.isPresent()) {
@@ -66,10 +66,10 @@ public final class DefaultEnvironmentOverrideService implements EnvironmentOverr
 		set(instance, field, value.get());
 	}
 
-	private Optional<? extends Converter<?, ?>> getConverter(Optional<EnvConversion> conversionAnnotation) {
+	private Optional<? extends EnvironmentAdapter<?, ?>> getConverter(Optional<EnvAdapter> conversionAnnotation) {
 		if (conversionAnnotation.isPresent()) {
-			Class<? extends Converter<?, ?>> converterClass = conversionAnnotation.get().value();
-			Converter<?, ?> converter = ReflectionUtils.newInstance(converterClass);
+			Class<? extends EnvironmentAdapter<?, ?>> converterClass = conversionAnnotation.get().value();
+			EnvironmentAdapter<?, ?> converter = ReflectionUtils.newInstance(converterClass);
 			return Optional.of(converter);
 		} else {
 			return Optional.absent();
