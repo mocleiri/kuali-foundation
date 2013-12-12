@@ -7,11 +7,15 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.kuali.common.util.env.DefaultOverrideService;
+import org.kuali.common.util.env.OverrideService;
+
 public abstract class AbstractBuilder<T> implements Builder<T> {
 
 	public AbstractBuilder() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		this.validator = factory.getValidator();
+		this.overrideService = new DefaultOverrideService.Builder().build();
 	}
 
 	public Validator getValidator() {
@@ -19,9 +23,11 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 	}
 
 	private final Validator validator;
+	private final OverrideService overrideService;
 
 	@Override
 	public final T build() {
+		overrideService.override(this);
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
 		validate(violations);
