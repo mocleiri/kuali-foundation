@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.env.adapter.Adapter;
+import org.kuali.common.util.env.adapter.EnvAdapter;
 import org.kuali.common.util.env.annotation.EnvAdapterClass;
 import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.spring.SpringUtils;
@@ -54,7 +54,7 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 		// Either the class annotation or the field annotation was present
 		List<String> keys = getKeys(classPrefix, field, fieldAnnotation);
 		Optional<EnvAdapterClass> conversionAnnotation = Optional.fromNullable(field.getAnnotation(EnvAdapterClass.class));
-		Optional<? extends Adapter<?, ?>> converter = getConverter(conversionAnnotation);
+		Optional<? extends EnvAdapter<?, ?>> converter = getConverter(conversionAnnotation);
 		Class<?> type = converter.isPresent() ? converter.get().getSourceType() : field.getType();
 		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);
 		if (!value.isPresent()) {
@@ -67,10 +67,10 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 		set(instance, field, value.get());
 	}
 
-	private Optional<? extends Adapter<?, ?>> getConverter(Optional<EnvAdapterClass> conversionAnnotation) {
+	private Optional<? extends EnvAdapter<?, ?>> getConverter(Optional<EnvAdapterClass> conversionAnnotation) {
 		if (conversionAnnotation.isPresent()) {
-			Class<? extends Adapter<?, ?>> converterClass = conversionAnnotation.get().value();
-			Adapter<?, ?> converter = ReflectionUtils.newInstance(converterClass);
+			Class<? extends EnvAdapter<?, ?>> converterClass = conversionAnnotation.get().value();
+			EnvAdapter<?, ?> converter = ReflectionUtils.newInstance(converterClass);
 			return Optional.of(converter);
 		} else {
 			return Optional.absent();

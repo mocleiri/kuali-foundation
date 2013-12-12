@@ -6,13 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.util.env.adapter.Adapter;
+import org.kuali.common.util.env.adapter.EnvAdapter;
 
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface EnvAdapterClass {
 
-	Class<? extends Adapter<?, ?>> value();
+	Class<? extends EnvAdapter<?, ?>> value();
 
 }

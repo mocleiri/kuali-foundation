@@ -2,7 +2,7 @@ package org.kuali.common.util.env.adapter;
 
 import org.kuali.common.util.FormatUtils;
 
-public final class MillisAsIntAdapter implements Adapter<String, Integer> {
+public final class MillisAsIntAdapter implements EnvAdapter<String, Integer> {
 
 	@Override
 	public Class<String> getSourceType() {
