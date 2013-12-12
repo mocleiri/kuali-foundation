@@ -47,6 +47,16 @@ public class NoNullsValidator implements ConstraintValidator<NoNulls, Object> {
 		}
 	}
 
+	protected Optional<String> validate(Field field, Object instance) {
+		Optional<?> value = get(field, instance);
+		if (value.isPresent()) {
+			return Optional.absent();
+		} else {
+			String className = instance.getClass().getSimpleName();
+			return Optional.of("[" + className + "." + field.getName() + "] cannot be null");
+		}
+	}
+
 	protected Optional<?> get(Field field, Object instance) {
 		try {
 			synchronized (field) {
@@ -62,16 +72,6 @@ public class NoNullsValidator implements ConstraintValidator<NoNulls, Object> {
 			}
 		} catch (IllegalAccessException e) {
 			throw new IllegalStateException(e);
-		}
-	}
-
-	protected Optional<String> validate(Field field, Object instance) {
-		Optional<?> value = get(field, instance);
-		if (value.isPresent()) {
-			return Optional.absent();
-		} else {
-			String className = instance.getClass().getSimpleName();
-			return Optional.of("[" + className + "." + field.getName() + "] cannot be null");
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.validate.annotation.NoBlanks;
 
@@ -66,7 +67,16 @@ public class NoBlanksValidator implements ConstraintValidator<NoBlanks, Object> 
 	}
 
 	protected Optional<String> validate(Field field, Object instance) {
+		if (field.getType() != String.class && field.getType() != CharSequence.class) {
+			return Optional.absent();
+		}
 		Optional<?> value = get(field, instance);
+		CharSequence cs = (CharSequence) value.orNull();
+		if (StringUtils.isBlank(cs)) {
+			
+		} else {
+			return Optional.absent();
+		}
 		if (value.isPresent()) {
 			return Optional.absent();
 		} else {
