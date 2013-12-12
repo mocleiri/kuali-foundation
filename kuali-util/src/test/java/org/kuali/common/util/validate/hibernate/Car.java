@@ -11,7 +11,7 @@ public class Car {
 
 	@NotNull
 	@Size(min = 2, max = 14)
-	@CheckCase(CaseMode.UPPER)
+	@CheckCase(value = CaseMode.UPPER, message = "License plate must be uppercase")
 	private String licensePlate;
 
 	@Min(2)
