@@ -10,7 +10,7 @@ import org.kuali.common.util.CollectionUtils;
 
 import com.google.common.base.Optional;
 
-public abstract class AbstractInstanceValidator {
+public abstract class AbstractObjectValidator {
 
 	boolean skip;
 

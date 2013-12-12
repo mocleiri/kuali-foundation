@@ -8,7 +8,7 @@ import org.kuali.common.util.validate.annotation.NoNulls;
 
 import com.google.common.base.Optional;
 
-public class NoNullsValidator extends AbstractInstanceValidator implements ConstraintValidator<NoNulls, Object> {
+public class NoNullsValidator extends AbstractObjectValidator implements ConstraintValidator<NoNulls, Object> {
 
 	@Override
 	public void initialize(NoNulls constraintAnnotation) {

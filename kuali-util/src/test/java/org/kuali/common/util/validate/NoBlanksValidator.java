@@ -9,7 +9,7 @@ import org.kuali.common.util.validate.annotation.NoBlanks;
 
 import com.google.common.base.Optional;
 
-public class NoBlanksValidator extends AbstractInstanceValidator implements ConstraintValidator<NoBlanks, Object> {
+public class NoBlanksValidator extends AbstractObjectValidator implements ConstraintValidator<NoBlanks, Object> {
 
 	@Override
 	public void initialize(NoBlanks constraintAnnotation) {
