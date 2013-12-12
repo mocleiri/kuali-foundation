@@ -2,7 +2,7 @@ package org.kuali.common.util.builder;
 
 import org.junit.Test;
 
-public class CarTest {
+public class FooBarBazTest {
 
 	@Test
 	public void test1() {
