@@ -11,7 +11,6 @@ import com.google.common.base.Optional;
 
 @NoNulls
 @NoBlanks
-@Env(prefix = "car")
 public final class Car {
 
 	public String getMake() {
@@ -25,7 +24,6 @@ public final class Car {
 	private final String make;
 
 	@NotBlankIfPresent(message = "Car description cannot be blank if present")
-	@EnvAdapterClass(OptionalStringAdapter.class)
 	private final Optional<String> description;
 
 	private Car(Builder builder) {
@@ -33,9 +31,12 @@ public final class Car {
 		this.description = builder.description;
 	}
 
+	@Env(prefix = "car")
 	public static class Builder extends AbstractBuilder<Car> {
 
 		private final String make; // Required
+
+		@EnvAdapterClass(OptionalStringAdapter.class)
 		private Optional<String> description = Optional.absent(); // Optional
 
 		public Builder(String make) {
