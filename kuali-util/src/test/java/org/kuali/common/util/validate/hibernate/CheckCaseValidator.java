@@ -14,19 +14,11 @@ public class CheckCaseValidator implements ConstraintValidator<CheckCase, String
 
 	@Override
 	public boolean isValid(String string, ConstraintValidatorContext constraintContext) {
-
 		if (string == null) {
 			return true;
+		} else {
+			return isValid(string);
 		}
-
-		boolean isValid = isValid(string);
-		if (!isValid) {
-			constraintContext.disableDefaultConstraintViolation();
-			String messageTemplate = "{org.hibernate.validator.referenceguide.chapter06.CheckCase.message}";
-			constraintContext.buildConstraintViolationWithTemplate(messageTemplate).addConstraintViolation();
-		}
-
-		return isValid;
 	}
 
 	protected boolean isValid(String string) {
