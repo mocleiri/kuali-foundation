@@ -18,6 +18,7 @@ package org.kuali.common.util.enc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jasypt.util.text.StrongTextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
@@ -39,7 +40,9 @@ public class EncUtils {
 	 * Return true if the text is enclosed with <code>ENC()</code> or starts with <code>enc--</code>
 	 */
 	public static boolean isEncrypted(String text) {
-		Assert.noBlanks(text);
+		if (StringUtils.isBlank(text)) {
+			return false;
+		}
 		return Str.matches(text, PREFIX, SUFFIX) || text.startsWith(MAGIC_PREFIX);
 	}
 
