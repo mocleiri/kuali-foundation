@@ -47,13 +47,17 @@ public class NoNullsValidator implements ConstraintValidator<NoNulls, Object> {
 		}
 	}
 
+	protected String getErrorMessage(Field field, Object instance, String suffix) {
+		String className = instance.getClass().getSimpleName();
+		return "[" + className + "." + field.getName() + "] " + suffix;
+	}
+
 	protected Optional<String> validate(Field field, Object instance) {
 		Optional<?> value = get(field, instance);
 		if (value.isPresent()) {
 			return Optional.absent();
 		} else {
-			String className = instance.getClass().getSimpleName();
-			return Optional.of("[" + className + "." + field.getName() + "] cannot be null");
+			return Optional.of(getErrorMessage(field, instance, "cannot be null"));
 		}
 	}
 
