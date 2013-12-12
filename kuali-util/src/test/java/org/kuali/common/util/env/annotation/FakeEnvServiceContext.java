@@ -50,20 +50,20 @@ public final class FakeEnvServiceContext {
 		this.bar = builder.bar;
 	}
 
-	@EnvOverride(prefix = "env")
+	@Env(prefix = "env")
 	public static class Builder extends AbstractBuilder<FakeEnvServiceContext> {
 
-		@EnvOverride(skip = true)
+		@Env(skip = true)
 		private EnvOverrideService service = new DefaultEnvOverrideService.Builder().build();
 
 		private boolean checkEnvironmentVariables = true;
 		private boolean resolveStrings = true;
 		private Mode missingPropertyMode = Mode.ERROR;
 
-		@EnvAdapter(OptionalStringAdapter.class)
+		@EnvAdapterClass(OptionalStringAdapter.class)
 		private Optional<String> foo = Optional.absent();
 
-		@EnvAdapter(CSVToListAdapter.class)
+		@EnvAdapterClass(CSVToListAdapter.class)
 		private List<String> bar = ImmutableList.of();
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {

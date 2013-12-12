@@ -6,13 +6,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.kuali.common.util.env.adapter.Adapter;
-
-@Target({ ElementType.FIELD })
+@Target({ ElementType.FIELD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnvAdapter {
+public @interface Env {
 
-	Class<? extends Adapter<?, ?>> value();
+	public static final String NOPREFIX = "";
+
+	String prefix() default NOPREFIX;
+
+	String[] keys() default {};
+
+	boolean skip() default false;
 
 }
