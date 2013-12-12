@@ -136,9 +136,9 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 
 	public static class Builder {
 
-		private org.kuali.common.util.spring.env.EnvironmentService env = new BasicEnvironmentService();
+		private EnvironmentService env = new BasicEnvironmentService();
 
-		public Builder env(org.kuali.common.util.spring.env.EnvironmentService env) {
+		public Builder env(EnvironmentService env) {
 			this.env = env;
 			return this;
 		}
