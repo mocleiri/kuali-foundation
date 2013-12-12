@@ -17,8 +17,7 @@ import com.google.common.base.Optional;
  * </p>
  * 
  * <p>
- * It recursively traverses the instance's class hierarchy to acquire an exhaustive list of every declared field in the hierarchy and provides a hook for validating each field in
- * turn.
+ * It recursively traverses the class hierarchy to acquire an exhaustive list of every declared field in the hierarchy and provides a hook for validating each field in turn.
  * </p>
  */
 public abstract class AbstractFieldsValidator {
