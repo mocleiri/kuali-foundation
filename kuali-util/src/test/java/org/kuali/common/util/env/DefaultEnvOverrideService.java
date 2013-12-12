@@ -150,7 +150,7 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 		}
 
 		private void validate(DefaultEnvOverrideService instance) {
-			Preconditions.checkNotNull(instance.env, "'env' cannot be null");
+			Preconditions.checkNotNull(instance.getEnv(), "'env' cannot be null");
 		}
 	}
 
