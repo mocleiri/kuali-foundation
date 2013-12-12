@@ -2,7 +2,6 @@ package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.ConstraintValidatorContext;
@@ -25,7 +24,7 @@ import com.google.common.base.Optional;
 public abstract class AbstractFieldsValidator {
 
 	boolean skip = false;
-	boolean recurse = true;
+	boolean includeInheritedFields = true;
 
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
 		if (skip) {
@@ -34,7 +33,7 @@ public abstract class AbstractFieldsValidator {
 		if (instance == null) {
 			throw new IllegalStateException("instance cannot be null");
 		}
-		List<Field> fields = getFields(instance.getClass(), recurse);
+		List<Field> fields = ReflectionUtils.getDeclaredFields(instance.getClass(), includeInheritedFields);
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
 			Optional<String> error = validate(field, instance);
@@ -48,14 +47,6 @@ public abstract class AbstractFieldsValidator {
 			constraintContext.disableDefaultConstraintViolation();
 			constraintContext.buildConstraintViolationWithTemplate(CollectionUtils.asCSV(errors)).addConstraintViolation();
 			return false;
-		}
-	}
-
-	protected List<Field> getFields(Class<?> type, boolean recurse) {
-		if (recurse) {
-			return ReflectionUtils.getAllFields(type);
-		} else {
-			return Arrays.asList(type.getDeclaredFields());
 		}
 	}
 

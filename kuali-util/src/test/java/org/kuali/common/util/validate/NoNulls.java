@@ -22,7 +22,7 @@ public @interface NoNulls {
 
 	boolean skip() default false;
 
-	boolean recurse() default true;
+	boolean includeInheritedFields() default true;
 
 	Class<? extends Payload>[] payload() default {};
 

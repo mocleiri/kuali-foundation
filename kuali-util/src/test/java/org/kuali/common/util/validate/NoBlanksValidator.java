@@ -13,7 +13,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	@Override
 	public void initialize(NoBlanks constraintAnnotation) {
 		this.skip = constraintAnnotation.skip();
-		this.recurse = constraintAnnotation.recurse();
+		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}
 
 	@Override
