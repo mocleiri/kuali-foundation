@@ -1,8 +1,8 @@
 package org.kuali.common.util.env.adapter;
 
-public interface EnvAdapter<S, T> {
+public interface EnvAdapter<E, T> {
 
-	Class<S> getSourceType();
+	Class<E> getEnvType();
 
-	T convert(S source);
+	T convert(E value);
 }

@@ -60,7 +60,7 @@ public final class DefaultOverrideService implements OverrideService {
 		Optional<? extends EnvAdapter<?, ?>> adapter = getAdapter(adapterAnnotation);
 
 		// Figure out what the source type is in the environment abstraction
-		Class<?> type = adapter.isPresent() ? adapter.get().getSourceType() : field.getType();
+		Class<?> type = adapter.isPresent() ? adapter.get().getEnvType() : field.getType();
 
 		// Extract a value from the environment
 		Optional<?> value = SpringUtils.getOptionalProperty(env, keys, type);

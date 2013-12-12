@@ -5,7 +5,7 @@ import org.kuali.common.util.FormatUtils;
 public final class MillisAdapter implements EnvAdapter<String, Long> {
 
 	@Override
-	public Class<String> getSourceType() {
+	public Class<String> getEnvType() {
 		return String.class;
 	}
 

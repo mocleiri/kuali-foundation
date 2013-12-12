@@ -7,7 +7,7 @@ import com.google.common.base.Optional;
 public final class OptionalStringAdapter implements EnvAdapter<String, Optional<String>> {
 
 	@Override
-	public Class<String> getSourceType() {
+	public Class<String> getEnvType() {
 		return String.class;
 	}
 
