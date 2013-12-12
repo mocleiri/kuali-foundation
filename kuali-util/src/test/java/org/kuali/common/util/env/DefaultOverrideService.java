@@ -57,7 +57,7 @@ public final class DefaultOverrideService implements OverrideService {
 		Optional<EnvAdapterClass> adapterAnnotation = Optional.fromNullable(field.getAnnotation(EnvAdapterClass.class));
 
 		// Extract the adapter itself (if there is one)
-		Optional<? extends EnvAdapter<?, ?>> adapter = getConverter(adapterAnnotation);
+		Optional<? extends EnvAdapter<?, ?>> adapter = getAdapter(adapterAnnotation);
 
 		// Figure out what the source type is in the environment abstraction
 		Class<?> type = adapter.isPresent() ? adapter.get().getSourceType() : field.getType();
@@ -80,7 +80,7 @@ public final class DefaultOverrideService implements OverrideService {
 		set(instance, field, value.orNull());
 	}
 
-	private Optional<? extends EnvAdapter<?, ?>> getConverter(Optional<EnvAdapterClass> conversionAnnotation) {
+	private Optional<? extends EnvAdapter<?, ?>> getAdapter(Optional<EnvAdapterClass> conversionAnnotation) {
 		if (conversionAnnotation.isPresent()) {
 			Class<? extends EnvAdapter<?, ?>> converterClass = conversionAnnotation.get().value();
 			EnvAdapter<?, ?> converter = ReflectionUtils.newInstance(converterClass);
