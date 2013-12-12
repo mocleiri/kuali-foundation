@@ -11,9 +11,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface EnvOverride {
 
-	public static final String NONE = "";
+	public static final String NOPREFIX = "";
 
-	String prefix() default NONE;
+	String prefix() default NOPREFIX;
 
 	String[] keys() default {};
 

@@ -123,7 +123,7 @@ public final class DefaultEnvOverrideService implements EnvOverrideService {
 			return Optional.absent();
 		}
 		String prefix = annotation.get().prefix();
-		if (EnvOverride.NONE.equals(prefix)) {
+		if (EnvOverride.NOPREFIX.equals(prefix)) {
 			return Optional.absent();
 		} else {
 			return Optional.of(prefix);
