@@ -30,8 +30,8 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	/**
 	 * Get declared fields with the option to include inherited fields
 	 */
-	public static List<Field> getDeclaredFields(Class<?> type, boolean includeInherited) {
-		if (includeInherited) {
+	public static List<Field> getDeclaredFields(Class<?> type, boolean includeInheritedFields) {
+		if (includeInheritedFields) {
 			List<Field> fields = new ArrayList<Field>();
 			for (Class<?> c = type; c != null; c = c.getSuperclass()) {
 				fields.addAll(Arrays.asList(c.getDeclaredFields()));
