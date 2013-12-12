@@ -10,4 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface NoNulls {
+
+	boolean skip() default false;
+
 }
