@@ -50,8 +50,7 @@ public final class DefaultOverrideService implements OverrideService {
 			return;
 		}
 
-		// The class annotation OR the field annotation was present
-		// Examine them + the field info to get a list of keys
+		// Get the list of environment keys to look things up by
 		List<String> keys = getKeys(prefix, field);
 
 		// Extract the adapter annotation (if there is one)
