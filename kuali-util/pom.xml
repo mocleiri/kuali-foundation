@@ -57,6 +57,7 @@
     <plexus-utils.version>3.0.15</plexus-utils.version>
     <guava.version>15.0</guava.version>
     <eclipse-moxy.version>2.5.1</eclipse-moxy.version>
+    <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
   </properties>
   <profiles>
     <profile>
@@ -84,6 +85,11 @@
     </pluginManagement>
   </build>
   <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
