@@ -43,8 +43,8 @@ public abstract class AbstractFieldsValidator {
 		}
 	}
 
-	protected String getErrorMessage(Field field, Object instance, String suffix) {
-		String className = instance.getClass().getSimpleName();
+	protected String getErrorMessage(Field field, String suffix) {
+		String className = field.getDeclaringClass().getSimpleName();
 		return "[" + className + "." + field.getName() + "] " + suffix;
 	}
 

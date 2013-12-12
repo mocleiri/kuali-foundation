@@ -23,7 +23,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		Optional<?> value = get(field, instance);
 		String string = (String) value.orNull();
 		if (StringUtils.isBlank(string)) {
-			return Optional.of(getErrorMessage(field, instance, "cannot be blank"));
+			return Optional.of(getErrorMessage(field, "cannot be blank"));
 		} else {
 			return Optional.absent();
 		}

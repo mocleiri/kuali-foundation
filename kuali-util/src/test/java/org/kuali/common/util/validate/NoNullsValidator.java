@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import javax.validation.ConstraintValidator;
 
-
 import com.google.common.base.Optional;
 
 public class NoNullsValidator extends AbstractFieldsValidator implements ConstraintValidator<NoNulls, Object> {
@@ -20,7 +19,7 @@ public class NoNullsValidator extends AbstractFieldsValidator implements Constra
 		if (value.isPresent()) {
 			return Optional.absent();
 		} else {
-			return Optional.of(getErrorMessage(field, instance, "cannot be null"));
+			return Optional.of(getErrorMessage(field, "cannot be null"));
 		}
 	}
 }
