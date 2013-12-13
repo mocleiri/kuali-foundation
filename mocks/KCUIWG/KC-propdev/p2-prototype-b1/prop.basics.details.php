@@ -147,7 +147,7 @@ $(document).ready(function(){
                                     </div>
                                 </div>
 
-                <!-- <div class="form-group clearfix">
+                <div class="form-group clearfix">
                     <label for="prime_sponsor_id" class="control-label col-md-3">Prime Sponsor:</label>
                     <div class="col-md-9 input-group">
                         <input type="text" class="form-control input-sm has-helper" name="prime_sponsor_id" id="prime_sponsor_id" />
@@ -155,12 +155,12 @@ $(document).ready(function(){
                             Enter the sponsor code for this proposal or find one using the lookup tool.
                         </div>
                         <span class="input-group-btn">
-                            <a href="#" class="icon-search launch-modal" data-modal-page="modal/lookup-sponsor.php" data-modal-height="500"></a>
+                            <a href="#" class="icon-search launch-modal" data-modal-page="" data-modal-height="500"></a>
                         </span>
                     </div>
                 </div>
 
-                <div class="form-group clearfix">
+               <!--  <div class="form-group clearfix">
                     <label for="award_id" class="control-label col-md-3">Award ID:</label>
                     <div class="col-md-9 input-group">
                         <input type="text" class="form-control input-sm has-helper" name="award_id" id="award_id" />
