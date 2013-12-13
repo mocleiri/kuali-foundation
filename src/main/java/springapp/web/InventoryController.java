@@ -18,14 +18,6 @@ import springapp.service.ProductManager;
 
 public class InventoryController implements Controller {
 
-	public ProductManager getProductManager() {
-		return productManager;
-	}
-
-	public void setProductManager(ProductManager productManager) {
-		this.productManager = productManager;
-	}
-
 	private static final Logger logger = LoggerFactory.getLogger(InventoryController.class);
 
 	private ProductManager productManager;
@@ -38,6 +30,14 @@ public class InventoryController implements Controller {
 		myModel.put("now", now);
 		myModel.put("products", this.productManager.getProducts());
 		return new ModelAndView("hello", "model", myModel);
+	}
+
+	public ProductManager getProductManager() {
+		return productManager;
+	}
+
+	public void setProductManager(ProductManager productManager) {
+		this.productManager = productManager;
 	}
 
 }
