@@ -25,24 +25,31 @@ function toggle(source) {
         <table class="table table-condensed">
           
           <tr>
-            <th><label style="font-weight:normal" class="">
-                <input type="checkbox" onClick="toggle(this)">
-                Select All </label></th>
+            <th>Recipient</th>
+            <th>Last Notfication</th>
           </tr>
           <tr>
-            <td><label>
+            <td>
                 <input name="notify" type="checkbox" value="notify">
-                Edward H Haskell </label></td>
+                Edward H Haskell</td>
+            <td>Dec 06, 2013 (4:27pm)</td>
           </tr>
           <tr>
-            <td><label>
+            <td>
                 <input name="notify" type="checkbox" value="notify">
-                Ward Cleaver </label></td>
+                Ward Cleaver</td>
+            <td>Dec 03, 2013 (11:13am)</td>
           </tr>
           <tr>
-            <td><label>
-                <input name="notify" type="checkbox" value="notify">
-                Jane Smith </label></td>
+            <td><input name="notify" type="checkbox" value="notify" />
+              Jane Smith</td>
+            <td>Dec 06, 2013 (4:27pm)</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" onclick="toggle(this)" />
+Select All</td>
+            <td>&nbsp;</td>
           </tr>
         </table>
       </div>
