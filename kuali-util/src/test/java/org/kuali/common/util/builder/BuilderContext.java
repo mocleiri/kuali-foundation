@@ -37,7 +37,7 @@ public final class BuilderContext {
 		public BuilderContext build() {
 			BuilderContext instance = new BuilderContext(this);
 			validate(instance);
-			return new BuilderContext(this);
+			return instance;
 		}
 
 		private void validate(BuilderContext instance) {
