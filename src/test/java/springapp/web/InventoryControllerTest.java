@@ -8,7 +8,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import springapp.domain.SimpleProductManager;
+import springapp.service.SimpleProductManager;
 
 public class InventoryControllerTest {
 

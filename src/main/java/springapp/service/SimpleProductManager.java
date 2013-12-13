@@ -1,6 +1,8 @@
-package springapp.domain;
+package springapp.service;
 
 import java.util.List;
+
+import springapp.domain.Product;
 
 @SuppressWarnings("serial")
 public class SimpleProductManager implements ProductManager {

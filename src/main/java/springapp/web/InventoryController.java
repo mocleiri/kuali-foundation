@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import springapp.domain.ProductManager;
+import springapp.service.ProductManager;
 
 public class InventoryController implements Controller {
 

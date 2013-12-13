@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import springapp.service.SimpleProductManager;
+
 public class SimpleProductManagerTest {
 
 	private SimpleProductManager productManager;
