@@ -37,7 +37,7 @@ require_once( 'inc/head.php' );
             <td>Basics</td>
             <td>Proposal Details</td>
             <td>Activity Type must be specified</td>
-            <td><span class="label label-danger">Blocker</span></td>
+            <td><span class="label label-danger">Error</span></td>
             <td><a href="#">Fix It</a></td>
           </tr>
           <tr>
@@ -65,7 +65,7 @@ require_once( 'inc/head.php' );
             <td>Key Personnel</td>
             <td>Credit Allocation</td>
             <td>The Investigators Financial Credit Split does not equal 100%.</td>
-            <td><span class="label label-danger">Blocker</span></td>
+            <td><span class="label label-danger">Error</span></td>
             <td><a href="#">Fix It</a></td>
           </tr>
           <tr>
@@ -86,14 +86,14 @@ require_once( 'inc/head.php' );
             <td>Key Personnel</td>
             <td>Credit Allocation</td>
             <td>The Investigators Recognition Credit Split does not equal 100%.</td>
-            <td><span class="label label-danger">Blocker</span></td>
+            <td><span class="label label-danger">Error</span></td>
             <td><a href="#">Fix It</a></td>
           </tr>
           <tr>
             <td>Key Personnel</td>
             <td>Credit Allocation</td>
             <td>The Unit Recognition Credit Split for Ken Graves does not equal 100%.</td>
-            <td><span class="label label-danger">Blocker</span></td>
+            <td><span class="label label-danger">Error</span></td>
             <td><a href="#">Fix It</a></td>
           </tr>
           <tr>
