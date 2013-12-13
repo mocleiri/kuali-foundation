@@ -1,15 +1,22 @@
 package org.kuali.common.util.builder;
 
 import org.junit.Test;
+import org.kuali.common.util.nullify.NullUtils;
 
 public class CarTest {
 
 	@Test
 	public void test() {
 		try {
-			Car car = new Car.Builder("Ford").description(" awesome  ").build();
+			System.setProperty("car.description", "    awesome    ");
+			System.setProperty("car.make", "");
+			Car car = new Car.Builder(null).build();
 			System.out.println(car.getMake());
-			System.out.println(car.getDescription());
+			String description = NullUtils.NONE;
+			if (car.getDescription().isPresent()) {
+				description = car.getDescription().get();
+			}
+			System.out.println(description);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
