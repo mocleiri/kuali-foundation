@@ -8,6 +8,7 @@ import org.kuali.common.util.env.adapter.CSVToListAdapter;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NotBlankIfPresent;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -39,6 +40,7 @@ public final class FakeEnvServiceContext {
 	private final boolean checkEnvironmentVariables;
 	private final boolean resolveStrings;
 	private final Mode missingPropertyMode;
+	@NotBlankIfPresent
 	private final Optional<String> foo;
 	private final List<String> bar;
 
