@@ -75,4 +75,29 @@ public class SimpleProductManagerTest {
 			fail("Products list is null.");
 		}
 	}
+
+	@Test
+	public void testIncreasePriceWithEmptyListOfProducts() {
+		try {
+			productManager = new SimpleProductManager();
+			productManager.setProducts(new ArrayList<Product>());
+			productManager.increasePrice(POSITIVE_PRICE_INCREASE);
+		} catch (Exception ex) {
+			fail("Products list is empty.");
+		}
+	}
+
+	@Test
+	public void testIncreasePriceWithPositivePercentage() {
+		productManager.increasePrice(POSITIVE_PRICE_INCREASE);
+		Double expectedChairPriceWithIncrease = 22.55;
+		Double expectedTablePriceWithIncrease = 165.11;
+
+		List<Product> products = productManager.getProducts();
+		Product product = products.get(0);
+		assertEquals(expectedChairPriceWithIncrease, product.getPrice());
+
+		product = products.get(1);
+		assertEquals(expectedTablePriceWithIncrease, product.getPrice());
+	}
 }
