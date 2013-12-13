@@ -1,4 +1,4 @@
-package web;
+package springapp.web;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +11,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import springapp.service.PriceIncrease;
 import springapp.service.ProductManager;
-import springapp.web.InventoryController;
 
 @SuppressWarnings("deprecation")
 public class PriceIncreaseFormController extends SimpleFormController {
