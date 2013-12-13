@@ -24,12 +24,12 @@
     <version>3.3.36</version>
   </parent>
   <groupId>org.kuali.common</groupId>
-  <artifactId>kuali-spring-mvc</artifactId>
+  <artifactId>maven-spring-mvc</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Spring MVC Tutorial</name>
   <description>
-   Maven'ized version of Springs MVC example app
+   Maven'ized version of Spring's MVC example app
   </description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/${project.artifactId}/${project.version}</url>
@@ -42,4 +42,14 @@
     <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
