@@ -18,26 +18,12 @@
 -->
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-
-  <!--
-    The log4j configuration used by the spring-maven-plugin is not actually controlled by this file.
-    Annotated Spring configuration is used to programmatically control log4j.
-    The reason this file exists is to prevent log4j from complaining while Spring is starting up.
-    There are a handful of very early log messages Spring emits prior to reaching the log4j configuration code.
-    Those very early log messages are the only ones controlled by the configuration in this file.
-    All logging after that is controlled by the annotated Spring configuration classes.
-  -->
-
   <appender name="console" class="org.apache.log4j.ConsoleAppender">
     <param name="Target" value="System.out" />
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern" value="[%-4p] %m%n" />
     </layout>
   </appender>
-  <!-- Tone down Spring logging -->
-  <logger name="org.springframework">
-    <level value="warn" />
-  </logger>
   <root>
     <priority value="info" />
     <appender-ref ref="console" />
