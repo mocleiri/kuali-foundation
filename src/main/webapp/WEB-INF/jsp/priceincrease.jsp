@@ -20,8 +20,7 @@
 			<tr>
 				<td align="right" width="20%">Increase (%):</td>
 				<td width="20%"><form:input path="percentage" /></td>
-				<td width="60%"><form:errors path="percentage" cssClass="error" />
-				</td>
+				<td width="60%"><form:errors path="percentage" cssClass="error" /></td>
 			</tr>
 		</table>
 		<br>
