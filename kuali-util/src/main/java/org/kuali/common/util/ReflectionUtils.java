@@ -30,45 +30,66 @@ import com.google.common.base.Optional;
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	/**
-	 * Unconditionally attempt to get the value for this field on this bean. If the field is not accessible make it accessible, get the value, then set it back to being in
-	 * accessible.
+	 * Unconditionally attempt to get the value of this field on this bean. If the field is not accessible make it accessible, get the value, then revert the field back to being
+	 * inaccessible.
 	 */
 	public static Optional<?> get(Field field, Object instance) {
-		try {
-			synchronized (field) {
-				boolean accessible = field.isAccessible();
-				if (!accessible) {
-					field.setAccessible(true);
-				}
-				Object value = field.get(instance);
+
+		// Be thread safe
+		synchronized (field) {
+
+			// Always preserve the original accessibility indicator
+			boolean accessible = field.isAccessible();
+
+			// If it's not accessible, change it so it is
+			if (!accessible) {
+				field.setAccessible(true);
+			}
+
+			try {
+				// Attempt to get the value of this field on the instance
+				return Optional.fromNullable(field.get(instance));
+			} catch (IllegalAccessException e) {
+				throw new IllegalStateException(e);
+			} finally {
+				// Always flip the accessible flag back to what it was before (if we need to)
+				// This must always be done, even if something goes wrong getting the value
 				if (!accessible) {
 					field.setAccessible(false);
 				}
-				return Optional.fromNullable(value);
 			}
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
 		}
 	}
 
 	/**
-	 * Unconditionally attempt to set this value on this field of this bean. If the field is not accessible make it accessible, set the value, then set it back to being in
-	 * accessible.
+	 * Unconditionally attempt to set a value on this field of this instance. If the field is not accessible, make it accessible, set the value, then revert the field to being
+	 * inaccessible.
 	 */
 	public static void set(Object instance, Field field, Object value) {
-		try {
-			synchronized (field) {
-				boolean accessible = field.isAccessible();
-				if (!accessible) {
-					field.setAccessible(true);
-				}
+
+		// Be thread safe
+		synchronized (field) {
+
+			// Always preserve the original accessibility indicator
+			boolean accessible = field.isAccessible();
+
+			// If it's not accessible, change it so it is
+			if (!accessible) {
+				field.setAccessible(true);
+			}
+
+			try {
+				// Attempt to set the value on this field of the instance
 				field.set(instance, value);
+			} catch (IllegalAccessException e) {
+				throw new IllegalStateException(e);
+			} finally {
+				// Always flip the accessible flag back to what it was before (if we need to)
+				// This must always be done, even if something goes wrong setting the value
 				if (!accessible) {
 					field.setAccessible(false);
 				}
 			}
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
 		}
 	}
 
