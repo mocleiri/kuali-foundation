@@ -15,6 +15,7 @@
  */
 package org.kuali.common.util;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -28,6 +29,10 @@ import org.springframework.util.MethodInvoker;
 import com.google.common.base.Optional;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	public static <T extends Annotation> Optional<T> getAnnotation(Class<?> instanceClass, Class<T> annotationClass) {
+		return Optional.fromNullable(instanceClass.getAnnotation(annotationClass));
+	}
 
 	/**
 	 * Unconditionally attempt to get the value of this field on this bean. If the field is not accessible make it accessible, get the value, then revert the field back to being
