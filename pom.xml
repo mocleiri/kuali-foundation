@@ -35,6 +35,7 @@
     <junit.version>4.11</junit.version>
     <spring.version>3.2.6.RELEASE</spring.version>
     <slf4j.version>1.7.5</slf4j.version>
+    <servlet-api.version>2.5</servlet-api.version>
   </properties>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</connection>
@@ -84,6 +85,12 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servlet-api.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>
