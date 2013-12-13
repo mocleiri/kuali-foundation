@@ -15,15 +15,8 @@
  */
 package org.kuali.common.util.env.annotation;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.junit.Test;
 import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.builder.BuilderContext;
-import org.kuali.common.util.env.DefaultOverrideService;
-import org.kuali.common.util.env.OverrideService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +30,7 @@ public class EnvTest {
 			System.setProperty("env.foo", "bar");
 			System.setProperty("env.bar", "blibbity,blabbity,pac-man");
 			System.setProperty("env.missingPropertyMode", "INFORMM");
-			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-			Validator validator = factory.getValidator();
-			OverrideService overrider = new DefaultOverrideService();
-			BuilderContext ctx = new BuilderContext.Builder(validator, overrider).build();
-			FakeEnvServiceContext fesc = new FakeEnvServiceContext.Builder(ctx).missingPropertyMode(null).build();
+			FakeEnvServiceContext fesc = new FakeEnvServiceContext.Builder().missingPropertyMode(null).build();
 			show(fesc);
 		} catch (Exception e) {
 			e.printStackTrace();

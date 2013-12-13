@@ -34,12 +34,17 @@ public class EnvUtils {
 		}
 	}
 
+	private static Environment instance;
+
 	/**
 	 * Return an environment that uses system properties / environment variables
 	 */
-	public static Environment getDefaultEnvironment() {
-		Properties global = PropertyUtils.getGlobalProperties();
-		return new PropertiesEnvironment(global);
+	public synchronized static Environment getDefaultEnvironment() {
+		if (instance == null) {
+			Properties global = PropertyUtils.getGlobalProperties();
+			instance = new PropertiesEnvironment(global);
+		}
+		return instance;
 	}
 
 	/**

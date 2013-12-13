@@ -14,6 +14,10 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 		return context;
 	}
 
+	public AbstractBuilder() {
+		this(new BuilderContext.Builder().build());
+	}
+
 	public AbstractBuilder(BuilderContext context) {
 		Assert.notNull(context, "'context' cannot be null");
 		this.context = context;
