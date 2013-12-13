@@ -17,9 +17,7 @@ public class HelloController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		logger.info("Returning hello view");
-
 		return new ModelAndView("hello.jsp");
 	}
 
