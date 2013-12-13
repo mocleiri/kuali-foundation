@@ -9,7 +9,7 @@ public class CarTest {
 	public void test() {
 		try {
 			System.setProperty("car.description", "    awesome    ");
-			System.setProperty("car.make", "");
+			System.setProperty("car.make", "ford");
 			Car car = new Car.Builder(null).build();
 			System.out.println(car.getMake());
 			String description = NullUtils.NONE;
