@@ -13,6 +13,10 @@ import com.google.common.base.Optional;
 @NoBlanks
 public final class Car {
 
+	public Optional<Engine> getEngine() {
+		return engine;
+	}
+
 	public String getMake() {
 		return make;
 	}
@@ -26,9 +30,12 @@ public final class Car {
 	@NotBlankIfPresent(message = "Car description cannot be blank")
 	private final Optional<String> description;
 
+	private final Optional<Engine> engine;
+
 	private Car(Builder builder) {
 		this.make = builder.make;
 		this.description = builder.description;
+		this.engine = builder.engine;
 	}
 
 	@Env(prefix = "car")
@@ -38,6 +45,7 @@ public final class Car {
 
 		@EnvAdapterClass(OptionalStringAdapter.class)
 		private Optional<String> description = Optional.absent(); // Optional
+		private Optional<Engine> engine = Optional.absent(); // Optional
 
 		public Builder(String make) {
 			this.make = make;
