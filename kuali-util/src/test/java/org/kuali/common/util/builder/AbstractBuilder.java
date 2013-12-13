@@ -10,6 +10,7 @@ import javax.validation.ValidatorFactory;
 import org.kuali.common.util.env.DefaultOverrideService;
 import org.kuali.common.util.env.OverrideService;
 import org.kuali.common.util.env.annotation.EnvIgnore;
+import org.kuali.common.util.validate.ValidatorUtils;
 
 public abstract class AbstractBuilder<T> implements Builder<T> {
 
@@ -30,23 +31,8 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 		overrider.override(this);
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = validator.validate(instance);
-		validate(violations);
+		ValidatorUtils.validate(violations);
 		return instance;
-	}
-
-	protected void validate(Set<ConstraintViolation<T>> violations) {
-		if (violations.size() == 0) {
-			return;
-		}
-		StringBuilder sb = new StringBuilder();
-		int i = 0;
-		for (ConstraintViolation<T> violation : violations) {
-			if (i++ != 0) {
-				sb.append(", ");
-			}
-			sb.append("[" + violation.getMessage() + "]");
-		}
-		throw new IllegalArgumentException(sb.toString());
 	}
 
 	protected abstract T getInstance();
