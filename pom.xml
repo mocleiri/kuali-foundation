@@ -36,6 +36,8 @@
     <spring.version>3.2.6.RELEASE</spring.version>
     <slf4j.version>1.7.5</slf4j.version>
     <servlet-api.version>2.5</servlet-api.version>
+    <jstl.version>1.2</jstl.version>
+    <taglibs-standard.version>1.1.1</taglibs-standard.version>
   </properties>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</connection>
@@ -58,6 +60,16 @@
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>${taglibs-standard.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
