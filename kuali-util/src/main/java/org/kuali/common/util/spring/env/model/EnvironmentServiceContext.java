@@ -81,7 +81,8 @@ public final class EnvironmentServiceContext {
 		}
 
 		protected void validate(EnvironmentServiceContext ctx) {
-			Assert.noNulls(ctx.getEnv(), ctx.getMissingPropertyMode());
+			Assert.notNull(ctx.getEnv(), "'env' cannot be null");
+			Assert.notNull(ctx.getMissingPropertyMode(), "'missingPropertyMode' cannot be null");
 		}
 
 		protected EnvironmentServiceContext getInstance() {
