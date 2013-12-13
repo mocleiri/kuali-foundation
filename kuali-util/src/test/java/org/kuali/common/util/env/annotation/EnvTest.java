@@ -29,7 +29,7 @@ public class EnvTest {
 		try {
 			System.setProperty("env.foo", "bar");
 			System.setProperty("env.bar", "blibbity,blabbity,pac-man");
-			// System.setProperty("env.missingPropertyMode", "INFORM");
+			System.setProperty("env.missingPropertyMode", "INFORMM");
 			FakeEnvServiceContext fesc = new FakeEnvServiceContext.Builder().missingPropertyMode(null).build();
 			show(fesc);
 		} catch (Exception e) {
