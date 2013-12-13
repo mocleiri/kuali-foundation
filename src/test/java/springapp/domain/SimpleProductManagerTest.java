@@ -27,7 +27,7 @@ public class SimpleProductManagerTest {
 	private static int POSITIVE_PRICE_INCREASE = 10;
 
 	@Before
-	protected void setUp() throws Exception {
+	public void setUp() {
 		productManager = new SimpleProductManager();
 		products = new ArrayList<Product>();
 
