@@ -27,26 +27,20 @@
   <artifactId>maven-spring-mvc</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>Spring MVC Tutorial</name>
-  <description>
-   Maven'ized version of Spring's MVC example app
-  </description>
+  <name>Maven Spring MVC</name>
+  <description>Maven'ized version of Spring's MVC example app</description>
   <inceptionYear>2011</inceptionYear>
   <url>http://${kuali.site.hostname}/${project.artifactId}/${project.version}</url>
   <properties>
-    <parent.version>${project.parent.version}</parent.version>
-    <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</project.scm.url>
+    <junit.version>4.11</junit.version>
+    <spring.version>3.2.6.RELEASE</spring.version>
+    <slf4j.version>1.7.5</slf4j.version>
   </properties>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</connection>
     <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</developerConnection>
     <url>https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</url>
   </scm>
-  <properties>
-    <junit.version>4.11</junit.version>
-    <spring.version>3.2.6.RELEASE</spring.version>
-    <slf4j.version>1.7.5</slf4j.version>
-  </properties>
   <build>
     <plugins>
       <plugin>
