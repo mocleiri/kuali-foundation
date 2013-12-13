@@ -1,5 +1,7 @@
 package org.kuali.common.util.builder;
 
+import javax.validation.constraints.Min;
+
 import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
@@ -17,6 +19,8 @@ public final class Engine {
 	}
 
 	private final String type;
+
+	@Min(1)
 	private final double weight;
 
 	private Engine(Builder builder) {
