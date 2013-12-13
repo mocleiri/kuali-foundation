@@ -6,12 +6,14 @@ import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.env.adapter.CSVToListAdapter;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
+import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @NoNulls
+@NoBlanks
 public final class FakeEnvServiceContext {
 
 	public List<String> getBar() {
