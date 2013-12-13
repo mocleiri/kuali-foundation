@@ -25,14 +25,10 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 	@Override
 	public final T build() {
 		context.getOverrider().override(this);
-		finish();
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = context.getValidator().validate(instance);
 		ValidatorUtils.validate(violations);
 		return instance;
-	}
-
-	protected void finish() {
 	}
 
 	protected abstract T getInstance();
