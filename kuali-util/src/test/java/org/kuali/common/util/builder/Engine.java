@@ -41,6 +41,11 @@ public final class Engine {
 			this.weight = weight;
 		}
 
+		public Builder(BuilderContext context, double weight) {
+			super(context);
+			this.weight = weight;
+		}
+
 		public Builder withType(String type) {
 			this.type = type;
 			return this;
