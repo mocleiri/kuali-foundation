@@ -41,8 +41,8 @@ public final class BuilderContext {
 		}
 
 		private void validate(BuilderContext instance) {
-			Preconditions.checkNotNull(instance.validator, "validator may not be null");
-			Preconditions.checkNotNull(instance.overrider, "overrider may not be null");
+			Preconditions.checkNotNull(instance.validator, "'validator' cannot be null");
+			Preconditions.checkNotNull(instance.overrider, "'overrider' cannot be null");
 		}
 	}
 
