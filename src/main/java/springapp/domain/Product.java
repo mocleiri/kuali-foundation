@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
 	private String description;
-	private Double price;
+	private double price;
 
 	public String getDescription() {
 		return description;
@@ -20,7 +20,7 @@ public class Product implements Serializable {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
