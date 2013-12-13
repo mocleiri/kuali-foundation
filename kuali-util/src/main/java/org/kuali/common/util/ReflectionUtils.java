@@ -25,7 +25,52 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.MethodInvoker;
 
+import com.google.common.base.Optional;
+
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	/**
+	 * Unconditionally attempt to get the value for this field on this bean. If the field is not accessible make it accessible, get the value, then set it back to being in
+	 * accessible.
+	 */
+	public static Optional<?> get(Field field, Object instance) {
+		try {
+			synchronized (field) {
+				boolean accessible = field.isAccessible();
+				if (!accessible) {
+					field.setAccessible(true);
+				}
+				Object value = field.get(instance);
+				if (!accessible) {
+					field.setAccessible(false);
+				}
+				return Optional.fromNullable(value);
+			}
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	/**
+	 * Unconditionally attempt to set this value on this field of this bean. If the field is not accessible make it accessible, set the value, then set it back to being in
+	 * accessible.
+	 */
+	public static void set(Object instance, Field field, Object value) {
+		try {
+			synchronized (field) {
+				boolean accessible = field.isAccessible();
+				if (!accessible) {
+					field.setAccessible(true);
+				}
+				field.set(instance, value);
+				if (!accessible) {
+					field.setAccessible(false);
+				}
+			}
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 
 	/**
 	 * Get declared fields with the option to include inherited fields

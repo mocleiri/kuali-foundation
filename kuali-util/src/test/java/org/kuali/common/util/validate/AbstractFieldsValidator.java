@@ -55,22 +55,5 @@ public abstract class AbstractFieldsValidator {
 
 	protected abstract Optional<String> validate(Field field, Object instance);
 
-	protected Optional<?> get(Field field, Object instance) {
-		try {
-			synchronized (field) {
-				boolean accessible = field.isAccessible();
-				if (!accessible) {
-					field.setAccessible(true);
-				}
-				Object value = field.get(instance);
-				if (!accessible) {
-					field.setAccessible(false);
-				}
-				return Optional.fromNullable(value);
-			}
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
-		}
-	}
 
 }

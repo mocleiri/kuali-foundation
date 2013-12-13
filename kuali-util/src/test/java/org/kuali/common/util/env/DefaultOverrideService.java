@@ -88,7 +88,7 @@ public final class DefaultOverrideService implements OverrideService {
 		}
 
 		// Store the value we have on the object
-		set(instance, field, value.orNull());
+		ReflectionUtils.set(instance, field, value.orNull());
 	}
 
 	private Optional<? extends EnvAdapter<?, ?>> getAdapter(Optional<EnvAdapterClass> annotation) {
@@ -98,23 +98,6 @@ public final class DefaultOverrideService implements OverrideService {
 			return Optional.of(adapter);
 		} else {
 			return Optional.absent();
-		}
-	}
-
-	private void set(Object instance, Field field, Object value) {
-		try {
-			synchronized (field) {
-				boolean accessible = field.isAccessible();
-				if (!accessible) {
-					field.setAccessible(true);
-				}
-				field.set(instance, value);
-				if (!accessible) {
-					field.setAccessible(false);
-				}
-			}
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException(e);
 		}
 	}
 
