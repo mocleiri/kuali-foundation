@@ -4,9 +4,9 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-public class ValidatorUtils {
+public class Validation {
 
-	public static <T> void validate(Set<ConstraintViolation<T>> violations) {
+	public static <T> void check(Set<ConstraintViolation<T>> violations) {
 		if (violations.size() == 0) {
 			return;
 		}
