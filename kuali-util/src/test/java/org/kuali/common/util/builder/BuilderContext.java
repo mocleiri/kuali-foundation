@@ -37,7 +37,7 @@ public final class BuilderContext {
 	public static class Builder {
 
 		private Validator validator = ValidationUtils.getDefaultValidator();
-		private OverrideService overrider = new DefaultOverrideService();
+		private OverrideService overrider = new DefaultOverrideService.Builder().build();
 		private Optional<EncryptionService> enc = Optional.absent();
 
 		public Builder validator(Validator validator) {

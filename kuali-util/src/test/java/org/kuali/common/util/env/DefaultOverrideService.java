@@ -14,31 +14,27 @@ import org.kuali.common.util.env.annotation.EnvKeys;
 import org.kuali.common.util.spring.SpringUtils;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
-import org.springframework.util.Assert;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 public final class DefaultOverrideService implements OverrideService {
-
-	public DefaultOverrideService() {
-		this(new BasicEnvironmentService());
-	}
-
-	public DefaultOverrideService(EnvironmentService env) {
-		Assert.notNull(env, "'env' cannot be null");
-		this.env = env;
-	}
 
 	public EnvironmentService getEnv() {
 		return env;
 	}
 
+	public boolean isSkip() {
+		return skip;
+	}
+
 	private final EnvironmentService env;
+	private final boolean skip;
 
 	@Override
 	public void override(Object instance) {
-		Optional<Env> optional = Optional.fromNullable(instance.getClass().getAnnotation(Env.class));
+		Optional<Env> optional = ReflectionUtils.getAnnotation(instance.getClass(), Env.class);
 		if (!optional.isPresent()) {
 			return;
 		}
@@ -54,7 +50,7 @@ public final class DefaultOverrideService implements OverrideService {
 	}
 
 	private void override(Optional<String> prefix, Object instance, Field field) {
-		Optional<EnvIgnore> ignore = Optional.fromNullable(field.getAnnotation(EnvIgnore.class));
+		Optional<EnvIgnore> ignore = ReflectionUtils.getAnnotation(instance.getClass(), EnvIgnore.class);
 		if (ignore.isPresent()) {
 			return;
 		}
@@ -123,6 +119,37 @@ public final class DefaultOverrideService implements OverrideService {
 			return Optional.absent();
 		} else {
 			return Optional.of(prefix);
+		}
+	}
+
+	private DefaultOverrideService(Builder builder) {
+		this.env = builder.env;
+		this.skip = builder.skip;
+	}
+
+	public static class Builder {
+
+		private EnvironmentService env = new BasicEnvironmentService();
+		private boolean skip = false;
+
+		public Builder withEnv(EnvironmentService env) {
+			this.env = env;
+			return this;
+		}
+
+		public Builder withSkip(boolean skip) {
+			this.skip = skip;
+			return this;
+		}
+
+		public DefaultOverrideService build() {
+			DefaultOverrideService instance = new DefaultOverrideService(this);
+			validate(instance);
+			return instance;
+		}
+
+		private void validate(DefaultOverrideService instance) {
+			Preconditions.checkNotNull(instance.env, "env may not be null");
 		}
 	}
 
