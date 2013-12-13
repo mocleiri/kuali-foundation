@@ -3,6 +3,7 @@ package springapp.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class SimpleProductManagerTest {
 
 	private static String TABLE_DESCRIPTION = "Table";
 	private static Double TABLE_PRICE = new Double(150.10);
+
+	private static int POSITIVE_PRICE_INCREASE = 10;
 
 	@Before
 	protected void setUp() throws Exception {
@@ -48,6 +51,7 @@ public class SimpleProductManagerTest {
 		assertNull(productManager.getProducts());
 	}
 
+	@Test
 	public void testGetProducts() {
 		List<Product> products = productManager.getProducts();
 		assertNotNull(products);
@@ -60,5 +64,15 @@ public class SimpleProductManagerTest {
 		product = products.get(1);
 		assertEquals(TABLE_DESCRIPTION, product.getDescription());
 		assertEquals(TABLE_PRICE, product.getPrice());
+	}
+
+	@Test
+	public void testIncreasePriceWithNullListOfProducts() {
+		try {
+			productManager = new SimpleProductManager();
+			productManager.increasePrice(POSITIVE_PRICE_INCREASE);
+		} catch (NullPointerException ex) {
+			fail("Products list is null.");
+		}
 	}
 }
