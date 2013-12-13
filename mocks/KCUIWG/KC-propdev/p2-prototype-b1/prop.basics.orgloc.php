@@ -22,7 +22,7 @@ include( '_temp.select.filler.php' );
           <li class="active"><a href="#tab1" data-toggle="tab" class="" title="The organization or institution applying for this grant.">Applicant Organization</a></li>
           <li><a href="#tab2" data-toggle="tab" class="" title="The organization or institution where research will be performed at.">Performing Organization</a></li>
           <li><a href="#tab3" data-toggle="tab" class="" title="Other organizations or institutions that assist with research that are searchable via your organizations directory.">Performance Site Locations</a></li>
-          <!-- <li><a href="#tab4" data-toggle="tab" class="" title="Organizations or institutions that assist with research that are outside of your organizations directory. You will need to enter the details manually.">Other Organizations</a></li> -->
+       <li><a href="#tab4" data-toggle="tab" class="" title="Organizations or institutions that assist with research that are outside of your organizations directory. You will need to enter the details manually.">Other Organizations</a></li>
         </ul>
         <div id="my-tab-content" class="tab-content">
           <div class="tab-pane active" id="tab1">
@@ -123,7 +123,7 @@ include( '_temp.select.filler.php' );
               <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution-other.php"><span aria-hidden="true" class="icon-plus"></span> Add location</button>
             </div>
           </div>
-          <!-- <div class="tab-pane " id="tab4">
+        <div class="tab-pane " id="tab4">
             <h4> Other Organizations</h4>
             <div class="panel-group" id="accordion2">
               
@@ -131,7 +131,7 @@ include( '_temp.select.filler.php' );
             <div class="btn-row-widget-action">
               <button class="btn btn-default btn-xs launch-modal" data-modal-page="modal/lookup-institution.php"><span aria-hidden="true" class="icon-plus"></span> Add location</button>
             </div>
-          </div> -->
+          </div>
         </div>
         
         <div class="uif-stickyFooter uif-stickyButtonFooter">
