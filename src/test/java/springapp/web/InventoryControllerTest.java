@@ -6,11 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-public class HelloControllerTest {
+public class InventoryControllerTest {
 
 	@Test
 	public void testHandleRequestView() throws Exception {
-		HelloController controller = new HelloController();
+		InventoryController controller = new InventoryController();
 		ModelAndView modelAndView = controller.handleRequest(null, null);
 		assertEquals("hello", modelAndView.getViewName());
 		assertNotNull(modelAndView.getModel());

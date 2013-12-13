@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-public class HelloController implements Controller {
+public class InventoryController implements Controller {
 
-	private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
+	private static final Logger logger = LoggerFactory.getLogger(InventoryController.class);
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
