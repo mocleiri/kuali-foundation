@@ -17,7 +17,7 @@ public final class OptionalStringAdapter implements EnvAdapter<String, Optional<
 		if (trimmed == null) {
 			return Optional.absent();
 		} else {
-			return Optional.of(s);
+			return Optional.of(trimmed);
 		}
 	}
 
