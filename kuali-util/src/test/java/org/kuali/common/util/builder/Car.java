@@ -39,7 +39,8 @@ public final class Car {
 		@EnvAdapterClass(OptionalStringAdapter.class)
 		private Optional<String> description = Optional.absent(); // Optional
 
-		public Builder(String make) {
+		public Builder(BuilderContext context, String make) {
+			super(context);
 			this.make = make;
 		}
 

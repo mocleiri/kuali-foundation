@@ -3,36 +3,36 @@ package org.kuali.common.util.builder;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
-import org.kuali.common.util.env.DefaultOverrideService;
-import org.kuali.common.util.env.OverrideService;
+import org.kuali.common.util.Assert;
 import org.kuali.common.util.env.annotation.EnvIgnore;
 import org.kuali.common.util.validate.ValidatorUtils;
 
 public abstract class AbstractBuilder<T> implements Builder<T> {
 
-	public AbstractBuilder() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		this.validator = factory.getValidator();
-		this.overrider = new DefaultOverrideService();
+	public BuilderContext getContext() {
+		return context;
+	}
+
+	public AbstractBuilder(BuilderContext context) {
+		Assert.notNull(context, "'context' cannot be null");
+		this.context = context;
 	}
 
 	@EnvIgnore
-	private final Validator validator;
-
-	@EnvIgnore
-	private final OverrideService overrider;
+	private final BuilderContext context;
 
 	@Override
 	public final T build() {
-		overrider.override(this);
+		context.getOverrider().override(this);
+		finish();
 		T instance = getInstance();
-		Set<ConstraintViolation<T>> violations = validator.validate(instance);
+		Set<ConstraintViolation<T>> violations = context.getValidator().validate(instance);
 		ValidatorUtils.validate(violations);
 		return instance;
+	}
+
+	protected void finish() {
 	}
 
 	protected abstract T getInstance();

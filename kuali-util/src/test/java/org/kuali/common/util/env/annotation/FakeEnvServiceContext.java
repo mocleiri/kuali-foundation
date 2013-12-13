@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.builder.AbstractBuilder;
+import org.kuali.common.util.builder.BuilderContext;
 import org.kuali.common.util.env.adapter.CSVToListAdapter;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 import org.kuali.common.util.validate.NoBlanks;
@@ -64,6 +65,10 @@ public final class FakeEnvServiceContext {
 
 		@EnvAdapterClass(CSVToListAdapter.class)
 		private List<String> bar = ImmutableList.of();
+
+		public Builder(BuilderContext context) {
+			super(context);
+		}
 
 		public Builder checkEnvironmentVariables(boolean checkEnvironmentVariables) {
 			this.checkEnvironmentVariables = checkEnvironmentVariables;
