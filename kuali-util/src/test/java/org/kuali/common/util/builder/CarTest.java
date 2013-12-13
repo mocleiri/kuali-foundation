@@ -7,8 +7,7 @@ public class CarTest {
 	@Test
 	public void test() {
 		try {
-			BuilderContext ctx = new BuilderContext.Builder().build();
-			new Car.Builder(ctx, null).description("   ").build();
+			new Car.Builder(null).description("   ").build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
