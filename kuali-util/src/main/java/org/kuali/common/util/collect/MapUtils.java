@@ -26,6 +26,17 @@ public class MapUtils {
 		return new CheckMapResult(badKeys, badValues);
 	}
 
+	public static CheckMapResult checkForNullsOrBlanks(Map<?, ?> map) {
+		Preconditions.checkNotNull(map, "'map' cannot be null");
+		int badKeys = 0;
+		int badValues = 0;
+		for (Map.Entry<?, ?> entry : map.entrySet()) {
+			badKeys = isNullOrBlank(entry.getKey()) ? badKeys++ : badKeys;
+			badValues = isNullOrBlank(entry.getValue()) ? badValues++ : badValues;
+		}
+		return new CheckMapResult(badKeys, badValues);
+	}
+
 	protected static boolean isBlank(Object object) {
 		return (object instanceof CharSequence) && StringUtils.isBlank((CharSequence) object);
 	}
@@ -36,17 +47,6 @@ public class MapUtils {
 		} else {
 			return isBlank(object);
 		}
-	}
-
-	public static CheckMapResult checkForNullsOrBlanks(Map<?, ?> map) {
-		Preconditions.checkNotNull(map, "'map' cannot be null");
-		int badKeys = 0;
-		int badValues = 0;
-		for (Map.Entry<?, ?> entry : map.entrySet()) {
-			badKeys = isNullOrBlank(entry.getKey()) ? badKeys++ : badKeys;
-			badValues = isNullOrBlank(entry.getValue()) ? badValues++ : badValues;
-		}
-		return new CheckMapResult(badKeys, badValues);
 	}
 
 }
