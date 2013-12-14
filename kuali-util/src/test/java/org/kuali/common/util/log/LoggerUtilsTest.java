@@ -9,6 +9,7 @@ public class LoggerUtilsTest {
 	public void test() {
 		Logger logger = LoggerUtils.make();
 		logger.info("Hello World");
+		System.out.println(logger.getClass().getCanonicalName());
 	}
 
 }
