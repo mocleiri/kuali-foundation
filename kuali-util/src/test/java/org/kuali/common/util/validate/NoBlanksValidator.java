@@ -31,31 +31,39 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
+		// This field may not be a type we can validate
 		if (!isValidatableType(field)) {
 			return Optional.absent();
 		}
 
+		// Extract the value of the field into an optional
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
 
+		// If it's a character sequence, return an error message if it is null or whitespace
 		if (isCharSequence(field)) {
 			CharSequence charSequence = (CharSequence) fieldValue.orNull();
 			return getOptionalErrorMessage(field, charSequence);
 		}
 
+		// If there is no value for this field, we are done
 		if (!fieldValue.isPresent()) {
 			return Optional.absent();
 		}
 
 		if (checkOptionals && isOptional(field)) {
+			// Return an error message if there is a blank value inside the optional
 			Optional<?> optional = (Optional<?>) fieldValue.get();
 			return validateOptional(field, optional);
 		} else if (checkCollections && isCollection(field)) {
+			// Return an error message if there are blank values inside the collection
 			Collection<?> collection = (Collection<?>) fieldValue.get();
 			return validateCollection(field, collection);
 		} else if (checkMaps && isMap(field)) {
+			// Return an error message if the map has blanks for keys or values
 			Map<?, ?> map = (Map<?, ?>) fieldValue.get();
 			return validateMap(field, map);
 		} else {
+			// Otherwise this field is good to go
 			return Optional.absent();
 		}
 	}
@@ -109,7 +117,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 			// If the CharSequence is blank, return an error message
 			return getOptionalErrorMessage(field, charSequence);
 		} else {
-			// If it's not a char sequence, we don't care what it is, always return the absence of an error message
+			// If it's not a char sequence, we don't care what it is
 			return Optional.absent();
 		}
 	}
@@ -129,14 +137,14 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	 * Return true if this field is a Collection
 	 */
 	protected boolean isCollection(Field field) {
-		return Collection.class.isAssignableFrom(field.getClass());
+		return CollectionUtils.isCollection(field.getClass());
 	}
 
 	/**
 	 * Return true if this field is a Map
 	 */
 	protected boolean isMap(Field field) {
-		return Map.class.isAssignableFrom(field.getClass());
+		return MapUtils.isMap(field.getClass());
 	}
 
 	/**
