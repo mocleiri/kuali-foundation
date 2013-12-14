@@ -20,11 +20,12 @@ public class CollectionUtils {
 		return ImmutableCollection.class.isAssignableFrom(type);
 	}
 
-	public static Collection<?> getBlanks(Collection<?> collection) {
-		Collection<Object> blanks = new ArrayList<Object>();
+	public static Collection<String> getBlanks(Collection<?> collection) {
+		Collection<String> blanks = new ArrayList<String>();
 		for (Object element : collection) {
 			if (NullUtils.isBlank(element)) {
-				blanks.add(element);
+				CharSequence charSequence = (CharSequence) element;
+				blanks.add(charSequence.toString());
 			}
 		}
 		return blanks;
