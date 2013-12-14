@@ -3,16 +3,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-  <bean id="productManager" class="springapp.service.SimpleProductManager">
-    <property name="products">
-      <list>
-        <ref bean="product1" />
-        <ref bean="product2" />
-        <ref bean="product3" />
-      </list>
-    </property>
-  </bean>
-
   <bean id="product1" class="springapp.domain.Product">
     <property name="description" value="Lamp" />
     <property name="price" value="5.75" />
@@ -26,6 +16,16 @@
   <bean id="product3" class="springapp.domain.Product">
     <property name="description" value="Chair" />
     <property name="price" value="22.79" />
+  </bean>
+
+  <bean id="productManager" class="springapp.service.SimpleProductManager">
+    <property name="products">
+      <list>
+        <ref bean="product1" />
+        <ref bean="product2" />
+        <ref bean="product3" />
+      </list>
+    </property>
   </bean>
 
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
