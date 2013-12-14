@@ -23,6 +23,8 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		this.skip = constraintAnnotation.skip();
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 		this.checkOptionals = constraintAnnotation.checkOptionals();
+		this.checkCollections = constraintAnnotation.checkCollections();
+		this.checkMaps = constraintAnnotation.checkMaps();
 	}
 
 	@Override
@@ -41,14 +43,14 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	}
 
 	/**
-	 * Return true if this field is a CharSequence
+	 * Return true if this field is a Collection
 	 */
 	protected boolean isCollection(Field field) {
 		return Collection.class.isAssignableFrom(field.getClass());
 	}
 
 	/**
-	 * Return true if this field is a CharSequence
+	 * Return true if this field is a Map
 	 */
 	protected boolean isMap(Field field) {
 		return Map.class.isAssignableFrom(field.getClass());
