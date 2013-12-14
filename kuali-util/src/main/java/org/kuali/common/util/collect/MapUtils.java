@@ -15,21 +15,38 @@ public class MapUtils {
 		return Map.class.isAssignableFrom(type);
 	}
 
-	public static CheckForBlanksResult checkForBlanks(Map<?, ?> map) {
+	public static CheckMapResult checkForBlanks(Map<?, ?> map) {
 		Preconditions.checkNotNull(map, "'map' cannot be null");
-		int blankKeyCount = 0;
-		int blankValueCount = 0;
+		int badKeys = 0;
+		int badValues = 0;
 		for (Map.Entry<?, ?> entry : map.entrySet()) {
-			Object key = entry.getKey();
-			Object val = entry.getValue();
-			if (key instanceof CharSequence) {
-				blankKeyCount = StringUtils.isBlank((CharSequence) key) ? blankKeyCount++ : blankKeyCount;
-			}
-			if (val instanceof CharSequence) {
-				blankValueCount = StringUtils.isBlank((CharSequence) val) ? blankValueCount++ : blankValueCount;
-			}
+			badKeys = isBlank(entry.getKey()) ? badKeys++ : badKeys;
+			badValues = isBlank(entry.getValue()) ? badValues++ : badValues;
 		}
-		return new CheckForBlanksResult(blankKeyCount, blankValueCount);
+		return new CheckMapResult(badKeys, badValues);
+	}
+
+	protected static boolean isBlank(Object object) {
+		return (object instanceof CharSequence) && StringUtils.isBlank((CharSequence) object);
+	}
+
+	protected static boolean isNullOrBlank(Object object) {
+		if (object == null) {
+			return true;
+		} else {
+			return isBlank(object);
+		}
+	}
+
+	public static CheckMapResult checkForNullsOrBlanks(Map<?, ?> map) {
+		Preconditions.checkNotNull(map, "'map' cannot be null");
+		int badKeys = 0;
+		int badValues = 0;
+		for (Map.Entry<?, ?> entry : map.entrySet()) {
+			badKeys = isNullOrBlank(entry.getKey()) ? badKeys++ : badKeys;
+			badValues = isNullOrBlank(entry.getValue()) ? badValues++ : badValues;
+		}
+		return new CheckMapResult(badKeys, badValues);
 	}
 
 }
