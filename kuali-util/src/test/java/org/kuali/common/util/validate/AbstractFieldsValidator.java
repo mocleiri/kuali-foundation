@@ -34,6 +34,10 @@ public abstract class AbstractFieldsValidator {
 		List<Field> fields = ReflectionUtils.getDeclaredFields(instance.getClass(), includeInheritedFields);
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
+			Optional<SkipFieldValidation> annotation = ReflectionUtils.getAnnotation(instance.getClass(), SkipFieldValidation.class);
+			if (annotation.isPresent()) {
+				continue;
+			}
 			Optional<String> error = validate(field, instance);
 			if (error.isPresent()) {
 				errors.add(error.get());
@@ -54,6 +58,5 @@ public abstract class AbstractFieldsValidator {
 	}
 
 	protected abstract Optional<String> validate(Field field, Object instance);
-
 
 }
