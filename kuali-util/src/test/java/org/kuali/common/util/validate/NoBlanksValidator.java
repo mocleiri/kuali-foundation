@@ -19,16 +19,41 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
-		if (field.getType() != String.class) {
+		if (field.getType() == String.class) {
+			return handleString(field, instance);
+		} else if (field.getType() == Optional.class) {
+			return handleOptional(field, instance);
+		} else {
 			return Optional.absent();
 		}
-		Optional<?> value = ReflectionUtils.get(field, instance);
-		String string = (String) value.orNull();
+	}
+
+	protected Optional<String> handleOptional(Field field, Object instance) {
+		Optional<?> optional = ReflectionUtils.get(field, instance);
+		if (!optional.isPresent()) {
+			return Optional.absent();
+		}
+		Object value = optional.get();
+		if (value instanceof String) {
+			String string = (String) value;
+			return getBlankStringErrorMessage(field, string);
+		} else {
+			return Optional.absent();
+		}
+	}
+
+	protected Optional<String> getBlankStringErrorMessage(Field field, String string) {
 		if (StringUtils.isBlank(string)) {
 			return Optional.of(getErrorMessage(field, "cannot be blank"));
 		} else {
 			return Optional.absent();
 		}
+	}
+
+	protected Optional<String> handleString(Field field, Object instance) {
+		Optional<?> optional = ReflectionUtils.get(field, instance);
+		String string = (String) optional.orNull();
+		return getBlankStringErrorMessage(field, string);
 	}
 
 }

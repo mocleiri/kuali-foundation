@@ -24,6 +24,8 @@ public @interface NoBlanks {
 
 	boolean includeInheritedFields() default true;
 
+	boolean checkOptionals() default true;
+
 	Class<? extends Payload>[] payload() default {};
 
 }
