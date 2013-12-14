@@ -20,11 +20,11 @@ public class SimpleProductManagerTest {
 
 	private static int PRODUCT_COUNT = 2;
 
-	private static Double CHAIR_PRICE = new Double(20.50);
+	private static double CHAIR_PRICE = new Double(20.50);
 	private static String CHAIR_DESCRIPTION = "Chair";
 
 	private static String TABLE_DESCRIPTION = "Table";
-	private static Double TABLE_PRICE = new Double(150.10);
+	private static double TABLE_PRICE = new Double(150.10);
 
 	private static int POSITIVE_PRICE_INCREASE = 10;
 
@@ -61,11 +61,11 @@ public class SimpleProductManagerTest {
 
 		Product product = products.get(0);
 		assertEquals(CHAIR_DESCRIPTION, product.getDescription());
-		assertEquals(CHAIR_PRICE, product.getPrice());
+		assertEquals(CHAIR_PRICE, product.getPrice(), 0);
 
 		product = products.get(1);
 		assertEquals(TABLE_DESCRIPTION, product.getDescription());
-		assertEquals(TABLE_PRICE, product.getPrice());
+		assertEquals(TABLE_PRICE, product.getPrice(), 0);
 	}
 
 	@Test
@@ -92,14 +92,14 @@ public class SimpleProductManagerTest {
 	@Test
 	public void testIncreasePriceWithPositivePercentage() {
 		productManager.increasePrice(POSITIVE_PRICE_INCREASE);
-		Double expectedChairPriceWithIncrease = 22.55;
-		Double expectedTablePriceWithIncrease = 165.11;
+		double expectedChairPriceWithIncrease = 22.55;
+		double expectedTablePriceWithIncrease = 165.11;
 
 		List<Product> products = productManager.getProducts();
 		Product product = products.get(0);
-		assertEquals(expectedChairPriceWithIncrease, product.getPrice());
+		assertEquals(expectedChairPriceWithIncrease, product.getPrice(), 0);
 
 		product = products.get(1);
-		assertEquals(expectedTablePriceWithIncrease, product.getPrice());
+		assertEquals(expectedTablePriceWithIncrease, product.getPrice(), 0);
 	}
 }
