@@ -8,9 +8,9 @@ public class CarTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("car.description", "    awesome    ");
-			System.setProperty("car.make", "ford");
-			Car car = new Car.Builder(null).build();
+			// System.setProperty("car.description", "    awesome    ");
+			// System.setProperty("car.make", "ford");
+			Car car = new Car.Builder(null).description("sucks").build();
 			System.out.println(car.getMake());
 			String description = NullUtils.NONE;
 			if (car.getDescription().isPresent()) {
