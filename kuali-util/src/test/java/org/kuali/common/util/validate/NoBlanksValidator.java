@@ -9,7 +9,6 @@ import javax.validation.ConstraintValidator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.collect.CheckMapResult;
 import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
@@ -126,29 +125,12 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	}
 
 	protected Optional<String> validateMap(Field field, Map<?, ?> map) {
-		// The field contains a non-null map that we need to examine
-		CheckMapResult result = MapUtils.checkForBlanks(map);
-		if (result.getBadKeys() > 0 || result.getBadValues() > 0) {
-			String errorMessage = getMapBlanksErrorMessage(result);
-			return Optional.of(getErrorMessage(field, errorMessage));
+		Map<?, ?> blanks = MapUtils.getBlankEntries(map);
+		if (blanks.size() > 0) {
+			return Optional.of(getErrorMessage(field, "contains " + blanks.size() + " entries with a blank key or value"));
 		} else {
 			return Optional.absent();
 		}
-	}
-
-	protected String getMapBlanksErrorMessage(CheckMapResult result) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("contains");
-		if (result.getBadKeys() > 0) {
-			sb.append(result.getBadKeys() + " blank keys");
-		}
-		if (result.getBadValues() > 0) {
-			if (result.getBadKeys() > 0) {
-				sb.append(" and ");
-			}
-			sb.append(result.getBadValues() + " blank values");
-		}
-		return sb.toString();
 	}
 
 	protected Optional<String> validateCollection(Field field, Object instance) {
