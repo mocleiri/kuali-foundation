@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -25,7 +26,9 @@ public class PriceIncreaseFormController extends SimpleFormController {
 		logger.info("Increasing prices by " + increase + "%.");
 		productManager.increasePrice(increase);
 		logger.info("returning from PriceIncreaseForm view to " + getSuccessView());
-		return new ModelAndView(new RedirectView(getSuccessView()));
+		String successView = getSuccessView();
+		View view = new RedirectView(successView);
+		return new ModelAndView(view);
 	}
 
 	@Override
