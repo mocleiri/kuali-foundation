@@ -137,28 +137,28 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	 * Return true if this field is a Collection
 	 */
 	protected boolean isCollection(Field field) {
-		return CollectionUtils.isCollection(field.getClass());
+		return CollectionUtils.isCollection(field.getDeclaringClass());
 	}
 
 	/**
 	 * Return true if this field is a Map
 	 */
 	protected boolean isMap(Field field) {
-		return MapUtils.isMap(field.getClass());
+		return MapUtils.isMap(field.getDeclaringClass());
 	}
 
 	/**
 	 * Return true if this field is a CharSequence
 	 */
 	protected boolean isCharSequence(Field field) {
-		return CharSequence.class.isAssignableFrom(field.getClass());
+		return CharSequence.class.isAssignableFrom(field.getDeclaringClass());
 	}
 
 	/**
 	 * Return true if this field is an Optional
 	 */
 	protected boolean isOptional(Field field) {
-		return Optional.class.isAssignableFrom(field.getClass());
+		return Optional.class.isAssignableFrom(field.getDeclaringClass());
 	}
 
 }
