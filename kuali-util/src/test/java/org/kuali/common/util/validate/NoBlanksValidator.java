@@ -28,6 +28,12 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		}
 	}
 
+	protected Optional<String> handleString(Field field, Object instance) {
+		Optional<?> optional = ReflectionUtils.get(field, instance);
+		String string = (String) optional.orNull();
+		return getBlankStringErrorMessage(field, string);
+	}
+
 	protected Optional<String> handleOptional(Field field, Object instance) {
 		Optional<?> optional = ReflectionUtils.get(field, instance);
 		if (!optional.isPresent()) {
@@ -48,12 +54,6 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		} else {
 			return Optional.absent();
 		}
-	}
-
-	protected Optional<String> handleString(Field field, Object instance) {
-		Optional<?> optional = ReflectionUtils.get(field, instance);
-		String string = (String) optional.orNull();
-		return getBlankStringErrorMessage(field, string);
 	}
 
 }
