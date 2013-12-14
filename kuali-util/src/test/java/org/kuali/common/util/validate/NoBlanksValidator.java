@@ -1,6 +1,9 @@
 package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.validation.ConstraintValidator;
 
@@ -12,6 +15,8 @@ import com.google.common.base.Optional;
 public class NoBlanksValidator extends AbstractFieldsValidator implements ConstraintValidator<NoBlanks, Object> {
 
 	private boolean checkOptionals;
+	private boolean checkCollections;
+	private boolean checkMaps;
 
 	@Override
 	public void initialize(NoBlanks constraintAnnotation) {
@@ -23,12 +28,30 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 		if (isCharSequence(field)) {
-			return handleCharSequence(field, instance);
+			return validateCharSequence(field, instance);
 		} else if (checkOptionals && isOptional(field)) {
-			return handleOptional(field, instance);
+			return validateOptional(field, instance);
+		} else if (checkCollections && isCollection(field)) {
+			return validateCollection(field, instance);
+		} else if (checkMaps && isMap(field)) {
+			return validateMap(field, instance);
 		} else {
 			return Optional.absent();
 		}
+	}
+
+	/**
+	 * Return true if this field is a CharSequence
+	 */
+	protected boolean isCollection(Field field) {
+		return Collection.class.isAssignableFrom(field.getClass());
+	}
+
+	/**
+	 * Return true if this field is a CharSequence
+	 */
+	protected boolean isMap(Field field) {
+		return Map.class.isAssignableFrom(field.getClass());
 	}
 
 	/**
@@ -45,7 +68,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		return Optional.class.isAssignableFrom(field.getClass());
 	}
 
-	protected Optional<String> handleCharSequence(Field field, Object instance) {
+	protected Optional<String> validateCharSequence(Field field, Object instance) {
 
 		// Extract the value of this field on this object
 		Optional<?> optional = ReflectionUtils.get(field, instance);
@@ -57,7 +80,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		return getBlankCharSequenceErrorMessage(field, charSequence);
 	}
 
-	protected Optional<String> handleOptional(Field field, Object instance) {
+	protected Optional<String> validateOptional(Field field, Object instance) {
 
 		// Determine if there is a value for this field on this object
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
@@ -70,6 +93,83 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 
 			// Examine the optional to see if it contains a blank string
 			return handleOptionalField(field, optional);
+		}
+
+	}
+
+	protected Optional<String> validateMap(Field field, Object instance) {
+
+		// Determine if there is a value for this field on this object
+		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+		if (!fieldValue.isPresent()) {
+			// If not, return the absence of an error message
+			return Optional.absent();
+		} else {
+			// The field contains a non-null map that we need to examine
+			Map<?, ?> map = (Map<?, ?>) fieldValue.get();
+			int blankKeys = 0;
+			int blankVals = 0;
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				Object key = entry.getKey();
+				Object val = entry.getValue();
+				if (key instanceof CharSequence) {
+					blankKeys = StringUtils.isBlank((CharSequence) key) ? blankKeys++ : blankKeys;
+				}
+				if (val instanceof CharSequence) {
+					blankVals = StringUtils.isBlank((CharSequence) val) ? blankVals++ : blankVals;
+				}
+			}
+			if (blankKeys > 0 || blankVals > 0) {
+				String errorMessage = getMapBlanksErrorMessage(blankKeys, blankVals);
+				return Optional.of(getErrorMessage(field, errorMessage));
+			} else {
+				return Optional.absent();
+			}
+		}
+	}
+
+	protected String getMapBlanksErrorMessage(int keyCount, int valCount) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("contains");
+		if (keyCount > 0) {
+			sb.append(keyCount + " blank keys");
+		}
+		if (valCount > 0) {
+			if (keyCount > 0) {
+				sb.append(" and ");
+			}
+			sb.append(valCount + " blank values");
+		}
+		return sb.toString();
+	}
+
+	protected Optional<String> validateCollection(Field field, Object instance) {
+
+		// Determine if there is a value for this field on this object
+		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+		if (!fieldValue.isPresent()) {
+			// If not, return the absence of an error message
+			return Optional.absent();
+		} else {
+			// The field contains a non-null optional that we need to examine
+			Collection<?> collection = (Collection<?>) fieldValue.get();
+
+			Iterator<?> iterator = collection.iterator();
+			int count = 0;
+			while (iterator.hasNext()) {
+				Object value = iterator.next();
+				if (value instanceof CharSequence) {
+					count = StringUtils.isBlank((CharSequence) value) ? count++ : count;
+				} else {
+					return Optional.absent();
+				}
+			}
+
+			if (count > 0) {
+				return Optional.of(getErrorMessage(field, "contains " + count + " blank values"));
+			} else {
+				return Optional.absent();
+			}
 		}
 
 	}

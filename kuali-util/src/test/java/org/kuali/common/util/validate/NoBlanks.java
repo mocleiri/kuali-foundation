@@ -26,6 +26,10 @@ public @interface NoBlanks {
 
 	boolean checkOptionals() default true;
 
+	boolean checkCollections() default true;
+
+	boolean checkMaps() default true;
+
 	Class<? extends Payload>[] payload() default {};
 
 }
