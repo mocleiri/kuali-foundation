@@ -40,9 +40,9 @@
     <taglibs-standard.version>1.1.1</taglibs-standard.version>
   </properties>
   <scm>
-    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</connection>
-    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</developerConnection>
-    <url>https://svn.kuali.org/repos/foundation/sandbox/kuali-smvc</url>
+    <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/maven-spring-mvc</connection>
+    <developerConnection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/sandbox/maven-spring-mvc</developerConnection>
+    <url>https://svn.kuali.org/repos/foundation/sandbox/maven-spring-mvc</url>
   </scm>
   <build>
     <plugins>
