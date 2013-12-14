@@ -51,6 +51,17 @@ public class MapUtils {
 		return entries;
 	}
 
+	public static Map<?, ?> getNullEntries(Map<?, ?> map) {
+		Preconditions.checkNotNull(map, "'map' cannot be null");
+		Map<Object, Object> entries = new HashMap<Object, Object>();
+		for (Map.Entry<?, ?> entry : map.entrySet()) {
+			if (containsNull(entry)) {
+				entries.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return entries;
+	}
+
 	public static Map<?, ?> getBlankOrNullEntries(Map<?, ?> map) {
 		Preconditions.checkNotNull(map, "'map' cannot be null");
 		Map<Object, Object> entries = new HashMap<Object, Object>();
