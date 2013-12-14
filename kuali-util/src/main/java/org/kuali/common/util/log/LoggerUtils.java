@@ -37,6 +37,12 @@ public class LoggerUtils {
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	public static Logger make() {
+		Throwable t = new Throwable();
+		StackTraceElement directCaller = t.getStackTrace()[1];
+		return LoggerFactory.getLogger(directCaller.getClassName());
+	}
+
 	public static String getLogMsg(List<String> includes, List<String> excludes) {
 		if (CollectionUtils.isEmpty(includes) && CollectionUtils.isEmpty(excludes)) {
 			return "";
