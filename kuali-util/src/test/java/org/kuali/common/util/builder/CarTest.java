@@ -11,11 +11,8 @@ public class CarTest {
 			System.setProperty("car.description", "        ");
 			System.setProperty("car.make", "ford");
 			Car car = new Car.Builder(null).description("sucks").build();
+			String description = NullUtils.toNone(car.getDescription());
 			System.out.println(car.getMake());
-			String description = NullUtils.NONE;
-			if (car.getDescription().isPresent()) {
-				description = car.getDescription().get();
-			}
 			System.out.println(description);
 		} catch (Exception e) {
 			e.printStackTrace();

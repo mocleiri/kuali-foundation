@@ -86,6 +86,13 @@ public class NullUtils {
 	}
 
 	/**
+	 * Returns <code>NONE</code> if optional is not present OR if it contains the empty string, pure whitespace, NONE, or NULL
+	 */
+	public static final String toNone(Optional<String> optional) {
+		return trimToNone(optional.orNull());
+	}
+
+	/**
 	 * Returns <code>null</code> if s is null, the empty string, pure whitespace, NONE, or NULL
 	 */
 	public static final String trimToNull(String s) {
