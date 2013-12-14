@@ -125,7 +125,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	}
 
 	protected Optional<String> validateMap(Field field, Map<?, ?> map) {
-		Map<?, ?> blanks = MapUtils.getBlankOrNullEntries(map);
+		Map<?, ?> blanks = MapUtils.getBlankEntries(map);
 		if (blanks.size() > 0) {
 			return Optional.of(getErrorMessage(field, "contains " + blanks.size() + " entries with a blank key or value"));
 		} else {
