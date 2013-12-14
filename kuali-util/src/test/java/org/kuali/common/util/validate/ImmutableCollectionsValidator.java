@@ -20,7 +20,7 @@ public class ImmutableCollectionsValidator extends AbstractFieldsValidator imple
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
-		// This field doesn't implement the Map interface, nothing to do
+		// This field doesn't implement the Collection interface, nothing to do
 		if (!CollectionUtils.isCollection(field.getClass())) {
 			return Optional.absent();
 		}
