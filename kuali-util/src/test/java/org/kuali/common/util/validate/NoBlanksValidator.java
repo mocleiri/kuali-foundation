@@ -11,21 +11,38 @@ import com.google.common.base.Optional;
 
 public class NoBlanksValidator extends AbstractFieldsValidator implements ConstraintValidator<NoBlanks, Object> {
 
+	private boolean checkOptionals;
+
 	@Override
 	public void initialize(NoBlanks constraintAnnotation) {
 		this.skip = constraintAnnotation.skip();
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
+		this.checkOptionals = constraintAnnotation.checkOptionals();
 	}
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
-		if (CharSequence.class.isAssignableFrom(field.getClass())) {
+		if (isCharSequence(field)) {
 			return handleCharSequence(field, instance);
-		} else if (Optional.class.isAssignableFrom(field.getClass())) {
+		} else if (checkOptionals && isOptional(field)) {
 			return handleOptional(field, instance);
 		} else {
 			return Optional.absent();
 		}
+	}
+
+	/**
+	 * Return true if this field is a CharSequence
+	 */
+	protected boolean isCharSequence(Field field) {
+		return CharSequence.class.isAssignableFrom(field.getClass());
+	}
+
+	/**
+	 * Return true if this field is an Optional
+	 */
+	protected boolean isOptional(Field field) {
+		return Optional.class.isAssignableFrom(field.getClass());
 	}
 
 	protected Optional<String> handleCharSequence(Field field, Object instance) {
@@ -46,11 +63,11 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
 
 		if (!fieldValue.isPresent()) {
-			
+
 			// There is no value for this field on this object (ie the field is null)
 			return Optional.absent();
 		} else {
-			
+
 			// The field contains a non-null optional that we need to examine
 			Optional<?> optional = (Optional<?>) fieldValue.get();
 
@@ -61,7 +78,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	}
 
 	protected Optional<String> handleOptionalField(Field field, Optional<?> optional) {
-		
+
 		// The optional does not contain a value
 		if (!optional.isPresent()) {
 			return Optional.absent();
