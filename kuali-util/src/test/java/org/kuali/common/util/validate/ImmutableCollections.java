@@ -12,7 +12,7 @@ import javax.validation.Payload;
 
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = ImmutableMapsValidator.class)
+@Constraint(validatedBy = ImmutableCollectionsValidator.class)
 @Documented
 public @interface ImmutableCollections {
 

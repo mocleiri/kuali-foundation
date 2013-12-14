@@ -9,10 +9,10 @@ import org.kuali.common.util.collect.CollectionUtils;
 
 import com.google.common.base.Optional;
 
-public class ImmutableCollectionsValidator extends AbstractFieldsValidator implements ConstraintValidator<NoNulls, Object> {
+public class ImmutableCollectionsValidator extends AbstractFieldsValidator implements ConstraintValidator<ImmutableCollections, Object> {
 
 	@Override
-	public void initialize(NoNulls constraintAnnotation) {
+	public void initialize(ImmutableCollections constraintAnnotation) {
 		this.skip = constraintAnnotation.skip();
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}

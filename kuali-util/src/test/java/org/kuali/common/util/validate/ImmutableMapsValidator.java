@@ -9,10 +9,10 @@ import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
 
-public class ImmutableMapsValidator extends AbstractFieldsValidator implements ConstraintValidator<NoNulls, Object> {
+public class ImmutableMapsValidator extends AbstractFieldsValidator implements ConstraintValidator<ImmutableMaps, Object> {
 
 	@Override
-	public void initialize(NoNulls constraintAnnotation) {
+	public void initialize(ImmutableMaps constraintAnnotation) {
 		this.skip = constraintAnnotation.skip();
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}
