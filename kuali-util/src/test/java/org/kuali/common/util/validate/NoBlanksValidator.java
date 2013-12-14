@@ -9,8 +9,11 @@ import javax.validation.ConstraintValidator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.collect.BlankMapCheckResult;
+import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Maps;
 
 public class NoBlanksValidator extends AbstractFieldsValidator implements ConstraintValidator<NoBlanks, Object> {
 
@@ -29,23 +32,50 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
+
+		if (!isValidatableField(field)) {
+			return Optional.absent();
+		}
+
+		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+
 		if (isCharSequence(field)) {
-			return validateCharSequence(field, instance);
-		} else if (checkOptionals && isOptional(field)) {
-			return validateOptional(field, instance);
+			return validateCharSequence(field, fieldValue);
+		}
+
+		if (!fieldValue.isPresent()) {
+			return Optional.absent();
+		}
+
+		if (checkOptionals && isOptional(field)) {
+			return validateOptional(field, fieldValue);
 		} else if (checkCollections && isCollection(field)) {
 			return validateCollection(field, instance);
 		} else if (checkMaps && isMap(field)) {
-			return validateMap(field, instance);
+			return validateMap(field, (Map<?, ?>) fieldValue.get());
 		} else {
 			return Optional.absent();
 		}
+	}
+
+	protected boolean isValidatableField(Field field) {
+		if (isCharSequence(field)) {
+			return true;
+		} else if (isCollection(field)) {
+			return true;
+		} else if (isOptional(field)) {
+			return true;
+		} else {
+			return MapUtils.isMap(field.getClass());
+		}
+
 	}
 
 	/**
 	 * Return true if this field is a Collection
 	 */
 	protected boolean isCollection(Field field) {
+		Maps.asMap(null, null);
 		return Collection.class.isAssignableFrom(field.getClass());
 	}
 
@@ -70,13 +100,9 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		return Optional.class.isAssignableFrom(field.getClass());
 	}
 
-	protected Optional<String> validateCharSequence(Field field, Object instance) {
-
-		// Extract the value of this field on this object
-		Optional<?> optional = ReflectionUtils.get(field, instance);
-
+	protected Optional<String> validateCharSequence(Field field, Optional<?> fieldValue) {
 		// It must be a CharSequence at this point
-		CharSequence charSequence = (CharSequence) optional.orNull();
+		CharSequence charSequence = (CharSequence) fieldValue.orNull();
 
 		// If it's blank return an error message
 		return getBlankCharSequenceErrorMessage(field, charSequence);
@@ -99,48 +125,28 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 
 	}
 
-	protected Optional<String> validateMap(Field field, Object instance) {
-
-		// Determine if there is a value for this field on this object
-		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
-		if (!fieldValue.isPresent()) {
-			// If not, return the absence of an error message
-			return Optional.absent();
+	protected Optional<String> validateMap(Field field, Map<?, ?> map) {
+		// The field contains a non-null map that we need to examine
+		BlankMapCheckResult result = MapUtils.checkForBlanks(map);
+		if (result.getBlankKeyCount() > 0 || result.getBlankValueCount() > 0) {
+			String errorMessage = getMapBlanksErrorMessage(result);
+			return Optional.of(getErrorMessage(field, errorMessage));
 		} else {
-			// The field contains a non-null map that we need to examine
-			Map<?, ?> map = (Map<?, ?>) fieldValue.get();
-			int blankKeys = 0;
-			int blankVals = 0;
-			for (Map.Entry<?, ?> entry : map.entrySet()) {
-				Object key = entry.getKey();
-				Object val = entry.getValue();
-				if (key instanceof CharSequence) {
-					blankKeys = StringUtils.isBlank((CharSequence) key) ? blankKeys++ : blankKeys;
-				}
-				if (val instanceof CharSequence) {
-					blankVals = StringUtils.isBlank((CharSequence) val) ? blankVals++ : blankVals;
-				}
-			}
-			if (blankKeys > 0 || blankVals > 0) {
-				String errorMessage = getMapBlanksErrorMessage(blankKeys, blankVals);
-				return Optional.of(getErrorMessage(field, errorMessage));
-			} else {
-				return Optional.absent();
-			}
+			return Optional.absent();
 		}
 	}
 
-	protected String getMapBlanksErrorMessage(int keyCount, int valCount) {
+	protected String getMapBlanksErrorMessage(BlankMapCheckResult result) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("contains");
-		if (keyCount > 0) {
-			sb.append(keyCount + " blank keys");
+		if (result.getBlankKeyCount() > 0) {
+			sb.append(result.getBlankKeyCount() + " blank keys");
 		}
-		if (valCount > 0) {
-			if (keyCount > 0) {
+		if (result.getBlankValueCount() > 0) {
+			if (result.getBlankKeyCount() > 0) {
 				sb.append(" and ");
 			}
-			sb.append(valCount + " blank values");
+			sb.append(result.getBlankValueCount() + " blank values");
 		}
 		return sb.toString();
 	}
