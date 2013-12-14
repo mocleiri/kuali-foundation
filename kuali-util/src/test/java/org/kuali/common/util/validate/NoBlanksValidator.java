@@ -50,7 +50,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		// Extract the value of this field on this object
 		Optional<?> optional = ReflectionUtils.get(field, instance);
 
-		// It can only be a CharSequence at this point
+		// It must be a CharSequence at this point
 		CharSequence charSequence = (CharSequence) optional.orNull();
 
 		// If it's blank return an error message
@@ -61,13 +61,10 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 
 		// Determine if there is a value for this field on this object
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
-
 		if (!fieldValue.isPresent()) {
-
-			// There is no value for this field on this object (ie the field is null)
+			// If not, return the absence of an error message
 			return Optional.absent();
 		} else {
-
 			// The field contains a non-null optional that we need to examine
 			Optional<?> optional = (Optional<?>) fieldValue.get();
 
