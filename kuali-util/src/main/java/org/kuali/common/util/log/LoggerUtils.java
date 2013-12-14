@@ -37,9 +37,19 @@ public class LoggerUtils {
 	private static final Obscurer DEFAULT_OBSCURER = new DefaultObscurer();
 	private static final PropertyPlaceholderHelper HELPER = Constants.DEFAULT_PROPERTY_PLACEHOLDER_HELPER;
 
+	/**
+	 * <p>
+	 * Convenience method for obtaining a logger (borrowed from the JBoss crew)
+	 * </p>
+	 * 
+	 * <pre>
+	 * private static final Logger logger = LoggerFactory.make();
+	 * </pre>
+	 */
 	public static Logger make() {
-		Throwable t = new Throwable();
-		StackTraceElement directCaller = t.getStackTrace()[1];
+		Throwable throwable = new Throwable();
+		StackTraceElement[] elements = throwable.getStackTrace();
+		StackTraceElement directCaller = elements[1];
 		return LoggerFactory.getLogger(directCaller.getClassName());
 	}
 
