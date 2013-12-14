@@ -5,7 +5,6 @@ import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.env.annotation.EnvAdapterClass;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
-import org.kuali.common.util.validate.NotBlankIfPresent;
 
 import com.google.common.base.Optional;
 
@@ -26,10 +25,7 @@ public final class Car {
 	}
 
 	private final String make;
-
-	@NotBlankIfPresent(message = "Car description cannot be blank")
 	private final Optional<String> description;
-
 	private final Optional<Engine> engine;
 
 	private Car(Builder builder) {
