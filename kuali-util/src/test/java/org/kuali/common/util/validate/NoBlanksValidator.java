@@ -19,57 +19,74 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
-		if (field.getType() == String.class) {
-			return handleString(field, instance);
-		} else if (field.getType() == Optional.class) {
+		if (CharSequence.class.isAssignableFrom(field.getClass())) {
+			return handleCharSequence(field, instance);
+		} else if (Optional.class.isAssignableFrom(field.getClass())) {
 			return handleOptional(field, instance);
 		} else {
 			return Optional.absent();
 		}
 	}
 
-	protected Optional<String> handleString(Field field, Object instance) {
+	protected Optional<String> handleCharSequence(Field field, Object instance) {
 
 		// Extract the value of this field on this object
 		Optional<?> optional = ReflectionUtils.get(field, instance);
 
-		// It can only be a string at this point
-		String string = (String) optional.orNull();
+		// It can only be a CharSequence at this point
+		CharSequence charSequence = (CharSequence) optional.orNull();
 
 		// If it's blank return an error message
-		return getBlankStringErrorMessage(field, string);
+		return getBlankCharSequenceErrorMessage(field, charSequence);
 	}
 
 	protected Optional<String> handleOptional(Field field, Object instance) {
 
-		// Extract the value of this field on this object
-		Optional<?> optional = ReflectionUtils.get(field, instance);
+		// Determine if there is a value for this field on this object
+		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
 
-		// If this field on this object is null, we are done
+		if (!fieldValue.isPresent()) {
+			
+			// There is no value for this field on this object (ie the field is null)
+			return Optional.absent();
+		} else {
+			
+			// The field contains a non-null optional that we need to examine
+			Optional<?> optional = (Optional<?>) fieldValue.get();
+
+			// Examine the optional to see if it contains a blank string
+			return handleOptionalField(field, optional);
+		}
+
+	}
+
+	protected Optional<String> handleOptionalField(Field field, Optional<?> optional) {
+		
+		// The optional does not contain a value
 		if (!optional.isPresent()) {
 			return Optional.absent();
 		}
 
-		// The value of this field can only be an Optional at this point
-		Optional<?> value = (Optional<?>) optional.get();
+		// Extract whatever value the optional contains
+		Object value = optional.get();
 
-		// If the optional does not contain a value, we are done
-		if (!value.isPresent()) {
+		// If it's a CharSequence we need to examine it further
+		if (value instanceof CharSequence) {
+			// Cast to a CharSequence
+			CharSequence charSequence = (CharSequence) value;
+			// If the CharSequence is blank, return an error message
+			return getBlankCharSequenceErrorMessage(field, charSequence);
+		} else {
+			// If it's not a char sequence, we don't care what it is, always return the absence of an error message
 			return Optional.absent();
 		}
-
-		// We've located an optional that contains a non-null string value
-		String string = (String) value.get();
-
-		// If that string is blank, return an error message
-		return getBlankStringErrorMessage(field, string);
 	}
 
 	/**
-	 * If the string is blank, return an error message, otherwise return Optional.absent()
+	 * If the charSequence is blank, return an error message, otherwise return Optional.absent()
 	 */
-	protected Optional<String> getBlankStringErrorMessage(Field field, String string) {
-		if (StringUtils.isBlank(string)) {
+	protected Optional<String> getBlankCharSequenceErrorMessage(Field field, CharSequence charSequence) {
+		if (StringUtils.isBlank(charSequence)) {
 			return Optional.of(getErrorMessage(field, "cannot be blank"));
 		} else {
 			return Optional.absent();
