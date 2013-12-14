@@ -6,7 +6,6 @@ import javax.validation.ConstraintValidator;
 
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.collect.CollectionUtils;
-import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
 
@@ -37,7 +36,7 @@ public class ImmutableCollectionsValidator extends AbstractFieldsValidator imple
 		// Get the actual object reference
 		Object value = fieldValue.get();
 
-		if (MapUtils.isImmutable(value.getClass())) {
+		if (CollectionUtils.isImmutable(value.getClass())) {
 			// If it's immutable, we are good to go
 			return Optional.absent();
 		} else {
