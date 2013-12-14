@@ -25,6 +25,24 @@ public class NullUtils {
 	public static final String NULL = "NULL";
 
 	/**
+	 * Return true if object is a non null CharSequence that is pure whitespace
+	 */
+	public static boolean isBlank(Object object) {
+		return (object instanceof CharSequence) && StringUtils.isBlank((CharSequence) object);
+	}
+
+	/**
+	 * Return true if object is null OR a non null CharSequence that is pure whitespace
+	 */
+	public static boolean isNullOrBlank(Object object) {
+		if (object == null) {
+			return true;
+		} else {
+			return isBlank(object);
+		}
+	}
+
+	/**
 	 * Return true if:
 	 * 
 	 * <pre>

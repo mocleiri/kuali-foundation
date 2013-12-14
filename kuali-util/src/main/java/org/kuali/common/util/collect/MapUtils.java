@@ -2,7 +2,7 @@ package org.kuali.common.util.collect;
 
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Preconditions;
 
@@ -20,8 +20,8 @@ public class MapUtils {
 		int badKeys = 0;
 		int badValues = 0;
 		for (Map.Entry<?, ?> entry : map.entrySet()) {
-			badKeys = isBlank(entry.getKey()) ? badKeys++ : badKeys;
-			badValues = isBlank(entry.getValue()) ? badValues++ : badValues;
+			badKeys = NullUtils.isBlank(entry.getKey()) ? badKeys++ : badKeys;
+			badValues = NullUtils.isBlank(entry.getValue()) ? badValues++ : badValues;
 		}
 		return new CheckMapResult(badKeys, badValues);
 	}
@@ -31,22 +31,10 @@ public class MapUtils {
 		int badKeys = 0;
 		int badValues = 0;
 		for (Map.Entry<?, ?> entry : map.entrySet()) {
-			badKeys = isNullOrBlank(entry.getKey()) ? badKeys++ : badKeys;
-			badValues = isNullOrBlank(entry.getValue()) ? badValues++ : badValues;
+			badKeys = NullUtils.isNullOrBlank(entry.getKey()) ? badKeys++ : badKeys;
+			badValues = NullUtils.isNullOrBlank(entry.getValue()) ? badValues++ : badValues;
 		}
 		return new CheckMapResult(badKeys, badValues);
-	}
-
-	protected static boolean isBlank(Object object) {
-		return (object instanceof CharSequence) && StringUtils.isBlank((CharSequence) object);
-	}
-
-	protected static boolean isNullOrBlank(Object object) {
-		if (object == null) {
-			return true;
-		} else {
-			return isBlank(object);
-		}
 	}
 
 }
