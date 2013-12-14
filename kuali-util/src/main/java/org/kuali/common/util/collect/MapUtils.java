@@ -15,7 +15,7 @@ public class MapUtils {
 		return Map.class.isAssignableFrom(type);
 	}
 
-	public static BlankMapCheckResult checkForBlanks(Map<?, ?> map) {
+	public static CheckForBlanksResult checkForBlanks(Map<?, ?> map) {
 		Preconditions.checkNotNull(map, "'map' cannot be null");
 		int blankKeyCount = 0;
 		int blankValueCount = 0;
@@ -29,7 +29,7 @@ public class MapUtils {
 				blankValueCount = StringUtils.isBlank((CharSequence) val) ? blankValueCount++ : blankValueCount;
 			}
 		}
-		return new BlankMapCheckResult(blankKeyCount, blankValueCount);
+		return new CheckForBlanksResult(blankKeyCount, blankValueCount);
 	}
 
 }
