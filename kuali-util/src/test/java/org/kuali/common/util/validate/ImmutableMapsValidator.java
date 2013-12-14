@@ -19,17 +19,29 @@ public class ImmutableMapsValidator extends AbstractFieldsValidator implements C
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
+
+		// This field doesn't implement the Map interface, nothing to do
 		if (!MapUtils.isMap(field.getClass())) {
 			return Optional.absent();
 		}
+
+		// Extract the value of the field into an Optional
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
+
+		// There is no value for this field (ie it was null)
 		if (!fieldValue.isPresent()) {
 			return Optional.absent();
 		}
+
+		// Get the actual object reference
 		Object value = fieldValue.get();
+
 		if (MapUtils.isImmutable(value.getClass())) {
+			// If it's immutable, we are good to go
 			return Optional.absent();
+		} else {
+			// If not, return an error message
+			return Optional.of(getErrorMessage(field, "is not an immutable map"));
 		}
-		return Optional.of(getErrorMessage(field, "is not immutable"));
 	}
 }
