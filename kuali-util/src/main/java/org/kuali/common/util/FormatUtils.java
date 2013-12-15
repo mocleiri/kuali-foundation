@@ -40,6 +40,7 @@ public class FormatUtils {
 	public static final double YEAR = 365 * DAY;
 
 	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 
 	private static final List<String> TIME_TOKENS = Arrays.asList("ms", "s", "m", "h", "d", "y");
 	private static final List<Long> TIME_MULTIPLIERS = getTimeMultipliers();
@@ -180,9 +181,9 @@ public class FormatUtils {
 	 */
 	public static Date parseDate(String date) {
 		try {
-			// New object every time because SimpleDateFormat isn't threadsafe
-			SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-			return sdf.parse(date);
+			synchronized (DATE_FORMATTER) {
+				return DATE_FORMATTER.parse(date);
+			}
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("Can't parse [" + date + "]", e);
 		}
@@ -199,9 +200,9 @@ public class FormatUtils {
 	 * Return a formatted date
 	 */
 	public static String getDate(Date date) {
-		// New object every time because SimpleDateFormat isn't threadsafe
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		return sdf.format(date);
+		synchronized (DATE_FORMATTER) {
+			return DATE_FORMATTER.format(date);
+		}
 	}
 
 	/**
@@ -210,7 +211,9 @@ public class FormatUtils {
 	public static String getThroughputInSeconds(long millis, long count, String label) {
 		double seconds = millis / SECOND;
 		double countPerSecond = count / seconds;
-		return countFormatter.format(countPerSecond) + " " + label;
+		synchronized (countFormatter) {
+			return countFormatter.format(countPerSecond) + " " + label;
+		}
 	}
 
 	/**
@@ -221,14 +224,18 @@ public class FormatUtils {
 		double bytesPerSecond = bytes / seconds;
 		Size bandwidthLevel = getSizeEnum(bytesPerSecond);
 		double transferRate = bytesPerSecond / bandwidthLevel.getValue();
-		return rateFormatter.format(transferRate) + " " + bandwidthLevel.getRateLabel();
+		synchronized (rateFormatter) {
+			return rateFormatter.format(transferRate) + " " + bandwidthLevel.getRateLabel();
+		}
 	}
 
 	/**
 	 * Return a formatted <code>count</code>
 	 */
 	public static String getCount(long count) {
-		return countFormatter.format(count);
+		synchronized (countFormatter) {
+			return countFormatter.format(count);
+		}
 	}
 
 	/**
@@ -237,18 +244,20 @@ public class FormatUtils {
 	 */
 	public static String getTime(long millis) {
 		long abs = Math.abs(millis);
-		if (abs < SECOND) {
-			return millis + "ms";
-		} else if (abs < MINUTE) {
-			return timeFormatter.format(millis / SECOND) + "s";
-		} else if (abs < HOUR) {
-			return timeFormatter.format(millis / MINUTE) + "m";
-		} else if (abs < DAY) {
-			return timeFormatter.format(millis / HOUR) + "h";
-		} else if (abs < YEAR) {
-			return timeFormatter.format(millis / DAY) + "d";
-		} else {
-			return timeFormatter.format(millis / YEAR) + "y";
+		synchronized (timeFormatter) {
+			if (abs < SECOND) {
+				return millis + "ms";
+			} else if (abs < MINUTE) {
+				return timeFormatter.format(millis / SECOND) + "s";
+			} else if (abs < HOUR) {
+				return timeFormatter.format(millis / MINUTE) + "m";
+			} else if (abs < DAY) {
+				return timeFormatter.format(millis / HOUR) + "h";
+			} else if (abs < YEAR) {
+				return timeFormatter.format(millis / DAY) + "d";
+			} else {
+				return timeFormatter.format(millis / YEAR) + "y";
+			}
 		}
 	}
 
@@ -269,11 +278,13 @@ public class FormatUtils {
 	/**
 	 * Given a number of bytes return a string formatted into the unit of measure indicated
 	 */
-	public static String getIntegerSize(long bytes, Size unitOfMeasure) {
-		unitOfMeasure = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
+	public static String getIntegerSize(long bytes, final Size unitOfMeasure) {
+		Size uom = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
 		StringBuilder sb = new StringBuilder();
-		sb.append(integerFormatter.format(bytes / (double) unitOfMeasure.getValue()));
-		sb.append(unitOfMeasure.getSizeLabel());
+		synchronized (integerFormatter) {
+			sb.append(integerFormatter.format(bytes / (double) uom.getValue()));
+		}
+		sb.append(uom.getSizeLabel());
 		return sb.toString();
 	}
 
@@ -281,10 +292,10 @@ public class FormatUtils {
 	 * Given a number of bytes return a string formatted into the unit of measure indicated
 	 */
 	public static String getSize(long bytes, Size unitOfMeasure) {
-		unitOfMeasure = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
+		Size uom = (unitOfMeasure == null) ? getSizeEnum(bytes) : unitOfMeasure;
 		StringBuilder sb = new StringBuilder();
-		sb.append(getFormattedSize(bytes, unitOfMeasure));
-		sb.append(unitOfMeasure.getSizeLabel());
+		sb.append(getFormattedSize(bytes, uom));
+		sb.append(uom.getSizeLabel());
 		return sb.toString();
 	}
 
@@ -295,9 +306,13 @@ public class FormatUtils {
 		case KB:
 		case MB:
 		case GB:
-			return sizeFormatter.format(bytes / (double) size.getValue());
+			synchronized (sizeFormatter) {
+				return sizeFormatter.format(bytes / (double) size.getValue());
+			}
 		default:
-			return largeSizeFormatter.format(bytes / (double) size.getValue());
+			synchronized (largeSizeFormatter) {
+				return largeSizeFormatter.format(bytes / (double) size.getValue());
+			}
 		}
 	}
 
