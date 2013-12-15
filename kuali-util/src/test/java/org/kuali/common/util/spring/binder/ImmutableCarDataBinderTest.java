@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
@@ -27,7 +26,7 @@ public class ImmutableCarDataBinderTest {
 			map.put("color", "black");
 			map.put("year", 1776);
 			map.put("stickerPrice", 21579);
-			map.put("internalHardDriveSize", "27foo");
+			map.put("internalHardDriveSize", "252.50000001g");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService(false);
@@ -40,11 +39,12 @@ public class ImmutableCarDataBinderTest {
 			if (result.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
+			BytesFormatter bf = new BytesFormatter(false);
 			ImmutableCar car = builder.build();
 			logger.info("car.manufacturer=[{}]", car.getManufacturer());
 			logger.info("car.color=[{}]", car.getColor());
 			logger.info("car.stickerPrice=[{}]", car.getStickerPrice());
-			logger.info("car.internalHardDriveSize=[{}]", FormatUtils.getSize(car.getInternalHardDriveSize()));
+			logger.info("car.internalHardDriveSize=[{}]", bf.print(car.getInternalHardDriveSize(), null));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
