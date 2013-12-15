@@ -15,7 +15,8 @@ public class Car {
 	private String manufacturer;
 	private String color;
 
-	@Min(1)
+	// No negative sticker prices!
+	@Min(0)
 	private double stickerPrice;
 
 	// First year a car was made was 1886
