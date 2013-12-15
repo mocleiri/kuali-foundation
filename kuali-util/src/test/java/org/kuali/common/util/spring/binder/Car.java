@@ -1,5 +1,7 @@
 package org.kuali.common.util.spring.binder;
 
+import javax.validation.constraints.Min;
+
 public class Car {
 
 	public int getYear() {
@@ -12,8 +14,13 @@ public class Car {
 
 	private String manufacturer;
 	private String color;
+
+	@Min(1)
 	private double stickerPrice;
-	private int year; // First year a car was made was 1886
+
+	// First year a car was made was 1886
+	@Min(1886)
+	private int year;
 
 	public String getManufacturer() {
 		return manufacturer;

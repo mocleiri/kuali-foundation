@@ -43,7 +43,7 @@ public class DataBinderTest {
 
 	protected String getErrorMessage(List<ObjectError> errors) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Unexpected data binding error(s):\n\n");
+		sb.append("Unexpected binding error(s):\n\n");
 		for (int i = 0; i < errors.size(); i++) {
 			if (i != 0) {
 				sb.append("\n");
