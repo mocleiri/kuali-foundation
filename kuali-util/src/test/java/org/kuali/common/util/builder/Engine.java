@@ -14,30 +14,18 @@ public final class Engine {
 		return cylinders;
 	}
 
-	public void setCylinders(int cylinders) {
-		this.cylinders = cylinders;
-	}
-
 	public String getCylinderHead() {
 		return cylinderHead;
-	}
-
-	public void setCylinderHead(String cylinderHead) {
-		this.cylinderHead = cylinderHead;
 	}
 
 	public String getBlockMaterial() {
 		return blockMaterial;
 	}
 
-	public void setBlockMaterial(String blockMaterial) {
-		this.blockMaterial = blockMaterial;
-	}
-
 	@Min(1)
-	private int cylinders = 8;
-	private String cylinderHead = "aluminum";
-	private String blockMaterial = "cast iron";
+	private final int cylinders;
+	private final String cylinderHead;
+	private final String blockMaterial;
 
 	private Engine(Builder builder) {
 		this.cylinders = builder.cylinders;
@@ -52,9 +40,9 @@ public final class Engine {
 	@Env(prefix = "car.engine")
 	public static class Builder extends AbstractBuilder<Engine> {
 
-		private int cylinders;
-		private String cylinderHead;
-		private String blockMaterial;
+		private int cylinders = 8;
+		private String cylinderHead = "aluminum";
+		private String blockMaterial = "cast iron";
 
 		public Builder withCylinders(int cylinders) {
 			this.cylinders = cylinders;
