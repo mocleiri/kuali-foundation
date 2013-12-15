@@ -4,6 +4,10 @@ import javax.validation.constraints.Min;
 
 public class ImmutableCar {
 
+	public long getInternalHardDriveSize() {
+		return internalHardDriveSize;
+	}
+
 	public String getManufacturer() {
 		return manufacturer;
 	}
@@ -31,11 +35,15 @@ public class ImmutableCar {
 	@Min(1886)
 	private final int year;
 
+	@Min(0)
+	private final long internalHardDriveSize;
+
 	private ImmutableCar(Builder builder) {
 		this.manufacturer = builder.manufacturer;
 		this.color = builder.color;
 		this.stickerPrice = builder.stickerPrice;
 		this.year = builder.year;
+		this.internalHardDriveSize = builder.internalHardDriveSize;
 	}
 
 	public static Builder builder() {
@@ -46,9 +54,18 @@ public class ImmutableCar {
 
 		private String manufacturer;
 		private String color;
-		@BytesFormat
 		private double stickerPrice;
+		@BytesFormat
+		private long internalHardDriveSize = 1024 * 1024 * 1024 * 50;
 		private int year;
+
+		public long getInternalHardDriveSize() {
+			return internalHardDriveSize;
+		}
+
+		public void setInternalHardDriveSize(long internalHardDriveSize) {
+			this.internalHardDriveSize = internalHardDriveSize;
+		}
 
 		public String getManufacturer() {
 			return manufacturer;
@@ -80,6 +97,11 @@ public class ImmutableCar {
 
 		public void setYear(int year) {
 			this.year = year;
+		}
+
+		public Builder withInternalHardDriveSize(long internalHardDriveSize) {
+			this.internalHardDriveSize = internalHardDriveSize;
+			return this;
 		}
 
 		public Builder withManufacturer(String manufacturer) {
