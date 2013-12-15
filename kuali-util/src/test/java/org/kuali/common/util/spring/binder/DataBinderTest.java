@@ -1,10 +1,12 @@
 package org.kuali.common.util.spring.binder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.beans.PropertyValue;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 
@@ -16,15 +18,12 @@ public class DataBinderTest {
 	public void test() {
 		try {
 			Car car = new Car();
-			// String name = "manufacttttturer";
-			PropertyValue m = new PropertyValue("manufacturer", "ford");
-			PropertyValue c = new PropertyValue("color", "red");
-			PropertyValue s = new PropertyValue("stickerPrice", "3");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("manufacturer", "ford");
+			map.put("color", "red");
+			map.put("stickerPrice", 19750);
 
-			MutablePropertyValues pvs = new MutablePropertyValues();
-			pvs.addPropertyValue(m);
-			pvs.addPropertyValue(c);
-			pvs.addPropertyValue(s);
+			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(car);
 			binder.bind(pvs);
 			BindingResult result = binder.getBindingResult();
