@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
+import org.springframework.format.Formatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
@@ -39,12 +40,12 @@ public class ImmutableCarDataBinderTest {
 			if (result.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
-			BytesFormatter bf = new BytesFormatter(false);
+			Formatter<Number> formatter = new BytesFormatter(false);
 			ImmutableCar car = builder.build();
 			logger.info("car.manufacturer=[{}]", car.getManufacturer());
 			logger.info("car.color=[{}]", car.getColor());
 			logger.info("car.stickerPrice=[{}]", car.getStickerPrice());
-			logger.info("car.internalHardDriveSize=[{}]", bf.print(car.getInternalHardDriveSize(), null));
+			logger.info("car.internalHardDriveSize=[{}]", formatter.print(car.getInternalHardDriveSize(), null));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
