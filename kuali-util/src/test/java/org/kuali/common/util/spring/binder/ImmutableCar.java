@@ -52,11 +52,13 @@ public class ImmutableCar {
 
 	public static class Builder {
 
+		private static final long FIFTY_GIGABYTES = 1024 * 1024 * 1024 * 50;
+
 		private String manufacturer;
 		private String color;
 		private double stickerPrice;
 		@BytesFormat
-		private long internalHardDriveSize = 1024 * 1024 * 1024 * 50;
+		private long internalHardDriveSize = FIFTY_GIGABYTES;
 		private int year;
 
 		public long getInternalHardDriveSize() {
