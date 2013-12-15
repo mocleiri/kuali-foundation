@@ -23,24 +23,15 @@ public class DataBinderTest {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("manufacturer", "ford");
 			map.put("color", "red");
-			map.put("stickerPrice", "foo");
 			map.put("year", "bar");
+			map.put("stickerPrice", "foo");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(car);
 			binder.bind(pvs);
 			BindingResult result = binder.getBindingResult();
 			if (result.hasErrors()) {
-				List<ObjectError> errors = result.getAllErrors();
-				StringBuilder sb = new StringBuilder();
-				for (int i = 0; i < errors.size(); i++) {
-					if (i != 0) {
-						sb.append(",");
-					}
-					ObjectError error = errors.get(i);
-					sb.append("[" + error.getDefaultMessage() + "]");
-				}
-				throw new IllegalStateException(sb.toString());
+				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
 			logger.info("car.manufacturer=[{}]", car.getManufacturer());
 			logger.info("car.color=[{}]", car.getColor());
@@ -48,6 +39,20 @@ public class DataBinderTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getErrorMessage(List<ObjectError> errors) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Unexpected data binding error(s):\n\n");
+		for (int i = 0; i < errors.size(); i++) {
+			if (i != 0) {
+				sb.append("\n");
+			}
+			ObjectError error = errors.get(i);
+			sb.append("[" + error.getDefaultMessage() + "]");
+		}
+		sb.append("\n");
+		return sb.toString();
 	}
 
 }
