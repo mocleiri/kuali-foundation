@@ -19,20 +19,21 @@ public class ImmutableCarDataBinderTest {
 	@Test
 	public void test() {
 		try {
-			ImmutableCar car = new ImmutableCar.Builder().build();
+			ImmutableCar.Builder builder = new ImmutableCar.Builder();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("manufacturer", "ford");
-			map.put("color", "red");
-			map.put("year", "bar");
-			map.put("stickerPrice", "foo");
+			map.put("color", "black");
+			map.put("year", "1901");
+			map.put("stickerPrice", "2000");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
-			DataBinder binder = new DataBinder(car);
+			DataBinder binder = new DataBinder(builder);
 			binder.bind(pvs);
 			BindingResult result = binder.getBindingResult();
 			if (result.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
+			ImmutableCar car = builder.build();
 			logger.info("car.manufacturer=[{}]", car.getManufacturer());
 			logger.info("car.color=[{}]", car.getColor());
 			logger.info("car.stickerPrice=[{}]", car.getStickerPrice());
