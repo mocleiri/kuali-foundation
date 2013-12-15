@@ -45,6 +45,38 @@ public class ImmutableCar {
 		private double stickerPrice;
 		private int year;
 
+		public String getManufacturer() {
+			return manufacturer;
+		}
+
+		public void setManufacturer(String manufacturer) {
+			this.manufacturer = manufacturer;
+		}
+
+		public String getColor() {
+			return color;
+		}
+
+		public void setColor(String color) {
+			this.color = color;
+		}
+
+		public double getStickerPrice() {
+			return stickerPrice;
+		}
+
+		public void setStickerPrice(double stickerPrice) {
+			this.stickerPrice = stickerPrice;
+		}
+
+		public int getYear() {
+			return year;
+		}
+
+		public void setYear(int year) {
+			this.year = year;
+		}
+
 		public Builder withManufacturer(String manufacturer) {
 			this.manufacturer = manufacturer;
 			return this;
