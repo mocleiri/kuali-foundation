@@ -28,6 +28,6 @@ public final class BytesFormatAnnotationFormatterFactory implements AnnotationFo
 	}
 
 	private Formatter<Number> configureFormatterFrom(BytesFormat annotation, Class<?> fieldType) {
-		return new BytesFormatter();
+		return new BytesFormatter(annotation.printDecimalDigits());
 	}
 }
