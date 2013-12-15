@@ -24,7 +24,7 @@ public class DataBinderTest {
 			map.put("manufacturer", "ford");
 			map.put("color", "red");
 			map.put("year", "bar");
-			map.put("stickerPrice", "foo");
+			map.put("stickerPrice", "15k");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(car);

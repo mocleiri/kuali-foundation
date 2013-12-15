@@ -46,6 +46,7 @@ public class ImmutableCar {
 
 		private String manufacturer;
 		private String color;
+		@BytesFormat
 		private double stickerPrice;
 		private int year;
 

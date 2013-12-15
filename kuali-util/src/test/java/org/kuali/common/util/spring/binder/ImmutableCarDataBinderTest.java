@@ -29,7 +29,7 @@ public class ImmutableCarDataBinderTest {
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService(false);
-			service.addFormatterForFieldAnnotation(new NumberFormatAnnotationFormatterFactory());
+			service.addFormatterForFieldAnnotation(new BytesFormatAnnotationFormatterFactory());
 			DataBinder binder = new DataBinder(builder);
 			binder.setConversionService(service);
 			binder.bind(pvs);
