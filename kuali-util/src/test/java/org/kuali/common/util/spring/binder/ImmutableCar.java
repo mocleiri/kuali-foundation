@@ -38,6 +38,10 @@ public class ImmutableCar {
 		this.year = builder.year;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder {
 
 		private String manufacturer;
