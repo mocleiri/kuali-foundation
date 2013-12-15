@@ -2,6 +2,19 @@ package org.kuali.common.util.spring.binder;
 
 public class Car {
 
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	private String manufacturer;
+	private String color;
+	private double stickerPrice;
+	private int year; // First year a car was made was 1886
+
 	public String getManufacturer() {
 		return manufacturer;
 	}
@@ -25,9 +38,5 @@ public class Car {
 	public void setStickerPrice(double stickerPrice) {
 		this.stickerPrice = stickerPrice;
 	}
-
-	private String manufacturer;
-	private String color;
-	private double stickerPrice;
 
 }
