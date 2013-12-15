@@ -27,7 +27,7 @@ public class ImmutableCarDataBinderTest {
 			map.put("color", "black");
 			map.put("year", 1776);
 			map.put("stickerPrice", 21579);
-			map.put("internalHardDriveSize", "250.250g");
+			map.put("internalHardDriveSize", "27foo");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService(false);
@@ -52,7 +52,11 @@ public class ImmutableCarDataBinderTest {
 
 	protected String getErrorMessage(List<ObjectError> errors) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Unexpected binding error(s):\n\n");
+		if (errors.size() == 1) {
+			sb.append("Unexpected binding error:\n\n");
+		} else {
+			sb.append("Unexpected binding error(s):\n\n");
+		}
 		for (int i = 0; i < errors.size(); i++) {
 			if (i != 0) {
 				sb.append("\n");
