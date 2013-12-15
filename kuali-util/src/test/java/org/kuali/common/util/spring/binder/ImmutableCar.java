@@ -57,7 +57,7 @@ public class ImmutableCar {
 		private String manufacturer;
 		private String color;
 		private double stickerPrice;
-		@BytesFormat
+		@BytesFormat(printDecimalDigits = false)
 		private long internalHardDriveSize = FIFTY_GIGABYTES;
 		private int year;
 
