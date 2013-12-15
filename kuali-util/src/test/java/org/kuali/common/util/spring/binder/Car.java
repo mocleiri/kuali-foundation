@@ -19,7 +19,7 @@ public class Car {
 	@Min(0)
 	private double stickerPrice;
 
-	// First year a car was made was 1886
+	// First car was built in 1886
 	@Min(1886)
 	private int year;
 
