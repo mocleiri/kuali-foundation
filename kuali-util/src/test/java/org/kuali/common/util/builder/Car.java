@@ -2,6 +2,8 @@ package org.kuali.common.util.builder;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.env.annotation.EnvAdapterClass;
@@ -35,6 +37,7 @@ public final class Car {
 
 	private final String make;
 	private final Optional<String> description;
+	@Valid
 	private final Engine engine;
 	private final List<String> passengers;
 
@@ -45,13 +48,16 @@ public final class Car {
 		this.passengers = builder.passengers;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	@Env(prefix = "car")
 	public static class Builder extends AbstractBuilder<Car> {
 
 		private final String make = "ford";
-
 		@EnvAdapterClass(OptionalStringAdapter.class)
-		private Optional<String> description = Optional.absent(); // Optional
+		private Optional<String> description = Optional.absent();
 		private Engine engine = Engine.builder().build();
 		private List<String> passengers = ImmutableList.of();
 
