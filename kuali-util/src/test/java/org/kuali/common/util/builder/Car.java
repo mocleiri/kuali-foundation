@@ -15,8 +15,8 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @NoNulls
-@NoBlanks
 @ImmutableCollections
+@NoBlanks
 public final class Car {
 
 	public List<String> getPassengers() {
