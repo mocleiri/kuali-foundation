@@ -23,8 +23,8 @@ public class ImmutableCarDataBinderTest {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("manufacturer", "ford");
 			map.put("color", "black");
-			map.put("year", "1901");
-			map.put("stickerPrice", "2000");
+			map.put("year", 1776);
+			map.put("stickerPrice", "15k");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(builder);
