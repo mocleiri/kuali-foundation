@@ -19,7 +19,7 @@ public class ImmutableCarDataBinderTest {
 	@Test
 	public void test() {
 		try {
-			ImmutableCar.Builder builder = new ImmutableCar.Builder();
+			ImmutableCar.Builder builder = ImmutableCar.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("manufacturer", "ford");
 			map.put("color", "black");
