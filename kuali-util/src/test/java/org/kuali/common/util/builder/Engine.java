@@ -10,44 +10,64 @@ import org.kuali.common.util.validate.NoNulls;
 @NoBlanks
 public final class Engine {
 
-	public String getType() {
-		return type;
+	public int getCylinders() {
+		return cylinders;
 	}
 
-	public double getWeight() {
-		return weight;
+	public void setCylinders(int cylinders) {
+		this.cylinders = cylinders;
 	}
 
-	private final String type;
+	public String getCylinderHead() {
+		return cylinderHead;
+	}
+
+	public void setCylinderHead(String cylinderHead) {
+		this.cylinderHead = cylinderHead;
+	}
+
+	public String getBlockMaterial() {
+		return blockMaterial;
+	}
+
+	public void setBlockMaterial(String blockMaterial) {
+		this.blockMaterial = blockMaterial;
+	}
 
 	@Min(1)
-	private final double weight;
+	private int cylinders = 8;
+	private String cylinderHead = "aluminum";
+	private String blockMaterial = "cast iron";
 
 	private Engine(Builder builder) {
-		this.type = builder.type;
-		this.weight = builder.weight;
+		this.cylinders = builder.cylinders;
+		this.cylinderHead = builder.cylinderHead;
+		this.blockMaterial = builder.blockMaterial;
 	}
 
-	@Env(prefix = "engine")
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	@Env(prefix = "car.engine")
 	public static class Builder extends AbstractBuilder<Engine> {
 
-		// Required
-		private final double weight;
+		private int cylinders;
+		private String cylinderHead;
+		private String blockMaterial;
 
-		// Optional
-		private String type = "two-stroke";
-
-		public Builder(double weight) {
-			this.weight = weight;
+		public Builder withCylinders(int cylinders) {
+			this.cylinders = cylinders;
+			return this;
 		}
 
-		public Builder(BuilderContext context, double weight) {
-			super(context);
-			this.weight = weight;
+		public Builder withCylinderHead(String cylinderHead) {
+			this.cylinderHead = cylinderHead;
+			return this;
 		}
 
-		public Builder withType(String type) {
-			this.type = type;
+		public Builder withBlockMaterial(String blockMaterial) {
+			this.blockMaterial = blockMaterial;
 			return this;
 		}
 

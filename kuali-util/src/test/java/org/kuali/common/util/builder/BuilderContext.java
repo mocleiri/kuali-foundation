@@ -34,6 +34,12 @@ public final class BuilderContext {
 		this.enc = builder.enc;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static final Optional<BuilderContext> ABSENT = Optional.<BuilderContext> absent();
+
 	public static class Builder {
 
 		private Validator validator = ValidationUtils.getDefaultValidator();

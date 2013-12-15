@@ -8,6 +8,8 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.env.annotation.EnvIgnore;
 import org.kuali.common.util.validate.ValidationUtils;
 
+import com.google.common.base.Optional;
+
 public abstract class AbstractBuilder<T> implements Builder<T> {
 
 	public BuilderContext getContext() {
@@ -15,12 +17,20 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 	}
 
 	public AbstractBuilder() {
-		this(new BuilderContext.Builder().build());
+		this(Optional.<BuilderContext> absent());
 	}
 
 	public AbstractBuilder(BuilderContext context) {
+		this(Optional.of(context));
+	}
+
+	public AbstractBuilder(Optional<BuilderContext> context) {
 		Assert.notNull(context, "'context' cannot be null");
-		this.context = context;
+		if (context.isPresent()) {
+			this.context = context.get();
+		} else {
+			this.context = BuilderContext.builder().build();
+		}
 	}
 
 	@EnvIgnore

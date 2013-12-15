@@ -21,7 +21,7 @@ public final class Car {
 		return passengers;
 	}
 
-	public Optional<Engine> getEngine() {
+	public Engine getEngine() {
 		return engine;
 	}
 
@@ -35,7 +35,7 @@ public final class Car {
 
 	private final String make;
 	private final Optional<String> description;
-	private final Optional<Engine> engine;
+	private final Engine engine;
 	private final List<String> passengers;
 
 	private Car(Builder builder) {
@@ -48,20 +48,18 @@ public final class Car {
 	@Env(prefix = "car")
 	public static class Builder extends AbstractBuilder<Car> {
 
-		private final String make; // Required
+		private final String make = "ford";
 
 		@EnvAdapterClass(OptionalStringAdapter.class)
 		private Optional<String> description = Optional.absent(); // Optional
-		private Optional<Engine> engine = Optional.absent(); // Optional
+		private Engine engine = Engine.builder().build();
 		private List<String> passengers = ImmutableList.of();
 
-		public Builder(String make) {
-			this.make = make;
+		public Builder() {
 		}
 
-		public Builder(BuilderContext context, String make) {
+		public Builder(BuilderContext context) {
 			super(context);
-			this.make = make;
 		}
 
 		public Builder description(String description) {
