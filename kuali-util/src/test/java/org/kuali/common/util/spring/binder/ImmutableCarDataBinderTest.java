@@ -29,8 +29,8 @@ public class ImmutableCarDataBinderTest {
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(builder);
-			binder.bind(pvs);
 			binder.setConversionService(new DefaultConversionService());
+			binder.bind(pvs);
 			System.out.println(binder.getConversionService().getClass().getCanonicalName());
 			BindingResult result = binder.getBindingResult();
 			if (result.hasErrors()) {
