@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
@@ -29,7 +28,7 @@ public class ImmutableCarDataBinderTest {
 			map.put("stickerPrice", "15k");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
-			ConversionService service = new DefaultConversionService();
+			DefaultConversionService service = new DefaultConversionService();
 			DataBinder binder = new DataBinder(builder);
 			binder.setConversionService(service);
 			binder.bind(pvs);
