@@ -8,6 +8,20 @@ import org.springframework.format.Formatter;
 
 public final class BytesFormatter implements Formatter<Number> {
 
+	public BytesFormatter() {
+		this(true);
+	}
+
+	public BytesFormatter(boolean printDecimalDigits) {
+		this.printDecimalDigits = printDecimalDigits;
+	}
+
+	public boolean isPrintDecimalDigits() {
+		return printDecimalDigits;
+	}
+
+	private final boolean printDecimalDigits;
+
 	@Override
 	public Number parse(String size, Locale locale) throws ParseException {
 		try {
@@ -19,7 +33,11 @@ public final class BytesFormatter implements Formatter<Number> {
 
 	@Override
 	public String print(Number number, Locale locale) {
-		return FormatUtils.getSize(number.longValue());
+		if (printDecimalDigits) {
+			return FormatUtils.getSize(number.longValue());
+		} else {
+			return FormatUtils.getIntegerSize(number.longValue());
+		}
 	}
 
 }
