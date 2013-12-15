@@ -27,7 +27,7 @@ public class ImmutableCar {
 	@Min(0)
 	private final double stickerPrice;
 
-	// First year a car was made was 1886
+	// First car was built in 1886
 	@Min(1886)
 	private final int year;
 
