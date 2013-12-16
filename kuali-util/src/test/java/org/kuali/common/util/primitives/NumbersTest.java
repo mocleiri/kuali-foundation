@@ -7,6 +7,7 @@ public class NumbersTest {
 
 	@Test
 	public void test() {
+		Assert.assertEquals(Byte.class, Numbers.narrow(0).getClass());
 		Assert.assertEquals(Byte.class, Numbers.narrow(0L).getClass());
 		Assert.assertEquals(Byte.class, Numbers.narrow(Byte.MAX_VALUE).getClass());
 		Assert.assertEquals(Byte.class, Numbers.narrow(Byte.MIN_VALUE).getClass());
@@ -17,6 +18,7 @@ public class NumbersTest {
 		Assert.assertEquals(Long.class, Numbers.narrow(Long.MAX_VALUE).getClass());
 		Assert.assertEquals(Long.class, Numbers.narrow(Long.MIN_VALUE).getClass());
 
+		Assert.assertEquals((byte) 0, Numbers.narrow(0));
 		Assert.assertEquals((byte) 0, Numbers.narrow(0L));
 		Assert.assertEquals(Byte.MAX_VALUE, Numbers.narrow(Byte.MAX_VALUE));
 		Assert.assertEquals(Byte.MIN_VALUE, Numbers.narrow(Byte.MIN_VALUE));
