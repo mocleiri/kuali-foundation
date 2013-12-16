@@ -40,8 +40,7 @@ public class ObjectUtils {
 		}
 
 		if (notEqual(main, other)) {
-			// Don't bother comparing the toString() methods
-			return false;
+			return false; // Don't bother comparing the toString() methods
 		} else {
 			return main.toString().equals(other.toString());
 		}
