@@ -73,10 +73,10 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 			return true;
 		} else if (isOptional(field)) {
 			return true;
-		} else if (CollectionUtils.isCollection(field.getClass())) {
+		} else if (isCollection(field)) {
 			return true;
 		} else {
-			return MapUtils.isMap(field.getClass());
+			return isMap(field);
 		}
 
 	}
