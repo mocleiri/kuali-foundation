@@ -26,7 +26,7 @@ public final class BytesFormatter implements Formatter<Number> {
 	@Override
 	public Number parse(String size, Locale locale) throws ParseException {
 		try {
-			return Numbers.downcast(FormatUtils.getBytes(size));
+			return Numbers.narrow(FormatUtils.getBytes(size));
 		} catch (Exception e) {
 			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);
 		}

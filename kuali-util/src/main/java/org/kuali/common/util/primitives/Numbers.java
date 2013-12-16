@@ -17,7 +17,7 @@ public final class Numbers {
 		return number >= Integer.MIN_VALUE && number <= Integer.MAX_VALUE;
 	}
 
-	public static Number downcast(int number) {
+	public static Number narrow(int number) {
 		if (isByte(number)) {
 			return (byte) number;
 		} else if (isShort(number)) {
@@ -27,7 +27,7 @@ public final class Numbers {
 		}
 	}
 
-	public static Number downcast(long number) {
+	public static Number narrow(long number) {
 		if (isByte(number)) {
 			return (byte) number;
 		} else if (isShort(number)) {

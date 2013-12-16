@@ -12,7 +12,7 @@ public final class TimeFormatter implements Formatter<Number> {
 	@Override
 	public Number parse(String time, Locale locale) throws ParseException {
 		try {
-			return Numbers.downcast(FormatUtils.getMillis(time));
+			return Numbers.narrow(FormatUtils.getMillis(time));
 		} catch (Exception e) {
 			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);
 		}
