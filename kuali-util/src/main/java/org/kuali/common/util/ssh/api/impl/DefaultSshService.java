@@ -16,13 +16,15 @@ import com.jcraft.jsch.JSchException;
 public class DefaultSshService implements SshService {
 
 	private static final String UTF8 = Encodings.UTF8;
+	private static final int DSA = com.jcraft.jsch.KeyPair.DSA;
+	private static final int RSA = com.jcraft.jsch.KeyPair.RSA;
 
 	@Override
 	public KeyPair generateKeyPair(GenerateKeyPairContext context) {
 		Assert.noNulls(context);
-		int type = (Algorithm.DSA == context.getAlgorithm()) ? com.jcraft.jsch.KeyPair.DSA : com.jcraft.jsch.KeyPair.RSA;
+		int algorithm = (Algorithm.DSA == context.getAlgorithm()) ? DSA : RSA;
 		JSch jsch = new JSch();
-		com.jcraft.jsch.KeyPair keyPair = getKeyPair(jsch, type, context.getSize());
+		com.jcraft.jsch.KeyPair keyPair = getKeyPair(jsch, algorithm, context.getSize());
 		String publicKey = getPublicKey(keyPair, context.getName()).trim();
 		String privateKey = getPrivateKey(keyPair);
 		String fingerprint = keyPair.getFingerPrint();
