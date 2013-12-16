@@ -11,12 +11,12 @@ import com.google.common.collect.ImmutableSet;
 
 public final class BytesFormatAnnotationFormatterFactory implements AnnotationFormatterFactory<BytesFormat> {
 
-	private static final Class<?>[] FIELD_TYPES_ARRAY = { Short.class, Integer.class, Long.class };
-	private static final Set<Class<?>> FIELD_TYPES = ImmutableSet.copyOf(FIELD_TYPES_ARRAY);
+	private static final Class<?>[] ARRAY = { Integer.class, Long.class };
+	private static final Set<Class<?>> TYPES = ImmutableSet.copyOf(ARRAY);
 
 	@Override
 	public Set<Class<?>> getFieldTypes() {
-		return FIELD_TYPES;
+		return TYPES;
 	}
 
 	@Override

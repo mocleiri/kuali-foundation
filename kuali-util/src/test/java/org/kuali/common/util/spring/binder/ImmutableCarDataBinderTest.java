@@ -28,7 +28,7 @@ public class ImmutableCarDataBinderTest {
 			map.put("year", 1776);
 			map.put("stickerPrice", 21579);
 			map.put("internalHardDriveSize", "252.121g");
-			map.put("zeroToSixtyTime", "4.7s");
+			map.put("zeroToSixtyTime", "4.7y");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
