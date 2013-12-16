@@ -23,12 +23,12 @@ public class ImmutableCarDataBinderTest {
 		try {
 			ImmutableCar.Builder builder = ImmutableCar.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("manufacturer", "ford");
-			map.put("color", "black");
-			map.put("year", 1776);
-			map.put("stickerPrice", 21579);
-			map.put("internalHardDriveSize", "252.121g");
-			map.put("zeroToSixtyTime", "4.7y");
+			map.put("year", 2001);
+			map.put("make", "Ford");
+			map.put("model", "Expedition");
+			map.put("price", 21579);
+			map.put("internalHardDriveSize", "252.5g");
+			map.put("zeroToSixtyTime", "4.7s");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
@@ -43,14 +43,15 @@ public class ImmutableCarDataBinderTest {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
 			Formatter<Number> withDigits = new BytesFormatter(true);
-			Formatter<Number> noDigits = new BytesFormatter(false);
+			Formatter<Number> sansDigits = new BytesFormatter(false);
 			ImmutableCar car = builder.build();
-			logger.info("car.manufacturer=[{}]", car.getManufacturer());
-			logger.info("car.color=[{}]", car.getColor());
-			logger.info("car.stickerPrice=[{}]", car.getStickerPrice());
+			logger.info("car.year=[{}]", car.getYear());
+			logger.info("car.make=[{}]", car.getMake());
+			logger.info("car.model=[{}]", car.getModel());
+			logger.info("car.price=[{}]", car.getPrice());
 			logger.info("car.internalHardDriveSize.raw=[{}]", car.getInternalHardDriveSize());
 			logger.info("car.internalHardDriveSize.withDigits=[{}]", withDigits.print(car.getInternalHardDriveSize(), null));
-			logger.info("car.internalHardDriveSize.noDigits[{}]", noDigits.print(car.getInternalHardDriveSize(), null));
+			logger.info("car.internalHardDriveSize.sansDigits=[{}]", sansDigits.print(car.getInternalHardDriveSize(), null));
 			logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTime());
 		} catch (Exception e) {
 			e.printStackTrace();
