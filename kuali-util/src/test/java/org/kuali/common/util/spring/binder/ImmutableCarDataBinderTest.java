@@ -28,10 +28,12 @@ public class ImmutableCarDataBinderTest {
 			map.put("year", 1776);
 			map.put("stickerPrice", 21579);
 			map.put("internalHardDriveSize", "252.50000001g");
+			map.put("zeroToSixtyTime", "4.7s");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
 			service.addFormatterForFieldAnnotation(new BytesFormatAnnotationFormatterFactory());
+			service.addFormatterForFieldAnnotation(new TimeFormatAnnotationFormatterFactory());
 			DataBinder binder = new DataBinder(builder);
 			binder.setConversionService(service);
 			binder.bind(pvs);
@@ -46,6 +48,7 @@ public class ImmutableCarDataBinderTest {
 			logger.info("car.color=[{}]", car.getColor());
 			logger.info("car.stickerPrice=[{}]", car.getStickerPrice());
 			logger.info("car.internalHardDriveSize=[{}]", formatter.print(car.getInternalHardDriveSize(), null));
+			logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTime());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
