@@ -27,7 +27,7 @@ public class ImmutableCarDataBinderTest {
 			map.put("color", "black");
 			map.put("year", 1776);
 			map.put("stickerPrice", 21579);
-			map.put("internalHardDriveSize", "252.50000001g");
+			map.put("internalHardDriveSize", "252.121g");
 			map.put("zeroToSixtyTime", "4.7s");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
@@ -42,12 +42,15 @@ public class ImmutableCarDataBinderTest {
 			if (result.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
-			Formatter<Number> formatter = new BytesFormatter(false);
+			Formatter<Number> withDigits = new BytesFormatter(true);
+			Formatter<Number> noDigits = new BytesFormatter(false);
 			ImmutableCar car = builder.build();
 			logger.info("car.manufacturer=[{}]", car.getManufacturer());
 			logger.info("car.color=[{}]", car.getColor());
 			logger.info("car.stickerPrice=[{}]", car.getStickerPrice());
-			logger.info("car.internalHardDriveSize=[{}]", formatter.print(car.getInternalHardDriveSize(), null));
+			logger.info("car.internalHardDriveSize.raw=[{}]", car.getInternalHardDriveSize());
+			logger.info("car.internalHardDriveSize.withDigits=[{}]", withDigits.print(car.getInternalHardDriveSize(), null));
+			logger.info("car.internalHardDriveSize.noDigits[{}]", noDigits.print(car.getInternalHardDriveSize(), null));
 			logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTime());
 		} catch (Exception e) {
 			e.printStackTrace();
