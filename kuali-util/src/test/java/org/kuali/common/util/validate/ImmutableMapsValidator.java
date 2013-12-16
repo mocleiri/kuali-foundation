@@ -21,7 +21,7 @@ public class ImmutableMapsValidator extends AbstractFieldsValidator implements C
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// This field doesn't implement the Map interface, nothing to do
-		if (!MapUtils.isMap(field.getClass())) {
+		if (!MapUtils.isMap(field.getType())) {
 			return Optional.absent();
 		}
 

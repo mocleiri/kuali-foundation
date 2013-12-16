@@ -21,7 +21,7 @@ public class ImmutableCollectionsValidator extends AbstractFieldsValidator imple
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// This field doesn't implement the Collection interface, nothing to do
-		if (!CollectionUtils.isCollection(field.getClass())) {
+		if (!CollectionUtils.isCollection(field.getType())) {
 			return Optional.absent();
 		}
 
