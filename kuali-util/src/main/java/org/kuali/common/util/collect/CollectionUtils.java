@@ -23,9 +23,13 @@ public class CollectionUtils {
 	public static Collection<String> getBlanks(Collection<?> collection) {
 		Collection<String> blanks = new ArrayList<String>();
 		for (Object element : collection) {
-			if (NullUtils.isBlank(element)) {
-				CharSequence charSequence = (CharSequence) element;
-				blanks.add(charSequence.toString());
+			if (NullUtils.isNullOrBlank(element)) {
+				if (element == null) {
+					blanks.add(null);
+				} else {
+					CharSequence charSequence = (CharSequence) element;
+					blanks.add(charSequence.toString());
+				}
 			}
 		}
 		return blanks;

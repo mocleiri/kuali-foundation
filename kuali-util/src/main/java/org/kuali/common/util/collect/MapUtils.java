@@ -1,9 +1,9 @@
 package org.kuali.common.util.collect;
 
-import static org.kuali.common.util.nullify.NullUtils.isBlank;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
@@ -21,6 +21,9 @@ public class MapUtils {
 		return ImmutableMap.class.isAssignableFrom(type);
 	}
 
+	/**
+	 * Returns a map containing any entries from <code>map</code> where the key or value are <code>null</code> or a pure whitespace <code>CharSequence</code>
+	 */
 	public static Map<?, ?> getBlankEntries(Map<?, ?> map) {
 		Preconditions.checkNotNull(map, "'map' cannot be null");
 		Map<Object, Object> entries = new HashMap<Object, Object>();
@@ -32,8 +35,11 @@ public class MapUtils {
 		return entries;
 	}
 
+	/**
+	 * Return true if either the key or value are <code>null</code> or a pure whitespace <code>CharSequence</code>
+	 */
 	public static boolean containsBlank(Map.Entry<?, ?> entry) {
-		return isBlank(entry.getKey()) || isBlank(entry.getValue());
+		return NullUtils.isBlank(entry.getKey()) || NullUtils.isBlank(entry.getValue());
 	}
 
 }
