@@ -12,7 +12,7 @@ public final class TimeFormatter implements Formatter<Number> {
 	public Number parse(String time, Locale locale) throws ParseException {
 		try {
 			Long millis = FormatUtils.getMillis(time);
-			if (millis <= Integer.MAX_VALUE) {
+			if (millis >= Integer.MIN_VALUE && millis <= Integer.MAX_VALUE) {
 				return millis.intValue();
 			} else {
 				return millis;
