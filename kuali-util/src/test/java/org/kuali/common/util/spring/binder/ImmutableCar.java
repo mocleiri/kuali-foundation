@@ -3,6 +3,7 @@ package org.kuali.common.util.spring.binder;
 import javax.validation.constraints.Min;
 
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.builder.AbstractBuilder;
 
 public class ImmutableCar {
 
@@ -33,7 +34,7 @@ public class ImmutableCar {
 		return new Builder();
 	}
 
-	public static class Builder {
+	public static class Builder extends AbstractBuilder<ImmutableCar> {
 
 		private int year = 1967;
 		private String make = "Chevrolet";
@@ -44,7 +45,8 @@ public class ImmutableCar {
 		@TimeFormat
 		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("7.9s");
 
-		public ImmutableCar build() {
+		@Override
+		public ImmutableCar getInstance() {
 			return new ImmutableCar(this);
 		}
 

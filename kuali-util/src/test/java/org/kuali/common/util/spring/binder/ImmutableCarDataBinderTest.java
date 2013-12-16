@@ -37,7 +37,6 @@ public class ImmutableCarDataBinderTest {
 			DataBinder binder = new DataBinder(builder);
 			binder.setConversionService(service);
 			binder.bind(pvs);
-			System.out.println(binder.getConversionService().getClass().getCanonicalName());
 			BindingResult result = binder.getBindingResult();
 			if (result.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
