@@ -30,7 +30,7 @@ public class ImmutableCarDataBinderTest {
 			map.put("internalHardDriveSize", "252.50000001g");
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
-			DefaultFormattingConversionService service = new DefaultFormattingConversionService(false);
+			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
 			service.addFormatterForFieldAnnotation(new BytesFormatAnnotationFormatterFactory());
 			DataBinder binder = new DataBinder(builder);
 			binder.setConversionService(service);
