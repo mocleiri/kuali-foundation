@@ -62,13 +62,11 @@ public class ImmutableCar {
 
 	public static class Builder {
 
-		private static final long ONE_GB = 1024 * 1024 * 1024;
-
 		private String manufacturer;
 		private String color;
 		private double stickerPrice = 0;
 		@BytesFormat(printDecimalDigits = false)
-		private long internalHardDriveSize = ONE_GB * 50;
+		private long internalHardDriveSize = 0;
 		@TimeFormat(parseToInteger = true)
 		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("11.8s"); // 11.8 seconds
 		private int year;
