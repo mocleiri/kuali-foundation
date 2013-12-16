@@ -9,7 +9,7 @@ import org.springframework.format.Printer;
 
 import com.google.common.collect.ImmutableSet;
 
-public final class BytesFormatAnnotationFormatterFactory implements AnnotationFormatterFactory<BytesFormat> {
+public final class TimeFormatAnnotationFormatterFactory implements AnnotationFormatterFactory<TimeFormat> {
 
 	private static final Class<?>[] FIELD_TYPES_ARRAY = { Short.class, Integer.class, Long.class };
 	private static final Set<Class<?>> FIELD_TYPES = ImmutableSet.copyOf(FIELD_TYPES_ARRAY);
@@ -20,16 +20,16 @@ public final class BytesFormatAnnotationFormatterFactory implements AnnotationFo
 	}
 
 	@Override
-	public Printer<Number> getPrinter(BytesFormat annotation, Class<?> fieldType) {
+	public Printer<Number> getPrinter(TimeFormat annotation, Class<?> fieldType) {
 		return configureFormatterFrom(annotation, fieldType);
 	}
 
 	@Override
-	public Parser<Number> getParser(BytesFormat annotation, Class<?> fieldType) {
+	public Parser<Number> getParser(TimeFormat annotation, Class<?> fieldType) {
 		return configureFormatterFrom(annotation, fieldType);
 	}
 
-	private Formatter<Number> configureFormatterFrom(BytesFormat annotation, Class<?> fieldType) {
-		return new BytesFormatter(annotation.printDecimalDigits());
+	private Formatter<Number> configureFormatterFrom(TimeFormat annotation, Class<?> fieldType) {
+		return new BytesFormatter(annotation.parseToInteger());
 	}
 }
