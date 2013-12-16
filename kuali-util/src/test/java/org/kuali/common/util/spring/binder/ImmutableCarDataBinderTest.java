@@ -23,7 +23,7 @@ public class ImmutableCarDataBinderTest {
 		try {
 			ImmutableCar.Builder builder = ImmutableCar.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("year", 2001);
+			map.put("year", 1776);
 			map.put("make", "Ford");
 			map.put("model", "Expedition");
 			map.put("price", 21579);

@@ -29,7 +29,9 @@ public class ValidationUtils {
 			if (i++ != 0) {
 				sb.append(", ");
 			}
-			sb.append("[" + violation.getMessage() + "]");
+			String name = violation.getRootBeanClass().getSimpleName();
+			String propertyPath = violation.getPropertyPath() + "";
+			sb.append("[" + name + "." + propertyPath + " " + violation.getMessage() + "]");
 		}
 		throw new IllegalArgumentException(sb.toString());
 	}
