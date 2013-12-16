@@ -8,27 +8,14 @@ import org.springframework.format.Formatter;
 
 public final class TimeFormatter implements Formatter<Number> {
 
-	public TimeFormatter() {
-		this(false);
-	}
-
-	public TimeFormatter(boolean parseToInteger) {
-		this.parseToInteger = parseToInteger;
-	}
-
-	public boolean isPrintDecimalDigits() {
-		return parseToInteger;
-	}
-
-	private final boolean parseToInteger;
-
 	@Override
 	public Number parse(String time, Locale locale) throws ParseException {
 		try {
-			if (parseToInteger) {
-				return FormatUtils.getMillisAsInt(time);
+			Long millis = FormatUtils.getMillis(time);
+			if (millis <= Integer.MAX_VALUE) {
+				return millis.intValue();
 			} else {
-				return FormatUtils.getMillis(time);
+				return millis;
 			}
 		} catch (Exception e) {
 			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);

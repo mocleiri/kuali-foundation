@@ -30,6 +30,6 @@ public final class TimeFormatAnnotationFormatterFactory implements AnnotationFor
 	}
 
 	private Formatter<Number> configureFormatterFrom(TimeFormat annotation, Class<?> fieldType) {
-		return new TimeFormatter(annotation.parseToInteger());
+		return new TimeFormatter();
 	}
 }

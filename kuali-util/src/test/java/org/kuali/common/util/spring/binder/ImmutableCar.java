@@ -12,13 +12,13 @@ public class ImmutableCar {
 	private final String model;
 
 	@Min(0)
-	private final double price; // No negative sticker prices!
+	private final double price; // No negative prices!
 
 	@Min(0)
 	private final long internalHardDriveSize; // Negative hard drive size makes no sense
 
 	@Min(0)
-	private final int zeroToSixtyTime; // No negative zero to sixty times
+	private final int zeroToSixtyTime; // Negative zero to sixty time makes no sense
 
 	private ImmutableCar(Builder builder) {
 		this.year = builder.year;
@@ -41,8 +41,8 @@ public class ImmutableCar {
 		private double price = 30900;
 		@BytesFormat
 		private long internalHardDriveSize;
-		@TimeFormat(parseToInteger = true)
-		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("7.9");
+		@TimeFormat
+		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("7.9s");
 
 		public ImmutableCar build() {
 			return new ImmutableCar(this);
