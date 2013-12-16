@@ -6,7 +6,7 @@ public final class Numbers {
 	}
 
 	/**
-	 * Return the smallest Number is is safe to return. Returns a Byte, Short, Integer, or Long.
+	 * Return the smallest Number it is safe to return. Returns a Byte, Short, Integer, or Long.
 	 */
 	public static Number narrow(long number) {
 		if (isByte(number)) {
