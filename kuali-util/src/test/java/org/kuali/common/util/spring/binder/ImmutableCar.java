@@ -40,7 +40,7 @@ public class ImmutableCar {
 		private String model = "Camaro SS";
 		private double price = 30900;
 		@BytesFormat
-		private long internalHardDriveSize;
+		private long internalHardDriveSize = 0;
 		@TimeFormat
 		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("7.9s");
 
