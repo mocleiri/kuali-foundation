@@ -2,7 +2,13 @@ package org.kuali.common.util.spring.binder;
 
 import javax.validation.constraints.Min;
 
+import org.kuali.common.util.FormatUtils;
+
 public class ImmutableCar {
+
+	public int getZeroToSixtyTime() {
+		return zeroToSixtyTime;
+	}
 
 	public long getInternalHardDriveSize() {
 		return internalHardDriveSize;
@@ -38,12 +44,16 @@ public class ImmutableCar {
 	@Min(0)
 	private final long internalHardDriveSize;
 
+	@Min(0)
+	private final int zeroToSixtyTime;
+
 	private ImmutableCar(Builder builder) {
 		this.manufacturer = builder.manufacturer;
 		this.color = builder.color;
 		this.stickerPrice = builder.stickerPrice;
 		this.year = builder.year;
 		this.internalHardDriveSize = builder.internalHardDriveSize;
+		this.zeroToSixtyTime = builder.zeroToSixtyTime;
 	}
 
 	public static Builder builder() {
@@ -52,13 +62,22 @@ public class ImmutableCar {
 
 	public static class Builder {
 
-		private static final long FIFTY_GIGABYTES = 1024 * 1024 * 1024 * 50;
+		public int getZeroToSixtyTime() {
+			return zeroToSixtyTime;
+		}
+
+		public void setZeroToSixtyTime(int zeroToSixtyTime) {
+			this.zeroToSixtyTime = zeroToSixtyTime;
+		}
+
+		private static final long ONE_GB = 1024 * 1024 * 1024;
 
 		private String manufacturer;
 		private String color;
-		private double stickerPrice;
+		private double stickerPrice = 0;
 		@BytesFormat(printDecimalDigits = false)
-		private long internalHardDriveSize = FIFTY_GIGABYTES;
+		private long internalHardDriveSize = ONE_GB * 50;
+		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("11.8s"); // 11.8 seconds
 		private int year;
 
 		public long getInternalHardDriveSize() {
@@ -99,6 +118,11 @@ public class ImmutableCar {
 
 		public void setYear(int year) {
 			this.year = year;
+		}
+
+		public Builder withZeroToSixtyTime(int zeroToSixtyTime) {
+			this.zeroToSixtyTime = zeroToSixtyTime;
+			return this;
 		}
 
 		public Builder withInternalHardDriveSize(long internalHardDriveSize) {
