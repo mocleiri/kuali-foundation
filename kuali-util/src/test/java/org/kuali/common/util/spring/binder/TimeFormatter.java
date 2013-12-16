@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import org.kuali.common.util.FormatUtils;
+import org.kuali.common.util.primitives.Numbers;
 import org.springframework.format.Formatter;
 
 public final class TimeFormatter implements Formatter<Number> {
@@ -11,12 +12,7 @@ public final class TimeFormatter implements Formatter<Number> {
 	@Override
 	public Number parse(String time, Locale locale) throws ParseException {
 		try {
-			Long millis = FormatUtils.getMillis(time);
-			if (millis >= Integer.MIN_VALUE && millis <= Integer.MAX_VALUE) {
-				return millis.intValue();
-			} else {
-				return millis;
-			}
+			return Numbers.downcast(FormatUtils.getMillis(time));
 		} catch (Exception e) {
 			throw new ParseException("Unexpected parse error: [" + e.getMessage() + "]", -1);
 		}
