@@ -151,7 +151,12 @@ public class FormatUtils {
 	 * </pre>
 	 */
 	public static int getMillisAsInt(String time) {
-		return new Long(getMillis(time)).intValue();
+		Long millis = getMillis(time);
+		if (millis <= Integer.MAX_VALUE) {
+			return millis.intValue();
+		} else {
+			throw new IllegalArgumentException("[" + millis + "] is to large to convert to an integer");
+		}
 	}
 
 	public static long getMillis(String time, List<String> tokens, List<Long> multipliers) {
