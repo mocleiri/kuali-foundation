@@ -62,14 +62,6 @@ public class ImmutableCar {
 
 	public static class Builder {
 
-		public int getZeroToSixtyTime() {
-			return zeroToSixtyTime;
-		}
-
-		public void setZeroToSixtyTime(int zeroToSixtyTime) {
-			this.zeroToSixtyTime = zeroToSixtyTime;
-		}
-
 		private static final long ONE_GB = 1024 * 1024 * 1024;
 
 		private String manufacturer;
@@ -77,8 +69,47 @@ public class ImmutableCar {
 		private double stickerPrice = 0;
 		@BytesFormat(printDecimalDigits = false)
 		private long internalHardDriveSize = ONE_GB * 50;
+		@TimeFormat(parseToInteger = true)
 		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("11.8s"); // 11.8 seconds
 		private int year;
+
+		public Builder withZeroToSixtyTime(int zeroToSixtyTime) {
+			this.zeroToSixtyTime = zeroToSixtyTime;
+			return this;
+		}
+
+		public Builder withInternalHardDriveSize(long internalHardDriveSize) {
+			this.internalHardDriveSize = internalHardDriveSize;
+			return this;
+		}
+
+		public Builder withManufacturer(String manufacturer) {
+			this.manufacturer = manufacturer;
+			return this;
+		}
+
+		public Builder withColor(String color) {
+			this.color = color;
+			return this;
+		}
+
+		public Builder withStickerPrice(double stickerPrice) {
+			this.stickerPrice = stickerPrice;
+			return this;
+		}
+
+		public Builder withYear(int year) {
+			this.year = year;
+			return this;
+		}
+
+		public int getZeroToSixtyTime() {
+			return zeroToSixtyTime;
+		}
+
+		public void setZeroToSixtyTime(int zeroToSixtyTime) {
+			this.zeroToSixtyTime = zeroToSixtyTime;
+		}
 
 		public long getInternalHardDriveSize() {
 			return internalHardDriveSize;
@@ -118,36 +149,6 @@ public class ImmutableCar {
 
 		public void setYear(int year) {
 			this.year = year;
-		}
-
-		public Builder withZeroToSixtyTime(int zeroToSixtyTime) {
-			this.zeroToSixtyTime = zeroToSixtyTime;
-			return this;
-		}
-
-		public Builder withInternalHardDriveSize(long internalHardDriveSize) {
-			this.internalHardDriveSize = internalHardDriveSize;
-			return this;
-		}
-
-		public Builder withManufacturer(String manufacturer) {
-			this.manufacturer = manufacturer;
-			return this;
-		}
-
-		public Builder withColor(String color) {
-			this.color = color;
-			return this;
-		}
-
-		public Builder withStickerPrice(double stickerPrice) {
-			this.stickerPrice = stickerPrice;
-			return this;
-		}
-
-		public Builder withYear(int year) {
-			this.year = year;
-			return this;
 		}
 
 		public ImmutableCar build() {
