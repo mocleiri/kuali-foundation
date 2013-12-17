@@ -5,7 +5,7 @@ import javax.validation.constraints.Min;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.builder.AbstractBuilder;
 
-public class Car {
+public final class Car {
 
 	@Min(1886)
 	private final int year; // Very first car was built in 1886
