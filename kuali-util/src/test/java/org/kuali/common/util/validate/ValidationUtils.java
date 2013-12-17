@@ -27,13 +27,18 @@ public class ValidationUtils {
 		if (violations.size() == 0) {
 			return;
 		}
+		List<String> errorMessages = getErrorMessages(violations);
+		String errorMessage = CollectionUtils.asCSV(errorMessages);
+		throw new IllegalArgumentException(errorMessage);
+	}
+
+	public static <T> List<String> getErrorMessages(Set<ConstraintViolation<T>> violations) {
 		List<String> errorMessages = new ArrayList<String>();
 		for (ConstraintViolation<T> violation : violations) {
 			String errorMessage = getErrorMessage(violation);
 			errorMessages.add(errorMessage);
 		}
-		String errorMessage = CollectionUtils.asCSV(errorMessages);
-		throw new IllegalArgumentException(errorMessage);
+		return errorMessages;
 	}
 
 	public static <T> String getErrorMessage(ConstraintViolation<T> violation) {
