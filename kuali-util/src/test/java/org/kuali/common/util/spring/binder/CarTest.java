@@ -48,10 +48,10 @@ public class CarTest {
 			logger.info("car.make=[{}]", car.getMake());
 			logger.info("car.model=[{}]", car.getModel());
 			logger.info("car.price=[{}]", car.getPrice());
-			logger.info("car.internalHardDriveSize.raw=[{}]", car.getInternalHardDriveSize());
-			logger.info("car.internalHardDriveSize.withDigits=[{}]", withDigits.print(car.getInternalHardDriveSize(), null));
-			logger.info("car.internalHardDriveSize.sansDigits=[{}]", sansDigits.print(car.getInternalHardDriveSize(), null));
-			logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTime());
+			logger.info("car.internalHardDriveSize.raw=[{}]", car.getInternalHardDriveSizeInBytes());
+			logger.info("car.internalHardDriveSize.withDigits=[{}]", withDigits.print(car.getInternalHardDriveSizeInBytes(), null));
+			logger.info("car.internalHardDriveSize.sansDigits=[{}]", sansDigits.print(car.getInternalHardDriveSizeInBytes(), null));
+			logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTimeInMillis());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
