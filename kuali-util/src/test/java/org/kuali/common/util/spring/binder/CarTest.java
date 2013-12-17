@@ -15,6 +15,7 @@ import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 public class CarTest {
 
@@ -25,13 +26,13 @@ public class CarTest {
 		try {
 			Car.Builder builder = Car.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("year", 1901);
+			map.put("year", 1886);
 			map.put("make", "Ford");
 			map.put("model", "Expedition");
 			map.put("price", 21579);
 			map.put("internalHardDriveSizeInBytes", "252.5g");
 			map.put("zeroToSixtyTimeInMillis", "4.7s");
-			Validator validator = new GlobalValidator(ValidationUtils.getDefaultValidator());
+			Validator validator = new SpringValidatorAdapter(ValidationUtils.getDefaultValidator());
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
@@ -43,12 +44,12 @@ public class CarTest {
 			binder.bind(pvs);
 			Errors bindErrors = binder.getBindingResult();
 			if (bindErrors.hasErrors()) {
-				throw new IllegalStateException(getErrorMessage(bindErrors.getAllErrors()));
+				throw new IllegalStateException(getErrorMessage("binding", bindErrors.getAllErrors()));
 			}
 			binder.validate();
 			Errors validationErrors = binder.getBindingResult();
 			if (validationErrors.hasErrors()) {
-				throw new IllegalStateException(getErrorMessage(validationErrors.getAllErrors()));
+				throw new IllegalStateException(getErrorMessage("validation", validationErrors.getAllErrors()));
 			}
 			// doCar(builder);
 		} catch (Exception e) {
@@ -70,12 +71,12 @@ public class CarTest {
 		logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTimeInMillis());
 	}
 
-	protected String getErrorMessage(List<ObjectError> errors) {
+	protected String getErrorMessage(String type, List<ObjectError> errors) {
 		StringBuilder sb = new StringBuilder();
 		if (errors.size() == 1) {
-			sb.append("Unexpected binding error:\n\n");
+			sb.append("Unexpected " + type + " error:\n\n");
 		} else {
-			sb.append("Unexpected binding error(s):\n\n");
+			sb.append("Unexpected " + type + " error(s):\n\n");
 		}
 		for (int i = 0; i < errors.size(); i++) {
 			if (i != 0) {
