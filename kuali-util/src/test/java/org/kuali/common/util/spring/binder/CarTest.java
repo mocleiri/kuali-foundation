@@ -14,14 +14,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
 
-public class ImmutableCarDataBinderTest {
+public class CarTest {
 
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
 	public void test() {
 		try {
-			ImmutableCar.Builder builder = ImmutableCar.builder();
+			Car.Builder builder = Car.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("year", 1776);
 			map.put("make", "Ford");
@@ -43,7 +43,7 @@ public class ImmutableCarDataBinderTest {
 			}
 			Formatter<Number> withDigits = new BytesFormatter(true);
 			Formatter<Number> sansDigits = new BytesFormatter(false);
-			ImmutableCar car = builder.build();
+			Car car = builder.build();
 			logger.info("car.year=[{}]", car.getYear());
 			logger.info("car.make=[{}]", car.getMake());
 			logger.info("car.model=[{}]", car.getModel());
