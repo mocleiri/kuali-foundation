@@ -34,6 +34,16 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return Optional.fromNullable(instanceClass.getAnnotation(annotationClass));
 	}
 
+	public static List<Class<?>> getTypeHierarchy(Class<?> type) {
+		List<Class<?>> hierarchy = new ArrayList<Class<?>>();
+		Class<?> declaringClass = type.getDeclaringClass();
+		if (declaringClass != null) {
+			hierarchy.addAll(getTypeHierarchy(declaringClass));
+		}
+		hierarchy.add(type);
+		return hierarchy;
+	}
+
 	/**
 	 * Unconditionally attempt to get the value of this field on this bean. If the field is not accessible make it accessible, get the value, then revert the field back to being
 	 * inaccessible.

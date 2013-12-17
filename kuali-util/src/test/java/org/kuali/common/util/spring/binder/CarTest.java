@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.validate.ValidationUtils;
 import org.slf4j.Logger;
@@ -46,12 +47,12 @@ public class CarTest {
 			binder.bind(pvs);
 			Errors bindErrors = binder.getBindingResult();
 			if (bindErrors.hasErrors()) {
-				throw new IllegalStateException(getErrorMessage("binding", binder));
+				throw new IllegalStateException(getErrorMessage("Binding", binder));
 			}
 			binder.validate();
 			Errors validationErrors = binder.getBindingResult();
 			if (validationErrors.hasErrors()) {
-				throw new IllegalStateException(getErrorMessage("validation", binder));
+				throw new IllegalStateException(getErrorMessage("Validation", binder));
 			}
 			// doCar(builder);
 		} catch (Exception e) {
@@ -80,23 +81,28 @@ public class CarTest {
 		List<ObjectError> globalErrors = errors.getGlobalErrors();
 		StringBuilder sb = new StringBuilder();
 		if (errors.getErrorCount() == 1) {
-			sb.append("Unexpected " + type + " error:\n\n");
+			sb.append(type + " error:\n\n");
 		} else {
-			sb.append("Unexpected " + type + " error(s):\n\n");
+			sb.append(type + " error(s):\n\n");
+		}
+		List<Class<?>> hiearchy = ReflectionUtils.getTypeHierarchy(binder.getTarget().getClass());
+		StringBuilder h = new StringBuilder();
+		for (Class<?> element : hiearchy) {
+			h.append(element.getSimpleName());
+			h.append(".");
 		}
 		for (FieldError fieldError : fieldErrors) {
-			String objectName = binder.getTarget().getClass().getCanonicalName();
-			String field = fieldError.getField();
+			String propertyPath = h.toString() + fieldError.getField();
 			String message = fieldError.getDefaultMessage();
 			Object rejectedValue = fieldError.getRejectedValue();
-			String errorMessage = "[" + objectName + "." + field + "] " + message + " Rejected value [" + rejectedValue + "]";
-			sb.append(errorMessage);
+			String errorMessage = "[" + propertyPath + "] " + message + " - [" + rejectedValue + "] is invalid";
+			sb.append(errorMessage + "\n");
 		}
 		for (ObjectError objectError : globalErrors) {
-			String objectName = objectError.getObjectName();
+			String objectName = binder.getTarget().getClass().getCanonicalName();
 			String message = objectError.getDefaultMessage();
 			String errorMessage = "[" + objectName + "] " + message;
-			sb.append(errorMessage);
+			sb.append(errorMessage + "\n");
 		}
 		sb.append("\n");
 		return sb.toString();
