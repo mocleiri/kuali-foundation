@@ -10,14 +10,13 @@ import org.springframework.validation.Validator;
 
 public class GlobalValidator implements Validator {
 
+	private static final Class<?>[] EMPTY = {};
 	private final javax.validation.Validator validator;
 
 	public GlobalValidator(javax.validation.Validator validator) {
 		Assert.notNull(validator);
 		this.validator = validator;
 	}
-
-	private Class<?>[] EMPTY = {};
 
 	@Override
 	public boolean supports(Class<?> clazz) {
