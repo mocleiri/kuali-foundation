@@ -16,18 +16,18 @@ public final class Car {
 	private final double price; // No negative prices!
 
 	@Min(0)
-	private final long internalHardDriveSize; // Negative hard drive size makes no sense
+	private final long internalHardDriveSizeInBytes; // Negative hard drive size makes no sense
 
 	@Min(0)
-	private final int zeroToSixtyTime; // Negative zero to sixty time makes no sense
+	private final int zeroToSixtyTimeInMillis; // Negative zero to sixty time makes no sense
 
 	private Car(Builder builder) {
 		this.year = builder.year;
 		this.make = builder.make;
 		this.model = builder.model;
 		this.price = builder.price;
-		this.internalHardDriveSize = builder.internalHardDriveSize;
-		this.zeroToSixtyTime = builder.zeroToSixtyTime;
+		this.internalHardDriveSizeInBytes = builder.internalHardDriveSizeInBytes;
+		this.zeroToSixtyTimeInMillis = builder.zeroToSixtyTimeInMillis;
 	}
 
 	public static Builder builder() {
@@ -41,9 +41,9 @@ public final class Car {
 		private String model = "Camaro SS";
 		private double price = 30900;
 		@BytesFormat
-		private long internalHardDriveSize = 0;
+		private long internalHardDriveSizeInBytes = 0;
 		@TimeFormat
-		private int zeroToSixtyTime = FormatUtils.getMillisAsInt("7.9s");
+		private int zeroToSixtyTimeInMillis = FormatUtils.getMillisAsInt("7.9s");
 
 		@Override
 		public Car getInstance() {
@@ -70,13 +70,13 @@ public final class Car {
 			return this;
 		}
 
-		public Builder withInternalHardDriveSize(long internalHardDriveSize) {
-			this.internalHardDriveSize = internalHardDriveSize;
+		public Builder withInternalHardDriveSizeInBytes(long internalHardDriveSizeInBytes) {
+			this.internalHardDriveSizeInBytes = internalHardDriveSizeInBytes;
 			return this;
 		}
 
-		public Builder withZeroToSixtyTime(int zeroToSixtyTime) {
-			this.zeroToSixtyTime = zeroToSixtyTime;
+		public Builder withZeroToSixtyTimeInMillis(int zeroToSixtyTimeInMillis) {
+			this.zeroToSixtyTimeInMillis = zeroToSixtyTimeInMillis;
 			return this;
 		}
 
@@ -112,21 +112,22 @@ public final class Car {
 			this.price = stickerPrice;
 		}
 
-		public long getInternalHardDriveSize() {
-			return internalHardDriveSize;
+		public long getInternalHardDriveSizeInBytes() {
+			return internalHardDriveSizeInBytes;
 		}
 
-		public void setInternalHardDriveSize(long internalHardDriveSize) {
-			this.internalHardDriveSize = internalHardDriveSize;
+		public void setInternalHardDriveSizeInBytes(long internalHardDriveSizeInBytes) {
+			this.internalHardDriveSizeInBytes = internalHardDriveSizeInBytes;
 		}
 
-		public int getZeroToSixtyTime() {
-			return zeroToSixtyTime;
+		public int getZeroToSixtyTimeInMillis() {
+			return zeroToSixtyTimeInMillis;
 		}
 
-		public void setZeroToSixtyTime(int zeroToSixtyTime) {
-			this.zeroToSixtyTime = zeroToSixtyTime;
+		public void setZeroToSixtyTimeInMillis(int zeroToSixtyTimeInMillis) {
+			this.zeroToSixtyTimeInMillis = zeroToSixtyTimeInMillis;
 		}
+
 	}
 
 	public int getYear() {
@@ -145,12 +146,12 @@ public final class Car {
 		return price;
 	}
 
-	public long getInternalHardDriveSize() {
-		return internalHardDriveSize;
+	public long getInternalHardDriveSizeInBytes() {
+		return internalHardDriveSizeInBytes;
 	}
 
-	public int getZeroToSixtyTime() {
-		return zeroToSixtyTime;
+	public int getZeroToSixtyTimeInMillis() {
+		return zeroToSixtyTimeInMillis;
 	}
 
 }
