@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.format.Formatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
@@ -25,12 +25,12 @@ public class CarTest {
 		try {
 			Car.Builder builder = Car.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("year", 1776);
-			map.put("make", " ");
+			map.put("year", 1901);
+			map.put("make", "Ford");
 			map.put("model", "Expedition");
 			map.put("price", 21579);
-			map.put("internalHardDriveSize", "252.5g");
-			map.put("zeroToSixtyTime", "4.7s");
+			map.put("internalHardDriveSizeInBytes", "252.5g");
+			map.put("zeroToSixtyTimeInMillis", "4.7s");
 			Validator validator = new GlobalValidator(ValidationUtils.getDefaultValidator());
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
@@ -41,10 +41,14 @@ public class CarTest {
 			binder.setConversionService(service);
 			binder.setValidator(validator);
 			binder.bind(pvs);
+			Errors bindErrors = binder.getBindingResult();
+			if (bindErrors.hasErrors()) {
+				throw new IllegalStateException(getErrorMessage(bindErrors.getAllErrors()));
+			}
 			binder.validate();
-			BindingResult result = binder.getBindingResult();
-			if (result.hasErrors()) {
-				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
+			Errors validationErrors = binder.getBindingResult();
+			if (validationErrors.hasErrors()) {
+				throw new IllegalStateException(getErrorMessage(validationErrors.getAllErrors()));
 			}
 			// doCar(builder);
 		} catch (Exception e) {
