@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.validate.ValidationUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.format.Formatter;
@@ -13,6 +14,7 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
 
 public class CarTest {
 
@@ -29,6 +31,7 @@ public class CarTest {
 			map.put("price", 21579);
 			map.put("internalHardDriveSize", "252.5g");
 			map.put("zeroToSixtyTime", "4.7s");
+			Validator validator = new GlobalValidator(ValidationUtils.getDefaultValidator());
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
@@ -36,6 +39,7 @@ public class CarTest {
 			service.addFormatterForFieldAnnotation(new TimeFormatAnnotationFormatterFactory());
 			DataBinder binder = new DataBinder(builder);
 			binder.setConversionService(service);
+			binder.setValidator(validator);
 			binder.bind(pvs);
 			BindingResult result = binder.getBindingResult();
 			if (result.hasErrors()) {
