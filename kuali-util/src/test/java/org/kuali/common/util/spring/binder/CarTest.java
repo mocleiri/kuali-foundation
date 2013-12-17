@@ -41,24 +41,29 @@ public class CarTest {
 			binder.setConversionService(service);
 			binder.setValidator(validator);
 			binder.bind(pvs);
+			binder.validate();
 			BindingResult result = binder.getBindingResult();
 			if (result.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage(result.getAllErrors()));
 			}
-			Formatter<Number> withDigits = new BytesFormatter(true);
-			Formatter<Number> sansDigits = new BytesFormatter(false);
-			Car car = builder.build();
-			logger.info("car.year=[{}]", car.getYear());
-			logger.info("car.make=[{}]", car.getMake());
-			logger.info("car.model=[{}]", car.getModel());
-			logger.info("car.price=[{}]", car.getPrice());
-			logger.info("car.internalHardDriveSize.raw=[{}]", car.getInternalHardDriveSizeInBytes());
-			logger.info("car.internalHardDriveSize.withDigits=[{}]", withDigits.print(car.getInternalHardDriveSizeInBytes(), null));
-			logger.info("car.internalHardDriveSize.sansDigits=[{}]", sansDigits.print(car.getInternalHardDriveSizeInBytes(), null));
-			logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTimeInMillis());
+			// doCar(builder);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void doCar(Car.Builder builder) {
+		Formatter<Number> withDigits = new BytesFormatter(true);
+		Formatter<Number> sansDigits = new BytesFormatter(false);
+		Car car = builder.build();
+		logger.info("car.year=[{}]", car.getYear());
+		logger.info("car.make=[{}]", car.getMake());
+		logger.info("car.model=[{}]", car.getModel());
+		logger.info("car.price=[{}]", car.getPrice());
+		logger.info("car.internalHardDriveSize.raw=[{}]", car.getInternalHardDriveSizeInBytes());
+		logger.info("car.internalHardDriveSize.withDigits=[{}]", withDigits.print(car.getInternalHardDriveSizeInBytes(), null));
+		logger.info("car.internalHardDriveSize.sansDigits=[{}]", sansDigits.print(car.getInternalHardDriveSizeInBytes(), null));
+		logger.info("car.zeroToSixtyTime=[{}]", car.getZeroToSixtyTimeInMillis());
 	}
 
 	protected String getErrorMessage(List<ObjectError> errors) {
