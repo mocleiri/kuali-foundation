@@ -1,18 +1,18 @@
 <!--
 
-    Copyright 2004-2013 The Kuali Foundation
+  Copyright 2004-2013 The Kuali Foundation
 
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  Licensed under the Educational Community License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.opensource.org/licenses/ecl2.php
+  http://www.opensource.org/licenses/ecl2.php
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -506,14 +506,12 @@
             <groupByLicense>true</groupByLicense>
             <deployMissingFile>false</deployMissingFile>
             <licenseMerges>
-              <licenseMerge>Apache Software License - Version 2.0|Apache License V2.0|Apache Public License 2.0|Apache License 2.0|ASF 2.0|Apache License Version 2.0|Apache
-                2|Apache 2.0|Apache License|Apache License Version 2.0|Apache License, Version 2.0|The Apache Software License, Version 2.0|Apache 2.0 License|Apache Software
-                License 2.0|provided without support or warranty</licenseMerge>
+              <licenseMerge>Apache Software License - Version 2.0|Apache License V2.0|Apache Public License 2.0|Apache License 2.0|ASF 2.0|Apache License Version 2.0|Apache 2|Apache 2.0|Apache License|Apache License Version 2.0|Apache License, Version 2.0|The Apache Software License, Version 2.0|Apache 2.0 License|Apache Software License 2.0|provided without support or warranty</licenseMerge>
               <licenseMerge>BSD License|BSD|BSD style|BSD-style License|The BSD License|BSD-style license</licenseMerge>
               <licenseMerge>Common Public License - Version 1.0|CPL|Common Public License Version 1.0</licenseMerge>
               <licenseMerge>Eclipse Public License - Version 1.0|Eclipse Public License - v 1.0|Eclipse Public License v1.0|Eclipse Public License, Version 1.0</licenseMerge>
-              <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|Common Development and Distribution License
-                (CDDL) v1.0</licenseMerge>
+              <licenseMerge>CDDL - Version 1.0|CDDL|CDDL 1.0|CDDL License|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
+              <licenseMerge>CDDL - Version 1.1|CDDL 1.1</licenseMerge>
               <licenseMerge>CDDL - Version 1.1 / GNU General Public License - Version 2|CDDL v1.1 / GPL v2 dual license|CDDL + GPLv2 with classpath exception</licenseMerge>
               <licenseMerge>Educational Community License - Version 2.0|Educational Community License, Version 2.0</licenseMerge>
               <licenseMerge>GNU Lesser General Public License|GNU LESSER GENERAL PUBLIC LICENSE|lgpl|license.txt|GNU General Public Library|GNU Lesser General Public Licence|LGPL</licenseMerge>
