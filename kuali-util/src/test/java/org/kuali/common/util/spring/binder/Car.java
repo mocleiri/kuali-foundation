@@ -4,6 +4,8 @@ import javax.validation.constraints.Min;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.builder.AbstractBuilder;
+import org.kuali.common.util.validate.NoBlanks;
+import org.kuali.common.util.validate.NoNulls;
 
 public final class Car {
 
@@ -34,8 +36,11 @@ public final class Car {
 		return new Builder();
 	}
 
+	@NoNulls
+	@NoBlanks
 	public static class Builder extends AbstractBuilder<Car> {
 
+		@Min(1886)
 		private int year = 1967;
 		private String make = "Chevrolet";
 		private String model = "Camaro SS";
