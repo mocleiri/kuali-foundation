@@ -44,9 +44,11 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 			return true;
 		}
 
-		// Get field details
-		FieldDetail instanceDetail = getFieldDetail(instance.getClass(), includeInheritedFields);
+		// Get field details for the declaring class
 		FieldDetail declaringClassDetail = getFieldDetail(declaringClass, includeInheritedFields);
+
+		// Get field details for the instance class
+		FieldDetail instanceDetail = getFieldDetail(instance.getClass(), includeInheritedFields);
 
 		// Make sure the field names are unique for both
 		List<String> duplicateErrors = checkForDuplicatedFieldNames(instanceDetail, declaringClassDetail);
@@ -55,15 +57,15 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 			return false;
 		}
 
-		// Make sure the instance contains (at a minimum) every field from the declaring class
-		// It can have more fields, but must always contain at least the fields from the declaring class
+		// Make sure every field from the declaring class exists in the instance class
+		// The instance class can have additional fields, but must always contain at least the field from the declaring class
 		List<String> missingErrors = checkForMissingFields(declaringClassDetail, instanceDetail);
 		if (missingErrors.size() > 0) {
 			handleErrors(constraintContext, missingErrors);
 			return false;
 		}
 
-		// Make sure all of the fields use the exact same runtime type
+		// Make sure all of the common fields use the exact same runtime type
 		List<String> typeErrors = checkForMatchingTypes(declaringClassDetail, instanceDetail);
 		if (typeErrors.size() > 0) {
 			handleErrors(constraintContext, typeErrors);
