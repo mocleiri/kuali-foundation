@@ -43,7 +43,7 @@ public class LoggerUtils {
 	 * </p>
 	 * 
 	 * <pre>
-	 * private static final Logger logger = LoggerFactory.make();
+	 * private static final Logger logger = LoggerUtils.make();
 	 * </pre>
 	 */
 	public static Logger make() {
