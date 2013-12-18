@@ -8,13 +8,13 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
-public final class FieldInfo {
+public final class FieldDetail {
 
 	private final Class<?> type;
 	private final Set<Field> set;
 	private final Map<String, Field> map;
 
-	private FieldInfo(Builder builder) {
+	private FieldDetail(Builder builder) {
 		this.type = builder.type;
 		this.set = builder.set;
 		this.map = builder.map;
@@ -24,7 +24,7 @@ public final class FieldInfo {
 		return new Builder(type);
 	}
 
-	public static class Builder implements org.kuali.common.util.builder.Builder<FieldInfo> {
+	public static class Builder implements org.kuali.common.util.builder.Builder<FieldDetail> {
 
 		private final Class<?> type;
 		private Set<Field> set = ImmutableSet.of();
@@ -45,15 +45,15 @@ public final class FieldInfo {
 		}
 
 		@Override
-		public FieldInfo build() {
+		public FieldDetail build() {
 			this.set = ImmutableSet.copyOf(set);
 			this.map = ImmutableMap.copyOf(map);
-			FieldInfo instance = new FieldInfo(this);
+			FieldDetail instance = new FieldDetail(this);
 			validate(instance);
 			return instance;
 		}
 
-		private void validate(FieldInfo instance) {
+		private void validate(FieldDetail instance) {
 			Preconditions.checkNotNull(instance.type, "type cannot be null");
 			Preconditions.checkNotNull(instance.set, "set cannot be null");
 			Preconditions.checkNotNull(instance.map, "map cannot be null");

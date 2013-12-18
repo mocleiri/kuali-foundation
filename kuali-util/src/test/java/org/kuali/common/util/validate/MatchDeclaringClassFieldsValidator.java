@@ -34,34 +34,36 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 			return true;
 		}
 
-		// Examine field info
-		FieldInfo result1 = getFieldInfo(instance.getClass(), includeInheritedFields);
-		FieldInfo result2 = getFieldInfo(declaringClass, includeInheritedFields);
-		if (!checkUniqueness(constraintContext, result1, result2)) {
+		// Get field details
+		FieldDetail instanceDetail = getFieldInfo(instance.getClass(), includeInheritedFields);
+		FieldDetail declaringClassDetail = getFieldInfo(declaringClass, includeInheritedFields);
+
+		// Make sure the field names are unique for both
+		if (!checkUniqueness(constraintContext, instanceDetail, declaringClassDetail)) {
 			return false;
 		}
 
 		return true;
 	}
 
-	protected FieldInfo getFieldInfo(Class<?> type, boolean includeInheritedFields) {
+	protected FieldDetail getFieldInfo(Class<?> type, boolean includeInheritedFields) {
 		Set<Field> set = ReflectionUtils.getFields(type, includeInheritedFields);
 		Map<String, Field> map = ReflectionUtils.getNameMap(set);
-		return FieldInfo.builder(type).withSet(set).withMap(map).build();
+		return FieldDetail.builder(type).withSet(set).withMap(map).build();
 	}
 
-	protected boolean checkUniqueness(ConstraintValidatorContext constraintContext, FieldInfo... results) {
-		boolean ok = true;
-		for (FieldInfo result : results) {
-			Set<Field> set = result.getSet();
-			Map<String, Field> map = result.getMap();
+	protected boolean checkUniqueness(ConstraintValidatorContext constraintContext, FieldDetail... details) {
+		boolean unique = true;
+		for (FieldDetail detail : details) {
+			Set<Field> set = detail.getSet();
+			Map<String, Field> map = detail.getMap();
 			if (set.size() != map.size()) {
-				String error = "[" + ReflectionUtils.getDeclarationPath(result.getType()) + "] field names are not unique";
+				String error = "[" + ReflectionUtils.getDeclarationPath(detail.getType()) + "] field names are not unique";
 				constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
-				ok = false;
+				unique = false;
 			}
 		}
-		return ok;
+		return unique;
 	}
 
 }
