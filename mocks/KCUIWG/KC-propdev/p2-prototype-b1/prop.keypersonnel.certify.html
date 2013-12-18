@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="ie9 ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en-us">
+<!--<![endif]-->
+<head>
+<title>Kuali Coeus Prototype 2b</title>
+
+<!-- Meta cluster -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<!--  Styles -->
+<link href="themes/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="themes/kc/js/fancybox/jquery.fancybox.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/smoothness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/jquery.multiselect.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/jquery.multiselect.filter.css" rel="stylesheet" media="screen" />
+<link href="themes/kc/css/custom.css" rel="stylesheet" />
+<link href="themes/kc/icons/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="themes/kc/js/datatables/DT_bootstrap.css">
+<link href="themes/kc/js/hopscotch/css/hopscotch-0.1.1.css" rel="stylesheet" type="text/css" media="screen" />
+
+<!-- Scripts, ideally we'd load these in the footer and not use in-line scripting -->
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!--[if lt IE 9]><script src="bootstrap/js/html5shiv.js"></script><![endif]-->
+
+<script type="text/javascript" charset="utf-8" language="javascript" src="themes/kc/js/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" language="javascript" src="themes/kc/js/datatables/DT_bootstrap.js"></script>
+
+<!-- Google Charts -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</head>
+
+<body>
+<div class="skip-links">
+  <ul>
+    <li><a href="#Uif-PageContentWrapper">Skip to main content</a></li>
+  </ul>
+</div>
+
+<!-- Continues with nav.php --><script>
+/*set stored session value for drop downs
+  Tadas Paegle
+*/
+$(document).ready(function(){
+    $('#activity_type').val( "1" );
+    $('#lead_unit').val( "IN-CARD" );
+    $('#proposal_type').val( "" );
+});
+</script>
+<section id="main" style="padding-top:20px">
+  <div class="container"><div id="navbar" class="navbar" style="background:white; border:none">
+    <div class="container" style="background:; padding:0px;">
+      <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar"> <span class="icon-reorder"></span> </button>
+      <header class="viewHeader">
+        <div class="row">
+          <div class="col-md-6"> 
+            <!-- <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText"> Proposal: #23533 </span> <a href="#"><span aria-hidden="false" class="icon-question-sign"> <span class="icon-text">help</span></span></a> <span class="supportTitle">PI: Ken Graves</span> </h1> -->
+            <h1> <span class="areaTitle">Proposal Development</span> <span class="headerText">Certification for Ward Cleaver  </span> <span class="supportTitle">Proposal:  <em>#23533</em></span> </h1>
+          </div>
+          
+          
+          <div class="col-md-6 visible-lg visible-md">
+          <div class="metadata">
+            Doc Nbr: 2743<br>
+            Initiator: thrclark<br>
+            Status: In Progress<br>
+             S2S: grants.gov<br>
+            <div class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">more info...</a>
+              <div class="dropdown-menu">
+                <h4> Document Info</h4>
+                <table class="table table-condensed">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Doc Nbr</th>
+                      <td>2743</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Initiator</th>
+                      <td><a href="#">thrclark</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Status</th>
+                      <td>In Progress</td>
+                    </tr>
+                    
+                     <tr>
+                      <th scope="row">S2S</th>
+                      <td>grants.gov</td>
+                    </tr>
+                    <tr>
+                    </tr><tr>
+                      <th scope="row">PI</th>
+                      <td>Ken Graves</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Created</th>
+                      <td>04:27pm 07/09/2013</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Updated</th>
+                      <td>12:22pm 07/12/2013</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Proposal Nbr</th>
+                      <td>#23533</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Sponsor Name</th>
+                      <td>NIH</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="doc-functions" style="
+    padding-left: 20px;
+">
+        <ul>
+        
+          <li><i class="icon icon-print"></i> <a class="launch-modal" data-modal-page="modal/print.php" href="#">Print</a></li>
+          
+         <li><i class="icon icon-question-sign"></i> <a href="#">Help</a></li>
+        </ul>
+      </div>
+        </div>
+      </header>
+    </div>
+  </div></div>
+  <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
+    <div class="container" style=" padding-bottom:60px">
+      <div id="" class="">
+       
+      
+        <!--<div class="alert alert-required">
+            <p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
+        </div>-->
+        
+     
+   
+                <div class="question-set">
+                    <fieldset class="question" style="border-top-width:3px">
+                        <div class="question-title">
+                            <legend class="off-screen">Can you certify that the information here is all true, complete, and accurate to the best of your knowlege?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>Can you certify that the information submitted within this application is true, complete and accurate to the best of your knowledge? That any false, fictitious, or fraudulent statements or claims may subject you, as the PI/Co-PI/Co-I to criminal, civil or administrative penalties? That you agree to accept responsibility for the scientific conduct of the project and to provide the required progress reports if an award is made as a result of this application.</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_1a" name="q_1_a" value="1" class="radio-choice"> <label for="q_1_1a">Yes, all of the information here is correct, accurate, and true to the best of my knowledge.</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_1b" name="q_1_a" value="0" class="radio-choice"> <label for="q_1_1b">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="question-set">
+                    <fieldset class="question">
+                        <div class="question-title">
+                            <legend class="off-screen">Is there any potential for a perceived or real conflict of interest as defined in MIT's Policies and Procedures with regard to this proposal?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>Is there any potential for a perceived or real conflict of interest as defined in MIT's Policies and Procedures with regard to this proposal?</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_2a" name="q_2_a" value="1" class="radio-choice"> <label for="q_1_2a">Yes</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_2b" name="q_2_a" value="0" class="radio-choice"> <label for="q_1_2b">No, there is not potential for perceived or real conflict of interest.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="question-set">
+                    <fieldset class="question">
+                        <div class="question-title">
+                            <legend class="off-screen">If this is a NIH/NSF proposal, have you submitted the required financial disclosures in the web based Coeus Conflict of Interest module?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>If this is a NIH/NSF proposal, have you submitted the required financial disclosures in the web based Coeus Conflict of Interest module?</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_3a" name="q_3_a" value="1" class="radio-choice"> <label for="q_1_3a">Yes, I have submitted the required financial disclosures.</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_3b" name="q_3_a" value="0" class="radio-choice"> <label for="q_1_3b">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="question-set">
+                    <fieldset class="question">
+                        <div class="question-title">
+                            <legend class="off-screen">Have lobbying activities been conducted on behalf of this proposal?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>Have lobbying activities been conducted on behalf of this proposal?</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_4a" name="q_4_a" value="1" class="radio-choice"> <label for="q_1_4a">Yes</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_4b" name="q_4_a" value="0" class="radio-choice"> <label for="q_1_4b">No, lobbying activities have not been conducted.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="question-set">
+                    <fieldset class="question">
+                        <div class="question-title">
+                            <legend class="off-screen">Are you currently debarred, suspended, proposed for debarment, declared ineligible or voluntarily excluded from current transactions by a federal department or agency?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>Are you currently debarred, suspended, proposed for debarment, declared ineligible or voluntarily excluded from current transactions by a federal department or agency?</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_5a" name="q_5_a" value="1" class="radio-choice"> <label for="q_1_5a">Yes</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_5b" name="q_5_a" value="0" class="radio-choice"> <label for="q_1_5b">No, I am eligible for all transactions.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="question-set">
+                    <fieldset class="question">
+                        <div class="question-title">
+                            <legend class="off-screen">Are you familiar with the requirements of the Procurement Liabilities Act?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>Are you familiar with the requirements of the Procurement Liabilities Act?</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_6a" name="q_6_a" value="1" class="radio-choice"> <label for="q_1_6a">Yes, I am familiar with all requirements.</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_6b" name="q_6_a" value="0" class="radio-choice"> <label for="q_1_6b">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="question-set">
+                    <fieldset class="question">
+                        <div class="question-title">
+                            <legend class="off-screen">Is this a new full application related to a submission of a preliminary application?</legend>
+                        </div>
+                        <div class="question-text">
+                            <p>Is this a new full application related to a submission of a preliminary application?</p>
+                        </div>
+                        <div class="question-response">
+                            <div class="question-reponse-choices">
+                                <div class="choice">
+                                    <input type="radio" id="q_1_7a" name="q_7_a" value="1" class="radio-choice"> <label for="q_1_7a">Yes.</label>
+                                </div>
+                                <div class="choice">
+                                    <input type="radio" id="q_1_7b" name="q_7_a" value="0" class="radio-choice"> <label for="q_1_7b">No, this new application is not related to another preliminary application.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                
+      
+            
+            
+            
+            
+            
+            
+            
+            
+        <div class="uif-stickyFooter uif-stickyButtonFooter">
+          <div class="btn-row-page-action">
+            <button class="btn btn btn-primary">Certify Answers</button>
+            
+            <button href="asdf" class="btn btn-link">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer> 
+  
+  <!--<div class="container">
+
+		<div class="footer">
+			<div class="foundation col_md_6">
+				&copy; 2013
+				<a href="#" target="_blank">Kuali Foundation</a>
+			</div>
+			<div class="credit col_md_6">
+				<span>site built with KRAD</span>
+			</div>
+		</div>
+
+	</div>--> 
+  
+</footer>
+
+<!-- Scripts --> 
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.0.3.min.js"><\/script>')</script> 
+
+<!-- Bootstrap --> 
+<script src="themes/bootstrap/js/bootstrap.min.js"></script> 
+<script src="themes/bootstrap/js/modal.js"></script> 
+<script src="themes/kc/js/fancybox/jquery.fancybox.js"></script> 
+<script src="themes/kc/js/jquery.nicescroll.js"></script> 
+<script src="themes/kc/js/jquery.cookie.js"></script> 
+<script src="themes/kc/js/leftnav.js"></script> 
+
+<!-- jQuery UI 1.9.2 --> 
+<script src="themes/kc/js/jquery-ui-1.9.2.custom.min.js"></script> 
+<script src="themes/kc/js/jquery.multiselect.min.js"></script> 
+<script src="themes/kc/js/jquery.multiselect.filter.min.js"></script> 
+<script src="themes/kc/js/jquery.maskedinput.min.js"></script> 
+<script src="themes/kc/js/hopscotch/js/hopscotch-0.1.2.js"></script> 
+<script src="themes/kc/js/hopscotch/js/prop.basics.details.js"></script> 
+
+<!-- Our custom functions, goes at the end --> 
+<script src="themes/kc/js/functions.js"></script>
+</body>
+</html>
