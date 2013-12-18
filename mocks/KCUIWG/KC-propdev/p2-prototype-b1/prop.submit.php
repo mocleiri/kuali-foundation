@@ -23,7 +23,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
               <div class="pull-right"> <a href="#" class="btn btn-default">Save</a> <a href="#" class="btn btn-default">Reload</a> <a href="#" class="btn btn-default">Close</a> <a href="#" class="btn btn-default">Cancel</a> <a href="#" class="btn btn-default">Delete Proposal</a> </div>
             </div>
           </div>
-          <span><a href="#">Send Notifications</a></span> </div>
+          <span><a href="#">Send Notifications</a> | <a href="#">View Route Log</a></span> </div>
         
         <!-- // --> 
         
