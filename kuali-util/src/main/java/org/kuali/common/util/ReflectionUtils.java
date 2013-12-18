@@ -19,6 +19,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +156,17 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 			fields.addAll(set);
 		}
 		return ImmutableSet.copyOf(fields);
+	}
+
+	/**
+	 * Return true if the fields in this set can be uniquely represented by field name alone
+	 */
+	public static boolean hasUniqueFieldNames(Set<Field> fields) {
+		Map<String, Field> map = new HashMap<String, Field>();
+		for (Field field : fields) {
+			map.put(field.getName(), field);
+		}
+		return map.size() == fields.size();
 	}
 
 	@SuppressWarnings("unchecked")

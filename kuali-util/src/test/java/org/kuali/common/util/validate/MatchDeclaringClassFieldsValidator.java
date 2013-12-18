@@ -25,9 +25,19 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 		if (declaringClass == null) {
 			return true;
 		}
-		Set<Field> fields = ReflectionUtils.getAllFields(instance.getClass());
-		Set<Field> declaringClassFields = ReflectionUtils.getAllFields(declaringClass);
-		return false;
+		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
+		if (!ReflectionUtils.hasUniqueFieldNames(fields)) {
+			String error = "field names are not unique";
+			constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+			return false;
+		}
+		Set<Field> declaringClassFields = ReflectionUtils.getFields(declaringClass, includeInheritedFields);
+		if (!ReflectionUtils.hasUniqueFieldNames(declaringClassFields)) {
+			String error = "field names are not unique";
+			constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+			return false;
+		}
+		return true;
 	}
 
 }

@@ -18,17 +18,20 @@ package org.kuali.common.util.reflection;
 import java.lang.reflect.Field;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
 public class ReflectionUtilsTest {
 
-	private static final Logger logger = org.kuali.common.util.log.LoggerUtils.make();
+	private static final Logger logger = LoggerUtils.make();
 
 	@Test
 	public void test() {
 		Set<Field> fields = ReflectionUtils.getAllFields(B.class);
 		logger.info("fields.size()={}", fields.size());
+		Assert.assertEquals(2, fields.size());
 	}
 }
