@@ -1,6 +1,7 @@
 package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintValidator;
@@ -33,26 +34,34 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 			return true;
 		}
 
-		// There might not be a declaring class
-		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
-		if (!verifyFields(fields, instance.getClass(), constraintContext)) {
+		// Examine field info
+		FieldInfo result1 = getFieldInfo(instance.getClass(), includeInheritedFields);
+		FieldInfo result2 = getFieldInfo(declaringClass, includeInheritedFields);
+		if (!checkUniqueness(constraintContext, result1, result2)) {
 			return false;
 		}
-		Set<Field> declaringClassFields = ReflectionUtils.getFields(declaringClass, includeInheritedFields);
-		if (!verifyFields(declaringClassFields, declaringClass, constraintContext)) {
-			return false;
-		}
+
 		return true;
 	}
 
-	protected boolean verifyFields(Set<Field> fields, Class<?> type, ConstraintValidatorContext constraintContext) {
-		if (ReflectionUtils.hasUniqueFieldNames(fields)) {
-			return true;
-		} else {
-			String error = "[" + ReflectionUtils.getDeclarationPath(type) + "] field names are not unique";
-			constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
-			return false;
+	protected FieldInfo getFieldInfo(Class<?> type, boolean includeInheritedFields) {
+		Set<Field> set = ReflectionUtils.getFields(type, includeInheritedFields);
+		Map<String, Field> map = ReflectionUtils.getNameMap(set);
+		return FieldInfo.builder(type).withSet(set).withMap(map).build();
+	}
+
+	protected boolean checkUniqueness(ConstraintValidatorContext constraintContext, FieldInfo... results) {
+		boolean ok = true;
+		for (FieldInfo result : results) {
+			Set<Field> set = result.getSet();
+			Map<String, Field> map = result.getMap();
+			if (set.size() != map.size()) {
+				String error = "[" + ReflectionUtils.getDeclarationPath(result.getType()) + "] field names are not unique";
+				constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+				ok = false;
+			}
 		}
+		return ok;
 	}
 
 }
