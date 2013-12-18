@@ -13,29 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util;
+package org.kuali.common.util.reflection;
 
 import java.lang.reflect.Field;
 import java.util.Set;
 
 import org.junit.Test;
+import org.kuali.common.util.ReflectionUtils;
 import org.slf4j.Logger;
 
 public class ReflectionUtilsTest {
 
 	private static final Logger logger = org.kuali.common.util.log.LoggerUtils.make();
 
-	public static class A {
-		int foo;
-	}
-
-	public static class B extends A {
-		int foo;
-	}
-
 	@Test
 	public void test() {
-		Set<Field> fields = ReflectionUtils.getFields(ReflectionUtilsTest.B.class, true);
+		Set<Field> fields = ReflectionUtils.getAllFields(B.class);
 		logger.info("fields.size()={}", fields.size());
 	}
 }

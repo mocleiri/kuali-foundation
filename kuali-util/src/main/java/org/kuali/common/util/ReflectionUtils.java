@@ -151,7 +151,8 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	public static Set<Field> getAllFields(Class<?> type) {
 		Set<Field> fields = new HashSet<Field>();
 		for (Class<?> c = type; c != null; c = c.getSuperclass()) {
-			fields.addAll(getFields(type));
+			Set<Field> set = getFields(c);
+			fields.addAll(set);
 		}
 		return ImmutableSet.copyOf(fields);
 	}
