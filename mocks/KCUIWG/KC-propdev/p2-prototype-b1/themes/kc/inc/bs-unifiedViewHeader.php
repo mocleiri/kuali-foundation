@@ -73,7 +73,7 @@
           <li><i class="icon icon-tasks"></i> <a href="#">Medusa</a></li>
           <li><i class="icon icon-list-ol"></i> <a href="#">Hierarchy</a></li>
           <li><i class="icon icon-lock"></i> <a class="launch-modal" data-modal-page="modal/access.php" href="#">Access</a></li>
-          <!--<li><i class="icon icon-question-sign"></i> <a href="#">Help</a></li>-->
+          <li><i class="icon icon-eye-open"></i> <a class="launch-modal" data-modal-page="modal/summary.php" href="#">Summary</a></li>
         </ul>
       </div>
     </header>
