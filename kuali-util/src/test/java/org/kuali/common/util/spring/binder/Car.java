@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.builder.AbstractBuilder;
+import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 
@@ -31,6 +32,7 @@ public final class Car {
 
 	@NoNulls
 	@NoBlanks
+	@MatchDeclaringClassFields
 	public static class Builder extends AbstractBuilder<Car> {
 
 		// Very first car was built in 1886

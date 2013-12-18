@@ -18,8 +18,6 @@ public @interface MatchDeclaringClassFields {
 
 	String message() default "fields must match";
 
-	Class<?> value();
-
 	Class<?>[] groups() default {};
 
 	boolean skip() default false;
