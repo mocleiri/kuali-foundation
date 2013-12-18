@@ -38,7 +38,7 @@ public final class Car {
 		// Very first car was built in 1886
 		@Min(1886)
 		private int year = 1967;
-		//private String make = "Chevrolet";
+		private String make = "Chevrolet";
 		private String model = "Camaro SS";
 
 		// No negative prices
@@ -65,10 +65,10 @@ public final class Car {
 			return this;
 		}
 
-		//public Builder withMake(String make) {
-	//		this.make = make;
-		//	return this;
-		//}
+		public Builder withMake(String make) {
+			this.make = make;
+			return this;
+		}
 
 		public Builder withModel(String model) {
 			this.model = model;
@@ -98,13 +98,13 @@ public final class Car {
 			this.year = year;
 		}
 
-		//public String getMake() {
-		//	return make;
-		//}
+		public String getMake() {
+			return make;
+		}
 
-		//public void setMake(String make) {
-		//	this.make = make;
-		//}
+		public void setMake(String make) {
+			this.make = make;
+		}
 
 		public String getModel() {
 			return model;
