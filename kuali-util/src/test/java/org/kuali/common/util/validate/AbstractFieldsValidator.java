@@ -53,8 +53,8 @@ public abstract class AbstractFieldsValidator {
 	}
 
 	protected String getErrorMessage(Field field, String suffix) {
-		String className = field.getDeclaringClass().getSimpleName();
-		return "[" + className + "." + field.getName() + "] " + suffix;
+		String classDeclarationPath = ReflectionUtils.getDeclarationPath(field.getDeclaringClass());
+		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
 	protected abstract Optional<String> validate(Field field, Object instance);

@@ -10,6 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.ReflectionUtils;
 
 public class ValidationUtils {
 
@@ -42,9 +43,9 @@ public class ValidationUtils {
 	}
 
 	public static <T> String getErrorMessage(ConstraintViolation<T> violation) {
-		String name = violation.getRootBeanClass().getSimpleName();
+		String classDeclarationPath = ReflectionUtils.getDeclarationPath(violation.getRootBeanClass());
 		String property = violation.getPropertyPath() + "";
-		return "[" + name + "." + property + " " + violation.getMessage() + "]";
+		return "[" + classDeclarationPath + "." + property + " " + violation.getMessage() + "]";
 	}
 
 }

@@ -34,14 +34,23 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		return Optional.fromNullable(instanceClass.getAnnotation(annotationClass));
 	}
 
-	public static List<Class<?>> getTypeHierarchy(Class<?> type) {
+	public static List<Class<?>> getDeclarationHierarchy(Class<?> type) {
 		List<Class<?>> hierarchy = new ArrayList<Class<?>>();
 		Class<?> declaringClass = type.getDeclaringClass();
 		if (declaringClass != null) {
-			hierarchy.addAll(getTypeHierarchy(declaringClass));
+			hierarchy.addAll(getDeclarationHierarchy(declaringClass));
 		}
 		hierarchy.add(type);
 		return hierarchy;
+	}
+
+	public static String getDeclarationPath(Class<?> type) {
+		List<Class<?>> hierarchy = getDeclarationHierarchy(type);
+		List<String> names = new ArrayList<String>();
+		for (Class<?> element : hierarchy) {
+			names.add(element.getSimpleName());
+		}
+		return CollectionUtils.getStringWithSeparator(names, ".");
 	}
 
 	/**

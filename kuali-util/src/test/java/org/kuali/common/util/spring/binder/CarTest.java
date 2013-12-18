@@ -30,7 +30,7 @@ public class CarTest {
 			Car.Builder builder = Car.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("year", 1885);
-			map.put("make", "Ford");
+			map.put("make", null);
 			map.put("model", "Expedition");
 			map.put("price", 21579);
 			map.put("internalHardDriveSizeInBytes", "252.5g");
@@ -85,26 +85,19 @@ public class CarTest {
 		} else {
 			sb.append(type + " error(s):\n\n");
 		}
-		List<Class<?>> hiearchy = ReflectionUtils.getTypeHierarchy(binder.getTarget().getClass());
-		StringBuilder h = new StringBuilder();
-		for (Class<?> element : hiearchy) {
-			h.append(element.getSimpleName());
-			h.append(".");
-		}
+		String classDeclarationPath = ReflectionUtils.getDeclarationPath(binder.getTarget().getClass());
 		for (FieldError fieldError : fieldErrors) {
-			String propertyPath = h.toString() + fieldError.getField();
+			String propertyPath = classDeclarationPath + "." + fieldError.getField();
 			String message = fieldError.getDefaultMessage();
 			Object rejectedValue = fieldError.getRejectedValue();
 			String errorMessage = "[" + propertyPath + "] " + message + " - [" + rejectedValue + "] is invalid";
 			sb.append(errorMessage + "\n");
 		}
-		for (ObjectError objectError : globalErrors) {
-			String objectName = binder.getTarget().getClass().getCanonicalName();
-			String message = objectError.getDefaultMessage();
-			String errorMessage = "[" + objectName + "] " + message;
+		for (ObjectError globalError : globalErrors) {
+			String message = globalError.getDefaultMessage();
+			String errorMessage = "[" + classDeclarationPath + "] " + message;
 			sb.append(errorMessage + "\n");
 		}
-		sb.append("\n");
 		return sb.toString();
 	}
 }
