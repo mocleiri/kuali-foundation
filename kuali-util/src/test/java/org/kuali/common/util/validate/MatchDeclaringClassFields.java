@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Constraint(validatedBy = MatchDeclaringClassFieldsValidator.class)
 @Documented
-public @interface MatchingFields {
+public @interface MatchDeclaringClassFields {
 
 	String message() default "fields must match";
 

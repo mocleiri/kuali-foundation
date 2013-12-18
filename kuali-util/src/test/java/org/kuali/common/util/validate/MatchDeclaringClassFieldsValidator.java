@@ -19,13 +19,13 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 
-public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<MatchingFields, Object> {
+public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<MatchDeclaringClassFields, Object> {
 
 	boolean skip = false;
 	boolean includeInheritedFields = true;
 
 	@Override
-	public void initialize(MatchingFields constraintAnnotation) {
+	public void initialize(MatchDeclaringClassFields constraintAnnotation) {
 		this.skip = constraintAnnotation.skip();
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}
