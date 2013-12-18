@@ -12,12 +12,14 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.constraints.Size;
 
 import org.kuali.common.util.Ports;
 
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = PortValidator.class)
+@Size(min = Ports.MIN, max = Ports.MAX)
 @Documented
 public @interface Port {
 
