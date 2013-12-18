@@ -21,6 +21,11 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 
 	@Override
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
+
+		if (skip) {
+			return true;
+		}
+
 		Class<?> declaringClass = instance.getClass().getDeclaringClass();
 		if (declaringClass == null) {
 			return true;
