@@ -9,19 +9,12 @@ import org.kuali.common.util.validate.NoNulls;
 
 public final class Car {
 
-	@Min(1886)
-	private final int year; // Very first car was built in 1886
+	private final int year;
 	private final String make;
 	private final String model;
-
-	@Min(0)
-	private final double price; // No negative prices!
-
-	@Min(0)
-	private final long internalHardDriveSizeInBytes; // Negative hard drive size makes no sense
-
-	@Min(0)
-	private final int zeroToSixtyTimeInMillis; // Negative zero to sixty time makes no sense
+	private final double price;
+	private final long internalHardDriveSizeInBytes;
+	private final int zeroToSixtyTimeInMillis;
 
 	private Car(Builder builder) {
 		this.year = builder.year;
@@ -40,13 +33,23 @@ public final class Car {
 	@NoBlanks
 	public static class Builder extends AbstractBuilder<Car> {
 
+		// Very first car was built in 1886
 		@Min(1886)
 		private int year = 1967;
 		private String make = "Chevrolet";
 		private String model = "Camaro SS";
+
+		// No negative prices!
+		@Min(0)
 		private double price = 30900;
+
+		// No negative sizes
+		@Min(0)
 		@BytesFormat
 		private long internalHardDriveSizeInBytes = 0;
+
+		// No negative times
+		@Min(0)
 		@TimeFormat
 		private int zeroToSixtyTimeInMillis = FormatUtils.getMillisAsInt("7.9s");
 
