@@ -140,6 +140,14 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		}
 	}
 
+	public static Map<String, Field> getNameMap(Set<Field> fields) {
+		Map<String, Field> map = new HashMap<String, Field>();
+		for (Field field : fields) {
+			map.put(field.getName(), field);
+		}
+		return map;
+	}
+
 	/**
 	 * <p>
 	 * Recursively examine the type hierarchy and extract every field encountered anywhere in the hierarchy into an immutable set

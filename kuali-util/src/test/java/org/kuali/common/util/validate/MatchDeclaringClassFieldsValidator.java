@@ -22,27 +22,37 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 	@Override
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
 
+		// Explicit skip was requested
 		if (skip) {
 			return true;
 		}
 
+		// There might not be a declaring class
 		Class<?> declaringClass = instance.getClass().getDeclaringClass();
 		if (declaringClass == null) {
 			return true;
 		}
+
+		// There might not be a declaring class
 		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
-		if (!ReflectionUtils.hasUniqueFieldNames(fields)) {
-			String error = "field names are not unique";
-			constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+		if (!verifyFields(fields, instance.getClass(), constraintContext)) {
 			return false;
 		}
 		Set<Field> declaringClassFields = ReflectionUtils.getFields(declaringClass, includeInheritedFields);
-		if (!ReflectionUtils.hasUniqueFieldNames(declaringClassFields)) {
-			String error = "field names are not unique";
-			constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+		if (!verifyFields(declaringClassFields, declaringClass, constraintContext)) {
 			return false;
 		}
 		return true;
+	}
+
+	protected boolean verifyFields(Set<Field> fields, Class<?> type, ConstraintValidatorContext constraintContext) {
+		if (ReflectionUtils.hasUniqueFieldNames(fields)) {
+			return true;
+		} else {
+			String error = "[" + ReflectionUtils.getDeclarationPath(type) + "] field names are not unique";
+			constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+			return false;
+		}
 	}
 
 }
