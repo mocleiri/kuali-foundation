@@ -107,7 +107,7 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 		for (String missingField : difference) {
 			String declaringClassPath = ReflectionUtils.getDeclarationPath(declaringClass.getType());
 			String instancePath = ReflectionUtils.getDeclarationPath(instance.getType());
-			String error = "[" + declaringClassPath + "] contains field [" + missingField + "], but [" + instancePath + "] does not";
+			String error = "Missing field: The type [" + declaringClassPath + "] contains field [" + missingField + "], but [" + instancePath + "] does not";
 			errors.add(error);
 		}
 		return ImmutableList.copyOf(errors);
@@ -132,7 +132,7 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 		List<String> errors = new ArrayList<String>();
 		for (String duplicate : duplicates) {
 			String path = ReflectionUtils.getDeclarationPath(type);
-			String error = "In [" + path + "] the field [" + duplicate + "]  appears more than once in the type hierarchy";
+			String error = "Duplicate field declaration: In type [" + path + "] the field [" + duplicate + "] appears more than once in the type hierarchy";
 			errors.add(error);
 		}
 		return errors;
