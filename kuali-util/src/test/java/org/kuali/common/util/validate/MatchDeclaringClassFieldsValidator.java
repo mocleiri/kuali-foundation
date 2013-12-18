@@ -62,7 +62,36 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 			handleErrors(constraintContext, missingErrors);
 			return false;
 		}
+
+		// Make sure all of the fields use the exact same runtime type
+		List<String> typeErrors = checkForMatchingTypes(declaringClassDetail, instanceDetail);
+		if (typeErrors.size() > 0) {
+			handleErrors(constraintContext, typeErrors);
+			return false;
+		}
 		return true;
+	}
+
+	protected List<String> checkForMatchingTypes(FieldDetail main, FieldDetail other) {
+		Map<String, Field> mainFields = main.getMap();
+		Map<String, Field> otherFields = other.getMap();
+
+		List<String> errors = Lists.newArrayList();
+		for (String fieldName : mainFields.keySet()) {
+			Field mainField = mainFields.get(fieldName);
+			Field otherField = otherFields.get(fieldName);
+			Class<?> mainType = mainField.getType();
+			Class<?> otherType = otherField.getType();
+			if (mainType != otherType) {
+				String mainPath = ReflectionUtils.getDeclarationPath(mainType) + "." + fieldName;
+				String otherPath = ReflectionUtils.getDeclarationPath(otherType) + "." + fieldName;
+				String mainTypeName = mainType.getSimpleName();
+				String otherTypeName = otherType.getSimpleName();
+				String error = "Type mismatch [" + mainPath + "] is type [" + mainTypeName + "] but [" + otherPath + "] is type [" + otherTypeName + "]";
+				errors.add(error);
+			}
+		}
+		return ImmutableList.copyOf(errors);
 	}
 
 	protected List<String> checkForMissingFields(FieldDetail declaringClass, FieldDetail instance) {
