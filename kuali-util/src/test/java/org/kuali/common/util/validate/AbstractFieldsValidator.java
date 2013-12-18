@@ -31,7 +31,7 @@ public abstract class AbstractFieldsValidator {
 			return true;
 		}
 		Assert.notNull(instance, "'instance' cannot be null");
-		List<Field> fields = new ArrayList<Field>(ReflectionUtils.getDeclaredFields(instance.getClass(), includeInheritedFields));
+		List<Field> fields = new ArrayList<Field>(ReflectionUtils.getFields(instance.getClass(), includeInheritedFields));
 		Collections.sort(fields, new FieldComparator());
 		Collections.reverse(fields);
 		List<String> errors = new ArrayList<String>();

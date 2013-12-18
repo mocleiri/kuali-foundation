@@ -19,17 +19,16 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.MethodInvoker;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
@@ -65,7 +64,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		// Be thread safe
 		synchronized (field) {
 
-			// Always preserve the original accessibility indicator
+			// Preserve the original accessibility indicator
 			boolean accessible = field.isAccessible();
 
 			// If it's not accessible, change it so it is
@@ -80,7 +79,6 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 				throw new IllegalStateException(e);
 			} finally {
 				// Always flip the accessible flag back to what it was before (if we need to)
-				// This must always be done, even if something goes wrong getting the value
 				if (!accessible) {
 					field.setAccessible(false);
 				}
@@ -97,7 +95,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		// Be thread safe
 		synchronized (field) {
 
-			// Always preserve the original accessibility indicator
+			// Preserve the original accessibility indicator
 			boolean accessible = field.isAccessible();
 
 			// If it's not accessible, change it so it is
@@ -112,7 +110,6 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 				throw new IllegalStateException(e);
 			} finally {
 				// Always flip the accessible flag back to what it was before (if we need to)
-				// This must always be done, even if something goes wrong setting the value
 				if (!accessible) {
 					field.setAccessible(false);
 				}
@@ -121,30 +118,42 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	}
 
 	/**
-	 * Get declared fields with the option to include inherited fields
+	 * Get fields declared directly on this type as an immutable set.
 	 */
-	public static List<Field> getDeclaredFields(Class<?> type, boolean includeInheritedFields) {
+	public static Set<Field> getFields(Class<?> type) {
+		return ImmutableSet.copyOf(type.getDeclaredFields());
+	}
+
+	/**
+	 * Get fields for a given type with the option to include all inherited fields
+	 * 
+	 * <p>
+	 * NOTE: field.getName() is not necessarily unique for the elements in the set if includeInheritedFields is true
+	 * </p>
+	 */
+	public static Set<Field> getFields(Class<?> type, boolean includeInheritedFields) {
 		if (includeInheritedFields) {
-			List<Field> fields = new ArrayList<Field>();
-			for (Class<?> c = type; c != null; c = c.getSuperclass()) {
-				fields.addAll(Arrays.asList(c.getDeclaredFields()));
-			}
-			return ImmutableList.copyOf(fields);
+			return getAllFields(type);
 		} else {
-			return ImmutableList.copyOf(type.getDeclaredFields());
+			return getFields(type);
 		}
 	}
 
 	/**
-	 * Get declared fields with the option to include inherited fields
+	 * <p>
+	 * Recursively examine the type hierarchy and extract every field encountered anywhere in the hierarchy into an immutable set
+	 * </p>
+	 * 
+	 * <p>
+	 * NOTE: field.getName() is not necessarily unique for the elements in the set
+	 * </p>
 	 */
-	public static Map<String, Field> getDeclaredFieldsAsMap(Class<?> type, boolean includeInheritedFields) {
-		List<Field> fields = getDeclaredFields(type, includeInheritedFields);
-		Map<String, Field> map = new HashMap<String, Field>();
-		for (Field field : fields) {
-			map.put(field.getName(), field);
+	public static Set<Field> getAllFields(Class<?> type) {
+		Set<Field> fields = new HashSet<Field>();
+		for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+			fields.addAll(getFields(type));
 		}
-		return ImmutableMap.copyOf(map);
+		return ImmutableSet.copyOf(fields);
 	}
 
 	@SuppressWarnings("unchecked")

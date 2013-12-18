@@ -3,6 +3,7 @@ package org.kuali.common.util.env;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.ReflectionUtils;
@@ -43,7 +44,7 @@ public final class DefaultOverrideService implements OverrideService {
 			return;
 		}
 		Optional<String> prefix = getPrefix(annotation);
-		List<Field> fields = ReflectionUtils.getDeclaredFields(instance.getClass(), annotation.includeInheritedFields());
+		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), annotation.includeInheritedFields());
 		for (Field field : fields) {
 			override(prefix, instance, field);
 		}
