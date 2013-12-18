@@ -51,11 +51,11 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		}
 
 		if (checkOptionals && isOptional(field)) {
-			// Return an error message if there is a blank value inside the optional
+			// Return an error message if there is a blank CharSequence inside the optional
 			Optional<?> optional = (Optional<?>) fieldValue.get();
 			return validateOptional(field, optional);
 		} else if (checkCollections && isCollection(field)) {
-			// Return an error message if there are blank values inside the collection
+			// Return an error message if there are blank CharSequence's inside the collection
 			Collection<?> collection = (Collection<?>) fieldValue.get();
 			return validateCollection(field, collection);
 		} else if (checkMaps && isMap(field)) {
