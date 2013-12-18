@@ -41,7 +41,7 @@ public final class Car {
 		private String make = "Chevrolet";
 		private String model = "Camaro SS";
 
-		// No negative prices!
+		// No negative prices
 		@Min(0)
 		private double price = 30900;
 
@@ -160,7 +160,7 @@ public final class Car {
 		return internalHardDriveSizeInBytes;
 	}
 
-	public int getZeroToSixtyTimeInMillis() {
+	public long getZeroToSixtyTimeInMillis() {
 		return zeroToSixtyTimeInMillis;
 	}
 

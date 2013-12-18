@@ -85,8 +85,8 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 			Class<?> mainType = mainField.getType();
 			Class<?> otherType = otherField.getType();
 			if (mainType != otherType) {
-				String mainPath = ReflectionUtils.getDeclarationPath(mainType) + "." + fieldName;
-				String otherPath = ReflectionUtils.getDeclarationPath(otherType) + "." + fieldName;
+				String mainPath = ReflectionUtils.getDeclarationPath(main.getType()) + "." + fieldName;
+				String otherPath = ReflectionUtils.getDeclarationPath(other.getType()) + "." + fieldName;
 				String mainTypeName = mainType.getSimpleName();
 				String otherTypeName = otherType.getSimpleName();
 				String error = "Type mismatch [" + mainPath + "] is type [" + mainTypeName + "] but [" + otherPath + "] is type [" + otherTypeName + "]";

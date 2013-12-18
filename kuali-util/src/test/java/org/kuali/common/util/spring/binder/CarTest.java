@@ -29,9 +29,9 @@ public class CarTest {
 		try {
 			Car.Builder builder = Car.builder();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("year", 1885);
-			map.put("make", null);
-			map.put("model", null);
+			map.put("year", 1887);
+			map.put("make", "Ford");
+			map.put("model", "Expedition");
 			map.put("price", 21579);
 			map.put("internalHardDriveSizeInBytes", "252.5g");
 			map.put("zeroToSixtyTimeInMillis", "4.7s");
