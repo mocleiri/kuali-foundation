@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.MethodInvoker;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
@@ -126,10 +129,22 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 			for (Class<?> c = type; c != null; c = c.getSuperclass()) {
 				fields.addAll(Arrays.asList(c.getDeclaredFields()));
 			}
-			return fields;
+			return ImmutableList.copyOf(fields);
 		} else {
-			return Arrays.asList(type.getDeclaredFields());
+			return ImmutableList.copyOf(type.getDeclaredFields());
 		}
+	}
+
+	/**
+	 * Get declared fields with the option to include inherited fields
+	 */
+	public static Map<String, Field> getDeclaredFieldsAsMap(Class<?> type, boolean includeInheritedFields) {
+		List<Field> fields = getDeclaredFields(type, includeInheritedFields);
+		Map<String, Field> map = new HashMap<String, Field>();
+		for (Field field : fields) {
+			map.put(field.getName(), field);
+		}
+		return ImmutableMap.copyOf(map);
 	}
 
 	@SuppressWarnings("unchecked")

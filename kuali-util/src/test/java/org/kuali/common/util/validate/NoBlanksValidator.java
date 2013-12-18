@@ -84,7 +84,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	protected Optional<String> validateMap(Field field, Map<?, ?> map) {
 		Map<?, ?> blanks = MapUtils.getBlankEntries(map);
 		if (blanks.size() > 0) {
-			return Optional.of(getErrorMessage(field, "contains " + blanks.size() + " entries with a blank key or value"));
+			return Optional.of(ValidationUtils.getErrorMessage(field, "contains " + blanks.size() + " entries with a blank key or value"));
 		} else {
 			return Optional.absent();
 		}
@@ -94,7 +94,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		// Examine the collection for blanks
 		Collection<String> blanks = CollectionUtils.getBlanks(collection);
 		if (blanks.size() > 0) {
-			return Optional.of(getErrorMessage(field, "contains " + blanks.size() + " blank elements"));
+			return Optional.of(ValidationUtils.getErrorMessage(field, "contains " + blanks.size() + " blank elements"));
 		} else {
 			return Optional.absent();
 		}
@@ -127,7 +127,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	 */
 	protected Optional<String> getOptionalErrorMessage(Field field, CharSequence charSequence) {
 		if (StringUtils.isBlank(charSequence)) {
-			return Optional.of(getErrorMessage(field, "cannot be blank"));
+			return Optional.of(ValidationUtils.getErrorMessage(field, "cannot be blank"));
 		} else {
 			return Optional.absent();
 		}

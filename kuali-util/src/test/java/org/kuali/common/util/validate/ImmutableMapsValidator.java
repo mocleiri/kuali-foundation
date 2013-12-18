@@ -41,7 +41,7 @@ public class ImmutableMapsValidator extends AbstractFieldsValidator implements C
 			return Optional.absent();
 		} else {
 			// If not, return an error message
-			return Optional.of(getErrorMessage(field, "is not an immutable map"));
+			return Optional.of(ValidationUtils.getErrorMessage(field, "is not an immutable map"));
 		}
 	}
 }

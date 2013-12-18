@@ -2,12 +2,12 @@ package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.ConstraintValidatorContext;
 
 import org.kuali.common.util.Assert;
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
@@ -31,7 +31,9 @@ public abstract class AbstractFieldsValidator {
 			return true;
 		}
 		Assert.notNull(instance, "'instance' cannot be null");
-		List<Field> fields = ReflectionUtils.getDeclaredFields(instance.getClass(), includeInheritedFields);
+		List<Field> fields = new ArrayList<Field>(ReflectionUtils.getDeclaredFields(instance.getClass(), includeInheritedFields));
+		Collections.sort(fields, new FieldComparator());
+		Collections.reverse(fields);
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
 			Optional<SkipFieldValidation> annotation = ReflectionUtils.getAnnotation(instance.getClass(), SkipFieldValidation.class);
@@ -47,14 +49,11 @@ public abstract class AbstractFieldsValidator {
 			return true;
 		} else {
 			constraintContext.disableDefaultConstraintViolation();
-			constraintContext.buildConstraintViolationWithTemplate(CollectionUtils.asCSV(errors)).addConstraintViolation();
+			for (String error : errors) {
+				constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
+			}
 			return false;
 		}
-	}
-
-	protected String getErrorMessage(Field field, String suffix) {
-		String classDeclarationPath = ReflectionUtils.getDeclarationPath(field.getDeclaringClass());
-		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
 	protected abstract Optional<String> validate(Field field, Object instance);

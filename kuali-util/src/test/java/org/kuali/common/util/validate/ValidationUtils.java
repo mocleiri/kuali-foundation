@@ -1,5 +1,6 @@
 package org.kuali.common.util.validate;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,11 @@ public class ValidationUtils {
 			instance = factory.getValidator();
 		}
 		return instance;
+	}
+
+	public static String getErrorMessage(Field field, String suffix) {
+		String classDeclarationPath = ReflectionUtils.getDeclarationPath(field.getDeclaringClass());
+		return "[" + classDeclarationPath + "." + field.getName() + "] " + suffix;
 	}
 
 	public static <T> void check(Set<ConstraintViolation<T>> violations) {
