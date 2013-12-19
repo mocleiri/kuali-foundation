@@ -6,23 +6,23 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.Collection;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import com.google.common.collect.ImmutableCollection;
+
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = ImmutableMapsValidator.class)
+@Constraint(validatedBy = {})
+@ValidRuntimeType(baseType = Collection.class, requiredRuntimeBaseType = ImmutableCollection.class)
 @Documented
-public @interface ImmutableMaps {
+public @interface ImmutableGuavaCollections {
 
-	String message() default "maps must be immutable";
+	String message() default "collections must be immutable";
 
 	Class<?>[] groups() default {};
-
-	boolean skip() default false;
-
-	boolean includeInheritedFields() default true;
 
 	Class<? extends Payload>[] payload() default {};
 

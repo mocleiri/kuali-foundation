@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.env.annotation.EnvAdapterClass;
-import org.kuali.common.util.validate.ImmutableCollections;
+import org.kuali.common.util.validate.ImmutableGuavaCollections;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 
@@ -15,7 +15,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 @NoNulls
-@ImmutableCollections
+@ImmutableGuavaCollections
 @NoBlanks
 public final class Car {
 

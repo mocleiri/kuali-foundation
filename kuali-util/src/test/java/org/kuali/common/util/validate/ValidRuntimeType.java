@@ -12,16 +12,16 @@ import javax.validation.Payload;
 
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = ImmutableMapsValidator.class)
+@Constraint(validatedBy = ValidRuntimeTypeValidator.class)
 @Documented
 public @interface ValidRuntimeType {
 
-	String message() default "fields must match";
+	String message() default "invalid runtime type";
 
 	Class<?>[] groups() default {};
-	
+
 	Class<?> baseType();
-	
+
 	Class<?> requiredRuntimeBaseType();
 
 	Class<? extends Payload>[] payload() default {};
