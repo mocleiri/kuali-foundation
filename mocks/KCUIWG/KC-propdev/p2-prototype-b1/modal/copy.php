@@ -4,32 +4,32 @@
 require_once( 'inc/head.php' );
 ?>
 
-<div class="modal-dialog">
+<div class="modal-dialog" id="main" style="padding:0px">
 	<div class="modal-content">
 		<div class="modal-header">
 			<h3 id="myModalLabel">Copy To New Document</h3>
 		</div>
-
 		<form  class="form-horizontal" method="get" action="">
-		<div class="modal-body">
-			<fieldset>
-				<legend class="off-screen">Copy document</legend>
-				<table class="table table-condensed table-borderless">
-					<tr>
-						<td><label class="control-label col-lg-2" for="proposal">Proposal</label></td>
-						<td><input type="text" id="attachments" placeholder="" class="form-control input-sm disabled" value="Yes" disabled="disabled" /></td>
-					</tr>
-					<tr>
-						<td><label class="control-label col-lg-2 required" for="budget"> Budget?</label></td>
-						<td>
+			<div class="modal-body">
+				<fieldset>
+					<legend class="off-screen">Copy document</legend>
+					<div class="form-group clearfix">
+						<label class="control-label col-sm-3 col-xs-3" for="proposal">Proposal</label>
+						<div class="col-sm-9 col-xs-9">
+							<input type="text" id="attachments" placeholder="" class="form-control input-sm disabled" value="Yes" disabled="disabled" />
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="control-label col-sm-3 col-xs-3 required" for="budget"> Budget?</label>
+						<div class="col-sm-9 col-xs-9">
 							<select name="select" id="budget" class="form-control input-sm" title="Budget" required>
 								<option value="" selected="selected">all versions</option>
 							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><label class="control-label col-lg-2 required" for="lead-unit"> * Lead Unit</label></td>
-						<td>
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="control-label col-sm-3 col-xs-3 required" for="lead-unit"> Lead Unit <span class="req">*</span></label>
+						<div class="col-sm-9 col-xs-9">
 							<select name="lead-unit" id="lead-unit" style="" class="form-control input-sm" title="* Lead Unit" required>
 								<option value="">Select</option>
 								<option value="000001">000001 - University</option>
@@ -37,28 +37,36 @@ require_once( 'inc/head.php' );
 								<option value="IN-CARD">IN-CARD - CARDIOLOGY</option>
 								<option value="IN-CARR">IN-CARR - CARDIOLOGY RECHARGE CTR</option>
 							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><label class="control-label col-lg-2" for="attachments1">Attachments</label></td>
-						<td><input type="checkbox" id="attachments1" class="checkbox pull-left" /> Yes, include attachments</td>
-					</tr>
-					<tr>
-						<td><label class="control-label col-lg-2" for="questionaires">Questionaires</label></td>
-						<td><input type="checkbox" id="questionaires" class="checkbox pull-left" /> Yes, include questionnaires</td>
-					</tr>
-				</table>
-			</fieldset>
-		</div>
-
-		<div class="modal-footer">
-			<a class="various fancybox.ajax btn btn-primary" data-fancybox-type="ajax" href="modal/copied-document.html">Copy</a>
-			<button type="button" class="btn btn-link fancy-close">Close</button>
-		</div>
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="control-label col-sm-3 col-xs-3" for="attachments1">Attachments</label>
+						<div class="col-sm-9 col-xs-9">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Yes, include attachments </label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="control-label col-sm-3 col-xs-3" for="questionaires">Questionnaires</label>
+						<div class="col-sm-9 col-xs-9">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Yes, include questionnaires </label>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="modal-footer"> <a class="various fancybox.ajax btn btn-primary" data-fancybox-type="ajax" href="modal/copied-document.html">Copy</a>
+				<button type="button" class="btn btn-link fancy-close">Close</button>
+			</div>
 		</form>
 	</div>
 </div>
-
 <?php
 
 # Includes
