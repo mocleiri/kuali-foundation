@@ -14,15 +14,15 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Constraint(validatedBy = ImmutableMapsValidator.class)
 @Documented
-public @interface IsAssignableFrom {
+public @interface ValidRuntimeType {
 
 	String message() default "fields must match";
 
 	Class<?>[] groups() default {};
 	
-	Class<?> type();
+	Class<?> baseType();
 	
-	Class<?> superType();
+	Class<?> requiredRuntimeBaseType();
 
 	Class<? extends Payload>[] payload() default {};
 }
