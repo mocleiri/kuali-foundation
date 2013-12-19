@@ -28,7 +28,7 @@ public final class Car {
 	private final long internalHardDriveSizeInBytes;
 
 	// No negative times
-	@ValidPort
+	@Min(0)
 	private final Integer zeroToSixtyTimeInMillis;
 
 	private Car(Builder builder) {
