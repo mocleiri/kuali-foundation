@@ -20,9 +20,9 @@ public @interface IsAssignableFrom {
 
 	Class<?>[] groups() default {};
 	
-	Class<?> sourceType();
+	Class<?> type();
 	
-	Class<?> targetType();
+	Class<?> superType();
 
 	Class<? extends Payload>[] payload() default {};
 }

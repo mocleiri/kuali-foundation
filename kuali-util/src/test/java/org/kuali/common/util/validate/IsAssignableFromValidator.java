@@ -5,21 +5,23 @@ import java.lang.reflect.Field;
 import javax.validation.ConstraintValidator;
 
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
 
 public class IsAssignableFromValidator extends AbstractFieldsValidator implements ConstraintValidator<IsAssignableFrom, Object> {
 
+	private Class<?> type;
+	private Class<?> superType;
+
 	@Override
 	public void initialize(IsAssignableFrom constraintAnnotation) {
+		this.type = constraintAnnotation.type();
+		this.superType = constraintAnnotation.superType();
 	}
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
-
-		// This field doesn't implement the Map interface, nothing to do
-		if (!MapUtils.isMap(field.getType())) {
+		if (!type.isAssignableFrom(field.getType())) {
 			return Optional.absent();
 		}
 
@@ -34,12 +36,14 @@ public class IsAssignableFromValidator extends AbstractFieldsValidator implement
 		// Get the actual object reference
 		Object value = fieldValue.get();
 
-		if (MapUtils.isImmutable(value.getClass())) {
-			// If it's immutable, we are good to go
+		Class<?> runtimeType = value.getClass();
+
+		if (superType.isAssignableFrom(runtimeType)) {
+			// If it's assignable, we are good to go
 			return Optional.absent();
 		} else {
 			// If not, return an error message
-			return Optional.of(ValidationUtils.getErrorMessage(field, "is not an immutable map"));
+			return ValidationUtils.errorMessage(field, "is not assignable from [" + superType.getCanonicalName() + "]");
 		}
 	}
 

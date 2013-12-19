@@ -3,6 +3,7 @@ package org.kuali.common.util.validate;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.ConstraintValidatorContext;
 
@@ -30,7 +31,7 @@ public abstract class AbstractFieldsValidator {
 			return true;
 		}
 		Assert.notNull(instance, "'instance' cannot be null");
-		List<Field> fields = new ArrayList<Field>(ReflectionUtils.getFields(instance.getClass(), includeInheritedFields));
+		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
 			Optional<String> error = validate(field, instance);
