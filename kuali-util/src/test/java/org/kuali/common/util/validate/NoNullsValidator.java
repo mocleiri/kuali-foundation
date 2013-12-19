@@ -22,7 +22,7 @@ public class NoNullsValidator extends AbstractFieldsValidator implements Constra
 		if (value.isPresent()) {
 			return Optional.absent();
 		} else {
-			return Optional.of(ValidationUtils.getErrorMessage(field, "cannot be null"));
+			return ValidationUtils.errorMessage(field, "cannot be null");
 		}
 	}
 }

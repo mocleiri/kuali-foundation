@@ -13,6 +13,8 @@ import javax.validation.ValidatorFactory;
 import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 
+import com.google.common.base.Optional;
+
 public class ValidationUtils {
 
 	private static Validator instance;
@@ -23,6 +25,10 @@ public class ValidationUtils {
 			instance = factory.getValidator();
 		}
 		return instance;
+	}
+
+	public static Optional<String> errorMessage(Field field, String suffix) {
+		return Optional.of(getErrorMessage(field, suffix));
 	}
 
 	public static String getErrorMessage(Field field, String suffix) {
