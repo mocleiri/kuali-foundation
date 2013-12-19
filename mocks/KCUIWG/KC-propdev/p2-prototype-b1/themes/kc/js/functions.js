@@ -219,6 +219,20 @@ $(document).ready(function() {
 
     });
 
+    $('.show-more-content').click(function(e) {
+
+        e.preventDefault();
+
+        var more_content = $(this).data('show-more-content');
+
+        if ($('#' + more_content).hasClass('off-screen')) {
+            $('#' + more_content).removeClass('off-screen');
+        } else {
+            $('#' + more_content).addClass('off-screen');
+        }
+
+    });
+
 
 
     /*

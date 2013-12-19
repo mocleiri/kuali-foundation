@@ -930,6 +930,10 @@ th a:hover {
   padding: 24px 15px;
   background: white;
 }
+.modal-dialog .modal-content .modal-body .medusa-tree {
+  margin-top: 16px;
+  line-height: 190%;
+}
 .modal-dialog .modal-content .modal-footer {
   background: #f6f6f6;
   text-align: right;
