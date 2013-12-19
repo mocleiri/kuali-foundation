@@ -58,7 +58,7 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 		}
 
 		// Make sure every field from the declaring class exists in the instance class
-		// The instance class can have additional fields, but must always contain at least the field from the declaring class
+		// The instance class can have additional fields, but must always contain at least the fields from the declaring class
 		List<String> missingErrors = checkForMissingFields(declaringClassDetail, instanceDetail);
 		if (missingErrors.size() > 0) {
 			handleErrors(constraintContext, missingErrors);

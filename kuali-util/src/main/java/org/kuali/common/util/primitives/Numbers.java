@@ -5,6 +5,10 @@ public final class Numbers {
 	private Numbers() {
 	}
 
+	public static boolean between(int number, int min, int max) {
+		return number >= min && number <= max;
+	}
+
 	/**
 	 * Return the smallest Number it is safe to return. Returns a Byte, Short, Integer, or Long.
 	 */
