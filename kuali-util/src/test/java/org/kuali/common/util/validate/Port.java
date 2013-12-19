@@ -18,7 +18,7 @@ import org.kuali.common.util.Ports;
 
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = PortValidator.class)
+@Constraint(validatedBy = {})
 @Size(min = Ports.MIN, max = Ports.MAX)
 @Documented
 public @interface Port {
