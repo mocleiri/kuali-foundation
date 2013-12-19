@@ -20,7 +20,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
           <div class="well">
             <div class="proposal-actions clearfix">
               <div class="pull-left"> <a href="#" class="btn btn-primary">Submit for Review</a> </div>
-              <div class="pull-right"> <a href="#" class="btn btn-default">Save</a> <a href="#" class="btn btn-default">Reload</a> <a href="#" class="btn btn-default">Close</a> <a href="#" class="btn btn-default">Cancel</a> <a href="#" class="btn btn-default">Delete Proposal</a> </div>
+              <div class="pull-right"> <a href="#" class="btn btn-default">Save</a> <a href="#" class="btn btn-default">Close</a> <a href="#" class="btn btn-danger">Delete Proposal</a> </div>
             </div>
           </div>
           <span><a href="#">Send Notifications</a> | <a href="#">View Route Log</a></span> </div>
