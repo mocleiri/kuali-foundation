@@ -20,8 +20,6 @@ public @interface NoBlanks {
 
 	Class<?>[] groups() default {};
 
-	boolean skip() default false;
-
 	boolean includeInheritedFields() default true;
 
 	boolean checkOptionals() default true;

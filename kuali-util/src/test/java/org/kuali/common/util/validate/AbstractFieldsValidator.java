@@ -23,13 +23,9 @@ import com.google.common.base.Optional;
  */
 public abstract class AbstractFieldsValidator {
 
-	boolean skip = false;
 	boolean includeInheritedFields = true;
 
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
-		if (skip) {
-			return true;
-		}
 		Assert.notNull(instance, "'instance' cannot be null");
 		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
 		List<String> errors = new ArrayList<String>();
