@@ -7,6 +7,7 @@ import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.ValidPort;
 
 @NoNulls
 @NoBlanks
@@ -27,8 +28,8 @@ public final class Car {
 	private final long internalHardDriveSizeInBytes;
 
 	// No negative times
-	@Min(0)
-	private final int zeroToSixtyTimeInMillis;
+	@ValidPort
+	private final Integer zeroToSixtyTimeInMillis;
 
 	private Car(Builder builder) {
 		this.year = builder.year;
@@ -56,7 +57,8 @@ public final class Car {
 		private long internalHardDriveSizeInBytes = 0;
 
 		@TimeFormat
-		private int zeroToSixtyTimeInMillis = FormatUtils.getMillisAsInt("7.9s");
+		@ValidPort
+		private Integer zeroToSixtyTimeInMillis = FormatUtils.getMillisAsInt("7.9s");
 
 		@Override
 		public Car getInstance() {

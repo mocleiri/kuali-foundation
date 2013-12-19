@@ -50,12 +50,12 @@ public class CarTest {
 			if (bindErrors.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage("Binding", binder));
 			}
-			binder.validate();
+			//binder.validate();
 			Errors validationErrors = binder.getBindingResult();
 			if (validationErrors.hasErrors()) {
 				throw new IllegalStateException(getErrorMessage("Validation", binder));
 			}
-			// doCar(builder);
+			doCar(builder);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
