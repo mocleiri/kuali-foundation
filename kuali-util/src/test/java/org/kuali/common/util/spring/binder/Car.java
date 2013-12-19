@@ -8,13 +8,26 @@ import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoBlanks;
 import org.kuali.common.util.validate.NoNulls;
 
+@NoNulls
+@NoBlanks
 public final class Car {
 
+	// Very first car was built in 1886
+	@Min(1886)
 	private final int year;
 	private final String make;
 	private final String model;
+
+	// No negative prices
+	@Min(0)
 	private final double price;
+
+	// No negative sizes
+	@Min(0)
 	private final long internalHardDriveSizeInBytes;
+
+	// No negative times
+	@Min(0)
 	private final int zeroToSixtyTimeInMillis;
 
 	private Car(Builder builder) {
@@ -30,28 +43,18 @@ public final class Car {
 		return new Builder();
 	}
 
-	@NoNulls
-	@NoBlanks
 	@MatchDeclaringClassFields
 	public static class Builder extends AbstractBuilder<Car> {
 
-		// Very first car was built in 1886
-		@Min(1886)
 		private int year = 1967;
 		private String make = "Chevrolet";
 		private String model = "Camaro SS";
 
-		// No negative prices
-		@Min(0)
 		private double price = 30900;
 
-		// No negative sizes
-		@Min(0)
 		@BytesFormat
 		private long internalHardDriveSizeInBytes = 0;
 
-		// No negative times
-		@Min(0)
 		@TimeFormat
 		private int zeroToSixtyTimeInMillis = FormatUtils.getMillisAsInt("7.9s");
 
