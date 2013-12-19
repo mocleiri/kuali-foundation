@@ -35,7 +35,8 @@ public class CarTest {
 			map.put("price", 21579);
 			map.put("internalHardDriveSizeInBytes", "252.5g");
 			map.put("zeroToSixtyTimeInMillis", "4.7s");
-			Validator validator = new SpringValidatorAdapter(ValidationUtils.getDefaultValidator());
+			javax.validation.Validator hibernateValidator = ValidationUtils.getDefaultValidator();
+			Validator validator = new SpringValidatorAdapter(hibernateValidator);
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			DefaultFormattingConversionService service = new DefaultFormattingConversionService();
