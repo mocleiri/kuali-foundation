@@ -21,22 +21,15 @@ import com.google.common.collect.Multiset;
 
 public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<MatchDeclaringClassFields, Object> {
 
-	boolean skip = false;
 	boolean includeInheritedFields = true;
 
 	@Override
 	public void initialize(MatchDeclaringClassFields constraintAnnotation) {
-		this.skip = constraintAnnotation.skip();
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}
 
 	@Override
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
-
-		// Explicit skip was requested
-		if (skip) {
-			return true;
-		}
 
 		// There might not be a declaring class
 		Class<?> declaringClass = instance.getClass().getDeclaringClass();
