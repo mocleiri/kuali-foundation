@@ -29,9 +29,36 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.MethodInvoker;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	/**
+	 * <p>
+	 * Throw an exception unless {@code child} equals {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, throw an exception unless both
+	 * {@code child} and {@code parent} are the exact same primitive type.
+	 * </p>
+	 * 
+	 * @see equalsOrDescendsFrom
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if {@code equalsOrDescendsFrom(child,parent)} returns {@code false}
+	 */
+	public static void validateEqualsOrDescendsFrom(Class<?> child, Class<?> parent) {
+		boolean expression = equalsOrDescendsFrom(child, parent);
+		Preconditions.checkArgument(expression, "[%s] must descend from (or be) [%s]", child.getCanonicalName(), parent.getCanonicalName());
+	}
+
+	/**
+	 * <p>
+	 * Return true if {@code child} equals {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, return {@code true} if (and only if) both
+	 * {@code child} and {@code parent} are the exact same primitive type.
+	 * </p>
+	 */
+	public static boolean equalsOrDescendsFrom(Class<?> child, Class<?> parent) {
+		return parent.isAssignableFrom(child);
+	}
 
 	public static <T extends Annotation> Optional<T> getAnnotation(Class<?> instanceClass, Class<T> annotationClass) {
 		return Optional.fromNullable(instanceClass.getAnnotation(annotationClass));

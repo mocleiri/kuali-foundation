@@ -10,20 +10,25 @@ import com.google.common.base.Optional;
 
 public class ValidRuntimeTypeValidator extends AbstractFieldsValidator implements ConstraintValidator<ValidRuntimeType, Object> {
 
-	private Class<?> baseType;
-	private Class<?> requiredRuntimeBaseType;
+	private Class<?> base;
+	private Class<?> required;
 
 	@Override
 	public void initialize(ValidRuntimeType constraintAnnotation) {
-		this.baseType = constraintAnnotation.baseType();
-		this.requiredRuntimeBaseType = constraintAnnotation.requiredRuntimeBaseType();
+		this.base = constraintAnnotation.base();
+		this.required = constraintAnnotation.required();
+		// Make sure parent extends from base
+		ReflectionUtils.validateEqualsOrDescendsFrom(base, required);
 	}
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
-		// Check to see if this field's type is derived from the declared type we are checking
-		if (!baseType.isAssignableFrom(field.getType())) {
+		// Determine if the type of this field descends from (or equals) the base type we are validating
+		boolean checkRequired = ReflectionUtils.equalsOrDescendsFrom(field.getType(), base);
+
+		// If not, there is nothing more to do
+		if (!checkRequired) {
 			return Optional.absent();
 		}
 
@@ -41,15 +46,15 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator implement
 		// Extract the runtime type of this instance
 		Class<?> runtimeType = value.getClass();
 
-		// Make sure it's assignable from the type we want
-		if (requiredRuntimeBaseType.isAssignableFrom(runtimeType)) {
-			// If it's assignable, we are good to go
+		// Make sure it descends from the correct type
+		if (ReflectionUtils.equalsOrDescendsFrom(runtimeType, required)) {
+			// If it does, we are good to go
 			return Optional.absent();
 		} else {
 			// If not, return an error message
-			String required = requiredRuntimeBaseType.getCanonicalName();
 			String runtime = runtimeType.getCanonicalName();
-			return ValidationUtils.errorMessage(field, "Invalid runtime type: [" + required + "] is not a super class of [" + runtime + "]");
+			String suffix = "Invalid runtime type: [" + runtime + "] must descend from (or be) [" + required.getCanonicalName() + "]";
+			return ValidationUtils.errorMessage(field, suffix);
 		}
 	}
 

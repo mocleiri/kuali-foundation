@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableCollection;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@ValidRuntimeType(baseType = Collection.class, requiredRuntimeBaseType = ImmutableCollection.class)
+@ValidRuntimeType(base = Collection.class, required = ImmutableCollection.class)
 @Documented
 public @interface ImmutableGuavaCollections {
 

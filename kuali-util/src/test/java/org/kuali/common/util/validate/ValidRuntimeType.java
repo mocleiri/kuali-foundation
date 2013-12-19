@@ -20,9 +20,9 @@ public @interface ValidRuntimeType {
 
 	Class<?>[] groups() default {};
 
-	Class<?> baseType();
+	Class<?> base();
 
-	Class<?> requiredRuntimeBaseType();
+	Class<?> required();
 
 	Class<? extends Payload>[] payload() default {};
 }
