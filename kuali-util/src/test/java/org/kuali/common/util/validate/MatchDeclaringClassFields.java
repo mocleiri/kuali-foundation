@@ -20,8 +20,6 @@ public @interface MatchDeclaringClassFields {
 
 	Class<?>[] groups() default {};
 
-	boolean skip() default false;
-
 	boolean includeInheritedFields() default true;
 
 	Class<? extends Payload>[] payload() default {};
