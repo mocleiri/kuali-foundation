@@ -31,4 +31,16 @@ public @interface NoNegatives {
 
 	Class<? extends Payload>[] payload() default {};
 
+	/**
+	 * Defines several {@link NoNegatives} annotations on the same element.
+	 * 
+	 * @see NoNegatives
+	 */
+	@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+
+		NoNegatives[] value();
+	}
 }

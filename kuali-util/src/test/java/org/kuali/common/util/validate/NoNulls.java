@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * No field values on the annotated class can be {@code null}
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = NoNullsValidator.class)
@@ -19,8 +22,6 @@ public @interface NoNulls {
 	String message() default "null not allowed";
 
 	Class<?>[] groups() default {};
-
-	boolean skip() default false;
 
 	boolean includeInheritedFields() default true;
 
