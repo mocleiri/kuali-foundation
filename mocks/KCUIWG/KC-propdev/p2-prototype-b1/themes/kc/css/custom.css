@@ -929,6 +929,7 @@ th a:hover {
 .modal-dialog .modal-content .modal-body {
   padding: 24px 15px;
   background: white;
+  min-height: 240px;
 }
 .modal-dialog .modal-content .modal-body .medusa-tree {
   margin-top: 16px;
