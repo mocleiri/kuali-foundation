@@ -13,7 +13,7 @@ include( '_temp.select.filler.php' );
 <section id="main">
 
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid" style="">
+    <div class="container" style="">
    
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Create Proposal</h3>
         

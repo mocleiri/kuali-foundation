@@ -1,5 +1,5 @@
 <header id="Uif-ApplicationHeader-Wrapper" class="portal-header" data-spy="affix" data-offset-top="0" role="banner" >
-<div class="container-fluid">
+<div class="container">
   <nav class="navbar" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-reorder"></span> </button>

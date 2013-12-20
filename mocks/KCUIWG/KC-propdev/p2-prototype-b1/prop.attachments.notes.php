@@ -12,7 +12,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid" style="">
+    <div class="container" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> 	<!-- Main content goes here -->
 
@@ -213,8 +213,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 				
 
 				<!-- // -->
-        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row -->
-		<div class="btn-row-page-action"> <button  onclick="location.href='prop.attachments.abstracts.php'" class="btn btn-default">Back</button>
+        <div class="uif-stickyFooter uif-stickyButtonFooter"> <!-- Button row --> <div class="container btn-row-page-action"> <button  onclick="location.href='prop.attachments.abstracts.php'" class="btn btn-default">Back</button>
 <button class="btn btn-default">Save</button>
       <button  onclick="location.href='prop.questionnaire.php'" class="btn btn-primary">Save and Continue</button>
 			
@@ -238,7 +237,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 <section id="main">
 
-	<div class="container-fluid"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
+	<div class="container"> 	<?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
     <?php require_once( 'themes/kc/inc/uif-documentFunctions.php' ); ?>
 
 			<div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">

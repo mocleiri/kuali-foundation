@@ -48,7 +48,7 @@ if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_typ
 <section id="main">
   <?php require_once( 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid">
+    <div class="container">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
       	<?php if ($_GET['msg']) { ?>
@@ -212,8 +212,7 @@ if(isset($_SESSION['proposal_type'])) $proposal_type =   $_SESSION['proposal_typ
 			</fieldset>
 		</form>
 
-        <div class="uif-stickyFooter uif-stickyButtonFooter">
-		    <div class="btn-row-page-action">
+        <div class="uif-stickyFooter uif-stickyButtonFooter"> <div class="container btn-row-page-action">
 		      <button class="btn btn-default">Save</button>
 				<?php
 				if ($alt && file_exists('prop.basics.oppsearch-search-alt.php')) {

@@ -36,7 +36,7 @@ $(document).ready(function(){
 <section id="main">
   <?php require_once( $ROOT . 'themes/kc/inc/bs-unifiedViewHeader.php' ); ?>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid" style="">
+    <div class="container" style="">
       <?php require_once( $ROOT . 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper" tabindex="-1">
         
@@ -202,8 +202,7 @@ $(document).ready(function(){
                             </fieldset>
                          
                         </form>
-        <div class="uif-stickyFooter uif-stickyButtonFooter">
-            <div class="btn-row-page-action">
+        <div class="uif-stickyFooter uif-stickyButtonFooter"> <div class="container btn-row-page-action">
                 <button class="btn btn-default">Save</button>
                 <button href="prop.basics.oppsearch-search.php" class="btn btn-primary">Save and Continue</button>
             </div>

@@ -1,6 +1,6 @@
 
 <div id="navbar" class="navbar" style="background:white">
-  <div class="container-fluid">
+  <div class="container">
     <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar"> <span class="icon-reorder"></span> </button>
     
     <header class="viewHeader">

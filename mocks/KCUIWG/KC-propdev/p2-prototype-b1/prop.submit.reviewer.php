@@ -10,7 +10,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
 <section id="main">
   <div id="navbar" class="navbar" style="background:white">
-    <div class="container-fluid">
+    <div class="container">
       <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar"> <span class="icon-reorder"></span> </button>
       <header class="viewHeader">
         <div class="row">
@@ -80,7 +80,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
     </div>
   </div>
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid" style="">
+    <div class="container" style="">
       <?php require_once( 'themes/kc/inc/doc-subnav.php' ); ?>
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper"> <!-- Main content goes here -->
         

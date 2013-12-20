@@ -15,7 +15,7 @@ include( $ROOT . '_temp.select.filler.php' );
 <section id="main">
 
   <div id="Uif-ViewContentWrapper" class="uif-viewContentWrapper">
-    <div class="container-fluid" style="">
+    <div class="container" style="">
    
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Create Proposal</h3>
       
@@ -114,8 +114,7 @@ include( $ROOT . '_temp.select.filler.php' );
             </fieldset>
         </form>
         <div class="uif-stickyFooter uif-stickyButtonFooter">
-            <!-- Button row -->
-            <div class="btn-row-page-action">
+            <!-- Button row --> <div class="container btn-row-page-action">
                 <button class="btn btn-default">Cancel</button>
                 <button href="prop.basics.details.php?msg=1" class="btn btn-primary">Save and Continue</button>
             </div>
