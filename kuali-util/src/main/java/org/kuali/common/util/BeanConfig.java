@@ -15,6 +15,9 @@
  */
 package org.kuali.common.util;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class BeanConfig {
 
