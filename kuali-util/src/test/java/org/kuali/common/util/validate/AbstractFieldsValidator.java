@@ -9,10 +9,10 @@ import java.util.Set;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 /**
  * <p>
@@ -25,15 +25,18 @@ import com.google.common.base.Optional;
  */
 public abstract class AbstractFieldsValidator<A extends Annotation, T> implements ConstraintValidator<A, T> {
 
-	boolean includeInheritedFields = true;
+	@Override
+	public void initialize(A constraintAnnotation) {
+	}
 
 	@Override
-	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
-		Assert.notNull(instance, "'instance' cannot be null");
-		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
+	public boolean isValid(Object object, ConstraintValidatorContext constraintContext) {
+		Preconditions.checkNotNull(object, "'object' cannot be null");
+		Preconditions.checkNotNull(constraintContext, "'constraintContext' cannot be null");
+		Set<Field> fields = ReflectionUtils.getAllFields(object.getClass());
 		List<String> errors = new ArrayList<String>();
 		for (Field field : fields) {
-			Optional<String> error = validate(field, instance);
+			Optional<String> error = validate(field, object);
 			if (error.isPresent()) {
 				errors.add(error.get());
 			}

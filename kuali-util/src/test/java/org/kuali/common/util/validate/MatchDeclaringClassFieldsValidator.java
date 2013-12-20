@@ -21,11 +21,8 @@ import com.google.common.collect.Multiset;
 
 public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<MatchDeclaringClassFields, Object> {
 
-	boolean includeInheritedFields = true;
-
 	@Override
 	public void initialize(MatchDeclaringClassFields constraintAnnotation) {
-		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}
 
 	@Override
@@ -38,13 +35,13 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 		}
 
 		// Get field details for the declaring class
-		FieldDetail declaringClassDetail = getFieldDetail(declaringClass, includeInheritedFields);
+		FieldDetail declaringClassDetail = getFieldDetail(declaringClass);
 
 		// Get field details for the instance class
-		FieldDetail instanceDetail = getFieldDetail(instance.getClass(), includeInheritedFields);
+		FieldDetail instanceDetail = getFieldDetail(instance.getClass());
 
 		// Make sure the field names are unique for both
-		List<String> duplicateErrors = checkForDuplicatedFieldNames(instanceDetail, declaringClassDetail);
+		List<String> duplicateErrors = checkForDuplicateFieldNames(instanceDetail, declaringClassDetail);
 		if (duplicateErrors.size() > 0) {
 			handleErrors(constraintContext, duplicateErrors);
 			return false;
@@ -106,13 +103,13 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 		return ImmutableList.copyOf(errors);
 	}
 
-	protected FieldDetail getFieldDetail(Class<?> type, boolean includeInheritedFields) {
-		Set<Field> set = ReflectionUtils.getFields(type, includeInheritedFields);
+	protected FieldDetail getFieldDetail(Class<?> type) {
+		Set<Field> set = ReflectionUtils.getAllFields(type);
 		Map<String, Field> map = ReflectionUtils.getNameMap(set);
 		return FieldDetail.builder(type).withSet(set).withMap(map).build();
 	}
 
-	protected List<String> checkForDuplicatedFieldNames(FieldDetail... details) {
+	protected List<String> checkForDuplicateFieldNames(FieldDetail... details) {
 		List<String> errors = new ArrayList<String>();
 		for (FieldDetail detail : details) {
 			Set<String> duplicates = getDuplicatedFieldNames(detail.getSet());

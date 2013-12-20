@@ -10,13 +10,16 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * 
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = MatchDeclaringClassFieldsValidator.class)
+@Constraint(validatedBy = NoBlankMapEntriesValidator.class)
 @Documented
-public @interface MatchDeclaringClassFields {
+public @interface NoBlankMapEntries {
 
-	String message() default "fields must match";
+	String message() default "blank keys or values are not allowed";
 
 	Class<?>[] groups() default {};
 

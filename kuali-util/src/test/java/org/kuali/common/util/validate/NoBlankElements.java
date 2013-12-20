@@ -10,13 +10,16 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * 
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = MatchDeclaringClassFieldsValidator.class)
+@Constraint(validatedBy = NoBlankElementsValidator.class)
 @Documented
-public @interface MatchDeclaringClassFields {
+public @interface NoBlankElements {
 
-	String message() default "fields must match";
+	String message() default "blank strings not allowed";
 
 	Class<?>[] groups() default {};
 

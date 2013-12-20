@@ -9,11 +9,6 @@ import com.google.common.base.Optional;
 public class NoNullFieldsValidator extends AbstractFieldsValidator<NoNullFields, Object> {
 
 	@Override
-	public void initialize(NoNullFields constraintAnnotation) {
-		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
-	}
-
-	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 		Optional<?> value = ReflectionUtils.get(field, instance);
 		if (value.isPresent()) {
