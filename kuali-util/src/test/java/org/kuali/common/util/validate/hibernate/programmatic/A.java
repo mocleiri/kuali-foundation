@@ -1,16 +1,11 @@
 package org.kuali.common.util.validate.hibernate.programmatic;
 
-import java.lang.annotation.ElementType;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.hibernate.validator.HibernateValidator;
-import org.hibernate.validator.HibernateValidatorConfiguration;
-import org.hibernate.validator.cfg.ConstraintMapping;
-import org.hibernate.validator.cfg.defs.NotNullDef;
+import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidationUtils;
 
@@ -27,15 +22,13 @@ public class A {
 		return new Builder();
 	}
 
+	@MatchDeclaringClassFields
 	public static class Builder {
 
 		private String foo;
 
 		private void validate(Builder builder) {
-			HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
-			ConstraintMapping cm = configuration.createConstraintMapping();
-			cm.type(Builder.class).property("foo", ElementType.FIELD).constraint(new NotNullDef());
-			Validator validator = configuration.addMapping(cm).buildValidatorFactory().getValidator();
+			Validator validator = ValidationUtils.getDefaultValidator();
 			check(validator.validate(builder));
 		}
 
