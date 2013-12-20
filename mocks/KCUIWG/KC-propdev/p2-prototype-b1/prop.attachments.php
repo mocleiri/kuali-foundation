@@ -19,8 +19,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <ul class="nav nav-tabs" id="myTab">
           <li class="active"><a href="#proposal">Proposal</a></li>
           <li><a href="#personnel">Personnel</a></li>
-          <li><a href="#internal">Internal</a></li>
           <li><a href="#abstracts">Abstracts</a></li>
+		  <li><a href="#internal">Internal</a></li>
           <li><a href="#notes">Notes</a></li>
         </ul>
         <div class="tab-content">
@@ -28,7 +28,8 @@ require_once( 'themes/kc/inc/toolbar.php' );
 
             <div class="row">
           <div class="col-md-12">
-             <h4>Proposal</h4>
+             <h4>Proposal</h4> 
+			<p> Add all attachments that will be submitted to the sponsor, except for person-specific attachments.</p>
           </div>
           <div class="col-md-12">
             <div class="uif-toolbar">
@@ -60,6 +61,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <div class="row">
           <div class="col-md-12">
              <h4>Personnel</h4>
+			<p> Add all person-specific attachments that will be submitted to the sponsor.</p>
           </div>
           <div class="col-md-12">
             <div class="uif-toolbar">
@@ -88,6 +90,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <div class="row">
           <div class="col-md-12">
               <h4>Internal</h4>
+			  <p> Add any internal attachments. These will not be submitted to the sponsor.</p>
           </div>
           <div class="col-md-12">
             <div class="uif-toolbar">
@@ -117,6 +120,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <div class="row">
           <div class="col-md-12">
               <h4>Abstracts</h4>
+			 <p> Add all abstracts that will be submitted to the sponsor.</p>
           </div>
           <div class="col-md-12">
             <div class="uif-toolbar">
@@ -147,6 +151,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
             <div class="row">
           <div class="col-md-12">
               <h4>Notes</h4>
+			   <p>Add notes if applicable. These will not be submitted to the sponsor.</p>
           </div>
           <div class="col-md-12"> 
             <div class="uif-toolbar">
