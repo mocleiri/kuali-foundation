@@ -34,7 +34,8 @@
   <param name="keystore.alias">rice</param>
   <param name="keystore.password">r1c3pw</param>
   <param name="travel.externalizable.images.url">${externalizable.images.url}</param>
-
+  <param name="xml.pipeline.lifecycle.enabled">false</param>
+  
   <!-- Email Settings -->
   <param name="mail.debug">${ses.debug}</param>
   <param name="mail.smtp.host">${ses.host}</param>
