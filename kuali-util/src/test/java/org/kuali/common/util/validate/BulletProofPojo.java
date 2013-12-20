@@ -13,10 +13,13 @@ import javax.validation.Payload;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@BulletProofPojo
+@NoNullFields
+@NoBlanks
 @MatchDeclaringClassFields
+@ImmutableGuavaMaps
+@ImmutableGuavaCollections
 @Documented
-public @interface BulletProofBuilder {
+public @interface BulletProofPojo {
 
 	String message() default "bullet proofing failed";
 
