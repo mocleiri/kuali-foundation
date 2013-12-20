@@ -15,7 +15,7 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 	public void initialize(ValidRuntimeType constraintAnnotation) {
 		this.base = constraintAnnotation.base();
 		this.required = constraintAnnotation.required();
-		// Make sure parent extends from base
+		// Make sure required extends from base
 		ReflectionUtils.validateEqualsOrDescendsFrom(base, required);
 	}
 
