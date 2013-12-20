@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
 @NoBlankElements
-@NoBlankMapEntries
+@NoBlankMapKeys
 @NoBlankOptionals
 @NoBlankStrings
 @Documented

@@ -9,7 +9,7 @@ import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
 
-public class NoBlankMapEntriesValidator extends AbstractFieldsValidator<NoBlankMapEntries, Object> {
+public class NoBlankMapKeysValidator extends AbstractFieldsValidator<NoBlankMapKeys, Object> {
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {

@@ -15,9 +15,9 @@ import javax.validation.Payload;
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlankMapEntriesValidator.class)
+@Constraint(validatedBy = NoBlankMapKeysValidator.class)
 @Documented
-public @interface NoBlankMapEntries {
+public @interface NoBlankMapKeys {
 
 	String message() default "blank map keys are not allowed";
 
