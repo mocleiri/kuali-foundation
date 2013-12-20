@@ -34,7 +34,7 @@ public class NoBlankMapKeysValidator extends AbstractFieldsValidator<NoBlankMapK
 		// Extract any entries with a blank key or value
 		Collection<String> blanks = CollectionUtils.getBlanks(map.keySet());
 		if (blanks.size() > 0) {
-			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " entries with a blank key or value");
+			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " blank keys");
 		} else {
 			return Optional.absent();
 		}
