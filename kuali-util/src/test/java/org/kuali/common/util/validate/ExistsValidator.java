@@ -12,11 +12,11 @@ public class ExistsValidator implements ConstraintValidator<Exists, String> {
 	}
 
 	@Override
-	public boolean isValid(String location, ConstraintValidatorContext context) {
-		if (location == null) {
+	public boolean isValid(String resource, ConstraintValidatorContext context) {
+		if (resource == null) {
 			return true;
 		} else {
-			return LocationUtils.exists(location);
+			return LocationUtils.exists(resource);
 		}
 	}
 

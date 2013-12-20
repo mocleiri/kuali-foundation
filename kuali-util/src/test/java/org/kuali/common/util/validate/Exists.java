@@ -22,11 +22,11 @@ import org.kuali.common.util.Ports;
 @Max(Ports.MAX)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = { ExistsValidator.class })
 @Documented
 public @interface Exists {
 
-	String message() default "Port must be an integer between " + Ports.MIN + " and " + Ports.MAX + " (inclusive)";
+	String message() default "resource does not exist";
 
 	Class<?>[] groups() default {};
 
