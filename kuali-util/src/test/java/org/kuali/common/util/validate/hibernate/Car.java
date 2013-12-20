@@ -6,12 +6,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.kuali.common.util.validate.NoBlanks;
-import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NoNullFields;
 
 import com.google.common.collect.ImmutableList;
 
 @ValidPassengerCount
-@NoNulls
+@NoNullFields
 @NoBlanks
 public class Car {
 

@@ -16,7 +16,7 @@ import javax.validation.Payload;
 import javax.validation.constraints.Min;
 
 /**
- * The annotated element must be a number whose value must greater than or equal to zero
+ * The annotated element must be a number whose value is greater than or equal to zero
  */
 @Min(0)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })

@@ -11,13 +11,13 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * No field values on the annotated class can be {@code null}
+ * The annotated class must not contain any fields whose value is {@code null}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoNullsValidator.class)
+@Constraint(validatedBy = NoNullFieldsValidator.class)
 @Documented
-public @interface NoNulls {
+public @interface NoNullFields {
 
 	String message() default "null not allowed";
 

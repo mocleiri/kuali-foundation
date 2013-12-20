@@ -8,10 +8,10 @@ import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
-public class NoNullsValidator extends AbstractFieldsValidator implements ConstraintValidator<NoNulls, Object> {
+public class NoNullFieldsValidator extends AbstractFieldsValidator implements ConstraintValidator<NoNullFields, Object> {
 
 	@Override
-	public void initialize(NoNulls constraintAnnotation) {
+	public void initialize(NoNullFields constraintAnnotation) {
 		this.includeInheritedFields = constraintAnnotation.includeInheritedFields();
 	}
 
