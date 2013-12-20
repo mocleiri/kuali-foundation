@@ -3,8 +3,8 @@ package org.kuali.common.util.validate;
 import java.lang.reflect.Field;
 import java.util.Collection;
 
+import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.collect.CollectionUtils;
 
 import com.google.common.base.Optional;
 

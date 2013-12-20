@@ -38,6 +38,16 @@ import com.google.common.collect.ImmutableList;
 
 public class CollectionUtils {
 
+	public static Collection<String> getBlanks(Collection<String> collection) {
+		Collection<String> blanks = new ArrayList<String>();
+		for (String element : collection) {
+			if (StringUtils.isBlank(element)) {
+				blanks.add(element);
+			}
+		}
+		return blanks;
+	}
+
 	/**
 	 * Returns a new unmodifiable list containing the elements from <code>list</code>
 	 * 
