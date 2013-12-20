@@ -1,6 +1,5 @@
 package org.kuali.common.util.collect;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +14,7 @@ public class MapUtils {
 	}
 
 	/**
-	 * Returns a map containing any entries from <code>map</code> where the key or value are <code>null</code> or a pure whitespace <code>CharSequence</code>
+	 * Returns a Set containing any keys from <code>map</code> where the key is a pure whitespace <code>CharSequence</code>
 	 */
 	public static Set<String> getBlankKeys(Map<?, ?> map) {
 		Preconditions.checkNotNull(map, "'map' cannot be null");
@@ -31,17 +30,38 @@ public class MapUtils {
 	}
 
 	/**
-	 * Returns a map containing any entries from <code>map</code> where the key or value are <code>null</code> or a pure whitespace <code>CharSequence</code>
+	 * Returns a Set containing any entries from <code>map</code> where the key or value are <code>null</code> or a pure whitespace <code>CharSequence</code>
 	 */
-	public static Map<?, ?> getBlankEntries(Map<?, ?> map) {
+	public static Set<KeyValue> getBlankEntries(Map<?, ?> map) {
 		Preconditions.checkNotNull(map, "'map' cannot be null");
-		Map<Object, Object> entries = new HashMap<Object, Object>();
+		Set<KeyValue> entries = new HashSet<KeyValue>();
 		for (Map.Entry<?, ?> entry : map.entrySet()) {
 			if (containsBlank(entry)) {
-				entries.put(entry.getKey(), entry.getValue());
+				Object key = entry.getKey();
+				Object value = entry.getValue();
+				entries.add(new KeyValue(key, value));
 			}
 		}
 		return entries;
+	}
+
+	public static class KeyValue {
+
+		public KeyValue(Object key, Object value) {
+			this.key = key;
+			this.value = value;
+		}
+
+		private final Object key;
+		private final Object value;
+
+		public Object getKey() {
+			return key;
+		}
+
+		public Object getValue() {
+			return value;
+		}
 	}
 
 	/**
