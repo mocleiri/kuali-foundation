@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @Documented
 public @interface BulletProofBuilder {
 
-	String message() default "bullet proofing failure";
+	String message() default "bullet proofing failed";
 
 	Class<?>[] groups() default {};
 
