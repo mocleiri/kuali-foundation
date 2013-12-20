@@ -34,7 +34,7 @@ $(document).ready(function(){
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h3>Add Personnel Attachment</h3>
+			<h3>Add Note</h3>
 		</div>
 
             <div class="modal-body">
