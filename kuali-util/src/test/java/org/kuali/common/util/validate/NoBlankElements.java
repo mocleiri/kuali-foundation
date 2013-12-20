@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * 
+ * Any fields that are a {@code java.util.Collection} of type {@code String} must not contain the empty string or pure whitespace
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
