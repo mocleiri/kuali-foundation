@@ -13,6 +13,9 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import javax.validation.constraints.Min;
 
+/**
+ * The annotated element must be a number whose value must greater than or equal to one
+ */
 @Min(1)
 @Target({ FIELD, METHOD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
