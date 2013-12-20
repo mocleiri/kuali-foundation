@@ -89,6 +89,14 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	}
 
 	/**
+	 * Return true if this field is a {@code java.lang.String}
+	 */
+	public static boolean isString(Field field) {
+		// Safe to do this since java.lang.String is final
+		return field.getType() == String.class;
+	}
+
+	/**
 	 * Return true if this field is a CharSequence
 	 */
 	public static boolean isCharSequence(Field field) {

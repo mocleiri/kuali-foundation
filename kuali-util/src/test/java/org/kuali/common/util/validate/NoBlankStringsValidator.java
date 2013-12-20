@@ -12,24 +12,24 @@ public class NoBlankStringsValidator extends AbstractFieldsValidator<NoBlankElem
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
-		// This field may not be a char sequence
-		if (!ReflectionUtils.isCharSequence(field)) {
+		// This field may not be a String
+		if (!ReflectionUtils.isString(field)) {
 			return Optional.absent();
 		}
 
 		// Extract the value of the field into an optional
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
 
-		// We know the field contains an CharSequence at this point
-		CharSequence cs = (CharSequence) fieldValue.orNull();
+		// We know the field contains a string at this point
+		String string = (String) fieldValue.orNull();
 
 		// Null is ok
-		if (cs == null) {
+		if (string == null) {
 			return Optional.absent();
 		}
 
 		// Non-null value cannot be blank
-		if (StringUtils.isBlank(cs)) {
+		if (StringUtils.isBlank(string)) {
 			return ValidationUtils.errorMessage(field, "blank strings not allowed");
 		} else {
 			return Optional.absent();
