@@ -39,7 +39,7 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		Optional<?> fieldValue = ReflectionUtils.get(field, instance);
 
 		// If it's a character sequence, return an error message if it is null or whitespace
-		if (isCharSequence(field)) {
+		if (ReflectionUtils.isCharSequence(field)) {
 			CharSequence charSequence = (CharSequence) fieldValue.orNull();
 			return getOptionalErrorMessage(field, charSequence);
 		}
@@ -49,15 +49,15 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 			return Optional.absent();
 		}
 
-		if (checkOptionals && isOptional(field)) {
+		if (checkOptionals && ReflectionUtils.isOptional(field)) {
 			// Return an error message if there is a blank CharSequence inside the optional
 			Optional<?> optional = (Optional<?>) fieldValue.get();
 			return validateOptional(field, optional);
-		} else if (checkCollections && isCollection(field)) {
+		} else if (checkCollections && ReflectionUtils.isCollection(field)) {
 			// Return an error message if there are blank CharSequence's inside the collection
 			Collection<?> collection = (Collection<?>) fieldValue.get();
 			return validateCollection(field, collection);
-		} else if (checkMaps && isMap(field)) {
+		} else if (checkMaps && ReflectionUtils.isMap(field)) {
 			// Return an error message if the map has blanks for keys or values
 			Map<?, ?> map = (Map<?, ?>) fieldValue.get();
 			return validateMap(field, map);
@@ -68,14 +68,14 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 	}
 
 	protected boolean isValidatableType(Field field) {
-		if (isCharSequence(field)) {
+		if (ReflectionUtils.isCharSequence(field)) {
 			return true;
-		} else if (isOptional(field)) {
+		} else if (ReflectionUtils.isOptional(field)) {
 			return true;
-		} else if (isCollection(field)) {
+		} else if (ReflectionUtils.isCollection(field)) {
 			return true;
 		} else {
-			return isMap(field);
+			return ReflectionUtils.isMap(field);
 		}
 
 	}
@@ -130,34 +130,6 @@ public class NoBlanksValidator extends AbstractFieldsValidator implements Constr
 		} else {
 			return Optional.absent();
 		}
-	}
-
-	/**
-	 * Return true if this field is a Collection
-	 */
-	protected boolean isCollection(Field field) {
-		return CollectionUtils.isCollection(field.getType());
-	}
-
-	/**
-	 * Return true if this field is a Map
-	 */
-	protected boolean isMap(Field field) {
-		return MapUtils.isMap(field.getType());
-	}
-
-	/**
-	 * Return true if this field is a CharSequence
-	 */
-	protected boolean isCharSequence(Field field) {
-		return CharSequence.class.isAssignableFrom(field.getType());
-	}
-
-	/**
-	 * Return true if this field is an Optional
-	 */
-	protected boolean isOptional(Field field) {
-		return Optional.class.isAssignableFrom(field.getType());
 	}
 
 }

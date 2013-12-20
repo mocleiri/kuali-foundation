@@ -19,6 +19,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -30,14 +31,58 @@ import org.springframework.util.MethodInvoker;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	/**
+	 * Return true if this class is an immutable Guava collection
+	 */
+	public static boolean isImmutableGuavaCollection(Class<?> type) {
+		return ImmutableCollection.class.isAssignableFrom(type);
+	}
+
+	/**
+	 * Return true if this class is an immutable Guava map
+	 */
+	public static boolean isImmutableGuavaMap(Class<?> type) {
+		return ImmutableMap.class.isAssignableFrom(type);
+	}
+
+	/**
+	 * Return true if this field is a Collection
+	 */
+	public static boolean isCollection(Field field) {
+		return Collection.class.isAssignableFrom(field.getType());
+	}
+
+	/**
+	 * Return true if this field is a Map
+	 */
+	public static boolean isMap(Field field) {
+		return Map.class.isAssignableFrom(field.getType());
+	}
+
+	/**
+	 * Return true if this field is a CharSequence
+	 */
+	public static boolean isCharSequence(Field field) {
+		return CharSequence.class.isAssignableFrom(field.getType());
+	}
+
+	/**
+	 * Return true if this field is an Optional
+	 */
+	public static boolean isOptional(Field field) {
+		return Optional.class.isAssignableFrom(field.getType());
+	}
+
+	/**
 	 * <p>
-	 * Throw an exception unless {@code child} equals {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, throw an exception unless both
-	 * {@code child} and {@code parent} are the exact same primitive type.
+	 * Throw an exception unless {@code child} is the same as {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, throw an exception unless
+	 * both {@code child} and {@code parent} are the exact same primitive type.
 	 * </p>
 	 * 
 	 * @see equalsOrDescendsFrom
@@ -52,8 +97,8 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	/**
 	 * <p>
-	 * Return true if {@code child} equals {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, return {@code true} if (and only if) both
-	 * {@code child} and {@code parent} are the exact same primitive type.
+	 * Return true if {@code child} is the same class as {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, return {@code true} only if
+	 * both {@code child} and {@code parent} are the exact same primitive type.
 	 * </p>
 	 */
 	public static boolean equalsOrDescendsFrom(Class<?> child, Class<?> parent) {

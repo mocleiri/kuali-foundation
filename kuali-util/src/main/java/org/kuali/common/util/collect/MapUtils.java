@@ -6,19 +6,10 @@ import java.util.Map;
 import org.kuali.common.util.nullify.NullUtils;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 
 public class MapUtils {
 
 	private MapUtils() {
-	}
-
-	public static boolean isMap(Class<?> type) {
-		return Map.class.isAssignableFrom(type);
-	}
-
-	public static boolean isImmutable(Class<?> type) {
-		return ImmutableMap.class.isAssignableFrom(type);
 	}
 
 	/**

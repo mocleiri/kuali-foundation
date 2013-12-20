@@ -1,10 +1,9 @@
 package org.kuali.common.util.validate;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.common.util.collect.MapUtils;
+import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -25,9 +24,8 @@ public class OptionalAssignableTest {
 			System.out.println("Optional.class.isAssignableFrom(absent.getClass())  is " + (Optional.class.isAssignableFrom(absent.getClass())));
 
 			System.out.println();
-			System.out.println(MapUtils.isImmutable(Map.class));
-			System.out.println(MapUtils.isMap(Map.class));
-			System.out.println(MapUtils.isMap(HashMap.class));
+			System.out.println(ReflectionUtils.isImmutableGuavaMap(Map.class));
+			System.out.println();
 
 		} catch (Exception e) {
 			e.printStackTrace();
