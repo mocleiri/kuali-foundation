@@ -49,7 +49,7 @@ $(document).ready(function(){
 
         <h3>Proposal Details</h3>
         
-        <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-xs"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a>
+     <!--   <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-xs"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a>-->
         <!--<div class="alert alert-required">
             <p>Required fields are <strong>bold</strong>, marked with asterisks (*), and have a light blue highlight.</p>
         </div>-->

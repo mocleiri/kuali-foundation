@@ -20,7 +20,7 @@ include( $ROOT . '_temp.select.filler.php' );
       <div id="Uif-PageContentWrapper" class="uif-pageContentWrapper">  <h3>Create Proposal</h3>
       
        
-        <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-xs"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a>
+       <!-- <a href="#" id="startthetour" onClick="hopscotch.startTour(tour);" style="position:absolute; right:40px; font-weight:normal" class="btn btn-link btn-xs"> <span style="color:#999" aria-hidden="true" class="icon-hand-up"></span> guide me</a>-->
         <p class="text-muted"><span class="req">*</span> Indicates required fields</p>
 
         <form action="#" method="post" class="form-horizontal">
