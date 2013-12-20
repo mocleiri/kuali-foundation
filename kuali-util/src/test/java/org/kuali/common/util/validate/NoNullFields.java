@@ -23,8 +23,6 @@ public @interface NoNullFields {
 
 	Class<?>[] groups() default {};
 
-	boolean includeInheritedFields() default true;
-
 	Class<? extends Payload>[] payload() default {};
 
 }
