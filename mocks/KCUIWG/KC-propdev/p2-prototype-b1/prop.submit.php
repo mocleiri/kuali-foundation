@@ -18,6 +18,24 @@ require_once( 'themes/kc/inc/toolbar.php' );
         <h3>Submit</h3>
         <div class="boxContent">
           <div class="well">
+            <h4>Proposal progress</h4>
+            <div class="progress-details">
+              <div class="empty complete" style="width: 20%">In Progress</div>
+              <div class="empty complete" style="width: 20%">Routing &amp; Review</div>
+              <div class="empty active" style="width: 20%">Final Institutional Review</div>
+              <div class="empty" style="width: 20%">Approved</div>
+              <div class="empty" style="width: 20%">Submitted to Sponsor</div>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-success" style="width: 20%;" title="Completed" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="20"></div>
+              <div class="progress-bar progress-bar-success" style="width: 20%;" title="Completed" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="20"></div>
+              <div class="progress-bar progress-bar-warning" style="width: 20%;" title="In Progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20"></div>
+              <div class="progress-bar progress-bar-danger" style="width: 20%; background-color: #ccc; color: #999; text-shadow: none;" title="Not Started" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20"></div>
+              <div class="progress-bar progress-bar-danger" style="width: 20%; background-color: #ccc; color: #999; text-shadow: none;" title="Not Started" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20"></div>
+            </div>
+          </div>
+
+          <div class="">
             <div class="proposal-actions clearfix">
               <div class="pull-left">
                 <a href="#" class="btn btn-primary">Submit for Review</a>
@@ -31,6 +49,7 @@ require_once( 'themes/kc/inc/toolbar.php' );
                     More actions <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Resend notifications</a></li>
                     <li><a href="#">Reload proposal</a></li>
                     <li><a href="#">Cancel proposal</a></li>
                     <li class="divider"></li>
@@ -40,7 +59,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
               </div>
             </div>
           </div>
-          <span><a href="#">Send Notifications</a><!--  | <a href="#">View Route Log</a></span> -->
+
+          <!-- <div class="" style="margin-top: 16px;">
+            <a href="#">Send Notifications</a> | <a href="#">View Route Log</a>
+          </div> -->
         </div>
         
       </div>
