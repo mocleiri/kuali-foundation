@@ -1,4 +1,4 @@
-package org.kuali.common.util.ssh.api.impl;
+package org.kuali.common.util.ssh.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
