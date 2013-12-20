@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
 
+import org.kuali.common.util.builder.ValidatingBuilder;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -24,7 +26,7 @@ public final class FieldDetail {
 		return new Builder(type);
 	}
 
-	public static class Builder implements org.kuali.common.util.builder.Builder<FieldDetail> {
+	public static class Builder implements ValidatingBuilder<FieldDetail> {
 
 		private final Class<?> type;
 		private Set<Field> set = ImmutableSet.of();
@@ -32,6 +34,22 @@ public final class FieldDetail {
 
 		public Builder(Class<?> type) {
 			this.type = type;
+		}
+
+		@Override
+		public FieldDetail build() {
+			this.set = ImmutableSet.copyOf(set);
+			this.map = ImmutableMap.copyOf(map);
+			FieldDetail instance = new FieldDetail(this);
+			validate(instance);
+			return instance;
+		}
+
+		@Override
+		public void validate(FieldDetail instance) {
+			Preconditions.checkNotNull(instance.getType(), "'type' cannot be null");
+			Preconditions.checkNotNull(instance.getSet(), "'set' cannot be null");
+			Preconditions.checkNotNull(instance.getMap(), "'map' cannot be null");
 		}
 
 		public Builder withSet(Set<Field> set) {
@@ -44,19 +62,24 @@ public final class FieldDetail {
 			return this;
 		}
 
-		@Override
-		public FieldDetail build() {
-			this.set = ImmutableSet.copyOf(set);
-			this.map = ImmutableMap.copyOf(map);
-			FieldDetail instance = new FieldDetail(this);
-			validate(instance);
-			return instance;
+		public Set<Field> getSet() {
+			return set;
 		}
 
-		private void validate(FieldDetail instance) {
-			Preconditions.checkNotNull(instance.type, "type cannot be null");
-			Preconditions.checkNotNull(instance.set, "set cannot be null");
-			Preconditions.checkNotNull(instance.map, "map cannot be null");
+		public void setSet(Set<Field> set) {
+			this.set = set;
+		}
+
+		public Map<String, Field> getMap() {
+			return map;
+		}
+
+		public void setMap(Map<String, Field> map) {
+			this.map = map;
+		}
+
+		public Class<?> getType() {
+			return type;
 		}
 	}
 

@@ -9,12 +9,12 @@ import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.env.annotation.EnvAdapterClass;
 import org.kuali.common.util.validate.ImmutableGuavaCollections;
 import org.kuali.common.util.validate.NoBlanks;
-import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NoNullFields;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-@NoNulls
+@NoNullFields
 @ImmutableGuavaCollections
 @NoBlanks
 public final class Car {

@@ -7,13 +7,13 @@ import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.env.adapter.CSVToListAdapter;
 import org.kuali.common.util.env.adapter.OptionalStringAdapter;
 import org.kuali.common.util.validate.NoBlanks;
-import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.NotBlankIfPresent;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-@NoNulls
+@NoNullFields
 @NoBlanks
 public final class FakeEnvServiceContext {
 

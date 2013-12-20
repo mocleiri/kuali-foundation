@@ -4,9 +4,9 @@ import javax.validation.constraints.Min;
 
 import org.kuali.common.util.env.annotation.Env;
 import org.kuali.common.util.validate.NoBlanks;
-import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NoNullFields;
 
-@NoNulls
+@NoNullFields
 @NoBlanks
 public final class Engine {
 

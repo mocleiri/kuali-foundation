@@ -9,12 +9,12 @@ import org.kuali.common.util.builder.AbstractBuilder;
 import org.kuali.common.util.validate.ImmutableGuavaCollections;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoBlanks;
-import org.kuali.common.util.validate.NoNulls;
+import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidPort;
 
 import com.google.common.collect.ImmutableList;
 
-@NoNulls
+@NoNullFields
 @NoBlanks
 @ImmutableGuavaCollections
 public final class Car {
