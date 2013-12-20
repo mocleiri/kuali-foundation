@@ -2,13 +2,11 @@ package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
 
-import javax.validation.ConstraintValidator;
-
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
-public class ValidRuntimeTypeValidator extends AbstractFieldsValidator implements ConstraintValidator<ValidRuntimeType, Object> {
+public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRuntimeType, Object> {
 
 	private Class<?> base;
 	private Class<?> required;

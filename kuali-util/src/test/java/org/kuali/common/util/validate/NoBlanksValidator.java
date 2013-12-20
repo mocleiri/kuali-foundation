@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.validation.ConstraintValidator;
-
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.collect.CollectionUtils;
@@ -13,7 +11,7 @@ import org.kuali.common.util.collect.MapUtils;
 
 import com.google.common.base.Optional;
 
-public class NoBlanksValidator extends AbstractFieldsValidator implements ConstraintValidator<NoBlanks, Object> {
+public class NoBlanksValidator extends AbstractFieldsValidator<NoBlanks, Object> {
 
 	private boolean checkOptionals;
 	private boolean checkCollections;

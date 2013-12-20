@@ -1,10 +1,12 @@
 package org.kuali.common.util.validate;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.kuali.common.util.Assert;
@@ -21,10 +23,11 @@ import com.google.common.base.Optional;
  * It recursively traverses the class hierarchy to acquire an exhaustive list of every declared field in the hierarchy and provides a hook for validating each field in turn.
  * </p>
  */
-public abstract class AbstractFieldsValidator {
+public abstract class AbstractFieldsValidator<A extends Annotation, T> implements ConstraintValidator<A, T> {
 
 	boolean includeInheritedFields = true;
 
+	@Override
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
 		Assert.notNull(instance, "'instance' cannot be null");
 		Set<Field> fields = ReflectionUtils.getFields(instance.getClass(), includeInheritedFields);
