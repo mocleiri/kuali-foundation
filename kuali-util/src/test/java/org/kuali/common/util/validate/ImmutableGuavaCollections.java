@@ -14,9 +14,9 @@ import javax.validation.Payload;
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * All field's on the annotated class that are collection's must be a Guava {@code ImmutableCollection} at runtime.
+ * All field's on the annotated class that are collection's must be a Guava {@code ImmutableCollection}
  * 
- * Fields representing a {@code Collection} but are {@code null} are considered valid.
+ * Fields representing a {@code Collection} that are {@code null} are considered valid.
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
