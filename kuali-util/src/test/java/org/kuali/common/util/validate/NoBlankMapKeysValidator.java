@@ -1,11 +1,11 @@
 package org.kuali.common.util.validate;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.collect.MapUtils;
+import org.kuali.common.util.collect.CollectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -27,12 +27,12 @@ public class NoBlankMapKeysValidator extends AbstractFieldsValidator<NoBlankMapK
 			return Optional.absent();
 		}
 
-		// We know the value of the field is a map at this point
+		// We know the field is a map that uses strings for it's keys at this point
 		@SuppressWarnings("unchecked")
 		Map<String, ?> map = (Map<String, ?>) fieldValue.get();
 
 		// Extract any entries with a blank key or value
-		Set<String> blanks = MapUtils.getBlankKeys(map);
+		Collection<String> blanks = CollectionUtils.getBlanks(map.keySet());
 		if (blanks.size() > 0) {
 			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " entries with a blank key or value");
 		} else {
