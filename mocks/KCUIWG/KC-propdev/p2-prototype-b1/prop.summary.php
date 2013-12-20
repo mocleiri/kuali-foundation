@@ -20,13 +20,10 @@ require_once( 'themes/kc/inc/toolbar.php' );
           <li class="active"><a href="#tab1" data-toggle="tab" class="" title="">Proposal Summary</a></li>
           <li><a href="#tab2" data-toggle="tab" class="" title=""> Personnel</a></li>
           <li><a href="#tab3" data-toggle="tab" class="" title="">Credit Allocation</a></li>
-      
           <li><a href="#tab4" data-toggle="tab" class="" title="">Questionnaire</a></li>   
-           <li><a href="#tab5" data-toggle="tab" class="" title="">Supplimental Info</a></li>
+          <li><a href="#tab5" data-toggle="tab" class="" title="">Supplimental Info</a></li>
         </ul>
         <div id="my-tab-content" class="tab-content">
-        
-        
         
           <div class="tab-pane active" id="tab1">
             <h4>Proposal Summary</h4>
