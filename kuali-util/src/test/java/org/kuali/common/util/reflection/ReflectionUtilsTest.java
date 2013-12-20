@@ -27,6 +27,8 @@ import org.slf4j.Logger;
 public class ReflectionUtilsTest {
 
 	private static final Logger logger = LoggerUtils.make();
+	
+	
 
 	@Test
 	public void test() {
