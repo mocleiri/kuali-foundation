@@ -13,7 +13,7 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// This field may not be a type we can validate
-		if (!ReflectionUtils.isOptional(field)) {
+		if (!ReflectionUtils.isOptionalString(field)) {
 			return Optional.absent();
 		}
 
@@ -26,7 +26,8 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 		}
 
 		// Extract the object inside the field (we know it's an optional at this point)
-		Optional<?> optional = (Optional<?>) fieldValue.get();
+		@SuppressWarnings("unchecked")
+		Optional<String> optional = (Optional<String>) fieldValue.get();
 
 		// The optional does not contain a value
 		if (!optional.isPresent()) {
@@ -34,23 +35,15 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 		}
 
 		// Extract whatever value the optional contains
-		Object value = optional.get();
+		String string = optional.get();
 
-		// If it's a CharSequence we need to examine it further
-		if (!ReflectionUtils.isCharSequence(value.getClass())) {
-			return Optional.absent();
-		}
-
-		// Cast to a CharSequence
-		CharSequence cs = (CharSequence) value;
-
-		// If the char sequence is not blank, we are good to go
-		if (!StringUtils.isBlank(cs)) {
+		// If the string is not blank, we are good to go
+		if (!StringUtils.isBlank(string)) {
 			return Optional.absent();
 		}
 
 		// If the CharSequence is blank, return an error message
-		return ValidationUtils.errorMessage(field, "optional value cannot be blank");
+		return ValidationUtils.errorMessage(field, "optional string value cannot be blank");
 	}
 
 }

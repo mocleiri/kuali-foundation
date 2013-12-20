@@ -14,7 +14,7 @@ public class NoBlankElementsValidator extends AbstractFieldsValidator<NoBlankEle
 	protected Optional<String> validate(Field field, Object instance) {
 
 		// This field may not be a collection
-		if (!ReflectionUtils.isCollection(field)) {
+		if (!ReflectionUtils.isStringCollection(field)) {
 			return Optional.absent();
 		}
 
@@ -26,13 +26,15 @@ public class NoBlankElementsValidator extends AbstractFieldsValidator<NoBlankEle
 			return Optional.absent();
 		}
 
-		// Return an error message if there are blank CharSequence's inside the collection
-		Collection<?> collection = (Collection<?>) fieldValue.get();
+		// The ReflectionUtils.isStringCollection() check above ensures that this field is a Collection<String>
+		@SuppressWarnings("unchecked")
+		// Return an error message if there are blank String's inside the collection
+		Collection<String> collection = (Collection<String>) fieldValue.get();
 
 		// Examine the collection for blanks
 		Collection<String> blanks = CollectionUtils.getBlanks(collection);
 		if (blanks.size() > 0) {
-			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " blank elements");
+			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " blank strings");
 		} else {
 			return Optional.absent();
 		}

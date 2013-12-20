@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @Documented
 public @interface NoBlankMapEntries {
 
-	String message() default "blank keys or values are not allowed";
+	String message() default "blank map keys are not allowed";
 
 	Class<?>[] groups() default {};
 

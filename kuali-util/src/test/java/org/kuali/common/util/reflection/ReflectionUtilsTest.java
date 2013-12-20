@@ -27,8 +27,27 @@ import org.slf4j.Logger;
 public class ReflectionUtilsTest {
 
 	private static final Logger logger = LoggerUtils.make();
-	
-	
+
+	@Test
+	public void testDetectOptionalString() throws Exception {
+		Field field = C.class.getDeclaredField("foo");
+		boolean condition = ReflectionUtils.isOptionalString(field);
+		Assert.assertTrue("'foo' must be an optional string", condition);
+	}
+
+	@Test
+	public void testOptionalThatIsntAString() throws Exception {
+		Field field = C.class.getDeclaredField("bar");
+		boolean condition = ReflectionUtils.isOptionalString(field);
+		Assert.assertFalse("'bar' is not an optional string", condition);
+	}
+
+	@Test
+	public void testNormalString() throws Exception {
+		Field field = C.class.getDeclaredField("baz");
+		boolean condition = ReflectionUtils.isOptionalString(field);
+		Assert.assertFalse("'baz' is not an optional", condition);
+	}
 
 	@Test
 	public void test() {

@@ -18,6 +18,8 @@ package org.kuali.common.util;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -52,17 +54,38 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	}
 
 	/**
-	 * Return true if this field is a Collection
+	 * Return true if this field is a {@code java.util.Collection}
 	 */
 	public static boolean isCollection(Field field) {
 		return Collection.class.isAssignableFrom(field.getType());
 	}
 
 	/**
-	 * Return true if this field is a Map
+	 * Return true if this field is a {@code java.util.Collection<String>}
+	 */
+	public static boolean isStringCollection(Field field) {
+		return isCollection(field) && hasMatchingParameterizedArgTypes(field, String.class);
+	}
+
+	/**
+	 * Return true if this field is a {@code java.util.Map}
 	 */
 	public static boolean isMap(Field field) {
 		return Map.class.isAssignableFrom(field.getType());
+	}
+
+	/**
+	 * Return true if this field is a {@code java.util.Map} that uses {@code String} for its keys
+	 * 
+	 * <pre>
+	 * Map&lt;String,String>  returns true
+	 * Map&lt;String,Object>  returns true
+	 * Map&lt;String,Integer> returns true
+	 * Map&lt;Integer,String> returns false
+	 * </pre>
+	 */
+	public static boolean isStringKeyedMap(Field field) {
+		return isMap(field) && hasMatchingParameterizedArgTypes(field, String.class);
 	}
 
 	/**
@@ -80,10 +103,56 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	}
 
 	/**
-	 * Return true if this field is an Optional
+	 * Return true iff this field is a Guava {@code com.google.common.base.Optional}
 	 */
 	public static boolean isOptional(Field field) {
 		return Optional.class.isAssignableFrom(field.getType());
+	}
+
+	/**
+	 * Return true iff this field is a Guava {@code com.google.common.base.Optional<String>}
+	 */
+	public static boolean isOptionalString(Field field) {
+		return isOptional(field) && hasMatchingParameterizedArgTypes(field, String.class);
+	}
+
+	/**
+	 * <p>
+	 * Return true if this field is a generic whose argument types match {@code expectedTypeArguments}
+	 * </p>
+	 * 
+	 * For example to match a field declared as {@code Collection<String>}
+	 * 
+	 * <pre>
+	 * hasMatchingParameterizedArgTypes(myField, String.class)
+	 * </pre>
+	 */
+	public static boolean hasMatchingParameterizedArgTypes(Field field, Class<?>... expectedTypeArguments) {
+		if (!isParameterizedType(field)) {
+			return false;
+		}
+		ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+		return hasMatchingActualTypeArguments(parameterizedType, expectedTypeArguments);
+	}
+
+	protected static boolean hasMatchingActualTypeArguments(ParameterizedType type, Class<?>... expectedTypeArguments) {
+		Type[] actualTypeArguments = type.getActualTypeArguments();
+		for (int i = 0; i < expectedTypeArguments.length; i++) {
+			Class<?> expectedTypeArgument = expectedTypeArguments[i];
+			if (i >= actualTypeArguments.length) {
+				return false;
+			}
+			Class<?> actualTypeArgument = (Class<?>) actualTypeArguments[i];
+			if (actualTypeArgument != expectedTypeArgument) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean isParameterizedType(Field field) {
+		Type genericType = field.getGenericType();
+		return genericType instanceof ParameterizedType;
 	}
 
 	/**
