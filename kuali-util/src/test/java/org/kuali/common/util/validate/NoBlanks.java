@@ -13,10 +13,10 @@ import javax.validation.Payload;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@NoBlankElements
-@NoBlankMapKeys
-@NoBlankOptionals
 @NoBlankStrings
+@NoBlankOptionals
+@NoBlankMapKeys
+@NoBlankElements
 @Documented
 public @interface NoBlanks {
 
