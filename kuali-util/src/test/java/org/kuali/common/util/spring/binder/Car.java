@@ -6,17 +6,14 @@ import javax.validation.constraints.Min;
 
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.builder.AbstractBuilder;
+import org.kuali.common.util.validate.BulletProofPojo;
 import org.kuali.common.util.validate.ImmutableGuavaCollections;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
-import org.kuali.common.util.validate.NoBlanks;
-import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidPort;
 
 import com.google.common.collect.ImmutableList;
 
-@NoNullFields
-@NoBlanks
-@ImmutableGuavaCollections
+@BulletProofPojo
 public final class Car {
 
 	// Very first car was built in 1886
