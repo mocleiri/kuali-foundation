@@ -69,7 +69,14 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	 * Return true if this field is a CharSequence
 	 */
 	public static boolean isCharSequence(Field field) {
-		return CharSequence.class.isAssignableFrom(field.getType());
+		return isCharSequence(field.getType());
+	}
+
+	/**
+	 * Return true if this field is a CharSequence
+	 */
+	public static boolean isCharSequence(Class<?> type) {
+		return CharSequence.class.isAssignableFrom(type);
 	}
 
 	/**

@@ -1,7 +1,9 @@
 package org.kuali.common.util.collect;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.kuali.common.util.nullify.NullUtils;
 
@@ -10,6 +12,22 @@ import com.google.common.base.Preconditions;
 public class MapUtils {
 
 	private MapUtils() {
+	}
+
+	/**
+	 * Returns a map containing any entries from <code>map</code> where the key or value are <code>null</code> or a pure whitespace <code>CharSequence</code>
+	 */
+	public static Set<String> getBlankKeys(Map<?, ?> map) {
+		Preconditions.checkNotNull(map, "'map' cannot be null");
+		Set<String> blanks = new HashSet<String>();
+		for (Object key : map.keySet()) {
+			if (NullUtils.isBlank(key)) {
+				CharSequence cs = (CharSequence) key;
+				blanks.add(cs.toString());
+
+			}
+		}
+		return blanks;
 	}
 
 	/**
