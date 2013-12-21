@@ -28,10 +28,9 @@ public class NoBlankElementsValidator extends AbstractFieldsValidator<NoBlankEle
 
 		// The ReflectionUtils.isStringCollection() check above ensures that this field is a Collection<String>
 		@SuppressWarnings("unchecked")
-		// Return an error message if there are blank String's inside the collection
 		Collection<String> collection = (Collection<String>) fieldValue.get();
 
-		// Examine the collection for blanks
+		// Return an error message if there are blank String's inside the collection
 		Collection<String> blanks = CollectionUtils.getBlanks(collection);
 		if (blanks.size() > 0) {
 			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " blank strings");
