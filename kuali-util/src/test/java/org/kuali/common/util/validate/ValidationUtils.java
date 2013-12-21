@@ -49,10 +49,11 @@ public class ValidationUtils {
 	}
 
 	public static boolean isConstraint(Annotation annotation) {
-		Annotation[] annotations = annotation.getClass().getAnnotations();
+		Class<?> annotationType = annotation.annotationType();
+		Annotation[] annotations = annotationType.getAnnotations();
 		for (Annotation element : annotations) {
-			Class<?> type = element.getClass();
-			if (type == Constraint.class) {
+			Class<?> elementAnnotationType = element.annotationType();
+			if (elementAnnotationType == Constraint.class) {
 				return true;
 			}
 		}
