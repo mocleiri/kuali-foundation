@@ -12,7 +12,7 @@ import javax.validation.Payload;
 
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = MatchDeclaringClassFieldsValidator.class)
+@Constraint(validatedBy = UniqueFieldNamesValidator.class)
 @Documented
 public @interface UniqueFieldNames {
 
