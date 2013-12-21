@@ -7,8 +7,8 @@ public class SimpleTest {
 	@Test
 	public void test() {
 		try {
-			A c = A.builder().build();
-			System.out.println(c.getFoo());
+			A a = A.builder().withWeight(-1).build();
+			System.out.println(a.getWeight());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
