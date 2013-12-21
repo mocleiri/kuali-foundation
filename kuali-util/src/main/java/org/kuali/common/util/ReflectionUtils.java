@@ -136,11 +136,13 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	 * </pre>
 	 */
 	public static boolean hasMatchingParameterizedArgTypes(Field field, Class<?>... expectedTypeArguments) {
-		if (!isParameterizedType(field)) {
+		Type genericType = field.getGenericType();
+		if (genericType instanceof ParameterizedType) {
+			ParameterizedType parameterizedType = (ParameterizedType) genericType;
+			return hasMatchingActualTypeArguments(parameterizedType, expectedTypeArguments);
+		} else {
 			return false;
 		}
-		ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-		return hasMatchingActualTypeArguments(parameterizedType, expectedTypeArguments);
 	}
 
 	protected static boolean hasMatchingActualTypeArguments(ParameterizedType type, Class<?>... expectedTypeArguments) {
@@ -156,11 +158,6 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 			}
 		}
 		return true;
-	}
-
-	public static boolean isParameterizedType(Field field) {
-		Type genericType = field.getGenericType();
-		return genericType instanceof ParameterizedType;
 	}
 
 	/**
