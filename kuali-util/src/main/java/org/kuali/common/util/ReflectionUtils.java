@@ -75,7 +75,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	}
 
 	/**
-	 * Return true if this field is a {@code java.util.Map} that uses {@code String} for its keys
+	 * Return true if this field extends from {@code java.util.Map} and uses {@code String} for its keys
 	 * 
 	 * <pre>
 	 * Map&lt;String,String>  returns true
