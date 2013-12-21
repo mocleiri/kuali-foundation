@@ -15,18 +15,18 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 	public void initialize(ValidRuntimeType constraintAnnotation) {
 		this.base = constraintAnnotation.base();
 		this.required = constraintAnnotation.required();
-		// Make sure required extends from base
+		// Make sure required is the same as or descends from base
 		ReflectionUtils.validateEqualsOrDescendsFrom(base, required);
 	}
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
-		// Determine if the type of this field descends from (or equals) the base type we are validating
-		boolean checkRequired = ReflectionUtils.equalsOrDescendsFrom(field.getType(), base);
+		// If this field does not descend from base, we can skip checking it's runtime type
+		boolean skip = !ReflectionUtils.equalsOrDescendsFrom(field.getType(), base);
 
 		// If not, there is nothing more to do
-		if (!checkRequired) {
+		if (!skip) {
 			return Optional.absent();
 		}
 
