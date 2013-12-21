@@ -15,7 +15,6 @@ import org.hibernate.validator.cfg.ConstraintMapping;
 import org.hibernate.validator.cfg.defs.MinDef;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoNullFields;
-import org.kuali.common.util.validate.NoNullFieldsDef;
 import org.kuali.common.util.validate.ValidationUtils;
 
 @NoNullFields
@@ -46,13 +45,13 @@ public class A {
 				ConstraintMapping cm = configuration.createConstraintMapping();
 				Field field = A.class.getDeclaredField("weight");
 				Annotation[] annotations = field.getAnnotations();
-				for (Annotation a:annotations) {
+				for (Annotation a : annotations) {
 					Class<?> type = a.annotationType();
-					Annotation[] aa = type.getAnnotations();
+					if (type == Min.class) {
+						Min min = field.getAnnotation(Min.class);
+						cm.type(Builder.class).constraint(new MinDef().value(min.value()));
+					}
 				}
-				Min annotation = field.getAnnotation(Min.class);
-				MinDef md = new MinDef().value(annotation.value());
-				cm.type(Builder.class).constraint(new NoNullFieldsDef());
 				Validator validator = configuration.addMapping(cm).buildValidatorFactory().getValidator();
 				check(validator.validate(builder));
 			} catch (Exception e) {
