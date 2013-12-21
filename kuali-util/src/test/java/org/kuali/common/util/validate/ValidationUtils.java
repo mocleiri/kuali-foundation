@@ -1,10 +1,12 @@
 package org.kuali.common.util.validate;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Constraint;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -14,6 +16,7 @@ import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 public class ValidationUtils {
 
@@ -25,6 +28,35 @@ public class ValidationUtils {
 			instance = factory.getValidator();
 		}
 		return instance;
+	}
+
+	public static List<Annotation> getConstraints(Field field) {
+		return getConstraints(field.getAnnotations());
+	}
+
+	public static List<Annotation> getConstraints(Class<?> type) {
+		return getConstraints(type.getAnnotations());
+	}
+
+	public static List<Annotation> getConstraints(Annotation[] annotations) {
+		List<Annotation> list = new ArrayList<Annotation>();
+		for (Annotation element : annotations) {
+			if (isConstraint(element)) {
+				list.add(element);
+			}
+		}
+		return ImmutableList.copyOf(list);
+	}
+
+	public static boolean isConstraint(Annotation annotation) {
+		Annotation[] annotations = annotation.getClass().getAnnotations();
+		for (Annotation element : annotations) {
+			Class<?> type = element.getClass();
+			if (type == Constraint.class) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static Optional<String> errorMessage(Field field, String suffix) {
