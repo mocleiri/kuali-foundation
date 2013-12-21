@@ -1,7 +1,6 @@
 package org.kuali.common.util.validate.hibernate.programmatic;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -12,7 +11,7 @@ import javax.validation.constraints.Min;
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.hibernate.validator.cfg.ConstraintMapping;
-import org.hibernate.validator.cfg.defs.MinDef;
+import org.hibernate.validator.cfg.GenericConstraintDef;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidationUtils;
@@ -42,17 +41,18 @@ public class A {
 		private void validate(Builder builder) {
 			try {
 				HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
-				ConstraintMapping cm = configuration.createConstraintMapping();
-				Field field = A.class.getDeclaredField("weight");
-				Annotation[] annotations = field.getAnnotations();
-				for (Annotation a : annotations) {
-					Class<?> type = a.annotationType();
-					if (type == Min.class) {
-						Min min = field.getAnnotation(Min.class);
-						cm.type(Builder.class).constraint(new MinDef().value(min.value()));
+				Annotation[] annotations = builder.getClass().getDeclaringClass().getAnnotations();
+				for (Annotation annotation : annotations) {
+					Class<?> type = annotation.annotationType();
+					if (type == NoNullFields.class) {
+						ConstraintMapping cm = configuration.createConstraintMapping();
+						NoNullFields nnf = builder.getClass().getAnnotation(NoNullFields.class);
+						GenericConstraintDef<NoNullFields> gcf = new GenericConstraintDef<NoNullFields>(NoNullFields.class);
+						cm.type(builder.getClass()).constraint(gcf);
+						configuration = configuration.addMapping(cm);
 					}
 				}
-				Validator validator = configuration.addMapping(cm).buildValidatorFactory().getValidator();
+				Validator validator = configuration.buildValidatorFactory().getValidator();
 				check(validator.validate(builder));
 			} catch (Exception e) {
 				throw new IllegalStateException(e);
