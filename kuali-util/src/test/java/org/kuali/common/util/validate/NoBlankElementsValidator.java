@@ -13,7 +13,7 @@ public class NoBlankElementsValidator extends AbstractFieldsValidator<NoBlankEle
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {
 
-		// This field may not be a collection
+		// This field may not be Collection<String>
 		if (!ReflectionUtils.isStringCollection(field)) {
 			return Optional.absent();
 		}
