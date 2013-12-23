@@ -12,7 +12,7 @@ public class SizeDefFactory extends AbstractConstraintDefFactory<SizeDef, Size> 
 	}
 
 	@Override
-	protected SizeDef getNewConstraintDef(Size size) {
+	protected SizeDef getConstraintDef(Size size) {
 		return new KualiSizeDef(size);
 	}
 

@@ -21,13 +21,13 @@ public abstract class AbstractConstraintDefFactory<C extends ConstraintDef<C, A>
 		return getOptional(annotation);
 	}
 
-	protected abstract C getNewConstraintDef(A annotation);
+	protected abstract C getConstraintDef(A annotation);
 
 	protected Optional<C> getOptional(A annotation) {
 		if (annotation == null) {
 			return Optional.absent();
 		} else {
-			C constraintDef = getNewConstraintDef(annotation);
+			C constraintDef = getConstraintDef(annotation);
 			return Optional.of(constraintDef);
 		}
 	}
