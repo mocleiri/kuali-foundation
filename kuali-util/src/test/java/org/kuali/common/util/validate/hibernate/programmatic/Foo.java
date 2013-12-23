@@ -17,13 +17,13 @@ import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidationUtils;
 
 @NoNullFields
-public class A {
+public class Foo {
 
 	@Min(0)
 	private final int weight;
 	private final String foo;
 
-	private A(Builder builder) {
+	private Foo(Builder builder) {
 		this.foo = builder.foo;
 		this.weight = builder.weight;
 	}
@@ -59,7 +59,7 @@ public class A {
 			}
 		}
 
-		private void validate(A instance) {
+		private void validate(Foo instance) {
 			Validator validator = ValidationUtils.getDefaultValidator();
 			check(validator.validate(instance));
 		}
@@ -74,9 +74,9 @@ public class A {
 			}
 		}
 
-		public A build() {
+		public Foo build() {
 			validate(this);
-			A instance = new A(this);
+			Foo instance = new Foo(this);
 			validate(instance);
 			return instance;
 		}

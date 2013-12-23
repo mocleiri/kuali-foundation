@@ -13,20 +13,20 @@ public class SimpleTest {
 
 	@Test
 	public void testIsConstraint() {
-		boolean condition = ValidationUtils.isConstraint(A.class.getAnnotation(NoNullFields.class));
+		boolean condition = ValidationUtils.isConstraint(Foo.class.getAnnotation(NoNullFields.class));
 		Assert.assertTrue(NoNullFields.class + " is an annotation", condition);
 	}
 
 	@Test
 	public void testGetClassLevelAnnotations() {
-		A a = A.builder().withWeight(1).withFoo("bar").build();
+		Foo a = Foo.builder().withWeight(1).withFoo("bar").build();
 		List<Annotation> constraints = ValidationUtils.getConstraints(a.getClass());
 		Assert.assertTrue("should be exactly one constraint", constraints.size() == 1);
 	}
 
 	@Test
 	public void testGetFieldLevelAnnotations() throws Exception {
-		A a = A.builder().withWeight(1).withFoo("bar").build();
+		Foo a = Foo.builder().withWeight(1).withFoo("bar").build();
 		Field field = a.getClass().getDeclaredField("weight");
 		List<Annotation> constraints = ValidationUtils.getConstraints(field);
 		Assert.assertTrue("should be exactly one constraint", constraints.size() == 1);
@@ -36,7 +36,7 @@ public class SimpleTest {
 	public void test() {
 		try {
 			int negativeWeight = -1;
-			A a = A.builder().withWeight(negativeWeight).build();
+			Foo a = Foo.builder().withWeight(negativeWeight).build();
 			System.out.println("a.weight=" + a.getWeight());
 		} catch (Exception e) {
 			e.printStackTrace();
