@@ -9,7 +9,7 @@ import com.google.common.base.Optional;
 
 public interface ConstraintDefFactory<C extends ConstraintDef<C, A>, A extends Annotation> {
 
-	Class<A> getAnnotatedType();
+	Class<A> getAnnotationType();
 
 	Optional<C> getConstraintDef(Class<A> annotationType, Field field);
 

@@ -7,7 +7,7 @@ import org.hibernate.validator.cfg.defs.MinDef;
 public class MinDefFactory extends AbstractConstraintDefFactory<MinDef, Min> {
 
 	@Override
-	public Class<Min> getAnnotatedType() {
+	public Class<Min> getAnnotationType() {
 		return Min.class;
 	}
 

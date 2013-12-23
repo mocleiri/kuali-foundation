@@ -11,13 +11,13 @@ public abstract class AbstractConstraintDefFactory<C extends ConstraintDef<C, A>
 
 	@Override
 	public Optional<C> getConstraintDef(Class<A> annotationType, Field annotatedField) {
-		A annotation = annotatedField.getAnnotation(getAnnotatedType());
+		A annotation = annotatedField.getAnnotation(getAnnotationType());
 		return getOptional(annotation);
 	}
 
 	@Override
 	public Optional<C> getConstraintDef(Class<A> annotationType, Class<?> annotatedClass) {
-		A annotation = annotatedClass.getAnnotation(getAnnotatedType());
+		A annotation = annotatedClass.getAnnotation(getAnnotationType());
 		return getOptional(annotation);
 	}
 

@@ -7,7 +7,7 @@ import org.hibernate.validator.cfg.defs.SizeDef;
 public class SizeDefFactory extends AbstractConstraintDefFactory<SizeDef, Size> {
 
 	@Override
-	public Class<Size> getAnnotatedType() {
+	public Class<Size> getAnnotationType() {
 		return Size.class;
 	}
 
