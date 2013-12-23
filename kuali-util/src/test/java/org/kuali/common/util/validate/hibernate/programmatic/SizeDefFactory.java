@@ -12,8 +12,14 @@ public class SizeDefFactory extends AbstractConstraintDefFactory<SizeDef, Size> 
 	}
 
 	@Override
-	protected SizeDef getConstraintDef(Size size) {
-		return new KualiSizeDef(size);
+	protected SizeDef getConstraintDef(Size annotation) {
+		SizeDef def = new SizeDef();
+		def.min(annotation.min());
+		def.max(annotation.max());
+		def.message(annotation.message());
+		def.groups(annotation.groups());
+		def.payload(annotation.payload());
+		return def;
 	}
 
 }
