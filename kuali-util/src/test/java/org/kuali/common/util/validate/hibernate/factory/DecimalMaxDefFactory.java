@@ -4,7 +4,7 @@ import javax.validation.constraints.DecimalMax;
 
 import org.hibernate.validator.cfg.defs.DecimalMaxDef;
 
-public class DecimalMaxFactory extends AbstractConstraintDefFactory<DecimalMaxDef, DecimalMax> {
+public class DecimalMaxDefFactory extends AbstractConstraintDefFactory<DecimalMaxDef, DecimalMax> {
 
 	@Override
 	public Class<DecimalMax> getAnnotationType() {
