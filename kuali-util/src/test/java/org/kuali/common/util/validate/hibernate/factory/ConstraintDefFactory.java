@@ -11,8 +11,8 @@ public interface ConstraintDefFactory<C extends ConstraintDef<C, A>, A extends A
 
 	Class<A> getAnnotationType();
 
-	Optional<C> getConstraintDef(Field field);
+	Optional<C> getConstraintDef(Field annotatedField);
 
-	Optional<C> getConstraintDef(Class<?> type);
+	Optional<C> getConstraintDef(Class<?> annotatedClass);
 
 }
