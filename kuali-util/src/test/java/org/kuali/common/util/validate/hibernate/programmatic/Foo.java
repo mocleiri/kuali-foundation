@@ -1,6 +1,10 @@
 package org.kuali.common.util.validate.hibernate.programmatic;
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -10,11 +14,16 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.HibernateValidatorConfiguration;
+import org.hibernate.validator.cfg.ConstraintDef;
 import org.hibernate.validator.cfg.ConstraintMapping;
-import org.hibernate.validator.cfg.GenericConstraintDef;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidationUtils;
+import org.kuali.common.util.validate.hibernate.factory.ConstraintDefFactory;
+import org.kuali.common.util.validate.hibernate.factory.MinDefFactory;
+
+import com.google.common.base.Optional;
 
 @NoNullFields
 public class Foo {
@@ -40,20 +49,29 @@ public class Foo {
 
 		private void validate(Builder builder) {
 			try {
+				Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<? extends ConstraintDef<?, ?>, ? extends Annotation>, ? extends Annotation>> factories = new HashMap<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<? extends ConstraintDef<?, ?>, ? extends Annotation>, ? extends Annotation>>();
+				factories.put(Min.class, new MinDefFactory());
 				HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
-				Annotation[] annotations = builder.getClass().getDeclaringClass().getAnnotations();
-				for (Annotation annotation : annotations) {
-					Class<?> type = annotation.annotationType();
-					if (type == NoNullFields.class) {
-						ConstraintMapping cm = configuration.createConstraintMapping();
-						NoNullFields nnf = builder.getClass().getAnnotation(NoNullFields.class);
-						GenericConstraintDef<NoNullFields> gcf = new GenericConstraintDef<NoNullFields>(NoNullFields.class);
-						cm.type(builder.getClass()).constraint(gcf);
-						configuration = configuration.addMapping(cm);
+				Set<Field> fields = ReflectionUtils.getAllFields(builder.getClass().getDeclaringClass());
+				for (Field field : fields) {
+					Annotation[] annotations = field.getAnnotations();
+					for (Annotation annotation : annotations) {
+						if (ValidationUtils.isConstraint(annotation)) {
+							Class<? extends Annotation> annotationType = annotation.annotationType();
+							ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?> factory = factories.get(annotationType);
+							Optional<? extends ConstraintDef<?, ?>> optional = factory.getConstraintDef(field);
+							if (optional.isPresent()) {
+								ConstraintDef<?, ?> cdef = optional.get();
+								ConstraintMapping cm = configuration.createConstraintMapping();
+								cm.type(builder.getClass()).property(field.getName(), ElementType.FIELD).constraint(cdef);
+								configuration.addMapping(cm);
+							}
+						}
 					}
 				}
 				Validator validator = configuration.buildValidatorFactory().getValidator();
-				check(validator.validate(builder));
+				Set<ConstraintViolation<Builder>> violations = validator.validate(builder);
+				check(violations);
 			} catch (Exception e) {
 				throw new IllegalStateException(e);
 			}
