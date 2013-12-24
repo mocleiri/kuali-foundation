@@ -4,9 +4,13 @@ public abstract class SelfReferentialType<T extends SelfReferentialType<T>> {
 
 	private SomeOtherType<T> ref;
 
-	protected abstract T getThis();
+	@SuppressWarnings("unchecked")
+	private T getThis() {
+		return (T) this;
+	}
 
 	public void aMethod() {
 		ref.myMethod(getThis());
-	}
+	} // error: incompatible types
+
 }

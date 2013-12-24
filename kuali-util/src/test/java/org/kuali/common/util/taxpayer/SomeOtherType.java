@@ -1,7 +1,7 @@
 package org.kuali.common.util.taxpayer;
 
-public interface SomeOtherType<E> {
+public interface SomeOtherType<T> {
 
-	void myMethod(E argument);
+	void myMethod(T argument);
 
 }
