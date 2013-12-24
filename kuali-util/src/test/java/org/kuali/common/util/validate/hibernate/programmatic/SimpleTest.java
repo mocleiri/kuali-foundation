@@ -22,7 +22,7 @@ public class SimpleTest {
 	@Test
 	public void testGetClassLevelAnnotations() {
 		try {
-			Foo a = Foo.builder().withWeight(-1).withFoo("bar").build();
+			Foo a = Foo.builder().withWeight(1).withFoo("bar").build();
 			List<Annotation> constraints = ValidationUtils.getConstraints(a.getClass());
 			Assert.assertTrue("should be exactly one constraint", constraints.size() == 1);
 		} catch (Exception e) {

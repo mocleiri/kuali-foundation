@@ -12,26 +12,24 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.hibernate.validator.cfg.ConstraintDef;
 import org.hibernate.validator.cfg.ConstraintMapping;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.validate.MatchDeclaringClassFields;
-import org.kuali.common.util.validate.NoNullFields;
 import org.kuali.common.util.validate.ValidationUtils;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefFactory;
 import org.kuali.common.util.validate.hibernate.factory.MinDefFactory;
 
 import com.google.common.base.Optional;
 
-@NoNullFields
 public class Foo {
 
-	@Min(0)
-	private final int weight;
+	@Size(min = 1)
 	private final String foo;
+	private final int weight;
 
 	private Foo(Builder builder) {
 		this.foo = builder.foo;
@@ -42,7 +40,6 @@ public class Foo {
 		return new Builder();
 	}
 
-	@MatchDeclaringClassFields
 	public static class Builder {
 
 		private String foo;
@@ -92,7 +89,7 @@ public class Foo {
 		}
 
 		public Foo build() {
-			validate(this);
+			// validate(this);
 			Foo instance = new Foo(this);
 			validate(instance);
 			return instance;
