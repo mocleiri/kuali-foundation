@@ -3,9 +3,7 @@ package org.kuali.common.util.validate.hibernate.programmatic;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -20,13 +18,17 @@ import org.hibernate.validator.cfg.ConstraintDef;
 import org.hibernate.validator.cfg.ConstraintMapping;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.validate.ValidationUtils;
-import org.kuali.common.util.validate.hibernate.factory.ConstraintDefFactory;
+import org.kuali.common.util.validate.hibernate.factory.ConstraintDefService;
+import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefService;
 import org.kuali.common.util.validate.hibernate.factory.MinDefFactory;
+import org.kuali.common.util.validate.hibernate.factory.SizeDefFactory;
 
 public class Foo {
 
 	@Size(min = 1)
 	private final String foo;
+
+	@Min(1)
 	private final int weight;
 
 	private Foo(Builder builder) {
@@ -45,16 +47,14 @@ public class Foo {
 
 		private void validate(Builder builder) {
 			try {
-				Map<Class<?>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = new HashMap<Class<?>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>>();
-				factories.put(Min.class, new MinDefFactory());
+				ConstraintDefService cdf = DefaultConstraintDefService.builder().register(new MinDefFactory()).register(new SizeDefFactory()).build();
 				HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
 				Set<Field> fields = ReflectionUtils.getAllFields(builder.getClass().getDeclaringClass());
 				for (Field field : fields) {
 					List<Annotation> annotations = ValidationUtils.getConstraints(field);
 					for (Annotation annotation : annotations) {
-						Class<?> annotationType = annotation.annotationType();
-						ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?> factory = factories.get(annotationType);
-						ConstraintDef<?, ?> cdef = factory.getConstraintDef(field);
+						Class<? extends Annotation> annotationType = annotation.annotationType();
+						ConstraintDef<?, ?> cdef = cdf.getConstraintDef(field, annotationType);
 						ConstraintMapping cm = configuration.createConstraintMapping();
 						cm.type(builder.getClass()).property(field.getName(), ElementType.FIELD).constraint(cdef);
 						configuration.addMapping(cm);
@@ -84,7 +84,7 @@ public class Foo {
 		}
 
 		public Foo build() {
-			// validate(this);
+			validate(this);
 			Foo instance = new Foo(this);
 			validate(instance);
 			return instance;

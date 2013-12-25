@@ -43,6 +43,10 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 		return factory.getConstraintDef(annotatedClass);
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder implements org.kuali.common.util.builder.Builder<DefaultConstraintDefService> {
 
 		private Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = Maps.newHashMap();

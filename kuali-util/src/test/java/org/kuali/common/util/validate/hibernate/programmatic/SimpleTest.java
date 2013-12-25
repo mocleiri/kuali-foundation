@@ -22,9 +22,7 @@ public class SimpleTest {
 	@Test
 	public void testGetClassLevelAnnotations() {
 		try {
-			Foo a = Foo.builder().withWeight(1).withFoo("bar").build();
-			List<Annotation> constraints = ValidationUtils.getConstraints(a.getClass());
-			Assert.assertTrue("should be exactly one constraint", constraints.size() == 1);
+			Foo.builder().withWeight(-1).withFoo(" ").build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -33,7 +31,7 @@ public class SimpleTest {
 	@Test
 	@Ignore
 	public void testGetFieldLevelAnnotations() throws Exception {
-		Foo a = Foo.builder().withWeight(1).withFoo("bar").build();
+		Foo a = Foo.builder().withWeight(-1).withFoo("").build();
 		Field field = a.getClass().getDeclaredField("weight");
 		List<Annotation> constraints = ValidationUtils.getConstraints(field);
 		Assert.assertTrue("should be exactly one constraint", constraints.size() == 1);

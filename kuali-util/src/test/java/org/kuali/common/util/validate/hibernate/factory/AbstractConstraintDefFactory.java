@@ -17,7 +17,8 @@ public abstract class AbstractConstraintDefFactory<C extends ConstraintDef<C, A>
 	@Override
 	public C getConstraintDef(Field annotatedField) {
 		Optional<A> optional = Optional.of(annotatedField.getAnnotation(getAnnotationType()));
-		Preconditions.checkState(false, "[%s.%s] is not annotated with [%s]", getDeclarationPath(annotatedField.getType()), annotatedField.getName(), cname);
+		String path = getDeclarationPath(annotatedField.getDeclaringClass());
+		Preconditions.checkState(optional.isPresent(), "[%s.%s] is not annotated with [%s]", path, annotatedField.getName(), cname);
 		return getConstraintDef(optional.get());
 	}
 
