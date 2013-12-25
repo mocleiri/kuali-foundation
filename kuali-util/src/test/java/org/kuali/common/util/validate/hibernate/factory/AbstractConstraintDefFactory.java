@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import org.hibernate.validator.cfg.ConstraintDef;
+import org.hibernate.validator.cfg.GenericConstraintDef;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -30,5 +31,9 @@ public abstract class AbstractConstraintDefFactory<C extends ConstraintDef<C, A>
 	}
 
 	protected abstract C getConstraintDef(A annotation);
+	
+	public static <A extends Annotation> GenericConstraintDef<A> newGenericConstraintDef(Class<A> annotationType) {
+		return new GenericConstraintDef<A>(annotationType);
+	}
 
 }

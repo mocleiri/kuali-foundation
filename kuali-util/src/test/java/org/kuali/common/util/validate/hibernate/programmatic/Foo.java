@@ -17,10 +17,13 @@ import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.hibernate.validator.cfg.ConstraintDef;
 import org.hibernate.validator.cfg.ConstraintMapping;
 import org.kuali.common.util.ReflectionUtils;
+import org.kuali.common.util.validate.BulletProofPojo;
+import org.kuali.common.util.validate.MatchDeclaringClassFields;
 import org.kuali.common.util.validate.ValidationUtils;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefService;
 import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefService;
 
+@BulletProofPojo
 public class Foo {
 
 	@Size(min = 1)
@@ -38,6 +41,7 @@ public class Foo {
 		return new Builder();
 	}
 
+	@MatchDeclaringClassFields
 	public static class Builder {
 
 		private String foo;

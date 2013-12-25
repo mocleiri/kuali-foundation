@@ -16,7 +16,7 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 		this.base = constraintAnnotation.base();
 		this.required = constraintAnnotation.required();
 		// Make sure required is the same as or descends from base
-		ReflectionUtils.validateEqualsOrDescendsFrom(base, required);
+		ReflectionUtils.validateEqualsOrDescendsFrom(required, base);
 	}
 
 	@Override
