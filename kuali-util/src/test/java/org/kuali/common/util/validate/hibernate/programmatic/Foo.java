@@ -45,39 +45,46 @@ public class Foo {
 
 		private void validate(Builder builder) {
 			try {
-				ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
 				HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
-				Set<Field> fields = ReflectionUtils.getAllFields(builder.getClass().getDeclaringClass());
-				for (Field field : fields) {
-					List<Annotation> annotations = ValidationUtils.getConstraints(field);
-					for (Annotation annotation : annotations) {
-						ConstraintDef<?, ?> cdef = cdf.getConstraintDef(field, annotation.annotationType());
-						ConstraintMapping cm = configuration.createConstraintMapping();
-						cm.type(builder.getClass()).property(field.getName(), ElementType.FIELD).constraint(cdef);
-						configuration.addMapping(cm);
-					}
-				}
+				addClassConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
+				addFieldConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
 				Validator validator = configuration.buildValidatorFactory().getValidator();
 				Set<ConstraintViolation<Builder>> violations = validator.validate(builder);
-				check(violations);
+				ValidationUtils.check(violations);
 			} catch (Exception e) {
 				throw new IllegalStateException(e);
 			}
 		}
 
-		private void validate(Foo instance) {
-			Validator validator = ValidationUtils.getDefaultValidator();
-			check(validator.validate(instance));
+		private static void addClassConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
+			ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
+			List<Annotation> annotations = ValidationUtils.getConstraints(src);
+			for (Annotation annotation : annotations) {
+				ConstraintDef<?, ?> cdef = cdf.getConstraintDef(src, annotation.annotationType());
+				ConstraintMapping cm = configuration.createConstraintMapping();
+				cm.type(dst).constraint(cdef);
+				configuration.addMapping(cm);
+			}
 		}
 
-		private static <T> void check(Set<ConstraintViolation<T>> violations) {
-			if (violations.size() > 0) {
-				StringBuilder sb = new StringBuilder();
-				for (ConstraintViolation<T> violation : violations) {
-					sb.append(violation.getMessage());
+		private static void addFieldConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
+			ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
+			Set<Field> fields = ReflectionUtils.getAllFields(src);
+			for (Field field : fields) {
+				List<Annotation> annotations = ValidationUtils.getConstraints(field);
+				for (Annotation annotation : annotations) {
+					ConstraintDef<?, ?> cdef = cdf.getConstraintDef(field, annotation.annotationType());
+					ConstraintMapping cm = configuration.createConstraintMapping();
+					cm.type(dst).property(field.getName(), ElementType.FIELD).constraint(cdef);
+					configuration.addMapping(cm);
 				}
-				throw new IllegalArgumentException(sb.toString());
 			}
+		}
+
+		private void validate(Foo instance) {
+			Validator validator = ValidationUtils.getDefaultValidator();
+			Set<ConstraintViolation<Foo>> violations = validator.validate(instance);
+			ValidationUtils.check(violations);
 		}
 
 		public Foo build() {
