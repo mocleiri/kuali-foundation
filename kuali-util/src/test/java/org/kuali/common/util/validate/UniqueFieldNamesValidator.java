@@ -30,10 +30,10 @@ public class UniqueFieldNamesValidator implements ConstraintValidator<UniqueFiel
 		if (duplicates.size() == 0) {
 			return true;
 		} else {
+			constraintContext.disableDefaultConstraintViolation();
+			String path = ReflectionUtils.getDeclarationPath(instance.getClass());
 			for (String duplicate : duplicates) {
-				String path = ReflectionUtils.getDeclarationPath(instance.getClass());
 				String error = "Duplicate field declaration: In type [" + path + "] the field [" + duplicate + "] appears more than once in the type hierarchy";
-				constraintContext.disableDefaultConstraintViolation();
 				constraintContext.buildConstraintViolationWithTemplate(error).addConstraintViolation();
 			}
 			return false;
