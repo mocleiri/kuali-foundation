@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 
 import org.hibernate.validator.cfg.ConstraintDef;
 
-public interface ConstraintDefSvc {
+public interface ConstraintDefService {
 
 	boolean supports(Class<? extends Annotation> annotationType);
 

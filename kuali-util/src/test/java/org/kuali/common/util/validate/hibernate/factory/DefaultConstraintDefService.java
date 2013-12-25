@@ -11,7 +11,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
-public final class DefaultConstraintDefService implements ConstraintDefSvc {
+public final class DefaultConstraintDefService implements ConstraintDefService {
 
 	private final Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories;
 
@@ -59,7 +59,7 @@ public final class DefaultConstraintDefService implements ConstraintDefSvc {
 			return this;
 		}
 
-		public ConstraintDefSvc build() {
+		public ConstraintDefService build() {
 			this.factories = ImmutableMap.copyOf(factories);
 			DefaultConstraintDefService instance = new DefaultConstraintDefService(this);
 			validate(instance);
