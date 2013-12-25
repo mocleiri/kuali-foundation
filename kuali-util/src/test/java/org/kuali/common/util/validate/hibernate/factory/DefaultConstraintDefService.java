@@ -19,6 +19,7 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 		this.factories = builder.factories;
 	}
 
+	@Override
 	public boolean supports(Class<? extends Annotation> annotationType) {
 		Preconditions.checkNotNull(annotationType, "'annotationType' cannot be null");
 		return factories.containsKey(annotationType);
@@ -44,7 +45,7 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 
 	public static class Builder {
 
-		private Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories;
+		private Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = Maps.newHashMap();
 
 		public Builder factories(Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories) {
 			this.factories = factories;
@@ -52,9 +53,6 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 		}
 
 		public Builder register(ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?> factory) {
-			if (this.factories == null) {
-				this.factories = Maps.newHashMap();
-			}
 			factories.put(factory.getAnnotationType(), factory);
 			return this;
 		}
@@ -67,9 +65,10 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 		}
 
 		private void validate(DefaultConstraintDefService instance) {
-			Preconditions.checkNotNull(instance.factories, "factories cannot be null");
-			boolean immutableGuavaMap = ReflectionUtils.isImmutableGuavaMap(instance.factories.getClass());
-			Preconditions.checkArgument(immutableGuavaMap, "[" + instance.factories.getClass().getCanonicalName() + "] is not an immutable Guava map");
+			Preconditions.checkNotNull(instance.getFactories(), "'factories' cannot be null");
+			Class<?> mapClass = instance.getFactories().getClass();
+			boolean immutable = ReflectionUtils.isImmutableGuavaMap(mapClass);
+			Preconditions.checkArgument(immutable, "[%s] is not an immutable Guava map", mapClass.getCanonicalName());
 		}
 	}
 
