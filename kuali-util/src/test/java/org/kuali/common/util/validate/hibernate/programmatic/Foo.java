@@ -20,8 +20,6 @@ import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.validate.ValidationUtils;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefService;
 import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefService;
-import org.kuali.common.util.validate.hibernate.factory.MinDefFactory;
-import org.kuali.common.util.validate.hibernate.factory.SizeDefFactory;
 
 public class Foo {
 
@@ -47,14 +45,13 @@ public class Foo {
 
 		private void validate(Builder builder) {
 			try {
-				ConstraintDefService cdf = DefaultConstraintDefService.builder().register(new MinDefFactory()).register(new SizeDefFactory()).build();
+				ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
 				HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
 				Set<Field> fields = ReflectionUtils.getAllFields(builder.getClass().getDeclaringClass());
 				for (Field field : fields) {
 					List<Annotation> annotations = ValidationUtils.getConstraints(field);
 					for (Annotation annotation : annotations) {
-						Class<? extends Annotation> annotationType = annotation.annotationType();
-						ConstraintDef<?, ?> cdef = cdf.getConstraintDef(field, annotationType);
+						ConstraintDef<?, ?> cdef = cdf.getConstraintDef(field, annotation.annotationType());
 						ConstraintMapping cm = configuration.createConstraintMapping();
 						cm.type(builder.getClass()).property(field.getName(), ElementType.FIELD).constraint(cdef);
 						configuration.addMapping(cm);
