@@ -20,14 +20,13 @@ import com.google.common.collect.ImmutableList;
 
 public class ValidationUtils {
 
-	private static Validator instance;
+	private static ValidatorFactory factory;
 
 	public synchronized static Validator getDefaultValidator() {
-		if (instance == null) {
-			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-			instance = factory.getValidator();
+		if (factory == null) {
+			factory = Validation.buildDefaultValidatorFactory();
 		}
-		return instance;
+		return factory.getValidator();
 	}
 
 	public static List<Annotation> getConstraints(Field field) {

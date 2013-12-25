@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableMap;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@ValidRuntimeType(base = Map.class, required = ImmutableMap.class)
+@ValidRuntimeType(superType = Map.class, type = ImmutableMap.class)
 @Documented
 public @interface ImmutableGuavaMaps {
 

@@ -29,6 +29,30 @@ public class ReflectionUtilsTest {
 	private static final Logger logger = LoggerUtils.make();
 
 	@Test
+	public void testHasMatchingParameterizedArgTypes1() throws Exception {
+		Field field = C.class.getDeclaredField("foo");
+		boolean condition = ReflectionUtils.hasMatchingParameterizedArgTypes(field, String.class);
+		Assert.assertTrue("'foo' must be an optional string", condition);
+
+	}
+
+	@Test
+	public void testHasMatchingParameterizedArgTypes2() throws Exception {
+		Field field = C.class.getDeclaredField("bar");
+		boolean condition = ReflectionUtils.hasMatchingParameterizedArgTypes(field, Integer.class);
+		Assert.assertTrue("'foo' must be an optional string", condition);
+
+	}
+
+	@Test
+	public void testHasMatchingParameterizedArgTypes3() throws Exception {
+		Field field = C.class.getDeclaredField("bar");
+		boolean condition = ReflectionUtils.hasMatchingParameterizedArgTypes(field, String.class);
+		Assert.assertFalse("'foo' must be an optional string", condition);
+
+	}
+
+	@Test
 	public void testDetectOptionalString() throws Exception {
 		Field field = C.class.getDeclaredField("foo");
 		boolean condition = ReflectionUtils.isOptionalString(field);

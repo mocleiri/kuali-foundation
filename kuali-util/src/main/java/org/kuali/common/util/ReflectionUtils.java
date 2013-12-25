@@ -171,19 +171,19 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 	 * @throws IllegalArgumentException
 	 *             if {@code equalsOrDescendsFrom(child,parent)} returns {@code false}
 	 */
-	public static void validateEqualsOrDescendsFrom(Class<?> child, Class<?> parent) {
-		boolean expression = equalsOrDescendsFrom(child, parent);
-		Preconditions.checkArgument(expression, "[%s] must descend from (or be) [%s]", child.getCanonicalName(), parent.getCanonicalName());
+	public static void validateIsSuperType(Class<?> superType, Class<?> type) {
+		boolean expression = isSuperType(superType, type);
+		Preconditions.checkArgument(expression, "[%s] must descend from (or be) [%s]", type.getCanonicalName(), superType.getCanonicalName());
 	}
 
 	/**
 	 * <p>
-	 * Return true if {@code child} is the same class as {@code parent} <b>OR</b> descends from {@code parent}. If {@code child} is a primitive type, return {@code true} only if
-	 * both {@code child} and {@code parent} are the exact same primitive type.
+	 * Return true if {@code type} descends from {@code superType} <b>OR</b> is the same as {@code superType}. If {@code type} is a primitive type, return {@code true} only if both
+	 * {@code type} and {@code superType} are the exact same primitive type.
 	 * </p>
 	 */
-	public static boolean equalsOrDescendsFrom(Class<?> child, Class<?> parent) {
-		return parent.isAssignableFrom(child);
+	public static boolean isSuperType(Class<?> superType, Class<?> type) {
+		return superType.isAssignableFrom(type);
 	}
 
 	public static <T extends Annotation> Optional<T> getAnnotation(Class<?> instanceClass, Class<T> annotationClass) {
