@@ -48,19 +48,15 @@ public class Foo {
 		private int weight;
 
 		private void validate(Builder builder) {
-			try {
-				HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
-				addClassConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
-				addFieldConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
-				Validator validator = configuration.buildValidatorFactory().getValidator();
-				Set<ConstraintViolation<Builder>> violations = validator.validate(builder);
-				ValidationUtils.check(violations);
-			} catch (Exception e) {
-				throw new IllegalStateException(e);
-			}
+			HibernateValidatorConfiguration configuration = Validation.byProvider(HibernateValidator.class).configure();
+			copyClassConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
+			copyFieldConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
+			Validator validator = configuration.buildValidatorFactory().getValidator();
+			Set<ConstraintViolation<Builder>> violations = validator.validate(builder);
+			ValidationUtils.check(violations);
 		}
 
-		private static void addClassConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
+		private static void copyClassConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
 			ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
 			List<Annotation> annotations = ValidationUtils.getConstraints(src);
 			for (Annotation annotation : annotations) {
@@ -71,7 +67,7 @@ public class Foo {
 			}
 		}
 
-		private static void addFieldConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
+		private static void copyFieldConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
 			ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
 			Set<Field> fields = ReflectionUtils.getAllFields(src);
 			for (Field field : fields) {
