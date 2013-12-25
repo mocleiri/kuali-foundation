@@ -23,8 +23,6 @@ import org.kuali.common.util.validate.ValidationUtils;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefFactory;
 import org.kuali.common.util.validate.hibernate.factory.MinDefFactory;
 
-import com.google.common.base.Optional;
-
 public class Foo {
 
 	@Size(min = 1)
@@ -56,13 +54,10 @@ public class Foo {
 					for (Annotation annotation : annotations) {
 						Class<?> annotationType = annotation.annotationType();
 						ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?> factory = factories.get(annotationType);
-						Optional<? extends ConstraintDef<?, ?>> optional = factory.getConstraintDef(field);
-						if (optional.isPresent()) {
-							ConstraintDef<?, ?> cdef = optional.get();
-							ConstraintMapping cm = configuration.createConstraintMapping();
-							cm.type(builder.getClass()).property(field.getName(), ElementType.FIELD).constraint(cdef);
-							configuration.addMapping(cm);
-						}
+						ConstraintDef<?, ?> cdef = factory.getConstraintDef(field);
+						ConstraintMapping cm = configuration.createConstraintMapping();
+						cm.type(builder.getClass()).property(field.getName(), ElementType.FIELD).constraint(cdef);
+						configuration.addMapping(cm);
 					}
 				}
 				Validator validator = configuration.buildValidatorFactory().getValidator();
