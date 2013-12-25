@@ -13,6 +13,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.SetUtils;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -28,14 +29,16 @@ public class MatchDeclaringClassFieldsValidator implements ConstraintValidator<M
 	@Override
 	public boolean isValid(Object instance, ConstraintValidatorContext constraintContext) {
 
-		// There might not be a declaring class
-		Class<?> declaringClass = instance.getClass().getDeclaringClass();
-		if (declaringClass == null) {
+		// Extract the declaring class into an optional
+		Optional<Class<?>> declaringClass = Optional.<Class<?>> fromNullable(instance.getClass().getDeclaringClass());
+
+		// If there is no declaring class, we are done
+		if (!declaringClass.isPresent()) {
 			return true;
 		}
 
 		// Get field details for the declaring class
-		FieldDetail declaringClassDetail = getFieldDetail(declaringClass);
+		FieldDetail declaringClassDetail = getFieldDetail(declaringClass.get());
 
 		// Get field details for the instance class
 		FieldDetail instanceDetail = getFieldDetail(instance.getClass());
