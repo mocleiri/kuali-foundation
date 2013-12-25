@@ -2,6 +2,7 @@ package org.kuali.common.util.validate.hibernate.factory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 
 import org.hibernate.validator.cfg.ConstraintDef;
@@ -9,6 +10,7 @@ import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public final class DefaultConstraintDefService implements ConstraintDefService {
@@ -49,7 +51,23 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 
 	public static class Builder implements org.kuali.common.util.builder.Builder<DefaultConstraintDefService> {
 
-		private Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = Maps.newHashMap();
+		private Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = getDefaultMappings();
+
+		private static Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> getDefaultMappings() {
+			List<ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> list = Lists.newArrayList();
+			list.add(new AssertFalseDefFactory());
+			list.add(new AssertTrueDefFactory());
+			list.add(new CreditCardNumberDefFactory());
+			list.add(new DecimalMaxDefFactory());
+			list.add(new DecimalMinDefFactory());
+			list.add(new SizeDefFactory());
+			list.add(new MinDefFactory());
+			Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories = Maps.newHashMap();
+			for (ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?> element : list) {
+				factories.put(element.getAnnotationType(), element);
+			}
+			return factories;
+		}
 
 		public Builder factories(Map<Class<? extends Annotation>, ConstraintDefFactory<? extends ConstraintDef<?, ?>, ?>> factories) {
 			this.factories = factories;
