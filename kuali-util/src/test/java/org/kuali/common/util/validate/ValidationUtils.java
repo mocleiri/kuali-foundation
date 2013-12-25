@@ -49,15 +49,7 @@ public class ValidationUtils {
 	}
 
 	public static boolean isConstraint(Annotation annotation) {
-		Class<?> annotationType = annotation.annotationType();
-		Annotation[] annotations = annotationType.getAnnotations();
-		for (Annotation element : annotations) {
-			Class<?> elementAnnotationType = element.annotationType();
-			if (elementAnnotationType == Constraint.class) {
-				return true;
-			}
-		}
-		return false;
+		return annotation.annotationType().isAnnotationPresent(Constraint.class);
 	}
 
 	public static Optional<String> errorMessage(Field field, String suffix) {
