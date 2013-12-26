@@ -59,6 +59,7 @@ public final class DefaultConstraintDefService implements ConstraintDefService {
 			list.add(new AssertTrueDefFactory());
 			list.add(new CreditCardNumberDefFactory());
 			list.add(new BulletProofPojoDefFactory());
+			list.add(new BulletProofBuilderDefFactory());
 			list.add(new ValidPortDefFactory());
 			list.add(new DecimalMaxDefFactory());
 			list.add(new DecimalMinDefFactory());
