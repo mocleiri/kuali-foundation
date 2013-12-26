@@ -26,7 +26,7 @@ import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefServ
 @BulletProofPojo
 public class Foo {
 
-	@Size(min = 1)
+	@Size(min = 12)
 	private final String foo;
 
 	@Min(1)

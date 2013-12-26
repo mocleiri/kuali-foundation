@@ -12,7 +12,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.kuali.common.util.CollectionUtils;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
@@ -65,8 +64,16 @@ public class ValidationUtils {
 			return;
 		}
 		List<String> errorMessages = getErrorMessages(violations);
-		String errorMessage = CollectionUtils.asCSV(errorMessages);
-		throw new IllegalArgumentException(errorMessage);
+		StringBuilder sb = new StringBuilder();
+		sb.append("Validation failed:\n\n");
+		for (int i = 0; i < errorMessages.size(); i++) {
+			if (i != 0) {
+				sb.append("\n");
+			}
+			sb.append(errorMessages.get(i));
+		}
+		sb.append("\n");
+		throw new IllegalArgumentException(sb.toString());
 	}
 
 	public static <T> List<String> getErrorMessages(Set<ConstraintViolation<T>> violations) {
