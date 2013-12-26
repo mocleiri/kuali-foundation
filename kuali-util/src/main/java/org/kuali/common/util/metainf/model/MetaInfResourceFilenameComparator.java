@@ -6,7 +6,7 @@ import org.kuali.common.util.LocationUtils;
 import org.springframework.core.io.Resource;
 
 /**
- * Compare 2 MetaInfResource objects based on the location they contain.
+ * Compare 2 MetaInfResource objects based on the filename portion of the location they contain.
  */
 public class MetaInfResourceFilenameComparator implements Comparator<MetaInfResource> {
 

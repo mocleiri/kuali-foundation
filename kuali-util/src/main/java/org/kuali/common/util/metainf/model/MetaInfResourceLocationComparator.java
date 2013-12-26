@@ -3,7 +3,7 @@ package org.kuali.common.util.metainf.model;
 import java.util.Comparator;
 
 /**
- * Compare 2 MetaInfResource objects based on the filename portion of the location they contain.
+ * Compare 2 MetaInfResource objects based on the location they contain.
  */
 public class MetaInfResourceLocationComparator implements Comparator<MetaInfResource> {
 
