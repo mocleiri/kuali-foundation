@@ -22,7 +22,7 @@ public class SimpleTest {
 	@Test
 	public void testGetClassLevelAnnotations() {
 		try {
-			Foo.builder().withWeight(-1).withFoo("   ").build();
+			Foo.builder().withWeight(-1).withFoo(" ").build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

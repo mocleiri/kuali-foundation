@@ -12,6 +12,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
@@ -87,8 +88,12 @@ public class ValidationUtils {
 
 	public static <T> String getErrorMessage(ConstraintViolation<T> violation) {
 		String classDeclarationPath = ReflectionUtils.getDeclarationPath(violation.getRootBeanClass());
-		String property = violation.getPropertyPath() + "";
-		return "[" + classDeclarationPath + "." + property + " " + violation.getMessage() + "]";
+		String propertyPath = violation.getPropertyPath() + "";
+		if (StringUtils.isBlank(propertyPath)) {
+			return "[" + classDeclarationPath + " - " + violation.getMessage() + "]";
+		} else {
+			return "[" + classDeclarationPath + "." + propertyPath + " " + violation.getMessage() + "]";
+		}
 	}
 
 }
