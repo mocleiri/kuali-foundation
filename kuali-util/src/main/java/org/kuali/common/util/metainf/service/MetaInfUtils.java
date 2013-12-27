@@ -8,6 +8,7 @@ import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.model.Build;
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
+import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.springframework.util.ResourceUtils;
 
 public class MetaInfUtils {
@@ -45,6 +46,13 @@ public class MetaInfUtils {
 	/**
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
+	public static String getClasspathResource(ProjectIdentifier project, MetaInfGroup group) {
+		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
+	}
+
+	/**
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
+	 */
 	public static String getClasspathResource(Project project, MetaInfGroup group) {
 		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
 	}
@@ -74,7 +82,14 @@ public class MetaInfUtils {
 	 * <code>META-INF/org/kuali/util</code>
 	 */
 	public static String getGroupPrefix(Project project) {
-		return METAINF_DIRECTORY_NAME + "/" + Str.getPath(project.getGroupId());
+		return METAINF_DIRECTORY_NAME + "/" + getGroupPrefix(project.getGroupId());
+	}
+
+	/**
+	 * <code>META-INF/org/kuali/util</code>
+	 */
+	public static String getGroupPrefix(String groupId) {
+		return METAINF_DIRECTORY_NAME + "/" + Str.getPath(groupId);
 	}
 
 	/**
@@ -82,6 +97,13 @@ public class MetaInfUtils {
 	 */
 	public static String getResourcePrefix(Project project) {
 		return getGroupPrefix(project) + "/" + project.getArtifactId();
+	}
+
+	/**
+	 * <code>META-INF/org/kuali/util/kuali-util</code>
+	 */
+	public static String getResourcePrefix(ProjectIdentifier project) {
+		return getGroupPrefix(project.getGroupId()) + "/" + project.getArtifactId();
 	}
 
 	/**
