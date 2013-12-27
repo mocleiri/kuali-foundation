@@ -13,12 +13,28 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * <p>
- * Associate an executable with one or more application event's or source types.
+ * Associate an executable with Spring framework application events.
  * </p>
  * 
  * <p>
- * If a supported application event type or source type is received, the executable is executed.
+ * If an application event gets fired where both {@code supportsEventType} and {@code supportsSourceType} return {@code true}, {@code onApplicationEvent} invokes the executable.
  * </p>
+ * 
+ * <p>
+ * The default behavior of {@code supportsEventType} and {@code supportsSourceType} is to always return true irrespective of what application event was fired.
+ * </p>
+ * 
+ * <p>
+ * To be more discriminatory, provide values for {@code supportedSourceTypes} and {@code supportedEventTypes}.
+ * </p>
+ * 
+ * <p>
+ * To limit execution to a specific event type, eg {@code ContextRefreshedEvent}:
+ * </p>
+ * 
+ * <pre>
+ * ExecutableApplicationListener.builder(executable).supportedEventType(ContextRefreshedEvent.class).build()
+ * </pre>
  */
 public final class ExecutableApplicationListener implements SmartApplicationListener {
 
@@ -31,13 +47,8 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
-		logger.info("Recieved event: [{}]", event.getClass());
-		boolean supportedEventType = supportsEventType(event.getClass());
-		boolean supportedSourceType = supportsSourceType(event.getSource().getClass());
-		boolean execute = supportedEventType || supportedSourceType;
-		if (execute) {
-			executable.execute();
-		}
+		logger.info("Received event: [{}] Source type: [{}]", event.getClass().getCanonicalName(), event.getSource().getClass().getCanonicalName());
+		executable.execute();
 	}
 
 	@Override
@@ -47,12 +58,12 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 
 	@Override
 	public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
-		return supportedEventTypes.contains(eventType);
+		return supportedEventTypes.isEmpty() || supportedEventTypes.contains(eventType);
 	}
 
 	@Override
 	public boolean supportsSourceType(Class<?> sourceType) {
-		return supportedSourceTypes.contains(sourceType);
+		return supportedSourceTypes.isEmpty() || supportedSourceTypes.contains(sourceType);
 	}
 
 	private ExecutableApplicationListener(Builder builder) {
@@ -104,9 +115,17 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 			return this;
 		}
 
+		public Builder supportedSourceType(Class<?> supportedSourceType) {
+			return supportedSourceTypes(ImmutableList.<Class<?>> of(supportedSourceType));
+		}
+
 		public Builder supportedEventTypes(List<Class<? extends ApplicationEvent>> supportedEventTypes) {
 			this.supportedEventTypes = supportedEventTypes;
 			return this;
+		}
+
+		public Builder supportedEventType(Class<? extends ApplicationEvent> supportedEventType) {
+			return supportedEventTypes(ImmutableList.<Class<? extends ApplicationEvent>> of(supportedEventType));
 		}
 
 		public int getOrder() {
