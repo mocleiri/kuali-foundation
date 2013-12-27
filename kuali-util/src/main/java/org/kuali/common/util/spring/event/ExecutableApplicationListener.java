@@ -66,6 +66,20 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 			this.executable = executable;
 		}
 
+		public ExecutableApplicationListener build() {
+			this.supportedEventTypes = ImmutableList.copyOf(supportedEventTypes);
+			this.supportedSourceTypes = ImmutableList.copyOf(supportedSourceTypes);
+			ExecutableApplicationListener instance = new ExecutableApplicationListener(this);
+			validate(instance);
+			return instance;
+		}
+
+		private void validate(ExecutableApplicationListener instance) {
+			Preconditions.checkNotNull(executable, "executable cannot be null");
+			Preconditions.checkNotNull(supportedSourceTypes, "supportedSourceTypes cannot be null");
+			Preconditions.checkNotNull(supportedEventTypes, "supportedEventTypes cannot be null");
+		}
+
 		public Builder order(int order) {
 			this.order = order;
 			return this;
@@ -79,20 +93,6 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 		public Builder supportedEventTypes(List<Class<? extends ApplicationEvent>> supportedEventTypes) {
 			this.supportedEventTypes = supportedEventTypes;
 			return this;
-		}
-
-		public ExecutableApplicationListener build() {
-			this.supportedEventTypes = ImmutableList.copyOf(supportedEventTypes);
-			this.supportedSourceTypes = ImmutableList.copyOf(supportedSourceTypes);
-			ExecutableApplicationListener instance = new ExecutableApplicationListener(this);
-			validate(instance);
-			return instance;
-		}
-
-		private void validate(ExecutableApplicationListener instance) {
-			Preconditions.checkNotNull(executable, "executable cannot be null");
-			Preconditions.checkNotNull(supportedSourceTypes, "supportedSourceTypes cannot be null");
-			Preconditions.checkNotNull(supportedEventTypes, "supportedEventTypes cannot be null");
 		}
 
 		public int getOrder() {
