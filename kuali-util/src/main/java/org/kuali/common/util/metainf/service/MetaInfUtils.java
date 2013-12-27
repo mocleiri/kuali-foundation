@@ -19,6 +19,14 @@ public class MetaInfUtils {
 	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
 
 	/**
+	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[filename].resources</code>
+	 */
+	public static File getOutputFile(Project project, Build build, String filename) {
+		String outputPath = getResourcePrefix(project) + "/" + getFilename(filename);
+		return new File(build.getOutputDir(), outputPath);
+	}
+
+	/**
 	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, MetaInfGroup group) {
@@ -34,12 +42,12 @@ public class MetaInfUtils {
 		return new File(build.getOutputDir(), outputPath);
 	}
 
-    /**
-     * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
-     */
-    public static String getClasspathResource(Project project, MetaInfGroup group) {
-        return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
-    }
+	/**
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
+	 */
+	public static String getClasspathResource(Project project, MetaInfGroup group) {
+		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
+	}
 
 	/**
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[vendor]/[group].resources</code>
@@ -53,6 +61,13 @@ public class MetaInfUtils {
 	 */
 	public static String getFilename(MetaInfGroup group) {
 		return group.name().toLowerCase() + "." + RESOURCES_FILENAME_EXTENSION;
+	}
+
+	/**
+	 * Returns <code>[filename].resources</code> (always lowercase)
+	 */
+	public static String getFilename(String filename) {
+		return filename + "." + RESOURCES_FILENAME_EXTENSION;
 	}
 
 	/**
