@@ -25,6 +25,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * TODO Should not be a class called {@code RiceXmlConfig} down here in kuali-util. Create a rice-util and move this there? Main issue preventing this from living in the rice-xml
+ * module itself is that it gets tricky having software used very early in the build lifecycle reside in the same project that makes use of it.
+ */
 @Configuration
 @Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class, SpringServiceConfig.class })
 public class RiceXmlConfig implements MetaInfContextsConfig {
@@ -32,6 +36,9 @@ public class RiceXmlConfig implements MetaInfContextsConfig {
 	private static final boolean DEFAULT_GENERATE_RELATIVE_PATHS = true;
 	private static final String RELATIVE_KEY = MetaInfUtils.PROPERTY_PREFIX + ".xml.relative";
 	private static final String PREFIX = "xml";
+
+	// This is used in the rice-xml module to help locate the correct .resources file containing the XML to ingest
+	public static final String INGEST_FILENAME = "ingest";
 
 	@Autowired
 	EnvironmentService env;
@@ -55,7 +62,7 @@ public class RiceXmlConfig implements MetaInfContextsConfig {
 		Map<MetaInfGroup, String> defaultIncludes = getDefaultIncludes(project);
 		Map<MetaInfGroup, String> defaultExcludes = getDefaultExcludes();
 		boolean relativePaths = env.getBoolean(RELATIVE_KEY, DEFAULT_GENERATE_RELATIVE_PATHS);
-		File outputFile = MetaInfUtils.getOutputFile(project, build, group);
+		File outputFile = MetaInfUtils.getOutputFile(project, build, INGEST_FILENAME);
 		String includesKey = MetaInfConfigUtils.getIncludesKey(group, PREFIX);
 		String excludesKey = MetaInfConfigUtils.getExcludesKey(group, PREFIX);
 		List<String> includes = SpringUtils.getNoneSensitiveListFromCSV(env, includesKey, defaultIncludes.get(group));
