@@ -39,7 +39,7 @@ public class MetaInfUtils {
 			sb.append(grouping.get());
 		}
 		sb.append("/");
-		sb.append(filename);
+		sb.append(getFilename(filename));
 		return new File(build.getOutputDir(), sb.toString());
 	}
 
