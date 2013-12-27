@@ -15,39 +15,39 @@
  */
 package org.kuali.common.util.execute.impl;
 
-import org.kuali.common.util.CollectionUtils;
-import org.kuali.common.util.LocationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.util.List;
 
-public class CopyLocationsToDirectoryExecutable extends AbstractCopyLocationsExecutable {
+import org.kuali.common.util.CollectionUtils;
+import org.kuali.common.util.LocationUtils;
+import org.kuali.common.util.log.LoggerUtils;
+import org.slf4j.Logger;
 
-	private static final Logger logger = LoggerFactory.getLogger(CopyLocationsToDirectoryExecutable.class);
+public final class CopyLocationsToDirectoryExecutable extends AbstractCopyLocationsExecutable {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	private final boolean addSequenceToFilenames;
 	private final int initialSequenceNumber;
 
-    public CopyLocationsToDirectoryExecutable(String locationListing, File directory) {
-        this(locationListing, directory, true);
-    }
+	public CopyLocationsToDirectoryExecutable(String locationListing, File directory) {
+		this(locationListing, directory, true);
+	}
 
-    public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames) {
-        this(locationListing, directory, addSequenceToFilenames, 1);
-    }
+	public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames) {
+		this(locationListing, directory, addSequenceToFilenames, 1);
+	}
 
-    public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames, int initialSequenceNumber) {
-        this(locationListing, directory, addSequenceToFilenames, initialSequenceNumber, false);
-    }
+	public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames, int initialSequenceNumber) {
+		this(locationListing, directory, addSequenceToFilenames, initialSequenceNumber, false);
+	}
 
-    public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames, int initialSequenceNumber, boolean skip) {
-        super(locationListing, directory, skip);
+	public CopyLocationsToDirectoryExecutable(String locationListing, File directory, boolean addSequenceToFilenames, int initialSequenceNumber, boolean skip) {
+		super(locationListing, directory, skip);
 
-        this.addSequenceToFilenames = addSequenceToFilenames;
-        this.initialSequenceNumber = initialSequenceNumber;
-    }
+		this.addSequenceToFilenames = addSequenceToFilenames;
+		this.initialSequenceNumber = initialSequenceNumber;
+	}
 
 	@Override
 	protected List<File> getFiles(List<String> locations) {
