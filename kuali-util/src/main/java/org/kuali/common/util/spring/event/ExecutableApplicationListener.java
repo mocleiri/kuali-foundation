@@ -58,7 +58,7 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 		private final Executable executable;
 
 		// Optional
-		private int order = 0;
+		private int order = 0; // Lower values mean higher priority, higher values mean lower priority
 		private List<Class<?>> supportedSourceTypes = ImmutableList.of();
 		private List<Class<? extends ApplicationEvent>> supportedEventTypes = ImmutableList.of();
 
