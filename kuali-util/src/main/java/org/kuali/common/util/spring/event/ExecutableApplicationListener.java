@@ -89,9 +89,9 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 		}
 
 		private void validate(ExecutableApplicationListener instance) {
-			Preconditions.checkNotNull(executable, "executable cannot be null");
-			Preconditions.checkNotNull(supportedSourceTypes, "supportedSourceTypes cannot be null");
-			Preconditions.checkNotNull(supportedEventTypes, "supportedEventTypes cannot be null");
+			Preconditions.checkNotNull(instance.getExecutable(), "executable cannot be null");
+			Preconditions.checkNotNull(instance.getSupportedSourceTypes(), "supportedSourceTypes cannot be null");
+			Preconditions.checkNotNull(instance.getSupportedEventTypes(), "supportedEventTypes cannot be null");
 		}
 
 		public Builder order(int order) {
