@@ -19,7 +19,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.execute.Executable;
@@ -27,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -71,8 +71,13 @@ public class ConcurrentExecutables implements Executable, UncaughtExceptionHandl
 		}
 
 		public ConcurrentExecutables build() {
-			Assert.noNulls(executables);
-			return new ConcurrentExecutables(this);
+			ConcurrentExecutables instance = new ConcurrentExecutables(this);
+			validate(instance);
+			return instance;
+		}
+
+		private void validate(ConcurrentExecutables instance) {
+			Preconditions.checkNotNull(instance.getExecutables());
 		}
 	}
 
