@@ -11,6 +11,8 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.springframework.util.ResourceUtils;
 
+import com.google.common.base.Optional;
+
 public class MetaInfUtils {
 
 	public static final String RESOURCES_FILENAME_EXTENSION = "resources";
@@ -23,56 +25,104 @@ public class MetaInfUtils {
 	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[filename].resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, String filename) {
-		String outputPath = getResourcePrefix(project) + "/" + getFilename(filename);
-		return new File(build.getOutputDir(), outputPath);
+		return getOutputFile(project, build, Optional.<String> absent(), filename);
+	}
+
+	/**
+	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[grouping]/[filename].resources</code>
+	 */
+	public static File getOutputFile(Project project, Build build, Optional<String> grouping, String filename) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getResourcePrefix(project));
+		if (grouping.isPresent()) {
+			sb.append("/");
+			sb.append(grouping.get());
+		}
+		sb.append("/");
+		sb.append(filename);
+		return new File(build.getOutputDir(), sb.toString());
 	}
 
 	/**
 	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, MetaInfGroup group) {
-		String outputPath = getResourcePrefix(project) + "/" + getFilename(group);
-		return new File(build.getOutputDir(), outputPath);
+		return getOutputFile(project, build, group.name().toLowerCase());
 	}
 
 	/**
 	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[vendor]/[group].resources</code>
 	 */
 	public static File getOutputFile(Project project, Build build, String databaseVendor, MetaInfGroup group) {
-		String outputPath = getResourcePrefix(project) + "/" + databaseVendor + "/" + getFilename(group);
-		return new File(build.getOutputDir(), outputPath);
+		return getOutputFile(project, build, Optional.of(databaseVendor), group.name().toLowerCase());
 	}
 
 	/**
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
 	public static String getClasspathResource(ProjectIdentifier project, MetaInfGroup group) {
-		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
+		return getClasspathResource(project.getGroupId(), project.getArtifactId(), group);
+	}
+
+	/**
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[filename].resources</code>
+	 */
+	public static String getClasspathResource(ProjectIdentifier project, String filename) {
+		return getClasspathResource(project.getGroupId(), project.getArtifactId(), Optional.<String> absent(), filename);
 	}
 
 	/**
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
 	public static String getClasspathResource(Project project, MetaInfGroup group) {
-		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + getFilename(group);
+		return getClasspathResource(project.getGroupId(), project.getArtifactId(), group);
 	}
 
 	/**
-	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[vendor]/[group].resources</code>
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
-	public static String getClasspathResource(Project project, String databaseVendor, MetaInfGroup group) {
-		return ResourceUtils.CLASSPATH_URL_PREFIX + getResourcePrefix(project) + "/" + databaseVendor + "/" + getFilename(group);
+	public static String getClasspathResource(String groupId, String artifactId, MetaInfGroup group) {
+		return getClasspathResource(groupId, artifactId, Optional.<String> absent(), group.name().toLowerCase());
+	}
+
+	/**
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[grouping]/[group].resources</code>
+	 */
+	public static String getClasspathResource(Project project, String grouping, MetaInfGroup group) {
+		return getClasspathResource(project.getGroupId(), project.getArtifactId(), Optional.of(grouping), group.name().toLowerCase());
+	}
+
+	/**
+	 * <pre>
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[grouping]/[filename].resources</code>
+	 * 
+	 * OR
+	 * 
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[filename].resources</code>
+	 * </pre>
+	 */
+	public static String getClasspathResource(String groupId, String artifactId, Optional<String> grouping, String filename) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ResourceUtils.CLASSPATH_URL_PREFIX);
+		sb.append(getResourcePrefix(groupId, artifactId));
+		if (grouping.isPresent()) {
+			sb.append("/");
+			sb.append(grouping.get());
+		}
+		sb.append("/");
+		sb.append(getFilename(filename));
+		return sb.toString();
 	}
 
 	/**
 	 * Returns <code>[group].resources</code> (always lowercase)
 	 */
 	public static String getFilename(MetaInfGroup group) {
-		return group.name().toLowerCase() + "." + RESOURCES_FILENAME_EXTENSION;
+		return getFilename(group.name().toLowerCase());
 	}
 
 	/**
-	 * Returns <code>[filename].resources</code> (always lowercase)
+	 * Returns <code>[filename].resources</code>
 	 */
 	public static String getFilename(String filename) {
 		return filename + "." + RESOURCES_FILENAME_EXTENSION;
@@ -82,7 +132,7 @@ public class MetaInfUtils {
 	 * <code>META-INF/org/kuali/util</code>
 	 */
 	public static String getGroupPrefix(Project project) {
-		return METAINF_DIRECTORY_NAME + "/" + getGroupPrefix(project.getGroupId());
+		return getGroupPrefix(project.getGroupId());
 	}
 
 	/**
@@ -96,14 +146,21 @@ public class MetaInfUtils {
 	 * <code>META-INF/org/kuali/util/kuali-util</code>
 	 */
 	public static String getResourcePrefix(Project project) {
-		return getGroupPrefix(project) + "/" + project.getArtifactId();
+		return getResourcePrefix(project.getGroupId(), project.getArtifactId());
+	}
+
+	/**
+	 * <code>META-INF/org/kuali/util/kuali-util</code>
+	 */
+	public static String getResourcePrefix(String groupId, String artifactId) {
+		return getGroupPrefix(groupId) + "/" + artifactId;
 	}
 
 	/**
 	 * <code>META-INF/org/kuali/util/kuali-util</code>
 	 */
 	public static String getResourcePrefix(ProjectIdentifier project) {
-		return getGroupPrefix(project.getGroupId()) + "/" + project.getArtifactId();
+		return getResourcePrefix(project.getGroupId(), project.getArtifactId());
 	}
 
 	/**
