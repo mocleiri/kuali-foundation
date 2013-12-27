@@ -3,6 +3,8 @@ package org.kuali.common.util.spring.event;
 import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.log.LoggerUtils;
+import org.slf4j.Logger;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.SmartApplicationListener;
 
@@ -10,9 +12,17 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Associate an executable with one or more application event's. If a supported application event is received, the executable is executed.
+ * <p>
+ * Associate an executable with one or more application event's or source types.
+ * </p>
+ * 
+ * <p>
+ * If a supported application event or source type is received, the executable is executed.
+ * </p>
  */
 public final class ExecutableApplicationListener implements SmartApplicationListener {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	private final Executable executable;
 	private final int order;
@@ -21,7 +31,11 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
-		if (supportsEventType(event.getClass())) {
+		logger.info("Recieved event: [{}]", event.getClass());
+		boolean supportedEventType = supportsEventType(event.getClass());
+		boolean supportedSourceType = supportsSourceType(event.getSource().getClass());
+		boolean execute = supportedEventType || supportedSourceType;
+		if (execute) {
 			executable.execute();
 		}
 	}
