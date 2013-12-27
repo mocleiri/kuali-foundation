@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableList;
  * </p>
  * 
  * <p>
- * If a supported application event or source type is received, the executable is executed.
+ * If a supported application event type or source type is received, the executable is executed.
  * </p>
  */
 public final class ExecutableApplicationListener implements SmartApplicationListener {
