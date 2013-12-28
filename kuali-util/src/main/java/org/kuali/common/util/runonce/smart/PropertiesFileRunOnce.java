@@ -6,18 +6,22 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.slf4j.Logger;
 
 import com.google.common.base.Preconditions;
 
 public final class PropertiesFileRunOnce implements RunOnce {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	// These are immutable
 	private final File file;
 	private final String encoding;
 	private final String key;
 
-	// These are mutable and changed based on calls to one of the 3 interface methods
+	// These are mutable and changed based on calls to one of the 2 interface methods
 	private boolean initialized = false;
 	private boolean fileExists = false;
 	private Properties properties;
@@ -27,11 +31,12 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	public synchronized RunOnceIndicator getIndicator() {
 		if (!initialized) {
 			initialize();
+			logger.info("Properties file based RunOnce initialized - {}", FormatUtils.getDate(initializedTimestamp));
 			this.initialized = true;
 		}
 		String date = FormatUtils.getDate(initializedTimestamp);
 		if (!fileExists) {
-			String reason = String.format("[%s] did not exist at initialization - [%s]", file, date);
+			String reason = String.format("[%s] did not exist - [%s]", file, date);
 			return new RunOnceIndicator(reason, false);
 		} else {
 			String value = properties.getProperty(key);
