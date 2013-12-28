@@ -17,54 +17,19 @@ package org.kuali.common.util.runonce;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.SmartApplicationListener;
-import org.springframework.core.Ordered;
 
-public class RunOnceExecutable implements SmartApplicationListener, Executable {
+public class RunOnceExecutable implements Executable {
 
 	public RunOnceExecutable(Executable executable, RunOnceStateManager stateManager, boolean skip) {
-        this(executable, stateManager, Ordered.LOWEST_PRECEDENCE, false, skip);
+		Assert.noNulls(executable, stateManager);
+		this.executable = executable;
+		this.stateManager = stateManager;
+		this.skip = skip;
 	}
-
-    public RunOnceExecutable(Executable executable, RunOnceStateManager stateManager, int order, boolean ordered, boolean skip) {
-        Assert.noNulls(executable, stateManager);
-        this.executable = executable;
-        this.stateManager = stateManager;
-        this.order = order;
-        this.ordered = ordered;
-        this.skip = skip;
-    }
 
 	private final Executable executable;
 	private final RunOnceStateManager stateManager;
-    private final int order;
-    private final boolean ordered;
 	private final boolean skip;
-
-
-    @Override
-    public boolean supportsEventType(Class<? extends ApplicationEvent> aClass) {
-        return true;
-    }
-
-    @Override
-    public boolean supportsSourceType(Class<?> aClass) {
-        return true;
-    }
-
-    @Override
-    public void onApplicationEvent(ApplicationEvent applicationEvent) {
-        if (applicationEvent instanceof ContextRefreshedEvent && ordered) {
-            execute();
-        }
-    }
-
-    @Override
-    public int getOrder() {
-        return order;
-    }
 
 	@Override
 	public void execute() {
