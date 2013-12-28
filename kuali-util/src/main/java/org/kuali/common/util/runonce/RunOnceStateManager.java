@@ -1,5 +1,9 @@
 package org.kuali.common.util.runonce;
 
+/**
+ * @deprecated Use org.kuali.common.util.runonce.smart.RunOnce instead
+ */
+@Deprecated
 public interface RunOnceStateManager {
 
 	/**

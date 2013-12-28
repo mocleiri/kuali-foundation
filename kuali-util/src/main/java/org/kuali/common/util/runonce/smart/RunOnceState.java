@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kuali.common.util.runonce;
+package org.kuali.common.util.runonce.smart;
 
-/**
- * @deprecated Use org.kuali.common.util.runonce.smart.RunOnceState instead
- */
-@Deprecated
 public enum RunOnceState {
 
 	INPROGRESS, COMPLETED, FAILED;

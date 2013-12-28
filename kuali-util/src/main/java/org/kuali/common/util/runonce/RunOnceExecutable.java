@@ -18,6 +18,10 @@ package org.kuali.common.util.runonce;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
 
+/**
+ * @deprecated Use org.kuali.common.util.runonce.smart.RunOnceExecutable instead
+ */
+@Deprecated
 public class RunOnceExecutable implements Executable {
 
 	public RunOnceExecutable(Executable executable, RunOnceStateManager stateManager, boolean skip) {

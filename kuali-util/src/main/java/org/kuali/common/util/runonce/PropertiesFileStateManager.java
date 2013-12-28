@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This implementation has issues. Don't use it.
  * 
- * @deprecated Use SmartPropertiesFileStateManager instead
+ * @deprecated Use org.kuali.common.util.runonce.smart.PropertiesFileStateManager instead
  */
 @Deprecated
 public class PropertiesFileStateManager implements RunOnceStateManager {
