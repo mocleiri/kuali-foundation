@@ -47,7 +47,7 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
-		logger.info("Received event: [{}] Source type: [{}]", event.getClass().getCanonicalName(), event.getSource().getClass().getCanonicalName());
+		logger.info("Received event: [{}]", event.getClass().getCanonicalName());
 		executable.execute();
 	}
 
