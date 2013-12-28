@@ -34,6 +34,7 @@ public class RunOnceExecutable implements Executable {
 
 		// Skip has been explicitly configured
 		if (skip) {
+			logger.info("Skipping RunOnce");
 			return;
 		}
 
