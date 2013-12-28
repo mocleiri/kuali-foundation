@@ -16,10 +16,12 @@ public final class SmartPropertiesFileStateManager implements RunOnceStateManage
 
 	private static final Logger logger = LoggerUtils.make();
 
+	// These are immutable
 	private final File file;
 	private final String encoding;
 	private final String key;
 
+	// These are mutable and changed based on calls to one of the 3 interface methods
 	private boolean initialized = false;
 	private boolean fileExists = false;
 	private Properties properties;
