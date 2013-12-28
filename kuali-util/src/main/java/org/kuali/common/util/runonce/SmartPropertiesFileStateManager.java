@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.property.ImmutableProperties;
@@ -20,39 +21,54 @@ public final class SmartPropertiesFileStateManager implements RunOnceStateManage
 	private final String key;
 
 	private boolean initialized = false;
+	private boolean fileExists = false;
 	private Properties properties;
+	private long initializedTimestamp;
 
 	@Override
 	public synchronized void initialize() {
 		Preconditions.checkState(!initialized, "Already initialized");
-		this.properties = getProperties();
+		this.fileExists = file.exists();
+		this.properties = getProperties(fileExists);
+		this.initializedTimestamp = System.currentTimeMillis();
 		this.initialized = true;
 	}
 
 	@Override
 	public synchronized boolean isRunOnce() {
+		Indicator indicator = getIndicator();
+		logger.info("RunOnce={} - {}", indicator.isRunOnce(), indicator.getReason());
+		return indicator.isRunOnce();
+	}
+
+	private Indicator getIndicator() {
 		Preconditions.checkState(initialized, "Not initialized");
-		logger.info("Examining run once property [{}] from [{}]", key, file);
-		String value = properties.getProperty(key);
-		boolean runonce = StringUtils.equalsIgnoreCase(Boolean.TRUE.toString(), value);
-		Object[] args = { runonce, key, value };
-		logger.info("RunOnce={} - [{}={}]", args);
-		return runonce;
+		String date = FormatUtils.getDate(initializedTimestamp);
+		if (!fileExists) {
+			String reason = String.format("[%s] did not exist at initialization - [%s]", file, date);
+			return new Indicator(reason, false);
+		} else {
+			String value = properties.getProperty(key);
+			boolean runonce = Boolean.parseBoolean(value);
+			String reason = String.format("[%s=%s] in [%s] Loaded - [%s]", key, value, file, date);
+			return new Indicator(reason, runonce);
+		}
 	}
 
 	@Override
 	public synchronized void persistState(RunOnceState state) {
-		Preconditions.checkNotNull(state, "'state' cannot be null");
 		Preconditions.checkState(initialized, "Not initialized");
+		Preconditions.checkState(getIndicator().isRunOnce(), "Run once must be true before attempting to transition to another state");
+		Preconditions.checkNotNull(state, "'state' cannot be null");
 		Properties duplicate = PropertyUtils.duplicate(properties);
 		duplicate.setProperty(key, state.name());
-		PropertyUtils.store(properties, file, encoding);
+		PropertyUtils.store(duplicate, file, encoding);
 		this.initialized = false;
 		initialize();
 	}
 
-	protected Properties getProperties() {
-		if (file.exists()) {
+	protected Properties getProperties(boolean fileExists) {
+		if (fileExists) {
 			return ImmutableProperties.of(PropertyUtils.load(file, encoding));
 		} else {
 			return ImmutableProperties.of();
@@ -63,6 +79,30 @@ public final class SmartPropertiesFileStateManager implements RunOnceStateManage
 		this.file = builder.file;
 		this.encoding = builder.encoding;
 		this.key = builder.key;
+	}
+
+	public static Builder builder(File file, String encoding, String key) {
+		return new Builder(file, encoding, key);
+	}
+
+	private class Indicator {
+
+		public Indicator(String reason, boolean runOnce) {
+			this.reason = reason;
+			this.runOnce = runOnce;
+		}
+
+		private final String reason;
+		private final boolean runOnce;
+
+		public String getReason() {
+			return reason;
+		}
+
+		public boolean isRunOnce() {
+			return runOnce;
+		}
+
 	}
 
 	public static class Builder {
