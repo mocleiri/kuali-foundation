@@ -17,11 +17,11 @@ package org.kuali.common.util.execute.impl;
 
 import org.kuali.common.util.execute.Executable;
 
-public class NoOpExecutable implements Executable {
+public final class NoOpExecutable implements Executable {
 
 	public static final NoOpExecutable INSTANCE = new NoOpExecutable();
 
-	private NoOpExecutable() {
+	public NoOpExecutable() {
 	}
 
 	@Override
