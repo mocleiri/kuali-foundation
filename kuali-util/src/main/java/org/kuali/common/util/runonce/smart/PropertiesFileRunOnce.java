@@ -21,7 +21,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	private final String encoding;
 	private final String key;
 
-	// These are mutable and changed based on calls to one of the 2 interface methods
+	// These are mutable and change based on calls to one of the 2 interface methods
 	private boolean initialized = false;
 	private boolean fileExists = false;
 	private Properties properties;
