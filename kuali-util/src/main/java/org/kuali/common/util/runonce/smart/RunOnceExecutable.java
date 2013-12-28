@@ -66,20 +66,6 @@ public class RunOnceExecutable implements Executable {
 		}
 	}
 
-	public Executable getExecutable() {
-		return executable;
-	}
-
-	public boolean isSkip() {
-		return skip;
-	}
-
-	private RunOnceExecutable(Builder builder) {
-		this.executable = builder.executable;
-		this.runOnce = builder.runOnce;
-		this.skip = builder.skip;
-	}
-
 	public static Builder builder(Executable executable, RunOnce runOnce) {
 		return new Builder(executable, runOnce);
 	}
@@ -114,4 +100,19 @@ public class RunOnceExecutable implements Executable {
 			Preconditions.checkNotNull(runOnce, "runOnce cannot be null");
 		}
 	}
+
+	private RunOnceExecutable(Builder builder) {
+		this.executable = builder.executable;
+		this.runOnce = builder.runOnce;
+		this.skip = builder.skip;
+	}
+
+	public Executable getExecutable() {
+		return executable;
+	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
 }
