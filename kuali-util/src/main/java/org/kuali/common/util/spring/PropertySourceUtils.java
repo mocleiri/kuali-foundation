@@ -59,8 +59,22 @@ public class PropertySourceUtils {
 		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, PropertyUtils.getGlobalProperties(properties));
 	}
 
+	/**
+	 * Return a property source based on the properties loaded from the locations passed in.
+	 */
 	public static PropertySource<?> getPropertySource(PropertiesService service, List<Location> locations) {
+		return getPropertySource(service, locations, false);
+	}
+
+	/**
+	 * Return a property source based on the properties loaded from the locations passed in, but where system properties plus environment properties "win" if
+	 * {@code includeGlobal=true}
+	 */
+	public static PropertySource<?> getPropertySource(PropertiesService service, List<Location> locations, boolean includeGlobal) {
 		Properties properties = service.getProperties(locations);
+		if (includeGlobal) {
+			properties = PropertyUtils.getGlobalProperties(properties);
+		}
 		return new PropertiesPropertySource(PROPERTIES_PROPERTY_SOURCE, properties);
 	}
 
