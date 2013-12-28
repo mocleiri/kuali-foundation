@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This implementation has issues.
+ * This implementation has issues. Don't use it.
  * 
  * @deprecated Use SmartPropertiesFileStateManager instead
  */
