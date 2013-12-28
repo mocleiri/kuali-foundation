@@ -36,7 +36,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		}
 		String date = FormatUtils.getDate(initializedTimestamp);
 		if (!fileExists) {
-			String reason = String.format("[%s] did not exist - [%s]", file, date);
+			String reason = String.format("[%s] does not exist - [%s]", file, date);
 			return new RunOnceIndicator(reason, false);
 		} else {
 			String value = properties.getProperty(key);
