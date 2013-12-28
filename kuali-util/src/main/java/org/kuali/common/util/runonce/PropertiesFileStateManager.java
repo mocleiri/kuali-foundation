@@ -10,6 +10,10 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated Use SmartPropertiesFileStateManager instead
+ */
+@Deprecated
 public class PropertiesFileStateManager implements RunOnceStateManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(PropertiesFileStateManager.class);
