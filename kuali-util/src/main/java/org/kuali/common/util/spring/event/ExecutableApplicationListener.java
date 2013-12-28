@@ -1,5 +1,8 @@
 package org.kuali.common.util.spring.event;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 import org.kuali.common.util.execute.Executable;
@@ -8,12 +11,11 @@ import org.slf4j.Logger;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.SmartApplicationListener;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 /**
  * <p>
- * Associate an executable with Spring framework application events.
+ * Associate an executable with one or more Spring framework application events.
  * </p>
  * 
  * <p>
@@ -100,9 +102,11 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 		}
 
 		private void validate(ExecutableApplicationListener instance) {
-			Preconditions.checkNotNull(instance.getExecutable(), "executable cannot be null");
-			Preconditions.checkNotNull(instance.getSupportedSourceTypes(), "supportedSourceTypes cannot be null");
-			Preconditions.checkNotNull(instance.getSupportedEventTypes(), "supportedEventTypes cannot be null");
+			checkNotNull(instance.getExecutable(), "executable cannot be null");
+			checkNotNull(instance.getSupportedEventTypes(), "supportedEventTypes cannot be null");
+			checkNotNull(instance.getSupportedSourceTypes(), "supportedSourceTypes cannot be null");
+			checkArgument(ImmutableList.class.isAssignableFrom(instance.getSupportedEventTypes().getClass()), "supportedEventTypes must be immutable");
+			checkArgument(ImmutableList.class.isAssignableFrom(instance.getSupportedSourceTypes().getClass()), "supportedSourceTypes must be immutable");
 		}
 
 		public Builder order(int order) {
