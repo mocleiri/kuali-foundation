@@ -22,8 +22,8 @@ import java.util.List;
 import org.kuali.common.util.FormatUtils;
 import org.kuali.common.util.ThreadUtils;
 import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -32,15 +32,15 @@ import com.google.common.collect.ImmutableList;
 /**
  * Create a new thread for each executable in the list and run them all concurrently.
  */
-public class ConcurrentExecutables implements Executable, UncaughtExceptionHandler {
+public final class ConcurrentExecutables implements Executable, UncaughtExceptionHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConcurrentExecutables.class);
+	private static final Logger logger = LoggerUtils.make();
 
 	private final List<Executable> executables;
 	private final boolean skip;
 	private final boolean timed;
 
-	// If any thread throws an exception, this will get filled in with that exception
+	// If any thread throws an exception, this gets filled in
 	private Optional<IllegalStateException> uncaughtException = Optional.absent();
 
 	public static class Builder {
