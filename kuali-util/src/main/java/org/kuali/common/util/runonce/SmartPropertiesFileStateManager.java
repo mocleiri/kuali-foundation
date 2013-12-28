@@ -36,13 +36,13 @@ public final class SmartPropertiesFileStateManager implements RunOnceStateManage
 
 	@Override
 	public synchronized boolean isRunOnce() {
+		Preconditions.checkState(initialized, "Not initialized");
 		Indicator indicator = getIndicator();
 		logger.info("RunOnce={} - {}", indicator.isRunOnce(), indicator.getReason());
 		return indicator.isRunOnce();
 	}
 
 	private Indicator getIndicator() {
-		Preconditions.checkState(initialized, "Not initialized");
 		String date = FormatUtils.getDate(initializedTimestamp);
 		if (!fileExists) {
 			String reason = String.format("[%s] did not exist at initialization - [%s]", file, date);
@@ -50,7 +50,7 @@ public final class SmartPropertiesFileStateManager implements RunOnceStateManage
 		} else {
 			String value = properties.getProperty(key);
 			boolean runonce = Boolean.parseBoolean(value);
-			String reason = String.format("[%s=%s] in [%s] Loaded - [%s]", key, value, file, date);
+			String reason = String.format("[%s=%s] in [%s] - [%s]", key, value, file, date);
 			return new Indicator(reason, runonce);
 		}
 	}
