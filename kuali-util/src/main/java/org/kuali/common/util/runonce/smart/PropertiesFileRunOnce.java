@@ -30,6 +30,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	@Override
 	public synchronized void initialize() {
 		checkState(!initialized, "Already initialized");
+		logger.info("--- Initializing properties file backed RunOnce ---");
 		this.properties = getProperties();
 		this.runonce = getBoolean(properties, key);
 		showConfig();
@@ -60,7 +61,6 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	}
 
 	protected void showConfig() {
-		logger.info("--- Initializing properties file backed RunOnce ---");
 		logger.info("Properties file: [{}]", file);
 		logger.info("Properties file exists: {}", file.exists());
 		logger.info("Property: [{}]=[{}]", key, properties.get(key));
