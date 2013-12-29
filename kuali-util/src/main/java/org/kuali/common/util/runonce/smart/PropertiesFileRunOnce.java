@@ -24,12 +24,14 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	private final String key;
 
 	private Properties properties;
+	private boolean runonce;
 	private boolean initialized = false;
 
 	@Override
 	public synchronized void initialize() {
 		checkState(!initialized, "Already initialized");
 		this.properties = getProperties();
+		this.runonce = getBoolean(properties, key);
 		showConfig();
 		this.initialized = true;
 	}
@@ -37,8 +39,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	@Override
 	public synchronized boolean isTrue() {
 		checkState(initialized, "Not initialized");
-		String value = properties.getProperty(key);
-		return Boolean.parseBoolean(value);
+		return runonce;
 	}
 
 	@Override
@@ -48,8 +49,14 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		properties.setProperty(key, state.name());
 		PropertyUtils.store(properties, file, encoding);
 		this.properties = PropertyUtils.load(file, encoding);
+		this.runonce = getBoolean(properties, key);
 		Preconditions.checkState(!isTrue(), "Run once cannot be true");
 		logger.info("Transitioned RunOnce to - [{}]", state.name());
+	}
+
+	private boolean getBoolean(Properties properties, String key) {
+		String value = properties.getProperty(key);
+		return Boolean.parseBoolean(value);
 	}
 
 	protected void showConfig() {
@@ -57,6 +64,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		logger.info("Properties file: [{}]", file);
 		logger.info("Properties file exists: {}", file.exists());
 		logger.info("Property: [{}]=[{}]", key, properties.get(key));
+		logger.info("RunOnce: [{}]", runonce);
 	}
 
 	protected Properties getProperties() {
