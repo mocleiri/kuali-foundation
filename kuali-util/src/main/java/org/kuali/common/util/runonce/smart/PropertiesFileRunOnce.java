@@ -50,7 +50,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		PropertyUtils.store(properties, file, encoding);
 		this.properties = PropertyUtils.load(file, encoding);
 		this.runonce = getBoolean(properties, key);
-		Preconditions.checkState(!isTrue(), "Run once cannot be true");
+		Preconditions.checkState(!isTrue(), "isTrue() must return false");
 		logger.info("Transitioned RunOnce to - [{}]", state.name());
 	}
 
