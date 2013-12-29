@@ -3,7 +3,7 @@ package org.kuali.common.util.runonce.smart;
 public interface RunOnce {
 
 	/**
-	 * Do whatever is needed for getIndicator() to return the correct value
+	 * Do whatever is needed for isTrue() to return the correct value
 	 */
 	void initialize();
 
