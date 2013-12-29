@@ -25,7 +25,7 @@
 
   <bean class="org.kuali.common.util.spring.context.Milk">
     <property name="type" value="lowfat" />
-    <property name="cost" value="3.50" />
+    <property name="price" value="3.50" />
   </bean>
 
 </beans>
