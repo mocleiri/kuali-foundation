@@ -15,7 +15,7 @@ public class ContextTest {
 			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 			ctx.setId("foo");
 			ctx.setDisplayName("bar");
-			ctx.register(BreakfastConfig.class);
+			ctx.register(CerealConfig.class);
 			ctx.refresh();
 			logger.info("Id: [{}]", ctx.getId());
 			logger.info("Name: [{}]", ctx.getDisplayName());
