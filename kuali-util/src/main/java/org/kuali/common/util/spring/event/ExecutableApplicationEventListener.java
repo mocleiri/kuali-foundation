@@ -58,7 +58,7 @@ public final class ExecutableApplicationEventListener<T extends ApplicationEvent
 		return new Builder<T>(executable, supportedEventType);
 	}
 
-	public static class Builder<T extends ApplicationEvent> implements org.kuali.common.util.builder.Builder<ExecutableApplicationEventListener<T>> {
+	public static class Builder<T extends ApplicationEvent> {
 
 		// Required
 		private final Executable executable;
@@ -72,7 +72,6 @@ public final class ExecutableApplicationEventListener<T extends ApplicationEvent
 			this.supportedEventType = supportedEventType;
 		}
 
-		@Override
 		public ExecutableApplicationEventListener<T> build() {
 			ExecutableApplicationEventListener<T> instance = new ExecutableApplicationEventListener<T>(this);
 			validate(instance);
