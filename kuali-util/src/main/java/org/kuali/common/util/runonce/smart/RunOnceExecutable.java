@@ -38,14 +38,11 @@ public class RunOnceExecutable implements Executable {
 			return;
 		}
 
-		// Get the indicator telling us if it's safe to run
-		RunOnceIndicator indicator = runOnce.getIndicator();
-
-		// Log what we are doing and why
-		logger.info("RunOnce={} - {}", indicator.isRunOnce(), indicator.getReason());
+		// Give the RunOnce logic a chance to initialize itself
+		runOnce.initialize();
 
 		// If run once is not enabled, we are done
-		if (!indicator.isRunOnce()) {
+		if (!runOnce.isRunOnce()) {
 			return;
 		}
 
