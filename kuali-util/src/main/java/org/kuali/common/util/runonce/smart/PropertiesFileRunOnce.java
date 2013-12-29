@@ -25,7 +25,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 	}
 
 	@Override
-	public synchronized boolean isRunOnce() {
+	public synchronized boolean isTrue() {
 		Preconditions.checkState(initialized, "Not initialized");
 		String value = properties.getProperty(key);
 		return Boolean.parseBoolean(value);

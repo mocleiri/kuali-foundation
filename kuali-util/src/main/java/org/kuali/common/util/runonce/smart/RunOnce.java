@@ -8,9 +8,9 @@ public interface RunOnce {
 	void initialize();
 
 	/**
-	 * Return a boolean value indicating whether or not it is safe to run something once.
+	 * Indicates it is safe to run something once.
 	 */
-	boolean isRunOnce();
+	boolean isTrue();
 
 	/**
 	 * Update state in a way that persists across JVM restarts (eg database table, properties file, etc)

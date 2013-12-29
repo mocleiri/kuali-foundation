@@ -42,7 +42,7 @@ public class RunOnceExecutable implements Executable {
 		runOnce.initialize();
 
 		// If run once is not enabled, we are done
-		if (!runOnce.isRunOnce()) {
+		if (!runOnce.isTrue()) {
 			return;
 		}
 
