@@ -1,14 +1,23 @@
 package org.kuali.common.util.runonce.smart;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.File;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.log.LoggerUtils;
+import org.slf4j.Logger;
 
 import com.google.common.base.Preconditions;
 
 public final class PropertiesFileRunOnce implements RunOnce {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	private final File file;
 	private final String encoding;
@@ -19,24 +28,35 @@ public final class PropertiesFileRunOnce implements RunOnce {
 
 	@Override
 	public synchronized void initialize() {
-		Preconditions.checkState(!initialized, "Already initialized");
+		checkState(!initialized, "Already initialized");
 		this.properties = getProperties();
+		showConfig();
 		this.initialized = true;
 	}
 
 	@Override
 	public synchronized boolean isTrue() {
-		Preconditions.checkState(initialized, "Not initialized");
+		checkState(initialized, "Not initialized");
 		String value = properties.getProperty(key);
 		return Boolean.parseBoolean(value);
 	}
 
 	@Override
 	public synchronized void changeState(RunOnceState state) {
-		Preconditions.checkState(initialized, "Not initialized");
-		Preconditions.checkNotNull(state, "'state' cannot be null");
+		checkState(initialized, "Not initialized");
+		checkNotNull(state, "'state' cannot be null");
 		properties.setProperty(key, state.name());
 		PropertyUtils.store(properties, file, encoding);
+		this.properties = PropertyUtils.load(file, encoding);
+		Preconditions.checkState(!isTrue(), "Run once cannot be true");
+		logger.info("Transitioned RunOnce to - [{}]", state.name());
+	}
+
+	protected void showConfig() {
+		logger.info("--- Initializing properties file backed RunOnce ---");
+		logger.info("Properties file: [{}]", file);
+		logger.info("Properties file exists: {}", file.exists());
+		logger.info("Property: [{}]=[{}]", key, properties.get(key));
 	}
 
 	protected Properties getProperties() {
@@ -64,7 +84,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		private final String encoding;
 
 		public Builder(File file, String encoding, String key) {
-			this.file = file;
+			this.file = new CanonicalFile(file);
 			this.encoding = encoding;
 			this.key = key;
 		}
@@ -76,9 +96,9 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		}
 
 		private void validate(PropertiesFileRunOnce instance) {
-			Preconditions.checkNotNull(instance.getFile(), "file cannot be null");
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.getEncoding()), "encoding cannot be blank");
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.getKey()), "key cannot be blank");
+			checkNotNull(instance.getFile(), "file cannot be null");
+			checkArgument(!StringUtils.isBlank(instance.getEncoding()), "encoding cannot be blank");
+			checkArgument(!StringUtils.isBlank(instance.getKey()), "key cannot be blank");
 		}
 	}
 
