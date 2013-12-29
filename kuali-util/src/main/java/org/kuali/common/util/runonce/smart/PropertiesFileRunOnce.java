@@ -13,8 +13,6 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
-import com.google.common.base.Preconditions;
-
 public final class PropertiesFileRunOnce implements RunOnce {
 
 	private static final Logger logger = LoggerUtils.make();
@@ -51,7 +49,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		PropertyUtils.store(properties, file, encoding);
 		this.properties = PropertyUtils.load(file, encoding);
 		this.runonce = getBoolean(properties, key);
-		Preconditions.checkState(!isTrue(), "isTrue() must return false");
+		checkState(!isTrue(), "isTrue() must return false");
 		logger.info("Transitioned RunOnce to - [{}]", state.name());
 	}
 
