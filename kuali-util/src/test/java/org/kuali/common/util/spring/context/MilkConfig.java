@@ -1,17 +1,10 @@
 package org.kuali.common.util.spring.context;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
 @Configuration
+@ImportResource("classpath:org/kuali/common/util/spring/context/milk-context.xml")
 public class MilkConfig {
-
-	@Bean
-	public Cereal cereal() {
-		Cereal c = new Cereal();
-		c.setName("chocolate cheerios");
-		c.setPrice(2.50);
-		return c;
-	}
 
 }
