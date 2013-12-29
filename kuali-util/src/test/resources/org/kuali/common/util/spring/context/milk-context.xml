@@ -23,7 +23,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean class="org.kuali.common.util.spring.context.Milk">
+  <bean id="milk" class="org.kuali.common.util.spring.context.Milk">
     <property name="type" value="lowfat" />
     <property name="price" value="3.50" />
   </bean>
