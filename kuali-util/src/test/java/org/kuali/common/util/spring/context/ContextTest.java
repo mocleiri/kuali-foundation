@@ -26,9 +26,10 @@ public class ContextTest {
 			logger.info("{} beans in this application context", beanNames.length);
 			List<String> names = Lists.newArrayList(Arrays.asList(beanNames));
 			Collections.sort(names);
-			for (String name : names) {
+			for (int i = 0; i < names.size(); i++) {
+				String name = names.get(i);
 				Object bean = ctx.getBean(name);
-				logger.info("[{}]=[{}]", name, bean.getClass().getCanonicalName());
+				logger.info(" " + (i + 1) + "  [{}]=[{}]", name, bean.getClass().getCanonicalName());
 			}
 			ctx.close();
 		} catch (Exception e) {
