@@ -38,7 +38,7 @@ import com.google.common.collect.ImmutableList;
  * ExecutableApplicationListener.builder(executable).supportedEventType(ContextRefreshedEvent.class).build()
  * </pre>
  */
-public final class ExecutableApplicationListener implements SmartApplicationListener {
+public final class GenericExecutableApplicationListener implements SmartApplicationListener {
 
 	private static final Logger logger = LoggerUtils.make();
 
@@ -68,7 +68,7 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 		return supportedSourceTypes.isEmpty() || supportedSourceTypes.contains(sourceType);
 	}
 
-	private ExecutableApplicationListener(Builder builder) {
+	private GenericExecutableApplicationListener(Builder builder) {
 		this.executable = builder.executable;
 		this.order = builder.order;
 		this.supportedSourceTypes = builder.supportedSourceTypes;
@@ -93,15 +93,15 @@ public final class ExecutableApplicationListener implements SmartApplicationList
 			this.executable = executable;
 		}
 
-		public ExecutableApplicationListener build() {
+		public GenericExecutableApplicationListener build() {
 			this.supportedEventTypes = ImmutableList.copyOf(supportedEventTypes);
 			this.supportedSourceTypes = ImmutableList.copyOf(supportedSourceTypes);
-			ExecutableApplicationListener instance = new ExecutableApplicationListener(this);
+			GenericExecutableApplicationListener instance = new GenericExecutableApplicationListener(this);
 			validate(instance);
 			return instance;
 		}
 
-		private void validate(ExecutableApplicationListener instance) {
+		private void validate(GenericExecutableApplicationListener instance) {
 			checkNotNull(instance.getExecutable(), "executable cannot be null");
 			checkNotNull(instance.getSupportedEventTypes(), "supportedEventTypes cannot be null");
 			checkNotNull(instance.getSupportedSourceTypes(), "supportedSourceTypes cannot be null");
