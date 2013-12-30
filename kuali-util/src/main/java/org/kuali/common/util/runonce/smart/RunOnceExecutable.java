@@ -49,8 +49,12 @@ public class RunOnceExecutable implements Executable {
 		// Transition to INPROGRESS
 		runOnce.changeState(RunOnceState.INPROGRESS);
 
+		// Make sure the run once indicator no longer returns true
+		Preconditions.checkState(!runOnce.isTrue(), "Run once must be false");
+
 		try {
-			// Now that we have transitioned things to INPROGRESS it is safe to fire the executable
+			// Now that we have transitioned things to INPROGRESS and verified that the RunOnce indication
+			// no longer returns true, it is safe to fire the executable
 			// The transition to INPROGRESS is what prevents us from running the executable more than once
 			executable.execute();
 
