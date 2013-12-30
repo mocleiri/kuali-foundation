@@ -11,7 +11,7 @@ import org.springframework.context.event.SmartApplicationListener;
 
 /**
  * <p>
- * Associate an executable with one type of Spring framework application event.
+ * Associate an executable with a Spring framework application event.
  * </p>
  * 
  * <p>
