@@ -28,7 +28,7 @@ public final class ExecutableApplicationEventListener<T extends ApplicationEvent
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
-		checkArgument(supportedEventType == event.getClass(), "Event type [%s] should not be getting passed to this listener", event.getClass().getCanonicalName());
+		checkEvent(event);
 		logger.info("Received event: [{}]", event.getClass().getCanonicalName());
 		executable.execute();
 	}
@@ -46,6 +46,13 @@ public final class ExecutableApplicationEventListener<T extends ApplicationEvent
 	@Override
 	public boolean supportsSourceType(Class<?> sourceType) {
 		return true;
+	}
+
+	private void checkEvent(ApplicationEvent event) {
+		boolean expression = supportedEventType == event.getClass();
+		String errorMessage = "[%s] is the only supported event type.  Events of type [%s] should not be getting passed to this listener";
+		Object[] args = { supportedEventType.getCanonicalName(), event.getClass().getCanonicalName() };
+		checkArgument(expression, errorMessage, args);
 	}
 
 	private ExecutableApplicationEventListener(Builder<T> builder) {
