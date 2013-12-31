@@ -72,6 +72,16 @@ public class MetaInfUtils {
 	}
 
 	/**
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util</code>
+	 */
+	public static String getClasspathResourcePrefix(ProjectIdentifier project) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ResourceUtils.CLASSPATH_URL_PREFIX);
+		sb.append(getResourcePrefix(project.getGroupId(), project.getArtifactId()));
+		return sb.toString();
+	}
+
+	/**
 	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[group].resources</code>
 	 */
 	public static String getClasspathResource(Project project, MetaInfGroup group) {
