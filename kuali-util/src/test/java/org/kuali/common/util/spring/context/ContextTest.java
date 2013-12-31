@@ -27,7 +27,6 @@ public class ContextTest {
 			ConfigurableEnvironment env = ctx.getEnvironment();
 			PropertySourceUtils.reconfigurePropertySources(env, "properties", source);
 			ctx.register(CerealConfig.class, MilkConfig.class);
-			// ctx.register(BreakfastConfig.class);
 			ctx.refresh();
 			String[] beanNames = ctx.getBeanDefinitionNames();
 			logger.info("{} beans in this application context", beanNames.length);
