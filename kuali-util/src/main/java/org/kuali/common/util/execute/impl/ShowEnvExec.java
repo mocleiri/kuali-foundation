@@ -6,10 +6,12 @@ import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.file.CanonicalFile;
+import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ShowEnvExec implements Executable {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	public ShowEnvExec() {
 		this(false);
@@ -18,8 +20,6 @@ public class ShowEnvExec implements Executable {
 	public ShowEnvExec(boolean skip) {
 		this.skip = skip;
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(ShowEnvExec.class);
 
 	private final boolean skip;
 
