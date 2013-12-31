@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
   <bean id="milk" class="org.kuali.common.util.spring.context.Milk">
-    <property name="type" value="lowfat" />
+    <property name="type" value="${milk.type}" />
     <property name="price" value="3.50" />
   </bean>
 
