@@ -39,6 +39,8 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
+import com.google.common.base.Preconditions;
+
 public class PropertySourceUtils {
 
 	private static final String PROPERTIES_PROPERTY_SOURCE = "propertiesPropertySource";
@@ -177,6 +179,7 @@ public class PropertySourceUtils {
 	 * Aggregate all <code>PropertySource<?><code> objects from the environment into a <code>List</code>
 	 */
 	public static List<PropertySource<?>> getPropertySources(ConfigurableEnvironment env) {
+		Preconditions.checkNotNull(env, "'env' cannot be null");
 		MutablePropertySources mps = env.getPropertySources();
 		List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
 		Iterator<PropertySource<?>> itr = mps.iterator();
