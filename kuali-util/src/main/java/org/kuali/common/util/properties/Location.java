@@ -79,8 +79,11 @@ public final class Location {
 		return new Builder(value);
 	}
 
-	public static Builder builder(Location loc, String newValue) {
-		return new Builder(newValue).cacheable(loc.isCacheable()).encoding(loc.getEncoding()).format(loc.getFormat()).missingMode(loc.getMissingMode());
+	/**
+	 * Create a new {@code Location} identical to an existing location but with {@code newValue} for its value
+	 */
+	public static Builder builder(Location existing, String newValue) {
+		return new Builder(newValue).cacheable(existing.isCacheable()).encoding(existing.getEncoding()).format(existing.getFormat()).missingMode(existing.getMissingMode());
 	}
 
 	public static class Builder {
