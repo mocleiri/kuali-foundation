@@ -9,11 +9,11 @@ import org.kuali.common.util.project.spring.AutowiredProjectConfig;
 import org.kuali.common.util.properties.DefaultPropertiesService;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.ImmutableProperties;
+import org.kuali.common.util.property.processor.JasyptDecryptingProcessor;
 import org.kuali.common.util.property.processor.OverridingProcessor;
 import org.kuali.common.util.property.processor.ProcessorsProcessor;
 import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.kuali.common.util.property.processor.ResolvingProcessor;
-import org.kuali.common.util.property.processor.JasyptDecryptingProcessor;
 import org.kuali.common.util.spring.env.BasicEnvironmentService;
 import org.kuali.common.util.spring.env.EnvironmentService;
 import org.kuali.common.util.spring.service.SpringServiceConfig;
@@ -32,28 +32,22 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 	@Override
 	@Bean
 	public PropertiesService propertiesService() {
+		Properties overrides = getOverrides(project);
+		PropertyProcessor processor = getPostProcessor(overrides);
+		return new DefaultPropertiesService(overrides, processor);
+	}
 
+	public static Properties getOverrides(Project project) {
 		// Get a reference to system + environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
 
 		// Setup a properties object where system properties "win" over project properties
-		Properties overrides = new ImmutableProperties(PropertyUtils.combine(project.getProperties(), global));
-
-		// Setup an encryption context from the overrides properties
-		EnvironmentService env = new BasicEnvironmentService(overrides);
-		EncContext context = new EncContext.Builder(env).removeSystemProperties(true).build();
-
-		// Setup a processor that gets invoked on the properties *after* they have all been loaded
-		PropertyProcessor processor = getPostProcessor(overrides, context);
-
-		// Setup a service with the overrides and post processor we've configured
-		PropertiesService service = new DefaultPropertiesService(overrides, processor);
-
-		// Return the configured service
-		return service;
+		return ImmutableProperties.of(PropertyUtils.combine(project.getProperties(), global));
 	}
 
-	protected PropertyProcessor getPostProcessor(Properties overrides, EncContext context) {
+	public static PropertyProcessor getPostProcessor(Properties overrides) {
+		EnvironmentService env = new BasicEnvironmentService(overrides);
+		EncContext context = new EncContext.Builder(env).removeSystemProperties(true).build();
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new JasyptDecryptingProcessor(context.getTextEncryptor());
 		PropertyProcessor resolve = new ResolvingProcessor();
