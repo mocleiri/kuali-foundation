@@ -4,7 +4,11 @@
   <appender name="console" class="org.apache.log4j.ConsoleAppender">
     <param name="Target" value="System.out" />
     <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="[%-4p] %c.%M - %m%n" />
+      <param name="ConversionPattern" value="[%-4p] %c - %m%n" />
+
+      <!-- This displays the method name
+        <param name="ConversionPattern" value="[%-4p] %c.%M - %m%n" />
+      -->
     </layout>
   </appender>
   <root>
