@@ -62,8 +62,8 @@ import com.google.common.collect.ImmutableList;
  * </p>
  * 
  * <p>
- * No placeholder resolution is attempted on parameter entries with the exception of {@code config.location} entries. During the loading process {@code config.location} entries
- * that contain placeholders are resolved using system and environment variables as well as any properties that have already been loaded.
+ * No placeholder resolution is attempted on parameter entries with the exception of {@code config.location} entries. During the loading process, {@code config.location} entries
+ * that contain placeholders, are resolved using system and environment variables as well as any properties that have already been loaded.
  * </p>
  */
 public class RicePropertiesLoader {
