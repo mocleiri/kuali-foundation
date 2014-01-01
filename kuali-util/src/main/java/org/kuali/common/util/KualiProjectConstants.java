@@ -15,7 +15,9 @@
  */
 package org.kuali.common.util;
 
-
+/**
+ * @deprecated Use org.kuali.common.util.project.KualiProjectConstants instead
+ */
 @Deprecated
 public abstract class KualiProjectConstants {
 
