@@ -239,6 +239,10 @@ public class RicePropertiesLoader {
 		List<String> keys = PropertyUtils.getSortedKeys(properties);
 		for (String key : keys) {
 			String value = properties.getProperty(key);
+			// "override" defaults to true here because that is by far the most "normal" and widely accepted behavior
+			// Both Spring and Maven adhere to the "last one in wins" strategy, so we follow that here
+			// Normal .properties files don't have a way to toggle an "override" attribute at the individual property level (nor should they)
+			// Thus, the default value of "true"
 			Param param = Param.builder(key, value).override(true).build();
 			params.add(param);
 		}
