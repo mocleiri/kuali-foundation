@@ -77,7 +77,7 @@ public class RicePropertiesLoader {
 
 		// If the location does not exist, we are done
 		if (!LocationUtils.exists(location)) {
-			logger.warn("{}# skipping non-existent location [{}]", prefix, location);
+			logger.warn("{}# skip non-existent location [{}]", prefix, location);
 			return;
 		}
 
