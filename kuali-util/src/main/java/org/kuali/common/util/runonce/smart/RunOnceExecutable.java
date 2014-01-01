@@ -97,8 +97,8 @@ public class RunOnceExecutable implements Executable {
 		}
 
 		private void validate(RunOnceExecutable instance) {
-			Preconditions.checkNotNull(executable, "executable cannot be null");
-			Preconditions.checkNotNull(runOnce, "runOnce cannot be null");
+			Preconditions.checkNotNull(instance.getExecutable(), "executable cannot be null");
+			Preconditions.checkNotNull(instance.getRunOnce(), "runOnce cannot be null");
 		}
 	}
 
@@ -114,6 +114,10 @@ public class RunOnceExecutable implements Executable {
 
 	public boolean isSkip() {
 		return skip;
+	}
+
+	public RunOnce getRunOnce() {
+		return runOnce;
 	}
 
 }
