@@ -30,6 +30,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.Str;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.properties.model.rice.Config;
 import org.kuali.common.util.properties.model.rice.Param;
@@ -65,7 +66,7 @@ public class RicePropertiesLoader {
 		// Setup an indentation prefix based on the recursive depth
 		final String prefix = StringUtils.repeat(" ", depth);
 
-		// If we couldn't open an input stream we are done
+		// If the location does not exist, we are done
 		if (!LocationUtils.exists(location)) {
 			logger.warn("{}+ Skipping non-existent location [{}]", prefix, location);
 			return;
@@ -74,18 +75,22 @@ public class RicePropertiesLoader {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			if (isPropertiesFile(location)) {
-				logger.info("{}+ Loading - [{}]", prefix, location);
-				Properties loaded = new Properties();
-				loaded.load(in);
-				properties.putAll(loaded);
-			} else {
-				loadRiceXML(in, prefix, location, depth, unmarshaller, properties);
-			}
-		} catch (Exception e) {
+			load(location, unmarshaller, depth, properties, in, prefix);
+		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			IOUtils.closeQuietly(in);
+		}
+	}
+
+	protected void load(String location, Unmarshaller unmarshaller, int depth, Properties properties, InputStream in, String prefix) throws IOException {
+		if (isPropertiesFile(location)) {
+			logger.info("{}+ Loading - [{}]", prefix, location);
+			Properties loaded = new Properties();
+			loaded.load(in);
+			properties.putAll(loaded);
+		} else {
+			loadRiceXML(in, prefix, location, depth, unmarshaller, properties);
 		}
 	}
 
@@ -105,17 +110,21 @@ public class RicePropertiesLoader {
 			return;
 		}
 		checkParam(p);
-		boolean doesNotExist = properties.getProperty(p.getName()) == null;
+		String oldValue = properties.getProperty(p.getName());
+		boolean doesNotExist = oldValue == null;
 		if (doesNotExist) {
-			logger.debug("{}   adding        - [{}]", prefix, p.getName());
+			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
+			logger.debug("{}   adding        - [{}]=[{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 			return;
 		}
 		if (p.isOverride()) {
-			logger.info("{}   overriding     - [{}]", prefix, p.getName());
+			Object[] args = { prefix, p.getName(), Str.flatten(oldValue), Str.flatten(p.getValue()) };
+			logger.info("{}   overriding     - [{}]=[{}] -> [{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
-			logger.info("{}   not overriding - [{}]", prefix, p.getName());
+			Object[] args = { prefix, p.getName(), Str.flatten(oldValue), Str.flatten(p.getValue()) };
+			logger.info("{}   not overriding - [{}]=[{}] -> Ignoring new value[{}]", args);
 		}
 	}
 
