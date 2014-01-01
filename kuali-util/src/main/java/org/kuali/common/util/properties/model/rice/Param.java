@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
-import org.kuali.common.util.xml.jaxb.adapter.OmitTrueAdapter;
+
+import com.google.common.base.Preconditions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "value" })
@@ -19,16 +19,16 @@ public class Param {
 	private final String name;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitTrueAdapter.class)
-	private final boolean override;
+	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
+	private final Boolean override;
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final boolean random;
+	private final Boolean random;
 
 	@XmlAttribute
 	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final boolean system;
+	private final Boolean system;
 
 	@XmlValue
 	private final String value;
@@ -93,9 +93,13 @@ public class Param {
 		}
 
 		public Param build() {
-			Param param = new Param(this);
-			Assert.noBlanks(param.name);
-			return param;
+			Param instance = new Param(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(Param instance) {
+			Preconditions.checkNotNull(instance.name, "'name' cannot be null");
 		}
 
 	}
