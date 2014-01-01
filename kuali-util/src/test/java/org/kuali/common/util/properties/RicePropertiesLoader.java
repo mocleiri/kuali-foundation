@@ -35,6 +35,8 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.properties.model.rice.Config;
 import org.kuali.common.util.properties.model.rice.Param;
+import org.kuali.common.util.property.processor.OverridingProcessor;
+import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 import org.xml.sax.InputSource;
@@ -51,6 +53,7 @@ public class RicePropertiesLoader {
 
 	private static final Logger logger = LoggerUtils.make();
 	private static final PropertyPlaceholderHelper PPH = new PropertyPlaceholderHelper("${", "}", ":", false);
+	private static final String CONFIG_LOCATION = "config.location";
 
 	public Properties load(String location) {
 		Preconditions.checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -85,27 +88,34 @@ public class RicePropertiesLoader {
 
 	protected void load(String location, Unmarshaller unmarshaller, int depth, Properties properties, InputStream in, String prefix) throws IOException {
 		if (isPropertiesFile(location)) {
-			logger.info("{}+ Loading - [{}]", prefix, location);
-			Properties loaded = new Properties();
-			loaded.load(in);
-			properties.putAll(loaded);
+			loadJavaProperties(prefix, location, in, properties, depth);
 		} else {
-			loadRiceXML(in, prefix, location, depth, unmarshaller, properties);
+			loadRiceProperties(in, prefix, location, depth, unmarshaller, properties);
 		}
 	}
 
-	protected void loadRiceXML(InputStream in, String prefix, String location, int depth, Unmarshaller unmarshaller, Properties properties) throws IOException {
+	protected void loadJavaProperties(String prefix, String location, InputStream in, Properties properties, int depth) throws IOException {
+		logger.info("{}+ Loading - [{}]", prefix, location);
+		Properties loaded = new Properties();
+		loaded.load(in);
+		PropertyProcessor processor = OverridingProcessor.builder(loaded).indent(depth).build();
+		processor.process(properties);
+		logger.info("{}- Loaded  - [{}]", prefix, location);
+	}
+
+	protected void loadRiceProperties(InputStream in, String prefix, String location, int depth, Unmarshaller unmarshaller, Properties properties) throws IOException {
 		logger.info("{}+ Loading - [{}]", prefix, location);
 		Config config = unmarshal(unmarshaller, in);
 		for (Param p : config.getParams()) {
 			handleParam(p, depth, unmarshaller, properties, prefix);
 		}
+		logger.info("{}- Loaded  - [{}]", prefix, location);
 	}
 
 	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
 
 		// This is a reference to a nested config file
-		if (p.getName().equalsIgnoreCase("config.location")) {
+		if (p.getName().equalsIgnoreCase(CONFIG_LOCATION)) {
 			String originalLocation = p.getValue();
 			String resolvedLocation = getResolvedValue(originalLocation, properties);
 			load(resolvedLocation, unmarshaller, depth + 1, properties);
@@ -129,19 +139,19 @@ public class RicePropertiesLoader {
 		// The new value is the same as the old value. Nothing more to do
 		if (oldValue.get().equals(p.getValue())) {
 			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
-			logger.debug("{}   duplicate        - [{}]=[{}]", args);
+			logger.debug("{}   duplicate     - [{}]=[{}]", args);
 			return;
 		}
 
-		// There is a new value for this property that is different from the old value
+		// There is a new value for this property and it's different than the old value
 		Object[] args = { prefix, p.getName(), Str.flatten(oldValue.get()), Str.flatten(p.getValue()) };
 		if (p.isOverride()) {
 			// Change it, and log the fact that we are changing it
-			logger.info("{}   overriding     - [{}]=[{}] -> [{}]", args);
+			logger.info("{}   overriding    - [{}]=[{}] -> [{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
 			// Don't change it, and log the fact that we are ignoring the new value from the config file
-			logger.info("{}   not overriding - [{}]=[{}] -> Ignoring new value [{}]", args);
+			logger.info("{}   override skip - [{}]=[{}] -> Ignoring new value [{}]", args);
 		}
 	}
 
