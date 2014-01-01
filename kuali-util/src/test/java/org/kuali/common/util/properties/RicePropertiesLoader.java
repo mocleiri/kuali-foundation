@@ -50,7 +50,21 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 /**
+ * <p>
+ * Load Rice XML config files. This class supports the chaining of config files together via {@code config.location} param entries. It also honors the {@code override} attribute on
+ * param entries. It does not support the {@code random} or {@code system} attributes. If either of those two attributes are present anywhere in any config file, an exception is
+ * thrown.
+ * </p>
  * 
+ * <p>
+ * The purpose of this class is to decouple the loading of property files from everything else and produce a plain vanilla {@code java.util.Properties} object that accurately
+ * reflects the contents of the files as a simple object in memory.
+ * </p>
+ * 
+ * <p>
+ * No placeholder resolution is attempted on parameter entries with the exception of {@code config.location} entries. During the loading process {@code config.location} entries
+ * that contain placeholders are resolved using system and environment variables as well as any properties that have already been loaded.
+ * </p>
  */
 public class RicePropertiesLoader {
 
