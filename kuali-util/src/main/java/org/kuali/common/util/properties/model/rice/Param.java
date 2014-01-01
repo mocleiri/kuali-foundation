@@ -57,15 +57,16 @@ public class Param {
 
 		// Required
 		private final String name;
+		private final String value;
 
 		// Optional
 		private boolean override = false;
 		private boolean random = false;
 		private boolean system = false;
-		private String value;
 
-		public Builder(String name) {
+		public Builder(String name, String value) {
 			this.name = name;
+			this.value = value;
 		}
 
 		public Builder override(boolean override) {
@@ -83,11 +84,6 @@ public class Param {
 			return this;
 		}
 
-		public Builder value(String value) {
-			this.value = value;
-			return this;
-		}
-
 		private Builder initialized() {
 			return this;
 		}
@@ -100,20 +96,21 @@ public class Param {
 
 		private static void validate(Param instance) {
 			Preconditions.checkNotNull(instance.name, "'name' cannot be null");
+			Preconditions.checkNotNull(instance.value, "'value' cannot be null");
 		}
 
 	}
 
 	private Param() {
-		this(new Builder(null).initialized());
+		this(new Builder(null, null).initialized());
 	}
 
 	private Param(Builder builder) {
 		this.name = builder.name;
+		this.value = builder.value;
 		this.override = builder.override;
 		this.random = builder.random;
 		this.system = builder.system;
-		this.value = builder.value;
 	}
 
 }

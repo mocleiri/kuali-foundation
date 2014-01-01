@@ -112,22 +112,10 @@ public class RicePropertiesLoader {
 		logger.info("{}- Loaded  - [{}]", prefix, location);
 	}
 
-	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
-
-		// This is a reference to a nested config file
-		if (p.getName().equalsIgnoreCase(CONFIG_LOCATION)) {
-			String originalLocation = p.getValue();
-			String resolvedLocation = getResolvedValue(originalLocation, properties);
-			load(resolvedLocation, unmarshaller, depth + 1, properties);
-			return;
-		}
-
-		// Random and system attributes are not supported
-		checkParam(p);
-
+	protected void overrideAsNeeded(Properties properties, Param p, String prefix) {
 		// Extract the old value (it it's present)
 		Optional<String> oldValue = Optional.fromNullable(properties.getProperty(p.getName()));
-
+		
 		// If there is no previous value, just add it
 		if (!oldValue.isPresent()) {
 			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
@@ -147,12 +135,28 @@ public class RicePropertiesLoader {
 		Object[] args = { prefix, p.getName(), Str.flatten(oldValue.get()), Str.flatten(p.getValue()) };
 		if (p.isOverride()) {
 			// Change it, and log the fact that we are changing it
-			logger.info("{}   overriding    - [{}]=[{}] -> [{}]", args);
+			logger.info("{}   override      - [{}]=[{}] -> [{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
 			// Don't change it, and log the fact that we are ignoring the new value from the config file
-			logger.info("{}   override skip - [{}]=[{}] -> Ignoring new value [{}]", args);
+			logger.info("{}   override skip - [{}]=[{}] -> ignore [{}]", args);
 		}
+	}
+
+	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
+
+		// This is a reference to a nested config file
+		if (p.getName().equalsIgnoreCase(CONFIG_LOCATION)) {
+			String originalLocation = p.getValue();
+			String resolvedLocation = getResolvedValue(originalLocation, properties);
+			load(resolvedLocation, unmarshaller, depth + 1, properties);
+			return;
+		}
+
+		// Random and system attributes are not supported
+		checkParam(p);
+		overrideAsNeeded(properties, p, prefix);
+
 	}
 
 	protected void checkParam(Param param) {
