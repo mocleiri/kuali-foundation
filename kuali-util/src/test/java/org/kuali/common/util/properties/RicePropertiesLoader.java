@@ -2,7 +2,7 @@
  * Copyright 2005-2013 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * you cannot use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  * http://www.opensource.org/licenses/ecl2.php
@@ -17,6 +17,8 @@ package org.kuali.common.util.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
@@ -33,10 +35,10 @@ import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.log.LoggerUtils;
+import org.kuali.common.util.obscure.DefaultObscurer;
+import org.kuali.common.util.obscure.Obscurer;
 import org.kuali.common.util.properties.model.rice.Config;
 import org.kuali.common.util.properties.model.rice.Param;
-import org.kuali.common.util.property.processor.OverridingProcessor;
-import org.kuali.common.util.property.processor.PropertyProcessor;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 import org.xml.sax.InputSource;
@@ -45,6 +47,7 @@ import org.xml.sax.XMLReader;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 /**
  * 
@@ -52,8 +55,11 @@ import com.google.common.base.Preconditions;
 public class RicePropertiesLoader {
 
 	private static final Logger logger = LoggerUtils.make();
-	private static final PropertyPlaceholderHelper PPH = new PropertyPlaceholderHelper("${", "}", ":", false);
-	private static final String CONFIG_LOCATION = "config.location";
+
+	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
+	private final String magicNestedConfigFileKey;
+	private final List<String> obscurePatterns;
+	private final Obscurer obscurer;
 
 	public Properties load(String location) {
 		Preconditions.checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -98,8 +104,10 @@ public class RicePropertiesLoader {
 		logger.info("{}+ Loading - [{}]", prefix, location);
 		Properties loaded = new Properties();
 		loaded.load(in);
-		PropertyProcessor processor = OverridingProcessor.builder(loaded).indent(depth).build();
-		processor.process(properties);
+		List<Param> params = getParams(loaded);
+		for (Param p : params) {
+			update(properties, p, prefix);
+		}
 		logger.info("{}- Loaded  - [{}]", prefix, location);
 	}
 
@@ -112,13 +120,36 @@ public class RicePropertiesLoader {
 		logger.info("{}- Loaded  - [{}]", prefix, location);
 	}
 
-	protected void overrideAsNeeded(Properties properties, Param p, String prefix) {
+	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
+
+		// This is a reference to a nested config file
+		if (p.getName().equalsIgnoreCase(magicNestedConfigFileKey)) {
+			String originalLocation = p.getValue();
+			String resolvedLocation = getResolvedValue(originalLocation, properties);
+			load(resolvedLocation, unmarshaller, depth + 1, properties);
+			return;
+		}
+
+		// Random and system attributes are not supported
+		checkParam(p);
+
+		// Update the properties object with this parameter
+		update(properties, p, prefix);
+
+	}
+
+	protected void update(Properties properties, Param p, String prefix) {
+		Preconditions.checkNotNull(p.getValue(), "parameter value cannot be null");
+
 		// Extract the old value (it it's present)
 		Optional<String> oldValue = Optional.fromNullable(properties.getProperty(p.getName()));
-		
+
+		// Get a log friendly value
+		String newLogValue = getLogValue(p.getName(), p.getValue());
+
 		// If there is no previous value, just add it
 		if (!oldValue.isPresent()) {
-			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
+			Object[] args = { prefix, p.getName(), newLogValue };
 			logger.debug("{}   adding        - [{}]=[{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 			return;
@@ -126,13 +157,16 @@ public class RicePropertiesLoader {
 
 		// The new value is the same as the old value. Nothing more to do
 		if (oldValue.get().equals(p.getValue())) {
-			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
+			Object[] args = { prefix, p.getName(), newLogValue };
 			logger.debug("{}   duplicate     - [{}]=[{}]", args);
 			return;
 		}
 
+		// Get a log friendly value
+		String oldLogValue = getLogValue(p.getName(), oldValue.get());
+
 		// There is a new value for this property and it's different than the old value
-		Object[] args = { prefix, p.getName(), Str.flatten(oldValue.get()), Str.flatten(p.getValue()) };
+		Object[] args = { prefix, p.getName(), oldLogValue, newLogValue };
 		if (p.isOverride()) {
 			// Change it, and log the fact that we are changing it
 			logger.info("{}   override      - [{}]=[{}] -> [{}]", args);
@@ -143,20 +177,14 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
-
-		// This is a reference to a nested config file
-		if (p.getName().equalsIgnoreCase(CONFIG_LOCATION)) {
-			String originalLocation = p.getValue();
-			String resolvedLocation = getResolvedValue(originalLocation, properties);
-			load(resolvedLocation, unmarshaller, depth + 1, properties);
-			return;
+	protected String getLogValue(String key, String value) {
+		String lcase = key.toLowerCase();
+		for (String obscurePattern : obscurePatterns) {
+			if (lcase.contains(obscurePattern)) {
+				return Str.flatten(obscurer.obscure(value));
+			}
 		}
-
-		// Random and system attributes are not supported
-		checkParam(p);
-		overrideAsNeeded(properties, p, prefix);
-
+		return Str.flatten(value);
 	}
 
 	protected void checkParam(Param param) {
@@ -192,6 +220,17 @@ public class RicePropertiesLoader {
 		}
 	}
 
+	protected List<Param> getParams(Properties properties) {
+		List<Param> params = new ArrayList<Param>();
+		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		for (String key : keys) {
+			String value = properties.getProperty(key);
+			Param param = Param.builder(key, value).override(true).build();
+			params.add(param);
+		}
+		return params;
+	}
+
 	protected boolean isPropertiesFile(String location) {
 		String lower = StringUtils.lowerCase(location);
 		return StringUtils.endsWith(lower, ".properties");
@@ -199,7 +238,54 @@ public class RicePropertiesLoader {
 
 	protected String getResolvedValue(String value, Properties properties) {
 		Properties global = PropertyUtils.getGlobalProperties(properties);
-		return PPH.replacePlaceholders(value, global);
+		return propertyPlaceholderHelper.replacePlaceholders(value, global);
+	}
+
+	private RicePropertiesLoader(Builder builder) {
+		this.propertyPlaceholderHelper = builder.propertyPlaceholderHelper;
+		this.magicNestedConfigFileKey = builder.magicNestedConfigFileKey;
+		this.obscurePatterns = builder.obscurePatterns;
+		this.obscurer = builder.obscurer;
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+
+		private PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", false);
+		private String magicNestedConfigFileKey = "config.location";
+		private List<String> obscurePatterns = ImmutableList.of("secret", "password", "private");
+		private Obscurer obscurer = new DefaultObscurer();
+
+		public Builder propertyPlaceholderHelper(PropertyPlaceholderHelper propertyPlaceholderHelper) {
+			this.propertyPlaceholderHelper = propertyPlaceholderHelper;
+			return this;
+		}
+
+		public Builder magicNestedConfigFileKey(String magicNestedConfigFileKey) {
+			this.magicNestedConfigFileKey = magicNestedConfigFileKey;
+			return this;
+		}
+
+		public Builder obscurePatterns(List<String> obscurePatterns) {
+			this.obscurePatterns = obscurePatterns;
+			return this;
+		}
+
+		public RicePropertiesLoader build() {
+			RicePropertiesLoader instance = new RicePropertiesLoader(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(RicePropertiesLoader instance) {
+			Preconditions.checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
+			Preconditions.checkNotNull(instance.obscurePatterns, "obscurePatterns cannot be null");
+			Preconditions.checkNotNull(instance.obscurer, "obscurer cannot be null");
+			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigFileKey), "magicNestedConfigFileKey cannot be blank");
+		}
 	}
 
 }

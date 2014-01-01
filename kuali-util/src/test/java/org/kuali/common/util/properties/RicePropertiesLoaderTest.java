@@ -12,7 +12,7 @@ public class RicePropertiesLoaderTest {
 	public void test() {
 		try {
 			String location = "classpath:org/kuali/common/kuali-util/properties/breakfast.xml";
-			RicePropertiesLoader loader = new RicePropertiesLoader();
+			RicePropertiesLoader loader = RicePropertiesLoader.builder().build();
 			Properties properties = loader.load(location);
 			ResolvingProcessor processor = new ResolvingProcessor();
 			processor.process(properties);

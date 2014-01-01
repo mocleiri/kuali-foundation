@@ -53,6 +53,10 @@ public class Param {
 		return value;
 	}
 
+	public static Builder builder(String name, String value) {
+		return new Builder(name, value);
+	}
+
 	public static class Builder {
 
 		// Required
