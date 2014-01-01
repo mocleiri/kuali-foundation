@@ -35,6 +35,10 @@ public final class DefaultPropertiesService implements PropertiesService {
 		this.postProcessor = postProcessor;
 	}
 
+	protected PropertiesLoader getLoader(Location location, Cache<String, Properties> cache) {
+		return new CachingLoader(location, CACHE);
+	}
+
 	@Override
 	public Properties getProperties(List<Location> locations) {
 
@@ -53,11 +57,16 @@ public final class DefaultPropertiesService implements PropertiesService {
 			// Resolve the location using the resolver
 			String resolvedLocation = resolver.resolve(location.getValue());
 
+			Location realLocation = location;
+			if (!resolvedLocation.equals(location.getValue())) {
+				realLocation = new Location(location.getValue(), location.getEncoding(), location.getMissingMode(), location.getFormat(), location.isCacheable());
+			}
+
 			// Setup a loader capable of correctly handling things
 			// It might be perfectly acceptable for the location to not even exist
 			// The location might point to the default location for user specified overrides and the user hasn't provided any (for example)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
-			PropertiesLoader loader = new CachingLoader(location, resolvedLocation, CACHE);
+			PropertiesLoader loader = getLoader(realLocation, CACHE);
 
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load();
