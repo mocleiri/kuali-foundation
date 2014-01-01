@@ -19,10 +19,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.kuali.common.util.Assert;
-import org.kuali.common.util.ListUtils;
 import org.kuali.common.util.Mode;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.property.ImmutableProperties;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 public final class OverridingProcessor implements PropertyProcessor {
 
@@ -50,13 +52,12 @@ public final class OverridingProcessor implements PropertyProcessor {
 	}
 
 	public OverridingProcessor(Properties overrides, Mode overrideMode, List<String> includes, List<String> excludes, int indent) {
-		Assert.noNulls(overrides, overrideMode, includes, excludes);
-		Assert.isTrue(indent >= 0, "indent is negative");
 		this.overrides = PropertyUtils.toImmutable(overrides);
 		this.overrideMode = overrideMode;
-		this.includes = ListUtils.newImmutableArrayList(includes);
-		this.excludes = ListUtils.newImmutableArrayList(excludes);
+		this.includes = ImmutableList.copyOf(includes);
+		this.excludes = ImmutableList.copyOf(excludes);
 		this.indent = indent;
+		Builder.validate(this);
 	}
 
 	@Override
@@ -86,5 +87,64 @@ public final class OverridingProcessor implements PropertyProcessor {
 
 	public int getIndent() {
 		return indent;
+	}
+
+	private OverridingProcessor(Builder builder) {
+		this.overrideMode = builder.overrideMode;
+		this.overrides = builder.overrides;
+		this.includes = builder.includes;
+		this.excludes = builder.excludes;
+		this.indent = builder.indent;
+	}
+
+	public static Builder builder(Properties overrides) {
+		return new Builder(overrides);
+	}
+
+	public static class Builder {
+
+		private final Properties overrides;
+		private Mode overrideMode = DEFAULT_OVERRIDE_MODE;
+		private List<String> includes = ImmutableList.of();
+		private List<String> excludes = ImmutableList.of();
+		private int indent = DEFAULT_INDENT;
+
+		public Builder(Properties overrides) {
+			this.overrides = ImmutableProperties.of(overrides);
+		}
+
+		public Builder overrideMode(Mode overrideMode) {
+			this.overrideMode = overrideMode;
+			return this;
+		}
+
+		public Builder includes(List<String> includes) {
+			this.includes = includes;
+			return this;
+		}
+
+		public Builder excludes(List<String> excludes) {
+			this.excludes = excludes;
+			return this;
+		}
+
+		public Builder indent(int indent) {
+			this.indent = indent;
+			return this;
+		}
+
+		public OverridingProcessor build() {
+			OverridingProcessor instance = new OverridingProcessor(this);
+			validate(instance);
+			return instance;
+		}
+
+		private static void validate(OverridingProcessor instance) {
+			Preconditions.checkNotNull(instance.overrides, "overrides cannot be null");
+			Preconditions.checkArgument(instance.indent >= 0, "indent cannot be negative");
+			Preconditions.checkNotNull(instance.includes, "includes cannot be null");
+			Preconditions.checkNotNull(instance.excludes, "excludes cannot be null");
+			Preconditions.checkNotNull(instance.overrideMode, "overrideMode cannot be null");
+		}
 	}
 }
