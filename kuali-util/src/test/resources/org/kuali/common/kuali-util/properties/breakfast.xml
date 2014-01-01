@@ -1,4 +1,6 @@
 <config>
+  <param name="milk.price">2.49</param>
   <param name="config.location">classpath:org/kuali/common/kuali-util/properties/milk.xml</param>
   <param name="config.location">classpath:org/kuali/common/kuali-util/properties/cereal.xml</param>
+  <param name="milk.price">3.79</param>
 </config>
