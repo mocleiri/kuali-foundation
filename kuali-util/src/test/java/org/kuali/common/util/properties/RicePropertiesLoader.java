@@ -141,7 +141,7 @@ public class RicePropertiesLoader {
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
 			// Don't change it, and log the fact that we are ignoring the new value from the config file
-			logger.info("{}   not overriding - [{}]=[{}] -> Ignoring new value[{}]", args);
+			logger.info("{}   not overriding - [{}]=[{}] -> Ignoring new value [{}]", args);
 		}
 	}
 
