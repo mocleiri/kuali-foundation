@@ -27,12 +27,21 @@ import com.google.common.base.Preconditions;
 public class EnvironmentPropertySourceFactoryBean implements FactoryBean<PropertySource<?>> {
 
 	ConfigurableEnvironment env;
+	boolean quietly = false;
 
 	@Override
 	public PropertySource<?> getObject() {
 		Preconditions.checkNotNull(env, "'env' cannot be null");
-		Properties source = PropertySourceUtils.getAllEnumerableProperties(env);
+		Properties source = getProperties();
 		return new PropertiesPropertySource("environmentProperties", source);
+	}
+
+	protected Properties getProperties() {
+		if (quietly) {
+			return PropertySourceUtils.getAllEnumerablePropertiesQuietly(env);
+		} else {
+			return PropertySourceUtils.getAllEnumerableProperties(env);
+		}
 	}
 
 	@Override
@@ -51,5 +60,13 @@ public class EnvironmentPropertySourceFactoryBean implements FactoryBean<Propert
 
 	public void setEnv(ConfigurableEnvironment env) {
 		this.env = env;
+	}
+
+	public boolean isQuietly() {
+		return quietly;
+	}
+
+	public void setQuietly(boolean quietly) {
+		this.quietly = quietly;
 	}
 }

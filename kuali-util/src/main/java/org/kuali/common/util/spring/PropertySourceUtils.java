@@ -25,11 +25,13 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.properties.Location;
 import org.kuali.common.util.properties.PropertiesService;
 import org.kuali.common.util.property.ImmutableProperties;
 import org.kuali.common.util.spring.service.PropertySourceContext;
 import org.kuali.common.util.spring.service.SpringContext;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -45,7 +47,7 @@ public class PropertySourceUtils {
 
 	private static final String PROPERTIES_PROPERTY_SOURCE = "propertiesPropertySource";
 
-	// private static final Logger logger = LoggerFactory.getLogger(PropertySourceUtils.class);
+	private static final Logger logger = LoggerUtils.make();
 
 	/**
 	 * Return a property source from system properties plus the environment
@@ -103,6 +105,27 @@ public class PropertySourceUtils {
 	}
 
 	/**
+	 * Aggregate every property from every <code>PropertySource</code> in the <code>ConfigurableEnvironment</code> into a <code>Properties</code> object.
+	 * 
+	 * If a PropertySource is not Enumerable, just omit it from the list, but do not throw an exception
+	 */
+	public static Properties getAllEnumerablePropertiesQuietly(ConfigurableEnvironment env) {
+
+		// Extract the list of PropertySources from the environment
+		List<PropertySource<?>> sources = getPropertySources(env);
+
+		// Spring provides PropertySource objects ordered from highest priority to lowest priority
+		// We reverse the order here so things follow the "last one in wins" strategy
+		Collections.reverse(sources);
+
+		// Make sure every property source is enumerable
+		List<EnumerablePropertySource<?>> enumerables = asEnumerableListQuietly(sources);
+
+		// Combine them into a single Properties object
+		return convert(enumerables);
+	}
+
+	/**
 	 * Aggregate every property from every <code>PropertySource</code> in the <code>ConfigurableEnvironment</code> into an <code>Properties</code> object.
 	 * 
 	 * @throws IllegalArgumentException
@@ -120,9 +143,30 @@ public class PropertySourceUtils {
 	public static List<EnumerablePropertySource<?>> asEnumerableList(List<PropertySource<?>> sources) {
 		List<EnumerablePropertySource<?>> list = new ArrayList<EnumerablePropertySource<?>>();
 		for (PropertySource<?> source : sources) {
-			Assert.isTrue(source instanceof EnumerablePropertySource<?>, "[" + source + "] is not enumerable");
+			boolean expression = source instanceof EnumerablePropertySource<?>;
+			String errorMessage = "'%s' is not enumerable [%s]";
+			Object[] args = { source.getName(), source.getClass().getCanonicalName() };
+			Preconditions.checkState(expression, errorMessage, args);
 			EnumerablePropertySource<?> element = (EnumerablePropertySource<?>) source;
 			list.add(element);
+		}
+		return list;
+	}
+
+	/**
+	 * Create an <code>EnumerablePropertySource</code> list from a <code>PropertySource</code> list
+	 * 
+	 * @throws <code>IllegalArgumentException</code> if any element in <code>sources</code> is not an <code>EnumerablePropertySource</code>
+	 */
+	public static List<EnumerablePropertySource<?>> asEnumerableListQuietly(List<PropertySource<?>> sources) {
+		List<EnumerablePropertySource<?>> list = new ArrayList<EnumerablePropertySource<?>>();
+		for (PropertySource<?> source : sources) {
+			if (source instanceof EnumerablePropertySource<?>) {
+				EnumerablePropertySource<?> element = (EnumerablePropertySource<?>) source;
+				list.add(element);
+			} else {
+				logger.warn("'{}' is not enumerable [{}]", source.getName(), source.getClass().getCanonicalName());
+			}
 		}
 		return list;
 	}
