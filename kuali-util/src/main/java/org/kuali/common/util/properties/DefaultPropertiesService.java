@@ -57,10 +57,8 @@ public final class DefaultPropertiesService implements PropertiesService {
 			// Resolve the location using the resolver
 			String resolvedLocation = resolver.resolve(location.getValue());
 
-			Location realLocation = location;
-			if (!resolvedLocation.equals(location.getValue())) {
-				realLocation = new Location(location.getValue(), location.getEncoding(), location.getMissingMode(), location.getFormat(), location.isCacheable());
-			}
+			// If the resolved location is different from the original location, create a new location object
+			Location realLocation = getLocation(location, location.getValue(), resolvedLocation);
 
 			// Setup a loader capable of correctly handling things
 			// It might be perfectly acceptable for the location to not even exist
@@ -85,6 +83,14 @@ public final class DefaultPropertiesService implements PropertiesService {
 
 		// Return what we've found
 		return properties;
+	}
+
+	private Location getLocation(Location location, String originalLocation, String resolvedLocation) {
+		if (originalLocation.equals(resolvedLocation)) {
+			return location;
+		} else {
+			return Location.builder(location, resolvedLocation).build();
+		}
 	}
 
 	public void clearCache() {
