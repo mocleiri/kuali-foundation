@@ -15,7 +15,7 @@ public class RicePropertiesLoaderTest {
 			RicePropertiesLoader loader = RicePropertiesLoader.builder().build();
 			Properties properties = loader.load(location);
 			ResolvingProcessor processor = new ResolvingProcessor();
-			processor.process(properties);
+			//processor.process(properties);
 			PropertyUtils.info(properties);
 		} catch (Exception e) {
 			e.printStackTrace();

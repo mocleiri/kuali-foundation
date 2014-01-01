@@ -77,7 +77,7 @@ public class RicePropertiesLoader {
 
 		// If the location does not exist, we are done
 		if (!LocationUtils.exists(location)) {
-			logger.warn("{}+ Skipping non-existent location [{}]", prefix, location);
+			logger.warn("{}# skipping non-existent location [{}]", prefix, location);
 			return;
 		}
 
@@ -101,23 +101,23 @@ public class RicePropertiesLoader {
 	}
 
 	protected void loadJavaProperties(String prefix, String location, InputStream in, Properties properties, int depth) throws IOException {
-		logger.info("{}+ Loading - [{}]", prefix, location);
+		logger.info("{}+ loading - [{}]", prefix, location);
 		Properties loaded = new Properties();
 		loaded.load(in);
 		List<Param> params = getParams(loaded);
 		for (Param p : params) {
 			update(properties, p, prefix);
 		}
-		logger.info("{}- Loaded  - [{}]", prefix, location);
+		logger.info("{}- loaded  - [{}]", prefix, location);
 	}
 
 	protected void loadRiceProperties(InputStream in, String prefix, String location, int depth, Unmarshaller unmarshaller, Properties properties) throws IOException {
-		logger.info("{}+ Loading - [{}]", prefix, location);
+		logger.info("{}+ loading - [{}]", prefix, location);
 		Config config = unmarshal(unmarshaller, in);
 		for (Param p : config.getParams()) {
 			handleParam(p, depth, unmarshaller, properties, prefix);
 		}
-		logger.info("{}- Loaded  - [{}]", prefix, location);
+		logger.info("{}- loaded  - [{}]", prefix, location);
 	}
 
 	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
@@ -150,7 +150,7 @@ public class RicePropertiesLoader {
 		// If there is no previous value, just add it
 		if (!oldValue.isPresent()) {
 			Object[] args = { prefix, p.getName(), newLogValue };
-			logger.debug("{}   adding        - [{}]=[{}]", args);
+			logger.debug("{}~ add - [{}]=[{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 			return;
 		}
@@ -158,7 +158,7 @@ public class RicePropertiesLoader {
 		// The new value is the same as the old value. Nothing more to do
 		if (oldValue.get().equals(p.getValue())) {
 			Object[] args = { prefix, p.getName(), newLogValue };
-			logger.debug("{}   duplicate     - [{}]=[{}]", args);
+			logger.debug("{}~ duplicate - [{}]=[{}]", args);
 			return;
 		}
 
@@ -169,11 +169,11 @@ public class RicePropertiesLoader {
 		Object[] args = { prefix, p.getName(), oldLogValue, newLogValue };
 		if (p.isOverride()) {
 			// Change it, and log the fact that we are changing it
-			logger.info("{}   override - [{}]=[{}] -> [{}]", args);
+			logger.info("{}* override - [{}]=[{}] -> [{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
 			// Don't change it, and log the fact that we are ignoring the new value from the config file
-			logger.info("{}   ignore   - [{}]=[{}] -> ignoring [{}]", args);
+			logger.info("{}~ ignore - [{}]=[{}] -> ignoring [{}]", args);
 		}
 	}
 
