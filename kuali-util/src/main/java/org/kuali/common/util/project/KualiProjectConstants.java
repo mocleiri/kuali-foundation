@@ -15,7 +15,10 @@
  */
 package org.kuali.common.util.project;
 
-public abstract class KualiProjectConstants {
+public final class KualiProjectConstants {
+
+	private KualiProjectConstants() {
+	}
 
 	// Kuali Group Id's
 	public static final String COMMON_GROUP_ID = "org.kuali.common";
