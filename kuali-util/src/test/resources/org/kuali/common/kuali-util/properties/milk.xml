@@ -1,5 +1,5 @@
 <config>
   <param name="milk.type">lowfat</param>
-  <param name="milk.price">2.99</param>
+  <param name="milk.price" override="true">2.99</param>
   <param name="milk.quantity">gallon</param>
 </config>
