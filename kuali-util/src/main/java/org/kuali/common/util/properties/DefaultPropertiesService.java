@@ -15,7 +15,7 @@ import org.kuali.common.util.resolver.ValueResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class DefaultPropertiesService implements PropertiesService {
+public class DefaultPropertiesService implements PropertiesService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPropertiesService.class);
 
@@ -58,13 +58,13 @@ public final class DefaultPropertiesService implements PropertiesService {
 			String resolvedLocation = resolver.resolve(location.getValue());
 
 			// If the resolved location is different from the original location, create a new location object
-			Location realLocation = getLocation(location, location.getValue(), resolvedLocation);
+			Location actualLocation = getLocation(location, location.getValue(), resolvedLocation);
 
 			// Setup a loader capable of correctly handling things
 			// It might be perfectly acceptable for the location to not even exist
 			// The location might point to the default location for user specified overrides and the user hasn't provided any (for example)
 			// The loader is allowed to ignore missing locations, emit a log message about missing locations, or throw an exception
-			PropertiesLoader loader = getLoader(realLocation, CACHE);
+			PropertiesLoader loader = getLoader(actualLocation, CACHE);
 
 			// This may return an empty properties object depending on the configuration of the corresponding Location object
 			Properties loaded = loader.load();
