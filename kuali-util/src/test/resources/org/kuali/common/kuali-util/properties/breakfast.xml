@@ -8,4 +8,10 @@
   <param name="config.location">classpath:org/kuali/common/kuali-util/properties/milk.properties</param>
   <param name="milk.price" override="true">3.79</param>
   <param name="milk.price">4.29</param>
+  <param name="milk.password">secret</param>
+  <param name="password">password</param>
+  <param name="password">foobar</param>
+  <param name="password" override="true">super-secret</param>
+  <param name="secret">secret</param>
+  <param name="empty"></param>
 </config>
