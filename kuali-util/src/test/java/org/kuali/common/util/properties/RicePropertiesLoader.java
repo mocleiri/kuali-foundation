@@ -169,11 +169,11 @@ public class RicePropertiesLoader {
 		Object[] args = { prefix, p.getName(), oldLogValue, newLogValue };
 		if (p.isOverride()) {
 			// Change it, and log the fact that we are changing it
-			logger.info("{}   override      - [{}]=[{}] -> [{}]", args);
+			logger.info("{}   override - [{}]=[{}] -> [{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
 			// Don't change it, and log the fact that we are ignoring the new value from the config file
-			logger.info("{}   override skip - [{}]=[{}] -> ignore [{}]", args);
+			logger.info("{}   ignore   - [{}]=[{}] -> ignoring [{}]", args);
 		}
 	}
 
