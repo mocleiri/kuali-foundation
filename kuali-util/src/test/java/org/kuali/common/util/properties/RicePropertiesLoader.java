@@ -24,6 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.UnmarshallerHandler;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.IOUtils;
@@ -36,12 +37,11 @@ import org.kuali.common.util.properties.model.rice.Config;
 import org.kuali.common.util.properties.model.rice.Param;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
-import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLFilter;
-import org.xml.sax.helpers.XMLFilterImpl;
+import org.xml.sax.XMLReader;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
@@ -103,27 +103,44 @@ public class RicePropertiesLoader {
 	}
 
 	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
-		if (p.getName().equals("config.location")) {
+
+		// This is a reference to a nested config file
+		if (p.getName().equalsIgnoreCase("config.location")) {
 			String originalLocation = p.getValue();
 			String resolvedLocation = getResolvedValue(originalLocation, properties);
 			load(resolvedLocation, unmarshaller, depth + 1, properties);
 			return;
 		}
+
+		// Random and system attributes are not supported
 		checkParam(p);
-		String oldValue = properties.getProperty(p.getName());
-		boolean doesNotExist = oldValue == null;
-		if (doesNotExist) {
+
+		// Extract the old value (it it's present)
+		Optional<String> oldValue = Optional.fromNullable(properties.getProperty(p.getName()));
+
+		// If there is no previous value, just add it
+		if (!oldValue.isPresent()) {
 			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
 			logger.debug("{}   adding        - [{}]=[{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 			return;
 		}
+
+		// The new value is the same as the old value. Nothing more to do
+		if (oldValue.get().equals(p.getValue())) {
+			Object[] args = { prefix, p.getName(), Str.flatten(p.getValue()) };
+			logger.debug("{}   duplicate        - [{}]=[{}]", args);
+			return;
+		}
+
+		// There is a new value for this property that is different from the old value
+		Object[] args = { prefix, p.getName(), Str.flatten(oldValue.get()), Str.flatten(p.getValue()) };
 		if (p.isOverride()) {
-			Object[] args = { prefix, p.getName(), Str.flatten(oldValue), Str.flatten(p.getValue()) };
+			// Change it, and log the fact that we are changing it
 			logger.info("{}   overriding     - [{}]=[{}] -> [{}]", args);
 			properties.setProperty(p.getName(), p.getValue());
 		} else {
-			Object[] args = { prefix, p.getName(), Str.flatten(oldValue), Str.flatten(p.getValue()) };
+			// Don't change it, and log the fact that we are ignoring the new value from the config file
 			logger.info("{}   not overriding - [{}]=[{}] -> Ignoring new value[{}]", args);
 		}
 	}
@@ -144,14 +161,14 @@ public class RicePropertiesLoader {
 
 	protected Config unmarshal(Unmarshaller unmarshaller, InputStream in) throws IOException {
 		try {
+			UnmarshallerHandler unmarshallerHandler = unmarshaller.getUnmarshallerHandler();
 			SAXParserFactory spf = SAXParserFactory.newInstance();
-			spf.setNamespaceAware(true);
-			XMLFilter filter = new ConfigNamespaceURIFilter();
-			filter.setParent(spf.newSAXParser().getXMLReader());
-			UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
-			filter.setContentHandler(handler);
-			filter.parse(new InputSource(in));
-			return (Config) handler.getResult();
+			SAXParser sp = spf.newSAXParser();
+			XMLReader xr = sp.getXMLReader();
+			xr.setContentHandler(unmarshallerHandler);
+			InputSource xmlSource = new InputSource(in);
+			xr.parse(xmlSource);
+			return (Config) unmarshallerHandler.getResult();
 		} catch (SAXException e) {
 			throw new IllegalStateException("Unexpected SAX error", e);
 		} catch (ParserConfigurationException e) {
@@ -169,27 +186,6 @@ public class RicePropertiesLoader {
 	protected String getResolvedValue(String value, Properties properties) {
 		Properties global = PropertyUtils.getGlobalProperties(properties);
 		return PPH.replacePlaceholders(value, global);
-	}
-
-	protected class ConfigNamespaceURIFilter extends XMLFilterImpl {
-
-		public static final String CONFIG_URI = "http://rice.kuali.org/core/impl/config";
-
-		@Override
-		public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-			if (StringUtils.isBlank(uri)) {
-				uri = CONFIG_URI;
-			}
-			super.startElement(uri, localName, qName, atts);
-		}
-
-		@Override
-		public void endElement(String uri, String localName, String qName) throws SAXException {
-			if (StringUtils.isBlank(uri)) {
-				uri = CONFIG_URI;
-			}
-			super.endElement(uri, localName, qName);
-		}
 	}
 
 }
