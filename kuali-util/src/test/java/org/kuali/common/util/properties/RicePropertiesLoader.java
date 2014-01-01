@@ -98,7 +98,7 @@ public class RicePropertiesLoader {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			load(location, unmarshaller, depth, properties, in, prefix);
+			load(prefix, location, in, properties, depth, unmarshaller);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -106,11 +106,11 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void load(String location, Unmarshaller unmarshaller, int depth, Properties properties, InputStream in, String prefix) throws IOException {
+	protected void load(String prefix, String location, InputStream in, Properties properties, int depth, Unmarshaller unmarshaller) throws IOException {
 		if (isPropertiesFile(location)) {
 			loadJavaProperties(prefix, location, in, properties, depth);
 		} else {
-			loadRiceProperties(in, prefix, location, depth, unmarshaller, properties);
+			loadRiceProperties(prefix, location, in, properties, depth, unmarshaller);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class RicePropertiesLoader {
 		logger.info("{}- loaded  - [{}]", prefix, location);
 	}
 
-	protected void loadRiceProperties(InputStream in, String prefix, String location, int depth, Unmarshaller unmarshaller, Properties properties) throws IOException {
+	protected void loadRiceProperties(String prefix, String location, InputStream in, Properties properties, int depth, Unmarshaller unmarshaller) throws IOException {
 		logger.info("{}+ loading - [{}]", prefix, location);
 		Config config = unmarshal(unmarshaller, in);
 		for (Param p : config.getParams()) {
