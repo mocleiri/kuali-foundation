@@ -272,7 +272,7 @@ public class RicePropertiesLoader {
 
 	public static class Builder {
 
-		private PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", false);
+		private PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", true);
 		private String magicNestedConfigKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private");
 		private Obscurer obscurer = new DefaultObscurer();
