@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -53,8 +54,7 @@ import com.google.common.collect.Maps;
 /**
  * <p>
  * Load Rice XML config files. This class supports the chaining of config files together via {@code config.location} param entries. It also honors the {@code override} attribute on
- * param entries. It does not support the {@code random} or {@code system} attributes. If either of those two attributes are present anywhere in any config file, an exception is
- * thrown.
+ * param entries. It does not support the {@code system} attribute. If that attribute is present anywhere in any config file, an exception is thrown.
  * </p>
  * 
  * <p>
@@ -70,6 +70,7 @@ import com.google.common.collect.Maps;
 public class RicePropertiesLoader {
 
 	private static final Logger logger = LoggerUtils.make();
+	private static final Random RANDOM = new Random();
 
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
 	private final String magicNestedConfigKey;
@@ -83,6 +84,7 @@ public class RicePropertiesLoader {
 		Unmarshaller unmarshaller = getUnmarshaller();
 		Map<String, Param> params = Maps.newHashMap();
 		load(location, unmarshaller, 0, params);
+		randomize(params);
 		Properties properties = convert(params);
 		return properties;
 	}
@@ -205,7 +207,6 @@ public class RicePropertiesLoader {
 	}
 
 	protected void checkParam(Param param) {
-		Preconditions.checkArgument(!param.isRandom(), "Random properties are not supported. [%s]=[%s]", param.getName(), param.getValue());
 		Preconditions.checkArgument(!param.isSystem(), "Setting system properties via config files is not supported. [%s]=[%s]", param.getName(), param.getValue());
 	}
 
@@ -319,6 +320,36 @@ public class RicePropertiesLoader {
 			Preconditions.checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
 			Preconditions.checkNotNull(instance.obscurer, "obscurer cannot be null");
 			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
+		}
+	}
+
+	protected void randomize(Map<String, Param> params) {
+		for (String key : params.keySet()) {
+			Param param = params.get(key);
+			if (param.isRandom()) {
+				String rangeSpec = param.getValue();
+				String random = String.valueOf(rangeSpec);
+				Param newParam = Param.builder(param.getName(), random).build();
+				params.put(key, newParam);
+			}
+		}
+	}
+
+	protected int getRandomInteger(String rangeSpec) {
+		String[] range = rangeSpec.split("-");
+		Preconditions.checkState(range.length == 2, "Invalid range specifier: %s", rangeSpec);
+		int from = Integer.parseInt(range[0].trim());
+		int to = Integer.parseInt(range[1].trim());
+		if (from > to) {
+			int tmp = from;
+			from = to;
+			to = tmp;
+		}
+		// not very random
+		if (from == to) {
+			return from;
+		} else {
+			return from + RANDOM.nextInt((to - from) + 1);
 		}
 	}
 
