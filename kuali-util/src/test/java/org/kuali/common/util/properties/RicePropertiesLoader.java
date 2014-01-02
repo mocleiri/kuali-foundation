@@ -71,7 +71,7 @@ public class RicePropertiesLoader {
 	private static final Logger logger = LoggerUtils.make();
 
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
-	private final String magicNestedConfigFileKey;
+	private final String magicNestedConfigKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
 
@@ -137,7 +137,7 @@ public class RicePropertiesLoader {
 	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Properties properties, String prefix) {
 
 		// This is a reference to a nested config file
-		if (p.getName().equalsIgnoreCase(magicNestedConfigFileKey)) {
+		if (p.getName().equalsIgnoreCase(magicNestedConfigKey)) {
 			String originalLocation = p.getValue();
 			String resolvedLocation = getResolvedValue(originalLocation, properties);
 			load(resolvedLocation, unmarshaller, depth + 1, properties);
@@ -261,7 +261,7 @@ public class RicePropertiesLoader {
 
 	private RicePropertiesLoader(Builder builder) {
 		this.propertyPlaceholderHelper = builder.propertyPlaceholderHelper;
-		this.magicNestedConfigFileKey = builder.magicNestedConfigFileKey;
+		this.magicNestedConfigKey = builder.magicNestedConfigKey;
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
 	}
@@ -273,7 +273,7 @@ public class RicePropertiesLoader {
 	public static class Builder {
 
 		private PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", false);
-		private String magicNestedConfigFileKey = "config.location";
+		private String magicNestedConfigKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private");
 		private Obscurer obscurer = new DefaultObscurer();
 
@@ -283,7 +283,7 @@ public class RicePropertiesLoader {
 		}
 
 		public Builder magicNestedConfigFileKey(String magicNestedConfigFileKey) {
-			this.magicNestedConfigFileKey = magicNestedConfigFileKey;
+			this.magicNestedConfigKey = magicNestedConfigFileKey;
 			return this;
 		}
 
@@ -293,6 +293,7 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
+			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
 			return instance;
@@ -302,8 +303,24 @@ public class RicePropertiesLoader {
 			Preconditions.checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
 			Preconditions.checkNotNull(instance.obscureTokens, "obscurePatterns cannot be null");
 			Preconditions.checkNotNull(instance.obscurer, "obscurer cannot be null");
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigFileKey), "magicNestedConfigFileKey cannot be blank");
+			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigFileKey cannot be blank");
 		}
+	}
+
+	public PropertyPlaceholderHelper getPropertyPlaceholderHelper() {
+		return propertyPlaceholderHelper;
+	}
+
+	public String getMagicNestedConfigKey() {
+		return magicNestedConfigKey;
+	}
+
+	public List<String> getObscureTokens() {
+		return obscureTokens;
+	}
+
+	public Obscurer getObscurer() {
+		return obscurer;
 	}
 
 }
