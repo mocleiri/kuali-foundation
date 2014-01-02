@@ -216,6 +216,10 @@ public class JAXBXmlService implements XmlService {
 		return useNamespaceAwareParser;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder {
 
 		private static final Map<String, ?> EMPTY_MAP = Collections.unmodifiableMap(new HashMap<String, Object>());
