@@ -280,6 +280,11 @@ public class RicePropertiesLoader {
 		private boolean ignoreUnresolvablePlaceholdersInNestedConfigValues = false;
 		private PropertyPlaceholderHelper propertyPlaceholderHelper;
 
+		public Builder ignoreUnresolvablePlaceholdersInNestedConfigValues(boolean ignoreUnresolvablePlaceholdersInNestedConfigValues) {
+			this.ignoreUnresolvablePlaceholdersInNestedConfigValues = ignoreUnresolvablePlaceholdersInNestedConfigValues;
+			return this;
+		}
+
 		public Builder magicNestedConfigFileKey(String magicNestedConfigFileKey) {
 			this.magicNestedConfigKey = magicNestedConfigFileKey;
 			return this;
