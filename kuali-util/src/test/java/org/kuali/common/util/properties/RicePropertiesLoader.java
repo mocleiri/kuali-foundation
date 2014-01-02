@@ -114,17 +114,6 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void loadJavaProperties(String prefix, String location, InputStream in, Properties properties, int depth) throws IOException {
-		logger.info("{}+ loading - [{}]", prefix, location);
-		Properties loaded = new Properties();
-		loaded.load(in);
-		List<Param> params = getParams(loaded);
-		for (Param p : params) {
-			update(properties, p, prefix);
-		}
-		logger.info("{}- loaded  - [{}]", prefix, location);
-	}
-
 	protected void loadRiceProperties(String prefix, String location, InputStream in, Properties properties, int depth, Unmarshaller unmarshaller) throws IOException {
 		logger.info("{}+ loading - [{}]", prefix, location);
 		Config config = unmarshal(unmarshaller, in);
@@ -150,6 +139,17 @@ public class RicePropertiesLoader {
 		// Update the properties object with this parameter
 		update(properties, p, prefix);
 
+	}
+
+	protected void loadJavaProperties(String prefix, String location, InputStream in, Properties properties, int depth) throws IOException {
+		logger.info("{}+ loading - [{}]", prefix, location);
+		Properties loaded = new Properties();
+		loaded.load(in);
+		List<Param> params = getParams(loaded);
+		for (Param p : params) {
+			update(properties, p, prefix);
+		}
+		logger.info("{}- loaded  - [{}]", prefix, location);
 	}
 
 	protected void update(Properties properties, Param p, String prefix) {
