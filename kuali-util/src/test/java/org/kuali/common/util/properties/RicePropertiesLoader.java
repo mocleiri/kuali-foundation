@@ -291,8 +291,8 @@ public class RicePropertiesLoader {
 		private boolean ignoreUnresolvablePlaceholdersInConfigLocationValues = false;
 		private PropertyPlaceholderHelper propertyPlaceholderHelper;
 
-		public Builder ignoreUnresolvablePlaceholdersInNestedConfigValues(boolean ignoreUnresolvablePlaceholdersInNestedConfigValues) {
-			this.ignoreUnresolvablePlaceholdersInConfigLocationValues = ignoreUnresolvablePlaceholdersInNestedConfigValues;
+		public Builder ignoreUnresolvablePlaceholdersInConfigLocationValues(boolean ignoreUnresolvablePlaceholdersInConfigLocationValues) {
+			this.ignoreUnresolvablePlaceholdersInConfigLocationValues = ignoreUnresolvablePlaceholdersInConfigLocationValues;
 			return this;
 		}
 

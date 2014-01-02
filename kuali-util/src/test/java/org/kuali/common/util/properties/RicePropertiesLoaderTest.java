@@ -11,7 +11,7 @@ public class RicePropertiesLoaderTest {
 	public void test() {
 		try {
 			String location = "classpath:org/kuali/common/kuali-util/properties/breakfast.xml";
-			RicePropertiesLoader loader = RicePropertiesLoader.builder().ignoreUnresolvablePlaceholdersInNestedConfigValues(true).build();
+			RicePropertiesLoader loader = RicePropertiesLoader.builder().ignoreUnresolvablePlaceholdersInConfigLocationValues(true).build();
 			Properties properties = loader.load(location);
 			PropertyUtils.info(properties);
 		} catch (Exception e) {
