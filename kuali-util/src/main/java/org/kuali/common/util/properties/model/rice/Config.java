@@ -7,8 +7,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.common.collect.ImmutableList;
-
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Config {
@@ -21,7 +19,7 @@ public class Config {
 	}
 
 	public void setParams(List<Param> params) {
-		this.params = ImmutableList.copyOf(params);
+		this.params = params;
 	}
 
 }
