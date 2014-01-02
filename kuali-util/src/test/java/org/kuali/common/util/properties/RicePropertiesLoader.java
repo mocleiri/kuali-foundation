@@ -72,7 +72,7 @@ public class RicePropertiesLoader {
 
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
 	private final String magicNestedConfigFileKey;
-	private final List<String> obscurePatterns;
+	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
 
 	public Properties load(String location) {
@@ -193,7 +193,7 @@ public class RicePropertiesLoader {
 
 	protected String getLogValue(String key, String value) {
 		String lcase = key.toLowerCase();
-		for (String obscurePattern : obscurePatterns) {
+		for (String obscurePattern : obscureTokens) {
 			if (lcase.contains(obscurePattern)) {
 				return Str.flatten(obscurer.obscure(value));
 			}
@@ -262,7 +262,7 @@ public class RicePropertiesLoader {
 	private RicePropertiesLoader(Builder builder) {
 		this.propertyPlaceholderHelper = builder.propertyPlaceholderHelper;
 		this.magicNestedConfigFileKey = builder.magicNestedConfigFileKey;
-		this.obscurePatterns = builder.obscurePatterns;
+		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
 	}
 
@@ -274,7 +274,7 @@ public class RicePropertiesLoader {
 
 		private PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", false);
 		private String magicNestedConfigFileKey = "config.location";
-		private List<String> obscurePatterns = ImmutableList.of("secret", "password", "private");
+		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private");
 		private Obscurer obscurer = new DefaultObscurer();
 
 		public Builder propertyPlaceholderHelper(PropertyPlaceholderHelper propertyPlaceholderHelper) {
@@ -288,7 +288,7 @@ public class RicePropertiesLoader {
 		}
 
 		public Builder obscurePatterns(List<String> obscurePatterns) {
-			this.obscurePatterns = obscurePatterns;
+			this.obscureTokens = obscurePatterns;
 			return this;
 		}
 
@@ -300,7 +300,7 @@ public class RicePropertiesLoader {
 
 		private static void validate(RicePropertiesLoader instance) {
 			Preconditions.checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
-			Preconditions.checkNotNull(instance.obscurePatterns, "obscurePatterns cannot be null");
+			Preconditions.checkNotNull(instance.obscureTokens, "obscurePatterns cannot be null");
 			Preconditions.checkNotNull(instance.obscurer, "obscurer cannot be null");
 			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigFileKey), "magicNestedConfigFileKey cannot be blank");
 		}
