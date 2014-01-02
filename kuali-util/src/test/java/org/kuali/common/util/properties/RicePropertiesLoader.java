@@ -74,6 +74,7 @@ public class RicePropertiesLoader {
 	private final String magicNestedConfigKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
+	private final boolean ignoreUnresolvablePlaceholdersInNestedConfigValues;
 
 	public Properties load(String location) {
 		Preconditions.checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -264,6 +265,7 @@ public class RicePropertiesLoader {
 		this.magicNestedConfigKey = builder.magicNestedConfigKey;
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
+		this.ignoreUnresolvablePlaceholdersInNestedConfigValues = builder.ignoreUnresolvablePlaceholdersInNestedConfigValues;
 	}
 
 	public static Builder builder() {
@@ -272,15 +274,11 @@ public class RicePropertiesLoader {
 
 	public static class Builder {
 
-		private PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", true);
 		private String magicNestedConfigKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private");
 		private Obscurer obscurer = new DefaultObscurer();
-
-		public Builder propertyPlaceholderHelper(PropertyPlaceholderHelper propertyPlaceholderHelper) {
-			this.propertyPlaceholderHelper = propertyPlaceholderHelper;
-			return this;
-		}
+		private boolean ignoreUnresolvablePlaceholdersInNestedConfigValues = false;
+		private PropertyPlaceholderHelper propertyPlaceholderHelper;
 
 		public Builder magicNestedConfigFileKey(String magicNestedConfigFileKey) {
 			this.magicNestedConfigKey = magicNestedConfigFileKey;
@@ -293,6 +291,7 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
+			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvablePlaceholdersInNestedConfigValues);
 			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
@@ -301,9 +300,9 @@ public class RicePropertiesLoader {
 
 		private static void validate(RicePropertiesLoader instance) {
 			Preconditions.checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
-			Preconditions.checkNotNull(instance.obscureTokens, "obscurePatterns cannot be null");
+			Preconditions.checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
 			Preconditions.checkNotNull(instance.obscurer, "obscurer cannot be null");
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigFileKey cannot be blank");
+			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
 		}
 	}
 
@@ -321,6 +320,10 @@ public class RicePropertiesLoader {
 
 	public Obscurer getObscurer() {
 		return obscurer;
+	}
+
+	public boolean isIgnoreUnresolvablePlaceholdersInNestedConfigValues() {
+		return ignoreUnresolvablePlaceholdersInNestedConfigValues;
 	}
 
 }
