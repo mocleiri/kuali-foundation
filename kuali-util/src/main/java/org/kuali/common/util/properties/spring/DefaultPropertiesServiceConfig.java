@@ -26,8 +26,6 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
 public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
-	private static final String PROPERTIES_PLACEHOLDER_RESOLUTION_KEY = "properties.resolve";
-
 	@Autowired
 	Project project;
 
@@ -55,13 +53,8 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		EncContext context = EncContext.builder(env).removeSystemProperties(true).build();
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new JasyptDecryptingProcessor(context.getTextEncryptor());
-		boolean resolve = env.getBoolean(PROPERTIES_PLACEHOLDER_RESOLUTION_KEY);
-		if (resolve) {
-			PropertyProcessor resolver = new ResolvingProcessor();
-			return new ProcessorsProcessor(override, decrypt, resolver);
-		} else {
-			return new ProcessorsProcessor(override, decrypt);
-		}
+		PropertyProcessor resolver = new ResolvingProcessor();
+		return new ProcessorsProcessor(override, decrypt, resolver);
 	}
 
 }
