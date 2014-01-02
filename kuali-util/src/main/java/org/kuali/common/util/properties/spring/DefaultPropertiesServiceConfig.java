@@ -26,8 +26,13 @@ import org.springframework.context.annotation.Import;
 @Import({ SpringServiceConfig.class, AutowiredProjectConfig.class })
 public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
+	private static final String PROPERTIES_PLACEHOLDER_RESOLUTION_KEY = "properties.resolve";
+
 	@Autowired
 	Project project;
+
+	@Autowired
+	EnvironmentService env;
 
 	@Override
 	@Bean
@@ -37,7 +42,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		return new DefaultPropertiesService(overrides, processor);
 	}
 
-	public static Properties getOverrides(Project project) {
+	private Properties getOverrides(Project project) {
 		// Get a reference to system + environment properties
 		Properties global = PropertyUtils.getGlobalProperties();
 
@@ -45,13 +50,18 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 		return ImmutableProperties.of(PropertyUtils.combine(project.getProperties(), global));
 	}
 
-	public static PropertyProcessor getPostProcessor(Properties overrides) {
+	private PropertyProcessor getPostProcessor(Properties overrides) {
 		EnvironmentService env = new BasicEnvironmentService(overrides);
 		EncContext context = new EncContext.Builder(env).removeSystemProperties(true).build();
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new JasyptDecryptingProcessor(context.getTextEncryptor());
-		PropertyProcessor resolve = new ResolvingProcessor();
-		return new ProcessorsProcessor(override, decrypt, resolve);
+		boolean resolve = env.getBoolean(PROPERTIES_PLACEHOLDER_RESOLUTION_KEY);
+		if (resolve) {
+			PropertyProcessor resolver = new ResolvingProcessor();
+			return new ProcessorsProcessor(override, decrypt, resolver);
+		} else {
+			return new ProcessorsProcessor(override, decrypt);
+		}
 	}
 
 }
