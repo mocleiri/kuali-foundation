@@ -5,9 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.kuali.common.util.xml.jaxb.adapter.OmitFalseAdapter;
 
 import com.google.common.base.Preconditions;
 
@@ -19,16 +16,13 @@ public class Param {
 	private final String name;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final Boolean override;
+	private final boolean override;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final Boolean random;
+	private final boolean random;
 
 	@XmlAttribute
-	@XmlJavaTypeAdapter(OmitFalseAdapter.class)
-	private final Boolean system;
+	private final boolean system;
 
 	@XmlValue
 	private final String value;
