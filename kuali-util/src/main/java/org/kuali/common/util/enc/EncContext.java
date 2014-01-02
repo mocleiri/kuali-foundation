@@ -32,6 +32,14 @@ public final class EncContext {
 		return strength;
 	}
 
+	public static Builder builder(String password) {
+		return new Builder(password);
+	}
+
+	public static Builder builder(EnvironmentService env) {
+		return new Builder(env);
+	}
+
 	public static class Builder {
 
 		// Required (but optional)

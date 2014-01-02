@@ -52,7 +52,7 @@ public class DefaultPropertiesServiceConfig implements PropertiesServiceConfig {
 
 	private PropertyProcessor getPostProcessor(Properties overrides) {
 		EnvironmentService env = new BasicEnvironmentService(overrides);
-		EncContext context = new EncContext.Builder(env).removeSystemProperties(true).build();
+		EncContext context = EncContext.builder(env).removeSystemProperties(true).build();
 		PropertyProcessor override = new OverridingProcessor(overrides);
 		PropertyProcessor decrypt = new JasyptDecryptingProcessor(context.getTextEncryptor());
 		boolean resolve = env.getBoolean(PROPERTIES_PLACEHOLDER_RESOLUTION_KEY);
