@@ -74,7 +74,7 @@ public class RicePropertiesLoader {
 	private final String magicNestedConfigKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
-	private final boolean ignoreUnresolvablePlaceholdersInNestedConfigValues;
+	private final boolean ignoreUnresolvablePlaceholdersInConfigLocationValues;
 
 	public Properties load(String location) {
 		Preconditions.checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -265,7 +265,7 @@ public class RicePropertiesLoader {
 		this.magicNestedConfigKey = builder.magicNestedConfigKey;
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
-		this.ignoreUnresolvablePlaceholdersInNestedConfigValues = builder.ignoreUnresolvablePlaceholdersInNestedConfigValues;
+		this.ignoreUnresolvablePlaceholdersInConfigLocationValues = builder.ignoreUnresolvablePlaceholdersInConfigLocationValues;
 	}
 
 	public static Builder builder() {
@@ -277,11 +277,11 @@ public class RicePropertiesLoader {
 		private String magicNestedConfigKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private");
 		private Obscurer obscurer = new DefaultObscurer();
-		private boolean ignoreUnresolvablePlaceholdersInNestedConfigValues = false;
+		private boolean ignoreUnresolvablePlaceholdersInConfigLocationValues = false;
 		private PropertyPlaceholderHelper propertyPlaceholderHelper;
 
 		public Builder ignoreUnresolvablePlaceholdersInNestedConfigValues(boolean ignoreUnresolvablePlaceholdersInNestedConfigValues) {
-			this.ignoreUnresolvablePlaceholdersInNestedConfigValues = ignoreUnresolvablePlaceholdersInNestedConfigValues;
+			this.ignoreUnresolvablePlaceholdersInConfigLocationValues = ignoreUnresolvablePlaceholdersInNestedConfigValues;
 			return this;
 		}
 
@@ -296,7 +296,7 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
-			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvablePlaceholdersInNestedConfigValues);
+			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvablePlaceholdersInConfigLocationValues);
 			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
@@ -327,8 +327,8 @@ public class RicePropertiesLoader {
 		return obscurer;
 	}
 
-	public boolean isIgnoreUnresolvablePlaceholdersInNestedConfigValues() {
-		return ignoreUnresolvablePlaceholdersInNestedConfigValues;
+	public boolean isIgnoreUnresolvablePlaceholdersInConfigLocationValues() {
+		return ignoreUnresolvablePlaceholdersInConfigLocationValues;
 	}
 
 }
