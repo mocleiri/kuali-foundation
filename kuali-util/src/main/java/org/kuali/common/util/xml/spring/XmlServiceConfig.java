@@ -25,6 +25,6 @@ public class XmlServiceConfig {
 		boolean formatOutput = env.getBoolean(FORMAT_OUTPUT_KEY, JAXBXmlService.Builder.FORMAT_OUTPUT);
 		boolean nap = env.getBoolean(USE_NAMESPACE_AWARE_PARSER_KEY, JAXBXmlService.Builder.USE_NAMESPACE_AWARE_PARSER);
 		boolean elmp = env.getBoolean(USE_ECLIPSE_LINK_MOXY_PROVIDER_KEY, JAXBXmlService.Builder.USE_ECLIPSE_LINK_MOXY_PROVIDER);
-		return new JAXBXmlService.Builder().formatOutput(formatOutput).useNamespaceAwareParser(nap).useEclipseLinkMoxyProvider(elmp).build();
+		return JAXBXmlService.builder().formatOutput(formatOutput).useNamespaceAwareParser(nap).useEclipseLinkMoxyProvider(elmp).build();
 	}
 }
