@@ -19,9 +19,13 @@ import java.util.Properties;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.log.LoggerUtils;
+import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 public class ResolvingProcessor implements PropertyProcessor {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	public static final boolean DEFAULT_IGNORE_UNRESOLVABLE = false;
 	public static final String DEFAULT_RESOLVE_KEY = "properties.resolve";
@@ -45,7 +49,10 @@ public class ResolvingProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		boolean resolve = PropertyUtils.getBoolean(resolveKey, properties, true);
 		if (resolve) {
+			logger.info("Performing placeholder resolution for {} properties", properties.size());
 			PropertyUtils.resolve(properties, helper);
+		} else {
+			logger.info("Skipping placeholder resolution for {} properties", properties.size());
 		}
 	}
 
