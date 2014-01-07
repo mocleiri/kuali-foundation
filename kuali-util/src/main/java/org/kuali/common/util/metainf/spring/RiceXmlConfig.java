@@ -7,10 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kuali.common.util.metainf.model.MetaInfContext;
-import org.kuali.common.util.metainf.model.MetaInfResource;
-import org.kuali.common.util.metainf.model.MetaInfResourceFilenameComparator;
-import org.kuali.common.util.metainf.model.MetaInfResourceLocationComparator;
+import org.kuali.common.util.metainf.model.*;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -81,7 +78,7 @@ public class RiceXmlConfig implements MetaInfContextsConfig {
 			// This should enable "additive" dataset generation instead of "subtractive".
 			// Once the "initial-xml" structure is in place, this specialized comparator should be removed.
 			// All XML resources would then be sorted by the fully qualified location.
-			return new MetaInfResourceFilenameComparator();
+			return new MetaInfResourceXmlFilenameComparator();
 		} else {
 			return new MetaInfResourceLocationComparator();
 		}
