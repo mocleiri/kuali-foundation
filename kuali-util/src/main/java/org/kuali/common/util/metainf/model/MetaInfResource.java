@@ -15,7 +15,9 @@
  */
 package org.kuali.common.util.metainf.model;
 
-import org.kuali.common.util.Assert;
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Preconditions;
 
 public class MetaInfResource implements Comparable<MetaInfResource> {
 
@@ -31,7 +33,9 @@ public class MetaInfResource implements Comparable<MetaInfResource> {
 	}
 
 	public MetaInfResource(String location, long size, long lineCount) {
-		Assert.noBlanks(location);
+		Preconditions.checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
+		Preconditions.checkArgument(size == -1 || size >= 0, "'size' must be >= zero. Use %s to indicate unknown", UNKNOWN_SIZE);
+		Preconditions.checkArgument(lineCount == -1 || lineCount >= 0, "'lineCount' must be >= zero. Use %s to indicate unknown", UNKNOWN_LINECOUNT);
 		this.location = location;
 		this.size = size;
 		this.lineCount = lineCount;
