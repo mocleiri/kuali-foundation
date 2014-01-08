@@ -15,6 +15,10 @@
  */
 package org.kuali.common.util.properties;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -47,7 +51,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
@@ -79,8 +82,8 @@ public class RicePropertiesLoader {
 	private final boolean ignoreUnresolvablePlaceholdersInConfigLocationValues;
 
 	public Properties load(String location) {
-		Preconditions.checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
-		Preconditions.checkArgument(LocationUtils.exists(location), "[%s] does not exist", location);
+		checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
+		checkArgument(LocationUtils.exists(location), "[%s] does not exist", location);
 		Unmarshaller unmarshaller = getUnmarshaller();
 		Map<String, Param> params = Maps.newHashMap();
 		load(location, unmarshaller, 0, params);
@@ -158,7 +161,7 @@ public class RicePropertiesLoader {
 	}
 
 	protected void update(Map<String, Param> params, Param p, String prefix) {
-		Preconditions.checkNotNull(p.getValue(), "parameter value cannot be null");
+		checkNotNull(p.getValue(), "parameter value cannot be null");
 
 		// Extract the old value (if it's present)
 		Optional<Param> oldParam = Optional.fromNullable(params.get(p.getName()));
@@ -207,7 +210,7 @@ public class RicePropertiesLoader {
 	}
 
 	protected void checkParam(Param param) {
-		Preconditions.checkArgument(!param.isSystem(), "Setting system properties via config files is not supported. [%s]=[%s]", param.getName(), param.getValue());
+		checkArgument(!param.isSystem(), "Setting system properties via config files is not supported. [%s]=[%s]", param.getName(), param.getValue());
 	}
 
 	protected Unmarshaller getUnmarshaller() {
@@ -316,10 +319,10 @@ public class RicePropertiesLoader {
 		}
 
 		private static void validate(RicePropertiesLoader instance) {
-			Preconditions.checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
-			Preconditions.checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
-			Preconditions.checkNotNull(instance.obscurer, "obscurer cannot be null");
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
+			checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
+			checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
+			checkNotNull(instance.obscurer, "obscurer cannot be null");
+			checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
 		}
 	}
 
@@ -337,7 +340,7 @@ public class RicePropertiesLoader {
 
 	protected int getRandomInteger(String rangeSpec) {
 		String[] range = rangeSpec.split("-");
-		Preconditions.checkState(range.length == 2, "Invalid range specifier: %s", rangeSpec);
+		checkState(range.length == 2, "Invalid range specifier: %s", rangeSpec);
 		int from = Integer.parseInt(range[0].trim());
 		int to = Integer.parseInt(range[1].trim());
 		if (from > to) {
