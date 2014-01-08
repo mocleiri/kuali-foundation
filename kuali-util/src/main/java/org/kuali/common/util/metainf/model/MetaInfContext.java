@@ -94,6 +94,10 @@ public final class MetaInfContext {
 		return comparator;
 	}
 
+	public static Builder builder(File outputFile, String encoding, File scanDir) {
+		return new Builder(outputFile, encoding, scanDir);
+	}
+
 	public static class Builder {
 
 		// Required
