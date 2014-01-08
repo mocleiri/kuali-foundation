@@ -27,6 +27,11 @@ public class MetaInfResourcePathComparator implements Comparator<MetaInfResource
 		String[] tokens1 = one.getLocation().split("/");
 		String[] tokens2 = two.getLocation().split("/");
 
+		// Compare the path tokens
+		return compare(tokens1, tokens2);
+	}
+
+	protected int compare(String[] tokens1, String[] tokens2) {
 		// Iterate over the tokens from both locations
 		for (int i = 0; i < tokens1.length && i < tokens2.length; i++) {
 

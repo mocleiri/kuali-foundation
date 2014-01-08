@@ -72,4 +72,12 @@ public class MetainfResourcePathComparatorTest {
 		}
 	}
 
+	@Test
+	public void testCompareTokens() {
+		MetaInfResourcePathComparator meta = new MetaInfResourcePathComparator();
+		Assert.assertEquals(1, meta.compare(new String[] { "a", "b" }, new String[] { "a" }));
+		Assert.assertEquals(-1, meta.compare(new String[] { "a" }, new String[] { "a", "b" }));
+		Assert.assertEquals(0, meta.compare(new String[] { "a" }, new String[] { "a" }));
+	}
+
 }
