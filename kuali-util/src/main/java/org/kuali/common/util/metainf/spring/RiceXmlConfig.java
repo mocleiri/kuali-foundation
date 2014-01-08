@@ -9,7 +9,7 @@ import java.util.Map;
 import org.kuali.common.util.metainf.model.MetaInfContext;
 import org.kuali.common.util.metainf.model.MetaInfResource;
 import org.kuali.common.util.metainf.model.MetaInfResourceLocationComparator;
-import org.kuali.common.util.metainf.model.MetaInfResourceXmlFilenameComparator;
+import org.kuali.common.util.metainf.model.MetaInfResourcePathComparator;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.kuali.common.util.nullify.NullUtils;
 import org.kuali.common.util.project.ProjectUtils;
@@ -76,13 +76,11 @@ public class RiceXmlConfig implements MetaInfContextsConfig {
 
 	protected Comparator<MetaInfResource> getComparator(MetaInfGroup group) {
 		if (MetaInfGroup.OTHER.equals(group)) {
-			// The upgrades folder for Rice has a nested directory structure - [bootstrap|demo|test].
-			// At the moment, the sorting of XML located inside the "upgrades" folder for Rice ignores the directory structure and just sorts by filename.
-			// The idea is that the "initial-xml" folder inside Rice will soon have a structure similar to the "upgrades" folder.
-			// This should enable "additive" dataset generation instead of "subtractive".
-			// Once the "initial-xml" structure is in place, this specialized comparator should be removed.
-			// All XML resources would then be sorted by the fully qualified location.
-			return new MetaInfResourceXmlFilenameComparator();
+			// The upgrades folder for Rice has a nested directory structure - [bootstrap|demo|test] and then [files...|sub-directories]
+			// The sorting of XML located inside the "upgrades" folder for Rice sorts by the directory structure first, and then by filenames in each directory.
+			// All sorting is done lexicographically.
+			// Files in any given directory come first, followed by any files in sub-directories.
+			return new MetaInfResourcePathComparator();
 		} else {
 			return new MetaInfResourceLocationComparator();
 		}
