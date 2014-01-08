@@ -1,6 +1,7 @@
 package org.kuali.common.util.metainf.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Comparator;
 
@@ -22,6 +23,8 @@ public class PathComparator implements Comparator<String> {
 
 	@Override
 	public int compare(String path1, String path2) {
+		checkNotNull(path1, "'path1' cannot be null");
+		checkNotNull(path2, "'path2' cannot be null");
 
 		// Split them up into path tokens
 		String[] tokens1 = path1.split("/");
