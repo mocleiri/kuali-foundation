@@ -17,7 +17,7 @@ public class MetainfResourcePathComparatorTest {
 	public void test() {
 		try {
 			List<MetaInfResource> resources = Lists.newArrayList();
-			resources.add(new MetaInfResource("/a/foo/bar/file1.txt"));
+			resources.add(new MetaInfResource("foo.txt"));
 			resources.add(new MetaInfResource("/b/foo/bar/baz/file.txt"));
 			resources.add(new MetaInfResource("/a/foo/bar/file2.txt"));
 			resources.add(new MetaInfResource("/b/foo/file2.txt"));
