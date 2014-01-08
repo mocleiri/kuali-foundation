@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.SortedSet;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -53,6 +54,7 @@ import org.xml.sax.XMLReader;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * <p>
@@ -141,7 +143,7 @@ public class RicePropertiesLoader {
 			return;
 		}
 
-		// Random and system attributes are not supported
+		// The system attribute is not supported
 		checkParam(p);
 
 		// Update the properties object with this parameter
@@ -243,7 +245,7 @@ public class RicePropertiesLoader {
 
 	protected Map<String, Param> getParamMap(Properties properties) {
 		Map<String, Param> params = Maps.newHashMap();
-		List<String> keys = PropertyUtils.getSortedKeys(properties);
+		SortedSet<String> keys = Sets.newTreeSet(properties.stringPropertyNames());
 		for (String key : keys) {
 			String value = properties.getProperty(key);
 			// "override" defaults to true here because that is by far the most "normal" and widely accepted behavior
@@ -290,7 +292,7 @@ public class RicePropertiesLoader {
 	public static class Builder {
 
 		private String magicNestedConfigKey = "config.location";
-		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private");
+		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
 		private boolean ignoreUnresolvablePlaceholdersInConfigLocationValues = false;
 		private PropertyPlaceholderHelper propertyPlaceholderHelper;
