@@ -28,22 +28,10 @@ public class MetaInfResourcePathComparator implements Comparator<MetaInfResource
 		// Compare path tokens from both locations
 		for (int i = 0; i < tokens1.length && i < tokens2.length; i++) {
 
-			// We hit the end of 'one' but 'two' still has more tokens
-			// 'one' is less than 'two'
-			if (isLastToken(i, tokens1) && !isLastToken(i, tokens2)) {
-				return -1;
-			}
+			// Compare the 2 tokens at this index
+			int compare = compare(i, tokens1, tokens2);
 
-			// We hit the end of 'two' but 'one' still has more tokens
-			// 'one' is greater than 'two'
-			if (!isLastToken(i, tokens1) && isLastToken(i, tokens2)) {
-				return 1;
-			}
-
-			// The 2 tokens at this index are either the last token for both OR not the last token for either.
-			int compare = tokens1[i].compareTo(tokens2[i]);
-
-			// If the tokens are not equal, we are done
+			// If the comparison comes back as anything but zero, we are done
 			if (compare != 0) {
 				return compare;
 			}
@@ -51,6 +39,23 @@ public class MetaInfResourcePathComparator implements Comparator<MetaInfResource
 
 		// If we get here, the locations are identical
 		return 0;
+	}
+
+	protected int compare(int index, String[] tokens1, String[] tokens2) {
+		// We hit the end of 'one' but 'two' still has more tokens
+		// 'one' is less than 'two'
+		if (isLastToken(index, tokens1) && !isLastToken(index, tokens2)) {
+			return -1;
+		}
+
+		// We hit the end of 'two' but 'one' still has more tokens
+		// 'one' is greater than 'two'
+		if (!isLastToken(index, tokens1) && isLastToken(index, tokens2)) {
+			return 1;
+		}
+
+		// The 2 tokens at this index are either the last token for both OR not the last token for either.
+		return tokens1[index].compareTo(tokens2[index]);
 	}
 
 	protected boolean isLastToken(int index, String[] tokens) {
