@@ -1,5 +1,7 @@
 package org.kuali.common.util.metainf.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.util.Comparator;
 
 /**
@@ -42,6 +44,8 @@ public class MetaInfResourcePathComparator implements Comparator<MetaInfResource
 	}
 
 	protected int compare(int index, String[] tokens1, String[] tokens2) {
+		checkArgument(index < tokens1.length && index < tokens2.length, "'index' must be less than tokens1.length and tokens2.length");
+
 		// We hit the end of 'one' but 'two' still has more tokens
 		// 'one' is less than 'two'
 		if (isLastToken(index, tokens1) && !isLastToken(index, tokens2)) {
