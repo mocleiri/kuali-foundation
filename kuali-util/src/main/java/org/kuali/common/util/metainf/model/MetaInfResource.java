@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Preconditions;
 
-public class MetaInfResource implements Comparable<MetaInfResource> {
+public final class MetaInfResource implements Comparable<MetaInfResource> {
 
 	public static final long UNKNOWN_SIZE = -1;
 	public static final long UNKNOWN_LINECOUNT = -1;
