@@ -59,6 +59,12 @@ public class MetainfResourcePathComparatorTest {
 	public void testCompare() {
 		MetaInfResourcePathComparator meta = new MetaInfResourcePathComparator();
 		try {
+			meta.compare(-1, new String[] { "" }, new String[] { "" });
+			Assert.fail();
+		} catch (IllegalArgumentException e) {
+			logger.info(e.getMessage());
+		}
+		try {
 			meta.compare(1, new String[] { "" }, new String[] { "" });
 			Assert.fail();
 		} catch (IllegalArgumentException e) {
@@ -75,9 +81,9 @@ public class MetainfResourcePathComparatorTest {
 	@Test
 	public void testCompareTokens() {
 		MetaInfResourcePathComparator meta = new MetaInfResourcePathComparator();
-		Assert.assertEquals(1, meta.compare(new String[] { "a", "b" }, new String[] { "a" }));
-		Assert.assertEquals(-1, meta.compare(new String[] { "a" }, new String[] { "a", "b" }));
-		Assert.assertEquals(0, meta.compare(new String[] { "a" }, new String[] { "a" }));
+		String[] two = { "a", "b" };
+		String[] three = { "a", "b", "c" };
+		Assert.assertEquals(-1, meta.compare(two, three));
+		Assert.assertEquals(1, meta.compare(three, two));
 	}
-
 }
