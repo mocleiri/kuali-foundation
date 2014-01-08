@@ -44,7 +44,7 @@ public class MetaInfResourcePathComparator implements Comparator<MetaInfResource
 	}
 
 	protected int compare(int index, String[] tokens1, String[] tokens2) {
-		checkArgument(index < tokens1.length && index < tokens2.length, "index=%s but must be less than %s and %s", index, tokens1.length, tokens2.length);
+		checkArgument(index < tokens1.length && index < tokens2.length, "index=%s but must be less than both %s and %s", index, tokens1.length, tokens2.length);
 
 		// We hit the end of 'one' but 'two' still has more tokens
 		// 'one' is less than 'two'
