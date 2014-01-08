@@ -76,7 +76,7 @@ public class RiceXmlConfig implements MetaInfContextsConfig {
 
 	protected Comparator<MetaInfResource> getComparator(MetaInfGroup group) {
 		if (MetaInfGroup.OTHER.equals(group)) {
-			// The upgrades folder for Rice has a nested directory structure - [bootstrap|demo|test] and then [files...|sub-directories]
+			// The upgrades folder for Rice has a nested directory structure - [bootstrap|demo|test] and also [files...|sub-directories] inside each area
 			// The sorting of XML located inside the "upgrades" folder for Rice sorts by the directory structure first, and then by filenames in each directory.
 			// All sorting is done lexicographically.
 			// Files in any given directory come first, followed by any files in sub-directories.
