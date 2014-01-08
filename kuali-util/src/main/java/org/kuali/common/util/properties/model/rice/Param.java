@@ -3,13 +3,11 @@ package org.kuali.common.util.properties.model.rice;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 import com.google.common.base.Preconditions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "value" })
 public class Param {
 
 	@XmlAttribute(required = true)
