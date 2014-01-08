@@ -40,8 +40,7 @@ public class MetaInfResourcePathComparator implements Comparator<MetaInfResource
 				return 1;
 			}
 
-			// The 2 tokens at this index are either the last token for both OR
-			// are not the last token for either. 
+			// The 2 tokens at this index are either the last token for both OR not the last token for either.
 			int compare = tokens1[i].compareTo(tokens2[i]);
 
 			// If the tokens are not equal, we are done
