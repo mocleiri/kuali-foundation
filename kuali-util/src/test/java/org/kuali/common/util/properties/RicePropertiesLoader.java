@@ -101,7 +101,7 @@ public class RicePropertiesLoader {
 
 		// If the location does not exist, we are done
 		if (!LocationUtils.exists(location)) {
-			logger.warn("{}# skip non-existent location [{}]", prefix, location);
+			logger.info("{}# skip non-existent location [{}]", prefix, location);
 			return;
 		}
 
@@ -333,7 +333,7 @@ public class RicePropertiesLoader {
 			Param param = params.get(key);
 			if (param.isRandom()) {
 				String rangeSpec = param.getValue();
-				String random = String.valueOf(rangeSpec);
+				String random = Integer.toString(getRandomInteger(rangeSpec));
 				Param newParam = Param.builder(param.getName(), random).build();
 				params.put(key, newParam);
 			}
