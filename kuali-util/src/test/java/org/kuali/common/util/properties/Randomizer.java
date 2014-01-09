@@ -42,7 +42,7 @@ public final class Randomizer {
 
 	public static class Builder {
 
-		private Random random = new Random(System.currentTimeMillis());
+		private Random random;
 
 		public Builder() {
 			this(System.currentTimeMillis());
