@@ -5,7 +5,12 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Random;
 
+import org.kuali.common.util.log.LoggerUtils;
+import org.slf4j.Logger;
+
 public final class Randomizer {
+
+	private static final Logger logger = LoggerUtils.make();
 
 	private final Random random;
 
@@ -19,12 +24,14 @@ public final class Randomizer {
 
 	private int getInteger(int from, int to) {
 		if (from > to) {
+			logger.warn("%s is greater than %s!!!  Switching 'from' and 'to' values so random number generation will work", from, to);
 			int tmp = from;
 			from = to;
 			to = tmp;
 		}
 		// not very random
 		if (from == to) {
+			logger.warn("Specified random range is %s-%s!!!  No random number will be generated.", from, to);
 			return from;
 		} else {
 			return from + random.nextInt((to - from) + 1);
