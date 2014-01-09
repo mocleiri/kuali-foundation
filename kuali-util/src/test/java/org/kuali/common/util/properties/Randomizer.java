@@ -1,10 +1,9 @@
 package org.kuali.common.util.properties;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Random;
-
-import com.google.common.base.Preconditions;
 
 public final class Randomizer {
 
@@ -68,7 +67,7 @@ public final class Randomizer {
 		}
 
 		private static void validate(Randomizer instance) {
-			Preconditions.checkNotNull(instance.random, "random cannot be null");
+			checkNotNull(instance.random, "random cannot be null");
 		}
 	}
 
