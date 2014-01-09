@@ -27,7 +27,7 @@ public final class Randomizer {
 			// If this happens, IllegalArgumentException should be thrown.
 			// This code is copied from JAXBConfigImpl which just silently switches them
 			// We do the same thing here to preserve backwards compatibility
-			logger.warn("%s is greater than %s!!!  Switching 'from' and 'to' values so random number generation will work", from, to);
+			logger.warn("%s is greater than %s!!!  Switching 'from' and 'to' values so random number generation will function correctly", from, to);
 			int tmp = from;
 			from = to;
 			to = tmp;
