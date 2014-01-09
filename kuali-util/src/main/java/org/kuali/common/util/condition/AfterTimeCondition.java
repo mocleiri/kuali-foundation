@@ -3,7 +3,7 @@ package org.kuali.common.util.condition;
 import com.google.common.base.Preconditions;
 
 /**
- * @deprecated
+ * @deprecated use AfterCondition instead
  */
 @Deprecated
 public final class AfterTimeCondition implements Condition {

@@ -5,7 +5,7 @@ import java.util.Date;
 import com.google.common.base.Preconditions;
 
 /**
- * @deprecated
+ * @deprecated use AfterCondition instead
  */
 @Deprecated
 public final class AfterDateCondition implements Condition {
