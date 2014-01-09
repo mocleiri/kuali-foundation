@@ -76,6 +76,14 @@ public final class Randomizer {
 		private static void validate(Randomizer instance) {
 			checkNotNull(instance.random, "random cannot be null");
 		}
+
+		public Random getRandom() {
+			return random;
+		}
+
+		public void setRandom(Random random) {
+			this.random = random;
+		}
 	}
 
 }
