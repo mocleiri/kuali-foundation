@@ -24,13 +24,19 @@ public final class Randomizer {
 
 	private int getInteger(int from, int to) {
 		if (from > to) {
+			// If this happens, IllegalArgumentException should be thrown.
+			// This code is copied from JAXBConfigImpl which just silently switches them
+			// We do the same thing here to preserve backwards compatibility
 			logger.warn("%s is greater than %s!!!  Switching 'from' and 'to' values so random number generation will work", from, to);
 			int tmp = from;
 			from = to;
 			to = tmp;
 		}
-		// not very random
 		if (from == to) {
+			// If this happens, IllegalArgumentException should be thrown.
+			// This code is copied from JAXBConfigImpl which just silently ignores it
+			// We do the same thing here to preserve backwards compatibility
+			// Not very random
 			logger.warn("Specified random range is %s-%s!!!  The 'random' number will always be %s", from, to, from);
 			return from;
 		} else {
