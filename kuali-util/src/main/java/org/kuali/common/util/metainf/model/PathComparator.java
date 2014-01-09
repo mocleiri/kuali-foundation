@@ -37,7 +37,7 @@ public class PathComparator implements Comparator<String> {
 	}
 
 	/**
-	 * Replace any backslashes (if there are any) with forward slashes and split the string up by forward slash
+	 * Replace backslashes (if there are any) with forward slashes and split the string up by forward slash
 	 */
 	protected String[] getPathTokens(String s) {
 		return s.replace('\\', '/').split("/");
