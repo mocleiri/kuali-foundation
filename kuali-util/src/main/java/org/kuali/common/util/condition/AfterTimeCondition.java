@@ -1,11 +1,11 @@
 package org.kuali.common.util.condition;
 
-import org.kuali.common.util.Assert;
+import com.google.common.base.Preconditions;
 
 public final class AfterTimeCondition implements Condition {
 
 	public AfterTimeCondition(long targetTimeInMillis) {
-		Assert.notNegative(targetTimeInMillis);
+		Preconditions.checkArgument(targetTimeInMillis >= 0, "'targetTimeInMillis' must be >= 0");
 		this.targetTimeInMillis = targetTimeInMillis;
 	}
 

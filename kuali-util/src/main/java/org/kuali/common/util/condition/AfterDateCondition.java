@@ -2,24 +2,24 @@ package org.kuali.common.util.condition;
 
 import java.util.Date;
 
-import org.kuali.common.util.Assert;
+import com.google.common.base.Preconditions;
 
 public final class AfterDateCondition implements Condition {
 
-	public AfterDateCondition(Date date) {
-		Assert.noNulls(date);
-		this.targetDate = date;
-	}
+	private final AfterTimeCondition condition;
 
-	private final Date targetDate;
+	public AfterDateCondition(Date targetDate) {
+		Preconditions.checkNotNull(targetDate, "'targetDate' cannot be null");
+		this.condition = new AfterTimeCondition(targetDate.getTime());
+	}
 
 	@Override
 	public boolean isTrue() {
-		return System.currentTimeMillis() > targetDate.getTime();
+		return condition.isTrue();
 	}
 
 	public Date getTargetDate() {
-		return targetDate;
+		return new Date(condition.getTargetTimeInMillis());
 	}
 
 }
