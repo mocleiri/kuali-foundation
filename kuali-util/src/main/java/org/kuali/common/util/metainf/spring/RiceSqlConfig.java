@@ -25,6 +25,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * TODO Should not be a class called {@code RiceSqlConfig} down here in kuali-util. Create a rice-util and move this there? Main issue preventing this from living in the rice-xml
+ * module itself is that it gets tricky having software used very early in the build lifecycle reside in the same project that makes use of it.
+ */
 @Configuration
 @Import({ AutowiredProjectConfig.class, MetaInfExecutableConfig.class, SpringServiceConfig.class })
 public class RiceSqlConfig implements MetaInfContextsConfig {
