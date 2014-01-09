@@ -52,7 +52,7 @@ public class PathComparator implements Comparator<String> {
 			}
 		}
 
-		// If we get here, the locations are identical
+		// If we get here, both arrays have the exact same number of tokens and all of the tokens in both arrays are identical
 		return 0;
 	}
 
