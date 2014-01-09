@@ -1,6 +1,5 @@
 package org.kuali.common.util.metainf.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Comparator;
@@ -37,13 +36,6 @@ public class PathComparator implements Comparator<String> {
 	}
 
 	/**
-	 * Replace backslashes (if there are any) with forward slashes and split the string up by forward slash
-	 */
-	protected String[] getPathTokens(String s) {
-		return s.replace('\\', '/').split("/");
-	}
-
-	/**
 	 * Iterate over the tokens from both locations
 	 */
 	protected int compare(String[] tokens1, String[] tokens2) {
@@ -65,8 +57,6 @@ public class PathComparator implements Comparator<String> {
 	}
 
 	protected int compare(int index, String[] tokens1, String[] tokens2) {
-		checkArgument(index < tokens1.length && index < tokens2.length && index >= 0, "index=%s but must be >= 0 and < %s", index, Math.min(tokens1.length, tokens2.length));
-
 		// We hit the end of 'one' but 'two' still has more tokens
 		// 'one' is less than 'two'
 		if (isLastToken(index, tokens1) && !isLastToken(index, tokens2)) {
@@ -84,6 +74,13 @@ public class PathComparator implements Comparator<String> {
 		// OR
 		// 2 - Not the last token for either (and therefore a directory)
 		return tokens1[index].compareTo(tokens2[index]);
+	}
+
+	/**
+	 * Replace backslashes (if there are any) with forward slashes and split the string by forward slash
+	 */
+	protected String[] getPathTokens(String s) {
+		return s.replace('\\', '/').split("/");
 	}
 
 	protected boolean isLastToken(int index, String[] tokens) {
