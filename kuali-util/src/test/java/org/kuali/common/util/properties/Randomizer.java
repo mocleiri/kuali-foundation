@@ -31,7 +31,7 @@ public final class Randomizer {
 		}
 		// not very random
 		if (from == to) {
-			logger.warn("Specified random range is %s-%s!!!  No random number will be generated.", from, to);
+			logger.warn("Specified random range is %s-%s!!!  The 'random' number will always be %s", from, to, from);
 			return from;
 		} else {
 			return from + random.nextInt((to - from) + 1);
