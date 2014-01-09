@@ -144,7 +144,7 @@ public class RicePropertiesLoader {
 		// The system attribute is not supported
 		checkParam(p);
 
-		// Update the properties object with this parameter
+		// Update the map of parameter objects with this parameter
 		update(params, p, prefix);
 
 	}
@@ -309,6 +309,11 @@ public class RicePropertiesLoader {
 
 		public Builder obscurePatterns(List<String> obscurePatterns) {
 			this.obscureTokens = obscurePatterns;
+			return this;
+		}
+
+		public Builder randomizer(Randomizer randomizer) {
+			this.randomizer = randomizer;
 			return this;
 		}
 
