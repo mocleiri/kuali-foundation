@@ -335,8 +335,9 @@ public class RicePropertiesLoader {
 			Param param = params.get(key);
 			if (param.isRandom()) {
 				String rangeSpec = param.getValue();
-				String random = Integer.toString(randomizer.getInteger(rangeSpec));
-				Param newParam = Param.builder(param.getName(), random).build();
+				int random = randomizer.getInteger(rangeSpec);
+				String value = Integer.toString(random);
+				Param newParam = Param.builder(param.getName(), value).build();
 				params.put(key, newParam);
 			}
 		}
