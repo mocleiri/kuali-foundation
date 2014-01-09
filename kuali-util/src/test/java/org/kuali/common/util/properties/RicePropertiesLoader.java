@@ -17,14 +17,12 @@ package org.kuali.common.util.properties;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Random;
 import java.util.SortedSet;
 
 import javax.xml.bind.JAXBContext;
@@ -75,13 +73,13 @@ import com.google.common.collect.Sets;
 public class RicePropertiesLoader {
 
 	private static final Logger logger = LoggerUtils.make();
-	private static final Random RANDOM = new Random();
 
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
 	private final String magicNestedConfigKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
 	private final boolean ignoreUnresolvablePlaceholdersInConfigLocationValues;
+	private final Randomizer randomizer;
 
 	public Properties load(String location) {
 		checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -283,6 +281,7 @@ public class RicePropertiesLoader {
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
 		this.ignoreUnresolvablePlaceholdersInConfigLocationValues = builder.ignoreUnresolvablePlaceholdersInConfigLocationValues;
+		this.randomizer = builder.randomizer;
 	}
 
 	public static Builder builder() {
@@ -296,6 +295,7 @@ public class RicePropertiesLoader {
 		private Obscurer obscurer = new DefaultObscurer();
 		private boolean ignoreUnresolvablePlaceholdersInConfigLocationValues = false;
 		private PropertyPlaceholderHelper propertyPlaceholderHelper;
+		private Randomizer randomizer = Randomizer.builder().build();
 
 		public Builder ignoreUnresolvablePlaceholdersInConfigLocationValues(boolean ignoreUnresolvablePlaceholdersInConfigLocationValues) {
 			this.ignoreUnresolvablePlaceholdersInConfigLocationValues = ignoreUnresolvablePlaceholdersInConfigLocationValues;
@@ -324,37 +324,21 @@ public class RicePropertiesLoader {
 			checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
 			checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
 			checkNotNull(instance.obscurer, "obscurer cannot be null");
+			checkNotNull(instance.randomizer, "obscurer cannot be null");
 			checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
 		}
 	}
 
 	protected void randomize(Map<String, Param> params) {
-		for (String key : params.keySet()) {
+		SortedSet<String> keys = Sets.newTreeSet(params.keySet());
+		for (String key : keys) {
 			Param param = params.get(key);
 			if (param.isRandom()) {
 				String rangeSpec = param.getValue();
-				String random = Integer.toString(getRandomInteger(rangeSpec));
+				String random = Integer.toString(randomizer.getInteger(rangeSpec));
 				Param newParam = Param.builder(param.getName(), random).build();
 				params.put(key, newParam);
 			}
-		}
-	}
-
-	protected int getRandomInteger(String rangeSpec) {
-		String[] range = rangeSpec.split("-");
-		checkState(range.length == 2, "Invalid range specifier: %s", rangeSpec);
-		int from = Integer.parseInt(range[0].trim());
-		int to = Integer.parseInt(range[1].trim());
-		if (from > to) {
-			int tmp = from;
-			from = to;
-			to = tmp;
-		}
-		// not very random
-		if (from == to) {
-			return from;
-		} else {
-			return from + RANDOM.nextInt((to - from) + 1);
 		}
 	}
 
