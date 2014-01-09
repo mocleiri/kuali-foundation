@@ -26,12 +26,21 @@ public class PathComparator implements Comparator<String> {
 		checkNotNull(path1, "'path1' cannot be null");
 		checkNotNull(path2, "'path2' cannot be null");
 
-		// Split them up into path tokens
-		String[] tokens1 = path1.split("/");
-		String[] tokens2 = path2.split("/");
+		// Split the paths up into tokens
+		// Each token represents a directory in the directory structure
+		// The final token represents the filename
+		String[] tokens1 = getPathTokens(path1);
+		String[] tokens2 = getPathTokens(path2);
 
 		// Compare the path tokens
 		return compare(tokens1, tokens2);
+	}
+
+	/**
+	 * Replace any backslashes (if there are any) with forward slashes and split the string up by forward slash
+	 */
+	protected String[] getPathTokens(String s) {
+		return s.replace('\\', '/').split("/");
 	}
 
 	/**
