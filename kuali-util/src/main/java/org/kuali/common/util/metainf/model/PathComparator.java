@@ -72,7 +72,7 @@ public class PathComparator implements Comparator<String> {
 		// The 2 tokens at this index are either:
 		// 1 - The last token for both paths (and therefore the filename)
 		// OR
-		// 2 - Not the last token for either (and therefore a directory)
+		// 2 - NOT the last token for both paths (and therefore a directory)
 		return tokens1[index].compareTo(tokens2[index]);
 	}
 
