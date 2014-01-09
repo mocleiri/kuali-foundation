@@ -2,6 +2,10 @@ package org.kuali.common.util.condition;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class AfterTimeCondition implements Condition {
 
 	public AfterTimeCondition(long targetTimeInMillis) {

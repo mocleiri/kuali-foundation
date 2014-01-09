@@ -4,6 +4,10 @@ import java.util.Date;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class AfterDateCondition implements Condition {
 
 	private final AfterTimeCondition condition;
