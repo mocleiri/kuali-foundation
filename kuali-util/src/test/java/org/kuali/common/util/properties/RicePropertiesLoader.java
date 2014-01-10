@@ -457,12 +457,16 @@ public class RicePropertiesLoader {
 			return false;
 		}
 
-		if (System.getProperty(param.getName()) == null) {
-			// There is no existing system property, always return true
+		// If we get here, we know the system flag on this parameter is set to true
+		// We now need to check and see if there is an existing system property
+		Optional<String> system = Optional.of(System.getProperty(param.getName()));
+
+		if (!system.isPresent()) {
+			// If there is no existing system property, always return true
 			return true;
 		} else {
-			// There is an existing system property
-			// Only override if the override flag is set
+			// If there is an existing system property
+			// Only return true if the override flag is set
 			return param.isOverride();
 		}
 	}
