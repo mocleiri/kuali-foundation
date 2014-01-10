@@ -1,14 +1,14 @@
 package org.kuali.common.util.properties.model.rice;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
-import com.google.common.base.Preconditions;
-
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Param {
+public class Param implements Comparable<Param> {
 
 	@XmlAttribute(required = true)
 	private final String name;
@@ -91,8 +91,8 @@ public class Param {
 		}
 
 		private static void validate(Param instance) {
-			Preconditions.checkNotNull(instance.name, "'name' cannot be null");
-			Preconditions.checkNotNull(instance.value, "'value' cannot be null");
+			checkNotNull(instance.name, "'name' cannot be null");
+			checkNotNull(instance.value, "'value' cannot be null");
 		}
 
 	}
@@ -107,6 +107,11 @@ public class Param {
 		this.override = builder.override;
 		this.random = builder.random;
 		this.system = builder.system;
+	}
+
+	@Override
+	public int compareTo(Param param) {
+		return this.name.compareTo(param.getName());
 	}
 
 }
