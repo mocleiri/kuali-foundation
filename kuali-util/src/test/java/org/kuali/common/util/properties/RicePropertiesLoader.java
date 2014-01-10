@@ -106,13 +106,13 @@ public class RicePropertiesLoader {
 		return convert(params);
 	}
 
-	protected String replacePlaceholders(String value, String token) {
+	protected String convertUnresolvablePlaceholders(String value, String token) {
 		String result = value;
 		Matcher matcher = pattern.matcher(value);
 		while (matcher.find()) {
 			// get the first, outermost ${} in the string. removes the ${} as well.
 			String key = matcher.group(1);
-			logger.info("[%s] is is unresolvable.  Setting to [%s]", key, token);
+			logger.info("[%s] is is unresolvable.  Converting to [%s]", key, token);
 			result = matcher.replaceFirst(Matcher.quoteReplacement(token));
 			matcher = matcher.reset(result);
 		}
@@ -262,8 +262,7 @@ public class RicePropertiesLoader {
 	}
 
 	protected boolean isPropertiesFile(String location) {
-		String lower = StringUtils.lowerCase(location);
-		return StringUtils.endsWith(lower, ".properties");
+		return location.toLowerCase().endsWith(".properties");
 	}
 
 	protected Map<String, Param> convert(Properties properties) {
@@ -482,7 +481,7 @@ public class RicePropertiesLoader {
 		String originalValue = param.getValue();
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = replacePlaceholders(resolvedValue, "");
+			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, "");
 		}
 		if (resolvedValue.equals(originalValue)) {
 			return param;
