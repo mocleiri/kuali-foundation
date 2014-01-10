@@ -115,7 +115,7 @@ public class RicePropertiesLoader {
 			String key = matcher.group(1);
 
 			// Log they key that we are converting to the empty string
-			logger.info("[%s] is unresolvable.  Converting to [%s]", key, "");
+			logger.info("[{}] is unresolvable.  Converting to [{}]", key, "");
 
 			// Replace the first ${} with ""
 			result = matcher.replaceFirst("");
@@ -134,7 +134,7 @@ public class RicePropertiesLoader {
 		final String prefix = StringUtils.repeat(" ", depth);
 
 		// If the location does not exist, we are done
-		if (!LocationUtils.exists(location)) {
+		if (!LocationUtils.exists(location) || location.equals("")) {
 			logger.info("{}# skip non-existent location [{}]", prefix, location);
 			return;
 		}
@@ -371,7 +371,7 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
-			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", !allowUnresolvablePlaceholders);
+			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", allowUnresolvablePlaceholders);
 			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
@@ -508,18 +508,18 @@ public class RicePropertiesLoader {
 	}
 
 	protected List<Param> getRandomParams(Collection<Param> params) {
-		List<Param> list = Lists.newArrayList(params);
-		Collections.sort(list);
+		List<Param> list = Lists.newArrayList();
 		for (Param param : params) {
 			if (param.isRandom()) {
 				list.add(param);
 			}
 		}
+		Collections.sort(list);
 		return list;
 	}
 
 	protected List<Param> getSystemParams(Collection<Param> params) {
-		List<Param> list = Lists.newArrayList(params);
+		List<Param> list = Lists.newArrayList();
 		Collections.sort(list);
 		for (Param param : params) {
 			if (param.isSystem()) {
