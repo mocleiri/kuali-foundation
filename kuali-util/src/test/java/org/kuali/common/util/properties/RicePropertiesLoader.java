@@ -95,30 +95,40 @@ public class RicePropertiesLoader {
 		checkArgument(LocationUtils.exists(location), "[%s] does not exist", location);
 		Unmarshaller unmarshaller = getUnmarshaller();
 		Map<String, Param> params = Maps.newHashMap();
-		load(location, unmarshaller, 0, params);
+		Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
+		load(location, unmarshaller, 0, params, pattern);
 		if (systemPropertiesWin) {
 			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties(), true, true);
 			params.putAll(system);
 		}
 		handleRandomParams(params);
-		handleSystemParams(params);
+		handleSystemParams(params, pattern);
 		return convert(params);
 	}
 
-	protected String convertUnresolvablePlaceholders(String value, String token, Pattern pattern) {
+	protected String convertUnresolvablePlaceholders(String value, Pattern pattern) {
 		String result = value;
 		Matcher matcher = pattern.matcher(value);
 		while (matcher.find()) {
-			// get the first, outermost ${} in the string. removes the ${} as well.
+			// Get the first, outermost ${} in the string
+			// This removes the ${} and produces the enclosed key
 			String key = matcher.group(1);
-			logger.info("[%s] is unresolvable.  Converting to [%s]", key, token);
-			result = matcher.replaceFirst(Matcher.quoteReplacement(token));
+
+			// Log they key that we are converting to the empty string
+			logger.info("[%s] is unresolvable.  Converting to [%s]", key, "");
+
+			// Replace the first ${} with ""
+			result = matcher.replaceFirst("");
+
+			// Reset the matcher so we can continue examining the string
 			matcher = matcher.reset(result);
 		}
+
+		// All placeholders have been replaced with the empty string at this point
 		return result;
 	}
 
-	protected void load(String location, Unmarshaller unmarshaller, int depth, Map<String, Param> params) {
+	protected void load(String location, Unmarshaller unmarshaller, int depth, Map<String, Param> params, Pattern pattern) {
 
 		// Setup an indentation prefix based on the recursive depth
 		final String prefix = StringUtils.repeat(" ", depth);
@@ -132,7 +142,7 @@ public class RicePropertiesLoader {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			load(prefix, location, in, params, depth, unmarshaller);
+			load(prefix, location, in, params, depth, unmarshaller, pattern);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -140,30 +150,31 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void load(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller) throws IOException {
+	protected void load(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller, Pattern pattern) throws IOException {
 		if (isPropertiesFile(location)) {
 			loadJavaProperties(prefix, location, in, params, depth);
 		} else {
-			loadRiceProperties(prefix, location, in, params, depth, unmarshaller);
+			loadRiceProperties(prefix, location, in, params, depth, unmarshaller, pattern);
 		}
 	}
 
-	protected void loadRiceProperties(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller) throws IOException {
+	protected void loadRiceProperties(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller, Pattern pattern)
+			throws IOException {
 		logger.info("{}+ loading - [{}]", prefix, location);
 		Config config = unmarshal(unmarshaller, in);
 		for (Param p : config.getParams()) {
-			handleParam(p, depth, unmarshaller, params, prefix);
+			handleParam(p, depth, unmarshaller, params, prefix, pattern);
 		}
 		logger.info("{}- loaded  - [{}]", prefix, location);
 	}
 
-	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Map<String, Param> params, String prefix) {
+	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Map<String, Param> params, String prefix, Pattern pattern) {
 
 		// This is a reference to a nested config file
 		if (p.getName().equalsIgnoreCase(magicNestedConfigKey)) {
 			String originalLocation = p.getValue();
-			String resolvedLocation = getResolvedValue(originalLocation, params);
-			load(resolvedLocation, unmarshaller, depth + 1, params);
+			String resolvedLocation = getResolvedValue(originalLocation, params, pattern);
+			load(resolvedLocation, unmarshaller, depth + 1, params, pattern);
 			return;
 		}
 
@@ -291,10 +302,14 @@ public class RicePropertiesLoader {
 		return properties;
 	}
 
-	protected String getResolvedValue(String value, Map<String, Param> params) {
+	protected String getResolvedValue(String value, Map<String, Param> params, Pattern pattern) {
 		Properties properties = convert(params);
 		Properties global = PropertyUtils.getGlobalProperties(properties);
-		return propertyPlaceholderHelper.replacePlaceholders(value, global);
+		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(value, global);
+		if (convertUnresolvablePlaceholdersToEmpty) {
+			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, pattern);
+		}
+		return resolvedValue;
 	}
 
 	private RicePropertiesLoader(Builder builder) {
@@ -439,10 +454,9 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void handleSystemParams(Map<String, Param> params) {
+	protected void handleSystemParams(Map<String, Param> params, Pattern pattern) {
 		Properties properties = convert(params);
 		List<Param> system = getSystemParams(params.values());
-		Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
 		for (Param param : system) {
 			if (isOverrideSystemProperty(param)) {
 				overrideSystemProperty(param, params, properties, pattern);
@@ -484,7 +498,7 @@ public class RicePropertiesLoader {
 		String originalValue = param.getValue();
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, "", pattern);
+			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, pattern);
 		}
 		if (resolvedValue.equals(originalValue)) {
 			return param;
