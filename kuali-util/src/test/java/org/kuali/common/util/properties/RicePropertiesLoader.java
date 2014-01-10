@@ -189,7 +189,12 @@ public class RicePropertiesLoader {
 		logger.info("{}+ loading - [{}]", prefix, location);
 		Properties loaded = new Properties();
 		loaded.load(in);
-		Map<String, Param> newMap = convert(loaded);
+
+		// "override" defaults to true here because that is by far the most "normal" and widely accepted behavior
+		// Both Spring and Maven adhere to the "last one in wins" strategy, so we follow that
+		// Normal .properties files don't have a way to toggle an "override" attribute at the individual property level (nor should they)
+		// Thus, the default value of override=true
+		Map<String, Param> newMap = convert(loaded, true, false);
 		for (Param p : newMap.values()) {
 			update(params, p, prefix);
 		}
@@ -275,14 +280,6 @@ public class RicePropertiesLoader {
 
 	protected boolean isPropertiesFile(String location) {
 		return location.toLowerCase().endsWith(".properties");
-	}
-
-	protected Map<String, Param> convert(Properties properties) {
-		// "override" defaults to true here because that is by far the most "normal" and widely accepted behavior
-		// Both Spring and Maven adhere to the "last one in wins" strategy, so we follow that here
-		// Normal .properties files don't have a way to toggle an "override" attribute at the individual property level (nor should they)
-		// Thus, the default value of "true"
-		return convert(properties, true, false);
 	}
 
 	protected Map<String, Param> convert(Properties properties, boolean override, boolean system) {
