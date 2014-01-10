@@ -487,16 +487,16 @@ public class RicePropertiesLoader {
 	}
 
 	protected void overrideSystemProperty(Param param, Map<String, Param> params, Properties properties, Pattern pattern) {
-		Param override = getOverrideParam(param, properties, pattern);
-		if (!override.getValue().equals(param.getValue())) {
-			params.put(override.getName(), override);
-			properties.setProperty(override.getName(), override.getValue());
+		Param resolved = getResolvedParam(param, properties, pattern);
+		if (!resolved.getValue().equals(param.getValue())) {
+			params.put(resolved.getName(), resolved);
+			properties.setProperty(resolved.getName(), resolved.getValue());
 		}
-		SystemPropertySetter setter = getSystemPropertySetter(override);
-		setter.execute(override);
+		SystemPropertySetter setter = getSystemPropertySetter(resolved);
+		setter.execute(resolved);
 	}
 
-	protected Param getOverrideParam(Param param, Properties properties, Pattern pattern) {
+	protected Param getResolvedParam(Param param, Properties properties, Pattern pattern) {
 		String originalValue = param.getValue();
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
 		if (convertUnresolvablePlaceholdersToEmpty) {
