@@ -112,7 +112,7 @@ public class RicePropertiesLoader {
 		while (matcher.find()) {
 			// get the first, outermost ${} in the string. removes the ${} as well.
 			String key = matcher.group(1);
-			logger.info("[%s] is is unresolvable.  Converting to [%s]", key, token);
+			logger.info("[%s] is unresolvable.  Converting to [%s]", key, token);
 			result = matcher.replaceFirst(Matcher.quoteReplacement(token));
 			matcher = matcher.reset(result);
 		}
