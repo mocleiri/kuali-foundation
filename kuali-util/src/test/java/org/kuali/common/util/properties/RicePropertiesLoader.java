@@ -116,8 +116,8 @@ public class RicePropertiesLoader {
 			// This removes the ${} and produces the enclosed key
 			String key = matcher.group(1);
 
-			// Log they key that we are converting to the empty string
-			logger.info("{}? unknown - [{}] -> convert to empty", prefix, key);
+			// Log the key that we are converting to the empty string
+			logger.info("{}? unknown - [{}] -> converted to empty", prefix, key);
 
 			// Replace the first ${} with ""
 			result = matcher.replaceFirst("");
