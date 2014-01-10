@@ -82,7 +82,7 @@ public class RicePropertiesLoader {
 	private static final String PLACEHOLDER_REGEX = "\\$\\{([^{}]+)\\}";
 
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
-	private final String magicNestedConfigKey;
+	private final String chainedConfigLocationKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
 	private final Randomizer randomizer;
@@ -173,7 +173,7 @@ public class RicePropertiesLoader {
 	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Map<String, Param> params, String prefix, Pattern pattern) {
 
 		// This is a reference to a nested config file
-		if (p.getName().equalsIgnoreCase(magicNestedConfigKey)) {
+		if (p.getName().equalsIgnoreCase(chainedConfigLocationKey)) {
 			String originalLocation = p.getValue();
 			String resolvedLocation = getResolvedValue(prefix, originalLocation, params, pattern);
 			load(resolvedLocation, unmarshaller, depth + 1, params, pattern);
@@ -313,7 +313,7 @@ public class RicePropertiesLoader {
 
 	private RicePropertiesLoader(Builder builder) {
 		this.propertyPlaceholderHelper = builder.propertyPlaceholderHelper;
-		this.magicNestedConfigKey = builder.magicNestedConfigKey;
+		this.chainedConfigLocationKey = builder.chainedConfigLocationKey;
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
 		this.randomizer = builder.randomizer;
@@ -328,7 +328,7 @@ public class RicePropertiesLoader {
 
 	public static class Builder {
 
-		private String magicNestedConfigKey = "config.location";
+		private String chainedConfigLocationKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
 		private Randomizer randomizer = Randomizer.builder().build();
@@ -354,8 +354,8 @@ public class RicePropertiesLoader {
 			return this;
 		}
 
-		public Builder magicNestedConfigKey(String magicNestedConfigKey) {
-			this.magicNestedConfigKey = magicNestedConfigKey;
+		public Builder chainedConfigLocationKey(String chainedConfigLocationKey) {
+			this.chainedConfigLocationKey = chainedConfigLocationKey;
 			return this;
 		}
 
@@ -382,15 +382,15 @@ public class RicePropertiesLoader {
 			checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
 			checkNotNull(instance.obscurer, "obscurer cannot be null");
 			checkNotNull(instance.randomizer, "randomizer cannot be null");
-			checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
+			checkArgument(!StringUtils.isBlank(instance.chainedConfigLocationKey), "magicNestedConfigKey cannot be blank");
 		}
 
-		public String getMagicNestedConfigKey() {
-			return magicNestedConfigKey;
+		public String getChainedConfigLocationKey() {
+			return chainedConfigLocationKey;
 		}
 
-		public void setMagicNestedConfigKey(String magicNestedConfigKey) {
-			this.magicNestedConfigKey = magicNestedConfigKey;
+		public void setChainedConfigLocationKey(String magicNestedConfigKey) {
+			this.chainedConfigLocationKey = magicNestedConfigKey;
 		}
 
 		public List<String> getObscureTokens() {
@@ -570,8 +570,8 @@ public class RicePropertiesLoader {
 		return propertyPlaceholderHelper;
 	}
 
-	public String getMagicNestedConfigKey() {
-		return magicNestedConfigKey;
+	public String getChainedConfigLocationKey() {
+		return chainedConfigLocationKey;
 	}
 
 	public List<String> getObscureTokens() {
