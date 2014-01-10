@@ -86,9 +86,10 @@ public class RicePropertiesLoader {
 	private final String magicNestedConfigKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
-	private final boolean ignoreUnresolvablePlaceholdersInConfigLocationValues;
 	private final Randomizer randomizer;
-	private final boolean ignoreSystemProperties = true;
+	private final boolean systemPropertiesWin;
+	private final boolean ignoreUnresolvablePlaceholders;
+	private final boolean convertUnresolvablePlaceholdersToEmpty;
 
 	public Properties load(String location) {
 		checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -96,13 +97,13 @@ public class RicePropertiesLoader {
 		Unmarshaller unmarshaller = getUnmarshaller();
 		Map<String, Param> params = Maps.newHashMap();
 		load(location, unmarshaller, 0, params);
-		if (!ignoreSystemProperties) {
-			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties());
+		if (systemPropertiesWin) {
+			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties(), true, true);
 			params.putAll(system);
 		}
 		handleRandomParams(params);
-		Properties properties = convert(params);
-		return properties;
+		handleSystemParams(params);
+		return convert(params);
 	}
 
 	protected String replacePlaceholders(String value, String token) {
@@ -167,9 +168,6 @@ public class RicePropertiesLoader {
 			return;
 		}
 
-		// The system attribute is not supported
-		checkParam(p);
-
 		// Update the map of parameter objects with this parameter
 		update(params, p, prefix);
 
@@ -233,10 +231,6 @@ public class RicePropertiesLoader {
 			}
 		}
 		return Str.flatten(param.getValue());
-	}
-
-	protected void checkParam(Param param) {
-		checkArgument(!param.isSystem(), "Setting system properties via config files is not supported. [%s]=[%s]", param.getName(), param.getValue());
 	}
 
 	protected Unmarshaller getUnmarshaller() {
@@ -310,8 +304,10 @@ public class RicePropertiesLoader {
 		this.magicNestedConfigKey = builder.magicNestedConfigKey;
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
-		this.ignoreUnresolvablePlaceholdersInConfigLocationValues = builder.ignoreUnresolvablePlaceholdersInConfigLocationValues;
 		this.randomizer = builder.randomizer;
+		this.ignoreUnresolvablePlaceholders = builder.ignoreUnresolvablePlaceholders;
+		this.systemPropertiesWin = builder.systemPropertiesWin;
+		this.convertUnresolvablePlaceholdersToEmpty = builder.convertUnresolvablePlaceholdersToEmpty;
 	}
 
 	public static Builder builder() {
@@ -323,17 +319,31 @@ public class RicePropertiesLoader {
 		private String magicNestedConfigKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
-		private boolean ignoreUnresolvablePlaceholdersInConfigLocationValues = false;
-		private PropertyPlaceholderHelper propertyPlaceholderHelper;
 		private Randomizer randomizer = Randomizer.builder().build();
+		private boolean ignoreUnresolvablePlaceholders = true;
+		private boolean systemPropertiesWin = false;
+		private boolean convertUnresolvablePlaceholdersToEmpty = true;
 
-		public Builder ignoreUnresolvablePlaceholdersInConfigLocationValues(boolean ignoreUnresolvablePlaceholdersInConfigLocationValues) {
-			this.ignoreUnresolvablePlaceholdersInConfigLocationValues = ignoreUnresolvablePlaceholdersInConfigLocationValues;
+		// This gets filled in by the build() method
+		private PropertyPlaceholderHelper propertyPlaceholderHelper;
+
+		public Builder systemPropertiesWin(boolean systemPropertiesWin) {
+			this.systemPropertiesWin = systemPropertiesWin;
 			return this;
 		}
 
-		public Builder magicNestedConfigFileKey(String magicNestedConfigFileKey) {
-			this.magicNestedConfigKey = magicNestedConfigFileKey;
+		public Builder convertUnresolvablePlaceholdersToEmpty(boolean convertUnresolvablePlaceholdersToEmpty) {
+			this.convertUnresolvablePlaceholdersToEmpty = convertUnresolvablePlaceholdersToEmpty;
+			return this;
+		}
+
+		public Builder ignoreUnresolvablePlaceholders(boolean ignoreUnresolvablePlaceholders) {
+			this.ignoreUnresolvablePlaceholders = ignoreUnresolvablePlaceholders;
+			return this;
+		}
+
+		public Builder magicNestedConfigKey(String magicNestedConfigKey) {
+			this.magicNestedConfigKey = magicNestedConfigKey;
 			return this;
 		}
 
@@ -348,7 +358,7 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
-			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvablePlaceholdersInConfigLocationValues);
+			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvablePlaceholders);
 			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
@@ -361,6 +371,62 @@ public class RicePropertiesLoader {
 			checkNotNull(instance.obscurer, "obscurer cannot be null");
 			checkNotNull(instance.randomizer, "randomizer cannot be null");
 			checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
+		}
+
+		public String getMagicNestedConfigKey() {
+			return magicNestedConfigKey;
+		}
+
+		public void setMagicNestedConfigKey(String magicNestedConfigKey) {
+			this.magicNestedConfigKey = magicNestedConfigKey;
+		}
+
+		public List<String> getObscureTokens() {
+			return obscureTokens;
+		}
+
+		public void setObscureTokens(List<String> obscureTokens) {
+			this.obscureTokens = obscureTokens;
+		}
+
+		public Obscurer getObscurer() {
+			return obscurer;
+		}
+
+		public void setObscurer(Obscurer obscurer) {
+			this.obscurer = obscurer;
+		}
+
+		public Randomizer getRandomizer() {
+			return randomizer;
+		}
+
+		public void setRandomizer(Randomizer randomizer) {
+			this.randomizer = randomizer;
+		}
+
+		public boolean isIgnoreUnresolvablePlaceholders() {
+			return ignoreUnresolvablePlaceholders;
+		}
+
+		public void setIgnoreUnresolvablePlaceholders(boolean ignoreUnresolvablePlaceholders) {
+			this.ignoreUnresolvablePlaceholders = ignoreUnresolvablePlaceholders;
+		}
+
+		public boolean isConvertUnresolvablePlaceholdersToEmpty() {
+			return convertUnresolvablePlaceholdersToEmpty;
+		}
+
+		public void setConvertUnresolvablePlaceholdersToEmpty(boolean convertUnresolvablePlaceholdersToEmpty) {
+			this.convertUnresolvablePlaceholdersToEmpty = convertUnresolvablePlaceholdersToEmpty;
+		}
+
+		public boolean isSystemPropertiesWin() {
+			return systemPropertiesWin;
+		}
+
+		public void setSystemPropertiesWin(boolean systemPropertiesWin) {
+			this.systemPropertiesWin = systemPropertiesWin;
 		}
 	}
 
@@ -375,14 +441,22 @@ public class RicePropertiesLoader {
 		}
 	}
 
+	protected void handleSystemParams(Map<String, Param> params) {
+		Properties properties = convert(params);
+		List<Param> system = getSystemParams(params.values());
+		for (Param param : system) {
+			if (isOverrideSystemProperty(param)) {
+				overrideSystemProperty(param, params, properties);
+			}
+		}
+	}
+
 	protected boolean isOverrideSystemProperty(Param param) {
 
 		// If the system flag is not set on this param, always return false
 		if (!param.isSystem()) {
 			return false;
 		}
-
-		// If we get here, the system flag is set on this param
 
 		if (System.getProperty(param.getName()) == null) {
 			// There is no existing system property, always return true
@@ -391,16 +465,6 @@ public class RicePropertiesLoader {
 			// There is an existing system property
 			// Only override if the override flag is set
 			return param.isOverride();
-		}
-	}
-
-	protected void handleSystemParams(Map<String, Param> params) {
-		Properties properties = convert(params);
-		List<Param> system = getSystemParams(params.values());
-		for (Param param : system) {
-			if (isOverrideSystemProperty(param)) {
-				overrideSystemProperty(param, params, properties);
-			}
 		}
 	}
 
@@ -416,8 +480,10 @@ public class RicePropertiesLoader {
 
 	protected Param getOverrideParam(Param param, Properties properties) {
 		String originalValue = param.getValue();
-		String replacedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
-		String resolvedValue = replacePlaceholders(replacedValue, "");
+		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
+		if (convertUnresolvablePlaceholdersToEmpty) {
+			resolvedValue = replacePlaceholders(resolvedValue, "");
+		}
 		if (resolvedValue.equals(originalValue)) {
 			return param;
 		} else {
@@ -501,8 +567,20 @@ public class RicePropertiesLoader {
 		return obscurer;
 	}
 
-	public boolean isIgnoreUnresolvablePlaceholdersInConfigLocationValues() {
-		return ignoreUnresolvablePlaceholdersInConfigLocationValues;
+	public Randomizer getRandomizer() {
+		return randomizer;
+	}
+
+	public boolean isIgnoreUnresolvablePlaceholders() {
+		return ignoreUnresolvablePlaceholders;
+	}
+
+	public boolean isConvertUnresolvablePlaceholdersToEmpty() {
+		return convertUnresolvablePlaceholdersToEmpty;
+	}
+
+	public boolean isSystemPropertiesWin() {
+		return systemPropertiesWin;
 	}
 
 }
