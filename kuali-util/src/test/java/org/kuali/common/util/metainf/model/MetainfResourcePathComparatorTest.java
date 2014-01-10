@@ -36,6 +36,20 @@ public class MetainfResourcePathComparatorTest {
 	}
 
 	@Test
+	public void test2() {
+		String loc0 = "a.txt";
+		String loc1 = "/a/b.txt";
+
+		List<MetaInfResource> resources = Lists.newArrayList();
+		resources.add(new MetaInfResource(loc1));
+		resources.add(new MetaInfResource(loc0));
+
+		Collections.sort(resources, new MetaInfResourcePathComparator());
+		Assert.assertEquals(loc0, resources.get(0).getLocation());
+		Assert.assertEquals(loc1, resources.get(1).getLocation());
+	}
+
+	@Test
 	public void testEqualPaths() {
 		String loc0 = "foo.txt";
 		String loc1 = loc0;
