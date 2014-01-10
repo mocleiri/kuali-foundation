@@ -99,7 +99,9 @@ public class RicePropertiesLoader {
 		load(location, unmarshaller, 0, params, pattern);
 		if (systemPropertiesWin) {
 			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties(), true, true);
-			params.putAll(system);
+			for (Param param : system.values()) {
+				update(params, param, "");
+			}
 		}
 		handleRandomParams(params);
 		handleSystemParams(params, pattern);
@@ -520,12 +522,12 @@ public class RicePropertiesLoader {
 
 	protected List<Param> getSystemParams(Collection<Param> params) {
 		List<Param> list = Lists.newArrayList();
-		Collections.sort(list);
 		for (Param param : params) {
 			if (param.isSystem()) {
 				list.add(param);
 			}
 		}
+		Collections.sort(list);
 		return list;
 	}
 
