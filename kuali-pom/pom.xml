@@ -174,7 +174,7 @@
     <kuali.repo.snapshot.id>kuali.snapshot</kuali.repo.snapshot.id>
     <kuali.repo.snapshot.name>Kuali Snapshot Repository</kuali.repo.snapshot.name>
     <kuali.repo.snapshot.url>s3://maven.kuali.org/snapshot</kuali.repo.snapshot.url>
-    <kuali-cm.version>1.2.8</kuali-cm.version>
+    <kuali-cm.version>1.2.9</kuali-cm.version>
     <kuali-ec2.version>1.0.6</kuali-ec2.version>
     <!-- Properties for controlling repo settings -->
     <kuali.releases>true</kuali.releases>
