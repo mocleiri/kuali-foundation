@@ -80,7 +80,6 @@ public class RicePropertiesLoader {
 	private static final Logger logger = LoggerUtils.make();
 
 	private static final String PLACEHOLDER_REGEX = "\\$\\{([^{}]+)\\}";
-	private final Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
 
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
 	private final String magicNestedConfigKey;
@@ -106,7 +105,7 @@ public class RicePropertiesLoader {
 		return convert(params);
 	}
 
-	protected String convertUnresolvablePlaceholders(String value, String token) {
+	protected String convertUnresolvablePlaceholders(String value, String token, Pattern pattern) {
 		String result = value;
 		Matcher matcher = pattern.matcher(value);
 		while (matcher.find()) {
@@ -443,9 +442,10 @@ public class RicePropertiesLoader {
 	protected void handleSystemParams(Map<String, Param> params) {
 		Properties properties = convert(params);
 		List<Param> system = getSystemParams(params.values());
+		Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
 		for (Param param : system) {
 			if (isOverrideSystemProperty(param)) {
-				overrideSystemProperty(param, params, properties);
+				overrideSystemProperty(param, params, properties, pattern);
 			}
 		}
 	}
@@ -470,8 +470,8 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void overrideSystemProperty(Param param, Map<String, Param> params, Properties properties) {
-		Param override = getOverrideParam(param, properties);
+	protected void overrideSystemProperty(Param param, Map<String, Param> params, Properties properties, Pattern pattern) {
+		Param override = getOverrideParam(param, properties, pattern);
 		if (!override.getValue().equals(param.getValue())) {
 			params.put(override.getName(), override);
 			properties.setProperty(override.getName(), override.getValue());
@@ -480,11 +480,11 @@ public class RicePropertiesLoader {
 		setter.execute(override);
 	}
 
-	protected Param getOverrideParam(Param param, Properties properties) {
+	protected Param getOverrideParam(Param param, Properties properties, Pattern pattern) {
 		String originalValue = param.getValue();
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, "");
+			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, "", pattern);
 		}
 		if (resolvedValue.equals(originalValue)) {
 			return param;
