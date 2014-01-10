@@ -418,10 +418,10 @@ public class RicePropertiesLoader {
 		String originalValue = param.getValue();
 		String replacedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
 		String resolvedValue = replacePlaceholders(replacedValue, "");
-		if (!resolvedValue.equals(originalValue)) {
-			return Param.builder(param.getName(), resolvedValue).build();
-		} else {
+		if (resolvedValue.equals(originalValue)) {
 			return param;
+		} else {
+			return Param.builder(param.getName(), resolvedValue).build();
 		}
 	}
 
