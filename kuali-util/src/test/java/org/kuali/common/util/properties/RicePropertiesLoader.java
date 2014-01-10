@@ -477,7 +477,7 @@ public class RicePropertiesLoader {
 			properties.setProperty(override.getName(), override.getValue());
 		}
 		SystemPropertySetter setter = getSystemPropertySetter(override);
-		setter.set(override);
+		setter.execute(override);
 	}
 
 	protected Param getOverrideParam(Param param, Properties properties) {
@@ -516,7 +516,7 @@ public class RicePropertiesLoader {
 	}
 
 	private interface SystemPropertySetter {
-		void set(Param param);
+		void execute(Param param);
 	}
 
 	protected SystemPropertySetter getSystemPropertySetter(Param param) {
@@ -526,7 +526,7 @@ public class RicePropertiesLoader {
 		if (!system.isPresent()) {
 			return new SystemPropertySetter() {
 				@Override
-				public void set(Param param) {
+				public void execute(Param param) {
 					logger.info("~ add system property [%s]=[%s]", param.getName(), getLogValue(param));
 					System.setProperty(param.getName(), param.getValue());
 				}
@@ -537,7 +537,7 @@ public class RicePropertiesLoader {
 		if (system.isPresent() && !system.get().equals(param.getValue())) {
 			return new SystemPropertySetter() {
 				@Override
-				public void set(Param param) {
+				public void execute(Param param) {
 					logger.info("* override system property [%s]=[%s]", param.getName(), getLogValue(param));
 					System.setProperty(param.getName(), param.getValue());
 				}
@@ -547,7 +547,7 @@ public class RicePropertiesLoader {
 		// Noop - existing system property which is exactly the same as the parameter value
 		return new SystemPropertySetter() {
 			@Override
-			public void set(Param param) {
+			public void execute(Param param) {
 				// noop
 			}
 		};
