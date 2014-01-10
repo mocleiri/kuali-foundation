@@ -87,7 +87,7 @@ public class RicePropertiesLoader {
 	private final Obscurer obscurer;
 	private final Randomizer randomizer;
 	private final boolean systemPropertiesWin;
-	private final boolean ignoreUnresolvablePlaceholders;
+	private final boolean allowUnresolvablePlaceholders;
 	private final boolean convertUnresolvablePlaceholdersToEmpty;
 
 	public Properties load(String location) {
@@ -318,7 +318,7 @@ public class RicePropertiesLoader {
 		this.obscureTokens = builder.obscureTokens;
 		this.obscurer = builder.obscurer;
 		this.randomizer = builder.randomizer;
-		this.ignoreUnresolvablePlaceholders = builder.ignoreUnresolvablePlaceholders;
+		this.allowUnresolvablePlaceholders = builder.allowUnresolvablePlaceholders;
 		this.systemPropertiesWin = builder.systemPropertiesWin;
 		this.convertUnresolvablePlaceholdersToEmpty = builder.convertUnresolvablePlaceholdersToEmpty;
 	}
@@ -333,7 +333,7 @@ public class RicePropertiesLoader {
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
 		private Randomizer randomizer = Randomizer.builder().build();
-		private boolean ignoreUnresolvablePlaceholders = true;
+		private boolean allowUnresolvablePlaceholders = true;
 		private boolean systemPropertiesWin = false;
 		private boolean convertUnresolvablePlaceholdersToEmpty = true;
 
@@ -350,8 +350,8 @@ public class RicePropertiesLoader {
 			return this;
 		}
 
-		public Builder ignoreUnresolvablePlaceholders(boolean ignoreUnresolvablePlaceholders) {
-			this.ignoreUnresolvablePlaceholders = ignoreUnresolvablePlaceholders;
+		public Builder allowUnresolvablePlaceholders(boolean allowUnresolvablePlaceholders) {
+			this.allowUnresolvablePlaceholders = allowUnresolvablePlaceholders;
 			return this;
 		}
 
@@ -371,7 +371,7 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
-			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", ignoreUnresolvablePlaceholders);
+			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", !allowUnresolvablePlaceholders);
 			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
@@ -418,14 +418,6 @@ public class RicePropertiesLoader {
 			this.randomizer = randomizer;
 		}
 
-		public boolean isIgnoreUnresolvablePlaceholders() {
-			return ignoreUnresolvablePlaceholders;
-		}
-
-		public void setIgnoreUnresolvablePlaceholders(boolean ignoreUnresolvablePlaceholders) {
-			this.ignoreUnresolvablePlaceholders = ignoreUnresolvablePlaceholders;
-		}
-
 		public boolean isConvertUnresolvablePlaceholdersToEmpty() {
 			return convertUnresolvablePlaceholdersToEmpty;
 		}
@@ -440,6 +432,14 @@ public class RicePropertiesLoader {
 
 		public void setSystemPropertiesWin(boolean systemPropertiesWin) {
 			this.systemPropertiesWin = systemPropertiesWin;
+		}
+
+		public boolean isAllowUnresolvablePlaceholders() {
+			return allowUnresolvablePlaceholders;
+		}
+
+		public void setAllowUnresolvablePlaceholders(boolean allowUnresolvablePlaceholders) {
+			this.allowUnresolvablePlaceholders = allowUnresolvablePlaceholders;
 		}
 	}
 
@@ -587,16 +587,16 @@ public class RicePropertiesLoader {
 		return randomizer;
 	}
 
-	public boolean isIgnoreUnresolvablePlaceholders() {
-		return ignoreUnresolvablePlaceholders;
-	}
-
 	public boolean isConvertUnresolvablePlaceholdersToEmpty() {
 		return convertUnresolvablePlaceholdersToEmpty;
 	}
 
 	public boolean isSystemPropertiesWin() {
 		return systemPropertiesWin;
+	}
+
+	public boolean isAllowUnresolvablePlaceholders() {
+		return allowUnresolvablePlaceholders;
 	}
 
 }
