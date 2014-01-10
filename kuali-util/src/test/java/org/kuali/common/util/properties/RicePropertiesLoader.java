@@ -20,10 +20,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.SortedSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -51,6 +55,7 @@ import org.xml.sax.XMLReader;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -74,12 +79,16 @@ public class RicePropertiesLoader {
 
 	private static final Logger logger = LoggerUtils.make();
 
+	private static final String PLACEHOLDER_REGEX = "\\$\\{([^{}]+)\\}";
+	private final Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
+
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
 	private final String magicNestedConfigKey;
 	private final List<String> obscureTokens;
 	private final Obscurer obscurer;
 	private final boolean ignoreUnresolvablePlaceholdersInConfigLocationValues;
 	private final Randomizer randomizer;
+	private final boolean ignoreSystemProperties = true;
 
 	public Properties load(String location) {
 		checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
@@ -87,9 +96,26 @@ public class RicePropertiesLoader {
 		Unmarshaller unmarshaller = getUnmarshaller();
 		Map<String, Param> params = Maps.newHashMap();
 		load(location, unmarshaller, 0, params);
-		randomize(params);
+		if (!ignoreSystemProperties) {
+			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties());
+			params.putAll(system);
+		}
+		handleRandomParams(params);
 		Properties properties = convert(params);
 		return properties;
+	}
+
+	protected String replacePlaceholders(String value, String token) {
+		String result = value;
+		Matcher matcher = pattern.matcher(value);
+		while (matcher.find()) {
+			// get the first, outermost ${} in the string. removes the ${} as well.
+			String key = matcher.group(1);
+			logger.info("[%s] is is unresolvable.  Setting to [%s]", key, token);
+			result = matcher.replaceFirst(Matcher.quoteReplacement(token));
+			matcher = matcher.reset(result);
+		}
+		return result;
 	}
 
 	protected void load(String location, Unmarshaller unmarshaller, int depth, Map<String, Param> params) {
@@ -153,7 +179,7 @@ public class RicePropertiesLoader {
 		logger.info("{}+ loading - [{}]", prefix, location);
 		Properties loaded = new Properties();
 		loaded.load(in);
-		Map<String, Param> newMap = getParamMap(loaded);
+		Map<String, Param> newMap = convert(loaded);
 		for (Param p : newMap.values()) {
 			update(params, p, prefix);
 		}
@@ -241,24 +267,28 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected Map<String, Param> getParamMap(Properties properties) {
+	protected boolean isPropertiesFile(String location) {
+		String lower = StringUtils.lowerCase(location);
+		return StringUtils.endsWith(lower, ".properties");
+	}
+
+	protected Map<String, Param> convert(Properties properties) {
+		// "override" defaults to true here because that is by far the most "normal" and widely accepted behavior
+		// Both Spring and Maven adhere to the "last one in wins" strategy, so we follow that here
+		// Normal .properties files don't have a way to toggle an "override" attribute at the individual property level (nor should they)
+		// Thus, the default value of "true"
+		return convert(properties, true, false);
+	}
+
+	protected Map<String, Param> convert(Properties properties, boolean override, boolean system) {
 		Map<String, Param> params = Maps.newHashMap();
 		SortedSet<String> keys = Sets.newTreeSet(properties.stringPropertyNames());
 		for (String key : keys) {
 			String value = properties.getProperty(key);
-			// "override" defaults to true here because that is by far the most "normal" and widely accepted behavior
-			// Both Spring and Maven adhere to the "last one in wins" strategy, so we follow that here
-			// Normal .properties files don't have a way to toggle an "override" attribute at the individual property level (nor should they)
-			// Thus, the default value of "true"
-			Param param = Param.builder(key, value).override(true).build();
+			Param param = Param.builder(key, value).override(override).system(system).build();
 			params.put(param.getName(), param);
 		}
 		return params;
-	}
-
-	protected boolean isPropertiesFile(String location) {
-		String lower = StringUtils.lowerCase(location);
-		return StringUtils.endsWith(lower, ".properties");
 	}
 
 	protected Properties convert(Map<String, Param> params) {
@@ -329,23 +359,130 @@ public class RicePropertiesLoader {
 			checkNotNull(instance.propertyPlaceholderHelper, "propertyPlaceholderHelper cannot be null");
 			checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
 			checkNotNull(instance.obscurer, "obscurer cannot be null");
-			checkNotNull(instance.randomizer, "obscurer cannot be null");
+			checkNotNull(instance.randomizer, "randomizer cannot be null");
 			checkArgument(!StringUtils.isBlank(instance.magicNestedConfigKey), "magicNestedConfigKey cannot be blank");
 		}
 	}
 
-	protected void randomize(Map<String, Param> params) {
-		SortedSet<String> keys = Sets.newTreeSet(params.keySet());
-		for (String key : keys) {
-			Param param = params.get(key);
-			if (param.isRandom()) {
-				String rangeSpec = param.getValue();
-				int random = randomizer.getInteger(rangeSpec);
-				String value = Integer.toString(random);
-				Param newParam = Param.builder(param.getName(), value).build();
-				params.put(key, newParam);
+	protected void handleRandomParams(Map<String, Param> params) {
+		List<Param> randoms = getRandomParams(params.values());
+		for (Param param : randoms) {
+			String rangeSpec = param.getValue();
+			int random = randomizer.getInteger(rangeSpec);
+			String value = Integer.toString(random);
+			Param newParam = Param.builder(param.getName(), value).build();
+			params.put(newParam.getName(), newParam);
+		}
+	}
+
+	protected boolean isOverrideSystemProperty(Param param) {
+
+		// If the system flag is not set on this param, always return false
+		if (!param.isSystem()) {
+			return false;
+		}
+
+		// If we get here, the system flag is set on this param
+
+		if (System.getProperty(param.getName()) == null) {
+			// There is no existing system property, always return true
+			return true;
+		} else {
+			// There is an existing system property
+			// Only override if the override flag is set
+			return param.isOverride();
+		}
+	}
+
+	protected void handleSystemParams(Map<String, Param> params) {
+		Properties properties = convert(params);
+		List<Param> system = getSystemParams(params.values());
+		for (Param param : system) {
+			if (isOverrideSystemProperty(param)) {
+				overrideSystemProperty(param, params, properties);
 			}
 		}
+	}
+
+	protected void overrideSystemProperty(Param param, Map<String, Param> params, Properties properties) {
+		Param override = getOverrideParam(param, properties);
+		if (!override.getValue().equals(param.getValue())) {
+			params.put(override.getName(), override);
+			properties.setProperty(override.getName(), override.getValue());
+		}
+		SystemPropertySetter setter = getSystemPropertySetter(override);
+		setter.set(override);
+	}
+
+	protected Param getOverrideParam(Param param, Properties properties) {
+		String originalValue = param.getValue();
+		String replacedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
+		String resolvedValue = replacePlaceholders(replacedValue, "");
+		if (!resolvedValue.equals(originalValue)) {
+			return Param.builder(param.getName(), resolvedValue).build();
+		} else {
+			return param;
+		}
+	}
+
+	protected List<Param> getRandomParams(Collection<Param> params) {
+		List<Param> list = Lists.newArrayList(params);
+		Collections.sort(list);
+		for (Param param : params) {
+			if (param.isRandom()) {
+				list.add(param);
+			}
+		}
+		return list;
+	}
+
+	protected List<Param> getSystemParams(Collection<Param> params) {
+		List<Param> list = Lists.newArrayList(params);
+		Collections.sort(list);
+		for (Param param : params) {
+			if (param.isSystem()) {
+				list.add(param);
+			}
+		}
+		return list;
+	}
+
+	private interface SystemPropertySetter {
+		void set(Param param);
+	}
+
+	protected SystemPropertySetter getSystemPropertySetter(Param param) {
+		Optional<String> system = Optional.fromNullable(System.getProperty(param.getName()));
+
+		// Add - there is no existing system property
+		if (!system.isPresent()) {
+			return new SystemPropertySetter() {
+				@Override
+				public void set(Param param) {
+					logger.info("~ add system property [%s]=[%s]", param.getName(), getLogValue(param));
+					System.setProperty(param.getName(), param.getValue());
+				}
+			};
+		}
+
+		// Override - existing system property which is different from the parameter value
+		if (system.isPresent() && !system.get().equals(param.getValue())) {
+			return new SystemPropertySetter() {
+				@Override
+				public void set(Param param) {
+					logger.info("* override system property [%s]=[%s]", param.getName(), getLogValue(param));
+					System.setProperty(param.getName(), param.getValue());
+				}
+			};
+		}
+
+		// Noop - existing system property which is exactly the same as the parameter value
+		return new SystemPropertySetter() {
+			@Override
+			public void set(Param param) {
+				// noop
+			}
+		};
 	}
 
 	public PropertyPlaceholderHelper getPropertyPlaceholderHelper() {
