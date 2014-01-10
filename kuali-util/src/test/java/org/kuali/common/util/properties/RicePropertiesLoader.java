@@ -106,7 +106,7 @@ public class RicePropertiesLoader {
 		return convert(params);
 	}
 
-	protected String convertUnresolvablePlaceholders(String value, Pattern pattern) {
+	protected String convertUnresolvablePlaceholdersToEmpty(String value, Pattern pattern) {
 		String result = value;
 		Matcher matcher = pattern.matcher(value);
 		while (matcher.find()) {
@@ -307,7 +307,7 @@ public class RicePropertiesLoader {
 		Properties global = PropertyUtils.getGlobalProperties(properties);
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(value, global);
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, pattern);
+			resolvedValue = convertUnresolvablePlaceholdersToEmpty(resolvedValue, pattern);
 		}
 		return resolvedValue;
 	}
@@ -498,7 +498,7 @@ public class RicePropertiesLoader {
 		String originalValue = param.getValue();
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = convertUnresolvablePlaceholders(resolvedValue, pattern);
+			resolvedValue = convertUnresolvablePlaceholdersToEmpty(resolvedValue, pattern);
 		}
 		if (resolvedValue.equals(originalValue)) {
 			return param;
