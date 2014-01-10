@@ -10,10 +10,10 @@ public class RicePropertiesLoaderTest {
 	@Test
 	public void test() {
 		try {
-			System.setProperty("alt.config.location", "NONE");
 			System.setProperty("milk.price", "4.44");
+			System.setProperty("foo", "${bar}");
 			String location = "classpath:org/kuali/common/kuali-util/properties/breakfast.xml";
-			RicePropertiesLoader loader = RicePropertiesLoader.builder().systemPropertiesWin(true).allowUnresolvablePlaceholders(false).build();
+			RicePropertiesLoader loader = RicePropertiesLoader.builder().systemPropertiesWin(true).allowUnresolvablePlaceholders(true).build();
 			Properties properties = loader.load(location);
 			PropertyUtils.info(properties);
 		} catch (Exception e) {

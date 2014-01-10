@@ -98,7 +98,7 @@ public class RicePropertiesLoader {
 		Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
 		load(location, unmarshaller, 0, params, pattern);
 		if (systemPropertiesWin) {
-			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties(), true, true);
+			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties(), true, false);
 			for (Param param : system.values()) {
 				update(params, param, "");
 			}
@@ -540,7 +540,7 @@ public class RicePropertiesLoader {
 			return new SystemPropertySetter() {
 				@Override
 				public void execute(Param param) {
-					logger.info("~ add system property [%s]=[%s]", param.getName(), getLogValue(param));
+					logger.info("~ add system property [{}]=[{}]", param.getName(), getLogValue(param));
 					System.setProperty(param.getName(), param.getValue());
 				}
 			};
@@ -551,7 +551,7 @@ public class RicePropertiesLoader {
 			return new SystemPropertySetter() {
 				@Override
 				public void execute(Param param) {
-					logger.info("* override system property [%s]=[%s]", param.getName(), getLogValue(param));
+					logger.info("* override system property [{}]=[{}]", param.getName(), getLogValue(param));
 					System.setProperty(param.getName(), param.getValue());
 				}
 			};
