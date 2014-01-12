@@ -331,7 +331,7 @@ public class RicePropertiesLoader {
 		private String chainedConfigLocationKey = "config.location";
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
-		private Randomizer randomizer = Randomizer.builder().build();
+		private Randomizer randomizer = DefaultRandomizer.builder().build();
 		private boolean allowUnresolvablePlaceholders = true;
 		private boolean systemPropertiesWin = false;
 		private boolean convertUnresolvablePlaceholdersToEmpty = true;
@@ -364,7 +364,7 @@ public class RicePropertiesLoader {
 			return this;
 		}
 
-		public Builder randomizer(Randomizer randomizer) {
+		public Builder randomizer(DefaultRandomizer randomizer) {
 			this.randomizer = randomizer;
 			return this;
 		}
@@ -413,7 +413,7 @@ public class RicePropertiesLoader {
 			return randomizer;
 		}
 
-		public void setRandomizer(Randomizer randomizer) {
+		public void setRandomizer(DefaultRandomizer randomizer) {
 			this.randomizer = randomizer;
 		}
 
