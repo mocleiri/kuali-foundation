@@ -11,12 +11,12 @@ public enum ValidationFramework {
 	COMMONS_LANG3("org.apache.commons.lang3.Validate", "Validate.notNull", "Validate.isTrue"), //
 	COMMONS_LANG2("org.apache.commons.lang.Validate", COMMONS_LANG3.checkNotNull, COMMONS_LANG3.checkArgument);
 
-	private static final String checkNotNullTemplateEnding = "%s, \"'%s' cannot be null\");";
+	private static final String checkNotNullTemplateEnding = "(%s, \"'%s' cannot be null\");";
 
-	private static final String checkBlankStringTemplateEnding = "!StringUtils.isBlank(%s), \"'%s' cannot be blank\");";
+	private static final String checkBlankStringTemplateEnding = "(!StringUtils.isBlank(%s), \"'%s' cannot be blank\");";
 
 	// private static final String checkNotDefaultTemplateEnding = "(%1$s > %2$s, \"%1$s must be set\");";
-	private static final String checkNotDefaultCharEnding = "%s != 0, \"'%s' cannot be the null character\");";
+	private static final String checkNotDefaultCharEnding = "(%s != 0, \"'%s' cannot be the null character\");";
 
 	// private static final String checkNotEmptyCollectionTemplateEnding = "(!%1$s.isEmpty(), \"%1$s cannot be empty\");";
 
