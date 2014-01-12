@@ -42,6 +42,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.LocationUtils;
 import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
+import org.kuali.common.util.execute.Executable;
+import org.kuali.common.util.execute.impl.NoOpExecutable;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
@@ -489,8 +491,8 @@ public class RicePropertiesLoader {
 			params.put(resolved.getName(), resolved);
 			properties.setProperty(resolved.getName(), resolved.getValue());
 		}
-		SystemPropertySetter setter = getSystemPropertySetter(resolved);
-		setter.execute(resolved);
+		Executable systemPropertySetter = getSystemPropertySetter(resolved);
+		systemPropertySetter.execute();
 	}
 
 	protected Param getResolvedParam(String prefix, Param param, Properties properties, Pattern pattern) {
@@ -528,18 +530,14 @@ public class RicePropertiesLoader {
 		return list;
 	}
 
-	private interface SystemPropertySetter {
-		void execute(Param param);
-	}
-
-	protected SystemPropertySetter getSystemPropertySetter(Param param) {
+	protected Executable getSystemPropertySetter(final Param param) {
 		Optional<String> system = Optional.fromNullable(System.getProperty(param.getName()));
 
 		// Add - there is no existing system property
 		if (!system.isPresent()) {
-			return new SystemPropertySetter() {
+			return new Executable() {
 				@Override
-				public void execute(Param param) {
+				public void execute() {
 					logger.info("~ add system property [{}]=[{}]", param.getName(), getLogValue(param));
 					System.setProperty(param.getName(), param.getValue());
 				}
@@ -548,9 +546,9 @@ public class RicePropertiesLoader {
 
 		// Override - existing system property which is different from the parameter value
 		if (system.isPresent() && !system.get().equals(param.getValue())) {
-			return new SystemPropertySetter() {
+			return new Executable() {
 				@Override
-				public void execute(Param param) {
+				public void execute() {
 					logger.info("* override system property [{}]=[{}]", param.getName(), getLogValue(param));
 					System.setProperty(param.getName(), param.getValue());
 				}
@@ -558,12 +556,7 @@ public class RicePropertiesLoader {
 		}
 
 		// Noop - existing system property which is exactly the same as the parameter value
-		return new SystemPropertySetter() {
-			@Override
-			public void execute(Param param) {
-				// noop
-			}
-		};
+		return NoOpExecutable.INSTANCE;
 	}
 
 	public PropertyPlaceholderHelper getPropertyPlaceholderHelper() {
