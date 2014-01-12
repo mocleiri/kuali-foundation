@@ -179,11 +179,10 @@ public class RicePropertiesLoader {
 			String originalLocation = p.getValue();
 			String resolvedLocation = getResolvedValue(prefix, originalLocation, params, pattern);
 			load(resolvedLocation, unmarshaller, depth + 1, params, pattern);
-			return;
+		} else {
+			// Update the map of parameter objects with this parameter
+			update(params, p, prefix);
 		}
-
-		// Update the map of parameter objects with this parameter
-		update(params, p, prefix);
 
 	}
 
