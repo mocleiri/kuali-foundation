@@ -50,7 +50,9 @@ public enum ValidationFramework {
 		Validate.notNull(field, "field may not be null");
 		String signature = field.getSignature();
 		String fieldName = field.getName();
-		if (signature.equals("byte")) {
+		if (signature.equals("boolean")) {
+			return "";
+		} else if (signature.equals("byte")) {
 			return String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "0");
 		} else if (signature.equals("char")) {
 			return String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "'\u0000'");
