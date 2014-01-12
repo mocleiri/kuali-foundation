@@ -201,14 +201,15 @@ public class RicePropertiesLoader {
 		String oldLogValue = getLogValue(oldParam.get());
 
 		// There is a new value for this property and it's different than the old value
-		Object[] args = { prefix, p.getName(), oldLogValue, newLogValue };
 		if (p.isOverride()) {
 			// Change it, and log the fact that we are changing it
+			Object[] args = { prefix, p.getName(), oldLogValue, newLogValue };
 			logger.info("{}* override - [{}]=[{}] -> [{}]", args);
 			params.put(p.getName(), p);
 		} else {
 			// Ignore it, and log the fact that we are ignoring it
-			logger.info("{}~ ignore - [{}]=[{}] -> ignoring [{}]", args);
+			Object[] args = { prefix, p.getName(), newLogValue };
+			logger.info("{}~ ignore - [{}]=[{}]", args);
 		}
 	}
 
