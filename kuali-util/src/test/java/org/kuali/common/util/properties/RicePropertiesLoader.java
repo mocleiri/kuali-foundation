@@ -297,8 +297,8 @@ public class RicePropertiesLoader {
 
 		private String chainedConfigLocationKey = "config.location";
 		private Obscurer obscurer = new DefaultObscurer();
-		private Randomizer randomizer = DefaultRandomizer.builder().build();
-		private PropertyPlaceholderHelper propertyPlaceholderHelper = RicePropertyPlaceholderHelper.builder().build();
+		private Randomizer randomizer = DefaultRandomizer.create();
+		private PropertyPlaceholderHelper propertyPlaceholderHelper = RicePropertyPlaceholderHelper.create();
 		private boolean systemPropertiesWin = false;
 		private List<String> obscureTokens = ImmutableList.of("private", "password", "secret", "encryption.key");
 

@@ -45,6 +45,10 @@ public final class DefaultRandomizer implements Randomizer {
 		}
 	}
 
+	public static DefaultRandomizer create() {
+		return builder().build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}

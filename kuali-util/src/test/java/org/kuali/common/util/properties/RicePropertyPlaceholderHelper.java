@@ -30,6 +30,10 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		this.pattern = builder.pattern;
 	}
 
+	public static RicePropertyPlaceholderHelper create() {
+		return builder().build();
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
