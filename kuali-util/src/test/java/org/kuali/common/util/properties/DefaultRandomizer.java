@@ -28,7 +28,7 @@ public final class DefaultRandomizer implements Randomizer {
 			// If this happens, IllegalArgumentException should be thrown.
 			// This code is copied from JAXBConfigImpl which just silently switches them
 			// We do the same thing here to preserve backwards compatibility
-			logger.warn("%s is greater than %s!!!  Switching 'from' and 'to' values so random number generation will function correctly", from, to);
+			logger.warn(String.format("%s is greater than %s!!!  Switching 'from' and 'to' values so random number generation will function correctly", from, to));
 			int tmp = from;
 			from = to;
 			to = tmp;
@@ -38,7 +38,7 @@ public final class DefaultRandomizer implements Randomizer {
 			// This code is copied from JAXBConfigImpl which just silently ignores it
 			// We do the same thing here to preserve backwards compatibility
 			// Not very random
-			logger.warn("Specified random range is %s-%s!!!  The 'random' number will always be %s", from, to, from);
+			logger.warn(String.format("Specified random range is %s-%s!!!  The 'random' number will always be %s", from, to, from));
 			return from;
 		} else {
 			return from + random.nextInt((to - from) + 1);
