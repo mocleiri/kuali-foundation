@@ -1,5 +1,8 @@
 package org.kuali.common.util.properties;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,8 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
-
-import com.google.common.base.Preconditions;
 
 public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelper {
 
@@ -80,8 +81,8 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		}
 
 		private static void validate(RicePropertyPlaceholderHelper instance) {
-			Preconditions.checkArgument(!StringUtils.isBlank(instance.placeholderRegex), "'placeholderRegex' cannot be blank");
-			Preconditions.checkNotNull(instance.pattern, "'pattern' cannot be null");
+			checkArgument(!StringUtils.isBlank(instance.placeholderRegex), "'placeholderRegex' cannot be blank");
+			checkNotNull(instance.pattern, "'pattern' cannot be null");
 		}
 
 		public boolean isAllowUnresolvablePlaceholders() {
