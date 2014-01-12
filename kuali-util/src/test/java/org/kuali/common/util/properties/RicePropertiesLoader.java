@@ -138,7 +138,7 @@ public class RicePropertiesLoader {
 		final String prefix = StringUtils.repeat(" ", depth);
 
 		// If the location does not exist, we are done
-		if (StringUtils.isBlank(location) || !LocationUtils.exists(location)) {
+		if (location.equals("") || !LocationUtils.exists(location)) {
 			logger.info("{}# skip non-existent location [{}]", prefix, location);
 			return;
 		}
