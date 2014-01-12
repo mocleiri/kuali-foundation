@@ -396,8 +396,8 @@ public class RicePropertiesLoader {
 			return chainedConfigLocationKey;
 		}
 
-		public void setChainedConfigLocationKey(String magicNestedConfigKey) {
-			this.chainedConfigLocationKey = magicNestedConfigKey;
+		public void setChainedConfigLocationKey(String chainedConfigLocationKey) {
+			this.chainedConfigLocationKey = chainedConfigLocationKey;
 		}
 
 		public List<String> getObscureTokens() {
