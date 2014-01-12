@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
@@ -31,7 +33,10 @@ public class HelloWorldTest {
 			for (HelloWorldService service : services) {
 				service.sayHello();
 			}
-			Validation.buildDefaultValidatorFactory();
+			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+			Validator validator = factory.getValidator();
+			logger.info(String.format("factory=%s", factory.getClass().getCanonicalName()));
+			logger.info(String.format("validator=%s", validator.getClass().getCanonicalName()));
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
