@@ -8,9 +8,7 @@
     <groupId>org.eclipselabs</groupId>
     <version>1.0.6-SNAPSHOT</version>
   </parent>
-  <groupId>org.eclipselabs</groupId>
   <artifactId>BobTheBuilder-plugin-test</artifactId>
-  <version>1.0.6-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>

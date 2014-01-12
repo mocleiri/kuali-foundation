@@ -7,7 +7,6 @@
     <groupId>org.eclipselabs</groupId>
     <version>1.0.6-SNAPSHOT</version>
   </parent>
-  <groupId>org.eclipselabs</groupId>
   <artifactId>BobTheBuilder</artifactId>
   <version>1.0.6.snapshot</version>
   <packaging>eclipse-plugin</packaging>
