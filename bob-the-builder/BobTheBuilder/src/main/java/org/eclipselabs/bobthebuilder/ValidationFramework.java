@@ -80,7 +80,7 @@ public enum ValidationFramework {
 		if (doNotValidate(field)) {
 			return "";
 		} else if (signature.equals("byte")) {
-			return ""; // String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "0");
+			return String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "0");
 		} else if (signature.equals("char")) {
 			return String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "'\u0000'");
 		} else if (signature.equals("double")) {
