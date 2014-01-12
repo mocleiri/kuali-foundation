@@ -36,7 +36,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 
 	private static final Logger logger = LoggerUtils.make();
 
-	private final List<Executable> executables;
+	private final ImmutableList<Executable> executables;
 	private final boolean skip;
 	private final boolean timed;
 
@@ -83,7 +83,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 	}
 
 	private ConcurrentExecutables(Builder builder) {
-		this.executables = builder.executables;
+		this.executables = ImmutableList.copyOf(builder.executables);
 		this.skip = builder.skip;
 		this.timed = builder.timed;
 	}
@@ -130,7 +130,7 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 		}
 	}
 
-	public List<Executable> getExecutables() {
+	public ImmutableList<Executable> getExecutables() {
 		return executables;
 	}
 
