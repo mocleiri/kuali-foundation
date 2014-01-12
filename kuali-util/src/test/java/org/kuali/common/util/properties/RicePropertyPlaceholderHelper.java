@@ -18,7 +18,6 @@ import com.google.common.collect.Sets;
 public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelper {
 
 	private static final Logger logger = LoggerUtils.make();
-	private static final String EMPTY_STRING = "";
 
 	private final boolean convertUnresolvablePlaceholdersToEmpty;
 	private final String placeholderRegex;
@@ -188,7 +187,7 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 
 	protected String convert(String string) {
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			ConversionResult result = convert(string, EMPTY_STRING);
+			ConversionResult result = convert(string, "");
 			for (String key : result.getKeys()) {
 				logger.info("? unknown - [{}] - converted to \"\"", key);
 			}
