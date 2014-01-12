@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.eclipselabs</groupId>
     <artifactId>BobTheBuilder-project</artifactId>
+    <groupId>org.eclipselabs</groupId>
     <version>1.0.6-SNAPSHOT</version>
   </parent>
+  <groupId>org.eclipselabs</groupId>
   <artifactId>BobTheBuilder-plugin-test</artifactId>
+  <version>1.0.6-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>
@@ -24,26 +28,26 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.eclipselabs</groupId>
       <artifactId>BobTheBuilder</artifactId>
-      <version>${project.version}</version>
+      <version>1.0.6.snapshot</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
       <version>1.9.0-rc1</version>
-      <scope>test</scope>
+      <scope>test</scope>  
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>1.9.0-rc1</version>
-      <scope>test</scope>
+      <artifactId>mockito-core</artifactId>  
+      <version>1.9.0-rc1</version> 
+      <scope>test</scope> 
     </dependency>
     <dependency>
       <groupId>org.eclipse.tycho</groupId>
       <artifactId>org.eclipse.jdt.core</artifactId>
-      <version>3.8.0.v_C03</version>
+      <version>3.8.0.v_C03</version> 
       <scope>test</scope>
     </dependency>
     <dependency>
