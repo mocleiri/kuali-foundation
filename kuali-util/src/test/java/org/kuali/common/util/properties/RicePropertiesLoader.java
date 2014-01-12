@@ -371,7 +371,7 @@ public class RicePropertiesLoader {
 			return this;
 		}
 
-		public Builder randomizer(DefaultRandomizer randomizer) {
+		public Builder randomizer(Randomizer randomizer) {
 			this.randomizer = randomizer;
 			return this;
 		}
