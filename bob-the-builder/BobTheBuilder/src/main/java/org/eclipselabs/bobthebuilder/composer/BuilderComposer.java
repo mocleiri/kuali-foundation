@@ -43,7 +43,8 @@ public class BuilderComposer {
 	}
 
 	public String composeWithMethodFirstLine(Field field) {
-		return composeWithMethodSignature(WITH + StringUtils.capitalize(field.getName()), field.getSignature(), field.getName());
+		return composeWithMethodSignature(field.getName(), field.getSignature(), field.getName());
+		// return composeWithMethodSignature(WITH + StringUtils.capitalize(field.getName()), field.getSignature(), field.getName());
 	}
 
 	public String composeValidateMethodFromScratch(Set<Field> missingFields, ValidationFramework validationFramework) {
