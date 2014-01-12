@@ -96,7 +96,8 @@ public enum ValidationFramework {
 		} else if (signature.contains("String") || signature.contains("java.lang.String")) {
 			return String.format(checkArgument + checkBlankStringTemplateEnding, fieldName);
 		} else if (signature.contains("Map") || signature.contains("Set") || signature.contains("List")) {
-			return String.format(checkNotNull + checkNotNullTemplateEnding, fieldName) + " " + String.format(checkArgument + checkNotEmptyCollectionTemplateEnding, fieldName);
+			return ""; // String.format(checkNotNull + checkNotNullTemplateEnding, fieldName) + " " + String.format(checkArgument + checkNotEmptyCollectionTemplateEnding,
+						// fieldName);
 		} else {
 			return String.format(checkNotNull + checkNotNullTemplateEnding, fieldName);
 		}
