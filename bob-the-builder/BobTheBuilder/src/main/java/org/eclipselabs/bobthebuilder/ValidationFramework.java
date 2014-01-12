@@ -46,14 +46,41 @@ public enum ValidationFramework {
 		return StringUtils.lowerCase(this.name()).replace('_', ' ');
 	}
 
+	protected boolean doNotValidate(Field field) {
+		String signature = field.getSignature();
+		if (signature.equals("boolean")) {
+			return true;
+		}
+		if (signature.equals("byte")) {
+			return true;
+		}
+		if (signature.equals("double")) {
+			return true;
+		}
+		if (signature.equals("float")) {
+			return true;
+		}
+		if (signature.equals("long")) {
+			return true;
+		}
+		if (signature.equals("int")) {
+			return true;
+		}
+		if (signature.equals("short")) {
+			return true;
+		}
+		return false;
+	}
+
 	public String composeFieldValidation(Field field) {
 		Validate.notNull(field, "field may not be null");
 		String signature = field.getSignature();
 		String fieldName = field.getName();
-		if (signature.equals("boolean")) {
+		// Don't add a validation line for most primitive types (boolean, byte, double, short, long, float, int
+		if (doNotValidate(field)) {
 			return "";
 		} else if (signature.equals("byte")) {
-			return String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "0");
+			return ""; // String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "0");
 		} else if (signature.equals("char")) {
 			return String.format(checkArgument + checkNotDefaultTemplateEnding, fieldName, "'\u0000'");
 		} else if (signature.equals("double")) {
