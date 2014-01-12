@@ -19,10 +19,10 @@ public class SetSystemPropertyExecutable implements Executable {
 
 	private static final Logger logger = LoggerUtils.make();
 
+	private final boolean skip;
+	private final Optional<LoggerContext> context;
 	private final String key;
 	private final String value;
-	private final Optional<LoggerContext> context;
-	private final boolean skip;
 
 	@Override
 	public void execute() {
