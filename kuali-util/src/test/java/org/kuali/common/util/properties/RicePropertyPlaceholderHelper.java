@@ -137,13 +137,13 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		return convertUnresolvablePlaceholdersToEmpty;
 	}
 
-	protected ConversionResult convertToEmpty(String value) {
+	protected Conversion convertToEmpty(String value) {
 		return convert(value, "");
 	}
 
-	public static class ConversionResult {
+	public static class Conversion {
 
-		public ConversionResult(String original, String converted, Set<String> keys) {
+		public Conversion(String original, String converted, Set<String> keys) {
 			checkNotNull(original, "original cannot be null");
 			checkNotNull(converted, "converted cannot be null");
 			checkNotNull(keys, "keys cannot be null");
@@ -169,7 +169,7 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		}
 	}
 
-	protected ConversionResult convert(String value, String token) {
+	protected Conversion convert(String value, String token) {
 		String result = value;
 		Matcher matcher = pattern.matcher(value);
 		Set<String> keys = Sets.newTreeSet();
@@ -186,12 +186,12 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		}
 
 		// All placeholders have been replaced with the empty string at this point
-		return new ConversionResult(value, result, keys);
+		return new Conversion(value, result, keys);
 	}
 
 	protected String convert(String string) {
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			ConversionResult result = convert(string, "");
+			Conversion result = convert(string, "");
 			for (String key : result.getKeys()) {
 				logger.info("? unknown - [{}] - converted to \"\"", key);
 			}
