@@ -496,8 +496,7 @@ public class RicePropertiesLoader {
 			params.put(resolved.getName(), resolved);
 			properties.setProperty(resolved.getName(), resolved.getValue());
 		}
-		Executable systemPropertySetter = getSystemPropertySetter(resolved);
-		systemPropertySetter.execute();
+		getSystemPropertySetter(resolved).execute();
 	}
 
 	protected Param getResolvedParam(String prefix, Param param, Properties properties, Pattern pattern) {
