@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='BobTheBuilder' version='1.0.6.snapshot'>
+    <update id='BobTheBuilder' range='[0.0.0,1.0.6.snapshot)' severity='0'/>
+    <properties size='5'>
+      <property name='org.eclipse.equinox.p2.name' value='The Effective (Bob The) Builder'/>
+      <property name='org.eclipse.equinox.p2.provider' value='nicolas dawt capdevila at gmail dawt com'/>
+      <property name='maven-groupId' value='org.eclipselabs'/>
+      <property name='maven-artifactId' value='BobTheBuilder'/>
+      <property name='maven-version' value='1.0.6.snapshot'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='BobTheBuilder' version='1.0.6.snapshot'/>
+      <provided namespace='osgi.bundle' name='BobTheBuilder' version='1.0.6.snapshot'/>
+      <provided namespace='java.package' name='org.eclipselabs.bobthebuilder' version='0.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='8'>
+      <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.jdt.ui' range='3.6.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.jdt.core' range='3.6.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='3.6.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='3.6.0'/>
+      <required namespace='osgi.bundle' name='org.junit' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.text' range='3.5.0'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='BobTheBuilder' version='1.0.6.snapshot'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: BobTheBuilder;singleton:=true&#xA;Bundle-Version: 1.0.6.snapshot&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

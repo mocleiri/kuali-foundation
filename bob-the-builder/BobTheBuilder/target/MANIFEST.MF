@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Export-Package: org.eclipselabs.bobthebuilder
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.jd
+ t.ui;bundle-version="3.6.0",org.eclipse.jdt.core;bundle-version="3.6.
+ 0",org.eclipse.ui.ide;bundle-version="3.6.0",org.eclipse.core.resourc
+ es;bundle-version="3.6.0",org.junit,org.eclipse.text;bundle-version="
+ 3.5.0"
+Bundle-Vendor: nicolas dawt capdevila at gmail dawt com
+Bundle-ClassPath: lib/commons-lang-2.6.jar,lib/guice-3.0.jar,lib/javax
+ .inject-1.jar,.,lib/aopalliance-1.0.jar
+Bundle-Version: 1.0.6.snapshot
+Bundle-Name: The Effective (Bob The) Builder
+Bundle-Activator: org.eclipselabs.bobthebuilder.Activator
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: BobTheBuilder;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
