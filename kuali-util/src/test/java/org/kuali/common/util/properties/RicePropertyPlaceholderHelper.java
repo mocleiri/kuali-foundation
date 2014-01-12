@@ -176,4 +176,8 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 	public String getPlaceholderRegex() {
 		return placeholderRegex;
 	}
+
+	public Pattern getPattern() {
+		return pattern;
+	}
 }
