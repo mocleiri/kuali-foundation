@@ -15,12 +15,10 @@
  */
 package org.kuali.common.util.log;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
 import com.google.common.collect.ImmutableList;
@@ -77,7 +75,7 @@ public final class LoggerContext {
 		private static void validate(LoggerContext instance) {
 			checkNotNull(instance.logger, "logger cannot be null");
 			checkNotNull(instance.level, "level cannot be null");
-			checkArgument(!StringUtils.isBlank(instance.msg), "msg cannot be blank");
+			checkNotNull(instance.msg, "msg cannot be null");
 			checkNotNull(instance.args, "args cannot be null");
 		}
 	}
