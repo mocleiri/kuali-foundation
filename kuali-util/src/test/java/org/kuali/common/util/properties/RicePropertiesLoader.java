@@ -333,8 +333,14 @@ public class RicePropertiesLoader {
 		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
 		private Randomizer randomizer = DefaultRandomizer.builder().build();
+
+		// This is true by default for backwards compatibility with Rice (should be false by default)
 		private boolean allowUnresolvablePlaceholders = true;
+
+		// This is false by default for backwards compatibility with Rice (should be true by default)
 		private boolean systemPropertiesWin = false;
+
+		// This is true by default for backwards compatibility with Rice (should be false by default)
 		private boolean convertUnresolvablePlaceholdersToEmpty = true;
 
 		// This gets filled in by the build() method
@@ -383,7 +389,7 @@ public class RicePropertiesLoader {
 			checkNotNull(instance.obscureTokens, "obscureTokens cannot be null");
 			checkNotNull(instance.obscurer, "obscurer cannot be null");
 			checkNotNull(instance.randomizer, "randomizer cannot be null");
-			checkArgument(!StringUtils.isBlank(instance.chainedConfigLocationKey), "magicNestedConfigKey cannot be blank");
+			checkArgument(!StringUtils.isBlank(instance.chainedConfigLocationKey), "chainedConfigLocationKey cannot be blank");
 		}
 
 		public String getChainedConfigLocationKey() {
