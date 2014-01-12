@@ -1,12 +1,13 @@
 package org.kuali.common.util.execute.impl;
 
-import org.kuali.common.util.Assert;
 import org.kuali.common.util.execute.Executable;
+
+import com.google.common.base.Preconditions;
 
 public final class ExecutableRunner implements Runnable {
 
 	public ExecutableRunner(Executable executable) {
-		Assert.noNulls(executable);
+		Preconditions.checkNotNull(executable, "executable cannot be null");
 		this.executable = executable;
 	}
 

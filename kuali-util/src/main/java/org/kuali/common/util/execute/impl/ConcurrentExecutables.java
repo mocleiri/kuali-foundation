@@ -76,8 +76,9 @@ public final class ConcurrentExecutables implements Executable, UncaughtExceptio
 			return instance;
 		}
 
-		private void validate(ConcurrentExecutables instance) {
-			Preconditions.checkNotNull(instance.getExecutables());
+		private static void validate(ConcurrentExecutables instance) {
+			Preconditions.checkNotNull(instance.executables, "executables cannot be null");
+			Preconditions.checkNotNull(instance.uncaughtException, "uncaughtException cannot be null");
 		}
 	}
 
