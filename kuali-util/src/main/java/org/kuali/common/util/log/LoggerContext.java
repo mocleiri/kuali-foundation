@@ -51,8 +51,8 @@ public final class LoggerContext {
 		}
 
 		// Required
-		private final String msg;
 		private Logger logger;
+		private final String msg;
 
 		// Optional
 		private LoggerLevel level = LoggerLevel.INFO;
