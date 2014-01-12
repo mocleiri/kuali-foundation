@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import javax.validation.Validation;
+
 import org.junit.Test;
 import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
@@ -29,6 +31,7 @@ public class HelloWorldTest {
 			for (HelloWorldService service : services) {
 				service.sayHello();
 			}
+			Validation.buildDefaultValidatorFactory();
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
