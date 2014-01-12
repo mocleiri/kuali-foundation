@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,9 +13,12 @@ import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 import org.springframework.util.PropertyPlaceholderHelper;
 
+import com.google.common.collect.Sets;
+
 public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelper {
 
 	private static final Logger logger = LoggerUtils.make();
+	private static final String EMPTY_STRING = "";
 
 	private final boolean convertUnresolvablePlaceholdersToEmpty;
 	private final String placeholderRegex;
@@ -130,20 +134,46 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		return convertUnresolvablePlaceholdersToEmpty;
 	}
 
-	protected String convertToEmpty(String value) {
-		return convertToToken(value, "");
+	protected ConversionResult convertToEmpty(String value) {
+		return convert(value, "");
 	}
 
-	protected String convertToToken(String value, String token) {
+	public static class ConversionResult {
+
+		public ConversionResult(String original, String converted, Set<String> keys) {
+			checkNotNull(original, "original cannot be null");
+			checkNotNull(converted, "converted cannot be null");
+			checkNotNull(keys, "keys cannot be null");
+			this.original = original;
+			this.converted = converted;
+			this.keys = keys;
+		}
+
+		private final String original;
+		private final String converted;
+		private final Set<String> keys;
+
+		public String getOriginal() {
+			return original;
+		}
+
+		public String getConverted() {
+			return converted;
+		}
+
+		public Set<String> getKeys() {
+			return keys;
+		}
+	}
+
+	protected ConversionResult convert(String value, String token) {
 		String result = value;
 		Matcher matcher = pattern.matcher(value);
+		Set<String> keys = Sets.newTreeSet();
 		while (matcher.find()) {
 			// Get the first, outermost ${} in the string
 			// This removes the ${} and produces the enclosed key
-			String key = matcher.group(1);
-
-			// Log the key that we are converting to the empty string
-			logger.info("? unknown - [{}] -> converted to [{}]", key, token);
+			keys.add(matcher.group(1));
 
 			// Replace the first ${} with token
 			result = matcher.replaceFirst(token);
@@ -153,12 +183,16 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		}
 
 		// All placeholders have been replaced with the empty string at this point
-		return result;
+		return new ConversionResult(value, result, keys);
 	}
 
 	protected String convert(String string) {
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			return convertToToken(string, "");
+			ConversionResult result = convert(string, EMPTY_STRING);
+			for (String key : result.getKeys()) {
+				logger.info("? - unknown - [{}] - converted to {}", key, EMPTY_STRING);
+			}
+			return result.getConverted();
 		} else {
 			return string;
 		}
