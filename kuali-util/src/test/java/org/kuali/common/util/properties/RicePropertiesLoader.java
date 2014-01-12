@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.SortedSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -44,6 +42,7 @@ import org.kuali.common.util.PropertyUtils;
 import org.kuali.common.util.Str;
 import org.kuali.common.util.execute.Executable;
 import org.kuali.common.util.execute.impl.NoOpExecutable;
+import org.kuali.common.util.execute.impl.SetSystemPropertyExecutable;
 import org.kuali.common.util.log.LoggerUtils;
 import org.kuali.common.util.obscure.DefaultObscurer;
 import org.kuali.common.util.obscure.Obscurer;
@@ -81,24 +80,19 @@ public class RicePropertiesLoader {
 
 	private static final Logger logger = LoggerUtils.make();
 
-	private static final String PLACEHOLDER_REGEX = "\\$\\{([^{}]+)\\}";
-
 	private final PropertyPlaceholderHelper propertyPlaceholderHelper;
 	private final String chainedConfigLocationKey;
-	private final List<String> obscureTokens;
+	private final ImmutableList<String> obscureTokens;
 	private final Obscurer obscurer;
 	private final Randomizer randomizer;
 	private final boolean systemPropertiesWin;
-	private final boolean allowUnresolvablePlaceholders;
-	private final boolean convertUnresolvablePlaceholdersToEmpty;
 
 	public Properties load(String location) {
 		checkArgument(!StringUtils.isBlank(location), "'location' cannot be blank");
 		checkArgument(LocationUtils.exists(location), "[%s] does not exist", location);
 		Unmarshaller unmarshaller = getUnmarshaller();
 		Map<String, Param> params = Maps.newHashMap();
-		Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
-		load(location, unmarshaller, 0, params, pattern);
+		load(location, unmarshaller, 0, params);
 		if (systemPropertiesWin) {
 			Map<String, Param> system = convert(PropertyUtils.getGlobalProperties(), true, false);
 			for (Param param : system.values()) {
@@ -106,33 +100,11 @@ public class RicePropertiesLoader {
 			}
 		}
 		handleRandomParams(params);
-		handleSystemParams(params, pattern);
+		handleSystemParams(params);
 		return convert(params);
 	}
 
-	protected String convertUnresolvablePlaceholdersToEmpty(String prefix, String value, Pattern pattern) {
-		String result = value;
-		Matcher matcher = pattern.matcher(value);
-		while (matcher.find()) {
-			// Get the first, outermost ${} in the string
-			// This removes the ${} and produces the enclosed key
-			String key = matcher.group(1);
-
-			// Log the key that we are converting to the empty string
-			logger.info("{}? unknown - [{}] -> converted to empty", prefix, key);
-
-			// Replace the first ${} with ""
-			result = matcher.replaceFirst("");
-
-			// Reset the matcher so we can continue examining the string
-			matcher = matcher.reset(result);
-		}
-
-		// All placeholders have been replaced with the empty string at this point
-		return result;
-	}
-
-	protected void load(String location, Unmarshaller unmarshaller, int depth, Map<String, Param> params, Pattern pattern) {
+	protected void load(String location, Unmarshaller unmarshaller, int depth, Map<String, Param> params) {
 
 		// Setup an indentation prefix based on the recursive depth
 		final String prefix = StringUtils.repeat(" ", depth);
@@ -146,7 +118,7 @@ public class RicePropertiesLoader {
 		InputStream in = null;
 		try {
 			in = LocationUtils.getInputStream(location);
-			load(prefix, location, in, params, depth, unmarshaller, pattern);
+			load(prefix, location, in, params, depth, unmarshaller);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		} finally {
@@ -154,31 +126,30 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void load(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller, Pattern pattern) throws IOException {
+	protected void load(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller) throws IOException {
 		if (isPropertiesFile(location)) {
 			loadJavaProperties(prefix, location, in, params, depth);
 		} else {
-			loadRiceProperties(prefix, location, in, params, depth, unmarshaller, pattern);
+			loadRiceProperties(prefix, location, in, params, depth, unmarshaller);
 		}
 	}
 
-	protected void loadRiceProperties(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller, Pattern pattern)
-			throws IOException {
+	protected void loadRiceProperties(String prefix, String location, InputStream in, Map<String, Param> params, int depth, Unmarshaller unmarshaller) throws IOException {
 		logger.info("{}+ loading - [{}]", prefix, location);
 		Config config = unmarshal(unmarshaller, in);
 		for (Param p : config.getParams()) {
-			handleParam(p, depth, unmarshaller, params, prefix, pattern);
+			handleParam(p, depth, unmarshaller, params, prefix);
 		}
 		logger.info("{}- loaded  - [{}]", prefix, location);
 	}
 
-	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Map<String, Param> params, String prefix, Pattern pattern) {
+	protected void handleParam(Param p, int depth, Unmarshaller unmarshaller, Map<String, Param> params, String prefix) {
 
 		// This is a reference to a nested config file
 		if (p.getName().equalsIgnoreCase(chainedConfigLocationKey)) {
 			String originalLocation = p.getValue();
-			String resolvedLocation = getResolvedValue(prefix, originalLocation, params, pattern);
-			load(resolvedLocation, unmarshaller, depth + 1, params, pattern);
+			String resolvedLocation = getResolvedValue(prefix, originalLocation, params);
+			load(resolvedLocation, unmarshaller, depth + 1, params);
 		} else {
 			// Update the map of parameter objects with this parameter
 			update(params, p, prefix);
@@ -302,62 +273,42 @@ public class RicePropertiesLoader {
 		return properties;
 	}
 
-	protected String getResolvedValue(String prefix, String value, Map<String, Param> params, Pattern pattern) {
+	protected String getResolvedValue(String prefix, String value, Map<String, Param> params) {
 		Properties properties = convert(params);
 		Properties global = PropertyUtils.getGlobalProperties(properties);
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(value, global);
-		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = convertUnresolvablePlaceholdersToEmpty(prefix, resolvedValue, pattern);
-		}
 		return resolvedValue;
-	}
-
-	private RicePropertiesLoader(Builder builder) {
-		this.propertyPlaceholderHelper = builder.propertyPlaceholderHelper;
-		this.chainedConfigLocationKey = builder.chainedConfigLocationKey;
-		this.obscureTokens = builder.obscureTokens;
-		this.obscurer = builder.obscurer;
-		this.randomizer = builder.randomizer;
-		this.allowUnresolvablePlaceholders = builder.allowUnresolvablePlaceholders;
-		this.systemPropertiesWin = builder.systemPropertiesWin;
-		this.convertUnresolvablePlaceholdersToEmpty = builder.convertUnresolvablePlaceholdersToEmpty;
 	}
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
+	private RicePropertiesLoader(Builder builder) {
+		this.propertyPlaceholderHelper = builder.propertyPlaceholderHelper;
+		this.chainedConfigLocationKey = builder.chainedConfigLocationKey;
+		this.obscureTokens = ImmutableList.copyOf(builder.obscureTokens);
+		this.obscurer = builder.obscurer;
+		this.randomizer = builder.randomizer;
+		this.systemPropertiesWin = builder.systemPropertiesWin;
+	}
+
 	public static class Builder {
 
 		private String chainedConfigLocationKey = "config.location";
-		private List<String> obscureTokens = ImmutableList.of("secret", "password", "private", "encryption.key");
 		private Obscurer obscurer = new DefaultObscurer();
 		private Randomizer randomizer = DefaultRandomizer.builder().build();
-
-		// This is true by default for backwards compatibility with Rice (should be false by default)
-		private boolean allowUnresolvablePlaceholders = true;
-
-		// This is false by default for backwards compatibility with Rice (should be true by default)
+		private PropertyPlaceholderHelper propertyPlaceholderHelper = RicePropertyPlaceholderHelper.builder().build();
 		private boolean systemPropertiesWin = false;
-
-		// This is true by default for backwards compatibility with Rice (should be false by default)
-		private boolean convertUnresolvablePlaceholdersToEmpty = true;
-
-		// This gets filled in by the build() method
-		private PropertyPlaceholderHelper propertyPlaceholderHelper;
+		private List<String> obscureTokens = ImmutableList.of("private", "password", "secret", "encryption.key");
 
 		public Builder systemPropertiesWin(boolean systemPropertiesWin) {
 			this.systemPropertiesWin = systemPropertiesWin;
 			return this;
 		}
 
-		public Builder convertUnresolvablePlaceholdersToEmpty(boolean convertUnresolvablePlaceholdersToEmpty) {
-			this.convertUnresolvablePlaceholdersToEmpty = convertUnresolvablePlaceholdersToEmpty;
-			return this;
-		}
-
-		public Builder allowUnresolvablePlaceholders(boolean allowUnresolvablePlaceholders) {
-			this.allowUnresolvablePlaceholders = allowUnresolvablePlaceholders;
+		public Builder propertyPlaceholderHelper(PropertyPlaceholderHelper propertyPlaceholderHelper) {
+			this.propertyPlaceholderHelper = propertyPlaceholderHelper;
 			return this;
 		}
 
@@ -377,8 +328,6 @@ public class RicePropertiesLoader {
 		}
 
 		public RicePropertiesLoader build() {
-			this.propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}", ":", allowUnresolvablePlaceholders);
-			this.obscureTokens = ImmutableList.copyOf(obscureTokens);
 			RicePropertiesLoader instance = new RicePropertiesLoader(this);
 			validate(instance);
 			return instance;
@@ -420,16 +369,8 @@ public class RicePropertiesLoader {
 			return randomizer;
 		}
 
-		public void setRandomizer(DefaultRandomizer randomizer) {
+		public void setRandomizer(Randomizer randomizer) {
 			this.randomizer = randomizer;
-		}
-
-		public boolean isConvertUnresolvablePlaceholdersToEmpty() {
-			return convertUnresolvablePlaceholdersToEmpty;
-		}
-
-		public void setConvertUnresolvablePlaceholdersToEmpty(boolean convertUnresolvablePlaceholdersToEmpty) {
-			this.convertUnresolvablePlaceholdersToEmpty = convertUnresolvablePlaceholdersToEmpty;
 		}
 
 		public boolean isSystemPropertiesWin() {
@@ -440,13 +381,6 @@ public class RicePropertiesLoader {
 			this.systemPropertiesWin = systemPropertiesWin;
 		}
 
-		public boolean isAllowUnresolvablePlaceholders() {
-			return allowUnresolvablePlaceholders;
-		}
-
-		public void setAllowUnresolvablePlaceholders(boolean allowUnresolvablePlaceholders) {
-			this.allowUnresolvablePlaceholders = allowUnresolvablePlaceholders;
-		}
 	}
 
 	protected void handleRandomParams(Map<String, Param> params) {
@@ -460,12 +394,12 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void handleSystemParams(Map<String, Param> params, Pattern pattern) {
+	protected void handleSystemParams(Map<String, Param> params) {
 		Properties properties = convert(params);
 		List<Param> system = getSystemParams(params.values());
 		for (Param param : system) {
 			if (isOverrideSystemProperty(param)) {
-				overrideSystemProperty("", param, params, properties, pattern);
+				overrideSystemProperty("", param, params, properties);
 			}
 		}
 	}
@@ -490,8 +424,8 @@ public class RicePropertiesLoader {
 		}
 	}
 
-	protected void overrideSystemProperty(String prefix, Param param, Map<String, Param> params, Properties properties, Pattern pattern) {
-		Param resolved = getResolvedParam(prefix, param, properties, pattern);
+	protected void overrideSystemProperty(String prefix, Param param, Map<String, Param> params, Properties properties) {
+		Param resolved = getResolvedParam(prefix, param, properties);
 		if (!resolved.getValue().equals(param.getValue())) {
 			params.put(resolved.getName(), resolved);
 			properties.setProperty(resolved.getName(), resolved.getValue());
@@ -499,12 +433,9 @@ public class RicePropertiesLoader {
 		getSystemPropertySetter(resolved).execute();
 	}
 
-	protected Param getResolvedParam(String prefix, Param param, Properties properties, Pattern pattern) {
+	protected Param getResolvedParam(String prefix, Param param, Properties properties) {
 		String originalValue = param.getValue();
 		String resolvedValue = propertyPlaceholderHelper.replacePlaceholders(originalValue, properties);
-		if (convertUnresolvablePlaceholdersToEmpty) {
-			resolvedValue = convertUnresolvablePlaceholdersToEmpty(prefix, resolvedValue, pattern);
-		}
 		if (resolvedValue.equals(originalValue)) {
 			return param;
 		} else {
@@ -537,26 +468,18 @@ public class RicePropertiesLoader {
 	protected Executable getSystemPropertySetter(final Param param) {
 		Optional<String> system = Optional.fromNullable(System.getProperty(param.getName()));
 
-		// Add - there is no existing system property
+		List<Object> args = ImmutableList.<Object> of(param.getName(), getLogValue(param));
+		// There is no existing system property - add it and log a message indicating we added it
 		if (!system.isPresent()) {
-			return new Executable() {
-				@Override
-				public void execute() {
-					logger.info("~ add system property [{}]=[{}]", param.getName(), getLogValue(param));
-					System.setProperty(param.getName(), param.getValue());
-				}
-			};
+			String msg = "~ add system property [{}]=[{}]";
+			return SetSystemPropertyExecutable.builder(param.getName(), param.getValue()).log(msg, args).build();
 		}
 
-		// Override - existing system property which is different from the parameter value
+		// There is existing system property that is different from the value we want it to be
+		// Override it, and log a message indicating that it has been overridden
 		if (system.isPresent() && !system.get().equals(param.getValue())) {
-			return new Executable() {
-				@Override
-				public void execute() {
-					logger.info("* override system property [{}]=[{}]", param.getName(), getLogValue(param));
-					System.setProperty(param.getName(), param.getValue());
-				}
-			};
+			String msg = "* override system property [{}]=[{}]";
+			return SetSystemPropertyExecutable.builder(param.getName(), param.getValue()).log(msg, args).build();
 		}
 
 		// Noop - existing system property which is exactly the same as the parameter value
@@ -571,7 +494,7 @@ public class RicePropertiesLoader {
 		return chainedConfigLocationKey;
 	}
 
-	public List<String> getObscureTokens() {
+	public ImmutableList<String> getObscureTokens() {
 		return obscureTokens;
 	}
 
@@ -583,16 +506,8 @@ public class RicePropertiesLoader {
 		return randomizer;
 	}
 
-	public boolean isConvertUnresolvablePlaceholdersToEmpty() {
-		return convertUnresolvablePlaceholdersToEmpty;
-	}
-
 	public boolean isSystemPropertiesWin() {
 		return systemPropertiesWin;
-	}
-
-	public boolean isAllowUnresolvablePlaceholders() {
-		return allowUnresolvablePlaceholders;
 	}
 
 }

@@ -26,6 +26,10 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		this.pattern = builder.pattern;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public static class Builder {
 
 		private boolean allowUnresolvablePlaceholders = true;
@@ -153,7 +157,7 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 
 	protected String convert(String string) {
 		if (convertUnresolvablePlaceholdersToEmpty) {
-			return convert(string);
+			return convertToToken(string, "");
 		} else {
 			return string;
 		}
