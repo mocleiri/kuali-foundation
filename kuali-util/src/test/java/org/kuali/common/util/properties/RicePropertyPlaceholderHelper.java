@@ -190,7 +190,7 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 		if (convertUnresolvablePlaceholdersToEmpty) {
 			ConversionResult result = convert(string, EMPTY_STRING);
 			for (String key : result.getKeys()) {
-				logger.info("? - unknown - [{}] - converted to {}", key, EMPTY_STRING);
+				logger.info("? unknown - [{}] - converted to \"\"", key);
 			}
 			return result.getConverted();
 		} else {
