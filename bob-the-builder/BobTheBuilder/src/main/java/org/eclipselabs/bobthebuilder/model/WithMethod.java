@@ -54,7 +54,8 @@ public class WithMethod implements Comparable<WithMethod> {
 
 	public static WithMethod getInstanceFromField(Field field) {
 		Validate.notNull(field, "field may not be null");
-		return new WithMethod.Builder().withName("with" + StringUtils.capitalize(field.getName())).withField(field).build();
+		return new WithMethod.Builder().withName(field.getName()).withField(field).build();
+		// return new WithMethod.Builder().withName("with" + StringUtils.capitalize(field.getName())).withField(field).build();
 	}
 
 	@Override
