@@ -5,7 +5,7 @@ import org.kuali.common.util.log.LoggerUtils;
 import org.slf4j.Logger;
 
 @MetaInfServices
-public class ALoggerHelloWorldService implements HelloWorldService {
+public class LoggerHelloWorldService implements HelloWorldService {
 
 	private static final Logger logger = LoggerUtils.make();
 
