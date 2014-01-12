@@ -45,6 +45,10 @@ public class Param implements Comparable<Param> {
 		return value;
 	}
 
+	public static Param create(String name, String value) {
+		return builder(name, value).build();
+	}
+
 	public static Builder builder(String name, String value) {
 		return new Builder(name, value);
 	}

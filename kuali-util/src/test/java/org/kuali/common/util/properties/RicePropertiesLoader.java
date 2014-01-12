@@ -439,7 +439,7 @@ public class RicePropertiesLoader {
 		if (resolvedValue.equals(originalValue)) {
 			return param;
 		} else {
-			return Param.builder(param.getName(), resolvedValue).build();
+			return Param.create(param.getName(), resolvedValue);
 		}
 	}
 
