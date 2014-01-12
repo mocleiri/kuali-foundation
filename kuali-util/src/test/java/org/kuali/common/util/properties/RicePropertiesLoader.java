@@ -235,7 +235,7 @@ public class RicePropertiesLoader {
 			logger.info("{}* override - [{}]=[{}] -> [{}]", args);
 			params.put(p.getName(), p);
 		} else {
-			// Ignore it, and log the fact that we are ignoring the new value from the config file
+			// Ignore it, and log the fact that we are ignoring it
 			logger.info("{}~ ignore - [{}]=[{}] -> ignoring [{}]", args);
 		}
 	}
