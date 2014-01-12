@@ -88,7 +88,8 @@ public class Composer {
 			builder.createMethod(composeBuilderMethod, flattenedICompilationUnit.getValidateMethod(), false, null);
 		}
 		if (request.isCreateValidateMethodInBuilder()) {
-			String composeValidateMethod = builderComposer.composeValidateMethodFromScratch(request.getMissingFieldValidationsInBuild(), request.getValidationFramework());
+			String composeValidateMethod = builderComposer.composeValidateMethodFromScratch(javaClassFile.getMainType(), request.getMissingFieldValidationsInBuild(),
+					request.getValidationFramework());
 			builder.createMethod(composeValidateMethod, null, false, null);
 		} else if (!request.getMissingFieldValidationsInBuild().isEmpty()) {
 			String newLines = builderComposer.composeValidateMethodFromExisting(request, javaClassFile.getMainType().getBuilderType().getValidateMethod());

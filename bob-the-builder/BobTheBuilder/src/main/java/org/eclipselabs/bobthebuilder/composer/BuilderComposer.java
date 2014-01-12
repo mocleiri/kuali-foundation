@@ -20,7 +20,7 @@ import org.eclipselabs.bobthebuilder.model.ValidateMethodInBuilder;
 
 public class BuilderComposer {
 
-	private static final String WITH = "with";
+	// private static final String WITH = "with";
 	private final FieldPredicate fieldPredicate;
 
 	@Inject
@@ -47,12 +47,12 @@ public class BuilderComposer {
 		// return composeWithMethodSignature(WITH + StringUtils.capitalize(field.getName()), field.getSignature(), field.getName());
 	}
 
-	public String composeValidateMethodFromScratch(Set<Field> missingFields, ValidationFramework validationFramework) {
+	public String composeValidateMethodFromScratch(MainType type, Set<Field> missingFields, ValidationFramework validationFramework) {
 		Validate.notNull(validationFramework, "validationFramework may not be null");
 		Validate.notNull(missingFields, "missingFields may not be null");
 		Validate.noNullElements(missingFields, "missingFields may not contain null elements");
 		ArrayList<String> listOfLines = new ArrayList<String>();
-		listOfLines.add("private void validate() {");
+		listOfLines.add("private static void validate(" + type.getName() + " instance) {");
 		for (Field each : new TreeSet<Field>(missingFields)) {
 			listOfLines.add("  " + validationFramework.composeFieldValidation(each));
 		}
@@ -90,15 +90,18 @@ public class BuilderComposer {
 	public String composeBuilderMethod(MainType type, boolean createValidateMethod) {
 		Validate.notNull(type, "type may not be null");
 		String signatureLine = "public " + type.getName() + " build() {";
-		String constructorInvocationLine = "  return new " + type.getName() + "(this);";
-		String validateMethodInvocation = createValidateMethod ? "  validate();" : "";
+		// String constructorInvocationLine = "  return new " + type.getName() + "(this);";
+		String constructorInvocationLine = type.getName() + " instance = new " + type.getName() + "(this);";
+		String validateMethodInvocation = createValidateMethod ? "  validate(instance);" : "";
+		String returnInstanceLine = "return instance;";
 		String closeMethodLine = "}";
 		List<String> sourceLines = new ArrayList<String>();
 		sourceLines.add(signatureLine);
+		sourceLines.add(constructorInvocationLine);
 		if (!StringUtils.isBlank(validateMethodInvocation)) {
 			sourceLines.add(validateMethodInvocation);
 		}
-		sourceLines.add(constructorInvocationLine);
+		sourceLines.add(returnInstanceLine);
 		sourceLines.add(closeMethodLine);
 		return StringUtils.join(sourceLines, "\n");
 	}
