@@ -3,7 +3,6 @@ package org.kuali.common.util.properties;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -202,13 +201,17 @@ public final class RicePropertyPlaceholderHelper extends PropertyPlaceholderHelp
 	}
 
 	@Override
-	public String replacePlaceholders(String value, Properties properties) {
-		return convert(super.replacePlaceholders(value, properties));
-	}
-
-	@Override
 	public String replacePlaceholders(String value, PlaceholderResolver placeholderResolver) {
-		return convert(super.replacePlaceholders(value, placeholderResolver));
+		String replaced = super.replacePlaceholders(value, placeholderResolver);
+		if (convertUnresolvablePlaceholdersToEmpty) {
+			Conversion result = convert(replaced, "");
+			for (String key : result.getKeys()) {
+				logger.info("? unknown - [{}] - converted to \"\"", key);
+			}
+			return result.getConverted();
+		} else {
+			return replaced;
+		}
 	}
 
 	public String getPlaceholderRegex() {

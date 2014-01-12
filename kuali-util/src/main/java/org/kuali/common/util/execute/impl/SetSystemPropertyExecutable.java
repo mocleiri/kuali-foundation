@@ -30,7 +30,7 @@ public class SetSystemPropertyExecutable implements Executable {
 			return;
 		}
 		if (context.isPresent()) {
-			LoggerExecutable.builder(context.get()).build().execute();
+			LoggerExecutable.create(context.get()).execute();
 		}
 		System.setProperty(key, value);
 	}

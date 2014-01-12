@@ -23,6 +23,10 @@ public class LoggerExecutable implements Executable {
 		this.skip = builder.skip;
 	}
 
+	public static LoggerExecutable create(LoggerContext context) {
+		return builder(context).build();
+	}
+
 	public static Builder builder(LoggerContext context) {
 		return new Builder(context);
 	}
