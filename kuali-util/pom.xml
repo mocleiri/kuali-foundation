@@ -60,6 +60,7 @@
     <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
     <javax.el.version>2.2.4</javax.el.version>
     <javax.el-api.version>${javax.el.version}</javax.el-api.version>
+    <metainf-services.version>1.5</metainf-services.version>
   </properties>
   <profiles>
     <profile>
@@ -208,6 +209,12 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kohsuke.metainf-services</groupId>
+      <artifactId>metainf-services</artifactId>
+      <version>${metainf-services.version}</version>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>
