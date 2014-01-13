@@ -60,7 +60,7 @@ public class Validation {
 	}
 
 	public static <T> void check(Set<ConstraintViolation<T>> violations) {
-		if (violations.size() == 0) {
+		if (violations.isEmpty()) {
 			return;
 		}
 		List<String> errorMessages = getErrorMessages(violations);
