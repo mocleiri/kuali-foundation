@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @NoBlankStrings
 @NoBlankOptionals
 @NoBlankMapKeys
-@NoBlankElements
+@NoBlankCollectionElements
 @Documented
 public @interface NoBlanks {
 

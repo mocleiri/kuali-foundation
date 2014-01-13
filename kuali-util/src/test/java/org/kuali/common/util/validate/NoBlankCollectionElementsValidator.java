@@ -8,7 +8,7 @@ import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
-public class NoBlankElementsValidator extends AbstractFieldsValidator<NoBlankElements, Object> {
+public class NoBlankCollectionElementsValidator extends AbstractFieldsValidator<NoBlankCollectionElements, Object> {
 
 	@Override
 	protected Optional<String> validate(Field field, Object instance) {

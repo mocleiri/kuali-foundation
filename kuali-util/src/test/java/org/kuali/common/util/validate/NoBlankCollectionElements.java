@@ -15,9 +15,9 @@ import javax.validation.Payload;
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = NoBlankElementsValidator.class)
+@Constraint(validatedBy = NoBlankCollectionElementsValidator.class)
 @Documented
-public @interface NoBlankElements {
+public @interface NoBlankCollectionElements {
 
 	String message() default "blank strings not allowed";
 
