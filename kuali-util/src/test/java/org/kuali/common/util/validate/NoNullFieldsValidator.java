@@ -14,7 +14,7 @@ public class NoNullFieldsValidator extends AbstractFieldsValidator<NoNullFields,
 		if (value.isPresent()) {
 			return Optional.absent();
 		} else {
-			return ValidationUtils.errorMessage(field, "cannot be null");
+			return Validation.errorMessage(field, "cannot be null");
 		}
 	}
 }

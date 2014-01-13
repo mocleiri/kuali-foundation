@@ -52,7 +52,7 @@ public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRunt
 			// If not, return an error message
 			String runtime = runtimeType.getCanonicalName();
 			String suffix = "Invalid runtime type: [" + runtime + "] must descend from (or be) [" + type.getCanonicalName() + "]";
-			return ValidationUtils.errorMessage(field, suffix);
+			return Validation.errorMessage(field, suffix);
 		}
 	}
 

@@ -5,7 +5,7 @@ import javax.validation.Validator;
 import org.kuali.common.util.enc.EncryptionService;
 import org.kuali.common.util.env.DefaultOverrideService;
 import org.kuali.common.util.env.OverrideService;
-import org.kuali.common.util.validate.ValidationUtils;
+import org.kuali.common.util.validate.Validation;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -42,7 +42,7 @@ public final class BuilderContext {
 
 	public static class Builder {
 
-		private Validator validator = ValidationUtils.getDefaultValidator();
+		private Validator validator = Validation.getDefaultValidator();
 		private OverrideService overrider = new DefaultOverrideService.Builder().build();
 		private Optional<EncryptionService> enc = Optional.absent();
 

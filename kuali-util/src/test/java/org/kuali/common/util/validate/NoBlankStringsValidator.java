@@ -30,7 +30,7 @@ public class NoBlankStringsValidator extends AbstractFieldsValidator<NoBlankStri
 
 		// Non-null value cannot be blank
 		if (StringUtils.isBlank(string)) {
-			return ValidationUtils.errorMessage(field, "blank strings not allowed");
+			return Validation.errorMessage(field, "blank strings not allowed");
 		} else {
 			return Optional.absent();
 		}

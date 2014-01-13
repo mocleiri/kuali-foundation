@@ -33,7 +33,7 @@ public class NoBlankCollectionElementsValidator extends AbstractFieldsValidator<
 		// Return an error message if there are blank String's inside the collection
 		Collection<String> blanks = CollectionUtils.getBlanks(collection);
 		if (blanks.size() > 0) {
-			return ValidationUtils.errorMessage(field, "contains " + blanks.size() + " blank strings");
+			return Validation.errorMessage(field, "contains " + blanks.size() + " blank strings");
 		} else {
 			return Optional.absent();
 		}

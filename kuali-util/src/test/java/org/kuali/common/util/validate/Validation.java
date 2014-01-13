@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -18,13 +17,13 @@ import org.kuali.common.util.ReflectionUtils;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class ValidationUtils {
+public class Validation {
 
 	private static ValidatorFactory factory;
 
 	public synchronized static Validator getDefaultValidator() {
 		if (factory == null) {
-			factory = Validation.buildDefaultValidatorFactory();
+			factory = javax.validation.Validation.buildDefaultValidatorFactory();
 		}
 		return factory.getValidator();
 	}

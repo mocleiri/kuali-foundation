@@ -7,7 +7,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.log.LoggerUtils;
-import org.kuali.common.util.validate.ValidationUtils;
+import org.kuali.common.util.validate.Validation;
 import org.slf4j.Logger;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.format.Formatter;
@@ -35,7 +35,7 @@ public class CarTest {
 			map.put("price", 21579);
 			map.put("internalHardDriveSizeInBytes", "252.5g");
 			map.put("zeroToSixtyTimeInMillis", "4.7s");
-			javax.validation.Validator hibernateValidator = ValidationUtils.getDefaultValidator();
+			javax.validation.Validator hibernateValidator = Validation.getDefaultValidator();
 			Validator validator = new SpringValidatorAdapter(hibernateValidator);
 
 			MutablePropertyValues pvs = new MutablePropertyValues(map);

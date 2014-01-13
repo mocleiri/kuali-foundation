@@ -43,7 +43,7 @@ public class NoBlankOptionalsValidator extends AbstractFieldsValidator<NoBlankOp
 		}
 
 		// Otherwise, return an error message
-		return ValidationUtils.errorMessage(field, "optional string value cannot be blank");
+		return Validation.errorMessage(field, "optional string value cannot be blank");
 	}
 
 }

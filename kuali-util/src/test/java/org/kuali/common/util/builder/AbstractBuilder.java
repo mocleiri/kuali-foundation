@@ -6,7 +6,7 @@ import javax.validation.ConstraintViolation;
 
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.env.annotation.EnvIgnore;
-import org.kuali.common.util.validate.ValidationUtils;
+import org.kuali.common.util.validate.Validation;
 
 import com.google.common.base.Optional;
 
@@ -41,7 +41,7 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
 		context.getOverrider().override(this);
 		T instance = getInstance();
 		Set<ConstraintViolation<T>> violations = context.getValidator().validate(instance);
-		ValidationUtils.check(violations);
+		Validation.check(violations);
 		return instance;
 	}
 

@@ -13,7 +13,7 @@ public class FinalFieldsValidator extends AbstractFieldsValidator<NoNullFields, 
 		if (ReflectionUtils.isFinal(field)) {
 			return Optional.absent();
 		} else {
-			return ValidationUtils.errorMessage(field, "is not final");
+			return Validation.errorMessage(field, "is not final");
 		}
 	}
 }

@@ -19,7 +19,6 @@ import org.hibernate.validator.cfg.ConstraintMapping;
 import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.validate.BulletProofBuilder;
 import org.kuali.common.util.validate.BulletProofPojo;
-import org.kuali.common.util.validate.ValidationUtils;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefService;
 import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefService;
 
@@ -53,12 +52,12 @@ public class Foo {
 			copyFieldConstraints(builder.getClass().getDeclaringClass(), builder.getClass(), configuration);
 			Validator validator = configuration.buildValidatorFactory().getValidator();
 			Set<ConstraintViolation<Builder>> violations = validator.validate(builder);
-			ValidationUtils.check(violations);
+			org.kuali.common.util.validate.Validation.check(violations);
 		}
 
 		private static void copyClassConstraints(Class<?> src, Class<?> dst, HibernateValidatorConfiguration configuration) {
 			ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
-			List<Annotation> annotations = ValidationUtils.getConstraints(src);
+			List<Annotation> annotations = org.kuali.common.util.validate.Validation.getConstraints(src);
 			for (Annotation annotation : annotations) {
 				ConstraintDef<?, ?> cdef = cdf.getConstraintDef(src, annotation.annotationType());
 				ConstraintMapping cm = configuration.createConstraintMapping();
@@ -71,7 +70,7 @@ public class Foo {
 			ConstraintDefService cdf = DefaultConstraintDefService.builder().build();
 			Set<Field> fields = ReflectionUtils.getAllFields(src);
 			for (Field field : fields) {
-				List<Annotation> annotations = ValidationUtils.getConstraints(field);
+				List<Annotation> annotations = org.kuali.common.util.validate.Validation.getConstraints(field);
 				for (Annotation annotation : annotations) {
 					ConstraintDef<?, ?> cdef = cdf.getConstraintDef(field, annotation.annotationType());
 					ConstraintMapping cm = configuration.createConstraintMapping();
@@ -82,9 +81,9 @@ public class Foo {
 		}
 
 		private void validate(Foo instance) {
-			Validator validator = ValidationUtils.getDefaultValidator();
+			Validator validator = org.kuali.common.util.validate.Validation.getDefaultValidator();
 			Set<ConstraintViolation<Foo>> violations = validator.validate(instance);
-			ValidationUtils.check(violations);
+			org.kuali.common.util.validate.Validation.check(violations);
 		}
 
 		public Foo build() {

@@ -8,14 +8,14 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.common.util.validate.NoNullFields;
-import org.kuali.common.util.validate.ValidationUtils;
+import org.kuali.common.util.validate.Validation;
 
 public class SimpleTest {
 
 	@Test
 	@Ignore
 	public void testIsConstraint() {
-		boolean condition = ValidationUtils.isConstraint(Foo.class.getAnnotation(NoNullFields.class));
+		boolean condition = Validation.isConstraint(Foo.class.getAnnotation(NoNullFields.class));
 		Assert.assertTrue(NoNullFields.class + " is an annotation", condition);
 	}
 
@@ -33,7 +33,7 @@ public class SimpleTest {
 	public void testGetFieldLevelAnnotations() throws Exception {
 		Foo a = Foo.builder().withWeight(-1).withFoo("").build();
 		Field field = a.getClass().getDeclaredField("weight");
-		List<Annotation> constraints = ValidationUtils.getConstraints(field);
+		List<Annotation> constraints = Validation.getConstraints(field);
 		Assert.assertTrue("should be exactly one constraint", constraints.size() == 1);
 	}
 
