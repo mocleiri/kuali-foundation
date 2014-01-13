@@ -25,6 +25,7 @@
   <param name="externalizable.images.url">/kr/static/images/</param>
   <param name="kr.externalizable.images.url">${externalizable.images.url}</param>
   <param name="krad.externalizable.images.url">/krad/images/</param>
+  <param name="db.vendor">${db.vendor}</param>
   <param name="datasource.ojb.platform">${datasource.ojb.platform}</param>
   <param name="datasource.username">${jdbc.username}</param>
   <param name="datasource.password">${jdbc.password}</param>
