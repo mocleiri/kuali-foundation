@@ -18,6 +18,7 @@ package org.kuali.common.util;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -38,6 +39,14 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
+
+	public static boolean isFinal(Class<?> type) {
+		return Modifier.isFinal(type.getModifiers());
+	}
+
+	public static boolean isFinal(Field field) {
+		return Modifier.isFinal(field.getModifiers());
+	}
 
 	/**
 	 * Return true if this class is an immutable Guava collection
