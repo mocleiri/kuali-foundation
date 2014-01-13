@@ -1,4 +1,4 @@
-package org.kuali.common.util.bind;
+package org.kuali.common.util.bind.api;
 
 public interface BinderFactory {
 
