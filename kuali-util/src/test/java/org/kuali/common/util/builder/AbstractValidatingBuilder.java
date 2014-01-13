@@ -3,7 +3,6 @@ package org.kuali.common.util.builder;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.kuali.common.util.validate.ValidationUtils;
 
@@ -14,8 +13,7 @@ public abstract class AbstractValidatingBuilder<T> implements ValidatingBuilder<
 	@Override
 	public final T build() {
 		T instance = getInstance();
-		Validator validator = ValidationUtils.getDefaultValidator();
-		Set<ConstraintViolation<T>> violations = validator.validate(instance);
+		Set<ConstraintViolation<T>> violations = ValidationUtils.getDefaultValidator().validate(instance);
 		ValidationUtils.check(violations);
 		return instance;
 	}
