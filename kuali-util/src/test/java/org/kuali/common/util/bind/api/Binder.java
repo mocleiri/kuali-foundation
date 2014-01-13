@@ -1,8 +1,10 @@
 package org.kuali.common.util.bind.api;
 
+import org.springframework.validation.BindingResult;
+
 
 public interface Binder {
 
-	<T> void bind(T object);
+	<T> BindingResult bind(T object);
 
 }
