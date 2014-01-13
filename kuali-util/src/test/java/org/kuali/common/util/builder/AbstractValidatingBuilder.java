@@ -1,13 +1,13 @@
 package org.kuali.common.util.builder;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.kuali.common.util.validate.Validation;
-
-import com.google.common.base.Preconditions;
 
 public abstract class AbstractValidatingBuilder<T> implements ValidatingBuilder<T> {
 
@@ -28,21 +28,21 @@ public abstract class AbstractValidatingBuilder<T> implements ValidatingBuilder<
 		return validator.validate(instance);
 	}
 
-	private AbstractValidatingBuilder(Builder<T> builder) {
+	private AbstractValidatingBuilder(Builder builder) {
 		this.validator = builder.validator;
 	}
 
-	public abstract static class Builder<T> implements ValidatingBuilder<AbstractValidatingBuilder<T>> {
+	public static class Builder {
 
 		private Validator validator = Validation.getDefaultValidator();
 
-		public Builder<T> validator(Validator validator) {
+		public Builder validator(Validator validator) {
 			this.validator = validator;
 			return this;
 		}
 
 		protected static <T> void validate(AbstractValidatingBuilder<T> instance) {
-			Preconditions.checkNotNull(instance.validator, "'validator' cannot be null");
+			checkNotNull(instance.validator, "'validator' cannot be null");
 		}
 	}
 
