@@ -1,14 +1,14 @@
 package org.kuali.common.util.enc;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
+import java.util.SortedSet;
 
 import org.jasypt.util.text.TextEncryptor;
 import org.kuali.common.util.Assert;
 import org.kuali.common.util.PropertyUtils;
-import org.kuali.common.util.SetUtils;
+
+import com.google.common.collect.Sets;
 
 public final class DefaultEncryptionService implements EncryptionService {
 
@@ -57,9 +57,9 @@ public final class DefaultEncryptionService implements EncryptionService {
 	 */
 	@Override
 	public void encrypt(Properties properties) {
-		Set<String> allKeys = new HashSet<String>(PropertyUtils.getSortedKeys(properties));
-		Set<String> encKeys = new HashSet<String>(PropertyUtils.getEncryptedKeys(properties));
-		Set<String> keys = SetUtils.difference(allKeys, encKeys);
+		SortedSet<String> allKeys = Sets.newTreeSet(properties.stringPropertyNames());
+		SortedSet<String> encKeys = Sets.newTreeSet(PropertyUtils.getEncryptedKeys(properties));
+		SortedSet<String> keys = Sets.newTreeSet(Sets.difference(allKeys, encKeys));
 		for (String key : keys) {
 			String plaintext = properties.getProperty(key);
 			String encrypted = encrypt(plaintext);
