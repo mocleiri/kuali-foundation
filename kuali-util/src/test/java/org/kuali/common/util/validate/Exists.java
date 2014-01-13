@@ -13,13 +13,7 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
-import org.kuali.common.util.Ports;
-
-@Min(Ports.MIN)
-@Max(Ports.MAX)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Constraint(validatedBy = { ExistsValidator.class })
