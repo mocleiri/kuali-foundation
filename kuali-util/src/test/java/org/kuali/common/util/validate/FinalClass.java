@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * All fields in the annotated class must be declared as {@code final}
+ * The annotated class must be declared as {@code final}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @Documented
 public @interface FinalClass {
 
-	String message() default "fields must be final";
+	String message() default "class must be final";
 
 	Class<?>[] groups() default {};
 
