@@ -10,19 +10,16 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * All fields in the annotated class must be declared as {@code final}
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {})
-@FinalClass
-@FinalFields
-@NoNullFields
-@NoBlanks
-@ImmutableGuavaMaps
-@ImmutableGuavaCollections
+@Constraint(validatedBy = FinalFieldsValidator.class)
 @Documented
-public @interface BulletProofPojo {
+public @interface FinalClass {
 
-	String message() default "bullet proofing failed";
+	String message() default "fields must be final";
 
 	Class<?>[] groups() default {};
 
