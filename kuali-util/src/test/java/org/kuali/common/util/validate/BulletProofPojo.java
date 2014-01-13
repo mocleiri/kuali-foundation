@@ -13,6 +13,7 @@ import javax.validation.Payload;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
+@FinalFields
 @NoNullFields
 @NoBlanks
 @ImmutableGuavaMaps
