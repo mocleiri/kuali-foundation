@@ -11,6 +11,7 @@ import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.kuali.common.util.properties.model.ProjectResource;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 public class DefaultPropertiesLocationService implements PropertiesLocationService {
@@ -20,6 +21,7 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 	}
 
 	public DefaultPropertiesLocationService(ProjectService projectService, boolean cache) {
+		Preconditions.checkNotNull(projectService, "'projectService' cannot be null");
 		this.projectService = projectService;
 		this.cache = cache;
 	}
