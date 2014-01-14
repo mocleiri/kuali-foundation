@@ -2,6 +2,10 @@ package org.kuali.common.util.project.model;
 
 import org.kuali.common.util.Assert;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class Feature {
 
 	public Feature(FeatureIdentifier identifier, String name, String description) {

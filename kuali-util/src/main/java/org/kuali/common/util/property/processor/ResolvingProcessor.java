@@ -49,7 +49,7 @@ public class ResolvingProcessor implements PropertyProcessor {
 	public void process(Properties properties) {
 		boolean resolve = PropertyUtils.getBoolean(resolveKey, properties, true);
 		if (resolve) {
-			logger.info("Performing placeholder resolution for {} properties", properties.size());
+			logger.info("Performing placeholder resolution on {} properties", properties.size());
 			PropertyUtils.resolve(properties, helper);
 		} else {
 			logger.info("Skipping placeholder resolution for {} properties", properties.size());

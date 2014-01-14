@@ -4,6 +4,10 @@ import org.kuali.common.util.Assert;
 import org.kuali.common.util.ObjectUtils;
 import org.kuali.common.util.identify.Identifiable;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public final class FeatureIdentifier implements Identifiable {
 
 	private final ProjectIdentifier project;

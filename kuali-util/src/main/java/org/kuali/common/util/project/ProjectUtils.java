@@ -25,11 +25,10 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.maven.MavenConstants;
 import org.kuali.common.util.project.model.Build;
-import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
-import org.kuali.common.util.properties.model.ProjectResource;
+import org.kuali.common.util.project.model.ProjectResource;
 import org.springframework.util.ResourceUtils;
 
 public class ProjectUtils {
@@ -217,8 +216,11 @@ public class ProjectUtils {
 	 * <pre>
 	 *   org.kuali.common:kuali-util:metainf  ->  classpath:org/kuali/common/kuali-util/metainf
 	 * </pre>
+	 * 
+	 * @deprecated
 	 */
-	public static String getClasspathPrefix(FeatureIdentifier feature) {
+	@Deprecated
+	public static String getClasspathPrefix(org.kuali.common.util.project.model.FeatureIdentifier feature) {
 		return getClasspathPrefix(feature.getProject()) + "/" + feature.getFeatureId();
 	}
 
@@ -233,11 +235,21 @@ public class ProjectUtils {
 
 	/**
 	 * <pre>
-	 *   classpath:org/kuali/common/kuali-util/myfile.txt
+	 *   [prefix]org/kuali/common/kuali-util/[path]
 	 * </pre>
 	 */
-	public static String getClasspathResource(ProjectResource resource) {
-		return getClasspathResource(resource.getProject(), resource.getFilename());
+	public static String getPath(ProjectResource resource) {
+		StringBuilder sb = new StringBuilder();
+		if (resource.getPrefix().isPresent()) {
+			sb.append(resource.getPrefix().get());
+		}
+		ProjectIdentifier project = resource.getProject();
+		sb.append(Str.getPath(project.getGroupId()));
+		sb.append("/");
+		sb.append(project.getArtifactId());
+		sb.append("/");
+		sb.append(resource.getPath());
+		return sb.toString();
 	}
 
 }

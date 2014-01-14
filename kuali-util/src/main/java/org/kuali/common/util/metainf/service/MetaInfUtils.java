@@ -6,7 +6,6 @@ import org.kuali.common.util.Str;
 import org.kuali.common.util.metainf.spring.MetaInfGroup;
 import org.kuali.common.util.project.KualiUtilProjectConstants;
 import org.kuali.common.util.project.model.Build;
-import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
 import org.springframework.util.ResourceUtils;
@@ -17,9 +16,15 @@ public class MetaInfUtils {
 
 	public static final String RESOURCES_FILENAME_EXTENSION = "resources";
 	public static final String METAINF_DIRECTORY_NAME = "META-INF";
-	public static final FeatureIdentifier FEATURE_ID = new FeatureIdentifier(KualiUtilProjectConstants.PROJECT_ID, "metainf");
 
-	public static final String PROPERTY_PREFIX = FEATURE_ID.getFeatureId();
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
+	public static final org.kuali.common.util.project.model.FeatureIdentifier FEATURE_ID = new org.kuali.common.util.project.model.FeatureIdentifier(
+			KualiUtilProjectConstants.PROJECT_ID, "metainf");
+
+	public static final String PROPERTY_PREFIX = "metainf";
 
 	/**
 	 * <code>${project.build.outputDirectory}/META-INF/org/kuali/util/kuali-util/[filename].resources</code>

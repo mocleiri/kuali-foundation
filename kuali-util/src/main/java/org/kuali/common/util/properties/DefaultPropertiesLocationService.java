@@ -6,10 +6,9 @@ import java.util.List;
 
 import org.kuali.common.util.project.ProjectService;
 import org.kuali.common.util.project.ProjectUtils;
-import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
-import org.kuali.common.util.properties.model.ProjectResource;
+import org.kuali.common.util.project.model.ProjectResource;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -53,13 +52,21 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 		return new Location(value, encoding, cache);
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	@Override
-	public List<Location> getLocations(FeatureIdentifier identifier, String... filenames) {
+	public List<Location> getLocations(org.kuali.common.util.project.model.FeatureIdentifier identifier, String... filenames) {
 		return getLocations(identifier, ImmutableList.copyOf(filenames));
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	@Override
-	public List<Location> getLocations(FeatureIdentifier identifier, List<String> filenames) {
+	public List<Location> getLocations(org.kuali.common.util.project.model.FeatureIdentifier identifier, List<String> filenames) {
 		List<Location> locations = new ArrayList<Location>();
 		for (String filename : filenames) {
 			locations.add(getLocation(identifier, filename));
@@ -67,8 +74,12 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 		return locations;
 	}
 
+	/**
+	 * @deprecated
+	 */
+	@Deprecated
 	@Override
-	public Location getLocation(FeatureIdentifier identifier, String filename) {
+	public Location getLocation(org.kuali.common.util.project.model.FeatureIdentifier identifier, String filename) {
 		Project project = projectService.getProject(identifier.getProject());
 		String value = ProjectUtils.getClasspathPrefix(identifier) + "/" + filename;
 		String encoding = ProjectUtils.getEncoding(project);
@@ -77,6 +88,6 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 
 	@Override
 	public Location getLocation(ProjectResource resource) {
-		return getLocation(resource.getProject(), resource.getFilename());
+		return getLocation(resource.getProject(), resource.getPath());
 	}
 }
