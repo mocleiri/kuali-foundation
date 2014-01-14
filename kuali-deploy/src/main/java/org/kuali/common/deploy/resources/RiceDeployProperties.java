@@ -10,8 +10,8 @@ import org.kuali.common.util.project.model.ProjectResource;
 
 public enum RiceDeployProperties {
 
-	DB(ProjectResource.create(DeployProjectConstants.ID, "rice/db.properties")), //
-	INIT_SOURCE_DB(ProjectResource.create(DeployProjectConstants.ID, "rice/initialize-source-db.properties")); //
+	DB(ProjectResource.classpath(DeployProjectConstants.ID, "rice/db.properties")), //
+	INIT_SOURCE_DB(ProjectResource.classpath(DeployProjectConstants.ID, "rice/initialize-source-db.properties")); //
 
 	private RiceDeployProperties(ProjectResource resource) {
 		checkNotNull(resource, "'resource' cannot be null");
