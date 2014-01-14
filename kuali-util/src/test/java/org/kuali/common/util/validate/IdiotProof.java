@@ -13,11 +13,11 @@ import javax.validation.Payload;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
+@StronglyImmutable
 @NoNullFields
 @NoBlanks
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
-@StronglyImmutable
 @Documented
 public @interface IdiotProof {
 
