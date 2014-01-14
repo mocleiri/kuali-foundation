@@ -52,7 +52,6 @@
   </developers>
   <properties>
     <parent.version>${project.parent.version}</parent.version>
-    <project.scm.url>https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</project.scm.url>
   </properties>
   <scm>
     <connection>scm:${project.scm.vendor}:https://svn.kuali.org/repos/foundation/trunk/spring-maven-plugin</connection>
