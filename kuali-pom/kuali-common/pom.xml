@@ -107,7 +107,7 @@
     <plugin.jxr.version>2.4</plugin.jxr.version>
     <plugin.plugin.version>3.2</plugin.plugin.version>
     <plugin.pmd.version>3.0.1</plugin.pmd.version>
-    <plugin.mvn.version>1.1.0</plugin.mvn.version>
+    <plugin.mvn.version>1.1.1</plugin.mvn.version>
     <deploy.groupId>${project.groupId}</deploy.groupId>
     <deploy.artifactId>${project.artifactId}</deploy.artifactId>
     <deploy.version>${project.version}</deploy.version>
