@@ -1,4 +1,4 @@
-package org.kuali.common.deploy.project.properties.rice;
+package org.kuali.common.deploy.resources;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

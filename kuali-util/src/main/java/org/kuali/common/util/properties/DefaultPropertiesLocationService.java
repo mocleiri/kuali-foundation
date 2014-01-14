@@ -9,6 +9,7 @@ import org.kuali.common.util.project.ProjectUtils;
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.properties.model.ProjectResource;
 
 import com.google.common.collect.ImmutableList;
 
@@ -72,4 +73,8 @@ public class DefaultPropertiesLocationService implements PropertiesLocationServi
 		return new Location(value, encoding, cache);
 	}
 
+	@Override
+	public Location getLocation(ProjectResource resource) {
+		return getLocation(resource.getProject(), resource.getFilename());
+	}
 }

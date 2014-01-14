@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.properties.model.ProjectResource;
 
 public interface PropertiesLocationService {
 
@@ -18,5 +19,7 @@ public interface PropertiesLocationService {
 	public List<Location> getLocations(FeatureIdentifier identifier, String... filenames);
 
 	public List<Location> getLocations(FeatureIdentifier identifier, List<String> filenames);
+
+	public Location getLocation(ProjectResource resource);
 
 }
