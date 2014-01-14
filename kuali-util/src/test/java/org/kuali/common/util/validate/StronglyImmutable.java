@@ -18,7 +18,7 @@ import javax.validation.Payload;
 @Documented
 public @interface StronglyImmutable {
 
-	String message() default "immutability checks failed";
+	String message() default "strongly immutable checks failed";
 
 	Class<?>[] groups() default {};
 
