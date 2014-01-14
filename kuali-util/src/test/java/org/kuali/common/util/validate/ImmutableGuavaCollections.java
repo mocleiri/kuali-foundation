@@ -14,7 +14,7 @@ import javax.validation.Payload;
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * All field's on the annotated class that are collection's must be a Guava {@code ImmutableCollection}
+ * All field's on the annotated class that are collection's must extend from Guava {@code ImmutableCollection}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)

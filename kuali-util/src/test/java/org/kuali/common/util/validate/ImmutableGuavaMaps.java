@@ -14,7 +14,7 @@ import javax.validation.Payload;
 import com.google.common.collect.ImmutableMap;
 
 /**
- * All field's on the annotated class that are map's must be a Guava {@code ImmutableMap}
+ * All field's on the annotated class that are map's must extend from Guava {@code ImmutableMap}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
