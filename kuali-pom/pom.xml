@@ -237,7 +237,7 @@
     <plugin.properties.version>2.0.1</plugin.properties.version>
     <plugin.release.version>2.4.2</plugin.release.version>
     <plugin.resources.version>2.6</plugin.resources.version>
-    <plugin.scm.version>1.8.1</plugin.scm.version>
+    <plugin.scm.version>1.9</plugin.scm.version>
 
     <!-- 3.0 fixes MSITE-532 but has MSITE-600. As of 3.2 this is still an issue -->
     <plugin.site.version>3.0-beta-3</plugin.site.version>
