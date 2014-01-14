@@ -17,7 +17,7 @@ import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.hibernate.validator.cfg.ConstraintDef;
 import org.hibernate.validator.cfg.ConstraintMapping;
 import org.kuali.common.util.ReflectionUtils;
-import org.kuali.common.util.validate.BulletProofBuilder;
+import org.kuali.common.util.validate.IdiotProofBuilder;
 import org.kuali.common.util.validate.IdiotProof;
 import org.kuali.common.util.validate.hibernate.factory.ConstraintDefService;
 import org.kuali.common.util.validate.hibernate.factory.DefaultConstraintDefService;
@@ -40,7 +40,7 @@ public class Foo {
 		return new Builder();
 	}
 
-	@BulletProofBuilder
+	@IdiotProofBuilder
 	public static class Builder {
 
 		private String foo;

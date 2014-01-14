@@ -1,18 +1,18 @@
 package org.kuali.common.util.validate.hibernate.factory;
 
 import org.hibernate.validator.cfg.GenericConstraintDef;
-import org.kuali.common.util.validate.BulletProofBuilder;
+import org.kuali.common.util.validate.IdiotProofBuilder;
 
-public class BulletProofBuilderDefFactory extends AbstractConstraintDefFactory<GenericConstraintDef<BulletProofBuilder>, BulletProofBuilder> {
+public class BulletProofBuilderDefFactory extends AbstractConstraintDefFactory<GenericConstraintDef<IdiotProofBuilder>, IdiotProofBuilder> {
 
 	@Override
-	public Class<BulletProofBuilder> getAnnotationType() {
-		return BulletProofBuilder.class;
+	public Class<IdiotProofBuilder> getAnnotationType() {
+		return IdiotProofBuilder.class;
 	}
 
 	@Override
-	protected GenericConstraintDef<BulletProofBuilder> getConstraintDef(BulletProofBuilder annotation) {
-		GenericConstraintDef<BulletProofBuilder> def = newGenericConstraintDef(getAnnotationType());
+	protected GenericConstraintDef<IdiotProofBuilder> getConstraintDef(IdiotProofBuilder annotation) {
+		GenericConstraintDef<IdiotProofBuilder> def = newGenericConstraintDef(getAnnotationType());
 		def.message(annotation.message());
 		def.groups(annotation.groups());
 		def.payload(annotation.payload());

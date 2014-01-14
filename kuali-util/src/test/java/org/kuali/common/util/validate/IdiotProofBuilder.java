@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @IdiotProof
 @MatchDeclaringClassFields
 @Documented
-public @interface BulletProofBuilder {
+public @interface IdiotProofBuilder {
 
 	String message() default "bullet proofing failed";
 
