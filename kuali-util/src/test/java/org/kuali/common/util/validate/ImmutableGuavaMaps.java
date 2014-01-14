@@ -14,14 +14,12 @@ import javax.validation.Payload;
 import com.google.common.collect.ImmutableMap;
 
 /**
- * All field's on the annotated class that are map's must be a Guava {@code ImmutableMap} at runtime
- * 
- * Fields representing a {@code Map} that are {@code null} are considered valid.
+ * All field's on the annotated class that are map's must be a Guava {@code ImmutableMap}
  */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@ValidRuntimeType(superType = Map.class, type = ImmutableMap.class)
+@ValidType(superType = Map.class, type = ImmutableMap.class)
 @Documented
 public @interface ImmutableGuavaMaps {
 

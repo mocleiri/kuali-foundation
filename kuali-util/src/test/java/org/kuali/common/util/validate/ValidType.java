@@ -6,27 +6,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.Collection;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.google.common.collect.ImmutableCollection;
-
-/**
- * All field's on the annotated class that are collection's must be a Guava {@code ImmutableCollection}
- */
 @Target({ TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {})
-@ValidType(superType = Collection.class, type = ImmutableCollection.class)
+@Constraint(validatedBy = ValidTypeValidator.class)
 @Documented
-public @interface ImmutableGuavaCollections {
+public @interface ValidType {
 
-	String message() default "collections must be immutable";
+	String message() default "invalid type";
 
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};
+
+	Class<?> type();
+
+	Class<?> superType();
 
 }
