@@ -246,7 +246,7 @@
     <plugin.source.version>2.2.1</plugin.source.version>
     <plugin.spring.version>3.0.4</plugin.spring.version>
     <plugin.sql.version>1.0.15</plugin.sql.version>
-    <plugin.surefire.version>2.14</plugin.surefire.version>
+    <plugin.surefire.version>2.16</plugin.surefire.version>
     <plugin.svn-revision-number.version>1.13</plugin.svn-revision-number.version>
 
     <!-- Version 2.0 throws an NPE for "mvn versions:set -DnewVersion=x.y.z -N" -->
