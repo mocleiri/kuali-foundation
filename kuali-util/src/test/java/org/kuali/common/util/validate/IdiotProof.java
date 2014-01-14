@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = {})
 @NoNullFields
 @NoBlanks
-@ImmutabilityPrerequisites
+@ImmutabilityPrereqs
 @Documented
 public @interface IdiotProof {
 
