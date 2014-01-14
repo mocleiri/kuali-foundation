@@ -250,7 +250,8 @@
     <plugin.svn-revision-number.version>1.13</plugin.svn-revision-number.version>
 
     <!-- Version 2.0 throws an NPE for "mvn versions:set -DnewVersion=x.y.z -N" -->
-    <plugin.versions.version>1.3.1</plugin.versions.version>
+    <!-- Version 2.1 fixed the NPE -->
+    <plugin.versions.version>2.1</plugin.versions.version>
 
     <plugin.war.version>2.4</plugin.war.version>
 
