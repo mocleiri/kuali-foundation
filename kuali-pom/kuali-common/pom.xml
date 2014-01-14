@@ -104,7 +104,7 @@
     <plugin.ec2.version>1.1.5</plugin.ec2.version>
     <plugin.findbugs.version>2.5.2</plugin.findbugs.version>
     <plugin.graph.version>1.2.3</plugin.graph.version>
-    <plugin.jxr.version>2.3</plugin.jxr.version>
+    <plugin.jxr.version>2.4</plugin.jxr.version>
     <plugin.plugin.version>3.2</plugin.plugin.version>
     <plugin.pmd.version>3.0.1</plugin.pmd.version>
     <plugin.mvn.version>1.1.0</plugin.mvn.version>
