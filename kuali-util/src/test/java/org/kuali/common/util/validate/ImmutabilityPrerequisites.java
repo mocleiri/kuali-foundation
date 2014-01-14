@@ -13,11 +13,12 @@ import javax.validation.Payload;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@NoNullFields
-@NoBlanks
-@ImmutabilityPrerequisites
+@FinalClass
+@FinalFields
+@ImmutableGuavaMaps
+@ImmutableGuavaCollections
 @Documented
-public @interface IdiotProof {
+public @interface ImmutabilityPrerequisites {
 
 	String message() default "immutability checks failed";
 
