@@ -4,7 +4,7 @@ import org.kuali.common.util.project.model.FeatureIdentifier;
 
 public interface FeatureResource {
 
-	FeatureIdentifier getFeatureIdentifier();
+	FeatureIdentifier getFeature();
 
 	String getFilename();
 
