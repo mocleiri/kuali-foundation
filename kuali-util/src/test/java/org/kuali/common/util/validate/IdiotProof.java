@@ -19,7 +19,7 @@ import javax.validation.Payload;
 @Documented
 public @interface IdiotProof {
 
-	String message() default "immutability checks failed";
+	String message() default "idiot proofing failed";
 
 	Class<?>[] groups() default {};
 
