@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Constraint(validatedBy = ValidRuntimeTypeValidator.class)
 @Documented
-public @interface ValidRuntimeType {
+public @interface ValidType {
 
 	String message() default "invalid runtime type";
 
