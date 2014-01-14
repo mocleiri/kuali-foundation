@@ -13,7 +13,7 @@
   </description>
   <url>http://${kuali.site.hostname}/pom/${project.artifactId}/${project.version}</url>
   <properties>
-    <slf4j.version>1.7.2</slf4j.version>
+    <slf4j.version>1.7.5</slf4j.version>
     <commons.lang.version>3.2.1</commons.lang.version>
     <commons.io.version>2.4</commons.io.version>
     <spring.version>3.2.1.RELEASE</spring.version>
