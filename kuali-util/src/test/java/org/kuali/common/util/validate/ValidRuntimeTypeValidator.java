@@ -6,13 +6,13 @@ import org.kuali.common.util.ReflectionUtils;
 
 import com.google.common.base.Optional;
 
-public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidType, Object> {
+public class ValidRuntimeTypeValidator extends AbstractFieldsValidator<ValidRuntimeType, Object> {
 
 	private Class<?> superType; // eg java.util.Map
 	private Class<?> type; // eg com.google.common.collect.ImmutableMap
 
 	@Override
-	public void initialize(ValidType constraintAnnotation) {
+	public void initialize(ValidRuntimeType constraintAnnotation) {
 		this.superType = constraintAnnotation.superType();
 		this.type = constraintAnnotation.type();
 		// Make sure type descends from superType
