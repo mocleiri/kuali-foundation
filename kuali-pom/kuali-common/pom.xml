@@ -102,7 +102,7 @@
     <plugin.checkstyle.version>2.11</plugin.checkstyle.version>
     <plugin.clover2.version>3.1.2</plugin.clover2.version>
     <plugin.ec2.version>1.1.5</plugin.ec2.version>
-    <plugin.findbugs.version>2.5.2</plugin.findbugs.version>
+    <plugin.findbugs.version>2.5.3</plugin.findbugs.version>
     <plugin.graph.version>1.2.3</plugin.graph.version>
     <plugin.jxr.version>2.4</plugin.jxr.version>
     <plugin.plugin.version>3.2</plugin.plugin.version>
