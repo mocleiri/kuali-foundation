@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
-@BasicImmutable
+@IdiotProof
 @MatchDeclaringClassFields
 @Documented
 public @interface BulletProofBuilder {

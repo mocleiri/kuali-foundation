@@ -1,18 +1,18 @@
 package org.kuali.common.util.validate.hibernate.factory;
 
 import org.hibernate.validator.cfg.GenericConstraintDef;
-import org.kuali.common.util.validate.BasicImmutable;
+import org.kuali.common.util.validate.IdiotProof;
 
-public class BulletProofPojoDefFactory extends AbstractConstraintDefFactory<GenericConstraintDef<BasicImmutable>, BasicImmutable> {
+public class BulletProofPojoDefFactory extends AbstractConstraintDefFactory<GenericConstraintDef<IdiotProof>, IdiotProof> {
 
 	@Override
-	public Class<BasicImmutable> getAnnotationType() {
-		return BasicImmutable.class;
+	public Class<IdiotProof> getAnnotationType() {
+		return IdiotProof.class;
 	}
 
 	@Override
-	protected GenericConstraintDef<BasicImmutable> getConstraintDef(BasicImmutable annotation) {
-		GenericConstraintDef<BasicImmutable> def = newGenericConstraintDef(getAnnotationType());
+	protected GenericConstraintDef<IdiotProof> getConstraintDef(IdiotProof annotation) {
+		GenericConstraintDef<IdiotProof> def = newGenericConstraintDef(getAnnotationType());
 		def.message(annotation.message());
 		def.groups(annotation.groups());
 		def.payload(annotation.payload());

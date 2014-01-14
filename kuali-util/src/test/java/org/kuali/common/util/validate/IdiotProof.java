@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
 @Documented
-public @interface BasicImmutable {
+public @interface IdiotProof {
 
 	String message() default "immutability checks failed";
 
