@@ -113,7 +113,7 @@ public final class ProjectResource {
 		public Builder directoryPrefix(File directory, boolean metainf) {
 			String path = new CanonicalFile(directory).getPath() + File.pathSeparator;
 			if (metainf) {
-				return prefix(path + MetaInfUtils.METAINF_DIRECTORY_NAME);
+				return prefix(path + MetaInfUtils.METAINF_DIRECTORY_NAME + File.pathSeparator);
 			} else {
 				return prefix(path);
 			}
