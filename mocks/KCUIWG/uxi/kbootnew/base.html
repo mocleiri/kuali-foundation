@@ -1,32 +1,90 @@
 <body class="uif-application">
     <div class="container-fluid uif-application-wrapper">
-        <form>
-            
-            <!-- Sidebar/floating  nav -->
-            <div class="uif-subnavigation-menu float-left" />
-            <!-- // -->
-            
-            <!-- Main content, new content/pages is loaded here -->
-            <div id="uif-page-content" class="uif-page-content" />
-            <!-- // -->
-            
-            <!-- Form meta? -->
-            <div id="formInfo">
-                <input type="hidden" name="viewId" value="Lab-LayoutTest-View">
-                <input type="hidden" name="formKey" value="7ebb10e4-d594-47d7-b0a7-c5abfcd7c9eb">
-                <input type="hidden" name="requestedFormKey" value="7ebb10e4-d594-47d7-b0a7-c5abfcd7c9eb">
-                <input type="hidden" name="sessionId" value="4961F10BB0B593C92856DCC3B8E94938">
-                <input type="hidden" name="flowKey" value="">
-                <input type="hidden" name="view.applyDirtyCheck" value="true">
-                <input type="hidden" name="dirtyForm" value="false">
-                <input type="hidden" name="renderedInLightBox" value="false">
-                <input type="hidden" name="view.singlePageView" value="true">
-                <input type="hidden" name="view.disableBrowserCache" value="true">
-            </div>
-            <div id="formComplete"></div>
-            <!-- // -->
+        <div class="container">
+            <div class="row">
+                <form action="" method="" class="form-inline">
                     
-        </form>
+                    <!-- Sidebar/floating  nav -->
+                    <div class="uif-subnavigation-menu col-md-3">
+                        Sidebar here...
+                    </div>
+                    <!-- // -->
+                    
+                    <!-- Main content, new content/pages is loaded here -->
+                    <div id="uif-page-content" class="uif-page-content col-md-9">
+                        
+                        <!-- Inquiry / lookup -->
+                        <!-- If this form has multiple fields, use a fieldset, otherwise it's not necessary -->
+                        <fieldset>
+                            <legend>Form fields</legend>
+                            <div class="uif-form-control-wrapper">
+                                <label class="uif-form-label uif-form-control-required" for="test-username-1">Inline</label>
+                                <div class="uif-form-control input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" id="test-username-1" name="test-username-1" value="" required />
+                                    <div class="uif-form-control-helpers input-group-addon">
+                                        <!-- Lookups, datepickers, etc. -->
+                                        <button class="icon-search"><span class="off-screen">Search</span></button>
+                                        <button class="icon-calendar"><span class="off-screen">Calendar</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uif-form-control-wrapper">
+                                <label class="uif-form-label uif-form-control-required" for="test-username-2">Blocked</label>
+                                <div class="uif-form-control input-group">
+                                    <span class="input-group-addon">@</span>
+                                    <input type="text" class="form-control" id="test-username-2" name="test-username-2" value="" required />
+                                    <div class="uif-form-control-helpers input-group-addon">
+                                        <!-- Lookups, datepickers, etc. -->
+                                        <button class="icon-search"><span class="off-screen">Search</span></button>
+                                        <button class="icon-calendar"><span class="off-screen">Calendar</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        
+                        <fieldset>
+                            <legend>Project dates</legend>
+                            <div class="uif-form-control-wrapper col-md-5">
+                                <label class="uif-form-label uif-form-control-required off-screen" for="test-username-3">Start date</label>
+                                <div class="uif-form-control input-group">
+                                    <input type="text" class="form-control uif-datepicker" id="test-username-3" name="test-username-3" value="" placeholder="mm/dd/yyyy" required />
+                                </div>
+                            </div>
+                            <div class="uif-form-control-wrapper col-md-2">
+                                <span class="uif-form-control-misc">to</span>
+                            </div>
+                            <div class="uif-form-control-wrapper col-md-5">
+                                <label class="uif-form-label uif-form-control-required off-screen" for="test-username-4">End date</label>
+                                <div class="uif-form-control input-group">
+                                    <input type="text" class="form-control uif-datepicker" id="test-username-3" name="test-username-4" value="" placeholder="mm/dd/yyyy" required />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!-- // -->
+                        
+                    </div>
+                    <!-- // -->
+                    
+                    <!-- Form meta -->
+                    <div id="formInfo">
+                        <input type="hidden" name="viewId" value="Lab-LayoutTest-View">
+                        <input type="hidden" name="formKey" value="7ebb10e4-d594-47d7-b0a7-c5abfcd7c9eb">
+                        <input type="hidden" name="requestedFormKey" value="7ebb10e4-d594-47d7-b0a7-c5abfcd7c9eb">
+                        <input type="hidden" name="sessionId" value="4961F10BB0B593C92856DCC3B8E94938">
+                        <input type="hidden" name="flowKey" value="">
+                        <input type="hidden" name="view.applyDirtyCheck" value="true">
+                        <input type="hidden" name="dirtyForm" value="false">
+                        <input type="hidden" name="renderedInLightBox" value="false">
+                        <input type="hidden" name="view.singlePageView" value="true">
+                        <input type="hidden" name="view.disableBrowserCache" value="true">
+                    </div>
+                    <div id="formComplete"></div>
+                    <!-- // -->
+                            
+                </form>
+            </div>
+        </div>
     </div>
     <!-- Include JS here -->
     <!-- // -->
