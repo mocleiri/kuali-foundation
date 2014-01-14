@@ -53,15 +53,15 @@ public final class ProjectResource {
 	/**
 	 * Create a {@code ProjectResource} with the prefix set to {@code directory} and optionally further prefixed with {@code META-INF}
 	 */
-	public static ProjectResource directory(ProjectIdentifier project, String path, File directory, boolean metainf) {
+	public static ProjectResource directory(File directory, ProjectIdentifier project, String path, boolean metainf) {
 		return builder(project, path).directoryPrefix(directory, metainf).build();
 	}
 
 	/**
 	 * Create a {@code ProjectResource} with the prefix set to {@code directory}
 	 */
-	public static ProjectResource directory(ProjectIdentifier project, String path, File directory) {
-		return directory(project, path, directory, false);
+	public static ProjectResource directory(File directory, ProjectIdentifier project, String path) {
+		return directory(directory, project, path, false);
 	}
 
 	public static Builder builder(ProjectIdentifier project, String path) {
