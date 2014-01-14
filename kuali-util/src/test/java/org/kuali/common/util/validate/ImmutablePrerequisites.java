@@ -18,7 +18,7 @@ import javax.validation.Payload;
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
 @Documented
-public @interface ImmutabilityPrereqs {
+public @interface ImmutablePrerequisites {
 
 	String message() default "immutability checks failed";
 
