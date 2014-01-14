@@ -65,10 +65,10 @@ public class MetaInfUtils {
 	}
 
 	/**
-	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[filename].resources</code>
+	 * <code>classpath:META-INF/org/kuali/util/kuali-util/[filenamePrefix].resources</code>
 	 */
-	public static String getClasspathResource(ProjectIdentifier project, String filename) {
-		return getClasspathResource(project.getGroupId(), project.getArtifactId(), Optional.<String> absent(), filename);
+	public static String getClasspathResource(ProjectIdentifier project, String filenamePrefix) {
+		return getClasspathResource(project.getGroupId(), project.getArtifactId(), Optional.<String> absent(), filenamePrefix);
 	}
 
 	/**
