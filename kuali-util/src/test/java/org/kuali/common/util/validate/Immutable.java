@@ -20,9 +20,9 @@ import javax.validation.Payload;
 @ImmutableGuavaMaps
 @ImmutableGuavaCollections
 @Documented
-public @interface BulletProofPojo {
+public @interface Immutable {
 
-	String message() default "bullet proofing failed";
+	String message() default "immutability checks failed";
 
 	Class<?>[] groups() default {};
 

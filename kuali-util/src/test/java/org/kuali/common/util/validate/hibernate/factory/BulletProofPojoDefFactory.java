@@ -1,18 +1,18 @@
 package org.kuali.common.util.validate.hibernate.factory;
 
 import org.hibernate.validator.cfg.GenericConstraintDef;
-import org.kuali.common.util.validate.BulletProofPojo;
+import org.kuali.common.util.validate.Immutable;
 
-public class BulletProofPojoDefFactory extends AbstractConstraintDefFactory<GenericConstraintDef<BulletProofPojo>, BulletProofPojo> {
+public class BulletProofPojoDefFactory extends AbstractConstraintDefFactory<GenericConstraintDef<Immutable>, Immutable> {
 
 	@Override
-	public Class<BulletProofPojo> getAnnotationType() {
-		return BulletProofPojo.class;
+	public Class<Immutable> getAnnotationType() {
+		return Immutable.class;
 	}
 
 	@Override
-	protected GenericConstraintDef<BulletProofPojo> getConstraintDef(BulletProofPojo annotation) {
-		GenericConstraintDef<BulletProofPojo> def = newGenericConstraintDef(getAnnotationType());
+	protected GenericConstraintDef<Immutable> getConstraintDef(Immutable annotation) {
+		GenericConstraintDef<Immutable> def = newGenericConstraintDef(getAnnotationType());
 		def.message(annotation.message());
 		def.groups(annotation.groups());
 		def.payload(annotation.payload());
