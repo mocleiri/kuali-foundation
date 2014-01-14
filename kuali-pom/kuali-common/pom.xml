@@ -98,7 +98,7 @@
     <kuali.cobertura.skip>true</kuali.cobertura.skip>
     <kuali.clover.phase>none</kuali.clover.phase>
     <!-- Plugin versions (ordered alphabetically) -->
-    <plugin.cobertura.version>2.5.2</plugin.cobertura.version>
+    <plugin.cobertura.version>2.6</plugin.cobertura.version>
     <plugin.checkstyle.version>2.11</plugin.checkstyle.version>
     <plugin.clover2.version>3.1.2</plugin.clover2.version>
     <plugin.ec2.version>1.1.5</plugin.ec2.version>
