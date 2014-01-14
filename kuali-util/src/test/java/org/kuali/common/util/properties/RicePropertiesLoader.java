@@ -301,7 +301,7 @@ public class RicePropertiesLoader {
 		private Randomizer randomizer = DefaultRandomizer.create();
 		private PropertyPlaceholderHelper propertyPlaceholderHelper = RicePropertyPlaceholderHelper.create();
 		private boolean systemPropertiesWin = false;
-		private List<String> obscureTokens = ImmutableList.of("private", "password", "secret", "encryption.key");
+		private List<String> obscureTokens = ImmutableList.of("private", "password", "secret", "encryption.key", "accountAccessKey");
 
 		public Builder systemPropertiesWin(boolean systemPropertiesWin) {
 			this.systemPropertiesWin = systemPropertiesWin;
