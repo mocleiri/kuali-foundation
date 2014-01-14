@@ -10,12 +10,10 @@ import org.kuali.common.util.file.CanonicalFile;
 import org.kuali.common.util.metainf.service.MetaInfUtils;
 import org.springframework.util.ResourceUtils;
 
-import com.google.common.base.Optional;
-
 public final class ProjectResource {
 
+	private final String prefix;
 	private final ProjectIdentifier project;
-	private final Optional<String> prefix;
 	private final String path;
 
 	private ProjectResource(Builder builder) {
@@ -24,19 +22,46 @@ public final class ProjectResource {
 		this.path = builder.path;
 	}
 
+	/**
+	 * Create a {@code ProjectResource} with the prefix set to {@code classpath:}
+	 */
 	public static ProjectResource create(ProjectIdentifier project, String path) {
 		return builder(project, path).build();
 	}
 
+	/**
+	 * Create a {@code ProjectResource} with the corresponding prefix
+	 */
 	public static ProjectResource create(String prefix, ProjectIdentifier project, String path) {
 		return builder(project, path).prefix(prefix).build();
 	}
 
 	/**
-	 * Automatically sets the prefix to {@code classpath:META-INF/}
+	 * Create a {@code ProjectResource} with the prefix set to {@code classpath:}
 	 */
-	public static ProjectResource metainf(ProjectIdentifier project, String path) {
-		return builder(project, path).classpathMetaInfPrefix().build();
+	public static ProjectResource classpath(ProjectIdentifier project, String path) {
+		return classpath(project, path, false);
+	}
+
+	/**
+	 * Create a {@code ProjectResource} with the prefix set to {@code classpath:} or {@code classpath:META-INF/}
+	 */
+	public static ProjectResource classpath(ProjectIdentifier project, String path, boolean metainf) {
+		return builder(project, path).classpathPrefix(metainf).build();
+	}
+
+	/**
+	 * Create a {@code ProjectResource} with the prefix set to {@code directory} and optionally further prefixed with {@code META-INF}
+	 */
+	public static ProjectResource directory(ProjectIdentifier project, String path, File directory, boolean metainf) {
+		return builder(project, path).directoryPrefix(directory, metainf).build();
+	}
+
+	/**
+	 * Create a {@code ProjectResource} with the prefix set to {@code directory}
+	 */
+	public static ProjectResource directory(ProjectIdentifier project, String path, File directory) {
+		return directory(project, path, directory, false);
 	}
 
 	public static Builder builder(ProjectIdentifier project, String path) {
@@ -50,7 +75,7 @@ public final class ProjectResource {
 		private final String path;
 
 		// Optional
-		private Optional<String> prefix = Optional.of(ResourceUtils.CLASSPATH_URL_PREFIX);
+		private String prefix = ResourceUtils.CLASSPATH_URL_PREFIX;
 
 		public Builder(ProjectIdentifier project, String path) {
 			this.project = project;
@@ -67,22 +92,38 @@ public final class ProjectResource {
 		/**
 		 * {@code classpath:META-INF/}
 		 */
-		public Builder classpathMetaInfPrefix() {
-			return prefix(ResourceUtils.CLASSPATH_URL_PREFIX + MetaInfUtils.METAINF_DIRECTORY_NAME + "/");
+		public Builder classpathPrefix(boolean metainf) {
+			if (metainf) {
+				return prefix(ResourceUtils.CLASSPATH_URL_PREFIX + MetaInfUtils.METAINF_DIRECTORY_NAME + "/");
+			} else {
+				return classpathPrefix();
+			}
 		}
 
 		/**
 		 * {@code /tmp/}
 		 */
 		public Builder directoryPrefix(File directory) {
-			return prefix(new CanonicalFile(directory).getPath() + File.pathSeparator);
+			return directoryPrefix(directory, false);
+		}
+
+		/**
+		 * {@code /tmp/}
+		 */
+		public Builder directoryPrefix(File directory, boolean metainf) {
+			String path = new CanonicalFile(directory).getPath() + File.pathSeparator;
+			if (metainf) {
+				return prefix(path + MetaInfUtils.METAINF_DIRECTORY_NAME);
+			} else {
+				return prefix(path);
+			}
 		}
 
 		/**
 		 * Typically {@code classpath:}
 		 */
 		public Builder prefix(String prefix) {
-			this.prefix = Optional.of(prefix);
+			this.prefix = prefix;
 			return this;
 		}
 
@@ -95,10 +136,7 @@ public final class ProjectResource {
 		private static void validate(ProjectResource instance) {
 			checkNotNull(instance.project, "'project' cannot be null");
 			checkArgument(!StringUtils.isBlank(instance.path), "'path' cannot be blank");
-			checkNotNull(instance.prefix, "'prefix' cannot be null");
-			if (instance.prefix.isPresent()) {
-				checkArgument(!StringUtils.isBlank(instance.prefix.get()), "'prefix' cannot be blank");
-			}
+			checkArgument(!StringUtils.isBlank(instance.prefix), "'prefix' cannot be blank");
 		}
 	}
 
@@ -106,7 +144,7 @@ public final class ProjectResource {
 		return project;
 	}
 
-	public Optional<String> getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 

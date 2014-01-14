@@ -240,9 +240,7 @@ public class ProjectUtils {
 	 */
 	public static String getPath(ProjectResource resource) {
 		StringBuilder sb = new StringBuilder();
-		if (resource.getPrefix().isPresent()) {
-			sb.append(resource.getPrefix().get());
-		}
+		sb.append(resource.getPrefix());
 		ProjectIdentifier project = resource.getProject();
 		sb.append(Str.getPath(project.getGroupId()));
 		sb.append("/");
