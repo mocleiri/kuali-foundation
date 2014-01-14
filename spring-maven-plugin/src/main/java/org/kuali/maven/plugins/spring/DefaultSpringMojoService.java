@@ -334,7 +334,12 @@ public class DefaultSpringMojoService implements SpringMojoService {
 	protected void logConfiguration(AbstractSpringMojo mojo, Properties props, List<?> configurations) {
 		logger.debug("---------------- Loading requested Spring configuration ----------------");
 		for (Object configuration : configurations) {
-			logger.info("Loading - [{}]", configuration);
+			if (configuration instanceof Class) {
+				Class<?> type = (Class<?>) configuration;
+				logger.info("Loading - [{}]", type.getCanonicalName());
+			} else {
+				logger.info("Loading - [{}]", configuration);
+			}
 		}
 		if (mojo.isInjectMavenProperties()) {
 			logger.debug("Injecting Maven properties - {} total", props.size());
