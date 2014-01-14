@@ -235,7 +235,7 @@
     <plugin.nexus.version>1.4.4</plugin.nexus.version>
     <plugin.project-info-reports.version>2.7</plugin.project-info-reports.version>
     <plugin.properties.version>2.0.1</plugin.properties.version>
-    <plugin.release.version>2.4</plugin.release.version>
+    <plugin.release.version>2.4.2</plugin.release.version>
     <plugin.resources.version>2.6</plugin.resources.version>
     <plugin.scm.version>1.8.1</plugin.scm.version>
 
