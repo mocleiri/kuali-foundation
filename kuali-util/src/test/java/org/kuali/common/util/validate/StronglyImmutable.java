@@ -15,10 +15,8 @@ import javax.validation.Payload;
 @Constraint(validatedBy = {})
 @FinalClass
 @FinalFields
-@ImmutableGuavaMaps
-@ImmutableGuavaCollections
 @Documented
-public @interface ImmutablePrerequisites {
+public @interface StronglyImmutable {
 
 	String message() default "immutability checks failed";
 
