@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.kuali.common.util.LocationUtils;
 
-public class ExistsValidator implements ConstraintValidator<Exists, String> {
+public class LocationExistsValidator implements ConstraintValidator<Exists, String> {
 
 	@Override
 	public void initialize(Exists constraintAnnotation) {

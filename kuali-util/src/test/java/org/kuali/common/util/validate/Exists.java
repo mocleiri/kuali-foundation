@@ -16,7 +16,7 @@ import javax.validation.Payload;
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { ExistsValidator.class })
+@Constraint(validatedBy = { LocationExistsValidator.class, FileExistsValidator.class })
 @Documented
 public @interface Exists {
 
