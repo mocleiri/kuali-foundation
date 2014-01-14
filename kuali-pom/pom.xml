@@ -233,7 +233,7 @@
     <plugin.license.version>1.9.0</plugin.license.version>
     <plugin.metainf.version>2.0.2</plugin.metainf.version>
     <plugin.nexus.version>1.4.4</plugin.nexus.version>
-    <plugin.project-info-reports.version>2.6</plugin.project-info-reports.version>
+    <plugin.project-info-reports.version>2.7</plugin.project-info-reports.version>
     <plugin.properties.version>2.0.1</plugin.properties.version>
     <plugin.release.version>2.4</plugin.release.version>
     <plugin.resources.version>2.6</plugin.resources.version>
