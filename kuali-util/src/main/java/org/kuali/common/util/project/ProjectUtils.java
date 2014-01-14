@@ -29,6 +29,7 @@ import org.kuali.common.util.project.model.FeatureIdentifier;
 import org.kuali.common.util.project.model.ImmutableProject;
 import org.kuali.common.util.project.model.Project;
 import org.kuali.common.util.project.model.ProjectIdentifier;
+import org.kuali.common.util.properties.model.ProjectResource;
 import org.springframework.util.ResourceUtils;
 
 public class ProjectUtils {
@@ -220,4 +221,23 @@ public class ProjectUtils {
 	public static String getClasspathPrefix(FeatureIdentifier feature) {
 		return getClasspathPrefix(feature.getProject()) + "/" + feature.getFeatureId();
 	}
+
+	/**
+	 * <pre>
+	 *   classpath:org/kuali/common/kuali-util/myfile.txt
+	 * </pre>
+	 */
+	public static String getClasspathResource(ProjectIdentifier project, String filename) {
+		return getClasspathPrefix(project.getGroupId(), project.getArtifactId()) + "/" + filename;
+	}
+
+	/**
+	 * <pre>
+	 *   classpath:org/kuali/common/kuali-util/myfile.txt
+	 * </pre>
+	 */
+	public static String getClasspathResource(ProjectResource resource) {
+		return getClasspathResource(resource.getProject(), resource.getFilename());
+	}
+
 }
