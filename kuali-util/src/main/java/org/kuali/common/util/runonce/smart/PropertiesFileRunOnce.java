@@ -32,7 +32,7 @@ public final class PropertiesFileRunOnce implements RunOnce {
 		this.properties = getProperties();
 		this.runonce = getBoolean(properties, key);
 		showConfig();
-		logger.info("--- Properties file backed RunOnce initialized ---");
+		logger.info("--- Properties file backed RunOnce initialized. ---");
 		this.initialized = true;
 	}
 
