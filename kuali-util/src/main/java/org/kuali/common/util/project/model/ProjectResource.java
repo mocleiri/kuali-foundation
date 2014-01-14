@@ -90,7 +90,7 @@ public final class ProjectResource {
 		}
 
 		/**
-		 * {@code classpath:META-INF/}
+		 * {@code classpath:} or {@code classpath:META-INF/}
 		 */
 		public Builder classpathPrefix(boolean metainf) {
 			if (metainf) {
@@ -108,7 +108,7 @@ public final class ProjectResource {
 		}
 
 		/**
-		 * {@code /tmp/}
+		 * {@code /tmp/} or {@code /tmp/META-INF/}
 		 */
 		public Builder directoryPrefix(File directory, boolean metainf) {
 			String path = new CanonicalFile(directory).getPath() + File.pathSeparator;
