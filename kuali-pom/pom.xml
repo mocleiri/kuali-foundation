@@ -226,7 +226,7 @@
     <plugin.install.version>2.5.1</plugin.install.version>
     <plugin.jar.version>2.4</plugin.jar.version>
     <plugin.javadoc.version>2.9.1</plugin.javadoc.version>
-    <plugin.jenkins.version>1.2.6</plugin.jenkins.version>
+    <plugin.jenkins.version>1.2.8</plugin.jenkins.version>
     <plugin.jmeter.version>1.8.1</plugin.jmeter.version>
     <plugin.klicense.version>1.6.4</plugin.klicense.version>
     <plugin.ksite.version>1.1.3</plugin.ksite.version>
