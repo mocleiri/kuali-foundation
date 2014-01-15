@@ -14,4 +14,6 @@ public @interface Bind {
 
 	String value() default "";
 
+	boolean prefix() default true;
+
 }

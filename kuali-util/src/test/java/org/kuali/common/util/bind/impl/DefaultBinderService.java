@@ -29,7 +29,7 @@ public class DefaultBinderService implements BinderService {
 	public <T> Optional<BindingResult> bind(T object) {
 		Optional<Bind> bind = ReflectionUtils.getAnnotation(object.getClass(), Bind.class);
 		if (bind.isPresent()) {
-			String prefix = getPrefix(bind.get(), object.getClass());
+			Optional<String> prefix = getPrefix(bind.get(), object.getClass());
 			ImmutableMap<String, String> map = getMap(prefix, global);
 			DataBinder binder = new DataBinder(object);
 			MutablePropertyValues pvs = new MutablePropertyValues(map);
@@ -42,12 +42,23 @@ public class DefaultBinderService implements BinderService {
 
 	}
 
-	protected String getPrefix(Bind bind, Class<?> type) {
+	protected Optional<String> getPrefix(Bind bind, Class<?> type) {
+		if (!bind.prefix()) {
+			return Optional.absent();
+		}
 		Optional<String> prefix = Optional.fromNullable(StringUtils.trimToNull(bind.value()));
 		if (prefix.isPresent()) {
-			return prefix.get();
+			return prefix;
 		} else {
-			return StringUtils.uncapitalize(type.getSimpleName());
+			return Optional.of(StringUtils.uncapitalize(type.getSimpleName()));
+		}
+	}
+
+	protected ImmutableMap<String, String> getMap(Optional<String> prefix, Map<String, String> provided) {
+		if (!prefix.isPresent()) {
+			return ImmutableMap.copyOf(provided);
+		} else {
+			return getMap(prefix.get() + ".", provided);
 		}
 	}
 
