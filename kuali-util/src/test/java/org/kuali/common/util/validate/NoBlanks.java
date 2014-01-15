@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * No blank strings are allowed in member variables, Optional's, map keys, or collection elements.
+ */
 @Target({ TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = {})
