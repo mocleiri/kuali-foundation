@@ -3,7 +3,7 @@ package org.kuali.common.util.bind.impl;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class PrintSystem {
+public class PrintSystemProperties {
 
 	public static void main(String[] args) {
 		SortedSet<String> keys = new TreeSet<String>(System.getProperties().stringPropertyNames());
