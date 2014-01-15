@@ -11,4 +11,28 @@ public class User {
 	File home;
 	File dir;
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public File getHome() {
+		return home;
+	}
+
+	public void setHome(File home) {
+		this.home = home;
+	}
+
+	public File getDir() {
+		return dir;
+	}
+
+	public void setDir(File dir) {
+		this.dir = dir;
+	}
+
 }
