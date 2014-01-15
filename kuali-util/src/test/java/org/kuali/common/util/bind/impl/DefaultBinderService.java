@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.kuali.common.util.PropertyUtils;
+import org.kuali.common.util.ReflectionUtils;
 import org.kuali.common.util.bind.api.Bind;
 import org.kuali.common.util.bind.api.BinderService;
 import org.kuali.common.util.spring.binder.BytesFormatAnnotationFormatterFactory;
@@ -25,9 +26,12 @@ public class DefaultBinderService implements BinderService {
 
 	@Override
 	public <T> Optional<BindingResult> bind(T object) {
-		if (object.getClass().isAnnotationPresent(Bind.class)) {
+		Optional<Bind> bind = ReflectionUtils.getAnnotation(object.getClass(), Bind.class);
+		if (bind.isPresent()) {
+			Optional<String> prefix = Optional.fromNullable(bind.get().prefix());
+			Map<String, String> map = prefix.isPresent() ? getMap(prefix.get(), global) : global;
 			DataBinder binder = new DataBinder(object);
-			MutablePropertyValues pvs = new MutablePropertyValues(global);
+			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			binder.setConversionService(service);
 			binder.bind(pvs);
 			return Optional.of(binder.getBindingResult());
@@ -35,6 +39,18 @@ public class DefaultBinderService implements BinderService {
 			return Optional.absent();
 		}
 
+	}
+
+	protected Map<String, String> getMap(String prefix, Map<String, String> map) {
+		Map<String, String> newMap = Maps.newHashMap();
+		for (String key : map.keySet()) {
+			if (key.startsWith(prefix)) {
+				String value = map.get(key);
+				String newKey = key.substring(prefix.length());
+				newMap.put(newKey, value);
+			}
+		}
+		return ImmutableMap.copyOf(newMap);
 	}
 
 	protected ConversionService getConversionService() {
