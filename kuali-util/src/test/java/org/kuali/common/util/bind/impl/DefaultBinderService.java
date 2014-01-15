@@ -31,10 +31,10 @@ public class DefaultBinderService implements BinderService {
 		if (bind.isPresent()) {
 			Optional<String> prefix = getPrefix(bind.get(), object.getClass());
 			ImmutableMap<String, String> map = getMap(prefix, global);
+			MutablePropertyValues values = new MutablePropertyValues(map);
 			DataBinder binder = new DataBinder(object);
-			MutablePropertyValues pvs = new MutablePropertyValues(map);
 			binder.setConversionService(service);
-			binder.bind(pvs);
+			binder.bind(values);
 			return Optional.of(binder.getBindingResult());
 		} else {
 			return Optional.absent();
